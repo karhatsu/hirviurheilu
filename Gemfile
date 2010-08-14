@@ -33,4 +33,5 @@ group :test do
   gem "rspec-rails",      ">= 2.0.0.beta"
   gem "autotest"
   gem "autotest-rails"
+  gem "factory_girl_rails"
 end
