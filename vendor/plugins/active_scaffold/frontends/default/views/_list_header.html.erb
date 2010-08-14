@@ -1,0 +1,12 @@
+<% if active_scaffold_config.action_links.any? { |link| link.type == :collection } -%>
+  <div class="actions">
+    <% new_params = params_for %>
+    <% active_scaffold_config.action_links.each :collection do |link| -%>
+      <% next if skip_action_link(link) -%>
+      <%= render_action_link(link, new_params) -%>
+    <% end -%>
+
+    <%= loading_indicator_tag(:action => :table) %>
+  </div>
+<% end %>
+<h2><%= active_scaffold_config.list.user.label %></h2>
