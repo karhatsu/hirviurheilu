@@ -1,6 +1,9 @@
 ElkSports::Application.routes.draw do
   resource :home
 
+  resources :sports do as_routes end
+  resources :contests do as_routes end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
