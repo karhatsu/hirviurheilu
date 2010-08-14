@@ -1,0 +1,21 @@
+fi:
+  attributes:
+    contests: Kilpailut
+    end_date: Loppupvm
+    key: Avain
+    location: Sijainti
+    name: Nimi
+    sport: Laji
+    start_date: Alkupvm
+
+  activerecord:
+    models:
+      contest:
+        one: Kilpailu
+        other: Kilpailut
+      series:
+        one: Sarja
+        other: Sarjat
+      sport:
+        one: Laji
+        other: Lajit
