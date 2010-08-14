@@ -10,7 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100814100736) do
+ActiveRecord::Schema.define(:version => 20100814111114) do
+
+  create_table "contests", :force => true do |t|
+    t.integer  "sport_id",   :null => false
+    t.string   "name",       :null => false
+    t.string   "location",   :null => false
+    t.date     "start_date", :null => false
+    t.date     "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sports", :force => true do |t|
     t.string   "name",       :null => false
