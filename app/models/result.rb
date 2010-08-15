@@ -30,7 +30,7 @@ class Result < ActiveRecord::Base
     :numericality => { :only_integer => true, :greater_than => -1 }
   validate :arrival_not_before_start_time
 
-  def shot_points
+  def shots_sum
     return shots_total_input if shots_total_input
     shot1.to_i + shot2.to_i + shot3.to_i + shot4.to_i + shot5.to_i +
       shot6.to_i + shot7.to_i + shot8.to_i + shot9.to_i + shot10.to_i
