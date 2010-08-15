@@ -1,0 +1,9 @@
+fi:
+  activerecord:
+    errors:
+      models:
+
+        result:
+          attributes:
+            arrival:
+              arrival_not_before_start_time: ei voi olla ennen lähtöaikaa
