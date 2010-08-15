@@ -320,4 +320,34 @@ describe Result do
     end
   end
 
+  describe "estimate_points" do
+    before do
+      @result = Factory.build(:result, :estimate1 => 88, :estimate2 => 145)
+    end
+
+    it "should be 300 when perfect estimates" do
+      @result.estimate_points(88, 145).should == 300
+    end
+
+    it "should be 298 when the first is 1 meter too low" do
+      @result.estimate_points(89, 145).should == 298
+    end
+
+    it "should be 298 when the second is 1 meter too low" do
+      @result.estimate_points(88, 146).should == 298
+    end
+
+    it "should be 298 when the first is 1 meter too high" do
+      @result.estimate_points(87, 145).should == 298
+    end
+
+    it "should be 298 when the second is 1 meter too high" do
+      @result.estimate_points(88, 144).should == 298
+    end
+
+    it "should never be negative" do
+      @result.estimate_points(111111, 222222).should == 0
+    end
+  end
+
 end

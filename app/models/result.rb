@@ -40,6 +40,12 @@ class Result < ActiveRecord::Base
     6 * shots_sum
   end
 
+  def estimate_points(correct1, correct2)
+    points = 300 - 2 * (correct1 - estimate1).abs - 2 * (correct2 - estimate2).abs
+    return points if points >= 0
+    0
+  end
+
   protected
   def arrival_not_before_start_time
     return if competitor.start_time.nil?
