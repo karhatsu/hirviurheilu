@@ -1,6 +1,26 @@
 class Result < ActiveRecord::Base
   belongs_to :competitor
 
+  validates :shot1, :allow_nil => true, :numericality => { :only_integer => true,
+      :greater_than => -1, :less_than => 11 }
+  validates :shot2, :allow_nil => true, :numericality => { :only_integer => true,
+      :greater_than => -1, :less_than => 11 }
+  validates :shot3, :allow_nil => true, :numericality => { :only_integer => true,
+      :greater_than => -1, :less_than => 11 }
+  validates :shot4, :allow_nil => true, :numericality => { :only_integer => true,
+      :greater_than => -1, :less_than => 11 }
+  validates :shot5, :allow_nil => true, :numericality => { :only_integer => true,
+      :greater_than => -1, :less_than => 11 }
+  validates :shot6, :allow_nil => true, :numericality => { :only_integer => true,
+      :greater_than => -1, :less_than => 11 }
+  validates :shot7, :allow_nil => true, :numericality => { :only_integer => true,
+      :greater_than => -1, :less_than => 11 }
+  validates :shot8, :allow_nil => true, :numericality => { :only_integer => true,
+      :greater_than => -1, :less_than => 11 }
+  validates :shot9, :allow_nil => true, :numericality => { :only_integer => true,
+      :greater_than => -1, :less_than => 11 }
+  validates :shot10, :allow_nil => true, :numericality => { :only_integer => true,
+      :greater_than => -1, :less_than => 11 }
   validates :shots_total_input, :allow_nil => true,
     :numericality => { :only_integer => true,
       :greater_than => -1, :less_than => 101 }

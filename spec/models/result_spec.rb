@@ -8,6 +8,216 @@ describe Result do
   end
 
   describe "validation" do
+    describe "shot1" do
+      it "can be nil" do
+        Factory.build(:result, :shot1 => nil).should be_valid
+      end
+
+      it "should be integer" do
+        Factory.build(:result, :shot1 => 1.1).
+          should have(1).errors_on(:shot1)
+      end
+
+      it "should be non-negative" do
+        Factory.build(:result, :shot1 => -1).
+          should have(1).errors_on(:shot1)
+      end
+
+      it "should be at maximum 10" do
+        Factory.build(:result, :shot1 => 11).
+          should have(1).errors_on(:shot1)
+      end
+    end
+
+    describe "shot2" do
+      it "can be nil" do
+        Factory.build(:result, :shot2 => nil).should be_valid
+      end
+
+      it "should be integer" do
+        Factory.build(:result, :shot2 => 1.1).
+          should have(1).errors_on(:shot2)
+      end
+
+      it "should be non-negative" do
+        Factory.build(:result, :shot2 => -1).
+          should have(1).errors_on(:shot2)
+      end
+
+      it "should be at maximum 10" do
+        Factory.build(:result, :shot2 => 11).
+          should have(1).errors_on(:shot2)
+      end
+    end
+
+    describe "shot3" do
+      it "can be nil" do
+        Factory.build(:result, :shot3 => nil).should be_valid
+      end
+
+      it "should be integer" do
+        Factory.build(:result, :shot3 => 1.1).
+          should have(1).errors_on(:shot3)
+      end
+
+      it "should be non-negative" do
+        Factory.build(:result, :shot3 => -1).
+          should have(1).errors_on(:shot3)
+      end
+
+      it "should be at maximum 10" do
+        Factory.build(:result, :shot3 => 11).
+          should have(1).errors_on(:shot3)
+      end
+    end
+
+    describe "shot4" do
+      it "can be nil" do
+        Factory.build(:result, :shot4 => nil).should be_valid
+      end
+
+      it "should be integer" do
+        Factory.build(:result, :shot4 => 1.1).
+          should have(1).errors_on(:shot4)
+      end
+
+      it "should be non-negative" do
+        Factory.build(:result, :shot4 => -1).
+          should have(1).errors_on(:shot4)
+      end
+
+      it "should be at maximum 10" do
+        Factory.build(:result, :shot4 => 11).
+          should have(1).errors_on(:shot4)
+      end
+    end
+
+    describe "shot5" do
+      it "can be nil" do
+        Factory.build(:result, :shot5 => nil).should be_valid
+      end
+
+      it "should be integer" do
+        Factory.build(:result, :shot5 => 1.1).
+          should have(1).errors_on(:shot5)
+      end
+
+      it "should be non-negative" do
+        Factory.build(:result, :shot5 => -1).
+          should have(1).errors_on(:shot5)
+      end
+
+      it "should be at maximum 10" do
+        Factory.build(:result, :shot5 => 11).
+          should have(1).errors_on(:shot5)
+      end
+    end
+
+    describe "shot6" do
+      it "can be nil" do
+        Factory.build(:result, :shot6 => nil).should be_valid
+      end
+
+      it "should be integer" do
+        Factory.build(:result, :shot6 => 1.1).
+          should have(1).errors_on(:shot6)
+      end
+
+      it "should be non-negative" do
+        Factory.build(:result, :shot6 => -1).
+          should have(1).errors_on(:shot6)
+      end
+
+      it "should be at maximum 10" do
+        Factory.build(:result, :shot6 => 11).
+          should have(1).errors_on(:shot6)
+      end
+    end
+
+    describe "shot7" do
+      it "can be nil" do
+        Factory.build(:result, :shot7 => nil).should be_valid
+      end
+
+      it "should be integer" do
+        Factory.build(:result, :shot7 => 1.1).
+          should have(1).errors_on(:shot7)
+      end
+
+      it "should be non-negative" do
+        Factory.build(:result, :shot7 => -1).
+          should have(1).errors_on(:shot7)
+      end
+
+      it "should be at maximum 10" do
+        Factory.build(:result, :shot7 => 11).
+          should have(1).errors_on(:shot7)
+      end
+    end
+
+    describe "shot8" do
+      it "can be nil" do
+        Factory.build(:result, :shot8 => nil).should be_valid
+      end
+
+      it "should be integer" do
+        Factory.build(:result, :shot8 => 1.1).
+          should have(1).errors_on(:shot8)
+      end
+
+      it "should be non-negative" do
+        Factory.build(:result, :shot8 => -1).
+          should have(1).errors_on(:shot8)
+      end
+
+      it "should be at maximum 10" do
+        Factory.build(:result, :shot8 => 11).
+          should have(1).errors_on(:shot8)
+      end
+    end
+
+    describe "shot9" do
+      it "can be nil" do
+        Factory.build(:result, :shot9 => nil).should be_valid
+      end
+
+      it "should be integer" do
+        Factory.build(:result, :shot9 => 1.1).
+          should have(1).errors_on(:shot9)
+      end
+
+      it "should be non-negative" do
+        Factory.build(:result, :shot9 => -1).
+          should have(1).errors_on(:shot9)
+      end
+
+      it "should be at maximum 10" do
+        Factory.build(:result, :shot9 => 11).
+          should have(1).errors_on(:shot9)
+      end
+    end
+
+    describe "shot10" do
+      it "can be nil" do
+        Factory.build(:result, :shot10 => nil).should be_valid
+      end
+
+      it "should be integer" do
+        Factory.build(:result, :shot10 => 1.1).
+          should have(1).errors_on(:shot10)
+      end
+
+      it "should be non-negative" do
+        Factory.build(:result, :shot10 => -1).
+          should have(1).errors_on(:shot10)
+      end
+
+      it "should be at maximum 10" do
+        Factory.build(:result, :shot10 => 11).
+          should have(1).errors_on(:shot10)
+      end
+    end
+
     describe "shots_total_input" do
       it "can be nil" do
         Factory.build(:result, :shots_total_input => nil).should be_valid
