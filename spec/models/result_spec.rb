@@ -312,4 +312,12 @@ describe Result do
     end
   end
 
+  describe "shot_points" do
+    it "should be 6 times shots_sum" do
+      result = Factory.build(:result)
+      result.should_receive(:shots_sum).and_return(50)
+      result.shot_points.should == 300
+    end
+  end
+
 end

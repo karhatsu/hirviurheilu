@@ -36,6 +36,10 @@ class Result < ActiveRecord::Base
       shot6.to_i + shot7.to_i + shot8.to_i + shot9.to_i + shot10.to_i
   end
 
+  def shot_points
+    6 * shots_sum
+  end
+
   protected
   def arrival_not_before_start_time
     return if competitor.start_time.nil?
