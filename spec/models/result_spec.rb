@@ -289,4 +289,27 @@ describe Result do
       end
     end
   end
+
+  describe "shot_points" do
+    it "should return 0 when everything is nil" do
+      Factory.build(:result).shot_points.should == 0
+    end
+
+    it "should be shots_total_input when it is given" do
+      Factory.build(:result, :shots_total_input => 55).shot_points.should == 55
+    end
+
+    it "should be sum of defined individual shots if no input sum" do
+      Factory.build(:result, :shots_total_input => nil,
+        :shot1 => 8, :shot2 => 9).shot_points.should == 17
+    end
+
+    it "should be sum of all individual shots if no input sum and all defined" do
+      Factory.build(:result, :shots_total_input => nil,
+        :shot1 => 8, :shot2 => 9, :shot3 => 0, :shot4 => 5, :shot5 => 10,
+        :shot6 => 8, :shot7 => 9, :shot8 => 0, :shot9 => 5, :shot10 => 10).
+        shot_points.should == 64
+    end
+  end
+
 end
