@@ -10,6 +10,9 @@ fi:
 
   activerecord:
     models:
+      club:
+        one: Piiri/seura
+        other: Piirit/seurat
       contest:
         one: Kilpailu
         other: Kilpailut
