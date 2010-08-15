@@ -4,6 +4,7 @@ ElkSports::Application.routes.draw do
   resources :sports do as_routes end
   resources :contests do as_routes end
   resources :clubs do as_routes end
+  resources :competitors do as_routes end
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

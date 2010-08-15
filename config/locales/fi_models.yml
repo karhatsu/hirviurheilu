@@ -1,18 +1,27 @@
 fi:
   attributes:
+    club: Piiri/seura
     contests: Kilpailut
     end_date: Loppupvm
+    first_name: Etunimi
     key: Avain
+    last_name: Sukunimi
     location: Sijainti
     name: Nimi
+    number: Numero
     sport: Laji
     start_date: Alkupvm
+    start_time: Lähtöaika
+    year_of_birth: Syntymävuosi
 
   activerecord:
     models:
       club:
         one: Piiri/seura
         other: Piirit/seurat
+      competitor:
+        one: Kilpailija
+        other: Kilpailijat
       contest:
         one: Kilpailu
         other: Kilpailut
