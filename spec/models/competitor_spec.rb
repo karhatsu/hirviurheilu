@@ -326,8 +326,8 @@ describe Competitor do
   end
 
   describe "shots_sum" do
-    it "should return 0 when everything is nil" do
-      Factory.build(:competitor).shots_sum.should == 0
+    it "should return nil when everything is nil" do
+      Factory.build(:competitor).shots_sum.should be_nil
     end
 
     it "should be shots_total_input when it is given" do
@@ -348,6 +348,12 @@ describe Competitor do
   end
 
   describe "shot_points" do
+    it "should be nil if shots not defined" do
+      competitor = Factory.build(:competitor)
+      competitor.should_receive(:shots_sum).and_return(nil)
+      competitor.shot_points.should be_nil
+    end
+
     it "should be 6 times shots_sum" do
       competitor = Factory.build(:competitor)
       competitor.should_receive(:shots_sum).and_return(50)
@@ -358,6 +364,16 @@ describe Competitor do
   describe "estimate_points" do
     before do
       @competitor = Factory.build(:competitor, :estimate1 => 88, :estimate2 => 145)
+    end
+
+    it "should be nil if estimate1 is missing" do
+      competitor = Factory.build(:competitor, :estimate1 => nil, :estimate2 => 145)
+      competitor.estimate_points(1, 2).should be_nil
+    end
+
+    it "should be nil if estimate2 is missing" do
+      competitor = Factory.build(:competitor, :estimate1 => 88, :estimate2 => nil)
+      competitor.estimate_points(1, 2).should be_nil
     end
 
     it "should be 300 when perfect estimates" do
