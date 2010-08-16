@@ -5,5 +5,5 @@ fi:
 
         result:
           attributes:
-            arrival:
+            arrival_time:
               arrival_not_before_start_time: ei voi olla ennen lähtöaikaa

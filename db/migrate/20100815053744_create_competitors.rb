@@ -7,6 +7,20 @@ class CreateCompetitors < ActiveRecord::Migration
       t.integer :year_of_birth, :null => false
       t.integer :number
       t.time :start_time
+      t.time :arrival_time
+      t.integer :shot1
+      t.integer :shot2
+      t.integer :shot3
+      t.integer :shot4
+      t.integer :shot5
+      t.integer :shot6
+      t.integer :shot7
+      t.integer :shot8
+      t.integer :shot9
+      t.integer :shot10
+      t.integer :shots_total_input
+      t.integer :estimate1
+      t.integer :estimate2
 
       t.timestamps
     end

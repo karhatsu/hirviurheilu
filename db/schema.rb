@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100815183230) do
+ActiveRecord::Schema.define(:version => 20100815053744) do
 
   create_table "clubs", :force => true do |t|
     t.string   "name",       :null => false
@@ -19,28 +19,13 @@ ActiveRecord::Schema.define(:version => 20100815183230) do
   end
 
   create_table "competitors", :force => true do |t|
-    t.integer  "club_id",       :null => false
-    t.string   "first_name",    :null => false
-    t.string   "last_name",     :null => false
-    t.integer  "year_of_birth", :null => false
+    t.integer  "club_id",           :null => false
+    t.string   "first_name",        :null => false
+    t.string   "last_name",         :null => false
+    t.integer  "year_of_birth",     :null => false
     t.integer  "number"
     t.time     "start_time"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "contests", :force => true do |t|
-    t.integer  "sport_id",   :null => false
-    t.string   "name",       :null => false
-    t.string   "location",   :null => false
-    t.date     "start_date", :null => false
-    t.date     "end_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "results", :force => true do |t|
-    t.integer  "competitor_id"
+    t.time     "arrival_time"
     t.integer  "shot1"
     t.integer  "shot2"
     t.integer  "shot3"
@@ -54,7 +39,16 @@ ActiveRecord::Schema.define(:version => 20100815183230) do
     t.integer  "shots_total_input"
     t.integer  "estimate1"
     t.integer  "estimate2"
-    t.time     "arrival"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contests", :force => true do |t|
+    t.integer  "sport_id",   :null => false
+    t.string   "name",       :null => false
+    t.string   "location",   :null => false
+    t.date     "start_date", :null => false
+    t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
