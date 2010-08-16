@@ -461,29 +461,30 @@ describe Competitor do
 
   describe "points" do
     before do
+      @best_time = 3600
       @competitor = Factory.build(:competitor)
       @competitor.stub!(:shot_points).and_return(100)
       @competitor.stub!(:estimate_points).and_return(150)
-      @competitor.stub!(:time_points).and_return(200)
+      @competitor.stub!(:time_points).with(@best_time).and_return(200)
     end
 
     it "should be nil when no shot points" do
       @competitor.should_receive(:shot_points).and_return(nil)
-      @competitor.points.should be_nil
+      @competitor.points(@best_time).should be_nil
     end
 
     it "should be nil when no estimate points" do
       @competitor.should_receive(:estimate_points).and_return(nil)
-      @competitor.points.should be_nil
+      @competitor.points(@best_time).should be_nil
     end
 
     it "should be nil when no time points" do
-      @competitor.should_receive(:time_points).and_return(nil)
-      @competitor.points.should be_nil
+      @competitor.should_receive(:time_points).with(@best_time).and_return(nil)
+      @competitor.points(@best_time).should be_nil
     end
 
     it "should be sum of sub points when all of them are available" do
-      @competitor.points.should == 100 + 150 + 200
+      @competitor.points(@best_time).should == 100 + 150 + 200
     end
   end
 
