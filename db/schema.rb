@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20100815053744) do
   end
 
   create_table "competitors", :force => true do |t|
+    t.integer  "series_id",         :null => false
     t.integer  "club_id",           :null => false
     t.string   "first_name",        :null => false
     t.string   "last_name",         :null => false

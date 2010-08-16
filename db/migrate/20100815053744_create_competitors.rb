@@ -1,6 +1,7 @@
 class CreateCompetitors < ActiveRecord::Migration
   def self.up
     create_table :competitors do |t|
+      t.references :series, :null => false
       t.references :club, :null => false
       t.string :first_name, :null => false
       t.string :last_name, :null => false
