@@ -4,17 +4,11 @@ class Series < ActiveRecord::Base
   validates :name, :presence => true
 
   def best_time_in_seconds
-    dummy_big = 999999999
-    times = competitors.collect do |comp|
-      # TODO: fix the ugly code
-      if comp.time_in_seconds.nil?
-        dummy_big
-      else
-        comp.time_in_seconds
-      end
+    times = []
+    competitors.each do |comp|
+      times << comp.time_in_seconds unless comp.time_in_seconds.nil?
     end
     times.sort!
-    return nil if times.first == dummy_big
     times.first
   end
 
