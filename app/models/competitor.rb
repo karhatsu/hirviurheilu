@@ -55,6 +55,14 @@ class Competitor < ActiveRecord::Base
     0
   end
 
+  def time_points(best_time_in_seconds)
+    own_time = time_in_seconds
+    return nil if own_time.nil?
+    points = 300 - (own_time - best_time_in_seconds) / 6
+    return points if points >= 0
+    0
+  end
+
   protected
   def arrival_not_before_start_time
     return if start_time.nil?

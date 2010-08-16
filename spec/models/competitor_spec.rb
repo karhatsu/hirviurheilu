@@ -401,4 +401,46 @@ describe Competitor do
     end
   end
 
+  describe "time_points" do
+    before do
+      @competitor = Factory.build(:competitor)
+      @best_time_seconds = 3600
+    end
+
+    it "should be nil when time cannot be calculated yet" do
+      @competitor.should_receive(:time_in_seconds).and_return(nil)
+      @competitor.time_points(@best_time_seconds).should == nil
+    end
+
+    it "should be 300 when this competitor has the best time" do
+      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds)
+      @competitor.time_points(@best_time_seconds).should == 300
+    end
+
+    it "should be 300 when this competitor was five seconds slower than the best" do
+      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 5)
+      @competitor.time_points(@best_time_seconds).should == 300
+    end
+
+    it "should 299 when this competitor was six seconds slower than the best" do
+      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 6)
+      @competitor.time_points(@best_time_seconds).should == 299
+    end
+
+    it "should 299 when this competitor was 11 seconds slower than the best" do
+      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 11)
+      @competitor.time_points(@best_time_seconds).should == 299
+    end
+
+    it "should 298 when this competitor was 12 seconds slower than the best" do
+      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 12)
+      @competitor.time_points(@best_time_seconds).should == 298
+    end
+
+    it "should never be negative" do
+      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 100000)
+      @competitor.time_points(@best_time_seconds).should == 0
+    end
+  end
+
 end
