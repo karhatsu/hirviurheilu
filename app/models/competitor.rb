@@ -77,6 +77,10 @@ class Competitor < ActiveRecord::Base
     sp + ep + tp
   end
 
+  def points!(best_time_in_seconds)
+    shot_points.to_i + estimate_points.to_i + time_points(best_time_in_seconds).to_i
+  end
+
   protected
   def arrival_not_before_start_time
     return if start_time.nil?
