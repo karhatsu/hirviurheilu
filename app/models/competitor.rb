@@ -67,18 +67,19 @@ class Competitor < ActiveRecord::Base
     0
   end
 
-  def points(best_time_in_seconds)
+  def points(best_time_in_seconds, correct1, correct2)
     sp = shot_points
     return nil if sp.nil?
-    ep = estimate_points
+    ep = estimate_points(correct1, correct2)
     return nil if ep.nil?
     tp = time_points(best_time_in_seconds)
     return nil if tp.nil?
     sp + ep + tp
   end
 
-  def points!(best_time_in_seconds)
-    shot_points.to_i + estimate_points.to_i + time_points(best_time_in_seconds).to_i
+  def points!(best_time_in_seconds, correct1, correct2)
+    shot_points.to_i + estimate_points(correct1, correct2).to_i +
+      time_points(best_time_in_seconds).to_i
   end
 
   protected

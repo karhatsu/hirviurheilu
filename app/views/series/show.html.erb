@@ -1,0 +1,21 @@
+<h1><%=@series.name%> - tulokset</h1>
+<table>
+  <tr>
+    <th>&nbsp;</th>
+    <th>Nimi</th>
+    <th>Pisteet</th>
+    <th>Ammunta</th>
+    <th>Arviointi</th>
+    <th><%= @series.contest.sport.key == "RUN" ? "Juoksu" : "Hiihto" %></th>
+  </tr>
+<% @series.ordered_competitors.each_with_index do |comp, i| %>
+  <tr>
+    <td><%= i + 1 %>.</td>
+    <td><%= comp.last_name %> <%= comp.first_name %></td>
+    <td><%= comp.points(@series.best_time_in_seconds, @series.correct1, @series.correct2) %></td>
+    <td><%= comp.shot_points %></td>
+    <td><%= comp.estimate_points(@series.correct1, @series.correct2) %></td>
+    <td><%= comp.time_points(@series.best_time_in_seconds) %></td>
+  </tr>
+<% end %>
+</table>

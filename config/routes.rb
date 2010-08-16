@@ -26,11 +26,9 @@ ElkSports::Application.routes.draw do
   #     end
   #   end
 
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
+  resources :contests do
+    resources :series
+  end
 
   # Sample resource route with more complex sub-resources
   #   resources :products do

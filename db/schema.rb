@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20100815053744) do
   end
 
   create_table "series", :force => true do |t|
+    t.integer  "contest_id"
     t.string   "name",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
