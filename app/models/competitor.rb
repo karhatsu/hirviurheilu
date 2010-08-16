@@ -40,6 +40,11 @@ class Competitor < ActiveRecord::Base
       shot6.to_i + shot7.to_i + shot8.to_i + shot9.to_i + shot10.to_i
   end
 
+  def time_in_seconds
+    return nil if start_time.nil? or arrival_time.nil?
+    arrival_time - start_time
+  end
+
   def shot_points
     6 * shots_sum
   end
