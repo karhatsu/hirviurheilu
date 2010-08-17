@@ -20,12 +20,26 @@ lasts = ["Heikkinen", "Räsänen", "Miettinen", "Savolainen", "Raitala"]
   first = firsts[i % firsts.length]
   last = lasts[i % lasts.length]
   club = Club.create!(:name => "Piiri #{i}")
-  shots = 70 + 2 * i
-  shots = nil if i == 4 or i == 7
-  arrival = "15:0#{i + 1}"
+  arrival = "15:0#{i + 1}" unless i == 7
   comp = s1.competitors.build(:first_name => first, :last_name => last,
     :year_of_birth => 1960 + i, :club => club,
     :estimate1 => correct1 - i, :estimate2 => correct2 + 2 * i,
-    :shots_total_input => shots, :start_time => '14:00', :arrival_time => arrival)
+    :start_time => '14:00', :arrival_time => arrival)
+  if i % 4 == 0
+    comp.shot1 = 10
+    comp.shot2 = 3
+    comp.shot3 = 0
+    comp.shot4 = 7
+    comp.shot5 = 10
+    comp.shot6 = 7
+    comp.shot7 = 9
+    comp.shot8 = 9
+    comp.shot9 = 2
+    comp.shot10 = 10
+  else
+    shots = 70 + 2 * i
+    shots = nil if i == 4 or i == 7
+    comp.shots_total_input = shots
+  end
   comp.save!
 end
