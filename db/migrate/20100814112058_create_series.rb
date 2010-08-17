@@ -1,7 +1,7 @@
 class CreateSeries < ActiveRecord::Migration
   def self.up
     create_table :series do |t|
-      t.references :contest
+      t.references :race
       t.string :name, :null => false
       t.integer :correct_estimate1
       t.integer :correct_estimate2

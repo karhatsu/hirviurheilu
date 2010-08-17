@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(:version => 20100815053744) do
     t.datetime "updated_at"
   end
 
-  create_table "contests", :force => true do |t|
+  create_table "races", :force => true do |t|
     t.integer  "sport_id",   :null => false
     t.string   "name",       :null => false
     t.string   "location",   :null => false
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(:version => 20100815053744) do
   end
 
   create_table "series", :force => true do |t|
-    t.integer  "contest_id"
+    t.integer  "race_id"
     t.string   "name",              :null => false
     t.integer  "correct_estimate1"
     t.integer  "correct_estimate2"

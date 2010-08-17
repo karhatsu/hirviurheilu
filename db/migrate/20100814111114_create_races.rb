@@ -1,6 +1,6 @@
-class CreateContests < ActiveRecord::Migration
+class CreateRaces < ActiveRecord::Migration
   def self.up
-    create_table :contests do |t|
+    create_table :races do |t|
       t.references :sport, :null => false
       t.string :name, :null => false
       t.string :location, :null => false
@@ -12,6 +12,6 @@ class CreateContests < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :contests
+    drop_table :races
   end
 end

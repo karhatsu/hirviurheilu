@@ -2,7 +2,7 @@ ElkSports::Application.routes.draw do
   resource :home
 
   resources :sports do as_routes end
-  resources :contests do as_routes end
+  resources :races do as_routes end
   resources :clubs do as_routes end
   resources :competitors do as_routes end
 
@@ -26,7 +26,7 @@ ElkSports::Application.routes.draw do
   #     end
   #   end
 
-  resources :contests do
+  resources :races do
     resources :series
   end
 

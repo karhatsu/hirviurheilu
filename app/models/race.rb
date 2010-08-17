@@ -1,4 +1,4 @@
-class Contest < ActiveRecord::Base
+class Race < ActiveRecord::Base
   belongs_to :sport
   has_many :series
 

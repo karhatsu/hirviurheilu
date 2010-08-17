@@ -1,4 +1,4 @@
-Factory.define(:contest) do |c|
+Factory.define(:race) do |c|
   c.association :sport
   c.name 'Championships'
   c.location 'Tervo'

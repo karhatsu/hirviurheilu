@@ -1,7 +1,7 @@
 fi:
   attributes:
     club: Piiri/seura
-    contests: Kilpailut
+    races: Kilpailut
     end_date: Loppupvm
     first_name: Etunimi
     key: Avain
@@ -22,7 +22,7 @@ fi:
       competitor:
         one: Kilpailija
         other: Kilpailijat
-      contest:
+      race:
         one: Kilpailu
         other: Kilpailut
       series:

@@ -1,5 +1,5 @@
 class Series < ActiveRecord::Base
-  belongs_to :contest
+  belongs_to :race
   has_many :competitors
 
   validates :name, :presence => true

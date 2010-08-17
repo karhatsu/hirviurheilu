@@ -2,7 +2,7 @@ class Sport < ActiveRecord::Base
   SKI = "SKI"
   RUN = "RUN"
 
-  has_many :contests
+  has_many :races
 
   validates :name, :presence => true
   validates :key, :presence => true
