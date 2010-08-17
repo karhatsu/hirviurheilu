@@ -1,5 +1,6 @@
 class Competitor < ActiveRecord::Base
   belongs_to :club
+  belongs_to :series
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
@@ -52,34 +53,34 @@ class Competitor < ActiveRecord::Base
     6 * sum
   end
 
-  def estimate_points(correct1, correct2)
+  def estimate_points
     return nil if estimate1.nil? or estimate2.nil?
-    points = 300 - 2 * (correct1 - estimate1).abs - 2 * (correct2 - estimate2).abs
+    points = 300 - 2 * (series.correct_estimate1 - estimate1).abs -
+      2 * (series.correct_estimate2 - estimate2).abs
     return points if points >= 0
     0
   end
 
-  def time_points(best_time_in_seconds)
+  def time_points
     own_time = time_in_seconds
     return nil if own_time.nil?
-    points = 300 - (own_time - best_time_in_seconds) / 6
+    points = 300 - (own_time - series.best_time_in_seconds) / 6
     return points if points >= 0
     0
   end
 
-  def points(best_time_in_seconds, correct1, correct2)
+  def points
     sp = shot_points
     return nil if sp.nil?
-    ep = estimate_points(correct1, correct2)
+    ep = estimate_points
     return nil if ep.nil?
-    tp = time_points(best_time_in_seconds)
+    tp = time_points
     return nil if tp.nil?
     sp + ep + tp
   end
 
-  def points!(best_time_in_seconds, correct1, correct2)
-    shot_points.to_i + estimate_points(correct1, correct2).to_i +
-      time_points(best_time_in_seconds).to_i
+  def points!
+    shot_points.to_i + estimate_points.to_i + time_points.to_i
   end
 
   protected

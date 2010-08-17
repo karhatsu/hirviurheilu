@@ -56,7 +56,9 @@ ActiveRecord::Schema.define(:version => 20100815053744) do
 
   create_table "series", :force => true do |t|
     t.integer  "contest_id"
-    t.string   "name",       :null => false
+    t.string   "name",              :null => false
+    t.integer  "correct_estimate1"
+    t.integer  "correct_estimate2"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

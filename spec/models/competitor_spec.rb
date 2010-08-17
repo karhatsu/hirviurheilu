@@ -363,41 +363,55 @@ describe Competitor do
 
   describe "estimate_points" do
     before do
-      @competitor = Factory.build(:competitor, :estimate1 => 88, :estimate2 => 145)
+      @series = Factory.build(:series, :correct_estimate1 => 100, :correct_estimate2 => 200)
     end
 
     it "should be nil if estimate1 is missing" do
-      competitor = Factory.build(:competitor, :estimate1 => nil, :estimate2 => 145)
-      competitor.estimate_points(1, 2).should be_nil
+      competitor = Factory.build(:competitor, :series => @series,
+        :estimate1 => nil, :estimate2 => 145)
+      competitor.estimate_points.should be_nil
     end
 
     it "should be nil if estimate2 is missing" do
-      competitor = Factory.build(:competitor, :estimate1 => 88, :estimate2 => nil)
-      competitor.estimate_points(1, 2).should be_nil
+      competitor = Factory.build(:competitor, :series => @series,
+        :estimate1 => 156, :estimate2 => nil)
+      competitor.estimate_points.should be_nil
     end
 
     it "should be 300 when perfect estimates" do
-      @competitor.estimate_points(88, 145).should == 300
+      competitor = Factory.build(:competitor, :series => @series,
+        :estimate1 => 100, :estimate2 => 200)
+      competitor.estimate_points.should == 300
     end
 
     it "should be 298 when the first is 1 meter too low" do
-      @competitor.estimate_points(89, 145).should == 298
+      competitor = Factory.build(:competitor, :series => @series,
+        :estimate1 => 99, :estimate2 => 200)
+      competitor.estimate_points.should == 298
     end
 
     it "should be 298 when the second is 1 meter too low" do
-      @competitor.estimate_points(88, 146).should == 298
+      competitor = Factory.build(:competitor, :series => @series,
+        :estimate1 => 100, :estimate2 => 199)
+      competitor.estimate_points.should == 298
     end
 
     it "should be 298 when the first is 1 meter too high" do
-      @competitor.estimate_points(87, 145).should == 298
+      competitor = Factory.build(:competitor, :series => @series,
+        :estimate1 => 101, :estimate2 => 200)
+      competitor.estimate_points.should == 298
     end
 
     it "should be 298 when the second is 1 meter too high" do
-      @competitor.estimate_points(88, 144).should == 298
+      competitor = Factory.build(:competitor, :series => @series,
+        :estimate1 => 100, :estimate2 => 201)
+      competitor.estimate_points.should == 298
     end
 
     it "should never be negative" do
-      @competitor.estimate_points(111111, 222222).should == 0
+      competitor = Factory.build(:competitor, :series => @series,
+        :estimate1 => 111111, :estimate2 => 222222)
+      competitor.estimate_points.should == 0
     end
   end
 
@@ -419,105 +433,101 @@ describe Competitor do
 
   describe "time_points" do
     before do
-      @competitor = Factory.build(:competitor)
+      @series = Factory.build(:series)
+      @competitor = Factory.build(:competitor, :series => @series)
       @best_time_seconds = 3600
+      @series.stub!(:best_time_in_seconds).and_return(@best_time_seconds)
     end
 
     it "should be nil when time cannot be calculated yet" do
       @competitor.should_receive(:time_in_seconds).and_return(nil)
-      @competitor.time_points(@best_time_seconds).should == nil
+      @competitor.time_points.should == nil
     end
 
     it "should be 300 when this competitor has the best time" do
       @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds)
-      @competitor.time_points(@best_time_seconds).should == 300
+      @competitor.time_points.should == 300
     end
 
     it "should be 300 when this competitor was five seconds slower than the best" do
       @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 5)
-      @competitor.time_points(@best_time_seconds).should == 300
+      @competitor.time_points.should == 300
     end
 
     it "should 299 when this competitor was six seconds slower than the best" do
       @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 6)
-      @competitor.time_points(@best_time_seconds).should == 299
+      @competitor.time_points.should == 299
     end
 
     it "should 299 when this competitor was 11 seconds slower than the best" do
       @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 11)
-      @competitor.time_points(@best_time_seconds).should == 299
+      @competitor.time_points.should == 299
     end
 
     it "should 298 when this competitor was 12 seconds slower than the best" do
       @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 12)
-      @competitor.time_points(@best_time_seconds).should == 298
+      @competitor.time_points.should == 298
     end
 
     it "should never be negative" do
       @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 100000)
-      @competitor.time_points(@best_time_seconds).should == 0
+      @competitor.time_points.should == 0
     end
   end
 
   describe "points" do
     before do
-      @best_time = 3600
-      @estimate1 = 100
-      @estimate2 = 200
       @competitor = Factory.build(:competitor)
       @competitor.stub!(:shot_points).and_return(100)
-      @competitor.stub!(:estimate_points).with(@estimate1, @estimate2).and_return(150)
-      @competitor.stub!(:time_points).with(@best_time).and_return(200)
+      @competitor.stub!(:estimate_points).and_return(150)
+      @competitor.stub!(:time_points).and_return(200)
     end
 
     it "should be nil when no shot points" do
       @competitor.should_receive(:shot_points).and_return(nil)
-      @competitor.points(@best_time, @estimate1, @estimate2).should be_nil
+      @competitor.points.should be_nil
     end
 
     it "should be nil when no estimate points" do
       @competitor.should_receive(:estimate_points).and_return(nil)
-      @competitor.points(@best_time, @estimate1, @estimate2).should be_nil
+      @competitor.points.should be_nil
     end
 
     it "should be nil when no time points" do
-      @competitor.should_receive(:time_points).with(@best_time).and_return(nil)
-      @competitor.points(@best_time, @estimate1, @estimate2).should be_nil
+      @competitor.should_receive(:time_points).and_return(nil)
+      @competitor.points.should be_nil
     end
 
     it "should be sum of sub points when all of them are available" do
-      @competitor.points(@best_time, @estimate1, @estimate2).should == 100 + 150 + 200
+      @competitor.points.should == 100 + 150 + 200
     end
   end
 
   describe "points!" do
     before do
-      @best_time = 3600
-      @estimate1 = 100
-      @estimate2 = 200
       @competitor = Factory.build(:competitor)
       @competitor.stub!(:shot_points).and_return(100)
-      @competitor.stub!(:estimate_points).with(@estimate1, @estimate2).and_return(150)
-      @competitor.stub!(:time_points).with(@best_time).and_return(200)
+      @competitor.stub!(:estimate_points).and_return(150)
+      @competitor.stub!(:time_points).and_return(200)
     end
 
     it "should be estimate + time points when no shot points" do
       @competitor.should_receive(:shot_points).and_return(nil)
-      @competitor.points!(@best_time, @estimate1, @estimate2).should == 150 + 200
+      @competitor.points!.should == 150 + 200
     end
 
     it "should be shot + time points when no estimate points" do
       @competitor.should_receive(:estimate_points).and_return(nil)
-      @competitor.points!(@best_time, @estimate1, @estimate2).should == 100 + 200
+      @competitor.points!.should == 100 + 200
     end
 
     it "should be shot + estimate points when no time points" do
-      @competitor.should_receive(:time_points).with(@best_time).and_return(nil)
-      @competitor.points!(@best_time, @estimate1, @estimate2).should == 100 + 150
+      @competitor.should_receive(:time_points).and_return(nil)
+      @competitor.points!.should == 100 + 150
     end
 
     it "should be sum of sub points when all of them are available" do
-      @competitor.points!(@best_time, @estimate1, @estimate2).should == 100 + 150 + 200
+      @competitor.points!.should == 100 + 150 + 200
     end
   end
 
