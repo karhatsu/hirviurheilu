@@ -7,7 +7,7 @@
     <th>Pisteet</th>
     <th>Ammunta</th>
     <th>Arviointi</th>
-    <th><%= @series.contest.sport.key == "RUN" ? "Juoksu" : "Hiihto" %></th>
+    <th><%= @series.contest.sport.run? ? "Juoksu" : "Hiihto" %></th>
   </tr>
 <% @series.ordered_competitors.each_with_index do |comp, i| %>
   <tr>
