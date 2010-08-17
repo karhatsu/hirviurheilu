@@ -35,6 +35,10 @@ class Competitor < ActiveRecord::Base
     :numericality => { :only_integer => true, :greater_than => -1 }
   validate :arrival_not_before_start_time
 
+  def shot_values
+    [shot1, shot2, shot3, shot4, shot5, shot6, shot7, shot8, shot9, shot10]
+  end
+
   def shots_sum
     return shots_total_input if shots_total_input
     return nil if shot1.nil?

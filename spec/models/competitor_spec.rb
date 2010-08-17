@@ -531,4 +531,13 @@ describe Competitor do
     end
   end
 
+  describe "#shot_values" do
+    it "should return an array of shot attributes" do
+      c = Factory.build(:competitor, :shot1 => 10, :shot2 => 3, :shot3 => 4,
+        :shot4 => nil, :shot5 => 9, :shot6 => 1, :shot7 => 0, :shot8 => 9,
+        :shot9 => 7, :shot10 => 5)
+      c.shot_values.should == [10,3,4,nil,9,1,0,9,7,5]
+    end
+  end
+
 end
