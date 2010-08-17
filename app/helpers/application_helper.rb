@@ -38,4 +38,30 @@ module ApplicationHelper
     list
   end
 
+  def estimate_diffs(competitor)
+    return "" if competitor.estimate1.nil? and competitor.estimate2.nil?
+    diff1 = competitor.estimate_diff1_m
+    diff2 = competitor.estimate_diff2_m
+    diffs = ""
+    if diff1.nil?
+      diffs << "-"
+    else
+      diffs << "+" if diff1 > 0
+      diffs << "#{diff1}m"
+    end
+    diffs << "/"
+    if diff2.nil?
+      diffs << "-"
+    else
+      diffs << "+" if diff2 > 0
+      diffs << "#{diff2}m"
+    end
+    diffs
+  end
+
+  def estimate_points_and_diffs(competitor)
+    return "-" if competitor.estimate_points.nil?
+    "#{competitor.estimate_points} (#{estimate_diffs(competitor)})"
+  end
+
 end

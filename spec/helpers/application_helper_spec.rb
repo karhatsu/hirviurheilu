@@ -77,6 +77,44 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#estimate_diffs" do
+    it "should return empty string when no estimates" do
+      competitor = mock_model(Competitor, :estimate1 => nil, :estimate2 => nil)
+      helper.estimate_diffs(competitor).should == ""
+    end
+
+    it "should return first and dash when first is available" do
+      competitor = mock_model(Competitor, :estimate1 => 50, :estimate2 => nil,
+        :estimate_diff1_m => 10, :estimate_diff2_m => nil)
+      helper.estimate_diffs(competitor).should == "+10m/-"
+    end
+
+    it "should return dash and second when second is available" do
+      competitor = mock_model(Competitor, :estimate1 => nil, :estimate2 => 60,
+        :estimate_diff1_m => nil, :estimate_diff2_m => -5)
+      helper.estimate_diffs(competitor).should == "-/-5m"
+    end
+
+    it "should return both when both are available" do
+      competitor = mock_model(Competitor, :estimate1 => 120, :estimate2 => 60,
+        :estimate_diff1_m => -5, :estimate_diff2_m => 14)
+      helper.estimate_diffs(competitor).should == "-5m/+14m"
+    end
+  end
+
+  describe "#estimate_points_and_diffs" do
+    it "should return dash if no estimate points" do
+      competitor = mock_model(Competitor, :estimate_points => nil)
+      helper.estimate_points_and_diffs(competitor).should == "-"
+    end
+
+    it "should return points and diffs when points available" do
+      competitor = mock_model(Competitor, :estimate_points => 189)
+      helper.should_receive(:estimate_diffs).with(competitor).and_return("3m")
+      helper.estimate_points_and_diffs(competitor).should == "189 (3m)"
+    end
+  end
+
   describe "#time_points_and_time" do
     it "should return dash when no time" do
       competitor = mock_model(Competitor, :time_in_seconds => nil)
