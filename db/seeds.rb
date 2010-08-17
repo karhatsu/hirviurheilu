@@ -14,16 +14,18 @@ s1 = race1.series.build(:name => "Miehet yli 50v", :correct_estimate1 => correct
   :correct_estimate2 => correct2)
 s1.save!
 
+club_places = ["Vähälän", "Jokikylän", "Keski-Suomen", "Etelä-Savon", "Metsälän"]
+club_suffixes = ["piiri", "ampumaseura"]
 firsts = ["Matti", "Teppo", "Pekka", "Timo", "Jouni", "Heikki"]
 lasts = ["Heikkinen", "Räsänen", "Miettinen", "Savolainen", "Raitala"]
 10.times do |i|
   first = firsts[i % firsts.length]
   last = lasts[i % lasts.length]
-  club = Club.create!(:name => "Piiri #{i}")
-  arrival = "15:0#{i + 1}" unless i == 7
+  club_name = "#{club_places[i % club_places.length]} #{club_suffixes[i % club_suffixes.length]}"
+  club = Club.create!(:name => club_name)
+  arrival = "15:0#{i + 1}:3#{9 - i}" unless i == 7
   comp = s1.competitors.build(:first_name => first, :last_name => last,
     :year_of_birth => 1960 + i, :club => club,
-    :estimate1 => correct1 - i, :estimate2 => correct2 + 2 * i,
     :start_time => '14:00', :arrival_time => arrival)
   if i % 4 == 0
     comp.shot1 = 10
@@ -37,9 +39,18 @@ lasts = ["Heikkinen", "Räsänen", "Miettinen", "Savolainen", "Raitala"]
     comp.shot9 = 2
     comp.shot10 = 10
   else
-    shots = 70 + 2 * i
-    shots = nil if i == 4 or i == 7
+    shots = 71 + 2 * i
+    shots = nil if i == 3 or i == 7
     comp.shots_total_input = shots
+  end
+  comp.estimate1 = correct1 + 6 - i
+  comp.estimate2 = correct2 - 8 + 2 * 1
+  if i == 1
+    comp.estimate1 = nil
+  elsif i == 3
+    comp.estimate2 = nil
+  elsif i == 6
+    comp.estimate2 = correct2 + 1
   end
   comp.save!
 end
