@@ -46,6 +46,18 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#shot_points_and_total" do
+    it "should return dash when no shots sum" do
+      competitor = mock_model(Competitor, :shots_sum => nil)
+      helper.shot_points_and_total(competitor).should == "-"
+    end
+
+    it "should return shot points and sum in brackets" do
+      competitor = mock_model(Competitor, :shot_points => 480, :shots_sum => 80)
+      helper.shot_points_and_total(competitor).should == "480 (80)"
+    end
+  end
+
   describe "#shots_list" do
     it "should return empty string when no shots sum" do
       competitor = mock_model(Competitor, :shots_sum => nil)
