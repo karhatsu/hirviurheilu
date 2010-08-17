@@ -127,5 +127,10 @@ describe ApplicationHelper do
       helper.time_points_and_time(competitor).should == "270 (45:23)"
     end
   end
+
+  describe "#full_name" do
+    specify { helper.full_name(mock_model(Competitor, :last_name => "Tester",
+        :first_name => "Tim")).should == "Tester Tim" }
+  end
 end
 

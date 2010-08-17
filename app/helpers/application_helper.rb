@@ -64,4 +64,8 @@ module ApplicationHelper
     "#{competitor.estimate_points} (#{estimate_diffs(competitor)})"
   end
 
+  def full_name(competitor)
+    "#{competitor.last_name} #{competitor.first_name}"
+  end
+
 end
