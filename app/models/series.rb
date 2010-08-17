@@ -1,8 +1,11 @@
 class Series < ActiveRecord::Base
   belongs_to :race
   has_many :competitors
+  has_many :start_list, :class_name => "Competitor", :foreign_key => 'series_id',
+    :conditions => "start_time is not null", :order => "start_time"
 
   validates :name, :presence => true
+
 
   def best_time_in_seconds
     times = []

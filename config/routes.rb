@@ -6,14 +6,6 @@ ElkSports::Application.routes.draw do
   resources :clubs do as_routes end
   resources :competitors do as_routes end
 
-  # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
-
   # Sample resource route with options:
   #   resources :products do
   #     member do
@@ -26,6 +18,7 @@ ElkSports::Application.routes.draw do
   #     end
   #   end
 
+  match 'races/:race_id/series/:id/start_list' => 'series#start_list', :as => :start_list
   resources :races do
     resources :series
   end

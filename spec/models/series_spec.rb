@@ -70,4 +70,23 @@ describe Series do
       @series.ordered_competitors.should == [@c2, @c1, @c3, @c_nil3, @c_nil1, @c_nil2]
     end
   end
+
+  describe "start_list" do
+    it "should return empty array when no competitors" do
+      Factory.build(:series).start_list.should == []
+    end
+
+    it "should return competitors with start time ordered by start time" do
+      series = Factory.create(:series)
+      c1 = Factory.build(:competitor, :series => series, :start_time => '15:15')
+      c2 = Factory.build(:competitor, :series => series, :start_time => '9:00:00')
+      c3 = Factory.build(:competitor, :series => series, :start_time => '9:00:01')
+      c4 = Factory.build(:competitor, :series => series, :start_time => nil)
+      series.competitors << c1
+      series.competitors << c2
+      series.competitors << c3
+      series.competitors << c4
+      series.start_list.should == [c2, c3, c1]
+    end
+  end
 end
