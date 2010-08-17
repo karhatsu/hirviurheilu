@@ -60,6 +60,16 @@ class Competitor < ActiveRecord::Base
     6 * sum
   end
 
+  def estimate_diff1_m
+    return nil if estimate1.nil?
+    estimate1 - series.correct_estimate1
+  end
+
+  def estimate_diff2_m
+    return nil if estimate2.nil?
+    estimate2 - series.correct_estimate2
+  end
+
   def estimate_points
     return nil if estimate1.nil? or estimate2.nil?
     points = 300 - 2 * (series.correct_estimate1 - estimate1).abs -

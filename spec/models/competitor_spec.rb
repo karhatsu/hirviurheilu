@@ -366,6 +366,48 @@ describe Competitor do
     end
   end
 
+  describe "estimate_diff1_m" do
+    before do
+      @series = Factory.build(:series, :correct_estimate1 => 100, :correct_estimate2 => 200)
+    end
+
+    it "should be nil when no estimate1" do
+      Factory.build(:competitor, :series => @series, :estimate1 => nil).
+        estimate_diff1_m.should be_nil
+    end
+
+    it "should be positive diff when estimate1 is more than correct" do
+      Factory.build(:competitor, :series => @series, :estimate1 => 105).
+        estimate_diff1_m.should == 5
+    end
+
+    it "should be negative diff when estimate1 is less than correct" do
+      Factory.build(:competitor, :series => @series, :estimate1 => 91).
+        estimate_diff1_m.should == -9
+    end
+  end
+
+  describe "estimate_diff2_m" do
+    before do
+      @series = Factory.build(:series, :correct_estimate1 => 100, :correct_estimate2 => 200)
+    end
+
+    it "should be nil when no estimate2" do
+      Factory.build(:competitor, :series => @series, :estimate2 => nil).
+        estimate_diff2_m.should be_nil
+    end
+
+    it "should be positive diff when estimate2 is more than correct" do
+      Factory.build(:competitor, :series => @series, :estimate2 => 205).
+        estimate_diff2_m.should == 5
+    end
+
+    it "should be negative diff when estimate2 is less than correct" do
+      Factory.build(:competitor, :series => @series, :estimate2 => 191).
+        estimate_diff2_m.should == -9
+    end
+  end
+
   describe "estimate_points" do
     before do
       @series = Factory.build(:series, :correct_estimate1 => 100, :correct_estimate2 => 200)
