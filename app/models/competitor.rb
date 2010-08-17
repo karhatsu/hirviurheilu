@@ -92,7 +92,7 @@ class Competitor < ActiveRecord::Base
 
   protected
   def arrival_not_before_start_time
-    return if start_time.nil?
+    return if start_time.nil? or arrival_time.nil?
     errors.add(:arrival_time, :arrival_not_before_start_time) if start_time > arrival_time
   end
 

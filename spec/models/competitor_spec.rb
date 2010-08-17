@@ -313,6 +313,11 @@ describe Competitor do
         Factory.build(:competitor, :arrival_time => nil).should be_valid
       end
 
+      it "can be nil even when start time is not nil" do
+        Factory.build(:competitor, :start_time => '14:00', :arrival_time => nil).
+          should be_valid
+      end
+
       it "is valid when at least same as start time" do
         Factory.build(:competitor, :start_time => '14:00', :arrival_time => '14:00').
           should be_valid
