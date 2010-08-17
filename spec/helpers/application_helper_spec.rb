@@ -132,5 +132,21 @@ describe ApplicationHelper do
     specify { helper.full_name(mock_model(Competitor, :last_name => "Tester",
         :first_name => "Tim")).should == "Tester Tim" }
   end
+
+  describe "#date_interval" do
+    it "should print start - end when dates differ" do
+      helper.date_interval("2010-08-01".to_date, "2010-08-03".to_date).
+        should == "01.08.2010 - 03.08.2010"
+    end
+
+    it "should print only start date when end date is same" do
+      helper.date_interval("2010-08-03".to_date, "2010-08-03".to_date).
+        should == "03.08.2010"
+    end
+
+    it "should print only start date when end date is nil" do
+      helper.date_interval("2010-08-03".to_date, nil).should == "03.08.2010"
+    end
+  end
 end
 

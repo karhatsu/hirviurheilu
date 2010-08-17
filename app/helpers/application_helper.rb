@@ -68,4 +68,12 @@ module ApplicationHelper
     "#{competitor.last_name} #{competitor.first_name}"
   end
 
+  def date_interval(start_date, end_date)
+    interval = start_date.strftime('%d.%m.%Y')
+    unless end_date.nil? or start_date == end_date
+      interval << " - #{end_date.strftime('%d.%m.%Y')}"
+    end
+    interval
+  end
+
 end

@@ -1,0 +1,8 @@
+<h1><%= @race.name %></h1>
+<%= @race.location %>, <%= date_interval(@race.start_date, @race.end_date) %>
+<h2>Sarjat</h2>
+<% @race.series.each do |s| %>
+  <%= s.name %>,
+  <%= link_to "Tulokset", race_series_path(@race.id, s) %>,
+  <%= link_to "Lähtölista", start_list_path(s) %><br/>
+<% end %>
