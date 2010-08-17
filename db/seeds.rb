@@ -8,7 +8,10 @@ contest2 = ski.contests.build(:name => "P-Savon hirvenhiihtokisat",
   :location => "Karttula", :start_date => '2010-12-13')
 contest2.save!
 
-s1 = contest1.series.build(:name => "Miehet yli 50v")
+correct1 = 100
+correct2 = 140
+s1 = contest1.series.build(:name => "Miehet yli 50v", :correct_estimate1 => correct1,
+  :correct_estimate2 => correct2)
 s1.save!
 
 firsts = ["Matti", "Teppo", "Pekka", "Timo", "Jouni", "Heikki"]
@@ -21,7 +24,8 @@ lasts = ["Heikkinen", "Räsänen", "Miettinen", "Savolainen", "Raitala"]
   shots = nil if i == 4 or i == 7
   arrival = "15:0#{i + 1}"
   comp = s1.competitors.build(:first_name => first, :last_name => last,
-    :year_of_birth => 1960 + i, :club => club, :estimate1 => 100 - i, :estimate2 => 140 + 2 * i,
+    :year_of_birth => 1960 + i, :club => club,
+    :estimate1 => correct1 - i, :estimate2 => correct2 + 2 * i,
     :shots_total_input => shots, :start_time => '14:00', :arrival_time => arrival)
   comp.save!
 end

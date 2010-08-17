@@ -14,12 +14,8 @@ class Series < ActiveRecord::Base
   end
 
   def ordered_competitors
-    best_time = best_time_in_seconds
     competitors.sort do |a, b|
-      [b.points(best_time, correct_estimate1, correct_estimate2).to_i,
-        b.points!(best_time, correct_estimate1, correct_estimate2).to_i] <=>
-        [a.points(best_time, correct_estimate1, correct_estimate2).to_i,
-        a.points!(best_time, correct_estimate1, correct_estimate2).to_i]
+      [b.points.to_i, b.points!.to_i] <=> [a.points.to_i, a.points!.to_i]
     end
   end
 
