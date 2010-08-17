@@ -11,10 +11,17 @@ contest2.save!
 s1 = contest1.series.build(:name => "Miehet yli 50v")
 s1.save!
 
+firsts = ["Matti", "Teppo", "Pekka", "Timo", "Jouni", "Heikki"]
+lasts = ["Heikkinen", "Räsänen", "Miettinen", "Savolainen", "Raitala"]
 10.times do |i|
+  first = firsts[i % firsts.length]
+  last = lasts[i % lasts.length]
   club = Club.create!(:name => "Piiri #{i}")
-  comp = s1.competitors.build(:first_name => "First #{i}", :last_name => "Last #{i}",
-    :year_of_birth => 1960 + i, :club => club, :estimate1 => 100 - i, :estimate2 => 140 + i,
-    :shots_total_input => 80 + i, :start_time => "14:#{i}", :arrival_time => "15:1#{i}")
+  shots = 70 + 2 * i
+  shots = nil if i == 4 or i == 7
+  arrival = "15:0#{i + 1}"
+  comp = s1.competitors.build(:first_name => first, :last_name => last,
+    :year_of_birth => 1960 + i, :club => club, :estimate1 => 100 - i, :estimate2 => 140 + 2 * i,
+    :shots_total_input => shots, :start_time => '14:00', :arrival_time => arrival)
   comp.save!
 end
