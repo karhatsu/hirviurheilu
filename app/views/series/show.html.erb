@@ -17,7 +17,7 @@
     <td><%= points_print(comp) %></td>
     <td><%= comp.shot_points %></td>
     <td><%= comp.estimate_points %></td>
-    <td><%= comp.time_points %></td>
+    <td><%= comp.time_points %> (<%= time_print(comp.time_in_seconds) %>)</td>
   </tr>
 <% end %>
 </table>
