@@ -45,5 +45,24 @@ describe ApplicationHelper do
       helper.time_print(3601.6).should == "1:00:01"
     end
   end
+
+  describe "#shots_list" do
+    it "should return empty string when no shots sum" do
+      competitor = mock_model(Competitor, :shots_sum => nil)
+      helper.shots_list(competitor).should == ""
+    end
+
+    it "should return input total if such is given" do
+      competitor = mock_model(Competitor, :shots_sum => 45, :shots_total_input => 45)
+      helper.shots_list(competitor).should == 45
+    end
+
+    it "should return comma separated list if individual shots defined" do
+      shots = [10, 1, 9, 5, 5, nil, nil, 6, 4, 0]
+      competitor = mock_model(Competitor, :shots_sum => 50,
+        :shots_total_input => nil, :shot_values => shots)
+      helper.shots_list(competitor).should == "10,1,9,5,5,0,0,6,4,0"
+    end
+  end
 end
 

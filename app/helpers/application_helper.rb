@@ -16,4 +16,16 @@ module ApplicationHelper
     time << "#{sec < 10 ? "0" : ""}#{sec}"
   end
 
+  def shots_list(competitor)
+    return "" if competitor.shots_sum.nil?
+    return competitor.shots_total_input unless competitor.shots_total_input.nil?
+    shot_values = competitor.shot_values
+    list = ""
+    shot_values.each_with_index do |v, i|
+      list << "," if i > 0
+      list << "#{v.to_i}"
+    end
+    list
+  end
+
 end

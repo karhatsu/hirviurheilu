@@ -15,7 +15,7 @@
     <td><%= comp.last_name %> <%= comp.first_name %></td>
     <td><%= comp.club.name %>.</td>
     <td><%= points_print(comp) %></td>
-    <td><%= comp.shot_points %></td>
+    <td><%= comp.shot_points %> (<%= shots_list(comp) %>)</td>
     <td><%= comp.estimate_points %></td>
     <td><%= comp.time_points %> (<%= time_print(comp.time_in_seconds) %>)</td>
   </tr>
