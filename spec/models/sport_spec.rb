@@ -21,5 +21,37 @@ describe Sport do
       Factory.build(:sport, :key => "XYZ").should have(1).errors_on(:key)
     end
   end
+  
+  describe "SKI" do
+    it "should be SKI" do
+      Sport::SKI.should == "SKI"
+    end
+  end
+
+  describe "RUN" do
+    it "should be RUN" do
+      Sport::RUN.should == "RUN"
+    end
+  end
+
+  describe "ski?" do
+    it "should be true when key is SKI" do
+      Factory.build(:sport, :key => Sport::SKI).should be_ski
+    end
+
+    it "should be false when key is not SKI" do
+      Factory.build(:sport, :key => Sport::RUN).should_not be_ski
+    end
+  end
+
+  describe "run?" do
+    it "should be true when key is RUN" do
+      Factory.build(:sport, :key => Sport::RUN).should be_run
+    end
+
+    it "should be false when key is not RUN" do
+      Factory.build(:sport, :key => Sport::SKI).should_not be_run
+    end
+  end
 end
 
