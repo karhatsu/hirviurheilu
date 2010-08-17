@@ -72,7 +72,7 @@ class Competitor < ActiveRecord::Base
     own_time = time_in_seconds
     return nil if own_time.nil?
     points = 300 - (own_time - series.best_time_in_seconds) / 6
-    return points if points >= 0
+    return points.to_i if points >= 0
     0
   end
 
