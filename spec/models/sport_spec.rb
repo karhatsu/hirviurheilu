@@ -53,5 +53,24 @@ describe Sport do
       Factory.build(:sport, :key => Sport::SKI).should_not be_run
     end
   end
+
+  describe "find by key" do
+    before do
+      @ski = Factory.create(:sport, :key => Sport::SKI)
+      @run = Factory.create(:sport, :key => Sport::RUN)
+    end
+
+    describe "#find_ski" do
+      it "should return ski sport" do
+        Sport.find_ski.should == @ski
+      end
+    end
+
+    describe "#find_run" do
+      it "should return run sport" do
+        Sport.find_run.should == @run
+      end
+    end
+  end
 end
 
