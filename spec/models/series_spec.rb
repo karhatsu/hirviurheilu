@@ -41,8 +41,6 @@ describe Series do
   describe "ordered_competitors" do
     before do
       @series = Factory.build(:series)
-      @best = 1234
-      @series.should_receive(:best_time_in_seconds).and_return(@best)
       @c_nil1 = mock_model(Competitor, :points => nil, :points! => 12)
       @c_nil2 = mock_model(Competitor, :points => nil, :points! => nil)
       @c_nil3 = mock_model(Competitor, :points => nil, :points! => 88)
