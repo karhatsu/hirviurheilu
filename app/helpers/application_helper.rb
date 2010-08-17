@@ -16,6 +16,11 @@ module ApplicationHelper
     time << "#{sec < 10 ? "0" : ""}#{sec}"
   end
 
+  def time_points_and_time(competitor)
+    return "-" if competitor.time_in_seconds.nil?
+    "#{competitor.time_points} (#{time_print(competitor.time_in_seconds)})"
+  end
+
   def shot_points_and_total(competitor)
     return "-" if competitor.shots_sum.nil?
     "#{competitor.shot_points} (#{competitor.shots_sum})"

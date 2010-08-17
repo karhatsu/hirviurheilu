@@ -76,5 +76,18 @@ describe ApplicationHelper do
       helper.shots_list(competitor).should == "10,1,9,5,5,0,0,6,4,0"
     end
   end
+
+  describe "#time_points_and_time" do
+    it "should return dash when no time" do
+      competitor = mock_model(Competitor, :time_in_seconds => nil)
+      helper.time_points_and_time(competitor).should == "-"
+    end
+
+    it "should return shot points and sum in brackets" do
+      competitor = mock_model(Competitor, :time_points => 270, :time_in_seconds => 2680)
+      helper.should_receive(:time_print).with(2680).and_return("45:23")
+      helper.time_points_and_time(competitor).should == "270 (45:23)"
+    end
+  end
 end
 
