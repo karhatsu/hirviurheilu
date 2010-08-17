@@ -26,7 +26,7 @@ lasts = ["Heikkinen", "Räsänen", "Miettinen", "Savolainen", "Raitala"]
   arrival = "15:0#{i + 1}:3#{9 - i}" unless i == 7
   comp = s1.competitors.build(:first_name => first, :last_name => last,
     :year_of_birth => 1960 + i, :club => club,
-    :start_time => '14:00', :arrival_time => arrival)
+    :start_time => "14:00:0#{i}", :arrival_time => arrival)
   if i % 4 == 0
     comp.shot1 = 10
     comp.shot2 = 3
