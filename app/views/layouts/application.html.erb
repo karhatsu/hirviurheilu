@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <div class="navigation"><%= link_to "Etusivu", root_path %></div>
+  <div class="navigation"><%= render :partial => "shared/navigation" %></div>
   <div class="main"><%= yield %></div>
 
 </body>

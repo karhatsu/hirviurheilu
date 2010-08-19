@@ -3,6 +3,10 @@ body {
     font-size: 12px;
 }
 
+div.navigation {
+    margin-bottom: 2px;
+}
+
 div.main {
     border: dashed 1px black;
     padding: 10px;
