@@ -13,7 +13,7 @@
 <% @series.ordered_competitors.each_with_index do |comp, i| %>
   <tr>
     <td><%= i + 1 %>.</td>
-    <td><%= full_name(comp) %></td>
+    <td><%= link_to full_name(comp), series_competitor_path(@series.id, comp) %></td>
     <td><%= comp.club.name %></td>
     <td><%= points_print(comp) %></td>
     <td><%= shot_points_and_total(comp) %></td>

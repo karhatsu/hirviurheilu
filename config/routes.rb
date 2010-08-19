@@ -3,7 +3,6 @@ ElkSports::Application.routes.draw do
 
   resources :sports do as_routes end
   resources :clubs do as_routes end
-  resources :competitors do as_routes end
 
   # Sample resource route with options:
   #   resources :products do
@@ -20,6 +19,10 @@ ElkSports::Application.routes.draw do
   match 'races/:race_id/series/:id/start_list' => 'series#start_list', :as => :start_list
   resources :races do
     resources :series
+  end
+
+  resources :series do
+    resources :competitors
   end
 
   # Sample resource route with more complex sub-resources

@@ -4,4 +4,8 @@
 <% elsif @series %>
   &gt; <%= link_to @series.race.name, race_path(@series.race) %>
   &gt; <%= @series.name %>
+<% elsif @competitor %>
+  &gt; <%= link_to @competitor.series.race.name, race_path(@competitor.series.race) %>
+  &gt; <%= link_to @competitor.series.name, race_series_path(@competitor.series.race, @competitor.series) %>
+  &gt; <%= full_name(@competitor) %>
 <% end %>

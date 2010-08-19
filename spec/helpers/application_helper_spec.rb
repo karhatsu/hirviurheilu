@@ -77,6 +77,20 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#print_estimate_diff" do
+    it "should return empty string when nil given" do
+      helper.print_estimate_diff(nil).should == ""
+    end
+
+    it "should return negative diff with minus sign" do
+      helper.print_estimate_diff(-12).should == "-12"
+    end
+
+    it "should return positive diff with plus sign" do
+      helper.print_estimate_diff(13).should == "+13"
+    end
+  end
+
   describe "#estimate_diffs" do
     it "should return empty string when no estimates" do
       competitor = mock_model(Competitor, :estimate1 => nil, :estimate2 => nil)

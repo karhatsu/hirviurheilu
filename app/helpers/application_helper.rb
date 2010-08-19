@@ -38,6 +38,13 @@ module ApplicationHelper
     list
   end
 
+  def print_estimate_diff(diff)
+    return "" if diff.nil?
+    d = ""
+    d << "+" if diff > 0
+    d << "#{diff}"
+  end
+
   def estimate_diffs(competitor)
     return "" if competitor.estimate1.nil? and competitor.estimate2.nil?
     diff1 = competitor.estimate_diff1_m
