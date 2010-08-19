@@ -5,30 +5,30 @@ class Competitor < ActiveRecord::Base
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :year_of_birth, :numericality => { :only_integer => true,
-    :greater_than => 1899, :less_than => 2101 }
+    :greater_than_or_equal_to => 1900, :less_than_or_equal_to => 2100 }
   validates :shot1, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than => -1, :less_than => 11 }
+      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
   validates :shot2, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than => -1, :less_than => 11 }
+      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
   validates :shot3, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than => -1, :less_than => 11 }
+      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
   validates :shot4, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than => -1, :less_than => 11 }
+      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
   validates :shot5, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than => -1, :less_than => 11 }
+      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
   validates :shot6, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than => -1, :less_than => 11 }
+      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
   validates :shot7, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than => -1, :less_than => 11 }
+      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
   validates :shot8, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than => -1, :less_than => 11 }
+      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
   validates :shot9, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than => -1, :less_than => 11 }
+      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
   validates :shot10, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than => -1, :less_than => 11 }
+      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
   validates :shots_total_input, :allow_nil => true,
     :numericality => { :only_integer => true,
-      :greater_than => -1, :less_than => 101 }
+      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
   validates :estimate1, :allow_nil => true,
     :numericality => { :only_integer => true, :greater_than => -1 }
   validates :estimate2, :allow_nil => true,
