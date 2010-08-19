@@ -13,8 +13,8 @@
 <table>
   <tr>
     <td>Arvioidut</td>
-    <td><%= @competitor.estimate1 %></td>
-    <td><%= @competitor.estimate2 %></td>
+    <td><%= @competitor.estimate1 ? @competitor.estimate1 : "-" %></td>
+    <td><%= @competitor.estimate2 ? @competitor.estimate2 : "-" %></td>
   </tr>
   <tr>
     <td>Todelliset</td>

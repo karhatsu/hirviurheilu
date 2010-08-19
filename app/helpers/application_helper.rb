@@ -7,7 +7,7 @@ module ApplicationHelper
   end
 
   def time_print(seconds)
-    return "" if seconds.nil?
+    return "-" if seconds.nil?
     h = seconds.to_i / 3600
     min = (seconds.to_i - h * 3600) / 60
     sec = seconds.to_i % 60
@@ -27,7 +27,7 @@ module ApplicationHelper
   end
 
   def shots_list(competitor)
-    return "" if competitor.shots_sum.nil?
+    return "-" if competitor.shots_sum.nil?
     return competitor.shots_total_input unless competitor.shots_total_input.nil?
     shot_values = competitor.shot_values
     list = ""
@@ -39,7 +39,7 @@ module ApplicationHelper
   end
 
   def print_estimate_diff(diff)
-    return "" if diff.nil?
+    return "-" if diff.nil?
     d = ""
     d << "+" if diff > 0
     d << "#{diff}"

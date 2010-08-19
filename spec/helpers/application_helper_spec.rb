@@ -19,8 +19,8 @@ describe ApplicationHelper do
   end
 
   describe "#time_print" do
-    it "should return empty string when nil given" do
-      helper.time_print(nil).should == ""
+    it "should return dash when nil given" do
+      helper.time_print(nil).should == "-"
     end
 
     it "should return seconds when less than 60" do
@@ -59,9 +59,9 @@ describe ApplicationHelper do
   end
 
   describe "#shots_list" do
-    it "should return empty string when no shots sum" do
+    it "should return dash when no shots sum" do
       competitor = mock_model(Competitor, :shots_sum => nil)
-      helper.shots_list(competitor).should == ""
+      helper.shots_list(competitor).should == "-"
     end
 
     it "should return input total if such is given" do
@@ -79,7 +79,7 @@ describe ApplicationHelper do
 
   describe "#print_estimate_diff" do
     it "should return empty string when nil given" do
-      helper.print_estimate_diff(nil).should == ""
+      helper.print_estimate_diff(nil).should == "-"
     end
 
     it "should return negative diff with minus sign" do
