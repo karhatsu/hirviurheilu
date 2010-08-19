@@ -24,6 +24,7 @@ ElkSports::Application.routes.draw do
   resources :series do
     resources :competitors
   end
+  resources :competitors
 
   # Sample resource route with more complex sub-resources
   #   resources :products do
