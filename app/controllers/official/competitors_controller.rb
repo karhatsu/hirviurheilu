@@ -3,6 +3,21 @@ class Official::CompetitorsController < Official::OfficialController
     @series = Series.find(params[:series_id])
   end
 
+  def new
+    @series = Series.find(params[:series_id])
+    @competitor = @series.competitors.build
+  end
+
+  def create
+    @series = Series.find(params[:series_id])
+    @competitor = @series.competitors.build(params[:competitor])
+    if @competitor.save
+      redirect_to official_series_competitors_path(@competitor.series)
+    else
+      render :new
+    end
+  end
+
   def edit
     @competitor = Competitor.find(params[:id])
   end
