@@ -1,0 +1,40 @@
+<h1><%= full_name(@competitor) %></h1>
+<% form_for([:official, :series, @competitor]) do |f| %>
+  <h2>Perustiedot</h2>
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name %>
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name %><br/>
+  <%= f.label :club %>
+  <%= f.collection_select :club_id, Club.all, :id, :name %>
+  <%= f.label :year_of_birth %>
+  <%= f.text_field :year_of_birth, :size => 5 %>
+  <%= f.label :number %>
+  <%= f.text_field :number, :size => 5 %><br/>
+  <h2>Aika</h2>
+  <%= f.label :start_time %>
+  <%= f.time_select :start_time, :include_seconds => true %>
+  <%= f.label :arrival_time %>
+  <%= f.time_select :arrival_time, :include_seconds => true %><br/>
+  <h2>Ammunta</h2>
+  <%= f.label :shots_total_input %>
+  <%= f.text_field :shots_total_input, :size => 5 %>
+  (Syötä joko yhteistulos tai vain yksittäiset laukaukset.)<br/>
+  Yksittäiset tulokset
+  <%= f.text_field :shot1, :size => 3 %>
+  <%= f.text_field :shot2, :size => 3 %>
+  <%= f.text_field :shot3, :size => 3 %>
+  <%= f.text_field :shot4, :size => 3 %>
+  <%= f.text_field :shot5, :size => 3 %>
+  <%= f.text_field :shot6, :size => 3 %>
+  <%= f.text_field :shot7, :size => 3 %>
+  <%= f.text_field :shot8, :size => 3 %>
+  <%= f.text_field :shot9, :size => 3 %>
+  <%= f.text_field :shot10, :size => 3 %>
+  <h2>Arviointi</h2>
+  <%= f.label :estimate1 %>
+  <%= f.text_field :estimate1, :size => 5 %>
+  <%= f.label :estimate2 %>
+  <%= f.text_field :estimate2, :size => 5 %><br/>
+  <%= submit_tag "Päivitä tiedot" %>
+<% end %>

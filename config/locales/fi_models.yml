@@ -1,9 +1,12 @@
 fi:
   attributes:
+    arrival_time: Saapumisaika
     club: Piiri/seura
     races: Kilpailut
     email: Sähköposti
     end_date: Loppupvm
+    estimate1: Arvio 1
+    estimate2: Arvio 2
     first_name: Etunimi
     key: Avain
     last_name: Sukunimi
@@ -13,6 +16,7 @@ fi:
     password: Salasana
     password_confirmation: Salasana uudestaan
     remember_me: Muista minut
+    shots_total_input: Ammunta yhteensä
     sport: Laji
     start_date: Alkupvm
     start_time: Lähtöaika
