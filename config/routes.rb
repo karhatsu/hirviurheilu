@@ -5,9 +5,6 @@ ElkSports::Application.routes.draw do
   resource :account, :controller => 'users'
   resources :users
 
-  resources :sports do as_routes end
-  resources :clubs do as_routes end
-
   # Sample resource route with options:
   #   resources :products do
   #     member do
@@ -38,12 +35,13 @@ ElkSports::Application.routes.draw do
   #     end
   #   end
 
-  # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  namespace :admin do
+    resources :clubs do as_routes end
+  end
+
+  namespace :official do
+    resources :sports do as_routes end
+  end
 
   root :to => "home#show"
 end
