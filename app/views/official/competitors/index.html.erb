@@ -1,0 +1,6 @@
+<h1><%= @series.race.name %></h1>
+<h2><%= @series.name %> - kilpailijat</h2>
+<% @series.start_list.each do |comp| %>
+  <%= comp.number %> <%= link_to full_name(comp),
+    edit_official_series_competitor_path(@series.id, comp) %><br/>
+<% end %>

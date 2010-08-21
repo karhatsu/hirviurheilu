@@ -40,6 +40,9 @@ ElkSports::Application.routes.draw do
   end
 
   namespace :official do
+    resources :series do
+      resources :competitors
+    end
     resources :sports do as_routes end
   end
 
