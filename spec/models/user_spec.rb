@@ -14,4 +14,34 @@ describe User do
       Factory.build(:user, :last_name => nil).should have(1).errors_on(:last_name)
     end
   end
+
+  describe "rights" do
+    context "default" do
+      it "user should not be admin" do
+        Factory.build(:user).should_not be_admin
+      end
+
+      it "user should not be official" do
+        Factory.build(:user).should_not be_official
+      end
+    end
+
+    describe "add admin rights" do
+      it "should give admin rights for the user" do
+        Factory.create(:role, :name => Role::ADMIN)
+        user = Factory.build(:user)
+        user.add_admin_rights
+        user.should be_admin
+      end
+    end
+
+    describe "add official rights" do
+      it "should give official rights for the user" do
+        Factory.create(:role, :name => Role::OFFICIAL)
+        user = Factory.build(:user)
+        user.add_official_rights
+        user.should be_official
+      end
+    end
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100821110326) do
+ActiveRecord::Schema.define(:version => 20100821111136) do
 
   create_table "clubs", :force => true do |t|
     t.string   "name",       :null => false
@@ -53,6 +53,15 @@ ActiveRecord::Schema.define(:version => 20100821110326) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "rights", :id => false, :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "role_id",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rights", ["user_id"], :name => "index_rights_on_user_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name",       :null => false

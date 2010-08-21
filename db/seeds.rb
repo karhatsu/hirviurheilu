@@ -1,9 +1,20 @@
+# roles, users
+Role.create!(:name => Role::ADMIN)
+Role.create!(:name => Role::OFFICIAL)
+
+admin = User.create!(:email => 'admin@admin.com', :password => 'admin',
+  :password_confirmation => 'admin', :first_name => 'Antti', :last_name => 'Admin')
+admin.add_admin_rights
+
 user = User.create!(:email => 'user@user.com', :password => 'user',
   :password_confirmation => 'user', :first_name => 'Timo', :last_name => 'Toimitsija')
+user.add_official_rights
 
+# sports
 run = Sport.create!(:name => "Hirvenjuoksu", :key => "RUN")
 ski = Sport.create!(:name => "Hirvenhiihto", :key => "SKI")
 
+# races
 race1 = run.races.build(:name => "P-Savon hirvenjuoksukisat",
   :location => "Tervo", :start_date => '2010-08-14')
 race1.save!
@@ -11,12 +22,14 @@ race2 = ski.races.build(:name => "P-Savon hirvenhiihtokisat",
   :location => "Karttula", :start_date => '2010-12-13')
 race2.save!
 
+# series
 correct1 = 100
 correct2 = 140
 s1 = race1.series.build(:name => "Miehet yli 50v", :correct_estimate1 => correct1,
   :correct_estimate2 => correct2)
 s1.save!
 
+# competitors
 club_places = ["Vähälän", "Jokikylän", "Keski-Suomen", "Etelä-Savon", "Metsälän"]
 club_suffixes = ["piiri", "ampumaseura"]
 firsts = ["Matti", "Teppo", "Pekka", "Timo", "Jouni", "Heikki"]
