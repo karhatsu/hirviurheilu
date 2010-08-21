@@ -1,5 +1,13 @@
 module ApplicationHelper
 
+  def flash_notice
+    raw("<div class='notice'>#{flash[:notice]}</div>") if flash[:notice]
+  end
+
+  def flash_error
+    raw("<div class='error'>#{flash[:error]}</div>") if flash[:error]
+  end
+
   def points_print(competitor)
     return competitor.points unless competitor.points.nil?
     return "(#{competitor.points!})" unless competitor.points!.nil?

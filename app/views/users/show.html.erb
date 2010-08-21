@@ -1,0 +1,12 @@
+<h1>Omat tiedot</h1>
+<b>Sähköposti:</b>
+<%=h @user.email %>
+<br/>
+<b>Etunimi:</b>
+<%=h @user.first_name %>
+<br/>
+<b>Sukunimi:</b>
+<%=h @user.last_name %>
+
+<br/><br/>
+<%= link_to 'Muokkaa tietoja', edit_account_path %>

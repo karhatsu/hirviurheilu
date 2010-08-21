@@ -1,3 +1,6 @@
+user = User.create!(:email => 'user@user.com', :password => 'user',
+  :password_confirmation => 'user', :first_name => 'Timo', :last_name => 'Toimitsija')
+
 run = Sport.create!(:name => "Hirvenjuoksu", :key => "RUN")
 ski = Sport.create!(:name => "Hirvenhiihto", :key => "SKI")
 

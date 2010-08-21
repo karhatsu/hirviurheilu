@@ -1,6 +1,10 @@
 ElkSports::Application.routes.draw do
   resource :home
 
+  resource :user_session
+  resource :account, :controller => 'users'
+  resources :users
+
   resources :sports do as_routes end
   resources :clubs do as_routes end
 

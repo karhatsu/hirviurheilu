@@ -1,0 +1,8 @@
+<h1>Muokkaa omia tietoja</h1>
+
+<% form_for @user, :url => account_path do |f| %>
+  <%= render :partial => "form", :object => f %>
+  <%= f.submit "Päivitä" %>
+<% end %>
+
+<br/><%= link_to "Takaisin omiin tietoihin", account_path %>

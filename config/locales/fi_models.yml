@@ -2,6 +2,7 @@ fi:
   attributes:
     club: Piiri/seura
     races: Kilpailut
+    email: Sähköposti
     end_date: Loppupvm
     first_name: Etunimi
     key: Avain
@@ -9,6 +10,9 @@ fi:
     location: Sijainti
     name: Nimi
     number: Numero
+    password: Salasana
+    password_confirmation: Salasana uudestaan
+    remember_me: Muista minut
     sport: Laji
     start_date: Alkupvm
     start_time: Lähtöaika
