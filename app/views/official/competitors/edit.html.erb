@@ -24,5 +24,7 @@
   <%= f.text_field :estimate1, :size => 5 %>
   <%= f.label :estimate2 %>
   <%= f.text_field :estimate2, :size => 5 %><br/>
-  <%= submit_tag "Päivitä tiedot" %>
+  <%= submit_tag "Tallenna ja edellinen", :name => 'previous' %>
+  <%= submit_tag "Tallenna ja palaa listaan" %>
+  <%= submit_tag "Tallenna ja seuraava", :name => 'next' %>
 <% end %>
