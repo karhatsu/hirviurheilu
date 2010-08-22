@@ -17,10 +17,8 @@ ElkSports::Application.routes.draw do
   #     end
   #   end
 
-  match 'races/:race_id/series/:id/start_list' => 'series#start_list', :as => :start_list
-  resources :races do
-    resources :series
-  end
+  match 'series/:series_id/start_list' => 'start_lists#show', :as => :start_list
+  resources :races
 
   resources :series do
     resources :competitors

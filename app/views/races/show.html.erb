@@ -3,6 +3,6 @@
 <h2>Sarjat</h2>
 <% @race.series.each do |s| %>
   <%= s.name %>,
-  <%= link_to "Tulokset", race_series_path(@race.id, s) %>,
+  <%= link_to "Tulokset", series_competitors_path(s) %>,
   <%= link_to "Lähtölista", start_list_path(s) %><br/>
 <% end %>
