@@ -190,6 +190,13 @@ describe Competitor do
         Factory.build(:competitor, :no_result_reason => Competitor::DNF).should be_valid
       end
 
+      it "converts empty string to nil" do
+        comp = Factory.build(:competitor, :no_result_reason => '')
+        comp.should be_valid
+        comp.save!
+        comp.no_result_reason.should == nil
+      end
+
       it "cannot be anything else" do
         Factory.build(:competitor, :no_result_reason => "test").
           should have(1).errors_on(:no_result_reason)

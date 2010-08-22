@@ -24,6 +24,10 @@
   <%= f.text_field :estimate1, :size => 5 %>
   <%= f.label :estimate2 %>
   <%= f.text_field :estimate2, :size => 5 %><br/>
+  <h2>Ei tulosta</h2>
+  <%= f.radio_button :no_result_reason, '' %>Normaali
+  <%= f.radio_button :no_result_reason, Competitor::DNS %>Ei lähtenyt matkaan (DNS)
+  <%= f.radio_button :no_result_reason, Competitor::DNF %>Keskeytys (DNF)<br/>
   <%= submit_tag "Tallenna ja edellinen", :name => 'previous' %>
   <%= submit_tag "Tallenna ja palaa listaan" %>
   <%= submit_tag "Tallenna ja seuraava", :name => 'next' %>

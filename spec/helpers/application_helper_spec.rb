@@ -2,18 +2,27 @@ require 'spec_helper'
 
 describe ApplicationHelper do
   describe "#points_print" do
+    it "should print no result reason if it is defined" do
+      competitor = mock_model(Competitor, :no_result_reason => Competitor::DNS,
+        :points => 145)
+      helper.points_print(competitor).should == Competitor::DNS
+    end
+
     it "should print points in case they are available" do
-      competitor = mock_model(Competitor, :points => 145)
+      competitor = mock_model(Competitor, :no_result_reason => nil,
+        :points => 145)
       helper.points_print(competitor).should == 145
     end
 
     it "should print points in brackets if only partial points are available" do
-      competitor = mock_model(Competitor, :points => nil, :points! => 100)
+      competitor = mock_model(Competitor, :no_result_reason => nil,
+        :points => nil, :points! => 100)
       helper.points_print(competitor).should == "(100)"
     end
 
     it "should print - if no points at all" do
-      competitor = mock_model(Competitor, :points => nil, :points! => nil)
+      competitor = mock_model(Competitor, :no_result_reason => nil,
+        :points => nil, :points! => nil)
       helper.points_print(competitor).should == "-"
     end
   end
@@ -47,13 +56,21 @@ describe ApplicationHelper do
   end
 
   describe "#shot_points_and_total" do
+    it "should print empty string if no result reason defined" do
+      competitor = mock_model(Competitor, :shots_sum => 88,
+        :no_result_reason => Competitor::DNS)
+      helper.shot_points_and_total(competitor).should == ''
+    end
+
     it "should return dash when no shots sum" do
-      competitor = mock_model(Competitor, :shots_sum => nil)
+      competitor = mock_model(Competitor, :shots_sum => nil,
+        :no_result_reason => nil)
       helper.shot_points_and_total(competitor).should == "-"
     end
 
     it "should return shot points and sum in brackets" do
-      competitor = mock_model(Competitor, :shot_points => 480, :shots_sum => 80)
+      competitor = mock_model(Competitor, :shot_points => 480, :shots_sum => 80,
+        :no_result_reason => nil)
       helper.shot_points_and_total(competitor).should == "480 (80)"
     end
   end
@@ -117,26 +134,42 @@ describe ApplicationHelper do
   end
 
   describe "#estimate_points_and_diffs" do
+    it "should print empty string if no result reason defined" do
+      competitor = mock_model(Competitor, :shots_sum => 88,
+        :no_result_reason => Competitor::DNS)
+      helper.estimate_points_and_diffs(competitor).should == ''
+    end
+
     it "should return dash if no estimate points" do
-      competitor = mock_model(Competitor, :estimate_points => nil)
+      competitor = mock_model(Competitor, :estimate_points => nil,
+        :no_result_reason => nil)
       helper.estimate_points_and_diffs(competitor).should == "-"
     end
 
     it "should return points and diffs when points available" do
-      competitor = mock_model(Competitor, :estimate_points => 189)
+      competitor = mock_model(Competitor, :estimate_points => 189,
+        :no_result_reason => nil)
       helper.should_receive(:estimate_diffs).with(competitor).and_return("3m")
       helper.estimate_points_and_diffs(competitor).should == "189 (3m)"
     end
   end
 
   describe "#time_points_and_time" do
+    it "should print empty string if no result reason defined" do
+      competitor = mock_model(Competitor, :shots_sum => 88,
+        :no_result_reason => Competitor::DNS)
+      helper.time_points_and_time(competitor).should == ''
+    end
+
     it "should return dash when no time" do
-      competitor = mock_model(Competitor, :time_in_seconds => nil)
+      competitor = mock_model(Competitor, :time_in_seconds => nil,
+        :no_result_reason => nil)
       helper.time_points_and_time(competitor).should == "-"
     end
 
     it "should return shot points and sum in brackets" do
-      competitor = mock_model(Competitor, :time_points => 270, :time_in_seconds => 2680)
+      competitor = mock_model(Competitor, :time_points => 270,
+        :time_in_seconds => 2680, :no_result_reason => nil)
       helper.should_receive(:time_print).with(2680).and_return("45:23")
       helper.time_points_and_time(competitor).should == "270 (45:23)"
     end

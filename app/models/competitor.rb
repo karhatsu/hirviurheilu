@@ -142,8 +142,9 @@ class Competitor < ActiveRecord::Base
   end
 
   def check_no_result_reason
+    self.no_result_reason = nil if no_result_reason == ''
     unless [nil, DNS, DNF].include?(no_result_reason)
-      errors.add(:no_result_reason, "Tuntematon syy tuloksen puuttumiselle")
+      errors.add(:no_result_reason, "Tuntematon syy tuloksen puuttumiselle: '#{no_result_reason}'")
     end
   end
 

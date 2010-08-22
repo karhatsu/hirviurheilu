@@ -9,6 +9,7 @@ module ApplicationHelper
   end
 
   def points_print(competitor)
+    return competitor.no_result_reason if competitor.no_result_reason
     return competitor.points unless competitor.points.nil?
     return "(#{competitor.points!})" unless competitor.points!.nil?
     "-"
@@ -25,11 +26,13 @@ module ApplicationHelper
   end
 
   def time_points_and_time(competitor)
+    return '' if competitor.no_result_reason
     return "-" if competitor.time_in_seconds.nil?
     "#{competitor.time_points} (#{time_print(competitor.time_in_seconds)})"
   end
 
   def shot_points_and_total(competitor)
+    return '' if competitor.no_result_reason
     return "-" if competitor.shots_sum.nil?
     "#{competitor.shot_points} (#{competitor.shots_sum})"
   end
@@ -75,6 +78,7 @@ module ApplicationHelper
   end
 
   def estimate_points_and_diffs(competitor)
+    return '' if competitor.no_result_reason
     return "-" if competitor.estimate_points.nil?
     "#{competitor.estimate_points} (#{estimate_diffs(competitor)})"
   end
