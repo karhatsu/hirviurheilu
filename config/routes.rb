@@ -5,33 +5,12 @@ ElkSports::Application.routes.draw do
   resource :account, :controller => 'users'
   resources :users
 
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get :short
-  #       post :toggle
-  #     end
-  #
-  #     collection do
-  #       get :sold
-  #     end
-  #   end
-
   match 'series/:series_id/start_list' => 'start_lists#show', :as => :start_list
   resources :races
 
   resources :series do
     resources :competitors
   end
-  resources :competitors
-
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get :recent, :on => :collection
-  #     end
-  #   end
 
   namespace :admin do
     resources :clubs do as_routes end
