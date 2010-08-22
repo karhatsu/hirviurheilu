@@ -389,6 +389,25 @@ describe Competitor do
       @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 100000)
       @competitor.time_points.should == 0
     end
+
+    context "no result" do
+      before do
+        @competitor = Factory.build(:competitor, :series => @series,
+          :no_result_reason => Competitor::DNF)
+      end
+
+      it "should be like normally when the competitor has not the best time" do
+        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 12)
+        @competitor.time_points.should == 298
+      end
+
+      it "should be nil when competitor's time is better than the best time" do
+        # note: when no result, the time really can be better than the best time
+        # since such a competitor's time cannot be the best time
+        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds - 1)
+        @competitor.time_points.should be_nil
+      end
+    end
   end
 
   describe "points" do
