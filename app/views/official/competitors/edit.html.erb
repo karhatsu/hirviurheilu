@@ -13,16 +13,12 @@
   <%= f.text_field :shots_total_input, :size => 5 %>
   (Syötä joko yhteistulos tai vain yksittäiset laukaukset.)<br/>
   Yksittäiset tulokset
-  <%= f.text_field :shot1, :size => 3 %>
-  <%= f.text_field :shot2, :size => 3 %>
-  <%= f.text_field :shot3, :size => 3 %>
-  <%= f.text_field :shot4, :size => 3 %>
-  <%= f.text_field :shot5, :size => 3 %>
-  <%= f.text_field :shot6, :size => 3 %>
-  <%= f.text_field :shot7, :size => 3 %>
-  <%= f.text_field :shot8, :size => 3 %>
-  <%= f.text_field :shot9, :size => 3 %>
-  <%= f.text_field :shot10, :size => 3 %>
+  <% f.fields_for :shots do |shot_form| %>
+    <%= render :partial => "shot", :locals => { :f => shot_form } %>
+  <% end %>
+  <% (10 - @competitor.shots.length).times do |i| %>
+    <%= new_child_fields(f, :shots, i) %>
+  <% end %>
   <h2>Arviointi</h2>
   <%= f.label :estimate1 %>
   <%= f.text_field :estimate1, :size => 5 %>

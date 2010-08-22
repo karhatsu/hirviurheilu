@@ -91,4 +91,13 @@ module ApplicationHelper
     interval
   end
 
+  def new_child_fields(form_builder, method, index, options = {})
+    options[:object] ||= form_builder.object.class.reflect_on_association(method).klass.new
+    options[:partial] ||= method.to_s.singularize
+    options[:form_builder_local] ||= :f
+    form_builder.fields_for(method, options[:object], :child_index => "new_#{index}_#{method}") do |f|
+      render(:partial => options[:partial], :locals => { options[:form_builder_local] => f})
+    end
+  end
+
 end
