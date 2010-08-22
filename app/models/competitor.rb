@@ -1,31 +1,12 @@
 class Competitor < ActiveRecord::Base
   belongs_to :club
   belongs_to :series
+  has_many :shots
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :year_of_birth, :numericality => { :only_integer => true,
     :greater_than_or_equal_to => 1900, :less_than_or_equal_to => 2100 }
-  validates :shot1, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
-  validates :shot2, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
-  validates :shot3, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
-  validates :shot4, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
-  validates :shot5, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
-  validates :shot6, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
-  validates :shot7, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
-  validates :shot8, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
-  validates :shot9, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
-  validates :shot10, :allow_nil => true, :numericality => { :only_integer => true,
-      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10 }
   validates :shots_total_input, :allow_nil => true,
     :numericality => { :only_integer => true,
       :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
@@ -34,17 +15,25 @@ class Competitor < ActiveRecord::Base
   validates :estimate2, :allow_nil => true,
     :numericality => { :only_integer => true, :greater_than => -1 }
   validate :arrival_not_before_start_time
+  validate :only_one_shot_input_method_used
+  validate :max_ten_shots
 
   def shot_values
-    [shot1, shot2, shot3, shot4, shot5, shot6, shot7, shot8, shot9, shot10]
+    values = shots.collect do |s|
+      s.value
+    end
+    (10 - values.length).times do
+      values << nil
+    end
+    values
   end
 
   def shots_sum
     return shots_total_input if shots_total_input
-    return nil if shot1.nil?
+    return nil if shots.empty?
     sum = 0
-    shot_values.each do |s|
-      sum += s.to_i
+    shots.each do |s|
+      sum += s.value.to_i
     end
     sum
   end
@@ -104,6 +93,17 @@ class Competitor < ActiveRecord::Base
   def arrival_not_before_start_time
     return if start_time.nil? or arrival_time.nil?
     errors.add(:arrival_time, :arrival_not_before_start_time) if start_time > arrival_time
+  end
+
+  def only_one_shot_input_method_used
+    if shots_total_input and not shots.empty?
+      errors.add(:shots_total_input,
+        "Ammuntatulokset voi syöttää vain summana tai yksittäisinä laukauksina")
+    end
+  end
+
+  def max_ten_shots
+    errors.add(:shots, "Laukauksia voi olla enintään 10") if shots.length > 10
   end
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100821111136) do
+ActiveRecord::Schema.define(:version => 20100822045851) do
 
   create_table "clubs", :force => true do |t|
     t.string   "name",       :null => false
@@ -27,16 +27,6 @@ ActiveRecord::Schema.define(:version => 20100821111136) do
     t.integer  "number"
     t.time     "start_time"
     t.time     "arrival_time"
-    t.integer  "shot1"
-    t.integer  "shot2"
-    t.integer  "shot3"
-    t.integer  "shot4"
-    t.integer  "shot5"
-    t.integer  "shot6"
-    t.integer  "shot7"
-    t.integer  "shot8"
-    t.integer  "shot9"
-    t.integer  "shot10"
     t.integer  "shots_total_input"
     t.integer  "estimate1"
     t.integer  "estimate2"
@@ -74,6 +64,13 @@ ActiveRecord::Schema.define(:version => 20100821111136) do
     t.string   "name",              :null => false
     t.integer  "correct_estimate1"
     t.integer  "correct_estimate2"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "shots", :force => true do |t|
+    t.integer  "competitor_id"
+    t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

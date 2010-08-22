@@ -45,216 +45,6 @@ describe Competitor do
       end
     end
 
-    describe "shot1" do
-      it "can be nil" do
-        Factory.build(:competitor, :shot1 => nil).should be_valid
-      end
-
-      it "should be integer" do
-        Factory.build(:competitor, :shot1 => 1.1).
-          should have(1).errors_on(:shot1)
-      end
-
-      it "should be non-negative" do
-        Factory.build(:competitor, :shot1 => -1).
-          should have(1).errors_on(:shot1)
-      end
-
-      it "should be at maximum 10" do
-        Factory.build(:competitor, :shot1 => 11).
-          should have(1).errors_on(:shot1)
-      end
-    end
-
-    describe "shot2" do
-      it "can be nil" do
-        Factory.build(:competitor, :shot2 => nil).should be_valid
-      end
-
-      it "should be integer" do
-        Factory.build(:competitor, :shot2 => 1.1).
-          should have(1).errors_on(:shot2)
-      end
-
-      it "should be non-negative" do
-        Factory.build(:competitor, :shot2 => -1).
-          should have(1).errors_on(:shot2)
-      end
-
-      it "should be at maximum 10" do
-        Factory.build(:competitor, :shot2 => 11).
-          should have(1).errors_on(:shot2)
-      end
-    end
-
-    describe "shot3" do
-      it "can be nil" do
-        Factory.build(:competitor, :shot3 => nil).should be_valid
-      end
-
-      it "should be integer" do
-        Factory.build(:competitor, :shot3 => 1.1).
-          should have(1).errors_on(:shot3)
-      end
-
-      it "should be non-negative" do
-        Factory.build(:competitor, :shot3 => -1).
-          should have(1).errors_on(:shot3)
-      end
-
-      it "should be at maximum 10" do
-        Factory.build(:competitor, :shot3 => 11).
-          should have(1).errors_on(:shot3)
-      end
-    end
-
-    describe "shot4" do
-      it "can be nil" do
-        Factory.build(:competitor, :shot4 => nil).should be_valid
-      end
-
-      it "should be integer" do
-        Factory.build(:competitor, :shot4 => 1.1).
-          should have(1).errors_on(:shot4)
-      end
-
-      it "should be non-negative" do
-        Factory.build(:competitor, :shot4 => -1).
-          should have(1).errors_on(:shot4)
-      end
-
-      it "should be at maximum 10" do
-        Factory.build(:competitor, :shot4 => 11).
-          should have(1).errors_on(:shot4)
-      end
-    end
-
-    describe "shot5" do
-      it "can be nil" do
-        Factory.build(:competitor, :shot5 => nil).should be_valid
-      end
-
-      it "should be integer" do
-        Factory.build(:competitor, :shot5 => 1.1).
-          should have(1).errors_on(:shot5)
-      end
-
-      it "should be non-negative" do
-        Factory.build(:competitor, :shot5 => -1).
-          should have(1).errors_on(:shot5)
-      end
-
-      it "should be at maximum 10" do
-        Factory.build(:competitor, :shot5 => 11).
-          should have(1).errors_on(:shot5)
-      end
-    end
-
-    describe "shot6" do
-      it "can be nil" do
-        Factory.build(:competitor, :shot6 => nil).should be_valid
-      end
-
-      it "should be integer" do
-        Factory.build(:competitor, :shot6 => 1.1).
-          should have(1).errors_on(:shot6)
-      end
-
-      it "should be non-negative" do
-        Factory.build(:competitor, :shot6 => -1).
-          should have(1).errors_on(:shot6)
-      end
-
-      it "should be at maximum 10" do
-        Factory.build(:competitor, :shot6 => 11).
-          should have(1).errors_on(:shot6)
-      end
-    end
-
-    describe "shot7" do
-      it "can be nil" do
-        Factory.build(:competitor, :shot7 => nil).should be_valid
-      end
-
-      it "should be integer" do
-        Factory.build(:competitor, :shot7 => 1.1).
-          should have(1).errors_on(:shot7)
-      end
-
-      it "should be non-negative" do
-        Factory.build(:competitor, :shot7 => -1).
-          should have(1).errors_on(:shot7)
-      end
-
-      it "should be at maximum 10" do
-        Factory.build(:competitor, :shot7 => 11).
-          should have(1).errors_on(:shot7)
-      end
-    end
-
-    describe "shot8" do
-      it "can be nil" do
-        Factory.build(:competitor, :shot8 => nil).should be_valid
-      end
-
-      it "should be integer" do
-        Factory.build(:competitor, :shot8 => 1.1).
-          should have(1).errors_on(:shot8)
-      end
-
-      it "should be non-negative" do
-        Factory.build(:competitor, :shot8 => -1).
-          should have(1).errors_on(:shot8)
-      end
-
-      it "should be at maximum 10" do
-        Factory.build(:competitor, :shot8 => 11).
-          should have(1).errors_on(:shot8)
-      end
-    end
-
-    describe "shot9" do
-      it "can be nil" do
-        Factory.build(:competitor, :shot9 => nil).should be_valid
-      end
-
-      it "should be integer" do
-        Factory.build(:competitor, :shot9 => 1.1).
-          should have(1).errors_on(:shot9)
-      end
-
-      it "should be non-negative" do
-        Factory.build(:competitor, :shot9 => -1).
-          should have(1).errors_on(:shot9)
-      end
-
-      it "should be at maximum 10" do
-        Factory.build(:competitor, :shot9 => 11).
-          should have(1).errors_on(:shot9)
-      end
-    end
-
-    describe "shot10" do
-      it "can be nil" do
-        Factory.build(:competitor, :shot10 => nil).should be_valid
-      end
-
-      it "should be integer" do
-        Factory.build(:competitor, :shot10 => 1.1).
-          should have(1).errors_on(:shot10)
-      end
-
-      it "should be non-negative" do
-        Factory.build(:competitor, :shot10 => -1).
-          should have(1).errors_on(:shot10)
-      end
-
-      it "should be at maximum 10" do
-        Factory.build(:competitor, :shot10 => 11).
-          should have(1).errors_on(:shot10)
-      end
-    end
-
     describe "shots_total_input" do
       it "can be nil" do
         Factory.build(:competitor, :shots_total_input => nil).should be_valid
@@ -273,6 +63,24 @@ describe Competitor do
       it "should be at maximum 100" do
         Factory.build(:competitor, :shots_total_input => 101).
           should have(1).errors_on(:shots_total_input)
+      end
+
+      it "cannot be given if also individual shots have been defined" do
+        comp = Factory.build(:competitor, :shots_total_input => 50)
+        comp.shots << Factory.build(:shot, :competitor => comp, :value => 8)
+        comp.should have(1).errors_on(:shots_total_input)
+      end
+    end
+    
+    describe "shots" do
+      it "should have at maximum ten shots" do
+        comp = Factory.build(:competitor)
+        10.times do
+          comp.shots << Factory.build(:shot, :competitor => comp, :value => 8)
+        end
+        comp.should be_valid
+        comp.shots << Factory.build(:shot, :competitor => comp, :value => 8)
+        comp.should have(1).errors_on(:shots)
       end
     end
 
@@ -331,7 +139,7 @@ describe Competitor do
   end
 
   describe "shots_sum" do
-    it "should return nil when everything is nil" do
+    it "should return nil when total input is nil and no shots" do
       Factory.build(:competitor).shots_sum.should be_nil
     end
 
@@ -340,15 +148,10 @@ describe Competitor do
     end
 
     it "should be sum of defined individual shots if no input sum" do
-      Factory.build(:competitor, :shots_total_input => nil,
-        :shot1 => 8, :shot2 => 9).shots_sum.should == 17
-    end
-
-    it "should be sum of all individual shots if no input sum and all defined" do
-      Factory.build(:competitor, :shots_total_input => nil,
-        :shot1 => 8, :shot2 => 9, :shot3 => 0, :shot4 => 5, :shot5 => 10,
-        :shot6 => 8, :shot7 => 9, :shot8 => 0, :shot9 => 5, :shot10 => 10).
-        shots_sum.should == 64
+      comp = Factory.build(:competitor, :shots_total_input => nil)
+      comp.shots << Factory.build(:shot, :value => 8)
+      comp.shots << Factory.build(:shot, :value => 9)
+      comp.shots_sum.should == 17
     end
   end
 
@@ -579,11 +382,17 @@ describe Competitor do
   end
 
   describe "#shot_values" do
-    it "should return an array of shot attributes" do
-      c = Factory.build(:competitor, :shot1 => 10, :shot2 => 3, :shot3 => 4,
-        :shot4 => nil, :shot5 => 9, :shot6 => 1, :shot7 => 0, :shot8 => 9,
-        :shot9 => 7, :shot10 => 5)
-      c.shot_values.should == [10,3,4,nil,9,1,0,9,7,5]
+    it "should return an array of shot values filled with nils to have total 10 shots" do
+      c = Factory.build(:competitor)
+      c.shots << Factory.build(:shot, :value => 10)
+      c.shots << Factory.build(:shot, :value => 3)
+      c.shots << Factory.build(:shot, :value => 4)
+      c.shots << Factory.build(:shot, :value => 9)
+      c.shots << Factory.build(:shot, :value => 1)
+      c.shots << Factory.build(:shot, :value => 0)
+      c.shots << Factory.build(:shot, :value => 9)
+      c.shots << Factory.build(:shot, :value => 7)
+      c.shot_values.should == [10,3,4,9,1,0,9,7,nil,nil]
     end
   end
 

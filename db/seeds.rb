@@ -44,16 +44,16 @@ lasts = ["Heikkinen", "Räsänen", "Miettinen", "Savolainen", "Raitala"]
     :year_of_birth => 1960 + i, :club => club, :number => 100 + i,
     :start_time => "14:00:0#{i}", :arrival_time => arrival)
   if i % 4 == 0
-    comp.shot1 = 10
-    comp.shot2 = 3
-    comp.shot3 = 0
-    comp.shot4 = 7
-    comp.shot5 = 10
-    comp.shot6 = 7
-    comp.shot7 = 9
-    comp.shot8 = 9
-    comp.shot9 = 2
-    comp.shot10 = 10
+    comp.shots << Shot.new(:competitor => comp, :value => 10)
+    comp.shots << Shot.new(:competitor => comp, :value => 3)
+    comp.shots << Shot.new(:competitor => comp, :value => 0)
+    comp.shots << Shot.new(:competitor => comp, :value => 7)
+    comp.shots << Shot.new(:competitor => comp, :value => 10)
+    comp.shots << Shot.new(:competitor => comp, :value => 7)
+    comp.shots << Shot.new(:competitor => comp, :value => 9)
+    comp.shots << Shot.new(:competitor => comp, :value => 9)
+    comp.shots << Shot.new(:competitor => comp, :value => 2)
+    comp.shots << Shot.new(:competitor => comp, :value => 10)
   else
     shots = 71 + 2 * i
     shots = nil if i == 3 or i == 7
