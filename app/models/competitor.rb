@@ -103,6 +103,17 @@ class Competitor < ActiveRecord::Base
       :order => 'number')
   end
 
+  def previous_competitor
+    unless number
+      return self
+    end
+    comp = @series.competitors.find(:first, :conditions => ['number<?', number],
+      :order => 'number DESC')
+    return comp if comp
+    @series.competitors.find(:first, :conditions => 'number is not null',
+      :order => 'number DESC')
+  end
+
   protected
   def arrival_not_before_start_time
     return if start_time.nil? or arrival_time.nil?
