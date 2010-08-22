@@ -3,13 +3,26 @@ body {
     font-size: 12px;
 }
 
+div.official_admin_links {
+    width: 450px;
+    padding-left: 10px;
+    padding-right: 5px;
+    float: left;
+}
+
 div.login_links {
     text-align: right;
-    width: 900px;
+    width: 450px;
+    padding-left: 5px;
+    padding-right: 10px;
+    float: left;
 }
 
 div.navigation {
+    clear: both;
     margin-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 div.main {

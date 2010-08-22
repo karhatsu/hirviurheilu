@@ -1,0 +1,9 @@
+<h1>Toimitsijan etusivu</h1>
+<% @races.each do |r| %>
+  <%= link_to r.name, official_race_path(r) %>
+  <blockquote>
+    <% r.series.each do |s| %>
+      <%= link_to s.name, official_series_competitors_path(s) %><br/>
+    <% end %>
+  </blockquote>
+<% end %>

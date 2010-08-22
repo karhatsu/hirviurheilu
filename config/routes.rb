@@ -37,13 +37,16 @@ ElkSports::Application.routes.draw do
 
   namespace :admin do
     resources :clubs do as_routes end
+    resources :sports do as_routes end
+    root :to => "index#show"
   end
 
   namespace :official do
+    resources :races
     resources :series do
       resources :competitors
     end
-    resources :sports do as_routes end
+    root :to => "index#show"
   end
 
   root :to => "home#show"

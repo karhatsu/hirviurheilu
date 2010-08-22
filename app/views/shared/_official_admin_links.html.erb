@@ -1,0 +1,2 @@
+<%= link_to "Toimitsijan sivut", official_root_path if current_user and (current_user.official? or current_user.admin?) %>
+<%= link_to "Admin", admin_root_path if current_user and current_user.admin? %>&nbsp;
