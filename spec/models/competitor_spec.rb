@@ -50,6 +50,35 @@ describe Competitor do
       end
     end
 
+    describe "number" do
+      it "can be nil" do
+        Factory.build(:competitor, :number => nil).should be_valid
+      end
+
+      it "should be integer, not string" do
+        Factory.build(:competitor, :number => 'xyz').
+          should have(1).errors_on(:number)
+      end
+
+      it "should be integer, not decimal" do
+        Factory.build(:competitor, :number => 23.5).
+          should have(1).errors_on(:number)
+      end
+
+      it "should be greater than 0" do
+        Factory.build(:competitor, :number => 0).
+          should have(1).errors_on(:number)
+      end
+
+      it "should be unique inside of same series" do
+        Factory.create(:competitor, :number => 5)
+        comp = Factory.create(:competitor, :number => 5)
+        comp.should be_valid
+        comp = Factory.build(:competitor, :number => 5, :series => comp.series)
+        comp.should have(1).errors_on(:number)
+      end
+    end
+
     describe "shots_total_input" do
       it "can be nil" do
         Factory.build(:competitor, :shots_total_input => nil).should be_valid

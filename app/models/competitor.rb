@@ -8,6 +8,8 @@ class Competitor < ActiveRecord::Base
   validates :series, :presence => true
   validates :first_name, :presence => true
   validates :last_name, :presence => true
+  validates :number, :numericality => { :only_integer => true,
+    :greater_than => 0, :allow_nil => true }, :uniqueness => { :scope => :series_id }
   validates :year_of_birth, :numericality => { :only_integer => true,
     :greater_than_or_equal_to => 1900, :less_than_or_equal_to => 2100 }
   validates :shots_total_input, :allow_nil => true,
