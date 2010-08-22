@@ -5,7 +5,7 @@ class Series < ActiveRecord::Base
     :conditions => "start_time is not null", :order => "start_time"
 
   validates :name, :presence => true
-
+  validates :race, :presence => true
 
   def best_time_in_seconds
     times = []

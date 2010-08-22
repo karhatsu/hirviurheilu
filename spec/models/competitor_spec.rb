@@ -18,6 +18,11 @@ describe Competitor do
         should have(1).errors_on(:last_name)
     end
 
+    it "should require series" do
+      Factory.build(:competitor, :series => nil).
+        should have(1).errors_on(:series)
+    end
+
     describe "year_of_birth" do
       it "should be mandatory" do
         Factory.build(:competitor, :year_of_birth => nil).
@@ -149,8 +154,8 @@ describe Competitor do
 
     it "should be sum of defined individual shots if no input sum" do
       comp = Factory.build(:competitor, :shots_total_input => nil)
-      comp.shots << Factory.build(:shot, :value => 8)
-      comp.shots << Factory.build(:shot, :value => 9)
+      comp.shots << Factory.build(:shot, :value => 8, :competitor => comp)
+      comp.shots << Factory.build(:shot, :value => 9, :competitor => comp)
       comp.shots_sum.should == 17
     end
   end
@@ -384,14 +389,14 @@ describe Competitor do
   describe "#shot_values" do
     it "should return an array of shot values filled with nils to have total 10 shots" do
       c = Factory.build(:competitor)
-      c.shots << Factory.build(:shot, :value => 10)
-      c.shots << Factory.build(:shot, :value => 3)
-      c.shots << Factory.build(:shot, :value => 4)
-      c.shots << Factory.build(:shot, :value => 9)
-      c.shots << Factory.build(:shot, :value => 1)
-      c.shots << Factory.build(:shot, :value => 0)
-      c.shots << Factory.build(:shot, :value => 9)
-      c.shots << Factory.build(:shot, :value => 7)
+      c.shots << Factory.build(:shot, :value => 10, :competitor => c)
+      c.shots << Factory.build(:shot, :value => 3, :competitor => c)
+      c.shots << Factory.build(:shot, :value => 4, :competitor => c)
+      c.shots << Factory.build(:shot, :value => 9, :competitor => c)
+      c.shots << Factory.build(:shot, :value => 1, :competitor => c)
+      c.shots << Factory.build(:shot, :value => 0, :competitor => c)
+      c.shots << Factory.build(:shot, :value => 9, :competitor => c)
+      c.shots << Factory.build(:shot, :value => 7, :competitor => c)
       c.shot_values.should == [10,3,4,9,1,0,9,7,nil,nil]
     end
   end

@@ -8,6 +8,10 @@ describe Race do
   end
 
   describe "validation" do
+    it "should require sport" do
+      Factory.build(:race, :sport => nil).should have(1).errors_on(:sport)
+    end
+
     it "should require name" do
       Factory.build(:race, :name => nil).should have(1).errors_on(:name)
     end

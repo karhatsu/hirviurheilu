@@ -11,6 +11,10 @@ describe Series do
     it "should require name" do
       Factory.build(:series, :name => nil).should have(1).errors_on(:name)
     end
+
+    it "should require race" do
+      Factory.build(:series, :race => nil).should have(1).errors_on(:race)
+    end
   end
 
   describe "best_time_in_seconds" do

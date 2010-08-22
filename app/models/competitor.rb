@@ -5,6 +5,7 @@ class Competitor < ActiveRecord::Base
 
   accepts_nested_attributes_for :shots, :allow_destroy => true
 
+  validates :series, :presence => true
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :year_of_birth, :numericality => { :only_integer => true,
