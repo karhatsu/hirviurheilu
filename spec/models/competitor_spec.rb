@@ -401,4 +401,39 @@ describe Competitor do
     end
   end
 
+  describe "#next_competitor" do
+    before do
+      @series = Factory.create(:series)
+      @c = Factory.create(:competitor, :series => @series, :number => 15)
+      Factory.create(:competitor) # another series
+    end
+
+    it "should return itself when no other competitors" do
+      @c.next_competitor.should == @c
+    end
+
+    context "other competitors" do
+      before do
+        @first = Factory.create(:competitor, :series => @series, :number => 10)
+        @nil = Factory.create(:competitor, :series => @series, :number => nil)
+        @prev = Factory.create(:competitor, :series => @series, :number => 12)
+        @next = Factory.create(:competitor, :series => @series, :number => 17)
+        @last = Factory.create(:competitor, :series => @series, :number => 20)
+        @series.reload
+      end
+
+      it "should return the competitor with next biggest number when such exists" do
+        @c.next_competitor.should == @next
+      end
+
+      it "should return the competitor with smallest number when no bigger numbers" do
+        @last.next_competitor.should == @first
+      end
+
+      it "should return itself if competitor has no number" do
+        @nil.next_competitor.should == @nil
+      end
+    end
+  end
+
 end
