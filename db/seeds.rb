@@ -70,3 +70,8 @@ lasts = ["Heikkinen", "Räsänen", "Miettinen", "Savolainen", "Raitala"]
   end
   comp.save!
 end
+
+comp = s1.competitors.build(:first_name => 'Teemu', :last_name => 'Turkulainen',
+  :year_of_birth => 1975, :club => Club.create!(:name => 'Turun AS'), :number => 110,
+  :start_time => "14:01", :no_result_reason => Competitor::DNF)
+comp.save!
