@@ -121,9 +121,13 @@ class Competitor < ActiveRecord::Base
   end
 
   def only_one_shot_input_method_used
-    if shots_total_input and not shots.empty?
-      errors.add(:shots_total_input,
-        "Ammuntatulokset voi syöttää vain summana tai yksittäisinä laukauksina")
+    if shots_total_input
+      shots.each do |s|
+        if s.value
+          errors.add(:shots_total_input,
+            "Ammuntatulokset voi syöttää vain summana tai yksittäisinä laukauksina")
+        end
+      end
     end
   end
 

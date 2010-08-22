@@ -75,6 +75,12 @@ describe Competitor do
         comp.shots << Factory.build(:shot, :competitor => comp, :value => 8)
         comp.should have(1).errors_on(:shots_total_input)
       end
+
+      it "can be given if individual shots only with nils" do
+        comp = Factory.build(:competitor, :shots_total_input => 50)
+        comp.shots << Factory.build(:shot, :competitor => comp, :value => nil)
+        comp.should be_valid
+      end
     end
     
     describe "shots" do
