@@ -18,7 +18,8 @@ class Series < ActiveRecord::Base
 
   def ordered_competitors
     competitors.sort do |a, b|
-      [b.points.to_i, b.points!.to_i] <=> [a.points.to_i, a.points!.to_i]
+      [a.no_result_reason.to_s, b.points.to_i, b.points!.to_i] <=>
+        [b.no_result_reason.to_s, a.points.to_i, a.points!.to_i]
     end
   end
 

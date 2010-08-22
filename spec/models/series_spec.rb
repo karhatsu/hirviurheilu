@@ -46,12 +46,22 @@ describe Series do
   describe "ordered_competitors" do
     before do
       @series = Factory.build(:series)
-      @c_nil1 = mock_model(Competitor, :points => nil, :points! => 12)
-      @c_nil2 = mock_model(Competitor, :points => nil, :points! => nil)
-      @c_nil3 = mock_model(Competitor, :points => nil, :points! => 88)
-      @c1 = mock_model(Competitor, :points => 200, :points! => 200)
-      @c2 = mock_model(Competitor, :points => 201, :points! => 201)
-      @c3 = mock_model(Competitor, :points => 199, :points! => 199)
+      @c_nil1 = mock_model(Competitor, :points => nil, :points! => 12,
+        :no_result_reason => nil)
+      @c_nil2 = mock_model(Competitor, :points => nil, :points! => nil,
+        :no_result_reason => nil)
+      @c_nil3 = mock_model(Competitor, :points => nil, :points! => 88,
+        :no_result_reason => nil)
+      @c1 = mock_model(Competitor, :points => 200, :points! => 200,
+        :no_result_reason => nil)
+      @c2 = mock_model(Competitor, :points => 201, :points! => 201,
+        :no_result_reason => nil)
+      @c3 = mock_model(Competitor, :points => 199, :points! => 199,
+        :no_result_reason => nil)
+      @c_dnf1 = mock_model(Competitor, :points => 300, :points! => 300,
+        :no_result_reason => "DNF")
+      @c_dnf2 = mock_model(Competitor, :points => 300, :points! => 300,
+        :no_result_reason => "DNS")
     end
 
     it "should return empty list when no competitors defined" do
@@ -73,6 +83,13 @@ describe Series do
       @series.should_receive(:competitors).and_return([@c_nil1, @c_nil2,
           @c_nil3, @c1, @c2, @c3])
       @series.ordered_competitors.should == [@c2, @c1, @c3, @c_nil3, @c_nil1, @c_nil2]
+    end
+
+    it "should leave DNF/DNS competitors to the very bottom" do
+      @series.should_receive(:competitors).and_return([@c_nil1, @c_nil2,
+          @c_nil3, @c_dnf1, @c_dnf2, @c1, @c2, @c3])
+      @series.ordered_competitors.should == [@c2, @c1, @c3, @c_nil3, @c_nil1,
+        @c_nil2, @c_dnf1, @c_dnf2]
     end
   end
 
