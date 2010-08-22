@@ -1,4 +1,7 @@
 class Competitor < ActiveRecord::Base
+  DNS = 'DNS' # did not start
+  DNF = 'DNF' # did not finish
+
   belongs_to :club
   belongs_to :series
   has_many :shots
@@ -22,6 +25,7 @@ class Competitor < ActiveRecord::Base
   validate :arrival_not_before_start_time
   validate :only_one_shot_input_method_used
   validate :max_ten_shots
+  validate :check_no_result_reason
 
   def shot_values
     values = shots.collect do |s|
@@ -135,6 +139,12 @@ class Competitor < ActiveRecord::Base
 
   def max_ten_shots
     errors.add(:shots, "Laukauksia voi olla enintään 10") if shots.length > 10
+  end
+
+  def check_no_result_reason
+    unless [nil, DNS, DNF].include?(no_result_reason)
+      errors.add(:no_result_reason, "Tuntematon syy tuloksen puuttumiselle")
+    end
   end
 
 end

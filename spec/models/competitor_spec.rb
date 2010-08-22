@@ -176,6 +176,25 @@ describe Competitor do
           should have(1).errors_on(:arrival_time)
       end
     end
+
+    describe "no_result_reason" do
+      it "can be nil" do
+        Factory.build(:competitor, :no_result_reason => nil).should be_valid
+      end
+
+      it "can be DNS" do
+        Factory.build(:competitor, :no_result_reason => Competitor::DNS).should be_valid
+      end
+
+      it "can be DNF" do
+        Factory.build(:competitor, :no_result_reason => Competitor::DNF).should be_valid
+      end
+
+      it "cannot be anything else" do
+        Factory.build(:competitor, :no_result_reason => "test").
+          should have(1).errors_on(:no_result_reason)
+      end
+    end
   end
 
   describe "shots_sum" do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100822045851) do
+ActiveRecord::Schema.define(:version => 20100822151915) do
 
   create_table "clubs", :force => true do |t|
     t.string   "name",       :null => false
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20100822045851) do
     t.integer  "estimate2"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "no_result_reason"
   end
 
   create_table "races", :force => true do |t|
