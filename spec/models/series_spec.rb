@@ -20,10 +20,11 @@ describe Series do
   describe "best_time_in_seconds" do
     before do
       @series = Factory.build(:series)
-      @c1 = mock_model(Competitor, :time_in_seconds => nil)
-      @c2 = mock_model(Competitor, :time_in_seconds => 342)
-      @c3 = mock_model(Competitor, :time_in_seconds => 341)
-      @c4 = mock_model(Competitor, :time_in_seconds => 343)
+      @c1 = mock_model(Competitor, :time_in_seconds => nil, :no_result_reason => nil)
+      @c2 = mock_model(Competitor, :time_in_seconds => 342, :no_result_reason => nil)
+      @c3 = mock_model(Competitor, :time_in_seconds => 341, :no_result_reason => nil)
+      @c4 = mock_model(Competitor, :time_in_seconds => 343, :no_result_reason => nil)
+      @c5 = mock_model(Competitor, :time_in_seconds => 200, :no_result_reason => "DNS")
     end
 
     it "should return nil if no competitors" do
@@ -36,8 +37,8 @@ describe Series do
       @series.best_time_in_seconds.should be_nil
     end
 
-    it "should return the time of the competitor who was the fastest" do
-      @series.should_receive(:competitors).and_return([@c1, @c2, @c3, @c4])
+    it "should return the time of the competitor who was the fastest and skip unfinished" do
+      @series.should_receive(:competitors).and_return([@c1, @c2, @c3, @c4, @c5])
       @series.best_time_in_seconds.should == 341
     end
   end

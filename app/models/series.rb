@@ -10,7 +10,7 @@ class Series < ActiveRecord::Base
   def best_time_in_seconds
     times = []
     competitors.each do |comp|
-      times << comp.time_in_seconds unless comp.time_in_seconds.nil?
+      times << comp.time_in_seconds unless comp.time_in_seconds.nil? or comp.no_result_reason
     end
     times.sort!
     times.first
