@@ -2,7 +2,7 @@
 <%= flash_error %>
 <% @races.each do |r| %>
   <h2><%= r.name %></h2>
-  <%= link_to "Muokkaa asetuksia ja sarjoja", edit_official_race_path(r) %><br/><br/>
+  <%= link_to "Muokkaa kilpailun ja sarjojen asetuksia", edit_official_race_path(r) %><br/><br/>
   <% r.series.each do |s| %>
     <%= s.name %> - <%= link_to "Kilpailijat", official_series_competitors_path(s) %><br/>
   <% end %>
