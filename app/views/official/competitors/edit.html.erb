@@ -5,9 +5,9 @@
   <%= render :partial => "basic_fields", :locals => { :f => f } %>
   <h2>Aika</h2>
   <%= f.label :start_time %>
-  <%= f.time_select :start_time, :include_seconds => true %>
+  <%= f.time_text_field :start_time, :include_seconds => true, :blank => true %>
   <%= f.label :arrival_time %>
-  <%= f.time_select :arrival_time, :include_seconds => true %><br/>
+  <%= f.time_text_field :arrival_time, :include_seconds => true, :blank => true %><br/>
   <h2>Ammunta</h2>
   <%= f.label :shots_total_input %>
   <%= f.text_field :shots_total_input, :size => 5 %>
