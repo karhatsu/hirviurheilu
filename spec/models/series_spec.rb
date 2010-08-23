@@ -183,4 +183,87 @@ describe Series do
       end
     end
   end
+
+  describe "#generate_start_times" do
+    before do
+      @race = Factory.create(:race, :start_date => '2010-08-15',
+        :start_interval_seconds => 30)
+      @series = Factory.create(:series, :race => @race,
+        :first_number => 9, :start_time => '2010-08-15 10:00:15')
+      @c1 = Factory.create(:competitor, :series => @series, :number => 9)
+      @c2 = Factory.create(:competitor, :series => @series, :number => 11)
+      @c3 = Factory.create(:competitor, :series => @series, :number => 13)
+    end
+
+    describe "generation fails" do
+      context "competitors are missing numbers" do
+        it "should do nothing for competitors, add error and return false" do
+          @c4 = Factory.create(:competitor, :series => @series, :number => nil)
+          @series.reload
+          @series.generate_start_times.should be_false
+          @series.should have(1).errors
+          @c1.reload
+          @c2.reload
+          @c3.reload
+          @c4.reload
+          @c1.start_time.should be_nil
+          @c2.start_time.should be_nil
+          @c3.start_time.should be_nil
+          @c4.start_time.should be_nil
+        end
+      end
+
+      context "series has no first number" do
+        before do
+          @series.first_number = nil
+          @series.save!
+        end
+
+        it "should do nothing for competitors, add error and return false" do
+          @series.reload
+          @series.generate_start_times.should be_false
+          @series.should have(1).errors
+          @c1.reload
+          @c2.reload
+          @c3.reload
+          @c1.start_time.should be_nil
+          @c2.start_time.should be_nil
+          @c3.start_time.should be_nil
+        end
+      end
+
+      context "series has no start time" do
+        before do
+          @series.start_time = nil
+          @series.save!
+        end
+
+        it "should do nothing for competitors, add error and return false" do
+          @series.reload
+          @series.generate_start_times.should be_false
+          @series.should have(1).errors
+          @c1.reload
+          @c2.reload
+          @c3.reload
+          @c1.start_time.should be_nil
+          @c2.start_time.should be_nil
+          @c3.start_time.should be_nil
+        end
+      end
+    end
+
+    describe "generation succeeds" do
+      it "should generate start times based on time interval and numbers and return true" do
+        @series.generate_start_times.should be_true
+        @series.should be_valid
+        @c1.reload
+        @c2.reload
+        @c3.reload
+        # TODO: problems with time zone in running specs!
+        @c1.start_time.in_time_zone.strftime('%H:%M:%S').should == '09:00:15'
+        @c2.start_time.in_time_zone.strftime('%H:%M:%S').should == '09:01:15'
+        @c3.start_time.in_time_zone.strftime('%H:%M:%S').should == '09:02:15'
+      end
+    end
+  end
 end

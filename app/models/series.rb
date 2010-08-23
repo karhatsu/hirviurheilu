@@ -35,6 +35,34 @@ class Series < ActiveRecord::Base
     1
   end
 
+  def generate_start_times
+    failure = false
+    error_start = 'Lähtöaikoja ei voi generoida'
+    unless start_time
+      errors.add(:base, "#{error_start}, sillä sarjan lähtöaikaa ei ole määritetty")
+      failure = true
+    end
+    unless first_number
+      errors.add(:base, "#{error_start}, sillä sarjan ensimmäistä numeroa ei ole määritetty")
+      failure = true
+    end
+    competitors.each do |comp|
+      if comp.number.nil?
+        errors.add(:base, "#{error_start}, sillä kaikilla kilpailijoilla ei ole numeroa")
+        failure = true
+        break
+      end
+    end
+    return false if failure
+
+    interval = race.start_interval_seconds
+    competitors.each do |comp|
+      comp.start_time = start_time + (comp.number - first_number) * interval
+      comp.save!
+    end
+    true
+  end
+
   private
   def start_time_during_race_dates
     return unless start_time
