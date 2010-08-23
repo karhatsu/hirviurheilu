@@ -1,2 +1,4 @@
-<%= link_to "Toimitsijan sivut", official_root_path if current_user and (current_user.official? or current_user.admin?) %>
+<% if current_user and (current_user.official? or current_user.admin?) %>
+  <%= render :partial => "shared/official_navigation" %>
+<% end %>
 <%= link_to "Admin", admin_root_path if current_user and current_user.admin? %>&nbsp;
