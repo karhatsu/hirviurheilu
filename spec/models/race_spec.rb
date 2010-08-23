@@ -34,5 +34,26 @@ describe Race do
           should have(1).errors_on(:end_date)
       end
     end
+
+    describe "start_interval_seconds" do
+      it "can be nil" do
+        Factory.build(:race, :start_interval_seconds => nil).should be_valid
+      end
+
+      it "should be integer, not string" do
+        Factory.build(:race, :start_interval_seconds => 'xyz').
+          should have(1).errors_on(:start_interval_seconds)
+      end
+
+      it "should be integer, not decimal" do
+        Factory.build(:race, :start_interval_seconds => 23.5).
+          should have(1).errors_on(:start_interval_seconds)
+      end
+
+      it "should be greater than 0" do
+        Factory.build(:race, :start_interval_seconds => 0).
+          should have(1).errors_on(:start_interval_seconds)
+      end
+    end
   end
 end

@@ -8,6 +8,8 @@ class Race < ActiveRecord::Base
   validates :name, :presence => true
   validates :location, :presence => true
   validates :start_date, :presence => true
+  validates :start_interval_seconds, :numericality => { :only_integer => true,
+    :allow_nil => true, :greater_than => 0 }
   validate :end_date_not_before_start_date
 
   private
