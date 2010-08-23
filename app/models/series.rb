@@ -6,6 +6,7 @@ class Series < ActiveRecord::Base
 
   validates :name, :presence => true
   validates :race, :presence => true
+  validate :start_time_during_race_dates
 
   def best_time_in_seconds
     times = []
@@ -20,6 +21,15 @@ class Series < ActiveRecord::Base
     competitors.sort do |a, b|
       [a.no_result_reason.to_s, b.points.to_i, b.shot_points.to_i, b.points!.to_i] <=>
         [b.no_result_reason.to_s, a.points.to_i, a.shot_points.to_i, a.points!.to_i]
+    end
+  end
+
+  private
+  def start_time_during_race_dates
+    return unless start_time
+    end_date = race.end_date ? race.end_date : end_date = race.start_date
+    if start_time < race.start_date.beginning_of_day or start_time > end_date.end_of_day
+      errors.add(:start_time, "Aloitusajan pitää olla kilpailupäivien aikana")
     end
   end
 

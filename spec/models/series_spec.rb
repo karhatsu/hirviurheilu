@@ -15,6 +15,39 @@ describe Series do
     it "should require race" do
       Factory.build(:series, :race => nil).should have(1).errors_on(:race)
     end
+
+    describe "start time" do
+      before do
+        @race = Factory.create(:race, :start_date => Date.today + 3,
+          :end_date => Date.today + 4)
+      end
+
+      it "can be nil" do
+        Factory.build(:series, :start_time => nil).should be_valid
+      end
+
+      it "cannot be before race first day" do
+        time = @race.start_date.beginning_of_day
+        Factory.build(:series, :race => @race, :start_time => time).should be_valid
+        Factory.build(:series, :race => @race, :start_time => time - 1).
+          should have(1).errors_on(:start_time)
+      end
+
+      it "cannot be after race last day" do
+        time = @race.end_date.end_of_day
+        Factory.build(:series, :race => @race, :start_time => time).should be_valid
+        Factory.build(:series, :race => @race, :start_time => time + 1).
+          should have(1).errors_on(:start_time)
+      end
+
+      it "cannot be after race last day (case end date nil)" do
+        race = Factory.create(:race, :start_date => Date.today + 3)
+        time = race.start_date.end_of_day
+        Factory.build(:series, :race => race, :start_time => time).should be_valid
+        Factory.build(:series, :race => race, :start_time => time + 1).
+          should have(1).errors_on(:start_time)
+      end
+    end
   end
 
   describe "best_time_in_seconds" do
