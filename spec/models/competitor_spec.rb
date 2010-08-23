@@ -175,6 +175,11 @@ describe Competitor do
         Factory.build(:competitor, :start_time => '14:00', :arrival_time => '13:59').
           should have(1).errors_on(:arrival_time)
       end
+
+      it "cannot be given if no start time" do
+        Factory.build(:competitor, :start_time => nil, :arrival_time => '13:59').
+          should_not be_valid
+      end
     end
 
     describe "no_result_reason" do
