@@ -8,6 +8,7 @@ class Official::CompetitorsController < Official::OfficialController
   def new
     @series = Series.find(params[:series_id])
     @competitor = @series.competitors.build
+    @competitor.number = @series.next_number
   end
 
   def create
