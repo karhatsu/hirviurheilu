@@ -1,6 +1,5 @@
 class Official::IndexController < Official::OfficialController
   def show
-    #TODO: only own races
-    @races = Race.all
+    @races = current_user.races
   end
 end
