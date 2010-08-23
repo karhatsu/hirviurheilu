@@ -1,11 +1,10 @@
 <h1>Toimitsijan etusivu</h1>
 <%= flash_error %>
 <% @races.each do |r| %>
-  <%= link_to r.name, edit_official_race_path(r) %>
-  <blockquote>
-    <% r.series.each do |s| %>
-      <%= link_to s.name, official_series_competitors_path(s) %><br/>
-    <% end %>
-  </blockquote>
+  <h2><%= r.name %></h2>
+  <%= link_to "Muokkaa asetuksia ja sarjoja", edit_official_race_path(r) %><br/><br/>
+  <% r.series.each do |s| %>
+    <%= s.name %> - <%= link_to "Kilpailijat", official_series_competitors_path(s) %><br/>
+  <% end %>
 <% end %>
 <%= link_to "Lisää uusi kilpailu", new_official_race_path %>
