@@ -1,0 +1,14 @@
+<%= form_for([:official, @race]) do |f| %>
+  <%= render :partial => "shared/form_errors", :locals => { :item => @race } %>
+  <%= f.label :sport %>
+  <%= f.collection_select(:sport_id, Sport.all, :id, :name) %><br/>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br/>
+  <%= f.label :location %>
+  <%= f.text_field :location %><br/>
+  <%= f.label :start_date %>
+  <%= f.date_select :start_date %><br/>
+  <%= f.label :end_date %>
+  <%= f.date_select :end_date, :include_blank => true %><br/>
+  <%= submit_tag submit_label %>
+<% end %>
