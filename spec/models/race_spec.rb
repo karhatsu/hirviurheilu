@@ -23,5 +23,16 @@ describe Race do
     it "should require start date" do
       Factory.build(:race, :start_date => nil).should have(1).errors_on(:start_date)
     end
+
+    describe "end_date" do
+      it "can be nil" do
+        Factory.build(:race, :end_date => nil).should be_valid
+      end
+
+      it "cannot be before start date" do
+        Factory.build(:race, :start_date => Date.today + 3, :end_date => Date.today + 2).
+          should have(1).errors_on(:end_date)
+      end
+    end
   end
 end
