@@ -1,6 +1,7 @@
 ElkSports::Application.routes.draw do
   resource :home
 
+  match 'logout' => 'user_sessions#destroy', :method => :post, :as => :logout
   resource :user_session
   resource :account, :controller => 'users'
   resources :users
