@@ -6,9 +6,12 @@ admin = User.create!(:email => 'admin@admin.com', :password => 'admin',
   :password_confirmation => 'admin', :first_name => 'Antti', :last_name => 'Admin')
 admin.add_admin_rights
 
-user = User.create!(:email => 'user@user.com', :password => 'user',
-  :password_confirmation => 'user', :first_name => 'Timo', :last_name => 'Toimitsija')
-user.add_official_rights
+official1 = User.create!(:email => 'official1@official1.com', :password => 'official1',
+  :password_confirmation => 'official1', :first_name => 'Timo', :last_name => 'Toimitsija')
+official1.add_official_rights
+official2 = User.create!(:email => 'official2@official2.com', :password => 'official2',
+  :password_confirmation => 'official2', :first_name => 'Taina', :last_name => 'Toimitsijatar')
+official2.add_official_rights
 
 # sports
 run = Sport.create!(:name => "Hirvenjuoksu", :key => "RUN")
@@ -18,9 +21,12 @@ ski = Sport.create!(:name => "Hirvenhiihto", :key => "SKI")
 race1 = run.races.build(:name => "P-Savon hirvenjuoksukisat",
   :location => "Tervo", :start_date => '2010-08-14')
 race1.save!
+official1.races << race1
+
 race2 = ski.races.build(:name => "P-Savon hirvenhiihtokisat",
   :location => "Karttula", :start_date => '2010-12-13')
 race2.save!
+official2.races << race2
 
 # series
 correct1 = 100
