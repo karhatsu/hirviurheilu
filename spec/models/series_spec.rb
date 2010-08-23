@@ -206,12 +206,7 @@ describe Series do
           @series.reload
           @series.generate_start_times.should be_false
           @series.should have(1).errors
-          @c1.reload
-          @c2.reload
-          @c3.reload
-          @c1.start_time.should be_nil
-          @c2.start_time.should be_nil
-          @c3.start_time.should be_nil
+          check_competitors_no_changes([@c1, @c2, @c3])
         end
       end
 
@@ -221,14 +216,18 @@ describe Series do
           @series.reload
           @series.generate_start_times.should be_false
           @series.should have(1).errors
-          @c1.reload
-          @c2.reload
-          @c3.reload
-          @c4.reload
-          @c1.start_time.should be_nil
-          @c2.start_time.should be_nil
-          @c3.start_time.should be_nil
-          @c4.start_time.should be_nil
+          check_competitors_no_changes([@c1, @c2, @c3, @c4])
+        end
+      end
+
+      context "some competitor already has arrival time" do
+        it "should do nothing for competitors, add error and return false" do
+          @c4 = Factory.create(:competitor, :series => @series,
+            :arrival_time => '14:30')
+          @series.reload
+          @series.generate_start_times.should be_false
+          @series.should have(1).errors
+          check_competitors_no_changes([@c1, @c2, @c3, @c4])
         end
       end
 
@@ -242,12 +241,7 @@ describe Series do
           @series.reload
           @series.generate_start_times.should be_false
           @series.should have(1).errors
-          @c1.reload
-          @c2.reload
-          @c3.reload
-          @c1.start_time.should be_nil
-          @c2.start_time.should be_nil
-          @c3.start_time.should be_nil
+          check_competitors_no_changes([@c1, @c2, @c3])
         end
       end
 
@@ -261,12 +255,14 @@ describe Series do
           @series.reload
           @series.generate_start_times.should be_false
           @series.should have(1).errors
-          @c1.reload
-          @c2.reload
-          @c3.reload
-          @c1.start_time.should be_nil
-          @c2.start_time.should be_nil
-          @c3.start_time.should be_nil
+          check_competitors_no_changes([@c1, @c2, @c3])
+        end
+      end
+
+      def check_competitors_no_changes(competitors)
+        competitors.each do |c|
+          c.reload
+          c.start_time.should be_nil
         end
       end
     end

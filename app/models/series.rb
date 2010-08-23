@@ -57,6 +57,13 @@ class Series < ActiveRecord::Base
         break
       end
     end
+    competitors.each do |comp|
+      if comp.arrival_time
+        errors.add(:base, "#{error_start}, sillä osalla kilpailijoista on jo saapumisaika")
+        failure = true
+        break
+      end
+    end
     return false if failure
 
     interval = race.start_interval_seconds
