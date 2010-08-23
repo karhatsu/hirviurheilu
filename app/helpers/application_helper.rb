@@ -95,6 +95,16 @@ module ApplicationHelper
     interval
   end
 
+  # -- Form child functions --
+  def remove_child_link(name, f, hide_class, confirm_question)
+    f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this, '#{hide_class}', '#{confirm_question}')")
+  end
+
+  def add_child_link(name, f, method)
+    fields = new_child_fields(f, method, 1)
+    link_to_function(name, "insert_fields(this, \"#{method}\", \"#{escape_javascript(fields)}\")")
+  end
+
   def new_child_fields(form_builder, method, index, options = {})
     options[:object] ||= form_builder.object.class.reflect_on_association(method).klass.new
     options[:partial] ||= method.to_s.singularize
@@ -103,5 +113,6 @@ module ApplicationHelper
       render(:partial => options[:partial], :locals => { options[:form_builder_local] => f})
     end
   end
+  # -- Form child functions (end) --
 
 end

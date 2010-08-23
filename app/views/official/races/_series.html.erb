@@ -1,0 +1,11 @@
+<div class="series_sub_form">
+  <%= f.label :name %>
+  <%= f.text_field :name %><br/>
+  <%= f.label :start_time %>
+  <%= f.datetime_select :start_time %><br/>
+  <%= f.label :correct_estimate1 %>
+  <%= f.text_field :correct_estimate1, :size => 5 %><br/>
+  <%= f.label :correct_estimate2 %>
+  <%= f.text_field :correct_estimate2, :size => 5 %><br/>
+  <%= remove_child_link "Poista sarja", f, 'series_sub_form', "" %>
+</div><br/>

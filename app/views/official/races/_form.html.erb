@@ -10,5 +10,10 @@
   <%= f.date_select :start_date %><br/>
   <%= f.label :end_date %>
   <%= f.date_select :end_date, :include_blank => true %><br/>
+  <h2>Sarjat</h2>
+  <%= f.fields_for :series do |series_form| %>
+    <%= render :partial => "series", :locals => { :f => series_form } %>
+  <% end %>
+  <%= add_child_link "Lisää sarja", f, :series %><br/><br/>
   <%= submit_tag submit_label %>
 <% end %>

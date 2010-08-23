@@ -2,6 +2,8 @@ fi:
   attributes:
     arrival_time: Saapumisaika
     club: Piiri/seura
+    correct_estimate1: Oikea arviomatka 1
+    correct_estimate2: Oikea arviomatka 2
     races: Kilpailut
     email: Sähköposti
     end_date: Loppupvm

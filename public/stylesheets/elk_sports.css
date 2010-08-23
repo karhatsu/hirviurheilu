@@ -56,3 +56,8 @@ div.notice {
     margin-bottom: 8px;
     padding: 3px;
 }
+
+div.series_sub_form {
+    background-color: silver;
+    padding: 5px;
+}
