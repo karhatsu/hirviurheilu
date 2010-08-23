@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   acts_as_authentic
 
   has_and_belongs_to_many :roles, :join_table => :rights
+  has_and_belongs_to_many :races, :join_table => :race_officials
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
@@ -20,6 +21,13 @@ class User < ActiveRecord::Base
 
   def official?
     has_role?(Role::OFFICIAL)
+  end
+
+  def official_for_race?(race)
+    races.each do |r|
+      return true if r == race
+    end
+    false
   end
 
   private

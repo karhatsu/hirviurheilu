@@ -44,4 +44,26 @@ describe User do
       end
     end
   end
+
+  describe "#official_for_race?" do
+    before do
+      @race = Factory.create(:race)
+      @user = Factory.build(:user)
+    end
+
+    it "should return false when no races for this user" do
+      @user.should_not be_official_for_race(@race)
+    end
+
+    it "should return false when user is not official for the given race" do
+      race = Factory.create(:race)
+      @user.races << race
+      @user.should_not be_official_for_race(@race)
+    end
+
+    it "should return true when user is official for the given race" do
+      @user.races << @race
+      @user.should be_official_for_race(@race)
+    end
+  end
 end
