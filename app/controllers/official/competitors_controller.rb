@@ -24,7 +24,9 @@ class Official::CompetitorsController < Official::OfficialController
 
   def update
     @competitor = Competitor.find(params[:id])
-    if @competitor.update_attributes(params[:competitor])
+    @competitor.attributes = params[:competitor]
+    @competitor.arrival_time = nil if params[:clear_arrival_time]
+    if @competitor.save
       if params[:next]
         redirect_to edit_official_series_competitor_path(@competitor.series,
           @competitor.next_competitor)
