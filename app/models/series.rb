@@ -6,6 +6,8 @@ class Series < ActiveRecord::Base
 
   validates :name, :presence => true
   validates :race, :presence => true
+  validates :first_number, :numericality => { :only_integer => true,
+    :allow_nil => true, :greater_than => 0 }
   validate :start_time_during_race_dates
 
   def best_time_in_seconds

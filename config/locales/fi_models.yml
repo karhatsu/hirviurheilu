@@ -10,6 +10,7 @@ fi:
     estimate1: Arvio 1
     estimate2: Arvio 2
     first_name: Etunimi
+    first_number: Ensimmäinen kilpailunumero
     key: Avain
     last_name: Sukunimi
     location: Sijainti

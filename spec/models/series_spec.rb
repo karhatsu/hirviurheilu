@@ -48,6 +48,27 @@ describe Series do
           should have(1).errors_on(:start_time)
       end
     end
+
+    describe "first_number" do
+      it "can be nil" do
+        Factory.build(:series, :first_number => nil).should be_valid
+      end
+
+      it "should be integer, not string" do
+        Factory.build(:series, :first_number => 'xyz').
+          should have(1).errors_on(:first_number)
+      end
+
+      it "should be integer, not decimal" do
+        Factory.build(:series, :first_number => 23.5).
+          should have(1).errors_on(:first_number)
+      end
+
+      it "should be greater than 0" do
+        Factory.build(:series, :first_number => 0).
+          should have(1).errors_on(:first_number)
+      end
+    end
   end
 
   describe "best_time_in_seconds" do
