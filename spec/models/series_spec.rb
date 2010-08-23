@@ -152,4 +152,35 @@ describe Series do
       series.start_list.should == [c2, c3, c1]
     end
   end
+
+  describe "#next_number" do
+    context "no competitors" do
+      it "should be 1 when first_number is nil" do
+        series = Factory.build(:series, :first_number => nil)
+        series.next_number.should == 1
+      end
+
+      it "should be first_number when it is defined" do
+        series = Factory.build(:series, :first_number => 45)
+        series.next_number.should == 45
+      end
+    end
+
+    context "competitors" do
+      it "should the biggest number + 1" do
+        series = Factory.create(:series, :first_number => 45)
+        series.competitors << Factory.build(:competitor, :number => 15, :series => series)
+        series.competitors << Factory.build(:competitor, :number => 24, :series => series)
+        series.competitors << Factory.build(:competitor, :number => 17, :series => series)
+        series.next_number.should == 25
+      end
+
+      it "should be like no competitors when competitors have no numbers yet" do
+        series = Factory.create(:series, :first_number => 45)
+        series.competitors << Factory.build(:competitor, :number => nil, :series => series)
+        series.competitors << Factory.build(:competitor, :number => nil, :series => series)
+        series.next_number.should == 45
+      end
+    end
+  end
 end

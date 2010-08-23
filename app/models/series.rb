@@ -26,6 +26,15 @@ class Series < ActiveRecord::Base
     end
   end
 
+  def next_number
+    unless competitors.empty?
+      max = competitors.maximum(:number)
+      return max + 1 if max
+    end
+    return first_number if first_number
+    1
+  end
+
   private
   def start_time_during_race_dates
     return unless start_time
