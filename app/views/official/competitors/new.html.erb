@@ -1,7 +1,9 @@
 <h1><%= @series.race.name %></h1>
-<h2><%= @series.name %> - uusi kilpailija</h2
+<h2><%= @series.name %> - uusi kilpailija</h2>
+<%= flash_notice %>
 <%= render :partial => "shared/form_errors", :locals => { :item => @competitor } %>
 <% form_for([:official, :series, @competitor]) do |f| %>
   <%= render :partial => "basic_fields", :locals => { :f => f } %><br/>
   <%= submit_tag "Lisää kilpailija" %>
+  <%= submit_tag "Tallenna ja lisää toinen", :name => 'create_another' %>
 <% end %>
