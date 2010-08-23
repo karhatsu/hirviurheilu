@@ -1,4 +1,6 @@
 class Official::CompetitorsController < Official::OfficialController
+  before_filter :check_competitor_rights
+
   def index
     @series = Series.find(params[:series_id])
   end
@@ -39,5 +41,11 @@ class Official::CompetitorsController < Official::OfficialController
     else
       render :edit
     end
+  end
+
+  private
+  def check_competitor_rights
+    series = Series.find(params[:series_id])
+    check_race(series.race)
   end
 end

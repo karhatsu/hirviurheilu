@@ -2,7 +2,7 @@ class CreateRaceOfficials < ActiveRecord::Migration
   def self.up
     create_table :race_officials, :id => false do |t|
       t.references :race, :null => false
-      t.references :official, :null => false
+      t.references :user, :null => false
     end
   end
 

@@ -1,4 +1,5 @@
 <h1>Toimitsijan etusivu</h1>
+<%= flash_error %>
 <% @races.each do |r| %>
   <%= link_to r.name, official_race_path(r) %>
   <blockquote>

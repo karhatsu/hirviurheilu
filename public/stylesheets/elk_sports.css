@@ -44,12 +44,15 @@ div.field_with_errors {
 }
 
 div.error {
-    color: red;
+    background-color: orange;
+    color: white;
+    margin-bottom: 8px;
+    padding: 3px;
 }
 
 div.notice {
     background-color: olive;
     color: white;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     padding: 3px;
 }

@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(:version => 20100823062940) do
   end
 
   create_table "race_officials", :id => false, :force => true do |t|
-    t.integer "race_id",     :null => false
-    t.integer "official_id", :null => false
+    t.integer "race_id", :null => false
+    t.integer "user_id", :null => false
   end
 
   create_table "races", :force => true do |t|
