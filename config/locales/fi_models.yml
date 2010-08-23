@@ -22,6 +22,7 @@ fi:
     shots_total_input: Ammunta yhteensä
     sport: Laji
     start_date: Alkupvm
+    start_interval_seconds: Lähtöaikojen väli (sekuntia)
     start_time: Lähtöaika
     year_of_birth: Syntymävuosi
 

@@ -10,6 +10,8 @@
   <%= f.date_select :start_date %><br/>
   <%= f.label :end_date %>
   <%= f.date_select :end_date, :include_blank => true %><br/>
+  <%= f.label :start_interval_seconds %>
+  <%= f.text_field :start_interval_seconds, :size => 5 %><br/>
   <h2>Sarjat</h2>
   <%= f.fields_for :series do |series_form| %>
     <%= render :partial => "series", :locals => { :f => series_form } %>

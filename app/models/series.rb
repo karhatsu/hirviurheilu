@@ -46,6 +46,10 @@ class Series < ActiveRecord::Base
       errors.add(:base, "#{error_start}, sillä sarjan ensimmäistä numeroa ei ole määritetty")
       failure = true
     end
+    unless race.start_interval_seconds
+      errors.add(:base, "#{error_start}, sillä kilpailulle ei ole määritetty lähtöaikojen väliä")
+      failure = true
+    end
     competitors.each do |comp|
       if comp.number.nil?
         errors.add(:base, "#{error_start}, sillä kaikilla kilpailijoilla ei ole numeroa")

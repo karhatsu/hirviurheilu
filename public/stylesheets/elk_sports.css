@@ -61,3 +61,11 @@ div.series_sub_form {
     background-color: silver;
     padding: 5px;
 }
+
+div.action_box {
+    border: dashed 1px gray;
+    margin-left: 0px;
+    padding: 5px;
+    margin: 5px;
+    margin-left: 0px;
+}

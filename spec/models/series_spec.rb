@@ -196,6 +196,25 @@ describe Series do
     end
 
     describe "generation fails" do
+      context "time interval hasn't been defined for the race" do
+        before do
+          @race.start_interval_seconds = nil
+          @race.save!
+        end
+
+        it "should do nothing for competitors, add error and return false" do
+          @series.reload
+          @series.generate_start_times.should be_false
+          @series.should have(1).errors
+          @c1.reload
+          @c2.reload
+          @c3.reload
+          @c1.start_time.should be_nil
+          @c2.start_time.should be_nil
+          @c3.start_time.should be_nil
+        end
+      end
+
       context "competitors are missing numbers" do
         it "should do nothing for competitors, add error and return false" do
           @c4 = Factory.create(:competitor, :series => @series, :number => nil)

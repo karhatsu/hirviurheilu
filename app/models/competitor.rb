@@ -128,7 +128,7 @@ class Competitor < ActiveRecord::Base
   def arrival_not_before_start_time
     return if start_time.nil? or arrival_time.nil?
     if start_time > arrival_time
-      errors.add(:arrival_time, "Saapumisaika ei voi olla ennen lähtöaikaa")
+      errors.add(:arrival_time, "ei voi olla ennen lähtöaikaa")
     end
   end
 
