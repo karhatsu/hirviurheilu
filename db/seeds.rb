@@ -32,7 +32,7 @@ official2.races << race2
 correct1 = 100
 correct2 = 140
 s1 = race1.series.build(:name => "Miehet yli 50v", :correct_estimate1 => correct1,
-  :correct_estimate2 => correct2)
+  :correct_estimate2 => correct2, :start_time => '2010-08-14 09:30')
 s1.save!
 
 # competitors
