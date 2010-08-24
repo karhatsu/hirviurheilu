@@ -27,31 +27,31 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#time_print" do
+  describe "#time_from_seconds" do
     it "should return dash when nil given" do
-      helper.time_print(nil).should == "-"
+      helper.time_from_seconds(nil).should == "-"
     end
 
     it "should return seconds when less than 60" do
-      helper.time_print(59).should == "00:59"
+      helper.time_from_seconds(59).should == "00:59"
     end
 
     it "should return minutes and seconds when more than 60" do
-      helper.time_print(60).should == "01:00"
-      helper.time_print(61).should == "01:01"
-      helper.time_print(131).should == "02:11"
+      helper.time_from_seconds(60).should == "01:00"
+      helper.time_from_seconds(61).should == "01:01"
+      helper.time_from_seconds(131).should == "02:11"
     end
 
     it "should return hours, minutes and seconds when at least 1 hour" do
-      helper.time_print(3600).should == "1:00:00"
-      helper.time_print(3601).should == "1:00:01"
+      helper.time_from_seconds(3600).should == "1:00:00"
+      helper.time_from_seconds(3601).should == "1:00:01"
     end
 
     it "should convert decimal seconds to integer" do
-      helper.time_print(60.0).should == "01:00"
-      helper.time_print(61.1).should == "01:01"
-      helper.time_print(131.2).should == "02:11"
-      helper.time_print(3601.6).should == "1:00:01"
+      helper.time_from_seconds(60.0).should == "01:00"
+      helper.time_from_seconds(61.1).should == "01:01"
+      helper.time_from_seconds(131.2).should == "02:11"
+      helper.time_from_seconds(3601.6).should == "1:00:01"
     end
   end
 
@@ -170,7 +170,7 @@ describe ApplicationHelper do
     it "should return shot points and sum in brackets" do
       competitor = mock_model(Competitor, :time_points => 270,
         :time_in_seconds => 2680, :no_result_reason => nil)
-      helper.should_receive(:time_print).with(2680).and_return("45:23")
+      helper.should_receive(:time_from_seconds).with(2680).and_return("45:23")
       helper.time_points_and_time(competitor).should == "270 (45:23)"
     end
   end

@@ -15,7 +15,7 @@ module ApplicationHelper
     "-"
   end
 
-  def time_print(seconds)
+  def time_from_seconds(seconds)
     return "-" if seconds.nil?
     h = seconds.to_i / 3600
     min = (seconds.to_i - h * 3600) / 60
@@ -28,7 +28,7 @@ module ApplicationHelper
   def time_points_and_time(competitor)
     return '' if competitor.no_result_reason
     return "-" if competitor.time_in_seconds.nil?
-    "#{competitor.time_points} (#{time_print(competitor.time_in_seconds)})"
+    "#{competitor.time_points} (#{time_from_seconds(competitor.time_in_seconds)})"
   end
 
   def shot_points_and_total(competitor)
