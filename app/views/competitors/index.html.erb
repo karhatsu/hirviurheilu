@@ -1,5 +1,6 @@
 <h1><%= @series.race.name %></h1>
 <h2><%= @series.name %></h2>
+<%= render :partial => "start_notice", :locals => { :series => @series } %>
 <table>
   <tr>
     <th>&nbsp;</th>
