@@ -101,23 +101,23 @@ describe Series do
     before do
       @series = Factory.build(:series)
       @c_nil1 = mock_model(Competitor, :points => nil, :points! => 12,
-        :no_result_reason => nil, :shot_points => 50)
+        :no_result_reason => nil, :shot_points => 50, :time_points => 30)
       @c_nil2 = mock_model(Competitor, :points => nil, :points! => nil,
-        :no_result_reason => nil, :shot_points => 50)
+        :no_result_reason => nil, :shot_points => 50, :time_points => 30)
       @c_nil3 = mock_model(Competitor, :points => nil, :points! => 88,
-        :no_result_reason => nil, :shot_points => 50)
-      @c1 = mock_model(Competitor, :points => 200, :points! => 200,
-        :no_result_reason => nil, :shot_points => 50)
+        :no_result_reason => nil, :shot_points => 50, :time_points => 30)
+      @c1 = mock_model(Competitor, :points => 199, :points! => 199,
+        :no_result_reason => nil, :shot_points => 87, :time_points => 31)
       @c2 = mock_model(Competitor, :points => 201, :points! => 201,
-        :no_result_reason => nil, :shot_points => 50)
+        :no_result_reason => nil, :shot_points => 50, :time_points => 30)
       @c3 = mock_model(Competitor, :points => 199, :points! => 199,
-        :no_result_reason => nil, :shot_points => 87)
+        :no_result_reason => nil, :shot_points => 87, :time_points => 30)
       @c4 = mock_model(Competitor, :points => 199, :points! => 199,
-        :no_result_reason => nil, :shot_points => 88)
+        :no_result_reason => nil, :shot_points => 88, :time_points => 30)
       @c_dnf1 = mock_model(Competitor, :points => 300, :points! => 300,
-        :no_result_reason => "DNF", :shot_points => 88)
+        :no_result_reason => "DNF", :shot_points => 88, :time_points => 30)
       @c_dnf2 = mock_model(Competitor, :points => 300, :points! => 300,
-        :no_result_reason => "DNS", :shot_points => 88)
+        :no_result_reason => "DNS", :shot_points => 88, :time_points => 30)
     end
 
     it "should return empty list when no competitors defined" do
@@ -126,10 +126,10 @@ describe Series do
     end
 
     it "should sort by: 1. DNS/DNF to the bottom, 2. nil points next in the bottom, " +
-        "3. points, 4. shot points, 5. partial points" do
+        "3. points, 4. shot points, 5. time points, 6. partial points" do
       @series.should_receive(:competitors).and_return([@c_nil1, @c_nil2,
           @c_nil3, @c_dnf1, @c_dnf2, @c1, @c2, @c3, @c4])
-      @series.ordered_competitors.should == [@c2, @c1, @c4, @c3, @c_nil3, @c_nil1,
+      @series.ordered_competitors.should == [@c2, @c4, @c1, @c3, @c_nil3, @c_nil1,
         @c_nil2, @c_dnf1, @c_dnf2]
     end
   end
