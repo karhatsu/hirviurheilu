@@ -1,7 +1,7 @@
 <h1>Kirjaudu sisään</h1>
 
 <%= flash_notice %>
-<% form_for @user_session, :url => user_session_path do |f| %>
+<%= form_for @user_session, :url => user_session_path do |f| %>
   <%= render :partial => "shared/form_errors", :locals => { :item => @user_session } %>
   <%= f.label :email %><br />
   <%= f.text_field :email %><br />

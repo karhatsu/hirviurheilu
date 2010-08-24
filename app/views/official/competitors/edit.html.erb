@@ -1,6 +1,6 @@
 <h1><%= full_name(@competitor) %></h1>
 <%= render :partial => "shared/form_errors", :locals => { :item => @competitor } %>
-<% form_for([:official, :series, @competitor]) do |f| %>
+<%= form_for([:official, :series, @competitor]) do |f| %>
   <h2>Perustiedot</h2>
   <%= render :partial => "basic_fields", :locals => { :f => f } %>
   <h2>Aika</h2>
@@ -16,7 +16,7 @@
   <%= f.text_field :shots_total_input, :size => 5, :maxlength => 3 %>
   (Syötä joko yhteistulos tai vain yksittäiset laukaukset.)<br/>
   Yksittäiset tulokset
-  <% f.fields_for :shots do |shot_form| %>
+  <%= f.fields_for :shots do |shot_form| %>
     <%= render :partial => "shot", :locals => { :f => shot_form } %>
   <% end %>
   <% (10 - @competitor.shots.length).times do |i| %>
