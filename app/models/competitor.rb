@@ -79,7 +79,7 @@ class Competitor < ActiveRecord::Base
   def time_points
     own_time = time_in_seconds
     return nil if own_time.nil?
-    points = 300 - (own_time - series.best_time_in_seconds) / 6
+    points = 300 - (own_time - series.best_time_in_seconds) / 10
     if points > 300
       raise "Time points bigger than max and no DNS/DNF!" unless no_result_reason
       return nil

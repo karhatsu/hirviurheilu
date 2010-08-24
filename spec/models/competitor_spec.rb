@@ -370,23 +370,23 @@ describe Competitor do
       @competitor.time_points.should == 300
     end
 
-    it "should be 300 when this competitor was five seconds slower than the best" do
-      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 5)
+    it "should be 300 when this competitor was 9 seconds slower than the best" do
+      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 9)
       @competitor.time_points.should == 300
     end
 
-    it "should 299 when this competitor was six seconds slower than the best" do
-      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 6)
+    it "should be 299 when this competitor was 10 seconds slower than the best" do
+      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 10)
       @competitor.time_points.should == 299
     end
 
-    it "should 299 when this competitor was 11 seconds slower than the best" do
-      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 11)
+    it "should be 299 when this competitor was 19 seconds slower than the best" do
+      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 19)
       @competitor.time_points.should == 299
     end
 
-    it "should 298 when this competitor was 12 seconds slower than the best" do
-      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 12)
+    it "should be 298 when this competitor was 20 seconds slower than the best" do
+      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 20)
       @competitor.time_points.should == 298
     end
 
@@ -402,7 +402,7 @@ describe Competitor do
       end
 
       it "should be like normally when the competitor has not the best time" do
-        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 12)
+        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 20)
         @competitor.time_points.should == 298
       end
 
