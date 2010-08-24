@@ -27,6 +27,36 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#datetime_print" do
+    before do
+      @time = Time.local(2010, 5, 8, 9, 8, 1)
+    end
+
+    it "should print empty string if nil given" do
+      helper.datetime_print(nil).should == ''
+    end
+
+    it "should print d.m.Y as default format" do
+      helper.datetime_print(@time).should == '08.05.2010'
+    end
+
+    it "should include hours and minutes if asked" do
+      helper.datetime_print(@time, true).should == '08.05.2010 09:08'
+    end
+
+    it "should include hours, minutes and seconds if asked" do
+      helper.datetime_print(@time, true, true).should == '08.05.2010 09:08:01'
+    end
+
+    it "should not print seconds if H/M not wanted and seconds wanted" do
+      helper.datetime_print(@time, false, true).should == '08.05.2010'
+    end
+
+    it "should print given string instead of empty string if defined and nil" do
+      helper.datetime_print(nil, true, false, 'none').should == 'none'
+    end
+  end
+
   describe "#time_print" do
     before do
       @time = Time.local(2010, 5, 8, 9, 8, 1)

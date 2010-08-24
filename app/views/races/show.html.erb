@@ -3,7 +3,7 @@
 <h2>Sarjat</h2>
 <% @race.series.each do |s| %>
   <% if s.start_time %>
-    <%= s.start_time.strftime('%d.%m.%Y %H:%M') %> -
+    <%= datetime_print(s.start_time, true) %> -
   <% end %>
   <%= s.name %>,
   <%= link_to "Tulokset", series_competitors_path(s) %>,

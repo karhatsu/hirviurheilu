@@ -1,5 +1,5 @@
 <% if series.start_time and series.start_time > Time.now %>
   <div class="notice">
-    Sarjan startti: <%= series.start_time.strftime('%d.%m.%Y %H:%M') %>
+    Sarjan startti: <%= datetime_print(series.start_time, true) %>
   </div>
 <% end %>

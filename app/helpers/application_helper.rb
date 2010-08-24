@@ -8,6 +8,13 @@ module ApplicationHelper
     raw("<div class='error'>#{flash[:error]}</div>") if flash[:error]
   end
 
+  def datetime_print(time, hours_and_minutes=false, seconds=false, nil_result='')
+    return nil_result if time.nil?
+    t = time.strftime('%d.%m.%Y')
+    t << " #{time_print(time, seconds)}" if hours_and_minutes
+    t
+  end
+
   def time_print(time, seconds=false, nil_result='')
     return nil_result if time.nil?
     format = (seconds ? '%H:%M:%S' : '%H:%M')
