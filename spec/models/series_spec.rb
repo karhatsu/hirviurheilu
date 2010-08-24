@@ -103,7 +103,7 @@ describe Series do
       @c_nil1 = mock_model(Competitor, :points => nil, :points! => 12,
         :no_result_reason => nil, :shot_points => 50, :time_points => 30)
       @c_nil2 = mock_model(Competitor, :points => nil, :points! => nil,
-        :no_result_reason => nil, :shot_points => 50, :time_points => 30)
+        :no_result_reason => nil, :shot_points => 50, :time_points => nil)
       @c_nil3 = mock_model(Competitor, :points => nil, :points! => 88,
         :no_result_reason => nil, :shot_points => 50, :time_points => 30)
       @c1 = mock_model(Competitor, :points => 199, :points! => 199,
