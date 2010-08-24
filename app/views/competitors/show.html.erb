@@ -31,4 +31,17 @@
   </tr>
 </table>
 <h3><%= @competitor.series.race.sport.run? ? "Juoksu" : "Hiihto" %></h3>
-<%= time_print(@competitor.time_in_seconds) %>
+<table>
+  <tr>
+    <td>Lähtöaika</td>
+    <td><%= @competitor.start_time ? @competitor.start_time.strftime('%H:%M:%S') : '-' %></td>
+  </tr>
+  <tr>
+    <td>Saapumisaika</td>
+    <td><%= @competitor.arrival_time ? @competitor.arrival_time.strftime('%H:%M:%S') : '-' %></td>
+  </tr>
+  <tr>
+    <td>Aika</td>
+    <td><%= time_print(@competitor.time_in_seconds) %></td>
+  </tr>
+</table>
