@@ -19,12 +19,12 @@ ski = Sport.create!(:name => "Hirvenhiihto", :key => "SKI")
 
 # races
 race1 = run.races.build(:name => "P-Savon hirvenjuoksukisat",
-  :location => "Tervo", :start_date => '2010-08-14')
+  :location => "Tervo", :start_date => '2010-08-14', :start_interval_seconds => 30)
 race1.save!
 official1.races << race1
 
 race2 = ski.races.build(:name => "P-Savon hirvenhiihtokisat",
-  :location => "Karttula", :start_date => '2010-12-13')
+  :location => "Karttula", :start_date => '2010-12-13', :start_interval_seconds => 60)
 race2.save!
 official2.races << race2
 
@@ -32,7 +32,7 @@ official2.races << race2
 correct1 = 100
 correct2 = 140
 s1 = race1.series.build(:name => "Miehet yli 50v", :correct_estimate1 => correct1,
-  :correct_estimate2 => correct2, :start_time => '2010-08-14 09:30')
+  :correct_estimate2 => correct2, :start_time => '2010-08-14 09:30', :first_number => 100)
 s1.save!
 
 # competitors
@@ -45,10 +45,9 @@ lasts = ["Heikkinen", "Räsänen", "Miettinen", "Savolainen", "Raitala"]
   last = lasts[i % lasts.length]
   club_name = "#{club_places[i % club_places.length]} #{club_suffixes[i % club_suffixes.length]}"
   club = Club.create!(:name => club_name)
-  arrival = "15:0#{i + 1}:3#{9 - i}" unless i == 7
   comp = s1.competitors.build(:first_name => first, :last_name => last,
     :year_of_birth => 1960 + i, :club => club, :number => 100 + i,
-    :start_time => "14:00:0#{i}", :arrival_time => arrival)
+    :start_time => "14:00:0#{i}", :arrival_time => nil)
   if i % 4 == 0
     comp.shots << Shot.new(:competitor => comp, :value => 10)
     comp.shots << Shot.new(:competitor => comp, :value => 3)
@@ -81,3 +80,13 @@ comp = s1.competitors.build(:first_name => 'Teemu', :last_name => 'Turkulainen',
   :year_of_birth => 1975, :club => Club.create!(:name => 'Turun AS'), :number => 110,
   :start_time => "14:01", :no_result_reason => Competitor::DNF)
 comp.save!
+
+unless s1.generate_start_times
+  raise s1.errors.on(:base)
+end
+
+s1.competitors.each_with_index do |comp, i|
+  arrival = "15:0#{i + 1}:3#{9 - i}" unless i == 7
+  comp.arrival_time = arrival
+  comp.save!
+end
