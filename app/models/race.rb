@@ -1,6 +1,6 @@
 class Race < ActiveRecord::Base
   belongs_to :sport
-  has_many :series
+  has_many :series, :order => 'start_time'
 
   accepts_nested_attributes_for :series, :allow_destroy => true
 
