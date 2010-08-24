@@ -22,7 +22,7 @@
       <td><%= link_to full_name(comp),
             edit_official_series_competitor_path(@series.id, comp) %></td>
       <td><%= comp.number %></td>
-      <td><%= comp.start_time.strftime('%H:%M:%S') if comp.start_time %></td>
+      <td><%= time_print(comp.start_time, true) %></td>
     </tr>
   <% end %>
 </table>

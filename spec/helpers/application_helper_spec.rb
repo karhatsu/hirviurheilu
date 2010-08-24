@@ -27,6 +27,28 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#time_print" do
+    before do
+      @time = Time.local(2010, 5, 8, 9, 8, 1)
+    end
+
+    it "should print empty string if nil given" do
+      helper.time_print(nil).should == ''
+    end
+
+    it "should print HH:MM as default format" do
+      helper.time_print(@time).should == '09:08'
+    end
+
+    it "should include seconds if asked" do
+      helper.time_print(@time, true).should == '09:08:01'
+    end
+
+    it "should print given string instead of empty string if defined and nil" do
+      helper.time_print(nil, true, 'none').should == 'none'
+    end
+  end
+
   describe "#time_from_seconds" do
     it "should return dash when nil given" do
       helper.time_from_seconds(nil).should == "-"

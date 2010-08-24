@@ -13,7 +13,7 @@
       <td><%= comp.number %></td>
       <td><%= full_name(comp) %></td>
       <td><%= comp.club.name %></td>
-      <td><%= comp.start_time.strftime('%H:%M:%S') %></td>
+      <td><%= time_print(comp.start_time, true) %></td>
     </tr>
   <% end %>
 </table>

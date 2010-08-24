@@ -8,6 +8,12 @@ module ApplicationHelper
     raw("<div class='error'>#{flash[:error]}</div>") if flash[:error]
   end
 
+  def time_print(time, seconds=false, nil_result='')
+    return nil_result if time.nil?
+    format = (seconds ? '%H:%M:%S' : '%H:%M')
+    time.strftime(format)
+  end
+
   def points_print(competitor)
     return competitor.no_result_reason if competitor.no_result_reason
     return competitor.points unless competitor.points.nil?
