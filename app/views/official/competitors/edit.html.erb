@@ -13,7 +13,7 @@
   <%= check_box_tag :clear_arrival_time %>Poista saapumisaika<br/>
   <h2>Ammunta</h2>
   <%= f.label :shots_total_input %>
-  <%= f.text_field :shots_total_input, :size => 5 %>
+  <%= f.text_field :shots_total_input, :size => 5, :maxlength => 3 %>
   (Syötä joko yhteistulos tai vain yksittäiset laukaukset.)<br/>
   Yksittäiset tulokset
   <% f.fields_for :shots do |shot_form| %>
@@ -24,9 +24,9 @@
   <% end %>
   <h2>Arviointi</h2>
   <%= f.label :estimate1 %>
-  <%= f.text_field :estimate1, :size => 5 %>
+  <%= f.text_field :estimate1, :size => 5, :maxlength => 3 %>
   <%= f.label :estimate2 %>
-  <%= f.text_field :estimate2, :size => 5 %><br/>
+  <%= f.text_field :estimate2, :size => 5, :maxlength => 3 %><br/>
   <h2>Ei tulosta</h2>
   <%= f.radio_button :no_result_reason, '' %>Normaali
   <%= f.radio_button :no_result_reason, Competitor::DNS %>Ei lähtenyt matkaan (DNS)

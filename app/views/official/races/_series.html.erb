@@ -6,8 +6,8 @@
   <%= f.label :first_number %>
   <%= f.text_field :first_number, :size => 5 %><br/>
   <%= f.label :correct_estimate1 %>
-  <%= f.text_field :correct_estimate1, :size => 5 %><br/>
+  <%= f.text_field :correct_estimate1, :size => 5, :maxlength => 3 %><br/>
   <%= f.label :correct_estimate2 %>
-  <%= f.text_field :correct_estimate2, :size => 5 %><br/>
+  <%= f.text_field :correct_estimate2, :size => 5, :maxlength => 3 %><br/>
   <%= remove_child_link "Poista sarja", f, 'series_sub_form', "" %>
 </div><br/>
