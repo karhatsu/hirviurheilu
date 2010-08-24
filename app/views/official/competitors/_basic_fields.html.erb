@@ -4,7 +4,5 @@
 <%= f.text_field :last_name %><br/>
 <%= f.label :club %>
 <%= f.collection_select :club_id, Club.all, :id, :name %>
-<%= f.label :year_of_birth %>
-<%= f.text_field :year_of_birth, :size => 5, :maxlength => 4 %>
 <%= f.label :number %>
 <%= f.text_field :number, :size => 5 %>

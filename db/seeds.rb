@@ -46,7 +46,7 @@ lasts = ["Heikkinen", "Räsänen", "Miettinen", "Savolainen", "Raitala"]
   club_name = "#{club_places[i % club_places.length]} #{club_suffixes[i % club_suffixes.length]}"
   club = Club.create!(:name => club_name)
   comp = s1.competitors.build(:first_name => first, :last_name => last,
-    :year_of_birth => 1960 + i, :club => club, :number => 100 + i,
+    :club => club, :number => 100 + i,
     :start_time => "14:00:0#{i}", :arrival_time => nil)
   if i % 4 == 0
     comp.shots << Shot.new(:competitor => comp, :value => 10)
@@ -77,7 +77,7 @@ lasts = ["Heikkinen", "Räsänen", "Miettinen", "Savolainen", "Raitala"]
 end
 
 comp = s1.competitors.build(:first_name => 'Teemu', :last_name => 'Turkulainen',
-  :year_of_birth => 1975, :club => Club.create!(:name => 'Turun AS'), :number => 110,
+  :club => Club.create!(:name => 'Turun AS'), :number => 110,
   :start_time => "14:01", :no_result_reason => Competitor::DNF)
 comp.save!
 

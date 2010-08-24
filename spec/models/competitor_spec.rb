@@ -23,33 +23,6 @@ describe Competitor do
         should have(1).errors_on(:series)
     end
 
-    describe "year_of_birth" do
-      it "should be mandatory" do
-        Factory.build(:competitor, :year_of_birth => nil).
-          should have(1).errors_on(:year_of_birth)
-      end
-
-      it "should be integer, not string" do
-        Factory.build(:competitor, :year_of_birth => 'xyz').
-          should have(1).errors_on(:year_of_birth)
-      end
-
-      it "should be integer, not decimal" do
-        Factory.build(:competitor, :year_of_birth => 23.5).
-          should have(1).errors_on(:year_of_birth)
-      end
-
-      it "should be greater than 1900" do
-        Factory.build(:competitor, :year_of_birth => 1899).
-          should have(1).errors_on(:year_of_birth)
-      end
-
-      it "should be less than 2100" do
-        Factory.build(:competitor, :year_of_birth => 2101).
-          should have(1).errors_on(:year_of_birth)
-      end
-    end
-
     describe "number" do
       it "can be nil" do
         Factory.build(:competitor, :number => nil).should be_valid
