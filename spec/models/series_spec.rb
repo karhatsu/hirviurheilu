@@ -274,10 +274,9 @@ describe Series do
         @c1.reload
         @c2.reload
         @c3.reload
-        # TODO: problems with time zone in running specs!
-        @c1.start_time.in_time_zone.strftime('%H:%M:%S').should == '09:00:15'
-        @c2.start_time.in_time_zone.strftime('%H:%M:%S').should == '09:01:15'
-        @c3.start_time.in_time_zone.strftime('%H:%M:%S').should == '09:02:15'
+        @c1.start_time.strftime('%H:%M:%S').should == '10:00:15'
+        @c2.start_time.strftime('%H:%M:%S').should == '10:01:15'
+        @c3.start_time.strftime('%H:%M:%S').should == '10:02:15'
       end
     end
   end

@@ -68,7 +68,9 @@ class Series < ActiveRecord::Base
 
     interval = race.start_interval_seconds
     competitors.each do |comp|
-      comp.start_time = start_time + (comp.number - first_number) * interval
+      # if the calculated time is saved as such, the time zone changes to UTC
+      time = start_time + (comp.number - first_number) * interval
+      comp.start_time = time.strftime('%H:%M:%S')
       comp.save!
     end
     true
