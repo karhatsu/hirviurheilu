@@ -27,73 +27,92 @@ clubs = []
 end
 
 # races
-race1 = run.races.build(:name => "P-Savon hirvenjuoksukisat",
-  :location => "Tervo", :start_date => '2010-08-14', :start_interval_seconds => 30)
-race1.save!
-official1.races << race1
-
 race2 = ski.races.build(:name => "P-Savon hirvenhiihtokisat",
   :location => "Karttula", :start_date => '2010-12-13', :start_interval_seconds => 60)
 race2.save!
 official2.races << race2
 
-# series
-series_names = ["Yleinen", "M30", "M40", "M50", "M60"]
-5.times do |series_i|
-  correct1 = 100 + 5 * series_i
-  correct2 = 160 - 5 * series_i
-  series = race1.series.build(:name => series_names[series_i], :correct_estimate1 => correct1,
-    :correct_estimate2 => correct2, :start_time => "2010-08-14 1#{series_i}:30",
-    :first_number => 100)
-  series.save!
+race_titles = ['P-Savon hirvenjuoksukisat', 'Hirvenjuoksupeijaiset',
+  'Joensuun syyskisat', 'Hirvenhiihtokauden avajaiskilpailut',
+  'Pitkämäen SM-katsastukset', 'Vehmersalmen SM-katsastukset', 'SM2011']
+race_locations = ["Tervo", "Heinävesi", "Joensuu", "Rymättylä", "Pitkämäki", "Vehmersalmi", "Ii"]
+race_start_dates = ['2010-07-14', '2010-08-11', '2010-09-03', '2010-09-22',
+  '2010-12-18', '2011-01-06', '2011-01-18']
+race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
+7.times do |race_i|
+  sport = (race_i < 4 ? run : ski)
+  interval = (race_i % 2 == 0 ? 30 : 60)
+  race = sport.races.build(:name => race_titles[race_i],
+    :location => race_locations[race_i], :start_date => race_start_dates[race_i],
+    :end_date => race_end_dates[race_i], :start_interval_seconds => interval)
+  race.save!
+  official1.races << race
 
-  # competitors
-  firsts = ["Matti", "Teppo", "Pekka", "Timo", "Jouni", "Heikki"]
-  lasts = ["Heikkinen", "Räsänen", "Miettinen", "Savolainen", "Raitala"]
-  10.times do |i|
-    first = firsts[i % firsts.length]
-    last = lasts[i % lasts.length]
-    comp = series.competitors.build(:first_name => first, :last_name => last,
-      :club => clubs[i], :number => 100 + i)
-    if i % 4 == 0
-      comp.shots << Shot.new(:competitor => comp, :value => 10)
-      comp.shots << Shot.new(:competitor => comp, :value => 3)
-      comp.shots << Shot.new(:competitor => comp, :value => 0)
-      comp.shots << Shot.new(:competitor => comp, :value => 7)
-      comp.shots << Shot.new(:competitor => comp, :value => 10)
-      comp.shots << Shot.new(:competitor => comp, :value => 7)
-      comp.shots << Shot.new(:competitor => comp, :value => 9)
-      comp.shots << Shot.new(:competitor => comp, :value => 9)
-      comp.shots << Shot.new(:competitor => comp, :value => 2)
-      comp.shots << Shot.new(:competitor => comp, :value => 10)
-    else
-      shots = 71 + 2 * i
-      shots = nil if i == 3 or i == 7
-      comp.shots_total_input = shots
+  # series
+  series_names = ["Yleinen", "M30", "M40", "M50", "M60"]
+  5.times do |series_i|
+    correct1 = 100 + 5 * series_i
+    correct2 = 160 - 5 * series_i
+    series = race.series.build(:name => series_names[series_i],
+      :correct_estimate1 => correct1, :correct_estimate2 => correct2,
+      :start_time => "#{race_start_dates[race_i]} 1#{series_i}:30",
+      :first_number => 100)
+    series.save!
+
+    # competitors
+    if race_i < 3
+      firsts = ["Matti", "Teppo", "Pekka", "Timo", "Jouni", "Heikki"]
+      lasts = ["Heikkinen", "Räsänen", "Miettinen", "Savolainen", "Raitala"]
+      10.times do |i|
+        first = firsts[i % firsts.length]
+        last = lasts[i % lasts.length]
+        comp = series.competitors.build(:first_name => first, :last_name => last,
+          :club => clubs[i], :number => 100 + i)
+        if race.start_date < Date.today
+          if i % 4 == 0
+            comp.shots << Shot.new(:competitor => comp, :value => 10)
+            comp.shots << Shot.new(:competitor => comp, :value => 3)
+            comp.shots << Shot.new(:competitor => comp, :value => 0)
+            comp.shots << Shot.new(:competitor => comp, :value => 7)
+            comp.shots << Shot.new(:competitor => comp, :value => 10)
+            comp.shots << Shot.new(:competitor => comp, :value => 7)
+            comp.shots << Shot.new(:competitor => comp, :value => 9)
+            comp.shots << Shot.new(:competitor => comp, :value => 9)
+            comp.shots << Shot.new(:competitor => comp, :value => 2)
+            comp.shots << Shot.new(:competitor => comp, :value => 10)
+          else
+            shots = 71 + 2 * i
+            shots = nil if i == 3 or i == 7
+            comp.shots_total_input = shots
+          end
+          comp.estimate1 = correct1 + 6 - i
+          comp.estimate2 = correct2 - 8 + 2 * 1
+          if i == 1
+            comp.estimate1 = nil
+          elsif i == 3
+            comp.estimate2 = nil
+          elsif i == 6
+            comp.estimate2 = correct2 + 1
+          end
+        end
+        comp.save!
+      end
+
+      comp = series.competitors.build(:first_name => 'Teemu', :last_name => 'Turkulainen',
+        :club => clubs[2], :number => 110, :no_result_reason => Competitor::DNF)
+      comp.save!
+
+      unless series.generate_start_times
+        raise series.errors.on(:base)
+      end
+
+      if race.start_date < Date.today
+        series.competitors.each_with_index do |comp, i|
+          arrival = "15:0#{i + 1}:3#{9 - i}" unless i == 7
+          comp.arrival_time = arrival
+          comp.save!
+        end
+      end
     end
-    comp.estimate1 = correct1 + 6 - i
-    comp.estimate2 = correct2 - 8 + 2 * 1
-    if i == 1
-      comp.estimate1 = nil
-    elsif i == 3
-      comp.estimate2 = nil
-    elsif i == 6
-      comp.estimate2 = correct2 + 1
-    end
-    comp.save!
-  end
-
-  comp = series.competitors.build(:first_name => 'Teemu', :last_name => 'Turkulainen',
-    :club => clubs[2], :number => 110, :no_result_reason => Competitor::DNF)
-  comp.save!
-
-  unless series.generate_start_times
-    raise series.errors.on(:base)
-  end
-
-  series.competitors.each_with_index do |comp, i|
-    arrival = "15:0#{i + 1}:3#{9 - i}" unless i == 7
-    comp.arrival_time = arrival
-    comp.save!
   end
 end
