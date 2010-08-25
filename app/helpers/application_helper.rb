@@ -129,4 +129,9 @@ module ApplicationHelper
   end
   # -- Form child functions (end) --
 
+  def sport_icon(sport)
+    return '' unless sport
+    image_tag "#{sport.key.downcase}_icon.gif"
+  end
+
 end

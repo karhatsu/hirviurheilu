@@ -1,4 +1,5 @@
 <% races.each do |race| %>
+  <%= sport_icon(race.sport) %>
   <%= link_to race.name, race_path(race) %>,
   <%= date_interval(race.start_date, race.end_date) %>,
   <%= race.location %><br/>
