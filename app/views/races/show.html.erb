@@ -1,5 +1,5 @@
 <%= content_for(:title, @race.name) %>
-<h1><%= yield :title %></h1>
+<h1><%= sport_icon(@race.sport) %> <%= yield :title %></h1>
 <%= @race.location %>, <%= date_interval(@race.start_date, @race.end_date) %>
 <h2>Sarjat</h2>
 <% @race.series.each do |s| %>

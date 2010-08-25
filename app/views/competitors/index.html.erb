@@ -1,5 +1,5 @@
 <%= content_for(:title, "#{@series.name} - Tulokset") %>
-<h1><%= @series.race.name %></h1>
+<h1><%= sport_icon(@series.race.sport) %> <%= @series.race.name %></h1>
 <h2><%= yield :title %></h2>
 <%= render :partial => "start_notice", :locals => { :series => @series } %>
 <table>
