@@ -76,6 +76,10 @@ class Series < ActiveRecord::Base
     true
   end
 
+  def running?
+    start_time and start_time < Time.now and not race.finished
+  end
+
   private
   def start_time_during_race_dates
     return unless start_time

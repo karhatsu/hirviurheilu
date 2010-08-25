@@ -280,4 +280,28 @@ describe Series do
       end
     end
   end
+
+  describe "#running?" do
+    it "should be false when start time not defined yet" do
+      series = Factory.build(:series, :start_time => nil)
+      series.should_not be_running
+    end
+
+    it "should be false when start time in future" do
+      series = Factory.build(:series, :start_time => Time.now + 10)
+      series.should_not be_running
+    end
+
+    it "should be false when race is finished" do
+      race = Factory.build(:race, :finished => true)
+      series = Factory.build(:series, :start_time => Time.now - 1, :race => race)
+      series.should_not be_running
+    end
+
+    it "should be true when race isn't finished and start time in past" do
+      race = Factory.build(:race, :finished => false)
+      series = Factory.build(:series, :start_time => Time.now - 1, :race => race)
+      series.should be_running
+    end
+  end
 end

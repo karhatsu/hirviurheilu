@@ -2,7 +2,7 @@
 <h1><%= sport_icon(@series.race.sport) %> <%= @series.race.name %></h1>
 <h2><%= yield :title %></h2>
 <%= render :partial => "start_notice", :locals => { :series => @series } %>
-<% unless @series.start_time.nil? or @series.start_time > Time.now or @series.race.finished %>
+<% if @series.running? %>
   <div class="notice">Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan
     kilpailun päätyttyä.</div>
 <% end %>
