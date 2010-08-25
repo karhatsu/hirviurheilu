@@ -185,6 +185,26 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#estimate_points" do
+    it "should print empty string if no result reason defined" do
+      competitor = mock_model(Competitor, :shots_sum => 88,
+        :no_result_reason => Competitor::DNS)
+      helper.estimate_points(competitor).should == ''
+    end
+
+    it "should return dash if no estimate points" do
+      competitor = mock_model(Competitor, :estimate_points => nil,
+        :no_result_reason => nil)
+      helper.estimate_points(competitor).should == "-"
+    end
+
+    it "should return points otherwise" do
+      competitor = mock_model(Competitor, :estimate_points => 189,
+        :no_result_reason => nil)
+      helper.estimate_points(competitor).should == 189
+    end
+  end
+
   describe "#estimate_points_and_diffs" do
     it "should print empty string if no result reason defined" do
       competitor = mock_model(Competitor, :shots_sum => 88,

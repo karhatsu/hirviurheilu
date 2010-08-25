@@ -14,23 +14,27 @@
 <h3>Ammunta</h3>
 <%= shots_list(@competitor) %>
 <h3>Arviointi</h3>
-<table>
-  <tr>
-    <td>Arvioidut</td>
-    <td><%= @competitor.estimate1 ? @competitor.estimate1 : "-" %></td>
-    <td><%= @competitor.estimate2 ? @competitor.estimate2 : "-" %></td>
-  </tr>
-  <tr>
-    <td>Todelliset</td>
-    <td><%= correct_estimate(@competitor.series, 1, '-') %></td>
-    <td><%= correct_estimate(@competitor.series, 2, '-') %></td>
-  </tr>
-  <tr>
-    <td>Virhe</td>
-    <td><%= print_estimate_diff(@competitor.estimate_diff1_m) %></td>
-    <td><%= print_estimate_diff(@competitor.estimate_diff2_m) %></td>
-  </tr>
-</table>
+<% if @competitor.series.race.finished %>
+  <table>
+    <tr>
+      <td>Arvioidut</td>
+      <td><%= @competitor.estimate1 ? @competitor.estimate1 : "-" %></td>
+      <td><%= @competitor.estimate2 ? @competitor.estimate2 : "-" %></td>
+    </tr>
+    <tr>
+      <td>Todelliset</td>
+      <td><%= correct_estimate(@competitor.series, 1, '-') %></td>
+      <td><%= correct_estimate(@competitor.series, 2, '-') %></td>
+    </tr>
+    <tr>
+      <td>Virhe</td>
+      <td><%= print_estimate_diff(@competitor.estimate_diff1_m) %></td>
+      <td><%= print_estimate_diff(@competitor.estimate_diff2_m) %></td>
+    </tr>
+  </table>
+<% else %>
+  <div class="notice">Tarkemmat arviointitiedot näytetään kilpailun päätyttyä.</div>
+<% end %>
 <h3><%= @competitor.series.race.sport.run? ? "Juoksu" : "Hiihto" %></h3>
 <table>
   <tr>

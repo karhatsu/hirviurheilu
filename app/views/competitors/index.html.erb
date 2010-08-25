@@ -2,6 +2,10 @@
 <h1><%= sport_icon(@series.race.sport) %> <%= @series.race.name %></h1>
 <h2><%= yield :title %></h2>
 <%= render :partial => "start_notice", :locals => { :series => @series } %>
+<% unless @series.start_time.nil? or @series.start_time > Time.now or @series.race.finished %>
+  <div class="notice">Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan
+    kilpailun päätyttyä.</div>
+<% end %>
 <table>
   <tr>
     <th>&nbsp;</th>
@@ -19,7 +23,8 @@
     <td><%= comp.club.name %></td>
     <td><%= points_print(comp) %></td>
     <td><%= shot_points_and_total(comp) %></td>
-    <td><%= estimate_points_and_diffs(comp) %></td>
+    <td><%= @series.race.finished ? estimate_points_and_diffs(comp) :
+              estimate_points(comp) %></td>
     <td><%= time_points_and_time(comp) %></td>
   </tr>
 <% end %>

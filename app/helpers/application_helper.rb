@@ -96,6 +96,12 @@ module ApplicationHelper
     "#{competitor.estimate_points} (#{estimate_diffs(competitor)})"
   end
 
+  def estimate_points(competitor)
+    return '' if competitor.no_result_reason
+    return "-" if competitor.estimate_points.nil?
+    competitor.estimate_points
+  end
+
   def correct_estimate(series, i, not_available_str)
     raise "Unknown index for correct estimate: #{i}" if i != 1 and i != 2
     return not_available_str unless series.race.finished
