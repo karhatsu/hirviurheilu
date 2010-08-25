@@ -1,2 +1,3 @@
-<h1>Kilpailun lisäys</h1>
+<%= content_for(:title, 'Kilpailun lisäys') %>
+<h1><%= yield :title %></h1>
 <%= render :partial => "form", :locals => { :submit_label => "Lisää kilpailu" } %>

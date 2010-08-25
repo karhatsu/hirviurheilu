@@ -1,4 +1,5 @@
-<h1>Kirjaudu sisään</h1>
+<%= content_for(:title, 'Kirjaudu sisään') %>
+<h1><%= yield :title %></h1>
 
 <%= flash_notice %>
 <%= form_for @user_session, :url => user_session_path do |f| %>

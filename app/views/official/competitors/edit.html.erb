@@ -1,4 +1,5 @@
-<h1><%= full_name(@competitor) %></h1>
+<%= content_for(:title, full_name(@competitor)) %>
+<h1><%= yield :title %></h1>
 <%= render :partial => "shared/form_errors", :locals => { :item => @competitor } %>
 <%= form_for([:official, @competitor.series, @competitor]) do |f| %>
   <h2>Perustiedot</h2>

@@ -1,2 +1,3 @@
-<h1>Kilpailun muokkaus - <%= @race.name %></h1>
+<%= content_for(:title, "#{@race.name} - kilpailun muokkaus") %>
+<h1><%= yield :title %></h1>
 <%= render :partial => "form", :locals => { :submit_label => "Päivitä" } %>

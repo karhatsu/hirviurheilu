@@ -1,3 +1,4 @@
-<h1>Admin</h1>
+<%= content_for(:title, 'Admin') %>
+<h1><%= yield :title %></h1>
 <%= link_to "Piirit/seurat", admin_clubs_path %><br/>
 <%= link_to "Lajit", admin_clubs_path %>

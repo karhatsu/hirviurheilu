@@ -1,5 +1,6 @@
+<%= content_for(:title, "#{@competitor.series.name} - #{full_name(@competitor)}") %>
 <h1><%= @competitor.series.race.name %></h1>
-<h2><%= @competitor.series.name %> - <%= full_name(@competitor) %></h2>
+<h2><%= yield :title %></h2>
 <% if @competitor.no_result_reason %>
   <div class="notice"><%= t "competitor.#{@competitor.no_result_reason}" %></div>
 <% end %>
