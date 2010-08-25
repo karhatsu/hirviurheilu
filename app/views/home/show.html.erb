@@ -1,8 +1,11 @@
 <%= content_for(:title, 'Hirvenhiihdon ja hirvenjuoksun tulospalvelu') %>
 <h1><%= yield :title %></h1>
 
-<h2>Hirvenjuoksu</h2>
-<%= render :partial => "race_list", :locals => { :races => @run.races } %>
+<h2>Tulevat kilpailut</h2>
+<%= render :partial => "race_list", :locals => { :races => @future } %>
 
-<h2>Hirvenhiihto</h2>
-<%= render :partial => "race_list", :locals => { :races => @ski.races } %>
+<h2>Menossa olevat kilpailut</h2>
+<%= render :partial => "race_list", :locals => { :races => @ongoing } %>
+
+<h2>Päättyneet kilpailut</h2>
+<%= render :partial => "race_list", :locals => { :races => @past } %>

@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   def show
-    @run = Sport.find_run
-    @ski = Sport.find_ski
+    @past = Race.past
+    @ongoing = Race.ongoing
+    @future = Race.future
   end
 end
