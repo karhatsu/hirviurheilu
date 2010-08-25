@@ -22,8 +22,8 @@
   </tr>
   <tr>
     <td>Todelliset</td>
-    <td><%= @competitor.series.correct_estimate1 %></td>
-    <td><%= @competitor.series.correct_estimate2 %></td>
+    <td><%= correct_estimate(@competitor.series, 1, '-') %></td>
+    <td><%= correct_estimate(@competitor.series, 2, '-') %></td>
   </tr>
   <tr>
     <td>Virhe</td>

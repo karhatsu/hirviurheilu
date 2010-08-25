@@ -206,6 +206,50 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#correct_estimate" do
+    it "should raise error when index less than 1" do
+      lambda { helper.correct_estimate(nil, 0, '') }.should raise_error
+    end
+
+    it "should raise error when index more than 2" do
+      lambda { helper.correct_estimate(nil, 3, '') }.should raise_error
+    end
+
+    context "race not finished" do
+      before do
+        race = mock_model(Race, :finished => false)
+        @series = mock_model(Series, :race => race)
+      end
+
+      specify { helper.correct_estimate(@series, 1, '-').should == '-' }
+      specify { helper.correct_estimate(@series, 2, '-').should == '-' }
+    end
+
+    context "race finished" do
+      context "estimates available" do
+        before do
+          race = mock_model(Race, :finished => true)
+          @series = mock_model(Series, :race => race, :correct_estimate1 => 100,
+            :correct_estimate2 => 150)
+        end
+
+        specify { helper.correct_estimate(@series, 1, '-').should == 100 }
+        specify { helper.correct_estimate(@series, 2, '-').should == 150 }
+      end
+
+      context "estimates not available" do
+        before do
+          race = mock_model(Race, :finished => true)
+          @series = mock_model(Series, :race => race, :correct_estimate1 => nil,
+            :correct_estimate2 => nil)
+        end
+
+        specify { helper.correct_estimate(@series, 1, '-').should == '-' }
+        specify { helper.correct_estimate(@series, 2, '-').should == '-' }
+      end
+    end
+  end
+
   describe "#time_points_and_time" do
     it "should print empty string if no result reason defined" do
       competitor = mock_model(Competitor, :shots_sum => 88,
