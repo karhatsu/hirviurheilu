@@ -1,5 +1,5 @@
 <%= content_for(:title, 'Hirvenhiihdon ja hirvenjuoksun tulospalvelu') %>
-<h1><%= yield :title %></h1>
+<h1><%= image_tag "ski_icon.gif" %> <%= yield :title %> <%= image_tag "run_icon.gif" %></h1>
 
 <% unless @ongoing.empty? %>
   <h2>Menossa olevat kilpailut</h2>
