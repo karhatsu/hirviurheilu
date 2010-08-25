@@ -1,9 +1,14 @@
 body {
+    background-color: olive;
     font-family: monospace;
     font-size: 12px;
 }
 
-div.official_admin_links {
+.navigation {
+    color: white;
+}
+
+div.official_breadcrumb {
     width: 700px;
     padding-left: 10px;
     padding-right: 5px;
@@ -18,7 +23,7 @@ div.login_links {
     float: left;
 }
 
-div.navigation {
+div.breadcrumb {
     clear: both;
     margin-bottom: 2px;
     padding-left: 10px;
@@ -26,6 +31,7 @@ div.navigation {
 }
 
 div.main {
+    background-color: white;
     border: dashed 1px black;
     padding: 10px;
     width: 900px;

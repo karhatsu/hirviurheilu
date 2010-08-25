@@ -1,0 +1,11 @@
+<%= link_to "Toimitsijan etusivu", official_root_path, :class => 'navigation' %>
+<% if @race %>
+  &gt; <%= @race.name %>
+<% elsif @series %>
+  &gt; <%= link_to @series.race.name, edit_official_race_path(@series.race), :class => 'navigation' %>
+  &gt; <%= @series.name %>
+<% elsif @competitor %>
+  &gt; <%= link_to @competitor.series.race.name, edit_official_race_path(@competitor.series.race), :class => 'navigation' %>
+  &gt; <%= link_to @competitor.series.name, official_series_competitors_path(@competitor.series), :class => 'navigation' %>
+  &gt; <%= full_name(@competitor) %>
+<% end %>

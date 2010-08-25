@@ -1,3 +1,3 @@
-<%= link_to "Omat tiedot", account_path if current_user %>
-<%= link_to "Kirjaudu sisään", new_user_session_path unless current_user %>
-<%= link_to "Kirjaudu ulos", logout_path, :method => :delete if current_user %>
+<%= link_to "Omat tiedot", account_path, :class => 'navigation' if current_user %>
+<%= link_to "Kirjaudu sisään", new_user_session_path, :class => 'navigation' unless current_user %>
+<%= link_to "Kirjaudu ulos", logout_path, :method => :delete, :class => 'navigation' if current_user %>
