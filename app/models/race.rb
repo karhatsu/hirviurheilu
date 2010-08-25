@@ -4,6 +4,8 @@ class Race < ActiveRecord::Base
 
   accepts_nested_attributes_for :series, :allow_destroy => true
 
+  before_validation :set_end_date
+
   validates :sport, :presence => true
   validates :name, :presence => true
   validates :location, :presence => true
@@ -18,4 +20,9 @@ class Race < ActiveRecord::Base
       errors.add(:end_date, "ei voi olla ennen alkupäivää")
     end
   end
+
+  def set_end_date
+    self.end_date = start_date unless end_date
+  end
+
 end

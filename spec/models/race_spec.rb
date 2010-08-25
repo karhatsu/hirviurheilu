@@ -25,8 +25,9 @@ describe Race do
     end
 
     describe "end_date" do
-      it "can be nil" do
-        Factory.build(:race, :end_date => nil).should be_valid
+      it "can be nil which makes it same as start date" do
+        race = Factory.create(:race, :end_date => nil)
+        race.end_date.should == race.start_date
       end
 
       it "cannot be before start date" do
