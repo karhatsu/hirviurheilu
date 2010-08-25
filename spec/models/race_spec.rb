@@ -57,4 +57,27 @@ describe Race do
       end
     end
   end
+
+  describe "past/ongoing/future" do
+    before do
+      @past1 = Factory.create(:race, :start_date => Date.today - 10,
+        :end_date => nil)
+      @past2 = Factory.create(:race, :start_date => Date.today - 7,
+        :end_date => Date.today - 6)
+      @current1 = Factory.create(:race, :start_date => Date.today - 1,
+        :end_date => Date.today + 0)
+      @current2 = Factory.create(:race, :start_date => Date.today,
+        :end_date => nil)
+      @current3 = Factory.create(:race, :start_date => Date.today,
+        :end_date => Date.today + 1)
+      @future1 = Factory.create(:race, :start_date => Date.today + 1,
+        :end_date => Date.today + 2)
+      @future2 = Factory.create(:race, :start_date => Date.today + 1,
+        :end_date => nil)
+    end
+
+    specify { Race.past.should == [@past1, @past2] }
+    specify { Race.ongoing.should == [@current1, @current2, @current3] }
+    specify { Race.future.should == [@future1, @future2] }
+  end
 end

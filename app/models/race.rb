@@ -14,6 +14,11 @@ class Race < ActiveRecord::Base
     :allow_nil => true, :greater_than => 0 }
   validate :end_date_not_before_start_date
 
+  scope :past, :conditions => ['end_date<?', Date.today]
+  scope :ongoing, :conditions => ['start_date<=? and end_date>=?',
+    Date.today, Date.today]
+  scope :future, :conditions => ['start_date>?', Date.today]
+
   private
   def end_date_not_before_start_date
     if end_date and end_date < start_date
