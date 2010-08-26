@@ -2,7 +2,7 @@
   <%= f.label :name %>
   <%= f.text_field :name %><br/>
   <%= f.label :start_time %>
-  <%= f.datetime_select :start_time %><br/>
+  <%= f.datetime_select :start_time, :include_seconds => false, :include_blank => true %><br/>
   <%= f.label :first_number %>
   <%= f.text_field :first_number, :size => 5 %><br/>
   <%= f.label :correct_estimate1 %>
