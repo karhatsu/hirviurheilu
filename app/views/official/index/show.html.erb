@@ -1,9 +1,17 @@
 <%= content_for(:title, 'Toimitsijan etusivu') %>
 <h1><%= yield :title %></h1>
 <%= flash_error %>
+<%= flash_notice %>
 <% @races.each do |r| %>
   <h2><%= r.name %></h2>
-  <%= link_to "Muokkaa kilpailun ja sarjojen asetuksia", edit_official_race_path(r) %><br/><br/>
+  <div class="action_box">
+    <%= link_to "Muokkaa kilpailun ja sarjojen asetuksia", edit_official_race_path(r) %>
+  </div>
+  <% unless r.finished? or r.start_date > Date.today %>
+    <div class="action_box">
+      <%= render :partial => "official/finish_races/form", :locals => { :race => r } %>
+    </div>
+  <% end %>
   <% r.series.each do |s| %>
     <%= s.name %> - <%= link_to "Kilpailijat", official_series_competitors_path(s) %><br/>
   <% end %>

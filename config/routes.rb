@@ -20,7 +20,9 @@ ElkSports::Application.routes.draw do
   end
 
   namespace :official do
-    resources :races
+    resources :races do
+      resource :finish_race
+    end
     match '/series/:series_id/competitors/generate_times' => 'competitors#generate_times',
       :as => :generate_times
     resources :series do
