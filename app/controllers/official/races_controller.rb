@@ -29,6 +29,16 @@ class Official::RacesController < Official::OfficialController
     end
   end
 
+  def destroy
+    @race = Race.find(params[:id])
+    if @race.destroy
+      flash[:notice] = "Kilpailu poistettu"
+    else
+      flash[:error] = "Kilpailua ei voi poistaa: #{@race.errors[:base]}"
+    end
+    redirect_to official_root_path
+  end
+
   private
   def check_race_rights
     check_race(Race.find(params[:id]))

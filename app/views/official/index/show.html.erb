@@ -15,6 +15,13 @@
   <% r.series.each do |s| %>
     <%= s.name %> - <%= link_to "Kilpailijat", official_series_competitors_path(s) %><br/>
   <% end %>
+  <% if r.series.empty? %>
+    <div class="action_box">
+      <%= form_tag(official_race_path(r), :method => :delete) do %>
+        <%= submit_tag "Poista kilpailu" %>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
 <br/>
 <div class="action_box">
