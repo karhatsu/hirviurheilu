@@ -145,4 +145,22 @@ describe Race do
       end
     end
   end
+
+  describe "#destroy" do
+    before do
+      @race = Factory.create(:race)
+    end
+
+    it "should be prevented if race has series" do
+      @race.series << Factory.build(:series, :race => @race)
+      @race.destroy
+      @race.should have(1).errors
+      Race.should be_exist(@race.id)
+    end
+
+    it "should destroy race when no series" do
+      @race.destroy
+      Race.should_not be_exist(@race.id)
+    end
+  end
 end

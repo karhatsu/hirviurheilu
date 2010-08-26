@@ -15,6 +15,8 @@ class Race < ActiveRecord::Base
     :allow_nil => true, :greater_than => 0 }
   validate :end_date_not_before_start_date
 
+  before_destroy :prevent_destroy_if_series
+
   scope :past, :conditions => ['end_date<?', Date.today], :order => 'end_date DESC'
   scope :ongoing, :conditions => ['start_date<=? and end_date>=?',
     Date.today, Date.today]
@@ -51,6 +53,13 @@ class Race < ActiveRecord::Base
 
   def set_end_date
     self.end_date = start_date unless end_date
+  end
+
+  def prevent_destroy_if_series
+    unless series.empty?
+      errors.add(:base, "Kilpailun voi poistaa vain jos siinä on sarjoja")
+      return false
+    end
   end
 
 end
