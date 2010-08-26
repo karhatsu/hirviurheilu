@@ -30,7 +30,8 @@ class Race < ActiveRecord::Base
     competitors.each do |c|
       unless c.finished?
         name = "#{c.first_name} #{c.last_name}"
-        errors.add(:base, "Ainakin yhdeltä kilpailijalta (#{name}) puuttuu tulos. " +
+        errors.add(:base, "Ainakin yhdeltä kilpailijalta " +
+          "(#{name}, #{c.series.name}) puuttuu tulos. " +
           "Jos kilpailija ei ole lähtenyt matkaan tai on keskeyttänyt, " +
           "merkitse tieto tuloslomakkeen 'Ei tulosta' kohtaan.")
         return false

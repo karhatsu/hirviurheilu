@@ -119,8 +119,9 @@ describe Race do
 
       context "competitors missing results" do
         before do
+          series = mock_model(Series, :name => "Test series")
           @competitors << mock_model(Competitor, :finished? => false,
-            :first_name => "Test", :last_name => "Competitor")
+            :first_name => "Test", :last_name => "Competitor", :series => series)
           @race.should_receive(:competitors).and_return(@competitors)
           @result = @race.finish
         end
