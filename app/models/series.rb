@@ -1,4 +1,5 @@
 class Series < ActiveRecord::Base
+  NORMAL_TIME_METHOD = 0
   OWN_TIME_POINTS_FOR_DIFFERENT_SEXES = 1
 
   belongs_to :race
@@ -10,8 +11,8 @@ class Series < ActiveRecord::Base
   validates :race, :presence => true
   validates :first_number, :numericality => { :only_integer => true,
     :allow_nil => true, :greater_than => 0 }
-  validates :time_method, :allow_nil => true,
-    :inclusion => { :in => [OWN_TIME_POINTS_FOR_DIFFERENT_SEXES] }
+  validates :time_method,
+    :inclusion => { :in => [NORMAL_TIME_METHOD, OWN_TIME_POINTS_FOR_DIFFERENT_SEXES] }
   validate :start_time_during_race_dates
 
   def best_time_in_seconds

@@ -9,5 +9,9 @@
   <%= f.text_field :correct_estimate1, :size => 5, :maxlength => 3 %><br/>
   <%= f.label :correct_estimate2 %>
   <%= f.text_field :correct_estimate2, :size => 5, :maxlength => 3 %><br/>
+  <%= f.label :time_method %>
+  <%= f.radio_button :time_method, Series::NORMAL_TIME_METHOD %> Normaali
+  <%= f.radio_button :time_method, Series::OWN_TIME_POINTS_FOR_DIFFERENT_SEXES %>
+  Miehillä ja naisilla omat pisteet<br/>
   <%= remove_child_link "Poista sarja", f, 'series_sub_form', "" %>
 </div><br/>
