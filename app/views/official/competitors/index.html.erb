@@ -20,7 +20,7 @@ Ensimmäinen numero: <%= @series.first_number ? @series.first_number : "-" %>
   <%= form_for([:official, @series], :url => official_generate_times_path(@series)) do |f| %>
     Generoi kilpailijoille lähtöajat käyttäen sarjalle määritettyä lähtöaikaa.
     Jos kilpailijoilla on jo määritetty lähtöaikoja, ne ylikirjoitetaan.
-    <%= submit_tag "Generoi ajat" %>
+    <%= submit_tag "Generoi lähtöajat" %>
   <% end %>
 </div>
 <table>

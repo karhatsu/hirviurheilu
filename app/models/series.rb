@@ -15,10 +15,12 @@ class Series < ActiveRecord::Base
     :inclusion => { :in => [NORMAL_TIME_METHOD, OWN_TIME_POINTS_FOR_DIFFERENT_SEXES] }
   validate :start_time_during_race_dates
 
-  def best_time_in_seconds
+  def best_time_in_seconds(sex)
     times = []
+    check_sex = (time_method == OWN_TIME_POINTS_FOR_DIFFERENT_SEXES)
     competitors.each do |comp|
-      times << comp.time_in_seconds unless comp.time_in_seconds.nil? or comp.no_result_reason
+      times << comp.time_in_seconds unless comp.time_in_seconds.nil? or
+        comp.no_result_reason or (check_sex and sex != comp.sex)
     end
     times.sort!
     times.first

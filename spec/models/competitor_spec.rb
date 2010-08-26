@@ -360,9 +360,10 @@ describe Competitor do
   describe "time_points" do
     before do
       @series = Factory.build(:series)
-      @competitor = Factory.build(:competitor, :series => @series)
+      @sex = Competitor::FEMALE
+      @competitor = Factory.build(:competitor, :series => @series, :sex => @sex)
       @best_time_seconds = 3600
-      @series.stub!(:best_time_in_seconds).and_return(@best_time_seconds)
+      @series.stub!(:best_time_in_seconds).with(@sex).and_return(@best_time_seconds)
     end
 
     it "should be nil when time cannot be calculated yet" do
@@ -403,7 +404,7 @@ describe Competitor do
     context "no result" do
       before do
         @competitor = Factory.build(:competitor, :series => @series,
-          :no_result_reason => Competitor::DNF)
+          :no_result_reason => Competitor::DNF, :sex => @sex)
       end
 
       it "should be like normally when the competitor has not the best time" do
