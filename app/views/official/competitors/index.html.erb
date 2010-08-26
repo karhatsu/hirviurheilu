@@ -16,6 +16,7 @@
     <th>Kilpailija</th>
     <th>Nro</th>
     <th>Lähtöaika</th>
+    <th>Tulos</th>
   </tr>
   <% @series.competitors.each do |comp| %>
     <tr>
@@ -23,6 +24,7 @@
             edit_official_series_competitor_path(@series.id, comp) %></td>
       <td><%= comp.number %></td>
       <td><%= time_print(comp.start_time, true) %></td>
+      <td><%= comp.finished? ? 'x' : '' %></td>
     </tr>
   <% end %>
 </table>
