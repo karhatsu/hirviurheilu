@@ -151,6 +151,37 @@ describe Series do
         end
       end
     end
+
+    describe "cache" do
+      before do
+        @series = Factory.build(:series)
+        @c1 = mock_model(Competitor, :time_in_seconds => 150,
+          :no_result_reason => nil, :sex => Competitor::MALE)
+        @c2 = mock_model(Competitor, :time_in_seconds => 149,
+          :no_result_reason => nil, :sex => Competitor::FEMALE)
+        @c3 = mock_model(Competitor, :time_in_seconds => 148,
+          :no_result_reason => nil, :sex => Competitor::MALE)
+      end
+
+      it "should calculate in the first time and get from cache in the second" do
+        @series.should_receive(:competitors).once.and_return([@c1, @c2, @c3])
+        @series.best_time_in_seconds(Competitor::FEMALE).should == 148
+        @series.best_time_in_seconds(Competitor::FEMALE).should == 148
+        @series.should_receive(:competitors).once.and_return([@c1, @c2, @c3])
+        @series.best_time_in_seconds(Competitor::MALE).should == 148
+        @series.best_time_in_seconds(Competitor::MALE).should == 148
+      end
+
+      it "should work also when own best time for different sexes" do
+        @series.time_method = Series::OWN_TIME_POINTS_FOR_DIFFERENT_SEXES
+        @series.should_receive(:competitors).once.and_return([@c1, @c2, @c3])
+        @series.best_time_in_seconds(Competitor::FEMALE).should == 149
+        @series.best_time_in_seconds(Competitor::FEMALE).should == 149
+        @series.should_receive(:competitors).once.and_return([@c1, @c2, @c3])
+        @series.best_time_in_seconds(Competitor::MALE).should == 148
+        @series.best_time_in_seconds(Competitor::MALE).should == 148
+      end
+    end
   end
 
   describe "ordered_competitors" do

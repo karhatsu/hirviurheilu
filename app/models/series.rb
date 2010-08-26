@@ -18,6 +18,10 @@ class Series < ActiveRecord::Base
   before_destroy :prevent_destroy_if_competitors
 
   def best_time_in_seconds(sex)
+    @seconds_cache = Hash.new unless @seconds_cache
+    if @seconds_cache[sex]
+      return @seconds_cache[sex]
+    end
     times = []
     check_sex = (time_method == OWN_TIME_POINTS_FOR_DIFFERENT_SEXES)
     competitors.each do |comp|
@@ -25,7 +29,7 @@ class Series < ActiveRecord::Base
         comp.no_result_reason or (check_sex and sex != comp.sex)
     end
     times.sort!
-    times.first
+    @seconds_cache[sex] = times.first
   end
 
   def ordered_competitors
