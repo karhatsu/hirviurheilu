@@ -80,4 +80,68 @@ describe Race do
     specify { Race.ongoing.should == [@current1, @current2, @current3] }
     specify { Race.future.should == [@future2, @future1] }
   end
+
+  describe "#finish" do
+    before do
+      @competitors = []
+      @competitors << mock_model(Competitor, :finished? => true)
+      @race = Factory.create(:race)
+      @race.series << Factory.build(:series, :correct_estimate1 => 100,
+        :correct_estimate2 => 200, :race => @race)
+    end
+
+    describe "should return false and sets error when" do
+      context "series missing correct estimate" do
+        describe "1" do
+          before do
+            @race.series << Factory.build(:series, :correct_estimate1 => nil,
+              :correct_estimate2 => 200, :race => @race)
+            @result = @race.finish
+          end
+
+          specify { @result.should be_false }
+          specify { @race.should have(1).errors }
+          specify { @race.should_not be_finished }
+        end
+
+        describe "2" do
+          before do
+            @race.series << Factory.build(:series, :correct_estimate1 => 80,
+              :correct_estimate2 => nil, :race => @race)
+            @result = @race.finish
+          end
+
+          specify { @result.should be_false }
+          specify { @race.should have(1).errors }
+          specify { @race.should_not be_finished }
+        end
+      end
+
+      context "competitors missing results" do
+        before do
+          @competitors << mock_model(Competitor, :finished? => false,
+            :first_name => "Test", :last_name => "Competitor")
+          @race.should_receive(:competitors).and_return(@competitors)
+          @result = @race.finish
+        end
+
+        specify { @result.should be_false }
+        specify { @race.should have(1).errors }
+        specify { @race.should_not be_finished }
+      end
+    end
+
+    describe "should return true, finish the race and give no errors" do
+      context "correct estimates and all results filled" do
+        before do
+          @race.should_receive(:competitors).and_return(@competitors)
+          @result = @race.finish
+        end
+
+        specify { @result.should be_true }
+        specify { @race.should have(0).errors }
+        specify { @race.should be_finished }
+      end
+    end
+  end
 end
