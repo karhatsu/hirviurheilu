@@ -16,8 +16,9 @@ class Competitor < ActiveRecord::Base
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :sex, :inclusion => { :in => [MALE, FEMALE] }
-  validates :number, :numericality => { :only_integer => true,
-    :greater_than => 0, :allow_nil => true }, :uniqueness => { :scope => :series_id }
+  validates :number,
+    :numericality => { :only_integer => true, :greater_than => 0, :allow_nil => true },
+    :uniqueness => { :scope => :series_id, :allow_nil => true }
   validates :shots_total_input, :allow_nil => true,
     :numericality => { :only_integer => true,
       :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }

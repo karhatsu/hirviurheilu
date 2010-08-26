@@ -62,12 +62,25 @@ describe Competitor do
           should have(1).errors_on(:number)
       end
 
-      it "should be unique inside of same series" do
-        Factory.create(:competitor, :number => 5)
-        comp = Factory.create(:competitor, :number => 5)
-        comp.should be_valid
-        comp = Factory.build(:competitor, :number => 5, :series => comp.series)
-        comp.should have(1).errors_on(:number)
+      describe "uniqueness" do
+        before do
+          @c = Factory.create(:competitor, :number => 5)
+        end
+
+        it "should accept two same numbers if different series" do
+          Factory.build(:competitor, :number => 5).should be_valid
+        end
+
+        it "should be required inside of same series" do
+          Factory.build(:competitor, :number => 5, :series => @c.series).
+            should have(1).errors_on(:number)
+        end
+        
+        it "should allow two nils for same series" do
+          c = Factory.create(:competitor, :number => nil)
+          Factory.build(:competitor, :number => nil, :series => c.series).
+            should be_valid
+        end
       end
     end
 
