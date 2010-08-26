@@ -57,7 +57,7 @@ class Race < ActiveRecord::Base
 
   def prevent_destroy_if_series
     unless series.empty?
-      errors.add(:base, "Kilpailun voi poistaa vain jos siinä on sarjoja")
+      errors.add(:base, "Kilpailun voi poistaa vain jos siinä ei ole sarjoja")
       return false
     end
   end
