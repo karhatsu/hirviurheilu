@@ -35,6 +35,29 @@ class Series < ActiveRecord::Base
     1
   end
 
+  def generate_numbers
+    failure = false
+    error_start = 'Numeroita ei voi generoida'
+    unless first_number
+      errors.add(:base, "#{error_start}, sillä sarjan ensimmäistä numeroa ei ole määritetty")
+      failure = true
+    end
+    competitors.each do |comp|
+      if comp.arrival_time
+        errors.add(:base, "#{error_start}, sillä osalla kilpailijoista on jo saapumisaika")
+        failure = true
+        break
+      end
+    end
+    return false if failure
+
+    competitors.each_with_index do |comp, i|
+      comp.number = first_number + i
+      comp.save!
+    end
+    true
+  end
+
   def generate_start_times
     failure = false
     error_start = 'Lähtöaikoja ei voi generoida'

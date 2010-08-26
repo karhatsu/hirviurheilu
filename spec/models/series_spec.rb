@@ -184,6 +184,66 @@ describe Series do
     end
   end
 
+  describe "#generate_numbers" do
+    before do
+      @race = Factory.create(:race)
+      @series = Factory.create(:series, :race => @race, :first_number => 5)
+      @old1, @old2, @old3 = 9, nil, 13
+      @c1 = Factory.create(:competitor, :series => @series, :number => @old1)
+      @c2 = Factory.create(:competitor, :series => @series, :number => @old2)
+      @c3 = Factory.create(:competitor, :series => @series, :number => @old3)
+    end
+    
+    describe "generation fails" do
+      context "some competitor already has arrival time" do
+        it "should do nothing for competitors, add error and return false" do
+          @c4 = Factory.create(:competitor, :series => @series,
+            :start_time => '14:00', :arrival_time => '14:30')
+          @series.reload
+          @series.generate_numbers.should be_false
+          @series.should have(1).errors
+          check_competitors_no_changes
+        end
+      end
+
+      context "series has no first number" do
+        before do
+          @series.first_number = nil
+          @series.save!
+        end
+
+        it "should do nothing for competitors, add error and return false" do
+          @series.reload
+          @series.generate_numbers.should be_false
+          @series.should have(1).errors
+          check_competitors_no_changes
+        end
+      end
+      
+      def check_competitors_no_changes
+        @c1.reload
+        @c1.number.should == @old1
+        @c2.reload
+        @c2.number.should == @old2
+        @c3.reload
+        @c3.number.should == @old3
+      end
+    end
+
+    describe "generation succeeds" do
+      it "should generate numbers based on series first number and return true" do
+        @series.generate_numbers.should be_true
+        @series.should be_valid
+        @c1.reload
+        @c2.reload
+        @c3.reload
+        @c1.number.should == 5
+        @c2.number.should == 6
+        @c3.number.should == 7
+      end
+    end
+  end
+
   describe "#generate_start_times" do
     before do
       @race = Factory.create(:race, :start_date => '2010-08-15',
