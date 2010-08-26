@@ -87,7 +87,7 @@ class Competitor < ActiveRecord::Base
       raise "Competitor time better than the best time and no DNS/DNF!" unless no_result_reason
       return nil
     end
-    points = 300 - (own_time - series.best_time_in_seconds(sex) + 9) / 10
+    points = 300 - (own_time.to_i - series.best_time_in_seconds(sex).to_i + 9) / 10
     return points.to_i if points >= 0
     0
   end

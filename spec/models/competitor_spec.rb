@@ -362,7 +362,7 @@ describe Competitor do
       @series = Factory.build(:series)
       @sex = Competitor::FEMALE
       @competitor = Factory.build(:competitor, :series => @series, :sex => @sex)
-      @best_time_seconds = 3600
+      @best_time_seconds = 3600.0
       @series.stub!(:best_time_in_seconds).with(@sex).and_return(@best_time_seconds)
     end
 
