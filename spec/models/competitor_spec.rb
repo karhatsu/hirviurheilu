@@ -23,6 +23,25 @@ describe Competitor do
         should have(1).errors_on(:series)
     end
 
+    describe "sex" do
+      it "should accept nil which becomes M by default" do
+        c = Factory.create(:competitor, :sex => nil)
+        c.sex.should == Competitor::MALE
+      end
+
+      it "should accept M" do
+        Factory.build(:competitor, :sex => Competitor::MALE).should be_valid
+      end
+
+      it "should accept F" do
+        Factory.build(:competitor, :sex => Competitor::FEMALE).should be_valid
+      end
+
+      it "should not accept anything else" do
+        Factory.build(:competitor, :sex => 'x').should have(1).errors_on(:sex)
+      end
+    end
+
     describe "number" do
       it "can be nil" do
         Factory.build(:competitor, :number => nil).should be_valid

@@ -1,4 +1,6 @@
 class Competitor < ActiveRecord::Base
+  MALE = 'M'
+  FEMALE = 'F'
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish
 
@@ -8,9 +10,12 @@ class Competitor < ActiveRecord::Base
 
   accepts_nested_attributes_for :shots, :allow_destroy => true
 
+  before_validation :set_sex
+
   validates :series, :presence => true
   validates :first_name, :presence => true
   validates :last_name, :presence => true
+  validates :sex, :inclusion => { :in => [MALE, FEMALE] }
   validates :number, :numericality => { :only_integer => true,
     :greater_than => 0, :allow_nil => true }, :uniqueness => { :scope => :series_id }
   validates :shots_total_input, :allow_nil => true,
@@ -127,6 +132,10 @@ class Competitor < ActiveRecord::Base
   end
 
   protected
+  def set_sex
+    self.sex = MALE unless sex
+  end
+
   def arrival_not_before_start_time
     return if start_time.nil? and arrival_time.nil?
     if start_time.nil?
