@@ -14,6 +14,9 @@ ElkSports::Application.routes.draw do
   end
 
   namespace :admin do
+    resources :users do as_routes end
+    resources :roles do as_routes end
+    resources :races do as_routes end
     resources :clubs do as_routes end
     resources :sports do as_routes end
     root :to => "index#show"

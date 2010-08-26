@@ -19,7 +19,8 @@ fi:
 
   time:
     formats:
-      default: "%A %e. %Bta %Y %H:%M:%S %z"
+      #default: "%A %e. %Bta %Y %H:%M:%S %z"
+      default: "%d.%m.%Y %H:%M:%S"
       short: "%e.%m. %H.%M"
       long: "%e. %Bta %Y %H.%M"
     am: "aamupäivä"
