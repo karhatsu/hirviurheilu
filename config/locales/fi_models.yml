@@ -18,7 +18,9 @@ fi:
     number: Numero
     password: Salasana
     password_confirmation: Salasana uudestaan
+    race: Kilpailu
     remember_me: Muista minut
+    series: Sarja
     shots_total_input: Ammunta yhteensä
     sport: Laji
     start_date: Alkupvm
