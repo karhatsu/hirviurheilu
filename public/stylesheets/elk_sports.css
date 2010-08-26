@@ -8,6 +8,10 @@ body {
     color: white;
 }
 
+a:hover.navigation {
+    text-decoration: none;
+}
+
 div.official_breadcrumb {
     width: 700px;
     padding-left: 10px;
