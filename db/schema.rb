@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100826075721) do
+ActiveRecord::Schema.define(:version => 20100826125414) do
 
   create_table "clubs", :force => true do |t|
     t.string   "name",       :null => false
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(:version => 20100826075721) do
     t.string   "sex",               :limit => 1, :default => "M", :null => false
   end
 
+  add_index "competitors", ["series_id"], :name => "index_competitors_on_series_id"
+
   create_table "race_officials", :id => false, :force => true do |t|
     t.integer "race_id", :null => false
     t.integer "user_id", :null => false
@@ -51,6 +53,8 @@ ActiveRecord::Schema.define(:version => 20100826075721) do
     t.integer  "start_interval_seconds"
     t.boolean  "finished",               :default => false, :null => false
   end
+
+  add_index "races", ["sport_id"], :name => "index_races_on_sport_id"
 
   create_table "rights", :id => false, :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -79,12 +83,16 @@ ActiveRecord::Schema.define(:version => 20100826075721) do
     t.integer  "time_method",       :limit => 1, :default => 0, :null => false
   end
 
+  add_index "series", ["race_id"], :name => "index_series_on_race_id"
+
   create_table "shots", :force => true do |t|
     t.integer  "competitor_id"
     t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "shots", ["competitor_id"], :name => "index_shots_on_competitor_id"
 
   create_table "sports", :force => true do |t|
     t.string   "name",       :null => false
@@ -122,5 +130,7 @@ ActiveRecord::Schema.define(:version => 20100826075721) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email"
 
 end
