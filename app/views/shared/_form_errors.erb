@@ -1,6 +1,6 @@
 <% if item.errors.any? %>
   <div class="error_explanation">
-    <div>Lomaketta ei tallennettu seuraavien virheiden takia:</div>
+    <div>Virhe:</div>
     <ul>
       <% item.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
