@@ -69,6 +69,25 @@ describe Series do
           should have(1).errors_on(:first_number)
       end
     end
+
+    describe "time_method" do
+      it "can be nil" do
+        Factory.build(:series, :time_method => nil).should be_valid
+      end
+
+      context "when not nil" do
+        it "can refer to own time points for different sexes" do
+          Factory.build(:series,
+            :time_method => Series::OWN_TIME_POINTS_FOR_DIFFERENT_SEXES).
+            should be_valid
+        end
+
+        it "cannot be anything else" do
+          Factory.build(:series, :time_method => 123).
+            should have(1).errors_on(:time_method)
+        end
+      end
+    end
   end
 
   describe "best_time_in_seconds" do

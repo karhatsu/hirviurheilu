@@ -1,4 +1,6 @@
 class Series < ActiveRecord::Base
+  OWN_TIME_POINTS_FOR_DIFFERENT_SEXES = 1
+
   belongs_to :race
   has_many :competitors
   has_many :start_list, :class_name => "Competitor", :foreign_key => 'series_id',
@@ -8,6 +10,8 @@ class Series < ActiveRecord::Base
   validates :race, :presence => true
   validates :first_number, :numericality => { :only_integer => true,
     :allow_nil => true, :greater_than => 0 }
+  validates :time_method, :allow_nil => true,
+    :inclusion => { :in => [OWN_TIME_POINTS_FOR_DIFFERENT_SEXES] }
   validate :start_time_during_race_dates
 
   def best_time_in_seconds
