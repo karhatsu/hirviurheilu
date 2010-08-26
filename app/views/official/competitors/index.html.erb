@@ -1,6 +1,11 @@
 <%= content_for(:title, "#{@series.name} - kilpailijat") %>
 <h1><%= @series.race.name %></h1>
 <h2><%= yield :title %></h2>
+<%= render :partial => "shared/form_errors", :locals => { :item => @series } %>
+Lähtöaika: <%= @series.start_time ? datetime_print(@series.start_time, true) : "-" %>
+  (<%= link_to("muokkaa", edit_official_race_path(@series.race)) %>)<br/>
+Ensimmäinen numero: <%= @series.first_number ? @series.first_number : "-" %>
+  (<%= link_to("muokkaa", edit_official_race_path(@series.race)) %>)
 <div class="action_box">
   <%= link_to "Lisää uusi kilpailija", new_official_series_competitor_path(@series.id) %>
 </div>
