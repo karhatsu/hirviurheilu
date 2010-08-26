@@ -420,4 +420,22 @@ describe Series do
       series.should be_running
     end
   end
+
+  describe "#destroy" do
+    before do
+      @series = Factory.create(:series)
+    end
+
+    it "should be prevented if series has competitors" do
+      @series.competitors << Factory.build(:competitor, :series => @series)
+      @series.destroy
+      @series.should have(1).errors
+      Series.should be_exist(@series.id)
+    end
+
+    it "should destroy series when no competitors" do
+      @series.destroy
+      Series.should_not be_exist(@series.id)
+    end
+  end
 end

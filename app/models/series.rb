@@ -15,6 +15,8 @@ class Series < ActiveRecord::Base
     :inclusion => { :in => [NORMAL_TIME_METHOD, OWN_TIME_POINTS_FOR_DIFFERENT_SEXES] }
   validate :start_time_during_race_dates
 
+  before_destroy :prevent_destroy_if_competitors
+
   def best_time_in_seconds(sex)
     times = []
     check_sex = (time_method == OWN_TIME_POINTS_FOR_DIFFERENT_SEXES)
@@ -116,6 +118,13 @@ class Series < ActiveRecord::Base
     end_date = race.end_date ? race.end_date : end_date = race.start_date
     if start_time < race.start_date.beginning_of_day or start_time > end_date.end_of_day
       errors.add(:start_time, "Aloitusajan pitää olla kilpailupäivien aikana")
+    end
+  end
+
+  def prevent_destroy_if_competitors
+    unless competitors.empty?
+      errors.add(:base, "Sarjan voi poistaa vain jos siinä ei ole kilpailijoita")
+      return false
     end
   end
 
