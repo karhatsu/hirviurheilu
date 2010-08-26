@@ -23,6 +23,8 @@ ElkSports::Application.routes.draw do
     resources :races do
       resource :finish_race
     end
+    match '/series/:series_id/competitors/generate_numbers' => 'competitors#generate_numbers',
+      :as => :generate_numbers
     match '/series/:series_id/competitors/generate_times' => 'competitors#generate_times',
       :as => :generate_times
     resources :series do

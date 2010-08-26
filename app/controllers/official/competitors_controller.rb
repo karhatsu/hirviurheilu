@@ -48,6 +48,15 @@ class Official::CompetitorsController < Official::OfficialController
     end
   end
 
+  def generate_numbers
+    @series = Series.find(params[:series_id])
+    if @series.generate_numbers
+      redirect_to official_series_competitors_path(@series)
+    else
+      render :index
+    end
+  end
+
   def generate_times
     @series = Series.find(params[:series_id])
     if @series.generate_start_times

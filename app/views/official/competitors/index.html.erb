@@ -10,6 +10,13 @@ Ensimmäinen numero: <%= @series.first_number ? @series.first_number : "-" %>
   <%= link_to "Lisää uusi kilpailija", new_official_series_competitor_path(@series.id) %>
 </div>
 <div class="action_box">
+  <%= form_for([:official, @series], :url => official_generate_numbers_path(@series)) do |f| %>
+    Generoi kilpailijoille numerot käyttäen sarjalle määritettyä ensimmäistä numeroa.
+    Jos kilpailijoilla on jo määritetty numeroita, ne ylikirjoitetaan.
+    <%= submit_tag "Generoi numerot" %>
+  <% end %>
+</div>
+<div class="action_box">
   <%= form_for([:official, @series], :url => official_generate_times_path(@series)) do |f| %>
     Generoi kilpailijoille lähtöajat käyttäen sarjalle määritettyä lähtöaikaa.
     Jos kilpailijoilla on jo määritetty lähtöaikoja, ne ylikirjoitetaan.
