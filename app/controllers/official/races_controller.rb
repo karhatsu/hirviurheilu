@@ -9,7 +9,8 @@ class Official::RacesController < Official::OfficialController
     @race = Race.new(params[:race])
     if @race.save
       current_user.races << @race
-      redirect_to official_root_path
+      flash[:notice] = "Kilpailu lisätty. Voit lisätä nyt sarjoja kilpailulle."
+      redirect_to edit_official_race_path(@race)
     else
       render :new
     end

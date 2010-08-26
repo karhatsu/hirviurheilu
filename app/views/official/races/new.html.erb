@@ -1,3 +1,7 @@
 <%= content_for(:title, 'Kilpailun lisäys') %>
 <h1><%= yield :title %></h1>
-<%= render :partial => "form", :locals => { :submit_label => "Lisää kilpailu" } %>
+<%= flash_notice %>
+<%# cannot include series in add form since it causes a validation loop between
+  races and series %>
+<%= render :partial => "form", :locals => { :submit_label => "Lisää kilpailu",
+      :include_series => false } %>
