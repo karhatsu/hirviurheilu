@@ -6,7 +6,7 @@ class Competitor < ActiveRecord::Base
 
   belongs_to :club
   belongs_to :series
-  has_many :shots
+  has_many :shots, :dependent => :destroy
 
   accepts_nested_attributes_for :shots, :allow_destroy => true
 
