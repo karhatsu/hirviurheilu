@@ -100,6 +100,10 @@ class Competitor < ActiveRecord::Base
     shot_points.to_i + estimate_points.to_i + time_points.to_i
   end
 
+  def finished?
+    no_result_reason or points
+  end
+
   def next_competitor
     unless number
       return self

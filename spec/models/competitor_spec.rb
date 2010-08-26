@@ -529,4 +529,22 @@ describe Competitor do
     end
   end
 
+  describe "#finished?" do
+    it "should return true when competitor has points" do
+      c = Factory.build(:competitor, :no_result_reason => nil)
+      c.should_receive(:points).and_return(1000)
+      c.should be_finished
+    end
+
+    it "should return true when competitor has 'no result reason'" do
+      c = Factory.build(:competitor, :no_result_reason => Competitor::DNS)
+      c.should be_finished
+    end
+
+    it "should return false when competitor has no points nor 'no result reason'" do
+      c = Factory.build(:competitor, :no_result_reason => nil)
+      c.should_not be_finished
+    end
+  end
+
 end
