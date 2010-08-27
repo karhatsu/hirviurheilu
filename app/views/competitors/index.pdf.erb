@@ -1,11 +1,10 @@
-<%= content_for(:title, "#{@series.name} - Tulokset") %>
-<h1><%= sport_icon(@series.race.sport) %> <%= @series.race.name %></h1>
-<h2><%= yield :title %></h2>
-<%= render :partial => "start_notice", :locals => { :series => @series } %>
+<h1><%= @series.race.name %></h1>
+<h2><%= "#{@series.name} - Tulokset" %></h2>
 <% if @series.running? %>
   <div class="notice">Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan
     kilpailun päätyttyä.</div>
 <% end %>
+<br/>
 <table>
   <tr>
     <th>&nbsp;</th>
@@ -19,7 +18,7 @@
 <% @series.ordered_competitors.each_with_index do |comp, i| %>
   <tr>
     <td><%= i + 1 %>.</td>
-    <td><%= link_to full_name(comp), series_competitor_path(@series.id, comp) %></td>
+    <td><%= full_name(comp) %></td>
     <td><%= comp.club.name %></td>
     <td><%= points_print(comp) %></td>
     <td><%= shot_points_and_total(comp) %></td>
@@ -29,7 +28,3 @@
   </tr>
 <% end %>
 </table>
-<br/>
-<%= link_to "Lähtölista", start_list_path(@series) %>
-<%= link_to "Lataa tulokset pdf-tiedostona", series_competitors_path(@series,
-  :format => 'pdf') %>
