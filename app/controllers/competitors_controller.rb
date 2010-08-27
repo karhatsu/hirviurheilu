@@ -11,5 +11,12 @@ class CompetitorsController < ApplicationController
 
   def show
     @competitor = Competitor.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "#{@competitor.last_name}_#{@competitor.first_name}-tuloskortti",
+          :layout => true
+      end
+    end
   end
 end 
