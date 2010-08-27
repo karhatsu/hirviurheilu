@@ -48,6 +48,8 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
   race.save!
   official1.races << race
 
+  old_race = race.end_date < Date.today
+
   # series
   series_names = ["Yleinen", "M30", "M40", "M50", "M60"]
   5.times do |series_i|
@@ -55,7 +57,7 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
     correct2 = 160 - 5 * series_i
     series = race.series.build(:name => series_names[series_i],
       :correct_estimate1 => correct1, :correct_estimate2 => correct2,
-      :start_time => "#{race_start_dates[race_i]} 1#{series_i}:30",
+      :start_time => "#{race_start_dates[race_i]} 1#{series_i}:10",
       :first_number => 100)
     series.save!
 
@@ -82,14 +84,14 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
             comp.shots << Shot.new(:competitor => comp, :value => 10)
           else
             shots = 71 + 2 * i
-            shots = nil if i == 3 or i == 7
+            shots = nil if (i == 3 or i == 7) and not old_race
             comp.shots_total_input = shots
           end
           comp.estimate1 = correct1 + 6 - i
           comp.estimate2 = correct2 - 8 + 2 * 1
-          if i == 1
+          if i == 1 and not old_race
             comp.estimate1 = nil
-          elsif i == 3
+          elsif i == 3 and not old_race
             comp.estimate2 = nil
           elsif i == 6
             comp.estimate2 = correct2 + 1
@@ -106,13 +108,19 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
         raise series.errors.on(:base)
       end
 
-      if race.start_date < Date.today
+      if old_race or race.start_date < Date.today
         series.competitors.each_with_index do |comp, i|
-          arrival = "15:0#{i + 1}:3#{9 - i}" unless i == 7
+          arrival = "1#{series_i}:4#{(i + 1) % 10}:3#{9 - i}" if i != 7 or old_race
           comp.arrival_time = arrival
           comp.save!
         end
       end
+    end
+  end
+
+  if old_race
+    unless race.finish
+      raise race.errors.on(:base)
     end
   end
 end
