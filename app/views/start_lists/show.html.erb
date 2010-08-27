@@ -20,3 +20,5 @@
 </table>
 <br/>
 <%= link_to "Tulokset", series_competitors_path(@series) %>
+<%= link_to "Lataa lähtölista pdf-tiedostona", start_list_path(@series,
+  :format => 'pdf') %>

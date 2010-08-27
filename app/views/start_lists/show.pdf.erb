@@ -1,0 +1,18 @@
+<h1><%= @series.race.name %></h1>
+<h2><%= @series.name %> - Lähtölista</h2>
+<table>
+  <tr>
+    <th>Nro</th>
+    <th>Kilpailija</th>
+    <th><%= t "attributes.club" %></th>
+    <th>Lähtöaika</th>
+  </tr>
+  <% @series.start_list.each do |comp| %>
+    <tr>
+      <td><%= comp.number %></td>
+      <td><%= full_name(comp) %></td>
+      <td><%= comp.club.name %></td>
+      <td><%= time_print(comp.start_time, true) %></td>
+    </tr>
+  <% end %>
+</table>
