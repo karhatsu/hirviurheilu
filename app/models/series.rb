@@ -13,18 +13,20 @@ class Series < ActiveRecord::Base
   before_destroy :prevent_destroy_if_competitors
 
   def best_time_in_seconds
-    @seconds_cache = Hash.new unless @seconds_cache
-    cache_key = "temp" #TODO
-    if @seconds_cache[cache_key]
-      return @seconds_cache[cache_key]
+    if @seconds_cache
+      return @seconds_cache
     end
+    @seconds_cache = Series.best_time_in_seconds(competitors)
+  end
+
+  def self.best_time_in_seconds(competitors)
     times = []
     competitors.each do |comp|
       times << comp.time_in_seconds unless comp.time_in_seconds.nil? or
         comp.no_result_reason
     end
     times.sort!
-    @seconds_cache[cache_key] = times.first
+    times.first
   end
 
   def ordered_competitors

@@ -85,39 +85,42 @@ describe Series do
         :no_result_reason => "DNS")
       @c6 = mock_model(Competitor, :time_in_seconds => 200,
         :no_result_reason => "DNS")
-      @series = Factory.build(:series)
     end
 
-    it "should return nil if no competitors" do
-      @series.should_receive(:competitors).and_return([])
-      @series.best_time_in_seconds.should be_nil
-    end
-
-    it "should return nil if no competitors with time" do
-      @series.should_receive(:competitors).and_return([@c1])
-      @series.best_time_in_seconds.should be_nil
-    end
-
-    it "should return the time of the competitor who was the fastest and skip unfinished" do
-      @series.should_receive(:competitors).and_return([@c1, @c2, @c3, @c4, @c5])
-      @series.best_time_in_seconds.should == 341
-    end
-
-    describe "cache" do
-      before do
-        @series = Factory.build(:series)
-        @c1 = mock_model(Competitor, :time_in_seconds => 150,
-          :no_result_reason => nil)
-        @c2 = mock_model(Competitor, :time_in_seconds => 149,
-          :no_result_reason => nil)
-        @c3 = mock_model(Competitor, :time_in_seconds => 148,
-          :no_result_reason => nil)
+    describe "static" do
+      it "should return nil if no competitors" do
+        Series.best_time_in_seconds([]).should be_nil
       end
 
-      it "should calculate in the first time and get from cache in the second" do
-        @series.should_receive(:competitors).once.and_return([@c1, @c2, @c3])
-        @series.best_time_in_seconds.should == 148
-        @series.best_time_in_seconds.should == 148
+      it "should return nil if no competitors with time" do
+        Series.best_time_in_seconds([@c1]).should be_nil
+      end
+
+      it "should return the time of the competitor who was the fastest and skip unfinished" do
+        Series.best_time_in_seconds([@c1, @c2, @c3, @c4, @c5]).should == 341
+      end
+    end
+
+    describe "dynamic" do
+      before do
+        @series = Factory.build(:series)
+      end
+
+      it "should call static method" do
+        competitors = mock(Array)
+        @series.should_receive(:competitors).once.and_return(competitors)
+        Series.should_receive(:best_time_in_seconds).with(competitors).and_return(123)
+        @series.best_time_in_seconds.should == 123
+      end
+
+      describe "cache" do
+        it "should calculate in the first time and get from cache in the second" do
+          competitors = mock(Array)
+          @series.should_receive(:competitors).once.and_return(competitors)
+          Series.should_receive(:best_time_in_seconds).with(competitors).once.and_return(148)
+          @series.best_time_in_seconds.should == 148
+          @series.best_time_in_seconds.should == 148
+        end
       end
     end
   end
