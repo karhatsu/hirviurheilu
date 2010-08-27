@@ -51,7 +51,7 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
   old_race = race.end_date < Date.today
 
   # series
-  series_names = ["Yleinen", "M30", "M40", "M50", "M60"]
+  series_names = ["M", "M40", "M50", "M60", "M70"]
   5.times do |series_i|
     correct1 = 100 + 5 * series_i
     correct2 = 160 - 5 * series_i
@@ -60,6 +60,13 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
       :start_time => "#{race_start_dates[race_i]} 1#{series_i}:10",
       :first_number => 100)
     series.save!
+
+    if series.name == "M60"
+      series.age_groups << AgeGroup.new(:name => "M65")
+    elsif series.name == "M70"
+      series.age_groups << AgeGroup.new(:name => "M75")
+      series.age_groups << AgeGroup.new(:name => "M80")
+    end
 
     # competitors
     if race_i < 3
@@ -70,6 +77,13 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
         last = lasts[i % lasts.length]
         comp = series.competitors.build(:first_name => first, :last_name => last,
           :club => clubs[i], :number => 100 + i)
+        unless series.age_groups.empty?
+          if i % 3 == 0
+            comp.age_group = series.age_groups.first
+          elsif i % 7 == 0
+            comp.age_group = series.age_groups.last
+          end
+        end
         if race.start_date < Date.today
           if i % 4 == 0
             comp.shots << Shot.new(:competitor => comp, :value => 10)
