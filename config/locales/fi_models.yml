@@ -26,7 +26,7 @@ fi:
     start_date: Alkupvm
     start_interval_seconds: Lähtöaikojen väli (sekuntia)
     start_time: Lähtöaika
-    sub_series: Alasarja
+    sub_series: Ikäryhmä
 
   activerecord:
     models:

@@ -10,12 +10,12 @@
   <%= f.label :correct_estimate2 %>
   <%= f.text_field :correct_estimate2, :size => 5, :maxlength => 3 %><br/>
   <div class="sub_series">
-    <h3>Alasarjat, joille lasketaan omat aikapisteet
-      (esim. pääsarja: M60, alasarjat: M65, M70)</h3>
+    <h3>Ikäryhmät, joille lasketaan omat aikapisteet
+      (esim. pääsarja: M60, ikäryhmät: M65, M70)</h3>
     <%= f.fields_for :sub_series do |sub_series_form| %>
       <%= render :partial => "sub_series", :locals => { :f => sub_series_form } %>
     <% end %>
-    <%= add_child_link "Lisää alasarja", f, :sub_series %>
+    <%= add_child_link "Lisää ikäryhmä", f, :sub_series %>
   </div>
   <% if f.object.competitors.empty? %>
     <%= remove_child_link "Poista sarja", f, 'series_sub_form', "" %>
