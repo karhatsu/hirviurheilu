@@ -103,21 +103,21 @@ describe Series do
 
     describe "dynamic" do
       before do
-        @series = Factory.build(:series)
+        @series = Factory.create(:series)
+        @c1 = Factory.build(:competitor, :series => @series)
+        @c2 = Factory.build(:competitor, :series => @series)
+        @series.competitors << @c1
+        @series.competitors << @c2
       end
 
       it "should call static method" do
-        competitors = mock(Array)
-        @series.should_receive(:competitors).once.and_return(competitors)
-        Series.should_receive(:best_time_in_seconds).with(competitors).and_return(123)
+        Series.should_receive(:best_time_in_seconds).with([@c1, @c2]).and_return(123)
         @series.best_time_in_seconds.should == 123
       end
 
       describe "cache" do
         it "should calculate in the first time and get from cache in the second" do
-          competitors = mock(Array)
-          @series.should_receive(:competitors).once.and_return(competitors)
-          Series.should_receive(:best_time_in_seconds).with(competitors).once.and_return(148)
+          Series.should_receive(:best_time_in_seconds).with([@c1, @c2]).once.and_return(148)
           @series.best_time_in_seconds.should == 148
           @series.best_time_in_seconds.should == 148
         end

@@ -17,21 +17,21 @@ describe SubSeries do
 
   describe "best_time_in_seconds" do
     before do
-      @sub_series = Factory.build(:sub_series)
+      @sub_series = Factory.create(:sub_series)
+      @c1 = Factory.build(:competitor, :sub_series => @sub_series)
+      @c2 = Factory.build(:competitor, :sub_series => @sub_series)
+      @sub_series.competitors << @c1
+      @sub_series.competitors << @c2
     end
 
     it "should call static method in Series" do
-      competitors = mock(Array)
-      @sub_series.should_receive(:competitors).once.and_return(competitors)
-      Series.should_receive(:best_time_in_seconds).with(competitors).and_return(123)
+      Series.should_receive(:best_time_in_seconds).with([@c1, @c2]).and_return(123)
       @sub_series.best_time_in_seconds.should == 123
     end
 
     describe "cache" do
       it "should calculate in the first time and get from cache in the second" do
-        competitors = mock(Array)
-        @sub_series.should_receive(:competitors).once.and_return(competitors)
-        Series.should_receive(:best_time_in_seconds).with(competitors).once.and_return(148)
+        Series.should_receive(:best_time_in_seconds).with([@c1, @c2]).once.and_return(148)
         @sub_series.best_time_in_seconds.should == 148
         @sub_series.best_time_in_seconds.should == 148
       end
