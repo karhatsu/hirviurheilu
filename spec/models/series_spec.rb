@@ -226,7 +226,7 @@ describe Series do
       context "some competitor already has arrival time" do
         it "should do nothing for competitors, add error and return false" do
           @c4 = Factory.create(:competitor, :series => @series,
-            :start_time => '14:00', :arrival_time => '14:30')
+            :start_time => '14:00', :arrival_time => '14:30', :number => 5)
           @series.reload
           @series.generate_numbers.should be_false
           @series.should have(1).errors
@@ -311,7 +311,7 @@ describe Series do
       context "some competitor already has arrival time" do
         it "should do nothing for competitors, add error and return false" do
           @c4 = Factory.create(:competitor, :series => @series,
-            :start_time => '14:00', :arrival_time => '14:30')
+            :start_time => '14:00', :arrival_time => '14:30', :number => 5)
           @series.reload
           @series.generate_start_times.should be_false
           @series.should have(1).errors
