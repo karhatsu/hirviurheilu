@@ -12,7 +12,8 @@
   <% @series.start_list.each do |comp| %>
     <tr>
       <td><%= comp.number %></td>
-      <td><%= full_name(comp) %></td>
+      <td><%= full_name(comp) %>
+        <%= "(#{comp.sub_series.name})" if comp.sub_series %></td>
       <td><%= comp.club.name %></td>
       <td><%= time_print(comp.start_time, true) %></td>
     </tr>
