@@ -4,6 +4,7 @@ class Competitor < ActiveRecord::Base
 
   belongs_to :club
   belongs_to :series
+  belongs_to :sub_series
   has_many :shots, :dependent => :destroy
 
   accepts_nested_attributes_for :shots, :allow_destroy => true
@@ -51,6 +52,11 @@ class Competitor < ActiveRecord::Base
     arrival_time - start_time
   end
 
+  def series_best_time_in_seconds
+    return sub_series.best_time_in_seconds if sub_series
+    series.best_time_in_seconds
+  end
+
   def shot_points
     sum = shots_sum
     return nil if sum.nil?
@@ -78,11 +84,11 @@ class Competitor < ActiveRecord::Base
   def time_points
     own_time = time_in_seconds
     return nil if own_time.nil?
-    if own_time < series.best_time_in_seconds
+    if own_time < series_best_time_in_seconds
       raise "Competitor time better than the best time and no DNS/DNF!" unless no_result_reason
       return nil
     end
-    points = 300 - (own_time.to_i - series.best_time_in_seconds.to_i + 9) / 10
+    points = 300 - (own_time.to_i - series_best_time_in_seconds.to_i + 9) / 10
     return points.to_i if points >= 0
     0
   end

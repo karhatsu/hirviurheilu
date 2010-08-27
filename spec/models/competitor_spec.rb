@@ -343,7 +343,7 @@ describe Competitor do
       @series = Factory.build(:series)
       @competitor = Factory.build(:competitor, :series => @series)
       @best_time_seconds = 3600.0
-      @series.stub!(:best_time_in_seconds).and_return(@best_time_seconds)
+      @competitor.stub!(:series_best_time_in_seconds).and_return(@best_time_seconds)
     end
 
     it "should be nil when time cannot be calculated yet" do
@@ -385,6 +385,8 @@ describe Competitor do
       before do
         @competitor = Factory.build(:competitor, :series => @series,
           :no_result_reason => Competitor::DNF)
+        @best_time_seconds = 3600.0
+        @competitor.stub!(:series_best_time_in_seconds).and_return(@best_time_seconds)
       end
 
       it "should be like normally when the competitor has not the best time" do
@@ -557,6 +559,25 @@ describe Competitor do
     it "should return false when competitor has no points nor 'no result reason'" do
       c = Factory.build(:competitor, :no_result_reason => nil)
       c.should_not be_finished
+    end
+  end
+
+  describe "#series_best_time_in_seconds" do
+    before do
+      @series = Factory.build(:series)
+      @competitor = Factory.build(:competitor, :series => @series)
+    end
+
+    it "should use sub series best time when competitor belongs to sub series" do
+      sub_series = Factory.build(:sub_series)
+      @competitor.sub_series = sub_series
+      sub_series.should_receive(:best_time_in_seconds).and_return(123)
+      @competitor.series_best_time_in_seconds.should == 123
+    end
+
+    it "should use series best time when competitor does not belong to sub series" do
+      @series.should_receive(:best_time_in_seconds).and_return(456)
+      @competitor.series_best_time_in_seconds.should == 456
     end
   end
 
