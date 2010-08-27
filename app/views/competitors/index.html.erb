@@ -10,6 +10,7 @@
   <tr>
     <th>&nbsp;</th>
     <th>Nimi</th>
+    <th>Nro</th>
     <th><%= t "attributes.club" %></th>
     <th>Pisteet</th>
     <th>Ammunta</th>
@@ -21,6 +22,7 @@
     <td><%= i + 1 %>.</td>
     <td><%= link_to full_name(comp), series_competitor_path(@series.id, comp) %>
         <%= "(#{comp.age_group.name})" if comp.age_group %></td>
+    <td><%= comp.number ? comp.number : '' %></td>
     <td><%= comp.club.name %></td>
     <td><%= points_print(comp) %></td>
     <td><%= shot_points_and_total(comp) %></td>
