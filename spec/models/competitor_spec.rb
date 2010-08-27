@@ -23,25 +23,6 @@ describe Competitor do
         should have(1).errors_on(:series)
     end
 
-    describe "sex" do
-      it "should accept nil which becomes M by default" do
-        c = Factory.create(:competitor, :sex => nil)
-        c.sex.should == Competitor::MALE
-      end
-
-      it "should accept M" do
-        Factory.build(:competitor, :sex => Competitor::MALE).should be_valid
-      end
-
-      it "should accept F" do
-        Factory.build(:competitor, :sex => Competitor::FEMALE).should be_valid
-      end
-
-      it "should not accept anything else" do
-        Factory.build(:competitor, :sex => 'x').should have(1).errors_on(:sex)
-      end
-    end
-
     describe "number" do
       it "can be nil" do
         Factory.build(:competitor, :number => nil).should be_valid
@@ -360,10 +341,9 @@ describe Competitor do
   describe "time_points" do
     before do
       @series = Factory.build(:series)
-      @sex = Competitor::FEMALE
-      @competitor = Factory.build(:competitor, :series => @series, :sex => @sex)
+      @competitor = Factory.build(:competitor, :series => @series)
       @best_time_seconds = 3600.0
-      @series.stub!(:best_time_in_seconds).with(@sex).and_return(@best_time_seconds)
+      @series.stub!(:best_time_in_seconds).and_return(@best_time_seconds)
     end
 
     it "should be nil when time cannot be calculated yet" do
@@ -404,7 +384,7 @@ describe Competitor do
     context "no result" do
       before do
         @competitor = Factory.build(:competitor, :series => @series,
-          :no_result_reason => Competitor::DNF, :sex => @sex)
+          :no_result_reason => Competitor::DNF)
       end
 
       it "should be like normally when the competitor has not the best time" do

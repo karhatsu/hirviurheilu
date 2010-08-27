@@ -69,117 +69,55 @@ describe Series do
           should have(1).errors_on(:first_number)
       end
     end
-
-    describe "time_method" do
-      it "can refer to normal time method" do
-        Factory.build(:series, :time_method => Series::NORMAL_TIME_METHOD).
-          should be_valid
-      end
-
-      it "can refer to own time points for different sexes" do
-        Factory.build(:series,
-          :time_method => Series::OWN_TIME_POINTS_FOR_DIFFERENT_SEXES).
-          should be_valid
-      end
-
-      it "cannot be anything else" do
-        Factory.build(:series, :time_method => 123).should have(1).errors_on(:time_method)
-        Factory.build(:series, :time_method => nil).should have(1).errors_on(:time_method)
-      end
-    end
   end
 
   describe "best_time_in_seconds" do
     before do
       @c1 = mock_model(Competitor, :time_in_seconds => nil,
-        :no_result_reason => nil, :sex => Competitor::MALE)
+        :no_result_reason => nil)
       @c2 = mock_model(Competitor, :time_in_seconds => 342,
-        :no_result_reason => nil, :sex => Competitor::FEMALE)
+        :no_result_reason => nil)
       @c3 = mock_model(Competitor, :time_in_seconds => 341,
-        :no_result_reason => nil, :sex => Competitor::FEMALE)
+        :no_result_reason => nil)
       @c4 = mock_model(Competitor, :time_in_seconds => 343,
-        :no_result_reason => nil, :sex => Competitor::MALE)
+        :no_result_reason => nil)
       @c5 = mock_model(Competitor, :time_in_seconds => 200,
-        :no_result_reason => "DNS", :sex => Competitor::MALE)
+        :no_result_reason => "DNS")
       @c6 = mock_model(Competitor, :time_in_seconds => 200,
-        :no_result_reason => "DNS", :sex => Competitor::FEMALE)
+        :no_result_reason => "DNS")
+      @series = Factory.build(:series)
     end
 
-    context "when same time points for males and females" do
-      before do
-        @series = Factory.build(:series)
-      end
-
-      it "should return nil if no competitors" do
-        @series.should_receive(:competitors).and_return([])
-        @series.best_time_in_seconds(Competitor::MALE).should be_nil
-      end
-
-      it "should return nil if no competitors with time" do
-        @series.should_receive(:competitors).and_return([@c1])
-        @series.best_time_in_seconds(Competitor::MALE).should be_nil
-      end
-
-      it "should return the time of the competitor who was the fastest and skip unfinished" do
-        @series.should_receive(:competitors).and_return([@c1, @c2, @c3, @c4, @c5])
-        @series.best_time_in_seconds(Competitor::MALE).should == 341
-      end
+    it "should return nil if no competitors" do
+      @series.should_receive(:competitors).and_return([])
+      @series.best_time_in_seconds.should be_nil
     end
 
-    context "when own time points for males and females" do
-      before do
-        @series = Factory.build(:series,
-          :time_method => Series::OWN_TIME_POINTS_FOR_DIFFERENT_SEXES)
-      end
+    it "should return nil if no competitors with time" do
+      @series.should_receive(:competitors).and_return([@c1])
+      @series.best_time_in_seconds.should be_nil
+    end
 
-      it "should return nil if no competitors with this sex" do
-        @series.should_receive(:competitors).and_return([@c4])
-        @series.best_time_in_seconds(Competitor::FEMALE).should be_nil
-      end
-
-      describe "males" do
-        it "should skip unfinished and return the time of the fastest male competitor" do
-          @series.should_receive(:competitors).and_return([@c1, @c2, @c3, @c4, @c5, @c6])
-          @series.best_time_in_seconds(Competitor::MALE).should == 343
-        end
-      end
-
-      describe "females" do
-        it "should skip unfinished and return the time of the fastest female competitor" do
-          @series.should_receive(:competitors).and_return([@c1, @c2, @c3, @c4, @c5, @c6])
-          @series.best_time_in_seconds(Competitor::FEMALE).should == 341
-        end
-      end
+    it "should return the time of the competitor who was the fastest and skip unfinished" do
+      @series.should_receive(:competitors).and_return([@c1, @c2, @c3, @c4, @c5])
+      @series.best_time_in_seconds.should == 341
     end
 
     describe "cache" do
       before do
         @series = Factory.build(:series)
         @c1 = mock_model(Competitor, :time_in_seconds => 150,
-          :no_result_reason => nil, :sex => Competitor::MALE)
+          :no_result_reason => nil)
         @c2 = mock_model(Competitor, :time_in_seconds => 149,
-          :no_result_reason => nil, :sex => Competitor::FEMALE)
+          :no_result_reason => nil)
         @c3 = mock_model(Competitor, :time_in_seconds => 148,
-          :no_result_reason => nil, :sex => Competitor::MALE)
+          :no_result_reason => nil)
       end
 
       it "should calculate in the first time and get from cache in the second" do
         @series.should_receive(:competitors).once.and_return([@c1, @c2, @c3])
-        @series.best_time_in_seconds(Competitor::FEMALE).should == 148
-        @series.best_time_in_seconds(Competitor::FEMALE).should == 148
-        @series.should_receive(:competitors).once.and_return([@c1, @c2, @c3])
-        @series.best_time_in_seconds(Competitor::MALE).should == 148
-        @series.best_time_in_seconds(Competitor::MALE).should == 148
-      end
-
-      it "should work also when own best time for different sexes" do
-        @series.time_method = Series::OWN_TIME_POINTS_FOR_DIFFERENT_SEXES
-        @series.should_receive(:competitors).once.and_return([@c1, @c2, @c3])
-        @series.best_time_in_seconds(Competitor::FEMALE).should == 149
-        @series.best_time_in_seconds(Competitor::FEMALE).should == 149
-        @series.should_receive(:competitors).once.and_return([@c1, @c2, @c3])
-        @series.best_time_in_seconds(Competitor::MALE).should == 148
-        @series.best_time_in_seconds(Competitor::MALE).should == 148
+        @series.best_time_in_seconds.should == 148
+        @series.best_time_in_seconds.should == 148
       end
     end
   end

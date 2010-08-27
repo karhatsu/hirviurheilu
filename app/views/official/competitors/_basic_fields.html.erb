@@ -2,8 +2,6 @@
 <%= f.text_field :first_name %>
 <%= f.label :last_name %>
 <%= f.text_field :last_name %>
-<%= f.radio_button :sex, Competitor::MALE %> mies
-<%= f.radio_button :sex, Competitor::FEMALE %> nainen
 <br/>
 <%= f.label :club %>
 <%= f.collection_select :club_id, Club.all, :id, :name %>

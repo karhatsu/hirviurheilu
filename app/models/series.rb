@@ -1,7 +1,4 @@
 class Series < ActiveRecord::Base
-  NORMAL_TIME_METHOD = 0
-  OWN_TIME_POINTS_FOR_DIFFERENT_SEXES = 1
-
   belongs_to :race
   has_many :competitors
   has_many :start_list, :class_name => "Competitor", :foreign_key => 'series_id',
@@ -11,25 +8,23 @@ class Series < ActiveRecord::Base
   validates :race, :presence => true
   validates :first_number, :numericality => { :only_integer => true,
     :allow_nil => true, :greater_than => 0 }
-  validates :time_method,
-    :inclusion => { :in => [NORMAL_TIME_METHOD, OWN_TIME_POINTS_FOR_DIFFERENT_SEXES] }
   validate :start_time_during_race_dates
 
   before_destroy :prevent_destroy_if_competitors
 
-  def best_time_in_seconds(sex)
+  def best_time_in_seconds
     @seconds_cache = Hash.new unless @seconds_cache
-    if @seconds_cache[sex]
-      return @seconds_cache[sex]
+    cache_key = "temp" #TODO
+    if @seconds_cache[cache_key]
+      return @seconds_cache[cache_key]
     end
     times = []
-    check_sex = (time_method == OWN_TIME_POINTS_FOR_DIFFERENT_SEXES)
     competitors.each do |comp|
       times << comp.time_in_seconds unless comp.time_in_seconds.nil? or
-        comp.no_result_reason or (check_sex and sex != comp.sex)
+        comp.no_result_reason
     end
     times.sort!
-    @seconds_cache[sex] = times.first
+    @seconds_cache[cache_key] = times.first
   end
 
   def ordered_competitors

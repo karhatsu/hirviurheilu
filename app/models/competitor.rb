@@ -1,6 +1,4 @@
 class Competitor < ActiveRecord::Base
-  MALE = 'M'
-  FEMALE = 'F'
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish
 
@@ -10,12 +8,9 @@ class Competitor < ActiveRecord::Base
 
   accepts_nested_attributes_for :shots, :allow_destroy => true
 
-  before_validation :set_sex
-
   validates :series, :presence => true
   validates :first_name, :presence => true
   validates :last_name, :presence => true
-  validates :sex, :inclusion => { :in => [MALE, FEMALE] }
   validates :number,
     :numericality => { :only_integer => true, :greater_than => 0, :allow_nil => true },
     :uniqueness => { :scope => :series_id, :allow_nil => true }
@@ -83,11 +78,11 @@ class Competitor < ActiveRecord::Base
   def time_points
     own_time = time_in_seconds
     return nil if own_time.nil?
-    if own_time < series.best_time_in_seconds(sex)
+    if own_time < series.best_time_in_seconds
       raise "Competitor time better than the best time and no DNS/DNF!" unless no_result_reason
       return nil
     end
-    points = 300 - (own_time.to_i - series.best_time_in_seconds(sex).to_i + 9) / 10
+    points = 300 - (own_time.to_i - series.best_time_in_seconds.to_i + 9) / 10
     return points.to_i if points >= 0
     0
   end
@@ -133,14 +128,11 @@ class Competitor < ActiveRecord::Base
   end
 
   protected
-  def set_sex
-    self.sex = MALE unless sex
-  end
-
   def arrival_not_before_start_time
     return if start_time.nil? and arrival_time.nil?
     if start_time.nil?
-      errors.add(:base, 'Kilpailijalla ei voi olla saapumisaikaa, jos hänellä ei ole lähtöaikaa')
+      errors.add(:base,
+        'Kilpailijalla ei voi olla saapumisaikaa, jos hänellä ei ole lähtöaikaa')
       return
     end
     if arrival_time and start_time > arrival_time
@@ -166,7 +158,8 @@ class Competitor < ActiveRecord::Base
   def check_no_result_reason
     self.no_result_reason = nil if no_result_reason == ''
     unless [nil, DNS, DNF].include?(no_result_reason)
-      errors.add(:no_result_reason, "Tuntematon syy tuloksen puuttumiselle: '#{no_result_reason}'")
+      errors.add(:no_result_reason,
+        "Tuntematon syy tuloksen puuttumiselle: '#{no_result_reason}'")
     end
   end
 

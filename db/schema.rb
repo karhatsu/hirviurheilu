@@ -19,10 +19,10 @@ ActiveRecord::Schema.define(:version => 20100826125414) do
   end
 
   create_table "competitors", :force => true do |t|
-    t.integer  "series_id",                                       :null => false
-    t.integer  "club_id",                                         :null => false
-    t.string   "first_name",                                      :null => false
-    t.string   "last_name",                                       :null => false
+    t.integer  "series_id",         :null => false
+    t.integer  "club_id",           :null => false
+    t.string   "first_name",        :null => false
+    t.string   "last_name",         :null => false
     t.integer  "number"
     t.time     "start_time"
     t.time     "arrival_time"
@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(:version => 20100826125414) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "no_result_reason"
-    t.string   "sex",               :limit => 1, :default => "M", :null => false
   end
 
   add_index "competitors", ["series_id"], :name => "index_competitors_on_series_id"
@@ -73,14 +72,13 @@ ActiveRecord::Schema.define(:version => 20100826125414) do
 
   create_table "series", :force => true do |t|
     t.integer  "race_id"
-    t.string   "name",                                          :null => false
+    t.string   "name",              :null => false
     t.integer  "correct_estimate1"
     t.integer  "correct_estimate2"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "start_time"
     t.integer  "first_number"
-    t.integer  "time_method",       :limit => 1, :default => 0, :null => false
   end
 
   add_index "series", ["race_id"], :name => "index_series_on_race_id"

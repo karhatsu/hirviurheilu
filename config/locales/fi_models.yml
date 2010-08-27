@@ -21,13 +21,11 @@ fi:
     race: Kilpailu
     remember_me: Muista minut
     series: Sarja
-    sex: Sukupuoli
     shots_total_input: Ammunta yhteensä
     sport: Laji
     start_date: Alkupvm
     start_interval_seconds: Lähtöaikojen väli (sekuntia)
     start_time: Lähtöaika
-    time_method: Aikapisteiden laskentatapa
 
   activerecord:
     models:
