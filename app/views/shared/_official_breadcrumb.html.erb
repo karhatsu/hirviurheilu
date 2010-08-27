@@ -9,3 +9,5 @@
   &gt; <%= link_to @competitor.series.name, official_series_competitors_path(@competitor.series), :class => 'navigation' %>
   &gt; <%= full_name(@competitor) %>
 <% end %>
+<%= link_to "Admin", admin_root_path, :class => 'navigation' if current_user and
+  current_user.admin? %>&nbsp;
