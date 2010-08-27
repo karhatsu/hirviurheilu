@@ -1,5 +1,6 @@
 fi:
   attributes:
+    age_group: Ikäryhmä
     arrival_time: Saapumisaika
     club: Piiri/seura
     correct_estimate1: Oikea arviomatka 1
@@ -26,7 +27,6 @@ fi:
     start_date: Alkupvm
     start_interval_seconds: Lähtöaikojen väli (sekuntia)
     start_time: Lähtöaika
-    sub_series: Ikäryhmä
 
   activerecord:
     models:

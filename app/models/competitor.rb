@@ -4,7 +4,7 @@ class Competitor < ActiveRecord::Base
 
   belongs_to :club
   belongs_to :series
-  belongs_to :sub_series
+  belongs_to :age_group
   has_many :shots, :dependent => :destroy
 
   accepts_nested_attributes_for :shots, :allow_destroy => true
@@ -53,7 +53,7 @@ class Competitor < ActiveRecord::Base
   end
 
   def series_best_time_in_seconds
-    return sub_series.best_time_in_seconds if sub_series
+    return age_group.best_time_in_seconds if age_group
     series.best_time_in_seconds
   end
 

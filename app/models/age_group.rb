@@ -1,4 +1,4 @@
-class SubSeries < ActiveRecord::Base
+class AgeGroup < ActiveRecord::Base
   belongs_to :series
   has_many :competitors
 

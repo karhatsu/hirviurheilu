@@ -11,7 +11,7 @@
     <tr>
       <td><%= comp.number %></td>
       <td><%= full_name(comp) %>
-        <%= "(#{comp.sub_series.name})" if comp.sub_series %></td>
+        <%= "(#{comp.age_group.name})" if comp.age_group %></td>
       <td><%= comp.club.name %></td>
       <td><%= time_print(comp.start_time, true) %></td>
     </tr>

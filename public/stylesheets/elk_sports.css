@@ -77,14 +77,14 @@ div.series_sub_form {
     padding: 5px;
 }
 
-div.sub_series {
+div.age_groups {
     width: 80%;
     margin-top: 2px;
     background-color: white;
     padding: 3px;
 }
 
-div.sub_series h3 {
+div.age_groups h3 {
     margin-top: 2px;
     margin-bottom: 2px;
     font-weight: normal;

@@ -12,6 +12,13 @@
 
 ActiveRecord::Schema.define(:version => 20100827090532) do
 
+  create_table "age_groups", :force => true do |t|
+    t.integer  "series_id",  :null => false
+    t.string   "name",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "clubs", :force => true do |t|
     t.string   "name",       :null => false
     t.datetime "created_at"
@@ -32,7 +39,7 @@ ActiveRecord::Schema.define(:version => 20100827090532) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "no_result_reason"
-    t.integer  "sub_series_id"
+    t.integer  "age_group_id"
   end
 
   add_index "competitors", ["series_id"], :name => "index_competitors_on_series_id"
@@ -96,13 +103,6 @@ ActiveRecord::Schema.define(:version => 20100827090532) do
   create_table "sports", :force => true do |t|
     t.string   "name",       :null => false
     t.string   "key",        :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "sub_series", :force => true do |t|
-    t.integer  "series_id",  :null => false
-    t.string   "name",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

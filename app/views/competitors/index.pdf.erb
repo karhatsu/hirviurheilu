@@ -19,7 +19,7 @@
   <tr>
     <td><%= i + 1 %>.</td>
     <td><%= full_name(comp) %>
-      <%= "(#{comp.sub_series.name})" if comp.sub_series %></td>
+      <%= "(#{comp.age_group.name})" if comp.age_group %></td>
     <td><%= comp.club.name %></td>
     <td><%= points_print(comp) %></td>
     <td><%= shot_points_and_total(comp) %></td>

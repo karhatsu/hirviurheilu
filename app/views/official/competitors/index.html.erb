@@ -36,7 +36,7 @@ Ensimmäinen numero: <%= @series.first_number ? @series.first_number : "-" %>
       <td>
         <%= link_to full_name(comp),
           edit_official_series_competitor_path(@series.id, comp) %>
-        <%= "(#{comp.sub_series.name})" if comp.sub_series %>
+        <%= "(#{comp.age_group.name})" if comp.age_group %>
       </td>
       <td><%= comp.number %></td>
       <td><%= time_print(comp.start_time, true) %></td>

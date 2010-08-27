@@ -568,14 +568,14 @@ describe Competitor do
       @competitor = Factory.build(:competitor, :series => @series)
     end
 
-    it "should use sub series best time when competitor belongs to sub series" do
-      sub_series = Factory.build(:sub_series)
-      @competitor.sub_series = sub_series
-      sub_series.should_receive(:best_time_in_seconds).and_return(123)
+    it "should use age group's best time when competitor belongs to an age group" do
+      age_group = Factory.build(:age_group)
+      @competitor.age_group = age_group
+      age_group.should_receive(:best_time_in_seconds).and_return(123)
       @competitor.series_best_time_in_seconds.should == 123
     end
 
-    it "should use series best time when competitor does not belong to sub series" do
+    it "should use series best time when competitor does not belong to an age group" do
       @series.should_receive(:best_time_in_seconds).and_return(456)
       @competitor.series_best_time_in_seconds.should == 456
     end

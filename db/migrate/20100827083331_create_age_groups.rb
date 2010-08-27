@@ -1,6 +1,6 @@
-class CreateSubSeries < ActiveRecord::Migration
+class CreateAgeGroups < ActiveRecord::Migration
   def self.up
-    create_table :sub_series do |t|
+    create_table :age_groups do |t|
       t.references :series, :null => false
       t.string :name, :null => false
 
@@ -9,6 +9,6 @@ class CreateSubSeries < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :sub_series
+    drop_table :age_groups
   end
 end
