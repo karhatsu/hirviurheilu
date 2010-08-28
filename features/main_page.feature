@@ -7,3 +7,21 @@ Feature: Main page
     Given I go to the home page
     Then I should see "Hirvenhiihdon ja hirvenjuoksun tulospalvelu" within "h1"
 
+  Scenario: Listing races in the main page
+    Given there is a race with attributes:
+      | name | Old race |
+      | start_date | 2010-01-01 |
+      | end_date | 2010-01-02 |
+      | location | Old city |
+    And there is a race with attributes:
+      | name | Upcoming race |
+      | start_date | 2020-01-01 |
+      | end_date | 2020-01-02 |
+      | location | Upcoming city |
+    And I go to the home page
+    Then I should see "Päättyneet kilpailut" within "div.old_races"
+    And I should see "Old race" within "div.old_races"
+    And I should see "01.01.2010 - 02.01.2010, Old city" within "div.old_races"
+    And I should see "Tulevat kilpailut" within "div.future_races"
+    And I should see "Upcoming race" within "div.future_races"
+    And I should see "01.01.2020 - 02.01.2020, Upcoming city" within "div.future_races"

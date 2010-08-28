@@ -6,8 +6,12 @@
   <%= render :partial => "race_list", :locals => { :races => @ongoing } %>
 <% end %>
 
-<h2>Tulevat kilpailut</h2>
-<%= render :partial => "race_list", :locals => { :races => @future } %>
+<div class="future_races">
+  <h2>Tulevat kilpailut</h2>
+  <%= render :partial => "race_list", :locals => { :races => @future } %>
+</div>
 
-<h2>Päättyneet kilpailut</h2>
-<%= render :partial => "race_list", :locals => { :races => @past } %>
+<div class="old_races">
+  <h2>Päättyneet kilpailut</h2>
+  <%= render :partial => "race_list", :locals => { :races => @past } %>
+</div>
