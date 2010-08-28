@@ -11,6 +11,9 @@ module NavigationHelpers
     when /the home\s?page/
       '/'
 
+    when /the race page/
+      race_path(@race)
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
