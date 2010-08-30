@@ -460,7 +460,7 @@ describe Competitor do
   end
 
   describe "#shot_values" do
-    it "should return an array of shot values filled with nils to have total 10 shots" do
+    it "should return an ordered array of 10 shots" do
       c = Factory.build(:competitor)
       c.shots << Factory.build(:shot, :value => 10, :competitor => c)
       c.shots << Factory.build(:shot, :value => 3, :competitor => c)
@@ -470,7 +470,7 @@ describe Competitor do
       c.shots << Factory.build(:shot, :value => 0, :competitor => c)
       c.shots << Factory.build(:shot, :value => 9, :competitor => c)
       c.shots << Factory.build(:shot, :value => 7, :competitor => c)
-      c.shot_values.should == [10,3,4,9,1,0,9,7,nil,nil]
+      c.shot_values.should == [10,9,9,7,4,3,1,0,nil,nil]
     end
   end
 
