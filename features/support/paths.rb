@@ -14,6 +14,9 @@ module NavigationHelpers
     when /the race page/
       race_path(@race)
 
+    when /the results page of the series/
+      series_competitors_path(@series)
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
