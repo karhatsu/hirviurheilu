@@ -12,7 +12,9 @@
   <%= f.date_select :end_date, :include_blank => true %><br/>
   <%= f.label :start_interval_seconds %>
   <%= f.text_field :start_interval_seconds, :size => 5, :maxlength => 3 %><br/>
-  <% if include_series %>
+  <% if @race.new_record? %>
+    <%= check_box_tag :add_default_series %> Lisää oletussarjat automaattisesti<br/>
+  <% else %>
     <h2>Sarjat</h2>
     <%= f.fields_for :series do |series_form| %>
       <%= render :partial => "series", :locals => { :f => series_form } %>

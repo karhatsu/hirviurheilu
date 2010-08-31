@@ -3,5 +3,4 @@
 <%= flash_notice %>
 <%# cannot include series in add form since it causes a validation loop between
   races and series %>
-<%= render :partial => "form", :locals => { :submit_label => "Lisää kilpailu",
-      :include_series => false } %>
+<%= render :partial => "form", :locals => { :submit_label => "Lisää kilpailu" } %>
