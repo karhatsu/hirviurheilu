@@ -5,6 +5,9 @@ fi:
     club: Piiri/seura
     correct_estimate1: Oikea arviomatka 1
     correct_estimate2: Oikea arviomatka 2
+    default_age_group: Oletusikäryhmä
+    default_age_groups: Oletusikäryhmät
+    default_series: Oletussarja
     races: Kilpailut
     email: Sähköposti
     end_date: Loppupvm
@@ -15,6 +18,7 @@ fi:
     key: Avain
     last_name: Sukunimi
     location: Sijainti
+    min_competitors: Kilpailijoita vähintään
     name: Nimi
     number: Numero
     password: Salasana
@@ -36,6 +40,12 @@ fi:
       competitor:
         one: Kilpailija
         other: Kilpailijat
+      default_age_group:
+        one: Oletusikäryhmä
+        other: Oletusikäryhmät
+      default_series:
+        one: Oletussarja
+        other: Oletussarjat
       race:
         one: Kilpailu
         other: Kilpailut
