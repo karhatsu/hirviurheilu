@@ -568,16 +568,33 @@ describe Competitor do
       @competitor = Factory.build(:competitor, :series => @series)
     end
 
-    it "should use age group's best time when competitor belongs to an age group" do
-      age_group = Factory.build(:age_group)
-      @competitor.age_group = age_group
-      age_group.should_receive(:best_time_in_seconds).and_return(123)
-      @competitor.series_best_time_in_seconds.should == 123
+    context "when competitor belongs to an age group" do
+      context "and age group has enough competitors" do
+        it "should use age group's best time" do
+          age_group = Factory.build(:age_group)
+          @competitor.age_group = age_group
+          age_group.should_receive(:has_enough_competitors?).and_return(true)
+          age_group.should_receive(:best_time_in_seconds).and_return(123)
+          @competitor.series_best_time_in_seconds.should == 123
+        end
+      end
+
+      context "but age group has not enough competitors" do
+        it "should use the series best time" do
+          age_group = Factory.build(:age_group)
+          @competitor.age_group = age_group
+          age_group.should_receive(:has_enough_competitors?).and_return(false)
+          @series.should_receive(:best_time_in_seconds).and_return(555)
+          @competitor.series_best_time_in_seconds.should == 555
+        end
+      end
     end
 
-    it "should use series best time when competitor does not belong to an age group" do
-      @series.should_receive(:best_time_in_seconds).and_return(456)
-      @competitor.series_best_time_in_seconds.should == 456
+    context "when no age group" do
+      it "should use the series best time" do
+        @series.should_receive(:best_time_in_seconds).and_return(456)
+        @competitor.series_best_time_in_seconds.should == 456
+      end
     end
   end
 

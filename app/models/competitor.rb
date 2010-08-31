@@ -55,7 +55,7 @@ class Competitor < ActiveRecord::Base
   end
 
   def series_best_time_in_seconds
-    return age_group.best_time_in_seconds if age_group
+    return age_group.best_time_in_seconds if age_group and age_group.has_enough_competitors?
     series.best_time_in_seconds
   end
 
