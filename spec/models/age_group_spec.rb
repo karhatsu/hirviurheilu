@@ -10,10 +10,6 @@ describe AgeGroup do
       Factory.build(:age_group, :name => nil).should have(1).errors_on(:name)
     end
 
-    it "should require series" do
-      Factory.build(:age_group, :series => nil).should have(1).errors_on(:series)
-    end
-
     describe "min_competitors" do
       it "should change nil to 0" do
         ag = Factory.create(:age_group, :min_competitors => nil)

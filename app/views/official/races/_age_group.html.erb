@@ -1,5 +1,6 @@
 <div class="age_group_sub_form">
   <%= f.label :name %>
-  <%= f.text_field :name, :size => 15 %>
+  <%= f.text_field :name, :size => 15 %>, väh.
+  <%= f.text_field :min_competitors, :size => 2 %> kilpailijaa
   <%= remove_child_link "Poista ikäryhmä", f, 'age_group_sub_form', "" %>
 </div>
