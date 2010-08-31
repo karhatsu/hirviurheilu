@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100831104759) do
+ActiveRecord::Schema.define(:version => 20100831120510) do
 
   create_table "age_groups", :force => true do |t|
     t.integer  "series_id",                      :null => false
@@ -44,6 +44,12 @@ ActiveRecord::Schema.define(:version => 20100831104759) do
   end
 
   add_index "competitors", ["series_id"], :name => "index_competitors_on_series_id"
+
+  create_table "default_series", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "race_officials", :id => false, :force => true do |t|
     t.integer "race_id", :null => false
