@@ -22,6 +22,17 @@ class Race < ActiveRecord::Base
     Date.today, Date.today]
   scope :future, :conditions => ['start_date>?', Date.today], :order => 'start_date'
 
+  def add_default_series
+    DefaultSeries.all.each do |ds|
+      s = Series.new(:name => ds.name)
+      ds.default_age_groups.each do |dag|
+        s.age_groups << AgeGroup.new(:name => dag.name,
+          :min_competitors => dag.min_competitors)
+      end
+      series << s
+    end
+  end
+
   def finish
     series.each do |s|
       unless s.correct_estimate1 and s.correct_estimate2

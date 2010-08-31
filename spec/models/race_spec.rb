@@ -163,4 +163,33 @@ describe Race do
       Race.should_not be_exist(@race.id)
     end
   end
+
+  describe "#add_default_series" do
+    before do
+      @ds1 = Factory.create(:default_series, :name => 'DS1')
+      @ds1.default_age_groups << Factory.build(:default_age_group,
+        :default_series => @ds1, :name => 'DAG1', :min_competitors => 1)
+      @ds1.default_age_groups << Factory.build(:default_age_group,
+        :default_series => @ds1, :name => 'DAG2', :min_competitors => 2)
+      @ds2 = Factory.create(:default_series, :name => 'DS2')
+      @race = Factory.build(:race)
+    end
+
+    it "should add default series and age groups for the race" do
+      @race.add_default_series
+      @race.should have(2).series
+      s1 = @race.series.first
+      s1.name.should == 'DS1'
+      s1.should have(2).age_groups
+      ag1 = s1.age_groups.first
+      ag1.name.should == 'DAG1'
+      ag1.min_competitors.should == 1
+      ag2 = s1.age_groups.last
+      ag2.name.should == 'DAG2'
+      ag2.min_competitors.should == 2
+      s2 = @race.series.last
+      s2.name.should == 'DS2'
+      s2.should have(0).age_groups
+    end
+  end
 end
