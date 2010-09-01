@@ -93,6 +93,7 @@ Feature: Results
     Then I should be on the results page of the series
     And I should see "My test race" within "h1"
     And I should see "Men 50 years - Tulokset" within "h2"
+    And I should see "Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan kilpailun päätyttyä."
     And I should see a result row 1 with values:
       | name | Atkinsson Tim |
       | number | 51 |
