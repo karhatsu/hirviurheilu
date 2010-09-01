@@ -1,4 +1,5 @@
 .bundle
+capybara-*
 db/*.sqlite3*
 log/*.log
 nbproject
