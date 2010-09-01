@@ -17,6 +17,9 @@ module NavigationHelpers
     when /the results page of the series/
       series_competitors_path(@series)
 
+    when /the results page of the competitor/
+      series_competitor_path(@competitor.series, @competitor)
+
     when /the start list page of the series/
       start_list_path(@series)
 

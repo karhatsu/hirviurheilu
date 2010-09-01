@@ -110,3 +110,51 @@ Feature: Results
       | shooting | - |
       | estimates | - |
       | time | - |
+
+  Scenario: See the results of an individual competitor
+    Given there is a race with attributes:
+      | sport | RUN |
+      | name | My test race |
+      | start_date | 2010-07-15 |
+      | location | Test city |
+      | start_interval_seconds | 60 |
+    And the race has series with attributes:
+      | name | Men 50 years |
+      | start_time | 2010-07-15 13:00 |
+      | first_number | 50 |
+      | correct_estimate1 | 110 |
+      | correct_estimate2 | 130 |
+    And the series has a competitor with attributes:
+      | first_name | Tim |
+      | last_name | Atkinsson |
+    And there are numbers generated for the series
+    And there are start times generated for the series
+    And the competitor "Tim" "Atkinsson" has the following results:
+      | shots_total_input | 90 |
+      | estimate1 | 111 |
+      | estimate2 | 129 |
+      | arrival_time | 14:00:00 |
+    And the race is finished
+    And I am on the results page of the series
+    When I follow "Atkinsson Tim"
+    Then I should be on the results page of the competitor
+    And I should see "My test race" within "h1"
+    And I should see "Men 50 years - Atkinsson Tim" within "h2"
+    And I should see "Pisteet" within "#points h3"
+    And I should see "540" within "#points td"
+    And I should see "296" within "#points td"
+    And I should see "300" within "#points td"
+    And I should see "1136" within "#points td"
+    And I should see "Ammunta" within "#shooting h3"
+    And I should see "90" within "#shooting"
+    And I should see "Arviointi" within "#estimates h3"
+    And I should see "111" within "#estimates td"
+    And I should see "129" within "#estimates td"
+    And I should see "110" within "#estimates td"
+    And I should see "130" within "#estimates td"
+    And I should see "+1" within "#estimates td"
+    And I should see "-1" within "#estimates td"
+    And I should see "Juoksu" within "#time h3"
+    And I should see "13:00:00" within "#time td"
+    And I should see "14:00:00" within "#time td"
+    And I should see "1:00:00" within "#time td"

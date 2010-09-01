@@ -4,7 +4,7 @@ Given /^the series has a competitor with attributes:$/ do |fields|
     club = Club.find_by_name(hash[:club])
     hash[:club] = club
   end
-  Factory.create(:competitor, {:series => @series}.merge(hash))
+  @competitor = Factory.create(:competitor, {:series => @series}.merge(hash))
 end
 
 Given /^the competitor "([^"]*)" "([^"]*)" has the following results:$/ do |first_name,

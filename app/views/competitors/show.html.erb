@@ -5,52 +5,60 @@
 <% if @competitor.no_result_reason %>
   <div class="notice"><%= t "competitor.#{@competitor.no_result_reason}" %></div>
 <% end %>
-<h3>Pisteet</h3>
-<table>
-  <tr><td>Ammunta</td><td align="right"><%= @competitor.shot_points %></td></tr>
-  <tr><td>Arviointi</td><td align="right"><%= @competitor.estimate_points %></td></tr>
-  <tr><td>Aika</td><td align="right"><%= @competitor.time_points %></td></tr>
-  <tr><td>Yhteensä</td><td align="right"><%= @competitor.points %></td></tr>
-</table>
-<h3>Ammunta</h3>
-<%= shots_list(@competitor) %>
-<h3>Arviointi</h3>
-<% if @competitor.series.race.finished %>
+<div id="points">
+  <h3>Pisteet</h3>
+  <table>
+    <tr><td>Ammunta</td><td align="right"><%= @competitor.shot_points %></td></tr>
+    <tr><td>Arviointi</td><td align="right"><%= @competitor.estimate_points %></td></tr>
+    <tr><td>Aika</td><td align="right"><%= @competitor.time_points %></td></tr>
+    <tr><td>Yhteensä</td><td align="right"><%= @competitor.points %></td></tr>
+  </table>
+</div>
+<div id="shooting">
+  <h3>Ammunta</h3>
+  <%= shots_list(@competitor) %>
+</div>
+<div id="estimates">
+  <h3>Arviointi</h3>
+  <% if @competitor.series.race.finished %>
+    <table>
+      <tr>
+        <td>Arvioidut</td>
+        <td><%= @competitor.estimate1 ? @competitor.estimate1 : "-" %></td>
+        <td><%= @competitor.estimate2 ? @competitor.estimate2 : "-" %></td>
+      </tr>
+      <tr>
+        <td>Todelliset</td>
+        <td><%= correct_estimate(@competitor.series, 1, '-') %></td>
+        <td><%= correct_estimate(@competitor.series, 2, '-') %></td>
+      </tr>
+      <tr>
+        <td>Virhe</td>
+        <td><%= print_estimate_diff(@competitor.estimate_diff1_m) %></td>
+        <td><%= print_estimate_diff(@competitor.estimate_diff2_m) %></td>
+      </tr>
+    </table>
+  <% else %>
+    <div class="notice">Tarkemmat arviointitiedot näytetään kilpailun päätyttyä.</div>
+  <% end %>
+</div>
+<div id="time">
+  <h3><%= @competitor.series.race.sport.run? ? "Juoksu" : "Hiihto" %></h3>
   <table>
     <tr>
-      <td>Arvioidut</td>
-      <td><%= @competitor.estimate1 ? @competitor.estimate1 : "-" %></td>
-      <td><%= @competitor.estimate2 ? @competitor.estimate2 : "-" %></td>
+      <td>Lähtöaika</td>
+      <td><%= time_print(@competitor.start_time, true, '-') %></td>
     </tr>
     <tr>
-      <td>Todelliset</td>
-      <td><%= correct_estimate(@competitor.series, 1, '-') %></td>
-      <td><%= correct_estimate(@competitor.series, 2, '-') %></td>
+      <td>Saapumisaika</td>
+      <td><%= time_print(@competitor.arrival_time, true, '-') %></td>
     </tr>
     <tr>
-      <td>Virhe</td>
-      <td><%= print_estimate_diff(@competitor.estimate_diff1_m) %></td>
-      <td><%= print_estimate_diff(@competitor.estimate_diff2_m) %></td>
+      <td>Aika</td>
+      <td><%= time_from_seconds(@competitor.time_in_seconds) %></td>
     </tr>
   </table>
-<% else %>
-  <div class="notice">Tarkemmat arviointitiedot näytetään kilpailun päätyttyä.</div>
-<% end %>
-<h3><%= @competitor.series.race.sport.run? ? "Juoksu" : "Hiihto" %></h3>
-<table>
-  <tr>
-    <td>Lähtöaika</td>
-    <td><%= time_print(@competitor.start_time, true, '-') %></td>
-  </tr>
-  <tr>
-    <td>Saapumisaika</td>
-    <td><%= time_print(@competitor.arrival_time, true, '-') %></td>
-  </tr>
-  <tr>
-    <td>Aika</td>
-    <td><%= time_from_seconds(@competitor.time_in_seconds) %></td>
-  </tr>
-</table>
+</div>
 <br/>
 <%= link_to "Lataa tuloskortti pdf-tiedostona",
   series_competitor_path(@competitor.series.id, @competitor, :format => 'pdf') %>
