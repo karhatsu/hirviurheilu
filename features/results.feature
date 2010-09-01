@@ -29,20 +29,32 @@ Feature: Results
     And there are start times generated for the series
     And the competitor "James" "Johnson" has the following results:
       | shots_total_input | 85 |
-      | estimate1 | 110 |
-      | estimate2 | 130 |
-      | arrival_time | 14:00:00 |
+      | estimate1 | 111 |
+      | estimate2 | 129 |
+      | arrival_time | 14:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
       | shots_total_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
-      | arrival_time | 14:00:00 |
+      | arrival_time | 14:01:00 |
     And I am on the race page
     When I follow "Tulokset"
     Then I should be on the results page of the series
     And I should see "My test race" within "h1"
-    And I should see "Men 50 years - Tulokset"
-    And I should see "Johnson James"
-    And I should see "Shooting club"
-    And I should see "Atkinsson Tim"
-    And I should see "Sports club"
+    And I should see "Men 50 years - Tulokset" within "h2"
+    And I should see a result row 1 with values:
+      | name | Atkinsson Tim |
+      | number | 51 |
+      | club | Sports club |
+      | points | 1140 |
+      | shooting | 540 (90) |
+      | estimates | 300 |
+      | time | 300 (1:00:00) |
+    And I should see a result row 2 with values:
+      | name | Johnson James |
+      | number | 50 |
+      | club | Shooting club |
+      | points | 1105 |
+      | shooting | 510 (85) |
+      | estimates | 296 |
+      | time | 299 (1:00:10) |

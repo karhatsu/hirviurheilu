@@ -18,7 +18,7 @@
     <th><%= @series.race.sport.run? ? "Juoksu" : "Hiihto" %></th>
   </tr>
 <% @series.ordered_competitors.each_with_index do |comp, i| %>
-  <tr>
+  <tr id="comp_<%= i+1 %>">
     <td><%= i + 1 %>.</td>
     <td><%= link_to full_name(comp), series_competitor_path(@series.id, comp) %>
         <%= "(#{comp.age_group.name})" if comp.age_group %></td>
