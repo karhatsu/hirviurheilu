@@ -5,3 +5,7 @@ end
 Given /^there is an ongoing race with attributes:$/ do |fields|
   @race = Factory.create(:race, {:start_date => Date.today}.merge(fields.rows_hash))
 end
+
+Given /^the race is finished$/ do
+  @race.finish!
+end

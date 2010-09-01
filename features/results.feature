@@ -3,7 +3,7 @@ Feature: Results
   As a user
   I want to see the race results
 
-  Scenario: Go to see the results of a series
+  Scenario: Go to see the final results of a series
     Given there is a race with attributes:
       | name | My test race |
       | start_date | 2010-07-15 |
@@ -37,6 +37,7 @@ Feature: Results
       | estimate1 | 110 |
       | estimate2 | 130 |
       | arrival_time | 14:01:00 |
+    And the race is finished
     And I am on the race page
     When I follow "Tulokset"
     Then I should be on the results page of the series
@@ -48,7 +49,7 @@ Feature: Results
       | club | Sports club |
       | points | 1140 |
       | shooting | 540 (90) |
-      | estimates | 300 |
+      | estimates | 300 (0m/0m) |
       | time | 300 (1:00:00) |
     And I should see a result row 2 with values:
       | name | Johnson James |
@@ -56,5 +57,5 @@ Feature: Results
       | club | Shooting club |
       | points | 1105 |
       | shooting | 510 (85) |
-      | estimates | 296 |
+      | estimates | 296 (+1m/-1m) |
       | time | 299 (1:00:10) |

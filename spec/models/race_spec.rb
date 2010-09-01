@@ -146,6 +146,22 @@ describe Race do
     end
   end
 
+  describe "#finish!" do
+    before do
+      @race = Factory.build(:race)
+    end
+
+    it "should return true when finishing the race succeeds" do
+      @race.should_receive(:finish).and_return(true)
+      @race.finish!.should be_true
+    end
+
+    it "raise exception if finishing the race fails" do
+      @race.should_receive(:finish).and_return(false)
+      lambda { @race.finish! }.should raise_error
+    end
+  end
+
   describe "#destroy" do
     before do
       @race = Factory.create(:race)
