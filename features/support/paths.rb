@@ -29,6 +29,9 @@ module NavigationHelpers
     when /the official index page/
       official_root_path
 
+    when /the admin index page/
+      admin_root_path
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
