@@ -8,9 +8,13 @@ Feature: Results
       | name | My test race |
       | start_date | 2010-07-15 |
       | location | Test city |
+      | start_interval_seconds | 60 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 2010-07-15 13:30 |
+      | start_time | 2010-07-15 13:00 |
+      | first_number | 50 |
+      | correct_estimate1 | 110 |
+      | correct_estimate2 | 130 |
     And there is a club "Shooting club"
     And there is a club "Sports club"
     And the series has a competitor with attributes:
@@ -21,6 +25,18 @@ Feature: Results
       | first_name | Tim |
       | last_name | Atkinsson |
       | club | Sports club |
+    And there are numbers generated for the series
+    And there are start times generated for the series
+    And the competitor "James" "Johnson" has the following results:
+      | shots_total_input | 85 |
+      | estimate1 | 110 |
+      | estimate2 | 130 |
+      | arrival_time | 14:00:00 |
+    And the competitor "Tim" "Atkinsson" has the following results:
+      | shots_total_input | 90 |
+      | estimate1 | 110 |
+      | estimate2 | 130 |
+      | arrival_time | 14:00:00 |
     And I am on the race page
     When I follow "Tulokset"
     Then I should be on the results page of the series
