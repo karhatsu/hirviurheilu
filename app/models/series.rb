@@ -71,6 +71,10 @@ class Series < ActiveRecord::Base
     true
   end
 
+  def generate_numbers!
+    generate_numbers || raise(errors.full_messages.to_s)
+  end
+
   def generate_start_times
     failure = false
     error_start = 'Lähtöaikoja ei voi generoida'
@@ -110,6 +114,10 @@ class Series < ActiveRecord::Base
       comp.save!
     end
     true
+  end
+
+  def generate_start_times!
+    generate_start_times || raise(errors.full_messages.to_s)
   end
 
   def running?

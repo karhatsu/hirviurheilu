@@ -272,6 +272,22 @@ describe Series do
     end
   end
 
+  describe "#generate_numbers!" do
+    before do
+      @series = Factory.build(:series)
+    end
+
+    it "should return true when generation succeeds" do
+      @series.should_receive(:generate_numbers).and_return(true)
+      @series.generate_numbers!.should be_true
+    end
+
+    it "raise exception if generation fails" do
+      @series.should_receive(:generate_numbers).and_return(false)
+      lambda { @series.generate_numbers! }.should raise_error
+    end
+  end
+
   describe "#generate_start_times" do
     before do
       @race = Factory.create(:race, :start_date => '2010-08-15',
@@ -366,6 +382,22 @@ describe Series do
         @c2.start_time.strftime('%H:%M:%S').should == '10:01:15'
         @c3.start_time.strftime('%H:%M:%S').should == '10:02:15'
       end
+    end
+  end
+
+  describe "#generate_start_times!" do
+    before do
+      @series = Factory.build(:series)
+    end
+    
+    it "should return true when generation succeeds" do
+      @series.should_receive(:generate_start_times).and_return(true)
+      @series.generate_start_times!.should be_true
+    end
+    
+    it "raise exception if generation fails" do
+      @series.should_receive(:generate_start_times).and_return(false)
+      lambda { @series.generate_start_times! }.should raise_error
     end
   end
 
