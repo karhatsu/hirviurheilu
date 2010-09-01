@@ -17,6 +17,9 @@ module NavigationHelpers
     when /the results page of the series/
       series_competitors_path(@series)
 
+    when /the start list page of the series/
+      start_list_path(@series)
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
