@@ -23,6 +23,12 @@ module NavigationHelpers
     when /the start list page of the series/
       start_list_path(@series)
 
+    when /the login page/
+      new_user_session_path
+
+    when /the official index page/
+      official_root_path
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
