@@ -2,33 +2,33 @@
 <h1><%= yield :title %></h1>
 <%= render :partial => "shared/form_errors", :locals => { :item => @competitor } %>
 <%= form_for([:official, @competitor.series, @competitor]) do |f| %>
-  <h2>Perustiedot</h2>
   <%= render :partial => "basic_fields", :locals => { :f => f, :show_number => true } %>
-  <h2>Aika</h2>
+  <hr/>
   <%= f.label :start_time %>
   <%= f.time_text_field :start_time, :include_seconds => true, :blank => true %>
   <%= f.label :arrival_time %>
   <%= f.time_text_field :arrival_time, :include_seconds => true, :blank => true %><br/>
-  <h2>Ammunta</h2>
+  <hr/>
   <%= f.label :shots_total_input %>
   <%= f.text_field :shots_total_input, :size => 5, :maxlength => 3 %>
   (Syötä joko yhteistulos tai vain yksittäiset laukaukset.)<br/>
-  Yksittäiset tulokset
+  Yksittäiset laukaukset
   <%= f.fields_for :shots do |shot_form| %>
     <%= render :partial => "shot", :locals => { :f => shot_form } %>
   <% end %>
   <% (10 - @competitor.shots.length).times do |i| %>
     <%= new_child_fields(f, :shots, i) %>
   <% end %>
-  <h2>Arviointi</h2>
+  <hr/>
   <%= f.label :estimate1 %>
   <%= f.text_field :estimate1, :size => 5, :maxlength => 3 %>
   <%= f.label :estimate2 %>
   <%= f.text_field :estimate2, :size => 5, :maxlength => 3 %><br/>
-  <h2>Ei tulosta</h2>
+  <hr/>
   <%= f.radio_button :no_result_reason, '' %>Normaali
   <%= f.radio_button :no_result_reason, Competitor::DNS %>Ei lähtenyt matkaan (DNS)
-  <%= f.radio_button :no_result_reason, Competitor::DNF %>Keskeytys (DNF)<br/>
+  <%= f.radio_button :no_result_reason, Competitor::DNF %>Keskeytys (DNF)
+  <hr/>
   <%= submit_tag "Tallenna ja edellinen", :name => 'previous' %>
   <%= submit_tag "Tallenna ja palaa listaan" %>
   <%= submit_tag "Tallenna ja seuraava", :name => 'next' %>
