@@ -6,7 +6,11 @@ ActiveScaffold::Bridges.bridge "DatePicker" do
 
     if ActiveScaffold.js_framework == :jquery
       require File.join(directory, "lib/datepicker_bridge.rb")
-      FileUtils.cp(source, destination)
+      begin
+        FileUtils.cp(source, destination)
+      rescue
+        raise $! unless Rails.env == 'production'
+      end
     else
       # make sure that jquery files are removed
       FileUtils.rm(File.join(destination, 'date_picker_bridge.js')) if File.exist?(File.join(destination, 'date_picker_bridge.js'))
