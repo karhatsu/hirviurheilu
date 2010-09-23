@@ -8,21 +8,10 @@ describe Race do
   end
 
   describe "validation" do
-    it "should require sport" do
-      Factory.build(:race, :sport => nil).should have(1).errors_on(:sport)
-    end
-
-    it "should require name" do
-      Factory.build(:race, :name => nil).should have(1).errors_on(:name)
-    end
-
-    it "should require location" do
-      Factory.build(:race, :location => nil).should have(1).errors_on(:location)
-    end
-
-    it "should require start date" do
-      Factory.build(:race, :start_date => nil).should have(1).errors_on(:start_date)
-    end
+    it { should validate_presence_of(:sport) }
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:location) }
+    it { should validate_presence_of(:start_date) }
 
     describe "end_date" do
       it "can be nil which makes it same as start date" do
