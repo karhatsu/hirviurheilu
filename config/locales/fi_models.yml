@@ -5,6 +5,8 @@ fi:
     club: Piiri/seura
     correct_estimate1: Oikea arviomatka 1
     correct_estimate2: Oikea arviomatka 2
+    current_login_at: Nyk. kirj.
+    current_login_ip: Nyk. IP
     default_age_group: Oletusikäryhmä
     default_age_groups: Oletusikäryhmät
     default_series: Oletussarja
@@ -18,6 +20,7 @@ fi:
     key: Avain
     last_name: Sukunimi
     last_login_at: Viim. kirj.
+    last_login_ip: Viim. IP
     last_request_at: Viim. käyt.
     location: Paikkakunta
     min_competitors: Kilpailijoita vähintään
@@ -27,6 +30,7 @@ fi:
     password_confirmation: Salasana uudestaan
     race: Kilpailu
     remember_me: Muista minut
+    roles: Roolit
     series: Sarja
     shots_total_input: Ammunta yhteensä
     sport: Laji
@@ -57,3 +61,6 @@ fi:
       sport:
         one: Laji
         other: Lajit
+      user:
+        one: Käyttäjä
+        other: Käyttäjät
