@@ -61,14 +61,9 @@ module ActiveScaffold
       end
 
       def form_remote_upload_tag(url_for_options = {}, options = {})
-        onsubmits = options[:onsubmit] ? [ options[:onsubmit] ] : [ ]
-        # simulate a "loading". the setTimeout prevents the Form.disable from being called before the submit, so that data actually posts.
-        onsubmits << "setTimeout(function() { #{options[:loading]} }, 10); "
-        onsubmits << "return true" # make sure the form still submits
-
-        options[:onsubmit] = onsubmits * ';'
         options[:target] = action_iframe_id(url_for_options)
         options[:multipart] ||= true
+        options[:class] = "#{options[:class]} as_remote_upload".strip 
         output=""
         output << form_tag(url_for_options, options)
         (output << "<iframe id='#{action_iframe_id(url_for_options)}' name='#{action_iframe_id(url_for_options)}' style='display:none'></iframe>").html_safe
@@ -115,12 +110,11 @@ module ActiveScaffold
       # Creates a javascript-based link that toggles the visibility of some element on the page.
       # By default, it toggles the visibility of the sibling after the one it's nested in. You may pass custom javascript logic in options[:of] to change that, though. For example, you could say :of => '$("my_div_id")'.
       # You may also flag whether the other element is visible by default or not, and the initial text will adjust accordingly.
-      def link_to_visibility_toggle(options = {})
-        options[:of] ||= '$(this.parentNode).next()'
+      def link_to_visibility_toggle(id, options = {})
         options[:default_visible] = true if options[:default_visible].nil?
-
-        link_text = options[:default_visible] ? as_(:hide) : as_(:show)
-        link_to_function link_text, "e = #{options[:of]}; e.toggle(); this.innerHTML = (e.style.display == 'none') ? '#{as_(:show)}' : '#{as_(:hide)}'", :class => 'visibility-toggle'
+        options[:hide_label] = as_(:hide) 
+        options[:show_label] = as_(:show)
+        javascript_tag("ActiveScaffold.create_visibility_toggle('#{id}', #{options.to_json});")
       end
 
       def skip_action_link(link, *args)
@@ -128,55 +122,88 @@ module ActiveScaffold
       end
 
       def render_action_link(link, url_options, record = nil, html_options = {})
+        url_options = action_link_url_options(link, url_options, record)
+        html_options = action_link_html_options(link, url_options, record, html_options)
+        action_link_html(link, url_options, html_options)
+      end
+      
+      def action_link_url_options(link, url_options, record, options = {})
         url_options = url_options.clone
-        id = url_options[:id] || url_options[:parent_id]
         url_options[:action] = link.action
         url_options[:controller] = link.controller if link.controller
         url_options.delete(:search) if link.controller and link.controller.to_s != params[:controller]
         url_options.merge! link.parameters if link.parameters
-        url_options_for_nested_link(link.column, record, link, url_options) unless link.column.nil?
-
+        url_options_for_nested_link(link.column, record, link, url_options, options) unless link.column.nil?
+        url_options[:_method] = link.method if link.inline? && link.method != :get
+        url_options
+      end
+      
+      def action_link_html_options(link, url_options, record, html_options)
+        link_id = get_action_link_id(url_options, record, link.column)
         html_options.reverse_merge! link.html_options.merge(:class => link.action)
-        if link.inline?
-          url_options[:_method] = link.method if link.method != :get
-          # robd: protect against submitting get links as forms, since this causes annoying 
-          # 'Do you wish to resubmit your form?' messages whenever you go back and forwards.
-        elsif link.method != :get
-          # Needs to be in html_options to as the adding _method to the url is no longer supported by Rails
-          html_options[:method] = link.method
-        end
+
+        # Needs to be in html_options to as the adding _method to the url is no longer supported by Rails        
+        html_options[:method] = link.method if !link.inline? && link.method != :get
 
         html_options['data-confirm'] = link.confirm(record.try(:to_label)) if link.confirm?
         html_options['data-position'] = link.position if link.position and link.inline?
         html_options[:class] += ' as_action' if link.inline?
         html_options[:popup] = true if link.popup?
-        html_options[:id] = action_link_id("#{id_from_controller(url_options[:controller]) + '-' if url_options[:parent_controller]}" + url_options[:action].to_s, id)
+        html_options[:id] = link_id
         html_options[:remote] = true unless link.page?
         if link.dhtml_confirm?
           html_options[:class] += ' as_action' if !link.inline?
           html_options[:page_link] = 'true' if !link.inline?
           html_options[:dhtml_confirm] = link.dhtml_confirm.value
-          html_options[:onclick] = link.dhtml_confirm.onclick_function(controller,action_link_id(url_options[:action],id))
+          html_options[:onclick] = link.dhtml_confirm.onclick_function(controller, link_id)
         end
         html_options[:class] += " #{link.html_options[:class]}" unless link.html_options[:class].blank?
-
-        # issue 260, use url_options[:link] if it exists. This prevents DB data from being localized.
-        label = url_options.delete(:link) || link.label
-        link_to label, url_options, html_options
+        html_options
+      end
+      def get_action_link_id(url_options, record = nil, column = nil)
+        id = url_options[:id] || url_options[:parent_id]
+        id = "#{column.association.name}-#{record.id}" if column && column.plural_association?
+        if record.try(column.association.name.to_sym).present?
+          id = "#{column.association.name}-#{record.send(column.association.name).id}"
+        else
+          id = "#{column.association.name}-#{record.id}" unless record.nil?
+        end if column && column.singular_association?
+        action_id = "#{id_from_controller(url_options[:controller]) + '-' if url_options[:parent_controller]}#{url_options[:action].to_s}"
+        action_link_id(action_id, id)
       end
       
-      def url_options_for_nested_link(column, record, link, url_options)
+      def action_link_html(link, url, html_options)
+        # issue 260, use url_options[:link] if it exists. This prevents DB data from being localized.
+        label = url.delete(:link) if url.is_a?(Hash) 
+        label ||= link.label
+        if link.image.nil?
+          html = link_to(label, url, html_options)
+        else
+          html = link_to(image_tag(link.image[:name] , :size => link.image[:size], :alt => label), url, html_options)
+        end
+        # if url is nil we would like to generate an anchor without href attribute
+        url.nil? ? html.sub(/href=".*?"/, '') : html 
+      end
+      
+      def url_options_for_nested_link(column, record, link, url_options, options = {})
         if column.association
           url_options[:assoc_id] = url_options.delete(:id)
-          url_options[:id] = record.send(column.association.name) if column.singular_association?
-          url_options[:eid] = "#{params[:controller]}_#{ActiveSupport::SecureRandom.hex(10)}" 
+          url_options[:id] = record.send(column.association.name).id if column.singular_association? && record.send(column.association.name).present?
+          link.eid = "#{controller_id.from(3)}_#{record.id}_#{column.association.name}" unless options.has_key?(:reuse_eid)
+          url_options[:eid] = link.eid
         end
       end
 
-      def column_class(column, column_value)
+      def column_class(column, column_value, record)
         classes = []
         classes << "#{column.name}-column"
-        classes << column.css_class unless column.css_class.nil?
+        if column.css_class.is_a?(Proc)
+          css_class = column.css_class.call(column_value, record)
+          classes << css_class unless css_class.nil?
+        else
+          classes << column.css_class
+        end unless column.css_class.nil?
+         
         classes << 'empty' if column_empty? column_value
         classes << 'sorted' if active_scaffold_config.list.user.sorting.sorts_on?(column)
         classes << 'numeric' if column.column and [:decimal, :float, :integer].include?(column.column.type)
@@ -253,28 +280,27 @@ module ActiveScaffold
           end
           options[:object_name] ||= params.first
 
-          I18n.with_options :locale => options[:locale], :scope => [:activerecord, :errors, :template] do |locale|
-            header_message = if options.include?(:header_message)
-              options[:header_message]
-            else
-              locale.t :header, :count => count, :model => options[:object_name].to_s.gsub('_', ' ')
-            end
-
-            message = options.include?(:message) ? options[:message] : locale.t(:body)
-
-            error_messages = objects.sum do |object|
-              object.errors.full_messages.map do |msg|
-                content_tag(:li, msg)
-              end
-            end.join.html_safe
-
-            contents = ''
-            contents << content_tag(options[:header_tag] || :h2, header_message) unless header_message.blank?
-            contents << content_tag(:p, message) unless message.blank?
-            contents << content_tag(:ul, error_messages)
-
-            content_tag(:div, contents.html_safe, html)
+          header_message = if options.include?(:header_message)
+            options[:header_message]
+          else
+            as_('errors.template.header', :count => count, :model => options[:object_name].to_s.gsub('_', ' '))
           end
+
+          message = options.include?(:message) ? options[:message] : as_('errors.template.body')
+
+          error_messages = objects.sum do |object|
+            object.errors.full_messages.map do |msg|
+              content_tag(:li, msg)
+            end
+          end.join.html_safe
+
+          contents = ''
+          contents << content_tag(options[:header_tag] || :h2, header_message) unless header_message.blank?
+          contents << content_tag(:p, message) unless message.blank?
+          contents << content_tag(:ul, error_messages)
+
+          content_tag(:div, contents.html_safe, html)
+
         else
           ''
         end

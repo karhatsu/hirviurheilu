@@ -10,7 +10,13 @@ module ActiveScaffold::DataStructures
     def add(action, options = {})
       link = action.is_a?(ActiveScaffold::DataStructures::ActionLink) ? action : ActiveScaffold::DataStructures::ActionLink.new(action, options)
       # NOTE: this duplicate check should be done by defining the comparison operator for an Action data structure
-      @set << link unless @set.any? {|a| a.action == link.action and a.controller == link.controller and a.parameters == link.parameters}
+      existing = @set.find {|a| a.action == link.action and a.controller == link.controller and a.parameters == link.parameters}
+      unless existing
+        @set << link
+        link
+      else
+        existing
+      end
     end
     alias_method :<<, :add
 
@@ -30,6 +36,12 @@ module ActiveScaffold::DataStructures
         next if type and item.type != type
         yield item
       }
+    end
+    
+    def collect_by_type(type = nil)
+      links = []
+      each(type) {|link| links << link}
+      links
     end
 
     def empty?

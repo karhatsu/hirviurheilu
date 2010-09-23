@@ -7,21 +7,19 @@ module ActiveScaffold::Actions
       base.helper_method :nested?
     end
     def render_field
-      @record = if params[:in_place_editing]
+      @record ||= if params[:in_place_editing]
         active_scaffold_config.model.find params[:id]
       else
         active_scaffold_config.model.new
       end
-      @update_columns = []
       column = active_scaffold_config.columns[params[:column]]
       if params[:in_place_editing]
         render :inline => "<%= active_scaffold_input_for(active_scaffold_config.columns[params[:update_column].to_sym]) %>"
       elsif !column.nil?
         value = column_value_from_param_value(@record, column, params[:value])
         @record.send "#{column.name}=", value
-        @update_columns << Array(params[:update_column]).collect {|column_name| active_scaffold_config.columns[column_name.to_sym]}
-        @update_columns.flatten!
         after_render_field(@record, column)
+        render :partial => "render_field", :collection => Array(params[:update_columns]), :content_type => 'text/javascript' 
       end
     end
     

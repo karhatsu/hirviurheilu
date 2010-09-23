@@ -13,20 +13,23 @@ if (!Element.Methods.highlight) Element.addMethods({highlight: Prototype.emptyFu
 
 document.observe("dom:loaded", function() {
   document.on('ajax:loading', 'form.as_form', function(event) {
+    var source = event.findElement();
     var as_form = event.findElement('form');
-    if (as_form && as_form.readAttribute('data-loading') == 'true') {
-      var loading_indicator = $(as_form.id.sub('-form', '-loading-indicator'));
-      if (loading_indicator) loading_indicator.style.visibility = 'visible';
-      as_form.disable();
+    if (source.nodeName.toUpperCase() == 'INPUT' && source.readAttribute('type') == 'button') {
+      // Hack: Prototype or rails.js somehow screw up event handling if someone clicks
+      // a button of type button such as Create Another <Association>
+      // as a result form is disabled but never reenabled..
+    } else {
+      if (as_form && as_form.readAttribute('data-loading') == 'true') {
+        ActiveScaffold.disable_form(as_form);
+      }
     }
     return true;
   });
   document.on('ajax:complete', 'form.as_form', function(event) {
     var as_form = event.findElement('form');
     if (as_form && as_form.readAttribute('data-loading') == 'true') {
-      var loading_indicator = $(as_form.id.sub('-form', '-loading-indicator'));
-      if (loading_indicator) loading_indicator.style.visibility = 'hidden';
-      as_form.enable();
+      ActiveScaffold.enable_form(as_form);
       event.stop();
       return false;
     }
@@ -39,22 +42,16 @@ document.observe("dom:loaded", function() {
       return false;
     }
   });
-  document.on('ajax:before', 'a.as_action', function(event) {
-    var as_action = event.findElement();
-    if (typeof(as_action.action_link) === 'undefined') {
-      var parent = as_action.up();
-      if (parent && parent.nodeName.toUpperCase() == 'TD') {
-        // record action
-        parent = parent.up('tr.record')
-        new ActiveScaffold.Actions.Record(parent.select('a.as_action'), parent, parent.down('td.actions .loading-indicator'));
-      } else if (parent && parent.nodeName.toUpperCase() == 'DIV') {
-        //table action
-        new ActiveScaffold.Actions.Table(parent.select('a.as_action'), parent.up('div.active-scaffold').down('tbody.before-header'), parent.down('.loading-indicator'));
-      }
-      as_action = event.findElement();
+  document.on('submit', 'form.as_form.as_remote_upload', function(event) {
+    var as_form = event.findElement('form');
+    if (as_form && as_form.readAttribute('data-loading') == 'true') {
+      setTimeout("ActiveScaffold.disable_form('" + as_form.id + "')", 10);
     }
-    if (as_action.action_link) {
-      var action_link = as_action.action_link;
+    return true;
+  });
+  document.on('ajax:before', 'a.as_action', function(event) {
+    var action_link = ActiveScaffold.ActionLink.get(event.findElement());
+    if (action_link) {
       if (action_link.is_disabled()) {
         event.stop();
       } else {
@@ -65,9 +62,8 @@ document.observe("dom:loaded", function() {
     return true;
   });
   document.on('ajax:success', 'a.as_action', function(event) {
-    var as_action = event.findElement();
-    if (as_action.action_link && event.memo && event.memo.request) {
-      var action_link = as_action.action_link;
+    var action_link = ActiveScaffold.ActionLink.get(event.findElement());
+    if (action_link && event.memo && event.memo.request) {
       if (action_link.position) {
         action_link.insert(event.memo.request.responseText);
         if (action_link.hide_target) action_link.target.hide();
@@ -80,28 +76,25 @@ document.observe("dom:loaded", function() {
     return true;
   });
   document.on('ajax:complete', 'a.as_action', function(event) {
-    var as_action = event.findElement();
-    if (as_action.action_link) {
-      var action_link = as_action.action_link;
-      if (action_link.loading_indicator) action_link.loading_indicator.style.visibility = 'hidden';  
+    var action_link = ActiveScaffold.ActionLink.get(event.findElement());
+    if (action_link && action_link.loading_indicator) {
+      action_link.loading_indicator.style.visibility = 'hidden';  
     }
     return true;
   });
   document.on('ajax:failure', 'a.as_action', function(event) {
-    var as_action = event.findElement();
-    if (as_action.action_link) {
-      var action_link = as_action.action_link;
+    var action_link = ActiveScaffold.ActionLink.get(event.findElement());
+    if (action_link) {
       ActiveScaffold.report_500_response(action_link.scaffold_id());
       action_link.enable();
     }
     return true;
   });
   document.on('ajax:before', 'a.as_cancel', function(event) {
-    var as_adapter = event.findElement('.as_adapter');
     var as_cancel = event.findElement();
+    var action_link = ActiveScaffold.find_action_link(as_cancel);
     
-    if (as_adapter.action_link) {
-      var action_link = as_adapter.action_link;
+    if (action_link) {
       var refresh_data = as_cancel.readAttribute('data-refresh');
       if (refresh_data === 'true' && action_link.refresh_url) {
         event.memo.url = action_link.refresh_url;
@@ -113,10 +106,8 @@ document.observe("dom:loaded", function() {
     return true;
   });
   document.on('ajax:success', 'a.as_cancel', function(event) {
-    var as_adapter = event.findElement('.as_adapter');
-
-    if (as_adapter.action_link) {
-      var action_link = as_adapter.action_link;
+    var action_link = ActiveScaffold.find_action_link(event.findElement());
+    if (action_link) {
       if (action_link.position) {
         action_link.close(event.memo.request.responseText);
       } else {
@@ -126,9 +117,8 @@ document.observe("dom:loaded", function() {
     return true;
   });
   document.on('ajax:failure', 'a.as_cancel', function(event) {
-    var as_adapter = event.findElement('.as_adapter');
-    if (as_adapter.action_link) {
-      var action_link = as_adapter.action_link;
+    var action_link = ActiveScaffold.find_action_link(event.findElement());
+    if (action_link) {
       ActiveScaffold.report_500_response(action_link.scaffold_id());
     }
     return true;
@@ -229,8 +219,48 @@ document.observe("dom:loaded", function() {
     if(loading_indicator) loading_indicator.style.visibility = 'hidden';  
     return true;
   });
-  
-  
+  document.on('ajax:before', 'input[type=button].as_add_existing', function(event) {
+    var button = event.findElement();
+    var url =  button.readAttribute('href').sub('--ID--', button.previous().getValue());
+    event.memo.url = url;
+    return true;
+  });
+  document.on('change', 'input.update_form, select.update_form', function(event) {
+    var element = event.findElement();
+    var as_form = element.up('form.as_form');
+    
+    new Ajax.Request(element.readAttribute('data-update_url'), {
+      method: 'get',
+      parameters: {value: element.getValue()},
+      onLoading: function(response) {
+        element.next('img.loading-indicator').style.visibility = 'visible';
+        as_form.disable();
+      },
+      onComplete: function(response) {
+        element.next('img.loading-indicator').style.visibility = 'hidden';
+        as_form.enable();
+      },
+      onFailure:  function(request) { 
+        var as_div = event.findElement('div.active-scaffold');
+        if (as_div) {
+          ActiveScaffold.report_500_response(as_div)
+        }
+      }
+    });
+    return true;
+  });
+  document.on('change', 'select.as_search_range_option', function(event) {
+    var element = event.findElement();
+    Element[element.value == 'BETWEEN' ? 'show' : 'hide'](element.id.sub('_opt', '_between'));
+    return true;
+  });
+  document.on('change', 'select.as_search_date_time_option', function(event) {
+    var element = event.findElement();
+    Element[!(element.value == 'PAST' || element.value == 'FUTURE' || element.value == 'RANGE') ? 'show' : 'hide'](element.id.sub('_opt', '_numeric'));
+    Element[(element.value == 'PAST' || element.value == 'FUTURE') ? 'show' : 'hide'](element.id.sub('_opt', '_trend'));
+    Element[element.value == 'RANGE' ? 'show' : 'hide'](element.id.sub('_opt', '_range'));
+    return true;
+  });  
 });
 
 
@@ -333,6 +363,32 @@ var ActiveScaffold = {
     $(element).hide();
   },
   
+  show: function(element) {
+    $(element).show();
+  },
+  
+  reset_form: function(element) {
+    $(element).reset();
+  },
+  
+  disable_form: function(as_form) {
+    as_form = $(as_form)
+    var loading_indicator = $(as_form.id.sub('-form', '-loading-indicator'));
+    if (loading_indicator) loading_indicator.style.visibility = 'visible';
+    as_form.disable();
+  },
+  
+  enable_form: function(as_form) {
+    as_form = $(as_form)
+    var loading_indicator = $(as_form.id.sub('-form', '-loading-indicator'));
+    if (loading_indicator) loading_indicator.style.visibility = 'hidden';
+    as_form.enable();
+  },
+  
+  focus_first_element_of_form: function(form_element) {
+    Form.focusFirstElement(form_element);
+  },  
+  
   create_record_row: function(tbody, html) {
     tbody = $(tbody);
     tbody.insert({top: html});
@@ -349,8 +405,12 @@ var ActiveScaffold = {
     var tbody = row.up('tbody.records');
     
     var current_action_node = row.down('td.actions a.disabled');
-    if (current_action_node && current_action_node.action_link) {
-      current_action_node.action_link.close_previous_adapter();
+    
+    if (current_action_node) {
+      var action_link = ActiveScaffold.ActionLink.get(current_action_node);
+      if (action_link) {
+        action_link.close_previous_adapter();
+      }
     }
     row.remove();
     this.stripe(tbody);
@@ -368,7 +428,7 @@ var ActiveScaffold = {
   },
   
   find_action_link: function(element) {
-    return $(element).up('.as_adapter').action_link;
+    return ActiveScaffold.ActionLink.get($(element).up('.as_adapter')); 
   },
   
   scroll_to: function(element) {
@@ -408,7 +468,45 @@ var ActiveScaffold = {
     span.removeClassName('hover');
     span.inplace_edit = new ActiveScaffold.InPlaceEditor(span.id, options.url, options)
     span.inplace_edit.enterEditMode();
+  },
+  
+  create_visibility_toggle: function(element, options) {
+    var toggable = $(element);
+    var toggler = toggable.previous();
+    var initial_label = (options.default_visible === true) ? options.hide_label : options.show_label;
+    
+    toggler.insert(' (<a class="visibility-toggle" href="#">' + initial_label + '</a>)');
+    toggler.firstDescendant().observe('click', function(event) {
+      var element = event.element();
+      toggable.toggle(); 
+      element.innerHTML = (toggable.style.display == 'none') ? options.show_label : options.hide_label;
+    });
+  },
+  
+  create_associated_record_form: function(element, content, options) {
+    var element = $(element);
+    if (options.singular == false) {
+      if (!(options.id && $(options.id))) {
+        element.insert(content);
+      }
+    } else {
+      if (current = $$('#' + element.id + '.association-record')[0]) {
+        this.replace(current, content);
+      } else {
+        element.insert({top: content});
+      }
+    }
+  },
+  
+  render_form_field: function(element, content, options) {
+    var element = $(element);
+    if (options.is_subform == false) {
+      this.replace(element.up('dl'), content);
+    } else {
+      this.replace_html(element, content);
+    }
   }
+  
 }
 
 /*
@@ -511,7 +609,25 @@ ActiveScaffold.Actions.Abstract = Class.create({
  * A DataStructures::ActionLink, represented in JavaScript.
  * Concerned with AJAX-enabling a link and adapting the result for insertion into the table.
  */
-ActiveScaffold.ActionLink = new Object();
+ActiveScaffold.ActionLink = {
+  get: function(element) {
+    var element = $(element);
+    if (typeof(element.retrieve('action_link')) === 'undefined' && !element.hasClassName('as_adapter')) {
+      var parent = element.up();
+      if (parent && parent.nodeName.toUpperCase() == 'TD') {
+        // record action
+        parent = parent.up('tr.record')
+        new ActiveScaffold.Actions.Record(parent.select('a.as_action'), parent, parent.down('td.actions .loading-indicator'));
+      } else if (parent && parent.nodeName.toUpperCase() == 'DIV') {
+        //table action
+        new ActiveScaffold.Actions.Table(parent.select('a.as_action'), parent.up('div.active-scaffold').down('tbody.before-header'), parent.down('.loading-indicator'));
+      }
+      element = $(element);
+    }
+    return element.retrieve('action_link');
+  }
+};
+
 ActiveScaffold.ActionLink.Abstract = Class.create({
   initialize: function(a, target, loading_indicator) {
     this.tag = $(a);
@@ -536,7 +652,7 @@ ActiveScaffold.ActionLink.Abstract = Class.create({
     this.hide_target = false;
     this.position = this.tag.getAttribute('data-position');
 		
-    this.tag.action_link = this;
+    this.tag.store('action_link', this);
   },
 
   open: function(event) {
@@ -583,7 +699,13 @@ ActiveScaffold.ActionLink.Abstract = Class.create({
   update_flash_messages: function(messages) {
     message_node = $(this.scaffold_id().sub('-active-scaffold', '-messages'));
     if (message_node) message_node.update(messages);
-  }
+  },
+  
+  set_adapter: function(element) {
+    this.adapter = element;
+    this.adapter.addClassName('as_adapter');
+    this.adapter.store('action_link', this);
+  },
 });
 
 /**
@@ -628,15 +750,11 @@ ActiveScaffold.ActionLink.Record = Class.create(ActiveScaffold.ActionLink.Abstra
 
     if (this.position == 'after') {
       this.target.insert({after:content});
-      this.adapter = this.target.next();
-      this.adapter.addClassName('as_adapter');
-      this.adapter.action_link = this;
+      this.set_adapter(this.target.next());
     }
     else if (this.position == 'before') {
       this.target.insert({before:content});
-      this.adapter = this.target.previous();
-      this.adapter.addClassName('as_adapter');
-      this.adapter.action_link = this;
+      this.set_adapter(this.target.previous());
     }
     else {
       return false;
@@ -684,9 +802,7 @@ ActiveScaffold.ActionLink.Table = Class.create(ActiveScaffold.ActionLink.Abstrac
   insert: function(content) {
     if (this.position == 'top') {
       this.target.insert({top:content});
-      this.adapter = this.target.immediateDescendants().first();
-      this.adapter.addClassName('as_adapter');
-      this.adapter.action_link = this;
+      this.set_adapter(this.target.immediateDescendants().first());
     }
     else {
       throw 'Unknown position "' + this.position + '"'

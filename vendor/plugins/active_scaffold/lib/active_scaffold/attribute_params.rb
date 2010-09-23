@@ -121,7 +121,10 @@ module ActiveScaffold
           column.association.klass.find(value) if value and not value.empty?
         elsif column.plural_association?
           # it's an array of ids
-          column.association.klass.find(value) if value and not value.empty?
+          if value and not value.empty?
+            ids = value.select {|id| id.respond_to?(:empty?) ? !id.empty? : true}
+            ids.empty? ? [] : column.association.klass.find(ids) 
+          end
         elsif column.column && column.column.number? && [:i18n_number, :currency].include?(column.options[:format])
           native = '.'
           delimiter = I18n.t('number.format.delimiter')
@@ -175,20 +178,26 @@ module ActiveScaffold
     # Determines whether the given attributes hash is "empty".
     # This isn't a literal emptiness - it's an attempt to discern whether the user intended it to be empty or not.
     def attributes_hash_is_empty?(hash, klass)
+      ignore_column_types = [:boolean]
       hash.all? do |key,value|
         # convert any possible multi-parameter attributes like 'created_at(5i)' to simply 'created_at'
-        column_name = key.to_s.split('(').first
+        parts = key.to_s.split('(')
+        #old style date form management... ignore them too
+        ignore_column_types = [:boolean, :datetime, :date, :time] if parts.length > 1
+        column_name = parts.first
         column = klass.columns_hash[column_name]
 
         # booleans and datetimes will always have a value. so we ignore them when checking whether the hash is empty.
         # this could be a bad idea. but the current situation (excess record entry) seems worse.
-        next true if column and [:boolean, :datetime, :date, :time].include?(column.type)
+        next true if column and ignore_column_types.include?(column.type)
 
         # defaults are pre-filled on the form. we can't use them to determine if the user intends a new row.
         next true if column and value == column.default.to_s
 
         if value.is_a?(Hash)
           attributes_hash_is_empty?(value, klass)
+        elsif value.is_a?(Array)
+          value.any? {|id| id.respond_to?(:empty?) ? !id.empty? : true}
         else
           value.respond_to?(:empty?) ? value.empty? : false
         end

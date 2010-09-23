@@ -64,11 +64,50 @@
       :contains => 'Contains',
       :begins_with => 'Begins with',
       :ends_with => 'Ends with',
-
+      :today => 'Today',
+      :yesterday => 'Yesterday',
+      :tomorrow => 'Tommorrow',
+      :this_week => 'This Week',
+      :prev_week => 'Last Week',
+      :next_week => 'Next Week',
+      :this_month => 'This Month',
+      :prev_month => 'Last Month',
+      :next_month => 'Next Month',
+      :this_year => 'This Year',
+      :prev_year => 'Last Year',
+      :next_year => 'Next Year',
+      :past => 'Past', 
+      :future => 'Future',
+      :range => 'Range',
+      :days => 'Days',
+      :weeks => 'Weeks',
+      :months => 'Months',
+      :years => 'Years',
+      :optional_attributes => 'Further Options',
+      :null => 'Null',
+      :not_null => 'Not Null',
+      :date_picker_options => {
+        :weekHeader => 'Wk',
+        :firstDay => 0,
+        :isRTL => false,
+        :showMonthAfterYear => false
+      },
+      :datetime_picker_options => {
+      },
+      :errors => {
+        :template => {
+          :header => {
+            :one =>    "1 error prohibited this {{model}} from being saved.",
+            :other =>  "{{count}} errors prohibited this {{model}} from being saved"
+          },
+          :body => "There were problems with the following fields:"
+        }
+      },
       # error_messages
       :cant_destroy_record => "%{record} can't be destroyed",
       :internal_error => 'Request Failed (code 500, Internal Error)',
-      :version_inconsistency => 'Version inconsistency - this record has been modified since you started editing it.'
+      :version_inconsistency => 'Version inconsistency - this record has been modified since you started editing it.',
+      :record_not_saved => 'Failed to save record cause of an unknown error'
     }
   }
 }

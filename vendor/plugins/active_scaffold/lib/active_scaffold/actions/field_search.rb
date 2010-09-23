@@ -16,6 +16,18 @@ module ActiveScaffold::Actions
     end
 
     protected
+    
+    def store_search_params_into_session
+      set_field_search_default_params(active_scaffold_config.field_search.default_params) unless active_scaffold_config.field_search.default_params.nil?
+      super
+    end
+    
+    def set_field_search_default_params(default_params)
+      if (params[:search].nil? && search_params.nil?) || (params[:search].is_a?(String) && params[:search].blank?)
+        params[:search] = default_params.is_a?(Proc) ? self.instance_eval(&default_params) : default_params
+      end
+    end
+    
     def field_search_params
       search_params || {}
     end
@@ -32,14 +44,22 @@ module ActiveScaffold::Actions
       unless search_params.nil?
         text_search = active_scaffold_config.field_search.text_search
         search_conditions = []
+        human_conditions = [] if active_scaffold_config.field_search.human_conditions
         columns = active_scaffold_config.field_search.columns
         search_params.each do |key, value|
           next unless columns.include? key
-          search_conditions << self.class.condition_for_column(active_scaffold_config.columns[key], value, text_search)
+          search_condition = self.class.condition_for_column(active_scaffold_config.columns[key], value, text_search)
+          unless search_condition.blank?
+            search_conditions << search_condition
+            human_conditions <<  self.class.human_condition_for_column(active_scaffold_config.columns[key], value) unless human_conditions.nil?
+          end
         end
-        search_conditions.compact!
         self.active_scaffold_conditions = merge_conditions(self.active_scaffold_conditions, *search_conditions)
-        @filtered = !search_conditions.blank?
+        if search_conditions.blank?
+          @filtered = false
+        else
+          @filtered = human_conditions.nil? ? true : human_conditions.compact.join(I18n.t('support.array.two_words_connector'))
+        end
 
         includes_for_search_columns = columns.collect{ |column| column.includes}.flatten.uniq.compact
         self.active_scaffold_includes.concat includes_for_search_columns

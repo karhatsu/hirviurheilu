@@ -57,7 +57,6 @@ module ActiveScaffold
           else
             authorized = record.authorized_for?(:crud_type => link.crud_type)
           end
-          #return "<a class='disabled'>#{text}</a>" unless authorized
           # to make html render properly
           return "<a class='disabled'>#{text}</a>".html_safe unless authorized
           render_action_link(link, url_options, record)
@@ -248,7 +247,11 @@ module ActiveScaffold
       # ==========
 
       def inplace_edit?(record, column)
-        column.inplace_edit and record.authorized_for?(:crud_type => :update, :column => column.name)
+        if column.inplace_edit
+          editable = controller.send(:update_authorized?, record) if controller.respond_to?(:update_authorized?)
+          editable = record.authorized_for?(:action => :update, :column => column.name) if editable.nil? || editable == true
+          editable
+        end
       end
 
       def inplace_edit_cloning?(column)
@@ -277,7 +280,6 @@ module ActiveScaffold
           @record = active_scaffold_config.model.new
           column = column.clone
           column.options = column.options.clone
-          column.options.delete(:update_column)
           column.form_ui = :select if (column.association && column.form_ui.nil?)
           content_tag(:div, active_scaffold_input_for(column), {:style => "display:none;", :class => inplace_edit_control_css_class})
         end
@@ -342,6 +344,19 @@ module ActiveScaffold
           end
         end
       end
+      
+      def render_nested_view(action_links, url_options, record)
+        rendered = []
+        action_links.each do |link| 
+          if link.nested_link? && @nested_auto_open[link.column.name] && @records.length <= @nested_auto_open[link.column.name] && respond_to?(:render_component) 
+            link_url_options = {:adapter => '_list_inline_adapter', :format => :js}.merge(action_link_url_options(link, url_options, record, options = {:reuse_eid => true})) 
+            link_id = get_action_link_id(link_url_options, record, link.column)
+            rendered << (render_component(link_url_options) + javascript_tag("ActiveScaffold.ActionLink.get('#{link_id}').set_opened();"))
+          end 
+        end
+        rendered.join(' ').html_safe
+      end  
+      
     end
   end
 end
