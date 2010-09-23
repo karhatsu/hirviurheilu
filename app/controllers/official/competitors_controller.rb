@@ -16,7 +16,7 @@ class Official::CompetitorsController < Official::OfficialController
         flash[:notice] = "Kilpailija lisätty"
         redirect_to new_official_series_competitor_path(@series)
       else
-        redirect_to official_series_competitors_path(@series)
+        redirect_to edit_official_series_path(@series)
       end
     else
       render :new
@@ -37,7 +37,7 @@ class Official::CompetitorsController < Official::OfficialController
         redirect_to edit_official_series_competitor_path(@competitor.series,
           @competitor.previous_competitor)
       else
-        redirect_to official_series_competitors_path(@competitor.series)
+        redirect_to edit_official_series_path(@competitor.series)
       end
     else
       render :edit
