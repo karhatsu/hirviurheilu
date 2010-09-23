@@ -19,13 +19,18 @@
       <%= submit_tag "Generoi numerot" %>
     <% end %>
   </div>
-  <div class="action_box">
-    <%= form_for([:official, @series], :url => official_generate_times_path(@series)) do |f| %>
-      Generoi kilpailijoille lähtöajat käyttäen sarjalle määritettyä lähtöaikaa.
-      Jos kilpailijoilla on jo määritetty lähtöaikoja, ne ylikirjoitetaan.
-      <%= submit_tag "Generoi lähtöajat" %>
-    <% end %>
-  </div>
+  <% if @series.each_competitor_has_number? %>
+    <div class="action_box">
+      <%= form_for([:official, @series], :url => official_generate_times_path(@series)) do |f| %>
+        Generoi kilpailijoille lähtöajat käyttäen sarjalle määritettyä lähtöaikaa.
+        Jos kilpailijoilla on jo määritetty lähtöaikoja, ne ylikirjoitetaan.
+        <%= submit_tag "Generoi lähtöajat" %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="notice">Kun olet syöttänyt kaikki kilpailijat, muista generoida
+      heille lähtönumerot yllä olevan napin avulla.</div>
+  <% end %>
 <% elsif not @series.competitors.empty? %>
 <div class="notice">Muista syöttää sarjan ensimmäinen kilpailunumero ja lähtöaika,
   jotta kilpailijoille voidaan generoida lähtönumerot ja lähtöajat.</div>
