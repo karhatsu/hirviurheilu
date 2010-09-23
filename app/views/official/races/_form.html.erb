@@ -17,7 +17,8 @@
   <% else %>
     <h2>Sarjat</h2>
     <%= f.fields_for :series do |series_form| %>
-      <%= render :partial => "series", :locals => { :f => series_form } %>
+      <%= render :partial => "series", :locals => { :f => series_form,
+        :only_basic_fields => false } %>
     <% end %>
     <%= add_child_link "Lisää sarja", f, :series %><br/><br/>
   <% end %>

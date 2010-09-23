@@ -9,15 +9,19 @@
   <%= f.text_field :correct_estimate1, :size => 5, :maxlength => 3 %><br/>
   <%= f.label :correct_estimate2 %>
   <%= f.text_field :correct_estimate2, :size => 5, :maxlength => 3 %><br/>
-  <div class="age_groups">
-    <h3>Ikäryhmät, joille lasketaan omat aikapisteet
-      (esim. pääsarja: M60, ikäryhmät: M65, M70)</h3>
-    <%= f.fields_for :age_groups do |age_group_form| %>
-      <%= render :partial => "age_group", :locals => { :f => age_group_form } %>
+  <% unless only_basic_fields %>
+    <div class="age_groups">
+      <h3>Ikäryhmät, joille lasketaan omat aikapisteet
+        (esim. pääsarja: M60, ikäryhmät: M65, M70)</h3>
+      <%= f.fields_for :age_groups do |age_group_form| %>
+        <%= render :partial => "age_group", :locals => { :f => age_group_form } %>
+      <% end %>
+      <%= add_child_link "Lisää ikäryhmä", f, :age_groups %>
+    </div>
+    <% if f.object.competitors.empty? %>
+      <%= remove_child_link "Poista sarja", f, 'series_sub_form', "" %>
     <% end %>
-    <%= add_child_link "Lisää ikäryhmä", f, :age_groups %>
-  </div>
-  <% if f.object.competitors.empty? %>
-    <%= remove_child_link "Poista sarja", f, 'series_sub_form', "" %>
+  <% else %>
+    <%= submit_tag "Päivitä" %>
   <% end %>
 </div><br/>

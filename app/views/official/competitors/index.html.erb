@@ -1,14 +1,13 @@
-<%= content_for(:title, "#{@series.name} - kilpailijat") %>
-<h1><%= @series.race.name %></h1>
-<h2><%= yield :title %></h2>
+<%= content_for(:title, "#{@series.race.name} - #{@series.name}") %>
+<h1><%= yield :title %></h1>
+<h2>Sarjan asetukset</h2>
 <%= render :partial => "shared/form_errors", :locals => { :item => @series } %>
-Lähtöaika: <%= @series.start_time ? datetime_print(@series.start_time, true) : "-" %>
-  (<%= link_to("muokkaa", edit_official_race_path(@series.race)) %>)<br/>
-Ensimmäinen numero: <%= @series.first_number ? @series.first_number : "-" %>
-  (<%= link_to("muokkaa", edit_official_race_path(@series.race)) %>)
-<div class="action_box">
-  <%= link_to "Lisää uusi kilpailija", new_official_series_competitor_path(@series.id) %>
-</div>
+<%= flash_error %>
+<%= flash_notice %>
+<%= form_for [:official, @series] do |f| %>
+  <%= render :partial => 'official/races/series', :locals => { :f => f,
+    :only_basic_fields => true } %>
+<% end %>
 <div class="action_box">
   <%= form_for([:official, @series], :url => official_generate_numbers_path(@series)) do |f| %>
     Generoi kilpailijoille numerot käyttäen sarjalle määritettyä ensimmäistä numeroa.
@@ -22,6 +21,10 @@ Ensimmäinen numero: <%= @series.first_number ? @series.first_number : "-" %>
     Jos kilpailijoilla on jo määritetty lähtöaikoja, ne ylikirjoitetaan.
     <%= submit_tag "Generoi lähtöajat" %>
   <% end %>
+</div>
+<h2>Kilpailijat</h2>
+<div class="action_box">
+  <%= link_to "Lisää uusi kilpailija", new_official_series_competitor_path(@series.id) %>
 </div>
 <table>
   <tr>
