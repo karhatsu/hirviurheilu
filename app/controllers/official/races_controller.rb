@@ -10,8 +10,9 @@ class Official::RacesController < Official::OfficialController
     if @race.save
       current_user.races << @race
       @race.add_default_series if params[:add_default_series]
-      flash[:notice] = "Kilpailu lisätty. Voit lisätä nyt sarjoja kilpailulle."
-      redirect_to edit_official_race_path(@race)
+      flash[:notice] = "Kilpailu lisätty. " +
+        "Pääset lisäämään kilpailijoita klikkaamalla sarjan nimen vieressä olevaa linkkiä."
+      redirect_to official_root_path
     else
       render :new
     end
