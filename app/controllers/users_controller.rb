@@ -9,7 +9,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      flash[:notice] = "Käyttäjätili luotu"
+      @user.add_official_rights
+      flash[:notice] = "Käyttäjätili luotu. " +
+        "Pääset syöttämään kilpailun tietoja Toimitsijan etusivu -linkistä."
       redirect_back_or_default account_url
     else
       render :action => :new

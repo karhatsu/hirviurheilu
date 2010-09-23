@@ -1,5 +1,6 @@
 <%= content_for(:title, 'Omat tiedot') %>
 <h1><%= yield :title %></h1>
+<%= flash_notice %>
 <b>Sähköposti:</b>
 <%=h @user.email %>
 <br/>
