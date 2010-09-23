@@ -6,15 +6,18 @@
   <div class="sub_element">
     <h2><%= r.name %></h2>
     <div class="action_box">
-      <%= link_to "Muokkaa kilpailun ja sarjojen asetuksia", edit_official_race_path(r) %>
+      <%= link_to "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja",
+        edit_official_race_path(r) %>
     </div>
     <% unless r.finished? or r.start_date > Date.today %>
       <div class="action_box">
         <%= render :partial => "official/finish_races/form", :locals => { :race => r } %>
       </div>
     <% end %>
+    <h3>Sarjat</h3>
     <% r.series.each do |s| %>
-      <%= link_to s.name, edit_official_series_path(s) %><br/>
+      <%= s.name %> - <%= link_to "Muokkaa asetuksia, lisää kilpailijoita, syötä tulostietoja",
+        edit_official_series_path(s) %><br/>
     <% end %>
     <% if r.series.empty? %>
       <div class="action_box">
