@@ -26,14 +26,12 @@ describe Race do
     end
 
     describe "start_interval_seconds" do
-      it "can be nil" do
-        Factory.build(:race, :start_interval_seconds => nil).should be_valid
-      end
-
-      it "should be integer, not string" do
-        Factory.build(:race, :start_interval_seconds => 'xyz').
+      it "should be required" do
+        Factory.build(:race, :start_interval_seconds => nil).
           should have(1).errors_on(:start_interval_seconds)
       end
+
+      it { should validate_numericality_of(:start_interval_seconds) }
 
       it "should be integer, not decimal" do
         Factory.build(:race, :start_interval_seconds => 23.5).

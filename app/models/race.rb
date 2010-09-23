@@ -12,7 +12,7 @@ class Race < ActiveRecord::Base
   validates :location, :presence => true
   validates :start_date, :presence => true
   validates :start_interval_seconds, :numericality => { :only_integer => true,
-    :allow_nil => true, :greater_than => 0 }
+    :greater_than => 0 }
   validate :end_date_not_before_start_date
 
   before_destroy :prevent_destroy_if_series

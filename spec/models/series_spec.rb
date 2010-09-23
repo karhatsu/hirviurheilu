@@ -300,20 +300,6 @@ describe Series do
     end
 
     describe "generation fails" do
-      context "time interval hasn't been defined for the race" do
-        before do
-          @race.start_interval_seconds = nil
-          @race.save!
-        end
-
-        it "should do nothing for competitors, add error and return false" do
-          @series.reload
-          @series.generate_start_times.should be_false
-          @series.should have(1).errors
-          check_competitors_no_changes([@c1, @c2, @c3])
-        end
-      end
-
       context "competitors are missing numbers" do
         it "should do nothing for competitors, add error and return false" do
           @c4 = Factory.create(:competitor, :series => @series, :number => nil)
