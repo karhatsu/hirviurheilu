@@ -15,16 +15,28 @@
       </div>
     <% end %>
     <h3>Sarjat</h3>
-    <% r.series.each do |s| %>
-      <%= s.name %> - <%= link_to "Muokkaa asetuksia, lisää kilpailijoita, syötä tulostietoja",
-        edit_official_series_path(s) %><br/>
-    <% end %>
     <% if r.series.empty? %>
       <div class="action_box">
         <%= form_tag(official_race_path(r), :method => :delete) do %>
           <%= submit_tag "Poista kilpailu" %>
         <% end %>
       </div>
+    <% else %>
+      <table cellpadding="3" cellspacing="0" border="1">
+        <tr>
+          <th>Sarja</th>
+          <th>Kilpailijoita</th>
+          <th>Toiminnot</th>
+        </tr>
+        <% r.series.each do |s| %>
+          <tr>
+            <td><%= s.name %></td>
+            <td><%= s.competitors.count %></td>
+            <td><%= link_to "Muokkaa asetuksia, lisää kilpailijoita, syötä tulostietoja",
+                edit_official_series_path(s) %></td>
+          </tr>
+        <% end %>
+      </table>
     <% end %>
   </div>
   <hr/>
