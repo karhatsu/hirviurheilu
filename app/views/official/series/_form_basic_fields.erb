@@ -1,0 +1,10 @@
+<%= f.label :name %>
+<%= f.text_field :name %>
+<%= f.label :first_number %>
+<%= f.text_field :first_number, :size => 5 %><br/>
+<%= f.label :start_time %>
+<%= f.datetime_select :start_time, :include_seconds => false, :include_blank => true %><br/>
+<%= f.label :correct_estimate1 %>
+<%= f.text_field :correct_estimate1, :size => 5, :maxlength => 3 %>
+<%= f.label :correct_estimate2 %>
+<%= f.text_field :correct_estimate2, :size => 5, :maxlength => 3 %>

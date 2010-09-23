@@ -1,27 +1,34 @@
 <%= content_for(:title, "#{@series.race.name} - #{@series.name}") %>
 <h1><%= yield :title %></h1>
 <h2>Sarjan asetukset</h2>
-<%= render :partial => "shared/form_errors", :locals => { :item => @series } %>
-<%= flash_error %>
-<%= flash_notice %>
-<%= form_for [:official, @series] do |f| %>
-  <%= render :partial => 'official/races/series', :locals => { :f => f,
-    :only_basic_fields => true } %>
+<div class="action_box">
+  <%= render :partial => "shared/form_errors", :locals => { :item => @series } %>
+  <%= flash_error %>
+  <%= flash_notice %>
+  <%= form_for [:official, @series] do |f| %>
+    <%= render :partial => 'official/series/form_basic_fields', :locals => { :f => f } %>
+    <%= submit_tag "Päivitä" %>
+  <% end %>
+</div>
+<% if @series.first_number and @series.start_time %>
+  <div class="action_box">
+    <%= form_for([:official, @series], :url => official_generate_numbers_path(@series)) do |f| %>
+      Generoi kilpailijoille numerot käyttäen sarjalle määritettyä ensimmäistä numeroa.
+      Jos kilpailijoilla on jo määritetty numeroita, ne ylikirjoitetaan.
+      <%= submit_tag "Generoi numerot" %>
+    <% end %>
+  </div>
+  <div class="action_box">
+    <%= form_for([:official, @series], :url => official_generate_times_path(@series)) do |f| %>
+      Generoi kilpailijoille lähtöajat käyttäen sarjalle määritettyä lähtöaikaa.
+      Jos kilpailijoilla on jo määritetty lähtöaikoja, ne ylikirjoitetaan.
+      <%= submit_tag "Generoi lähtöajat" %>
+    <% end %>
+  </div>
+<% else %>
+<div class="notice">Muista syöttää sarjan ensimmäinen kilpailunumero ja lähtöaika,
+  jotta kilpailijoille voidaan generoida lähtönumerot ja lähtöajat.</div>
 <% end %>
-<div class="action_box">
-  <%= form_for([:official, @series], :url => official_generate_numbers_path(@series)) do |f| %>
-    Generoi kilpailijoille numerot käyttäen sarjalle määritettyä ensimmäistä numeroa.
-    Jos kilpailijoilla on jo määritetty numeroita, ne ylikirjoitetaan.
-    <%= submit_tag "Generoi numerot" %>
-  <% end %>
-</div>
-<div class="action_box">
-  <%= form_for([:official, @series], :url => official_generate_times_path(@series)) do |f| %>
-    Generoi kilpailijoille lähtöajat käyttäen sarjalle määritettyä lähtöaikaa.
-    Jos kilpailijoilla on jo määritetty lähtöaikoja, ne ylikirjoitetaan.
-    <%= submit_tag "Generoi lähtöajat" %>
-  <% end %>
-</div>
 <h2>Kilpailijat</h2>
 <div class="action_box">
   <%= link_to "Lisää uusi kilpailija", new_official_series_competitor_path(@series.id) %>
