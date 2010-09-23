@@ -44,6 +44,9 @@ ElkSports::Application.configure do
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
 
+  # this is due a rails 3 / i18n bug (config.i18n.default_locale isn't enough in prod):
+  config.i18n.locale = :fi
+
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 end
