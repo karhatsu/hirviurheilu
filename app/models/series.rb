@@ -86,12 +86,9 @@ class Series < ActiveRecord::Base
       errors.add(:base, "#{error_start}, sillä sarjan ensimmäistä numeroa ei ole määritetty")
       failure = true
     end
-    competitors.each do |comp|
-      if comp.number.nil?
-        errors.add(:base, "#{error_start}, sillä kaikilla kilpailijoilla ei ole numeroa")
-        failure = true
-        break
-      end
+    unless each_competitor_has_number?
+      errors.add(:base, "#{error_start}, sillä kaikilla kilpailijoilla ei ole numeroa")
+      failure = true
     end
     competitors.each do |comp|
       if comp.arrival_time
@@ -114,6 +111,13 @@ class Series < ActiveRecord::Base
 
   def generate_start_times!
     generate_start_times || raise(errors.full_messages.to_s)
+  end
+
+  def each_competitor_has_number?
+    competitors.each do |comp|
+      return false if comp.number.nil?
+    end
+    true
   end
 
   def running?

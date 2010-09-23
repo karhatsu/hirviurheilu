@@ -428,4 +428,25 @@ describe Series do
       Series.should_not be_exist(@series.id)
     end
   end
+
+  describe "#each_competitor_has_number?" do
+    before do
+      @series = Factory.create(:series)
+      @series.competitors << Factory.build(:competitor, :series => @series,
+        :number => 1)
+    end
+
+    context "when at least one number is missing" do
+      before do
+        @series.competitors << Factory.build(:competitor, :series => @series,
+          :number => nil)
+      end
+
+      specify { @series.each_competitor_has_number?.should be_false }
+    end
+
+    context "when no numbers missing" do
+      specify { @series.each_competitor_has_number?.should be_true }
+    end
+  end
 end
