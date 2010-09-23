@@ -1,4 +1,5 @@
 <%= content_for(:title, "#{@race.name} - kilpailun muokkaus") %>
 <h1><%= yield :title %></h1>
 <%= flash_notice %>
-<%= render :partial => "form", :locals => { :submit_label => "Päivitä" } %>
+<%= render :partial => "form",
+  :locals => { :submit_label => "Tallenna kilpailun ja sarjojen tiedot" } %>
