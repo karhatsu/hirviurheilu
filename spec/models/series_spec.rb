@@ -470,4 +470,28 @@ describe Series do
       specify { @series.each_competitor_has_start_time?.should be_true }
     end
   end
+
+  describe "#each_competitor_finished?" do
+    before do
+      @series = Factory.build(:series)
+      @c1 = mock_model(Competitor, :finished? => true)
+      @c2 = mock_model(Competitor, :finished? => false)
+    end
+
+    context "when at least one competitor hasn't finished" do
+      before do
+        @series.stub!(:competitors).and_return([@c1, @c2])
+      end
+
+      specify { @series.each_competitor_finished?.should be_false }
+    end
+
+    context "when all competitors have finished" do
+      before do
+        @series.stub!(:competitors).and_return([@c1])
+      end
+
+      specify { @series.each_competitor_finished?.should be_true }
+    end
+  end
 end

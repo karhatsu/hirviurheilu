@@ -16,7 +16,7 @@
     <%= form_for([:official, @series], :url => official_generate_numbers_path(@series)) do |f| %>
       Generoi kilpailijoille numerot käyttäen sarjalle määritettyä ensimmäistä numeroa.
       Jos kilpailijoilla on jo määritetty numeroita, ne ylikirjoitetaan.
-      <%= submit_tag "Generoi numerot" %>
+      <%= submit_tag "Generoi lähtönumerot" %>
     <% end %>
   </div>
   <% if @series.each_competitor_has_number? %>
@@ -52,6 +52,10 @@
   <div class="notice">Et ole syöttänyt sarjaan vielä yhtään kilpailijaa.
     Voit lisätä heitä klikkaamalla yllä olevaa linkkiä.</div>
 <% else %>
+  <% if @series.each_competitor_has_start_time? and not @series.each_competitor_finished? %>
+    <div class="notice">Voit syöttää kilpailijoille tulostietoja klikkaamalla heidän
+      nimessään olevaa linkkiä.</div>
+  <% end %>
   <table cellpadding="3" cellspacing="0" border="1">
     <tr>
       <th>Kilpailija</th>

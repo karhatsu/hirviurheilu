@@ -127,6 +127,13 @@ class Series < ActiveRecord::Base
     true
   end
 
+  def each_competitor_finished?
+    competitors.each do |comp|
+      return false unless comp.finished?
+    end
+    true
+  end
+
   def running?
     start_time and start_time < Time.now and not race.finished
   end
