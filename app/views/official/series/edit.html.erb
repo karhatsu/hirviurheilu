@@ -27,6 +27,15 @@
         <%= submit_tag "Generoi lähtöajat" %>
       <% end %>
     </div>
+    <% if @series.each_competitor_has_start_time? %>
+      <% unless @series.correct_estimate1 and @series.correct_estimate2 %>
+        <div class="notice">Muista syöttää oikeat arviointimatkat viimeistään
+          kilpailun päätyttyä.</div>
+      <% end %>
+    <% else %>
+      <div class="notice">Muista generoida kilpailijoille lähtöajat
+        yllä olevan napin avulla.</div>
+    <% end %>
   <% else %>
     <div class="notice">Kun olet syöttänyt kaikki kilpailijat, muista generoida
       heille lähtönumerot yllä olevan napin avulla.</div>

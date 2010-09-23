@@ -449,4 +449,25 @@ describe Series do
       specify { @series.each_competitor_has_number?.should be_true }
     end
   end
+
+  describe "#each_competitor_has_start_time?" do
+    before do
+      @series = Factory.create(:series)
+      @series.competitors << Factory.build(:competitor, :series => @series,
+        :start_time => '12:45')
+    end
+
+    context "when at least one start_time is missing" do
+      before do
+        @series.competitors << Factory.build(:competitor, :series => @series,
+          :start_time => nil)
+      end
+
+      specify { @series.each_competitor_has_start_time?.should be_false }
+    end
+
+    context "when no start_times missing" do
+      specify { @series.each_competitor_has_start_time?.should be_true }
+    end
+  end
 end
