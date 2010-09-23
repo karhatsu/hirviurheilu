@@ -23,7 +23,7 @@
     <div class="action_box">
       <%= form_for([:official, @series], :url => official_generate_times_path(@series)) do |f| %>
         Generoi kilpailijoille lähtöajat käyttäen sarjalle määritettyä lähtöaikaa.
-        Jos kilpailijoilla on jo määritetty lähtöaikoja, ne ylikirjoitetaan.
+        Jos kilpailijoille on jo määritetty lähtöaikoja, ne ylikirjoitetaan.
         <%= submit_tag "Generoi lähtöajat" %>
       <% end %>
     </div>
