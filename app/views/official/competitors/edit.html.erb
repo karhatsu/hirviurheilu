@@ -33,3 +33,6 @@
   <%= submit_tag "Tallenna ja palaa listaan" %>
   <%= submit_tag "Tallenna ja seuraava", :name => 'next' %>
 <% end %>
+<br/>
+<%= link_to "Takaisin sarjan #{@competitor.series.name} tietoihin",
+  official_series_competitors_path(@competitor.series) %>

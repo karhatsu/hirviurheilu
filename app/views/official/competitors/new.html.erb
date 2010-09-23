@@ -5,6 +5,9 @@
 <%= render :partial => "shared/form_errors", :locals => { :item => @competitor } %>
 <%= form_for([:official, @competitor.series, @competitor]) do |f| %>
   <%= render :partial => "basic_fields", :locals => { :f => f, :show_number => false } %><br/>
-  <%= submit_tag "Lisää kilpailija" %>
-  <%= submit_tag "Tallenna ja lisää toinen", :name => 'create_another' %>
+  <%= submit_tag "Tallenna ja palaa sarjan tietoihin" %>
+  <%= submit_tag "Tallenna ja lisää toinen kilpailija", :name => 'create_another' %>
 <% end %>
+<br/>
+<%= link_to "Takaisin sarjan #{@series.name} tietoihin",
+  official_series_competitors_path(@series) %>
