@@ -17,6 +17,8 @@ fi:
     first_number: Ensimmäinen kilpailunumero
     key: Avain
     last_name: Sukunimi
+    last_login_at: Viim. kirj.
+    last_request_at: Viim. käyt.
     location: Paikkakunta
     min_competitors: Kilpailijoita vähintään
     name: Nimi
