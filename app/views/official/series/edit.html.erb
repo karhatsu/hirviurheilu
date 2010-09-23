@@ -6,7 +6,8 @@
   <%= flash_error %>
   <%= flash_notice %>
   <%= form_for [:official, @series] do |f| %>
-    <%= render :partial => 'official/series/form_basic_fields', :locals => { :f => f } %>
+    <%= render :partial => 'official/series/form_basic_fields', :locals => { :f => f,
+      :race => @series.race } %>
     <%= submit_tag "Päivitä sarjan asetukset" %>
   <% end %>
 </div>
