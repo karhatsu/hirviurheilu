@@ -13,7 +13,7 @@
     </div>
   <% end %>
   <% r.series.each do |s| %>
-    <%= s.name %> - <%= link_to "Kilpailijat", official_series_competitors_path(s) %><br/>
+    <%= link_to s.name, edit_official_series_path(s) %><br/>
   <% end %>
   <% if r.series.empty? %>
     <div class="action_box">

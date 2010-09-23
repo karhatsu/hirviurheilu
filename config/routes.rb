@@ -28,9 +28,9 @@ ElkSports::Application.routes.draw do
     resources :races do
       resource :finish_race
     end
-    match '/series/:series_id/competitors/generate_numbers' => 'competitors#generate_numbers',
+    match '/series/:id/generate_numbers' => 'series#generate_numbers',
       :as => :generate_numbers
-    match '/series/:series_id/competitors/generate_times' => 'competitors#generate_times',
+    match '/series/:id/generate_times' => 'series#generate_times',
       :as => :generate_times
     resources :series do
       resources :competitors

@@ -2,10 +2,6 @@ class Official::CompetitorsController < Official::OfficialController
   before_filter :check_competitor_rights
   before_filter :handle_time_parameters, :only => :update
 
-  def index
-    @series = Series.find(params[:series_id])
-  end
-
   def new
     @series = Series.find(params[:series_id])
     @competitor = @series.competitors.build
@@ -45,24 +41,6 @@ class Official::CompetitorsController < Official::OfficialController
       end
     else
       render :edit
-    end
-  end
-
-  def generate_numbers
-    @series = Series.find(params[:series_id])
-    if @series.generate_numbers
-      redirect_to official_series_competitors_path(@series)
-    else
-      render :index
-    end
-  end
-
-  def generate_times
-    @series = Series.find(params[:series_id])
-    if @series.generate_start_times
-      redirect_to official_series_competitors_path(@series)
-    else
-      render :index
     end
   end
 

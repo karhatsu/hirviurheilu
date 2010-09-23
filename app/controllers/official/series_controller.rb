@@ -1,18 +1,40 @@
 class Official::SeriesController < Official::OfficialController
-  before_filter :check_series_rights
+  before_filter :assign_series, :check_series_rights
+
+  def edit
+  end
 
   def update
-    @series = Series.find(params[:id])
     if @series.update_attributes(params[:series])
       flash[:notice] = 'Sarjan asetukset päivitetty'
-      redirect_to official_series_competitors_path(@series)
+      redirect_to edit_official_series_path(@series)
     else
-      render 'official/competitors/index'
+      render :edit
     end
   end
 
+  def generate_numbers
+    if @series.generate_numbers
+      redirect_to edit_official_series_path(@series)
+    else
+      render :edit
+    end
+  end
+
+  def generate_times
+    if @series.generate_start_times
+      redirect_to edit_official_series_path(@series)
+    else
+      render :edit
+    end
+  end
+
+  private
+  def assign_series
+    @series = Series.find(params[:id])
+  end
+
   def check_series_rights
-    series = Series.find(params[:id])
-    check_race(series.race)
+    check_race(@series.race)
   end
 end
