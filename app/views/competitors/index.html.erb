@@ -6,33 +6,42 @@
   <div class="notice">Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan
     kilpailun päätyttyä.</div>
 <% end %>
-<table>
-  <tr>
-    <th>&nbsp;</th>
-    <th>Nimi</th>
-    <th>Nro</th>
-    <th><%= t "attributes.club" %></th>
-    <th>Pisteet</th>
-    <th>Ammunta</th>
-    <th>Arviointi</th>
-    <th><%= @series.race.sport.run? ? "Juoksu" : "Hiihto" %></th>
-  </tr>
-<% @series.ordered_competitors.each_with_index do |comp, i| %>
-  <tr id="comp_<%= i+1 %>">
-    <td><%= i + 1 %>.</td>
-    <td><%= link_to full_name(comp), series_competitor_path(@series.id, comp) %>
-        <%= "(#{comp.age_group.name})" if comp.age_group %></td>
-    <td><%= comp.number ? comp.number : '' %></td>
-    <td><%= comp.club.name %></td>
-    <td><%= points_print(comp) %></td>
-    <td><%= shot_points_and_total(comp) %></td>
-    <td><%= @series.race.finished ? estimate_points_and_diffs(comp) :
-              estimate_points(comp) %></td>
-    <td><%= time_points_and_time(comp) %></td>
-  </tr>
+<% if @series.start_list.empty? %>
+  <div class="notice">Tähän sarjaan ei ole merkitty kilpailijoita.</div>
+  <% if official_rights %>
+    <div><%= link_to "Lisää kilpailijoita", edit_official_series_path(@series) %></div>
+  <% end %>
+<% else %>
+  <table>
+    <tr>
+      <th>&nbsp;</th>
+      <th>Nimi</th>
+      <th>Nro</th>
+      <th><%= t "attributes.club" %></th>
+      <th>Pisteet</th>
+      <th>Ammunta</th>
+      <th>Arviointi</th>
+      <th><%= @series.race.sport.run? ? "Juoksu" : "Hiihto" %></th>
+    </tr>
+    <% @series.ordered_competitors.each_with_index do |comp, i| %>
+      <tr id="comp_<%= i+1 %>">
+        <td><%= i + 1 %>.</td>
+        <td><%= link_to full_name(comp), series_competitor_path(@series.id, comp) %>
+          <%= "(#{comp.age_group.name})" if comp.age_group %></td>
+        <td><%= comp.number ? comp.number : '' %></td>
+        <td><%= comp.club.name %></td>
+        <td><%= points_print(comp) %></td>
+        <td><%= shot_points_and_total(comp) %></td>
+        <td><%= @series.race.finished ? estimate_points_and_diffs(comp) :
+            estimate_points(comp) %></td>
+        <td><%= time_points_and_time(comp) %></td>
+      </tr>
+    <% end %>
+  </table>
+  <br/>
+  <%= link_to "Lataa tulokset pdf-tiedostona", series_competitors_path(@series,
+    :format => 'pdf') %><br/>
+  <%= link_to "Lähtölista", start_list_path(@series) %>
 <% end %>
-</table>
-<br/>
-<%= link_to "Lähtölista", start_list_path(@series) %>
-<%= link_to "Lataa tulokset pdf-tiedostona", series_competitors_path(@series,
-  :format => 'pdf') %>
+<hr/>
+<%= link_to "Takaisin sivulle #{@series.race.name}", race_path(@series.race) %>

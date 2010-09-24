@@ -2,24 +2,34 @@
 <h1><%= sport_icon(@series.race.sport) %> <%= @series.race.name %></h1>
 <h2><%= yield :title %></h2>
 <%= render :partial => "competitors/start_notice", :locals => { :series => @series } %>
-<table>
-  <tr>
-    <th>Nro</th>
-    <th>Kilpailija</th>
-    <th><%= t "attributes.club" %></th>
-    <th>Lähtöaika</th>
-  </tr>
-  <% @series.start_list.each_with_index do |comp, i| %>
-    <tr id="comp_<%= i + 1 %>">
-      <td><%= comp.number %></td>
-      <td><%= full_name(comp) %>
-        <%= "(#{comp.age_group.name})" if comp.age_group %></td>
-      <td><%= comp.club.name %></td>
-      <td><%= time_print(comp.start_time, true) %></td>
-    </tr>
+<% if @series.start_list.empty? %>
+  <div class="notice">Tähän sarjaan ei ole merkitty kilpailijoita tai heille ei
+    ole määritetty vielä lähtöaikoja.</div>
+  <% if official_rights %>
+    <div><%= link_to "Lisää kilpailijoita", edit_official_series_path(@series) %></div>
   <% end %>
-</table>
-<br/>
-<%= link_to "Tulokset", series_competitors_path(@series) %>
-<%= link_to "Lataa lähtölista pdf-tiedostona", start_list_path(@series,
-  :format => 'pdf') %>
+<% else %>
+  <table>
+    <tr>
+      <th>Nro</th>
+      <th>Kilpailija</th>
+      <th><%= t "attributes.club" %></th>
+      <th>Lähtöaika</th>
+    </tr>
+    <% @series.start_list.each_with_index do |comp, i| %>
+      <tr id="comp_<%= i + 1 %>">
+        <td><%= comp.number %></td>
+        <td><%= full_name(comp) %>
+          <%= "(#{comp.age_group.name})" if comp.age_group %></td>
+        <td><%= comp.club.name %></td>
+        <td><%= time_print(comp.start_time, true) %></td>
+      </tr>
+    <% end %>
+  </table>
+  <br/>
+  <%= link_to "Lataa lähtölista pdf-tiedostona", start_list_path(@series,
+    :format => 'pdf') %><br/>
+  <%= link_to "Tulokset", series_competitors_path(@series) %>
+<% end %>
+<hr/>
+<%= link_to "Takaisin sivulle #{@series.race.name}", race_path(@series.race) %>

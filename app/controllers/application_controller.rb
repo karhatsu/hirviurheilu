@@ -1,12 +1,16 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :current_user_session, :current_user
+  helper_method :current_user_session, :current_user, :official_rights
 
   ActiveScaffold.set_defaults do |config|
     config.ignore_columns.add [:created_at, :updated_at, :lock_version]
   end
 
   private
+  def official_rights
+    current_user.official? or current_user.admin?
+  end
+
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
     @current_user_session = UserSession.find

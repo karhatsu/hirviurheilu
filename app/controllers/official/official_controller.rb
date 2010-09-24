@@ -3,7 +3,7 @@ class Official::OfficialController < ApplicationController
 
   protected
   def check_rights
-    redirect_to root_path unless current_user.official? or current_user.admin?
+    redirect_to root_path unless official_rights
   end
 
   def check_race(race)
