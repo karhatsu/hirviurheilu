@@ -62,3 +62,6 @@
 <br/>
 <%= link_to "Lataa tuloskortti pdf-tiedostona",
   series_competitor_path(@competitor.series.id, @competitor, :format => 'pdf') %>
+<hr/>
+<%= link_to "Takaisin sarjan #{@competitor.series.name} tuloksiin",
+  series_competitors_path(@competitor.series) %>
