@@ -65,11 +65,21 @@ div.error {
     padding: 3px;
 }
 
+span.error {
+    background-color: orange;
+    color: white;
+}
+
 div.notice {
     background-color: olive;
     color: white;
     margin-bottom: 8px;
     padding: 3px;
+}
+
+span.notice {
+    background-color: olive;
+    color: white;
 }
 
 div.sub_element {

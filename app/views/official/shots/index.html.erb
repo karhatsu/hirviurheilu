@@ -5,7 +5,7 @@
   <%= submit_tag "Näytä kilpailijat" %>
 <% end %>
 <hr/>
-<div class="error"><b>TÄMÄ SIVU EI OLE VIELÄ VALMIS.</b></div>
+<div id="update_error"></div>
 <div class="notice">Syötä joko yhteistulos tai vain yksittäiset laukaukset.</div>
 <table>
   <tr>
@@ -16,13 +16,13 @@
     <th>&nbsp;</th>
   </tr>
   <% @series.competitors.each do |c| %>
-    <%= form_for([:official, c], :url => official_series_shots_path) do |f| %>
+    <%= form_for([:official, @series, c], :remote => true) do |f| %>
       <tr>
-        <td><%= full_name(c) %></td>
-        <td><%= f.text_field :shots_total_input, :size => 3, :maxlength => 3 %></td>
+        <td><%= c.number %> <%= full_name(c) %></td>
+        <td align="center"><%= f.text_field :shots_total_input, :size => 3, :maxlength => 3 %></td>
         <td><%= render :partial => 'official/shots/individual_shots', :locals => { :f => f,
             :competitor => c } %></td>
-        <td><%= submit_tag "Tallenna", :disabled => true %></td>
+        <td><%= submit_tag "Tallenna" %></td>
         <td id="status_<%= c.id %>">&nbsp;</td>
       </tr>
     <% end %>

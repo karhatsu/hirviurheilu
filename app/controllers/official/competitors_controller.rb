@@ -30,17 +30,25 @@ class Official::CompetitorsController < Official::OfficialController
   def update
     @competitor = Competitor.find(params[:id])
     if @competitor.update_attributes(params[:competitor])
-      if params[:next]
-        redirect_to edit_official_series_competitor_path(@competitor.series,
-          @competitor.next_competitor)
-      elsif params[:previous]
-        redirect_to edit_official_series_competitor_path(@competitor.series,
-          @competitor.previous_competitor)
-      else
-        redirect_to edit_official_series_path(@competitor.series)
+      respond_to do |format|
+        format.html do
+          if params[:next]
+            redirect_to edit_official_series_competitor_path(@competitor.series,
+              @competitor.next_competitor)
+          elsif params[:previous]
+            redirect_to edit_official_series_competitor_path(@competitor.series,
+              @competitor.previous_competitor)
+          else
+            redirect_to edit_official_series_path(@competitor.series)
+          end
+        end
+        format.js { render 'official/shots/updated', :layout => false }
       end
     else
-      render :edit
+      respond_to do |format|
+        format.html { render :edit }
+        format.js { render 'official/shots/updated', :layout => false }
+      end
     end
   end
 

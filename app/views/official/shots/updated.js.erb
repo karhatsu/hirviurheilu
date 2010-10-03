@@ -1,0 +1,9 @@
+<% if @competitor.errors.any? %>
+  $("#update_error").addClass("error");
+  $("#update_error").html("<%= @competitor.errors.full_messages %>");
+  $("#status_<%=@competitor.id%>").html("<span class='error'>Virhe!</span>");
+<% else %>
+  $("#update_error").removeClass("error");
+  $("#update_error").html("");
+  $("#status_<%=@competitor.id%>").html("<span class='notice'>Tallennettu</span>");
+<% end %>
