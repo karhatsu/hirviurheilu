@@ -1,0 +1,5 @@
+<%= form_tag(url, :method => :get) do %>
+  <%= select_tag :series_id, options_from_collection_for_select(race.series,
+    :id, :name, params[:series_id]) %>
+  <%= submit_tag "Vaihda sarja" %>
+<% end %>

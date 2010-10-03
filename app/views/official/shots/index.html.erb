@@ -1,10 +1,7 @@
 <%= content_for(:title, "#{@series.race.name} - laukausten syöttö") %>
 <h1><%= yield :title %></h1>
-<%= form_tag('/official/shots/change_series', :method => :get) do %>
-  <%= select_tag :series_id, options_from_collection_for_select(@series.race.series,
-    :id, :name, params[:series_id]) %>
-  <%= submit_tag "Näytä kilpailijat" %>
-<% end %>
+<%= render :partial => 'official/shared/series_selection',
+  :locals => { :url => '/official/shots/change_series', :race => @series.race } %>
 <hr/>
 <div id="update_error"></div>
 <div class="notice">Huom! Syötä joko yhteistulos tai vain yksittäiset laukaukset.</div>
