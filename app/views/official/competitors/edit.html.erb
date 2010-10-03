@@ -13,12 +13,8 @@
   <%= f.text_field :shots_total_input, :size => 5, :maxlength => 3 %>
   (Syötä joko yhteistulos tai vain yksittäiset laukaukset.)<br/>
   Yksittäiset laukaukset
-  <%= f.fields_for :shots do |shot_form| %>
-    <%= render :partial => "shot", :locals => { :f => shot_form } %>
-  <% end %>
-  <% (10 - @competitor.shots.length).times do |i| %>
-    <%= new_child_fields(f, :shots, i) %>
-  <% end %>
+  <%= render :partial => 'official/shots/individual_shots', :locals => { :f => f,
+    :competitor => @competitor } %>
   <hr/>
   <%= f.label :estimate1 %>
   <%= f.text_field :estimate1, :size => 5, :maxlength => 3 %>

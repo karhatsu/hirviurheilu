@@ -32,8 +32,10 @@ ElkSports::Application.routes.draw do
       :as => :generate_numbers
     match '/series/:id/generate_times' => 'series#generate_times',
       :as => :generate_times
+    match '/shots/change_series' => 'shots#change_series'
     resources :series do
       resources :competitors
+      resources :shots
     end
     root :to => "index#show"
   end

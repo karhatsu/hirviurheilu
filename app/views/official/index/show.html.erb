@@ -38,6 +38,10 @@
         <% end %>
       </table>
     <% end %>
+    <% unless r.series.empty? %>
+      <h3>Tulosten syöttäminen kilpailupaikoittain</h3>
+      <%= link_to "Laukaukset", official_series_shots_path(r.series.first) %>
+    <% end %>
   </div>
   <hr/>
 <% end %>
