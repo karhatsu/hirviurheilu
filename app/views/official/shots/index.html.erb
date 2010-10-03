@@ -7,11 +7,12 @@
 <% end %>
 <hr/>
 <div id="update_error"></div>
-<div class="notice">Syötä joko yhteistulos tai vain yksittäiset laukaukset.</div>
+<div class="notice">Huom! Syötä joko yhteistulos tai vain yksittäiset laukaukset.</div>
 <table>
   <tr>
+    <th>Nro</th>
     <th>Kilpailija</th>
-    <th>Ammunta yhteensä</th>
+    <th>Summa</th>
     <th>Yksittäiset laukaukset</th>
     <th>&nbsp;</th>
     <th>&nbsp;</th>
@@ -19,7 +20,8 @@
   <% @series.competitors.each do |c| %>
     <%= form_for([:official, @series, c], :remote => true) do |f| %>
       <tr>
-        <td><%= c.number %> <%= full_name(c) %></td>
+        <td><%= c.number %></td>
+        <td style="width: 170px;"><%= full_name(c) %></td>
         <td align="center"><%= f.text_field :shots_total_input, :size => 3, :maxlength => 3 %></td>
         <td><%= render :partial => 'official/shots/individual_shots', :locals => { :f => f,
             :competitor => c } %></td>
