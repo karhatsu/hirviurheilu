@@ -28,7 +28,7 @@ describe User do
 
     describe "add admin rights" do
       it "should give admin rights for the user" do
-        Factory.create(:role, :name => Role::ADMIN)
+        Factory.create(:role, :name => Role::ADMIN) unless Role.find_by_name(Role::ADMIN)
         user = Factory.build(:user)
         user.add_admin_rights
         user.should be_admin
@@ -37,7 +37,7 @@ describe User do
 
     describe "add official rights" do
       it "should give official rights for the user" do
-        Factory.create(:role, :name => Role::OFFICIAL)
+        Factory.create(:role, :name => Role::OFFICIAL) unless Role.find_by_name(Role::OFFICIAL)
         user = Factory.build(:user)
         user.add_official_rights
         user.should be_official

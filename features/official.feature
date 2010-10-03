@@ -7,6 +7,19 @@ Feature: Official
     Given I go to the official index page
     Then I should be on the login page
 
+  Scenario: Official registration
+    Given I go to the registration page
+    When I fill in the following:
+      | Etunimi | Tim |
+      | Sukunimi | Tester |
+      | Sähköposti | tim@tester.com |
+      | Salasana | testpassword |
+      | Salasana uudestaan | testpassword |
+    And I press "Rekisteröidy"
+    Then I should see "Käyttäjätili luotu."
+    When I follow "Toimitsijan etusivu"
+    Then I should be on the official index page
+
   Scenario: Official goes to the official index
     Given I am an official with email "test@test.com" and password "test"
     And I am on the home page

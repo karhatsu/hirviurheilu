@@ -55,3 +55,6 @@ if defined?(ActiveRecord::Base)
   rescue LoadError => ignore_if_database_cleaner_not_present
   end
 end
+
+Role.create!(:name => Role::ADMIN) unless Role.find_by_name(Role::ADMIN)
+Role.create!(:name => Role::OFFICIAL) unless Role.find_by_name(Role::OFFICIAL)
