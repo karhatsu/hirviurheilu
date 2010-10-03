@@ -354,6 +354,14 @@ describe Competitor do
       @competitor.time_points.should == nil
     end
 
+    it "should be nil when competitor has time but best time cannot be calculated" do
+      # this happens if competitor has time but did not finish (no_result=DNF)
+      # and no-one else has result either
+      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds)
+      @competitor.should_receive(:series_best_time_in_seconds).and_return(nil)
+      @competitor.time_points.should == nil
+    end
+
     it "should be 300 when this competitor has the best time" do
       @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds)
       @competitor.time_points.should == 300

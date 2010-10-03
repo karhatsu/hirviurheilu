@@ -86,11 +86,13 @@ class Competitor < ActiveRecord::Base
   def time_points
     own_time = time_in_seconds
     return nil if own_time.nil?
-    if own_time < series_best_time_in_seconds
+    best_time = series_best_time_in_seconds
+    return nil if best_time.nil?
+    if own_time < best_time
       raise "Competitor time better than the best time and no DNS/DNF!" unless no_result_reason
       return nil
     end
-    points = 300 - (own_time.to_i - series_best_time_in_seconds.to_i + 9) / 10
+    points = 300 - (own_time.to_i - best_time.to_i + 9) / 10
     return points.to_i if points >= 0
     0
   end
