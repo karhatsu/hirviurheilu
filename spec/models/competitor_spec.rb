@@ -88,7 +88,8 @@ describe Competitor do
       it "cannot be given if also individual shots have been defined" do
         comp = Factory.build(:competitor, :shots_total_input => 50)
         comp.shots << Factory.build(:shot, :competitor => comp, :value => 8)
-        comp.should have(1).errors_on(:shots_total_input)
+        comp.shots << Factory.build(:shot, :competitor => comp, :value => 8)
+        comp.should have(1).errors_on(:base)
       end
 
       it "can be given if individual shots only with nils" do

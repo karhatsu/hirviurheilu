@@ -152,8 +152,9 @@ class Competitor < ActiveRecord::Base
     if shots_total_input
       shots.each do |s|
         if s.value
-          errors.add(:shots_total_input,
+          errors.add(:base,
             "Ammuntatulokset voi syöttää vain summana tai yksittäisinä laukauksina")
+          return
         end
       end
     end
