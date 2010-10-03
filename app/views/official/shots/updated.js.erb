@@ -1,6 +1,7 @@
 <% if @competitor.errors.any? %>
+  <% error_msg = @competitor.errors.full_messages.join(". ") + "." %>
   $("#update_error").addClass("error");
-  $("#update_error").html("<%= @competitor.errors.full_messages %>");
+  $("#update_error").html("<%= error_msg %>");
   $("#status_<%=@competitor.id%>").html("<span class='error'>Virhe!</span>");
 <% else %>
   $("#update_error").removeClass("error");
