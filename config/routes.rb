@@ -33,6 +33,8 @@ ElkSports::Application.routes.draw do
     match '/series/:id/generate_times' => 'series#generate_times',
       :as => :generate_times
     match '/shots/change_series' => 'shots#change_series'
+    match '/series/:series_id/estimates' => 'estimates#index', :as => :series_estimates
+    match '/estimates/change_series' => 'estimates#change_series'
     resources :series do
       resources :competitors
       resources :shots

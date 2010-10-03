@@ -42,12 +42,12 @@ class Official::CompetitorsController < Official::OfficialController
             redirect_to edit_official_series_path(@competitor.series)
           end
         end
-        format.js { render 'official/shots/updated', :layout => false }
+        format.js { render 'official/competitors/updated', :layout => false }
       end
     else
       respond_to do |format|
         format.html { render :edit }
-        format.js { render 'official/shots/updated', :layout => false }
+        format.js { render 'official/competitors/updated', :layout => false }
       end
     end
   end
