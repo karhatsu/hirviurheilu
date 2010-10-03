@@ -1,4 +1,4 @@
-<%= content_for(:title, "#{@series.race.name} - arviointien syöttö") %>
+<%= content_for(:title, "#{@series.race.name} - aikojen syöttö") %>
 <h1><%= yield :title %></h1>
 <%= form_tag('/official/times/change_series', :method => :get) do %>
   <%= select_tag :series_id, options_from_collection_for_select(@series.race.series,
