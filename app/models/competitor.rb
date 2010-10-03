@@ -19,9 +19,9 @@ class Competitor < ActiveRecord::Base
     :numericality => { :only_integer => true,
       :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
   validates :estimate1, :allow_nil => true,
-    :numericality => { :only_integer => true, :greater_than => -1 }
+    :numericality => { :only_integer => true, :greater_than => 0 }
   validates :estimate2, :allow_nil => true,
-    :numericality => { :only_integer => true, :greater_than => -1 }
+    :numericality => { :only_integer => true, :greater_than => 0 }
   validate :arrival_not_before_start_time
   validate :only_one_shot_input_method_used
   validate :max_ten_shots

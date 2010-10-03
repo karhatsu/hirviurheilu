@@ -121,9 +121,10 @@ describe Competitor do
           should have(1).errors_on(:estimate1)
       end
 
-      it "should be non-negative" do
-        Factory.build(:competitor, :estimate1 => -1).
-          should have(1).errors_on(:estimate1)
+      it "should be positive" do
+        Factory.build(:competitor, :estimate1 => -1).should have(1).errors_on(:estimate1)
+        Factory.build(:competitor, :estimate1 => 0).should have(1).errors_on(:estimate1)
+        Factory.build(:competitor, :estimate1 => 1).should be_valid
       end
     end
 
@@ -137,9 +138,10 @@ describe Competitor do
           should have(1).errors_on(:estimate2)
       end
 
-      it "should be non-negative" do
-        Factory.build(:competitor, :estimate2 => -1).
-          should have(1).errors_on(:estimate2)
+      it "should be positive" do
+        Factory.build(:competitor, :estimate2 => -1).should have(1).errors_on(:estimate2)
+        Factory.build(:competitor, :estimate2 => 0).should have(1).errors_on(:estimate2)
+        Factory.build(:competitor, :estimate2 => 1).should be_valid
       end
     end
 
