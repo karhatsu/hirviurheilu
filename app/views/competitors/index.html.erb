@@ -6,7 +6,7 @@
   <div class="notice">Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan
     kilpailun päätyttyä.</div>
 <% end %>
-<% if @series.start_list.empty? %>
+<% if @series.competitors.empty? %>
   <div class="notice">Tähän sarjaan ei ole merkitty kilpailijoita.</div>
   <% if official_rights %>
     <div><%= link_to "Lisää kilpailijoita", edit_official_series_path(@series) %></div>

@@ -6,7 +6,11 @@
   <% if s.start_time %>
     <%= datetime_print(s.start_time, true) %> -
   <% end %>
-  <%= s.name %>,
-  <%= link_to "Tulokset", series_competitors_path(s) %>,
-  <%= link_to "Lähtölista", start_list_path(s) %><br/>
+  <%= s.name %>:
+  <% if s.competitors.empty? %>
+    Sarjaan ei ole merkitty kilpailijoita
+  <% else %>
+    <%= link_to "Tulokset", series_competitors_path(s) %>,
+    <%= link_to "Lähtölista", start_list_path(s) %>
+  <% end %><br/>
 <% end %>
