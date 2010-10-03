@@ -11,6 +11,9 @@ module NavigationHelpers
     when /the home\s?page/
       '/'
 
+    when /the race edit page of "(.*)"/
+      edit_official_race_path(Race.find_by_name($1))
+
     when /the race page/
       race_path(@race)
 
@@ -31,6 +34,9 @@ module NavigationHelpers
 
     when /the official index page/
       official_root_path
+
+    when /the new race page/
+      new_official_race_path
 
     when /the admin index page/
       admin_root_path

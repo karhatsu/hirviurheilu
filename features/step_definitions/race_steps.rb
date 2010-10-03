@@ -2,10 +2,10 @@ Given /^there is a race with attributes:$/ do |fields|
   hash = fields.rows_hash
   if hash[:sport] == 'SKI'
     hash.delete("sport")
-    hash[:sport] = Factory.create(:sport, :name => 'Hirvenhiihto', :key => 'SKI')
+    hash[:sport] = Sport.find_ski
   elsif hash[:sport] == 'RUN'
     hash.delete("sport")
-    hash[:sport] = Factory.create(:sport, :name => 'Hirvenjuoksu', :key => 'RUN')
+    hash[:sport] = Sport.find_run
   elsif hash[:sport]
     raise "Unknown sport key: #{hash[:sport]}"
   end

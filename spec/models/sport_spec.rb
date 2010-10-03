@@ -56,8 +56,8 @@ describe Sport do
 
   describe "find by key" do
     before do
-      @ski = Factory.create(:sport, :key => Sport::SKI)
-      @run = Factory.create(:sport, :key => Sport::RUN)
+      @ski = Sport.find_by_key(Sport::SKI) || Factory.create(:sport, :key => Sport::SKI)
+      @run = Sport.find_by_key(Sport::RUN) || Factory.create(:sport, :key => Sport::RUN)
     end
 
     describe "#find_ski" do
