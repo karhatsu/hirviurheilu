@@ -32,6 +32,8 @@
   <% end %>
 </table>
 <hr/>
+<%= render :partial => 'official/shared/series_result_input_links',
+  :locals => { :series_id => @series.id } %><br/>
 <%= link_to "Takaisin toimitsijan etusivulle", official_root_path %>
 <script type="text/javascript">
   function start_updating(id) {

@@ -40,9 +40,8 @@
     <% end %>
     <% unless r.series.empty? %>
       <h3>Tulosten syöttäminen kilpailupaikoittain</h3>
-      <%= link_to "Ajat", official_series_times_path(r.series.first) %>
-      <%= link_to "Arviointi", official_series_estimates_path(r.series.first) %>
-      <%= link_to "Laukaukset", official_series_shots_path(r.series.first) %>
+      <%= render :partial => 'official/shared/series_result_input_links',
+        :locals => { :series_id => r.series.first.id } %>
     <% end %>
   </div>
   <hr/>
