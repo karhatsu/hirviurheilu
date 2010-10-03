@@ -15,4 +15,5 @@ Feature: Show race
     When I go to the race page
     Then I should see "My test race" within "h1"
     And I should see "Test city, 01.01.2010 - 02.01.2010"
-    And I should see "01.01.2010 13:30 - Men 50 years"
+    And I should see "Men 50 years"
+    And I should see "01.01.2010 13:30"
