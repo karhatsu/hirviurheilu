@@ -2,17 +2,36 @@
 <h1><%= sport_icon(@race.sport) %> <%= yield :title %></h1>
 <%= @race.location %>, <%= date_interval(@race.start_date, @race.end_date) %>
 <h2>Sarjat</h2>
-<% @race.series.each do |s| %>
-  <% if s.start_time %>
-    <%= datetime_print(s.start_time, true) %> -
-  <% end %>
-  <%= s.name %>:
-  <% if s.competitors.empty? %>
-    Sarjaan ei ole merkitty kilpailijoita
-  <% else %>
-    <%= link_to "Tulokset", series_competitors_path(s) %>,
-    <%= link_to "Lähtölista", start_list_path(s) %>
-  <% end %><br/>
+<% if @race.series.empty? %>
+  Kilpailuun ei ole vielä lisätty sarjoja
+<% else %>
+  <table>
+    <tr>
+      <th>Nimi</th>
+      <th>Lähtöaika</th>
+      <th>&nbsp;</th>
+    </tr>
+    <% @race.series.each do |s| %>
+      <tr>
+        <td><%= s.name %></td>
+        <td>
+          <% if s.start_time %>
+            <%= datetime_print(s.start_time, true) %>
+          <% else %>
+            -
+          <% end %>
+        </td>
+        <td>
+          <% if s.competitors.empty? %>
+            Sarjaan ei ole merkitty kilpailijoita
+          <% else %>
+            <%= link_to "Tulokset", series_competitors_path(s) %>,
+            <%= link_to "Lähtölista", start_list_path(s) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
 <% end %>
 <hr/>
 <%= link_to "Takaisin etusivulle", root_path %>
