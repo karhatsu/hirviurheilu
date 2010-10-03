@@ -59,6 +59,7 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   def handle_time_parameters
+    return if params[:no_times]
     handle_time_parameter "start_time"
     handle_time_parameter "arrival_time"
   end
