@@ -6,7 +6,7 @@ Henri Karhatsu IT Consulting -
 
 <h2>Kysymyksiä ja vastauksia</h2>
 
-<div class="question">Mikä Hirviurheilu-tulospalvelu on tarkoitettu?</div>
+<div class="question">Mihin Hirviurheilu-tulospalvelu on tarkoitettu?</div>
 <div class="answer">Hirviurheilu on hirvenhiihtoon ja hirvenjuoksuun tarkoitettu
   tulospalvelu.</div>
 
@@ -71,3 +71,14 @@ Henri Karhatsu IT Consulting -
   ehdottomasti uusi ominaisuus?</div>
 <div class="answer">Ota rohkeasti yhteyttä yllä olevan linkin kautta ja kerro
   ideasi!</div>
+
+<script type="text/javascript">
+  $(".question").next().hide();
+  $(".question").click(function() {
+    if($(this).next().is(":visible")) {
+      $(this).next().hide();
+    } else {
+      $(this).next().show();
+    }
+  });
+</script>

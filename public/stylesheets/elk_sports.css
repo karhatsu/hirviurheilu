@@ -143,6 +143,9 @@ div.action_box {
 
 div.question {
     font-weight: bold;
+    color: olive;
+    cursor: pointer;
+    margin-top: 3px;
 }
 
 div.answer {
