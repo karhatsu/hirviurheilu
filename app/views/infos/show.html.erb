@@ -91,9 +91,9 @@ Voit myös itse ehdottaa uusia ominaisuuksia palveluun yllä olevan linkin kautt
   $(".question").next().hide();
   $(".question").click(function() {
     if($(this).next().is(":visible")) {
-      $(this).next().hide();
+      $(this).next().hide('fast');
     } else {
-      $(this).next().show();
+      $(this).next().show('fast');
     }
   });
 </script>
