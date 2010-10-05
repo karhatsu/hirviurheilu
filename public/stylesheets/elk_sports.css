@@ -140,3 +140,11 @@ div.action_box {
     margin: 5px;
     margin-left: 0px;
 }
+
+div.question {
+    font-weight: bold;
+}
+
+div.answer {
+    margin-bottom: 5px;
+}

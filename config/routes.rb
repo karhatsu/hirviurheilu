@@ -5,6 +5,7 @@ ElkSports::Application.routes.draw do
   resource :user_session
   resource :account, :controller => 'users'
   resources :users
+  resource :info
 
   match 'series/:series_id/start_list' => 'start_lists#show', :as => :start_list
   match 'change_series' => 'series#change_series', :as => :change_series

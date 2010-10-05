@@ -5,6 +5,7 @@
       <ul>
         <li><%= link_to "Etusivu", root_path %></li>
         <li><%= link_to "Toimitsijan etusivu", official_root_path %></li>
+        <li><%= link_to "Info", info_path %></li>
         <% if current_user %>
           <li><%= link_to "Omat tiedot", account_path %></li>
         <% end %>
