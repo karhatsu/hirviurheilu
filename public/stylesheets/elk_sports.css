@@ -74,6 +74,15 @@ a:hover {
 
 h1 {
     margin-top: 0px;
+    font-size: 20px;
+}
+
+h2 {
+    font-size: 16px;
+}
+
+h3 {
+    font-size: 14px;
 }
 
 div.error_explanation {
