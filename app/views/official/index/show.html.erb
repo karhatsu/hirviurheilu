@@ -39,7 +39,7 @@
       </table>
     <% end %>
     <% unless r.series.empty? %>
-      <h3>Tulosten syöttäminen kilpailupaikoittain</h3>
+      <h3>Tulosten syöttäminen suorituspaikoittain</h3>
       <%= render :partial => 'official/shared/series_result_input_links',
         :locals => { :series_id => r.series.first.id } %>
     <% end %>
