@@ -4,41 +4,59 @@ body {
     font-size: 12px;
 }
 
-.navigation {
-    color: white;
-}
-
-a:hover.navigation {
-    text-decoration: none;
-}
-
-div.official_breadcrumb {
-    width: 700px;
-    padding-left: 10px;
-    padding-right: 5px;
-    float: left;
-}
-
 div.login_links {
     text-align: right;
-    width: 200px;
-    padding-left: 5px;
+    width: 900px;
     padding-right: 10px;
-    float: left;
+    margin-bottom: 2px;
 }
 
-div.breadcrumb {
-    clear: both;
-    margin-bottom: 2px;
-    padding-left: 10px;
-    padding-right: 10px;
+div.login_links a {
+    color: white;
 }
 
 div.main {
     background-color: white;
     border: dashed 1px black;
-    padding: 10px;
     width: 900px;
+}
+
+div.menu {
+    margin: 2px;
+    font-family: cursive;
+}
+
+div.menu ul {
+    margin-top: 0px;
+    margin-bottom: 2px;
+    padding: 0px;
+}
+
+div.menu li {
+    display: inline;
+}
+
+div.menu ul li a {
+    float: left;
+    text-decoration: none;
+    color: white;
+    padding: 5px 5px;
+    background-color: olive;
+    border: white solid 1px;
+}
+
+div.menu ul li a:visited {
+    color: white;
+}
+
+div.menu ul li a:hover {
+    background-color: white;
+    color: olive;
+}
+
+div.content {
+    clear: left;
+    padding: 10px;
 }
 
 h1 {
