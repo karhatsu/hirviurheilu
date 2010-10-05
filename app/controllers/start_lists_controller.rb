@@ -8,4 +8,8 @@ class StartListsController < ApplicationController
       end
     end
   end
+
+  def change_start_list
+    redirect_to start_list_path(params[:series_id])
+  end
 end

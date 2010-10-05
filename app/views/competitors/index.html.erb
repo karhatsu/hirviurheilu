@@ -1,6 +1,12 @@
 <%= content_for(:title, "#{@series.name} - Tulokset") %>
 <h1><%= sport_icon(@series.race.sport) %> <%= @series.race.name %></h1>
 <h2><%= yield :title %></h2>
+<div class="change_series">
+  <div class="menu_and_button">
+    <%= render :partial => 'shared/series_selection',
+      :locals => { :url => change_series_path, :race => @series.race } %>
+  </div>
+</div>
 <%= render :partial => "start_notice", :locals => { :series => @series } %>
 <% if @series.running? %>
   <div class="notice">Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan

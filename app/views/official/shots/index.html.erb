@@ -1,6 +1,6 @@
 <%= content_for(:title, "#{@series.race.name} - laukausten syöttö") %>
 <h1><%= yield :title %></h1>
-<%= render :partial => 'official/shared/series_selection',
+<%= render :partial => 'shared/series_selection',
   :locals => { :url => '/official/shots/change_series', :race => @series.race } %>
 <hr/>
 <div id="update_error"></div>

@@ -104,6 +104,17 @@ span.notice {
     color: white;
 }
 
+div.change_series {
+    position: absolute;
+    top: 105px;
+    left: 5px;
+    width: 900px;
+}
+
+div.change_series div.menu_and_button {
+    text-align: right;
+}
+
 div.sub_element {
     background-color: silver;
     padding: 5px;
