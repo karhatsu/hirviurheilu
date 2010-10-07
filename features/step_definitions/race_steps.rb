@@ -12,6 +12,11 @@ Given /^there is a race with attributes:$/ do |fields|
   @race = Factory.create(:race, hash)
 end
 
+Given /^I have a race "([^"]*)"$/ do |name|
+  @race = Factory.create(:race, :name => name)
+  @user.races << @race
+end
+
 Given /^there is an ongoing race with attributes:$/ do |fields|
   @race = Factory.create(:race, {:start_date => Date.today}.merge(fields.rows_hash))
 end

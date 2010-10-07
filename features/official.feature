@@ -66,3 +66,25 @@ Feature: Official
     And I should see "Pääset lisäämään kilpailijoita klikkaamalla sarjan nimen vieressä olevaa linkkiä."
     And I should see "Default series 1"
     And I should see "Default series 2"
+
+  Scenario: Add competitors
+    Given I am an official
+    And I have a race "Test race"
+    And the race has series with attributes:
+      | name | Test series |
+    And there is a club "Test club"
+    And I have logged in
+    And I am on the official index page
+    When I follow "Muokkaa asetuksia, lisää kilpailijoita, syötä tulostietoja"
+    And I follow "Lisää uusi kilpailija"
+    And I fill in the following:
+      | Etunimi | Tom |
+      | Sukunimi | Stevensson |
+    And I press "Tallenna ja lisää toinen kilpailija"
+    And I fill in the following:
+      | Etunimi | Math |
+      | Sukunimi | Heyton |
+    And I press "Tallenna ja palaa sarjan tietoihin"
+    Then I should be on the edit page of "Test series"
+    And I should see "Stevensson Tom"
+    And I should see "Heyton Math"
