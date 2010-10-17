@@ -92,6 +92,8 @@ div.error_explanation {
     padding: 3px;
     margin-top: 3px;
     margin-bottom: 3px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 
 div.field_with_errors {
@@ -103,6 +105,8 @@ div.error {
     color: white;
     margin-bottom: 8px;
     padding: 3px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 
 span.error {
@@ -115,6 +119,8 @@ div.notice {
     color: white;
     margin-bottom: 8px;
     padding: 3px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 
 span.notice {
@@ -157,6 +163,8 @@ div.action_box {
     padding: 5px;
     margin: 5px;
     margin-left: 0px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 
 div.question {
