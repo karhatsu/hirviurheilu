@@ -1,19 +1,7 @@
 <body>
+  <%= render :partial => 'shared/menu' %>
   <div class="login_links"><%= render :partial => "shared/login_links" %></div>
   <div class="main">
-    <div class="menu">
-      <ul>
-        <li><%= link_to "Etusivu", root_path %></li>
-        <li><%= link_to "Toimitsijan etusivu", official_root_path %></li>
-        <li><%= link_to "Info", info_path %></li>
-        <% if current_user %>
-          <li><%= link_to "Omat tiedot", account_path %></li>
-        <% end %>
-        <% if current_user and current_user.admin? %>
-          <li><%= link_to "Admin", admin_root_path %></li>
-        <% end %>
-      </ul>
-    </div>
     <div class="content">
       <%= yield %>
     </div>

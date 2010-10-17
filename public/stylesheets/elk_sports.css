@@ -16,9 +16,13 @@ div.login_links a {
 }
 
 div.main {
+    position: absolute;
+    top: 39px;
     background-color: white;
-    border: dashed 1px black;
+    border: solid 1px black;
     width: 900px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
 }
 
 div.menu {
@@ -28,8 +32,10 @@ div.menu {
 
 div.menu ul {
     margin-top: 0px;
-    margin-bottom: 2px;
-    padding: 0px;
+    margin-bottom: 0px;
+    padding-top: 5px;
+    padding-bottom: 1px;
+    padding-left: 4px;
 }
 
 div.menu li {
@@ -38,11 +44,12 @@ div.menu li {
 
 div.menu ul li a {
     float: left;
-    text-decoration: none;
     color: white;
-    padding: 5px 5px;
     background-color: olive;
+    text-decoration: none;
+    padding: 5px 5px;
     border: white solid 1px;
+    margin-right: 4px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     -o-border-radius: 3px;
@@ -53,9 +60,13 @@ div.menu ul li a:visited {
 }
 
 div.menu ul li a:hover {
-    background-color: white;
     color: olive;
-    border: olive solid 1px;
+    background-color: white;
+    border-bottom-color: white;
+    -moz-border-radius-bottomleft: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-radius-bottomleft: 0px;
+    -webkit-border-radius-bottomright: 0px;
 }
 
 div.content {
