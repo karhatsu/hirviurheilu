@@ -1,5 +1,5 @@
 class Official::SeriesController < Official::OfficialController
-  before_filter :assign_series, :check_series_rights
+  before_filter :assign_series, :check_series_rights, :except => :change_series
 
   def edit
   end
@@ -27,6 +27,10 @@ class Official::SeriesController < Official::OfficialController
     else
       render :edit
     end
+  end
+
+  def change_series
+    redirect_to edit_official_series_path(params[:series_id])
   end
 
   private

@@ -1,6 +1,13 @@
 <%= content_for(:title, "#{@series.race.name} - #{@series.name}") %>
 <h1><%= yield :title %></h1>
 <h2>Sarjan asetukset</h2>
+<div class="change_series">
+  <div class="menu_and_button">
+    <%= render :partial => 'shared/series_selection',
+      :locals => { :url => official_change_series_path, :race => @series.race,
+      :selected_id => params[:id] } %>
+  </div>
+</div>
 <div class="action_box">
   <%= render :partial => "shared/form_errors", :locals => { :item => @series } %>
   <%= flash_error %>
