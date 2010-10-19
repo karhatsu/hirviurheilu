@@ -21,16 +21,15 @@
 <% if @series.first_number and @series.start_time %>
   <div class="action_box">
     <%= form_for([:official, @series], :url => official_generate_numbers_path(@series)) do |f| %>
-      Lisää kilpailijoille lähtönumerot alkaen sarjan ensimmäisestä numerosta
-      (<%= @series.first_number %>): <%= submit_tag "Lisää kilpailijoille lähtönumerot" %>
+      <%= submit_tag "Lisää kilpailijoille lähtönumerot" %> alkaen sarjan
+      ensimmäisestä numerosta (<%= @series.first_number %>).
     <% end %>
   </div>
   <% if @series.each_competitor_has_number? %>
     <div class="action_box">
       <%= form_for([:official, @series], :url => official_generate_times_path(@series)) do |f| %>
-        Lisää kilpailijoille lähtöajat alkaen sarjan lähtöajasta
-        (<%= time_print(@series.start_time) %>):
-        <%= submit_tag "Lisää kilpailijoille lähtöajat" %>
+        <%= submit_tag "Lisää kilpailijoille lähtöajat" %> alkaen sarjan lähtöajasta
+        (<%= time_print(@series.start_time) %>).
       <% end %>
     </div>
     <% if @series.each_competitor_has_start_time? %>
