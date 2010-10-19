@@ -21,17 +21,16 @@
 <% if @series.first_number and @series.start_time %>
   <div class="action_box">
     <%= form_for([:official, @series], :url => official_generate_numbers_path(@series)) do |f| %>
-      Generoi kilpailijoille numerot käyttäen sarjalle määritettyä ensimmäistä numeroa.
-      Jos kilpailijoilla on jo määritetty numeroita, ne ylikirjoitetaan.
-      <%= submit_tag "Generoi lähtönumerot" %>
+      Lisää kilpailijoille lähtönumerot alkaen sarjan ensimmäisestä numerosta
+      (<%= @series.first_number %>): <%= submit_tag "Lisää kilpailijoille lähtönumerot" %>
     <% end %>
   </div>
   <% if @series.each_competitor_has_number? %>
     <div class="action_box">
       <%= form_for([:official, @series], :url => official_generate_times_path(@series)) do |f| %>
-        Generoi kilpailijoille lähtöajat käyttäen sarjalle määritettyä lähtöaikaa.
-        Jos kilpailijoille on jo määritetty lähtöaikoja, ne ylikirjoitetaan.
-        <%= submit_tag "Generoi lähtöajat" %>
+        Lisää kilpailijoille lähtöajat alkaen sarjan lähtöajasta
+        (<%= time_print(@series.start_time) %>):
+        <%= submit_tag "Lisää kilpailijoille lähtöajat" %>
       <% end %>
     </div>
     <% if @series.each_competitor_has_start_time? %>
@@ -40,16 +39,16 @@
           kilpailun päätyttyä.</div>
       <% end %>
     <% else %>
-      <div class="notice">Muista generoida kilpailijoille lähtöajat
+      <div class="notice">Muista lisätä kilpailijoille lähtöajat
         yllä olevan napin avulla.</div>
     <% end %>
   <% else %>
-    <div class="notice">Kun olet syöttänyt kaikki kilpailijat, muista generoida
+    <div class="notice">Kun olet syöttänyt kaikki kilpailijat, muista lisätä
       heille lähtönumerot yllä olevan napin avulla.</div>
   <% end %>
 <% elsif not @series.competitors.empty? %>
   <div class="notice">Muista syöttää sarjan ensimmäinen kilpailunumero ja lähtöaika,
-    jotta kilpailijoille voidaan generoida lähtönumerot ja lähtöajat.</div>
+    jotta kilpailijoille voidaan lisätä lähtönumerot ja lähtöajat.</div>
 <% end %>
 <h2>Kilpailijat</h2>
 <div class="action_box">
