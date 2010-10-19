@@ -18,36 +18,38 @@
     <%= submit_tag "Päivitä sarjan asetukset" %>
   <% end %>
 </div>
-<% if @series.first_number and @series.start_time %>
-  <div class="action_box">
-    <%= form_for([:official, @series], :url => official_generate_numbers_path(@series)) do |f| %>
-      <%= submit_tag "Lisää kilpailijoille lähtönumerot" %> alkaen sarjan
-      ensimmäisestä numerosta (<%= @series.first_number %>).
-    <% end %>
-  </div>
-  <% if @series.each_competitor_has_number? %>
+<% unless @series.competitors.empty? %>
+  <% if @series.first_number and @series.start_time %>
     <div class="action_box">
-      <%= form_for([:official, @series], :url => official_generate_times_path(@series)) do |f| %>
-        <%= submit_tag "Lisää kilpailijoille lähtöajat" %> alkaen sarjan lähtöajasta
-        (<%= time_print(@series.start_time) %>).
+      <%= form_for([:official, @series], :url => official_generate_numbers_path(@series)) do |f| %>
+        <%= submit_tag "Lisää kilpailijoille lähtönumerot" %> alkaen sarjan
+        ensimmäisestä numerosta (<%= @series.first_number %>).
       <% end %>
     </div>
-    <% if @series.each_competitor_has_start_time? %>
-      <% unless @series.correct_estimate1 and @series.correct_estimate2 %>
-        <div class="notice">Muista syöttää oikeat arviointimatkat viimeistään
-          kilpailun päätyttyä.</div>
+    <% if @series.each_competitor_has_number? %>
+      <div class="action_box">
+        <%= form_for([:official, @series], :url => official_generate_times_path(@series)) do |f| %>
+          <%= submit_tag "Lisää kilpailijoille lähtöajat" %> alkaen sarjan lähtöajasta
+          (<%= time_print(@series.start_time) %>).
+        <% end %>
+      </div>
+      <% if @series.each_competitor_has_start_time? %>
+        <% unless @series.correct_estimate1 and @series.correct_estimate2 %>
+          <div class="notice">Muista syöttää oikeat arviointimatkat viimeistään
+            kilpailun päätyttyä.</div>
+        <% end %>
+      <% else %>
+        <div class="notice">Muista lisätä kilpailijoille lähtöajat
+          yllä olevan napin avulla.</div>
       <% end %>
     <% else %>
-      <div class="notice">Muista lisätä kilpailijoille lähtöajat
-        yllä olevan napin avulla.</div>
+      <div class="notice">Kun olet syöttänyt kaikki kilpailijat, muista lisätä
+        heille lähtönumerot yllä olevan napin avulla.</div>
     <% end %>
-  <% else %>
-    <div class="notice">Kun olet syöttänyt kaikki kilpailijat, muista lisätä
-      heille lähtönumerot yllä olevan napin avulla.</div>
+  <% elsif not @series.competitors.empty? %>
+    <div class="notice">Muista syöttää sarjan ensimmäinen kilpailunumero ja lähtöaika,
+      jotta kilpailijoille voidaan lisätä lähtönumerot ja lähtöajat.</div>
   <% end %>
-<% elsif not @series.competitors.empty? %>
-  <div class="notice">Muista syöttää sarjan ensimmäinen kilpailunumero ja lähtöaika,
-    jotta kilpailijoille voidaan lisätä lähtönumerot ja lähtöajat.</div>
 <% end %>
 <h2>Kilpailijat</h2>
 <div class="action_box">
