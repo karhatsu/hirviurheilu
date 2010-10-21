@@ -8,6 +8,21 @@ module ApplicationHelper
     raw("<div class='error'>#{flash[:error]}</div>") if flash[:error]
   end
 
+  def highlight_notice(content)
+    timestamp = Time.now.to_i
+    html = %{
+      <div class="notice" id="highlight_#{timestamp}">#{content}</div>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          var current = $("#highlight_#{timestamp}").css('color');
+          $("#highlight_#{timestamp}").animate( { color: red }, duration / 2 );
+          $("#highlight_#{timestamp}").animate( { color: current }, duration / 2 );
+        });
+      </script>
+    }
+    raw(html)
+  end
+
   def datetime_print(time, hours_and_minutes=false, seconds=false, nil_result='')
     return nil_result if time.nil?
     t = time.strftime('%d.%m.%Y')

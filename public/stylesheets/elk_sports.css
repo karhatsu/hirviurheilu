@@ -150,6 +150,11 @@ div.notice {
     -webkit-border-radius: 5px;
 }
 
+div.notice_flash {
+    background-color: white;
+    color: olive;
+}
+
 span.notice {
     background-color: olive;
     color: white;
