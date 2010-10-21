@@ -52,6 +52,18 @@ class Official::CompetitorsController < Official::OfficialController
     end
   end
 
+  def destroy
+    @competitor = Competitor.find(params[:id])
+    if @competitor.series_id == params[:series_id].to_i
+      @competitor.destroy
+      respond_to do |format|
+        format.js { render :destroyed }
+      end
+    else
+      raise "Competitor does not belong to given series!"
+    end
+  end
+
   private
   def check_competitor_rights
     series = Series.find(params[:series_id])

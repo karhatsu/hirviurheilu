@@ -72,7 +72,7 @@
       <th>&nbsp;</th>
     </tr>
     <% @series.competitors.each do |comp| %>
-      <tr>
+      <tr id="competitor_<%= comp.id %>">
         <td>
           <%= link_to full_name(comp),
             edit_official_series_competitor_path(@series.id, comp) %>
@@ -83,7 +83,7 @@
         <td align="center"><%= comp.finished? ? 'kyllä' : 'ei' %></td>
         <td><%= link_to "Poista", official_series_competitor_path(@series.id, comp),
             :confirm => "Haluatko varmasti poistaa tämän kilpailijan?",
-            :method => :delete %></td>
+            :method => :delete, :remote => true %></td>
       </tr>
     <% end %>
   </table>
