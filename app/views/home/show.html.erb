@@ -19,10 +19,16 @@
 </div>
 
 <% unless current_user %>
-  <div class="registration_commercial">
+  <div class="commercial_box registration_commercial">
     Oletko järjestämässä hirvenhiihdon tai hirvenjuoksun kilpailua?
-    <div class="registration_commercial_link">
+    <div class="commercial_box_link">
       <%= link_to "Aloita tästä.", new_user_path %>
+    </div>
+  </div>
+  <div class="commercial_box login_commercial">
+    Onko sinulla jo tunnukset?
+    <div class="commercial_box_link">
+      <%= link_to "Kirjaudu sisään.", new_user_session_path %>
     </div>
   </div>
 <% end %>

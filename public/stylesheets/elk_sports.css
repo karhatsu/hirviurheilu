@@ -211,10 +211,7 @@ div.answer {
     margin-bottom: 5px;
 }
 
-div.registration_commercial {
-    position: absolute;
-    left: 650px;
-    top: 80px;
+div.commercial_box {
     background-color: olive;
     color: white;
     padding: 5px;
@@ -225,7 +222,19 @@ div.registration_commercial {
     -webkit-border-radius: 5px;
 }
 
-div.registration_commercial_link {
+div.registration_commercial {
+    position: absolute;
+    left: 650px;
+    top: 80px;
+}
+
+div.login_commercial {
+    position: absolute;
+    left: 650px;
+    top: 185px;
+}
+
+div.commercial_box_link {
     margin-top: 3px;
     background-color: white;
     padding: 5px;

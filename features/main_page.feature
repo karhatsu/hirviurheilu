@@ -34,10 +34,26 @@ Feature: Main page
 
   Scenario: Showing registration link for unauthenticated users
     Given I am on the home page
+    Then I should see "Oletko järjestämässä hirvenhiihdon tai hirvenjuoksun kilpailua?"
     When I follow "Aloita tästä."
     Then I should be on the registration page
 
   Scenario: No registration link for authenticated users
     Given I am an official
+    And I have logged in
     And I am on the home page
-    Then I should not see "Aloita tästä."
+    Then I should not see "Oletko järjestämässä hirvenhiihdon tai hirvenjuoksun kilpailua?"
+    And I should not see "Aloita tästä."
+
+  Scenario: Showing login link for unauthenticated users
+    Given I am on the home page
+    Then I should see "Onko sinulla jo tunnukset?"
+    When I follow "Kirjaudu sisään."
+    Then I should be on the login page
+
+  Scenario: No login link for authenticated users
+    Given I am an official
+    And I have logged in
+    And I am on the home page
+    Then I should not see "Onko sinulla jo tunnukset?"
+    And I should not see "Kirjaudu sisään."
