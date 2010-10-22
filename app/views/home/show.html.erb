@@ -17,3 +17,12 @@
   <h2>Päättyneet kilpailut</h2>
   <%= render :partial => "race_list", :locals => { :races => @past } %>
 </div>
+
+<% unless current_user %>
+  <div class="registration_commercial">
+    Oletko järjestämässä hirvenhiihdon tai hirvenjuoksun kilpailua?
+    <div class="registration_commercial_link">
+      <%= link_to "Aloita tästä.", new_user_path %>
+    </div>
+  </div>
+<% end %>

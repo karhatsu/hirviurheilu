@@ -31,3 +31,13 @@ Feature: Main page
     And I should see "Menossa olevat kilpailut" within "div.ongoing_races"
     And I should see "Ongoing race" within "div.ongoing_races"
     And I should see "Ongoing city" within "div.ongoing_races"
+
+  Scenario: Showing registration link for unauthenticated users
+    Given I am on the home page
+    When I follow "Aloita tästä."
+    Then I should be on the registration page
+
+  Scenario: No registration link for authenticated users
+    Given I am an official
+    And I am on the home page
+    Then I should not see "Aloita tästä."

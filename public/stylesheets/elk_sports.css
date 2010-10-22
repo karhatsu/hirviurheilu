@@ -210,3 +210,25 @@ div.question {
 div.answer {
     margin-bottom: 5px;
 }
+
+div.registration_commercial {
+    position: absolute;
+    left: 650px;
+    top: 80px;
+    background-color: olive;
+    color: white;
+    padding: 5px;
+    overflow: auto;
+    width: 200px;
+    text-align: center;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+div.registration_commercial_link {
+    margin-top: 3px;
+    background-color: white;
+    padding: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
