@@ -132,6 +132,7 @@ div.error {
     color: white;
     margin-bottom: 8px;
     padding: 3px;
+    border: 1px solid olive;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 }
@@ -153,6 +154,7 @@ div.notice {
 div.notice_flash {
     background-color: white;
     color: olive;
+    border: 1px solid olive;
 }
 
 span.notice {

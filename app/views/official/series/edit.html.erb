@@ -56,8 +56,8 @@
   <%= link_to "Lisää uusi kilpailija", new_official_series_competitor_path(@series.id) %>
 </div>
 <% if @series.competitors.empty? %>
-  <div class="notice">Et ole syöttänyt sarjaan vielä yhtään kilpailijaa.
-    Voit lisätä heitä klikkaamalla yllä olevaa linkkiä.</div>
+  <%= highlight_notice('Et ole syöttänyt sarjaan vielä yhtään kilpailijaa. ' +
+    'Voit lisätä heitä klikkaamalla yllä olevaa linkkiä.') %>
 <% else %>
   <% if @series.each_competitor_has_start_time? and not @series.each_competitor_finished? %>
     <div class="notice">Voit syöttää kilpailijoille tulostietoja klikkaamalla heidän

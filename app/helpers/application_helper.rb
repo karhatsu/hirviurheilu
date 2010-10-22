@@ -14,9 +14,8 @@ module ApplicationHelper
       <div class="notice" id="highlight_#{timestamp}">#{content}</div>
       <script type="text/javascript">
         $(document).ready(function() {
-          var current = $("#highlight_#{timestamp}").css('color');
-          $("#highlight_#{timestamp}").animate( { color: red }, duration / 2 );
-          $("#highlight_#{timestamp}").animate( { color: current }, duration / 2 );
+          $("#highlight_#{timestamp}").addClass('notice_flash');
+          setTimeout(function() {$("#highlight_#{timestamp}").removeClass('notice_flash')}, 500);
         });
       </script>
     }
