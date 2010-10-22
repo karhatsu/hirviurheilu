@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def highlight_notice(content)
-    timestamp = Time.now.to_i
+    timestamp = Time.now.to_f.to_s.gsub!('.', '')
     html = %{
       <div class="notice" id="highlight_#{timestamp}">#{content}</div>
       <script type="text/javascript">
