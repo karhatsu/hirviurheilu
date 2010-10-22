@@ -12,3 +12,14 @@
 
 <br/><br/>
 <%= link_to 'Muokkaa tietoja', edit_account_path %>
+<h2>Omat kilpailut</h2>
+<% if @user.races.empty? %>
+  <%= highlight_notice('Sinulla ei ole vielä yhtään kilpailua. ' +
+      'Pääset syöttämään kilpailun tietoja Toimitsijan etusivu -linkistä sivun ylälaidasta.') %>
+<% else %>
+  <ul>
+    <% @user.races.each do |race| %>
+      <li><%= link_to race.name, race_path(race) %></li>
+    <% end %>
+  </ul>
+<% end %>
