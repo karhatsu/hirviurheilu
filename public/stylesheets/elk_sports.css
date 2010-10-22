@@ -147,6 +147,7 @@ div.notice {
     color: white;
     margin-bottom: 8px;
     padding: 3px;
+    border: 1px solid olive;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 }
@@ -193,10 +194,8 @@ div.age_groups h3 {
 
 div.action_box {
     border: dashed 1px gray;
-    margin-left: 0px;
     padding: 5px;
-    margin: 5px;
-    margin-left: 0px;
+    margin-bottom: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 }
