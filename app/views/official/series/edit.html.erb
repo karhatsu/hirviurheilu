@@ -35,20 +35,20 @@
       </div>
       <% if @series.each_competitor_has_start_time? %>
         <% unless @series.correct_estimate1 and @series.correct_estimate2 %>
-          <div class="notice">Muista syöttää oikeat arviointimatkat viimeistään
-            kilpailun päätyttyä.</div>
+          <%= highlight_notice('Muista syöttää oikeat arviointimatkat viimeistään ' +
+            'kilpailun päätyttyä') %>
         <% end %>
       <% else %>
-        <div class="notice">Muista lisätä kilpailijoille lähtöajat
-          yllä olevan napin avulla.</div>
+        <%= highlight_notice('Muista lisätä kilpailijoille lähtöajat ' +
+          'yllä olevan napin avulla.') %>
       <% end %>
     <% else %>
-      <div class="notice">Kun olet syöttänyt kaikki kilpailijat, muista lisätä
-        heille lähtönumerot yllä olevan napin avulla.</div>
+      <%= highlight_notice('Kun olet syöttänyt kaikki kilpailijat, muista lisätä ' +
+        'heille lähtönumerot yllä olevan napin avulla.') %>
     <% end %>
   <% elsif not @series.competitors.empty? %>
-    <div class="notice">Muista syöttää sarjan ensimmäinen kilpailunumero ja lähtöaika,
-      jotta kilpailijoille voidaan lisätä lähtönumerot ja lähtöajat.</div>
+    <%= highlight_notice('Muista syöttää sarjan ensimmäinen kilpailunumero ja lähtöaika, ' +
+      'jotta kilpailijoille voidaan lisätä lähtönumerot ja lähtöajat.') %>
   <% end %>
 <% end %>
 <h2>Kilpailijat</h2>
@@ -60,8 +60,8 @@
     'Voit lisätä heitä klikkaamalla yllä olevaa linkkiä.') %>
 <% else %>
   <% if @series.each_competitor_has_start_time? and not @series.each_competitor_finished? %>
-    <div class="notice">Voit syöttää kilpailijoille tulostietoja klikkaamalla heidän
-      nimessään olevaa linkkiä.</div>
+    <%= highlight_notice('Voit syöttää kilpailijoille tulostietoja klikkaamalla heidän ' +
+      'nimessään olevaa linkkiä.') %>
   <% end %>
   <table cellpadding="3" cellspacing="0" border="1">
     <tr>
