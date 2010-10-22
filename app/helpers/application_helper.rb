@@ -14,8 +14,10 @@ module ApplicationHelper
       <div class="notice" id="highlight_#{timestamp}">#{content}</div>
       <script type="text/javascript">
         $(document).ready(function() {
-          $("#highlight_#{timestamp}").addClass('notice_flash');
-          setTimeout(function() {$("#highlight_#{timestamp}").removeClass('notice_flash')}, 500);
+          setTimeout(function() {$("#highlight_#{timestamp}").addClass('notice_flash')}, 500);
+          setTimeout(function() {$("#highlight_#{timestamp}").removeClass('notice_flash')}, 1000);
+          setTimeout(function() {$("#highlight_#{timestamp}").addClass('notice_flash')}, 1500);
+          setTimeout(function() {$("#highlight_#{timestamp}").removeClass('notice_flash')}, 2000);
         });
       </script>
     }
