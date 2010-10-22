@@ -4,11 +4,27 @@ body {
     font-size: 12px;
 }
 
+div.env_info {
+    position: absolute;
+    top: 15px;
+    left: 500px;
+    text-align: center;
+    width: 200px;
+    color: orange;
+}
+
+span.env_info_link {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 div.login_links {
+    position: absolute;
+    top: 15px;
+    left: 700px;
     text-align: right;
-    width: 900px;
+    width: 200px;
     padding-right: 10px;
-    margin-bottom: 2px;
 }
 
 div.login_links a {

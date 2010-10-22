@@ -1,0 +1,12 @@
+div.dialog {
+    color: olive;
+}
+
+div.ui-dialog-titlebar {
+    background-color: olive;
+    color: white;
+}
+
+.ui-widget-header {
+    background-image: none;
+}
