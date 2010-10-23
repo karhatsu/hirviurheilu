@@ -195,4 +195,8 @@ describe Race do
       s2.should have(0).age_groups
     end
   end
+
+  describe "DEFAULT_START_INTERVAL" do
+    specify { Race::DEFAULT_START_INTERVAL.should == 60 }
+  end
 end

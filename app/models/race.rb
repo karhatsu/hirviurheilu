@@ -1,4 +1,6 @@
 class Race < ActiveRecord::Base
+  DEFAULT_START_INTERVAL = 60
+
   belongs_to :sport
   has_many :series, :order => 'start_time'
   has_many :competitors, :through => :series

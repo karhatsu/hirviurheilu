@@ -37,6 +37,7 @@ Feature: Official
     And I am on the official index page
     When I follow "Lisää uusi kilpailu"
     Then I should be on the new race page
+    And the "race_start_interval_seconds" field should contain "60"
     When I fill in the following:
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |
