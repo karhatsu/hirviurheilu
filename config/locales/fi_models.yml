@@ -67,3 +67,5 @@ fi:
     attributes:
       race:
         name: Kilpailun nimi
+      series:
+        name: Sarjan nimi
