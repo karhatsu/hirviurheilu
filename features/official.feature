@@ -69,6 +69,14 @@ Feature: Official
     And I should see "Default series 1"
     And I should see "Default series 2"
     But I should not see "Sinulla ei ole vielä yhtään kilpailua."
+    But I should not see "Et ole vielä lisännyt kilpailuun yhtään sarjaa."
+
+  Scenario: Official index when race has no series
+    Given I am an official
+    And I have a race "Test race"
+    And I have logged in
+    When I go to the official index page
+    Then I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta linkistä." within "div.notice"
 
   Scenario: Add competitors
     Given I am an official
