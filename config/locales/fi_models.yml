@@ -64,3 +64,6 @@ fi:
       user:
         one: Käyttäjä
         other: Käyttäjät
+    attributes:
+      race:
+        name: Kilpailun nimi

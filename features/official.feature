@@ -38,7 +38,7 @@ Feature: Official
     When I follow "Lisää uusi kilpailu"
     Then I should be on the new race page
     When I fill in the following:
-      | Nimi | Test race |
+      | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |
       | Lähtöaikojen väli (sekuntia) | 30 |
     And I press "Lisää kilpailu"
@@ -56,7 +56,7 @@ Feature: Official
     When I follow "Lisää uusi kilpailu"
     Then I should be on the new race page
     When I fill in the following:
-      | Nimi | Test race |
+      | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |
       | Lähtöaikojen väli (sekuntia) | 30 |
     And I check "Lisää oletussarjat automaattisesti"
