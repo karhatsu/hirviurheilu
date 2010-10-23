@@ -15,7 +15,7 @@
   <% if @race.new_record? %>
     <%= check_box_tag :add_default_series %>
     <%= label_tag :add_default_series, "Lisää oletussarjat automaattisesti" %>
-    <span class="help" id="default_series_help">?</span>
+    <a class="help" id="default_series_help">?</a>
     <div id="default_series_help_dialog" class="dialog" style="display: none;">
       Jos merkitset 'Lisää oletussarjat automaattisesti'-kentän valituksi,
       kilpailulle luodaan automaattisesti seuraavat sarjat:
