@@ -254,6 +254,7 @@ div.commercial_box_link {
     cursor: pointer;
     font-weight: bold;
     font-family: arial;
+    font-size: 12px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
 }

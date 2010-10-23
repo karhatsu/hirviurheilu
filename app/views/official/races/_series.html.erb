@@ -2,8 +2,29 @@
   <%= render :partial => 'official/series/form_basic_fields',
     :locals => { :f => f, :race => @race } %><br/>
   <div class="age_groups">
-    <h3>Ikäryhmät, joille lasketaan omat aikapisteet
-      (esim. pääsarja: M60, ikäryhmät: M65, M70)</h3>
+    <h3>
+      Ikäryhmät, joille lasketaan omat aikapisteet
+      <a class="help" id="age_groups_help">?</a>
+      <div id="age_groups_help_dialog" class="dialog" style="display: none;">
+        Tästä voit lisätä sarjaan ns. ikäryhmän, jolle lasketaan omat aikapisteet.
+        Esimerkiksi jos pääsarja on M60, niin samaan sarjaan voi kuulua ikäryhmät
+        M65 ja M70.
+        <p>Mikäli ryhmissä on tarpeeksi kilpailijoita, jokaisen ryhmän
+        paras aika saa täydet 300 pistettä ja muiden kilpailijoiden aikojen
+        verrataan ikäryhmän parhaaseen aikaan. Voit määrittää jokaiselle
+        ikäryhmälle, kuinka monta kilpailijaa siinä pitää olla. Jos
+        kilpailijoiden määrällä ei ole väliä (esim. sarja Nuoret ja
+        sen "ikäryhmät" Tytöt ja Pojat), syötä kilpailijoiden
+        vähimmäismääräksi 0.</p>
+        <p></p>
+      </div>
+      <script type="text/javascript">
+        $('#age_groups_help').click(function() {
+          $('#age_groups_help_dialog').dialog({ title: 'Ikäryhmät',
+            closeText: 'Sulje' });
+        });
+      </script>
+    </h3>
     <%= f.fields_for :age_groups do |age_group_form| %>
       <%= render :partial => "age_group", :locals => { :f => age_group_form } %>
     <% end %>
