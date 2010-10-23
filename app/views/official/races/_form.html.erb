@@ -21,13 +21,18 @@
       kilpailulle luodaan automaattisesti seuraavat sarjat:
       <ul>
         <% DefaultSeries.all.each do |df| %>
-          <li><%= df.name %></li>
+          <li>
+            <%= df.name %>
+            <% unless df.default_age_groups.empty? %>
+              (<%= (df.default_age_groups.collect &:name).join(', ') %>)
+            <% end %>
+          </li>
         <% end %>
       </ul>
       Voit kilpailun lisäämisen jälkeen tarvittaessa poistaa tarpeettomat sarjat
       ja lisätä uusia.
       <p>Mikäli et valitse tätä vaihtoehtoa, pääset lisäämään haluamasi sarjat heti
-      kilpailun jälkeen.</p>
+        kilpailun jälkeen.</p>
     </div>
     <script type="text/javascript">
       $('#default_series_help').click(function() {
