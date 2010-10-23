@@ -14,7 +14,28 @@
   <%= f.text_field :start_interval_seconds, :size => 3, :maxlength => 3 %><br/>
   <% if @race.new_record? %>
     <%= check_box_tag :add_default_series %>
-    <%= label_tag :add_default_series, "Lisää oletussarjat automaattisesti" %><br/>
+    <%= label_tag :add_default_series, "Lisää oletussarjat automaattisesti" %>
+    <span class="help" id="default_series_help">?</span>
+    <div id="default_series_help_dialog" class="dialog" style="display: none;">
+      Jos merkitset 'Lisää oletussarjat automaattisesti'-kentän valituksi,
+      kilpailulle luodaan automaattisesti seuraavat sarjat:
+      <ul>
+        <% DefaultSeries.all.each do |df| %>
+          <li><%= df.name %></li>
+        <% end %>
+      </ul>
+      Voit kilpailun lisäämisen jälkeen tarvittaessa poistaa tarpeettomat sarjat
+      ja lisätä uusia.
+      <p>Mikäli et valitse tätä vaihtoehtoa, pääset lisäämään haluamasi sarjat heti
+      kilpailun jälkeen.</p>
+    </div>
+    <script type="text/javascript">
+      $('#default_series_help').click(function() {
+        $('#default_series_help_dialog').dialog({ title: 'Lisää oletussarjat automaattisesti',
+          closeText: 'Sulje' });
+      });
+    </script>
+    <br/>
   <% else %>
     <h2>Sarjat</h2>
     <%= f.fields_for :series do |series_form| %>
