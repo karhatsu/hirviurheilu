@@ -29,6 +29,7 @@ Feature: Official
     And I fill in "test" for "Salasana"
     And I press "Kirjaudu"
     Then I should be on the official index page
+    And I should see "Sinulla ei ole vielä yhtään kilpailua. Aloita luomalla kilpailu alla olevasta linkistä." within "div.notice"
 
   Scenario: Create new race without default series
     Given I am an official
@@ -66,6 +67,7 @@ Feature: Official
     And I should see "Pääset lisäämään kilpailijoita klikkaamalla sarjan nimen vieressä olevaa linkkiä."
     And I should see "Default series 1"
     And I should see "Default series 2"
+    But I should not see "Sinulla ei ole vielä yhtään kilpailua."
 
   Scenario: Add competitors
     Given I am an official

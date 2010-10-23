@@ -46,6 +46,10 @@
   </div>
   <hr/>
 <% end %>
+<% if @races.empty? %>
+  <%= highlight_notice('Sinulla ei ole vielä yhtään kilpailua. ' +
+      'Aloita luomalla kilpailu alla olevasta linkistä.') %>
+<% end %>
 <div class="action_box">
   <%= link_to "Lisää uusi kilpailu", new_official_race_path %>
 </div>
