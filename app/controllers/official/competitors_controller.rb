@@ -1,6 +1,7 @@
 class Official::CompetitorsController < Official::OfficialController
   before_filter :check_competitor_rights
   before_filter :handle_time_parameters, :only => :update
+  before_filter :set_series
 
   def new
     @series = Series.find(params[:series_id])
@@ -125,6 +126,10 @@ class Official::CompetitorsController < Official::OfficialController
         competitor.club_id = params[:club]
       end
     end
+  end
+
+  def set_series
+    @is_series = true
   end
 
 end

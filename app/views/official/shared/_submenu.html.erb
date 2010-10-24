@@ -14,12 +14,12 @@ end
 <% if menu_race %>
   <div class="menu sub_menu">
     <ul>
-      <li><%= link_to "Kilpailu & sarjat", edit_official_race_path(menu_race) %></li>
+      <%= menu_item "Kilpailu & sarjat", edit_official_race_path(menu_race), @is_race %>
       <% if menu_series %>
-        <li><%= link_to "Sarja & kilpailijat", edit_official_series_path(menu_series) %></li>
-        <li><%= link_to "Ajat", official_series_times_path(menu_series) %></li>
-        <li><%= link_to "Arvioinnit", official_series_estimates_path(menu_series) %></li>
-        <li><%= link_to "Ammunta", official_series_shots_path(menu_series) %></li>
+        <%= menu_item "Sarja & kilpailijat", edit_official_series_path(menu_series), @is_series %>
+        <%= menu_item "Ajat", official_series_times_path(menu_series), @is_times %>
+        <%= menu_item "Arvioinnit", official_series_estimates_path(menu_series), @is_estimates %>
+        <%= menu_item "Ammunta", official_series_shots_path(menu_series), @is_shots %>
       <% end %>
     </ul>
   </div>

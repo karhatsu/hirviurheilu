@@ -1,5 +1,6 @@
 class Official::RacesController < Official::OfficialController
   before_filter :check_race_rights, :except => [:new, :create]
+  before_filter :set_race
 
   def new
     @race = Race.new
@@ -51,5 +52,9 @@ class Official::RacesController < Official::OfficialController
   private
   def check_race_rights
     check_race(Race.find(params[:id]))
+  end
+
+  def set_race
+    @is_race = true
   end
 end

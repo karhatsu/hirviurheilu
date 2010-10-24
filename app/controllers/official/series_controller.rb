@@ -1,5 +1,6 @@
 class Official::SeriesController < Official::OfficialController
   before_filter :assign_series, :check_series_rights, :except => :change_series
+  before_filter :set_series
 
   def edit
   end
@@ -40,5 +41,9 @@ class Official::SeriesController < Official::OfficialController
 
   def check_series_rights
     check_race(@series.race)
+  end
+
+  def set_series
+    @is_series = true
   end
 end

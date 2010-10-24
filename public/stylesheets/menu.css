@@ -65,6 +65,20 @@ div.menu ul li a.selected {
     background-color: white;
 }
 
+div.main_menu ul li a.selected {
+    -moz-border-radius-bottomleft: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-radius-bottomleft: 0px;
+    -webkit-border-radius-bottomright: 0px;
+}
+
+div.sub_menu ul li a.selected {
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-radius-topright: 0px;
+    -webkit-border-radius-bottomright: 0px;
+}
+
 div.main_menu ul li a:hover {
     border-bottom-color: white;
     -moz-border-radius-bottomleft: 0px;
