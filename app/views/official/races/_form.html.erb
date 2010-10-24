@@ -46,7 +46,7 @@
     <%= f.fields_for :series do |series_form| %>
       <%= render :partial => "series", :locals => { :f => series_form } %>
     <% end %>
-    <%= add_child_link "Lisää sarja", f, :series %><br/><br/>
+    <%= add_child_link "Lisää uusi sarja tähän kilpailuun", f, :series %><br/><br/>
   <% end %>
   <%= submit_tag submit_label %>
 <% end %>

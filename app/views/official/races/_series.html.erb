@@ -16,7 +16,6 @@
         kilpailijoiden määrällä ei ole väliä (esim. sarja Nuoret ja
         sen "ikäryhmät" Tytöt ja Pojat), syötä kilpailijoiden
         vähimmäismääräksi 0.</p>
-        <p></p>
       </div>
       <script type="text/javascript">
         $('.age_groups_help').click(function() {
@@ -31,6 +30,6 @@
     <%= add_child_link "Lisää ikäryhmä", f, :age_groups %>
   </div>
   <% if f.object.competitors.empty? %>
-    <%= remove_child_link "Poista sarja", f, 'series_sub_form', "" %>
+    <%= remove_child_link "Poista tämä sarja", f, 'series_sub_form', "" %>
   <% end %>
 </div><br/>
