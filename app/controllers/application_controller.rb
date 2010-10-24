@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user_session, :current_user, :official_rights
+  before_filter :set_competitions
 
   ActiveScaffold.set_defaults do |config|
     config.ignore_columns.add [:created_at, :updated_at, :lock_version]
@@ -46,5 +47,9 @@ class ApplicationController < ActionController::Base
   def redirect_back_or_default(default)
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
+  end
+
+  def set_competitions
+    @is_competitions = true
   end
 end

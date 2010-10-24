@@ -60,6 +60,11 @@ div.menu ul li a:hover {
     background-color: white;
 }
 
+div.menu ul li a.selected {
+    color: olive;
+    background-color: white;
+}
+
 div.main_menu ul li a:hover {
     border-bottom-color: white;
     -moz-border-radius-bottomleft: 0px;

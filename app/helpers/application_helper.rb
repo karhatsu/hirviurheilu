@@ -168,4 +168,12 @@ module ApplicationHelper
     image_tag "#{sport.key.downcase}_icon.gif"
   end
 
+  def menu_item(title, link, selected)
+    if selected
+      raw("<li>#{link_to(title, link, :class => 'selected')}</li>")
+    else
+      raw("<li>#{link_to(title, link)}</li>")
+    end
+  end
+
 end

@@ -1,13 +1,13 @@
 <div class="menu main_menu">
   <ul>
-    <li><%= link_to "Etusivu", root_path %></li>
-    <li><%= link_to "Toimitsijan etusivu", official_root_path %></li>
-    <li><%= link_to "Info", info_path %></li>
+    <%= menu_item "Kilpailut", root_path, @is_competitions %>
+    <%= menu_item "Toimitsijan etusivu", official_root_path, @is_official %>
+    <%= menu_item "Info", info_path, @is_info %>
     <% if current_user %>
-      <li><%= link_to "Omat tiedot", account_path %></li>
+      <%= menu_item "Omat tiedot", account_path, @is_account %>
     <% end %>
     <% if current_user and current_user.admin? %>
-      <li><%= link_to "Admin", admin_root_path %></li>
+      <%= menu_item "Admin", admin_root_path, @is_admin %>
     <% end %>
   </ul>
 </div>
