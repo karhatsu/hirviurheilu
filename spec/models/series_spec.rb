@@ -216,7 +216,7 @@ describe Series do
     before do
       @race = Factory.create(:race)
       @series = Factory.create(:series, :race => @race, :first_number => 5)
-      @old1, @old2, @old3 = 9, nil, 13
+      @old1, @old2, @old3 = nil, 9, 13
       @c1 = Factory.create(:competitor, :series => @series, :number => @old1)
       @c2 = Factory.create(:competitor, :series => @series, :number => @old2)
       @c3 = Factory.create(:competitor, :series => @series, :number => @old3)
