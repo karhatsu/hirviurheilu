@@ -3,30 +3,35 @@
 <%= render :partial => 'shared/series_selection',
   :locals => { :url => '/official/estimates/change_series', :race => @series.race } %>
 <hr/>
-<div id="update_error"></div>
-<table>
-  <tr>
-    <th>Nro</th>
-    <th>Kilpailija</th>
-    <th>Arvio 1</th>
-    <th>Arvio 2</th>
-    <th>&nbsp;</th>
-    <th>&nbsp;</th>
-  </tr>
-  <% @series.competitors.each do |c| %>
-    <%= form_for([:official, @series, c], :remote => true) do |f| %>
-      <%= hidden_field_tag :no_times, true %>
-      <tr>
-        <td><%= c.number %></td>
-        <td><%= full_name(c) %></td>
-        <td><%= f.text_field :estimate1, :size => 3, :maxlength => 3 %></td>
-        <td><%= f.text_field :estimate2, :size => 3, :maxlength => 3 %></td>
-        <td><%= submit_tag "Tallenna", :onclick => "start_updating(#{c.id})" %></td>
-        <td id="status_<%= c.id %>">&nbsp;</td>
-      </tr>
+<% if @series.competitors.empty? %>
+  <div class="notice">Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.</div>
+  <%= link_to "Kilpailijoiden syöttö sarjaan #{@series.name}", edit_official_series_path(@series) %>
+<% else %>
+  <div id="update_error"></div>
+  <table>
+    <tr>
+      <th>Nro</th>
+      <th>Kilpailija</th>
+      <th>Arvio 1</th>
+      <th>Arvio 2</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+    </tr>
+    <% @series.competitors.each do |c| %>
+      <%= form_for([:official, @series, c], :remote => true) do |f| %>
+        <%= hidden_field_tag :no_times, true %>
+        <tr>
+          <td><%= c.number %></td>
+          <td><%= full_name(c) %></td>
+          <td><%= f.text_field :estimate1, :size => 3, :maxlength => 3 %></td>
+          <td><%= f.text_field :estimate2, :size => 3, :maxlength => 3 %></td>
+          <td><%= submit_tag "Tallenna", :onclick => "start_updating(#{c.id})" %></td>
+          <td id="status_<%= c.id %>">&nbsp;</td>
+        </tr>
+      <% end %>
     <% end %>
-  <% end %>
-</table>
+  </table>
+<% end %>
 <hr/>
 <%= render :partial => 'official/shared/series_result_input_links',
   :locals => { :series_id => @series.id } %><br/>
