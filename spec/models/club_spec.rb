@@ -8,13 +8,17 @@ describe Club do
   end
 
   describe "validation" do
-    it "should require name" do
-      Factory.build(:club, :name => nil).should have(1).errors_on(:name)
-    end
+    it { should validate_presence_of(:name) }
 
-    it "should require unique name" do
-      Factory.create(:club, :name => 'Abc')
-      Factory.build(:club, :name => 'Abc').should have(1).errors_on(:name)
+    describe "unique name" do
+      before do
+        Factory.create(:club)
+      end
+      it { should validate_uniqueness_of(:name).scoped_to(:race_id) }
     end
+  end
+
+  describe "associations" do
+    it { should belong_to(:race) }
   end
 end

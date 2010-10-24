@@ -43,15 +43,6 @@ df.default_age_groups << DefaultAgeGroup.new(:name => 'N80', :min_competitors =>
 df.default_age_groups << DefaultAgeGroup.new(:name => 'N85', :min_competitors => 3)
 df.default_age_groups << DefaultAgeGroup.new(:name => 'N90', :min_competitors => 3)
 
-# clubs
-clubs = []
-10.times do |i|
-  club_places = ["Vähälän", "Jokikylän", "Keski-Suomen", "Etelä-Savon", "Metsälän"]
-  club_suffixes = ["piiri", "ampumaseura", "ammuntayhdistys"]
-  club_name = "#{club_places[i % club_places.length]} #{club_suffixes[i % club_suffixes.length]}"
-  clubs << Club.create!(:name => club_name)
-end
-
 # races
 race2 = ski.races.build(:name => "P-Savon hirvenhiihtokisat",
   :location => "Karttula", :start_date => '2010-12-13', :start_interval_seconds => 60)
@@ -75,6 +66,15 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
   official1.races << race
 
   old_race = race.end_date < Date.today
+
+  # clubs
+  clubs = []
+  10.times do |i|
+    club_places = ["Vähälän", "Jokikylän", "Keski-Suomen", "Etelä-Savon", "Metsälän"]
+    club_suffixes = ["piiri", "ampumaseura", "ammuntayhdistys"]
+    club_name = "#{club_places[i % club_places.length]} #{club_suffixes[i % club_suffixes.length]}"
+    clubs << Club.create!(:race => race, :name => club_name)
+  end
 
   # series
   series_names = ["M", "M40", "M50", "M60", "M70"]

@@ -45,6 +45,13 @@ describe Race do
     end
   end
 
+  describe "associations" do
+    it { should belong_to(:sport) }
+    it { should have_many(:series) }
+    it { should have_many(:competitors).through(:series) }
+    it { should have_many(:clubs) }
+  end
+
   describe "past/ongoing/future" do
     before do
       @past1 = Factory.create(:race, :start_date => Date.today - 10,
