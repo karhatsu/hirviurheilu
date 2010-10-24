@@ -1,8 +1,8 @@
 <%
 menu_race, menu_series = nil, nil
-if @race
+if @race and not @race.new_record?
   menu_race = @race
-  menu_series = @race.series.first unless @race.new_record?
+  menu_series = @race.series.first
 elsif @series
   menu_race = @series.race
   menu_series = @series
