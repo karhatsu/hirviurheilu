@@ -1,0 +1,43 @@
+div.menu {
+    margin: 2px;
+    font-family: cursive;
+}
+
+div.menu ul {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 5px;
+    padding-bottom: 1px;
+    padding-left: 4px;
+}
+
+div.menu li {
+    display: inline;
+}
+
+div.menu ul li a {
+    float: left;
+    color: white;
+    background-color: olive;
+    text-decoration: none;
+    padding: 5px 5px;
+    border: white solid 1px;
+    margin-right: 4px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+div.menu ul li a:visited {
+    color: white;
+}
+
+div.menu ul li a:hover {
+    color: olive;
+    background-color: white;
+    border-bottom-color: white;
+    -moz-border-radius-bottomleft: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-radius-bottomleft: 0px;
+    -webkit-border-radius-bottomright: 0px;
+}
