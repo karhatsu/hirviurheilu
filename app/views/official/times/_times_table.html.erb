@@ -1,0 +1,22 @@
+<table>
+  <tr>
+    <th>Nro</th>
+    <th>Kilpailija</th>
+    <th>Lähtöaika</th>
+    <th>Saapumisaika</th>
+    <th>&nbsp;</th>
+    <th>&nbsp;</th>
+  </tr>
+  <% @series.competitors.each do |c| %>
+    <%= form_for([:official, @series, c], :remote => true) do |f| %>
+      <tr>
+        <td><%= c.number %></td>
+        <td><%= full_name(c) %></td>
+        <td><%= f.time_text_field :start_time, :include_seconds => true, :blank => true %></td>
+        <td><%= f.time_text_field :arrival_time, :include_seconds => true, :blank => true %></td>
+        <td><%= submit_tag "Tallenna", :onclick => "start_updating(#{c.id})" %></td>
+        <td id="status_<%= c.id %>">&nbsp;</td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

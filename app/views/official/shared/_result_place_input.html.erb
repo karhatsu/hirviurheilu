@@ -1,0 +1,21 @@
+<%= content_for(:title, "#{@series.race.name} - #{title_name}") %>
+<h1><%= yield :title %></h1>
+<%= render :partial => 'shared/series_selection',
+  :locals => { :url => "/official/#{controller_name}/change_series", :race => @series.race } %>
+<hr/>
+<% if @series.competitors.empty? %>
+  <div class="notice">Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.</div>
+  <%= link_to "Kilpailijoiden syöttö sarjaan #{@series.name}", edit_official_series_path(@series) %>
+<% else %>
+  <div id="update_error"></div>
+  <%= render :partial => partial_table %>
+<% end %>
+<hr/>
+<%= render :partial => 'official/shared/series_result_input_links',
+  :locals => { :series_id => @series.id } %><br/>
+<%= link_to "Takaisin toimitsijan etusivulle", official_root_path %>
+<script type="text/javascript">
+  function start_updating(id) {
+    $("#status_" + id).html('<%= image_tag 'spinner.gif' %>');
+  }
+</script>
