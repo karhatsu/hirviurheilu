@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   private
   def official_rights
-    current_user.official? or current_user.admin?
+    current_user and (current_user.official? or current_user.admin?)
   end
 
   def current_user_session
