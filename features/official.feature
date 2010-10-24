@@ -78,6 +78,15 @@ Feature: Official
     When I go to the official index page
     Then I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta linkistä." within "div.notice"
 
+  Scenario: Official index when race has series but no competitors
+    Given I am an official
+    And I have a race "Test race"
+    And the race has series with attributes:
+      | name | Test series |
+    And I have logged in
+    When I go to the official index page
+    Then I should see "Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. Aloita klikkaamalla sarjan nimen vieressä olevaa linkkiä." within "div.notice"
+
   Scenario: Add competitors
     Given I am an official
     And I have a race "Test race"
@@ -99,3 +108,5 @@ Feature: Official
     Then I should be on the edit page of "Test series"
     And I should see "Stevensson Tom"
     And I should see "Heyton Math"
+    When I go to the official index page
+    Then I should not see "Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa."

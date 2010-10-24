@@ -7,7 +7,7 @@
     <h2><%= sport_icon(r.sport) %> <%= r.name %></h2>
     <% if r.series.empty? %>
       <%= highlight_notice('Et ole vielä lisännyt kilpailuun yhtään sarjaa. ' +
-        'Lisää sarjoja alla olevasta linkistä.') %>
+          'Lisää sarjoja alla olevasta linkistä.') %>
     <% end %>
     <div class="action_box">
       <%= link_to "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja",
@@ -26,6 +26,10 @@
       </div>
     <% else %>
       <h3>Sarjat</h3>
+      <% if r.competitors.empty? %>
+        <%= highlight_notice('Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. ' +
+            'Aloita klikkaamalla sarjan nimen vieressä olevaa linkkiä.') %>
+      <% end %>
       <table cellpadding="3" cellspacing="0" border="1">
         <tr>
           <th>Sarja</th>
@@ -42,7 +46,7 @@
         <% end %>
       </table>
     <% end %>
-    <% unless r.series.empty? %>
+    <% unless r.series.empty? or r.competitors.empty? %>
       <h3>Tulosten syöttäminen suorituspaikoittain</h3>
       <%= render :partial => 'official/shared/series_result_input_links',
         :locals => { :series_id => r.series.first.id } %>
