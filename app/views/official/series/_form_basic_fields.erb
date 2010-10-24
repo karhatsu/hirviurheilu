@@ -1,7 +1,25 @@
 <%= f.label :name %>
 <%= f.text_field :name %>
 <%= f.label :first_number %>
-<%= f.text_field :first_number, :size => 5 %><br/>
+<%= f.text_field :first_number, :size => 5 %>
+<a class="help series_basic_fields_help">?</a>
+<div id="series_basic_fields_help_dialog" class="dialog" style="display: none;">
+  Kun lisäät sarjan, vain sarjan nimi on pakollinen kenttä. Sen jälkeen pääset
+  syöttämään sarjaan kilpailijoita.
+  <p>Ennen kilpailun alkamista täytyy syöttää sarjan ensimmäinen kilpailunumero
+  sekä sarjan lähtöaika. Näiden avulla jokaiselle kilpailijalle luodaan
+  oma lähtönumero ja lähtöaika.</p>
+  <p>Oikeat arviomatkat täytyy syöttää viimeistään ennen kuin koko kilpailu
+  merkitään päättyneeksi. Jos syötät ne aiemmin, niitä ei kuitenkaan näytetä
+  kilpailijoille ennen kilpailun päättymistä.</p>
+</div>
+<script type="text/javascript">
+  $('.series_basic_fields_help').click(function() {
+    $('#series_basic_fields_help_dialog').dialog({ title: 'Sarjan peruskentät',
+      closeText: 'Sulje' });
+  });
+</script>
+<br/>
 <%= f.label :start_time %>
 <%= f.datetime_select :start_time, :include_seconds => false, :include_blank => true %>
 <%= "(#{date_interval(race.start_date, race.end_date)})" %><br/>
