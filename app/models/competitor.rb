@@ -77,7 +77,8 @@ class Competitor < ActiveRecord::Base
   end
 
   def estimate_points
-    return nil if estimate1.nil? or estimate2.nil?
+    return nil if estimate1.nil? or estimate2.nil? or
+      series.correct_estimate1.nil? or series.correct_estimate2.nil?
     points = 300 - 2 * (series.correct_estimate1 - estimate1).abs -
       2 * (series.correct_estimate2 - estimate2).abs
     return points if points >= 0

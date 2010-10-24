@@ -257,6 +257,20 @@ describe Competitor do
       competitor.estimate_points.should be_nil
     end
 
+    it "should be nil if correct estimate 1 is missing" do
+      @series.correct_estimate1 = nil
+      competitor = Factory.build(:competitor, :series => @series,
+        :estimate1 => 100, :estimate2 => 200)
+      competitor.estimate_points.should be_nil
+    end
+
+    it "should be nil if correct estimate 2 is missing" do
+      @series.correct_estimate2 = nil
+      competitor = Factory.build(:competitor, :series => @series,
+        :estimate1 => 100, :estimate2 => 200)
+      competitor.estimate_points.should be_nil
+    end
+
     it "should be 300 when perfect estimates" do
       competitor = Factory.build(:competitor, :series => @series,
         :estimate1 => 100, :estimate2 => 200)
