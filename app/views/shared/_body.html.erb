@@ -7,5 +7,6 @@
       <%= yield %>
     </div>
   </div>
+  <% if @is_competitions %><%= render :partial => 'shared/submenu' %><% end %>
   <% if @is_official %><%= render :partial => 'official/shared/submenu' %><% end %>
 </body>

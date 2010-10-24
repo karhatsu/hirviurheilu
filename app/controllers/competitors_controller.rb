@@ -1,4 +1,6 @@
 class CompetitorsController < ApplicationController
+  before_filter :set_results
+
   def index
     @series = Series.find(params[:series_id])
     respond_to do |format|
@@ -18,5 +20,10 @@ class CompetitorsController < ApplicationController
           :layout => true
       end
     end
+  end
+
+  private
+  def set_results
+    @is_results = true
   end
 end 
