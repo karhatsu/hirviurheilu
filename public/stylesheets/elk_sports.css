@@ -181,6 +181,10 @@ div.sub_element {
     -webkit-border-radius: 5px;
 }
 
+div.series_sub_form {
+    margin-bottom: 5px;
+}
+
 div.age_groups {
     width: 80%;
     margin-top: 2px;

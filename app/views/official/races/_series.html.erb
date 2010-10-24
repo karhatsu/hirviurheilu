@@ -1,4 +1,4 @@
-<div class="sub_element">
+<div class="sub_element series_sub_form">
   <%= render :partial => 'official/series/form_basic_fields',
     :locals => { :f => f, :race => @race } %><br/>
   <div class="age_groups">
@@ -32,4 +32,4 @@
   <% if f.object.competitors.empty? %>
     <%= remove_child_link "Poista tämä sarja", f, 'series_sub_form', "" %>
   <% end %>
-</div><br/>
+</div>
