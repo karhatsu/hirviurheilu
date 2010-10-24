@@ -47,7 +47,8 @@
         'heille lähtönumerot yllä olevan napin avulla.') %>
     <% end %>
   <% elsif not @series.competitors.empty? %>
-    <%= highlight_notice('Muista syöttää sarjan ensimmäinen kilpailunumero ja lähtöaika, ' +
+    <%= highlight_notice('Kun olet syöttänyt kaikki kilpailijat, ' +
+        'muista syöttää sarjan ensimmäinen kilpailunumero ja lähtöaika, ' +
       'jotta kilpailijoille voidaan lisätä lähtönumerot ja lähtöajat.') %>
   <% end %>
 <% end %>
