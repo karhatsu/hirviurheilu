@@ -194,14 +194,14 @@ div.commercial_box {
 
 div.registration_commercial {
     position: absolute;
-    left: 650px;
-    top: 80px;
+    left: 680px;
+    top: 60px;
 }
 
 div.login_commercial {
     position: absolute;
-    left: 650px;
-    top: 185px;
+    left: 680px;
+    top: 165px;
 }
 
 div.commercial_box_link {
