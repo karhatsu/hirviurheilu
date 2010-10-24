@@ -58,6 +58,11 @@ a:hover {
 h1 {
     margin-top: 0px;
     font-size: 20px;
+    background-color: olive;
+    color: white;
+    padding: 2px 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 
 h2 {
@@ -223,4 +228,8 @@ a.help:hover {
     text-decoration: none;
     background-color: white;
     color: olive;
+}
+
+.center {
+    text-align: center;
 }

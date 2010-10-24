@@ -34,12 +34,14 @@
         <tr>
           <th>Sarja</th>
           <th>Kilpailijoita</th>
+          <th>Lähtöaika</th>
           <th>Toiminnot</th>
         </tr>
         <% r.series.each do |s| %>
           <tr>
             <td><%= s.name %></td>
-            <td><%= s.competitors.count %></td>
+            <td class="center"><%= s.competitors.count %></td>
+            <td class="center"><%= s.start_time ? time_print(s.start_time) : "-" %></td>
             <td><%= link_to "Muokkaa asetuksia, lisää kilpailijoita, syötä tulostietoja",
                 edit_official_series_path(s) %></td>
           </tr>
