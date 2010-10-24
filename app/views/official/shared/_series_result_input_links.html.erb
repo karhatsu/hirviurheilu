@@ -1,3 +1,6 @@
-<%= link_to "Aika", official_series_times_path(series_id) %>
-<%= link_to "Arviointi", official_series_estimates_path(series_id) %>
-<%= link_to "Ammunta", official_series_shots_path(series_id) %>
+<div class="action_box">
+  Tulosten syöttäminen suorituspaikoittain:
+  <%= link_to "Aika", official_series_times_path(series_id) %> -
+  <%= link_to "Arviointi", official_series_estimates_path(series_id) %> -
+  <%= link_to "Ammunta", official_series_shots_path(series_id) %>
+</div>
