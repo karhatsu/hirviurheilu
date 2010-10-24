@@ -311,5 +311,14 @@ describe ApplicationHelper do
       helper.date_interval("2010-08-03".to_date, nil).should == "03.08.2010"
     end
   end
+
+  describe "#race_date_interval" do
+    it "should call date_interval with race dates" do
+      race = Factory.build(:race)
+      helper.should_receive(:date_interval).with(race.start_date, race.end_date).
+        and_return('result')
+      helper.race_date_interval(race).should == 'result'
+    end
+  end
 end
 

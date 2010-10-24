@@ -4,7 +4,8 @@
 <%= flash_notice %>
 <% @races.each do |r| %>
   <div>
-    <h2><%= sport_icon(r.sport) %> <%= r.name %></h2>
+    <h2><%= sport_icon(r.sport) %> <%= r.name %> (<%= race_date_interval(r) %>,
+      <%= r.location %>)</h2>
     <% if r.series.empty? %>
       <%= highlight_notice('Et ole vielä lisännyt kilpailuun yhtään sarjaa. ' +
           'Lisää sarjoja alla olevasta linkistä.') %>

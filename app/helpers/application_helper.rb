@@ -130,6 +130,10 @@ module ApplicationHelper
     "#{competitor.last_name} #{competitor.first_name}"
   end
 
+  def race_date_interval(race)
+    date_interval(race.start_date, race.end_date)
+  end
+
   def date_interval(start_date, end_date)
     interval = start_date.strftime('%d.%m.%Y')
     unless end_date.nil? or start_date == end_date
