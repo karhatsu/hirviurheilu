@@ -1,6 +1,6 @@
 /**
 	sexy-combo 2.1.3 : http://code.google.com/p/sexy-combo/
-	
+
 	This is the default skin.
 */
 
@@ -48,7 +48,7 @@ div.sexy div.list-wrapper {
     background-color: #FFFFFF;
     padding: 0;
     margin: 0;
-    width: 146px;
+    width: 235px;
     bottom: auto;
 }
 
@@ -81,14 +81,14 @@ div.sexy li.active {
 /*for IE*/
 div.sexy a, div.sexy a:visited, div.sexy a:active {
     display: block;
-	width: 100%;
-	width: 146px;
-	text-decoration: none;
+    width: 100%;
+    width: 146px;
+    text-decoration: none;
     font:normal 14px  tahoma, arial, helvetica, sans-serif;
-	color: #000000;
+    color: #000000;
     cursor: pointer;
     margin: 0;	
-	height: 20px;
+    height: 20px;
 }
 
 div.sexy input.empty {
