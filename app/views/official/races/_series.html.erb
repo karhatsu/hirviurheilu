@@ -4,7 +4,7 @@
   <div class="age_groups">
     <h3>
       Ikäryhmät, joille lasketaan omat aikapisteet
-      <a class="help" id="age_groups_help">?</a>
+      <a class="help age_groups_help">?</a>
       <div id="age_groups_help_dialog" class="dialog" style="display: none;">
         Tästä voit lisätä sarjaan ns. ikäryhmän, jolle lasketaan omat aikapisteet.
         Esimerkiksi jos pääsarja on M60, niin samaan sarjaan voi kuulua ikäryhmät
@@ -19,7 +19,7 @@
         <p></p>
       </div>
       <script type="text/javascript">
-        $('#age_groups_help').click(function() {
+        $('.age_groups_help').click(function() {
           $('#age_groups_help_dialog').dialog({ title: 'Ikäryhmät',
             closeText: 'Sulje' });
         });
