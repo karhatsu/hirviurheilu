@@ -3,6 +3,13 @@ div.menu {
     font-family: cursive;
 }
 
+div.sub_menu {
+    position: absolute;
+    top: 45px;
+    width: 120px;
+    margin-right: 0px;
+}
+
 div.menu ul {
     margin-top: 0px;
     margin-bottom: 0px;
@@ -11,21 +18,37 @@ div.menu ul {
     padding-left: 4px;
 }
 
-div.menu li {
+div.sub_menu ul {
+    list-style: none;
+}
+
+div.main_menu ul li {
     display: inline;
 }
 
+div.sub_menu ul li {
+    text-align: right;
+    margin-bottom: 15px;
+}
+
 div.menu ul li a {
-    float: left;
     color: white;
     background-color: olive;
     text-decoration: none;
     padding: 5px 5px;
     border: white solid 1px;
-    margin-right: 4px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     -o-border-radius: 3px;
+}
+
+div.main_menu ul li a {
+    float: left;
+    margin-right: 4px;
+}
+
+div.sub_main_menu ul li a {
+    margin-right: 0px;
 }
 
 div.menu ul li a:visited {
@@ -35,9 +58,20 @@ div.menu ul li a:visited {
 div.menu ul li a:hover {
     color: olive;
     background-color: white;
+}
+
+div.main_menu ul li a:hover {
     border-bottom-color: white;
     -moz-border-radius-bottomleft: 0px;
     -moz-border-radius-bottomright: 0px;
     -webkit-border-radius-bottomleft: 0px;
+    -webkit-border-radius-bottomright: 0px;
+}
+
+div.sub_menu ul li a:hover {
+    border-right-color: white;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-radius-topright: 0px;
     -webkit-border-radius-bottomright: 0px;
 }

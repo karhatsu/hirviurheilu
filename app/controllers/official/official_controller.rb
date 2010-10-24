@@ -1,5 +1,5 @@
 class Official::OfficialController < ApplicationController
-  before_filter :require_user, :check_rights
+  before_filter :require_user, :check_rights, :set_official
 
   protected
   def check_rights
@@ -11,5 +11,9 @@ class Official::OfficialController < ApplicationController
       flash[:error] = "Et ole kilpailun toimitsija"
       redirect_to official_root_path
     end
+  end
+
+  def set_official
+    @is_official = true
   end
 end

@@ -4,10 +4,14 @@ body {
     font-size: 12px;
 }
 
+div.top_and_main {
+    margin-left: 120px;
+}
+
 div.env_info {
     position: absolute;
     top: 15px;
-    left: 500px;
+    left: 610px;
     text-align: center;
     width: 200px;
     color: orange;
@@ -21,7 +25,7 @@ span.env_info_link {
 div.login_links {
     position: absolute;
     top: 15px;
-    left: 700px;
+    left: 830px;
     text-align: right;
     width: 200px;
     padding-right: 10px;
@@ -37,13 +41,10 @@ div.main {
     background-color: white;
     border: solid 1px black;
     width: 900px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-}
-
-div.content {
     clear: left;
     padding: 10px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
 }
 
 a {
@@ -126,9 +127,9 @@ span.notice {
 
 div.change_series {
     position: absolute;
-    top: 40px;
+    top: 45px;
     left: 5px;
-    width: 880px;
+    width: 900px;
 }
 
 div.change_series div.menu_and_button {

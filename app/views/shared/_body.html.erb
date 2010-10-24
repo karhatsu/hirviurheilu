@@ -1,10 +1,11 @@
 <body>
-  <%= render :partial => 'shared/menu' %>
-  <%= render :partial => 'shared/env_info' %>
-  <div class="login_links"><%= render :partial => "shared/login_links" %></div>
-  <div class="main">
-    <div class="content">
+  <div class="top_and_main">
+    <%= render :partial => 'shared/menu' %>
+    <%= render :partial => 'shared/env_info' %>
+    <div class="login_links"><%= render :partial => "shared/login_links" %></div>
+    <div class="main">
       <%= yield %>
     </div>
   </div>
+  <% if @is_official %><%= render :partial => 'official/shared/submenu' %><% end %>
 </body>
