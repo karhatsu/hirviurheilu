@@ -8,13 +8,15 @@
   <%= f.collection_select :age_group_id, f.object.series.age_groups, :id, :name,
     :include_blank => 'Kuuluu pääsarjaan' %>
 <% end %>
-<%= label_tag :new_club_name, 'Seura/piiri' %>
-<%= text_field_tag :new_club_name %>
-<% unless f.object.series.race.clubs.empty? %>
-  tai valitse jo syötetty:
-  <%= f.collection_select :club_id, f.object.series.race.clubs, :id, :name, :prompt => '' %>
-<% end %>
-<% if show_number %>
-  <%= f.label :number %>
-  <%= f.text_field :number, :size => 5 %>
+<%#= f.label :club_id, 'Seura/piiri' %>
+<%= select_tag :club, options_from_collection_for_select(f.object.series.race.clubs,
+  :id, :name, f.object.club_id), :include_blank => true %>
+<%= javascript_tag do %>
+  $("#club").sexyCombo({
+    triggerSelected: true,
+    emptyText: 'Piiri/seura',
+    autoFill: true,
+    suffix: '_name',
+    hiddenSuffix: '_id'
+  });
 <% end %>

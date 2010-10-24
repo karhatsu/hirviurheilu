@@ -1,3 +1,3 @@
-Given /^there is a club "([^"]*)"$/ do |name|
-  Factory.create(:club, :name => name)
+Given /^the race has a club "([^"]*)"$/ do |name|
+  Factory.create(:club, :race => @race, :name => name)
 end

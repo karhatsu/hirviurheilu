@@ -2,8 +2,10 @@
 <h1><%= yield :title %></h1>
 <%= render :partial => "shared/form_errors", :locals => { :item => @competitor } %>
 <%= form_for([:official, @competitor.series, @competitor]) do |f| %>
-  <%= render :partial => "basic_fields", :locals => { :f => f, :show_number => true } %>
+  <%= render :partial => "basic_fields", :locals => { :f => f } %>
   <hr/>
+  <%= f.label :number %>
+  <%= f.text_field :number, :size => 3 %>
   <%= f.label :start_time %>
   <%= f.time_text_field :start_time, :include_seconds => true, :blank => true %>
   <%= f.label :arrival_time %>

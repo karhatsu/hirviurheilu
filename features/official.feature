@@ -92,6 +92,8 @@ Feature: Official
     And I have a race "Test race"
     And the race has series with attributes:
       | name | Test series |
+    And the race has a club "Shooting club"
+    And the race has a club "Sports club"
     And I have logged in
     And I am on the official index page
     When I follow "Muokkaa asetuksia, lisää kilpailijoita, syötä tulostietoja"
@@ -99,14 +101,14 @@ Feature: Official
     And I fill in the following:
       | Etunimi | Tom |
       | Sukunimi | Stevensson |
-      | new_club_name | Shooting club |
+    And I select "Shooting club" from "club"
     And I press "Tallenna ja lisää toinen kilpailija"
     Then I should see "Kilpailija lisätty"
     And the "Etunimi" field should not contain "Tom"
     When I fill in the following:
       | Etunimi | Math |
       | Sukunimi | Heyton |
-      | new_club_name | Sports club |
+    And I select "Sports club" from "club"
     And I press "Tallenna ja palaa sarjan tietoihin"
     Then I should be on the edit page of "Test series"
     And I should see "Stevensson Tom"
