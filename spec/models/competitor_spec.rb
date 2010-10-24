@@ -8,54 +8,23 @@ describe Competitor do
   end
 
   describe "validation" do
-    it "should require first_name" do
-      Factory.build(:competitor, :first_name => nil).
-        should have(1).errors_on(:first_name)
-    end
-
-    it "should require last_name" do
-      Factory.build(:competitor, :last_name => nil).
-        should have(1).errors_on(:last_name)
-    end
-
-    it "should require series" do
-      Factory.build(:competitor, :series => nil).
-        should have(1).errors_on(:series)
-    end
+    it { should validate_presence_of(:first_name) }
+    it { should validate_presence_of(:last_name) }
+    it { should validate_presence_of(:series) }
+    it { should validate_presence_of(:club) }
 
     describe "number" do
-      it "can be nil" do
-        Factory.build(:competitor, :number => nil).should be_valid
-      end
-
-      it "should be integer, not string" do
-        Factory.build(:competitor, :number => 'xyz').
-          should have(1).errors_on(:number)
-      end
-
-      it "should be integer, not decimal" do
-        Factory.build(:competitor, :number => 23.5).
-          should have(1).errors_on(:number)
-      end
-
-      it "should be greater than 0" do
-        Factory.build(:competitor, :number => 0).
-          should have(1).errors_on(:number)
-      end
+      it { should allow_value(nil).for(:number) }
+      it { should validate_numericality_of(:number) }
+      it { should_not allow_value(23.5).for(:number) }
+      it { should_not allow_value(0).for(:number) }
+      it { should allow_value(1).for(:number) }
 
       describe "uniqueness" do
         before do
           @c = Factory.create(:competitor, :number => 5)
         end
-
-        it "should accept two same numbers if different series" do
-          Factory.build(:competitor, :number => 5).should be_valid
-        end
-
-        it "should be required inside of same series" do
-          Factory.build(:competitor, :number => 5, :series => @c.series).
-            should have(1).errors_on(:number)
-        end
+        it { should validate_uniqueness_of(:number).scoped_to(:series_id) }
         
         it "should allow two nils for same series" do
           c = Factory.create(:competitor, :number => nil)

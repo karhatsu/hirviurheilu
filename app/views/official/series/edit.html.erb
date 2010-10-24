@@ -66,6 +66,7 @@
   <table cellpadding="3" cellspacing="0" border="1">
     <tr>
       <th>Kilpailija</th>
+      <th>Seura</th>
       <th>Nro</th>
       <th>Lähtöaika</th>
       <th>Tulos syötetty</th>
@@ -78,6 +79,7 @@
             edit_official_series_competitor_path(@series.id, comp) %>
           <%= "(#{comp.age_group.name})" if comp.age_group %>
         </td>
+        <td><%= comp.club.name %></td>
         <td><%= comp.number %></td>
         <td><%= time_print(comp.start_time, true) %></td>
         <td align="center"><%= comp.finished? ? 'kyllä' : 'ei' %></td>

@@ -12,6 +12,7 @@ class Competitor < ActiveRecord::Base
   validates :series, :presence => true
   validates :first_name, :presence => true
   validates :last_name, :presence => true
+  validates :club, :presence => true
   validates :number,
     :numericality => { :only_integer => true, :greater_than => 0, :allow_nil => true },
     :uniqueness => { :scope => :series_id, :allow_nil => true }

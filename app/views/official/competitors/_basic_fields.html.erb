@@ -8,8 +8,12 @@
   <%= f.collection_select :age_group_id, f.object.series.age_groups, :id, :name,
     :include_blank => 'Kuuluu pääsarjaan' %>
 <% end %>
-<%= f.label :club %>
-<%= f.collection_select :club_id, Club.all, :id, :name %>
+<%= label_tag :new_club_name, 'Seura/piiri' %>
+<%= text_field_tag :new_club_name %>
+<% unless f.object.series.race.clubs.empty? %>
+  tai valitse jo syötetty:
+  <%= f.collection_select :club_id, f.object.series.race.clubs, :id, :name, :prompt => '' %>
+<% end %>
 <% if show_number %>
   <%= f.label :number %>
   <%= f.text_field :number, :size => 5 %>

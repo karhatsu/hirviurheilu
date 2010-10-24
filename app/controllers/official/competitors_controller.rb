@@ -11,6 +11,9 @@ class Official::CompetitorsController < Official::OfficialController
   def create
     @series = Series.find(params[:series_id])
     @competitor = @series.competitors.build(params[:competitor])
+    unless @competitor.club_id or params[:new_club_name].blank?
+      @competitor.club = Club.create!(:race => @series.race, :name => params[:new_club_name])
+    end
     if @competitor.save
       if params[:create_another]
         flash[:notice] = "Kilpailija lisätty"
