@@ -13,8 +13,8 @@ Feature: Start list
       | name | Men 50 years |
       | start_time | 2010-07-15 13:00 |
       | first_number | 50 |
-    And there is a club "Shooting club"
-    And there is a club "Sports club"
+    And the race has a club "Shooting club"
+    And the race has a club "Sports club"
     And the series has a competitor with attributes:
       | first_name | James |
       | last_name | Johnson |

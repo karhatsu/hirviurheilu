@@ -15,8 +15,8 @@ Feature: Results
       | first_number | 50 |
       | correct_estimate1 | 110 |
       | correct_estimate2 | 130 |
-    And there is a club "Shooting club"
-    And there is a club "Sports club"
+    And the race has a club "Shooting club"
+    And the race has a club "Sports club"
     And the series has a competitor with attributes:
       | first_name | James |
       | last_name | Johnson |
@@ -72,8 +72,8 @@ Feature: Results
       | first_number | 50 |
       | correct_estimate1 | 110 |
       | correct_estimate2 | 130 |
-    And there is a club "Shooting club"
-    And there is a club "Sports club"
+    And the race has a club "Shooting club"
+    And the race has a club "Sports club"
     And the series has a competitor with attributes:
       | first_name | James |
       | last_name | Johnson |
