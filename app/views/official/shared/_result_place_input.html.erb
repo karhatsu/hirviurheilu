@@ -1,8 +1,11 @@
 <%= content_for(:title, "#{@series.race.name} - #{title_name}") %>
 <h2><%= title_name %></h2>
+<div class="change_series">
+  <div class="menu_and_button">
 <%= render :partial => 'shared/series_selection',
   :locals => { :url => "/official/#{controller_name}/change_series", :race => @series.race } %>
-<hr/>
+  </div>
+</div>
 <% if @series.competitors.empty? %>
   <div class="notice">Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.</div>
   <%= link_to "Kilpailijoiden syöttö sarjaan #{@series.name}", edit_official_series_path(@series) %>
