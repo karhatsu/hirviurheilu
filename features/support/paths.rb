@@ -14,6 +14,9 @@ module NavigationHelpers
     when /the race edit page of "(.*)"/
       edit_official_race_path(Race.find_by_name($1))
 
+    when /the official clubs page for "(.*)"/
+      official_race_clubs_path(Race.find_by_name($1))
+
     when /the race page/
       race_path(@race)
 
