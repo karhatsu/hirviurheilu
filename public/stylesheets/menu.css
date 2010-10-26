@@ -110,3 +110,15 @@ div.main_menu ul li a:hover {
 div.sub_menu ul li a:hover {
     border-right-color: white;
 }
+
+div.change_series {
+    position: absolute;
+    top: -19px;
+    left: 5px;
+    width: 900px;
+    z-index: 5;
+}
+
+div.change_series div.menu_and_button {
+    text-align: right;
+}
