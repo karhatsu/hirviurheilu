@@ -17,10 +17,11 @@
     <tr id="club_row_<%= club.id %>">
       <td><%= club.name %></td>
       <td class="center"><%= club.competitors.count %></td>
-      <td class="center"><%= link_to "Poista", official_race_club_path(@race.id, club),
+      <td class="center"><%= club.competitors.count == 0 ? (link_to "Poista",
+          official_race_club_path(@race.id, club),
           :method => :delete,
           :remote => true,
-          :class => 'remove_club' %></td>
+          :class => 'remove_club') : raw('&nbsp;') %></td>
     </tr>
   <% end %>
 </table>
@@ -29,6 +30,6 @@
     $("#spinner").html('<%= image_tag 'spinner.gif' %>');
   });
   $(".remove_club").click(function() {
-    $(this).parent().html('<%= image_tag 'spinner.gif' %>');
+    $(this).parent().html('<%= image_tag 'spinner.gif', :class => 'spinner' %>');
   });
 <% end %>

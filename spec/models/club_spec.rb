@@ -22,4 +22,20 @@ describe Club do
     it { should belong_to(:race) }
     it { should have_many(:competitors) }
   end
+
+  describe "removal" do
+    it "should be allowed when no competitors" do
+      club = Factory.create(:club)
+      club.destroy
+      club.should be_destroyed
+    end
+
+    it "should not be allowed when club has competitors" do
+      club = Factory.create(:club)
+      club.competitors << Factory.build(:competitor)
+      club.should have(1).competitors
+      club.destroy
+      club.should_not be_destroyed
+    end
+  end
 end

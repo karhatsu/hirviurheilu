@@ -3,7 +3,7 @@
   $("#action_error").html("");
   $("#club_row_<%= @club.id %>").attr('style', 'display: none;');
 <% else %>
-  <% error_msg = @competitor.errors.full_messages.join(". ") + "." %>
   $("#action_error").addClass("error");
-  $("#action_error").html("<%= error_msg %>");
+  $("#action_error").html("Virhe poistettaessa seuraa!");
 <% end %>
+$(".spinner").parent().html("");
