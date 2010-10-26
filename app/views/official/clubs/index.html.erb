@@ -3,7 +3,8 @@
 <%= form_for([:official, @race, @race.clubs.build], :remote => true) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
-  <%= submit_tag 'Lisää seura' %>
+  <%= submit_tag 'Lisää seura', :id => 'submit' %>
+  <span id="spinner"></span>
 <% end %>
 <table id="clubs_table">
   <tr>
@@ -15,3 +16,8 @@
     </tr>
   <% end %>
 </table>
+<%= javascript_tag do %>
+  $("#submit").click(function() {
+    $("#spinner").html('<%= image_tag 'spinner.gif' %>');
+  });
+<% end %>
