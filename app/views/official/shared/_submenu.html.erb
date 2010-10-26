@@ -22,6 +22,7 @@ end
         <%= menu_item "Arvioinnit", official_series_estimates_path(menu_series), @is_estimates %>
         <%= menu_item "Ammunta", official_series_shots_path(menu_series), @is_shots %>
       <% end %>
+      <%= menu_item "Seurat", official_race_clubs_path(menu_race), @is_clubs %>
     </ul>
   </div>
 <% end %>
