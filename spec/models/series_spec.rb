@@ -8,13 +8,8 @@ describe Series do
   end
 
   describe "validation" do
-    it "should require name" do
-      Factory.build(:series, :name => nil).should have(1).errors_on(:name)
-    end
-
-    it "should require race" do
-      Factory.build(:series, :race => nil).should have(1).errors_on(:race)
-    end
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:race) }
 
     describe "start time" do
       before do
@@ -22,9 +17,7 @@ describe Series do
           :end_date => Date.today + 4)
       end
 
-      it "can be nil" do
-        Factory.build(:series, :start_time => nil).should be_valid
-      end
+      it { should allow_value(nil).for(:start_time) }
 
       it "cannot be before race first day" do
         time = @race.start_date.beginning_of_day
@@ -50,24 +43,11 @@ describe Series do
     end
 
     describe "first_number" do
-      it "can be nil" do
-        Factory.build(:series, :first_number => nil).should be_valid
-      end
-
-      it "should be integer, not string" do
-        Factory.build(:series, :first_number => 'xyz').
-          should have(1).errors_on(:first_number)
-      end
-
-      it "should be integer, not decimal" do
-        Factory.build(:series, :first_number => 23.5).
-          should have(1).errors_on(:first_number)
-      end
-
-      it "should be greater than 0" do
-        Factory.build(:series, :first_number => 0).
-          should have(1).errors_on(:first_number)
-      end
+      it { should validate_numericality_of(:first_number) }
+      it { should allow_value(nil).for(:first_number) }
+      it { should_not allow_value(23.5).for(:first_number) }
+      it { should_not allow_value(0).for(:first_number) }
+      it { should allow_value(1).for(:first_number) }
     end
   end
 
