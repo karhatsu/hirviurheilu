@@ -70,13 +70,19 @@ Feature: Official
     And I should see "Default series 2"
     But I should not see "Sinulla ei ole vielä yhtään kilpailua."
     But I should not see "Et ole vielä lisännyt kilpailuun yhtään sarjaa."
+    When I follow "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja"
+    Then I should be on the race edit page of "Test race"
+    But I should not see "Et ole vielä lisännyt kilpailuun yhtään sarjaa."
 
-  Scenario: Official index when race has no series
+  Scenario: Race has no series
     Given I am an official
     And I have a race "Test race"
     And I have logged in
     When I go to the official index page
     Then I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta linkistä." within "div.notice"
+    When I follow "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja"
+    Then I should be on the race edit page of "Test race"
+    And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta linkistä." within "div.notice"
 
   Scenario: Official index when race has series but no competitors
     Given I am an official

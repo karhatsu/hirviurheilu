@@ -46,6 +46,10 @@
     <%= f.fields_for :series do |series_form| %>
       <%= render :partial => "series", :locals => { :f => series_form } %>
     <% end %>
+    <% if @race.series.empty? %>
+      <%= highlight_notice('Et ole vielä lisännyt kilpailuun yhtään sarjaa. ' +
+          'Lisää sarjoja alla olevasta linkistä.') %>
+    <% end %>
     <%= add_child_link "Lisää uusi sarja tähän kilpailuun", f, :series %><br/><br/>
   <% end %>
   <%= submit_tag submit_label %>
