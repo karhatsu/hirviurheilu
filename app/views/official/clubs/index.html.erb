@@ -15,7 +15,16 @@
   </tr>
   <% @race.clubs.each do |club| %>
     <tr id="club_row_<%= club.id %>">
-      <td><%= club.name %></td>
+      <td>
+        <a class="club_name_link" id="club_name_link_<%= club.id %>" href="#">
+          <%= club.name %>
+        </a>
+        <div id="club_name_form_<%= club.id %>" style="display: none;">
+          <%= form_for([:official, @race, club], :remote => true) do |f| %>
+            <%= f.text_field :name %><%= submit_tag "Päivitä" %>
+          <% end %>
+        </div>
+      </td>
       <td class="center"><%= club.competitors.count %></td>
       <td class="center"><%= club.competitors.count == 0 ? (link_to "Poista",
           official_race_club_path(@race.id, club),
@@ -31,5 +40,9 @@
   });
   $(".remove_club").click(function() {
     $(this).parent().html('<%= image_tag 'spinner.gif', :class => 'spinner' %>');
+  });
+  $(".club_name_link").click(function() {
+    $(this).attr('style', 'display: none;');
+    $(this).next().attr('style', 'display: inline;');
   });
 <% end %>

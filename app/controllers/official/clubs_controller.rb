@@ -19,6 +19,22 @@ class Official::ClubsController < Official::OfficialController
     end
   end
 
+  def update
+    @club = Club.find(params[:id])
+    @club.update_attributes(params[:club])
+    if @club.save
+      respond_to do |format|
+        format.html { redirect_to(official_race_clubs_path(@race) )}
+        format.js { render :updated }
+      end
+    else
+      respond_to do |format|
+        format.html { render :index }
+        format.js { render :updated }
+      end
+    end
+  end
+
   def destroy
     @club = Club.find(params[:id])
     @club.destroy
