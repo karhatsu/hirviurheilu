@@ -12,6 +12,7 @@ elsif @competitor
 end
 %>
 <% if menu_race %>
+  <%= render :partial => 'shared/race_title', :locals => { :race => menu_race } %>
   <div class="menu sub_menu">
     <ul>
       <%= menu_item "Kilpailu & sarjat", edit_official_race_path(menu_race), @is_race %>

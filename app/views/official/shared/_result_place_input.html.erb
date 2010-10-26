@@ -1,5 +1,5 @@
 <%= content_for(:title, "#{@series.race.name} - #{title_name}") %>
-<h1><%= yield :title %></h1>
+<h2><%= title_name %></h2>
 <%= render :partial => 'shared/series_selection',
   :locals => { :url => "/official/#{controller_name}/change_series", :race => @series.race } %>
 <hr/>

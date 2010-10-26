@@ -29,7 +29,7 @@ div.menu {
 div.sub_menu {
     position: absolute;
     top: 64px;
-    width: 100px;
+    width: 130px;
     margin: 0px;
     margin-left: 4px;
 }
@@ -75,7 +75,7 @@ div.main_menu ul li a {
 div.sub_menu ul li a {
     margin-right: 0px;
     display: block;
-    width: 80px;
+    width: 100px;
     padding: 4px;
 }
 

@@ -1,0 +1,9 @@
+<div class="race_title">
+  <span class="sport_icon"><%= sport_icon(race.sport) %></span>
+  <%= race.name %> (<%= race.location %>, <%= race_date_interval(race) %>)
+</div>
+<%= javascript_tag do %>
+  $(document).ready(function() {
+  $(".main").attr('style', 'margin-top: 20px;');
+  });
+<% end %>
