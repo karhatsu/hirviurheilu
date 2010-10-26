@@ -28,9 +28,10 @@ div.menu {
 
 div.sub_menu {
     position: absolute;
-    top: 69px;
-    width: 120px;
-    margin-right: 0px;
+    top: 64px;
+    width: 100px;
+    margin: 0px;
+    margin-left: 4px;
 }
 
 div.menu ul {
@@ -51,7 +52,8 @@ div.main_menu ul li {
 
 div.sub_menu ul li {
     text-align: center;
-    margin-bottom: 11px;
+    margin-bottom: 1px;
+    float: left;
 }
 
 div.menu ul li a {
@@ -70,9 +72,11 @@ div.main_menu ul li a {
     margin-right: 4px;
 }
 
-div.sub_main_menu ul li a {
+div.sub_menu ul li a {
     margin-right: 0px;
-    width: 50px;
+    display: block;
+    width: 80px;
+    padding: 4px;
 }
 
 div.menu ul li a:visited {
