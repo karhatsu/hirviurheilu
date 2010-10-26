@@ -13,7 +13,7 @@ Feature: Show race
       | name | Men 50 years |
       | start_time | 2010-01-01 13:30 |
     When I go to the race page
-    Then I should see "My test race" within "h1"
+    Then I should see "My test race" within ".race_title"
     And I should see "Test city, 01.01.2010 - 02.01.2010"
     And I should see "Men 50 years"
     And I should see "01.01.2010 13:30"

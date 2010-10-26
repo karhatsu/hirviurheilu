@@ -44,7 +44,7 @@ Feature: Official
       | Lähtöaikojen väli (sekuntia) | 30 |
     And I press "Lisää kilpailu"
     Then I should be on the race edit page of "Test race"
-    And I should see "Test race" within "h1"
+    And I should see "Test race" within ".race_title"
     And I should see "Kilpailu lisätty."
     And I should see "Voit nyt lisätä sarjoja kilpailulle alla olevasta linkistä."
 
