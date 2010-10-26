@@ -3,6 +3,7 @@ class Club < ActiveRecord::Base
 #  default_scope :order => :name
 
   belongs_to :race
+  has_many :competitors
 
   validates :name, :presence => true, :uniqueness => { :scope => :race_id }
 end

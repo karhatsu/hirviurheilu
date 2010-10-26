@@ -20,5 +20,6 @@ describe Club do
 
   describe "associations" do
     it { should belong_to(:race) }
+    it { should have_many(:competitors) }
   end
 end

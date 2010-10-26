@@ -8,10 +8,23 @@ class Official::ClubsController < Official::OfficialController
     @club = @race.clubs.build(params[:club])
     if @club.save
       respond_to do |format|
+        format.html { redirect_to(official_race_clubs_path(@race) )}
         format.js { render :created }
       end
     else
-      render :index
+      respond_to do |format|
+        format.html { render :index }
+        format.js { render :created }
+      end
+    end
+  end
+
+  def destroy
+    @club = Club.find(params[:id])
+    @club.destroy
+    respond_to do |format|
+      format.html { redirect_to(official_race_clubs_path(@race) )}
+      format.js { render :destroyed }
     end
   end
 

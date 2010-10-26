@@ -1,3 +1,11 @@
+<% if @club.errors.any? %>
+  <% error_msg = @club.errors.full_messages.join(". ") + "." %>
+  $("#action_error").addClass("error");
+  $("#action_error").html("<%= error_msg %>");
+<% else %>
+  $("#action_error").removeClass("error");
+  $("#action_error").html("");
+  $("#clubs_table tr:last").after("<tr><td><%= @club.name %></td><td class='center'>0</td><td>&nbsp;</td></tr>");
+  $("#club_name").val("");
+<% end %>
 $("#spinner").html("");
-$("#clubs_table tr:last").after("<tr><td><%= @club.name %></td></tr>");
-$("#club_name").val("");
