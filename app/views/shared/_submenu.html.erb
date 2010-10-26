@@ -12,6 +12,15 @@ elsif @competitor
 end
 %>
 <% if menu_race %>
+  <div class="race_title">
+    <span class="sport_icon"><%= sport_icon(menu_race.sport) %></span>
+    <%= menu_race.name %> (<%= menu_race.location %>, <%= race_date_interval(menu_race) %>)
+  </div>
+  <%= javascript_tag do %>
+    $(document).ready(function() {
+      $(".main").attr('style', 'margin-top: 20px;');
+    });
+  <% end %>
   <div class="menu sub_menu">
     <ul>
       <%= menu_item "Sarjat", race_path(menu_race), @is_race %>

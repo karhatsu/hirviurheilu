@@ -1,3 +1,26 @@
+div.race_title {
+    position: absolute;
+    top: 39px;
+    left: 10px;
+    width: 996px;
+    background-color: olive;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid white;
+    padding: 6px;
+    padding-left: 36px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+div.race_title span.sport_icon {
+    position: absolute;
+    top: 3px;
+    left: 6px;
+}
+
 div.menu {
     margin: 2px;
     font-family: cursive;
@@ -5,7 +28,7 @@ div.menu {
 
 div.sub_menu {
     position: absolute;
-    top: 45px;
+    top: 69px;
     width: 120px;
     margin-right: 0px;
 }
@@ -27,8 +50,8 @@ div.main_menu ul li {
 }
 
 div.sub_menu ul li {
-    text-align: right;
-    margin-bottom: 15px;
+    text-align: center;
+    margin-bottom: 11px;
 }
 
 div.menu ul li a {
@@ -49,6 +72,7 @@ div.main_menu ul li a {
 
 div.sub_main_menu ul li a {
     margin-right: 0px;
+    width: 50px;
 }
 
 div.menu ul li a:visited {
@@ -73,10 +97,6 @@ div.main_menu ul li a.selected {
 }
 
 div.sub_menu ul li a.selected {
-    -moz-border-radius-topright: 0px;
-    -moz-border-radius-bottomright: 0px;
-    -webkit-border-radius-topright: 0px;
-    -webkit-border-radius-bottomright: 0px;
 }
 
 div.main_menu ul li a:hover {
@@ -89,8 +109,4 @@ div.main_menu ul li a:hover {
 
 div.sub_menu ul li a:hover {
     border-right-color: white;
-    -moz-border-radius-topright: 0px;
-    -moz-border-radius-bottomright: 0px;
-    -webkit-border-radius-topright: 0px;
-    -webkit-border-radius-bottomright: 0px;
 }
