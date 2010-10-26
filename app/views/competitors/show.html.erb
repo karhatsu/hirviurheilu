@@ -1,6 +1,5 @@
 <%= content_for(:title, "#{@competitor.series.name} - #{full_name(@competitor)}" +
   (@competitor.age_group ? " (#{@competitor.age_group.name})" : "")) %>
-<h1><%= sport_icon(@competitor.series.race.sport) %> <%= @competitor.series.race.name %></h1>
 <h2><%= yield :title %></h2>
 <% if @competitor.no_result_reason %>
   <div class="notice"><%= t "competitor.#{@competitor.no_result_reason}" %></div>
