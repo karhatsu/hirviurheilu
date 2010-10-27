@@ -1,0 +1,11 @@
+Hei <%= @invitee.first_name %> <%= @invitee.last_name %>,
+
+<%= @inviter.first_name %> <%= @inviter.
+  last_name %> on kutsunut sinut toimitsijaksi Hirviurheilu-palvelussa olevaan <%= @race.
+  sport.ski? ? 'Hirvenhiihto' : 'Hirvenjuoksu' %>kilpailuun: <%= @race.
+  name %> (<%= @race.location %>).
+
+Hirviurheilu-palvelun osoite:
+<%= @url %>
+
+(Tämä viesti on lähetetty automaattisesti. Älä vastaa siihen.)
