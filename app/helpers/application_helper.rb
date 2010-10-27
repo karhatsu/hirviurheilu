@@ -126,8 +126,12 @@ module ApplicationHelper
     correct
   end
 
-  def full_name(competitor)
-    "#{competitor.last_name} #{competitor.first_name}"
+  def full_name(competitor, first_name_first=false)
+    if first_name_first
+      "#{competitor.first_name} #{competitor.last_name}"
+    else
+      "#{competitor.last_name} #{competitor.first_name}"
+    end
   end
 
   def race_date_interval(race)

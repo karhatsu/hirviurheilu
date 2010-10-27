@@ -1,5 +1,24 @@
+Given /^there exists an official "(.*) (.*)" with email "([^"]*)"$/ do |firstname,
+    lastname, email|
+  user = Factory.create(:user, :first_name => firstname, :last_name => lastname,
+    :email => email)
+  user.add_official_rights
+end
+
 Given /^I am an official$/ do
   @user = Factory.create(:user)
+  @user.add_official_rights
+end
+
+Given /^I am an official with email "([^"]*)"$/ do |email|
+  @user = Factory.create(:user, :email => email)
+  @user.add_official_rights
+end
+
+Given /^I am an official "(.*) (.*)" with email "([^"]*)"$/ do |firstname,
+    lastname, email|
+  @user = Factory.create(:user, :first_name => firstname, :last_name => lastname,
+    :email => email)
   @user.add_official_rights
 end
 

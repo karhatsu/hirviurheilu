@@ -294,6 +294,11 @@ describe ApplicationHelper do
   describe "#full_name" do
     specify { helper.full_name(mock_model(Competitor, :last_name => "Tester",
         :first_name => "Tim")).should == "Tester Tim" }
+
+    describe "first name first" do
+      specify { helper.full_name(mock_model(Competitor, :last_name => "Tester",
+          :first_name => "Tim"), true).should == "Tim Tester" }
+    end
   end
 
   describe "#date_interval" do

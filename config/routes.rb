@@ -31,6 +31,7 @@ ElkSports::Application.routes.draw do
   namespace :official do
     resources :races do
       resources :clubs
+      resources :officials
       resource :finish_race
     end
     match '/series/:id/generate_numbers' => 'series#generate_numbers',

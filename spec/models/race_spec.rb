@@ -50,6 +50,7 @@ describe Race do
     it { should have_many(:series) }
     it { should have_many(:competitors).through(:series) }
     it { should have_many(:clubs) }
+    it { should have_and_belong_to_many(:users) }
   end
 
   describe "past/ongoing/future" do
