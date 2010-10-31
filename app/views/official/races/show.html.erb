@@ -1,0 +1,53 @@
+<%= flash_error %>
+<%= flash_notice %>
+<h2>Kilpailun etusivu</h2>
+<% if @race.series.empty? %>
+  <%= highlight_notice('Et ole vielä lisännyt kilpailuun yhtään sarjaa. ' +
+      'Lisää sarjoja alla olevasta linkistä.') %>
+<% end %>
+<div class="action_box">
+  <%= link_to "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja",
+    edit_official_race_path(@race) %>
+</div>
+<% unless @race.finished? or @race.start_date > Date.today or @race.series.empty? %>
+  <div class="action_box">
+    <%= render :partial => "official/finish_races/form", :locals => { :race => @race } %>
+  </div>
+<% end %>
+<% if @race.series.empty? %>
+  <div class="action_box">
+    <%= form_tag(official_race_path(@race), :method => :delete) do %>
+      <%= submit_tag "Poista kilpailu" %>
+    <% end %>
+  </div>
+<% else %>
+  <h3>Sarjat</h3>
+  <% if @race.competitors.empty? %>
+    <%= highlight_notice('Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. ' +
+        'Aloita klikkaamalla sarjan nimen vieressä olevaa linkkiä.') %>
+  <% end %>
+  <table cellpadding="3" cellspacing="0" border="1">
+    <tr>
+      <th>Sarja</th>
+      <th>Kilpailijoita</th>
+      <th>Lähtöaika</th>
+      <th>Toiminnot</th>
+    </tr>
+    <% @race.series.each do |s| %>
+      <tr>
+        <td><%= s.name %></td>
+        <td class="center"><%= s.competitors.count %></td>
+        <td class="center"><%= s.start_time ? time_print(s.start_time) : "-" %></td>
+        <td><%= link_to "Muokkaa asetuksia, lisää kilpailijoita, syötä tulostietoja",
+            edit_official_series_path(s) %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+<% unless @race.series.empty? or @race.competitors.empty? %>
+  <h3>Tulosten syöttäminen suorituspaikoittain</h3>
+  <%= render :partial => 'official/shared/series_result_input_links',
+    :locals => { :series_id => @race.series.first.id } %>
+<% end %>
+<hr/>
+<%= link_to "Takaisin toimitsijan etusivulle", official_root_path %>

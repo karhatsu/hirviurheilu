@@ -62,8 +62,8 @@ Feature: Official
       | Lähtöaikojen väli (sekuntia) | 30 |
     And I check "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
-    Then I should be on the official index page
-    And I should see "Test race" within "h2"
+    Then I should be on the official race page of "Test race"
+    And I should see "Test race" within ".race_title"
     And I should see "Kilpailu lisätty."
     And I should see "Pääset lisäämään kilpailijoita klikkaamalla sarjan nimen vieressä olevaa linkkiä."
     And I should see "Default series 1"
@@ -79,7 +79,9 @@ Feature: Official
     And I have a race "Test race"
     And I have logged in
     When I go to the official index page
-    Then I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta linkistä." within "div.notice"
+    And I follow "Test race"
+    Then I should be on the official race page of "Test race"
+    And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta linkistä." within "div.notice"
     When I follow "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja"
     Then I should be on the race edit page of "Test race"
     And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta linkistä." within "div.notice"
@@ -91,6 +93,7 @@ Feature: Official
       | name | Test series |
     And I have logged in
     When I go to the official index page
+    And I follow "Test race"
     Then I should see "Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. Aloita klikkaamalla sarjan nimen vieressä olevaa linkkiä." within "div.notice"
 
   Scenario: Add competitors
@@ -101,7 +104,7 @@ Feature: Official
     And the race has a club "Shooting club"
     And the race has a club "Sports club"
     And I have logged in
-    And I am on the official index page
+    And I am on the official race page of "Test race"
     When I follow "Muokkaa asetuksia, lisää kilpailijoita, syötä tulostietoja"
     And I follow "Lisää uusi kilpailija"
     And I fill in the following:
@@ -121,5 +124,5 @@ Feature: Official
     And I should see "Shooting club"
     And I should see "Heyton Math"
     And I should see "Sports club"
-    When I go to the official index page
+    When I go to the official race page of "Test race"
     Then I should not see "Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa."

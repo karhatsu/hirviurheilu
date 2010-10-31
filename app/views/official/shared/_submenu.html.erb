@@ -15,7 +15,8 @@ end
   <%= render :partial => 'shared/race_title', :locals => { :race => menu_race } %>
   <div class="menu sub_menu">
     <ul>
-      <%= menu_item "Kilpailu & sarjat", edit_official_race_path(menu_race), @is_race %>
+      <%= menu_item "Kilpailun etusivu", official_race_path(menu_race), @is_race %>
+      <%= menu_item "Kilpailu & sarjat", edit_official_race_path(menu_race), @is_race_edit %>
       <% if menu_series %>
         <%= menu_item "Sarja & kilpailijat", edit_official_series_path(menu_series), @is_series %>
         <%= menu_item "Ajat", official_series_times_path(menu_series), @is_times %>

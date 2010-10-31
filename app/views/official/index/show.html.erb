@@ -3,59 +3,7 @@
 <%= flash_error %>
 <%= flash_notice %>
 <% @races.each do |r| %>
-  <div>
-    <h2><%= sport_icon(r.sport) %> <%= r.name %> (<%= race_date_interval(r) %>,
-      <%= r.location %>)</h2>
-    <% if r.series.empty? %>
-      <%= highlight_notice('Et ole vielä lisännyt kilpailuun yhtään sarjaa. ' +
-          'Lisää sarjoja alla olevasta linkistä.') %>
-    <% end %>
-    <div class="action_box">
-      <%= link_to "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja",
-        edit_official_race_path(r) %>
-    </div>
-    <% unless r.finished? or r.start_date > Date.today or r.series.empty? %>
-      <div class="action_box">
-        <%= render :partial => "official/finish_races/form", :locals => { :race => r } %>
-      </div>
-    <% end %>
-    <% if r.series.empty? %>
-      <div class="action_box">
-        <%= form_tag(official_race_path(r), :method => :delete) do %>
-          <%= submit_tag "Poista kilpailu" %>
-        <% end %>
-      </div>
-    <% else %>
-      <h3>Sarjat</h3>
-      <% if r.competitors.empty? %>
-        <%= highlight_notice('Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. ' +
-            'Aloita klikkaamalla sarjan nimen vieressä olevaa linkkiä.') %>
-      <% end %>
-      <table cellpadding="3" cellspacing="0" border="1">
-        <tr>
-          <th>Sarja</th>
-          <th>Kilpailijoita</th>
-          <th>Lähtöaika</th>
-          <th>Toiminnot</th>
-        </tr>
-        <% r.series.each do |s| %>
-          <tr>
-            <td><%= s.name %></td>
-            <td class="center"><%= s.competitors.count %></td>
-            <td class="center"><%= s.start_time ? time_print(s.start_time) : "-" %></td>
-            <td><%= link_to "Muokkaa asetuksia, lisää kilpailijoita, syötä tulostietoja",
-                edit_official_series_path(s) %></td>
-          </tr>
-        <% end %>
-      </table>
-    <% end %>
-    <% unless r.series.empty? or r.competitors.empty? %>
-      <h3>Tulosten syöttäminen suorituspaikoittain</h3>
-      <%= render :partial => 'official/shared/series_result_input_links',
-        :locals => { :series_id => r.series.first.id } %>
-    <% end %>
-  </div>
-  <hr/>
+  <%= link_to r.name, official_race_path(r) %><br/>
 <% end %>
 <% if @races.empty? %>
   <%= highlight_notice('Sinulla ei ole vielä yhtään kilpailua. ' +

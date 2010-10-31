@@ -1,6 +1,9 @@
 class Official::RacesController < Official::OfficialController
-  before_filter :check_race_rights, :except => [:new, :create]
-  before_filter :set_race
+  before_filter :assign_race, :check_race_rights, :except => [:new, :create]
+
+  def show
+    @is_race = true
+  end
 
   def new
     @race = Race.new
@@ -16,7 +19,7 @@ class Official::RacesController < Official::OfficialController
         @race.add_default_series
         flash[:notice] << "Pääset lisäämään kilpailijoita klikkaamalla sarjan " +
           "nimen vieressä olevaa linkkiä."
-        redirect_to official_root_path
+        redirect_to official_race_path(@race)
       else
         flash[:notice] << "Voit nyt lisätä sarjoja kilpailulle alla olevasta linkistä."
         redirect_to edit_official_race_path(@race)
@@ -27,20 +30,18 @@ class Official::RacesController < Official::OfficialController
   end
 
   def edit
-    @race = Race.find(params[:id])
+    @is_race_edit = true
   end
 
   def update
-    @race = Race.find(params[:id])
     if @race.update_attributes(params[:race])
-      redirect_to official_root_path
+      redirect_to official_race_path(@race)
     else
       render :edit
     end
   end
 
   def destroy
-    @race = Race.find(params[:id])
     if @race.destroy
       flash[:notice] = "Kilpailu poistettu"
     else
@@ -50,11 +51,11 @@ class Official::RacesController < Official::OfficialController
   end
 
   private
-  def check_race_rights
-    check_race(Race.find(params[:id]))
+  def assign_race
+    @race = Race.find(params[:id])
   end
 
-  def set_race
-    @is_race = true
+  def check_race_rights
+    check_race(@race)
   end
 end
