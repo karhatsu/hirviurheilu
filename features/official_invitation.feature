@@ -17,6 +17,10 @@ Feature: Official invitation
     And I press "Lähetä kutsu"
     Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi" within "div.notice"
     And I should see "Tim Thomas, Another Official" within "#current_officials"
+    And "another@official.com" should receive an email with subject "Kutsu kilpailun Test race toimitsijaksi"
+    When "another@official.com" opens the email
+    Then they should see "Hei Another Official" in the email body
+    And they should see "Tim Thomas on kutsunut sinut toimitsijaksi Hirviurheilu-palvelussa olevaan Hirvenjuoksukilpailuun: Test race" in the email body
 
   Scenario: Try to invite official that does not exist in the database
     Given I am an official "Tim Thomas" with email "tim@official.com"
