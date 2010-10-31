@@ -16,8 +16,10 @@ end
   <div class="menu sub_menu">
     <ul>
       <%= menu_item "Sarjat", race_path(menu_race), @is_race %>
-      <%= menu_item "Lähtölistat", start_list_path(menu_series), @is_start_list %>
-      <%= menu_item "Tulokset", series_competitors_path(menu_series), @is_results %>
+      <% if menu_series %>
+        <%= menu_item "Lähtölistat", start_list_path(menu_series), @is_start_list %>
+        <%= menu_item "Tulokset", series_competitors_path(menu_series), @is_results %>
+      <% end %>
     </ul>
   </div>
 <% end %>
