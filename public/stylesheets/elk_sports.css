@@ -234,3 +234,7 @@ div.instructions {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 }
+
+.series_best_time {
+    font-weight: bold;
+}

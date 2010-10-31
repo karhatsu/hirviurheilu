@@ -57,7 +57,11 @@ module ApplicationHelper
   def time_points_and_time(competitor)
     return '' if competitor.no_result_reason
     return "-" if competitor.time_in_seconds.nil?
-    "#{competitor.time_points} (#{time_from_seconds(competitor.time_in_seconds)})"
+    points = competitor.time_points
+    html = (points == 300 ? "<span class='series_best_time'>" : '')
+    html << "#{competitor.time_points} (#{time_from_seconds(competitor.time_in_seconds)})"
+    html << (points == 300 ? "</span>" : '')
+    raw(html)
   end
 
   def shot_points_and_total(competitor)

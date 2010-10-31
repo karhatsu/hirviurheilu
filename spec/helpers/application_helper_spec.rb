@@ -289,6 +289,14 @@ describe ApplicationHelper do
       helper.should_receive(:time_from_seconds).with(2680).and_return("45:23")
       helper.time_points_and_time(competitor).should == "270 (45:23)"
     end
+
+    it "should wrap with best time span when full points" do
+      competitor = mock_model(Competitor, :time_points => 300,
+        :time_in_seconds => 2680, :no_result_reason => nil)
+      helper.should_receive(:time_from_seconds).with(2680).and_return("45:23")
+      helper.time_points_and_time(competitor).
+        should == "<span class='series_best_time'>300 (45:23)</span>"
+    end
   end
 
   describe "#full_name" do
