@@ -1,4 +1,6 @@
 class InviteOfficialMailer < ActionMailer::Base
+  add_template_helper ApplicationHelper
+
   def invite(race, inviter, invitee, url)
     @race = race
     @inviter = inviter

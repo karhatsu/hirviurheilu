@@ -6,7 +6,12 @@ Feature: Official invitation
   Scenario: Invite official that exists in the database
     Given there exists an official "Another Official" with email "another@official.com"
     And I am an official "Tim Thomas" with email "tim@official.com"
-    And I have a race "Test race"
+    And I have a race with attributes:
+      | sport | SKI |
+      | name | Test race |
+      | location | Test town |
+      | start_date | 2010-12-12 |
+      | end_date | 2010-12-13 |
     And I have logged in
     And I am on the race edit page of "Test race"
     When I follow "Toimitsijat"
@@ -20,7 +25,9 @@ Feature: Official invitation
     And "another@official.com" should receive an email with subject "Kutsu kilpailun Test race toimitsijaksi"
     When "another@official.com" opens the email
     Then they should see "Hei Another Official" in the email body
-    And they should see "Tim Thomas on kutsunut sinut toimitsijaksi Hirviurheilu-palvelussa olevaan Hirvenjuoksukilpailuun: Test race" in the email body
+    And they should see "Tim Thomas on kutsunut sinut toimitsijaksi Hirviurheilu-palvelussa olevaan Hirvenhiihtokilpailuun: Test race (12.12.2010 - 13.12.2010, Test town)" in the email body
+    And they should see "Hirviurheilu-palvelun osoite:" in the email body
+    And they should see "http://www.example.com" in the email body
 
   Scenario: Try to invite official that does not exist in the database
     Given I am an official "Tim Thomas" with email "tim@official.com"

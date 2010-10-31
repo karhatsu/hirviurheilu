@@ -1,9 +1,8 @@
-Hei <%= @invitee.first_name %> <%= @invitee.last_name %>,
+Hei <%= full_name(@invitee, true) %>,
 
-<%= @inviter.first_name %> <%= @inviter.
-  last_name %> on kutsunut sinut toimitsijaksi Hirviurheilu-palvelussa olevaan <%= @race.
+<%= full_name(@inviter, true) %> on kutsunut sinut toimitsijaksi Hirviurheilu-palvelussa olevaan <%= @race.
   sport.ski? ? 'Hirvenhiihto' : 'Hirvenjuoksu' %>kilpailuun: <%= @race.
-  name %> (<%= @race.location %>).
+  name %> (<%= race_date_interval(@race) %>, <%= @race.location %>).
 
 Hirviurheilu-palvelun osoite:
 <%= @url %>
