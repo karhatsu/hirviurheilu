@@ -1,2 +1,2 @@
-<%= link_to "Kirjaudu sisään", new_user_session_path, :class => 'navigation' unless current_user %>
+<%= link_to "Kirjaudu sisään", login_path, :class => 'navigation' unless current_user %>
 <%= link_to "Kirjaudu ulos", logout_path, :method => :delete, :class => 'navigation' if current_user %>

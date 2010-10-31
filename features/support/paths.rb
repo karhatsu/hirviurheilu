@@ -33,10 +33,10 @@ module NavigationHelpers
       start_list_path(@series)
 
     when /the registration page/
-      new_user_path
+      register_path
 
     when /the login page/
-      new_user_session_path
+      login_path
 
     when /the official index page/
       official_root_path

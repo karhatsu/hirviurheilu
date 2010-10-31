@@ -1,10 +1,14 @@
 ElkSports::Application.routes.draw do
   resource :home
 
-  match 'logout' => 'user_sessions#destroy', :method => :post, :as => :logout
+  delete 'logout' => 'user_sessions#destroy', :as => :logout
+  get 'login' => 'user_sessions#new', :as => :login
   resource :user_session
+
   resource :account, :controller => 'users'
+  get 'register' => 'users#new', :as => :register
   resources :users
+
   resource :info
 
   match 'series/:series_id/start_list' => 'start_lists#show', :as => :start_list

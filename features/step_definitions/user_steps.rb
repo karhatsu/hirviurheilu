@@ -33,7 +33,7 @@ Given /^I am an admin with email "([^"]*)" and password "([^"]*)"$/ do |email, p
 end
 
 Given /^I have logged in$/ do
-  visit new_user_session_path
+  visit login_path
   fill_in("Sähköposti", :with => @user.email)
   fill_in("Salasana", :with => @user.password)
   click_button("Kirjaudu")

@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
     unless current_user
       store_location
       flash[:notice] = "Tämä sivu vaatii kirjautumista"
-      redirect_to new_user_session_url
+      redirect_to login_url
       return false
     end
   end
