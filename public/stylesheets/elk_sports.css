@@ -35,16 +35,34 @@ div.login_links a {
     color: white;
 }
 
-div.main {
+div.main_and_footer {
     position: absolute;
     top: 39px;
+    width: 900px;
+}
+
+div.main {
+    padding: 10px;
     background-color: white;
     border: solid 1px black;
-    width: 900px;
     clear: left;
-    padding: 10px;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
+}
+
+div.footer {
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
+
+div.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+div.footer a:hover {
+    text-decoration: underline;
 }
 
 a {

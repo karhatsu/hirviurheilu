@@ -3,8 +3,11 @@
     <%= render :partial => 'shared/menu' %>
     <%= render :partial => 'shared/env_info' %>
     <div class="login_links"><%= render :partial => "shared/login_links" %></div>
-    <div class="main">
-      <%= yield %>
+    <div class="main_and_footer">
+      <div class="main">
+        <%= yield %>
+      </div>
+      <%= render :partial => 'shared/footer' %>
     </div>
   </div>
   <% if @is_competitions %><%= render :partial => 'shared/submenu' %><% end %>
