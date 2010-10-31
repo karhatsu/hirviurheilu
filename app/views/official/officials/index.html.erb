@@ -7,7 +7,7 @@
 <h3>Kutsu toinen henkilö tämän kilpailun toimitsijaksi</h3>
 <div class="instructions">Henkilön täytyy olla rekisteröitynyt palveluun omalla
   sähköpostiosoitteellaan.</div>
-<%= form_tag :url => official_race_officials_path(@race), :method => :post do |f| %>
+<%= form_tag :url => official_race_officials_path(@race), :method => :post do %>
   <%= label_tag :email, 'Sähköposti' %>
   <%= text_field_tag :email %>
   <%= submit_tag "Lähetä kutsu" %>
