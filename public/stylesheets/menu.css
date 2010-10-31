@@ -117,7 +117,7 @@ div.sub_menu ul li a:hover {
 
 div.change_series {
     position: absolute;
-    top: -19px;
+    top: -10px;
     left: 5px;
     width: 900px;
     z-index: 5;
