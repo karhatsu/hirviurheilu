@@ -2,10 +2,15 @@
 <h1><%= yield :title %></h1>
 <%= flash_error %>
 <%= flash_notice %>
-<% @races.each do |r| %>
-  <%= link_to r.name, official_race_path(r) %><br/>
-<% end %>
-<% if @races.empty? %>
+<% unless @races.empty? %>
+  <div id="existing_races">
+    <h2>Valitse kilpailu</h2>
+    <% @races.each do |r| %>
+      <%= link_to r.name, official_race_path(r) %><br/>
+    <% end %>
+  </div>
+  <h2 id="new_race">Tai</h2>
+<% else %>
   <%= highlight_notice('Sinulla ei ole vielä yhtään kilpailua. ' +
       'Aloita luomalla kilpailu alla olevasta linkistä.') %>
 <% end %>
