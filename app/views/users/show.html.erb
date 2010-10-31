@@ -15,7 +15,7 @@
 <h2>Omat kilpailut</h2>
 <% if @user.races.empty? %>
   <%= highlight_notice('Sinulla ei ole vielä yhtään kilpailua. ' +
-      'Pääset syöttämään kilpailun tietoja Toimitsijan etusivu -linkistä sivun ylälaidasta.') %>
+      'Pääset syöttämään kilpailun tietoja Toimitsijan sivut -linkistä sivun ylälaidasta.') %>
 <% else %>
   <ul>
     <% @user.races.each do |race| %>

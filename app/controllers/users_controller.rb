@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     if @user.save
       @user.add_official_rights
       flash[:notice] = "Käyttäjätili luotu. " +
-        "Pääset syöttämään kilpailun tietoja Toimitsijan etusivu -linkistä."
+        "Pääset syöttämään kilpailun tietoja Toimitsijan sivut -linkistä."
       redirect_back_or_default account_url
     else
       render :action => :new

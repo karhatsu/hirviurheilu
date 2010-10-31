@@ -1,7 +1,7 @@
 <div class="menu main_menu">
   <ul>
     <%= menu_item "Kilpailut", root_path, @is_competitions %>
-    <%= menu_item "Toimitsijan etusivu", official_root_path, @is_official %>
+    <%= menu_item "Toimitsijan sivut", official_root_path, @is_official %>
     <%= menu_item "Info", info_path, @is_info %>
     <% if current_user %>
       <%= menu_item "Omat tiedot", account_path, @is_account %>
