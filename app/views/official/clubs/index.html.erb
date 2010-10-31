@@ -3,6 +3,7 @@
 <div class="instructions">Tällä sivulla voit lisätä kilpailuun osallistuvien kilpailijoiden seuroja
   sekä korjata niiden nimiä ja poistaa ylimääräisiä. Huom! Voit lisätä seuroja
   myös samalla, kun lisäät kilpailijoita.</div>
+<h2>Lisää seura</h2>
 <div id="action_error"></div>
 <%= form_for([:official, @race, Club.new], :remote => true) do |f| %>
   <%= f.label :name %>
@@ -10,35 +11,35 @@
   <%= submit_tag 'Lisää seura', :id => 'submit' %>
   <span id="spinner"></span>
 <% end %>
-<% unless @race.clubs.empty? %>
-  <table id="clubs_table">
-    <tr>
-      <th>Seura</th>
-      <th>Kilpailijoita</th>
-      <th>&nbsp;</th>
+<% style = (@race.clubs.empty? ? " style='display: none;'" : "") %>
+<h2 id="clubs_title"<%= style %>>Nykyiset seurat</h2>
+<table id="clubs_table"<%= style %>>
+  <tr>
+    <th>Seura</th>
+    <th>Kilpailijoita</th>
+    <th>&nbsp;</th>
+  </tr>
+  <% @race.clubs.each do |club| %>
+    <tr id="club_row_<%= club.id %>">
+      <td>
+        <a class="club_name_link" id="club_name_link_<%= club.id %>" href="#">
+          <%= club.name %>
+        </a>
+        <div id="club_name_form_<%= club.id %>" style="display: none;">
+          <%= form_for([:official, @race, club], :remote => true) do |f| %>
+            <%= f.text_field :name %><%= submit_tag "Päivitä" %>
+          <% end %>
+        </div>
+      </td>
+      <td class="center"><%= club.competitors.count %></td>
+      <td class="center"><%= club.competitors.count == 0 ? (link_to "Poista",
+          official_race_club_path(@race.id, club),
+          :method => :delete,
+          :remote => true,
+          :class => 'remove_club') : raw('&nbsp;') %></td>
     </tr>
-    <% @race.clubs.each do |club| %>
-      <tr id="club_row_<%= club.id %>">
-        <td>
-          <a class="club_name_link" id="club_name_link_<%= club.id %>" href="#">
-            <%= club.name %>
-          </a>
-          <div id="club_name_form_<%= club.id %>" style="display: none;">
-            <%= form_for([:official, @race, club], :remote => true) do |f| %>
-              <%= f.text_field :name %><%= submit_tag "Päivitä" %>
-            <% end %>
-          </div>
-        </td>
-        <td class="center"><%= club.competitors.count %></td>
-        <td class="center"><%= club.competitors.count == 0 ? (link_to "Poista",
-            official_race_club_path(@race.id, club),
-            :method => :delete,
-            :remote => true,
-            :class => 'remove_club') : raw('&nbsp;') %></td>
-      </tr>
-    <% end %>
-  </table>
-<% end %>
+  <% end %>
+</table>
 <%= javascript_tag do %>
   $("#submit").click(function() {
     $("#spinner").html('<%= image_tag 'spinner.gif' %>');
