@@ -19,55 +19,9 @@
 </div>
 <% unless @series.competitors.empty? %>
   <% if @series.first_number and @series.start_time %>
-    <div class="action_box">
-      <%= form_for([:official, @series], :url => official_generate_numbers_path(@series)) do |f| %>
-        <%= submit_tag "Lisää kilpailijoille lähtönumerot" %> alkaen sarjan
-        ensimmäisestä numerosta (<%= @series.first_number %>).
-        <a class="help" id="generate_numbers_help_link">?</a>
-        <div id="generate_numbers_help_dialog" class="dialog" style="display: none;">
-          Voit luoda tämän sarjan kilpailijoille lähtönumerot helposti painamalla
-          'Lisää kilpailijoille lähtönumerot'-nappia. Ensimmäisen kilpailijan numeroksi
-          tulee se, jonka olet määrittänyt koko sarjan ensimmäiseksi numeroksi
-          tämän sivun ylälaidassa.
-          <p>Jos jollakin kilpailijalla on jo numero, napin painaminen ylikirjoittaa sen.</p>
-          <p>Mikäli jollekin kilpailijalle on jo syötetty tulostietoja, ei numeroita
-            voi luoda enää automaattisesti, koska tämä viittaa siihen, että kilpailu on jo
-            käynnissä. Mikäli sinun tarvitsee muuttaa yksittäisen kilpailijan
-            numeroa, klikkaa hänen nimeään ja muuta numero avautuvalla sivulla.</p>
-        </div>
-        <script type="text/javascript">
-          $('#generate_numbers_help_link').click(function() {
-            $('#generate_numbers_help_dialog').dialog({ title: 'Lähtönumeroiden luonti',
-              closeText: 'Sulje' });
-          });
-        </script>
-      <% end %>
-    </div>
+    <%= render :partial => 'generate_numbers', :locals => { :series => @series } %>
     <% if @series.each_competitor_has_number? %>
-      <div class="action_box">
-        <%= form_for([:official, @series], :url => official_generate_times_path(@series)) do |f| %>
-          <%= submit_tag "Lisää kilpailijoille lähtöajat" %> alkaen sarjan lähtöajasta
-          (<%= time_print(@series.start_time) %>).
-          <a class="help" id="generate_start_times_help_link">?</a>
-          <div id="generate_start_times_help_dialog" class="dialog" style="display: none;">
-          Voit luoda tämän sarjan kilpailijoille lähtöajat helposti painamalla
-          'Lisää kilpailijoille lähtöajat'-nappia. Ensimmäisen kilpailijan lähtöajaksi
-          tulee se, jonka olet määrittänyt koko sarjan lähtöajaksi
-          tämän sivun ylälaidassa.
-          <p>Jos jollakin kilpailijalla on jo lähtöaika, napin painaminen ylikirjoittaa sen.</p>
-          <p>Mikäli jollekin kilpailijalle on jo syötetty tulostietoja, ei lähtöaikoja
-            voi luoda enää automaattisesti, koska tämä viittaa siihen, että kilpailu on jo
-            käynnissä. Mikäli sinun tarvitsee muuttaa yksittäisen kilpailijan
-            lähtöaikaa, klikkaa hänen nimeään ja muuta aika avautuvalla sivulla.</p>
-          </div>
-          <script type="text/javascript">
-            $('#generate_start_times_help_link').click(function() {
-              $('#generate_start_times_help_dialog').dialog({ title: 'Lähtöaikojen luonti',
-                closeText: 'Sulje' });
-            });
-          </script>
-        <% end %>
-      </div>
+      <%= render :partial => 'generate_start_times', :locals => { :series => @series } %>
       <% if @series.each_competitor_has_start_time? %>
         <% unless @series.correct_estimate1 and @series.correct_estimate2 %>
           <%= highlight_notice('Muista syöttää oikeat arviointimatkat viimeistään ' +
@@ -103,32 +57,7 @@
     <%= render :partial => 'official/shared/series_result_input_links',
       :locals => { :series_id => @series.id } %>
   <% end %>
-  <table cellpadding="3" cellspacing="0" border="1">
-    <tr>
-      <th>Kilpailija</th>
-      <th>Seura</th>
-      <th>Nro</th>
-      <th>Lähtöaika</th>
-      <th>Tulos syötetty</th>
-      <th>&nbsp;</th>
-    </tr>
-    <% @series.competitors.each do |comp| %>
-      <tr id="competitor_<%= comp.id %>">
-        <td>
-          <%= link_to full_name(comp),
-            edit_official_series_competitor_path(@series.id, comp) %>
-          <%= "(#{comp.age_group.name})" if comp.age_group %>
-        </td>
-        <td><%= comp.club.name %></td>
-        <td class="center"><%= comp.number %></td>
-        <td class="center"><%= time_print(comp.start_time, true) %></td>
-        <td class="center"><%= comp.finished? ? 'kyllä' : 'ei' %></td>
-        <td><%= link_to "Poista", official_series_competitor_path(@series.id, comp),
-            :confirm => "Haluatko varmasti poistaa tämän kilpailijan?",
-            :method => :delete, :remote => true %></td>
-      </tr>
-    <% end %>
-  </table>
+  <%= render :partial => 'competitors_table', :locals => { :series => @series } %>
 <% end %>
 <hr/>
 <%= link_to "Takaisin toimitsijan etusivulle", official_root_path %>

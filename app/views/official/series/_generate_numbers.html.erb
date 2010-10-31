@@ -1,0 +1,24 @@
+<div class="action_box">
+  <%= form_for([:official, series], :url => official_generate_numbers_path(series)) do |f| %>
+    <%= submit_tag "Lisää kilpailijoille lähtönumerot" %> alkaen sarjan
+    ensimmäisestä numerosta (<%= series.first_number %>).
+    <a class="help" id="generate_numbers_help_link">?</a>
+    <div id="generate_numbers_help_dialog" class="dialog" style="display: none;">
+      Voit luoda tämän sarjan kilpailijoille lähtönumerot helposti painamalla
+      'Lisää kilpailijoille lähtönumerot'-nappia. Ensimmäisen kilpailijan numeroksi
+      tulee se, jonka olet määrittänyt koko sarjan ensimmäiseksi numeroksi
+      tämän sivun ylälaidassa.
+      <p>Jos jollakin kilpailijalla on jo numero, napin painaminen ylikirjoittaa sen.</p>
+      <p>Mikäli jollekin kilpailijalle on jo syötetty tulostietoja, ei numeroita
+        voi luoda enää automaattisesti, koska tämä viittaa siihen, että kilpailu on jo
+        käynnissä. Mikäli sinun tarvitsee muuttaa yksittäisen kilpailijan
+        numeroa, klikkaa hänen nimeään ja muuta numero avautuvalla sivulla.</p>
+    </div>
+    <script type="text/javascript">
+      $('#generate_numbers_help_link').click(function() {
+        $('#generate_numbers_help_dialog').dialog({ title: 'Lähtönumeroiden luonti',
+          closeText: 'Sulje' });
+      });
+    </script>
+  <% end %>
+</div>
