@@ -23,12 +23,12 @@ span.env_info_link {
 }
 
 div.login_links {
+    color: white;
     position: absolute;
     top: 15px;
-    left: 730px;
+    left: 720px;
     text-align: right;
     width: 300px;
-    padding-right: 10px;
 }
 
 div.login_links a {
