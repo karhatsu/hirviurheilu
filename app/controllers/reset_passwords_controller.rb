@@ -62,6 +62,6 @@ class ResetPasswordsController < ApplicationController
 
   private
   def generate_hash
-    (0...10).map{ ('a'..'z').to_a[rand(26)] }.join
+    SecureRandom.hex.downcase
   end
 end
