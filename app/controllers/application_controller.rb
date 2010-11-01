@@ -56,4 +56,9 @@ class ApplicationController < ActionController::Base
   def site_url
     request.protocol + request.host_with_port
   end
+
+  def rescue_with_handler(exception)
+    ErrorMailer.error_mail("Virhe Hirviurheilussa", exception).deliver
+    super
+  end
 end
