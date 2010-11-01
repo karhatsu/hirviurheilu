@@ -36,3 +36,21 @@ Feature: Rest password
     Then I should see "Tuntematon sähköpostiosoite" within "div.error"
     And I should see "Jos olet unohtanut salasanasi, syötä alla olevaan kenttään sähköpostiosoitteesi." within "div.instructions"
     And "test@test.com" should have no emails
+
+  Scenario: Invalid new password
+    Given I am an official with email "test@test.com" and password "test"
+    And I am on the home page
+    When I follow "Unohtunut salasana"
+    When I fill in "test@test.com" for "Sähköposti"
+    And I press "Tilaa uusi salasana"
+    Then "test@test.com" should receive an email
+    When I open the email
+    And I click the first link in the email
+    And I fill in "" for "Uusi salasana"
+    And I fill in "" for "Uusi salasana uudestaan"
+    And I press "Vaihda salasana"
+    Then I should see "Syötä uusi salasana"
+    When I fill in "new-password" for "Uusi salasana"
+    And I fill in "different-password" for "Uusi salasana uudestaan"
+    And I press "Vaihda salasana"
+    Then I should see "Salasana ei vastaa varmennusta." within ".error"
