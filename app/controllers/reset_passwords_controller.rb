@@ -17,7 +17,7 @@ class ResetPasswordsController < ApplicationController
       redirect_to reset_password_path
     else
       flash[:error] = "Tuntematon sähköpostiosoite"
-      render :show
+      render :new
     end
   end
 

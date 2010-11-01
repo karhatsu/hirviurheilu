@@ -27,3 +27,12 @@ Feature: Rest password
     And I press "Kirjaudu"
     And I follow "Toimitsijan sivut"
     Then I should be on the official index page
+
+  Scenario: Unknown email
+    Given I am on the home page
+    When I follow "Unohtunut salasana"
+    And I fill in "test@test.com" for "Sähköposti"
+    And I press "Tilaa uusi salasana"
+    Then I should see "Tuntematon sähköpostiosoite" within "div.error"
+    And I should see "Jos olet unohtanut salasanasi, syötä alla olevaan kenttään sähköpostiosoitteesi." within "div.instructions"
+    And "test@test.com" should have no emails
