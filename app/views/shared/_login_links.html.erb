@@ -1,2 +1,5 @@
-<%= link_to "Kirjaudu sisään", login_path, :class => 'navigation' unless current_user %>
+<% unless current_user %>
+  <%= link_to "Kirjaudu sisään", login_path, :class => 'navigation' %>
+  <%= link_to "Unohtunut salasana", reset_password_path, :class => 'navigation' %>
+<% end %>
 <%= link_to "Kirjaudu ulos", logout_path, :method => :delete, :class => 'navigation' if current_user %>

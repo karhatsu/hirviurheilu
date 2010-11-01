@@ -1,0 +1,11 @@
+<% content_for :title, "Unohtuneen salasanan vaihto" %>
+<h1><%= yield :title %></h1>
+<div class="instructions">Jos olet unohtanut salasanasi,
+  syötä alla olevaan kenttään sähköpostiosoitteesi.</div>
+<%= flash_error %>
+<%= flash_notice %>
+<%= form_tag do %>
+  <%= label_tag :email, 'Sähköposti' %>
+  <%= text_field_tag :email %>
+  <%= submit_tag 'Tilaa uusi salasana' %>
+<% end %>

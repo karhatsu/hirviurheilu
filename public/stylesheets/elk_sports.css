@@ -11,7 +11,7 @@ div.top_and_main {
 div.env_info {
     position: absolute;
     top: 15px;
-    left: 610px;
+    left: 550px;
     text-align: center;
     width: 200px;
     color: orange;
@@ -25,9 +25,9 @@ span.env_info_link {
 div.login_links {
     position: absolute;
     top: 15px;
-    left: 830px;
+    left: 730px;
     text-align: right;
-    width: 200px;
+    width: 300px;
     padding-right: 10px;
 }
 

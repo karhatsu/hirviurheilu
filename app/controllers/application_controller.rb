@@ -52,4 +52,8 @@ class ApplicationController < ActionController::Base
   def set_competitions
     @is_competitions = true
   end
+
+  def site_url
+    request.protocol + request.host_with_port
+  end
 end

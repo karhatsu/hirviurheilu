@@ -12,8 +12,7 @@ class Official::OfficialsController < Official::OfficialController
         render :index
       else
         user.races << @race
-        InviteOfficialMailer.invite(@race, current_user, user,
-          request.protocol + request.host_with_port).deliver
+        InviteOfficialMailer.invite(@race, current_user, user, site_url).deliver
         flash[:notice] = "Toimitsija #{user.first_name} #{user.
           last_name} lisätty kilpailun #{@race.name} toimitsijaksi"
         redirect_to official_race_officials_path(@race)
