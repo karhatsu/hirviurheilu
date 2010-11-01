@@ -2,7 +2,7 @@ class ResetPasswordsController < ApplicationController
   skip_before_filter :set_competitions
   before_filter :require_no_user
 
-  def show
+  def new
   end
 
   def create
@@ -14,14 +14,14 @@ class ResetPasswordsController < ApplicationController
       ResetPasswordMailer.reset_mail(params[:email], reset_hash, site_url).deliver
       flash[:notice] = "Sähköpostiisi on lähetetty linkki, " +
         "jonka avulla voit asettaa uuden salasanan."
-      redirect_to reset_email_sent_path
+      redirect_to reset_password_path
     else
       flash[:error] = "Tuntematon sähköpostiosoite"
       render :show
     end
   end
 
-  def sent
+  def show
   end
 
   def edit

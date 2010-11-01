@@ -11,7 +11,7 @@ Feature: Rest password
     When I fill in "test@test.com" for "Sähköposti"
     And I press "Tilaa uusi salasana"
     Then I should see "Sähköpostiisi on lähetetty linkki, jonka avulla voit asettaa uuden salasanan."
-    And I should receive an email with subject "Hirviurheilu - salasanan vaihto"
+    And "test@test.com" should receive an email with subject "Hirviurheilu - salasanan vaihto"
     When I open the email
     Then I should see "Klikkaa alla olevaa linkkiä, niin pääset asettamaan uuden salasanan" in the email body
     When I click the first link in the email

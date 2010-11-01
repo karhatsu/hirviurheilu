@@ -9,8 +9,7 @@ ElkSports::Application.routes.draw do
   get 'register' => 'users#new', :as => :register
   resources :users
 
-  get 'reset_email_sent' => 'reset_passwords#sent', :as => :reset_email_sent
-  get 'reset_password/:reset_hash' => 'reset_passwords#edit'
+  get 'reset_password/:reset_hash/edit' => 'reset_passwords#edit'
   resource :reset_password
 
   resource :info
