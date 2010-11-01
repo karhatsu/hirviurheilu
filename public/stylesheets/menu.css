@@ -2,7 +2,7 @@ div.race_title {
     position: absolute;
     top: 39px;
     left: 10px;
-    width: 996px;
+    width: 973px;
     background-color: olive;
     color: white;
     font-size: 14px;
@@ -117,9 +117,9 @@ div.sub_menu ul li a:hover {
 
 div.change_series {
     position: absolute;
-    top: -10px;
-    left: 5px;
-    width: 900px;
+    top: 2px;
+    left: 0px;
+    width: 895px;
     z-index: 5;
 }
 
