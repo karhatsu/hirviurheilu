@@ -1,4 +1,4 @@
-Feature: Rest password
+Feature: Reset password
   In order to use the system again
   As a person who has forgotten her password
   I want to reset my password
@@ -54,3 +54,8 @@ Feature: Rest password
     And I fill in "different-password" for "Uusi salasana uudestaan"
     And I press "Vaihda salasana"
     Then I should see "Salasana ei vastaa varmennusta." within ".error"
+
+  Scenario: Unknown reset hash
+    Given I visit "reset_password/unknown_hash/edit"
+    Then I should see "Tuntematon tunnus. Varmista, että selaimen osoiterivillä on täsmälleen se linkki, jonka sait sähköpostiisi." within "div.error"
+    But I should not see "Uusi salasana"

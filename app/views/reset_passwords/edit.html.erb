@@ -1,14 +1,16 @@
 <h1>Uuden salasanan asetus</h1>
 <%= flash_error %>
 <%= flash_notice %>
-<%= form_tag(reset_password_path, :method => :put) do %>
-  <%= hidden_field_tag :reset_hash, @reset_hash %>
-  <dl>
-    <dt><%= label_tag :password, 'Uusi salasana' %></dt>
-    <dd><%= password_field_tag :password %></dd>
+<% if @flash_ok %>
+  <%= form_tag(reset_password_path, :method => :put) do %>
+    <%= hidden_field_tag :reset_hash, @reset_hash %>
+    <dl>
+      <dt><%= label_tag :password, 'Uusi salasana' %></dt>
+      <dd><%= password_field_tag :password %></dd>
 
-    <dt><%= label_tag :password_confirmation, 'Uusi salasana uudestaan' %></dt>
-    <dd><%= password_field_tag :password_confirmation %></dd>
-  </dl>
-  <%= submit_tag 'Vaihda salasana' %>
+      <dt><%= label_tag :password_confirmation, 'Uusi salasana uudestaan' %></dt>
+      <dd><%= password_field_tag :password_confirmation %></dd>
+    </dl>
+    <%= submit_tag 'Vaihda salasana' %>
+  <% end %>
 <% end %>

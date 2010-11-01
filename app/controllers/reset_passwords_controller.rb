@@ -26,6 +26,12 @@ class ResetPasswordsController < ApplicationController
 
   def edit
     @reset_hash = params[:reset_hash]
+    @hash_ok = true
+    unless User.find_by_reset_hash(@reset_hash)
+      flash[:error] = "Tuntematon tunnus. Varmista, että selaimen " +
+        "osoiterivillä on täsmälleen se linkki, jonka sait sähköpostiisi."
+      @hash_ok = false
+    end
   end
 
   def update
