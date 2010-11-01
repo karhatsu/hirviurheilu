@@ -36,6 +36,7 @@ class ResetPasswordsController < ApplicationController
 
   def update
     @reset_hash = params[:reset_hash]
+    @hash_ok = true
     if params[:password].blank?
       flash[:error] = "Syötä uusi salasana"
       render :edit
@@ -53,6 +54,7 @@ class ResetPasswordsController < ApplicationController
         render :edit
       end
     else
+      @hash_ok = false
       flash[:error] = "Käyttäjää ei löytynyt"
       render :edit
     end

@@ -1,7 +1,7 @@
 <h1>Uuden salasanan asetus</h1>
 <%= flash_error %>
 <%= flash_notice %>
-<% if @flash_ok %>
+<% if @hash_ok %>
   <%= form_tag(reset_password_path, :method => :put) do %>
     <%= hidden_field_tag :reset_hash, @reset_hash %>
     <dl>
