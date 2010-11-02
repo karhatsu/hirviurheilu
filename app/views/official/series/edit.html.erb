@@ -60,4 +60,4 @@
   <%= render :partial => 'competitors_table', :locals => { :series => @series } %>
 <% end %>
 <hr/>
-<%= link_to "Takaisin toimitsijan etusivulle", official_root_path %>
+<%= link_to "Takaisin kilpailun etusivulle", official_race_path(@series.race) %>
