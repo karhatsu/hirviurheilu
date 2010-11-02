@@ -14,7 +14,7 @@
   <%= form_for [:official, @series] do |f| %>
     <%= render :partial => 'official/series/form_basic_fields', :locals => { :f => f,
       :race => @series.race } %>
-    <%= submit_tag "Päivitä sarjan asetukset" %>
+    <%= submit_tag "Tallenna muutokset sarjan asetuksiin" %>
   <% end %>
 </div>
 <% unless @series.competitors.empty? %>
