@@ -13,6 +13,7 @@ ElkSports::Application.routes.draw do
   resource :reset_password
 
   resource :info
+  resources :feedbacks
 
   match 'series/:series_id/start_list' => 'start_lists#show', :as => :start_list
   match 'change_series' => 'series#change_series', :as => :change_series

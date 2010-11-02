@@ -1,0 +1,13 @@
+<h1>Lähetä palautetta</h1>
+<%= flash_error %>
+<%= form_tag(feedbacks_path) do %>
+  <%= label_tag :comment, 'Palaute' %><br/>
+  <%= text_area_tag :comment, @comment, :cols => 60, :rows => 8 %><br/>
+  <%= label_tag :name, 'Nimi' %>
+  <%= text_field_tag :name, @name %><br/>
+  <%= label_tag :email, 'Sähköposti' %>
+  <%= text_field_tag :email, @email %><br/>
+  <%= label_tag :tel, 'Puhelin' %>
+  <%= text_field_tag :tel, @tel %><br/>
+  <%= submit_tag 'Lähetä' %>
+<% end %>

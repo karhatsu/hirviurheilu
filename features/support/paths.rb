@@ -53,6 +53,9 @@ module NavigationHelpers
     when /the admin index page/
       admin_root_path
 
+    when /the send feedback page/
+      new_feedback_path
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

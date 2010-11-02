@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
+ADMIN_EMAIL = ["com", ".", "karhatsu", "@", "henri"].reverse.join('')
+
 module ElkSports
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
