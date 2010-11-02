@@ -6,7 +6,8 @@
   <div id="existing_races">
     <h2>Valitse kilpailu</h2>
     <% @races.each do |r| %>
-      <%= link_to r.name, official_race_path(r) %><br/>
+      <%= link_to r.name, official_race_path(r) %> (<%= race_date_interval(r) %>,
+      <%= r.location %>)<br/>
     <% end %>
   </div>
   <h2 id="new_race">Tai</h2>
