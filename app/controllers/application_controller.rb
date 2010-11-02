@@ -3,10 +3,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user, :official_rights
   before_filter :set_competitions
 
-  ActiveScaffold.set_defaults do |config|
-    config.ignore_columns.add [:created_at, :updated_at, :lock_version]
-  end
-
   private
   def official_rights
     current_user and (current_user.official? or current_user.admin?)
