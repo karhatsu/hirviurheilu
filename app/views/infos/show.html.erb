@@ -1,11 +1,7 @@
 <%= content_for(:title, "Hirviurheilu - Info") %>
 <h1><%= yield :title %></h1>
 <h2>Ota yhteyttä</h2>
-<%= link_to "Lähetä palautetta järjestelmän kautta", new_feedback_path %><br/>
-<br/>
-Tai ole suoraan yhteydessä järjestelmän tekijään:<br/>
-Henri Karhatsu IT Consulting -
-<a href="http://www.karhatsu.com" target="_blank">www.karhatsu.com</a>
+<%= link_to "Lähetä palautetta järjestelmän kautta", new_feedback_path %>
 
 <h2>Kysymyksiä ja vastauksia</h2>
 
@@ -91,6 +87,8 @@ hallintaan. Alla olevat kilpailumuodot tullaan tekemään tarpeen mukaan:
 </ul>
 Voit myös itse <%= link_to "ehdottaa uusia ominaisuuksia", new_feedback_path %>
   palveluun yllä olevan linkin kautta.
+
+<%= render :partial => 'shared/company_contact' %>
 
 <script type="text/javascript">
   $(".question").next().hide();

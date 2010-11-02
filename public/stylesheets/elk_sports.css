@@ -255,3 +255,18 @@ div.instructions {
 .series_best_time {
     font-weight: bold;
 }
+
+#company_contact {
+    position: absolute;
+    left: 600px;
+    top: 70px;
+    text-align: center;
+    border: 1px solid olive;
+    padding: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+#company_contact .title {
+    font-weight: bold;
+}
