@@ -1,5 +1,5 @@
-<%= content_for(:title, "#{@series.race.name} - #{@series.name} - uusi kilpailija") %>
-<h1><%= yield :title %></h1>
+<%= content_for(:title, "#{@series.name} - uusi kilpailija") %>
+<h2><%= yield :title %></h2>
 <%= flash_notice %>
 <%= render :partial => "shared/form_errors", :locals => { :item => @competitor } %>
 <%= form_for([:official, @competitor.series, @competitor]) do |f| %>
