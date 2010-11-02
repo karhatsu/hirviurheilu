@@ -2,18 +2,18 @@
 <h1><%= image_tag "ski_icon.gif" %> <%= yield :title %> <%= image_tag "run_icon.gif" %></h1>
 
 <% unless @ongoing.empty? %>
-  <div class="ongoing_races">
+  <div class="races_box ongoing_races">
     <h2>Menossa olevat kilpailut</h2>
     <%= render :partial => "race_list", :locals => { :races => @ongoing } %>
   </div>
 <% end %>
 
-<div class="future_races">
+<div class="races_box future_races">
   <h2>Tulevat kilpailut</h2>
   <%= render :partial => "race_list", :locals => { :races => @future } %>
 </div>
 
-<div class="old_races">
+<div class="races_box old_races">
   <h2>Päättyneet kilpailut</h2>
   <%= render :partial => "race_list", :locals => { :races => @past } %>
 </div>
