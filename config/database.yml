@@ -1,8 +1,10 @@
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
+  adapter: postgresql
+  database: elk_sports
+  username: elk_sports
+  password: elk_sports
+  encoding: unicode
   pool: 5
-  timeout: 5000
 
 test: &test
   adapter: sqlite3
