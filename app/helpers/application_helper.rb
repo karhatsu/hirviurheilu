@@ -184,4 +184,8 @@ module ApplicationHelper
     end
   end
 
+  def yes_or_empty(boolean, value=nil)
+    boolean ? image_tag('icon_yes.gif', :title => value) : raw('&nbsp;')
+  end
+
 end

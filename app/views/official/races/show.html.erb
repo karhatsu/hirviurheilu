@@ -28,18 +28,31 @@
   <% end %>
   <table cellpadding="3" cellspacing="0" border="1">
     <tr>
+      <th>&nbsp;</th>
+      <th colspan="4">Tiedot syötetty?</th>
+      <th>&nbsp;</th>
+      <th colspan="2">Toiminnot</th>
+    </tr>
+    <tr>
       <th>Sarja</th>
-      <th>Kilpailijoita</th>
       <th>Lähtöaika</th>
-      <th>Toiminnot</th>
+      <th>1. nro</th>
+      <th>Arvio 1</th>
+      <th>Arvio 2</th>
+      <th>Kilpailijoita</th>
+      <th>Muokkaa asetuksia</th>
+      <th>Lisää kilpailija</th>
     </tr>
     <% @race.series.each do |s| %>
       <tr>
         <td><%= s.name %></td>
+        <td class="center"><%= yes_or_empty(s.start_time, time_print(s.start_time)) %></td>
+        <td class="center"><%= yes_or_empty(s.first_number, s.first_number) %></td>
+        <td class="center"><%= yes_or_empty(s.correct_estimate1, s.correct_estimate1) %></td>
+        <td class="center"><%= yes_or_empty(s.correct_estimate2, s.correct_estimate2) %></td>
         <td class="center"><%= s.competitors.count %></td>
-        <td class="center"><%= s.start_time ? time_print(s.start_time) : "-" %></td>
-        <td><%= link_to "Muokkaa asetuksia, lisää kilpailijoita, syötä tulostietoja",
-            edit_official_series_path(s) %></td>
+        <td><%= link_to "Muokkaa asetuksia", edit_official_series_path(s) %></td>
+        <td><%= link_to "Lisää kilpailija", new_official_series_competitor_path(s) %></td>
       </tr>
     <% end %>
   </table>
