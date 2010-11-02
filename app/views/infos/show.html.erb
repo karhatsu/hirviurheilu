@@ -1,6 +1,9 @@
 <%= content_for(:title, "Hirviurheilu - Info") %>
 <h1><%= yield :title %></h1>
 <h2>Ota yhteyttä</h2>
+<%= link_to "Lähetä palautetta järjestelmän kautta", new_feedback_path %><br/>
+<br/>
+Tai ole suoraan yhteydessä järjestelmän tekijään:<br/>
 Henri Karhatsu IT Consulting -
 <a href="http://www.karhatsu.com" target="_blank">www.karhatsu.com</a>
 
@@ -69,13 +72,12 @@ Henri Karhatsu IT Consulting -
 
 <div class="question">Mitä voin tehdä, jos palveluun tarvittaisiin mielestäni
   ehdottomasti uusi ominaisuus?</div>
-<div class="answer"><a href="http://www.karhatsu.com" target="_blank">Ota
-    rohkeasti yhteyttä</a> ja kerro ideasi!</div>
+<div class="answer"><%= link_to "Ota rohkeasti yhteyttä", new_feedback_path %> ja kerro ideasi!</div>
 
 <div class="question">Kuinka paljon palvelun käyttö maksaa?</div>
 <div class="answer">Tarkkaa hinnoittelua ei ole vielä päätetty. Todennäköinen
   vaihtoehto tulee olemaan kilpailijoiden määrään perustuva hinnoittelu.
-  <a href="http://www.karhatsu.com" target="_blank">Ota yhteyttä</a>,
+  <%= link_to "Ota yhteyttä", new_feedback_path %>,
   niin keskustellaan asiasta lisää!</div>
 
 <h2>Kilpailumuodot</h2>
@@ -87,8 +89,8 @@ hallintaan. Alla olevat kilpailumuodot tullaan tekemään tarpeen mukaan:
   <li>Joukkuekilpailu ja viesti (rakennetaan mikäli palvelua tullaan käyttämään
     SM- tai piiritasolla)</li>
 </ul>
-Voit myös itse <a href="http://www.karhatsu.com" target="_blank">ehdottaa uusia
-  ominaisuuksia</a> palveluun yllä olevan linkin kautta.
+Voit myös itse <%= link_to "ehdottaa uusia ominaisuuksia", new_feedback_path %>
+  palveluun yllä olevan linkin kautta.
 
 <script type="text/javascript">
   $(".question").next().hide();
