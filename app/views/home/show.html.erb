@@ -19,16 +19,18 @@
 </div>
 
 <% unless current_user %>
-  <div class="commercial_box registration_commercial">
-    Oletko järjestämässä hirvenhiihdon tai hirvenjuoksun kilpailua?
-    <div class="commercial_box_link">
-      <%= link_to "Aloita tästä.", register_path %>
+  <div class="commercial_column">
+    <div class="commercial_box">
+      Oletko järjestämässä hirvenhiihdon tai hirvenjuoksun kilpailua?
+      <div class="commercial_box_link">
+        <%= link_to "Aloita tästä.", register_path %>
+      </div>
     </div>
-  </div>
-  <div class="commercial_box login_commercial">
-    Onko sinulla jo tunnukset?
-    <div class="commercial_box_link">
-      <%= link_to "Kirjaudu sisään.", login_path %>
+    <div class="commercial_box">
+      Onko sinulla jo tunnukset?
+      <div class="commercial_box_link">
+        <%= link_to "Kirjaudu sisään.", login_path %>
+      </div>
     </div>
   </div>
 <% end %>
