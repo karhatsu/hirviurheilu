@@ -42,6 +42,7 @@
     </script>
     <br/>
   <% else %>
+    <%= submit_tag submit_label %>
     <h2>Sarjat</h2>
     <%= f.fields_for :series do |series_form| %>
       <%= render :partial => "series", :locals => { :f => series_form } %>
