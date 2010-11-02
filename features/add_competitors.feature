@@ -22,8 +22,7 @@ Feature: Add competitors
     And the race has a club "Sports club"
     And I have logged in
     And I am on the official race page of "Test race"
-    When I follow "Muokkaa asetuksia, lisää kilpailijoita, syötä tulostietoja"
-    And I follow "Lisää uusi kilpailija"
+    When I follow "Lisää kilpailija"
     And I fill in the following:
       | Etunimi | Tom |
       | Sukunimi | Stevensson |
