@@ -539,20 +539,57 @@ describe Competitor do
   end
 
   describe "#finished?" do
-    it "should return true when competitor has points" do
-      c = Factory.build(:competitor, :no_result_reason => nil)
-      c.should_receive(:points).and_return(1000)
-      c.should be_finished
+    context "when competitor has some 'no result reason'" do
+      it "should return true" do
+        c = Factory.build(:competitor, :no_result_reason => Competitor::DNS)
+        c.should be_finished
+      end
     end
 
-    it "should return true when competitor has 'no result reason'" do
-      c = Factory.build(:competitor, :no_result_reason => Competitor::DNS)
-      c.should be_finished
-    end
+    context "when competitor has no 'no result reason'" do
+      before do
+        # no need to have correct estimate
+        series = Factory.build(:series, :correct_estimate1 = nil)
+        @competitor = Factory.build(:competitor, :no_result_reason => nil,
+          :series => series)
+        @competitor.start_time = '11:10'
+        @competitor.arrival_time = '11:20'
+        @competitor.shots_total_input = 90
+        @competitor.estimate1 = 100
+        @competitor.estimate2 = 110
+      end
 
-    it "should return false when competitor has no points nor 'no result reason'" do
-      c = Factory.build(:competitor, :no_result_reason => nil)
-      c.should_not be_finished
+      context "when competitor has shots and arrival time" do
+        context "when competitor has both estimates" do
+          it "should return true" do
+            @competitor.should be_finished
+          end
+        end
+
+        context "when either estimate is missing" do
+          it "should return false" do
+            @competitor.estimate2 = nil
+            @competitor.should_not be_finished
+            @competitor.estimate1 = nil
+            @competitor.estimate2 = 110
+            @competitor.should_not be_finished
+          end
+        end
+      end
+
+      context "when shots result is missing" do
+        it "should return false" do
+          @competitor.shots_total_input = nil
+          @competitor.should_not be_finished
+        end
+      end
+
+      context "when time result is missing" do
+        it "should return false" do
+          @competitor.arrival_time = nil
+          @competitor.should_not be_finished
+        end
+      end
     end
   end
 

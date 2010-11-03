@@ -114,7 +114,8 @@ class Competitor < ActiveRecord::Base
   end
 
   def finished?
-    no_result_reason or points
+    no_result_reason or
+      (start_time and arrival_time and shots_sum and estimate1 and estimate2)
   end
 
   def next_competitor
