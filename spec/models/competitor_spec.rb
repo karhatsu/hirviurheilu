@@ -549,7 +549,7 @@ describe Competitor do
     context "when competitor has no 'no result reason'" do
       before do
         # no need to have correct estimate
-        series = Factory.build(:series, :correct_estimate1 = nil)
+        series = Factory.build(:series, :correct_estimate1 => nil)
         @competitor = Factory.build(:competitor, :no_result_reason => nil,
           :series => series)
         @competitor.start_time = '11:10'
