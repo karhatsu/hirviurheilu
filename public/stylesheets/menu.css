@@ -16,7 +16,7 @@ div.race_title {
 }
 
 div.race_title_with_series {
-    width: 1093px;
+    width: 1104px;
 }
 
 div.race_title span.sport_icon {
@@ -90,6 +90,10 @@ div.sub_menu ul li a {
     display: block;
     width: 100px;
     padding: 4px;
+}
+
+div.sub_menu_right ul li a {
+    width: 110px;
 }
 
 div.menu ul li a:visited {

@@ -176,11 +176,13 @@ module ApplicationHelper
     image_tag "#{sport.key.downcase}_icon.gif"
   end
 
-  def menu_item(title, link, selected)
+  def menu_item(title, link, selected, truncate_length=nil)
+    a_title = (truncate_length ? title : nil)
+    title = truncate(title, :length => truncate_length) if truncate_length
     if selected
-      raw("<li>#{link_to(title, link, :class => 'selected')}</li>")
+      raw("<li>#{link_to(title, link, :class => 'selected', :title => a_title)}</li>")
     else
-      raw("<li>#{link_to(title, link)}</li>")
+      raw("<li>#{link_to(title, link, :title => a_title)}</li>")
     end
   end
 
