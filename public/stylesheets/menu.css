@@ -15,6 +15,10 @@ div.race_title {
     -o-border-radius: 8px;
 }
 
+div.race_title_with_series {
+    width: 1093px;
+}
+
 div.race_title span.sport_icon {
     position: absolute;
     top: 3px;
@@ -27,11 +31,20 @@ div.menu {
 }
 
 div.sub_menu {
-    position: absolute;
-    top: 64px;
     width: 130px;
     margin: 0px;
     margin-left: 4px;
+}
+
+div.sub_menu_left {
+    position: absolute;
+    top: 64px;
+}
+
+div.sub_menu_right {
+    position: absolute;
+    top: 25px;
+    left: 895px;
 }
 
 div.menu ul {

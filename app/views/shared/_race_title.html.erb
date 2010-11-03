@@ -1,4 +1,4 @@
-<div class="race_title">
+<div class="race_title<%= show_series ? ' race_title_with_series' : '' %>">
   <span class="sport_icon"><%= sport_icon(race.sport) %></span>
   <%= race.name %> (<%= race.location %>, <%= race_date_interval(race) %>)
 </div>

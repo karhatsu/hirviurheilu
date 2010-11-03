@@ -1,19 +1,22 @@
 <%
 menu_race, menu_series = nil, nil
+show_series = false
 if @race and not @race.new_record?
   menu_race = @race
   menu_series = @race.series.first
 elsif @series
   menu_race = @series.race
   menu_series = @series
+  show_series = true
 elsif @competitor
   menu_race = @competitor.series.race
   menu_series = @competitor.series
 end
 %>
 <% if menu_race %>
-  <%= render :partial => 'shared/race_title', :locals => { :race => menu_race } %>
-  <div class="menu sub_menu">
+  <%= render :partial => 'shared/race_title', :locals => { :race => menu_race,
+    :show_series => show_series } %>
+  <div class="menu sub_menu sub_menu_left">
     <ul>
       <%= menu_item "Kilpailun etusivu", official_race_path(menu_race), @is_race %>
       <%= menu_item "Kilpailu & sarjat", edit_official_race_path(menu_race), @is_race_edit %>
