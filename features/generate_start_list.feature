@@ -41,6 +41,9 @@ Feature: Generate start list
     And I should see "Bears Peter" within "tr#competitor_2"
     And I should see "16" within "tr#competitor_2"
     And I should see "13:45:45" within "tr#competitor_2"
+    When I follow "Kilpailijat"
+    Then I should not see "Kun olet syöttänyt sarjaan kaikki kilpailijat, lisää heille alla olevan linkin avulla lähtöajat- ja numerot."
+    And I should not see "Lähtöaikojen ja -numeroiden luonti..."
 
   Scenario: No competitors added yet
     Given I am an official
