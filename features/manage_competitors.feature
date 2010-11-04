@@ -78,3 +78,12 @@ Feature: Manage competitors
     Then I should see "Saapumisaika"
     And I should see "Ammunta yhteensä"
     And I should see "Arvio 1"
+    When I fill in "95" for "Ammunta yhteensä"
+    And I fill in "11" for "competitor_arrival_time_4i"
+    And I fill in "35" for "competitor_arrival_time_5i"
+    And I fill in "23" for "competitor_arrival_time_6i"
+    And I fill in "120" for "Arvio 1"
+    And I fill in "100" for "Arvio 2"
+    And I press "Tallenna ja palaa listaan"
+    Then I should be on the official competitors page of the series
+    And I should see "" within "tr#competitor_1 img"
