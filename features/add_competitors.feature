@@ -44,5 +44,8 @@ Feature: Add competitors
     And I should see "Shooting club"
     And I should see "Heyton Math"
     And I should see "Sports club"
+    And I should see "Kun olet syöttänyt sarjaan kaikki kilpailijat, lisää heille alla olevan linkin avulla lähtöajat- ja numerot." within "div.notice"
+    When I follow "Lähtöaikojen ja -numeroiden luonti..."
+    Then I should be on the official start list page of the series
     When I go to the official race page of "Test race"
     Then I should not see "Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa."
