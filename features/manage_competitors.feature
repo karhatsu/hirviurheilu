@@ -1,7 +1,7 @@
-Feature: Add competitors
+Feature: Manage competitors
   In order to be able to create start lists for my race
   As an official
-  I want to add competitors
+  I want to add and edit competitors
 
   Scenario: When race has series but no competitors
     Given I am an official
