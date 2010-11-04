@@ -35,24 +35,11 @@ describe Competitor do
     end
 
     describe "shots_total_input" do
-      it "can be nil" do
-        Factory.build(:competitor, :shots_total_input => nil).should be_valid
-      end
-
-      it "should be integer" do
-        Factory.build(:competitor, :shots_total_input => 1.1).
-          should have(1).errors_on(:shots_total_input)
-      end
-
-      it "should be non-negative" do
-        Factory.build(:competitor, :shots_total_input => -1).
-          should have(1).errors_on(:shots_total_input)
-      end
-
-      it "should be at maximum 100" do
-        Factory.build(:competitor, :shots_total_input => 101).
-          should have(1).errors_on(:shots_total_input)
-      end
+      it { should allow_value(nil).for(:shots_total_input) }
+      it { should_not allow_value(1.1).for(:shots_total_input) }
+      it { should_not allow_value(-1).for(:shots_total_input) }
+      it { should allow_value(100).for(:shots_total_input) }
+      it { should_not allow_value(101).for(:shots_total_input) }
 
       it "cannot be given if also individual shots have been defined" do
         comp = Factory.build(:competitor, :shots_total_input => 50)
@@ -81,57 +68,42 @@ describe Competitor do
     end
 
     describe "estimate1" do
-      it "can be nil" do
-        Factory.build(:competitor, :estimate1 => nil).should be_valid
-      end
-
-      it "should be integer" do
-        Factory.build(:competitor, :estimate1 => 1.1).
-          should have(1).errors_on(:estimate1)
-      end
-
-      it "should be positive" do
-        Factory.build(:competitor, :estimate1 => -1).should have(1).errors_on(:estimate1)
-        Factory.build(:competitor, :estimate1 => 0).should have(1).errors_on(:estimate1)
-        Factory.build(:competitor, :estimate1 => 1).should be_valid
-      end
+      it { should allow_value(nil).for(:estimate1) }
+      it { should_not allow_value(1.1).for(:estimate1) }
+      it { should_not allow_value(-1).for(:estimate1) }
+      it { should_not allow_value(0).for(:estimate1) }
+      it { should allow_value(1).for(:estimate1) }
     end
 
     describe "estimate2" do
-      it "can be nil" do
-        Factory.build(:competitor, :estimate2 => nil).should be_valid
-      end
-
-      it "should be integer" do
-        Factory.build(:competitor, :estimate2 => 1.1).
-          should have(1).errors_on(:estimate2)
-      end
-
-      it "should be positive" do
-        Factory.build(:competitor, :estimate2 => -1).should have(1).errors_on(:estimate2)
-        Factory.build(:competitor, :estimate2 => 0).should have(1).errors_on(:estimate2)
-        Factory.build(:competitor, :estimate2 => 1).should be_valid
-      end
+      it { should allow_value(nil).for(:estimate2) }
+      it { should_not allow_value(1.1).for(:estimate2) }
+      it { should_not allow_value(-1).for(:estimate2) }
+      it { should_not allow_value(0).for(:estimate2) }
+      it { should allow_value(1).for(:estimate2) }
     end
 
     describe "arrival_time" do
-      it "can be nil" do
-        Factory.build(:competitor, :arrival_time => nil).should be_valid
-      end
+      it { should allow_value(nil).for(:arrival_time) }
 
       it "can be nil even when start time is not nil" do
         Factory.build(:competitor, :start_time => '14:00', :arrival_time => nil).
           should be_valid
       end
 
-      it "is valid when at least same as start time" do
-        Factory.build(:competitor, :start_time => '14:00', :arrival_time => '14:00').
-          should be_valid
-      end
-
-      it "should not be before competitor's start time" do
+      it "should not be before start time" do
         Factory.build(:competitor, :start_time => '14:00', :arrival_time => '13:59').
           should have(1).errors_on(:arrival_time)
+      end
+
+      it "should not be same as start time" do
+        Factory.build(:competitor, :start_time => '14:00', :arrival_time => '14:00').
+          should have(1).errors_on(:arrival_time)
+      end
+
+      it "is valid when later than start time" do
+        Factory.build(:competitor, :start_time => '14:00', :arrival_time => '14:01').
+          should be_valid
       end
 
       it "cannot be given if no start time" do
@@ -141,28 +113,16 @@ describe Competitor do
     end
 
     describe "no_result_reason" do
-      it "can be nil" do
-        Factory.build(:competitor, :no_result_reason => nil).should be_valid
-      end
-
-      it "can be DNS" do
-        Factory.build(:competitor, :no_result_reason => Competitor::DNS).should be_valid
-      end
-
-      it "can be DNF" do
-        Factory.build(:competitor, :no_result_reason => Competitor::DNF).should be_valid
-      end
+      it { should allow_value(nil).for(:no_result_reason) }
+      it { should allow_value(Competitor::DNS).for(:no_result_reason) }
+      it { should allow_value(Competitor::DNF).for(:no_result_reason) }
+      it { should_not allow_value('test').for(:no_result_reason) }
 
       it "converts empty string to nil" do
         comp = Factory.build(:competitor, :no_result_reason => '')
         comp.should be_valid
         comp.save!
         comp.no_result_reason.should == nil
-      end
-
-      it "cannot be anything else" do
-        Factory.build(:competitor, :no_result_reason => "test").
-          should have(1).errors_on(:no_result_reason)
       end
     end
   end

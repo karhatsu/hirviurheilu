@@ -148,8 +148,8 @@ class Competitor < ActiveRecord::Base
         'Kilpailijalla ei voi olla saapumisaikaa, jos hänellä ei ole lähtöaikaa')
       return
     end
-    if arrival_time and start_time > arrival_time
-      errors.add(:arrival_time, "ei voi olla ennen lähtöaikaa")
+    if arrival_time and start_time >= arrival_time
+      errors.add(:arrival_time, "pitää olla lähtöajan jälkeen")
     end
   end
 
