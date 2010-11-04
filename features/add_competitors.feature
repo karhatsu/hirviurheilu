@@ -68,11 +68,13 @@ Feature: Add competitors
     Then I should not see "Saapumisaika"
     And I should not see "Ammunta yhteensä"
     And I should not see "Arvio 1"
+    When I fill in "Peter" for "Etunimi"
+    And I fill in "Ford" for "Sukunimi"
+    And I press "Tallenna ja palaa listaan"
+    Then I should be on the official competitors page of the series
+    And I should see "Ford Peter" within "tr#competitor_1"
     When the start list has been generated for the series
-#And I go to the official start list page of the series
-#Then show me the page
-    And I go to the official competitors page of the series
-    And I follow "Johnson James"
+    And I follow "Ford Peter"
     Then I should see "Saapumisaika"
     And I should see "Ammunta yhteensä"
     And I should see "Arvio 1"

@@ -29,12 +29,13 @@
     <%= f.radio_button :no_result_reason, Competitor::DNF %>Keskeytys (DNF)
     <hr/>
   <% else %>
+    <%= hidden_field_tag :no_times, true %>
     <br/>
   <% end %>
   <%= submit_tag "Tallenna ja edellinen", :name => 'previous' %>
   <%= submit_tag "Tallenna ja palaa listaan" %>
   <%= submit_tag "Tallenna ja seuraava", :name => 'next' %>
 <% end %>
-<br/>
+<hr/>
 <%= link_to "Takaisin sarjan #{@series.name} kilpailijaluetteloon",
   official_series_competitors_path(@series) %>
