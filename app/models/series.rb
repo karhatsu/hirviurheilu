@@ -57,6 +57,18 @@ class Series < ActiveRecord::Base
     nil
   end
 
+  def generate_start_list
+    return false unless generate_numbers
+    return false unless generate_start_times
+    self.has_start_list = true
+    save!
+  end
+
+  def generate_start_list!
+    generate_numbers!
+    generate_start_times!
+  end
+
   def generate_numbers
     failure = false
     error_start = 'Numeroita ei voi generoida'

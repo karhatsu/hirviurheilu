@@ -402,6 +402,51 @@ describe Series do
     end
   end
 
+  describe "#generate_start_list" do
+    before do
+      @series = Factory.build(:series)
+    end
+
+    context "when generation succeeds" do
+      it "should call generate_numbers and generate_start_times" do
+        @series.should_receive(:generate_numbers).and_return(true)
+        @series.should_receive(:generate_start_times).and_return(true)
+        @series.generate_start_list.should be_true
+        @series.should have_start_list
+      end
+    end
+
+    context "when number generation fails" do
+      it "should not generate start times, should return false and have no start list" do
+        @series.should_receive(:generate_numbers).and_return(false)
+        @series.should_not_receive(:generate_start_times)
+        @series.generate_start_list.should be_false
+        @series.should_not have_start_list
+      end
+    end
+
+    context "when start number generation fails" do
+      it "should return false and have no start list" do
+        @series.should_receive(:generate_numbers).and_return(true)
+        @series.should_receive(:generate_start_times).and_return(false)
+        @series.generate_start_list.should be_false
+        @series.should_not have_start_list
+      end
+    end
+  end
+
+  describe "#generate_start_list!" do
+    before do
+      @series = Factory.build(:series)
+    end
+
+    it "should call generate_numbers! and generate_start_times!" do
+      @series.should_receive(:generate_numbers!)
+      @series.should_receive(:generate_start_times!)
+      @series.generate_start_list!
+    end
+  end
+
   describe "#running?" do
     it "should be false when start time not defined yet" do
       series = Factory.build(:series, :start_time => nil)
