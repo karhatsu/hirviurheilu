@@ -67,6 +67,8 @@ class Series < ActiveRecord::Base
   def generate_start_list!
     generate_numbers!
     generate_start_times!
+    self.has_start_list = true
+    save!
   end
 
   def generate_numbers

@@ -403,7 +403,7 @@ describe Series do
 
   describe "#generate_start_list" do
     before do
-      @series = Factory.build(:series)
+      @series = Factory.create(:series)
     end
 
     context "when generation succeeds" do
@@ -411,6 +411,7 @@ describe Series do
         @series.should_receive(:generate_numbers).and_return(true)
         @series.should_receive(:generate_start_times).and_return(true)
         @series.generate_start_list.should be_true
+        @series.reload
         @series.should have_start_list
       end
     end
@@ -420,6 +421,7 @@ describe Series do
         @series.should_receive(:generate_numbers).and_return(false)
         @series.should_not_receive(:generate_start_times)
         @series.generate_start_list.should be_false
+        @series.reload
         @series.should_not have_start_list
       end
     end
@@ -429,6 +431,7 @@ describe Series do
         @series.should_receive(:generate_numbers).and_return(true)
         @series.should_receive(:generate_start_times).and_return(false)
         @series.generate_start_list.should be_false
+        @series.reload
         @series.should_not have_start_list
       end
     end
@@ -436,13 +439,17 @@ describe Series do
 
   describe "#generate_start_list!" do
     before do
-      @series = Factory.build(:series)
+      @series = Factory.create(:series)
     end
 
-    it "should call generate_numbers! and generate_start_times!" do
-      @series.should_receive(:generate_numbers!)
-      @series.should_receive(:generate_start_times!)
-      @series.generate_start_list!
+    context "when generation succeeds" do
+      it "should set has_start_list to true and return true" do
+        @series.should_receive(:generate_numbers!)
+        @series.should_receive(:generate_start_times!)
+        @series.generate_start_list!.should be_true
+        @series.reload
+        @series.should have_start_list
+      end
     end
   end
 
