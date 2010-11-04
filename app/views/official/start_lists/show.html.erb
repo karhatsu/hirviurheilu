@@ -18,6 +18,9 @@
       sinun täytyy asettaa heille lähtönumero ja lähtöaika erikseen.
       Voit tehdä tämän samalla, kun lisäät uuden kilpailijan.
     </div>
+    <%= link_to "Lataa lähtölista pdf-tiedostona", series_start_list_path(@series,
+      :format => 'pdf') %>
+    <hr/>
   <% else %>
     <div class="instructions">
       Kun olet lisännyt kaikki kilpailijat, voit tällä sivulla luoda kilpailijoista lähtöluettelon.
