@@ -3,7 +3,7 @@ menu_race, menu_series = nil, nil
 show_series = false
 if @race and not @race.new_record?
   menu_race = @race
-  menu_series = @race.series.first
+  #menu_series = @race.series.first
 elsif @series
   menu_race = @series.race
   menu_series = @series
