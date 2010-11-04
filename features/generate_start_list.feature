@@ -19,7 +19,7 @@ Feature: Generate start list
       | last_name | Bears |
     And I have logged in
     And I am on the official race page of "Test race"
-    When I follow "Lähtölistat"
+    When I follow "Tee lista"
     Then I should see "Test series - Lähtölista" within "h2"
     And I should see "Kun olet lisännyt kaikki kilpailijat, voit tällä sivulla luoda kilpailijoista lähtöluettelon." within "div.instructions"
     And I should see "Kilpailijat" within "div.main h3"
@@ -51,8 +51,7 @@ Feature: Generate start list
     And the race has series with attributes:
       | name | Test series |
     And I have logged in
-    And I am on the official race page of "Test race"
-    When I follow "Lähtölistat"
+    When I go to the official start list page of the series
     Then I should see "Tässä sarjassa ei ole vielä yhtään kilpailijaa. Kun olet lisännyt sarjaan kilpailijat, voit tällä sivulla luoda heille lähtölistan."
     But I should not see "Sarjan ensimmäinen numero"
     And I should not see "Sarjan lähtöaika"
@@ -74,7 +73,7 @@ Feature: Generate start list
       | last_name | Bears |
     And I have logged in
     And I am on the official race page of "Test race"
-    When I follow "Lähtölistat"
+    When I follow "Tee lista"
     And I fill in "-1" for "Sarjan ensimmäinen numero"
     And I press "Luo lähtölista sarjalle"
     Then I should see "Sarjan ensimmäinen numero täytyy olla suurempi kuin 0" within "div.error_explanation"
@@ -96,7 +95,7 @@ Feature: Generate start list
       | last_name | Bears |
     And I have logged in
     And I am on the official race page of "Test race"
-    When I follow "Lähtölistat"
+    When I follow "Tee lista"
     And I fill in "" for "Sarjan ensimmäinen numero"
     And I press "Luo lähtölista sarjalle"
     Then I should see "Numeroita ei voi generoida, sillä sarjan ensimmäistä numeroa ei ole määritetty" within "div.error_explanation"
