@@ -49,3 +49,30 @@ Feature: Add competitors
     Then I should be on the official start list page of the series
     When I go to the official race page of "Test race"
     Then I should not see "Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa."
+
+  Scenario: Edit competitor before and after start list is created
+    Given I am an official
+    And I have a race with attributes:
+      | name | Test race |
+      | start_date | 2010-11-23 |
+    And the race has series with attributes:
+      | name | Test series |
+      | first_number | 10 |
+      | start_time | 2010-11-23 11:00 |
+    And the series has a competitor with attributes:
+      | first_name | James |
+      | last_name | Johnson |
+    And I have logged in
+    When I go to the official competitors page of the series
+    And I follow "Johnson James"
+    Then I should not see "Saapumisaika"
+    And I should not see "Ammunta yhteensä"
+    And I should not see "Arvio 1"
+    When the start list has been generated for the series
+#And I go to the official start list page of the series
+#Then show me the page
+    And I go to the official competitors page of the series
+    And I follow "Johnson James"
+    Then I should see "Saapumisaika"
+    And I should see "Ammunta yhteensä"
+    And I should see "Arvio 1"

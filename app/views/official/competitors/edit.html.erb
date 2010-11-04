@@ -3,30 +3,34 @@
 <%= render :partial => "shared/form_errors", :locals => { :item => @competitor } %>
 <%= form_for([:official, @competitor.series, @competitor]) do |f| %>
   <%= render :partial => "basic_fields", :locals => { :f => f } %>
-  <hr/>
-  <%= f.label :number %>
-  <%= f.text_field :number, :size => 3 %>
-  <%= f.label :start_time %>
-  <%= f.time_text_field :start_time, :include_seconds => true, :blank => true %>
-  <%= f.label :arrival_time %>
-  <%= f.time_text_field :arrival_time, :include_seconds => true, :blank => true %><br/>
-  <hr/>
-  <%= f.label :shots_total_input %>
-  <%= f.text_field :shots_total_input, :size => 5, :maxlength => 3 %>
-  (Syötä joko yhteistulos tai vain yksittäiset laukaukset.)<br/>
-  Yksittäiset laukaukset
-  <%= render :partial => 'official/shots/individual_shots', :locals => { :f => f,
-    :competitor => @competitor } %>
-  <hr/>
-  <%= f.label :estimate1 %>
-  <%= f.text_field :estimate1, :size => 5, :maxlength => 3 %>
-  <%= f.label :estimate2 %>
-  <%= f.text_field :estimate2, :size => 5, :maxlength => 3 %><br/>
-  <hr/>
-  <%= f.radio_button :no_result_reason, '' %>Normaali
-  <%= f.radio_button :no_result_reason, Competitor::DNS %>Ei lähtenyt matkaan (DNS)
-  <%= f.radio_button :no_result_reason, Competitor::DNF %>Keskeytys (DNF)
-  <hr/>
+  <% if @series.has_start_list? %>
+    <hr/>
+    <%= f.label :number %>
+    <%= f.text_field :number, :size => 3 %>
+    <%= f.label :start_time %>
+    <%= f.time_text_field :start_time, :include_seconds => true, :blank => true %>
+    <%= f.label :arrival_time %>
+    <%= f.time_text_field :arrival_time, :include_seconds => true, :blank => true %><br/>
+    <hr/>
+    <%= f.label :shots_total_input %>
+    <%= f.text_field :shots_total_input, :size => 5, :maxlength => 3 %>
+    (Syötä joko yhteistulos tai vain yksittäiset laukaukset.)<br/>
+    Yksittäiset laukaukset
+    <%= render :partial => 'official/shots/individual_shots', :locals => { :f => f,
+      :competitor => @competitor } %>
+    <hr/>
+    <%= f.label :estimate1 %>
+    <%= f.text_field :estimate1, :size => 5, :maxlength => 3 %>
+    <%= f.label :estimate2 %>
+    <%= f.text_field :estimate2, :size => 5, :maxlength => 3 %><br/>
+    <hr/>
+    <%= f.radio_button :no_result_reason, '' %>Normaali
+    <%= f.radio_button :no_result_reason, Competitor::DNS %>Ei lähtenyt matkaan (DNS)
+    <%= f.radio_button :no_result_reason, Competitor::DNF %>Keskeytys (DNF)
+    <hr/>
+  <% else %>
+    <br/>
+  <% end %>
   <%= submit_tag "Tallenna ja edellinen", :name => 'previous' %>
   <%= submit_tag "Tallenna ja palaa listaan" %>
   <%= submit_tag "Tallenna ja seuraava", :name => 'next' %>
