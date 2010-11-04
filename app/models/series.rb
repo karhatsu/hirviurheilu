@@ -48,6 +48,15 @@ class Series < ActiveRecord::Base
     1
   end
 
+  def next_start_time
+    unless competitors.empty?
+      latest = competitors.last
+      return latest.start_time + race.start_interval_seconds if latest and latest.start_time
+    end
+    return start_time if start_time
+    nil
+  end
+
   def generate_numbers
     failure = false
     error_start = 'Numeroita ei voi generoida'

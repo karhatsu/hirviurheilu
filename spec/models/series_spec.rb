@@ -192,6 +192,41 @@ describe Series do
     end
   end
 
+  describe "#next_start_time" do
+    context "when no competitors" do
+      it "should be nil when start_time is nil" do
+        series = Factory.build(:series, :start_time => nil)
+        series.next_start_time.should be_nil
+      end
+
+      it "should be start_time when it is defined" do
+        series = Factory.build(:series, :start_time => '12:30')
+        series.next_start_time.should == series.start_time
+      end
+    end
+
+    context "when competitors" do
+      it "should be the start time of the latest competitor + race time interval" do
+        race = Factory.create(:race, :start_interval_seconds => 45)
+        series = Factory.create(:series, :race => race)
+        series.competitors << Factory.build(:competitor, :number => 15, :series => series)
+        series.competitors << Factory.build(:competitor, :number => 24, :series => series,
+          :start_time => '12:30:00')
+        series.competitors << Factory.build(:competitor, :number => 17, :series => series)
+        series.next_start_time.should == Factory.build(:competitor,
+          :start_time => '12:30:45').start_time
+      end
+
+      it "should be like no competitors when competitors have no start times yet" do
+        race = Factory.create(:race, :start_date => '2010-11-10')
+        series = Factory.create(:series, :race => race, :start_time => '2010-11-10 09:30')
+        series.competitors << Factory.build(:competitor, :start_time => nil, :series => series)
+        series.competitors << Factory.build(:competitor, :start_time => nil, :series => series)
+        series.next_start_time.should == series.start_time
+      end
+    end
+  end
+
   describe "#generate_numbers" do
     before do
       @race = Factory.create(:race)
