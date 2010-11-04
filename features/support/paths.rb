@@ -23,9 +23,6 @@ module NavigationHelpers
     when /the official race page of "(.*)"/
       official_race_path(Race.find_by_name($1))
 
-    when /the edit page of "(.*)"/
-      edit_official_series_path(Series.find_by_name($1))
-
     when /the new competitor page of the series/
       new_official_series_competitor_path(@series)
 
