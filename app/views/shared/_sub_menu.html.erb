@@ -7,7 +7,7 @@ if @race
 elsif @series
   menu_race = @series.race
   menu_series = @series
-  show_series = true
+  show_series = true unless @competitor
 elsif @competitor
   menu_race = @competitor.series.race
   menu_series = @competitor.series
