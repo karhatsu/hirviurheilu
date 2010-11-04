@@ -5,8 +5,7 @@ class Official::StartListsController < Official::OfficialController
   end
 
   def update
-    if @series.update_attributes(params[:series])
-      @series.generate_start_list
+    if @series.update_attributes(params[:series]) and @series.generate_start_list
       redirect_to official_series_start_list_path(@series)
     else
       render :show

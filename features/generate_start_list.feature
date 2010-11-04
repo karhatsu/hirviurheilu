@@ -77,4 +77,23 @@ Feature: Generate start list
     But I should not see "-1" within "tr#competitor_1"
 
   Scenario: Missing values for generation
-    #TODO
+    Given I am an official
+    And I have a race with attributes:
+      | name | Test race |
+      | start_date | 2010-11-15 |
+      | start_interval_seconds | 45 |
+    And the race has series with attributes:
+      | name | Test series |
+    And the series has a competitor with attributes:
+      | first_name | John |
+      | last_name | Stevensson |
+    And the series has a competitor with attributes:
+      | first_name | Peter |
+      | last_name | Bears |
+    And I have logged in
+    And I am on the official race page of "Test race"
+    When I follow "Lähtölistat"
+    And I fill in "" for "Sarjan ensimmäinen numero"
+    And I press "Luo lähtölista sarjalle"
+    Then I should see "Numeroita ei voi generoida, sillä sarjan ensimmäistä numeroa ei ole määritetty" within "div.error_explanation"
+    But I should not see "0" within "tr#competitor_1"

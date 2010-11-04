@@ -164,7 +164,7 @@ class Series < ActiveRecord::Base
     return unless start_time
     end_date = race.end_date ? race.end_date : end_date = race.start_date
     if start_time < race.start_date.beginning_of_day or start_time > end_date.end_of_day
-      errors.add(:start_time, "Aloitusajan pitää olla kilpailupäivien aikana")
+      errors.add(:start_time, "pitää olla kilpailupäivien aikana")
     end
   end
 
