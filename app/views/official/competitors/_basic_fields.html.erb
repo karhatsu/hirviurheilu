@@ -6,7 +6,7 @@
 <% unless f.object.series.age_groups.empty? %>
   <%= f.label :age_group %>
   <%= f.collection_select :age_group_id, f.object.series.age_groups, :id, :name,
-    :include_blank => 'Kuuluu pääsarjaan' %>
+    :include_blank => 'Kuuluu pääsarjaan' %><br/>
 <% end %>
 <%= f.label :club_id, 'Seura/piiri' %>
 <%= select_tag :club, options_from_collection_for_select(f.object.series.race.clubs,
