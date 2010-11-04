@@ -1,0 +1,28 @@
+<%= content_for(:title, "#{@series.race.name} - #{@series.name} - Lähtölista") %>
+<h2><%= @series.name %> - Lähtölista</h2>
+<%= render :layout => 'shared/series_sub_menu',
+  :locals => { :race => @series.race, :series_id => @series.id } do |series| %>
+  <%= official_series_start_list_path(series) %>
+<% end %>
+<% if @series.has_start_list? %>
+  <div class="instructions">
+    Tälle sarjalle on luotu lähtölista. Jos sarjaan pitää lisätä vielä kilpailijoita,
+    sinun täytyy asettaa heille lähtönumero ja lähtöaika erikseen.
+    Voit tehdä tämän samalla, kun lisäät uuden kilpailijan.
+  </div>
+<% else %>
+  <div class="instructions">
+    Kun olet lisännyt kaikki kilpailijat, voit tällä sivulla luoda kilpailijoista lähtöluettelon.
+  </div>
+<% end %>
+<%= form_for([:official, @series], :url => official_series_start_list_path) do |f| %>
+  <%= f.label :first_number %>
+  <%= f.text_field :first_number, :size => 3 %><br/>
+  <%= f.label :start_time %>
+  <%= f.datetime_select :start_time, :include_seconds => false, :include_blank => true %><br/>
+  <%= submit_tag (@series.has_start_list? ? "Päivitä lähtölista sarjalle" :
+      "Luo lähtölista sarjalle") %>
+<% end %>
+<h3>Kilpailijat</h3>
+<%= render :partial => 'official/competitors/table',
+  :locals => { :series => @series, :result_column => false, :remove_column => false } %>

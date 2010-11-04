@@ -68,4 +68,6 @@ fi:
       race:
         name: Kilpailun nimi
       series:
+        first_number: Sarjan ensimmäinen numero
         name: Sarjan nimi
+        start_time: Sarjan lähtöaika

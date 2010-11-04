@@ -54,6 +54,7 @@ ElkSports::Application.routes.draw do
     match '/times/change_series' => 'times#change_series'
     resources :series do
       resources :competitors
+      resource :start_list
       resources :shots
     end
     root :to => "index#show"
