@@ -57,8 +57,16 @@
             <td><%= link_to "Ajat", official_series_times_path(s) %></td>
             <td><%= link_to "Arvioinnit", official_series_estimates_path(s) %></td>
             <td><%= link_to "Ammunta", official_series_shots_path(s) %></td>
-            <td class="center"><%= yes_or_empty(s.correct_estimate1, s.correct_estimate1) %></td>
-            <td class="center"><%= yes_or_empty(s.correct_estimate2, s.correct_estimate2) %></td>
+            <td class="center">
+              <%= yes_or_empty(s.correct_estimate1, s.correct_estimate1) do
+                link_to "Aseta", edit_official_race_path(s.race, :anchor => "series_#{s.id}")
+              end %>
+            </td>
+            <td class="center">
+              <%= yes_or_empty(s.correct_estimate2, s.correct_estimate2) do
+                link_to "Aseta", edit_official_race_path(s.race, :anchor => "series_#{s.id}")
+              end %>
+            </td>
             <td>&nbsp;</td>
           <% else %>
             <td colspan="7">&nbsp;</td>
