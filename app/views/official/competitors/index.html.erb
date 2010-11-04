@@ -4,5 +4,13 @@
   :locals => { :race => @series.race, :series_id => @series.id } do |series| %>
   <%= official_series_competitors_path(series) %>
 <% end %>
-<%= render :partial => 'table', :locals => { :series => @series,
-  :result_column => true, :remove_column => true } %>
+<% if @series.competitors.empty? %>
+  <%= highlight_notice('Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.') %>
+  <%= link_to "Lisää kilpailija", new_official_series_competitor_path(@series) %>
+<% else %>
+  <div class="action_box">
+    <%= link_to "Lisää uusi kilpailija", new_official_series_competitor_path(@series) %>
+  </div>
+  <%= render :partial => 'table', :locals => { :series => @series,
+    :result_column => true, :remove_column => true } %>
+<% end %>

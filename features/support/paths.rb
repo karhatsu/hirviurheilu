@@ -26,6 +26,9 @@ module NavigationHelpers
     when /the edit page of "(.*)"/
       edit_official_series_path(Series.find_by_name($1))
 
+    when /the new competitor page of the series/
+      new_official_series_competitor_path(@series)
+
     when /the official competitors page of the series/
       official_series_competitors_path(@series)
 

@@ -3,7 +3,7 @@ Feature: Add competitors
   As an official
   I want to add competitors
 
-  Scenario: Official race main page when race has series but no competitors
+  Scenario: When race has series but no competitors
     Given I am an official
     And I have a race "Test race"
     And the race has series with attributes:
@@ -12,6 +12,10 @@ Feature: Add competitors
     When I go to the official index page
     And I follow "Test race"
     Then I should see "Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. Aloita klikkaamalla sarjan nimen vieressä olevaa linkkiä." within "div.notice"
+    When I go to the official competitors page of the series
+    Then I should see "Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa." within "div.notice"
+    When I follow "Lisää kilpailija" within "div.main"
+    Then I should be on the new competitor page of the series
 
   Scenario: Add competitors
     Given I am an official
