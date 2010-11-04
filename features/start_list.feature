@@ -23,8 +23,7 @@ Feature: Start list
       | first_name | Tim |
       | last_name | Atkinsson |
       | club | Sports club |
-    And there are numbers generated for the series
-    And there are start times generated for the series
+    And the start list has been generated for the series
     And I am on the race page
     When I follow "Lähtölista"
     Then I should be on the start list page of the series

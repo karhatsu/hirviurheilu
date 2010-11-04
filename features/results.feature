@@ -25,8 +25,7 @@ Feature: Results
       | first_name | Tim |
       | last_name | Atkinsson |
       | club | Sports club |
-    And there are numbers generated for the series
-    And there are start times generated for the series
+    And the start list has been generated for the series
     And the competitor "James" "Johnson" has the following results:
       | shots_total_input | 85 |
       | estimate1 | 111 |
@@ -82,8 +81,7 @@ Feature: Results
       | first_name | Tim |
       | last_name | Atkinsson |
       | club | Sports club |
-    And there are numbers generated for the series
-    And there are start times generated for the series
+    And the start list has been generated for the series
     And the competitor "Tim" "Atkinsson" has the following results:
       | shots_total_input | 90 |
       | estimate1 | 110 |
@@ -128,8 +126,7 @@ Feature: Results
     And the series has a competitor with attributes:
       | first_name | Tim |
       | last_name | Atkinsson |
-    And there are numbers generated for the series
-    And there are start times generated for the series
+    And the start list has been generated for the series
     And the competitor "Tim" "Atkinsson" has the following results:
       | shots_total_input | 90 |
       | estimate1 | 111 |
@@ -176,8 +173,7 @@ Feature: Results
     And the series has a competitor with attributes:
       | first_name | Tim |
       | last_name | Atkinsson |
-    And there are numbers generated for the series
-    And there are start times generated for the series
+    And the start list has been generated for the series
     And the competitor "Tim" "Atkinsson" has the following results:
       | shots_total_input | 90 |
       | estimate1 | 111 |
