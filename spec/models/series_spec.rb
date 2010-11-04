@@ -560,4 +560,19 @@ describe Series do
       specify { @series.each_competitor_finished?.should be_true }
     end
   end
+
+  describe "#finished_competitors_count" do
+    before do
+      @series = Factory.build(:series)
+      @c1, @c2, @c3 = mock(Competitor), mock(Competitor), mock(Competitor)
+      @series.stub!(:competitors).and_return([@c1, @c2, @c3])
+      @c1.stub!(:finished?).and_return(true)
+      @c2.stub!(:finished?).and_return(false)
+      @c3.stub!(:finished?).and_return(true)
+    end
+
+    it "should return count of competitors who have finished" do
+      @series.finished_competitors_count.should == 2
+    end
+  end
 end

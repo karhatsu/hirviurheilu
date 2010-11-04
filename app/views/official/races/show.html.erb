@@ -47,7 +47,13 @@
               link_to "Tee lista", official_series_start_list_path(s)
             end %></td>
           <% if s.has_start_list? %>
-            <td>?/<%= competitor_count %></td>
+            <% finished_count = s.finished_competitors_count %>
+            <td>
+              <%= yes_or_empty(finished_count == competitor_count,
+                "#{finished_count}/#{competitor_count}") do
+                "#{finished_count}/#{competitor_count}"
+              end %>
+            </td>
             <td><%= link_to "Ajat", official_series_times_path(s) %></td>
             <td><%= link_to "Arvioinnit", official_series_estimates_path(s) %></td>
             <td><%= link_to "Ammunta", official_series_shots_path(s) %></td>

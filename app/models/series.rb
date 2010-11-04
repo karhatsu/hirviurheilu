@@ -157,6 +157,14 @@ class Series < ActiveRecord::Base
     true
   end
 
+  def finished_competitors_count
+    count = 0
+    competitors.each do |comp|
+      count += 1 if comp.finished?
+    end
+    count
+  end
+
   def running?
     start_time and start_time < Time.now and not race.finished
   end
