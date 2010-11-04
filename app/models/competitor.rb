@@ -27,6 +27,7 @@ class Competitor < ActiveRecord::Base
   validate :only_one_shot_input_method_used
   validate :max_ten_shots
   validate :check_no_result_reason
+  validate :check_if_series_has_start_list
 
   def shot_values
     values = shots.collect do |s|
@@ -174,6 +175,14 @@ class Competitor < ActiveRecord::Base
     unless [nil, DNS, DNF].include?(no_result_reason)
       errors.add(:no_result_reason,
         "Tuntematon syy tuloksen puuttumiselle: '#{no_result_reason}'")
+    end
+  end
+
+  def check_if_series_has_start_list
+    if series and series.has_start_list?
+      errors.add(:number, 'on pakollinen, kun sarjan lähtölista on jo luotu') unless number
+      errors.add(:start_time,
+        'on pakollinen, kun sarjan lähtölista on jo luotu') unless start_time
     end
   end
 

@@ -32,6 +32,26 @@ describe Competitor do
             should be_valid
         end
       end
+
+      context "when series has start list" do
+        it "should not be nil" do
+          series = Factory.build(:series, :has_start_list => true)
+          competitor = Factory.build(:competitor, :series => series, :number => nil)
+          competitor.should have(1).errors_on(:number)
+        end
+      end
+    end
+
+    describe "start_time" do
+      it { should allow_value(nil).for(:start_time) }
+
+      context "when series has start list" do
+        it "should not be nil" do
+          series = Factory.build(:series, :has_start_list => true)
+          competitor = Factory.build(:competitor, :series => series, :start_time => nil)
+          competitor.should have(1).errors_on(:start_time)
+        end
+      end
     end
 
     describe "shots_total_input" do
