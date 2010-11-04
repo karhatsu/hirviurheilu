@@ -14,6 +14,11 @@ class Official::SeriesController < Official::OfficialController
     end
   end
 
+  def destroy
+    @series.destroy
+    redirect_to official_race_path(@series.race)
+  end
+
   def generate_numbers
     if @series.generate_numbers
       redirect_to edit_official_series_path(@series)

@@ -26,7 +26,7 @@ Feature: Manage competitors
     And the race has a club "Sports club"
     And I have logged in
     And I am on the official race page of "Test race"
-    When I follow "Lisää kilpailija"
+    When I follow "Lisää"
     And I fill in the following:
       | Etunimi | Tom |
       | Sukunimi | Stevensson |

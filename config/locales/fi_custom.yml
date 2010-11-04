@@ -2,3 +2,7 @@ fi:
   competitor:
     DNS: Kilpailija ei osallistunut kilpailuun
     DNF: Kilpailija keskeytti kilpailun
+  competitors:
+    people_short:
+      one: 1 hlö
+      other: %{count} hlöä
