@@ -98,11 +98,12 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
     if race_i < 3
       firsts = ["Matti", "Teppo", "Pekka", "Timo", "Jouni", "Heikki"]
       lasts = ["Heikkinen", "Räsänen", "Miettinen", "Savolainen", "Raitala"]
+      competitors = []
       10.times do |i|
         first = firsts[i % firsts.length]
         last = lasts[i % lasts.length]
         comp = series.competitors.build(:first_name => first, :last_name => last,
-          :club => clubs[i], :number => 100 + i)
+          :club => clubs[i])
         unless series.age_groups.empty?
           if i % 3 == 0
             comp.age_group = series.age_groups.first
@@ -110,6 +111,12 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
             comp.age_group = series.age_groups.last
           end
         end
+        comp.save!
+        competitors << comp
+      end
+      series.generate_start_list!
+      10.times do |i|
+        comp = competitors[i]
         if race.start_date < Date.today
           if i % 4 == 0
             comp.shots << Shot.new(:competitor => comp, :value => 10)
@@ -141,12 +148,9 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
       end
 
       comp = series.competitors.build(:first_name => 'Teemu', :last_name => 'Turkulainen',
-        :club => clubs[2], :number => 110, :no_result_reason => Competitor::DNF)
+        :club => clubs[2], :number => series.next_number,
+        :start_time => series.next_start_time, :no_result_reason => Competitor::DNF)
       comp.save!
-
-      unless series.generate_start_times
-        raise series.errors.on(:base)
-      end
 
       if old_race or race.start_date < Date.today
         series.competitors.each_with_index do |comp, i|
