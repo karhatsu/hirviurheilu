@@ -165,6 +165,13 @@ class Series < ActiveRecord::Base
     count
   end
 
+  def ready?
+    return false unless has_start_list?
+    return false unless correct_estimate1 and correct_estimate2
+    return false unless each_competitor_finished?
+    true
+  end
+
   def running?
     start_time and start_time < Time.now and not race.finished
   end

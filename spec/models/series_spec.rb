@@ -575,4 +575,46 @@ describe Series do
       @series.finished_competitors_count.should == 2
     end
   end
+
+  describe "#ready?" do
+    before do
+      @series = Factory.build(:series, :has_start_list => true,
+        :correct_estimate1 => 111, :correct_estimate2 => 101)
+      @series.stub!(:each_competitor_finished?).and_return(true)
+    end
+
+    context "when start list not generated" do
+      it "should return false" do
+        @series.has_start_list = false
+        @series.should_not be_ready
+      end
+    end
+
+    context "when start list generated" do
+      context "when correct estimate 1 or 2 missing" do
+        it "should return false" do
+          @series.correct_estimate1 = nil
+          @series.should_not be_ready
+          @series.correct_estimate1 = 111
+          @series.correct_estimate2 = nil
+          @series.should_not be_ready
+        end
+      end
+
+      context "when correct estimates filled" do
+        context "when some competitor has no result" do
+          it "should return false" do
+            @series.should_receive(:each_competitor_finished?).and_return(false)
+            @series.should_not be_ready
+          end
+        end
+
+        context "when each competitor has a result" do
+          it "should return true" do
+            @series.should be_ready
+          end
+        end
+      end
+    end
+  end
 end

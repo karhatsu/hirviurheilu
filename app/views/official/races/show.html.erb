@@ -67,7 +67,7 @@
                 link_to "Aseta", edit_official_race_path(s.race, :anchor => "series_#{s.id}")
               end %>
             </td>
-            <td>&nbsp;</td>
+            <td class="center"><%= yes_or_empty(s.ready?) %></td>
           <% else %>
             <td colspan="7">&nbsp;</td>
           <% end %>
