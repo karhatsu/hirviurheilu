@@ -6,7 +6,8 @@
 <% end %>
 <% if @series.competitors.empty? %>
   <div class="notice">Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.</div>
-  <%= link_to "Kilpailijoiden syöttö sarjaan #{@series.name}", edit_official_series_path(@series) %>
+  <%= link_to "Lisää kilpailija sarjaan #{@series.name}",
+    new_official_series_competitor_path(@series) %>
 <% else %>
   <div id="update_error"></div>
   <%= render :partial => partial_table %>

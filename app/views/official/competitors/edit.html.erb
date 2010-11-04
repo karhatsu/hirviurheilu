@@ -32,5 +32,5 @@
   <%= submit_tag "Tallenna ja seuraava", :name => 'next' %>
 <% end %>
 <br/>
-<%= link_to "Takaisin sarjan #{@competitor.series.name} tietoihin",
-  edit_official_series_path(@competitor.series) %>
+<%= link_to "Takaisin sarjan #{@series.name} kilpailijaluetteloon",
+  official_series_competitors_path(@series) %>

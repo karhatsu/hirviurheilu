@@ -48,7 +48,7 @@ class Official::CompetitorsController < Official::OfficialController
             redirect_to edit_official_series_competitor_path(@competitor.series,
               @competitor.previous_competitor)
           else
-            redirect_to edit_official_series_path(@competitor.series)
+            redirect_to official_series_competitors_path(@competitor.series)
           end
         end
         format.js { render 'official/competitors/updated', :layout => false }

@@ -8,6 +8,6 @@
   <%= submit_tag "Tallenna ja lisää toinen kilpailija", :name => 'create_another' %>
 <% end %>
 <hr/>
-<%= link_to "Takaisin sarjan #{@series.name} tietoihin",
-  edit_official_series_path(@series) %><br/>
+<%= link_to "Takaisin sarjan #{@series.name} kilpailijaluetteloon",
+  official_series_competitors_path(@series) %><br/>
 <%= link_to "Takaisin kilpailun etusivulle", official_race_path(@series.race) %>

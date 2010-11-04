@@ -9,7 +9,7 @@
   <div class="notice">Tähän sarjaan ei ole merkitty kilpailijoita tai heille ei
     ole määritetty vielä lähtöaikoja.</div>
   <% if official_rights %>
-    <div><%= link_to "Lisää kilpailijoita", edit_official_series_path(@series) %></div>
+    <div><%= link_to "Lisää kilpailijoita", new_official_series_competitor_path(@series) %></div>
   <% end %>
 <% else %>
   <table>
