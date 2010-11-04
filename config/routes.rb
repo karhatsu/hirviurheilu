@@ -15,9 +15,6 @@ ElkSports::Application.routes.draw do
   resource :info
   resources :feedbacks
 
-  match 'change_series' => 'series#change_series', :as => :change_series
-  match 'change_start_list' => 'start_lists#change_start_list', :as => :change_start_list
-
   resources :races
 
   resources :series do
@@ -42,21 +39,15 @@ ElkSports::Application.routes.draw do
       resources :officials
       resource :finish_race
     end
-    match '/series/:id/generate_numbers' => 'series#generate_numbers',
-      :as => :generate_numbers
-    match '/series/:id/generate_times' => 'series#generate_times',
-      :as => :generate_times
-    match '/shots/change_series' => 'shots#change_series'
-    match '/series/:series_id/estimates' => 'estimates#index', :as => :series_estimates
-    match '/estimates/change_series' => 'estimates#change_series'
-    match '/series/:series_id/times' => 'times#index', :as => :series_times
-    match '/change_series' => 'series#change_series', :as => :change_series
-    match '/times/change_series' => 'times#change_series'
+
     resources :series do
       resources :competitors
       resource :start_list
       resources :shots
+      resources :estimates
+      resources :times
     end
+    
     root :to => "index#show"
   end
 

@@ -1,13 +1,8 @@
 class Official::TimesController < Official::OfficialController
-  before_filter :check_race_rights, :except => :change_series
-  before_filter :set_times
+  before_filter :check_race_rights, :set_times
 
   def index
     @series = Series.find(params[:series_id])
-  end
-
-  def change_series
-    redirect_to official_series_times_path(params[:series_id])
   end
 
   private
