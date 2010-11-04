@@ -42,7 +42,17 @@ Feature: Generate start list
     And I should see "13:45:45" within "tr#competitor_2"
 
   Scenario: No competitors added yet
-    #TODO
+    Given I am an official
+    And I have a race "Test race"
+    And the race has series with attributes:
+      | name | Test series |
+    And I have logged in
+    And I am on the official race page of "Test race"
+    When I follow "Lähtölistat"
+    Then I should see "Tässä sarjassa ei ole vielä yhtään kilpailijaa. Kun olet lisännyt sarjaan kilpailijat, voit tällä sivulla luoda heille lähtölistan."
+    But I should not see "Sarjan ensimmäinen numero"
+    And I should not see "Sarjan lähtöaika"
+    And I should not see "Kilpailijat"
 
   Scenario: Invalid series values
     #TODO
