@@ -213,8 +213,7 @@ describe Series do
         series.competitors << Factory.build(:competitor, :number => 24, :series => series,
           :start_time => '12:30:00')
         series.competitors << Factory.build(:competitor, :number => 17, :series => series)
-        series.next_start_time.should == Factory.build(:competitor,
-          :start_time => '12:30:45').start_time
+        series.next_start_time.strftime('%H:%M:%S').should == '12:30:45'
       end
 
       it "should be like no competitors when competitors have no start times yet" do
@@ -222,7 +221,7 @@ describe Series do
         series = Factory.create(:series, :race => race, :start_time => '2010-11-10 09:30')
         series.competitors << Factory.build(:competitor, :start_time => nil, :series => series)
         series.competitors << Factory.build(:competitor, :start_time => nil, :series => series)
-        series.next_start_time.should == series.start_time
+        series.next_start_time.strftime('%H:%M:%S').should == '09:30:00'
       end
     end
   end

@@ -5,8 +5,11 @@ class Official::CompetitorsController < Official::OfficialController
 
   def new
     @series = Series.find(params[:series_id])
-    @competitor = @series.competitors.build
-    @competitor.number = @series.next_number
+    next_number = @series.next_number
+    next_start_time = @series.next_start_time
+    @competitor = @series.competitors.build # cannot call next-methods after this
+    @competitor.number = next_number
+    @competitor.start_time = next_start_time
   end
 
   def create

@@ -21,3 +21,9 @@
     width: 5000
   });
 <% end %>
+<% if f.object.new_record? and f.object.series.has_start_list? %>
+  <%= f.label :number %>
+  <%= f.text_field :number, :size => 3 %>
+  <%= f.label :start_time %>
+  <%= f.time_text_field :start_time, :include_seconds => true, :blank => true %>
+<% end %>
