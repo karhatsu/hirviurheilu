@@ -11,6 +11,7 @@
   </div>
   <%= link_to "Lisää kilpailija", new_official_series_competitor_path(@series) %>
 <% else %>
+  <%= render :partial => 'shared/form_errors', :locals => { :item => @series } %>
   <% if @series.has_start_list? %>
     <div class="instructions">
       Tälle sarjalle on luotu lähtölista. Jos sarjaan pitää lisätä vielä kilpailijoita,
