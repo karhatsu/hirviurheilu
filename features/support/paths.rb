@@ -11,11 +11,23 @@ module NavigationHelpers
     when /the home\s?page/
       '/'
 
+    when /the official index page/
+      official_root_path
+
+    when /the new race page/
+      new_official_race_path
+
     when /the race edit page of "(.*)"/
       edit_official_race_path(Race.find_by_name($1))
 
     when /the official race page of "(.*)"/
       official_race_path(Race.find_by_name($1))
+
+    when /the edit page of "(.*)"/
+      edit_official_series_path(Series.find_by_name($1))
+
+    when /the official competitors page of the series/
+      official_series_competitors_path(@series)
 
     when /the official clubs page for "(.*)"/
       official_race_clubs_path(Race.find_by_name($1))
@@ -40,15 +52,6 @@ module NavigationHelpers
 
     when /the login page/
       login_path
-
-    when /the official index page/
-      official_root_path
-
-    when /the new race page/
-      new_official_race_path
-
-    when /the edit page of "(.*)"/
-      edit_official_series_path(Series.find_by_name($1))
 
     when /the admin index page/
       admin_root_path

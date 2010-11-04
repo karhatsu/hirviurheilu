@@ -21,8 +21,8 @@ end
       <%= menu_item "Kilpailun etusivu", official_race_path(menu_race), @is_race %>
       <%= menu_item "Kilpailu & sarjat", edit_official_race_path(menu_race), @is_race_edit %>
       <% if menu_series %>
+        <%= menu_item "Kilpailijat", official_series_competitors_path(menu_series), @is_competitors %>
         <%= menu_item "Lähtölistat", official_series_start_list_path(menu_series), @is_start_list %>
-        <%= menu_item "Sarja & kilpailijat", edit_official_series_path(menu_series), @is_series %>
         <%= menu_item "Ajat", official_series_times_path(menu_series), @is_times %>
         <%= menu_item "Arvioinnit", official_series_estimates_path(menu_series), @is_estimates %>
         <%= menu_item "Ammunta", official_series_shots_path(menu_series), @is_shots %>

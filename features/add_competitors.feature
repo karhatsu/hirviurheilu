@@ -34,8 +34,8 @@ Feature: Add competitors
       | Etunimi | Math |
       | Sukunimi | Heyton |
     And I select "Sports club" from "club"
-    And I press "Tallenna ja palaa sarjan tietoihin"
-    Then I should be on the edit page of "Test series"
+    And I press "Tallenna ja palaa kilpailijalistaan"
+    Then I should be on the official competitors page of the series
     And I should see "Stevensson Tom"
     And I should see "Shooting club"
     And I should see "Heyton Math"

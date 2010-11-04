@@ -1,0 +1,8 @@
+<% content_for :title, "#{@series.name} - Kilpailijat" %>
+<h2><%= yield :title %></h2>
+<%= render :layout => 'shared/series_sub_menu',
+  :locals => { :race => @series.race, :series_id => @series.id } do |series| %>
+  <%= official_series_competitors_path(series) %>
+<% end %>
+<%= render :partial => 'table', :locals => { :series => @series,
+  :result_column => true, :remove_column => true } %>

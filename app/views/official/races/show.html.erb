@@ -54,7 +54,7 @@
         <td class="center"><%= yes_or_empty(s.correct_estimate2, s.correct_estimate2) %></td>
         <td><%= link_to "Muokkaa", edit_official_series_path(s) %></td>
         <td class="center"><%= s.competitors.count %> (<%= link_to "näytä",
-          edit_official_series_path(s) %>)</td>
+          official_series_competitors_path(s) %>)</td>
         <td><%= link_to "Lisää kilpailija", new_official_series_competitor_path(s) %></td>
         <td><%= link_to "Ajat", official_series_times_path(s) %></td>
         <td><%= link_to "Arvioinnit", official_series_estimates_path(s) %></td>

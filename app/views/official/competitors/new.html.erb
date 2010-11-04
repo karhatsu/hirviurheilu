@@ -4,7 +4,7 @@
 <%= render :partial => "shared/form_errors", :locals => { :item => @competitor } %>
 <%= form_for([:official, @competitor.series, @competitor]) do |f| %>
   <%= render :partial => "basic_fields", :locals => { :f => f } %><br/>
-  <%= submit_tag "Tallenna ja palaa sarjan tietoihin" %>
+  <%= submit_tag "Tallenna ja palaa kilpailijalistaan" %>
   <%= submit_tag "Tallenna ja lisää toinen kilpailija", :name => 'create_another' %>
 <% end %>
 <hr/>

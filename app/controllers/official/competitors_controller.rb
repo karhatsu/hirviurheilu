@@ -1,7 +1,10 @@
 class Official::CompetitorsController < Official::OfficialController
-  before_filter :check_competitor_rights
+  before_filter :assign_series, :check_competitor_rights
   before_filter :handle_time_parameters, :only => :update
-  before_filter :set_series
+  before_filter :set_competitors
+
+  def index
+  end
 
   def new
     @series = Series.find(params[:series_id])
@@ -21,7 +24,7 @@ class Official::CompetitorsController < Official::OfficialController
         flash[:notice] = "Kilpailija lisätty"
         redirect_to new_official_series_competitor_path(@series)
       else
-        redirect_to edit_official_series_path(@series)
+        redirect_to official_series_competitors_path(@series)
       end
     else
       render :new
@@ -71,9 +74,12 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   private
+  def assign_series
+    @series = Series.find(params[:series_id])
+  end
+
   def check_competitor_rights
-    series = Series.find(params[:series_id])
-    check_race(series.race)
+    check_race(@series.race)
   end
 
   def handle_time_parameters
@@ -131,8 +137,8 @@ class Official::CompetitorsController < Official::OfficialController
     end
   end
 
-  def set_series
-    @is_series = true
+  def set_competitors
+    @is_competitors = true
   end
 
 end
