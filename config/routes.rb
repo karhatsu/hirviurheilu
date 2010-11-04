@@ -15,7 +15,6 @@ ElkSports::Application.routes.draw do
   resource :info
   resources :feedbacks
 
-  match 'series/:series_id/start_list' => 'start_lists#show', :as => :start_list
   match 'change_series' => 'series#change_series', :as => :change_series
   match 'change_start_list' => 'start_lists#change_start_list', :as => :change_start_list
 
@@ -23,6 +22,7 @@ ElkSports::Application.routes.draw do
 
   resources :series do
     resources :competitors
+    resource :start_list
   end
 
   namespace :admin do

@@ -44,7 +44,7 @@
   <br/>
   <%= link_to "Lataa tulokset pdf-tiedostona", series_competitors_path(@series,
     :format => 'pdf') %><br/>
-  <%= link_to "Lähtölista", start_list_path(@series) %>
+  <%= link_to "Lähtölista", series_start_list_path(@series) %>
 <% end %>
 <hr/>
 <%= link_to "Takaisin sivulle #{@series.race.name}", race_path(@series.race) %>

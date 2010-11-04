@@ -33,7 +33,7 @@ module NavigationHelpers
       series_competitor_path(@competitor.series, @competitor)
 
     when /the start list page of the series/
-      start_list_path(@series)
+      series_start_list_path(@series)
 
     when /the registration page/
       register_path

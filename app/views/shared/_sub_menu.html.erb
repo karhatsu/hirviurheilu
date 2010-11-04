@@ -20,7 +20,7 @@ end
     <ul>
       <%= menu_item "Sarjat", race_path(menu_race), @is_race %>
       <% if menu_series %>
-        <%= menu_item "Lähtölistat", start_list_path(menu_series), @is_start_list %>
+        <%= menu_item "Lähtölistat", series_start_list_path(menu_series), @is_start_list %>
         <%= menu_item "Tulokset", series_competitors_path(menu_series), @is_results %>
       <% end %>
     </ul>
