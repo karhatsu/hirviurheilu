@@ -42,7 +42,8 @@
         <% if competitor_count > 0 %>
           <td class="center"><%= link_to t("competitors.people_short",
               :count => competitor_count), official_series_competitors_path(s) %></td>
-          <td><%= link_to "Lisää", new_official_series_competitor_path(s) %></td>
+          <td class="center"><%= link_to "Lisää uusi",
+              new_official_series_competitor_path(s) %></td>
           <td class="center"><%= yes_or_empty(s.has_start_list?) do
               link_to "Tee lista", official_series_start_list_path(s)
             end %></td>
@@ -73,10 +74,9 @@
           <% end %>
           <td>&nbsp;</td>
         <% else %>
-          <td colspan="2" class="center"><%= link_to "Lisää",
+          <td colspan="10"><%= link_to "Lisää tämän sarjan ensimmäinen kilpailija",
               new_official_series_competitor_path(s) %></td>
-          <td colspan="8">&nbsp;</td>
-          <td><%= link_to 'Poista', official_series_path(s), :method => :delete,
+          <td><%= link_to 'Poista sarja', official_series_path(s), :method => :delete,
               :confirm => 'Haluatko varmasti poistaa tämän sarjan?' %></td>
         <% end %>
       </tr>
