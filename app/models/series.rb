@@ -1,5 +1,5 @@
 class Series < ActiveRecord::Base
-  belongs_to :race
+  belongs_to :race, :counter_cache => true
   has_many :age_groups, :dependent => :destroy
   has_many :competitors, :order => 'number, id'
   has_many :start_list, :class_name => "Competitor", :foreign_key => 'series_id',
@@ -40,19 +40,15 @@ class Series < ActiveRecord::Base
   end
 
   def next_number
-    unless competitors.empty?
-      max = competitors.maximum(:number)
-      return max + 1 if max
-    end
+    max = competitors.maximum(:number)
+    return max + 1 if max
     return first_number if first_number
     1
   end
 
   def next_start_time
-    unless competitors.empty?
-      latest = competitors.last
-      return latest.start_time + race.start_interval_seconds if latest and latest.start_time
-    end
+    latest = competitors.last
+    return latest.start_time + race.start_interval_seconds if latest and latest.start_time
     return start_time if start_time
     nil
   end
@@ -186,7 +182,7 @@ class Series < ActiveRecord::Base
   end
 
   def prevent_destroy_if_competitors
-    unless competitors.empty?
+    if competitors.count > 0
       errors.add(:base, "Sarjan voi poistaa vain jos siinä ei ole kilpailijoita")
       return false
     end

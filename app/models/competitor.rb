@@ -3,7 +3,7 @@ class Competitor < ActiveRecord::Base
   DNF = 'DNF' # did not finish
 
   belongs_to :club
-  belongs_to :series
+  belongs_to :series, :counter_cache => true
   belongs_to :age_group
   has_many :shots, :dependent => :destroy
 
