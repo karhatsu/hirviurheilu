@@ -22,3 +22,5 @@
   <%= render :partial => 'table', :locals => { :series => @series,
     :result_column => true, :remove_column => true } %>
 <% end %>
+<hr/>
+<%= link_to "Takaisin kilpailun etusivulle", official_race_path(@series.race) %>

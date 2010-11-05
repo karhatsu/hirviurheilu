@@ -38,3 +38,5 @@
   <%= render :partial => 'official/competitors/table',
     :locals => { :series => @series, :result_column => false, :remove_column => false } %>
 <% end %>
+<hr/>
+<%= link_to "Takaisin kilpailun etusivulle", official_race_path(@series.race) %>

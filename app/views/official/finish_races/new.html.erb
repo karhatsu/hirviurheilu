@@ -19,3 +19,5 @@ on päättynyt.</div>
     <%= render :partial => "official/finish_races/form", :locals => { :race => @race } %>
   </div>
 <% end %>
+<hr/>
+<%= link_to "Takaisin kilpailun etusivulle", official_race_path(@race) %>
