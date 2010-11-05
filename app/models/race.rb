@@ -39,7 +39,7 @@ class Race < ActiveRecord::Base
 
   def finish
     series.each do |s|
-      unless s.correct_estimate1 and s.correct_estimate2
+      unless (s.correct_estimate1 and s.correct_estimate2) or s.competitors.count == 0
         errors.add(:base, "Ainakin sarjasta #{s.name} puuttuu oikea arviomatka.")
         return false
       end

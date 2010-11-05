@@ -78,66 +78,84 @@ describe Race do
 
   describe "#finish" do
     before do
-      @competitors = []
-      @competitors << mock_model(Competitor, :finished? => true)
       @race = Factory.create(:race)
-      @race.series << Factory.build(:series, :correct_estimate1 => 100,
+      @series = Factory.build(:series, :correct_estimate1 => 100,
         :correct_estimate2 => 200, :race => @race)
+      @race.series << @series
     end
 
-    describe "should return false and sets error when" do
-      context "series missing correct estimate" do
-        describe "1" do
-          before do
-            @race.series << Factory.build(:series, :correct_estimate1 => nil,
-              :correct_estimate2 => 200, :race => @race)
-            @result = @race.finish
-          end
+    context "when series missing correct estimate" do
+      before do
+        @series.correct_estimate1 = nil
+        @series.save!
+      end
 
-          specify { @result.should be_false }
-          specify { @race.should have(1).errors }
-          specify { @race.should_not be_finished }
-        end
-
-        describe "2" do
-          before do
-            @race.series << Factory.build(:series, :correct_estimate1 => 80,
-              :correct_estimate2 => nil, :race => @race)
-            @result = @race.finish
-          end
-
-          specify { @result.should be_false }
-          specify { @race.should have(1).errors }
-          specify { @race.should_not be_finished }
+      context "when series have no competitors" do
+        it "should be possible to finish the race" do
+          confirm_successfull_finish(@race)
         end
       end
 
-      context "competitors missing results" do
+      context "when series have at least 1 competitor" do
         before do
-          series = mock_model(Series, :name => "Test series")
-          @competitors << mock_model(Competitor, :finished? => false,
-            :first_name => "Test", :last_name => "Competitor", :series => series)
-          @race.should_receive(:competitors).and_return(@competitors)
-          @result = @race.finish
+          @series.competitors << Factory.build(:competitor, :series => @series)
         end
 
-        specify { @result.should be_false }
-        specify { @race.should have(1).errors }
-        specify { @race.should_not be_finished }
+        describe "estimate 1 missing" do
+          it "should not be possible to finish the race" do
+            confirm_unsuccessfull_finish(@race)
+          end
+        end
+
+        describe "estimate 2 missing" do
+          before do
+            @series.correct_estimate1 = 80
+            @series.correct_estimate2 = nil
+            @series.save!
+          end
+
+          it "should not be possible to finish the race" do
+            confirm_unsuccessfull_finish(@race)
+          end
+        end
       end
     end
 
-    describe "should return true, finish the race and give no errors" do
-      context "correct estimates and all results filled" do
+    context "when correct estimates filled" do
+      context "when competitors missing results" do
         before do
-          @race.should_receive(:competitors).and_return(@competitors)
-          @result = @race.finish
+          @series.competitors << Factory.build(:competitor, :series => @series)
         end
 
-        specify { @result.should be_true }
-        specify { @race.should have(0).errors }
-        specify { @race.should be_finished }
+        it "should not be possible to finish the race" do
+          confirm_unsuccessfull_finish(@race)
+        end
       end
+
+      context "when all competitors have results filled" do
+        before do
+          @series.competitors << Factory.build(:competitor, :series => @series,
+            :no_result_reason => Competitor::DNF)
+        end
+
+        it "should be possible to finish the race" do
+          confirm_successfull_finish(@race)
+        end
+      end
+    end
+
+    def confirm_successfull_finish(race)
+      race.reload
+      race.finish.should be_true
+      race.should have(0).errors
+      race.should be_finished
+    end
+
+    def confirm_unsuccessfull_finish(race)
+      race.reload
+      race.finish.should be_false
+      race.should have(1).errors
+      race.should_not be_finished
     end
   end
 
