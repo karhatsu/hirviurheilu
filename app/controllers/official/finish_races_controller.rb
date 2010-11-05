@@ -8,8 +8,8 @@ class Official::FinishRacesController < Official::OfficialController
   def create
     @race = get_race
     if @race.finish
-      flash[:notice] = "#{@race.name} merkitty päättyneeksi"
-      redirect_to official_root_path
+      flash[:notice] = "Kilpailu #{@race.name} on merkitty päättyneeksi"
+      redirect_to official_race_path(@race)
     else
       render :new
     end
