@@ -5,7 +5,7 @@ Feature: Main page
 
   Scenario: Load main page
     Given I go to the home page
-    Then I should see "Hirvenhiihdon ja hirvenjuoksun tulospalvelu" within "h1"
+    Then I should see "Hirvenhiihdon ja hirvenjuoksun tulospalvelu" within ".main_title"
 
   Scenario: Listing races in the main page
     Given there is a race with attributes:

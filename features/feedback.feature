@@ -7,7 +7,7 @@ Feature: Feedback
     Given I am on the home page
     When I follow "Lähetä palautetta"
     Then I should be on the send feedback page
-    Then I should see "Lähetä palautetta" within "h1"
+    Then I should see "Lähetä palautetta" within ".main_title"
     When I fill in the following:
       | Palaute    | Hyvä järjestelmä! |
       | Nimi       | Pekka Miettinen   |

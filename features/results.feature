@@ -40,7 +40,7 @@ Feature: Results
     And I am on the race page
     When I follow "Tulokset"
     Then I should be on the results page of the series
-    And I should see "My test race" within ".race_title"
+    And I should see "My test race" within ".main_title"
     And I should see "Men 50 years - Tulokset" within "h2"
     And I should see a result row 1 with values:
       | name | Atkinsson Tim |
@@ -89,7 +89,7 @@ Feature: Results
     And I am on the race page
     When I follow "Tulokset"
     Then I should be on the results page of the series
-    And I should see "My test race" within ".race_title"
+    And I should see "My test race" within ".main_title"
     And I should see "Men 50 years - Tulokset" within "h2"
     And I should see "Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan kilpailun päätyttyä."
     And I should see a result row 1 with values:
@@ -136,7 +136,7 @@ Feature: Results
     And I am on the results page of the series
     When I follow "Atkinsson Tim"
     Then I should be on the results page of the competitor
-    And I should see "My test race" within ".race_title"
+    And I should see "My test race" within ".main_title"
     And I should see "Men 50 years - Atkinsson Tim" within "h2"
     And I should see "Pisteet" within "#points h3"
     And I should see "540" within "#points td"
@@ -182,7 +182,7 @@ Feature: Results
     And I am on the results page of the series
     When I follow "Atkinsson Tim"
     Then I should be on the results page of the competitor
-    And I should see "My test race" within ".race_title"
+    And I should see "My test race" within ".main_title"
     And I should see "Men 50 years - Atkinsson Tim" within "h2"
     And I should see "Pisteet" within "#points h3"
     And I should see "540" within "#points td"

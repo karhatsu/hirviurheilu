@@ -14,7 +14,7 @@ Feature: Manage competitors
     Then I should see "Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. Aloita klikkaamalla sarjan nimen vieressä olevaa linkkiä." within "div.notice"
     When I go to the official competitors page of the series
     Then I should see "Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa." within "div.notice"
-    When I follow "Lisää kilpailija" within "div.main"
+    When I follow "Lisää kilpailija" within "div.main_content"
     Then I should be on the new competitor page of the series
 
   Scenario: Add competitors

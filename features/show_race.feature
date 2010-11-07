@@ -13,8 +13,8 @@ Feature: Show race
       | name | Men 50 years |
       | start_time | 2010-01-01 13:30 |
     When I go to the race page
-    Then I should see "My test race" within ".race_title"
-    And I should see "Test city, 01.01.2010 - 02.01.2010" within ".race_title"
+    Then I should see "My test race" within ".main_title"
+    And I should see "Test city, 01.01.2010 - 02.01.2010" within ".main_title"
     And I should see "Men 50 years" within "tr#series_1"
     And I should see "01.01.2010 13:30" within "tr#series_1"
     And I should see "Sarjaan ei ole merkitty kilpailijoita" within "tr#series_1"

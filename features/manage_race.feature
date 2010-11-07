@@ -16,7 +16,7 @@ Feature: Manage race
       | Lähtöaikojen väli (sekuntia) | 30 |
     And I press "Lisää kilpailu"
     Then I should be on the race edit page of "Test race"
-    And I should see "Test race" within ".race_title"
+    And I should see "Test race" within ".main_title"
     And I should see "Kilpailu lisätty."
     And I should see "Voit nyt lisätä sarjoja kilpailulle alla olevasta linkistä."
 
@@ -35,7 +35,7 @@ Feature: Manage race
     And I check "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
-    And I should see "Test race" within ".race_title"
+    And I should see "Test race" within ".main_title"
     And I should see "Kilpailu lisätty."
     And I should see "Pääset lisäämään kilpailijoita klikkaamalla sarjan nimen vieressä olevaa linkkiä."
     And I should see "Default series 1"

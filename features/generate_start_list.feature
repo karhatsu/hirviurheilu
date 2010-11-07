@@ -22,7 +22,7 @@ Feature: Generate start list
     When I follow "Tee lista"
     Then I should see "Test series - Lähtölista" within "h2"
     And I should see "Kun olet lisännyt kaikki kilpailijat, voit tällä sivulla luoda kilpailijoista lähtöluettelon." within "div.instructions"
-    And I should see "Kilpailijat" within "div.main h3"
+    And I should see "Kilpailijat" within "div.main_content h3"
     And I should see "Stevensson John" within "tr#competitor_1"
     And I should see "Bears Peter" within "tr#competitor_2"
     When I fill in "15" for "Sarjan ensimmäinen numero"
@@ -55,7 +55,7 @@ Feature: Generate start list
     Then I should see "Tässä sarjassa ei ole vielä yhtään kilpailijaa. Kun olet lisännyt sarjaan kilpailijat, voit tällä sivulla luoda heille lähtölistan."
     But I should not see "Sarjan ensimmäinen numero"
     And I should not see "Sarjan lähtöaika"
-    And I should not see "Kilpailijat" within "div.main"
+    And I should not see "Kilpailijat" within "div.main_content"
 
   Scenario: Invalid series values
     Given I am an official
