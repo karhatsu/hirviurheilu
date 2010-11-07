@@ -1,8 +1,10 @@
 <%= content_for(:title, "#{@series.race.name} - #{@series.name} - Lähtölista") %>
 <h2><%= @series.name %> - Lähtölista</h2>
-<%= render :layout => 'shared/series_sub_menu',
-  :locals => { :race => @series.race, :series_id => @series.id } do |series| %>
-  <%= official_series_start_list_path(series) %>
+<% content_for :series_sub_menu do %>
+  <%= render :layout => 'shared/series_sub_menu',
+    :locals => { :race => @series.race, :series_id => @series.id } do |series| %>
+    <%= official_series_start_list_path(series) %>
+  <% end %>
 <% end %>
 <% if @series.competitors.empty? %>
   <div class="instructions">

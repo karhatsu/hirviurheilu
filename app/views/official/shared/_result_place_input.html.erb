@@ -1,8 +1,10 @@
 <%= content_for(:title, "#{@series.race.name} - #{title_name} - #{@series.name}") %>
 <h2><%= title_name %> - <%= @series.name %></h2>
-<%= render :layout => 'shared/series_sub_menu',
-  :locals => { :race => @series.race, :series_id => @series.id } do |series| %>
-  <%= "/official/series/#{series.id}/#{controller_name}" %>
+<% content_for :series_sub_menu do %>
+  <%= render :layout => 'shared/series_sub_menu',
+    :locals => { :race => @series.race, :series_id => @series.id } do |series| %>
+    <%= "/official/series/#{series.id}/#{controller_name}" %>
+  <% end %>
 <% end %>
 <% if @series.competitors.empty? %>
   <div class="notice">Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.</div>
