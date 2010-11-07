@@ -151,3 +151,8 @@ div.races_box h2 {
 th {
     text-align: left;
 }
+
+td {
+    padding-left: 5px;
+    padding-right: 5px;
+}
