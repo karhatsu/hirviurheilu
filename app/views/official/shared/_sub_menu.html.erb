@@ -1,25 +1,9 @@
-<%
-menu_race, menu_series = nil, nil
-show_series = false
-if @race and not @race.new_record?
-  menu_race = @race
-  #menu_series = @race.series.first
-elsif @series
-  menu_race = @series.race
-  menu_series = @series
-  show_series = true unless @competitor
-elsif @competitor
-  menu_race = @competitor.series.race
-  menu_series = @competitor.series
-end
-%>
-<% if menu_race %>
-  <%= render :partial => 'shared/race_title', :locals => { :race => menu_race,
-    :show_series => show_series } %>
+<% race = menu_race %>
+<% if race %>
   <div class="menu sub_menu sub_menu_left">
     <ul>
-      <%= menu_item "Kilpailun etusivu", official_race_path(menu_race), @is_race %>
-      <%= menu_item "Kilpailu & sarjat", edit_official_race_path(menu_race), @is_race_edit %>
+      <%= menu_item "Kilpailun etusivu", official_race_path(race), @is_race %>
+      <%= menu_item "Kilpailu & sarjat", edit_official_race_path(race), @is_race_edit %>
       <% if menu_series %>
         <%= menu_item "Kilpailijat", official_series_competitors_path(menu_series), @is_competitors %>
         <%= menu_item "Lähtölistat", official_series_start_list_path(menu_series), @is_start_list %>
@@ -27,8 +11,8 @@ end
         <%= menu_item "Arvioinnit", official_series_estimates_path(menu_series), @is_estimates %>
         <%= menu_item "Ammunta", official_series_shots_path(menu_series), @is_shots %>
       <% end %>
-      <%= menu_item "Seurat", official_race_clubs_path(menu_race), @is_clubs %>
-      <%= menu_item "Toimitsijat", official_race_officials_path(menu_race), @is_officials %>
+      <%= menu_item "Seurat", official_race_clubs_path(race), @is_clubs %>
+      <%= menu_item "Toimitsijat", official_race_officials_path(race), @is_officials %>
     </ul>
   </div>
 <% end %>

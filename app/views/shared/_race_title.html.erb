@@ -1,9 +1,13 @@
-<div class="race_title<%= show_series ? ' race_title_with_series' : '' %>">
-  <span class="sport_icon"><%= sport_icon(race.sport) %></span>
-  <%= race.name %> (<%= race.location %>, <%= race_date_interval(race) %>)
-</div>
-<%= javascript_tag do %>
-  $(document).ready(function() {
-  $(".main").attr('style', 'margin-top: 12px;');
-  });
+<% race = menu_race %>
+<% if race %>
+  <div class="main_title main_title_with_menu">
+    <%= sport_icon(race.sport) %>
+    <span>
+      <%= race.name %> (<%= race.location %>, <%= race_date_interval(race) %>)
+    </span>
+  </div>
+<% else %>
+  <div class="main_title main_title_without_menu">
+    <span><%= yield :page_title %></span>
+  </div>
 <% end %>

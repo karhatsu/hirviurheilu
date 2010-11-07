@@ -1,58 +1,12 @@
-div.race_title {
-    position: absolute;
-    top: 39px;
-    left: 10px;
-    width: 973px;
-    background-color: olive;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-    border: 1px solid white;
-    padding: 6px;
-    padding-left: 36px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -o-border-radius: 8px;
-}
-
-div.race_title_with_series {
-    width: 1104px;
-}
-
-div.race_title span.sport_icon {
-    position: absolute;
-    top: 3px;
-    left: 6px;
-}
-
 div.menu {
-    margin: 2px;
-    font-family: cursive;
-}
-
-div.sub_menu {
-    width: 130px;
-    margin: 0px;
-    margin-left: 4px;
-}
-
-div.sub_menu_left {
-    position: absolute;
-    top: 64px;
-}
-
-div.sub_menu_right {
-    position: absolute;
-    top: 25px;
-    left: 895px;
+    font-family: arial;
+    overflow: hidden;
 }
 
 div.menu ul {
     margin-top: 0px;
     margin-bottom: 0px;
-    padding-top: 5px;
-    padding-bottom: 1px;
-    padding-left: 4px;
+    padding: 0px;
 }
 
 div.sub_menu ul {
@@ -65,7 +19,7 @@ div.main_menu ul li {
 
 div.sub_menu ul li {
     text-align: center;
-    margin-bottom: 1px;
+    margin-bottom: 2px;
     float: left;
 }
 
@@ -73,7 +27,6 @@ div.menu ul li a {
     color: white;
     background-color: olive;
     text-decoration: none;
-    padding: 5px 5px;
     border: white solid 1px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -83,17 +36,35 @@ div.menu ul li a {
 div.main_menu ul li a {
     float: left;
     margin-right: 4px;
+    border-bottom-width: 0;
+    padding: 6px 6px;
+    -moz-border-radius-bottomleft: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-radius-bottomleft: 0px;
+    -webkit-border-radius-bottomright: 0px;
 }
 
 div.sub_menu ul li a {
     margin-right: 0px;
     display: block;
-    width: 100px;
-    padding: 4px;
+    width: 111px;
+    padding: 5px 4px;
+}
+
+div.sub_menu_left ul li a {
+    border-right-width: 0;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-radius-topright: 0px;
+    -webkit-border-radius-bottomright: 0px;
 }
 
 div.sub_menu_right ul li a {
-    width: 110px;
+    border-left-width: 0;
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    -webkit-border-radius-topleft: 0px;
+    -webkit-border-radius-bottomleft: 0px;
 }
 
 div.menu ul li a:visited {

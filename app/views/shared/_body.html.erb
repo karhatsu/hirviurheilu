@@ -1,15 +1,20 @@
 <body>
-  <div class="top_and_main">
+  <div class="header">
     <%= render :partial => 'shared/menu' %>
     <%= render :partial => 'shared/env_info' %>
     <div class="login_links"><%= render :partial => "shared/login_links" %></div>
-    <div class="main_and_footer">
-      <div class="main">
-        <%= yield %>
-      </div>
-      <%= render :partial => 'shared/footer' %>
-    </div>
   </div>
-  <% if @is_competitions %><%= render :partial => 'shared/sub_menu' %><% end %>
-  <% if @is_official %><%= render :partial => 'official/shared/sub_menu' %><% end %>
+  <%= render :partial => 'shared/race_title' %>
+  <div class="middle_section<%= menu_race ? '' : ' middle_section_no_menus' %>">
+    <% if @is_competitions %>
+      <%= render :partial => 'shared/sub_menu' %>
+    <% elsif @is_official %>
+      <%= render :partial => 'official/shared/sub_menu' %>
+    <% end %>
+    <div class="main_content"><%= yield %></div>
+    <%= yield :series_sub_menu %>
+  </div>
+  <div class="footer">
+    <%= render :partial => 'shared/footer' %>
+  </div>
 </body>

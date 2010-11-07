@@ -1,0 +1,121 @@
+div.header {
+    width: 914px; /* general width */
+    overflow: hidden;
+    margin: 0px auto;
+}
+
+div.middle_section, div.footer {
+    width: 1152px; /* general width */
+    overflow: hidden;
+    /*border: 1px solid black;*/ /*temp*/
+    /*margin: 3px auto;*/ /*temp*/
+    margin: 0px auto;
+}
+
+div.main_title {
+    width: 900px;
+    background-color: olive;
+    padding: 4px 0px 4px 10px;
+    border: 1px solid white;
+    margin: 0px auto;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -o-border-radius: 4px;
+    -moz-border-radius-bottomright: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    -webkit-border-radius-bottomright: 0px;
+    -webkit-border-radius-bottomleft: 0px;
+    -o-border-radius-bottomright: 0px;
+    -o-border-radius-bottomleft: 0px;
+}
+
+div.main_title span {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+div.main_menu {
+    float: left;
+    width: 365px;
+    padding-left: 5px;
+}
+
+div.sub_menu {
+    margin: 0px;
+    float: left;
+}
+
+div.sub_menu_left {
+    width: 120px;
+    padding-left: 0px;
+}
+
+div.sub_menu_right {
+    float: right;
+    width: 120px;
+    /*border: 1px solid black;*/ /*temp*/
+}
+
+div.env_info {
+    float: left;
+    text-align: center;
+    width: 160px;
+    color: orange;
+    padding-top: 5px;
+    /*border: 1px solid black;*/ /*temp*/
+}
+
+span.env_info_link {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+div.login_links {
+    float: left;
+    color: white;
+    text-align: right;
+    width: 380px;
+    padding-top: 5px;
+    /*border: 1px solid black;*/ /*temp*/
+}
+
+div.login_links a {
+    color: white;
+}
+
+div.middle_section_no_menus {
+    width: 912px;
+    margin: 0 auto;
+}
+
+div.main_content {
+    width: 890px;
+    padding: 10px;
+    background-color: white;
+    border: white solid 1px;
+    border-top: none;
+    float: left;
+    -moz-border-radius-bottomright: 4px;
+    -moz-border-radius-bottomleft: 4px;
+    -webkit-border-radius: 4px;
+}
+
+div.main_content_without_menu {
+    margin-left: 135px;
+}
+
+div.footer {
+    color: white;
+    text-align: center;
+    padding: 5px 0px;
+}
+
+div.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+div.footer a:hover {
+    text-decoration: underline;
+}

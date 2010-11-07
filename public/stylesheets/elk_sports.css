@@ -4,67 +4,6 @@ body {
     font-size: 12px;
 }
 
-div.top_and_main {
-    margin-left: 120px;
-}
-
-div.env_info {
-    position: absolute;
-    top: 15px;
-    left: 550px;
-    text-align: center;
-    width: 200px;
-    color: orange;
-}
-
-span.env_info_link {
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-div.login_links {
-    color: white;
-    position: absolute;
-    top: 15px;
-    left: 720px;
-    text-align: right;
-    width: 300px;
-}
-
-div.login_links a {
-    color: white;
-}
-
-div.main_and_footer {
-    position: absolute;
-    top: 39px;
-    width: 900px;
-}
-
-div.main {
-    padding: 10px;
-    background-color: white;
-    border: solid 1px black;
-    clear: left;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-}
-
-div.footer {
-    color: white;
-    text-align: center;
-    padding: 5px;
-}
-
-div.footer a {
-    color: white;
-    text-decoration: none;
-}
-
-div.footer a:hover {
-    text-decoration: underline;
-}
-
 a {
     color: olive;
     text-decoration: none;

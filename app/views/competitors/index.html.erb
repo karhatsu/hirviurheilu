@@ -1,8 +1,10 @@
-<%= content_for(:title, "#{@series.name} - Tulokset") %>
+<% content_for(:title, "#{@series.name} - Tulokset") %>
 <h2><%= yield :title %></h2>
-<%= render :layout => 'shared/series_sub_menu',
-  :locals => { :race => @series.race, :series_id => @series.id } do |series| %>
-  <%= series_competitors_path(series) %>
+<% content_for :series_sub_menu do %>
+  <%= render :layout => 'shared/series_sub_menu',
+    :locals => { :race => @series.race, :series_id => @series.id } do |series| %>
+    <%= series_competitors_path(series) %>
+  <% end %>
 <% end %>
 <%= render :partial => "start_notice", :locals => { :series => @series } %>
 <% if @series.running? %>

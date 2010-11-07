@@ -196,4 +196,16 @@ module ApplicationHelper
     end
   end
 
+  def menu_race
+    menu_race = nil
+    if @race and not @race.new_record?
+      menu_race = @race
+    elsif @series
+      menu_race = @series.race
+    elsif @competitor
+      menu_race = @competitor.series.race
+    end
+    menu_race
+  end
+
 end
