@@ -1,5 +1,5 @@
 <% content_for :title, "Unohtuneen salasanan vaihto" %>
-<h1><%= yield :title %></h1>
+<% content_for(:page_title, yield(:title)) %>
 <div class="instructions">Jos olet unohtanut salasanasi,
   syötä alla olevaan kenttään sähköpostiosoitteesi.</div>
 <%= flash_error %>

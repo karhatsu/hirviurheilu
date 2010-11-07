@@ -1,5 +1,5 @@
-<%= content_for(:title, "Hirviurheilu - Info") %>
-<h1><%= yield :title %></h1>
+<% content_for(:title, "Hirviurheilu - Info") %>
+<% content_for(:page_title, yield(:title)) %>
 <h2>Ota yhteyttä</h2>
 <%= link_to "Lähetä palautetta järjestelmän kautta", new_feedback_path %>
 

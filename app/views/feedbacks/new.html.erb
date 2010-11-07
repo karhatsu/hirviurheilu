@@ -1,4 +1,5 @@
-<h1>Lähetä palautetta</h1>
+<% content_for(:title, 'Lähetä palautetta') %>
+<% content_for(:page_title, yield(:title)) %>
 <%= flash_error %>
 <%= form_tag(feedbacks_path) do %>
   <%= label_tag :comment, 'Palaute' %><br/>

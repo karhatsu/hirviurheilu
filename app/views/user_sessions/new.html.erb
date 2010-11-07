@@ -1,6 +1,5 @@
-<%= content_for(:title, 'Kirjaudu sisään') %>
-<h1><%= yield :title %></h1>
-
+<% content_for(:title, 'Kirjaudu sisään') %>
+<% content_for(:page_title, yield(:title)) %>
 <%= flash_notice %>
 <%= form_for @user_session, :url => user_session_path do |f| %>
   <%= render :partial => "shared/form_errors", :locals => { :item => @user_session } %>

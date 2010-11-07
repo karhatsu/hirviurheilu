@@ -1,5 +1,5 @@
-<%= content_for(:title, 'Kilpailun lisäys') %>
-<h1><%= yield :title %></h1>
+<% content_for(:title, 'Kilpailun lisäys') %>
+<% content_for(:page_title, yield(:title)) %>
 <%= flash_notice %>
 <%# cannot include series in add form since it causes a validation loop between
   races and series %>

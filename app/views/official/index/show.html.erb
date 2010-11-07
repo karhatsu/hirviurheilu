@@ -1,5 +1,5 @@
-<%= content_for(:title, 'Toimitsijan etusivu') %>
-<h1><%= yield :title %></h1>
+<% content_for(:title, 'Toimitsijan etusivu') %>
+<% content_for(:page_title, yield(:title)) %>
 <%= flash_error %>
 <%= flash_notice %>
 <% unless @races.empty? %>

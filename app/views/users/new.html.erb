@@ -1,5 +1,5 @@
-<%= content_for(:title, 'Rekisteröidy') %>
-<h1><%= yield :title %></h1>
+<% content_for(:title, 'Rekisteröidy') %>
+<% content_for(:page_title, yield(:title)) %>
 
 <%= form_for @user, :url => account_path do |f| %>
   <%= render :partial => "form", :object => f %>

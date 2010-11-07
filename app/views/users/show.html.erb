@@ -1,5 +1,5 @@
-<%= content_for(:title, 'Omat tiedot') %>
-<h1><%= yield :title %></h1>
+<% content_for(:title, 'Omat tiedot') %>
+<% content_for(:page_title, yield(:title)) %>
 <%= flash_notice %>
 <b>Sähköposti:</b>
 <%=h @user.email %>

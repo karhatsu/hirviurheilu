@@ -1,5 +1,5 @@
-<%= content_for(:title, 'Admin') %>
-<h1><%= yield :title %></h1>
+<% content_for(:title, 'Admin') %>
+<% content_for(:page_title, yield(:title)) %>
 <%= link_to "Käyttäjät", admin_users_path %><br/>
 <%= link_to "Lajit", admin_sports_path %><br/>
 <%= link_to "Oletussarjat", admin_default_series_index_path %>

@@ -1,4 +1,5 @@
-<h1>Uuden salasanan asetus</h1>
+<% content_for(:title, 'Uuden salasanan asetus') %>
+<% content_for(:page_title, yield(:title)) %>
 <%= flash_error %>
 <%= flash_notice %>
 <% if @hash_ok %>
