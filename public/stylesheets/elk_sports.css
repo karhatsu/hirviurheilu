@@ -147,3 +147,7 @@ div.races_box {
 div.races_box h2 {
     margin-top: 0px;
 }
+
+th {
+    text-align: left;
+}
