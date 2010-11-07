@@ -6,6 +6,8 @@
       <%= race.name %> (<%= race.location %>, <%= race_date_interval(race) %>)
     </span>
   <% else %>
+    <%= sport_icon(Sport.find_ski) %>
+    <%= sport_icon(Sport.find_run) %>
     <span><%= yield :page_title %></span>
   <% end %>
 </div>
