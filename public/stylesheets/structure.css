@@ -1,14 +1,6 @@
 div.header {
-    width: 914px; /* general width */
+    width: 914px;
     overflow: hidden;
-    margin: 0px auto;
-}
-
-div.middle_section, div.footer {
-    width: 1152px; /* general width */
-    overflow: hidden;
-    /*border: 1px solid black;*/ /*temp*/
-    /*margin: 3px auto;*/ /*temp*/
     margin: 0px auto;
 }
 
@@ -35,6 +27,17 @@ div.main_title span {
     font-weight: bold;
 }
 
+div.middle_section, div.footer {
+    width: 1152px;
+    overflow: hidden;
+    margin: 0px auto;
+}
+
+div.middle_section_no_menus {
+    width: 912px;
+    margin: 0 auto;
+}
+
 div.main_menu {
     float: left;
     width: 365px;
@@ -43,18 +46,16 @@ div.main_menu {
 
 div.sub_menu {
     margin: 0px;
-    float: left;
+    width: 120px;
 }
 
 div.sub_menu_left {
-    width: 120px;
+    float: left;
     padding-left: 0px;
 }
 
 div.sub_menu_right {
     float: right;
-    width: 120px;
-    /*border: 1px solid black;*/ /*temp*/
 }
 
 div.env_info {
@@ -63,7 +64,6 @@ div.env_info {
     width: 160px;
     color: orange;
     padding-top: 5px;
-    /*border: 1px solid black;*/ /*temp*/
 }
 
 span.env_info_link {
@@ -77,16 +77,10 @@ div.login_links {
     text-align: right;
     width: 380px;
     padding-top: 5px;
-    /*border: 1px solid black;*/ /*temp*/
 }
 
 div.login_links a {
     color: white;
-}
-
-div.middle_section_no_menus {
-    width: 912px;
-    margin: 0 auto;
 }
 
 div.main_content {
@@ -99,10 +93,6 @@ div.main_content {
     -moz-border-radius-bottomright: 4px;
     -moz-border-radius-bottomleft: 4px;
     -webkit-border-radius: 4px;
-}
-
-div.main_content_without_menu {
-    margin-left: 135px;
 }
 
 div.footer {

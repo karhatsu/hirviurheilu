@@ -13,73 +13,12 @@ a:hover {
     text-decoration: underline;
 }
 
-h1 {
-    margin-top: 0px;
-    font-size: 20px;
-    background-color: olive;
-    color: white;
-    padding: 2px 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-}
-
 h2 {
     font-size: 16px;
 }
 
 h3 {
     font-size: 14px;
-}
-
-div.error_explanation {
-    background-color: orange;
-    color: white;
-    font-weight: bold;
-    padding: 3px;
-    margin-top: 3px;
-    margin-bottom: 3px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-}
-
-div.field_with_errors {
-    color: orange;
-}
-
-div.error {
-    background-color: orange;
-    color: white;
-    margin-bottom: 8px;
-    padding: 3px;
-    border: 1px solid olive;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-}
-
-span.error {
-    background-color: orange;
-    color: white;
-}
-
-div.notice {
-    background-color: olive;
-    color: white;
-    margin-bottom: 8px;
-    padding: 3px;
-    border: 1px solid olive;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-}
-
-div.notice_flash {
-    background-color: white;
-    color: olive;
-    border: 1px solid olive;
-}
-
-span.notice {
-    background-color: olive;
-    color: white;
 }
 
 div.sub_element {
@@ -174,16 +113,6 @@ a.help:hover {
 
 .center {
     text-align: center;
-}
-
-div.instructions {
-    border: olive 1px solid;
-    background-color: white;
-    color: olive;
-    padding: 3px;
-    margin-bottom: 7px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
 }
 
 .series_best_time {

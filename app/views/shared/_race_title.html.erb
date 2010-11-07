@@ -1,13 +1,11 @@
 <% race = menu_race %>
-<% if race %>
-  <div class="main_title main_title_with_menu">
+<div class="main_title">
+  <% if race %>
     <%= sport_icon(race.sport) %>
     <span>
       <%= race.name %> (<%= race.location %>, <%= race_date_interval(race) %>)
     </span>
-  </div>
-<% else %>
-  <div class="main_title main_title_without_menu">
+  <% else %>
     <span><%= yield :page_title %></span>
-  </div>
-<% end %>
+  <% end %>
+</div>

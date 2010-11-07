@@ -197,15 +197,25 @@ module ApplicationHelper
   end
 
   def menu_race
-    menu_race = nil
     if @race and not @race.new_record?
-      menu_race = @race
+      @race
     elsif @series
-      menu_race = @series.race
+      @series.race
     elsif @competitor
-      menu_race = @competitor.series.race
+      @competitor.series.race
+    else
+      nil
     end
-    menu_race
+  end
+
+  def menu_series
+    if @series
+      @series
+    elsif @competitor
+      @competitor.series
+    else
+      nil
+    end
   end
 
 end

@@ -1,25 +1,15 @@
 <%
-menu_race, menu_series = nil, nil
-show_series = false
-if @race
-  menu_race = @race
-  menu_series = @race.series.first
-elsif @series
-  menu_race = @series.race
-  menu_series = @series
-  show_series = true unless @competitor
-elsif @competitor
-  menu_race = @competitor.series.race
-  menu_series = @competitor.series
-end
+race = menu_race
 %>
-<% if menu_race %>
+<% if race %>
   <div class="menu sub_menu sub_menu_left">
     <ul>
-      <%= menu_item "Sarjat", race_path(menu_race), @is_race %>
-      <% if menu_series %>
-        <%= menu_item "Lähtölistat", series_start_list_path(menu_series), @is_start_list %>
-        <%= menu_item "Tulokset", series_competitors_path(menu_series), @is_results %>
+      <%= menu_item "Sarjat", race_path(race), @is_race %>
+      <% series = menu_series %>
+      <% series = race.series.first unless series %>
+      <% if series %>
+        <%= menu_item "Lähtölistat", series_start_list_path(series), @is_start_list %>
+        <%= menu_item "Tulokset", series_competitors_path(series), @is_results %>
       <% end %>
     </ul>
   </div>
