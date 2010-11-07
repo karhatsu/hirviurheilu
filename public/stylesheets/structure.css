@@ -85,7 +85,7 @@ div.login_links a {
 
 div.main_content {
     width: 890px;
-    padding: 10px;
+    padding: 0 10px 10px 10px;
     background-color: white;
     border: white solid 1px;
     border-top: none;
