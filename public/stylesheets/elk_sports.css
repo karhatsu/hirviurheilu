@@ -83,6 +83,8 @@ div.commercial_box {
     margin-bottom: 10px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    -moz-box-shadow: 5px 4px 5px #666666;
+    -webkit-box-shadow: 5px 4px 5px #666666;
 }
 
 div.commercial_box_link {
@@ -129,6 +131,8 @@ a.help:hover {
     padding: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    -moz-box-shadow: 5px 4px 5px #666666;
+    -webkit-box-shadow: 5px 4px 5px #666666;
 }
 
 #company_contact .title {
@@ -142,6 +146,8 @@ div.races_box {
     margin-bottom: 10px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    -moz-box-shadow: 5px 4px 5px #666666;
+    -webkit-box-shadow: 5px 4px 5px #666666;
 }
 
 div.races_box h2 {
