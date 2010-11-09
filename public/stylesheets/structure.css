@@ -10,15 +10,10 @@ div.main_title {
     padding: 4px 0px 4px 10px;
     border: 1px solid white;
     margin-left: 10px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -o-border-radius: 4px;
-    -moz-border-radius-bottomright: 0px;
-    -moz-border-radius-bottomleft: 0px;
-    -webkit-border-radius-bottomright: 0px;
-    -webkit-border-radius-bottomleft: 0px;
-    -o-border-radius-bottomright: 0px;
-    -o-border-radius-bottomleft: 0px;
+    -moz-border-radius-topright: 4px;
+    -moz-border-radius-topleft: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
 
 div.main_title span {
@@ -102,7 +97,8 @@ div.main_content {
     float: left;
     -moz-border-radius-bottomright: 4px;
     -moz-border-radius-bottomleft: 4px;
-    -webkit-border-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
 }
 
 div.footer {

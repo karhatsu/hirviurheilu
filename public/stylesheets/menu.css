@@ -42,13 +42,10 @@ div.main_menu ul li a {
     border: white solid 1px;
     border-bottom-width: 0;
     padding: 6px 6px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -o-border-radius: 3px;
-    -moz-border-radius-bottomleft: 0px;
-    -moz-border-radius-bottomright: 0px;
-    -webkit-border-radius-bottomleft: 0px;
-    -webkit-border-radius-bottomright: 0px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 }
 
 div.sub_menu ul li a {
@@ -60,17 +57,13 @@ div.sub_menu ul li a {
 div.series_sub_menu ul li a {
     margin-right: 0px;
     display: block;
-    width: 111px;
+    width: 110px;
     padding: 5px 4px;
     border: white solid 1px;
-    border-left-width: 0;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -o-border-radius: 3px;
-    -moz-border-radius-topleft: 0px;
-    -moz-border-radius-bottomleft: 0px;
-    -webkit-border-radius-topleft: 0px;
-    -webkit-border-radius-bottomleft: 0px;
+    -moz-border-radius-topright: 3px;
+    -moz-border-radius-bottomright: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
 }
 
 /* a:visited */
@@ -86,10 +79,6 @@ div.menu ul li a:hover {
 
 div.main_menu ul li a:hover {
     border-bottom-color: white;
-    -moz-border-radius-bottomleft: 0px;
-    -moz-border-radius-bottomright: 0px;
-    -webkit-border-radius-bottomleft: 0px;
-    -webkit-border-radius-bottomright: 0px;
 }
 
 div.series_sub_menu ul li a:hover {
@@ -100,11 +89,4 @@ div.series_sub_menu ul li a:hover {
 div.menu ul li a.selected {
     color: olive;
     background-color: white;
-}
-
-div.main_menu ul li a.selected {
-    -moz-border-radius-bottomleft: 0px;
-    -moz-border-radius-bottomright: 0px;
-    -webkit-border-radius-bottomleft: 0px;
-    -webkit-border-radius-bottomright: 0px;
 }

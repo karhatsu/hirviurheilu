@@ -82,7 +82,7 @@ div.commercial_box {
     text-align: center;
     margin-bottom: 10px;
     -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+    border-radius: 5px;
     -moz-box-shadow: 5px 4px 5px #666666;
     -webkit-box-shadow: 5px 4px 5px #666666;
 }
