@@ -1,16 +1,18 @@
 <% race = menu_race %>
 <% if race %>
+  <% series = menu_series %>
+  <% series = race.series.first unless series %>
   <div class="second_level_menu">
     <div class="menu sub_menu">
       <ul>
         <%= menu_item "Kilpailun etusivu", official_race_path(race), @is_race %>
         <%= menu_item "Kilpailu & sarjat", edit_official_race_path(race), @is_race_edit %>
-        <% if menu_series %>
-          <%= menu_item "Kilpailijat", official_series_competitors_path(menu_series), @is_competitors %>
-          <%= menu_item "Lähtölistat", official_series_start_list_path(menu_series), @is_start_list %>
-          <%= menu_item "Ajat", official_series_times_path(menu_series), @is_times %>
-          <%= menu_item "Arvioinnit", official_series_estimates_path(menu_series), @is_estimates %>
-          <%= menu_item "Ammunta", official_series_shots_path(menu_series), @is_shots %>
+        <% if series %>
+          <%= menu_item "Kilpailijat", official_series_competitors_path(series), @is_competitors %>
+          <%= menu_item "Lähtölistat", official_series_start_list_path(series), @is_start_list %>
+          <%= menu_item "Ajat", official_series_times_path(series), @is_times %>
+          <%= menu_item "Arvioinnit", official_series_estimates_path(series), @is_estimates %>
+          <%= menu_item "Ammunta", official_series_shots_path(series), @is_shots %>
         <% end %>
         <%= menu_item "Seurat", official_race_clubs_path(race), @is_clubs %>
         <%= menu_item "Toimitsijat", official_race_officials_path(race), @is_officials %>
