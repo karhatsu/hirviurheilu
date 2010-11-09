@@ -69,7 +69,7 @@ div.answer {
 
 div.commercial_column {
     position: absolute;
-    left: 860px;
+    left: 700px;
     top: 80px;
 }
 
@@ -122,7 +122,7 @@ a.help:hover {
 
 #company_contact {
     position: absolute;
-    left: 860px;
+    left: 700px;
     top: 80px;
     text-align: center;
     border: 1px solid olive;

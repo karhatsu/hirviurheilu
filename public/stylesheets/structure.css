@@ -1,7 +1,7 @@
 div.header {
-    width: 914px;
+    width: 910px;
     overflow: hidden;
-    margin: 0px auto;
+    margin-left: 10px;
 }
 
 div.main_title {
@@ -9,7 +9,7 @@ div.main_title {
     background-color: olive;
     padding: 4px 0px 4px 10px;
     border: 1px solid white;
-    margin: 0px auto;
+    margin-left: 10px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     -o-border-radius: 4px;
@@ -27,15 +27,28 @@ div.main_title span {
     font-weight: bold;
 }
 
-div.middle_section, div.footer {
-    width: 1152px;
+div.second_level_menu {
+    width: 910px;
+    margin-left: 10px;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
     overflow: hidden;
-    margin: 0px auto;
+}
+
+div.middle_section {
+    width: 1032px;
+    overflow: hidden;
+    margin-left: 10px;
+}
+
+div.footer {
+    width: 910px;
+    overflow: hidden;
+    margin-left: 10px;
 }
 
 div.middle_section_no_menus {
     width: 912px;
-    margin: 0 auto;
 }
 
 div.main_menu {
@@ -45,16 +58,13 @@ div.main_menu {
 }
 
 div.sub_menu {
+    float: left;
+    width: 914px;
+}
+
+div.series_sub_menu {
     margin: 0px;
     width: 120px;
-}
-
-div.sub_menu_left {
-    float: left;
-    padding-left: 0px;
-}
-
-div.sub_menu_right {
     float: right;
 }
 

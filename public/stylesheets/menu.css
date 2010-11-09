@@ -3,41 +3,48 @@ div.menu {
     overflow: hidden;
 }
 
+/* ul */
 div.menu ul {
     margin-top: 0px;
     margin-bottom: 0px;
     padding: 0px;
 }
 
-div.sub_menu ul {
+div.series_sub_menu ul {
     list-style: none;
 }
 
+/* li */
 div.main_menu ul li {
     display: inline;
 }
 
 div.sub_menu ul li {
+    display: inline;
+}
+
+div.series_sub_menu ul li {
     text-align: center;
     margin-bottom: 2px;
     float: left;
 }
 
+/* a */
 div.menu ul li a {
     color: white;
     background-color: olive;
     text-decoration: none;
-    border: white solid 1px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -o-border-radius: 3px;
 }
 
 div.main_menu ul li a {
     float: left;
     margin-right: 4px;
+    border: white solid 1px;
     border-bottom-width: 0;
     padding: 6px 6px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
     -moz-border-radius-bottomleft: 0px;
     -moz-border-radius-bottomright: 0px;
     -webkit-border-radius-bottomleft: 0px;
@@ -45,50 +52,36 @@ div.main_menu ul li a {
 }
 
 div.sub_menu ul li a {
+    float: left;
+    border-right: white solid 1px;
+    padding: 6px 6px;
+}
+
+div.series_sub_menu ul li a {
     margin-right: 0px;
     display: block;
     width: 111px;
     padding: 5px 4px;
-}
-
-div.sub_menu_left ul li a {
-    border-right-width: 0;
-    -moz-border-radius-topright: 0px;
-    -moz-border-radius-bottomright: 0px;
-    -webkit-border-radius-topright: 0px;
-    -webkit-border-radius-bottomright: 0px;
-}
-
-div.sub_menu_right ul li a {
+    border: white solid 1px;
     border-left-width: 0;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
     -moz-border-radius-topleft: 0px;
     -moz-border-radius-bottomleft: 0px;
     -webkit-border-radius-topleft: 0px;
     -webkit-border-radius-bottomleft: 0px;
 }
 
+/* a:visited */
 div.menu ul li a:visited {
     color: white;
 }
 
+/* a:hover */
 div.menu ul li a:hover {
     color: olive;
     background-color: white;
-}
-
-div.menu ul li a.selected {
-    color: olive;
-    background-color: white;
-}
-
-div.main_menu ul li a.selected {
-    -moz-border-radius-bottomleft: 0px;
-    -moz-border-radius-bottomright: 0px;
-    -webkit-border-radius-bottomleft: 0px;
-    -webkit-border-radius-bottomright: 0px;
-}
-
-div.sub_menu ul li a.selected {
 }
 
 div.main_menu ul li a:hover {
@@ -99,6 +92,19 @@ div.main_menu ul li a:hover {
     -webkit-border-radius-bottomright: 0px;
 }
 
-div.sub_menu ul li a:hover {
+div.series_sub_menu ul li a:hover {
     border-right-color: white;
+}
+
+/* a.selected */
+div.menu ul li a.selected {
+    color: olive;
+    background-color: white;
+}
+
+div.main_menu ul li a.selected {
+    -moz-border-radius-bottomleft: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-radius-bottomleft: 0px;
+    -webkit-border-radius-bottomright: 0px;
 }

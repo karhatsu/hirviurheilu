@@ -2,15 +2,17 @@
 race = menu_race
 %>
 <% if race %>
-  <div class="menu sub_menu sub_menu_left">
-    <ul>
-      <%= menu_item "Sarjat", race_path(race), @is_race %>
-      <% series = menu_series %>
-      <% series = race.series.first unless series %>
-      <% if series %>
-        <%= menu_item "Lähtölistat", series_start_list_path(series), @is_start_list %>
-        <%= menu_item "Tulokset", series_competitors_path(series), @is_results %>
-      <% end %>
-    </ul>
+  <div class="second_level_menu">
+    <div class="menu sub_menu">
+      <ul>
+        <%= menu_item "Sarjat", race_path(race), @is_race %>
+        <% series = menu_series %>
+        <% series = race.series.first unless series %>
+        <% if series %>
+          <%= menu_item "Lähtölistat", series_start_list_path(series), @is_start_list %>
+          <%= menu_item "Tulokset", series_competitors_path(series), @is_results %>
+        <% end %>
+      </ul>
+    </div>
   </div>
 <% end %>
