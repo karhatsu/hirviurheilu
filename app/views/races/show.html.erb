@@ -7,6 +7,7 @@
     <tr>
       <th>Nimi</th>
       <th>Lähtöaika</th>
+      <th>Kilpailijoita</th>
       <th>&nbsp;</th>
     </tr>
     <% @race.series.each do |s| %>
@@ -19,16 +20,21 @@
             -
           <% end %>
         </td>
-        <td>
-          <% if s.competitors.empty? %>
-            Sarjaan ei ole merkitty kilpailijoita
-          <% elsif !s.has_start_list? %>
-            Sarjan lähtöluetteloa ei ole vielä julkaistu
-          <% else %>
-            <%= link_to "Tulokset", series_competitors_path(s) %>,
-            <%= link_to "Lähtölista", series_start_list_path(s) %>
-          <% end %>
-        </td>
+        <% if s.competitors.empty? %>
+          <td colspan="2">Sarjaan ei ole merkitty kilpailijoita</td>
+        <% else %>
+          <td><%= s.competitors.count %></td>
+          <td>
+            <% if s.competitors.empty? %>
+
+            <% elsif !s.has_start_list? %>
+              Sarjan lähtöluetteloa ei ole vielä julkaistu
+            <% else %>
+              <%= link_to "Tulokset", series_competitors_path(s) %>,
+              <%= link_to "Lähtölista", series_start_list_path(s) %>
+            <% end %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </table>
