@@ -1,6 +1,9 @@
 <% content_for(:title, 'Rekisteröidy') %>
 <% content_for(:page_title, yield(:title)) %>
 
+<div class="instructions">Rekisteröityminen on pakollista kilpailun järjestäjille
+  eli toimitsijoille. Kilpailijoiden ei tarvitse rekisteröityä palveluun.</div>
+
 <%= form_for @user, :url => account_path do |f| %>
   <%= render :partial => "form", :object => f %>
   <%= f.submit "Rekisteröidy" %>
