@@ -9,14 +9,32 @@
 <div class="answer">Hirviurheilu on hirvenhiihtoon ja hirvenjuoksuun tarkoitettu
   tulospalvelu.</div>
 
+<div class="question">Mitä kilpailumuotoja palvelu tukee?</div>
+<div class="answer">Katso vastaus tämän sivun alalaidasta.</div>
+
+<div class="question">Mitä hyötyä palvelusta on kilpailun järjestäjille?</div>
+<div class="answer">Tulospalvelun järjestäminen onnistuu palvelun kautta
+  vaivattomasti. Palvelun käyttöönotto on erittäin nopeaa ja sen käyttäminen
+  helppoa. Järjestäjien ei tarvitse huolehtia lähtölistojen tai tulosten
+  julkaisemisesta, koska ne ovat kaikkien saatavilla internetissä ilman
+  ylimääräisiä toimenpiteitä. Palvelu tarjoaa myös luotettavan tavan tulosten
+  laskemiseen, toimitsijoiden tarvitsee ainoastaan syöttää kilpailijoiden
+  saapumisaika, arviot sekä ammuntatulokset. Pisteet lasketaan näiden
+  perusteella automaattisesti.</div>
+
+<div class="question">Mitä hyötyä palvelusta on kilpailijoille?</div>
+<div class="answer">Kilpailijat näkevät tulokset reaaliaikaisina internetin
+  kautta välittömästi, kun toimitsijat syöttävät ne järjestelmään. Kilpailijat
+  voivat myös helposti varmistaa, että tulokset on syötetty ja laskettu oikein.</div>
+
 <div class="question">Mitä palvelun käyttäminen vaatii?</div>
 <div class="answer">Toimitsijoilla täytyy olla käytössä internet-yhteys,
   sillä palvelu toimii internetissä selaimen välityksellä.</div>
 
 <div class="question">Kuinka palvelun käyttöönotto tapahtuu?</div>
 <div class="answer">Tulospalvelun käyttöönotto on erittäin helppoa.
-  Ota yhteyttä yllä olevan linkin kautta, niin saat itsellesi käyttäjätunnukset.
-  Sen jälkeen voit syöttää tulospalveluun kilpailun tiedot.</div>
+  <%= link_to "Rekisteröidy palveluun", register_path %>, jonka jälkeen voit
+  syöttää tulospalveluun kilpailun tiedot.</div>
 
 <div class="question">Mitkä sarjat tulospalvelussa on määritetty?</div>
 <div class="answer">Voit itse päättää täysin, mitä sarjoja kilpailuusi syötät.
@@ -25,11 +43,10 @@
 
 <div class="question">Mitä asioita pitää tehdä ennen kilpailua.</div>
 <div class="answer">Ennen kilpailua sinun täytyy lisätä tulospalveluun kilpailun
-  perustiedot kuten sen nimi, päivämäärä(t) ja sijainti sekä sarjojen tiedot.
-  Jokaiselle sarjalle pitää määrittää lisäksi lähtöaika sekä sarjan kilpailijan
-  ensimmäinen numero. Tämän jälkeen voit lisätä sarjoihin ilmoittautuneita
-  kilpailijoita. Palvelussa on automaattiset toiminnot, joiden avulla
-  lähtöaikojen ja lähtönumeroiden lisääminen kilpailijoille on helppoa.</div>
+  perustiedot kuten sen nimi, ajankohta ja paikkakunta sekä sarjojen nimet.
+  Tämän jälkeen voit lisätä sarjoihin ilmoittautuneita kilpailijoita.
+  Kun olet lisännyt kaikki kilpailijat, voit palvelun avulla luoda kilpailijoille
+  helposti lähtönumerot ja lähtöajat. Tämän jälkeen kilpailu on valmis alkamaan.</div>
 
 <div class="question">Miten tulosten syöttäminen tapahtuu kilpailun aikana?</div>
 <div class="answer">Tähän on tarjolla kaksi vaihtoehtoista näkymää.
@@ -39,7 +56,7 @@
   kerralla. Toinen vaihtoehto on syöttää tulokset tulospaikkakohtaisesti.
   Jos esimerkiksi yhden toimitsijan vastuulla on ammuntatulosten syöttäminen,
   hän voi käyttää näkymää, jossa näkyy yhden sarjan osalta kaikki kilpailijat
-  ja heille lomakkeet ammuntatulosten syöttämiseen.</div>
+  ja heille kentät ammuntatulosten syöttämiseen.</div>
 
 <div class="question">Pitääkö ammuntatulokset syöttää summana vai yksittäisinä
   laukauksina?</div>
@@ -53,7 +70,8 @@
   osalta muuta kuin pisteet.</div>
 
 <div class="question">Voiko useampi toimitsija käyttää järjestelmää yhtä aikaa?</div>
-<div class="answer">Kyllä voi.</div>
+<div class="answer">Kyllä voi. Kilpailun perustaja voi kutsua muita henkilöitä
+  toimitsijaksi samaan kilpailuun.</div>
 
 <div class="question">Miten tulokset saadaan julkaistua kilpailijoiden nähtäville?</div>
 <div class="answer">Sinun ei tarvitse tehdä mitään erillistoimenpiteitä.
