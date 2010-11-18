@@ -1,11 +1,18 @@
+Hirviurheilu - tulospalvelu kahdelle suomalaiselle urheilulajille: hirvenhiihto ja hirvenjuoksu.
+
+Lue lajeista lisää Wikipediasta:
+http://fi.wikipedia.org/wiki/Hirvenhiihto
+http://fi.wikipedia.org/wiki/Hirvenjuoksu
+
+Palvelusta pyörii testiversio osoitteessa:
+http://hirviurheilu.heroku.com
+
+(Varsinainen palvelu tulee saataville myöhemmin.)
+
+----------------------------------------------------------------
 Elk Sports - a score service application for two Finnish sports:
 elk running (hirvenjuoksu) and elk skiing (hirvenhiihto).
 
 See more in Finnish Wikipedia:
 http://fi.wikipedia.org/wiki/Hirvenhiihto
 http://fi.wikipedia.org/wiki/Hirvenjuoksu
-
-Test version of the service is running in:
-http://hirviurheilu.heroku.com
-
-(Production version will be available later.)
