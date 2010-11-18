@@ -19,8 +19,8 @@
         <%= "(#{comp.age_group.name})" if comp.age_group %>
       </td>
       <td><%= comp.club.name %></td>
-      <td class="center"><%= comp.number %></td>
-      <td class="center"><%= time_print(comp.start_time, true) %></td>
+      <td class="center"><%= value_or_space(comp.number) %></td>
+      <td class="center"><%= time_print(comp.start_time, true, '&nbsp;') %></td>
       <% if result_column %>
         <td class="center"><%= yes_or_empty(comp.finished?) %></td>
       <% end %>

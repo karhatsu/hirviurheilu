@@ -32,7 +32,7 @@ module ApplicationHelper
   end
 
   def time_print(time, seconds=false, nil_result='')
-    return nil_result if time.nil?
+    return raw(nil_result) if time.nil?
     format = (seconds ? '%H:%M:%S' : '%H:%M')
     time.strftime(format)
   end
@@ -194,6 +194,11 @@ module ApplicationHelper
     else
       raw('&nbsp;')
     end
+  end
+
+  def value_or_space(value)
+    return value if value
+    raw('&nbsp;')
   end
 
   def menu_race

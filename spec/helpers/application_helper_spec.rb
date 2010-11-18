@@ -77,6 +77,10 @@ describe ApplicationHelper do
     it "should print given string instead of empty string if defined and nil" do
       helper.time_print(nil, true, 'none').should == 'none'
     end
+
+    it "should print given string as raw instead of empty string if defined and nil" do
+      helper.time_print(nil, true, '&nbsp;').should == '&nbsp;'
+    end
   end
 
   describe "#time_from_seconds" do
@@ -331,6 +335,17 @@ describe ApplicationHelper do
       helper.should_receive(:date_interval).with(race.start_date, race.end_date).
         and_return('result')
       helper.race_date_interval(race).should == 'result'
+    end
+  end
+
+  describe "#value_or_space" do
+    it "should return value when value is available" do
+      helper.value_or_space('test').should == 'test'
+    end
+
+    it "should return html space when value not available" do
+      helper.value_or_space(nil).should == '&nbsp;'
+      helper.value_or_space(false).should == '&nbsp;'
     end
   end
 end
