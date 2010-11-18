@@ -338,6 +338,26 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#yes_or_empty" do
+    context "when boolean is true" do
+      it "should return yes icon" do
+        helper.yes_or_empty('test').should match(/<img .* src=.*icon_yes.gif.*\/>/)
+      end
+    end
+
+    context "when boolean is false" do
+      it "should return html space when no block given" do
+        helper.yes_or_empty(nil).should == '&nbsp;'
+      end
+
+      it "should call block when block given" do
+        s = mock(Series)
+        s.should_receive(:id)
+        helper.yes_or_empty(false) do s.id end
+      end
+    end
+  end
+
   describe "#value_or_space" do
     it "should return value when value is available" do
       helper.value_or_space('test').should == 'test'
