@@ -22,6 +22,10 @@ h3 {
     font-size: 14px;
 }
 
+form {
+    margin: 0px;
+}
+
 div.sub_element {
     background-color: #C0C080;
     padding: 5px;
