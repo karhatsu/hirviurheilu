@@ -66,11 +66,6 @@ div.series_sub_menu ul li a {
     border-bottom-right-radius: 3px;
 }
 
-/* a:visited */
-div.menu ul li a:visited {
-    color: white;
-}
-
 /* a:hover */
 div.menu ul li a:hover {
     color: olive;
