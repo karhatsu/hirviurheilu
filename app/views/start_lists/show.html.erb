@@ -14,23 +14,25 @@
     <div><%= link_to "Lisää kilpailijoita", new_official_series_competitor_path(@series) %></div>
   <% end %>
 <% else %>
-  <table>
-    <tr>
-      <th>Nro</th>
-      <th>Kilpailija</th>
-      <th><%= t "attributes.club" %></th>
-      <th>Lähtöaika</th>
-    </tr>
-    <% @series.start_list.each_with_index do |comp, i| %>
-      <tr id="comp_<%= i + 1 %>">
-        <td><%= comp.number %></td>
-        <td><%= full_name(comp) %>
-          <%= "(#{comp.age_group.name})" if comp.age_group %></td>
-        <td><%= comp.club.name %></td>
-        <td><%= time_print(comp.start_time, true) %></td>
+  <div class="table_wrapper">
+    <table>
+      <tr>
+        <th>Nro</th>
+        <th>Kilpailija</th>
+        <th><%= t "attributes.club" %></th>
+        <th>Lähtöaika</th>
       </tr>
-    <% end %>
-  </table>
+      <% @series.start_list.each_with_index do |comp, i| %>
+        <tr id="comp_<%= i + 1 %>">
+          <td><%= comp.number %></td>
+          <td><%= full_name(comp) %>
+            <%= "(#{comp.age_group.name})" if comp.age_group %></td>
+          <td><%= comp.club.name %></td>
+          <td><%= time_print(comp.start_time, true) %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
   <br/>
   <%= link_to "Lataa lähtölista pdf-tiedostona", series_start_list_path(@series,
     :format => 'pdf') %><br/>

@@ -3,41 +3,43 @@
 <% if @race.series.empty? %>
   Kilpailuun ei ole vielä lisätty sarjoja
 <% else %>
-  <table>
-    <tr>
-      <th>Nimi</th>
-      <th>Lähtöaika</th>
-      <th>Kilpailijoita</th>
-      <th>&nbsp;</th>
-    </tr>
-    <% @race.series.each do |s| %>
-      <tr id="series_<%= s.id %>">
-        <td><%= s.name %></td>
-        <td>
-          <% if s.start_time %>
-            <%= datetime_print(s.start_time, true) %>
-          <% else %>
-            -
-          <% end %>
-        </td>
-        <% if s.competitors.empty? %>
-          <td colspan="2">Sarjaan ei ole merkitty kilpailijoita</td>
-        <% else %>
-          <td><%= s.competitors.count %></td>
+  <div class="table_wrapper">
+    <table>
+      <tr>
+        <th>Nimi</th>
+        <th>Lähtöaika</th>
+        <th>Kilpailijoita</th>
+        <th>&nbsp;</th>
+      </tr>
+      <% @race.series.each do |s| %>
+        <tr id="series_<%= s.id %>">
+          <td><%= s.name %></td>
           <td>
-            <% if s.competitors.empty? %>
-
-            <% elsif !s.has_start_list? %>
-              Sarjan lähtöluetteloa ei ole vielä julkaistu
+            <% if s.start_time %>
+              <%= datetime_print(s.start_time, true) %>
             <% else %>
-              <%= link_to "Tulokset", series_competitors_path(s) %>,
-              <%= link_to "Lähtölista", series_start_list_path(s) %>
+              -
             <% end %>
           </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </table>
+          <% if s.competitors.empty? %>
+            <td colspan="2">Sarjaan ei ole merkitty kilpailijoita</td>
+          <% else %>
+            <td><%= s.competitors.count %></td>
+            <td>
+              <% if s.competitors.empty? %>
+
+              <% elsif !s.has_start_list? %>
+                Sarjan lähtöluetteloa ei ole vielä julkaistu
+              <% else %>
+                <%= link_to "Tulokset", series_competitors_path(s) %>,
+                <%= link_to "Lähtölista", series_start_list_path(s) %>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
 <% end %>
 <% if @race.start_date > Date.today %>
   <div class="instructions">
