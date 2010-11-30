@@ -330,9 +330,9 @@ describe Competitor do
       @competitor.time_points.should == 300
     end
 
-    it "should be 299 when this competitor was 1 seconds slower than the best" do
+    it "should be 300 when this competitor was 1 seconds slower than the best" do
       @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 1)
-      @competitor.time_points.should == 299
+      @competitor.time_points.should == 300
     end
 
     it "should be 299 when this competitor was 10 seconds slower than the best" do
@@ -340,9 +340,9 @@ describe Competitor do
       @competitor.time_points.should == 299
     end
 
-    it "should be 298 when this competitor was 11 seconds slower than the best" do
+    it "should be 299 when this competitor was 11 seconds slower than the best" do
       @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 11)
-      @competitor.time_points.should == 298
+      @competitor.time_points.should == 299
     end
 
     it "should be 298 when this competitor was 20 seconds slower than the best" do
