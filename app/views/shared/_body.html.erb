@@ -9,6 +9,8 @@
     <%= render :partial => 'shared/sub_menu' %>
   <% elsif @is_official %>
     <%= render :partial => 'official/shared/sub_menu' %>
+  <% elsif @is_admin %>
+    <%= render :partial => 'admin/shared/sub_menu' %>
   <% end %>
   <div class="middle_section<%= menu_race ? '' : ' middle_section_no_menus' %>">
     <div class="main_content"><%= yield %></div>
