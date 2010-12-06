@@ -31,6 +31,7 @@ ElkSports::Application.routes.draw do
     resources :races do as_routes end
     resources :clubs do as_routes end
     resources :sports do as_routes end
+    resources :prices do as_routes end
     resources :default_series do as_routes end
     resources :default_age_groups do as_routes end
     root :to => "index#show"

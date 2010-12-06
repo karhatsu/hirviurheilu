@@ -28,6 +28,7 @@ fi:
     number: Numero
     password: Salasana
     password_confirmation: Salasana uudestaan
+    price: Hinta
     race: Kilpailu
     remember_me: Muista minut
     roles: Roolit
@@ -52,6 +53,9 @@ fi:
       default_series:
         one: Oletussarja
         other: Oletussarjat
+      price:
+        one: Hinta
+        other: Hinnat
       race:
         one: Kilpailu
         other: Kilpailut
