@@ -36,4 +36,16 @@ describe Price do
     specify { Price.price_for_competitor_amount(20).should == 10 }
     specify { Price.price_for_competitor_amount(100).should == 50 }
   end
+
+  describe "#max_competitors" do
+    before do
+      @price3 = Factory.create(:price, :min_competitors => 20, :price => 0.5)
+      @price1 = Factory.create(:price, :min_competitors => 1, :price => 1.5)
+      @price2 = Factory.create(:price, :min_competitors => 10, :price => 1.0)
+    end
+
+    specify { @price1.max_competitors.should == 9 }
+    specify { @price2.max_competitors.should == 19 }
+    specify { @price3.max_competitors.should == nil }
+  end
 end

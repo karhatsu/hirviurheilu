@@ -5,6 +5,15 @@ class Price < ActiveRecord::Base
     :greater_than => 0 }
   validates :price, :numericality => { :greater_than => 0 }
 
+  def max_competitors
+    Price.all.each do |p|
+      if min_competitors < p.min_competitors
+        return p.min_competitors - 1
+      end
+    end
+    return nil
+  end
+
   def self.price_for_competitor_amount(amount)
     price = 0
     all.each do |p|
