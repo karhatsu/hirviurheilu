@@ -1,15 +1,17 @@
-<div class="env_info">Tämä on <span class="env_info_link">testiympäristö</span></div>
-<div id="env_info_dialog" class="dialog" style="display: none;">
-  Käytät Hirviurheilun testiympäristöä. Se tarkoittaa seuraavia asioita:
-  <ul>
-    <li>Voit syöttää järjestelmään mitä (testi)dataa tahansa.</li>
-    <li>Datan säilyvyydestä ei ole takeita.</li>
-  </ul>
-  Toisin sanoen tätä ympäristöä ei ole tarkoitettu oikeiden kilpailujen
-  järjestämiseen, ainoastaan niiden testaamiseen.
-</div>
-<script type="text/javascript">
-  $('.env_info_link').click(function() {
-    $('#env_info_dialog').dialog({ title: 'Testiympäristöinfo', closeText: 'Sulje' });
-  });
-</script>
+<% unless Rails.env == 'production' %>
+  <div class="env_info">Tämä on <span class="env_info_link">testiympäristö</span></div>
+  <div id="env_info_dialog" class="dialog" style="display: none;">
+    Käytät Hirviurheilun testiympäristöä. Se tarkoittaa seuraavia asioita:
+    <ul>
+      <li>Voit syöttää järjestelmään mitä (testi)dataa tahansa.</li>
+      <li>Datan säilyvyydestä ei ole takeita.</li>
+    </ul>
+    Toisin sanoen tätä ympäristöä ei ole tarkoitettu oikeiden kilpailujen
+    järjestämiseen, ainoastaan niiden testaamiseen.
+  </div>
+  <script type="text/javascript">
+    $('.env_info_link').click(function() {
+      $('#env_info_dialog').dialog({ title: 'Testiympäristöinfo', closeText: 'Sulje' });
+    });
+  </script>
+<% end %>

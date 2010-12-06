@@ -12,6 +12,14 @@ test: &test
   pool: 5
   timeout: 5000
 
+staging:
+  adapter: postgresql
+  database: elk_sports
+  username: elk_sports
+  password: elk_sports
+  encoding: unicode
+  pool: 5
+
 production:
   adapter: postgresql
   database: elk_sports
