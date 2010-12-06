@@ -14,6 +14,8 @@ ElkSports::Application.routes.draw do
 
   resource :info
   resources :feedbacks
+  
+  post 'calculate_price' => 'prices#calculate_price', :as => :calculate_price
   resources :prices
 
   resources :races

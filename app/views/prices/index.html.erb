@@ -6,3 +6,10 @@
   <%= price.min_competitors %>-<%= price.max_competitors %> kilpailijaa:
   <%= "%.2f" % price.price %> euroa / kilpailija<br/>
 <% end %>
+<h2>Hintalaskuri</h2>
+<%= form_tag calculate_price_path, :remote => true do %>
+  <%= label_tag :competitors, "Kilpailijoita:" %>
+  <%= text_field_tag :competitors, @default_competitors_count, :size => 3 %>
+  <%= submit_tag "Laske" %>
+<% end %>
+Hinta yhteensä: <span id="calculated_price"><%= "%.2f" % @price %></span> euroa
