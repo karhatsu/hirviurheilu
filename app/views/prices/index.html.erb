@@ -1,11 +1,16 @@
 <% content_for :title, "Hinnat" %>
 <% content_for :page_title, yield(:title) %>
 <h2>Yhden kilpailun hinnat</h2>
-<div class="instructions">Kaikki hinnat sisältävät 23 % arvonlisäveroa.</div>
-<% @prices.each do |price| %>
-  <%= price.min_competitors %>-<%= price.max_competitors %> kilpailijaa:
-  <%= "%.2f" % price.price %> euroa / kilpailija<br/>
+<% unless Rails.env == 'production' %>
+  <div class="error">Käytät tällä hetkellä testiympäristöä. Sen käyttö ei maksa mitään.</div>
 <% end %>
+<div class="instructions">Kaikki hinnat sisältävät 23 % arvonlisäveroa.</div>
+<div class="table_wrapper">
+  <% @prices.each do |price| %>
+    <%= price.min_competitors %>-<%= price.max_competitors %> kilpailijaa:
+    <%= "%.2f" % price.price %> euroa / kilpailija<br/>
+  <% end %>
+</div>
 <h2>Hintalaskuri</h2>
 <%= form_tag calculate_price_path, :remote => true do %>
   <%= label_tag :competitors, "Kilpailijoita:" %>
