@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update]
   before_filter :set_account, :only => [:show, :edit, :update]
+  before_filter :set_start, :only => [:new]
 
   def new
     @user = User.new
@@ -41,5 +42,9 @@ class UsersController < ApplicationController
   private
   def set_account
     @is_account = true
+  end
+
+  def set_start
+    @is_start = true
   end
 end

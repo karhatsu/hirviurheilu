@@ -6,6 +6,8 @@
     <%= menu_item "Hinnat", prices_path, @is_prices %>
     <% if current_user %>
       <%= menu_item "Omat tiedot", account_path, @is_account %>
+    <% else %>
+      <%= menu_item "Aloita", register_path, @is_start %>
     <% end %>
     <% if current_user and current_user.admin? %>
       <%= menu_item "Admin", admin_root_path, @is_admin %>
