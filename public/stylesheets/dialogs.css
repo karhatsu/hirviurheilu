@@ -10,3 +10,8 @@ div.ui-dialog-titlebar {
 .ui-widget-header {
     background-image: none;
 }
+
+.ui-widget-content a {
+    color: olive;
+    text-decoration: underline;
+}

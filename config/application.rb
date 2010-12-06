@@ -7,6 +7,8 @@ require 'rails/all'
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 ADMIN_EMAIL = ["com", ".", "karhatsu", "@", "henri"].reverse.join('')
+TEST_URL = "http://hutesti.heroku.com"
+PRODUCTION_URL = "http://hirviurheilu.heroku.com"
 
 module ElkSports
   class Application < Rails::Application
