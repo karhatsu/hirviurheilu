@@ -32,6 +32,13 @@ Feature: Main page
     And I should see "Ongoing race" within "div.ongoing_races"
     And I should see "Ongoing city" within "div.ongoing_races"
 
+  Scenario: No races
+    Given I go to the home page
+    Then I should see "Tulevat kilpailut" within "div.future_races"
+    And I should see "Tällä hetkellä ei tiedossa tulevia kilpailuita" within "div.future_races"
+    But I should not see "Menossa olevat kilpailut"
+    And I should not see "Päättyneet kilpailut"
+
   Scenario: Showing registration link for unauthenticated users
     Given I am on the home page
     Then I should see "Oletko järjestämässä hirvenhiihdon tai hirvenjuoksun kilpailua?"

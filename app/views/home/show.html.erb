@@ -10,13 +10,19 @@
 
 <div class="races_box future_races">
   <h2>Tulevat kilpailut</h2>
-  <%= render :partial => "race_list", :locals => { :races => @future } %>
+  <% unless @future.empty? %>
+    <%= render :partial => "race_list", :locals => { :races => @future } %>
+  <% else %>
+    Tällä hetkellä ei tiedossa tulevia kilpailuita
+  <% end %>
 </div>
 
-<div class="races_box old_races">
-  <h2>Päättyneet kilpailut</h2>
-  <%= render :partial => "race_list", :locals => { :races => @past } %>
-</div>
+<% unless @past.empty? %>
+  <div class="races_box old_races">
+    <h2>Päättyneet kilpailut</h2>
+    <%= render :partial => "race_list", :locals => { :races => @past } %>
+  </div>
+<% end %>
 
 <% unless current_user %>
   <div class="commercial_column">
