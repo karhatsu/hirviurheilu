@@ -14,6 +14,7 @@ ElkSports::Application.routes.draw do
 
   resource :info
   resources :feedbacks
+  resources :prices
 
   resources :races
 

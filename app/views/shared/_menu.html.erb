@@ -3,6 +3,7 @@
     <%= menu_item "Kilpailut", root_path, @is_competitions %>
     <%= menu_item "Toimitsijan sivut", official_root_path, @is_official %>
     <%= menu_item "Info", info_path, @is_info %>
+    <%= menu_item "Hinnat", prices_path, @is_prices %>
     <% if current_user %>
       <%= menu_item "Omat tiedot", account_path, @is_account %>
     <% end %>

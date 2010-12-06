@@ -1,0 +1,8 @@
+<% content_for :title, "Hinnat" %>
+<% content_for :page_title, yield(:title) %>
+<h2>Yhden kilpailun hinnat</h2>
+<div class="instructions">Kaikki hinnat sisältävät 23 % arvonlisäveroa.</div>
+<% @prices.each do |price| %>
+  <%= price.min_competitors %>-<%= price.max_competitors %> kilpailijaa:
+  <%= "%.2f" % price.price %> euroa / kilpailija<br/>
+<% end %>
