@@ -43,6 +43,11 @@ df.default_age_groups << DefaultAgeGroup.new(:name => 'N80', :min_competitors =>
 df.default_age_groups << DefaultAgeGroup.new(:name => 'N85', :min_competitors => 3)
 df.default_age_groups << DefaultAgeGroup.new(:name => 'N90', :min_competitors => 3)
 
+# pricing
+Price.create!(:min_competitors => 1, :price => 2.0)
+Price.create!(:min_competitors => 30, :price => 1.5)
+Price.create!(:min_competitors => 100, :price => 1.0)
+
 # races
 race2 = ski.races.build(:name => "P-Savon hirvenhiihtokisat",
   :location => "Karttula", :start_date => '2010-12-13', :start_interval_seconds => 60)
