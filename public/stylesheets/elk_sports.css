@@ -71,10 +71,12 @@ div.answer {
     margin-bottom: 5px;
 }
 
-div.commercial_column {
-    position: absolute;
-    left: 700px;
-    top: 80px;
+div.left_column {
+    float: left;
+}
+
+div.right_column {
+    float: right;
 }
 
 div.commercial_box {

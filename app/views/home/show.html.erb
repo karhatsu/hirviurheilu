@@ -1,31 +1,33 @@
 <% content_for(:title, 'Hirviurheilu - Hirvenhiihdon ja hirvenjuoksun tulospalvelu') %>
 <% content_for(:page_title, yield(:title)) %>
 
-<% unless @ongoing.empty? %>
-  <div class="races_box ongoing_races">
-    <h2>Menossa olevat kilpailut</h2>
-    <%= render :partial => "race_list", :locals => { :races => @ongoing } %>
-  </div>
-<% end %>
+<div class="left_column">
+  <% unless @ongoing.empty? %>
+    <div class="races_box ongoing_races">
+      <h2>Menossa olevat kilpailut</h2>
+      <%= render :partial => "race_list", :locals => { :races => @ongoing } %>
+    </div>
+  <% end %>
 
-<div class="races_box future_races">
-  <h2>Tulevat kilpailut</h2>
-  <% unless @future.empty? %>
-    <%= render :partial => "race_list", :locals => { :races => @future } %>
-  <% else %>
-    Tällä hetkellä ei tiedossa tulevia kilpailuita
+  <div class="races_box future_races">
+    <h2>Tulevat kilpailut</h2>
+    <% unless @future.empty? %>
+      <%= render :partial => "race_list", :locals => { :races => @future } %>
+    <% else %>
+      Tällä hetkellä ei tiedossa tulevia kilpailuita
+    <% end %>
+  </div>
+
+  <% unless @past.empty? %>
+    <div class="races_box old_races">
+      <h2>Päättyneet kilpailut</h2>
+      <%= render :partial => "race_list", :locals => { :races => @past } %>
+    </div>
   <% end %>
 </div>
 
-<% unless @past.empty? %>
-  <div class="races_box old_races">
-    <h2>Päättyneet kilpailut</h2>
-    <%= render :partial => "race_list", :locals => { :races => @past } %>
-  </div>
-<% end %>
-
-<% unless current_user %>
-  <div class="commercial_column">
+<div class="right_column">
+  <% unless current_user %>
     <div class="commercial_box">
       Oletko järjestämässä hirvenhiihdon tai hirvenjuoksun kilpailua?
       <div class="commercial_box_link">
@@ -38,5 +40,5 @@
         <%= link_to "Kirjaudu sisään.", login_path %>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
