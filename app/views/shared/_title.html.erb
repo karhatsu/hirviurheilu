@@ -1,2 +1,4 @@
-<title><%= Rails.env != 'production' ? '(Testi) ' : '' %><%= yield(:title) != '' ? yield(:title) :
-  "Hirvenhiihdon ja hirvenjuoksun tulospalvelu" %></title>
+<title><%= Rails.env == 'production' ? '' :
+    (Rails.env == 'development' ?
+      '(Dev) ' : '(Testi) ') %><%= yield(:title) != '' ? yield(:title) :
+    "Hirvenhiihdon ja hirvenjuoksun tulospalvelu" %></title>
