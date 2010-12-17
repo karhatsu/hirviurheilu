@@ -1,5 +1,5 @@
 Given /^the start list has been generated for the series$/ do
-  @series.generate_start_list!
+  @series.generate_start_list!(Series::START_LIST_ADDING_ORDER)
 end
 
 Then /^I should see a start list row (\d+) with values:$/ do |order_number, values|

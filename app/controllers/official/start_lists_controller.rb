@@ -2,11 +2,16 @@ class Official::StartListsController < Official::OfficialController
   before_filter :assign_series, :check_race_rights, :set_start_list
 
   def show
+    @order_method = params[:order_method] ? params[:order_method].to_i :
+      Series::START_LIST_RANDOM
   end
 
   def update
-    if @series.update_attributes(params[:series]) and @series.generate_start_list
-      redirect_to official_series_start_list_path(@series)
+    @order_method = params[:order_method].to_i
+    if @series.update_attributes(params[:series]) and
+        @series.generate_start_list(@order_method)
+      redirect_to official_series_start_list_path(@series,
+        :order_method => params[:order_method])
     else
       render :show
     end

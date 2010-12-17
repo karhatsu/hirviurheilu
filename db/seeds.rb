@@ -119,7 +119,7 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
         comp.save!
         competitors << comp
       end
-      series.generate_start_list!
+      series.generate_start_list!(Series::START_LIST_RANDOM)
       10.times do |i|
         comp = competitors[i]
         if race.start_date < Date.today

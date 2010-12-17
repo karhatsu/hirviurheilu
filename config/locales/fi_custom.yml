@@ -6,3 +6,6 @@ fi:
     people_short:
       one: 1 hlö
       other: %{count} hlöä
+  order_method: Kilpailijoiden järjestys
+  order_method_0: Lisäysjärjestys
+  order_method_1: Arvotaan

@@ -33,7 +33,14 @@
     <%= f.text_field :first_number, :size => 3 %><br/>
     <%= f.label :start_time %>
     <%= f.datetime_select :start_time, :include_seconds => false, :include_blank => true %><br/>
-    <%= submit_tag (@series.has_start_list? ? "Päivitä lähtölista sarjalle" :
+    <%= t "order_method" %>:
+    <%= radio_button_tag :order_method, Series::START_LIST_ADDING_ORDER,
+      Series::START_LIST_ADDING_ORDER == @order_method %>
+    <%= t "order_method_#{Series::START_LIST_ADDING_ORDER}" %>
+    <%= radio_button_tag :order_method, Series::START_LIST_RANDOM,
+      Series::START_LIST_RANDOM == @order_method %>
+    <%= t "order_method_#{Series::START_LIST_RANDOM}" %><br/>
+    <%= submit_tag (@series.has_start_list? ? "Tee uusi lähtölista sarjalle" :
         "Luo lähtölista sarjalle") %>
   <% end %>
   <h3>Kilpailijat</h3>

@@ -1,4 +1,7 @@
 class Series < ActiveRecord::Base
+  START_LIST_ADDING_ORDER = 0
+  START_LIST_RANDOM = 1
+
   belongs_to :race, :counter_cache => true
   has_many :age_groups, :dependent => :destroy
   has_many :competitors, :order => 'number, id'
@@ -53,21 +56,21 @@ class Series < ActiveRecord::Base
     nil
   end
 
-  def generate_start_list
-    return false unless generate_numbers
+  def generate_start_list(order_method)
+    return false unless generate_numbers(order_method)
     return false unless generate_start_times
     self.has_start_list = true
     save!
   end
 
-  def generate_start_list!
-    generate_numbers!
+  def generate_start_list!(order_method)
+    generate_numbers!(order_method)
     generate_start_times!
     self.has_start_list = true
     save!
   end
 
-  def generate_numbers
+  def generate_numbers(order_method)
     failure = false
     error_start = 'Numeroita ei voi generoida'
     unless first_number
@@ -83,18 +86,20 @@ class Series < ActiveRecord::Base
     end
     return false if failure
 
-    competitors.each_with_index do |comp, i|
-      comp.number = first_number + i
-      comp.save!
+    c = (order_method.to_i == START_LIST_RANDOM ?
+        competitors.shuffle : Competitor.where(:series_id => id).order('id asc'))
+    c.each_with_index do |comp, i|
+      comp.update_attribute(:number, first_number + i)
     end
     true
   end
 
-  def generate_numbers!
-    generate_numbers || raise(errors.full_messages.to_s)
+  def generate_numbers!(order_method)
+    generate_numbers(order_method) || raise(errors.full_messages.to_s)
   end
 
   def generate_start_times
+    reload
     failure = false
     error_start = 'Lähtöaikoja ei voi generoida'
     unless start_time
@@ -122,8 +127,7 @@ class Series < ActiveRecord::Base
     competitors.each do |comp|
       # if the calculated time is saved as such, the time zone changes to UTC
       time = start_time + (comp.number - first_number) * interval
-      comp.start_time = time.strftime('%H:%M:%S')
-      comp.save!
+      comp.update_attribute(:start_time, time.strftime('%H:%M:%S'))
     end
     true
   end

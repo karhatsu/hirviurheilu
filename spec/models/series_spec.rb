@@ -242,7 +242,7 @@ describe Series do
           @c4 = Factory.create(:competitor, :series => @series,
             :start_time => '14:00', :arrival_time => '14:30', :number => 5)
           @series.reload
-          @series.generate_numbers.should be_false
+          @series.generate_numbers(Series::START_LIST_ADDING_ORDER).should be_false
           @series.should have(1).errors
           check_competitors_no_changes
         end
@@ -256,7 +256,7 @@ describe Series do
 
         it "should do nothing for competitors, add error and return false" do
           @series.reload
-          @series.generate_numbers.should be_false
+          @series.generate_numbers(Series::START_LIST_ADDING_ORDER).should be_false
           @series.should have(1).errors
           check_competitors_no_changes
         end
@@ -273,15 +273,38 @@ describe Series do
     end
 
     describe "generation succeeds" do
-      it "should generate numbers based on series first number and return true" do
-        @series.generate_numbers.should be_true
-        @series.should be_valid
-        @c1.reload
-        @c2.reload
-        @c3.reload
-        @c1.number.should == 5
-        @c2.number.should == 6
-        @c3.number.should == 7
+      describe "adding order" do
+        it "should generate numbers based on series first number and return true" do
+          @series.generate_numbers(Series::START_LIST_ADDING_ORDER).should be_true
+          @series.should be_valid
+          @c1.reload
+          @c2.reload
+          @c3.reload
+          @c1.number.should == 5
+          @c2.number.should == 6
+          @c3.number.should == 7
+        end
+      end
+
+      describe "random order" do
+        it "should generate numbers based on series first number and return true" do
+          @series.generate_numbers(Series::START_LIST_RANDOM).should be_true
+          @series.should be_valid
+          @c1.reload
+          @c2.reload
+          @c3.reload
+          [5,6,7].should include(@c1.number)
+          [5,6,7].should include(@c2.number)
+          [5,6,7].should include(@c3.number)
+          i = 0
+          while @c1.number == 5 do
+            @series.generate_numbers(Series::START_LIST_RANDOM)
+            i += 1
+            if i > 10
+              fail "Random order not working"
+            end
+          end
+        end
       end
     end
   end
@@ -292,13 +315,13 @@ describe Series do
     end
 
     it "should return true when generation succeeds" do
-      @series.should_receive(:generate_numbers).and_return(true)
-      @series.generate_numbers!.should be_true
+      @series.should_receive(:generate_numbers).with(0).and_return(true)
+      @series.generate_numbers!(0).should be_true
     end
 
     it "raise exception if generation fails" do
-      @series.should_receive(:generate_numbers).and_return(false)
-      lambda { @series.generate_numbers! }.should raise_error
+      @series.should_receive(:generate_numbers).with(0).and_return(false)
+      lambda { @series.generate_numbers!(0) }.should raise_error
     end
   end
 
@@ -408,9 +431,9 @@ describe Series do
 
     context "when generation succeeds" do
       it "should call generate_numbers and generate_start_times" do
-        @series.should_receive(:generate_numbers).and_return(true)
+        @series.should_receive(:generate_numbers).with(0).and_return(true)
         @series.should_receive(:generate_start_times).and_return(true)
-        @series.generate_start_list.should be_true
+        @series.generate_start_list(0).should be_true
         @series.reload
         @series.should have_start_list
       end
@@ -418,9 +441,9 @@ describe Series do
 
     context "when number generation fails" do
       it "should not generate start times, should return false and have no start list" do
-        @series.should_receive(:generate_numbers).and_return(false)
+        @series.should_receive(:generate_numbers).with(0).and_return(false)
         @series.should_not_receive(:generate_start_times)
-        @series.generate_start_list.should be_false
+        @series.generate_start_list(0).should be_false
         @series.reload
         @series.should_not have_start_list
       end
@@ -428,9 +451,9 @@ describe Series do
 
     context "when start number generation fails" do
       it "should return false and have no start list" do
-        @series.should_receive(:generate_numbers).and_return(true)
+        @series.should_receive(:generate_numbers).with(0).and_return(true)
         @series.should_receive(:generate_start_times).and_return(false)
-        @series.generate_start_list.should be_false
+        @series.generate_start_list(0).should be_false
         @series.reload
         @series.should_not have_start_list
       end
@@ -444,9 +467,9 @@ describe Series do
 
     context "when generation succeeds" do
       it "should set has_start_list to true and return true" do
-        @series.should_receive(:generate_numbers!)
+        @series.should_receive(:generate_numbers!).with(0)
         @series.should_receive(:generate_start_times!)
-        @series.generate_start_list!.should be_true
+        @series.generate_start_list!(0).should be_true
         @series.reload
         @series.should have_start_list
       end
