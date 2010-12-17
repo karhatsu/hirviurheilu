@@ -24,10 +24,10 @@
         <th>Nimi</th>
         <th>Nro</th>
         <th><%= t "attributes.club" %></th>
-        <th>Pisteet</th>
-        <th class="center">Ammunta</th>
-        <th class="center">Arviointi</th>
         <th class="center"><%= @series.race.sport.run? ? "Juoksu" : "Hiihto" %></th>
+        <th class="center">Arviointi</th>
+        <th class="center">Ammunta</th>
+        <th>Pisteet</th>
       </tr>
       <% @series.ordered_competitors.each_with_index do |comp, i| %>
         <tr id="comp_<%= i+1 %>">
@@ -36,11 +36,11 @@
             <%= "(#{comp.age_group.name})" if comp.age_group %></td>
           <td><%= comp.number ? comp.number : '' %></td>
           <td><%= comp.club.name %></td>
-          <td class="center"><%= points_print(comp) %></td>
-          <td><%= shot_points_and_total(comp) %></td>
+          <td><%= time_points_and_time(comp) %></td>
           <td><%= @series.race.finished ? estimate_points_and_diffs(comp) :
               estimate_points(comp) %></td>
-          <td><%= time_points_and_time(comp) %></td>
+          <td><%= shot_points_and_total(comp) %></td>
+          <td class="center total_points"><%= points_print(comp) %></td>
         </tr>
       <% end %>
     </table>

@@ -128,6 +128,10 @@ a.help:hover {
     font-weight: bold;
 }
 
+.total_points {
+    font-weight: bold;
+}
+
 #company_contact {
     position: absolute;
     left: 700px;
