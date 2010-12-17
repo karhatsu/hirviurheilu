@@ -57,4 +57,37 @@ class ApplicationController < ActionController::Base
     ErrorMailer.error_mail("Virhe Hirviurheilussa", exception).deliver
     super
   end
+
+  # f.time_text_field / f.time_select creates hidden date fields and visible text fields.
+  # When time is entered the first time, the params sent contain an empty date
+  # and non-empty time. This throws an error in assigning multiparameter values.
+  # For that reason we must define also date parameters before assigning form
+  # parameters to the company object.
+  # When the time fields are cleared, we must do the opposite: we must reset
+  # the date fields since otherwise the time after update would be 0:00:00.
+  def handle_time_parameter(object, time_name)
+    if time_cleared?(object, time_name)
+      reset_date_parameters(object, time_name)
+    else
+      set_default_date_parameters(object, time_name)
+    end
+  end
+
+  def time_cleared?(object_params, time_name)
+    object_params["#{time_name}(4i)"] == '' and
+      object_params["#{time_name}(5i)"] == '' and
+      object_params["#{time_name}(6i)"] == ''
+  end
+
+  def reset_date_parameters(object_params, time_name)
+    object_params["#{time_name}(1i)"] = ""
+    object_params["#{time_name}(2i)"] = ""
+    object_params["#{time_name}(3i)"] = ""
+  end
+
+  def set_default_date_parameters(object_params, time_name)
+    object_params["#{time_name}(1i)"] = "2000"
+    object_params["#{time_name}(2i)"] = "1"
+    object_params["#{time_name}(3i)"] = "1"
+  end
 end

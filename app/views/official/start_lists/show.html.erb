@@ -32,7 +32,8 @@
     <%= f.label :first_number %>
     <%= f.text_field :first_number, :size => 3 %><br/>
     <%= f.label :start_time %>
-    <%= f.datetime_select :start_time, :include_seconds => false, :include_blank => true %><br/>
+    <%= start_days_form_field(f, @series) %>
+    <%= f.time_select :start_time, :include_seconds => false, :include_blank => true %><br/>
     <%= t "order_method" %>:
     <%= radio_button_tag :order_method, Series::START_LIST_ADDING_ORDER,
       Series::START_LIST_ADDING_ORDER == @order_method %>

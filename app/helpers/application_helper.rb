@@ -24,10 +24,21 @@ module ApplicationHelper
     raw(html)
   end
 
-  def datetime_print(time, hours_and_minutes=false, seconds=false, nil_result='')
-    return nil_result if time.nil?
-    t = time.strftime('%d.%m.%Y')
-    t << " #{time_print(time, seconds)}" if hours_and_minutes
+  def date_print(time)
+    time.strftime('%d.%m.%Y')
+  end
+
+  def series_datetime_print(series, hours_and_minutes=false, seconds=false, nil_result='')
+    date = series.race.start_date.to_date
+    date += series.start_day - 1
+    datetime = DateTime.parse("#{date.to_date} #{series.start_time.strftime("%H:%M:%S")}")
+    datetime_print(datetime, hours_and_minutes, seconds, nil_result)
+  end
+
+  def datetime_print(datetime, hours_and_minutes=false, seconds=false, nil_result='')
+    return nil_result if datetime.nil?
+    t = date_print(datetime)
+    t << " #{time_print(datetime, seconds)}" if hours_and_minutes
     t
   end
 
@@ -220,6 +231,21 @@ module ApplicationHelper
       @competitor.series
     else
       nil
+    end
+  end
+
+  def start_days_form_field(form_builder, series)
+    race = series.race
+    if race.nil? or race.days_count == 1
+      series.start_day = 1 # in case there is an old, illegal value for some reason
+      return form_builder.hidden_field(:start_day)
+    else
+      options = []
+      start_date = race.start_date
+      race.days_count.times do |i|
+        options << [date_print(start_date.to_date + i), i + 1]
+      end
+      return form_builder.select(:start_day, options_for_select(options, series.start_day))
     end
   end
 

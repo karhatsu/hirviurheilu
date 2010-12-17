@@ -16,7 +16,7 @@
           <td><%= s.name %></td>
           <td>
             <% if s.start_time %>
-              <%= datetime_print(s.start_time, true) %>
+              <%= series_datetime_print(s, true) %>
             <% else %>
               -
             <% end %>

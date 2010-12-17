@@ -14,8 +14,10 @@ class Series < ActiveRecord::Base
   validates :race, :presence => true
   validates :first_number, :numericality => { :only_integer => true,
     :allow_nil => true, :greater_than => 0 }
-  validate :start_time_during_race_dates
-
+  validates :start_day, :numericality => { :only_integer => true,
+    :allow_nil => true, :greater_than => 0 }
+  validate :start_day_not_bigger_than_race_days_count
+  
   before_destroy :prevent_destroy_if_competitors
 
   def best_time_in_seconds
@@ -177,14 +179,6 @@ class Series < ActiveRecord::Base
   end
 
   private
-  def start_time_during_race_dates
-    return unless start_time
-    end_date = race.end_date ? race.end_date : end_date = race.start_date
-    if start_time < race.start_date.beginning_of_day or start_time > end_date.end_of_day
-      errors.add(:start_time, "pitää olla kilpailupäivien aikana")
-    end
-  end
-
   def prevent_destroy_if_competitors
     if competitors.count > 0
       errors.add(:base, "Sarjan voi poistaa vain jos siinä ei ole kilpailijoita")
@@ -192,4 +186,9 @@ class Series < ActiveRecord::Base
     end
   end
 
+  def start_day_not_bigger_than_race_days_count
+    if race and start_day > race.days_count
+      errors.add(:start_day, "ei voi olla suurempi kuin kilpailupäivien määrä")
+    end
+  end
 end

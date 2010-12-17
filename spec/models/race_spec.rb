@@ -225,4 +225,31 @@ describe Race do
   describe "DEFAULT_START_INTERVAL" do
     specify { Race::DEFAULT_START_INTERVAL.should == 60 }
   end
+
+  describe "#days_count" do
+    before do
+      @race = Factory.build(:race, :start_date => '2010-12-20')
+    end
+
+    context "when only start date defined" do
+      it "should return 1" do
+        @race.end_date = nil
+        @race.days_count.should == 1
+      end
+    end
+
+    context "when end date same as start date" do
+      it "should return 1" do
+        @race.end_date = '2010-12-20'
+        @race.days_count.should == 1
+      end
+    end
+
+    context "when end date two days after start date" do
+      it "should return 3" do
+        @race.end_date = '2010-12-22'
+        @race.days_count.should == 3
+      end
+    end
+  end
 end

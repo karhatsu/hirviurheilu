@@ -84,41 +84,8 @@ class Official::CompetitorsController < Official::OfficialController
 
   def handle_time_parameters
     return if params[:no_times]
-    handle_time_parameter "start_time"
-    handle_time_parameter "arrival_time"
-  end
-
-  # f.time_text_field creates hidden date fields and visible text fields.
-  # When time is entered the first time, the params sent contain an empty date
-  # and non-empty time. This throws an error in assigning multiparameter values.
-  # For that reason we must define also date parameters before assigning form
-  # parameters to the company object.
-  # When the time fields are cleared, we must do the opposite: we must reset
-  # the date fields since otherwise the time after update would be 0:00:00.
-  def handle_time_parameter(time_name)
-    if time_cleared?(params[:competitor], time_name)
-      reset_date_parameters(params[:competitor], time_name)
-    else
-      set_default_date_parameters(params[:competitor], time_name)
-    end
-  end
-
-  def time_cleared?(competitor_params, time_name)
-    competitor_params["#{time_name}(4i)"] == '' and
-      competitor_params["#{time_name}(5i)"] == '' and
-      competitor_params["#{time_name}(6i)"] == ''
-  end
-
-  def reset_date_parameters(competitor_params, time_name)
-    competitor_params["#{time_name}(1i)"] = ""
-    competitor_params["#{time_name}(2i)"] = ""
-    competitor_params["#{time_name}(3i)"] = ""
-  end
-
-  def set_default_date_parameters(competitor_params, time_name)
-    competitor_params["#{time_name}(1i)"] = "2000"
-    competitor_params["#{time_name}(2i)"] = "1"
-    competitor_params["#{time_name}(3i)"] = "1"
+    handle_time_parameter params[:competitor], "start_time"
+    handle_time_parameter params[:competitor], "arrival_time"
   end
 
   def handle_club(competitor)

@@ -1,5 +1,6 @@
 class Official::StartListsController < Official::OfficialController
   before_filter :assign_series, :check_race_rights, :set_start_list
+  before_filter :handle_time_parameters, :only => :update
 
   def show
     @order_method = params[:order_method] ? params[:order_method].to_i :
@@ -28,5 +29,9 @@ class Official::StartListsController < Official::OfficialController
 
   def set_start_list
     @is_start_list = true
+  end
+
+  def handle_time_parameters
+    handle_time_parameter params[:series], "start_time"
   end
 end

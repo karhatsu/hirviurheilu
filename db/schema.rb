@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101206084805) do
+ActiveRecord::Schema.define(:version => 20101217122201) do
 
   create_table "age_groups", :force => true do |t|
     t.integer  "series_id",                      :null => false
@@ -111,10 +111,11 @@ ActiveRecord::Schema.define(:version => 20101206084805) do
     t.integer  "correct_estimate2"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "start_time"
+    t.time     "start_time"
     t.integer  "first_number"
     t.boolean  "has_start_list",    :default => false, :null => false
     t.integer  "competitors_count", :default => 0,     :null => false
+    t.integer  "start_day",         :default => 1,     :null => false
   end
 
   add_index "series", ["race_id"], :name => "index_series_on_race_id"

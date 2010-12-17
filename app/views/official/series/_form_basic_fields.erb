@@ -21,8 +21,8 @@
 </script>
 <br/>
 <%= f.label :start_time %>
-<%= f.datetime_select :start_time, :include_seconds => false, :include_blank => true %>
-<%= "(#{date_interval(race.start_date, race.end_date)})" %><br/>
+<%= start_days_form_field(f, f.object) %>
+<%= f.time_select :start_time, :include_seconds => false, :include_blank => true %><br/>
 <%= f.label :correct_estimate1 %>
 <%= f.text_field :correct_estimate1, :size => 5, :maxlength => 3 %>
 <%= f.label :correct_estimate2 %>

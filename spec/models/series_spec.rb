@@ -10,35 +10,22 @@ describe Series do
   describe "validation" do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:race) }
+    it { should allow_value(nil).for(:start_time) }
 
-    describe "start time" do
+    describe "start_day" do
+      it { should validate_numericality_of(:start_day) }
+      it { should_not allow_value(0).for(:start_day) }
+      it { should allow_value(1).for(:start_day) }
+      it { should_not allow_value(1.1).for(:start_day) }
+
       before do
-        @race = Factory.create(:race, :start_date => Date.today + 3,
-          :end_date => Date.today + 4)
+        race = Factory.build(:race)
+        race.stub!(:days_count).and_return(2)
+        @series = Factory.build(:series, :race => race, :start_day => 3)
       end
 
-      it { should allow_value(nil).for(:start_time) }
-
-      it "cannot be before race first day" do
-        time = @race.start_date.beginning_of_day
-        Factory.build(:series, :race => @race, :start_time => time).should be_valid
-        Factory.build(:series, :race => @race, :start_time => time - 1).
-          should have(1).errors_on(:start_time)
-      end
-
-      it "cannot be after race last day" do
-        time = @race.end_date.end_of_day
-        Factory.build(:series, :race => @race, :start_time => time).should be_valid
-        Factory.build(:series, :race => @race, :start_time => time + 1).
-          should have(1).errors_on(:start_time)
-      end
-
-      it "cannot be after race last day (case end date nil)" do
-        race = Factory.create(:race, :start_date => Date.today + 3)
-        time = race.start_date.end_of_day
-        Factory.build(:series, :race => race, :start_time => time).should be_valid
-        Factory.build(:series, :race => race, :start_time => time + 1).
-          should have(1).errors_on(:start_time)
+      it "should not be bigger than race days count" do
+        @series.should have(1).errors_on(:start_day)
       end
     end
 

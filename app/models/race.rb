@@ -63,6 +63,11 @@ class Race < ActiveRecord::Base
     finish || raise(errors.full_messages.to_s)
   end
 
+  def days_count
+    return 1 if end_date.nil?
+    (end_date - start_date).to_i + 1
+  end
+
   private
   def end_date_not_before_start_date
     if end_date and end_date < start_date

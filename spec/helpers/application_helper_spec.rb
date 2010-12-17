@@ -57,6 +57,28 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#series_datetime_print" do
+    before do
+      @race = mock_model(Race, :start_date => '2010-12-25')
+      start_time = Time.local(2000, 1, 1, 12, 30, 0)
+      @series = mock_model(Series, :race => @race, :start_day => 3, :start_time => start_time)
+    end
+
+    it "should call datetime_print with correct date and time" do
+      datetime = DateTime.parse('2010-12-27 12:30')
+      helper.should_receive(:datetime_print).with(datetime, false, false, '').
+        and_return('result')
+      helper.series_datetime_print(@series).should == 'result'
+    end
+  end
+
+  describe "#date_print" do
+    it "should return DD.MM.YYYY" do
+      time = Time.local(2010, 5, 8, 9, 8, 1)
+      helper.date_print(time).should == '08.05.2010'
+    end
+  end
+
   describe "#time_print" do
     before do
       @time = Time.local(2010, 5, 8, 9, 8, 1)
@@ -366,6 +388,33 @@ describe ApplicationHelper do
     it "should return html space when value not available" do
       helper.value_or_space(nil).should == '&nbsp;'
       helper.value_or_space(false).should == '&nbsp;'
+    end
+  end
+
+  describe "#start_days_form_field" do
+    before do
+      @f = mock(String)
+      @race = mock_model(Race, :start_date => '2010-12-20')
+      @series = mock_model(Series, :race => @race)
+    end
+
+    context "when only one start day" do
+      it "should return hidden field with value 1" do
+        @series.should_receive(:start_day=).with(1)
+        @f.should_receive(:hidden_field).with(:start_day).and_return("input")
+        @race.stub!(:days_count).and_return(1)
+        helper.start_days_form_field(@f, @series).should == "input"
+      end
+    end
+
+    context "when more than one day" do
+      it "should return dropdown menu with different dates" do
+        @series.should_receive(:start_day).and_return(2)
+        options = options_for_select([['20.12.2010', 1], ['21.12.2010', 2]], 2)
+        @f.should_receive(:select).with(:start_day, options).and_return("select")
+        @race.stub!(:days_count).and_return(2)
+        helper.start_days_form_field(@f, @series).should == "select"
+      end
     end
   end
 end
