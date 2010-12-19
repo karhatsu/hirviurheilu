@@ -109,6 +109,12 @@ hallintaan. Alla olevat kilpailumuodot tullaan tekemään tarpeen mukaan:
 Voit myös itse <%= link_to "ehdottaa uusia ominaisuuksia", new_feedback_path %>
   palveluun yllä olevan linkin kautta.
 
+<h2>Ohjevideo</h2>
+<%= link_to "Katso ohjevideo Youtubesta",
+  "http://www.youtube.com/watch?v=4ID4u-Jk0kU", :target => '_blank' %>
+tai suurenna alla oleva video videoikkunan oikeassa alareunassa olevasta napista.<br/><br/>
+<%= render :partial => 'shared/youtube' %>
+
 <%= render :partial => 'shared/company_contact' %>
 
 <script type="text/javascript">
