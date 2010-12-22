@@ -5,7 +5,7 @@ class Race < ActiveRecord::Base
   has_many :series, :order => 'start_time, name'
   has_many :competitors, :through => :series
   has_many :clubs, :order => 'name'
-  has_many :correct_estimates
+  has_many :correct_estimates, :order => 'min_number'
   has_and_belongs_to_many :users, :join_table => :race_officials
 
   accepts_nested_attributes_for :series, :allow_destroy => true
