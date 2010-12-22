@@ -195,111 +195,124 @@ describe Competitor do
   end
 
   describe "estimate_diff1_m" do
-    before do
-      @series = Factory.build(:series, :correct_estimate1 => 100, :correct_estimate2 => 200)
+    it "should be nil when no correct estimate1" do
+      Factory.build(:competitor, :estimate1 => 100, :correct_estimate1 => nil).
+        estimate_diff1_m.should be_nil
     end
 
     it "should be nil when no estimate1" do
-      Factory.build(:competitor, :series => @series, :estimate1 => nil).
+      Factory.build(:competitor, :estimate1 => nil, :correct_estimate1 => 100).
         estimate_diff1_m.should be_nil
     end
 
     it "should be positive diff when estimate1 is more than correct" do
-      Factory.build(:competitor, :series => @series, :estimate1 => 105).
+      Factory.build(:competitor, :estimate1 => 105, :correct_estimate1 => 100).
         estimate_diff1_m.should == 5
     end
 
     it "should be negative diff when estimate1 is less than correct" do
-      Factory.build(:competitor, :series => @series, :estimate1 => 91).
+      Factory.build(:competitor, :estimate1 => 91, :correct_estimate1 => 100).
         estimate_diff1_m.should == -9
     end
   end
 
   describe "estimate_diff2_m" do
-    before do
-      @series = Factory.build(:series, :correct_estimate1 => 100, :correct_estimate2 => 200)
+    it "should be nil when no correct estimate2" do
+      Factory.build(:competitor, :estimate2 => 100, :correct_estimate2 => nil).
+        estimate_diff2_m.should be_nil
     end
 
     it "should be nil when no estimate2" do
-      Factory.build(:competitor, :series => @series, :estimate2 => nil).
+      Factory.build(:competitor, :estimate2 => nil, :correct_estimate2 => 200).
         estimate_diff2_m.should be_nil
     end
 
     it "should be positive diff when estimate2 is more than correct" do
-      Factory.build(:competitor, :series => @series, :estimate2 => 205).
+      Factory.build(:competitor, :estimate2 => 205, :correct_estimate2 => 200).
         estimate_diff2_m.should == 5
     end
 
     it "should be negative diff when estimate2 is less than correct" do
-      Factory.build(:competitor, :series => @series, :estimate2 => 191).
+      Factory.build(:competitor, :estimate2 => 191, :correct_estimate2 => 200).
         estimate_diff2_m.should == -9
     end
   end
 
   describe "estimate_points" do
-    before do
-      @series = Factory.build(:series, :correct_estimate1 => 100, :correct_estimate2 => 200)
-    end
-
     it "should be nil if estimate1 is missing" do
-      competitor = Factory.build(:competitor, :series => @series,
-        :estimate1 => nil, :estimate2 => 145)
+      competitor = Factory.build(:competitor,
+        :estimate1 => nil, :estimate2 => 145,
+        :correct_estimate1 => 100, :correct_estimate2 => 200)
       competitor.estimate_points.should be_nil
     end
 
     it "should be nil if estimate2 is missing" do
-      competitor = Factory.build(:competitor, :series => @series,
-        :estimate1 => 156, :estimate2 => nil)
+      competitor = Factory.build(:competitor,
+        :estimate1 => 156, :estimate2 => nil,
+        :correct_estimate1 => 100, :correct_estimate2 => 200)
       competitor.estimate_points.should be_nil
     end
 
     it "should be nil if correct estimate 1 is missing" do
-      @series.correct_estimate1 = nil
-      competitor = Factory.build(:competitor, :series => @series,
-        :estimate1 => 100, :estimate2 => 200)
+      competitor = Factory.build(:competitor,
+        :estimate1 => 100, :estimate2 => 200,
+        :correct_estimate1 => nil, :correct_estimate2 => 200)
       competitor.estimate_points.should be_nil
     end
 
     it "should be nil if correct estimate 2 is missing" do
-      @series.correct_estimate2 = nil
-      competitor = Factory.build(:competitor, :series => @series,
-        :estimate1 => 100, :estimate2 => 200)
+      competitor = Factory.build(:competitor,
+        :estimate1 => 100, :estimate2 => 200,
+        :correct_estimate1 => 100, :correct_estimate2 => nil)
       competitor.estimate_points.should be_nil
     end
 
     it "should be 300 when perfect estimates" do
-      competitor = Factory.build(:competitor, :series => @series,
-        :estimate1 => 100, :estimate2 => 200)
+      competitor = Factory.build(:competitor,
+        :estimate1 => 100, :estimate2 => 200,
+        :correct_estimate1 => 100, :correct_estimate2 => 200)
       competitor.estimate_points.should == 300
     end
 
     it "should be 298 when the first is 1 meter too low" do
-      competitor = Factory.build(:competitor, :series => @series,
-        :estimate1 => 99, :estimate2 => 200)
+      competitor = Factory.build(:competitor,
+        :estimate1 => 99, :estimate2 => 200,
+        :correct_estimate1 => 100, :correct_estimate2 => 200)
       competitor.estimate_points.should == 298
     end
 
     it "should be 298 when the second is 1 meter too low" do
-      competitor = Factory.build(:competitor, :series => @series,
-        :estimate1 => 100, :estimate2 => 199)
+      competitor = Factory.build(:competitor,
+        :estimate1 => 100, :estimate2 => 199,
+        :correct_estimate1 => 100, :correct_estimate2 => 200)
       competitor.estimate_points.should == 298
     end
 
     it "should be 298 when the first is 1 meter too high" do
-      competitor = Factory.build(:competitor, :series => @series,
-        :estimate1 => 101, :estimate2 => 200)
+      competitor = Factory.build(:competitor,
+        :estimate1 => 101, :estimate2 => 200,
+        :correct_estimate1 => 100, :correct_estimate2 => 200)
       competitor.estimate_points.should == 298
     end
 
     it "should be 298 when the second is 1 meter too high" do
-      competitor = Factory.build(:competitor, :series => @series,
-        :estimate1 => 100, :estimate2 => 201)
+      competitor = Factory.build(:competitor,
+        :estimate1 => 100, :estimate2 => 201,
+        :correct_estimate1 => 100, :correct_estimate2 => 200)
       competitor.estimate_points.should == 298
     end
 
+    it "should be 296 when both have 1 meter difference" do
+      competitor = Factory.build(:competitor,
+        :estimate1 => 99, :estimate2 => 201,
+        :correct_estimate1 => 100, :correct_estimate2 => 200)
+      competitor.estimate_points.should == 296
+    end
+
     it "should never be negative" do
-      competitor = Factory.build(:competitor, :series => @series,
-        :estimate1 => 111111, :estimate2 => 222222)
+      competitor = Factory.build(:competitor,
+        :estimate1 => 111111, :estimate2 => 222222,
+        :correct_estimate1 => 100, :correct_estimate2 => 200)
       competitor.estimate_points.should == 0
     end
   end
