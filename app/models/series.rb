@@ -169,7 +169,6 @@ class Series < ActiveRecord::Base
 
   def ready?
     return false unless has_start_list?
-    return false unless correct_estimate1 and correct_estimate2
     return false unless each_competitor_finished?
     true
   end

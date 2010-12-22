@@ -32,7 +32,6 @@
       <th>Lähtölista</th>
       <th colspan="4" class="center">Tulokset</th>
       <th class="center">Oikeat arviot</th>
-      <th>Sarja valmis?</th>
       <th>&nbsp;</th>
     </tr>
     <% @race.series.each do |s| %>
@@ -56,20 +55,19 @@
               end %>
             </td>
             <td><%= link_to "Ajat", official_series_times_path(s) %></td>
-            <td><%= link_to "Arvioinnit", official_series_estimates_path(s) %></td>
+            <td><%= link_to "Arviot", official_series_estimates_path(s) %></td>
             <td><%= link_to "Ammunta", official_series_shots_path(s) %></td>
             <td class="center">
               <%= yes_or_empty(s.each_competitor_has_correct_estimates?) do
                 link_to "Aseta", official_race_correct_estimates_path(s.race)
               end %>
             </td>
-            <td class="center"><%= yes_or_empty(s.ready?) %></td>
           <% else %>
-            <td colspan="6">&nbsp;</td>
+            <td colspan="5">&nbsp;</td>
           <% end %>
           <td>&nbsp;</td>
         <% else %>
-          <td colspan="9"><%= link_to "Lisää tämän sarjan ensimmäinen kilpailija",
+          <td colspan="8"><%= link_to "Lisää tämän sarjan ensimmäinen kilpailija",
               new_official_series_competitor_path(s) %></td>
           <td><%= link_to 'Poista sarja', official_series_path(s), :method => :delete,
               :confirm => 'Haluatko varmasti poistaa tämän sarjan?' %></td>

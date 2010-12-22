@@ -601,16 +601,6 @@ describe Series do
     end
 
     context "when start list generated" do
-      context "when correct estimate 1 or 2 missing" do
-        it "should return false" do
-          @series.correct_estimate1 = nil
-          @series.should_not be_ready
-          @series.correct_estimate1 = 111
-          @series.correct_estimate2 = nil
-          @series.should_not be_ready
-        end
-      end
-
       context "when correct estimates filled" do
         context "when some competitor has no result" do
           it "should return false" do
