@@ -13,8 +13,11 @@ Feature: Results
       | name | Men 50 years |
       | start_time | 2010-07-15 13:00 |
       | first_number | 50 |
-      | correct_estimate1 | 110 |
-      | correct_estimate2 | 130 |
+    And the race has correct estimates with attributes:
+      | min_number | 1 |
+      | max_number | 100 |
+      | distance1 | 110 |
+      | distance2 | 130 |
     And the race has a club "Shooting club"
     And the race has a club "Sports club"
     And the series has a competitor with attributes:
@@ -69,8 +72,11 @@ Feature: Results
       | name | Men 50 years |
       | start_time | 2010-07-15 13:00 |
       | first_number | 50 |
-      | correct_estimate1 | 110 |
-      | correct_estimate2 | 130 |
+    And the race has correct estimates with attributes:
+      | min_number | 1 |
+      | max_number | 100 |
+      | distance1 | 110 |
+      | distance2 | 130 |
     And the race has a club "Shooting club"
     And the race has a club "Sports club"
     And the series has a competitor with attributes:
@@ -121,8 +127,11 @@ Feature: Results
       | name | Men 50 years |
       | start_time | 2010-07-15 13:00 |
       | first_number | 50 |
-      | correct_estimate1 | 110 |
-      | correct_estimate2 | 130 |
+    And the race has correct estimates with attributes:
+      | min_number | 1 |
+      | max_number | 100 |
+      | distance1 | 110 |
+      | distance2 | 130 |
     And the series has a competitor with attributes:
       | first_name | Tim |
       | last_name | Atkinsson |
@@ -168,8 +177,11 @@ Feature: Results
       | name | Men 50 years |
       | start_time | 2010-07-15 13:00 |
       | first_number | 50 |
-      | correct_estimate1 | 110 |
-      | correct_estimate2 | 130 |
+    And the race has correct estimates with attributes:
+      | min_number | 1 |
+      | max_number | 100 |
+      | distance1 | 110 |
+      | distance2 | 130 |
     And the series has a competitor with attributes:
       | first_name | Tim |
       | last_name | Atkinsson |

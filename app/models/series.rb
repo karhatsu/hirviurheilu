@@ -93,6 +93,8 @@ class Series < ActiveRecord::Base
     c.each_with_index do |comp, i|
       comp.update_attribute(:number, first_number + i)
     end
+
+    race.set_correct_estimates_for_competitors
     true
   end
 

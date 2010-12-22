@@ -69,6 +69,8 @@ class Race < ActiveRecord::Base
   end
 
   def set_correct_estimates_for_competitors
+    return if correct_estimates.empty?
+
     number_to_corrects_hash = Hash.new
     max_range_low_limit = nil
     correct_estimates.each do |ce|

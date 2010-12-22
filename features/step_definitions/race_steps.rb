@@ -37,5 +37,6 @@ Given /^there is an ongoing race with attributes:$/ do |fields|
 end
 
 Given /^the race is finished$/ do
+  @race.reload
   @race.finish!
 end

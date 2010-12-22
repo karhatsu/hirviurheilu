@@ -293,6 +293,11 @@ describe Series do
           end
         end
       end
+
+      it "should set correct estimates for competitors" do
+        @race.should_receive(:set_correct_estimates_for_competitors)
+        @series.generate_numbers(Series::START_LIST_ADDING_ORDER).should be_true
+      end
     end
   end
 
@@ -588,8 +593,7 @@ describe Series do
 
   describe "#ready?" do
     before do
-      @series = Factory.build(:series, :has_start_list => true,
-        :correct_estimate1 => 111, :correct_estimate2 => 101)
+      @series = Factory.build(:series, :has_start_list => true)
       @series.stub!(:each_competitor_finished?).and_return(true)
     end
 
@@ -601,18 +605,16 @@ describe Series do
     end
 
     context "when start list generated" do
-      context "when correct estimates filled" do
-        context "when some competitor has no result" do
-          it "should return false" do
-            @series.should_receive(:each_competitor_finished?).and_return(false)
-            @series.should_not be_ready
-          end
+      context "when some competitor has no result" do
+        it "should return false" do
+          @series.should_receive(:each_competitor_finished?).and_return(false)
+          @series.should_not be_ready
         end
+      end
 
-        context "when each competitor has a result" do
-          it "should return true" do
-            @series.should be_ready
-          end
+      context "when each competitor has a result" do
+        it "should return true" do
+          @series.should be_ready
         end
       end
     end

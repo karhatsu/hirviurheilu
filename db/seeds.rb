@@ -69,6 +69,8 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
     :end_date => race_end_dates[race_i], :start_interval_seconds => interval)
   race.save!
   official1.races << race
+  correct1 = 100 + 5 * race_i
+  correct2 = 160 - 5 * race_i
 
   old_race = race.end_date < Date.today
 
@@ -84,10 +86,7 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
   # series
   series_names = ["M", "M40", "M50", "M60", "M70"]
   5.times do |series_i|
-    correct1 = 100 + 5 * series_i
-    correct2 = 160 - 5 * series_i
     series = race.series.build(:name => series_names[series_i],
-      :correct_estimate1 => correct1, :correct_estimate2 => correct2,
       :start_time => "#{race_start_dates[race_i]} 1#{series_i}:10",
       :first_number => 100)
     series.save!
@@ -168,6 +167,11 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
   end
 
   if old_race
+    race.correct_estimates << CorrectEstimate.new(:race => race,
+      :min_number => 1, :max_number => nil,
+      :distance1 => correct1, :distance2 => correct2)
+    race.set_correct_estimates_for_competitors
+
     unless race.finish
       raise race.errors.on(:base)
     end
