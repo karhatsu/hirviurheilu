@@ -264,34 +264,38 @@ describe ApplicationHelper do
     context "race not finished" do
       before do
         race = mock_model(Race, :finished => false)
-        @series = mock_model(Series, :race => race)
+        series = mock_model(Series, :race => race)
+        @competitor = mock_model(Competitor, :series => series,
+          :correct_estimate1 => 100, :correct_estimate2 => 150)
       end
 
-      specify { helper.correct_estimate(@series, 1, '-').should == '-' }
-      specify { helper.correct_estimate(@series, 2, '-').should == '-' }
+      specify { helper.correct_estimate(@competitor, 1, '-').should == '-' }
+      specify { helper.correct_estimate(@competitor, 2, '-').should == '-' }
     end
 
     context "race finished" do
       context "estimates available" do
         before do
           race = mock_model(Race, :finished => true)
-          @series = mock_model(Series, :race => race, :correct_estimate1 => 100,
-            :correct_estimate2 => 150)
+          series = mock_model(Series, :race => race)
+          @competitor = mock_model(Competitor, :series => series,
+            :correct_estimate1 => 100, :correct_estimate2 => 150)
         end
 
-        specify { helper.correct_estimate(@series, 1, '-').should == 100 }
-        specify { helper.correct_estimate(@series, 2, '-').should == 150 }
+        specify { helper.correct_estimate(@competitor, 1, '-').should == 100 }
+        specify { helper.correct_estimate(@competitor, 2, '-').should == 150 }
       end
 
       context "estimates not available" do
         before do
           race = mock_model(Race, :finished => true)
-          @series = mock_model(Series, :race => race, :correct_estimate1 => nil,
-            :correct_estimate2 => nil)
+          series = mock_model(Series, :race => race)
+          @competitor = mock_model(Competitor, :series => series,
+            :correct_estimate1 => nil, :correct_estimate2 => nil)
         end
 
-        specify { helper.correct_estimate(@series, 1, '-').should == '-' }
-        specify { helper.correct_estimate(@series, 2, '-').should == '-' }
+        specify { helper.correct_estimate(@competitor, 1, '-').should == '-' }
+        specify { helper.correct_estimate(@competitor, 2, '-').should == '-' }
       end
     end
   end

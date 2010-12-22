@@ -133,10 +133,10 @@ module ApplicationHelper
     competitor.estimate_points
   end
 
-  def correct_estimate(series, i, not_available_str)
+  def correct_estimate(competitor, i, not_available_str)
     raise "Unknown index for correct estimate: #{i}" if i != 1 and i != 2
-    return not_available_str unless series.race.finished
-    correct = (i == 1 ? series.correct_estimate1 : series.correct_estimate2)
+    return not_available_str unless competitor.series.race.finished
+    correct = (i == 1 ? competitor.correct_estimate1 : competitor.correct_estimate2)
     return not_available_str unless correct
     correct
   end
