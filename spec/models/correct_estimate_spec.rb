@@ -44,7 +44,7 @@ describe CorrectEstimate do
       before do
         @race1 = Factory.create(:race)
         @race2 = Factory.create(:race)
-        Factory.create(:correct_estimate, :race => @race1, :min_number => 5,
+        @ce = Factory.create(:correct_estimate, :race => @race1, :min_number => 5,
           :max_number => 10)
       end
 
@@ -66,9 +66,18 @@ describe CorrectEstimate do
           :max_number => 15).should_not be_valid
       end
 
-      describe "max_number is nil" do
+      describe "saving max_number=nil" do
+        it "should prevent overlapping min number" do
+          Factory.build(:correct_estimate, :race => @race1, :min_number => 4,
+            :max_number => nil).should_not be_valid
+          Factory.build(:correct_estimate, :race => @race1, :min_number => 10,
+            :max_number => nil).should_not be_valid
+        end
+      end
+
+      describe "existing max_number=nil" do
         before do
-          Factory.create(:correct_estimate, :race => @race1, :min_number => 50,
+          @ce_nil = Factory.create(:correct_estimate, :race => @race1, :min_number => 50,
             :max_number => nil)
         end
 
@@ -81,6 +90,16 @@ describe CorrectEstimate do
           Factory.build(:correct_estimate, :race => @race1, :min_number => 100,
             :max_number => nil).should have(1).errors_on(:max_number)
         end
+
+        it "should allow updating numbers" do
+          @ce_nil.min_number = 51
+          @ce_nil.should be_valid
+        end
+      end
+
+      it "should allow updating numbers" do
+        @ce.min_number = 6
+        @ce.should be_valid
       end
     end
   end

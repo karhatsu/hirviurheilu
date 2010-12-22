@@ -25,7 +25,9 @@ fi:
     last_login_ip: Viim. IP
     last_request_at: Viim. käyt.
     location: Paikkakunta
+    max_number: Suurin numero
     min_competitors: Kilpailijoita vähintään
+    min_number: Pienin numero
     name: Nimi
     number: Numero
     password: Salasana
