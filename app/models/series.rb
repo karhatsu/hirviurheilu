@@ -178,6 +178,11 @@ class Series < ActiveRecord::Base
     start_time and start_time < Time.now and not race.finished
   end
 
+  def each_competitor_has_correct_estimates?
+    competitors.where('competitors.correct_estimate1 is null or ' +
+        'competitors.correct_estimate2 is null').empty?
+  end
+
   private
   def prevent_destroy_if_competitors
     if competitors.count > 0

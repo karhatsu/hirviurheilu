@@ -309,4 +309,32 @@ describe Race do
       @c9.correct_estimate2.should == nil
     end
   end
+
+  describe "#each_competitor_has_correct_estimates?" do
+    before do
+      @race = Factory.create(:race)
+      series1 = Factory.create(:series, :race => @race)
+      series2 = Factory.create(:series, :race => @race)
+      @c1 = Factory.create(:competitor, :series => series1,
+        :correct_estimate1 => 55, :correct_estimate2 => 111)
+      @c2 = Factory.create(:competitor, :series => series2,
+        :correct_estimate1 => 100, :correct_estimate2 => 99)
+      @c3 = Factory.create(:competitor, :series => series1,
+        :correct_estimate1 => 123, :correct_estimate2 => 100)
+      @c4 = Factory.create(:competitor, :series => series2,
+        :correct_estimate1 => 77, :correct_estimate2 => 88)
+    end
+
+    it "should return true when correct estimates exists for all competitors" do
+      @race.reload
+      @race.each_competitor_has_correct_estimates?.should be_true
+    end
+
+    it "should return false when at least one competitor is missing correct estimates" do
+      @c3.correct_estimate2 = nil
+      @c3.save!
+      @race.reload
+      @race.each_competitor_has_correct_estimates?.should be_false
+    end
+  end
 end

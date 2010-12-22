@@ -627,4 +627,26 @@ describe Series do
       end
     end
   end
+
+  describe "#each_competitor_has_correct_estimates?" do
+    before do
+      @series = Factory.create(:series)
+      @c1 = Factory.create(:competitor, :series => @series,
+        :correct_estimate1 => 55, :correct_estimate2 => 111)
+      @c2 = Factory.create(:competitor, :series => @series,
+        :correct_estimate1 => 100, :correct_estimate2 => 99)
+    end
+
+    it "should return true when correct estimates exists for all competitors" do
+      @series.reload
+      @series.each_competitor_has_correct_estimates?.should be_true
+    end
+
+    it "should return false when at least one competitor is missing correct estimates" do
+      @c2.correct_estimate2 = nil
+      @c2.save!
+      @series.reload
+      @series.each_competitor_has_correct_estimates?.should be_false
+    end
+  end
 end

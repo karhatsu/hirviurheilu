@@ -101,6 +101,11 @@ class Race < ActiveRecord::Base
     end
   end
 
+  def each_competitor_has_correct_estimates?
+    competitors.where('competitors.correct_estimate1 is null or ' +
+        'competitors.correct_estimate2 is null').empty?
+  end
+
   private
   def end_date_not_before_start_date
     if end_date and end_date < start_date
