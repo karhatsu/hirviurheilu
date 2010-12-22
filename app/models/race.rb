@@ -89,12 +89,14 @@ class Race < ActiveRecord::Base
         if max_range_low_limit and c.number >= max_range_low_limit
           c.correct_estimate1 = number_to_corrects_hash[max_range_low_limit][0]
           c.correct_estimate2 = number_to_corrects_hash[max_range_low_limit][1]
-          c.save!
         elsif number_to_corrects_hash[c.number]
           c.correct_estimate1 = number_to_corrects_hash[c.number][0]
           c.correct_estimate2 = number_to_corrects_hash[c.number][1]
-          c.save!
+        else
+          c.correct_estimate1 = nil
+          c.correct_estimate2 = nil
         end
+        c.save!
       end
     end
   end

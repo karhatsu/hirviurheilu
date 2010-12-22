@@ -294,16 +294,19 @@ describe Race do
       @c4.correct_estimate2.should == 200
       @c5.correct_estimate1.should == 100
       @c5.correct_estimate2.should == 200
-      @c6.correct_estimate1.should == 10 # original ...
-      @c6.correct_estimate2.should == 20 # ...
-      @c9.correct_estimate1.should == 30 # ...
-      @c9.correct_estimate2.should == 40 # ... correct estimates
       @c10.correct_estimate1.should == 300
       @c10.correct_estimate2.should == 400
       @c150.correct_estimate1.should == 300
       @c150.correct_estimate2.should == 400
       @cnil.correct_estimate1.should == 50
       @cnil.correct_estimate2.should == 60
+    end
+
+    it "should reset such competitors' correct estimates whose numbers don't match" do
+      @c6.correct_estimate1.should == nil
+      @c6.correct_estimate2.should == nil
+      @c9.correct_estimate1.should == nil
+      @c9.correct_estimate2.should == nil
     end
   end
 end
