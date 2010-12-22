@@ -103,6 +103,22 @@ describe Competitor do
       it { should allow_value(1).for(:estimate2) }
     end
 
+    describe "correct_estimate1" do
+      it { should allow_value(nil).for(:correct_estimate1) }
+      it { should_not allow_value(1.1).for(:correct_estimate1) }
+      it { should_not allow_value(-1).for(:correct_estimate1) }
+      it { should_not allow_value(0).for(:correct_estimate1) }
+      it { should allow_value(1).for(:correct_estimate1) }
+    end
+
+    describe "correct_estimate2" do
+      it { should allow_value(nil).for(:correct_estimate2) }
+      it { should_not allow_value(1.1).for(:correct_estimate2) }
+      it { should_not allow_value(-1).for(:correct_estimate2) }
+      it { should_not allow_value(0).for(:correct_estimate2) }
+      it { should allow_value(1).for(:correct_estimate2) }
+    end
+
     describe "arrival_time" do
       it { should allow_value(nil).for(:arrival_time) }
 

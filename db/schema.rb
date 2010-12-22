@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101222091137) do
+ActiveRecord::Schema.define(:version => 20101222095845) do
 
   create_table "age_groups", :force => true do |t|
     t.integer  "series_id",                      :null => false
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(:version => 20101222091137) do
     t.datetime "updated_at"
     t.string   "no_result_reason"
     t.integer  "age_group_id"
+    t.integer  "correct_estimate1"
+    t.integer  "correct_estimate2"
   end
 
   add_index "competitors", ["series_id"], :name => "index_competitors_on_series_id"
