@@ -80,49 +80,22 @@ describe Race do
   describe "#finish" do
     before do
       @race = Factory.create(:race)
-      @series = Factory.build(:series, :correct_estimate1 => 100,
-        :correct_estimate2 => 200, :race => @race)
+      @series = Factory.build(:series, :race => @race)
       @race.series << @series
+      @race.stub!(:each_competitor_has_correct_estimates?).and_return(true)
     end
 
-    context "when series missing correct estimate" do
+    context "when competitors missing correct estimates" do
       before do
-        @series.correct_estimate1 = nil
-        @series.save!
+        @race.should_receive(:each_competitor_has_correct_estimates?).and_return(false)
       end
 
-      context "when series have no competitors" do
-        it "should be possible to finish the race" do
-          confirm_successfull_finish(@race)
-        end
-      end
-
-      context "when series have at least 1 competitor" do
-        before do
-          @series.competitors << Factory.build(:competitor, :series => @series)
-        end
-
-        describe "estimate 1 missing" do
-          it "should not be possible to finish the race" do
-            confirm_unsuccessfull_finish(@race)
-          end
-        end
-
-        describe "estimate 2 missing" do
-          before do
-            @series.correct_estimate1 = 80
-            @series.correct_estimate2 = nil
-            @series.save!
-          end
-
-          it "should not be possible to finish the race" do
-            confirm_unsuccessfull_finish(@race)
-          end
-        end
+      it "should not be possible to finish the race" do
+        confirm_unsuccessfull_finish(@race)
       end
     end
 
-    context "when correct estimates filled" do
+    context "when competitors not missing correct estimates" do
       context "when competitors missing results" do
         before do
           @series.competitors << Factory.build(:competitor, :series => @series)
