@@ -1,0 +1,39 @@
+<h2>Oikeat arviot</h2>
+<%= flash_error %>
+<%= flash_notice %>
+<%= form_for([:official, @race], :url => race_correct_estimates_path(@race)) do |f| %>
+  <%= render :partial => 'shared/form_errors', :locals => { :item => @race } %>
+  <%= f.fields_for :correct_estimates do |ce_form| %>
+    <%= render :partial => 'correct_estimate', :locals => { :f => ce_form } %>
+  <% end %>
+  <%= add_child_link "Lisää uusi oikeiden ennusteiden määritys tähän kilpailuun",
+    f, :correct_estimates %><br/>
+  <%= submit_tag 'Tallenna oikeat arviot ja aseta ne kilpailijoille' %>
+<% end %>
+
+<h2>Kilpailijoille määritetyt oikeat arviot</h2>
+<% if @race.competitors.empty? %>
+  <div class="instructions">Et ole lisännyt kilpailuun vielä yhtään kilpailijaa.
+    Kun lisäät kilpailijoita, tähän ilmestyy kilpailijakohtaiset oikeat arviomatkat.</div>
+<% else %>
+  <div class="instructions">Kilpailijoille täytyy olla luotu lähtölistat,
+    jotta heille voidaan asettaa oikeat arviomatkat alla olevaan taulukkoon.</div>
+  <table border="1" cellpadding="2" cellspacing="0">
+    <tr>
+      <th>Numero</th>
+      <th>Nimi</th>
+      <th>Sarja</th>
+      <th>Oikea arvio 1</th>
+      <th>Oikea arvio 2</th>
+    </tr>
+    <% @competitors.each do |c| %>
+      <tr>
+        <td><%= c.number %></td>
+        <td><%= full_name(c) %></td>
+        <td><%= c.series.name %></td>
+        <td><%= c.correct_estimate1 %></td>
+        <td><%= c.correct_estimate2 %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

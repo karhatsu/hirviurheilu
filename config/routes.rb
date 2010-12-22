@@ -40,6 +40,8 @@ ElkSports::Application.routes.draw do
   namespace :official do
     resources :races do
       resources :clubs
+      put 'correct_estimates' => 'correct_estimates#update', :as => :correct_estimates
+      resources :correct_estimates
       resources :officials
       resource :finish_race
     end

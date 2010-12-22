@@ -9,6 +9,7 @@ class Race < ActiveRecord::Base
   has_and_belongs_to_many :users, :join_table => :race_officials
 
   accepts_nested_attributes_for :series, :allow_destroy => true
+  accepts_nested_attributes_for :correct_estimates, :allow_destroy => true
 
   before_validation :set_end_date
 

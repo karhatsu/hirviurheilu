@@ -10,6 +10,8 @@ fi:
     default_age_group: Oletusikäryhmä
     default_age_groups: Oletusikäryhmät
     default_series: Oletussarja
+    distance1: Etäisyys 1
+    distance2: Etäisyys 2
     races: Kilpailut
     email: Sähköposti
     end_date: Loppupvm
@@ -48,6 +50,9 @@ fi:
       competitor:
         one: Kilpailija
         other: Kilpailijat
+      correct_estimate:
+        one: Oikea arvio
+        other: Oikeat arviot
       default_age_group:
         one: Oletusikäryhmä
         other: Oletusikäryhmät
