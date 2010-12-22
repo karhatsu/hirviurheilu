@@ -7,6 +7,13 @@ describe Competitor do
     end
   end
 
+  describe "associations" do
+    it { should belong_to(:club) }
+    it { should belong_to(:series) }
+    it { should belong_to(:age_group) }
+    it { should have_many(:shots) }
+  end
+
   describe "validation" do
     it { should validate_presence_of(:first_name) }
     it { should validate_presence_of(:last_name) }
