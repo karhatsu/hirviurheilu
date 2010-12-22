@@ -50,6 +50,7 @@ describe Race do
     it { should have_many(:series) }
     it { should have_many(:competitors).through(:series) }
     it { should have_many(:clubs) }
+    it { should have_many(:correct_estimates) }
     it { should have_and_belong_to_many(:users) }
   end
 
@@ -250,6 +251,59 @@ describe Race do
         @race.end_date = '2010-12-22'
         @race.days_count.should == 3
       end
+    end
+  end
+
+  describe "#set_correct_estimates_for_competitors" do
+    before do
+      @race = Factory.create(:race)
+      @series1 = Factory.create(:series, :race => @race)
+      @series2 = Factory.create(:series, :race => @race)
+      Factory.create(:correct_estimate, :min_number => 1, :max_number => 5,
+        :distance1 => 100, :distance2 => 200, :race => @race)
+      Factory.create(:correct_estimate, :min_number => 10, :max_number => nil,
+        :distance1 => 300, :distance2 => 400, :race => @race)
+      @c1 = Factory.create(:competitor, :series => @series1, :number => 1,
+        :correct_estimate1 => 1, :correct_estimate2 => 2)
+      @c4 = Factory.create(:competitor, :series => @series2, :number => 4)
+      @c5 = Factory.create(:competitor, :series => @series1, :number => 5)
+      @c6 = Factory.create(:competitor, :series => @series1, :number => 6,
+        :correct_estimate1 => 10, :correct_estimate2 => 20)
+      @c9 = Factory.create(:competitor, :series => @series2, :number => 9,
+        :correct_estimate1 => 30, :correct_estimate2 => 40)
+      @c10 = Factory.create(:competitor, :series => @series2, :number => 10)
+      @c150 = Factory.create(:competitor, :series => @series1, :number => 150)
+      @cnil = Factory.create(:competitor, :series => @series1, :number => nil,
+        :correct_estimate1 => 50, :correct_estimate2 => 60)
+      @race.reload
+      @race.set_correct_estimates_for_competitors
+      @c1.reload
+      @c4.reload
+      @c5.reload
+      @c6.reload
+      @c9.reload
+      @c10.reload
+      @c150.reload
+      @cnil.reload
+    end
+
+    it "should copy correct estimates for those numbers that match" do
+      @c1.correct_estimate1.should == 100
+      @c1.correct_estimate2.should == 200
+      @c4.correct_estimate1.should == 100
+      @c4.correct_estimate2.should == 200
+      @c5.correct_estimate1.should == 100
+      @c5.correct_estimate2.should == 200
+      @c6.correct_estimate1.should == 10 # original ...
+      @c6.correct_estimate2.should == 20 # ...
+      @c9.correct_estimate1.should == 30 # ...
+      @c9.correct_estimate2.should == 40 # ... correct estimates
+      @c10.correct_estimate1.should == 300
+      @c10.correct_estimate2.should == 400
+      @c150.correct_estimate1.should == 300
+      @c150.correct_estimate2.should == 400
+      @cnil.correct_estimate1.should == 50
+      @cnil.correct_estimate2.should == 60
     end
   end
 end

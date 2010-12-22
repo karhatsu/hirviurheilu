@@ -5,6 +5,7 @@ class Race < ActiveRecord::Base
   has_many :series, :order => 'start_time, name'
   has_many :competitors, :through => :series
   has_many :clubs, :order => 'name'
+  has_many :correct_estimates
   has_and_belongs_to_many :users, :join_table => :race_officials
 
   accepts_nested_attributes_for :series, :allow_destroy => true
@@ -66,6 +67,35 @@ class Race < ActiveRecord::Base
   def days_count
     return 1 if end_date.nil?
     (end_date - start_date).to_i + 1
+  end
+
+  def set_correct_estimates_for_competitors
+    number_to_corrects_hash = Hash.new
+    max_range_low_limit = nil
+    correct_estimates.each do |ce|
+      if ce.max_number.nil?
+        max_range_low_limit = ce.min_number
+        number_to_corrects_hash[max_range_low_limit] = [ce.distance1, ce.distance2]
+      else
+        (ce.min_number..ce.max_number).to_a.each do |nro|
+          number_to_corrects_hash[nro] = [ce.distance1, ce.distance2]
+        end
+      end
+    end
+
+    competitors.each do |c|
+      if c.number
+        if max_range_low_limit and c.number >= max_range_low_limit
+          c.correct_estimate1 = number_to_corrects_hash[max_range_low_limit][0]
+          c.correct_estimate2 = number_to_corrects_hash[max_range_low_limit][1]
+          c.save!
+        elsif number_to_corrects_hash[c.number]
+          c.correct_estimate1 = number_to_corrects_hash[c.number][0]
+          c.correct_estimate2 = number_to_corrects_hash[c.number][1]
+          c.save!
+        end
+      end
+    end
   end
 
   private
