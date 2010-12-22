@@ -40,6 +40,25 @@
       <% end %>
     </table>
   </div>
+  <% if @race.finished? %>
+    <h2>Oikeat arviot</h2>
+    <div class="table_wrapper">
+    <table>
+      <tr>
+        <th>Kilpailunumerot</th>
+        <th>Oikea arvio 1</th>
+        <th>Oikea arvio 2</th>
+      </tr>
+      <% @race.correct_estimates.each do |ce| %>
+        <tr>
+          <td class="center"><%= ce.min_number %>-<%= ce.max_number ? ce.max_number : '' %></td>
+          <td class="center"><%= ce.distance1 %></td>
+          <td class="center"><%= ce.distance2 %></td>
+        </tr>
+      <% end %>
+    </table>
+      </div>
+  <% end %>
 <% end %>
 <% if @race.start_date > Date.today %>
   <div class="instructions">
