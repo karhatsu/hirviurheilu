@@ -2,6 +2,7 @@ class Official::MediaController < Official::OfficialController
   before_filter :assign_race, :check_race_rights, :set_media
 
   def index
+    @competitors_count = (params[:competitors_count] || 3).to_i
     @show_results = params[:results]
   end
 
