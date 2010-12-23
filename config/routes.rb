@@ -43,6 +43,7 @@ ElkSports::Application.routes.draw do
       put 'correct_estimates' => 'correct_estimates#update', :as => :correct_estimates
       resources :correct_estimates
       resources :officials
+      resources :media
       resource :finish_race
     end
 

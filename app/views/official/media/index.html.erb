@@ -1,0 +1,30 @@
+<h2>Lehdistö</h2>
+<div class="instructions">Tältä sivulta voit ladata tulokset lehdistöä varten
+  tekstimuodossa</div>
+<% if @race.competitors.empty? %>
+  <div class="error">Kilpailuun ei ole lisätty yhtään kilpailijaa</div>
+<% else %>
+  <%= form_tag(official_race_media_path(@race), :method => :get) do %>
+    <%= hidden_field_tag :results, true %>
+    <%= submit_tag "Lataa lehdistöraportti" %>
+  <% end %>
+  <% if @show_results %>
+    <% results = [] %>
+    <% @race.series.each do |series| %>
+      <% series_results = "Sarja #{series.name}: " %>
+      <% comp_results = [] %>
+      <% series.ordered_competitors.each_with_index do |c, i| %>
+        <% unless c.no_result_reason %>
+          <% comp_results << "#{i+1}) #{full_name(c)} #{c.club.name} #{c.points}" %>
+        <% end %>
+      <% end %>
+      <% series_results << comp_results.join(", ") %>
+      <% series_results << "." %>
+      <% results << series_results %>
+    <% end %>
+    <br/>
+    <div class="table_wrapper">
+      <%= results.join(" ") %>
+    </div>
+  <% end %>
+<% end %>

@@ -69,6 +69,7 @@ class Race < ActiveRecord::Base
   end
 
   def set_correct_estimates_for_competitors
+    reload
     return if correct_estimates.empty?
 
     number_to_corrects_hash = Hash.new
