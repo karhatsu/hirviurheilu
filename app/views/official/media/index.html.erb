@@ -4,6 +4,7 @@
 <% if @race.competitors.empty? %>
   <div class="error">Kilpailuun ei ole lisätty yhtään kilpailijaa</div>
 <% else %>
+  <%= flash_error %>
   <%= form_tag(official_race_media_path(@race), :method => :get) do %>
     <%= hidden_field_tag :results, true %>
     <%= label_tag :competitors_count, 'Kilpailijoiden määrä / sarja' %>

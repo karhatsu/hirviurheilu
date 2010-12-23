@@ -146,3 +146,22 @@ Feature: Media
     And I fill in "1" for "Kilpailijoiden määrä / sarja"
     And I press "Lataa lehdistöraportti"
     Then I should see "Sarja Test series: 1) Atkinsson Tim Sports club 1140. Sarja Another test series: 1) Thomsson Tina Sports club 1140."
+
+  Scenario: Invalid amount of competitors
+    Given I am an official
+    And I have a race with attributes:
+      | name | Test race |
+    And the race has a club "Shooting club"
+    And the race has series with attributes:
+      | name | Test series |
+      | start_time | 13:00 |
+      | first_number | 1 |
+    And the series has a competitor with attributes:
+      | first_name | James |
+      | last_name | Johnson |
+      | club | Shooting club |
+    And I have logged in
+    When I go to the official media page of "Test race"
+    And I fill in "x" for "Kilpailijoiden määrä / sarja"
+    And I press "Lataa lehdistöraportti"
+    Then I should see "Syötä kilpailijoiden määräksi positiivinen kokonaisluku" within "div.error"

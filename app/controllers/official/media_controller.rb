@@ -4,6 +4,9 @@ class Official::MediaController < Official::OfficialController
   def index
     @competitors_count = (params[:competitors_count] || 3).to_i
     @show_results = params[:results]
+    if @show_results and @competitors_count <= 0
+      flash[:error] = 'Syötä kilpailijoiden määräksi positiivinen kokonaisluku'
+    end
   end
 
   private
