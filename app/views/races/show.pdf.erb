@@ -2,36 +2,5 @@
 <%= @race.location %>, <%= race_date_interval(@race) %>
 <% @race.series.each do |series| %>
   <hr/>
-  <h2><%= "#{series.name} - Tulokset" %></h2>
-  <% if series.running? %>
-    <div class="notice">Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan
-      kilpailun päätyttyä.</div>
-  <% end %>
-  <br/>
-  <table>
-    <tr>
-      <th>&nbsp;</th>
-      <th>Nimi</th>
-      <th>Nro</th>
-      <th><%= t "attributes.club" %></th>
-      <th><%= series.race.sport.run? ? "Juoksu" : "Hiihto" %></th>
-      <th>Arviointi</th>
-      <th>Ammunta</th>
-      <th>Pisteet</th>
-    </tr>
-  <% series.ordered_competitors.each_with_index do |comp, i| %>
-    <tr>
-      <td><%= i + 1 %>.</td>
-      <td><%= full_name(comp) %>
-        <%= "(#{comp.age_group.name})" if comp.age_group %></td>
-      <td><%= comp.number ? comp.number : '' %></td>
-      <td><%= comp.club.name %></td>
-      <td><%= time_points_and_time(comp) %></td>
-      <td><%= series.race.finished ? estimate_points_and_diffs(comp) :
-                estimate_points(comp) %></td>
-      <td><%= shot_points_and_total(comp) %></td>
-      <td><%= points_print(comp) %></td>
-    </tr>
-  <% end %>
-  </table>
+  <%= render :partial => 'series/series_results', :locals => { :series => series } %>
 <% end %>
