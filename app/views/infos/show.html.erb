@@ -7,20 +7,30 @@
 
 <div class="question">Mihin Hirviurheilu-tulospalvelu on tarkoitettu?</div>
 <div class="answer">Hirviurheilu on hirvenhiihtoon ja hirvenjuoksuun tarkoitettu
-  tulospalvelu.</div>
+  reaaliaikainen tulospalvelu.</div>
 
 <div class="question">Mitä kilpailumuotoja palvelu tukee?</div>
 <div class="answer">Katso vastaus tämän sivun alalaidasta.</div>
 
 <div class="question">Mitä hyötyä palvelusta on kilpailun järjestäjille?</div>
-<div class="answer">Tulospalvelun järjestäminen onnistuu palvelun kautta
-  vaivattomasti. Palvelun käyttöönotto on erittäin nopeaa ja sen käyttäminen
-  helppoa. Järjestäjien ei tarvitse huolehtia lähtölistojen tai tulosten
-  julkaisemisesta, koska ne ovat kaikkien saatavilla internetissä ilman
-  ylimääräisiä toimenpiteitä. Palvelu tarjoaa myös luotettavan tavan tulosten
-  laskemiseen, toimitsijoiden tarvitsee ainoastaan syöttää kilpailijoiden
-  saapumisaika, arviot sekä ammuntatulokset. Pisteet lasketaan näiden
-  perusteella automaattisesti.</div>
+<div class="answer">
+  <ul>
+    <li>Tulospalvelun järjestäminen onnistuu palvelun kautta vaivattomasti.
+      Palvelun käyttöönotto on erittäin nopeaa ja sen käyttäminen
+      helppoa.</li>
+    <li>Palvelu tarjoaa luotettavan tavan tulosten laskemiseen;
+      toimitsijoiden tarvitsee ainoastaan syöttää kilpailijoiden
+      saapumisaika, arviot sekä ammuntatulokset. Pisteet lasketaan näiden
+      perusteella automaattisesti.</li>
+    <li>Järjestäjien ei tarvitse huolehtia lähtölistojen tai tulosten
+      julkaisemisesta, koska ne ovat kaikkien saatavilla internetissä ilman
+      ylimääräisiä toimenpiteitä.</li>
+    <li>Palvelu on hyvin joustava. Kilpailun järjestejä voi esimerkiksi
+      syöttää juuri ne sarjat, mitkä kilpailussa tullaan järjestämään.
+      Mitään tiettyä sarjajoukkoa ei tarvitse käyttää.</li>
+    <li>Järjestäjät voivat ladata tulosraportin myös lehdistölle sopivassa muodossa.</li>
+  </ul>
+</div>
 
 <div class="question">Mitä hyötyä palvelusta on kilpailijoille?</div>
 <div class="answer">Kilpailijat näkevät tulokset reaaliaikaisina internetin
@@ -62,8 +72,14 @@
   laukauksina?</div>
 <div class="answer">Saat päättää tämän itse. Molemmat vaihtoehdot ovat mahdollisia.</div>
 
+<div class="question">Kuinka sarjojen oikeat arviointimatkat määritetään?</div>
+<div class="answer">Oikeat arviointimatkat määritetään kilpailunumeroiden perusteella.
+  Voit esimerkiksi määrittää, että numeroiden 1-50 oikeat matkat ovat 100 ja 120 metriä
+  ja että numeroilla 51-100 matkat ovat 95 ja 125 metriä.</div>
+
 <div class="question">Mitä asioita täytyy tehdä kilpailun jälkeen?</div>
-<div class="answer">Kun olet syöttänyt kaikille kilpailijoille tulokset,
+<div class="answer">Kun olet syöttänyt kaikille kilpailijoille tulokset
+  sekä määrittänyt kilpailulle oikeat arviointimatkat,
   muista merkitä vielä kilpailu päättyneeksi toimitsijan sivuilta, kilpailun etusivulta.
   Tämä vaikuttaa mm. siihen, että tarkat arviointitiedot julkaistaan kilpailijoille.
   Niin kauan kuin kilpailu on kesken, kilpailijat eivät näe arviointitietojen
@@ -82,7 +98,8 @@
   Kuinka tämä onnistuu?</div>
 <div class="answer">Tulostaminen onnistuu parhaiten siten, että lataat
   tuloslistan tai lähtölistan PDF-muotoisena. Linkit löytyvät vastaavilta
-  sivuilta.</div>
+  sivuilta. Huom! Jos olet kilpailun järjestäjä ja haluat lähettää tulokset
+  lehdistölle, voit ladata tulosluettelon lehdistömuodossa toimitsijan sivuilta.</div>
 
 <div class="question">Onko mahdollista kokeilla palvelun käyttämistä jossain?</div>
 <div class="answer">Osoitteessa <a href="<%= TEST_URL %>"><%= TEST_URL %></a>
@@ -95,7 +112,7 @@
 <div class="answer"><%= link_to "Ota rohkeasti yhteyttä", new_feedback_path %> ja kerro ideasi!</div>
 
 <div class="question">Kuinka paljon palvelun käyttö maksaa?</div>
-<div class="answer"><%= link_to "Katso hinnastosta", prices_path %></div>
+<div class="answer"><%= link_to "Katso tämän hetken hinnasto.", prices_path %></div>
 
 <h2>Kilpailumuodot</h2>
 Tällä hetkellä palvelua voidaan käyttää normaalien yksilökilpailujen tulosten
@@ -107,7 +124,7 @@ hallintaan. Alla olevat kilpailumuodot tullaan tekemään tarpeen mukaan:
     SM- tai piiritasolla)</li>
 </ul>
 Voit myös itse <%= link_to "ehdottaa uusia ominaisuuksia", new_feedback_path %>
-  palveluun yllä olevan linkin kautta.
+palveluun yllä olevan linkin kautta.
 
 <h2>Ohjevideo</h2>
 <%= link_to "Katso ohjevideo Youtubesta",
