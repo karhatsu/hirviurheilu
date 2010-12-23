@@ -23,4 +23,13 @@ class Sport < ActiveRecord::Base
   def self.find_run
     find_by_key(RUN)
   end
+
+  def self.default_sport
+    month = Time.new.month
+    if month >= 5 and month <= 10
+      return find_run
+    else
+      return find_ski
+    end
+  end
 end
