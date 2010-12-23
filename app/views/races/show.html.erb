@@ -41,7 +41,9 @@
     </table>
   </div>
   <h2>Kaikkien sarjojen tulokset</h2>
-  <%= link_to "Lataa PDF-tiedosto", race_path(@race, :format => :pdf) %>
+  <div class="table_wrapper">
+    <%= link_to "Lataa PDF-tiedosto", race_path(@race, :format => :pdf) %>
+  </div>
   <% if @race.finished? %>
     <h2>Oikeat arviot</h2>
     <div class="table_wrapper">

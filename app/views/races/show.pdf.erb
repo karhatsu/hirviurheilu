@@ -1,6 +1,6 @@
 <h1><%= @race.name %></h1>
+<%= @race.location %>, <%= race_date_interval(@race) %>
 <% @race.series.each do |series| %>
-  <%= @race.location %>, <%= race_date_interval(@race) %>
   <hr/>
   <h2><%= "#{series.name} - Tulokset" %></h2>
   <% if series.running? %>
