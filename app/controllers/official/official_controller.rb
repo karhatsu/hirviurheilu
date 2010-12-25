@@ -14,6 +14,10 @@ class Official::OfficialController < ApplicationController
     end
   end
 
+  def assign_race_by_id
+    @race = Race.find(params[:id])
+  end
+
   def assign_race_by_race_id
     @race = Race.find(params[:race_id])
   end

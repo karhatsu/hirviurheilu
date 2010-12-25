@@ -1,5 +1,5 @@
 class Official::RacesController < Official::OfficialController
-  before_filter :assign_race, :check_assigned_race, :except => [:new, :create]
+  before_filter :assign_race_by_id, :check_assigned_race, :except => [:new, :create]
 
   def show
     @is_race = true
@@ -49,10 +49,5 @@ class Official::RacesController < Official::OfficialController
       flash[:error] = "Kilpailua ei voi poistaa: #{@race.errors[:base]}"
     end
     redirect_to official_root_path
-  end
-
-  private
-  def assign_race
-    @race = Race.find(params[:id])
   end
 end
