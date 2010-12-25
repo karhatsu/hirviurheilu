@@ -58,7 +58,7 @@ Feature: Manage competitors
     And the race has series with attributes:
       | name | Test series |
       | first_number | 10 |
-      | start_time | 2010-11-23 11:00 |
+      | start_time | 11:00 |
     And the series has a competitor with attributes:
       | first_name | James |
       | last_name | Johnson |

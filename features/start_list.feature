@@ -11,7 +11,7 @@ Feature: Start list
       | start_interval_seconds | 30 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 2010-07-15 13:00 |
+      | start_time | 13:00 |
       | first_number | 50 |
     And the race has a club "Shooting club"
     And the race has a club "Sports club"

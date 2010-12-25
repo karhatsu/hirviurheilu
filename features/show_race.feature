@@ -11,7 +11,7 @@ Feature: Show race
       | location | Test city |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 2010-01-01 13:30 |
+      | start_time | 13:30 |
     When I go to the race page
     Then I should see "My test race" within ".main_title"
     And I should see "Test city, 01.01.2010 - 02.01.2010" within ".main_title"
@@ -27,7 +27,7 @@ Feature: Show race
       | location | Test city |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 2010-01-01 13:30 |
+      | start_time | 13:30 |
     And the series has a competitor with attributes:
       | first_name | James |
       | last_name | Johnson |
@@ -42,7 +42,7 @@ Feature: Show race
       | location | Test city |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 2010-01-01 13:30 |
+      | start_time | 13:30 |
       | first_number | 1 |
     And the series has a competitor with attributes:
       | first_name | James |
@@ -67,7 +67,7 @@ Feature: Show race
       | name | My test race |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 2010-07-15 13:00 |
+      | start_time | 13:00 |
       | first_number | 1 |
     And the race has correct estimates with attributes:
       | min_number | 10 |

@@ -11,7 +11,7 @@ Feature: Results
       | start_interval_seconds | 60 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 2010-07-15 13:00 |
+      | start_time | 13:00 |
       | first_number | 50 |
     And the race has correct estimates with attributes:
       | min_number | 1 |
@@ -70,7 +70,7 @@ Feature: Results
       | start_interval_seconds | 60 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 2010-07-15 13:00 |
+      | start_time | 13:00 |
       | first_number | 50 |
     And the race has correct estimates with attributes:
       | min_number | 1 |
@@ -125,7 +125,7 @@ Feature: Results
       | start_interval_seconds | 60 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 2010-07-15 13:00 |
+      | start_time | 13:00 |
       | first_number | 50 |
     And the race has correct estimates with attributes:
       | min_number | 1 |
@@ -175,7 +175,7 @@ Feature: Results
       | start_interval_seconds | 60 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 2010-07-15 13:00 |
+      | start_time | 13:00 |
       | first_number | 50 |
     And the race has correct estimates with attributes:
       | min_number | 1 |
