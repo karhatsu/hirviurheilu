@@ -14,6 +14,7 @@
           <%= menu_item "Arvioinnit", official_series_estimates_path(series), @is_estimates %>
           <%= menu_item "Ammunta", official_series_shots_path(series), @is_shots %>
         <% end %>
+        <%= menu_item "Pikasyöttö", official_race_quick_saves_path(race), @is_quick_saves %>
         <%= menu_item "Oikeat arviot", official_race_correct_estimates_path(race), @is_correct_estimates %>
         <%= menu_item "Seurat", official_race_clubs_path(race), @is_clubs %>
         <%= menu_item "Lehdistö", official_race_media_path(race), @is_media %>

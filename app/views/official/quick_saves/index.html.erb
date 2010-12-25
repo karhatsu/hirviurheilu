@@ -1,0 +1,40 @@
+<h2>Tulosten pikasyöttö</h2>
+<div class="instructions">Tällä sivulla voit tallentaa kilpailijoiden tuloksia
+  ns. pikasyöttöä käyttäen. Syöttämiseen tarvitset kilpailijan numeron.</div>
+<% if @race.competitors.empty? %>
+  <div class="error">Kilpailuun ei ole lisätty yhtään kilpailijaa</div>
+<% else %>
+  <h3>Ajat</h3>
+  <div class="table_wrapper">
+    <div class="instructions">Syötä tulos muodossa nro:hh:mm:ss,
+      esim. 45:13:45:28 (kilpailija 45, saapumisaika 13:45:28).</div>
+    <div class="notice" id="time_notice" style="display:none;"></div>
+    <div class="error" id="time_error" style="display:none;"></div>
+    <%= form_tag(race_time_quick_save_path(@race), :remote => true) do %>
+      <%= text_field_tag :string, '', :id => 'time_string' %>
+      <%= submit_tag 'Tallenna' %>
+    <% end %>
+  </div>
+  <h3>Arvioinnit</h3>
+  <div class="table_wrapper">
+    <div class="instructions">Syötä tulos muodossa nro:arvio1:arvio2,
+      esim. 45:95:118 (kilpailija 45, arviot 95 ja 118 metriä).</div>
+    <div class="notice" id="estimates_notice" style="display:none;"></div>
+    <div class="error" id="estimates_error" style="display:none;"></div>
+    <%= form_tag(race_estimates_quick_save_path(@race), :remote => true) do %>
+      <%= text_field_tag :string, '', :id => 'estimates_string' %>
+      <%= submit_tag 'Tallenna' %>
+    <% end %>
+  </div>
+  <h3>Ammunta</h3>
+  <div class="table_wrapper">
+    <div class="instructions">Syötä tulos muodossa nro:ammuntatulos,
+      esim. 45:87 (kilpailija 45, ammunta yhteensä 87).</div>
+    <div class="notice" id="shots_notice" style="display:none;"></div>
+    <div class="error" id="shots_error" style="display:none;"></div>
+    <%= form_tag(race_shots_quick_save_path(@race), :remote => true) do %>
+      <%= text_field_tag :string, '', :id => 'shots_string' %>
+      <%= submit_tag 'Tallenna' %>
+    <% end %>
+  </div>
+<% end %>

@@ -43,6 +43,10 @@ ElkSports::Application.routes.draw do
       put 'correct_estimates' => 'correct_estimates#update', :as => :correct_estimates
       resources :correct_estimates
       resources :officials
+      post 'estimates_quick_save' => 'quick_saves#estimates', :as => :estimates_quick_save
+      post 'shots_quick_save' => 'quick_saves#shots', :as => :shots_quick_save
+      post 'time_quick_save' => 'quick_saves#time', :as => :time_quick_save
+      resources :quick_saves
       resources :media
       resource :finish_race
     end
