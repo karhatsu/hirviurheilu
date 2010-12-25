@@ -22,6 +22,14 @@ class Official::OfficialController < ApplicationController
     check_race(@race)
   end
 
+  def assign_series_by_series_id
+    @series = Series.find(params[:series_id])
+  end
+
+  def check_assigned_series
+    check_race(@series.race)
+  end
+
   def set_official
     @is_official = true
   end

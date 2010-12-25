@@ -1,5 +1,5 @@
 class Official::CompetitorsController < Official::OfficialController
-  before_filter :assign_series, :check_competitor_rights
+  before_filter :assign_series_by_series_id, :check_assigned_series
   before_filter :handle_time_parameters, :only => :update
   before_filter :set_competitors
 
@@ -7,7 +7,6 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   def new
-    @series = Series.find(params[:series_id])
     next_number = @series.next_number
     next_start_time = @series.next_start_time
     @competitor = @series.competitors.build # cannot call next-methods after this
@@ -16,7 +15,6 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   def create
-    @series = Series.find(params[:series_id])
     @competitor = @series.competitors.build(params[:competitor])
     handle_club(@competitor)
     if @competitor.save
@@ -74,14 +72,6 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   private
-  def assign_series
-    @series = Series.find(params[:series_id])
-  end
-
-  def check_competitor_rights
-    check_race(@series.race)
-  end
-
   def handle_time_parameters
     return if params[:no_times]
     handle_time_parameter params[:competitor], "start_time"

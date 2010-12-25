@@ -1,15 +1,10 @@
 class Official::EstimatesController < Official::OfficialController
-  before_filter :check_race_rights, :set_estimates
+  before_filter :assign_series_by_series_id, :check_assigned_series, :set_estimates
 
   def index
-    @series = Series.find(params[:series_id])
   end
 
   private
-  def check_race_rights
-    check_race(Series.find(params[:series_id]).race)
-  end
-
   def set_estimates
     @is_estimates = true
   end

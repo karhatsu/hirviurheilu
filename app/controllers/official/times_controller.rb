@@ -1,15 +1,10 @@
 class Official::TimesController < Official::OfficialController
-  before_filter :check_race_rights, :set_times
+  before_filter :assign_series_by_series_id, :check_assigned_series, :set_times
 
   def index
-    @series = Series.find(params[:series_id])
   end
 
   private
-  def check_race_rights
-    check_race(Series.find(params[:series_id]).race)
-  end
-
   def set_times
     @is_times = true
   end
