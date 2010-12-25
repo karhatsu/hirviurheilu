@@ -1,5 +1,6 @@
 $('#<%= @name %>_notice').text('Kilpailijan <%= full_name(@competitor) %> ' +
   '(<%= @competitor.series.name %>) tulos tallennettu onnistuneesti (<%= @result %>).');
 $('#<%= @name %>_string').val('');
+$('#<%= @name %>_spinner').hide();
 $('#<%= @name %>_error').hide();
 $('#<%= @name %>_notice').show();

@@ -2,8 +2,14 @@
   <div class="instructions"><%= instructions %></div>
   <div class="notice" id="<%= name %>_notice" style="display:none;"></div>
   <div class="error" id="<%= name %>_error" style="display:none;"></div>
-  <%= form_tag(path, :remote => true) do %>
+  <%= form_tag(path, :remote => true, :onsubmit => "show_spinner('#{name}')") do %>
     <%= text_field_tag :string, '', :id => "#{name}_string" %>
     <%= submit_tag 'Tallenna' %>
+    <%= image_tag 'spinner.gif', :id => "#{name}_spinner", :style => 'display:none;' %>
   <% end %>
 </div>
+<%= javascript_tag do %>
+function show_spinner(name) {
+  $('#' + name + '_spinner').show();
+}
+<% end %>
