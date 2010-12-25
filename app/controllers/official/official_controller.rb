@@ -14,6 +14,14 @@ class Official::OfficialController < ApplicationController
     end
   end
 
+  def assign_race_by_race_id
+    @race = Race.find(params[:race_id])
+  end
+
+  def check_assigned_race
+    check_race(@race)
+  end
+
   def set_official
     @is_official = true
   end

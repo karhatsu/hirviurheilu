@@ -1,5 +1,6 @@
 class Official::CorrectEstimatesController < Official::OfficialController
-  before_filter :assign_race, :check_race_rights, :set_correct_estimates, :assign_competitors
+  before_filter :assign_race_by_race_id, :check_assigned_race,
+    :set_correct_estimates, :assign_competitors
 
   def index
   end
@@ -14,14 +15,6 @@ class Official::CorrectEstimatesController < Official::OfficialController
   end
 
   private
-  def assign_race
-    @race = Race.find(params[:race_id])
-  end
-
-  def check_race_rights
-    check_race(@race)
-  end
-
   def set_correct_estimates
     @is_correct_estimates = true
   end
