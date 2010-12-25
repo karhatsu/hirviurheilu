@@ -1,0 +1,9 @@
+<div class="table_wrapper">
+  <div class="instructions"><%= instructions %></div>
+  <div class="notice" id="<%= name %>_notice" style="display:none;"></div>
+  <div class="error" id="<%= name %>_error" style="display:none;"></div>
+  <%= form_tag(path, :remote => true) do %>
+    <%= text_field_tag :string, '', :id => "#{name}_string" %>
+    <%= submit_tag 'Tallenna' %>
+  <% end %>
+</div>
