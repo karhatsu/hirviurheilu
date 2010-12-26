@@ -4,10 +4,9 @@ class EstimatesQuickSave < QuickSave
   end
 
   private
-  def save_result
+  def set_competitor_attrs
     numbers = @string.split(':')
     @competitor.estimate1 = numbers[1]
     @competitor.estimate2 = numbers[2]
-    @competitor.save!
   end
 end

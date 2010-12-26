@@ -9,32 +9,64 @@ describe EstimatesQuickSave do
       :estimate1 => 1, :estimate2 => 2)
   end
 
-  describe "successfull save" do
-    before do
-      @qs = EstimatesQuickSave.new(@race.id, '10:98:115')
-    end
+  context "when string format is correct and competitor is found" do
+    describe "successfull save" do
+      before do
+        @qs = EstimatesQuickSave.new(@race.id, '10:98:115')
+      end
 
-    describe "#save" do
-      it "should save given estimates for the competitor and return true" do
-        @qs.save.should be_true
-        @c.reload
-        @c.estimate1.should == 98
-        @c.estimate2.should == 115
+      describe "#save" do
+        it "should save given estimates for the competitor and return true" do
+          @qs.save.should be_true
+          @c.reload
+          @c.estimate1.should == 98
+          @c.estimate2.should == 115
+        end
+      end
+
+      describe "#competitor" do
+        it "should return the correct competitor" do
+          @qs.save
+          @c.reload
+          @qs.competitor.should == @c
+        end
+      end
+
+      describe "#error" do
+        it "should be nil" do
+          @qs.save
+          @qs.error.should be_nil
+        end
       end
     end
 
-    describe "#competitor" do
-      it "should return the correct competitor" do
-        @qs.save
-        @c.reload
-        @qs.competitor.should == @c
+    describe "save fails" do
+      before do
+        @qs = EstimatesQuickSave.new(@race.id, '10:0:0')
       end
-    end
 
-    describe "#error" do
-      it "should be nil" do
-        @qs.save
-        @qs.error.should be_nil
+      describe "#save" do
+        it "should not save given estimates for the competitor and return false" do
+          @qs.save.should be_false
+          @c.reload
+          @c.estimate1.should == 1
+          @c.estimate2.should == 2
+        end
+      end
+
+      describe "#competitor" do
+        it "should return the correct competitor" do
+          @qs.save
+          @c.reload
+          @qs.competitor.should == @c
+        end
+      end
+
+      describe "#error" do
+        it "should contain an error message" do
+          @qs.save
+          @qs.error.should_not be_nil
+        end
       end
     end
   end

@@ -12,8 +12,12 @@ class QuickSave
   def save
     if valid_string?
       if find_competitor
-        save_result
-        return true
+        set_competitor_attrs
+        if @competitor.save
+          return true
+        else
+          set_save_error
+        end
       else
         set_unknown_competitor_error
       end
@@ -38,7 +42,7 @@ class QuickSave
     @competitor = race.competitors.where(:number => number).first
   end
 
-  def save_result
+  def set_competitor_attrs
     raise "Must be implemented in the sub class"
   end
 
@@ -48,5 +52,9 @@ class QuickSave
 
   def set_unknown_competitor_error
     @error = "Numerolla #{number} ei löytynyt kilpailijaa."
+  end
+
+  def set_save_error
+    @error = @competitor.errors.full_messages.join(". ")
   end
 end

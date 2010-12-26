@@ -4,8 +4,7 @@ class ShotsQuickSave < QuickSave
   end
 
   private
-  def save_result
+  def set_competitor_attrs
     @competitor.shots_total_input = @string.split(':')[1]
-    @competitor.save!
   end
 end

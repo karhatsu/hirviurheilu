@@ -4,9 +4,8 @@ class TimeQuickSave < QuickSave
   end
 
   private
-  def save_result
+  def set_competitor_attrs
     numbers = @string.split(':')
     @competitor.arrival_time = "#{numbers[1]}:#{numbers[2]}:#{numbers[3]}"
-    @competitor.save!
   end
 end

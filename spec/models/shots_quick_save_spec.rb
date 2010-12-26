@@ -9,31 +9,62 @@ describe ShotsQuickSave do
       :shots_total_input => 50)
   end
 
-  describe "successfull save" do
-    before do
-      @qs = ShotsQuickSave.new(@race.id, '10:98')
-    end
+  context "when string format is correct and competitor is found" do
+    describe "successfull save" do
+      before do
+        @qs = ShotsQuickSave.new(@race.id, '10:98')
+      end
 
-    describe "#save" do
-      it "should save given estimates for the competitor and return true" do
-        @qs.save.should be_true
-        @c.reload
-        @c.shots_total_input.should == 98
+      describe "#save" do
+        it "should save given estimates for the competitor and return true" do
+          @qs.save.should be_true
+          @c.reload
+          @c.shots_total_input.should == 98
+        end
+      end
+
+      describe "#competitor" do
+        it "should return the correct competitor" do
+          @qs.save
+          @c.reload
+          @qs.competitor.should == @c
+        end
+      end
+
+      describe "#error" do
+        it "should be nil" do
+          @qs.save
+          @qs.error.should be_nil
+        end
       end
     end
 
-    describe "#competitor" do
-      it "should return the correct competitor" do
-        @qs.save
-        @c.reload
-        @qs.competitor.should == @c
+    describe "save fails" do
+      before do
+        @qs = ShotsQuickSave.new(@race.id, '10:101') # 101 > 100
       end
-    end
 
-    describe "#error" do
-      it "should be nil" do
-        @qs.save
-        @qs.error.should be_nil
+      describe "#save" do
+        it "should not save given estimates for the competitor and return false" do
+          @qs.save.should be_false
+          @c.reload
+          @c.shots_total_input.should == 50
+        end
+      end
+
+      describe "#competitor" do
+        it "should return the correct competitor" do
+          @qs.save
+          @c.reload
+          @qs.competitor.should == @c
+        end
+      end
+
+      describe "#error" do
+        it "should contain an error message" do
+          @qs.save
+          @qs.error.should_not be_nil
+        end
       end
     end
   end
