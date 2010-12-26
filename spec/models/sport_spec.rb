@@ -75,8 +75,8 @@ describe Sport do
 
   describe "#default_sport" do
     before do
-      Factory.create(:sport, :key => Sport::SKI)
-      Factory.create(:sport, :key => Sport::RUN)
+      @ski = Sport.find_by_key(Sport::SKI) || Factory.create(:sport, :key => Sport::SKI)
+      @run = Sport.find_by_key(Sport::RUN) || Factory.create(:sport, :key => Sport::RUN)
       @time = Time.new
       Time.stub!(:new).and_return(@time)
     end
