@@ -44,6 +44,7 @@ df.default_age_groups << DefaultAgeGroup.new(:name => 'N85', :min_competitors =>
 df.default_age_groups << DefaultAgeGroup.new(:name => 'N90', :min_competitors => 3)
 
 # pricing
+BasePrice.create!(:price => 20)
 Price.create!(:min_competitors => 1, :price => 2.0)
 Price.create!(:min_competitors => 30, :price => 1.5)
 Price.create!(:min_competitors => 100, :price => 1.0)

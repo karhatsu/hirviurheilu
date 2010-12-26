@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101222123604) do
+ActiveRecord::Schema.define(:version => 20101226131946) do
 
   create_table "age_groups", :force => true do |t|
     t.integer  "series_id",                      :null => false
@@ -18,6 +18,12 @@ ActiveRecord::Schema.define(:version => 20101222123604) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "min_competitors", :default => 0, :null => false
+  end
+
+  create_table "base_prices", :force => true do |t|
+    t.integer  "price",      :default => 0, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "clubs", :force => true do |t|
