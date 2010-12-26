@@ -24,4 +24,14 @@ describe BasePrice do
     it { should allow_value(0).for(:price) }
     it { should_not allow_value(1.1).for(:price) }
   end
+
+  describe "#self.price" do
+    before do
+      Factory.create(:base_price, :price => 17)
+    end
+
+    it "should return the base price" do
+      BasePrice.price.should == 17
+    end
+  end
 end

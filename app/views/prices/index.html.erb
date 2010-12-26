@@ -6,6 +6,7 @@
 <% end %>
 <div class="instructions">Kaikki hinnat sisältävät 23 % arvonlisäveroa.</div>
 <div class="table_wrapper">
+  Perushinta: <%= "%.2f" % BasePrice.price %> euroa<br/>
   <% @prices.each do |price| %>
     <%= price.min_competitors %>-<%= price.max_competitors %> kilpailijaa:
     <%= "%.2f" % price.price %> euroa / kilpailija<br/>
