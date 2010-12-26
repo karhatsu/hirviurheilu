@@ -5,14 +5,19 @@ class PricesController < ApplicationController
     @is_prices = true
     @prices = Price.all
     @default_competitors_count = 50
-    @price = Price.price_for_competitor_amount(@default_competitors_count)
+    @price = price(@default_competitors_count)
   end
 
   def calculate_price
-    @price = Price.price_for_competitor_amount(params[:competitors].to_i)
+    @price = price(params[:competitors].to_i)
     respond_to do |format|
       format.js { render :calculated }
       format.html { redirect_to prices_path }
     end
+  end
+
+  private
+  def price(competitors)
+    Price.price_for_competitor_amount(competitors) * 0.5 # Jan-Feb: -50%
   end
 end

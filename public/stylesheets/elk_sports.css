@@ -93,6 +93,10 @@ div.commercial_box {
     -webkit-box-shadow: 5px 4px 5px #666666;
 }
 
+div.special_offer {
+    background-color: orange;
+}
+
 div.commercial_box_link {
     margin-top: 3px;
     background-color: white;
