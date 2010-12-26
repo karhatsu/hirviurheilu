@@ -45,9 +45,9 @@ df.default_age_groups << DefaultAgeGroup.new(:name => 'N90', :min_competitors =>
 
 # pricing
 BasePrice.create!(:price => 20)
-Price.create!(:min_competitors => 1, :price => 2.0)
-Price.create!(:min_competitors => 30, :price => 1.5)
-Price.create!(:min_competitors => 100, :price => 1.0)
+Price.create!(:min_competitors => 1, :price => 1.5)
+Price.create!(:min_competitors => 20, :price => 1.25)
+Price.create!(:min_competitors => 50, :price => 1.0)
 
 # races
 race2 = ski.races.build(:name => "P-Savon hirvenhiihtokisat",
