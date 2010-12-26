@@ -19,6 +19,6 @@ class Price < ActiveRecord::Base
         price = amount * p.price
       end
     end
-    return price
+    return BasePrice.first.price + price
   end
 end
