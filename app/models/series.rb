@@ -86,6 +86,15 @@ class Series < ActiveRecord::Base
         break
       end
     end
+    if first_number
+      max_number = first_number + competitors.count - 1
+      unless race.competitors.where(['series_id<>? and number>=? and number<=?',
+          id, first_number, max_number]).empty?
+        errors.add(:base, "#{error_start}, sillä kilpailunumerot " +
+          "#{first_number}-#{max_number} eivät ole vapaana")
+        failure = true
+      end
+    end
     return false if failure
 
     c = (order_method.to_i == START_LIST_RANDOM ?

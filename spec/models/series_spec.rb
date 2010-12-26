@@ -226,7 +226,7 @@ describe Series do
     before do
       @race = Factory.create(:race)
       @series = Factory.create(:series, :race => @race, :first_number => 5)
-      @old1, @old2, @old3 = nil, 9, 13
+      @old1, @old2, @old3 = nil, 9, 6
       @c1 = Factory.create(:competitor, :series => @series, :number => @old1)
       @c2 = Factory.create(:competitor, :series => @series, :number => @old2)
       @c3 = Factory.create(:competitor, :series => @series, :number => @old3)
@@ -248,6 +248,21 @@ describe Series do
         before do
           @series.first_number = nil
           @series.save!
+        end
+
+        it "should do nothing for competitors, add error and return false" do
+          @series.reload
+          @series.generate_numbers(Series::START_LIST_ADDING_ORDER).should be_false
+          @series.should have(1).errors
+          check_competitors_no_changes
+        end
+      end
+
+      context "there is no space for numbers in the race" do
+        before do
+          series = Factory.create(:series, :race => @race, :first_number => 7)
+          Factory.create(:competitor, :series => series, :number => 7)
+          @race.reload
         end
 
         it "should do nothing for competitors, add error and return false" do
