@@ -88,7 +88,7 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
   5.times do |series_i|
     series = race.series.build(:name => series_names[series_i],
       :start_time => "#{race_start_dates[race_i]} 1#{series_i}:10",
-      :first_number => 100)
+      :first_number => 20 * series_i + 1)
     series.save!
 
     if series.name == "M60"
