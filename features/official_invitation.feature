@@ -15,7 +15,7 @@ Feature: Official invitation
     And I have logged in
     And I am on the race edit page of "Test race"
     When I follow "Toimitsijat"
-    Then I should be on the officials page for "Test race"
+    Then I should be on the invite officials page for "Test race"
     And I should see "Toimitsijat" within "h2"
     And I should see "Tim Thomas" within "#current_officials"
     When I fill in "another@official.com" for "Sähköposti"

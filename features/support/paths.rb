@@ -38,8 +38,8 @@ module NavigationHelpers
     when /the official media page of "(.*)"/
       official_race_media_path(Race.find_by_name($1))
 
-    when /the officials page for "(.*)"/
-      official_race_officials_path(Race.find_by_name($1))
+    when /the invite officials page for "(.*)"/
+      official_race_invite_officials_path(Race.find_by_name($1))
 
     when /the race page/
       race_path(@race)
