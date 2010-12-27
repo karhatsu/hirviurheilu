@@ -15,7 +15,7 @@ Feature: Media
     Then I should see "Test race" within ".main_title"
     And I should see "Lehdistö" within "h2"
     And I should see "Tältä sivulta voit ladata tulokset lehdistöä varten tekstimuodossa" within "div.instructions"
-    And I should see "Kilpailuun ei ole lisätty yhtään kilpailijaa" within "div.error"
+    And I should see "Kilpailuun ei ole lisätty yhtään kilpailijaa" within "div.warning"
 
   Scenario: Results for all competitors
     Given I am an official
