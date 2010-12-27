@@ -311,7 +311,7 @@ describe Series do
           while @c1.number == 5 do
             @series.generate_numbers(Series::START_LIST_RANDOM)
             i += 1
-            if i > 10
+            if i > 20
               fail "Random order not working"
             end
           end
