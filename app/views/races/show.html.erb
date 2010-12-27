@@ -3,7 +3,7 @@
 <% if @race.series.empty? %>
   Kilpailuun ei ole vielä lisätty sarjoja
 <% else %>
-  <div class="table_wrapper">
+  <div class="section">
     <table>
       <tr>
         <th>Nimi</th>
@@ -41,12 +41,12 @@
     </table>
   </div>
   <h2>Kaikkien sarjojen tulokset</h2>
-  <div class="table_wrapper">
+  <div class="section">
     <%= link_to "Lataa PDF-tiedosto", race_path(@race, :format => :pdf) %>
   </div>
   <% if @race.finished? %>
     <h2>Oikeat arviot</h2>
-    <div class="table_wrapper">
+    <div class="section">
     <table>
       <tr>
         <th>Kilpailunumerot</th>

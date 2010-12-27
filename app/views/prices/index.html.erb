@@ -4,7 +4,7 @@
 <% unless Rails.env == 'production' %>
   <div class="error">Käytät tällä hetkellä testiympäristöä. Sen käyttö on ilmaista.</div>
 <% end %>
-<div class="table_wrapper">
+<div class="section">
   Perushinta: <%= "%.2f" % BasePrice.price %> euroa<br/>
   <% @prices.each do |price| %>
     <%= price.min_competitors %>-<%= price.max_competitors %> kilpailijaa:
