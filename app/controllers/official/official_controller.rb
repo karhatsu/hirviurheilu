@@ -30,6 +30,10 @@ class Official::OfficialController < ApplicationController
     @series = Series.find(params[:series_id])
   end
 
+  def assign_series_by_id
+    @series = Series.find(params[:id])
+  end
+
   def check_assigned_series
     check_race(@series.race)
   end
