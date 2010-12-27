@@ -19,6 +19,12 @@ Feature: Official
     Then I should see "Käyttäjätili luotu."
     When I follow "Toimitsijan sivut"
     Then I should be on the official index page
+    And the admin should receive an email
+    When I open the email
+    Then I should see "Hirviurheilu - uusi käyttäjä (test)" in the email subject
+    And I should see "Etunimi: Tim" in the email body
+    And I should see "Sukunimi: Tester" in the email body
+    And I should see "Sähköposti: tim@tester.com" in the email body
 
   Scenario: Official goes to the official index
     Given I am an official with email "test@test.com" and password "test"

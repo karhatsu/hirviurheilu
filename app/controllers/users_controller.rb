@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       @user.add_official_rights
+      NewUserMailer.new_user(@user).deliver
       flash[:notice] = "Käyttäjätili luotu. " +
         "Pääset syöttämään kilpailun tietoja Toimitsijan sivut -linkistä."
       redirect_back_or_default account_url
