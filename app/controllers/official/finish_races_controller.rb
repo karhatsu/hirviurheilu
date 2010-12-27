@@ -1,5 +1,5 @@
 class Official::FinishRacesController < Official::OfficialController
-  before_filter :assign_race_by_id, :check_assigned_race
+  before_filter :assign_race_by_race_id, :check_assigned_race
 
   def new
   end
