@@ -2,7 +2,7 @@
 <div class="instructions">Tällä sivulla voit tallentaa kilpailijoiden tuloksia
   ns. pikasyöttöä käyttäen. Syöttämiseen tarvitset kilpailijan numeron.</div>
 <% if @race.competitors.empty? %>
-  <div class="error">Kilpailuun ei ole lisätty yhtään kilpailijaa</div>
+  <div class="warning">Kilpailuun ei ole lisätty yhtään kilpailijaa</div>
 <% else %>
   <h3>Ajat</h3>
   <% instructions = 'Syötä tulos muodossa nro:hh:mm:ss, ' +

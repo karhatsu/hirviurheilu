@@ -2,7 +2,7 @@
 <div class="instructions">Tältä sivulta voit ladata tulokset lehdistöä varten
   tekstimuodossa</div>
 <% if @race.competitors.empty? %>
-  <div class="error">Kilpailuun ei ole lisätty yhtään kilpailijaa</div>
+  <div class="warning">Kilpailuun ei ole lisätty yhtään kilpailijaa</div>
 <% else %>
   <%= flash_error %>
   <%= form_tag(official_race_media_path(@race), :method => :get) do %>
