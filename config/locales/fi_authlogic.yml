@@ -1,0 +1,13 @@
+fi:
+  authlogic:
+    error_messages:
+      email_invalid: pitää olla oikeanmuotoinen
+      password_blank: ei voi olla tyhjä
+      password_invalid: ei ole kelvollinen
+    models:
+      user_session: Istunto
+    attributes:
+      user_session:
+        email: Sähköposti
+        password: Salasana
+        remember_me: Muista minut
