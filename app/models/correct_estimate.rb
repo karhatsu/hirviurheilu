@@ -7,9 +7,9 @@ class CorrectEstimate < ActiveRecord::Base
   validates :max_number, :numericality => { :only_integer => true,
     :greater_than => 0, :allow_nil => true }
   validates :distance1, :numericality => { :only_integer => true,
-    :greater_than => 0 }
+    :greater_than_or_equal_to => 50, :less_than_or_equal_to => 200 }
   validates :distance2, :numericality => { :only_integer => true,
-    :greater_than => 0 }
+    :greater_than_or_equal_to => 50, :less_than_or_equal_to => 200 }
   validate :overlapping_numbers
 
   private

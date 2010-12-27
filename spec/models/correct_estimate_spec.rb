@@ -5,6 +5,10 @@ describe CorrectEstimate do
     Factory.create(:correct_estimate)
   end
 
+  describe "associations" do
+    it { should belong_to(:race) }
+  end
+
   describe "validations" do
     it { should validate_presence_of(:race) }
 
@@ -16,7 +20,7 @@ describe CorrectEstimate do
       it { should_not allow_value(1.1).for(:min_number) }
     end
 
-    describe "min_number" do
+    describe "max_number" do
       it { should validate_numericality_of(:max_number) }
       it { should allow_value(nil).for(:max_number) } # note!
       it { should_not allow_value(-1).for(:max_number) }
@@ -24,19 +28,23 @@ describe CorrectEstimate do
       it { should_not allow_value(1.1).for(:max_number) }
     end
 
-    describe "min_number" do
+    describe "distance1" do
       it { should validate_numericality_of(:distance1) }
       it { should_not allow_value(nil).for(:distance1) }
-      it { should_not allow_value(-1).for(:distance1) }
-      it { should_not allow_value(0).for(:distance1) }
+      it { should_not allow_value(49).for(:distance1) }
+      it { should allow_value(50).for(:distance1) }
+      it { should allow_value(200).for(:distance1) }
+      it { should_not allow_value(201).for(:distance1) }
       it { should_not allow_value(1.1).for(:distance1) }
     end
 
-    describe "min_number" do
+    describe "distance2" do
       it { should validate_numericality_of(:distance2) }
       it { should_not allow_value(nil).for(:distance2) }
-      it { should_not allow_value(-1).for(:distance2) }
-      it { should_not allow_value(0).for(:distance2) }
+      it { should_not allow_value(49).for(:distance2) }
+      it { should allow_value(50).for(:distance2) }
+      it { should allow_value(200).for(:distance2) }
+      it { should_not allow_value(201).for(:distance2) }
       it { should_not allow_value(1.1).for(:distance2) }
     end
 
