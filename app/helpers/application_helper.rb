@@ -250,7 +250,7 @@ module ApplicationHelper
   end
 
   def youtube_path
-    "http://www.youtube.com/watch?v=4ID4u-Jk0kU"
+    "http://www.youtube.com/watch?v=oRNIy1G4qWM"
   end
 
 end
