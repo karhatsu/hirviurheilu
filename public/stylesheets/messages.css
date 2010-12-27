@@ -1,5 +1,5 @@
 div.error_explanation {
-    background-color: orange;
+    background-color: #CC3300;
     color: white;
     font-weight: bold;
     padding: 3px;
@@ -11,11 +11,11 @@ div.error_explanation {
 }
 
 div.field_with_errors {
-    color: orange;
+    color: #CC3300;
 }
 
 div.error {
-    background-color: orange;
+    background-color: #CC3300;
     color: white;
     margin-bottom: 8px;
     padding: 3px;
@@ -26,7 +26,7 @@ div.error {
 }
 
 span.error {
-    background-color: orange;
+    background-color: #CC3300;
     color: white;
 }
 
