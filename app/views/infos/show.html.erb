@@ -48,10 +48,22 @@
   <%= link_to "Rekisteröidy palveluun", register_path %>, jonka jälkeen voit
   syöttää tulospalveluun kilpailun tiedot.</div>
 
-<div class="question">Mitkä sarjat tulospalvelussa on määritetty?</div>
+<%
+series_list = []
+DefaultSeries.all.each do |df|
+  series = df.name
+  unless df.default_age_groups.empty?
+    series << " (#{[df.default_age_groups.collect &:name].join(', ')})"
+  end
+  series_list << series
+end
+%>
+<div class="question">Mitkä sarjoja tulospalvelussa käytetään?</div>
 <div class="answer">Voit itse päättää täysin, mitä sarjoja kilpailuusi syötät.
-  Tarjolla on tietyt oletussarjat, joiden käyttäminen nopeuttaa kilpailun luontia,
-  mutta voit muokata niitä täysin haluamallasi tavalla.</div>
+  Kilpailun luomisen nopeuttamiseksi tarjolla on myös valmiit oletussarjat:
+  <%= series_list.join(', ') %>. Näiden käyttäminen ei ole kuitenkaan pakollista,
+  ja vaikka niitä käyttäisitkin, voit tehdä oletussarjoihin mitä tahansa
+  muutoksia.</div>
 
 <div class="question">Mitä asioita pitää tehdä ennen kilpailua.</div>
 <div class="answer">Ennen kilpailua sinun täytyy lisätä tulospalveluun kilpailun
