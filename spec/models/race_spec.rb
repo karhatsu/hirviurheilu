@@ -235,7 +235,7 @@ describe Race do
       Factory.create(:correct_estimate, :min_number => 1, :max_number => 5,
         :distance1 => 100, :distance2 => 200, :race => @race)
       Factory.create(:correct_estimate, :min_number => 10, :max_number => nil,
-        :distance1 => 300, :distance2 => 400, :race => @race)
+        :distance1 => 50, :distance2 => 150, :race => @race)
       @c1 = Factory.create(:competitor, :series => @series1, :number => 1,
         :correct_estimate1 => 1, :correct_estimate2 => 2)
       @c4 = Factory.create(:competitor, :series => @series2, :number => 4)
@@ -267,10 +267,10 @@ describe Race do
       @c4.correct_estimate2.should == 200
       @c5.correct_estimate1.should == 100
       @c5.correct_estimate2.should == 200
-      @c10.correct_estimate1.should == 300
-      @c10.correct_estimate2.should == 400
-      @c150.correct_estimate1.should == 300
-      @c150.correct_estimate2.should == 400
+      @c10.correct_estimate1.should == 50
+      @c10.correct_estimate2.should == 150
+      @c150.correct_estimate1.should == 50
+      @c150.correct_estimate2.should == 150
       @cnil.correct_estimate1.should == 50
       @cnil.correct_estimate2.should == 60
     end
