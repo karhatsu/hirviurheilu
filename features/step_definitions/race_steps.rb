@@ -40,3 +40,13 @@ Given /^the race is finished$/ do
   @race.reload
   @race.finish!
 end
+
+Given /^I have an ongoing race "([^"]*)"$/ do |name|
+  @race = Factory.create(:race, :start_date => Date.today, :name => name)
+  @user.races << @race
+end
+
+Given /^I have a future race "([^"]*)"$/ do |name|
+  @race = Factory.create(:race, :start_date => Date.today + 1, :name => name)
+  @user.races << @race
+end
