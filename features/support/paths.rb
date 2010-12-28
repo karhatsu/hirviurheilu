@@ -65,6 +65,9 @@ module NavigationHelpers
     when /the send feedback page/
       new_feedback_path
 
+    when /the info page/
+      info_path
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
