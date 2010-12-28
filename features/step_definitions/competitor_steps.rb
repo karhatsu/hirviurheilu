@@ -1,3 +1,7 @@
+Given /^the series has a competitor$/ do
+  @competitor = Factory.create(:competitor, :series => @series)
+end
+
 Given /^the series has a competitor with attributes:$/ do |fields|
   hash = fields.rows_hash
   if hash[:club]

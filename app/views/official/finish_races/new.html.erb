@@ -1,20 +1,13 @@
 <%= content_for :title, "#{@race.name} - kilpailun päättäminen" %>
 <h2><%= yield :title %></h2>
-<div>Kilpailu pitää merkitä päättyneeksi, jotta kilpailijat näkevät, että kaikkien
-tulokset on merkitty eikä tulosluettelo tule enää muuttumaan. Lisäksi
-kilpailijoille näytetään oikeat arviointimatkat vasta sitten, kun kilpailu
-on päättynyt.</div>
+<div class="instructions">Kilpailu pitää merkitä päättyneeksi,
+  jotta kilpailijat näkevät, että kaikkien tulokset on merkitty eikä
+  tulosluettelo tule enää muuttumaan. Lisäksi kilpailijoille näytetään oikeat
+  arviointimatkat vasta sitten, kun kilpailu on päättynyt.</div>
 <%= render :partial => "shared/form_errors", :locals => { :item => @race } %>
 <% if @race.finished? %>
   Tämä kilpailu on jo merkitty päättyneeksi.
 <% else %>
-  <% unless @race.errors.empty? %>
-    <br/>
-    <%= link_to "Kilpailun ja sarjojen asetukset", edit_official_race_path(@race) %><br/><br/>
-    <% @race.series.each do |s| %>
-      <%= link_to "Sarjan #{s.name} kilpailijat", official_series_competitors_path(s) %><br/>
-    <% end %>
-  <% end %>
   <div class="action_box">
     <%= render :partial => "official/finish_races/form", :locals => { :race => @race } %>
   </div>
