@@ -22,6 +22,7 @@ Feature: Feedback
     And I should see "Nimi: Pekka Miettinen" in the email body
     And I should see "Sähköposti: pekka@palaute.com" in the email body
     And I should see "Puhelin: 123 456" in the email body
+    And I should see "Ympäristö: test" in the email body
 
   Scenario: Send feedback without text
     Given I am on the send feedback page
