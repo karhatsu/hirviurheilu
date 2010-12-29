@@ -16,6 +16,8 @@ class Series < ActiveRecord::Base
     :allow_nil => true, :greater_than => 0 }
   validates :start_day, :numericality => { :only_integer => true,
     :allow_nil => true, :greater_than => 0 }
+  validates :estimates, :numericality => { :only_integer => true },
+    :inclusion => { :in => [2, 4] }
   validate :start_day_not_bigger_than_race_days_count
   
   before_destroy :prevent_destroy_if_competitors
@@ -189,8 +191,10 @@ class Series < ActiveRecord::Base
   end
 
   def each_competitor_has_correct_estimates?
-    competitors.where('competitors.correct_estimate1 is null or ' +
-        'competitors.correct_estimate2 is null').empty?
+    condition34 = (estimates == 4 ? ' or competitors.correct_estimate3 is null ' +
+      'or competitors.correct_estimate4 is null' : '')
+    competitors.where("competitors.correct_estimate1 is null or " +
+        "competitors.correct_estimate2 is null#{condition34}").empty?
   end
 
   private

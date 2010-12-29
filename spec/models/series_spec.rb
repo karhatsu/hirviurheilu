@@ -7,7 +7,13 @@ describe Series do
     end
   end
 
-  describe "validation" do
+  describe "associations" do
+    it { should belong_to(:race) }
+    it { should have_many(:age_groups) }
+    it { should have_many(:competitors) }
+  end
+
+  describe "validations" do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:race) }
     it { should allow_value(nil).for(:start_time) }
@@ -36,9 +42,20 @@ describe Series do
       it { should_not allow_value(0).for(:first_number) }
       it { should allow_value(1).for(:first_number) }
     end
+
+    describe "estimates" do
+      it { should_not allow_value(nil).for(:estimates) }
+      it { should_not allow_value(0).for(:estimates) }
+      it { should_not allow_value(1).for(:estimates) }
+      it { should allow_value(2).for(:estimates) }
+      it { should_not allow_value(3).for(:estimates) }
+      it { should allow_value(4).for(:estimates) }
+      it { should_not allow_value(5).for(:estimates) }
+      it { should_not allow_value(2.1).for(:estimates) }
+    end
   end
 
-  describe "best_time_in_seconds" do
+  describe "#best_time_in_seconds" do
     before do
       @c1 = mock_model(Competitor, :time_in_seconds => nil,
         :no_result_reason => nil)
@@ -92,7 +109,7 @@ describe Series do
     end
   end
 
-  describe "ordered_competitors" do
+  describe "#ordered_competitors" do
     before do
       @series = Factory.build(:series)
       @c_nil1 = mock_model(Competitor, :points => nil, :points! => 12,
@@ -138,7 +155,7 @@ describe Series do
     end
   end
 
-  describe "start_list" do
+  describe "#start_list" do
     it "should return empty array when no competitors" do
       Factory.build(:series).start_list.should == []
     end
@@ -653,16 +670,57 @@ describe Series do
         :correct_estimate1 => 100, :correct_estimate2 => 99)
     end
 
-    it "should return true when correct estimates exists for all competitors" do
-      @series.reload
-      @series.each_competitor_has_correct_estimates?.should be_true
+    context "when 2 estimates for the series" do
+      it "should return true when correct estimates exists for all competitors" do
+        @series.reload
+        @series.each_competitor_has_correct_estimates?.should be_true
+      end
+
+      it "should return false when at least one competitor is missing correct estimate 1" do
+        @c2.correct_estimate1 = nil
+        @c2.save!
+        @series.reload
+        @series.each_competitor_has_correct_estimates?.should be_false
+      end
+
+      it "should return false when at least one competitor is missing correct estimate 2" do
+        @c2.correct_estimate2 = nil
+        @c2.save!
+        @series.reload
+        @series.each_competitor_has_correct_estimates?.should be_false
+      end
     end
 
-    it "should return false when at least one competitor is missing correct estimates" do
-      @c2.correct_estimate2 = nil
-      @c2.save!
-      @series.reload
-      @series.each_competitor_has_correct_estimates?.should be_false
+    context "when 4 estimates for the series" do
+      before do
+        @series.estimates = 4
+        @series.save!
+        @c1.correct_estimate3 = 120
+        @c1.correct_estimate4 = 110
+        @c1.save!
+        @c2.correct_estimate3 = 120
+        @c2.correct_estimate4 = 110
+        @c2.save!
+      end
+
+      it "should return true when correct estimates exists for all competitors" do
+        @series.reload
+        @series.each_competitor_has_correct_estimates?.should be_true
+      end
+
+      it "should return false when at least one competitor is missing correct estimate 3" do
+        @c2.correct_estimate3 = nil
+        @c2.save!
+        @series.reload
+        @series.each_competitor_has_correct_estimates?.should be_false
+      end
+
+      it "should return false when at least one competitor is missing correct estimate 3" do
+        @c2.correct_estimate4 = nil
+        @c2.save!
+        @series.reload
+        @series.each_competitor_has_correct_estimates?.should be_false
+      end
     end
   end
 end

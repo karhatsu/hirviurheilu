@@ -23,9 +23,17 @@ class Competitor < ActiveRecord::Base
     :numericality => { :only_integer => true, :greater_than => 0 }
   validates :estimate2, :allow_nil => true,
     :numericality => { :only_integer => true, :greater_than => 0 }
+  validates :estimate3, :allow_nil => true,
+    :numericality => { :only_integer => true, :greater_than => 0 }
+  validates :estimate4, :allow_nil => true,
+    :numericality => { :only_integer => true, :greater_than => 0 }
   validates :correct_estimate1, :allow_nil => true,
     :numericality => { :only_integer => true, :greater_than => 0 }
   validates :correct_estimate2, :allow_nil => true,
+    :numericality => { :only_integer => true, :greater_than => 0 }
+  validates :correct_estimate3, :allow_nil => true,
+    :numericality => { :only_integer => true, :greater_than => 0 }
+  validates :correct_estimate4, :allow_nil => true,
     :numericality => { :only_integer => true, :greater_than => 0 }
   validate :arrival_not_before_start_time
   validate :only_one_shot_input_method_used
@@ -81,11 +89,28 @@ class Competitor < ActiveRecord::Base
     estimate2 - correct_estimate2
   end
 
+  def estimate_diff3_m
+    return nil unless estimate3 and correct_estimate3
+    estimate3 - correct_estimate3
+  end
+
+  def estimate_diff4_m
+    return nil unless estimate4 and correct_estimate4
+    estimate4 - correct_estimate4
+  end
+
   def estimate_points
     return nil if estimate1.nil? or estimate2.nil? or
       correct_estimate1.nil? or correct_estimate2.nil?
+    return nil if series.estimates == 4 and
+      (estimate3.nil? or estimate4.nil? or
+        correct_estimate3.nil? or correct_estimate4.nil?)
     points = 300 - 2 * (correct_estimate1 - estimate1).abs -
       2 * (correct_estimate2 - estimate2).abs
+    if series.estimates == 4
+      points = points - 2 * (correct_estimate3 - estimate3).abs -
+        2 * (correct_estimate4 - estimate4).abs
+    end
     return points if points >= 0
     0
   end
@@ -122,7 +147,8 @@ class Competitor < ActiveRecord::Base
   def finished?
     no_result_reason or
       (start_time and (arrival_time or series.no_time_points) and shots_sum and
-        estimate1 and estimate2)
+        estimate1 and estimate2 and
+        (series.estimates == 2 or (estimate3 and estimate4)))
   end
 
   def next_competitor

@@ -48,6 +48,26 @@ describe CorrectEstimate do
       it { should_not allow_value(1.1).for(:distance2) }
     end
 
+    describe "distance3" do
+      it { should validate_numericality_of(:distance3) }
+      it { should allow_value(nil).for(:distance3) } # note!
+      it { should_not allow_value(49).for(:distance3) }
+      it { should allow_value(50).for(:distance3) }
+      it { should allow_value(200).for(:distance3) }
+      it { should_not allow_value(201).for(:distance3) }
+      it { should_not allow_value(1.1).for(:distance3) }
+    end
+
+    describe "distance4" do
+      it { should validate_numericality_of(:distance4) }
+      it { should allow_value(nil).for(:distance4) } # note!
+      it { should_not allow_value(49).for(:distance4) }
+      it { should allow_value(50).for(:distance4) }
+      it { should allow_value(200).for(:distance4) }
+      it { should_not allow_value(201).for(:distance4) }
+      it { should_not allow_value(1.1).for(:distance4) }
+    end
+
     describe "overlapping numbers" do
       before do
         @race1 = Factory.create(:race)

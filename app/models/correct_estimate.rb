@@ -10,6 +10,12 @@ class CorrectEstimate < ActiveRecord::Base
     :greater_than_or_equal_to => 50, :less_than_or_equal_to => 200 }
   validates :distance2, :numericality => { :only_integer => true,
     :greater_than_or_equal_to => 50, :less_than_or_equal_to => 200 }
+  validates :distance3, :numericality => { :only_integer => true,
+    :greater_than_or_equal_to => 50, :less_than_or_equal_to => 200,
+    :allow_nil => true }
+  validates :distance4, :numericality => { :only_integer => true,
+    :greater_than_or_equal_to => 50, :less_than_or_equal_to => 200,
+    :allow_nil => true }
   validate :overlapping_numbers
 
   private

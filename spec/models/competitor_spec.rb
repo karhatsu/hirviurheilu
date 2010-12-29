@@ -110,6 +110,22 @@ describe Competitor do
       it { should allow_value(1).for(:estimate2) }
     end
 
+    describe "estimate3" do
+      it { should allow_value(nil).for(:estimate3) }
+      it { should_not allow_value(1.1).for(:estimate3) }
+      it { should_not allow_value(-1).for(:estimate3) }
+      it { should_not allow_value(0).for(:estimate3) }
+      it { should allow_value(1).for(:estimate3) }
+    end
+
+    describe "estimate4" do
+      it { should allow_value(nil).for(:estimate4) }
+      it { should_not allow_value(1.1).for(:estimate4) }
+      it { should_not allow_value(-1).for(:estimate4) }
+      it { should_not allow_value(0).for(:estimate4) }
+      it { should allow_value(1).for(:estimate4) }
+    end
+
     describe "correct_estimate1" do
       it { should allow_value(nil).for(:correct_estimate1) }
       it { should_not allow_value(1.1).for(:correct_estimate1) }
@@ -124,6 +140,22 @@ describe Competitor do
       it { should_not allow_value(-1).for(:correct_estimate2) }
       it { should_not allow_value(0).for(:correct_estimate2) }
       it { should allow_value(1).for(:correct_estimate2) }
+    end
+
+    describe "correct_estimate3" do
+      it { should allow_value(nil).for(:correct_estimate3) }
+      it { should_not allow_value(1.1).for(:correct_estimate3) }
+      it { should_not allow_value(-1).for(:correct_estimate3) }
+      it { should_not allow_value(0).for(:correct_estimate3) }
+      it { should allow_value(1).for(:correct_estimate3) }
+    end
+
+    describe "correct_estimate4" do
+      it { should allow_value(nil).for(:correct_estimate4) }
+      it { should_not allow_value(1.1).for(:correct_estimate4) }
+      it { should_not allow_value(-1).for(:correct_estimate4) }
+      it { should_not allow_value(0).for(:correct_estimate4) }
+      it { should allow_value(1).for(:correct_estimate4) }
     end
 
     describe "arrival_time" do
@@ -245,82 +277,195 @@ describe Competitor do
     end
   end
 
+  describe "#estimate_diff3_m" do
+    it "should be nil when no correct estimate3" do
+      Factory.build(:competitor, :estimate3 => 100, :correct_estimate3 => nil).
+        estimate_diff3_m.should be_nil
+    end
+
+    it "should be nil when no estimate3" do
+      Factory.build(:competitor, :estimate3 => nil, :correct_estimate3 => 100).
+        estimate_diff3_m.should be_nil
+    end
+
+    it "should be positive diff when estimate3 is more than correct" do
+      Factory.build(:competitor, :estimate3 => 105, :correct_estimate3 => 100).
+        estimate_diff3_m.should == 5
+    end
+
+    it "should be negative diff when estimate3 is less than correct" do
+      Factory.build(:competitor, :estimate3 => 91, :correct_estimate3 => 100).
+        estimate_diff3_m.should == -9
+    end
+  end
+
+  describe "#estimate_diff4_m" do
+    it "should be nil when no correct estimate4" do
+      Factory.build(:competitor, :estimate4 => 100, :correct_estimate4 => nil).
+        estimate_diff4_m.should be_nil
+    end
+
+    it "should be nil when no estimate4" do
+      Factory.build(:competitor, :estimate4 => nil, :correct_estimate4 => 200).
+        estimate_diff4_m.should be_nil
+    end
+
+    it "should be positive diff when estimate4 is more than correct" do
+      Factory.build(:competitor, :estimate4 => 205, :correct_estimate4 => 200).
+        estimate_diff4_m.should == 5
+    end
+
+    it "should be negative diff when estimate4 is less than correct" do
+      Factory.build(:competitor, :estimate4 => 191, :correct_estimate4 => 200).
+        estimate_diff4_m.should == -9
+    end
+  end
+
   describe "#estimate_points" do
-    it "should be nil if estimate1 is missing" do
-      competitor = Factory.build(:competitor,
-        :estimate1 => nil, :estimate2 => 145,
-        :correct_estimate1 => 100, :correct_estimate2 => 200)
-      competitor.estimate_points.should be_nil
+    describe "estimate missing" do
+      it "should be nil if estimate1 is missing" do
+        competitor = Factory.build(:competitor,
+          :estimate1 => nil, :estimate2 => 145,
+          :correct_estimate1 => 100, :correct_estimate2 => 200)
+        competitor.estimate_points.should be_nil
+      end
+
+      it "should be nil if estimate2 is missing" do
+        competitor = Factory.build(:competitor,
+          :estimate1 => 156, :estimate2 => nil,
+          :correct_estimate1 => 100, :correct_estimate2 => 200)
+        competitor.estimate_points.should be_nil
+      end
+
+      context "when 4 estimates for the series" do
+        before do
+          @series = Factory.build(:series, :estimates => 4)
+        end
+
+        it "should be nil if estimate3 is missing" do
+          competitor = Factory.build(:competitor, :series => @series,
+            :estimate1 => 100, :estimate2 => 145,
+            :estimate3 => nil, :estimate4 => 150,
+            :correct_estimate1 => 100, :correct_estimate2 => 200,
+            :correct_estimate3 => 100, :correct_estimate4 => 200)
+          competitor.estimate_points.should be_nil
+        end
+
+        it "should be nil if estimate4 is missing" do
+          competitor = Factory.build(:competitor, :series => @series,
+            :estimate1 => 156, :estimate2 => 100,
+            :estimate3 => 150, :estimate4 => nil,
+            :correct_estimate1 => 100, :correct_estimate2 => 200,
+            :correct_estimate3 => 100, :correct_estimate4 => 200)
+          competitor.estimate_points.should be_nil
+        end
+      end
     end
 
-    it "should be nil if estimate2 is missing" do
-      competitor = Factory.build(:competitor,
-        :estimate1 => 156, :estimate2 => nil,
-        :correct_estimate1 => 100, :correct_estimate2 => 200)
-      competitor.estimate_points.should be_nil
+    describe "correct estimate missing" do
+      it "should be nil if correct estimate 1 is missing" do
+        competitor = Factory.build(:competitor,
+          :estimate1 => 100, :estimate2 => 200,
+          :correct_estimate1 => nil, :correct_estimate2 => 200)
+        competitor.estimate_points.should be_nil
+      end
+
+      it "should be nil if correct estimate 2 is missing" do
+        competitor = Factory.build(:competitor,
+          :estimate1 => 100, :estimate2 => 200,
+          :correct_estimate1 => 100, :correct_estimate2 => nil)
+        competitor.estimate_points.should be_nil
+      end
+
+      context "when 4 estimates for the series" do
+        before do
+          @series = Factory.build(:series, :estimates => 4)
+        end
+
+        it "should be nil if correct estimate 3 is missing" do
+          competitor = Factory.build(:competitor, :series => @series,
+            :estimate1 => 100, :estimate2 => 200,
+            :estimate3 => 100, :estimate4 => 200,
+            :correct_estimate1 => 100, :correct_estimate2 => 200,
+            :correct_estimate3 => nil, :correct_estimate4 => 200)
+          competitor.estimate_points.should be_nil
+        end
+
+        it "should be nil if correct estimate 4 is missing" do
+          competitor = Factory.build(:competitor, :series => @series,
+            :estimate1 => 100, :estimate2 => 200,
+            :estimate3 => 100, :estimate4 => 200,
+            :correct_estimate1 => 100, :correct_estimate2 => 150,
+            :correct_estimate3 => 100, :correct_estimate4 => nil)
+          competitor.estimate_points.should be_nil
+        end
+      end
     end
 
-    it "should be nil if correct estimate 1 is missing" do
-      competitor = Factory.build(:competitor,
-        :estimate1 => 100, :estimate2 => 200,
-        :correct_estimate1 => nil, :correct_estimate2 => 200)
-      competitor.estimate_points.should be_nil
-    end
+    describe "no estimates or correct estimates missing" do
+      it "should be 300 when perfect estimates" do
+        competitor = Factory.build(:competitor,
+          :estimate1 => 100, :estimate2 => 200,
+          :correct_estimate1 => 100, :correct_estimate2 => 200)
+        competitor.estimate_points.should == 300
+      end
 
-    it "should be nil if correct estimate 2 is missing" do
-      competitor = Factory.build(:competitor,
-        :estimate1 => 100, :estimate2 => 200,
-        :correct_estimate1 => 100, :correct_estimate2 => nil)
-      competitor.estimate_points.should be_nil
-    end
+      it "should be 298 when the first is 1 meter too low" do
+        competitor = Factory.build(:competitor,
+          :estimate1 => 99, :estimate2 => 200,
+          :correct_estimate1 => 100, :correct_estimate2 => 200)
+        competitor.estimate_points.should == 298
+      end
 
-    it "should be 300 when perfect estimates" do
-      competitor = Factory.build(:competitor,
-        :estimate1 => 100, :estimate2 => 200,
-        :correct_estimate1 => 100, :correct_estimate2 => 200)
-      competitor.estimate_points.should == 300
-    end
+      it "should be 298 when the second is 1 meter too low" do
+        competitor = Factory.build(:competitor,
+          :estimate1 => 100, :estimate2 => 199,
+          :correct_estimate1 => 100, :correct_estimate2 => 200)
+        competitor.estimate_points.should == 298
+      end
 
-    it "should be 298 when the first is 1 meter too low" do
-      competitor = Factory.build(:competitor,
-        :estimate1 => 99, :estimate2 => 200,
-        :correct_estimate1 => 100, :correct_estimate2 => 200)
-      competitor.estimate_points.should == 298
-    end
+      it "should be 298 when the first is 1 meter too high" do
+        competitor = Factory.build(:competitor,
+          :estimate1 => 101, :estimate2 => 200,
+          :correct_estimate1 => 100, :correct_estimate2 => 200)
+        competitor.estimate_points.should == 298
+      end
 
-    it "should be 298 when the second is 1 meter too low" do
-      competitor = Factory.build(:competitor,
-        :estimate1 => 100, :estimate2 => 199,
-        :correct_estimate1 => 100, :correct_estimate2 => 200)
-      competitor.estimate_points.should == 298
-    end
+      it "should be 298 when the second is 1 meter too high" do
+        competitor = Factory.build(:competitor,
+          :estimate1 => 100, :estimate2 => 201,
+          :correct_estimate1 => 100, :correct_estimate2 => 200)
+        competitor.estimate_points.should == 298
+      end
 
-    it "should be 298 when the first is 1 meter too high" do
-      competitor = Factory.build(:competitor,
-        :estimate1 => 101, :estimate2 => 200,
-        :correct_estimate1 => 100, :correct_estimate2 => 200)
-      competitor.estimate_points.should == 298
-    end
+      it "should be 296 when both have 1 meter difference" do
+        competitor = Factory.build(:competitor,
+          :estimate1 => 99, :estimate2 => 201,
+          :correct_estimate1 => 100, :correct_estimate2 => 200)
+        competitor.estimate_points.should == 296
+      end
 
-    it "should be 298 when the second is 1 meter too high" do
-      competitor = Factory.build(:competitor,
-        :estimate1 => 100, :estimate2 => 201,
-        :correct_estimate1 => 100, :correct_estimate2 => 200)
-      competitor.estimate_points.should == 298
-    end
-
-    it "should be 296 when both have 1 meter difference" do
-      competitor = Factory.build(:competitor,
-        :estimate1 => 99, :estimate2 => 201,
-        :correct_estimate1 => 100, :correct_estimate2 => 200)
-      competitor.estimate_points.should == 296
-    end
-
-    it "should never be negative" do
-      competitor = Factory.build(:competitor,
-        :estimate1 => 111111, :estimate2 => 222222,
-        :correct_estimate1 => 100, :correct_estimate2 => 200)
-      competitor.estimate_points.should == 0
+      it "should never be negative" do
+        competitor = Factory.build(:competitor,
+          :estimate1 => 111111, :estimate2 => 222222,
+          :correct_estimate1 => 100, :correct_estimate2 => 200)
+        competitor.estimate_points.should == 0
+      end
+      
+      context "when 4 estimates for the series" do
+        before do
+          @series = Factory.build(:series, :estimates => 4)
+        end
+        
+        it "should take also the 3rd and 4th estimate into account" do
+          competitor = Factory.build(:competitor, :series => @series,
+            :estimate1 => 99, :estimate2 => 201,
+            :estimate3 => 109, :estimate4 => 151,
+            :correct_estimate1 => 100, :correct_estimate2 => 200,
+            :correct_estimate3 => 110, :correct_estimate4 => 150)
+          competitor.estimate_points.should == 292 # 300 - 4*2
+        end
+      end
     end
   end
 
@@ -607,6 +752,28 @@ describe Competitor do
             @competitor.estimate1 = nil
             @competitor.estimate2 = 110
             @competitor.should_not be_finished
+          end
+        end
+
+        context "when 4 estimates for the series" do
+          before do
+            @competitor.series.estimates = 4
+          end
+
+          context "when 3rd estimate is missing" do
+            it "should return false" do
+              @competitor.estimate3 = nil
+              @competitor.estimate4 = 110
+              @competitor.should_not be_finished
+            end
+          end
+
+          context "when 4th estimate is missing" do
+            it "should return false" do
+              @competitor.estimate3 = 110
+              @competitor.estimate4 = nil
+              @competitor.should_not be_finished
+            end
           end
         end
       end
