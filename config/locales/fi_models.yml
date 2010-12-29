@@ -29,6 +29,7 @@ fi:
     min_competitors: Kilpailijoita vähintään
     min_number: Pienin numero
     name: Nimi
+    no_time_points: Ei aikapisteitä
     number: Numero
     password: Salasana
     password_confirmation: Salasana uudestaan

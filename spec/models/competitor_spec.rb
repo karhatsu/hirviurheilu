@@ -170,7 +170,7 @@ describe Competitor do
     end
   end
 
-  describe "shots_sum" do
+  describe "#shots_sum" do
     it "should return nil when total input is nil and no shots" do
       Factory.build(:competitor).shots_sum.should be_nil
     end
@@ -187,7 +187,7 @@ describe Competitor do
     end
   end
 
-  describe "shot_points" do
+  describe "#shot_points" do
     it "should be nil if shots not defined" do
       competitor = Factory.build(:competitor)
       competitor.should_receive(:shots_sum).and_return(nil)
@@ -201,7 +201,7 @@ describe Competitor do
     end
   end
 
-  describe "estimate_diff1_m" do
+  describe "#estimate_diff1_m" do
     it "should be nil when no correct estimate1" do
       Factory.build(:competitor, :estimate1 => 100, :correct_estimate1 => nil).
         estimate_diff1_m.should be_nil
@@ -223,7 +223,7 @@ describe Competitor do
     end
   end
 
-  describe "estimate_diff2_m" do
+  describe "#estimate_diff2_m" do
     it "should be nil when no correct estimate2" do
       Factory.build(:competitor, :estimate2 => 100, :correct_estimate2 => nil).
         estimate_diff2_m.should be_nil
@@ -245,7 +245,7 @@ describe Competitor do
     end
   end
 
-  describe "estimate_points" do
+  describe "#estimate_points" do
     it "should be nil if estimate1 is missing" do
       competitor = Factory.build(:competitor,
         :estimate1 => nil, :estimate2 => 145,
@@ -324,7 +324,7 @@ describe Competitor do
     end
   end
 
-  describe "time_in_seconds" do
+  describe "#time_in_seconds" do
     it "should be nil when start time not known yet" do
       Factory.build(:competitor, :start_time => nil).time_in_seconds.should be_nil
     end
@@ -340,7 +340,7 @@ describe Competitor do
     end
   end
 
-  describe "time_points" do
+  describe "#time_points" do
     before do
       @series = Factory.build(:series)
       @competitor = Factory.build(:competitor, :series => @series)
@@ -391,6 +391,14 @@ describe Competitor do
       @competitor.time_points.should == 0
     end
 
+    context "when no time points" do
+      it "should be nil" do
+        @competitor.series.no_time_points = true
+        @competitor.stub!(:time_in_seconds).and_return(@best_time_seconds)
+        @competitor.time_points.should be_nil
+      end
+    end
+
     context "no result" do
       before do
         @competitor = Factory.build(:competitor, :series => @series,
@@ -413,7 +421,7 @@ describe Competitor do
     end
   end
 
-  describe "points" do
+  describe "#points" do
     before do
       @competitor = Factory.build(:competitor)
       @competitor.stub!(:shot_points).and_return(100)
@@ -431,9 +439,19 @@ describe Competitor do
       @competitor.points.should be_nil
     end
 
-    it "should be nil when no time points" do
-      @competitor.should_receive(:time_points).and_return(nil)
-      @competitor.points.should be_nil
+    context "when series calculates time points" do
+      it "should be nil when no time points" do
+        @competitor.should_receive(:time_points).and_return(nil)
+        @competitor.points.should be_nil
+      end
+    end
+
+    context "when series does not calculate time points and shot/estimate points available" do
+      it "should be shot + estimate points" do
+        @competitor.series.no_time_points = true
+        @competitor.should_receive(:time_points).and_return(nil)
+        @competitor.points.should == 100 + 150
+      end
     end
 
     it "should be sum of sub points when all of them are available" do
@@ -441,7 +459,7 @@ describe Competitor do
     end
   end
 
-  describe "points!" do
+  describe "#points!" do
     before do
       @competitor = Factory.build(:competitor)
       @competitor.stub!(:shot_points).and_return(100)
@@ -604,6 +622,14 @@ describe Competitor do
         it "should return false" do
           @competitor.arrival_time = nil
           @competitor.should_not be_finished
+        end
+      end
+
+      context "when series does not calculate time points and other results are there" do
+        it "should return true" do
+          @competitor.series.no_time_points = true
+          @competitor.arrival_time = nil
+          @competitor.should be_finished
         end
       end
     end

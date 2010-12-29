@@ -17,6 +17,9 @@
     <div><%= link_to "Lisää kilpailijoita", new_official_series_competitor_path(@series) %></div>
   <% end %>
 <% else %>
+  <% if @series.no_time_points %>
+    <div class="notice">Tälle sarjalle ei lasketa aikapisteitä</div>
+  <% end %>
   <div class="section">
     <table>
       <tr>
