@@ -4,6 +4,10 @@
     <th>Kilpailija</th>
     <th>Arvio 1</th>
     <th>Arvio 2</th>
+    <% if @series.estimates == 4 %>
+      <th>Arvio 3</th>
+      <th>Arvio 4</th>
+    <% end %>
     <th>&nbsp;</th>
     <th>&nbsp;</th>
   </tr>
@@ -15,6 +19,10 @@
         <td><%= full_name(c) %></td>
         <td><%= f.text_field :estimate1, :size => 3, :maxlength => 3 %></td>
         <td><%= f.text_field :estimate2, :size => 3, :maxlength => 3 %></td>
+        <% if @series.estimates == 4 %>
+          <td><%= f.text_field :estimate3, :size => 3, :maxlength => 3 %></td>
+          <td><%= f.text_field :estimate4, :size => 3, :maxlength => 3 %></td>
+        <% end %>
         <td><%= submit_tag "Tallenna", :onclick => "start_updating(#{c.id})" %></td>
         <td id="status_<%= c.id %>">&nbsp;</td>
       </tr>

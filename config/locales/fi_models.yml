@@ -5,6 +5,8 @@ fi:
     club: Piiri/seura
     correct_estimate1: Oikea arviomatka 1
     correct_estimate2: Oikea arviomatka 2
+    correct_estimate3: Oikea arviomatka 3
+    correct_estimate4: Oikea arviomatka 4
     current_login_at: Nyk. kirj.
     current_login_ip: Nyk. IP
     default_age_group: Oletusikäryhmä
@@ -17,6 +19,8 @@ fi:
     end_date: Loppupvm
     estimate1: Arvio 1
     estimate2: Arvio 2
+    estimate3: Arvio 3
+    estimate4: Arvio 4
     first_name: Etunimi
     first_number: Ensimmäinen kilpailunumero
     key: Avain
