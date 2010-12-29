@@ -77,10 +77,12 @@ class Race < ActiveRecord::Base
     correct_estimates.each do |ce|
       if ce.max_number.nil?
         max_range_low_limit = ce.min_number
-        number_to_corrects_hash[max_range_low_limit] = [ce.distance1, ce.distance2]
+        number_to_corrects_hash[max_range_low_limit] =
+          [ce.distance1, ce.distance2, ce.distance3, ce.distance4]
       else
         (ce.min_number..ce.max_number).to_a.each do |nro|
-          number_to_corrects_hash[nro] = [ce.distance1, ce.distance2]
+          number_to_corrects_hash[nro] =
+            [ce.distance1, ce.distance2, ce.distance3, ce.distance4]
         end
       end
     end
@@ -88,14 +90,11 @@ class Race < ActiveRecord::Base
     competitors.each do |c|
       if c.number
         if max_range_low_limit and c.number >= max_range_low_limit
-          c.correct_estimate1 = number_to_corrects_hash[max_range_low_limit][0]
-          c.correct_estimate2 = number_to_corrects_hash[max_range_low_limit][1]
+          set_correct_estimates_for_competitor(c, number_to_corrects_hash, max_range_low_limit)
         elsif number_to_corrects_hash[c.number]
-          c.correct_estimate1 = number_to_corrects_hash[c.number][0]
-          c.correct_estimate2 = number_to_corrects_hash[c.number][1]
+          set_correct_estimates_for_competitor(c, number_to_corrects_hash, c.number)
         else
-          c.correct_estimate1 = nil
-          c.correct_estimate2 = nil
+          c.reset_correct_estimates
         end
         c.save!
       end
@@ -105,6 +104,13 @@ class Race < ActiveRecord::Base
   def each_competitor_has_correct_estimates?
     competitors.where('competitors.correct_estimate1 is null or ' +
         'competitors.correct_estimate2 is null').empty?
+  end
+
+  def estimates_at_most
+    series.each do |s|
+      return 4 if s.estimates == 4
+    end
+    2
   end
 
   private
@@ -125,4 +131,15 @@ class Race < ActiveRecord::Base
     end
   end
 
+  def set_correct_estimates_for_competitor(competitor, number_to_corrects_hash, key)
+    competitor.correct_estimate1 = number_to_corrects_hash[key][0]
+    competitor.correct_estimate2 = number_to_corrects_hash[key][1]
+    if competitor.series.estimates == 4
+      competitor.correct_estimate3 = number_to_corrects_hash[key][2]
+      competitor.correct_estimate4 = number_to_corrects_hash[key][3]
+    else
+      competitor.correct_estimate3 = nil
+      competitor.correct_estimate4 = nil
+    end
+  end
 end

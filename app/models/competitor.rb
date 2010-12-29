@@ -159,6 +159,13 @@ class Competitor < ActiveRecord::Base
     previous_or_next_competitor true
   end
 
+  def reset_correct_estimates
+    self.correct_estimate1 = nil
+    self.correct_estimate2 = nil
+    self.correct_estimate3 = nil
+    self.correct_estimate4 = nil
+  end
+
   private
   def arrival_not_before_start_time
     return if start_time.nil? and arrival_time.nil?

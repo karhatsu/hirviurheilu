@@ -14,6 +14,8 @@ fi:
     default_series: Oletussarja
     distance1: Etäisyys 1
     distance2: Etäisyys 2
+    distance3: Etäisyys 3
+    distance4: Etäisyys 4
     races: Kilpailut
     email: Sähköposti
     end_date: Loppupvm

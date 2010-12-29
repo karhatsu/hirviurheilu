@@ -838,4 +838,17 @@ describe Competitor do
     end
   end
 
+  describe "#reset_correct_estimates" do
+    it "should set all correct estimates to nil" do
+      c = Factory.build(:competitor, :correct_estimate1 => 100,
+        :correct_estimate2 => 110, :correct_estimate3 => 130,
+        :correct_estimate4 => 140)
+      c.reset_correct_estimates
+      c.correct_estimate1.should be_nil
+      c.correct_estimate2.should be_nil
+      c.correct_estimate3.should be_nil
+      c.correct_estimate4.should be_nil
+    end
+  end
+
 end

@@ -25,6 +25,10 @@
       <th>Sarja</th>
       <th>Oikea arvio 1</th>
       <th>Oikea arvio 2</th>
+      <% if @race.estimates_at_most == 4 %>
+        <th>Oikea arvio 3</th>
+        <th>Oikea arvio 4</th>
+      <% end %>
     </tr>
     <% @competitors.each do |c| %>
       <tr>
@@ -33,6 +37,10 @@
         <td><%= c.series.name %></td>
         <td><%= c.correct_estimate1 %></td>
         <td><%= c.correct_estimate2 %></td>
+        <% if @race.estimates_at_most == 4 %>
+          <td><%= c.correct_estimate3 %></td>
+          <td><%= c.correct_estimate4 %></td>
+        <% end %>
       </tr>
     <% end %>
   </table>

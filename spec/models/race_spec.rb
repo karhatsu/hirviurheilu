@@ -231,9 +231,10 @@ describe Race do
     before do
       @race = Factory.create(:race)
       @series1 = Factory.create(:series, :race => @race)
-      @series2 = Factory.create(:series, :race => @race)
+      @series2 = Factory.create(:series, :race => @race, :estimates => 4)
       Factory.create(:correct_estimate, :min_number => 1, :max_number => 5,
-        :distance1 => 100, :distance2 => 200, :race => @race)
+        :distance1 => 100, :distance2 => 200,
+        :distance3 => 80, :distance4 => 90, :race => @race)
       Factory.create(:correct_estimate, :min_number => 10, :max_number => nil,
         :distance1 => 50, :distance2 => 150, :race => @race)
       @c1 = Factory.create(:competitor, :series => @series1, :number => 1,
@@ -241,9 +242,11 @@ describe Race do
       @c4 = Factory.create(:competitor, :series => @series2, :number => 4)
       @c5 = Factory.create(:competitor, :series => @series1, :number => 5)
       @c6 = Factory.create(:competitor, :series => @series1, :number => 6,
-        :correct_estimate1 => 10, :correct_estimate2 => 20)
+        :correct_estimate1 => 10, :correct_estimate2 => 20,
+        :correct_estimate3 => 100, :correct_estimate4 => 200)
       @c9 = Factory.create(:competitor, :series => @series2, :number => 9,
-        :correct_estimate1 => 30, :correct_estimate2 => 40)
+        :correct_estimate1 => 30, :correct_estimate2 => 40,
+        :correct_estimate3 => 100, :correct_estimate4 => 200)
       @c10 = Factory.create(:competitor, :series => @series2, :number => 10)
       @c150 = Factory.create(:competitor, :series => @series1, :number => 150)
       @cnil = Factory.create(:competitor, :series => @series1, :number => nil,
@@ -265,6 +268,8 @@ describe Race do
       @c1.correct_estimate2.should == 200
       @c4.correct_estimate1.should == 100
       @c4.correct_estimate2.should == 200
+      @c4.correct_estimate3.should == 80
+      @c4.correct_estimate4.should == 90
       @c5.correct_estimate1.should == 100
       @c5.correct_estimate2.should == 200
       @c10.correct_estimate1.should == 50
@@ -276,10 +281,27 @@ describe Race do
     end
 
     it "should reset such competitors' correct estimates whose numbers don't match" do
-      @c6.correct_estimate1.should == nil
-      @c6.correct_estimate2.should == nil
-      @c9.correct_estimate1.should == nil
-      @c9.correct_estimate2.should == nil
+      @c6.correct_estimate1.should be_nil
+      @c6.correct_estimate2.should be_nil
+      @c6.correct_estimate3.should be_nil
+      @c6.correct_estimate4.should be_nil
+      @c9.correct_estimate1.should be_nil
+      @c9.correct_estimate2.should be_nil
+      @c9.correct_estimate3.should be_nil
+      @c9.correct_estimate4.should be_nil
+    end
+
+    it "should reset those competitors' correct estimates 3 and 4 who need to have only 2" do
+      @c1.correct_estimate3.should be_nil
+      @c1.correct_estimate4.should be_nil
+      @c5.correct_estimate3.should be_nil
+      @c5.correct_estimate4.should be_nil
+      @c10.correct_estimate3.should be_nil
+      @c10.correct_estimate4.should be_nil
+      @c150.correct_estimate3.should be_nil
+      @c150.correct_estimate4.should be_nil
+      @cnil.correct_estimate3.should be_nil
+      @cnil.correct_estimate4.should be_nil
     end
   end
 
@@ -308,6 +330,25 @@ describe Race do
       @c3.save!
       @race.reload
       @race.each_competitor_has_correct_estimates?.should be_false
+    end
+  end
+
+  describe "#estimates_at_most" do
+    it "should return 2 when no series defined" do
+      Factory.build(:race).estimates_at_most.should == 2
+    end
+
+    it "should return 2 when all series have 2 estimates" do
+      race = Factory.build(:race)
+      race.series.build(Factory.build(:series, :race => race))
+      race.estimates_at_most.should == 2
+    end
+
+    it "should return 4 when at least one series has 4 estimates" do
+      race = Factory.create(:race)
+      race.series << Factory.build(:series, :race => race)
+      race.series << Factory.build(:series, :race => race, :estimates => 4)
+      race.estimates_at_most.should == 4
     end
   end
 end

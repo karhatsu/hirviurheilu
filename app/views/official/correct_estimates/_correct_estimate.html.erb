@@ -3,10 +3,15 @@
   <%= f.text_field :min_number, :size => 3 %>
   <%= f.label :max_number, '-' %>
   <%= f.text_field :max_number, :size => 3 %>
-  <span style="padding-left: 5px;">&nbsp;</span>
   <%= f.label :distance1 %>
   <%= f.text_field :distance1, :size => 3 %>
   <%= f.label :distance2 %>
   <%= f.text_field :distance2, :size => 3 %>
-  <%= remove_child_link "Poista tämä määritys", f, 'sub_form', "" %>
+  <% if @race.estimates_at_most == 4 %>
+    <%= f.label :distance3 %>
+    <%= f.text_field :distance3, :size => 3 %>
+    <%= f.label :distance4 %>
+    <%= f.text_field :distance4, :size => 3 %>
+  <% end %>
+  <%= remove_child_link "Poista määritys", f, 'sub_form', "" %>
 </div>
