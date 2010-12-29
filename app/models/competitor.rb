@@ -124,28 +124,14 @@ class Competitor < ActiveRecord::Base
   end
 
   def next_competitor
-    unless number
-      return self
-    end
-    comp = @series.competitors.find(:first, :conditions => ['number>?', number],
-      :order => 'number')
-    return comp if comp
-    @series.competitors.find(:first, :conditions => 'number is not null',
-      :order => 'number')
+    previous_or_next_competitor false
   end
 
   def previous_competitor
-    unless number
-      return self
-    end
-    comp = @series.competitors.find(:first, :conditions => ['number<?', number],
-      :order => 'number DESC')
-    return comp if comp
-    @series.competitors.find(:first, :conditions => 'number is not null',
-      :order => 'number DESC')
+    previous_or_next_competitor true
   end
 
-  protected
+  private
   def arrival_not_before_start_time
     return if start_time.nil? and arrival_time.nil?
     if start_time.nil?
@@ -188,6 +174,17 @@ class Competitor < ActiveRecord::Base
       errors.add(:start_time,
         'on pakollinen, kun sarjan lähtölista on jo luotu') unless start_time
     end
+  end
+
+  def previous_or_next_competitor(previous)
+    return self unless number
+    comparator = previous ? '<' : '>'
+    sort_order = previous ? 'DESC' : 'ASC'
+    competitor = Competitor.where(["series_id=? and number#{comparator}?", series.id, number]).
+      order("number #{sort_order}").first
+    return competitor if competitor
+    Competitor.where('series_id=? and number is not null', series.id).
+      order("number #{sort_order}").first
   end
 
 end
