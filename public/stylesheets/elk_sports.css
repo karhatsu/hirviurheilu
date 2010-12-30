@@ -67,6 +67,10 @@ div.question {
     margin-top: 5px;
 }
 
+div.question .highligth {
+    color: orange;
+}
+
 div.answer {
     margin-bottom: 5px;
 }
