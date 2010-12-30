@@ -1,7 +1,8 @@
 <% content_for(:title, "Hirviurheilu - Info") %>
 <% content_for(:page_title, yield(:title)) %>
 <h2>Ota yhteyttä</h2>
-<%= link_to "Lähetä palautetta järjestelmän kautta", new_feedback_path %>
+<%= link_to "Lähetä palautetta järjestelmän kautta", new_feedback_path %><br/>
+(kysymyksiä, ehdotuksia uusista ominaisuuksista, virheraportteja, kehuja,...)
 
 <h2>Kysymyksiä ja vastauksia</h2>
 
@@ -11,6 +12,12 @@
 
 <div class="question">Mitä kilpailumuotoja palvelu tukee?</div>
 <div class="answer">Katso vastaus tämän sivun alalaidasta.</div>
+
+<div class="question">Osaako palvelu laskea pisteet kävelysarjalle (metsästäjäsarja)?</div>
+<div class="answer">Kyllä osaa. Kun lisäät tällaisen sarjan kilpailuun,
+  valitset vain arviomatkojen määräksi neljä normaalin kahden sijaan ja
+  merkitset, ettei sarjassa lasketa aikapisteitä. Palvelu hoitaa kaiken muun
+  automaattisesti.</div>
 
 <div class="question">Mitä hyötyä palvelusta on kilpailun järjestäjille?</div>
 <div class="answer">
@@ -144,15 +151,16 @@ end
 
 <h2>Kilpailumuodot</h2>
 Tällä hetkellä palvelua voidaan käyttää normaalien yksilökilpailujen tulosten
-hallintaan. Alla olevat kilpailumuodot tullaan tekemään tarpeen mukaan:
+hallintaan. Lisäksi palvelu tukee ns. kävely- tai metsästäjäsarjaa.
+Kyseisessä sarjassa ei lasketa aikapisteitä ja arviomatkoja on normaalin kahden
+sijaan neljä.
+<br/><br/>
+Nämä kilpailumuodot tullaan tekemään tarpeen mukaan:
 <ul>
-  <li>Kävelykilpailu (tulossa keväällä 2011 ennen kesän kilpailuita)</li>
   <li>Cup-kilpailu (rakennetaan, mikäli kilpailun järjestäjät kokevat tarpeelliseksi)</li>
   <li>Joukkuekilpailu ja viesti (rakennetaan mikäli palvelua tullaan käyttämään
     SM- tai piiritasolla)</li>
 </ul>
-Voit myös itse <%= link_to "ehdottaa uusia ominaisuuksia", new_feedback_path %>
-palveluun yllä olevan linkin kautta.
 
 <h2>Ohjevideo</h2>
 <%= link_to "Katso ohjevideo Youtubesta", youtube_path, :target => '_blank' %>
