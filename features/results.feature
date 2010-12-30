@@ -118,17 +118,17 @@ Feature: Results
       | name | Atkinsson Tim |
       | number | 51 |
       | club | Sports club |
-      | points | 840 |
+      | points | 1140 |
       | shooting | 540 (90) |
-      | estimates | 300 (0m/0m/0m/0m) |
+      | estimates | 600 (0m/0m/0m/0m) |
       | time | (1:00:00) |
     And I should see a result row 2 with values:
       | name | Johnson James |
       | number | 50 |
       | club | Shooting club |
-      | points | 802 |
+      | points | 1102 |
       | shooting | 510 (85) |
-      | estimates | 292 (+1m/-1m/-1m/+1m) |
+      | estimates | 592 (+1m/-1m/-1m/+1m) |
       | time | (1:00:10) |
     But I should not see "300 (1:00:00)"
     And I should not see "299 (1:00:10)"

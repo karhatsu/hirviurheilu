@@ -402,7 +402,7 @@ describe Competitor do
       end
     end
 
-    describe "no estimates or correct estimates missing" do
+    describe "no estimates nor correct estimates missing" do
       it "should be 300 when perfect estimates" do
         competitor = Factory.build(:competitor,
           :estimate1 => 100, :estimate2 => 200,
@@ -457,13 +457,22 @@ describe Competitor do
           @series = Factory.build(:series, :estimates => 4)
         end
         
-        it "should take also the 3rd and 4th estimate into account" do
+        it "should be 600 when perfect estimates" do
           competitor = Factory.build(:competitor, :series => @series,
-            :estimate1 => 99, :estimate2 => 201,
-            :estimate3 => 109, :estimate4 => 151,
+            :estimate1 => 100, :estimate2 => 200,
+            :estimate3 => 80, :estimate4 => 140,
+            :correct_estimate1 => 100, :correct_estimate2 => 200,
+            :correct_estimate3 => 80, :correct_estimate4 => 140)
+          competitor.estimate_points.should == 600
+        end
+
+        it "should be 584 when each estimate is 2 meters wrong" do
+          competitor = Factory.build(:competitor, :series => @series,
+            :estimate1 => 98, :estimate2 => 202,
+            :estimate3 => 108, :estimate4 => 152,
             :correct_estimate1 => 100, :correct_estimate2 => 200,
             :correct_estimate3 => 110, :correct_estimate4 => 150)
-          competitor.estimate_points.should == 292 # 300 - 4*2
+          competitor.estimate_points.should == 584 # 600 - 4*4
         end
       end
     end
