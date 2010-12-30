@@ -311,8 +311,8 @@ describe ApplicationHelper do
       lambda { helper.correct_estimate(nil, 0, '') }.should raise_error
     end
 
-    it "should raise error when index more than 2" do
-      lambda { helper.correct_estimate(nil, 3, '') }.should raise_error
+    it "should raise error when index more than 4" do
+      lambda { helper.correct_estimate(nil, 5, '') }.should raise_error
     end
 
     context "race not finished" do
@@ -325,6 +325,8 @@ describe ApplicationHelper do
 
       specify { helper.correct_estimate(@competitor, 1, '-').should == '-' }
       specify { helper.correct_estimate(@competitor, 2, '-').should == '-' }
+      specify { helper.correct_estimate(@competitor, 3, '-').should == '-' }
+      specify { helper.correct_estimate(@competitor, 4, '-').should == '-' }
     end
 
     context "race finished" do
@@ -333,11 +335,14 @@ describe ApplicationHelper do
           race = mock_model(Race, :finished => true)
           series = mock_model(Series, :race => race)
           @competitor = mock_model(Competitor, :series => series,
-            :correct_estimate1 => 100, :correct_estimate2 => 150)
+            :correct_estimate1 => 100, :correct_estimate2 => 150,
+            :correct_estimate3 => 110, :correct_estimate4 => 160)
         end
 
         specify { helper.correct_estimate(@competitor, 1, '-').should == 100 }
         specify { helper.correct_estimate(@competitor, 2, '-').should == 150 }
+        specify { helper.correct_estimate(@competitor, 3, '-').should == 110 }
+        specify { helper.correct_estimate(@competitor, 4, '-').should == 160 }
       end
 
       context "estimates not available" do
@@ -345,11 +350,14 @@ describe ApplicationHelper do
           race = mock_model(Race, :finished => true)
           series = mock_model(Series, :race => race)
           @competitor = mock_model(Competitor, :series => series,
-            :correct_estimate1 => nil, :correct_estimate2 => nil)
+            :correct_estimate1 => nil, :correct_estimate2 => nil,
+            :correct_estimate3 => nil, :correct_estimate4 => nil)
         end
 
         specify { helper.correct_estimate(@competitor, 1, '-').should == '-' }
         specify { helper.correct_estimate(@competitor, 2, '-').should == '-' }
+        specify { helper.correct_estimate(@competitor, 3, '-').should == '-' }
+        specify { helper.correct_estimate(@competitor, 4, '-').should == '-' }
       end
     end
   end

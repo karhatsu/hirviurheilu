@@ -237,6 +237,70 @@ Feature: Results
     And I should see "14:00:00" within "#time td"
     And I should see "1:00:00" within "#time td"
 
+  Scenario: See the results of an individual competitor in a walking series
+    Given there is a race with attributes:
+      | sport | RUN |
+      | name | My test race |
+      | start_date | 2010-07-15 |
+      | location | Test city |
+      | start_interval_seconds | 60 |
+    And the race has series with attributes:
+      | name | Men 50 years |
+      | start_time | 13:00 |
+      | first_number | 50 |
+      | no_time_points | true |
+      | estimates | 4 |
+    And the race has correct estimates with attributes:
+      | min_number | 1 |
+      | max_number | 100 |
+      | distance1 | 110 |
+      | distance2 | 130 |
+      | distance3 | 80 |
+      | distance4 | 190 |
+    And the series has a competitor with attributes:
+      | first_name | Tim |
+      | last_name | Atkinsson |
+    And the start list has been generated for the series
+    And the competitor "Tim" "Atkinsson" has the following results:
+      | shots_total_input | 90 |
+      | estimate1 | 111 |
+      | estimate2 | 129 |
+      | estimate3 | 82 |
+      | estimate4 | 188 |
+      | arrival_time | 14:00:00 |
+    And the race is finished
+    And I am on the results page of the series
+    When I follow "Atkinsson Tim"
+    Then I should be on the results page of the competitor
+    And I should see "Tälle sarjalle ei lasketa aikapisteitä." within "div.notice"
+    And I should see "Tässä sarjassa on 4 arviomatkaa." within "div.notice"
+    And I should see "My test race" within ".main_title"
+    And I should see "Men 50 years - Atkinsson Tim" within "h2"
+    And I should see "Pisteet" within "#points h3"
+    And I should see "540" within "#points td"
+    And I should see "588" within "#points td"
+    But I should not see "300" within "#points td"
+    And I should see "1128" within "#points td"
+    And I should see "Ammunta" within "#shooting h3"
+    And I should see "90" within "#shooting"
+    And I should see "Arviointi" within "#estimates h3"
+    And I should see "111" within "#estimates td"
+    And I should see "129" within "#estimates td"
+    And I should see "82" within "#estimates td"
+    And I should see "188" within "#estimates td"
+    And I should see "110" within "#estimates td"
+    And I should see "130" within "#estimates td"
+    And I should see "80" within "#estimates td"
+    And I should see "190" within "#estimates td"
+    And I should see "+1" within "#estimates td"
+    And I should see "-1" within "#estimates td"
+    And I should see "+2" within "#estimates td"
+    And I should see "-2" within "#estimates td"
+    And I should see "Juoksu" within "#time h3"
+    And I should see "13:00:00" within "#time td"
+    And I should see "14:00:00" within "#time td"
+    And I should see "1:00:00" within "#time td"
+
   Scenario: See the results of an individual competitor in an unfinished race
     Given there is a race with attributes:
       | sport | RUN |

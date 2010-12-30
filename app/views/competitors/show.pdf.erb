@@ -1,6 +1,12 @@
 <h1><%= @competitor.series.race.name %></h1>
 <h2><%= @competitor.series.name %> - <%= full_name(@competitor) %>
   <%= (@competitor.age_group ? " (#{@competitor.age_group.name})" : "") %></h2>
+<% if @competitor.series.no_time_points %>
+  <div class="notice">Tälle sarjalle ei lasketa aikapisteitä.</div>
+<% end %>
+<% if @competitor.series.estimates == 4 %>
+  <div class="notice">Tässä sarjassa on 4 arviomatkaa.</div>
+<% end %>
 <% if @competitor.no_result_reason %>
   <div class="notice"><%= t "competitor.#{@competitor.no_result_reason}" %></div>
 <% end %>
@@ -20,16 +26,28 @@
       <td>Arvioidut</td>
       <td><%= @competitor.estimate1 ? @competitor.estimate1 : "-" %></td>
       <td><%= @competitor.estimate2 ? @competitor.estimate2 : "-" %></td>
+      <% if @competitor.series.estimates == 4 %>
+        <td><%= @competitor.estimate3 ? @competitor.estimate3 : "-" %></td>
+        <td><%= @competitor.estimate4 ? @competitor.estimate4 : "-" %></td>
+      <% end %>
     </tr>
     <tr>
       <td>Todelliset</td>
       <td><%= correct_estimate(@competitor, 1, '-') %></td>
       <td><%= correct_estimate(@competitor, 2, '-') %></td>
+      <% if @competitor.series.estimates == 4 %>
+        <td><%= correct_estimate(@competitor, 3, '-') %></td>
+        <td><%= correct_estimate(@competitor, 4, '-') %></td>
+      <% end %>
     </tr>
     <tr>
       <td>Virhe</td>
       <td><%= print_estimate_diff(@competitor.estimate_diff1_m) %></td>
       <td><%= print_estimate_diff(@competitor.estimate_diff2_m) %></td>
+      <% if @competitor.series.estimates == 4 %>
+        <td><%= print_estimate_diff(@competitor.estimate_diff3_m) %></td>
+        <td><%= print_estimate_diff(@competitor.estimate_diff4_m) %></td>
+      <% end %>
     </tr>
   </table>
 <% else %>
