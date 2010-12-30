@@ -105,6 +105,72 @@ describe EstimatesQuickSave do
         end
       end
     end
+
+    describe "trying to save 4 estimates for a competitor of the series with 2 estimates" do
+      before do
+        @qs = EstimatesQuickSave.new(@race.id, '10:111:122:80:90')
+      end
+
+      describe "#save" do
+        it "should not save given estimates for the competitor and return false" do
+          @qs.save.should be_false
+          @c.reload
+          @c.estimate1.should == 1
+          @c.estimate2.should == 2
+          @c.estimate3.should be_nil
+          @c.estimate4.should be_nil
+        end
+      end
+
+      describe "#competitor" do
+        it "should return the correct competitor" do
+          @qs.save
+          @c.reload
+          @qs.competitor.should == @c
+        end
+      end
+
+      describe "#error" do
+        it "should contain an error message" do
+          @qs.save
+          @qs.error.should match(/täytyy syöttää kaksi ennustetta/)
+        end
+      end
+    end
+
+    describe "trying to save 2 estimates for a competitor of the series with 4 estimates" do
+      before do
+        @series.estimates = 4
+        @series.save!
+        @qs = EstimatesQuickSave.new(@race.id, '10:111:122')
+      end
+
+      describe "#save" do
+        it "should not save given estimates for the competitor and return false" do
+          @qs.save.should be_false
+          @c.reload
+          @c.estimate1.should == 1
+          @c.estimate2.should == 2
+          @c.estimate3.should be_nil
+          @c.estimate4.should be_nil
+        end
+      end
+
+      describe "#competitor" do
+        it "should return the correct competitor" do
+          @qs.save
+          @c.reload
+          @qs.competitor.should == @c
+        end
+      end
+
+      describe "#error" do
+        it "should contain an error message" do
+          @qs.save
+          @qs.error.should match(/täytyy syöttää neljä ennustetta/)
+        end
+      end
+    end
   end
 
   describe "unknown competitor" do

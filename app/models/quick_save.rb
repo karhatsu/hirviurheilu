@@ -13,7 +13,7 @@ class QuickSave
     if valid_string?
       if find_competitor
         set_competitor_attrs
-        if @competitor.save
+        if save_competitor
           return true
         else
           set_save_error
@@ -43,6 +43,10 @@ class QuickSave
     race = Race.find(@race_id)
     return nil unless race
     @competitor = race.competitors.where(:number => number).first
+  end
+
+  def save_competitor
+    @competitor.save
   end
 
   def set_competitor_attrs
