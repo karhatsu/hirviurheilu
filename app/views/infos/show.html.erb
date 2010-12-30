@@ -3,9 +3,11 @@
 <h2>Ota yhteyttä</h2>
 <%= link_to "Lähetä palautetta järjestelmän kautta", new_feedback_path %><br/>
 (kysymyksiä, ehdotuksia uusista ominaisuuksista, virheraportteja, kehuja,...)
+<hr/>
 
 <h2>Kysymyksiä ja vastauksia</h2>
 
+<h3>Yleistä Hirviurheilu-palvelusta</h3>
 <div class="question">Mihin Hirviurheilu-tulospalvelu on tarkoitettu?</div>
 <div class="answer">Hirviurheilu on hirvenhiihtoon ja hirvenjuoksuun tarkoitettu
   reaaliaikainen tulospalvelu.</div>
@@ -19,6 +21,7 @@
   merkitset, ettei sarjassa lasketa aikapisteitä. Palvelu hoitaa kaiken muun
   automaattisesti.</div>
 
+<h3>Hyödyt ja vaatimukset</h3>
 <div class="question">Mitä hyötyä palvelusta on kilpailun järjestäjille?</div>
 <div class="answer">
   <ul>
@@ -50,6 +53,7 @@
 <div class="answer">Toimitsijoilla täytyy olla käytössä internet-yhteys,
   sillä palvelu toimii internetissä selaimen välityksellä.</div>
 
+<h3>Käyttö</h3>
 <div class="question">Kuinka palvelun käyttöönotto tapahtuu?</div>
 <div class="answer">Tulospalvelun käyttöönotto on erittäin helppoa.
   <%= link_to "Rekisteröidy palveluun", register_path %>, jonka jälkeen voit
@@ -124,6 +128,13 @@ end
 <div class="answer">Kyllä voi. Kilpailun perustaja voi kutsua muita henkilöitä
   toimitsijaksi samaan kilpailuun.</div>
 
+<div class="question">Onko mahdollista kokeilla palvelun käyttämistä jossain?</div>
+<div class="answer">Osoitteessa <a href="<%= TEST_URL %>"><%= TEST_URL %></a>
+  voit harjoitella toimitsijana toimimista. Tämän version käyttäminen on täysin
+  ilmaista mutta sitä ei ole sallittu käytettäväksi oikeiden kilpailuiden
+  tuloslaskentaan.</div>
+
+<h3>Tulosten julkaisu</h3>
 <div class="question">Miten tulokset saadaan julkaistua kilpailijoiden nähtäville?</div>
 <div class="answer">Sinun ei tarvitse tehdä mitään erillistoimenpiteitä.
   Tulospalvelu on täysin reaaliaikainen, joten kaikki tulokset ovat näkyvissä
@@ -136,18 +147,15 @@ end
   sivuilta. Huom! Jos olet kilpailun järjestäjä ja haluat lähettää tulokset
   lehdistölle, voit ladata tulosluettelon lehdistömuodossa toimitsijan sivuilta.</div>
 
-<div class="question">Onko mahdollista kokeilla palvelun käyttämistä jossain?</div>
-<div class="answer">Osoitteessa <a href="<%= TEST_URL %>"><%= TEST_URL %></a>
-  voit harjoitella toimitsijana toimimista. Tämän version käyttäminen on täysin
-  ilmaista mutta sitä ei ole sallittu käytettäväksi oikeiden kilpailuiden
-  tuloslaskentaan.</div>
-
+<h3>Sekalaista</h3>
 <div class="question">Mitä voin tehdä, jos palveluun tarvittaisiin mielestäni
   ehdottomasti uusi ominaisuus?</div>
 <div class="answer"><%= link_to "Ota rohkeasti yhteyttä", new_feedback_path %> ja kerro ideasi!</div>
 
 <div class="question">Kuinka paljon palvelun käyttö maksaa?</div>
 <div class="answer"><%= link_to "Katso tämän hetken hinnasto.", prices_path %></div>
+
+<hr/>
 
 <h2>Kilpailumuodot</h2>
 Tällä hetkellä palvelua voidaan käyttää normaalien yksilökilpailujen tulosten
@@ -161,6 +169,8 @@ Nämä kilpailumuodot tullaan tekemään tarpeen mukaan:
   <li>Joukkuekilpailu ja viesti (rakennetaan mikäli palvelua tullaan käyttämään
     SM- tai piiritasolla)</li>
 </ul>
+
+<hr/>
 
 <h2>Ohjevideo</h2>
 <%= link_to "Katso ohjevideo Youtubesta", youtube_path, :target => '_blank' %>
