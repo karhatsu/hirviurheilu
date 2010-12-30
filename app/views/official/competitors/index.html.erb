@@ -1,5 +1,5 @@
-<% content_for :title, "#{@series.name} - Kilpailijat" %>
-<h2><%= yield :title %></h2>
+<% content_for :title, "#{@series.race.name} - #{@series.name} - Kilpailijat" %>
+<h2><%= "#{@series.name} - Kilpailijat" %></h2>
 <% content_for :series_sub_menu do %>
   <%= render :layout => 'shared/series_sub_menu',
     :locals => { :race => @series.race, :series_id => @series.id } do |series| %>
