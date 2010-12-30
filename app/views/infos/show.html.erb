@@ -21,6 +21,10 @@
   merkitset, ettei sarjassa lasketa aikapisteitä. Palvelu hoitaa kaiken muun
   automaattisesti.</div>
 
+<div class="question">Mitä voin tehdä, jos palveluun tarvittaisiin mielestäni
+  ehdottomasti uusi ominaisuus?</div>
+<div class="answer"><%= link_to "Ota rohkeasti yhteyttä", new_feedback_path %> ja kerro ideasi!</div>
+
 <h3>Hyödyt ja vaatimukset</h3>
 <div class="question">Mitä hyötyä palvelusta on kilpailun järjestäjille?</div>
 <div class="answer">
@@ -162,11 +166,13 @@ end
   sivuilta. Huom! Jos olet kilpailun järjestäjä ja haluat lähettää tulokset
   lehdistölle, voit ladata tulosluettelon lehdistömuodossa toimitsijan sivuilta.</div>
 
-<h3>Sekalaista</h3>
-<div class="question">Mitä voin tehdä, jos palveluun tarvittaisiin mielestäni
-  ehdottomasti uusi ominaisuus?</div>
-<div class="answer"><%= link_to "Ota rohkeasti yhteyttä", new_feedback_path %> ja kerro ideasi!</div>
+<div class="question">Voiko palvelusta tulostaa tuloslistat lehdistölle
+  sopivassa muodossa?</div>
+<div class="answer">Kyllä voi. Toimitsijan sivuilta löytyy Lehdistö-sivu,
+  josta saat yksinkertaisten tulosluettelon haluamallesi määrälle kilpailijoita /
+  sarja.</div>
 
+<h3>Hinnoittelu</h3>
 <div class="question">Kuinka paljon palvelun käyttö maksaa?</div>
 <div class="answer"><%= link_to "Katso tämän hetken hinnasto.", prices_path %></div>
 
