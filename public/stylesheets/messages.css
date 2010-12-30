@@ -12,6 +12,7 @@ div.error_explanation {
 
 div.field_with_errors {
     color: #CC3300;
+    display: inline;
 }
 
 div.error {
