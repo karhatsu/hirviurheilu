@@ -1,10 +1,10 @@
 class QuickSave
   attr_reader :competitor, :error
 
-  def initialize(race_id, string, valid_pattern)
+  def initialize(race_id, string, *valid_patterns)
     @race_id = race_id
     @string = string
-    @valid_pattern = valid_pattern
+    @valid_patterns = valid_patterns
     @competitor = nil
     @error = nil
   end
@@ -29,7 +29,10 @@ class QuickSave
 
   private
   def valid_string?
-    @string.match(@valid_pattern)
+    @valid_patterns.each do |pattern|
+      return true if @string.match(pattern)
+    end
+    false
   end
 
   def number

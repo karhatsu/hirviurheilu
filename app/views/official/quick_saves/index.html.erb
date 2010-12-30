@@ -1,3 +1,4 @@
+<% content_for :title, "#{@race.name} - Tulosten pikasyöttö" %>
 <h2>Tulosten pikasyöttö</h2>
 <div class="instructions">Tällä sivulla voit tallentaa kilpailijoiden tuloksia
   ns. pikasyöttöä käyttäen. Syöttämiseen tarvitset kilpailijan numeron.</div>
@@ -11,7 +12,12 @@
     :instructions => instructions, :path => race_time_quick_save_path(@race) } %>
   <h3>Arvioinnit</h3>
   <% instructions = 'Syötä tulos muodossa nro:arvio1:arvio2, ' +
-      'esim. 45:95:118 (kilpailija 45, arviot 95 ja 118 metriä).' %>
+      'esim. 45:95:118 (kilpailija 45, arviot 95 ja 118 metriä)' %>
+  <% if @race.estimates_at_most == 4 %>
+        <% instructions << ' tai neljän ennusteen sarjan kilpailijoille ' +
+          'muodossa nro:arvio1:arvio2:arvio3:arvio4, esim. 45:95:118:185:134' %>
+  <% end %>
+  <% instructions << '.' %>
   <%= render :partial => 'result_place', :locals => { :name => 'estimates',
     :instructions => instructions, :path => race_estimates_quick_save_path(@race) } %>
   <h3>Ammunta</h3>

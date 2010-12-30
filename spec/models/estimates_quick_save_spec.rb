@@ -3,39 +3,75 @@ require 'spec_helper'
 describe EstimatesQuickSave do
   before do
     @race = Factory.create(:race)
-    series = Factory.create(:series, :race => @race)
-    Factory.create(:competitor, :series => series, :number => 1)
-    @c = Factory.create(:competitor, :series => series, :number => 10,
+    @series = Factory.create(:series, :race => @race)
+    Factory.create(:competitor, :series => @series, :number => 1)
+    @c = Factory.create(:competitor, :series => @series, :number => 10,
       :estimate1 => 1, :estimate2 => 2)
   end
 
   context "when string format is correct and competitor is found" do
     describe "successfull save" do
-      before do
-        @qs = EstimatesQuickSave.new(@race.id, '10:98:115')
-      end
+      describe "2 estimates" do
+        before do
+          @qs = EstimatesQuickSave.new(@race.id, '10:98:115')
+        end
 
-      describe "#save" do
-        it "should save given estimates for the competitor and return true" do
-          @qs.save.should be_true
-          @c.reload
-          @c.estimate1.should == 98
-          @c.estimate2.should == 115
+        describe "#save" do
+          it "should save given 2 estimates for the competitor and return true" do
+            @qs.save.should be_true
+            @c.reload
+            @c.estimate1.should == 98
+            @c.estimate2.should == 115
+          end
+        end
+
+        describe "#competitor" do
+          it "should return the correct competitor" do
+            @qs.save
+            @c.reload
+            @qs.competitor.should == @c
+          end
+        end
+
+        describe "#error" do
+          it "should be nil" do
+            @qs.save
+            @qs.error.should be_nil
+          end
         end
       end
 
-      describe "#competitor" do
-        it "should return the correct competitor" do
-          @qs.save
-          @c.reload
-          @qs.competitor.should == @c
+      describe "4 estimates" do
+        before do
+          @series.estimates = 4
+          @series.save!
+          @qs = EstimatesQuickSave.new(@race.id, '10:98:115:160:144')
         end
-      end
 
-      describe "#error" do
-        it "should be nil" do
-          @qs.save
-          @qs.error.should be_nil
+        describe "#save" do
+          it "should save given 4 estimates for the competitor and return true" do
+            @qs.save.should be_true
+            @c.reload
+            @c.estimate1.should == 98
+            @c.estimate2.should == 115
+            @c.estimate3.should == 160
+            @c.estimate4.should == 144
+          end
+        end
+
+        describe "#competitor" do
+          it "should return the correct competitor" do
+            @qs.save
+            @c.reload
+            @qs.competitor.should == @c
+          end
+        end
+
+        describe "#error" do
+          it "should be nil" do
+            @qs.save
+            @qs.error.should be_nil
+          end
         end
       end
     end
