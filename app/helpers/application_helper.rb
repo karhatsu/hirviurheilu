@@ -101,24 +101,30 @@ module ApplicationHelper
   end
 
   def estimate_diffs(competitor)
-    return "" if competitor.estimate1.nil? and competitor.estimate2.nil?
-    diff1 = competitor.estimate_diff1_m
-    diff2 = competitor.estimate_diff2_m
-    diffs = ""
-    if diff1.nil?
-      diffs << "-"
+    if competitor.series.estimates == 4
+      return "" if competitor.estimate1.nil? and competitor.estimate2.nil? and
+        competitor.estimate3.nil? and competitor.estimate4.nil?
     else
-      diffs << "+" if diff1 > 0
-      diffs << "#{diff1}m"
+      return "" if competitor.estimate1.nil? and competitor.estimate2.nil?
     end
+    diffs = estimate_diff_with_sign_and_symbol(competitor.estimate_diff1_m)
     diffs << "/"
-    if diff2.nil?
-      diffs << "-"
-    else
-      diffs << "+" if diff2 > 0
-      diffs << "#{diff2}m"
+    diffs << estimate_diff_with_sign_and_symbol(competitor.estimate_diff2_m)
+    if competitor.series.estimates == 4
+      diffs << "/"
+      diffs << estimate_diff_with_sign_and_symbol(competitor.estimate_diff3_m)
+      diffs << "/"
+      diffs << estimate_diff_with_sign_and_symbol(competitor.estimate_diff4_m)
     end
     diffs
+  end
+
+  def estimate_diff_with_sign_and_symbol(diff)
+    if diff.nil?
+      return "-"
+    else
+      return "#{diff > 0 ? "+" : ""}#{diff}m"
+    end
   end
 
   def estimate_points_and_diffs(competitor)

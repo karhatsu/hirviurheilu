@@ -62,7 +62,7 @@ Feature: Results
       | estimates | 296 (+1m/-1m) |
       | time | 299 (1:00:10) |
 
-  Scenario: No time points
+  Scenario: Results for a walking series (no time points, 4 estimates)
     Given there is a race with attributes:
       | name | My test race |
       | start_date | 2010-07-15 |
@@ -73,11 +73,14 @@ Feature: Results
       | start_time | 13:00 |
       | first_number | 50 |
       | no_time_points | true |
+      | estimates | 4 |
     And the race has correct estimates with attributes:
       | min_number | 50 |
       | max_number | 51 |
       | distance1 | 110 |
       | distance2 | 130 |
+      | distance3 | 150 |
+      | distance4 | 180 |
     And the race has a club "Shooting club"
     And the race has a club "Sports club"
     And the series has a competitor with attributes:
@@ -93,11 +96,15 @@ Feature: Results
       | shots_total_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
+      | estimate3 | 149 |
+      | estimate4 | 181 |
       | arrival_time | 14:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
       | shots_total_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
+      | estimate3 | 150 |
+      | estimate4 | 180 |
       | arrival_time | 14:01:00 |
     And the race is finished
     And I am on the race page
@@ -105,22 +112,23 @@ Feature: Results
     Then I should be on the results page of the series
     And I should see "My test race" within ".main_title"
     And I should see "Men 50 years - Tulokset" within "h2"
-    And I should see "Tälle sarjalle ei lasketa aikapisteitä" within "div.notice"
+    And I should see "Tälle sarjalle ei lasketa aikapisteitä." within "div.notice"
+    And I should see "Tässä sarjassa on 4 arviomatkaa." within "div.notice"
     And I should see a result row 1 with values:
       | name | Atkinsson Tim |
       | number | 51 |
       | club | Sports club |
       | points | 840 |
       | shooting | 540 (90) |
-      | estimates | 300 (0m/0m) |
+      | estimates | 300 (0m/0m/0m/0m) |
       | time | (1:00:00) |
     And I should see a result row 2 with values:
       | name | Johnson James |
       | number | 50 |
       | club | Shooting club |
-      | points | 806 |
+      | points | 802 |
       | shooting | 510 (85) |
-      | estimates | 296 (+1m/-1m) |
+      | estimates | 292 (+1m/-1m/-1m/+1m) |
       | time | (1:00:10) |
     But I should not see "300 (1:00:00)"
     And I should not see "299 (1:00:10)"

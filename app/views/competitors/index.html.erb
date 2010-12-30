@@ -18,7 +18,10 @@
   <% end %>
 <% else %>
   <% if @series.no_time_points %>
-    <div class="notice">Tälle sarjalle ei lasketa aikapisteitä</div>
+    <div class="notice">Tälle sarjalle ei lasketa aikapisteitä.</div>
+  <% end %>
+  <% if @series.estimates == 4 %>
+    <div class="notice">Tässä sarjassa on 4 arviomatkaa.</div>
   <% end %>
   <div class="section">
     <table>

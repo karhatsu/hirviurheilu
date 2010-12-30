@@ -187,27 +187,81 @@ describe ApplicationHelper do
   end
 
   describe "#estimate_diffs" do
-    it "should return empty string when no estimates" do
-      competitor = mock_model(Competitor, :estimate1 => nil, :estimate2 => nil)
-      helper.estimate_diffs(competitor).should == ""
+    describe "2 estimates" do
+      before do
+        @series = mock_model(Series, :estimates => 2)
+      end
+
+      it "should return empty string when no estimates" do
+        competitor = mock_model(Competitor, :estimate1 => nil, :estimate2 => nil,
+          :series => @series)
+        helper.estimate_diffs(competitor).should == ""
+      end
+
+      it "should return first and dash when first is available" do
+        competitor = mock_model(Competitor, :estimate1 => 50, :estimate2 => nil,
+          :estimate_diff1_m => 10, :estimate_diff2_m => nil, :series => @series)
+        helper.estimate_diffs(competitor).should == "+10m/-"
+      end
+
+      it "should return dash and second when second is available" do
+        competitor = mock_model(Competitor, :estimate1 => nil, :estimate2 => 60,
+          :estimate_diff1_m => nil, :estimate_diff2_m => -5, :series => @series)
+        helper.estimate_diffs(competitor).should == "-/-5m"
+      end
+
+      it "should return both when both are available" do
+        competitor = mock_model(Competitor, :estimate1 => 120, :estimate2 => 60,
+          :estimate_diff1_m => -5, :estimate_diff2_m => 14, :series => @series)
+        helper.estimate_diffs(competitor).should == "-5m/+14m"
+      end
     end
 
-    it "should return first and dash when first is available" do
-      competitor = mock_model(Competitor, :estimate1 => 50, :estimate2 => nil,
-        :estimate_diff1_m => 10, :estimate_diff2_m => nil)
-      helper.estimate_diffs(competitor).should == "+10m/-"
-    end
+    describe "4 estimates" do
+      before do
+        @series = mock_model(Series, :estimates => 4)
+      end
 
-    it "should return dash and second when second is available" do
-      competitor = mock_model(Competitor, :estimate1 => nil, :estimate2 => 60,
-        :estimate_diff1_m => nil, :estimate_diff2_m => -5)
-      helper.estimate_diffs(competitor).should == "-/-5m"
-    end
+      it "should return empty string when no estimates" do
+        competitor = mock_model(Competitor, :estimate1 => nil, :estimate2 => nil,
+          :estimate3 => nil, :estimate4 => nil, :series => @series)
+        helper.estimate_diffs(competitor).should == ""
+      end
 
-    it "should return both when both are available" do
-      competitor = mock_model(Competitor, :estimate1 => 120, :estimate2 => 60,
-        :estimate_diff1_m => -5, :estimate_diff2_m => 14)
-      helper.estimate_diffs(competitor).should == "-5m/+14m"
+      it "should return dash for others when only third is available" do
+        competitor = mock_model(Competitor, :estimate1 => 50, :estimate2 => nil,
+          :estimate_diff1_m => nil, :estimate_diff2_m => nil,
+          :estimate_diff3_m => 12, :estimate_diff4_m => nil, :series => @series)
+        helper.estimate_diffs(competitor).should == "-/-/+12m/-"
+      end
+
+      it "should return dash for others when only fourth is available" do
+        competitor = mock_model(Competitor, :estimate1 => 50, :estimate2 => nil,
+          :estimate_diff1_m => nil, :estimate_diff2_m => nil,
+          :estimate_diff3_m => nil, :estimate_diff4_m => -5, :series => @series)
+        helper.estimate_diffs(competitor).should == "-/-/-/-5m"
+      end
+
+      it "should return dash for third when others are available" do
+        competitor = mock_model(Competitor, :estimate1 => 50, :estimate2 => nil,
+          :estimate_diff1_m => 10, :estimate_diff2_m => -9,
+          :estimate_diff3_m => nil, :estimate_diff4_m => 12, :series => @series)
+        helper.estimate_diffs(competitor).should == "+10m/-9m/-/+12m"
+      end
+
+      it "should return dash for fourth when others are available" do
+        competitor = mock_model(Competitor, :estimate1 => nil, :estimate2 => 60,
+          :estimate_diff1_m => 10, :estimate_diff2_m => -5,
+          :estimate_diff3_m => 12, :estimate_diff4_m => nil, :series => @series)
+        helper.estimate_diffs(competitor).should == "+10m/-5m/+12m/-"
+      end
+
+      it "should return all diffs when all are available" do
+        competitor = mock_model(Competitor, :estimate1 => 120, :estimate2 => 60,
+          :estimate_diff1_m => -5, :estimate_diff2_m => 14,
+          :estimate_diff3_m => 12, :estimate_diff4_m => -1, :series => @series)
+        helper.estimate_diffs(competitor).should == "-5m/+14m/+12m/-1m"
+      end
     end
   end
 
