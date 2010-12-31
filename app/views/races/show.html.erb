@@ -40,10 +40,12 @@
       <% end %>
     </table>
   </div>
-  <h2>Kaikkien sarjojen tulokset</h2>
-  <div class="section">
-    <%= link_to "Lataa PDF-tiedosto", race_path(@race, :format => :pdf) %>
-  </div>
+  <% if @race.start_date <= Date.today %>
+    <h2>Kaikkien sarjojen tulokset</h2>
+    <div class="section">
+      <%= link_to "Lataa PDF-tiedosto", race_path(@race, :format => :pdf) %>
+    </div>
+  <% end %>
   <% if @race.finished? %>
     <h2>Oikeat arviot</h2>
     <div class="section">
