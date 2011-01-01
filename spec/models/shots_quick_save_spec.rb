@@ -11,30 +11,133 @@ describe ShotsQuickSave do
 
   context "when string format is correct and competitor is found" do
     describe "successfull save" do
-      before do
-        @qs = ShotsQuickSave.new(@race.id, '10:98')
-      end
+      describe "shots sum" do
+        context "when competitor has shots total input" do
+          before do
+            @qs = ShotsQuickSave.new(@race.id, '10:98')
+          end
 
-      describe "#save" do
-        it "should save given estimates for the competitor and return true" do
-          @qs.save.should be_true
-          @c.reload
-          @c.shots_total_input.should == 98
+          describe "#save" do
+            it "should save given shots sum for the competitor and return true" do
+              @qs.save.should be_true
+              @c.reload
+              @c.shots_total_input.should == 98
+            end
+          end
+
+          describe "#competitor" do
+            it "should return the correct competitor" do
+              @qs.save
+              @c.reload
+              @qs.competitor.should == @c
+            end
+          end
+
+          describe "#error" do
+            it "should be nil" do
+              @qs.save
+              @qs.error.should be_nil
+            end
+          end
+        end
+
+        context "when competitor has invidivual shots" do
+          before do
+            @c.shots_total_input = nil
+            @c.shots << Factory.build(:shot, :competitor => @c, :value => 10)
+            @c.save!
+            @qs = ShotsQuickSave.new(@race.id, '10:98')
+          end
+
+          describe "#save" do
+            it "should save given shots sum for the competitor and return true" do
+              @qs.save.should be_true
+              @c.reload
+              @c.shots_total_input.should == 98
+            end
+          end
+
+          describe "#competitor" do
+            it "should return the correct competitor" do
+              @qs.save
+              @c.reload
+              @qs.competitor.should == @c
+            end
+          end
+
+          describe "#error" do
+            it "should be nil" do
+              @qs.save
+              @qs.error.should be_nil
+            end
+          end
         end
       end
 
-      describe "#competitor" do
-        it "should return the correct competitor" do
-          @qs.save
-          @c.reload
-          @qs.competitor.should == @c
-        end
-      end
+      describe "individual shots" do
+        context "when competitor has shots total input" do
+          before do
+            @qs = ShotsQuickSave.new(@race.id, '10:10:9:9:8:8:7:6:5:1:0')
+          end
 
-      describe "#error" do
-        it "should be nil" do
-          @qs.save
-          @qs.error.should be_nil
+          describe "#save" do
+            it "should save given shots for the competitor and return true" do
+              @qs.save.should be_true
+              @c.reload
+              @c.shots_total_input.should be_nil
+              @c.should have(10).shots
+              @c.shots_sum.should == 10+9+9+8+8+7+6+5+1+0
+            end
+          end
+
+          describe "#competitor" do
+            it "should return the correct competitor" do
+              @qs.save
+              @c.reload
+              @qs.competitor.should == @c
+            end
+          end
+
+          describe "#error" do
+            it "should be nil" do
+              @qs.save
+              @qs.error.should be_nil
+            end
+          end
+        end
+
+        context "when competitor has individual shots" do
+          before do
+            @c.shots_total_input = nil
+            @c.shots << Factory.build(:shot, :competitor => @c, :value => 10)
+            @c.save!
+            @qs = ShotsQuickSave.new(@race.id, '10:10:9:9:8:8:7:6:5:0:1')
+          end
+
+          describe "#save" do
+            it "should save given shots for the competitor and return true" do
+              @qs.save.should be_true
+              @c.reload
+              @c.shots_total_input.should be_nil
+              @c.should have(10).shots
+              @c.shots_sum.should == 10+9+9+8+8+7+6+5+0+1
+            end
+          end
+
+          describe "#competitor" do
+            it "should return the correct competitor" do
+              @qs.save
+              @c.reload
+              @qs.competitor.should == @c
+            end
+          end
+
+          describe "#error" do
+            it "should be nil" do
+              @qs.save
+              @qs.error.should be_nil
+            end
+          end
         end
       end
     end
@@ -45,7 +148,7 @@ describe ShotsQuickSave do
       end
 
       describe "#save" do
-        it "should not save given estimates for the competitor and return false" do
+        it "should not save given shots for the competitor and return false" do
           @qs.save.should be_false
           @c.reload
           @c.shots_total_input.should == 50
@@ -78,7 +181,7 @@ describe ShotsQuickSave do
     end
 
     describe "#save" do
-      it "should not save given estimates for the competitor and return false" do
+      it "should not save given shots for the competitor and return false" do
         @qs.save.should be_false
         @c.reload
         @c.shots_total_input.should == 50
@@ -106,7 +209,7 @@ describe ShotsQuickSave do
     end
 
     describe "#save" do
-      it "should not save given estimates for the competitor and return false" do
+      it "should not save given shots for the competitor and return false" do
         @qs.save.should be_false
         @c.reload
         @c.shots_total_input.should == 50
