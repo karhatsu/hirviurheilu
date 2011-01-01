@@ -15,19 +15,21 @@
   <% if @show_results %>
     <% results = [] %>
     <% @race.series.each do |series| %>
-      <% series_results = "Sarja #{series.name}: " %>
-      <% comp_results = [] %>
-      <% series.ordered_competitors.each_with_index do |c, i| %>
-        <% if i == @competitors_count %>
-          <% break %>
+      <% unless series.competitors.empty? %>
+        <% series_results = "Sarja #{series.name}: " %>
+        <% comp_results = [] %>
+        <% series.ordered_competitors.each_with_index do |c, i| %>
+          <% if i == @competitors_count %>
+            <% break %>
+          <% end %>
+          <% unless c.no_result_reason %>
+            <% comp_results << "#{i+1}) #{full_name(c)} #{c.club.name} #{c.points}" %>
+          <% end %>
         <% end %>
-        <% unless c.no_result_reason %>
-          <% comp_results << "#{i+1}) #{full_name(c)} #{c.club.name} #{c.points}" %>
-        <% end %>
+        <% series_results << comp_results.join(", ") %>
+        <% series_results << "." %>
+        <% results << series_results %>
       <% end %>
-      <% series_results << comp_results.join(", ") %>
-      <% series_results << "." %>
-      <% results << series_results %>
     <% end %>
     <br/>
     <div class="section">

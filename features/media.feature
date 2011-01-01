@@ -41,6 +41,7 @@ Feature: Media
       | last_name | Atkinsson |
       | club | Sports club |
     And the start list has been generated for the series
+    And the race has series "Empty series"
     And the competitor "James" "Johnson" has the following results:
       | shots_total_input | 85 |
       | estimate1 | 111 |
@@ -83,6 +84,7 @@ Feature: Media
     But I should not see "Kilpailuun ei ole lisätty yhtään kilpailijaa"
     When I press "Lataa lehdistöraportti"
     Then I should see "Sarja Test series: 1) Atkinsson Tim Sports club 1140, 2) Johnson James Shooting club 1105. Sarja Another test series: 1) Thomsson Tina Sports club 1140, 2) Hamilton Mary Shooting club 1105."
+    But I should not see "Empty series"
 
   Scenario: Results for select amount of competitors
     Given I am an official
