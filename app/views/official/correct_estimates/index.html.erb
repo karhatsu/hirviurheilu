@@ -8,7 +8,7 @@
     <%= render :partial => 'correct_estimate', :locals => { :f => ce_form } %>
   <% end %>
   <%= add_child_link "Lisää uusi oikeiden ennusteiden määritys tähän kilpailuun",
-    f, :correct_estimates %><br/>
+    f, :correct_estimates, 'add_link' %><br/>
   <%= submit_tag 'Tallenna oikeat arviot ja aseta ne kilpailijoille' %>
 <% end %>
 
@@ -45,4 +45,12 @@
       </tr>
     <% end %>
   </table>
+<% end %>
+
+<% if @race.correct_estimates.empty? %>
+  <%= javascript_tag do %>
+    $(document).ready(function() {
+      $('#add_link').click();
+    });
+  <% end %>
 <% end %>

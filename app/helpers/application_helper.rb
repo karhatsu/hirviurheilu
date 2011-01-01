@@ -180,9 +180,9 @@ module ApplicationHelper
     f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this, '#{hide_class}', '#{confirm_question}')")
   end
 
-  def add_child_link(name, f, method)
+  def add_child_link(name, f, method, id=nil)
     fields = new_child_fields(f, method)
-    link_to_function(name, "insert_fields(this, \"#{method}\", \"#{escape_javascript(fields)}\")")
+    link_to_function(name, "insert_fields(this, \"#{method}\", \"#{escape_javascript(fields)}\")", :id => id)
   end
 
   def new_child_fields(form_builder, method, index=nil, options = {})
