@@ -3,4 +3,6 @@ capybara-*
 db/*.sqlite3*
 log/*.log
 nbproject
+public/javascripts/all.js
+public/stylesheets/all.css
 tmp/**/*
