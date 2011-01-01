@@ -1,8 +1,8 @@
 class CompetitorsController < ApplicationController
+  before_filter :assign_series_by_series_id, :only => :index
   before_filter :set_results
 
   def index
-    @series = Series.find(params[:series_id])
     respond_to do |format|
       format.html
       format.pdf do
