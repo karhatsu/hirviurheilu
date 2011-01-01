@@ -1,5 +1,5 @@
 class Official::StartListsController < Official::OfficialController
-  before_filter :assign_series, :check_race_rights, :set_start_list
+  before_filter :assign_series_by_series_id, :check_assigned_series, :set_start_list
   before_filter :handle_time_parameters, :only => :update
 
   def show
@@ -19,14 +19,6 @@ class Official::StartListsController < Official::OfficialController
   end
 
   private
-  def assign_series
-    @series = Series.find(params[:series_id])
-  end
-
-  def check_race_rights
-    check_race(@series.race)
-  end
-
   def set_start_list
     @is_start_list = true
   end

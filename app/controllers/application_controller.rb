@@ -62,12 +62,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def assign_series_by_series_id
-    @series = Series.find(params[:series_id])
+  def assign_series_by_id
+    assign_series params[:id]
   end
 
-  def assign_series_by_id
-    @series = Series.find(params[:id])
+  def assign_series_by_series_id
+    assign_series params[:series_id]
+  end
+
+  def assign_series(id)
+    begin
+      @series = Series.find(id)
+    rescue ActiveRecord::RecordNotFound
+      @id = id
+      render 'errors/series_not_found'
+    end
   end
 
   def set_competitions
