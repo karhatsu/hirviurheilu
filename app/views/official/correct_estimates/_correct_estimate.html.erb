@@ -1,16 +1,16 @@
 <div class="sub_element sub_form">
   <%= f.label :min_number, 'Lähtönumerot:' %>
   <%= f.text_field :min_number, :size => 3 %>
-  <%= f.label :max_number, '-' %>
+  <%= f.label :max_number, raw('&#8211;') %>
   <%= f.text_field :max_number, :size => 3 %>
-  <%= f.label :distance1 %>
+  <%= f.label :distance1 %>:
   <%= f.text_field :distance1, :size => 3 %>
-  <%= f.label :distance2 %>
+  <%= f.label :distance2 %>:
   <%= f.text_field :distance2, :size => 3 %>
   <% if @race.estimates_at_most == 4 %>
-    <%= f.label :distance3 %>
+    <%= f.label :distance3 %>:
     <%= f.text_field :distance3, :size => 3 %>
-    <%= f.label :distance4 %>
+    <%= f.label :distance4 %>:
     <%= f.text_field :distance4, :size => 3 %>
   <% end %>
   <%= remove_child_link "Poista määritys", f, 'sub_form', "" %>
