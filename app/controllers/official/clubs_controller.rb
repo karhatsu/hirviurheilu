@@ -1,5 +1,5 @@
 class Official::ClubsController < Official::OfficialController
-  before_filter :assign_race, :check_race_rights, :set_clubs
+  before_filter :assign_race_by_race_id, :check_assigned_race, :set_clubs
 
   def index
   end
@@ -45,14 +45,6 @@ class Official::ClubsController < Official::OfficialController
   end
 
   private
-  def assign_race
-    @race = Race.find(params[:race_id])
-  end
-
-  def check_race_rights
-    check_race(@race)
-  end
-
   def set_clubs
     @is_clubs = true
   end

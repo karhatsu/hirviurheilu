@@ -46,11 +46,20 @@ class ApplicationController < ActionController::Base
   end
 
   def assign_race_by_id
-    @race = Race.find(params[:id])
+    assign_race params[:id]
   end
 
   def assign_race_by_race_id
-    @race = Race.find(params[:race_id])
+    assign_race params[:race_id]
+  end
+
+  def assign_race(id)
+    begin
+      @race = Race.find(id)
+    rescue ActiveRecord::RecordNotFound
+      @id = id
+      render 'errors/race_not_found'
+    end
   end
 
   def assign_series_by_series_id
