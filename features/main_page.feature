@@ -6,6 +6,10 @@ Feature: Main page
   Scenario: Load main page
     Given I go to the home page
     Then I should see "Hirvenhiihdon ja hirvenjuoksun tulospalvelu" within ".main_title"
+    And I should see "Hirviurheilu on hirvenhiihdon ja hirvenjuoksun internet-pohjainen, helppokäyttöinen tulospalvelu."
+    And I should see "Tutustu lukemalla lisää Info-sivulta ja katsomalla Youtube-video."
+    When I follow "Info-sivulta"
+    Then I should be on the info page
 
   Scenario: Listing races in the main page
     Given there is a race with attributes:

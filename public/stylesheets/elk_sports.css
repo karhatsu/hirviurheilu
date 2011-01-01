@@ -88,7 +88,7 @@ div.commercial_box {
     color: white;
     padding: 5px;
     overflow: auto;
-    width: 200px;
+    width: 245px;
     text-align: center;
     margin-bottom: 10px;
     -moz-border-radius: 5px;
@@ -155,6 +155,18 @@ a.help:hover {
 
 #company_contact .title {
     font-weight: bold;
+}
+
+div.main_info {
+    width: 880px !important;
+    margin-top: 10px !important;
+    margin-bottom: 15px !important;
+    text-align: center !important;
+    font-size: 105% !important;
+}
+
+div.main_page_columns {
+    width: 890px;
 }
 
 div.races_box {
