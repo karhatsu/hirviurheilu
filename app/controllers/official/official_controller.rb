@@ -14,24 +14,8 @@ class Official::OfficialController < ApplicationController
     end
   end
 
-  def assign_race_by_id
-    @race = Race.find(params[:id])
-  end
-
-  def assign_race_by_race_id
-    @race = Race.find(params[:race_id])
-  end
-
   def check_assigned_race
     check_race(@race)
-  end
-
-  def assign_series_by_series_id
-    @series = Series.find(params[:series_id])
-  end
-
-  def assign_series_by_id
-    @series = Series.find(params[:id])
   end
 
   def check_assigned_series

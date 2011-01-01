@@ -1,7 +1,7 @@
 class RacesController < ApplicationController
+  before_filter :assign_race_by_id
 
   def show
-    @race = Race.find(params[:id])
     @is_race = true
     respond_to do |format|
       format.html
