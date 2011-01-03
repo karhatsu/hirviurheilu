@@ -1,13 +1,24 @@
-<%= content_for(:title, "#{@series.name} - uusi kilpailija") %>
+<%= content_for(:title, "#{@series.race.name} - uusi kilpailija") %>
 <h2><%= yield :title %></h2>
-<%= flash_notice %>
+<div class="error" style="display: none;"></div>
 <%= render :partial => "shared/form_errors", :locals => { :item => @competitor } %>
-<%= form_for([:official, @competitor.series, @competitor]) do |f| %>
+<%= form_for([:official, @competitor.series.race, @competitor], :remote => true) do |f| %>
   <%= render :partial => "basic_fields", :locals => { :f => f } %><br/>
-  <%= submit_tag "Tallenna ja palaa kilpailijalistaan" %>
-  <%= submit_tag "Tallenna ja lisää toinen kilpailija", :name => 'create_another' %>
+  <%= submit_tag "Tallenna", :onclick => 'show_spinner()' %>
+  <%= image_tag 'spinner.gif', :style => 'display:none;', :id => 'spinner' %>
 <% end %>
+<div id="latest_competitors" style="display: none;">
+  <hr/>
+  <div class="notice" style="display: none;"></div>
+  <h3>Viimeksi lisätyt kilpailijat</h3>
+  <ul id="latest_competitors_list"></ul>
+</div>
 <hr/>
 <%= link_to "Takaisin sarjan #{@series.name} kilpailijaluetteloon",
   official_series_competitors_path(@series) %><br/>
 <%= link_to "Takaisin kilpailun etusivulle", official_race_path(@series.race) %>
+<%= javascript_tag do %>
+  function show_spinner() {
+    $('#spinner').show();
+  }
+<% end %>

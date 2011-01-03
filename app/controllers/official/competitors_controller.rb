@@ -1,5 +1,6 @@
 class Official::CompetitorsController < Official::OfficialController
-  before_filter :assign_series_by_series_id, :check_assigned_series
+  before_filter :assign_series_by_series_id, :check_assigned_series, :except => :create
+  before_filter :assign_race_by_race_id, :check_assigned_race, :only => :create
   before_filter :handle_time_parameters, :only => :update
   before_filter :set_competitors
 
@@ -14,18 +15,19 @@ class Official::CompetitorsController < Official::OfficialController
     @competitor.start_time = next_start_time
   end
 
+  # official/races/:race_id/competitors (not series)
   def create
+    assign_series(params[:competitor][:series_id])
     @competitor = @series.competitors.build(params[:competitor])
     handle_club(@competitor)
     if @competitor.save
-      if params[:create_another]
-        flash[:notice] = "Kilpailija lisätty"
-        redirect_to new_official_series_competitor_path(@series)
-      else
-        redirect_to official_series_competitors_path(@series)
+      respond_to do |format|
+        format.js { render :create_success }
       end
     else
-      render :new
+      respond_to do |format|
+        format.js { render :create_error }
+      end
     end
   end
 

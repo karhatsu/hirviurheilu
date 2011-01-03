@@ -75,6 +75,11 @@ span.notice {
     color: white;
 }
 
+li.notice {
+    background-color: olive;
+    color: white;
+}
+
 div.instructions {
     border: olive 1px solid;
     background-color: white;

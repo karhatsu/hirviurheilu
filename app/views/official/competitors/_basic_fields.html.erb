@@ -1,3 +1,7 @@
+<%= f.label :series %>
+<%= f.select :series_id, options_from_collection_for_select(f.object.series.race.series,
+  :id, :name, f.object.series.id) %>
+<br/>
 <%= f.label :first_name %>
 <%= f.text_field :first_name %>
 <%= f.label :last_name %>
@@ -8,7 +12,7 @@
   <%= f.collection_select :age_group_id, f.object.series.age_groups, :id, :name,
     :include_blank => 'Kuuluu pääsarjaan' %><br/>
 <% end %>
-<%= f.label :club_id, 'Seura/piiri' %>
+<%= f.label :club_id, 'Piiri/seura' %>
 <%= select_tag :club, options_from_collection_for_select(f.object.series.race.clubs,
   :id, :name, f.object.club_id), :include_blank => true %>
 <%= javascript_tag do %>

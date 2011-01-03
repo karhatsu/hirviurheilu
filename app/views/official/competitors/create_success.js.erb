@@ -1,0 +1,23 @@
+$('#spinner').hide();
+$('div.error').hide();
+
+$('#competitor_first_name').val('');
+$('#competitor_last_name').val('');
+$('#club').next().val('');
+$('#club').next().next().val('');
+
+$('#latest_competitors').show();
+if($('li#latest').length > 0) {
+  $('li#latest').attr('style', '');
+  $('li#latest').attr('id', '');
+}
+$('#latest_competitors_list').prepend('' +
+  '<li id="latest" style="color: olive; font-weight: bold;">' +
+  '<%= full_name(@competitor) %>, <%= @competitor.club.name %> ' +
+  '(<%= @competitor.series.name %><%= @competitor.age_group ? "/#{@competitor.age_group.name}" : '' %>)</li>');
+
+$('div.notice').text('Kilpailija lisätty');
+$('div.notice').show('fast');
+setTimeout(function() {
+  $('div.notice').hide('slow');
+}, 3000);

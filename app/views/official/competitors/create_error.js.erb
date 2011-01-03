@@ -1,0 +1,4 @@
+$('div.notice').hide();
+$('#spinner').hide();
+$('div.error').text("<%= @competitor.errors.full_messages.join(". ") + "." %>");
+$('div.error').show();
