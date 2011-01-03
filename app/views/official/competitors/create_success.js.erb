@@ -5,6 +5,15 @@ $('#competitor_first_name').val('');
 $('#competitor_last_name').val('');
 $('#club').next().val('');
 $('#club').next().next().val('');
+if($('#competitor_number').length > 0) {
+  $('#competitor_number').val(<%= @competitor.series.next_number %>);
+}
+if($('#competitor_start_time_4i').length > 0) {
+  <% start_time = @competitor.series.next_start_time %>
+  $('#competitor_start_time_4i').val('<%= start_time.strftime('%H') %>');
+  $('#competitor_start_time_5i').val('<%= start_time.strftime('%M') %>');
+  $('#competitor_start_time_6i').val('<%= start_time.strftime('%S') %>');
+}
 
 $('#latest_competitors').show();
 if($('li#latest').length > 0) {
