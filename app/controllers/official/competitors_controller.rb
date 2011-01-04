@@ -11,8 +11,10 @@ class Official::CompetitorsController < Official::OfficialController
     next_number = @series.next_number
     next_start_time = @series.next_start_time
     @competitor = @series.competitors.build # cannot call next-methods after this
-    @competitor.number = next_number
-    @competitor.start_time = next_start_time
+    if @series.has_start_list
+      @competitor.number = next_number
+      @competitor.start_time = next_start_time
+    end
   end
 
   # official/races/:race_id/competitors (not series)
