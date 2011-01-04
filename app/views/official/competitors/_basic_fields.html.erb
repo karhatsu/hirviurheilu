@@ -16,11 +16,13 @@
   Odota hetki...
 </span>
 <br/>
+
 <%= f.label :first_name %>
 <%= f.text_field :first_name %>
 <%= f.label :last_name %>
 <%= f.text_field :last_name %>
 <br/>
+
 <%= f.label :club_id, 'Piiri/seura' %>
 <%= select_tag :club, options_from_collection_for_select(f.object.series.race.clubs,
   :id, :name, f.object.club_id), :include_blank => true %>
@@ -33,62 +35,66 @@
     width: 5000
   });
 <% end %>
-<% number_style = 'display:none;' %>
-<% if f.object.new_record? and f.object.series.has_start_list? %>
-  <% number_style = '' %>
-<% end %>
-<span id="number_span" style="<%= number_style %>">
-  <%= f.label :number %>
-  <%= f.text_field :number, :size => 3 %>
-  <%= f.label :start_time %>
-  <%= f.time_text_field :start_time, :include_seconds => true, :blank => true %>
-</span>
-<span id="number_spinner" style="display:none;">
-  <%= image_tag 'spinner.gif' %>
-  Odota hetki...
-</span>
-<%= javascript_tag do %>
-  function change_series(series_id) {
-    reload_age_groups(series_id);
-    reload_number_and_start_time(series_id);
-  }
 
-  function reload_age_groups(series_id) {
-    $('#age_groups_spinner').show();
-    $.getJSON('/official/series/' + series_id + '/age_groups', function(age_groups) {
-      while($('#competitor_age_group_id').children().length > 1) {
-        $('#competitor_age_group_id').children().last().remove();
-      }
-      if(age_groups.length == 0) {
-        $('#age_groups_span').hide();
-      } else {
-        $.each(age_groups, function(i, age_group) {
-          $('#competitor_age_group_id').append('<option value="' +
-            age_group.age_group.id + '">' + age_group.age_group.name + '</option>');
-        });
-        $('#age_groups_span').show();
-      }
-      $('#age_groups_spinner').hide();
-    });
-  }
+<% if f.object.new_record? %>
+  <% number_style = 'display:none;' %>
+  <% if f.object.series.has_start_list? %>
+    <% number_style = '' %>
+  <% end %>
+  <span id="number_span" style="<%= number_style %>">
+    <%= f.label :number %>
+    <%= f.text_field :number, :size => 3 %>
+    <%= f.label :start_time %>
+    <%= f.time_text_field :start_time, :include_seconds => true, :blank => true %>
+  </span>
+  <span id="number_spinner" style="display:none;">
+    <%= image_tag 'spinner.gif' %>
+    Odota hetki...
+  </span>
 
-  function reload_number_and_start_time(series_id) {
-    $('#number_spinner').show();
-    $.getJSON('/series/' + series_id, function(item) {
-      $('#competitor_number').val('');
-      $('#competitor_start_time_4i').val('');
-      $('#competitor_start_time_5i').val('');
-      $('#competitor_start_time_6i').val('');
-      if(item.series.has_start_list) {
-        $('#competitor_number').val(item.series.next_number);
-        $('#competitor_start_time_4i').val(item.series.next_start_time.substring(11, 13));
-        $('#competitor_start_time_5i').val(item.series.next_start_time.substring(14, 16));
-        $('#competitor_start_time_6i').val(item.series.next_start_time.substring(17, 19));
-        $('#number_span').show();
-      } else {
-        $('#number_span').hide();
-      }
-      $('#number_spinner').hide();
-    });
-  }
+  <%= javascript_tag do %>
+    function change_series(series_id) {
+      reload_age_groups(series_id);
+      reload_number_and_start_time(series_id);
+    }
+
+    function reload_age_groups(series_id) {
+      $('#age_groups_spinner').show();
+      $.getJSON('/official/series/' + series_id + '/age_groups', function(age_groups) {
+        while($('#competitor_age_group_id').children().length > 1) {
+          $('#competitor_age_group_id').children().last().remove();
+        }
+        if(age_groups.length == 0) {
+          $('#age_groups_span').hide();
+        } else {
+          $.each(age_groups, function(i, item) {
+            $('#competitor_age_group_id').append('<option value="' +
+              item.age_group.id + '">' + item.age_group.name + '</option>');
+          });
+          $('#age_groups_span').show();
+        }
+        $('#age_groups_spinner').hide();
+      });
+    }
+
+    function reload_number_and_start_time(series_id) {
+      $('#number_spinner').show();
+      $.getJSON('/series/' + series_id, function(item) {
+        $('#competitor_number').val('');
+        $('#competitor_start_time_4i').val('');
+        $('#competitor_start_time_5i').val('');
+        $('#competitor_start_time_6i').val('');
+        if(item.series.has_start_list) {
+          $('#competitor_number').val(item.series.next_number);
+          $('#competitor_start_time_4i').val(item.series.next_start_time.substring(11, 13));
+          $('#competitor_start_time_5i').val(item.series.next_start_time.substring(14, 16));
+          $('#competitor_start_time_6i').val(item.series.next_start_time.substring(17, 19));
+          $('#number_span').show();
+        } else {
+          $('#number_span').hide();
+        }
+        $('#number_spinner').hide();
+      });
+    }
+  <% end %>
 <% end %>
