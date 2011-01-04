@@ -54,6 +54,7 @@ ElkSports::Application.routes.draw do
 
     resources :series do
       resources :competitors, :except => :create
+      resources :age_groups
       resource :start_list
       resources :shots
       resources :estimates

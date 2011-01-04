@@ -1,11 +1,16 @@
 <%= f.label :series %>
 <%= f.select :series_id, options_from_collection_for_select(f.object.series.race.series,
-  :id, :name, f.object.series.id) %>
-<% unless f.object.series.age_groups.empty? %>
+  :id, :name, f.object.series.id), {}, :onchange => 'change_series(this.value)' %>
+<% age_group_style = f.object.series.age_groups.empty? ? 'display:none;' : '' %>
+<span id="age_groups_span" style="<%= age_group_style %>">
   <%= f.label :age_group %>
   <%= f.collection_select :age_group_id, f.object.series.age_groups, :id, :name,
-    :include_blank => 'Kuuluu pääsarjaan' %>
-<% end %>
+    :include_blank => 'Pääsarja' %>
+</span>
+<span id="age_groups_spinner" style="display:none;">
+  <%= image_tag 'spinner.gif' %>
+  Odota hetki...
+</span>
 <br/>
 <%= f.label :first_name %>
 <%= f.text_field :first_name %>
@@ -23,6 +28,25 @@
     hiddenSuffix: '_id',
     width: 5000
   });
+
+  function change_series(series_id) {
+    $('#age_groups_spinner').show();
+    $.getJSON('/official/series/' + series_id + '/age_groups', function(age_groups) {
+      while($('#competitor_age_group_id').children().length > 1) {
+        $('#competitor_age_group_id').children().last().remove();
+      }
+      if(age_groups.length == 0) {
+        $('#age_groups_span').hide();
+      } else {
+        $.each(age_groups, function(i, age_group) {
+          $('#competitor_age_group_id').append('<option value="' +
+            age_group.age_group.id + '">' + age_group.age_group.name + '</option>');
+        });
+        $('#age_groups_span').show();
+      }
+      $('#age_groups_spinner').hide();
+    });
+  }
 <% end %>
 <% if f.object.new_record? and f.object.series.has_start_list? %>
   <%= f.label :number %>
