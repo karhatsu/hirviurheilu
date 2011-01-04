@@ -1,6 +1,10 @@
 <%= f.label :series %>
-<%= f.select :series_id, options_from_collection_for_select(f.object.series.race.series,
-  :id, :name, f.object.series.id), {}, :onchange => 'change_series(this.value)' %>
+<% if f.object.new_record? %>
+  <%= f.select :series_id, options_from_collection_for_select(f.object.series.race.series,
+    :id, :name, f.object.series.id), {}, :onchange => 'change_series(this.value)' %>
+<% else %>
+  <b><%= text_field_tag :series_name, f.object.series.name, :disabled => true %></b>
+<% end %>
 <% age_group_style = f.object.series.age_groups.empty? ? 'display:none;' : '' %>
 <span id="age_groups_span" style="<%= age_group_style %>">
   <%= f.label :age_group %>
