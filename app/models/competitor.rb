@@ -216,14 +216,17 @@ class Competitor < ActiveRecord::Base
   end
 
   def previous_or_next_competitor(previous)
-    return self unless number
     comparator = previous ? '<' : '>'
     sort_order = previous ? 'DESC' : 'ASC'
-    competitor = Competitor.where(["series_id=? and number#{comparator}?", series.id, number]).
-      order("number #{sort_order}").first
+    compare_column = number ? 'number' : 'id'
+    compare_value = number ? number : id
+    # prev/next by number or id:
+    competitor = Competitor.where(["series_id=? and #{compare_column}#{comparator}?",
+        series.id, compare_value]).order("#{compare_column} #{sort_order}").first
     return competitor if competitor
-    Competitor.where('series_id=? and number is not null', series.id).
-      order("number #{sort_order}").first
+    # when we are at the beginning/end of the list:
+    Competitor.where("series_id=? and #{compare_column} is not null", series.id).
+      order("#{compare_column} #{sort_order}").first
   end
 
 end

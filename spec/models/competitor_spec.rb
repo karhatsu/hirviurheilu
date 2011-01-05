@@ -685,8 +685,8 @@ describe Competitor do
         @last.next_competitor.should == @first
       end
 
-      it "should return itself if competitor has no number" do
-        @nil.next_competitor.should == @nil
+      it "should return the next by id if competitor has no number" do
+        @nil.next_competitor.should == @prev
       end
     end
   end
@@ -720,8 +720,8 @@ describe Competitor do
         @first.previous_competitor.should == @last
       end
 
-      it "should return itself if competitor has no number" do
-        @nil.previous_competitor.should == @nil
+      it "should return the previous by id if competitor has no number" do
+        @nil.previous_competitor.should == @first
       end
     end
   end
