@@ -80,10 +80,6 @@
     function reload_number_and_start_time(series_id) {
       $('#number_spinner').show();
       $.getJSON('/series/' + series_id, function(item) {
-        $('#competitor_number').val('');
-        $('#competitor_start_time_4i').val('');
-        $('#competitor_start_time_5i').val('');
-        $('#competitor_start_time_6i').val('');
         if(item.series.has_start_list) {
           $('#competitor_number').val(item.series.next_number);
           $('#competitor_start_time_4i').val(item.series.next_start_time.substring(11, 13));
@@ -91,6 +87,10 @@
           $('#competitor_start_time_6i').val(item.series.next_start_time.substring(17, 19));
           $('#number_span').show();
         } else {
+          $('#competitor_number').val('');
+          $('#competitor_start_time_4i').val('');
+          $('#competitor_start_time_5i').val('');
+          $('#competitor_start_time_6i').val('');
           $('#number_span').hide();
         }
         $('#number_spinner').hide();
