@@ -14,8 +14,8 @@
   <ul id="latest_competitors_list"></ul>
 </div>
 <hr/>
-<%= link_to "Takaisin sarjan #{@series.name} kilpailijaluetteloon",
-  official_series_competitors_path(@series) %><br/>
+<%= link_to raw("Takaisin sarjan <span id='series_name'>#{@series.name}</span> kilpailijaluetteloon"),
+  official_series_competitors_path(@series), :id => 'back_to_series' %><br/>
 <%= link_to "Takaisin kilpailun etusivulle", official_race_path(@series.race) %>
 <%= javascript_tag do %>
   function show_spinner() {

@@ -55,7 +55,7 @@
   <%= javascript_tag do %>
     function change_series(series_id) {
       reload_age_groups(series_id);
-      reload_number_and_start_time(series_id);
+      reload_number_and_start_time_and_link(series_id);
     }
 
     function reload_age_groups(series_id) {
@@ -77,7 +77,7 @@
       });
     }
 
-    function reload_number_and_start_time(series_id) {
+    function reload_number_and_start_time_and_link(series_id) {
       $('#number_spinner').show();
       $.getJSON('/series/' + series_id, function(item) {
         if(item.series.has_start_list) {
@@ -93,6 +93,8 @@
           $('#competitor_start_time_6i').val('');
           $('#number_span').hide();
         }
+        $('#back_to_series').attr('href', '/official/series/' + series_id + '/competitors');
+        $('#back_to_series #series_name').text(item.series.name);
         $('#number_spinner').hide();
       });
     }
