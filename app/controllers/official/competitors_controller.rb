@@ -1,6 +1,7 @@
 class Official::CompetitorsController < Official::OfficialController
   before_filter :assign_series_by_series_id, :check_assigned_series, :except => :create
   before_filter :assign_race_by_race_id, :check_assigned_race, :only => :create
+  before_filter :handle_start_time, :only => :create
   before_filter :handle_time_parameters, :only => :update
   before_filter :set_competitors
 
@@ -76,6 +77,11 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   private
+  def handle_start_time
+    return if params[:no_times]
+    handle_time_parameter params[:competitor], "start_time"
+  end
+
   def handle_time_parameters
     return if params[:no_times]
     handle_time_parameter params[:competitor], "start_time"
