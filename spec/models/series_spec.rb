@@ -291,11 +291,9 @@ describe Series do
       end
       
       def check_competitors_no_changes
-        @c1.reload
+        reload_competitors
         @c1.number.should == @old1
-        @c2.reload
         @c2.number.should == @old2
-        @c3.reload
         @c3.number.should == @old3
       end
     end
@@ -305,9 +303,7 @@ describe Series do
         it "should generate numbers based on series first number and return true" do
           @series.generate_numbers(Series::START_LIST_ADDING_ORDER).should be_true
           @series.should be_valid
-          @c1.reload
-          @c2.reload
-          @c3.reload
+          reload_competitors
           @c1.number.should == 5
           @c2.number.should == 6
           @c3.number.should == 7
@@ -318,17 +314,16 @@ describe Series do
         it "should generate numbers based on series first number and return true" do
           @series.generate_numbers(Series::START_LIST_RANDOM).should be_true
           @series.should be_valid
-          @c1.reload
-          @c2.reload
-          @c3.reload
+          reload_competitors
           [5,6,7].should include(@c1.number)
           [5,6,7].should include(@c2.number)
           [5,6,7].should include(@c3.number)
           i = 0
-          while @c1.number == 5 do
+          while @c1.number == 5 and @c2.number == 6 and @c3.number == 7 do
             @series.generate_numbers(Series::START_LIST_RANDOM)
+            reload_competitors
             i += 1
-            if i > 20
+            if i > 10
               fail "Random order not working"
             end
           end
@@ -339,6 +334,12 @@ describe Series do
         @race.should_receive(:set_correct_estimates_for_competitors)
         @series.generate_numbers(Series::START_LIST_ADDING_ORDER).should be_true
       end
+    end
+
+    def reload_competitors
+      @c1.reload
+      @c2.reload
+      @c3.reload
     end
   end
 
