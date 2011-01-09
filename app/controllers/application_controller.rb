@@ -88,7 +88,8 @@ class ApplicationController < ActionController::Base
   end
 
   def rescue_with_handler(exception)
-    ErrorMailer.error_mail("Virhe Hirviurheilussa", exception).deliver
+    ErrorMailer.error_mail("Virhe Hirviurheilussa", exception,
+      request.fullpath, current_user).deliver
     super
   end
 
