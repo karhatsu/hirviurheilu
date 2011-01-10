@@ -498,7 +498,7 @@ describe Competitor do
     before do
       @series = Factory.build(:series)
       @competitor = Factory.build(:competitor, :series => @series)
-      @best_time_seconds = 3600.0
+      @best_time_seconds = 3603.0 # rounded: 3600
       @competitor.stub!(:series_best_time_in_seconds).and_return(@best_time_seconds)
     end
 
@@ -515,29 +515,33 @@ describe Competitor do
       @competitor.time_points.should == nil
     end
 
-    it "should be 300 when this competitor has the best time" do
-      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds)
-      @competitor.time_points.should == 300
+    context "when the competitor has the best time" do
+      it "should be 300" do
+        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds)
+        @competitor.time_points.should == 300
+      end
     end
 
-    it "should be 300 when this competitor was 1 seconds slower than the best" do
-      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 1)
-      @competitor.time_points.should == 300
-    end
+    context "when the competitor has worse time which is rounded down to 10 secs" do
+      it "should be 300 when the rounded time is the same as the best time rounded" do
+        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 6)
+        @competitor.time_points.should == 300
+      end
 
-    it "should be 299 when this competitor was 10 seconds slower than the best" do
-      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 10)
-      @competitor.time_points.should == 299
-    end
+      it "should be 299 when the rounded time is 10 seconds worse than the best time" do
+        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 7)
+        @competitor.time_points.should == 299
+      end
 
-    it "should be 299 when this competitor was 11 seconds slower than the best" do
-      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 11)
-      @competitor.time_points.should == 299
-    end
+      it "should be 299 when the rounded time is still 10 seconds worse" do
+        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 16)
+        @competitor.time_points.should == 299
+      end
 
-    it "should be 298 when this competitor was 20 seconds slower than the best" do
-      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 20)
-      @competitor.time_points.should == 298
+      it "should be 298 when the rounded time is 20 seconds worse" do
+        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 17)
+        @competitor.time_points.should == 298
+      end
     end
 
     it "should never be negative" do
@@ -557,7 +561,7 @@ describe Competitor do
       before do
         @competitor = Factory.build(:competitor, :series => @series,
           :no_result_reason => Competitor::DNF)
-        @best_time_seconds = 3600.0
+        @best_time_seconds = 3603.0
         @competitor.stub!(:series_best_time_in_seconds).and_return(@best_time_seconds)
       end
 

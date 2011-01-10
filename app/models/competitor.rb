@@ -129,7 +129,7 @@ class Competitor < ActiveRecord::Base
       raise "Competitor time better than the best time and no DNS/DNF!" unless no_result_reason
       return nil
     end
-    points = 300 - (own_time.to_i - best_time.to_i) / 10
+    points = 300 - (round_seconds(own_time) - round_seconds(best_time)) / 10
     return points.to_i if points >= 0
     0
   end
@@ -227,6 +227,11 @@ class Competitor < ActiveRecord::Base
     # when we are at the beginning/end of the list:
     Competitor.where("series_id=? and #{compare_column} is not null", series.id).
       order("#{compare_column} #{sort_order}").first
+  end
+
+  def round_seconds(seconds)
+    # round down to closest 10 seconds, e.g. 34:49 => 34:40
+    seconds.to_i / 10 * 10
   end
 
 end
