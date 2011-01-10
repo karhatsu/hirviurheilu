@@ -4,7 +4,7 @@ Käyttäjä: <%= @user ? @user.inspect : '-' %><br/>
 <%= @exception.inspect %><br/>
 <br/>
 <% begin %>
-  <%= @exception.backtrace.join("<br/>") %>
+  <%= raw @exception.backtrace.join('<br/>') %>
 <% rescue => e %>
   <%= e.inspect %>
 <% end %>
