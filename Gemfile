@@ -21,4 +21,5 @@ group :development, :test do
   gem 'launchy'    # So you can do Then show me the page
   gem 'shoulda'
   gem 'email_spec'
+  gem 'ruby-prof'
 end

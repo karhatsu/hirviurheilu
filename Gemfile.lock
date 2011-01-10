@@ -113,6 +113,7 @@ GEM
       rspec-expectations (~> 2.0.1)
     rspec-rails (2.0.1)
       rspec (~> 2.0.0)
+    ruby-prof (0.9.2)
     rubyzip (0.9.4)
     selenium-webdriver (0.0.29)
       childprocess (>= 0.0.7)
@@ -145,6 +146,7 @@ DEPENDENCIES
   pg
   rails (= 3.0.3)
   rspec-rails (>= 2.0.1)
+  ruby-prof
   shoulda
   spork
   sqlite3-ruby
