@@ -1,12 +1,11 @@
-Polku: <%= @path %><br/>
-Käyttäjä: <%= @user ? @user.inspect : '-' %><br/>
+<%= @path %><br/>
 <br/>
 <%= @exception.inspect %><br/>
+<br/>
+<%= @user ? @user.inspect : 'Ei kirjautunutta käyttäjää' %><br/>
 <br/>
 <% begin %>
   <%= raw @exception.backtrace.join('<br/>') %>
 <% rescue => e %>
-  <%= e.inspect %>
+  <%= "Stacktrace error: #{e.inspect}" %>
 <% end %>
-<br/>
-MEILIN LOPPU
