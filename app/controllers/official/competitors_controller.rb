@@ -93,8 +93,13 @@ class Official::CompetitorsController < Official::OfficialController
       competitor.club_id = params[:club_id]
     end
     unless competitor.club_id or params[:club_name].blank?
-      competitor.club = Club.create!(:race => competitor.series.race,
-        :name => params[:club_name])
+      existing_club = competitor.series.race.clubs.find_by_name(params[:club_name])
+      if existing_club
+        competitor.club = existing_club
+      else
+        competitor.club = Club.create!(:race => competitor.series.race,
+          :name => params[:club_name])
+      end
     end
     # Cucumber hack
     if Rails.env == 'test'
