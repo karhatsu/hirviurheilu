@@ -25,11 +25,13 @@
         <a class="club_name_link" id="club_name_link_<%= club.id %>" href="#">
           <%= club.name %>
         </a>
-        <div id="club_name_form_<%= club.id %>" style="display: none;">
-          <%= form_for([:official, @race, club], :remote => true) do |f| %>
+        <span id="club_name_form_<%= club.id %>" style="display: none;">
+          <%= form_for([:official, @race, club], :remote => true,
+              :html => { :style => 'display:inline;' }) do |f| %>
             <%= f.text_field :name %><%= submit_tag "Päivitä" %>
           <% end %>
-        </div>
+          <%= button_to_function 'Peruuta', "cancel_edit(#{club.id}, \"#{club.name}\")" %>
+        </span>
       </td>
       <td class="center"><%= club.competitors.count %></td>
       <td class="center"><%= club.competitors.count == 0 ? (link_to "Poista",
@@ -48,10 +50,15 @@
     $(this).parent().html('<%= image_tag 'spinner.gif', :class => 'spinner' %>');
   });
   $(".club_name_link").click(function() {
-    $(this).attr('style', 'display: none;');
-    $(this).next().attr('style', 'display: inline;');
+    $(this).hide();
+    $(this).next().show();
     return false;
   });
+  function cancel_edit(id, original_name) {
+    $('#club_name_form_' + id + ' #club_name').val(original_name);
+    $('#club_name_form_' + id).hide();
+    $('#club_name_link_' + id).show();
+  }
 <% end %>
 <hr/>
 <%= link_to 'Takaisin kilpailun etusivulle', official_race_path(@race) %>
