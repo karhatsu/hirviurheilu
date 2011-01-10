@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Official::CompetitorsController do
-  describe "#handle_club", :focus => true do
+  describe "#handle_club" do
     before do
       @race = Factory.create(:race)
       @series = Factory.create(:series, :race => @race)
