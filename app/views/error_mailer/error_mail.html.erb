@@ -1,4 +1,12 @@
-Polku: <%= @path %>
-Käyttäjä: <%= @user ? @user.inspect : '-' %>
-
-<%= @exception.inspect %>
+Polku: <%= @path %><br/>
+Käyttäjä: <%= @user ? @user.inspect : '-' %><br/>
+<br/>
+<%= @exception.inspect %><br/>
+<br/>
+<% begin %>
+  <%= @exception.backtrace.join("<br/>") %>
+<% rescue => e %>
+  <%= e.inspect %>
+<% end %>
+<br/>
+MEILIN LOPPU
