@@ -112,31 +112,31 @@ describe Series do
   describe "#ordered_competitors" do
     before do
       @series = Factory.build(:series)
-      @c_nil1 = mock_model(Competitor, :points => nil, :points! => 12,
+      @second_partial = mock_model(Competitor, :points => nil, :points! => 12,
+        :no_result_reason => nil, :shot_points => 50, :time_points => 30,
+        :time_in_seconds => 999)
+      @worst_partial = mock_model(Competitor, :points => nil, :points! => nil,
+        :no_result_reason => nil, :shot_points => 51, :time_points => 30,
+        :time_in_seconds => 1000)
+      @best_partial = mock_model(Competitor, :points => nil, :points! => 88,
         :no_result_reason => nil, :shot_points => 50, :time_points => 30,
         :time_in_seconds => 1000)
-      @c_nil2 = mock_model(Competitor, :points => nil, :points! => nil,
-        :no_result_reason => nil, :shot_points => 50, :time_points => 30,
-        :time_in_seconds => 1000)
-      @c_nil3 = mock_model(Competitor, :points => nil, :points! => 88,
-        :no_result_reason => nil, :shot_points => 50, :time_points => 30,
-        :time_in_seconds => 1000)
-      @c1 = mock_model(Competitor, :points => 199, :points! => 199,
+      @best_time = mock_model(Competitor, :points => 199, :points! => 199,
         :no_result_reason => nil, :shot_points => 87, :time_points => 30,
         :time_in_seconds => 999)
-      @c2 = mock_model(Competitor, :points => 201, :points! => 201,
+      @best_points = mock_model(Competitor, :points => 201, :points! => 201,
         :no_result_reason => nil, :shot_points => 50, :time_points => 30,
         :time_in_seconds => 1000)
-      @c3 = mock_model(Competitor, :points => 199, :points! => 199,
+      @worst_points = mock_model(Competitor, :points => 199, :points! => 199,
         :no_result_reason => nil, :shot_points => 87, :time_points => 30,
         :time_in_seconds => 1000)
-      @c4 = mock_model(Competitor, :points => 199, :points! => 199,
+      @best_shots = mock_model(Competitor, :points => 199, :points! => 199,
         :no_result_reason => nil, :shot_points => 88, :time_points => 30,
         :time_in_seconds => 1000)
-      @c_dnf1 = mock_model(Competitor, :points => 300, :points! => 300,
+      @c_dnf = mock_model(Competitor, :points => 300, :points! => 300,
         :no_result_reason => "DNF", :shot_points => 88, :time_points => 30,
         :time_in_seconds => 1000)
-      @c_dnf2 = mock_model(Competitor, :points => 300, :points! => 300,
+      @c_dns = mock_model(Competitor, :points => 300, :points! => 300,
         :no_result_reason => "DNS", :shot_points => 88, :time_points => 30,
         :time_in_seconds => 1000)
     end
@@ -146,12 +146,15 @@ describe Series do
       @series.ordered_competitors.should == []
     end
 
-    it "should sort by: 1. DNS/DNF to the bottom, 2. nil points next in the bottom, " +
-        "3. points, 4. shot points, 5. time (secs), 6. partial points" do
-      @series.stub!(:competitors).and_return([@c_nil1, @c_nil2,
-          @c_nil3, @c_dnf1, @c_dnf2, @c1, @c2, @c3, @c4])
-      @series.ordered_competitors.should == [@c2, @c4, @c1, @c3, @c_nil3, @c_nil1,
-        @c_nil2, @c_dnf1, @c_dnf2]
+    # note that partial points equal points when all results are available
+    it "should sort by: 1. points 2. partial points 3. shot points " +
+        "4. time (secs) 5. normal competitors before DNS/DNF" do
+      @series.stub!(:competitors).and_return([@second_partial, @worst_partial,
+          @best_partial, @c_dnf, @c_dns, @best_time, @best_points,
+          @worst_points, @best_shots])
+      @series.ordered_competitors.should ==
+        [@best_points, @best_shots, @best_time, @worst_points, @best_partial,
+        @second_partial, @worst_partial, @c_dnf, @c_dns]
     end
   end
 
