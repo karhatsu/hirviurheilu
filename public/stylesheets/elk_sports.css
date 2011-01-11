@@ -184,6 +184,11 @@ div.races_box h2 {
     margin-top: 0px;
 }
 
+div.old_races {
+    max-height: 200px;
+    overflow: auto;
+}
+
 th {
     text-align: left;
     padding: 2px 5px;
