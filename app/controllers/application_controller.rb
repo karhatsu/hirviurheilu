@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   def require_no_user
     if current_user
       store_location
-      flash[:notice] = "Et voi olla kirjautuneena, kun käytät tätä sivua"
+      flash[:notice] = "Sinulla on jo käyttäjätunnukset ja olet kirjautunut sisään"
       redirect_to account_url
       return false
     end
