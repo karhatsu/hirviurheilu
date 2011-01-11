@@ -184,8 +184,8 @@ div.races_box h2 {
     margin-top: 0px;
 }
 
-div.old_races {
-    max-height: 200px;
+div.race_scroll {
+    max-height: 180px;
     overflow: auto;
 }
 
