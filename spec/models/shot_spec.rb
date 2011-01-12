@@ -5,30 +5,21 @@ describe Shot do
     Factory.create(:shot)
   end
 
+  describe "associations" do
+    it { should belong_to(:competitor) }
+  end
+
   describe "validation" do
-    it "should require competitor" do
-      Factory.build(:shot, :competitor => nil).should have(1).errors_on(:competitor)
-    end
+    it { should validate_presence_of(:competitor) }
 
     describe "value" do
-      it "can be nil" do
-        Factory.build(:shot, :value => nil).should be_valid
-      end
-
-      it "should be integer" do
-        Factory.build(:shot, :value => 1.1).
-          should have(1).errors_on(:value)
-      end
-
-      it "should be non-negative" do
-        Factory.build(:shot, :value => -1).
-          should have(1).errors_on(:value)
-      end
-
-      it "should be at maximum 10" do
-        Factory.build(:shot, :value => 11).
-          should have(1).errors_on(:value)
-      end
+      it { should validate_numericality_of(:value) }
+      it { should allow_value(nil).for(:value) }
+      it { should_not allow_value(1.1).for(:value) }
+      it { should_not allow_value(-1).for(:value) }
+      it { should allow_value(0).for(:value) }
+      it { should allow_value(10).for(:value) }
+      it { should_not allow_value(11).for(:value) }
     end
   end
 end
