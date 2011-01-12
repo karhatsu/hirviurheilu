@@ -6,6 +6,7 @@
     <th>Kilpailija</th>
     <th>Summa</th>
     <th>Yksittäiset laukaukset</th>
+    <th>Tulos</th>
     <th>&nbsp;</th>
     <th>&nbsp;</th>
   </tr>
@@ -15,12 +16,23 @@
       <tr>
         <td><%= c.number %></td>
         <td style="width: 170px;"><%= full_name(c) %></td>
-        <td align="center"><%= f.text_field :shots_total_input, :size => 3, :maxlength => 3 %></td>
+        <td align="center"><%= f.text_field :shots_total_input, :size => 2,
+            :maxlength => 3, :class => 'total' %></td>
         <td><%= render :partial => 'official/shots/individual_shots', :locals => { :f => f,
             :competitor => c } %></td>
+        <td><%= text_field_tag :result, c.shots_sum, :class => 'result',
+            :disabled => true, :size => 2 %></td>
         <td><%= submit_tag "Tallenna", :onclick => "start_updating(#{c.id})" %></td>
         <td id="status_<%= c.id %>">&nbsp;</td>
       </tr>
     <% end %>
   <% end %>
 </table>
+<%= javascript_tag do %>
+$('.total').change(function() {
+  calculate_shots_result($(this).closest('tr'));
+});
+$('.shot').change(function() {
+  calculate_shots_result($(this).closest('tr'));
+});
+<% end %>

@@ -208,3 +208,7 @@ div.section {
     -moz-box-shadow: 5px 4px 5px #666666;
     -webkit-box-shadow: 5px 4px 5px #666666;
 }
+
+input.shot {
+    width: 20px;
+}

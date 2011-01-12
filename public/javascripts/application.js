@@ -15,3 +15,36 @@ function remove_fields(link, hide_class, removal_question) {
     jQuery(link).closest("." + hide_class).hide();
   }
 }
+
+function calculate_shots_result(row) {
+  result = 0;
+  error = false;
+  total = row.find('.total').val();
+  if(total != '') {
+    result = parseInt(total, 10);
+    if(result >= 0 && result <= 100) {
+      row.find('.shot').each(function() {
+        if($(this).val() != '') {
+          error = true;
+        }
+      });
+    } else {
+      error = true;
+    }
+  } else {
+    row.find('.shot').each(function() {
+      if($(this).val() != '') {
+        shot = parseInt($(this).val(), 10);
+        if(shot >= 0 && shot <= 10) {
+          result += shot;
+        } else {
+          error = true;
+        }
+      }
+    });
+  }
+  if(error) {
+    result = '?';
+  }
+  row.find('.result').val(result);
+}
