@@ -2,15 +2,17 @@
 <h2>Oikeat arviot</h2>
 <%= flash_error %>
 <%= flash_notice %>
+  <div class="section">
 <%= form_for([:official, @race], :url => race_correct_estimates_path(@race)) do |f| %>
   <%= render :partial => 'shared/form_errors', :locals => { :item => @race } %>
   <%= f.fields_for :correct_estimates do |ce_form| %>
     <%= render :partial => 'correct_estimate', :locals => { :f => ce_form } %>
   <% end %>
-  <%= add_child_link "Lisää uusi oikeiden ennusteiden määritys tähän kilpailuun",
-    f, :correct_estimates, 'add_link' %><br/>
+    <%= add_child_link "Lisää uusi lähtönumeroväli",
+      f, :correct_estimates, 'add_link' %>
   <%= submit_tag 'Tallenna oikeat arviot ja aseta ne kilpailijoille' %>
 <% end %>
+  </div>
 
 <h2>Kilpailijoille määritetyt oikeat arviot</h2>
 <% if @race.competitors.empty? %>
