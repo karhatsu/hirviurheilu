@@ -84,9 +84,25 @@ fi:
         one: Käyttäjä
         other: Käyttäjät
     attributes:
+      competitor:
+        shots:
+          value: Laukaus
       race:
+        correct_estimates:
+          distance1: Etäisyys 1
+          distance2: Etäisyys 2
+          distance3: Etäisyys 3
+          distance4: Etäisyys 4
+          min_number: Pienin numero
+          max_number: Suurin numero
         name: Kilpailun nimi
+        series:
+          age_groups:
+            name: Ikäryhmän nimi
+          name: Sarjan nimi
       series:
+        age_groups:
+          name: Ikäryhmän nimi
         first_number: Sarjan ensimmäinen numero
         name: Sarjan nimi
         start_time: Sarjan lähtöaika
