@@ -1,5 +1,7 @@
-<div class="instructions">Huom! Syötä joko yhteistulos TAI yksittäiset laukaukset,
+<div class="instructions">Syötä joko yhteistulos TAI yksittäiset laukaukset,
   ei molempia.</div>
+<div class="instructions">Jos syötät vahingossa virheellisen tuloksen jollekin kilpailijalle
+  ja haluat muuttaa tulosta, lataa koko sivu ensin uudestaan.</div>
 <table>
   <tr>
     <th>Nro</th>
@@ -22,7 +24,8 @@
             :competitor => c } %></td>
         <td><%= text_field_tag :result, c.shots_sum, :class => 'result',
             :disabled => true, :size => 2 %></td>
-        <td><%= submit_tag "Tallenna", :onclick => "start_updating(#{c.id})" %></td>
+        <td><%= submit_tag "Tallenna", :onclick => "start_updating(#{c.id})",
+            :class => 'save' %></td>
         <td id="status_<%= c.id %>">&nbsp;</td>
       </tr>
     <% end %>
@@ -34,5 +37,8 @@ $('.total').change(function() {
 });
 $('.shot').change(function() {
   calculate_shots_result($(this).closest('tr'));
+});
+$('.save').click(function() {
+  $(this).attr('disabled', true);
 });
 <% end %>
