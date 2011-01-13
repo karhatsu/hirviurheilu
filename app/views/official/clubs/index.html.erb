@@ -24,7 +24,7 @@
     <% @race.clubs.each do |club| %>
       <tr id="club_row_<%= club.id %>">
         <td>
-          <a class="club_name_link" id="club_name_link_<%= club.id %>" href="#">
+          <a class="club_name_link" id="club_name_link_<%= club.id %>" href="javascript:void(0)">
             <%= club.name %>
           </a>
           <span id="club_name_form_<%= club.id %>" style="display: none;">
@@ -55,7 +55,6 @@
   $(".club_name_link").click(function() {
     $(this).hide();
     $(this).next().show();
-    return false;
   });
   function cancel_edit(id, original_name) {
     $('#club_name_form_' + id + ' #club_name').val(original_name);
