@@ -2,7 +2,7 @@ class Race < ActiveRecord::Base
   DEFAULT_START_INTERVAL = 60
 
   belongs_to :sport
-  has_many :series, :order => 'start_time, name'
+  has_many :series, :order => 'name'
   has_many :competitors, :through => :series
   has_many :clubs, :order => 'name'
   has_many :correct_estimates, :order => 'min_number'
