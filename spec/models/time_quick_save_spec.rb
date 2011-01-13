@@ -13,7 +13,7 @@ describe TimeQuickSave do
   context "when string format is correct and competitor is found" do
     describe "successfull save" do
       before do
-        @qs = TimeQuickSave.new(@race.id, '10:13:12:59')
+        @qs = TimeQuickSave.new(@race.id, '10.13.12.59')
       end
 
       describe "#save" do
@@ -43,7 +43,7 @@ describe TimeQuickSave do
     describe "save fails" do
       before do
         @c2 = Factory.create(:competitor, :series => @series, :number => 8) # no start time
-        @qs = TimeQuickSave.new(@race.id, '8:13:12:45')
+        @qs = TimeQuickSave.new(@race.id, '8.13.12.45')
       end
 
       describe "#save" do
@@ -77,7 +77,7 @@ describe TimeQuickSave do
       series = Factory.create(:series, :race => another_race)
       Factory.create(:competitor, :series => series, :number => 8,
         :start_time => '11:00:00')
-      @qs = TimeQuickSave.new(@race.id, '8:13:12:59')
+      @qs = TimeQuickSave.new(@race.id, '8.13.12.59')
     end
 
     describe "#save" do
@@ -105,7 +105,7 @@ describe TimeQuickSave do
 
   describe "invalid string format" do
     before do
-      @qs = TimeQuickSave.new(@race.id, '10:13:12:45:11')
+      @qs = TimeQuickSave.new(@race.id, '10.13.12.45.11')
     end
 
     describe "#save" do

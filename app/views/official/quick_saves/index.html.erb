@@ -6,25 +6,25 @@
   <div class="warning">Kilpailuun ei ole lisätty yhtään kilpailijaa</div>
 <% else %>
   <h3>Ajat</h3>
-  <% instructions = 'Syötä tulos muodossa nro:hh:mm:ss, ' +
-      'esim. 45:13:45:28 (kilpailija 45, saapumisaika 13:45:28).' %>
+  <% instructions = 'Syötä tulos muodossa nro.hh.mm.ss, ' +
+      'esim. 45.13.45.28 (kilpailija 45, saapumisaika 13.45.28).' %>
   <%= render :partial => 'result_place', :locals => { :name => 'time',
     :instructions => instructions, :path => race_time_quick_save_path(@race) } %>
   <h3>Arvioinnit</h3>
-  <% instructions = 'Syötä tulos muodossa nro:arvio1:arvio2, ' +
-      'esim. 45:95:118 (kilpailija 45, arviot 95 ja 118 metriä)' %>
+  <% instructions = 'Syötä tulos muodossa nro.arvio1.arvio2, ' +
+      'esim. 45.95.118 (kilpailija 45, arviot 95 ja 118 metriä)' %>
   <% if @race.estimates_at_most == 4 %>
         <% instructions << ' tai neljän ennusteen sarjan kilpailijoille ' +
-          'muodossa nro:arvio1:arvio2:arvio3:arvio4, esim. 45:95:118:185:134' %>
+          'muodossa nro.arvio1.arvio2.arvio3.arvio4, esim. 45.95.118.185.134' %>
   <% end %>
   <% instructions << '.' %>
   <%= render :partial => 'result_place', :locals => { :name => 'estimates',
     :instructions => instructions, :path => race_estimates_quick_save_path(@race) } %>
   <h3>Ammunta</h3>
-  <% instructions = 'Syötä tulos muodossa nro:ammuntatulos, ' +
-      'esim. 45:87 (kilpailija 45, ammunta yhteensä 87). Tai vaihtoehtoisesti ' +
-      'laukausten kanssa nro:laukaus1:laukaus2:...:laukaus10, esim. ' +
-      '45:10:10:9:9:8:7:7:4:2:0 (merkitse ohilaukauksille nollat).' %>
+  <% instructions = 'Syötä tulos muodossa nro.ammuntatulos, ' +
+      'esim. 45.87 (kilpailija 45, ammunta yhteensä 87). Tai vaihtoehtoisesti ' +
+      'laukausten kanssa nro.laukaus1.laukaus2.---.laukaus10, esim. ' +
+      '45.10.10.9.9.8.7.7.4.2.0 (merkitse ohilaukauksille nollat).' %>
   <%= render :partial => 'result_place', :locals => { :name => 'shots',
     :instructions => instructions, :path => race_shots_quick_save_path(@race) } %>
 <% end %>
