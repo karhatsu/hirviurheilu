@@ -170,6 +170,15 @@ class Competitor < ActiveRecord::Base
     self.correct_estimate4 = nil
   end
 
+  def self.sort(competitors)
+    competitors.sort do |a, b|
+      [a.no_result_reason.to_s, b.points.to_i, b.points!.to_i,
+        b.shot_points.to_i, a.time_in_seconds.to_i] <=>
+      [b.no_result_reason.to_s, a.points.to_i, a.points!.to_i,
+        a.shot_points.to_i, b.time_in_seconds.to_i]
+    end
+  end
+
   private
   def arrival_not_before_start_time
     return if start_time.nil? and arrival_time.nil?

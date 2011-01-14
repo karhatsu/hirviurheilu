@@ -110,51 +110,12 @@ describe Series do
   end
 
   describe "#ordered_competitors" do
-    before do
-      @series = Factory.build(:series)
-      @second_partial = mock_model(Competitor, :points => nil, :points! => 12,
-        :no_result_reason => nil, :shot_points => 50, :time_points => 30,
-        :time_in_seconds => 999)
-      @worst_partial = mock_model(Competitor, :points => nil, :points! => nil,
-        :no_result_reason => nil, :shot_points => 51, :time_points => 30,
-        :time_in_seconds => 1000)
-      @best_partial = mock_model(Competitor, :points => nil, :points! => 88,
-        :no_result_reason => nil, :shot_points => 50, :time_points => 30,
-        :time_in_seconds => 1000)
-      @best_time = mock_model(Competitor, :points => 199, :points! => 199,
-        :no_result_reason => nil, :shot_points => 87, :time_points => 30,
-        :time_in_seconds => 999)
-      @best_points = mock_model(Competitor, :points => 201, :points! => 201,
-        :no_result_reason => nil, :shot_points => 50, :time_points => 30,
-        :time_in_seconds => 1000)
-      @worst_points = mock_model(Competitor, :points => 199, :points! => 199,
-        :no_result_reason => nil, :shot_points => 87, :time_points => 30,
-        :time_in_seconds => 1000)
-      @best_shots = mock_model(Competitor, :points => 199, :points! => 199,
-        :no_result_reason => nil, :shot_points => 88, :time_points => 30,
-        :time_in_seconds => 1000)
-      @c_dnf = mock_model(Competitor, :points => 300, :points! => 300,
-        :no_result_reason => "DNF", :shot_points => 88, :time_points => 30,
-        :time_in_seconds => 1000)
-      @c_dns = mock_model(Competitor, :points => 300, :points! => 300,
-        :no_result_reason => "DNS", :shot_points => 88, :time_points => 30,
-        :time_in_seconds => 1000)
-    end
-
-    it "should return empty list when no competitors defined" do
-      @series.stub!(:competitors).and_return([])
-      @series.ordered_competitors.should == []
-    end
-
-    # note that partial points equal points when all results are available
-    it "should sort by: 1. points 2. partial points 3. shot points " +
-        "4. time (secs) 5. normal competitors before DNS/DNF" do
-      @series.stub!(:competitors).and_return([@second_partial, @worst_partial,
-          @best_partial, @c_dnf, @c_dns, @best_time, @best_points,
-          @worst_points, @best_shots])
-      @series.ordered_competitors.should ==
-        [@best_points, @best_shots, @best_time, @worst_points, @best_partial,
-        @second_partial, @worst_partial, @c_dnf, @c_dns]
+    it "should call Competitor.sort with all competitors in the series" do
+      series = Factory.build(:series)
+      competitors = ['a', 'b', 'c']
+      Competitor.should_receive(:sort).with(competitors).and_return([1, 2, 3])
+      series.stub!(:competitors).and_return(competitors)
+      series.ordered_competitors.should == [1, 2, 3]
     end
   end
 

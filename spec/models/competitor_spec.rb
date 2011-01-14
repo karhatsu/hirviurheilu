@@ -202,6 +202,54 @@ describe Competitor do
     end
   end
 
+
+
+  describe "#sort" do
+    before do
+      @second_partial = mock_model(Competitor, :points => nil, :points! => 12,
+        :no_result_reason => nil, :shot_points => 50, :time_points => 30,
+        :time_in_seconds => 999)
+      @worst_partial = mock_model(Competitor, :points => nil, :points! => nil,
+        :no_result_reason => nil, :shot_points => 51, :time_points => 30,
+        :time_in_seconds => 1000)
+      @best_partial = mock_model(Competitor, :points => nil, :points! => 88,
+        :no_result_reason => nil, :shot_points => 50, :time_points => 30,
+        :time_in_seconds => 1000)
+      @best_time = mock_model(Competitor, :points => 199, :points! => 199,
+        :no_result_reason => nil, :shot_points => 87, :time_points => 30,
+        :time_in_seconds => 999)
+      @best_points = mock_model(Competitor, :points => 201, :points! => 201,
+        :no_result_reason => nil, :shot_points => 50, :time_points => 30,
+        :time_in_seconds => 1000)
+      @worst_points = mock_model(Competitor, :points => 199, :points! => 199,
+        :no_result_reason => nil, :shot_points => 87, :time_points => 30,
+        :time_in_seconds => 1000)
+      @best_shots = mock_model(Competitor, :points => 199, :points! => 199,
+        :no_result_reason => nil, :shot_points => 88, :time_points => 30,
+        :time_in_seconds => 1000)
+      @c_dnf = mock_model(Competitor, :points => 300, :points! => 300,
+        :no_result_reason => "DNF", :shot_points => 88, :time_points => 30,
+        :time_in_seconds => 1000)
+      @c_dns = mock_model(Competitor, :points => 300, :points! => 300,
+        :no_result_reason => "DNS", :shot_points => 88, :time_points => 30,
+        :time_in_seconds => 1000)
+    end
+
+    it "should return empty list when no competitors defined" do
+      Competitor.sort([]).should == []
+    end
+
+    # note that partial points equal points when all results are available
+    it "should sort by: 1. points 2. partial points 3. shot points " +
+        "4. time (secs) 5. normal competitors before DNS/DNF" do
+      competitors = [@second_partial, @worst_partial, @best_partial,
+        @c_dnf, @c_dns, @best_time, @best_points, @worst_points, @best_shots]
+      Competitor.sort(competitors).should ==
+        [@best_points, @best_shots, @best_time, @worst_points, @best_partial,
+        @second_partial, @worst_partial, @c_dnf, @c_dns]
+    end
+  end
+
   describe "#shots_sum" do
     it "should return nil when total input is nil and no shots" do
       Factory.build(:competitor).shots_sum.should be_nil
