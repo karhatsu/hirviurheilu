@@ -23,7 +23,7 @@
   <hr/>
   <%= render :partial => 'official/shared/series_result_input_links',
     :locals => { :series_id => @series.id } %><br/>
-  <%= link_to "Takaisin kilpailun etusivulle", official_race_path(@series.race) %>
+  <%= link_to "Takaisin Yhteenveto-sivulle", official_race_path(@series.race) %>
   <script type="text/javascript">
     function start_updating(id) {
       $("#status_" + id).html('<%= image_tag 'spinner.gif' %>');

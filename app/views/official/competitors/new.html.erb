@@ -16,7 +16,7 @@
 <hr/>
 <%= link_to raw("Takaisin sarjan <span id='series_name'>#{@series.name}</span> kilpailijaluetteloon"),
   official_series_competitors_path(@series), :id => 'back_to_series' %><br/>
-<%= link_to "Takaisin kilpailun etusivulle", official_race_path(@series.race) %>
+<%= link_to "Takaisin Yhteenveto-sivulle", official_race_path(@series.race) %>
 <%= javascript_tag do %>
   function show_spinner() {
     $('#spinner').show();
