@@ -386,8 +386,12 @@ describe Race do
     end
 
     it "should return empty array if none of the clubs have enough competitors" do
+      @club = mock_model(Club)
+      @c = mock_model(Competitor, :points => 1100, :club => @club)
+      Competitor.stub!(:sort).and_return([@c])
       @race.stub!(:competitors).and_return([])
       @race.team_results.should == []
+      @results = @race.team_results
     end
 
     context "when the clubs have enough competitors" do
@@ -396,30 +400,34 @@ describe Race do
         @club2 = mock_model(Club, :name => 'Club 2')
         @club_small = mock_model(Club, :name => 'Club small')
         @club1_c1 = mock_model(Competitor, :points => 1100, :club => @club1)
-        @club1_c2 = mock_model(Competitor, :points => 1000, :club => @club2)
-        @club2_c1 = mock_model(Competitor, :points => 900, :club => @club2)
+        @club1_c2 = mock_model(Competitor, :points => 1000, :club => @club1)
+        @club1_c3 = mock_model(Competitor, :points => 999, :club => @club1)
+        @club2_c1 = mock_model(Competitor, :points => 1050, :club => @club2)
         @club2_c2 = mock_model(Competitor, :points => 800, :club => @club2)
-        @club_small_c = mock_model(Competitor, :points => 1000, :club => @club_small)
-        @race.stub!(:competitors).and_return(
-          [@club2_c1, @club1_c1, @club1_c2, @club_small_c, @club2_c2])
+        @club_small_c = mock_model(Competitor, :points => 1200, :club => @club_small)
+        @club_small_nil_points = mock_model(Competitor, :points => nil, :club => @club_small)
+        Competitor.stub!(:sort).and_return(
+          [@club_small_c, @club1_c1, @club2_c1, @club1_c2, @club2_c2, @club_small_nil_points])
         @results = @race.team_results
       end
 
       describe "should return an array of hashes" do
-        it "including the clubs with enough competitors" do
+        it "including only the clubs with enough competitors with complete points" do
           @results.length.should == 2
-          @results[0].should == @club1
-          @results[1].should == @club2
+          @results[0][:club].should == @club1
+          @results[1][:club].should == @club2
         end
 
         it "including total points" do
           @results[0][:points].should == 1100 + 1000
-          @results[1][:points].should == 900 + 800
+          @results[1][:points].should == 1050 + 800
         end
 
         it "including ordered competitors inside of each team" do
+          @results[0][:competitors].length.should == 2
           @results[0][:competitors][0].should == @club1_c1
           @results[0][:competitors][1].should == @club1_c2
+          @results[1][:competitors].length.should == 2
           @results[1][:competitors][0].should == @club2_c1
           @results[1][:competitors][1].should == @club2_c2
         end

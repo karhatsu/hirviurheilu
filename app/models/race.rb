@@ -121,10 +121,34 @@ class Race < ActiveRecord::Base
 
   def team_results
     return nil unless has_team_competition?
-    competitors.each do |c|
-      
+    competitor_counter = Hash.new
+    clubs = Hash.new # { club => {:club => club, :points => 0, :competitors => []}, ... }
+
+    Competitor.sort(competitors).each do |competitor|
+      break unless competitor.points
+      competitor_count = competitor_counter[competitor.club] || 0
+      if competitor_count < team_competitor_count
+        competitor_counter[competitor.club] = competitor_count + 1
+        if clubs[competitor.club]
+          club_hash = clubs[competitor.club]
+          club_hash[:points] += competitor.points
+          club_hash[:competitors] << competitor
+        else
+          club_hash = Hash.new(:club => competitor.club, :points => 0,
+            :competitors => [])
+          club_hash[:club] = competitor.club
+          club_hash[:points] = competitor.points
+          club_hash[:competitors] = [competitor]
+          clubs[competitor.club] = club_hash
+        end
+      end
     end
-    results = []
+
+    # sort {:club => club, :points => 0, :competitors => []}'s by points
+    sorted_clubs = clubs.values.sort do |a, b|
+      b[:points] <=> a[:points]
+    end
+    sorted_clubs.delete_if { |club| club[:competitors].length < team_competitor_count }
   end
 
   private
