@@ -41,6 +41,12 @@
     </table>
   </div>
   <% if @race.start_date <= Date.today %>
+    <% if @race.has_team_competition? %>
+      <h2>Joukkuekilpailu</h2>
+      <div class="section">
+        <%= link_to "Joukkuekilpailun tulokset", race_team_results_path(@race) %>
+      </div>
+    <% end %>
     <h2>Kaikkien sarjojen tulokset</h2>
     <div class="section">
       <%= link_to "Lataa PDF-tiedosto", race_path(@race, :format => :pdf) %>
