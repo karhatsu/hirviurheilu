@@ -119,6 +119,14 @@ class Race < ActiveRecord::Base
     team_competitor_count
   end
 
+  def team_results
+    return nil unless has_team_competition?
+    competitors.each do |c|
+      
+    end
+    results = []
+  end
+
   private
   def end_date_not_before_start_date
     if end_date and end_date < start_date

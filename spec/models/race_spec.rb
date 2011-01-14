@@ -374,4 +374,56 @@ describe Race do
       it "should return true" do @race.should have_team_competition end
     end
   end
+
+  describe "#team_results" do
+    before do
+      @race = Factory.build(:race, :team_competitor_count => 2)
+    end
+
+    it "should return nil if the race has no team competition" do
+      @race.team_competitor_count = nil
+      @race.team_results.should be_nil
+    end
+
+    it "should return empty array if none of the clubs have enough competitors" do
+      @race.stub!(:competitors).and_return([])
+      @race.team_results.should == []
+    end
+
+    context "when the clubs have enough competitors" do
+      before do
+        @club1 = mock_model(Club, :name => 'Club 1')
+        @club2 = mock_model(Club, :name => 'Club 2')
+        @club_small = mock_model(Club, :name => 'Club small')
+        @club1_c1 = mock_model(Competitor, :points => 1100, :club => @club1)
+        @club1_c2 = mock_model(Competitor, :points => 1000, :club => @club2)
+        @club2_c1 = mock_model(Competitor, :points => 900, :club => @club2)
+        @club2_c2 = mock_model(Competitor, :points => 800, :club => @club2)
+        @club_small_c = mock_model(Competitor, :points => 1000, :club => @club_small)
+        @race.stub!(:competitors).and_return(
+          [@club2_c1, @club1_c1, @club1_c2, @club_small_c, @club2_c2])
+        @results = @race.team_results
+      end
+
+      describe "should return an array of hashes" do
+        it "including the clubs with enough competitors" do
+          @results.length.should == 2
+          @results[0].should == @club1
+          @results[1].should == @club2
+        end
+
+        it "including total points" do
+          @results[0][:points].should == 1100 + 1000
+          @results[1][:points].should == 900 + 800
+        end
+
+        it "including ordered competitors inside of each team" do
+          @results[0][:competitors][0].should == @club1_c1
+          @results[0][:competitors][1].should == @club1_c2
+          @results[1][:competitors][0].should == @club2_c1
+          @results[1][:competitors][1].should == @club2_c2
+        end
+      end
+    end
+  end
 end
