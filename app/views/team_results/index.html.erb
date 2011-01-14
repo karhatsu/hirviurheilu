@@ -1,0 +1,40 @@
+<% content_for :title, "#{@race.name} - Joukkuekilpailun tulokset" %>
+<h2>Joukkuekilpailun tulokset</h2>
+<% results = @race.team_results %>
+<% if results.empty? %>
+  <div class="notice">Joukkuekilpailun tuloksia ei voida vielä laskea</div>
+<% else %>
+  <table>
+    <tr>
+      <th>Joukkue</th>
+      <th>Pisteet</th>
+    </tr>
+    <% results.each do |team_result| %>
+      <% club = team_result[:club] %>
+      <tr>
+        <td><a href="javascript:void(0)" class="club_name_link"
+               id="<%= club.id %>"><%= club.name %></a></td>
+        <td class="center team_points"><%= team_result[:points] %></td>
+      </tr>
+      <% team_result[:competitors].each do |competitor| %>
+        <tr class="club_<%= club.id %>" style="display: none;">
+          <td>&nbsp;&nbsp;<%= link_to full_name(competitor),
+            series_competitor_path(competitor.series, competitor) %></td>
+          <td class="center"><%= competitor.points %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+<% end %>
+<hr/>
+<%= link_to "Takaisin sivulle #{@race.name}", race_path(@race) %>
+<%= javascript_tag do %>
+  $('.club_name_link').click(function() {
+    competitors = '.club_' + $(this).attr('id');
+    if($(competitors).is(':hidden')) {
+      $(competitors).show();
+    } else {
+      $(competitors).hide();
+    }
+  });
+<% end %>

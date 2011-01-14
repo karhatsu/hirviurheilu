@@ -11,6 +11,7 @@ race = menu_race
         <% if series %>
           <%= menu_item "Lähtölistat", series_start_list_path(series), @is_start_list %>
           <%= menu_item "Tulokset", series_competitors_path(series), @is_results %>
+          <%= menu_item "Joukkuekilpailu", race_team_results_path(race), @is_team_results %>
         <% end %>
       </ul>
     </div>

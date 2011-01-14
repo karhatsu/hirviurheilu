@@ -213,3 +213,7 @@ div.section {
 input.shot {
     width: 20px;
 }
+
+.team_points {
+    font-weight: bold;
+}
