@@ -19,6 +19,8 @@ class Race < ActiveRecord::Base
   validates :start_date, :presence => true
   validates :start_interval_seconds, :numericality => { :only_integer => true,
     :greater_than => 0 }
+  validates :team_competitor_count, :numericality => { :allow_nil => true,
+    :only_integer => true, :greater_than => 1 }
   validate :end_date_not_before_start_date
 
   before_destroy :prevent_destroy_if_series
