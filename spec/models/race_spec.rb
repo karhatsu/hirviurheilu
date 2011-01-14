@@ -397,7 +397,6 @@ describe Race do
       @club = mock_model(Club)
       @c = mock_model(Competitor, :points => 1100, :club => @club)
       Competitor.stub!(:sort).and_return([@c])
-      @race.stub!(:competitors).and_return([])
       @race.team_results.should == []
       @results = @race.team_results
     end
