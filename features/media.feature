@@ -83,7 +83,7 @@ Feature: Media
     And I should see "Tältä sivulta voit ladata tulokset lehdistöä varten tekstimuodossa" within "div.instructions"
     But I should not see "Kilpailuun ei ole lisätty yhtään kilpailijaa"
     When I press "Lataa lehdistöraportti"
-    Then I should see "Sarja Test series: 1) Atkinsson Tim Sports club 1140, 2) Johnson James Shooting club 1105. Sarja Another test series: 1) Thomsson Tina Sports club 1140, 2) Hamilton Mary Shooting club 1105."
+    Then I should see "Sarja Another test series: 1) Thomsson Tina Sports club 1140, 2) Hamilton Mary Shooting club 1105. Sarja Test series: 1) Atkinsson Tim Sports club 1140, 2) Johnson James Shooting club 1105."
     But I should not see "Empty series"
 
   Scenario: Results for select amount of competitors
@@ -147,7 +147,7 @@ Feature: Media
     When I go to the official media page of "Test race"
     And I fill in "1" for "Kilpailijoiden määrä / sarja"
     And I press "Lataa lehdistöraportti"
-    Then I should see "Sarja Test series: 1) Atkinsson Tim Sports club 1140. Sarja Another test series: 1) Thomsson Tina Sports club 1140."
+    Then I should see "Sarja Another test series: 1) Thomsson Tina Sports club 1140. Sarja Test series: 1) Atkinsson Tim Sports club 1140."
 
   Scenario: Invalid amount of competitors
     Given I am an official
