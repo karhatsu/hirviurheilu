@@ -124,8 +124,9 @@ class Race < ActiveRecord::Base
     competitor_counter = Hash.new
     clubs = Hash.new # { club => {:club => club, :points => 0, :competitors => []}, ... }
 
-    competitor_joins = [:series, :club, :age_group, :shots]
-    Competitor.sort(competitors.includes(competitor_joins)).each do |competitor|
+    Competitor.sort(competitors.
+        where(['series.estimates=2 and series.no_time_points=?', false]).
+        includes([:series, :club, :age_group, :shots])).each do |competitor|
       break unless competitor.points
       competitor_count = competitor_counter[competitor.club] || 0
       if competitor_count < team_competitor_count
