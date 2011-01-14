@@ -13,7 +13,7 @@ class Official::RacesController < Official::OfficialController
 
   def create
     @race = Race.new(params[:race])
-    if @race.save
+    if validate_competitor_count and @race.save
       current_user.races << @race
       flash[:notice] = "Kilpailu lisätty. "
       if params[:add_default_series]
@@ -35,7 +35,7 @@ class Official::RacesController < Official::OfficialController
   end
 
   def update
-    if @race.update_attributes(params[:race])
+    if validate_competitor_count and @race.update_attributes(params[:race])
       redirect_to official_race_path(@race)
     else
       render :edit
@@ -49,5 +49,15 @@ class Official::RacesController < Official::OfficialController
       flash[:error] = "Kilpailua ei voi poistaa: #{@race.errors[:base]}"
     end
     redirect_to official_root_path
+  end
+
+  private
+  def validate_competitor_count
+    if params[:has_team_competition] and params[:race][:team_competitor_count].empty?
+      @race.errors.add(:team_competitor_count,
+        'täytyy syöttää, jos halutaan laskea joukkuekilpailun pisteet')
+      return false
+    end
+    true
   end
 end

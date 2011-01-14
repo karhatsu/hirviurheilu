@@ -12,6 +12,14 @@
   <%= f.date_select :end_date, :include_blank => true %><br/>
   <%= f.label :start_interval_seconds %>
   <%= f.text_field :start_interval_seconds, :size => 3, :maxlength => 3 %><br/>
+  <% has_team_competition = (@race.has_team_competition? || params[:has_team_competition]) %>
+  <%= check_box_tag :has_team_competition, true, has_team_competition %>
+  <%= label_tag :has_team_competition, 'Laske joukkuekilpailun pisteet' %><br/>
+  <% count_style = has_team_competition ? '' : 'display:none;' %>
+  <span id="team_competitor_count_span" style="<%= count_style %>">
+    <%= f.label :team_competitor_count %>
+    <%= f.text_field :team_competitor_count, :size => 2, :max_length => 2 %><br/>
+  </span>
   <% if @race.new_record? %>
     <%= check_box_tag :add_default_series %>
     <%= label_tag :add_default_series, "Lisää oletussarjat automaattisesti" %>
@@ -34,12 +42,12 @@
       <p>Mikäli et valitse tätä vaihtoehtoa, pääset lisäämään haluamasi sarjat heti
         kilpailun jälkeen.</p>
     </div>
-    <script type="text/javascript">
+    <%= javascript_tag do %>
       $('#default_series_help').click(function() {
         $('#default_series_help_dialog').dialog({ title: 'Lisää oletussarjat automaattisesti',
           closeText: 'Sulje' });
       });
-    </script>
+    <% end %>
     <br/>
   <% else %>
     <%= submit_tag submit_label %>
@@ -54,4 +62,14 @@
     <%= add_child_link "Lisää uusi sarja tähän kilpailuun", f, :series %><br/><br/>
   <% end %>
   <%= submit_tag submit_label %>
+<% end %>
+<%= javascript_tag do %>
+  $('#has_team_competition').click(function() {
+    if($('#has_team_competition').is(':checked')) {
+      $('#team_competitor_count_span').show();
+    } else {
+      $('#team_competitor_count_span').hide();
+      $('#race_team_competitor_count').val('');
+    }
+  });
 <% end %>

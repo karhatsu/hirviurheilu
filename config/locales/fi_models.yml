@@ -50,6 +50,7 @@ fi:
     start_day: Aloituspäivä
     start_interval_seconds: Lähtöaikojen väli (sekuntia)
     start_time: Lähtöaika
+    team_competitor_count: Kilpailijoita / joukkue
 
   activerecord:
     models:
