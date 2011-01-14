@@ -54,13 +54,19 @@ class Competitor < ActiveRecord::Base
   end
 
   def shots_sum
-    return shots_total_input if shots_total_input
-    return nil if shots.empty?
-    sum = 0
-    shots.each do |s|
-      sum += s.value.to_i
+    return @shots_sum if @shots_sum
+    if shots_total_input
+      @shots_sum = shots_total_input
+    elsif shots.empty?
+      return nil
+    else
+      sum = 0
+      shots.each do |s|
+        sum += s.value.to_i
+      end
+      @shots_sum = sum
     end
-    sum
+    @shots_sum
   end
 
   def time_in_seconds
