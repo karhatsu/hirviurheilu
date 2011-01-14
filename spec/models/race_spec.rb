@@ -78,9 +78,17 @@ describe Race do
         :end_date => nil)
     end
 
-    specify { Race.past.should == [@past2, @past1] }
-    specify { Race.ongoing.should == [@current1, @current2, @current3] }
-    specify { Race.future.should == [@future2, @future1] }
+    it "#past should return past races" do
+      Race.past.should == [@past2, @past1]
+    end
+
+    it "#ongoing should return ongoing races" do
+      Race.ongoing.should == [@current1, @current2, @current3]
+    end
+
+    it "#future should return future races" do
+      Race.future.should == [@future2, @future1]
+    end
   end
 
   describe "#finish" do
