@@ -5,7 +5,7 @@ race = menu_race
   <div class="second_level_menu">
     <div class="menu sub_menu">
       <ul>
-        <%= menu_item "Sarjat", race_path(race), @is_race %>
+        <%= menu_item "Kilpailun etusivu", race_path(race), @is_race %>
         <% series = menu_series %>
         <% series = race.series.first unless series %>
         <% if series %>
