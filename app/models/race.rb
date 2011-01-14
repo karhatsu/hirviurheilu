@@ -115,6 +115,10 @@ class Race < ActiveRecord::Base
     2
   end
 
+  def has_team_competition?
+    team_competitor_count
+  end
+
   private
   def end_date_not_before_start_date
     if end_date and end_date < start_date

@@ -357,4 +357,21 @@ describe Race do
       race.estimates_at_most.should == 4
     end
   end
+
+  describe "#has_team_competition?" do
+    before do
+      @race = Factory.build(:race)
+    end
+
+    context "when team_competitor_count is nil" do
+      it "should return false" do @race.should_not have_team_competition end
+    end
+
+    context "when team_competitor_count is defined" do
+      before do
+        @race.team_competitor_count = 2
+      end
+      it "should return true" do @race.should have_team_competition end
+    end
+  end
 end
