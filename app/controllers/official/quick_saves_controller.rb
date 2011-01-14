@@ -7,7 +7,12 @@ class Official::QuickSavesController < Official::OfficialController
   def estimates
     @name = 'estimates'
     do_quick_save(EstimatesQuickSave.new(@race.id, params[:string])) do
-      @result = "arviot: #{@competitor.estimate1} ja #{@competitor.estimate2}"
+      if @competitor.series.estimates == 4
+        @result = "arviot: #{@competitor.estimate1}, #{@competitor.estimate2}, " +
+          "#{@competitor.estimate3} ja #{@competitor.estimate4}"
+      else
+        @result = "arviot: #{@competitor.estimate1} ja #{@competitor.estimate2}"
+      end
     end
   end
 
