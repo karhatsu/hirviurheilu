@@ -22,6 +22,7 @@
   <% unless @series.some_competitor_has_arrival_time? %>
     <div class="action_box">
       <%= flash_error %>
+      <%= flash_notice %>
       <%= render :partial => 'shared/form_errors', :locals => { :item => @series } %>
       <%= form_for([:official, @series], :url => official_series_start_list_path) do |f| %>
         <%= f.label :first_number %>
