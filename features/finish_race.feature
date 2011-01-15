@@ -10,6 +10,14 @@ Feature: Finish race
     And I am on the official race page of "Test race"
     Then I should not see "kun kaikki tulokset on syötetty"
 
+  Scenario: No competitors defined for the race
+    Given I am an official
+    And I have an ongoing race "Test race"
+    And the race has series "Test series"
+    And I have logged in
+    And I am on the official race page of "Test race"
+    Then I should not see "kun kaikki tulokset on syötetty"
+
   Scenario: The race is in the future
     Given I am an official
     And I have a future race "Test race"
