@@ -75,12 +75,9 @@ class Series < ActiveRecord::Base
       errors.add(:base, "#{error_start}, sillä sarjan ensimmäistä numeroa ei ole määritetty")
       failure = true
     end
-    competitors.each do |comp|
-      if comp.arrival_time
-        errors.add(:base, "#{error_start}, sillä osalla kilpailijoista on jo saapumisaika")
-        failure = true
-        break
-      end
+    if some_competitor_has_arrival_time?
+      errors.add(:base, "#{error_start}, sillä osalla kilpailijoista on jo saapumisaika")
+      failure = true
     end
     if first_number
       max_number = first_number + competitors.count - 1
@@ -107,6 +104,13 @@ class Series < ActiveRecord::Base
     generate_numbers(order_method) || raise(errors.full_messages.to_s)
   end
 
+  def some_competitor_has_arrival_time?
+    competitors.each do |comp|
+      return true if comp.arrival_time
+    end
+    false
+  end
+
   def generate_start_times
     reload
     failure = false
@@ -123,12 +127,9 @@ class Series < ActiveRecord::Base
       errors.add(:base, "#{error_start}, sillä kaikilla kilpailijoilla ei ole numeroa")
       failure = true
     end
-    competitors.each do |comp|
-      if comp.arrival_time
-        errors.add(:base, "#{error_start}, sillä osalla kilpailijoista on jo saapumisaika")
-        failure = true
-        break
-      end
+    if some_competitor_has_arrival_time?
+      errors.add(:base, "#{error_start}, sillä osalla kilpailijoista on jo saapumisaika")
+      failure = true
     end
     return false if failure
 

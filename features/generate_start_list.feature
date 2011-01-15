@@ -91,3 +91,28 @@ Feature: Generate start list
     And I press "Luo lähtölista sarjalle"
     Then I should see "Numeroita ei voi generoida, sillä sarjan ensimmäistä numeroa ei ole määritetty" within "div.error_explanation"
     But I should not see "0" within "tr#competitor_1"
+
+  Scenario: Don't show start list form when some competitor has an arrival time
+    Given I am an official
+    And I have a race with attributes:
+      | name | Test race |
+      | start_date | 2010-11-15 |
+      | start_interval_seconds | 45 |
+    And the race has series with attributes:
+      | name | Test series |
+      | first_number | 1 |
+      | start_time | 12:00 |
+    And the series has a competitor with attributes:
+      | first_name | John |
+      | last_name | Stevensson |
+    And the series has a competitor with attributes:
+      | first_name | Peter |
+      | last_name | Bears |
+    And the start list has been generated for the series
+    And the competitor "Peter" "Bears" has the following results:
+      | arrival_time | 13:00:10 |
+    And I have logged in
+    When I am on the official competitors page of the series
+    Then I should not see "Sarjan ensimmäinen numero"
+    And I should not see "Sarjan lähtöaika"
+    And I should not see "Kilpailijoiden järjestys"

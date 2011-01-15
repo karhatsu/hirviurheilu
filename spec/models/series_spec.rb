@@ -203,6 +203,30 @@ describe Series do
     end
   end
 
+  describe "#some_competitor_has_arrival_time?" do
+    before do
+      @series = Factory.build(:series)
+      @c1 = Factory.build(:competitor, :series => @series)
+      @c2 = Factory.build(:competitor, :series => @series)
+    end
+
+    it "should return false when no competitors" do
+      @series.some_competitor_has_arrival_time?.should be_false
+    end
+
+    it "should return false when none of the competitors have an arrival time" do
+      @series.stub!(:competitors).and_return([@c1, @c2])
+      @series.some_competitor_has_arrival_time?.should be_false
+    end
+
+    it "should return true when any of the competitors have an arrival time" do
+      @c2.start_time = '11:34:45'
+      @c2.arrival_time = '12:34:45'
+      @series.stub!(:competitors).and_return([@c1, @c2])
+      @series.some_competitor_has_arrival_time?.should be_true
+    end
+  end
+
   describe "#generate_numbers" do
     before do
       @race = Factory.create(:race)
