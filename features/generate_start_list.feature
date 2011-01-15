@@ -20,9 +20,8 @@ Feature: Generate start list
     And I have logged in
     And I am on the official race page of "Test race"
     When I follow "Tee lista"
-    Then I should see "Test series - Lähtölista" within "h2"
-    And I should see "Kun olet lisännyt kaikki kilpailijat, voit tällä sivulla luoda kilpailijoista lähtöluettelon." within "div.instructions"
-    And I should see "Kilpailijat" within "div.main_content h3"
+    Then I should see "Test series - Kilpailijat" within "h2"
+    And I should see "Kun olet syöttänyt sarjaan kaikki kilpailijat, lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot." within "div.notice"
     And I should see "Stevensson John" within "tr#competitor_1"
     And I should see "Bears Peter" within "tr#competitor_2"
     When I fill in "15" for "Sarjan ensimmäinen numero"
@@ -30,18 +29,14 @@ Feature: Generate start list
     And I select "45" from "series_start_time_5i"
     And I choose "order_method_0"
     And I press "Luo lähtölista sarjalle"
-    Then I should see "Test series - Lähtölista" within "h2"
-    And I should see "Tälle sarjalle on luotu lähtölista. Jos sarjaan pitää lisätä vielä kilpailijoita, sinun täytyy asettaa heille lähtönumero ja lähtöaika erikseen. Voit tehdä tämän samalla, kun lisäät uuden kilpailijan." within "div.instructions"
-    But I should not see "Kun olet lisännyt kaikki kilpailijat, voit tällä sivulla luoda kilpailijoista lähtöluettelon."
+    Then I should see "Test series - Kilpailijat" within "h2"
+    But I should not see "Kun olet syöttänyt sarjaan kaikki kilpailijat, lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot."
     And I should see "Stevensson John" within "tr#competitor_1"
     And I should see "15" within "tr#competitor_1"
     And I should see "13:45:00" within "tr#competitor_1"
     And I should see "Bears Peter" within "tr#competitor_2"
     And I should see "16" within "tr#competitor_2"
     And I should see "13:45:45" within "tr#competitor_2"
-    When I follow "Kilpailijat"
-    Then I should not see "Kun olet syöttänyt sarjaan kaikki kilpailijat, lisää heille alla olevan linkin avulla lähtöajat- ja numerot."
-    And I should not see "Lähtöaikojen ja -numeroiden luonti..."
 
   Scenario: No competitors added yet
     Given I am an official
@@ -49,11 +44,9 @@ Feature: Generate start list
     And the race has series with attributes:
       | name | Test series |
     And I have logged in
-    When I go to the official start list page of the series
-    Then I should see "Tässä sarjassa ei ole vielä yhtään kilpailijaa. Kun olet lisännyt sarjaan kilpailijat, voit tällä sivulla luoda heille lähtölistan."
-    But I should not see "Sarjan ensimmäinen numero"
+    When I go to the official competitors page of the series
+    Then I should not see "Sarjan ensimmäinen numero"
     And I should not see "Sarjan lähtöaika"
-    And I should not see "Kilpailijat" within "div.main_content"
 
   Scenario: Invalid series values
     Given I am an official

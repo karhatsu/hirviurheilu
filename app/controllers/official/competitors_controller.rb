@@ -6,6 +6,9 @@ class Official::CompetitorsController < Official::OfficialController
   before_filter :set_competitors
 
   def index
+    # for start list generation:
+    @order_method = params[:order_method] ? params[:order_method].to_i :
+      Series::START_LIST_RANDOM
   end
 
   def new

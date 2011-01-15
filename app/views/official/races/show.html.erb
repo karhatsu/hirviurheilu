@@ -45,7 +45,7 @@
           <td class="center"><%= link_to "Lisää uusi",
               new_official_series_competitor_path(s) %></td>
           <td class="center"><%= yes_or_empty(s.has_start_list?) do
-              link_to "Tee lista", official_series_start_list_path(s)
+              link_to "Tee lista", official_series_competitors_path(s)
             end %></td>
           <% if s.has_start_list? %>
             <% finished_count = s.finished_competitors_count %>

@@ -15,14 +15,36 @@
   </div>
   <% unless @series.has_start_list? %>
     <%= highlight_notice('Kun olet syöttänyt sarjaan kaikki kilpailijat, ' +
-        'lisää heille alla olevan linkin avulla lähtöajat- ja numerot.') %>
-    <div class="action_box">
-      <%= link_to "Lähtöaikojen ja -numeroiden luonti...",
-        official_series_start_list_path(@series) %>
-    </div>
+        'lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot.') %>
   <% end %>
-  <%= render :partial => 'table', :locals => { :series => @series,
+  <div class="action_box">
+    <%= flash_error %>
+    <%= render :partial => 'shared/form_errors', :locals => { :item => @series } %>
+    <%= form_for([:official, @series], :url => official_series_start_list_path) do |f| %>
+      <%= f.label :first_number %>
+      <%= f.text_field :first_number, :size => 3 %>
+      <%= f.label :start_time %>
+      <%= start_days_form_field(f, @series) %>
+      <%= f.time_select :start_time, :include_seconds => false, :include_blank => true %><br/>
+      <%= t "order_method" %>:
+      <%= radio_button_tag :order_method, Series::START_LIST_ADDING_ORDER,
+        Series::START_LIST_ADDING_ORDER == @order_method %>
+      <%= t "order_method_#{Series::START_LIST_ADDING_ORDER}" %>
+      <%= radio_button_tag :order_method, Series::START_LIST_RANDOM,
+        Series::START_LIST_RANDOM == @order_method %>
+      <%= t "order_method_#{Series::START_LIST_RANDOM}" %>
+      <%= submit_tag (@series.has_start_list? ? "Tee uusi lähtölista sarjalle" :
+          "Luo lähtölista sarjalle") %>
+    <% end %>
+  </div>
+  <%= render :partial => 'official/competitors/table', :locals => { :series => @series,
     :result_column => true, :remove_column => true } %>
+<% end %>
+<% if @series.has_start_list? %>
+  <div class="action_box">
+    <%= link_to "Lataa lähtölista pdf-tiedostona", series_start_list_path(@series,
+      :format => 'pdf') %>
+  </div>
 <% end %>
 <hr/>
 <%= link_to "Takaisin Yhteenveto-sivulle", official_race_path(@series.race) %>
