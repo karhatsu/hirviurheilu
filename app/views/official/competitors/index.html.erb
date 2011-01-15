@@ -15,7 +15,9 @@
   </div>
   <% unless @series.has_start_list? %>
     <%= highlight_notice('Kun olet syöttänyt sarjaan kaikki kilpailijat, ' +
-        'lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot.') %>
+        'lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot. ' +
+        '(Voit lisätä jälki-ilmoittautuneita kilpailijoita vielä lähtölistan ' +
+        'luomisen jälkeenkin.)') %>
   <% end %>
   <% unless @series.some_competitor_has_arrival_time? %>
     <div class="action_box">
