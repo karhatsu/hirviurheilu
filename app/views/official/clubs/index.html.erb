@@ -13,7 +13,11 @@
 <% end %>
 <% style = (@race.clubs.empty? ? " style='display: none;'" : "") %>
 <h2 id="clubs_title"<%= style %>>Nykyiset seurat</h2>
-<div class="instructions">Jos haluat muutta seuran nimeä, klikkaa nimessä olevaa linkkiä.</div>
+<% unless @race.clubs.empty? %>
+  <div class="instructions">
+    Jos haluat muutta seuran nimeä, klikkaa nimessä olevaa linkkiä.
+  </div>
+<% end %>
 <div class="section">
   <table id="clubs_table"<%= style %>>
     <tr>
