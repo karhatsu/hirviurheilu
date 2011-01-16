@@ -1,5 +1,6 @@
 <% content_for(:title, 'Omat tiedot') %>
 <% content_for(:page_title, yield(:title)) %>
+<%= flash_error %>
 <%= flash_success %>
 <b>Sähköposti:</b>
 <%=h @user.email %>

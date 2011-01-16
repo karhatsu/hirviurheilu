@@ -12,7 +12,7 @@ class ResetPasswordsController < ApplicationController
       user.reset_hash = reset_hash
       user.save!
       ResetPasswordMailer.reset_mail(params[:email], reset_hash, site_url).deliver
-      flash[:notice] = "Sähköpostiisi on lähetetty linkki, " +
+      flash[:success] = "Sähköpostiisi on lähetetty linkki, " +
         "jonka avulla voit asettaa uuden salasanan."
       redirect_to reset_password_path
     else
@@ -47,7 +47,7 @@ class ResetPasswordsController < ApplicationController
       user.password = params[:password]
       user.password_confirmation = params[:password_confirmation]
       if user.save
-        flash[:notice] = "Salasana vaihdettu"
+        flash[:success] = "Salasana vaihdettu"
         redirect_to account_path
       else
         flash[:error] = user.errors.full_messages.join(". ") + "."

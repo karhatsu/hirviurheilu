@@ -19,7 +19,7 @@ class FeedbacksController < ApplicationController
     @tel = params[:tel]
     unless @comment.blank?
       FeedbackMailer.feedback_mail(@comment, @name, @email, @tel, current_user).deliver
-      flash[:notice] = 'Kiitos palautteesta'
+      flash[:success] = 'Kiitos palautteesta'
       redirect_to feedbacks_path
     else
       flash[:error] = 'Älä unohda kirjoittaa palautetta'

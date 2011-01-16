@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def flash_success
-    raw("<div class='notice'>#{flash[:notice]}</div>") if flash[:notice]
+    raw("<div class='notice'>#{flash[:success]}</div>") if flash[:success]
   end
 
   def flash_error

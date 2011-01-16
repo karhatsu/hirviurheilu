@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     if @user.save
       @user.add_official_rights
       NewUserMailer.new_user(@user).deliver
-      flash[:notice] = "Käyttäjätili luotu. " +
+      flash[:success] = "Käyttäjätili luotu. " +
         "Pääset syöttämään kilpailun tietoja Toimitsijan sivut -linkistä."
       redirect_back_or_default account_url
     else
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   def update
     @user = @current_user
     if @user.update_attributes(params[:user])
-      flash[:notice] = "Käyttäjätili päivitetty"
+      flash[:success] = "Käyttäjätili päivitetty"
       redirect_to account_url
     else
       render :action => :edit

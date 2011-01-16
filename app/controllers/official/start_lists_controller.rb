@@ -6,7 +6,7 @@ class Official::StartListsController < Official::OfficialController
     @order_method = params[:order_method].to_i
     if @series.update_attributes(params[:series]) and
         @series.generate_start_list(@order_method)
-      flash[:notice] = "Lähtölista luotu sarjalle #{@series.name}"
+      flash[:success] = "Lähtölista luotu sarjalle #{@series.name}"
       redirect_to official_series_competitors_path(@series,
         :order_method => params[:order_method])
     else
