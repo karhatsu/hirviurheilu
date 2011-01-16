@@ -8,7 +8,7 @@ module ApplicationHelper
     raw("<div class='error'>#{flash[:error]}</div>") if flash[:error]
   end
 
-  def highlight_notice(content)
+  def highlight_info(content)
     timestamp = Time.now.to_f.to_s.gsub!('.', '')
     html = %{
       <div class="info" id="highlight_#{timestamp}">#{content}</div>

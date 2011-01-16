@@ -3,7 +3,7 @@
 <%= flash_error %>
 <%= flash_notice %>
 <% if @race.series.empty? %>
-  <%= highlight_notice('Et ole vielä lisännyt kilpailuun yhtään sarjaa. ' +
+  <%= highlight_info('Et ole vielä lisännyt kilpailuun yhtään sarjaa. ' +
       'Lisää sarjoja alla olevasta linkistä.') %>
 <% end %>
 <div class="action_box">
@@ -23,7 +23,7 @@
   </div>
 <% else %>
   <% if @race.competitors.empty? %>
-    <%= highlight_notice('Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. ' +
+    <%= highlight_info('Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. ' +
         'Aloita klikkaamalla sarjan nimen vieressä olevaa linkkiä.') %>
   <% end %>
   <table cellspacing="0" border="1">

@@ -7,14 +7,14 @@
   <% end %>
 <% end %>
 <% if @series.competitors.empty? %>
-  <%= highlight_notice('Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.') %>
+  <%= highlight_info('Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.') %>
   <%= link_to "Lisää kilpailija", new_official_series_competitor_path(@series) %>
 <% else %>
   <div class="action_box">
     <%= link_to "Lisää uusi kilpailija", new_official_series_competitor_path(@series) %>
   </div>
   <% unless @series.has_start_list? %>
-    <%= highlight_notice('Kun olet syöttänyt sarjaan kaikki kilpailijat, ' +
+    <%= highlight_info('Kun olet syöttänyt sarjaan kaikki kilpailijat, ' +
         'lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot. ' +
         '(Voit lisätä jälki-ilmoittautuneita kilpailijoita vielä lähtölistan ' +
         'luomisen jälkeenkin.)') %>
