@@ -7,7 +7,7 @@ Feature: Reset password
     Given I am an official with email "test@test.com" and password "test"
     And I am on the home page
     When I follow "Unohtunut salasana"
-    Then I should see "Jos olet unohtanut salasanasi, syötä alla olevaan kenttään sähköpostiosoitteesi." within "div.instructions"
+    Then I should see "Jos olet unohtanut salasanasi, syötä alla olevaan kenttään sähköpostiosoitteesi." within "div.info"
     When I fill in "test@test.com" for "Sähköposti"
     And I press "Tilaa uusi salasana"
     Then I should see "Sähköpostiisi on lähetetty linkki, jonka avulla voit asettaa uuden salasanan."
@@ -34,7 +34,7 @@ Feature: Reset password
     And I fill in "test@test.com" for "Sähköposti"
     And I press "Tilaa uusi salasana"
     Then I should see "Tuntematon sähköpostiosoite" within "div.error"
-    And I should see "Jos olet unohtanut salasanasi, syötä alla olevaan kenttään sähköpostiosoitteesi." within "div.instructions"
+    And I should see "Jos olet unohtanut salasanasi, syötä alla olevaan kenttään sähköpostiosoitteesi." within "div.info"
     And "test@test.com" should have no emails
 
   Scenario: Invalid new password

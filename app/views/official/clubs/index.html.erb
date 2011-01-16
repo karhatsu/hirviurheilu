@@ -1,6 +1,6 @@
 <% content_for :title, "#{@race.name} - Seurat" %>
 <h2>Seurat</h2>
-<div class="instructions">Tällä sivulla voit lisätä kilpailuun osallistuvien kilpailijoiden seuroja
+<div class="info">Tällä sivulla voit lisätä kilpailuun osallistuvien kilpailijoiden seuroja
   sekä korjata niiden nimiä ja poistaa ylimääräisiä. Huom! Voit lisätä seuroja
   myös samalla, kun lisäät kilpailijoita.</div>
 <h2>Lisää seura</h2>
@@ -14,7 +14,7 @@
 <% style = (@race.clubs.empty? ? " style='display: none;'" : "") %>
 <h2 id="clubs_title"<%= style %>>Nykyiset seurat</h2>
 <% unless @race.clubs.empty? %>
-  <div class="instructions">
+  <div class="info">
     Jos haluat muutta seuran nimeä, klikkaa nimessä olevaa linkkiä.
   </div>
 <% end %>

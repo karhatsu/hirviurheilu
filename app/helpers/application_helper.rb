@@ -11,13 +11,13 @@ module ApplicationHelper
   def highlight_notice(content)
     timestamp = Time.now.to_f.to_s.gsub!('.', '')
     html = %{
-      <div class="instructions" id="highlight_#{timestamp}">#{content}</div>
+      <div class="info" id="highlight_#{timestamp}">#{content}</div>
       <script type="text/javascript">
         $(document).ready(function() {
-          setTimeout(function() {$("#highlight_#{timestamp}").addClass('instructions_flash')}, 500);
-          setTimeout(function() {$("#highlight_#{timestamp}").removeClass('instructions_flash')}, 1000);
-          setTimeout(function() {$("#highlight_#{timestamp}").addClass('instructions_flash')}, 1500);
-          setTimeout(function() {$("#highlight_#{timestamp}").removeClass('instructions_flash')}, 2000);
+          setTimeout(function() {$("#highlight_#{timestamp}").addClass('info_flash')}, 500);
+          setTimeout(function() {$("#highlight_#{timestamp}").removeClass('info_flash')}, 1000);
+          setTimeout(function() {$("#highlight_#{timestamp}").addClass('info_flash')}, 1500);
+          setTimeout(function() {$("#highlight_#{timestamp}").removeClass('info_flash')}, 2000);
         });
       </script>
     }

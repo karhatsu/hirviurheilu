@@ -73,7 +73,7 @@
   <% end %>
 <% end %>
 <% if @race.start_date > Date.today %>
-  <div class="instructions">
+  <div class="info">
     Kilpailun alkuun on aikaa
     <%= distance_of_time_in_words(Date.today, @race.start_date, false) %>.</div>
 <% end %>

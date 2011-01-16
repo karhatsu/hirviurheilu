@@ -14,7 +14,7 @@ Feature: Media
     And I follow "Lehdistö"
     Then I should see "Test race" within ".main_title"
     And I should see "Lehdistö" within "h2"
-    And I should see "Tältä sivulta voit ladata tulokset lehdistöä varten tekstimuodossa" within "div.instructions"
+    And I should see "Tältä sivulta voit ladata tulokset lehdistöä varten tekstimuodossa" within "div.info"
     And I should see "Kilpailuun ei ole lisätty yhtään kilpailijaa" within "div.warning"
 
   Scenario: Results for all competitors
@@ -80,7 +80,7 @@ Feature: Media
     And I follow "Lehdistö"
     Then I should see "Test race" within ".main_title"
     And I should see "Lehdistö" within "h2"
-    And I should see "Tältä sivulta voit ladata tulokset lehdistöä varten tekstimuodossa" within "div.instructions"
+    And I should see "Tältä sivulta voit ladata tulokset lehdistöä varten tekstimuodossa" within "div.info"
     But I should not see "Kilpailuun ei ole lisätty yhtään kilpailijaa"
     When I press "Lataa lehdistöraportti"
     Then I should see "Sarja Another test series: 1) Thomsson Tina Sports club 1140, 2) Hamilton Mary Shooting club 1105. Sarja Test series: 1) Atkinsson Tim Sports club 1140, 2) Johnson James Shooting club 1105."

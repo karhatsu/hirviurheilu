@@ -21,7 +21,7 @@ Feature: Generate start list
     And I am on the official race page of "Test race"
     When I follow "Tee lista"
     Then I should see "Test series - Kilpailijat" within "h2"
-    And I should see "Kun olet syöttänyt sarjaan kaikki kilpailijat, lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot." within "div.instructions"
+    And I should see "Kun olet syöttänyt sarjaan kaikki kilpailijat, lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot." within "div.info"
     And I should see "Stevensson John" within "tr#competitor_1"
     And I should see "Bears Peter" within "tr#competitor_2"
     When I fill in "15" for "Sarjan ensimmäinen numero"
