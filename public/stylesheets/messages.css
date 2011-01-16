@@ -34,10 +34,10 @@ span.error {
 div.warning {
     background-image: url('/images/warning.png');
     background-repeat: no-repeat;
-    background-color: white;
-    color: orange;
+    background-color: #FF7F00;
+    color: white;
     margin-bottom: 8px;
-    border: 1px solid orange;
+    border: 1px solid olive;
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -46,7 +46,7 @@ div.warning {
 div.important {
     background-image: url('/images/important.png');
     background-repeat: no-repeat;
-    background-color: orange;
+    background-color: #FF7F00;
     color: white;
     margin-bottom: 8px;
     border: 1px solid olive;
