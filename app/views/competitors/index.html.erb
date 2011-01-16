@@ -8,20 +8,20 @@
 <% end %>
 <%= render :partial => "start_notice", :locals => { :series => @series } %>
 <% if @series.running? %>
-  <div class="notice">Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan
+  <div class="info">Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan
     kilpailun päätyttyä.</div>
 <% end %>
 <% if @series.competitors.empty? %>
-  <div class="notice">Tähän sarjaan ei ole merkitty kilpailijoita.</div>
+  <div class="info">Tähän sarjaan ei ole merkitty kilpailijoita.</div>
   <% if official_rights %>
     <div><%= link_to "Lisää kilpailijoita", new_official_series_competitor_path(@series) %></div>
   <% end %>
 <% else %>
   <% if @series.no_time_points %>
-    <div class="notice">Tälle sarjalle ei lasketa aikapisteitä.</div>
+    <div class="info">Tälle sarjalle ei lasketa aikapisteitä.</div>
   <% end %>
   <% if @series.estimates == 4 %>
-    <div class="notice">Tässä sarjassa on 4 arviomatkaa.</div>
+    <div class="info">Tässä sarjassa on 4 arviomatkaa.</div>
   <% end %>
   <div class="section">
     <table>

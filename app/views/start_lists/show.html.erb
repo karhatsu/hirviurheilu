@@ -8,7 +8,7 @@
 <% end %>
 <%= render :partial => "competitors/start_notice", :locals => { :series => @series } %>
 <% if @series.start_list.empty? %>
-  <div class="notice">Tähän sarjaan ei ole merkitty kilpailijoita tai heille ei
+  <div class="info">Tähän sarjaan ei ole merkitty kilpailijoita tai heille ei
     ole määritetty vielä lähtöaikoja.</div>
   <% if official_rights %>
     <div><%= link_to "Lisää kilpailijoita", new_official_series_competitor_path(@series) %></div>

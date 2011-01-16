@@ -2,13 +2,13 @@
   (@competitor.age_group ? " (#{@competitor.age_group.name})" : "")) %>
 <h2><%= yield :title %></h2>
 <% if @competitor.series.no_time_points %>
-  <div class="notice">Tälle sarjalle ei lasketa aikapisteitä.</div>
+  <div class="info">Tälle sarjalle ei lasketa aikapisteitä.</div>
 <% end %>
 <% if @competitor.series.estimates == 4 %>
-  <div class="notice">Tässä sarjassa on 4 arviomatkaa.</div>
+  <div class="info">Tässä sarjassa on 4 arviomatkaa.</div>
 <% end %>
 <% if @competitor.no_result_reason %>
-  <div class="notice"><%= t "competitor.#{@competitor.no_result_reason}" %></div>
+  <div class="info"><%= t "competitor.#{@competitor.no_result_reason}" %></div>
 <% end %>
 <div id="points">
   <h3>Pisteet</h3>
@@ -58,7 +58,7 @@
       </tr>
     </table>
   <% else %>
-    <div class="notice">Tarkemmat arviointitiedot näytetään kilpailun päätyttyä.</div>
+    <div class="info">Tarkemmat arviointitiedot näytetään kilpailun päätyttyä.</div>
   <% end %>
 </div>
 <div id="time">

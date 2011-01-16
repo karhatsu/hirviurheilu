@@ -112,8 +112,8 @@ Feature: Results
     Then I should be on the results page of the series
     And I should see "My test race" within ".main_title"
     And I should see "Men 50 years - Tulokset" within "h2"
-    And I should see "Tälle sarjalle ei lasketa aikapisteitä." within "div.notice"
-    And I should see "Tässä sarjassa on 4 arviomatkaa." within "div.notice"
+    And I should see "Tälle sarjalle ei lasketa aikapisteitä." within "div.info"
+    And I should see "Tässä sarjassa on 4 arviomatkaa." within "div.info"
     And I should see a result row 1 with values:
       | name | Atkinsson Tim |
       | number | 51 |
@@ -272,8 +272,8 @@ Feature: Results
     And I am on the results page of the series
     When I follow "Atkinsson Tim"
     Then I should be on the results page of the competitor
-    And I should see "Tälle sarjalle ei lasketa aikapisteitä." within "div.notice"
-    And I should see "Tässä sarjassa on 4 arviomatkaa." within "div.notice"
+    And I should see "Tälle sarjalle ei lasketa aikapisteitä." within "div.info"
+    And I should see "Tässä sarjassa on 4 arviomatkaa." within "div.info"
     And I should see "My test race" within ".main_title"
     And I should see "Men 50 years - Atkinsson Tim" within "h2"
     And I should see "Pisteet" within "#points h3"

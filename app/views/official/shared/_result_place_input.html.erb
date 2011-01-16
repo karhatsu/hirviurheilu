@@ -7,9 +7,11 @@
   <% end %>
 <% end %>
 <% if @series.competitors.empty? %>
-  <div class="notice">Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.</div>
-  <%= link_to "Lisää kilpailija sarjaan #{@series.name}",
-    new_official_series_competitor_path(@series) %>
+  <div class="warning">Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.</div>
+  <div class="action_box">
+    <%= link_to "Lisää kilpailija sarjaan #{@series.name}",
+      new_official_series_competitor_path(@series) %>
+  </div>
 <% elsif !@series.has_start_list? %>
   <%= highlight_info('Tähän sarjaan ei ole luotu vielä lähtölistaa. ' +
       'Tulokset voi syöttää vasta sitten kun lähtölista on luotu.') %>
