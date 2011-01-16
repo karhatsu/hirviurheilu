@@ -8,7 +8,9 @@
 <% end %>
 <% if @series.competitors.empty? %>
   <%= highlight_info('Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.') %>
-  <%= link_to "Lisää kilpailija", new_official_series_competitor_path(@series) %>
+  <div class="action_box">
+    <%= link_to "Lisää kilpailija", new_official_series_competitor_path(@series) %>
+  </div>
 <% else %>
   <div class="action_box">
     <%= link_to "Lisää uusi kilpailija", new_official_series_competitor_path(@series) %>
