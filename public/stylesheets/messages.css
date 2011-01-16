@@ -80,9 +80,9 @@ li.success {
 div.info {
     background-image: url('/images/info.png');
     background-repeat: no-repeat;
-    border: olive 1px solid;
-    background-color: white;
-    color: olive;
+    border: solid 1px #246;
+    background-color: #246;
+    color: white;
     margin-bottom: 7px;
     border-radius: 5px;
     -moz-border-radius: 5px;
@@ -90,6 +90,5 @@ div.info {
 }
 
 div.info_flash {
-    background-color: olive;
-    color: white;
+    background-image: none;
 }
