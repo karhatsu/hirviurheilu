@@ -1,7 +1,7 @@
 <% content_for :title, "#{@race.name} - Oikeat arviot" %>
 <h2>Oikeat arviot</h2>
 <%= flash_error %>
-<%= flash_notice %>
+<%= flash_success %>
 <div class="section">
   <%= form_for([:official, @race], :url => race_correct_estimates_path(@race)) do |f| %>
     <%= render :partial => 'shared/form_errors', :locals => { :item => @race } %>

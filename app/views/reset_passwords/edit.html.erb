@@ -1,7 +1,7 @@
 <% content_for(:title, 'Uuden salasanan asetus') %>
 <% content_for(:page_title, yield(:title)) %>
 <%= flash_error %>
-<%= flash_notice %>
+<%= flash_success %>
 <% if @hash_ok %>
   <%= form_tag(reset_password_path, :method => :put) do %>
     <%= hidden_field_tag :reset_hash, @reset_hash %>

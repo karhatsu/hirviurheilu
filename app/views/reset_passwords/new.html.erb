@@ -3,7 +3,7 @@
 <div class="info">Jos olet unohtanut salasanasi,
   syötä alla olevaan kenttään sähköpostiosoitteesi.</div>
 <%= flash_error %>
-<%= flash_notice %>
+<%= flash_success %>
 <%= form_tag(reset_password_path) do %>
   <%= label_tag :email, 'Sähköposti' %>
   <%= text_field_tag :email %><br/>

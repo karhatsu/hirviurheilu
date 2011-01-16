@@ -1,7 +1,7 @@
 <%= content_for(:title, "#{@race.name} - Yhteenveto") %>
 <h2>Yhteenveto</h2>
 <%= flash_error %>
-<%= flash_notice %>
+<%= flash_success %>
 <% if @race.series.empty? %>
   <%= highlight_info('Et ole vielä lisännyt kilpailuun yhtään sarjaa. ' +
       'Lisää sarjoja alla olevasta linkistä.') %>
