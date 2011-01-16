@@ -24,8 +24,8 @@ $('#latest_competitors_list').prepend('' +
   '<%= full_name(@competitor) %>, <%= @competitor.club.name %> ' +
   '(<%= @competitor.series.name %><%= @competitor.age_group ? "/#{@competitor.age_group.name}" : '' %>)</li>');
 
-$('div.notice').text('Kilpailija lisätty');
-$('div.notice').show('fast');
+$('div.success').text('Kilpailija lisätty');
+$('div.success').show('fast');
 setTimeout(function() {
-  $('div.notice').hide('slow');
+  $('div.success').hide('slow');
 }, 3000);

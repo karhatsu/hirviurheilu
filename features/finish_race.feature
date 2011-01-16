@@ -89,5 +89,5 @@ Feature: Finish race
     Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
     When I press "Merkitse kilpailu päättyneeksi"
     Then I should be on the official race page of "Test race"
-    And I should see "Kilpailu Test race on merkitty päättyneeksi" within "div.notice"
+    And I should see "Kilpailu Test race on merkitty päättyneeksi" within "div.success"
     But I should not see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista."

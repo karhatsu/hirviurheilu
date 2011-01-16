@@ -1,4 +1,4 @@
-div.error, div.warning, div.notice, div.important, div.info {
+div.error, div.warning, div.success, div.important, div.info {
     padding: 3px 3px 3px 40px;
     min-height: 27px;
 }
@@ -55,7 +55,7 @@ div.important {
     -webkit-border-radius: 5px;
 }
 
-div.notice {
+div.success {
     background-image: url('/images/success.png');
     background-repeat: no-repeat;
     background-color: olive;
@@ -67,12 +67,12 @@ div.notice {
     -webkit-border-radius: 5px;
 }
 
-span.notice {
+span.success {
     background-color: olive;
     color: white;
 }
 
-li.notice {
+li.success {
     background-color: olive;
     color: white;
 }

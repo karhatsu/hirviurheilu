@@ -20,7 +20,7 @@ Feature: Official invitation
     And I should see "Tim Thomas" within "#current_officials"
     When I fill in "another@official.com" for "Sähköposti"
     And I press "Lähetä kutsu"
-    Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi" within "div.notice"
+    Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi" within "div.success"
     And I should see "Tim Thomas, Another Official" within "#current_officials"
     And "another@official.com" should receive an email with subject "Kutsu kilpailun Test race toimitsijaksi"
     When "another@official.com" opens the email

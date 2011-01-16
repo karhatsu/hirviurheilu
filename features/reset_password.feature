@@ -19,7 +19,7 @@ Feature: Reset password
     And I fill in "new-password" for "Uusi salasana uudestaan"
     And I press "Vaihda salasana"
     Then I should be on the account page
-    And I should see "Salasana vaihdettu" within "div.notice"
+    And I should see "Salasana vaihdettu" within "div.success"
     When I follow "Kirjaudu ulos"
     And I follow "Kirjaudu sisään"
     And I fill in "test@test.com" for "Sähköposti"
