@@ -35,7 +35,7 @@ Feature: Finish race
     When I go to the official race page of "Test race"
     Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
     When I press "Merkitse kilpailu päättyneeksi"
-    Then I should see "Osalta kilpailijoista puuttuu oikea arviomatka." within "div.error_explanation"
+    Then I should see "Osalta kilpailijoista puuttuu oikea arviomatka." within "div.error"
     When I go to the official race page of "Test race"
     Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
 
@@ -59,7 +59,7 @@ Feature: Finish race
     When I go to the official race page of "Test race"
     Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
     When I press "Merkitse kilpailu päättyneeksi"
-    Then I should see "Ainakin yhdeltä kilpailijalta (James Johnson, Test series) puuttuu tulos." within "div.error_explanation"
+    Then I should see "Ainakin yhdeltä kilpailijalta (James Johnson, Test series) puuttuu tulos." within "div.error"
     When I go to the official race page of "Test race"
     Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
 

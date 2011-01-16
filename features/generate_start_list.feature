@@ -67,7 +67,7 @@ Feature: Generate start list
     When I follow "Tee lista"
     And I fill in "-1" for "Sarjan ensimmäinen numero"
     And I press "Luo lähtölista sarjalle"
-    Then I should see "Sarjan ensimmäinen numero täytyy olla suurempi kuin 0" within "div.error_explanation"
+    Then I should see "Sarjan ensimmäinen numero täytyy olla suurempi kuin 0" within "div.error"
     But I should not see "-1" within "tr#competitor_1"
 
   Scenario: Missing values for generation
@@ -89,7 +89,7 @@ Feature: Generate start list
     When I follow "Tee lista"
     And I fill in "" for "Sarjan ensimmäinen numero"
     And I press "Luo lähtölista sarjalle"
-    Then I should see "Numeroita ei voi generoida, sillä sarjan ensimmäistä numeroa ei ole määritetty" within "div.error_explanation"
+    Then I should see "Numeroita ei voi generoida, sillä sarjan ensimmäistä numeroa ei ole määritetty" within "div.error"
     But I should not see "0" within "tr#competitor_1"
 
   Scenario: Don't show start list form when some competitor has an arrival time
