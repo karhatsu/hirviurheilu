@@ -28,5 +28,9 @@ production:
   encoding: unicode
   pool: 5
 
+offline:
+  adapter: sqlite3
+  database: db/offline.sqlite3
+
 cucumber:
   <<: *test
