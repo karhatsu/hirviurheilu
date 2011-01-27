@@ -67,11 +67,13 @@
         </div>
       </div>
     <% end %>
-    <div class="commercial_box special_offer">
-      Tammi-helmikuun aloitustarjous:
-      <div class="commercial_box_link">
-        <%= link_to "Hinnat: -50%", prices_path %>
+    <% unless offline? %>
+      <div class="commercial_box special_offer">
+        Tammi-helmikuun aloitustarjous:
+        <div class="commercial_box_link">
+          <%= link_to "Hinnat: -50%", prices_path %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>

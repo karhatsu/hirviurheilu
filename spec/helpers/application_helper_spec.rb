@@ -483,5 +483,17 @@ describe ApplicationHelper do
       end
     end
   end
+
+  describe "#offline?" do
+    it "should return true when Rails.env returns 'offline'" do
+      Rails.stub!(:env).and_return('offline')
+      helper.should be_offline
+    end
+
+    it "should return false when Rails.env returns something else than 'offline'" do
+      Rails.stub!(:env).and_return('development')
+      helper.should_not be_offline
+    end
+  end
 end
 

@@ -245,10 +245,12 @@ end
   josta saat yksinkertaisten tulosluettelon haluamallesi määrälle kilpailijoita /
   sarja.</div>
 
-<h3>Hinnoittelu</h3>
-<div class="question">Kuinka paljon palvelun käyttö <span class="highligth">maksaa</span>?</div>
-<div class="answer"><%= link_to "Katso tämän hetken hinnasto.", prices_path %></div>
-
+<% unless offline? %>
+  <h3>Hinnoittelu</h3>
+  <div class="question">Kuinka paljon palvelun käyttö
+    <span class="highligth">maksaa</span>?</div>
+  <div class="answer"><%= link_to "Katso tämän hetken hinnasto.", prices_path %></div>
+<% end %>
 <hr/>
 
 <a name="competition_types"></a>
