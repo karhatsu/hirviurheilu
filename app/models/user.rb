@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
+  validate :only_one_user_in_offline_mode
 
   def add_admin_rights
     add_role Role::ADMIN
@@ -40,5 +41,11 @@ class User < ActiveRecord::Base
       return true if r.name == role
     end
     false
+  end
+
+  def only_one_user_in_offline_mode
+    if Rails.env == 'offline' and User.count == 1
+      errors.add(:base, 'Offline-tilassa voi olla vain yksi käyttäjä')
+    end
   end
 end

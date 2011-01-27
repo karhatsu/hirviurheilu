@@ -66,4 +66,28 @@ describe User do
       @user.should be_official_for_race(@race)
     end
   end
+
+  describe "offline usage" do
+    describe "maximum amount of users" do
+      before do
+        Factory.create(:user)
+      end
+
+      context "when online usage" do
+        it "should not be limited" do
+          Factory.create(:user)
+        end
+      end
+
+      context "when offline usage" do
+        before do
+          Rails.stub!(:env).and_return('offline')
+        end
+
+        it "should be one" do
+          Factory.build(:user).should_not be_valid
+        end
+      end
+    end
+  end
 end
