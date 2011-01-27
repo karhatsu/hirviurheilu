@@ -1,3 +1,4 @@
 Given /^I use the software offline$/ do
-  Rails.stub!(:env).and_return('offline')
+  Mode.stub!(:offline?).and_return(true)
+  Mode.stub!(:online?).and_return(false)
 end

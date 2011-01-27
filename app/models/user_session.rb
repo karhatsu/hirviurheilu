@@ -5,6 +5,7 @@ class UserSession < Authlogic::Session::Base
   end
 
   def self.login_offline_user
+    raise "Cannot login as offline user unless offline mode" if Mode.online?
     UserSession.new(:email => User::OFFLINE_USER_EMAIL,
       :password => User::OFFLINE_USER_PASSWORD)
   end

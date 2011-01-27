@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def offline?
-    Rails.env == 'offline'
+    Mode.offline?
   end
 
   def flash_success

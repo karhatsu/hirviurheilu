@@ -8,8 +8,16 @@ class ApplicationController < ActionController::Base
     current_user and (current_user.official? or current_user.admin?)
   end
 
+  def offline?
+    Mode.offline?
+  end
+
+  def online?
+    Mode.online?
+  end
+
   def ensure_user_in_offline
-    return if Rails.env != 'offline' or @current_user_session
+    return if online? or @current_user_session
     unless @current_user
       @current_user = User.first
       @current_user = User.create_offline_user unless @current_user

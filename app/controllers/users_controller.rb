@@ -43,7 +43,7 @@ class UsersController < ApplicationController
 
   private
   def no_account_changes_in_offline
-    redirect_to official_root_path if Rails.env == 'offline'
+    redirect_to official_root_path if offline?
   end
 
   def set_account

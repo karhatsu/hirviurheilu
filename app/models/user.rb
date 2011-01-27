@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   end
 
   def self.create_offline_user
-    raise "Cannot create offline user unless offline mode" unless Rails.env == 'offline'
+    raise "Cannot create offline user unless offline mode" if Mode.online?
     offline_user = User.create!(:email => OFFLINE_USER_EMAIL,
       :password => OFFLINE_USER_PASSWORD,
       :password_confirmation => OFFLINE_USER_PASSWORD,

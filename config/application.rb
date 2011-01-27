@@ -7,8 +7,12 @@ require 'rails/all'
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 ADMIN_EMAIL = ["com", ".", "karhatsu", "@", "henri"].reverse.join('')
+
 TEST_URL = "http://hutesti.heroku.com"
 PRODUCTION_URL = "http://www.hirviurheilu.com"
+
+OFFLINE = false
+ONLINE = !OFFLINE
 
 module ElkSports
   class Application < Rails::Application
