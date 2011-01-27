@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_filter :set_competitions
+  before_filter :no_account_changes_in_offline
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update]
   before_filter :set_account, :only => [:show, :edit, :update]
@@ -41,6 +42,10 @@ class UsersController < ApplicationController
   end
 
   private
+  def no_account_changes_in_offline
+    redirect_to official_root_path if Rails.env == 'offline'
+  end
+
   def set_account
     @is_account = true
   end

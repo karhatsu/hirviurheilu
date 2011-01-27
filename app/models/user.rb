@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  OFFLINE_USER_EMAIL = 'offline@hirviurheilu.com'
+  OFFLINE_USER_PASSWORD = 'offline'
+
   acts_as_authentic
 
   has_and_belongs_to_many :roles, :join_table => :rights
@@ -29,6 +32,16 @@ class User < ActiveRecord::Base
       return true if r == race
     end
     false
+  end
+
+  def self.create_offline_user
+    raise "Cannot create offline user unless offline mode" unless Rails.env == 'offline'
+    offline_user = User.create!(:email => OFFLINE_USER_EMAIL,
+      :password => OFFLINE_USER_PASSWORD,
+      :password_confirmation => OFFLINE_USER_PASSWORD,
+      :first_name => 'Offline', :last_name => 'Käyttäjä')
+    offline_user.add_official_rights
+    offline_user
   end
 
   private

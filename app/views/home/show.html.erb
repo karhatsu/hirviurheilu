@@ -39,7 +39,7 @@
   </div>
 
   <div class="right_column">
-    <% unless current_user %>
+    <% unless current_user or offline? %>
       <div class="commercial_box">
         Oletko järjestämässä hirvenhiihdon tai hirvenjuoksun kilpailua?
         <div class="commercial_box_link">

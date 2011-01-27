@@ -1,11 +1,21 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user_session, :current_user, :official_rights
-  before_filter :set_competitions
+  before_filter :set_competitions, :ensure_user_in_offline
 
   private
   def official_rights
     current_user and (current_user.official? or current_user.admin?)
+  end
+
+  def ensure_user_in_offline
+    return if Rails.env != 'offline' or @current_user_session
+    unless @current_user
+      @current_user = User.first
+      @current_user = User.create_offline_user unless @current_user
+    end
+    @user_session = UserSession.login_offline_user
+    raise "Could not create user session" unless @user_session
   end
 
   def current_user_session
