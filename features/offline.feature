@@ -9,6 +9,7 @@ Feature: Offline usage
     Then I should not see "Hirviurheilu on hirvenhiihdon ja hirvenjuoksun internet-pohjainen"
     And I should not see "Kuinka Hirviurheilu-palvelua käytetään"
     And I should not see "Harjoittele palvelun käyttöä"
+    And I should not see "Tämä on testiympäristö"
 
   Scenario: No pricing information
     Given I use the software offline
