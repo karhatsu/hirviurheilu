@@ -1,12 +1,14 @@
 <% content_for(:title, 'Hirviurheilu - Hirvenhiihdon ja hirvenjuoksun tulospalvelu') %>
 <% content_for(:page_title, yield(:title)) %>
 
-<div class="section main_info">
-  Hirviurheilu on hirvenhiihdon ja hirvenjuoksun internet-pohjainen,
-  helppokäyttöinen tulospalvelu.<br/>
-  Tutustu lukemalla lisää <%= link_to "Info-sivulta", info_path %> ja
-  katsomalla <%= link_to "Youtube-video", youtube_path, :target => '_blank' %>.
-</div>
+<% unless offline? %>
+  <div class="section main_info">
+    Hirviurheilu on hirvenhiihdon ja hirvenjuoksun internet-pohjainen,
+    helppokäyttöinen tulospalvelu.<br/>
+    Tutustu lukemalla lisää <%= link_to "Info-sivulta", info_path %> ja
+    katsomalla <%= link_to "Youtube-video", youtube_path, :target => '_blank' %>.
+  </div>
+<% end %>
 
 <div class="main_page_columns">
   <div class="left_column">
@@ -38,42 +40,42 @@
     <% end %>
   </div>
 
-  <div class="right_column">
-    <% unless current_user or offline? %>
+  <% unless offline? %>
+    <div class="right_column">
+      <% unless current_user %>
+        <div class="commercial_box">
+          Oletko järjestämässä hirvenhiihdon tai hirvenjuoksun kilpailua?
+          <div class="commercial_box_link">
+            <%= link_to "Aloita tästä.", register_path %>
+          </div>
+        </div>
+        <div class="commercial_box">
+          Onko sinulla jo tunnukset?
+          <div class="commercial_box_link">
+            <%= link_to "Kirjaudu sisään.", login_path %>
+          </div>
+        </div>
+      <% end %>
       <div class="commercial_box">
-        Oletko järjestämässä hirvenhiihdon tai hirvenjuoksun kilpailua?
+        Kuinka Hirviurheilu-palvelua käytetään?
         <div class="commercial_box_link">
-          <%= link_to "Aloita tästä.", register_path %>
+          <%= link_to "Katso ohjevideo Youtubesta", youtube_path, :target => '_blank' %>
         </div>
       </div>
-      <div class="commercial_box">
-        Onko sinulla jo tunnukset?
-        <div class="commercial_box_link">
-          <%= link_to "Kirjaudu sisään.", login_path %>
+      <% unless Rails.env == 'staging' %>
+        <div class="commercial_box">
+          Harjoittele palvelun käyttöä:
+          <div class="commercial_box_link">
+            <%= link_to TEST_URL, TEST_URL, :target => '_blank' %>
+          </div>
         </div>
-      </div>
-    <% end %>
-    <div class="commercial_box">
-      Kuinka Hirviurheilu-palvelua käytetään?
-      <div class="commercial_box_link">
-        <%= link_to "Katso ohjevideo Youtubesta", youtube_path, :target => '_blank' %>
-      </div>
-    </div>
-    <% unless Rails.env == 'staging' %>
-      <div class="commercial_box">
-        Harjoittele palvelun käyttöä:
-        <div class="commercial_box_link">
-          <%= link_to TEST_URL, TEST_URL, :target => '_blank' %>
-        </div>
-      </div>
-    <% end %>
-    <% unless offline? %>
+      <% end %>
       <div class="commercial_box special_offer">
         Tammi-helmikuun aloitustarjous:
         <div class="commercial_box_link">
           <%= link_to "Hinnat: -50%", prices_path %>
         </div>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
