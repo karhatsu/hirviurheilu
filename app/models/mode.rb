@@ -1,16 +1,15 @@
 class Mode
-  @@offline = OFFLINE # see application.rb
-
   def self.offline?
-    @@offline
+    Thread.main[:offline] = OFFLINE if Thread.main[:offline] == nil
+    Thread.main[:offline]
   end
 
   def self.online?
-    not @@offline
+    not offline?
   end
 
   def self.switch
     raise "Mode switching allowed only in dev environment" unless Rails.env == 'development'
-    @@offline = !@@offline
+    Thread.main[:offline] = !Thread.main[:offline]
   end
 end

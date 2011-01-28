@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
   end
 
   def only_one_user_in_offline_mode
-    if Rails.env == 'offline' and User.count == 1
+    if Mode.offline? and User.count == 1
       errors.add(:base, 'Offline-tilassa voi olla vain yksi käyttäjä')
     end
   end

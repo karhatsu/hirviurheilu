@@ -74,6 +74,10 @@ describe User do
       end
 
       context "when online usage" do
+        before do
+          Mode.stub!(:offline?).and_return(false)
+        end
+
         it "should not be limited" do
           Factory.create(:user)
         end
@@ -81,7 +85,7 @@ describe User do
 
       context "when offline usage" do
         before do
-          Rails.stub!(:env).and_return('offline')
+          Mode.stub!(:offline?).and_return(true)
         end
 
         it "should be one" do
