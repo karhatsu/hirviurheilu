@@ -30,3 +30,9 @@ Feature: Offline usage
     Then I should be on the official index page
     When I go to the account page
     Then I should be on the official index page
+
+  Scenario: No official invitation
+    Given I use the software offline
+    And I have a race "Offline race"
+    When I go to the official race page of "Offline race"
+    Then I should not see "Toimitsijat"
