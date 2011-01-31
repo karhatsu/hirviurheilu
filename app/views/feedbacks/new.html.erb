@@ -12,4 +12,4 @@
   <%= text_field_tag :tel, @tel %><br/>
   <%= submit_tag 'Lähetä' %>
 <% end %>
-<%= render :partial => 'shared/company_contact' %>
+<%= render :partial => 'shared/company_contact', :locals => { :corner => true } %>

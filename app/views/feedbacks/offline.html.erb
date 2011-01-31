@@ -1,0 +1,4 @@
+<% content_for(:title, 'Lähetä palautetta') %>
+<% content_for(:page_title, yield(:title)) %>
+<div class="info">Offline-versiossa et voi lähettää palautetta suoraan ohjelman kautta.</div>
+<%= render :partial => 'shared/company_contact', :locals => { :corner => false } %>

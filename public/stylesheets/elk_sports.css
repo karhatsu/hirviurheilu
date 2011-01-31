@@ -141,10 +141,13 @@ a.help:hover {
     font-weight: bold;
 }
 
-#company_contact {
+#company_contact_corner {
     position: absolute;
     left: 700px;
     top: 80px;
+}
+
+.company_contact {
     text-align: center;
     border: 1px solid olive;
     padding: 5px;
@@ -154,7 +157,7 @@ a.help:hover {
     -webkit-box-shadow: 5px 4px 5px #666666;
 }
 
-#company_contact .title {
+.company_contact .title {
     font-weight: bold;
 }
 

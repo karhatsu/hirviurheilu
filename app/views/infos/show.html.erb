@@ -274,7 +274,7 @@ Nämä kilpailumuodot tullaan tekemään tarpeen mukaan:
 tai suurenna alla oleva video videoikkunan oikeassa alareunassa olevasta napista.<br/><br/>
 <%= render :partial => 'shared/youtube' %>
 
-<%= render :partial => 'shared/company_contact' %>
+<%= render :partial => 'shared/company_contact', :locals => { :corner => true } %>
 
 <script type="text/javascript">
   $(".question").next().hide();

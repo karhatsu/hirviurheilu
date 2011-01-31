@@ -1,5 +1,6 @@
 class FeedbacksController < ApplicationController
   skip_before_filter :set_competitions
+  before_filter :check_offline
 
   def index
   end
@@ -25,5 +26,10 @@ class FeedbacksController < ApplicationController
       flash[:error] = 'Älä unohda kirjoittaa palautetta'
       render :new
     end
+  end
+
+  private
+  def check_offline
+    render :offline if offline?
   end
 end
