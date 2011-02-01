@@ -17,7 +17,9 @@
         <%= menu_item "Oikeat arviot", official_race_correct_estimates_path(race), @is_correct_estimates %>
         <%= menu_item "Seurat", official_race_clubs_path(race), @is_clubs %>
         <%= menu_item "Lehdistö", official_race_media_path(race), @is_media %>
-        <% unless offline? %>
+        <% if offline? %>
+          <%= menu_item "Julkaise", new_official_race_uploads_path(race), @is_upload %>
+        <% else %>
           <%= menu_item "Toimitsijat", official_race_invite_officials_path(race), @is_officials %>
         <% end %>
       </ul>

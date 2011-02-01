@@ -3,6 +3,11 @@ div.error, div.warning, div.success, div.important, div.info {
     min-height: 17px;
 }
 
+div.error a, div.warning a, div.success a, div.important a, div.info a {
+    color: white;
+    text-decoration: underline;
+}
+
 div.field_with_errors {
     color: #CC3300;
     display: inline;

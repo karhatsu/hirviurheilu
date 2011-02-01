@@ -53,6 +53,7 @@ ElkSports::Application.routes.draw do
       resources :quick_saves
       resources :media
       resource :finish_race
+      resource :uploads
     end
 
     resources :series do
