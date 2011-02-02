@@ -6,6 +6,21 @@
 <% unless @race.finished? %>
   <div class="error">Voit julkaista kilpailun vasta, kun olet merkinnyt sen päättyneeksi.
     (Kilpailun voi päättää <%= link_to 'Yhteenveto-sivulla', official_race_path(@race) %>.)</div>
+<% else %>
+  <div class="section">
+    <%= form_tag(official_race_uploads_path(@race)) do %>
+      <%= hidden_field_tag :source, "#{request.protocol}#{request.host}:#{request.port}" %>
+      <%= hidden_field_tag :race_id, @race.id %>
+      Julkaistava kilpailu: <%= @race.name %><br/>
+      <%= label_tag :server, 'Kohde' %>
+      <%= select_tag :server, options_for_select(@servers) %><br/>
+      <%= label_tag :email, 'Sähköposti' %>
+      <%= text_field_tag :email%><br/>
+      <%= label_tag :password, 'Salasana' %>
+      <%= text_field_tag :password %><br/>
+      <%= submit_tag 'Julkaise' %>
+    <% end %>
+  </div>
 <% end %>
 <hr/>
 <%= link_to 'Takaisin Yhteenveto-sivulle', official_race_path(@race) %>

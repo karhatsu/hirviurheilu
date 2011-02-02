@@ -4,3 +4,9 @@ Given /^I use the software offline$/ do
   visit '/' # this creates the user
   @user = User.first
 end
+
+Given /^I use the software online again$/ do
+  Mode.unstub!(:offline?)
+  Mode.unstub!(:online?)
+  @user = nil
+end
