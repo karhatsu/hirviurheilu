@@ -32,9 +32,10 @@ class Official::UploadsController < Official::OfficialController
 
   def define_servers
     @servers = []
-    @servers << ['Hirviurheilu', PRODUCTION_URL]
-    @servers << ['Hirviurheilu (testi)', TEST_URL]
-    @servers << ['Same server', 'http://localhost:3000'] if Rails.env == 'development' or
+    @servers << ["Hirviurheilu (#{PRODUCTION_URL})", PRODUCTION_URL]
+    @servers << ["Hirviurheilun harjoitusversio (#{TEST_URL})", TEST_URL]
+    localhost = 'http://localhost:3000'
+    @servers << ["Localhost (#{localhost})", localhost] if Rails.env == 'development' or
       Rails.env == 'test'
   end
 end
