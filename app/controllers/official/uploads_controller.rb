@@ -6,11 +6,11 @@ class Official::UploadsController < Official::OfficialController
   end
 
   def create
+    RemoteRace.site = params[:server]
     @race = Race.find(params[:race_id])
     attrs = @race.attributes
     attrs.delete("id")
     remote_race = RemoteRace.new(attrs)
-    RemoteRace.site = params[:server]
     if remote_race.save
       flash[:success] = 'Kilpailun tiedot ladattu kohdejärjestelmään'
       redirect_to new_official_race_uploads_path(@race)
