@@ -1,28 +1,35 @@
 class Official::UploadsController < Official::OfficialController
+  before_filter :define_servers
   before_filter :assign_race_by_race_id, :check_assigned_race, :check_offline, :except => :create
 
   def new
-    @servers = []
-    @servers << ['Hirviurheilu', PRODUCTION_URL]
-    @servers << ['Hirviurheilu (testi)', TEST_URL]
-    @servers << ['Same server', ''] if Rails.env == 'test' or Rails.env == 'development'
   end
 
   def create
-    user = User.find_by_email(params[:email]) # TODO: password check
-    race = Race.new(params[:race])
-    if race.save
-      user.races << race
+    @race = Race.find(params[:race_id])
+    attrs = @race.attributes
+    attrs.delete("id")
+    remote_race = RemoteRace.new(attrs)
+    RemoteRace.site = params[:server]
+    if remote_race.save
+      flash[:success] = 'Kilpailun tiedot ladattu kohdejärjestelmään'
+      redirect_to new_official_race_uploads_path(@race)
+    else
+      flash[:error] = remote_race.errors.full_messages.join('. ') + '.'
+      render :new
     end
-    redirect_to "#{params[:source]}/official/races/#{params[:race_id]}/upload/done"
-  end
-
-  #TODO: success vs. error
-  def done
   end
 
   private
   def check_offline
     redirect_to official_race_path(@race) if online?
+  end
+
+  def define_servers
+    @servers = []
+    @servers << ['Hirviurheilu', PRODUCTION_URL]
+    @servers << ['Hirviurheilu (testi)', TEST_URL]
+    @servers << ['Same server', 'http://localhost:3000'] if Rails.env == 'development' or
+      Rails.env == 'test'
   end
 end

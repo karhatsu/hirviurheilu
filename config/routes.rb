@@ -69,5 +69,7 @@ ElkSports::Application.routes.draw do
     root :to => "index#show"
   end
 
+  resources :remote_races
+
   root :to => "home#show"
 end
