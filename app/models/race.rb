@@ -30,6 +30,8 @@ class Race < ActiveRecord::Base
     Date.today, Date.today]
   scope :future, :conditions => ['start_date>?', Date.today], :order => 'start_date'
 
+  attr_accessor :email, :password # for publishing
+
   def add_default_series
     DefaultSeries.all.each do |ds|
       s = Series.new(:name => ds.name)
