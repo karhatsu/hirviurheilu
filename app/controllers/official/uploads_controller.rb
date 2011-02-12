@@ -7,11 +7,7 @@ class Official::UploadsController < Official::OfficialController
 
   def create
     RemoteRace.site = params[:server]
-    attrs = @race.attributes
-    attrs.delete("id")
-    attrs[:email] = params[:email]
-    attrs[:password] = params[:password]
-    remote_race = RemoteRace.new(attrs)
+    remote_race = RemoteRace.build(@race, params[:email], params[:password])
     if remote_race.save
       flash[:success] = 'Kilpailun tiedot ladattu kohdejärjestelmään'
       redirect_to new_official_race_uploads_path(@race)
