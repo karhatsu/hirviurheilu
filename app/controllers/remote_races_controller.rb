@@ -1,5 +1,5 @@
 class RemoteRacesController < ApplicationController
-  before_filter :init_race, :check_user
+  before_filter :init_race_and_heck_user
 
   def create
     respond_to do |format|
@@ -13,11 +13,8 @@ class RemoteRacesController < ApplicationController
   end
 
   private
-  def init_race
+  def init_race_and_heck_user
     @race = Race.new(params[:remote_race])
-  end
-
-  def check_user
     @user = User.find_by_email(params[:remote_race][:email])
     unless @user and @user.valid_password?(params[:remote_race][:password])
       @race.errors.add(:base, 'Virheelliset tunnukset')
