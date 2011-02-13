@@ -1,5 +1,5 @@
 class RemoteRacesController < ApplicationController
-  before_filter :init_race_and_heck_user
+  before_filter :init_race_and_check_user
 
   def create
     respond_to do |format|
@@ -13,7 +13,7 @@ class RemoteRacesController < ApplicationController
   end
 
   private
-  def init_race_and_heck_user
+  def init_race_and_check_user
     @race = Race.new(params[:remote_race])
     @user = User.find_by_email(params[:remote_race][:email])
     unless @user and @user.valid_password?(params[:remote_race][:password])
