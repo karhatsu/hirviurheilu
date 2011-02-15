@@ -10,7 +10,10 @@
   <div class="section">
     <%= flash_error %>
     <%= flash_success %>
-    <%= form_tag(official_race_uploads_path(@race)) do %>
+    <%= form_for(@race, :url => remote_races_path, :html => {:method => :post}) do |f| %>
+      <%= hidden_field_tag :source, "#{request.protocol}#{request.host_with_port}" %>
+      <%= hidden_field_tag :race_id, @race.id %>
+      <%= render :partial => 'hidden_form', :locals => { :f => f } %>
       Julkaistava kilpailu: <%= @race.name %><br/>
       <%= label_tag :server, 'Kohde' %>
       <%= select_tag :server, options_for_select(@servers, params[:server]) %><br/>

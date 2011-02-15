@@ -56,15 +56,15 @@ Feature: Publish race
     And I should see "Julkaistava kilpailu: Offline race"
     When I fill in "online@hirviurheilu.com" for "Sähköposti"
     And I fill in "online" for "Salasana"
-    And I select "Localhost (http://localhost:3000)" from "Kohde"
-    #And I press "Julkaise"
-    #Then I should see "Kilpailun tiedot ladattu kohdejärjestelmään" within "div.success"
-    #Given I use the software online again
-    #And I am on the home page
-    #And I follow "Kirjaudu sisään"
-    #And I fill in "online@hirviurheilu.com" for "Sähköposti"
-    #And I fill in "online" for "Salasana"
-    #And I press "Kirjaudu"
-    #And I follow "Toimitsijan sivut"
-    #Then I should be on the official index page
-    #And I should see "Offline race"
+    And I select "Integration test" from "Kohde"
+    And I press "Julkaise"
+    Then I should see "Kilpailun tiedot ladattu kohdejärjestelmään" within "div.success"
+    Given I use the software online again
+    And I am on the home page
+    And I follow "Kirjaudu sisään"
+    And I fill in "online@hirviurheilu.com" for "Sähköposti"
+    And I fill in "online" for "Salasana"
+    And I press "Kirjaudu"
+    And I follow "Toimitsijan sivut"
+    Then I should be on the official index page
+    And I should see "Offline race"

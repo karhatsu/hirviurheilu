@@ -5,16 +5,14 @@ class Official::UploadsController < Official::OfficialController
   def new
   end
 
-  def create
-    RemoteRace.site = params[:server]
-    remote_race = RemoteRace.build(@race, params[:email], params[:password])
-    if remote_race.save
-      flash[:success] = 'Kilpailun tiedot ladattu kohdejärjestelmään'
-      redirect_to new_official_race_uploads_path(@race)
-    else
-      flash[:error] = remote_race.errors.full_messages.join('. ') + '.'
-      render :new
-    end
+  def success
+    flash[:success] = 'Kilpailun tiedot ladattu kohdejärjestelmään'
+    redirect_to new_official_race_uploads_path(@race)
+  end
+
+  def error
+    flash[:error] = params[:message]
+    render :new
   end
 
   private
@@ -30,8 +28,7 @@ class Official::UploadsController < Official::OfficialController
     @servers = []
     @servers << ["Hirviurheilu (#{PRODUCTION_URL})", PRODUCTION_URL]
     @servers << ["Hirviurheilun harjoitusversio (#{TEST_URL})", TEST_URL]
-    localhost = 'http://localhost:3000'
-    @servers << ["Localhost (#{localhost})", localhost] if Rails.env == 'development' or
-      Rails.env == 'test'
+    @servers << ["Localhost", ''] if Rails.env == 'development'
+    @servers << ["Integration test", ''] if Rails.env == 'test'
   end
 end

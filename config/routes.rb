@@ -54,7 +54,8 @@ ElkSports::Application.routes.draw do
       resources :media
       resource :finish_race
       resource :uploads
-      get 'upload/done' => 'uploads#done'
+      get 'upload/success' => 'uploads#success'
+      get 'upload/error' => 'uploads#error'
     end
 
     resources :series do
