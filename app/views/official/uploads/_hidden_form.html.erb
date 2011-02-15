@@ -4,3 +4,16 @@
 <%= f.hidden_field :start_date %>
 <%= f.hidden_field :end_date %>
 <%= f.hidden_field :start_interval_seconds %>
+<%= f.hidden_field :series_count %>
+<%= f.hidden_field :team_competitor_count %>
+<%= f.fields_for(:series) do |series_f| %>
+  <%= series_f.hidden_field :id, :value => '' %>
+  <%= series_f.hidden_field :name %>
+  <%= series_f.hidden_field :start_time %>
+  <%= series_f.hidden_field :first_number %>
+  <%= series_f.hidden_field :has_start_list %>
+  <%= series_f.hidden_field :competitors_count %>
+  <%= series_f.hidden_field :start_day %>
+  <%= series_f.hidden_field :no_time_points %>
+  <%= series_f.hidden_field :estimates %>
+<% end %>

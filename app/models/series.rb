@@ -11,7 +11,7 @@ class Series < ActiveRecord::Base
   accepts_nested_attributes_for :age_groups, :allow_destroy => true
 
   validates :name, :presence => true
-  validates :race, :presence => true
+  #validates :race, :presence => true
   validates :first_number, :numericality => { :only_integer => true,
     :allow_nil => true, :greater_than => 0 }
   validates :start_day, :numericality => { :only_integer => true,

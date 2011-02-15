@@ -68,3 +68,5 @@ Feature: Publish race
     And I follow "Toimitsijan sivut"
     Then I should be on the official index page
     And I should see "Offline race"
+    When I follow "Offline race"
+    Then I should see "Offline series"
