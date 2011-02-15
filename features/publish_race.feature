@@ -34,6 +34,7 @@ Feature: Publish race
       | name | Offline series |
       | first_number | 1 |
       | start_time | 13:00 |
+    And the series has an age group "Offline age group"
     And the race has correct estimates with attributes:
       | min_number | 1 |
       | max_number | 1 |
@@ -70,3 +71,5 @@ Feature: Publish race
     And I should see "Offline race"
     When I follow "Offline race"
     Then I should see "Offline series"
+    When I follow "Kilpailu & sarjat"
+    Then the "Nimi" field should contain "Offline age group"
