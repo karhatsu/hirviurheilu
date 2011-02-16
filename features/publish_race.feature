@@ -118,3 +118,38 @@ Feature: Publish race
     And the "competitor_shots_attributes_7_value" field should contain "6"
     And the "competitor_shots_attributes_8_value" field should contain "5"
     And the "competitor_shots_attributes_9_value" field should contain "0"
+
+  Scenario: Try to publish with invalid account
+    Given there is an official with email "offline@hirviurheilu.com" and password "offline"
+    Given I use the software offline
+    And I have an ongoing race "Offline race"
+    And the race has a club "Offline club"
+    And the race has series with attributes:
+      | name | Offline series |
+      | first_number | 15 |
+      | start_time | 13:00 |
+    And the series has an age group "Offline age group"
+    And the race has correct estimates with attributes:
+      | min_number | 15 |
+      | max_number | 16 |
+      | distance1 | 110 |
+      | distance2 | 130 |
+    And the series has a competitor with attributes:
+      | first_name | James |
+      | last_name | Johnson |
+      | club | Offline club |
+    And the start list has been generated for the series
+    And the competitor "James" "Johnson" has the following results:
+      | shots_total_input | 85 |
+      | estimate1 | 111 |
+      | estimate2 | 129 |
+      | arrival_time | 14:10:25 |
+    And the race is finished
+    And I am on the official race page of "Offline race"
+    And I follow "Julkaise"
+    Then I should be on the publish race page of "Offline race"
+    When I fill in "wrong@email.com" for "Sähköposti"
+    And I fill in "wrong password" for "Salasana"
+    And I select "Integration test" from "Kohde"
+    And I press "Julkaise"
+    And I should see "Virheelliset tunnukset" within "div.error"
