@@ -82,6 +82,7 @@ Feature: Publish race
     And I should see "Offline race"
     When I follow "Offline race"
     Then I should see "Offline series"
+    But I should not see "kun kaikki tulokset on syötetty"
     When I follow "Kilpailu & sarjat"
     Then the "Nimi" field should contain "Offline age group"
     When I follow "Seurat"
