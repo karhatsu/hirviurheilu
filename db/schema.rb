@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110114060504) do
+ActiveRecord::Schema.define(:version => 20110216201847) do
 
   create_table "age_groups", :force => true do |t|
     t.integer  "series_id",                      :null => false
@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(:version => 20110114060504) do
   end
 
   create_table "series", :force => true do |t|
-    t.integer  "race_id"
+    t.integer  "race_id",                              :null => false
     t.string   "name",                                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(:version => 20110114060504) do
   add_index "series", ["race_id"], :name => "index_series_on_race_id"
 
   create_table "shots", :force => true do |t|
-    t.integer  "competitor_id"
+    t.integer  "competitor_id", :null => false
     t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
