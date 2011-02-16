@@ -21,9 +21,16 @@
       <%= text_field_tag :email, params[:email] %><br/>
       <%= label_tag :password, 'Salasana' %>
       <%= password_field_tag :password, params[:password] %><br/>
-      <%= submit_tag 'Julkaise' %>
+      <%= submit_tag 'Julkaise', :id => 'submit_button' %>
+      <span style="display:none;" id="please_wait">Ole hyvä ja odota...</span>
     <% end %>
   </div>
 <% end %>
 <hr/>
 <%= link_to 'Takaisin Yhteenveto-sivulle', official_race_path(@race) %>
+<%= javascript_tag do %>
+$('#submit_button').click(function() {
+  $('form.edit_race').attr('action', $('#server').val() + $('form.edit_race').attr('action'));
+  $('#please_wait').show();
+});
+<% end %>
