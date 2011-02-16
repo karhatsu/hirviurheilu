@@ -15,6 +15,11 @@
     <%= render :partial => "official/finish_races/form", :locals => { :race => @race } %>
   </div>
 <% end %>
+<% if offline? and @race.finished? %>
+  <div class="action_box">
+    <%= link_to 'Julkaise kilpailu internetissä', new_official_race_uploads_path(@race) %>
+  </div>
+<% end %>
 <% if @race.series.empty? %>
   <div class="action_box">
     <%= form_tag(official_race_path(@race), :method => :delete) do %>
