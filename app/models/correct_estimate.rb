@@ -1,7 +1,7 @@
 class CorrectEstimate < ActiveRecord::Base
   belongs_to :race
 
-  validates :race, :presence => true
+  #validates :race, :presence => true
   validates :min_number, :numericality => { :only_integer => true,
     :greater_than => 0 }
   validates :max_number, :numericality => { :only_integer => true,

@@ -33,12 +33,12 @@ Feature: Publish race
     And the race has a club "Offline club"
     And the race has series with attributes:
       | name | Offline series |
-      | first_number | 1 |
+      | first_number | 15 |
       | start_time | 13:00 |
     And the series has an age group "Offline age group"
     And the race has correct estimates with attributes:
-      | min_number | 1 |
-      | max_number | 1 |
+      | min_number | 15 |
+      | max_number | 16 |
       | distance1 | 110 |
       | distance2 | 130 |
     And the series has a competitor with attributes:
@@ -77,3 +77,8 @@ Feature: Publish race
     Then the "Nimi" field should contain "Offline age group"
     When I follow "Seurat"
     Then I should see "Offline club"
+    When I follow "Oikeat arviot"
+    Then the "Lähtönumerot" field should contain "15"
+    And the "race_correct_estimates_attributes_0_max_number" field should contain "16"
+    And the "Etäisyys 1" field should contain "110"
+    And the "Etäisyys 2" field should contain "130"

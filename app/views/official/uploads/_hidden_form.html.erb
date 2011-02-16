@@ -10,6 +10,15 @@
   <%= club_f.hidden_field :id, :value => '' %>
   <%= club_f.hidden_field :name %>
 <% end %>
+<%= f.fields_for(:correct_estimates) do |club_f| %>
+  <%= club_f.hidden_field :id, :value => '' %>
+  <%= club_f.hidden_field :min_number %>
+  <%= club_f.hidden_field :max_number %>
+  <%= club_f.hidden_field :distance1 %>
+  <%= club_f.hidden_field :distance2 %>
+  <%= club_f.hidden_field :distance3 %>
+  <%= club_f.hidden_field :distance4 %>
+<% end %>
 <%= f.fields_for(:series) do |series_f| %>
   <%= series_f.hidden_field :id, :value => '' %>
   <%= series_f.hidden_field :name %>
