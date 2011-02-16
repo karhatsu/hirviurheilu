@@ -33,21 +33,12 @@ Feature: Publish race
     And the race has a club "Offline club"
     And the race has series with attributes:
       | name | Offline series |
-<<<<<<< HEAD
       | first_number | 15 |
       | start_time | 13:00 |
     And the series has an age group "Offline age group"
     And the race has correct estimates with attributes:
       | min_number | 15 |
       | max_number | 16 |
-=======
-      | first_number | 10 |
-      | start_time | 13:00 |
-    And the series has an age group "Offline age group"
-    And the race has correct estimates with attributes:
-      | min_number | 10 |
-      | max_number | 10 |
->>>>>>> competitors to upload form, initial code, not working yet
       | distance1 | 110 |
       | distance2 | 130 |
     And the series has a competitor with attributes:
