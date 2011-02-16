@@ -1,8 +1,8 @@
 <h2>Julkaise kilpailu internetissä</h2>
-<div class="info">Tällä sivulla voit julkaista kilpailun lopulliset tulokset internetissä.
-  Tarvitset vain tunnukset Hirviurheilu-palveluun
-  (<a href="<%= PRODUCTION_URL %>" target="_blank"><%= PRODUCTION_URL %></a>).
-  Julkaiseminen ei maksa mitään.</div>
+<div class="info">Tällä sivulla voit julkaista kilpailun lopulliset tulokset internetissä,
+  Hirviurheilu-palvelussa. Näin kilpailijat pääsevät näkemään kilpailun tulokset.
+  Julkaiseminen ei maksa mitään. Ennen julkaisemista varmista, että sinulla
+  on käytössäsi internet-yhteys.</div>
 <% unless @race.finished? %>
   <div class="error">Voit julkaista kilpailun vasta, kun olet merkinnyt sen päättyneeksi.
     (Kilpailun voi päättää <%= link_to 'Yhteenveto-sivulla', official_race_path(@race) %>.)</div>

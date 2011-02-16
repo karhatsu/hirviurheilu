@@ -19,7 +19,7 @@ Feature: Publish race
     And I follow "Julkaise"
     Then I should see "Offline race" within "div.main_title"
     And I should see "Julkaise kilpailu internetissä" within "h2"
-    And I should see "Tällä sivulla voit julkaista kilpailun lopulliset tulokset internetissä. Tarvitset vain tunnukset Hirviurheilu-palveluun (http://www.hirviurheilu.com). Julkaiseminen ei maksa mitään." within "div.info"
+    And I should see "Tällä sivulla voit julkaista kilpailun lopulliset tulokset internetissä, Hirviurheilu-palvelussa." within "div.info"
     And I should see "Voit julkaista kilpailun vasta, kun olet merkinnyt sen päättyneeksi." within "div.error"
 
   # In this scenario the race is published to the same system which is relevant only for testing.

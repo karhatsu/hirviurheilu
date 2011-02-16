@@ -16,7 +16,8 @@ class RemoteRacesController < ApplicationController
   def check_user
     @user = User.find_by_email(params[:email])
     unless @user and @user.valid_password?(params[:password])
-      redirect_to_error "Virheelliset tunnukset"
+      redirect_to_error "Virheelliset tunnukset. " +
+        "Varmista että olet syöttänyt palvelun #{params[:server]} tunnukset."
     end
   end
 
