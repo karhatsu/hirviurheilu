@@ -30,6 +30,7 @@ Feature: Publish race
     Given there is an official with email "online@hirviurheilu.com" and password "online"
     Given I use the software offline
     And I have an ongoing race "Offline race"
+    And the race has a club "Offline club"
     And the race has series with attributes:
       | name | Offline series |
       | first_number | 1 |
@@ -43,6 +44,7 @@ Feature: Publish race
     And the series has a competitor with attributes:
       | first_name | James |
       | last_name | Johnson |
+      | club | Offline club |
     And the start list has been generated for the series
     And the competitor "James" "Johnson" has the following results:
       | shots_total_input | 85 |
@@ -73,3 +75,5 @@ Feature: Publish race
     Then I should see "Offline series"
     When I follow "Kilpailu & sarjat"
     Then the "Nimi" field should contain "Offline age group"
+    When I follow "Seurat"
+    Then I should see "Offline club"
