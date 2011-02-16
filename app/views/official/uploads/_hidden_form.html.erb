@@ -34,4 +34,10 @@
     <%= age_group_f.hidden_field :name %>
     <%= age_group_f.hidden_field :min_competitors %>
   <% end %>
+  <%= series_f.fields_for(:competitors) do |competitor_f| %>
+    <%= competitor_f.hidden_field :id, :value => '' %>
+    <%= competitor_f.hidden_field :first_name %>
+    <%= competitor_f.hidden_field :last_name %>
+    <%= competitor_f.hidden_field :number %>
+  <% end %>
 <% end %>

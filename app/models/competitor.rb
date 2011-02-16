@@ -9,10 +9,10 @@ class Competitor < ActiveRecord::Base
 
   accepts_nested_attributes_for :shots, :allow_destroy => true
 
-  validates :series, :presence => true
+  #validates :series, :presence => true
   validates :first_name, :presence => true
   validates :last_name, :presence => true
-  validates :club, :presence => true
+  #validates :club, :presence => true
   validates :number,
     :numericality => { :only_integer => true, :greater_than => 0, :allow_nil => true },
     :uniqueness => { :scope => :series_id, :allow_nil => true }

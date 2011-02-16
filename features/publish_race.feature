@@ -33,12 +33,21 @@ Feature: Publish race
     And the race has a club "Offline club"
     And the race has series with attributes:
       | name | Offline series |
+<<<<<<< HEAD
       | first_number | 15 |
       | start_time | 13:00 |
     And the series has an age group "Offline age group"
     And the race has correct estimates with attributes:
       | min_number | 15 |
       | max_number | 16 |
+=======
+      | first_number | 10 |
+      | start_time | 13:00 |
+    And the series has an age group "Offline age group"
+    And the race has correct estimates with attributes:
+      | min_number | 10 |
+      | max_number | 10 |
+>>>>>>> competitors to upload form, initial code, not working yet
       | distance1 | 110 |
       | distance2 | 130 |
     And the series has a competitor with attributes:
@@ -82,3 +91,7 @@ Feature: Publish race
     And the "race_correct_estimates_attributes_0_max_number" field should contain "16"
     And the "Etäisyys 1" field should contain "110"
     And the "Etäisyys 2" field should contain "130"
+    When I follow "Kilpailijat & lähtölista"
+    Then the "Sarjan ensimmäinen numero" field should contain "10"
+    And I should see "Johnson James"
+    And I should see "13:00:00"
