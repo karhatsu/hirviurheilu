@@ -52,5 +52,9 @@
     <%= competitor_f.hidden_field :correct_estimate2 %>
     <%= competitor_f.hidden_field :correct_estimate3 %>
     <%= competitor_f.hidden_field :correct_estimate4 %>
+    <%= competitor_f.fields_for(:shots) do |shot_f| %>
+      <%= shot_f.hidden_field :id, :value => '' %>
+      <%= shot_f.hidden_field :value %>
+    <% end %>
   <% end %>
 <% end %>

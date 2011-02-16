@@ -10,7 +10,7 @@ describe Shot do
   end
 
   describe "validation" do
-    it { should validate_presence_of(:competitor) }
+    #it { should validate_presence_of(:competitor) }
 
     describe "value" do
       it { should validate_numericality_of(:value) }

@@ -45,12 +45,21 @@ Feature: Publish race
       | first_name | James |
       | last_name | Johnson |
       | club | Offline club |
+    And the series has a competitor with attributes:
+      | first_name | Tim |
+      | last_name | Smith |
+      | club | Offline club |
     And the start list has been generated for the series
     And the competitor "James" "Johnson" has the following results:
       | shots_total_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 14:10:25 |
+    And the competitor "Tim" "Smith" has the following results:
+      | estimate1 | 109 |
+      | estimate2 | 131 |
+      | arrival_time | 13:58:11 |
+    And the shots for the competitor "Tim" "Smith" are 10,10,9,9,9,8,7,6,5,0
     And the race is finished
     And I am on the official race page of "Offline race"
     And I follow "Julkaise"
@@ -94,3 +103,15 @@ Feature: Publish race
     And the "competitor_arrival_time_4i" field should contain "14"
     And the "competitor_arrival_time_5i" field should contain "10"
     And the "competitor_arrival_time_6i" field should contain "25"
+    When I follow "Kilpailijat & lähtölista"
+    And I follow "Smith Tim"
+    Then the "competitor_shots_attributes_0_value" field should contain "10"
+    And the "competitor_shots_attributes_1_value" field should contain "10"
+    And the "competitor_shots_attributes_2_value" field should contain "9"
+    And the "competitor_shots_attributes_3_value" field should contain "9"
+    And the "competitor_shots_attributes_4_value" field should contain "9"
+    And the "competitor_shots_attributes_5_value" field should contain "8"
+    And the "competitor_shots_attributes_6_value" field should contain "7"
+    And the "competitor_shots_attributes_7_value" field should contain "6"
+    And the "competitor_shots_attributes_8_value" field should contain "5"
+    And the "competitor_shots_attributes_9_value" field should contain "0"
