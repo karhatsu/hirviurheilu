@@ -36,8 +36,10 @@
   <% end %>
   <%= series_f.fields_for(:competitors) do |competitor_f| %>
     <%= competitor_f.hidden_field :id, :value => '' %>
+    <%= competitor_f.hidden_field :club_name, :value => competitor_f.object.club.name %>
     <%= competitor_f.hidden_field :first_name %>
     <%= competitor_f.hidden_field :last_name %>
     <%= competitor_f.hidden_field :number %>
+    <%= competitor_f.hidden_field :start_time %>
   <% end %>
 <% end %>
