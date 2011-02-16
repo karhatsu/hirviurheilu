@@ -67,6 +67,9 @@ Feature: Publish race
     Then I should be on the publish race page of "Offline race"
     But I should not see "Voit julkaista kilpailun vasta, kun olet merkinnyt sen päättyneeksi."
     And I should see "Julkaistava kilpailu: Offline race"
+    # hack for duplicate name-location-date problem in saving
+    # the form has the old name (Offline race) but in the db there is no race with such name
+    Given the race "Offline race" is renamed to "Original race"
     When I fill in "online@hirviurheilu.com" for "Sähköposti"
     And I fill in "online" for "Salasana"
     And I select "Integration test" from "Kohde"

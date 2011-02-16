@@ -23,6 +23,7 @@ class Race < ActiveRecord::Base
   validates :team_competitor_count, :numericality => { :allow_nil => true,
     :only_integer => true, :greater_than => 1 }
   validate :end_date_not_before_start_date
+  validate :check_duplicate_name_location_start_date, :on => :create
 
   before_destroy :prevent_destroy_if_series
 
@@ -160,6 +161,13 @@ class Race < ActiveRecord::Base
   def end_date_not_before_start_date
     if end_date and end_date < start_date
       errors.add(:end_date, "ei voi olla ennen alkupäivää")
+    end
+  end
+
+  def check_duplicate_name_location_start_date
+    if name and location and start_date and
+        Race.exists?(:name => name, :location => location, :start_date => start_date)
+      errors.add(:base, 'Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä')
     end
   end
 

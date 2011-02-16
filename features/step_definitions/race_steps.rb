@@ -12,6 +12,12 @@ Given /^there is a race with attributes:$/ do |fields|
   @race = Factory.create(:race, hash)
 end
 
+Given /^the race "([^"]*)" is renamed to "([^"]*)"$/ do |old_name, new_name|
+  race = Race.find_by_name(old_name)
+  race.name = new_name
+  race.save!
+end
+
 Given /^I have a race "([^"]*)"$/ do |name|
   @race = Factory.create(:race, :name => name)
   @user.races << @race

@@ -49,6 +49,32 @@ describe Race do
           should have(1).errors_on(:start_interval_seconds)
       end
     end
+
+    describe "race with same name" do
+      before do
+        @race = Factory.create(:race, :name => 'My race', :start_date => '2010-01-01',
+          :location => 'My town')
+      end
+
+      it "should allow if same location, different start date" do
+        Factory.build(:race, :name => 'My race', :start_date => '2011-01-01',
+          :location => 'My town').should be_valid
+      end
+
+      it "should allow if different location, same start date" do
+        Factory.build(:race, :name => 'My race', :start_date => '2010-01-01',
+          :location => 'Different town').should be_valid
+      end
+
+      it "should allow updating the existing race" do
+        @race.should be_valid
+      end
+
+      it "should prevent if same location, same start date" do
+        Factory.build(:race, :name => 'My race', :start_date => '2010-01-01',
+          :location => 'My town').should_not be_valid
+      end
+    end
   end
 
   describe "associations" do
