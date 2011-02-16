@@ -50,7 +50,7 @@ Feature: Publish race
       | shots_total_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:00:10 |
+      | arrival_time | 14:10:25 |
     And the race is finished
     And I am on the official race page of "Offline race"
     And I follow "Julkaise"
@@ -83,8 +83,14 @@ Feature: Publish race
     And the "Etäisyys 1" field should contain "110"
     And the "Etäisyys 2" field should contain "130"
     When I follow "Kilpailijat & lähtölista"
-    Then the "Sarjan ensimmäinen numero" field should contain "15"
-    And I should see "Johnson James"
+    Then I should see "Johnson James"
     And I should see "13:00:00"
     And I should see "15"
     And I should see "Offline club"
+    When I follow "Johnson James"
+    Then the "Ammunta yhteensä" field should contain "85"
+    And the "Arvio 1" field should contain "111"
+    And the "Arvio 2" field should contain "129"
+    And the "competitor_arrival_time_4i" field should contain "14"
+    And the "competitor_arrival_time_5i" field should contain "10"
+    And the "competitor_arrival_time_6i" field should contain "25"
