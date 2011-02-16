@@ -41,7 +41,7 @@ class Competitor < ActiveRecord::Base
   validate :check_no_result_reason
   validate :check_if_series_has_start_list
 
-  attr_accessor :club_name
+  attr_accessor :club_name, :age_group_name
 
   def shot_values
     values = shots.collect do |s|

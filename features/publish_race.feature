@@ -45,6 +45,7 @@ Feature: Publish race
       | first_name | James |
       | last_name | Johnson |
       | club | Offline club |
+    And the competitor belongs to an age group "Offline age group"
     And the series has a competitor with attributes:
       | first_name | Tim |
       | last_name | Smith |
@@ -94,6 +95,7 @@ Feature: Publish race
     And the "Etäisyys 2" field should contain "130"
     When I follow "Kilpailijat & lähtölista"
     Then I should see "Johnson James"
+    And I should see "(Offline age group)"
     And I should see "13:00:00"
     And I should see "15"
     And I should see "Offline club"

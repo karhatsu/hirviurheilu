@@ -1,5 +1,6 @@
 class RemoteRacesController < ApplicationController
   before_filter :check_user, :prepare_clubs_for_competitors
+  after_filter :set_age_groups_for_competitors
 
   def create
     if @race.save
@@ -51,6 +52,17 @@ class RemoteRacesController < ApplicationController
     @race.series.each do |series|
       series.competitors.each do |competitor|
         competitor.club_id = club_names_ids[competitor.club_name]
+      end
+    end
+  end
+
+  def set_age_groups_for_competitors
+    @race.series.each do |series|
+      series.competitors.each do |competitor|
+        if competitor.age_group_name
+          competitor.age_group = series.age_groups.find_by_name(competitor.age_group_name)
+          competitor.save!
+        end
       end
     end
   end

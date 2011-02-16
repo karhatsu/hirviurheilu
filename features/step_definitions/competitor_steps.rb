@@ -11,6 +11,11 @@ Given /^the series has a competitor with attributes:$/ do |fields|
   @competitor = Factory.create(:competitor, {:series => @series}.merge(hash))
 end
 
+Given /^the competitor belongs to an age group "([^"]*)"$/ do |age_group_name|
+  @competitor.age_group = AgeGroup.find_by_name(age_group_name)
+  @competitor.save!
+end
+
 Given /^the competitor "([^"]*)" "([^"]*)" has the following results:$/ do |first_name,
     last_name, fields|
   competitor = Competitor.where(['first_name=? and last_name=?', first_name, last_name]).first
