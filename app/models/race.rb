@@ -4,7 +4,7 @@ class Race < ActiveRecord::Base
   belongs_to :sport
   has_many :series, :order => 'name'
   has_many :competitors, :through => :series
-  has_many :clubs, :order => 'name'
+  has_many :clubs
   has_many :correct_estimates, :order => 'min_number'
   has_and_belongs_to_many :users, :join_table => :race_officials
 
