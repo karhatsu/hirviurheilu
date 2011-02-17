@@ -6,6 +6,7 @@ class RemoteRacesController < ApplicationController
   def create
     if @race.save
       @user.races << @race
+      PublishMailer.publish_mail(@race, @user).deliver
       redirect_to_success
     else
       redirect_to_error @race.errors.full_messages.join('. ') + '.'

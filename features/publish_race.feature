@@ -27,9 +27,11 @@ Feature: Publish race
   # The second user is meant for receiving the uploaded race.
   Scenario: Publish finished race
     Given there is an official with email "offline@hirviurheilu.com" and password "offline"
-    Given there is an official with email "online@hirviurheilu.com" and password "online"
+    Given there is an official "Robert" "Onliner" with email "online@hirviurheilu.com" and password "online"
     Given I use the software offline
-    And I have an ongoing race "Offline race"
+    And I have an ongoing race with attributes:
+      | name | Offline race |
+      | location | Offline city |
     And the race has a club "Offline club"
     And the race has series with attributes:
       | name | Offline series |
@@ -75,6 +77,11 @@ Feature: Publish race
     And I select "Integration test" from "Kohde"
     And I press "Julkaise"
     Then I should see "Kilpailun tiedot ladattu kohdejärjestelmään" within "div.success"
+    And the admin should receive an email
+    When I open the email
+    Then I should see "Hirviurheilu - kilpailu julkaistu (test)" in the email subject
+    And I should see "Julkaistu kilpailu: Offline race (Offline city)" in the email body
+    And I should see "Toimitsija: Robert Onliner" in the email body
     Given I use the software online again
     And I am on the home page
     And I follow "Kirjaudu sisään"
@@ -88,7 +95,8 @@ Feature: Publish race
     Then I should see "Offline series"
     But I should not see "kun kaikki tulokset on syötetty"
     When I follow "Kilpailu & sarjat"
-    Then the "Nimi" field should contain "Offline age group"
+    Then the "Paikkakunta" field should contain "Offline city"
+    And the "Nimi" field should contain "Offline age group"
     When I follow "Seurat"
     Then I should see "Offline club"
     When I follow "Oikeat arviot"

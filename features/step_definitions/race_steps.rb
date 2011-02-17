@@ -53,6 +53,12 @@ Given /^I have an ongoing race "([^"]*)"$/ do |name|
   @user.races << @race
 end
 
+Given /^I have an ongoing race with attributes:$/ do |fields|
+  @race = Factory.create(:race, {:start_date => Date.today,
+    :sport => Sport.find_ski}.merge(fields.rows_hash))
+  @user.races << @race
+end
+
 Given /^I have a future race "([^"]*)"$/ do |name|
   @race = Factory.create(:race, :start_date => Date.today + 1, :name => name)
   @user.races << @race

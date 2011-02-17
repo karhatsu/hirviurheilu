@@ -11,6 +11,14 @@ Given /^there is an official with email "([^"]*)" and password "([^"]*)"$/ do |e
   user.add_official_rights
 end
 
+Given /^there is an official "([^"]*)" "([^"]*)" with email "([^"]*)" and password "([^"]*)"$/ do |first_name,
+    last_name, email, password|
+  user = Factory.create(:user, :email => email, :password => password,
+    :password_confirmation => password, :first_name => first_name,
+    :last_name => last_name)
+  user.add_official_rights
+end
+
 Given /^I am an official$/ do
   @user = Factory.create(:user)
   @user.add_official_rights
