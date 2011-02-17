@@ -23,16 +23,21 @@ class RemoteRacesController < ApplicationController
   end
 
   def prepare_clubs_for_competitors
-    save_race_without_children # in order to get an id for the race
-    include_children_to_saved_race
-    club_names_ids = save_clubs
-    set_club_ids_for_competitors(club_names_ids)
+    if save_race_without_children # in order to get an id for the race
+      include_children_to_saved_race
+      club_names_ids = save_clubs
+      set_club_ids_for_competitors(club_names_ids)
+    end
   end
 
   def save_race_without_children
     @race = Race.new(params[:race])
     @race = Race.new(@race.attributes) # no children in @race
-    @race.save!
+    unless @race.save
+      redirect_to_error @race.errors.full_messages.join('. ') + '.'
+      return false
+    end
+    true
   end
 
   def include_children_to_saved_race

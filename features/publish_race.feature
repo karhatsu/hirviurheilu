@@ -139,4 +139,15 @@ Feature: Publish race
     And I fill in "wrong password" for "Salasana"
     And I select "Integration test" from "Kohde"
     And I press "Julkaise"
-    And I should see "Virheelliset tunnukset" within "div.error"
+    Then I should see "Virheelliset tunnukset" within "div.error"
+
+  Scenario: Try to publish same race twice
+    Given there is an official with email "offline@hirviurheilu.com" and password "offline"
+    Given I use the software offline
+    And I have a complete race "Offline race" located in "Offline city"
+    And I am on the publish race page of "Offline race"
+    When I fill in "offline@hirviurheilu.com" for "Sähköposti"
+    And I fill in "offline" for "Salasana"
+    And I select "Integration test" from "Kohde"
+    And I press "Julkaise"
+    Then I should see "Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä" within "div.error"
