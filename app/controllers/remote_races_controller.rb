@@ -32,12 +32,19 @@ class RemoteRacesController < ApplicationController
 
   def save_race_without_children
     @race = Race.new(params[:race])
+    rename_race
     @race = Race.new(@race.attributes) # no children in @race
     unless @race.save
       redirect_to_error @race.errors.full_messages.join('. ') + '.'
       return false
     end
     true
+  end
+
+  def rename_race
+    if Rails.env == 'development' and params[:rename_race]
+      @race.name += " #{Time.now.strftime('%Y%m%d-%H%M%S')}"
+    end
   end
 
   def include_children_to_saved_race

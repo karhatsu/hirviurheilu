@@ -21,6 +21,10 @@
       <%= text_field_tag :email, params[:email] %><br/>
       <%= label_tag :password, 'Salasana' %>
       <%= password_field_tag :password, params[:password] %><br/>
+      <% if Rails.env == 'development' %>
+        <%= check_box_tag :rename_race %>
+        <%= label_tag :rename_race, 'Tee automaattinen nimimuutos' %><br/>
+      <% end %>
       <%= submit_tag 'Julkaise', :id => 'submit_button' %>
       <span style="display:none;" id="please_wait">Ole hyvä ja odota...</span>
     <% end %>
