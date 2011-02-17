@@ -21,11 +21,12 @@
         '(Voit lisätä jälki-ilmoittautuneita kilpailijoita vielä lähtölistan ' +
         'luomisen jälkeenkin.)') %>
   <% end %>
-  <% unless @series.some_competitor_has_arrival_time? %>
-    <div class="action_box">
+  <div class="section">
+    <% unless @series.some_competitor_has_arrival_time? %>
       <%= flash_error %>
       <%= flash_success %>
       <%= render :partial => 'shared/form_errors', :locals => { :item => @series } %>
+      <div class="info">Valitse lähtöajaksi todellinen kellonaika, esim. 10:30.</div>
       <%= form_for([:official, @series], :url => official_series_start_list_path) do |f| %>
         <%= f.label :first_number %>
         <%= f.text_field :first_number, :size => 3 %>
@@ -42,10 +43,11 @@
         <%= submit_tag (@series.has_start_list? ? "Tee uusi lähtölista sarjalle" :
             "Luo lähtölista sarjalle") %>
       <% end %>
-    </div>
-  <% end %>
-  <%= render :partial => 'official/competitors/table', :locals => { :series => @series,
-    :result_column => true, :remove_column => true } %>
+      <hr/>
+    <% end %>
+    <%= render :partial => 'official/competitors/table', :locals => { :series => @series,
+      :result_column => true, :remove_column => true } %>
+  </div>
 <% end %>
 <% if @series.has_start_list? %>
   <div class="action_box">
