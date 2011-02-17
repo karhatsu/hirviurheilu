@@ -31,12 +31,12 @@ Feature: Generate start list
     And I press "Luo lähtölista sarjalle"
     Then I should see "Test series - Kilpailijat" within "h2"
     But I should not see "Kun olet syöttänyt sarjaan kaikki kilpailijat, lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot."
-    And I should see "Stevensson John" within "tr#competitor_1"
-    And I should see "15" within "tr#competitor_1"
-    And I should see "13:45:00" within "tr#competitor_1"
-    And I should see "Bears Peter" within "tr#competitor_2"
-    And I should see "16" within "tr#competitor_2"
-    And I should see "13:45:45" within "tr#competitor_2"
+    And I should see "Stevensson John" within "tr#competitor_1/td[1]"
+    And I should see "15" within "tr#competitor_1/td[3]"
+    And I should see "13:45:00" within "tr#competitor_1/td[4]"
+    And I should see "Bears Peter" within "tr#competitor_2/td[1]"
+    And I should see "16" within "tr#competitor_2/td[3]"
+    And I should see "13:45:45" within "tr#competitor_2/td[4]"
 
   Scenario: No competitors added yet
     Given I am an official
@@ -81,16 +81,18 @@ Feature: Generate start list
     And the series has a competitor with attributes:
       | first_name | John |
       | last_name | Stevensson |
+      | number |  |
     And the series has a competitor with attributes:
       | first_name | Peter |
       | last_name | Bears |
+      | number |  |
     And I have logged in
     And I am on the official race page of "Test race"
     When I follow "Tee lista"
     And I fill in "" for "Sarjan ensimmäinen numero"
     And I press "Luo lähtölista sarjalle"
     Then I should see "Numeroita ei voi generoida, sillä sarjan ensimmäistä numeroa ei ole määritetty" within "div.error"
-    But I should not see "0" within "tr#competitor_1"
+    But I should not see "0" within "tr#competitor_1/td[3]"
 
   Scenario: Don't show start list form when some competitor has an arrival time
     Given I am an official
