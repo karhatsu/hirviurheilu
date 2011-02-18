@@ -23,5 +23,4 @@ Feature: License
     And I have logged in
     When I follow "Admin"
     And I follow "Käyttäjät"
-    # TODO...
-    #Then I should see "License acquired"
+    Then I should see "CC81E12F02"

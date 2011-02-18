@@ -5,6 +5,8 @@ class ActivationKeysController < ApplicationController
   def create
     if params[:accept]
       @activation_key = ActivationKey.get_key(current_user.email, 'license') #TODO!!!
+      current_user.activation_key = @activation_key
+      current_user.save!
       render :show
     else
       flash[:error] = 'Sinun täytyy hyväksyä käyttöehdot'
