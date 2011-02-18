@@ -1,12 +1,19 @@
 div.offline_limit {
-    width: 910px;
+    width: 906px;
     margin: 0 0 5px 10px;
     padding: 3px;
-    background-color: white;
+    background-color: #FF7F00;
+    color: white;
     text-align: center;
+    border: white solid 1px;
     border-radius: 2px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
+}
+
+div.offline_limit a {
+    color: white;
+    text-decoration: underline;
 }
 
 div.header {
