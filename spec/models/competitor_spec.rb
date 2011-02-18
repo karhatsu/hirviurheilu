@@ -912,4 +912,33 @@ describe Competitor do
     end
   end
 
+  describe "#free_offline_competitors_left" do
+    context "when online state" do
+      it "should raise error" do
+        Mode.stub!(:online?).and_return(true)
+        Mode.stub!(:offline?).and_return(false)
+        lambda { Competitor.free_offline_competitors_left }.should raise_error
+      end
+    end
+
+    context "when offline state" do
+      before do
+        Mode.stub!(:online?).and_return(false)
+        Mode.stub!(:offline?).and_return(true)
+      end
+
+      it "should return full amount initially" do
+        Competitor.free_offline_competitors_left.should ==
+          Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE
+      end
+
+      it "should recude added competitors from the full amount" do
+        Factory.create(:competitor)
+        Factory.create(:competitor)
+        Competitor.free_offline_competitors_left.should ==
+          Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE - 2
+      end
+    end
+  end
+
 end

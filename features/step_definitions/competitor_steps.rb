@@ -3,7 +3,7 @@ Given /^the series has a competitor$/ do
 end
 
 Given /^the series has (\d+) competitors$/ do |amount|
-  amount.times do
+  amount.to_i.times do
     Factory.create(:competitor, :series => @series)
   end
 end

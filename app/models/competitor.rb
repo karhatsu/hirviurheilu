@@ -1,6 +1,7 @@
 class Competitor < ActiveRecord::Base
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish
+  MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE = 20
 
   belongs_to :club
   belongs_to :series, :counter_cache => true
@@ -185,6 +186,11 @@ class Competitor < ActiveRecord::Base
       [b.no_result_reason.to_s, a.points.to_i, a.points!.to_i,
         a.shot_points.to_i, b.time_in_seconds.to_i]
     end
+  end
+
+  def self.free_offline_competitors_left
+    raise "Method available only in offline mode" if Mode.online?
+    MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE - count
   end
 
   private
