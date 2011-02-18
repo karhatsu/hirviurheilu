@@ -1,0 +1,22 @@
+<% content_for(:title, "Hanki aktivointitunnus offline-tuotetta varten") %>
+<% content_for(:page_title, yield(:title)) %>
+<div class="info">
+  Tältä sivulta voit hankkia offline-tuotteeseen aktivointitunnuksen,
+  joka poistaa tuotteesta käyttörajoitukset.
+  Jos käytät Hirviurheilu-palvelua pelkästään internetin välityksellä,
+  sinun ei tarvitse hankkia aktivointitunnusta.
+</div>
+<div class="warning">
+  TÄRKEÄÄ! Jos avaat aktivointitunnuksen, se tarkoittaa sitä,
+  että Hirviurheilu-palvelulla on oikeus laskuttaa sinua Offline-tuotteesta
+  riippumatta siitä, käytätkö sitä vai et.
+</div>
+<div class="section">
+  <%= flash_error %>
+  <%= form_tag activation_key_path do %>
+    <%= check_box_tag :accept %>
+    <%= label_tag :accept, 'Hyväksyn käyttöehdot ja ymmärrän, ' +
+      'että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä.' %><br/>
+    <%= submit_tag 'Näytä aktivointitunnus' %>
+  <% end %>
+</div>
