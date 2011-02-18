@@ -1,5 +1,5 @@
 <body>
-  <% if offline? %>
+  <% unless ActivationKey.activated? %>
     <%= render :partial => 'shared/offline_limit' %>
   <% end %>
   <div class="header">

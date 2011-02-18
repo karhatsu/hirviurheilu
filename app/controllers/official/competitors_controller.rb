@@ -83,6 +83,7 @@ class Official::CompetitorsController < Official::OfficialController
   private
   def check_offline_limit
     return if online?
+    return if ActivationKey.activated?
     render :offline_limit if Competitor.free_offline_competitors_left <= 0
   end
 

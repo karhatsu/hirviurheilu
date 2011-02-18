@@ -10,6 +10,7 @@ ElkSports::Application.routes.draw do
   resources :users
   get 'reset_password/:reset_hash/edit' => 'reset_passwords#edit'
   resource :reset_password
+  resource :license
 
   resource :mode
 

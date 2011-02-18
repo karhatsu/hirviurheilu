@@ -10,7 +10,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110216201847) do
+ActiveRecord::Schema.define(:version => 20110218125618) do
+
+  create_table "activation_keys", :force => true do |t|
+    t.string   "comment",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "age_groups", :force => true do |t|
     t.integer  "series_id",                      :null => false

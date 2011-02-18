@@ -1,6 +1,9 @@
 <% content_for(:title, 'Hirviurheilu - Hirvenhiihdon ja hirvenjuoksun tulospalvelu') %>
 <% content_for(:page_title, yield(:title)) %>
 
+<%= flash_success %>
+<%= flash_error %>
+
 <% unless offline? %>
   <div class="section main_info">
     Hirviurheilu on hirvenhiihdon ja hirvenjuoksun internet-pohjainen,

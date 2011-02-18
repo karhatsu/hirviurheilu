@@ -1,0 +1,20 @@
+<% content_for(:title, "Hanki lisenssi") %>
+<% content_for(:page_title, yield(:title)) %>
+<% license_link = PRODUCTION_URL + license_path %>
+<div class="info">
+  Kirjaudu osoitteseen <a href="<%= license_link %>" target="_blank"><%= license_link %></a>
+  omilla tunnuksillasi. Saat käyttöösi aktivointitunnuksen.
+  Sen jälkeen syötä alla olevaan lomakkeseen saamasi aktivointitunnus sekä omat tunnuksesi.
+</div>
+<div class="section">
+  <%= flash_error %>
+  <%= form_tag license_path do %>
+    <%= label_tag :email, 'Sähköposti' %>
+    <%= text_field_tag :email %><br/>
+    <%= label_tag :password, 'Salasana' %>
+    <%= password_field_tag :password %><br/>
+    <%= label_tag :activation_key, 'Aktivointitunnus' %>
+    <%= text_field_tag :activation_key %><br/>
+    <%= submit_tag 'Tallenna' %>
+  <% end %>
+</div>
