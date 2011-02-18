@@ -2,6 +2,12 @@ Given /^the series has a competitor$/ do
   @competitor = Factory.create(:competitor, :series => @series)
 end
 
+Given /^the series has (\d+) competitors$/ do |amount|
+  amount.times do
+    Factory.create(:competitor, :series => @series)
+  end
+end
+
 Given /^the series has a competitor with attributes:$/ do |fields|
   hash = fields.rows_hash
   if hash[:club]

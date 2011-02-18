@@ -4,8 +4,7 @@ Feature: License
   I want to see my license key in the online service
 
   Scenario: Show license key
-    Given I am an official
-    And my license key is "test license"
+    Given I am an official with email "license@hirviurheilu.com" and password "license"
     And I have logged in
     And I am on the account page
     When I follow "Hanki lisenssi offline-tuotetta varten"
@@ -17,7 +16,7 @@ Feature: License
     When I check "Hyväksyn käyttöehdot ja ymmärrän, että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä."
     And I press "Näytä aktivointitunnus"
     Then I should see "Aktivointitunnus:"
-    And I should see "test license"
+    And I should see "CC81E12F02"
     And I should see "Siirry seuraavaksi offline-tuotteen puolelle ja syötä sinne tämän palvelun käyttäjätunnukset sekä yllä oleva aktivointitunnus." within "div.info"
     Given I follow "Kirjaudu ulos"
     And I am an admin

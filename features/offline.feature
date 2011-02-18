@@ -50,7 +50,7 @@ Feature: Offline usage
 
   Scenario: Limited amount of companies until license is acquired
     Given there is an official with email "offline@hirviurheilu.com" and password "offline"
-    Given there is an official with email "online@hirviurheilu.com" and password "online" and license key "test-license"
+    Given there is an official with email "online@hirviurheilu.com" and password "online"
     Given I use the software offline
     And I am on the home page
     Then I should see "Voit lisätä vielä 20 kilpailijaa. Hanki lisenssi." within "div.offline_limit"
@@ -69,7 +69,11 @@ Feature: Offline usage
     And I should see "Kirjaudu osoitteseen http://www.hirviurheilu.com/license omilla tunnuksillasi. Saat käyttöösi aktivointitunnuksen. Sen jälkeen syötä alla olevaan lomakkeseen saamasi aktivointitunnus sekä omat tunnuksesi." within "div.info"
     When I fill in "online@hirviurheilu.com" for "Sähköposti"
     And I fill in "online" for "Salasana"
-    And I fill in "test-license" for "Aktivointitunnus"
+    And I fill in "testkey123" for "Aktivointitunnus"
+    Then I should see "Virheellinen aktivointitunnus" within "div.error"
+    When I fill in "online@hirviurheilu.com" for "Sähköposti"
+    And I fill in "online" for "Salasana"
+    And I fill in "5bd11fe7d2" for "Aktivointitunnus"
     Then I should see "Hirviurheilun offline-versiosi on aktivoitu. Voit käyttää nyt tuotetta ilman rajoituksia." within "div.success"
     But I should not see "Voit lisätä vielä 0 kilpailijaa."
     When I go to the new competitor page of the series
