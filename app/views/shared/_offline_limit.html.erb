@@ -1,3 +1,5 @@
+<% count = Competitor.free_offline_competitors_left %>
 <div class="offline_limit">Voit lisätä vielä
-  <span id="free_offline_competitors_left"><%= Competitor.free_offline_competitors_left %></span>
-  kilpailijaa. <%= link_to 'Hanki lisenssi.', new_license_path %></div>
+  <span id="free_offline_competitors_left"><%= count %></span>
+  <%= count == 1 ? 'kilpailijan' : 'kilpailijaa' %>.
+  <%= link_to 'Hanki lisenssi.', new_license_path %></div>
