@@ -23,6 +23,6 @@ class ActivationKeysController < ApplicationController
 
   private
   def check_env
-    redirect_to root_path if Rails.env('staging')
+    redirect_to root_path if Rails.env == 'staging'
   end
 end
