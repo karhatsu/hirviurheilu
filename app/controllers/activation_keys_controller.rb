@@ -1,5 +1,5 @@
 class ActivationKeysController < ApplicationController
-  before_filter :require_user
+  before_filter :check_env, :require_user
 
   def new
   end
@@ -19,5 +19,10 @@ class ActivationKeysController < ApplicationController
       flash[:error] = 'Sinun täytyy hyväksyä käyttöehdot'
       render :new
     end
+  end
+
+  private
+  def check_env
+    redirect_to root_path if Rails.env('staging')
   end
 end

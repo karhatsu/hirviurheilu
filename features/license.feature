@@ -34,3 +34,8 @@ Feature: License
   Scenario: Unauthenticated user wants to see activation key
     Given I go to the activation key page
     Then I should be on the login page
+
+  Scenario: Staging environment user tries to see activation key
+    Given I use the service in the staging environment
+    And I go to the activation key page
+    Then I should be on the home page
