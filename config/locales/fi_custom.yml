@@ -6,6 +6,9 @@ fi:
     people_short:
       one: 1 hlö
       other: %{count} hlöä
+  count_competitors:
+    one: 1 kilpailijan
+    other: %{count} kilpailijaa
   euros:
     one: euro
     other: euroa
