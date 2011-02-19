@@ -30,3 +30,7 @@ Feature: License
     When I follow "Admin"
     And I follow "Käyttäjät"
     Then I should see "CC81E12F02"
+
+  Scenario: Unauthenticated user wants to see activation key
+    Given I go to the activation key page
+    Then I should be on the login page

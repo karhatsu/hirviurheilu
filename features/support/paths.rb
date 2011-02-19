@@ -59,6 +59,9 @@ module NavigationHelpers
     when /the login page/
       login_path
 
+    when /the activation key page/
+      new_activation_key_path
+
     when /the admin index page/
       admin_root_path
 
