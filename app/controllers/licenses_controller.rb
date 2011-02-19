@@ -1,4 +1,6 @@
 class LicensesController < ApplicationController
+  before_filter :check_offline
+
   def new
   end
 
@@ -12,5 +14,10 @@ class LicensesController < ApplicationController
       flash[:error] = 'Virheellinen aktivointitunnus'
       render :new
     end
+  end
+
+  private
+  def check_offline
+    redirect_to root_path if online?
   end
 end

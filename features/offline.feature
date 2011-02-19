@@ -65,7 +65,8 @@ Feature: Offline usage
     And I should see "Olet tallentanut järjestelmään 20 kilpailijaa. Ennen kuin voit lisätä uusia kilpailijoita, sinun täytyy hankkia tuotteeseen lisenssi." within "div.error"
     But I should not see "Etunimi"
     When I follow "Hanki lisenssi"
-    Then I should see "Hanki lisenssi" within "div.main_title"
+    Then I should be on the new license page
+    And I should see "Hanki lisenssi" within "div.main_title"
     And I should see "Kirjaudu osoitteseen http://www.hirviurheilu.com/account omilla tunnuksillasi. Saat käyttöösi aktivointitunnuksen. Sen jälkeen syötä alla olevaan lomakkeseen saamasi aktivointitunnus sekä omat tunnuksesi." within "div.info"
     When I fill in "online@hirviurheilu.com" for "Sähköposti"
     And I fill in "online" for "Salasana"

@@ -39,3 +39,7 @@ Feature: License
     Given I use the service in the staging environment
     And I go to the activation key page
     Then I should be on the home page
+
+  Scenario: User tries to access license page in online mode
+    Given I go to the new license page
+    Then I should be on the home page
