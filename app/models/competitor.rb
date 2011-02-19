@@ -190,7 +190,9 @@ class Competitor < ActiveRecord::Base
 
   def self.free_offline_competitors_left
     raise "Method available only in offline mode" if Mode.online?
-    MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE - count
+    left = MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE - count
+    left = 0 if left < 0
+    left
   end
 
   private

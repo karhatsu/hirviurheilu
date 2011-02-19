@@ -938,6 +938,11 @@ describe Competitor do
         Competitor.free_offline_competitors_left.should ==
           Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE - 2
       end
+
+      it "should be zero when would actually be negative (for some reason)" do
+        Competitor.stub!(:count).and_return(Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE + 1)
+        Competitor.free_offline_competitors_left.should == 0
+      end
     end
   end
 
