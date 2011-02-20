@@ -1,5 +1,6 @@
 class ActivationKeysController < ApplicationController
-  before_filter :check_env, :require_user
+  skip_before_filter :set_competitions
+  before_filter :check_env, :require_user, :set_offline_info
 
   def new
   end
@@ -24,5 +25,10 @@ class ActivationKeysController < ApplicationController
   private
   def check_env
     redirect_to root_path if Rails.env == 'staging'
+  end
+
+  def set_offline_info
+    @is_offline_info = true
+    @is_activation_key = true
   end
 end

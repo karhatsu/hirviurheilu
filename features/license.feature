@@ -6,10 +6,11 @@ Feature: License
   Scenario: Show activation key
     Given I am an official with email "license@hirviurheilu.com" and password "license"
     And I have logged in
-    And I am on the account page
-    Then I should see "Aktivointitunnus offline-tuotetta varten" within "h2"
-    When I follow "Hanki aktivointitunnus offline-tuotetta varten"
-    Then I should see "Hanki aktivointitunnus offline-tuotetta varten" within "div.main_title"
+    And I am on the offline price page
+    When I follow "Hanki aktivointitunnus"
+    Then the "Offline" main menu item should be selected
+    And the "Hanki aktivointitunnus" sub menu item should be selected
+    And I should see "Hanki aktivointitunnus offline-tuotetta varten" within "div.main_title"
     And I should see "Tältä sivulta voit hankkia offline-tuotteeseen aktivointitunnuksen, joka poistaa tuotteesta käyttörajoitukset. Jos käytät Hirviurheilu-palvelua pelkästään internetin välityksellä, sinun ei tarvitse hankkia aktivointitunnusta." within "div.info"
     And I should see "TÄRKEÄÄ! Jos avaat aktivointitunnuksen, se tarkoittaa sitä, että Hirviurheilu-palvelulla on oikeus laskuttaa sinua Offline-tuotteesta riippumatta siitä, käytätkö sitä vai et." within "div.warning"
     When I fill in "license" for "Salasana"
