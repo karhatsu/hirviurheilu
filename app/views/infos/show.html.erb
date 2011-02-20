@@ -87,7 +87,9 @@
   <%= link_to 'Lue lisää Online ja Offline -tuotteiden eroista', offline_vs_online_path %>
 </div>
 
-<div class="question">Voiko Hirviurheilu Online -palvelua käyttää, vaikka kilpailupaikalla
+<a name="connection"></a>
+<div class="question" id="connection_question">Voiko Hirviurheilu Online -palvelua
+  käyttää, vaikka kilpailupaikalla
   olisikin käytössä vain <span class="highligth">mokkula, ei
   kiinteää internet-yhteyttä</span>?</div>
 <div class="answer">
@@ -304,6 +306,11 @@ tai suurenna alla oleva video videoikkunan oikeassa alareunassa olevasta napista
 <%= render :partial => 'shared/company_contact', :locals => { :corner => true } %>
 
 <script type="text/javascript">
+  <% if params[:open] %>
+    $(document).ready(function() {
+      $('#<%= params[:open] %>_question').click();
+    });
+  <% end %>
   $(".question").next().hide();
   $(".question").click(function() {
     if($(this).next().is(":visible")) {

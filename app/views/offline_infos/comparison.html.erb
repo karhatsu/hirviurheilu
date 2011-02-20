@@ -5,9 +5,14 @@ Hirviurheilu Online on internetissä toimiva tulospalvelu, joka vaatii
 internet-yhteyden ja on käytettävissäsi ilman erillisiä toimenpiteitä.
 Hirviurheilu Offline on tulospalveluohjelma, joka asennetaan tietokoneelle
 ja jonka käyttäminen ei vaadi internet-yhteyttä.
+<% if online? %>
+  Käytät parhaillasi Hirviurheilu Online -palvelua.
+<% end %>
 
 <h2>Miksi kannattaa valita Hirviurheilu Online?</h2>
-Mikäli kisapaikalla on internet-yhteys (kiinteä tai riittävän luotettava 3g-yhteys),
+Mikäli kisapaikalla on internet-yhteys (kiinteä tai
+<%= link_to 'riittävän luotettava 3g-yhteys',
+  info_path(:open => 'connection', :anchor => 'connection') %>),
 kannattaa ensisijaisesti käyttää Online-versiota:
 <ul class="positive">
   <li>Tulospalvelu on reaaliaikainen. Kaikki tulokset näkyvät välittömästi

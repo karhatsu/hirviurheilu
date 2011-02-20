@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :current_user_session, :current_user, :official_rights
+  helper_method :current_user_session, :current_user, :official_rights,
+    :online?, :offline?
   before_filter :set_competitions, :ensure_user_in_offline
 
   private
