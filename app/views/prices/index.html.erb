@@ -21,3 +21,5 @@
   <%= submit_tag "Laske" %>
 <% end %>
 Hinta yhteensä: <span id="calculated_price"><%= "%.2f" % @price %></span> euroa
+<h2>Hirviurheilu Offline</h2>
+<%= link_to 'Katso Hirviurheilu Offline -tuotteen hinta.', offline_price_path %>
