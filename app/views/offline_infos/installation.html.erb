@@ -1,2 +1,44 @@
 <% content_for :title, "Hirviurheilu Offline -tuotteen asennusohjeet" %>
 <% content_for :page_title, yield(:title) %>
+<div class="info">
+  <%= link_to 'Jos Hirviurheilu Offline on sinulle sopivampi kuin Hirviurheilu Online',
+    offline_vs_online_path %>, tämä sivu neuvoo, kuinka voit asentaa
+  tuotteen omalle koneellesi.</div>
+<h2>Asentaminen</h2>
+<h3>1. Rekisteröidy tai kirjaudu sisään</h3>
+<% if current_user %>
+  Olet jo kirjautunut sisään. Voit jatkaa seuraavaan vaiheeseen.
+<% else %>
+  <%= link_to 'Aloita rekisteröitymällä palveluun.', register_path %>
+  Jos sinulla on jo tunnukset, <%= link_to 'kirjaudu sisään palveluun', login_path %>.
+<% end %>
+<h3>2. Lataa asennuspaketti</h3>
+<% if current_user %>
+  <a href="http://www.karhatsu.com/hirviurheilu/hirviurheilu.zip">Lataa
+    hirviurheilu.zip-tiedosto.</a>
+<% else %>
+  <div class="warning">Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki.</div>
+<% end %>
+<h3>3. Pura paketti</h3>
+Pura lataamasi zip-tiedosto omalle koneellesi esim. työpöydälle tai kansioon C:\.
+Zip-paketin sisällä on kaksi tiedostoa. Varmista, että molemmat tiedostot menevät
+samaan kansioon.
+<h2>Ohjelman käynnistäminen</h2>
+<h3>4. Avaa hirviurheilu.exe</h3>
+Mene kansioon (tai työpöydälle), johon purit tiedostot. Tuplaklikkaa
+hirviurheilu.exe-tiedostoa. Kyseisessä tiedostossa on vihreä HU-kuvake.
+<h3>5. Odota käynnistymistä</h3>
+Ohjelman käynnistäminen avaa mustataustaisen komentorivi-ikkunan.
+Odota, että ikkunaan on tullut kolme riviä, jotka alkavat päivämäärällä ja tekstillä INFO.
+<h3>6. Anna ohjelmalle lupa toimia palvelimena</h3>
+Jos sinulla on Windows Vista tai Windows 7, Windows kysyy lupaa ohjelman käyttöön.
+Anna lupa. Jos käytät Windows XP:tä, ei lupaa kysytä eli voit siirtyä suoraan
+seuraavaan vaiheeseen.
+<h3>7. Avaa selain ja aloita ohjelman käyttö</h3>
+Avaa haluamasi selain (esim. Internet Explorer tai Firefox) ja mene osoitteeseen
+<a href="http://localhost:3000" target="_blank">http://localhost:3000</a>.
+Voit nyt aloittaa ohjelman käytön.
+<h2>Ohjelman sammuttaminen</h2>
+<h3>8. Sulje komentorivi-ikkuna</h3>
+Kun et halua enää käyttää ohjelmaa, voit sulkea selaimen ja komentorivi-ikkunan
+(mustataustainen ikkuna). Kun haluat käyttää ohjelmaa uudestaan, aloita vaiheesta 4.
