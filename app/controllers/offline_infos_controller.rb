@@ -6,6 +6,10 @@ class OfflineInfosController < ApplicationController
     @is_offline_vs_online = true
   end
 
+  def installation
+    @is_offline_installation = true
+  end
+
   private
   def set_offline_info
     @is_offline_info = true

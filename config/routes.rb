@@ -16,8 +16,10 @@ ElkSports::Application.routes.draw do
   resource :mode
 
   resource :info
-  get 'offline_vs_online' => 'offline_infos#comparison', :as => :offline_vs_online
   resources :feedbacks
+
+  get 'offline_vs_online' => 'offline_infos#comparison', :as => :offline_vs_online
+  get 'offline_installation' => 'offline_infos#installation', :as => :offline_installation
   
   post 'calculate_price' => 'prices#calculate_price', :as => :calculate_price
   resources :prices
