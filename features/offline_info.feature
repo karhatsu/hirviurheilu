@@ -13,5 +13,5 @@ Feature: Offline info
     When I follow "Offline" within "div.main_menu"
     Then I should be on the offline-online comparison page
     And the "Offline" main menu item should be selected
-    And the "Offline vai Online" sub menu item should be selected
-    And I should see "Offline vai Online?" within "div.main_title"
+    And the "Online vai Offline" sub menu item should be selected
+    And I should see "Hirviurheilu Online vai Hirviurheilu Offline?" within "div.main_title"
