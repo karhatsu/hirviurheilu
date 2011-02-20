@@ -4,7 +4,9 @@
     <%= menu_item "Toimitsijan sivut", official_root_path, @is_official %>
     <%= menu_item "Info", info_path, @is_info %>
     <% unless offline? %>
-      <%= menu_item "Offline", offline_vs_online_path, @is_offline_info %>
+      <% unless Rails.env == 'staging' %>
+        <%= menu_item "Offline", offline_vs_online_path, @is_offline_info %>
+      <% end %>
       <%= menu_item "Hinnat", prices_path, @is_prices %>
       <% if current_user %>
         <%= menu_item "Omat tiedot", account_path, @is_account %>

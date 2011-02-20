@@ -8,6 +8,17 @@ Feature: Offline info
     When I go to the home page
     Then I should not see "Offline" within "div.main_menu"
 
+  Scenario: No offline tab in staging environment
+    Given I use the service in the staging environment
+    When I go to the home page
+    Then I should not see "Offline" within "div.main_menu"
+    When I go to the offline-online comparison page
+    Then I should be on the home page
+    When I go to the offline installation page
+    Then I should be on the home page
+    When I go to the offline price page
+    Then I should be on the home page
+
   Scenario: Show online vs. offline comparison
     Given I am on the home page
     When I follow "Offline" within "div.main_menu"
