@@ -1,7 +1,7 @@
 class Competitor < ActiveRecord::Base
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish
-  MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE = 20
+  MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE = 100
 
   belongs_to :club
   belongs_to :series, :counter_cache => true

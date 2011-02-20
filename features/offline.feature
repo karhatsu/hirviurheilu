@@ -53,16 +53,16 @@ Feature: Offline usage
     Given there is an official with email "online@hirviurheilu.com" and password "online"
     Given I use the software offline
     And I am on the home page
-    Then I should see "Voit lisätä vielä 20 kilpailijaa. Hanki lisenssi." within "div.offline_limit"
+    Then I should see "Voit lisätä vielä 100 kilpailijaa. Hanki lisenssi." within "div.offline_limit"
     Given I have a race "Offline race"
     And the race has series "Offline series"
     And the series has a competitor
     When I go to the home page
-    Then I should see "Voit lisätä vielä 19 kilpailijaa. Hanki lisenssi." within "div.offline_limit"
-    Given the series has 19 competitors
+    Then I should see "Voit lisätä vielä 99 kilpailijaa. Hanki lisenssi." within "div.offline_limit"
+    Given the database contains in total 100 competitors
     When I go to the new competitor page of the series
     Then I should see "Voit lisätä vielä 0 kilpailijaa. Hanki lisenssi." within "div.offline_limit"
-    And I should see "Olet tallentanut järjestelmään 20 kilpailijaa. Ennen kuin voit lisätä uusia kilpailijoita, sinun täytyy hankkia tuotteeseen lisenssi." within "div.error"
+    And I should see "Olet tallentanut järjestelmään 100 kilpailijaa. Ennen kuin voit lisätä uusia kilpailijoita, sinun täytyy hankkia tuotteeseen lisenssi." within "div.error"
     But I should not see "Etunimi"
     When I follow "Hanki lisenssi"
     Then I should be on the new license page
@@ -80,5 +80,5 @@ Feature: Offline usage
     Then I should see "Hirviurheilun offline-versiosi on aktivoitu. Voit käyttää nyt tuotetta ilman rajoituksia." within "div.success"
     But I should not see "Voit lisätä vielä 0 kilpailijaa."
     When I go to the new competitor page of the series
-    Then I should not see "Olet tallentanut järjestelmään 20 kilpailijaa."
+    Then I should not see "Olet tallentanut järjestelmään 100 kilpailijaa."
     But I should see "Etunimi"
