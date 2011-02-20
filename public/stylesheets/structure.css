@@ -66,7 +66,7 @@ div.middle_section_no_menus {
 
 div.main_menu {
     float: left;
-    width: 400px;
+    width: 560px;
     padding-left: 5px;
 }
 
@@ -82,11 +82,9 @@ div.series_sub_menu {
 }
 
 div.env_info {
-    float: left;
-    text-align: center;
-    width: 160px;
+    text-align: right;
+    width: 920px;
     color: orange;
-    padding-top: 5px;
 }
 
 span.env_info_link {
