@@ -71,6 +71,9 @@ module NavigationHelpers
     when /the info page/
       info_path
 
+    when /the offline-online comparison page/
+      offline_vs_online_path
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
