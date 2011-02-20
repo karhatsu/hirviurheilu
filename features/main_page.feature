@@ -6,7 +6,7 @@ Feature: Main page
   Scenario: Load main page
     Given I go to the home page
     Then I should see "Hirvenhiihdon ja hirvenjuoksun tulospalvelu" within ".main_title"
-    And I should see "Hirviurheilu on hirvenhiihdon ja hirvenjuoksun internet-pohjainen, helppokäyttöinen tulospalvelu."
+    And I should see "Hirviurheilu on hirvenhiihdon ja hirvenjuoksun helppokäyttöinen tulospalvelu."
     And I should see "Tutustu lukemalla lisää Info-sivulta ja katsomalla Youtube-video."
     When I follow "Info-sivulta"
     Then I should be on the info page

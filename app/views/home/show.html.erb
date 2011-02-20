@@ -6,8 +6,9 @@
 
 <% unless offline? %>
   <div class="section main_info">
-    Hirviurheilu on hirvenhiihdon ja hirvenjuoksun internet-pohjainen,
-    helppokäyttöinen tulospalvelu.<br/>
+    Hirviurheilu on hirvenhiihdon ja hirvenjuoksun helppokäyttöinen tulospalvelu.<br/>
+    Käytössäsi on kaksi vaihtoehtoa:
+    <%= link_to 'Hirviurheilu Online ja Hirviurheilu Offline', offline_vs_online_path %>.<br/>
     Tutustu lukemalla lisää <%= link_to "Info-sivulta", info_path %> ja
     katsomalla <%= link_to "Youtube-video", youtube_path, :target => '_blank' %>.
   </div>

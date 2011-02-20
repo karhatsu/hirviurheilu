@@ -6,7 +6,7 @@ Feature: Offline usage
   Scenario: Simplified main page
     Given I use the software offline
     When I go to the home page
-    Then I should not see "Hirviurheilu on hirvenhiihdon ja hirvenjuoksun internet-pohjainen"
+    Then I should not see "Hirviurheilu on hirvenhiihdon ja hirvenjuoksun"
     And I should not see "Kuinka Hirviurheilu-palvelua käytetään"
     And I should not see "Harjoittele palvelun käyttöä"
     And I should not see "Tämä on testiympäristö"
