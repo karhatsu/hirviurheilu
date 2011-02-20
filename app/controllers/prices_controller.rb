@@ -18,6 +18,6 @@ class PricesController < ApplicationController
 
   private
   def price(competitors)
-    Price.price_for_competitor_amount(competitors) * 0.5 # Jan-Feb: -50%
+    Price.price_for_competitor_amount(competitors)
   end
 end

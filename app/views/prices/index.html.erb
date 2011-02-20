@@ -4,8 +4,7 @@
 <% unless Rails.env == 'production' %>
   <div class="important">Käytät tällä hetkellä testiympäristöä. Sen käyttö on ilmaista.</div>
 <% end %>
-<div class="important">Aloitustarjous: Tammi-helmikuussa 2011 kaikkiin hintoihin tulee
-  50% alennus.</div>
+<div class="important">Aloitustarjous: Ensimmäinen kilpailu on ilmainen!</div>
 <div class="section">
   Perushinta: <%= "%.2f" % BasePrice.price %> euroa<br/>
   <% @prices.each do |price| %>
