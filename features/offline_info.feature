@@ -23,3 +23,11 @@ Feature: Offline info
     And the "Offline" main menu item should be selected
     And the "Offline-asennus" sub menu item should be selected
     And I should see "Hirviurheilu Offline -tuotteen asennusohjeet" within "div.main_title"
+
+  Scenario: Show offline price
+    Given I am on the offline installation page
+    When I follow "Hinta"
+    Then I should be on the offline price page
+    And the "Offline" main menu item should be selected
+    And the "Hinta" sub menu item should be selected
+    And I should see "Hirviurheilu Offline - hinta" within "div.main_title"

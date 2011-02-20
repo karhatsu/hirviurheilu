@@ -1,6 +1,8 @@
 require 'digest/md5'
 
 class ActivationKey < ActiveRecord::Base
+  OFFLINE_PRICE = 395
+
   validates :comment, :presence => true
 
   def self.get_key(email, password)

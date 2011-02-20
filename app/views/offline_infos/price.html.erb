@@ -1,0 +1,16 @@
+<% content_for :title, "Hirviurheilu Offline - hinta" %>
+<% content_for :page_title, yield(:title) %>
+<h2>Ilmainen koekäyttö</h2>
+Voit kokeilla Hirviurheilu Offline -tuotteen käyttöä veloituksetta syöttämällä
+siihen enintään <%= Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE %>
+kilpailijaa. Voit siis käytännössä hoitaa tuotteen avulla yhden kilpailun
+tulospalvelun ilmaiseksi. Kun raja tulee täyteen, sinun täytyy hankkia
+tuotteeseen lisenssi.
+<h2>Hinta</h2>
+Hirviurheilu Offline -tulospalvelun hinta on <%= ActivationKey::OFFLINE_PRICE %>
+euroa. Hinta sisältää arvonlisäveroa 23%.
+<h2>Lisenssin hankkiminen</h2>
+Voit hankkia tuotteen lisenssin lunastamalla
+<%= link_to 'aktivointikoodin', new_activation_key_path %>.
+Kun syötät koodin Offline-tuotteeseen, edellä mainittu rajoite kilpailijoiden
+määrässä poistuu.
