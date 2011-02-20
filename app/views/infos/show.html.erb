@@ -8,10 +8,23 @@
 <h2>Kysymyksiä ja vastauksia</h2>
 
 <h3>Yleistä Hirviurheilu-palvelusta</h3>
-<div class="question">Mihin Hirviurheilu-tulospalvelu on
-  <span class="highligth">tarkoitettu</span>?</div>
-<div class="answer">Hirviurheilu on tulospalvelu hirvenhiihdon ja hirvenjuoksun
-  kilpailuihin.</div>
+<div class="question">Mikä on <span class="highligth">Hirviurheilu Online</span>?</div>
+<div class="answer">Hirviurheilu Online on helppokäyttöinen, internet-pohjainen tulospalvelu
+  hirvenhiihdon ja hirvenjuoksun kilpailuihin.
+  <% unless offline? %>
+    Käytät parhaillaan Hirviurheilu Online -palvelua.
+  <% end %>
+  <%= link_to 'Lue lisää Online ja Offline -tuotteiden eroista', offline_vs_online_path %>
+</div>
+
+<div class="question">Mikä on <span class="highligth">Hirviurheilu Offline</span>?</div>
+<div class="answer">Hirviurheilu Offline on helppokäyttöinen, toimitsijan
+  koneelle asennettava tulospalvelu hirvenhiihdon ja hirvenjuoksun kilpailuihin.
+  <% if offline? %>
+    Käytät parhaillaan Hirviurheilu Online -palvelua.
+  <% end %>
+  <%= link_to 'Lue lisää Online ja Offline -tuotteiden eroista', offline_vs_online_path %>
+</div>
 
 <div class="question">Mitä <span class="highligth">kilpailumuotoja</span> palvelu tukee?</div>
 <div class="answer">Katso vastaus <a href="#competition_types">tämän
