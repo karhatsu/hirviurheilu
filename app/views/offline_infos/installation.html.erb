@@ -4,6 +4,7 @@
   <%= link_to 'Jos Hirviurheilu Offline on sinulle sopivampi kuin Hirviurheilu Online',
     offline_vs_online_path %>, tämä sivu neuvoo, kuinka voit asentaa
   tuotteen omalle koneellesi.</div>
+
 <h2>Asentaminen</h2>
 <h3>1. Rekisteröidy tai kirjaudu sisään</h3>
 <% if current_user %>
@@ -12,23 +13,36 @@
   <%= link_to 'Aloita rekisteröitymällä palveluun.', register_path %>
   Jos sinulla on jo tunnukset, <%= link_to 'kirjaudu sisään palveluun', login_path %>.
 <% end %>
-<h3>2. Lataa asennuspaketti</h3>
+<h3>2. Lataa asennus- tai päivityspaketti</h3>
 <% if current_user %>
-  <a href="http://www.karhatsu.com/hirviurheilu/hirviurheilu.zip">Lataa
-    hirviurheilu.zip-tiedosto.</a>
+  <ul>
+    <li>Jos <b>asennat Hirviurheilu Offline -tuotteen ensimmäistä kertaa</b>, 
+      <a href="http://www.karhatsu.com/hirviurheilu/hirviurheilu.zip">lataa
+      asennustiedosto</a>.</li>
+    <li>Jos olet <b>päivittämässä aiemmin asennettua</b> Hirviurheilu Offline -tuotetta, 
+      <a href="http://www.karhatsu.com/hirviurheilu/hirviurheilu.zip">lataa
+      päivitystiedosto</a>.</li>
+  </ul>
 <% else %>
   <div class="warning">Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki.</div>
 <% end %>
 <h3>3. Pura paketti</h3>
-Pura lataamasi zip-tiedosto omalle koneellesi esim. työpöydälle tai kansioon C:\.
-Zip-paketin sisällä on kaksi tiedostoa. Varmista, että molemmat tiedostot menevät
-samaan kansioon.<br/><br/>
-<b>Huom!</b> Jos olet päivittämässä aiemmin asentamaasi Hirviurheilu Offline
-  -tuotetta, poimi zip-paketista vain hirviurheilu.exe-tiedosto ja kopioi se
-  vanhan version päälle.
+<ul>
+  <li>Jos <b>asennat Hirviurheilu Offline -tuotteen ensimmäistä kertaa</b>, 
+    avaa lataamasi zip-tiedosto ja kopioi sen sisällä olevat kaksi tiedostoa
+    omalle koneellesi. Voit kopioida tiedostot esim. työpöydälle tai luoda niille
+    vaikkapa kansion C:\hirviurheilu. Varmista joka tapauksessa, että molemmat tiedostot menevät
+    samaan kansioon.
+  </li>
+  <li>Jos olet <b>päivittämässä aiemmin asennettua</b> Hirviurheilu Offline -tuotetta,
+    avaa lataamasi zip-tiedosto ja kopioi sen sisällä oleva hirviurheilu.exe-tiedosto
+    vanhan hirviurheilu.exe-tiedoston päälle.
+  </li>
+</ul>
+
 <h2>Ohjelman käynnistäminen</h2>
 <h3>4. Avaa hirviurheilu.exe</h3>
-Mene kansioon (tai työpöydälle), johon purit tiedostot. Tuplaklikkaa
+Mene kansioon (tai työpöydälle), johon kopioit tiedostot. Tuplaklikkaa
 hirviurheilu.exe-tiedostoa. Kyseisessä tiedostossa on vihreä HU-kuvake.
 <h3>5. Odota käynnistymistä</h3>
 Ohjelman käynnistäminen avaa mustataustaisen komentorivi-ikkunan.
@@ -41,6 +55,7 @@ seuraavaan vaiheeseen.
 Avaa haluamasi selain (esim. Internet Explorer tai Firefox) ja mene osoitteeseen
 <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>.
 Voit nyt aloittaa ohjelman käytön.
+
 <h2>Ohjelman sammuttaminen</h2>
 <h3>8. Sulje komentorivi-ikkuna</h3>
 Kun et halua enää käyttää ohjelmaa, voit sulkea selaimen ja komentorivi-ikkunan
