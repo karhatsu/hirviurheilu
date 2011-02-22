@@ -11,6 +11,7 @@ class ActivationKeysController < ApplicationController
         @activation_key = ActivationKey.get_key(current_user.email, params[:password])
         current_user.activation_key = @activation_key
         current_user.save!
+        LicenseMailer.license_mail(current_user).deliver
         render :show
       else
         flash[:error] = 'Väärä salasana'

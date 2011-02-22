@@ -4,7 +4,7 @@ Feature: License
   I want to see my activation key in the online service
 
   Scenario: Show activation key
-    Given I am an official with email "license@hirviurheilu.com" and password "license"
+    Given I am an official "Mathew Stevensson" with email "license@hirviurheilu.com" and password "license"
     And I have logged in
     And I am on the offline price page
     When I follow "Hanki aktivointitunnus"
@@ -25,6 +25,11 @@ Feature: License
     And I press "Näytä aktivointitunnus"
     Then I should see "Aktivointitunnus: CC81E12F02" within "div.success"
     And I should see "Siirry seuraavaksi offline-tuotteen puolelle ja syötä sinne tämän palvelun käyttäjätunnukset sekä yllä oleva aktivointitunnus." within "div.info"
+    And the admin should receive an email
+    When I open the email
+    Then I should see "Hirviurheilu - aktivointitunnus katsottu" in the email subject
+    And I should see "Käyttäjä: Mathew Stevensson" in the email body
+    And I should see "Aktivointitunnus: CC81E12F02" in the email body
     Given I follow "Kirjaudu ulos"
     And I am an admin
     And I have logged in

@@ -36,6 +36,13 @@ Given /^I am an official "(.*) (.*)" with email "([^"]*)"$/ do |firstname,
   @user.add_official_rights
 end
 
+Given /^I am an official "(.*) (.*)" with email "([^"]*)" and password "([^"]*)"$/ do |firstname,
+    lastname, email, pw|
+  @user = Factory.create(:user, :first_name => firstname, :last_name => lastname,
+    :email => email, :password => pw, :password_confirmation => pw)
+  @user.add_official_rights
+end
+
 Given /^I am an official with email "([^"]*)" and password "([^"]*)"$/ do |email, pw|
   @user = Factory.create(:user, :email => email, :password => pw, :password_confirmation => pw)
   @user.add_official_rights
