@@ -18,6 +18,10 @@ Feature: Offline info
     Then I should be on the home page
     When I go to the offline price page
     Then I should be on the home page
+    
+  Scenario: Default offline path
+    Given I go to the offline page
+    Then I should be on the offline-online comparison page
 
   Scenario: Show online vs. offline comparison
     Given I am on the home page
