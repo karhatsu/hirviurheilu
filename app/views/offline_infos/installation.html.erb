@@ -17,11 +17,9 @@
 <% if current_user %>
   <ul>
     <li>Jos <b>asennat Hirviurheilu Offline -tuotteen ensimmäistä kertaa</b>, 
-      <a href="http://www.karhatsu.com/hirviurheilu/hirviurheilu.zip">lataa
-      asennustiedosto</a>.</li>
+      <%= link_to 'lataa asennustiedosto', download_installer_path %>.</li>
     <li>Jos olet <b>päivittämässä aiemmin asennettua</b> Hirviurheilu Offline -tuotetta, 
-      <a href="http://www.karhatsu.com/hirviurheilu/hirviurheilu.zip">lataa
-      päivitystiedosto</a>.</li>
+      <%= link_to 'lataa päivitystiedosto', download_upgrader_path %>.</li>
   </ul>
 <% else %>
   <div class="warning">Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki.</div>
