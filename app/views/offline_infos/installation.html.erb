@@ -12,6 +12,7 @@
 <% else %>
   <%= link_to 'Aloita rekisteröitymällä palveluun.', register_path %>
   Jos sinulla on jo tunnukset, <%= link_to 'kirjaudu sisään palveluun', login_path %>.
+  Palaa sen jälkeen takaisin tälle sivulle.
 <% end %>
 <h3>2. Lataa asennus- tai päivityspaketti</h3>
 <% if current_user %>
@@ -28,32 +29,35 @@
 <ul>
   <li>Jos <b>asennat Hirviurheilu Offline -tuotteen ensimmäistä kertaa</b>, 
     avaa lataamasi zip-tiedosto ja kopioi sen sisällä olevat kaksi tiedostoa
-    omalle koneellesi. Voit kopioida tiedostot esim. työpöydälle tai luoda niille
-    vaikkapa kansion C:\hirviurheilu. Varmista joka tapauksessa, että molemmat tiedostot menevät
-    samaan kansioon.
+    omalle koneellesi, esim. kansioon C:\hirviurheilu.
   </li>
   <li>Jos olet <b>päivittämässä aiemmin asennettua</b> Hirviurheilu Offline -tuotetta,
     avaa lataamasi zip-tiedosto ja kopioi sen sisällä oleva hirviurheilu.exe-tiedosto
     vanhan hirviurheilu.exe-tiedoston päälle.
   </li>
 </ul>
+<div class="warning">Huom! Kohdekansion nimessä ei saa olla erikoismerkkejä
+  kuten ä- ja ö-kirjaimia.</div>
 
 <h2>Ohjelman käynnistäminen</h2>
 <h3>4. Avaa hirviurheilu.exe</h3>
-Mene kansioon (tai työpöydälle), johon kopioit tiedostot. Tuplaklikkaa
-hirviurheilu.exe-tiedostoa, jossa on vihreä
+Mene kansioon, johon kopioit tiedostot. Tuplaklikkaa tiedostoa
+hirviurheilu.exe, jossa on vihreä
 <%= image_tag '../favicon.ico', :alt => 'HU', :width => 16, :height => 16 %>-kuvake.
 <h3>5. Odota käynnistymistä</h3>
 Ohjelman käynnistäminen avaa mustataustaisen komentorivi-ikkunan.
 Odota, että ikkunaan on tulee teksti "HIRVIURHEILU OFFLINE ON NYT VALMIS KÄYTETTÄVÄKSI".
 <h3>6. Anna ohjelmalle lupa toimia palvelimena</h3>
-Jos sinulla on Windows Vista tai Windows 7, Windows kysyy lupaa ohjelman käyttöön.
-Anna lupa. Jos käytät Windows XP:tä, ei lupaa kysytä eli voit siirtyä suoraan
+Jos sinulla on käytössäsi jokin palomuuri, se kysyy lupaa, saako ohjelma toimia palvelimena.
+Anna lupa. Jos palomuuria ei ole, ei lupaa kysytä, jolloin voit siirtyä suoraan
 seuraavaan vaiheeseen.
 <h3>7. Avaa selain ja aloita ohjelman käyttö</h3>
 Avaa haluamasi selain (esim. Internet Explorer tai Firefox) ja mene osoitteeseen
 <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>.
-Voit nyt aloittaa ohjelman käytön.
+Voit nyt aloittaa ohjelman käytön.<br/><br/>
+Toisin kuin Hirviurheilu Online -palvelussa,
+sinun ei tarvitse luoda itsellesi käyttäjätunnusta vaan voit suoraan aloittaa
+lisäämällä uuden kilpailun.
 
 <h2>Ohjelman sammuttaminen</h2>
 <h3>8. Sulje komentorivi-ikkuna</h3>
