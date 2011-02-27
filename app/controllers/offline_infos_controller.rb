@@ -8,7 +8,7 @@ class OfflineInfosController < ApplicationController
 
   def installation
     @is_offline_installation = true
-    render :installation_staging #if Rails.env == 'staging'
+    render :installation_staging if Rails.env == 'staging'
   end
 
   def price
