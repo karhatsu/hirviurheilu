@@ -4,6 +4,7 @@ class UserSessionsController < ApplicationController
   skip_before_filter :set_competitions
 
   def new
+    session[:return_to] = params[:return_to] if params[:return_to]
     @user_session = UserSession.new
   end
 

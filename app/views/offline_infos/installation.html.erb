@@ -1,6 +1,6 @@
 <% content_for :title, "Hirviurheilu Offline -tuotteen asennusohjeet" %>
 <% content_for :page_title, yield(:title) %>
-<h2>Hirviurheilu Offline -tuotteen asentaminen</h2>
+<h2>Hirviurheilu Offline -tuotteen asentaminen ja päivittäminen</h2>
 <div class="info">
   Lue ensin, sopiiko sinulle paremmin
   <%= link_to 'Hirviurheilu Online vain Hirviurheilu Offline', offline_vs_online_path %>.
@@ -11,7 +11,8 @@
     Olet jo kirjautunut sisään. Voit jatkaa seuraavaan vaiheeseen.
   <% else %>
     <%= link_to 'Aloita rekisteröitymällä palveluun', register_path %>
-    tai jos sinulla on jo tunnukset, <%= link_to 'kirjaudu sisään palveluun', login_path %>.
+    tai jos sinulla on jo tunnukset,
+    <%= link_to 'kirjaudu sisään palveluun', login_path(:return_to => offline_installation_path) %>.
     Palaa sen jälkeen takaisin tälle sivulle.
   <% end %>
   <h3>2. Lataa asennus- tai päivityspaketti</h3>
