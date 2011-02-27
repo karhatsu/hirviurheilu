@@ -50,7 +50,9 @@ Feature: Offline info
 
   Scenario: No offline download in staging environment
     Given I use the service in the staging environment
-    When I go to the offline installation page
+    And I am on the home page
+    When I follow "Offline"
+    And I follow "Offline-asennus"
     Then I should see "Hirviurheilu Offline -asennusohjeet ovat nähtävillä vain varsinaisessa Hirviurheilu Online -palvelussa." within "div.error"
     But I should not see "Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki."
     Given I am an official

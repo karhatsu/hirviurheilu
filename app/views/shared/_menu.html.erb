@@ -10,9 +10,7 @@
       <% elsif %>
         <%= menu_item "Aloita", register_path, @is_start %>
       <% end %>
-      <% unless Rails.env == 'staging' %>
-        <%= menu_item "Offline", offline_vs_online_path, @is_offline_info %>
-      <% end %>
+      <%= menu_item "Offline", offline_vs_online_path, @is_offline_info %>
     <% end %>
     <% if current_user and current_user.admin? %>
       <%= menu_item "Admin", admin_root_path, @is_admin %>
