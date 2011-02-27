@@ -18,8 +18,9 @@
     <%= label_tag :password, 'Salasana' %>
     <%= password_field_tag :password %><br/>
     <%= check_box_tag :accept %>
-    <%= label_tag :accept, 'Hyväksyn käyttöehdot ja ymmärrän, ' +
-      'että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä.' %><br/>
+    <b><%= label_tag :accept, 'Hyväksyn käyttöehdot ja ymmärrän, ' +
+      'että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä riippumatta ' +
+      'siitä, käytänkö tuotetta vai en.' %></b><br/>
     <%= submit_tag 'Näytä aktivointitunnus' %>
   <% end %>
 </div>
