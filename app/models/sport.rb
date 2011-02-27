@@ -32,4 +32,12 @@ class Sport < ActiveRecord::Base
       return find_ski
     end
   end
+
+  def self.create_ski
+    create!(:name => "Hirvenhiihto", :key => "SKI")
+  end
+
+  def self.create_run
+    create!(:name => "Hirvenjuoksu", :key => "RUN")
+  end
 end

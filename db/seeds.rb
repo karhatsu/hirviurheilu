@@ -1,6 +1,5 @@
 # roles, users
-Role.create!(:name => Role::ADMIN)
-Role.create!(:name => Role::OFFICIAL)
+Role.create_roles
 
 admin = User.create!(:email => 'admin@admin.com', :password => 'admin',
   :password_confirmation => 'admin', :first_name => 'Antti', :last_name => 'Admin')
@@ -14,34 +13,11 @@ official2 = User.create!(:email => 'official2@official2.com', :password => 'offi
 official2.add_official_rights
 
 # sports
-run = Sport.create!(:name => "Hirvenjuoksu", :key => "RUN")
-ski = Sport.create!(:name => "Hirvenhiihto", :key => "SKI")
+run = Sport.create_run
+ski = Sport.create_ski
 
 # default series
-df = DefaultSeries.create!(:name => 'S16')
-df.default_age_groups << DefaultAgeGroup.new(:name => 'T16', :min_competitors => 0)
-df.default_age_groups << DefaultAgeGroup.new(:name => 'P16', :min_competitors => 0)
-DefaultSeries.create!(:name => 'M20')
-DefaultSeries.create!(:name => 'M')
-DefaultSeries.create!(:name => 'M40')
-DefaultSeries.create!(:name => 'M50')
-df = DefaultSeries.create!(:name => 'M60')
-df.default_age_groups << DefaultAgeGroup.new(:name => 'M65', :min_competitors => 3)
-df = DefaultSeries.create!(:name => 'M70')
-df.default_age_groups << DefaultAgeGroup.new(:name => 'M75', :min_competitors => 3)
-df.default_age_groups << DefaultAgeGroup.new(:name => 'M80', :min_competitors => 3)
-df.default_age_groups << DefaultAgeGroup.new(:name => 'M85', :min_competitors => 3)
-df.default_age_groups << DefaultAgeGroup.new(:name => 'M90', :min_competitors => 3)
-DefaultSeries.create!(:name => 'N20')
-DefaultSeries.create!(:name => 'N')
-df = DefaultSeries.create!(:name => 'N40')
-df.default_age_groups << DefaultAgeGroup.new(:name => 'N50', :min_competitors => 3)
-df.default_age_groups << DefaultAgeGroup.new(:name => 'N60', :min_competitors => 3)
-df.default_age_groups << DefaultAgeGroup.new(:name => 'N70', :min_competitors => 3)
-df.default_age_groups << DefaultAgeGroup.new(:name => 'N75', :min_competitors => 3)
-df.default_age_groups << DefaultAgeGroup.new(:name => 'N80', :min_competitors => 3)
-df.default_age_groups << DefaultAgeGroup.new(:name => 'N85', :min_competitors => 3)
-df.default_age_groups << DefaultAgeGroup.new(:name => 'N90', :min_competitors => 3)
+DefaultSeries.create_default_series
 
 # pricing
 BasePrice.create!(:price => 20)
