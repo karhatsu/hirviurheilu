@@ -43,8 +43,12 @@ Feature: License
 
   Scenario: Staging environment user tries to see activation key
     Given I use the service in the staging environment
+    And I am an official
+    And I have logged in
     And I go to the activation key page
-    Then I should be on the home page
+    Then I should see "Voit hankkia aktivointitunnuksen vain varsinaisesta Hirviurheilu Online -palvelusta." within "div.error"
+    But I should not see "Salasana"
+    And I should not see "Hyväksyn käyttöehdot"
 
   Scenario: User tries to access license page in online mode
     Given I go to the new license page
