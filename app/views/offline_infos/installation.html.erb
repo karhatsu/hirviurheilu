@@ -1,76 +1,81 @@
 <% content_for :title, "Hirviurheilu Offline -tuotteen asennusohjeet" %>
 <% content_for :page_title, yield(:title) %>
+<h2>Hirviurheilu Offline -tuotteen asentaminen</h2>
 <div class="info">
-  <%= link_to 'Jos Hirviurheilu Offline on sinulle sopivampi kuin Hirviurheilu Online',
-    offline_vs_online_path %>, tämä sivu neuvoo, kuinka voit asentaa
-  tuotteen omalle koneellesi.</div>
-
-<h2>Asentaminen</h2>
-<h3>1. Rekisteröidy tai kirjaudu sisään</h3>
-<% if current_user %>
-  Olet jo kirjautunut sisään. Voit jatkaa seuraavaan vaiheeseen.
-<% else %>
-  <%= link_to 'Aloita rekisteröitymällä palveluun', register_path %>
-  tai jos sinulla on jo tunnukset, <%= link_to 'kirjaudu sisään palveluun', login_path %>.
-  Palaa sen jälkeen takaisin tälle sivulle.
-<% end %>
-<h3>2. Lataa asennus- tai päivityspaketti</h3>
-<% if current_user %>
+  Lue ensin, sopiiko sinulle paremmin
+  <%= link_to 'Hirviurheilu Online vain Hirviurheilu Offline', offline_vs_online_path %>.
+</div>
+<div class="section">
+  <h3>1. Rekisteröidy tai kirjaudu sisään Hirviurheilu Online -palveluun</h3>
+  <% if current_user %>
+    Olet jo kirjautunut sisään. Voit jatkaa seuraavaan vaiheeseen.
+  <% else %>
+    <%= link_to 'Aloita rekisteröitymällä palveluun', register_path %>
+    tai jos sinulla on jo tunnukset, <%= link_to 'kirjaudu sisään palveluun', login_path %>.
+    Palaa sen jälkeen takaisin tälle sivulle.
+  <% end %>
+  <h3>2. Lataa asennus- tai päivityspaketti</h3>
+  <% if current_user %>
+    <ul>
+      <li>Jos <b>asennat Hirviurheilu Offline -tuotteen ensimmäistä kertaa</b>,
+        <%= link_to 'lataa asennustiedosto', download_installer_path %>.</li>
+      <li>Jos olet <b>päivittämässä aiemmin asennettua</b> Hirviurheilu Offline -tuotetta,
+        <%= link_to 'lataa päivitystiedosto', download_upgrader_path %>.</li>
+    </ul>
+  <% else %>
+    <div class="info">Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki.</div>
+  <% end %>
+  <h3>3. Pura lataamasi paketti</h3>
   <ul>
     <li>Jos <b>asennat Hirviurheilu Offline -tuotteen ensimmäistä kertaa</b>,
-      <%= link_to 'lataa asennustiedosto', download_installer_path %>.</li>
+      avaa lataamasi zip-tiedosto ja kopioi sen sisällä olevat kaksi tiedostoa
+      omalle koneellesi, esim. kansioon C:\hirviurheilu.
+    </li>
     <li>Jos olet <b>päivittämässä aiemmin asennettua</b> Hirviurheilu Offline -tuotetta,
-      <%= link_to 'lataa päivitystiedosto', download_upgrader_path %>.</li>
+      avaa lataamasi zip-tiedosto ja kopioi sen sisällä oleva hirviurheilu.exe-tiedosto
+      vanhan hirviurheilu.exe-tiedoston päälle.
+    </li>
   </ul>
-<% else %>
-  <div class="warning">Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki.</div>
-<% end %>
-<h3>3. Pura paketti</h3>
-<ul>
-  <li>Jos <b>asennat Hirviurheilu Offline -tuotteen ensimmäistä kertaa</b>, 
-    avaa lataamasi zip-tiedosto ja kopioi sen sisällä olevat kaksi tiedostoa
-    omalle koneellesi, esim. kansioon C:\hirviurheilu.
-  </li>
-  <li>Jos olet <b>päivittämässä aiemmin asennettua</b> Hirviurheilu Offline -tuotetta,
-    avaa lataamasi zip-tiedosto ja kopioi sen sisällä oleva hirviurheilu.exe-tiedosto
-    vanhan hirviurheilu.exe-tiedoston päälle.
-  </li>
-</ul>
-<div class="warning">Huom! Kohdekansion nimessä ei saa olla erikoismerkkejä
-  kuten ä- ja ö-kirjaimia.</div>
-
-<h2>Ohjelman käynnistäminen</h2>
-<h3>4. Avaa hirviurheilu.exe</h3>
-Mene kansioon, johon kopioit tiedostot. Tuplaklikkaa tiedostoa
-hirviurheilu.exe, jossa on vihreä
-<%= image_tag '../favicon.ico', :alt => 'HU', :width => 16, :height => 16 %>-kuvake.
-<h3>5. Odota käynnistymistä</h3>
-<div style="margin: 10px 0; overflow: auto;">
-  <%= image_tag 'command_prompt.png', :style => 'float:right;' %>
-  Ohjelman käynnistäminen avaa mustataustaisen komentorivi-ikkunan.
-  Odota, että ikkunaan on tulee teksti "HIRVIURHEILU OFFLINE ON NYT VALMIS KÄYTETTÄVÄKSI".
+  <div class="warning">Huom! Kohdekansion nimessä ei saa olla erikoismerkkejä
+    kuten ä- ja ö-kirjaimia.</div>
 </div>
-<h3>6. Anna ohjelmalle lupa toimia palvelimena</h3>
-Jos sinulla on käytössäsi jokin palomuuri (Windosin oma, F-secure tms.),
-se kysyy lupaa, saako ohjelma toimia palvelimena.
-Anna lupa. Jos palomuuria ei ole, ei lupaa kysytä, jolloin voit siirtyä suoraan
-seuraavaan vaiheeseen.
-<div style="margin: 10px 0; overflow: auto;">
-  <%= image_tag 'firewall.png', :style => 'float:left; margin-right:10px;' %>
-  <i>Jos sinulla on Windows Vista ja sen palomuuri käytössä, luvan kysyminen
-    näyttää tältä. Valitse "Pura esto". Lupaa ei kysytä Hirviurheilu-ohjelmalle
-    vaan Ruby-ohjelmalle, jota tarvitaan Hirviurheilun suorittamisessa.
-    Luvan antaminen on täysin turvallista.</i>
-</div>
-<h3>7. Avaa selain ja aloita ohjelman käyttö</h3>
-Avaa haluamasi selain (esim. Internet Explorer tai Firefox) ja mene osoitteeseen
-<a href="http://localhost:3000" target="_blank">http://localhost:3000</a>.
-Voit nyt aloittaa ohjelman käytön.<br/><br/>
-Toisin kuin Hirviurheilu Online -palvelussa,
-sinun ei tarvitse luoda itsellesi käyttäjätunnusta vaan voit suoraan aloittaa
-lisäämällä uuden kilpailun.
 
-<h2>Ohjelman sammuttaminen</h2>
-<h3>8. Sulje komentorivi-ikkuna</h3>
-Kun et halua enää käyttää ohjelmaa, voit sulkea selaimen ja komentorivi-ikkunan
-(mustataustainen ikkuna). Kun haluat käyttää ohjelmaa uudestaan, aloita vaiheesta 4.
+<h2>Hirviurheilu Offline -ohjelman käynnistäminen</h2>
+<div class="section">
+  <h3>4. Avaa hirviurheilu.exe</h3>
+  Mene kansioon, johon kopioit tiedostot. Tuplaklikkaa tiedostoa
+  hirviurheilu.exe, jossa on vihreä
+  <%= image_tag '../favicon.ico', :alt => 'HU', :width => 16, :height => 16 %>-kuvake.
+  <h3>5. Odota käynnistymistä</h3>
+  <div style="margin: 10px 0; overflow: auto;">
+    <%= image_tag 'command_prompt.png', :style => 'float:right;' %>
+    Ohjelman käynnistäminen avaa mustataustaisen komentorivi-ikkunan.
+    Odota, että ikkunaan on tulee teksti "HIRVIURHEILU OFFLINE ON NYT VALMIS KÄYTETTÄVÄKSI".
+  </div>
+  <h3>6. Anna ohjelmalle lupa toimia palvelimena</h3>
+  Jos sinulla on käytössäsi jokin palomuuri (Windosin oma, F-secure tms.),
+  se kysyy lupaa, saako ohjelma toimia palvelimena.
+  Anna lupa. Jos palomuuria ei ole, ei lupaa kysytä, jolloin voit siirtyä suoraan
+  seuraavaan vaiheeseen.
+  <div style="margin: 10px 0; overflow: auto;">
+    <%= image_tag 'firewall.png', :style => 'float:left; margin-right:10px;' %>
+    <i>Jos sinulla on Windows Vista ja sen palomuuri käytössä, luvan kysyminen
+      näyttää tältä. Valitse "Pura esto". Lupaa ei kysytä Hirviurheilu-ohjelmalle
+      vaan Ruby-ohjelmalle, jota tarvitaan Hirviurheilun suorittamisessa.
+      Luvan antaminen on täysin turvallista.</i>
+  </div>
+  <h3>7. Avaa selain ja aloita ohjelman käyttö</h3>
+  Avaa haluamasi selain (esim. Internet Explorer tai Firefox) ja mene osoitteeseen
+  <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>.
+  Voit nyt aloittaa ohjelman käytön.<br/><br/>
+  Toisin kuin Hirviurheilu Online -palvelussa,
+  sinun ei tarvitse luoda itsellesi käyttäjätunnusta vaan voit suoraan aloittaa
+  lisäämällä uuden kilpailun.
+</div>
+
+<h2>Hirviurheilu Offline -ohjelman sulkeminen</h2>
+<div class="section">
+  <h3>8. Sulje komentorivi-ikkuna</h3>
+  Kun et halua enää käyttää ohjelmaa, voit sulkea selaimen ja komentorivi-ikkunan
+  (mustataustainen ikkuna). Kun haluat käyttää ohjelmaa uudestaan, aloita vaiheesta 4.
+</div>
