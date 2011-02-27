@@ -7,17 +7,6 @@ Feature: Offline info
     Given I use the software offline
     When I go to the home page
     Then I should not see "Offline" within "div.main_menu"
-
-  Scenario: No offline tab in staging environment
-    Given I use the service in the staging environment
-    When I go to the home page
-    Then I should not see "Offline" within "div.main_menu"
-    When I go to the offline-online comparison page
-    Then I should be on the home page
-    When I go to the offline installation page
-    Then I should be on the home page
-    When I go to the offline price page
-    Then I should be on the home page
     
   Scenario: Default offline path
     Given I go to the offline page
@@ -58,3 +47,14 @@ Feature: Offline info
     And the "Offline" main menu item should be selected
     And the "Hinta" sub menu item should be selected
     And I should see "Hirviurheilu Offline - hinta" within "div.main_title"
+
+  Scenario: No offline download in staging environment
+    Given I use the service in the staging environment
+    When I go to the offline installation page
+    Then I should see "Hirviurheilu Offline -asennusohjeet ovat nähtävillä vain varsinaisessa Hirviurheilu Online -palvelussa." within "div.error"
+    But I should not see "Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki."
+    Given I am an official
+    And I have logged in
+    And I am on the offline installation page
+    Then I should not see "lataa asennustiedosto"
+    And I should not see "lataa päivitystiedosto"

@@ -1,6 +1,6 @@
 class OfflineInfosController < ApplicationController
   skip_before_filter :set_competitions
-  before_filter :check_staging, :set_offline_info
+  before_filter :set_offline_info
 
   def comparison
     @is_offline_vs_online = true
@@ -8,6 +8,7 @@ class OfflineInfosController < ApplicationController
 
   def installation
     @is_offline_installation = true
+    render :installation_staging #if Rails.env == 'staging'
   end
 
   def price
@@ -15,10 +16,6 @@ class OfflineInfosController < ApplicationController
   end
 
   private
-  def check_staging
-    redirect_to root_path if Rails.env == 'staging'
-  end
-
   def set_offline_info
     @is_offline_info = true
   end
