@@ -13,6 +13,6 @@ Feature: Info page
     And I should see "Kilpailumuodot" within "h2"
     And I should see "Ohjevideo" within "h2"
     And I should see "Palvelun toimittaja" within ".company_contact"
-    And I should see "Henri Karhatsu IT Consulting" within ".company_contact"
+    And I should see "Karhatsu IT Consulting Oy" within ".company_contact"
     When I follow "Lähetä palautetta järjestelmän kautta"
     Then I should be on the send feedback page
