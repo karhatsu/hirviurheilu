@@ -10,16 +10,16 @@
 <% if current_user %>
   Olet jo kirjautunut sisään. Voit jatkaa seuraavaan vaiheeseen.
 <% else %>
-  <%= link_to 'Aloita rekisteröitymällä palveluun.', register_path %>
-  Jos sinulla on jo tunnukset, <%= link_to 'kirjaudu sisään palveluun', login_path %>.
+  <%= link_to 'Aloita rekisteröitymällä palveluun', register_path %>
+  tai jos sinulla on jo tunnukset, <%= link_to 'kirjaudu sisään palveluun', login_path %>.
   Palaa sen jälkeen takaisin tälle sivulle.
 <% end %>
 <h3>2. Lataa asennus- tai päivityspaketti</h3>
 <% if current_user %>
   <ul>
-    <li>Jos <b>asennat Hirviurheilu Offline -tuotteen ensimmäistä kertaa</b>, 
+    <li>Jos <b>asennat Hirviurheilu Offline -tuotteen ensimmäistä kertaa</b>,
       <%= link_to 'lataa asennustiedosto', download_installer_path %>.</li>
-    <li>Jos olet <b>päivittämässä aiemmin asennettua</b> Hirviurheilu Offline -tuotetta, 
+    <li>Jos olet <b>päivittämässä aiemmin asennettua</b> Hirviurheilu Offline -tuotetta,
       <%= link_to 'lataa päivitystiedosto', download_upgrader_path %>.</li>
   </ul>
 <% else %>
@@ -45,12 +45,23 @@ Mene kansioon, johon kopioit tiedostot. Tuplaklikkaa tiedostoa
 hirviurheilu.exe, jossa on vihreä
 <%= image_tag '../favicon.ico', :alt => 'HU', :width => 16, :height => 16 %>-kuvake.
 <h3>5. Odota käynnistymistä</h3>
-Ohjelman käynnistäminen avaa mustataustaisen komentorivi-ikkunan.
-Odota, että ikkunaan on tulee teksti "HIRVIURHEILU OFFLINE ON NYT VALMIS KÄYTETTÄVÄKSI".
+<div style="margin: 10px 0; overflow: auto;">
+  <%= image_tag 'command_prompt.png', :style => 'float:right;' %>
+  Ohjelman käynnistäminen avaa mustataustaisen komentorivi-ikkunan.
+  Odota, että ikkunaan on tulee teksti "HIRVIURHEILU OFFLINE ON NYT VALMIS KÄYTETTÄVÄKSI".
+</div>
 <h3>6. Anna ohjelmalle lupa toimia palvelimena</h3>
-Jos sinulla on käytössäsi jokin palomuuri, se kysyy lupaa, saako ohjelma toimia palvelimena.
+Jos sinulla on käytössäsi jokin palomuuri (Windosin oma, F-secure tms.),
+se kysyy lupaa, saako ohjelma toimia palvelimena.
 Anna lupa. Jos palomuuria ei ole, ei lupaa kysytä, jolloin voit siirtyä suoraan
 seuraavaan vaiheeseen.
+<div style="margin: 10px 0; overflow: auto;">
+  <%= image_tag 'firewall.png', :style => 'float:left;' %>
+  <i>Jos sinulla on Windows Vista ja sen palomuuri käytössä, luvan kysyminen
+    näyttää tältä. Valitse "Pura esto". Lupaa ei kysytä Hirviurheilu-ohjelmalle
+    vaan Ruby-ohjelmalle, jota tarvitaan Hirviurheilun suorittamisessa.
+    Luvan antaminen on täysin turvallista.</i>
+</div>
 <h3>7. Avaa selain ja aloita ohjelman käyttö</h3>
 Avaa haluamasi selain (esim. Internet Explorer tai Firefox) ja mene osoitteeseen
 <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>.
