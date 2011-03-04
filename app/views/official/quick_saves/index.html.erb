@@ -23,8 +23,8 @@
   <h3>Ammunta</h3>
   <% instructions = 'Syötä tulos muodossa nro.ammuntatulos, ' +
       'esim. 45.87 (kilpailija 45, ammunta yhteensä 87). Tai vaihtoehtoisesti ' +
-      'laukausten kanssa nro.laukaus1.laukaus2.---.laukaus10, esim. ' +
-      '45.10.10.9.9.8.7.7.4.2.0 (merkitse ohilaukauksille nollat).' %>
+      'laukausten kanssa siten että +-merkki on 10, esim. ' +
+      '45,++99877420 (merkitse ohilaukauksille nollat).' %>
   <%= render :partial => 'result_place', :locals => { :name => 'shots',
     :instructions => instructions, :path => race_shots_quick_save_path(@race) } %>
 <% end %>
