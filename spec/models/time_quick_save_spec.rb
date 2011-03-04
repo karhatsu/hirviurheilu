@@ -130,5 +130,33 @@ describe TimeQuickSave do
       end
     end
   end
+
+  describe "invalid string format (2)" do
+    before do
+      @qs = TimeQuickSave.new(@race.id, '10.271213')
+    end
+
+    describe "#save" do
+      it "should not save given estimates for the competitor and return false" do
+        @qs.save.should be_false
+        @c.reload
+        @c.arrival_time.strftime('%H:%M:%S').should == '12:00:00'
+      end
+    end
+
+    describe "#competitor" do
+      it "should return nil" do
+        @qs.save
+        @qs.competitor.should be_nil
+      end
+    end
+
+    describe "#error" do
+      it "should contain invalid format error message" do
+        @qs.save
+        @qs.error.should match(/muoto/)
+      end
+    end
+  end
 end
 
