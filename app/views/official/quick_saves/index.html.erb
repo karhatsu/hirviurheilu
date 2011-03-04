@@ -6,8 +6,8 @@
   <div class="warning">Kilpailuun ei ole lisätty yhtään kilpailijaa</div>
 <% else %>
   <h3>Ajat</h3>
-  <% instructions = 'Syötä tulos muodossa nro.hh.mm.ss, ' +
-      'esim. 45.13.45.28 (kilpailija 45, saapumisaika 13.45.28).' %>
+  <% instructions = 'Syötä tulos muodossa nro.hhmmss, ' +
+      'esim. 45.130728 (kilpailija 45, saapumisaika 13:07:28).' %>
   <%= render :partial => 'result_place', :locals => { :name => 'time',
     :instructions => instructions, :path => race_time_quick_save_path(@race) } %>
   <h3>Arvioinnit</h3>
