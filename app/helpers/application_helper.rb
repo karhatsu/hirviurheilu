@@ -53,7 +53,11 @@ module ApplicationHelper
   end
 
   def points_print(competitor)
-    return competitor.no_result_reason if competitor.no_result_reason
+    if competitor.no_result_reason
+      return "<span class='explanation' " +
+        "title='#{t('competitor.' + competitor.no_result_reason)}'>" +
+        "#{competitor.no_result_reason}</span>"
+    end
     return competitor.points unless competitor.points.nil?
     return "(#{competitor.points!})" unless competitor.points!.nil?
     "-"

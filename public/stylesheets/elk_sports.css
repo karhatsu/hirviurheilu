@@ -224,3 +224,7 @@ input.shot {
 ul.positive li {
     list-style-image: url('/images/icon_yes.gif');
 }
+
+.explanation {
+    cursor: help;
+}

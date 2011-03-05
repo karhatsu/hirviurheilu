@@ -5,7 +5,8 @@ describe ApplicationHelper do
     it "should print no result reason if it is defined" do
       competitor = mock_model(Competitor, :no_result_reason => Competitor::DNS,
         :points => 145)
-      helper.points_print(competitor).should == Competitor::DNS
+      helper.points_print(competitor).should ==
+        "<span class='explanation' title='Kilpailija ei osallistunut kilpailuun'>DNS</span>"
     end
 
     it "should print points in case they are available" do

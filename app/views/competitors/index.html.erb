@@ -46,7 +46,7 @@
           <td><%= @series.race.finished ? estimate_points_and_diffs(comp) :
               estimate_points(comp) %></td>
           <td><%= shot_points_and_total(comp) %></td>
-          <td class="center total_points"><%= points_print(comp) %></td>
+          <td class="center total_points"><%= raw(points_print(comp)) %></td>
         </tr>
       <% end %>
     </table>
