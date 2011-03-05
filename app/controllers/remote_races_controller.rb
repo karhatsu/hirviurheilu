@@ -6,7 +6,9 @@ class RemoteRacesController < ApplicationController
   def create
     if @race.save
       @user.races << @race
-      PublishMailer.publish_mail(@race, @user).deliver
+      unless offline_or_fake_offline?
+        PublishMailer.publish_mail(@race, @user).deliver
+      end
       redirect_to_success
     else
       redirect_to_error @race.errors.full_messages.join('. ') + '.'
@@ -15,11 +17,20 @@ class RemoteRacesController < ApplicationController
 
   private
   def check_user
-    @user = User.find_by_email(params[:email])
-    unless @user and @user.valid_password?(params[:password])
-      redirect_to_error "Virheelliset tunnukset. " +
-        "Varmista että olet syöttänyt palvelun #{params[:server]} tunnukset."
+    if offline_or_fake_offline?
+      @user = User.first
+    else
+      @user = User.find_by_email(params[:email])
+      unless @user and @user.valid_password?(params[:password])
+        redirect_to_error "Virheelliset tunnukset. " +
+          "Varmista että olet syöttänyt palvelun #{params[:server]} tunnukset."
+      end
     end
+  end
+
+  def offline_or_fake_offline?
+    # this hack is for cucumber features
+    (offline? and Rails.env != 'test') or (online? and Rails.env == 'test')
   end
 
   def prepare_clubs_for_competitors
@@ -80,8 +91,10 @@ class RemoteRacesController < ApplicationController
   end
 
   def redirect_to_error(message)
-    redirect_to "#{params[:source]}/official/races/#{params[:source_race_id]}/export/error?" +
-        "message=#{CGI::escape(message)}&server=#{CGI::escape(params[:server])}" +
-        "&email=#{CGI::escape(params[:email])}"
+    path = "#{params[:source]}/official/races/#{params[:source_race_id]}/export/error?" +
+        "message=#{CGI::escape(message)}"
+    path << "&server=#{CGI::escape(params[:server])}" if params[:server]
+    path << "&email=#{CGI::escape(params[:email])}" if params[:email]
+    redirect_to path
   end
 end
