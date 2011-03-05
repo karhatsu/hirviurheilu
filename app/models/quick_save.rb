@@ -36,7 +36,7 @@ class QuickSave
   end
 
   def number
-    @string.split(':')[0]
+    @string.split(',')[0]
   end
 
   def find_competitor
