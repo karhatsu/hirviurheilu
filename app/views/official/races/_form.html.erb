@@ -12,6 +12,21 @@
   <%= f.date_select :end_date, :include_blank => true %><br/>
   <%= f.label :start_interval_seconds %>
   <%= f.text_field :start_interval_seconds, :size => 3, :maxlength => 3 %><br/>
+  <%= f.label :home_page, 'Linkki kilpailun omille sivuille (ei pakollinen)' %>
+  <%= f.text_field :home_page %>
+  <a class="help" id="home_page_help">?</a>
+  <div id="home_page_help_dialog" class="dialog" style="display: none;">
+    Jos kilpailusta on tarjolla lisätietoa esimerkiksi piirin tai seuran
+    omilla sivuilla, voit laittaa tähän linkin kyseiselle sivulle.
+    Voit myös jättää kentän tyhjäksi.
+  </div>
+  <%= javascript_tag do %>
+    $('#home_page_help').click(function() {
+      $('#home_page_help_dialog').dialog({ title: 'Linkki kilpailun sivuille',
+        closeText: 'Sulje' });
+    });
+  <% end %>
+  <br/>
   <% has_team_competition = (@race.has_team_competition? || params[:has_team_competition]) %>
   <%= check_box_tag :has_team_competition, true, has_team_competition %>
   <%= label_tag :has_team_competition, 'Laske joukkuekilpailun pisteet' %><br/>

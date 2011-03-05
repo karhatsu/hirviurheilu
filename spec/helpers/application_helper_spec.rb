@@ -496,5 +496,19 @@ describe ApplicationHelper do
       helper.should_not be_offline
     end
   end
+
+  describe "#link_with_protocol" do
+    it "should return the given link if it starts with http://" do
+      helper.link_with_protocol('http://www.test.com').should == 'http://www.test.com'
+    end
+
+    it "should return the given link if it starts with https://" do
+      helper.link_with_protocol('https://www.test.com').should == 'https://www.test.com'
+    end
+
+    it "should return http protocol + the given link if it the protocol is missing" do
+      helper.link_with_protocol('www.test.com').should == 'http://www.test.com'
+    end
+  end
 end
 

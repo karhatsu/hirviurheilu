@@ -275,4 +275,9 @@ module ApplicationHelper
     "http://www.youtube.com/watch?v=oRNIy1G4qWM"
   end
 
+  def link_with_protocol(link)
+    return link if link[0, 7] == 'http://' or link[0, 8] == 'https://'
+    'http://' + link
+  end
+
 end
