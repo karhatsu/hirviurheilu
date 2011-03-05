@@ -17,7 +17,7 @@
 <% end %>
 <% if offline? and @race.finished? %>
   <div class="action_box">
-    <%= link_to 'Julkaise kilpailu internetissä', new_official_race_uploads_path(@race) %>
+    <%= link_to 'Julkaise kilpailu internetissä', new_official_race_exports_path(@race) %>
   </div>
 <% end %>
 <% if @race.series.empty? %>

@@ -62,9 +62,9 @@ ElkSports::Application.routes.draw do
       resources :quick_saves
       resources :media
       resource :finish_race
-      resource :uploads
-      get 'upload/success' => 'uploads#success'
-      get 'upload/error' => 'uploads#error'
+      resource :exports
+      get 'export/success' => 'exports#success'
+      get 'export/error' => 'exports#error'
     end
 
     resources :series do

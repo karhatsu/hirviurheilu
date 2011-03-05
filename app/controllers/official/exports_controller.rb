@@ -1,4 +1,4 @@
-class Official::UploadsController < Official::OfficialController
+class Official::ExportsController < Official::OfficialController
   before_filter :define_servers, :set_upload
   before_filter :assign_race_by_race_id, :check_assigned_race, :check_offline
 
@@ -7,7 +7,7 @@ class Official::UploadsController < Official::OfficialController
 
   def success
     flash[:success] = 'Kilpailun tiedot ladattu kohdejärjestelmään'
-    redirect_to new_official_race_uploads_path(@race)
+    redirect_to new_official_race_exports_path(@race)
   end
 
   def error

@@ -83,11 +83,11 @@ class RemoteRacesController < ApplicationController
   end
 
   def redirect_to_success
-    redirect_to "#{params[:source]}/official/races/#{params[:source_race_id]}/upload/success"
+    redirect_to "#{params[:source]}/official/races/#{params[:source_race_id]}/export/success"
   end
 
   def redirect_to_error(message)
-    redirect_to "#{params[:source]}/official/races/#{params[:source_race_id]}/upload/error?" +
+    redirect_to "#{params[:source]}/official/races/#{params[:source_race_id]}/export/error?" +
         "message=#{CGI::escape(message)}&server=#{CGI::escape(params[:server])}" +
         "&email=#{CGI::escape(params[:email])}"
   end

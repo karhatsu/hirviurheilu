@@ -9,7 +9,7 @@ Feature: Export race
     And I have logged in
     And I am on the official race page of "Online race"
     Then I should not see "Julkaise"
-    When I go to the publish race page of "Online race"
+    When I go to the export race page of "Online race"
     Then I should be on the official race page of "Online race"
 
   Scenario: Unfinished race
@@ -22,10 +22,10 @@ Feature: Export race
     And I should see "Tällä sivulla voit julkaista kilpailun lopulliset tulokset internetissä, Hirviurheilu-palvelussa." within "div.info"
     And I should see "Voit julkaista kilpailun vasta, kun olet merkinnyt sen päättyneeksi." within "div.error"
 
-  # In this scenario the race is published to the same system which is relevant only for testing.
+  # In this scenario the race is exported to the same system which is relevant only for testing.
   # The first user in the scenario is automatically used in the offline state.
   # The second user is meant for receiving the uploaded race.
-  Scenario: Publish finished race
+  Scenario: Export finished race
     Given there is an official with email "offline@hirviurheilu.com" and password "offline"
     Given there is an official "Robert" "Onliner" with email "online@hirviurheilu.com" and password "online"
     Given I use the software offline
@@ -66,7 +66,7 @@ Feature: Export race
     And the race is finished
     And I am on the official race page of "Offline race"
     And I follow "Julkaise"
-    Then I should be on the publish race page of "Offline race"
+    Then I should be on the export race page of "Offline race"
     But I should not see "Voit julkaista kilpailun vasta, kun olet merkinnyt sen päättyneeksi."
     And I should see "Julkaistava kilpailu: Offline race"
     # hack for duplicate name-location-date problem in saving
@@ -130,22 +130,22 @@ Feature: Export race
     And the "competitor_shots_attributes_8_value" field should contain "5"
     And the "competitor_shots_attributes_9_value" field should contain "0"
 
-  Scenario: Try to publish with invalid account
+  Scenario: Try to export with invalid account
     Given there is an official with email "offline@hirviurheilu.com" and password "offline"
     Given I use the software offline
     And I have a complete race "Offline race" located in "Offline city"
-    And I am on the publish race page of "Offline race"
+    And I am on the export race page of "Offline race"
     When I fill in "wrong@email.com" for "Sähköposti"
     And I fill in "wrong password" for "Salasana"
     And I select "Integration test" from "Kohde"
     And I press "Julkaise"
     Then I should see "Virheelliset tunnukset" within "div.error"
 
-  Scenario: Try to publish same race twice
+  Scenario: Try to export same race twice
     Given there is an official with email "offline@hirviurheilu.com" and password "offline"
     Given I use the software offline
     And I have a complete race "Offline race" located in "Offline city"
-    And I am on the publish race page of "Offline race"
+    And I am on the export race page of "Offline race"
     When I fill in "offline@hirviurheilu.com" for "Sähköposti"
     And I fill in "offline" for "Salasana"
     And I select "Integration test" from "Kohde"
