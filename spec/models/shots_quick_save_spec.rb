@@ -14,7 +14,7 @@ describe ShotsQuickSave do
       describe "shots sum" do
         context "when competitor has shots total input" do
           before do
-            @qs = ShotsQuickSave.new(@race.id, '10.98')
+            @qs = ShotsQuickSave.new(@race.id, '10,98')
           end
 
           describe "#save" do
@@ -46,7 +46,7 @@ describe ShotsQuickSave do
             @c.shots_total_input = nil
             @c.shots << Factory.build(:shot, :competitor => @c, :value => 10)
             @c.save!
-            @qs = ShotsQuickSave.new(@race.id, '10.98')
+            @qs = ShotsQuickSave.new(@race.id, '10,98')
           end
 
           describe "#save" do
@@ -77,7 +77,7 @@ describe ShotsQuickSave do
       describe "individual shots" do
         context "when competitor has shots total input" do
           before do
-            @qs = ShotsQuickSave.new(@race.id, '10.+998876510')
+            @qs = ShotsQuickSave.new(@race.id, '10,+998876510')
           end
 
           describe "#save" do
@@ -111,7 +111,7 @@ describe ShotsQuickSave do
             @c.shots_total_input = nil
             @c.shots << Factory.build(:shot, :competitor => @c, :value => 10)
             @c.save!
-            @qs = ShotsQuickSave.new(@race.id, '10.+998876501')
+            @qs = ShotsQuickSave.new(@race.id, '10,+998876501')
           end
 
           describe "#save" do
@@ -144,7 +144,7 @@ describe ShotsQuickSave do
 
     describe "save fails" do
       before do
-        @qs = ShotsQuickSave.new(@race.id, '10.200') # 200 > 100
+        @qs = ShotsQuickSave.new(@race.id, '10,200') # 200 > 100
       end
 
       describe "#save" do
@@ -177,7 +177,7 @@ describe ShotsQuickSave do
       another_race = Factory.create(:race)
       series = Factory.create(:series, :race => another_race)
       Factory.create(:competitor, :series => series, :number => 8)
-      @qs = ShotsQuickSave.new(@race.id, '8.98')
+      @qs = ShotsQuickSave.new(@race.id, '8,98')
     end
 
     describe "#save" do
@@ -205,7 +205,7 @@ describe ShotsQuickSave do
 
   describe "invalid string format" do
     before do
-      @qs = ShotsQuickSave.new(@race.id, '8.98x')
+      @qs = ShotsQuickSave.new(@race.id, '8,8x')
     end
 
     describe "#save" do

@@ -13,7 +13,7 @@ describe EstimatesQuickSave do
     describe "successfull save" do
       describe "2 estimates" do
         before do
-          @qs = EstimatesQuickSave.new(@race.id, '10.98.115')
+          @qs = EstimatesQuickSave.new(@race.id, '10,98,115')
         end
 
         describe "#save" do
@@ -45,7 +45,7 @@ describe EstimatesQuickSave do
         before do
           @series.estimates = 4
           @series.save!
-          @qs = EstimatesQuickSave.new(@race.id, '10.98.115.160.144')
+          @qs = EstimatesQuickSave.new(@race.id, '10,98,115,160,144')
         end
 
         describe "#save" do
@@ -78,7 +78,7 @@ describe EstimatesQuickSave do
 
     describe "save fails" do
       before do
-        @qs = EstimatesQuickSave.new(@race.id, '10.0.0')
+        @qs = EstimatesQuickSave.new(@race.id, '10,0,0')
       end
 
       describe "#save" do
@@ -108,7 +108,7 @@ describe EstimatesQuickSave do
 
     describe "trying to save 4 estimates for a competitor of the series with 2 estimates" do
       before do
-        @qs = EstimatesQuickSave.new(@race.id, '10.111.122.80.90')
+        @qs = EstimatesQuickSave.new(@race.id, '10,111,122,80,90')
       end
 
       describe "#save" do
@@ -142,7 +142,7 @@ describe EstimatesQuickSave do
       before do
         @series.estimates = 4
         @series.save!
-        @qs = EstimatesQuickSave.new(@race.id, '10.111.122')
+        @qs = EstimatesQuickSave.new(@race.id, '10,111,122')
       end
 
       describe "#save" do
@@ -178,7 +178,7 @@ describe EstimatesQuickSave do
       another_race = Factory.create(:race)
       series = Factory.create(:series, :race => another_race)
       Factory.create(:competitor, :series => series, :number => 8)
-      @qs = EstimatesQuickSave.new(@race.id, '8.98.115')
+      @qs = EstimatesQuickSave.new(@race.id, '8,98,115')
     end
 
     describe "#save" do
@@ -207,7 +207,7 @@ describe EstimatesQuickSave do
 
   describe "invalid string format" do
     before do
-      @qs = EstimatesQuickSave.new(@race.id, '8.98.')
+      @qs = EstimatesQuickSave.new(@race.id, '8,98,')
     end
 
     describe "#save" do
