@@ -77,7 +77,7 @@ describe ShotsQuickSave do
       describe "individual shots" do
         context "when competitor has shots total input" do
           before do
-            @qs = ShotsQuickSave.new(@race.id, '10,+998876510')
+            @qs = ShotsQuickSave.new(@race.id, '10.+998876510')
           end
 
           describe "#save" do
@@ -111,7 +111,7 @@ describe ShotsQuickSave do
             @c.shots_total_input = nil
             @c.shots << Factory.build(:shot, :competitor => @c, :value => 10)
             @c.save!
-            @qs = ShotsQuickSave.new(@race.id, '10,+998876501')
+            @qs = ShotsQuickSave.new(@race.id, '10.+998876501')
           end
 
           describe "#save" do
@@ -144,7 +144,7 @@ describe ShotsQuickSave do
 
     describe "save fails" do
       before do
-        @qs = ShotsQuickSave.new(@race.id, '10.101') # 101 > 100
+        @qs = ShotsQuickSave.new(@race.id, '10.200') # 200 > 100
       end
 
       describe "#save" do
