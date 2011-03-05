@@ -68,11 +68,9 @@ Feature: Export race
     And I follow "Julkaise"
     Then I should be on the export race page of "Offline race"
     But I should not see "Voit julkaista kilpailun vasta, kun olet merkinnyt sen päättyneeksi."
-    And I should see "Julkaistava kilpailu: Offline race"
-    # hack for duplicate name-location-date problem in saving
-    # the form has the old name (Offline race) but in the db there is no race with such name
-    Given the race "Offline race" is renamed to "Original race"
-    When I fill in "online@hirviurheilu.com" for "Sähköposti"
+    And the "Kilpailun nimi" field should contain "Offline race"
+    When I fill in "New name for race" for "Kilpailun nimi"
+    And I fill in "online@hirviurheilu.com" for "Sähköposti"
     And I fill in "online" for "Salasana"
     And I select "Integration test" from "Kohde"
     And I press "Julkaise"
@@ -80,7 +78,7 @@ Feature: Export race
     And the admin should receive an email
     When I open the email
     Then I should see "Hirviurheilu - kilpailu julkaistu (test)" in the email subject
-    And I should see "Julkaistu kilpailu: Offline race (Offline city)" in the email body
+    And I should see "Julkaistu kilpailu: New name for race (Offline city)" in the email body
     And I should see "Toimitsija: Robert Onliner" in the email body
     Given I use the software online again
     And I am on the home page
@@ -90,8 +88,7 @@ Feature: Export race
     And I press "Kirjaudu"
     And I follow "Toimitsijan sivut"
     Then I should be on the official index page
-    And I should see "Offline race"
-    When I follow "Offline race"
+    When I follow "New name for race"
     Then I should see "Offline series"
     But I should not see "kun kaikki tulokset on syötetty"
     When I follow "Kilpailu & sarjat"

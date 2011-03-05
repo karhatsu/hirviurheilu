@@ -14,17 +14,14 @@
       <%= hidden_field_tag :source, "#{request.protocol}#{request.host_with_port}" %>
       <%= hidden_field_tag :source_race_id, @race.id %>
       <%= render :partial => 'hidden_form', :locals => { :f => f } %>
-      Julkaistava kilpailu: <%= @race.name %><br/>
+      <%= f.label :name %>
+      <%= f.text_field :name %><br/>
       <%= label_tag :server, 'Kohde' %>
       <%= select_tag :server, options_for_select(@servers, params[:server]) %><br/>
       <%= label_tag :email, 'Sähköposti' %>
       <%= text_field_tag :email, params[:email] %><br/>
       <%= label_tag :password, 'Salasana' %>
       <%= password_field_tag :password, params[:password] %><br/>
-      <% if Rails.env == 'development' %>
-        <%= check_box_tag :rename_race %>
-        <%= label_tag :rename_race, 'Tee automaattinen nimimuutos' %><br/>
-      <% end %>
       <%= submit_tag 'Julkaise', :id => 'submit_button' %>
       <span style="display:none;" id="please_wait">Ole hyvä ja odota...</span>
     <% end %>
