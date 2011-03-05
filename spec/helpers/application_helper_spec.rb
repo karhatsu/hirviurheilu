@@ -506,7 +506,7 @@ describe ApplicationHelper do
       helper.link_with_protocol('https://www.test.com').should == 'https://www.test.com'
     end
 
-    it "should return http protocol + the given link if it the protocol is missing" do
+    it "should return http protocol + the given link if the protocol is missing" do
       helper.link_with_protocol('www.test.com').should == 'http://www.test.com'
     end
   end
