@@ -1,4 +1,4 @@
-Feature: Publish race
+Feature: Export race
   In order to let the competitors and anyone who is interested to see the race results
   As a person using the software offline
   I want to publish the finished race to an online service
