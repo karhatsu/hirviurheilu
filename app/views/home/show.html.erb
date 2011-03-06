@@ -18,7 +18,7 @@
   <div class="left_column">
     <% unless @ongoing.empty? %>
       <div class="races_box ongoing_races">
-        <h2>Menossa olevat kilpailut</h2>
+        <h2>Kilpailut tänään</h2>
         <%= render :partial => "race_list", :locals => { :races => @ongoing } %>
       </div>
     <% end %>

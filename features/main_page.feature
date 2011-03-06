@@ -32,7 +32,7 @@ Feature: Main page
     And I should see "Tulevat kilpailut" within "div.future_races"
     And I should see "Upcoming race" within "div.future_races"
     And I should see "01.01.2020 - 02.01.2020, Upcoming city" within "div.future_races"
-    And I should see "Menossa olevat kilpailut" within "div.ongoing_races"
+    And I should see "Kilpailut tänään" within "div.ongoing_races"
     And I should see "Ongoing race" within "div.ongoing_races"
     And I should see "Ongoing city" within "div.ongoing_races"
 
@@ -40,7 +40,7 @@ Feature: Main page
     Given I go to the home page
     Then I should see "Tulevat kilpailut" within "div.future_races"
     And I should see "Tällä hetkellä ei tiedossa tulevia kilpailuita" within "div.future_races"
-    But I should not see "Menossa olevat kilpailut"
+    But I should not see "Kilpailut tänään"
     And I should not see "Päättyneet kilpailut"
 
   Scenario: Showing registration link for unauthenticated users
