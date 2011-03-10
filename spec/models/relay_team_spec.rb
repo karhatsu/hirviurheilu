@@ -7,6 +7,7 @@ describe RelayTeam do
 
   describe "associations" do
     it { should belong_to(:relay) }
+    it { should have_many(:relay_competitors) }
   end
 
   describe "validations" do
