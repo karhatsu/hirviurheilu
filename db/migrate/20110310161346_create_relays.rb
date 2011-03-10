@@ -5,7 +5,7 @@ class CreateRelays < ActiveRecord::Migration
       t.integer :start_day, :null => false
       t.time :start_time
       t.string :name, :null => false
-      t.integer :legs, :null => false
+      t.integer :legs_count, :null => false
 
       t.timestamps
     end

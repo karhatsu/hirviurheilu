@@ -31,19 +31,19 @@ describe Relay do
       end
     end
 
-    describe "legs" do
-      it { should_not allow_value(nil).for(:legs) }
-      it { should_not allow_value(0).for(:legs) }
-      it { should_not allow_value(1).for(:legs) }
-      it { should allow_value(2).for(:legs) }
-      it { should_not allow_value(2.1).for(:legs) }
+    describe "legs_count" do
+      it { should_not allow_value(nil).for(:legs_count) }
+      it { should_not allow_value(0).for(:legs_count) }
+      it { should_not allow_value(1).for(:legs_count) }
+      it { should allow_value(2).for(:legs_count) }
+      it { should_not allow_value(2.1).for(:legs_count) }
 
       it "should not be allowed to change after create" do
-        relay = Factory.create(:relay, :legs => 5)
-        relay.legs = 4
+        relay = Factory.create(:relay, :legs_count => 5)
+        relay.legs_count = 4
         relay.save
         relay.reload
-        relay.legs.should == 5
+        relay.legs_count.should == 5
       end
     end
   end

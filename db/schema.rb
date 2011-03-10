@@ -151,7 +151,7 @@ ActiveRecord::Schema.define(:version => 20110310163521) do
     t.integer  "start_day",  :null => false
     t.time     "start_time"
     t.string   "name",       :null => false
-    t.integer  "legs",       :null => false
+    t.integer  "legs_count", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

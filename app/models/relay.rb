@@ -3,12 +3,12 @@ class Relay < ActiveRecord::Base
   has_many :relay_teams
 
   validates :name, :presence => true
-  validates :legs, :numericality => { :only_integer => true, :greater_than => 1 }
+  validates :legs_count, :numericality => { :only_integer => true, :greater_than => 1 }
   validates :start_day, :numericality => { :only_integer => true,
     :allow_nil => true, :greater_than => 0 }
   validate :start_day_not_bigger_than_race_days_count
 
-  attr_readonly :legs
+  attr_readonly :legs_count
 
   private
   def start_day_not_bigger_than_race_days_count

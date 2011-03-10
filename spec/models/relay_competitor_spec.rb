@@ -19,7 +19,7 @@ describe RelayCompetitor do
       it { should allow_value(1).for(:leg) }
       it { should_not allow_value(1.1).for(:leg) }
       it "should not allow bigger leg value than relay legs count" do
-        relay = Factory.build(:relay, :legs => 3)
+        relay = Factory.build(:relay, :legs_count => 3)
         team = Factory.build(:relay_team, :relay => relay)
         competitor = Factory.build(:relay_competitor, :relay_team => team, :leg => 3)
         competitor.should be_valid
