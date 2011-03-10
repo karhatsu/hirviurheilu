@@ -8,6 +8,7 @@ describe Relay do
   describe "associations" do
     it { should belong_to(:race) }
     it { should have_many(:relay_teams) }
+    it { should have_many(:relay_correct_estimates) }
   end
 
   describe "validations" do

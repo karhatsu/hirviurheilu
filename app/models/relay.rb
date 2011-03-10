@@ -1,6 +1,7 @@
 class Relay < ActiveRecord::Base
   belongs_to :race
   has_many :relay_teams
+  has_many :relay_correct_estimates
 
   validates :name, :presence => true
   validates :legs_count, :numericality => { :only_integer => true, :greater_than => 1 }

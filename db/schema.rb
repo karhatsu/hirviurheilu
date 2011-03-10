@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110310163521) do
+ActiveRecord::Schema.define(:version => 20110310202556) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -135,6 +135,15 @@ ActiveRecord::Schema.define(:version => 20110310163521) do
   end
 
   add_index "relay_competitors", ["relay_team_id"], :name => "index_relay_competitors_on_relay_team_id"
+
+  create_table "relay_correct_estimates", :force => true do |t|
+    t.integer  "relay_id",   :null => false
+    t.integer  "distance",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "relay_correct_estimates", ["relay_id"], :name => "index_relay_correct_estimates_on_relay_id"
 
   create_table "relay_teams", :force => true do |t|
     t.integer  "relay_id",   :null => false
