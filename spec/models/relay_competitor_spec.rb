@@ -26,6 +26,13 @@ describe RelayCompetitor do
         competitor.leg = 4
         competitor.should have(1).errors_on(:leg)
       end
+
+      describe "uniqueness" do
+        before do
+          Factory.create(:relay_competitor)
+        end
+        it { should validate_uniqueness_of(:leg).scoped_to(:relay_team_id) }
+      end
     end
 
     describe "misses" do
