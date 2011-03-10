@@ -41,6 +41,9 @@ module NavigationHelpers
     when /the export race page of "(.*)"/
       new_official_race_exports_path(Race.find_by_name($1))
 
+    when /the official relays page of "(.*)"/
+      official_race_relays_path(Race.find_by_name($1))
+
     when /the race page/
       race_path(@race)
 

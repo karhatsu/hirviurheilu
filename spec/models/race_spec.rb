@@ -83,6 +83,7 @@ describe Race do
     it { should have_many(:competitors).through(:series) }
     it { should have_many(:clubs) }
     it { should have_many(:correct_estimates) }
+    it { should have_many(:relays) }
     it { should have_and_belong_to_many(:users) }
   end
 

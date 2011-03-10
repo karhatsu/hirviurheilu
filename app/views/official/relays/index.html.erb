@@ -1,0 +1,22 @@
+<% content_for :title, "#{@race.name} - Viestit" %>
+<h2>Viestit</h2>
+<%= flash_success %>
+<% unless @race.relays.empty? %>
+  <table>
+    <tr>
+      <th>Nimi</th>
+      <th>Osuuksien määrä</th>
+      <th>Lähtöaika</th>
+    </tr>
+    <% @race.relays.each do |relay| %>
+      <tr>
+        <td><%= relay.name %></td>
+        <td><%= relay.legs_count %></td>
+        <td><%= relay.start_time %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+<div class="action_box">
+  <%= link_to 'Lisää viesti', new_official_race_relay_path(@race) %>
+</div>

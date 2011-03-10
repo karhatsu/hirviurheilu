@@ -30,6 +30,7 @@ fi:
     last_login_at: Viim. kirj.
     last_login_ip: Viim. IP
     last_request_at: Viim. käyt.
+    legs_count: Osuuksien määrä
     location: Paikkakunta
     max_number: Suurin numero
     min_competitors: Kilpailijoita vähintään
@@ -101,6 +102,8 @@ fi:
           age_groups:
             name: Ikäryhmän nimi
           name: Sarjan nimi
+      relay:
+        name: Viestin nimi
       series:
         age_groups:
           name: Ikäryhmän nimi

@@ -6,6 +6,7 @@ class Race < ActiveRecord::Base
   has_many :competitors, :through => :series
   has_many :clubs
   has_many :correct_estimates, :order => 'min_number'
+  has_many :relays
   has_and_belongs_to_many :users, :join_table => :race_officials
 
   accepts_nested_attributes_for :series, :allow_destroy => true

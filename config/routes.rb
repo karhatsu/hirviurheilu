@@ -65,6 +65,7 @@ ElkSports::Application.routes.draw do
       resource :exports
       get 'export/success' => 'exports#success'
       get 'export/error' => 'exports#error'
+      resources :relays
     end
 
     resources :series do

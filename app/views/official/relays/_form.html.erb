@@ -1,0 +1,10 @@
+<%= form_for([:official, @race, @relay]) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br/>
+  <%= f.label :legs_count %>
+  <%= f.text_field :legs_count, :size => 2 %><br/>
+  <%= f.label :start_time %>
+  <%= start_days_form_field(f, @relay) %>
+  <%= f.time_select :start_time, :include_seconds => false, :include_blank => true %><br/>
+  <%= submit_tag 'Tallenna' %>
+<% end %>
