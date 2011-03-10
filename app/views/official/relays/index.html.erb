@@ -12,7 +12,7 @@
       <tr>
         <td><%= relay.name %></td>
         <td><%= relay.legs_count %></td>
-        <td><%= relay.start_time %></td>
+        <td><%= series_datetime_print relay, true if relay.start_time %></td>
       </tr>
     <% end %>
   </table>
