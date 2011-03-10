@@ -104,6 +104,28 @@ describe RelayCompetitor do
     end
   end
 
+  describe "#next_competitor" do
+    before do
+      @team = Factory.create(:relay_team)
+      @c1 = Factory.create(:relay_competitor, :relay_team => @team, :leg => 1)
+      @c2 = Factory.create(:relay_competitor, :relay_team => @team, :leg => 2)
+      @c3 = Factory.create(:relay_competitor, :relay_team => @team, :leg => 3)
+      @team.reload
+    end
+
+    it "should return the second competitor for the first competitor" do
+      @c1.next_competitor.should == @c2
+    end
+
+    it "should return the third competitor for the second competitor" do
+      @c2.next_competitor.should == @c3
+    end
+
+    it "should return nil for the last competitor" do
+      @c3.next_competitor.should be_nil
+    end
+  end
+
   describe "set start time in save" do
     before do
       @relay = Factory.create(:relay, :start_time => '10:30')
@@ -133,6 +155,32 @@ describe RelayCompetitor do
         @c1.save!
         @c2.save!
         @c2.start_time.strftime('%H:%M:%S').should == '11:01:02'
+      end
+    end
+  end
+
+  describe "set start time for next competitor in update" do
+    before do
+      @relay = Factory.create(:relay, :start_time => '10:30', :legs_count => 2)
+      @team = Factory.create(:relay_team, :relay => @relay)
+      @c1 = Factory.create(:relay_competitor, :relay_team => @team, :leg => 1)
+      @c2 = Factory.create(:relay_competitor, :relay_team => @team, :leg => 2)
+      @c1.arrival_time = '10:53:29'
+    end
+
+    context "when non-last competitor" do
+      it "should set the arrival time for the next competitor's start time" do
+        @c1.save!
+        @c2.reload
+        @c2.start_time.strftime('%H:%M:%S').should == '10:53:29'
+      end
+    end
+
+    context "when the last competitor" do
+      it "should not fail" do
+        @c1.save!
+        @c2.arrival_time = '11:10:07'
+        @c2.save!
       end
     end
   end

@@ -11,10 +11,16 @@ class RelayCompetitor < ActiveRecord::Base
   validate :arrival_not_before_start_time
 
   before_validation :set_start_time
+  after_save :set_next_competitor_start_time
 
   def previous_competitor
     return nil if leg == 1
     relay_team.relay_competitors.where(:leg => leg - 1).first
+  end
+
+  def next_competitor
+    return nil if leg == relay_team.relay.legs_count
+    relay_team.relay_competitors.where(:leg => leg + 1).first
   end
 
   private
@@ -43,6 +49,14 @@ class RelayCompetitor < ActiveRecord::Base
     else
       prev = previous_competitor
       self.start_time = prev.arrival_time if prev
+    end
+  end
+
+  def set_next_competitor_start_time
+    comp = next_competitor
+    if comp
+      comp.start_time = arrival_time
+      comp.save!
     end
   end
 end
