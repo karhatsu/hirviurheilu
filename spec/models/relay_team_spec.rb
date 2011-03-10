@@ -18,6 +18,13 @@ describe RelayTeam do
       it { should_not allow_value(0).for(:number) }
       it { should allow_value(1).for(:number) }
       it { should_not allow_value(1.1).for(:number) }
+
+      describe "uniqueness" do
+        before do
+          Factory.create(:relay_team)
+        end
+        it { should validate_uniqueness_of(:number).scoped_to(:relay_id) }
+      end
     end
   end
 end
