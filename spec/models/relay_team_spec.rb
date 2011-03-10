@@ -1,0 +1,22 @@
+require 'spec_helper'
+
+describe RelayTeam do
+  it "create" do
+    Factory.create(:relay_team)
+  end
+
+  describe "associations" do
+    it { should belong_to(:relay) }
+  end
+
+  describe "validations" do
+    it { should validate_presence_of(:name) }
+
+    describe "number" do
+      it { should validate_numericality_of(:number) }
+      it { should_not allow_value(0).for(:number) }
+      it { should allow_value(1).for(:number) }
+      it { should_not allow_value(1.1).for(:number) }
+    end
+  end
+end

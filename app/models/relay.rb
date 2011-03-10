@@ -1,5 +1,6 @@
 class Relay < ActiveRecord::Base
   belongs_to :race
+  has_many :relay_teams
 
   validates :name, :presence => true
   validates :legs, :numericality => { :only_integer => true, :greater_than => 1 }

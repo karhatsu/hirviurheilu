@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110310161346) do
+ActiveRecord::Schema.define(:version => 20110310162526) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -120,6 +120,16 @@ ActiveRecord::Schema.define(:version => 20110310161346) do
   end
 
   add_index "races", ["sport_id"], :name => "index_races_on_sport_id"
+
+  create_table "relay_teams", :force => true do |t|
+    t.integer  "relay_id",   :null => false
+    t.string   "name",       :null => false
+    t.integer  "number",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "relay_teams", ["relay_id"], :name => "index_relay_teams_on_relay_id"
 
   create_table "relays", :force => true do |t|
     t.integer  "race_id",    :null => false
