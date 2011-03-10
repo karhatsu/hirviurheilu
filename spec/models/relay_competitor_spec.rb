@@ -37,5 +37,34 @@ describe RelayCompetitor do
       it { should allow_value(5).for(:misses) }
       it { should_not allow_value(6).for(:misses) }
     end
+
+    describe "arrival_time" do
+      it { should allow_value(nil).for(:arrival_time) }
+
+      it "can be nil even when start time is not nil" do
+        Factory.build(:relay_competitor, :start_time => '14:00', :arrival_time => nil).
+          should be_valid
+      end
+
+      it "should not be before start time" do
+        Factory.build(:relay_competitor, :start_time => '14:00', :arrival_time => '13:59').
+          should have(1).errors_on(:arrival_time)
+      end
+
+      it "should not be same as start time" do
+        Factory.build(:relay_competitor, :start_time => '14:00', :arrival_time => '14:00').
+          should have(1).errors_on(:arrival_time)
+      end
+
+      it "is valid when later than start time" do
+        Factory.build(:relay_competitor, :start_time => '14:00', :arrival_time => '14:01').
+          should be_valid
+      end
+
+      it "cannot be given if no start time" do
+        Factory.build(:relay_competitor, :start_time => nil, :arrival_time => '13:59').
+          should_not be_valid
+      end
+    end
   end
 end
