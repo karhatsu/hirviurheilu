@@ -11,7 +11,7 @@ class RelayCompetitor < ActiveRecord::Base
   validate :arrival_not_before_start_time
 
   before_validation :set_start_time
-  after_save :set_next_competitor_start_time
+  after_update :set_next_competitor_start_time
 
   def previous_competitor
     return nil if leg == 1
