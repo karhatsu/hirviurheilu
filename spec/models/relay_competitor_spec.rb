@@ -67,4 +67,26 @@ describe RelayCompetitor do
       end
     end
   end
+
+  describe "#previous_competitor" do
+    before do
+      @team = Factory.create(:relay_team)
+      @c1 = Factory.create(:relay_competitor, :relay_team => @team, :leg => 1)
+      @c2 = Factory.create(:relay_competitor, :relay_team => @team, :leg => 2)
+      @c3 = Factory.create(:relay_competitor, :relay_team => @team, :leg => 3)
+      @team.reload
+    end
+
+    it "should return nil for the first competitor" do
+      @c1.previous_competitor.should be_nil
+    end
+
+    it "should return the first competitor for the second competitor" do
+      @c2.previous_competitor.should == @c1
+    end
+
+    it "should return the second competitor for the third competitor" do
+      @c3.previous_competitor.should == @c2
+    end
+  end
 end

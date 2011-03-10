@@ -9,6 +9,11 @@ class RelayCompetitor < ActiveRecord::Base
   validate :leg_not_bigger_than_relay_legs
   validate :arrival_not_before_start_time
 
+  def previous_competitor
+    return nil if leg == 1
+    relay_team.relay_competitors.where(:leg => leg - 1).first
+  end
+
   private
   def leg_not_bigger_than_relay_legs
     if relay_team and leg > relay_team.relay.legs
