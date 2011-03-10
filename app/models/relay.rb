@@ -8,6 +8,8 @@ class Relay < ActiveRecord::Base
     :allow_nil => true, :greater_than => 0 }
   validate :start_day_not_bigger_than_race_days_count
 
+  attr_readonly :legs
+
   private
   def start_day_not_bigger_than_race_days_count
     if race and start_day > race.days_count

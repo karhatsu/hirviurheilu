@@ -37,6 +37,14 @@ describe Relay do
       it { should_not allow_value(1).for(:legs) }
       it { should allow_value(2).for(:legs) }
       it { should_not allow_value(2.1).for(:legs) }
+
+      it "should not be allowed to change after create" do
+        relay = Factory.create(:relay, :legs => 5)
+        relay.legs = 4
+        relay.save
+        relay.reload
+        relay.legs.should == 5
+      end
     end
   end
 end
