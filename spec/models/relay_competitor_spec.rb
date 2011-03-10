@@ -48,29 +48,36 @@ describe RelayCompetitor do
     describe "arrival_time" do
       it { should allow_value(nil).for(:arrival_time) }
 
-      it "can be nil even when start time is not nil" do
-        Factory.build(:relay_competitor, :start_time => '14:00', :arrival_time => nil).
-          should be_valid
-      end
+      describe "compared to start time" do
+        before do
+          @relay = Factory.build(:relay, :start_time => '14:00')
+          @team = Factory.build(:relay_team, :relay => @relay)
+        end
 
-      it "should not be before start time" do
-        Factory.build(:relay_competitor, :start_time => '14:00', :arrival_time => '13:59').
-          should have(1).errors_on(:arrival_time)
-      end
+        it "can be nil even when start time is not nil" do
+          Factory.build(:relay_competitor, :relay_team => @team, :leg => 1,
+            :arrival_time => nil).should be_valid
+        end
 
-      it "should not be same as start time" do
-        Factory.build(:relay_competitor, :start_time => '14:00', :arrival_time => '14:00').
-          should have(1).errors_on(:arrival_time)
-      end
+        it "should not be before start time" do
+          Factory.build(:relay_competitor, :relay_team => @team, :leg => 1,
+            :arrival_time => '13:59').should have(1).errors_on(:arrival_time)
+        end
 
-      it "is valid when later than start time" do
-        Factory.build(:relay_competitor, :start_time => '14:00', :arrival_time => '14:01').
-          should be_valid
-      end
+        it "should not be same as start time" do
+          Factory.build(:relay_competitor, :relay_team => @team, :leg => 1,
+            :arrival_time => '14:00').should have(1).errors_on(:arrival_time)
+        end
 
-      it "cannot be given if no start time" do
-        Factory.build(:relay_competitor, :start_time => nil, :arrival_time => '13:59').
-          should_not be_valid
+        it "is valid when later than start time" do
+          Factory.build(:relay_competitor, :relay_team => @team, :leg => 1,
+            :arrival_time => '14:01').should be_valid
+        end
+
+        it "cannot be given if no start time" do
+          Factory.build(:relay_competitor, :relay_team => @team, :leg => 1,
+            :arrival_time => '13:59').should_not be_valid
+        end
       end
     end
   end
@@ -94,6 +101,39 @@ describe RelayCompetitor do
 
     it "should return the second competitor for the third competitor" do
       @c3.previous_competitor.should == @c2
+    end
+  end
+
+  describe "set start time in save" do
+    before do
+      @relay = Factory.create(:relay, :start_time => '10:30')
+      @team = Factory.create(:relay_team, :relay => @relay)
+      @c1 = Factory.build(:relay_competitor, :relay_team => @team, :leg => 1)
+      @c2 = Factory.build(:relay_competitor, :relay_team => @team, :leg => 2)
+    end
+
+    context "when first competitor is saved" do
+      it "should set the relay start time as competitor start time" do
+        @c1.save!
+        @c1.start_time.strftime('%H:%M:%S').should == '10:30:00'
+        @relay.start_time = '13:15'
+        @relay.save!
+        @c1.save!
+        @c1.start_time.strftime('%H:%M:%S').should == '13:15:00'
+      end
+    end
+
+    context "when non-first competitor is saved" do
+      it "should set the previous competitor arrival time as start time" do
+        @c1.arrival_time = '10:45:13'
+        @c1.save!
+        @c2.save!
+        @c2.start_time.strftime('%H:%M:%S').should == '10:45:13'
+        @c1.arrival_time = '11:01:02'
+        @c1.save!
+        @c2.save!
+        @c2.start_time.strftime('%H:%M:%S').should == '11:01:02'
+      end
     end
   end
 end

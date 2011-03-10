@@ -10,6 +10,8 @@ class RelayCompetitor < ActiveRecord::Base
   validate :leg_not_bigger_than_relay_legs_count
   validate :arrival_not_before_start_time
 
+  before_validation :set_start_time
+
   def previous_competitor
     return nil if leg == 1
     relay_team.relay_competitors.where(:leg => leg - 1).first
@@ -31,6 +33,16 @@ class RelayCompetitor < ActiveRecord::Base
     end
     if arrival_time and start_time >= arrival_time
       errors.add(:arrival_time, "pitää olla lähtöajan jälkeen")
+    end
+  end
+
+  def set_start_time
+    return unless relay_team
+    if leg == 1
+      self.start_time = relay_team.relay.start_time
+    else
+      prev = previous_competitor
+      self.start_time = prev.arrival_time if prev
     end
   end
 end
