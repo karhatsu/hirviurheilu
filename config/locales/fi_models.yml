@@ -19,6 +19,7 @@ fi:
     races: Kilpailut
     email: Sähköposti
     end_date: Loppupvm
+    estimate: Arvio
     estimate1: Arvio 1
     estimate2: Arvio 2
     estimate3: Arvio 3
