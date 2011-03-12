@@ -18,4 +18,10 @@
   <% instructions << '.' %>
   <%= render :partial => 'result_place', :locals => { :name => 'misses',
     :instructions => instructions, :path => relay_relay_misses_quick_save_path(@relay) } %>
+  <h3>Saapumisaika</h3>
+  <% instructions = 'Syötä tulos muodossa joukkue,osuus,hhmmss, ' +
+      'esim. 11,3,102438 (joukkue 11, osuus 3, saapumisaika 10:24:38)' %>
+  <% instructions << '.' %>
+  <%= render :partial => 'result_place', :locals => { :name => 'time',
+    :instructions => instructions, :path => relay_relay_time_quick_save_path(@relay) } %>
 <% end %>

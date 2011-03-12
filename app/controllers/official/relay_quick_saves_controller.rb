@@ -18,6 +18,13 @@ class Official::RelayQuickSavesController < Official::OfficialController
     end
   end
 
+  def time
+    @name = 'time'
+    do_quick_save(RelayTimeQuickSave.new(@relay.id, params[:string])) do
+      @result = "saapumisaika: #{@competitor.arrival_time.strftime('%H:%M:%S')}"
+    end
+  end
+
   private
   def do_quick_save(quick_save, &block)
     if quick_save.save
