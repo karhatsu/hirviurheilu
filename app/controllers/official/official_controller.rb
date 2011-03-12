@@ -22,7 +22,15 @@ class Official::OfficialController < ApplicationController
     check_race(@series.race)
   end
 
+  def check_assigned_relay
+    check_race(@relay.race)
+  end
+
   def set_official
     @is_official = true
+  end
+
+  def set_relays
+    @is_relays = true
   end
 end

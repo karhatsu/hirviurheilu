@@ -239,6 +239,8 @@ module ApplicationHelper
       @race
     elsif @series
       @series.race
+    elsif @relay
+      @relay.race
     elsif @competitor
       @competitor.series.race
     else

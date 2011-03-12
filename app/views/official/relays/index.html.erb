@@ -7,7 +7,7 @@
       <th>Nimi</th>
       <th>Osuuksien määrä</th>
       <th>Lähtöaika</th>
-      <th>&nbsp;</th>
+      <th colspan="2">&nbsp;</th>
     </tr>
     <% @race.relays.each do |relay| %>
       <tr>
@@ -15,6 +15,8 @@
         <td><%= relay.legs_count %></td>
         <td><%= series_datetime_print relay, true if relay.start_time %></td>
         <td><%= link_to 'Muokkaa', edit_official_race_relay_path(@race, relay) %></td>
+        <td><%= link_to 'Joukkueet ja kilpailijat',
+            official_relay_relay_teams_path(relay) %></td>
       </tr>
     <% end %>
   </table>

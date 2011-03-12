@@ -52,3 +52,16 @@ Feature: Manager relays
     And I should see "Viestin tiedot päivitetty" within "div.success"
     And I should see "New name"
     And I should see "08:12"
+
+  Scenario: Add teams and competitor basic information
+    Given I am an official
+    And I have a race "Relay race"
+    And the race has a relay "Test relay"
+    And I have logged in
+    And I am on the official relays page of "Relay race"
+    When I follow "Joukkueet ja kilpailijat"
+    Then the "Toimitsijan sivut" main menu item should be selected
+    And the "Viestit" sub menu item should be selected
+    And I should be on the official relay teams page of "Relay race"
+    And I should see "Viestijoukkueet" within "h2"
+    # TODO: requires selenium after this

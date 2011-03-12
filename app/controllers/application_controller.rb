@@ -98,6 +98,23 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def assign_relay_by_id
+    assign_relay params[:id]
+  end
+
+  def assign_relay_by_relay_id
+    assign_relay params[:relay_id]
+  end
+
+  def assign_relay(id)
+    begin
+      @relay = Relay.find(id)
+    rescue ActiveRecord::RecordNotFound
+      @id = id
+      render 'errors/relay_not_found'
+    end
+  end
+
   def set_competitions
     @is_competitions = true
   end

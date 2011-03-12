@@ -76,6 +76,10 @@ ElkSports::Application.routes.draw do
       resources :estimates
       resources :times
     end
+
+    resources :relays do
+      resources :relay_teams
+    end
     
     root :to => "index#show"
   end
