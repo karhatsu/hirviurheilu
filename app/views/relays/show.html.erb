@@ -1,0 +1,19 @@
+<h2><%= @relay.name %> - Tulokset</h2>
+<div class="section">
+  <table>
+    <tr>
+      <th>&nbsp;</th>
+      <th>Joukkue</th>
+      <th>Nro</th>
+      <th>Aika</th>
+    </tr>
+    <% @relay.results.each_with_index do |team, i| %>
+      <tr id="team_<%= i + 1 %>">
+        <td><%= i + 1 %>.</td>
+        <td><%= team.name %></td>
+        <td><%= team.number %></td>
+        <td><%= time_from_seconds(team.time_in_seconds) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

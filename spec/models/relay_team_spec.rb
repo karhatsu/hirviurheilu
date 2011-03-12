@@ -46,4 +46,25 @@ describe RelayTeam do
       @team.relay_competitors[2].leg.should == 3
     end
   end
+
+  describe "#time_in_seconds" do
+    before do
+      @relay = Factory.create(:relay, :legs_count => 3, :start_time => '12:00')
+      @team = Factory.create(:relay_team, :relay => @relay)
+      Factory.create(:relay_competitor, :relay_team => @team, :leg => 1,
+        :arrival_time => '12:10')
+      Factory.create(:relay_competitor, :relay_team => @team, :leg => 2,
+        :arrival_time => '12:20')
+    end
+
+    it "should return nil if no last competitor defined" do
+      @team.time_in_seconds.should be_nil
+    end
+
+    it "should return the arrival time for the last competitor - relay start time" do
+      Factory.create(:relay_competitor, :relay_team => @team, :leg => 3,
+        :arrival_time => '12:31:15')
+      @team.time_in_seconds.should == 31 * 60 + 15
+    end
+  end
 end

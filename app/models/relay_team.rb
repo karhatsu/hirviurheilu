@@ -7,4 +7,10 @@ class RelayTeam < ActiveRecord::Base
     :uniqueness => { :scope => :relay_id }
 
   accepts_nested_attributes_for :relay_competitors
+
+  def time_in_seconds
+    competitor = relay_competitors.where(:leg => relay.legs_count).first
+    return nil unless competitor and competitor.arrival_time
+    competitor.arrival_time - relay.start_time
+  end
 end

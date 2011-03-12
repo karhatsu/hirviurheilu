@@ -1,3 +1,7 @@
+Given /^there is a race "([^"]*)"$/ do |name|
+  @race = Factory.create(:race, :name => name)
+end
+
 Given /^there is a race with attributes:$/ do |fields|
   hash = fields.rows_hash
   if hash[:sport] == 'SKI'
