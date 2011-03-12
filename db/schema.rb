@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110312135332) do
+ActiveRecord::Schema.define(:version => 20110312195627) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -117,6 +117,8 @@ ActiveRecord::Schema.define(:version => 20110312135332) do
     t.integer  "series_count",           :default => 0,     :null => false
     t.integer  "team_competitor_count"
     t.string   "home_page"
+    t.integer  "batch_size"
+    t.integer  "batch_interval_seconds"
   end
 
   add_index "races", ["sport_id"], :name => "index_races_on_sport_id"
