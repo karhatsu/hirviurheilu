@@ -9,7 +9,7 @@ div.menu ul {
     padding: 0px;
 }
 
-div.series_sub_menu ul {
+div.sub_sub_menu ul {
     list-style: none;
 }
 
@@ -22,7 +22,7 @@ div.sub_menu ul li {
     display: inline;
 }
 
-div.series_sub_menu ul li {
+div.sub_sub_menu ul li {
     text-align: center;
     margin-bottom: 2px;
     float: left;
@@ -53,7 +53,7 @@ div.sub_menu ul li a {
     padding: 6px 6px;
 }
 
-div.series_sub_menu ul li a {
+div.sub_sub_menu ul li a {
     margin-right: 0px;
     display: block;
     width: 110px;
@@ -75,7 +75,7 @@ div.main_menu ul li a:hover {
     border-bottom-color: white;
 }
 
-div.series_sub_menu ul li a:hover {
+div.sub_sub_menu ul li a:hover {
     border-right-color: white;
 }
 

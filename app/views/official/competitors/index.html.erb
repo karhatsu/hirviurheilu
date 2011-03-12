@@ -1,6 +1,6 @@
 <% content_for :title, "#{@series.race.name} - #{@series.name} - Kilpailijat" %>
 <h2><%= "#{@series.name} - Kilpailijat" %></h2>
-<% content_for :series_sub_menu do %>
+<% content_for :sub_sub_menu do %>
   <%= render :layout => 'shared/series_sub_menu',
     :locals => { :race => @series.race, :series_id => @series.id } do |series| %>
     <%= official_series_competitors_path(series) %>
