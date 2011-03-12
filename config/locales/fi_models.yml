@@ -110,8 +110,10 @@ fi:
           name: Joukkueen nimi
           number: Joukkueen numero
           relay_competitors:
+            estimate: Arvio
             first_name: Kilpailijan etunimi
             last_name: Kilpailijan sukunimi
+            misses: Ohilaukaukset
       relay_team:
         name: Joukkueen nimi
         relay_competitors: Kilpailijat
