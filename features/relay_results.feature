@@ -3,6 +3,11 @@ Feature: Relay results
   As a user
   I want to see the relay results
 
+  Scenario: No relays for the race
+    Given there is a race "Relay race"
+    And I am on the race page of "Relay race"
+    Then I should not see "Viestit"
+
   Scenario: Relay results
     Given there is a race "Relay race"
     And the race has a relay "Women's relay"

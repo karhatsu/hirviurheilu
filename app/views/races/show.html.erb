@@ -79,23 +79,25 @@
       </div>
   <% end %>
 <% end %>
-<h2>Viestit</h2>
-<div class="section">
-  <table>
-    <tr>
-      <th>Viesti</th>
-      <th>Lähtöaika</th>
-      <th>Joukkueita</th>
-    </tr>
-    <% @race.relays.each do |relay| %>
+<% unless @race.relays.empty? %>
+  <h2>Viestit</h2>
+  <div class="section">
+    <table>
       <tr>
-        <td><%= link_to relay.name, race_relay_path(@race, relay) %></td>
-        <td><%= series_datetime_print relay, true if relay.start_time %></td>
-        <td class="center"><%= relay.relay_teams.count %></td>
+        <th>Viesti</th>
+        <th>Lähtöaika</th>
+        <th>Joukkueita</th>
       </tr>
-    <% end %>
-  </table>
-</div>
+      <% @race.relays.each do |relay| %>
+        <tr>
+          <td><%= link_to relay.name, race_relay_path(@race, relay) %></td>
+          <td><%= series_datetime_print relay, true if relay.start_time %></td>
+          <td class="center"><%= relay.relay_teams.count %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>
 <% if false and @race.start_date > Date.today %>
   <div class="info">
     Kilpailun alkuun on aikaa
