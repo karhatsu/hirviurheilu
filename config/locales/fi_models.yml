@@ -52,6 +52,8 @@ fi:
     start_date: Alkupvm
     start_day: Aloituspäivä
     start_interval_seconds: Lähtöaikojen väli (sekuntia)
+    batch_size: Lähtöerien koko (0 = ei eriä käytössä)
+    batch_interval_seconds: Lähtöerien väli (sekuntia)
     start_time: Lähtöaika
     team_competitor_count: Kilpailijoita / joukkue
 
