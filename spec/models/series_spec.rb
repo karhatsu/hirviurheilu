@@ -430,7 +430,107 @@ describe Series do
     end
   end
 
+  describe "#generate_batch_start_times" do
+    before do
+      @race = Factory.create(:race, :start_date => '2010-08-15',
+        :start_interval_seconds => 30, :batch_interval_seconds => 180,
+        :batch_size => 3)
+      @series = Factory.create(:series, :race => @race,
+        :first_number => 9, :start_time => '2010-08-15 10:00:15')
+      @c1 = Factory.create(:competitor, :series => @series, :number => 9)
+      @c2 = Factory.create(:competitor, :series => @series, :number => 11)
+      @c3 = Factory.create(:competitor, :series => @series, :number => 13)
+    end
+
+    describe "generation fails" do
+      context "competitors are missing numbers" do
+        it "should do nothing for competitors, add error and return false" do
+          @c4 = Factory.create(:competitor, :series => @series, :number => nil)
+          @series.reload
+          @series.generate_start_times.should be_false
+          @series.should have(1).errors
+          check_competitors_no_changes([@c1, @c2, @c3, @c4])
+        end
+      end
+
+      context "some competitor already has arrival time" do
+        it "should do nothing for competitors, add error and return false" do
+          @c4 = Factory.create(:competitor, :series => @series,
+            :start_time => '14:00', :arrival_time => '14:30', :number => 5)
+          @series.reload
+          @series.generate_start_times.should be_false
+          @series.should have(1).errors
+          check_competitors_no_changes([@c1, @c2, @c3])
+        end
+      end
+
+      context "series has no first number" do
+        before do
+          @series.first_number = nil
+          @series.save!
+        end
+
+        it "should do nothing for competitors, add error and return false" do
+          @series.reload
+          @series.generate_start_times.should be_false
+          @series.should have(1).errors
+          check_competitors_no_changes([@c1, @c2, @c3])
+        end
+      end
+
+      context "series has no start time" do
+        before do
+          @series.start_time = nil
+          @series.save!
+        end
+
+        it "should do nothing for competitors, add error and return false" do
+          @series.reload
+          @series.generate_start_times.should be_false
+          @series.should have(1).errors
+          check_competitors_no_changes([@c1, @c2, @c3])
+        end
+      end
+
+      def check_competitors_no_changes(competitors)
+        competitors.each do |c|
+          c.reload
+          c.start_time.should be_nil
+        end
+      end
+    end
+
+    describe "generation succeeds" do
+      it "should generate start times based on batch size, batch interval and time interval and numbers and return true" do
+        @series.generate_start_times.should be_true
+        @series.should be_valid
+        @c1.reload
+        @c2.reload
+        @c3.reload
+        @c1.start_time.strftime('%H:%M:%S').should == '10:00:15'
+        @c2.start_time.strftime('%H:%M:%S').should == '10:01:15'
+        @c3.start_time.strftime('%H:%M:%S').should == '10:04:45'
+      end
+    end
+  end
+
   describe "#generate_start_times!" do
+    before do
+      @series = Factory.build(:series)
+    end
+    
+    it "should return true when generation succeeds" do
+      @series.should_receive(:generate_start_times).and_return(true)
+      @series.generate_start_times!.should be_true
+    end
+    
+    it "raise exception if generation fails" do
+      @series.should_receive(:generate_start_times).and_return(false)
+      lambda { @series.generate_start_times! }.should raise_error
+    end
+  end
+
+  describe "#generate_batch_start_times!" do
     before do
       @series = Factory.build(:series)
     end
