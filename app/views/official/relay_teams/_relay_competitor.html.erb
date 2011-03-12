@@ -1,0 +1,7 @@
+<% f.object.leg = index + 1 unless f.object.leg %>
+<%= f.hidden_field :leg %>
+<%= f.object.leg %>.
+<%= f.label :first_name %>
+<%= f.text_field :first_name, :size => 20 %>
+<%= f.label :last_name %>
+<%= f.text_field :last_name, :size => 20 %><br/>

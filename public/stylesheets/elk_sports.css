@@ -37,7 +37,7 @@ div.sub_form {
     margin-bottom: 5px;
 }
 
-div.age_groups {
+div.sub_sub_element {
     width: 80%;
     margin-top: 2px;
     background-color: white;
@@ -46,7 +46,7 @@ div.age_groups {
     -webkit-border-radius: 5px;
 }
 
-div.age_groups h3 {
+div.sub_sub_element h3 {
     margin-top: 2px;
     margin-bottom: 2px;
     font-weight: normal;

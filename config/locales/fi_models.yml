@@ -104,8 +104,13 @@ fi:
           name: Sarjan nimi
       relay:
         name: Viestin nimi
+        relay_teams:
+          relay_competitors:
+            first_name: Kilpailijan etunimi
+            last_name: Kilpailijan sukunimi
       relay_team:
         name: Joukkueen nimi
+        relay_competitors: Kilpailijat
       series:
         age_groups:
           name: Ikäryhmän nimi

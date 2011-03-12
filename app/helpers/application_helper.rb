@@ -199,7 +199,8 @@ module ApplicationHelper
     options[:form_builder_local] ||= :f
     index_str = (index ? "_#{index}" : '')
     form_builder.fields_for(method, options[:object], :child_index => "new#{index_str}_#{method}") do |f|
-      render(:partial => options[:partial], :locals => { options[:form_builder_local] => f})
+      render(:partial => options[:partial],
+        :locals => { options[:form_builder_local] => f, :index => index })
     end
   end
   # -- Form child functions (end) --
