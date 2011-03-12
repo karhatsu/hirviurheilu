@@ -192,4 +192,96 @@ describe RelayCompetitor do
       end
     end
   end
+
+  describe "#estimate_penalties", :focus => true do
+    before do
+      @relay = Factory.create(:relay)
+      team = Factory.create(:relay_team, :relay => @relay)
+      @comp = Factory.create(:relay_competitor, :relay_team => team, :leg => 2,
+        :estimate => 100)
+      @relay.stub!(:correct_estimate).with(2).and_return(100)
+    end
+
+    context "when estimate is nil" do
+      it "should be nil" do
+        @comp.estimate = nil
+        @comp.estimate_penalties.should be_nil
+      end
+    end
+
+    context "when the correct estimate for the same leg is nil" do
+      it "should be nil" do
+        @relay.stub!(:correct_estimate).with(2).and_return(nil)
+        @comp.estimate_penalties.should be_nil
+      end
+    end
+
+    context "when correct estimate and estimate available" do
+      it "should be 0 when perfect estimate" do
+        @comp.estimate_penalties.should == 0
+      end
+
+      it "should be 0 when estimate 1-5 meters too high" do
+        @comp.estimate = 105
+        @comp.estimate_penalties.should == 0
+      end
+
+      it "should be 0 when estimate 1-5 meters too low" do
+        @comp.estimate = 95
+        @comp.estimate_penalties.should == 0
+      end
+
+      it "should be 1 when estimate 6-10 meters too high" do
+        @comp.estimate = 106
+        @comp.estimate_penalties.should == 1
+        @comp.estimate = 110
+        @comp.estimate_penalties.should == 1
+      end
+
+      it "should be 1 when estimate 6-10 meters too low" do
+        @comp.estimate = 94
+        @comp.estimate_penalties.should == 1
+        @comp.estimate = 90
+        @comp.estimate_penalties.should == 1
+      end
+
+      it "should be 4 when estimate 21-25 meters too high" do
+        @comp.estimate = 121
+        @comp.estimate_penalties.should == 4
+        @comp.estimate = 125
+        @comp.estimate_penalties.should == 4
+      end
+
+      it "should be 4 when estimate 21-25 meters too low" do
+        @comp.estimate = 79
+        @comp.estimate_penalties.should == 4
+        @comp.estimate = 75
+        @comp.estimate_penalties.should == 4
+      end
+
+      it "should be 5 when estimate 26-30 meters too high" do
+        @comp.estimate = 126
+        @comp.estimate_penalties.should == 5
+        @comp.estimate = 130
+        @comp.estimate_penalties.should == 5
+      end
+
+      it "should be 5 when estimate 26-30 meters too low" do
+        @comp.estimate = 74
+        @comp.estimate_penalties.should == 5
+        @comp.estimate = 70
+        @comp.estimate_penalties.should == 5
+      end
+
+      it "should be 5 when estimate at least 31 meters too high" do
+        @comp.estimate = 131
+        @comp.estimate_penalties.should == 5
+      end
+
+      it "should be 5 when estimate at least 31 meters too low" do
+        @comp.estimate = 69
+        @comp.estimate_penalties.should == 5
+      end
+    end
+  end
 end

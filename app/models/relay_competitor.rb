@@ -25,6 +25,17 @@ class RelayCompetitor < ActiveRecord::Base
     relay_team.relay_competitors.where(:leg => leg + 1).first
   end
 
+  def estimate_penalties
+    return nil unless estimate
+    correct_estimate = relay_team.relay.correct_estimate(leg)
+    return nil unless correct_estimate
+    diff = (correct_estimate - estimate).abs
+    return 0 if diff == 0
+    penalties = (diff - 1) / 5
+    return 5 if penalties > 5
+    penalties
+  end
+
   private
   def leg_not_bigger_than_relay_legs_count
     if relay_team and leg > relay_team.relay.legs_count
