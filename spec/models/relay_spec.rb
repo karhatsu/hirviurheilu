@@ -9,6 +9,7 @@ describe Relay do
     it { should belong_to(:race) }
     it { should have_many(:relay_teams) }
     it { should have_many(:relay_correct_estimates) }
+    it { should have_many(:relay_competitors).through(:relay_teams) }
   end
 
   describe "validations" do
