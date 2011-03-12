@@ -18,7 +18,7 @@ Feature: Manage race
     Then I should be on the race edit page of "Test race"
     And I should see "Test race" within ".main_title"
     And I should see "Kilpailu lisätty."
-    And I should see "Voit nyt lisätä sarjoja kilpailulle alla olevasta linkistä."
+    And I should see "Voit nyt lisätä sarjoja kilpailulle alla olevasta napista."
 
   Scenario: Create new race with default series
     Given there is a default series "Default series 1"

@@ -468,4 +468,20 @@ describe Race do
       end
     end
   end
+
+  describe "relays" do
+    before do
+      @race = Factory.create(:race)
+      @race.relays << Factory.build(:relay, :race => @race, :name => 'C')
+      @race.relays << Factory.build(:relay, :race => @race, :name => 'A')
+      @race.relays << Factory.build(:relay, :race => @race, :name => 'B')
+      @race.reload
+    end
+
+    it "should be ordered by name" do
+      @race.relays[0].name.should == 'A'
+      @race.relays[1].name.should == 'B'
+      @race.relays[2].name.should == 'C'
+    end
+  end
 end
