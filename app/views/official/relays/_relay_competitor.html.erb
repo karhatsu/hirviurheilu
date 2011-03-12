@@ -10,5 +10,5 @@
 <%= f.label :estimate %>
 <%= f.text_field :estimate, :size => 2 %>m
 <%= f.label :arrival_time %>
-<%= f.time_text_field :arrival_time, :include_seconds => true, :blank => true %>
+<%= time_print(f.object.arrival_time, true, '-') %>
 <br/>
