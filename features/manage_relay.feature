@@ -39,7 +39,8 @@ Feature: Manager relays
     And I have logged in
     And I am on the official relays page of "Relay race"
     When I follow "Muokkaa"
-    Then I should not see "Huom! Osuuksien määrää"
+    Then I should see "Muokkaa viestin tietoja" within "h2"
+    But I should not see "Huom! Osuuksien määrää"
     When I fill in "" for "Viestin nimi"
     And I press "Tallenna"
     Then I should see "Viestin nimi on pakollinen" within "div.error"
