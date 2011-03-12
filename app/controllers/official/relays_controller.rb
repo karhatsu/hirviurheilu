@@ -13,9 +13,8 @@ class Official::RelaysController < Official::OfficialController
   def create
     @relay = @race.relays.build(params[:relay])
     if @relay.save
-      flash[:success] = 'Viesti luotu. ' +
-        'Klikkaa Joukkueet-linkkiä, niin pääset lisäämään viestiin osallistuvat joukkueet.'
-      redirect_to official_race_relays_path(@race)
+      flash[:success] = 'Viesti luotu. Voit nyt lisätä viestiin joukkueita.'
+      redirect_to edit_official_race_relay_path(@race, @relay)
     else
       render :new
     end

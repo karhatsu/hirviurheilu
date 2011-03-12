@@ -26,8 +26,16 @@ Feature: Manager relays
     And I select "11" from "relay_start_time_4i"
     And I select "45" from "relay_start_time_5i"
     And I press "Tallenna"
+    Then I should be on the edit relay page of "Test relay"
+    And I should see "Viesti luotu. Voit nyt lisätä viestiin joukkueita." within "div.success"
+    And I should see "Et ole vielä lisännyt viestiin yhtään joukkuetta. Lisää joukkueita alla olevasta napista." within "div.info"
+    And the "Viestin nimi" field should contain "Test relay"
+    And I should see "3"
+    And the "relay_start_time_4i" field should contain "11"
+    And the "relay_start_time_5i" field should contain "45"
+    And I should see "Joukkueet" within "h2"
+    When I follow "Takaisin viestien etusivulle"
     Then I should be on the official relays page of "Relay race"
-    And I should see "Viesti luotu. Klikkaa Joukkueet-linkkiä, niin pääset lisäämään viestiin osallistuvat joukkueet." within "div.success"
     And I should see "Test relay"
     And I should see "3"
     And I should see "11:45"
@@ -38,7 +46,7 @@ Feature: Manager relays
     And the race has a relay "Test relay"
     And I have logged in
     And I am on the official relays page of "Relay race"
-    When I follow "Muokkaa"
+    When I follow "Test relay"
     Then I should see "Muokkaa viestin tietoja" within "h2"
     But I should not see "Huom! Osuuksien määrää"
     When I fill in "" for "Viestin nimi"
@@ -52,18 +60,3 @@ Feature: Manager relays
     And I should see "Viestin tiedot päivitetty" within "div.success"
     And I should see "New name"
     And I should see "08:12"
-
-  Scenario: Add teams and competitor basic information
-    Given I am an official
-    And I have a race "Relay race"
-    And the race has a relay "Test relay"
-    And I have logged in
-    And I am on the official relays page of "Relay race"
-    When I follow "Joukkueet ja kilpailijat"
-    Then the "Toimitsijan sivut" main menu item should be selected
-    And the "Viestit" sub menu item should be selected
-    And I should be on the official relay teams page of "Relay race"
-    And I should see "Viestijoukkueet" within "h2"
-    # TODO: requires selenium really creating the teams
-    When I press "Tallenna"
-    Then I should be on the official relays page of "Relay race"

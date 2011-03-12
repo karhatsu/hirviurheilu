@@ -44,8 +44,8 @@ module NavigationHelpers
     when /the official relays page of "(.*)"/
       official_race_relays_path(Race.find_by_name($1))
 
-    when /the official relay teams page of "(.*)"/
-      official_relay_relay_teams_path(Race.find_by_name($1))
+    when /the edit relay page of "(.*)"/
+      edit_official_race_relay_path(Relay.find_by_name($1).race, Relay.find_by_name($1))
 
     when /the race page/
       race_path(@race)
