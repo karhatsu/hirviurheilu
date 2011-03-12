@@ -14,6 +14,8 @@
   <%= start_days_form_field(f, @relay) %>
   <%= f.time_select :start_time, :include_seconds => false, :include_blank => true %>
   <% unless @relay.new_record? %>
+    <h2>Oikeat arviot</h2>
+    <%= render :partial => 'all_correct_estimates', :locals => { :f => f } %>
     <h2>Joukkueet</h2>
     <% if @relay.relay_teams.empty? %>
       <%= highlight_info('Et ole vielä lisännyt viestiin yhtään joukkuetta. ' +

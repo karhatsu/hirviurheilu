@@ -65,4 +65,23 @@ describe Relay do
       @relay.relay_teams[2].number.should == 3
     end
   end
+
+  describe "correct estimates" do
+    before do
+      @relay = Factory.create(:relay)
+      @relay.relay_correct_estimates << Factory.build(:relay_correct_estimate,
+        :relay => @relay, :leg => 3)
+      @relay.relay_correct_estimates << Factory.build(:relay_correct_estimate,
+        :relay => @relay, :leg => 1)
+      @relay.relay_correct_estimates << Factory.build(:relay_correct_estimate,
+        :relay => @relay, :leg => 2)
+      @relay.reload
+    end
+
+    it "should be ordered by leg" do
+      @relay.relay_correct_estimates[0].leg.should == 1
+      @relay.relay_correct_estimates[1].leg.should == 2
+      @relay.relay_correct_estimates[2].leg.should == 3
+    end
+  end
 end

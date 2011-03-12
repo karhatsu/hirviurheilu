@@ -1,7 +1,7 @@
 class Relay < ActiveRecord::Base
   belongs_to :race
   has_many :relay_teams, :order => 'number'
-  has_many :relay_correct_estimates
+  has_many :relay_correct_estimates, :order => 'leg'
   has_many :relay_competitors, :through => :relay_teams
 
   validates :name, :presence => true
@@ -13,6 +13,7 @@ class Relay < ActiveRecord::Base
   attr_readonly :legs_count
 
   accepts_nested_attributes_for :relay_teams
+  accepts_nested_attributes_for :relay_correct_estimates
 
   private
   def start_day_not_bigger_than_race_days_count

@@ -33,6 +33,7 @@ Feature: Manager relays
     And I should see "3"
     And the "relay_start_time_4i" field should contain "11"
     And the "relay_start_time_5i" field should contain "45"
+    And I should see "Oikeat arviot" within "h2"
     And I should see "Joukkueet" within "h2"
     When I follow "Takaisin viestien etusivulle"
     Then I should be on the official relays page of "Relay race"
