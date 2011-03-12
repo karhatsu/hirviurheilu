@@ -76,3 +76,7 @@ Feature: Relay results
     And I should see "3." within "tr#team_3"
     And I should see "Green team" within "tr#team_3"
     And I should see "44:54" within "tr#team_3"
+    When I follow "Women's relay"
+    Then I should be on the relay results page of "Women's relay"
+    When I follow "Takaisin kilpailun etusivulle"
+    Then I should be on the race page of "Relay race"

@@ -1,4 +1,9 @@
 <h2><%= @relay.name %> - Tulokset</h2>
+<% content_for :series_sub_menu do %>
+  <%= render :layout => 'shared/relays_sub_menu',
+    :locals => { :race => @relay.race,
+    :relay_id => @relay.id } do |relay| %><%= race_relay_path(relay.race, relay) %><% end %>
+<% end %>
 <div class="section">
   <table>
     <tr>
@@ -17,3 +22,5 @@
     <% end %>
   </table>
 </div>
+<hr/>
+<%= link_to 'Takaisin kilpailun etusivulle', race_path(@relay.race) %>
