@@ -48,4 +48,20 @@ describe Relay do
       end
     end
   end
+
+  describe "teams" do
+    before do
+      @relay = Factory.create(:relay)
+      @relay.relay_teams << Factory.build(:relay_team, :relay => @relay, :number => 3)
+      @relay.relay_teams << Factory.build(:relay_team, :relay => @relay, :number => 1)
+      @relay.relay_teams << Factory.build(:relay_team, :relay => @relay, :number => 2)
+      @relay.reload
+    end
+
+    it "should be ordered by number" do
+      @relay.relay_teams[0].number.should == 1
+      @relay.relay_teams[1].number.should == 2
+      @relay.relay_teams[2].number.should == 3
+    end
+  end
 end

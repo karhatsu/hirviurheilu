@@ -1,6 +1,6 @@
 class Relay < ActiveRecord::Base
   belongs_to :race
-  has_many :relay_teams
+  has_many :relay_teams, :order => 'number'
   has_many :relay_correct_estimates
 
   validates :name, :presence => true
