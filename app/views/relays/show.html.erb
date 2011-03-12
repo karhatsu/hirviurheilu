@@ -4,23 +4,28 @@
     :locals => { :race => @relay.race,
     :relay_id => @relay.id } do |relay| %><%= race_relay_path(relay.race, relay) %><% end %>
 <% end %>
-<div class="section">
-  <table>
-    <tr>
-      <th>&nbsp;</th>
-      <th>Joukkue</th>
-      <th>Nro</th>
-      <th>Aika</th>
-    </tr>
-    <% @relay.results.each_with_index do |team, i| %>
-      <tr id="team_<%= i + 1 %>">
-        <td><%= i + 1 %>.</td>
-        <td><%= team.name %></td>
-        <td><%= team.number %></td>
-        <td><%= time_from_seconds(team.time_in_seconds) %></td>
+<% results = @relay.results %>
+<% if results.empty? %>
+  <div class="info">Viestiin ei ole vielä merkitty joukkueita</div>
+<% else %>
+  <div class="section">
+    <table>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Joukkue</th>
+        <th>Nro</th>
+        <th>Aika</th>
       </tr>
-    <% end %>
-  </table>
-</div>
+      <% results.each_with_index do |team, i| %>
+        <tr id="team_<%= i + 1 %>">
+          <td><%= i + 1 %>.</td>
+          <td><%= team.name %></td>
+          <td><%= team.number %></td>
+          <td><%= time_from_seconds(team.time_in_seconds) %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>
 <hr/>
 <%= link_to 'Takaisin kilpailun etusivulle', race_path(@relay.race) %>

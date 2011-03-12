@@ -8,6 +8,12 @@ Feature: Relay results
     And I am on the race page of "Relay race"
     Then I should not see "Viestit"
 
+  Scenario: No teams for a relay
+    Given there is a race "Relay race"
+    And the race has a relay "Women's relay"
+    When I go to the relay results page of "Women's relay"
+    Then I should see "Viestiin ei ole vielä merkitty joukkueita" within "div.info"
+
   Scenario: Relay results
     Given there is a race "Relay race"
     And the race has a relay "Women's relay"
