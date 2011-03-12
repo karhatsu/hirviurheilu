@@ -18,6 +18,8 @@ Feature: Manager relays
     And the "Viestit" sub menu item should be selected
     And I should see "Uusi viesti" within "h2"
     And the "Osuuksien määrä" field should contain "4"
+    When I press "Tallenna"
+    Then I should see "Viestin nimi on pakollinen" within "div.error"
     When I fill in "Test relay" for "Viestin nimi"
     And I fill in "3" for "Osuuksien määrä"
     And I select "11" from "relay_start_time_4i"
