@@ -1,2 +1,5 @@
 <% content_for :title, "#{@relay.race.name} - Viestijoukkueet" %>
 <h2>Viestijoukkueet</h2>
+
+<hr/>
+<%= link_to 'Takaisin viestien etusivulle', official_race_relays_path(@relay.race) %>
