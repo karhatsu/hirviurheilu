@@ -20,6 +20,20 @@ class Official::RelaysController < Official::OfficialController
     end
   end
 
+  def edit
+    @relay = Relay.find(params[:id])
+  end
+
+  def update
+    @relay = Relay.find(params[:id])
+    if @relay.update_attributes(params[:relay])
+      flash[:success] = 'Viestin tiedot päivitetty'
+      redirect_to official_race_relays_path(@race)
+    else
+      render :edit
+    end
+  end
+
   private
   def set_relays
     @is_relays = true
