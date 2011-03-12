@@ -12,4 +12,10 @@
   <% instructions << '.' %>
   <%= render :partial => 'result_place', :locals => { :name => 'estimate',
     :instructions => instructions, :path => relay_relay_estimate_quick_save_path(@relay) } %>
+  <h3>Ohilaukaukset</h3>
+  <% instructions = 'Syötä tulos muodossa joukkue,osuus,ohilaukaukset, ' +
+      'esim. 11,3,2 (joukkue 11, osuus 3, 2 ohilaukausta)' %>
+  <% instructions << '.' %>
+  <%= render :partial => 'result_place', :locals => { :name => 'misses',
+    :instructions => instructions, :path => relay_relay_misses_quick_save_path(@relay) } %>
 <% end %>

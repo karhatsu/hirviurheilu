@@ -11,6 +11,13 @@ class Official::RelayQuickSavesController < Official::OfficialController
     end
   end
 
+  def misses
+    @name = 'misses'
+    do_quick_save(RelayMissesQuickSave.new(@relay.id, params[:string])) do
+      @result = "ohilaukaukset: #{@competitor.misses}"
+    end
+  end
+
   private
   def do_quick_save(quick_save, &block)
     if quick_save.save

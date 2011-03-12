@@ -81,6 +81,8 @@ ElkSports::Application.routes.draw do
       resources :relay_teams
       post 'relay_estimate_quick_save' => 'relay_quick_saves#estimate',
         :as => :relay_estimate_quick_save
+      post 'relay_misses_quick_save' => 'relay_quick_saves#misses',
+        :as => :relay_misses_quick_save
       resources :relay_quick_saves
     end
     

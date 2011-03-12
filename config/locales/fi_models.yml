@@ -36,6 +36,7 @@ fi:
     max_number: Suurin numero
     min_competitors: Kilpailijoita vähintään
     min_number: Pienin numero
+    misses: Ohilaukaukset
     name: Nimi
     no_time_points: Ei aikapisteitä
     number: Numero
