@@ -1,3 +1,4 @@
+<% content_for :title, "#{@race.name} - Viestit - #{@relay.name} - Tulokset" %>
 <h2><%= @relay.name %> - Tulokset</h2>
 <% content_for :series_sub_menu do %>
   <%= render :layout => 'shared/relays_sub_menu',
