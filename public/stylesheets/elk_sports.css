@@ -56,7 +56,7 @@ div.sub_sub_element h3 {
 div.action_box {
     border: dashed 1px gray;
     padding: 5px;
-    margin-bottom: 5px;
+    margin: 5px 0;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 }
