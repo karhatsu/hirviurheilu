@@ -261,4 +261,20 @@ describe Relay do
       @relay.should_not be_finished
     end
   end
+
+  describe "#finish!" do
+    before do
+      @relay = Factory.build(:relay)
+    end
+
+    it "should return true when finishing the relay succeeds" do
+      @relay.should_receive(:finish).and_return(true)
+      @relay.finish!.should be_true
+    end
+
+    it "should raise exception if finishing the relay fails" do
+      @relay.should_receive(:finish).and_return(false)
+      lambda { @relay.finish! }.should raise_error
+    end
+  end
 end

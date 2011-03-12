@@ -65,6 +65,10 @@ class Relay < ActiveRecord::Base
     true
   end
 
+  def finish!
+    finish || raise(errors.full_messages.to_s)
+  end
+
   private
   def start_day_not_bigger_than_race_days_count
     if race and start_day > race.days_count
