@@ -21,7 +21,11 @@ class Relay < ActiveRecord::Base
   end
 
   def results
-    competitors = relay_competitors.where(:leg => legs_count).order('arrival_time')
+    leg_results(legs_count)
+  end
+
+  def leg_results(leg)
+    competitors = relay_competitors.where(:leg => leg).order('arrival_time')
     competitors.collect do |competitor| competitor.relay_team end
   end
 
