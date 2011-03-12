@@ -84,4 +84,26 @@ describe Relay do
       @relay.relay_correct_estimates[2].leg.should == 3
     end
   end
+
+  describe "#correct_estimate" do
+    before do
+      @relay = Factory.create(:relay)
+    end
+
+    it "should return nil if no correct estimates at all" do
+      @relay.correct_estimate(1).should be_nil
+    end
+
+    it "should return nil if no correct estimate for this leg" do
+      @relay.relay_correct_estimates << Factory.build(:relay_correct_estimate,
+        :relay => @relay, :leg => 1)
+      @relay.correct_estimate(2).should be_nil
+    end
+
+    it "should return the distance of correct estimate for the given leg" do
+      @relay.relay_correct_estimates << Factory.build(:relay_correct_estimate,
+        :relay => @relay, :leg => 2, :distance => 111)
+      @relay.correct_estimate(2).should == 111
+    end
+  end
 end

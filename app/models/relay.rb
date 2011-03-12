@@ -15,6 +15,11 @@ class Relay < ActiveRecord::Base
   accepts_nested_attributes_for :relay_teams
   accepts_nested_attributes_for :relay_correct_estimates
 
+  def correct_estimate(leg)
+    ce = relay_correct_estimates.where(:leg => leg).first
+    return ce.distance if ce
+  end
+
   private
   def start_day_not_bigger_than_race_days_count
     if race and start_day > race.days_count
