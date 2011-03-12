@@ -106,4 +106,40 @@ describe Relay do
       @relay.correct_estimate(2).should == 111
     end
   end
+
+  describe "#results" do
+    before do
+      @relay = Factory.create(:relay, :legs_count => 3, :start_time => '12:00')
+    end
+
+    it "should return empty array when no teams" do
+      @relay.results.should == []
+    end
+
+    it "should return the teams based on the shortest time of the last leg competitors" do
+      team2 = create_team(2)
+      team1 = create_team(1)
+      team3 = create_team(3)
+      create_competitor team1, 1, '12:13:16'
+      create_competitor team2, 1, '12:13:15'
+      create_competitor team3, 1, '12:13:14'
+      create_competitor team1, 2, '12:24:15'
+      create_competitor team2, 2, '12:24:14'
+      create_competitor team3, 2, '12:24:16'
+      create_competitor team1, 3, '12:35:14'
+      create_competitor team2, 3, '12:35:15'
+      create_competitor team3, 3, '12:35:16'
+      @relay.results.should == [team1, team2, team3]
+    end
+
+    def create_team(number)
+      Factory.create(:relay_team, :relay => @relay, :name => "Team #{number}",
+        :number => number)
+    end
+
+    def create_competitor(team, leg, arrival_time)
+      Factory.create(:relay_competitor, :relay_team => team, :leg => leg,
+        :arrival_time => arrival_time)
+    end
+  end
 end

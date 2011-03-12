@@ -20,6 +20,11 @@ class Relay < ActiveRecord::Base
     return ce.distance if ce
   end
 
+  def results
+    competitors = relay_competitors.where(:leg => legs_count).order('arrival_time')
+    competitors.collect do |competitor| competitor.relay_team end
+  end
+
   private
   def start_day_not_bigger_than_race_days_count
     if race and start_day > race.days_count
