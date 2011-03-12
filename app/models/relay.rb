@@ -11,6 +11,8 @@ class Relay < ActiveRecord::Base
 
   attr_readonly :legs_count
 
+  accepts_nested_attributes_for :relay_teams
+
   private
   def start_day_not_bigger_than_race_days_count
     if race and start_day > race.days_count

@@ -104,6 +104,8 @@ fi:
           name: Sarjan nimi
       relay:
         name: Viestin nimi
+      relay_team:
+        name: Joukkueen nimi
       series:
         age_groups:
           name: Ikäryhmän nimi
