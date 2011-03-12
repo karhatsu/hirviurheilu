@@ -36,6 +36,11 @@ class RelayCompetitor < ActiveRecord::Base
     penalties
   end
 
+  def time_in_seconds
+    return nil if start_time.nil? or arrival_time.nil?
+    arrival_time - start_time
+  end
+
   private
   def leg_not_bigger_than_relay_legs_count
     if relay_team and leg > relay_team.relay.legs_count

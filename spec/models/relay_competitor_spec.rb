@@ -193,7 +193,7 @@ describe RelayCompetitor do
     end
   end
 
-  describe "#estimate_penalties", :focus => true do
+  describe "#estimate_penalties" do
     before do
       @relay = Factory.create(:relay)
       team = Factory.create(:relay_team, :relay => @relay)
@@ -282,6 +282,22 @@ describe RelayCompetitor do
         @comp.estimate = 69
         @comp.estimate_penalties.should == 5
       end
+    end
+  end
+
+  describe "#time_in_seconds" do
+    it "should be nil when start time not known yet" do
+      Factory.build(:relay_competitor, :start_time => nil).time_in_seconds.should be_nil
+    end
+
+    it "should be nil when arrival time is not known yet" do
+      Factory.build(:relay_competitor, :start_time => '14:00', :arrival_time => nil).
+        time_in_seconds.should be_nil
+    end
+
+    it "should be difference of arrival and start times" do
+      Factory.build(:relay_competitor, :start_time => '13:58:02', :arrival_time => '15:02:04').
+        time_in_seconds.should == 64 * 60 + 2
     end
   end
 end
