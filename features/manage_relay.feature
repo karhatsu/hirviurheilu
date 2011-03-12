@@ -64,4 +64,6 @@ Feature: Manager relays
     And the "Viestit" sub menu item should be selected
     And I should be on the official relay teams page of "Relay race"
     And I should see "Viestijoukkueet" within "h2"
-    # TODO: requires selenium after this
+    # TODO: requires selenium really creating the teams
+    When I press "Tallenna"
+    Then I should be on the official relays page of "Relay race"

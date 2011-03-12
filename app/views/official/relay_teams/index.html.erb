@@ -1,5 +1,8 @@
 <% content_for :title, "#{@relay.race.name} - Viestijoukkueet" %>
 <h2>Viestijoukkueet</h2>
-
+<%= form_for([:official, @relay.race, @relay]) do |f| %>
+  <%= hidden_field_tag :no_times, true %>
+  <%= submit_tag 'Tallenna' %>
+<% end %>
 <hr/>
 <%= link_to 'Takaisin viestien etusivulle', official_race_relays_path(@relay.race) %>

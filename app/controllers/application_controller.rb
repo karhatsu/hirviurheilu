@@ -137,6 +137,7 @@ class ApplicationController < ActionController::Base
   # When the time fields are cleared, we must do the opposite: we must reset
   # the date fields since otherwise the time after update would be 0:00:00.
   def handle_time_parameter(object, time_name)
+    return if params[:no_times]
     if time_cleared?(object, time_name)
       reset_date_parameters(object, time_name)
     else
