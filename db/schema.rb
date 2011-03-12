@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110305221518) do
+ActiveRecord::Schema.define(:version => 20110312135332) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -120,6 +120,53 @@ ActiveRecord::Schema.define(:version => 20110305221518) do
   end
 
   add_index "races", ["sport_id"], :name => "index_races_on_sport_id"
+
+  create_table "relay_competitors", :force => true do |t|
+    t.integer  "relay_team_id", :null => false
+    t.string   "first_name",    :null => false
+    t.string   "last_name",     :null => false
+    t.integer  "leg",           :null => false
+    t.time     "start_time"
+    t.time     "arrival_time"
+    t.integer  "misses"
+    t.integer  "estimate"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "relay_competitors", ["relay_team_id"], :name => "index_relay_competitors_on_relay_team_id"
+
+  create_table "relay_correct_estimates", :force => true do |t|
+    t.integer  "relay_id",   :null => false
+    t.integer  "distance"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "leg",        :null => false
+  end
+
+  add_index "relay_correct_estimates", ["relay_id"], :name => "index_relay_correct_estimates_on_relay_id"
+
+  create_table "relay_teams", :force => true do |t|
+    t.integer  "relay_id",   :null => false
+    t.string   "name",       :null => false
+    t.integer  "number",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "relay_teams", ["relay_id"], :name => "index_relay_teams_on_relay_id"
+
+  create_table "relays", :force => true do |t|
+    t.integer  "race_id",    :null => false
+    t.integer  "start_day",  :null => false
+    t.time     "start_time"
+    t.string   "name",       :null => false
+    t.integer  "legs_count", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "relays", ["race_id"], :name => "index_relays_on_race_id"
 
   create_table "rights", :id => false, :force => true do |t|
     t.integer  "user_id",    :null => false

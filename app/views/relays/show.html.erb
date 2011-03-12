@@ -1,0 +1,56 @@
+<% content_for :title, "#{@race.name} - Viestit - #{@relay.name} - Tulokset" %>
+<h2><%= @relay.name %> - Tulokset</h2>
+<% content_for :sub_sub_menu do %>
+  <%= render :layout => 'shared/relays_sub_menu',
+    :locals => { :race => @relay.race,
+    :relay_id => @relay.id } do |relay| %><%= race_relay_path(relay.race, relay) %><% end %>
+<% end %>
+<% results = @relay.results %>
+<% if results.empty? %>
+  <div class="info">Viestiin ei ole vielä merkitty joukkueita</div>
+<% else %>
+  <div class="section">
+    <table>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Nimi</th>
+        <th>Nro</th>
+        <th>Aika</th>
+        <th>Ammuntasakot</th>
+        <th>Arviosakot</th>
+      </tr>
+      <% results.each_with_index do |team, i| %>
+        <tr id="team_<%= i + 1 %>">
+          <td><b><%= i + 1 %>.</b></td>
+          <td class="team_name"><a href="javascript:void(0)" class="team_name_link"
+                                   id="<%= team.id %>"><%= team.name %></a></td>
+          <td class="center"><b><%= team.number %></b></td>
+          <td class="center team_points"><%= time_from_seconds(team.time_in_seconds) %></td>
+          <td colspan="2">&nbsp;</td>
+        </tr>
+        <% team.relay_competitors.each do |comp| %>
+          <tr class="team_<%= team.id %>" style="display: none;">
+            <td>&nbsp;</td>
+            <td><%= full_name(comp) %></td>
+            <td class="center">(<%= comp.leg %>)</td>
+            <td><%= time_from_seconds(comp.time_in_seconds) %></td>
+            <td class="center"><%= comp.misses %></td>
+            <td class="center"><%= comp.estimate_penalties %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  </div>
+<% end %>
+<hr/>
+<%= link_to 'Takaisin kilpailun etusivulle', race_path(@relay.race) %>
+<%= javascript_tag do %>
+  $('.team_name_link').click(function() {
+    competitors = '.team_' + $(this).attr('id');
+    if($(competitors).is(':hidden')) {
+      $(competitors).show();
+    } else {
+      $(competitors).hide();
+    }
+  });
+<% end %>

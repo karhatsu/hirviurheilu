@@ -1,16 +1,16 @@
 <%= content_for(:title, @race.name) %>
-<% if @race.home_page %>
+<% unless @race.home_page.blank? %>
   <h2>Lisätietoa kilpailusta</h2>
   <div class="section">
     <a href="<%= link_with_protocol(@race.home_page) %>" target="_blank">Kilpailun
       kotisivut</a>
   </div>
 <% end %>
-<h2>Sarjat</h2>
-<% if @race.series.empty? %>
-  Kilpailuun ei ole vielä lisätty sarjoja
-<% else %>
-  <div class="section">
+<h2>Yksilökilpailut</h2>
+<div class="section">
+  <% if @race.series.empty? %>
+    Kilpailuun ei ole vielä lisätty sarjoja
+  <% else %>
     <table>
       <tr>
         <th>Nimi</th>
@@ -46,38 +46,54 @@
         </tr>
       <% end %>
     </table>
-  </div>
-  <% if @race.start_date <= Date.today %>
-    <% if @race.has_team_competition? %>
-      <h2>Joukkuekilpailu</h2>
-      <div class="section">
-        <%= link_to "Joukkuekilpailun tulokset", race_team_results_path(@race) %>
+    <% if @race.start_date <= Date.today %>
+      <div class="action_box">
+        <%= link_to "Kaikkien sarjojen tulokset (PDF)", race_path(@race, :format => :pdf) %>
       </div>
     <% end %>
-    <h2>Kaikkien sarjojen tulokset</h2>
-    <div class="section">
-      <%= link_to "Lataa PDF-tiedosto", race_path(@race, :format => :pdf) %>
-    </div>
-  <% end %>
-  <% if @race.finished? %>
-    <h2>Oikeat arviot</h2>
-    <div class="section">
+    <% if @race.finished? %>
+      <h3>Oikeat arviot</h3>
+      <table>
+        <tr>
+          <th>Kilpailunumerot</th>
+          <th>Oikea arvio 1</th>
+          <th>Oikea arvio 2</th>
+        </tr>
+        <% @race.correct_estimates.each do |ce| %>
+          <tr>
+            <td class="center"><%= ce.min_number %>-<%= ce.max_number ? ce.max_number : '' %></td>
+            <td class="center"><%= ce.distance1 %></td>
+            <td class="center"><%= ce.distance2 %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </div>
+<% end %>
+<% if @race.has_team_competition? and @race.start_date <= Date.today and !@race.series.empty? %>
+  <h2>Joukkuekilpailu</h2>
+  <div class="section">
+    <%= link_to "Joukkuekilpailun tulokset", race_team_results_path(@race) %>
+  </div>
+<% end %>
+<% unless @race.relays.empty? %>
+  <h2>Viestit</h2>
+  <div class="section">
     <table>
       <tr>
-        <th>Kilpailunumerot</th>
-        <th>Oikea arvio 1</th>
-        <th>Oikea arvio 2</th>
+        <th>Viesti</th>
+        <th>Lähtöaika</th>
+        <th>Joukkueita</th>
       </tr>
-      <% @race.correct_estimates.each do |ce| %>
+      <% @race.relays.each do |relay| %>
         <tr>
-          <td class="center"><%= ce.min_number %>-<%= ce.max_number ? ce.max_number : '' %></td>
-          <td class="center"><%= ce.distance1 %></td>
-          <td class="center"><%= ce.distance2 %></td>
+          <td><%= link_to relay.name, race_relay_path(@race, relay) %></td>
+          <td><%= series_datetime_print relay, true if relay.start_time %></td>
+          <td class="center"><%= relay.relay_teams.count %></td>
         </tr>
       <% end %>
     </table>
-      </div>
-  <% end %>
+  </div>
 <% end %>
 <% if false and @race.start_date > Date.today %>
   <div class="info">

@@ -1,0 +1,27 @@
+<% content_for :title, "Viesti - #{@relay.name} - Tulosten pikasyöttö" %>
+<h2>Viestin tulosten pikasyöttö</h2>
+<div class="info">Tällä sivulla voit tallentaa viestin tuloksia
+  ns. pikasyöttöä käyttäen. Syöttämiseen tarvitset joukkueen numeron
+  sekä kilpailijan osuuden numeron.</div>
+<% if @relay.relay_competitors.empty? %>
+  <div class="warning">Kilpailuun ei ole lisätty yhtään kilpailijaa</div>
+<% else %>
+  <h3>Arviointi</h3>
+  <% instructions = 'Syötä tulos muodossa joukkue,osuus,arvio, ' +
+      'esim. 11,3,118 (joukkue 11, osuus 3, arvio 118 metriä)' %>
+  <% instructions << '.' %>
+  <%= render :partial => 'result_place', :locals => { :name => 'estimate',
+    :instructions => instructions, :path => relay_relay_estimate_quick_save_path(@relay) } %>
+  <h3>Ohilaukaukset</h3>
+  <% instructions = 'Syötä tulos muodossa joukkue,osuus,ohilaukaukset, ' +
+      'esim. 11,3,2 (joukkue 11, osuus 3, 2 ohilaukausta)' %>
+  <% instructions << '.' %>
+  <%= render :partial => 'result_place', :locals => { :name => 'misses',
+    :instructions => instructions, :path => relay_relay_misses_quick_save_path(@relay) } %>
+  <h3>Saapumisaika</h3>
+  <% instructions = 'Syötä tulos muodossa joukkue,osuus,hhmmss, ' +
+      'esim. 11,3,102438 (joukkue 11, osuus 3, saapumisaika 10:24:38)' %>
+  <% instructions << '.' %>
+  <%= render :partial => 'result_place', :locals => { :name => 'time',
+    :instructions => instructions, :path => relay_relay_time_quick_save_path(@relay) } %>
+<% end %>

@@ -98,6 +98,23 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def assign_relay_by_id
+    assign_relay params[:id]
+  end
+
+  def assign_relay_by_relay_id
+    assign_relay params[:relay_id]
+  end
+
+  def assign_relay(id)
+    begin
+      @relay = Relay.find(id)
+    rescue ActiveRecord::RecordNotFound
+      @id = id
+      render 'errors/relay_not_found'
+    end
+  end
+
   def set_competitions
     @is_competitions = true
   end
@@ -120,6 +137,7 @@ class ApplicationController < ActionController::Base
   # When the time fields are cleared, we must do the opposite: we must reset
   # the date fields since otherwise the time after update would be 0:00:00.
   def handle_time_parameter(object, time_name)
+    return if params[:no_times]
     if time_cleared?(object, time_name)
       reset_date_parameters(object, time_name)
     else

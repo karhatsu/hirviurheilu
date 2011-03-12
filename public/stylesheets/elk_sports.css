@@ -37,8 +37,7 @@ div.sub_form {
     margin-bottom: 5px;
 }
 
-div.age_groups {
-    width: 80%;
+div.sub_sub_element {
     margin-top: 2px;
     background-color: white;
     padding: 3px;
@@ -46,17 +45,29 @@ div.age_groups {
     -webkit-border-radius: 5px;
 }
 
-div.age_groups h3 {
+div.sub_sub_element h3 {
     margin-top: 2px;
     margin-bottom: 2px;
     font-weight: normal;
     font-size: 12px;
 }
 
+div.age_groups_element {
+    width: 80%;
+}
+
+div.relay_competitors_element {
+    font-size: 80%;
+}
+
+div.relay_competitors_element input {
+    height: 13px;
+}
+
 div.action_box {
     border: dashed 1px gray;
     padding: 5px;
-    margin-bottom: 5px;
+    margin: 5px 0;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 }

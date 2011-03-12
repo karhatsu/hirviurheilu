@@ -19,6 +19,7 @@ fi:
     races: Kilpailut
     email: Sähköposti
     end_date: Loppupvm
+    estimate: Arvio
     estimate1: Arvio 1
     estimate2: Arvio 2
     estimate3: Arvio 3
@@ -30,10 +31,12 @@ fi:
     last_login_at: Viim. kirj.
     last_login_ip: Viim. IP
     last_request_at: Viim. käyt.
+    legs_count: Osuuksien määrä
     location: Paikkakunta
     max_number: Suurin numero
     min_competitors: Kilpailijoita vähintään
     min_number: Pienin numero
+    misses: Ohilaukaukset
     name: Nimi
     no_time_points: Ei aikapisteitä
     number: Numero
@@ -101,6 +104,19 @@ fi:
           age_groups:
             name: Ikäryhmän nimi
           name: Sarjan nimi
+      relay:
+        name: Viestin nimi
+        relay_teams:
+          name: Joukkueen nimi
+          number: Joukkueen numero
+          relay_competitors:
+            estimate: Arvio
+            first_name: Kilpailijan etunimi
+            last_name: Kilpailijan sukunimi
+            misses: Ohilaukaukset
+      relay_team:
+        name: Joukkueen nimi
+        relay_competitors: Kilpailijat
       series:
         age_groups:
           name: Ikäryhmän nimi

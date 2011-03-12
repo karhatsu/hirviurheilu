@@ -1,0 +1,15 @@
+<div class="sub_element sub_form">
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :number %>
+  <%= f.text_field :number, :size => 3 %>
+  <%= remove_child_link "Poista", f, 'sub_form', "" %>
+  <div class="sub_sub_element relay_competitors_element">
+    <%= f.fields_for :relay_competitors do |competitor_form| %>
+      <%= render :partial => 'relay_competitor', :locals => { :f => competitor_form } %>
+    <% end %>
+    <% (@relay.legs_count - f.object.relay_competitors.length).times do |i| %>
+      <%= new_child_fields(f, :relay_competitors, i) %>
+    <% end %>
+  </div>
+</div>

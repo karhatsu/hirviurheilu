@@ -1,0 +1,5 @@
+<% content_for :title, "#{@race.name} - #{@relay.name} - Muokkaa" %>
+<h2>Muokkaa viestin tietoja</h2>
+<%= render :partial => 'form' %>
+<hr/>
+<%= link_to 'Takaisin viestien etusivulle', official_race_relays_path(@race) %>

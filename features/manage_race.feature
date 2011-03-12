@@ -56,4 +56,4 @@ Feature: Manage race
     And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta linkistä." within "div.info"
     When I follow "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja"
     Then I should be on the race edit page of "Test race"
-    And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta linkistä." within "div.info"
+    And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta napista." within "div.info"

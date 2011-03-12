@@ -22,7 +22,7 @@
   <div class="middle_section<%= menu_race ? '' :
          ' middle_section_no_menus' %><%= @is_admin ? ' middle_section_admin' : '' %>">
     <div class="main_content"><%= yield %></div>
-    <%= yield :series_sub_menu %>
+    <%= yield :sub_sub_menu %>
   </div>
   <div class="footer">
     <%= render :partial => 'shared/footer' %>

@@ -15,6 +15,9 @@ race = menu_race
             <%= menu_item "Joukkuekilpailu", race_team_results_path(race), @is_team_results %>
           <% end %>
         <% end %>
+        <% unless race.relays.empty? %>
+          <%= menu_item "Viestit", race_relay_path(race, race.relays.first), @is_relays %>
+        <% end %>
       </ul>
     </div>
   </div>
