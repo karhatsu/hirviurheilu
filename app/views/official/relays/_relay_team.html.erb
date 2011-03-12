@@ -4,7 +4,7 @@
   <%= f.label :number %>
   <%= f.text_field :number, :size => 3 %>
   <%= remove_child_link "Poista", f, 'sub_form', "" %>
-  <div class="sub_sub_element">
+  <div class="sub_sub_element relay_competitors_element">
     <%= f.fields_for :relay_competitors do |competitor_form| %>
       <%= render :partial => 'relay_competitor', :locals => { :f => competitor_form } %>
     <% end %>

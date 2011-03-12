@@ -6,7 +6,9 @@
 <%= f.label :last_name %>
 <%= f.text_field :last_name, :size => 13 %>
 <%= f.label :misses %>
-<%= f.text_field :misses, :size => 2 %>
+<%= f.text_field :misses, :size => 1 %>
 <%= f.label :estimate %>
 <%= f.text_field :estimate, :size => 2 %>m
+<%= f.label :arrival_time %>
+<%= f.time_text_field :arrival_time, :include_seconds => true, :blank => true %>
 <br/>
