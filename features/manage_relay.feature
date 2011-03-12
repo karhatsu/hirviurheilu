@@ -17,6 +17,7 @@ Feature: Manager relays
     Then the "Toimitsijan sivut" main menu item should be selected
     And the "Viestit" sub menu item should be selected
     And I should see "Uusi viesti" within "h2"
+    And I should see "Huom! Osuuksien määrää ei voi muuttaa sen jälkeen, kun viesti on luotu." within "div.warning"
     And the "Osuuksien määrä" field should contain "4"
     When I press "Tallenna"
     Then I should see "Viestin nimi on pakollinen" within "div.error"
@@ -38,7 +39,8 @@ Feature: Manager relays
     And I have logged in
     And I am on the official relays page of "Relay race"
     When I follow "Muokkaa"
-    And I fill in "" for "Viestin nimi"
+    Then I should not see "Huom! Osuuksien määrää"
+    When I fill in "" for "Viestin nimi"
     And I press "Tallenna"
     Then I should see "Viestin nimi on pakollinen" within "div.error"
     When I fill in "New name" for "Viestin nimi"
