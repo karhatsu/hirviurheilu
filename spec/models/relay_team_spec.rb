@@ -27,4 +27,23 @@ describe RelayTeam do
       end
     end
   end
+
+  describe "competitors" do
+    before do
+      @team = Factory.create(:relay_team)
+      @team.relay_competitors << Factory.build(:relay_competitor,
+        :relay_team => @team, :leg => 3)
+      @team.relay_competitors << Factory.build(:relay_competitor,
+        :relay_team => @team, :leg => 1)
+      @team.relay_competitors << Factory.build(:relay_competitor,
+        :relay_team => @team, :leg => 2)
+      @team.reload
+    end
+
+    it "should be ordered by leg number" do
+      @team.relay_competitors[0].leg.should == 1
+      @team.relay_competitors[1].leg.should == 2
+      @team.relay_competitors[2].leg.should == 3
+    end
+  end
 end
