@@ -5,6 +5,8 @@ class RelayCompetitor < ActiveRecord::Base
   validates :last_name, :presence => true
   validates :misses, :numericality => { :only_integer => true, :allow_nil => true,
     :greater_than_or_equal_to => 0, :less_than_or_equal_to => 5 }
+  validates :estimate, :numericality => { :only_integer => true, :allow_nil => true,
+    :greater_than => 0 }
   validates :leg, :numericality => { :only_integer => true, :greater_than => 0 },
     :uniqueness => { :scope => :relay_team_id }
   validate :leg_not_bigger_than_relay_legs_count
