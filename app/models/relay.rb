@@ -29,6 +29,42 @@ class Relay < ActiveRecord::Base
     competitors.collect do |competitor| competitor.relay_team end
   end
 
+  def finish
+    unless start_time
+      errors.add(:base, 'Viestiltä puuttuu aloitusaika')
+      return false
+    end
+    if relay_teams.empty?
+      errors.add(:base, 'Viestissä ei ole yhtään joukkuetta')
+      return false
+    end
+    if relay_correct_estimates.empty?
+      errors.add(:base, 'Viestistä puuttuu oikeat arviot')
+      return false
+    end
+    relay_competitors.each do |competitor|
+      if competitor.arrival_time.nil?
+        errors.add(:base, 'Osalta kilpailijoista puuttuu saapumisaika')
+        return false
+      elsif competitor.misses.nil?
+        errors.add(:base, 'Osalta kilpailijoista puuttuu ohilaukausten määrä')
+        return false
+      elsif competitor.estimate.nil?
+        errors.add(:base, 'Osalta kilpailijoista puuttuu arvio')
+        return false
+      end
+    end
+    relay_correct_estimates.each do |ce|
+      if ce.distance.nil?
+        errors.add(:base, 'Viestistä puuttuu oikeat arviot')
+        return false
+      end
+    end
+    self.finished = true
+    save!
+    true
+  end
+
   private
   def start_day_not_bigger_than_race_days_count
     if race and start_day > race.days_count
