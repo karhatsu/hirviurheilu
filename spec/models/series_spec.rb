@@ -430,7 +430,7 @@ describe Series do
     end
   end
 
-  describe "#generate_batch_start_times" do
+  describe "#generate_start_times" do
     before do
       @race = Factory.create(:race, :start_date => '2010-08-15',
         :start_interval_seconds => 30, :batch_interval_seconds => 180,
