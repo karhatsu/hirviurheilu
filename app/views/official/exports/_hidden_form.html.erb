@@ -71,6 +71,7 @@
   <%= relay_f.hidden_field :finished %>
   <%= relay_f.fields_for(:relay_correct_estimates) do |ce_f| %>
     <%= ce_f.hidden_field :id, :value => '' %>
+    <%= ce_f.hidden_field :leg %>
     <%= ce_f.hidden_field :distance %>
   <% end %>
   <%= relay_f.fields_for(:relay_teams) do |team_f| %>
