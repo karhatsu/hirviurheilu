@@ -131,30 +131,34 @@ describe Relay do
         @team2 = create_team(2)
         @team1 = create_team(1)
         @team3 = create_team(3)
+        @team4 = create_team(4)
         create_competitor @team1, 1, '12:13:16'
         create_competitor @team2, 1, '12:13:15'
         create_competitor @team3, 1, '12:13:14'
+        create_competitor @team4, 1, '12:13:13'
         create_competitor @team1, 2, '12:24:15'
         create_competitor @team2, 2, '12:24:14'
-        create_competitor @team3, 2, '12:24:16'
+        create_competitor @team3, 2, '12:24:17'
+        create_competitor @team4, 2, nil
         create_competitor @team1, 3, '12:35:14'
-        create_competitor @team2, 3, '12:35:15'
+        create_competitor @team2, 3, nil
         create_competitor @team3, 3, '12:35:16'
+        create_competitor @team4, 3, nil
       end
 
       describe "#results" do
         it "should return the teams based on the fastest arrival time of the " +
-            "competitors for the last leg" do
-          @relay.results.should == [@team1, @team2, @team3]
+            "competitors for the last leg and secondary by team number" do
+          @relay.results.should == [@team1, @team3, @team2, @team4]
         end
       end
 
       describe "#leg_results" do
         it "should return the teams based on the fastest arrival time of the " +
-            "competitors for the given leg" do
-          @relay.leg_results(1).should == [@team3, @team2, @team1]
-          @relay.leg_results(2).should == [@team2, @team1, @team3]
-          @relay.leg_results(3).should == [@team1, @team2, @team3]
+            "competitors for the given leg and secondary by team number" do
+          @relay.leg_results(1).should == [@team4, @team3, @team2, @team1]
+          @relay.leg_results(2).should == [@team2, @team1, @team3, @team4]
+          @relay.leg_results(3).should == [@team1, @team3, @team2, @team4]
         end
       end
 

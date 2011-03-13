@@ -25,8 +25,15 @@ class Relay < ActiveRecord::Base
   end
 
   def leg_results(leg)
-    competitors = relay_competitors.where(:leg => leg).order('arrival_time')
-    competitors.collect do |competitor| competitor.relay_team end
+    competitors = relay_competitors.where(:leg => leg).order('arrival_time, number')
+    nil_results = []
+    normal_results = []
+    competitors.each do |comp|
+      nil_results << comp unless comp.arrival_time
+      normal_results << comp if comp.arrival_time
+    end
+    teams = normal_results.collect do |competitor| competitor.relay_team end
+    teams + nil_results.collect do |competitor| competitor.relay_team end
   end
 
   def finish_errors
