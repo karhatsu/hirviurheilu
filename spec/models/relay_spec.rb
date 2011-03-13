@@ -179,6 +179,10 @@ describe Relay do
       @relay = Factory.create(:relay, :start_time => '12:00', :legs_count => 2)
       team1 = Factory.create(:relay_team, :relay => @relay, :number => 1)
       team2 = Factory.create(:relay_team, :relay => @relay, :number => 2)
+      team3 = Factory.create(:relay_team, :relay => @relay, :number => 3,
+        :no_result_reason => RelayTeam::DNS)
+      team4 = Factory.create(:relay_team, :relay => @relay, :number => 4,
+        :no_result_reason => RelayTeam::DNF)
       Factory.create(:relay_competitor, :relay_team => team1, :leg => 1,
         :estimate => 100, :misses => 1, :arrival_time => '12:15')
       Factory.create(:relay_competitor, :relay_team => team1, :leg => 2,
@@ -187,6 +191,12 @@ describe Relay do
         :estimate => 100, :misses => 1, :arrival_time => '12:15')
       Factory.create(:relay_competitor, :relay_team => team2, :leg => 2,
         :estimate => 100, :misses => 1, :arrival_time => '12:30')
+      Factory.create(:relay_competitor, :relay_team => team3, :leg => 1)
+      Factory.create(:relay_competitor, :relay_team => team3, :leg => 2)
+      Factory.create(:relay_competitor, :relay_team => team4, :leg => 1,
+        :estimate => 100, :arrival_time => '12:15')
+      Factory.create(:relay_competitor, :relay_team => team4, :leg => 2,
+        :estimate => 100, :misses => 1)
       Factory.create(:relay_correct_estimate, :relay => @relay, :distance => 90, :leg => 1)
       Factory.create(:relay_correct_estimate, :relay => @relay, :distance => 90, :leg => 2)
     end

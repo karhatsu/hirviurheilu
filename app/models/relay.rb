@@ -48,15 +48,17 @@ class Relay < ActiveRecord::Base
       errors << 'Viestistä puuttuu oikeat arviot'
     end
     relay_competitors.each do |competitor|
-      if competitor.arrival_time.nil?
-        errors << 'Osalta kilpailijoista puuttuu saapumisaika'
-        break
-      elsif competitor.misses.nil?
-        errors << 'Osalta kilpailijoista puuttuu ohilaukausten määrä'
-        break
-      elsif competitor.estimate.nil?
-        errors << 'Osalta kilpailijoista puuttuu arvio'
-        break
+      unless competitor.relay_team.no_result_reason
+        if competitor.arrival_time.nil?
+          errors << 'Osalta kilpailijoista puuttuu saapumisaika'
+          break
+        elsif competitor.misses.nil?
+          errors << 'Osalta kilpailijoista puuttuu ohilaukausten määrä'
+          break
+        elsif competitor.estimate.nil?
+          errors << 'Osalta kilpailijoista puuttuu arvio'
+          break
+        end
       end
     end
     relay_correct_estimates.each do |ce|
