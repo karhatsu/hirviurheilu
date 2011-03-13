@@ -1,0 +1,43 @@
+<% content_for :title, "#{@relay.race.name} - Viestit - #{@relay.name} - Tulokset" %>
+<h2><%= @relay.name %> - Osuus <%= @leg %></h2>
+<% content_for :sub_sub_menu do %>
+  <%= render :layout => 'shared/relays_sub_menu',
+    :locals => { :race => @relay.race,
+    :relay_id => @relay.id } do |relay| %><%= race_relay_path(relay.race, relay) %><% end %>
+<% end %>
+<% if @results.empty? %>
+  <div class="info">Viestiin ei ole vielä merkitty joukkueita</div>
+<% else %>
+  <%= render :partial => 'relays/correct_estimates' %>
+  <%= render :partial => 'relays/leg_links' %>
+  <div class="section">
+    <table>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Nimi</th>
+        <th>Nro</th>
+        <th>Aika</th>
+        <th>Ammuntasakot</th>
+        <th>Arviosakot</th>
+      </tr>
+      <% @results.each_with_index do |team, i| %>
+        <% competitor = team.relay_competitors.find_by_leg(@leg) %>
+        <tr id="team_<%= i + 1 %>">
+          <td><%= i + 1 %>.</td>
+          <td><%= team.name %></td>
+          <td class="center"><%= team.number %></td>
+          <td class="center team_points">
+            <%= time_from_seconds(team.time_in_seconds(@leg)) %>
+          </td>
+          <td class="center"><%= competitor.misses %></td>
+          <td class="center">
+            <%= competitor.estimate_penalties %>
+            <% if @relay.finished? %>(<%= competitor.estimate %>m)<% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+<% end %>
+<hr/>
+<%= link_to 'Takaisin kilpailun etusivulle', race_path(@relay.race) %>

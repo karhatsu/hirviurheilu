@@ -1,0 +1,13 @@
+<% unless @relay.finished? %>
+  <div class="info">
+    Kilpailu on kesken. Tarkemmat arviotiedot julkaistaan, kun kilpailu on päättynyt.
+  </div>
+<% else %>
+  <h3>Oikeat arviot</h3>
+  <div class="section">
+    <% @relay.relay_correct_estimates.each do |ce| %>
+      Osuus <%= ce.leg %>: <%= ce.distance %> m
+    <% end %>
+  </div>
+  <h3>Tulokset</h3>
+<% end %>
