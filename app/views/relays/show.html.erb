@@ -9,6 +9,19 @@
 <% if results.empty? %>
   <div class="info">Viestiin ei ole vielä merkitty joukkueita</div>
 <% else %>
+  <% unless @relay.finished? %>
+    <div class="info">
+      Kilpailu on kesken. Tarkemmat arviotiedot julkaistaan, kun kilpailu on päättynyt.
+    </div>
+  <% else %>
+    <h3>Oikeat arviot</h3>
+    <div class="section">
+      <% @relay.relay_correct_estimates.each do |ce| %>
+        Osuus <%= ce.leg %>: <%= ce.distance %> m
+      <% end %>
+    </div>
+    <h3>Tulokset</h3>
+  <% end %>
   <div class="section">
     <table>
       <tr>
@@ -35,7 +48,10 @@
             <td class="center">(<%= comp.leg %>)</td>
             <td><%= time_from_seconds(comp.time_in_seconds) %></td>
             <td class="center"><%= comp.misses %></td>
-            <td class="center"><%= comp.estimate_penalties %></td>
+            <td class="center">
+              <%= comp.estimate_penalties %>
+              <% if @relay.finished? %>(<%= comp.estimate %>m)<% end %>
+            </td>
           </tr>
         <% end %>
       <% end %>

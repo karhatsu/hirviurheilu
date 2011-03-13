@@ -31,3 +31,7 @@ Given /^the relay has the correct estimates:$/ do |table|
       :leg => hash[:leg], :distance => hash[:distance])
   end
 end
+
+Given /^the relay is finished$/ do
+  @relay.finish!
+end
