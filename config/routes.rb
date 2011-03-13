@@ -87,6 +87,7 @@ ElkSports::Application.routes.draw do
       post 'relay_time_quick_save' => 'relay_quick_saves#time',
         :as => :relay_time_quick_save
       resources :relay_quick_saves
+      resource :finish_relay
     end
     
     root :to => "index#show"

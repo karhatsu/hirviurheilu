@@ -61,3 +61,52 @@ Feature: Manager relays
     And I should see "Viestin tiedot päivitetty" within "div.success"
     And I should see "New name"
     And I should see "08:12"
+
+  Scenario: Finish relay
+    Given I am an official
+    And I have a race "Relay race"
+    And the race has a relay with attributes:
+      | name | Test relay |
+      | legs_count | 2 |
+      | start_time | 12:00 |
+    And I have logged in
+    And I am on the official relays page of "Relay race"
+    When I follow "Viestin päättäminen"
+    Then I should be on the finish relay page of "Test relay"
+    And the "Toimitsijan sivut" main menu item should be selected
+    And the "Viestit" sub menu item should be selected
+    And I should see "Viestin päättäminen" within "h2"
+    And I should see "Kun kaikki viestin tiedot on syötetty, voit alla olevan napin avulla merkitä viestin päättyneeksi. Ohjelma tarkastaa automaattisesti, ettei mitään tietoja puutu." within "div.info"
+    When I press "Merkitse viesti päättyneeksi"
+    Then I should see "Viestissä ei ole yhtään joukkuetta" within "div.error"
+    Given the relay has a team "Test team"
+    And the relay team has a competitor with attributes:
+      | first_name | Tim |
+      | last_name | Smith |
+      | leg | 1 |
+      | arrival_time | 12:15:10 |
+      | misses | 0 |
+      | estimate | 91 |
+    And the relay team has a competitor with attributes:
+      | first_name | John |
+      | last_name | Stevenson |
+      | leg | 2 |
+      | arrival_time | 12:31:12 |
+      | misses | 1 |
+    And the relay has the correct estimates:
+      | leg | distance |
+      | 1 | 105 |
+      | 2 | 88 |
+    When I press "Merkitse viesti päättyneeksi"
+    Then I should see "Osalta kilpailijoista puuttuu arvio" within "div.error"
+    Given the estimate for the relay competitor "John" "Stevenson" is 75
+    When I press "Merkitse viesti päättyneeksi"
+    Then I should be on the official relays page of "Relay race"
+    And I should see "Viesti 'Test relay' merkitty päättyneeksi" within "div.success"
+    And I should see "Viesti päättynyt" within "table"
+    But I should not see "Viestin päättäminen"
+    When I go to the finish relay page of "Test relay"
+    Then I should see "Tämä viesti on jo merkitty päättyneeksi" within "div.info"
+    But I should not see "Kun kaikki viestin tiedot on syötetty"
+    When I follow "Takaisin viestien etusivulle"
+    Then I should be on the official relays page of "Relay race"
