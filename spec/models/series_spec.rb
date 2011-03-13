@@ -431,15 +431,21 @@ describe Series do
   end
 
   describe "#generate_start_times" do
+    # test batch tail start time calculation
     before do
       @race = Factory.create(:race, :start_date => '2010-08-15',
         :start_interval_seconds => 30, :batch_interval_seconds => 180,
         :batch_size => 3)
       @series = Factory.create(:series, :race => @race,
-        :first_number => 9, :start_time => '2010-08-15 10:00:15')
-      @c1 = Factory.create(:competitor, :series => @series, :number => 9)
-      @c2 = Factory.create(:competitor, :series => @series, :number => 11)
-      @c3 = Factory.create(:competitor, :series => @series, :number => 13)
+        :first_number => 1, :start_time => '2010-08-15 10:00:15')
+      @c1 = Factory.create(:competitor, :series => @series, :number => 1)
+      @c2 = Factory.create(:competitor, :series => @series, :number => 2)
+      @c3 = Factory.create(:competitor, :series => @series, :number => 3)
+      @c4 = Factory.create(:competitor, :series => @series, :number => 4)
+      @c5 = Factory.create(:competitor, :series => @series, :number => 5)
+      @c6 = Factory.create(:competitor, :series => @series, :number => 6)
+      @c7 = Factory.create(:competitor, :series => @series, :number => 7)
+      @c8 = Factory.create(:competitor, :series => @series, :number => 8)
     end
 
     describe "generation succeeds" do
@@ -449,9 +455,19 @@ describe Series do
         @c1.reload
         @c2.reload
         @c3.reload
+        @c4.reload
+        @c5.reload
+        @c6.reload
+        @c7.reload
+        @c8.reload
         @c1.start_time.strftime('%H:%M:%S').should == '10:00:15'
-        @c2.start_time.strftime('%H:%M:%S').should == '10:01:15'
-        @c3.start_time.strftime('%H:%M:%S').should == '10:04:45'
+        @c2.start_time.strftime('%H:%M:%S').should == '10:00:45'
+        @c3.start_time.strftime('%H:%M:%S').should == '10:01:15'
+        @c4.start_time.strftime('%H:%M:%S').should == '10:04:15'
+        @c5.start_time.strftime('%H:%M:%S').should == '10:04:45'
+        @c6.start_time.strftime('%H:%M:%S').should == '10:05:15'
+        @c7.start_time.strftime('%H:%M:%S').should == '10:05:45'
+        @c8.start_time.strftime('%H:%M:%S').should == '10:06:15'
       end
     end
   end
