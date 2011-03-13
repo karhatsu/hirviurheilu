@@ -10,14 +10,14 @@
   <%= club_f.hidden_field :id, :value => '' %>
   <%= club_f.hidden_field :name %>
 <% end %>
-<%= f.fields_for(:correct_estimates) do |club_f| %>
-  <%= club_f.hidden_field :id, :value => '' %>
-  <%= club_f.hidden_field :min_number %>
-  <%= club_f.hidden_field :max_number %>
-  <%= club_f.hidden_field :distance1 %>
-  <%= club_f.hidden_field :distance2 %>
-  <%= club_f.hidden_field :distance3 %>
-  <%= club_f.hidden_field :distance4 %>
+<%= f.fields_for(:correct_estimates) do |ce_f| %>
+  <%= ce_f.hidden_field :id, :value => '' %>
+  <%= ce_f.hidden_field :min_number %>
+  <%= ce_f.hidden_field :max_number %>
+  <%= ce_f.hidden_field :distance1 %>
+  <%= ce_f.hidden_field :distance2 %>
+  <%= ce_f.hidden_field :distance3 %>
+  <%= ce_f.hidden_field :distance4 %>
 <% end %>
 <%= f.fields_for(:series) do |series_f| %>
   <%= series_f.hidden_field :id, :value => '' %>
@@ -59,6 +59,34 @@
     <%= competitor_f.fields_for(:shots) do |shot_f| %>
       <%= shot_f.hidden_field :id, :value => '' %>
       <%= shot_f.hidden_field :value %>
+    <% end %>
+  <% end %>
+<% end %>
+<%= f.fields_for(:relays) do |relay_f| %>
+  <%= relay_f.hidden_field :id, :value => '' %>
+  <%= relay_f.hidden_field :name %>
+  <%= relay_f.hidden_field :legs_count %>
+  <%= relay_f.hidden_field :start_time %>
+  <%= relay_f.hidden_field :start_day %>
+  <%= relay_f.hidden_field :finished %>
+  <%= relay_f.fields_for(:relay_correct_estimates) do |ce_f| %>
+    <%= ce_f.hidden_field :id, :value => '' %>
+    <%= ce_f.hidden_field :distance %>
+  <% end %>
+  <%= relay_f.fields_for(:relay_teams) do |team_f| %>
+    <%= team_f.hidden_field :id, :value => '' %>
+    <%= team_f.hidden_field :name %>
+    <%= team_f.hidden_field :number %>
+    <%= team_f.hidden_field :no_result_reason %>
+    <%= team_f.fields_for(:relay_competitors) do |comp_f| %>
+      <%= comp_f.hidden_field :id, :value => '' %>
+      <%= comp_f.hidden_field :first_name %>
+      <%= comp_f.hidden_field :last_name %>
+      <%= comp_f.hidden_field :leg %>
+      <%= comp_f.hidden_field :start_time %>
+      <%= comp_f.hidden_field :arrival_time %>
+      <%= comp_f.hidden_field :misses %>
+      <%= comp_f.hidden_field :estimate %>
     <% end %>
   <% end %>
 <% end %>

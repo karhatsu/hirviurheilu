@@ -12,6 +12,7 @@ class Race < ActiveRecord::Base
   accepts_nested_attributes_for :series, :allow_destroy => true
   accepts_nested_attributes_for :correct_estimates, :allow_destroy => true
   accepts_nested_attributes_for :clubs
+  accepts_nested_attributes_for :relays
 
   before_validation :set_end_date
 
