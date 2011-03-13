@@ -150,14 +150,6 @@ class Series < ActiveRecord::Base
       timediff = comp_num_diff * interval
       if batch_size > 0
         timediff += Integer(comp_num_diff / batch_size) * batch_interval
-        print competitors.last.number
-        print " "
-        print comp.number
-        print " "
-        print last_batch_size
-        print " "
-        print last_batch_start
-        print " "
         if comp.number >= last_batch_start && last_batch_size <= batch_size*2/3
           # partial batch less than 2/3 of batch size, attach to previous batch
           timediff -= batch_interval
