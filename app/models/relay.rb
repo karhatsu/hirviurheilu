@@ -29,40 +29,46 @@ class Relay < ActiveRecord::Base
     competitors.collect do |competitor| competitor.relay_team end
   end
 
-  def finish
+  def finish_errors
+    errors = []
     unless start_time
-      errors.add(:base, 'Viestiltä puuttuu aloitusaika')
-      return false
+      errors << 'Viestiltä puuttuu aloitusaika'
     end
     if relay_teams.empty?
-      errors.add(:base, 'Viestissä ei ole yhtään joukkuetta')
-      return false
+      errors << 'Viestissä ei ole yhtään joukkuetta'
     end
     if relay_correct_estimates.empty?
-      errors.add(:base, 'Viestistä puuttuu oikeat arviot')
-      return false
+      errors << 'Viestistä puuttuu oikeat arviot'
     end
     relay_competitors.each do |competitor|
       if competitor.arrival_time.nil?
-        errors.add(:base, 'Osalta kilpailijoista puuttuu saapumisaika')
-        return false
+        errors << 'Osalta kilpailijoista puuttuu saapumisaika'
+        break
       elsif competitor.misses.nil?
-        errors.add(:base, 'Osalta kilpailijoista puuttuu ohilaukausten määrä')
-        return false
+        errors << 'Osalta kilpailijoista puuttuu ohilaukausten määrä'
+        break
       elsif competitor.estimate.nil?
-        errors.add(:base, 'Osalta kilpailijoista puuttuu arvio')
-        return false
+        errors << 'Osalta kilpailijoista puuttuu arvio'
+        break
       end
     end
     relay_correct_estimates.each do |ce|
       if ce.distance.nil?
-        errors.add(:base, 'Viestistä puuttuu oikeat arviot')
-        return false
+        errors << 'Viestistä puuttuu oikeat arviot'
       end
+    end
+    return errors
+  end
+
+  def finish
+    fin_errors = finish_errors
+    unless fin_errors.empty?
+      fin_errors.each do |msg| errors.add(:base, msg) end
+      return false
     end
     self.finished = true
     save!
-    true
+    return true
   end
 
   def finish!

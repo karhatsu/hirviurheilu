@@ -170,7 +170,7 @@ describe Relay do
     end
   end
 
-  describe "#finish" do
+  describe "#finish_errors" do
     before do
       @relay = Factory.create(:relay, :start_time => '12:00', :legs_count => 2)
       team1 = Factory.create(:relay_team, :relay => @relay, :number => 1)
@@ -188,77 +188,99 @@ describe Relay do
     end
 
     context "when all the necessary data is there" do
-      it "should be possible to finish relay" do
+      it "should return an empty array" do
         @relay.reload
-        @relay.finish.should be_true
-        @relay.should have(0).errors
-        @relay.should be_finished
+        @relay.finish_errors.should be_empty
       end
     end
 
     context "when relay start time is missing" do
-      it "should not be possible to finish relay" do
+      it "should return an array with error" do
         @relay.start_time = nil
         @relay.save!
-        confirm_unsuccessfull_finish
+        confirm_cannot_finish
       end
     end
 
     context "when no teams" do
-      it "should not be possible to finish relay" do
+      it "should return an array with error" do
         @relay.stub!(:relay_teams).and_return([])
-        confirm_unsuccessfull_finish
+        confirm_cannot_finish
       end
     end
 
     context "when some competitor is missing arrival time" do
-      it "should not be possible to finish relay" do
+      it "should return an array with error" do
         competitor = @relay.relay_teams[1].relay_competitors[1]
         competitor.arrival_time = nil
         competitor.save!
-        confirm_unsuccessfull_finish
+        confirm_cannot_finish
       end
     end
 
     context "when some competitor is missing misses" do
-      it "should not be possible to finish relay" do
+      it "should return an array with error" do
         competitor = @relay.relay_teams[1].relay_competitors[1]
         competitor.misses = nil
         competitor.save!
-        confirm_unsuccessfull_finish
+        confirm_cannot_finish
       end
     end
 
     context "when some competitor is missing estimate" do
-      it "should not be possible to finish relay" do
+      it "should return an array with error" do
         competitor = @relay.relay_teams[1].relay_competitors[1]
         competitor.estimate = nil
         competitor.save!
-        confirm_unsuccessfull_finish
+        confirm_cannot_finish
       end
     end
 
     context "when no correct estimates at all" do
-      it "should not be possible to finish relay" do
+      it "should return an array with error" do
         @relay.stub!(:relay_correct_estimates).and_return([])
-        confirm_unsuccessfull_finish
+        confirm_cannot_finish
       end
     end
 
     context "when correct estimates is missing" do
-      it "should not be possible to finish relay" do
+      it "should return an array with error" do
         ce = @relay.relay_correct_estimates[1]
         ce.distance = nil
         ce.save!
-        confirm_unsuccessfull_finish
+        confirm_cannot_finish
       end
     end
 
-    def confirm_unsuccessfull_finish
+    def confirm_cannot_finish
       @relay.reload
-      @relay.finish.should be_false
-      @relay.should have(1).errors
-      @relay.should_not be_finished
+      @relay.finish_errors.should_not be_empty
+    end
+  end
+
+  describe "#finish" do
+    before do
+      @relay = Factory.create(:relay)
+    end
+
+    context "when the relay can be finished" do
+      it "should mark the race as finished and return true" do
+        @relay.should_receive(:finish_errors).and_return([])
+        @relay.finish.should be_true
+        @relay.should have(0).errors
+        @relay.reload
+        @relay.should be_finished
+      end
+    end
+
+    context "when the relay cannot be finished" do
+      it "should not mark the race as finished and return false" do
+        @relay.should_receive(:finish_errors).and_return(['error'])
+        @relay.finish.should be_false
+        @relay.should have(1).errors
+        @relay.reload
+        @relay.should_not be_finished
+      end
     end
   end
 
