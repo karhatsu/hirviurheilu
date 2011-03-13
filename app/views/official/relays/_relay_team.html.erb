@@ -3,6 +3,8 @@
   <%= f.text_field :name %>
   <%= f.label :number %>
   <%= f.text_field :number, :size => 3 %>
+  <%= f.label :no_result_reason, 'Tila' %>
+  <%= f.select :no_result_reason, @no_result_reason_options %>
   <%= remove_child_link "Poista", f, 'sub_form', "" %>
   <div class="sub_sub_element relay_competitors_element">
     <%= f.fields_for :relay_competitors do |competitor_form| %>
