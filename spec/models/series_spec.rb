@@ -431,7 +431,7 @@ describe Series do
   end
 
   describe "#generate_start_times" do
-    # test batch tail start time calculation
+    # test batch & batch tail start time calculations
     before do
       @race = Factory.create(:race, :start_date => '2010-08-15',
         :start_interval_seconds => 30, :batch_interval_seconds => 180,
