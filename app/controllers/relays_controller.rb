@@ -3,5 +3,6 @@ class RelaysController < ApplicationController
 
   def show
     @is_relays = true
+    @results = @relay.results
   end
 end

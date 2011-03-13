@@ -38,6 +38,10 @@ ElkSports::Application.routes.draw do
     resource :start_list
   end
 
+  resources :relays do
+    resources :legs
+  end
+
   namespace :admin do
     resources :users do as_routes end
     resources :roles do as_routes end

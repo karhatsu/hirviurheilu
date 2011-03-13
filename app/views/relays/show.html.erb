@@ -1,12 +1,11 @@
-<% content_for :title, "#{@race.name} - Viestit - #{@relay.name} - Tulokset" %>
-<h2><%= @relay.name %> - Tulokset</h2>
+<% content_for :title, "#{@relay.race.name} - Viestit - #{@relay.name} - Tulokset" %>
+<h2><%= @relay.name %> - <%= @leg ? "Osuus #{@leg}" : "Tulokset" %></h2>
 <% content_for :sub_sub_menu do %>
   <%= render :layout => 'shared/relays_sub_menu',
     :locals => { :race => @relay.race,
     :relay_id => @relay.id } do |relay| %><%= race_relay_path(relay.race, relay) %><% end %>
 <% end %>
-<% results = @relay.results %>
-<% if results.empty? %>
+<% if @results.empty? %>
   <div class="info">Viestiin ei ole vielä merkitty joukkueita</div>
 <% else %>
   <% unless @relay.finished? %>
@@ -23,6 +22,13 @@
     <h3>Tulokset</h3>
   <% end %>
   <div class="section">
+    <b>Väliajat:</b>
+    <% (@relay.legs_count - 1).times do |i| %>
+      <%= link_to "Osuus #{i + 1}", relay_leg_path(@relay, i + 1) %>
+    <% end %>
+    <%= link_to "Maali", race_relay_path(@relay.race, @relay) %>
+  </div>
+  <div class="section">
     <table>
       <tr>
         <th>&nbsp;</th>
@@ -32,27 +38,50 @@
         <th>Ammuntasakot</th>
         <th>Arviosakot</th>
       </tr>
-      <% results.each_with_index do |team, i| %>
+      <% @results.each_with_index do |team, i| %>
+        <% competitor = @leg ? team.relay_competitors.find_by_leg(@leg) : nil %>
         <tr id="team_<%= i + 1 %>">
           <td><b><%= i + 1 %>.</b></td>
-          <td class="team_name"><a href="javascript:void(0)" class="team_name_link"
-                                   id="<%= team.id %>"><%= team.name %></a></td>
+          <td class="team_name">
+          <% if @leg %>
+            <%= team.name %>
+          <% else %>
+            <a href="javascript:void(0)" class="team_name_link"
+                                   id="<%= team.id %>"><%= team.name %></a>
+          <% end %>
+          </td>
           <td class="center"><b><%= team.number %></b></td>
-          <td class="center team_points"><%= time_from_seconds(team.time_in_seconds) %></td>
-          <td colspan="2">&nbsp;</td>
-        </tr>
-        <% team.relay_competitors.each do |comp| %>
-          <tr class="team_<%= team.id %>" style="display: none;">
-            <td>&nbsp;</td>
-            <td><%= full_name(comp) %></td>
-            <td class="center">(<%= comp.leg %>)</td>
-            <td><%= time_from_seconds(comp.time_in_seconds) %></td>
-            <td class="center"><%= comp.misses %></td>
+          <td class="center team_points">
+            <% if @leg %>
+              <%= time_from_seconds(team.time_in_seconds(@leg)) %>
+            <% else %>
+              <%= time_from_seconds(team.time_in_seconds) %>
+            <% end %>
+          </td>
+          <% if @leg %>
+            <td class="center"><%= competitor.misses %></td>
             <td class="center">
-              <%= comp.estimate_penalties %>
-              <% if @relay.finished? %>(<%= comp.estimate %>m)<% end %>
+              <%= competitor.estimate_penalties %>
+              <% if @relay.finished? %>(<%= competitor.estimate %>m)<% end %>
             </td>
-          </tr>
+          <% else %>
+            <td colspan="2">&nbsp;</td>
+          <% end %>
+        </tr>
+        <% unless @leg %>
+          <% team.relay_competitors.each do |comp| %>
+            <tr class="team_<%= team.id %>" style="display: none;">
+              <td>&nbsp;</td>
+              <td><%= full_name(comp) %></td>
+              <td class="center">(<%= comp.leg %>)</td>
+              <td><%= time_from_seconds(comp.time_in_seconds) %></td>
+              <td class="center"><%= comp.misses %></td>
+              <td class="center">
+                <%= comp.estimate_penalties %>
+                <% if @relay.finished? %>(<%= comp.estimate %>m)<% end %>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
       <% end %>
     </table>

@@ -8,8 +8,9 @@ class RelayTeam < ActiveRecord::Base
 
   accepts_nested_attributes_for :relay_competitors
 
-  def time_in_seconds
-    competitor = relay_competitors.where(:leg => relay.legs_count).first
+  def time_in_seconds(leg=nil)
+    leg = relay.legs_count unless leg
+    competitor = relay_competitors.where(:leg => leg).first
     return nil unless competitor and competitor.arrival_time
     competitor.arrival_time - relay.start_time
   end
