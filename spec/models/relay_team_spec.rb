@@ -26,6 +26,17 @@ describe RelayTeam do
         it { should validate_uniqueness_of(:number).scoped_to(:relay_id) }
       end
     end
+
+    describe "no_result_reason" do
+      it { should allow_value(nil).for(:no_result_reason) }
+      it { should allow_value(RelayTeam::DNS).for(:no_result_reason) }
+      it { should allow_value(RelayTeam::DNF).for(:no_result_reason) }
+      it { should_not allow_value('test').for(:no_result_reason) }
+      it "should change empty string to nil" do
+        team = Factory.create(:relay_team, :no_result_reason => '')
+        team.no_result_reason.should be_nil
+      end
+    end
   end
 
   describe "competitors" do
