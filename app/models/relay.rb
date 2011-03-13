@@ -31,7 +31,7 @@ class Relay < ActiveRecord::Base
     normal_results = []
     competitors.each do |comp|
       if leg == legs_count and comp.relay_team.no_result_reason
-        no_results << comp unless comp.arrival_time
+        no_results << comp
       else
         nil_results << comp unless comp.arrival_time
         normal_results << comp if comp.arrival_time
