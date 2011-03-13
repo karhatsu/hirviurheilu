@@ -68,8 +68,8 @@
         <% end %>
       </table>
     <% end %>
-  </div>
-<% end %>
+  <% end %>
+</div>
 <% if @race.has_team_competition? and @race.start_date <= Date.today and !@race.series.empty? %>
   <h2>Joukkuekilpailu</h2>
   <div class="section">
