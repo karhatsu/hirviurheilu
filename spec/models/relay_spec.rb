@@ -132,39 +132,50 @@ describe Relay do
         @team1 = create_team(1)
         @team3 = create_team(3)
         @team4 = create_team(4)
+        @team_DNS = create_team(5, RelayTeam::DNS)
+        @team_DNF = create_team(6, RelayTeam::DNF)
         create_competitor @team1, 1, '12:13:16'
         create_competitor @team2, 1, '12:13:15'
         create_competitor @team3, 1, '12:13:14'
         create_competitor @team4, 1, '12:13:13'
+        create_competitor @team_DNS, 1, nil
+        create_competitor @team_DNF, 1, '12:12:00'
         create_competitor @team1, 2, '12:24:15'
         create_competitor @team2, 2, '12:24:14'
         create_competitor @team3, 2, '12:24:17'
         create_competitor @team4, 2, nil
+        create_competitor @team_DNS, 2, nil
+        create_competitor @team_DNF, 2, '12:24:16'
         create_competitor @team1, 3, '12:35:14'
         create_competitor @team2, 3, nil
         create_competitor @team3, 3, '12:35:16'
         create_competitor @team4, 3, nil
+        create_competitor @team_DNS, 3, nil
+        create_competitor @team_DNF, 3, nil
       end
 
       describe "#results" do
         it "should return the teams based on the fastest arrival time of the " +
             "competitors for the last leg and secondary by team number" do
-          @relay.results.should == [@team1, @team3, @team2, @team4]
+          @relay.results.should == [@team1, @team3, @team2, @team4, @team_DNS, @team_DNF]
         end
       end
 
       describe "#leg_results" do
         it "should return the teams based on the fastest arrival time of the " +
             "competitors for the given leg and secondary by team number" do
-          @relay.leg_results(1).should == [@team4, @team3, @team2, @team1]
-          @relay.leg_results(2).should == [@team2, @team1, @team3, @team4]
-          @relay.leg_results(3).should == [@team1, @team3, @team2, @team4]
+          @relay.leg_results(1).should ==
+            [@team_DNF, @team4, @team3, @team2, @team1, @team_DNS]
+          @relay.leg_results(2).should ==
+            [@team2, @team1, @team_DNF, @team3, @team4, @team_DNS]
+          @relay.leg_results(3).should ==
+            [@team1, @team3, @team2, @team4, @team_DNS, @team_DNF]
         end
       end
 
-      def create_team(number)
+      def create_team(number, no_result_reason=nil)
         Factory.create(:relay_team, :relay => @relay, :name => "Team #{number}",
-          :number => number)
+          :number => number, :no_result_reason => no_result_reason)
       end
 
       def create_competitor(team, leg, arrival_time)

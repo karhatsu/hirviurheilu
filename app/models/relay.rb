@@ -26,14 +26,20 @@ class Relay < ActiveRecord::Base
 
   def leg_results(leg)
     competitors = relay_competitors.where(:leg => leg).order('arrival_time, number')
+    no_results = []
     nil_results = []
     normal_results = []
     competitors.each do |comp|
-      nil_results << comp unless comp.arrival_time
-      normal_results << comp if comp.arrival_time
+      if leg == legs_count and comp.relay_team.no_result_reason
+        no_results << comp unless comp.arrival_time
+      else
+        nil_results << comp unless comp.arrival_time
+        normal_results << comp if comp.arrival_time
+      end
     end
     teams = normal_results.collect do |competitor| competitor.relay_team end
-    teams + nil_results.collect do |competitor| competitor.relay_team end
+    teams += nil_results.collect do |competitor| competitor.relay_team end
+    teams += no_results.collect do |competitor| competitor.relay_team end
   end
 
   def finish_errors
