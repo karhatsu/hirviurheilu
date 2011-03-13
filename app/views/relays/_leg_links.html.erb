@@ -1,7 +1,8 @@
 <div class="section">
   <b>Väliajat:</b>
   <% (@relay.legs_count - 1).times do |i| %>
-    <%= link_to "Osuus #{i + 1}", relay_leg_path(@relay, i + 1) %>
+    <% leg = i + 1 %>
+    <%= link_to_unless @leg.to_i == leg, "Osuus #{leg}", relay_leg_path(@relay, leg) %>
   <% end %>
-  <%= link_to "Maali", race_relay_path(@relay.race, @relay) %>
+  <%= link_to_if @leg, "Maali", race_relay_path(@relay.race, @relay) %>
 </div>
