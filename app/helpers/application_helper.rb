@@ -54,13 +54,17 @@ module ApplicationHelper
 
   def points_print(competitor)
     if competitor.no_result_reason
-      return "<span class='explanation' " +
-        "title='#{t('competitor.' + competitor.no_result_reason)}'>" +
-        "#{competitor.no_result_reason}</span>"
+      return no_result_reason_print(competitor.no_result_reason)
     end
     return competitor.points unless competitor.points.nil?
     return "(#{competitor.points!})" unless competitor.points!.nil?
     "-"
+  end
+
+  def no_result_reason_print(no_result_reason, scope='competitor')
+    "<span class='explanation' " +
+      "title='#{t(scope + '.' + no_result_reason)}'>" +
+      "#{no_result_reason}</span>"
   end
 
   def time_from_seconds(seconds)

@@ -29,7 +29,11 @@
           </td>
           <td class="center"><b><%= team.number %></b></td>
           <td class="center team_points">
-            <%= time_from_seconds(team.time_in_seconds) %>
+            <% if team.no_result_reason %>
+              <%= raw(no_result_reason_print(team.no_result_reason, 'relay_team')) %>
+            <% else %>
+              <%= time_from_seconds(team.time_in_seconds) %>
+            <% end %>
           </td>
           <td colspan="2">&nbsp;</td>
         </tr>

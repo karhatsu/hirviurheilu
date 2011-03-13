@@ -15,3 +15,6 @@ fi:
   order_method: Kilpailijoiden järjestys
   order_method_0: Lisäysjärjestys
   order_method_1: Arvotaan
+  relay_team:
+    DNS: Joukkue ei osallistunut kilpailuun
+    DNF: Joukkue keskeytti kilpailun
