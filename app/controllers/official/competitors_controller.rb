@@ -26,8 +26,8 @@ class Official::CompetitorsController < Official::OfficialController
   def create
     assign_series(params[:competitor][:series_id])
     @competitor = @series.competitors.build(params[:competitor])
-    handle_club(@competitor)
-    if @competitor.save
+    club_ok = handle_club(@competitor)
+    if club_ok and @competitor.save
       respond_to do |format|
         format.js { render :create_success }
       end
@@ -44,8 +44,8 @@ class Official::CompetitorsController < Official::OfficialController
 
   def update
     @competitor = Competitor.find(params[:id])
-    handle_club(@competitor)
-    if @competitor.update_attributes(params[:competitor])
+    club_ok = handle_club(@competitor)
+    if club_ok and @competitor.update_attributes(params[:competitor])
       respond_to do |format|
         format.html do
           if params[:next]
@@ -120,6 +120,13 @@ class Official::CompetitorsController < Official::OfficialController
         competitor.club_id = params[:club]
       end
     end
+    unless competitor.club_id
+      # have to do this here instead of the competitor model since cannot have
+      # the presence validation for club the due to the nested forms usage
+      competitor.errors.add(:club, 'on pakollinen')
+      return false
+    end
+    true
   end
 
   def set_competitors
