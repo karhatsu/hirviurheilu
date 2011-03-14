@@ -46,7 +46,7 @@
         </tr>
       <% end %>
     </table>
-    <% if @race.start_date <= Date.today %>
+    <% if @race.start_date <= Time.zone.today %>
       <div class="action_box">
         <%= link_to "Kaikkien sarjojen tulokset (PDF)", race_path(@race, :format => :pdf) %>
       </div>
@@ -70,7 +70,8 @@
     <% end %>
   <% end %>
 </div>
-<% if @race.has_team_competition? and @race.start_date <= Date.today and !@race.series.empty? %>
+<% if @race.has_team_competition? and @race.start_date <= Time.zone.today and
+    !@race.series.empty? %>
   <h2>Joukkuekilpailu</h2>
   <div class="section">
     <%= link_to "Joukkuekilpailun tulokset", race_team_results_path(@race) %>
@@ -95,7 +96,7 @@
     </table>
   </div>
 <% end %>
-<% if @race.start_date > Date.today %>
+<% if @race.start_date > Time.zone.today %>
   <div class="info">
     Kilpailun alkuun on aikaa
     <%= distance_of_time_in_words(Time.zone.today, @race.start_date, false) %>.</div>

@@ -6,7 +6,7 @@
   <%= highlight_info('Et ole vielä lisännyt kilpailuun yhtään sarjaa. ' +
       'Lisää sarjoja alla olevasta linkistä.') %>
 <% end %>
-<% unless @race.finished? or @race.start_date > Date.today or @race.competitors.empty? %>
+<% unless @race.finished? or @race.start_date > Time.zone.today or @race.competitors.empty? %>
   <div class="action_box">
     <%= render :partial => "official/finish_races/form", :locals => { :race => @race } %>
   </div>
