@@ -95,10 +95,10 @@
     </table>
   </div>
 <% end %>
-<% if false and @race.start_date > Date.today %>
+<% if @race.start_date > Date.today %>
   <div class="info">
     Kilpailun alkuun on aikaa
-    <%= distance_of_time_in_words(Date.today, @race.start_date, false) %>.</div>
+    <%= distance_of_time_in_words(Time.zone.today, @race.start_date, false) %>.</div>
 <% end %>
 <hr/>
 <%= link_to "Takaisin etusivulle", root_path %>
