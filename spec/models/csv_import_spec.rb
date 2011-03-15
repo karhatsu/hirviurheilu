@@ -76,6 +76,24 @@ describe CsvImport do
         @race.should have(0).competitors
       end
     end
+    
+    context "when needed data is missing from the file" do
+      before do
+        @ci = CsvImport.new(@race, test_file_path('invalid_competitor_import.csv'))
+      end
+    
+      it "#save should return false" do
+        @ci.save.should be_false
+      end
+      
+      it "#errors should contain a message about missing data" do
+        @ci.should have(1).errors
+      end
+      
+      it "there should be no new competitors for the race" do
+        @race.should have(0).competitors
+      end
+    end
   end
   
   def test_file_path(file_name)
