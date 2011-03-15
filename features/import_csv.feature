@@ -24,3 +24,15 @@ Feature: Import competitors with CSV file
     When I follow "N" within "div.sub_sub_menu"
     Then I should see "Miettinen Minna"
     
+  Scenario: Trying to import an invalid CSV file (series missing)
+    Given I am an official
+    And I have a race "CSV race"
+    And the race has series "M40"
+    And I have logged in
+    And I am on the official race page of "CSV race"
+    When I follow "Lisää kilpailijoita CSV-tiedostosta"
+    And I attach the import test file "import_valid.csv" to "CSV-tiedosto"
+    And I press "Lataa kilpailijat tietokantaan"
+    Then I should see "Tuntematon sarja: 'N'" within "div.error"
+    And I should see "Lisää kilpailijoita CSV-tiedostosta" within "h2"
+    

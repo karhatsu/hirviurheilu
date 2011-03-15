@@ -13,6 +13,7 @@ Matti,Meikäläinen,Testikylän ampumaseura,M40
 Minna,Miettinen,Esimerkkilän hiihtäjät,N
 </pre>
 <h3>Tiedoston lataus</h3>
+<%= flash_error %>
 <%= form_tag(official_race_csv_imports_path(@race), :multipart => true) do %>
   <%= label_tag :file, 'CSV-tiedosto' %>
   <%= file_field_tag :file %><br/>
