@@ -23,6 +23,7 @@ class DefaultSeries < ActiveRecord::Base
     df = create!(:name => 'N40')
     df.default_age_groups << DefaultAgeGroup.new(:name => 'N50', :min_competitors => 3)
     df.default_age_groups << DefaultAgeGroup.new(:name => 'N60', :min_competitors => 3)
+    df.default_age_groups << DefaultAgeGroup.new(:name => 'N65', :min_competitors => 3)
     df.default_age_groups << DefaultAgeGroup.new(:name => 'N70', :min_competitors => 3)
     df.default_age_groups << DefaultAgeGroup.new(:name => 'N75', :min_competitors => 3)
     df.default_age_groups << DefaultAgeGroup.new(:name => 'N80', :min_competitors => 3)
