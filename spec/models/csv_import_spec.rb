@@ -10,7 +10,7 @@ describe CsvImport do
   
   context "when not correct amount of columns in each row" do
     before do
-      @ci = CsvImport.new(@race, test_file_path('invalid_import.csv'))
+      @ci = CsvImport.new(@race, test_file_path('import_with_invalid_structure.csv'))
     end
     
     it "#save should return false" do
@@ -29,7 +29,7 @@ describe CsvImport do
   
   context "when correct amount of data" do
     before do
-      @ci = CsvImport.new(@race, test_file_path('valid_import.csv'))
+      @ci = CsvImport.new(@race, test_file_path('import_valid.csv'))
     end
     
     context "when all series exist" do
@@ -60,7 +60,7 @@ describe CsvImport do
     context "when an unknown series" do
       before do
         @race.series.find_by_name('M40').destroy
-        @ci = CsvImport.new(@race, test_file_path('valid_import.csv'))
+        @ci = CsvImport.new(@race, test_file_path('import_valid.csv'))
       end
     
       it "#save should return false" do
@@ -79,7 +79,7 @@ describe CsvImport do
     
     context "when an empty competitor attribute in the file" do
       before do
-        @ci = CsvImport.new(@race, test_file_path('invalid_competitor_import.csv'))
+        @ci = CsvImport.new(@race, test_file_path('import_with_invalid_competitor.csv'))
       end
     
       it "#save should return false" do
@@ -97,7 +97,7 @@ describe CsvImport do
     
     context "when club name is empty in the file" do
       before do
-        @ci = CsvImport.new(@race, test_file_path('invalid_club_import.csv'))
+        @ci = CsvImport.new(@race, test_file_path('import_with_invalid_club.csv'))
       end
     
       it "#save should return false" do
