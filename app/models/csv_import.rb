@@ -5,6 +5,7 @@ class CsvImport
   LAST_NAME_COLUMN = 1
   CLUB_COLUMN = 2
   SERIES_COLUMN = 3
+  COLUMNS_COUNT = 4
   
   def initialize(race, file_path)
     @race = race
@@ -21,10 +22,9 @@ class CsvImport
         comp.club = Club.create!(:race => @race, :name => comp.club_name) unless comp.club
         comp.save!
       end
-      true
-    else
-      false
+      return true
     end
+    false
   end
   
   def errors
@@ -34,19 +34,28 @@ class CsvImport
   private
   def validate_data
     @data.each do |row|
-      if row.length != 4
+      if row.length != COLUMNS_COUNT
         @errors << 'Tiedoston rakenne virheellinen'
         return
       end
-      series_name = row[SERIES_COLUMN]
-      series = @race.series.find_by_name(series_name)
-      unless series
-        @errors << "Tuntematon sarja: '#{series_name}'"
-        return
-      end
-      @competitors << Competitor.new(:series => series,
-        :first_name => row[FIRST_NAME_COLUMN], :last_name => row[LAST_NAME_COLUMN],
-        :club_name => row[CLUB_COLUMN]) 
+      competitor = new_competitor(row)
+      return unless competitor.valid?
+      @competitors << competitor
     end
+  end
+  
+  def new_competitor(row)
+    competitor = Competitor.new(:club_name => row[CLUB_COLUMN],
+      :first_name => row[FIRST_NAME_COLUMN], :last_name => row[LAST_NAME_COLUMN])
+    competitor.series = find_series(row[SERIES_COLUMN])
+    competitor
+  end
+  
+  def find_series(series_name)
+    series = @race.series.find_by_name(series_name)
+    unless series
+      @errors << "Tuntematon sarja: '#{series_name}'"
+    end
+    series
   end
 end
