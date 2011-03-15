@@ -5,13 +5,18 @@ class Official::CsvImportsController < Official::OfficialController
   end
   
   def create
-    import = CsvImport.new(@race, params[:file].tempfile.path)
-    if import.save
-      flash[:success] = 'Kilpailijat ladattu tietokantaan'
-      redirect_to official_race_path(@race)
-    else
-      flash[:error] = import.errors.join('. ') + '.'
+    if params[:file].blank?
+      flash[:error] = 'Valitse tiedosto'
       render :new
+    else
+      import = CsvImport.new(@race, params[:file].tempfile.path)
+      if import.save
+        flash[:success] = 'Kilpailijat ladattu tietokantaan'
+        redirect_to official_race_path(@race)
+      else
+        flash[:error] = import.errors.join('. ') + '.'
+        render :new
+      end
     end
   end
 end

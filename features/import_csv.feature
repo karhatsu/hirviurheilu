@@ -16,6 +16,8 @@ Feature: Import competitors with CSV file
     And I should see "CSV race" within ".main_title"
     And I should see "Lisää kilpailijoita CSV-tiedostosta" within "h2"
     And I should see "Jos sinulla on kilpailijoiden tiedot" within "div.info"
+    When I press "Lataa kilpailijat tietokantaan"
+    Then I should see "Valitse tiedosto" within "div.error"
     When I attach the import test file "import_valid.csv" to "CSV-tiedosto"
     And I press "Lataa kilpailijat tietokantaan"
     Then I should be on the official race page of "CSV race"
