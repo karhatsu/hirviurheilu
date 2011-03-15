@@ -117,6 +117,8 @@ ActiveRecord::Schema.define(:version => 20110313121158) do
     t.integer  "series_count",           :default => 0,     :null => false
     t.integer  "team_competitor_count"
     t.string   "home_page"
+    t.integer  "batch_size"
+    t.integer  "batch_interval_seconds"
   end
 
   add_index "races", ["sport_id"], :name => "index_races_on_sport_id"

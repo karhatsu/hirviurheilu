@@ -12,6 +12,10 @@
   <%= f.date_select :end_date, :include_blank => true %><br/>
   <%= f.label :start_interval_seconds %>
   <%= f.text_field :start_interval_seconds, :size => 3, :maxlength => 3 %><br/>
+  <%= f.label :batch_size %>
+  <%= f.text_field :batch_size, :size => 3, :maxlength => 3 %><br/>
+  <%= f.label :batch_interval_seconds %>
+  <%= f.text_field :batch_interval_seconds, :size => 3, :maxlength => 3 %><br/>
   <%= f.label :home_page, 'Linkki kilpailun omille sivuille (ei pakollinen)' %>
   <%= f.text_field :home_page %>
   <a class="help" id="home_page_help">?</a>

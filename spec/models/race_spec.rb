@@ -50,6 +50,44 @@ describe Race do
       end
     end
 
+    describe "batch_interval_seconds" do
+      it "should be required" do
+        Factory.build(:race, :batch_interval_seconds => nil).
+          should have(1).errors_on(:batch_interval_seconds)
+      end
+
+      it { should validate_numericality_of(:batch_interval_seconds) }
+
+      it "should be integer, not decimal" do
+        Factory.build(:race, :batch_interval_seconds => 23.5).
+          should have(1).errors_on(:batch_interval_seconds)
+      end
+
+      it "should be greater than 0" do
+        Factory.build(:race, :batch_interval_seconds => 0).
+          should have(1).errors_on(:batch_interval_seconds)
+      end
+    end
+
+    describe "batch_size" do
+      it "should be required" do
+        Factory.build(:race, :batch_size => nil).
+          should have(1).errors_on(:batch_size)
+      end
+
+      it { should validate_numericality_of(:batch_size) }
+
+      it "should be integer, not decimal" do
+        Factory.build(:race, :batch_size => 23.5).
+          should have(1).errors_on(:batch_size)
+      end
+
+      it "should be greater than or equal to 0" do
+        Factory.build(:race, :batch_size => -1).
+          should have(1).errors_on(:batch_size)
+      end
+    end
+
     describe "race with same name" do
       before do
         @race = Factory.create(:race, :name => 'My race', :start_date => '2010-01-01',
@@ -240,6 +278,10 @@ describe Race do
 
   describe "DEFAULT_START_INTERVAL" do
     specify { Race::DEFAULT_START_INTERVAL.should == 60 }
+  end
+
+  describe "DEFAULT_BATCH_INTERVAL" do
+    specify { Race::DEFAULT_BATCH_INTERVAL.should == 180 }
   end
 
   describe "#days_count" do

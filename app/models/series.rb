@@ -135,9 +135,27 @@ class Series < ActiveRecord::Base
     return false if failure
 
     interval = race.start_interval_seconds
+    batch_size = race.batch_size
+    batch_interval = race.batch_interval_seconds - interval
+    # calculate where last (possibly partial) batch starts
+    if batch_size > 0
+      last_batch_size = (competitors.last.number - first_number + 1) % batch_size
+      last_batch_start = 
+        Integer((competitors.last.number - first_number + 1) / batch_size) * batch_size + first_number
+    end
+
     competitors.each do |comp|
       # if the calculated time is saved as such, the time zone changes to UTC
-      time = start_time + (comp.number - first_number) * interval
+      comp_num_diff = (comp.number - first_number)
+      timediff = comp_num_diff * interval
+      if batch_size > 0
+        timediff += Integer(comp_num_diff / batch_size) * batch_interval
+        if comp.number >= last_batch_start && last_batch_size <= batch_size*2/3
+          # partial batch less than 2/3 of batch size, attach to previous batch
+          timediff -= batch_interval
+        end
+      end
+      time = start_time + timediff
       comp.update_attribute(:start_time, time.strftime('%H:%M:%S'))
     end
     true

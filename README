@@ -10,6 +10,8 @@ http://www.hirviurheilu.com
 Palvelun käyttöä voi harjoitella osoitteessa:
 http://hutesti.heroku.com
 
+Tämä jkpj-forkki on joidenkin uusien ominaisuuksien lisäämistä varten.
+
 ----------------------------------------------------------------
 Elk Sports - a score service application for two Finnish sports:
 elk running (hirvenjuoksu) and elk skiing (hirvenhiihto).
