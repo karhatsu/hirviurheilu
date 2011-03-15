@@ -49,16 +49,22 @@ class CsvImport
     competitor = Competitor.new(:first_name => row[FIRST_NAME_COLUMN],
       :last_name => row[LAST_NAME_COLUMN])
     competitor.club = find_or_create_club(row[CLUB_COLUMN])
-    competitor.series = find_series(row[SERIES_COLUMN])
+    set_series_or_age_group(competitor, row[SERIES_COLUMN])
     competitor
   end
   
-  def find_series(series_name)
-    series = @race.series.find_by_name(series_name)
-    unless series
-      @errors << "Tuntematon sarja: '#{series_name}'"
+  def set_series_or_age_group(competitor, series_name)
+    age_group = @race.age_groups.find_by_name(series_name)
+    if age_group
+      competitor.age_group = age_group
+      competitor.series = age_group.series
+    else
+      series = @race.series.find_by_name(series_name)
+      unless series
+        @errors << "Tuntematon sarja/ikäryhmä: '#{series_name}'"
+      end
+      competitor.series = series
     end
-    series
   end
   
   def find_or_create_club(club_name)

@@ -3,7 +3,9 @@ require 'spec_helper'
 describe CsvImport do
   before do
     @race = Factory.create(:race)
-    @race.series << Factory.build(:series, :race => @race, :name => 'N')
+    series = Factory.build(:series, :race => @race, :name => 'N')
+    @race.series << series
+    series.age_groups << Factory.build(:age_group, :series => series, :name => 'N50')
     @race.series << Factory.build(:series, :race => @race, :name => 'M40')
     @race.clubs << Factory.build(:club, :race => @race, :name => 'PS')
   end
@@ -32,12 +34,12 @@ describe CsvImport do
       @ci = CsvImport.new(@race, test_file_path('import_valid.csv'))
     end
     
-    context "when all series exist" do
+    context "when all series and age groups exist" do
       describe "#save" do
         it "should save the defined competitors and new clubs to the database and return true" do
           @ci.save.should be_true
           @race.reload
-          @race.should have(2).competitors
+          @race.should have(3).competitors
           c = @race.competitors.order('id')[0]
           c.first_name.should == 'Heikki'
           c.last_name.should == 'Räsänen'
@@ -47,7 +49,14 @@ describe CsvImport do
           c.first_name.should == 'Minna'
           c.last_name.should == 'Miettinen'
           c.series.name.should == 'N'
+          c.age_group.should be_nil
           c.club.name.should == 'PS'
+          c = @race.competitors.order('id')[2]
+          c.first_name.should == 'Maija'
+          c.last_name.should == 'Hämäläinen'
+          c.series.name.should == 'N'
+          c.age_group.name.should == 'N50'
+          c.club.name.should == 'SS'
           @race.should have(2).clubs
         end
       end
@@ -69,7 +78,7 @@ describe CsvImport do
       
       it "#errors should contain a message about unknown series" do
         @ci.should have(1).errors
-        @ci.errors[0].should == "Tuntematon sarja: 'M40'"
+        @ci.errors[0].should == "Tuntematon sarja/ikäryhmä: 'M40'"
       end
       
       it "there should be no new competitors for the race" do

@@ -80,6 +80,7 @@ describe Race do
   describe "associations" do
     it { should belong_to(:sport) }
     it { should have_many(:series) }
+    it { should have_many(:age_groups).through(:series) }
     it { should have_many(:competitors).through(:series) }
     it { should have_many(:clubs) }
     it { should have_many(:correct_estimates) }
