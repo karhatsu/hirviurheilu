@@ -112,6 +112,24 @@ describe CsvImport do
         @race.should have(0).competitors
       end
     end
+    
+    context "when the file contains two errorneous rows" do
+      before do
+        @ci = CsvImport.new(@race, test_file_path('import_with_multiple_errors.csv'))
+      end
+    
+      it "#save should return false" do
+        @ci.save.should be_false
+      end
+      
+      it "#errors should contain two errors" do
+        @ci.should have(2).errors
+      end
+      
+      it "there should be no new competitors for the race" do
+        @race.should have(0).competitors
+      end
+    end
   end
   
   def test_file_path(file_name)

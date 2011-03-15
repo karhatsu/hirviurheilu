@@ -37,11 +37,11 @@ class CsvImport
         return
       end
       competitor = new_competitor(row)
-      unless competitor.valid?
+      if competitor.valid?
+        @competitors << competitor
+      else
         @errors += competitor.errors.full_messages
-        return
       end
-      @competitors << competitor
     end
   end
   
