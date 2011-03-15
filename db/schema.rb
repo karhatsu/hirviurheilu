@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110313121158) do
+ActiveRecord::Schema.define(:version => 20110315191956) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -117,7 +117,7 @@ ActiveRecord::Schema.define(:version => 20110313121158) do
     t.integer  "series_count",           :default => 0,     :null => false
     t.integer  "team_competitor_count"
     t.string   "home_page"
-    t.integer  "batch_size"
+    t.integer  "batch_size",             :default => 0,     :null => false
     t.integer  "batch_interval_seconds"
   end
 
