@@ -56,6 +56,26 @@ describe CsvImport do
         @ci.should have(0).errors
       end
     end
+    
+    context "when an unknown series" do
+      before do
+        @race.series.find_by_name('M40').destroy
+        @ci = CsvImport.new(@race, test_file_path('valid_import.csv'))
+      end
+    
+      it "#save should return false" do
+        @ci.save.should be_false
+      end
+      
+      it "#errors should contain a message about unknown series" do
+        @ci.should have(1).errors
+        @ci.errors[0].should == "Tuntematon sarja: 'M40'"
+      end
+      
+      it "there should be no new competitors for the race" do
+        @race.should have(0).competitors
+      end
+    end
   end
   
   def test_file_path(file_name)

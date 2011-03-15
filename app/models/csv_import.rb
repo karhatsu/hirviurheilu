@@ -9,8 +9,6 @@ class CsvImport
   def initialize(race, file_path)
     @race = race
     @data = CSV.read(file_path)
-    @series = {}
-    @clubs = []
     @competitors = []
     @errors = []
     validate_data
@@ -41,8 +39,12 @@ class CsvImport
         return
       end
       series_name = row[SERIES_COLUMN]
-      @series[series_name] = @race.series.find_by_name(series_name)
-      @competitors << Competitor.new(:series => @series[series_name],
+      series = @race.series.find_by_name(series_name)
+      unless series
+        @errors << "Tuntematon sarja: '#{series_name}'"
+        return
+      end
+      @competitors << Competitor.new(:series => series,
         :first_name => row[FIRST_NAME_COLUMN], :last_name => row[LAST_NAME_COLUMN],
         :club_name => row[CLUB_COLUMN]) 
     end
