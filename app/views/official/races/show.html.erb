@@ -77,6 +77,9 @@
       </tr>
     <% end %>
   </table>
+  <div class="action_box">
+    <%= link_to "Lisää kilpailijoita CSV-tiedostosta", new_official_race_csv_import_path(@race) %>
+  </div>
 <% end %>
 <div class="action_box">
   <%= link_to "Viestit",

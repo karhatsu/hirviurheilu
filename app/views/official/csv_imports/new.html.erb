@@ -1,0 +1,20 @@
+<h2>Lisää kilpailijoita CSV-tiedostosta</h2>
+<div class="info">
+  Jos sinulla on kilpailijoiden tiedot esim. Excel-taulukossa, voit tallentaa
+    ne sieltä CSV-muotoon (CSV = pilkuilla erotetut sarakkeet).
+    Sen jälkeen voit ladata kaikkien kilpailijoiden tiedot kerralla tietokantaan
+    valitsemalla alla olevaan lomakkeeseen kyseisen CSV-tiedoston.
+    CSV-tiedostossa täytyy olla sarakkeet etunimi, sukunimi, piiri tai seura, sarja.
+    Huom! CSV-tiedostossa käytetyt sarjat täytyy olla syötetty tietokantaan ennen latausta.
+</div>
+<h3>Esimerkki kelvollisesta CSV-tiedostosta</h3>
+<pre class="file_example">
+Matti,Meikäläinen,Testikylän ampumaseura,M40
+Minna,Miettinen,Esimerkkilän hiihtäjät,N
+</pre>
+<h3>Tiedoston lataus</h3>
+<%= form_tag(official_race_csv_imports_path(@race), :multipart => true) do %>
+  <%= label_tag :file, 'CSV-tiedosto' %>
+  <%= file_field_tag :file %><br/>
+  <%= submit_tag 'Lataa kilpailijat tietokantaan' %>
+<% end %>

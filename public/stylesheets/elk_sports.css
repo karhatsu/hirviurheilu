@@ -239,3 +239,11 @@ ul.positive li {
 .explanation {
     cursor: help;
 }
+
+pre.file_example {
+    border: black solid 1px;
+    padding: 3px;
+    background-color: #D9D9D9;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
