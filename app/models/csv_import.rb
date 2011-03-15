@@ -18,8 +18,6 @@ class CsvImport
   def save
     if errors.empty?
       @competitors.each do |comp|
-        comp.club = Club.where(:race_id => @race, :name => comp.club_name).first
-        comp.club = Club.create!(:race => @race, :name => comp.club_name) unless comp.club
         comp.save!
       end
       return true
@@ -48,8 +46,9 @@ class CsvImport
   end
   
   def new_competitor(row)
-    competitor = Competitor.new(:club_name => row[CLUB_COLUMN],
-      :first_name => row[FIRST_NAME_COLUMN], :last_name => row[LAST_NAME_COLUMN])
+    competitor = Competitor.new(:first_name => row[FIRST_NAME_COLUMN],
+      :last_name => row[LAST_NAME_COLUMN])
+    competitor.club = find_or_create_club(row[CLUB_COLUMN])
     competitor.series = find_series(row[SERIES_COLUMN])
     competitor
   end
@@ -60,5 +59,18 @@ class CsvImport
       @errors << "Tuntematon sarja: '#{series_name}'"
     end
     series
+  end
+  
+  def find_or_create_club(club_name)
+    club = Club.where(:race_id => @race, :name => club_name).first
+    return club if club
+    club = Club.new(:race => @race, :name => club_name)
+    if club.valid?
+      club.save
+      return club
+    else
+      @errors += club.errors.full_messages
+      return nil
+    end
   end
 end
