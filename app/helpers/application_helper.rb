@@ -62,9 +62,9 @@ module ApplicationHelper
   end
 
   def no_result_reason_print(no_result_reason, scope='competitor')
-    "<span class='explanation' " +
+    raw("<span class='explanation' " +
       "title='#{t(scope + '.' + no_result_reason)}'>" +
-      "#{no_result_reason}</span>"
+      "#{no_result_reason}</span>")
   end
 
   def time_from_seconds(seconds)
