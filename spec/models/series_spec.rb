@@ -58,17 +58,19 @@ describe Series do
   describe "#best_time_in_seconds" do
     before do
       @c1 = mock_model(Competitor, :time_in_seconds => nil,
-        :no_result_reason => nil)
+        :no_result_reason => nil, :unofficial => false)
       @c2 = mock_model(Competitor, :time_in_seconds => 342,
-        :no_result_reason => nil)
+        :no_result_reason => nil, :unofficial => false)
       @c3 = mock_model(Competitor, :time_in_seconds => 341,
-        :no_result_reason => nil)
+        :no_result_reason => nil, :unofficial => false)
       @c4 = mock_model(Competitor, :time_in_seconds => 343,
-        :no_result_reason => nil)
+        :no_result_reason => nil, :unofficial => false)
       @c5 = mock_model(Competitor, :time_in_seconds => 200,
-        :no_result_reason => "DNS")
+        :no_result_reason => "DNS", :unofficial => false)
       @c6 = mock_model(Competitor, :time_in_seconds => 200,
-        :no_result_reason => "DNS")
+        :no_result_reason => "DNF", :unofficial => false)
+      @c7 = mock_model(Competitor, :time_in_seconds => 200,
+        :no_result_reason => nil, :unofficial => true)
     end
 
     describe "static" do
@@ -80,8 +82,8 @@ describe Series do
         Series.best_time_in_seconds([@c1]).should be_nil
       end
 
-      it "should return the time of the competitor who was the fastest and skip unfinished" do
-        Series.best_time_in_seconds([@c1, @c2, @c3, @c4, @c5]).should == 341
+      it "should return the time of the competitor who was the fastest and skip unfinished and unofficials" do
+        Series.best_time_in_seconds([@c1, @c2, @c3, @c4, @c5, @c6, @c7]).should == 341
       end
     end
 

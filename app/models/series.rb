@@ -31,7 +31,7 @@ class Series < ActiveRecord::Base
     times = []
     competitors.each do |comp|
       times << comp.time_in_seconds unless comp.time_in_seconds.nil? or
-        comp.no_result_reason
+        comp.no_result_reason or comp.unofficial
     end
     times.sort!
     times.first
