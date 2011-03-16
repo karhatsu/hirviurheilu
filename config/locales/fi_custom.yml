@@ -18,3 +18,5 @@ fi:
   relay_team:
     DNS: Joukkue ei osallistunut kilpailuun
     DNF: Joukkue keskeytti kilpailun
+  unofficial: Epävirallinen kilpailija
+  unofficial_short: epäv.

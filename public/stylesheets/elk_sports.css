@@ -247,3 +247,9 @@ pre.file_example {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
 }
+
+span.unofficial {
+    font-style: italic;
+    font-size: 80%;
+    cursor: help;
+}
