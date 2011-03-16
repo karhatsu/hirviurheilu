@@ -591,6 +591,14 @@ describe Competitor do
         @competitor.time_points.should == 298
       end
     end
+    
+    context "when the competitor is an unofficial competitor and has better time than official best time" do
+      it "should be 300" do
+        @competitor.unofficial = true
+        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds - 60)
+        @competitor.time_points.should == 300
+      end
+    end
 
     it "should never be negative" do
       @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 100000)
