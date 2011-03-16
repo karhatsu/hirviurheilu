@@ -19,6 +19,22 @@ class RelayTeam < ActiveRecord::Base
     competitor.arrival_time - relay.start_time
   end
 
+  def estimate_penalties_sum
+    sum = 0
+    relay_competitors.each do |competitor|
+      sum += competitor.estimate_penalties
+    end
+    return sum
+  end
+
+  def shoot_penalties_sum
+    sum = 0
+    relay_competitors.each do |competitor|
+      sum += competitor.misses
+    end
+    return sum
+  end
+
   private
   def check_no_result_reason
     self.no_result_reason = nil if no_result_reason == ''
