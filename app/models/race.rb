@@ -134,7 +134,8 @@ class Race < ActiveRecord::Base
   def team_results
     return nil unless has_team_competition?
     competitor_counter = Hash.new
-    clubs = Hash.new # { club => {:club => club, :points => 0, :competitors => []}, ... }
+    clubs = Hash.new # { club => {:club => club, :points => 0, :best_points => 0,
+    # :best_shot_points => 0, :fastest_time => 9999999, :competitors => []}, ... }
 
     Competitor.sort(competitors.
         where(['series.estimates=2 and series.no_time_points=?', false]).
@@ -145,22 +146,17 @@ class Race < ActiveRecord::Base
         competitor_counter[competitor.club] = competitor_count + 1
         if clubs[competitor.club]
           club_hash = clubs[competitor.club]
-          club_hash[:points] += competitor.points
-          club_hash[:competitors] << competitor
+          update_club_hash(club_hash, competitor)
         else
-          club_hash = Hash.new(:club => competitor.club, :points => 0,
-            :competitors => [])
-          club_hash[:club] = competitor.club
-          club_hash[:points] = competitor.points
-          club_hash[:competitors] = [competitor]
-          clubs[competitor.club] = club_hash
+          clubs[competitor.club] = create_new_club_hash(competitor)
         end
       end
     end
 
-    # sort {:club => club, :points => 0, :competitors => []}'s by points
+    # sort {:club => club, :points => 0, ..., :competitors => []}'s by points
     sorted_clubs = clubs.values.sort do |a, b|
-      b[:points] <=> a[:points]
+      [b[:points], b[:best_points], b[:best_shot_points], a[:fastest_time]] <=>
+        [a[:points], a[:best_points], a[:best_shot_points], b[:fastest_time]]
     end
     sorted_clubs.delete_if { |club| club[:competitors].length < team_competitor_count }
   end
@@ -200,5 +196,25 @@ class Race < ActiveRecord::Base
       competitor.correct_estimate3 = nil
       competitor.correct_estimate4 = nil
     end
+  end
+
+  def update_club_hash(club_hash, competitor)
+    club_hash[:points] += competitor.points
+    club_hash[:best_points] = competitor.points if competitor.points > club_hash[:points]
+    club_hash[:best_shot_points] = competitor.shot_points if competitor.points > club_hash[:best_shot_points]
+    club_hash[:fastest_time] = competitor.time_in_seconds if competitor.time_in_seconds < club_hash[:fastest_time]
+    club_hash[:competitors] << competitor
+  end
+
+  def create_new_club_hash(competitor)
+    club_hash = Hash.new(:club => competitor.club, :points => 0,
+      :competitors => [])
+    club_hash[:club] = competitor.club
+    club_hash[:points] = competitor.points
+    club_hash[:best_points] = competitor.points
+    club_hash[:best_shot_points] = competitor.shot_points
+    club_hash[:fastest_time] = competitor.time_in_seconds
+    club_hash[:competitors] = [competitor]
+    club_hash
   end
 end
