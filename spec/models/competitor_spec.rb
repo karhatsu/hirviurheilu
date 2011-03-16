@@ -208,31 +208,34 @@ describe Competitor do
     before do
       @second_partial = mock_model(Competitor, :points => nil, :points! => 12,
         :no_result_reason => nil, :shot_points => 50, :time_points => 30,
-        :time_in_seconds => 999)
+        :time_in_seconds => 999, :unofficial => false)
       @worst_partial = mock_model(Competitor, :points => nil, :points! => nil,
         :no_result_reason => nil, :shot_points => 51, :time_points => 30,
-        :time_in_seconds => 1000)
+        :time_in_seconds => 1000, :unofficial => false)
       @best_partial = mock_model(Competitor, :points => nil, :points! => 88,
         :no_result_reason => nil, :shot_points => 50, :time_points => 30,
-        :time_in_seconds => 1000)
+        :time_in_seconds => 1000, :unofficial => false)
       @best_time = mock_model(Competitor, :points => 199, :points! => 199,
         :no_result_reason => nil, :shot_points => 87, :time_points => 30,
-        :time_in_seconds => 999)
+        :time_in_seconds => 999, :unofficial => false)
       @best_points = mock_model(Competitor, :points => 201, :points! => 201,
         :no_result_reason => nil, :shot_points => 50, :time_points => 30,
-        :time_in_seconds => 1000)
+        :time_in_seconds => 1000, :unofficial => false)
       @worst_points = mock_model(Competitor, :points => 199, :points! => 199,
         :no_result_reason => nil, :shot_points => 87, :time_points => 30,
-        :time_in_seconds => 1000)
+        :time_in_seconds => 1000, :unofficial => false)
       @best_shots = mock_model(Competitor, :points => 199, :points! => 199,
         :no_result_reason => nil, :shot_points => 88, :time_points => 30,
-        :time_in_seconds => 1000)
+        :time_in_seconds => 1000, :unofficial => false)
       @c_dnf = mock_model(Competitor, :points => 300, :points! => 300,
         :no_result_reason => "DNF", :shot_points => 88, :time_points => 30,
-        :time_in_seconds => 1000)
+        :time_in_seconds => 1000, :unofficial => false)
       @c_dns = mock_model(Competitor, :points => 300, :points! => 300,
         :no_result_reason => "DNS", :shot_points => 88, :time_points => 30,
-        :time_in_seconds => 1000)
+        :time_in_seconds => 1000, :unofficial => false)
+      @unofficial = mock_model(Competitor, :points => 300, :points! => 300,
+        :no_result_reason => nil, :shot_points => 100, :time_points => 100,
+        :time_in_seconds => 1000, :unofficial => true)
     end
 
     it "should return empty list when no competitors defined" do
@@ -241,12 +244,13 @@ describe Competitor do
 
     # note that partial points equal points when all results are available
     it "should sort by: 1. points 2. partial points 3. shot points " +
-        "4. time (secs) 5. normal competitors before DNS/DNF" do
-      competitors = [@second_partial, @worst_partial, @best_partial,
+        "4. time (secs) 5. normal competitors before DNS/DNF " +
+        "6. unofficial competitors before DNS/DNF" do
+      competitors = [@unofficial, @second_partial, @worst_partial, @best_partial,
         @c_dnf, @c_dns, @best_time, @best_points, @worst_points, @best_shots]
       Competitor.sort(competitors).should ==
         [@best_points, @best_shots, @best_time, @worst_points, @best_partial,
-        @second_partial, @worst_partial, @c_dnf, @c_dns]
+        @second_partial, @worst_partial, @unofficial, @c_dnf, @c_dns]
     end
   end
 

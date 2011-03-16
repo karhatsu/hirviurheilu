@@ -185,9 +185,11 @@ class Competitor < ActiveRecord::Base
 
   def self.sort(competitors)
     competitors.sort do |a, b|
-      [a.no_result_reason.to_s, b.points.to_i, b.points!.to_i,
+      [a.no_result_reason.to_s, (a.unofficial ? 1 : 0),
+        b.points.to_i, b.points!.to_i,
         b.shot_points.to_i, a.time_in_seconds.to_i] <=>
-      [b.no_result_reason.to_s, a.points.to_i, a.points!.to_i,
+      [b.no_result_reason.to_s, (b.unofficial ? 1 : 0),
+        a.points.to_i, a.points!.to_i,
         a.shot_points.to_i, b.time_in_seconds.to_i]
     end
   end
