@@ -19,7 +19,9 @@
   <tr>
     <td><%= i + 1 %>.</td>
     <td><%= full_name(comp) %>
-      <%= "(#{comp.age_group.name})" if comp.age_group %></td>
+      <%= "(#{comp.age_group.name})" if comp.age_group %>
+      <%= "(#{t(:unofficial_short)})" if comp.unofficial? %>
+    </td>
     <td><%= comp.number ? comp.number : '' %></td>
     <td><%= comp.club.name %></td>
     <td><%= time_points_and_time(comp) %></td>
