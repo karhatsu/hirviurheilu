@@ -18,9 +18,11 @@
 <br/>
 
 <%= f.label :first_name %>
-<%= f.text_field :first_name %>
+<%= f.text_field :first_name, :size => 15 %>
 <%= f.label :last_name %>
-<%= f.text_field :last_name %>
+<%= f.text_field :last_name, :size => 20 %>
+<%= f.check_box :unofficial %>
+<%= f.label :unofficial %>
 <br/>
 
 <%= f.label :club_id, 'Piiri/seura' %>
