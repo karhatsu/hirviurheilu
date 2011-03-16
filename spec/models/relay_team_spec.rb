@@ -92,6 +92,18 @@ describe RelayTeam do
       @relay.reload
     end
 
+    it "should return nil if no correct estimate for one or more legs" do
+      Factory.create(:relay_competitor, :relay_team => @team, :leg => 1,
+        :estimate => 102)
+      @team.estimate_penalties_sum.should be_nil
+    end
+    it "should return nil if no estimate for one or more competitors" do
+      Factory.create(:relay_competitor, :relay_team => @team, :leg => 1,
+        :estimate => 102)
+      @team.estimate_penalties_sum.should be_nil
+    end
+
+
     it "should return the sum of estimate penalties for the team" do
       Factory.create(:relay_competitor, :relay_team => @team, :leg => 1,
         :estimate => 102)

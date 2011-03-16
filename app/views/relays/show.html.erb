@@ -35,12 +35,8 @@
               <%= time_from_seconds(team.time_in_seconds) %>
             <% end %>
           </td>
-	  <% if team.estimate_penalties_sum %>
-            <td class="center"><b><%= team.shoot_penalties_sum %></b></td>
-          <% end %>
-	  <% if team.shoot_penalties_sum %>
-            <td class="center"><b><%= team.estimate_penalties_sum %></b></td>
-          <% end %>
+          <td class="center"><b><%= team.shoot_penalties_sum %></b></td>
+          <td class="center"><b><%= team.estimate_penalties_sum %></b></td>
           <td colspan="2">&nbsp;</td>
         </tr>
         <% team.relay_competitors.each do |comp| %>
