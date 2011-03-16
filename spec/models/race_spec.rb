@@ -453,7 +453,7 @@ describe Race do
     end
   end
 
-  describe "#team_results", :focus => true do
+  describe "#team_results" do
     before do
       @race = Factory.build(:race, :team_competitor_count => 2)
     end
