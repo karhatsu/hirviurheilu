@@ -465,7 +465,7 @@ describe Race do
 
     it "should return empty array if none of the clubs have enough competitors" do
       @club = mock_model(Club)
-      @c = mock_model(Competitor, :points => 1100, :club => @club)
+      @c = mock_model(Competitor, :points => 1100, :club => @club, :unofficial => false)
       Competitor.stub!(:sort).and_return([@c])
       @race.team_results.should == []
       @results = @race.team_results
@@ -476,20 +476,24 @@ describe Race do
         @club1 = mock_model(Club, :name => 'Club 1')
         @club2 = mock_model(Club, :name => 'Club 2')
         @club_small = mock_model(Club, :name => 'Club small')
-        @club1_c1 = mock_model(Competitor, :points => 1100, :club => @club1)
-        @club1_c2 = mock_model(Competitor, :points => 1000, :club => @club1)
-        @club1_c3 = mock_model(Competitor, :points => 999, :club => @club1)
-        @club2_c1 = mock_model(Competitor, :points => 1050, :club => @club2)
-        @club2_c2 = mock_model(Competitor, :points => 800, :club => @club2)
-        @club_small_c = mock_model(Competitor, :points => 1200, :club => @club_small)
-        @club_small_nil_points = mock_model(Competitor, :points => nil, :club => @club_small)
+        @club_unofficial = mock_model(Club, :name => 'Club unofficial')
+        @club1_c1 = mock_model(Competitor, :points => 1100, :club => @club1, :unofficial => false)
+        @club1_c2 = mock_model(Competitor, :points => 1000, :club => @club1, :unofficial => false)
+        @club1_c3 = mock_model(Competitor, :points => 999, :club => @club1, :unofficial => false)
+        @club2_c1 = mock_model(Competitor, :points => 1050, :club => @club2, :unofficial => false)
+        @club2_c2 = mock_model(Competitor, :points => 800, :club => @club2, :unofficial => false)
+        @club_small_c = mock_model(Competitor, :points => 1200, :club => @club_small, :unofficial => false)
+        @club_small_nil_points = mock_model(Competitor, :points => nil, :club => @club_small, :unofficial => false)
+        @club_unofficial1 = mock_model(Competitor, :points => 1200, :club => @club_unofficial, :unofficial => true)
+        @club_unofficial2 = mock_model(Competitor, :points => 1200, :club => @club_unofficial, :unofficial => true)
         Competitor.stub!(:sort).and_return(
-          [@club_small_c, @club1_c1, @club2_c1, @club1_c2, @club2_c2, @club_small_nil_points])
+          [@club_small_c, @club1_c1, @club2_c1, @club1_c2, @club2_c2,
+             @club_unofficial1, @club_unofficial2, @club_small_nil_points])
         @results = @race.team_results
       end
 
       describe "should return an array of hashes" do
-        it "including only the clubs with enough competitors with complete points" do
+        it "including only the clubs with enough official competitors with complete points" do
           @results.length.should == 2
           @results[0][:club].should == @club1
           @results[1][:club].should == @club2

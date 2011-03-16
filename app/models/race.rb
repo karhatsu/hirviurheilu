@@ -139,7 +139,7 @@ class Race < ActiveRecord::Base
     Competitor.sort(competitors.
         where(['series.estimates=2 and series.no_time_points=?', false]).
         includes([:series, :club, :age_group, :shots])).each do |competitor|
-      break unless competitor.points
+      break if competitor.points.nil? or competitor.unofficial
       competitor_count = competitor_counter[competitor.club] || 0
       if competitor_count < team_competitor_count
         competitor_counter[competitor.club] = competitor_count + 1
