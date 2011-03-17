@@ -95,20 +95,21 @@ describe RelayTeam do
     end
 
     it "should return sum of competitors' estimate penalties so that nil refers to 0 penalties" do
-      @team.estimate_penalties_sum.should == 13
+      @team.estimate_penalties_sum.should == 12
     end
   end
 
   describe "#shoot_penalties_sum" do
     before do
+      @team = Factory.create(:relay_team)
       c1 = mock_model(RelayCompetitor, :misses => 3)
       c2 = mock_model(RelayCompetitor, :misses => 4)
       c3 = mock_model(RelayCompetitor, :misses => nil)
       @team.stub!(:relay_competitors).and_return([c1, c2, c3])
     end
 
-    it "should return the sum of shoot penalties for the team" do
-      @team.shoot_penalties_sum.should == 6
+    it "should return the sum of shoot penalties for the team so that nil refers to 0 penalties" do
+      @team.shoot_penalties_sum.should == 7
     end
   end
 end
