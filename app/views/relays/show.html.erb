@@ -17,8 +17,8 @@
         <th>Nimi</th>
         <th>Nro</th>
         <th>Aika</th>
-        <th>Ammuntasakot</th>
         <th>Arviosakot</th>
+        <th>Ammuntasakot</th>
       </tr>
       <% @results.each_with_index do |team, i| %>
         <tr id="team_<%= i + 1 %>">
@@ -35,8 +35,8 @@
               <%= time_from_seconds(team.time_in_seconds) %>
             <% end %>
           </td>
-          <td class="center"><b><%= team.shoot_penalties_sum %></b></td>
           <td class="center"><b><%= team.estimate_penalties_sum %></b></td>
+          <td class="center"><b><%= team.shoot_penalties_sum %></b></td>
           <td colspan="2">&nbsp;</td>
         </tr>
         <% team.relay_competitors.each do |comp| %>
@@ -45,11 +45,11 @@
             <td><%= full_name(comp) %></td>
             <td class="center">(<%= comp.leg %>)</td>
             <td><%= time_from_seconds(comp.time_in_seconds) %></td>
-            <td class="center"><%= comp.misses %></td>
             <td class="center">
               <%= comp.estimate_penalties %>
               <% if @relay.finished? %>(<%= comp.estimate %>m)<% end %>
             </td>
+            <td class="center"><%= comp.misses %></td>
           </tr>
         <% end %>
       <% end %>
