@@ -87,56 +87,27 @@ describe RelayTeam do
 
   describe "#estimate_penalties_sum" do
     before do
-      @relay = Factory.create(:relay, :legs_count => 3, :start_time => '12:00')
-      @team = Factory.create(:relay_team, :relay => @relay)
-      @relay.reload
+      @team = Factory.create(:relay_team)
+      c1 = mock_model(RelayCompetitor, :estimate_penalties => 10)
+      c2 = mock_model(RelayCompetitor, :estimate_penalties => 2)
+      c3 = mock_model(RelayCompetitor, :estimate_penalties => nil)
+      @team.stub!(:relay_competitors).and_return([c1, c2, c3])
     end
 
-    it "should return nil if no correct estimate for one or more legs" do
-      Factory.create(:relay_competitor, :relay_team => @team, :leg => 1,
-        :estimate => 102)
-      @team.estimate_penalties_sum.should be_nil
-    end
-    it "should return nil if no estimate for one or more competitors" do
-      Factory.create(:relay_competitor, :relay_team => @team, :leg => 1,
-        :estimate => 102)
-      @team.estimate_penalties_sum.should be_nil
-    end
-
-
-    it "should return the sum of estimate penalties for the team" do
-      Factory.create(:relay_competitor, :relay_team => @team, :leg => 1,
-        :estimate => 102)
-      Factory.create(:relay_competitor, :relay_team => @team, :leg => 2,
-        :estimate => 150)
-      Factory.create(:relay_competitor, :relay_team => @team, :leg => 3,
-        :estimate => 102)
-      @relay.relay_correct_estimates << Factory.build(:relay_correct_estimate,
-        :relay => @relay, :leg => 1, :distance => 100)
-      @relay.relay_correct_estimates << Factory.build(:relay_correct_estimate,
-        :relay => @relay, :leg => 2, :distance => 111)
-      @relay.relay_correct_estimates << Factory.build(:relay_correct_estimate,
-        :relay => @relay, :leg => 3, :distance => 89)
-      @relay.reload
-      @team.estimate_penalties_sum.should == 7
+    it "should return sum of competitors' estimate penalties so that nil refers to 0 penalties" do
+      @team.estimate_penalties_sum.should == 13
     end
   end
 
   describe "#shoot_penalties_sum" do
     before do
-      @relay = Factory.create(:relay, :legs_count => 3, :start_time => '12:00')
-      @team = Factory.create(:relay_team, :relay => @relay)
-      @relay.reload
+      c1 = mock_model(RelayCompetitor, :misses => 3)
+      c2 = mock_model(RelayCompetitor, :misses => 4)
+      c3 = mock_model(RelayCompetitor, :misses => nil)
+      @team.stub!(:relay_competitors).and_return([c1, c2, c3])
     end
 
     it "should return the sum of shoot penalties for the team" do
-      Factory.create(:relay_competitor, :relay_team => @team, :leg => 1,
-        :misses => 2)
-      Factory.create(:relay_competitor, :relay_team => @team, :leg => 2,
-        :misses => 4)
-      Factory.create(:relay_competitor, :relay_team => @team, :leg => 3,
-        :misses => 0)
-      @relay.reload
       @team.shoot_penalties_sum.should == 6
     end
   end
