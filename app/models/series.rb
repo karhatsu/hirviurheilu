@@ -143,6 +143,9 @@ class Series < ActiveRecord::Base
       last_batch_start = 
         Integer((competitors.last.number - first_number + 1) / batch_size) * batch_size + first_number
     end
+    if last_batch_start == first_number
+      batch_size = 0
+    end
 
     competitors.each do |comp|
       # if the calculated time is saved as such, the time zone changes to UTC

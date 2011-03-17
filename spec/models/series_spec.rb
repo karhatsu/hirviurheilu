@@ -479,6 +479,29 @@ describe Series do
             end
           end
         end
+        context "when there's only one short batch" do
+          describe "when last batch tail attachment succeeds" do
+            before do
+              @c3.destroy
+              @c4.destroy
+              @c5.destroy
+              @c6.destroy
+              @c7.destroy
+              @c8.destroy
+              @series.generate_start_times.should be_true
+              @series.should be_valid
+            end
+            it "should generate start times based on batch size, batch interval and time interval and numbers and return true" do
+              @series.generate_start_times.should be_true
+              @series.should be_valid
+              @c1.reload
+              @c2.reload
+              @c1.start_time.strftime('%H:%M:%S').should == '10:00:15'
+              @c2.start_time.strftime('%H:%M:%S').should == '10:00:45'
+              @c3.start_time.should be_nil
+            end
+          end
+        end
       end
     end
   end
