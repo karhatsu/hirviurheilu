@@ -22,8 +22,7 @@ class RelayTeam < ActiveRecord::Base
   def estimate_penalties_sum
     sum = 0
     relay_competitors.each do |competitor|
-      return nil unless competitor.estimate_penalties
-      sum += competitor.estimate_penalties
+      sum += competitor.estimate_penalties if competitor.estimate_penalties
     end
     return sum
   end
@@ -31,8 +30,7 @@ class RelayTeam < ActiveRecord::Base
   def shoot_penalties_sum
     sum = 0
     relay_competitors.each do |competitor|
-      return nil unless competitor.misses
-      sum += competitor.misses
+      sum += competitor.misses if competitor.misses
     end
     return sum
   end
