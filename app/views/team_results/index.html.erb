@@ -1,4 +1,7 @@
 <% content_for :title, "#{@race.name} - Joukkuekilpailun tulokset" %>
+<% if ! @race.finished? %>
+<% content_for(:refresh, @race.start_interval_seconds.to_s) %>
+<% end %>
 <h2>Joukkuekilpailun tulokset</h2>
 <% results = @race.team_results %>
 <% if results.empty? %>
