@@ -17,7 +17,7 @@ describe TimeQuickSave do
       end
 
       describe "#save" do
-        it "should save given estimates for the competitor and return true" do
+        it "should save given time for the competitor and return true" do
           @qs.save.should be_true
           @c.reload
           @c.arrival_time.strftime('%H:%M:%S').should == '13:12:59'
@@ -47,7 +47,7 @@ describe TimeQuickSave do
       end
 
       describe "#save" do
-        it "should not save given estimates for the competitor and return false" do
+        it "should not save given time for the competitor and return false" do
           @qs.save.should be_false
           @c2.reload
           @c2.arrival_time.should be_nil
@@ -81,7 +81,7 @@ describe TimeQuickSave do
     end
 
     describe "#save" do
-      it "should not save given estimates for the competitor and return false" do
+      it "should not save given time for the competitor and return false" do
         @qs.save.should be_false
         @c.reload
         @c.arrival_time.strftime('%H:%M:%S').should == '12:00:00'
@@ -109,7 +109,7 @@ describe TimeQuickSave do
     end
 
     describe "#save" do
-      it "should not save given estimates for the competitor and return false" do
+      it "should not save given time for the competitor and return false" do
         @qs.save.should be_false
         @c.reload
         @c.arrival_time.strftime('%H:%M:%S').should == '12:00:00'
@@ -137,7 +137,7 @@ describe TimeQuickSave do
     end
 
     describe "#save" do
-      it "should not save given estimates for the competitor and return false" do
+      it "should not save given time for the competitor and return false" do
         @qs.save.should be_false
         @c.reload
         @c.arrival_time.strftime('%H:%M:%S').should == '12:00:00'
