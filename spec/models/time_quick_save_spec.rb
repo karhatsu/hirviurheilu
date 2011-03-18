@@ -204,7 +204,7 @@ describe TimeQuickSave do
     end
 
     describe "#competitor" do
-      it "should return nil" do
+      it "should return competitor" do
         @qs.save
         @qs.competitor.should == @c
       end
