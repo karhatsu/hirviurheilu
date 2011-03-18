@@ -7,6 +7,7 @@
 <% if results.empty? %>
   <div class="info">Joukkuekilpailun tuloksia ei voida vielä laskea</div>
 <% else %>
+  <a href="javascript:void()" id="show_all_competitors">Näytä kaikki kilpailijat</a>
   <div class="section">
     <table>
       <tr>
@@ -28,7 +29,7 @@
           <td colspan="4">&nbsp;</td>
         </tr>
         <% team_result[:competitors].each do |competitor| %>
-          <tr class="club_<%= club.id %>" style="display: none;">
+          <tr class="club_<%= club.id %> competitor_row" style="display: none;">
             <td>&nbsp;</td>
             <td><%= link_to full_name(competitor),
                 series_competitor_path(competitor.series, competitor) %></td>
@@ -57,5 +58,8 @@
     } else {
       $(competitors).hide();
     }
+  });
+  $('#show_all_competitors').click(function() {
+    $('.competitor_row').show();
   });
 <% end %>
