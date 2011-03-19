@@ -1,8 +1,7 @@
 class TeamCompetitionsController < ApplicationController
-  before_filter :assign_race_by_race_id
+  before_filter :assign_race_by_race_id, :assign_team_competition_by_id
 
   def show
-    @tc = TeamCompetition.find(params[:id])
     @is_team_results = true
   end
 end
