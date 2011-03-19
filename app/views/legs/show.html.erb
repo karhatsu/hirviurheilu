@@ -27,7 +27,10 @@
           <td><%= team.name %></td>
           <td class="center"><%= team.number %></td>
           <td class="center team_points">
-            <%= time_from_seconds(team.time_in_seconds(@leg)) %>
+            <%= time_from_seconds(team.time_in_seconds(@leg.to_i)) %>
+	    <% if team.adjustment(@leg.to_i) != 0 %>
+              (<% if team.adjustment(@leg.to_i).to_i < 0 %>-<% else %>+<% end %><span title="Aika sisältää korjausta <% if team.adjustment(@leg.to_i).to_i < 0 %>-<% else %>+<% end %><%= time_from_seconds(team.adjustment(@leg.to_i).to_i.abs) %> "><%= time_from_seconds(team.adjustment(@leg.to_i).to_i.abs)%>)
+            <% end %>
           </td>
           <td class="center"><%= competitor.misses %></td>
           <td class="center">
