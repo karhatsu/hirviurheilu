@@ -137,6 +137,13 @@ describe TeamCompetition do
       age_group5 = Factory.create(:age_group, :series => series4)
       @s_c4 = Factory.create(:competitor, :series => series4, :age_group => age_group5)
 
+      # both series and age group included in competition, competitor should be only once
+      series4 = Factory.create(:series, :race => race)
+      age_group3 = Factory.create(:age_group, :series => series4)
+      @tc.series << series4
+      @tc.age_groups << age_group3
+      @s_ag_c = Factory.create(:competitor, :series => series4, :age_group => age_group3)
+
       # competitors belong to (series and) age group, age group included in competition
       series2 = Factory.create(:series, :race => race)
       age_group1 = Factory.build(:age_group, :series => series2)
@@ -156,7 +163,7 @@ describe TeamCompetition do
     it "should call #results_for_competitors with all unique competitors from " +
       "series and age groups as parameters, and return the result" do
       @tc.should_receive(:results_for_competitors).
-        with([@s_c1, @s_c2, @s_c3, @s_c4, @ag_c1, @ag_c2, @ag_c3, @ag_c4]).
+        with([@s_c1, @s_c2, @s_c3, @s_c4, @s_ag_c, @ag_c1, @ag_c2, @ag_c3, @ag_c4]).
         and_return("results")
       @tc.results.should == "results"
     end
