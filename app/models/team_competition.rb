@@ -7,6 +7,17 @@ class TeamCompetition < ActiveRecord::Base
   validates :team_competitor_count, :numericality => { :only_integer => true,
     :greater_than => 1 }
 
+  def results
+    competitors = []
+    series.each do |s|
+      competitors += s.competitors
+    end
+    age_groups.each do |ag|
+      competitors += ag.competitors
+    end
+    results_for_competitors competitors
+  end
+
   def results_for_competitors(competitors)
     hash = create_team_results_hash(competitors)
     sorted_teams = sorted_teams_from_team_results_hash(hash)
