@@ -25,6 +25,13 @@ class Official::RelayQuickSavesController < Official::OfficialController
     end
   end
 
+  def adjustment
+    @name = 'adjustment'
+    do_quick_save(RelayAdjustmentQuickSave.new(@relay.id, params[:string])) do
+      @result = "korjaukset: #{@competitor.adjustment}"
+    end
+  end
+
   private
   def do_quick_save(quick_save, &block)
     if quick_save.save

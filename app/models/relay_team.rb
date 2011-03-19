@@ -27,6 +27,14 @@ class RelayTeam < ActiveRecord::Base
     return sum
   end
 
+  def adjustment
+    sum = 0
+    relay_competitors.each do |competitor|
+      sum += competitor.adjustment.to_i
+    end
+    return sum
+  end
+
   def shoot_penalties_sum
     sum = 0
     relay_competitors.each do |competitor|

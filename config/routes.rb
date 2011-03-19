@@ -91,6 +91,8 @@ ElkSports::Application.routes.draw do
         :as => :relay_misses_quick_save
       post 'relay_time_quick_save' => 'relay_quick_saves#time',
         :as => :relay_time_quick_save
+      post 'relay_adjustment_quick_save' => 'relay_quick_saves#adjustment',
+        :as => :relay_adjustment_quick_save
       resources :relay_quick_saves
       resource :finish_relay
     end
