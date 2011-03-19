@@ -82,8 +82,10 @@
   </div>
 <% end %>
 <div class="action_box">
-  <%= link_to "Viestit",
-    official_race_relays_path(@race) %>
+  <%= link_to "Joukkuekilpailut", official_race_team_competitions_path(@race) %>
+</div>
+<div class="action_box">
+  <%= link_to "Viestit", official_race_relays_path(@race) %>
 </div>
 <div class="action_box">
   <%= link_to "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja",
