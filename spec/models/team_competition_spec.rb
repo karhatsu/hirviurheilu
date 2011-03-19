@@ -7,6 +7,7 @@ describe TeamCompetition do
 
   describe "associations" do
     it { should belong_to(:race) }
+    it { should have_and_belong_to_many(:series) }
   end
 
   describe "validations" do
