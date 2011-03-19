@@ -117,4 +117,48 @@ describe TeamCompetition do
       end
     end
   end
+
+  describe "#results" do
+    before do
+      race = Factory.create(:race)
+      @tc = Factory.create(:team_competition, :race => race)
+
+      # competitors belong to series without age groups, series included in competition
+      series1 = Factory.build(:series, :race => race)
+      @tc.series << series1
+      @s_c1 = Factory.create(:competitor, :series => series1)
+      @s_c2 = Factory.create(:competitor, :series => series1)
+
+      # competitors belong to (series and) age groups, series included in competition
+      series4 = Factory.build(:series, :race => race)
+      @tc.series << series4
+      age_group4 = Factory.create(:age_group, :series => series4)
+      @s_c3 = Factory.create(:competitor, :series => series4, :age_group => age_group4)
+      age_group5 = Factory.create(:age_group, :series => series4)
+      @s_c4 = Factory.create(:competitor, :series => series4, :age_group => age_group5)
+
+      # competitors belong to (series and) age group, age group included in competition
+      series2 = Factory.create(:series, :race => race)
+      age_group1 = Factory.build(:age_group, :series => series2)
+      @tc.age_groups << age_group1
+      @ag_c1 = Factory.create(:competitor, :series => series2, :age_group => age_group1)
+      @ag_c2 = Factory.create(:competitor, :series => series2, :age_group => age_group1)
+      # another similar
+      series3 = Factory.create(:series, :race => race)
+      age_group2 = Factory.build(:age_group, :series => series3)
+      @tc.age_groups << age_group2
+      @ag_c3 = Factory.create(:competitor, :series => series3, :age_group => age_group2)
+      @ag_c4 = Factory.create(:competitor, :series => series3, :age_group => age_group2)
+
+      @tc.reload
+    end
+
+    it "should call #results_for_competitors with all unique competitors from " +
+      "series and age groups as parameters, and return the result" do
+      @tc.should_receive(:results_for_competitors).
+        with([@s_c1, @s_c2, @s_c3, @s_c4, @ag_c1, @ag_c2, @ag_c3, @ag_c4]).
+        and_return("results")
+      @tc.results.should == "results"
+    end
+  end
 end
