@@ -53,6 +53,14 @@ describe RelayCompetitor do
       it { should allow_value(1).for(:estimate) }
     end
 
+    describe "adjustment" do
+      it { should allow_value(nil).for(:adjustment) }
+      it { should allow_value(-1).for(:adjustment) }
+      it { should allow_value(0).for(:adjustment) }
+      it { should allow_value(1).for(:adjustment) }
+      it { should_not allow_value(1.1).for(:adjustment) }
+    end
+
     describe "arrival_time" do
       it { should allow_value(nil).for(:arrival_time) }
 
