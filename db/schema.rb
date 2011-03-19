@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110319042118) do
+ActiveRecord::Schema.define(:version => 20110319042508) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -219,6 +219,15 @@ ActiveRecord::Schema.define(:version => 20110319042118) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "team_competition_age_groups", :id => false, :force => true do |t|
+    t.integer  "team_competition_id", :null => false
+    t.integer  "age_group_id",        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "team_competition_age_groups", ["team_competition_id"], :name => "index_team_competition_age_groups_on_team_competition_id"
 
   create_table "team_competition_series", :id => false, :force => true do |t|
     t.integer  "team_competition_id", :null => false
