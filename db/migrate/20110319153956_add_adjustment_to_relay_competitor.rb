@@ -1,9 +1,9 @@
 class AddAdjustmentToRelayCompetitor < ActiveRecord::Migration
   def self.up
-    remove_column :series, :start_time, :integer
+    add_column :relay_competitors, :adjustment, :integer
   end
 
   def self.down
-    remove_column :series, :start_time
+    remove_column :relay_competitors, :adjustment
   end
 end
