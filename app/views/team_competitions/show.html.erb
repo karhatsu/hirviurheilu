@@ -1,5 +1,13 @@
 <% content_for :title, "#{@race.name} - Joukkuekilpailut - #{@tc.name}" %>
 <h2><%= @tc.name %> - Tulokset</h2>
+<% if @tc.race.team_competitions.count > 1 %>
+  <% content_for :sub_sub_menu do %>
+    <%= render :layout => 'team_competitions_sub_menu',
+      :locals => { :race => @tc.race, :team_competition_id => @tc.id } do |tc| %>
+      <%= race_team_competition_path(tc.race, tc) %>
+    <% end %>
+  <% end %>
+<% end %>
 <% results = @tc.results %>
 <% if results.empty? %>
   <div class="info">Joukkuekilpailun tuloksia ei voida vielä laskea</div>
