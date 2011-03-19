@@ -71,6 +71,7 @@ ElkSports::Application.routes.draw do
       get 'export/success' => 'exports#success'
       get 'export/error' => 'exports#error'
       resources :relays
+      resources :team_competitions
       resources :csv_imports
     end
 

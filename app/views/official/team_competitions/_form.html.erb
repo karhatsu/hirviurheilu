@@ -1,0 +1,9 @@
+<%= flash_success %>
+<%= render :partial => 'shared/form_errors', :locals => { :item => @tc } %>
+<%= form_for([:official, @race, @tc]) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br/>
+  <%= f.label :team_competitor_count %>
+  <%= f.text_field :team_competitor_count, :size => 2 %><br/>
+  <%= submit_tag 'Tallenna' %>
+<% end %>

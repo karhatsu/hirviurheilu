@@ -115,6 +115,23 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def assign_team_competition_by_id
+    assign_team_competition params[:id]
+  end
+
+  def assign_team_competition_by_team_competition_id
+    assign_team_competition params[:team_competition_id]
+  end
+
+  def assign_team_competition(id)
+    begin
+      @tc = TeamCompetition.find(id)
+    rescue ActiveRecord::RecordNotFound
+      @id = id
+      render 'errors/team_competition_not_found'
+    end
+  end
+
   def set_competitions
     @is_competitions = true
   end
