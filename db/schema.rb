@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(:version => 20110316105027) do
     t.time     "arrival_time"
     t.integer  "misses"
     t.integer  "estimate"
+    t.integer  "adjustment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
