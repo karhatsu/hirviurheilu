@@ -1,6 +1,6 @@
-<% content_for :title, "#{@race.name} - Joukkuekilpailun tulokset" %>
-<h2>Joukkuekilpailun tulokset</h2>
-<% results = @race.team_results %>
+<% content_for :title, "#{@race.name} - Joukkuekilpailut - #{@tc.name}" %>
+<h2><%= @tc.name %> - Tulokset</h2>
+<% results = @tc.results %>
 <% if results.empty? %>
   <div class="info">Joukkuekilpailun tuloksia ei voida vielä laskea</div>
 <% else %>

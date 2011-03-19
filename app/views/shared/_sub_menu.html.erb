@@ -12,7 +12,8 @@ race = menu_race
           <%= menu_item "Lähtölistat", series_start_list_path(series), @is_start_list %>
           <%= menu_item "Tulokset", series_competitors_path(series), @is_results %>
           <% if race.has_team_competition? %>
-            <%= menu_item "Joukkuekilpailu", race_team_results_path(race), @is_team_results %>
+            <%= menu_item "Joukkuekilpailut", race_team_competition_path(race,
+              race.team_competitions.first), @is_team_results %>
           <% end %>
         <% end %>
         <% unless race.relays.empty? %>

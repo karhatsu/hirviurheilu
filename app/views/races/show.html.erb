@@ -72,9 +72,10 @@
 </div>
 <% if @race.has_team_competition? and @race.start_date <= Time.zone.today and
     !@race.series.empty? %>
-  <h2>Joukkuekilpailu</h2>
+  <h2>Joukkuekilpailut</h2>
   <div class="section">
-    <%= link_to "Joukkuekilpailun tulokset", race_team_results_path(@race) %>
+    <%= link_to "Joukkuekilpailut", race_team_competition_path(@race,
+      @race.team_competitions.first) %>
   </div>
 <% end %>
 <% unless @race.relays.empty? %>
