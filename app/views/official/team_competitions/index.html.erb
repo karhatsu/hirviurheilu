@@ -13,7 +13,7 @@
         <tr>
           <td><%= link_to tc.name, edit_official_race_team_competition_path(@race, tc) %></td>
           <td class="center"><%= tc.team_competitor_count %></td>
-          <td><%= (tc.series.map &:name).join(', ') %></td>
+          <td><%= ((tc.series.map &:name) + (tc.age_groups.map &:name)).join(', ') %></td>
         </tr>
       <% end %>
     </table>

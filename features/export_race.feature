@@ -81,6 +81,7 @@ Feature: Export race
     And the relay is finished
     And the race has a team competition "Ladies" with 8 competitors / team
     And the team competition contains the series "Offline series"
+    And the team competition contains the age group "Offline age group"
     And the race has a team competition "Young men" with 9 competitors / team
     And I am on the official race page of "Offline race"
     And I follow "Julkaise"
@@ -163,7 +164,7 @@ Feature: Export race
     When I follow "Joukkuek."
     Then I should see "Ladies"
     And I should see "8"
-    And I should see "Offline series" within "td"
+    And I should see "Offline series, Offline age group" within "td"
     Then I should see "Young men"
     And I should see "9"
 
