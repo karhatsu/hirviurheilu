@@ -200,4 +200,39 @@ describe TeamCompetition do
       @tc.series[1].name.should == 'second series'
     end
   end
+
+  describe "#age_groups_names" do
+    before do
+      @tc = Factory.create(:team_competition)
+    end
+
+    it "should return empty string when no age_groups attached" do
+      @tc.age_groups_names.should == ''
+    end
+
+    it "should return the names of the age_groups separated with comma" do
+      @tc.age_groups << Factory.build(:age_group, :name => 'first age_group')
+      @tc.age_groups << Factory.build(:age_group, :name => 'second age_group')
+      @tc.age_groups_names.should == 'first age_group,second age_group'
+    end
+  end
+
+  describe "#attach_age_groups_by_names" do
+    before do
+      @race = Factory.create(:race)
+      @tc = Factory.create(:team_competition, :race => @race)
+      series = Factory.create(:series, :race => @race)
+      @age_groups1 = Factory.create(:age_group, :series => series,
+        :name => 'first age_group')
+      @age_groups2 = Factory.create(:age_group, :series => series,
+        :name => 'second age_group')
+    end
+
+    it "should find the names from the race and attach the corresponding age_groups" do
+      @tc.attach_age_groups_by_names('first age_group,second age_group')
+      @tc.should have(2).age_groups
+      @tc.age_groups[0].name.should == 'first age_group'
+      @tc.age_groups[1].name.should == 'second age_group'
+    end
+  end
 end
