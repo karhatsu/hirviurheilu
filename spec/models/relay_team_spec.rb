@@ -88,7 +88,7 @@ describe RelayTeam do
         @team.time_in_seconds(2).should == 20 * 60 + 54
       end
     end
-    context "when leg number and adjustment given" do
+    context "when leg number given and adjustment exists" do
       before do
         @c1.destroy;
         @c2.destroy;
