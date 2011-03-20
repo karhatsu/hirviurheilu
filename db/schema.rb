@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(:version => 20110320161854) do
     t.integer  "estimate"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "adjustment"
   end
 
   add_index "relay_competitors", ["relay_team_id"], :name => "index_relay_competitors_on_relay_team_id"

@@ -16,7 +16,7 @@ class RelayTeam < ActiveRecord::Base
     leg = relay.legs_count unless leg
     competitor = relay_competitors.where(:leg => leg).first
     return nil unless competitor and competitor.arrival_time
-    competitor.arrival_time - relay.start_time
+    competitor.arrival_time - relay.start_time + adjustment(leg)
   end
 
   def estimate_penalties_sum
@@ -25,6 +25,15 @@ class RelayTeam < ActiveRecord::Base
       sum += competitor.estimate_penalties.to_i
     end
     return sum
+  end
+
+  def adjustment(leg=nil)
+    leg = relay.legs_count unless leg
+    sum = 0
+    relay_competitors.each do |competitor|
+      sum += competitor.adjustment.to_i if competitor.leg <= leg
+    end
+    sum
   end
 
   def shoot_penalties_sum
