@@ -512,37 +512,33 @@ describe ApplicationHelper do
   end
 
   describe "#get_next_url" do
-    before do
-      $url_list = [ 'http://localhost:3000/races/12/relays/1', 'http://localhost:3000/series/56/competitors', 'http://localhost:3000/series/67/competitors']
-    end
-
     context "when nil url is given" do
       it "should return first url from url rotation" do
-        get_next_url(nil).should == $url_list[0]
+        get_next_url(nil).should == url_list[0]
       end
     end
 
     context "when unknown url is given" do
       it "should return first url from url rotation" do
-        get_next_url('http://localhost:3000/unknown').should == $url_list[0]
+        get_next_url('http://localhost:3000/unknown').should == url_list[0]
       end
     end
 
     context "when existing url is given" do
       it "should return next url from url rotation" do
-        get_next_url($url_list[0]).should == $url_list[1]
+        get_next_url(url_list[0]).should == url_list[1]
       end
     end
 
     context "when another existing url is given" do
       it "should return next url from url rotation" do
-        get_next_url($url_list[1]).should == $url_list[2]
+        get_next_url(url_list[1]).should == url_list[2]
       end
     end
 
     context "when last url is given" do
       it "should return first url from url rotation" do
-        get_next_url($url_list[2]).should == $url_list[0]
+        get_next_url(url_list.size - 1).should == url_list[0]
       end
     end
   end
