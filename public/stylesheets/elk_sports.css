@@ -253,3 +253,7 @@ span.unofficial {
     font-size: 80%;
     cursor: help;
 }
+
+span.adjustment {
+    cursor: help;
+}
