@@ -287,4 +287,12 @@ module ApplicationHelper
     'http://' + link
   end
 
+  def get_next_url(url)
+    url_list = [ 'http://localhost:3000/races/12/relays/1', 'http://localhost:3000/series/56/competitors', 'http://localhost:3000/series/67/competitors']
+    if (url_list.index(url))
+      return url_list[0] if url_list.index(url) == url_list.size - 1
+      return url_list[url_list.index(url) + 1]
+    end
+    return url_list[0]
+  end
 end
