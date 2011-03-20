@@ -13,15 +13,19 @@
       <% @race.series.each do |series| %>
         <tr>
           <td>
-            <%= check_box_tag 'team_competition[series_ids][]', series.id,
-              current_series_ids.include?(series.id) %>
-            <%= series.name %>
+            <%= label_tag do %>
+              <%= check_box_tag 'team_competition[series_ids][]', series.id,
+                current_series_ids.include?(series.id) %>
+              <%= series.name %>
+            <% end %>
           </td>
           <td>
             <% series.age_groups.each do |age_group| %>
-              <%= check_box_tag 'team_competition[age_group_ids][]', age_group.id,
-                current_age_group_ids.include?(age_group.id) %>
-              <%= age_group.name %>
+              <%= label_tag do %>
+                <%= check_box_tag 'team_competition[age_group_ids][]', age_group.id,
+                  current_age_group_ids.include?(age_group.id) %>
+                <%= age_group.name %>
+              <% end %>
             <% end %>
           </td>
         </tr>
