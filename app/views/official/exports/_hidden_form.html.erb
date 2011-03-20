@@ -93,3 +93,7 @@
     <% end %>
   <% end %>
 <% end %>
+<%= f.fields_for(:team_competitions) do |tc_f| %>
+  <%= tc_f.hidden_field :id, :value => '' %>
+  <%= tc_f.hidden_field :name %>
+<% end %>
