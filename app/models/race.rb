@@ -30,8 +30,6 @@ class Race < ActiveRecord::Base
     :greater_than_or_equal_to => 0 }
   validates :batch_interval_seconds, :numericality => { :only_integer => true,
     :greater_than => 0 }
-  validates :team_competitor_count, :numericality => { :allow_nil => true,
-    :only_integer => true, :greater_than => 1 }
   validate :end_date_not_before_start_date
   validate :check_duplicate_name_location_start_date, :on => :create
 
