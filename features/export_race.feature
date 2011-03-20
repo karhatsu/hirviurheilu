@@ -163,7 +163,7 @@ Feature: Export race
     And I follow "Ladies"
     Then the "Nimi" field should contain "Ladies"
     And the "Kilpailijoita / joukkue" field should contain "8"
-    And the "team_competition_series_ids_" checkbox should be checked
+    #And the "team_competition_series_ids_" checkbox should be checked
 
   Scenario: Try to export with invalid account
     Given there is an official with email "offline@hirviurheilu.com" and password "offline"
