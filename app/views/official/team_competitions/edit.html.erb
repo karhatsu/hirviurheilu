@@ -1,0 +1,6 @@
+<% content_for :title, "#{@race.name} - #{@tc.name} - Muokkaa" %>
+<h2>Muokkaa joukkuekilpailun tietoja</h2>
+<%= render :partial => 'form' %>
+<hr/>
+<%= link_to 'Takaisin joukkuekilpailujen etusivulle',
+  official_race_team_competitions_path(@race) %>

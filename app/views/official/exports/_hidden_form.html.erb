@@ -7,7 +7,6 @@
 <%= f.hidden_field :batch_interval_seconds %>
 <%= f.hidden_field :finished %>
 <%= f.hidden_field :series_count %>
-<%= f.hidden_field :team_competitor_count %>
 <%= f.fields_for(:clubs) do |club_f| %>
   <%= club_f.hidden_field :id, :value => '' %>
   <%= club_f.hidden_field :name %>
@@ -92,4 +91,11 @@
       <%= comp_f.hidden_field :estimate %>
     <% end %>
   <% end %>
+<% end %>
+<%= f.fields_for(:team_competitions) do |tc_f| %>
+  <%= tc_f.hidden_field :id, :value => '' %>
+  <%= tc_f.hidden_field :name %>
+  <%= tc_f.hidden_field :team_competitor_count %>
+  <%= tc_f.hidden_field :temp_series_names, :value => tc_f.object.series_names %>
+  <%= tc_f.hidden_field :temp_age_groups_names, :value => tc_f.object.age_groups_names %>
 <% end %>

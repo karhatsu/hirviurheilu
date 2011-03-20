@@ -29,7 +29,7 @@ ElkSports::Application.routes.draw do
   resources :prices
 
   resources :races do
-    resources :team_results
+    resources :team_competitions
     resources :relays
   end
 
@@ -71,6 +71,7 @@ ElkSports::Application.routes.draw do
       get 'export/success' => 'exports#success'
       get 'export/error' => 'exports#error'
       resources :relays
+      resources :team_competitions
       resources :csv_imports
     end
 

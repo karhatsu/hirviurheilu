@@ -72,9 +72,25 @@
 </div>
 <% if @race.has_team_competition? and @race.start_date <= Time.zone.today and
     !@race.series.empty? %>
-  <h2>Joukkuekilpailu</h2>
+  <h2>Joukkuekilpailut</h2>
   <div class="section">
-    <%= link_to "Joukkuekilpailun tulokset", race_team_results_path(@race) %>
+    <% if @race.team_competitions.count == 1 %>
+      <%= link_to "Joukkuekilpailu", race_team_competition_path(@race,
+        @race.team_competitions.first) %>
+    <% else %>
+      <table>
+        <tr>
+          <th>Kilpailu</th>
+          <th>Kilpailijoita / joukkue</th>
+        </tr>
+        <% @race.team_competitions.each do |tc| %>
+          <tr>
+            <td><%= link_to tc.name, race_team_competition_path(@race, tc) %></td>
+            <td class="center"><%= tc.team_competitor_count %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
   </div>
 <% end %>
 <% unless @race.relays.empty? %>

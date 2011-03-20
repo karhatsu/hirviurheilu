@@ -55,6 +55,34 @@ Feature: Export race
       | arrival_time | 13:58:11 |
     And the shots for the competitor "Tim" "Smith" are 10,10,9,9,9,8,7,6,5,0
     And the race is finished
+    And the race has a relay with attributes:
+      | name | Offline relay |
+      | legs_count | 2 |
+      | start_time | 08:30 |
+    And the relay has a team "Offline relay team" with number 1
+    And the relay team has a competitor with attributes:
+      | first_name | Harry |
+      | last_name | Peterson |
+      | leg | 1 |
+      | arrival_time | 08:45:10 |
+      | misses | 4 |
+      | estimate | 123 |
+    And the relay team has a competitor with attributes:
+      | first_name | Mathew |
+      | last_name | Stevens |
+      | leg | 2 |
+      | arrival_time | 09:01:12 |
+      | misses | 0 |
+      | estimate | 100 |
+    And the relay has the correct estimates:
+      | leg | distance |
+      | 1 | 105 |
+      | 2 | 88 |
+    And the relay is finished
+    And the race has a team competition "Ladies" with 8 competitors / team
+    And the team competition contains the series "Offline series"
+    And the team competition contains the age group "Offline age group"
+    And the race has a team competition "Young men" with 9 competitors / team
     And I am on the official race page of "Offline race"
     And I follow "Julkaise"
     Then I should be on the export race page of "Offline race"
@@ -93,7 +121,7 @@ Feature: Export race
     And the "race_correct_estimates_attributes_0_max_number" field should contain "16"
     And the "Etäisyys 1" field should contain "110"
     And the "Etäisyys 2" field should contain "130"
-    When I follow "Kilpailijat & lähtölista"
+    When I follow "Kilpailijat"
     Then I should see "Johnson James"
     And I should see "(Offline age group)"
     And I should see "13:00:00"
@@ -106,7 +134,7 @@ Feature: Export race
     And the "competitor_arrival_time_4i" field should contain "14"
     And the "competitor_arrival_time_5i" field should contain "10"
     And the "competitor_arrival_time_6i" field should contain "25"
-    When I follow "Kilpailijat & lähtölista"
+    When I follow "Kilpailijat"
     And I follow "Smith Tim"
     Then the "competitor_shots_attributes_0_value" field should contain "10"
     And the "competitor_shots_attributes_1_value" field should contain "10"
@@ -118,6 +146,27 @@ Feature: Export race
     And the "competitor_shots_attributes_7_value" field should contain "6"
     And the "competitor_shots_attributes_8_value" field should contain "5"
     And the "competitor_shots_attributes_9_value" field should contain "0"
+    When I follow "Viestit"
+    Then I should see "Offline relay"
+    And I should see "2" within "td"
+    And I should see "08:30"
+    And I should see "1" within "td"
+    And I should see "Viesti päättynyt"
+    When I follow "Offline relay"
+    Then the "relay_relay_correct_estimates_attributes_0_distance" field should contain "105"
+    And the "relay_relay_correct_estimates_attributes_1_distance" field should contain "88"
+    And the "Joukkueen nimi" field should contain "Offline relay team"
+    And the "Etunimi" field should contain "Harry"
+    And the "Sukunimi" field should contain "Peterson"
+    And the "Ohilaukaukset" field should contain "4"
+    And the "Arvio" field should contain "123"
+    And I should see "08:45:10"
+    When I follow "Joukkuek."
+    Then I should see "Ladies"
+    And I should see "8"
+    And I should see "Offline series, Offline age group" within "td"
+    Then I should see "Young men"
+    And I should see "9"
 
   Scenario: Try to export with invalid account
     Given there is an official with email "offline@hirviurheilu.com" and password "offline"

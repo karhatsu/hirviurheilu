@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110319153956) do
+ActiveRecord::Schema.define(:version => 20110320161854) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -116,7 +116,6 @@ ActiveRecord::Schema.define(:version => 20110319153956) do
     t.integer  "start_interval_seconds"
     t.boolean  "finished",               :default => false, :null => false
     t.integer  "series_count",           :default => 0,     :null => false
-    t.integer  "team_competitor_count"
     t.string   "home_page"
     t.integer  "batch_size",             :default => 0,     :null => false
     t.integer  "batch_interval_seconds", :default => 180,   :null => false
@@ -220,6 +219,34 @@ ActiveRecord::Schema.define(:version => 20110319153956) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "team_competition_age_groups", :id => false, :force => true do |t|
+    t.integer  "team_competition_id", :null => false
+    t.integer  "age_group_id",        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "team_competition_age_groups", ["team_competition_id"], :name => "index_team_competition_age_groups_on_team_competition_id"
+
+  create_table "team_competition_series", :id => false, :force => true do |t|
+    t.integer  "team_competition_id", :null => false
+    t.integer  "series_id",           :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "team_competition_series", ["team_competition_id"], :name => "index_team_competition_series_on_team_competition_id"
+
+  create_table "team_competitions", :force => true do |t|
+    t.integer  "race_id",               :null => false
+    t.string   "name",                  :null => false
+    t.integer  "team_competitor_count", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "team_competitions", ["race_id"], :name => "index_team_competitions_on_race_id"
 
   create_table "user_sessions", :force => true do |t|
     t.string   "session_id"

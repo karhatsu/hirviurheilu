@@ -1,0 +1,36 @@
+<%= flash_success %>
+<div class="section">
+  <%= render :partial => 'shared/form_errors', :locals => { :item => @tc } %>
+  <%= form_for([:official, @race, @tc]) do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %><br/>
+    <%= f.label :team_competitor_count %>
+    <%= f.text_field :team_competitor_count, :size => 2 %>
+    <h3>Sarjat ja/tai ikäryhmät tässä joukkuekilpailussa</h3>
+    <% current_series_ids = @tc.series_ids %>
+    <% current_age_group_ids = @tc.age_group_ids %>
+    <table border="1" cellpadding="2" cellspacing="0">
+      <% @race.series.each do |series| %>
+        <tr>
+          <td>
+            <%= label_tag do %>
+              <%= check_box_tag 'team_competition[series_ids][]', series.id,
+                current_series_ids.include?(series.id) %>
+              <%= series.name %>
+            <% end %>
+          </td>
+          <td>
+            <% series.age_groups.each do |age_group| %>
+              <%= label_tag do %>
+                <%= check_box_tag 'team_competition[age_group_ids][]', age_group.id,
+                  current_age_group_ids.include?(age_group.id) %>
+                <%= age_group.name %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table><br/>
+    <%= submit_tag 'Tallenna' %>
+  <% end %>
+</div>
