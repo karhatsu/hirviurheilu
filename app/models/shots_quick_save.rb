@@ -1,6 +1,6 @@
 class ShotsQuickSave < QuickSave
   def initialize(race_id, string)
-    super(race_id, string, /^\d+\,[0-9][0-9]?0?$/, /^\d+\,[\+0-9]{10}$/)
+    super(race_id, string, /^(\+\+|)\d+\,[0-9][0-9]?0?$/, /^(\+\+|)\d+\,[\+0-9]{10}$/)
   end
 
   private
@@ -18,5 +18,10 @@ class ShotsQuickSave < QuickSave
         @competitor.shots << Shot.new(:value => shot)
       end
     end
+  end
+
+  def competitor_has_attrs?
+    !@competitor.shots.empty? ||
+    !@competitor.shots_total_input.nil?
   end
 end

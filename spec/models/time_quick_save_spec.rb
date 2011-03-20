@@ -8,27 +8,29 @@ describe TimeQuickSave do
       :start_time => '11:00:00')
     @c = Factory.create(:competitor, :series => @series, :number => 10,
       :start_time => '11:30:00', :arrival_time => '12:00:00')
+    @c2 = Factory.create(:competitor, :series => @series, :number => 11,
+      :start_time => '11:30:00')
   end
 
   context "when string format is correct and competitor is found" do
     describe "successfull save" do
       before do
-        @qs = TimeQuickSave.new(@race.id, '10,131259')
+        @qs = TimeQuickSave.new(@race.id, '11,131259')
       end
 
       describe "#save" do
-        it "should save given estimates for the competitor and return true" do
+        it "should save given time for the competitor and return true" do
           @qs.save.should be_true
-          @c.reload
-          @c.arrival_time.strftime('%H:%M:%S').should == '13:12:59'
+          @c2.reload
+          @c2.arrival_time.strftime('%H:%M:%S').should == '13:12:59'
         end
       end
 
       describe "#competitor" do
         it "should return the correct competitor" do
           @qs.save
-          @c.reload
-          @qs.competitor.should == @c
+          @c2.reload
+          @qs.competitor.should == @c2
         end
       end
 
@@ -38,27 +40,56 @@ describe TimeQuickSave do
           @qs.error.should be_nil
         end
       end
+
+      describe "with overwrite" do
+        before do
+          @qs = TimeQuickSave.new(@race.id, '++10,131259')
+        end
+
+        describe "#save" do
+          it "should save given time for the competitor and return true" do
+            @qs.save.should be_true
+            @c.reload
+            @c.arrival_time.strftime('%H:%M:%S').should == '13:12:59'
+          end
+        end
+
+        describe "#competitor" do
+          it "should return the correct competitor" do
+            @qs.save
+            @c.reload
+            @qs.competitor.should == @c
+          end
+        end
+
+        describe "#error" do
+          it "should be nil" do
+            @qs.save
+            @qs.error.should be_nil
+          end
+        end
+      end
     end
 
     describe "save fails" do
       before do
-        @c2 = Factory.create(:competitor, :series => @series, :number => 8) # no start time
+        @c = Factory.create(:competitor, :series => @series, :number => 8) # no start time
         @qs = TimeQuickSave.new(@race.id, '8,131245')
       end
 
       describe "#save" do
-        it "should not save given estimates for the competitor and return false" do
+        it "should not save given time for the competitor and return false" do
           @qs.save.should be_false
-          @c2.reload
-          @c2.arrival_time.should be_nil
+          @c.reload
+          @c.arrival_time.should be_nil
         end
       end
 
       describe "#competitor" do
         it "should return the correct competitor" do
           @qs.save
-          @c2.reload
-          @qs.competitor.should == @c2
+          @c.reload
+          @qs.competitor.should == @c
         end
       end
 
@@ -81,10 +112,8 @@ describe TimeQuickSave do
     end
 
     describe "#save" do
-      it "should not save given estimates for the competitor and return false" do
+      it "should not save given time for the competitor and return false" do
         @qs.save.should be_false
-        @c.reload
-        @c.arrival_time.strftime('%H:%M:%S').should == '12:00:00'
       end
     end
 
@@ -109,7 +138,7 @@ describe TimeQuickSave do
     end
 
     describe "#save" do
-      it "should not save given estimates for the competitor and return false" do
+      it "should not save given time for the competitor and return false" do
         @qs.save.should be_false
         @c.reload
         @c.arrival_time.strftime('%H:%M:%S').should == '12:00:00'
@@ -137,7 +166,7 @@ describe TimeQuickSave do
     end
 
     describe "#save" do
-      it "should not save given estimates for the competitor and return false" do
+      it "should not save given time for the competitor and return false" do
         @qs.save.should be_false
         @c.reload
         @c.arrival_time.strftime('%H:%M:%S').should == '12:00:00'
@@ -155,6 +184,36 @@ describe TimeQuickSave do
       it "should contain invalid format error message" do
         @qs.save
         @qs.error.should match(/muoto/)
+      end
+    end
+  end
+
+  describe "data already stored" do
+    before do
+      @c = Factory.create(:competitor, :series => @series, :number => 12,
+        :start_time => '11:30:00', :arrival_time => '12:00:00')
+      @qs = TimeQuickSave.new(@race.id, '12,131245')
+    end
+
+    describe "#save" do
+      it "should not save given time for the competitor and return false" do
+        @qs.save.should be_false
+        @c.reload
+        @c.arrival_time.strftime('%H:%M:%S').should == '12:00:00'
+      end
+    end
+
+    describe "#competitor" do
+      it "should return competitor" do
+        @qs.save
+        @qs.competitor.should == @c
+      end
+    end
+
+    describe "#error" do
+      it "should contain data already stored message" do
+        @qs.save
+        @qs.error.should match(/talletettu/)
       end
     end
   end
