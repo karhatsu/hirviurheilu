@@ -1,6 +1,6 @@
 class TimeQuickSave < QuickSave
   def initialize(race_id, string)
-    super(race_id, string, /^\d+\,[0-2][0-9][0-5][0-9][0-5][0-9]$/)
+    super(race_id, string, /^(\+\+|)\d+\,[0-2][0-9][0-5][0-9][0-5][0-9]$/)
   end
 
   private
@@ -15,6 +15,10 @@ class TimeQuickSave < QuickSave
 
   def set_competitor_attrs
     @competitor.arrival_time = "#{hours}:#{minutes}:#{seconds}"
+  end
+
+  def competitor_has_attrs?
+    !@competitor.arrival_time.nil?
   end
 
   def hours
