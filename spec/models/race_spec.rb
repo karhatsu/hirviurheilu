@@ -12,12 +12,6 @@ describe Race do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:location) }
     it { should validate_presence_of(:start_date) }
-    it { should validate_numericality_of(:team_competitor_count) }
-    it { should allow_value(nil).for(:team_competitor_count) }
-    it { should_not allow_value(0).for(:team_competitor_count) }
-    it { should_not allow_value(1).for(:team_competitor_count) }
-    it { should allow_value(2).for(:team_competitor_count) }
-    it { should_not allow_value(2.1).for(:team_competitor_count) }
 
     describe "end_date" do
       it "can be nil which makes it same as start date" do
