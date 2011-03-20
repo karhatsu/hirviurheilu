@@ -1,4 +1,7 @@
 <% content_for :title, "#{@race.name} - Joukkuekilpailut - #{@tc.name}" %>
+<% unless @race.finished? %>
+  <% content_for(:refresh, @race.start_interval_seconds.to_s) %>
+<% end %>
 <h2><%= @tc.name %> - Tulokset</h2>
 <% if @tc.race.team_competitions.count > 1 %>
   <% content_for :sub_sub_menu do %>

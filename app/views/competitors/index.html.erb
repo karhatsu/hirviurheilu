@@ -1,4 +1,7 @@
 <% content_for(:title, "#{@series.name} - Tulokset") %>
+<% if @series.running? %>
+<% content_for(:refresh, @series.race.start_interval_seconds.to_s) %>
+<% end %>
 <h2><%= yield :title %></h2>
 <% content_for :sub_sub_menu do %>
   <%= render :layout => 'shared/series_sub_menu',
