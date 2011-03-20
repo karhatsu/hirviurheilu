@@ -26,6 +26,10 @@ class Relay < ActiveRecord::Base
 
   def leg_results(leg)
     competitors = relay_competitors.where(:leg => leg).order('arrival_time, number')
+    competitors.sort! do |a,b|
+      #b.arrival_time - b.start_time <=> a.arrival_time - a.start_time
+      a.relay_team.time_in_seconds(a.leg) <=> b.relay_team.time_in_seconds(b.leg)
+    end
     no_results = []
     nil_results = []
     normal_results = []
