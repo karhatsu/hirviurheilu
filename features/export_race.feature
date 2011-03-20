@@ -79,6 +79,8 @@ Feature: Export race
       | 1 | 105 |
       | 2 | 88 |
     And the relay is finished
+    And the race has a team competition "Ladies" with 8 competitors / team
+    And the team competition contains the series "Offline series"
     And I am on the official race page of "Offline race"
     And I follow "Julkaise"
     Then I should be on the export race page of "Offline race"
@@ -157,6 +159,11 @@ Feature: Export race
     And the "Ohilaukaukset" field should contain "4"
     And the "Arvio" field should contain "123"
     And I should see "08:45:10"
+    When I follow "Joukkuek."
+    And I follow "Ladies"
+    Then the "Nimi" field should contain "Ladies"
+    And the "Kilpailijoita / joukkue" field should contain "8"
+    And the "team_competition_series_ids_" checkbox should be checked
 
   Scenario: Try to export with invalid account
     Given there is an official with email "offline@hirviurheilu.com" and password "offline"
