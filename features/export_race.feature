@@ -161,12 +161,11 @@ Feature: Export race
     And the "Arvio" field should contain "123"
     And I should see "08:45:10"
     When I follow "Joukkuek."
+    Then I should see "Ladies"
+    And I should see "8"
+    And I should see "Offline series" within "td"
     Then I should see "Young men"
     And I should see "9"
-    When I follow "Ladies"
-    Then the "Nimi" field should contain "Ladies"
-    And the "Kilpailijoita / joukkue" field should contain "8"
-    #And the "team_competition_series_ids_" checkbox should be checked
 
   Scenario: Try to export with invalid account
     Given there is an official with email "offline@hirviurheilu.com" and password "offline"

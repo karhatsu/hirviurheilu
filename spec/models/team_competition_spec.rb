@@ -168,4 +168,36 @@ describe TeamCompetition do
       @tc.results.should == "results"
     end
   end
+
+  describe "#series_names" do
+    before do
+      @tc = Factory.create(:team_competition)
+    end
+
+    it "should return empty string when no series attached" do
+      @tc.series_names.should == ''
+    end
+
+    it "should return the names of the series separated with comma" do
+      @tc.series << Factory.build(:series, :name => 'first series')
+      @tc.series << Factory.build(:series, :name => 'second series')
+      @tc.series_names.should == 'first series,second series'
+    end
+  end
+
+  describe "#attach_series_by_names" do
+    before do
+      @race = Factory.create(:race)
+      @tc = Factory.create(:team_competition, :race => @race)
+      @series1 = Factory.create(:series, :race => @race, :name => 'first series')
+      @series2 = Factory.create(:series, :race => @race, :name => 'second series')
+    end
+
+    it "should find the names from the race and attach the corresponding series" do
+      @tc.attach_series_by_names('first series,second series')
+      @tc.should have(2).series
+      @tc.series[0].name.should == 'first series'
+      @tc.series[1].name.should == 'second series'
+    end
+  end
 end
