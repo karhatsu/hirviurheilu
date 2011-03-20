@@ -7,6 +7,18 @@ class TeamCompetition < ActiveRecord::Base
   validates :team_competitor_count, :numericality => { :only_integer => true,
     :greater_than => 1 }
 
+  attr_accessor :temp_series_names
+
+  def series_names
+    (series.map &:name).join(',')
+  end
+
+  def attach_series_by_names(names)
+    names.split(',').each do |name|
+      series << race.series.find_by_name(name)
+    end
+  end
+
   def results
     competitors = []
     series.each do |s|

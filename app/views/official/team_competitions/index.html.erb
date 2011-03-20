@@ -7,11 +7,13 @@
       <tr>
         <th>Nimi</th>
         <th>Kilpailijoita / joukkue</th>
+        <th>Sarjat / ikäryhmät</th>
       </tr>
       <% @race.team_competitions.each do |tc| %>
         <tr>
           <td><%= link_to tc.name, edit_official_race_team_competition_path(@race, tc) %></td>
           <td class="center"><%= tc.team_competitor_count %></td>
+          <td><%= (tc.series.map &:name).join(', ') %></td>
         </tr>
       <% end %>
     </table>

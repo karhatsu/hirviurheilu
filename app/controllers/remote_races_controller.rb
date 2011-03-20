@@ -1,7 +1,7 @@
 class RemoteRacesController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_filter :check_user, :prepare_clubs_for_competitors
-  after_filter :set_age_groups_for_competitors
+  after_filter :set_series_for_team_competitions, :set_age_groups_for_competitors
 
   def create
     if @race.save
@@ -83,6 +83,12 @@ class RemoteRacesController < ApplicationController
           competitor.save!
         end
       end
+    end
+  end
+
+  def set_series_for_team_competitions
+    @race.team_competitions.each do |tc|
+      tc.attach_series_by_names tc.temp_series_names
     end
   end
 
