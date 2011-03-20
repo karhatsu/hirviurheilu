@@ -288,7 +288,10 @@ module ApplicationHelper
   end
 
   def url_list
-      [ 'http://localhost:3000/races/12/relays/1', 'http://localhost:3000/series/56/competitors', 'http://localhost:3000/series/67/competitors']
+#      [ 'http://localhost:3000/races/12/relays/1', 'http://localhost:3000/series/56/competitors', 'http://localhost:3000/series/67/competitors']
+      [ '/races/12/relays/1', '/series/56/competitors', '/series/67/competitors']
+#      [ 'http://localhost:3000/series/56/competitors', 'http://localhost:3000/series/67/competitors']
+#      [ '/series/56/competitors', '/series/67/competitors']
   end
 
   def get_next_url(url)
