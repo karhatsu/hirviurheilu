@@ -11,4 +11,7 @@
 <%= f.text_field :estimate, :size => 2 %>m
 <%= f.label :arrival_time %>
 <%= time_print(f.object.arrival_time, true, '-') %>
+<% if f.object.adjustment %>
+  <span style="color:red;">Korjaus: <%= f.object.adjustment %> s</span>
+<% end %>
 <br/>
