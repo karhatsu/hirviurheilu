@@ -132,6 +132,16 @@ describe ApplicationHelper do
       helper.time_from_seconds(131.2).should == "02:11"
       helper.time_from_seconds(3601.6).should == "1:00:01"
     end
+
+    it "should return negative hours, minutes and seconds when at least 1 hour" do
+      helper.time_from_seconds(-3600).should == "-1:00:00"
+      helper.time_from_seconds(-3601).should == "-1:00:01"
+    end
+    it "should return hours, minutes and seconds with minus or plus sign when alwayssigned" do
+      helper.time_from_seconds(3600, true).should == "+1:00:00"
+      helper.time_from_seconds(3601, true).should == "+1:00:01"
+      helper.time_from_seconds(-3601, true).should == "-1:00:01"
+    end
   end
 
   describe "#shot_points_and_total" do
