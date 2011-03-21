@@ -7,6 +7,7 @@ class RelayCompetitor < ActiveRecord::Base
     :greater_than_or_equal_to => 0, :less_than_or_equal_to => 5 }
   validates :estimate, :numericality => { :only_integer => true, :allow_nil => true,
     :greater_than => 0 }
+  validates :adjustment, :numericality => { :only_integer => true, :allow_nil => true }
   validates :leg, :numericality => { :only_integer => true, :greater_than => 0 },
     :uniqueness => { :scope => :relay_team_id }
   validate :leg_not_bigger_than_relay_legs_count
@@ -38,7 +39,7 @@ class RelayCompetitor < ActiveRecord::Base
 
   def time_in_seconds
     return nil if start_time.nil? or arrival_time.nil?
-    arrival_time - start_time
+    arrival_time - start_time + adjustment.to_i
   end
 
   private

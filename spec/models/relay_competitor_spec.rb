@@ -53,6 +53,14 @@ describe RelayCompetitor do
       it { should allow_value(1).for(:estimate) }
     end
 
+    describe "adjustment" do
+      it { should allow_value(nil).for(:adjustment) }
+      it { should allow_value(-1).for(:adjustment) }
+      it { should allow_value(0).for(:adjustment) }
+      it { should allow_value(1).for(:adjustment) }
+      it { should_not allow_value(1.1).for(:adjustment) }
+    end
+
     describe "arrival_time" do
       it { should allow_value(nil).for(:arrival_time) }
 
@@ -295,9 +303,17 @@ describe RelayCompetitor do
         time_in_seconds.should be_nil
     end
 
-    it "should be difference of arrival and start times" do
+    it "should be difference of arrival and start times when no adjustment" do
       Factory.build(:relay_competitor, :start_time => '13:58:02', :arrival_time => '15:02:04').
         time_in_seconds.should == 64 * 60 + 2
+    end
+    it "should be difference of arrival and start times added with adjustment" do
+      Factory.build(:relay_competitor, :start_time => '13:58:02', :arrival_time => '15:02:04', :adjustment => 15).
+        time_in_seconds.should == 64 * 60 + 2 + 15
+    end
+    it "should be difference of arrival and start times added with negative adjustment" do
+      Factory.build(:relay_competitor, :start_time => '13:58:02', :arrival_time => '15:02:04', :adjustment => -15).
+        time_in_seconds.should == 64 * 60 + 2 + -15
     end
   end
 end

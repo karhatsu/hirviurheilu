@@ -24,6 +24,12 @@
   <% instructions << '.' %>
   <%= render :partial => 'result_place', :locals => { :name => 'time',
     :instructions => instructions, :path => relay_relay_time_quick_save_path(@relay) } %>
+  <h3>Korjaukset</h3>
+  <% instructions = 'Syötä korjaus aikaan muodossa joukkue,osuus,korjaus, ' +
+      'esim. 11,3,-10 (joukkue 11, osuus 3, 10 sekunnin hyvitys)' %>
+  <% instructions << '.' %>
+  <%= render :partial => 'result_place', :locals => { :name => 'adjustment',
+    :instructions => instructions, :path => relay_relay_adjustment_quick_save_path(@relay) } %>
 <% end %>
 <hr/>
 <%= link_to 'Takaisin viestin etusivulle', official_race_relays_path(@relay.race) %>
