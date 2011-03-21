@@ -38,7 +38,7 @@
             <% else %>
               <%= time_from_seconds(team.time_in_seconds) %>
 	      <% if team.adjustment.to_i != 0 %>
-                (<% if team.adjustment.to_i < 0 %>-<% else %>+<% end %><span title="Aika sisältää korjausta <% if team.adjustment.to_i < 0 %>-<% else %>+<% end %><%= time_from_seconds(team.adjustment.to_i.abs) %> "><%= time_from_seconds(team.adjustment.to_i.abs)%>)
+              (<span class='adjustment' title="Aika sisältää korjausta <%= time_from_seconds(team.adjustment.to_i, true) %>"><%= time_from_seconds(team.adjustment.to_i, true)%>)
               <% end %>
             <% end %>
           </td>

@@ -67,12 +67,20 @@ module ApplicationHelper
       "#{no_result_reason}</span>")
   end
 
-  def time_from_seconds(seconds)
+  def time_from_seconds(seconds,alwayssigned=false)
+    return "-" if seconds.nil?
+    if seconds < 0
+      time = "-"
+      seconds = seconds.abs
+    else
+      time = ""
+      time = "+" if alwayssigned
+    end
     return "-" if seconds.nil?
     h = seconds.to_i / 3600
     min = (seconds.to_i - h * 3600) / 60
     sec = seconds.to_i % 60
-    time = (h >= 1 ? "#{h}:" : "")
+    time << (h >= 1 ? "#{h}:" : "")
     time << "#{min < 10 ? "0" : ""}#{min}:"
     time << "#{sec < 10 ? "0" : ""}#{sec}"
   end

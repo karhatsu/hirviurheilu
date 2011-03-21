@@ -88,14 +88,10 @@ describe RelayTeam do
         @team.time_in_seconds(2).should == 20 * 60 + 54
       end
     end
-    context "when leg number and adjustment given" do
+    context "when leg number given and adjustment exists" do
       before do
-        @c1.destroy;
-        @c2.destroy;
-        @c1 = Factory.create(:relay_competitor, :relay_team => @team, :leg => 1,
-        :arrival_time => '12:10:00', :adjustment => -20)
-        @c2 = Factory.create(:relay_competitor, :relay_team => @team, :leg => 2,
-          :arrival_time => '12:20:54')
+        @c1.adjustment = -20
+        @c1.save!
         @c3 = Factory.create(:relay_competitor, :relay_team => @team, :leg => 3,
           :arrival_time => '12:31:15', :adjustment => 90)
       end
