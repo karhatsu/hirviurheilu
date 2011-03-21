@@ -10,7 +10,7 @@
       'esim. 45,130728 (kilpailija 45, saapumisaika 13:07:28).' %>
   <%= render :partial => 'result_place', :locals => { :name => 'time',
     :instructions => instructions, :path => race_time_quick_save_path(@race) } %>
-  <h3>Arvioinnit</h3>
+  <h3>Arviot</h3>
   <% instructions = 'Syötä tulos muodossa nro,arvio1,arvio2, ' +
       'esim. 45,95,118 (kilpailija 45, arviot 95 ja 118 metriä)' %>
   <% if @race.estimates_at_most == 4 %>
