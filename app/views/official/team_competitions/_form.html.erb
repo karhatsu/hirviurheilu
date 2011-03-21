@@ -7,6 +7,13 @@
     <%= f.label :team_competitor_count %>
     <%= f.text_field :team_competitor_count, :size => 2 %>
     <h3>Sarjat ja/tai ikäryhmät tässä joukkuekilpailussa</h3>
+    <div class="info">Valitse kaikki sarjat ja ikäryhmät, jotka kuuluvat tähän joukkuekilpailuun.
+      <ul>
+        <li>Jos kilpailuun kuuluu kokonainen sarja, valitse kyseinen sarja ilman ikäryhmiä.</li>
+        <li>Jos kilpailuun kuuluu vain tietty ikäryhmä (ei kokonaista sarjaa),
+          valitse kyseinen ikäryhmä (ei sarjaa).</li>
+      </ul>
+    </div>
     <% current_series_ids = @tc.series_ids %>
     <% current_age_group_ids = @tc.age_group_ids %>
     <table border="1" cellpadding="2" cellspacing="0">
