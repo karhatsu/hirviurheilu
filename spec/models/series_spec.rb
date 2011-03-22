@@ -114,9 +114,11 @@ describe Series do
   describe "#ordered_competitors" do
     it "should call Competitor.sort with all competitors in the series" do
       series = Factory.build(:series)
-      competitors = ['a', 'b', 'c']
-      Competitor.should_receive(:sort).with(competitors).and_return([1, 2, 3])
+      competitors, included = ['a', 'b', 'c'], ['d', 'e']
       series.stub!(:competitors).and_return(competitors)
+      competitors.should_receive(:includes).with([:shots, :club, :age_group]).
+        and_return(included)
+      Competitor.should_receive(:sort).with(included).and_return([1, 2, 3])
       series.ordered_competitors.should == [1, 2, 3]
     end
   end
