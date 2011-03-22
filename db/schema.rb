@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110322174306) do
+ActiveRecord::Schema.define(:version => 20110320161854) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -200,7 +200,6 @@ ActiveRecord::Schema.define(:version => 20110322174306) do
     t.integer  "start_day",         :default => 1,     :null => false
     t.boolean  "no_time_points",    :default => false, :null => false
     t.integer  "estimates",         :default => 2,     :null => false
-    t.integer  "national_record"
   end
 
   add_index "series", ["race_id"], :name => "index_series_on_race_id"
