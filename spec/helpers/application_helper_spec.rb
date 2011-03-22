@@ -512,33 +512,103 @@ describe ApplicationHelper do
   end
 
   describe "#get_next_url" do
+    context "when url list is empty" do
+      it "should return the parameter url" do
+        stub!(:url_list).and_return([])
+        get_next_url('/abc').should == '/abc'
+      end
+    end
+
     context "when nil url is given" do
+      before do
+        stub!(:url_list).and_return(['/races/12/relays/1', '/series/56/competitors', '/series/67/competitors'])
+      end
       it "should return first url from url rotation" do
         get_next_url(nil).should == url_list[0]
       end
-    end
 
-    context "when unknown url is given" do
-      it "should return first url from url rotation" do
-        get_next_url('http://localhost:3000/unknown').should == url_list[0]
+      context "when unknown url is given" do
+        it "should return first url from url rotation" do
+          get_next_url('http://localhost:3000/unknown').should == url_list[0]
+        end
+      end
+
+      context "when existing url is given" do
+        it "should return next url from url rotation" do
+          get_next_url(url_list[0]).should == url_list[1]
+        end
+      end
+
+      context "when another existing url is given" do
+        it "should return next url from url rotation" do
+          get_next_url(url_list[1]).should == url_list[2]
+        end
+      end
+
+      context "when last url is given" do
+        it "should return first url from url rotation" do
+          get_next_url(url_list.size - 1).should == url_list[0]
+        end
+      end
+    end
+  end
+
+  describe "#url_list" do
+    context "when race finished" do
+      it "should return an empty list" do
+        @race = Factory.build(:race)
+        @race.finished = true
+        @race.save!
+        url_list.size.should == 0
       end
     end
 
-    context "when existing url is given" do
-      it "should return next url from url rotation" do
-        get_next_url(url_list[0]).should == url_list[1]
+    context "when race active" do
+      it "should return a list with one series path" do
+        @race = Factory.build(:race)
+        @race.series << Factory.build(:series, :race => @race, :id => 1)
+        url_list.size.should == 1
+        url_list[0].should == series_competitors_path(@race.series)
       end
     end
 
-    context "when another existing url is given" do
-      it "should return next url from url rotation" do
-        get_next_url(url_list[1]).should == url_list[2]
+    context "when race active with a team competition" do
+      it "should return a list with one team competition path" do
+        @race = Factory.build(:race)
+        @race.id = 1
+        @race.save!
+        @series = Factory.build(:series, :race => @race, :id => 1)
+        @race.team_competitions << Factory.build(:team_competition, :race => @race, :id => 1, :race_id => 1)
+        url_list.size.should == 1
+        url_list[0].should == race_team_competition_path(@race, 1)
       end
     end
 
-    context "when last url is given" do
-      it "should return first url from url rotation" do
-        get_next_url(url_list.size - 1).should == url_list[0]
+    context "when race has a relay competition" do
+      it "should return a list with one relay competition path" do
+        @race = Factory.build(:race)
+        @race.id = 1
+        @race.save!
+        @relay = Factory.build(:relay, :race => @race, :id => 1)
+        @race.relays << Factory.build(:relay, :race => @race, :id => 1, :race_id => 1)
+        url_list.size.should == 1
+        url_list[0].should == race_relay_path(@race, 1)
+      end
+    end
+    context "when race active with series, relay & team" do
+      it "should return a list with one series path, one team path and one relay path" do
+        @race = Factory.build(:race)
+        @race.series << Factory.build(:series, :race => @race, :id => 1)
+        @race.id = 1
+        @race.save!
+        @series = Factory.build(:series, :race => @race, :id => 1)
+        @race.team_competitions << Factory.build(:team_competition, :race => @race, :id => 1, :race_id => 1)
+        @relay = Factory.build(:relay, :race => @race, :id => 1)
+        @race.relays << Factory.build(:relay, :race => @race, :id => 1, :race_id => 1)
+        url_list.size.should == 3
+        url_list[0].should == series_competitors_path(@race.series)
+        url_list[1].should == race_team_competition_path(@race, 1)
+        url_list[2].should == race_relay_path(@race, 1)
       end
     end
   end

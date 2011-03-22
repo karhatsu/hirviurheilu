@@ -288,13 +288,29 @@ module ApplicationHelper
   end
 
   def url_list
-#      [ 'http://localhost:3000/races/12/relays/1', 'http://localhost:3000/series/56/competitors', 'http://localhost:3000/series/67/competitors']
-      [ '/races/12/relays/1', '/series/56/competitors', '/series/67/competitors']
-#      [ 'http://localhost:3000/series/56/competitors', 'http://localhost:3000/series/67/competitors']
-#      [ '/series/56/competitors', '/series/67/competitors']
+    url_list = []
+    if ! @series.nil?
+      @race = @series.race
+    end
+    if ! @race.nil?
+      @race.series.each do |s|
+        url_list << series_competitors_path(s) if !@race.finished?
+      end
+#    if @race.has_team_competition? and @race.start_date <= Time.zone.today and !@race.series.empty?
+      if @race.has_team_competition?
+        @race.team_competitions.each do |tc|
+          url_list << race_team_competition_path(@race, tc) if !@race.finished?
+        end
+      end
+      @race.relays.each do |relay|
+        url_list << race_relay_path(@race, relay) if !relay.finished?
+      end
+    end
+    url_list
   end
 
   def get_next_url(url)
+    return url if url_list.empty?
     if (url_list.index(url))
       return url_list[0] if url_list.index(url) == url_list.size - 1
       return url_list[url_list.index(url) + 1]
