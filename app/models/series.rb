@@ -19,8 +19,6 @@ class Series < ActiveRecord::Base
     :allow_nil => true, :greater_than => 0 }
   validates :estimates, :numericality => { :only_integer => true },
     :inclusion => { :in => [2, 4] }
-  validates :national_record, :numericality => { :only_integer => true,
-    :allow_nil => true, :greater_than => 0 }
   validate :start_day_not_bigger_than_race_days_count
   
   before_destroy :prevent_destroy_if_competitors

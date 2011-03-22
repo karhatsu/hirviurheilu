@@ -34,7 +34,6 @@
       <th>Lähtölista</th>
       <th colspan="4" class="center">Tulokset</th>
       <th class="center">Oikeat arviot</th>
-      <th class="center">SE</th>
       <th>&nbsp;</th>
     </tr>
     <% @race.series.each do |s| %>
@@ -64,11 +63,6 @@
               <%= yes_or_empty(s.each_competitor_has_correct_estimates?) do
                 link_to "Aseta", official_race_correct_estimates_path(s.race)
               end %>
-            </td>
-            <td class="center">
-              <% if s.national_record %>
-                <%= s.national_record %>
-              <% end %>
             </td>
           <% else %>
             <td colspan="5">&nbsp;</td>
