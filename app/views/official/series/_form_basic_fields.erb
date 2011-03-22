@@ -1,7 +1,7 @@
 <%= f.label :name %>
 <%= f.text_field :name %>
 <%= f.label :national_record %>
-<%= f.text_field :national_record %><br/>
+<%= f.text_field :national_record, :size => 8, :maxlength => 8 %><br/>
 <%= f.label :estimates, 'Arviomatkojen lkm' %>
 <%= f.select :estimates, [2, 4] %>
 <%= f.check_box :no_time_points %>
