@@ -31,7 +31,7 @@ ElkSports::Application.routes.draw do
   resources :races do
     resources :team_competitions
     resources :relays
-    resource :result_rotation_settings
+    resources :result_rotation_settings
   end
 
   resources :series do
@@ -73,7 +73,7 @@ ElkSports::Application.routes.draw do
       get 'export/error' => 'exports#error'
       resources :relays
       resources :team_competitions
-      resource :result_rotation_settings
+      resources :result_rotation_settings
       resources :csv_imports
     end
 
