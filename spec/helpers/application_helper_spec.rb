@@ -144,6 +144,24 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#relay_time_adjustment" do
+    before do
+      helper.stub!(:time_from_seconds).and_return('00:01')
+    end
+
+    it "should return nothing when nil given" do
+      helper.relay_time_adjustment(nil).should == ""
+    end
+
+    it "should return nothing when 0 seconds given" do
+      helper.relay_time_adjustment(0).should == ""
+    end
+
+    it "should return the html span block when 1 second given" do
+      helper.relay_time_adjustment(1).should == "(<span class='adjustment' title=\"Aika sisältää korjausta 00:01\">00:01</span>)"
+    end
+  end
+
   describe "#shot_points_and_total" do
     it "should print empty string if no result reason defined" do
       competitor = mock_model(Competitor, :shots_sum => 88,

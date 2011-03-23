@@ -37,9 +37,7 @@
               <%= no_result_reason_print(team.no_result_reason, 'relay_team') %>
             <% else %>
               <%= time_from_seconds(team.time_in_seconds) %>
-	      <% if team.adjustment.to_i != 0 %>
-                (<span class='adjustment' title="Aika sisältää korjausta <%= time_from_seconds(team.adjustment.to_i, true) %>"><%= time_from_seconds(team.adjustment.to_i, true)%></span>)
-              <% end %>
+	      <% relay_time_adjustment(team.adjustment.to_i) %>
             <% end %>
           </td>
           <td class="center"><b><%= team.estimate_penalties_sum %></b></td>
@@ -51,7 +49,7 @@
             <td>&nbsp;</td>
             <td><%= full_name(comp) %></td>
             <td class="center">(<%= comp.leg %>)</td>
-            <td><%= time_from_seconds(comp.time_in_seconds) %><% if comp.adjustment.to_i != 0 %> (<% if comp.adjustment.to_i < 0 %>-<% else %>+<% end %><span class='adjustment' title="Aika sisältää korjausta <% if comp.adjustment.to_i < 0 %>-<% else %>+<% end %><%= time_from_seconds(comp.adjustment.abs)%> "><%= time_from_seconds(comp.adjustment.abs)%></span>)<% end %></td>
+            <td><%= time_from_seconds(comp.time_in_seconds) %><% relay_time_adjustment(comp.adjustment.to_i) %></td>
             <td class="center">
               <%= comp.estimate_penalties %>
               <% if @relay.finished? %>(<%= comp.estimate %>m)<% end %>
