@@ -155,7 +155,7 @@ class ApplicationController < ActionController::Base
   # the date fields since otherwise the time after update would be 0:00:00.
   def handle_time_parameter(object, time_name)
     return true if params[:no_times]
-    return false if invalid_time?(object, time_name)
+    return false unless valid_time?(object, time_name)
     if time_cleared?(object, time_name)
       reset_date_parameters(object, time_name)
     else
@@ -164,11 +164,13 @@ class ApplicationController < ActionController::Base
     true
   end
   
-  def invalid_time?(object_params, time_name)
-    h = object_params["#{time_name}(4i)"].to_i
-    min = object_params["#{time_name}(5i)"].to_i
-    sec = object_params["#{time_name}(6i)"].to_i
-    h < 0 or h > 23 or min < 0 or min > 59 or sec < 0 or sec > 59
+  def valid_time?(object_params, time_name)
+    h = object_params["#{time_name}(4i)"]
+    min = object_params["#{time_name}(5i)"]
+    sec = object_params["#{time_name}(6i)"]
+    h.match /^\d\d?$/ and min.match /^\d\d?$/ and (sec.nil? or sec.match /^\d\d?$/) and
+      h.to_i >= 0 and h.to_i <= 23 and min.to_i >= 0 and min.to_i <= 59 and
+      sec.to_i >= 0 and sec.to_i <= 59
   end
 
   def time_cleared?(object_params, time_name)
