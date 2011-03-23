@@ -289,21 +289,19 @@ module ApplicationHelper
 
   def url_list
     url_list = []
-    if ! @series.nil?
-      @race = @series.race
-    end
-    if ! @race.nil?
+    @race = @series.race unless @series.nil?
+    unless @race.nil?
       @race.series.each do |s|
-        url_list << series_competitors_path(s) if !@race.finished?
+        url_list << series_competitors_path(s) unless @race.finished?
       end
 #    if @race.has_team_competition? and @race.start_date <= Time.zone.today and !@race.series.empty?
       if @race.has_team_competition?
         @race.team_competitions.each do |tc|
-          url_list << race_team_competition_path(@race, tc) if !@race.finished?
+          url_list << race_team_competition_path(@race, tc) unless @race.finished?
         end
       end
       @race.relays.each do |relay|
-        url_list << race_relay_path(@race, relay) if !relay.finished?
+        url_list << race_relay_path(@race, relay) unless relay.finished?
       end
     end
     url_list
