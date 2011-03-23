@@ -711,7 +711,7 @@ describe ApplicationHelper do
         helper.stub!(:request).and_return(request_stub)
         request_stub.stub!(:fullpath).and_return('/xyz')
       end
-      it "should return a valid http refresh tag" do
+      it "should return a valid http refresh tag for same page" do
         refresh_tag.should == "<meta http-equiv=\"Refresh\" content=\"15\"/>"
       end
     end
@@ -724,7 +724,7 @@ describe ApplicationHelper do
         helper.stub!(:request).and_return(request_stub)
         request_stub.stub!(:fullpath).and_return('/xyz')
       end
-      it "should return a valid http refresh tag" do
+      it "should return a valid http refresh tag for next page in rotation" do
         refresh_tag.should == "<meta http-equiv=\"Refresh\" content=\"15;/abc\"/>"
       end
     end
