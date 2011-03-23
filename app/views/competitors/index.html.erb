@@ -1,5 +1,5 @@
 <% content_for(:title, "#{@series.name} - Tulokset") %>
-<% if !@series.race.finished? %>
+<% if @series.running? %>
   <% content_for(:refresh, @series.race.start_interval_seconds) %>
 <% end %>
 <h2><%= yield :title %></h2>
