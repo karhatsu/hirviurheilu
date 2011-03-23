@@ -516,15 +516,19 @@ describe ApplicationHelper do
       it "should return the parameter url" do
         stub!(:result_rotation_list).and_return([])
         next_result_rotation('/abc').should == '/abc'
+        next_result_rotation(nil).should == nil
       end
     end
-
-    context "when nil url is given" do
+    
+    context "when url list is not empty" do
       before do
         stub!(:result_rotation_list).and_return(['/races/12/relays/1', '/series/56/competitors', '/series/67/competitors'])
       end
-      it "should return first url from url rotation" do
-        next_result_rotation(nil).should == result_rotation_list[0]
+
+      context "when nil url is given" do
+        it "should return first url from url rotation" do
+          next_result_rotation(nil).should == result_rotation_list[0]
+        end
       end
 
       context "when unknown url is given" do
