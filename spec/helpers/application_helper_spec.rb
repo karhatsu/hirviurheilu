@@ -603,7 +603,7 @@ describe ApplicationHelper do
         @race.start_date = Time.zone.today
         @race.save!
         @relay = Factory.build(:relay, :race => @race, :id => 1)
-        @race.relays << Factory.build(:relay, :race => @race, :id => 1, :race_id => 1)
+        @race.relays << Factory.build(:relay, :race => @race, :id => 1, :race_id => 1, :start_time => Time.now - 30)
         result_rotation_list.size.should == 1
         result_rotation_list[0].should == race_relay_path(@race, 1)
       end
@@ -617,8 +617,7 @@ describe ApplicationHelper do
         @race.save!
         @series = Factory.build(:series, :race => @race, :id => 1)
         @race.team_competitions << Factory.build(:team_competition, :race => @race, :id => 1, :race_id => 1)
-        @relay = Factory.build(:relay, :race => @race, :id => 1)
-        @race.relays << Factory.build(:relay, :race => @race, :id => 1, :race_id => 1)
+        @race.relays << Factory.build(:relay, :race => @race, :id => 1, :race_id => 1, :start_time => Time.now - 30)
         result_rotation_list.size.should == 3
         result_rotation_list[0].should == series_competitors_path(@race.series)
         result_rotation_list[1].should == race_team_competition_path(@race, 1)

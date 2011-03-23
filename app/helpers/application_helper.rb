@@ -301,7 +301,7 @@ module ApplicationHelper
         end
       end
       @race.relays.each do |relay|
-        result_rotation_list << race_relay_path(@race, relay) unless relay.finished?
+        result_rotation_list << race_relay_path(@race, relay) if relay.active?
       end
     end
     result_rotation_list

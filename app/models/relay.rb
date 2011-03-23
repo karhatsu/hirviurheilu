@@ -86,6 +86,10 @@ class Relay < ActiveRecord::Base
     return true
   end
 
+  def active?
+    start_time and start_time < Time.now and not race.finished
+  end
+
   def finish!
     finish || raise(errors.full_messages.to_s)
   end
