@@ -3,7 +3,7 @@ class ResultRotationSettingsController < ApplicationController
 
   def show
     if cookies['seriescount'].nil?
-      cookies['seriescount'] = 20
+      cookies['seriescount'] = 3
     else
       cookies.delete 'seriescount'
     end

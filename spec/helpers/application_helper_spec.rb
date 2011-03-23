@@ -573,6 +573,7 @@ describe ApplicationHelper do
   describe "#result_rotation_list" do
     context "when race finished" do
       it "should return an empty list" do
+        stub!(:result_rotation_cookie).and_return('3')
         @race = Factory.build(:race)
         @race.finished = true
         @race.save!
@@ -582,6 +583,7 @@ describe ApplicationHelper do
 
     context "when race active with one series" do
       it "should return a list with one series path" do
+        stub!(:result_rotation_cookie).and_return('3')
         @race = Factory.build(:race, :start_date => Time.zone.today, :finished => false )
         @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 30)
         result_rotation_list.size.should == 1
@@ -591,17 +593,19 @@ describe ApplicationHelper do
 
     context "when race active with several series'" do
       it "should return a list with series paths" do
+        stub!(:result_rotation_cookie).and_return('3')
         @race = Factory.build(:race, :start_date => Time.zone.today)
         @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 60)
         @race.series << Factory.build(:series, :race => @race, :id => 2, :start_time => Time.now - 30)
         result_rotation_list.size.should == 2
-        result_rotation_list[0].should == series_competitors_path(@race.series[0])
-        result_rotation_list[1].should == series_competitors_path(@race.series[1])
+        result_rotation_list[1].should == series_competitors_path(@race.series[0])
+        result_rotation_list[0].should == series_competitors_path(@race.series[1])
       end
     end
 
     context "when race active with one series and one team competition" do
       it "should return a list with one series and one team competition path" do
+        stub!(:result_rotation_cookie).and_return('3')
         @race = Factory.build(:race)
         @race.id = 1
         @race.start_date = Time.zone.today
@@ -615,6 +619,7 @@ describe ApplicationHelper do
 
     context "when race active with one relay competition" do
       it "should return a list with one relay competition path" do
+        stub!(:result_rotation_cookie).and_return('3')
         @race = Factory.build(:race)
         @race.id = 1
         @race.start_date = Time.zone.today
@@ -627,6 +632,7 @@ describe ApplicationHelper do
     end
     context "when race active with one series, one relay & one team competition" do
       it "should return a list with one series path, one team path and one relay path" do
+        stub!(:result_rotation_cookie).and_return('3')
         @race = Factory.build(:race)
         @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 30)
         @race.id = 1

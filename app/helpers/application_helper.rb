@@ -305,7 +305,7 @@ module ApplicationHelper
     series_sorted = race.series.sort do |a, b|
       b.start_time <=> a.start_time
     end
-    series_toadd = series_sorted[0..result_rotation_series_count-1]
+    series_toadd = series_sorted[0..result_rotation_cookie.to_i-1]
     series_toadd.each do |s|
       result_rotation_series_list << series_competitors_path(s) if s.running?
     end
@@ -359,10 +359,5 @@ module ApplicationHelper
   private
   def result_rotation_cookie
     return cookies['seriescount']
-  end
-
-  private
-  def result_rotation_series_count
-    return cookies['seriescount'].to_i
   end
 end
