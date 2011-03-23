@@ -707,10 +707,9 @@ describe ApplicationHelper do
         stub!(:result_rotation_cookie).and_return(false)
         stub!(:result_refresh_interval).and_return(15)
         helper.stub!(:next_result_rotation).and_return('/abc')
-        # FIXME something problematic here, messages about
-        # nil expectation
-        helper.stub!(:request).and_return(nil)
-        request.stub!(:request_uri).and_return(nil)
+        request_stub = 'request'
+        helper.stub!(:request).and_return(request_stub)
+        request_stub.stub!(:fullpath).and_return('/xyz')
       end
       it "should return a valid http refresh tag" do
         refresh_tag.should == "<meta http-equiv=\"Refresh\" content=\"15\"/>"
@@ -721,10 +720,9 @@ describe ApplicationHelper do
         stub!(:result_rotation_cookie).and_return('3')
         stub!(:result_refresh_interval).and_return(15)
         helper.stub!(:next_result_rotation).and_return('/abc')
-        # FIXME something problematic here, messages about
-        # nil expectation
-        helper.stub!(:request).and_return(nil)
-        request.stub!(:request_uri).and_return(nil)
+        request_stub = 'request'
+        helper.stub!(:request).and_return(request_stub)
+        request_stub.stub!(:fullpath).and_return('/xyz')
       end
       it "should return a valid http refresh tag" do
         refresh_tag.should == "<meta http-equiv=\"Refresh\" content=\"15;/abc\"/>"
