@@ -308,6 +308,8 @@ module ApplicationHelper
   end
 
   def next_result_rotation(url)
+    @race = @series.race if @series
+    return race_path(@race) if result_rotation_list.empty? and url.nil?
     return url if result_rotation_list.empty?
     place = result_rotation_list.index(url)
     if (place and place != result_rotation_list.size - 1)

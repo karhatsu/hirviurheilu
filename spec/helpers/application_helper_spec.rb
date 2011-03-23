@@ -513,10 +513,23 @@ describe ApplicationHelper do
 
   describe "#next_result_rotation" do
     context "when url list is empty" do
-      it "should return the parameter url" do
-        stub!(:result_rotation_list).and_return([])
-        next_result_rotation('/abc').should == '/abc'
-        next_result_rotation(nil).should == nil
+      context "and parameter is non-nil" do
+        it "should return the parameter url" do
+          stub!(:result_rotation_list).and_return([])
+          next_result_rotation('/abc').should == '/abc'
+        end
+      end
+
+      context "and parameter is nil" do
+        before do
+          path = '/this/is/race/frontpage'
+          stub!(:race_path).and_return(path)
+        end
+
+        it "should return the race front page" do
+          stub!(:result_rotation_list).and_return([])
+          next_result_rotation(nil).should == race_path()
+        end
       end
     end
     
