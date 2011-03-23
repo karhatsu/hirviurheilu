@@ -155,21 +155,22 @@ describe Relay do
       end
 
       describe "#results" do
-        it "should return the teams based on the fastest arrival time of the " +
-            "competitors for the last leg and secondary by team number" do
-          @relay.results.should == [@team1, @team3, @team2, @team4, @team_DNS, @team_DNF]
+        it "should return the teams sorted so that DNF/DNS teams go to bottom, " +
+            "teams with least full time are best, " +
+            "and team number is used if two teams have same time" do
+          @relay.results.should == [@team1, @team3, @team2, @team4, @team_DNF, @team_DNS]
         end
       end
 
       describe "#leg_results" do
-        it "should return the teams based on the fastest arrival time of the " +
-            "competitors for the given leg and secondary by team number" do
+        it "should return the teams sorted in a same way as in full results " +
+          "except that DNF/DNS does not matter for non-last leg" do
           @relay.leg_results(1).should ==
             [@team_DNF, @team4, @team3, @team2, @team1, @team_DNS]
           @relay.leg_results(2).should ==
             [@team2, @team1, @team_DNF, @team3, @team4, @team_DNS]
           @relay.leg_results(3).should ==
-            [@team1, @team3, @team2, @team4, @team_DNS, @team_DNF]
+            [@team1, @team3, @team2, @team4, @team_DNF, @team_DNS]
         end
       end
 
