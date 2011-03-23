@@ -565,8 +565,8 @@ describe ApplicationHelper do
 
     context "when race active with one series" do
       it "should return a list with one series path" do
-        @race = Factory.build(:race)
-        @race.series << Factory.build(:series, :race => @race, :id => 1)
+        @race = Factory.build(:race, :start_date => Time.zone.today, :finished => false )
+        @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 30)
         result_rotation_list.size.should == 1
         result_rotation_list[0].should == series_competitors_path(@race.series[0])
       end
@@ -574,9 +574,9 @@ describe ApplicationHelper do
 
     context "when race active with several series'" do
       it "should return a list with series paths" do
-        @race = Factory.build(:race)
-        @race.series << Factory.build(:series, :race => @race, :id => 1)
-        @race.series << Factory.build(:series, :race => @race, :id => 2)
+        @race = Factory.build(:race, :start_date => Time.zone.today)
+        @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 60)
+        @race.series << Factory.build(:series, :race => @race, :id => 2, :start_time => Time.now - 30)
         result_rotation_list.size.should == 2
         result_rotation_list[0].should == series_competitors_path(@race.series[0])
         result_rotation_list[1].should == series_competitors_path(@race.series[1])
@@ -587,8 +587,9 @@ describe ApplicationHelper do
       it "should return a list with one team competition path" do
         @race = Factory.build(:race)
         @race.id = 1
+        @race.start_date = Time.zone.today
         @race.save!
-        @series = Factory.build(:series, :race => @race, :id => 1)
+        @series = Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 30)
         @race.team_competitions << Factory.build(:team_competition, :race => @race, :id => 1, :race_id => 1)
         result_rotation_list.size.should == 1
         result_rotation_list[0].should == race_team_competition_path(@race, 1)
@@ -599,6 +600,7 @@ describe ApplicationHelper do
       it "should return a list with one relay competition path" do
         @race = Factory.build(:race)
         @race.id = 1
+        @race.start_date = Time.zone.today
         @race.save!
         @relay = Factory.build(:relay, :race => @race, :id => 1)
         @race.relays << Factory.build(:relay, :race => @race, :id => 1, :race_id => 1)
@@ -609,8 +611,9 @@ describe ApplicationHelper do
     context "when race active with one series, one relay & one team competition" do
       it "should return a list with one series path, one team path and one relay path" do
         @race = Factory.build(:race)
-        @race.series << Factory.build(:series, :race => @race, :id => 1)
+        @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 30)
         @race.id = 1
+        @race.start_date = Time.zone.today
         @race.save!
         @series = Factory.build(:series, :race => @race, :id => 1)
         @race.team_competitions << Factory.build(:team_competition, :race => @race, :id => 1, :race_id => 1)
@@ -620,6 +623,22 @@ describe ApplicationHelper do
         result_rotation_list[0].should == series_competitors_path(@race.series)
         result_rotation_list[1].should == race_team_competition_path(@race, 1)
         result_rotation_list[2].should == race_relay_path(@race, 1)
+      end
+    end
+  end
+
+  describe "#result_refresh_interval" do
+    context "when development environment" do
+      it "should return the given refresh rate" do
+        result_refresh_interval(2).should == 2
+      end
+    end
+    context "when not development environment" do
+      it "should return 15 if given refresh rate is less than that" do
+        result_refresh_interval(2).should == 15
+        end
+      it "should return given refresh rate if it is more than 15" do
+        result_refresh_interval(30).should == 30
       end
     end
   end

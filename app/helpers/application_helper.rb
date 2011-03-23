@@ -292,7 +292,7 @@ module ApplicationHelper
     @race = @series.race unless @series.nil?
     unless @race.nil?
       @race.series.each do |s|
-        result_rotation_list << series_competitors_path(s) unless @race.finished?
+        result_rotation_list << series_competitors_path(s) if s.running?
       end
 #    if @race.has_team_competition? and @race.start_date <= Time.zone.today and !@race.series.empty?
       if @race.has_team_competition?
