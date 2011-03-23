@@ -95,6 +95,17 @@ module ApplicationHelper
     raw(html)
   end
 
+  def relay_time_adjustment(adjustment)
+    return '' unless adjustment
+    return '' if adjustment == 0
+    html = '(<span class=\'adjustment\' title="Aika sisältää korjausta '
+    html << time_from_seconds(adjustment, true)
+    html << '">'
+    html << time_from_seconds(adjustment, true)
+    html << '</span>)'
+    raw(html)
+  end
+
   def shot_points_and_total(competitor)
     return '' if competitor.no_result_reason
     return "-" if competitor.shots_sum.nil?
