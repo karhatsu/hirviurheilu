@@ -294,8 +294,8 @@ module ApplicationHelper
       @race.series.each do |s|
         result_rotation_list << series_competitors_path(s) if s.running?
       end
-#    if @race.has_team_competition? and @race.start_date <= Time.zone.today and !@race.series.empty?
-      if @race.has_team_competition?
+      # team competetion active only when at least one series is active
+      if @race.has_team_competition? and @race.start_date <= Time.zone.today and !result_rotation_list.empty?
         @race.team_competitions.each do |tc|
           result_rotation_list << race_team_competition_path(@race, tc) unless @race.finished?
         end

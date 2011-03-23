@@ -583,16 +583,16 @@ describe ApplicationHelper do
       end
     end
 
-    context "when race active with one team competition" do
-      it "should return a list with one team competition path" do
+    context "when race active with one series and one team competition" do
+      it "should return a list with one series and one team competition path" do
         @race = Factory.build(:race)
         @race.id = 1
         @race.start_date = Time.zone.today
         @race.save!
-        @series = Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 30)
+        @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 30)
         @race.team_competitions << Factory.build(:team_competition, :race => @race, :id => 1, :race_id => 1)
-        result_rotation_list.size.should == 1
-        result_rotation_list[0].should == race_team_competition_path(@race, 1)
+        result_rotation_list.size.should == 2
+        result_rotation_list[1].should == race_team_competition_path(@race, 1)
       end
     end
 
