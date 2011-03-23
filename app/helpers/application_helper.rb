@@ -315,4 +315,9 @@ module ApplicationHelper
     end
     return result_rotation_list[0]
   end
+
+  def result_refresh_interval(interval)
+    return interval if Rails.env == 'development'
+    return [15, interval].max
+  end
 end

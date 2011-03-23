@@ -629,11 +629,17 @@ describe ApplicationHelper do
 
   describe "#result_refresh_interval" do
     context "when development environment" do
+      before do
+        Rails.stub!(:env).and_return('development')
+      end
       it "should return the given refresh rate" do
         result_refresh_interval(2).should == 2
       end
     end
     context "when not development environment" do
+      before do
+        Rails.stub!(:env).and_return('production')
+      end
       it "should return 15 if given refresh rate is less than that" do
         result_refresh_interval(2).should == 15
         end
