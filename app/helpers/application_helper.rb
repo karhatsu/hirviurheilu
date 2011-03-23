@@ -318,39 +318,6 @@ module ApplicationHelper
     result_rotation_list
   end
 
-  private
-  def result_rotation_series_list(race)
-    result_rotation_series_list = []
-    series_sorted = race.series.sort do |a, b|
-      b.start_time <=> a.start_time
-    end
-    series_toadd = series_sorted[0..result_rotation_cookie.to_i-1]
-    series_toadd.each do |s|
-      result_rotation_series_list << series_competitors_path(s) if s.running?
-    end
-    result_rotation_series_list
-  end
-
-  private
-  def result_rotation_tc_list(race)
-    result_rotation_tc_list = []
-    if race.has_team_competition? and race.start_date <= Time.zone.today
-      race.team_competitions.each do |tc|
-        result_rotation_tc_list << race_team_competition_path(race, tc) unless @race.finished?
-      end
-    end
-    result_rotation_tc_list
-  end
-
-  private
-  def result_rotation_relay_list(race)
-    result_rotation_relay_list = []
-    race.relays.each do |relay|
-      result_rotation_relay_list << race_relay_path(race, relay) if relay.active?
-    end
-    result_rotation_relay_list
-  end
-
   def next_result_rotation(url)
     @race = @series.race if @series
     return race_path(@race) if result_rotation_list.empty? and url.nil?
@@ -376,6 +343,36 @@ module ApplicationHelper
   end
 
   private
+  def result_rotation_series_list(race)
+    result_rotation_series_list = []
+    series_sorted = race.series.sort do |a, b|
+      b.start_time <=> a.start_time
+    end
+    series_toadd = series_sorted[0..result_rotation_cookie.to_i-1]
+    series_toadd.each do |s|
+      result_rotation_series_list << series_competitors_path(s) if s.running?
+    end
+    result_rotation_series_list
+  end
+
+  def result_rotation_tc_list(race)
+    result_rotation_tc_list = []
+    if race.has_team_competition? and race.start_date <= Time.zone.today
+      race.team_competitions.each do |tc|
+        result_rotation_tc_list << race_team_competition_path(race, tc) unless @race.finished?
+      end
+    end
+    result_rotation_tc_list
+  end
+
+  def result_rotation_relay_list(race)
+    result_rotation_relay_list = []
+    race.relays.each do |relay|
+      result_rotation_relay_list << race_relay_path(race, relay) if relay.active?
+    end
+    result_rotation_relay_list
+  end
+
   def result_rotation_cookie
     return cookies['seriescount']
   end
