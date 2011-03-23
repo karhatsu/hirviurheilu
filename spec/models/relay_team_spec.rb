@@ -139,8 +139,8 @@ describe RelayTeam do
       before do
         @team = Factory.create(:relay_team)
         @comp3 = Factory.build(:relay_competitor, :relay_team => @team, :leg => 3)
-        comp1 = Factory.build(:relay_competitor, :relay_team => @team, :leg => 1)
-        @team.relay_competitors << comp1
+        @comp1 = Factory.build(:relay_competitor, :relay_team => @team, :leg => 1)
+        @team.relay_competitors << @comp1
         @team.relay_competitors << @comp3
       end
 
@@ -152,6 +152,10 @@ describe RelayTeam do
 
       it "should return the competitor even though some other competitor missing" do
         @team.competitor(3).should == @comp3
+      end
+
+      it "should return the competitor also when string instead of int is given" do
+        @team.competitor("1").should == @comp1
       end
     end
   end

@@ -13,8 +13,8 @@ class RelayTeam < ActiveRecord::Base
   accepts_nested_attributes_for :relay_competitors
 
   def competitor(leg)
-    competitor = relay_competitors[leg - 1] # faster solution but not reliable
-    return competitor if competitor and competitor.leg == leg
+    competitor = relay_competitors[leg.to_i - 1] # faster solution but not reliable
+    return competitor if competitor and competitor.leg == leg.to_i
     relay_competitors.where(:leg => leg).first # slower and reliable solution
   end
 
@@ -36,7 +36,7 @@ class RelayTeam < ActiveRecord::Base
   def adjustment(leg=nil)
     leg = relay.legs_count unless leg
     sum = 0
-    leg.times do |i|
+    leg.to_i.times do |i|
       competitor = competitor(i + 1)
       sum += competitor.adjustment.to_i if competitor
     end
