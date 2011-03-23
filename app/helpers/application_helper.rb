@@ -287,32 +287,32 @@ module ApplicationHelper
     'http://' + link
   end
 
-  def url_list
-    url_list = []
+  def result_rotation_list
+    result_rotation_list = []
     @race = @series.race unless @series.nil?
     unless @race.nil?
       @race.series.each do |s|
-        url_list << series_competitors_path(s) unless @race.finished?
+        result_rotation_list << series_competitors_path(s) unless @race.finished?
       end
 #    if @race.has_team_competition? and @race.start_date <= Time.zone.today and !@race.series.empty?
       if @race.has_team_competition?
         @race.team_competitions.each do |tc|
-          url_list << race_team_competition_path(@race, tc) unless @race.finished?
+          result_rotation_list << race_team_competition_path(@race, tc) unless @race.finished?
         end
       end
       @race.relays.each do |relay|
-        url_list << race_relay_path(@race, relay) unless relay.finished?
+        result_rotation_list << race_relay_path(@race, relay) unless relay.finished?
       end
     end
-    url_list
+    result_rotation_list
   end
 
-  def get_next_url(url)
-    return url if url_list.empty?
-    if (url_list.index(url))
-      return url_list[0] if url_list.index(url) == url_list.size - 1
-      return url_list[url_list.index(url) + 1]
+  def next_result_rotation(url)
+    return url if result_rotation_list.empty?
+    if (result_rotation_list.index(url))
+      return result_rotation_list[0] if result_rotation_list.index(url) == result_rotation_list.size - 1
+      return result_rotation_list[result_rotation_list.index(url) + 1]
     end
-    return url_list[0]
+    return result_rotation_list[0]
   end
 end

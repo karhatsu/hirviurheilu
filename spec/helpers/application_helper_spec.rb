@@ -511,55 +511,55 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#get_next_url" do
+  describe "#next_result_rotation" do
     context "when url list is empty" do
       it "should return the parameter url" do
-        stub!(:url_list).and_return([])
-        get_next_url('/abc').should == '/abc'
+        stub!(:result_rotation_list).and_return([])
+        next_result_rotation('/abc').should == '/abc'
       end
     end
 
     context "when nil url is given" do
       before do
-        stub!(:url_list).and_return(['/races/12/relays/1', '/series/56/competitors', '/series/67/competitors'])
+        stub!(:result_rotation_list).and_return(['/races/12/relays/1', '/series/56/competitors', '/series/67/competitors'])
       end
       it "should return first url from url rotation" do
-        get_next_url(nil).should == url_list[0]
+        next_result_rotation(nil).should == result_rotation_list[0]
       end
 
       context "when unknown url is given" do
         it "should return first url from url rotation" do
-          get_next_url('/unknown').should == url_list[0]
+          next_result_rotation('/unknown').should == result_rotation_list[0]
         end
       end
 
       context "when existing url is given" do
         it "should return next url from url rotation" do
-          get_next_url(url_list[0]).should == url_list[1]
+          next_result_rotation(result_rotation_list[0]).should == result_rotation_list[1]
         end
       end
 
       context "when another existing url is given" do
         it "should return next url from url rotation" do
-          get_next_url(url_list[1]).should == url_list[2]
+          next_result_rotation(result_rotation_list[1]).should == result_rotation_list[2]
         end
       end
 
       context "when last url is given" do
         it "should return first url from url rotation" do
-          get_next_url(url_list.size - 1).should == url_list[0]
+          next_result_rotation(result_rotation_list.size - 1).should == result_rotation_list[0]
         end
       end
     end
   end
 
-  describe "#url_list" do
+  describe "#result_rotation_list" do
     context "when race finished" do
       it "should return an empty list" do
         @race = Factory.build(:race)
         @race.finished = true
         @race.save!
-        url_list.size.should == 0
+        result_rotation_list.size.should == 0
       end
     end
 
@@ -567,8 +567,8 @@ describe ApplicationHelper do
       it "should return a list with one series path" do
         @race = Factory.build(:race)
         @race.series << Factory.build(:series, :race => @race, :id => 1)
-        url_list.size.should == 1
-        url_list[0].should == series_competitors_path(@race.series[0])
+        result_rotation_list.size.should == 1
+        result_rotation_list[0].should == series_competitors_path(@race.series[0])
       end
     end
 
@@ -577,9 +577,9 @@ describe ApplicationHelper do
         @race = Factory.build(:race)
         @race.series << Factory.build(:series, :race => @race, :id => 1)
         @race.series << Factory.build(:series, :race => @race, :id => 2)
-        url_list.size.should == 2
-        url_list[0].should == series_competitors_path(@race.series[0])
-        url_list[1].should == series_competitors_path(@race.series[1])
+        result_rotation_list.size.should == 2
+        result_rotation_list[0].should == series_competitors_path(@race.series[0])
+        result_rotation_list[1].should == series_competitors_path(@race.series[1])
       end
     end
 
@@ -590,8 +590,8 @@ describe ApplicationHelper do
         @race.save!
         @series = Factory.build(:series, :race => @race, :id => 1)
         @race.team_competitions << Factory.build(:team_competition, :race => @race, :id => 1, :race_id => 1)
-        url_list.size.should == 1
-        url_list[0].should == race_team_competition_path(@race, 1)
+        result_rotation_list.size.should == 1
+        result_rotation_list[0].should == race_team_competition_path(@race, 1)
       end
     end
 
@@ -602,8 +602,8 @@ describe ApplicationHelper do
         @race.save!
         @relay = Factory.build(:relay, :race => @race, :id => 1)
         @race.relays << Factory.build(:relay, :race => @race, :id => 1, :race_id => 1)
-        url_list.size.should == 1
-        url_list[0].should == race_relay_path(@race, 1)
+        result_rotation_list.size.should == 1
+        result_rotation_list[0].should == race_relay_path(@race, 1)
       end
     end
     context "when race active with one series, one relay & one team competition" do
@@ -616,10 +616,10 @@ describe ApplicationHelper do
         @race.team_competitions << Factory.build(:team_competition, :race => @race, :id => 1, :race_id => 1)
         @relay = Factory.build(:relay, :race => @race, :id => 1)
         @race.relays << Factory.build(:relay, :race => @race, :id => 1, :race_id => 1)
-        url_list.size.should == 3
-        url_list[0].should == series_competitors_path(@race.series)
-        url_list[1].should == race_team_competition_path(@race, 1)
-        url_list[2].should == race_relay_path(@race, 1)
+        result_rotation_list.size.should == 3
+        result_rotation_list[0].should == series_competitors_path(@race.series)
+        result_rotation_list[1].should == race_team_competition_path(@race, 1)
+        result_rotation_list[2].should == race_relay_path(@race, 1)
       end
     end
   end
