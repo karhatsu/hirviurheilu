@@ -1,10 +1,10 @@
 <h2>Tuloskehä</h2>
 
-<% if cookies['seriescount'] and cookies['seriescount'] > 0 %>
+<% if cookies['seriescount'] %>
 <% content_for(:refresh, true) %>
 <% end %>
 
-<% if cookies['seriescount'] and cookies['seriescount'] > 0 %>
+<% if cookies['seriescount'] %>
 Tuloskehä kytkettin päälle.<br/>
 <br/>
 Sarjoja näytetään: <%= cookies['seriescount'] %>
