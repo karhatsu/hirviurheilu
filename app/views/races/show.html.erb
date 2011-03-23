@@ -16,6 +16,9 @@
         <th>Nimi</th>
         <th>Lähtöaika</th>
         <th>Kilpailijoita</th>
+	<% unless @race.finished %>
+        <th>SE</th>
+	<% end %>
         <th>&nbsp;</th>
       </tr>
       <% @race.series.each do |s| %>
@@ -29,9 +32,12 @@
             <% end %>
           </td>
           <% if s.competitors.empty? %>
-            <td colspan="2">Sarjaan ei ole merkitty kilpailijoita</td>
+            <td colspan="<% if @race.finished %>2<% else %>3<% end %>">Sarjaan ei ole merkitty kilpailijoita</td>
           <% else %>
             <td><%= s.competitors.count %></td>
+	    <% unless @race.finished %>
+	    <td><%= s.national_record %></td>
+	    <% end %>
             <td>
               <% if s.competitors.empty? %>
 
