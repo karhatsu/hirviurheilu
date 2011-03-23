@@ -5,7 +5,10 @@
 <% end %>
 
 <% if cookies['seriescount'] and cookies['seriescount'] > 0 %>
-Tuloskehä kytkettin päälle
+Tuloskehä kytkettin päälle.<br/>
+<br/>
+Sarjoja näytetään: <%= cookies['seriescount'] %>
+
 <% else %>
 Tuloskehä kytkettin pois päältä
 <% end %>
