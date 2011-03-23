@@ -16,7 +16,9 @@ class Relay < ActiveRecord::Base
   accepts_nested_attributes_for :relay_correct_estimates
 
   def correct_estimate(leg)
-    ce = relay_correct_estimates.where(:leg => leg).first
+    ce = relay_correct_estimates[leg - 1] # faster solution but not reliable
+    return ce.distance if ce and ce.leg == leg
+    ce = relay_correct_estimates.where(:leg => leg).first # slower and reliable solution
     return ce.distance if ce
   end
 
