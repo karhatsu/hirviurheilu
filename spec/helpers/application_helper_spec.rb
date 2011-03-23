@@ -529,7 +529,7 @@ describe ApplicationHelper do
 
       context "when unknown url is given" do
         it "should return first url from url rotation" do
-          get_next_url('http://localhost:3000/unknown').should == url_list[0]
+          get_next_url('/unknown').should == url_list[0]
         end
       end
 
