@@ -538,5 +538,159 @@ describe ApplicationHelper do
       helper.link_with_protocol('www.test.com').should == 'http://www.test.com'
     end
   end
+
+  describe "#next_result_rotation" do
+    context "when url list is empty" do
+      context "and parameter is non-nil" do
+        it "should return the parameter url" do
+          stub!(:result_rotation_list).and_return([])
+          next_result_rotation('/abc').should == '/abc'
+        end
+      end
+
+      context "and parameter is nil" do
+        before do
+          path = '/this/is/race/frontpage'
+          stub!(:race_path).and_return(path)
+        end
+
+        it "should return the race front page" do
+          stub!(:result_rotation_list).and_return([])
+          next_result_rotation(nil).should == race_path()
+        end
+      end
+    end
+    
+    context "when url list is not empty" do
+      before do
+        stub!(:result_rotation_list).and_return(['/races/12/relays/1', '/series/56/competitors', '/series/67/competitors'])
+      end
+
+      context "when nil url is given" do
+        it "should return first url from url rotation" do
+          next_result_rotation(nil).should == result_rotation_list[0]
+        end
+      end
+
+      context "when unknown url is given" do
+        it "should return first url from url rotation" do
+          next_result_rotation('/unknown').should == result_rotation_list[0]
+        end
+      end
+
+      context "when existing url is given" do
+        it "should return next url from url rotation" do
+          next_result_rotation(result_rotation_list[0]).should == result_rotation_list[1]
+        end
+      end
+
+      context "when another existing url is given" do
+        it "should return next url from url rotation" do
+          next_result_rotation(result_rotation_list[1]).should == result_rotation_list[2]
+        end
+      end
+
+      context "when last url is given" do
+        it "should return first url from url rotation" do
+          next_result_rotation(result_rotation_list.size - 1).should == result_rotation_list[0]
+        end
+      end
+    end
+  end
+
+  describe "#result_rotation_list" do
+    context "when race finished" do
+      it "should return an empty list" do
+        @race = Factory.build(:race)
+        @race.finished = true
+        @race.save!
+        result_rotation_list.size.should == 0
+      end
+    end
+
+    context "when race active with one series" do
+      it "should return a list with one series path" do
+        @race = Factory.build(:race, :start_date => Time.zone.today, :finished => false )
+        @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 30)
+        result_rotation_list.size.should == 1
+        result_rotation_list[0].should == series_competitors_path(@race.series[0])
+      end
+    end
+
+    context "when race active with several series'" do
+      it "should return a list with series paths" do
+        @race = Factory.build(:race, :start_date => Time.zone.today)
+        @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 60)
+        @race.series << Factory.build(:series, :race => @race, :id => 2, :start_time => Time.now - 30)
+        result_rotation_list.size.should == 2
+        result_rotation_list[0].should == series_competitors_path(@race.series[0])
+        result_rotation_list[1].should == series_competitors_path(@race.series[1])
+      end
+    end
+
+    context "when race active with one series and one team competition" do
+      it "should return a list with one series and one team competition path" do
+        @race = Factory.build(:race)
+        @race.id = 1
+        @race.start_date = Time.zone.today
+        @race.save!
+        @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 30)
+        @race.team_competitions << Factory.build(:team_competition, :race => @race, :id => 1, :race_id => 1)
+        result_rotation_list.size.should == 2
+        result_rotation_list[1].should == race_team_competition_path(@race, 1)
+      end
+    end
+
+    context "when race active with one relay competition" do
+      it "should return a list with one relay competition path" do
+        @race = Factory.build(:race)
+        @race.id = 1
+        @race.start_date = Time.zone.today
+        @race.save!
+        @relay = Factory.build(:relay, :race => @race, :id => 1)
+        @race.relays << Factory.build(:relay, :race => @race, :id => 1, :race_id => 1, :start_time => Time.now - 30)
+        result_rotation_list.size.should == 1
+        result_rotation_list[0].should == race_relay_path(@race, 1)
+      end
+    end
+    context "when race active with one series, one relay & one team competition" do
+      it "should return a list with one series path, one team path and one relay path" do
+        @race = Factory.build(:race)
+        @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 30)
+        @race.id = 1
+        @race.start_date = Time.zone.today
+        @race.save!
+        @series = Factory.build(:series, :race => @race, :id => 1)
+        @race.team_competitions << Factory.build(:team_competition, :race => @race, :id => 1, :race_id => 1)
+        @race.relays << Factory.build(:relay, :race => @race, :id => 1, :race_id => 1, :start_time => Time.now - 30)
+        result_rotation_list.size.should == 3
+        result_rotation_list[0].should == series_competitors_path(@race.series)
+        result_rotation_list[1].should == race_team_competition_path(@race, 1)
+        result_rotation_list[2].should == race_relay_path(@race, 1)
+      end
+    end
+  end
+
+  describe "#result_refresh_interval" do
+    context "when development environment" do
+      before do
+        Rails.stub!(:env).and_return('development')
+      end
+      it "should return the given refresh rate" do
+        result_refresh_interval(2).should == 2
+      end
+    end
+    context "when not development environment" do
+      before do
+        Rails.stub!(:env).and_return('production')
+      end
+      it "should return 15 if given refresh rate is less than that" do
+        result_refresh_interval(2).should == 15
+        end
+      it "should return given refresh rate if it is more than 15" do
+        result_refresh_interval(30).should == 30
+      end
+    end
+  end
 end
 

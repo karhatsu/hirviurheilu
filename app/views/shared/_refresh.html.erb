@@ -1,3 +1,3 @@
 <% if yield(:refresh) != '' %>
-  <meta http-equiv="Refresh" content="<%= yield(:refresh) %>"/>
+  <meta http-equiv="Refresh" content="<%= result_refresh_interval(5).to_s + ";" + next_result_rotation(request.request_uri) %>"/>
 <% end %>

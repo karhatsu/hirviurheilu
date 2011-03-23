@@ -306,4 +306,60 @@ module ApplicationHelper
     'http://' + link
   end
 
+  def result_rotation_list
+    result_rotation_list = []
+    @race = @series.race if @series
+    if @race
+      result_rotation_list += result_rotation_series_list(@race)
+      # team competetion active only when at least one series is active
+      result_rotation_list += result_rotation_tc_list(@race) unless result_rotation_list.empty?
+      result_rotation_list += result_rotation_relay_list(@race)
+    end
+    result_rotation_list
+  end
+
+  private
+  def result_rotation_series_list(race)
+    result_rotation_series_list = []
+    race.series.each do |s|
+      result_rotation_series_list << series_competitors_path(s) if s.running?
+    end
+    result_rotation_series_list
+  end
+
+  private
+  def result_rotation_tc_list(race)
+    result_rotation_tc_list = []
+    if race.has_team_competition? and race.start_date <= Time.zone.today
+      race.team_competitions.each do |tc|
+        result_rotation_tc_list << race_team_competition_path(race, tc) unless @race.finished?
+      end
+    end
+    result_rotation_tc_list
+  end
+
+  private
+  def result_rotation_relay_list(race)
+    result_rotation_relay_list = []
+    race.relays.each do |relay|
+      result_rotation_relay_list << race_relay_path(race, relay) if relay.active?
+    end
+    result_rotation_relay_list
+  end
+
+  def next_result_rotation(url)
+    @race = @series.race if @series
+    return race_path(@race) if result_rotation_list.empty? and url.nil?
+    return url if result_rotation_list.empty?
+    place = result_rotation_list.index(url)
+    if (place and place != result_rotation_list.size - 1)
+      return result_rotation_list[place + 1]
+    end
+    return result_rotation_list[0]
+  end
+
+  def result_refresh_interval(interval)
+    return interval if Rails.env == 'development'
+    return [15, interval].max
+  end
 end
