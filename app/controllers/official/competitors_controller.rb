@@ -3,7 +3,6 @@ class Official::CompetitorsController < Official::OfficialController
   before_filter :assign_race_by_race_id, :check_assigned_race, :only => :create
   before_filter :check_offline_limit, :only => [:new, :create]
   before_filter :handle_start_time, :only => :create
-  before_filter :handle_time_parameters, :only => :update
   before_filter :set_competitors
 
   def index
@@ -45,7 +44,7 @@ class Official::CompetitorsController < Official::OfficialController
   def update
     @competitor = Competitor.find(params[:id])
     club_ok = handle_club(@competitor)
-    if club_ok and @competitor.update_attributes(params[:competitor])
+    if club_ok and handle_time_parameters and @competitor.update_attributes(params[:competitor])
       respond_to do |format|
         format.html do
           if params[:next]
@@ -97,8 +96,11 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   def handle_time_parameters
-    handle_time_parameter params[:competitor], "start_time"
-    handle_time_parameter params[:competitor], "arrival_time"
+    start_ok = handle_time_parameter params[:competitor], "start_time"
+    @competitor.errors.add(:start_time, 'virheellinen') unless start_ok
+    arrival_ok = handle_time_parameter params[:competitor], "arrival_time"
+    @competitor.errors.add(:arrival_time, 'virheellinen') unless arrival_ok
+    start_ok and arrival_ok
   end
 
   def handle_club(competitor)
