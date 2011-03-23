@@ -299,6 +299,7 @@ module ApplicationHelper
     result_rotation_list
   end
 
+  private
   def result_rotation_series_list(race)
     result_rotation_series_list = []
     race.series.each do |s|
@@ -307,6 +308,7 @@ module ApplicationHelper
     result_rotation_series_list
   end
 
+  private
   def result_rotation_tc_list(race)
     result_rotation_tc_list = []
     if race.has_team_competition? and race.start_date <= Time.zone.today
@@ -317,6 +319,7 @@ module ApplicationHelper
     result_rotation_tc_list
   end
 
+  private
   def result_rotation_relay_list(race)
     result_rotation_relay_list = []
     race.relays.each do |relay|
