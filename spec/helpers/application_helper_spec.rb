@@ -563,16 +563,27 @@ describe ApplicationHelper do
       end
     end
 
-    context "when race active" do
+    context "when race active with one series" do
       it "should return a list with one series path" do
         @race = Factory.build(:race)
         @race.series << Factory.build(:series, :race => @race, :id => 1)
         url_list.size.should == 1
-        url_list[0].should == series_competitors_path(@race.series)
+        url_list[0].should == series_competitors_path(@race.series[0])
       end
     end
 
-    context "when race active with a team competition" do
+    context "when race active with several series'" do
+      it "should return a list with series paths" do
+        @race = Factory.build(:race)
+        @race.series << Factory.build(:series, :race => @race, :id => 1)
+        @race.series << Factory.build(:series, :race => @race, :id => 2)
+        url_list.size.should == 2
+        url_list[0].should == series_competitors_path(@race.series[0])
+        url_list[1].should == series_competitors_path(@race.series[1])
+      end
+    end
+
+    context "when race active with one team competition" do
       it "should return a list with one team competition path" do
         @race = Factory.build(:race)
         @race.id = 1
@@ -584,7 +595,7 @@ describe ApplicationHelper do
       end
     end
 
-    context "when race has a relay competition" do
+    context "when race active with one relay competition" do
       it "should return a list with one relay competition path" do
         @race = Factory.build(:race)
         @race.id = 1
@@ -595,7 +606,7 @@ describe ApplicationHelper do
         url_list[0].should == race_relay_path(@race, 1)
       end
     end
-    context "when race active with series, relay & team" do
+    context "when race active with one series, one relay & one team competition" do
       it "should return a list with one series path, one team path and one relay path" do
         @race = Factory.build(:race)
         @race.series << Factory.build(:series, :race => @race, :id => 1)
