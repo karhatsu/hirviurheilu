@@ -339,8 +339,26 @@ module ApplicationHelper
     return result_rotation_list[0]
   end
 
+  def refresh_tag
+    html = '<meta http-equiv="Refresh" content="'
+    html << result_refresh_interval(5).to_s
+    html << ";" + next_result_rotation(request.request_uri) if result_rotation_cookie
+    html << '"/>'
+    raw(html)
+  end
+
   def result_refresh_interval(interval)
     return interval if Rails.env == 'development'
     return [15, interval].max
+  end
+
+  private
+  def result_rotation_cookie
+    return cookies['seriescount']
+  end
+
+  private
+  def result_rotation_series_count
+    return cookies['seriescount'].to_i
   end
 end

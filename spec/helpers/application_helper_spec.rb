@@ -647,6 +647,7 @@ describe ApplicationHelper do
     context "when development environment" do
       before do
         Rails.stub!(:env).and_return('development')
+        helper.stub!(:result_rotation_cookie).and_return(true)
       end
       it "should return the given refresh rate" do
         result_refresh_interval(2).should == 2
@@ -655,6 +656,7 @@ describe ApplicationHelper do
     context "when not development environment" do
       before do
         Rails.stub!(:env).and_return('production')
+        helper.stub!(:result_rotation_cookie).and_return(true)
       end
       it "should return 15 if given refresh rate is less than that" do
         result_refresh_interval(2).should == 15
@@ -664,5 +666,38 @@ describe ApplicationHelper do
       end
     end
   end
+
+  describe "#refresh_tag" do
+    context "when no seriescount cookie set" do
+      before do
+        stub!(:result_rotation_cookie).and_return(false)
+        stub!(:result_refresh_interval).and_return(15)
+        helper.stub!(:next_result_rotation).and_return('/abc')
+        # FIXME something problematic here, messages about
+        # nil expectation
+        helper.stub!(:request).and_return(nil)
+        request.stub!(:request_uri).and_return(nil)
+      end
+      it "should return a valid http refresh tag" do
+        refresh_tag.should == "<meta http-equiv=\"Refresh\" content=\"15\"/>"
+      end
+    end
+    context "when seriescount cookie set to 3" do
+      before do
+        stub!(:result_rotation_cookie).and_return('3')
+        stub!(:result_refresh_interval).and_return(15)
+        helper.stub!(:next_result_rotation).and_return('/abc')
+        # FIXME something problematic here, messages about
+        # nil expectation
+        helper.stub!(:request).and_return(nil)
+        request.stub!(:request_uri).and_return(nil)
+      end
+      it "should return a valid http refresh tag" do
+        refresh_tag.should == "<meta http-equiv=\"Refresh\" content=\"15;/abc\"/>"
+      end
+    end
+  end
+  # FIXME missing specs for result_rotation_cookie and
+  # result_rotation_series_count cookie methods
 end
 

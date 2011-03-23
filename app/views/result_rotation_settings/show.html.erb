@@ -1,0 +1,13 @@
+<h2>Tuloskehä</h2>
+
+<% if cookies['seriescount'] and cookies['seriescount'] > 0 %>
+<% content_for(:refresh, 15) %>
+<% end %>
+
+<% if cookies['seriescount'] and cookies['seriescount'] > 0 %>
+Tuloskehä kytkettin päälle
+<% else %>
+Tuloskehä kytkettin pois päältä
+<% end %>
+<hr/>
+<%= link_to "Takaisin etusivulle", root_path %>
