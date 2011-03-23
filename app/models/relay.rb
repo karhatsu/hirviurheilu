@@ -28,7 +28,7 @@ class Relay < ActiveRecord::Base
 
   def leg_results(leg)
     last_leg = (leg == legs_count)
-    relay_teams.includes(:relay_competitors).sort do |a,b|
+    relay_teams.includes(:relay_competitors => :relay_team).sort do |a,b|
       [last_leg ? a.no_result_reason.to_s : 0,
         a.time_in_seconds(leg) || 99999999, a.number] <=>
       [last_leg ? b.no_result_reason.to_s : 0,
