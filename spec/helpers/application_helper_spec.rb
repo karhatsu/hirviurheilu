@@ -599,9 +599,11 @@ describe ApplicationHelper do
   end
 
   describe "#result_rotation_list" do
+    before do
+      stub!(:result_rotation_cookie).and_return('3')
+    end
     context "when race finished" do
       it "should return an empty list" do
-        stub!(:result_rotation_cookie).and_return('3')
         @race = Factory.build(:race)
         @race.finished = true
         @race.save!
@@ -611,7 +613,6 @@ describe ApplicationHelper do
 
     context "when race active with one series" do
       it "should return a list with one series path" do
-        stub!(:result_rotation_cookie).and_return('3')
         @race = Factory.build(:race, :start_date => Time.zone.today, :finished => false )
         @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 30)
         result_rotation_list.size.should == 1
@@ -621,7 +622,6 @@ describe ApplicationHelper do
 
     context "when race active with several series'" do
       it "should return a list with series paths" do
-        stub!(:result_rotation_cookie).and_return('3')
         @race = Factory.build(:race, :start_date => Time.zone.today)
         @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 60)
         @race.series << Factory.build(:series, :race => @race, :id => 2, :start_time => Time.now - 30)
@@ -633,7 +633,6 @@ describe ApplicationHelper do
 
     context "when race active with one series and one team competition" do
       it "should return a list with one series and one team competition path" do
-        stub!(:result_rotation_cookie).and_return('3')
         @race = Factory.build(:race)
         @race.id = 1
         @race.start_date = Time.zone.today
@@ -647,7 +646,6 @@ describe ApplicationHelper do
 
     context "when race active with one relay competition" do
       it "should return a list with one relay competition path" do
-        stub!(:result_rotation_cookie).and_return('3')
         @race = Factory.build(:race)
         @race.id = 1
         @race.start_date = Time.zone.today
@@ -660,7 +658,6 @@ describe ApplicationHelper do
     end
     context "when race active with one series, one relay & one team competition" do
       it "should return a list with one series path, one team path and one relay path" do
-        stub!(:result_rotation_cookie).and_return('3')
         @race = Factory.build(:race)
         @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 30)
         @race.id = 1
@@ -678,10 +675,12 @@ describe ApplicationHelper do
   end
 
   describe "#result_refresh_interval" do
+    before do
+      stub!(:result_rotation_cookie).and_return('3')
+    end
     context "when development environment" do
       before do
         Rails.stub!(:env).and_return('development')
-        helper.stub!(:result_rotation_cookie).and_return(true)
       end
       it "should return the given refresh rate" do
         result_refresh_interval(2).should == 2
@@ -690,7 +689,6 @@ describe ApplicationHelper do
     context "when not development environment" do
       before do
         Rails.stub!(:env).and_return('production')
-        helper.stub!(:result_rotation_cookie).and_return(true)
       end
       it "should return 15 if given refresh rate is less than that" do
         result_refresh_interval(2).should == 15
@@ -715,6 +713,7 @@ describe ApplicationHelper do
         refresh_tag.should == "<meta http-equiv=\"Refresh\" content=\"15\"/>"
       end
     end
+
     context "when seriescount cookie set to 3" do
       before do
         stub!(:result_rotation_cookie).and_return('3')
