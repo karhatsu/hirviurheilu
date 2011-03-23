@@ -350,3 +350,55 @@ Feature: Results
     And I should see "13:00:00" within "#time td"
     And I should see "14:00:00" within "#time td"
     And I should see "1:00:00" within "#time td"
+
+  Scenario: See the results with national record mention of an individual competitor in an unfinished race
+    Given there is a race with attributes:
+      | sport | RUN |
+      | name | My test race |
+      | start_date | 2010-07-15 |
+      | location | Test city |
+      | start_interval_seconds | 60 |
+    And the race has series with attributes:
+      | name | Men 50 years |
+      | start_time | 13:00 |
+      | first_number | 50 |
+      | national_record | 50 |
+    And the race has correct estimates with attributes:
+      | min_number | 1 |
+      | max_number | 100 |
+      | distance1 | 110 |
+      | distance2 | 130 |
+    And the series has a competitor with attributes:
+      | first_name | Tim |
+      | last_name | Atkinsson |
+    And the start list has been generated for the series
+    And the competitor "Tim" "Atkinsson" has the following results:
+      | shots_total_input | 90 |
+      | estimate1 | 111 |
+      | estimate2 | 129 |
+      | arrival_time | 14:00:00 |
+    And I am on the results page of the series
+    When I follow "Atkinsson Tim"
+    Then I should be on the results page of the competitor
+    And I should see "My test race" within ".main_title"
+    And I should see "Men 50 years - Atkinsson Tim" within "h2"
+    And I should see "Pisteet" within "#points h3"
+    And I should see "SE?" within "#points h3"
+    And I should see "540" within "#points td"
+    And I should see "296" within "#points td"
+    And I should see "300" within "#points td"
+    And I should see "1136" within "#points td"
+    And I should see "Ammunta" within "#shooting h3"
+    And I should see "90" within "#shooting"
+    And I should see "Arviointi" within "#estimates h3"
+    And I should not see "111" within "#estimates"
+    And I should not see "129" within "#estimates"
+    And I should not see "110" within "#estimates"
+    And I should not see "130" within "#estimates"
+    And I should not see "+1" within "#estimates"
+    And I should not see "-1" within "#estimates"
+    And I should see "Tarkemmat arviointitiedot näytetään kilpailun päätyttyä."
+    And I should see "Juoksu" within "#time h3"
+    And I should see "13:00:00" within "#time td"
+    And I should see "14:00:00" within "#time td"
+    And I should see "1:00:00" within "#time td"
