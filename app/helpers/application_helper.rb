@@ -309,9 +309,9 @@ module ApplicationHelper
 
   def next_result_rotation(url)
     return url if result_rotation_list.empty?
-    if (result_rotation_list.index(url))
-      return result_rotation_list[0] if result_rotation_list.index(url) == result_rotation_list.size - 1
-      return result_rotation_list[result_rotation_list.index(url) + 1]
+    place = result_rotation_list.index(url)
+    if (place and place != result_rotation_list.size - 1)
+      return result_rotation_list[place + 1]
     end
     return result_rotation_list[0]
   end
