@@ -68,9 +68,6 @@ module NavigationHelpers
     when /the registration page/
       register_path
 
-    when /the result rotation settings page/
-      result_rotation_settings_path
-
     when /the login page/
       login_path
 
