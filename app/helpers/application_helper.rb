@@ -289,8 +289,8 @@ module ApplicationHelper
 
   def result_rotation_list
     result_rotation_list = []
-    @race = @series.race unless @series.nil?
-    unless @race.nil?
+    @race = @series.race if @series
+    if @race
       @race.series.each do |s|
         result_rotation_list << series_competitors_path(s) if s.running?
       end
