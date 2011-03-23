@@ -128,4 +128,31 @@ describe RelayTeam do
       @team.shoot_penalties_sum.should == 7
     end
   end
+
+  describe "#competitor" do
+    it "should return nil if no competitor defined for given leg" do
+      relay_team = Factory.build(:relay_team)
+      relay_team.competitor(2).should be_nil
+    end
+
+    context "when competitor exists for given leg" do
+      before do
+        @team = Factory.create(:relay_team)
+        @comp3 = Factory.build(:relay_competitor, :relay_team => @team, :leg => 3)
+        comp1 = Factory.build(:relay_competitor, :relay_team => @team, :leg => 1)
+        @team.relay_competitors << comp1
+        @team.relay_competitors << @comp3
+      end
+
+      it "should return the competitor" do
+        comp2 = Factory.build(:relay_competitor, :relay_team => @team, :leg => 2)
+        @team.relay_competitors << comp2
+        @team.competitor(3).should == @comp3
+      end
+
+      it "should return the competitor even though some other competitor missing" do
+        @team.competitor(3).should == @comp3
+      end
+    end
+  end
 end

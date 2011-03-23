@@ -12,6 +12,12 @@ class RelayTeam < ActiveRecord::Base
 
   accepts_nested_attributes_for :relay_competitors
 
+  def competitor(leg)
+    competitor = relay_competitors[leg - 1] # faster solution but not reliable
+    return competitor if competitor and competitor.leg == leg
+    relay_competitors.where(:leg => leg).first # slower and reliable solution
+  end
+
   def time_in_seconds(leg=nil)
     leg = relay.legs_count unless leg
     competitor = relay_competitors.where(:leg => leg).first
