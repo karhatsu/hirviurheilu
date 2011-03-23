@@ -132,6 +132,34 @@ describe ApplicationHelper do
       helper.time_from_seconds(131.2).should == "02:11"
       helper.time_from_seconds(3601.6).should == "1:00:01"
     end
+
+    it "should return negative hours, minutes and seconds when at least 1 hour" do
+      helper.time_from_seconds(-3600).should == "-1:00:00"
+      helper.time_from_seconds(-3601).should == "-1:00:01"
+    end
+    it "should return hours, minutes and seconds with minus or plus sign when alwayssigned" do
+      helper.time_from_seconds(3600, true).should == "+1:00:00"
+      helper.time_from_seconds(3601, true).should == "+1:00:01"
+      helper.time_from_seconds(-3601, true).should == "-1:00:01"
+    end
+  end
+
+  describe "#relay_time_adjustment" do
+    before do
+      helper.stub!(:time_from_seconds).and_return('00:01')
+    end
+
+    it "should return nothing when nil given" do
+      helper.relay_time_adjustment(nil).should == ""
+    end
+
+    it "should return nothing when 0 seconds given" do
+      helper.relay_time_adjustment(0).should == ""
+    end
+
+    it "should return the html span block when 1 second given" do
+      helper.relay_time_adjustment(1).should == "(<span class='adjustment' title=\"Aika sisältää korjausta 00:01\">00:01</span>)"
+    end
   end
 
   describe "#shot_points_and_total" do

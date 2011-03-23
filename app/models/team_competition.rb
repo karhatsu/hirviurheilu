@@ -32,10 +32,11 @@ class TeamCompetition < ActiveRecord::Base
   def results
     competitors = []
     series.each do |s|
-      competitors += s.competitors
+      competitors += s.competitors.includes([:series, :club, :age_group, :shots])
     end
     age_groups.each do |ag|
-      competitors += ag.competitors.where(['series_id NOT IN (?)', (series.map &:id)])
+      competitors += ag.competitors.where(['series_id NOT IN (?)', (series.map &:id)]).
+        includes([:series, :club, :age_group, :shots])
     end
     results_for_competitors competitors
   end

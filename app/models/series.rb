@@ -38,7 +38,7 @@ class Series < ActiveRecord::Base
   end
 
   def ordered_competitors
-    Competitor.sort(competitors)
+    Competitor.sort(competitors.includes([:shots, :club, :age_group]))
   end
 
   def next_number

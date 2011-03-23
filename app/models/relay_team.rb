@@ -12,11 +12,17 @@ class RelayTeam < ActiveRecord::Base
 
   accepts_nested_attributes_for :relay_competitors
 
+  def competitor(leg)
+    competitor = relay_competitors[leg.to_i - 1] # faster solution but not reliable
+    return competitor if competitor and competitor.leg == leg.to_i
+    relay_competitors.where(:leg => leg).first # slower and reliable solution
+  end
+
   def time_in_seconds(leg=nil)
     leg = relay.legs_count unless leg
-    competitor = relay_competitors.where(:leg => leg).first
+    competitor = competitor(leg)
     return nil unless competitor and competitor.arrival_time
-    competitor.arrival_time - relay.start_time
+    competitor.arrival_time - relay.start_time + adjustment(leg)
   end
 
   def estimate_penalties_sum
@@ -25,6 +31,16 @@ class RelayTeam < ActiveRecord::Base
       sum += competitor.estimate_penalties.to_i
     end
     return sum
+  end
+
+  def adjustment(leg=nil)
+    leg = relay.legs_count unless leg
+    sum = 0
+    leg.to_i.times do |i|
+      competitor = competitor(i + 1)
+      sum += competitor.adjustment.to_i if competitor
+    end
+    sum
   end
 
   def shoot_penalties_sum

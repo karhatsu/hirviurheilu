@@ -16,7 +16,9 @@ class Relay < ActiveRecord::Base
   accepts_nested_attributes_for :relay_correct_estimates
 
   def correct_estimate(leg)
-    ce = relay_correct_estimates.where(:leg => leg).first
+    ce = relay_correct_estimates[leg - 1] # faster solution but not reliable
+    return ce.distance if ce and ce.leg == leg
+    ce = relay_correct_estimates.where(:leg => leg).first # slower and reliable solution
     return ce.distance if ce
   end
 
@@ -25,21 +27,13 @@ class Relay < ActiveRecord::Base
   end
 
   def leg_results(leg)
-    competitors = relay_competitors.where(:leg => leg).order('arrival_time, number')
-    no_results = []
-    nil_results = []
-    normal_results = []
-    competitors.each do |comp|
-      if leg == legs_count and comp.relay_team.no_result_reason
-        no_results << comp
-      else
-        nil_results << comp unless comp.arrival_time
-        normal_results << comp if comp.arrival_time
-      end
+    last_leg = (leg == legs_count)
+    relay_teams.includes(:relay_competitors => :relay_team).sort do |a,b|
+      [last_leg ? a.no_result_reason.to_s : 0,
+        a.time_in_seconds(leg) || 99999999, a.number] <=>
+      [last_leg ? b.no_result_reason.to_s : 0,
+        b.time_in_seconds(leg) || 99999999, b.number]
     end
-    teams = normal_results.collect do |competitor| competitor.relay_team end
-    teams += nil_results.collect do |competitor| competitor.relay_team end
-    teams += no_results.collect do |competitor| competitor.relay_team end
   end
 
   def finish_errors

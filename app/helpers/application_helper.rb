@@ -67,12 +67,20 @@ module ApplicationHelper
       "#{no_result_reason}</span>")
   end
 
-  def time_from_seconds(seconds)
+  def time_from_seconds(seconds,alwayssigned=false)
+    return "-" if seconds.nil?
+    if seconds < 0
+      time = "-"
+      seconds = seconds.abs
+    else
+      time = ""
+      time = "+" if alwayssigned
+    end
     return "-" if seconds.nil?
     h = seconds.to_i / 3600
     min = (seconds.to_i - h * 3600) / 60
     sec = seconds.to_i % 60
-    time = (h >= 1 ? "#{h}:" : "")
+    time << (h >= 1 ? "#{h}:" : "")
     time << "#{min < 10 ? "0" : ""}#{min}:"
     time << "#{sec < 10 ? "0" : ""}#{sec}"
   end
@@ -84,6 +92,17 @@ module ApplicationHelper
     html = (points == 300 ? "<span class='series_best_time'>" : '')
     html << "#{competitor.time_points} (#{time_from_seconds(competitor.time_in_seconds)})"
     html << (points == 300 ? "</span>" : '')
+    raw(html)
+  end
+
+  def relay_time_adjustment(adjustment)
+    return '' unless adjustment
+    return '' if adjustment == 0
+    html = '(<span class=\'adjustment\' title="Aika sisältää korjausta '
+    html << time_from_seconds(adjustment, true)
+    html << '">'
+    html << time_from_seconds(adjustment, true)
+    html << '</span>)'
     raw(html)
   end
 

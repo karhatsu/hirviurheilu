@@ -62,9 +62,9 @@ describe RelayTeam do
     before do
       @relay = Factory.create(:relay, :legs_count => 3, :start_time => '12:00')
       @team = Factory.create(:relay_team, :relay => @relay)
-      Factory.create(:relay_competitor, :relay_team => @team, :leg => 1,
+      @c1 = Factory.create(:relay_competitor, :relay_team => @team, :leg => 1,
         :arrival_time => '12:10:00')
-      Factory.create(:relay_competitor, :relay_team => @team, :leg => 2,
+      @c2 = Factory.create(:relay_competitor, :relay_team => @team, :leg => 2,
         :arrival_time => '12:20:54')
     end
 
@@ -72,15 +72,31 @@ describe RelayTeam do
       @team.time_in_seconds.should be_nil
     end
 
-    it "should return the arrival time for the last competitor - relay start time" do
-      Factory.create(:relay_competitor, :relay_team => @team, :leg => 3,
-        :arrival_time => '12:31:15')
-      @team.time_in_seconds.should == 31 * 60 + 15
+    context "when last competitor defined" do
+      before do
+        @c3 = Factory.create(:relay_competitor, :relay_team => @team, :leg => 3,
+            :arrival_time => '12:31:15')
+      end
+
+      it "should return the arrival time for the last competitor - relay start time" do
+        @team.time_in_seconds.should == 31 * 60 + 15
+      end
     end
 
     context "when leg number given" do
       it "should return the arrival time for the given competitor - relay start time" do
         @team.time_in_seconds(2).should == 20 * 60 + 54
+      end
+    end
+    context "when leg number given and adjustment exists" do
+      before do
+        @c1.adjustment = -20
+        @c1.save!
+        @c3 = Factory.create(:relay_competitor, :relay_team => @team, :leg => 3,
+          :arrival_time => '12:31:15', :adjustment => 90)
+      end
+      it "should return the arrival time for the given competitor - relay start time + adjustment for current and previous legs" do
+        @team.time_in_seconds(2).should == 20 * 60 + 54 - 20
       end
     end
   end
@@ -110,6 +126,37 @@ describe RelayTeam do
 
     it "should return the sum of shoot penalties for the team so that nil refers to 0 penalties" do
       @team.shoot_penalties_sum.should == 7
+    end
+  end
+
+  describe "#competitor" do
+    it "should return nil if no competitor defined for given leg" do
+      relay_team = Factory.build(:relay_team)
+      relay_team.competitor(2).should be_nil
+    end
+
+    context "when competitor exists for given leg" do
+      before do
+        @team = Factory.create(:relay_team)
+        @comp3 = Factory.build(:relay_competitor, :relay_team => @team, :leg => 3)
+        @comp1 = Factory.build(:relay_competitor, :relay_team => @team, :leg => 1)
+        @team.relay_competitors << @comp1
+        @team.relay_competitors << @comp3
+      end
+
+      it "should return the competitor" do
+        comp2 = Factory.build(:relay_competitor, :relay_team => @team, :leg => 2)
+        @team.relay_competitors << comp2
+        @team.competitor(3).should == @comp3
+      end
+
+      it "should return the competitor even though some other competitor missing" do
+        @team.competitor(3).should == @comp3
+      end
+
+      it "should return the competitor also when string instead of int is given" do
+        @team.competitor("1").should == @comp1
+      end
     end
   end
 end
