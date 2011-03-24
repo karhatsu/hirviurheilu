@@ -56,13 +56,17 @@ module ApplicationHelper
     if competitor.no_result_reason
       return no_result_reason_print(competitor.no_result_reason)
     end
+    return competitor.points.to_s unless competitor.points.nil?
+    return "(#{competitor.points!})" unless competitor.points!.nil?
+    "-"
+  end
+
+  def national_record(competitor)
     nat_rec = ''
     if (competitor.points and competitor.series and competitor.series.national_record and competitor.points.to_i > competitor.series.national_record.to_i and competitor.points >= competitor.series.best_points(competitor.series))
       nat_rec = '/SE?'
     end
-    return competitor.points.to_s + nat_rec unless competitor.points.nil?
-    return "(#{competitor.points!}#{nat_rec})" unless competitor.points!.nil?
-    "-"
+    nat_rec
   end
 
   def no_result_reason_print(no_result_reason, scope='competitor')
