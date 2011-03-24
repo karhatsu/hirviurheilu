@@ -520,5 +520,6 @@ describe ApplicationHelper do
       helper.link_with_protocol('www.test.com').should == 'http://www.test.com'
     end
   end
+  # FIXME: add spec for national_record
 end
 
