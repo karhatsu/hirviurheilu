@@ -23,7 +23,8 @@ describe ApplicationHelper do
 
     it "should print - if no points at all" do
       competitor = mock_model(Competitor, :no_result_reason => nil,
-        :points => nil, :points! => nil)
+        :points => nil, :points! => nil, :series => nil)
+      nil.stub!(:national_record).and_return(1100)
       helper.points_print(competitor).should == "-"
     end
   end

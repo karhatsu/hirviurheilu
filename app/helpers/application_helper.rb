@@ -56,8 +56,12 @@ module ApplicationHelper
     if competitor.no_result_reason
       return no_result_reason_print(competitor.no_result_reason)
     end
-    return competitor.points unless competitor.points.nil?
-    return "(#{competitor.points!})" unless competitor.points!.nil?
+    nat_rec = ''
+    if (competitor.series.national_record and competitor.points and competitor.points.to_i > competitor.series.national_record.to_i and competitor.points >= competitor.series.best_points(competitor.series))
+      nat_rec = '/SE?'
+    end
+    return competitor.points.to_s + nat_rec unless competitor.points.nil?
+    return "(#{competitor.points!}#{nat_rec})" unless competitor.points!.nil?
     "-"
   end
 

@@ -39,6 +39,20 @@ class Series < ActiveRecord::Base
     times.first
   end
 
+  def best_points(series)
+    points = []
+    competitors.each do |comp|
+      if comp.series == series
+        points << comp.points unless comp.points.nil? or
+          comp.no_result_reason or comp.unofficial
+        points << comp.points! unless comp.points!.nil? or
+          comp.no_result_reason or comp.unofficial
+      end
+    end
+    points.sort!
+    points.last
+  end
+
   def ordered_competitors
     Competitor.sort(competitors)
   end
