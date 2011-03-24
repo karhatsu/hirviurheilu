@@ -380,26 +380,22 @@ Feature: Results
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 14:00:00 |
-    And the competitor "Tim" "Betkinsson" has the following results:
+    And the competitor "Tom" "Betkinsson" has the following results:
       | shots_total_input | 67 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 14:00:00 |
     And I am on the results page of the series
     And I should see "1136/SE?" within "#points td"
-    But I should not "998/SE?" within "#points td"
-    When I follow "Atkinsson Tim"
-    Then I should be on the results page of the competitor
-    And I should see "1136/SE?" within "#points td"
-    But I should not "998/SE?" within "#points td"
+    But I should not see "998/SE?" within "#points td"
 
   Scenario: See the results with national record mention of an individual competitor in a finished race
     Given there is a race with attributes:
-      | sport | RUN |
       | name | My test race |
       | start_date | 2010-07-15 |
       | location | Test city |
       | start_interval_seconds | 60 |
+      | finished | true |
     And the race has series with attributes:
       | name | Men 50 years |
       | start_time | 13:00 |
@@ -422,17 +418,13 @@ Feature: Results
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 14:00:00 |
-    And the competitor "Tim" "Betkinsson" has the following results:
+    And the competitor "Tom" "Betkinsson" has the following results:
       | shots_total_input | 67 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 14:00:00 |
     And I am on the results page of the series
-    And I should see "1136/SE" within "#points td"
-    But I should not "998/SE" within "#points td"
-    When I follow "Atkinsson Tim"
-    Then I should be on the results page of the competitor
-    And I should see "1136/SE?" within "#points td"
-    But I should not "1136/SE?" within "#points td"
-    But I should not "998/SE" within "#points td"
+    And I should see "1136 /SE" within "#points td"
+    But I should not see "998 /SE" within "#points td"
+    But I should not see "1136 /SE?" within "#points td"
 
