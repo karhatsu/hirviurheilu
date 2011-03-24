@@ -57,7 +57,7 @@ module ApplicationHelper
       return no_result_reason_print(competitor.no_result_reason)
     end
     nat_rec = ''
-    if (competitor.series.national_record and competitor.points and competitor.points.to_i > competitor.series.national_record.to_i and competitor.points >= competitor.series.best_points(competitor.series))
+    if (competitor.points and competitor.series and competitor.series.national_record and competitor.points.to_i > competitor.series.national_record.to_i and competitor.points >= competitor.series.best_points(competitor.series))
       nat_rec = '/SE?'
     end
     return competitor.points.to_s + nat_rec unless competitor.points.nil?
