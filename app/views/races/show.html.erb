@@ -32,7 +32,7 @@
             <% end %>
           </td>
           <% if s.competitors.empty? %>
-            <td colspan="<% if @race.finished %>2<% else %>3<% end %>">Sarjaan ei ole merkitty kilpailijoita</td>
+            <td colspan="<%= @race.finished? ? 2 : 3 %>">Sarjaan ei ole merkitty kilpailijoita</td>
           <% else %>
             <td><%= s.competitors.count %></td>
             <% unless @race.finished %>
