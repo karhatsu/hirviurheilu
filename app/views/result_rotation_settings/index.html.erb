@@ -1,0 +1,20 @@
+<h2>Tuloskehä</h2>
+
+<% if result_rotation_list.empty? %>
+  Tuloskehää ei voida käynnistää, koska ei ole käynnissä olevia kilpailuja.
+  <% cookies.delete 'seriescount' %>
+<% else %>
+  <% if cookies['seriescount'] %>
+    <% content_for(:refresh, true) %>
+  <% end %>
+
+  <% if cookies['seriescount'] %>
+    Tuloskehä käynnistetään.<br/>
+    <br/>
+    Sarjoja näytetään: <%= cookies['seriescount'] %>
+  <% else %>
+    Tuloskehä kytkettin pois päältä
+  <% end %>
+<% end %>
+<hr/>
+<%= link_to "Takaisin etusivulle", root_path %>
