@@ -613,8 +613,8 @@ describe ApplicationHelper do
 
     context "when race active with one series" do
       it "should return a list with one series path" do
-        @race = Factory.build(:race, :start_date => Time.zone.today, :finished => false )
-        @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 30)
+        @race = Factory.create(:race, :start_date => Time.zone.today, :finished => false )
+        @race.series << Factory.create(:series, :race => @race, :start_time => Time.now - 3000)
         result_rotation_list.size.should == 1
         result_rotation_list[0].should == series_competitors_path(@race.series[0])
       end
@@ -622,9 +622,9 @@ describe ApplicationHelper do
 
     context "when race active with several series'" do
       it "should return a list with series paths" do
-        @race = Factory.build(:race, :start_date => Time.zone.today)
-        @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 60)
-        @race.series << Factory.build(:series, :race => @race, :id => 2, :start_time => Time.now - 30)
+        @race = Factory.create(:race, :start_date => Time.zone.today)
+        @race.series << Factory.create(:series, :race => @race, :start_time => Time.now - 6000)
+        @race.series << Factory.create(:series, :race => @race, :start_time => Time.now - 3000)
         result_rotation_list.size.should == 2
         result_rotation_list[1].should == series_competitors_path(@race.series[0])
         result_rotation_list[0].should == series_competitors_path(@race.series[1])
@@ -728,7 +728,5 @@ describe ApplicationHelper do
       end
     end
   end
-  # FIXME missing specs for result_rotation_cookie and
-  # result_rotation_series_count cookie methods
 end
 

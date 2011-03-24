@@ -346,11 +346,7 @@ module ApplicationHelper
   private
   def result_rotation_series_list(race)
     result_rotation_series_list = []
-    # FIXME sql generated is: SELECT "series".* FROM
-    # "series" WHERE ("series".race_id = 10)
-    # ORDER BY name, start_time desc LIMIT 3
-    # where does name come from?
-    race.series.order('start_time desc').limit(result_rotation_cookie.to_i).each do |s|
+    race.series.unscoped.where(['start_time is not ?', nil]).order('start_time desc').limit(result_rotation_cookie.to_i).each do |s|
       result_rotation_series_list << series_competitors_path(s) if s.running?
     end
     result_rotation_series_list
@@ -360,7 +356,7 @@ module ApplicationHelper
     result_rotation_tc_list = []
     if race.has_team_competition? and race.start_date <= Time.zone.today
       race.team_competitions.each do |tc|
-        result_rotation_tc_list << race_team_competition_path(race, tc) unless @race.finished?
+        result_rotation_tc_list << race_team_competition_path(race, tc) unless race.finished?
       end
     end
     result_rotation_tc_list
