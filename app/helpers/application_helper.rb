@@ -62,11 +62,8 @@ module ApplicationHelper
   end
 
   def national_record(competitor)
-    nat_rec = ''
-    if (competitor.points and competitor.series and competitor.series.national_record and competitor.points.to_i > competitor.series.national_record.to_i)
-      nat_rec = '/SE?'
-    end
-    nat_rec
+    return '/SE?' if competitor.series.national_record and competitor.points.to_i > competitor.series.national_record.to_i
+    ''
   end
 
   def no_result_reason_print(no_result_reason, scope='competitor')
