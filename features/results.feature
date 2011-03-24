@@ -386,8 +386,8 @@ Feature: Results
       | estimate2 | 129 |
       | arrival_time | 14:00:00 |
     And I am on the results page of the series
-    And I should see "1136/SE?" within "#points td"
-    But I should not see "998/SE?" within "#points td"
+    And I should see "1136 /SE?" within "#points td"
+    But I should not see "998 /SE?" within "#points td"
 
   Scenario: See the results with national record mention of an individual competitor in a finished race
     Given there is a race with attributes:
