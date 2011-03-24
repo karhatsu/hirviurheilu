@@ -2,6 +2,7 @@
 
 <% if result_rotation_list.empty? %>
   Tuloskehää ei voida käynnistää, koska ei ole käynnissä olevia kilpailuja.
+  <% cookies.delete 'seriescount' %>
 <% else %>
   <% if cookies['seriescount'] %>
     <% content_for(:refresh, true) %>
