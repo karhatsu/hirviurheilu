@@ -3,6 +3,7 @@ class Official::CompetitorsController < Official::OfficialController
   before_filter :assign_race_by_race_id, :check_assigned_race, :only => :create
   before_filter :check_offline_limit, :only => [:new, :create]
   before_filter :handle_start_time, :only => :create
+  before_filter :clear_empty_shots, :only => :update
   before_filter :set_competitors
 
   def index
@@ -129,6 +130,15 @@ class Official::CompetitorsController < Official::OfficialController
       return false
     end
     true
+  end
+  
+  def clear_empty_shots
+    shots_params = params[:competitor]["shots_attributes"]
+    return unless shots_params
+    10.times do |i|
+      shot_param = shots_params["new_#{i}_shots"]["value"]
+      shots_params.delete("new_#{i}_shots") if shot_param and shot_param.blank? 
+    end
   end
 
   def set_competitors
