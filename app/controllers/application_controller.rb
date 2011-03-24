@@ -168,7 +168,8 @@ class ApplicationController < ActionController::Base
     h = object_params["#{time_name}(4i)"]
     min = object_params["#{time_name}(5i)"]
     sec = object_params["#{time_name}(6i)"]
-    h.match /^\d\d?$/ and min.match /^\d\d?$/ and (sec.nil? or sec.match /^\d\d?$/) and
+    return true if h.blank? and min.blank? and sec.blank?
+    h.match /^\d\d?$/ and min.match /^\d\d?$/ and (sec.blank? or sec.match /^\d\d?$/) and
       h.to_i >= 0 and h.to_i <= 23 and min.to_i >= 0 and min.to_i <= 59 and
       sec.to_i >= 0 and sec.to_i <= 59
   end
