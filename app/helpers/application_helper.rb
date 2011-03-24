@@ -346,6 +346,10 @@ module ApplicationHelper
   private
   def result_rotation_series_list(race)
     result_rotation_series_list = []
+    # FIXME sql generated is: SELECT "series".* FROM
+    # "series" WHERE ("series".race_id = 10)
+    # ORDER BY name, start_time desc LIMIT 3
+    # where does name come from?
     race.series.order('start_time desc').limit(result_rotation_cookie.to_i).each do |s|
       result_rotation_series_list << series_competitors_path(s) if s.running?
     end
