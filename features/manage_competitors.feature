@@ -54,3 +54,39 @@ Feature: Manage competitors
     And I press "Tallenna ja palaa listaan"
     Then I should be on the official competitors page of the series
     And I should see "" within "tr#competitor_1 img"
+    
+  Scenario: Updating competitor before results should not create additional shots
+    Given I am an official
+    And I have a race "Test race"
+    And the race has series with attributes:
+      | first_number | 10 |
+      | start_time | 11:00 |
+    And the series has a competitor with attributes:
+      | first_name | James |
+      | last_name | Johnson |
+    And the start list has been generated for the series
+    And I have logged in
+    When I go to the official competitors page of the series
+    And I follow "Johnson James"
+    And I press "Tallenna ja palaa listaan"
+    Then I should be on the official competitors page of the series
+    When I go to the results page of the series
+    And I follow "Johnson James"
+    Then I should not see "0,0,0,0,0,0,0,0,0,0"
+    When I go to the official competitors page of the series
+    And I follow "Johnson James"
+    And I fill in the following:
+      | competitor_shots_attributes_new_0_shots_value | 10 |
+      | competitor_shots_attributes_new_1_shots_value | 10 |
+      | competitor_shots_attributes_new_2_shots_value | 10 |
+      | competitor_shots_attributes_new_3_shots_value | 10 |
+      | competitor_shots_attributes_new_4_shots_value | 10 |
+      | competitor_shots_attributes_new_5_shots_value | 9 |
+      | competitor_shots_attributes_new_6_shots_value | 9 |
+      | competitor_shots_attributes_new_7_shots_value | 9 |
+      | competitor_shots_attributes_new_8_shots_value | 8 |
+    And I press "Tallenna ja palaa listaan"
+    Then I should be on the official competitors page of the series
+    When I go to the results page of the series
+    And I follow "Johnson James"
+    Then I should see "10,10,10,10,10,9,9,9,8,0"
