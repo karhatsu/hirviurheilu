@@ -1,4 +1,7 @@
 <%= content_for(:title, @race.name) %>
+<% unless result_rotation_list.empty? %>
+  <% content_for(:refresh, true) %>
+<% end %>
 <% unless @race.home_page.blank? %>
   <h2>Lisätietoa kilpailusta</h2>
   <div class="section">

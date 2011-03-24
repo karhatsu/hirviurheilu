@@ -309,6 +309,7 @@ module ApplicationHelper
   def result_rotation_list
     result_rotation_list = []
     @race = @series.race if @series
+    return [] if @race.finished?
     if @race
       result_rotation_list += result_rotation_series_list(@race)
       # team competetion active only when at least one series is active
@@ -316,35 +317,6 @@ module ApplicationHelper
       result_rotation_list += result_rotation_relay_list(@race)
     end
     result_rotation_list
-  end
-
-  private
-  def result_rotation_series_list(race)
-    result_rotation_series_list = []
-    race.series.each do |s|
-      result_rotation_series_list << series_competitors_path(s) if s.running?
-    end
-    result_rotation_series_list
-  end
-
-  private
-  def result_rotation_tc_list(race)
-    result_rotation_tc_list = []
-    if race.has_team_competition? and race.start_date <= Time.zone.today
-      race.team_competitions.each do |tc|
-        result_rotation_tc_list << race_team_competition_path(race, tc) unless @race.finished?
-      end
-    end
-    result_rotation_tc_list
-  end
-
-  private
-  def result_rotation_relay_list(race)
-    result_rotation_relay_list = []
-    race.relays.each do |relay|
-      result_rotation_relay_list << race_relay_path(race, relay) if relay.active?
-    end
-    result_rotation_relay_list
   end
 
   def next_result_rotation(url)
@@ -358,8 +330,47 @@ module ApplicationHelper
     return result_rotation_list[0]
   end
 
+  def refresh_tag
+    html = '<meta http-equiv="Refresh" content="'
+    html << result_refresh_interval(5).to_s
+    html << ";" + next_result_rotation(request.fullpath) if result_rotation_cookie
+    html << '"/>'
+    raw(html)
+  end
+
   def result_refresh_interval(interval)
     return interval if Rails.env == 'development'
     return [15, interval].max
+  end
+
+  private
+  def result_rotation_series_list(race)
+    result_rotation_series_list = []
+    race.series.unscoped.where(['start_time is not ?', nil]).order('start_time desc').limit(result_rotation_cookie.to_i).each do |s|
+      result_rotation_series_list << series_competitors_path(s) if s.running?
+    end
+    result_rotation_series_list
+  end
+
+  def result_rotation_tc_list(race)
+    result_rotation_tc_list = []
+    if race.has_team_competition? and race.start_date <= Time.zone.today
+      race.team_competitions.each do |tc|
+        result_rotation_tc_list << race_team_competition_path(race, tc) unless race.finished?
+      end
+    end
+    result_rotation_tc_list
+  end
+
+  def result_rotation_relay_list(race)
+    result_rotation_relay_list = []
+    race.relays.each do |relay|
+      result_rotation_relay_list << race_relay_path(race, relay) if relay.active?
+    end
+    result_rotation_relay_list
+  end
+
+  def result_rotation_cookie
+    return cookies['seriescount']
   end
 end
