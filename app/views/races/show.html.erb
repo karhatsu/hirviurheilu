@@ -46,11 +46,6 @@
         </tr>
       <% end %>
     </table>
-    <% if @race.start_date <= Time.zone.today %>
-      <div class="action_box">
-        <%= link_to "Kaikkien sarjojen tulokset (PDF)", race_path(@race, :format => :pdf) %>
-      </div>
-    <% end %>
     <% if @race.finished? %>
       <h3>Oikeat arviot</h3>
       <table>
@@ -67,6 +62,13 @@
           </tr>
         <% end %>
       </table>
+      <h3>Tuloskooste (PDF)</h3>
+      <%= form_tag(race_path(@race, :format => :pdf), :method => :get) do %>
+        <%= select_tag :club_id,
+          options_from_collection_for_select(@race.clubs, :id, :name),
+          :include_blank => 'Kaikki piirit/seurat' %>
+        <%= submit_tag 'Näytä tulokset' %>
+      <% end %>
     <% end %>
   <% end %>
 </div>

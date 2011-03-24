@@ -16,6 +16,7 @@
     <th>Pisteet</th>
   </tr>
 <% series.ordered_competitors.each_with_index do |comp, i| %>
+  <% next unless params[:club_id].blank? or comp.club_id == params[:club_id].to_i %>
   <tr>
     <td><%= i + 1 %>.</td>
     <td><%= full_name(comp) %>
