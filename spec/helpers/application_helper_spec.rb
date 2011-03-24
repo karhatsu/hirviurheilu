@@ -11,8 +11,8 @@ describe ApplicationHelper do
 
     it "should print points in case they are available" do
       competitor = mock_model(Competitor, :no_result_reason => nil,
-        :points => 145)
-      helper.points_print(competitor).should == 145
+        :points => 145, :series => nil)
+      helper.points_print(competitor).should == "145"
     end
 
     it "should print points in brackets if only partial points are available" do
@@ -23,7 +23,7 @@ describe ApplicationHelper do
 
     it "should print - if no points at all" do
       competitor = mock_model(Competitor, :no_result_reason => nil,
-        :points => nil, :points! => nil)
+        :points => nil, :points! => nil, :series => nil)
       helper.points_print(competitor).should == "-"
     end
   end

@@ -56,9 +56,17 @@ module ApplicationHelper
     if competitor.no_result_reason
       return no_result_reason_print(competitor.no_result_reason)
     end
-    return competitor.points unless competitor.points.nil?
+    return competitor.points.to_s unless competitor.points.nil?
     return "(#{competitor.points!})" unless competitor.points!.nil?
     "-"
+  end
+
+  def national_record(competitor)
+    tag=''
+    tag << '/SE' if competitor.national_record_passed?
+    tag << '/SE(sivuaa)' if competitor.national_record_reached?
+    tag << '?' unless competitor.series.race.finished?
+    return tag
   end
 
   def no_result_reason_print(no_result_reason, scope='competitor')

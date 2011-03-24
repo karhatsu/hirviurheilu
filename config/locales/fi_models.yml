@@ -40,6 +40,7 @@ fi:
     min_number: Pienin numero
     misses: Ohilaukaukset
     name: Nimi
+    national_record: SE
     no_time_points: Ei aikapisteitä
     number: Numero
     password: Salasana
@@ -107,6 +108,7 @@ fi:
           age_groups:
             name: Ikäryhmän nimi
           name: Sarjan nimi
+          national_record: SE
       relay:
         name: Viestin nimi
         relay_teams:
@@ -125,4 +127,5 @@ fi:
           name: Ikäryhmän nimi
         first_number: Sarjan ensimmäinen numero
         name: Sarjan nimi
+        national_record: SE
         start_time: Sarjan lähtöaika
