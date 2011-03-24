@@ -63,7 +63,7 @@ module ApplicationHelper
 
   def national_record(competitor)
     nat_rec = ''
-    if (competitor.points and competitor.series and competitor.series.national_record and competitor.points.to_i > competitor.series.national_record.to_i and competitor.points >= competitor.series.best_points(competitor.series))
+    if (competitor.points and competitor.series and competitor.series.national_record and competitor.points.to_i > competitor.series.national_record.to_i)
       nat_rec = '/SE?'
     end
     nat_rec
