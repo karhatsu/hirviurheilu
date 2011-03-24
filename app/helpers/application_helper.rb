@@ -346,11 +346,7 @@ module ApplicationHelper
   private
   def result_rotation_series_list(race)
     result_rotation_series_list = []
-    series_sorted = race.series.sort do |a, b|
-      b.start_time <=> a.start_time
-    end
-    series_toadd = series_sorted[0..result_rotation_cookie.to_i-1]
-    series_toadd.each do |s|
+    race.series.order('start_time desc').limit(result_rotation_cookie.to_i).each do |s|
       result_rotation_series_list << series_competitors_path(s) if s.running?
     end
     result_rotation_series_list
