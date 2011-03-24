@@ -309,7 +309,7 @@ module ApplicationHelper
   def result_rotation_list
     result_rotation_list = []
     @race = @series.race if @series
-    return [] if race.finished?
+    return [] if @race.finished?
     if @race
       result_rotation_list += result_rotation_series_list(@race)
       # team competetion active only when at least one series is active
