@@ -1,26 +1,26 @@
 <%
-race = menu_race
+@race = menu_race
 %>
-<% if race %>
+<% if @race %>
   <div class="second_level_menu">
     <div class="menu sub_menu">
       <ul>
-        <%= menu_item "Kilpailun etusivu", race_path(race), @is_race %>
+        <%= menu_item "Kilpailun etusivu", race_path(@race), @is_race %>
         <% series = menu_series %>
-        <% series = race.series.first unless series %>
+        <% series = @race.series.first unless series %>
         <% if series %>
           <%= menu_item "Lähtölistat", series_start_list_path(series), @is_start_list %>
           <%= menu_item "Tulokset", series_competitors_path(series), @is_results %>
-          <% if race.has_team_competition? %>
-            <%= menu_item "Joukkuekilpailut", race_team_competition_path(race,
-              race.team_competitions.first), @is_team_results %>
+          <% if @race.has_team_competition? %>
+            <%= menu_item "Joukkuekilpailut", race_team_competition_path(@race,
+              @race.team_competitions.first), @is_team_results %>
           <% end %>
         <% end %>
-        <% unless race.relays.empty? %>
-          <%= menu_item "Viestit", race_relay_path(race, race.relays.first), @is_relays %>
+        <% unless @race.relays.empty? %>
+          <%= menu_item "Viestit", race_relay_path(@race, @race.relays.first), @is_relays %>
         <% end %>
         <% unless @is_start_list or result_rotation_list.empty? %>
-          <%= menu_item "Tuloskehä", race_result_rotation_settings_path(race), result_rotation_cookie %>
+          <%= menu_item "Tuloskehä", race_result_rotation_settings_path(@race), result_rotation_cookie %>
         <% end %>
         </ul>
     </div>
