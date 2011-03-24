@@ -19,7 +19,7 @@ race = menu_race
         <% unless race.relays.empty? %>
           <%= menu_item "Viestit", race_relay_path(race, race.relays.first), @is_relays %>
         <% end %>
-        <% unless race.finished? or @is_start_list %>
+        <% unless @is_start_list or result_rotation_list.empty? %>
           <%= menu_item "Tuloskehä", race_result_rotation_settings_path(race), result_rotation_cookie %>
         <% end %>
         </ul>
