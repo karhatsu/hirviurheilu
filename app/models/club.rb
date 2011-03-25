@@ -9,6 +9,11 @@ class Club < ActiveRecord::Base
 
   before_destroy :check_competitors
 
+  def result_name
+    return longname if longname
+    name
+  end
+
   private
   def check_competitors
     unless competitors.empty?
