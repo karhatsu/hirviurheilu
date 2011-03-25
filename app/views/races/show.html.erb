@@ -19,7 +19,7 @@
         <th>Nimi</th>
         <th>Lähtöaika</th>
         <th>Kilpailijoita</th>
-        <% unless @race.finished %>
+        <% unless @race.finished or !@race.has_any_national_records_defined? %>
           <th>SE</th>
         <% end %>
         <th>&nbsp;</th>
@@ -38,7 +38,7 @@
             <td colspan="<%= @race.finished? ? 2 : 3 %>">Sarjaan ei ole merkitty kilpailijoita</td>
           <% else %>
             <td><%= s.competitors.count %></td>
-            <% unless @race.finished %>
+            <% unless @race.finished or !@race.has_any_national_records_defined? %>
               <td><%= s.national_record %></td>
             <% end %>
             <td>
