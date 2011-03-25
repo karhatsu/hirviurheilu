@@ -427,8 +427,8 @@ Feature: Results
     And I am on the results page of the series
     And I should see "SE?" within "td"
     And I should see "1130 SE?" within "td"
-    And I should see "980" within "td"
-    But I should not see "980 SE?" within "td"
+    And I should see "998" within "td"
+    But I should not see "998 SE?" within "td"
 
   Scenario: See the results with national record mention of an individual competitor in a finished race
     Given there is a race with attributes:
