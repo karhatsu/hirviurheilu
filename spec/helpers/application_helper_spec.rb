@@ -730,21 +730,17 @@ describe ApplicationHelper do
   end
   describe "#result_title" do
     context "when race is finished" do
-      before do
-        @race = mock_model(Race)
-      end
-
       it "should return 'Tulokset'" do
-        @race.stub!(:finished?).and_return(true)
-        stub!(:menu_race).and_return(@race)
+        race = mock_model(Race, :finished? => true)
+        stub!(:menu_race).and_return(race)
         result_title.should == 'Tulokset'
       end
     end
 
     context "when race is not finished" do
       it "should return 'Välikaikatulokset'" do
-        @race.stub!(:finished?).and_return(false)
-        stub!(:menu_race).and_return(@race)
+        race = mock_model(Race, :finished? => false)
+        stub!(:menu_race).and_return(race)
         result_title.should == 'Väliaikatulokset'
       end
     end
