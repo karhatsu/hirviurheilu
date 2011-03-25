@@ -201,6 +201,15 @@ class Competitor < ActiveRecord::Base
     left
   end
 
+
+  def national_record_reached?
+    series.national_record and points.to_i == series.national_record.to_i
+  end
+
+  def national_record_passed?
+    series.national_record and points.to_i > series.national_record.to_i
+  end
+
   private
   def arrival_not_before_start_time
     return if start_time.nil? and arrival_time.nil?
@@ -264,5 +273,4 @@ class Competitor < ActiveRecord::Base
     # round down to closest 10 seconds, e.g. 34:49 => 34:40
     seconds.to_i / 10 * 10
   end
-
 end

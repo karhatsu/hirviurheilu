@@ -53,6 +53,14 @@ describe Series do
       it { should_not allow_value(5).for(:estimates) }
       it { should_not allow_value(2.1).for(:estimates) }
     end
+    describe "national_record" do
+      it { should validate_numericality_of(:national_record) }
+      it { should allow_value(nil).for(:national_record) }
+      it { should_not allow_value(23.5).for(:national_record) }
+      it { should_not allow_value(0).for(:national_record) }
+      it { should allow_value(1).for(:national_record) }
+      it { should_not allow_value(-51).for(:national_record) }
+    end
   end
 
   describe "#best_time_in_seconds" do
