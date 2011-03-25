@@ -732,16 +732,33 @@ describe ApplicationHelper do
     context "when race is finished" do
       it "should return 'Tulokset'" do
         race = mock_model(Race, :finished? => true)
-        stub!(:menu_race).and_return(race)
-        result_title.should == 'Tulokset'
+        series = mock_model(Series, :race => race)
+        result_title(series).should == 'Tulokset'
       end
     end
 
     context "when race is not finished" do
-      it "should return 'Välikaikatulokset'" do
+      before do
         race = mock_model(Race, :finished? => false)
-        stub!(:menu_race).and_return(race)
-        result_title.should == 'Väliaikatulokset'
+        @series = mock_model(Series, :race => race)
+        @competitors = mock(Array)
+        @series.should_receive(:competitors).and_return(@competitors)
+      end
+
+      context "and no competitors" do
+        it "should return 'Välikaikatulokset (päivitetty: -)'" do
+          @competitors.should_receive(:maximum).with(:updated_at).and_return(nil)
+          result_title(@series).should == 'Väliaikatulokset (päivitetty: -)'
+        end
+      end
+
+      context "and has competitors" do
+        it "should return 'Väliaikatulokset (päivitetty: <time>)'" do
+          time = Time.now
+          @competitors.should_receive(:maximum).with(:updated_at).and_return(time)
+          should_receive(:datetime_print).with(time, true, true, '-').and_return('123')
+          result_title(@series).should == 'Väliaikatulokset (päivitetty: 123)'
+        end
       end
     end
   end

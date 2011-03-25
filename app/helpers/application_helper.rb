@@ -354,13 +354,10 @@ module ApplicationHelper
     return [15, interval].max
   end
 
-  def result_title
-    if menu_race
-      return 'Tulokset' if menu_race.finished?
-      return 'Väliaikatulokset'
-        # + ', tuloksia päivitetty viimeksi' +
-        # FIXME: how to read updated column? menu_race.competitors.updated_at
-    end
+  def result_title(series)
+    return 'Tulokset' if series.race.finished?
+    return "Väliaikatulokset (päivitetty: #{datetime_print(series.competitors.
+      maximum(:updated_at), true, true, '-')})"
   end
 
   private
