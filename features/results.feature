@@ -425,7 +425,7 @@ Feature: Results
       | arrival_time | 14:00:00 |
     And I am on the results page of the series
     And I should see "998" within "td"
-    And I should see "/SE?" within "td"
+    And I should see "SE?" within "td"
 
   Scenario: See the results with national record mention of an individual competitor in a finished race
     Given there is a race with attributes:
@@ -462,10 +462,10 @@ Feature: Results
       | estimate2 | 129 |
       | arrival_time | 14:00:00 |
     And I am on the results page of the series
-    And I should see "/SE" within "td"
-    And I should see "1136(\n )+/SE" within "td"
-    And I should not see "1136(\n )+/SE(sivuaa)" within "td"
-    And I should not see "1136(\n )+/SE?" within "td"
-    And I should not see "998(\n )+/SE" within "td"
-    But I should not see "/SE?" within "td"
+    And I should see "SE" within "td"
+    And I should see "1136(\n )+SE" within "td"
+    And I should not see "1136(\n )+SE(sivuaa)" within "td"
+    And I should not see "1136(\n )+SE?" within "td"
+    And I should not see "998(\n )+SE" within "td"
+    But I should not see "SE?" within "td"
 

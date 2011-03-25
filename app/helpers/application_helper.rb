@@ -63,11 +63,11 @@ module ApplicationHelper
 
   def national_record(competitor)
     tag=''
-    tag << '/SE' if competitor.national_record_passed?
-    tag << '/SE(sivuaa)' if competitor.national_record_reached?
+    tag << 'SE' if competitor.national_record_passed?
+    tag << 'SE(sivuaa)' if competitor.national_record_reached?
     tag << '?' unless competitor.series.race.finished?
     return raw("<span class='explanation'>" + 
-               '<a href="http://www.metsastajaliitto.fi/?q=fi/node/126">' +
+               '<a href="' + NATIONAL_RECORD_URL + ">' +
                tag + '</a>' + '</span>' ) if tag
     ''
   end
