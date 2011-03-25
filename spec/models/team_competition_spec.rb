@@ -29,16 +29,37 @@ describe TeamCompetition do
       @tc = Factory.build(:team_competition, :team_competitor_count => 2)
     end
 
-    it "should return empty array if none of the clubs have enough competitors" do
-      @club = mock_model(Club)
-      @c = mock_model(Competitor, :points => 1100, :club => @club,
-        :shot_points => 300, :time_in_seconds => 500, :unofficial => false)
-      Competitor.should_receive(:sort).with([@c]).and_return([@c])
-      @tc.results_for_competitors([@c]).should == []
+    context "when the race is not finished" do
+      it "should return array with results even if none of the clubs have enough competitors" do
+        @club = mock_model(Club)
+        @race = mock_model(Race)
+        @c = mock_model(Competitor, :points => 1100, :club => @club,
+          :shot_points => 300, :time_in_seconds => 500, :unofficial => false,
+                        :race => @race)
+        Competitor.should_receive(:sort).with([@c]).and_return([@c])
+        @race.stub!(:finished?).and_return(false)
+        @tc.stub!(:race).and_return(@race)
+        @tc.results_for_competitors([@c])[0] == 1100
+      end
+    end
+
+    context "when the race is finished" do
+      it "should return empty array if none of the clubs have enough competitors" do
+        @club = mock_model(Club)
+        @race = mock_model(Race)
+        @c = mock_model(Competitor, :points => 1100, :club => @club,
+          :shot_points => 300, :time_in_seconds => 500, :unofficial => false,
+                        :race => @race)
+        Competitor.should_receive(:sort).with([@c]).and_return([@c])
+        @race.stub!(:finished?).and_return(true)
+        @tc.stub!(:race).and_return(@race)
+        @tc.results_for_competitors([@c]).should == []
+      end
     end
 
     context "when the clubs have enough competitors" do
       before do
+        @race = mock_model(Race)
         @club_best_total_points = mock_model(Club, :name => 'Club 1')
         @club_best_single_points = mock_model(Club, :name => 'Club 2')
         @club_best_single_shots = mock_model(Club, :name => 'Club 3')
@@ -66,7 +87,7 @@ describe TeamCompetition do
         @club_unofficial1 = create_competitor(@club_unofficial, 1200, :unofficial => true)
         @club_unofficial2 = create_competitor(@club_unofficial, 1200, :unofficial => true)
 
-        competitors =
+        @competitors =
           [@club_small_c, @club_best_total_points_c1, @club_best_single_points_c1,
             @club_best_single_shots_c1, @club_best_single_time_c1,
             @club_worst_c1,
@@ -75,21 +96,43 @@ describe TeamCompetition do
             @club_best_single_time_c2, @club_worst_c2,
             @club_best_single_points_c2,
             @club_unofficial1, @club_unofficial2, @club_small_nil_points]
-        Competitor.should_receive(:sort).with(competitors).and_return(competitors)
-        @results = @tc.results_for_competitors(competitors)
+        @tc.stub!(:race).and_return(@race)
+        @race.stub!(:finished?).and_return(true)
+        Competitor.should_receive(:sort).with(@competitors).and_return(@competitors)
+        @results = @tc.results_for_competitors(@competitors)
       end
 
       describe "should return an array of hashes" do
-        it "including only the clubs with enough official competitors with complete points " +
-            "so that the clubs are ordered: 1. total points " +
-            "2. best individual points 3. best individual shot points " +
-            "4. fastest individual time" do
-          @results.length.should == 5
-          @results[0][:club].should == @club_best_total_points
-          @results[1][:club].should == @club_best_single_points
-          @results[2][:club].should == @club_best_single_shots
-          @results[3][:club].should == @club_best_single_time
-          @results[4][:club].should == @club_worst
+        context "when race is finished" do
+          it "including only the clubs with enough official competitors with complete points " +
+              "so that the clubs are ordered: 1. total points " +
+              "2. best individual points 3. best individual shot points " +
+              "4. fastest individual time" do
+            @results.length.should == 5
+            @results[0][:club].should == @club_best_total_points
+            @results[1][:club].should == @club_best_single_points
+            @results[2][:club].should == @club_best_single_shots
+            @results[3][:club].should == @club_best_single_time
+            @results[4][:club].should == @club_worst
+          end
+        end
+
+        context "when race is not finished" do
+          it "including all the clubs, even with not enough official competitors with complete points " +
+              "so that the clubs are ordered: 1. total points " +
+              "2. best individual points 3. best individual shot points " +
+              "4. fastest individual time" do
+            @tc.stub!(:race).and_return(@race)
+            @race.stub!(:finished?).and_return(false)
+            Competitor.should_receive(:sort).with(@competitors).and_return(@competitors)
+            @results = @tc.results_for_competitors(@competitors)
+            @results.length.should == 6
+            @results[0][:club].should == @club_best_total_points
+            @results[1][:club].should == @club_best_single_points
+            @results[2][:club].should == @club_best_single_shots
+            @results[3][:club].should == @club_best_single_time
+            @results[4][:club].should == @club_worst
+          end
         end
 
         it "including total points" do
