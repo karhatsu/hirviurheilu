@@ -1,4 +1,4 @@
-<% content_for(:title, "#{@series.name} - Tulokset") %>
+<% content_for(:title, "#{@series.name} - #{result_title}") %>
 <% if @series.running? %>
   <% content_for(:refresh, true) %>
 <% end %>

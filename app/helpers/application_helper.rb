@@ -354,6 +354,11 @@ module ApplicationHelper
     return [15, interval].max
   end
 
+  def result_title
+    return 'Tulokset' if menu_race.finished?
+    'Väliaikatulokset'
+  end
+
   private
   def result_rotation_series_list(race)
     result_rotation_series_list = []
