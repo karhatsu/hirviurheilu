@@ -8,6 +8,7 @@
 <%= form_for([:official, @race, Club.new], :remote => true) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
+  <%= f.text_field :long_name %>
   <%= submit_tag 'Lisää seura', :id => 'submit' %>
   <span id="spinner"></span>
 <% end %>
@@ -22,6 +23,7 @@
   <table id="clubs_table"<%= style %>>
     <tr>
       <th>Seura</th>
+      <th>Seuran pitkä nimi</th>
       <th>Kilpailijoita</th>
       <th>&nbsp;</th>
     </tr>
@@ -34,11 +36,12 @@
           <span id="club_name_form_<%= club.id %>" style="display: none;">
             <%= form_for([:official, @race, club], :remote => true,
                 :html => { :style => 'display:inline;' }) do |f| %>
-              <%= f.text_field :name %><%= submit_tag "Päivitä" %>
+              <%= f.text_field :name %><%= f.text_field :long_name %><%= submit_tag "Päivitä" %>
             <% end %>
             <%= button_to_function 'Peruuta', "cancel_edit(#{club.id}, \"#{club.name}\")" %>
           </span>
         </td>
+        <td><%= club.long_name %></td>
         <td class="center"><%= club.competitors.count %></td>
         <td class="center"><%= club.competitors.count == 0 ? (link_to "Poista",
             official_race_club_path(@race.id, club),

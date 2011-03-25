@@ -38,4 +38,16 @@ describe Club do
       club.should_not be_destroyed
     end
   end
+
+  describe "#result_name" do
+    it "should return long name when long name set" do
+      club = Factory.create(:club, :name => 'PS', :long_name => 'Pohjois-Savo')
+      club.expanded.should == 'Pohjois-Savo'
+    end
+
+    it "should return name when long name not set" do
+      club = Factory.create(:club, :name => 'PS')
+      club.expanded.should == 'PS'
+    end
+  end
 end
