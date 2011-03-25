@@ -29,19 +29,19 @@
     </tr>
     <% @race.clubs.each do |club| %>
       <tr id="club_row_<%= club.id %>">
-        <td>
+        <td colspan = 2>
           <a class="club_name_link" id="club_name_link_<%= club.id %>" href="javascript:void(0)">
             <%= club.name %>
           </a>
           <span id="club_name_form_<%= club.id %>" style="display: none;">
             <%= form_for([:official, @race, club], :remote => true,
                 :html => { :style => 'display:inline;' }) do |f| %>
-              <%= f.text_field :name %><%= f.text_field :long_name %><%= submit_tag "Päivitä" %>
+              <%= f.text_field :name, :size => 7 %>&nbsp
+              <%= f.text_field :long_name %><%= submit_tag "Päivitä" %>
             <% end %>
             <%= button_to_function 'Peruuta', "cancel_edit(#{club.id}, \"#{club.name}\")" %>
           </span>
-        </td>
-        <td><%= club.long_name %></td>
+        <%= club.long_name %></td>
         <td class="center"><%= club.competitors.count %></td>
         <td class="center"><%= club.competitors.count == 0 ? (link_to "Poista",
             official_race_club_path(@race.id, club),
