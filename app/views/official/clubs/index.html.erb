@@ -8,6 +8,7 @@
 <%= form_for([:official, @race, Club.new], :remote => true) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
+  <%= f.text_field :longname %>
   <%= submit_tag 'Lisää seura', :id => 'submit' %>
   <span id="spinner"></span>
 <% end %>
@@ -22,6 +23,7 @@
   <table id="clubs_table"<%= style %>>
     <tr>
       <th>Seura</th>
+      <th>Seuran pitkä nimi</th>
       <th>Kilpailijoita</th>
       <th>&nbsp;</th>
     </tr>
