@@ -15,7 +15,7 @@
     <% if current_user and current_user.admin? %>
       <%= menu_item "Admin", admin_root_path, @is_admin %>
     <% end %>
-    <% if @race %>
+    <% if @race and @race.id %>
       <%= menu_item "Tuloksiin", race_path(@race), false %>
     <% end %>
   </ul>
