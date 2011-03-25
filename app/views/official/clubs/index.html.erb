@@ -36,11 +36,12 @@
           <span id="club_name_form_<%= club.id %>" style="display: none;">
             <%= form_for([:official, @race, club], :remote => true,
                 :html => { :style => 'display:inline;' }) do |f| %>
-              <%= f.text_field :name %><%= submit_tag "Päivitä" %>
+              <%= f.text_field :name %><%= f.text_field :longname %><%= submit_tag "Päivitä" %>
             <% end %>
             <%= button_to_function 'Peruuta', "cancel_edit(#{club.id}, \"#{club.name}\")" %>
           </span>
         </td>
+        <td class="center"><%= club.longname %></td>
         <td class="center"><%= club.competitors.count %></td>
         <td class="center"><%= club.competitors.count == 0 ? (link_to "Poista",
             official_race_club_path(@race.id, club),
