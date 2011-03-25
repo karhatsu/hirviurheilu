@@ -10,7 +10,7 @@ class Club < ActiveRecord::Base
   before_destroy :check_competitors
 
   def expanded
-    return longname if longname
+    return long_name if long_name
     name
   end
 
