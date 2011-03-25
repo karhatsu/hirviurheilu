@@ -388,7 +388,7 @@ Feature: Results
     And I am on the results page of the series
     And I should see "SE" within "td"
     And I should see "sivuaa" within "td"
-    And I should see "1136" within "td"
+    And I should see "1136 SE(sivuaa)?" within "td"
 
   Scenario: See the results with national record mention of an individual competitor in an unfinished race
     Given there is a race with attributes:
@@ -425,9 +425,8 @@ Feature: Results
       | estimate2 | 129 |
       | arrival_time | 14:00:00 |
     And I am on the results page of the series
-#    And I should see "998( )+SE?" within "td"
-    And I should see "998" within "td"
     And I should see "SE?" within "td"
+#    And I should see "998 SE?" within "td"
 
   Scenario: See the results with national record mention of an individual competitor in a finished race
     Given there is a race with attributes:
@@ -466,10 +465,10 @@ Feature: Results
     And I am on the results page of the series
     And I should see "SE" within "td"
     And I should see "1136" within "td"
-#    And I should see "1136( +)SE" within "td"
-#    And I should not see "1136( )+SE\(sivuaa\)" within "td"
-#    And I should not see "1136( )+SE?" within "td"
+    And I should see "1136 SE" within "td"
 #    And I should see "968" within "td"
-#    And I should not see "968( )+SE" within "td"
+    But I should not see "1136 SE sivuaa" within "td"
+    But I should not see "1136 SE?" within "td"
+    But I should not see "968 SE" within "td"
     But I should not see "SE?" within "td"
 
