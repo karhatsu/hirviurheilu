@@ -355,8 +355,12 @@ module ApplicationHelper
   end
 
   def result_title
-    return 'Tulokset' if menu_race.finished?
-    'Väliaikatulokset'
+    if menu_race
+      return 'Tulokset' if menu_race.finished?
+      return 'Väliaikatulokset'
+        # + ', tuloksia päivitetty viimeksi' +
+        # FIXME: how to read updated column? menu_race.competitors.updated_at
+    end
   end
 
   private
