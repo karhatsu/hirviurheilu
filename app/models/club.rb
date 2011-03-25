@@ -9,7 +9,7 @@ class Club < ActiveRecord::Base
 
   before_destroy :check_competitors
 
-  def club_for_tc_results
+  def expanded
     return longname if longname
     name
   end

@@ -42,12 +42,12 @@ describe Club do
   describe "#result_name" do
     it "should return long name when long name set" do
       club = Factory.create(:club, :name => 'PS', :long_name => 'Pohjois-Savo')
-      club.club_for_tc_results.should == 'Pohjois-Savo'
+      club.expanded.should == 'Pohjois-Savo'
     end
 
     it "should return name when long name not set" do
       club = Factory.create(:club, :name => 'PS')
-      club.club_for_tc_results.should == 'PS'
+      club.expanded.should == 'PS'
     end
   end
 end
