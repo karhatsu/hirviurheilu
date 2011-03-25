@@ -401,7 +401,7 @@ Feature: Results
       | name | Men 50 years |
       | start_time | 13:00 |
       | first_number | 50 |
-      | national_record | 1000 |
+      | national_record | 950 |
     And the race has correct estimates with attributes:
       | min_number | 1 |
       | max_number | 100 |
@@ -426,7 +426,9 @@ Feature: Results
       | arrival_time | 14:00:00 |
     And I am on the results page of the series
     And I should see "SE?" within "td"
-#    And I should see "998 SE?" within "td"
+    And I should see "1130 SE?" within "td"
+    And I should see "980" within "td"
+    But I should not see "980 SE?" within "td"
 
   Scenario: See the results with national record mention of an individual competitor in a finished race
     Given there is a race with attributes:
@@ -466,9 +468,9 @@ Feature: Results
     And I should see "SE" within "td"
     And I should see "1136" within "td"
     And I should see "1136 SE" within "td"
-#    And I should see "968" within "td"
+    And I should see "974" within "td"
     But I should not see "1136 SE sivuaa" within "td"
     But I should not see "1136 SE?" within "td"
-    But I should not see "968 SE" within "td"
+    But I should not see "974 SE" within "td"
     But I should not see "SE?" within "td"
 
