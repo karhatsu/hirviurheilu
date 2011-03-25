@@ -465,41 +465,38 @@ describe Race do
   end
 
   describe "#has_any_national_records_defined?" do
+    before do
+      @race = Factory.create(:race)
+    end
     context "when no series exist" do
       it "should return false" do
-        race = Factory.create(:race)
-        race.has_any_national_records_defined?.should be_false
+        @race.has_any_national_records_defined?.should be_false
       end
     end
 
     context "when no national records have been defined" do
       it "should return false" do
-        race = Factory.create(:race)
-        series = Factory.create(:series, :race => race)
-        race.series << series
-        race.has_any_national_records_defined?.should be_false
+        series = Factory.create(:series, :race => @race)
+        @race.series << series
+        @race.has_any_national_records_defined?.should be_false
       end
     end
 
-    context "when one national record has been defined" do
+    context "when one national record has been defined for one series and not defined for one" do
       it "should return true" do
-        race = Factory.create(:race)
-        series = Factory.create(:series, :race => race, :national_record => 1100)
-        race.series << series
-        race.has_any_national_records_defined?.should be_true
+        series = Factory.create(:series, :race => @race, :national_record => 1100)
+        @race.series << series
+        @race.has_any_national_records_defined?.should be_true
       end
     end
 
-    context "when two national records have been defined and there's a series without national record" do
+    context "when two national records have been defined and there's two series' without national record" do
       it "should return true" do
-        race = Factory.create(:race)
-        series = Factory.create(:series, :race => race, :national_record => 1100)
-        race.series << series
-        series = Factory.create(:series, :race => race, :national_record => 1100)
-        race.series << series
-        series = Factory.create(:series, :race => race)
-        race.series << series
-        race.has_any_national_records_defined?.should be_true
+        series = Factory.create(:series, :race => @race, :national_record => 900)
+        @race.series << series
+        series = Factory.create(:series, :race => @race)
+        @race.series << series
+        @race.has_any_national_records_defined?.should be_true
       end
     end
   end
