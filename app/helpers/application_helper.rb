@@ -343,7 +343,7 @@ module ApplicationHelper
 
   def refresh_tag
     html = '<meta http-equiv="Refresh" content="'
-    html << result_refresh_interval(5).to_s
+    html << result_refresh_interval(15).to_s
     html << ";" + next_result_rotation(request.fullpath) if result_rotation_cookie
     html << '"/>'
     raw(html)
