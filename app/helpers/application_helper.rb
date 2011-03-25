@@ -66,7 +66,10 @@ module ApplicationHelper
     tag << '/SE' if competitor.national_record_passed?
     tag << '/SE(sivuaa)' if competitor.national_record_reached?
     tag << '?' unless competitor.series.race.finished?
-    return tag
+    return raw("<span class='explanation'>" + 
+               '<a href="http://www.metsastajaliitto.fi/?q=fi/node/126">' +
+               tag + '</a>' + '</span>' ) if tag
+    ''
   end
 
   def no_result_reason_print(no_result_reason, scope='competitor')
