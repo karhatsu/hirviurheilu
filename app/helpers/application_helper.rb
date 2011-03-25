@@ -346,9 +346,8 @@ module ApplicationHelper
   private
   def result_rotation_series_list(race)
     result_rotation_series_list = []
-    race.series.unscoped.where(['start_time is not ?', nil]).order('start_time desc').limit(result_rotation_cookie.to_i).each do |s|
     race.series.unscoped.where(['race_id=? and start_time is not ?', race.id, nil]).
-        order('start_time desc').limit(result_rotation_cookie.to_i).each do |s|
+       order('start_time desc').limit(result_rotation_cookie.to_i).each do |s|
       result_rotation_series_list << series_competitors_path(s) if s.running?
     end
     result_rotation_series_list
