@@ -65,7 +65,7 @@ module ApplicationHelper
     tag=''
     tag << 'SE' if competitor.national_record_passed?
     tag << 'SE(sivuaa)' if competitor.national_record_reached?
-    tag << '?' if competitor.national_record_reached? and not competitor.series.race.finished?
+    tag << '?' if (competitor.national_record_reached? or competitor.national_record_passed?) and not competitor.series.race.finished?
     return raw("<span class='explanation'>" + 
                '<a href="' + NATIONAL_RECORD_URL + '">' +
                tag + '</a>' + '</span>' ) if tag
