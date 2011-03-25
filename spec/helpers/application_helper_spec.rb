@@ -728,8 +728,4 @@ describe ApplicationHelper do
       end
     end
   end
-<<<<<<< HEAD
-=======
-  # FIXME: add spec for national_record
->>>>>>> 143fa695e5171dd72fa05555240f68adbf70f5a9
 end
