@@ -41,12 +41,12 @@ describe Club do
 
   describe "#result_name" do
     it "should return longname when longname set" do
-      club = mock_model(Club, :name => 'PS', :long_name => 'Pohjois-Savo')
+      club = Factory.create(:club, :name => 'PS', :longname => 'Pohjois-Savo')
       club.result_name.should == 'Pohjois-Savo'
     end
 
     it "should return name when longname not set" do
-      club = mock_model(Club, :name => 'PS')
+      club = Factory.create(:club, :name => 'PS')
       club.result_name.should == 'PS'
     end
   end
