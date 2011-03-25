@@ -11,6 +11,8 @@ ADMIN_EMAIL = ["com", ".", "karhatsu", "@", "henri"].reverse.join('')
 TEST_URL = "http://hutesti.heroku.com"
 PRODUCTION_URL = "http://www.hirviurheilu.com"
 
+NATIONAL_RECORD_URL = "http://www.metsastajaliitto.fi/?q=fi/node/126"
+
 OFFLINE = false
 ONLINE = !OFFLINE
 

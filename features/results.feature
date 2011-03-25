@@ -351,43 +351,44 @@ Feature: Results
     And I should see "14:00:00" within "#time td"
     And I should see "1:00:00" within "#time td"
 
-#  Scenario: See the results with national record reached mention of an individual competitor in an unfinished race
-#    Given there is a race with attributes:
-#      | sport | RUN |
-#      | name | My test race |
-#      | start_date | 2010-07-15 |
-#      | location | Test city |
-#      | start_interval_seconds | 60 |
-#    And the race has series with attributes:
-#      | name | Men 50 years |
-#      | start_time | 13:00 |
-#      | first_number | 50 |
-#      | national_record | 1136 |
-#    And the race has correct estimates with attributes:
-#      | min_number | 1 |
-#      | max_number | 100 |
-#      | distance1 | 110 |
-#      | distance2 | 130 |
-#    And the series has a competitor with attributes:
-#      | first_name | Tim |
-#      | last_name | Atkinsson |
-#    And the series has a competitor with attributes:
-#      | first_name | Tom |
-#      | last_name | Betkinsson |
-#    And the start list has been generated for the series
-#    And the competitor "Tim" "Atkinsson" has the following results:
-#      | shots_total_input | 90 |
-#      | estimate1 | 111 |
-#      | estimate2 | 129 |
-#      | arrival_time | 14:00:00 |
-#    And the competitor "Tom" "Betkinsson" has the following results:
-#      | shots_total_input | 67 |
-#      | estimate1 | 111 |
-#      | estimate2 | 129 |
-#      | arrival_time | 14:00:00 |
-#    And I am on the results page of the series
-#    And I should see "sivuaa" within "td"
-##    And I should see "1136(\n )+/SE\(sivuaa\)?" within "td"
+  Scenario: See the results with national record reached mention of an individul competitor in an unfinished race
+    Given there is a race with attributes:
+      | sport | RUN |
+      | name | My test race |
+      | start_date | 2010-07-15 |
+      | location | Test city |
+      | start_interval_seconds | 60 |
+    And the race has series with attributes:
+      | name | Men 50 years |
+      | start_time | 13:00 |
+      | first_number | 50 |
+      | national_record | 1136 |
+    And the race has correct estimates with attributes:
+      | min_number | 1 |
+      | max_number | 100 |
+      | distance1 | 110 |
+      | distance2 | 130 |
+    And the series has a competitor with attributes:
+      | first_name | Tim |
+      | last_name | Atkinsson |
+    And the series has a competitor with attributes:
+      | first_name | Tom |
+      | last_name | Betkinsson |
+    And the start list has been generated for the series
+    And the competitor "Tim" "Atkinsson" has the following results:
+      | shots_total_input | 90 |
+      | estimate1 | 111 |
+      | estimate2 | 129 |
+      | arrival_time | 14:00:00 |
+    And the competitor "Tom" "Betkinsson" has the following results:
+      | shots_total_input | 67 |
+      | estimate1 | 111 |
+      | estimate2 | 129 |
+      | arrival_time | 14:05:00 |
+    And I am on the results page of the series
+    And I should see "SE" within "td"
+    And I should see "sivuaa" within "td"
+    And I should see "1136 SE(sivuaa)?" within "td"
 
   Scenario: See the results with national record mention of an individual competitor in an unfinished race
     Given there is a race with attributes:
@@ -400,7 +401,7 @@ Feature: Results
       | name | Men 50 years |
       | start_time | 13:00 |
       | first_number | 50 |
-      | national_record | 1000 |
+      | national_record | 950 |
     And the race has correct estimates with attributes:
       | min_number | 1 |
       | max_number | 100 |
@@ -424,8 +425,10 @@ Feature: Results
       | estimate2 | 129 |
       | arrival_time | 14:00:00 |
     And I am on the results page of the series
+    And I should see "SE?" within "td"
+    And I should see "1130 SE?" within "td"
     And I should see "998" within "td"
-    And I should see "/SE?" within "td"
+    But I should not see "998 SE?" within "td"
 
   Scenario: See the results with national record mention of an individual competitor in a finished race
     Given there is a race with attributes:
@@ -460,12 +463,14 @@ Feature: Results
       | shots_total_input | 67 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:00:00 |
+      | arrival_time | 14:05:00 |
     And I am on the results page of the series
-    And I should see "/SE" within "td"
-    And I should see "1136(\n )+/SE" within "td"
-    And I should not see "1136(\n )+/SE(sivuaa)" within "td"
-    And I should not see "1136(\n )+/SE?" within "td"
-    And I should not see "998(\n )+/SE" within "td"
-    But I should not see "/SE?" within "td"
+    And I should see "SE" within "td"
+    And I should see "1136" within "td"
+    And I should see "1136 SE" within "td"
+    And I should see "974" within "td"
+    But I should not see "1136 SE sivuaa" within "td"
+    But I should not see "1136 SE?" within "td"
+    But I should not see "974 SE" within "td"
+    But I should not see "SE?" within "td"
 

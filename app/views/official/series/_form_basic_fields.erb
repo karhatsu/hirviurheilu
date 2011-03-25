@@ -2,7 +2,7 @@
 <%= f.text_field :name %>
 <%= f.label :national_record %>
 <%= f.text_field :national_record, :size => 8, :maxlength => 8 %>
-<a href="http://www.metsastajaliitto.fi/?q=fi/node/126">Metsästäjäliiton SE-sivu</a>
+<a href="<%= NATIONAL_RECORD_URL %>">Metsästäjäliiton SE-sivu</a>
 <br/>
 <%= f.label :estimates, 'Arviomatkojen lkm' %>
 <%= f.select :estimates, [2, 4] %>

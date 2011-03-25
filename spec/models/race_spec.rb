@@ -463,4 +463,41 @@ describe Race do
       @race.relays[2].name.should == 'C'
     end
   end
+
+  describe "#has_any_national_records_defined?" do
+    before do
+      @race = Factory.create(:race)
+    end
+    context "when no series exists" do
+      it "should return false" do
+        @race.has_any_national_records_defined?.should be_false
+      end
+    end
+
+    context "when no national records have been defined" do
+      it "should return false" do
+        series = Factory.create(:series, :race => @race)
+        @race.series << series
+        @race.has_any_national_records_defined?.should be_false
+      end
+    end
+
+    context "when one national record has been defined for one series and not defined for one" do
+      it "should return true" do
+        series = Factory.create(:series, :race => @race, :national_record => 1100)
+        @race.series << series
+        @race.has_any_national_records_defined?.should be_true
+      end
+    end
+
+    context "when two national records have been defined and there's two series' without national record" do
+      it "should return true" do
+        series = Factory.create(:series, :race => @race, :national_record => 900)
+        @race.series << series
+        series = Factory.create(:series, :race => @race)
+        @race.series << series
+        @race.has_any_national_records_defined?.should be_true
+      end
+    end
+  end
 end
