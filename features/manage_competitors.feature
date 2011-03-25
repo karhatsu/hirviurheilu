@@ -55,7 +55,7 @@ Feature: Manage competitors
     Then I should be on the official competitors page of the series
     And I should see "" within "tr#competitor_1 img"
     
-  Scenario: Updating competitor before results should not create additional shots
+  Scenario: Updating competitor without shots, adding shots, updating shots
     Given I am an official
     And I have a race "Test race"
     And the race has series with attributes:
@@ -85,8 +85,19 @@ Feature: Manage competitors
       | competitor_shots_attributes_new_6_shots_value | 9 |
       | competitor_shots_attributes_new_7_shots_value | 9 |
       | competitor_shots_attributes_new_8_shots_value | 8 |
+      | competitor_shots_attributes_new_9_shots_value | 0 |
     And I press "Tallenna ja palaa listaan"
     Then I should be on the official competitors page of the series
     When I go to the results page of the series
     And I follow "Johnson James"
     Then I should see "10,10,10,10,10,9,9,9,8,0"
+    When I go to the official competitors page of the series
+    And I follow "Johnson James"
+    And I fill in the following:
+      | competitor_shots_attributes_3_value | 5 |
+      | competitor_shots_attributes_9_value | 7 |
+    And I press "Tallenna ja palaa listaan"
+    Then I should be on the official competitors page of the series
+    When I go to the results page of the series
+    And I follow "Johnson James"
+    Then I should see "10,10,10,10,9,9,9,8,7,5"

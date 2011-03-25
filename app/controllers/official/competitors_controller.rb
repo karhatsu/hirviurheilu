@@ -136,8 +136,8 @@ class Official::CompetitorsController < Official::OfficialController
     shots_params = params[:competitor]["shots_attributes"]
     return unless shots_params
     10.times do |i|
-      shot_param = shots_params["new_#{i}_shots"]["value"]
-      shots_params.delete("new_#{i}_shots") if shot_param and shot_param.blank? 
+      shot_param = shots_params["new_#{i}_shots"]
+      shots_params.delete("new_#{i}_shots") if shot_param and shot_param["value"].blank?
     end
   end
 
