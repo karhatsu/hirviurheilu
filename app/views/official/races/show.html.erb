@@ -34,7 +34,6 @@
       <th>Lähtölista</th>
       <th colspan="4" class="center">Tulokset</th>
       <th class="center">Oikeat arviot</th>
-      <th class="center">SE</th>
       <th>&nbsp;</th>
     </tr>
     <% @race.series.each do |s| %>
@@ -65,28 +64,12 @@
                 link_to "Aseta", official_race_correct_estimates_path(s.race)
               end %>
             </td>
-            <td class="center">
-              <% if s.national_record %>
-                <%= s.national_record %>
-              <% end %>
-            </td>
           <% else %>
             <td colspan="5">&nbsp;</td>
           <% end %>
-          <td class="center">
-            <% if s.national_record %>
-              <%= s.national_record %>
-            <% end %>
-          </td>
-          <td>&nbsp;</td>
         <% else %>
           <td colspan="8"><%= link_to "Lisää tämän sarjan ensimmäinen kilpailija",
               new_official_series_competitor_path(s) %></td>
-          <td class="center">
-            <% if s.national_record %>
-              <%= s.national_record %>
-            <% end %>
-          </td>
           <td><%= link_to 'Poista sarja', official_series_path(s), :method => :delete,
               :confirm => 'Haluatko varmasti poistaa tämän sarjan?' %></td>
         <% end %>
