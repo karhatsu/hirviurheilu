@@ -421,12 +421,31 @@ describe ApplicationHelper do
   end
 
   describe "#full_name" do
-    specify { helper.full_name(mock_model(Competitor, :last_name => "Tester",
-        :first_name => "Tim")).should == "Tester Tim" }
-
-    describe "first name first" do
+    context "when ALWAYS_FIRST_NAME_FIRST not set" do
+      before do
+        helper.stub!(:always_first_name_first?).and_return(false)
+      end
       specify { helper.full_name(mock_model(Competitor, :last_name => "Tester",
-          :first_name => "Tim"), true).should == "Tim Tester" }
+                      :first_name => "Tim")).should == "Tester Tim" }
+
+      describe "first name first" do
+        specify { helper.full_name(mock_model(Competitor, :last_name => "Tester",
+                                              :first_name => "Tim"), true).should == "Tim Tester" }
+      end
+    end
+
+    context "when ALWAYS_FIRST_NAME_FIRST set" do
+      before do
+        helper.stub!(:always_first_name_first?).and_return(true)
+      end
+      specify { helper.full_name(mock_model(Competitor, :last_name => "Tester",
+                      :first_name => "Tim")).should == "Tim Tester" }
+
+      describe "first name first" do
+        
+        specify { helper.full_name(mock_model(Competitor, :last_name => "Tester",
+                                              :first_name => "Tim"), true).should == "Tim Tester" }
+      end
     end
   end
 

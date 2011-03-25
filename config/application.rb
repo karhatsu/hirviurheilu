@@ -11,6 +11,8 @@ ADMIN_EMAIL = ["com", ".", "karhatsu", "@", "henri"].reverse.join('')
 TEST_URL = "http://hutesti.heroku.com"
 PRODUCTION_URL = "http://www.hirviurheilu.com"
 
+ALWAYS_FIRST_NAME_FIRST = true
+
 OFFLINE = false
 ONLINE = !OFFLINE
 

@@ -198,7 +198,7 @@ module ApplicationHelper
   end
 
   def full_name(competitor, first_name_first=false)
-    if first_name_first
+    if first_name_first or always_first_name_first?
       "#{competitor.first_name} #{competitor.last_name}"
     else
       "#{competitor.last_name} #{competitor.first_name}"
@@ -384,5 +384,9 @@ module ApplicationHelper
 
   def result_rotation_cookie
     return cookies['seriescount']
+  end
+
+  def always_first_name_first?
+    return ALWAYS_FIRST_NAME_FIRST
   end
 end
