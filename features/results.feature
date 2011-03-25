@@ -9,6 +9,7 @@ Feature: Results
       | start_date | 2010-07-15 |
       | location | Test city |
       | start_interval_seconds | 60 |
+      | finished | true |
     And the race has series with attributes:
       | name | Men 50 years |
       | start_time | 13:00 |
@@ -167,7 +168,7 @@ Feature: Results
     When I follow "Tulokset"
     Then I should be on the results page of the series
     And I should see "My test race" within ".main_title"
-    And I should see "Men 50 years - Tulokset" within "h2"
+    And I should see "Men 50 years - Väliaikatulokset" within "h2"
     And I should see "Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan kilpailun päätyttyä."
     And I should see a result row 1 with values:
       | name | Atkinsson Tim |
