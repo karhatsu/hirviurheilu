@@ -44,7 +44,7 @@ class TeamCompetition < ActiveRecord::Base
   def results_for_competitors(competitors)
     hash = create_team_results_hash(competitors)
     sorted_teams = sorted_teams_from_team_results_hash(hash)
-    remove_teams_without_enough_competitors(sorted_teams)
+    remove_teams_without_enough_competitors(sorted_teams) if race.finished?
     sorted_teams
   end
 
