@@ -67,6 +67,7 @@ Feature: Export race
       | arrival_time | 08:45:10 |
       | misses | 4 |
       | estimate | 123 |
+      | adjustment | 50 |
     And the relay team has a competitor with attributes:
       | first_name | Mathew |
       | last_name | Stevens |
@@ -161,6 +162,7 @@ Feature: Export race
     And the "Ohilaukaukset" field should contain "4"
     And the "Arvio" field should contain "123"
     And I should see "08:45:10"
+    And I should see "50"
     When I follow "Joukkuek."
     Then I should see "Ladies"
     And I should see "8"
