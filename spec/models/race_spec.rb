@@ -468,7 +468,7 @@ describe Race do
     before do
       @race = Factory.create(:race)
     end
-    context "when no series exist" do
+    context "when no series exists" do
       it "should return false" do
         @race.has_any_national_records_defined?.should be_false
       end
