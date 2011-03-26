@@ -9,7 +9,11 @@
   <%= form_tag(race_media_path(@race), :method => :get) do %>
     <%= hidden_field_tag :results, true %>
     <%= label_tag :competitors_count, 'Kilpailijoiden määrä / sarja' %>
-    <%= text_field_tag :competitors_count, @competitors_count, :size => 3 %>
+    <%= text_field_tag :competitors_count, @competitors_count, :size => 3 %><br/>
+    <%= label_tag :club_id, 'Lisäksi kaikki kilpailijat piiristä/seurasta' %>
+    <%= select_tag :club_id,
+      options_from_collection_for_select(@race.clubs, :id, :name, params[:club_id]),
+      :include_blank => '- Ei mitään -' %><br/>
     <%= submit_tag "Lataa lehdistöraportti" %>
   <% end %>
   <% if @show_results %>
@@ -19,9 +23,7 @@
         <% series_results = "Sarja #{series.name}: " %>
         <% comp_results = [] %>
         <% series.ordered_competitors.each_with_index do |c, i| %>
-          <% if i == @competitors_count %>
-            <% break %>
-          <% end %>
+          <% next unless i < @competitors_count or c.club_id == params[:club_id].to_i %>
           <% unless c.no_result_reason %>
             <% comp_results << "#{i+1}) #{full_name(c)} #{c.club.name} #{c.points}" %>
           <% end %>
