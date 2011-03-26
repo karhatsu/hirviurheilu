@@ -500,4 +500,32 @@ describe Race do
       end
     end
   end
+
+  describe "#race_day" do
+    it "should return 0 if race ended in the past" do
+      Factory.build(:race, :start_date => Date.today - 1).race_day.should == 0
+      Factory.build(:race, :start_date => Date.today - 2).race_day.should == 0
+    end
+
+    it "should return 0 if race starts in the future" do
+      Factory.build(:race, :start_date => Date.today + 1).race_day.should == 0
+      Factory.build(:race, :start_date => Date.today + 2).race_day.should == 0
+    end
+
+    context "when race is today" do
+      it "should return 1 if race started today" do
+        Factory.build(:race, :start_date => Date.today).race_day.should == 1
+      end
+
+      it "should return 2 if race started yesterday" do
+        Factory.build(:race, :start_date => Date.today - 1, :end_date => Date.today + 1).
+          race_day.should == 2
+      end
+
+      it "should return 3 if race started two days ago" do
+        Factory.build(:race, :start_date => Date.today - 2, :end_date => Date.today).
+          race_day.should == 3
+      end
+    end
+  end
 end

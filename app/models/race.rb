@@ -138,6 +138,12 @@ class Race < ActiveRecord::Base
     false
   end
 
+  def race_day
+    day = (Date.today - start_date).to_i + 1
+    return 0 if day < 0 or day > days_count
+    day
+  end
+
   private
   def end_date_not_before_start_date
     if end_date and end_date < start_date

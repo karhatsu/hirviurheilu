@@ -1,5 +1,5 @@
 <%= content_for(:title, @race.name) %>
-<% unless result_rotation_list.empty? %>
+<% unless result_rotation_list(menu_race).empty? %>
   <% content_for(:refresh, true) %>
 <% end %>
 <% unless @race.home_page.blank? %>
