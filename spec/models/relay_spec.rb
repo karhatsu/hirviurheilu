@@ -337,15 +337,13 @@ describe Relay do
       relay.should_not be_active
     end
 
-    it "should be false when race is finished" do
-      race = Factory.build(:race, :finished => true)
-      relay = Factory.build(:relay, :start_time => Time.now - 1, :race => race)
+    it "should be false when relay is finished" do
+      relay = Factory.build(:relay, :finished => true, :start_time => Time.now - 1)
       relay.should_not be_active
     end
 
-    it "should be true when race isn't finished and start time in past" do
-      race = Factory.build(:race, :finished => false)
-      relay = Factory.build(:relay, :start_time => Time.now - 1, :race => race)
+    it "should be true when relay isn't finished and start time in past" do
+      relay = Factory.build(:relay, :finished => false, :start_time => Time.now - 1)
       relay.should be_active
     end
   end

@@ -81,7 +81,7 @@ class Relay < ActiveRecord::Base
   end
 
   def active?
-    start_time and start_time < Time.zone.now and not race.finished
+    start_time and start_time < Time.zone.now and not finished?
   end
 
   def finish!
