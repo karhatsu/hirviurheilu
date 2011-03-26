@@ -43,7 +43,7 @@ module ApplicationHelper
       nil_result='', convert_to_zone=nil)
     return nil_result if datetime.nil?
     t = date_print(datetime)
-    t << " #{time_print(datetime, seconds, convert_to_zone)}" if hours_and_minutes
+    t << " #{time_print(datetime, seconds, nil_result, convert_to_zone)}" if hours_and_minutes
     t
   end
 
