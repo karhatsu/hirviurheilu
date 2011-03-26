@@ -355,7 +355,7 @@ module ApplicationHelper
   def result_title(series)
     return 'Tulokset' if series.race.finished?
     return "Väliaikatulokset (päivitetty: #{datetime_print(series.competitors.
-      maximum(:updated_at), true, true, '-', true)})"
+      maximum(:updated_at), true, true, '-', 'Helsinki')})"
   end
 
   private

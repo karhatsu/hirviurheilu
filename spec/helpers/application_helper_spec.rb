@@ -774,7 +774,7 @@ describe ApplicationHelper do
         it "should return 'Väliaikatulokset (päivitetty: <time>)'" do
           time = Time.now
           @competitors.should_receive(:maximum).with(:updated_at).and_return(time)
-          should_receive(:datetime_print).with(time, true, true, '-', true).and_return('123')
+          should_receive(:datetime_print).with(time, true, true, '-', 'Helsinki').and_return('123')
           result_title(@series).should == 'Väliaikatulokset (päivitetty: 123)'
         end
       end
