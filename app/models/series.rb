@@ -206,7 +206,7 @@ class Series < ActiveRecord::Base
   end
 
   def running?
-    start_time and start_time < Time.now and not race.finished
+    start_time and start_time < Time.zone.now and not race.finished
   end
 
   def each_competitor_has_correct_estimates?
