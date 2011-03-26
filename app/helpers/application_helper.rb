@@ -39,16 +39,18 @@ module ApplicationHelper
     datetime_print(datetime, hours_and_minutes, seconds, nil_result)
   end
 
-  def datetime_print(datetime, hours_and_minutes=false, seconds=false, nil_result='')
+  def datetime_print(datetime, hours_and_minutes=false, seconds=false,
+      nil_result='', convert_to_zone=nil)
     return nil_result if datetime.nil?
     t = date_print(datetime)
-    t << " #{time_print(datetime, seconds)}" if hours_and_minutes
+    t << " #{time_print(datetime, seconds, convert_to_zone)}" if hours_and_minutes
     t
   end
 
-  def time_print(time, seconds=false, nil_result='')
+  def time_print(time, seconds=false, nil_result='', convert_to_zone=nil)
     return raw(nil_result) if time.nil?
     format = (seconds ? '%H:%M:%S' : '%H:%M')
+    return time.in_time_zone(convert_to_zone).strftime(format) if convert_to_zone
     time.strftime(format)
   end
 
@@ -353,7 +355,7 @@ module ApplicationHelper
   def result_title(series)
     return 'Tulokset' if series.race.finished?
     return "Väliaikatulokset (päivitetty: #{datetime_print(series.competitors.
-      maximum(:updated_at), true, true, '-')})"
+      maximum(:updated_at), true, true, '-', true)})"
   end
 
   private
