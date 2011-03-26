@@ -600,77 +600,93 @@ describe ApplicationHelper do
 
   describe "#result_rotation_list" do
     before do
-      stub!(:result_rotation_cookie).and_return('3')
+      @series_limit = 2
+      stub!(:result_rotation_cookie).and_return("#{@series_limit}")
+      @race = Factory.create(:race, :start_date => Date.today)
+      not_started_series1 = build_series(6000)
+      not_started_series2 = build_series(16000)
+      not_started_series3 = build_series(26000)
+      @race.series << not_started_series1
+      @race.series << not_started_series2
+      @race.series << not_started_series3
+      @tc = Factory.build(:team_competition, :race => @race)
+      @race.team_competitions << @tc
+      not_started_relay = build_relay(6000)
+      finished_relay = build_relay(-6000, true)
+      @race.relays << not_started_relay
+      @race.relays << finished_relay
     end
-    context "when race finished" do
+    
+    context "when race is finished and all relays are finished or not started yet" do
       it "should return an empty list" do
-        @race = Factory.build(:race)
+        @race.series << build_series(-6000)
         @race.finished = true
         @race.save!
         result_rotation_list.size.should == 0
       end
     end
 
-    context "when race active with one series" do
-      it "should return a list with one series path" do
-        @race = Factory.create(:race, :start_date => Time.zone.today, :finished => false )
-        @race.series << Factory.create(:series, :race => @race, :start_time => Time.now - 3000)
+    context "when race is finished but has an active relay" do
+      it "should return a list including the relay path" do
+        @race.finished = true
+        @race.save!
+        active_relay = build_relay(-30)
+        @race.relays << active_relay
         result_rotation_list.size.should == 1
-        result_rotation_list[0].should == series_competitors_path(@race.series[0])
+        result_rotation_list[0].should == race_relay_path(@race, active_relay)
       end
     end
 
-    context "when race active with several series'" do
-      it "should return a list with series paths" do
-        @race = Factory.create(:race, :start_date => Time.zone.today)
-        @race.series << Factory.create(:series, :race => @race, :start_time => Time.now - 6000)
-        @race.series << Factory.create(:series, :race => @race, :start_time => Time.now - 3000)
-        result_rotation_list.size.should == 2
-        result_rotation_list[1].should == series_competitors_path(@race.series[0])
-        result_rotation_list[0].should == series_competitors_path(@race.series[1])
+    context "when race is not finished" do
+      context "when no running series or relays" do
+        it "should return an empty list" do
+          result_rotation_list.size.should == 0
+        end
+      end
+
+      context "when race has several running series and one team competition" do
+        before do
+          @running_second_latest = build_series(-60)
+          @running_latest = build_series(-30)
+          @race.series << @running_second_latest
+          @race.series << @running_latest
+          @race.series << build_series(-160)
+          @race.series << build_series(-130)
+          @list = result_rotation_list
+        end
+
+        it "should return a list including running series paths ordered by " +
+          "descending start time, the amount limited with result_rotation_cookie + " +
+          "the team competition path" do
+          @list.size.should == 3
+          @list[0].should == series_competitors_path(@running_latest)
+          @list[1].should == series_competitors_path(@running_second_latest)
+          @list[2].should == race_team_competition_path(@race, @tc)
+        end
+      end
+
+      context "when race has a running series, a team competition, and an active relay" do
+        it "should return a list with the series, team competition, and relay paths" do
+          running_series = build_series(-60)
+          @race.series << running_series
+          active_relay = build_relay(-30)
+          @race.relays << active_relay
+          result_rotation_list.size.should == 3
+          result_rotation_list[0].should == series_competitors_path(running_series)
+          result_rotation_list[1].should == race_team_competition_path(@race, @tc)
+          result_rotation_list[2].should == race_relay_path(@race, active_relay)
+        end
       end
     end
 
-    context "when race active with one series and one team competition" do
-      it "should return a list with one series and one team competition path" do
-        @race = Factory.build(:race)
-        @race.id = 1
-        @race.start_date = Time.zone.today
-        @race.save!
-        @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 30)
-        @race.team_competitions << Factory.build(:team_competition, :race => @race, :id => 1, :race_id => 1)
-        result_rotation_list.size.should == 2
-        result_rotation_list[1].should == race_team_competition_path(@race, 1)
-      end
+    def build_series(start_time_compared_to_now)
+      Factory.build(:series, :race => @race,
+        :start_time => Time.zone.now + start_time_compared_to_now)
     end
 
-    context "when race active with one relay competition" do
-      it "should return a list with one relay competition path" do
-        @race = Factory.build(:race)
-        @race.id = 1
-        @race.start_date = Time.zone.today
-        @race.save!
-        @relay = Factory.build(:relay, :race => @race, :id => 1)
-        @race.relays << Factory.build(:relay, :race => @race, :id => 1, :race_id => 1, :start_time => Time.now - 30)
-        result_rotation_list.size.should == 1
-        result_rotation_list[0].should == race_relay_path(@race, 1)
-      end
-    end
-    context "when race active with one series, one relay & one team competition" do
-      it "should return a list with one series path, one team path and one relay path" do
-        @race = Factory.build(:race)
-        @race.series << Factory.build(:series, :race => @race, :id => 1, :start_time => Time.now - 30)
-        @race.id = 1
-        @race.start_date = Time.zone.today
-        @race.save!
-        @series = Factory.build(:series, :race => @race, :id => 1)
-        @race.team_competitions << Factory.build(:team_competition, :race => @race, :id => 1, :race_id => 1)
-        @race.relays << Factory.build(:relay, :race => @race, :id => 1, :race_id => 1, :start_time => Time.now - 30)
-        result_rotation_list.size.should == 3
-        result_rotation_list[0].should == series_competitors_path(@race.series)
-        result_rotation_list[1].should == race_team_competition_path(@race, 1)
-        result_rotation_list[2].should == race_relay_path(@race, 1)
-      end
+    def build_relay(start_time_compared_to_now, finished=false)
+      Factory.build(:relay, :race => @race, :finished => finished,
+        :start_time => Time.zone.now + start_time_compared_to_now)
     end
   end
 

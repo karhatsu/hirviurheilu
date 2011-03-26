@@ -318,15 +318,14 @@ module ApplicationHelper
   end
 
   def result_rotation_list
-    result_rotation_list = []
     @race = @series.race if @series
-    return [] if @race.finished?
-    if @race
+    result_rotation_list = []
+    unless @race.finished?
       result_rotation_list += result_rotation_series_list(@race)
-      # team competetion active only when at least one series is active
+      # team competition is active only when at least one series is active
       result_rotation_list += result_rotation_tc_list(@race) unless result_rotation_list.empty?
-      result_rotation_list += result_rotation_relay_list(@race)
     end
+    result_rotation_list += result_rotation_relay_list(@race)
     result_rotation_list
   end
 
@@ -363,9 +362,9 @@ module ApplicationHelper
   private
   def result_rotation_series_list(race)
     result_rotation_series_list = []
-    race.series.unscoped.where(['race_id=? and start_time is not ?', race.id, nil]).
+    race.series.unscoped.where(['race_id=? and start_time<=?', race.id, Time.zone.now]).
         order('start_time desc').limit(result_rotation_cookie.to_i).each do |s|
-      result_rotation_series_list << series_competitors_path(s) if s.running?
+      result_rotation_series_list << series_competitors_path(s)
     end
     result_rotation_series_list
   end
@@ -374,7 +373,7 @@ module ApplicationHelper
     result_rotation_tc_list = []
     if race.has_team_competition? and race.start_date <= Time.zone.today
       race.team_competitions.each do |tc|
-        result_rotation_tc_list << race_team_competition_path(race, tc) unless race.finished?
+        result_rotation_tc_list << race_team_competition_path(race, tc)
       end
     end
     result_rotation_tc_list
@@ -382,8 +381,8 @@ module ApplicationHelper
 
   def result_rotation_relay_list(race)
     result_rotation_relay_list = []
-    race.relays.each do |relay|
-      result_rotation_relay_list << race_relay_path(race, relay) if relay.active?
+    race.relays.where(['start_time<=? and finished=?', Time.zone.now, false]).each do |relay|
+      result_rotation_relay_list << race_relay_path(race, relay)
     end
     result_rotation_relay_list
   end
