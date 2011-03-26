@@ -18,6 +18,7 @@
 <% series.ordered_competitors.each_with_index do |comp, i| %>
   <% next unless i < 3 or params[:club_id].blank? or comp.club_id == params[:club_id].to_i %>
   <tr>
+    <% @max_points = comp.points if i == 0 %>
     <td><%= i + 1 %>.</td>
     <td><%= full_name(comp) %>
       <%= "(#{comp.age_group.name})" if comp.age_group %>
@@ -29,7 +30,9 @@
     <td><%= series.race.finished ? estimate_points_and_diffs(comp) :
               estimate_points(comp) %></td>
     <td><%= shot_points_and_total(comp) %></td>
-    <td><%= points_print(comp) %></td>
+    <td><%= points_print(comp) %>
+    <%= national_record(comp) if comp.points.to_i >= @max_points.to_i %>
+    </td>
   </tr>
 <% end %>
 </table>
