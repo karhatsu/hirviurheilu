@@ -35,10 +35,11 @@
       <% end %>
     </table>
   </div>
-  <br/>
-  <%= link_to "Lataa lähtölista pdf-tiedostona", series_start_list_path(@series,
-    :format => 'pdf') %><br/>
-  <%= link_to "Tulokset", series_competitors_path(@series) %>
+  <div class="action_box">
+    <%= link_to "Lataa lähtölista pdf-tiedostona", series_start_list_path(@series,
+      :format => 'pdf') %>
+  </div>
 <% end %>
 <hr/>
+<%= link_to "Tulokset", series_competitors_path(@series) %><br/>
 <%= link_to "Takaisin sivulle #{@series.race.name}", race_path(@series.race) %>
