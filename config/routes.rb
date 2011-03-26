@@ -32,6 +32,7 @@ ElkSports::Application.routes.draw do
     resources :team_competitions
     resources :relays
     resources :result_rotation_settings
+    resources :media
   end
 
   resources :series do
@@ -66,7 +67,6 @@ ElkSports::Application.routes.draw do
       post 'shots_quick_save' => 'quick_saves#shots', :as => :shots_quick_save
       post 'time_quick_save' => 'quick_saves#time', :as => :time_quick_save
       resources :quick_saves
-      resources :media
       resource :finish_race
       resource :exports
       get 'export/success' => 'exports#success'

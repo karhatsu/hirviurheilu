@@ -18,7 +18,6 @@
         <%= menu_item "Joukkuek.", official_race_team_competitions_path(race), @is_team_competitions %>
         <%= menu_item "Viestit", official_race_relays_path(race), @is_relays %>
         <%= menu_item "Seurat", official_race_clubs_path(race), @is_clubs %>
-        <%= menu_item "Lehdistö", official_race_media_path(race), @is_media %>
         <% if online? %>
           <%= menu_item "Toimitsijat", official_race_invite_officials_path(race), @is_officials %>
         <% end %>

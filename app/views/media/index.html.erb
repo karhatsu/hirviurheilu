@@ -6,7 +6,7 @@
   <div class="warning">Kilpailuun ei ole lisätty yhtään kilpailijaa</div>
 <% else %>
   <%= flash_error %>
-  <%= form_tag(official_race_media_path(@race), :method => :get) do %>
+  <%= form_tag(race_media_path(@race), :method => :get) do %>
     <%= hidden_field_tag :results, true %>
     <%= label_tag :competitors_count, 'Kilpailijoiden määrä / sarja' %>
     <%= text_field_tag :competitors_count, @competitors_count, :size => 3 %>
@@ -37,3 +37,5 @@
     </div>
   <% end %>
 <% end %>
+<hr/>
+<%= link_to 'Takaisin kilpailun etusivulle', race_path(@race) %>

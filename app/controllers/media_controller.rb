@@ -1,5 +1,5 @@
-class Official::MediaController < Official::OfficialController
-  before_filter :assign_race_by_race_id, :check_assigned_race, :set_media
+class MediaController < ApplicationController
+  before_filter :assign_race_by_race_id, :set_media
 
   def index
     @competitors_count = (params[:competitors_count] || 3).to_i

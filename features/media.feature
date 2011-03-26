@@ -1,25 +1,23 @@
 Feature: Media
   In order to send results for media like newspapers
-  As an official
+  As an official or club/district chairman etc
   I want to get race results in a certain text format
 
   Scenario: No competitors
-    Given I am an official
-    And I have a race with attributes:
+    Given there is a race with attributes:
       | name | Test race |
     And the race has series with attributes:
       | name | Test series |
-    And I have logged in
-    And I am on the official race page of "Test race"
+    And I am on the race page of "Test race"
     And I follow "Lehdistö"
     Then I should see "Test race" within ".main_title"
+    And the "Lehdistö" sub menu item should be selected
     And I should see "Lehdistö" within "h2"
     And I should see "Tältä sivulta voit ladata tulokset lehdistöä varten tekstimuodossa" within "div.info"
     And I should see "Kilpailuun ei ole lisätty yhtään kilpailijaa" within "div.warning"
 
   Scenario: Results for all competitors
-    Given I am an official
-    And I have a race with attributes:
+    Given there is a race with attributes:
       | name | Test race |
     And the race has correct estimates with attributes:
       | min_number | 1 |
@@ -75,8 +73,7 @@ Feature: Media
       | estimate1 | 110 |
       | estimate2 | 130 |
       | arrival_time | 15:01:00 |
-    And I have logged in
-    And I am on the official race page of "Test race"
+    And I am on the race page of "Test race"
     And I follow "Lehdistö"
     Then I should see "Test race" within ".main_title"
     And I should see "Lehdistö" within "h2"
@@ -87,8 +84,7 @@ Feature: Media
     But I should not see "Empty series"
 
   Scenario: Results for select amount of competitors
-    Given I am an official
-    And I have a race with attributes:
+    Given there is a race with attributes:
       | name | Test race |
     And the race has correct estimates with attributes:
       | min_number | 1 |
@@ -143,15 +139,13 @@ Feature: Media
       | estimate1 | 110 |
       | estimate2 | 130 |
       | arrival_time | 15:01:00 |
-    And I have logged in
-    When I go to the official media page of "Test race"
+    When I go to the media page of "Test race"
     And I fill in "1" for "Kilpailijoiden määrä / sarja"
     And I press "Lataa lehdistöraportti"
     Then I should see "Sarja Another test series: 1) Thomsson Tina Sports club 1140. Sarja Test series: 1) Atkinsson Tim Sports club 1140."
 
   Scenario: Invalid amount of competitors
-    Given I am an official
-    And I have a race with attributes:
+    Given there is a race with attributes:
       | name | Test race |
     And the race has a club "Shooting club"
     And the race has series with attributes:
@@ -162,8 +156,7 @@ Feature: Media
       | first_name | James |
       | last_name | Johnson |
       | club | Shooting club |
-    And I have logged in
-    When I go to the official media page of "Test race"
+    When I go to the media page of "Test race"
     And I fill in "x" for "Kilpailijoiden määrä / sarja"
     And I press "Lataa lehdistöraportti"
     Then I should see "Syötä kilpailijoiden määräksi positiivinen kokonaisluku" within "div.error"
