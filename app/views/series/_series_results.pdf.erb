@@ -33,5 +33,6 @@
     <td><%= points_print(comp) %>
     <%= national_record(comp) if comp.points.to_i >= @max_points.to_i %>
     </td>
+  </tr>
 <% end %>
 </table>
