@@ -746,12 +746,12 @@ describe ApplicationHelper do
       end
     end
   end
-  describe "#result_title" do
+  describe "#series_result_title" do
     context "when race is finished" do
       it "should return 'Tulokset'" do
         race = mock_model(Race, :finished? => true)
         series = mock_model(Series, :race => race)
-        result_title(series).should == 'Tulokset'
+        series_result_title(series).should == 'Tulokset'
       end
     end
 
@@ -766,7 +766,7 @@ describe ApplicationHelper do
       context "and no competitors" do
         it "should return 'Välikaikatulokset (päivitetty: -)'" do
           @competitors.should_receive(:maximum).with(:updated_at).and_return(nil)
-          result_title(@series).should == 'Väliaikatulokset (päivitetty: -)'
+          series_result_title(@series).should == 'Väliaikatulokset (päivitetty: -)'
         end
       end
 
@@ -775,7 +775,7 @@ describe ApplicationHelper do
           time = Time.now
           @competitors.should_receive(:maximum).with(:updated_at).and_return(time)
           should_receive(:datetime_print).with(time, true, true, '-', 'Helsinki').and_return('123')
-          result_title(@series).should == 'Väliaikatulokset (päivitetty: 123)'
+          series_result_title(@series).should == 'Väliaikatulokset (päivitetty: 123)'
         end
       end
     end
