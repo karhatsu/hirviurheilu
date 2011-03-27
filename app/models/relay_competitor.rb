@@ -24,7 +24,7 @@ class RelayCompetitor < ActiveRecord::Base
   end
 
   def next_competitor
-    return nil if leg == relay_team.relay.legs_count
+    return nil if relay_team.nil? or leg == relay_team.relay.legs_count
     relay_team.relay_competitors.where(:leg => leg + 1).first
   end
 
