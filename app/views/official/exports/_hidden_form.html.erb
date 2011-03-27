@@ -10,6 +10,7 @@
 <%= f.fields_for(:clubs) do |club_f| %>
   <%= club_f.hidden_field :id, :value => '' %>
   <%= club_f.hidden_field :name %>
+  <%= club_f.hidden_field :long_name %>
 <% end %>
 <%= f.fields_for(:correct_estimates) do |ce_f| %>
   <%= ce_f.hidden_field :id, :value => '' %>

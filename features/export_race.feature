@@ -23,7 +23,7 @@ Feature: Export race
     And I have an ongoing race with attributes:
       | name | Offline race |
       | location | Offline city |
-    And the race has a club "Offline club"
+    And the race has a club "Offline club" with long name "Long offline shooting club"
     And the race has series with attributes:
       | name | Offline series |
       | first_number | 15 |
@@ -119,6 +119,7 @@ Feature: Export race
     And the "SE" field should contain "1050"
     When I follow "Seurat"
     Then I should see "Offline club"
+    And I should see "Long offline shooting club"
     When I follow "Oikeat arviot"
     Then the "Lähtönumerot" field should contain "15"
     And the "race_correct_estimates_attributes_0_max_number" field should contain "16"
