@@ -79,8 +79,10 @@
   </table>
 </div>
 <br/>
-<%= link_to "Lataa tuloskortti pdf-tiedostona",
-  series_competitor_path(@competitor.series.id, @competitor, :format => 'pdf') %>
+<div class="action_box">
+  <%= link_to "Lataa tuloskortti pdf-tiedostona",
+    series_competitor_path(@competitor.series.id, @competitor, :format => 'pdf') %>
+</div>
 <hr/>
 <%= link_to "Takaisin sarjan #{@competitor.series.name} tuloksiin",
   series_competitors_path(@competitor.series) %>
