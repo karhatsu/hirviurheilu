@@ -44,7 +44,9 @@
             </td>
             <td class="center">
               <%= comp.estimate_penalties %>
-              <% if @relay.finished? %>(<%= comp.estimate %>m)<% end %>
+              <% if @relay.finished? and comp.estimate %>
+                (<%= comp.estimate %>m)
+              <% end %>
             </td>
             <td class="center"><%= comp.misses %></td>
           </tr>

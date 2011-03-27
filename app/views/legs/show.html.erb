@@ -35,7 +35,9 @@
           <td class="center"><%= competitor.misses %></td>
           <td class="center">
             <%= competitor.estimate_penalties %>
-            <% if @relay.finished? %>(<%= competitor.estimate %>m)<% end %>
+            <% if @relay.finished? and competitor.estimate %>
+              (<%= competitor.estimate %>m)
+            <% end %>
           </td>
         </tr>
       <% end %>
