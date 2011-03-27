@@ -23,8 +23,8 @@
 <div class="section">
   <table id="clubs_table"<%= style %>>
     <tr>
-      <th>Seura</th>
-      <th>Seuran pitkä nimi</th>
+      <th>Nimi</th>
+      <th>Pitkä nimi</th>
       <th>Kilpailijoita</th>
       <th>&nbsp;</th>
     </tr>
@@ -38,12 +38,12 @@
             <%= form_for([:official, @race, club], :remote => true,
                 :html => { :style => 'display:inline;' }) do |f| %>
               <%= f.text_field :name, :size => 7 %>&nbsp
-              <%= f.text_field :long_name %><%= submit_tag "Päivitä" %>
+              <%= f.text_field :long_name, :size => 15 %><%= submit_tag "Päivitä" %>
             <% end %>
             <%= button_to_function 'Peruuta', "cancel_edit(#{club.id}, \"#{club.name}\")" %>
           </span>
         </td>
-        <td><%= club.long_name %></td>
+        <td id="club_long_name_td_<%= club.id %>"><%= club.long_name %></td>
         <td class="center"><%= club.competitors.count %></td>
         <td class="center"><%= club.competitors.count == 0 ? (link_to "Poista",
             official_race_club_path(@race.id, club),

@@ -7,5 +7,6 @@
   $("#action_error").html("");
   $("#club_name_link_<%=@club.id%>").attr('style', 'display: inline;');
   $("#club_name_link_<%=@club.id%>").html("<%= @club.name %>");
+  $("#club_long_name_td_<%= @club.id %>").html("<%= @club.long_name %>");
   $("#club_name_form_<%=@club.id%>").attr('style', 'display: none;');
 <% end %>
