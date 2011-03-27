@@ -1,5 +1,6 @@
 class MediaController < ApplicationController
   before_filter :assign_race_by_race_id, :set_media, :set_competitors_count
+  skip_before_filter :assign_race_by_race_id, :only => :show
 
   def new
   end
@@ -15,6 +16,8 @@ class MediaController < ApplicationController
   end
 
   def show
+    @race = Race.where(:id => params[:race_id]).
+      includes(:series => [:competitors => [:shots, :age_group, :club]]).first
   end
 
   private
