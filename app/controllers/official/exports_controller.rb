@@ -3,6 +3,12 @@ class Official::ExportsController < Official::OfficialController
   before_filter :assign_race_by_race_id, :check_assigned_race
 
   def new
+    @race = Race.where(:id => params[:race_id]).
+      includes([
+        :series => [:competitors => [:shots, :age_group, :club], :age_groups => true],
+        :team_competitions => [:age_groups, :series],
+        :relays => [:relay_correct_estimates => true, :relay_teams => :relay_competitors]
+      ]).first
   end
 
   def success
