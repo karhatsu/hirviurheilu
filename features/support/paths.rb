@@ -51,7 +51,7 @@ module NavigationHelpers
       race_path(@race)
 
     when /the media page of "(.*)"/
-      race_media_path(Race.find_by_name($1))
+      new_race_medium_path(Race.find_by_name($1))
 
     when /the results page of the series/
       series_competitors_path(@series)

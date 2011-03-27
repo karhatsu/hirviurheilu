@@ -32,7 +32,7 @@ ElkSports::Application.routes.draw do
     resources :team_competitions
     resources :relays
     resources :result_rotation_settings
-    resources :media
+    resource :medium
   end
 
   resources :series do
