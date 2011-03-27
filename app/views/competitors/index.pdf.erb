@@ -1,2 +1,3 @@
 <h1><%= @series.race.name %></h1>
+<%= @series.race.location %>, <%= race_date_interval(@series.race) %>
 <%= render :partial => 'series/series_results', :locals => { :series => @series } %>
