@@ -3,6 +3,7 @@
   <% (@relay.legs_count - 1).times do |i| %>
     <% leg = i + 1 %>
     <%= link_to_unless @leg.to_i == leg, "Osuus #{leg}", relay_leg_path(@relay, leg) %>
+    -
   <% end %>
   <%= link_to_if @leg, "Maali", race_relay_path(@relay.race, @relay) %>
 </div>
