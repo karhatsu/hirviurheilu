@@ -28,6 +28,7 @@ Feature: Media
       | name | Test series |
       | start_time | 13:00 |
       | first_number | 1 |
+      | national_record | 1139 |
     And the series has a competitor with attributes:
       | first_name | James |
       | last_name | Johnson |
@@ -79,7 +80,7 @@ Feature: Media
     And I should see "Tältä sivulta voit ladata lehdistöraportin" within "div.info"
     But I should not see "kun kilpailu on päättynyt"
     When I press "Lataa lehdistöraportti"
-    Then I should see "Sarja Another test series: 1) Thomsson Tina Sports club 1140, 2) Hamilton Mary Shooting club 1105. Sarja Test series: 1) Atkinsson Tim Sports club 1140, 2) Johnson James Shooting club 1105."
+    Then I should see "Sarja Another test series: 1) Thomsson Tina Sports club 1140, 2) Hamilton Mary Shooting club 1105. Sarja Test series: 1) Atkinsson Tim Sports club 1140 (SE), 2) Johnson James Shooting club 1105."
     But I should not see "Empty series"
 
   Scenario: Results for selected amount of competitors and for certain club
