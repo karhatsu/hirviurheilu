@@ -7,8 +7,9 @@
 <div id="action_error"></div>
 <%= form_for([:official, @race, Club.new], :remote => true) do |f| %>
   <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.text_field :long_name %>
+  <%= f.text_field :name %><br/>
+  <%= f.label :long_name %>
+  <%= f.text_field :long_name %> (ei pakollinen)<br/>
   <%= submit_tag 'Lisää seura', :id => 'submit' %>
   <span id="spinner"></span>
 <% end %>
@@ -29,7 +30,7 @@
     </tr>
     <% @race.clubs.each do |club| %>
       <tr id="club_row_<%= club.id %>">
-        <td colspan = 2>
+        <td>
           <a class="club_name_link" id="club_name_link_<%= club.id %>" href="javascript:void(0)">
             <%= club.name %>
           </a>
@@ -41,7 +42,8 @@
             <% end %>
             <%= button_to_function 'Peruuta', "cancel_edit(#{club.id}, \"#{club.name}\")" %>
           </span>
-        <%= club.long_name %></td>
+        </td>
+        <td><%= club.long_name %></td>
         <td class="center"><%= club.competitors.count %></td>
         <td class="center"><%= club.competitors.count == 0 ? (link_to "Poista",
             official_race_club_path(@race.id, club),

@@ -35,6 +35,7 @@ fi:
     last_request_at: Viim. käyt.
     legs_count: Osuuksien määrä
     location: Paikkakunta
+    long_name: Pitkä nimi
     max_number: Suurin numero
     min_competitors: Kilpailijoita vähintään
     min_number: Pienin numero
