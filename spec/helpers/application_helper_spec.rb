@@ -746,6 +746,7 @@ describe ApplicationHelper do
       end
     end
   end
+
   describe "#series_result_title" do
     context "when race is finished" do
       it "should return 'Tulokset'" do
@@ -776,6 +777,39 @@ describe ApplicationHelper do
           @competitors.should_receive(:maximum).with(:updated_at).and_return(time)
           should_receive(:datetime_print).with(time, true, true, '-', 'Helsinki').and_return('123')
           series_result_title(@series).should == 'Väliaikatulokset (päivitetty: 123)'
+        end
+      end
+    end
+  end
+
+  describe "#relay_result_title" do
+    context "when relay is finished" do
+      it "should return 'Tulokset'" do
+        relay = mock_model(Relay, :finished? => true)
+        relay_result_title(relay).should == 'Tulokset'
+      end
+    end
+
+    context "when relay is not finished" do
+      before do
+        @relay = mock_model(Relay, :finished? => false)
+        @competitors = mock(Array)
+        @relay.should_receive(:relay_competitors).and_return(@competitors)
+      end
+
+      context "and no competitors" do
+        it "should return 'Välikaikatulokset (päivitetty: -)'" do
+          @competitors.should_receive(:maximum).with(:updated_at).and_return(nil)
+          relay_result_title(@relay).should == 'Väliaikatulokset (päivitetty: -)'
+        end
+      end
+
+      context "and has competitors" do
+        it "should return 'Väliaikatulokset (päivitetty: <time>)'" do
+          time = Time.now
+          @competitors.should_receive(:maximum).with(:updated_at).and_return(time)
+          should_receive(:datetime_print).with(time, true, true, '-', 'Helsinki').and_return('123')
+          relay_result_title(@relay).should == 'Väliaikatulokset (päivitetty: 123)'
         end
       end
     end

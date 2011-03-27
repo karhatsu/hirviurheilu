@@ -358,6 +358,12 @@ module ApplicationHelper
       maximum(:updated_at), true, true, '-', 'Helsinki')})"
   end
 
+  def relay_result_title(relay)
+    return 'Tulokset' if relay.finished?
+    return "Väliaikatulokset (päivitetty: #{datetime_print(relay.relay_competitors.
+      maximum(:updated_at), true, true, '-', 'Helsinki')})"
+  end
+
   def correct_estimate_range(ce)
     return "#{ce.min_number}-" unless ce.max_number
     return ce.min_number unless ce.min_number != ce.max_number

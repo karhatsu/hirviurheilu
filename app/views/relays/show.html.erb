@@ -1,8 +1,8 @@
-<% content_for :title, "#{@relay.race.name} - Viestit - #{@relay.name} - Tulokset" %>
+<% content_for :title, "#{@relay.race.name} - Viestit - #{@relay.name} - #{relay_result_title(@relay)}" %>
 <% if @relay.active? %>
 <% content_for(:refresh, true) %>
 <% end %>
-<h2><%= @relay.name %> - Tulokset</h2>
+<h2><%= @relay.name %> - <%= relay_result_title(@relay) %></h2>
 <% content_for :sub_sub_menu do %>
   <%= render :layout => 'shared/relays_sub_menu',
     :locals => { :race => @relay.race,
