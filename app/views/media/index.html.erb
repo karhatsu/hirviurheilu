@@ -1,10 +1,10 @@
 <% content_for :title, "#{@race.name} - Lehdistö" %>
 <h2>Lehdistö</h2>
-<div class="info">Tältä sivulta voit ladata tulokset lehdistöä varten
-  tekstimuodossa</div>
-<% if @race.competitors.empty? %>
-  <div class="warning">Kilpailuun ei ole lisätty yhtään kilpailijaa</div>
-<% else %>
+<div class="info">
+  Tältä sivulta voit ladata lehdistöraportin<%= @race.finished? ? '' :
+    ', kun kilpailu on päättynyt' %>
+</div>
+<% if @race.finished? %>
   <%= flash_error %>
   <%= form_tag(race_media_path(@race), :method => :get) do %>
     <%= hidden_field_tag :results, true %>

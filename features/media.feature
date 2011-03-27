@@ -3,18 +3,16 @@ Feature: Media
   As an official or club/district chairman etc
   I want to get race results in a certain text format
 
-  Scenario: No competitors
-    Given there is a race with attributes:
-      | name | Test race |
-    And the race has series with attributes:
-      | name | Test series |
-    And I am on the race page of "Test race"
+  Scenario: Race not finished yet
+    Given there is a race "Test race"
+    When I go to the race page of "Test race"
     And I follow "Lehdistö"
     Then I should see "Test race" within ".main_title"
     And the "Lehdistö" sub menu item should be selected
     And I should see "Lehdistö" within "h2"
-    And I should see "Tältä sivulta voit ladata tulokset lehdistöä varten tekstimuodossa" within "div.info"
-    And I should see "Kilpailuun ei ole lisätty yhtään kilpailijaa" within "div.warning"
+    And I should see "Tältä sivulta voit ladata lehdistöraportin, kun kilpailu on päättynyt" within "div.info"
+    But I should not see "Kilpailijoiden määrä / sarja"
+    And I should not see "Lisäksi kaikki kilpailijat piiristä/seurasta"
 
   Scenario: Results for all competitors
     Given there is a race with attributes:
@@ -73,17 +71,18 @@ Feature: Media
       | estimate1 | 110 |
       | estimate2 | 130 |
       | arrival_time | 15:01:00 |
+    And the race is finished
     And I am on the race page of "Test race"
     And I follow "Lehdistö"
     Then I should see "Test race" within ".main_title"
     And I should see "Lehdistö" within "h2"
-    And I should see "Tältä sivulta voit ladata tulokset lehdistöä varten tekstimuodossa" within "div.info"
-    But I should not see "Kilpailuun ei ole lisätty yhtään kilpailijaa"
+    And I should see "Tältä sivulta voit ladata lehdistöraportin" within "div.info"
+    But I should not see "kun kilpailu on päättynyt"
     When I press "Lataa lehdistöraportti"
     Then I should see "Sarja Another test series: 1) Thomsson Tina Sports club 1140, 2) Hamilton Mary Shooting club 1105. Sarja Test series: 1) Atkinsson Tim Sports club 1140, 2) Johnson James Shooting club 1105."
     But I should not see "Empty series"
 
-  Scenario: Results for select amount of competitors and for certain club
+  Scenario: Results for selected amount of competitors and for certain club
     Given there is a race with attributes:
       | name | Test race |
     And the race has correct estimates with attributes:
@@ -141,25 +140,12 @@ Feature: Media
       | estimate1 | 110 |
       | estimate2 | 130 |
       | arrival_time | 15:01:00 |
-    When I go to the media page of "Test race"
-    And I fill in "1" for "Kilpailijoiden määrä / sarja"
-    And I select "Club C" from "Lisäksi kaikki kilpailijat piiristä/seurasta"
-    And I press "Lataa lehdistöraportti"
-    Then I should see "Sarja Another test series: 1) Thomsson Tina Club D 1140, 2) Hamilton Mary Club C 1105. Sarja Test series: 1) Atkinsson Tim Club B 1140."
-
-  Scenario: Invalid amount of competitors
-    Given there is a race with attributes:
-      | name | Test race |
-    And the race has a club "Shooting club"
-    And the race has series with attributes:
-      | name | Test series |
-      | start_time | 13:00 |
-      | first_number | 1 |
-    And the series has a competitor with attributes:
-      | first_name | James |
-      | last_name | Johnson |
-      | club | Shooting club |
+    And the race is finished
     When I go to the media page of "Test race"
     And I fill in "x" for "Kilpailijoiden määrä / sarja"
     And I press "Lataa lehdistöraportti"
     Then I should see "Syötä kilpailijoiden määräksi positiivinen kokonaisluku" within "div.error"
+    When I fill in "1" for "Kilpailijoiden määrä / sarja"
+    And I select "Club C" from "Lisäksi kaikki kilpailijat piiristä/seurasta"
+    And I press "Lataa lehdistöraportti"
+    Then I should see "Sarja Another test series: 1) Thomsson Tina Club D 1140, 2) Hamilton Mary Club C 1105. Sarja Test series: 1) Atkinsson Tim Club B 1140."
