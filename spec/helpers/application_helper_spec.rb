@@ -780,4 +780,21 @@ describe ApplicationHelper do
       end
     end
   end
+
+  describe "#correct_estimate_range" do
+    it "should return min_number- if no max_number" do
+      ce = Factory.build(:correct_estimate, :min_number => 56, :max_number => nil)
+      helper.correct_estimate_range(ce).should == "56-"
+    end
+
+    it "should return min_number if max_number equals to it" do
+      ce = Factory.build(:correct_estimate, :min_number => 57, :max_number => 57)
+      helper.correct_estimate_range(ce).should == 57
+    end
+
+    it "should return min_number-max_number if both defined and different" do
+      ce = Factory.build(:correct_estimate, :min_number => 57, :max_number => 58)
+      helper.correct_estimate_range(ce).should == "57-58"
+    end
+  end
 end

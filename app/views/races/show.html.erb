@@ -65,7 +65,7 @@
         </tr>
         <% @race.correct_estimates.each do |ce| %>
           <tr>
-            <td class="center"><%= ce.min_number %>-<%= ce.max_number ? ce.max_number : '' %></td>
+            <td class="center"><%= correct_estimate_range(ce) %></td>
             <td class="center"><%= ce.distance1 %></td>
             <td class="center"><%= ce.distance2 %></td>
           </tr>

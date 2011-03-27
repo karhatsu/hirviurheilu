@@ -358,6 +358,12 @@ module ApplicationHelper
       maximum(:updated_at), true, true, '-', 'Helsinki')})"
   end
 
+  def correct_estimate_range(ce)
+    return "#{ce.min_number}-" unless ce.max_number
+    return ce.min_number unless ce.min_number != ce.max_number
+    "#{ce.min_number}-#{ce.max_number}"
+  end
+
   private
   def result_rotation_series_list(race)
     race.series.where(:start_day => race.race_day).collect do |s|

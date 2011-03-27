@@ -70,8 +70,8 @@ Feature: Show race
       | start_time | 13:00 |
       | first_number | 1 |
     And the race has correct estimates with attributes:
-      | min_number | 10 |
-      | max_number | 100 |
+      | min_number | 55 |
+      | max_number | 55 |
       | distance1 | 70 |
       | distance2 | 80 |
     And the race has correct estimates with attributes:
@@ -107,7 +107,8 @@ Feature: Show race
     And I should see "1-9"
     And I should see "50"
     And I should see "60"
-    And I should see "10-100"
+    And I should see "55"
+    But I should not see "55-55"
     And I should see "70"
     And I should see "80"
     And I should see "101-"
