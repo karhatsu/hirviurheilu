@@ -30,6 +30,7 @@
   <%= series_f.hidden_field :start_day %>
   <%= series_f.hidden_field :no_time_points %>
   <%= series_f.hidden_field :estimates %>
+  <%= series_f.hidden_field :national_record %>
   <%= series_f.fields_for(:age_groups) do |age_group_f| %>
     <%= age_group_f.hidden_field :id, :value => '' %>
     <%= age_group_f.hidden_field :name %>

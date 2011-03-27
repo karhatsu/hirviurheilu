@@ -28,6 +28,7 @@ Feature: Export race
       | name | Offline series |
       | first_number | 15 |
       | start_time | 13:00 |
+      | national_record | 1050 |
     And the series has an age group "Offline age group"
     And the race has correct estimates with attributes:
       | min_number | 15 |
@@ -115,6 +116,7 @@ Feature: Export race
     When I follow "Kilpailu & sarjat"
     Then the "Paikkakunta" field should contain "Offline city"
     And the "Nimi" field should contain "Offline age group"
+    And the "SE" field should contain "1050"
     When I follow "Seurat"
     Then I should see "Offline club"
     When I follow "Oikeat arviot"
