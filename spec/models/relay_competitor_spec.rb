@@ -95,6 +95,19 @@ describe RelayCompetitor do
             :arrival_time => '13:59').should_not be_valid
         end
       end
+
+      describe "compared to the next competitor's arrival time" do
+        it "cannot be later than the next one's arrival time" do
+          relay = Factory.create(:relay, :start_time => '14:00')
+          team = Factory.create(:relay_team, :relay => relay)
+          comp1 = Factory.create(:relay_competitor, :relay_team => team, :leg => 1,
+            :arrival_time => '14:10:00')
+          Factory.create(:relay_competitor, :relay_team => team, :leg => 2,
+            :arrival_time => '14:20:00')
+          comp1.arrival_time = '14:20:01'
+          comp1.should have(1).errors_on(:arrival_time)
+        end
+      end
     end
   end
 

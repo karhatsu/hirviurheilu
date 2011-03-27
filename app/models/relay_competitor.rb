@@ -1,6 +1,8 @@
 class RelayCompetitor < ActiveRecord::Base
   belongs_to :relay_team
 
+  before_validation :set_start_time
+
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :misses, :numericality => { :only_integer => true, :allow_nil => true,
@@ -12,8 +14,8 @@ class RelayCompetitor < ActiveRecord::Base
     :uniqueness => { :scope => :relay_team_id }
   validate :leg_not_bigger_than_relay_legs_count
   validate :arrival_not_before_start_time
+  validate :compare_arrival_time_to_next_competitor
 
-  before_validation :set_start_time
   after_update :set_next_competitor_start_time
 
   def previous_competitor
@@ -58,6 +60,14 @@ class RelayCompetitor < ActiveRecord::Base
     end
     if arrival_time and start_time >= arrival_time
       errors.add(:arrival_time, "pitää olla lähtöajan jälkeen")
+    end
+  end
+
+  def compare_arrival_time_to_next_competitor
+    return unless arrival_time
+    next_comp = next_competitor
+    if next_comp and next_comp.arrival_time and arrival_time >= next_comp.arrival_time
+      errors.add(:arrival_time, 'täytyy olla ennen seuraavan kilpailijan saapumisaikaa')
     end
   end
 
