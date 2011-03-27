@@ -49,7 +49,7 @@
             <td>&nbsp;</td>
             <td><%= full_name(comp) %></td>
             <td class="center">(<%= comp.leg %>)</td>
-            <td><%= time_from_seconds(comp.time_in_seconds) %>
+            <td class="center"><%= time_from_seconds(comp.time_in_seconds) %>
               <%= relay_time_adjustment(comp.adjustment.to_i) %>
             </td>
             <td class="center">
