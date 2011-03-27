@@ -12,8 +12,12 @@
       <tr id="team_<%= i + 1 %>">
         <td><b><%= i + 1 %>.</b></td>
         <td class="team_name">
-          <a href="javascript:void(0)" class="team_name_link"
-             id="<%= team.id %>"><%= team.name %></a>
+          <% if pdf %>
+            <%= team.name %>
+          <% else %>
+            <a href="javascript:void(0)" class="team_name_link"
+               id="<%= team.id %>"><%= team.name %></a>
+          <% end %>
         </td>
         <td class="center"><b><%= team.number %></b></td>
         <td class="center team_points">
