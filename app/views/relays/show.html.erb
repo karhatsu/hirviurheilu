@@ -16,7 +16,10 @@
   <a href="javascript:void()" id="show_all_competitors">Näytä kaikki kilpailijat</a>
   <%= render :partial => 'results', :locals => { :pdf => false } %>
   <div class="action_box">
-    <%= link_to "Lataa tulokset pdf-tiedostona", race_relay_path(@relay.race, @relay,
+    Lataa tulokset pdf-tiedostona:
+    <%= link_to "Ilman kilpailijoita", race_relay_path(@relay.race, @relay,
+      :exclude_competitors => true, :format => 'pdf') %> -
+    <%= link_to "Kilpailijoiden kanssa", race_relay_path(@relay.race, @relay,
       :format => 'pdf') %>
   </div>
 <% end %>
