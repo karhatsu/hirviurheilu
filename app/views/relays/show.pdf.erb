@@ -1,0 +1,7 @@
+<h1><%= @relay.name %> - <%= relay_result_title(@relay) %></h1>
+<% if @results.empty? %>
+  <div class="info">Viestiin ei ole vielä merkitty joukkueita</div>
+<% else %>
+  <%= render :partial => 'correct_estimates' %>
+  <%= render :partial => 'results' %>
+<% end %>

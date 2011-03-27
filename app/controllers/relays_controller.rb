@@ -4,5 +4,11 @@ class RelaysController < ApplicationController
   def show
     @is_relays = true
     @results = @relay.results
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "viesti-#{@relay.name}-tulokset", :layout => true
+      end
+    end
   end
 end
