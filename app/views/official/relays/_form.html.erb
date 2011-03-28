@@ -12,7 +12,7 @@
   <br/>
   <%= f.label :start_time %>
   <%= start_days_form_field(f, @relay) %>
-  <%= f.time_select :start_time, :include_seconds => false, :include_blank => true %>
+  <%= f.time_select :start_time, :include_seconds => true, :include_blank => true %>
   <% unless @relay.new_record? %>
     <h2>Oikeat arviot</h2>
     <%= render :partial => 'all_correct_estimates', :locals => { :f => f } %>
