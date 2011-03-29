@@ -28,34 +28,31 @@
   <% end %>
   <%= series_f.fields_for(:age_groups) do |age_group_f| %>
     <%= age_group_f.hidden_field :id, :value => '' %>
-    <%= age_group_f.hidden_field :name %>
-    <%= age_group_f.hidden_field :min_competitors %>
+    <% age_group_attrs = age_group_f.object.attribute_names-["id", "created_at",
+        "updated_at", "series_id"] %>
+    <% age_group_attrs.each do |attr| %>
+      <%= age_group_f.hidden_field attr %>
+    <% end %>
   <% end %>
   <%= series_f.fields_for(:competitors) do |competitor_f| %>
     <%= competitor_f.hidden_field :id, :value => '' %>
+    <% competitor_attrs = competitor_f.object.attribute_names-["id", "created_at",
+        "updated_at", "series_id", "age_group_id", "club_id"] %>
+    <% competitor_attrs.each do |attr| %>
+      <%= competitor_f.hidden_field attr %>
+    <% end %>
     <%= competitor_f.hidden_field :club_name, :value => competitor_f.object.club.name %>
     <% if competitor_f.object.age_group %>
       <%= competitor_f.hidden_field :age_group_name,
         :value => competitor_f.object.age_group.name %>
     <% end %>
-    <%= competitor_f.hidden_field :first_name %>
-    <%= competitor_f.hidden_field :last_name %>
-    <%= competitor_f.hidden_field :number %>
-    <%= competitor_f.hidden_field :start_time %>
-    <%= competitor_f.hidden_field :arrival_time %>
-    <%= competitor_f.hidden_field :shots_total_input %>
-    <%= competitor_f.hidden_field :estimate1 %>
-    <%= competitor_f.hidden_field :estimate2 %>
-    <%= competitor_f.hidden_field :estimate3 %>
-    <%= competitor_f.hidden_field :estimate4 %>
-    <%= competitor_f.hidden_field :no_result_reason %>
-    <%= competitor_f.hidden_field :correct_estimate1 %>
-    <%= competitor_f.hidden_field :correct_estimate2 %>
-    <%= competitor_f.hidden_field :correct_estimate3 %>
-    <%= competitor_f.hidden_field :correct_estimate4 %>
     <%= competitor_f.fields_for(:shots) do |shot_f| %>
       <%= shot_f.hidden_field :id, :value => '' %>
-      <%= shot_f.hidden_field :value %>
+      <% shot_attrs = shot_f.object.attribute_names-["id", "created_at",
+          "updated_at", "competitor_id"] %>
+      <% shot_attrs.each do |attr| %>
+        <%= shot_f.hidden_field attr %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
