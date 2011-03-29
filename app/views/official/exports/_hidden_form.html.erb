@@ -3,6 +3,7 @@
 <% race_attrs.each do |attr| %>
   <%= f.hidden_field attr %>
 <% end %>
+
 <%= f.fields_for(:clubs) do |club_f| %>
   <%= club_f.hidden_field :id, :value => '' %>
   <% club_attrs = club_f.object.attribute_names-["id", "created_at",
@@ -11,6 +12,7 @@
     <%= club_f.hidden_field attr %>
   <% end %>
 <% end %>
+
 <%= f.fields_for(:correct_estimates) do |ce_f| %>
   <%= ce_f.hidden_field :id, :value => '' %>
   <% ce_attrs = ce_f.object.attribute_names-["id", "created_at",
@@ -19,6 +21,7 @@
     <%= ce_f.hidden_field attr %>
   <% end %>
 <% end %>
+
 <%= f.fields_for(:series) do |series_f| %>
   <%= series_f.hidden_field :id, :value => '' %>
   <% series_attrs = series_f.object.attribute_names-["id", "created_at",
@@ -56,6 +59,7 @@
     <% end %>
   <% end %>
 <% end %>
+
 <%= f.fields_for(:relays) do |relay_f| %>
   <%= relay_f.hidden_field :id, :value => '' %>
   <% relay_attrs = relay_f.object.attribute_names-["id", "created_at",
@@ -88,10 +92,14 @@
     <% end %>
   <% end %>
 <% end %>
+
 <%= f.fields_for(:team_competitions) do |tc_f| %>
   <%= tc_f.hidden_field :id, :value => '' %>
-  <%= tc_f.hidden_field :name %>
-  <%= tc_f.hidden_field :team_competitor_count %>
+  <% tc_attrs = tc_f.object.attribute_names-["id", "created_at",
+      "updated_at", "race_id"] %>
+  <% tc_attrs.each do |attr| %>
+    <%= tc_f.hidden_field attr %>
+  <% end %>
   <%= tc_f.hidden_field :temp_series_names, :value => tc_f.object.series_names %>
   <%= tc_f.hidden_field :temp_age_groups_names, :value => tc_f.object.age_groups_names %>
 <% end %>
