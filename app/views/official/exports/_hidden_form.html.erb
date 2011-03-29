@@ -58,31 +58,33 @@
 <% end %>
 <%= f.fields_for(:relays) do |relay_f| %>
   <%= relay_f.hidden_field :id, :value => '' %>
-  <%= relay_f.hidden_field :name %>
-  <%= relay_f.hidden_field :legs_count %>
-  <%= relay_f.hidden_field :start_time %>
-  <%= relay_f.hidden_field :start_day %>
-  <%= relay_f.hidden_field :finished %>
+  <% relay_attrs = relay_f.object.attribute_names-["id", "created_at",
+      "updated_at", "race_id"] %>
+  <% relay_attrs.each do |attr| %>
+    <%= relay_f.hidden_field attr %>
+  <% end %>
   <%= relay_f.fields_for(:relay_correct_estimates) do |ce_f| %>
     <%= ce_f.hidden_field :id, :value => '' %>
-    <%= ce_f.hidden_field :leg %>
-    <%= ce_f.hidden_field :distance %>
+    <% ce_attrs = ce_f.object.attribute_names-["id", "created_at",
+        "updated_at", "relay_id"] %>
+    <% ce_attrs.each do |attr| %>
+      <%= ce_f.hidden_field attr %>
+    <% end %>
   <% end %>
   <%= relay_f.fields_for(:relay_teams) do |team_f| %>
     <%= team_f.hidden_field :id, :value => '' %>
-    <%= team_f.hidden_field :name %>
-    <%= team_f.hidden_field :number %>
-    <%= team_f.hidden_field :no_result_reason %>
+    <% team_attrs = team_f.object.attribute_names-["id", "created_at",
+        "updated_at", "relay_id"] %>
+    <% team_attrs.each do |attr| %>
+      <%= team_f.hidden_field attr %>
+    <% end %>
     <%= team_f.fields_for(:relay_competitors) do |comp_f| %>
       <%= comp_f.hidden_field :id, :value => '' %>
-      <%= comp_f.hidden_field :first_name %>
-      <%= comp_f.hidden_field :last_name %>
-      <%= comp_f.hidden_field :leg %>
-      <%= comp_f.hidden_field :start_time %>
-      <%= comp_f.hidden_field :arrival_time %>
-      <%= comp_f.hidden_field :misses %>
-      <%= comp_f.hidden_field :estimate %>
-      <%= comp_f.hidden_field :adjustment %>
+      <% competitor_attrs = comp_f.object.attribute_names-["id", "created_at",
+          "updated_at", "relay_team_id"] %>
+      <% competitor_attrs.each do |attr| %>
+        <%= comp_f.hidden_field attr %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
