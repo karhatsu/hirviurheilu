@@ -23,6 +23,7 @@ Feature: Export race
     And I have an ongoing race with attributes:
       | name | Offline race |
       | location | Offline city |
+      | home_page | www.test.com/offline_race |
     And the race has a club "Offline club" with long name "Long offline shooting club"
     And the race has series with attributes:
       | name | Offline series |
@@ -115,6 +116,7 @@ Feature: Export race
     But I should not see "kun kaikki tulokset on syötetty"
     When I follow "Kilpailu & sarjat"
     Then the "Paikkakunta" field should contain "Offline city"
+    And the "Linkki kilpailun omille sivuille" field should contain "www.test.com/offline_race"
     And the "Nimi" field should contain "Offline age group"
     And the "SE" field should contain "1050"
     When I follow "Seurat"
