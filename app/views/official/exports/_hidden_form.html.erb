@@ -1,11 +1,15 @@
-<% race_attrs = f.object.attribute_names-["id", "created_at", "updated_at", "series_count", "name"] %>
+<% race_attrs = f.object.attribute_names-["id", "created_at", "updated_at",
+    "series_count", "name"] %>
 <% race_attrs.each do |attr| %>
-  <%= f.hidden_field attr.to_sym %>
+  <%= f.hidden_field attr %>
 <% end %>
 <%= f.fields_for(:clubs) do |club_f| %>
+  <% club_attrs = club_f.object.attribute_names-["id", "created_at",
+      "updated_at", "race_id"] %>
   <%= club_f.hidden_field :id, :value => '' %>
-  <%= club_f.hidden_field :name %>
-  <%= club_f.hidden_field :long_name %>
+  <% club_attrs.each do |attr| %>
+    <%= club_f.hidden_field attr %>
+  <% end %>
 <% end %>
 <%= f.fields_for(:correct_estimates) do |ce_f| %>
   <%= ce_f.hidden_field :id, :value => '' %>
