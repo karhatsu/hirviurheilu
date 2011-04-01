@@ -13,10 +13,7 @@ class AgeGroup < ActiveRecord::Base
   end
 
   def best_time_in_seconds
-    if @seconds_cache
-      return @seconds_cache
-    end
-    @seconds_cache = Series.best_time_in_seconds(competitors)
+    @seconds_cache ||= Series.best_time_in_seconds(competitors)
   end
 
   private
