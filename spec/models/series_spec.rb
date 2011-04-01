@@ -83,35 +83,34 @@ describe Series do
 
     describe "static" do
       it "should return nil if no competitors" do
-        Series.best_time_in_seconds([]).should be_nil
+        series = mock_model(Series, :competitors => [])
+        Series.best_time_in_seconds(series).should be_nil
       end
 
       it "should return nil if no competitors with time" do
-        Series.best_time_in_seconds([@c1]).should be_nil
+        series = mock_model(Series, :competitors => [@c1])
+        Series.best_time_in_seconds(series).should be_nil
       end
 
       it "should return the time of the competitor who was the fastest and skip unfinished and unofficials" do
-        Series.best_time_in_seconds([@c1, @c2, @c3, @c4, @c5, @c6, @c7]).should == 341
+        series = mock_model(Series, :competitors => [@c1, @c2, @c3, @c4, @c5, @c6, @c7])
+        Series.best_time_in_seconds(series).should == 341
       end
     end
 
     describe "dynamic" do
       before do
         @series = Factory.create(:series)
-        @c1 = Factory.build(:competitor, :series => @series)
-        @c2 = Factory.build(:competitor, :series => @series)
-        @series.competitors << @c1
-        @series.competitors << @c2
       end
 
       it "should call static method" do
-        Series.should_receive(:best_time_in_seconds).with([@c1, @c2]).and_return(123)
+        Series.should_receive(:best_time_in_seconds).with(@series).and_return(123)
         @series.best_time_in_seconds.should == 123
       end
 
       describe "cache" do
         it "should calculate in the first time and get from cache in the second" do
-          Series.should_receive(:best_time_in_seconds).with([@c1, @c2]).once.and_return(148)
+          Series.should_receive(:best_time_in_seconds).with(@series).once.and_return(148)
           @series.best_time_in_seconds.should == 148
           @series.best_time_in_seconds.should == 148
         end

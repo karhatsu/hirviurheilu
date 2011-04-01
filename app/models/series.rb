@@ -26,12 +26,12 @@ class Series < ActiveRecord::Base
   before_destroy :prevent_destroy_if_competitors
 
   def best_time_in_seconds
-    @seconds_cache ||= Series.best_time_in_seconds(competitors)
+    @seconds_cache ||= Series.best_time_in_seconds(self)
   end
 
-  def self.best_time_in_seconds(competitors)
+  def self.best_time_in_seconds(group_with_competitors)
     times = []
-    competitors.each do |comp|
+    group_with_competitors.competitors.each do |comp|
       times << comp.time_in_seconds unless comp.time_in_seconds.nil? or
         comp.no_result_reason or comp.unofficial
     end

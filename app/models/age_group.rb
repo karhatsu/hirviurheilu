@@ -18,7 +18,7 @@ class AgeGroup < ActiveRecord::Base
 
   def best_time_in_seconds
     return nil unless has_enough_competitors?
-    @seconds_cache ||= Series.best_time_in_seconds(competitors)
+    @seconds_cache ||= Series.best_time_in_seconds(self)
   end
 
   private
