@@ -11,7 +11,7 @@
       <th>&nbsp;</th>
     <% end %>
   </tr>
-  <% series.competitors.each do |comp| %>
+  <% series.competitors.includes(:shots, :club, :age_group, :series).each do |comp| %>
     <tr id="competitor_<%= comp.id %>">
       <td>
         <%= link_to full_name(comp),
