@@ -67,14 +67,18 @@ describe Series do
     describe "static" do
       before do
         @series = Factory.create(:series)
-        @series.competitors << Factory.build(:competitor)
+        @series.competitors << Factory.build(:competitor, :series => @series)
         # below the time is 60 secs but the competitors are not valid
-        @series.competitors << Factory.build(:competitor, :start_time => '12:00:00')
-        @series.competitors << Factory.build(:competitor, :start_time => '12:00:00',
-          :arrival_time => '12:01:00', :no_result_reason => "DNS")
-        @series.competitors << Factory.build(:competitor, :start_time => '12:00:00',
-          :arrival_time => '12:01:00', :no_result_reason => "DNF")
-        @series.competitors << Factory.build(:competitor, :start_time => '12:00:00',
+        @series.competitors << Factory.build(:competitor, :series => @series,
+          :start_time => '12:00:00')
+        @series.competitors << Factory.build(:competitor, :series => @series,
+          :start_time => '12:00:00', :arrival_time => '12:01:00',
+          :no_result_reason => "DNS")
+        @series.competitors << Factory.build(:competitor, :series => @series,
+          :start_time => '12:00:00', :arrival_time => '12:01:00',
+          :no_result_reason => "DNF")
+        @series.competitors << Factory.build(:competitor, :series => @series,
+          :start_time => '12:00:00',
           :arrival_time => '12:01:00', :unofficial => true)
       end
 
@@ -88,11 +92,11 @@ describe Series do
       end
 
       it "should return the fastest time for official, finished competitors" do
-        @series.competitors << Factory.build(:competitor,
+        @series.competitors << Factory.build(:competitor, :series => @series,
           :start_time => '12:00:00', :arrival_time => '12:01:02') # 62 s
-        @series.competitors << Factory.build(:competitor,
+        @series.competitors << Factory.build(:competitor, :series => @series,
           :start_time => '12:00:01', :arrival_time => '12:01:03') # 62 s
-        @series.competitors << Factory.build(:competitor,
+        @series.competitors << Factory.build(:competitor, :series => @series,
           :start_time => '12:00:03', :arrival_time => '12:01:04') # 61 s
         Series.best_time_in_seconds(@series).should == 61
       end
