@@ -202,8 +202,6 @@ describe Competitor do
     end
   end
 
-
-
   describe "#sort" do
     before do
       @second_partial = mock_model(Competitor, :points => nil, :points! => 12,
@@ -882,22 +880,22 @@ describe Competitor do
     end
 
     context "when competitor belongs to an age group" do
-      context "and age group has enough competitors" do
+      before do
+        @age_group = Factory.build(:age_group)
+        @competitor.age_group = @age_group
+        @series.stub!(:best_time_in_seconds).and_return(555)
+      end
+
+      context "and age group provides best time (= it has enough competitors)" do
         it "should use age group's best time" do
-          age_group = Factory.build(:age_group)
-          @competitor.age_group = age_group
-          age_group.should_receive(:has_enough_competitors?).and_return(true)
-          age_group.should_receive(:best_time_in_seconds).and_return(123)
+          @age_group.should_receive(:best_time_in_seconds).and_return(123)
           @competitor.series_best_time_in_seconds.should == 123
         end
       end
 
-      context "but age group has not enough competitors" do
+      context "but age group does not provide best time" do
         it "should use the series best time" do
-          age_group = Factory.build(:age_group)
-          @competitor.age_group = age_group
-          age_group.should_receive(:has_enough_competitors?).and_return(false)
-          @series.should_receive(:best_time_in_seconds).and_return(555)
+          @age_group.should_receive(:best_time_in_seconds).and_return(nil)
           @competitor.series_best_time_in_seconds.should == 555
         end
       end

@@ -35,16 +35,27 @@ describe AgeGroup do
 
   describe "best_time_in_seconds" do
     before do
-      @age_group = Factory.create(:age_group)
+      @age_group = Factory.create(:age_group, :min_competitors => 2)
       @c1 = Factory.build(:competitor, :age_group => @age_group)
       @c2 = Factory.build(:competitor, :age_group => @age_group)
       @age_group.competitors << @c1
       @age_group.competitors << @c2
     end
 
-    it "should call static method in Series" do
-      Series.should_receive(:best_time_in_seconds).with([@c1, @c2]).and_return(123)
-      @age_group.best_time_in_seconds.should == 123
+    context "when enough competitors" do
+      it "should call static method in Series" do
+        Series.should_receive(:best_time_in_seconds).with([@c1, @c2]).and_return(123)
+        @age_group.best_time_in_seconds.should == 123
+      end
+    end
+
+    context "when not enough competitors" do
+      it "should return nil" do
+        @c1.destroy
+        @age_group.reload
+        Series.should_not_receive(:best_time_in_seconds)
+        @age_group.best_time_in_seconds.should be_nil
+      end
     end
 
     describe "cache" do
