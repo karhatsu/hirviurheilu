@@ -77,7 +77,7 @@ class Competitor < ActiveRecord::Base
     arrival_time - start_time
   end
 
-  def series_best_time_in_seconds
+  def comparison_time_in_seconds
     age_group_best = age_group.best_time_in_seconds if age_group
     return age_group_best if age_group_best
     series.best_time_in_seconds
@@ -133,14 +133,15 @@ class Competitor < ActiveRecord::Base
     return nil if series.no_time_points
     own_time = time_in_seconds
     return nil if own_time.nil?
-    best_time = series_best_time_in_seconds
+    best_time = comparison_time_in_seconds
     return nil if best_time.nil?
     if own_time < best_time
       if unofficial
         return 300
-      else
-        raise "Competitor time better than the best time and no DNS/DNF!" unless no_result_reason
+      elsif no_result_reason
         return nil
+      else
+        raise "Competitor time better than the best time and no DNS/DNF/unofficial!"
       end
     end
     points = 300 - (round_seconds(own_time) - round_seconds(best_time)) / 10
