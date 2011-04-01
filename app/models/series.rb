@@ -1,4 +1,5 @@
 class Series < ActiveRecord::Base
+  DB_ADAPTER = Rails.configuration.database_configuration[Rails.env]["adapter"]
   START_LIST_ADDING_ORDER = 0
   START_LIST_RANDOM = 1
 
@@ -30,13 +31,9 @@ class Series < ActiveRecord::Base
   end
 
   def self.best_time_in_seconds(group_with_competitors)
-    times = []
-    group_with_competitors.competitors.each do |comp|
-      times << comp.time_in_seconds unless comp.time_in_seconds.nil? or
-        comp.no_result_reason or comp.unofficial
-    end
-    times.sort!
-    times.first
+    time = group_with_competitors.competitors.minimum(time_subtraction_sql,
+      :conditions => {:unofficial => false, :no_result_reason => nil})
+    return time.to_i if time
   end
 
   def ordered_competitors
@@ -217,6 +214,12 @@ class Series < ActiveRecord::Base
   end
 
   private
+  def self.time_subtraction_sql
+    return "EXTRACT(EPOCH FROM (arrival_time-start_time))" if DB_ADAPTER == "postgresql"
+    return "strftime('%s', arrival_time)-strftime('%s', start_time)" if DB_ADAPTER == "sqlite3"
+    raise "Unknown database adapter"
+  end
+
   def prevent_destroy_if_competitors
     if competitors.count > 0
       errors.add(:base, "Sarjan voi poistaa vain jos siinä ei ole kilpailijoita")
