@@ -64,37 +64,37 @@ describe Series do
   end
 
   describe "#best_time_in_seconds" do
-    before do
-      @c1 = mock_model(Competitor, :time_in_seconds => nil,
-        :no_result_reason => nil, :unofficial => false)
-      @c2 = mock_model(Competitor, :time_in_seconds => 342,
-        :no_result_reason => nil, :unofficial => false)
-      @c3 = mock_model(Competitor, :time_in_seconds => 341,
-        :no_result_reason => nil, :unofficial => false)
-      @c4 = mock_model(Competitor, :time_in_seconds => 343,
-        :no_result_reason => nil, :unofficial => false)
-      @c5 = mock_model(Competitor, :time_in_seconds => 200,
-        :no_result_reason => "DNS", :unofficial => false)
-      @c6 = mock_model(Competitor, :time_in_seconds => 200,
-        :no_result_reason => "DNF", :unofficial => false)
-      @c7 = mock_model(Competitor, :time_in_seconds => 200,
-        :no_result_reason => nil, :unofficial => true)
-    end
-
     describe "static" do
+      before do
+        @series = Factory.create(:series)
+        @series.competitors << Factory.build(:competitor)
+        # below the time is 60 secs but the competitors are not valid
+        @series.competitors << Factory.build(:competitor, :start_time => '12:00:00')
+        @series.competitors << Factory.build(:competitor, :start_time => '12:00:00',
+          :arrival_time => '12:01:00', :no_result_reason => "DNS")
+        @series.competitors << Factory.build(:competitor, :start_time => '12:00:00',
+          :arrival_time => '12:01:00', :no_result_reason => "DNF")
+        @series.competitors << Factory.build(:competitor, :start_time => '12:00:00',
+          :arrival_time => '12:01:00', :unofficial => true)
+      end
+
       it "should return nil if no competitors" do
-        series = mock_model(Series, :competitors => [])
+        series = Factory.create(:series)
         Series.best_time_in_seconds(series).should be_nil
       end
 
-      it "should return nil if no competitors with time" do
-        series = mock_model(Series, :competitors => [@c1])
-        Series.best_time_in_seconds(series).should be_nil
+      it "should return nil if no official, finished competitors with time" do
+        Series.best_time_in_seconds(@series).should be_nil
       end
 
-      it "should return the time of the competitor who was the fastest and skip unfinished and unofficials" do
-        series = mock_model(Series, :competitors => [@c1, @c2, @c3, @c4, @c5, @c6, @c7])
-        Series.best_time_in_seconds(series).should == 341
+      it "should return the fastest time for official, finished competitors" do
+        @series.competitors << Factory.build(:competitor,
+          :start_time => '12:00:00', :arrival_time => '12:01:02') # 62 s
+        @series.competitors << Factory.build(:competitor,
+          :start_time => '12:00:01', :arrival_time => '12:01:03') # 62 s
+        @series.competitors << Factory.build(:competitor,
+          :start_time => '12:00:03', :arrival_time => '12:01:04') # 61 s
+        Series.best_time_in_seconds(@series).should == 61
       end
     end
 
