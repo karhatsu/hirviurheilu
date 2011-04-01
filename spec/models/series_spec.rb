@@ -127,7 +127,7 @@ describe Series do
       series = Factory.build(:series)
       competitors, included = ['a', 'b', 'c'], ['d', 'e']
       series.stub!(:competitors).and_return(competitors)
-      competitors.should_receive(:includes).with([:shots, :club, :age_group]).
+      competitors.should_receive(:includes).with([:shots, :club, :age_group, :series]).
         and_return(included)
       Competitor.should_receive(:sort).with(included).and_return([1, 2, 3])
       series.ordered_competitors.should == [1, 2, 3]
