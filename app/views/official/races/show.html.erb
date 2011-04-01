@@ -36,7 +36,7 @@
       <th class="center">Oikeat arviot</th>
       <th>&nbsp;</th>
     </tr>
-    <% @race.series.each do |s| %>
+    <% @race.series.includes(:competitors => [:shots, :series]).each do |s| %>
       <tr>
         <td><%= s.name %></td>
         <% competitor_count = s.competitors.count %>
