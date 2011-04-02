@@ -70,26 +70,7 @@ class Series < ActiveRecord::Base
   end
 
   def generate_numbers(order_method)
-    failure = false
-    error_start = 'Numeroita ei voi generoida'
-    unless first_number
-      errors.add(:base, "#{error_start}, sillä sarjan ensimmäistä numeroa ei ole määritetty")
-      failure = true
-    end
-    if some_competitor_has_arrival_time?
-      errors.add(:base, "#{error_start}, sillä osalla kilpailijoista on jo saapumisaika")
-      failure = true
-    end
-    if first_number
-      max_number = first_number + competitors.count - 1
-      unless race.competitors.where(['series_id<>? and number>=? and number<=?',
-          id, first_number, max_number]).empty?
-        errors.add(:base, "#{error_start}, sillä kilpailunumerot " +
-          "#{first_number}-#{max_number} eivät ole vapaana")
-        failure = true
-      end
-    end
-    return false if failure
+    return false unless can_generate_numbers?
 
     c = (order_method.to_i == START_LIST_RANDOM ?
         competitors.shuffle : Competitor.where(:series_id => id).order('id asc'))
@@ -232,5 +213,28 @@ class Series < ActiveRecord::Base
     if race and start_day > race.days_count
       errors.add(:start_day, "ei voi olla suurempi kuin kilpailupäivien määrä")
     end
+  end
+
+  def can_generate_numbers?
+    ok = true
+    error_start = 'Numeroita ei voi generoida'
+    unless first_number
+      errors.add(:base, "#{error_start}, sillä sarjan ensimmäistä numeroa ei ole määritetty")
+      ok = false
+    end
+    if some_competitor_has_arrival_time?
+      errors.add(:base, "#{error_start}, sillä osalla kilpailijoista on jo saapumisaika")
+      ok = false
+    end
+    if first_number
+      max_number = first_number + competitors.count - 1
+      unless race.competitors.where(['series_id<>? and number>=? and number<=?',
+          id, first_number, max_number]).empty?
+        errors.add(:base, "#{error_start}, sillä kilpailunumerot " +
+          "#{first_number}-#{max_number} eivät ole vapaana")
+        ok = false
+      end
+    end
+    ok
   end
 end
