@@ -10,6 +10,8 @@ class Official::CompetitorsController < Official::OfficialController
     # for start list generation:
     @order_method = params[:order_method] ? params[:order_method].to_i :
       Series::START_LIST_RANDOM
+    @series.first_number = @series.race.next_start_number unless @series.first_number
+    @series.start_time = @series.race.next_start_time unless @series.start_time
   end
 
   def new

@@ -144,6 +144,18 @@ class Race < ActiveRecord::Base
     day
   end
 
+  def next_start_number
+    competitors.maximum(:number).to_i + 1
+  end
+
+  def next_start_time
+    max_time = competitors.maximum(:start_time)
+    return nil unless max_time
+    start_time = max_time + start_interval_seconds
+    start_time += (60 - start_time.sec) unless start_time.sec == 0
+    start_time
+  end
+
   private
   def end_date_not_before_start_date
     if end_date and end_date < start_date

@@ -38,6 +38,35 @@ Feature: Generate start list
     And I should see "16" within "tr#competitor_2/td[3]"
     And I should see "13:45:45" within "tr#competitor_2/td[4]"
 
+  Scenario: Propose next number and start time for the second series
+    Given I am an official
+    And I have logged in
+    And I have a race with attributes:
+      | name | Test race |
+      | start_date | 2010-11-15 |
+      | start_interval_seconds | 45 |
+    And the race has series with attributes:
+      | name | Test series |
+      | first_number | 10 |
+      | start_time | 13:45:00 |
+    And the series has a competitor
+    And the series has a competitor
+    And the series has a competitor
+    And the start list has been generated for the series
+    And the race has series with attributes:
+      | name | Another series |
+    And the series has a competitor with attributes:
+      | first_name | Mathew |
+      | last_name | Peterson |
+    When I go to the official competitors page of the series
+    Then the "Sarjan ensimmäinen numero" field should contain "13"
+    And the "series_start_time_4i" field should contain "13"
+    And the "series_start_time_5i" field should contain "48"
+    When I follow "Test series"
+    Then the "Sarjan ensimmäinen numero" field should contain "10"
+    And the "series_start_time_4i" field should contain "13"
+    And the "series_start_time_5i" field should contain "45"
+
   Scenario: No competitors added yet
     Given I am an official
     And I have a race "Test race"

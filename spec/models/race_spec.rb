@@ -528,4 +528,62 @@ describe Race do
       end
     end
   end
+
+  describe "#next_start_number" do
+    before do
+      @race = Factory.create(:race)
+      @series = Factory.build(:series, :race => @race)
+      @race.series << @series
+    end
+
+    it "should return 1 when no competitors" do
+      @race.next_start_number.should == 1
+    end
+
+    it "should return 1 when competitors without numbers" do
+      @series.competitors << Factory.build(:competitor, :series => @series, :number => nil)
+      @race.next_start_number.should == 1
+    end
+
+    it "should return the biggest competitor number + 1 when competitors with numbers" do
+      @series.competitors << Factory.build(:competitor, :series => @series, :number => 2)
+      @series.competitors << Factory.build(:competitor, :series => @series, :number => 8)
+      @race.next_start_number.should == 9
+    end
+  end
+
+  describe "#next_start_time" do
+    before do
+      @race = Factory.create(:race, :start_interval_seconds => 40)
+      @series = Factory.build(:series, :race => @race)
+      @race.series << @series
+    end
+
+    it "should return nil when no competitors" do
+      @race.next_start_time.should be_nil
+    end
+
+    it "should return nil when competitors without start times" do
+      @series.competitors << Factory.build(:competitor, :series => @series)
+      @race.next_start_time.should be_nil
+    end
+
+    context "when competitors with start times" do
+      it "should return the biggest competitor start time + time interval" do
+        @series.competitors << Factory.build(:competitor, :series => @series,
+          :start_time => '10:34:11')
+        @series.competitors << Factory.build(:competitor, :series => @series,
+          :start_time => '18:06:20')
+        @race.next_start_time.strftime('%H:%M:%S').should == '18:07:00'
+      end
+
+      it "should round up the suggested start time to full minutes" do
+        @series.competitors << Factory.build(:competitor, :series => @series,
+          :start_time => '10:34:11')
+        @series.competitors << Factory.build(:competitor, :series => @series,
+          :start_time => '18:03:21')
+        @race.next_start_time.strftime('%H:%M:%S').should == '18:05:00'
+      end
+    end
+  end
 end
