@@ -234,9 +234,7 @@ class Series < ActiveRecord::Base
     competitors.each do |comp|
       time_diff = time_diff_to_series_start_time(comp, interval,
         batch_size, last_batch_start, last_batch_size, batch_interval)
-      time = start_time + time_diff
-      # if the calculated time is saved as such, the time zone changes to UTC
-      comp.update_attribute(:start_time, time.strftime('%H:%M:%S'))
+      comp.update_attribute(:start_time, start_time + time_diff)
     end
   end
 
