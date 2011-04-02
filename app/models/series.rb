@@ -1,5 +1,6 @@
+require 'database_helper.rb'
+
 class Series < ActiveRecord::Base
-  DB_ADAPTER = Rails.configuration.database_configuration[Rails.env]["adapter"]
   START_LIST_ADDING_ORDER = 0
   START_LIST_RANDOM = 1
 
@@ -215,8 +216,8 @@ class Series < ActiveRecord::Base
 
   private
   def self.time_subtraction_sql
-    return "EXTRACT(EPOCH FROM (arrival_time-start_time))" if DB_ADAPTER == "postgresql"
-    return "strftime('%s', arrival_time)-strftime('%s', start_time)" if DB_ADAPTER == "sqlite3"
+    return "EXTRACT(EPOCH FROM (arrival_time-start_time))" if DatabaseHelper.postgres?
+    return "strftime('%s', arrival_time)-strftime('%s', start_time)" if DatabaseHelper.sqlite3?
     raise "Unknown database adapter"
   end
 
