@@ -95,53 +95,21 @@ class Series < ActiveRecord::Base
 
   def generate_start_times
     reload
-    failure = false
-    error_start = 'Lähtöaikoja ei voi generoida'
-    unless start_time
-      errors.add(:base, "#{error_start}, sillä sarjan lähtöaikaa ei ole määritetty")
-      failure = true
-    end
-    unless first_number
-      errors.add(:base, "#{error_start}, sillä sarjan ensimmäistä numeroa ei ole määritetty")
-      failure = true
-    end
-    unless each_competitor_has_number?
-      errors.add(:base, "#{error_start}, sillä kaikilla kilpailijoilla ei ole numeroa")
-      failure = true
-    end
-    if some_competitor_has_arrival_time?
-      errors.add(:base, "#{error_start}, sillä osalla kilpailijoista on jo saapumisaika")
-      failure = true
-    end
-    return false if failure
+    return false unless can_generate_start_times?
 
-    interval = race.start_interval_seconds
+    last_number = competitors.last.number
     batch_size = race.batch_size
-    batch_interval = race.batch_interval_seconds - interval
+    batch_interval = race.batch_interval_seconds - race.start_interval_seconds
     # calculate where last (possibly partial) batch starts
     if batch_size > 0
-      last_batch_size = (competitors.last.number - first_number + 1) % batch_size
-      last_batch_start = 
-        Integer((competitors.last.number - first_number + 1) / batch_size) * batch_size + first_number
+      last_batch_size = (last_number - first_number + 1) % batch_size
+      last_batch_start = first_number +
+        ((last_number - first_number + 1) / batch_size).to_i * batch_size
     end
-    if last_batch_start == first_number
-      batch_size = 0
-    end
+    batch_size = 0 if last_batch_start == first_number
 
-    competitors.each do |comp|
-      # if the calculated time is saved as such, the time zone changes to UTC
-      comp_num_diff = (comp.number - first_number)
-      timediff = comp_num_diff * interval
-      if batch_size > 0
-        timediff += Integer(comp_num_diff / batch_size) * batch_interval
-        if comp.number >= last_batch_start && last_batch_size <= batch_size*2/3
-          # partial batch less than 2/3 of batch size, attach to previous batch
-          timediff -= batch_interval
-        end
-      end
-      time = start_time + timediff
-      comp.update_attribute(:start_time, time.strftime('%H:%M:%S'))
-    end
+    set_start_times_for_competitors(competitors, batch_size,
+      last_batch_start, last_batch_size, batch_interval)
     true
   end
 
@@ -236,5 +204,56 @@ class Series < ActiveRecord::Base
       end
     end
     ok
+  end
+
+  def can_generate_start_times?
+    ok = true
+    error_start = 'Lähtöaikoja ei voi generoida'
+    unless start_time
+      errors.add(:base, "#{error_start}, sillä sarjan lähtöaikaa ei ole määritetty")
+      ok = false
+    end
+    unless first_number
+      errors.add(:base, "#{error_start}, sillä sarjan ensimmäistä numeroa ei ole määritetty")
+      ok = false
+    end
+    unless each_competitor_has_number?
+      errors.add(:base, "#{error_start}, sillä kaikilla kilpailijoilla ei ole numeroa")
+      ok = false
+    end
+    if some_competitor_has_arrival_time?
+      errors.add(:base, "#{error_start}, sillä osalla kilpailijoista on jo saapumisaika")
+      ok = false
+    end
+    ok
+  end
+
+  def set_start_times_for_competitors(competitors, batch_size,
+      last_batch_start, last_batch_size, batch_interval)
+    interval = race.start_interval_seconds
+    competitors.each do |comp|
+      time_diff = time_diff_to_series_start_time(comp, interval,
+        batch_size, last_batch_start, last_batch_size, batch_interval)
+      time = start_time + time_diff
+      # if the calculated time is saved as such, the time zone changes to UTC
+      comp.update_attribute(:start_time, time.strftime('%H:%M:%S'))
+    end
+  end
+
+  def time_diff_to_series_start_time(competitor, interval, batch_size,
+      last_batch_start, last_batch_size, batch_interval)
+    comp_num_diff = (competitor.number - first_number)
+    time_diff = comp_num_diff * interval
+    if batch_size > 0
+      time_diff += (comp_num_diff / batch_size).to_i * batch_interval
+      if batch_too_small?(competitor, last_batch_start, last_batch_size, batch_size)
+        time_diff -= batch_interval # attach to previous batch
+      end
+    end
+    time_diff
+  end
+
+  def batch_too_small?(competitor, last_batch_start, last_batch_size, batch_size)
+    competitor.number >= last_batch_start && last_batch_size <= batch_size*2/3
   end
 end
