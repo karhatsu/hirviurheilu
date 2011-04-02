@@ -22,7 +22,7 @@
         <th><%= t "attributes.club" %></th>
         <th>Lähtöaika</th>
       </tr>
-      <% @series.start_list.each_with_index do |comp, i| %>
+      <% @series.start_list.includes(:club, :age_group).each_with_index do |comp, i| %>
         <tr id="comp_<%= i + 1 %>">
           <td><%= comp.number %></td>
           <td><%= full_name(comp) %>
