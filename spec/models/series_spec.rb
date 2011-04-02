@@ -100,6 +100,17 @@ describe Series do
           :start_time => '12:00:03', :arrival_time => '12:01:04') # 61 s
         Series.best_time_in_seconds(@series).should == 61
       end
+
+      it "should use postgres syntax when postgres database" do
+        competitors = mock(Array)
+        DatabaseHelper.should_receive(:postgres?).and_return(true)
+        @series.should_receive(:competitors).and_return(competitors)
+        competitors.should_receive(:minimum).
+          with("EXTRACT(EPOCH FROM (arrival_time-start_time))",
+          :conditions => {:unofficial => false, :no_result_reason => nil}).
+          and_return(123)
+        Series.best_time_in_seconds(@series).should == 123
+      end
     end
 
     describe "dynamic" do
