@@ -116,7 +116,7 @@
       <% @race.relays.each do |relay| %>
         <tr>
           <td><%= link_to relay.name, race_relay_path(@race, relay) %></td>
-          <td><%= series_datetime_print relay, true if relay.start_time %></td>
+          <td><%= series_datetime_print relay, true, true if relay.start_time %></td>
           <td class="center"><%= relay.relay_teams.count %></td>
         </tr>
       <% end %>

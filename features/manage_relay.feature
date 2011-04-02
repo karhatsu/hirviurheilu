@@ -41,7 +41,7 @@ Feature: Manager relays
     Then I should be on the official relays page of "Relay race"
     And I should see "Test relay"
     And I should see "3"
-    And I should see "11:45"
+    And I should see "11:45:30"
 
   Scenario: Edit relay
     Given I am an official
@@ -62,7 +62,7 @@ Feature: Manager relays
     Then I should be on the official relays page of "Relay race"
     And I should see "Viestin tiedot päivitetty" within "div.success"
     And I should see "New name"
-    And I should see "08:12"
+    And I should see "08:12:00"
 
   Scenario: Finish relay
     Given I am an official

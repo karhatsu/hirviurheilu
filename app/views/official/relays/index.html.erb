@@ -15,7 +15,7 @@
         <tr>
           <td><%= link_to relay.name, edit_official_race_relay_path(@race, relay) %></td>
           <td class="center"><%= relay.legs_count %></td>
-          <td><%= series_datetime_print relay, true if relay.start_time %></td>
+          <td><%= series_datetime_print relay, true, true if relay.start_time %></td>
           <td class="center"><%= relay.relay_teams.count %></td>
           <td><%= link_to 'Tulosten pikasyöttö',
               official_relay_relay_quick_saves_path(relay) %></td>
