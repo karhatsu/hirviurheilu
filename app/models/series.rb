@@ -156,8 +156,13 @@ class Series < ActiveRecord::Base
   end
 
   def running?
-    race.race_day == start_day and !race.finished and
-      seconds_for_day(Time.zone.now) >= seconds_for_day(start_time)
+    !race.finished and
+      ((series_today? and seconds_for_day(Time.zone.now) >= seconds_for_day(start_time)) or
+        race.start_date < Time.zone.today)
+  end
+
+  def series_today?
+    race.race_day == start_day
   end
 
   def each_competitor_has_correct_estimates?

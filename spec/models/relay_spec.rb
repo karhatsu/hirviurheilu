@@ -338,6 +338,12 @@ describe Relay do
       @relay.should be_active
     end
 
+    it "should return true when the relay was yesterday but is not finished yet" do
+      @race.start_date = Date.today - 1
+      @relay.start_time = (Time.now + 100).strftime('%H:%M:%S') # time shouldn't matter
+      @relay.should be_active
+    end
+
     it "should return false when the race is not today" do
       @race.start_date = Date.today + 1
       @relay.should_not be_active
