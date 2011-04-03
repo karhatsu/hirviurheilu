@@ -618,6 +618,11 @@ describe Series do
       @series.should be_active
     end
 
+    it "should return false when no start time defined" do
+      @series.start_time = nil
+      @series.should_not be_active
+    end
+
     it "should return false when the race will start in the future" do
       @race.start_date = Date.today + 1
       @series.should_not be_active

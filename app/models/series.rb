@@ -156,7 +156,7 @@ class Series < ActiveRecord::Base
   end
 
   def active?
-    !race.finished and started?
+    start_time and !race.finished and started?
   end
 
   def started?

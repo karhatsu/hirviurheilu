@@ -344,6 +344,11 @@ describe Relay do
       @relay.should be_active
     end
 
+    it "should return false when no start time defined" do
+      @relay.start_time = nil
+      @relay.should_not be_active
+    end
+
     it "should return false when the race is not today" do
       @race.start_date = Date.today + 1
       @relay.should_not be_active

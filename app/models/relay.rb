@@ -85,7 +85,7 @@ class Relay < ActiveRecord::Base
   end
 
   def active?
-    !finished and started?
+    start_time and !finished and started?
   end
 
   def started?
