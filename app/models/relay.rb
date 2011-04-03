@@ -1,4 +1,8 @@
+require 'time_helper.rb'
+
 class Relay < ActiveRecord::Base
+  include TimeHelper
+  
   belongs_to :race
   has_many :relay_teams, :order => 'number'
   has_many :relay_correct_estimates, :order => 'leg'
@@ -81,7 +85,8 @@ class Relay < ActiveRecord::Base
   end
 
   def active?
-    start_time and start_time < Time.zone.now and not finished?
+    race.race_day == start_day and !finished and
+      seconds_for_day(Time.zone.now) >= seconds_for_day(start_time)
   end
 
   def finish!

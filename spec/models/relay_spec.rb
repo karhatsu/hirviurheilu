@@ -327,24 +327,35 @@ describe Relay do
   end
 
   describe "#active?" do
-    it "should be false when start time not defined yet" do
-      relay = Factory.build(:relay, :start_time => nil)
-      relay.should_not be_active
+    before do
+      @race = Factory.build(:race, :start_date => Date.today,
+        :end_date => Date.today + 1)
+      @relay = Factory.build(:relay, :race => @race, :start_day => 1,
+        :start_time => (Time.now - 10).strftime('%H:%M:%S'), :finished => false)
     end
 
-    it "should be false when start time in future" do
-      relay = Factory.build(:relay, :start_time => Time.now + 10)
-      relay.should_not be_active
+    it "should return true when the relay is today and started but not finished yet" do
+      @relay.should be_active
     end
 
-    it "should be false when relay is finished" do
-      relay = Factory.build(:relay, :finished => true, :start_time => Time.now - 1)
-      relay.should_not be_active
+    it "should return false when the race is not today" do
+      @race.start_date = Date.today + 1
+      @relay.should_not be_active
     end
 
-    it "should be true when relay isn't finished and start time in past" do
-      relay = Factory.build(:relay, :finished => false, :start_time => Time.now - 1)
-      relay.should be_active
+    it "should return false when the relay is not today" do
+      @relay.start_day = 2
+      @relay.should_not be_active
+    end
+
+    it "should return false when the relay is today but has not started yet" do
+      @relay.start_time = (Time.now + 100).strftime('%H:%M:%S')
+      @relay.should_not be_active
+    end
+
+    it "should return false when the relay is finished" do
+      @relay.finished = true
+      @relay.should_not be_active
     end
   end
 end
