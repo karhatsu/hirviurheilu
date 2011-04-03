@@ -85,12 +85,15 @@ class Relay < ActiveRecord::Base
   end
 
   def active?
-    !finished and
-      ((relay_today? and seconds_for_day(Time.zone.now) >= seconds_for_day(start_time)) or
-        race.start_date < Time.zone.today)
+    !finished and started?
   end
 
-  def relay_today?
+  def started?
+    (today? and seconds_for_day(Time.zone.now) >= seconds_for_day(start_time)) or
+      race.start_date < Time.zone.today
+  end
+
+  def today?
     race.race_day == start_day
   end
 
