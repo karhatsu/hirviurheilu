@@ -1,6 +1,9 @@
 require 'database_helper.rb'
+require 'time_helper.rb'
 
 class Series < ActiveRecord::Base
+  include TimeHelper
+
   START_LIST_ADDING_ORDER = 0
   START_LIST_RANDOM = 1
 
@@ -153,7 +156,8 @@ class Series < ActiveRecord::Base
   end
 
   def running?
-    start_time and start_time < Time.zone.now and not race.finished
+    race.race_day == start_day and !race.finished and
+      seconds_for_day(Time.zone.now) >= seconds_for_day(start_time)
   end
 
   def each_competitor_has_correct_estimates?

@@ -599,26 +599,36 @@ describe Series do
   end
 
   describe "#running?" do
-    it "should be false when start time not defined yet" do
-      series = Factory.build(:series, :start_time => nil)
-      series.should_not be_running
+    before do
+      @race = Factory.build(:race, :start_date => Date.today,
+        :end_date => Date.today + 1, :finished => false)
+      @series = Factory.build(:series, :race => @race, :start_day => 1,
+        :start_time => (Time.now - 10).strftime('%H:%M:%S'))
     end
 
-    it "should be false when start time in future" do
-      series = Factory.build(:series, :start_time => Time.now + 10)
-      series.should_not be_running
+    it "should return true when the series is today and started " +
+        "but the race not finished yet" do
+      @series.should be_running
     end
 
-    it "should be false when race is finished" do
-      race = Factory.build(:race, :finished => true)
-      series = Factory.build(:series, :start_time => Time.now - 1, :race => race)
-      series.should_not be_running
+    it "should return false when the race is not today" do
+      @race.start_date = Date.today + 1
+      @series.should_not be_running
     end
 
-    it "should be true when race isn't finished and start time in past" do
-      race = Factory.build(:race, :finished => false)
-      series = Factory.build(:series, :start_time => Time.now - 1, :race => race)
-      series.should be_running
+    it "should return false when the series is not today" do
+      @series.start_day = 2
+      @series.should_not be_running
+    end
+
+    it "should return false when the series is today but has not started yet" do
+      @series.start_time = (Time.now + 100).strftime('%H:%M:%S')
+      @series.should_not be_running
+    end
+
+    it "should return false when the race is finished" do
+      @race.finished = true
+      @series.should_not be_running
     end
   end
 
