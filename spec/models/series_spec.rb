@@ -598,7 +598,7 @@ describe Series do
     end
   end
 
-  describe "#running?" do
+  describe "#active?" do
     before do
       @race = Factory.build(:race, :start_date => Date.today,
         :end_date => Date.today + 1, :finished => false)
@@ -608,34 +608,34 @@ describe Series do
 
     it "should return true when the series is today and started " +
         "but the race not finished yet" do
-      @series.should be_running
+      @series.should be_active
     end
 
     it "should return true when the series was yesterday " +
         "but the race is not finished yet" do
       @race.start_date = Date.today - 1
       @series.start_time = (Time.now + 100).strftime('%H:%M:%S') # time shouldn't matter
-      @series.should be_running
+      @series.should be_active
     end
 
     it "should return false when the race will start in the future" do
       @race.start_date = Date.today + 1
-      @series.should_not be_running
+      @series.should_not be_active
     end
 
     it "should return false when the race has started but the series is not today" do
       @series.start_day = 2
-      @series.should_not be_running
+      @series.should_not be_active
     end
 
     it "should return false when the series is today but has not started yet" do
       @series.start_time = (Time.now + 100).strftime('%H:%M:%S')
-      @series.should_not be_running
+      @series.should_not be_active
     end
 
     it "should return false when the race is finished" do
       @race.finished = true
-      @series.should_not be_running
+      @series.should_not be_active
     end
   end
 

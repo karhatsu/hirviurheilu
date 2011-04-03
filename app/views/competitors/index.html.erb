@@ -1,5 +1,5 @@
 <% content_for(:title, "#{@series.name} - #{series_result_title(@series)}") %>
-<% if @series.running? %>
+<% if @series.active? %>
   <% content_for(:refresh, true) %>
 <% end %>
 <h2><%= yield :title %></h2>
@@ -10,7 +10,7 @@
   <% end %>
 <% end %>
 <%= render :partial => "start_notice", :locals => { :series => @series } %>
-<% if @series.running? %>
+<% if @series.active? %>
   <div class="info">Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan
     kilpailun päätyttyä.</div>
 <% end %>

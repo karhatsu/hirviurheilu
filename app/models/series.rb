@@ -155,7 +155,7 @@ class Series < ActiveRecord::Base
     true
   end
 
-  def running?
+  def active?
     !race.finished and
       ((series_today? and seconds_for_day(Time.zone.now) >= seconds_for_day(start_time)) or
         race.start_date < Time.zone.today)
