@@ -156,12 +156,15 @@ class Series < ActiveRecord::Base
   end
 
   def active?
-    !race.finished and
-      ((series_today? and seconds_for_day(Time.zone.now) >= seconds_for_day(start_time)) or
-        race.start_date < Time.zone.today)
+    !race.finished and started?
   end
 
-  def series_today?
+  def started?
+    (today? and seconds_for_day(Time.zone.now) >= seconds_for_day(start_time)) or
+        race.start_date < Time.zone.today
+  end
+
+  def today?
     race.race_day == start_day
   end
 
