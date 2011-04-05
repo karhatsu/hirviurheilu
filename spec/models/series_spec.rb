@@ -860,8 +860,10 @@ describe Series do
       end
       
       it "should return the object with local zone" do
+        original_zone = Time.zone
         Time.zone = 'Hawaii'
         @series.start_datetime.zone.should == 'HST'
+        Time.zone = original_zone # must reset back to original!
       end
       
       it "should return the correct date when series start day is not 1" do
