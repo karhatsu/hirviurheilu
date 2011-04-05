@@ -167,8 +167,7 @@ class Series < ActiveRecord::Base
   end
 
   def started?
-    (today? and seconds_for_day(Time.zone.now) >= seconds_for_day(start_time)) or
-        race.start_date < Time.zone.today
+    start_datetime < Time.zone.now
   end
 
   def today?
