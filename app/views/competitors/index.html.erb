@@ -9,7 +9,6 @@
     <%= series_competitors_path(series) %>
   <% end %>
 <% end %>
-<%= render :partial => "start_notice", :locals => { :series => @series } %>
 <% if @series.active? %>
   <div class="info">Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan
     kilpailun päätyttyä.</div>
@@ -19,6 +18,13 @@
   <% if official_rights %>
     <div><%= link_to "Lisää kilpailijoita", new_official_series_competitor_path(@series) %></div>
   <% end %>
+<% elsif !@series.has_start_list? %>
+  <div class="info">Sarjan lähtölistaa ei ole vielä luotu</div>
+<% elsif !@series.started? %>
+  <div class="info">
+    Sarjan lähtöaika: <%= datetime_print(@series.start_datetime, true) %>.
+    Sarjan alkuun on aikaa <%= distance_of_time_in_words(Time.zone.now, @series.start_datetime) %>.
+  </div>
 <% else %>
   <% if @series.no_time_points %>
     <div class="info">Tälle sarjalle ei lasketa aikapisteitä.</div>

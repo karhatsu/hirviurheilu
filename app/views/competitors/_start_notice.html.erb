@@ -1,5 +1,5 @@
-<% if series.start_time and series.start_time > Time.now %>
+<% if series.start_time and series.start_datetime > Time.zone.now %>
   <div class="info">
-    Sarjan startti: <%= series_datetime_print(series, true) %>
+    Sarjan lähtöaika: <%= series_datetime_print(series, true) %>
   </div>
 <% end %>

@@ -46,6 +46,10 @@ Given /^there is an ongoing race with attributes:$/ do |fields|
   @race = Factory.create(:race, {:start_date => Date.today}.merge(fields.rows_hash))
 end
 
+Given /^there is a race "([^"]*)" in the future$/ do |name|
+  @race = Factory.create(:race, :start_date => Date.today + 1, :name => name)
+end
+
 Given /^the race is finished$/ do
   @race.reload
   @race.finish!

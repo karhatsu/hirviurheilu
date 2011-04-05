@@ -12,6 +12,33 @@ Feature: Results
     But I should not see "Tulokset" within "h2"
     And I should not see "Väliaikatulokset" within "h2"
     And I should see "Tähän sarjaan ei ole merkitty kilpailijoita." within "div.info"
+    
+  Scenario: The series has no start list yet
+    Given there is a race "My race" in the future
+    And the race has series "My series"
+    And the series has a competitor
+    When I go to the results page of the series
+    Then I should see "My series - (Sarja ei ole vielä alkanut)" within "h2"
+    But I should not see "Tulokset" within "h2"
+    And I should not see "Väliaikatulokset" within "h2"
+    And I should see "Sarjan lähtölistaa ei ole vielä luotu" within "div.info"
+    And I should not see "Lataa tulokset pdf-tiedostona"
+
+  Scenario: The series has a start list but it has not started yet
+    Given there is a race "My race" in the future
+    And the race has series with attributes:
+      | name | My series |
+      | first_number | 1 |
+      | start_time | 14:30 |
+    And the series has a competitor
+    And the start list has been generated for the series
+    When I go to the results page of the series
+    Then I should see "My series - (Sarja ei ole vielä alkanut)" within "h2"
+    But I should not see "Tulokset" within "h2"
+    And I should not see "Väliaikatulokset" within "h2"
+    And I should see "Sarjan lähtöaika" within "div.info"
+    And I should see "Sarjan alkuun on aikaa" within "div.info"
+    And I should not see "Lataa tulokset pdf-tiedostona"
 
   Scenario: Go to see the final results of a series
     Given there is a race with attributes:

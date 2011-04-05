@@ -355,6 +355,7 @@ module ApplicationHelper
 
   def series_result_title(series)
     return '(Ei kilpailijoita)' if series.competitors.empty?
+    return '(Sarja ei ole vielä alkanut)' unless series.started?
     return 'Tulokset' if series.race.finished?
     return "Väliaikatulokset (päivitetty: #{datetime_print(series.competitors.
       maximum(:updated_at), true, true, '-', true)})"

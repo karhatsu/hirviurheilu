@@ -752,12 +752,17 @@ describe ApplicationHelper do
       @competitors = mock(Array)
       @competitors.stub!(:empty?).and_return(false)
       @race = mock_model(Race, :finished? => false)
-      @series = mock_model(Series, :race => @race, :competitors => @competitors)
+      @series = mock_model(Series, :race => @race, :competitors => @competitors, :started? => true)
     end
     
     it "should return '(Ei kilpailijoita)' when no competitors" do
       @competitors.should_receive(:empty?).and_return(true)
       series_result_title(@series).should == '(Ei kilpailijoita)'
+    end
+    
+    it "should return '(Sarja ei ole vielä alkanut)' when the series has not started yet" do
+      @series.should_receive(:started?).and_return(false)
+      series_result_title(@series).should == '(Sarja ei ole vielä alkanut)'
     end
     
     it "should return 'Tulokset' when competitors and the race is finished" do
