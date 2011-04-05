@@ -57,13 +57,6 @@ class Series < ActiveRecord::Base
     return start_time if start_time
     nil
   end
-  
-  def start_datetime
-    return nil unless start_time and race and race.start_date
-    time = Time.zone.local(race.start_date.year, race.start_date.month,
-      race.start_date.day, start_time.hour, start_time.min, start_time.sec)
-    time.advance(:days => start_day - 1)
-  end
 
   def generate_start_list(order_method)
     return false unless generate_numbers(order_method)
@@ -163,11 +156,18 @@ class Series < ActiveRecord::Base
   end
 
   def active?
-    start_time and !race.finished and started?
+    !race.finished and started?
   end
 
   def started?
-    start_datetime < Time.zone.now
+    start_time and start_datetime < Time.zone.now
+  end
+  
+  def start_datetime
+    return nil unless start_time and race and race.start_date
+    time = Time.zone.local(race.start_date.year, race.start_date.month,
+      race.start_date.day, start_time.hour, start_time.min, start_time.sec)
+    time.advance(:days => start_day - 1)
   end
 
   def today?
