@@ -781,36 +781,39 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#relay_result_title" do
-    context "when relay is finished" do
-      it "should return 'Tulokset'" do
-        relay = mock_model(Relay, :finished? => true)
-        relay_result_title(relay).should == 'Tulokset'
-      end
+  describe "#series_result_title" do
+    before do
+      @competitors = mock(Array)
+      @teams = mock(Array)
+      @teams.stub!(:empty?).and_return(false)
+      @race = mock_model(Race)
+      @relay = mock_model(Relay, :race => @race, :started? => true,
+        :relay_teams => @teams, :finished? => false)
+    end
+    
+    it "should return '(Ei joukkueita)' when no teams" do
+      @teams.should_receive(:empty?).and_return(true)
+      relay_result_title(@relay).should == '(Ei joukkueita)'
+    end
+    
+    it "should return '(Viesti ei ole vielä alkanut)' when the relay has not started yet" do
+      @relay.should_receive(:started?).and_return(false)
+      relay_result_title(@relay).should == '(Viesti ei ole vielä alkanut)'
+    end
+    
+    it "should return 'Tulokset' when teams and the race is finished" do
+      @relay.should_receive(:finished?).and_return(true)
+      relay_result_title(@relay).should == 'Tulokset'
     end
 
-    context "when relay is not finished" do
-      before do
-        @relay = mock_model(Relay, :finished? => false)
-        @competitors = mock(Array)
-        @relay.should_receive(:relay_competitors).and_return(@competitors)
-      end
-
-      context "and no competitors" do
-        it "should return 'Välikaikatulokset (päivitetty: -)'" do
-          @competitors.should_receive(:maximum).with(:updated_at).and_return(nil)
-          relay_result_title(@relay).should == 'Väliaikatulokset (päivitetty: -)'
-        end
-      end
-
-      context "and has competitors" do
-        it "should return 'Väliaikatulokset (päivitetty: <time>)' with local time" do
-          Time.zone = 'Tokyo' # UTC+9 (without summer time so that test settings won't change) 
-          time = Time.utc(2011, 5, 13, 13, 45, 58)
-          @competitors.should_receive(:maximum).with(:updated_at).and_return(time) # db return UTC
-          relay_result_title(@relay).should == 'Väliaikatulokset (päivitetty: 13.05.2011 22:45:58)'
-        end
-      end
+    it "should return 'Väliaikatulokset (päivitetty: <time>)' when relay still active" do
+      original_zone = Time.zone
+      Time.zone = 'Tokyo' # UTC+9 (without summer time so that test settings won't change) 
+      time = Time.utc(2011, 5, 13, 13, 45, 58)
+      @relay.should_receive(:relay_competitors).and_return(@competitors)
+      @competitors.should_receive(:maximum).with(:updated_at).and_return(time) # db return UTC
+      relay_result_title(@relay).should == 'Väliaikatulokset (päivitetty: 13.05.2011 22:45:58)'
+      Time.zone = original_zone
     end
   end
 

@@ -362,6 +362,8 @@ module ApplicationHelper
   end
 
   def relay_result_title(relay)
+    return '(Ei joukkueita)' if relay.relay_teams.empty?
+    return '(Viesti ei ole vielä alkanut)' unless relay.started?
     return 'Tulokset' if relay.finished?
     return "Väliaikatulokset (päivitetty: #{datetime_print(relay.relay_competitors.
       maximum(:updated_at), true, true, '-', true)})"

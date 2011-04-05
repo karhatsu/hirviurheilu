@@ -12,10 +12,33 @@ Feature: Relay results
     Given there is a race "Relay race"
     And the race has a relay "Women's relay"
     When I go to the relay results page of "Women's relay"
-    Then I should see "Viestiin ei ole vielä merkitty joukkueita" within "div.info"
+    Then I should see "Women's relay - (Ei joukkueita)" within "h2"
+    And I should see "Viestiin ei ole vielä merkitty joukkueita" within "div.info"
+    
+  Scenario: The relay has teams but no start time defined
+    Given there is a race "Relay race"
+    And the race has a relay "Women's relay"
+    When I go to the relay results page of "Women's relay"
+    And the relay has a team "Relay team"
+    When I go to the relay results page of "Women's relay"
+    Then I should see "Women's relay - (Viesti ei ole vielä alkanut)" within "h2"
+    And I should see "Viestin lähtöaikaa ei ole vielä päätetty" within "div.info"
+
+  Scenario: The relay has not started yet
+    Given there is a race "My race" in the future
+    And the race has a relay with attributes:
+      | name | Women's relay |
+      | start_time | 16:30 |
+    And the relay has a team "Relay team"
+    When I go to the relay results page of "Women's relay"
+    Then I should see "Women's relay - (Viesti ei ole vielä alkanut)" within "h2"
+    And I should see "Viestin lähtöaika" within "div.info"
+    And I should see "Viestin alkuun on aikaa" within "div.info"
 
   Scenario: Relay results
-    Given there is a race "Relay race"
+    Given there is a race with attributes:
+      | name | Relay race |
+      | start_date | 2011-01-15 |
     And the race has a relay "Women's relay"
     And the race has a relay with attributes:
       | name | Men's relay |
