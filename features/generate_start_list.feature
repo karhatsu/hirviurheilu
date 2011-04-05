@@ -61,6 +61,7 @@ Feature: Generate start list
     And the series has a competitor with attributes:
       | first_name | Mathew |
       | last_name | Peterson |
+      | number |  |
     When I go to the official competitors page of the series
     Then the "Sarjan ensimmäinen numero" field should contain "13"
     And the "series_start_time_4i" field should contain "13"
