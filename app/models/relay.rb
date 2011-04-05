@@ -96,6 +96,13 @@ class Relay < ActiveRecord::Base
   def today?
     race.race_day == start_day
   end
+  
+  def start_datetime
+    return nil unless start_time and race and race.start_date
+    time = Time.zone.local(race.start_date.year, race.start_date.month,
+      race.start_date.day, start_time.hour, start_time.min, start_time.sec)
+    time.advance(:days => start_day - 1)
+  end
 
   def finish!
     finish || raise(errors.full_messages.to_s)

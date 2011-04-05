@@ -369,4 +369,41 @@ describe Relay do
       @relay.should_not be_active
     end
   end
+  
+  describe "#start_datetime" do
+    it "should return nil when no start time" do
+      Factory.build(:relay, :start_time => nil).start_datetime.should be_nil
+    end
+    
+    it "should return nil when no race" do
+      Factory.build(:relay, :race => nil, :start_time => '13:45:31').start_datetime.should be_nil
+    end
+    
+    it "should return nil when no race start date" do
+      race = Factory.build(:race, :start_date => nil)
+      Factory.build(:relay, :race => race, :start_time => '13:45:31').start_datetime.should be_nil
+    end
+    
+    context "when race date and start time available" do
+      before do
+        @race = Factory.build(:race, :start_date => '2011-06-30')
+        @relay = Factory.build(:relay, :race => @race, :start_time => '13:45:31')
+      end
+      
+      it "should return the compination of race date and start time when both available" do
+        @relay.start_datetime.strftime('%d.%m.%Y %H:%M:%S').should == '30.06.2011 13:45:31'
+      end
+      
+      it "should return the object with local zone" do
+        Time.zone = 'Hawaii'
+        @relay.start_datetime.zone.should == 'HST'
+      end
+      
+      it "should return the correct date when relay start day is not 1" do
+        @race.end_date = '2011-07-02'
+        @relay.start_day = 3
+        @relay.start_datetime.strftime('%d.%m.%Y %H:%M:%S').should == '02.07.2011 13:45:31'
+      end
+    end
+  end
 end
