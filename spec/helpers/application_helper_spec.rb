@@ -773,10 +773,10 @@ describe ApplicationHelper do
 
       context "and has competitors" do
         it "should return 'Väliaikatulokset (päivitetty: <time>)'" do
-          time = Time.now
-          @competitors.should_receive(:maximum).with(:updated_at).and_return(time)
-          should_receive(:datetime_print).with(time, true, true, '-', 'Helsinki').and_return('123')
-          series_result_title(@series).should == 'Väliaikatulokset (päivitetty: 123)'
+          Time.zone = 'Tokyo' # UTC+9 (without summer time so that test settings won't change) 
+          time = Time.utc(2011, 5, 13, 13, 45, 58)
+          @competitors.should_receive(:maximum).with(:updated_at).and_return(time) # db return UTC
+          series_result_title(@series).should == 'Väliaikatulokset (päivitetty: 13.05.2011 22:45:58)'
         end
       end
     end
@@ -805,11 +805,11 @@ describe ApplicationHelper do
       end
 
       context "and has competitors" do
-        it "should return 'Väliaikatulokset (päivitetty: <time>)'" do
-          time = Time.now
-          @competitors.should_receive(:maximum).with(:updated_at).and_return(time)
-          should_receive(:datetime_print).with(time, true, true, '-', 'Helsinki').and_return('123')
-          relay_result_title(@relay).should == 'Väliaikatulokset (päivitetty: 123)'
+        it "should return 'Väliaikatulokset (päivitetty: <time>)' with local time" do
+          Time.zone = 'Tokyo' # UTC+9 (without summer time so that test settings won't change) 
+          time = Time.utc(2011, 5, 13, 13, 45, 58)
+          @competitors.should_receive(:maximum).with(:updated_at).and_return(time) # db return UTC
+          relay_result_title(@relay).should == 'Väliaikatulokset (päivitetty: 13.05.2011 22:45:58)'
         end
       end
     end
