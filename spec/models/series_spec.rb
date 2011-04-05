@@ -68,9 +68,9 @@ describe Series do
       before do
         @series = Factory.create(:series)
         @series.competitors << Factory.build(:competitor, :series => @series)
-        # below the time is 60 secs but the competitors are not valid
         @series.competitors << Factory.build(:competitor, :series => @series,
           :start_time => '12:00:00')
+        # below the time is 60 secs but the competitors are not valid
         @series.competitors << Factory.build(:competitor, :series => @series,
           :start_time => '12:00:00', :arrival_time => '12:01:00',
           :no_result_reason => "DNS")
@@ -831,6 +831,43 @@ describe Series do
         @c2.save!
         @series.reload
         @series.each_competitor_has_correct_estimates?.should be_false
+      end
+    end
+  end
+  
+  describe "#start_datetime" do
+    it "should return nil when no start time" do
+      Factory.build(:series, :start_time => nil).start_datetime.should be_nil
+    end
+    
+    it "should return nil when no race" do
+      Factory.build(:series, :race => nil, :start_time => '13:45:31').start_datetime.should be_nil
+    end
+    
+    it "should return nil when no race start date" do
+      race = Factory.build(:race, :start_date => nil)
+      Factory.build(:series, :race => race, :start_time => '13:45:31').start_datetime.should be_nil
+    end
+    
+    context "when race date and start time available" do
+      before do
+        @race = Factory.build(:race, :start_date => '2011-06-30')
+        @series = Factory.build(:series, :race => @race, :start_time => '13:45:31')
+      end
+      
+      it "should return the compination of race date and start time when both available" do
+        @series.start_datetime.strftime('%d.%m.%Y %H:%M:%S').should == '30.06.2011 13:45:31'
+      end
+      
+      it "should return the object with local zone" do
+        Time.zone = 'Hawaii'
+        @series.start_datetime.zone.should == 'HST'
+      end
+      
+      it "should return the correct date when series start day is not 1" do
+        @race.end_date = '2011-07-02'
+        @series.start_day = 3
+        @series.start_datetime.strftime('%d.%m.%Y %H:%M:%S').should == '02.07.2011 13:45:31'
       end
     end
   end
