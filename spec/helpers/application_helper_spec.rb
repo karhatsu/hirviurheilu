@@ -748,37 +748,31 @@ describe ApplicationHelper do
   end
 
   describe "#series_result_title" do
-    context "when race is finished" do
-      it "should return 'Tulokset'" do
-        race = mock_model(Race, :finished? => true)
-        series = mock_model(Series, :race => race)
-        series_result_title(series).should == 'Tulokset'
-      end
+    before do
+      @competitors = mock(Array)
+      @competitors.stub!(:empty?).and_return(false)
+      @race = mock_model(Race, :finished? => false)
+      @series = mock_model(Series, :race => @race, :competitors => @competitors)
+    end
+    
+    it "should return '(Ei kilpailijoita)' when no competitors" do
+      @competitors.should_receive(:empty?).and_return(true)
+      series_result_title(@series).should == '(Ei kilpailijoita)'
+    end
+    
+    it "should return 'Tulokset' when competitors and the race is finished" do
+      @race.should_receive(:finished?).and_return(true)
+      series_result_title(@series).should == 'Tulokset'
     end
 
-    context "when race is not finished" do
-      before do
-        race = mock_model(Race, :finished? => false)
-        @series = mock_model(Series, :race => race)
-        @competitors = mock(Array)
-        @series.should_receive(:competitors).and_return(@competitors)
-      end
-
-      context "and no competitors" do
-        it "should return 'Välikaikatulokset (päivitetty: -)'" do
-          @competitors.should_receive(:maximum).with(:updated_at).and_return(nil)
-          series_result_title(@series).should == 'Väliaikatulokset (päivitetty: -)'
-        end
-      end
-
-      context "and has competitors" do
-        it "should return 'Väliaikatulokset (päivitetty: <time>)'" do
-          Time.zone = 'Tokyo' # UTC+9 (without summer time so that test settings won't change) 
-          time = Time.utc(2011, 5, 13, 13, 45, 58)
-          @competitors.should_receive(:maximum).with(:updated_at).and_return(time) # db return UTC
-          series_result_title(@series).should == 'Väliaikatulokset (päivitetty: 13.05.2011 22:45:58)'
-        end
-      end
+    it "should return 'Väliaikatulokset (päivitetty: <time>)' when series still active" do
+      original_zone = Time.zone
+      Time.zone = 'Tokyo' # UTC+9 (without summer time so that test settings won't change) 
+      time = Time.utc(2011, 5, 13, 13, 45, 58)
+      @series.should_receive(:competitors).and_return(@competitors)
+      @competitors.should_receive(:maximum).with(:updated_at).and_return(time) # db return UTC
+      series_result_title(@series).should == 'Väliaikatulokset (päivitetty: 13.05.2011 22:45:58)'
+      Time.zone = original_zone
     end
   end
 

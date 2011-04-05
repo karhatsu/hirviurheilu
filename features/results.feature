@@ -2,6 +2,16 @@ Feature: Results
   In order to see how a race went
   As a competitor
   I want to see the race results
+  
+  Scenario: No competitors added for the series
+    Given there is a race "My race"
+    And the race has series "No competitors series"
+    When I go to the results page of the series
+    Then the "Tulokset" sub menu item should be selected
+    And I should see "No competitors series - (Ei kilpailijoita)" within "h2"
+    But I should not see "Tulokset" within "h2"
+    And I should not see "Väliaikatulokset" within "h2"
+    And I should see "Tähän sarjaan ei ole merkitty kilpailijoita." within "div.info"
 
   Scenario: Go to see the final results of a series
     Given there is a race with attributes:
