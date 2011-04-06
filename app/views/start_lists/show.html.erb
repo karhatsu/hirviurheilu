@@ -15,7 +15,8 @@
   <% end %>
 <% else %>
   <div class="section">
-    <%= render :partial => 'table' %>
+    <%= render :partial => 'table',
+      :locals => { :competitors => @series.start_list.includes(:club, :age_group) } %>
   </div>
   <div class="action_box">
     <%= link_to "Lataa lähtölista pdf-tiedostona", series_start_list_path(@series,

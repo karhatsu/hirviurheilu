@@ -2,10 +2,13 @@
   <tr>
     <th>Nro</th>
     <th>Kilpailija</th>
+    <% if defined?(show_series) %>
+      <th>Sarja</th>
+    <% end %>
     <th><%= t "attributes.club" %></th>
     <th>Lähtöaika</th>
   </tr>
-  <% @series.start_list.includes(:club, :age_group).each_with_index do |comp, i| %>
+  <% competitors.each_with_index do |comp, i| %>
     <tr id="comp_<%= i + 1 %>">
       <td><%= comp.number %></td>
       <td><%= full_name(comp) %>
@@ -19,6 +22,9 @@
           <% end %>
         <% end %>
       </td>
+      <% if defined?(show_series) %>
+        <td><%= comp.series.name %></td>
+      <% end %>
       <td><%= comp.club.name %></td>
       <td><%= time_print(comp.start_time, true) %></td>
     </tr>

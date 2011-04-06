@@ -15,6 +15,10 @@
     Kilpailuun ei ole vielä lisätty sarjoja
   <% else %>
     <%= render :partial => 'series_table' %>
+    <div class="action_box">
+      <%= link_to 'Lataa kaikkien kilpailijoiden lähtöajat (PDF)',
+        race_start_lists_path(@race, :format => :pdf) %>
+    </div>
     <% if @race.finished? %>
       <h3>Oikeat arviot</h3>
       <table>

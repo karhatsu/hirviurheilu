@@ -29,6 +29,7 @@ ElkSports::Application.routes.draw do
   resources :prices
 
   resources :races do
+    resources :start_lists
     resources :team_competitions
     resources :relays
     resources :result_rotation_settings
