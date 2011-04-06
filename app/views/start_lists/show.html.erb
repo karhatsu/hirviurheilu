@@ -15,25 +15,7 @@
   <% end %>
 <% else %>
   <div class="section">
-    <table>
-      <tr>
-        <th>Nro</th>
-        <th>Kilpailija</th>
-        <th><%= t "attributes.club" %></th>
-        <th>Lähtöaika</th>
-      </tr>
-      <% @series.start_list.includes(:club, :age_group).each_with_index do |comp, i| %>
-        <tr id="comp_<%= i + 1 %>">
-          <td><%= comp.number %></td>
-          <td><%= full_name(comp) %>
-            <%= "(#{comp.age_group.name})" if comp.age_group %>
-            <%= raw("<span class='unofficial' title='#{t(:unofficial)}'>#{t(:unofficial_short)}</span>") if comp.unofficial? %>
-          </td>
-          <td><%= comp.club.name %></td>
-          <td><%= time_print(comp.start_time, true) %></td>
-        </tr>
-      <% end %>
-    </table>
+    <%= render :partial => 'table' %>
   </div>
   <div class="action_box">
     <%= link_to "Lataa lähtölista pdf-tiedostona", series_start_list_path(@series,

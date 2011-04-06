@@ -1,0 +1,26 @@
+<table>
+  <tr>
+    <th>Nro</th>
+    <th>Kilpailija</th>
+    <th><%= t "attributes.club" %></th>
+    <th>Lähtöaika</th>
+  </tr>
+  <% @series.start_list.includes(:club, :age_group).each_with_index do |comp, i| %>
+    <tr id="comp_<%= i + 1 %>">
+      <td><%= comp.number %></td>
+      <td><%= full_name(comp) %>
+        <%= "(#{comp.age_group.name})" if comp.age_group %>
+        <% if comp.unofficial? %>
+          <% if params[:format] == 'pdf' %>
+            <%= "(#{t(:unofficial_short)})" %>
+          <% else %>
+            <%= raw("<span class='unofficial' title='#{t(:unofficial)}'>" +
+                "#{t(:unofficial_short)}</span>") %>
+          <% end %>
+        <% end %>
+      </td>
+      <td><%= comp.club.name %></td>
+      <td><%= time_print(comp.start_time, true) %></td>
+    </tr>
+  <% end %>
+</table>
