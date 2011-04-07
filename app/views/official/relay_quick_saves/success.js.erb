@@ -1,7 +1,16 @@
-$('#<%= @name %>_success').text('Kilpailijan <%= @competitor.leg %>. ' +
+result_text = 'Kilpailijan <%= @competitor.leg %>. ' +
   '<%= full_name(@competitor) %> (<%= @competitor.relay_team.name %>) ' +
-  'tulos tallennettu onnistuneesti (<%= @result %>).');
+  'tulos tallennettu onnistuneesti (<%= @result %>).';
+$('#<%= @name %>_success').text(result_text);
 $('#<%= @name %>_string').val('');
 $('#<%= @name %>_spinner').hide();
 $('#<%= @name %>_error').hide();
 $('#<%= @name %>_success').show();
+
+$('#latest').show();
+if($('li#latest').length > 0) {
+  $('li#latest').attr('style', '');
+  $('li#latest').attr('id', '');
+}
+$('#latest_list').prepend('<li id="latest" style="color: olive; font-weight: bold;">' +
+  result_text + '</li>');

@@ -30,6 +30,10 @@
   <% instructions << '.' %>
   <%= render :partial => 'result_place', :locals => { :name => 'adjustment',
     :instructions => instructions, :path => relay_relay_adjustment_quick_save_path(@relay) } %>
+  <div id="latest" style="display:none;">
+    <h3>Viimeisimmät tallennukset</h3>
+    <ul id="latest_list"></ul>
+  </div>
 <% end %>
 <hr/>
 <%= link_to 'Takaisin viestin etusivulle', official_race_relays_path(@relay.race) %>
