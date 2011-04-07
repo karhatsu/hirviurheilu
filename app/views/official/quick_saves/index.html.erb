@@ -27,4 +27,8 @@
       '45,++99877420 (merkitse ohilaukauksille nollat).' %>
   <%= render :partial => 'result_place', :locals => { :name => 'shots',
     :instructions => instructions, :path => race_shots_quick_save_path(@race) } %>
+  <div id="latest" style="display:none;">
+    <h3>Viimeisimmät tallennukset</h3>
+    <ul id="latest_list"></ul>
+  </div>
 <% end %>
