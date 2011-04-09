@@ -1,0 +1,9 @@
+<h1><%= @race.name %></h1>
+<%= @race.location %>, <%= race_date_interval(@race) %>
+<h2>Joukkuekilpailu - <%= @tc.name %></h2>
+<% results = @tc.results %>
+<% if results.empty? %>
+  <div class="info">Joukkuekilpailun tuloksia ei voida vielä laskea</div>
+<% else %>
+  <%= render :partial => 'results_table', :locals => { :results => results } %>
+<% end %>

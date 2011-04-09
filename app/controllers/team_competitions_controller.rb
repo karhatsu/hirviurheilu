@@ -3,5 +3,11 @@ class TeamCompetitionsController < ApplicationController
 
   def show
     @is_team_results = true
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "joukkuekilpailu-#{@tc.name}-tulokset", :layout => true
+      end
+    end
   end
 end

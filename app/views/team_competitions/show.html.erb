@@ -19,6 +19,13 @@
   <div class="section">
     <%= render :partial => 'results_table', :locals => { :results => results } %>
   </div>
+  <div class="action_box">
+    Lataa tulokset pdf-tiedostona:
+    <%= link_to "Ilman kilpailijoita", race_team_competition_path(@race, @tc,
+      :exclude_competitors => true, :format => 'pdf') %> -
+    <%= link_to "Kilpailijoiden kanssa", race_team_competition_path(@race, @tc,
+      :format => 'pdf') %>
+  </div>
 <% end %>
 <hr/>
 <%= link_to "Takaisin sivulle #{@race.name}", race_path(@race) %>
