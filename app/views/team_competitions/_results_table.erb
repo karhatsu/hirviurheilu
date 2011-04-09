@@ -1,0 +1,38 @@
+<table>
+  <tr>
+    <th>&nbsp;</th>
+    <th>Joukkue</th>
+    <th>Pisteet</th>
+    <th class="center">Aika</th>
+    <th class="center">Arviointi</th>
+    <th class="center">Ammunta</th>
+    <th>Sarja</th>
+  </tr>
+  <% results.each_with_index do |team_result, i| %>
+    <% club = team_result[:club] %>
+    <tr id="team_<%= i + 1 %>">
+      <td><%= i + 1 %>.</td>
+      <td class="team_name"><a href="javascript:void(0)" class="club_name_link"
+                               id="<%= club.id %>"><%= club.expanded %></a></td>
+      <td class="center team_points"><%= team_result[:points] %></td>
+      <td colspan="4">&nbsp;</td>
+    </tr>
+    <% team_result[:competitors].each_with_index do |competitor, j| %>
+      <tr id="team_<%= i + 1 %>_comp_<%= j + 1 %>"
+          class="club_<%= club.id %> competitor_row" style="display: none;">
+        <td>&nbsp;</td>
+        <td><%= link_to full_name(competitor),
+            series_competitor_path(competitor.series, competitor) %></td>
+        <td class="center"><%= competitor.points %></td>
+        <td class="center"><%= time_points_and_time(competitor) %></td>
+        <td class="center"><%= @race.finished ? estimate_points_and_diffs(competitor) :
+            estimate_points(competitor) %></td>
+        <td class="center"><%= shot_points_and_total(competitor) %></td>
+        <td>
+          <%= competitor.series.name %>
+          <%= competitor.age_group ? "(#{competitor.age_group.name})" : '' %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
