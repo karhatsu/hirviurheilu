@@ -1,0 +1,10 @@
+<% if series.active? %>
+  <div class="info">Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan
+    kilpailun päätyttyä.</div>
+<% end %>
+<% if series.no_time_points %>
+  <div class="info">Tälle sarjalle ei lasketa aikapisteitä.</div>
+<% end %>
+<% if series.estimates == 4 %>
+  <div class="info">Tässä sarjassa on 4 arviomatkaa.</div>
+<% end %>

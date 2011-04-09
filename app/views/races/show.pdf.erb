@@ -2,5 +2,7 @@
 <%= @race.location %>, <%= race_date_interval(@race) %>
 <% @race.series.each do |series| %>
   <hr/>
+  <h2><%= "#{series.name} - Tulokset" %></h2>
+  <%= render :partial => 'series/infos', :locals => { :series => series } %>
   <%= render :partial => 'series/series_results', :locals => { :series => series } %>
 <% end %>

@@ -9,10 +9,6 @@
     <%= series_competitors_path(series) %>
   <% end %>
 <% end %>
-<% if @series.active? %>
-  <div class="info">Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan
-    kilpailun päätyttyä.</div>
-<% end %>
 <% if @series.competitors.empty? %>
   <div class="info">Tähän sarjaan ei ole merkitty kilpailijoita.</div>
   <% if official_rights %>
@@ -26,45 +22,9 @@
     Sarjan alkuun on aikaa <%= distance_of_time_in_words(Time.zone.now, @series.start_datetime) %>.
   </div>
 <% else %>
-  <% if @series.no_time_points %>
-    <div class="info">Tälle sarjalle ei lasketa aikapisteitä.</div>
-  <% end %>
-  <% if @series.estimates == 4 %>
-    <div class="info">Tässä sarjassa on 4 arviomatkaa.</div>
-  <% end %>
+  <%= render :partial => 'series/infos', :locals => { :series => @series } %>
   <div class="section">
-    <table>
-      <tr>
-        <th>&nbsp;</th>
-        <th>Nimi</th>
-        <th>Nro</th>
-        <th><%= t "attributes.club" %></th>
-        <th class="center"><%= @series.race.sport.run? ? "Juoksu" : "Hiihto" %></th>
-        <th class="center">Arviointi</th>
-        <th class="center">Ammunta</th>
-        <th>Pisteet</th>
-      </tr>
-      <% @series.ordered_competitors.each_with_index do |comp, i| %>
-        <tr id="comp_<%= i+1 %>">
-	  <% @max_points = comp.points if i == 0 %>
-          <td><%= i + 1 %>.</td>
-          <td><%= link_to full_name(comp), series_competitor_path(@series.id, comp) %>
-            <%= "(#{comp.age_group.name})" if comp.age_group %>
-            <%= raw("<span class='unofficial' title='#{t(:unofficial)}'>#{t(:unofficial_short)}</span>") if comp.unofficial? %>
-          </td>
-          <td><%= comp.number ? comp.number : '' %></td>
-          <td><%= comp.club.name %></td>
-          <td><%= time_points_and_time(comp) %></td>
-          <td><%= @series.race.finished ? estimate_points_and_diffs(comp) :
-              estimate_points(comp) %></td>
-          <td><%= shot_points_and_total(comp) %></td>
-          <td class="center total_points">
-            <%= raw(points_print(comp)) %>
-            <%= national_record(comp) if comp.points.to_i >= @max_points.to_i %> 
-          </td>
-        </tr>
-      <% end %>
-    </table>
+    <%= render :partial => 'series/series_results', :locals => { :series => @series } %>
   </div>
   <div class="action_box">
     <%= link_to "Lataa tulokset pdf-tiedostona", series_competitors_path(@series,
