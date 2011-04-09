@@ -48,4 +48,4 @@ Feature: Manage team competitions
     And I should see "7"
     And I should see "Age group 1"
     And I should see "Age group 2"
-    #But I should not see "First series"
+    But I should not see "First series"

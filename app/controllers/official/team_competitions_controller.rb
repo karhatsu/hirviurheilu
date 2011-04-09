@@ -24,6 +24,8 @@ class Official::TeamCompetitionsController < Official::OfficialController
 
   def update
     if @tc.update_attributes(params[:team_competition])
+      @tc.series.delete_all if params[:team_competition][:series_ids].blank?
+      @tc.age_groups.delete_all if params[:team_competition][:age_group_ids].blank?
       flash[:success] = 'Joukkuekilpailun tiedot päivitetty'
       redirect_to official_race_team_competitions_path(@race)
     else
