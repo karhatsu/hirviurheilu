@@ -29,15 +29,16 @@
       </tr>
       <% results.each_with_index do |team_result, i| %>
         <% club = team_result[:club] %>
-        <tr>
+        <tr id="team_<%= i + 1 %>">
           <td><%= i + 1 %>.</td>
           <td class="team_name"><a href="javascript:void(0)" class="club_name_link"
                                    id="<%= club.id %>"><%= club.expanded %></a></td>
           <td class="center team_points"><%= team_result[:points] %></td>
           <td colspan="4">&nbsp;</td>
         </tr>
-        <% team_result[:competitors].each do |competitor| %>
-          <tr class="club_<%= club.id %> competitor_row" style="display: none;">
+        <% team_result[:competitors].each_with_index do |competitor, j| %>
+          <tr id="team_<%= i + 1 %>_comp_<%= j + 1 %>"
+              class="club_<%= club.id %> competitor_row" style="display: none;">
             <td>&nbsp;</td>
             <td><%= link_to full_name(competitor),
                 series_competitor_path(competitor.series, competitor) %></td>
