@@ -257,3 +257,7 @@ span.unofficial {
 span.adjustment {
     cursor: help;
 }
+
+tr.odd {
+    background-color: #DDEEB5;
+}
