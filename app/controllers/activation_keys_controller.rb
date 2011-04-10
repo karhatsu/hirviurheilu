@@ -1,5 +1,4 @@
 class ActivationKeysController < ApplicationController
-  skip_before_filter :set_competitions
   before_filter :require_user, :set_offline_info, :check_env
 
   def new

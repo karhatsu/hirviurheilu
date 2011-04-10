@@ -1,4 +1,5 @@
 class StartListsController < ApplicationController
+  before_filter :set_races
   before_filter :assign_race_by_race_id, :only => :index
   before_filter :assign_series_by_series_id, :only => :show
 

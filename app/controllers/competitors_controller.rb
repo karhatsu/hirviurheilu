@@ -1,6 +1,6 @@
 class CompetitorsController < ApplicationController
   before_filter :assign_series_by_series_id, :only => :index
-  before_filter :set_results
+  before_filter :set_races, :set_results
 
   def index
     respond_to do |format|

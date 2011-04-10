@@ -1,5 +1,10 @@
 class RacesController < ApplicationController
-  before_filter :assign_race_by_id
+  before_filter :set_races
+  before_filter :assign_race_by_id, :only => :show
+
+  def index
+    @races = Race.all
+  end
 
   def show
     @is_race = true

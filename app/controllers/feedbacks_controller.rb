@@ -1,5 +1,4 @@
 class FeedbacksController < ApplicationController
-  skip_before_filter :set_competitions
   before_filter :check_offline
 
   def index

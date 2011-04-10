@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user_session, :current_user, :official_rights,
     :online?, :offline?
-  before_filter :set_competitions, :ensure_user_in_offline
+  before_filter :ensure_user_in_offline
 
   private
   def official_rights
@@ -62,6 +62,10 @@ class ApplicationController < ActionController::Base
   def redirect_back_or_default(default)
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
+  end
+
+  def set_races
+    @is_races = true
   end
 
   def assign_race_by_id
@@ -130,10 +134,6 @@ class ApplicationController < ActionController::Base
       @id = id
       render 'errors/team_competition_not_found'
     end
-  end
-
-  def set_competitions
-    @is_competitions = true
   end
 
   def site_url

@@ -1,6 +1,7 @@
 <div class="menu main_menu">
   <ul>
     <%= menu_item "Etusivu", root_path, @is_main_page %>
+    <%= menu_item "Kilpailut", races_path, @is_races %>
     <%= menu_item "Toimitsijan sivut", official_root_path, @is_official %>
     <%= menu_item "Info", info_path, @is_info %>
     <% unless offline? %>

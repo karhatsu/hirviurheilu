@@ -1,5 +1,4 @@
 class ResetPasswordsController < ApplicationController
-  skip_before_filter :set_competitions
   before_filter :require_no_user
 
   def new

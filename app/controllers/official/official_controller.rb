@@ -1,6 +1,5 @@
 class Official::OfficialController < ApplicationController
   before_filter :require_user, :check_rights, :set_official
-  skip_before_filter :set_competitions
 
   protected
   def check_rights

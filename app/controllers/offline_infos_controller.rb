@@ -1,5 +1,4 @@
 class OfflineInfosController < ApplicationController
-  skip_before_filter :set_competitions
   before_filter :set_offline_info
 
   def comparison

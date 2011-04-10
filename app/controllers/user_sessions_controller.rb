@@ -1,7 +1,6 @@
 class UserSessionsController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => :destroy
-  skip_before_filter :set_competitions
 
   def new
     session[:return_to] = params[:return_to] if params[:return_to]

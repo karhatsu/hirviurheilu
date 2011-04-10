@@ -1,6 +1,5 @@
 class Admin::AdminController < ApplicationController
   before_filter :require_user, :check_rights, :set_admin
-  skip_before_filter :set_competitions
   layout 'admin'
 
   ActiveScaffold.set_defaults do |config|
