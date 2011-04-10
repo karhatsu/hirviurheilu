@@ -3,7 +3,7 @@ class RacesController < ApplicationController
   before_filter :assign_race_by_id, :only => :show
 
   def index
-    @races = Race.all
+    @races = Race.order('start_date DESC')
   end
 
   def show
