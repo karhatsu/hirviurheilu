@@ -7,6 +7,7 @@ Feature: Info page
     Given I am on the home page
     And I follow "Info"
     Then I should be on the info page
+    And the "Info" main menu item should be selected
     And I should see "Hirviurheilu - Info" within ".main_title"
     And I should see "Ota yhteyttä" within "h2"
     And I should see "Kysymyksiä ja vastauksia" within "h2"

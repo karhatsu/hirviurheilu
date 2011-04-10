@@ -69,7 +69,8 @@ Feature: Team competition results
     And the race is finished
     And I am on the race page of "My test race"
     When I follow "Joukkuekilpailu"
-    Then the "Joukkuekilpailut" sub menu item should be selected
+    Then the "Kilpailut" main menu item should be selected
+    And the "Joukkuekilpailut" sub menu item should be selected
     And I should see "Teams - Tulokset" within "h2"
     And I should see "1." within "tr#team_1"
     And I should see "Sports club" within "tr#team_1"

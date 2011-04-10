@@ -9,6 +9,7 @@ Feature: Manage race
     And I am on the official index page
     When I follow "Lisää uusi kilpailu"
     Then I should be on the new race page
+    And the official main menu item should be selected
     And the "race_start_interval_seconds" field should contain "60"
     When I fill in the following:
       | Kilpailun nimi | Test race |
@@ -35,6 +36,8 @@ Feature: Manage race
     And I check "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
+    And the official main menu item should be selected
+    And the "Yhteenveto" sub menu item should be selected
     And I should see "Test race" within ".main_title"
     And I should see "Kilpailu lisätty."
     And I should see "Pääset lisäämään kilpailijoita klikkaamalla sarjan nimen vieressä olevaa linkkiä."

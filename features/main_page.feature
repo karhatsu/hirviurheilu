@@ -6,6 +6,7 @@ Feature: Main page
   Scenario: Load main page
     Given I go to the home page
     Then I should see "Hirvenhiihdon ja hirvenjuoksun tulospalvelu" within ".main_title"
+    And the "Etusivu" main menu item should be selected
     And I should see "Hirviurheilu on hirvenhiihdon ja hirvenjuoksun helppokäyttöinen tulospalvelu."
     And I should see "Tutustu lukemalla lisää Info-sivulta ja katsomalla Youtube-video."
     When I follow "Info-sivulta"

@@ -22,3 +22,4 @@ Feature: Admin
     And I fill in "test" for "Salasana"
     And I press "Kirjaudu"
     Then I should be on the admin index page
+    And the "Admin" main menu item should be selected

@@ -9,6 +9,7 @@ Feature: Official
 
   Scenario: Official registration
     Given I go to the registration page
+    Then the "Aloita" main menu item should be selected
     When I fill in the following:
       | Etunimi | Tim |
       | Sukunimi | Tester |
@@ -19,6 +20,7 @@ Feature: Official
     Then I should see "Käyttäjätili luotu."
     When I follow "Toimitsijan sivut"
     Then I should be on the official index page
+    And the official main menu item should be selected
     And the admin should receive an email
     When I open the email
     Then I should see "Hirviurheilu - uusi käyttäjä (test)" in the email subject

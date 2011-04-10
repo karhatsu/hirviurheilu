@@ -27,6 +27,8 @@ Feature: Start list
     And I am on the race page
     When I follow "Lähtölista"
     Then I should be on the start list page of the series
+    And the "Kilpailut" main menu item should be selected
+    And the "Lähtölistat" sub menu item should be selected
     And I should see "My test race" within ".main_title"
     And I should see "Men 50 years - Lähtölista" within "h2"
     And I should see a start list row 1 with values:
