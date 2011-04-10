@@ -9,12 +9,12 @@ Feature: Manager relays
     And I have logged in
     And I am on the official race page of "Relay race"
     When I follow "Viestit"
-    Then the "Toimitsijan sivut" main menu item should be selected
+    Then the official main menu item should be selected
     And the "Viestit" sub menu item should be selected
     And I should be on the official relays page of "Relay race"
     And I should see "Viestit" within "h2"
     When I follow "Lisää viesti"
-    Then the "Toimitsijan sivut" main menu item should be selected
+    Then the official main menu item should be selected
     And the "Viestit" sub menu item should be selected
     And I should see "Uusi viesti" within "h2"
     And I should see "Huom! Osuuksien määrää ei voi muuttaa sen jälkeen, kun viesti on luotu." within "div.warning"
@@ -75,7 +75,7 @@ Feature: Manager relays
     And I am on the official relays page of "Relay race"
     When I follow "Viestin päättäminen"
     Then I should be on the finish relay page of "Test relay"
-    And the "Toimitsijan sivut" main menu item should be selected
+    And the official main menu item should be selected
     And the "Viestit" sub menu item should be selected
     And I should see "Viestin päättäminen" within "h2"
     And I should see "Kun kaikki viestin tiedot on syötetty, voit alla olevan napin avulla merkitä viestin päättyneeksi. Ohjelma tarkastaa automaattisesti, ettei mitään tietoja puutu." within "div.info"

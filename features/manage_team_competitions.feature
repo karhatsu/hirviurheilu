@@ -13,11 +13,11 @@ Feature: Manage team competitions
     And I have logged in
     And I am on the official race page of "Team race"
     When I follow "Joukkuekilpailut"
-    Then the "Toimitsijan sivut" main menu item should be selected
+    Then the official main menu item should be selected
     And the "Joukkuek." sub menu item should be selected
     And I should see "Joukkuekilpailut" within "h2"
     When I follow "Lisää joukkuekilpailu"
-    Then the "Toimitsijan sivut" main menu item should be selected
+    Then the official main menu item should be selected
     And the "Joukkuek." sub menu item should be selected
     And I should see "Uusi joukkuekilpailu" within "h2"
     And I should see "Valitse kaikki sarjat ja ikäryhmät, jotka kuuluvat tähän joukkuekilpailuun." within "div.info"
@@ -34,7 +34,7 @@ Feature: Manage team competitions
     And I should see "8"
     And I should see "First series, Age group 2"
     When I follow "My team competition"
-    Then the "Toimitsijan sivut" main menu item should be selected
+    Then the official main menu item should be selected
     And the "Joukkuek." sub menu item should be selected
     And I should see "Muokkaa joukkuekilpailun tietoja" within "h2"
     When I fill in "Modified name" for "Nimi"

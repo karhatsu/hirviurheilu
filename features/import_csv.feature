@@ -12,7 +12,7 @@ Feature: Import competitors with CSV file
     And I have logged in
     And I am on the official race page of "CSV race"
     When I follow "Lisää kilpailijoita CSV-tiedostosta"
-    Then the "Toimitsijan sivut" main menu item should be selected
+    Then the official main menu item should be selected
     And I should see "CSV race" within ".main_title"
     And I should see "Lisää kilpailijoita CSV-tiedostosta" within "h2"
     And I should see "Jos sinulla on kilpailijoiden tiedot" within "div.info"
