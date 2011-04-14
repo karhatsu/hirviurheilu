@@ -7,7 +7,7 @@ class Official::OfficialController < ApplicationController
   end
 
   def check_race(race)
-    unless current_user.admin? or current_user.official_for_race?(race)
+    unless own_race?(race)
       flash[:error] = "Et ole kilpailun toimitsija"
       redirect_to official_root_path
     end

@@ -44,3 +44,17 @@ Feature: Navigation between official and result sections
     Then I should be on the results page of the series
     When I follow "My race" within "div.menu"
     Then I should be on the official race page of "My race"
+
+  Scenario: No quick navigation when not logged in
+    Given I am an official
+    And I have a race "My race"
+    And I am on the race page
+    Then I should not see "My race" within "div.menu"
+
+  Scenario: No quick navigation when not own race
+    Given I am an official
+    And I have logged in
+    And I have a race "My race"
+    And there is a race "Another race"
+    And I am on the race page
+    Then I should not see "Another race" within "div.menu"

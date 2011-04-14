@@ -1,12 +1,16 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user_session, :current_user, :official_rights,
-    :online?, :offline?
+    :online?, :offline?, :own_race?
   before_filter :ensure_user_in_offline
 
   private
   def official_rights
     current_user and (current_user.official? or current_user.admin?)
+  end
+
+  def own_race?(race)
+    current_user and (current_user.admin? or current_user.official_for_race?(race))
   end
 
   def offline?
