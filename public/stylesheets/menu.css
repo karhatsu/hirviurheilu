@@ -96,10 +96,10 @@ div.main_menu ul li ul {
 
 div.main_menu ul li ul a {
     white-space: nowrap;
-    -moz-border-radius-bottomleft: 3px;
-    -moz-border-radius-bottomright: 3px;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-topright: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     border-bottom-width: 1px;
 }
 
