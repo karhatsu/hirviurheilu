@@ -3,8 +3,8 @@
     <%= menu_item "Etusivu", root_path, @is_main_page %>
     <%= menu_item "Kilpailut", races_path, @is_races %>
     <%= menu_item "Toimitsijan sivut", official_root_path, @is_official, nil,
-      (!@is_official and @race) do %>
-      <% dropdown_menu(link_to(@race.name, official_race_path(@race))) %>
+      (!@is_official and menu_race) do %>
+      <% dropdown_menu(link_to(menu_race.name, official_race_path(menu_race))) %>
     <% end %>
     <%= menu_item "Info", info_path, @is_info %>
     <% unless offline? %>

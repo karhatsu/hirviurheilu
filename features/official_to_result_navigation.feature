@@ -31,7 +31,11 @@ Feature: Navigation between official and result sections
   Scenario: Quick navigation from result pages to official summary page
     Given I am an official
     And I have a race "My race"
+    And the race has series "My series"
     And I have logged in
-    When I am on the race page
-    And I follow "My race" within "div.menu"
+    And I am on the race page
+    When I follow "My race" within "div.menu"
+    Then I should be on the official race page of "My race"
+    Given I am on the results page of the series
+    When I follow "My race" within "div.menu"
     Then I should be on the official race page of "My race"
