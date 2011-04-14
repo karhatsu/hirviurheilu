@@ -1,6 +1,5 @@
 div.menu {
     font-family: arial;
-    overflow: hidden;
 }
 
 /* ul */
@@ -15,7 +14,9 @@ div.sub_sub_menu ul {
 
 /* li */
 div.main_menu ul li {
-    display: inline;
+    display: block;
+    position: relative;
+    float: left;
 }
 
 div.sub_menu ul li {
@@ -36,6 +37,7 @@ div.menu ul li a {
 }
 
 div.main_menu ul li a {
+    display: block;
     float: left;
     margin-right: 4px;
     border: white solid 1px;
@@ -83,4 +85,24 @@ div.sub_sub_menu ul li a:hover {
 div.menu ul li a.selected {
     color: olive;
     background-color: white;
+}
+
+/* dropdown (div.main_menu ul li -> ul) */
+div.main_menu ul li ul {
+    position: absolute;
+    display: none;
+    top: 27px;
+}
+
+div.main_menu ul li ul a {
+    white-space: nowrap;
+    -moz-border-radius-bottomleft: 3px;
+    -moz-border-radius-bottomright: 3px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-width: 1px;
+}
+
+div.main_menu ul li:hover ul {
+    display: block;
 }

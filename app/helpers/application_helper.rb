@@ -247,14 +247,22 @@ module ApplicationHelper
     image_tag "#{sport.key.downcase}_icon.gif"
   end
 
-  def menu_item(title, link, selected, truncate_length=nil)
+  def menu_item(title, link, selected, truncate_length=nil, do_block=false, &block)
     a_title = (truncate_length ? title : nil)
     title = truncate(title, :length => truncate_length) if truncate_length
+    item = "<li>"
     if selected
-      raw("<li>#{link_to(title, link, :class => 'selected', :title => a_title)}</li>")
+      item << link_to(title, link, :class => 'selected', :title => a_title)
     else
-      raw("<li>#{link_to(title, link, :title => a_title)}</li>")
+      item << link_to(title, link, :title => a_title)
     end
+    item << block.call if do_block and block
+    item << "</li>"
+    raw(item)
+  end
+
+  def dropdown_menu(*items)
+    raw("<ul><li>#{items.each do |item| item end}</li></ul>")
   end
 
   def yes_or_empty(boolean, value=nil, &block)

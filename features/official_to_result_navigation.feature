@@ -27,3 +27,11 @@ Feature: Navigation between official and result sections
     And I should see "Ski race, 11.02.2011, Skiing place"
     When I follow "Ski race"
     Then I should be on the race page of "Ski race"
+
+  Scenario: Quick navigation from result pages to official summary page
+    Given I am an official
+    And I have a race "My race"
+    And I have logged in
+    When I am on the race page
+    And I follow "My race" within "div.menu"
+    Then I should be on the official race page of "My race"

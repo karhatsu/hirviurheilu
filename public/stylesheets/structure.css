@@ -18,11 +18,11 @@ div.offline_limit a {
 
 div.header {
     width: 910px;
-    overflow: hidden;
     margin-left: 10px;
 }
 
 div.main_title {
+    clear: left;
     width: 900px;
     background-color: olive;
     padding: 4px 0px 4px 10px;
