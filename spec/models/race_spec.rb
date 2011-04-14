@@ -468,35 +468,24 @@ describe Race do
     before do
       @race = Factory.create(:race)
     end
-    context "when no series exists" do
-      it "should return false" do
-        @race.has_any_national_records_defined?.should be_false
-      end
+
+    it "should return false when no series exists" do
+      @race.should_not have_any_national_records_defined
     end
 
-    context "when no national records have been defined" do
-      it "should return false" do
-        series = Factory.create(:series, :race => @race)
-        @race.series << series
-        @race.has_any_national_records_defined?.should be_false
+    context "when series exist" do
+      before do
+        @race.series << Factory.build(:series, :race => @race)
+        @race.series << Factory.build(:series, :race => @race, :national_record => '')
       end
-    end
 
-    context "when one national record has been defined for one series and not defined for one" do
-      it "should return true" do
-        series = Factory.create(:series, :race => @race, :national_record => 1100)
-        @race.series << series
-        @race.has_any_national_records_defined?.should be_true
+      it "should return false when no national records have been defined" do
+        @race.should_not have_any_national_records_defined
       end
-    end
 
-    context "when two national records have been defined and there's two series' without national record" do
-      it "should return true" do
-        series = Factory.create(:series, :race => @race, :national_record => 900)
-        @race.series << series
-        series = Factory.create(:series, :race => @race)
-        @race.series << series
-        @race.has_any_national_records_defined?.should be_true
+      it "should return true when at least one national record" do
+        @race.series << Factory.build(:series, :race => @race, :national_record => 900)
+        @race.should have_any_national_records_defined
       end
     end
   end
