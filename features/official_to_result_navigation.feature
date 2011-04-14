@@ -28,7 +28,7 @@ Feature: Navigation between official and result sections
     When I follow "Ski race"
     Then I should be on the race page of "Ski race"
 
-  Scenario: Quick navigation from result pages to official summary page
+  Scenario: Quick navigation between result pages and official pages
     Given I am an official
     And I have a race "My race"
     And the race has series "My series"
@@ -36,6 +36,11 @@ Feature: Navigation between official and result sections
     And I am on the race page
     When I follow "My race" within "div.menu"
     Then I should be on the official race page of "My race"
-    Given I am on the results page of the series
+    When I follow "Kilpailijat"
+    Then I should be on the official competitors page of the series
+    When I follow "My race" within "div.menu"
+    Then I should be on the race page
+    When I follow "Tulokset"
+    Then I should be on the results page of the series
     When I follow "My race" within "div.menu"
     Then I should be on the official race page of "My race"
