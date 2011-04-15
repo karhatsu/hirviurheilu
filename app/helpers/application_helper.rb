@@ -403,9 +403,13 @@ module ApplicationHelper
   end
 
   def result_rotation_relay_list(race)
-    race.relays.where(:start_day => race.race_day).collect do |relay|
-      race_relay_path(race, relay)
+    race_day = race.race_day
+    return [] if race_day == 0
+    list = []
+    race.relays.where(:start_day => race_day).each do |relay|
+      list << race_relay_path(race, relay) if relay.started?
     end
+    list
   end
 
   def result_rotation_cookie

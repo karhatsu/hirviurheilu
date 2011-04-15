@@ -598,7 +598,7 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#result_rotation_list", :focus => true do
+  describe "#result_rotation_list" do
     describe "aggregate" do
       before do
         @race = mock_model(Race)
@@ -706,19 +706,23 @@ describe ApplicationHelper do
         list[0].should == race_team_competition_path(@race, @tc1)
         list[1].should == race_team_competition_path(@race, @tc2)
       end
+
+      def build_team_competition(race)
+        Factory.build(:team_competition, :race => race)
+      end
     end
 
     describe "#result_rotation_relay_list" do
       it "should return an empty list when race in the future" do
         race = Factory.create(:race, :start_date => Date.today - 1)
-        race.relays << build_relay(race, 1)
+        race.relays << build_relay(race, 1, '0:00')
         result_rotation_relay_list(race).size.should == 0
       end
 
       it "should return an empty list when race was in the past" do
         race = Factory.create(:race, :start_date => Date.today - 2,
           :end_date => Date.today - 1)
-        race.relays << build_relay(race, 1)
+        race.relays << build_relay(race, 1, '0:00')
         result_rotation_relay_list(race).size.should == 0
       end
 
@@ -726,16 +730,20 @@ describe ApplicationHelper do
         before do
           @race = Factory.create(:race, :start_date => Date.today,
             :end_date => Date.today + 1)
-          @relay1_1 = build_relay(@race, 1)
-          @relay1_2 = build_relay(@race, 1)
-          @relay2 = build_relay(@race, 2)
+          @relay1_1 = build_relay(@race, 1, '0:00')
+          @relay1_2 = build_relay(@race, 1, '0:00')
+          @relay1_3 = build_relay(@race, 1, '23:59')
+          @relay2_1 = build_relay(@race, 2, '0:00')
+          @relay2_2 = build_relay(@race, 2, '23:59')
           @race.relays << @relay1_1
           @race.relays << @relay1_2
-          @race.relays << @relay2
+          @race.relays << @relay1_3
+          @race.relays << @relay2_1
+          @race.relays << @relay2_2
         end
 
         context "when race has started today" do
-          it "should return the paths for relays today" do
+          it "should return the paths for started relays today" do
             list = result_rotation_relay_list(@race)
             list.size.should == 2
             list[0].should == race_relay_path(@race, @relay1_1)
@@ -744,24 +752,21 @@ describe ApplicationHelper do
         end
 
         context "when race started yesterday" do
-          it "should return the paths for relays today" do
+          it "should return the paths for started relays today" do
             @race.start_date = Date.today - 1
             @race.end_date = Date.today
             @race.save!
             list = result_rotation_relay_list(@race)
             list.size.should == 1
-            list[0].should == race_relay_path(@race, @relay2)
+            list[0].should == race_relay_path(@race, @relay2_1)
           end
         end
       end
-    end
 
-    def build_team_competition(race)
-      Factory.build(:team_competition, :race => race)
-    end
-
-    def build_relay(race, start_day)
-      Factory.build(:relay, :race => race, :start_day => start_day)
+      def build_relay(race, start_day, start_time)
+        Factory.build(:relay, :race => race, :start_day => start_day,
+          :start_time => start_time)
+      end
     end
   end
 
