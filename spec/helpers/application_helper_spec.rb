@@ -599,90 +599,150 @@ describe ApplicationHelper do
   end
 
   describe "#result_rotation_list" do
-    it "should return an empty list when race in the future" do
-      race = Factory.create(:race, :start_date => Date.today - 1)
-      race.series << build_series(race, 1)
-      race.relays << build_relay(race, 1)
-      result_rotation_list(race).size.should == 0
+    describe "aggregate" do
+      before do
+        @race = mock_model(Race)
+        stub!(:result_rotation_series_list).with(@race).and_return(['series1', 'series2'])
+        stub!(:result_rotation_tc_list).with(@race).and_return(['tc1', 'tc2'])
+        stub!(:result_rotation_relay_list).with(@race).and_return(['relay1', 'relay2'])
+      end
+
+      it "should return an empty list when offline" do
+        Mode.stub!(:offline?).and_return(true)
+        Mode.stub!(:online?).and_return(false)
+        result_rotation_list(@race).should be_empty
+      end
+
+      it "should return all paths when all available" do
+        list = result_rotation_list(@race)
+        list.size.should == 6
+        list[0].should == 'series1'
+        list[1].should == 'series2'
+        list[2].should == 'tc1'
+        list[3].should == 'tc2'
+        list[4].should == 'relay1'
+        list[5].should == 'relay2'
+      end
+
+      it "should not return either team competition paths if no series" do
+        should_receive(:result_rotation_series_list).with(@race).and_return([])
+        list = result_rotation_list(@race)
+        list.size.should == 2
+        list[0].should == 'relay1'
+        list[1].should == 'relay2'
+      end
     end
 
-    it "should return an empty list when race was in the past" do
-      race = Factory.create(:race, :start_date => Date.today - 2,
-        :end_date => Date.today - 1)
-      race.series << build_series(race, 1)
-      race.relays << build_relay(race, 1)
-      result_rotation_list(race).size.should == 0
+    describe "#result_rotation_series_list" do
+      it "should return an empty list when race in the future" do
+        race = Factory.create(:race, :start_date => Date.today - 1)
+        race.series << build_series(race, 1)
+        result_rotation_series_list(race).size.should == 0
+      end
+
+      it "should return an empty list when race was in the past" do
+        race = Factory.create(:race, :start_date => Date.today - 2,
+          :end_date => Date.today - 1)
+        race.series << build_series(race, 1)
+        result_rotation_series_list(race).size.should == 0
+      end
+
+      context "when race is ongoing today" do
+        before do
+          @race = Factory.create(:race, :start_date => Date.today,
+            :end_date => Date.today + 1)
+          @series1_1 = build_series(@race, 1)
+          @series1_2 = build_series(@race, 1)
+          @series2 = build_series(@race, 2)
+          @race.series << @series1_1
+          @race.series << @series1_2
+          @race.series << @series2
+        end
+
+        context "when race has started today" do
+          it "should return the paths for series today" do
+            list = result_rotation_series_list(@race)
+            list.size.should == 2
+            list[0].should == series_competitors_path(@series1_1)
+            list[1].should == series_competitors_path(@series1_2)
+          end
+        end
+
+        context "when race started yesterday" do
+          it "should return the paths for series today" do
+            @race.start_date = Date.today - 1
+            @race.end_date = Date.today
+            @race.save!
+            list = result_rotation_series_list(@race)
+            list.size.should == 1
+            list[0].should == series_competitors_path(@series2)
+          end
+        end
+      end
     end
 
-    context "when race is ongoing today" do
+    describe "#result_rotation_tc_list" do
       before do
         @race = Factory.create(:race, :start_date => Date.today,
           :end_date => Date.today + 1)
-
-        @series1_1 = build_series(@race, 1)
-        @series1_2 = build_series(@race, 1)
-        @series2 = build_series(@race, 2)
-        @race.series << @series1_1
-        @race.series << @series1_2
-        @race.series << @series2
-
         @tc1 = build_team_competition(@race)
         @tc2 = build_team_competition(@race)
         @race.team_competitions << @tc1
         @race.team_competitions << @tc2
-
-        @relay1_1 = build_relay(@race, 1)
-        @relay1_2 = build_relay(@race, 1)
-        @relay2 = build_relay(@race, 2)
-        @race.relays << @relay1_1
-        @race.relays << @relay1_2
-        @race.relays << @relay2
       end
 
-      context "when offline state" do
-        it "should return an empty list when offline" do
-          Mode.stub!(:offline?).and_return(true)
-          Mode.stub!(:online?).and_return(false)
-          result_rotation_list(@race).should be_empty
+      it "should return the paths for team competitions" do
+        list = result_rotation_tc_list(@race)
+        list.size.should == 2
+        list[0].should == race_team_competition_path(@race, @tc1)
+        list[1].should == race_team_competition_path(@race, @tc2)
+      end
+    end
+
+    describe "#result_rotation_relay_list" do
+      it "should return an empty list when race in the future" do
+        race = Factory.create(:race, :start_date => Date.today - 1)
+        race.relays << build_relay(race, 1)
+        result_rotation_relay_list(race).size.should == 0
+      end
+
+      it "should return an empty list when race was in the past" do
+        race = Factory.create(:race, :start_date => Date.today - 2,
+          :end_date => Date.today - 1)
+        race.relays << build_relay(race, 1)
+        result_rotation_relay_list(race).size.should == 0
+      end
+
+      context "when race is ongoing today" do
+        before do
+          @race = Factory.create(:race, :start_date => Date.today,
+            :end_date => Date.today + 1)
+          @relay1_1 = build_relay(@race, 1)
+          @relay1_2 = build_relay(@race, 1)
+          @relay2 = build_relay(@race, 2)
+          @race.relays << @relay1_1
+          @race.relays << @relay1_2
+          @race.relays << @relay2
         end
-      end
 
-      context "when race has started today" do
-        it "should return the paths for series today, team competitions and relays today" do
-          list = result_rotation_list(@race)
-          list.size.should == 6
-          list[0].should == series_competitors_path(@series1_1)
-          list[1].should == series_competitors_path(@series1_2)
-          list[2].should == race_team_competition_path(@race, @tc1)
-          list[3].should == race_team_competition_path(@race, @tc2)
-          list[4].should == race_relay_path(@race, @relay1_1)
-          list[5].should == race_relay_path(@race, @relay1_2)
+        context "when race has started today" do
+          it "should return the paths for relays today" do
+            list = result_rotation_relay_list(@race)
+            list.size.should == 2
+            list[0].should == race_relay_path(@race, @relay1_1)
+            list[1].should == race_relay_path(@race, @relay1_2)
+          end
         end
-      end
 
-      context "when race started yesterday" do
-        it "should return the paths for series today, team competitions and relays today" do
-          @race.start_date = Date.today - 1
-          @race.end_date = Date.today
-          @race.save!
-          list = result_rotation_list(@race)
-          list.size.should == 4
-          list[0].should == series_competitors_path(@series2)
-          list[1].should == race_team_competition_path(@race, @tc1)
-          list[2].should == race_team_competition_path(@race, @tc2)
-          list[3].should == race_relay_path(@race, @relay2)
-        end
-      end
-
-      context "when no series for today" do
-        it "should not return team competitions" do
-          @series1_1.destroy
-          @series1_2.destroy
-          @race.reload
-          list = result_rotation_list(@race)
-          list.size.should == 2
-          list[0].should == race_relay_path(@race, @relay1_1)
-          list[1].should == race_relay_path(@race, @relay1_2)
+        context "when race started yesterday" do
+          it "should return the paths for relays today" do
+            @race.start_date = Date.today - 1
+            @race.end_date = Date.today
+            @race.save!
+            list = result_rotation_relay_list(@race)
+            list.size.should == 1
+            list[0].should == race_relay_path(@race, @relay2)
+          end
         end
       end
     end
