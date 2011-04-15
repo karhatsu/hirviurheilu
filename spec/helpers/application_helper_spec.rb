@@ -639,6 +639,14 @@ describe ApplicationHelper do
         @race.relays << @relay2
       end
 
+      context "when offline state" do
+        it "should return an empty list when offline" do
+          Mode.stub!(:offline?).and_return(true)
+          Mode.stub!(:online?).and_return(false)
+          result_rotation_list(@race).should be_empty
+        end
+      end
+
       context "when race has started today" do
         it "should return the paths for series today, team competitions and relays today" do
           list = result_rotation_list(@race)

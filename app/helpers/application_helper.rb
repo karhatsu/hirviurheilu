@@ -329,6 +329,7 @@ module ApplicationHelper
   end
 
   def result_rotation_list(race)
+    return [] if offline?
     list = result_rotation_series_list(race)
     # team competition is active only when at least one series is active
     list += result_rotation_tc_list(race) unless list.empty?
