@@ -350,6 +350,7 @@ module ApplicationHelper
   end
 
   def refresh_tag
+    return '' if offline?
     html = '<meta http-equiv="Refresh" content="'
     html << result_refresh_interval(15).to_s
     html << ";" + next_result_rotation(request.fullpath) if result_rotation_cookie

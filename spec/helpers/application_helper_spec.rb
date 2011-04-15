@@ -726,6 +726,12 @@ describe ApplicationHelper do
   end
 
   describe "#refresh_tag" do
+    it "should return empty string when offline" do
+      Mode.stub!(:offline?).and_return(true)
+      Mode.stub!(:online?).and_return(false)
+      refresh_tag.should == ''
+    end
+
     context "when no seriescount cookie set" do
       before do
         stub!(:result_rotation_cookie).and_return(false)
