@@ -387,9 +387,13 @@ module ApplicationHelper
 
   private
   def result_rotation_series_list(race)
-    race.series.where(:start_day => race.race_day).collect do |s|
-      series_competitors_path(s)
+    race_day = race.race_day
+    return [] if race_day == 0
+    list = []
+    race.series.where(:start_day => race_day).each do |s|
+      list << series_competitors_path(s) if s.started?
     end
+    list
   end
 
   def result_rotation_tc_list(race)

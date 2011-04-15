@@ -598,7 +598,7 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#result_rotation_list" do
+  describe "#result_rotation_list", :focus => true do
     describe "aggregate" do
       before do
         @race = mock_model(Race)
@@ -636,14 +636,14 @@ describe ApplicationHelper do
     describe "#result_rotation_series_list" do
       it "should return an empty list when race in the future" do
         race = Factory.create(:race, :start_date => Date.today - 1)
-        race.series << build_series(race, 1)
+        race.series << build_series(race, 1, '0:00')
         result_rotation_series_list(race).size.should == 0
       end
 
       it "should return an empty list when race was in the past" do
         race = Factory.create(:race, :start_date => Date.today - 2,
           :end_date => Date.today - 1)
-        race.series << build_series(race, 1)
+        race.series << build_series(race, 1, '0:00')
         result_rotation_series_list(race).size.should == 0
       end
 
@@ -651,16 +651,20 @@ describe ApplicationHelper do
         before do
           @race = Factory.create(:race, :start_date => Date.today,
             :end_date => Date.today + 1)
-          @series1_1 = build_series(@race, 1)
-          @series1_2 = build_series(@race, 1)
-          @series2 = build_series(@race, 2)
+          @series1_1 = build_series(@race, 1, '0:00')
+          @series1_2 = build_series(@race, 1, '0:00')
+          @series1_3 = build_series(@race, 1, '23:59')
+          @series2_1 = build_series(@race, 2, '0:00')
+          @series2_2 = build_series(@race, 2, '23:59')
           @race.series << @series1_1
           @race.series << @series1_2
-          @race.series << @series2
+          @race.series << @series1_3
+          @race.series << @series2_1
+          @race.series << @series2_2
         end
 
         context "when race has started today" do
-          it "should return the paths for series today" do
+          it "should return the paths for started series today" do
             list = result_rotation_series_list(@race)
             list.size.should == 2
             list[0].should == series_competitors_path(@series1_1)
@@ -669,15 +673,20 @@ describe ApplicationHelper do
         end
 
         context "when race started yesterday" do
-          it "should return the paths for series today" do
+          it "should return the paths for started series today" do
             @race.start_date = Date.today - 1
             @race.end_date = Date.today
             @race.save!
             list = result_rotation_series_list(@race)
             list.size.should == 1
-            list[0].should == series_competitors_path(@series2)
+            list[0].should == series_competitors_path(@series2_1)
           end
         end
+      end
+
+      def build_series(race, start_day, start_time)
+        Factory.build(:series, :race => race, :start_day => start_day,
+          :start_time => start_time)
       end
     end
 
@@ -745,10 +754,6 @@ describe ApplicationHelper do
           end
         end
       end
-    end
-
-    def build_series(race, start_day)
-      Factory.build(:series, :race => race, :start_day => start_day)
     end
 
     def build_team_competition(race)
