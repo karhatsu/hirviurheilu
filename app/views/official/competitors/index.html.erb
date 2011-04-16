@@ -53,5 +53,9 @@
       :format => 'pdf') %>
   </div>
 <% end %>
+<div class="action_box">
+  <%= link_to "Lisää kilpailijoita CSV-tiedostosta",
+    new_official_race_csv_import_path(@series.race) %>
+</div>
 <hr/>
 <%= link_to "Takaisin Yhteenveto-sivulle", official_race_path(@series.race) %>
