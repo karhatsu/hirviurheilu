@@ -575,4 +575,32 @@ describe Race do
       end
     end
   end
+
+  describe "#all_competitions_finished?" do
+    before do
+      @race = Factory.build(:race)
+    end
+
+    it "should return false when race is not finished" do
+      @race.all_competitions_finished?.should be_false
+    end
+
+    context "when race is finished" do
+      before do
+        @race.finished = true
+        @finished_relay = mock_model(Relay, :finished => true)
+        @unfinished_relay = mock_model(Relay, :finished => false)
+      end
+
+      it "should return false when at least one relay is not finished" do
+        @race.stub!(:relays).and_return([@finished_relay, @unfinished_relay])
+        @race.all_competitions_finished?.should be_false
+      end
+
+      it "should return true when all relays are finished" do
+        @race.stub!(:relays).and_return([@finished_relay, @finished_relay])
+        @race.all_competitions_finished?.should be_true
+      end
+    end
+  end
 end

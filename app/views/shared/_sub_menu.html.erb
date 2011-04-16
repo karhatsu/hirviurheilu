@@ -19,7 +19,7 @@ race = menu_race
         <% unless race.relays.empty? %>
           <%= menu_item "Viestit", race_relay_path(race, race.relays.first), @is_relays %>
         <% end %>
-        <% unless offline? or @is_start_list or race.finished? %>
+        <% unless offline? or @is_start_list or race.all_competitions_finished? %>
           <%= menu_item "Tuloskehä", race_result_rotation_settings_path(race), result_rotation_cookie %>
         <% end %>
         <%= menu_item "Lehdistö", new_race_medium_path(race), @is_media %>

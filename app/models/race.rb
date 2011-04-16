@@ -156,6 +156,14 @@ class Race < ActiveRecord::Base
     start_time
   end
 
+  def all_competitions_finished?
+    return false unless finished?
+    relays.each do |relay|
+      return false unless relay.finished
+    end
+    true
+  end
+
   private
   def end_date_not_before_start_date
     if end_date and end_date < start_date
