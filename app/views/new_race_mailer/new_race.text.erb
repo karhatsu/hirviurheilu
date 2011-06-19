@@ -1,0 +1,4 @@
+Kilpailun nimi: <%= @race.name %>
+Aika: <%= race_date_interval(@race) %>
+Paikkakunta: <%= @race.location %>
+Toimitsija: <%= full_name(@user, true) %>

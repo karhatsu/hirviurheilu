@@ -4,7 +4,7 @@ Feature: Manage race
   I need to create a race and edit race information
 
   Scenario: Create new race without default series
-    Given I am an official
+    Given I am an official "Teppo Testaaja"
     And I have logged in
     And I am on the official index page
     When I follow "Lisää uusi kilpailu"
@@ -15,11 +15,21 @@ Feature: Manage race
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |
       | Lähtöaikojen väli (sekuntia) | 30 |
+    And I select "13" from "race_start_date_3i"
+    And I select "heinäkuu" from "race_start_date_2i"
+    And I select "2011" from "race_start_date_1i"
     And I press "Lisää kilpailu"
     Then I should be on the race edit page of "Test race"
     And I should see "Test race" within ".main_title"
     And I should see "Kilpailu lisätty."
     And I should see "Voit nyt lisätä sarjoja kilpailulle alla olevasta linkistä."
+    And the admin should receive an email
+    When I open the email
+    Then I should see "Hirviurheilu - uusi kilpailu (test)" in the email subject
+    And I should see "Kilpailun nimi: Test race" in the email body
+    And I should see "Aika: 13.07.2011" in the email body
+    And I should see "Paikkakunta: Test town" in the email body
+    And I should see "Toimitsija: Teppo Testaaja" in the email body
 
   Scenario: Create new race with default series
     Given there is a default series "Default series 1"

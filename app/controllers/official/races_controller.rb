@@ -17,6 +17,7 @@ class Official::RacesController < Official::OfficialController
     @race = Race.new(params[:race])
     if @race.save
       current_user.races << @race
+      NewRaceMailer.new_race(@race, current_user).deliver
       flash[:success] = "Kilpailu lisätty. "
       if params[:add_default_series]
         @race.add_default_series

@@ -29,6 +29,11 @@ Given /^I am an official with email "([^"]*)"$/ do |email|
   @user.add_official_rights
 end
 
+Given /^I am an official "(.*) ([a-zA-Z]*)"$/ do |firstname, lastname|
+  @user = Factory.create(:user, :first_name => firstname, :last_name => lastname)
+  @user.add_official_rights
+end
+
 Given /^I am an official "(.*) (.*)" with email "([^"]*)"$/ do |firstname,
     lastname, email|
   @user = Factory.create(:user, :first_name => firstname, :last_name => lastname,
