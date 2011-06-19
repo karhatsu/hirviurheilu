@@ -13,10 +13,10 @@
 
 <%= form_for @user, :url => account_path do |f| %>
   <%= render :partial => "form", :object => f %>
-  <div class="info">Klikkaamalla alla olevaa Rekisteröidy-nappia hyväksyt
-    käyttämään palvelua kulloisenkin hinnaston mukaisesti.</div>
+  <%#<div class="info">Klikkaamalla alla olevaa Rekisteröidy-nappia hyväksyt
+    käyttämään palvelua kulloisenkin hinnaston mukaisesti.</div>%>
   <% unless Rails.env == 'production' %>
-    <div class="important">Käytät testiympäristöä. Sen käyttö on ilmaista.</div>
+    <%#<div class="important">Käytät testiympäristöä. Sen käyttö on ilmaista.</div>%>
   <% end %>
   <%= f.submit "Rekisteröidy" %>
 <% end %>
