@@ -130,3 +130,5 @@ fi:
         name: Sarjan nimi
         national_record: SE
         start_time: Sarjan lähtöaika
+      team_competition:
+        name: Kilpailun nimi

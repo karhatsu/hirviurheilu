@@ -22,8 +22,8 @@ Feature: Manage team competitions
     And I should see "Uusi joukkuekilpailu" within "h2"
     And I should see "Valitse kaikki sarjat ja ikäryhmät, jotka kuuluvat tähän joukkuekilpailuun." within "div.info"
     When I press "Tallenna"
-    Then I should see "Nimi on pakollinen" within "div.error"
-    When I fill in "My team competition" for "Nimi"
+    Then I should see "Kilpailun nimi on pakollinen" within "div.error"
+    When I fill in "My team competition" for "Kilpailun nimi"
     And I fill in "8" for "Kilpailijoita / joukkue"
     And I check "First series"
     And I check "Age group 2"
@@ -37,7 +37,7 @@ Feature: Manage team competitions
     Then the official main menu item should be selected
     And the "Joukkuek." sub menu item should be selected
     And I should see "Muokkaa joukkuekilpailun tietoja" within "h2"
-    When I fill in "Modified name" for "Nimi"
+    When I fill in "Modified name" for "Kilpailun nimi"
     And I fill in "7" for "Kilpailijoita / joukkue"
     And I uncheck "First series"
     And I check "Age group 1"
