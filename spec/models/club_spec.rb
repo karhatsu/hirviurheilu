@@ -24,6 +24,13 @@ describe Club do
         Factory.build(:club, :long_name => nil, :race_id => club.race.id).
           should be_valid
       end
+
+      it "should convert empty strings to nils for long names" do
+        club = Factory.create(:club, :long_name => '')
+        club.long_name.should be_nil
+        Factory.build(:club, :long_name => '', :race_id => club.race.id).
+          should be_valid
+      end
     end
   end
 
