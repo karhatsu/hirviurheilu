@@ -9,12 +9,15 @@ describe Club do
 
   describe "validation" do
     it { should validate_presence_of(:name) }
+    it { should_not validate_presence_of(:long_name) }
+    it { should allow_value(nil).for(:long_name) }
 
     describe "unique name" do
       before do
-        Factory.create(:club)
+        Factory.create(:club, :long_name => 'Long name')
       end
       it { should validate_uniqueness_of(:name).scoped_to(:race_id) }
+      it { should validate_uniqueness_of(:long_name).scoped_to(:race_id) }
     end
   end
 
