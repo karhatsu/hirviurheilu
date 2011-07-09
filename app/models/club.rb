@@ -5,7 +5,7 @@ class Club < ActiveRecord::Base
   has_many :competitors
 
   validates :name, :presence => true, :uniqueness => { :scope => :race_id }
-  validates :long_name, :allow_nil => true, :uniqueness => { :scope => :race_id }
+  validates :long_name, :uniqueness => { :scope => :race_id, :allow_nil => true }
 
   before_destroy :check_competitors
 

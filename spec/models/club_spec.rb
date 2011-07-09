@@ -18,6 +18,12 @@ describe Club do
       end
       it { should validate_uniqueness_of(:name).scoped_to(:race_id) }
       it { should validate_uniqueness_of(:long_name).scoped_to(:race_id) }
+
+      it "should allow two nil long names for same race" do
+        club = Factory.create(:club, :long_name => nil)
+        Factory.build(:club, :long_name => nil, :race_id => club.race.id).
+          should be_valid
+      end
     end
   end
 
