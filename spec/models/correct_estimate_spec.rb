@@ -131,4 +131,51 @@ describe CorrectEstimate do
       end
     end
   end
+
+  describe "#for_number_in_race" do
+    before do
+      another_race = Factory.create(:race)
+      another_race.correct_estimates << Factory.build(:correct_estimate,
+        :race => another_race, :min_number => 1)
+      @race = Factory.create(:race)
+    end
+
+    it "should return nil if nothing found" do
+      CorrectEstimate.for_number_in_race(10, @race).should be_nil
+    end
+
+    context "when correct estimate defined" do
+      before do
+        @ce1 = Factory.build(:correct_estimate,
+          :race => @race, :min_number => 5, :max_number => 7)
+        @ce2 = Factory.build(:correct_estimate,
+          :race => @race, :min_number => 9, :max_number => 11)
+        @ce3 = Factory.build(:correct_estimate,
+          :race => @race, :min_number => 14, :max_number => nil)
+        @race.correct_estimates << @ce1
+        @race.correct_estimates << @ce2
+        @race.correct_estimates << @ce3
+      end
+
+      it "should return the correct estimates (case middle)" do
+        CorrectEstimate.for_number_in_race(6, @race).should == @ce1
+        CorrectEstimate.for_number_in_race(10, @race).should == @ce2
+      end
+
+      it "should return the correct estimates (case lower bound)" do
+        CorrectEstimate.for_number_in_race(5, @race).should == @ce1
+        CorrectEstimate.for_number_in_race(9, @race).should == @ce2
+        CorrectEstimate.for_number_in_race(14, @race).should == @ce3
+      end
+
+      it "should return the correct estimates (case upper bound)" do
+        CorrectEstimate.for_number_in_race(7, @race).should == @ce1
+        CorrectEstimate.for_number_in_race(11, @race).should == @ce2
+      end
+
+      it "should return the correct estimates (case nil max number)" do
+        CorrectEstimate.for_number_in_race(15, @race).should == @ce3
+      end
+    end
+  end
 end

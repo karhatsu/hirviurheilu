@@ -42,6 +42,8 @@ class Competitor < ActiveRecord::Base
   validate :check_no_result_reason
   validate :check_if_series_has_start_list
 
+  after_create :set_correct_estimates
+
   attr_accessor :club_name, :age_group_name
 
   def shot_values
@@ -254,6 +256,19 @@ class Competitor < ActiveRecord::Base
       errors.add(:number, 'on pakollinen, kun sarjan lähtölista on jo luotu') unless number
       errors.add(:start_time,
         'on pakollinen, kun sarjan lähtölista on jo luotu') unless start_time
+    end
+  end
+
+  def set_correct_estimates
+    if number
+      correct_estimate = CorrectEstimate.for_number_in_race(number, series.race)
+      if correct_estimate
+        self.correct_estimate1 = correct_estimate.distance1
+        self.correct_estimate2 = correct_estimate.distance2
+        self.correct_estimate3 = correct_estimate.distance3
+        self.correct_estimate4 = correct_estimate.distance4
+        save!
+      end
     end
   end
 

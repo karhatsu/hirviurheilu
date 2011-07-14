@@ -18,6 +18,11 @@ class CorrectEstimate < ActiveRecord::Base
     :allow_nil => true }
   validate :overlapping_numbers
 
+  def self.for_number_in_race(number, race)
+    where(['race_id=? and min_number<=? and (max_number>=? or max_number is ?)',
+        race.id, number, number, nil]).first
+  end
+
   private
   def overlapping_numbers
     return unless min_number and race

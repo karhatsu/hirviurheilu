@@ -956,4 +956,39 @@ describe Competitor do
     end
   end
 
+  describe "create with number" do
+    before do
+      @race = Factory.create(:race)
+      series = Factory.create(:series, :race => @race)
+      @competitor = Factory.build(:competitor, :series => series, :number => 10)
+    end
+
+    context "when no correct estimates defined for this number" do
+      it "should leave correct estimates as nil" do
+        @competitor.save!
+        verify_correct_estimates nil, nil, nil, nil
+      end
+    end
+
+    context "when correct estimates defined for this number" do
+      before do
+        @race.correct_estimates << Factory.build(:correct_estimate, :race => @race,
+          :min_number => 9, :distance1 => 101, :distance2 => 102,
+          :distance3 => 103, :distance4 => 104)
+      end
+
+      it "should set the correct estimates for the competitor" do
+        @competitor.save!
+        verify_correct_estimates 101, 102, 103, 104
+      end
+    end
+
+    def verify_correct_estimates(ce1, ce2, ce3, ce4)
+      @competitor.reload
+      @competitor.correct_estimate1.should == ce1
+      @competitor.correct_estimate2.should == ce2
+      @competitor.correct_estimate3.should == ce3
+      @competitor.correct_estimate4.should == ce4
+    end
+  end
 end
