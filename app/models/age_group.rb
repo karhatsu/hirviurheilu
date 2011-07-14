@@ -13,7 +13,7 @@ class AgeGroup < ActiveRecord::Base
   end
 
   def competitors_count
-    @competitors_count ||= competitors.size
+    @competitors_count ||= competitors.where(:unofficial => false).size
   end
 
   def best_time_in_seconds

@@ -85,5 +85,16 @@ describe AgeGroup do
         @age_group.should have_enough_competitors
       end
     end
+
+    describe "with unofficial competitors" do
+      before do
+        @age_group.competitors << Factory.build(:competitor, :age_group => @age_group,
+          :unofficial => true)
+      end
+
+      it "should not calculate the unofficial competitors" do
+        @age_group.should_not have_enough_competitors
+      end
+    end
   end
 end
