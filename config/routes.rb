@@ -67,6 +67,7 @@ ElkSports::Application.routes.draw do
       post 'estimates_quick_save' => 'quick_saves#estimates', :as => :estimates_quick_save
       post 'shots_quick_save' => 'quick_saves#shots', :as => :shots_quick_save
       post 'time_quick_save' => 'quick_saves#time', :as => :time_quick_save
+      post 'no_result_quick_save' => 'quick_saves#no_result', :as => :no_result_quick_save
       resources :quick_saves
       resource :finish_race
       resource :exports

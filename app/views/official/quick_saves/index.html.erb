@@ -27,6 +27,13 @@
       '45,++99877420 (merkitse ohilaukauksille nollat).' %>
   <%= render :partial => 'result_place', :locals => { :name => 'shots',
     :instructions => instructions, :path => race_shots_quick_save_path(@race) } %>
+  <h3>Ei lähtenyt matkaan / Keskeytys</h3>
+  <% instructions = 'Jos kilpailija ei lähtenyt matkaan, syötä tieto muodossa ' +
+      'nro,dns esim. 45,dns (kilpailija 45, DNS = did not start). ' +
+      'Jos kilpailija keskeytti, syötä tieto muodossa ' +
+      'nro,dnf esim. 45,dnf (kilpailija 45, DNF = did not finish).' %>
+  <%= render :partial => 'result_place', :locals => { :name => 'no_result',
+    :instructions => instructions, :path => race_no_result_quick_save_path(@race) } %>
   <div id="latest" style="display:none;">
     <h3>Viimeisimmät tallennukset</h3>
     <ul id="latest_list"></ul>

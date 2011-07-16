@@ -30,6 +30,14 @@ class Official::QuickSavesController < Official::OfficialController
     end
   end
 
+  def no_result
+    @name = 'no_result'
+    do_quick_save(UnfinishedCompetitorQuickSave.new(@race.id, params[:string])) do
+      @result = "ei lähtenyt matkaan" if @competitor.no_result_reason == Competitor::DNS
+      @result = "keskeytti" if @competitor.no_result_reason == Competitor::DNF
+    end
+  end
+
   private
   def set_quick_saves
     @is_quick_saves = true
