@@ -1,4 +1,4 @@
-<% content_for(:title, "#{@series.name} - #{series_result_title(@series)}") %>
+<% content_for(:title, "#{@series.name} - #{series_result_title(@series, params[:unofficial])}") %>
 <% if @series.active? %>
   <% content_for(:refresh, true) %>
 <% end %>
@@ -23,6 +23,13 @@
   </div>
 <% else %>
   <%= render :partial => 'series/infos', :locals => { :series => @series } %>
+  <% if params[:unofficial] %>
+    <%= link_to 'Näytä viralliset tulokset',
+      series_competitors_path(@series) %>
+  <% else %>
+    <%= link_to 'Näytä epävirallisille kilpailijoille normaalit tulokset',
+      series_competitors_path(@series, :unofficial => true) %>
+  <% end %>
   <div class="section">
     <%= render :partial => 'series/series_results', :locals => { :series => @series } %>
   </div>

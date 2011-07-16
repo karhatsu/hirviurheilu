@@ -573,3 +573,23 @@ Feature: Results
       | shooting | 540 (90) |
       | estimates | 300 (0m/0m) |
       | time | 300 (1:00:00) |
+    When I follow "Näytä epävirallisille kilpailijoille normaalit tulokset"
+    Then I should see "Men 50 years - Tulokset - Epäviralliset" within "h2"
+    And I should see a result row 1 with values:
+      | name | Atkinsson Tim epäv. |
+      | number | 51 |
+      | club | Sports club |
+      | points | 1140 |
+      | shooting | 540 (90) |
+      | estimates | 300 (0m/0m) |
+      | time | 300 (1:00:00) |
+    And I should see a result row 2 with values:
+      | name | Johnson James |
+      | number | 50 |
+      | club | Shooting club |
+      | points | 1105 |
+      | shooting | 510 (85) |
+      | estimates | 296 (+1m/-1m) |
+      | time | 299 (1:00:10) |
+    When I follow "Näytä viralliset tulokset"
+    Then I should see "Men 50 years - Tulokset" within "h2"

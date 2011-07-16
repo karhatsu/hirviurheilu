@@ -363,12 +363,14 @@ module ApplicationHelper
     return [15, interval].max
   end
 
-  def series_result_title(series)
+  def series_result_title(series, unofficial=false)
+    suffix = ''
+    suffix = ' - Epäviralliset' if unofficial
     return '(Ei kilpailijoita)' if series.competitors.empty?
     return '(Sarja ei ole vielä alkanut)' unless series.started?
-    return 'Tulokset' if series.race.finished?
+    return "Tulokset#{suffix}" if series.race.finished?
     return "Väliaikatulokset (päivitetty: #{datetime_print(series.competitors.
-      maximum(:updated_at), true, true, '-', true)})"
+      maximum(:updated_at), true, true, '-', true)})#{suffix}"
   end
 
   def relay_result_title(relay)
