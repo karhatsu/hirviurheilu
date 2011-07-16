@@ -69,5 +69,60 @@ describe UnfinishedCompetitorQuickSave do
       end
     end
   end
-end
 
+  describe "unknown competitor" do
+    before do
+      another_race = Factory.create(:race)
+      series = Factory.create(:series, :race => another_race)
+      Factory.create(:competitor, :series => series, :number => 8)
+      @qs = UnfinishedCompetitorQuickSave.new(@race.id, '8,dns')
+    end
+
+    it "should cause failed save" do
+      check_failed_save @qs, /kilpailija/, false
+    end
+  end
+
+  describe "invalid string format (1)" do
+    before do
+      @qs = UnfinishedCompetitorQuickSave.new(@race.id, '10,dng')
+    end
+
+    it "should cause failed save" do
+      check_failed_save @qs, /muoto/, false, @c, Competitor::DNS
+    end
+  end
+
+  describe "invalid string format (2)" do
+    before do
+      @qs = UnfinishedCompetitorQuickSave.new(@race.id, '10,dnfdns')
+    end
+
+    it "should cause failed save" do
+      check_failed_save @qs, /muoto/, false, @c, Competitor::DNS
+    end
+  end
+
+  describe "data already stored" do
+    before do
+      @c = Factory.create(:competitor, :series => @series, :number => 12,
+        :no_result_reason => Competitor::DNF)
+      @qs = UnfinishedCompetitorQuickSave.new(@race.id, '12,dns')
+    end
+
+    it "should cause failed save" do
+      check_failed_save @qs, /talletettu/, true, @c, Competitor::DNF
+    end
+  end
+
+  def check_failed_save(qs, error_regex, find_competitor,
+      original_competitor=nil, original_reason=nil)
+    qs.save.should be_false
+    qs.error.should match(error_regex)
+    qs.competitor.should be_nil unless find_competitor
+    if original_competitor
+      original_competitor.reload
+      original_competitor.no_result_reason.should == original_reason
+    end
+  end
+end
