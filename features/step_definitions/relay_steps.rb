@@ -35,3 +35,7 @@ end
 Given /^the relay is finished$/ do
   @relay.finish!
 end
+
+Given /^the relay team is deleted$/ do
+  @relay.relay_teams.last.destroy
+end

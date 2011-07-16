@@ -71,6 +71,7 @@ Feature: Manager relays
       | name | Test relay |
       | legs_count | 2 |
       | start_time | 12:00 |
+    And the relay has a team "Test team"
     And I have logged in
     And I am on the official relays page of "Relay race"
     When I follow "Viestin päättäminen"
@@ -79,6 +80,7 @@ Feature: Manager relays
     And the "Viestit" sub menu item should be selected
     And I should see "Viestin päättäminen" within "h2"
     And I should see "Kun kaikki viestin tiedot on syötetty, voit alla olevan napin avulla merkitä viestin päättyneeksi. Ohjelma tarkastaa automaattisesti, ettei mitään tietoja puutu." within "div.info"
+    Given the relay team is deleted
     When I press "Merkitse viesti päättyneeksi"
     Then I should see "Viestissä ei ole yhtään joukkuetta" within "div.error"
     Given the relay has a team "Test team"
