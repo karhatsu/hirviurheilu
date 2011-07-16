@@ -8,12 +8,16 @@
         <th>Kilpailun nimi</th>
         <th>Kilpailijoita / joukkue</th>
         <th>Sarjat / ikäryhmät</th>
+        <th>&nbsp;</th>
       </tr>
       <% @race.team_competitions.each do |tc| %>
         <tr>
           <td><%= link_to tc.name, edit_official_race_team_competition_path(@race, tc) %></td>
           <td class="center"><%= tc.team_competitor_count %></td>
           <td><%= ((tc.series.map &:name) + (tc.age_groups.map &:name)).join(', ') %></td>
+          <td><%= link_to 'Poista joukkuekilpailu',
+              official_race_team_competition_path(@race, tc), :method => :delete,
+              :confirm => 'Haluatko varmasti poistaa tämän joukkuekilpailun?' %></td>
         </tr>
       <% end %>
     </table>
