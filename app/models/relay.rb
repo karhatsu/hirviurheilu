@@ -14,6 +14,8 @@ class Relay < ActiveRecord::Base
     :allow_nil => true, :greater_than => 0 }
   validate :start_day_not_bigger_than_race_days_count
 
+  before_destroy :check_teams
+
   attr_readonly :legs_count
 
   accepts_nested_attributes_for :relay_teams
@@ -111,6 +113,13 @@ class Relay < ActiveRecord::Base
   def start_day_not_bigger_than_race_days_count
     if race and start_day > race.days_count
       errors.add(:start_day, "ei voi olla suurempi kuin kilpailupäivien määrä")
+    end
+  end
+
+  def check_teams
+    unless relay_teams.empty?
+      errors.add(:base, 'Viestiä ei voi poistaa, koska siihen on lisätty joukkueita')
+      return false
     end
   end
 end
