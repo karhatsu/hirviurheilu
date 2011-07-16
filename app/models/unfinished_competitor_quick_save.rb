@@ -1,6 +1,6 @@
 class UnfinishedCompetitorQuickSave < QuickSave
   def initialize(race_id, string)
-    super(race_id, string, /^(\+\+|)\d+\,dns|dnf$/)
+    super(race_id, string, /^(\+\+|)\d+\,dns|dnf|DNS|DNF$/)
   end
 
   private
