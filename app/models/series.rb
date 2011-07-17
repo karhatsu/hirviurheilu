@@ -40,8 +40,8 @@ class Series < ActiveRecord::Base
     return time.to_i if time
   end
 
-  def ordered_competitors
-    Competitor.sort(competitors.includes([:shots, :club, :age_group, :series]))
+  def ordered_competitors(unofficial)
+    Competitor.sort(competitors.includes([:shots, :club, :age_group, :series]), unofficial)
   end
 
   def next_number
