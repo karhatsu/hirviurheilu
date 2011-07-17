@@ -91,14 +91,23 @@ describe Series do
         Series.best_time_in_seconds(@series).should be_nil
       end
 
-      it "should return the fastest time for official, finished competitors" do
-        @series.competitors << Factory.build(:competitor, :series => @series,
-          :start_time => '12:00:00', :arrival_time => '12:01:02') # 62 s
-        @series.competitors << Factory.build(:competitor, :series => @series,
-          :start_time => '12:00:01', :arrival_time => '12:01:03') # 62 s
-        @series.competitors << Factory.build(:competitor, :series => @series,
-          :start_time => '12:00:03', :arrival_time => '12:01:04') # 61 s
-        Series.best_time_in_seconds(@series).should == 61
+      describe "finished competitors found" do
+        before do
+          @series.competitors << Factory.build(:competitor, :series => @series,
+            :start_time => '12:00:00', :arrival_time => '12:01:02') # 62 s
+          @series.competitors << Factory.build(:competitor, :series => @series,
+            :start_time => '12:00:01', :arrival_time => '12:01:03') # 62 s
+          @series.competitors << Factory.build(:competitor, :series => @series,
+            :start_time => '12:00:03', :arrival_time => '12:01:04') # 61 s
+        end
+
+        it "should return the fastest time for official, finished competitors" do
+          Series.best_time_in_seconds(@series).should == 61
+        end
+
+        it "should return the fastest time of all finished competitors when unofficials included" do
+          Series.best_time_in_seconds(@series, true).should == 60
+        end
       end
 
       it "should use postgres syntax when postgres database" do

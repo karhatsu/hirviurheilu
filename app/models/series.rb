@@ -34,9 +34,11 @@ class Series < ActiveRecord::Base
     @seconds_cache ||= Series.best_time_in_seconds(self)
   end
 
-  def self.best_time_in_seconds(group_with_competitors)
+  def self.best_time_in_seconds(group_with_competitors, unofficial=false)
+    conditions = { :no_result_reason => nil }
+    conditions[:unofficial] = false unless unofficial
     time = group_with_competitors.competitors.minimum(time_subtraction_sql,
-      :conditions => {:unofficial => false, :no_result_reason => nil})
+      :conditions => conditions)
     return time.to_i if time
   end
 
