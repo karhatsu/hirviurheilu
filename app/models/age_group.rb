@@ -8,12 +8,16 @@ class AgeGroup < ActiveRecord::Base
   validates :min_competitors, :numericality => { :only_integer => true,
     :greater_than_or_equal_to => 0 }
 
-  def has_enough_competitors?
-    competitors_count >= min_competitors
+  def has_enough_competitors?(unofficial=false)
+    competitors_count(unofficial) >= min_competitors
   end
 
-  def competitors_count
-    @competitors_count ||= competitors.where(:unofficial => false).size
+  def competitors_count(unofficial)
+    if unofficial
+      @competitors_count_unofficial ||= competitors.size
+    else
+      @competitors_count ||= competitors.where(:unofficial => false).size
+    end
   end
 
   def best_time_in_seconds(unofficial=false)

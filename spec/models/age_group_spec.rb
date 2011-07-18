@@ -98,6 +98,10 @@ describe AgeGroup do
       it "should not calculate the unofficial competitors" do
         @age_group.should_not have_enough_competitors
       end
+
+      it "should calculate the unofficial competitors if asked so" do
+        @age_group.has_enough_competitors?(true).should be_true
+      end
     end
   end
 end
