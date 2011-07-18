@@ -47,6 +47,16 @@ describe AgeGroup do
         Series.should_receive(:best_time_in_seconds).with(@age_group, false).and_return(123)
         @age_group.best_time_in_seconds(false).should == 123
       end
+
+      context "in unofficial case" do
+        it "should call static method in Series" do
+          @age_group.competitors << Factory.build(:competitor, :age_group => @age_group,
+            :unofficial => true)
+          @age_group.min_competitors = 3
+          Series.should_receive(:best_time_in_seconds).with(@age_group, true).and_return(100)
+          @age_group.best_time_in_seconds(true).should == 100
+        end
+      end
     end
 
     context "when not enough competitors" do
