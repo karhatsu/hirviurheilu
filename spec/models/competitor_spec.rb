@@ -246,9 +246,20 @@ describe Competitor do
         "6. unofficial competitors before DNS/DNF" do
       competitors = [@unofficial, @second_partial, @worst_partial, @best_partial,
         @c_dnf, @c_dns, @best_time, @best_points, @worst_points, @best_shots]
-      Competitor.sort(competitors).should ==
+      Competitor.sort(competitors, false).should ==
         [@best_points, @best_shots, @best_time, @worst_points, @best_partial,
         @second_partial, @worst_partial, @unofficial, @c_dnf, @c_dns]
+    end
+
+    context "when unofficial competitors are handled equal" do
+      it "should sort by: 1. points 2. partial points 3. shot points " +
+          "4. time (secs) 5. normal competitors before DNS/DNF" do
+        competitors = [@unofficial, @second_partial, @worst_partial, @best_partial,
+          @c_dnf, @c_dns, @best_time, @best_points, @worst_points, @best_shots]
+        Competitor.sort(competitors, true).should ==
+          [@unofficial, @best_points, @best_shots, @best_time, @worst_points,
+          @best_partial, @second_partial, @worst_partial, @c_dnf, @c_dns]
+      end
     end
   end
 
