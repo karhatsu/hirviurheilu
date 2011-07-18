@@ -187,7 +187,7 @@ class Competitor < ActiveRecord::Base
     self.correct_estimate4 = nil
   end
 
-  def self.sort(competitors, unofficial=false)
+  def self.sort(competitors, unofficial)
     competitors.sort do |a, b|
       [a.no_result_reason.to_s, ((!unofficial and a.unofficial) ? 1 : 0),
         b.points(unofficial).to_i, b.points!(unofficial).to_i,

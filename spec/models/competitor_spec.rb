@@ -237,7 +237,7 @@ describe Competitor do
     end
 
     it "should return empty list when no competitors defined" do
-      Competitor.sort([]).should == []
+      Competitor.sort([], false).should == []
     end
 
     # note that partial points equal points when all results are available
