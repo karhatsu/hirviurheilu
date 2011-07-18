@@ -23,12 +23,14 @@
   </div>
 <% else %>
   <%= render :partial => 'series/infos', :locals => { :series => @series } %>
-  <% if params[:unofficial] %>
-    <div class="action_box"><%= link_to 'Näytä viralliset tulokset',
-      series_competitors_path(@series) %></div>
-  <% else %>
-    <div class="action_box"><%= link_to 'Näytä epäviralliset tulokset (kaikki kilpailijat mukana)',
-      series_competitors_path(@series, :unofficial => true) %></div>
+  <% if @series.has_unofficial_competitors? %>
+    <% if params[:unofficial] %>
+      <div class="action_box"><%= link_to 'Näytä viralliset tulokset',
+        series_competitors_path(@series) %></div>
+    <% else %>
+      <div class="action_box"><%= link_to 'Näytä epäviralliset tulokset (kaikki kilpailijat mukana)',
+        series_competitors_path(@series, :unofficial => true) %></div>
+    <% end %>
   <% end %>
   <div class="section">
     <%= render :partial => 'series/series_results', :locals => { :series => @series } %>

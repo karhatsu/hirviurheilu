@@ -885,4 +885,21 @@ describe Series do
       end
     end
   end
+
+  describe "#has_unofficial_competitors?" do
+    before do
+      @series = Factory.create(:series)
+      @series.competitors << Factory.build(:competitor, :series => @series)
+    end
+
+    it "should return false when no unofficial competitors" do
+      @series.should_not have_unofficial_competitors
+    end
+
+    it "should return true when at least one unofficial competitor" do
+      @series.competitors << Factory.build(:competitor, :series => @series,
+        :unofficial => true)
+      @series.should have_unofficial_competitors
+    end
+  end
 end

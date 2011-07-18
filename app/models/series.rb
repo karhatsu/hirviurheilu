@@ -187,6 +187,10 @@ class Series < ActiveRecord::Base
         "competitors.correct_estimate2 is null#{condition34}").empty?
   end
 
+  def has_unofficial_competitors?
+    competitors.where(:unofficial => true).exists?
+  end
+
   private
   def self.time_subtraction_sql
     return "EXTRACT(EPOCH FROM (arrival_time-start_time))" if DatabaseHelper.postgres?
