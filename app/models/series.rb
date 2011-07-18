@@ -30,8 +30,12 @@ class Series < ActiveRecord::Base
   
   before_destroy :prevent_destroy_if_competitors
 
-  def best_time_in_seconds
-    @seconds_cache ||= Series.best_time_in_seconds(self)
+  def best_time_in_seconds(unofficial=false)
+    if unofficial
+      @seconds_cache_unofficial ||= Series.best_time_in_seconds(self, true)
+    else
+      @seconds_cache ||= Series.best_time_in_seconds(self, false)
+    end
   end
 
   def self.best_time_in_seconds(group_with_competitors, unofficial=false)

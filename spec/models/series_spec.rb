@@ -127,17 +127,19 @@ describe Series do
         @series = Factory.create(:series)
       end
 
-      it "should call static method" do
-        Series.should_receive(:best_time_in_seconds).with(@series).and_return(123)
-        @series.best_time_in_seconds.should == 123
+      it "should call static method in the first time" do
+        unofficial = false
+        Series.should_receive(:best_time_in_seconds).with(@series, unofficial).and_return(123)
+        @series.best_time_in_seconds(unofficial).should == 123
       end
 
-      describe "cache" do
-        it "should calculate in the first time and get from cache in the second" do
-          Series.should_receive(:best_time_in_seconds).with(@series).once.and_return(148)
-          @series.best_time_in_seconds.should == 148
-          @series.best_time_in_seconds.should == 148
-        end
+      it "should use (correct) cache in the second time" do
+        Series.should_receive(:best_time_in_seconds).with(@series, false).and_return(123)
+        Series.should_receive(:best_time_in_seconds).with(@series, true).and_return(100)
+        @series.best_time_in_seconds(false).should == 123
+        @series.best_time_in_seconds(true).should == 100
+        @series.best_time_in_seconds(false).should == 123
+        @series.best_time_in_seconds(true).should == 100
       end
     end
   end
