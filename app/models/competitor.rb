@@ -79,7 +79,7 @@ class Competitor < ActiveRecord::Base
     arrival_time - start_time
   end
 
-  def comparison_time_in_seconds(unofficial=false)
+  def comparison_time_in_seconds(unofficial)
     age_group_best = age_group.best_time_in_seconds(unofficial) if age_group
     return age_group_best if age_group_best
     series.best_time_in_seconds(unofficial)
