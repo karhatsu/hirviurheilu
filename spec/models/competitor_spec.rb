@@ -875,6 +875,7 @@ describe Competitor do
 
   describe "#comparison_time_in_seconds" do
     before do
+      @unofficial = true
       @series = Factory.build(:series)
       @competitor = Factory.build(:competitor, :series => @series)
     end
@@ -883,28 +884,28 @@ describe Competitor do
       before do
         @age_group = Factory.build(:age_group)
         @competitor.age_group = @age_group
-        @series.stub!(:best_time_in_seconds).and_return(555)
+        @series.stub!(:best_time_in_seconds).with(@unofficial).and_return(555)
       end
 
       context "and age group provides best time (= it has enough competitors)" do
         it "should use age group's best time" do
-          @age_group.should_receive(:best_time_in_seconds).and_return(123)
-          @competitor.comparison_time_in_seconds.should == 123
+          @age_group.should_receive(:best_time_in_seconds).with(@unofficial).and_return(123)
+          @competitor.comparison_time_in_seconds(@unofficial).should == 123
         end
       end
 
       context "but age group does not provide best time" do
         it "should use the series best time" do
-          @age_group.should_receive(:best_time_in_seconds).and_return(nil)
-          @competitor.comparison_time_in_seconds.should == 555
+          @age_group.should_receive(:best_time_in_seconds).with(@unofficial).and_return(nil)
+          @competitor.comparison_time_in_seconds(@unofficial).should == 555
         end
       end
     end
 
     context "when no age group" do
       it "should use the series best time" do
-        @series.should_receive(:best_time_in_seconds).and_return(456)
-        @competitor.comparison_time_in_seconds.should == 456
+        @series.should_receive(:best_time_in_seconds).with(@unofficial).and_return(456)
+        @competitor.comparison_time_in_seconds(@unofficial).should == 456
       end
     end
   end
