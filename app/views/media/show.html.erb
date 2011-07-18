@@ -4,7 +4,7 @@
   <% unless series.competitors.empty? %>
     <% series_results = "Sarja #{series.name}: " %>
     <% comp_results = [] %>
-    <% series.ordered_competitors.each_with_index do |c, i| %>
+    <% series.ordered_competitors(false).each_with_index do |c, i| %>
       <% max_points = c.points if i == 0 %>
       <% next unless i < @competitors_count or c.club_id == params[:club_id].to_i %>
       <% unless c.no_result_reason %>
