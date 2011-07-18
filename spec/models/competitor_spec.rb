@@ -640,67 +640,69 @@ describe Competitor do
 
   describe "#points" do
     before do
+      @unofficial = true
       @competitor = Factory.build(:competitor)
       @competitor.stub!(:shot_points).and_return(100)
       @competitor.stub!(:estimate_points).and_return(150)
-      @competitor.stub!(:time_points).and_return(200)
+      @competitor.stub!(:time_points).with(@unofficial).and_return(200)
     end
 
     it "should be nil when no shot points" do
       @competitor.should_receive(:shot_points).and_return(nil)
-      @competitor.points.should be_nil
+      @competitor.points(@unofficial).should be_nil
     end
 
     it "should be nil when no estimate points" do
       @competitor.should_receive(:estimate_points).and_return(nil)
-      @competitor.points.should be_nil
+      @competitor.points(@unofficial).should be_nil
     end
 
     context "when series calculates time points" do
       it "should be nil when no time points" do
-        @competitor.should_receive(:time_points).and_return(nil)
-        @competitor.points.should be_nil
+        @competitor.should_receive(:time_points).with(@unofficial).and_return(nil)
+        @competitor.points(@unofficial).should be_nil
       end
     end
 
     context "when series does not calculate time points and shot/estimate points available" do
       it "should be shot + estimate points" do
         @competitor.series.no_time_points = true
-        @competitor.should_receive(:time_points).and_return(nil)
-        @competitor.points.should == 100 + 150
+        @competitor.should_receive(:time_points).with(@unofficial).and_return(nil)
+        @competitor.points(@unofficial).should == 100 + 150
       end
     end
 
     it "should be sum of sub points when all of them are available" do
-      @competitor.points.should == 100 + 150 + 200
+      @competitor.points(@unofficial).should == 100 + 150 + 200
     end
   end
 
   describe "#points!" do
     before do
+      @unofficial = true
       @competitor = Factory.build(:competitor)
       @competitor.stub!(:shot_points).and_return(100)
       @competitor.stub!(:estimate_points).and_return(150)
-      @competitor.stub!(:time_points).and_return(200)
+      @competitor.stub!(:time_points).with(@unofficial).and_return(200)
     end
 
     it "should be estimate + time points when no shot points" do
       @competitor.should_receive(:shot_points).and_return(nil)
-      @competitor.points!.should == 150 + 200
+      @competitor.points!(@unofficial).should == 150 + 200
     end
 
     it "should be shot + time points when no estimate points" do
       @competitor.should_receive(:estimate_points).and_return(nil)
-      @competitor.points!.should == 100 + 200
+      @competitor.points!(@unofficial).should == 100 + 200
     end
 
     it "should be shot + estimate points when no time points" do
-      @competitor.should_receive(:time_points).and_return(nil)
-      @competitor.points!.should == 100 + 150
+      @competitor.should_receive(:time_points).with(@unofficial).and_return(nil)
+      @competitor.points!(@unofficial).should == 100 + 150
     end
 
     it "should be sum of sub points when all of them are available" do
-      @competitor.points!.should == 100 + 150 + 200
+      @competitor.points!(@unofficial).should == 100 + 150 + 200
     end
   end
 

@@ -151,18 +151,18 @@ class Competitor < ActiveRecord::Base
     0
   end
 
-  def points
+  def points(unofficial=false)
     sp = shot_points
     return nil if sp.nil?
     ep = estimate_points
     return nil if ep.nil?
-    tp = time_points
+    tp = time_points(unofficial)
     return nil unless tp or series.no_time_points
     sp + ep + tp.to_i
   end
 
-  def points!
-    shot_points.to_i + estimate_points.to_i + time_points.to_i
+  def points!(unofficial=false)
+    shot_points.to_i + estimate_points.to_i + time_points(unofficial).to_i
   end
 
   def finished?
