@@ -54,12 +54,14 @@ module ApplicationHelper
     time.strftime(format)
   end
 
-  def points_print(competitor)
+  def points_print(competitor, unofficial=false)
     if competitor.no_result_reason
       return no_result_reason_print(competitor.no_result_reason)
     end
-    return competitor.points.to_s unless competitor.points.nil?
-    return "(#{competitor.points!})" unless competitor.points!.nil?
+    points = competitor.points(unofficial)
+    return points.to_s unless points.nil?
+    partial_points = competitor.points!(unofficial)
+    return "(#{partial_points})" unless partial_points.nil?
     "-"
   end
 
@@ -99,12 +101,12 @@ module ApplicationHelper
     time << "#{sec < 10 ? "0" : ""}#{sec}"
   end
 
-  def time_points_and_time(competitor)
+  def time_points_and_time(competitor, unofficial=false)
     return '' if competitor.no_result_reason
     return "-" if competitor.time_in_seconds.nil?
-    points = competitor.time_points
+    points = competitor.time_points(unofficial)
     html = (points == 300 ? "<span class='series_best_time'>" : '')
-    html << "#{competitor.time_points} (#{time_from_seconds(competitor.time_in_seconds)})"
+    html << "#{points} (#{time_from_seconds(competitor.time_in_seconds)})"
     html << (points == 300 ? "</span>" : '')
     raw(html)
   end

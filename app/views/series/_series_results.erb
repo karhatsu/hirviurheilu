@@ -28,11 +28,11 @@
       </td>
       <td><%= comp.number ? comp.number : '' %></td>
       <td><%= comp.club.name %></td>
-      <td><%= time_points_and_time(comp) %></td>
+      <td><%= time_points_and_time(comp, params[:unofficial]) %></td>
       <td><%= series.race.finished ? estimate_points_and_diffs(comp) :
           estimate_points(comp) %></td>
       <td><%= shot_points_and_total(comp) %></td>
-      <td class="center total_points"><%= points_print(comp) %>
+      <td class="center total_points"><%= points_print(comp, params[:unofficial]) %>
         <%= national_record(comp) if comp.points.to_i >= @max_points.to_i %>
       </td>
     </tr>

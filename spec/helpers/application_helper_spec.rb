@@ -2,29 +2,37 @@ require 'spec_helper'
 
 describe ApplicationHelper do
   describe "#points_print" do
+    before do
+      @unofficial = true
+    end
+
     it "should print no result reason if it is defined" do
-      competitor = mock_model(Competitor, :no_result_reason => Competitor::DNS,
-        :points => 145)
-      helper.points_print(competitor).should ==
+      competitor = mock_model(Competitor, :no_result_reason => Competitor::DNS)
+      competitor.stub!(:points).with(@unofficial).and_return(145)
+      helper.points_print(competitor, @unofficial).should ==
         "<span class='explanation' title='Kilpailija ei osallistunut kilpailuun'>DNS</span>"
     end
 
     it "should print points in case they are available" do
       competitor = mock_model(Competitor, :no_result_reason => nil,
-        :points => 145, :series => nil)
-      helper.points_print(competitor).should == "145"
+        :series => nil)
+      competitor.should_receive(:points).with(@unofficial).and_return(145)
+      helper.points_print(competitor, @unofficial).should == "145"
     end
 
     it "should print points in brackets if only partial points are available" do
-      competitor = mock_model(Competitor, :no_result_reason => nil,
-        :points => nil, :points! => 100)
-      helper.points_print(competitor).should == "(100)"
+      competitor = mock_model(Competitor, :no_result_reason => nil)
+      competitor.should_receive(:points).with(@unofficial).and_return(nil)
+      competitor.should_receive(:points!).with(@unofficial).and_return(100)
+      helper.points_print(competitor, @unofficial).should == "(100)"
     end
 
     it "should print - if no points at all" do
       competitor = mock_model(Competitor, :no_result_reason => nil,
-        :points => nil, :points! => nil, :series => nil)
-      helper.points_print(competitor).should == "-"
+        :series => nil)
+      competitor.should_receive(:points).with(@unofficial).and_return(nil)
+      competitor.should_receive(:points!).with(@unofficial).and_return(nil)
+      helper.points_print(competitor, @unofficial).should == "-"
     end
   end
 
@@ -405,17 +413,21 @@ describe ApplicationHelper do
     end
 
     it "should return time points and time in brackets" do
-      competitor = mock_model(Competitor, :time_points => 270,
+      unofficial = true
+      competitor = mock_model(Competitor,
         :time_in_seconds => 2680, :no_result_reason => nil)
+      competitor.should_receive(:time_points).with(unofficial).and_return(270)
       helper.should_receive(:time_from_seconds).with(2680).and_return("45:23")
-      helper.time_points_and_time(competitor).should == "270 (45:23)"
+      helper.time_points_and_time(competitor, unofficial).should == "270 (45:23)"
     end
 
     it "should wrap with best time span when full points" do
-      competitor = mock_model(Competitor, :time_points => 300,
+      unofficial = true
+      competitor = mock_model(Competitor,
         :time_in_seconds => 2680, :no_result_reason => nil)
+      competitor.should_receive(:time_points).with(unofficial).and_return(300)
       helper.should_receive(:time_from_seconds).with(2680).and_return("45:23")
-      helper.time_points_and_time(competitor).
+      helper.time_points_and_time(competitor, unofficial).
         should == "<span class='series_best_time'>300 (45:23)</span>"
     end
   end
