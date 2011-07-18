@@ -36,7 +36,7 @@ describe TeamCompetition do
         @c = mock_model(Competitor, :points => 1100, :club => @club,
           :shot_points => 300, :time_in_seconds => 500, :unofficial => false,
                         :race => @race)
-        Competitor.should_receive(:sort).with([@c]).and_return([@c])
+        Competitor.should_receive(:sort).with([@c], false).and_return([@c])
         @race.stub!(:finished?).and_return(false)
         @tc.stub!(:race).and_return(@race)
         @tc.results_for_competitors([@c])[0] == 1100
@@ -50,7 +50,7 @@ describe TeamCompetition do
         @c = mock_model(Competitor, :points => 1100, :club => @club,
           :shot_points => 300, :time_in_seconds => 500, :unofficial => false,
                         :race => @race)
-        Competitor.should_receive(:sort).with([@c]).and_return([@c])
+        Competitor.should_receive(:sort).with([@c], false).and_return([@c])
         @race.stub!(:finished?).and_return(true)
         @tc.stub!(:race).and_return(@race)
         @tc.results_for_competitors([@c]).should == []
@@ -98,7 +98,7 @@ describe TeamCompetition do
             @club_unofficial1, @club_unofficial2, @club_small_nil_points]
         @tc.stub!(:race).and_return(@race)
         @race.stub!(:finished?).and_return(true)
-        Competitor.should_receive(:sort).with(@competitors).and_return(@competitors)
+        Competitor.should_receive(:sort).with(@competitors, false).and_return(@competitors)
         @results = @tc.results_for_competitors(@competitors)
       end
 
@@ -124,7 +124,7 @@ describe TeamCompetition do
               "4. fastest individual time" do
             @tc.stub!(:race).and_return(@race)
             @race.stub!(:finished?).and_return(false)
-            Competitor.should_receive(:sort).with(@competitors).and_return(@competitors)
+            Competitor.should_receive(:sort).with(@competitors, false).and_return(@competitors)
             @results = @tc.results_for_competitors(@competitors)
             @results.length.should == 6
             @results[0][:club].should == @club_best_total_points
