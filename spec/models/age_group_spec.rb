@@ -44,8 +44,8 @@ describe AgeGroup do
 
     context "when enough competitors" do
       it "should call static method in Series" do
-        Series.should_receive(:best_time_in_seconds).with(@age_group).and_return(123)
-        @age_group.best_time_in_seconds.should == 123
+        Series.should_receive(:best_time_in_seconds).with(@age_group, false).and_return(123)
+        @age_group.best_time_in_seconds(false).should == 123
       end
     end
 
@@ -59,10 +59,13 @@ describe AgeGroup do
     end
 
     describe "cache" do
-      it "should calculate in the first time and get from cache in the second" do
-        Series.should_receive(:best_time_in_seconds).with(@age_group).once.and_return(148)
-        @age_group.best_time_in_seconds.should == 148
-        @age_group.best_time_in_seconds.should == 148
+      it "should calculate in the first time and get from (correct) cache in the second" do
+        Series.should_receive(:best_time_in_seconds).with(@age_group, false).once.and_return(148)
+        Series.should_receive(:best_time_in_seconds).with(@age_group, true).once.and_return(100)
+        @age_group.best_time_in_seconds(false).should == 148
+        @age_group.best_time_in_seconds(true).should == 100
+        @age_group.best_time_in_seconds(false).should == 148
+        @age_group.best_time_in_seconds(true).should == 100
       end
     end
   end

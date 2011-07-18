@@ -16,9 +16,13 @@ class AgeGroup < ActiveRecord::Base
     @competitors_count ||= competitors.where(:unofficial => false).size
   end
 
-  def best_time_in_seconds
+  def best_time_in_seconds(unofficial=false)
     return nil unless has_enough_competitors?
-    @seconds_cache ||= Series.best_time_in_seconds(self)
+    if unofficial
+      @seconds_cache_unofficial ||= Series.best_time_in_seconds(self, true)
+    else
+      @seconds_cache ||= Series.best_time_in_seconds(self, false)
+    end
   end
 
   private
