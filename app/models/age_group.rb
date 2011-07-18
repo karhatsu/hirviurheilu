@@ -13,10 +13,12 @@ class AgeGroup < ActiveRecord::Base
   end
 
   def competitors_count(unofficial)
+    conditions = { :no_result_reason => nil }
     if unofficial
-      @competitors_count_unofficial ||= competitors.size
+      @competitors_count_unofficial ||= competitors.where(conditions).size
     else
-      @competitors_count ||= competitors.where(:unofficial => false).size
+      conditions[:unofficial] = false
+      @competitors_count ||= competitors.where(conditions).size
     end
   end
 

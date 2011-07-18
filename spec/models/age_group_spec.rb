@@ -84,15 +84,19 @@ describe AgeGroup do
     before do
       @age_group = Factory.create(:age_group, :min_competitors => 2)
       @age_group.competitors << Factory.build(:competitor, :age_group => @age_group)
+      @age_group.competitors << Factory.build(:competitor, :age_group => @age_group,
+        :no_result_reason => Competitor::DNS)
+      @age_group.competitors << Factory.build(:competitor, :age_group => @age_group,
+        :no_result_reason => Competitor::DNF)
     end
 
-    context "when competitor count is less than the min limit" do
+    context "when competitor count (excl. DNS/DNF) is less than the min limit" do
       it "should return false" do
         @age_group.should_not have_enough_competitors
       end
     end
 
-    context "when competitor count is at least the same as the min limit" do
+    context "when competitor count (excl. DNS/DNF) is at least the same as the min limit" do
       it "should return true" do
         @age_group.competitors << Factory.build(:competitor, :age_group => @age_group)
         @age_group.should have_enough_competitors
