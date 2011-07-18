@@ -84,11 +84,11 @@ describe Series do
 
       it "should return nil if no competitors" do
         series = Factory.create(:series)
-        Series.best_time_in_seconds(series).should be_nil
+        Series.best_time_in_seconds(series, false).should be_nil
       end
 
       it "should return nil if no official, finished competitors with time" do
-        Series.best_time_in_seconds(@series).should be_nil
+        Series.best_time_in_seconds(@series, false).should be_nil
       end
 
       describe "finished competitors found" do
@@ -102,7 +102,7 @@ describe Series do
         end
 
         it "should return the fastest time for official, finished competitors" do
-          Series.best_time_in_seconds(@series).should == 61
+          Series.best_time_in_seconds(@series, false).should == 61
         end
 
         it "should return the fastest time of all finished competitors when unofficials included" do
@@ -118,7 +118,7 @@ describe Series do
           with("EXTRACT(EPOCH FROM (arrival_time-start_time))",
           :conditions => {:unofficial => false, :no_result_reason => nil}).
           and_return(123)
-        Series.best_time_in_seconds(@series).should == 123
+        Series.best_time_in_seconds(@series, false).should == 123
       end
     end
 

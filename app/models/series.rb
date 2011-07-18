@@ -38,7 +38,7 @@ class Series < ActiveRecord::Base
     end
   end
 
-  def self.best_time_in_seconds(group_with_competitors, unofficial=false)
+  def self.best_time_in_seconds(group_with_competitors, unofficial)
     conditions = { :no_result_reason => nil }
     conditions[:unofficial] = false unless unofficial
     time = group_with_competitors.competitors.minimum(time_subtraction_sql,
