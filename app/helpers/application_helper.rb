@@ -367,7 +367,7 @@ module ApplicationHelper
 
   def series_result_title(series, unofficial=false)
     suffix = ''
-    suffix = ' - Epäviralliset' if unofficial
+    suffix = ' - Kaikki kilpailijat' if unofficial
     return '(Ei kilpailijoita)' if series.competitors.empty?
     return '(Sarja ei ole vielä alkanut)' unless series.started?
     return "Tulokset#{suffix}" if series.race.finished?

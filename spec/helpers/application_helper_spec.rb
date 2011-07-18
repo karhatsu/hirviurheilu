@@ -876,18 +876,18 @@ describe ApplicationHelper do
       Time.zone = original_zone
     end
 
-    it "should return 'Tulokset - Epäviralliset' when unofficial results and the race is finished" do
+    it "should return 'Tulokset - Kaikki kilpailijat' when unofficial results and the race is finished" do
       @race.should_receive(:finished?).and_return(true)
-      series_result_title(@series, true).should == 'Tulokset - Epäviralliset'
+      series_result_title(@series, true).should == 'Tulokset - Kaikki kilpailijat'
     end
 
-    it "should return 'Väliaikatulokset (päivitetty: <time>) - Epäviralliset' when unofficial results and series still active" do
+    it "should return 'Väliaikatulokset (päivitetty: <time>) - Kaikki kilpailijat' when unofficial results and series still active" do
       original_zone = Time.zone
       Time.zone = 'Tokyo' # UTC+9 (without summer time so that test settings won't change)
       time = Time.utc(2011, 5, 13, 13, 45, 58)
       @series.should_receive(:competitors).and_return(@competitors)
       @competitors.should_receive(:maximum).with(:updated_at).and_return(time) # db return UTC
-      series_result_title(@series, true).should == 'Väliaikatulokset (päivitetty: 13.05.2011 22:45:58) - Epäviralliset'
+      series_result_title(@series, true).should == 'Väliaikatulokset (päivitetty: 13.05.2011 22:45:58) - Kaikki kilpailijat'
       Time.zone = original_zone
     end
   end
