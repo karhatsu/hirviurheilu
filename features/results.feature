@@ -573,7 +573,7 @@ Feature: Results
       | shooting | 540 (90) |
       | estimates | 300 (0m/0m) |
       | time | 300 (1:00:00) |
-    When I follow "Näytä epävirallisille kilpailijoille normaalit tulokset"
+    When I follow "Näytä epäviralliset tulokset (kaikki kilpailijat mukana)"
     Then I should see "Men 50 years - Tulokset - Kaikki kilpailijat" within "h2"
     And I should see a result row 1 with values:
       | name | Atkinsson Tim epäv. |
