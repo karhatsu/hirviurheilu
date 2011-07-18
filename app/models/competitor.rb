@@ -131,14 +131,14 @@ class Competitor < ActiveRecord::Base
     series.estimates == 4 ? 600 : 300
   end
 
-  def time_points
+  def time_points(unofficial=false)
     return nil if series.no_time_points
     own_time = time_in_seconds
     return nil if own_time.nil?
-    best_time = comparison_time_in_seconds
+    best_time = comparison_time_in_seconds(unofficial)
     return nil if best_time.nil?
     if own_time < best_time
-      if unofficial
+      if self.unofficial
         return 300
       elsif no_result_reason
         return nil

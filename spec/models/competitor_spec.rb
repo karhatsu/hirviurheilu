@@ -546,51 +546,52 @@ describe Competitor do
 
   describe "#time_points" do
     before do
+      @unofficial = true
       @series = Factory.build(:series)
       @competitor = Factory.build(:competitor, :series => @series)
       @best_time_seconds = 3603.0 # rounded: 3600
-      @competitor.stub!(:comparison_time_in_seconds).and_return(@best_time_seconds)
+      @competitor.stub!(:comparison_time_in_seconds).with(@unofficial).and_return(@best_time_seconds)
     end
 
     it "should be nil when time cannot be calculated yet" do
       @competitor.should_receive(:time_in_seconds).and_return(nil)
-      @competitor.time_points.should == nil
+      @competitor.time_points(@unofficial).should == nil
     end
 
     it "should be nil when competitor has time but best time cannot be calculated" do
-      # this happens if competitor has time but did not finish (no_result=DNF)
+      # this happens if competitor has time but did not finish (no_result_reason=DNF)
       # and no-one else has result either
       @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds)
-      @competitor.should_receive(:comparison_time_in_seconds).and_return(nil)
-      @competitor.time_points.should == nil
+      @competitor.should_receive(:comparison_time_in_seconds).with(@unofficial).and_return(nil)
+      @competitor.time_points(@unofficial).should == nil
     end
 
     context "when the competitor has the best time" do
       it "should be 300" do
         @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds)
-        @competitor.time_points.should == 300
+        @competitor.time_points(@unofficial).should == 300
       end
     end
 
     context "when the competitor has worse time which is rounded down to 10 secs" do
       it "should be 300 when the rounded time is the same as the best time rounded" do
         @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 6)
-        @competitor.time_points.should == 300
+        @competitor.time_points(@unofficial).should == 300
       end
 
       it "should be 299 when the rounded time is 10 seconds worse than the best time" do
         @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 7)
-        @competitor.time_points.should == 299
+        @competitor.time_points(@unofficial).should == 299
       end
 
       it "should be 299 when the rounded time is still 10 seconds worse" do
         @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 16)
-        @competitor.time_points.should == 299
+        @competitor.time_points(@unofficial).should == 299
       end
 
       it "should be 298 when the rounded time is 20 seconds worse" do
         @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 17)
-        @competitor.time_points.should == 298
+        @competitor.time_points(@unofficial).should == 298
       end
     end
     
@@ -598,20 +599,20 @@ describe Competitor do
       it "should be 300" do
         @competitor.unofficial = true
         @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds - 60)
-        @competitor.time_points.should == 300
+        @competitor.time_points(@unofficial).should == 300
       end
     end
 
     it "should never be negative" do
       @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 100000)
-      @competitor.time_points.should == 0
+      @competitor.time_points(@unofficial).should == 0
     end
 
     context "when no time points" do
       it "should be nil" do
         @competitor.series.no_time_points = true
         @competitor.stub!(:time_in_seconds).and_return(@best_time_seconds)
-        @competitor.time_points.should be_nil
+        @competitor.time_points(@unofficial).should be_nil
       end
     end
 
@@ -620,19 +621,19 @@ describe Competitor do
         @competitor = Factory.build(:competitor, :series => @series,
           :no_result_reason => Competitor::DNF)
         @best_time_seconds = 3603.0
-        @competitor.stub!(:comparison_time_in_seconds).and_return(@best_time_seconds)
+        @competitor.stub!(:comparison_time_in_seconds).with(@unofficial).and_return(@best_time_seconds)
       end
 
       it "should be like normally when the competitor has not the best time" do
         @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 20)
-        @competitor.time_points.should == 298
+        @competitor.time_points(@unofficial).should == 298
       end
 
       it "should be nil when competitor's time is better than the best time" do
         # note: when no result, the time really can be better than the best time
         # since such a competitor's time cannot be the best time
         @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds - 1)
-        @competitor.time_points.should be_nil
+        @competitor.time_points(@unofficial).should be_nil
       end
     end
   end
