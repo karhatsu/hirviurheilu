@@ -3,36 +3,36 @@ require 'spec_helper'
 describe ApplicationHelper do
   describe "#points_print" do
     before do
-      @unofficial = true
+      @all_competitors = true
     end
 
     it "should print no result reason if it is defined" do
       competitor = mock_model(Competitor, :no_result_reason => Competitor::DNS)
-      competitor.stub!(:points).with(@unofficial).and_return(145)
-      helper.points_print(competitor, @unofficial).should ==
+      competitor.stub!(:points).with(@all_competitors).and_return(145)
+      helper.points_print(competitor, @all_competitors).should ==
         "<span class='explanation' title='Kilpailija ei osallistunut kilpailuun'>DNS</span>"
     end
 
     it "should print points in case they are available" do
       competitor = mock_model(Competitor, :no_result_reason => nil,
         :series => nil)
-      competitor.should_receive(:points).with(@unofficial).and_return(145)
-      helper.points_print(competitor, @unofficial).should == "145"
+      competitor.should_receive(:points).with(@all_competitors).and_return(145)
+      helper.points_print(competitor, @all_competitors).should == "145"
     end
 
     it "should print points in brackets if only partial points are available" do
       competitor = mock_model(Competitor, :no_result_reason => nil)
-      competitor.should_receive(:points).with(@unofficial).and_return(nil)
-      competitor.should_receive(:points!).with(@unofficial).and_return(100)
-      helper.points_print(competitor, @unofficial).should == "(100)"
+      competitor.should_receive(:points).with(@all_competitors).and_return(nil)
+      competitor.should_receive(:points!).with(@all_competitors).and_return(100)
+      helper.points_print(competitor, @all_competitors).should == "(100)"
     end
 
     it "should print - if no points at all" do
       competitor = mock_model(Competitor, :no_result_reason => nil,
         :series => nil)
-      competitor.should_receive(:points).with(@unofficial).and_return(nil)
-      competitor.should_receive(:points!).with(@unofficial).and_return(nil)
-      helper.points_print(competitor, @unofficial).should == "-"
+      competitor.should_receive(:points).with(@all_competitors).and_return(nil)
+      competitor.should_receive(:points!).with(@all_competitors).and_return(nil)
+      helper.points_print(competitor, @all_competitors).should == "-"
     end
   end
 
@@ -413,21 +413,21 @@ describe ApplicationHelper do
     end
 
     it "should return time points and time in brackets" do
-      unofficial = true
+      all_competitors = true
       competitor = mock_model(Competitor,
         :time_in_seconds => 2680, :no_result_reason => nil)
-      competitor.should_receive(:time_points).with(unofficial).and_return(270)
+      competitor.should_receive(:time_points).with(all_competitors).and_return(270)
       helper.should_receive(:time_from_seconds).with(2680).and_return("45:23")
-      helper.time_points_and_time(competitor, unofficial).should == "270 (45:23)"
+      helper.time_points_and_time(competitor, all_competitors).should == "270 (45:23)"
     end
 
     it "should wrap with best time span when full points" do
-      unofficial = true
+      all_competitors = true
       competitor = mock_model(Competitor,
         :time_in_seconds => 2680, :no_result_reason => nil)
-      competitor.should_receive(:time_points).with(unofficial).and_return(300)
+      competitor.should_receive(:time_points).with(all_competitors).and_return(300)
       helper.should_receive(:time_from_seconds).with(2680).and_return("45:23")
-      helper.time_points_and_time(competitor, unofficial).
+      helper.time_points_and_time(competitor, all_competitors).
         should == "<span class='series_best_time'>300 (45:23)</span>"
     end
   end
@@ -876,12 +876,12 @@ describe ApplicationHelper do
       Time.zone = original_zone
     end
 
-    it "should return 'Tulokset - Kaikki kilpailijat' when unofficial results and the race is finished" do
+    it "should return 'Tulokset - Kaikki kilpailijat' when all competitors and the race is finished" do
       @race.should_receive(:finished?).and_return(true)
       series_result_title(@series, true).should == 'Tulokset - Kaikki kilpailijat'
     end
 
-    it "should return 'Väliaikatulokset (päivitetty: <time>) - Kaikki kilpailijat' when unofficial results and series still active" do
+    it "should return 'Väliaikatulokset (päivitetty: <time>) - Kaikki kilpailijat' when all competitors and series still active" do
       original_zone = Time.zone
       Time.zone = 'Tokyo' # UTC+9 (without summer time so that test settings won't change)
       time = Time.utc(2011, 5, 13, 13, 45, 58)

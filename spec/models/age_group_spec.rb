@@ -48,7 +48,7 @@ describe AgeGroup do
         @age_group.best_time_in_seconds(false).should == 123
       end
 
-      context "in unofficial case" do
+      context "in all competitors case" do
         it "should call static method in Series" do
           @age_group.competitors << Factory.build(:competitor, :age_group => @age_group,
             :unofficial => true)
@@ -103,7 +103,7 @@ describe AgeGroup do
       end
     end
 
-    describe "with unofficial competitors" do
+    describe "with all competitors" do
       before do
         @age_group.competitors << Factory.build(:competitor, :age_group => @age_group,
           :unofficial => true)
@@ -113,7 +113,7 @@ describe AgeGroup do
         @age_group.should_not have_enough_competitors
       end
 
-      it "should calculate the unofficial competitors if asked so" do
+      it "should calculate all competitors if asked so" do
         @age_group.has_enough_competitors?(true).should be_true
       end
     end

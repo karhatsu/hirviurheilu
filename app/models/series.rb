@@ -30,24 +30,24 @@ class Series < ActiveRecord::Base
   
   before_destroy :prevent_destroy_if_competitors
 
-  def best_time_in_seconds(unofficial=false)
-    if unofficial
-      @seconds_cache_unofficial ||= Series.best_time_in_seconds(self, true)
+  def best_time_in_seconds(all_competitors=false)
+    if all_competitors
+      @seconds_cache_all_competitors ||= Series.best_time_in_seconds(self, true)
     else
       @seconds_cache ||= Series.best_time_in_seconds(self, false)
     end
   end
 
-  def self.best_time_in_seconds(group_with_competitors, unofficial)
+  def self.best_time_in_seconds(group_with_competitors, all_competitors)
     conditions = { :no_result_reason => nil }
-    conditions[:unofficial] = false unless unofficial
+    conditions[:unofficial] = false unless all_competitors
     time = group_with_competitors.competitors.minimum(time_subtraction_sql,
       :conditions => conditions)
     return time.to_i if time
   end
 
-  def ordered_competitors(unofficial)
-    Competitor.sort(competitors.includes([:shots, :club, :age_group, :series]), unofficial)
+  def ordered_competitors(all_competitors)
+    Competitor.sort(competitors.includes([:shots, :club, :age_group, :series]), all_competitors)
   end
 
   def next_number

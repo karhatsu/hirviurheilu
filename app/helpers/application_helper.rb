@@ -54,13 +54,13 @@ module ApplicationHelper
     time.strftime(format)
   end
 
-  def points_print(competitor, unofficial=false)
+  def points_print(competitor, all_competitors=false)
     if competitor.no_result_reason
       return no_result_reason_print(competitor.no_result_reason)
     end
-    points = competitor.points(unofficial)
+    points = competitor.points(all_competitors)
     return points.to_s unless points.nil?
-    partial_points = competitor.points!(unofficial)
+    partial_points = competitor.points!(all_competitors)
     return "(#{partial_points})" unless partial_points.nil?
     "-"
   end
@@ -101,10 +101,10 @@ module ApplicationHelper
     time << "#{sec < 10 ? "0" : ""}#{sec}"
   end
 
-  def time_points_and_time(competitor, unofficial=false)
+  def time_points_and_time(competitor, all_competitors=false)
     return '' if competitor.no_result_reason
     return "-" if competitor.time_in_seconds.nil?
-    points = competitor.time_points(unofficial)
+    points = competitor.time_points(all_competitors)
     html = (points == 300 ? "<span class='series_best_time'>" : '')
     html << "#{points} (#{time_from_seconds(competitor.time_in_seconds)})"
     html << (points == 300 ? "</span>" : '')
@@ -365,9 +365,9 @@ module ApplicationHelper
     return [15, interval].max
   end
 
-  def series_result_title(series, unofficial=false)
+  def series_result_title(series, all_competitors=false)
     suffix = ''
-    suffix = ' - Kaikki kilpailijat' if unofficial
+    suffix = ' - Kaikki kilpailijat' if all_competitors
     return '(Ei kilpailijoita)' if series.competitors.empty?
     return '(Sarja ei ole vielä alkanut)' unless series.started?
     return "Tulokset#{suffix}" if series.race.finished?

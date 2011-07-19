@@ -557,52 +557,52 @@ describe Competitor do
 
   describe "#time_points" do
     before do
-      @unofficial = true
+      @all_competitors = true
       @series = Factory.build(:series)
       @competitor = Factory.build(:competitor, :series => @series)
       @best_time_seconds = 3603.0 # rounded: 3600
-      @competitor.stub!(:comparison_time_in_seconds).with(@unofficial).and_return(@best_time_seconds)
+      @competitor.stub!(:comparison_time_in_seconds).with(@all_competitors).and_return(@best_time_seconds)
     end
 
     it "should be nil when time cannot be calculated yet" do
       @competitor.should_receive(:time_in_seconds).and_return(nil)
-      @competitor.time_points(@unofficial).should == nil
+      @competitor.time_points(@all_competitors).should == nil
     end
 
     it "should be nil when competitor has time but best time cannot be calculated" do
       # this happens if competitor has time but did not finish (no_result_reason=DNF)
       # and no-one else has result either
       @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds)
-      @competitor.should_receive(:comparison_time_in_seconds).with(@unofficial).and_return(nil)
-      @competitor.time_points(@unofficial).should == nil
+      @competitor.should_receive(:comparison_time_in_seconds).with(@all_competitors).and_return(nil)
+      @competitor.time_points(@all_competitors).should == nil
     end
 
     context "when the competitor has the best time" do
       it "should be 300" do
         @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds)
-        @competitor.time_points(@unofficial).should == 300
+        @competitor.time_points(@all_competitors).should == 300
       end
     end
 
     context "when the competitor has worse time which is rounded down to 10 secs" do
       it "should be 300 when the rounded time is the same as the best time rounded" do
         @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 6)
-        @competitor.time_points(@unofficial).should == 300
+        @competitor.time_points(@all_competitors).should == 300
       end
 
       it "should be 299 when the rounded time is 10 seconds worse than the best time" do
         @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 7)
-        @competitor.time_points(@unofficial).should == 299
+        @competitor.time_points(@all_competitors).should == 299
       end
 
       it "should be 299 when the rounded time is still 10 seconds worse" do
         @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 16)
-        @competitor.time_points(@unofficial).should == 299
+        @competitor.time_points(@all_competitors).should == 299
       end
 
       it "should be 298 when the rounded time is 20 seconds worse" do
         @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 17)
-        @competitor.time_points(@unofficial).should == 298
+        @competitor.time_points(@all_competitors).should == 298
       end
     end
     
@@ -610,20 +610,20 @@ describe Competitor do
       it "should be 300" do
         @competitor.unofficial = true
         @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds - 60)
-        @competitor.time_points(@unofficial).should == 300
+        @competitor.time_points(@all_competitors).should == 300
       end
     end
 
     it "should never be negative" do
       @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 100000)
-      @competitor.time_points(@unofficial).should == 0
+      @competitor.time_points(@all_competitors).should == 0
     end
 
     context "when no time points" do
       it "should be nil" do
         @competitor.series.no_time_points = true
         @competitor.stub!(:time_in_seconds).and_return(@best_time_seconds)
-        @competitor.time_points(@unofficial).should be_nil
+        @competitor.time_points(@all_competitors).should be_nil
       end
     end
 
@@ -632,88 +632,88 @@ describe Competitor do
         @competitor = Factory.build(:competitor, :series => @series,
           :no_result_reason => Competitor::DNF)
         @best_time_seconds = 3603.0
-        @competitor.stub!(:comparison_time_in_seconds).with(@unofficial).and_return(@best_time_seconds)
+        @competitor.stub!(:comparison_time_in_seconds).with(@all_competitors).and_return(@best_time_seconds)
       end
 
       it "should be like normally when the competitor has not the best time" do
         @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 20)
-        @competitor.time_points(@unofficial).should == 298
+        @competitor.time_points(@all_competitors).should == 298
       end
 
       it "should be nil when competitor's time is better than the best time" do
         # note: when no result, the time really can be better than the best time
         # since such a competitor's time cannot be the best time
         @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds - 1)
-        @competitor.time_points(@unofficial).should be_nil
+        @competitor.time_points(@all_competitors).should be_nil
       end
     end
   end
 
   describe "#points" do
     before do
-      @unofficial = true
+      @all_competitors = true
       @competitor = Factory.build(:competitor)
       @competitor.stub!(:shot_points).and_return(100)
       @competitor.stub!(:estimate_points).and_return(150)
-      @competitor.stub!(:time_points).with(@unofficial).and_return(200)
+      @competitor.stub!(:time_points).with(@all_competitors).and_return(200)
     end
 
     it "should be nil when no shot points" do
       @competitor.should_receive(:shot_points).and_return(nil)
-      @competitor.points(@unofficial).should be_nil
+      @competitor.points(@all_competitors).should be_nil
     end
 
     it "should be nil when no estimate points" do
       @competitor.should_receive(:estimate_points).and_return(nil)
-      @competitor.points(@unofficial).should be_nil
+      @competitor.points(@all_competitors).should be_nil
     end
 
     context "when series calculates time points" do
       it "should be nil when no time points" do
-        @competitor.should_receive(:time_points).with(@unofficial).and_return(nil)
-        @competitor.points(@unofficial).should be_nil
+        @competitor.should_receive(:time_points).with(@all_competitors).and_return(nil)
+        @competitor.points(@all_competitors).should be_nil
       end
     end
 
     context "when series does not calculate time points and shot/estimate points available" do
       it "should be shot + estimate points" do
         @competitor.series.no_time_points = true
-        @competitor.should_receive(:time_points).with(@unofficial).and_return(nil)
-        @competitor.points(@unofficial).should == 100 + 150
+        @competitor.should_receive(:time_points).with(@all_competitors).and_return(nil)
+        @competitor.points(@all_competitors).should == 100 + 150
       end
     end
 
     it "should be sum of sub points when all of them are available" do
-      @competitor.points(@unofficial).should == 100 + 150 + 200
+      @competitor.points(@all_competitors).should == 100 + 150 + 200
     end
   end
 
   describe "#points!" do
     before do
-      @unofficial = true
+      @all_competitors = true
       @competitor = Factory.build(:competitor)
       @competitor.stub!(:shot_points).and_return(100)
       @competitor.stub!(:estimate_points).and_return(150)
-      @competitor.stub!(:time_points).with(@unofficial).and_return(200)
+      @competitor.stub!(:time_points).with(@all_competitors).and_return(200)
     end
 
     it "should be estimate + time points when no shot points" do
       @competitor.should_receive(:shot_points).and_return(nil)
-      @competitor.points!(@unofficial).should == 150 + 200
+      @competitor.points!(@all_competitors).should == 150 + 200
     end
 
     it "should be shot + time points when no estimate points" do
       @competitor.should_receive(:estimate_points).and_return(nil)
-      @competitor.points!(@unofficial).should == 100 + 200
+      @competitor.points!(@all_competitors).should == 100 + 200
     end
 
     it "should be shot + estimate points when no time points" do
-      @competitor.should_receive(:time_points).with(@unofficial).and_return(nil)
-      @competitor.points!(@unofficial).should == 100 + 150
+      @competitor.should_receive(:time_points).with(@all_competitors).and_return(nil)
+      @competitor.points!(@all_competitors).should == 100 + 150
     end
 
     it "should be sum of sub points when all of them are available" do
-      @competitor.points!(@unofficial).should == 100 + 150 + 200
+      @competitor.points!(@all_competitors).should == 100 + 150 + 200
     end
   end
 
@@ -889,7 +889,7 @@ describe Competitor do
 
   describe "#comparison_time_in_seconds" do
     before do
-      @unofficial = true
+      @all_competitors = true
       @series = Factory.build(:series)
       @competitor = Factory.build(:competitor, :series => @series)
     end
@@ -898,28 +898,28 @@ describe Competitor do
       before do
         @age_group = Factory.build(:age_group)
         @competitor.age_group = @age_group
-        @series.stub!(:best_time_in_seconds).with(@unofficial).and_return(555)
+        @series.stub!(:best_time_in_seconds).with(@all_competitors).and_return(555)
       end
 
       context "and age group provides best time (= it has enough competitors)" do
         it "should use age group's best time" do
-          @age_group.should_receive(:best_time_in_seconds).with(@unofficial).and_return(123)
-          @competitor.comparison_time_in_seconds(@unofficial).should == 123
+          @age_group.should_receive(:best_time_in_seconds).with(@all_competitors).and_return(123)
+          @competitor.comparison_time_in_seconds(@all_competitors).should == 123
         end
       end
 
       context "but age group does not provide best time" do
         it "should use the series best time" do
-          @age_group.should_receive(:best_time_in_seconds).with(@unofficial).and_return(nil)
-          @competitor.comparison_time_in_seconds(@unofficial).should == 555
+          @age_group.should_receive(:best_time_in_seconds).with(@all_competitors).and_return(nil)
+          @competitor.comparison_time_in_seconds(@all_competitors).should == 555
         end
       end
     end
 
     context "when no age group" do
       it "should use the series best time" do
-        @series.should_receive(:best_time_in_seconds).with(@unofficial).and_return(456)
-        @competitor.comparison_time_in_seconds(@unofficial).should == 456
+        @series.should_receive(:best_time_in_seconds).with(@all_competitors).and_return(456)
+        @competitor.comparison_time_in_seconds(@all_competitors).should == 456
       end
     end
   end

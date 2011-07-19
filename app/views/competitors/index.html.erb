@@ -1,4 +1,4 @@
-<% content_for(:title, "#{@series.name} - #{series_result_title(@series, params[:unofficial])}") %>
+<% content_for(:title, "#{@series.name} - #{series_result_title(@series, params[:all_competitors])}") %>
 <% if @series.active? %>
   <% content_for(:refresh, true) %>
 <% end %>
@@ -24,12 +24,12 @@
 <% else %>
   <%= render :partial => 'series/infos', :locals => { :series => @series } %>
   <% if @series.has_unofficial_competitors? %>
-    <% if params[:unofficial] %>
+    <% if params[:all_competitors] %>
       <div class="action_box"><%= link_to 'Näytä viralliset tulokset',
         series_competitors_path(@series) %></div>
     <% else %>
       <div class="action_box"><%= link_to 'Näytä epäviralliset tulokset (kaikki kilpailijat mukana)',
-        series_competitors_path(@series, :unofficial => true) %></div>
+        series_competitors_path(@series, :all_competitors => true) %></div>
     <% end %>
   <% end %>
   <div class="section">
@@ -37,7 +37,7 @@
   </div>
   <div class="action_box">
     <%= link_to "Lataa tulokset pdf-tiedostona", series_competitors_path(@series,
-      :format => 'pdf', :unofficial => params[:unofficial]) %>
+      :format => 'pdf', :all_competitors => params[:all_competitors]) %>
   </div>
 <% end %>
 <hr/>

@@ -79,10 +79,10 @@ class Competitor < ActiveRecord::Base
     arrival_time - start_time
   end
 
-  def comparison_time_in_seconds(unofficial)
-    age_group_best = age_group.best_time_in_seconds(unofficial) if age_group
+  def comparison_time_in_seconds(all_competitors)
+    age_group_best = age_group.best_time_in_seconds(all_competitors) if age_group
     return age_group_best if age_group_best
-    series.best_time_in_seconds(unofficial)
+    series.best_time_in_seconds(all_competitors)
   end
 
   def shot_points
@@ -131,11 +131,11 @@ class Competitor < ActiveRecord::Base
     series.estimates == 4 ? 600 : 300
   end
 
-  def time_points(unofficial=false)
+  def time_points(all_competitors=false)
     return nil if series.no_time_points
     own_time = time_in_seconds
     return nil if own_time.nil?
-    best_time = comparison_time_in_seconds(unofficial)
+    best_time = comparison_time_in_seconds(all_competitors)
     return nil if best_time.nil?
     if own_time < best_time
       if self.unofficial
@@ -151,18 +151,18 @@ class Competitor < ActiveRecord::Base
     0
   end
 
-  def points(unofficial=false)
+  def points(all_competitors=false)
     sp = shot_points
     return nil if sp.nil?
     ep = estimate_points
     return nil if ep.nil?
-    tp = time_points(unofficial)
+    tp = time_points(all_competitors)
     return nil unless tp or series.no_time_points
     sp + ep + tp.to_i
   end
 
-  def points!(unofficial=false)
-    shot_points.to_i + estimate_points.to_i + time_points(unofficial).to_i
+  def points!(all_competitors=false)
+    shot_points.to_i + estimate_points.to_i + time_points(all_competitors).to_i
   end
 
   def finished?
@@ -187,13 +187,13 @@ class Competitor < ActiveRecord::Base
     self.correct_estimate4 = nil
   end
 
-  def self.sort(competitors, unofficial)
+  def self.sort(competitors, all_competitors)
     competitors.sort do |a, b|
-      [a.no_result_reason.to_s, ((!unofficial and a.unofficial) ? 1 : 0),
-        b.points(unofficial).to_i, b.points!(unofficial).to_i,
+      [a.no_result_reason.to_s, ((!all_competitors and a.unofficial) ? 1 : 0),
+        b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
         b.shot_points.to_i, a.time_in_seconds.to_i] <=>
-      [b.no_result_reason.to_s, ((!unofficial and b.unofficial) ? 1 : 0),
-        a.points(unofficial).to_i, a.points!(unofficial).to_i,
+      [b.no_result_reason.to_s, ((!all_competitors and b.unofficial) ? 1 : 0),
+        a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
         a.shot_points.to_i, b.time_in_seconds.to_i]
     end
   end
