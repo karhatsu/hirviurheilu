@@ -213,6 +213,17 @@ Feature: Results
       | shooting | 510 (85) |
       | estimates | 296 (+1m/-1m) |
       | time | 300 |
+    When I follow "Johnson James"
+    Then I should be on the results page of the competitor
+    And I should see "Tässä sarjassa kaikki saavat 300 aikapistettä." within "div.info"
+    And I should see "Pisteet" within "#points h3"
+    And I should see "510" within "#points td"
+    And I should see "296" within "#points td"
+    And I should see "300" within "#points td"
+    And I should see "1106" within "#points td"
+    And I should see "Hiihto" within "#time h3"
+    And I should see "13:00:00" within "#time td"
+    And I should see "-" within "#time td"
 
   Scenario: See the results of an unfinished race
     Given there is a race with attributes:
