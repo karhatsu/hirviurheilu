@@ -37,7 +37,7 @@
   </div>
   <div class="action_box">
     <%= link_to "Lataa tulokset pdf-tiedostona", series_competitors_path(@series,
-      :format => 'pdf') %>
+      :format => 'pdf', :unofficial => params[:unofficial]) %>
   </div>
 <% end %>
 <hr/>
