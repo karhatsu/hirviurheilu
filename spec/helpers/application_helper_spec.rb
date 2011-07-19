@@ -400,21 +400,31 @@ describe ApplicationHelper do
   end
 
   describe "#time_points_and_time" do
+    before do
+      @series = mock_model(Series, :time_points_type => Series::TIME_POINTS_TYPE_NORMAL)
+    end
+
     it "should print empty string if no result reason defined" do
-      competitor = mock_model(Competitor, :shots_sum => 88,
+      competitor = mock_model(Competitor, :series => @series,
         :no_result_reason => Competitor::DNS)
       helper.time_points_and_time(competitor).should == ''
     end
 
+    it "should return 300 if 300 points for all competitors in this series" do
+      @series.stub!(:time_points_type).and_return(Series::TIME_POINTS_TYPE_ALL_300)
+      competitor = mock_model(Competitor, :series => @series, :no_result_reason => nil)
+      helper.time_points_and_time(competitor).should == 300
+    end
+
     it "should return dash when no time" do
       competitor = mock_model(Competitor, :time_in_seconds => nil,
-        :no_result_reason => nil)
+        :no_result_reason => nil, :series => @series)
       helper.time_points_and_time(competitor).should == "-"
     end
 
     it "should return time points and time in brackets" do
       all_competitors = true
-      competitor = mock_model(Competitor,
+      competitor = mock_model(Competitor, :series => @series,
         :time_in_seconds => 2680, :no_result_reason => nil)
       competitor.should_receive(:time_points).with(all_competitors).and_return(270)
       helper.should_receive(:time_from_seconds).with(2680).and_return("45:23")
@@ -423,7 +433,7 @@ describe ApplicationHelper do
 
     it "should wrap with best time span when full points" do
       all_competitors = true
-      competitor = mock_model(Competitor,
+      competitor = mock_model(Competitor, :series => @series,
         :time_in_seconds => 2680, :no_result_reason => nil)
       competitor.should_receive(:time_points).with(all_competitors).and_return(300)
       helper.should_receive(:time_from_seconds).with(2680).and_return("45:23")

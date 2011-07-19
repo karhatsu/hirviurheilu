@@ -4,6 +4,8 @@
 <% end %>
 <% if series.time_points_type == Series::TIME_POINTS_TYPE_NONE %>
   <div class="info">Tälle sarjalle ei lasketa aikapisteitä.</div>
+<% elsif series.time_points_type == Series::TIME_POINTS_TYPE_ALL_300 %>
+  <div class="info">Tässä sarjassa kaikki saavat 300 aikapistettä.</div>
 <% end %>
 <% if series.estimates == 4 %>
   <div class="info">Tässä sarjassa on 4 arviomatkaa.</div>
