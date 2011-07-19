@@ -4,6 +4,10 @@ require 'time_helper.rb'
 class Series < ActiveRecord::Base
   include TimeHelper
 
+  TIME_POINTS_TYPE_NORMAL = 0
+  TIME_POINTS_TYPE_NONE = 1
+  TIME_POINTS_TYPE_ALL_300 = 2
+
   START_LIST_ADDING_ORDER = 0
   START_LIST_RANDOM = 1
 
@@ -16,6 +20,8 @@ class Series < ActiveRecord::Base
   accepts_nested_attributes_for :age_groups, :allow_destroy => true
   accepts_nested_attributes_for :competitors
 
+  before_validation :check_time_points_type
+
   validates :name, :presence => true
   #validates :race, :presence => true
   validates :first_number, :numericality => { :only_integer => true,
@@ -26,6 +32,9 @@ class Series < ActiveRecord::Base
     :inclusion => { :in => [2, 4] }
   validates :national_record, :numericality => { :only_integer => true,
     :allow_nil => true, :greater_than => 0 }
+  validates :time_points_type,
+    :inclusion => { :in => [TIME_POINTS_TYPE_NORMAL, TIME_POINTS_TYPE_NONE,
+      TIME_POINTS_TYPE_ALL_300] }
   validate :start_day_not_bigger_than_race_days_count
   
   before_destroy :prevent_destroy_if_competitors
@@ -192,6 +201,10 @@ class Series < ActiveRecord::Base
   end
 
   private
+  def check_time_points_type
+    self.time_points_type = TIME_POINTS_TYPE_NORMAL if time_points_type == nil
+  end
+
   def self.time_subtraction_sql
     return "EXTRACT(EPOCH FROM (arrival_time-start_time))" if DatabaseHelper.postgres?
     return "strftime('%s', arrival_time)-strftime('%s', start_time)" if DatabaseHelper.sqlite3?

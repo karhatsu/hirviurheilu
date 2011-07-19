@@ -1,5 +1,6 @@
 class Official::RacesController < Official::OfficialController
   before_filter :assign_race_by_id, :check_assigned_race, :except => [:new, :create]
+  before_filter :create_time_points_type_options, :only => [:new, :edit]
 
   def show
     @is_race = true
@@ -52,5 +53,14 @@ class Official::RacesController < Official::OfficialController
       flash[:error] = "Kilpailua ei voi poistaa: #{@race.errors[:base]}"
     end
     redirect_to official_root_path
+  end
+
+  private
+  def create_time_points_type_options
+    @time_points_type_options = [
+      ['Normaali', Series::TIME_POINTS_TYPE_NORMAL],
+      ['Ei aikapisteitä', Series::TIME_POINTS_TYPE_NONE],
+      ['Kaikille 300', Series::TIME_POINTS_TYPE_ALL_300]
+    ]
   end
 end

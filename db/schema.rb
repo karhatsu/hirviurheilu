@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110325151449) do
+ActiveRecord::Schema.define(:version => 20110719090313) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -199,9 +199,9 @@ ActiveRecord::Schema.define(:version => 20110325151449) do
     t.boolean  "has_start_list",    :default => false, :null => false
     t.integer  "competitors_count", :default => 0,     :null => false
     t.integer  "start_day",         :default => 1,     :null => false
-    t.boolean  "no_time_points",    :default => false, :null => false
     t.integer  "estimates",         :default => 2,     :null => false
     t.integer  "national_record"
+    t.integer  "time_points_type",  :default => 0,     :null => false
   end
 
   add_index "series", ["race_id"], :name => "index_series_on_race_id"

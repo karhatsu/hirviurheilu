@@ -111,7 +111,7 @@ Feature: Results
       | name | Men 50 years |
       | start_time | 13:00 |
       | first_number | 50 |
-      | no_time_points | true |
+      | time_points_type | 1 |
       | estimates | 4 |
     And the race has correct estimates with attributes:
       | min_number | 50 |
@@ -287,7 +287,7 @@ Feature: Results
       | name | Men 50 years |
       | start_time | 13:00 |
       | first_number | 50 |
-      | no_time_points | true |
+      | time_points_type | 1 |
       | estimates | 4 |
     And the race has correct estimates with attributes:
       | min_number | 1 |

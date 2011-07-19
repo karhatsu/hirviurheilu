@@ -6,5 +6,5 @@
 <br/>
 <%= f.label :estimates, 'Arviomatkojen lkm' %>
 <%= f.select :estimates, [2, 4] %>
-<%= f.check_box :no_time_points %>
-<%= f.label :no_time_points %>
+<%= f.label :time_points_type %>
+<%= f.select :time_points_type, @time_points_type_options %>

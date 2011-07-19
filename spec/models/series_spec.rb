@@ -53,6 +53,7 @@ describe Series do
       it { should_not allow_value(5).for(:estimates) }
       it { should_not allow_value(2.1).for(:estimates) }
     end
+
     describe "national_record" do
       it { should validate_numericality_of(:national_record) }
       it { should allow_value(nil).for(:national_record) }
@@ -60,6 +61,18 @@ describe Series do
       it { should_not allow_value(0).for(:national_record) }
       it { should allow_value(1).for(:national_record) }
       it { should_not allow_value(-51).for(:national_record) }
+    end
+
+    describe "time_points_type" do
+      it { should allow_value(Series::TIME_POINTS_TYPE_NORMAL).for(:time_points_type) }
+      it { should allow_value(Series::TIME_POINTS_TYPE_NONE).for(:time_points_type) }
+      it { should allow_value(Series::TIME_POINTS_TYPE_ALL_300).for(:time_points_type) }
+      it { should_not allow_value(3).for(:time_points_type) }
+
+      it "should convert nil to default value" do
+        series = Factory.create(:series, :time_points_type => nil)
+        series.time_points_type.should == Series::TIME_POINTS_TYPE_NORMAL
+      end
     end
   end
 

@@ -2,7 +2,7 @@
   <div class="info">Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan
     kilpailun päätyttyä.</div>
 <% end %>
-<% if series.no_time_points %>
+<% if series.time_points_type == Series::TIME_POINTS_TYPE_NONE %>
   <div class="info">Tälle sarjalle ei lasketa aikapisteitä.</div>
 <% end %>
 <% if series.estimates == 4 %>

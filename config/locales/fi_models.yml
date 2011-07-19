@@ -42,7 +42,7 @@ fi:
     misses: Ohilaukaukset
     name: Nimi
     national_record: SE
-    no_time_points: Ei aikapisteitä
+    time_points_type: Aikapisteiden laskenta
     number: Numero
     password: Salasana
     password_confirmation: Salasana uudestaan

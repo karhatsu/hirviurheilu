@@ -621,9 +621,17 @@ describe Competitor do
 
     context "when no time points" do
       it "should be nil" do
-        @competitor.series.no_time_points = true
+        @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_NONE
         @competitor.stub!(:time_in_seconds).and_return(@best_time_seconds)
         @competitor.time_points(@all_competitors).should be_nil
+      end
+    end
+
+    context "when 300 time points for all competitors in the series" do
+      it "should be 300" do
+        @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_ALL_300
+        @competitor.stub!(:time_in_seconds).and_return(nil)
+        @competitor.time_points(@all_competitors).should == 300
       end
     end
 
@@ -677,7 +685,7 @@ describe Competitor do
 
     context "when series does not calculate time points and shot/estimate points available" do
       it "should be shot + estimate points" do
-        @competitor.series.no_time_points = true
+        @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_NONE
         @competitor.should_receive(:time_points).with(@all_competitors).and_return(nil)
         @competitor.points(@all_competitors).should == 100 + 150
       end
@@ -879,7 +887,15 @@ describe Competitor do
 
       context "when series does not calculate time points and other results are there" do
         it "should return true" do
-          @competitor.series.no_time_points = true
+          @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_NONE
+          @competitor.arrival_time = nil
+          @competitor.should be_finished
+        end
+      end
+
+      context "when series gives 300 time points for all and other results are there" do
+        it "should return true" do
+          @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_ALL_300
           @competitor.arrival_time = nil
           @competitor.should be_finished
         end

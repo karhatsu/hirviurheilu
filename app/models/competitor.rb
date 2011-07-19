@@ -132,7 +132,8 @@ class Competitor < ActiveRecord::Base
   end
 
   def time_points(all_competitors=false)
-    return nil if series.no_time_points
+    return nil if series.time_points_type == Series::TIME_POINTS_TYPE_NONE
+    return 300 if series.time_points_type == Series::TIME_POINTS_TYPE_ALL_300
     own_time = time_in_seconds
     return nil if own_time.nil?
     best_time = comparison_time_in_seconds(all_competitors)
@@ -157,7 +158,7 @@ class Competitor < ActiveRecord::Base
     ep = estimate_points
     return nil if ep.nil?
     tp = time_points(all_competitors)
-    return nil unless tp or series.no_time_points
+    return nil unless tp or series.time_points_type == Series::TIME_POINTS_TYPE_NONE
     sp + ep + tp.to_i
   end
 
@@ -167,8 +168,8 @@ class Competitor < ActiveRecord::Base
 
   def finished?
     no_result_reason or
-      (start_time and (arrival_time or series.no_time_points) and shots_sum and
-        estimate1 and estimate2 and
+      (start_time and (arrival_time or series.time_points_type != Series::TIME_POINTS_TYPE_NORMAL) and
+        shots_sum and estimate1 and estimate2 and
         (series.estimates == 2 or (estimate3 and estimate4)))
   end
 

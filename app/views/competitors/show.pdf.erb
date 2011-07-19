@@ -2,7 +2,7 @@
 <%= @competitor.series.race.location %>, <%= race_date_interval(@competitor.series.race) %>
 <h2><%= @competitor.series.name %> - <%= full_name(@competitor) %>
   <%= (@competitor.age_group ? " (#{@competitor.age_group.name})" : "") %></h2>
-<% if @competitor.series.no_time_points %>
+<% if @competitor.series.time_points_type == Series::TIME_POINTS_TYPE_NONE %>
   <div class="info">Tälle sarjalle ei lasketa aikapisteitä.</div>
 <% end %>
 <% if @competitor.series.estimates == 4 %>
