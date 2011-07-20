@@ -1,5 +1,5 @@
 class LegsController < ApplicationController
-  before_filter :assign_relay_by_relay_id
+  before_filter :set_races, :assign_relay_by_relay_id
 
   def show
     @leg = params[:id]
