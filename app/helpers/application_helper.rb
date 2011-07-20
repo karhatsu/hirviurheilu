@@ -268,10 +268,19 @@ module ApplicationHelper
     raw("<ul><li>#{item}</li></ul>")
   end
 
-  def series_dropdown_menu(race, &block)
+  def series_dropdown_menu(race, type)
     menu = "<ul>"
     race.series.each do |series|
-      menu << menu_item(series.name, official_series_competitors_path(series), false)
+      if type == 'competitors'
+        link = official_series_competitors_path(series)
+      elsif type == 'times'
+        link = official_series_times_path(series)
+      elsif type == 'estimates'
+        link = official_series_estimates_path(series)
+      elsif type == 'shots'
+        link = official_series_shots_path(series)
+      end
+      menu << "<li>#{link_to series.name, link}</li>"
     end
     menu << "</ul>"
     raw(menu)
