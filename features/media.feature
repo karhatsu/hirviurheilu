@@ -80,8 +80,8 @@ Feature: Media
     And I should see "Tältä sivulta voit ladata lehdistöraportin" within "div.info"
     But I should not see "kun kilpailu on päättynyt"
     When I press "Lataa lehdistöraportti"
-    Then I should see "Sarja Another test series: 1) Thomsson Tina Sports club 1140, 2) Hamilton Mary Shooting club 1105. Sarja Test series: 1) Atkinsson Tim Sports club 1140 (SE), 2) Johnson James Shooting club 1105."
-    But I should not see "Empty series"
+    Then I should see "Sarja Another test series: 1) Thomsson Tina Sports club 1140, 2) Hamilton Mary Shooting club 1105. Sarja Test series: 1) Atkinsson Tim Sports club 1140 (SE), 2) Johnson James Shooting club 1105." within "div.main_content"
+    But I should not see "Empty series" within "div.main_content"
 
   Scenario: Results for selected amount of competitors and for certain club
     Given there is a race with attributes:
