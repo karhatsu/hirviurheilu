@@ -6,7 +6,7 @@
     <% end %>
     <%= menu_item "Toimitsijan sivut", official_root_path, @is_official, nil,
       (!@is_official and menu_race and own_race?(menu_race)) do %>
-      <% dropdown_menu(link_to(menu_race.name, official_race_path(menu_race))) %>
+      <% dropdown_menu_single(link_to(menu_race.name, official_race_path(menu_race))) %>
     <% end %>
     <%= menu_item "Info", info_path, @is_info %>
     <% unless offline? %>
