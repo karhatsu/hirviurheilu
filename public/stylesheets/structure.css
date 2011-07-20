@@ -43,8 +43,6 @@ div.main_title span {
 div.second_level_menu {
     width: 910px;
     margin-left: 10px;
-    border-left: 1px solid white;
-    border-right: 1px solid white;
 }
 
 div.middle_section {
@@ -70,8 +68,10 @@ div.main_menu {
 }
 
 div.sub_menu {
+    border-left: 1px solid white;
+    border-right: 1px solid white;
     float: left;
-    width: 914px;
+    width: 910px;
 }
 
 div.sub_sub_menu {
