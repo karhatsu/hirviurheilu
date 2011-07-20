@@ -271,7 +271,11 @@ module ApplicationHelper
   def series_dropdown_menu(race, type)
     menu = "<ul>"
     race.series.each do |series|
-      if type == 'competitors'
+      if type == 'results'
+        link = series_competitors_path(series)
+      elsif type == 'start_list'
+        link = series_start_list_path(series)
+      elsif type == 'competitors'
         link = official_series_competitors_path(series)
       elsif type == 'times'
         link = official_series_times_path(series)
