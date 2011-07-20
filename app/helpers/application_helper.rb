@@ -269,6 +269,7 @@ module ApplicationHelper
   end
 
   def series_dropdown_menu(race, type)
+    return '' if race.series.count <= 1
     menu = "<ul>"
     race.series.each do |series|
       if type == 'results'
@@ -291,6 +292,7 @@ module ApplicationHelper
   end
 
   def relays_dropdown_menu(race)
+    return '' if race.relays.count <= 1
     menu = "<ul>"
     race.relays.each do |relay|
       menu << "<li>#{link_to relay.name, race_relay_path(race, relay)}</li>"
@@ -300,6 +302,7 @@ module ApplicationHelper
   end
 
   def team_competitions_dropdown_menu(race)
+    return '' if race.team_competitions.count <= 1
     menu = "<ul>"
     race.team_competitions.each do |tc|
       menu << "<li>#{link_to tc.name, race_team_competition_path(race, tc)}</li>"
