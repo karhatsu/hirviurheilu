@@ -290,6 +290,15 @@ module ApplicationHelper
     raw(menu)
   end
 
+  def relays_dropdown_menu(race)
+    menu = "<ul>"
+    race.relays.each do |relay|
+      menu << "<li>#{link_to relay.name, race_relay_path(race, relay)}</li>"
+    end
+    menu << "</ul>"
+    raw(menu)
+  end
+
   def yes_or_empty(boolean, value=nil, &block)
     if boolean
       image_tag('icon_yes.gif', :title => value)
