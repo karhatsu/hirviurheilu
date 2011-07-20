@@ -17,7 +17,9 @@ race = menu_race
           <% end %>
           <% if race.has_team_competition? %>
             <%= menu_item "Joukkuekilpailut", race_team_competition_path(race,
-              race.team_competitions.first), @is_team_results %>
+              race.team_competitions.first), @is_team_results, nil, true do %>
+              <% team_competitions_dropdown_menu(race) %>
+            <% end %>
           <% end %>
         <% end %>
         <% unless race.relays.empty? %>

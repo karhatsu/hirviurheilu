@@ -299,6 +299,15 @@ module ApplicationHelper
     raw(menu)
   end
 
+  def team_competitions_dropdown_menu(race)
+    menu = "<ul>"
+    race.team_competitions.each do |tc|
+      menu << "<li>#{link_to tc.name, race_team_competition_path(race, tc)}</li>"
+    end
+    menu << "</ul>"
+    raw(menu)
+  end
+
   def yes_or_empty(boolean, value=nil, &block)
     if boolean
       image_tag('icon_yes.gif', :title => value)
