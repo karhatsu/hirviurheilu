@@ -94,7 +94,16 @@ div.menu ul li a.selected {
 div.menu ul li ul {
     position: absolute;
     display: none;
+}
+
+div.main_menu ul li ul {
     top: 27px;
+}
+
+div.sub_menu ul li ul {
+    border: white solid 1px;
+    border-bottom-width: 0;
+    top: 26px;
 }
 
 div.menu ul li ul a {
@@ -113,6 +122,6 @@ div.menu ul li:hover ul {
 div.sub_menu ul li ul a {
     border-color: white;
     border-style: solid;
-    border-width: 0 1px 1px 1px;
+    border-width: 0 0 1px 0;
     width: 150px;
 }
