@@ -20,7 +20,9 @@ div.main_menu ul li {
 }
 
 div.sub_menu ul li {
-    display: inline;
+    display: block;
+    position: relative;
+    float: left;
 }
 
 div.sub_sub_menu ul li {
@@ -50,6 +52,7 @@ div.main_menu ul li a {
 }
 
 div.sub_menu ul li a {
+    display: block;
     float: left;
     border-right: white solid 1px;
     padding: 6px 6px;
@@ -87,14 +90,14 @@ div.menu ul li a.selected {
     background-color: white;
 }
 
-/* dropdown (div.main_menu ul li -> ul) */
-div.main_menu ul li ul {
+/* dropdown (div.menu ul li -> ul) */
+div.menu ul li ul {
     position: absolute;
     display: none;
     top: 27px;
 }
 
-div.main_menu ul li ul a {
+div.menu ul li ul a {
     white-space: nowrap;
     -moz-border-radius-topleft: 0;
     -moz-border-radius-topright: 0;
@@ -103,6 +106,13 @@ div.main_menu ul li ul a {
     border-bottom-width: 1px;
 }
 
-div.main_menu ul li:hover ul {
+div.menu ul li:hover ul {
     display: block;
+}
+
+div.sub_menu ul li ul a {
+    border-color: white;
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    width: 150px;
 }

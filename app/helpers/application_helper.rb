@@ -264,8 +264,17 @@ module ApplicationHelper
     raw(item)
   end
 
-  def dropdown_menu(*items)
-    raw("<ul><li>#{items.each do |item| item end}</li></ul>")
+  def dropdown_menu_single(item)
+    raw("<ul><li>#{item}</li></ul>")
+  end
+
+  def series_dropdown_menu(race, &block)
+    menu = "<ul>"
+    race.series.each do |series|
+      menu << menu_item(series.name, official_series_competitors_path(series), false)
+    end
+    menu << "</ul>"
+    raw(menu)
   end
 
   def yes_or_empty(boolean, value=nil, &block)
