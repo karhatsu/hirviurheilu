@@ -13,7 +13,15 @@ Feature: Club level
     And I check "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
-    And I should see "Seurat" within ".sub_menu"
+    When I follow "Seurat" within ".sub_menu"
+    Then the "Seurat" sub menu item should be selected
+    And I should see "Seurat" within "h2"
+    And I should see "seuroja" within "div.info"
+    And I should see "Lisää seura"
+    When I fill in "Testi" for "Nimi"
+    And I press "Lisää seura"
+    And I follow "Seurat" within ".sub_menu"
+    Then I should see "Nykyiset seurat"
 
   Scenario: Show "Piiri" as club title when that level is selected
     Given I am an official
@@ -27,4 +35,12 @@ Feature: Club level
     And I choose "Piiri"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
-    And I should see "Piirit" within ".sub_menu"
+    When I follow "Piirit" within ".sub_menu"
+    Then the "Piirit" sub menu item should be selected
+    And I should see "Piirit" within "h2"
+    And I should see "piirejä" within "div.info"
+    And I should see "Lisää piiri"
+    When I fill in "Testi" for "Nimi"
+    And I press "Lisää piiri"
+    And I follow "Piirit" within ".sub_menu"
+    Then I should see "Nykyiset piirit"

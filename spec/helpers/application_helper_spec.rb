@@ -955,6 +955,23 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#club_title" do
+    it "should be 'Piiri' when club level such" do
+      race = Factory.build(:race, :club_level => Race::CLUB_LEVEL_PIIRI)
+      helper.club_title(race).should == 'Piiri'
+    end
+
+    it "should be 'Seura' when club level such" do
+      race = Factory.build(:race, :club_level => Race::CLUB_LEVEL_SEURA)
+      helper.club_title(race).should == 'Seura'
+    end
+
+    it "should throw exception when unknown club level" do
+      race = Factory.build(:race, :club_level => 100)
+      lambda { helper.club_title(race) }.should raise_error
+    end
+  end
+
   describe "#clubs_title" do
     it "should be 'Piirit' when club level such" do
       race = Factory.build(:race, :club_level => Race::CLUB_LEVEL_PIIRI)

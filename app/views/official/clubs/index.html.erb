@@ -1,23 +1,25 @@
-<% content_for :title, "#{@race.name} - Seurat" %>
-<h2>Seurat</h2>
-<div class="info">Tällä sivulla voit lisätä kilpailuun osallistuvien kilpailijoiden seuroja
-  sekä korjata niiden nimiä ja poistaa ylimääräisiä. Huom! Voit lisätä seuroja
-  myös samalla, kun lisäät kilpailijoita.</div>
-<h2>Lisää seura</h2>
+<% content_for :title, "#{@race.name} - #{clubs_title(@race)}" %>
+<h2><%= clubs_title(@race) %></h2>
+<% club_word = (@race.club_level == Race::CLUB_LEVEL_PIIRI ? 'piirejä' : 'seuroja') %>
+<div class="info">Tällä sivulla voit lisätä kilpailuun osallistuvien kilpailijoiden
+  <%= club_word %> sekä korjata niiden nimiä ja poistaa ylimääräisiä. Huom! Voit lisätä
+  <%= club_word %> myös samalla, kun lisäät kilpailijoita.</div>
+<h2>Lisää <%= club_title(@race).downcase %></h2>
 <div id="action_error"></div>
 <%= form_for([:official, @race, Club.new], :remote => true) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %><br/>
   <%= f.label :long_name %>
   <%= f.text_field :long_name %> (ei pakollinen)<br/>
-  <%= submit_tag 'Lisää seura', :id => 'submit' %>
+  <%= submit_tag "Lisää #{club_title(@race).downcase}", :id => 'submit' %>
   <span id="spinner"></span>
 <% end %>
 <% style = (@race.clubs.empty? ? " style='display: none;'" : "") %>
-<h2 id="clubs_title"<%= style %>>Nykyiset seurat</h2>
+<h2 id="clubs_title"<%= style %>>Nykyiset <%= clubs_title(@race).downcase %></h2>
 <% unless @race.clubs.empty? %>
+  <% club_word = (@race.club_level == Race::CLUB_LEVEL_PIIRI ? 'piirin' : 'seuran') %>
   <div class="info">
-    Jos haluat muutta seuran nimeä, klikkaa nimessä olevaa linkkiä.
+    Jos haluat muuttaa <%= club_word %> nimeä, klikkaa nimessä olevaa linkkiä.
   </div>
 <% end %>
 <div class="section">
