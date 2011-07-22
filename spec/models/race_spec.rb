@@ -26,60 +26,25 @@ describe Race do
     end
 
     describe "start_interval_seconds" do
-      it "should be required" do
-        Factory.build(:race, :start_interval_seconds => nil).
-          should have(1).errors_on(:start_interval_seconds)
-      end
-
       it { should validate_numericality_of(:start_interval_seconds) }
-
-      it "should be integer, not decimal" do
-        Factory.build(:race, :start_interval_seconds => 23.5).
-          should have(1).errors_on(:start_interval_seconds)
-      end
-
-      it "should be greater than 0" do
-        Factory.build(:race, :start_interval_seconds => 0).
-          should have(1).errors_on(:start_interval_seconds)
-      end
+      it { should_not allow_value(nil).for(:start_interval_seconds) }
+      it { should_not allow_value(23.5).for(:start_interval_seconds) }
+      it { should_not allow_value(0).for(:start_interval_seconds) }
     end
 
     describe "batch_interval_seconds" do
-      it "should be required" do
-        Factory.build(:race, :batch_interval_seconds => nil).
-          should have(1).errors_on(:batch_interval_seconds)
-      end
-
       it { should validate_numericality_of(:batch_interval_seconds) }
-
-      it "should be integer, not decimal" do
-        Factory.build(:race, :batch_interval_seconds => 23.5).
-          should have(1).errors_on(:batch_interval_seconds)
-      end
-
-      it "should be greater than 0" do
-        Factory.build(:race, :batch_interval_seconds => 0).
-          should have(1).errors_on(:batch_interval_seconds)
-      end
+      it { should_not allow_value(nil).for(:batch_interval_seconds) }
+      it { should_not allow_value(23.5).for(:batch_interval_seconds) }
+      it { should_not allow_value(0).for(:batch_interval_seconds) }
     end
 
     describe "batch_size" do
-      it "should be required" do
-        Factory.build(:race, :batch_size => nil).
-          should have(1).errors_on(:batch_size)
-      end
-
       it { should validate_numericality_of(:batch_size) }
-
-      it "should be integer, not decimal" do
-        Factory.build(:race, :batch_size => 23.5).
-          should have(1).errors_on(:batch_size)
-      end
-
-      it "should be greater than or equal to 0" do
-        Factory.build(:race, :batch_size => -1).
-          should have(1).errors_on(:batch_size)
-      end
+      it { should_not allow_value(nil).for(:batch_size) }
+      it { should_not allow_value(23.5).for(:batch_size) }
+      it { should_not allow_value(-1).for(:batch_size) }
+      it { should allow_value(0).for(:batch_size) }
     end
 
     describe "race with same name" do
