@@ -94,6 +94,7 @@ div.menu ul li a.selected {
 div.menu ul li ul {
     position: absolute;
     display: none;
+    z-index: 10;
 }
 
 div.main_menu ul li ul {
