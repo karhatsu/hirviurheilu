@@ -47,6 +47,17 @@ describe Race do
       it { should allow_value(0).for(:batch_size) }
     end
 
+    describe "club_level" do
+      it { should allow_value(Race::CLUB_LEVEL_SEURA).for(:club_level) }
+      it { should allow_value(Race::CLUB_LEVEL_PIIRI).for(:club_level) }
+      it { should_not allow_value(2).for(:club_level) }
+
+      it "should convert nil to SEURA" do
+        race = Factory.create(:race, :club_level => nil)
+        race.club_level.should == Race::CLUB_LEVEL_SEURA
+      end
+    end
+
     describe "race with same name" do
       before do
         @race = Factory.create(:race, :name => 'My race', :start_date => '2010-01-01',

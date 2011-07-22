@@ -2,6 +2,9 @@ class Race < ActiveRecord::Base
   DEFAULT_START_INTERVAL = 60
   DEFAULT_BATCH_INTERVAL = 180
 
+  CLUB_LEVEL_SEURA = 0
+  CLUB_LEVEL_PIIRI = 1
+
   belongs_to :sport
   has_many :series, :order => 'name'
   has_many :age_groups, :through => :series
@@ -18,7 +21,7 @@ class Race < ActiveRecord::Base
   accepts_nested_attributes_for :relays
   accepts_nested_attributes_for :team_competitions
 
-  before_validation :set_end_date
+  before_validation :set_end_date, :set_club_level
 
   validates :sport, :presence => true
   validates :name, :presence => true
@@ -30,6 +33,7 @@ class Race < ActiveRecord::Base
     :greater_than_or_equal_to => 0 }
   validates :batch_interval_seconds, :numericality => { :only_integer => true,
     :greater_than => 0 }
+  validates :club_level, :inclusion => { :in => [CLUB_LEVEL_SEURA, CLUB_LEVEL_PIIRI] }
   validate :end_date_not_before_start_date
   validate :check_duplicate_name_location_start_date, :on => :create
 
@@ -180,6 +184,10 @@ class Race < ActiveRecord::Base
 
   def set_end_date
     self.end_date = start_date unless end_date
+  end
+
+  def set_club_level
+    self.club_level = CLUB_LEVEL_SEURA unless club_level
   end
 
   def prevent_destroy_if_series
