@@ -4,7 +4,8 @@ Feature: Club level
   I want to clearly know what to write for the club field
 
   Scenario: Show "Seura" as default club title
-    Given I am an official
+    Given there is a default series "Default series 1"
+    And I am an official
     And I have logged in
     And I am on the new official race page
     When I fill in the following:
@@ -22,9 +23,13 @@ Feature: Club level
     And I press "Lisää seura"
     And I follow "Seurat" within ".sub_menu"
     Then I should see "Nykyiset seurat"
+    When I follow "Yhteenveto"
+    And I follow "Lisää tämän sarjan ensimmäinen kilpailija"
+    Then I should see "Seura" within "form"
 
   Scenario: Show "Piiri" as club title when that level is selected
-    Given I am an official
+    Given there is a default series "Default series 1"
+    And I am an official
     And I have logged in
     And I am on the new official race page
     Then I should see "Kilpailijan edustustaso tässä kilpailussa"
@@ -44,3 +49,6 @@ Feature: Club level
     And I press "Lisää piiri"
     And I follow "Piirit" within ".sub_menu"
     Then I should see "Nykyiset piirit"
+    When I follow "Yhteenveto"
+    And I follow "Lisää tämän sarjan ensimmäinen kilpailija"
+    Then I should see "Piiri" within "form"
