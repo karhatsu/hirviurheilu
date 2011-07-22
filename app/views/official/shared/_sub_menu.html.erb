@@ -25,7 +25,7 @@
           <%= menu_item "Joukkuek.", official_race_team_competitions_path(race), @is_team_competitions %>
         <% end %>
         <%= menu_item "Viestit", official_race_relays_path(race), @is_relays %>
-        <%= menu_item "Seurat", official_race_clubs_path(race), @is_clubs %>
+        <%= menu_item clubs_title(race), official_race_clubs_path(race), @is_clubs %>
         <% if online? %>
           <%= menu_item "Toimitsijat", official_race_invite_officials_path(race), @is_officials %>
         <% end %>

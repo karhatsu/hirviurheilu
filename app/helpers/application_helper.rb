@@ -433,6 +433,12 @@ module ApplicationHelper
     "#{ce.min_number}-#{ce.max_number}"
   end
 
+  def clubs_title(race)
+    return 'Seurat' if race.club_level == Race::CLUB_LEVEL_SEURA
+    return 'Piirit' if race.club_level == Race::CLUB_LEVEL_PIIRI
+    raise "Unknown club level: #{race.club_level}"
+  end
+
   private
   def result_rotation_series_list(race)
     race_day = race.race_day

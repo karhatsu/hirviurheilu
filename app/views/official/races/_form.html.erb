@@ -10,6 +10,11 @@
   <%= f.date_select :start_date %><br/>
   <%= f.label :end_date %>
   <%= f.date_select :end_date, :include_blank => true %><br/>
+  Kilpailijan edustustaso tässä kilpailussa
+  <%= f.radio_button :club_level, Race::CLUB_LEVEL_SEURA %>
+  <%= f.label "club_level_#{Race::CLUB_LEVEL_SEURA}", 'Seura' %>
+  <%= f.radio_button :club_level, Race::CLUB_LEVEL_PIIRI %>
+  <%= f.label "club_level_#{Race::CLUB_LEVEL_PIIRI}", 'Piiri' %><br/>
   <%= f.label :start_interval_seconds %>
   <%= f.text_field :start_interval_seconds, :size => 3, :maxlength => 3 %><br/>
   <%= f.label :batch_size %>

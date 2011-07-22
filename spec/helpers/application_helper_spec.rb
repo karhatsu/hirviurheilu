@@ -954,4 +954,21 @@ describe ApplicationHelper do
       helper.correct_estimate_range(ce).should == "57-58"
     end
   end
+
+  describe "#clubs_title" do
+    it "should be 'Piirit' when club level such" do
+      race = Factory.build(:race, :club_level => Race::CLUB_LEVEL_PIIRI)
+      helper.clubs_title(race).should == 'Piirit'
+    end
+
+    it "should be 'Seurat' when club level such" do
+      race = Factory.build(:race, :club_level => Race::CLUB_LEVEL_SEURA)
+      helper.clubs_title(race).should == 'Seurat'
+    end
+
+    it "should throw exception when unknown club level" do
+      race = Factory.build(:race, :club_level => 100)
+      lambda { helper.clubs_title(race) }.should raise_error
+    end
+  end
 end
