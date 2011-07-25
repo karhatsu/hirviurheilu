@@ -23,6 +23,17 @@ Given /^the series has a competitor with attributes:$/ do |fields|
   @competitor = Factory.create(:competitor, {:series => @series}.merge(hash))
 end
 
+Given /^the series "([^"]*)" contains a competitor with attributes:$/ do |series_name, fields|
+  @series = Series.find_by_name(series_name)
+  hash = fields.rows_hash
+  if hash[:club]
+    club = Club.find_by_name(hash[:club])
+    club = Club.create!(:race => @series.race, :name => hash[:club]) unless club
+    hash[:club] = club
+  end
+  @competitor = Factory.create(:competitor, {:series => @series}.merge(hash))
+end
+
 Given /^the competitor belongs to an age group "([^"]*)"$/ do |age_group_name|
   @competitor.age_group = AgeGroup.find_by_name(age_group_name)
   @competitor.save!

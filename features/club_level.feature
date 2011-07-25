@@ -26,6 +26,13 @@ Feature: Club level
     When I follow "Yhteenveto"
     And I follow "Lisää tämän sarjan ensimmäinen kilpailija"
     Then I should see "Seura" within "form"
+    Given the series "Default series 1" contains a competitor with attributes:
+      | first_name | Matti |
+      | last_name | Meikäläinen |
+      | club | Testiklubi |
+    When I follow "Yhteenveto"
+    And I follow "Kilpailijat"
+    Then I should see "Seura" within "th"
 
   Scenario: Show "Piiri" as club title when that level is selected
     Given there is a default series "Default series 1"
@@ -52,3 +59,10 @@ Feature: Club level
     When I follow "Yhteenveto"
     And I follow "Lisää tämän sarjan ensimmäinen kilpailija"
     Then I should see "Piiri" within "form"
+    Given the series "Default series 1" contains a competitor with attributes:
+      | first_name | Matti |
+      | last_name | Meikäläinen |
+      | club | Testiklubi |
+    When I follow "Yhteenveto"
+    And I follow "Kilpailijat"
+    Then I should see "Piiri" within "th"
