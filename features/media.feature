@@ -12,7 +12,7 @@ Feature: Media
     And I should see "Lehdistö" within "h2"
     And I should see "Tältä sivulta voit ladata lehdistöraportin, kun kilpailu on päättynyt" within "div.info"
     But I should not see "Kilpailijoiden määrä / sarja"
-    And I should not see "Lisäksi kaikki kilpailijat piiristä/seurasta"
+    And I should not see "Lisäksi kaikki kilpailijat"
 
   Scenario: Results for all competitors
     Given there is a race with attributes:
@@ -147,6 +147,6 @@ Feature: Media
     And I press "Lataa lehdistöraportti"
     Then I should see "Syötä kilpailijoiden määräksi positiivinen kokonaisluku" within "div.error"
     When I fill in "1" for "Kilpailijoiden määrä / sarja"
-    And I select "Club C" from "Lisäksi kaikki kilpailijat piiristä/seurasta"
+    And I select "Club C" from "Lisäksi kaikki kilpailijat seurasta"
     And I press "Lataa lehdistöraportti"
     Then I should see "Sarja Another test series: 1) Thomsson Tina Club D 1140, 2) Hamilton Mary Club C 1105. Sarja Test series: 1) Atkinsson Tim Club B 1140."

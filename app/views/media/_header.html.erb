@@ -5,11 +5,12 @@
     ', kun kilpailu on päättynyt' %>
 </div>
 <% if @race.finished? %>
+  <% club_word = (@race.club_level == Race::CLUB_LEVEL_PIIRI ? 'piiristä' : 'seurasta') %>
   <%= flash_error %>
   <%= form_tag(race_medium_path(@race)) do %>
     <%= label_tag :competitors_count, 'Kilpailijoiden määrä / sarja' %>
     <%= text_field_tag :competitors_count, @competitors_count, :size => 3 %><br/>
-    <%= label_tag :club_id, 'Lisäksi kaikki kilpailijat piiristä/seurasta' %>
+    <%= label_tag :club_id, "Lisäksi kaikki kilpailijat #{club_word}" %>
     <%= select_tag :club_id,
       options_from_collection_for_select(@race.clubs, :id, :name, params[:club_id]),
       :include_blank => '- Ei mitään -' %><br/>
