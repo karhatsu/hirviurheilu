@@ -5,7 +5,7 @@
     <% if defined?(show_series) %>
       <th>Sarja</th>
     <% end %>
-    <th><%= club_title(@series.race) %></th>
+    <th><%= club_title(race) %></th>
     <th>Lähtöaika</th>
   </tr>
   <% competitors.each_with_index do |comp, i| %>
