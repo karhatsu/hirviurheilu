@@ -1,6 +1,6 @@
 class Official::RacesController < Official::OfficialController
   before_filter :assign_race_by_id, :check_assigned_race, :except => [:new, :create]
-  before_filter :create_time_points_type_options, :only => [:new, :edit]
+  before_filter :create_time_points_type_options
 
   def show
     @is_race = true
