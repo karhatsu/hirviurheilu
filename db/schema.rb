@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110722043221) do
+ActiveRecord::Schema.define(:version => 20110816184446) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -176,10 +176,8 @@ ActiveRecord::Schema.define(:version => 20110722043221) do
   add_index "relays", ["race_id"], :name => "index_relays_on_race_id"
 
   create_table "rights", :id => false, :force => true do |t|
-    t.integer  "user_id",    :null => false
-    t.integer  "role_id",    :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "user_id", :null => false
+    t.integer "role_id", :null => false
   end
 
   add_index "rights", ["user_id"], :name => "index_rights_on_user_id"
@@ -224,19 +222,15 @@ ActiveRecord::Schema.define(:version => 20110722043221) do
   end
 
   create_table "team_competition_age_groups", :id => false, :force => true do |t|
-    t.integer  "team_competition_id", :null => false
-    t.integer  "age_group_id",        :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "team_competition_id", :null => false
+    t.integer "age_group_id",        :null => false
   end
 
   add_index "team_competition_age_groups", ["team_competition_id"], :name => "index_team_competition_age_groups_on_team_competition_id"
 
   create_table "team_competition_series", :id => false, :force => true do |t|
-    t.integer  "team_competition_id", :null => false
-    t.integer  "series_id",           :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "team_competition_id", :null => false
+    t.integer "series_id",           :null => false
   end
 
   add_index "team_competition_series", ["team_competition_id"], :name => "index_team_competition_series_on_team_competition_id"
