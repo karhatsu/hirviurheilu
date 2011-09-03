@@ -92,6 +92,9 @@ module NavigationHelpers
     when /the offline-online comparison page/
       offline_vs_online_path
 
+    when "/reset_password/unknown/edit"
+      edit_reset_password_path(:reset_hash => 'unknown')
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

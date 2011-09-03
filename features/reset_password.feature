@@ -56,6 +56,6 @@ Feature: Reset password
     Then I should see "Salasana ei vastaa varmennusta." within ".error"
 
   Scenario: Unknown reset hash
-    Given I visit "reset_password/unknown_hash/edit"
+    Given I go to /reset_password/unknown/edit
     Then I should see "Tuntematon tunnus. Varmista, että selaimen osoiterivillä on täsmälleen se linkki, jonka sait sähköpostiisi." within "div.error"
     But I should not see "Uusi salasana"
