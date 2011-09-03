@@ -28,7 +28,7 @@ Feature: Offline info
     And the "Offline" main menu item should be selected
     And the "Offline-asennus" sub menu item should be selected
     And I should see "Hirviurheilu Offline -tuotteen asennusohjeet" within "div.main_title"
-    And I should see "Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki." within "div.info"
+    And I should see /Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki./ within "div.info"
     But I should not see "lataa asennustiedosto"
     And I should not see "lataa päivitystiedosto"
     When I follow "kirjaudu sisään palveluun"

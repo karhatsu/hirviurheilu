@@ -32,14 +32,14 @@ Feature: Club level
       | club | Testiklubi |
     When I follow "Yhteenveto"
     And I follow "Kilpailijat"
-    Then I should see "Seura" within "th"
+    Then I should see /Seura/ within "th"
     When I press "Luo lähtölista sarjalle"
     And I follow "Kilpailut"
     And I follow "Test race"
     And I follow "Lähtölista"
-    Then I should see "Seura" within "th"
+    Then I should see /Seura/ within "th"
     When I follow "Tulokset"
-    Then I should see "Seura" within "th"
+    Then I should see /Seura/ within "th"
 
   Scenario: Show "Piiri" as club title when that level is selected
     Given there is a default series "Default series 1"
@@ -72,11 +72,11 @@ Feature: Club level
       | club | Testiklubi |
     When I follow "Yhteenveto"
     And I follow "Kilpailijat"
-    Then I should see "Piiri" within "th"
+    Then I should see /Piiri/ within "th"
     When I press "Luo lähtölista sarjalle"
     And I follow "Kilpailut"
     And I follow "Test race"
     And I follow "Lähtölista"
-    Then I should see "Piiri" within "th"
+    Then I should see /Piiri/ within "th"
     When I follow "Tulokset"
-    Then I should see "Piiri" within "th"
+    Then I should see /Piiri/ within "th"

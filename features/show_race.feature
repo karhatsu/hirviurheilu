@@ -105,7 +105,7 @@ Feature: Show race
       | arrival_time | 14:01:00 |
     And the race is finished
     When I go to the race page
-    Then I should see "Oikeat arviot" within "h3"
+    Then I should see /Oikeat arviot/ within "h3"
     And I should see "1-9"
     And I should see "50"
     And I should see "60"

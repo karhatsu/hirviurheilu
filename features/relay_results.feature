@@ -118,7 +118,7 @@ Feature: Relay results
       | estimate | 100 |
     Given I am on the home page
     When I follow "Relay race"
-    Then I should see "Viestit" within "h2"
+    Then I should see /Viestit/ within "h2"
     And I should see "Men's relay"
     And I should see "12:00:00"
     When I follow "Men's relay"
