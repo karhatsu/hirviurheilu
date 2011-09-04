@@ -2,12 +2,20 @@
   <tr>
     <th>Etunimi</th>
     <th>Sukunimi</th>
+    <th>Sähköposti</th>
+    <th>Käyttökerrat</th>
+    <th>Viim. login</th>
+    <th>Viim. käyttö</th>
     <th>Lisenssi</th>
   </tr>
   <% @users.each do |user| %>
     <tr>
       <td><%= user.first_name %></td>
       <td><%= user.last_name %></td>
+      <td><%= user.email %></td>
+      <td class="center"><%= user.login_count %></td>
+      <td><%= datetime_print(user.last_login_at, true, false, raw('&nbsp;')) %></td>
+      <td><%= datetime_print(user.last_request_at, true, false, raw('&nbsp;')) %></td>
       <td><%= user.activation_key %></td>
     </tr>
   <% end %>
