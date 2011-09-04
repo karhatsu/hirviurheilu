@@ -4,6 +4,7 @@ fi:
     arrival_time: Saapumisaika
     batch_interval_seconds: Lähtöerien väli (sekuntia)
     batch_size: Lähtöerien koko (0 = ei eriä käytössä)
+    club: Seura/piiri
     correct_estimate1: Oikea arviomatka 1
     correct_estimate2: Oikea arviomatka 2
     correct_estimate3: Oikea arviomatka 3
