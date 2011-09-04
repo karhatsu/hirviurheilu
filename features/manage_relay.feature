@@ -64,6 +64,28 @@ Feature: Manager relays
     And I should see "New name"
     And I should see "08:12:00"
 
+  Scenario: Relay results quick save
+    Given I am an official
+    And I have a race "Relay race"
+    And the race has a relay with attributes:
+      | name | Test relay |
+      | legs_count | 2 |
+    And the relay has a team "Test team"
+    And the relay team has a competitor with attributes:
+      | first_name | Tim |
+      | last_name | Smith |
+      | leg | 1 |
+    And the relay team has a competitor with attributes:
+      | first_name | John |
+      | last_name | Stevenson |
+      | leg | 2 |
+    And I have logged in
+    And I am on the official relays page of "Relay race"
+    When I follow "Tulosten pikasyöttö"
+    Then the official main menu item should be selected
+    And the "Viestit" sub menu item should be selected
+    And I should see "Viestin tulosten pikasyöttö" within "h2"
+
   Scenario: Finish relay
     Given I am an official
     And I have a race "Relay race"
