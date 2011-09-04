@@ -5,9 +5,9 @@ class Official::ExportsController < Official::OfficialController
   def new
     @race = Race.where(:id => params[:race_id]).
       includes([
-        :series => [:competitors => [:shots, :age_group, :club], :age_groups => true],
+        :series => [:competitors => [:shots, :age_group, :club]],
         :team_competitions => [:age_groups, :series],
-        :relays => [:relay_correct_estimates => true, :relay_teams => :relay_competitors]
+        :relays => [:relay_teams => :relay_competitors]
       ]).first
   end
 
