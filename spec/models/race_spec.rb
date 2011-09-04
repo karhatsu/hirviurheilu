@@ -394,8 +394,8 @@ describe Race do
     end
 
     it "should return 2 when all series have 2 estimates" do
-      race = Factory.build(:race)
-      race.series.build(Factory.build(:series, :race => race))
+      race = Factory.create(:race)
+      race.series << Factory.build(:series, :race => race)
       race.estimates_at_most.should == 2
     end
 
