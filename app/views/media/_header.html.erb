@@ -13,7 +13,7 @@
     <%= label_tag :club_id, "Lisäksi kaikki kilpailijat #{club_word}" %>
     <%= select_tag :club_id,
       options_from_collection_for_select(@race.clubs, :id, :name, params[:club_id]),
-      :include_blank => '- Ei mitään -' %><br/>
+      :prompt => '- Ei mitään -' %><br/>
     <%= submit_tag "Lataa lehdistöraportti" %>
   <% end %>
 <% end %>

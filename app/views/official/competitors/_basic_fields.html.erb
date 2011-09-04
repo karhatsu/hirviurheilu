@@ -9,7 +9,7 @@
 <span id="age_groups_span" style="<%= age_group_style %>">
   <%= f.label :age_group %>
   <%= f.collection_select :age_group_id, f.object.series.age_groups, :id, :name,
-    :include_blank => 'Pääsarja' %>
+    :prompt => 'Pääsarja' %>
 </span>
 <span id="age_groups_spinner" style="display:none;">
   <%= image_tag 'spinner.gif' %>
