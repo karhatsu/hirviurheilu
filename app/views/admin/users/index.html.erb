@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <th>Etunimi</th>
+    <th>Sukunimi</th>
+    <th>Lisenssi</th>
+  </tr>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.first_name %></td>
+      <td><%= user.last_name %></td>
+      <td><%= user.activation_key %></td>
+    </tr>
+  <% end %>
+</table>

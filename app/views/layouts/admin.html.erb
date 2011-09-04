@@ -2,11 +2,10 @@
 <html>
   <head>
     <%= render :partial => 'shared/title' %>
-    <%= stylesheet_link_tag 'structure', 'elk_sports',
-      'menu', 'messages', 'dialogs', 'admin' %>
-    <%= javascript_include_tag 'jquery-1.4.4.min', 'jquery-utils-0.8.5-min' -%>
-    <%= javascript_include_tag 'application', 'prototype', 'effects' %>
-    <%= active_scaffold_includes %>
+    <%= stylesheet_link_tag 'jquery-ui-1.8.7.custom', 'structure', 'elk_sports',
+      'menu', 'messages', 'dialogs' %>
+    <%= javascript_include_tag 'jquery-1.4.4.min', 'jquery-utils-0.8.5-min',
+      'jquery-rails', 'jquery-ui-1.8.7.custom.min', 'application' -%>
     <%= csrf_meta_tag %>
   </head>
   <%= render :partial => 'shared/body' %>
