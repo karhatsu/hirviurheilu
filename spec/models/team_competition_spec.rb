@@ -68,7 +68,8 @@ describe TeamCompetition do
         @club_small = mock_model(Club, :name => 'Club small')
         @club_unofficial = mock_model(Club, :name => 'Club unofficial')
 
-        @club_best_total_points_c1 = create_competitor(@club_best_total_points, 1100)
+        @club_best_total_points_c1 = create_competitor(@club_best_total_points, 1100,
+          :time_in_seconds => nil)
         @club_best_total_points_c2 = create_competitor(@club_best_total_points, 1000)
         @club_best_total_points_c_excl = create_competitor(@club_best_total_points, 999)
         @club_best_single_points_c1 = create_competitor(@club_best_single_points, 1050)

@@ -80,8 +80,9 @@ class TeamCompetition < ActiveRecord::Base
       points > team_hash[:points]
     team_hash[:best_shot_points] = competitor.shot_points if competitor.
       points > team_hash[:best_shot_points]
-    team_hash[:fastest_time] = competitor.time_in_seconds if competitor.
-      time_in_seconds < team_hash[:fastest_time]
+    if competitor.time_in_seconds and competitor.time_in_seconds < team_hash[:fastest_time]
+      team_hash[:fastest_time] = competitor.time_in_seconds
+    end
     team_hash[:competitors] << competitor
   end
 
@@ -91,7 +92,11 @@ class TeamCompetition < ActiveRecord::Base
     team_hash[:points] = competitor.points
     team_hash[:best_points] = competitor.points
     team_hash[:best_shot_points] = competitor.shot_points
-    team_hash[:fastest_time] = competitor.time_in_seconds
+    if competitor.time_in_seconds
+      team_hash[:fastest_time] = competitor.time_in_seconds
+    else
+      team_hash[:fastest_time] = 9999999
+    end
     team_hash[:competitors] = [competitor]
     team_hash
   end
