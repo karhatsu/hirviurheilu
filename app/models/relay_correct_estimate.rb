@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class RelayCorrectEstimate < ActiveRecord::Base
   belongs_to :relay
 

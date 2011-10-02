@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class LicensesController < ApplicationController
   before_filter :check_offline
 

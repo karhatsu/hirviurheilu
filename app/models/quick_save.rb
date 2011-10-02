@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class QuickSave
   attr_reader :competitor, :error
 

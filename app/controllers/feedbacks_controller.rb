@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class FeedbacksController < ApplicationController
   before_filter :check_offline
 

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Race < ActiveRecord::Base
   DEFAULT_START_INTERVAL = 60
   DEFAULT_BATCH_INTERVAL = 180

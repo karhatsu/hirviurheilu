@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class RelayQuickSave
   attr_reader :competitor, :error
 

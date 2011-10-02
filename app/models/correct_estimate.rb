@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class CorrectEstimate < ActiveRecord::Base
   belongs_to :race
 

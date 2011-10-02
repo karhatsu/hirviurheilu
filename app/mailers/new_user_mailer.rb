@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class NewUserMailer < ActionMailer::Base
   def new_user(user)
     @user = user

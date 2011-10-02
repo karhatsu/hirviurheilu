@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'database_helper.rb'
 require 'time_helper.rb'
 

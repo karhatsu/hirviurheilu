@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Official::RelaysController < Official::OfficialController
   before_filter :assign_race_by_race_id, :check_assigned_race, :set_relays
   before_filter :assign_relay_by_id, :only => [:edit, :update, :destroy]

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Official::ExportsController < Official::OfficialController
   before_filter :define_servers, :set_export
   before_filter :assign_race_by_race_id, :check_assigned_race

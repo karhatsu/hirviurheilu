@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class UsersController < ApplicationController
   before_filter :no_account_changes_in_offline
   before_filter :require_no_user, :only => [:new, :create]

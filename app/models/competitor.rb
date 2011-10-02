@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Competitor < ActiveRecord::Base
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish

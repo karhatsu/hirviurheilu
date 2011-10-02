@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class RelayTimeQuickSave < RelayQuickSave
   def initialize(relay_id, string)
     super(relay_id, string, /^\d+,\d+,[0-2][0-9][0-5][0-9][0-5][0-9]$/)
