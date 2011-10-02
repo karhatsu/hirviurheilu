@@ -155,7 +155,7 @@ series_list = []
 DefaultSeries.all.each do |df|
   series = df.name
   unless df.default_age_groups.empty?
-    series << " (#{[df.default_age_groups.collect &:name].join(', ')})"
+    series << " (#{(df.default_age_groups.collect &:name).join(', ')})"
   end
   series_list << series
 end
