@@ -19,6 +19,7 @@ Given /^the series has a competitor with attributes:$/ do |fields|
   if hash[:club]
     club = Club.find_by_name(hash[:club])
     hash[:club] = club
+    hash.delete "club" # workaround for ruby 1.9
   end
   @competitor = Factory.create(:competitor, {:series => @series}.merge(hash))
 end
@@ -30,6 +31,7 @@ Given /^the series "([^"]*)" contains a competitor with attributes:$/ do |series
     club = Club.find_by_name(hash[:club])
     club = Club.create!(:race => @series.race, :name => hash[:club]) unless club
     hash[:club] = club
+    hash.delete "club" # workaround for ruby 1.9
   end
   @competitor = Factory.create(:competitor, {:series => @series}.merge(hash))
 end
