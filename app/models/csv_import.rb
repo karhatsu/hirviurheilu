@@ -10,7 +10,7 @@ class CsvImport
   
   def initialize(race, file_path)
     @race = race
-    @data = CSV.read(file_path)
+    @data = CSV.read(file_path, :encoding => 'UTF-8')
     @competitors = []
     @errors = []
     validate_data
