@@ -1,3 +1,4 @@
+# encoding: UTF-8
 Given /^there exists an official "(.*) (.*)" with email "([^"]*)"$/ do |firstname,
     lastname, email|
   user = Factory.build(:user, :first_name => firstname, :last_name => lastname,
