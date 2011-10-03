@@ -146,8 +146,12 @@ class ApplicationController < ActionController::Base
   end
 
   def rescue_with_handler(exception)
-    ErrorMailer.error_mail("Virhe Hirviurheilussa", exception,
-      request.fullpath, current_user).deliver
+    begin
+      ErrorMailer.error_mail("Virhe Hirviurheilussa", exception,
+        request.fullpath, current_user).deliver
+    rescue
+      p "Cannot send error email for exception: #{exception}"
+    end
     super
   end
 
