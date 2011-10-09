@@ -70,3 +70,20 @@ Feature: Manage race
     When I follow "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja"
     Then I should be on the race edit page of "Test race"
     And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta napista." within "div.info"
+
+  Scenario: Edit race and series
+    Given I am an official
+    And I have a race "Test race"
+    And the race has series "Test series"
+    And I have logged in
+    When I go to the official race page of "Test race"
+    And I follow "Kilpailu & sarjat"
+    And I fill in "New name for race" for "Kilpailun nimi"
+    And I fill in "New race location" for "Paikkakunta"
+    And I fill in "New name for series" for "Sarjan nimi"
+    And I press "Tallenna kilpailun ja sarjojen tiedot"
+    Then I should be on the official race page of "New name for race"
+    And I should see "New name for race (New race location" within ".main_title"
+    And I should see "New name for series"
+    But I should not see "Test race"
+    And I should not see "Test series"
