@@ -16,9 +16,6 @@ PRODUCTION_URL = "http://www.hirviurheilu.com"
 
 NATIONAL_RECORD_URL = "http://www.metsastajaliitto.fi/?q=fi/node/126"
 
-OFFLINE = false
-ONLINE = !OFFLINE
-
 module ElkSports
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

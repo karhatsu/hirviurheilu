@@ -1,5 +1,5 @@
 ElkSports::Application.configure do
-  OFFLINE = false
+  OFFLINE = true
 
   # Settings specified here will take precedence over those in config/environment.rb
 
@@ -47,9 +47,6 @@ ElkSports::Application.configure do
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
 
-  # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
-
   # Enable threaded mode
   # config.threadsafe!
 
@@ -62,4 +59,23 @@ ElkSports::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  config.action_mailer.raise_delivery_errors = false
+
+  module ServerStartInfo
+    def self.call
+      p ""
+      p "HIRVIURHEILU OFFLINE ON NYT VALMIS KAYTETTAVAKSI"
+      p "Jos palomuurisi kysyy erillista lupaa ohjelman kayttoon, salli kaytto."
+      p "Sen jalkeen avaa selain (esim. Internet Explorer tai Firefox)"
+      p "ja mene osoitteeseen http://localhost:3000"
+    end
+  end
+  
+  module ServerStopInfo
+    def self.call
+      p ""
+      p "SULJETAAN HIRVIURHEILU OFFLINE, ODOTA HETKI..."
+    end
+  end
 end
