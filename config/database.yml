@@ -30,3 +30,16 @@ production:
 
 cucumber:
   <<: *test
+
+winoffline-dev:
+  adapter: sqlite3
+  database: <%= File.expand_path('../development.sqlite3', ENV["OCRA_EXECUTABLE"]) %>
+  pool: 5
+  timeout: 5000
+
+winoffline-prod:
+  adapter: sqlite3
+  database: <%= File.expand_path('../hirviurheilu.sqlite3', ENV["OCRA_EXECUTABLE"]) %>
+  pool: 5
+  timeout: 5000
+
