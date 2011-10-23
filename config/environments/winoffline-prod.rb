@@ -62,20 +62,4 @@ ElkSports::Application.configure do
 
   config.action_mailer.raise_delivery_errors = false
 
-  module ServerStartInfo
-    def self.call
-      p ""
-      p "HIRVIURHEILU OFFLINE ON NYT VALMIS KAYTETTAVAKSI"
-      p "Jos palomuurisi kysyy erillista lupaa ohjelman kayttoon, salli kaytto."
-      p "Sen jalkeen avaa selain (esim. Internet Explorer tai Firefox)"
-      p "ja mene osoitteeseen http://localhost:3000"
-    end
-  end
-  
-  module ServerStopInfo
-    def self.call
-      p ""
-      p "SULJETAAN HIRVIURHEILU OFFLINE, ODOTA HETKI..."
-    end
-  end
 end
