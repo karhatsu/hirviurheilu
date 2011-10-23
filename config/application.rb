@@ -16,6 +16,8 @@ PRODUCTION_URL = "http://www.hirviurheilu.com"
 
 NATIONAL_RECORD_URL = "http://www.metsastajaliitto.fi/?q=fi/node/126"
 
+WINDOWS_PLATFORM = (RUBY_PLATFORM =~ /mswin|mingw/)
+
 module ElkSports
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
