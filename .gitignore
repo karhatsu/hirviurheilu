@@ -1,6 +1,7 @@
 .bundle
 .project
 capybara-*
+bin/wkhtmltopdf.exe
 db/*.sqlite3*
 log/*.log
 nbproject
