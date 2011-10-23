@@ -1,3 +1,4 @@
+.bundle
 .project
 capybara-*
 db/*.sqlite3*
