@@ -3,7 +3,11 @@
 
 require 'logger'
 require 'digest/md5'
-require 'open3'
+if WINDOWS_PLATFORM
+  require 'win32/open3'
+else
+  require 'open3'
+end
 require 'active_support/core_ext/class/attribute_accessors'
 
 require 'wicked_pdf_railtie'
@@ -25,10 +29,18 @@ class WickedPdf
     command_for_stdin_stdout = "#{@exe_path} #{parse_options(options)} -q - - " # -q for no errors on stdout
     p "*"*15 + command_for_stdin_stdout + "*"*15 unless defined?(Rails) and Rails.env != 'development'
     pdf, err = begin
-      Open3.popen3(command_for_stdin_stdout) do |stdin, stdout, stderr|
-        stdin.write(string)
-        stdin.close
-        [stdout.read, stderr.read]
+      if WINDOWS_PLATFORM
+        Open3.popen3(command_for_stdin_stdout, "b") do |stdin, stdout, stderr|
+          stdin.write(string)
+          stdin.close
+          [stdout.read, stderr.read]
+        end
+      else
+        Open3.popen3(command_for_stdin_stdout) do |stdin, stdout, stderr|
+          stdin.write(string)
+          stdin.close
+          [stdout.read, stderr.read]
+        end
       end
     rescue Exception => e
       raise "Failed to execute #{@exe_path}: #{e}"

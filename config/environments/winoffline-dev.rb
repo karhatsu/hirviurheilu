@@ -1,5 +1,5 @@
 ElkSports::Application.configure do
-  OFFLINE = false
+  OFFLINE = true
 
   # Settings specified here will take precedence over those in config/environment.rb
 
@@ -29,4 +29,5 @@ ElkSports::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
 end

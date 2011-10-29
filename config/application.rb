@@ -16,8 +16,7 @@ PRODUCTION_URL = "http://www.hirviurheilu.com"
 
 NATIONAL_RECORD_URL = "http://www.metsastajaliitto.fi/?q=fi/node/126"
 
-OFFLINE = false
-ONLINE = !OFFLINE
+WINDOWS_PLATFORM = (RUBY_PLATFORM =~ /mswin|mingw/)
 
 module ElkSports
   class Application < Rails::Application
@@ -62,6 +61,23 @@ module ElkSports
 
     config.generators do |g|
       g.test_framework :rspec
+    end
+
+    module ServerStartInfo
+      def self.call
+        p ""
+        p "HIRVIURHEILU OFFLINE ON NYT VALMIS KAYTETTAVAKSI"
+        p "Jos palomuurisi kysyy erillista lupaa ohjelman kayttoon, salli kaytto."
+        p "Sen jalkeen avaa selain (esim. Internet Explorer tai Firefox)"
+        p "ja mene osoitteeseen http://localhost:3000"
+      end
+    end
+
+    module ServerStopInfo
+      def self.call
+        p ""
+        p "SULJETAAN HIRVIURHEILU OFFLINE, ODOTA HETKI..."
+      end
     end
   end
 end

@@ -1,4 +1,6 @@
 ElkSports::Application.configure do
+  OFFLINE = false
+
   # Settings specified here will take precedence over those in config/environment.rb
 
   # The production environment is meant for finished, "live" apps.
@@ -58,5 +60,5 @@ ElkSports::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.raise_delivery_errors = ONLINE
+  config.action_mailer.raise_delivery_errors = true
 end

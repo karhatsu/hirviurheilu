@@ -2,7 +2,19 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.1'
 gem 'jquery-rails'
-gem 'pg'
+
+group :development, :staging, :production do
+  gem 'pg'
+end
+
+group :test do
+  gem 'sqlite3-ruby', :require => 'sqlite3'
+end
+
+group "winoffline-dev", "winoffline-prod" do
+  gem 'sqlite3-ruby', :require => 'sqlite3'
+  gem 'win32-open3-19'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -16,7 +28,6 @@ end
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'sqlite3-ruby', :require => 'sqlite3'
   gem "rspec-rails"
   gem "autotest"
   gem "autotest-rails"
