@@ -179,7 +179,7 @@ GEM
       multi_json (>= 1.0.2)
     watchr (0.7)
     win32-api (1.4.8-x86-mingw32)
-    win32-open3-19 (0.0.1)
+    win32-open3 (0.3.2-x86-mingw32)
     win32-process (0.6.5)
       windows-pr (>= 1.1.2)
     windows-api (0.4.0)
@@ -216,4 +216,4 @@ DEPENDENCIES
   sqlite3-ruby
   uglifier
   watchr
-  win32-open3-19
+  win32-open3

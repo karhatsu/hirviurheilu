@@ -13,7 +13,7 @@ end
 
 group "winoffline-dev", "winoffline-prod" do
   gem 'sqlite3-ruby', :require => 'sqlite3'
-  gem 'win32-open3-19'
+  gem 'win32-open3'
 end
 
 # Gems used only for assets and not required
