@@ -91,3 +91,9 @@ Feature: Finish race
     Then I should be on the official race page of "Test race"
     And I should see "Kilpailu Test race on merkitty päättyneeksi" within "div.success"
     But I should not see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista."
+    And the admin should receive an email
+    When I open the email
+    Then I should see "Hirviurheilu - kilpailu päättynyt (test)" in the email subject
+    Then I should see "Hirviurheilu - uusi kilpailu (test)" in the email subject
+    And I should see "Kilpailun nimi: Test race" in the email body
+    And I should see "Kilpailijoiden määrä: 1" in the email body
