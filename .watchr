@@ -24,21 +24,21 @@ end
 
 def run_all_specs
   system('clear')
-  result = run "rake spec"
+  result = run "bundle exec rspec spec"
   growl result.split("\n").last rescue nil
   puts result
 end
 
 def run_feature(file)
   system('clear')
-  command = "cucumber #{file}"
+  command = "bundle exec cucumber #{file}"
   puts(command)
   system(command)
 end
 
 def run_all_features
   system('clear')
-  system("cucumber")
+  system("bundle exec cucumber")
 end
 
 def related_spec_files(path)
