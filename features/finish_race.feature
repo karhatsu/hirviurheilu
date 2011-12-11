@@ -94,6 +94,5 @@ Feature: Finish race
     And the admin should receive an email
     When I open the email
     Then I should see "Hirviurheilu - kilpailu päättynyt (test)" in the email subject
-    Then I should see "Hirviurheilu - uusi kilpailu (test)" in the email subject
     And I should see "Kilpailun nimi: Test race" in the email body
     And I should see "Kilpailijoiden määrä: 1" in the email body
