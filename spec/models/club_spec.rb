@@ -48,7 +48,8 @@ describe Club do
 
     it "should not be allowed when club has competitors" do
       club = Factory.create(:club)
-      club.competitors << Factory.build(:competitor)
+      competitor = Factory.create(:competitor, :club => club)
+      club.reload
       club.should have(1).competitors
       club.destroy
       club.should_not be_destroyed
