@@ -1,13 +1,9 @@
 ENV["WATCHR"] = "1"
 system 'clear'
 
-def growl(message)
-  growlnotify = `which growlnotify`.chomp
-  title = "Watchr Test Results"
-  puts message
-  image = message.match(/\s0\s(errors|failures)/) ? "~/.watchr_images/passed.png" : "~/.watchr_images/failed.png"
-  options = "-w -n Watchr --image '#{File.expand_path(image)}' -m '#{message}' '#{title}'"
-  system %(#{growlnotify} #{options} &)
+def p_and_run(command)
+  puts command
+  system command
 end
 
 def run(cmd)
@@ -16,29 +12,19 @@ def run(cmd)
 end
 
 def run_spec_file(file)
-  system('clear')
-  result = run(%Q(ruby -I"lib:spec" -rubygems #{file}))
-  growl result.split("\n").last rescue nil
-  puts result
+  p_and_run "bundle exec rspec #{file}"
 end
 
 def run_all_specs
-  system('clear')
-  result = run "bundle exec rspec spec"
-  growl result.split("\n").last rescue nil
-  puts result
+  p_and_run "bundle exec rspec spec"
 end
 
 def run_feature(file)
-  system('clear')
-  command = "bundle exec cucumber #{file}"
-  puts(command)
-  system(command)
+  p_and_run "bundle exec cucumber #{file}"
 end
 
 def run_all_features
-  system('clear')
-  system("bundle exec cucumber")
+  p_and_run "bundle exec cucumber"
 end
 
 def related_spec_files(path)
