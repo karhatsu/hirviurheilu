@@ -5,7 +5,7 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'
-  require 'shoulda'
+  require 'shoulda/matchers'
 
   # Requires supporting files with custom matchers and macros, etc,
   # in ./support/ and its subdirectories.
