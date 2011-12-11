@@ -16,7 +16,7 @@ def run_spec_file(file)
 end
 
 def run_all_specs
-  p_and_run "bundle exec rspec spec"
+  p_and_run "bundle exec rspec spec --format progress"
 end
 
 def run_feature(file)
