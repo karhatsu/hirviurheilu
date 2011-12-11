@@ -157,7 +157,7 @@ GEM
       ffi (~> 1.0.9)
       multi_json (~> 1.0.4)
       rubyzip
-    shoulda (2.11.3)
+    shoulda-matchers (1.0.0)
     spork (0.9.0.rc9)
     spork (0.9.0.rc9-x86-mingw32)
       win32-process
@@ -212,7 +212,7 @@ DEPENDENCIES
   rspec-rails
   ruby-prof
   sass-rails (~> 3.1.0)
-  shoulda
+  shoulda-matchers
   spork (~> 0.9.0.rc)
   sqlite3-ruby
   uglifier

@@ -37,7 +37,7 @@ group :development, :test do
   gem 'cucumber-rails'
   gem 'spork', '~> 0.9.0.rc'
   gem 'launchy'    # So you can do Then show me the page
-  gem 'shoulda'
+  gem 'shoulda-matchers'
   gem 'email_spec'
   gem 'ruby-prof'
   gem 'watchr'
