@@ -11,6 +11,7 @@ fi:
     correct_estimate4: Oikea arviomatka 4
     current_login_at: Nyk. kirj.
     current_login_ip: Nyk. IP
+    days_count: Kesto
     default_age_group: Oletusikäryhmä
     default_age_groups: Oletusikäryhmät
     default_series: Oletussarja

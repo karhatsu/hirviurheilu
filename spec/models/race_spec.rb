@@ -281,6 +281,74 @@ describe Race do
       end
     end
   end
+  
+  describe "#days_count=" do
+    before do
+      @race = Factory.build(:race, :start_date => nil, :end_date => nil)
+    end
+    
+    describe "invalid value" do
+      it "should raise error when 0 given" do
+        lambda { @race.days_count = 0 }.should raise_error
+      end
+
+      it "should raise error when negative number given" do
+        lambda { @race.days_count = -1 }.should raise_error
+      end
+
+      it "should raise error when nil given" do
+        lambda { @race.days_count = nil }.should raise_error
+      end
+    end
+    
+    context "when start date" do
+      it "should set end date to same as start date when 1 given" do
+        @race.start_date = '2011-12-17'
+        @race.days_count = 1
+        @race.end_date.should == @race.start_date
+      end
+      
+      it "should set end date to one bigger than start date when 2 given" do
+        @race.start_date = '2011-12-17'
+        @race.days_count = 2
+        @race.end_date.should == @race.start_date + 1
+      end
+    end
+    
+    context "when no start date" do
+      it "should store days_count for future usage" do
+        @race.days_count = 2
+        @race.end_date.should be_nil
+        @race.start_date = '2011-12-15'
+        @race.end_date.should == @race.start_date + 1
+      end
+      
+      it "should not be used after end date is set" do
+        @race.days_count = 2
+        end_date = '2011-12-17'
+        @race.start_date = '2011-12-15'
+        @race.end_date = end_date
+        @race.start_date = '2011-12-10'
+        @race.end_date.strftime('%Y-%m-%d').should == end_date
+      end
+    end
+    
+    context "when start date set twice" do
+      it "should change end date in both times" do
+        @race.days_count = 3
+        @race.start_date = '2012-01-05'
+        @race.end_date.should == @race.start_date + 2
+        @race.start_date = '2012-01-10'
+        @race.end_date.should == @race.start_date + 2
+      end
+    end
+    
+    it "should accept also string number" do
+        @race.start_date = '2011-12-17'
+        @race.days_count = "2"
+        @race.end_date.should == @race.start_date + 1
+    end
+  end
 
   describe "#set_correct_estimates_for_competitors" do
     before do

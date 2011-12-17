@@ -86,6 +86,27 @@ class Race < ActiveRecord::Base
     return 1 if end_date.nil?
     (end_date - start_date).to_i + 1
   end
+  
+  def days_count=(days)
+    days = days.to_i
+    raise "days (#{days}) must be positive" if days <= 0
+    if start_date
+      self.end_date = start_date + days - 1
+    end
+    @days_count_temp = days
+  end
+  
+  def start_date=(date)
+    super(date)
+    if @days_count_temp.to_i > 0
+      self.days_count = @days_count_temp
+    end
+  end
+  
+  def end_date=(date)
+    super
+    @days_count_temp = nil
+  end
 
   def set_correct_estimates_for_competitors
     reload
