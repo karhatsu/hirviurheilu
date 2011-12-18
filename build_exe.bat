@@ -6,7 +6,7 @@ rem - 7za.exe: http://7-zip.org/download.html (the command line version)
 
 @ECHO on
 SET RAILS_ENV=winoffline-prod
-CALL rake elk_sports:offline:create_db
+CALL bundle exec rake elk_sports:offline:create_db
 SET RAILS_ENV=
 CALL move bin\wkhtmltopdf-amd64 ..
 CALL cd ..
