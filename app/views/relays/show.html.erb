@@ -1,6 +1,6 @@
 <% content_for :title, "#{@relay.race.name} - Viestit - #{@relay.name} - #{relay_result_title(@relay)}" %>
 <% if @relay.active? %>
-<% content_for(:refresh, true) %>
+  <%= render :partial => 'shared/refresh_counter' %>
 <% end %>
 <h2><%= @relay.name %> - <%= relay_result_title(@relay) %></h2>
 <% content_for :sub_sub_menu do %>
