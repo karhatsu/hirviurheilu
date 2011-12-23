@@ -1,0 +1,31 @@
+<% secs = 15 %>
+<span id="reload_text">Uusi tulossivu ladataan automaattisesti <span id="secs">...</span>
+  <a id="stop" href="javascript:void(0)">Pysäytä laskenta.</a></span>
+<span id="continue_text" style="display: none;">Uuden tulossivun automaattinen lataus pysäytetty.
+  <a id="start" href="javascript:void(0)">Ota automaatinen lataus takaisin käyttöön.</a></span>
+<%= javascript_tag do %>
+  secs = <%= secs %>;
+  function dereaseSeconds() {
+    if(secs > 0) {
+      $('#secs').text(secs + ' sekunnin kuluttua.');
+      secs--;
+    } else {
+      $('#secs').text('...');
+      clearInterval(intervalId);
+      window.location = '<%= next_result_rotation(request.fullpath) %>';
+    }
+  }
+  function continueCounting() {
+    intervalId = setInterval('dereaseSeconds()', 1000);
+    $('#continue_text').hide();
+    $('#reload_text').show();
+  }
+  function stopCounting() {
+    clearInterval(intervalId);
+    $('#reload_text').hide();
+    $('#continue_text').show();
+  }
+  $('#stop').click(stopCounting);
+  $('#start').click(continueCounting);
+  $(document).ready(continueCounting);
+<% end %>

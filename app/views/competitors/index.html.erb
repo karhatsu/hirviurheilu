@@ -1,6 +1,6 @@
 <% content_for(:title, "#{@series.name} - #{series_result_title(@series, params[:all_competitors])}") %>
 <% if @series.active? %>
-  <% content_for(:refresh, true) %>
+  <%= render :partial => 'shared/refresh_counter' %>
 <% end %>
 <h2><%= yield :title %></h2>
 <% content_for :sub_sub_menu do %>
