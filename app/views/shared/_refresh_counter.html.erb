@@ -7,10 +7,17 @@
   secs = <%= secs %>;
   function dereaseSeconds() {
     if(secs > 0) {
+      $('#stop').show();
       $('#secs').text(secs + ' sekunnin kuluttua.');
       secs--;
     } else {
-      $('#secs').text('...');
+      $('#stop').hide();
+      dots = '..';
+      $('#secs').text(dots);
+      setInterval(function() {
+        dots += '..';
+        $('#secs').text(dots);
+      }, 500);
       clearInterval(intervalId);
       window.location = '<%= next_result_rotation(request.fullpath) %>';
     }
