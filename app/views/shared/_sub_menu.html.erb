@@ -28,7 +28,7 @@ race = menu_race
           <% end %>
         <% end %>
         <% unless offline? or @is_start_list or race.all_competitions_finished? %>
-          <%= menu_item "Tuloskehä", race_result_rotation_settings_path(race), result_rotation_cookie %>
+          <%= menu_item "Tuloskehä", race_result_rotation_path(race), result_rotation_cookie %>
         <% end %>
         <%= menu_item "Lehdistö", new_race_medium_path(race), @is_media %>
         </ul>

@@ -2,7 +2,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user_session, :current_user, :official_rights,
-    :online?, :offline?, :own_race?
+    :online?, :offline?, :own_race?, :result_rotation_cookie_name
   before_filter :ensure_user_in_offline
 
   private
@@ -143,6 +143,10 @@ class ApplicationController < ActionController::Base
 
   def site_url
     request.protocol + request.host_with_port
+  end
+  
+  def result_rotation_cookie_name
+    'seriescount'
   end
 
   def rescue_with_handler(exception)

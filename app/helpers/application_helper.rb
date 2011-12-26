@@ -396,20 +396,6 @@ module ApplicationHelper
     return list[0]
   end
 
-  def refresh_tag
-    return '' if offline?
-    html = '<meta http-equiv="Refresh" content="'
-    html << result_refresh_interval(15).to_s
-    html << ";" + next_result_rotation(request.fullpath) if result_rotation_cookie
-    html << '"/>'
-    raw(html)
-  end
-
-  def result_refresh_interval(interval)
-    return interval if Rails.env == 'development'
-    return [15, interval].max
-  end
-
   def series_result_title(series, all_competitors=false)
     suffix = ''
     suffix = ' - Kaikki kilpailijat' if all_competitors
@@ -445,7 +431,7 @@ module ApplicationHelper
     return 'Piirit' if race.club_level == Race::CLUB_LEVEL_PIIRI
     raise "Unknown club level: #{race.club_level}"
   end
-
+  
   private
   def result_rotation_series_list(race)
     race_day = race.race_day
@@ -474,6 +460,6 @@ module ApplicationHelper
   end
 
   def result_rotation_cookie
-    return cookies['seriescount']
+    return cookies[result_rotation_cookie_name]
   end
 end

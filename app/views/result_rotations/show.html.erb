@@ -1,0 +1,21 @@
+<h2>Tuloskehä</h2>
+<div class="info">Tältä sivulta voit käynnistää ja sammuttaa tuloskehän.
+  Kun tuloskehä on päällä, palvelu vaihtaa eri kilpailuiden tulossivuja automaattisesti.</div>
+<h3>Tuloskehän tila</h3>
+<% if @rotation %>
+  <div class="section">Tuloskehä on käynnissä.</div>
+  <%= form_tag(race_result_rotation_path(@race), :method => :delete) do %>
+    <%= submit_tag 'Ota tuloskehä pois käytöstä' %>
+  <% end %>
+  <hr/>
+  <%= render :partial => 'shared/refresh_counter', :locals => { :seconds => 10 } %>
+<% else %>
+  <% if result_rotation_list(menu_race).empty? %>
+    Tuloskehää ei voida käynnistää, koska yhtään kilpailua ei ole tällä hetkellä käynnissä.
+  <% else %>
+    <div class="section">Tuloskehä ei ole käynnissä.</div>
+    <%= form_tag(race_result_rotation_path(@race)) do %>
+      <%= submit_tag 'Ota tuloskehä käyttöön' %>
+    <% end %>
+  <% end %>
+<% end %>

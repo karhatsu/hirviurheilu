@@ -793,67 +793,6 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#result_refresh_interval" do
-    before do
-      stub!(:result_rotation_cookie).and_return('3')
-    end
-    context "when development environment" do
-      before do
-        Rails.stub!(:env).and_return('development')
-      end
-      it "should return the given refresh rate" do
-        result_refresh_interval(2).should == 2
-      end
-    end
-    context "when not development environment" do
-      before do
-        Rails.stub!(:env).and_return('production')
-      end
-      it "should return 15 if given refresh rate is less than that" do
-        result_refresh_interval(2).should == 15
-        end
-      it "should return given refresh rate if it is more than 15" do
-        result_refresh_interval(30).should == 30
-      end
-    end
-  end
-
-  describe "#refresh_tag" do
-    it "should return empty string when offline" do
-      Mode.stub!(:offline?).and_return(true)
-      Mode.stub!(:online?).and_return(false)
-      refresh_tag.should == ''
-    end
-
-    context "when no seriescount cookie set" do
-      before do
-        stub!(:result_rotation_cookie).and_return(false)
-        stub!(:result_refresh_interval).and_return(15)
-        helper.stub!(:next_result_rotation).and_return('/abc')
-        request_stub = 'request'
-        helper.stub!(:request).and_return(request_stub)
-        request_stub.stub!(:fullpath).and_return('/xyz')
-      end
-      it "should return a valid http refresh tag for same page" do
-        refresh_tag.should == "<meta http-equiv=\"Refresh\" content=\"15\"/>"
-      end
-    end
-
-    context "when seriescount cookie set to 3" do
-      before do
-        stub!(:result_rotation_cookie).and_return('3')
-        stub!(:result_refresh_interval).and_return(15)
-        helper.stub!(:next_result_rotation).and_return('/abc')
-        request_stub = 'request'
-        helper.stub!(:request).and_return(request_stub)
-        request_stub.stub!(:fullpath).and_return('/xyz')
-      end
-      it "should return a valid http refresh tag for next page in rotation" do
-        refresh_tag.should == "<meta http-equiv=\"Refresh\" content=\"15;/abc\"/>"
-      end
-    end
-  end
-
   describe "#series_result_title" do
     before do
       @competitors = mock(Array)

@@ -1,9 +1,9 @@
-<% secs = 30 %>
+<% secs = defined?(seconds) ? seconds : 30 %>
 <div id="reload_counter">
   <span id="reload_text">Uusi tulossivu ladataan automaattisesti <span id="secs">...</span>
     <a id="stop" href="javascript:void(0)">Pysäytä laskenta.</a></span>
   <span id="continue_text" style="display: none;">Uuden tulossivun automaattinen lataus pysäytetty.
-    <a id="start" href="javascript:void(0)">Ota automaatinen lataus takaisin käyttöön.</a></span>
+    <a id="start" href="javascript:void(0)">Ota automaattinen lataus takaisin käyttöön.</a></span>
 </div>
 <%= javascript_tag do %>
   secs = <%= secs %>;
