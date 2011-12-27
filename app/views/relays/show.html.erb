@@ -33,6 +33,10 @@
 <hr/>
 <%= link_to 'Takaisin kilpailun etusivulle', race_path(@relay.race) %>
 <%= javascript_tag do %>
+  function showAllCompetitors() {
+    $('.competitor_row').show();
+    window.location.hash = 'competitors'
+  }
   $('.team_name_link').click(function() {
     competitors = '.team_' + $(this).attr('id');
     if($(competitors).is(':hidden')) {
@@ -42,6 +46,11 @@
     }
   });
   $('#show_all_competitors').click(function() {
-    $('.competitor_row').show();
+    showAllCompetitors();
+  });
+  $(document).ready(function() {
+    if(window.location.hash == '#competitors') {
+      showAllCompetitors();
+    }
   });
 <% end %>
