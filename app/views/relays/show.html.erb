@@ -22,7 +22,7 @@
   <%= render :partial => 'relays/leg_links' %>
   <a href="javascript:void(0)" id="show_all_competitors">Näytä kaikki kilpailijat</a>
   <a href="javascript:void(0)" id="hide_all_competitors" style="display:none;">Piilota kaikki kilpailijat</a>
-  <%= render :partial => 'results', :locals => { :pdf => false } %>
+  <%= render :partial => 'results', :locals => { :relay => @relay, :pdf => false } %>
   <div class="action_box">
     Lataa tulokset pdf-tiedostona:
     <%= link_to "Ilman kilpailijoita", race_relay_path(@relay.race, @relay,

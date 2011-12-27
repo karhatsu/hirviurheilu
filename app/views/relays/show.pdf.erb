@@ -5,5 +5,5 @@
   <div class="info">Viestiin ei ole vielä merkitty joukkueita</div>
 <% else %>
   <%= render :partial => 'correct_estimates' %>
-  <%= render :partial => 'results', :locals => { :pdf => true } %>
+  <%= render :partial => 'results', :locals => { :relay => @relay, :pdf => true } %>
 <% end %>

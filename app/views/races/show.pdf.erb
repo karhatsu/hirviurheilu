@@ -1,8 +1,29 @@
 <h1><%= @race.name %></h1>
 <%= @race.location %>, <%= race_date_interval(@race) %>
+<hr/>
+
+<h2>Yksilökilpailut</h2>
 <% @race.series.each do |series| %>
-  <hr/>
-  <h2><%= "#{series.name} - Tulokset" %></h2>
+  <h3><%= "#{series.name}" %></h3>
   <%= render :partial => 'series/infos', :locals => { :series => series } %>
   <%= render :partial => 'series/series_results', :locals => { :series => series } %>
+  <hr/>
+<% end %>
+
+<% if @race.team_competitions.count > 0 %>
+  <h2>Joukkuekilpailut</h2>
+  <% @race.team_competitions.each do |tc| %>
+    <h2><%= tc.name %></h2>
+    <%= render :partial => 'team_competitions/results_table', :locals => { :results => tc.results } %>
+    <hr/>
+  <% end %>
+<% end %>
+
+<% if @race.relays.count > 0 %>
+  <h2>Viestit</h2>
+  <% @race.relays.each do |relay| %>
+    <h2><%= relay.name %></h2>
+    <%= render :partial => 'relays/results', :locals => { :relay => relay, :pdf => true } %>
+    <hr/>
+  <% end %>
 <% end %>

@@ -19,13 +19,6 @@
       <%= link_to 'Lataa kaikkien kilpailijoiden lähtöajat (PDF)',
         race_start_lists_path(@race, :format => :pdf) %>
     </div>
-    <h3>Tuloskooste (PDF)</h3>
-    <%= form_tag(race_path(@race, :format => :pdf), :method => :get) do %>
-      <%= select_tag :club_id,
-        options_from_collection_for_select(@race.clubs, :id, :name),
-        :prompt => "Kaikki #{clubs_title(@race).downcase}" %>
-      <%= submit_tag 'Näytä tulokset' %>
-    <% end %>
     <% if @race.finished? %>
       <h3>Oikeat arviot</h3>
       <table>
@@ -85,6 +78,18 @@
         </tr>
       <% end %>
     </table>
+  </div>
+<% end %>
+<% unless @race.series.empty? %>
+  <h2>Tuloskooste (PDF)</h2>
+  <div class="section">
+    <div class="info">PDF-tuloskooste sisältää kaikkien kilpailuiden tulokset</div>
+    <%= form_tag(race_path(@race, :format => :pdf), :method => :get) do %>
+      <%= select_tag :club_id,
+        options_from_collection_for_select(@race.clubs, :id, :name),
+        :prompt => "Kaikki #{clubs_title(@race).downcase}" %>
+      <%= submit_tag 'Lataa tuloskooste' %>
+    <% end %>
   </div>
 <% end %>
 <% if @race.start_date > Time.zone.today %>

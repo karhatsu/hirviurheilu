@@ -9,7 +9,7 @@
       <th>Arviosakot</th>
       <th>Ammuntasakot</th>
     </tr>
-    <% @results.each_with_index do |team, i| %>
+    <% relay.results.each_with_index do |team, i| %>
       <tr id="team_<%= i + 1 %>">
         <td><b><%= i + 1 %>.</b></td>
         <td class="team_name">
@@ -44,7 +44,7 @@
             </td>
             <td class="center">
               <%= comp.estimate_penalties %>
-              <% if @relay.finished? and comp.estimate %>
+              <% if relay.finished? and comp.estimate %>
                 (<%= comp.estimate %>m)
               <% end %>
             </td>
