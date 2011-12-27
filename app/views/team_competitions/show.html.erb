@@ -16,6 +16,7 @@
   <div class="info">Joukkuekilpailun tuloksia ei voida vielä laskea</div>
 <% else %>
   <a href="javascript:void(0)" id="show_all_competitors">Näytä kaikki kilpailijat</a>
+  <a href="javascript:void(0)" id="hide_all_competitors" style="display:none;">Piilota kaikki kilpailijat</a>
   <div class="section">
     <%= render :partial => 'results_table', :locals => { :results => results } %>
   </div>
@@ -33,6 +34,14 @@
   function showAllCompetitors() {
     $('.competitor_row').show();
     window.location.hash = 'competitors'
+    $('#show_all_competitors').hide();
+    $('#hide_all_competitors').show();
+  }
+  function hideAllCompetitors() {
+    $('.competitor_row').hide();
+    window.location.hash = ''
+    $('#show_all_competitors').show();
+    $('#hide_all_competitors').hide();
   }
   $('.club_name_link').click(function() {
     competitors = '.club_' + $(this).attr('id');
@@ -44,6 +53,9 @@
   });
   $('#show_all_competitors').click(function() {
     showAllCompetitors();
+  });
+  $('#hide_all_competitors').click(function() {
+    hideAllCompetitors();
   });
   $(document).ready(function() {
     if(window.location.hash == '#competitors') {

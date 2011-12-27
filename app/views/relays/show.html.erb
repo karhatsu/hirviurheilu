@@ -21,6 +21,7 @@
   <%= render :partial => 'relays/correct_estimates' %>
   <%= render :partial => 'relays/leg_links' %>
   <a href="javascript:void(0)" id="show_all_competitors">Näytä kaikki kilpailijat</a>
+  <a href="javascript:void(0)" id="hide_all_competitors" style="display:none;">Piilota kaikki kilpailijat</a>
   <%= render :partial => 'results', :locals => { :pdf => false } %>
   <div class="action_box">
     Lataa tulokset pdf-tiedostona:
@@ -36,6 +37,14 @@
   function showAllCompetitors() {
     $('.competitor_row').show();
     window.location.hash = 'competitors'
+    $('#show_all_competitors').hide();
+    $('#hide_all_competitors').show();
+  }
+  function hideAllCompetitors() {
+    $('.competitor_row').hide();
+    window.location.hash = ''
+    $('#show_all_competitors').show();
+    $('#hide_all_competitors').hide();
   }
   $('.team_name_link').click(function() {
     competitors = '.team_' + $(this).attr('id');
@@ -47,6 +56,9 @@
   });
   $('#show_all_competitors').click(function() {
     showAllCompetitors();
+  });
+  $('#hide_all_competitors').click(function() {
+    hideAllCompetitors();
   });
   $(document).ready(function() {
     if(window.location.hash == '#competitors') {
