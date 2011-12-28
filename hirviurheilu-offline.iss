@@ -8,3 +8,6 @@ OutputBaseFilename=HirviurheiluOffline-asennus
 [Icons]
 Name: "{group}\Hirviurheilu Offline"; Filename: "{app}\hirviurheilu.exe"
 Name: "{group}\Poista Hirviurheilu Offline"; Filename: "{uninstallexe}"
+
+[Languages]
+Name: "fi"; MessagesFile: "compiler:Languages\Finnish.isl"
