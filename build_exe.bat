@@ -8,6 +8,8 @@ rem - 7za.exe: http://7-zip.org/download.html (the command line version)
 SET RAILS_ENV=winoffline-prod
 SET BUNDLE_GEMFILE=Gemfile-windows
 CALL bundle exec rake elk_sports:offline:create_db
+CALL del log\*.log
+CALL del db\offline-dev.sqlite3
 SET RAILS_ENV=
 CALL move bin\wkhtmltopdf-amd64 ..
 CALL cd ..
