@@ -5,10 +5,10 @@ fi:
   competitors:
     people_short:
       one: 1 hlö
-      other: %{count} hlöä
+      other: "%{count} hlöä"
   count_competitors:
-    one: 1 kilpailijan
-    other: %{count} kilpailijaa
+    one: 1 kilpailija
+    other: "%{count} kilpailijaa"
   euros:
     one: euro
     other: euroa
