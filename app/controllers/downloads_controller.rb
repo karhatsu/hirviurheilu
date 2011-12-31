@@ -2,6 +2,7 @@ class DownloadsController < ApplicationController
   before_filter :require_user, :check_staging
   
   def installer
+    OfflineDownloadMailer.download(current_user).deliver
     redirect_to 'http://www.karhatsu.com/hirviurheilu/HirviurheiluOffline-asennus.exe'
   end
   
