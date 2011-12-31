@@ -1,11 +1,11 @@
 <% content_for :title, "Hirviurheilu Offline -tuotteen asennusohjeet" %>
 <% content_for :page_title, yield(:title) %>
-<h2>Hirviurheilu Offline -tuotteen asentaminen ja päivittäminen</h2>
-<div class="info">
-  Lue ensin, sopiiko sinulle paremmin
-  <%= link_to 'Hirviurheilu Online vain Hirviurheilu Offline', offline_vs_online_path %>.
-</div>
-<div class="section">
+<h2>Hirviurheilu Offline -tuotteen lataus ja asentaminen</h2>
+<div class="section full_width">
+  <div class="info">
+    Lue ensin, sopiiko sinulle paremmin
+    <%= link_to 'Hirviurheilu Online vain Hirviurheilu Offline', offline_vs_online_path %>.
+  </div>
   <h3>1. Rekisteröidy tai kirjaudu sisään Hirviurheilu Online -palveluun</h3>
   <% if current_user %>
     Olet jo kirjautunut sisään. Voit jatkaa seuraavaan vaiheeseen.
@@ -15,37 +15,22 @@
     <%= link_to 'kirjaudu sisään palveluun', login_path(:return_to => offline_installation_path) %>.
     Palaa sen jälkeen takaisin tälle sivulle.
   <% end %>
-  <h3>2. Lataa asennus- tai päivityspaketti</h3>
+  <h3>2. Lataa asennustiedosto</h3>
   <% if current_user %>
-    <ul>
-      <li>Jos <b>asennat Hirviurheilu Offline -tuotteen ensimmäistä kertaa</b>,
-        <%= link_to 'lataa asennustiedosto', download_installer_path %>.</li>
-      <li>Jos olet <b>päivittämässä aiemmin asennettua</b> Hirviurheilu Offline -tuotetta,
-        <%= link_to 'lataa päivitystiedosto', download_upgrader_path %>.</li>
-    </ul>
+    Lataa asennustiedosto: <%= link_to 'HirviurheiluOffline-asennus.exe', download_installer_path %>
   <% else %>
     <div class="info">Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki.</div>
   <% end %>
-  <h3>3. Pura lataamasi paketti</h3>
-  <ul>
-    <li>Jos <b>asennat Hirviurheilu Offline -tuotteen ensimmäistä kertaa</b>,
-      avaa lataamasi zip-tiedosto ja kopioi sen sisällä olevat kaksi tiedostoa
-      omalle koneellesi, esim. kansioon C:\hirviurheilu.
-    </li>
-    <li>Jos olet <b>päivittämässä aiemmin asennettua</b> Hirviurheilu Offline -tuotetta,
-      avaa lataamasi zip-tiedosto ja kopioi sen sisällä oleva hirviurheilu.exe-tiedosto
-      vanhan hirviurheilu.exe-tiedoston päälle.
-    </li>
-  </ul>
-  <div class="warning">Huom! Kohdekansion nimessä ei saa olla erikoismerkkejä
-    kuten ä- ja ö-kirjaimia.</div>
+  <h3>3. Asenna Hirviurheilu Offline</h3>
+  Suorita lataamasi asennustiedosto ja noudata ohjeita.
 </div>
 
 <h2>Hirviurheilu Offline -ohjelman käynnistäminen</h2>
 <div class="section">
-  <h3>4. Avaa hirviurheilu.exe</h3>
-  Mene kansioon, johon kopioit tiedostot. Tuplaklikkaa tiedostoa
-  hirviurheilu.exe, jossa on vihreä <%= image_tag 'favicon.png' %>-kuvake.
+  <h3>4. Käynnistä Hirviurheilu Offline</h3>
+  Jos käytit asennusohjelman oletusasetuksia, löydät Hirviurheilu Offlinen käynnistyskuvakkeen
+  Windowsin päävalikosta: Kaikki ohjelmat - Hirviurheilu - <%= image_tag 'favicon.png' %>
+  Hirviurheilu Offline.
   <h3>5. Odota käynnistymistä</h3>
   <div style="margin: 10px 0; overflow: auto;">
     <%= image_tag 'command_prompt.png', :style => 'float:right;' %>
@@ -65,8 +50,8 @@
       vaan Ruby-ohjelmalle, jota tarvitaan Hirviurheilun suorittamisessa.
       Luvan antaminen on täysin turvallista.</i>
   </div>
-  <h3>7. Avaa selain ja aloita ohjelman käyttö</h3>
-  Avaa haluamasi selain (esim. Internet Explorer tai Firefox) ja mene osoitteeseen
+  <h3>7. Aloita ohjelman käyttö</h3>
+  Siirry haluamallasi selaimella (esim. Internet Explorer tai Firefox) osoitteeseen
   <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>.
   Voit nyt aloittaa ohjelman käytön.<br/><br/>
   Toisin kuin Hirviurheilu Online -palvelussa,
