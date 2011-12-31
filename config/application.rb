@@ -68,8 +68,9 @@ module ElkSports
         p ""
         p "HIRVIURHEILU OFFLINE ON NYT VALMIS KAYTETTAVAKSI"
         p "Jos palomuurisi kysyy erillista lupaa ohjelman kayttoon, salli kaytto."
-        p "Sen jalkeen avaa selain (esim. Internet Explorer tai Firefox)"
-        p "ja mene osoitteeseen http://localhost:3000"
+        p ""
+        p "AVATAAN OHJELMAN ALOITUSSIVU..."
+        system('start http://localhost:3000')
       end
     end
 
