@@ -41,4 +41,5 @@ group :development, :test do
   gem 'email_spec'
   gem 'ruby-prof'
   gem 'watchr'
+  gem 'mongrel'
 end
