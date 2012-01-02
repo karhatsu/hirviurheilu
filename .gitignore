@@ -2,6 +2,7 @@
 .project
 capybara-*
 bin/wkhtmltopdf.exe
+bin/wkhtmltopdf-i386
 db/*.sqlite3*
 log/*.log
 nbproject

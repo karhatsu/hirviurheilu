@@ -9,7 +9,7 @@ elsif ['staging', 'production'].include?(Rails.env)
   exe_path = Rails.root.join('bin', 'wkhtmltopdf-amd64').to_s
 # winoffline-dev is used in Linux when testing sqlite3 migrations
 elsif ['development', 'test', 'cucumber', 'winoffline-dev'].include?(Rails.env)
-  exe_path = '/usr/bin/wkhtmltopdf'
+  exe_path = Rails.root.join('bin', 'wkhtmltopdf-i386').to_s
 else
   raise "Unknown non-Windows environment: #{Rails.env}"
 end

@@ -6,7 +6,17 @@ class CompetitorsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render :pdf => "#{@series.name}-tulokset", :layout => true
+        render :pdf => "#{@series.name}-tulokset", :layout => true,
+          :margin => { :top => 20, :bottom => 20 },
+          :header => {
+            :right => "#{@series.race.name} - #{@series.name}\n",
+            :spacing => 10,
+            :font_size => 10
+          },
+          :footer => {
+            :center => 'www.hirviurheilu.com',
+            :spacing => 10,
+            :line => true }
       end
     end
   end
