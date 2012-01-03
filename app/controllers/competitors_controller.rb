@@ -7,16 +7,13 @@ class CompetitorsController < ApplicationController
       format.html
       format.pdf do
         render :pdf => "#{@series.name}-tulokset", :layout => true,
-          :margin => { :top => 20, :bottom => 20 },
+          :margin => pdf_margin,
           :header => {
             :right => "#{@series.race.name} - #{@series.name}\n",
             :spacing => 10,
             :font_size => 10
           },
-          :footer => {
-            :center => 'www.hirviurheilu.com',
-            :spacing => 10,
-            :line => true }
+          :footer => pdf_footer
       end
     end
   end
@@ -27,7 +24,7 @@ class CompetitorsController < ApplicationController
       format.html
       format.pdf do
         render :pdf => "#{@competitor.last_name}_#{@competitor.first_name}-tuloskortti",
-          :layout => true
+          :layout => true, :margin => pdf_margin, :footer => pdf_footer
       end
     end
   end

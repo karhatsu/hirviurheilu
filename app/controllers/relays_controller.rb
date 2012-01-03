@@ -7,7 +7,8 @@ class RelaysController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render :pdf => "viesti-#{@relay.name}-tulokset", :layout => true
+        render :pdf => "viesti-#{@relay.name}-tulokset", :layout => true,
+          :margin => pdf_margin, :footer => pdf_footer
       end
     end
   end

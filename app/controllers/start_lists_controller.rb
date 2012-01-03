@@ -6,7 +6,8 @@ class StartListsController < ApplicationController
   def index
     respond_to do |format|
       format.pdf do
-        render :pdf => "#{@race.name}-lahtoajat", :layout => true
+        render :pdf => "#{@race.name}-lahtoajat", :layout => true,
+          :margin => pdf_margin, :footer => pdf_footer
       end
     end
   end
@@ -16,7 +17,8 @@ class StartListsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render :pdf => "#{@series.name}-lahtolista", :layout => true
+        render :pdf => "#{@series.name}-lahtolista", :layout => true,
+          :margin => pdf_margin, :footer => pdf_footer
       end
     end
   end

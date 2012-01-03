@@ -6,7 +6,8 @@ class TeamCompetitionsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render :pdf => "joukkuekilpailu-#{@tc.name}-tulokset", :layout => true
+        render :pdf => "joukkuekilpailu-#{@tc.name}-tulokset", :layout => true,
+          :margin => pdf_margin, :footer => pdf_footer
       end
     end
   end

@@ -148,6 +148,14 @@ class ApplicationController < ActionController::Base
   def result_rotation_cookie_name
     'seriescount'
   end
+  
+  def pdf_footer
+    { :center => 'www.hirviurheilu.com', :spacing => 10, :line => true }
+  end
+  
+  def pdf_margin
+    { :top => 20, :bottom => 20 }
+  end
 
   def rescue_with_handler(exception)
     begin
