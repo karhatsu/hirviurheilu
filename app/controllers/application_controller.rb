@@ -149,6 +149,10 @@ class ApplicationController < ActionController::Base
     'seriescount'
   end
   
+  def pdf_header(title)
+    { :left => title, :right => Date.today.strftime('%d.%m.%Y'), :spacing => 10, :font_size => 10 }
+  end
+  
   def pdf_footer
     { :center => 'www.hirviurheilu.com', :spacing => 10, :line => true }
   end

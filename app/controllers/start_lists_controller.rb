@@ -1,3 +1,4 @@
+# encoding:UTF-8
 class StartListsController < ApplicationController
   before_filter :set_races
   before_filter :assign_race_by_race_id, :only => :index
@@ -7,7 +8,8 @@ class StartListsController < ApplicationController
     respond_to do |format|
       format.pdf do
         render :pdf => "#{@race.name}-lahtoajat", :layout => true,
-          :margin => pdf_margin, :footer => pdf_footer
+          :margin => pdf_margin, :header => pdf_header("Lähtöajat - kaikki kilpailijat"),
+          :footer => pdf_footer
       end
     end
   end
@@ -18,7 +20,8 @@ class StartListsController < ApplicationController
       format.html
       format.pdf do
         render :pdf => "#{@series.name}-lahtolista", :layout => true,
-          :margin => pdf_margin, :footer => pdf_footer
+          :margin => pdf_margin, :header => pdf_header("Lähtöajat - #{@series.name}"),
+          :footer => pdf_footer
       end
     end
   end

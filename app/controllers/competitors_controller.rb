@@ -6,14 +6,9 @@ class CompetitorsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render :pdf => "#{@series.name}-tulokset", :layout => true,
-          :margin => pdf_margin,
-          :header => {
-            :right => "#{@series.race.name} - #{@series.name}\n",
-            :spacing => 10,
-            :font_size => 10
-          },
-          :footer => pdf_footer
+        title = 
+        render :pdf => "#{@series.name}-tulokset", :layout => true, :margin => pdf_margin,
+          :header => pdf_header("#{@series.race.name} - #{@series.name}\n"), :footer => pdf_footer
       end
     end
   end
@@ -24,7 +19,7 @@ class CompetitorsController < ApplicationController
       format.html
       format.pdf do
         render :pdf => "#{@competitor.last_name}_#{@competitor.first_name}-tuloskortti",
-          :layout => true, :margin => pdf_margin, :footer => pdf_footer
+          :layout => true, :margin => pdf_margin, :header => pdf_header(nil), :footer => pdf_footer
       end
     end
   end
