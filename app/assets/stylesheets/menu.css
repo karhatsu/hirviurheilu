@@ -45,10 +45,12 @@ div.main_menu ul li a {
     border: white solid 1px;
     border-bottom-width: 0;
     padding: 6px 6px;
-    -moz-border-radius-topleft: 3px;
-    -moz-border-radius-topright: 3px;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-top-right-radius: 3px;
 }
 
 div.sub_menu ul li a {
@@ -64,10 +66,12 @@ div.sub_sub_menu ul li a {
     width: 110px;
     padding: 3px;
     border: white solid 1px;
-    -moz-border-radius-topright: 3px;
-    -moz-border-radius-bottomright: 3px;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
+    -moz-border-radius-topright: 3px;
+    -moz-border-radius-bottomright: 3px;
+    -webkit-border-top-right-radius: 3px;
+    -webkit-border-bottom-right-radius: 3px;
 }
 
 /* a:hover */
@@ -109,10 +113,12 @@ div.sub_menu ul li ul {
 
 div.menu ul li ul a {
     white-space: nowrap;
-    -moz-border-radius-topleft: 0;
-    -moz-border-radius-topright: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-topright: 0;
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-top-right-radius: 0;
     border-bottom-width: 1px;
 }
 
