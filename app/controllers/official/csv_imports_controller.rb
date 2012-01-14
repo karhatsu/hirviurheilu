@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Official::CsvImportsController < Official::OfficialController
   before_filter :assign_race_by_race_id, :check_assigned_race
   
@@ -14,7 +15,8 @@ class Official::CsvImportsController < Official::OfficialController
         flash[:success] = 'Kilpailijat ladattu tietokantaan'
         redirect_to official_race_path(@race)
       else
-        flash[:error] = import.errors.join('. ') + '.'
+        flash[:error] = 'Tiedostosta löytyi virheitä (yhtään kilpailijaa ei ole tallennettu tietokantaan):<br/>'
+        flash[:error] += import.errors.join('<br/>')
         render :new
       end
     end
