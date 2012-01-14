@@ -87,27 +87,9 @@ describe CsvImport do
       end
     end
     
-    context "when an empty competitor attribute in the file" do
+    context "when empty column in the file" do
       before do
-        @ci = CsvImport.new(@race, test_file_path('import_with_invalid_competitor.csv'))
-      end
-    
-      it "#save should return false" do
-        @ci.save.should be_false
-      end
-      
-      it "#errors should contain a message about missing data" do
-        @ci.should have(1).errors
-      end
-      
-      it "there should be no new competitors for the race" do
-        @race.should have(0).competitors
-      end
-    end
-    
-    context "when club name is empty in the file" do
-      before do
-        @ci = CsvImport.new(@race, test_file_path('import_with_invalid_club.csv'))
+        @ci = CsvImport.new(@race, test_file_path('import_with_empty_column.csv'))
       end
     
       it "#save should return false" do
