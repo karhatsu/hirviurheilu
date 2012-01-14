@@ -119,7 +119,29 @@ describe CsvImport do
       end
       
       it "the error message should contain the errorneous row" do
-         @ci.errors[0].should == "Riviltä puuttuu tietoja: Minna,Miettinen,,N"
+        @ci.errors[0].should == "Riviltä puuttuu tietoja: Minna,Miettinen,,N"
+      end
+      
+      it "there should be no new competitors for the race" do
+        @race.should have(0).competitors
+      end
+    end
+    
+    context "when some column contains only spaces" do
+      before do
+        @ci = CsvImport.new(@race, test_file_path('import_with_spaces_in_column.csv'))
+      end
+    
+      it "#save should return false" do
+        @ci.save.should be_false
+      end
+      
+      it "#errors should contain a message about missing data" do
+        @ci.should have(1).errors
+      end
+      
+      it "the error message should contain the errorneous row" do
+        @ci.errors[0].should == "Riviltä puuttuu tietoja: Minna,  ,PS,N"
       end
       
       it "there should be no new competitors for the race" do

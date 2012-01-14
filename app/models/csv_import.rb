@@ -50,7 +50,7 @@ class CsvImport
   
   def row_missing_data?(row)
     row.each do |col|
-      unless col
+      if col.nil? or col.strip == ''
         @errors << "Riviltä puuttuu tietoja: #{row.join(',')}"
         return true
       end
