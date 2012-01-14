@@ -22,7 +22,7 @@ describe CsvImport do
     
     it "#errors should contain a message about invalid file format" do
       @ci.should have(1).errors
-      @ci.errors[0].should == 'Tiedoston rakenne virheellinen'
+      @ci.errors[0].should == 'Virheellinen rivi tiedostossa: Matti,Miettinen,SS,M40,additional column'
     end
     
     it "there should be no new competitors for the race" do

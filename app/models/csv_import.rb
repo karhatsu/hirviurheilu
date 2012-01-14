@@ -33,10 +33,7 @@ class CsvImport
   private
   def validate_data
     @data.each do |row|
-      if row.length != COLUMNS_COUNT
-        @errors << 'Tiedoston rakenne virheellinen'
-        return
-      end
+      return unless row_structure_correct(row)
       unless row_missing_data?(row)
         competitor = new_competitor(row)
         if competitor.valid?
@@ -48,14 +45,26 @@ class CsvImport
     end
   end
   
+  def row_structure_correct(row)
+    if row.length != COLUMNS_COUNT
+      @errors << "Virheellinen rivi tiedostossa: #{original_format(row)}"
+      return false
+    end
+    true
+  end
+  
   def row_missing_data?(row)
     row.each do |col|
       if col.nil? or col.strip == ''
-        @errors << "Riviltä puuttuu tietoja: #{row.join(',')}"
+        @errors << "Riviltä puuttuu tietoja: #{original_format(row)}"
         return true
       end
     end
     false
+  end
+  
+  def original_format(columns)
+    columns.join(',')
   end
   
   def new_competitor(row)
