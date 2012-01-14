@@ -118,6 +118,10 @@ describe CsvImport do
         @ci.should have(1).errors
       end
       
+      it "the error message should contain the errorneous row" do
+         @ci.errors[0].should == "Riviltä puuttuu tietoja: Minna,Miettinen,,N"
+      end
+      
       it "there should be no new competitors for the race" do
         @race.should have(0).competitors
       end

@@ -37,13 +37,25 @@ class CsvImport
         @errors << 'Tiedoston rakenne virheellinen'
         return
       end
-      competitor = new_competitor(row)
-      if competitor.valid?
-        @competitors << competitor
-      else
-        @errors += competitor.errors.full_messages
+      unless row_missing_data?(row)
+        competitor = new_competitor(row)
+        if competitor.valid?
+          @competitors << competitor
+        else
+          @errors += competitor.errors.full_messages
+        end
       end
     end
+  end
+  
+  def row_missing_data?(row)
+    row.each do |col|
+      unless col
+        @errors << "Riviltä puuttuu tietoja: #{row.join(',')}"
+        return true
+      end
+    end
+    false
   end
   
   def new_competitor(row)
