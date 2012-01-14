@@ -14,6 +14,7 @@ class CsvImport
     @competitors = []
     @errors = []
     validate_data
+    strip_duplicate_errors
   end
   
   def save
@@ -100,5 +101,13 @@ class CsvImport
       @errors += club.errors.full_messages
       return nil
     end
+  end
+  
+  def strip_duplicate_errors
+    unique_errors = []
+    @errors.each do |error|
+      unique_errors << error unless unique_errors.include?(error)
+    end
+    @errors = unique_errors
   end
 end

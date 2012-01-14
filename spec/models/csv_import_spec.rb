@@ -40,7 +40,7 @@ describe CsvImport do
         it "should save the defined competitors and new clubs to the database and return true" do
           @ci.save.should be_true
           @race.reload
-          @race.should have(3).competitors
+          @race.should have(4).competitors
           c = @race.competitors.order('id')[0]
           c.first_name.should == 'Heikki'
           c.last_name.should == 'Räsänen'
@@ -54,6 +54,12 @@ describe CsvImport do
           c.club.name.should == 'PS'
           c = @race.competitors.order('id')[2]
           c.first_name.should == 'Maija'
+          c.last_name.should == 'Hämäläinen'
+          c.series.name.should == 'N'
+          c.age_group.name.should == 'N50'
+          c.club.name.should == 'SS'
+          c = @race.competitors.order('id')[3]
+          c.first_name.should == 'Minna'
           c.last_name.should == 'Hämäläinen'
           c.series.name.should == 'N'
           c.age_group.name.should == 'N50'
@@ -80,6 +86,29 @@ describe CsvImport do
       it "#errors should contain a message about unknown series" do
         @ci.should have(1).errors
         @ci.errors[0].should == "Tuntematon sarja/ikäryhmä: 'M40'"
+      end
+      
+      it "there should be no new competitors for the race" do
+        @race.should have(0).competitors
+      end
+    end
+    
+    context "when the same unknown series or age group for two competitors" do
+      before do
+        @race.age_groups.find_by_name('N50').destroy
+        @ci = CsvImport.new(@race, test_file_path('import_valid.csv'))
+      end
+    
+      it "#save should return false" do
+        @ci.save.should be_false
+      end
+      
+      it "there should be only one error message" do
+        @ci.should have(1).errors
+      end
+      
+      it "the error message should be about unknown series" do
+        @ci.errors[0].should == "Tuntematon sarja/ikäryhmä: 'N50'"
       end
       
       it "there should be no new competitors for the race" do
