@@ -41,7 +41,7 @@ class CsvImport
       rescue ArgumentError
       end
     end
-    raise "Unknown file encoding"
+    raise UnknownCSVEncodingException.new
   end
   
   def validate_data

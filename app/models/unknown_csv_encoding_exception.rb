@@ -1,0 +1,2 @@
+class UnknownCSVEncodingException < Exception
+end
