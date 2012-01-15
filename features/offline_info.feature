@@ -29,15 +29,13 @@ Feature: Offline info
     And the "Offline-asennus" sub menu item should be selected
     And I should see "Hirviurheilu Offline -tuotteen asennusohjeet" within "div.main_title"
     And I should see /Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki./ within "div.info"
-    But I should not see "lataa asennustiedosto"
-    And I should not see "lataa päivitystiedosto"
+    But I should not see "Lataa asennustiedosto:"
     When I follow "kirjaudu sisään palveluun"
     And I fill in "test@test.com" for "Sähköposti"
     And I fill in "test" for "Salasana"
     And I press "Kirjaudu"
     Then I should be on the offline installation page
-    And I should see "lataa asennustiedosto"
-    And I should see "lataa päivitystiedosto"
+    And I should see "Lataa asennustiedosto:"
     But I should not see "Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki."
 
   Scenario: Show offline price
@@ -58,5 +56,4 @@ Feature: Offline info
     Given I am an official
     And I have logged in
     And I am on the offline installation page
-    Then I should not see "lataa asennustiedosto"
-    And I should not see "lataa päivitystiedosto"
+    Then I should not see "Lataa asennustiedosto:"
