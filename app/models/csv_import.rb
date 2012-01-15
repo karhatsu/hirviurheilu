@@ -1,6 +1,4 @@
 # encoding: UTF-8
-require 'csv'
-
 class CsvImport
   FIRST_NAME_COLUMN = 0
   LAST_NAME_COLUMN = 1
@@ -10,9 +8,9 @@ class CsvImport
   
   def initialize(race, file_path)
     @race = race
-    @data = CSV.read(file_path, :encoding => 'UTF-8')
     @competitors = []
     @errors = []
+    @data = read_file(file_path)
     validate_data
     strip_duplicate_errors
   end
@@ -32,6 +30,20 @@ class CsvImport
   end
   
   private
+  def read_file(file_path)
+    data = []
+    ["r:utf-8", "r:windows-1252:utf-8"].each do |read_encoding|
+      begin
+        File.open(file_path, read_encoding).each_line do |line|
+          data += [line.gsub(/\r\n?/, '').gsub(/\n?/, '').split(",")]
+        end
+        return data
+      rescue ArgumentError
+      end
+    end
+    raise "Unknown file encoding"
+  end
+  
   def validate_data
     @data.each do |row|
       return unless row_structure_correct(row)

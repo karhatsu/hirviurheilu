@@ -30,46 +30,76 @@ describe CsvImport do
     end
   end
   
-  context "when correct amount of data" do
-    before do
-      @ci = CsvImport.new(@race, test_file_path('import_valid.csv'))
-    end
-    
+  context "when correct amount of columns" do
     context "when all series and age groups exist" do
-      describe "#save" do
-        it "should save the defined competitors and new clubs to the database and return true" do
-          @ci.save.should be_true
-          @race.reload
-          @race.should have(4).competitors
-          c = @race.competitors.order('id')[0]
-          c.first_name.should == 'Heikki'
-          c.last_name.should == 'Räsänen'
-          c.series.name.should == 'M40'
-          c.club.name.should == 'SS'
-          c = @race.competitors.order('id')[1]
-          c.first_name.should == 'Minna'
-          c.last_name.should == 'Miettinen'
-          c.series.name.should == 'N'
-          c.age_group.should be_nil
-          c.club.name.should == 'PS'
-          c = @race.competitors.order('id')[2]
-          c.first_name.should == 'Maija'
-          c.last_name.should == 'Hämäläinen'
-          c.series.name.should == 'N'
-          c.age_group.name.should == 'N50'
-          c.club.name.should == 'SS'
-          c = @race.competitors.order('id')[3]
-          c.first_name.should == 'Minna'
-          c.last_name.should == 'Hämäläinen'
-          c.series.name.should == 'N'
-          c.age_group.name.should == 'N50'
-          c.club.name.should == 'SS'
-          @race.should have(2).clubs
+      context "and file encoding is UTF-8" do
+        before do
+          @ci = CsvImport.new(@race, test_file_path('import_valid.csv'))
+        end
+        
+        describe "#save" do
+          it "should save the defined competitors and new clubs to the database and return true" do
+            @ci.save.should be_true
+            @race.reload
+            @race.should have(4).competitors
+            c = @race.competitors.order('id')[0]
+            c.first_name.should == 'Heikki'
+            c.last_name.should == 'Räsänen'
+            c.series.name.should == 'M40'
+            c.club.name.should == 'SS'
+            c = @race.competitors.order('id')[1]
+            c.first_name.should == 'Minna'
+            c.last_name.should == 'Miettinen'
+            c.series.name.should == 'N'
+            c.age_group.should be_nil
+            c.club.name.should == 'PS'
+            c = @race.competitors.order('id')[2]
+            c.first_name.should == 'Maija'
+            c.last_name.should == 'Hämäläinen'
+            c.series.name.should == 'N'
+            c.age_group.name.should == 'N50'
+            c.club.name.should == 'SS'
+            c = @race.competitors.order('id')[3]
+            c.first_name.should == 'Minna'
+            c.last_name.should == 'Hämäläinen'
+            c.series.name.should == 'N'
+            c.age_group.name.should == 'N50'
+            c.club.name.should == 'SS'
+            @race.should have(2).clubs
+          end
+        end
+        
+        it "#errors should be empty" do
+          @ci.should have(0).errors
         end
       end
       
-      it "#errors should be empty" do
-        @ci.should have(0).errors
+      context "and file encoding is Windows-1252" do
+        before do
+          @ci = CsvImport.new(@race, test_file_path('import_valid_windows-1252.csv'))
+        end
+        
+        describe "#save" do
+          it "should save the defined competitors and new clubs to the database and return true" do
+            @ci.save.should be_true
+            @race.reload
+            @race.should have(2).competitors
+            c = @race.competitors.order('id')[0]
+            c.first_name.should == 'Toni'
+            c.last_name.should == 'Miettinen'
+            c.series.name.should == 'M40'
+            c.club.name.should == 'Kuikan Erä'
+            c = @race.competitors.order('id')[1]
+            c.first_name.should == 'Teppo'
+            c.last_name.should == 'Ylönen'
+            c.series.name.should == 'M40'
+            c.club.name.should == 'Sum Um'
+          end
+        end
+        
+        it "#errors should be empty" do
+          @ci.should have(0).errors
+        end
       end
     end
     
