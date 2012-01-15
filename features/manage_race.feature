@@ -18,6 +18,7 @@ Feature: Manage race
     And I select "13" from "race_start_date_3i"
     And I select "heinäkuu" from "race_start_date_2i"
     And I select "2011" from "race_start_date_1i"
+    And I uncheck "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
     Then I should be on the race edit page of "Test race"
     And I should see "Test race" within ".main_title"
@@ -43,7 +44,6 @@ Feature: Manage race
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |
       | Lähtöaikojen väli (sekuntia) | 30 |
-    And I check "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
     And the official main menu item should be selected

@@ -37,7 +37,7 @@
   <% end %>
   <br/>
   <% if @race.new_record? %>
-    <%= check_box_tag :add_default_series %>
+    <%= check_box_tag :add_default_series, "1", true %>
     <%= label_tag :add_default_series, "Lisää oletussarjat automaattisesti" %>
     <a class="help" id="default_series_help">?</a>
     <div id="default_series_help_dialog" class="dialog" style="display: none;">
