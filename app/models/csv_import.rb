@@ -1,6 +1,4 @@
 # encoding: UTF-8
-require 'csv'
-
 class CsvImport
   FIRST_NAME_COLUMN = 0
   LAST_NAME_COLUMN = 1
@@ -10,10 +8,11 @@ class CsvImport
   
   def initialize(race, file_path)
     @race = race
-    @data = CSV.read(file_path, :encoding => 'UTF-8')
     @competitors = []
     @errors = []
+    @data = read_file(file_path)
     validate_data
+    strip_duplicate_errors
   end
   
   def save
@@ -31,19 +30,54 @@ class CsvImport
   end
   
   private
-  def validate_data
-    @data.each do |row|
-      if row.length != COLUMNS_COUNT
-        @errors << 'Tiedoston rakenne virheellinen'
-        return
-      end
-      competitor = new_competitor(row)
-      if competitor.valid?
-        @competitors << competitor
-      else
-        @errors += competitor.errors.full_messages
+  def read_file(file_path)
+    data = []
+    ["r:utf-8", "r:windows-1252:utf-8"].each do |read_encoding|
+      begin
+        File.open(file_path, read_encoding).each_line do |line|
+          data += [line.gsub(/\r\n?/, '').gsub(/\n?/, '').split(",")]
+        end
+        return data
+      rescue ArgumentError
       end
     end
+    raise "Unknown file encoding"
+  end
+  
+  def validate_data
+    @data.each do |row|
+      return unless row_structure_correct(row)
+      unless row_missing_data?(row)
+        competitor = new_competitor(row)
+        if competitor.valid?
+          @competitors << competitor
+        else
+          @errors += competitor.errors.full_messages
+        end
+      end
+    end
+  end
+  
+  def row_structure_correct(row)
+    if row.length != COLUMNS_COUNT
+      @errors << "Virheellinen rivi tiedostossa: #{original_format(row)}"
+      return false
+    end
+    true
+  end
+  
+  def row_missing_data?(row)
+    row.each do |col|
+      if col.nil? or col.strip == ''
+        @errors << "Riviltä puuttuu tietoja: #{original_format(row)}"
+        return true
+      end
+    end
+    false
+  end
+  
+  def original_format(columns)
+    columns.join(',')
   end
   
   def new_competitor(row)
@@ -79,5 +113,13 @@ class CsvImport
       @errors += club.errors.full_messages
       return nil
     end
+  end
+  
+  def strip_duplicate_errors
+    unique_errors = []
+    @errors.each do |error|
+      unique_errors << error unless unique_errors.include?(error)
+    end
+    @errors = unique_errors
   end
 end
