@@ -1,8 +1,10 @@
 Dir.chdir(File.dirname(__FILE__))
 ENV["RAILS_ENV"] = "winoffline-prod"
 
-p "TARKASTETAAN TIETOKANNAN TILA... (ole hyva ja odota)"
+p "VALMISTELLAAN HIRVIURHEILUA... (ole hyva ja odota)"
 require File.expand_path('../config/application', __FILE__)
+
+p "TARKASTETAAN TIETOKANNAN TILA... (ole hyva ja odota)"
 require 'rake'
 ElkSports::Application.load_tasks
 task = Rake::Task["db:migrate"]
