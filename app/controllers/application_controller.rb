@@ -150,7 +150,12 @@ class ApplicationController < ActionController::Base
   end
   
   def pdf_header(title)
+    title = replace_scands(title) if Mode.offline?
     { :left => title, :right => Date.today.strftime('%d.%m.%Y'), :spacing => 10, :font_size => 10 }
+  end
+  
+  def replace_scands(title)
+    title.gsub('ä', 'a').gsub('ö', 'o').gsub('Ä', 'A').gsub('Ö', 'O')
   end
   
   def pdf_footer

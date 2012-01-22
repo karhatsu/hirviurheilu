@@ -1,10 +1,11 @@
+# encoding: UTF-8
 require 'spec_helper'
 
 describe ApplicationController do
   controller do
     def index
       Date.stub!(:today).and_return(Date.new(2012, 1, 2))
-      @pdf_header = pdf_header('Header title')
+      @pdf_header = pdf_header(params[:title])
       @pdf_footer = pdf_footer
       @pdf_margin = pdf_margin
       render :nothing => true
@@ -12,25 +13,43 @@ describe ApplicationController do
   end
   
   describe "#pdf_header" do
-    before do
-      get :index
-      @header = assigns[:pdf_header]
+    context "when online (non-Windows)" do
+      before do
+        Mode.stub!(:offline?).and_return(false)
+        @title = 'Lähtölistat, Äijälä, Örimäki'
+        get :index, :title => @title
+        @header = assigns[:pdf_header]
+      end
+      
+      it "left should be given title" do
+        @header[:left].should == @title
+      end
+      
+      it "right should be current date" do
+        @header[:right].should == '02.01.2012'
+      end
+      
+      it "font_size should be 10" do
+        @header[:font_size].should == 10
+      end
+      
+      it "spacing should be 10" do
+        @header[:spacing].should == 10
+      end
     end
     
-    it "left should be given title" do
-      @header[:left].should == 'Header title'
-    end
-    
-    it "right should be current date" do
-      @header[:right].should == '02.01.2012'
-    end
-    
-    it "font_size should be 10" do
-      @header[:font_size].should == 10
-    end
-    
-    it "spacing should be 10" do
-      @header[:spacing].should == 10
+    context "when offline (Windows)" do
+      before do
+        Mode.stub!(:offline?).and_return(true)
+        @title_original = 'Lähtölistat, Äijälä, Örimäki'
+        @title_expected = 'Lahtolistat, Aijala, Orimaki'
+        get :index, :title => @title_original
+        @header = assigns[:pdf_header]
+      end
+      
+      it "left should be given title without scandinavian alphabets" do
+        @header[:left].should == @title_expected
+      end
     end
   end
   
