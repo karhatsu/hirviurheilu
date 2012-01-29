@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.1'
 gem 'jquery-rails'
+gem 'authlogic'
 
 group :development, :staging, :production do
   gem 'pg'
