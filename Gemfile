@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.3'
+gem 'rails', '3.2.1'
 gem 'jquery-rails'
 
 group :development, :staging, :production do
@@ -18,8 +18,8 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', "  ~> 3.1.0"
-  gem 'coffee-rails', "~> 3.1.0"
+  gem 'sass-rails'
+  gem 'coffee-rails'
   gem 'uglifier'
 end
 
@@ -41,5 +41,5 @@ group :development, :test do
   gem 'email_spec'
   gem 'ruby-prof'
   gem 'watchr'
-  gem 'mongrel'
+  gem 'mongrel', '~> 1.2.0.pre'
 end
