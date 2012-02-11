@@ -81,12 +81,12 @@
 
     function reload_number_and_start_time_and_link(series_id) {
       $('#number_spinner').show();
-      $.getJSON('/series/' + series_id, function(item) {
-        if(item.series.has_start_list) {
-          $('#competitor_number').val(item.series.next_number);
-          $('#competitor_start_time_4i').val(item.series.next_start_time.substring(11, 13));
-          $('#competitor_start_time_5i').val(item.series.next_start_time.substring(14, 16));
-          $('#competitor_start_time_6i').val(item.series.next_start_time.substring(17, 19));
+      $.getJSON('/series/' + series_id, function(series) {
+        if(series.has_start_list) {
+          $('#competitor_number').val(series.next_number);
+          $('#competitor_start_time_4i').val(series.next_start_time.substring(11, 13));
+          $('#competitor_start_time_5i').val(series.next_start_time.substring(14, 16));
+          $('#competitor_start_time_6i').val(series.next_start_time.substring(17, 19));
           $('#number_span').show();
         } else {
           $('#competitor_number').val('');
@@ -96,7 +96,7 @@
           $('#number_span').hide();
         }
         $('#back_to_series').attr('href', '/official/series/' + series_id + '/competitors');
-        $('#back_to_series #series_name').text(item.series.name);
+        $('#back_to_series #series_name').text(series.name);
         $('#number_spinner').hide();
       });
     }
