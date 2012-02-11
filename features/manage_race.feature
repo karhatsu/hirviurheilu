@@ -50,7 +50,7 @@ Feature: Manage race
     And I should see "Kilpailu lisätty."
     And I should see "Pääset lisäämään kilpailijoita klikkaamalla sarjan nimen vieressä olevaa linkkiä."
     And I should see "M60"
-    And I should see "N40"
+    And I should see "N50"
     But I should not see "Sinulla ei ole vielä yhtään kilpailua."
     But I should not see "Et ole vielä lisännyt kilpailuun yhtään sarjaa."
     When I follow "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja"

@@ -30,19 +30,19 @@ describe DefaultSeries do
       end
     end
     
-    it "should have S16 with T16,0/P16,0 as first series" do
+    it "should have S15 with T15,0/P15,0 as first series" do
       ds = DefaultSeries.all.first
-      ds.name.should == 'S16'
-      ds.default_age_groups[0].name.should == 'T16'
+      ds.name.should == 'S15'
+      ds.default_age_groups[0].name.should == 'T15'
       ds.default_age_groups[0].min_competitors.should == 0
-      ds.default_age_groups[1].name.should == 'P16'
+      ds.default_age_groups[1].name.should == 'P15'
       ds.default_age_groups[1].min_competitors.should == 0
     end
     
-    it "should have N40 with several age groups as last series" do
+    it "should have N50 with several age groups as last series" do
       ds = DefaultSeries.all.last
-      ds.name.should == 'N40'
-      ds.default_age_groups.length.should == 8
+      ds.name.should == 'N50'
+      ds.default_age_groups.length.should == 7
     end
   end
 end
