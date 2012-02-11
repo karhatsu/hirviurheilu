@@ -69,9 +69,9 @@
         if(age_groups.length == 0) {
           $('#age_groups_span').hide();
         } else {
-          $.each(age_groups, function(i, item) {
+          $.each(age_groups, function(i, age_group) {
             $('#competitor_age_group_id').append('<option value="' +
-              item.age_group.id + '">' + item.age_group.name + '</option>');
+              age_group.id + '">' + age_group.name + '</option>');
           });
           $('#age_groups_span').show();
         }
