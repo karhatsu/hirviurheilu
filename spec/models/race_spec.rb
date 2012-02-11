@@ -220,12 +220,9 @@ describe Race do
 
   describe "#add_default_series" do
     before do
-      @ds1 = Factory.create(:default_series, :name => 'DS1')
-      @ds1.default_age_groups << Factory.build(:default_age_group,
-        :default_series => @ds1, :name => 'DAG1', :min_competitors => 1)
-      @ds1.default_age_groups << Factory.build(:default_age_group,
-        :default_series => @ds1, :name => 'DAG2', :min_competitors => 2)
-      @ds2 = Factory.create(:default_series, :name => 'DS2')
+      @ds1 = DefaultSeries.new('DS1', ['DAG1', 1], ['DAG2', 2])
+      @ds2 = DefaultSeries.new('DS2')
+      DefaultSeries.stub!(:all).and_return([@ds1, @ds2])
       @race = Factory.build(:race)
     end
 

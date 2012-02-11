@@ -33,9 +33,7 @@ Feature: Manage race
     And I should see "Toimitsija: Teppo Testaaja" in the email body
 
   Scenario: Create new race with default series
-    Given there is a default series "Default series 1"
-    And there is a default series "Default series 2"
-    And I am an official
+    Given I am an official
     And I have logged in
     And I am on the official index page
     When I follow "Lisää uusi kilpailu"
@@ -51,8 +49,8 @@ Feature: Manage race
     And I should see "Test race" within ".main_title"
     And I should see "Kilpailu lisätty."
     And I should see "Pääset lisäämään kilpailijoita klikkaamalla sarjan nimen vieressä olevaa linkkiä."
-    And I should see "Default series 1"
-    And I should see "Default series 2"
+    And I should see "M60"
+    And I should see "N40"
     But I should not see "Sinulla ei ole vielä yhtään kilpailua."
     But I should not see "Et ole vielä lisännyt kilpailuun yhtään sarjaa."
     When I follow "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja"

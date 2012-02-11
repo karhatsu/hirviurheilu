@@ -1,33 +1,32 @@
-class DefaultSeries < ActiveRecord::Base
-  has_many :default_age_groups
-
-  validates :name, :presence => true
-
-  def self.create_default_series
-    df = create!(:name => 'S16')
-    df.default_age_groups << DefaultAgeGroup.new(:name => 'T16', :min_competitors => 0)
-    df.default_age_groups << DefaultAgeGroup.new(:name => 'P16', :min_competitors => 0)
-    create!(:name => 'M20')
-    create!(:name => 'M')
-    create!(:name => 'M40')
-    create!(:name => 'M50')
-    df = create!(:name => 'M60')
-    df.default_age_groups << DefaultAgeGroup.new(:name => 'M65', :min_competitors => 3)
-    df = create!(:name => 'M70')
-    df.default_age_groups << DefaultAgeGroup.new(:name => 'M75', :min_competitors => 3)
-    df.default_age_groups << DefaultAgeGroup.new(:name => 'M80', :min_competitors => 3)
-    df.default_age_groups << DefaultAgeGroup.new(:name => 'M85', :min_competitors => 3)
-    df.default_age_groups << DefaultAgeGroup.new(:name => 'M90', :min_competitors => 3)
-    create!(:name => 'N20')
-    create!(:name => 'N')
-    df = create!(:name => 'N40')
-    df.default_age_groups << DefaultAgeGroup.new(:name => 'N50', :min_competitors => 3)
-    df.default_age_groups << DefaultAgeGroup.new(:name => 'N60', :min_competitors => 3)
-    df.default_age_groups << DefaultAgeGroup.new(:name => 'N65', :min_competitors => 3)
-    df.default_age_groups << DefaultAgeGroup.new(:name => 'N70', :min_competitors => 3)
-    df.default_age_groups << DefaultAgeGroup.new(:name => 'N75', :min_competitors => 3)
-    df.default_age_groups << DefaultAgeGroup.new(:name => 'N80', :min_competitors => 3)
-    df.default_age_groups << DefaultAgeGroup.new(:name => 'N85', :min_competitors => 3)
-    df.default_age_groups << DefaultAgeGroup.new(:name => 'N90', :min_competitors => 3)
+class DefaultSeries
+  def initialize(name, *age_group_names_and_min_competitors)
+    @name = name
+    @age_groups = []
+    age_group_names_and_min_competitors.each do |age_group|
+      @age_groups << DefaultAgeGroup.new(age_group[0], age_group[1])
+    end
+  end
+  
+  def name
+    @name
+  end
+  
+  def default_age_groups
+    @age_groups
+  end
+  
+  def self.all
+    [
+      DefaultSeries.new('S16', ['T16', 0], ['P16', 0]),
+      DefaultSeries.new('M20'),
+      DefaultSeries.new('M'),
+      DefaultSeries.new('M40'),
+      DefaultSeries.new('M50'),
+      DefaultSeries.new('M60', ['M65', 3]),
+      DefaultSeries.new('M70', ['M75', 3], ['M80', 3], ['M85', 3], ['M90', 3]),
+      DefaultSeries.new('N20'),
+      DefaultSeries.new('N'),
+      DefaultSeries.new('N40', ['N50', 3], ['N60', 3], ['N65', 3], ['N70', 3], ['N75', 3], ['N80', 3], ['N85', 3], ['N90', 3])
+    ]
   end
 end

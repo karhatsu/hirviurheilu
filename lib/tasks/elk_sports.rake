@@ -8,7 +8,6 @@ namespace :elk_sports do
       Role.create_roles
       Sport.create_run
       Sport.create_ski
-      DefaultSeries.create_default_series
     end
   end
 

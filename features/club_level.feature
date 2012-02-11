@@ -4,8 +4,7 @@ Feature: Club level
   I want to clearly know what to write for the club field
 
   Scenario: Show "Seura" as default club title
-    Given there is a default series "Default series 1"
-    And I am an official
+    Given I am an official
     And I have logged in
     And I am on the new official race page
     When I fill in the following:
@@ -26,7 +25,7 @@ Feature: Club level
     When I follow "Yhteenveto"
     And I follow "Lisää tämän sarjan ensimmäinen kilpailija"
     Then I should see "Seura" within "form"
-    Given the series "Default series 1" contains a competitor with attributes:
+    Given the series "M" contains a competitor with attributes:
       | first_name | Matti |
       | last_name | Meikäläinen |
       | club | Testiklubi |
@@ -42,8 +41,7 @@ Feature: Club level
     Then I should see /Seura/ within "th"
 
   Scenario: Show "Piiri" as club title when that level is selected
-    Given there is a default series "Default series 1"
-    And I am an official
+    Given I am an official
     And I have logged in
     And I am on the new official race page
     Then I should see "Kilpailijan edustustaso tässä kilpailussa"
@@ -66,7 +64,7 @@ Feature: Club level
     When I follow "Yhteenveto"
     And I follow "Lisää tämän sarjan ensimmäinen kilpailija"
     Then I should see "Piiri" within "form"
-    Given the series "Default series 1" contains a competitor with attributes:
+    Given the series "M" contains a competitor with attributes:
       | first_name | Matti |
       | last_name | Meikäläinen |
       | club | Testiklubi |

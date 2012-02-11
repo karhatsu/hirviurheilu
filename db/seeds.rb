@@ -16,9 +16,6 @@ official2.add_official_rights
 run = Sport.create_run
 ski = Sport.create_ski
 
-# default series
-DefaultSeries.create_default_series
-
 # pricing
 BasePrice.create!(:price => 20)
 Price.create!(:min_competitors => 1, :price => 1.5)
