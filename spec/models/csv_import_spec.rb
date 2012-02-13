@@ -83,13 +83,18 @@ describe CsvImport do
           it "should save the defined competitors and new clubs to the database and return true" do
             @ci.save.should be_true
             @race.reload
-            @race.should have(2).competitors
+            @race.should have(3).competitors
             c = @race.competitors.order('id')[0]
+            c.first_name.should == 'Timo'
+            c.last_name.should == 'Malinen'
+            c.series.name.should == 'M40'
+            c.club.name.should == 'Ampumaseura'
+            c = @race.competitors.order('id')[1]
             c.first_name.should == 'Toni'
             c.last_name.should == 'Miettinen'
             c.series.name.should == 'M40'
             c.club.name.should == 'Kuikan Erä'
-            c = @race.competitors.order('id')[1]
+            c = @race.competitors.order('id')[2]
             c.first_name.should == 'Teppo'
             c.last_name.should == 'Ylönen'
             c.series.name.should == 'M40'

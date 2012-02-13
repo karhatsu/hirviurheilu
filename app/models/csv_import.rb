@@ -31,8 +31,8 @@ class CsvImport
   
   private
   def read_file(file_path)
-    data = []
     ["r:utf-8", "r:windows-1252:utf-8"].each do |read_encoding|
+      data = []
       begin
         File.open(file_path, read_encoding).each_line do |line|
           data += [line.gsub(/\r\n?/, '').gsub(/\n?/, '').split(",")]
