@@ -15,10 +15,13 @@
     Kilpailuun ei ole vielä lisätty sarjoja
   <% else %>
     <%= render :partial => 'series_table' %>
-    <div class="action_box">
-      <%= link_to 'Lataa kaikkien kilpailijoiden lähtöajat (PDF)',
-        race_start_lists_path(@race, :format => :pdf) %>
-    </div>
+    <h3>Kaikkien sarjojen lähtöajat (PDF)</h3>
+    <%= form_tag(race_start_lists_path(@race, :format => :pdf), :method => :get) do %>
+      <%= select_tag :club_id,
+        options_from_collection_for_select(@race.clubs, :id, :name),
+        :prompt => "Kaikki #{clubs_title(@race).downcase}" %>
+      <%= submit_tag 'Lataa lähtöajat' %>
+    <% end %>
     <% if @race.finished? %>
       <h3>Oikeat arviot</h3>
       <table>

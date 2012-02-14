@@ -1,5 +1,6 @@
 <h1><%= @race.name %> - Lähtöajat</h1>
 <%= @race.location %>, <%= race_date_interval(@race) %>
+<% where_condition = (params[:club_id].empty? ? '1=1' : {:club_id => params[:club_id]}) %>
 <%= render :partial => 'table',
   :locals => { :show_series => true, :race => @race,
-  :competitors => @race.competitors.order('start_time').includes(:series, :club, :age_group) } %>
+  :competitors => @race.competitors.where(where_condition).order('start_time').includes(:series, :club, :age_group) } %>
