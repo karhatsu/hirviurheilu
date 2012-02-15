@@ -183,6 +183,7 @@ GEM
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     watchr (0.7)
+    wicked_pdf (0.7.2)
     win32-api (1.4.8-x86-mingw32)
     win32-process (0.6.5)
       windows-pr (>= 1.1.2)
@@ -222,3 +223,4 @@ DEPENDENCIES
   sqlite3-ruby
   uglifier
   watchr
+  wicked_pdf

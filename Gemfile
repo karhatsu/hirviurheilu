@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.1'
 gem 'jquery-rails'
 gem 'authlogic'
+gem 'wicked_pdf'
 
 group :development, :staging, :production do
   gem 'pg'

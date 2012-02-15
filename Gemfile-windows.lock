@@ -100,6 +100,7 @@ GEM
     uglifier (1.2.3)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
+    wicked_pdf (0.7.2)
     win32-open3-19 (0.0.1)
 
 PLATFORMS
@@ -112,4 +113,5 @@ DEPENDENCIES
   sass-rails
   sqlite3-ruby
   uglifier
+  wicked_pdf
   win32-open3-19

@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.1'
 gem 'jquery-rails'
+gem 'wicked_pdf'
 
 group "winoffline-dev", "winoffline-prod" do
   gem 'sqlite3-ruby', :require => 'sqlite3'
