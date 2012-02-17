@@ -57,3 +57,14 @@ Feature: Offline info
     And I have logged in
     And I am on the offline installation page
     Then I should not see "Lataa asennustiedosto:"
+
+  Scenario: Show offline version history
+    Given I am on the offline-online comparison page
+    When I follow "Versiohistoria" within "div.sub_menu"
+    Then I should be on the offline version history page
+    And the "Offline" main menu item should be selected
+    And the "Versiohistoria" sub menu item should be selected
+    And I should see "Hirviurheilu Offline versiohistoria" within "div.main_title"
+    And I should see "1.0" within "h2"
+    When I follow "Offline-asennus-sivulta"
+    Then I should be on the offline installation page

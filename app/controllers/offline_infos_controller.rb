@@ -13,6 +13,10 @@ class OfflineInfosController < ApplicationController
   def price
     @is_offline_price = true
   end
+  
+  def version_history
+    @is_offline_version_history = true
+  end
 
   private
   def set_offline_info

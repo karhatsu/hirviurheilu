@@ -22,6 +22,7 @@ ElkSports::Application.routes.draw do
   get 'offline_vs_online' => 'offline_infos#comparison', :as => :offline_vs_online
   get 'offline_installation' => 'offline_infos#installation', :as => :offline_installation
   get 'offline_price' => 'offline_infos#price', :as => :offline_price
+  get 'offline_version_history' => 'offline_infos#version_history', :as => :offline_version_history
   get 'download/installer' => 'downloads#installer', :as => :download_installer
   
   post 'calculate_price' => 'prices#calculate_price', :as => :calculate_price
