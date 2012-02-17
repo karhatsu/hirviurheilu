@@ -1,14 +1,37 @@
 <% content_for :title, "Kaikkien kilpailijoiden lähtöajat" %>
 <% content_for :page_title, yield(:title) %>
 <h2>Kaikkien kilpailijoiden lähtöajat</h2>
-<div class="info">Tällä sivulla voit asettaa manuaalisesti kilpailijoita eri lähtöpaikoille.</div>
+<div class="info">Tällä sivulla voit asettaa kilpailijoita eri lähtöpaikoille.</div>
+<div id="update_error"></div>
+<table>
+  <tr>
+    <th>Nro</th>
+    <th>Lähtöaika</th>
+    <th>Etunimi</th>
+    <th>Sukunimi</th>
+    <th><%= club_title @race %></th>
+    <th>Sarja</th>
+    <th>&nbsp;</th>
+    <th>&nbsp;</th>
+  </tr>
 <% @competitors.each do |c| %>
-  <div>
-    <span style='display: inline-block; width:30px;'><%= c.number %></span>
-    <span style='display: inline-block; width:70px;'><%= time_print(c.start_time, true) %></span>
-    <span style='display: inline-block; width:100px; overflow: hidden;'><%= c.first_name %></span>
-    <span style='display: inline-block; width:100px; overflow: hidden;'><%= c.last_name %></span>
-    <span style='display: inline-block; width:100px; overflow: hidden;'><%= c.club.name %></span>
-    <span style='display: inline-block; width:100px; overflow: hidden;'><%= c.series.name %></span>
-  </div>
+  <%= form_for([:official, c.series, c], :remote => true) do |f| %>
+    <%= hidden_field_tag :no_times, true %>
+    <tr id='competitor_<%= c.id %>'>
+      <td><%= c.number %></td>
+      <td><%= time_print(c.start_time, true) %></td>
+      <td><%= f.text_field :first_name, :size => 10 %></td>
+      <td><%= f.text_field :last_name, :size => 15 %></td>
+      <td><%= c.club.name %></td>
+      <td><%= c.series.name %></td>
+      <td><input type="submit" class="save_button" value="Tallenna" onClick="start_updating(<%=c.id%>)"/></td>
+      <td id="status_<%= c.id %>">&nbsp;</td>
+    </tr>
+  <% end %>
+<% end %>
+</table>
+<%= javascript_tag do %>
+  function start_updating(id) {
+    $("#status_" + id).html('<%= image_tag 'spinner.gif' %>');
+  }
 <% end %>

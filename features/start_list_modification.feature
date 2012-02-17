@@ -39,9 +39,9 @@ Feature: Start list modification
     And the start list has been generated for the series
     And I have logged in
     When I go to the official start list page of the race "Test race"
-    Then I should see "50"
-    And I should see "13:00:00"
-    And I should see "Timo"
-    And I should see "Turunen"
+    Then I should see "13:00:00"
+    And I should see "50"
+    And the "competitor_first_name" field should contain "Timo"
+    And the "competitor_last_name" field should contain "Turunen"
     But I should not see "Matti"
     And I should not see "Miettinen"
