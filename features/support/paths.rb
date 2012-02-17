@@ -29,6 +29,9 @@ module NavigationHelpers
     when /the official competitors page of the series/
       official_series_competitors_path(@series)
 
+    when /the official start list page of the race "(.*)"/
+      official_race_start_list_path(Race.find_by_name($1))
+
     when /the official clubs page for "(.*)"/
       official_race_clubs_path(Race.find_by_name($1))
 

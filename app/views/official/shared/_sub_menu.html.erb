@@ -11,6 +11,7 @@
           <%= menu_item "Kilpailijat", official_series_competitors_path(series), @is_competitors, nil, true do %>
             <% series_dropdown_menu(race, 'competitors') %>
           <% end %>
+          <%= menu_item "Lähtöajat", official_race_start_list_path(race), @is_start_list %>
           <%= menu_item "Pikasyöttö", official_race_quick_saves_path(race), @is_quick_saves %>
           <%= menu_item "Ajat", official_series_times_path(series), @is_times, nil, true do %>
             <% series_dropdown_menu(race, 'times') %>
