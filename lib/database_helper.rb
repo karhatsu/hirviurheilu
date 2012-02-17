@@ -8,4 +8,8 @@ module DatabaseHelper
   def self.sqlite3?
     DB_ADAPTER == "sqlite3"
   end
+  
+  def self.true_value
+    postgres? ? true : "'t'"
+  end
 end

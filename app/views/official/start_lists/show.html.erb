@@ -1,3 +1,14 @@
 <% content_for :title, "Kaikkien kilpailijoiden lähtöajat" %>
 <% content_for :page_title, yield(:title) %>
 <h2>Kaikkien kilpailijoiden lähtöajat</h2>
+<div class="info">Tällä sivulla voit asettaa manuaalisesti kilpailijoita eri lähtöpaikoille.</div>
+<% @competitors.each do |c| %>
+  <div>
+    <span style='display: inline-block; width:30px;'><%= c.number %></span>
+    <span style='display: inline-block; width:70px;'><%= time_print(c.start_time, true) %></span>
+    <span style='display: inline-block; width:100px; overflow: hidden;'><%= c.first_name %></span>
+    <span style='display: inline-block; width:100px; overflow: hidden;'><%= c.last_name %></span>
+    <span style='display: inline-block; width:100px; overflow: hidden;'><%= c.club.name %></span>
+    <span style='display: inline-block; width:100px; overflow: hidden;'><%= c.series.name %></span>
+  </div>
+<% end %>

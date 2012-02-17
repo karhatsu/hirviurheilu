@@ -1,11 +1,15 @@
 # encoding: UTF-8
+require 'database_helper.rb'
+
 class Official::StartListsController < Official::OfficialController
+  include DatabaseHelper
   before_filter :assign_race_by_race_id, :check_assigned_race
   before_filter :assign_series_by_series_id, :check_assigned_series, :only => :update
   before_filter :handle_time_parameters, :only => :update
   
   def show
     @is_start_list = true
+    @competitors = @race.competitors.where("series.has_start_list = #{DatabaseHelper.true_value}").order(:number)
   end
 
   def update
