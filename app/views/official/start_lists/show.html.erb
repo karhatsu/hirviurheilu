@@ -11,6 +11,7 @@
     <th>Sukunimi</th>
     <th><%= club_title @race %></th>
     <th>Sarja</th>
+    <th>Ikäryhmä</th>
     <th>&nbsp;</th>
     <th>&nbsp;</th>
   </tr>
@@ -23,7 +24,12 @@
       <td><%= f.text_field :first_name, :size => 10 %></td>
       <td><%= f.text_field :last_name, :size => 15 %></td>
       <td><%= c.club.name %></td>
-      <td><%= c.series.name %></td>
+      <td><%= f.collection_select :series_id, @series, :id, :name %></td>
+      <% if @age_groups[c.series_id].length > 0 %>
+        <td><%= f.collection_select :age_group_id, @age_groups[c.series_id], :id, :name, :include_blank => true %></td>
+      <% else %>
+        <td>&nbsp;</td>
+      <% end %>
       <td><input type="submit" class="save_button" value="Tallenna" onClick="start_updating(<%=c.id%>)"/></td>
       <td id="status_<%= c.id %>">&nbsp;</td>
     </tr>

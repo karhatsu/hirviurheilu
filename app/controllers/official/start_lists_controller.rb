@@ -9,7 +9,10 @@ class Official::StartListsController < Official::OfficialController
   
   def show
     @is_start_list = true
-    @competitors = @race.competitors.where("series.has_start_list = #{DatabaseHelper.true_value}").order(:number)
+    start_list_condition = "series.has_start_list = #{DatabaseHelper.true_value}"
+    @competitors = @race.competitors.where(start_list_condition).order(:number)
+    @series = @race.series.where(start_list_condition)
+    collect_age_groups
   end
 
   def update
@@ -27,5 +30,12 @@ class Official::StartListsController < Official::OfficialController
   private
   def handle_time_parameters
     handle_time_parameter params[:series], "start_time"
+  end
+  
+  def collect_age_groups
+    @age_groups = {}
+    @series.each do |series|
+      @age_groups[series.id] = series.age_groups
+    end
   end
 end
