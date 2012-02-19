@@ -13,9 +13,12 @@ describe ApplicationController do
   end
   
   describe "#pdf_header" do
+    before do
+      controller.stub!(:ensure_user_in_offline)
+    end
+    
     context "when online (non-Windows)" do
       before do
-        controller.stub!(:ensure_user_in_offline)
         Mode.stub!(:offline?).and_return(false)
         @title = 'Lähtölistat, Äijälä, Örimäki'
         get :index, :title => @title
