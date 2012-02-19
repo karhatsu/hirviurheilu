@@ -3,7 +3,10 @@
 <hr/>
 
 <h2>Yksilökilpailut</h2>
-<% @race.series.each do |series| %>
+<% @race.series.each_with_index do |series, index| %>
+  <% if index > 0 %>
+    <div class="page-break"></div>
+  <% end %>
   <h3><%= "#{series.name}" %></h3>
   <%= render :partial => 'series/infos', :locals => { :series => series } %>
   <%= render :partial => 'series/series_results', :locals => { :series => series } %>
@@ -11,8 +14,12 @@
 <% end %>
 
 <% if @race.team_competitions.count > 0 %>
+  <div class="page-break"></div>
   <h2>Joukkuekilpailut</h2>
-  <% @race.team_competitions.each do |tc| %>
+  <% @race.team_competitions.each_with_index do |tc, index| %>
+    <% if index > 0 %>
+      <div class="page-break"></div>
+    <% end %>
     <h2><%= tc.name %></h2>
     <%= render :partial => 'team_competitions/results_table', :locals => { :results => tc.results } %>
     <hr/>
@@ -20,8 +27,12 @@
 <% end %>
 
 <% if @race.relays.count > 0 %>
+  <div class="page-break"></div>
   <h2>Viestit</h2>
-  <% @race.relays.each do |relay| %>
+  <% @race.relays.each_with_index do |relay, index| %>
+    <% if index > 0 %>
+      <div class="page-break"></div>
+    <% end %>
     <h2><%= relay.name %></h2>
     <%= render :partial => 'relays/results', :locals => { :relay => relay, :pdf => true } %>
     <hr/>

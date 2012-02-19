@@ -28,3 +28,7 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+.page-break {
+  display:block; clear:both; page-break-after:always;
+}
