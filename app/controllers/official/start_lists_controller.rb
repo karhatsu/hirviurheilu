@@ -11,7 +11,7 @@ class Official::StartListsController < Official::OfficialController
     @is_start_list = true
     start_list_condition = "series.has_start_list = #{DatabaseHelper.true_value}"
     @competitors = @race.competitors.where(start_list_condition).order(:number)
-    @series = @race.series.where(start_list_condition)
+    @all_series = @race.series.where(start_list_condition)
     collect_age_groups
   end
 
@@ -34,7 +34,7 @@ class Official::StartListsController < Official::OfficialController
   
   def collect_age_groups
     @age_groups = {}
-    @series.each do |series|
+    @all_series.each do |series|
       @age_groups[series.id] = series.age_groups
     end
   end
