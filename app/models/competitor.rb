@@ -16,8 +16,7 @@ class Competitor < ActiveRecord::Base
   validates :last_name, :presence => true
   #validates :club, :presence => true
   validates :number,
-    :numericality => { :only_integer => true, :greater_than => 0, :allow_nil => true },
-    :uniqueness => { :scope => :series_id, :allow_nil => true }
+    :numericality => { :only_integer => true, :greater_than => 0, :allow_nil => true }
   validates :shots_total_input, :allow_nil => true,
     :numericality => { :only_integer => true,
       :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
@@ -42,6 +41,7 @@ class Competitor < ActiveRecord::Base
   validate :max_ten_shots
   validate :check_no_result_reason
   validate :check_if_series_has_start_list
+  validate :unique_number
 
   after_create :set_correct_estimates
 
@@ -258,6 +258,14 @@ class Competitor < ActiveRecord::Base
       errors.add(:number, 'on pakollinen, kun sarjan lähtölista on jo luotu') unless number
       errors.add(:start_time,
         'on pakollinen, kun sarjan lähtölista on jo luotu') unless start_time
+    end
+  end
+  
+  def unique_number
+    if series and number
+      condition = "number = #{number}"
+      condition << " and competitors.id <> #{id}" if id
+      errors.add(:number, 'on varattu') if series.race.competitors.where(condition).length > 0
     end
   end
 

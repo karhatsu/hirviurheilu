@@ -31,7 +31,24 @@ describe Competitor do
         before do
           @c = Factory.create(:competitor, :number => 5)
         end
-        it { should validate_uniqueness_of(:number).scoped_to(:series_id) }
+        
+        it "should require uniqueness for numbers in the same race" do
+          series = Factory.create(:series, :race => @c.series.race)
+          competitor = Factory.build(:competitor, :series => series, :number => 6)
+          competitor.should be_valid
+          competitor.number = 5
+          competitor.should_not be_valid
+        end
+        
+        it "should allow updating the competitor" do
+          @c.should be_valid
+        end
+        
+        it "should allow same number in another race" do
+          race = Factory.create(:race)
+          series = Factory.create(:series)
+          Factory.build(:competitor, :series => series, :number => 5).should be_valid
+        end
         
         it "should allow two nils for same series" do
           c = Factory.create(:competitor, :number => nil)
@@ -1009,6 +1026,7 @@ describe Competitor do
       end
 
       it "should set the correct estimates for the competitor" do
+        @competitor.number = 11
         @competitor.save!
         verify_correct_estimates 101, 102, 103, 104
       end
