@@ -9,7 +9,7 @@ Feature: Start list modification
     And I have logged in
     And I am on the official race page of "Test race"
     Then I should not see "Lähtöajat"
-  
+    
   Scenario: Go to the start list modification page
     Given I am an official
     And I have a race "Test race"
@@ -22,6 +22,18 @@ Feature: Start list modification
     And the "Lähtöajat" sub menu item should be selected
     And I should see "Kaikkien kilpailijoiden lähtöajat" within "h2"
 
+  Scenario: When no competitors with start times, show instructions
+    Given I am an official
+    And I have a race "Test race"
+    And the race has series "M60"
+    And the series has a competitor with attributes:
+      | first_name | Matti |
+      | last_name | Miettinen |
+    And I have logged in
+    When I go to the official start list page of the race "Test race"
+    Then I should see "Et ole lisännyt vielä yhtään kilpailijaa, jolla olisi lähtöaika"
+    But I should not see "Matti"
+  
   Scenario: Show only competitors who have start times
     Given I am an official
     And I have a race "Test race"
