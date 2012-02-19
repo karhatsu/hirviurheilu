@@ -1,0 +1,68 @@
+<% content_for :title, "Kaikkien kilpailijoiden lähtöajat" %>
+<% content_for :page_title, yield(:title) %>
+<h2>Kaikkien kilpailijoiden lähtöajat</h2>
+<% if @competitors.length == 0 %>
+  <div class="info">Et ole lisännyt vielä yhtään kilpailijaa, jolla olisi lähtöaika</div>
+<% else %>
+  <div class="info">Tällä sivulla voit asettaa kilpailijoita eri lähtöpaikoille.</div>
+  <div class="warning">Huom! Jos esimerkiksi vaihdat kahden lähtöpaikan kilpailijat keskenään,
+    heille syötetyt tulokset eivät seuraa mukana.</div>
+  <div id="update_error"></div>
+  <table>
+    <tr>
+      <th>Nro</th>
+      <th>Lähtöaika</th>
+      <th>Etunimi</th>
+      <th>Sukunimi</th>
+      <th><%= club_title @race %></th>
+      <th>Sarja</th>
+      <th>Ikäryhmä</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+    </tr>
+  <% @competitors.each do |c| %>
+    <%= form_for([:official, c.series, c], :remote => true) do |f| %>
+      <%= hidden_field_tag :no_times, true %>
+      <tr id='competitor_<%= c.id %>'>
+        <td><%= c.number %></td>
+        <td><%= time_print(c.start_time, true) %></td>
+        <td><%= f.text_field :first_name, :size => 10 %></td>
+        <td><%= f.text_field :last_name, :size => 15 %></td>
+        <td><%= text_field_tag :new_club_name, c.club.name, :size => 15 %></td>
+        <td><%= f.collection_select :series_id, @all_series, :id, :name, {}, :onchange => "change_age_groups(#{c.id}, this.value)" %></td>
+        <% age_groups_visibility = @age_groups[c.series_id].length > 0 ? '' : 'display:none;' %>
+        <td>
+          <%= f.collection_select :age_group_id, @age_groups[c.series_id], :id, :name,
+          { :include_blank => true }, { :id => "age_groups_#{c.id}", :style => age_groups_visibility } %>
+          <%= image_tag 'spinner.gif', :style => 'display:none;', :id => "age_groups_spinner_#{c.id}" %>
+        </td>
+        <td><input type="submit" class="save_button" value="Tallenna" onClick="start_updating(<%=c.id%>)"/></td>
+        <td id="status_<%= c.id %>">&nbsp;</td>
+      </tr>
+    <% end %>
+  <% end %>
+  </table>
+  <%= javascript_tag do %>
+    function start_updating(id) {
+      $("#status_" + id).html('<%= image_tag 'spinner.gif' %>');
+    }
+    function change_age_groups(competitor_id, series_id) {
+      var $age_group_spinner = $('#age_groups_spinner_' + competitor_id);
+      var $age_group_menu = $('#age_groups_' + competitor_id);
+      $age_group_menu.hide();
+      $age_group_spinner.show();
+      $.getJSON('/official/series/' + series_id + '/age_groups', function(age_groups) {
+        while($age_group_menu.children().length > 1) {
+          $age_group_menu.children().last().remove();
+        }
+        if(age_groups.length > 0) {
+          $.each(age_groups, function(i, age_group) {
+            $age_group_menu.append('<option value="' + age_group.id + '">' + age_group.name + '</option>');
+          });
+          $age_group_menu.show();
+        }
+        $age_group_spinner.hide();
+      });
+    }
+  <% end %>
+<% end %>

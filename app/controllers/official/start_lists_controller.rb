@@ -1,7 +1,19 @@
 # encoding: UTF-8
+require 'database_helper.rb'
+
 class Official::StartListsController < Official::OfficialController
-  before_filter :assign_series_by_series_id, :check_assigned_series
+  include DatabaseHelper
+  before_filter :assign_race_by_race_id, :check_assigned_race, :only => :show
+  before_filter :assign_series_by_series_id, :check_assigned_series, :only => :update
   before_filter :handle_time_parameters, :only => :update
+  
+  def show
+    @is_start_list = true
+    start_list_condition = "series.has_start_list = #{DatabaseHelper.true_value}"
+    @competitors = @race.competitors.where(start_list_condition).order(:number)
+    @all_series = @race.series.where(start_list_condition)
+    collect_age_groups
+  end
 
   def update
     @order_method = params[:order_method].to_i
@@ -18,5 +30,12 @@ class Official::StartListsController < Official::OfficialController
   private
   def handle_time_parameters
     handle_time_parameter params[:series], "start_time"
+  end
+  
+  def collect_age_groups
+    @age_groups = {}
+    @all_series.each do |series|
+      @age_groups[series.id] = series.age_groups
+    end
   end
 end
