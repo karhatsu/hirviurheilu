@@ -928,4 +928,29 @@ describe ApplicationHelper do
       lambda { helper.clubs_title(race) }.should raise_error
     end
   end
+  
+  describe "#comparison_time_title" do
+    before do
+      @competitor = mock_model(Competitor)
+      @competitor.stub!(:comparison_time_in_seconds).and_return(1545)
+    end
+    
+    it "should return empty string when empty always wanted" do
+      helper.comparison_time_title(@competitor, true, true).should == ''
+    end
+    
+    it "should return empty string when no comparison time available" do
+      @competitor.stub!(:comparison_time_in_seconds).and_return(nil)
+      helper.comparison_time_title(@competitor, true, false).should == ''
+    end
+    
+    it "should return space and title attribute with title and comparison time when empty not wanted" do
+      helper.comparison_time_title(@competitor, true, false).should == " title='Vertailuaika: 25:45'"
+    end
+    
+    it "should use all_competitors parameter when getting the comparison time" do
+      @competitor.stub!(:comparison_time_in_seconds).with(false).and_return(1550)
+      helper.comparison_time_title(@competitor, false, false).should == " title='Vertailuaika: 25:50'"
+    end
+  end
 end

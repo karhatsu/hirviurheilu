@@ -432,6 +432,13 @@ module ApplicationHelper
     raise "Unknown club level: #{race.club_level}"
   end
   
+  def comparison_time_title(competitor, all_competitors, always_empty)
+    return '' if always_empty
+    comparison_time = competitor.comparison_time_in_seconds(all_competitors)
+    return '' unless comparison_time
+    " title='Vertailuaika: #{time_from_seconds(comparison_time, false)}'"
+  end
+  
   private
   def result_rotation_series_list(race)
     race_day = race.race_day
