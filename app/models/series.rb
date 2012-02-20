@@ -40,20 +40,50 @@ class Series < ActiveRecord::Base
   
   before_destroy :prevent_destroy_if_competitors
 
-  def best_time_in_seconds(all_competitors=false)
-    if all_competitors
-      @seconds_cache_all_competitors ||= Series.best_time_in_seconds(self, true)
-    else
-      @seconds_cache ||= Series.best_time_in_seconds(self, false)
-    end
-  end
-
-  def self.best_time_in_seconds(group_with_competitors, all_competitors)
+  def best_time_in_seconds(age_group_ids, all_competitors)
     conditions = { :no_result_reason => nil }
     conditions[:unofficial] = false unless all_competitors
-    time = group_with_competitors.competitors.minimum(time_subtraction_sql,
-      :conditions => conditions)
+    conditions[:age_group_id] = age_group_ids if age_group_ids
+    time = competitors.minimum(time_subtraction_sql, :conditions => conditions)
     return time.to_i if time
+  end
+  
+  def comparison_time_in_seconds(age_group, all_competitors)
+    return best_time_in_seconds(nil, all_competitors) unless age_group
+    @age_group_ids ||= age_group_comparison_group_ids(all_competitors)
+    best_time_in_seconds(@age_group_ids[age_group], all_competitors)
+  end
+  
+  def age_group_comparison_group_ids(all_competitors)
+    final_groups = []
+    temp_group = []
+    competitors_count = 0
+    age_groups.order('name desc').each do |age_group|
+      temp_group << age_group
+      competitors_count += age_group.competitors_count(all_competitors)
+      if competitors_count >= age_group.min_competitors
+        final_groups << temp_group
+        temp_group = []
+        competitors_count = 0
+      end
+    end
+    
+    hash = {}  # age_group => [own id, another age group id, ...]
+    final_groups.each do |group|
+      group.each do |age_group|
+        ids = []
+        own_group = false
+        final_groups.each do |group2|
+          group2.each do |age_group2|
+            ids << age_group2.id
+            own_group = true if age_group == age_group2
+          end
+          break if own_group
+        end
+        hash[age_group] = ids
+      end
+    end
+    hash
   end
 
   def ordered_competitors(all_competitors)
@@ -206,7 +236,7 @@ class Series < ActiveRecord::Base
     self.time_points_type = TIME_POINTS_TYPE_NORMAL if time_points_type == nil
   end
 
-  def self.time_subtraction_sql
+  def time_subtraction_sql
     return "EXTRACT(EPOCH FROM (arrival_time-start_time))" if DatabaseHelper.postgres?
     return "strftime('%s', arrival_time)-strftime('%s', start_time)" if DatabaseHelper.sqlite3?
     raise "Unknown database adapter"

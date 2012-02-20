@@ -81,9 +81,7 @@ class Competitor < ActiveRecord::Base
   end
 
   def comparison_time_in_seconds(all_competitors)
-    age_group_best = age_group.best_time_in_seconds(all_competitors) if age_group
-    return age_group_best if age_group_best
-    series.best_time_in_seconds(all_competitors)
+    series.comparison_time_in_seconds(age_group, all_competitors)
   end
 
   def shot_points

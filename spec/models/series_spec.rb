@@ -77,7 +77,7 @@ describe Series do
   end
 
   describe "#best_time_in_seconds" do
-    describe "static" do
+    describe "for whole series" do
       before do
         @series = Factory.create(:series)
         @series.competitors << Factory.build(:competitor, :series => @series)
@@ -94,16 +94,16 @@ describe Series do
           :start_time => '12:00:00',
           :arrival_time => '12:01:00', :unofficial => true)
       end
-
+  
       it "should return nil if no competitors" do
         series = Factory.create(:series)
-        Series.best_time_in_seconds(series, false).should be_nil
+        series.best_time_in_seconds(nil, false).should be_nil
       end
-
+  
       it "should return nil if no official, finished competitors with time" do
-        Series.best_time_in_seconds(@series, false).should be_nil
+        @series.best_time_in_seconds(nil, false).should be_nil
       end
-
+  
       describe "finished competitors found" do
         before do
           @series.competitors << Factory.build(:competitor, :series => @series,
@@ -113,16 +113,16 @@ describe Series do
           @series.competitors << Factory.build(:competitor, :series => @series,
             :start_time => '12:00:03', :arrival_time => '12:01:04') # 61 s
         end
-
+  
         it "should return the fastest time for official, finished competitors" do
-          Series.best_time_in_seconds(@series, false).should == 61
+          @series.best_time_in_seconds(nil, false).should == 61
         end
-
+  
         it "should return the fastest time of all finished competitors when unofficials included" do
-          Series.best_time_in_seconds(@series, true).should == 60
+          @series.best_time_in_seconds(nil, true).should == 60
         end
       end
-
+  
       it "should use postgres syntax when postgres database" do
         competitors = mock(Array)
         DatabaseHelper.should_receive(:postgres?).and_return(true)
@@ -131,28 +131,159 @@ describe Series do
           with("EXTRACT(EPOCH FROM (arrival_time-start_time))",
           :conditions => {:unofficial => false, :no_result_reason => nil}).
           and_return(123)
-        Series.best_time_in_seconds(@series, false).should == 123
+        @series.best_time_in_seconds(nil, false).should == 123
       end
     end
-
-    describe "dynamic" do
+    
+    describe "for given age group ids" do
       before do
         @series = Factory.create(:series)
+        @age_group1 = Factory.build(:age_group, :series => @series)
+        @age_group2 = Factory.build(:age_group, :series => @series)
+        @age_group_other = Factory.build(:age_group, :series => @series)
+        @series.age_groups << @age_group1
+        @series.age_groups << @age_group2
+        @series.age_groups << @age_group_other
+        @series.competitors << Factory.build(:competitor, :series => @series, :age_group => @age_group1)
+        @series.competitors << Factory.build(:competitor, :series => @series,
+          :start_time => '12:00:00', :age_group => @age_group1)
+        # below the time is 60 secs but the competitors are not valid
+        @series.competitors << Factory.build(:competitor, :series => @series,
+          :start_time => '12:00:00', :arrival_time => '12:01:00',
+          :no_result_reason => "DNS", :age_group => @age_group2)
+        @series.competitors << Factory.build(:competitor, :series => @series,
+          :start_time => '12:00:00', :arrival_time => '12:01:00',
+          :no_result_reason => "DNF", :age_group => @age_group1)
+        @series.competitors << Factory.build(:competitor, :series => @series,
+          :start_time => '12:00:00',
+          :arrival_time => '12:01:00', :unofficial => true, :age_group => @age_group2)
+        @series.competitors << Factory.build(:competitor, :series => @series,
+          :start_time => '12:00:00', :arrival_time => '12:01:00', :age_group => @age_group_other)
+        @age_group_ids = [@age_group1.id, @age_group2.id]
       end
-
-      it "should call static method in the first time" do
-        all_competitors = false
-        Series.should_receive(:best_time_in_seconds).with(@series, all_competitors).and_return(123)
-        @series.best_time_in_seconds(all_competitors).should == 123
+  
+      it "should return nil if no competitors" do
+        series = Factory.create(:series)
+        series.best_time_in_seconds(@age_group_ids, false).should be_nil
       end
-
-      it "should use (correct) cache in the second time" do
-        Series.should_receive(:best_time_in_seconds).with(@series, false).and_return(123)
-        Series.should_receive(:best_time_in_seconds).with(@series, true).and_return(100)
-        @series.best_time_in_seconds(false).should == 123
-        @series.best_time_in_seconds(true).should == 100
-        @series.best_time_in_seconds(false).should == 123
-        @series.best_time_in_seconds(true).should == 100
+  
+      it "should return nil if no official, finished competitors with time" do
+        @series.best_time_in_seconds(@age_group_ids, false).should be_nil
+      end
+  
+      describe "finished competitors found" do
+        before do
+          @series.competitors << Factory.build(:competitor, :series => @series,
+            :start_time => '12:00:00', :arrival_time => '12:01:02', :age_group => @age_group1) # 62 s
+          @series.competitors << Factory.build(:competitor, :series => @series,
+            :start_time => '12:00:01', :arrival_time => '12:01:03', :age_group => @age_group2) # 62 s
+          @series.competitors << Factory.build(:competitor, :series => @series,
+            :start_time => '12:00:03', :arrival_time => '12:01:04', :age_group => @age_group1) # 61 s
+        end
+  
+        it "should return the fastest time for official, finished competitors" do
+          @series.best_time_in_seconds(@age_group_ids, false).should == 61
+        end
+  
+        it "should return the fastest time of all finished competitors when unofficials included" do
+          @series.best_time_in_seconds(@age_group_ids, true).should == 60
+        end
+      end
+  
+      it "should use postgres syntax when postgres database" do
+        competitors = mock(Array)
+        DatabaseHelper.should_receive(:postgres?).and_return(true)
+        @series.should_receive(:competitors).and_return(competitors)
+        competitors.should_receive(:minimum).
+          with("EXTRACT(EPOCH FROM (arrival_time-start_time))",
+          :conditions => {:unofficial => false, :no_result_reason => nil, :age_group_id => @age_group_ids}).
+          and_return(123)
+        @series.best_time_in_seconds(@age_group_ids, false).should == 123
+      end
+    end
+  end
+  
+  describe "#comparison_time_in_seconds" do
+    before do
+      @series = Factory.build(:series)
+      @all_competitors = true
+    end
+    
+    context "when nil age_group given" do
+      it "should call best_time_in_seconds with nil age_group_ids" do
+        @series.should_receive(:best_time_in_seconds).with(nil, @all_competitors).and_return(5678)
+        @series.comparison_time_in_seconds(nil, @all_competitors).should == 5678
+      end
+    end
+    
+    context "when real age group given" do
+      it "should get age group comparison group ids and call best_time_in_seconds with that" do
+        ids = [1, 4, 7]
+        age_group = mock_model(AgeGroup)
+        id_hash = { :foo => :bar, age_group => ids }
+        @series.should_receive(:age_group_comparison_group_ids).with(@all_competitors).and_return(id_hash)
+        @series.should_receive(:best_time_in_seconds).with(ids, @all_competitors).and_return(9998)
+        @series.comparison_time_in_seconds(age_group, @all_competitors).should == 9998
+      end
+    end
+  end
+  
+  describe "#age_group_comparison_group_ids" do
+    before do
+      @series = Factory.build(:series, :name => 'M70')
+      @all_competitors = true
+    end
+    
+    context "when no age groups" do
+      it "should return an empty hash" do
+        groups = @series.age_group_comparison_group_ids(@all_competitors)
+        groups.should == {}
+      end
+    end
+    
+    context "when age groups" do
+      before do
+        @age_group1_id = 10
+        @age_group2_id = 11
+        @age_group3_id = 12
+        @age_group1 = mock_model(AgeGroup, :id => @age_group1_id, :name => 'M75', :min_competitors => 2)
+        @age_group2 = mock_model(AgeGroup, :id => @age_group2_id, :name => 'M80', :min_competitors => 2)
+        @age_group3 = mock_model(AgeGroup, :id => @age_group3_id, :name => 'M85', :min_competitors => 2)
+        @age_groups = [@age_group1, @age_group2, @age_group3]
+        @series.stub!(:age_groups).and_return(@age_groups)
+        @age_groups.stub!(:order).with('name desc').and_return(@age_groups.reverse)
+      end
+      
+      context "and all age groups have enough competitors" do
+        before do
+          @age_group1.stub!(:competitors_count).with(@all_competitors).and_return(2)
+          @age_group2.stub!(:competitors_count).with(@all_competitors).and_return(2)
+          @age_group3.stub!(:competitors_count).with(@all_competitors).and_return(2)
+        end
+        
+        it "should return all age groups as keys and id + older age group ids as values" do
+          groups = @series.age_group_comparison_group_ids(@all_competitors)
+          groups.length.should == 3
+          groups[@age_group1].should == [@age_group3_id, @age_group2_id, @age_group1_id]
+          groups[@age_group2].should == [@age_group3_id, @age_group2_id]
+          groups[@age_group3].should == [@age_group3_id]
+        end
+      end
+      
+      context "and the first+second age group have together enough competitors" do
+        before do
+          @age_group1.stub!(:competitors_count).with(@all_competitors).and_return(1)
+          @age_group2.stub!(:competitors_count).with(@all_competitors).and_return(1)
+          @age_group3.stub!(:competitors_count).with(@all_competitors).and_return(2)
+        end
+        
+        it "should return a hash where second age group key has all group ids as values" do
+          groups = @series.age_group_comparison_group_ids(@all_competitors)
+          groups.length.should == 3
+          groups[@age_group1].should == [@age_group3_id, @age_group2_id, @age_group1_id]
+          groups[@age_group2].should == [@age_group3_id, @age_group2_id, @age_group1_id]
+          groups[@age_group3].should == [@age_group3_id]
+        end
       end
     end
   end
