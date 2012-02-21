@@ -55,10 +55,19 @@ class Series < ActiveRecord::Base
   end
   
   def age_group_comparison_group_ids(all_competitors)
+    ordered_age_groups = age_groups.order('name desc')
+    unless each_group_starts_with_same_letter(ordered_age_groups)
+      hash = {}
+      ordered_age_groups.each do |age_group|
+        hash[age_group] = age_group.id
+      end
+      return hash
+    end
+    
     final_groups = []
     temp_group = []
     competitors_count = 0
-    age_groups.order('name desc').each do |age_group|
+    ordered_age_groups.each do |age_group|
       temp_group << age_group
       competitors_count += age_group.competitors_count(all_competitors)
       if competitors_count >= age_group.min_competitors
@@ -325,5 +334,14 @@ class Series < ActiveRecord::Base
 
   def batch_too_small?(competitor, last_batch_start, last_batch_size, batch_size)
     competitor.number >= last_batch_start && last_batch_size <= batch_size*2/3
+  end
+  
+  def each_group_starts_with_same_letter(age_groups)
+    return false if age_groups.empty?
+    first_letter = age_groups[0].name[0]
+    age_groups.each do |age_group|
+      return false unless first_letter == age_group.name[0]
+    end
+    true
   end
 end

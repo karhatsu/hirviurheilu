@@ -241,7 +241,7 @@ describe Series do
       end
     end
     
-    context "when age groups" do
+    context "when age groups that start with same letters" do
       before do
         @age_group1_id = 10
         @age_group2_id = 11
@@ -284,6 +284,25 @@ describe Series do
           groups[@age_group2].should == [@age_group3_id, @age_group2_id, @age_group1_id]
           groups[@age_group3].should == [@age_group3_id]
         end
+      end
+    end
+      
+    context "when age groups that start with different letters" do
+      before do
+        @age_group1_id = 10
+        @age_group2_id = 11
+        @age_group1 = mock_model(AgeGroup, :id => @age_group1_id, :name => 'T16', :min_competitors => 1)
+        @age_group2 = mock_model(AgeGroup, :id => @age_group2_id, :name => 'P16', :min_competitors => 1)
+        @age_groups = [@age_group1, @age_group2]
+        @series.stub!(:age_groups).and_return(@age_groups)
+        @age_groups.stub!(:order).with('name desc').and_return(@age_groups.reverse)
+      end
+      
+      it "should return all groups with only their own ids" do
+        groups = @series.age_group_comparison_group_ids(@all_competitors)
+        groups.length.should == 2
+        groups[@age_group1].should == @age_group1_id
+        groups[@age_group2].should == @age_group2_id
       end
     end
   end
