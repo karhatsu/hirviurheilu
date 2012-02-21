@@ -32,5 +32,32 @@ describe AgeGroup do
       end
     end
   end
+  
+  describe "#competitors_count" do
+    before do
+      series = Factory.create(:series)
+      @age_group = Factory.build(:age_group, :series => series)
+      series.age_groups << @age_group
+      series.competitors << Factory.build(:competitor, :series => series, :age_group => @age_group)
+      series.competitors << Factory.build(:competitor, :series => series, :age_group => @age_group)
+      series.competitors << Factory.build(:competitor, :series => series)
+      series.competitors << Factory.build(:competitor, :series => series, :age_group => @age_group,
+        :no_result_reason => 'DNS')
+      series.competitors << Factory.build(:competitor, :series => series, :age_group => @age_group,
+        :unofficial => true)
+    end
+    
+    context "when all competitors" do
+      it "should count all competitors for the age group that have no no_result_reason" do
+        @age_group.competitors_count(true).should == 3
+      end
+    end
+    
+    context "when only official competitors" do
+      it "should count all official competitors for the age group that have no no_result_reason" do
+        @age_group.competitors_count(false).should == 2
+      end
+    end
+  end
 
 end
