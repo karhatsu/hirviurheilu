@@ -298,37 +298,64 @@ class Series < ActiveRecord::Base
   def age_group_comparison_group_ids(all_competitors)
     ordered_age_groups = age_groups.order('name desc')
     unless each_group_starts_with_same_letter(ordered_age_groups)
-      hash = {}
-      ordered_age_groups.each do |age_group|
-        hash[age_group] = age_group.id
-      end
-      return hash
+      return build_age_group_to_own_id_hash ordered_age_groups
     end
     
-    final_groups = []
-    temp_group = []
+    groupped_age_groups, age_groups_without_enough_competitors =
+      build_groupped_age_groups(ordered_age_groups, all_competitors)
+
+    # hash: { age_group => [own age group id, another age group id, ...] }
+    hash = build_hash_for_groups_without_enough_competitors(age_groups_without_enough_competitors)
+    build_hash_for_groups_with_enough_competitors hash, groupped_age_groups
+  end
+
+  def each_group_starts_with_same_letter(age_groups)
+    return false if age_groups.empty?
+    first_letter = age_groups[0].name[0]
+    age_groups.each do |age_group|
+      return false unless first_letter == age_group.name[0]
+    end
+    true
+  end
+  
+  def build_age_group_to_own_id_hash(age_groups)
+    hash = {}
+    age_groups.each do |age_group|
+      hash[age_group] = age_group.id
+    end
+    return hash
+  end
+  
+  def build_groupped_age_groups(ordered_age_groups, all_competitors)
+    groupped_age_groups = []
+    groupped_age_group = []
     competitors_count = 0
     ordered_age_groups.each do |age_group|
-      temp_group << age_group
+      groupped_age_group << age_group
       competitors_count += age_group.competitors_count(all_competitors)
       if competitors_count >= age_group.min_competitors
-        final_groups << temp_group
-        temp_group = []
+        groupped_age_groups << groupped_age_group
+        groupped_age_group = []
         competitors_count = 0
       end
     end
-    
-    hash = {}  # age_group => [own id, another age group id, ...]
-    
-    temp_group.each do |age_group|
+    return groupped_age_groups, groupped_age_group
+  end
+  
+  def build_hash_for_groups_without_enough_competitors(age_groups_without_enough_competitors)
+    hash = {}
+    age_groups_without_enough_competitors.each do |age_group|
       hash[age_group] = nil
     end
-    
-    final_groups.each do |group|
+    hash
+  end
+  
+  def build_hash_for_groups_with_enough_competitors(hash, groupped_age_groups)
+    groupped_age_groups.each do |group|
       group.each do |age_group|
         ids = []
         own_group = false
-        final_groups.each do |group2|
+        groupped_age_groups.each do |group2|
           group2.each do |age_group2|
             ids << age_group2.id
             own_group = true if age_group == age_group2
@@ -339,14 +366,5 @@ class Series < ActiveRecord::Base
       end
     end
     hash
-  end
-
-  def each_group_starts_with_same_letter(age_groups)
-    return false if age_groups.empty?
-    first_letter = age_groups[0].name[0]
-    age_groups.each do |age_group|
-      return false unless first_letter == age_group.name[0]
-    end
-    true
   end
 end
