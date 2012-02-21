@@ -921,39 +921,13 @@ describe Competitor do
   end
 
   describe "#comparison_time_in_seconds" do
-    before do
-      @all_competitors = true
-      @series = Factory.build(:series)
-      @competitor = Factory.build(:competitor, :series => @series)
-    end
-
-    context "when competitor belongs to an age group" do
-      before do
-        @age_group = Factory.build(:age_group)
-        @competitor.age_group = @age_group
-        @series.stub!(:best_time_in_seconds).with(@all_competitors).and_return(555)
-      end
-
-      context "and age group provides best time (= it has enough competitors)" do
-        it "should use age group's best time" do
-          @age_group.should_receive(:best_time_in_seconds).with(@all_competitors).and_return(123)
-          @competitor.comparison_time_in_seconds(@all_competitors).should == 123
-        end
-      end
-
-      context "but age group does not provide best time" do
-        it "should use the series best time" do
-          @age_group.should_receive(:best_time_in_seconds).with(@all_competitors).and_return(nil)
-          @competitor.comparison_time_in_seconds(@all_competitors).should == 555
-        end
-      end
-    end
-
-    context "when no age group" do
-      it "should use the series best time" do
-        @series.should_receive(:best_time_in_seconds).with(@all_competitors).and_return(456)
-        @competitor.comparison_time_in_seconds(@all_competitors).should == 456
-      end
+    it "should delegate call to series with own age group and all_competitors as parameters" do
+      all_competitors = true
+      series = mock_model(Series)
+      age_group = mock_model(AgeGroup)
+      competitor = Factory.build(:competitor, :series => series, :age_group => age_group)
+      series.should_receive(:comparison_time_in_seconds).with(age_group, all_competitors).and_return(12345)
+      competitor.comparison_time_in_seconds(all_competitors).should == 12345
     end
   end
 
