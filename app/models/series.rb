@@ -78,6 +78,11 @@ class Series < ActiveRecord::Base
     end
     
     hash = {}  # age_group => [own id, another age group id, ...]
+    
+    temp_group.each do |age_group|
+      hash[age_group] = nil
+    end
+    
     final_groups.each do |group|
       group.each do |age_group|
         ids = []

@@ -285,6 +285,24 @@ describe Series do
           groups[@age_group3].should == [@age_group3_id]
         end
       end
+      
+      context "and the first ones have no enough competitors" do
+        before do
+          @age_group1.stub!(:min_competitors).and_return(3)
+          @age_group2.stub!(:min_competitors).and_return(3)
+          @age_group1.stub!(:competitors_count).with(@all_competitors).and_return(1)
+          @age_group2.stub!(:competitors_count).with(@all_competitors).and_return(1)
+          @age_group3.stub!(:competitors_count).with(@all_competitors).and_return(2)
+        end
+        
+        it "should return a hash where the first age groups have nil id as value" do
+          groups = @series.age_group_comparison_group_ids(@all_competitors)
+          groups.length.should == 3
+          groups[@age_group1].should == nil
+          groups[@age_group2].should == nil
+          groups[@age_group3].should == [@age_group3_id]
+        end
+      end
     end
       
     context "when age groups that start with different letters" do
