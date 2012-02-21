@@ -246,9 +246,9 @@ describe Series do
         @age_group1_id = 10
         @age_group2_id = 11
         @age_group3_id = 12
-        @age_group1 = mock_model(AgeGroup, :id => @age_group1_id, :name => 'M75', :min_competitors => 2)
-        @age_group2 = mock_model(AgeGroup, :id => @age_group2_id, :name => 'M80', :min_competitors => 2)
-        @age_group3 = mock_model(AgeGroup, :id => @age_group3_id, :name => 'M85', :min_competitors => 2)
+        @age_group1 = mock_model(AgeGroup, :id => @age_group1_id, :name => 'M75', :min_competitors => 3)
+        @age_group2 = mock_model(AgeGroup, :id => @age_group2_id, :name => 'M80', :min_competitors => 3)
+        @age_group3 = mock_model(AgeGroup, :id => @age_group3_id, :name => 'M85', :min_competitors => 3)
         @age_groups = [@age_group1, @age_group2, @age_group3]
         @series.stub!(:age_groups).and_return(@age_groups)
         @age_groups.stub!(:order).with('name desc').and_return(@age_groups.reverse)
@@ -256,9 +256,9 @@ describe Series do
       
       context "and all age groups have enough competitors" do
         before do
-          @age_group1.stub!(:competitors_count).with(@all_competitors).and_return(2)
-          @age_group2.stub!(:competitors_count).with(@all_competitors).and_return(2)
-          @age_group3.stub!(:competitors_count).with(@all_competitors).and_return(2)
+          @age_group1.stub!(:competitors_count).with(@all_competitors).and_return(3)
+          @age_group2.stub!(:competitors_count).with(@all_competitors).and_return(4)
+          @age_group3.stub!(:competitors_count).with(@all_competitors).and_return(3)
         end
         
         it "should return all age groups as keys and id + older age group ids as values" do
@@ -273,8 +273,8 @@ describe Series do
       context "and the first+second age group have together enough competitors" do
         before do
           @age_group1.stub!(:competitors_count).with(@all_competitors).and_return(1)
-          @age_group2.stub!(:competitors_count).with(@all_competitors).and_return(1)
-          @age_group3.stub!(:competitors_count).with(@all_competitors).and_return(2)
+          @age_group2.stub!(:competitors_count).with(@all_competitors).and_return(2)
+          @age_group3.stub!(:competitors_count).with(@all_competitors).and_return(3)
         end
         
         it "should return a hash where second age group key has all group ids as values" do
@@ -288,11 +288,9 @@ describe Series do
       
       context "and the first ones have no enough competitors" do
         before do
-          @age_group1.stub!(:min_competitors).and_return(3)
-          @age_group2.stub!(:min_competitors).and_return(3)
           @age_group1.stub!(:competitors_count).with(@all_competitors).and_return(1)
           @age_group2.stub!(:competitors_count).with(@all_competitors).and_return(1)
-          @age_group3.stub!(:competitors_count).with(@all_competitors).and_return(2)
+          @age_group3.stub!(:competitors_count).with(@all_competitors).and_return(3)
         end
         
         it "should return a hash where the first age groups have nil id as value" do
@@ -301,6 +299,37 @@ describe Series do
           groups[@age_group1].should == nil
           groups[@age_group2].should == nil
           groups[@age_group3].should == [@age_group3_id]
+        end
+      end
+      
+      context "and age groups form two combined groups plus one without enough competitors" do
+        before do
+          @age_group4_id = 14
+          @age_group5_id = 15
+          @age_group6_id = 16
+          @age_group7_id = 17
+          @age_group4 = mock_model(AgeGroup, :id => @age_group4_id, :name => 'M86', :min_competitors => 3)
+          @age_group5 = mock_model(AgeGroup, :id => @age_group5_id, :name => 'M87', :min_competitors => 3)
+          @age_group6 = mock_model(AgeGroup, :id => @age_group6_id, :name => 'M88', :min_competitors => 3)
+          @age_group7 = mock_model(AgeGroup, :id => @age_group7_id, :name => 'M89', :min_competitors => 3)
+          @age_groups = [@age_group1, @age_group2, @age_group3, @age_group4, @age_group5, @age_group6, @age_group7]
+          @age_groups.each do |age_group|
+            age_group.stub!(:competitors_count).with(@all_competitors).and_return(1)
+          end
+          @series.stub!(:age_groups).and_return(@age_groups)
+          @age_groups.stub!(:order).with('name desc').and_return(@age_groups.reverse)
+        end
+        
+        it "should return correct hash" do
+          groups = @series.age_group_comparison_group_ids(@all_competitors)
+          groups.length.should == 7
+          groups[@age_group1].should == nil
+          groups[@age_group2].should == [@age_group7_id, @age_group6_id, @age_group5_id, @age_group4_id, @age_group3_id, @age_group2_id]
+          groups[@age_group3].should == [@age_group7_id, @age_group6_id, @age_group5_id, @age_group4_id, @age_group3_id, @age_group2_id]
+          groups[@age_group4].should == [@age_group7_id, @age_group6_id, @age_group5_id, @age_group4_id, @age_group3_id, @age_group2_id]
+          groups[@age_group5].should == [@age_group7_id, @age_group6_id, @age_group5_id]
+          groups[@age_group6].should == [@age_group7_id, @age_group6_id, @age_group5_id]
+          groups[@age_group7].should == [@age_group7_id, @age_group6_id, @age_group5_id]
         end
       end
     end
