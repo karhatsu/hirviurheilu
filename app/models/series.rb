@@ -54,52 +54,6 @@ class Series < ActiveRecord::Base
     best_time_in_seconds(@age_group_ids[age_group], all_competitors)
   end
   
-  def age_group_comparison_group_ids(all_competitors)
-    ordered_age_groups = age_groups.order('name desc')
-    unless each_group_starts_with_same_letter(ordered_age_groups)
-      hash = {}
-      ordered_age_groups.each do |age_group|
-        hash[age_group] = age_group.id
-      end
-      return hash
-    end
-    
-    final_groups = []
-    temp_group = []
-    competitors_count = 0
-    ordered_age_groups.each do |age_group|
-      temp_group << age_group
-      competitors_count += age_group.competitors_count(all_competitors)
-      if competitors_count >= age_group.min_competitors
-        final_groups << temp_group
-        temp_group = []
-        competitors_count = 0
-      end
-    end
-    
-    hash = {}  # age_group => [own id, another age group id, ...]
-    
-    temp_group.each do |age_group|
-      hash[age_group] = nil
-    end
-    
-    final_groups.each do |group|
-      group.each do |age_group|
-        ids = []
-        own_group = false
-        final_groups.each do |group2|
-          group2.each do |age_group2|
-            ids << age_group2.id
-            own_group = true if age_group == age_group2
-          end
-          break if own_group
-        end
-        hash[age_group] = ids
-      end
-    end
-    hash
-  end
-
   def ordered_competitors(all_competitors)
     Competitor.sort(competitors.includes([:shots, :club, :age_group, :series]), all_competitors)
   end
@@ -341,6 +295,52 @@ class Series < ActiveRecord::Base
     competitor.number >= last_batch_start && last_batch_size <= batch_size*2/3
   end
   
+  def age_group_comparison_group_ids(all_competitors)
+    ordered_age_groups = age_groups.order('name desc')
+    unless each_group_starts_with_same_letter(ordered_age_groups)
+      hash = {}
+      ordered_age_groups.each do |age_group|
+        hash[age_group] = age_group.id
+      end
+      return hash
+    end
+    
+    final_groups = []
+    temp_group = []
+    competitors_count = 0
+    ordered_age_groups.each do |age_group|
+      temp_group << age_group
+      competitors_count += age_group.competitors_count(all_competitors)
+      if competitors_count >= age_group.min_competitors
+        final_groups << temp_group
+        temp_group = []
+        competitors_count = 0
+      end
+    end
+    
+    hash = {}  # age_group => [own id, another age group id, ...]
+    
+    temp_group.each do |age_group|
+      hash[age_group] = nil
+    end
+    
+    final_groups.each do |group|
+      group.each do |age_group|
+        ids = []
+        own_group = false
+        final_groups.each do |group2|
+          group2.each do |age_group2|
+            ids << age_group2.id
+            own_group = true if age_group == age_group2
+          end
+          break if own_group
+        end
+        hash[age_group] = ids
+      end
+    end
+    hash
+  end
+
   def each_group_starts_with_same_letter(age_groups)
     return false if age_groups.empty?
     first_letter = age_groups[0].name[0]

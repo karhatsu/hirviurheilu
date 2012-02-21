@@ -236,7 +236,7 @@ describe Series do
     
     context "when no age groups" do
       it "should return an empty hash" do
-        groups = @series.age_group_comparison_group_ids(@all_competitors)
+        groups = @series.send(:age_group_comparison_group_ids, @all_competitors)
         groups.should == {}
       end
     end
@@ -262,7 +262,7 @@ describe Series do
         end
         
         it "should return all age groups as keys and id + older age group ids as values" do
-          groups = @series.age_group_comparison_group_ids(@all_competitors)
+          groups = @series.send(:age_group_comparison_group_ids, @all_competitors)
           groups.length.should == 3
           groups[@age_group1].should == [@age_group3_id, @age_group2_id, @age_group1_id]
           groups[@age_group2].should == [@age_group3_id, @age_group2_id]
@@ -278,7 +278,7 @@ describe Series do
         end
         
         it "should return a hash where second age group key has all group ids as values" do
-          groups = @series.age_group_comparison_group_ids(@all_competitors)
+          groups = @series.send(:age_group_comparison_group_ids, @all_competitors)
           groups.length.should == 3
           groups[@age_group1].should == [@age_group3_id, @age_group2_id, @age_group1_id]
           groups[@age_group2].should == [@age_group3_id, @age_group2_id, @age_group1_id]
@@ -294,7 +294,7 @@ describe Series do
         end
         
         it "should return a hash where the first age groups have nil id as value" do
-          groups = @series.age_group_comparison_group_ids(@all_competitors)
+          groups = @series.send(:age_group_comparison_group_ids, @all_competitors)
           groups.length.should == 3
           groups[@age_group1].should == nil
           groups[@age_group2].should == nil
@@ -321,7 +321,7 @@ describe Series do
         end
         
         it "should return correct hash" do
-          groups = @series.age_group_comparison_group_ids(@all_competitors)
+          groups = @series.send(:age_group_comparison_group_ids, @all_competitors)
           groups.length.should == 7
           groups[@age_group1].should == nil
           groups[@age_group2].should == [@age_group7_id, @age_group6_id, @age_group5_id, @age_group4_id, @age_group3_id, @age_group2_id]
@@ -346,7 +346,7 @@ describe Series do
       end
       
       it "should return all groups with only their own ids" do
-        groups = @series.age_group_comparison_group_ids(@all_competitors)
+        groups = @series.send(:age_group_comparison_group_ids, @all_competitors)
         groups.length.should == 2
         groups[@age_group1].should == @age_group1_id
         groups[@age_group2].should == @age_group2_id
