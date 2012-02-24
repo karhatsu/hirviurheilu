@@ -5,7 +5,7 @@
 <%= form_for @user_session, :url => user_session_path do |f| %>
   <%= render :partial => "shared/form_errors", :locals => { :item => @user_session } %>
   <%= f.label :email %><br />
-  <%= f.text_field :email %><br />
+  <%= f.email_field :email %><br />
   <br />
   <%= f.label :password %><br />
   <%= f.password_field :password %><br />

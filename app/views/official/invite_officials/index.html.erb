@@ -10,7 +10,7 @@
   sähköpostiosoitteellaan.</div>
 <%= form_tag :url => official_race_invite_officials_path(@race), :method => :post do %>
   <%= label_tag :email, 'Sähköposti' %>
-  <%= text_field_tag :email, '', :size => 30 %>
+  <%= email_field_tag :email, '', :size => 30 %>
   <%= submit_tag "Lähetä kutsu" %>
 <% end %>
 <hr/>

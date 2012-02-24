@@ -10,7 +10,7 @@
   <%= flash_error %>
   <%= form_tag license_path do %>
     <%= label_tag :email, 'Sähköposti (hirviurheilu.com-palvelussa)' %>
-    <%= text_field_tag :email %><br/>
+    <%= email_field_tag :email %><br/>
     <%= label_tag :password, 'Salasana (hirviurheilu.com-palvelussa)' %>
     <%= password_field_tag :password %><br/>
     <%= label_tag :activation_key, 'Aktivointitunnus' %>

@@ -7,7 +7,7 @@
   <dd><%= form.text_field :last_name %></dd>
 
   <dt><%= form.label :email %></dt>
-  <dd><%= form.text_field :email %></dd>
+  <dd><%= form.email_field :email %></dd>
 
   <dt><%= form.label :password, form.object.new_record? ? nil : "Vaihda salasana" %></dt>
   <dd><%= form.password_field :password %></dd>

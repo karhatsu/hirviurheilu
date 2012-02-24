@@ -6,6 +6,6 @@
 <%= flash_success %>
 <%= form_tag(reset_password_path) do %>
   <%= label_tag :email, 'Sähköposti' %>
-  <%= text_field_tag :email %><br/>
+  <%= email_field_tag :email %><br/>
   <%= submit_tag 'Tilaa uusi salasana' %>
 <% end %>
