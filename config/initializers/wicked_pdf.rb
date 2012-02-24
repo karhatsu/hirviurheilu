@@ -16,3 +16,32 @@ end
 
 check_path exe_path
 WickedPdf.config[:exe_path] = exe_path
+
+class WickedPdf
+  def pdf_from_string(string, options={})
+    # OWN: double quotes around the exe path
+    command = "\"#{@exe_path}\" #{parse_options(options)} -q - - " # -q for no errors on stdout
+    p "*"*15 + command + "*"*15 unless defined?(Rails) and Rails.env != 'development'
+    pdf, err = Open3.popen3(command) do |stdin, stdout, stderr|
+      stdin.binmode
+      stdout.binmode
+      stderr.binmode
+      stdin.write(string)
+      stdin.close
+      [stdout.read, stderr.read]
+    end
+    raise "PDF could not be generated!" if pdf and pdf.rstrip.length == 0
+    pdf
+  rescue Exception => e
+    raise "Failed to execute:\n#{command}\nError: #{e}"
+  end
+
+  private
+    def make_option(name, value, type=:string)
+      "--#{name.gsub('_', '-')} " + case type
+        when :boolean then ""
+        when :numeric then value.to_s
+        else "\"#{value}\"" # OWN: double quotes around the value
+      end + " "
+    end
+end
