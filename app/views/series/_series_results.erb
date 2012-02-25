@@ -1,21 +1,22 @@
+<% pdf = params[:format] == 'pdf' %>
 <table>
   <tr>
     <th>&nbsp;</th>
     <th>Nimi</th>
     <th>Nro</th>
     <th><%= club_title(series.race) %></th>
-    <th class="center"><%= series.race.sport.run? ? "Juoksu" : "Hiihto" %></th>
+    <th class="center"><%= time_title(series.race) %></th>
     <th class="center">Arviointi</th>
     <th class="center">Ammunta</th>
     <th>Pisteet</th>
   </tr>
-  <% series.ordered_competitors(params[:all_competitors]).each_with_index do |comp, i| %>
+  <% series.ordered_competitors(params[:all_competitors], params[:sort].to_i).each_with_index do |comp, i| %>
     <% next unless i < 3 or params[:club_id].blank? or comp.club_id == params[:club_id].to_i %>
     <tr id="comp_<%= i+1 %>"<%= i % 2 == 0 ? raw(' class="odd"') : '' %>>
       <% @max_points = comp.points(false) if i == 0 %>
       <td><%= i + 1 %>.</td>
       <td>
-        <% if params[:format] == 'pdf' %>
+        <% if pdf %>
           <%= full_name(comp) %>
           <%= "(#{comp.age_group.name})" if comp.age_group %>
           <%= "(#{t(:unofficial_short)})" if comp.unofficial? %>
@@ -28,7 +29,7 @@
       </td>
       <td><%= comp.number ? comp.number : '' %></td>
       <td><%= comp.club.name %></td>
-      <td<%= comparison_time_title(comp, params[:all_competitors], params[:format] == 'pdf') %>>
+      <td<%= comparison_time_title(comp, params[:all_competitors], pdf) %>>
         <%= time_points_and_time(comp, params[:all_competitors]) %>
       </td>
       <td><%= series.race.finished ? estimate_points_and_diffs(comp) :

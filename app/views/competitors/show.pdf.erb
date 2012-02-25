@@ -56,7 +56,7 @@
 <% else %>
   <div class="info">Tarkemmat arviointitiedot näytetään kilpailun päätyttyä.</div>
 <% end %>
-<h3><%= @competitor.series.race.sport.run? ? "Juoksu" : "Hiihto" %></h3>
+<h3><%= time_title(@competitor.series.race) %></h3>
 <table>
   <tr>
     <td>Lähtöaika</td>

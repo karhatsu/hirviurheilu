@@ -64,7 +64,7 @@
   <% end %>
 </div>
 <div id="time">
-  <h3><%= @competitor.series.race.sport.run? ? "Juoksu" : "Hiihto" %></h3>
+  <h3><%= time_title(@competitor.series.race) %></h3>
   <table>
     <tr>
       <td>Lähtöaika</td>

@@ -419,6 +419,11 @@ module ApplicationHelper
     return ce.min_number unless ce.min_number != ce.max_number
     "#{ce.min_number}-#{ce.max_number}"
   end
+  
+  def time_title(race)
+    return 'Juoksu' if race.sport.run?
+    'Hiihto'
+  end
 
   def club_title(race)
     return 'Seura' if race.club_level == Race::CLUB_LEVEL_SEURA

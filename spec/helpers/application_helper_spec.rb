@@ -894,6 +894,23 @@ describe ApplicationHelper do
       helper.correct_estimate_range(ce).should == "57-58"
     end
   end
+  
+  describe "#time_title" do
+    before do
+      @sport = mock_model(Sport)
+      @race = mock_model(Race, :sport => @sport)
+    end
+    
+    it "should be 'Juoksu' when run sport" do
+      @sport.stub!(:run?).and_return(true)
+      helper.time_title(@race).should == 'Juoksu'
+    end
+    
+    it "should be 'Hiihto' when no run sport" do
+      @sport.stub!(:run?).and_return(false)
+      helper.time_title(@race).should == 'Hiihto'
+    end
+  end
 
   describe "#club_title" do
     it "should be 'Piiri' when club level such" do
