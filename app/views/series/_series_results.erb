@@ -12,7 +12,13 @@
         <%= link_to(time_title(series.race), series_competitors_path(series, :sort => Competitor::SORT_BY_TIME)) %>
       <% end %>
     </th>
-    <th class="center">Arviointi</th>
+    <th class="center">
+      <% if pdf %>
+        Arviointi
+      <% else %>
+        <%= link_to('Arviointi', series_competitors_path(series, :sort => Competitor::SORT_BY_ESTIMATES)) %>
+      <% end %>
+    </th>
     <th class="center">
       <% if pdf %>
         Ammunta
@@ -29,6 +35,7 @@
     </th>
   </tr>
   <% time_css = params[:sort].to_i == Competitor::SORT_BY_TIME ? ' class=total_points' : '' %>
+  <% est_css = params[:sort].to_i == Competitor::SORT_BY_ESTIMATES ? ' class=total_points' : '' %>
   <% shots_css = params[:sort].to_i == Competitor::SORT_BY_SHOTS ? ' class=total_points' : '' %>
   <% points_css = params[:sort].blank? ? ' total_points' : '' %>
   <% series.ordered_competitors(params[:all_competitors], params[:sort].to_i).each_with_index do |comp, i| %>
@@ -53,7 +60,7 @@
       <td<%= comparison_time_title(comp, params[:all_competitors], pdf) %><%= time_css %>>
         <%= time_points_and_time(comp, params[:all_competitors]) %>
       </td>
-      <td><%= series.race.finished ? estimate_points_and_diffs(comp) :
+      <td<%= est_css %>><%= series.race.finished ? estimate_points_and_diffs(comp) :
           estimate_points(comp) %></td>
       <td<%= shots_css %>><%= shot_points_and_total(comp) %></td>
       <td class="center <%= points_css %>"><%= points_print(comp, params[:all_competitors]) %>

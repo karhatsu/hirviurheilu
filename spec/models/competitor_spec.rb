@@ -223,34 +223,37 @@ describe Competitor do
     before do
       @second_partial = mock_model(Competitor, :points => nil, :points! => 12,
         :no_result_reason => nil, :shot_points => 50, :time_points => 30,
-        :time_in_seconds => 999, :unofficial => false)
+        :time_in_seconds => 999, :unofficial => false, :estimate_points => nil)
       @worst_partial = mock_model(Competitor, :points => nil, :points! => nil,
         :no_result_reason => nil, :shot_points => 51, :time_points => 30,
-        :time_in_seconds => 1000, :unofficial => false)
+        :time_in_seconds => 1000, :unofficial => false, :estimate_points => nil)
       @best_partial = mock_model(Competitor, :points => nil, :points! => 88,
         :no_result_reason => nil, :shot_points => 50, :time_points => 30,
-        :time_in_seconds => 1000, :unofficial => false)
+        :time_in_seconds => 1000, :unofficial => false, :estimate_points => nil)
       @best_time = mock_model(Competitor, :points => 199, :points! => 199,
         :no_result_reason => nil, :shot_points => 87, :time_points => 30,
-        :time_in_seconds => 999, :unofficial => false)
+        :time_in_seconds => 999, :unofficial => false, :estimate_points => 250)
       @best_points = mock_model(Competitor, :points => 201, :points! => 201,
         :no_result_reason => nil, :shot_points => 50, :time_points => 30,
-        :time_in_seconds => 1000, :unofficial => false)
+        :time_in_seconds => 1000, :unofficial => false, :estimate_points => 250)
       @worst_points = mock_model(Competitor, :points => 199, :points! => 199,
         :no_result_reason => nil, :shot_points => 87, :time_points => 30,
-        :time_in_seconds => 1000, :unofficial => false)
+        :time_in_seconds => 1000, :unofficial => false, :estimate_points => 250)
       @best_shots = mock_model(Competitor, :points => 199, :points! => 199,
         :no_result_reason => nil, :shot_points => 88, :time_points => 30,
-        :time_in_seconds => 1000, :unofficial => false)
+        :time_in_seconds => 1000, :unofficial => false, :estimate_points => 250)
+      @best_estimates = mock_model(Competitor, :points => 199, :points! => 199,
+        :no_result_reason => nil, :shot_points => 86, :time_points => 30,
+        :time_in_seconds => 1000, :unofficial => false, :estimate_points => 252)
       @c_dnf = mock_model(Competitor, :points => 300, :points! => 300,
         :no_result_reason => "DNF", :shot_points => 88, :time_points => 30,
-        :time_in_seconds => 999, :unofficial => false)
+        :time_in_seconds => 999, :unofficial => false, :estimate_points => 256)
       @c_dns = mock_model(Competitor, :points => 300, :points! => 300,
         :no_result_reason => "DNS", :shot_points => 88, :time_points => 30,
-        :time_in_seconds => 1000, :unofficial => false)
+        :time_in_seconds => 1000, :unofficial => false, :estimate_points => 255)
       @unofficial = mock_model(Competitor, :points => 300, :points! => 300,
         :no_result_reason => nil, :shot_points => 100, :time_points => 100,
-        :time_in_seconds => 1000, :unofficial => true)
+        :time_in_seconds => 1000, :unofficial => true, :estimate_points => 250)
     end
 
     it "should return empty list when no competitors defined" do
@@ -296,6 +299,16 @@ describe Competitor do
         Competitor.sort(competitors, false, Competitor::SORT_BY_SHOTS).should ==
         [@best_shots, @best_time, @worst_points, @worst_partial, @best_points,
           @best_partial, @second_partial, @c_dnf, @c_dns]
+      end
+    end
+    
+    describe "by estimates" do
+      it "should sort by: 1. estimate points 2. points 3. partial points 4. shot points 5. DNS/DNF " do
+        competitors = [@worst_partial, @best_partial,
+          @c_dnf, @c_dns, @best_time, @best_points, @worst_points, @best_shots, @best_estimates]
+        Competitor.sort(competitors, false, Competitor::SORT_BY_ESTIMATES).should ==
+        [@best_estimates, @best_points, @best_shots, @best_time, @worst_points, @best_partial,
+          @worst_partial, @c_dnf, @c_dns]
       end
     end
   end

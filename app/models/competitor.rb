@@ -7,6 +7,7 @@ class Competitor < ActiveRecord::Base
   SORT_BY_POINTS = 0
   SORT_BY_TIME = 1
   SORT_BY_SHOTS = 2
+  SORT_BY_ESTIMATES = 3
 
   belongs_to :club
   belongs_to :series, :counter_cache => true
@@ -213,6 +214,17 @@ class Competitor < ActiveRecord::Base
           ((!all_competitors and b.unofficial) ? 1 : 0),
           a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
           b.time_in_seconds.to_i]
+      end
+    elsif sort_by == SORT_BY_ESTIMATES
+      competitors.sort do |a, b|
+        [a.no_result_reason.to_s, b.estimate_points.to_i,
+          ((!all_competitors and a.unofficial) ? 1 : 0),
+          b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
+          b.shot_points.to_i, a.time_in_seconds.to_i] <=>
+        [b.no_result_reason.to_s, a.estimate_points.to_i,
+          ((!all_competitors and b.unofficial) ? 1 : 0),
+          a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
+          a.shot_points.to_i, b.time_in_seconds.to_i]
       end
     else
       competitors.sort do |a, b|
