@@ -54,8 +54,8 @@ class Series < ActiveRecord::Base
     best_time_in_seconds(@age_group_ids[age_group], all_competitors)
   end
   
-  def ordered_competitors(all_competitors)
-    Competitor.sort(competitors.includes([:shots, :club, :age_group, :series]), all_competitors)
+  def ordered_competitors(all_competitors, sort_by=Competitor::SORT_BY_POINTS)
+    Competitor.sort(competitors.includes([:shots, :club, :age_group, :series]), all_competitors, sort_by)
   end
 
   def next_number

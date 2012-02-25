@@ -5,11 +5,25 @@
     <th>Nimi</th>
     <th>Nro</th>
     <th><%= club_title(series.race) %></th>
-    <th class="center"><%= time_title(series.race) %></th>
+    <th class="center">
+      <% if pdf %>
+        <%= time_title(series.race) %>
+      <% else %>
+        <%= link_to(time_title(series.race), series_competitors_path(series, :sort => Competitor::SORT_BY_TIME)) %>
+      <% end %>
+    </th>
     <th class="center">Arviointi</th>
     <th class="center">Ammunta</th>
-    <th>Pisteet</th>
+    <th>
+      <% if pdf %>
+        Pisteet
+      <% else %>
+        <%= link_to('Pisteet', series_competitors_path(series)) %>
+      <% end %>
+    </th>
   </tr>
+  <% time_css = params[:sort].to_i == Competitor::SORT_BY_TIME ? ' class=total_points' : '' %>
+  <% points_css = params[:sort].blank? ? ' total_points' : '' %>
   <% series.ordered_competitors(params[:all_competitors], params[:sort].to_i).each_with_index do |comp, i| %>
     <% next unless i < 3 or params[:club_id].blank? or comp.club_id == params[:club_id].to_i %>
     <tr id="comp_<%= i+1 %>"<%= i % 2 == 0 ? raw(' class="odd"') : '' %>>
@@ -29,13 +43,13 @@
       </td>
       <td><%= comp.number ? comp.number : '' %></td>
       <td><%= comp.club.name %></td>
-      <td<%= comparison_time_title(comp, params[:all_competitors], pdf) %>>
+      <td<%= comparison_time_title(comp, params[:all_competitors], pdf) %><%= time_css %>>
         <%= time_points_and_time(comp, params[:all_competitors]) %>
       </td>
       <td><%= series.race.finished ? estimate_points_and_diffs(comp) :
           estimate_points(comp) %></td>
       <td><%= shot_points_and_total(comp) %></td>
-      <td class="center total_points"><%= points_print(comp, params[:all_competitors]) %>
+      <td class="center <%= points_css %>"><%= points_print(comp, params[:all_competitors]) %>
         <%= national_record(comp) if comp.points.to_i >= @max_points.to_i %>
       </td>
     </tr>

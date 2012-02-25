@@ -244,7 +244,7 @@ describe Competitor do
         :time_in_seconds => 1000, :unofficial => false)
       @c_dnf = mock_model(Competitor, :points => 300, :points! => 300,
         :no_result_reason => "DNF", :shot_points => 88, :time_points => 30,
-        :time_in_seconds => 1000, :unofficial => false)
+        :time_in_seconds => 999, :unofficial => false)
       @c_dns = mock_model(Competitor, :points => 300, :points! => 300,
         :no_result_reason => "DNS", :shot_points => 88, :time_points => 30,
         :time_in_seconds => 1000, :unofficial => false)
@@ -276,6 +276,16 @@ describe Competitor do
         Competitor.sort(competitors, true).should ==
           [@unofficial, @best_points, @best_shots, @best_time, @worst_points,
           @best_partial, @second_partial, @worst_partial, @c_dnf, @c_dns]
+      end
+    end
+    
+    describe "by time" do
+      it "should sort by: 1. time (secs) 2. points 3. partial points 4. shot points 5. DNS/DNF " do
+        competitors = [@second_partial, @worst_partial, @best_partial,
+          @c_dnf, @c_dns, @best_time, @best_points, @worst_points, @best_shots]
+        Competitor.sort(competitors, false, Competitor::SORT_BY_TIME).should ==
+          [@best_time, @second_partial, @best_points, @best_shots, @worst_points,
+            @best_partial, @worst_partial, @c_dnf, @c_dns]
       end
     end
   end

@@ -3,6 +3,9 @@ class Competitor < ActiveRecord::Base
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish
   MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE = 100
+  
+  SORT_BY_POINTS = 0
+  SORT_BY_TIME = 1
 
   belongs_to :club
   belongs_to :series, :counter_cache => true
@@ -187,14 +190,27 @@ class Competitor < ActiveRecord::Base
     self.correct_estimate4 = nil
   end
 
-  def self.sort(competitors, all_competitors)
-    competitors.sort do |a, b|
-      [a.no_result_reason.to_s, ((!all_competitors and a.unofficial) ? 1 : 0),
-        b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
-        b.shot_points.to_i, a.time_in_seconds.to_i] <=>
-      [b.no_result_reason.to_s, ((!all_competitors and b.unofficial) ? 1 : 0),
-        a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
-        a.shot_points.to_i, b.time_in_seconds.to_i]
+  def self.sort(competitors, all_competitors, sort_by=SORT_BY_POINTS)
+    if sort_by == SORT_BY_TIME
+      competitors.sort do |a, b|
+        [a.no_result_reason.to_s, a.time_in_seconds.to_i,
+          ((!all_competitors and a.unofficial) ? 1 : 0),
+          b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
+          b.shot_points.to_i] <=>
+        [b.no_result_reason.to_s, b.time_in_seconds.to_i,
+          ((!all_competitors and b.unofficial) ? 1 : 0),
+          a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
+          a.shot_points.to_i]
+      end
+    else
+      competitors.sort do |a, b|
+        [a.no_result_reason.to_s, ((!all_competitors and a.unofficial) ? 1 : 0),
+          b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
+          b.shot_points.to_i, a.time_in_seconds.to_i] <=>
+        [b.no_result_reason.to_s, ((!all_competitors and b.unofficial) ? 1 : 0),
+          a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
+          a.shot_points.to_i, b.time_in_seconds.to_i]
+      end
     end
   end
 
