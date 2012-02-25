@@ -13,7 +13,13 @@
       <% end %>
     </th>
     <th class="center">Arviointi</th>
-    <th class="center">Ammunta</th>
+    <th class="center">
+      <% if pdf %>
+        Ammunta
+      <% else %>
+        <%= link_to('Ammunta', series_competitors_path(series, :sort => Competitor::SORT_BY_SHOTS)) %>
+      <% end %>
+    </th>
     <th>
       <% if pdf %>
         Pisteet
@@ -23,6 +29,7 @@
     </th>
   </tr>
   <% time_css = params[:sort].to_i == Competitor::SORT_BY_TIME ? ' class=total_points' : '' %>
+  <% shots_css = params[:sort].to_i == Competitor::SORT_BY_SHOTS ? ' class=total_points' : '' %>
   <% points_css = params[:sort].blank? ? ' total_points' : '' %>
   <% series.ordered_competitors(params[:all_competitors], params[:sort].to_i).each_with_index do |comp, i| %>
     <% next unless i < 3 or params[:club_id].blank? or comp.club_id == params[:club_id].to_i %>
@@ -48,7 +55,7 @@
       </td>
       <td><%= series.race.finished ? estimate_points_and_diffs(comp) :
           estimate_points(comp) %></td>
-      <td><%= shot_points_and_total(comp) %></td>
+      <td<%= shots_css %>><%= shot_points_and_total(comp) %></td>
       <td class="center <%= points_css %>"><%= points_print(comp, params[:all_competitors]) %>
         <%= national_record(comp) if comp.points.to_i >= @max_points.to_i %>
       </td>

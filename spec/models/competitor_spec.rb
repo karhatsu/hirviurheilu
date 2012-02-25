@@ -288,6 +288,16 @@ describe Competitor do
             @best_partial, @worst_partial, @c_dnf, @c_dns]
       end
     end
+    
+    describe "by shots" do
+      it "should sort by: 1. shot points 2. points 3. partial points 4. time (secs) 5. DNS/DNF " do
+        competitors = [@second_partial, @worst_partial, @best_partial,
+          @c_dnf, @c_dns, @best_time, @best_points, @worst_points, @best_shots]
+        Competitor.sort(competitors, false, Competitor::SORT_BY_SHOTS).should ==
+        [@best_shots, @best_time, @worst_points, @worst_partial, @best_points,
+          @best_partial, @second_partial, @c_dnf, @c_dns]
+      end
+    end
   end
 
   describe "#shots_sum" do
