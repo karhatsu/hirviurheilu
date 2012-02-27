@@ -13,7 +13,7 @@
     <th>&nbsp;</th>
   </tr>
   <% @series.competitors.each do |c| %>
-    <%= form_for([:official, @series, c], :remote => true) do |f| %>
+    <%= form_for([:official, @series, c], :remote => true, :html => { :onsubmit => "disableSubmit(#{c.id})" }) do |f| %>
       <%= hidden_field_tag :no_times, true %>
       <tr>
         <td><%= c.number %></td>
@@ -25,7 +25,7 @@
         <td><%= text_field_tag :result, c.shots_sum, :class => 'result',
             :disabled => true, :size => 2 %></td>
         <td><%= submit_tag "Tallenna", :onclick => "start_updating(#{c.id})",
-            :class => 'save' %></td>
+            :class => 'save', :id => "submit_#{c.id}" %></td>
         <td id="status_<%= c.id %>">&nbsp;</td>
       </tr>
     <% end %>
@@ -38,7 +38,10 @@ $('.total').change(function() {
 $('.shot').change(function() {
   calculate_shots_result($(this).closest('tr'));
 });
-$('.save').click(function() {
-  $(this).attr('disabled', true);
+function disableSubmit(id) {
+  $('#submit_' + id).attr('disabled', true);
+}
+$(document).ready(function() {
+  $('.save').attr('disabled', false);
 });
 <% end %>
