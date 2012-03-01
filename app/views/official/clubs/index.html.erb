@@ -47,7 +47,7 @@
         </td>
         <td id="club_long_name_td_<%= club.id %>"><%= club.long_name %></td>
         <td class="center"><%= club.competitors.count %></td>
-        <td class="center"><%= club.competitors.count == 0 ? (link_to "Poista",
+        <td class="center"><%= club.competitors.count == 0 ? (button_to "Poista",
             official_race_club_path(@race.id, club),
             :method => :delete,
             :remote => true,
@@ -59,9 +59,6 @@
 <%= javascript_tag do %>
   $("#submit").click(function() {
     $("#spinner").html('<%= image_tag 'spinner.gif' %>');
-  });
-  $(".remove_club").click(function() {
-    $(this).parent().html('<%= image_tag 'spinner.gif', :class => 'spinner' %>');
   });
   $(".club_name_link").click(function() {
     $(this).hide();
