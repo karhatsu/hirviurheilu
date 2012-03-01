@@ -6,12 +6,12 @@
     <a id="start" href="javascript:void(0)">Ota automaattinen lataus takaisin käyttöön.</a></span>
 </div>
 <%= javascript_tag do %>
-  secs = <%= secs %>;
-  function dereaseSeconds() {
-    if(secs > 0) {
+  var seconds = <%= secs %>;
+  function decreaseSeconds() {
+    if(seconds > 0) {
       $('#stop').show();
-      $('#secs').text(secs + ' sekunnin kuluttua.');
-      secs--;
+      $('#secs').text(seconds + ' sekunnin kuluttua.');
+      seconds--;
     } else {
       $('#stop').hide();
       dots = '..';
@@ -29,7 +29,7 @@
     }
   }
   function continueCounting() {
-    intervalId = setInterval('dereaseSeconds()', 1000);
+    intervalId = setInterval(decreaseSeconds, 1000);
     $('#continue_text').hide();
     $('#reload_text').show();
   }
