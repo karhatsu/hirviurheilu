@@ -106,6 +106,10 @@ Feature: Show race
     And the race is finished
     When I go to the race page
     Then I should see /Oikeat arviot/ within "h3"
+    And I should see "Oikea arvio 1"
+    And I should see "Oikea arvio 2"
+    But I should not see "Oikea arvio 3"
+    But I should not see "Oikea arvio 4"
     And I should see "1-9"
     And I should see "50"
     And I should see "60"
@@ -116,3 +120,77 @@ Feature: Show race
     And I should see "101-"
     And I should see "90"
     And I should see "99"
+
+  Scenario: Show correct estimates also for walking series
+    Given there is a race with attributes:
+      | name | My test race |
+    And the race has series with attributes:
+      | name | Men 50 years |
+      | start_time | 13:00 |
+      | first_number | 1 |
+      | estimates | 4 |
+    And the race has correct estimates with attributes:
+      | min_number | 55 |
+      | max_number | 55 |
+      | distance1 | 70 |
+      | distance2 | 80 |
+      | distance3 | 110 |
+      | distance4 | 120 |
+    And the race has correct estimates with attributes:
+      | min_number | 1 |
+      | max_number | 9 |
+      | distance1 | 50 |
+      | distance2 | 60 |
+      | distance3 | 171 |
+      | distance4 | 181 |
+    And the race has correct estimates with attributes:
+      | min_number | 101 |
+      | max_number | |
+      | distance1 | 90 |
+      | distance2 | 99 |
+      | distance3 | 153 |
+      | distance4 | 156 |
+    And the series has a competitor with attributes:
+      | first_name | James |
+      | last_name | Johnson |
+    And the series has a competitor with attributes:
+      | first_name | Tim |
+      | last_name | Atkinsson |
+    And the start list has been generated for the series
+    And the competitor "James" "Johnson" has the following results:
+      | shots_total_input | 85 |
+      | estimate1 | 111 |
+      | estimate2 | 129 |
+      | estimate3 | 111 |
+      | estimate4 | 129 |
+      | arrival_time | 14:00:10 |
+    And the competitor "Tim" "Atkinsson" has the following results:
+      | shots_total_input | 90 |
+      | estimate1 | 110 |
+      | estimate2 | 130 |
+      | estimate3 | 110 |
+      | estimate4 | 130 |
+      | arrival_time | 14:01:00 |
+    And the race is finished
+    When I go to the race page
+    Then I should see /Oikeat arviot/ within "h3"
+    And I should see "Oikea arvio 1"
+    And I should see "Oikea arvio 2"
+    And I should see "Oikea arvio 3"
+    And I should see "Oikea arvio 4"
+    And I should see "1-9"
+    And I should see "50"
+    And I should see "60"
+    And I should see "55"
+    And I should see "110"
+    And I should see "120"
+    But I should not see "55-55"
+    And I should see "70"
+    And I should see "80"
+    And I should see "171"
+    And I should see "181"
+    And I should see "101-"
+    And I should see "90"
+    And I should see "99"
+    And I should see "153"
+    And I should see "156"

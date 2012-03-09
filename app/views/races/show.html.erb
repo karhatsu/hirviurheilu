@@ -23,18 +23,27 @@
       <%= submit_tag 'Lataa lähtöajat' %>
     <% end %>
     <% if @race.finished? %>
+      <% estimates_at_most = @race.estimates_at_most %>
       <h3>Oikeat arviot</h3>
       <table>
         <tr>
           <th>Kilpailunumerot</th>
           <th>Oikea arvio 1</th>
           <th>Oikea arvio 2</th>
+          <% if estimates_at_most == 4 %>
+            <th>Oikea arvio 3</th>
+            <th>Oikea arvio 4</th>
+          <% end %>
         </tr>
         <% @race.correct_estimates.each do |ce| %>
           <tr>
             <td class="center"><%= correct_estimate_range(ce) %></td>
             <td class="center"><%= ce.distance1 %></td>
             <td class="center"><%= ce.distance2 %></td>
+            <% if estimates_at_most == 4 %>
+              <td class="center"><%= ce.distance3 %></td>
+              <td class="center"><%= ce.distance4 %></td>
+            <% end %>
           </tr>
         <% end %>
       </table>
