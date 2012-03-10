@@ -165,7 +165,7 @@ class Race < ActiveRecord::Base
   end
 
   def race_day
-    day = (Date.today - start_date).to_i + 1
+    day = (Time.zone.today - start_date).to_i + 1
     return 0 if day < 0 or day > days_count
     day
   end
