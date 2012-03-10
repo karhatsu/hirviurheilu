@@ -628,6 +628,7 @@ describe ApplicationHelper do
         stub!(:result_rotation_series_list).with(@race).and_return(['series1', 'series2'])
         stub!(:result_rotation_tc_list).with(@race).and_return(['tc1', 'tc2'])
         stub!(:result_rotation_relay_list).with(@race).and_return(['relay1', 'relay2'])
+        stub!(:result_rotation_tc_cookie).and_return(true)
       end
 
       it "should return an empty list when offline" do
@@ -653,6 +654,16 @@ describe ApplicationHelper do
         list.size.should == 2
         list[0].should == 'relay1'
         list[1].should == 'relay2'
+      end
+      
+      it "should not return team competition paths unless cookie for that" do
+        stub!(:result_rotation_tc_cookie).and_return(false)
+        list = result_rotation_list(@race)
+        list.size.should == 4
+        list[0].should == 'series1'
+        list[1].should == 'series2'
+        list[2].should == 'relay1'
+        list[3].should == 'relay2'
       end
     end
 

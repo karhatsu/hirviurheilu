@@ -379,7 +379,7 @@ module ApplicationHelper
     return [] if offline?
     list = result_rotation_series_list(race)
     # team competition is active only when at least one series is active
-    list += result_rotation_tc_list(race) unless list.empty?
+    list += result_rotation_tc_list(race) unless list.empty? or !result_rotation_tc_cookie
     list += result_rotation_relay_list(race)
     list
   end
@@ -473,5 +473,9 @@ module ApplicationHelper
 
   def result_rotation_cookie
     return cookies[result_rotation_cookie_name]
+  end
+  
+  def result_rotation_tc_cookie
+    return cookies[result_rotation_tc_cookie_name]
   end
 end

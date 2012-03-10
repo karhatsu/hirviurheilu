@@ -14,8 +14,14 @@
     Tuloskehää ei voida käynnistää, koska yhtään kilpailua ei ole tällä hetkellä käynnissä.
   <% else %>
     <div class="section">Tuloskehä ei ole käynnissä.</div>
-    <%= form_tag(race_result_rotation_path(@race)) do %>
-      <%= submit_tag 'Ota tuloskehä käyttöön' %>
-    <% end %>
+    <div class="section">
+      <%= form_tag(race_result_rotation_path(@race)) do %>
+        <% unless @race.team_competitions.empty? %>
+          <%= check_box_tag :team_competitions %>
+          <%= label_tag :team_competitions, 'Sisällytä joukkuekilpailut tuloskehään' %><br/>
+        <% end %>
+        <%= submit_tag 'Ota tuloskehä käyttöön' %>
+      <% end %>
+    </div>
   <% end %>
 <% end %>
