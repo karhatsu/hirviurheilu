@@ -15,6 +15,7 @@
       <tr>
         <th>&nbsp;</th>
         <th>Joukkue</th>
+        <th>Kilpailija</th>
         <th>Nro</th>
         <th>Aika</th>
         <th>Ammuntasakot</th>
@@ -25,6 +26,7 @@
         <tr id="team_<%= i + 1 %>">
           <td><%= i + 1 %>.</td>
           <td><%= team.name %></td>
+          <td><%= full_name competitor %></td>
           <td class="center"><%= team.number %></td>
           <td class="center team_points">
             <%= time_from_seconds(team.time_in_seconds(@leg.to_i)) %>
