@@ -201,6 +201,31 @@ describe Series do
         @series.best_time_in_seconds(@age_group_ids, false).should == 123
       end
     end
+    
+    describe "cache" do
+      before do
+        @series = Factory.build(:series)
+        @competitors = [mock_model(Competitor)]
+        @series.should_receive(:competitors).once.and_return(@competitors)
+      end
+      
+      context "when first method call returns non-nil" do
+        it "should return correct value without db query" do
+          result = "1234"
+          @competitors.should_receive(:minimum).once.and_return(result)
+          @series.best_time_in_seconds([1,2], true).should == result.to_i
+          @series.best_time_in_seconds([1,2], true).should == result.to_i
+        end
+      end
+      
+      context "when first method call returns nil" do
+        it "should return nil without db query" do
+          @competitors.should_receive(:minimum).once.and_return(nil)
+          @series.best_time_in_seconds([1,2], true).should == nil
+          @series.best_time_in_seconds([1,2], true).should == nil
+        end
+      end
+    end
   end
   
   describe "#comparison_time_in_seconds" do

@@ -39,13 +39,22 @@ class Series < ActiveRecord::Base
   validate :start_day_not_bigger_than_race_days_count
   
   before_destroy :prevent_destroy_if_competitors
-
+  
   def best_time_in_seconds(age_group_ids, all_competitors)
+    @best_time_cache ||= Hash.new
+    cache_key = age_group_ids.to_s + all_competitors.to_s
+    return @best_time_cache[cache_key] if @best_time_cache.has_key?(cache_key)
     conditions = { :no_result_reason => nil }
     conditions[:unofficial] = false unless all_competitors
     conditions[:age_group_id] = age_group_ids if age_group_ids
     time = competitors.minimum(time_subtraction_sql, :conditions => conditions)
-    return time.to_i if time
+    if time
+      @best_time_cache[cache_key] = time.to_i
+      return time.to_i
+    else
+      @best_time_cache[cache_key] = nil
+      return nil
+    end
   end
   
   def comparison_time_in_seconds(age_group, all_competitors)
