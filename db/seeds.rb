@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 # roles, users
 Role.create_roles
 
