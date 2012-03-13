@@ -1,5 +1,5 @@
 def check_path(path)
-  raise "File #{exe_path} does not exist" unless File.exist?(path)
+  raise "File #{path} does not exist" unless File.exist?(path)
 end
 
 if WINDOWS_PLATFORM
