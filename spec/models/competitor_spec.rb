@@ -1047,4 +1047,31 @@ describe Competitor do
       @competitor.correct_estimate4.should == ce4
     end
   end
+  
+  describe "#relative_points" do
+    before do
+      @all_competitors = false
+    end
+    
+    it "should be -2 when competitor did not start" do
+      Factory.build(:competitor, :no_result_reason => Competitor::DNS).relative_points(@all_competitors).should == -2
+    end
+    
+    it "should be -1 when competitor did not finish" do
+      Factory.build(:competitor, :no_result_reason => Competitor::DNF).relative_points(@all_competitors).should == -1
+    end
+    
+    it "should be 0 when competitor has no results yet" do
+      Factory.build(:competitor).relative_points(@all_competitors).should == 0
+    end
+    
+    it "should be 1000 x points + 100 x partial points + 10 x shot points + time points" do
+      c = Factory.build(:competitor)
+      c.stub!(:points).with(@all_competitors).and_return(800)
+      c.stub!(:points!).with(@all_competitors).and_return(500)
+      c.stub!(:shot_points).and_return(300)
+      c.stub!(:time_points).with(@all_competitors).and_return(250)
+      c.relative_points(@all_competitors).should == 1000*800 + 100*500 + 10*300 + 250
+    end
+  end
 end

@@ -22,11 +22,12 @@
   <% est_css = params[:sort].to_i == Competitor::SORT_BY_ESTIMATES ? ' class=total_points' : '' %>
   <% shots_css = params[:sort].to_i == Competitor::SORT_BY_SHOTS ? ' class=total_points' : '' %>
   <% points_css = params[:sort].blank? ? ' total_points' : '' %>
+  <% prev_rel_points = 1.0/0.0 %>
   <% series.ordered_competitors(params[:all_competitors], params[:sort].to_i).each_with_index do |comp, i| %>
     <% next unless i < 3 or params[:club_id].blank? or comp.club_id == params[:club_id].to_i %>
     <tr id="comp_<%= i+1 %>"<%= i % 2 == 0 ? raw(' class="odd"') : '' %>>
       <% @max_points = comp.points(false) if i == 0 %>
-      <td><%= i + 1 %>.</td>
+      <td><%= "#{i + 1}." unless comp.relative_points == prev_rel_points %></td>
       <td>
         <% if pdf %>
           <%= full_name(comp) %>
@@ -51,5 +52,6 @@
         <%= national_record(comp) if comp.points.to_i >= @max_points.to_i %>
       </td>
     </tr>
+    <% prev_rel_points = comp.relative_points %>
   <% end %>
 </table>

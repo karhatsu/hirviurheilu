@@ -169,6 +169,12 @@ class Competitor < ActiveRecord::Base
   def points!(all_competitors=false)
     shot_points.to_i + estimate_points.to_i + time_points(all_competitors).to_i
   end
+  
+  def relative_points(all_competitors=false)
+    return -2 if no_result_reason == DNS
+    return -1 if no_result_reason == DNF
+    1000*points(all_competitors).to_i + 100*points!(all_competitors).to_i + 10*shot_points.to_i + time_points(all_competitors).to_i
+  end
 
   def finished?
     no_result_reason or
