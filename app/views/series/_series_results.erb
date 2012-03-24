@@ -6,32 +6,16 @@
     <th>Nro</th>
     <th><%= club_title(series.race) %></th>
     <th class="center">
-      <% if pdf %>
-        <%= time_title(series.race) %>
-      <% else %>
-        <%= link_to(time_title(series.race), series_competitors_path(series, :sort => Competitor::SORT_BY_TIME)) %>
-      <% end %>
+      <%= link_to_unless(pdf, time_title(series.race), series_competitors_path(series, :sort => Competitor::SORT_BY_TIME)) %>
     </th>
     <th class="center">
-      <% if pdf %>
-        Arviointi
-      <% else %>
-        <%= link_to('Arviointi', series_competitors_path(series, :sort => Competitor::SORT_BY_ESTIMATES)) %>
-      <% end %>
+      <%= link_to_unless(pdf, 'Arviointi', series_competitors_path(series, :sort => Competitor::SORT_BY_ESTIMATES)) %>
     </th>
     <th class="center">
-      <% if pdf %>
-        Ammunta
-      <% else %>
-        <%= link_to('Ammunta', series_competitors_path(series, :sort => Competitor::SORT_BY_SHOTS)) %>
-      <% end %>
+      <%= link_to_unless(pdf, 'Ammunta', series_competitors_path(series, :sort => Competitor::SORT_BY_SHOTS)) %>
     </th>
     <th>
-      <% if pdf %>
-        Pisteet
-      <% else %>
-        <%= link_to('Pisteet', series_competitors_path(series)) %>
-      <% end %>
+      <%= link_to_unless(pdf, 'Pisteet', series_competitors_path(series)) %>
     </th>
   </tr>
   <% time_css = params[:sort].to_i == Competitor::SORT_BY_TIME ? ' class=total_points' : '' %>
