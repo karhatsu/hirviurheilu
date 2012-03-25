@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120325085514) do
+ActiveRecord::Schema.define(:version => 20120325094206) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -86,6 +86,11 @@ ActiveRecord::Schema.define(:version => 20120325085514) do
     t.integer  "top_competitions", :default => 2, :null => false
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
+  end
+
+  create_table "cups_races", :force => true do |t|
+    t.integer "cup_id",  :null => false
+    t.integer "race_id", :null => false
   end
 
   create_table "prices", :force => true do |t|

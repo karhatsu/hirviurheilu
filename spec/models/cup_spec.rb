@@ -15,4 +15,8 @@ describe Cup do
     it { should allow_value(2).for(:top_competitions) }
     it { should_not allow_value(2.1).for(:top_competitions) }
   end
+  
+  describe "relations" do
+    it { should have_and_belong_to_many(:races) }
+  end
 end
