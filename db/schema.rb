@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120211085338) do
+ActiveRecord::Schema.define(:version => 20120325085514) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -79,6 +79,13 @@ ActiveRecord::Schema.define(:version => 20120211085338) do
     t.datetime "updated_at"
     t.integer  "distance3"
     t.integer  "distance4"
+  end
+
+  create_table "cups", :force => true do |t|
+    t.string   "name",                            :null => false
+    t.integer  "top_competitions", :default => 2, :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   create_table "prices", :force => true do |t|
