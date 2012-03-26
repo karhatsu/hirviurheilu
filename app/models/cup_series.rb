@@ -1,9 +1,18 @@
 class CupSeries
-  def initialize(name)
-    @name = name
+  def initialize(series)
+    @series = [series]
+  end
+  
+  def <<(series)
+    raise "Series name (#{series.name}) should be #{name}" if series.name != name
+    @series << series
+  end
+  
+  def series
+    @series
   end
   
   def name
-    @name
+    @series.first.name
   end
 end
