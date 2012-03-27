@@ -20,6 +20,10 @@ class CupCompetitor
     @competitors
   end
   
+  def points
+    @competitors.sum { |c| c.points(false).to_i }
+  end
+  
   private
   def name(competitor)
     "#{competitor.last_name} #{competitor.first_name}"

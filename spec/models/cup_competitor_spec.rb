@@ -20,7 +20,7 @@ describe CupCompetitor do
 
   describe "other competitors" do
     it "should accept other competitors when their name is the same as the first one's" do
-      @cc << mock_model(Competitor, :first_name => @competitor.first_name, :last_name => @competitor.last_name)
+      @cc << valid_competitor
       @cc.competitors.length.should == 2
     end
     
@@ -35,5 +35,32 @@ describe CupCompetitor do
         :last_name => 'Other') }.should raise_error
       @cc.competitors.length.should == 1
     end
+  end
+  
+  describe "#points" do
+    before do
+      @competitor2 = valid_competitor
+      @competitor3 = valid_competitor
+      @cc << @competitor2
+      @cc << @competitor3
+    end
+    
+    it "should be 0 when no points available in any of the competitions" do
+      @competitor.stub!(:points).with(false).and_return(nil)
+      @competitor2.stub!(:points).with(false).and_return(nil)
+      @competitor3.stub!(:points).with(false).and_return(nil)
+      @cc.points.should == 0
+    end
+    
+    it "should be sum of points in individual competitions" do
+      @competitor.stub!(:points).with(false).and_return(1000)
+      @competitor2.stub!(:points).with(false).and_return(2000)
+      @competitor3.stub!(:points).with(false).and_return(3000)
+      @cc.points.should == 1000 + 2000 + 3000
+    end
+  end
+  
+  def valid_competitor
+    mock_model(Competitor, :first_name => @competitor.first_name, :last_name => @competitor.last_name)
   end
 end
