@@ -23,4 +23,44 @@ describe CupSeries do
       @cs.series.length.should == 1
     end
   end
+  
+  describe "#cup_competitors" do
+    context "when no competitors in series" do
+      it "should return an empty array" do
+        @series1.stub!(:competitors).and_return([])
+        @cs.cup_competitors.should == []
+      end
+    end
+    
+    context "when competitors in series" do
+      before do
+        @cMM1 = competitor('Mikko', 'Miettinen')
+        @cMM2 = competitor('Mikko', 'Miettinen')
+        @cMM3 = competitor('Mikko', 'Miettinen')
+        @cTM1 = competitor('Timo', 'Miettinen')
+        @cTM3 = competitor('Timo', 'Miettinen')
+        @cMT1 = competitor('Mikko', 'Turunen')
+        @cAA2 = competitor('Aki', 'Aalto')
+        @series1.stub!(:competitors).and_return([@cMM1, @cTM1, @cMT1])
+        @cs << mock_model(Series, :name => @series1.name, :competitors => [@cMM2, @cAA2])
+        @cs << mock_model(Series, :name => @series1.name, :competitors => [@cMM3, @cTM3])
+      end
+      
+      it "should return cup competitors created based on competitors' first and last name" do
+        cup_competitors = @cs.cup_competitors
+        cup_competitors.length.should == 4
+        cup_competitors[0].competitors[0].should == @cMM1
+        cup_competitors[0].competitors[1].should == @cMM2
+        cup_competitors[0].competitors[2].should == @cMM3
+        cup_competitors[1].competitors[0].should == @cTM1
+        cup_competitors[1].competitors[1].should == @cTM3
+        cup_competitors[2].competitors[0].should == @cMT1
+        cup_competitors[3].competitors[0].should == @cAA2
+      end
+      
+      def competitor(first_name, last_name)
+        mock_model(Competitor, :first_name => first_name, :last_name => last_name)
+      end
+    end
+  end
 end
