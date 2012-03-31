@@ -9,7 +9,7 @@
       <th>Yhteispisteet</th>
     </tr>
   </thead>
-  <% @cup_series.cup_competitors.each_with_index do |cc, i| %>
+  <% @cup_series.ordered_competitors.each_with_index do |cc, i| %>
     <tr id="comp_<%= i+1 %>">
       <td><%= cc.last_name %> <%= cc.first_name %></td>
       <% cc.competitors.each do |c| %>

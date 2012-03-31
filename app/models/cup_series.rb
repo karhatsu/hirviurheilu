@@ -35,4 +35,8 @@ class CupSeries
     end
     name_to_competitor.values
   end
+  
+  def ordered_competitors
+    cup_competitors.sort { |a, b| b.points <=> a.points }
+  end
 end

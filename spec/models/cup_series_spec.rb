@@ -70,4 +70,19 @@ describe CupSeries do
       end
     end
   end
+  
+  describe "#ordered_competitors" do
+    it "should return an empty array when no competitors" do
+      @cs.stub!(:cup_competitors).and_return([])
+      @cs.ordered_competitors.should == []
+    end
+    
+    it "should return cup competitors ordered by descending total points" do
+      cc1 = mock(CupCompetitor, :points => 3000)
+      cc2 = mock(CupCompetitor, :points => 3001)
+      cc3 = mock(CupCompetitor, :points => 2999)
+      @cs.stub!(:cup_competitors).and_return([cc1, cc2, cc3])
+      @cs.ordered_competitors.should == [cc2, cc1, cc3]
+    end
+  end
 end

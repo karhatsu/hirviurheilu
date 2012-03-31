@@ -38,8 +38,8 @@ Feature: Cup results
       | start_time | 10:00 |
       | first_number | 1 |
       | has_start_list | true |
-    And the series has a competitor "Timo" "Turunen" with 300+298+600 points
     And the series has a competitor "Antti" "Miettinen" with 300+300+594 points
+    And the series has a competitor "Timo" "Turunen" with 300+298+600 points
     And the race belongs to the cup
     And there is a race "Another cup race"
     And the race has series with attributes:
