@@ -27,6 +27,8 @@ ElkSports::Application.routes.draw do
   
   post 'calculate_price' => 'prices#calculate_price', :as => :calculate_price
   resources :prices
+  
+  resources :cups
 
   resources :races do
     resources :start_lists

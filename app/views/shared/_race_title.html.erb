@@ -5,6 +5,10 @@
     <span>
       <%= race.name %> (<%= race.location %>, <%= race_date_interval(race) %>)
     </span>
+  <% elsif @cup %>
+    <%= sport_icon(Sport.find_ski) %>
+    <%= sport_icon(Sport.find_run) %>
+    <span><%= @cup.name %></span>
   <% else %>
     <%= sport_icon(Sport.find_ski) %>
     <%= sport_icon(Sport.find_run) %>
