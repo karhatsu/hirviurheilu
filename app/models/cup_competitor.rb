@@ -1,5 +1,6 @@
 class CupCompetitor
   def initialize(cup_series, competitor)
+    @cup_series = cup_series
     @competitors = [competitor]
   end
   
@@ -21,7 +22,10 @@ class CupCompetitor
   end
   
   def points
-    @competitors.sum { |c| c.points(false).to_i }
+    top_competitions = @cup_series.cup.top_competitions
+    total_competitions = @competitors.length
+    points_in_competitions = @competitors.collect { |c| c.points(false).to_i }
+    points_in_competitions.sort.reverse[0, top_competitions].inject(:+)
   end
   
   def self.name(competitor)
