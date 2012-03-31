@@ -311,6 +311,16 @@ module ApplicationHelper
     menu << "</ul>"
     raw(menu)
   end
+  
+  def cup_series_dropdown_menu(cup)
+    return '' if cup.cup_series.length <= 1
+    menu = "<ul>"
+    cup.cup_series.each do |cs|
+      menu << "<li>#{link_to cs.name, cup_cup_series_path(cup, cs.name)}</li>"
+    end
+    menu << "</ul>"
+    raw(menu)
+  end
 
   def yes_or_empty(boolean, value=nil, &block)
     if boolean
