@@ -56,8 +56,8 @@ Feature: Cup results
       | start_time | 10:00 |
       | first_number | 1 |
       | has_start_list | true |
-    And the series has a competitor "Timo" "Turunen" with 300+300+300 points
-    And the series has a competitor "Antti" "Miettinen" with 300+300+300 points
+    And the series has a competitor "Timo" "Turunen" with 300+300+600 points
+    And the series has a competitor "Antti" "Miettinen" with 300+290+600 points
     And the race belongs to the cup
     When I go to the cup page
     And I follow "Men"
@@ -65,4 +65,12 @@ Feature: Cup results
     And the "Tulokset" sub menu item should be selected
     And I should see "Tulokset - Men" within "h2"
     And I should see "Turunen Timo"
+    And I should see "1198" within "tr#comp_1"
+    And I should see "1196" within "tr#comp_1"
+    And I should see "1200" within "tr#comp_1"
+    And I should see "2398" within "tr#comp_1"
     And I should see "Miettinen Antti"
+    And I should see "1194" within "tr#comp_2"
+    And I should see "1188" within "tr#comp_2"
+    And I should see "1190" within "tr#comp_2"
+    And I should see "2384" within "tr#comp_2"
