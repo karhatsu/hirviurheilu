@@ -8,6 +8,10 @@ class Cup < ActiveRecord::Base
     pick_series_with_same_name_in_all_races
   end
   
+  def find_cup_series(name)
+    (cup_series.select { |cs| cs.name == name }).first
+  end
+  
   private
   def pick_series_with_same_name_in_all_races
     race_count = races.length

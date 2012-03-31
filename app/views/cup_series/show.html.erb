@@ -1,0 +1,8 @@
+<h2>Tulokset - <%= @cup_series.name %></h2>
+<table>
+  <% @cup_series.cup_competitors.each do |cc| %>
+    <tr>
+      <td><%= cc.last_name %> <%= cc.first_name %></td>
+    </tr>
+  <% end %>
+</table>

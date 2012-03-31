@@ -51,4 +51,18 @@ describe Cup do
       race
     end
   end
+  
+  describe "#find_cup_series" do
+    it "should return nil if unknown series name" do
+      Factory.build(:cup).find_cup_series('Fooo').should be_nil
+    end
+    
+    it "should return the cup series with given name" do
+      cup = Factory.build(:cup)
+      cs1 = mock(CupSeries, :name => 'Series 1')
+      cs2 = mock(CupSeries, :name => 'Series 2')
+      cup.stub!(:cup_series).and_return([cs1, cs2])
+      cup.find_cup_series(cs2.name).should == cs2
+    end
+  end
 end

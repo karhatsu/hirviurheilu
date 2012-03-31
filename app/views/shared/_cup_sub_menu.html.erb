@@ -2,6 +2,7 @@
     <div class="menu sub_menu">
       <ul>
         <%= menu_item 'Cup-kilpailun etusivu', cup_path(@cup), @is_cup_main %>
+        <%= menu_item 'Tulokset', cup_cup_series_path(@cup.cup_series.first), @is_cup_series %>
       </ul>
     </div>
   </div>

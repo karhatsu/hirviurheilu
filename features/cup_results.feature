@@ -30,3 +30,39 @@ Feature: Cup results
     When I follow "Another cup race"
     Then I should be on the race page of "Another cup race"
     
+  Scenario: Show results for a cup series
+    Given there is a cup "Test cup" with 2 top competitions
+    And there is a race "Cup race 1"
+    And the race has series with attributes:
+      | name | Men |
+      | start_time | 10:00 |
+      | first_number | 1 |
+      | has_start_list | true |
+    And the series has a competitor "Timo" "Turunen" with 300+298+600 points
+    And the series has a competitor "Antti" "Miettinen" with 300+300+594 points
+    And the race belongs to the cup
+    And there is a race "Another cup race"
+    And the race has series with attributes:
+      | name | Men |
+      | start_time | 10:00 |
+      | first_number | 1 |
+      | has_start_list | true |
+    And the series has a competitor "Timo" "Turunen" with 300+296+600 points
+    And the series has a competitor "Antti" "Miettinen" with 300+300+588 points
+    And the race belongs to the cup
+    And there is a race "Third race for cup"
+    And the race has series with attributes:
+      | name | Men |
+      | start_time | 10:00 |
+      | first_number | 1 |
+      | has_start_list | true |
+    And the series has a competitor "Timo" "Turunen" with 300+300+300 points
+    And the series has a competitor "Antti" "Miettinen" with 300+300+300 points
+    And the race belongs to the cup
+    When I go to the cup page
+    And I follow "Men"
+    Then the "Kilpailut" main menu item should be selected
+    And the "Tulokset" sub menu item should be selected
+    And I should see "Tulokset - Men" within "h2"
+    And I should see "Turunen Timo"
+    And I should see "Miettinen Antti"
