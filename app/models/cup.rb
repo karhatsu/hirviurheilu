@@ -5,7 +5,7 @@ class Cup < ActiveRecord::Base
   validates :top_competitions, :numericality => { :greater_than => 1, :only_integer => true }
   
   def cup_series
-    pick_series_with_same_name_in_all_races
+    @cup_series ||= pick_series_with_same_name_in_all_races
   end
   
   def find_cup_series(name)

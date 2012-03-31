@@ -22,6 +22,15 @@ class CupSeries
   end
   
   def cup_competitors
+    @cup_competitors ||= pick_competitors_with_same_name_in_all_races
+  end
+  
+  def ordered_competitors
+    cup_competitors.sort { |a, b| b.points <=> a.points }
+  end
+  
+  private
+  def pick_competitors_with_same_name_in_all_races
     name_to_competitor = Hash.new
     @series.each do |series|
       series.competitors.each do |competitor|
@@ -34,9 +43,5 @@ class CupSeries
       end
     end
     name_to_competitor.values
-  end
-  
-  def ordered_competitors
-    cup_competitors.sort { |a, b| b.points <=> a.points }
   end
 end
