@@ -16,7 +16,7 @@
         <td><%= i + 1 %>.</td>
         <td><%= cc.last_name %> <%= cc.first_name %></td>
         <% cc.competitors.each do |c| %>
-          <td class="center"><%= points_print c, false %></td>
+          <td class="center"><%= link_to points_print(c, false), series_competitor_path(c.series, c) %></td>
         <% end %>
         <td class='center total_points'><%= cc.points %></td>
       </tr>
