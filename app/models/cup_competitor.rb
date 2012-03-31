@@ -1,5 +1,5 @@
 class CupCompetitor
-  def initialize(competitor)
+  def initialize(cup_series, competitor)
     @competitors = [competitor]
   end
   

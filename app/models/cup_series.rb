@@ -1,6 +1,11 @@
 class CupSeries
-  def initialize(series)
+  def initialize(cup, series)
+    @cup = cup
     @series = [series]
+  end
+  
+  def cup
+    @cup
   end
   
   def <<(series)
@@ -24,7 +29,7 @@ class CupSeries
         if name_to_competitor.has_key?(name)
           name_to_competitor[name] << competitor
         else
-          name_to_competitor[name] = CupCompetitor.new(competitor)
+          name_to_competitor[name] = CupCompetitor.new(self, competitor)
         end
       end
     end

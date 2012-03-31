@@ -2,8 +2,10 @@ require 'spec_helper'
 
 describe CupCompetitor do
   before do
+    @cup = mock(Cup)
+    @cs = mock(CupSeries, :cup => @cup)
     @competitor = mock_model(Competitor, :first_name => 'Mikko', :last_name => 'Miettinen')
-    @cc = CupCompetitor.new(@competitor)
+    @cc = CupCompetitor.new(@cs, @competitor)
   end
   
   describe "#first_name" do

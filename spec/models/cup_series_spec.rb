@@ -2,8 +2,15 @@ require 'spec_helper'
 
 describe CupSeries do
   before do
+    @cup = mock_model(Cup)
     @series1 = mock_model(Series, :name => 'M')
-    @cs = CupSeries.new(@series1)
+    @cs = CupSeries.new(@cup, @series1)
+  end
+  
+  describe "#cup" do
+    it "should return the given cup" do
+      @cs.cup.should == @cup
+    end
   end
   
   describe "#name" do

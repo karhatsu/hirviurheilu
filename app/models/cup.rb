@@ -17,7 +17,7 @@ class Cup < ActiveRecord::Base
         if name_to_cup_series.has_key?(series.name)
           name_to_cup_series[series.name] << series
         else
-          name_to_cup_series[series.name] = CupSeries.new(series)
+          name_to_cup_series[series.name] = CupSeries.new(self, series)
         end
       end
     end
