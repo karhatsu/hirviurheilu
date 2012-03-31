@@ -3,28 +3,10 @@
   <%= render :partial => 'shared/cup_series_sub_menu' %>
 <% end %>
 <div class="section">
-  <table>
-    <thead>
-      <tr>
-        <th>&nbsp;</th>
-        <th>Kilpailija</th>
-        <% @cup.races.each do |race| %>
-          <th title="<%= race.name %>"><%= truncate(race.name, :length => 10) %></th>
-        <% end %>
-        <th>Yhteispisteet</th>
-      </tr>
-    </thead>
-    <% @cup_series.ordered_competitors.each_with_index do |cc, i| %>
-      <tr id="comp_<%= i+1 %>" class="<%= i % 2 == 0 ? 'odd' : '' %>">
-        <td><%= i + 1 %>.</td>
-        <td><%= cc.last_name %> <%= cc.first_name %></td>
-        <% cc.competitors.each do |c| %>
-          <td class="center"><%= link_to points_print(c, false), series_competitor_path(c.series, c) %></td>
-        <% end %>
-        <td class='center total_points'><%= cc.points %></td>
-      </tr>
-    <% end %>
-  </table>
+  <%= render :partial => 'cup_series_results' %>
+</div>
+<div class="action_box">
+  <%= link_to 'Lataa tulokset pdf-tiedostona', cup_cup_series_path(@cup, @cup_series.name, :format => :pdf) %>
 </div>
 <hr/>
 <%= link_to "Takaisin cup-kilpailun etusivulle", cup_path(@cup) %>

@@ -1,0 +1,23 @@
+<% is_pdf = defined?(pdf) %>
+<table>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>Kilpailija</th>
+      <% @cup.races.each do |race| %>
+        <th title="<%= race.name %>"><%= truncate(race.name, :length => 10) %></th>
+      <% end %>
+      <th>Yhteispisteet</th>
+    </tr>
+  </thead>
+  <% @cup_series.ordered_competitors.each_with_index do |cc, i| %>
+    <tr id="comp_<%= i+1 %>" class="<%= i % 2 == 0 ? 'odd' : '' %>">
+      <td><%= i + 1 %>.</td>
+      <td><%= cc.last_name %> <%= cc.first_name %></td>
+      <% cc.competitors.each do |c| %>
+        <td class="center"><%= link_to_unless is_pdf, points_print(c, false), series_competitor_path(c.series, c) %></td>
+      <% end %>
+      <td class='center total_points'><%= cc.points %></td>
+    </tr>
+  <% end %>
+</table>
