@@ -64,6 +64,9 @@ Feature: Cup results
     Then the "Kilpailut" main menu item should be selected
     And the "Tulokset" sub menu item should be selected
     And I should see "Tulokset - Men" within "h2"
+    And I should see "Cup race 1" within "thead"
+    And I should see "Another" within "thead"
+    And I should see "Third " within "thead"
     And I should see "Turunen Timo"
     And I should see "1198" within "tr#comp_1"
     And I should see "1196" within "tr#comp_1"

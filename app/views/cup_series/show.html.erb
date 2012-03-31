@@ -1,12 +1,21 @@
 <h2>Tulokset - <%= @cup_series.name %></h2>
 <table>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <% @cup.races.each do |race| %>
+        <th title="<%= race.name %>"><%= truncate(race.name, :length => 10) %></th>
+      <% end %>
+      <th>Yhteispisteet</th>
+    </tr>
+  </thead>
   <% @cup_series.cup_competitors.each_with_index do |cc, i| %>
     <tr id="comp_<%= i+1 %>">
       <td><%= cc.last_name %> <%= cc.first_name %></td>
       <% cc.competitors.each do |c| %>
-        <td><%= points_print c, false %></td>
+        <td class="center"><%= points_print c, false %></td>
       <% end %>
-      <td class='total_points'><%= cc.points %></td>
+      <td class='center total_points'><%= cc.points %></td>
     </tr>
   <% end %>
 </table>
