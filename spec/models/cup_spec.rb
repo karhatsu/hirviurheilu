@@ -88,4 +88,32 @@ describe Cup do
       cup.sport.should == Sport::RUN
     end
   end
+  
+  describe "#start_date" do
+    it "should be nil when no races" do
+      Factory.build(:cup).start_date.should be_nil
+    end
+    
+    it "should be the start date of the first race (since races are ordered by start date)" do
+      cup = Factory.build(:cup)
+      race1 = Factory.build(:race, :start_date => '2012-04-01')
+      race2 = Factory.build(:race, :start_date => '2012-03-31')
+      cup.stub!(:races).and_return([race2, race1])
+      cup.start_date.strftime('%Y-%m-%d').should == '2012-03-31'
+    end
+  end
+  
+  describe "#end_date" do
+    it "should be nil when no races" do
+      Factory.build(:cup).end_date.should be_nil
+    end
+    
+    it "should be the end date of the last race (since races are ordered by start date)" do
+      cup = Factory.build(:cup)
+      race1 = Factory.build(:race, :start_date => '2012-04-01', :end_date => '2012-04-02')
+      race2 = Factory.build(:race, :start_date => '2012-03-31', :end_date => '2012-03-31')
+      cup.stub!(:races).and_return([race2, race1])
+      cup.end_date.strftime('%Y-%m-%d').should == '2012-04-02'
+    end
+  end
 end

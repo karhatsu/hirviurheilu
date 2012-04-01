@@ -8,6 +8,14 @@ class Cup < ActiveRecord::Base
     races.first.sport if races.length > 0
   end
   
+  def start_date
+    races.first.start_date if races.length > 0
+  end
+  
+  def end_date
+    races.last.end_date if races.length > 0
+  end
+  
   def cup_series
     @cup_series ||= pick_series_with_same_name_in_all_races
   end
