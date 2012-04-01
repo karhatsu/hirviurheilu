@@ -5,12 +5,19 @@ Feature: Cup results
   
   Scenario: Show main page for cup results
     Given there is a cup "Test cup" with 2 top competitions
-    And there is a race "Cup race 1"
+    And there is a race with attributes:
+      | name | Cup race 1 |
+      | start_date | 2012-03-20 |
+      | location | Test ski city |
     And the race has series "Men"
     And the race has series "Women"
     And the race has series "Special series"
     And the race belongs to the cup
-    And there is a race "Another cup race"
+    And there is a race with attributes:
+      | name | Another cup race |
+      | start_date | 2012-04-01 |
+      | end_date | 2012-04-02 |
+      | location | Skiing town |
     And the race has series "Men"
     And the race has series "Women"
     And the race belongs to the cup
@@ -18,7 +25,7 @@ Feature: Cup results
     When I go to the cup page
     Then the "Kilpailut" main menu item should be selected
     And the "Cup-kilpailun etusivu" sub menu item should be selected
-    And I should see "Test cup" within ".main_title"
+    And I should see "Test cup (Test ski city / Skiing town, 20.03.2012 - 02.04.2012)" within ".main_title"
     And I should see "Osakilpailut" within "h2"
     And I should see "Cup race 1"
     And I should see "Another cup race"
