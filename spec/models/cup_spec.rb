@@ -65,4 +65,16 @@ describe Cup do
       cup.find_cup_series(cs2.name).should == cs2
     end
   end
+  
+  describe "#sport" do
+    it "should be nil when no races" do
+      Factory.build(:cup).sport.should be_nil
+    end
+    
+    it "should be the sport of the first race" do
+      cup = Factory.build(:cup)
+      cup.stub!(:races).and_return([mock_model(Race, :sport => Sport::RUN), mock_model(Race, :sport => Sport::SKI)])
+      cup.sport.should == Sport::RUN
+    end
+  end
 end
