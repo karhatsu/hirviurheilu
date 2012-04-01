@@ -21,7 +21,7 @@
   <% elsif @is_admin %>
     <%= render :partial => 'admin/shared/sub_menu' %>
   <% end %>
-  <div class="middle_section<%= menu_race or @is_cup_series ? '' :
+  <div class="middle_section<%= (menu_race or @is_cup_series) ? '' :
          ' middle_section_no_menus' %><%= @is_admin ? ' middle_section_admin' : '' %>">
     <div class="main_content"><%= yield %></div>
     <%= yield :sub_sub_menu %>
