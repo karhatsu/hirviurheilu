@@ -18,6 +18,17 @@ describe Cup do
   
   describe "relations" do
     it { should have_and_belong_to_many(:races) }
+
+    describe "races" do
+      it "should be ordered by start date" do
+        cup = Factory.create(:cup)
+        cup.races << Factory.build(:race, :start_date => '2012-04-02')
+        cup.races << Factory.build(:race, :start_date => '2012-03-31')
+        cup.races << Factory.build(:race, :start_date => '2012-04-01')
+        cup.races.collect { |r| r.start_date.strftime('%Y-%m-%d') }.
+          should == ['2012-03-31', '2012-04-01', '2012-04-02']
+      end
+    end
   end
   
   describe "#cup_series" do
