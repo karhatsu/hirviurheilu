@@ -5,15 +5,19 @@ class Cup < ActiveRecord::Base
   validates :top_competitions, :numericality => { :greater_than => 1, :only_integer => true }
   
   def sport
-    races.first.sport if races.length > 0
+    races.first.sport if has_races?
   end
   
   def start_date
-    races.first.start_date if races.length > 0
+    races.first.start_date if has_races?
   end
   
   def end_date
-    races.last.end_date if races.length > 0
+    races.last.end_date if has_races?
+  end
+  
+  def location
+    races.collect { |r| r.location }.uniq.join(' / ') if has_races?
   end
   
   def cup_series
@@ -25,6 +29,10 @@ class Cup < ActiveRecord::Base
   end
   
   private
+  def has_races?
+    races.length > 0
+  end
+  
   def pick_series_with_same_name_in_all_races
     race_count = races.length
     name_to_cup_series = Hash.new

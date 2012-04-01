@@ -116,4 +116,42 @@ describe Cup do
       cup.end_date.strftime('%Y-%m-%d').should == '2012-04-02'
     end
   end
+  
+  describe "#location" do
+    it "should be nil when no races" do
+      Factory.build(:cup).location.should be_nil
+    end
+    
+    context "when each race has different location" do
+      it "should be all race locations separated with /" do
+        cup = Factory.build(:cup)
+        race1 = Factory.build(:race, :location => 'Shooting city')
+        race2 = Factory.build(:race, :location => 'Skiing town')
+        race3 = Factory.build(:race, :location => 'Running village')
+        cup.stub!(:races).and_return([race1, race2, race3])
+        cup.location.should == 'Shooting city / Skiing town / Running village'
+      end
+    end
+    
+    context "when each race has the same location" do
+      it "should be the location" do
+        cup = Factory.build(:cup)
+        race1 = Factory.build(:race, :location => 'Shooting city')
+        race2 = Factory.build(:race, :location => 'Shooting city')
+        cup.stub!(:races).and_return([race1, race2])
+        cup.location.should == 'Shooting city'
+      end
+    end
+    
+    context "when first and third race has the same location" do
+      it "should be the first location / the second location" do
+        cup = Factory.build(:cup)
+        race1 = Factory.build(:race, :location => 'Shooting city')
+        race2 = Factory.build(:race, :location => 'Skiing town')
+        race3 = Factory.build(:race, :location => 'Shooting city')
+        cup.stub!(:races).and_return([race1, race2, race3])
+        cup.location.should == 'Shooting city / Skiing town'
+      end
+    end
+  end
 end
