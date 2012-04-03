@@ -28,6 +28,12 @@ class Cup < ActiveRecord::Base
     (cup_series.select { |cs| cs.name == name }).first
   end
   
+  def self.cup_races(cups)
+    cup_races = []
+    cups.each { |cup| cup.races.each { |race| cup_races << race } }
+    cup_races
+  end
+  
   private
   def has_races?
     races.length > 0

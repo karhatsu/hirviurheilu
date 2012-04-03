@@ -18,8 +18,8 @@
   <div class="left_column">
     <% unless @ongoing.empty? %>
       <div class="races_box ongoing_races">
-        <h2>Kilpailut tänään</h2>
-        <%= render :partial => "race_list", :locals => { :races => @ongoing } %>
+        <h2>Menossa olevat kilpailut</h2>
+        <%= render :partial => "race_list", :locals => { :competitions => @ongoing } %>
       </div>
     <% end %>
 
@@ -27,7 +27,7 @@
       <h2>Tulevat kilpailut</h2>
       <% unless @future.empty? %>
         <div class="race_scroll">
-          <%= render :partial => "race_list", :locals => { :races => @future } %>
+          <%= render :partial => "race_list", :locals => { :competitions => @future } %>
         </div>
       <% else %>
         Tällä hetkellä ei tiedossa tulevia kilpailuita
@@ -38,7 +38,7 @@
       <div class="races_box old_races">
         <h2>Päättyneet kilpailut</h2>
         <div class="race_scroll">
-          <%= render :partial => "race_list", :locals => { :races => @past } %>
+          <%= render :partial => "race_list", :locals => { :competitions => @past } %>
         </div>
       </div>
     <% end %>

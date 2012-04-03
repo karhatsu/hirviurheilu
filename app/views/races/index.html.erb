@@ -4,5 +4,5 @@
   <div class="info">Et ole lisännyt vielä yhtään kilpailua</div>
   <div class="action_box"><%= link_to 'Lisää kilpailu', new_official_race_path %></div>
 <% else %>
-  <%= render :partial => 'home/race_list', :locals => { :races => @races } %>
+  <%= render :partial => 'home/race_list', :locals => { :competitions => @races } %>
 <% end %>

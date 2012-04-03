@@ -154,4 +154,26 @@ describe Cup do
       end
     end
   end
+  
+  describe ".cup_races" do
+    it "should return an empty array when nothing given" do
+      Cup.cup_races([]).should == []
+    end
+    
+    it "should return an empty array when cups without races" do
+      Cup.cup_races([Factory.create(:cup), Factory.create(:cup)]).should == []
+    end
+    
+    it "should return all races that are assigned to cups" do
+      cup1 = Factory.create(:cup)
+      race11 = Factory.build(:race)
+      race12 = Factory.build(:race)
+      cup1.races << race11
+      cup1.races << race12
+      cup2 = Factory.create(:cup)
+      race21 = Factory.build(:race)
+      cup2.races << race21
+      Cup.cup_races(Cup.all).should == [race11, race12, race21]
+    end
+  end
 end
