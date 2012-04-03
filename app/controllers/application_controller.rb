@@ -225,4 +225,8 @@ class ApplicationController < ActionController::Base
     object_params["#{time_name}(2i)"] = "1"
     object_params["#{time_name}(3i)"] = "1"
   end
+  
+  def pick_non_cup_races(races, cup_races)
+    races.select { |race| !cup_races.include?(race) }
+  end
 end

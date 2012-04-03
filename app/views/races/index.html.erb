@@ -1,8 +1,8 @@
 <% content_for(:title, 'Hirviurheilu - Kilpailut') %>
 <% content_for(:page_title, yield(:title)) %>
-<% if @races.empty? %>
+<% if @competitions.empty? %>
   <div class="info">Et ole lisännyt vielä yhtään kilpailua</div>
   <div class="action_box"><%= link_to 'Lisää kilpailu', new_official_race_path %></div>
 <% else %>
-  <%= render :partial => 'home/race_list', :locals => { :competitions => @races } %>
+  <%= render :partial => 'home/race_list', :locals => { :competitions => @competitions } %>
 <% end %>

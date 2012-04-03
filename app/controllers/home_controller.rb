@@ -33,10 +33,6 @@ class HomeController < ApplicationController
     pick_non_cup_races(Race.future, cup_races)
   end
   
-  def pick_non_cup_races(races, cup_races)
-    races.select { |race| !cup_races.include?(race) }
-  end
-  
   def finished_cups(all_cups)
     all_cups.select { |cup| cup.end_date and cup.end_date < Date.today }
   end
