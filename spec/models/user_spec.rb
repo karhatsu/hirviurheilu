@@ -6,13 +6,13 @@ describe User do
   end
 
   describe "validation" do
-    it "should require first name" do
-      Factory.build(:user, :first_name => nil).should have(1).errors_on(:first_name)
-    end
-
-    it "should require last name" do
-      Factory.build(:user, :last_name => nil).should have(1).errors_on(:last_name)
-    end
+    it { should validate_presence_of(:first_name) }
+    it { should validate_presence_of(:last_name) }
+  end
+  
+  describe "associations" do
+    it { should have_and_belong_to_many(:roles) }
+    it { should have_and_belong_to_many(:races) }
   end
 
   describe "rights" do
