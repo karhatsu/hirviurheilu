@@ -13,6 +13,7 @@ describe User do
   describe "associations" do
     it { should have_and_belong_to_many(:roles) }
     it { should have_and_belong_to_many(:races) }
+    it { should have_and_belong_to_many(:cups) }
   end
 
   describe "rights" do

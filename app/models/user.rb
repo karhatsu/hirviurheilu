@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :roles, :join_table => :rights
   has_and_belongs_to_many :races, :join_table => :race_officials
+  has_and_belongs_to_many :cups, :join_table => :cup_officials
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
