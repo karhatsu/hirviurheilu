@@ -9,6 +9,10 @@
       <%= link_to r.name, official_race_path(r) %> (<%= race_date_interval(r) %>,
       <%= r.location %>)<br/>
     <% end %>
+    <% unless @cups.empty? %><hr/><% end %>
+    <% @cups.each do |cup| %>
+      <%= link_to cup.name, official_cup_path(cup) %>
+    <% end %>
   </div>
   <h2 id="new_race">Tai</h2>
 <% else %>
@@ -17,4 +21,7 @@
 <% end %>
 <div class="action_box">
   <%= link_to "Lisää uusi kilpailu", new_official_race_path %>
+</div>
+<div class="action_box">
+  <%= link_to "Lisää uusi cup-kilpailu", new_official_cup_path %>
 </div>

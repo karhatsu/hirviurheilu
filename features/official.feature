@@ -50,3 +50,14 @@ Feature: Official
     And I should see "Test race" within "#existing_races"
     And I should see "Tai" within "h2#new_race"
     And I should see "Lisää uusi kilpailu"
+    And I should see "Lisää uusi cup-kilpailu"
+
+  Scenario: Official index with cups and cup races
+    Given I am an official
+    And I have a cup "Test cup"
+    And I have a race "Test race"
+    And the race belongs to the cup
+    And I have logged in
+    And I am on the official index page
+    Then I should see "Test cup"
+    And I should see "Test race"

@@ -55,6 +55,8 @@ ElkSports::Application.routes.draw do
   end
 
   namespace :official do
+    resources :cups
+    
     resources :races do
       resources :competitors, :only => [:create, :update]
       resources :clubs
