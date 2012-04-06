@@ -15,6 +15,7 @@ class Race < ActiveRecord::Base
   has_many :relays, :order => 'name'
   has_many :team_competitions, :order => 'name'
   has_and_belongs_to_many :users, :join_table => :race_officials
+  has_and_belongs_to_many :cups
 
   accepts_nested_attributes_for :series, :allow_destroy => true
   accepts_nested_attributes_for :correct_estimates, :allow_destroy => true

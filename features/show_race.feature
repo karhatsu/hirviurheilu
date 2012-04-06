@@ -194,3 +194,13 @@ Feature: Show race
     And I should see "99"
     And I should see "153"
     And I should see "156"
+    
+  Scenario: Show link to cup results when the race belongs to a cup
+    Given there is a cup "Test cup"
+    And there is a race "Test race"
+    And the race belongs to the cup
+    And I am on the race page
+    Then I should see "Cup-kilpailu"
+    And I should see "Tämä kilpailu on cup-kilpailun Test cup osakilpailu"
+    When I follow "Test cup"
+    Then I should be on the cup page of "Test cup"

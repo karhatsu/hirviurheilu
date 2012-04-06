@@ -3,8 +3,10 @@
     <div class="menu sub_menu">
       <ul>
         <%= menu_item 'Cup-kilpailun etusivu', cup_path(@cup), @is_cup_main %>
-        <%= menu_item 'Tulokset', cup_cup_series_path(@cup, menu_cup_series.name), @is_cup_series, nil, true do %>
-          <% cup_series_dropdown_menu(@cup) %>
+        <% unless @cup.cup_series.empty? %>
+          <%= menu_item 'Tulokset', cup_cup_series_path(@cup, menu_cup_series.name), @is_cup_series, nil, true do %>
+            <% cup_series_dropdown_menu(@cup) %>
+          <% end %>
         <% end %>
       </ul>
     </div>
