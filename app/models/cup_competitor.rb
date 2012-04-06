@@ -21,6 +21,10 @@ class CupCompetitor
     @competitors
   end
   
+  def competitor_for_series(series)
+    @competitors.select { |c| c.series == series }.first
+  end
+  
   def points
     top_competitions = @cup_series.cup.top_competitions
     total_competitions = @competitors.length

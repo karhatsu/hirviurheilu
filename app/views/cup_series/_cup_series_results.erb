@@ -14,8 +14,13 @@
     <tr id="comp_<%= i+1 %>" class="<%= i % 2 == 0 ? 'odd' : '' %>">
       <td><%= i + 1 %>.</td>
       <td><%= cc.last_name %> <%= cc.first_name %></td>
-      <% cc.competitors.each do |c| %>
-        <td class="center"><%= link_to_unless is_pdf, points_print(c, false), series_competitor_path(c.series, c) %></td>
+      <% @cup_series.series.each do |series| %>
+        <% c = cc.competitor_for_series(series) %>
+        <td class="center">
+        <% if c %>
+          <%= link_to_unless is_pdf, points_print(c, false), series_competitor_path(c.series, c) %>
+        <% else %>-<% end %>
+        </td>
       <% end %>
       <td class='center total_points'><%= cc.points %></td>
     </tr>

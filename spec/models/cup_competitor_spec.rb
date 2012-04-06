@@ -76,6 +76,24 @@ describe CupCompetitor do
     end
   end
   
+  describe "#competitor_for_series" do
+    before do
+      @competitor.stub!(:series).and_return(mock_model(Series))
+    end
+    
+    it "should be nil when no match" do
+      @cc.competitor_for_series(Factory.build(:series)).should be_nil
+    end
+    
+    it "should be the competitor that belongs to the given series" do
+      competitor = valid_competitor
+      series = Factory.build(:series)
+      competitor.stub!(:series).and_return(series)
+      @cc << competitor
+      @cc.competitor_for_series(series).should == competitor
+    end
+  end
+  
   def valid_competitor
     mock_model(Competitor, :first_name => @competitor.first_name, :last_name => @competitor.last_name)
   end
