@@ -35,6 +35,13 @@ class User < ActiveRecord::Base
     end
     false
   end
+  
+  def official_for_cup?(cup)
+    cups.each do |c|
+      return true if c == cup
+    end
+    false
+  end
 
   def self.create_offline_user
     raise "Cannot create offline user unless offline mode" if Mode.online?

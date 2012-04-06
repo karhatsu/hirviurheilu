@@ -67,6 +67,28 @@ describe User do
       @user.should be_official_for_race(@race)
     end
   end
+  
+  describe "#official_for_cup?" do
+    before do
+      @cup = Factory.create(:cup)
+      @user = Factory.build(:user)
+    end
+    
+    it "should return false when no cups for this user" do
+      @user.should_not be_official_for_cup(@cup)
+    end
+
+    it "should return false when user is not official for the given cup" do
+      cup = Factory.create(:cup)
+      @user.cups << cup
+      @user.should_not be_official_for_cup(@cup)
+    end
+
+    it "should return true when user is official for the given cup" do
+      @user.cups << @cup
+      @user.should be_official_for_cup(@cup)
+    end
+  end
 
   describe "offline usage" do
     describe "maximum amount of users" do

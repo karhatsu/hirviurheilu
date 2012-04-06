@@ -24,6 +24,17 @@ class Official::OfficialController < ApplicationController
   def check_assigned_relay
     check_race(@relay.race)
   end
+  
+  def check_cup(cup)
+    unless own_cup?(cup)
+      flash[:error] = "Et ole cup-kilpailun toimitsija"
+      redirect_to official_root_path
+    end
+  end
+  
+  def check_assigned_cup
+    check_cup(@cup)
+  end
 
   def set_official
     @is_official = true

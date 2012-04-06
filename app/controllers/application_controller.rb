@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
   def own_race?(race)
     current_user and (current_user.admin? or current_user.official_for_race?(race))
   end
+  
+  def own_cup?(cup)
+    current_user and (current_user.admin? or current_user.official_for_cup?(cup))
+  end
 
   def offline?
     Mode.offline?
@@ -71,6 +75,19 @@ class ApplicationController < ActionController::Base
 
   def set_races
     @is_races = true
+  end
+  
+  def assign_cup_by_id
+    assign_cup params[:id]
+  end
+  
+  def assign_cup(id)
+    begin
+      @cup = Cup.find(id)
+    rescue ActiveRecord::RecordNotFound
+      @id = id
+      render 'errors/cup_not_found'
+    end
   end
 
   def assign_race_by_id
