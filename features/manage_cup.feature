@@ -46,8 +46,7 @@ Feature: Manage cup
     And I have a race "My race 1"
     And I have a race "My race 2"
     And I have logged in
-    When I go to the new official cup page
-    Then I should not see "Sinulla täytyy olla vähintään"
+    And I am on the new official cup page
     When I fill in the following:
       | Yhteistulokseen laskettavien kilpailuiden määrä | 2 |
     And I check "race_id_0"
@@ -55,4 +54,24 @@ Feature: Manage cup
     And I press "Lisää cup-kilpailu"
     Then I should see "Cup-kilpailun lisäys" within ".main_title"
     And I should see "Cup-kilpailun nimi on pakollinen" within "div.error"
-    
+
+  Scenario: Choose wrong amount of races for the cup
+    Given I am an official
+    And I have a race "My race 1"
+    And I have a race "My race 2"
+    And I have a race "My race 3"
+    And I have logged in
+    And I am on the new official cup page
+    When I fill in the following:
+      | Cup-kilpailun nimi | Test cup |
+      | Yhteistulokseen laskettavien kilpailuiden määrä | 2 |
+    And I check "race_id_0"
+    And I press "Lisää cup-kilpailu"
+    Then I should see "Sinun täytyy valita vähintään yhtä monta kilpailua kuin on yhteistulokseen laskettavien kilpailuiden määrä" within "div.error"
+    And the "race_id_0" checkbox should be checked
+    When I check "race_id_0"
+    And I check "race_id_1"
+    And I check "race_id_2"
+    And I fill in "4" for "Yhteistulokseen laskettavien kilpailuiden määrä"
+    And I press "Lisää cup-kilpailu"
+    Then I should see "Sinun täytyy valita vähintään yhtä monta kilpailua kuin on yhteistulokseen laskettavien kilpailuiden määrä" within "div.error"

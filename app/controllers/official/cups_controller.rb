@@ -10,14 +10,14 @@ class Official::CupsController < Official::OfficialController
     # TODO: cup email
     @cup = current_user.cups.build(params[:cup])
     if @cup.valid?
-      @cup.save
-      current_user.cups << @cup
-      params[:race_id].each do |race_id|
-        race = current_user.races.find(race_id)
-        @cup.races << race
+      if enough_races?
+        add_cup
+        flash[:success] = 'Cup-kilpailu lisätty'
+        redirect_to official_cup_path(@cup)
+      else
+        flash[:error] = 'Sinun täytyy valita vähintään yhtä monta kilpailua kuin on yhteistulokseen laskettavien kilpailuiden määrä'
+        render :new
       end
-      flash[:success] = 'Cup-kilpailu lisätty'
-      redirect_to official_cup_path(@cup)
     else
       render :new
     end
@@ -25,5 +25,19 @@ class Official::CupsController < Official::OfficialController
   
   def show
     @cup = Cup.find(params[:id])
+  end
+  
+  private
+  def enough_races?
+    params[:race_id] and params[:race_id].length >= @cup.top_competitions
+  end
+  
+  def add_cup
+    @cup.save
+    current_user.cups << @cup
+    params[:race_id].each do |race_id|
+      race = current_user.races.find(race_id)
+      @cup.races << race
+    end
   end
 end
