@@ -1,11 +1,12 @@
 <% race = menu_race %>
+<% cup = menu_cup %>
 <div class="main_title">
   <% if race %>
     <%= sport_icon(race.sport) %>
     <span><%= race.name %> (<%= race.location %>, <%= race_date_interval(race) %>)</span>
-  <% elsif @cup %>
-    <%= sport_icon(@cup.sport) %>
-    <span><%= @cup.name %> (<%= @cup.location %>, <%= race_date_interval(@cup) %>)</span>
+  <% elsif cup %>
+    <%= sport_icon(cup.sport) %>
+    <span><%= cup.name %></span>
   <% else %>
     <%= sport_icon(Sport.find_ski) %>
     <%= sport_icon(Sport.find_run) %>

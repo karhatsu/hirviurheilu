@@ -1,0 +1,6 @@
+<h2>Cup-kilpailun tiedot</h2>
+<%= flash_success %>
+Nimi: <%= @cup.name %><br/>
+<%= t 'attributes.top_competitions' %>: <%= @cup.top_competitions %>
+<hr/>
+<%= link_to 'Takaisin Toimitsijan etusivulle', official_root_path %>

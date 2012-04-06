@@ -336,6 +336,10 @@ module ApplicationHelper
     return value if value
     raw('&nbsp;')
   end
+  
+  def menu_cup
+    @cup if @cup and not @cup.new_record?
+  end
 
   def menu_race
     if @race and not @race.new_record?

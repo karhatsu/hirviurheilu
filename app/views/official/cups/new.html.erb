@@ -1,0 +1,15 @@
+<% content_for(:title, 'Cup-kilpailun lisäys') %>
+<% content_for(:page_title, yield(:title)) %>
+<% if current_user.races.count < 2 %>
+  <div class="info">Sinulla täytyy olla vähintään 2 kilpailua ennen kuin voit lisätä cup-kilpailun</div>
+<% else %>
+  <%= form_for([:official, @cup]) do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %><br/>
+    <%= f.label :top_competitions %>
+    <%= f.text_field :top_competitions, :max_length => 1, :size => 2 %><br/>
+    <%= submit_tag 'Lisää cup-kilpailu' %>
+  <% end %>
+<% end %>
+<hr/>
+<%= link_to 'Takaisin toimitsijan etusivulle', official_root_path %>
