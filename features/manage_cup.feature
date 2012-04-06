@@ -72,14 +72,14 @@ Feature: Manage cup
       | Yhteistulokseen laskettavien kilpailuiden määrä | 2 |
     And I check "race_id_0"
     And I press "Lisää cup-kilpailu"
-    Then I should see "Sinun täytyy valita vähintään yhtä monta kilpailua kuin on yhteistulokseen laskettavien kilpailuiden määrä" within "div.error"
+    Then I should see error about too few races selected for the cup
     And the "race_id_0" checkbox should be checked
     When I check "race_id_0"
     And I check "race_id_1"
     And I check "race_id_2"
     And I fill in "4" for "Yhteistulokseen laskettavien kilpailuiden määrä"
     And I press "Lisää cup-kilpailu"
-    Then I should see "Sinun täytyy valita vähintään yhtä monta kilpailua kuin on yhteistulokseen laskettavien kilpailuiden määrä" within "div.error"
+    Then I should see error about too few races selected for the cup
 
   Scenario: Modify cup
     Given I am an official
@@ -115,4 +115,21 @@ Feature: Manage cup
     And I should see "My race 3"
     And I should see "My race 4"
     But I should not see "My race 2"
-  
+
+  Scenario: Error handling when modifying cup
+    Given I am an official
+    And I have a cup "My cup" with 2 top competitions
+    And I have a race "My race 1"
+    And the race belongs to the cup
+    And I have a race "My race 2"
+    And the race belongs to the cup
+    And I have logged in
+    And I am on the official cup page of "My cup"
+    And I follow "Muokkaa cup-kilpailun asetuksia"
+    When I fill in "" for "Cup-kilpailun nimi"
+    And I press "Päivitä"
+    Then I should see "Cup-kilpailun nimi on pakollinen" within "div.error"
+    When I fill in "Renamed cup" for "Cup-kilpailun nimi"
+    And I uncheck "race_id_0"
+    And I press "Päivitä"
+    Then I should see error about too few races selected for the cup
