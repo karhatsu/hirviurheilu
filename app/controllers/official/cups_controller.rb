@@ -10,7 +10,8 @@ class Official::CupsController < Official::OfficialController
     @cup = current_user.cups.build(params[:cup])
     if @cup.valid?
       if enough_races?
-        add_cup
+        @cup.save!
+        current_user.cups << @cup
         NewCompetitionMailer.new_cup(@cup, current_user).deliver
         flash[:success] = 'Cup-kilpailu lisätty'
         redirect_to official_cup_path(@cup)
@@ -24,20 +25,17 @@ class Official::CupsController < Official::OfficialController
   end
   
   def show
-    @cup = Cup.find(params[:id])
+  end
+  
+  def update
+    @cup.update_attributes(params[:cup])
+    flash[:success] = 'Cup-kilpailu päivitetty'
+    redirect_to official_cup_path(@cup)
   end
   
   private
   def enough_races?
-    params[:race_id] and params[:race_id].length >= @cup.top_competitions
-  end
-  
-  def add_cup
-    @cup.save
-    current_user.cups << @cup
-    params[:race_id].each do |race_id|
-      race = current_user.races.find(race_id)
-      @cup.races << race
-    end
+    params[:cup][:race_ids] ||= []
+    params[:cup][:race_ids].length >= @cup.top_competitions
   end
 end

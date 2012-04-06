@@ -11,6 +11,11 @@ Given /^I have a cup "([^"]*)"$/ do |name|
   @user.cups << @cup
 end
 
+Given /^I have a cup "([^"]*)" with (\d+) top competitions$/ do |name, top_competitions|
+  @cup = Factory.create(:cup, :name => name, :top_competitions => top_competitions)
+  @user.cups << @cup
+end
+
 Given /^the race belongs to the cup$/ do
   @cup.races << @race
 end

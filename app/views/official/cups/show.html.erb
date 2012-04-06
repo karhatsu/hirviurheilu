@@ -4,6 +4,9 @@ Nimi: <%= @cup.name %><br/>
 <%= t 'attributes.top_competitions' %>: <%= @cup.top_competitions %><br/>
 Osakilpailut:
 <%= raw(@cup.races.collect { |race| link_to race.name, official_race_path(race) }.join(', ')) %>
+<div class="action_box">
+  <%= link_to 'Muokkaa cup-kilpailun asetuksia', edit_official_cup_path(@cup) %>
+</div>
 <h2>Cup-ohjeet</h2>
 <h3>Sarjat</h3>
 Cup-kilpailun sarjat muodostuvat automaattisesti osakilpailun sarjojen nimien perusteella.

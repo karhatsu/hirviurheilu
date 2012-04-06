@@ -3,21 +3,7 @@
 <% if current_user.races.count < 2 %>
   <div class="info">Sinulla täytyy olla vähintään 2 kilpailua ennen kuin voit lisätä cup-kilpailun</div>
 <% else %>
-  <%= render :partial => 'shared/form_errors', :locals => { :item => @cup } %>
-  <%= flash_error %>
-  <%= form_for([:official, @cup]) do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %><br/>
-    <%= f.label :top_competitions %>
-    <%= f.text_field :top_competitions, :max_length => 1, :size => 2 %><br/>
-    Osakilpailut:<br/>
-    <% current_user.races.each_with_index do |race, i| %>
-      <%= check_box_tag 'race_id[]', race.id, (params[:race_id] and params[:race_id].include?(race.id.to_s)),
-        :id => "race_id_#{i}" %>
-      <%= race.name %><br/>
-    <% end %>
-    <%= submit_tag 'Lisää cup-kilpailu' %>
-  <% end %>
+  <%= render :partial => 'form', :locals => { :submit_label => 'Lisää cup-kilpailu' } %>
 <% end %>
 <hr/>
 <%= link_to 'Takaisin toimitsijan etusivulle', official_root_path %>

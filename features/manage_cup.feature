@@ -80,3 +80,39 @@ Feature: Manage cup
     And I fill in "4" for "Yhteistulokseen laskettavien kilpailuiden määrä"
     And I press "Lisää cup-kilpailu"
     Then I should see "Sinun täytyy valita vähintään yhtä monta kilpailua kuin on yhteistulokseen laskettavien kilpailuiden määrä" within "div.error"
+
+  Scenario: Modify cup
+    Given I am an official
+    And I have a cup "My cup" with 2 top competitions
+    And I have a race "My race 1"
+    And the race belongs to the cup
+    And I have a race "My race 2"
+    And the race belongs to the cup
+    And I have a race "My race 3"
+    And I have a race "My race 4"
+    And I have logged in
+    And I am on the official cup page of "My cup"
+    And I follow "Muokkaa cup-kilpailun asetuksia"
+    Then I should see "Muokkaa cup-kilpailun asetuksia" within "h2"
+    And the "Cup-kilpailun nimi" field should contain "My cup"
+    And the "Yhteistulokseen laskettavien kilpailuiden määrä" field should contain "2"
+    And the "race_id_0" checkbox should be checked
+    And the "race_id_1" checkbox should be checked
+    But the "race_id_2" checkbox should not be checked
+    But the "race_id_3" checkbox should not be checked
+    When I fill in the following:
+      | Cup-kilpailun nimi | Renamed cup |
+      | Yhteistulokseen laskettavien kilpailuiden määrä | 3 |
+    And I uncheck "race_id_1"
+    And I check "race_id_2"
+    And I check "race_id_3"
+    And I press "Päivitä"
+    Then I should be on the official cup page of "Renamed cup"
+    And I should see "Cup-kilpailu päivitetty" within "div.success"
+    And I should see "Renamed cup" within ".main_title"
+    And I should see "Yhteistulokseen laskettavien kilpailuiden määrä: 3"
+    And I should see "My race 1"
+    And I should see "My race 3"
+    And I should see "My race 4"
+    But I should not see "My race 2"
+  
