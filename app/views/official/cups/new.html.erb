@@ -3,6 +3,7 @@
 <% if current_user.races.count < 2 %>
   <div class="info">Sinulla täytyy olla vähintään 2 kilpailua ennen kuin voit lisätä cup-kilpailun</div>
 <% else %>
+  <%= render :partial => 'shared/form_errors', :locals => { :item => @cup } %>
   <%= form_for([:official, @cup]) do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %><br/>
