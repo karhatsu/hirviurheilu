@@ -20,15 +20,21 @@ Feature: Manage cup
     Given I am an official
     And I have a race "My race 1"
     And I have a race "My race 2"
+    And I have a race "My race 3"
     And I have logged in
     When I go to the new official cup page
     Then I should not see "Sinulla täytyy olla vähintään"
     When I fill in the following:
       | Cup-kilpailun nimi | Test cup |
       | Yhteistulokseen laskettavien kilpailuiden määrä | 2 |
+    And I check "race_id_0"
+    And I check "race_id_2"
     And I press "Lisää cup-kilpailu"
     Then I should be on the official cup page of "Test cup"
     And I should see "Cup-kilpailu lisätty" within "div.success"
     And I should see "Test cup" within ".main_title"
     And I should see "Yhteistulokseen laskettavien kilpailuiden määrä: 2"
+    And I should see "My race 1"
+    And I should see "My race 3"
+    But I should not see "My race 2"
     
