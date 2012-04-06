@@ -8,18 +8,14 @@ class Official::CupsController < Official::OfficialController
   
   def create
     @cup = current_user.cups.build(params[:cup])
-    if @cup.valid?
-      if enough_races?
-        @cup.save!
-        current_user.cups << @cup
-        NewCompetitionMailer.new_cup(@cup, current_user).deliver
-        flash[:success] = 'Cup-kilpailu lisätty'
-        redirect_to official_cup_path(@cup)
-      else
-        flash_error_for_too_few_races
-        render :new
-      end
+    if @cup.valid? and enough_races?
+      @cup.save!
+      current_user.cups << @cup
+      NewCompetitionMailer.new_cup(@cup, current_user).deliver
+      flash[:success] = 'Cup-kilpailu lisätty'
+      redirect_to official_cup_path(@cup)
     else
+      flash_error_for_too_few_races unless enough_races?
       render :new
     end
   end
@@ -29,16 +25,12 @@ class Official::CupsController < Official::OfficialController
   
   def update
     @cup.attributes = params[:cup]
-    if @cup.valid?
-      if enough_races?
-        @cup.save!
-        flash[:success] = 'Cup-kilpailu päivitetty'
+    if @cup.valid? and enough_races?
+      @cup.save!
+      flash[:success] = 'Cup-kilpailu päivitetty'
         redirect_to official_cup_path(@cup)
-      else
-        flash_error_for_too_few_races
-        render :new
-      end
     else
+      flash_error_for_too_few_races unless enough_races?
       render :edit
     end
   end
