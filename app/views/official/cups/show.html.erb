@@ -1,9 +1,11 @@
 <h2>Cup-kilpailun tiedot</h2>
 <%= flash_success %>
-Nimi: <%= @cup.name %><br/>
-<%= t 'attributes.top_competitions' %>: <%= @cup.top_competitions %><br/>
-Osakilpailut:
-<%= raw(@cup.races.collect { |race| link_to race.name, official_race_path(race) }.join(', ')) %>
+<div class="section">
+  Nimi: <%= @cup.name %><br/>
+  <%= t 'attributes.top_competitions' %>: <%= @cup.top_competitions %><br/>
+  Osakilpailut:
+  <%= raw(@cup.races.collect { |race| link_to race.name, official_race_path(race) }.join(', ')) %>
+</div>
 <div class="action_box">
   <%= link_to 'Muokkaa cup-kilpailun asetuksia', edit_official_cup_path(@cup) %>
 </div>
