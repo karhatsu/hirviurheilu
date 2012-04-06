@@ -7,11 +7,11 @@ class Official::CupsController < Official::OfficialController
   end
   
   def create
-    # TODO: cup email
     @cup = current_user.cups.build(params[:cup])
     if @cup.valid?
       if enough_races?
         add_cup
+        NewCompetitionMailer.new_cup(@cup, current_user).deliver
         flash[:success] = 'Cup-kilpailu lisätty'
         redirect_to official_cup_path(@cup)
       else

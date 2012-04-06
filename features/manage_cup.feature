@@ -17,7 +17,7 @@ Feature: Manage cup
     Then I should see "Sinulla täytyy olla vähintään 2 kilpailua ennen kuin voit lisätä cup-kilpailun" within "div.info"
 
   Scenario: Add cup
-    Given I am an official
+    Given I am an official "Teppo Testaaja"
     And I have a race "My race 1"
     And I have a race "My race 2"
     And I have a race "My race 3"
@@ -37,6 +37,11 @@ Feature: Manage cup
     And I should see "My race 1"
     And I should see "My race 3"
     But I should not see "My race 2"
+    And the admin should receive an email
+    When I open the email
+    Then I should see "Hirviurheilu - uusi cup-kilpailu (test)" in the email subject
+    And I should see "Kilpailun nimi: Test cup" in the email body
+    And I should see "Toimitsija: Teppo Testaaja" in the email body
     When I follow "Takaisin Toimitsijan etusivulle"
     And I follow "Test cup"
     Then I should be on the official cup page of "Test cup"
