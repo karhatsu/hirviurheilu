@@ -1,4 +1,5 @@
-<h2>Tulokset - <%= @cup_series.name %></h2>
+<% content_for(:title, "Tulokset - #{@cup_series.name}") %>
+<h2><%= yield :title %></h2>
 <% content_for :sub_sub_menu do %>
   <%= render :partial => 'shared/cup_series_sub_menu' %>
 <% end %>
