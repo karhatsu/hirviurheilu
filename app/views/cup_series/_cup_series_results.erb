@@ -5,7 +5,7 @@
       <th>&nbsp;</th>
       <th>Kilpailija</th>
       <% @cup.races.each do |race| %>
-        <th title="<%= race.name %>"><%= truncate(race.name, :length => 10) %></th>
+        <th title="<%= race.name %>"><%= truncate(race.name, :length => 25) %></th>
       <% end %>
       <th>Yhteispisteet</th>
     </tr>
