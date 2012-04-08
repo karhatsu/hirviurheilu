@@ -1,0 +1,15 @@
+<%= render :partial => 'shared/form_errors', :locals => { :item => @cup } %>
+<%= flash_error %>
+<%= form_for([:official, @cup]) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br/>
+  <%= f.label :top_competitions %>
+  <%= f.text_field :top_competitions, :max_length => 1, :size => 2 %><br/>
+  Osakilpailut:<br/>
+  <% current_user.races.each_with_index do |race, i| %>
+    <%= check_box_tag 'cup[race_ids][]', race.id, @cup.races.include?(race),
+      :id => "race_id_#{i}" %>
+    <%= race.name %><br/>
+  <% end %>
+  <%= submit_tag submit_label %>
+<% end %>

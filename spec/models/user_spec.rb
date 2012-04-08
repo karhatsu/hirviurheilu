@@ -6,13 +6,14 @@ describe User do
   end
 
   describe "validation" do
-    it "should require first name" do
-      Factory.build(:user, :first_name => nil).should have(1).errors_on(:first_name)
-    end
-
-    it "should require last name" do
-      Factory.build(:user, :last_name => nil).should have(1).errors_on(:last_name)
-    end
+    it { should validate_presence_of(:first_name) }
+    it { should validate_presence_of(:last_name) }
+  end
+  
+  describe "associations" do
+    it { should have_and_belong_to_many(:roles) }
+    it { should have_and_belong_to_many(:races) }
+    it { should have_and_belong_to_many(:cups) }
   end
 
   describe "rights" do
@@ -64,6 +65,28 @@ describe User do
     it "should return true when user is official for the given race" do
       @user.races << @race
       @user.should be_official_for_race(@race)
+    end
+  end
+  
+  describe "#official_for_cup?" do
+    before do
+      @cup = Factory.create(:cup)
+      @user = Factory.build(:user)
+    end
+    
+    it "should return false when no cups for this user" do
+      @user.should_not be_official_for_cup(@cup)
+    end
+
+    it "should return false when user is not official for the given cup" do
+      cup = Factory.create(:cup)
+      @user.cups << cup
+      @user.should_not be_official_for_cup(@cup)
+    end
+
+    it "should return true when user is official for the given cup" do
+      @user.cups << @cup
+      @user.should be_official_for_cup(@cup)
     end
   end
 

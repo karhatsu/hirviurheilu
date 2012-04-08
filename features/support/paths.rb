@@ -20,6 +20,9 @@ module NavigationHelpers
     when /the race edit page of "(.*)"/
       edit_official_race_path(Race.find_by_name($1))
 
+    when /the official cup page of "(.*)"/
+      official_cup_path(Cup.find_by_name($1))
+
     when /the official race page of "(.*)"/
       official_race_path(Race.find_by_name($1))
 
@@ -52,6 +55,9 @@ module NavigationHelpers
 
     when /the official team competitions page of "(.*)"/
       official_race_team_competitions_path(Race.find_by_name($1))
+      
+    when /the cup page/
+      cup_path(@cup)
 
     when /the race page of "(.*)"/
       race_path(Race.find_by_name($1))

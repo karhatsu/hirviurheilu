@@ -1,0 +1,15 @@
+<% content_for :title, @cup.name %>
+<h2>Osakilpailut</h2>
+<div class="section">
+  <% @cup.races.each do |race| %>
+    <%= link_to race.name, race_path(race) %><br/>
+  <% end %>
+</div>
+<h2>Sarjat</h2>
+<div class="section">
+  <% @cup.cup_series.each do |cs| %>
+    <%= link_to cs.name, cup_cup_series_path(@cup, cs.name) %><br/>
+  <% end %>
+</div>
+<hr/>
+<%= link_to 'Takaisin etusivulle', root_path %>

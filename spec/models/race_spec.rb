@@ -95,6 +95,7 @@ describe Race do
     it { should have_many(:relays) }
     it { should have_many(:team_competitions) }
     it { should have_and_belong_to_many(:users) }
+    it { should have_and_belong_to_many(:cups) }
   end
 
   describe "past/ongoing/future" do

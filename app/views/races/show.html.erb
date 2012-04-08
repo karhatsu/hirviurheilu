@@ -109,5 +109,10 @@
     Kilpailun alkuun on aikaa
     <%= distance_of_time_in_words(Time.zone.today, @race.start_date, false) %>.</div>
 <% end %>
+<% cup = @race.cups.first unless @race.cups.empty? %>
+<% if cup %>
+  <h2>Cup-kilpailu</h2>
+  <div class="section">Tämä kilpailu on cup-kilpailun <%= link_to cup.name, cup_path(cup) %> osakilpailu</div>
+<% end %>
 <hr/>
 <%= link_to "Takaisin etusivulle", root_path %>

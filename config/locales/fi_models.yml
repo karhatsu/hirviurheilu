@@ -59,6 +59,7 @@ fi:
     start_interval_seconds: Lähtöaikojen väli (sekuntia)
     start_time: Lähtöaika
     team_competitor_count: Kilpailijoita / joukkue
+    top_competitions: Yhteistulokseen laskettavien kilpailuiden määrä
     unofficial: Epävirallinen kilpailija
 
   activerecord:
@@ -97,6 +98,8 @@ fi:
       competitor:
         shots:
           value: Laukaus
+      cup:
+        name: Cup-kilpailun nimi
       race:
         correct_estimates:
           distance1: Etäisyys 1

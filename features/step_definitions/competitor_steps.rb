@@ -2,6 +2,18 @@ Given /^the series has a competitor$/ do
   @competitor = Factory.create(:competitor, :series => @series)
 end
 
+Given /^the series has a competitor "([^"]*)" "([^"]*)" with (\d+)\+(\d+)\+(\d+) points$/ do |first_name, last_name, tpoints, epoints, spoints|
+  best_time = 600
+  seconds_lost = (300 - tpoints.to_i) * 10
+  @competitor = Factory.create(:competitor, :series => @series, :first_name => first_name, :last_name => last_name,
+    :start_time => @series.start_time, :arrival_time => @series.start_time + best_time - seconds_lost,
+    :estimate1 => 100, :correct_estimate1 => 100,
+    :estimate2 => 150, :correct_estimate2 => 150 - (300 - epoints.to_i) / 2,
+    :shots_total_input => 100 - (600 - spoints.to_i) / 6)
+  @competitor.estimate_points.should == epoints.to_i
+  @competitor.shot_points.should == spoints.to_i
+end
+
 Given /^the series has (\d+) competitors$/ do |amount|
   amount.to_i.times do
     Factory.create(:competitor, :series => @series)
