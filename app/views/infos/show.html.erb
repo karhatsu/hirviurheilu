@@ -199,16 +199,17 @@ end
   Tulosten syöttämiseen on kolme vaihtoehtoa. Voit itse päättää,
   mitä vaihtoehtoa haluat käyttää tulosten syöttämiseen.
   <ol>
+    <li>Pikasyöttö: Ns. pikasyötössä voit syöttää yhden kilpailijan aika-,
+      arviointi- tai ammuntatiedon kirjoittamalla kilpailijan numeron ja
+      tuloksen. Esimerkiksi kilpailijan 13 arviot 118 ja 87 metriä
+      syötetään muodossa 13,118,87. Pikasyöttö on kaikista nopein tapa syöttää
+      tuloksia.</li>
     <li>Sarja- ja tulospaikkakohtainen syöttö: Tässä näkymässä voit syöttää
       yhden sarjan esimerkiksi kaikki ammuntatulokset kerralla. Samanlaiset
       näkymät löytyvät siis myös saapumisajoille ja arvioille. Tämä
       vaihtoehto sopii hyvin tilanteeseen, jossa yhden toimitsijan vastuulla
-      on yksi tulospaikka.</li>
-    <li>Pikasyöttö: Ns. pikasyötössä voit syöttää yhden kilpailijan aika-,
-      arviointi- tai ammuntatiedon kirjoittamalla kilpailijan numeron ja
-      tuloksen. Esimerkiksi kilpailijan 13 arviot 118 ja 87 metriä
-      syötetään muodossa 13,118,87. Pikasyöttö on nopea tapa syöttää
-      tuloksia silloin, kun kilpailijoiden numerot ovat helposti saatavilla.</li>
+      on yksi tulospaikka. Lisäksi se antaa hyvän kokonaiskuvan sarjojen
+      tilanteesta.</li>
     <li>Kilpailijakohtainen lomake: Jos kilpailijan tiedot avaa sen jälkeen,
       kun lähtölista on luotu, hänelle voi syöttää samassa näkymässä kaikki
       tulostiedot kerralla. Tätä vaihtoehtoa voi käyttää esimerkiksi silloin,
@@ -255,6 +256,23 @@ end
   kirjautumistietoja (sähköposti ja salasana).<br/><br/>
   <%= link_to 'Lue Hirviurheilu Offline -tuotteen kokeilemisesta.', offline_price_path %></div>
 
+<div class="question">Kuinka <span class="highligth">cup-kilpailuiden</span> tuloslaskenta toimii?</div>
+<div class="answer">Cup-kilpailuiden tulosten laskenta on erittäin helppoa.
+  Sinun tarvitsee vain kertoa cup-kilpailun nimi ja valita, mistä (osa)kilpailuista cup koostuu.
+  Osakilpailut tarkoittavat tässä yhteydessä aivan normaaleja Hirviurheilun kilpailuita,
+  joiden tulokset olet palveluun syöttänyt tai tulet syöttämään.<br/><br/>
+  Lisäksi pystyt määrittämään, kuinka monen kilpailun tulokset lasketaan yhteispisteisiin.
+  Esimerkiksi jos cup koostuu kolmesta osakilpailusta, niin voit määrittää, että yhteispisteet
+  lasketaan kahden parhaan tuloksen perusteella.<br/><br/>
+  Cup-kilpailun sarjoiksi syntyvät automaattisesti samat sarjat, jotka esiintyvät
+  osakilpailuissa. Esimerkiksi jos kaikissa osakilpailuissa on sarjat "M" sekä "N",
+  niin myös cupin tuloksista löytyy sarjat "M" ja "N".
+  Yhden sarjan sisällä kahden osakilpailun kaksi kilpailijat yhdistetään yhdeksi
+  henkilöksi etu- ja sukunimen perusteella. Esimerkiksi jos kilpailija "Timo Testinen"
+  esiintyy sarjassa "M" jokaisessa osakilpailussa, palvelu laskee hänelle cup-kilpailun
+  yhteispisteet cup-kilpailun sarjaan "M".
+  </div>
+
 <h3>Tulosten julkaisu</h3>
 <div class="question">Miten tulokset saadaan <span class="highligth">julkaistua</span>
   kilpailijoiden nähtäville?</div>
@@ -289,10 +307,11 @@ end
 Palvelu tukee seuraavia kilpailumuotoja:
 <ul>
   <li>Normaali yksilökilpailu</li>
-  <li>Kävely- / metsästäjäsarja (ei aikapisteitä, 4 arviomatkaa tai
-    kaikille 300 aikapistettä, 2 arviomatkaa)</li>
+  <li>Kävely- / metsästäjäsarja (4 arviomatkaa ilman aikapisteitä tai
+    2 arviomatkaa ja kaikille 300 aikapistettä)</li>
   <li>Joukkuekilpailu</li>
   <li>Viesti</li>
+  <li>Cup</li>
 </ul>
 <hr/>
 
