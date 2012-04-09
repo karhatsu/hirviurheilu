@@ -36,6 +36,28 @@ describe ApplicationHelper do
       helper.points_print(competitor, @all_competitors).should == "-"
     end
   end
+  
+  describe "#cup_points_print" do
+    it "should print points in case they are available" do
+      competitor = mock(CupCompetitor)
+      competitor.should_receive(:points).and_return(2000)
+      helper.cup_points_print(competitor).should == "2000"
+    end
+    
+    it "should print points in brackets if only partial points are available" do
+      competitor = mock(CupCompetitor)
+      competitor.should_receive(:points).and_return(nil)
+      competitor.should_receive(:points!).and_return(1000)
+      helper.cup_points_print(competitor).should == "(1000)"
+    end
+    
+    it "should print '-' if no points at all" do
+      competitor = mock(CupCompetitor)
+      competitor.should_receive(:points).and_return(nil)
+      competitor.should_receive(:points!).and_return(nil)
+      helper.cup_points_print(competitor).should == "-"
+    end
+  end
 
   describe "#datetime_print" do
     before do

@@ -26,10 +26,15 @@ class CupCompetitor
   end
   
   def points
-    top_competitions = @cup_series.cup.top_competitions
-    total_competitions = @competitors.length
-    points_in_competitions = @competitors.collect { |c| c.points(false).to_i }
-    points_in_competitions.sort.reverse[0, top_competitions].inject(:+)
+    total_points @cup_series.cup.top_competitions
+  end
+  
+  def points!
+    total_points 1
+  end
+  
+  def points_array
+    @points_array ||= @competitors.collect { |c| c.points(false) }
   end
   
   def self.name(competitor)
@@ -39,5 +44,18 @@ class CupCompetitor
   private
   def name(competitor)
     CupCompetitor.name(competitor)
+  end
+  
+  def total_points(min_competitions)
+    return sum_of_top_competitions if count_non_nil_points >= min_competitions
+    nil
+  end
+  
+  def count_non_nil_points
+    points_array.select { |p| !p.nil? }.length
+  end
+  
+  def sum_of_top_competitions
+    points_array.collect {|p| p.to_i }.sort.reverse[0, @cup_series.cup.top_competitions].inject(:+)
   end
 end

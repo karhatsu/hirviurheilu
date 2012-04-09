@@ -26,7 +26,9 @@ class CupSeries
   end
   
   def ordered_competitors
-    cup_competitors.sort { |a, b| b.points <=> a.points }
+    cup_competitors.sort do |a, b|
+      [b.points.to_i, b.points!.to_i] <=> [a.points.to_i, a.points!.to_i]
+    end
   end
   
   private

@@ -65,6 +65,14 @@ module ApplicationHelper
     return "(#{partial_points})" unless partial_points.nil?
     "-"
   end
+  
+  def cup_points_print(competitor)
+    points = competitor.points
+    return points.to_s unless points.nil?
+    partial_points = competitor.points!
+    return "(#{partial_points})" unless partial_points.nil?
+    "-"
+  end
 
   def national_record(competitor, raw=false)
     tag=''
