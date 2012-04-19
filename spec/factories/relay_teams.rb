@@ -1,5 +1,7 @@
-Factory.define :relay_team do |rt|
-  rt.association :relay
-  rt.name 'Shooting club'
-  rt.number 5
+FactoryGirl.define do
+  factory :relay_team do
+    relay
+    name 'Shooting club'
+    number 5
+  end
 end

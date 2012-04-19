@@ -3,22 +3,22 @@ require 'spec_helper'
 describe Sport do
   describe "create" do
     it "should create sport with valid attrs" do
-      Factory.create(:sport)
+      FactoryGirl.create(:sport)
     end
   end
 
   describe "validation" do
     it "should require name" do
-      Factory.build(:sport, :name => nil).should have(1).errors_on(:name)
+      FactoryGirl.build(:sport, :name => nil).should have(1).errors_on(:name)
     end
 
     it "should require key" do
-      Factory.build(:sport, :key => nil).should have(1).errors_on(:key)
+      FactoryGirl.build(:sport, :key => nil).should have(1).errors_on(:key)
     end
 
     it "key should be unique" do
-      Factory.create(:sport, :key => "XYZ")
-      Factory.build(:sport, :key => "XYZ").should have(1).errors_on(:key)
+      FactoryGirl.create(:sport, :key => "XYZ")
+      FactoryGirl.build(:sport, :key => "XYZ").should have(1).errors_on(:key)
     end
   end
   
@@ -36,28 +36,28 @@ describe Sport do
 
   describe "ski?" do
     it "should be true when key is SKI" do
-      Factory.build(:sport, :key => Sport::SKI).should be_ski
+      FactoryGirl.build(:sport, :key => Sport::SKI).should be_ski
     end
 
     it "should be false when key is not SKI" do
-      Factory.build(:sport, :key => Sport::RUN).should_not be_ski
+      FactoryGirl.build(:sport, :key => Sport::RUN).should_not be_ski
     end
   end
 
   describe "run?" do
     it "should be true when key is RUN" do
-      Factory.build(:sport, :key => Sport::RUN).should be_run
+      FactoryGirl.build(:sport, :key => Sport::RUN).should be_run
     end
 
     it "should be false when key is not RUN" do
-      Factory.build(:sport, :key => Sport::SKI).should_not be_run
+      FactoryGirl.build(:sport, :key => Sport::SKI).should_not be_run
     end
   end
 
   describe "find by key" do
     before do
-      @ski = Sport.find_by_key(Sport::SKI) || Factory.create(:sport, :key => Sport::SKI)
-      @run = Sport.find_by_key(Sport::RUN) || Factory.create(:sport, :key => Sport::RUN)
+      @ski = Sport.find_by_key(Sport::SKI) || FactoryGirl.create(:sport, :key => Sport::SKI)
+      @run = Sport.find_by_key(Sport::RUN) || FactoryGirl.create(:sport, :key => Sport::RUN)
     end
 
     describe "#find_ski" do
@@ -75,8 +75,8 @@ describe Sport do
 
   describe "#default_sport" do
     before do
-      @ski = Sport.find_by_key(Sport::SKI) || Factory.create(:sport, :key => Sport::SKI)
-      @run = Sport.find_by_key(Sport::RUN) || Factory.create(:sport, :key => Sport::RUN)
+      @ski = Sport.find_by_key(Sport::SKI) || FactoryGirl.create(:sport, :key => Sport::SKI)
+      @run = Sport.find_by_key(Sport::RUN) || FactoryGirl.create(:sport, :key => Sport::RUN)
       @time = Time.new
       Time.stub!(:new).and_return(@time)
     end

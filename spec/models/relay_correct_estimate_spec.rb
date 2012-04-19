@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe RelayCorrectEstimate do
   it "create" do
-    Factory.create :relay_correct_estimate
+    FactoryGirl.create :relay_correct_estimate
   end
 
   describe "associations" do
@@ -26,8 +26,8 @@ describe RelayCorrectEstimate do
       it { should allow_value(1).for(:leg) }
       it { should_not allow_value(1.1).for(:leg) }
       it "should not allow bigger leg value than relay legs count" do
-        relay = Factory.build(:relay, :legs_count => 3)
-        ce = Factory.build(:relay_correct_estimate, :relay => relay, :leg => 3)
+        relay = FactoryGirl.build(:relay, :legs_count => 3)
+        ce = FactoryGirl.build(:relay_correct_estimate, :relay => relay, :leg => 3)
         ce.should be_valid
         ce.leg = 4
         ce.should have(1).errors_on(:leg)
@@ -35,7 +35,7 @@ describe RelayCorrectEstimate do
 
       describe "uniqueness" do
         before do
-          Factory.create(:relay_correct_estimate)
+          FactoryGirl.create(:relay_correct_estimate)
         end
         it { should validate_uniqueness_of(:leg).scoped_to(:relay_id) }
       end

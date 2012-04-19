@@ -1,5 +1,7 @@
-Factory.define :team_competition do |tc|
-  tc.association :race
-  tc.name 'Ladies'
-  tc.team_competitor_count 8
+FactoryGirl.define do
+  factory :team_competition do
+    race
+    name 'Ladies'
+    team_competitor_count 8
+  end
 end

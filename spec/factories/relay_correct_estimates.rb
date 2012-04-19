@@ -1,4 +1,6 @@
-Factory.define :relay_correct_estimate do |rce|
-  rce.association :relay
-  rce.leg 2
+FactoryGirl.define do
+  factory :relay_correct_estimate do
+    relay
+    leg 2
+  end
 end

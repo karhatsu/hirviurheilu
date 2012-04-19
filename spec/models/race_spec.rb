@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Race do
   describe "create" do
     it "should create race with valid attrs" do
-      Factory.create(:race)
+      FactoryGirl.create(:race)
     end
   end
 
@@ -15,12 +15,12 @@ describe Race do
 
     describe "end_date" do
       it "can be nil which makes it same as start date" do
-        race = Factory.create(:race, :end_date => nil)
+        race = FactoryGirl.create(:race, :end_date => nil)
         race.end_date.should == race.start_date
       end
 
       it "cannot be before start date" do
-        Factory.build(:race, :start_date => Date.today + 3, :end_date => Date.today + 2).
+        FactoryGirl.build(:race, :start_date => Date.today + 3, :end_date => Date.today + 2).
           should have(1).errors_on(:end_date)
       end
     end
@@ -53,24 +53,24 @@ describe Race do
       it { should_not allow_value(2).for(:club_level) }
 
       it "should convert nil to SEURA" do
-        race = Factory.create(:race, :club_level => nil)
+        race = FactoryGirl.create(:race, :club_level => nil)
         race.club_level.should == Race::CLUB_LEVEL_SEURA
       end
     end
 
     describe "race with same name" do
       before do
-        @race = Factory.create(:race, :name => 'My race', :start_date => '2010-01-01',
+        @race = FactoryGirl.create(:race, :name => 'My race', :start_date => '2010-01-01',
           :location => 'My town')
       end
 
       it "should allow if same location, different start date" do
-        Factory.build(:race, :name => 'My race', :start_date => '2011-01-01',
+        FactoryGirl.build(:race, :name => 'My race', :start_date => '2011-01-01',
           :location => 'My town').should be_valid
       end
 
       it "should allow if different location, same start date" do
-        Factory.build(:race, :name => 'My race', :start_date => '2010-01-01',
+        FactoryGirl.build(:race, :name => 'My race', :start_date => '2010-01-01',
           :location => 'Different town').should be_valid
       end
 
@@ -79,7 +79,7 @@ describe Race do
       end
 
       it "should prevent if same location, same start date" do
-        Factory.build(:race, :name => 'My race', :start_date => '2010-01-01',
+        FactoryGirl.build(:race, :name => 'My race', :start_date => '2010-01-01',
           :location => 'My town').should_not be_valid
       end
     end
@@ -100,19 +100,19 @@ describe Race do
 
   describe "past/ongoing/future" do
     before do
-      @past1 = Factory.create(:race, :start_date => Date.today - 10,
+      @past1 = FactoryGirl.create(:race, :start_date => Date.today - 10,
         :end_date => nil)
-      @past2 = Factory.create(:race, :start_date => Date.today - 2,
+      @past2 = FactoryGirl.create(:race, :start_date => Date.today - 2,
         :end_date => Date.today - 1)
-      @current1 = Factory.create(:race, :start_date => Date.today - 1,
+      @current1 = FactoryGirl.create(:race, :start_date => Date.today - 1,
         :end_date => Date.today + 0)
-      @current2 = Factory.create(:race, :start_date => Date.today,
+      @current2 = FactoryGirl.create(:race, :start_date => Date.today,
         :end_date => nil)
-      @current3 = Factory.create(:race, :start_date => Date.today,
+      @current3 = FactoryGirl.create(:race, :start_date => Date.today,
         :end_date => Date.today + 1)
-      @future1 = Factory.create(:race, :start_date => Date.today + 2,
+      @future1 = FactoryGirl.create(:race, :start_date => Date.today + 2,
         :end_date => Date.today + 3)
-      @future2 = Factory.create(:race, :start_date => Date.today + 1,
+      @future2 = FactoryGirl.create(:race, :start_date => Date.today + 1,
         :end_date => nil)
     end
 
@@ -131,8 +131,8 @@ describe Race do
 
   describe "#finish" do
     before do
-      @race = Factory.create(:race)
-      @series = Factory.build(:series, :race => @race)
+      @race = FactoryGirl.create(:race)
+      @series = FactoryGirl.build(:series, :race => @race)
       @race.series << @series
       @race.stub!(:each_competitor_has_correct_estimates?).and_return(true)
     end
@@ -150,7 +150,7 @@ describe Race do
     context "when competitors not missing correct estimates" do
       context "when competitors missing results" do
         before do
-          @series.competitors << Factory.build(:competitor, :series => @series)
+          @series.competitors << FactoryGirl.build(:competitor, :series => @series)
         end
 
         it "should not be possible to finish the race" do
@@ -160,7 +160,7 @@ describe Race do
 
       context "when all competitors have results filled" do
         before do
-          @series.competitors << Factory.build(:competitor, :series => @series,
+          @series.competitors << FactoryGirl.build(:competitor, :series => @series,
             :no_result_reason => Competitor::DNF)
         end
 
@@ -187,7 +187,7 @@ describe Race do
 
   describe "#finish!" do
     before do
-      @race = Factory.build(:race)
+      @race = FactoryGirl.build(:race)
     end
 
     it "should return true when finishing the race succeeds" do
@@ -203,11 +203,11 @@ describe Race do
 
   describe "#destroy" do
     before do
-      @race = Factory.create(:race)
+      @race = FactoryGirl.create(:race)
     end
 
     it "should be prevented if race has series" do
-      @race.series << Factory.build(:series, :race => @race)
+      @race.series << FactoryGirl.build(:series, :race => @race)
       @race.destroy
       @race.should have(1).errors
       Race.should be_exist(@race.id)
@@ -224,7 +224,7 @@ describe Race do
       @ds1 = DefaultSeries.new('DS1', ['DAG1', 1], ['DAG2', 2])
       @ds2 = DefaultSeries.new('DS2')
       DefaultSeries.stub!(:all).and_return([@ds1, @ds2])
-      @race = Factory.build(:race)
+      @race = FactoryGirl.build(:race)
     end
 
     it "should add default series and age groups for the race" do
@@ -255,7 +255,7 @@ describe Race do
 
   describe "#days_count" do
     before do
-      @race = Factory.build(:race, :start_date => '2010-12-20')
+      @race = FactoryGirl.build(:race, :start_date => '2010-12-20')
     end
 
     context "when only start date defined" do
@@ -282,7 +282,7 @@ describe Race do
   
   describe "#days_count=" do
     before do
-      @race = Factory.build(:race, :start_date => nil, :end_date => nil)
+      @race = FactoryGirl.build(:race, :start_date => nil, :end_date => nil)
     end
     
     describe "invalid value" do
@@ -350,27 +350,27 @@ describe Race do
 
   describe "#set_correct_estimates_for_competitors" do
     before do
-      @race = Factory.create(:race)
-      @series1 = Factory.create(:series, :race => @race)
-      @series2 = Factory.create(:series, :race => @race, :estimates => 4)
-      Factory.create(:correct_estimate, :min_number => 1, :max_number => 5,
+      @race = FactoryGirl.create(:race)
+      @series1 = FactoryGirl.create(:series, :race => @race)
+      @series2 = FactoryGirl.create(:series, :race => @race, :estimates => 4)
+      FactoryGirl.create(:correct_estimate, :min_number => 1, :max_number => 5,
         :distance1 => 100, :distance2 => 200,
         :distance3 => 80, :distance4 => 90, :race => @race)
-      Factory.create(:correct_estimate, :min_number => 10, :max_number => nil,
+      FactoryGirl.create(:correct_estimate, :min_number => 10, :max_number => nil,
         :distance1 => 50, :distance2 => 150, :race => @race)
-      @c1 = Factory.create(:competitor, :series => @series1, :number => 1,
+      @c1 = FactoryGirl.create(:competitor, :series => @series1, :number => 1,
         :correct_estimate1 => 1, :correct_estimate2 => 2)
-      @c4 = Factory.create(:competitor, :series => @series2, :number => 4)
-      @c5 = Factory.create(:competitor, :series => @series1, :number => 5)
-      @c6 = Factory.create(:competitor, :series => @series1, :number => 6,
+      @c4 = FactoryGirl.create(:competitor, :series => @series2, :number => 4)
+      @c5 = FactoryGirl.create(:competitor, :series => @series1, :number => 5)
+      @c6 = FactoryGirl.create(:competitor, :series => @series1, :number => 6,
         :correct_estimate1 => 10, :correct_estimate2 => 20,
         :correct_estimate3 => 100, :correct_estimate4 => 200)
-      @c9 = Factory.create(:competitor, :series => @series2, :number => 9,
+      @c9 = FactoryGirl.create(:competitor, :series => @series2, :number => 9,
         :correct_estimate1 => 30, :correct_estimate2 => 40,
         :correct_estimate3 => 100, :correct_estimate4 => 200)
-      @c10 = Factory.create(:competitor, :series => @series2, :number => 10)
-      @c150 = Factory.create(:competitor, :series => @series1, :number => 150)
-      @cnil = Factory.create(:competitor, :series => @series1, :number => nil,
+      @c10 = FactoryGirl.create(:competitor, :series => @series2, :number => 10)
+      @c150 = FactoryGirl.create(:competitor, :series => @series1, :number => 150)
+      @cnil = FactoryGirl.create(:competitor, :series => @series1, :number => nil,
         :correct_estimate1 => 50, :correct_estimate2 => 60)
       @race.reload
       @race.set_correct_estimates_for_competitors
@@ -428,16 +428,16 @@ describe Race do
 
   describe "#each_competitor_has_correct_estimates?" do
     before do
-      @race = Factory.create(:race)
-      series1 = Factory.create(:series, :race => @race)
-      series2 = Factory.create(:series, :race => @race)
-      @c1 = Factory.create(:competitor, :series => series1,
+      @race = FactoryGirl.create(:race)
+      series1 = FactoryGirl.create(:series, :race => @race)
+      series2 = FactoryGirl.create(:series, :race => @race)
+      @c1 = FactoryGirl.create(:competitor, :series => series1,
         :correct_estimate1 => 55, :correct_estimate2 => 111)
-      @c2 = Factory.create(:competitor, :series => series2,
+      @c2 = FactoryGirl.create(:competitor, :series => series2,
         :correct_estimate1 => 100, :correct_estimate2 => 99)
-      @c3 = Factory.create(:competitor, :series => series1,
+      @c3 = FactoryGirl.create(:competitor, :series => series1,
         :correct_estimate1 => 123, :correct_estimate2 => 100)
-      @c4 = Factory.create(:competitor, :series => series2,
+      @c4 = FactoryGirl.create(:competitor, :series => series2,
         :correct_estimate1 => 77, :correct_estimate2 => 88)
     end
 
@@ -456,26 +456,26 @@ describe Race do
 
   describe "#estimates_at_most" do
     it "should return 2 when no series defined" do
-      Factory.build(:race).estimates_at_most.should == 2
+      FactoryGirl.build(:race).estimates_at_most.should == 2
     end
 
     it "should return 2 when all series have 2 estimates" do
-      race = Factory.create(:race)
-      race.series << Factory.build(:series, :race => race)
+      race = FactoryGirl.create(:race)
+      race.series << FactoryGirl.build(:series, :race => race)
       race.estimates_at_most.should == 2
     end
 
     it "should return 4 when at least one series has 4 estimates" do
-      race = Factory.create(:race)
-      race.series << Factory.build(:series, :race => race)
-      race.series << Factory.build(:series, :race => race, :estimates => 4)
+      race = FactoryGirl.create(:race)
+      race.series << FactoryGirl.build(:series, :race => race)
+      race.series << FactoryGirl.build(:series, :race => race, :estimates => 4)
       race.estimates_at_most.should == 4
     end
   end
 
   describe "#has_team_competition?" do
     before do
-      @race = Factory.build(:race)
+      @race = FactoryGirl.build(:race)
     end
 
     context "when team_competitions is empty" do
@@ -484,7 +484,7 @@ describe Race do
 
     context "when team_competitions is not empty" do
       before do
-        @race.team_competitions << Factory.build(:team_competition, :race => @race)
+        @race.team_competitions << FactoryGirl.build(:team_competition, :race => @race)
       end
       it "should return true" do @race.should have_team_competition end
     end
@@ -492,10 +492,10 @@ describe Race do
 
   describe "relays" do
     before do
-      @race = Factory.create(:race)
-      @race.relays << Factory.build(:relay, :race => @race, :name => 'C')
-      @race.relays << Factory.build(:relay, :race => @race, :name => 'A')
-      @race.relays << Factory.build(:relay, :race => @race, :name => 'B')
+      @race = FactoryGirl.create(:race)
+      @race.relays << FactoryGirl.build(:relay, :race => @race, :name => 'C')
+      @race.relays << FactoryGirl.build(:relay, :race => @race, :name => 'A')
+      @race.relays << FactoryGirl.build(:relay, :race => @race, :name => 'B')
       @race.reload
     end
 
@@ -508,7 +508,7 @@ describe Race do
 
   describe "#has_any_national_records_defined?" do
     before do
-      @race = Factory.create(:race)
+      @race = FactoryGirl.create(:race)
     end
 
     it "should return false when no series exists" do
@@ -517,8 +517,8 @@ describe Race do
 
     context "when series exist" do
       before do
-        @race.series << Factory.build(:series, :race => @race)
-        @race.series << Factory.build(:series, :race => @race, :national_record => '')
+        @race.series << FactoryGirl.build(:series, :race => @race)
+        @race.series << FactoryGirl.build(:series, :race => @race, :national_record => '')
       end
 
       it "should return false when no national records have been defined" do
@@ -526,7 +526,7 @@ describe Race do
       end
 
       it "should return true when at least one national record" do
-        @race.series << Factory.build(:series, :race => @race, :national_record => 900)
+        @race.series << FactoryGirl.build(:series, :race => @race, :national_record => 900)
         @race.should have_any_national_records_defined
       end
     end
@@ -534,27 +534,27 @@ describe Race do
 
   describe "#race_day" do
     it "should return 0 if race ended in the past" do
-      Factory.build(:race, :start_date => Date.today - 1).race_day.should == 0
-      Factory.build(:race, :start_date => Date.today - 2).race_day.should == 0
+      FactoryGirl.build(:race, :start_date => Date.today - 1).race_day.should == 0
+      FactoryGirl.build(:race, :start_date => Date.today - 2).race_day.should == 0
     end
 
     it "should return 0 if race starts in the future" do
-      Factory.build(:race, :start_date => Date.today + 1).race_day.should == 0
-      Factory.build(:race, :start_date => Date.today + 2).race_day.should == 0
+      FactoryGirl.build(:race, :start_date => Date.today + 1).race_day.should == 0
+      FactoryGirl.build(:race, :start_date => Date.today + 2).race_day.should == 0
     end
 
     context "when race is today" do
       it "should return 1 if race started today" do
-        Factory.build(:race, :start_date => Date.today).race_day.should == 1
+        FactoryGirl.build(:race, :start_date => Date.today).race_day.should == 1
       end
 
       it "should return 2 if race started yesterday" do
-        Factory.build(:race, :start_date => Date.today - 1, :end_date => Date.today + 1).
+        FactoryGirl.build(:race, :start_date => Date.today - 1, :end_date => Date.today + 1).
           race_day.should == 2
       end
 
       it "should return 3 if race started two days ago" do
-        Factory.build(:race, :start_date => Date.today - 2, :end_date => Date.today).
+        FactoryGirl.build(:race, :start_date => Date.today - 2, :end_date => Date.today).
           race_day.should == 3
       end
     end
@@ -562,8 +562,8 @@ describe Race do
 
   describe "#next_start_number" do
     before do
-      @race = Factory.create(:race)
-      @series = Factory.build(:series, :race => @race)
+      @race = FactoryGirl.create(:race)
+      @series = FactoryGirl.build(:series, :race => @race)
       @race.series << @series
     end
 
@@ -572,21 +572,21 @@ describe Race do
     end
 
     it "should return 1 when competitors without numbers" do
-      @series.competitors << Factory.build(:competitor, :series => @series, :number => nil)
+      @series.competitors << FactoryGirl.build(:competitor, :series => @series, :number => nil)
       @race.next_start_number.should == 1
     end
 
     it "should return the biggest competitor number + 1 when competitors with numbers" do
-      @series.competitors << Factory.build(:competitor, :series => @series, :number => 2)
-      @series.competitors << Factory.build(:competitor, :series => @series, :number => 8)
+      @series.competitors << FactoryGirl.build(:competitor, :series => @series, :number => 2)
+      @series.competitors << FactoryGirl.build(:competitor, :series => @series, :number => 8)
       @race.next_start_number.should == 9
     end
   end
 
   describe "#next_start_time" do
     before do
-      @race = Factory.create(:race, :start_interval_seconds => 40)
-      @series = Factory.build(:series, :race => @race)
+      @race = FactoryGirl.create(:race, :start_interval_seconds => 40)
+      @series = FactoryGirl.build(:series, :race => @race)
       @race.series << @series
     end
 
@@ -595,23 +595,23 @@ describe Race do
     end
 
     it "should return nil when competitors without start times" do
-      @series.competitors << Factory.build(:competitor, :series => @series)
+      @series.competitors << FactoryGirl.build(:competitor, :series => @series)
       @race.next_start_time.should be_nil
     end
 
     context "when competitors with start times" do
       it "should return the biggest competitor start time + time interval" do
-        @series.competitors << Factory.build(:competitor, :series => @series,
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '10:34:11')
-        @series.competitors << Factory.build(:competitor, :series => @series,
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '18:06:20')
         @race.next_start_time.strftime('%H:%M:%S').should == '18:07:00'
       end
 
       it "should round up the suggested start time to full minutes" do
-        @series.competitors << Factory.build(:competitor, :series => @series,
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '10:34:11')
-        @series.competitors << Factory.build(:competitor, :series => @series,
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '18:03:21')
         @race.next_start_time.strftime('%H:%M:%S').should == '18:05:00'
       end
@@ -620,7 +620,7 @@ describe Race do
 
   describe "#all_competitions_finished?" do
     before do
-      @race = Factory.build(:race)
+      @race = FactoryGirl.build(:race)
     end
 
     it "should return false when race is not finished" do

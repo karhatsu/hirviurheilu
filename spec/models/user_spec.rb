@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   it "should create user with valid attrs" do
-    Factory.create(:user)
+    FactoryGirl.create(:user)
   end
 
   describe "validation" do
@@ -19,18 +19,18 @@ describe User do
   describe "rights" do
     context "default" do
       it "user should not be admin" do
-        Factory.build(:user).should_not be_admin
+        FactoryGirl.build(:user).should_not be_admin
       end
 
       it "user should not be official" do
-        Factory.build(:user).should_not be_official
+        FactoryGirl.build(:user).should_not be_official
       end
     end
 
     describe "add admin rights" do
       it "should give admin rights for the user" do
-        Factory.create(:role, :name => Role::ADMIN) unless Role.find_by_name(Role::ADMIN)
-        user = Factory.build(:user)
+        FactoryGirl.create(:role, :name => Role::ADMIN) unless Role.find_by_name(Role::ADMIN)
+        user = FactoryGirl.build(:user)
         user.add_admin_rights
         user.should be_admin
       end
@@ -38,8 +38,8 @@ describe User do
 
     describe "add official rights" do
       it "should give official rights for the user" do
-        Factory.create(:role, :name => Role::OFFICIAL) unless Role.find_by_name(Role::OFFICIAL)
-        user = Factory.build(:user)
+        FactoryGirl.create(:role, :name => Role::OFFICIAL) unless Role.find_by_name(Role::OFFICIAL)
+        user = FactoryGirl.build(:user)
         user.add_official_rights
         user.should be_official
       end
@@ -48,8 +48,8 @@ describe User do
 
   describe "#official_for_race?" do
     before do
-      @race = Factory.create(:race)
-      @user = Factory.build(:user)
+      @race = FactoryGirl.create(:race)
+      @user = FactoryGirl.build(:user)
     end
 
     it "should return false when no races for this user" do
@@ -57,7 +57,7 @@ describe User do
     end
 
     it "should return false when user is not official for the given race" do
-      race = Factory.create(:race)
+      race = FactoryGirl.create(:race)
       @user.races << race
       @user.should_not be_official_for_race(@race)
     end
@@ -70,8 +70,8 @@ describe User do
   
   describe "#official_for_cup?" do
     before do
-      @cup = Factory.create(:cup)
-      @user = Factory.build(:user)
+      @cup = FactoryGirl.create(:cup)
+      @user = FactoryGirl.build(:user)
     end
     
     it "should return false when no cups for this user" do
@@ -79,7 +79,7 @@ describe User do
     end
 
     it "should return false when user is not official for the given cup" do
-      cup = Factory.create(:cup)
+      cup = FactoryGirl.create(:cup)
       @user.cups << cup
       @user.should_not be_official_for_cup(@cup)
     end
@@ -93,7 +93,7 @@ describe User do
   describe "offline usage" do
     describe "maximum amount of users" do
       before do
-        Factory.create(:user)
+        FactoryGirl.create(:user)
       end
 
       context "when online usage" do
@@ -102,7 +102,7 @@ describe User do
         end
 
         it "should not be limited" do
-          Factory.create(:user)
+          FactoryGirl.create(:user)
         end
       end
 
@@ -112,7 +112,7 @@ describe User do
         end
 
         it "should be one" do
-          Factory.build(:user).should_not be_valid
+          FactoryGirl.build(:user).should_not be_valid
         end
       end
     end

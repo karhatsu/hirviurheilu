@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Competitor do
   describe "create" do
     it "should create competitor with valid attrs" do
-      Factory.create(:competitor)
+      FactoryGirl.create(:competitor)
     end
   end
 
@@ -29,12 +29,12 @@ describe Competitor do
 
       describe "uniqueness" do
         before do
-          @c = Factory.create(:competitor, :number => 5)
+          @c = FactoryGirl.create(:competitor, :number => 5)
         end
         
         it "should require uniqueness for numbers in the same race" do
-          series = Factory.create(:series, :race => @c.series.race)
-          competitor = Factory.build(:competitor, :series => series, :number => 6)
+          series = FactoryGirl.create(:series, :race => @c.series.race)
+          competitor = FactoryGirl.build(:competitor, :series => series, :number => 6)
           competitor.should be_valid
           competitor.number = 5
           competitor.should_not be_valid
@@ -45,22 +45,22 @@ describe Competitor do
         end
         
         it "should allow same number in another race" do
-          race = Factory.create(:race)
-          series = Factory.create(:series)
-          Factory.build(:competitor, :series => series, :number => 5).should be_valid
+          race = FactoryGirl.create(:race)
+          series = FactoryGirl.create(:series)
+          FactoryGirl.build(:competitor, :series => series, :number => 5).should be_valid
         end
         
         it "should allow two nils for same series" do
-          c = Factory.create(:competitor, :number => nil)
-          Factory.build(:competitor, :number => nil, :series => c.series).
+          c = FactoryGirl.create(:competitor, :number => nil)
+          FactoryGirl.build(:competitor, :number => nil, :series => c.series).
             should be_valid
         end
       end
 
       context "when series has start list" do
         it "should not be nil" do
-          series = Factory.build(:series, :has_start_list => true)
-          competitor = Factory.build(:competitor, :series => series, :number => nil)
+          series = FactoryGirl.build(:series, :has_start_list => true)
+          competitor = FactoryGirl.build(:competitor, :series => series, :number => nil)
           competitor.should have(1).errors_on(:number)
         end
       end
@@ -71,8 +71,8 @@ describe Competitor do
 
       context "when series has start list" do
         it "should not be nil" do
-          series = Factory.build(:series, :has_start_list => true)
-          competitor = Factory.build(:competitor, :series => series, :start_time => nil)
+          series = FactoryGirl.build(:series, :has_start_list => true)
+          competitor = FactoryGirl.build(:competitor, :series => series, :start_time => nil)
           competitor.should have(1).errors_on(:start_time)
         end
       end
@@ -86,27 +86,27 @@ describe Competitor do
       it { should_not allow_value(101).for(:shots_total_input) }
 
       it "cannot be given if also individual shots have been defined" do
-        comp = Factory.build(:competitor, :shots_total_input => 50)
-        comp.shots << Factory.build(:shot, :competitor => comp, :value => 8)
-        comp.shots << Factory.build(:shot, :competitor => comp, :value => 8)
+        comp = FactoryGirl.build(:competitor, :shots_total_input => 50)
+        comp.shots << FactoryGirl.build(:shot, :competitor => comp, :value => 8)
+        comp.shots << FactoryGirl.build(:shot, :competitor => comp, :value => 8)
         comp.should have(1).errors_on(:base)
       end
 
       it "can be given if individual shots only with nils" do
-        comp = Factory.build(:competitor, :shots_total_input => 50)
-        comp.shots << Factory.build(:shot, :competitor => comp, :value => nil)
+        comp = FactoryGirl.build(:competitor, :shots_total_input => 50)
+        comp.shots << FactoryGirl.build(:shot, :competitor => comp, :value => nil)
         comp.should be_valid
       end
     end
     
     describe "shots" do
       it "should have at maximum ten shots" do
-        comp = Factory.build(:competitor)
+        comp = FactoryGirl.build(:competitor)
         10.times do
-          comp.shots << Factory.build(:shot, :competitor => comp, :value => 8)
+          comp.shots << FactoryGirl.build(:shot, :competitor => comp, :value => 8)
         end
         comp.should be_valid
-        comp.shots << Factory.build(:shot, :competitor => comp, :value => 8)
+        comp.shots << FactoryGirl.build(:shot, :competitor => comp, :value => 8)
         comp.should have(1).errors_on(:shots)
       end
     end
@@ -179,27 +179,27 @@ describe Competitor do
       it { should allow_value(nil).for(:arrival_time) }
 
       it "can be nil even when start time is not nil" do
-        Factory.build(:competitor, :start_time => '14:00', :arrival_time => nil).
+        FactoryGirl.build(:competitor, :start_time => '14:00', :arrival_time => nil).
           should be_valid
       end
 
       it "should not be before start time" do
-        Factory.build(:competitor, :start_time => '14:00', :arrival_time => '13:59').
+        FactoryGirl.build(:competitor, :start_time => '14:00', :arrival_time => '13:59').
           should have(1).errors_on(:arrival_time)
       end
 
       it "should not be same as start time" do
-        Factory.build(:competitor, :start_time => '14:00', :arrival_time => '14:00').
+        FactoryGirl.build(:competitor, :start_time => '14:00', :arrival_time => '14:00').
           should have(1).errors_on(:arrival_time)
       end
 
       it "is valid when later than start time" do
-        Factory.build(:competitor, :start_time => '14:00', :arrival_time => '14:01').
+        FactoryGirl.build(:competitor, :start_time => '14:00', :arrival_time => '14:01').
           should be_valid
       end
 
       it "cannot be given if no start time" do
-        Factory.build(:competitor, :start_time => nil, :arrival_time => '13:59').
+        FactoryGirl.build(:competitor, :start_time => nil, :arrival_time => '13:59').
           should_not be_valid
       end
     end
@@ -211,7 +211,7 @@ describe Competitor do
       it { should_not allow_value('test').for(:no_result_reason) }
 
       it "converts empty string to nil" do
-        comp = Factory.build(:competitor, :no_result_reason => '')
+        comp = FactoryGirl.build(:competitor, :no_result_reason => '')
         comp.should be_valid
         comp.save!
         comp.no_result_reason.should == nil
@@ -315,30 +315,30 @@ describe Competitor do
 
   describe "#shots_sum" do
     it "should return nil when total input is nil and no shots" do
-      Factory.build(:competitor).shots_sum.should be_nil
+      FactoryGirl.build(:competitor).shots_sum.should be_nil
     end
 
     it "should be shots_total_input when it is given" do
-      Factory.build(:competitor, :shots_total_input => 55).shots_sum.should == 55
+      FactoryGirl.build(:competitor, :shots_total_input => 55).shots_sum.should == 55
     end
 
     it "should be sum of defined individual shots if no input sum" do
-      comp = Factory.build(:competitor, :shots_total_input => nil)
-      comp.shots << Factory.build(:shot, :value => 8, :competitor => comp)
-      comp.shots << Factory.build(:shot, :value => 9, :competitor => comp)
+      comp = FactoryGirl.build(:competitor, :shots_total_input => nil)
+      comp.shots << FactoryGirl.build(:shot, :value => 8, :competitor => comp)
+      comp.shots << FactoryGirl.build(:shot, :value => 9, :competitor => comp)
       comp.shots_sum.should == 17
     end
   end
 
   describe "#shot_points" do
     it "should be nil if shots not defined" do
-      competitor = Factory.build(:competitor)
+      competitor = FactoryGirl.build(:competitor)
       competitor.should_receive(:shots_sum).and_return(nil)
       competitor.shot_points.should be_nil
     end
 
     it "should be 6 times shots_sum" do
-      competitor = Factory.build(:competitor)
+      competitor = FactoryGirl.build(:competitor)
       competitor.should_receive(:shots_sum).and_return(50)
       competitor.shot_points.should == 300
     end
@@ -346,88 +346,88 @@ describe Competitor do
 
   describe "#estimate_diff1_m" do
     it "should be nil when no correct estimate1" do
-      Factory.build(:competitor, :estimate1 => 100, :correct_estimate1 => nil).
+      FactoryGirl.build(:competitor, :estimate1 => 100, :correct_estimate1 => nil).
         estimate_diff1_m.should be_nil
     end
 
     it "should be nil when no estimate1" do
-      Factory.build(:competitor, :estimate1 => nil, :correct_estimate1 => 100).
+      FactoryGirl.build(:competitor, :estimate1 => nil, :correct_estimate1 => 100).
         estimate_diff1_m.should be_nil
     end
 
     it "should be positive diff when estimate1 is more than correct" do
-      Factory.build(:competitor, :estimate1 => 105, :correct_estimate1 => 100).
+      FactoryGirl.build(:competitor, :estimate1 => 105, :correct_estimate1 => 100).
         estimate_diff1_m.should == 5
     end
 
     it "should be negative diff when estimate1 is less than correct" do
-      Factory.build(:competitor, :estimate1 => 91, :correct_estimate1 => 100).
+      FactoryGirl.build(:competitor, :estimate1 => 91, :correct_estimate1 => 100).
         estimate_diff1_m.should == -9
     end
   end
 
   describe "#estimate_diff2_m" do
     it "should be nil when no correct estimate2" do
-      Factory.build(:competitor, :estimate2 => 100, :correct_estimate2 => nil).
+      FactoryGirl.build(:competitor, :estimate2 => 100, :correct_estimate2 => nil).
         estimate_diff2_m.should be_nil
     end
 
     it "should be nil when no estimate2" do
-      Factory.build(:competitor, :estimate2 => nil, :correct_estimate2 => 200).
+      FactoryGirl.build(:competitor, :estimate2 => nil, :correct_estimate2 => 200).
         estimate_diff2_m.should be_nil
     end
 
     it "should be positive diff when estimate2 is more than correct" do
-      Factory.build(:competitor, :estimate2 => 205, :correct_estimate2 => 200).
+      FactoryGirl.build(:competitor, :estimate2 => 205, :correct_estimate2 => 200).
         estimate_diff2_m.should == 5
     end
 
     it "should be negative diff when estimate2 is less than correct" do
-      Factory.build(:competitor, :estimate2 => 191, :correct_estimate2 => 200).
+      FactoryGirl.build(:competitor, :estimate2 => 191, :correct_estimate2 => 200).
         estimate_diff2_m.should == -9
     end
   end
 
   describe "#estimate_diff3_m" do
     it "should be nil when no correct estimate3" do
-      Factory.build(:competitor, :estimate3 => 100, :correct_estimate3 => nil).
+      FactoryGirl.build(:competitor, :estimate3 => 100, :correct_estimate3 => nil).
         estimate_diff3_m.should be_nil
     end
 
     it "should be nil when no estimate3" do
-      Factory.build(:competitor, :estimate3 => nil, :correct_estimate3 => 100).
+      FactoryGirl.build(:competitor, :estimate3 => nil, :correct_estimate3 => 100).
         estimate_diff3_m.should be_nil
     end
 
     it "should be positive diff when estimate3 is more than correct" do
-      Factory.build(:competitor, :estimate3 => 105, :correct_estimate3 => 100).
+      FactoryGirl.build(:competitor, :estimate3 => 105, :correct_estimate3 => 100).
         estimate_diff3_m.should == 5
     end
 
     it "should be negative diff when estimate3 is less than correct" do
-      Factory.build(:competitor, :estimate3 => 91, :correct_estimate3 => 100).
+      FactoryGirl.build(:competitor, :estimate3 => 91, :correct_estimate3 => 100).
         estimate_diff3_m.should == -9
     end
   end
 
   describe "#estimate_diff4_m" do
     it "should be nil when no correct estimate4" do
-      Factory.build(:competitor, :estimate4 => 100, :correct_estimate4 => nil).
+      FactoryGirl.build(:competitor, :estimate4 => 100, :correct_estimate4 => nil).
         estimate_diff4_m.should be_nil
     end
 
     it "should be nil when no estimate4" do
-      Factory.build(:competitor, :estimate4 => nil, :correct_estimate4 => 200).
+      FactoryGirl.build(:competitor, :estimate4 => nil, :correct_estimate4 => 200).
         estimate_diff4_m.should be_nil
     end
 
     it "should be positive diff when estimate4 is more than correct" do
-      Factory.build(:competitor, :estimate4 => 205, :correct_estimate4 => 200).
+      FactoryGirl.build(:competitor, :estimate4 => 205, :correct_estimate4 => 200).
         estimate_diff4_m.should == 5
     end
 
     it "should be negative diff when estimate4 is less than correct" do
-      Factory.build(:competitor, :estimate4 => 191, :correct_estimate4 => 200).
+      FactoryGirl.build(:competitor, :estimate4 => 191, :correct_estimate4 => 200).
         estimate_diff4_m.should == -9
     end
   end
@@ -435,14 +435,14 @@ describe Competitor do
   describe "#estimate_points" do
     describe "estimate missing" do
       it "should be nil if estimate1 is missing" do
-        competitor = Factory.build(:competitor,
+        competitor = FactoryGirl.build(:competitor,
           :estimate1 => nil, :estimate2 => 145,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
         competitor.estimate_points.should be_nil
       end
 
       it "should be nil if estimate2 is missing" do
-        competitor = Factory.build(:competitor,
+        competitor = FactoryGirl.build(:competitor,
           :estimate1 => 156, :estimate2 => nil,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
         competitor.estimate_points.should be_nil
@@ -450,11 +450,11 @@ describe Competitor do
 
       context "when 4 estimates for the series" do
         before do
-          @series = Factory.build(:series, :estimates => 4)
+          @series = FactoryGirl.build(:series, :estimates => 4)
         end
 
         it "should be nil if estimate3 is missing" do
-          competitor = Factory.build(:competitor, :series => @series,
+          competitor = FactoryGirl.build(:competitor, :series => @series,
             :estimate1 => 100, :estimate2 => 145,
             :estimate3 => nil, :estimate4 => 150,
             :correct_estimate1 => 100, :correct_estimate2 => 200,
@@ -463,7 +463,7 @@ describe Competitor do
         end
 
         it "should be nil if estimate4 is missing" do
-          competitor = Factory.build(:competitor, :series => @series,
+          competitor = FactoryGirl.build(:competitor, :series => @series,
             :estimate1 => 156, :estimate2 => 100,
             :estimate3 => 150, :estimate4 => nil,
             :correct_estimate1 => 100, :correct_estimate2 => 200,
@@ -475,14 +475,14 @@ describe Competitor do
 
     describe "correct estimate missing" do
       it "should be nil if correct estimate 1 is missing" do
-        competitor = Factory.build(:competitor,
+        competitor = FactoryGirl.build(:competitor,
           :estimate1 => 100, :estimate2 => 200,
           :correct_estimate1 => nil, :correct_estimate2 => 200)
         competitor.estimate_points.should be_nil
       end
 
       it "should be nil if correct estimate 2 is missing" do
-        competitor = Factory.build(:competitor,
+        competitor = FactoryGirl.build(:competitor,
           :estimate1 => 100, :estimate2 => 200,
           :correct_estimate1 => 100, :correct_estimate2 => nil)
         competitor.estimate_points.should be_nil
@@ -490,11 +490,11 @@ describe Competitor do
 
       context "when 4 estimates for the series" do
         before do
-          @series = Factory.build(:series, :estimates => 4)
+          @series = FactoryGirl.build(:series, :estimates => 4)
         end
 
         it "should be nil if correct estimate 3 is missing" do
-          competitor = Factory.build(:competitor, :series => @series,
+          competitor = FactoryGirl.build(:competitor, :series => @series,
             :estimate1 => 100, :estimate2 => 200,
             :estimate3 => 100, :estimate4 => 200,
             :correct_estimate1 => 100, :correct_estimate2 => 200,
@@ -503,7 +503,7 @@ describe Competitor do
         end
 
         it "should be nil if correct estimate 4 is missing" do
-          competitor = Factory.build(:competitor, :series => @series,
+          competitor = FactoryGirl.build(:competitor, :series => @series,
             :estimate1 => 100, :estimate2 => 200,
             :estimate3 => 100, :estimate4 => 200,
             :correct_estimate1 => 100, :correct_estimate2 => 150,
@@ -515,49 +515,49 @@ describe Competitor do
 
     describe "no estimates nor correct estimates missing" do
       it "should be 300 when perfect estimates" do
-        competitor = Factory.build(:competitor,
+        competitor = FactoryGirl.build(:competitor,
           :estimate1 => 100, :estimate2 => 200,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
         competitor.estimate_points.should == 300
       end
 
       it "should be 298 when the first is 1 meter too low" do
-        competitor = Factory.build(:competitor,
+        competitor = FactoryGirl.build(:competitor,
           :estimate1 => 99, :estimate2 => 200,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
         competitor.estimate_points.should == 298
       end
 
       it "should be 298 when the second is 1 meter too low" do
-        competitor = Factory.build(:competitor,
+        competitor = FactoryGirl.build(:competitor,
           :estimate1 => 100, :estimate2 => 199,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
         competitor.estimate_points.should == 298
       end
 
       it "should be 298 when the first is 1 meter too high" do
-        competitor = Factory.build(:competitor,
+        competitor = FactoryGirl.build(:competitor,
           :estimate1 => 101, :estimate2 => 200,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
         competitor.estimate_points.should == 298
       end
 
       it "should be 298 when the second is 1 meter too high" do
-        competitor = Factory.build(:competitor,
+        competitor = FactoryGirl.build(:competitor,
           :estimate1 => 100, :estimate2 => 201,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
         competitor.estimate_points.should == 298
       end
 
       it "should be 296 when both have 1 meter difference" do
-        competitor = Factory.build(:competitor,
+        competitor = FactoryGirl.build(:competitor,
           :estimate1 => 99, :estimate2 => 201,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
         competitor.estimate_points.should == 296
       end
 
       it "should never be negative" do
-        competitor = Factory.build(:competitor,
+        competitor = FactoryGirl.build(:competitor,
           :estimate1 => 111111, :estimate2 => 222222,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
         competitor.estimate_points.should == 0
@@ -565,11 +565,11 @@ describe Competitor do
       
       context "when 4 estimates for the series" do
         before do
-          @series = Factory.build(:series, :estimates => 4)
+          @series = FactoryGirl.build(:series, :estimates => 4)
         end
         
         it "should be 600 when perfect estimates" do
-          competitor = Factory.build(:competitor, :series => @series,
+          competitor = FactoryGirl.build(:competitor, :series => @series,
             :estimate1 => 100, :estimate2 => 200,
             :estimate3 => 80, :estimate4 => 140,
             :correct_estimate1 => 100, :correct_estimate2 => 200,
@@ -578,7 +578,7 @@ describe Competitor do
         end
 
         it "should be 584 when each estimate is 2 meters wrong" do
-          competitor = Factory.build(:competitor, :series => @series,
+          competitor = FactoryGirl.build(:competitor, :series => @series,
             :estimate1 => 98, :estimate2 => 202,
             :estimate3 => 108, :estimate4 => 152,
             :correct_estimate1 => 100, :correct_estimate2 => 200,
@@ -591,16 +591,16 @@ describe Competitor do
 
   describe "#time_in_seconds" do
     it "should be nil when start time not known yet" do
-      Factory.build(:competitor, :start_time => nil).time_in_seconds.should be_nil
+      FactoryGirl.build(:competitor, :start_time => nil).time_in_seconds.should be_nil
     end
 
     it "should be nil when arrival time is not known yet" do
-      Factory.build(:competitor, :start_time => '14:00', :arrival_time => nil).
+      FactoryGirl.build(:competitor, :start_time => '14:00', :arrival_time => nil).
         time_in_seconds.should be_nil
     end
 
     it "should be difference of arrival and start times" do
-      Factory.build(:competitor, :start_time => '13:58:02', :arrival_time => '15:02:04').
+      FactoryGirl.build(:competitor, :start_time => '13:58:02', :arrival_time => '15:02:04').
         time_in_seconds.should == 64 * 60 + 2
     end
   end
@@ -608,8 +608,8 @@ describe Competitor do
   describe "#time_points" do
     before do
       @all_competitors = true
-      @series = Factory.build(:series)
-      @competitor = Factory.build(:competitor, :series => @series)
+      @series = FactoryGirl.build(:series)
+      @competitor = FactoryGirl.build(:competitor, :series => @series)
       @best_time_seconds = 3603.0 # rounded: 3600
       @competitor.stub!(:comparison_time_in_seconds).with(@all_competitors).and_return(@best_time_seconds)
     end
@@ -687,7 +687,7 @@ describe Competitor do
 
     context "no result" do
       before do
-        @competitor = Factory.build(:competitor, :series => @series,
+        @competitor = FactoryGirl.build(:competitor, :series => @series,
           :no_result_reason => Competitor::DNF)
         @best_time_seconds = 3603.0
         @competitor.stub!(:comparison_time_in_seconds).with(@all_competitors).and_return(@best_time_seconds)
@@ -710,7 +710,7 @@ describe Competitor do
   describe "#points" do
     before do
       @all_competitors = true
-      @competitor = Factory.build(:competitor)
+      @competitor = FactoryGirl.build(:competitor)
       @competitor.stub!(:shot_points).and_return(100)
       @competitor.stub!(:estimate_points).and_return(150)
       @competitor.stub!(:time_points).with(@all_competitors).and_return(200)
@@ -749,7 +749,7 @@ describe Competitor do
   describe "#points!" do
     before do
       @all_competitors = true
-      @competitor = Factory.build(:competitor)
+      @competitor = FactoryGirl.build(:competitor)
       @competitor.stub!(:shot_points).and_return(100)
       @competitor.stub!(:estimate_points).and_return(150)
       @competitor.stub!(:time_points).with(@all_competitors).and_return(200)
@@ -777,24 +777,24 @@ describe Competitor do
 
   describe "#shot_values" do
     it "should return an ordered array of 10 shots" do
-      c = Factory.build(:competitor)
-      c.shots << Factory.build(:shot, :value => 10, :competitor => c)
-      c.shots << Factory.build(:shot, :value => 3, :competitor => c)
-      c.shots << Factory.build(:shot, :value => 4, :competitor => c)
-      c.shots << Factory.build(:shot, :value => 9, :competitor => c)
-      c.shots << Factory.build(:shot, :value => 1, :competitor => c)
-      c.shots << Factory.build(:shot, :value => 0, :competitor => c)
-      c.shots << Factory.build(:shot, :value => 9, :competitor => c)
-      c.shots << Factory.build(:shot, :value => 7, :competitor => c)
+      c = FactoryGirl.build(:competitor)
+      c.shots << FactoryGirl.build(:shot, :value => 10, :competitor => c)
+      c.shots << FactoryGirl.build(:shot, :value => 3, :competitor => c)
+      c.shots << FactoryGirl.build(:shot, :value => 4, :competitor => c)
+      c.shots << FactoryGirl.build(:shot, :value => 9, :competitor => c)
+      c.shots << FactoryGirl.build(:shot, :value => 1, :competitor => c)
+      c.shots << FactoryGirl.build(:shot, :value => 0, :competitor => c)
+      c.shots << FactoryGirl.build(:shot, :value => 9, :competitor => c)
+      c.shots << FactoryGirl.build(:shot, :value => 7, :competitor => c)
       c.shot_values.should == [10,9,9,7,4,3,1,0,nil,nil]
     end
   end
 
   describe "#next_competitor" do
     before do
-      @series = Factory.create(:series)
-      @c = Factory.create(:competitor, :series => @series, :number => 15)
-      Factory.create(:competitor) # another series
+      @series = FactoryGirl.create(:series)
+      @c = FactoryGirl.create(:competitor, :series => @series, :number => 15)
+      FactoryGirl.create(:competitor) # another series
     end
 
     it "should return itself when no other competitors" do
@@ -803,11 +803,11 @@ describe Competitor do
 
     context "other competitors" do
       before do
-        @first = Factory.create(:competitor, :series => @series, :number => 10)
-        @nil = Factory.create(:competitor, :series => @series, :number => nil)
-        @prev = Factory.create(:competitor, :series => @series, :number => 12)
-        @next = Factory.create(:competitor, :series => @series, :number => 17)
-        @last = Factory.create(:competitor, :series => @series, :number => 20)
+        @first = FactoryGirl.create(:competitor, :series => @series, :number => 10)
+        @nil = FactoryGirl.create(:competitor, :series => @series, :number => nil)
+        @prev = FactoryGirl.create(:competitor, :series => @series, :number => 12)
+        @next = FactoryGirl.create(:competitor, :series => @series, :number => 17)
+        @last = FactoryGirl.create(:competitor, :series => @series, :number => 20)
         @series.reload
       end
 
@@ -827,9 +827,9 @@ describe Competitor do
 
   describe "#previous_competitor" do
     before do
-      @series = Factory.create(:series)
-      @c = Factory.create(:competitor, :series => @series, :number => 15)
-      Factory.create(:competitor) # another series
+      @series = FactoryGirl.create(:series)
+      @c = FactoryGirl.create(:competitor, :series => @series, :number => 15)
+      FactoryGirl.create(:competitor) # another series
     end
 
     it "should return itself when no other competitors" do
@@ -838,11 +838,11 @@ describe Competitor do
 
     context "other competitors" do
       before do
-        @first = Factory.create(:competitor, :series => @series, :number => 10)
-        @nil = Factory.create(:competitor, :series => @series, :number => nil)
-        @prev = Factory.create(:competitor, :series => @series, :number => 12)
-        @next = Factory.create(:competitor, :series => @series, :number => 17)
-        @last = Factory.create(:competitor, :series => @series, :number => 20)
+        @first = FactoryGirl.create(:competitor, :series => @series, :number => 10)
+        @nil = FactoryGirl.create(:competitor, :series => @series, :number => nil)
+        @prev = FactoryGirl.create(:competitor, :series => @series, :number => 12)
+        @next = FactoryGirl.create(:competitor, :series => @series, :number => 17)
+        @last = FactoryGirl.create(:competitor, :series => @series, :number => 20)
         @series.reload
       end
 
@@ -863,7 +863,7 @@ describe Competitor do
   describe "#finished?" do
     context "when competitor has some 'no result reason'" do
       it "should return true" do
-        c = Factory.build(:competitor, :no_result_reason => Competitor::DNS)
+        c = FactoryGirl.build(:competitor, :no_result_reason => Competitor::DNS)
         c.should be_finished
       end
     end
@@ -871,8 +871,8 @@ describe Competitor do
     context "when competitor has no 'no result reason'" do
       before do
         # no need to have correct estimate
-        series = Factory.build(:series)
-        @competitor = Factory.build(:competitor, :no_result_reason => nil,
+        series = FactoryGirl.build(:series)
+        @competitor = FactoryGirl.build(:competitor, :no_result_reason => nil,
           :series => series)
         @competitor.start_time = '11:10'
         @competitor.arrival_time = '11:20'
@@ -958,7 +958,7 @@ describe Competitor do
       all_competitors = true
       series = mock_model(Series)
       age_group = mock_model(AgeGroup)
-      competitor = Factory.build(:competitor, :series => series, :age_group => age_group)
+      competitor = FactoryGirl.build(:competitor, :series => series, :age_group => age_group)
       series.should_receive(:comparison_time_in_seconds).with(age_group, all_competitors).and_return(12345)
       competitor.comparison_time_in_seconds(all_competitors).should == 12345
     end
@@ -966,7 +966,7 @@ describe Competitor do
 
   describe "#reset_correct_estimates" do
     it "should set all correct estimates to nil" do
-      c = Factory.build(:competitor, :correct_estimate1 => 100,
+      c = FactoryGirl.build(:competitor, :correct_estimate1 => 100,
         :correct_estimate2 => 110, :correct_estimate3 => 130,
         :correct_estimate4 => 140)
       c.reset_correct_estimates
@@ -998,8 +998,8 @@ describe Competitor do
       end
 
       it "should recude added competitors from the full amount" do
-        Factory.create(:competitor)
-        Factory.create(:competitor)
+        FactoryGirl.create(:competitor)
+        FactoryGirl.create(:competitor)
         Competitor.free_offline_competitors_left.should ==
           Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE - 2
       end
@@ -1013,9 +1013,9 @@ describe Competitor do
 
   describe "create with number" do
     before do
-      @race = Factory.create(:race)
-      series = Factory.create(:series, :race => @race)
-      @competitor = Factory.build(:competitor, :series => series, :number => 10)
+      @race = FactoryGirl.create(:race)
+      series = FactoryGirl.create(:series, :race => @race)
+      @competitor = FactoryGirl.build(:competitor, :series => series, :number => 10)
     end
 
     context "when no correct estimates defined for this number" do
@@ -1027,7 +1027,7 @@ describe Competitor do
 
     context "when correct estimates defined for this number" do
       before do
-        @race.correct_estimates << Factory.build(:correct_estimate, :race => @race,
+        @race.correct_estimates << FactoryGirl.build(:correct_estimate, :race => @race,
           :min_number => 9, :distance1 => 101, :distance2 => 102,
           :distance3 => 103, :distance4 => 104)
       end
@@ -1054,19 +1054,19 @@ describe Competitor do
     end
     
     it "should be -2 when competitor did not start" do
-      Factory.build(:competitor, :no_result_reason => Competitor::DNS).relative_points(@all_competitors).should == -2
+      FactoryGirl.build(:competitor, :no_result_reason => Competitor::DNS).relative_points(@all_competitors).should == -2
     end
     
     it "should be -1 when competitor did not finish" do
-      Factory.build(:competitor, :no_result_reason => Competitor::DNF).relative_points(@all_competitors).should == -1
+      FactoryGirl.build(:competitor, :no_result_reason => Competitor::DNF).relative_points(@all_competitors).should == -1
     end
     
     it "should be 0 when competitor has no results yet" do
-      Factory.build(:competitor).relative_points(@all_competitors).should == 0
+      FactoryGirl.build(:competitor).relative_points(@all_competitors).should == 0
     end
     
     it "should be 1000 x points + 100 x partial points + 10 x shot points + time points" do
-      c = Factory.build(:competitor)
+      c = FactoryGirl.build(:competitor)
       c.stub!(:points).with(@all_competitors).and_return(800)
       c.stub!(:points!).with(@all_competitors).and_return(500)
       c.stub!(:shot_points).and_return(300)

@@ -1,7 +1,9 @@
-Factory.define :correct_estimate do |ce|
-  ce.association :race
-  ce.min_number 10
-  ce.max_number 20
-  ce.distance1 115
-  ce.distance2 97
+FactoryGirl.define do
+  factory :correct_estimate do
+    race
+    min_number 10
+    max_number 20
+    distance1 115
+    distance2 97
+  end
 end

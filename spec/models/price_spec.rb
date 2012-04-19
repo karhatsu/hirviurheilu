@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Price do
   it "create" do
-    Factory.create(:price)
+    FactoryGirl.create(:price)
   end
 
   describe "validations" do
@@ -24,10 +24,10 @@ describe Price do
 
   describe "#price_for_competitor_amount" do
     before do
-      Factory.create(:base_price, :price => 20)
-      Factory.create(:price, :min_competitors => 20, :price => 0.5)
-      Factory.create(:price, :min_competitors => 1, :price => 1.5)
-      Factory.create(:price, :min_competitors => 10, :price => 1.0)
+      FactoryGirl.create(:base_price, :price => 20)
+      FactoryGirl.create(:price, :min_competitors => 20, :price => 0.5)
+      FactoryGirl.create(:price, :min_competitors => 1, :price => 1.5)
+      FactoryGirl.create(:price, :min_competitors => 10, :price => 1.0)
     end
 
     specify { Price.price_for_competitor_amount(1).should == 20 + 1.5 }
@@ -40,9 +40,9 @@ describe Price do
 
   describe "#max_competitors" do
     before do
-      @price3 = Factory.create(:price, :min_competitors => 20, :price => 0.5)
-      @price1 = Factory.create(:price, :min_competitors => 1, :price => 1.5)
-      @price2 = Factory.create(:price, :min_competitors => 10, :price => 1.0)
+      @price3 = FactoryGirl.create(:price, :min_competitors => 20, :price => 0.5)
+      @price1 = FactoryGirl.create(:price, :min_competitors => 1, :price => 1.5)
+      @price2 = FactoryGirl.create(:price, :min_competitors => 10, :price => 1.0)
     end
 
     specify { @price1.max_competitors.should == 9 }

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Series do
   describe "create" do
     it "should create series with valid attrs" do
-      Factory.create(:series)
+      FactoryGirl.create(:series)
     end
   end
 
@@ -25,9 +25,9 @@ describe Series do
       it { should_not allow_value(1.1).for(:start_day) }
 
       before do
-        race = Factory.build(:race)
+        race = FactoryGirl.build(:race)
         race.stub!(:days_count).and_return(2)
-        @series = Factory.build(:series, :race => race, :start_day => 3)
+        @series = FactoryGirl.build(:series, :race => race, :start_day => 3)
       end
 
       it "should not be bigger than race days count" do
@@ -70,7 +70,7 @@ describe Series do
       it { should_not allow_value(3).for(:time_points_type) }
 
       it "should convert nil to default value" do
-        series = Factory.create(:series, :time_points_type => nil)
+        series = FactoryGirl.create(:series, :time_points_type => nil)
         series.time_points_type.should == Series::TIME_POINTS_TYPE_NORMAL
       end
     end
@@ -79,24 +79,24 @@ describe Series do
   describe "#best_time_in_seconds" do
     describe "for whole series" do
       before do
-        @series = Factory.create(:series)
-        @series.competitors << Factory.build(:competitor, :series => @series)
-        @series.competitors << Factory.build(:competitor, :series => @series,
+        @series = FactoryGirl.create(:series)
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series)
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00')
         # below the time is 60 secs but the competitors are not valid
-        @series.competitors << Factory.build(:competitor, :series => @series,
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00', :arrival_time => '12:01:00',
           :no_result_reason => "DNS")
-        @series.competitors << Factory.build(:competitor, :series => @series,
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00', :arrival_time => '12:01:00',
           :no_result_reason => "DNF")
-        @series.competitors << Factory.build(:competitor, :series => @series,
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00',
           :arrival_time => '12:01:00', :unofficial => true)
       end
   
       it "should return nil if no competitors" do
-        series = Factory.create(:series)
+        series = FactoryGirl.create(:series)
         series.best_time_in_seconds(nil, false).should be_nil
       end
   
@@ -106,11 +106,11 @@ describe Series do
   
       describe "finished competitors found" do
         before do
-          @series.competitors << Factory.build(:competitor, :series => @series,
+          @series.competitors << FactoryGirl.build(:competitor, :series => @series,
             :start_time => '12:00:00', :arrival_time => '12:01:02') # 62 s
-          @series.competitors << Factory.build(:competitor, :series => @series,
+          @series.competitors << FactoryGirl.build(:competitor, :series => @series,
             :start_time => '12:00:01', :arrival_time => '12:01:03') # 62 s
-          @series.competitors << Factory.build(:competitor, :series => @series,
+          @series.competitors << FactoryGirl.build(:competitor, :series => @series,
             :start_time => '12:00:03', :arrival_time => '12:01:04') # 61 s
         end
   
@@ -137,33 +137,33 @@ describe Series do
     
     describe "for given age group ids" do
       before do
-        @series = Factory.create(:series)
-        @age_group1 = Factory.build(:age_group, :series => @series)
-        @age_group2 = Factory.build(:age_group, :series => @series)
-        @age_group_other = Factory.build(:age_group, :series => @series)
+        @series = FactoryGirl.create(:series)
+        @age_group1 = FactoryGirl.build(:age_group, :series => @series)
+        @age_group2 = FactoryGirl.build(:age_group, :series => @series)
+        @age_group_other = FactoryGirl.build(:age_group, :series => @series)
         @series.age_groups << @age_group1
         @series.age_groups << @age_group2
         @series.age_groups << @age_group_other
-        @series.competitors << Factory.build(:competitor, :series => @series, :age_group => @age_group1)
-        @series.competitors << Factory.build(:competitor, :series => @series,
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series, :age_group => @age_group1)
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00', :age_group => @age_group1)
         # below the time is 60 secs but the competitors are not valid
-        @series.competitors << Factory.build(:competitor, :series => @series,
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00', :arrival_time => '12:01:00',
           :no_result_reason => "DNS", :age_group => @age_group2)
-        @series.competitors << Factory.build(:competitor, :series => @series,
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00', :arrival_time => '12:01:00',
           :no_result_reason => "DNF", :age_group => @age_group1)
-        @series.competitors << Factory.build(:competitor, :series => @series,
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00',
           :arrival_time => '12:01:00', :unofficial => true, :age_group => @age_group2)
-        @series.competitors << Factory.build(:competitor, :series => @series,
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00', :arrival_time => '12:01:00', :age_group => @age_group_other)
         @age_group_ids = [@age_group1.id, @age_group2.id]
       end
   
       it "should return nil if no competitors" do
-        series = Factory.create(:series)
+        series = FactoryGirl.create(:series)
         series.best_time_in_seconds(@age_group_ids, false).should be_nil
       end
   
@@ -173,11 +173,11 @@ describe Series do
   
       describe "finished competitors found" do
         before do
-          @series.competitors << Factory.build(:competitor, :series => @series,
+          @series.competitors << FactoryGirl.build(:competitor, :series => @series,
             :start_time => '12:00:00', :arrival_time => '12:01:02', :age_group => @age_group1) # 62 s
-          @series.competitors << Factory.build(:competitor, :series => @series,
+          @series.competitors << FactoryGirl.build(:competitor, :series => @series,
             :start_time => '12:00:01', :arrival_time => '12:01:03', :age_group => @age_group2) # 62 s
-          @series.competitors << Factory.build(:competitor, :series => @series,
+          @series.competitors << FactoryGirl.build(:competitor, :series => @series,
             :start_time => '12:00:03', :arrival_time => '12:01:04', :age_group => @age_group1) # 61 s
         end
   
@@ -204,7 +204,7 @@ describe Series do
     
     describe "cache" do
       before do
-        @series = Factory.build(:series)
+        @series = FactoryGirl.build(:series)
         @competitors = [mock_model(Competitor)]
         @series.should_receive(:competitors).once.and_return(@competitors)
       end
@@ -230,7 +230,7 @@ describe Series do
   
   describe "#comparison_time_in_seconds" do
     before do
-      @series = Factory.build(:series)
+      @series = FactoryGirl.build(:series)
       @all_competitors = true
     end
     
@@ -255,7 +255,7 @@ describe Series do
   
   describe "#age_group_comparison_group_ids" do
     before do
-      @series = Factory.build(:series, :name => 'M70')
+      @series = FactoryGirl.build(:series, :name => 'M70')
       @all_competitors = true
     end
     
@@ -382,7 +382,7 @@ describe Series do
   describe "#ordered_competitors" do
     it "should call Competitor.sort with all competitors in the series" do
       all_competitors = false
-      series = Factory.build(:series)
+      series = FactoryGirl.build(:series)
       competitors, included = ['a', 'b', 'c'], ['d', 'e']
       series.stub!(:competitors).and_return(competitors)
       competitors.should_receive(:includes).with([:shots, :club, :age_group, :series]).
@@ -394,7 +394,7 @@ describe Series do
     context "when sort parameter given" do
       it "should call Competitor.sort with given sort parameter" do
         all_competitors = false
-        series = Factory.build(:series)
+        series = FactoryGirl.build(:series)
         competitors, included = ['a', 'b', 'c'], ['d', 'e']
         series.stub!(:competitors).and_return(competitors)
         competitors.should_receive(:includes).with([:shots, :club, :age_group, :series]).
@@ -407,15 +407,15 @@ describe Series do
 
   describe "#start_list" do
     it "should return empty array when no competitors" do
-      Factory.build(:series).start_list.should == []
+      FactoryGirl.build(:series).start_list.should == []
     end
 
     it "should return competitors with start time ordered by start time" do
-      series = Factory.create(:series)
-      c1 = Factory.build(:competitor, :series => series, :start_time => '15:15')
-      c2 = Factory.build(:competitor, :series => series, :start_time => '9:00:00')
-      c3 = Factory.build(:competitor, :series => series, :start_time => '9:00:01')
-      c4 = Factory.build(:competitor, :series => series, :start_time => nil)
+      series = FactoryGirl.create(:series)
+      c1 = FactoryGirl.build(:competitor, :series => series, :start_time => '15:15')
+      c2 = FactoryGirl.build(:competitor, :series => series, :start_time => '9:00:00')
+      c3 = FactoryGirl.build(:competitor, :series => series, :start_time => '9:00:01')
+      c4 = FactoryGirl.build(:competitor, :series => series, :start_time => nil)
       series.competitors << c1
       series.competitors << c2
       series.competitors << c3
@@ -427,29 +427,29 @@ describe Series do
   describe "#next_number" do
     context "no competitors" do
       it "should be 1 when first_number is nil" do
-        series = Factory.build(:series, :first_number => nil)
+        series = FactoryGirl.build(:series, :first_number => nil)
         series.next_number.should == 1
       end
 
       it "should be first_number when it is defined" do
-        series = Factory.build(:series, :first_number => 45)
+        series = FactoryGirl.build(:series, :first_number => 45)
         series.next_number.should == 45
       end
     end
 
     context "competitors" do
       it "should the biggest number + 1" do
-        series = Factory.create(:series, :first_number => 45)
-        series.competitors << Factory.build(:competitor, :number => 15, :series => series)
-        series.competitors << Factory.build(:competitor, :number => 24, :series => series)
-        series.competitors << Factory.build(:competitor, :number => 17, :series => series)
+        series = FactoryGirl.create(:series, :first_number => 45)
+        series.competitors << FactoryGirl.build(:competitor, :number => 15, :series => series)
+        series.competitors << FactoryGirl.build(:competitor, :number => 24, :series => series)
+        series.competitors << FactoryGirl.build(:competitor, :number => 17, :series => series)
         series.next_number.should == 25
       end
 
       it "should be like no competitors when competitors have no numbers yet" do
-        series = Factory.create(:series, :first_number => 45)
-        series.competitors << Factory.build(:competitor, :number => nil, :series => series)
-        series.competitors << Factory.build(:competitor, :number => nil, :series => series)
+        series = FactoryGirl.create(:series, :first_number => 45)
+        series.competitors << FactoryGirl.build(:competitor, :number => nil, :series => series)
+        series.competitors << FactoryGirl.build(:competitor, :number => nil, :series => series)
         series.next_number.should == 45
       end
     end
@@ -458,32 +458,32 @@ describe Series do
   describe "#next_start_time" do
     context "when no competitors" do
       it "should be nil when start_time is nil" do
-        series = Factory.build(:series, :start_time => nil)
+        series = FactoryGirl.build(:series, :start_time => nil)
         series.next_start_time.should be_nil
       end
 
       it "should be start_time when it is defined" do
-        series = Factory.build(:series, :start_time => '12:30')
+        series = FactoryGirl.build(:series, :start_time => '12:30')
         series.next_start_time.should == series.start_time
       end
     end
 
     context "when competitors" do
       it "should be the start time of the latest competitor + race time interval" do
-        race = Factory.create(:race, :start_interval_seconds => 45)
-        series = Factory.create(:series, :race => race)
-        series.competitors << Factory.build(:competitor, :number => 15, :series => series)
-        series.competitors << Factory.build(:competitor, :number => 24, :series => series,
+        race = FactoryGirl.create(:race, :start_interval_seconds => 45)
+        series = FactoryGirl.create(:series, :race => race)
+        series.competitors << FactoryGirl.build(:competitor, :number => 15, :series => series)
+        series.competitors << FactoryGirl.build(:competitor, :number => 24, :series => series,
           :start_time => '12:30:00')
-        series.competitors << Factory.build(:competitor, :number => 17, :series => series)
+        series.competitors << FactoryGirl.build(:competitor, :number => 17, :series => series)
         series.next_start_time.strftime('%H:%M:%S').should == '12:30:45'
       end
 
       it "should be like no competitors when competitors have no start times yet" do
-        race = Factory.create(:race, :start_date => '2010-11-10')
-        series = Factory.create(:series, :race => race, :start_time => '2010-11-10 09:30')
-        series.competitors << Factory.build(:competitor, :start_time => nil, :series => series)
-        series.competitors << Factory.build(:competitor, :start_time => nil, :series => series)
+        race = FactoryGirl.create(:race, :start_date => '2010-11-10')
+        series = FactoryGirl.create(:series, :race => race, :start_time => '2010-11-10 09:30')
+        series.competitors << FactoryGirl.build(:competitor, :start_time => nil, :series => series)
+        series.competitors << FactoryGirl.build(:competitor, :start_time => nil, :series => series)
         series.next_start_time.strftime('%H:%M:%S').should == '09:30:00'
       end
     end
@@ -491,9 +491,9 @@ describe Series do
 
   describe "#some_competitor_has_arrival_time?" do
     before do
-      @series = Factory.build(:series)
-      @c1 = Factory.build(:competitor, :series => @series)
-      @c2 = Factory.build(:competitor, :series => @series)
+      @series = FactoryGirl.build(:series)
+      @c1 = FactoryGirl.build(:competitor, :series => @series)
+      @c2 = FactoryGirl.build(:competitor, :series => @series)
     end
 
     it "should return false when no competitors" do
@@ -515,18 +515,18 @@ describe Series do
 
   describe "#generate_numbers" do
     before do
-      @race = Factory.create(:race)
-      @series = Factory.create(:series, :race => @race, :first_number => 5)
+      @race = FactoryGirl.create(:race)
+      @series = FactoryGirl.create(:series, :race => @race, :first_number => 5)
       @old1, @old2, @old3 = nil, 9, 6
-      @c1 = Factory.create(:competitor, :series => @series, :number => @old1)
-      @c2 = Factory.create(:competitor, :series => @series, :number => @old2)
-      @c3 = Factory.create(:competitor, :series => @series, :number => @old3)
+      @c1 = FactoryGirl.create(:competitor, :series => @series, :number => @old1)
+      @c2 = FactoryGirl.create(:competitor, :series => @series, :number => @old2)
+      @c3 = FactoryGirl.create(:competitor, :series => @series, :number => @old3)
     end
     
     describe "generation fails" do
       context "some competitor already has arrival time" do
         it "should do nothing for competitors, add error and return false" do
-          @c4 = Factory.create(:competitor, :series => @series,
+          @c4 = FactoryGirl.create(:competitor, :series => @series,
             :start_time => '14:00', :arrival_time => '14:30', :number => 5)
           @series.reload
           @series.generate_numbers(Series::START_LIST_ADDING_ORDER).should be_false
@@ -551,8 +551,8 @@ describe Series do
 
       context "there is no space for numbers in the race" do
         before do
-          series = Factory.create(:series, :race => @race, :first_number => 7)
-          Factory.create(:competitor, :series => series, :number => 7)
+          series = FactoryGirl.create(:series, :race => @race, :first_number => 7)
+          FactoryGirl.create(:competitor, :series => series, :number => 7)
           @race.reload
         end
 
@@ -619,7 +619,7 @@ describe Series do
 
   describe "#generate_numbers!" do
     before do
-      @series = Factory.build(:series)
+      @series = FactoryGirl.build(:series)
     end
 
     it "should return true when generation succeeds" do
@@ -635,19 +635,19 @@ describe Series do
 
   describe "#generate_start_times" do
     before do
-      @race = Factory.create(:race, :start_date => '2010-08-15',
+      @race = FactoryGirl.create(:race, :start_date => '2010-08-15',
         :start_interval_seconds => 30)
-      @series = Factory.create(:series, :race => @race,
+      @series = FactoryGirl.create(:series, :race => @race,
         :first_number => 9, :start_time => '2010-08-15 10:00:15')
-      @c1 = Factory.create(:competitor, :series => @series, :number => 9)
-      @c2 = Factory.create(:competitor, :series => @series, :number => 11)
-      @c3 = Factory.create(:competitor, :series => @series, :number => 13)
+      @c1 = FactoryGirl.create(:competitor, :series => @series, :number => 9)
+      @c2 = FactoryGirl.create(:competitor, :series => @series, :number => 11)
+      @c3 = FactoryGirl.create(:competitor, :series => @series, :number => 13)
     end
 
     describe "generation fails" do
       context "competitors are missing numbers" do
         it "should do nothing for competitors, add error and return false" do
-          @c4 = Factory.create(:competitor, :series => @series, :number => nil)
+          @c4 = FactoryGirl.create(:competitor, :series => @series, :number => nil)
           @series.reload
           @series.generate_start_times.should be_false
           @series.should have(1).errors
@@ -657,7 +657,7 @@ describe Series do
 
       context "some competitor already has arrival time" do
         it "should do nothing for competitors, add error and return false" do
-          @c4 = Factory.create(:competitor, :series => @series,
+          @c4 = FactoryGirl.create(:competitor, :series => @series,
             :start_time => '14:00', :arrival_time => '14:30', :number => 5)
           @series.reload
           @series.generate_start_times.should be_false
@@ -718,19 +718,19 @@ describe Series do
 
       context "with batches" do
         before do
-          @race = Factory.create(:race, :start_date => '2010-08-15',
+          @race = FactoryGirl.create(:race, :start_date => '2010-08-15',
             :start_interval_seconds => 30, :batch_interval_seconds => 180,
             :batch_size => 3)
-          @series = Factory.create(:series, :race => @race,
+          @series = FactoryGirl.create(:series, :race => @race,
             :first_number => 1, :start_time => '2010-08-15 10:00:15')
-          @c1 = Factory.create(:competitor, :series => @series, :number => 1)
-          @c2 = Factory.create(:competitor, :series => @series, :number => 2)
-          @c3 = Factory.create(:competitor, :series => @series, :number => 3)
-          @c4 = Factory.create(:competitor, :series => @series, :number => 4)
-          @c5 = Factory.create(:competitor, :series => @series, :number => 5)
-          @c6 = Factory.create(:competitor, :series => @series, :number => 6)
-          @c7 = Factory.create(:competitor, :series => @series, :number => 7)
-          @c8 = Factory.create(:competitor, :series => @series, :number => 8)
+          @c1 = FactoryGirl.create(:competitor, :series => @series, :number => 1)
+          @c2 = FactoryGirl.create(:competitor, :series => @series, :number => 2)
+          @c3 = FactoryGirl.create(:competitor, :series => @series, :number => 3)
+          @c4 = FactoryGirl.create(:competitor, :series => @series, :number => 4)
+          @c5 = FactoryGirl.create(:competitor, :series => @series, :number => 5)
+          @c6 = FactoryGirl.create(:competitor, :series => @series, :number => 6)
+          @c7 = FactoryGirl.create(:competitor, :series => @series, :number => 7)
+          @c8 = FactoryGirl.create(:competitor, :series => @series, :number => 8)
         end
   
         describe "when batch generation succeeds" do
@@ -792,7 +792,7 @@ describe Series do
 
   describe "#generate_start_times!" do
     before do
-      @series = Factory.build(:series)
+      @series = FactoryGirl.build(:series)
     end
     
     it "should return true when generation succeeds" do
@@ -808,7 +808,7 @@ describe Series do
 
   describe "#generate_start_list" do
     before do
-      @series = Factory.create(:series)
+      @series = FactoryGirl.create(:series)
     end
 
     context "when generation succeeds" do
@@ -844,7 +844,7 @@ describe Series do
 
   describe "#generate_start_list!" do
     before do
-      @series = Factory.create(:series)
+      @series = FactoryGirl.create(:series)
     end
 
     context "when generation succeeds" do
@@ -860,9 +860,9 @@ describe Series do
 
   describe "#active?" do
     before do
-      @race = Factory.build(:race, :start_date => Date.today,
+      @race = FactoryGirl.build(:race, :start_date => Date.today,
         :end_date => Date.today + 1, :finished => false)
-      @series = Factory.build(:series, :race => @race, :start_day => 1,
+      @series = FactoryGirl.build(:series, :race => @race, :start_day => 1,
         :start_time => (Time.now - 10).strftime('%H:%M:%S'))
     end
 
@@ -906,11 +906,11 @@ describe Series do
 
   describe "#destroy" do
     before do
-      @series = Factory.create(:series)
+      @series = FactoryGirl.create(:series)
     end
 
     it "should be prevented if series has competitors" do
-      @series.competitors << Factory.build(:competitor, :series => @series)
+      @series.competitors << FactoryGirl.build(:competitor, :series => @series)
       @series.destroy
       @series.should have(1).errors
       Series.should be_exist(@series.id)
@@ -924,14 +924,14 @@ describe Series do
 
   describe "#each_competitor_has_number?" do
     before do
-      @series = Factory.create(:series)
-      @series.competitors << Factory.build(:competitor, :series => @series,
+      @series = FactoryGirl.create(:series)
+      @series.competitors << FactoryGirl.build(:competitor, :series => @series,
         :number => 1)
     end
 
     context "when at least one number is missing" do
       before do
-        @series.competitors << Factory.build(:competitor, :series => @series,
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :number => nil)
       end
 
@@ -945,14 +945,14 @@ describe Series do
 
   describe "#each_competitor_has_start_time?" do
     before do
-      @series = Factory.create(:series)
-      @series.competitors << Factory.build(:competitor, :series => @series,
+      @series = FactoryGirl.create(:series)
+      @series.competitors << FactoryGirl.build(:competitor, :series => @series,
         :start_time => '12:45')
     end
 
     context "when at least one start_time is missing" do
       before do
-        @series.competitors << Factory.build(:competitor, :series => @series,
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => nil)
       end
 
@@ -966,7 +966,7 @@ describe Series do
 
   describe "#each_competitor_finished?" do
     before do
-      @series = Factory.build(:series)
+      @series = FactoryGirl.build(:series)
       @c1 = mock_model(Competitor, :finished? => true)
       @c2 = mock_model(Competitor, :finished? => false)
     end
@@ -990,7 +990,7 @@ describe Series do
 
   describe "#finished_competitors_count" do
     before do
-      @series = Factory.build(:series)
+      @series = FactoryGirl.build(:series)
       @c1, @c2, @c3 = mock(Competitor), mock(Competitor), mock(Competitor)
       @series.stub!(:competitors).and_return([@c1, @c2, @c3])
       @c1.stub!(:finished?).and_return(true)
@@ -1005,7 +1005,7 @@ describe Series do
 
   describe "#ready?" do
     before do
-      @series = Factory.build(:series, :has_start_list => true)
+      @series = FactoryGirl.build(:series, :has_start_list => true)
       @series.stub!(:each_competitor_finished?).and_return(true)
     end
 
@@ -1034,10 +1034,10 @@ describe Series do
 
   describe "#each_competitor_has_correct_estimates?" do
     before do
-      @series = Factory.create(:series)
-      @c1 = Factory.create(:competitor, :series => @series,
+      @series = FactoryGirl.create(:series)
+      @c1 = FactoryGirl.create(:competitor, :series => @series,
         :correct_estimate1 => 55, :correct_estimate2 => 111)
-      @c2 = Factory.create(:competitor, :series => @series,
+      @c2 = FactoryGirl.create(:competitor, :series => @series,
         :correct_estimate1 => 100, :correct_estimate2 => 99)
     end
 
@@ -1097,22 +1097,22 @@ describe Series do
   
   describe "#start_datetime" do
     it "should return nil when no start time" do
-      Factory.build(:series, :start_time => nil).start_datetime.should be_nil
+      FactoryGirl.build(:series, :start_time => nil).start_datetime.should be_nil
     end
     
     it "should return nil when no race" do
-      Factory.build(:series, :race => nil, :start_time => '13:45:31').start_datetime.should be_nil
+      FactoryGirl.build(:series, :race => nil, :start_time => '13:45:31').start_datetime.should be_nil
     end
     
     it "should return nil when no race start date" do
-      race = Factory.build(:race, :start_date => nil)
-      Factory.build(:series, :race => race, :start_time => '13:45:31').start_datetime.should be_nil
+      race = FactoryGirl.build(:race, :start_date => nil)
+      FactoryGirl.build(:series, :race => race, :start_time => '13:45:31').start_datetime.should be_nil
     end
     
     context "when race date and start time available" do
       before do
-        @race = Factory.build(:race, :start_date => '2011-06-30')
-        @series = Factory.build(:series, :race => @race, :start_time => '13:45:31')
+        @race = FactoryGirl.build(:race, :start_date => '2011-06-30')
+        @series = FactoryGirl.build(:series, :race => @race, :start_time => '13:45:31')
       end
       
       it "should return the compination of race date and start time when both available" do
@@ -1136,8 +1136,8 @@ describe Series do
 
   describe "#has_unofficial_competitors?" do
     before do
-      @series = Factory.create(:series)
-      @series.competitors << Factory.build(:competitor, :series => @series)
+      @series = FactoryGirl.create(:series)
+      @series.competitors << FactoryGirl.build(:competitor, :series => @series)
     end
 
     it "should return false when no unofficial competitors" do
@@ -1145,7 +1145,7 @@ describe Series do
     end
 
     it "should return true when at least one unofficial competitor" do
-      @series.competitors << Factory.build(:competitor, :series => @series,
+      @series.competitors << FactoryGirl.build(:competitor, :series => @series,
         :unofficial => true)
       @series.should have_unofficial_competitors
     end

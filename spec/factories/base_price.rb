@@ -1,3 +1,5 @@
-Factory.define :base_price do |bp|
-  bp.price 10
+FactoryGirl.define do
+  factory :base_price do
+    price 10
+  end
 end

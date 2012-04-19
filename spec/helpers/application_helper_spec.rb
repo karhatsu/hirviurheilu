@@ -493,7 +493,7 @@ describe ApplicationHelper do
 
   describe "#race_date_interval" do
     it "should call date_interval with race dates" do
-      race = Factory.build(:race)
+      race = FactoryGirl.build(:race)
       helper.should_receive(:date_interval).with(race.start_date, race.end_date).
         and_return('result')
       helper.race_date_interval(race).should == 'result'
@@ -691,13 +691,13 @@ describe ApplicationHelper do
 
     describe "#result_rotation_series_list" do
       it "should return an empty list when race in the future" do
-        race = Factory.create(:race, :start_date => Date.today - 1)
+        race = FactoryGirl.create(:race, :start_date => Date.today - 1)
         race.series << build_series(race, 1, '0:00')
         result_rotation_series_list(race).size.should == 0
       end
 
       it "should return an empty list when race was in the past" do
-        race = Factory.create(:race, :start_date => Date.today - 2,
+        race = FactoryGirl.create(:race, :start_date => Date.today - 2,
           :end_date => Date.today - 1)
         race.series << build_series(race, 1, '0:00')
         result_rotation_series_list(race).size.should == 0
@@ -705,7 +705,7 @@ describe ApplicationHelper do
 
       context "when race is ongoing today" do
         before do
-          @race = Factory.create(:race, :start_date => Date.today,
+          @race = FactoryGirl.create(:race, :start_date => Date.today,
             :end_date => Date.today + 1)
           @series1_1 = build_series(@race, 1, '0:00')
           @series1_2 = build_series(@race, 1, '0:00')
@@ -741,14 +741,14 @@ describe ApplicationHelper do
       end
 
       def build_series(race, start_day, start_time)
-        Factory.build(:series, :race => race, :start_day => start_day,
+        FactoryGirl.build(:series, :race => race, :start_day => start_day,
           :start_time => start_time)
       end
     end
 
     describe "#result_rotation_tc_list" do
       before do
-        @race = Factory.create(:race, :start_date => Date.today,
+        @race = FactoryGirl.create(:race, :start_date => Date.today,
           :end_date => Date.today + 1)
         @tc1 = build_team_competition(@race)
         @tc2 = build_team_competition(@race)
@@ -764,19 +764,19 @@ describe ApplicationHelper do
       end
 
       def build_team_competition(race)
-        Factory.build(:team_competition, :race => race)
+        FactoryGirl.build(:team_competition, :race => race)
       end
     end
 
     describe "#result_rotation_relay_list" do
       it "should return an empty list when race in the future" do
-        race = Factory.create(:race, :start_date => Date.today - 1)
+        race = FactoryGirl.create(:race, :start_date => Date.today - 1)
         race.relays << build_relay(race, 1, '0:00')
         result_rotation_relay_list(race).size.should == 0
       end
 
       it "should return an empty list when race was in the past" do
-        race = Factory.create(:race, :start_date => Date.today - 2,
+        race = FactoryGirl.create(:race, :start_date => Date.today - 2,
           :end_date => Date.today - 1)
         race.relays << build_relay(race, 1, '0:00')
         result_rotation_relay_list(race).size.should == 0
@@ -784,7 +784,7 @@ describe ApplicationHelper do
 
       context "when race is ongoing today" do
         before do
-          @race = Factory.create(:race, :start_date => Date.today,
+          @race = FactoryGirl.create(:race, :start_date => Date.today,
             :end_date => Date.today + 1)
           @relay1_1 = build_relay(@race, 1, '0:00')
           @relay1_2 = build_relay(@race, 1, '0:00')
@@ -820,7 +820,7 @@ describe ApplicationHelper do
       end
 
       def build_relay(race, start_day, start_time)
-        Factory.build(:relay, :race => race, :start_day => start_day,
+        FactoryGirl.build(:relay, :race => race, :start_day => start_day,
           :start_time => start_time)
       end
     end
@@ -913,17 +913,17 @@ describe ApplicationHelper do
 
   describe "#correct_estimate_range" do
     it "should return min_number- if no max_number" do
-      ce = Factory.build(:correct_estimate, :min_number => 56, :max_number => nil)
+      ce = FactoryGirl.build(:correct_estimate, :min_number => 56, :max_number => nil)
       helper.correct_estimate_range(ce).should == "56-"
     end
 
     it "should return min_number if max_number equals to it" do
-      ce = Factory.build(:correct_estimate, :min_number => 57, :max_number => 57)
+      ce = FactoryGirl.build(:correct_estimate, :min_number => 57, :max_number => 57)
       helper.correct_estimate_range(ce).should == 57
     end
 
     it "should return min_number-max_number if both defined and different" do
-      ce = Factory.build(:correct_estimate, :min_number => 57, :max_number => 58)
+      ce = FactoryGirl.build(:correct_estimate, :min_number => 57, :max_number => 58)
       helper.correct_estimate_range(ce).should == "57-58"
     end
   end
@@ -947,34 +947,34 @@ describe ApplicationHelper do
 
   describe "#club_title" do
     it "should be 'Piiri' when club level such" do
-      race = Factory.build(:race, :club_level => Race::CLUB_LEVEL_PIIRI)
+      race = FactoryGirl.build(:race, :club_level => Race::CLUB_LEVEL_PIIRI)
       helper.club_title(race).should == 'Piiri'
     end
 
     it "should be 'Seura' when club level such" do
-      race = Factory.build(:race, :club_level => Race::CLUB_LEVEL_SEURA)
+      race = FactoryGirl.build(:race, :club_level => Race::CLUB_LEVEL_SEURA)
       helper.club_title(race).should == 'Seura'
     end
 
     it "should throw exception when unknown club level" do
-      race = Factory.build(:race, :club_level => 100)
+      race = FactoryGirl.build(:race, :club_level => 100)
       lambda { helper.club_title(race) }.should raise_error
     end
   end
 
   describe "#clubs_title" do
     it "should be 'Piirit' when club level such" do
-      race = Factory.build(:race, :club_level => Race::CLUB_LEVEL_PIIRI)
+      race = FactoryGirl.build(:race, :club_level => Race::CLUB_LEVEL_PIIRI)
       helper.clubs_title(race).should == 'Piirit'
     end
 
     it "should be 'Seurat' when club level such" do
-      race = Factory.build(:race, :club_level => Race::CLUB_LEVEL_SEURA)
+      race = FactoryGirl.build(:race, :club_level => Race::CLUB_LEVEL_SEURA)
       helper.clubs_title(race).should == 'Seurat'
     end
 
     it "should throw exception when unknown club level" do
-      race = Factory.build(:race, :club_level => 100)
+      race = FactoryGirl.build(:race, :club_level => 100)
       lambda { helper.clubs_title(race) }.should raise_error
     end
   end

@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe UnfinishedCompetitorQuickSave do
   before do
-    @race = Factory.create(:race)
-    @series = Factory.create(:series, :race => @race)
-    Factory.create(:competitor, :series => @series, :number => 1)
-    @c = Factory.create(:competitor, :series => @series, :number => 10,
+    @race = FactoryGirl.create(:race)
+    @series = FactoryGirl.create(:series, :race => @race)
+    FactoryGirl.create(:competitor, :series => @series, :number => 1)
+    @c = FactoryGirl.create(:competitor, :series => @series, :number => 10,
       :no_result_reason => Competitor::DNS)
-    @c2 = Factory.create(:competitor, :series => @series, :number => 11)
+    @c2 = FactoryGirl.create(:competitor, :series => @series, :number => 11)
   end
 
   context "when string format is correct and competitor is found" do
@@ -72,9 +72,9 @@ describe UnfinishedCompetitorQuickSave do
 
   describe "unknown competitor" do
     before do
-      another_race = Factory.create(:race)
-      series = Factory.create(:series, :race => another_race)
-      Factory.create(:competitor, :series => series, :number => 8)
+      another_race = FactoryGirl.create(:race)
+      series = FactoryGirl.create(:series, :race => another_race)
+      FactoryGirl.create(:competitor, :series => series, :number => 8)
       @qs = UnfinishedCompetitorQuickSave.new(@race.id, '8,dns')
     end
 
@@ -105,7 +105,7 @@ describe UnfinishedCompetitorQuickSave do
 
   describe "data already stored" do
     before do
-      @c = Factory.create(:competitor, :series => @series, :number => 12,
+      @c = FactoryGirl.create(:competitor, :series => @series, :number => 12,
         :no_result_reason => Competitor::DNF)
       @qs = UnfinishedCompetitorQuickSave.new(@race.id, '12,dns')
     end

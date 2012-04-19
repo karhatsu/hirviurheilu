@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe RelayAdjustmentQuickSave do
   before do
-    @race = Factory.create(:race)
-    @relay = Factory.create(:relay, :race => @race, :legs_count => 2)
-    @team = Factory.create(:relay_team, :relay => @relay, :number => 5)
-    @c = Factory.create(:relay_competitor, :relay_team => @team, :leg => 2,
+    @race = FactoryGirl.create(:race)
+    @relay = FactoryGirl.create(:relay, :race => @race, :legs_count => 2)
+    @team = FactoryGirl.create(:relay_team, :relay => @relay, :number => 5)
+    @c = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 2,
       :adjustment => 99)
   end
 

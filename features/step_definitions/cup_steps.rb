@@ -1,19 +1,19 @@
 # encoding: UTF-8
 Given /^there is a cup "([^"]*)"$/ do |name|
-  @cup = Factory.create(:cup, :name => name)
+  @cup = FactoryGirl.create(:cup, :name => name)
 end
 
 Given /^there is a cup "([^"]*)" with (\d+) top competitions$/ do |name, top_competitions|
-  @cup = Factory.create(:cup, :name => name, :top_competitions => top_competitions)
+  @cup = FactoryGirl.create(:cup, :name => name, :top_competitions => top_competitions)
 end
 
 Given /^I have a cup "([^"]*)"$/ do |name|
-  @cup = Factory.create(:cup, :name => name)
+  @cup = FactoryGirl.create(:cup, :name => name)
   @user.cups << @cup
 end
 
 Given /^I have a cup "([^"]*)" with (\d+) top competitions$/ do |name, top_competitions|
-  @cup = Factory.create(:cup, :name => name, :top_competitions => top_competitions)
+  @cup = FactoryGirl.create(:cup, :name => name, :top_competitions => top_competitions)
   @user.cups << @cup
 end
 

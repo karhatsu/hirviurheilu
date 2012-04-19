@@ -1,7 +1,5 @@
-Factory.sequence :role_name do |n|
-  "role_#{n}"
-end
-
-Factory.define :role do |r|
-  r.name { Factory.next(:role_name) }
+FactoryGirl.define do
+  factory :role do
+    sequence(:name) { |n| "role_#{n}" }
+  end
 end

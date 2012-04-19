@@ -1,4 +1,6 @@
-Factory.define :price do |p|
-  p.min_competitors 10
-  p.price 1.50
+FactoryGirl.define do
+  factory :price do
+    min_competitors 10
+    price 1.50
+  end
 end

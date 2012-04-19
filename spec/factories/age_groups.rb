@@ -1,4 +1,6 @@
-Factory.define :age_group do |ag|
-  ag.association :series
-  ag.name 'M75'
+FactoryGirl.define do
+  factory :age_group do
+    series
+    name 'M75'
+  end
 end

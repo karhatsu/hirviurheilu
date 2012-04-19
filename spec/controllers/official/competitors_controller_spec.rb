@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Official::CompetitorsController do
   describe "#handle_club" do
     before do
-      @race = Factory.create(:race)
-      @series = Factory.create(:series, :race => @race)
+      @race = FactoryGirl.create(:race)
+      @series = FactoryGirl.create(:series, :race => @race)
     end
 
     controller(Official::CompetitorsController) do
@@ -44,7 +44,7 @@ describe Official::CompetitorsController do
 
     context "when existing club name is given" do
       before do
-        @club = Factory.create(:club, :name => 'Existing club', :race => @race)
+        @club = FactoryGirl.create(:club, :name => 'Existing club', :race => @race)
       end
 
       it "should find the existing club and set it for the competitor" do

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Club do
   describe "create" do
     it "should create club with valid attrs" do
-      Factory.create(:club)
+      FactoryGirl.create(:club)
     end
   end
 
@@ -14,21 +14,21 @@ describe Club do
 
     describe "unique name" do
       before do
-        Factory.create(:club, :long_name => 'Long name')
+        FactoryGirl.create(:club, :long_name => 'Long name')
       end
       it { should validate_uniqueness_of(:name).scoped_to(:race_id) }
       it { should validate_uniqueness_of(:long_name).scoped_to(:race_id) }
 
       it "should allow two nil long names for same race" do
-        club = Factory.create(:club, :long_name => nil)
-        Factory.build(:club, :long_name => nil, :race_id => club.race.id).
+        club = FactoryGirl.create(:club, :long_name => nil)
+        FactoryGirl.build(:club, :long_name => nil, :race_id => club.race.id).
           should be_valid
       end
 
       it "should convert empty strings to nils for long names" do
-        club = Factory.create(:club, :long_name => '')
+        club = FactoryGirl.create(:club, :long_name => '')
         club.long_name.should be_nil
-        Factory.build(:club, :long_name => '', :race_id => club.race.id).
+        FactoryGirl.build(:club, :long_name => '', :race_id => club.race.id).
           should be_valid
       end
     end
@@ -41,14 +41,14 @@ describe Club do
 
   describe "removal" do
     it "should be allowed when no competitors" do
-      club = Factory.create(:club)
+      club = FactoryGirl.create(:club)
       club.destroy
       club.should be_destroyed
     end
 
     it "should not be allowed when club has competitors" do
-      club = Factory.create(:club)
-      competitor = Factory.create(:competitor, :club => club)
+      club = FactoryGirl.create(:club)
+      competitor = FactoryGirl.create(:competitor, :club => club)
       club.reload
       club.should have(1).competitors
       club.destroy
@@ -58,12 +58,12 @@ describe Club do
 
   describe "#result_name" do
     it "should return long name when long name set" do
-      club = Factory.create(:club, :name => 'PS', :long_name => 'Pohjois-Savo')
+      club = FactoryGirl.create(:club, :name => 'PS', :long_name => 'Pohjois-Savo')
       club.expanded.should == 'Pohjois-Savo'
     end
 
     it "should return name when long name not set" do
-      club = Factory.create(:club, :name => 'PS')
+      club = FactoryGirl.create(:club, :name => 'PS')
       club.expanded.should == 'PS'
     end
   end

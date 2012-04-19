@@ -1,13 +1,11 @@
-Factory.sequence :race_location do |i|
-  "Tervo#{i}"
-end
-
-Factory.define(:race) do |c|
-  c.association :sport
-  c.name 'Championships'
-  c.location { Factory.next(:race_location) }
-  c.start_date '2010-08-14'
-  c.start_interval_seconds 60
-  c.batch_size 0
-  c.batch_interval_seconds 180
+FactoryGirl.define do
+  factory :race do
+    sport
+    name 'Championships'
+    sequence(:location) { |n| "Tervo#{n}" }
+    start_date '2010-08-14'
+    start_interval_seconds 60
+    batch_size 0
+    batch_interval_seconds 180
+  end
 end
