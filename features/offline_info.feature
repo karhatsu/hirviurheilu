@@ -65,6 +65,6 @@ Feature: Offline info
     And the "Offline" main menu item should be selected
     And the "Versiohistoria" sub menu item should be selected
     And I should see "Hirviurheilu Offline versiohistoria" within "div.main_title"
-    And I should see "1.1.1 - 1.3.2012" within "h2"
+    And I should see /1.1.1 - 1.3.2012/ within "h2"
     When I follow "Offline-asennus-sivulta"
     Then I should be on the offline installation page
