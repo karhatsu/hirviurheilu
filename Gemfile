@@ -7,6 +7,7 @@ gem 'wicked_pdf'
 
 group :development, :staging, :production do
   gem 'pg'
+  gem 'thin'
 end
 
 group :test do
