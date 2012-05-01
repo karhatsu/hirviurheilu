@@ -466,6 +466,15 @@ module ApplicationHelper
     " title='Vertailuaika: #{time_from_seconds(comparison_time, false)}'"
   end
   
+  def title_prefix
+    env = Rails.env
+    return '' if env == 'production'
+    return '(Offline) ' if env == 'winoffline-prod'
+    return '(Dev) ' if env == 'development'
+    return '(Offline-dev) ' if env == 'winoffline-dev'
+    '(Testi) '
+  end
+  
   private
   def result_rotation_series_list(race)
     race_day = race.race_day

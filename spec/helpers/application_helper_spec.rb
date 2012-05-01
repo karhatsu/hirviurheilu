@@ -1003,4 +1003,36 @@ describe ApplicationHelper do
       helper.comparison_time_title(@competitor, false, false).should == " title='Vertailuaika: 25:50'"
     end
   end
+  
+  describe "#title_prefix" do
+    it "should be '(Dev) ' when development environment" do
+      Rails.stub!(:env).and_return('development')
+      helper.title_prefix.should == '(Dev) '
+    end
+    
+    it "should be '(Testi) ' when test environment" do
+      Rails.stub!(:env).and_return('test')
+      helper.title_prefix.should == '(Testi) '
+    end
+    
+    it "should be '(Testi) ' when staging environment" do
+      Rails.stub!(:env).and_return('staging')
+      helper.title_prefix.should == '(Testi) '
+    end
+    
+    it "should be '(Offline) ' when offline production environment" do
+      Rails.stub!(:env).and_return('winoffline-prod')
+      helper.title_prefix.should == '(Offline) '
+    end
+    
+    it "should be '(Offline-dev) ' when offline development environment" do
+      Rails.stub!(:env).and_return('winoffline-dev')
+      helper.title_prefix.should == '(Offline-dev) '
+    end
+    
+    it "should be '' when production environment" do
+      Rails.stub!(:env).and_return('production')
+      helper.title_prefix.should == ''
+    end
+  end
 end
