@@ -108,6 +108,7 @@ GEM
     mongrel (1.2.0.pre2-x86-mingw32)
       gem_plugin (~> 0.2.3)
     multi_json (1.3.2)
+    newrelic_rpm (3.3.4.1)
     nokogiri (1.5.2)
     nokogiri (1.5.2-x86-mingw32)
     pg (0.13.2)
@@ -222,6 +223,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   mongrel (~> 1.2.0.pre)
+  newrelic_rpm
   pg
   rails (= 3.2.1)
   rspec-rails
