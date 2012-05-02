@@ -59,6 +59,8 @@ module ElkSports
 
     config.assets.precompile += ['pdf.css']
 
+    config.assets.initialize_on_precompile = false
+
     config.generators do |g|
       g.test_framework :rspec
     end
