@@ -176,7 +176,7 @@ class ApplicationController < ActionController::Base
   end
   
   def replace_scands(title)
-    title.gsub('ä', 'a').gsub('ö', 'o').gsub('Ä', 'A').gsub('Ö', 'O')
+    title.gsub('ä', 'a').gsub('ö', 'o').gsub('Ä', 'A').gsub('Ö', 'O') if title
   end
   
   def pdf_footer

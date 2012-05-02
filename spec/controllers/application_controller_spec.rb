@@ -5,7 +5,7 @@ describe ApplicationController do
   controller do
     def index
       Date.stub!(:today).and_return(Date.new(2012, 1, 2))
-      @pdf_header = pdf_header(params[:title] || 'Dummy')
+      @pdf_header = pdf_header(params[:title])
       @pdf_footer = pdf_footer
       @pdf_margin = pdf_margin
       render :nothing => true
