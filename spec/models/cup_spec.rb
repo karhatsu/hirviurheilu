@@ -5,6 +5,10 @@ describe Cup do
     FactoryGirl.create(:cup)
   end
   
+  describe "associations" do
+    it { should have_many(:cup_series) }
+  end
+  
   describe "validation" do
     it { should validate_presence_of(:name) }
     
@@ -28,38 +32,6 @@ describe Cup do
         cup.races.collect { |r| r.start_date.strftime('%Y-%m-%d') }.
           should == ['2012-03-31', '2012-04-01', '2012-04-02']
       end
-    end
-  end
-  
-  describe "#cup_series" do
-    it "should return an empty array when no races" do
-      FactoryGirl.build(:cup).cup_series.should == []
-    end
-    
-    it "should return an empty array when races have no series" do
-      cup = FactoryGirl.create(:cup)
-      cup.races << FactoryGirl.build(:race)
-      cup.cup_series.should == []
-    end
-    
-    it "should return series that each race has with same name and exclude others" do
-      cup = FactoryGirl.create(:cup)
-      create_race(cup, 'M', 'N', 'S17')
-      create_race(cup, 'M', 'N50', 'N')
-      create_race(cup, 'N', 'M70', 'M')
-      cup_series = cup.cup_series
-      cup_series.length.should == 2
-      cup_series[0].name.should == 'M'
-      cup_series[1].name.should == 'N'
-    end
-    
-    def create_race(cup, *series_names)
-      race = FactoryGirl.create(:race)
-      series_names.each do |series_name|
-        race.series << FactoryGirl.build(:series, :race => race, :name => series_name)
-      end
-      cup.races << race
-      race
     end
   end
   

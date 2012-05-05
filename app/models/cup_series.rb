@@ -1,24 +1,10 @@
-class CupSeries
-  def initialize(cup, series)
-    @cup = cup
-    @series = [series]
-  end
+class CupSeries < ActiveRecord::Base
+  belongs_to :cup
   
-  def cup
-    @cup
-  end
-  
-  def <<(series)
-    raise "Series name (#{series.name}) should be #{name}" if series.name != name
-    @series << series
-  end
-  
+  validates :name, :presence => true
+
   def series
-    @series
-  end
-  
-  def name
-    @series.first.name
+    @series ||= pick_series_with_same_name
   end
   
   def cup_competitors
@@ -32,10 +18,20 @@ class CupSeries
   end
   
   private
+  def pick_series_with_same_name
+    series = []
+    cup.races.each do |race|
+      race.series.where(:name => name).each do |s|
+        series << s
+      end
+    end
+    series
+  end
+  
   def pick_competitors_with_same_name_in_all_races
     name_to_competitor = Hash.new
-    @series.each do |series|
-      series.competitors.each do |competitor|
+    series.each do |s|
+      s.competitors.each do |competitor|
         name = CupCompetitor.name(competitor)
         if name_to_competitor.has_key?(name)
           name_to_competitor[name] << competitor
