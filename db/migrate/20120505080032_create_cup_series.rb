@@ -7,5 +7,9 @@ class CreateCupSeries < ActiveRecord::Migration
       
       t.timestamps
     end
+    
+    Cup.all.each do |cup|
+      cup.create_default_cup_series
+    end
   end
 end

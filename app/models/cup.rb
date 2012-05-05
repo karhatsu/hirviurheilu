@@ -25,6 +25,14 @@ class Cup < ActiveRecord::Base
     (cup_series.select { |cs| cs.name == name }).first
   end
   
+  def create_default_cup_series
+    raise "Cannot create cup series when already has some" unless cup_series.empty?
+    return unless has_races?
+    races.first.series.each do |series|
+      CupSeries.create!(:cup => self, :name => series.name)
+    end
+  end
+  
   def self.cup_races(cups)
     cup_races = []
     cups.each { |cup| cup.races.each { |race| cup_races << race } }
