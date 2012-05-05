@@ -6,7 +6,7 @@ class CupSeriesController < ApplicationController
       includes([
         :races => [:series => [:competitors => [:shots, :age_group, :club, :series]]]
       ]).first
-    @cup_series = @cup.find_cup_series(params[:id])
+    @cup_series = @cup.cup_series.find(params[:id])
     respond_to do |format|
       format.html
       format.pdf do

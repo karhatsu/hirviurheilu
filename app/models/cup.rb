@@ -21,10 +21,6 @@ class Cup < ActiveRecord::Base
     races.collect { |r| r.location }.uniq.join(' / ') if has_races?
   end
   
-  def find_cup_series(name)
-    (cup_series.select { |cs| cs.name == name }).first
-  end
-  
   def create_default_cup_series
     raise "Cannot create cup series when already has some" unless cup_series.empty?
     return unless has_races?

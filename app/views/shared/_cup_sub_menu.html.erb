@@ -4,7 +4,7 @@
       <ul>
         <%= menu_item 'Cup-kilpailun etusivu', cup_path(@cup), @is_cup_main %>
         <% unless @cup.cup_series.empty? %>
-          <%= menu_item 'Tulokset', cup_cup_series_path(@cup, menu_cup_series.name), @is_cup_series, nil, true do %>
+          <%= menu_item 'Tulokset', cup_cup_series_path(@cup, menu_cup_series), @is_cup_series, nil, true do %>
             <% cup_series_dropdown_menu(@cup) %>
           <% end %>
         <% end %>
