@@ -19,6 +19,14 @@ describe CupCompetitor do
       @cc.last_name.should == @competitor.last_name
     end
   end
+  
+  describe "#series_name" do
+    it "should be the name of the series of the first competitor" do
+      series = mock_model(Series, :name => 'M20')
+      @competitor.should_receive(:series).and_return(series)
+      @cc.series_name.should == 'M20'
+    end
+  end
 
   describe "other competitors" do
     it "should accept other competitors when their name is the same as the first one's" do

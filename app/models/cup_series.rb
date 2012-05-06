@@ -7,6 +7,10 @@ class CupSeries < ActiveRecord::Base
     @series ||= pick_series_with_given_name
   end
   
+  def has_single_series_with_same_name?
+    series_names.nil? or name == series_names
+  end
+  
   def cup_competitors
     @cup_competitors ||= pick_competitors_with_same_name_in_all_races
   end

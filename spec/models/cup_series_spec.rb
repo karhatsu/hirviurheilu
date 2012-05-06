@@ -13,6 +13,23 @@ describe CupSeries do
     it { should validate_presence_of(:name) }
   end
   
+  describe "#has_single_series_with_same_name?" do
+    it "should return true when series_names is nil" do
+      cup_series = FactoryGirl.build(:cup_series, :series_names => nil)
+      cup_series.should have_single_series_with_same_name
+    end
+    
+    it "should return true when series_names is same as cup series name" do
+      cup_series = FactoryGirl.build(:cup_series, :name => 'M', :series_names => 'M')
+      cup_series.should have_single_series_with_same_name
+    end
+    
+    it "should return false when series_names differs from cup series name" do
+      cup_series = FactoryGirl.build(:cup_series, :name => 'Men', :series_names => 'M')
+      cup_series.should_not have_single_series_with_same_name
+    end
+  end
+  
   describe "#series_names_as_array" do
     it "should return cup series name as an array when series_names is nil" do
       cup_series = FactoryGirl.build(:cup_series, :name => 'Cup series', :series_names => nil)
