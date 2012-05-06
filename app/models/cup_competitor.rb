@@ -21,8 +21,8 @@ class CupCompetitor
     @competitors
   end
   
-  def competitor_for_series(series)
-    @competitors.select { |c| c.series == series }.first
+  def competitor_for_race(race)
+    @competitors.select { |c| c.race == race }.first
   end
   
   def points

@@ -13,6 +13,18 @@ describe CupSeries do
     it { should validate_presence_of(:name) }
   end
   
+  describe "#series_names_as_array" do
+    it "should return cup series name as an array when series_names is nil" do
+      cup_series = FactoryGirl.build(:cup_series, :name => 'Cup series', :series_names => nil)
+      cup_series.send(:series_names_as_array).should == ['Cup series']
+    end
+    
+    it "should return series_names split by comma when series_names given" do
+      cup_series = FactoryGirl.build(:cup_series, :name => 'Cup series', :series_names => 'M,M60,M70')
+      cup_series.send(:series_names_as_array).should == ['M', 'M60', 'M70']
+    end
+  end
+  
   describe "#series" do
     before do
       @cup_series_name = 'M'
@@ -29,10 +41,12 @@ describe CupSeries do
       @cs.series.should == []
     end
     
-    it "should return series that have same name as cup series" do
-      race1 = create_race
-      race2 = create_race
-      race3 = create_race
+    it "should return all series that have a same name as any given series name" do
+      name_condition = ['M', 'M50']
+      @cs.should_receive(:series_names_as_array).any_number_of_times.and_return(name_condition)
+      race1 = create_race(name_condition)
+      race2 = create_race(name_condition)
+      race3 = create_race(name_condition)
       @cup.stub!(:races).and_return([race1, race2, race3])
       series = @cs.series
       series.length.should == 3
@@ -44,12 +58,12 @@ describe CupSeries do
       series[2].race.should == race3
     end
     
-    def create_race
+    def create_race(name_condition)
       race = FactoryGirl.build(:race)
       series = FactoryGirl.build(:series, :race => race, :name => @cup_series_name)
       all_series = mock(Object)
       race.stub!(:series).and_return(all_series)
-      all_series.stub!(:where).with(:name => @cup_series_name).and_return([series])
+      all_series.stub!(:where).with(:name => name_condition).and_return([series])
       race
     end
   end

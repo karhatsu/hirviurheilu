@@ -219,6 +219,15 @@ describe Competitor do
     end
   end
 
+  describe "race" do
+    it "should be the series.race" do
+      race = FactoryGirl.build(:race)
+      series = FactoryGirl.build(:series, :race => race)
+      competitor = FactoryGirl.build(:competitor, :series => series)
+      competitor.race.should == race
+    end
+  end
+
   describe "#sort" do
     before do
       @second_partial = mock_model(Competitor, :points => nil, :points! => 12,

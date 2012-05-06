@@ -51,6 +51,10 @@ class Competitor < ActiveRecord::Base
   after_create :set_correct_estimates
 
   attr_accessor :club_name, :age_group_name
+  
+  def race
+    series.race
+  end
 
   def shot_values
     values = shots.collect do |s|

@@ -4,7 +4,7 @@ class CupSeries < ActiveRecord::Base
   validates :name, :presence => true
 
   def series
-    @series ||= pick_series_with_same_name
+    @series ||= pick_series_with_given_name
   end
   
   def cup_competitors
@@ -18,14 +18,19 @@ class CupSeries < ActiveRecord::Base
   end
   
   private
-  def pick_series_with_same_name
+  def pick_series_with_given_name
     series = []
     cup.races.each do |race|
-      race.series.where(:name => name).each do |s|
+      race.series.where(:name => series_names_as_array).each do |s|
         series << s
       end
     end
     series
+  end
+  
+  def series_names_as_array
+    return series_names.split(',') if series_names
+    [name]
   end
   
   def pick_competitors_with_same_name_in_all_races
