@@ -5,6 +5,8 @@ Feature: Cup results
   
   Scenario: Show main page for cup results
     Given there is a cup "Test cup" with 2 top competitions
+    And the cup has a series "Men"
+    And the cup has a series "Women"
     And there is a race with attributes:
       | name | Cup race 1 |
       | start_date | 2012-03-20 |
@@ -39,6 +41,7 @@ Feature: Cup results
     
   Scenario: Show results for a cup series
     Given there is a cup "Test cup" with 2 top competitions
+    And the cup has a series "Men"
     And there is a race "Cup race 1"
     And the race has series with attributes:
       | name | Men |

@@ -17,6 +17,10 @@ Given /^I have a cup "([^"]*)" with (\d+) top competitions$/ do |name, top_compe
   @user.cups << @cup
 end
 
+Given /^the cup has a series "([^"]*)"$/ do |cup_series_name|
+  @cup.cup_series << FactoryGirl.build(:cup_series, :cup => @cup, :name => cup_series_name)
+end
+
 Given /^the race belongs to the cup$/ do
   @cup.races << @race
 end
