@@ -11,7 +11,7 @@
     <% end %>
     <% unless @cups.empty? %><hr/><% end %>
     <% @cups.each do |cup| %>
-      <%= link_to cup.name, official_cup_path(cup) %>
+      <%= link_to cup.name, official_cup_path(cup) %><br/>
     <% end %>
   </div>
   <h2 id="new_race">Tai</h2>
