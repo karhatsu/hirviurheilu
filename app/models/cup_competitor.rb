@@ -12,6 +12,10 @@ class CupCompetitor
     @competitors.first.last_name
   end
   
+  def series_name
+    @competitors.first.series.name
+  end
+  
   def <<(competitor)
     raise "Competitor name (#{name(competitor)}) should be #{name(self)}" unless name(competitor) == name(self)
     @competitors << competitor
@@ -21,8 +25,8 @@ class CupCompetitor
     @competitors
   end
   
-  def competitor_for_series(series)
-    @competitors.select { |c| c.series == series }.first
+  def competitor_for_race(race)
+    @competitors.select { |c| c.race == race }.first
   end
   
   def points

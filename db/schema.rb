@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120405172941) do
+ActiveRecord::Schema.define(:version => 20120505080032) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -84,6 +84,14 @@ ActiveRecord::Schema.define(:version => 20120405172941) do
   create_table "cup_officials", :id => false, :force => true do |t|
     t.integer "cup_id",  :null => false
     t.integer "user_id", :null => false
+  end
+
+  create_table "cup_series", :force => true do |t|
+    t.integer  "cup_id"
+    t.string   "name",         :null => false
+    t.string   "series_names"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "cups", :force => true do |t|

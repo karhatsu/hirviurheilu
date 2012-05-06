@@ -7,7 +7,7 @@
   <%= render :partial => 'cup_series_results' %>
 </div>
 <div class="action_box">
-  <%= link_to 'Lataa tulokset pdf-tiedostona', cup_cup_series_path(@cup, @cup_series.name, :format => :pdf) %>
+  <%= link_to 'Lataa tulokset pdf-tiedostona', cup_cup_series_path(@cup, @cup_series, :format => :pdf) %>
 </div>
 <hr/>
 <%= link_to "Takaisin cup-kilpailun etusivulle", cup_path(@cup) %>

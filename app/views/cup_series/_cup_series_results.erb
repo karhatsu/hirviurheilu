@@ -1,9 +1,11 @@
 <% is_pdf = defined?(pdf) %>
+<% show_series_name = !@cup_series.has_single_series_with_same_name? %>
 <table>
   <thead>
     <tr>
       <th>&nbsp;</th>
       <th>Kilpailija</th>
+      <% if show_series_name %><th>Sarja</th><% end %>
       <% @cup.races.each do |race| %>
         <th title="<%= race.name %>"><%= truncate(race.name, :length => 20) %></th>
       <% end %>
@@ -14,8 +16,9 @@
     <tr id="comp_<%= i+1 %>" class="<%= i % 2 == 0 ? 'odd' : '' %>">
       <td><%= i + 1 %>.</td>
       <td><%= cc.last_name %> <%= cc.first_name %></td>
-      <% @cup_series.series.each do |series| %>
-        <% c = cc.competitor_for_series(series) %>
+      <% if show_series_name %><td><%= cc.series_name %></td><% end %>
+      <% @cup.races.each do |race| %>
+        <% c = cc.competitor_for_race(race) %>
         <td class="center">
         <% if c %>
           <%= link_to_unless is_pdf, points_print(c, false), series_competitor_path(c.series, c) %>

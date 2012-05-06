@@ -19,6 +19,14 @@ describe CupCompetitor do
       @cc.last_name.should == @competitor.last_name
     end
   end
+  
+  describe "#series_name" do
+    it "should be the name of the series of the first competitor" do
+      series = mock_model(Series, :name => 'M20')
+      @competitor.should_receive(:series).and_return(series)
+      @cc.series_name.should == 'M20'
+    end
+  end
 
   describe "other competitors" do
     it "should accept other competitors when their name is the same as the first one's" do
@@ -157,21 +165,21 @@ describe CupCompetitor do
     end
   end
   
-  describe "#competitor_for_series" do
+  describe "#competitor_for_race" do
     before do
-      @competitor.stub!(:series).and_return(mock_model(Series))
+      @competitor.stub!(:race).and_return(mock_model(Race))
     end
     
     it "should be nil when no match" do
-      @cc.competitor_for_series(FactoryGirl.build(:series)).should be_nil
+      @cc.competitor_for_race(FactoryGirl.build(:race)).should be_nil
     end
     
-    it "should be the competitor that belongs to the given series" do
+    it "should be the competitor that belongs to the given race" do
       competitor = valid_competitor
-      series = FactoryGirl.build(:series)
-      competitor.stub!(:series).and_return(series)
+      race = FactoryGirl.build(:race)
+      competitor.stub!(:race).and_return(race)
       @cc << competitor
-      @cc.competitor_for_series(series).should == competitor
+      @cc.competitor_for_race(race).should == competitor
     end
   end
   

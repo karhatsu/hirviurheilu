@@ -324,7 +324,7 @@ module ApplicationHelper
     return '' if cup.cup_series.length <= 1
     menu = "<ul>"
     cup.cup_series.each do |cs|
-      menu << "<li>#{link_to cs.name, cup_cup_series_path(cup, cs.name)}</li>"
+      menu << "<li>#{link_to cs.name, cup_cup_series_path(cup, cs)}</li>"
     end
     menu << "</ul>"
     raw(menu)

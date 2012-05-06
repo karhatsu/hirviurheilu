@@ -5,6 +5,8 @@ Feature: Cup results
   
   Scenario: Show main page for cup results
     Given there is a cup "Test cup" with 2 top competitions
+    And the cup has a series "Men"
+    And the cup has a series "Women"
     And there is a race with attributes:
       | name | Cup race 1 |
       | start_date | 2012-03-20 |
@@ -39,6 +41,7 @@ Feature: Cup results
     
   Scenario: Show results for a cup series
     Given there is a cup "Test cup" with 2 top competitions
+    And the cup has a series "Men"
     And there is a race "Cup race 1"
     And the race has series with attributes:
       | name | Men |
@@ -84,3 +87,60 @@ Feature: Cup results
     And I should see "1188" within "tr#comp_2"
     And I should see "1190" within "tr#comp_2"
     And I should see "2384" within "tr#comp_2"
+
+  Scenario: Show results for a cup series containing two series
+    Given there is a cup "Test cup" with 2 top competitions
+    And the cup has a series "Men" with series names "M,M60"
+    And there is a race "Cup race 1"
+    And the race has series with attributes:
+      | name | M |
+      | start_time | 10:00 |
+      | first_number | 1 |
+      | has_start_list | true |
+    And the series has a competitor "Antti" "Miettinen" with 300+300+594 points
+    And the series has a competitor "Timo" "Turunen" with 300+298+600 points
+    And the race has series with attributes:
+      | name | M60 |
+      | start_time | 11:00 |
+      | first_number | 10 |
+      | has_start_list | true |
+    And the series has a competitor "Markku" "Pöllänen" with 300+300+600 points
+    And the race belongs to the cup
+    And there is a race "Another cup race"
+    And the race has series with attributes:
+      | name | M |
+      | start_time | 10:00 |
+      | first_number | 1 |
+      | has_start_list | true |
+    And the series has a competitor "Timo" "Turunen" with 300+296+600 points
+    And the series has a competitor "Antti" "Miettinen" with 300+300+588 points
+    And the race has series with attributes:
+      | name | M60 |
+      | start_time | 11:00 |
+      | first_number | 10 |
+      | has_start_list | true |
+    And the series has a competitor "Markku" "Pöllänen" with 300+300+600 points
+    And the race belongs to the cup
+    When I go to the cup page
+    And I follow "Men"
+    Then the "Kilpailut" main menu item should be selected
+    And the "Tulokset" sub menu item should be selected
+    And I should see "Tulokset - Men" within "h2"
+    And I should see "Cup race 1" within "thead"
+    And I should see "Another" within "thead"
+    And I should see "Pöllänen Markku"
+    And I should see "M60" within "tr#comp_1"
+    And I should see "1200" within "tr#comp_1"
+    And I should see "1200" within "tr#comp_1"
+    And I should see "2400" within "tr#comp_1"
+    And I should see "Turunen Timo"
+    And I should see "M" within "tr#comp_2"
+    And I should see "1198" within "tr#comp_2"
+    And I should see "1196" within "tr#comp_2"
+    And I should see "2394" within "tr#comp_2"
+    And I should see "Miettinen Antti"
+    And I should see "M" within "tr#comp_3"
+    And I should see "1194" within "tr#comp_3"
+    And I should see "1188" within "tr#comp_3"
+    And I should see "2382" within "tr#comp_3"
+    

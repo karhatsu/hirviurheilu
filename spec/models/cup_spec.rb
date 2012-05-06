@@ -5,6 +5,10 @@ describe Cup do
     FactoryGirl.create(:cup)
   end
   
+  describe "associations" do
+    it { should have_many(:cup_series) }
+  end
+  
   describe "validation" do
     it { should validate_presence_of(:name) }
     
@@ -28,52 +32,6 @@ describe Cup do
         cup.races.collect { |r| r.start_date.strftime('%Y-%m-%d') }.
           should == ['2012-03-31', '2012-04-01', '2012-04-02']
       end
-    end
-  end
-  
-  describe "#cup_series" do
-    it "should return an empty array when no races" do
-      FactoryGirl.build(:cup).cup_series.should == []
-    end
-    
-    it "should return an empty array when races have no series" do
-      cup = FactoryGirl.create(:cup)
-      cup.races << FactoryGirl.build(:race)
-      cup.cup_series.should == []
-    end
-    
-    it "should return series that each race has with same name and exclude others" do
-      cup = FactoryGirl.create(:cup)
-      create_race(cup, 'M', 'N', 'S17')
-      create_race(cup, 'M', 'N50', 'N')
-      create_race(cup, 'N', 'M70', 'M')
-      cup_series = cup.cup_series
-      cup_series.length.should == 2
-      cup_series[0].name.should == 'M'
-      cup_series[1].name.should == 'N'
-    end
-    
-    def create_race(cup, *series_names)
-      race = FactoryGirl.create(:race)
-      series_names.each do |series_name|
-        race.series << FactoryGirl.build(:series, :race => race, :name => series_name)
-      end
-      cup.races << race
-      race
-    end
-  end
-  
-  describe "#find_cup_series" do
-    it "should return nil if unknown series name" do
-      FactoryGirl.build(:cup).find_cup_series('Fooo').should be_nil
-    end
-    
-    it "should return the cup series with given name" do
-      cup = FactoryGirl.build(:cup)
-      cs1 = mock(CupSeries, :name => 'Series 1')
-      cs2 = mock(CupSeries, :name => 'Series 2')
-      cup.stub!(:cup_series).and_return([cs1, cs2])
-      cup.find_cup_series(cs2.name).should == cs2
     end
   end
   
@@ -151,6 +109,49 @@ describe Cup do
         race3 = FactoryGirl.build(:race, :location => 'Shooting city')
         cup.stub!(:races).and_return([race1, race2, race3])
         cup.location.should == 'Shooting city / Skiing town'
+      end
+    end
+  end
+  
+  describe "#create_default_cup_series" do
+    context "when no races" do
+      it "should do nothing" do
+        cup = FactoryGirl.create(:cup)
+        cup.create_default_cup_series
+      end
+    end
+  
+    context "when races" do
+      before do
+        race1 = mock_model(Race)
+        series1_1 = mock_model(Series, :name => 'M50')
+        series1_2 = mock_model(Series, :name => 'M60')
+        race1.stub!(:series).and_return([series1_1, series1_2])
+        race2 = mock_model(Race)
+        series2_1 = mock_model(Series, :name => 'M70')
+        series2_2 = mock_model(Series, :name => 'M80')
+        race2.stub!(:series).and_return([series2_1, series2_2])
+        races = [race1, race2]
+        @cup = FactoryGirl.create(:cup)
+        @cup.stub!(:races).and_return(races)
+      end
+    
+      it "should create cup series based on series names in the first race" do
+        @cup.cup_series.should be_empty
+        @cup.create_default_cup_series
+        @cup.reload
+        cup_series = @cup.cup_series
+        cup_series.length.should == 2
+        cup_series[0].name.should == 'M50'
+        cup_series[1].name.should == 'M60'
+      end
+    end
+    
+    context "when already has cup series" do
+      it "should raise an exception" do
+        cup = FactoryGirl.build(:cup)
+        cup.stub!(:cup_series).and_return([mock_model(CupSeries)])
+        lambda { cup.create_default_cup_series }.should raise_error
       end
     end
   end
