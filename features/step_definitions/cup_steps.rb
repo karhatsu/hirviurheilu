@@ -21,6 +21,10 @@ Given /^the cup has a series "([^"]*)"$/ do |cup_series_name|
   @cup.cup_series << FactoryGirl.build(:cup_series, :cup => @cup, :name => cup_series_name)
 end
 
+Given /^the cup has a series "([^"]*)" with series names "([^"]*)"$/ do |cup_series_name, series_names|
+  @cup.cup_series << FactoryGirl.build(:cup_series, :cup => @cup, :name => cup_series_name, :series_names => series_names)
+end
+
 Given /^the race belongs to the cup$/ do
   @cup.races << @race
 end
