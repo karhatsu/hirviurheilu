@@ -8,7 +8,7 @@
 <h2>Sarjat</h2>
 <div class="section">
   <% @cup.cup_series.each do |cs| %>
-    <%= link_to cs.name, cup_cup_series_path(@cup, cs) %><br/>
+    <%= link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs) %><br/>
   <% end %>
 </div>
 <hr/>

@@ -1035,4 +1035,18 @@ describe ApplicationHelper do
       helper.title_prefix.should == ''
     end
   end
+  
+  describe "#long_cup_series_name" do
+    it "should be cup series name when no series names" do
+      cs = FactoryGirl.build(:cup_series, :name => 'Series')
+      cs.should_receive(:has_single_series_with_same_name?).and_return(true)
+      helper.long_cup_series_name(cs).should == 'Series'
+    end
+    
+    it "should be cup series name and series names in brackets when given" do
+      cs = FactoryGirl.build(:cup_series, :name => 'Series', :series_names => 'M,M50,M80')
+      cs.should_receive(:has_single_series_with_same_name?).and_return(false)
+      helper.long_cup_series_name(cs).should == 'Series (M, M50, M80)'
+    end
+  end
 end
