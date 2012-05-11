@@ -19,7 +19,10 @@ Feature: Manage cup
   Scenario: Add cup
     Given I am an official "Teppo Testaaja"
     And I have a race "My race 1"
+    And the race has series "M50"
+    And the race has series "M60"
     And I have a race "My race 2"
+    And the race has series "M70"
     And I have a race "My race 3"
     And I have logged in
     When I go to the new official cup page
@@ -37,6 +40,10 @@ Feature: Manage cup
     And I should see "My race 1"
     And I should see "My race 3"
     But I should not see "My race 2"
+    And I should see "Cup-sarjat"
+    And I should see "M50"
+    And I should see "M60"
+    But I should not see "M70"
     And the admin should receive an email
     When I open the email
     Then I should see "Hirviurheilu - uusi cup-kilpailu (test)" in the email subject
