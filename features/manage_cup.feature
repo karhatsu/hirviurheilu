@@ -92,9 +92,12 @@ Feature: Manage cup
     Given I am an official
     And I have a cup "My cup" with 2 top competitions
     And I have a race "My race 1"
+    And the race has series "M50"
+    And the race has series "N50"
     And the race belongs to the cup
     And I have a race "My race 2"
     And the race belongs to the cup
+    And the cup contains the default cup series
     And I have a race "My race 3"
     And I have a race "My race 4"
     And I have logged in
@@ -107,12 +110,17 @@ Feature: Manage cup
     And the "race_id_1" checkbox should be checked
     But the "race_id_2" checkbox should not be checked
     But the "race_id_3" checkbox should not be checked
+    And the "cup_cup_series_attributes_0_name" field should contain "M50"
+    And the "cup_cup_series_attributes_1_name" field should contain "N50"
     When I fill in the following:
       | Cup-kilpailun nimi | Renamed cup |
       | Yhteistulokseen laskettavien kilpailuiden määrä | 3 |
     And I uncheck "race_id_1"
     And I check "race_id_2"
     And I check "race_id_3"
+    And I fill in "M60" for "cup_cup_series_attributes_0_name"
+    And I fill in "N" for "cup_cup_series_attributes_1_name"
+    And I fill in "N40,N60" for "cup_cup_series_attributes_1_series_names"
     And I press "Päivitä"
     Then I should be on the official cup page of "Renamed cup"
     And I should see "Cup-kilpailu päivitetty" within "div.success"
@@ -122,6 +130,10 @@ Feature: Manage cup
     And I should see "My race 3"
     And I should see "My race 4"
     But I should not see "My race 2"
+    And I should see "M60"
+    And I should see "N (N40, N60)"
+    But I should not see "M50"
+    And I should not see "N50"
 
   Scenario: Error handling when modifying cup
     Given I am an official

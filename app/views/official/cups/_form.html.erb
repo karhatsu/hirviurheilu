@@ -11,5 +11,16 @@
       :id => "race_id_#{i}" %>
     <%= race.name %><br/>
   <% end %>
+  <% unless @cup.new_record? %>
+    Cup-sarjat:<br/>
+    <div class="info">Osakilpailuiden sarjojen nimet -kenttään tulee pilkulla erotettuna
+      niiden sarjojen nimet, joista cup-sarja koostuu. Esim. jos cup-sarjan nimi on
+      'Naiset', voisi osakilpailuiden sarjojen nimet olla 'N,N40,N60'.
+      Voit jättää kentän tyhjäksi, jos cup-sarja koostuu yhdestä sarjasta, jonka nimi
+      on täsmälleen sama kuin cup-sarjan nimi.</div>
+    <%= f.fields_for :cup_series do |cs_form| %>
+      <%= render :partial => "cup_series", :locals => { :f => cs_form } %>
+    <% end %>
+  <% end %>
   <%= submit_tag submit_label %>
 <% end %>

@@ -52,6 +52,7 @@ fi:
     remember_me: Muista minut
     roles: Roolit
     series: Sarja
+    series_names: Osakilpailuiden sarjojen nimet
     shots_total_input: Ammunta yhteensä
     sport: Laji
     start_date: Alkupvm
@@ -100,6 +101,8 @@ fi:
           value: Laukaus
       cup:
         name: Cup-kilpailun nimi
+      cup_series:
+        name: Cup-sarjan nimi
       race:
         correct_estimates:
           distance1: Etäisyys 1

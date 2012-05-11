@@ -19,6 +19,11 @@ describe CupSeries do
       cup_series.should have_single_series_with_same_name
     end
     
+    it "should return true when series_names is empty string" do
+      cup_series = FactoryGirl.build(:cup_series, :series_names => '')
+      cup_series.should have_single_series_with_same_name
+    end
+    
     it "should return true when series_names is same as cup series name" do
       cup_series = FactoryGirl.build(:cup_series, :name => 'M', :series_names => 'M')
       cup_series.should have_single_series_with_same_name

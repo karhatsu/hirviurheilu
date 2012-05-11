@@ -5,6 +5,8 @@ class Cup < ActiveRecord::Base
   validates :name, :presence => true
   validates :top_competitions, :numericality => { :greater_than => 1, :only_integer => true }
   
+  accepts_nested_attributes_for :cup_series
+  
   def sport
     races.first.sport if has_races?
   end
