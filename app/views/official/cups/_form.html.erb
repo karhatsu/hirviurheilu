@@ -21,6 +21,7 @@
     <%= f.fields_for :cup_series do |cs_form| %>
       <%= render :partial => "cup_series", :locals => { :f => cs_form } %>
     <% end %>
+    <%= add_child_link "Lisää uusi cup-sarja", f, :cup_series %><br/><br/>
   <% end %>
   <%= submit_tag submit_label %>
 <% end %>
