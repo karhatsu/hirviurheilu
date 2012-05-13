@@ -261,21 +261,33 @@ end
 
 <div class="question cup_question">Kuinka <span class="highligth">cup-kilpailuita luodaan</span>?</div>
 <div class="answer">Cup-kilpailuiden luominen on erittäin helppoa. Mene Toimitsijan etusivulle
-  ja lisää sieltä uusi cup-kilpailu. Tämän jälkeen sinun tarvitsee vain kertoa cup-kilpailun nimi ja valita,
-  mistä (osa)kilpailuista cup koostuu. Lisäksi pystyt määrittämään, kuinka monen kilpailun tulokset
-  lasketaan yhteispisteisiin. Esimerkiksi jos cup koostuu neljästä osakilpailusta, niin voit määrittää,
-  että cup-pisteet lasketaan kilpailijan kolmen parhaan tuloksen perusteella.<br/><br/>
-  Osakilpailut tarkoittavat tässä yhteydessä aivan normaaleja Hirviurheilun kilpailuita,
-  joiden tulokset olet palveluun syöttänyt tai tulet syöttämään.
+  ja lisää sieltä uusi cup-kilpailu. Sinun tarvitsee vain kertoa cup-kilpailun nimi ja valita,
+  mistä (osa)kilpailuista cup koostuu. Osakilpailut tarkoittavat tässä yhteydessä aivan normaaleja
+  Hirviurheilun kilpailuita, joiden tulokset olet palveluun syöttänyt tai tulet syöttämään.
+</div>
+
+<div class="question cup_question">Kuinka <span class="highligth">cup-sarjat</span> määritetään?</div>
+<div class="answer">Kun lisäät cup-kilpailun ja valitset siihen osakilpailut, järjestelmä
+  luo automaattisesti ensimmäisen osakilpailun perusteella cup-sarjat käyttäen kyseisen
+  osakilpailun sarjojen nimiä. Jos nämä sarjat ovat myös cup-sarjat, sinun ei tarvitse tehdä mitään.<br/><br/>
+  Voit kuitenkin halutessasi määrittää eri cup-sarjat muokkaamalla cup-kilpailun asetuksia.
+  Cup-sarja voi koostua yhdestä tai useammasta osakilpailuiden sarjasta. Esimerkiksi:
+  <ul>
+    <li>Cup-sarja 'M', jonka tulokset lasketaan suoraan osakilpailuissa olevan sarjan 'M' perusteella.
+      (Cup-kilpailuiden oletussarjat toimivat tällä periaatteella.)</li>
+    <li>Cup-sarja 'Miehet', jonka tulokset lasketaan osakilpailuissa olevien sarjojen 'M', 'M60' ja 'M70'
+      perusteella.</li>
+  </ul>
 </div>
 
 <div class="question cup_question">Kuinka <span class="highligth">cup-kilpailuiden tuloslaskenta</span> toimii?</div>
-<div class="answer">Cup-kilpailussa lasketaan tulokset automaattisesti samoille sarjoille,
-  jotka löytyvät cupin osakilpailuissa. Jos esimerkiksi kaikissa osakilpailuissa on sarjat "M" sekä "N",
-  niin myös cupin tuloksissa esiintyy sarjat "M" ja "N".<br/><br/>
-  Samalla tavoin eri osakilpailuiden kilpailijat yhdistetään yhdeksi henkilöksi
-  kilpailijan nimen perusteella. Jos siis kilpailija "Timo Testinen" esiintyy sarjassa "M"
-  jokaisessa osakilpailussa, palvelu laskee hänelle cup-kilpailun yhteispisteet cup-kilpailun sarjaan "M".
+<div class="answer">Cup-kilpailussa lasketaan tulokset niille sarjoille, jotka olet määrittänyt
+  kuuluvan cup-kilpailun sarjoihin (ks. edellä). Eri osakilpailuiden kilpailijat yhdistetään yhdeksi henkilöksi
+  kilpailijan nimen perusteella. Jos siis osakilpailuissa esiintyy kilpailija "Timo Testinen",
+  palvelu tunnistaa hänet yhdeksi henkilöksi ja osaa laskea hänelle cup-yhteispisteet.<br/><br/>
+  Cup-yhteispisteet ovat summa osakilpailuiden pisteistä. Voit kuitenkin halutessasi määrittää
+  cup-kilpailun asetuksiin esimerkiksi, että kolmesta osakilpailusta yhteispisteisiin lasketaan
+  vain kaksi parasta tulosta.
 </div>
 
 <h3>Tulosten julkaisu</h3>

@@ -10,6 +10,7 @@ class Official::CupsController < Official::OfficialController
     @cup = current_user.cups.build(params[:cup])
     if @cup.valid? and enough_races?
       @cup.save!
+      @cup.create_default_cup_series
       current_user.cups << @cup
       NewCompetitionMailer.new_cup(@cup, current_user).deliver
       flash[:success] = 'Cup-kilpailu lisätty'

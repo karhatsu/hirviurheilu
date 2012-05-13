@@ -8,7 +8,7 @@ class CupSeries < ActiveRecord::Base
   end
   
   def has_single_series_with_same_name?
-    series_names.nil? or name == series_names
+    series_names.blank? or name == series_names
   end
   
   def cup_competitors

@@ -29,6 +29,10 @@ Given /^the race belongs to the cup$/ do
   @cup.races << @race
 end
 
+Given /^the cup contains the default cup series$/ do
+  @cup.create_default_cup_series
+end
+
 Then /^I should see error about too few races selected for the cup$/ do
   step %{I should see "Sinun täytyy valita vähintään yhtä monta kilpailua kuin on yhteistulokseen laskettavien kilpailuiden määrä" within "div.error"}
 end

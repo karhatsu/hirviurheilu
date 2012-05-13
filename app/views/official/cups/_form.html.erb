@@ -1,15 +1,28 @@
 <%= render :partial => 'shared/form_errors', :locals => { :item => @cup } %>
 <%= flash_error %>
 <%= form_for([:official, @cup]) do |f| %>
+  <h3>Perusasetukset</h3>
   <%= f.label :name %>
   <%= f.text_field :name %><br/>
   <%= f.label :top_competitions %>
   <%= f.text_field :top_competitions, :max_length => 1, :size => 2 %><br/>
-  Osakilpailut:<br/>
+  <h3>Osakilpailut</h3>
   <% current_user.races.each_with_index do |race, i| %>
     <%= check_box_tag 'cup[race_ids][]', race.id, @cup.races.include?(race),
       :id => "race_id_#{i}" %>
     <%= race.name %><br/>
+  <% end %>
+  <% unless @cup.new_record? %>
+    <h3>Cup-sarjat</h3>
+    <div class="info">Osakilpailuiden sarjojen nimet -kenttään tulee pilkulla erotettuna
+      niiden sarjojen nimet, joista cup-sarja koostuu. Esim. jos cup-sarjan nimi on
+      'Naiset', voisi osakilpailuiden sarjojen nimet olla 'N,N40,N60'.
+      Voit jättää kentän tyhjäksi, jos cup-sarja koostuu yhdestä sarjasta, jonka nimi
+      on täsmälleen sama kuin cup-sarjan nimi.</div>
+    <%= f.fields_for :cup_series do |cs_form| %>
+      <%= render :partial => "cup_series", :locals => { :f => cs_form } %>
+    <% end %>
+    <%= add_child_link "Lisää uusi cup-sarja", f, :cup_series %><br/><br/>
   <% end %>
   <%= submit_tag submit_label %>
 <% end %>
