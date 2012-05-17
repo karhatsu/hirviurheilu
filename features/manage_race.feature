@@ -14,7 +14,7 @@ Feature: Manage race
     When I fill in the following:
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |
-      | Lähtöaikojen väli (sekuntia) | 30 |
+      | Lähtöaikojen väli | 30 |
     And I select "13" from "race_start_date_3i"
     And I select "heinäkuu" from "race_start_date_2i"
     And I select "2011" from "race_start_date_1i"
@@ -41,7 +41,7 @@ Feature: Manage race
     When I fill in the following:
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |
-      | Lähtöaikojen väli (sekuntia) | 30 |
+      | Lähtöaikojen väli | 30 |
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
     And the official main menu item should be selected
