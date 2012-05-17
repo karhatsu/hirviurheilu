@@ -118,7 +118,7 @@ Feature: Export race
     But I should not see "kun kaikki tulokset on syötetty"
     When I follow "Kilpailu & sarjat"
     Then the "Paikkakunta" field should contain "Offline city"
-    And the "Linkki kilpailun omille sivuille" field should contain "www.test.com/offline_race"
+    And the "Linkki kilpailun kotisivuille" field should contain "www.test.com/offline_race"
     And the "Nimi" field should contain "Offline age group"
     And the "SE" field should contain "1050"
     When I follow "Seurat"

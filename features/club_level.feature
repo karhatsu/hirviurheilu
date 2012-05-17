@@ -44,7 +44,7 @@ Feature: Club level
     Given I am an official
     And I have logged in
     And I am on the new official race page
-    Then I should see "Kilpailijan edustustaso tässä kilpailussa"
+    Then I should see "Kilpailijan edustustaso"
     When I fill in the following:
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |

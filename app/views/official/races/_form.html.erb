@@ -1,29 +1,41 @@
-<%= form_for([:official, @race]) do |f| %>
+<%= form_for([:official, @race], :html => { :class => 'race_form' }) do |f| %>
   <%= render :partial => "shared/form_errors", :locals => { :item => @race } %>
-  <%= f.label :sport %>
-  <%= f.collection_select(:sport_id, Sport.all, :id, :name) %><br/>
-  <%= f.label :name %>
-  <%= f.text_field :name %><br/>
-  <%= f.label :location %>
-  <%= f.text_field :location %><br/>
-  <%= f.label :start_date %>
-  <%= f.date_select :start_date %>
-  <%= f.label :days_count %>
-  <%= f.select :days_count, [['1 päivä', 1], ['2 päivää', 2], ['3 päivää', 3]] %><br/>
-  Kilpailijan edustustaso tässä kilpailussa
-  <%= f.radio_button :club_level, Race::CLUB_LEVEL_SEURA %>
-  <%= f.label "club_level_#{Race::CLUB_LEVEL_SEURA}", 'Seura' %>
-  <%= f.radio_button :club_level, Race::CLUB_LEVEL_PIIRI %>
-  <%= f.label "club_level_#{Race::CLUB_LEVEL_PIIRI}", 'Piiri' %><br/>
-  <%= f.label :start_interval_seconds %>
-  <%= f.text_field :start_interval_seconds, :size => 3, :maxlength => 3 %><br/>
-  <%= f.label :batch_size %>
-  <%= f.text_field :batch_size, :size => 3, :maxlength => 3 %><br/>
-  <%= f.label :batch_interval_seconds %>
-  <%= f.text_field :batch_interval_seconds, :size => 3, :maxlength => 3 %><br/>
-  <%= f.label :home_page, 'Linkki kilpailun omille sivuille (ei pakollinen)' %>
-  <%= f.url_field :home_page %>
-  <a class="help" id="home_page_help">?</a>
+  <h3>Kilpailun perustiedot</h3>
+  <div>
+    <span class="form_label"><%= f.label :sport %></span>
+    <span><%= f.collection_select(:sport_id, Sport.all, :id, :name) %></span>
+  </div>
+  <div>
+    <span class="form_label"><%= f.label :name %></span>
+    <span><%= f.text_field :name %></span>
+  </div>
+  <div>
+    <span class="form_label"><%= f.label :location %></span>
+    <span><%= f.text_field :location %></span>
+  <div>
+    <span class="form_label"><%= f.label :start_date %></span>
+    <span><%= f.date_select :start_date %></span>
+  </div>
+  <div>
+    <span class="form_label"><%= f.label :days_count %></span>
+    <span><%= f.select :days_count, [['1 päivä', 1], ['2 päivää', 2], ['3 päivää', 3]] %></span>
+  </div>
+  <div>
+    <span class="form_label">
+      <%= f.label :home_page, 'Linkki kilpailun kotisivuille' %>
+      <a class="help" id="home_page_help">?</a>
+    </span>
+    <span><%= f.url_field :home_page %></span>
+  </div>
+  <div>
+    <span class="form_label">Kilpailijan edustustaso</span>
+    <span>
+      <%= f.radio_button :club_level, Race::CLUB_LEVEL_SEURA %>
+      <%= f.label "club_level_#{Race::CLUB_LEVEL_SEURA}", 'Seura' %>
+      <%= f.radio_button :club_level, Race::CLUB_LEVEL_PIIRI %>
+      <%= f.label "club_level_#{Race::CLUB_LEVEL_PIIRI}", 'Piiri' %>
+    </span>
+  </div>
   <div id="home_page_help_dialog" class="dialog" style="display: none;">
     Jos kilpailusta on tarjolla lisätietoa esimerkiksi piirin tai seuran
     omilla sivuilla, voit laittaa tähän linkin kyseiselle sivulle.
@@ -35,11 +47,28 @@
         closeText: 'Sulje' });
     });
   <% end %>
-  <br/>
+  <h3>Lähtöajat</h3>
+  <div>
+    <span class="form_label"><%= f.label :start_interval_seconds %></span>
+    <span><%= f.text_field :start_interval_seconds, :size => 3, :maxlength => 3 %></span>
+  </div>
+  <div>
+    <span class="form_label"><%= f.label :batch_size %></span>
+    <span><%= f.text_field :batch_size, :size => 3, :maxlength => 3 %></span>
+  </div>
+  <div>
+    <span class="form_label"><%= f.label :batch_interval_seconds %></span>
+    <span><%= f.text_field :batch_interval_seconds, :size => 3, :maxlength => 3 %></span>
+  </div>
   <% if @race.new_record? %>
-    <%= check_box_tag :add_default_series, "1", true %>
-    <%= label_tag :add_default_series, "Lisää oletussarjat automaattisesti" %>
-    <a class="help" id="default_series_help">?</a>
+    <h3>Sarjat</h3>
+    <div>
+      <span class="form_label">
+        <%= label_tag :add_default_series, "Lisää oletussarjat automaattisesti" %>
+        <a class="help" id="default_series_help">?</a>
+      </span>
+      <span><%= check_box_tag :add_default_series, "1", true %></span>
+    </div>
     <div id="default_series_help_dialog" class="dialog" style="display: none;">
       Jos merkitset 'Lisää oletussarjat automaattisesti'-kentän valituksi,
       kilpailulle luodaan automaattisesti seuraavat sarjat:
@@ -67,7 +96,7 @@
     <br/>
   <% else %>
     <%= submit_tag submit_label %>
-    <h2>Sarjat</h2>
+    <h3>Sarjat</h3>
     <%= f.fields_for :series do |series_form| %>
       <%= render :partial => "series", :locals => { :f => series_form } %>
     <% end %>
