@@ -41,13 +41,23 @@
     omilla sivuilla, voit laittaa tähän linkin kyseiselle sivulle.
     Voit myös jättää kentän tyhjäksi.
   </div>
+  <div id="batch_size_help_dialog" class="dialog" style="display: none;">
+    Lähtöerien avulla voit luoda taukoa kilpailijoiden välille.
+    Voit esimerkiksi määrittää lähtöerän kooksi 20 kilpailijaa,
+    jonka jälkeen tulee lähtöajoissa tauko. Nämä asetukset otetaan huomioon,
+    kun luodaan lähtölistoja.<br/><br/>
+    Mikäli haluat, että kaikki kilpailijat lähtevät tasaisin väliajoin,
+    jätä kentän arvoksi 0.<br/><br/>
+    Lähtöeriä käytetään yleensä suuremmissa kilpailuissa, jotta esimerkiksi
+    ammuntapaikoille ei tulisi liikaa ruuhkaa.
+  </div>
   <h3>Lähtöajat</h3>
   <div>
     <span class="form_label"><%= f.label :start_interval_seconds %></span>
     <span><%= f.text_field :start_interval_seconds, :size => 3, :maxlength => 3 %> sekuntia</span>
   </div>
   <div>
-    <span class="form_label"><%= f.label :batch_size %></span>
+    <span class="form_label"><%= f.label :batch_size %> <a class="help" id="batch_size_help">?</a></span>
     <span><%= f.text_field :batch_size, :size => 3, :maxlength => 3 %> (0 = lähtöerät eivät käytössä)</span>
   </div>
   <div>
@@ -98,6 +108,7 @@
 <% end %>
 <%= javascript_tag do %>
   var home_page_help_title = 'Linkki kilpailun sivuille';
+  var batch_size_help_title = 'Lähtöerät';
   var default_series_help_title = 'Lisää oletussarjat automaattisesti';
   var age_groups_help_title = 'Ikäryhmät';
   $('.help').click(function() {
