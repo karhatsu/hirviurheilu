@@ -1,11 +1,15 @@
 <%= flash_success %>
 <div class="section">
   <%= render :partial => 'shared/form_errors', :locals => { :item => @tc } %>
-  <%= form_for([:official, @race, @tc]) do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %><br/>
-    <%= f.label :team_competitor_count %>
-    <%= f.text_field :team_competitor_count, :size => 2 %>
+  <%= form_for([:official, @race, @tc], :html => { :class => 'team_competition_form' }) do |f| %>
+    <div>
+      <span class="form_label"><%= f.label :name %></span>
+      <span><%= f.text_field :name %></span>
+    </div>
+    <div>
+      <span class="form_label"><%= f.label :team_competitor_count %></span>
+      <span><%= f.text_field :team_competitor_count, :size => 2 %></span>
+    </div>
     <h3>Sarjat ja/tai ikäryhmät tässä joukkuekilpailussa</h3>
     <div class="info">Valitse kaikki sarjat ja ikäryhmät, jotka kuuluvat tähän joukkuekilpailuun.
       <ul>
@@ -17,6 +21,10 @@
     <% current_series_ids = @tc.series_ids %>
     <% current_age_group_ids = @tc.age_group_ids %>
     <table border="1" cellpadding="2" cellspacing="0">
+      <tr>
+        <th>Sarja</th>
+        <th>Ikäryhmät</th>
+      </tr>
       <% @race.series.each do |series| %>
         <tr>
           <td>
