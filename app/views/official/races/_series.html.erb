@@ -5,7 +5,7 @@
   <div class="sub_sub_element age_groups_element">
     <h3>
       Ikäryhmät, joille lasketaan omat aikapisteet
-      <a class="help age_groups_help">?</a>
+      <a class="help age_groups_help" id="age_groups_help">?</a>
     </h3>
     <div id="age_groups_help_dialog" class="dialog" style="display: none;">
       Tästä voit lisätä sarjaan ns. ikäryhmän, jolle lasketaan omat aikapisteet.
@@ -19,12 +19,6 @@
         sen "ikäryhmät" Tytöt ja Pojat), syötä kilpailijoiden
         vähimmäismääräksi 0.</p>
     </div>
-    <script type="text/javascript">
-      $('.age_groups_help').click(function() {
-        $('#age_groups_help_dialog').dialog({ title: 'Ikäryhmät',
-          closeText: 'Sulje' });
-      });
-    </script>
     <%= f.fields_for :age_groups do |age_group_form| %>
       <%= render :partial => "age_group", :locals => { :f => age_group_form } %>
     <% end %>

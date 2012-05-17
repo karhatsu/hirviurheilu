@@ -41,12 +41,6 @@
     omilla sivuilla, voit laittaa tähän linkin kyseiselle sivulle.
     Voit myös jättää kentän tyhjäksi.
   </div>
-  <%= javascript_tag do %>
-    $('#home_page_help').click(function() {
-      $('#home_page_help_dialog').dialog({ title: 'Linkki kilpailun sivuille',
-        closeText: 'Sulje' });
-    });
-  <% end %>
   <h3>Lähtöajat</h3>
   <div>
     <span class="form_label"><%= f.label :start_interval_seconds %></span>
@@ -87,12 +81,6 @@
       <p>Mikäli et valitse tätä vaihtoehtoa, pääset lisäämään haluamasi sarjat heti
         kilpailun jälkeen.</p>
     </div>
-    <%= javascript_tag do %>
-      $('#default_series_help').click(function() {
-        $('#default_series_help_dialog').dialog({ title: 'Lisää oletussarjat automaattisesti',
-          closeText: 'Sulje' });
-      });
-    <% end %>
     <br/>
   <% else %>
     <%= submit_tag submit_label %>
@@ -107,4 +95,13 @@
     <%= add_child_link "Lisää uusi sarja tähän kilpailuun", f, :series %><br/><br/>
   <% end %>
   <%= submit_tag submit_label %>
+<% end %>
+<%= javascript_tag do %>
+  var home_page_help_title = 'Linkki kilpailun sivuille';
+  var default_series_help_title = 'Lisää oletussarjat automaattisesti';
+  var age_groups_help_title = 'Ikäryhmät';
+  $('.help').click(function() {
+    var id = $(this).attr('id');
+    $('#' + id + '_dialog').dialog({ title: eval(id + '_title'), closeText: 'Sulje' });
+  });
 <% end %>
