@@ -1,7 +1,7 @@
-<div class='sub_form'>
-  <%= f.label :name %>
-  <%= f.text_field :name, :size => 20 %>
-  <%= f.label :series_names %>
-  <%= f.text_field :series_names, :size => 20 %>
-  <%= remove_child_link 'Poista cup-sarja', f, 'sub_form', '' %>
+<div class='sub_form cup_series_sub_form'>
+  <span class="form_label"><%= f.label :name %></span>
+  <span><%= f.text_field :name, :size => 20 %></span>
+  <span class="form_label"><%= f.label :series_names %></span>
+  <span><%= f.text_field :series_names, :size => 20 %></span>
+  <span><%= remove_child_link 'Poista cup-sarja', f, 'sub_form', '' %></span>
 </div>
