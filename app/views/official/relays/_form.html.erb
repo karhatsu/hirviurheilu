@@ -1,18 +1,27 @@
 <%= flash_success %>
 <%= render :partial => 'shared/form_errors', :locals => { :item => @relay } %>
-<%= form_for([:official, @race, @relay]) do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %><br/>
-  <%= f.label :legs_count %>
-  <% if @relay.new_record? %>
-    <%= f.text_field :legs_count, :size => 2 %>
-  <% else %>
-    <%= @relay.legs_count %>
-  <% end %>
-  <br/>
-  <%= f.label :start_time %>
-  <%= start_days_form_field(f, @relay) %>
-  <%= f.time_select :start_time, :include_seconds => true, :include_blank => true %>
+<%= form_for([:official, @race, @relay], :html => { :class => 'relay_form' }) do |f| %>
+  <div>
+    <span class="form_label"><%= f.label :name %></span>
+    <span><%= f.text_field :name %></span>
+  </div>
+  <div>
+    <span class="form_label"><%= f.label :legs_count %></span>
+    <span>
+      <% if @relay.new_record? %>
+        <%= f.text_field :legs_count, :size => 2 %>
+      <% else %>
+        <%= @relay.legs_count %>
+      <% end %>
+    </span>
+  </div>
+  <div>
+    <span class="form_label"><%= f.label :start_time %></span>
+    <span>
+      <%= start_days_form_field(f, @relay) %>
+      <%= f.time_select :start_time, :include_seconds => true, :include_blank => true %>
+    </span>
+  </div>
   <% unless @relay.new_record? %>
     <h2>Oikeat arviot</h2>
     <%= render :partial => 'all_correct_estimates', :locals => { :f => f } %>
