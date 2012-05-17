@@ -39,7 +39,7 @@ class Official::CupsController < Official::OfficialController
   private
   def enough_races?
     params[:cup][:race_ids] ||= []
-    params[:cup][:race_ids].length >= @cup.top_competitions
+    params[:cup][:race_ids].length >= @cup.top_competitions.to_i
   end
   
   def flash_error_for_too_few_races
