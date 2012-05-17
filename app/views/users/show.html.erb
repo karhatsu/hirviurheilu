@@ -1,18 +1,23 @@
 <% content_for(:title, 'Omat tiedot') %>
 <% content_for(:page_title, yield(:title)) %>
+<h2>Perustiedot</h2>
 <%= flash_error %>
 <%= flash_success %>
-<b>Sähköposti:</b>
-<%=h @user.email %>
-<br/>
-<b>Etunimi:</b>
-<%=h @user.first_name %>
-<br/>
-<b>Sukunimi:</b>
-<%=h @user.last_name %>
-
-<br/><br/>
-<%= link_to 'Muokkaa tietoja', edit_account_path %>
+<div class="user_form">
+  <div class="read_only_form_row">
+    <span class="form_label">Sähköposti:</span>
+    <span><%=h @user.email %></span>
+  </div>
+  <div class="read_only_form_row">
+    <span class="form_label">Etunimi:</span>
+    <span><%=h @user.first_name %></span>
+  </div>
+  <div class="read_only_form_row">
+    <span class="form_label">Sukunimi:</span>
+    <span><%=h @user.last_name %></span>
+  </div>
+</div>
+<div class="action_box"><%= link_to 'Muokkaa tietoja', edit_account_path %></div>
 <h2>Omat kilpailut</h2>
 <% if @user.races.empty? %>
   <%= highlight_info('Sinulla ei ole vielä yhtään kilpailua. ' +
