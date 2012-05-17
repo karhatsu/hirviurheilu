@@ -2,8 +2,8 @@ fi:
   attributes:
     age_group: Ikäryhmä
     arrival_time: Saapumisaika
-    batch_interval_seconds: Lähtöerien väli (sekuntia)
-    batch_size: Lähtöerien koko (0 = ei eriä käytössä)
+    batch_interval_seconds: Tauko lähtöerien välissä
+    batch_size: Lähtöerien koko
     club: Seura/piiri
     correct_estimate1: Oikea arviomatka 1
     correct_estimate2: Oikea arviomatka 2
@@ -57,7 +57,7 @@ fi:
     sport: Laji
     start_date: Alkupvm
     start_day: Aloituspäivä
-    start_interval_seconds: Lähtöaikojen väli (sekuntia)
+    start_interval_seconds: Lähtöaikojen väli
     start_time: Lähtöaika
     team_competitor_count: Kilpailijoita / joukkue
     top_competitions: Yhteistulokseen laskettavien kilpailuiden määrä
