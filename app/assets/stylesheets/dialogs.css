@@ -15,3 +15,13 @@ div.ui-dialog-titlebar {
     color: olive;
     text-decoration: underline;
 }
+
+.ui-widget-header {
+    border-color: olive;
+}
+
+.ui-widget-content {
+    background: none;
+    background-color: white;
+    border-color: black;
+}
