@@ -1,17 +1,23 @@
 <%= render :partial => "shared/form_errors", :locals => { :item => @user } %>
-<dl>
-  <dt><%= form.label :first_name %></dt>
-  <dd><%= form.text_field :first_name %></dd>
-
-  <dt><%= form.label :last_name %></dt>
-  <dd><%= form.text_field :last_name %></dd>
-
-  <dt><%= form.label :email %></dt>
-  <dd><%= form.email_field :email %></dd>
-
-  <dt><%= form.label :password, form.object.new_record? ? nil : "Vaihda salasana" %></dt>
-  <dd><%= form.password_field :password %></dd>
-
-  <dt><%= form.label :password_confirmation %></dt>
-  <dd><%= form.password_field :password_confirmation %></dd>
-</dl>
+<div class="user_form">
+  <div>
+    <span class="form_label"><%= form.label :first_name %></span>
+    <span><%= form.text_field :first_name %></span>
+  </div>
+  <div>
+    <span class="form_label"><%= form.label :last_name %></span>
+    <span><%= form.text_field :last_name %></span>
+  </div>
+  <div>
+    <span class="form_label"><%= form.label :email %></span>
+    <span><%= form.email_field :email %></span>
+  </div>
+  <div>
+    <span class="form_label"><%= form.label :password, form.object.new_record? ? nil : "Vaihda salasana" %></span>
+    <span><%= form.password_field :password %></span>
+  </div>
+  <div>
+    <span class="form_label"><%= form.label :password_confirmation %></span>
+    <span><%= form.password_field :password_confirmation %></span>
+  </div>
+</div>
