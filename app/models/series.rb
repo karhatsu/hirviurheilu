@@ -38,6 +38,7 @@ class Series < ActiveRecord::Base
       TIME_POINTS_TYPE_ALL_300] }
   validate :start_day_not_bigger_than_race_days_count
   
+  before_create :set_has_start_list
   before_destroy :prevent_destroy_if_competitors
   
   def best_time_in_seconds(age_group_ids, all_competitors)
@@ -217,6 +218,12 @@ class Series < ActiveRecord::Base
     return "EXTRACT(EPOCH FROM (arrival_time-start_time))" if DatabaseHelper.postgres?
     return "strftime('%s', arrival_time)-strftime('%s', start_time)" if DatabaseHelper.sqlite3?
     raise "Unknown database adapter"
+  end
+  
+  def set_has_start_list
+    return unless race
+    self.has_start_list ||= (race.start_order.to_i == Race::START_ORDER_MIXED)
+    true
   end
 
   def prevent_destroy_if_competitors

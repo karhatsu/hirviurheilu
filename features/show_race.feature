@@ -57,6 +57,24 @@ Feature: Show race
     Then I should be on the race page
     When I follow "Tulokset"
     Then I should be on the results page of the series
+    
+  Scenario: Don't show start time column when competitor order is mixed between series
+    Given there is a race with attributes:
+      | name | My test race |
+      | start_order | 2 |
+    And the race has series with attributes:
+      | name | Women |
+      | start_time | 12:45 |
+    And the series has a competitor with attributes:
+      | first_name | James |
+      | last_name | Johnson |
+      | start_time | 13:30 |
+      | number | 100 |
+    When I go to the race page
+    Then I should see "Women"
+    But I should not see "Lähtöaika"
+    And I should not see "12:45"
+    And I should not see "13:30"
 
   Scenario: Don't show correct estimates when race has not finished
     Given there is a race with attributes:

@@ -10,6 +10,7 @@ Feature: Club level
     When I fill in the following:
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |
+    And I choose "Pääsääntöisesti sarjoittain"
     And I check "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
@@ -48,6 +49,7 @@ Feature: Club level
     When I fill in the following:
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |
+    And I choose "Pääsääntöisesti sarjoittain"
     And I check "Lisää oletussarjat automaattisesti"
     And I choose "Piiri"
     And I press "Lisää kilpailu"

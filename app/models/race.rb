@@ -6,6 +6,9 @@ class Race < ActiveRecord::Base
   CLUB_LEVEL_SEURA = 0
   CLUB_LEVEL_PIIRI = 1
 
+  START_ORDER_BY_SERIES = 1
+  START_ORDER_MIXED = 2
+
   belongs_to :sport
   has_many :series, :order => 'name'
   has_many :age_groups, :through => :series
@@ -36,6 +39,8 @@ class Race < ActiveRecord::Base
   validates :batch_interval_seconds, :numericality => { :only_integer => true,
     :greater_than => 0 }
   validates :club_level, :inclusion => { :in => [CLUB_LEVEL_SEURA, CLUB_LEVEL_PIIRI] }
+  validates :start_order, :inclusion => { :in => [START_ORDER_BY_SERIES, START_ORDER_MIXED],
+    :message => "täytyy valita" }
   validate :end_date_not_before_start_date
   validate :check_duplicate_name_location_start_date, :on => :create
 

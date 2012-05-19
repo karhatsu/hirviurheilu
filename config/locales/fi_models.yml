@@ -43,7 +43,6 @@ fi:
     misses: Ohilaukaukset
     name: Nimi
     national_record: SE
-    time_points_type: Aikapisteiden laskenta
     number: Numero
     password: Salasana
     password_confirmation: Salasana uudestaan
@@ -58,8 +57,10 @@ fi:
     start_date: Alkupvm
     start_day: Aloituspäivä
     start_interval_seconds: Lähtöaikojen väli
+    start_order: Kilpailijoiden lähtöjärjestys
     start_time: Lähtöaika
     team_competitor_count: Kilpailijoita / joukkue
+    time_points_type: Aikapisteiden laskenta
     top_competitions: Yhteistulokseen laskettavien kilpailuiden määrä
     unofficial: Epävirallinen kilpailija
 
