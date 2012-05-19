@@ -75,6 +75,30 @@ describe Series do
       end
     end
   end
+  
+  describe "has_start_list" do
+    context "when race start order is by series" do
+      before do
+        @race = FactoryGirl.create(:race, :start_order => Race::START_ORDER_BY_SERIES)
+        @series = FactoryGirl.create(:series, :race => @race)
+      end
+      
+      it "should become false on create" do
+        @series.should_not have_start_list
+      end
+    end
+    
+    context "when race start order is mixed" do
+      before do
+        @race = FactoryGirl.create(:race, :start_order => Race::START_ORDER_MIXED)
+        @series = FactoryGirl.create(:series, :race => @race)
+      end
+      
+      it "should become true on create" do
+        @series.should have_start_list
+      end
+    end
+  end
 
   describe "#best_time_in_seconds" do
     describe "for whole series" do
