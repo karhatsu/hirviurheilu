@@ -81,11 +81,11 @@
       <%= f.label "start_order_#{Race::START_ORDER_MIXED}", 'Sarjat sekaisin' %>
     </span>
   </div>
-  <div>
+  <div class="batch_size_row">
     <span class="form_label"><%= f.label :batch_size %> <a class="help" id="batch_size_help">?</a></span>
     <span><%= f.text_field :batch_size, :size => 3, :maxlength => 3 %> (0 = lähtöerät eivät käytössä)</span>
   </div>
-  <div>
+  <div class="batch_size_row">
     <span class="form_label"><%= f.label :batch_interval_seconds %></span>
     <span><%= f.text_field :batch_interval_seconds, :size => 3, :maxlength => 3 %> sekuntia</span>
   </div>
@@ -141,4 +141,15 @@
     var id = $(this).attr('id');
     $('#' + id + '_dialog').dialog({ title: eval(id + '_title'), closeText: 'Sulje' });
   });
+  
+  function showOrHideBatchSizes() {
+    if($("#race_start_order_<%= Race::START_ORDER_BY_SERIES %>:checked").length) {
+      $(".batch_size_row").show();
+    } else {
+      $(".batch_size_row").hide();
+    }
+  }
+  $(document).ready(showOrHideBatchSizes);
+  $("#race_start_order_<%= Race::START_ORDER_BY_SERIES %>").click(showOrHideBatchSizes);
+  $("#race_start_order_<%= Race::START_ORDER_MIXED %>").click(showOrHideBatchSizes);
 <% end %>
