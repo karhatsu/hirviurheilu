@@ -20,7 +20,7 @@
         'luomisen jälkeenkin.)') %>
   <% end %>
   <div class="section">
-    <% unless @series.some_competitor_has_arrival_time? %>
+    <% unless @series.some_competitor_has_arrival_time? or @series.race.start_order == Race::START_ORDER_MIXED %>
       <%= flash_error %>
       <%= flash_success %>
       <%= render :partial => 'shared/form_errors', :locals => { :item => @series } %>

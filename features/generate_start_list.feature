@@ -171,3 +171,24 @@ Feature: Generate start list
     Then I should see "Numero"
     And I should see "Lähtöaika"
     
+  Scenario: Don't show start list form when start order is mixed between series
+    Given I am an official
+    And I have a race with attributes:
+      | name | Test race |
+      | start_order | 2 |
+    And the race has a club "Test club"
+    And the race has series "Test series"
+    And the series has a competitor with attributes:
+      | first_name | Teppo |
+      | last_name | Testinen |
+      | club | Test club |
+      | start_time | 12:00:00 |
+      | number | 1 |
+    And I have logged in
+    And I am on the official race page of "Test race"
+    When I follow "1 hlö"
+    Then I should not see "Valitse lähtöajaksi"
+    And I should not see "Sarjan ensimmäinen numero"
+    And I should not see "Kilpailijoiden järjestys"
+    But I should see "Testinen Teppo"
+    
