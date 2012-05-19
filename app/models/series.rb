@@ -222,7 +222,7 @@ class Series < ActiveRecord::Base
   
   def set_has_start_list
     return unless race
-    self.has_start_list = (race.start_order.to_i == Race::START_ORDER_MIXED)
+    self.has_start_list ||= (race.start_order.to_i == Race::START_ORDER_MIXED)
     true
   end
 

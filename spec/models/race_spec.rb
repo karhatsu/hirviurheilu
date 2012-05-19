@@ -59,9 +59,10 @@ describe Race do
     end
     
     describe "start_order" do
+      it { should_not allow_value(Race::START_ORDER_BY_SERIES - 1).for(:start_order) }
       it { should allow_value(Race::START_ORDER_BY_SERIES).for(:start_order) }
       it { should allow_value(Race::START_ORDER_MIXED).for(:start_order) }
-      it { should_not allow_value(2).for(:start_order) }
+      it { should_not allow_value(Race::START_ORDER_MIXED + 1).for(:start_order) }
     end
 
     describe "race with same name" do

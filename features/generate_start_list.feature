@@ -153,3 +153,21 @@ Feature: Generate start list
     Then I should not see "Sarjan ensimmäinen numero"
     And I should not see "Sarjan lähtöaika"
     And I should not see "Kilpailijoiden järjestys"
+
+  Scenario: If official wants so, there is no need to generate start list
+    Given I am an official
+    And I have logged in
+    And I am on the new race page
+    When I fill in the following:
+      | Kilpailun nimi | Test race |
+      | Paikkakunta | Test location |
+    And I press "Lisää kilpailu"
+    Then I should see "Kilpailijoiden lähtöjärjestys" within "div.error"
+    When I choose "Sarjat sekaisin"
+    And I check "Lisää oletussarjat automaattisesti"
+    And I press "Lisää kilpailu"
+    Then I should be on the official race page of "Test race"
+    When I follow "Lisää tämän sarjan ensimmäinen kilpailija"
+    Then I should see "Numero"
+    And I should see "Lähtöaika"
+    

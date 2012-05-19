@@ -69,6 +69,7 @@ Feature: Navigation between official and result sections
     When I fill in the following:
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |
+    And I choose "Pääsääntöisesti sarjoittain"
     And I press "Lisää kilpailu"
     Then I should see "Kilpailu lisätty"
     When I go to the home page
