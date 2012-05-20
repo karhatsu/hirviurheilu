@@ -22,6 +22,9 @@
       <%= render :partial => 'competitor_row',
         :locals => { :f => f, :c => @new_competitor, :save_button => 'Lisää uusi', :id => 'new' } %>
     <% end %>
+    <tr>
+      <td colspan="20"><hr/></td>
+    </tr>
     <% @competitors.each do |c| %>
       <%= form_for([:official, c.series, c], :remote => true) do |f| %>
         <%= render :partial => 'competitor_row',
