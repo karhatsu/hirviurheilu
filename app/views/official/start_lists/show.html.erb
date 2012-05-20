@@ -18,13 +18,14 @@
       <th>&nbsp;</th>
     </tr>
     <%= form_for([:official, @race, @new_competitor], :remote => true) do |f| %>
+      <%= hidden_field_tag :start_list, true %>
       <%= render :partial => 'competitor_row',
-        :locals => { :f => f, :c => @new_competitor, :save_button => 'Lisää uusi' } %>
+        :locals => { :f => f, :c => @new_competitor, :save_button => 'Lisää uusi', :id => 'new' } %>
     <% end %>
     <% @competitors.each do |c| %>
       <%= form_for([:official, c.series, c], :remote => true) do |f| %>
         <%= render :partial => 'competitor_row',
-          :locals => { :f => f, :c => c, :save_button => 'Tallenna' } %>
+          :locals => { :f => f, :c => c, :save_button => 'Tallenna', :id => c.id } %>
       <% end %>
     <% end %>
   </table>

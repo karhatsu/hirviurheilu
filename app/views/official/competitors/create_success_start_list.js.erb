@@ -1,0 +1,28 @@
+$('div.error').hide();
+$("#status_new").html("<span class='success'>Lisätty</span>");
+$("#status_new").show();
+setTimeout(function() {
+  $("#status_new").hide('slow');
+}, 5000);
+
+<% unless ActivationKey.activated? %>
+  $('#free_offline_competitors_left').text('<%= t 'count_competitors',
+    :count => Competitor.free_offline_competitors_left %>');
+<% end %>
+
+$('#competitor_first_name').val('');
+$('#competitor_last_name').val('');
+
+<% if @competitor.series.has_start_list? %>
+  $('#competitor_number').val(<%= @competitor.series.next_number %>);
+  <% start_time = @competitor.series.next_start_time %>
+  $('#competitor_start_time_4i').val('<%= start_time.strftime('%H') %>');
+  $('#competitor_start_time_5i').val('<%= start_time.strftime('%M') %>');
+  $('#competitor_start_time_6i').val('<%= start_time.strftime('%S') %>');
+<% end %>
+
+$('div.success').text('Kilpailija lisätty');
+$('div.success').show('fast');
+setTimeout(function() {
+  $('div.success').hide('slow');
+}, 3000);

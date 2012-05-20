@@ -1,0 +1,4 @@
+$("#status_new").html("<span class='error'>Virhe!</span>");
+$('div#update_error').addClass("error");
+$('div#update_error').text("<%= @competitor.errors.full_messages.join(". ") + "." %>");
+$('div#update_error').show();

@@ -30,13 +30,11 @@ class Official::CompetitorsController < Official::OfficialController
     @competitor = @series.competitors.build(params[:competitor])
     club_ok = handle_club(@competitor)
     if club_ok and @competitor.save
-      respond_to do |format|
-        format.js { render :create_success }
-      end
+      template = params[:start_list] ? :create_success_start_list : :create_success
+      respond_to { |format| format.js { render template } }
     else
-      respond_to do |format|
-        format.js { render :create_error }
-      end
+      template = params[:start_list] ? :create_error_start_list : :create_error
+      respond_to { |format| format.js { render template } }
     end
   end
 
