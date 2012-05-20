@@ -19,7 +19,6 @@
     </tr>
   <% @competitors.each do |c| %>
     <%= form_for([:official, c.series, c], :remote => true) do |f| %>
-      <%= hidden_field_tag :no_times, true %>
       <tr id='competitor_<%= c.id %>'>
         <td><%= f.text_field :number, :size => 2 %></td>
         <td style="white-space: nowrap;"><%= f.time_text_field :start_time, :include_seconds => true, :blank => true %></td>
