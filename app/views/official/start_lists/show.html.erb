@@ -17,26 +17,16 @@
       <th>&nbsp;</th>
       <th>&nbsp;</th>
     </tr>
-  <% @competitors.each do |c| %>
-    <%= form_for([:official, c.series, c], :remote => true) do |f| %>
-      <tr id='competitor_<%= c.id %>'>
-        <td><%= f.text_field :number, :size => 2 %></td>
-        <td style="white-space: nowrap;"><%= f.time_text_field :start_time, :include_seconds => true, :blank => true %></td>
-        <td><%= f.text_field :first_name, :size => 6 %></td>
-        <td><%= f.text_field :last_name, :size => 10 %></td>
-        <td><%= text_field_tag :new_club_name, c.club.name, :size => 10 %></td>
-        <td><%= f.collection_select :series_id, @all_series, :id, :name, {}, :onchange => "change_age_groups(#{c.id}, this.value)" %></td>
-        <% age_groups_visibility = @age_groups[c.series_id].length > 0 ? '' : 'display:none;' %>
-        <td>
-          <%= f.collection_select :age_group_id, @age_groups[c.series_id], :id, :name,
-          { :include_blank => true }, { :id => "age_groups_#{c.id}", :style => age_groups_visibility } %>
-          <%= image_tag 'spinner.gif', :style => 'display:none;', :id => "age_groups_spinner_#{c.id}" %>
-        </td>
-        <td><input type="submit" class="save_button" value="Tallenna" onClick="start_updating(<%=c.id%>)"/></td>
-        <td id="status_<%= c.id %>">&nbsp;</td>
-      </tr>
+    <%= form_for([:official, @race, @new_competitor], :remote => true) do |f| %>
+      <%= render :partial => 'competitor_row',
+        :locals => { :f => f, :c => @new_competitor, :save_button => 'Lisää uusi' } %>
     <% end %>
-  <% end %>
+    <% @competitors.each do |c| %>
+      <%= form_for([:official, c.series, c], :remote => true) do |f| %>
+        <%= render :partial => 'competitor_row',
+          :locals => { :f => f, :c => c, :save_button => 'Tallenna' } %>
+      <% end %>
+    <% end %>
   </table>
   <%= javascript_tag do %>
     function start_updating(id) {

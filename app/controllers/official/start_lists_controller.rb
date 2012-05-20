@@ -13,6 +13,7 @@ class Official::StartListsController < Official::OfficialController
     @competitors = @race.competitors.where(start_list_condition).order(:number)
     @all_series = @race.series.where(start_list_condition)
     collect_age_groups
+    @new_competitor = @all_series.first.competitors.build
   end
 
   def update
