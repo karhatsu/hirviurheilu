@@ -5,10 +5,7 @@ setTimeout(function() {
   $("#status_new").hide('slow');
 }, 5000);
 
-<% unless ActivationKey.activated? %>
-  $('#free_offline_competitors_left').text('<%= t 'count_competitors',
-    :count => Competitor.free_offline_competitors_left %>');
-<% end %>
+<%= render :partial => 'free_competitors_update' %>
 
 $('#competitor_first_name').val('');
 $('#competitor_last_name').val('');
