@@ -49,6 +49,7 @@ class Competitor < ActiveRecord::Base
   validate :unique_number
 
   after_create :set_correct_estimates
+  after_save :update_series_start_time_and_number
 
   attr_accessor :club_name, :age_group_name
   
@@ -328,6 +329,14 @@ class Competitor < ActiveRecord::Base
         save!
       end
     end
+  end
+  
+  def update_series_start_time_and_number
+    return unless start_time and number
+    return if series.start_time or series.first_number
+    series.start_time = start_time
+    series.first_number = number
+    series.save!
   end
 
   def previous_or_next_competitor(previous)
