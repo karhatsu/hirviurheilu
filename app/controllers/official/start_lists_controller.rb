@@ -12,7 +12,7 @@ class Official::StartListsController < Official::OfficialController
     start_list_condition = "series.has_start_list = #{DatabaseHelper.true_value}"
     @competitors = @race.competitors.where(start_list_condition).order(:number)
     @all_series = @race.series.where(start_list_condition)
-    collect_age_groups
+    collect_age_groups(@all_series)
     @new_competitor = @all_series.first.competitors.build
   end
 
@@ -31,12 +31,5 @@ class Official::StartListsController < Official::OfficialController
   private
   def handle_time_parameters
     handle_time_parameter params[:series], "start_time"
-  end
-  
-  def collect_age_groups
-    @age_groups = {}
-    @all_series.each do |series|
-      @age_groups[series.id] = series.age_groups
-    end
   end
 end

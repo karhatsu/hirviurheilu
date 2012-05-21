@@ -1,11 +1,17 @@
 $('div.error').hide();
-$("#status_new").html("<span class='success'>Lisätty</span>");
-$("#status_new").show();
-setTimeout(function() {
-  $("#status_new").hide('slow');
-}, 5000);
 
 <%= render :partial => 'free_competitors_update' %>
+
+$("#competitors_table tr").last().after("<%= escape_javascript(render :partial => 'official/start_lists/competitor_row',
+  :locals => { :c => @competitor, :save_button => 'Tallenna', :parent => @competitor.series,
+    :id => @competitor.id }) %>");
+
+$("#status_new").html("");
+$("#status_<%= @competitor.id %>").html("<span class='success'>Lisätty</span>");
+$("#status_<%= @competitor.id %>").show();
+setTimeout(function() {
+  $("#status_<%= @competitor.id %>").hide('slow');
+}, 5000);
 
 $('#competitor_first_name').val('');
 $('#competitor_last_name').val('');
@@ -17,9 +23,3 @@ $('#competitor_last_name').val('');
   $('#competitor_start_time_5i').val('<%= start_time.strftime('%M') %>');
   $('#competitor_start_time_6i').val('<%= start_time.strftime('%S') %>');
 <% end %>
-
-$('div.success').text('Kilpailija lisätty');
-$('div.success').show('fast');
-setTimeout(function() {
-  $('div.success').hide('slow');
-}, 3000);

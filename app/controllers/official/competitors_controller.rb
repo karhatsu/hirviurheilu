@@ -29,11 +29,15 @@ class Official::CompetitorsController < Official::OfficialController
     assign_series(params[:competitor][:series_id])
     @competitor = @series.competitors.build(params[:competitor])
     club_ok = handle_club(@competitor)
+    start_list_page = params[:start_list]
     if club_ok and @competitor.save
-      template = params[:start_list] ? :create_success_start_list : :create_success
+      start_list_condition = "series.has_start_list = #{DatabaseHelper.true_value}"
+      @all_series = @race.series.where(start_list_condition)
+      collect_age_groups(@all_series)
+      template = start_list_page ? :create_success_start_list : :create_success
       respond_to { |format| format.js { render template } }
     else
-      template = params[:start_list] ? :create_error_start_list : :create_error
+      template = start_list_page ? :create_error_start_list : :create_error
       respond_to { |format| format.js { render template } }
     end
   end
