@@ -19,7 +19,7 @@
     </tr>
     <%= render :partial => 'competitor_row', :locals => { :c => @new_competitor,
       :save_button => 'Lisää uusi', :id => 'new', :parent => @race } %>
-    <tr>
+    <tr id="ruler">
       <td colspan="20"><hr/></td>
     </tr>
     <% @competitors.each do |c| %>

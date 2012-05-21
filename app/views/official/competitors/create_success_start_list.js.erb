@@ -2,7 +2,15 @@ $('div.error').hide();
 
 <%= render :partial => 'free_competitors_update' %>
 
-$("#competitors_table tr").last().after("<%= escape_javascript(render :partial => 'official/start_lists/competitor_row',
+$row = $("#ruler");
+$("#competitors_table tr .order").each(function() {
+  if($(this).val() <= <%= @competitor.number %>) {
+    $row = $(this).closest('tr');
+  } else {
+    return false;
+  }
+});
+$row.after("<%= escape_javascript(render :partial => 'official/start_lists/competitor_row',
   :locals => { :c => @competitor, :save_button => 'Tallenna', :parent => @competitor.series,
     :id => @competitor.id }) %>");
 
