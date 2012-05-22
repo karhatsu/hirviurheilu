@@ -50,6 +50,7 @@ class Official::CompetitorsController < Official::OfficialController
     @competitor = Competitor.find(params[:id])
     club_ok = handle_club(@competitor)
     if club_ok and handle_time_parameters and @competitor.update_attributes(params[:competitor])
+      js_template = params[:start_list] ? :update_success_start_list : 'official/competitors/update_success'
       respond_to do |format|
         format.html do
           if params[:next]
@@ -62,7 +63,7 @@ class Official::CompetitorsController < Official::OfficialController
             redirect_to official_series_competitors_path(@competitor.series)
           end
         end
-        format.js { render 'official/competitors/update_success', :layout => false }
+        format.js { render js_template, :layout => false }
       end
     else
       respond_to do |format|

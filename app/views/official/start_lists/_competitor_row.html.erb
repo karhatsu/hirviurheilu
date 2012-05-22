@@ -2,6 +2,7 @@
 <tr id='competitor_<%= id %>'>
   <% club_name = c.club.name if c.club %>
   <%= form_for([:official, parent, c], :remote => true) do |f| %>
+    <% unless c.new_record? %><%= hidden_field_tag '_method', :put %><% end %>
     <%= hidden_field_tag :start_list, true %>
     <td><%= f.text_field :number, :size => 2, :class => order_class %></td>
     <td style="white-space: nowrap;"><%= f.time_text_field :start_time,
