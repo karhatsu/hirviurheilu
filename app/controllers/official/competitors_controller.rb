@@ -34,10 +34,12 @@ class Official::CompetitorsController < Official::OfficialController
       start_list_condition = "series.has_start_list = #{DatabaseHelper.true_value}"
       @all_series = @race.series.where(start_list_condition)
       collect_age_groups(@all_series)
-      template = start_list_page ? :create_success_start_list : :create_success
+      template = start_list_page ? 'official/start_lists/create_success' :
+        'official/competitors/create_success'
       respond_to { |format| format.js { render template } }
     else
-      template = start_list_page ? :create_error_start_list : :create_error
+      template = start_list_page ? 'official/start_lists/create_error' :
+        'official/competitors/create_error'
       respond_to { |format| format.js { render template } }
     end
   end
@@ -50,7 +52,8 @@ class Official::CompetitorsController < Official::OfficialController
     @competitor = Competitor.find(params[:id])
     club_ok = handle_club(@competitor)
     if club_ok and handle_time_parameters and @competitor.update_attributes(params[:competitor])
-      js_template = params[:start_list] ? :update_success_start_list : 'official/competitors/update_success'
+      js_template = params[:start_list] ? 'official/start_lists/update_success' :
+        'official/competitors/update_success'
       respond_to do |format|
         format.html do
           if params[:next]
