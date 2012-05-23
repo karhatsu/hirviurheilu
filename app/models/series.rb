@@ -67,19 +67,13 @@ class Series < ActiveRecord::Base
   def ordered_competitors(all_competitors, sort_by=Competitor::SORT_BY_POINTS)
     Competitor.sort(competitors.includes([:shots, :club, :age_group, :series]), all_competitors, sort_by)
   end
-
-  def next_number
-    max = competitors.maximum(:number)
-    return max + 1 if max
-    return first_number if first_number
-    1
+  
+  def next_start_number
+    race.next_start_number
   end
-
+  
   def next_start_time
-    latest = competitors.last
-    return latest.start_time + race.start_interval_seconds if latest and latest.start_time
-    return start_time if start_time
-    nil
+    race.next_start_time
   end
 
   def generate_start_list(order_method)

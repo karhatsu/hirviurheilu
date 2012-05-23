@@ -15,8 +15,8 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   def new
-    next_number = @series.next_number
-    next_start_time = @series.next_start_time
+    next_number = @series.race.next_start_number
+    next_start_time = @series.race.next_start_time
     @competitor = @series.competitors.build # cannot call next-methods after this
     if @series.has_start_list
       @competitor.number = next_number

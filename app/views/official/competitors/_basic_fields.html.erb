@@ -83,7 +83,7 @@
       $('#number_spinner').show();
       $.getJSON('/series/' + series_id, function(series) {
         if(series.has_start_list) {
-          $('#competitor_number').val(series.next_number);
+          $('#competitor_number').val(series.next_start_number);
           $('#competitor_start_time_4i').val(series.next_start_time.substring(11, 13));
           $('#competitor_start_time_5i').val(series.next_start_time.substring(14, 16));
           $('#competitor_start_time_6i').val(series.next_start_time.substring(17, 19));
