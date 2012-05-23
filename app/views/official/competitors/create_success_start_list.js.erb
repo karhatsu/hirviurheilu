@@ -15,10 +15,12 @@ $row.after("<%= escape_javascript(render :partial => 'official/start_lists/compe
     :id => @competitor.id }) %>");
 
 $("#status_new").html("");
+$("#status_<%= @competitor.id %>").closest('.competitor_row').addClass('after_action');
 $("#status_<%= @competitor.id %>").html("<span class='success'>Lisätty</span>");
 $("#status_<%= @competitor.id %>").show();
 setTimeout(function() {
   $("#status_<%= @competitor.id %>").hide('slow');
+  $("#status_<%= @competitor.id %>").closest('.competitor_row').removeClass('after_action');
 }, 5000);
 
 $('#competitor_first_name').val('');
