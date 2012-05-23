@@ -1,0 +1,35 @@
+$('div.error').hide();
+
+<%= render :partial => 'free_competitors_update' %>
+
+$row = $("#ruler");
+$("#competitors_table .order").each(function() {
+  if($(this).val() <= <%= @competitor.number %>) {
+    $row = $(this).closest('.competitor_row');
+  } else {
+    return false;
+  }
+});
+$row.after("<%= escape_javascript(render :partial => 'official/start_lists/competitor_row',
+  :locals => { :c => @competitor, :save_button => 'Tallenna', :parent => @competitor.series,
+    :id => @competitor.id }) %>");
+
+$("#status_new").html("");
+$("#status_<%= @competitor.id %>").closest('.competitor_row').addClass('after_action');
+$("#status_<%= @competitor.id %>").html("<span class='success'>Lisätty</span>");
+$("#status_<%= @competitor.id %>").show();
+setTimeout(function() {
+  $("#status_<%= @competitor.id %>").hide('slow');
+  $("#status_<%= @competitor.id %>").closest('.competitor_row').removeClass('after_action');
+}, 5000);
+
+$('#competitor_first_name').val('');
+$('#competitor_last_name').val('');
+
+<% if @competitor.series.has_start_list? %>
+  $('#competitor_number').val(<%= @competitor.race.next_start_number %>);
+  <% start_time = @competitor.race.next_start_time %>
+  $('#competitor_start_time_4i').val('<%= start_time.strftime('%H') %>');
+  $('#competitor_start_time_5i').val('<%= start_time.strftime('%M') %>');
+  $('#competitor_start_time_6i').val('<%= start_time.strftime('%S') %>');
+<% end %>

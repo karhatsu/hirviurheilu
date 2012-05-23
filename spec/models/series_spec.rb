@@ -452,69 +452,20 @@ describe Series do
       series.start_list.should == [c2, c3, c1]
     end
   end
-
-  describe "#next_number" do
-    context "no competitors" do
-      it "should be 1 when first_number is nil" do
-        series = FactoryGirl.build(:series, :first_number => nil)
-        series.next_number.should == 1
-      end
-
-      it "should be first_number when it is defined" do
-        series = FactoryGirl.build(:series, :first_number => 45)
-        series.next_number.should == 45
-      end
-    end
-
-    context "competitors" do
-      it "should the biggest number + 1" do
-        series = FactoryGirl.create(:series, :first_number => 45)
-        series.competitors << FactoryGirl.build(:competitor, :number => 15, :series => series)
-        series.competitors << FactoryGirl.build(:competitor, :number => 24, :series => series)
-        series.competitors << FactoryGirl.build(:competitor, :number => 17, :series => series)
-        series.next_number.should == 25
-      end
-
-      it "should be like no competitors when competitors have no numbers yet" do
-        series = FactoryGirl.create(:series, :first_number => 45)
-        series.competitors << FactoryGirl.build(:competitor, :number => nil, :series => series)
-        series.competitors << FactoryGirl.build(:competitor, :number => nil, :series => series)
-        series.next_number.should == 45
-      end
+  
+  describe "#next_start_number" do
+    it "should return the value from race" do
+      race = mock_model(Race, :next_start_number => 123)
+      series = FactoryGirl.build(:series, :race => race)
+      series.next_start_number.should == 123
     end
   end
-
+  
   describe "#next_start_time" do
-    context "when no competitors" do
-      it "should be nil when start_time is nil" do
-        series = FactoryGirl.build(:series, :start_time => nil)
-        series.next_start_time.should be_nil
-      end
-
-      it "should be start_time when it is defined" do
-        series = FactoryGirl.build(:series, :start_time => '12:30')
-        series.next_start_time.should == series.start_time
-      end
-    end
-
-    context "when competitors" do
-      it "should be the start time of the latest competitor + race time interval" do
-        race = FactoryGirl.create(:race, :start_interval_seconds => 45)
-        series = FactoryGirl.create(:series, :race => race)
-        series.competitors << FactoryGirl.build(:competitor, :number => 15, :series => series)
-        series.competitors << FactoryGirl.build(:competitor, :number => 24, :series => series,
-          :start_time => '12:30:00')
-        series.competitors << FactoryGirl.build(:competitor, :number => 17, :series => series)
-        series.next_start_time.strftime('%H:%M:%S').should == '12:30:45'
-      end
-
-      it "should be like no competitors when competitors have no start times yet" do
-        race = FactoryGirl.create(:race, :start_date => '2010-11-10')
-        series = FactoryGirl.create(:series, :race => race, :start_time => '2010-11-10 09:30')
-        series.competitors << FactoryGirl.build(:competitor, :start_time => nil, :series => series)
-        series.competitors << FactoryGirl.build(:competitor, :start_time => nil, :series => series)
-        series.next_start_time.strftime('%H:%M:%S').should == '09:30:00'
-      end
+    it "should return the value from race" do
+      race = mock_model(Race, :next_start_time => 456)
+      series = FactoryGirl.build(:series, :race => race)
+      series.next_start_time.should == 456
     end
   end
 

@@ -108,13 +108,14 @@ module DateTimeTextFieldHelpers
       value = extract_field_param_value(options) || value
       size = case type
         when :hour, :minute, :second
-          2
+          1
         when :year
           4
         else
           2
       end
-      datetime_text_field_html = %(<input type="text" id="#{options[:id]}" name="#{options[:name]}" size="#{size}" value="#{value}" class="#{options[:class]}" />)
+      max_length = type == :year ? 4 : 2
+      datetime_text_field_html = %(<input type="text" id="#{options[:id]}" name="#{options[:name]}" size="#{size}" value="#{value}" class="#{options[:class]}" maxlength="#{max_length}" />)
     end
 
     if Rails::VERSION::STRING < '2.2'

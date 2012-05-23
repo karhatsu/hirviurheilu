@@ -15,8 +15,8 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   def new
-    next_number = @series.next_number
-    next_start_time = @series.next_start_time
+    next_number = @series.race.next_start_number
+    next_start_time = @series.race.next_start_time
     @competitor = @series.competitors.build # cannot call next-methods after this
     if @series.has_start_list
       @competitor.number = next_number
@@ -29,14 +29,18 @@ class Official::CompetitorsController < Official::OfficialController
     assign_series(params[:competitor][:series_id])
     @competitor = @series.competitors.build(params[:competitor])
     club_ok = handle_club(@competitor)
+    start_list_page = params[:start_list]
     if club_ok and @competitor.save
-      respond_to do |format|
-        format.js { render :create_success }
-      end
+      start_list_condition = "series.has_start_list = #{DatabaseHelper.true_value}"
+      @all_series = @race.series.where(start_list_condition)
+      collect_age_groups(@all_series)
+      template = start_list_page ? 'official/start_lists/create_success' :
+        'official/competitors/create_success'
+      respond_to { |format| format.js { render template } }
     else
-      respond_to do |format|
-        format.js { render :create_error }
-      end
+      template = start_list_page ? 'official/start_lists/create_error' :
+        'official/competitors/create_error'
+      respond_to { |format| format.js { render template } }
     end
   end
 
@@ -48,6 +52,8 @@ class Official::CompetitorsController < Official::OfficialController
     @competitor = Competitor.find(params[:id])
     club_ok = handle_club(@competitor)
     if club_ok and handle_time_parameters and @competitor.update_attributes(params[:competitor])
+      js_template = params[:start_list] ? 'official/start_lists/update_success' :
+        'official/competitors/update_success'
       respond_to do |format|
         format.html do
           if params[:next]
@@ -60,7 +66,7 @@ class Official::CompetitorsController < Official::OfficialController
             redirect_to official_series_competitors_path(@competitor.series)
           end
         end
-        format.js { render 'official/competitors/update_success', :layout => false }
+        format.js { render js_template, :layout => false }
       end
     else
       respond_to do |format|

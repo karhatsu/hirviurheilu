@@ -128,7 +128,7 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
       end
 
       comp = series.competitors.build(:first_name => 'Teemu', :last_name => 'Turkulainen',
-        :club => clubs[2], :number => series.next_number,
+        :club => clubs[2], :number => series.next_start_number,
         :start_time => series.next_start_time, :no_result_reason => Competitor::DNF)
       comp.save!
 

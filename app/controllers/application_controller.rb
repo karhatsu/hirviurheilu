@@ -201,11 +201,14 @@ class ApplicationController < ActionController::Base
   # When time is entered the first time, the params sent contain an empty date
   # and non-empty time. This throws an error in assigning multiparameter values.
   # For that reason we must define also date parameters before assigning form
-  # parameters to the company object.
+  # parameters to the competitor object.
   # When the time fields are cleared, we must do the opposite: we must reset
   # the date fields since otherwise the time after update would be 0:00:00.
+  # The check can be skipped with 'no_times' parameter.
+  # The check is also skipped in case the given parameter is not sent in the request.
   def handle_time_parameter(object, time_name)
     return true if params[:no_times]
+    return true if no_time_parameter(object, time_name)
     return false unless valid_time?(object, time_name)
     if time_cleared?(object, time_name)
       reset_date_parameters(object, time_name)
@@ -213,6 +216,11 @@ class ApplicationController < ActionController::Base
       set_default_date_parameters(object, time_name)
     end
     true
+  end
+  
+  def no_time_parameter(object_params, time_name)
+    object_params["#{time_name}(4i)"].nil? and object_params["#{time_name}(5i)"].nil? and
+      object_params["#{time_name}(6i)"].nil?
   end
   
   def valid_time?(object_params, time_name)

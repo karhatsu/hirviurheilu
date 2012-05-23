@@ -1,10 +1,7 @@
 $('#spinner').hide();
 $('div.error').hide();
 
-<% unless ActivationKey.activated? %>
-  $('#free_offline_competitors_left').text('<%= t 'count_competitors',
-    :count => Competitor.free_offline_competitors_left %>');
-<% end %>
+<%= render :partial => 'free_competitors_update' %>
 
 $('#competitor_first_name').val('');
 $('#competitor_last_name').val('');
@@ -12,8 +9,8 @@ $('#club').next().val('');
 $('#club').next().next().val('');
 
 <% if @competitor.series.has_start_list? %>
-  $('#competitor_number').val(<%= @competitor.series.next_number %>);
-  <% start_time = @competitor.series.next_start_time %>
+  $('#competitor_number').val(<%= @competitor.race.next_start_number %>);
+  <% start_time = @competitor.race.next_start_time %>
   $('#competitor_start_time_4i').val('<%= start_time.strftime('%H') %>');
   $('#competitor_start_time_5i').val('<%= start_time.strftime('%M') %>');
   $('#competitor_start_time_6i').val('<%= start_time.strftime('%S') %>');

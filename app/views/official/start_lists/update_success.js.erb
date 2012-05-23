@@ -1,0 +1,22 @@
+$current_row = $("#competitor_<%= @competitor.id %>");
+$row = $("#ruler");
+$("#competitors_table .order").each(function() {
+  if($(this).val() <= <%= @competitor.number %>) {
+    $row = $(this).closest('.competitor_row');
+  } else {
+    return false;
+  }
+});
+if($current_row.attr('id') != $row.attr('id')) {
+  $current_row.insertAfter($row);
+}
+
+$("#update_error").removeClass("error");
+$("#update_error").html("");
+$("#status_<%=@competitor.id%>").closest('.competitor_row').addClass('after_action');
+$("#status_<%=@competitor.id%>").html("<span class='success'>Tallennettu</span>");
+$("#status_<%=@competitor.id%>").show();
+setTimeout(function() {
+  $("#status_<%=@competitor.id%>").hide('slow');
+  $("#status_<%= @competitor.id %>").closest('.competitor_row').removeClass('after_action');
+}, 5000);
