@@ -3,9 +3,9 @@ $('div.error').hide();
 <%= render :partial => 'free_competitors_update' %>
 
 $row = $("#ruler");
-$("#competitors_table tr .order").each(function() {
+$("#competitors_table .order").each(function() {
   if($(this).val() <= <%= @competitor.number %>) {
-    $row = $(this).closest('tr');
+    $row = $(this).closest('.competitor_row');
   } else {
     return false;
   }

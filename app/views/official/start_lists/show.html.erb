@@ -5,28 +5,26 @@
   <div class="info">Yhdellekään sarjalle ei ole luotu vielä lähtölistaa</div>
 <% else %>
   <div id="update_error"></div>
-  <table id="competitors_table">
-    <tr>
-      <th>Nro</th>
-      <th>Lähtöaika</th>
-      <th>Etunimi</th>
-      <th>Sukunimi</th>
-      <th><%= club_title @race %></th>
-      <th>Sarja</th>
-      <th>Ikäryhmä</th>
-      <th>&nbsp;</th>
-      <th>&nbsp;</th>
-    </tr>
+  <div id="competitors_table">
+    <div class="header_row">
+      <div class="title number">Nro</div>
+      <div class="title start_time">Lähtöaika</div>
+      <div class="title first_name">Etunimi</div>
+      <div class="title last_name">Sukunimi</div>
+      <div class="title club"><%= club_title @race %></div>
+      <div class="title series">Sarja</div>
+      <div class="title age_group">Ikäryhmä</div>
+      <div class="title button">&nbsp;</div>
+      <div class="title">&nbsp;</div>
+    </div>
     <%= render :partial => 'competitor_row', :locals => { :c => @new_competitor,
       :save_button => 'Lisää uusi', :id => 'new', :parent => @race } %>
-    <tr id="ruler">
-      <td colspan="20"><hr/></td>
-    </tr>
+    <div id="ruler"><hr/></div>
     <% @competitors.each do |c| %>
       <%= render :partial => 'competitor_row', :locals => { :c => c,
         :save_button => 'Tallenna', :id => c.id, :parent => c.series } %>
     <% end %>
-  </table>
+  </div>
   <%= javascript_tag do %>
     function start_updating(id) {
       $("#status_" + id).html('<%= image_tag 'spinner.gif' %>');

@@ -1,8 +1,8 @@
 $current_row = $("#competitor_<%= @competitor.id %>");
 $row = $("#ruler");
-$("#competitors_table tr .order").each(function() {
+$("#competitors_table .order").each(function() {
   if($(this).val() <= <%= @competitor.number %>) {
-    $row = $(this).closest('tr');
+    $row = $(this).closest('.competitor_row');
   } else {
     return false;
   }
