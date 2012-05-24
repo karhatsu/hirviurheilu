@@ -13,8 +13,10 @@ class Official::StartListsController < Official::OfficialController
     @competitors = @race.competitors.where(start_list_condition).includes(:club, :age_group, :series).order(:number)
     @all_series = @race.series.where(start_list_condition)
     collect_age_groups(@all_series)
-    @new_competitor = @all_series.first.competitors.build(:number => @race.next_start_number,
-      :start_time => @race.next_start_time)
+    unless @all_series.empty?
+      @new_competitor = @all_series.first.competitors.build(:number => @race.next_start_number,
+        :start_time => @race.next_start_time)
+    end
   end
 
   def update
