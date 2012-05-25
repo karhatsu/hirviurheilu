@@ -13,6 +13,7 @@ class Official::RacesController < Official::OfficialController
     @race.batch_size = 0
     @race.batch_interval_seconds = Race::DEFAULT_BATCH_INTERVAL
     @race.sport = Sport.default_sport
+    @race.start_order = -1
   end
 
   def create
