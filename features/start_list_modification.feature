@@ -51,11 +51,11 @@ Feature: Start list modification
     And the start list has been generated for the series
     And I have logged in
     When I go to the official start list page of the race "Test race"
-    Then the "competitor_number" field should contain "50"
-    And the "competitor_start_time_4i" field should contain "13"
-    And the "competitor_start_time_5i" field should contain "25"
-    And the "competitor_start_time_6i" field should contain "00"
-    And the "competitor_first_name" field should contain "Timo"
-    And the "competitor_last_name" field should contain "Turunen"
+    Then the "competitor_number" text field in edit form should contain "50"
+    And the "competitor_start_time_4i" text field in edit form should contain "13"
+    And the "competitor_start_time_5i" text field in edit form should contain "25"
+    And the "competitor_start_time_6i" text field in edit form should contain "00"
+    And the "competitor_first_name" text field in edit form should contain "Timo"
+    And the "competitor_last_name" text field in edit form should contain "Turunen"
     But I should not see "Matti"
     And I should not see "Miettinen"
