@@ -33,7 +33,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "autotest"
   gem "autotest-rails"
-  gem "factory_girl_rails"
+  gem "factory_girl_rails", :require => false
   gem 'capybara'
   gem 'database_cleaner'
   gem 'gherkin'
