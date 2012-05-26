@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(:version => 20120518175537) do
     t.integer  "batch_size",             :default => 0,     :null => false
     t.integer  "batch_interval_seconds", :default => 180,   :null => false
     t.integer  "club_level",             :default => 0,     :null => false
-    t.integer  "start_order",            :default => 0,     :null => false
+    t.integer  "start_order",            :default => 1,     :null => false
   end
 
   add_index "races", ["sport_id"], :name => "index_races_on_sport_id"
