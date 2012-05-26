@@ -51,6 +51,7 @@ class Official::CompetitorsController < Official::OfficialController
   def update
     @competitor = Competitor.find(params[:id])
     club_ok = handle_club(@competitor)
+    change_series_id_to_series(params) # counter cache hack
     if club_ok and handle_time_parameters and @competitor.update_attributes(params[:competitor])
       js_template = params[:start_list] ? 'official/start_lists/update_success' :
         'official/competitors/update_success'
@@ -110,6 +111,13 @@ class Official::CompetitorsController < Official::OfficialController
     arrival_ok = handle_time_parameter params[:competitor], "arrival_time"
     @competitor.errors.add(:arrival_time, 'virheellinen') unless arrival_ok
     start_ok and arrival_ok
+  end
+  
+  def change_series_id_to_series(params)
+    return unless params[:competitor].has_key?(:series_id)
+    series = Series.find(params[:competitor][:series_id])
+    params[:competitor][:series] = series
+    params[:competitor].delete :series_id
   end
 
   def handle_club(competitor)
