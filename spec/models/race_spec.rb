@@ -105,6 +105,92 @@ describe Race do
     it { should have_and_belong_to_many(:cups) }
   end
 
+  describe "update" do
+    context "when start order changed from mixed to by series" do
+      before do
+        @race = FactoryGirl.create(:race, :start_order => Race::START_ORDER_MIXED)
+        @series = FactoryGirl.create(:series, :race => @race)
+        FactoryGirl.create(:competitor, :series => @series, :start_time => '11:00:00', :number => 4)
+        @race.reload
+      end
+  
+      it "should be valid" do
+        @race.start_order = Race::START_ORDER_BY_SERIES
+        @race.should be_valid
+      end
+      
+      it "should not modify series anyhow" do
+        @race.start_order = Race::START_ORDER_BY_SERIES
+        @race.series.each { |s| s.should_not_receive(:save!) }
+        @race.save!
+      end
+    end
+      
+    context "when start order changed from by series to mixed" do
+      before do
+        @race = FactoryGirl.create(:race, :start_order => Race::START_ORDER_BY_SERIES)
+        @series1 = FactoryGirl.create(:series, :race => @race, :has_start_list => false)
+        @series2 = FactoryGirl.create(:series, :race => @race, :has_start_list => true)
+        @series3 = FactoryGirl.create(:series, :race => @race, :has_start_list => false)
+      end
+    
+      context "when at least one competitor without start time" do
+        it "should not be allowed" do
+          FactoryGirl.create(:competitor, :series => @series1, :number => 55)
+          @race.reload
+          @race.start_order = Race::START_ORDER_MIXED
+          @race.should_not be_valid
+        end
+      end
+      
+      context "when only competitors with start time and number" do
+        it "should be allowed" do
+          FactoryGirl.create(:competitor, :series => @series1, :start_time => '12:00:00', :number => 2)
+          @race.reload
+          @race.start_order = Race::START_ORDER_MIXED
+          @race.should be_valid
+        end
+        
+        it "should set that all series have start list" do
+          @race.reload
+          @race.start_order = Race::START_ORDER_MIXED
+          @race.save!
+          @race.series.each do |s|
+            s.should have_start_list
+          end
+        end
+      end
+    end
+    
+    context "when start order remains as mixed" do
+      before do
+        @race = FactoryGirl.create(:race, :start_order => Race::START_ORDER_MIXED)
+        @series = FactoryGirl.create(:series, :race => @race)
+        @race.reload
+      end
+      
+      it "should not modify series anyhow" do
+        @race.days_count = 2
+        @race.series.each { |s| s.should_not_receive(:save!) }
+        @race.save!
+      end
+    end
+    
+    context "when start order remains as by series" do
+      before do
+        @race = FactoryGirl.create(:race, :start_order => Race::START_ORDER_BY_SERIES)
+        @series = FactoryGirl.create(:series, :race => @race)
+        @race.reload
+      end
+      
+      it "should not modify series anyhow" do
+        @race.days_count = 2
+        @race.series.each { |s| s.should_not_receive(:save!) }
+        @race.save!
+      end
+    end
+  end
+
   describe "past/ongoing/future" do
     before do
       @past1 = FactoryGirl.create(:race, :start_date => Date.today - 10,

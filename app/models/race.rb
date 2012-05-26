@@ -43,6 +43,9 @@ class Race < ActiveRecord::Base
     :message => "täytyy valita" }
   validate :end_date_not_before_start_date
   validate :check_duplicate_name_location_start_date, :on => :create
+  validate :check_competitors_on_change_to_mixed_start_order, :on => :update
+  
+  after_save :set_series_start_lists_if_needed, :on => :update
 
   before_destroy :prevent_destroy_if_series
 
@@ -207,6 +210,26 @@ class Race < ActiveRecord::Base
     if name and location and start_date and
         Race.exists?(:name => name, :location => location, :start_date => start_date)
       errors.add(:base, 'Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä')
+    end
+  end
+  
+  def check_competitors_on_change_to_mixed_start_order
+    if start_order == START_ORDER_MIXED and competitors.where(:start_time => nil).count > 0
+      error_msg = %(Et voi asettaa kilpailijoiden lähtöjärjestystä tilaan 'Sarjat sekaisin',
+        koska olet lisännyt kilpailijoita, joilla ei ole lähtöaikaa. Käy luomassa lähtölistat
+        nille sarjoille, joihin olet jo lisännyt kilpailijoita, ja palaa sen jälkeen
+        muuttamaan tämä asetus.)
+      errors.add(:base, error_msg)
+    end
+  end
+  
+  def set_series_start_lists_if_needed
+    return unless start_order == START_ORDER_MIXED
+    series.each do |s|
+      unless s.has_start_list
+        s.has_start_list = true
+        s.save!
+      end
     end
   end
 
