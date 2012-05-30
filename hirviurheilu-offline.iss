@@ -15,4 +15,5 @@ Name: "fi"; MessagesFile: "compiler:Languages\Finnish.isl"
 
 [InstallDelete]
 Type: filesandordirs; Name: "{app}\lib"
+Type: filesandordirs; Name: "{app}\src\public"
 Type: filesandordirs; Name: "{app}\src\vendor"

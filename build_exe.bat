@@ -12,9 +12,13 @@ CALL del log\*.log
 CALL move db\offline-dev.sqlite3 ..
 SET RAILS_ENV=
 CALL move bin\wkhtmltopdf-amd64 ..
+CALL copy public\assets\offline\application.css public\assets
+CALL copy public\assets\offline\application.js public\assets
 CALL cd ..
 CALL ocra elk_sports\start.rb elk_sports --no-dep-run --add-all-core --gemfile elk_sports\Gemfile-windows --gem-all --dll sqlite3.dll --dll ssleay32-1.0.0-msvcrt.dll --output hirviurheilu.exe --icon elk_sports\public\favicon.ico --chdir-first --no-lzma --innosetup elk_sports\hirviurheilu-offline.iss -- server
 CALL 7za a HirviurheiluOffline-asennus.zip Output\HirviurheiluOffline-asennus.exe
 CALL move wkhtmltopdf-amd64 elk_sports\bin
 CALL move offline-dev.sqlite3 elk_sports\db
+CALL del elk_sports\public\assets\application.css
+CALL del elk_sports\public\assets\application.js
 CALL cd elk_sports
