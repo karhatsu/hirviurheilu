@@ -1,6 +1,6 @@
 [Setup]
 AppName=Hirviurheilu Offline
-AppVersion=1.3.0
+AppVersion=1.3.1
 DefaultDirName={pf}\Hirviurheilu
 DefaultGroupName=Hirviurheilu
 OutputBaseFilename=HirviurheiluOffline-asennus
@@ -17,3 +17,4 @@ Name: "fi"; MessagesFile: "compiler:Languages\Finnish.isl"
 Type: filesandordirs; Name: "{app}\lib"
 Type: filesandordirs; Name: "{app}\src\public"
 Type: filesandordirs; Name: "{app}\src\vendor"
+Type: filesandordirs; Name: "{app}\src\tmp"
