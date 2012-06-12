@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.5'
 gem 'jquery-rails'
 gem 'authlogic'
 gem 'wicked_pdf'
@@ -45,4 +45,5 @@ group :development, :test do
   gem 'ruby-prof'
   gem 'watchr'
   gem 'mongrel', '~> 1.2.0.pre'
+  gem 'therubyracer'
 end
