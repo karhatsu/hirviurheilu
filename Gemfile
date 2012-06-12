@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.5'
+gem 'rails', '3.2.6'
 gem 'jquery-rails'
 gem 'authlogic'
 gem 'wicked_pdf'
