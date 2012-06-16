@@ -409,26 +409,26 @@ describe Series do
   end
 
   describe "#ordered_competitors" do
-    it "should call Competitor.sort with all competitors in the series" do
+    it "should call Competitor.sort_competitors with all competitors in the series" do
       all_competitors = false
       series = FactoryGirl.build(:series)
       competitors, included = ['a', 'b', 'c'], ['d', 'e']
       series.stub!(:competitors).and_return(competitors)
       competitors.should_receive(:includes).with([:shots, :club, :age_group, :series]).
         and_return(included)
-      Competitor.should_receive(:sort).with(included, all_competitors, Competitor::SORT_BY_POINTS).and_return([1, 2, 3])
+      Competitor.should_receive(:sort_competitors).with(included, all_competitors, Competitor::SORT_BY_POINTS).and_return([1, 2, 3])
       series.ordered_competitors(all_competitors).should == [1, 2, 3]
     end
     
     context "when sort parameter given" do
-      it "should call Competitor.sort with given sort parameter" do
+      it "should call Competitor.sort_competitors with given sort parameter" do
         all_competitors = false
         series = FactoryGirl.build(:series)
         competitors, included = ['a', 'b', 'c'], ['d', 'e']
         series.stub!(:competitors).and_return(competitors)
         competitors.should_receive(:includes).with([:shots, :club, :age_group, :series]).
           and_return(included)
-        Competitor.should_receive(:sort).with(included, all_competitors, Competitor::SORT_BY_TIME).and_return([1, 2, 3])
+        Competitor.should_receive(:sort_competitors).with(included, all_competitors, Competitor::SORT_BY_TIME).and_return([1, 2, 3])
         series.ordered_competitors(all_competitors, Competitor::SORT_BY_TIME).should == [1, 2, 3]
       end
     end

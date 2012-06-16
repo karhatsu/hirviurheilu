@@ -57,7 +57,7 @@ class TeamCompetition < ActiveRecord::Base
     team_results_hash = Hash.new
     competitor_counter = Hash.new
 
-    Competitor.sort(competitors, false).each do |competitor|
+    Competitor.sort_competitors(competitors, false).each do |competitor|
       break if competitor.points.nil? or competitor.unofficial
       competitor_count = competitor_counter[competitor.club] || 0
       if competitor_count < team_competitor_count

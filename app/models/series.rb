@@ -65,7 +65,7 @@ class Series < ActiveRecord::Base
   end
   
   def ordered_competitors(all_competitors, sort_by=Competitor::SORT_BY_POINTS)
-    Competitor.sort(competitors.includes([:shots, :club, :age_group, :series]), all_competitors, sort_by)
+    Competitor.sort_competitors(competitors.includes([:shots, :club, :age_group, :series]), all_competitors, sort_by)
   end
   
   def next_start_number

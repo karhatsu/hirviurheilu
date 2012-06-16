@@ -203,7 +203,7 @@ class Competitor < ActiveRecord::Base
     self.correct_estimate4 = nil
   end
 
-  def self.sort(competitors, all_competitors, sort_by=SORT_BY_POINTS)
+  def self.sort_competitors(competitors, all_competitors, sort_by=SORT_BY_POINTS)
     if sort_by == SORT_BY_TIME
       competitors.sort do |a, b|
         [a.no_result_reason.to_s, a.time_in_seconds.to_i,
