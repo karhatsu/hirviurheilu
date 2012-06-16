@@ -11,8 +11,11 @@ end
 
 ADMIN_EMAIL = ["com", ".", "karhatsu", "@", "henri"].reverse.join('')
 
-TEST_URL = "http://testi.hirviurheilu.com"
-PRODUCTION_URL = "http://www.hirviurheilu.com"
+TEST_HOST = "testi.hirviurheilu.com"
+TEST_URL = "http://" + TEST_HOST
+
+PRODUCTION_HOST = "www.hirviurheilu.com"
+PRODUCTION_URL = "http://" + PRODUCTION_HOST
 
 NATIONAL_RECORD_URL = "http://www.metsastajaliitto.fi/?q=fi/node/126"
 
