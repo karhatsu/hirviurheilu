@@ -244,7 +244,8 @@ module ApplicationHelper
 
   def add_child_link(name, f, method, id=nil)
     fields = new_child_fields(f, method)
-    button_to_function(name, "insert_fields(this, \"#{method}\", \"#{escape_javascript(fields)}\")", :id => id)
+    onclick = "insert_fields(this, \"#{method}\", \"#{escape_javascript(fields)}\");"
+    tag(:input, {:type => 'button', :value => name, :onclick => onclick, :id => id})
   end
 
   def new_child_fields(form_builder, method, index=nil, options = {})

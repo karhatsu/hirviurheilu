@@ -1049,4 +1049,27 @@ describe ApplicationHelper do
       helper.long_cup_series_name(cs).should == 'Series (M, M50, M80)'
     end
   end
+  
+  describe "#add_child_link" do
+    before do
+      @value = 'Add child'
+      @form = mock(Object)
+      @method = 'method'
+      helper.should_receive(:new_child_fields).with(@form, @method).and_return('<div id="f">fields</div>')
+    end
+
+    context "without id" do    
+      it "should return button with onclick call to insert_fields javascript as escaped" do
+        helper.add_child_link(@value, @form, @method).
+          should == '<input onclick="insert_fields(this, &quot;method&quot;, &quot;&lt;div id=\\&quot;f\\&quot;&gt;fields&lt;\\/div&gt;&quot;);" type="button" value="Add child" />'
+      end
+    end
+
+    context "with id" do    
+      it "should return button with id and onclick call to insert_fields javascript" do
+        helper.add_child_link(@value, @form, @method, 'myid').
+          should == '<input id="myid" onclick="insert_fields(this, &quot;method&quot;, &quot;&lt;div id=\\&quot;f\\&quot;&gt;fields&lt;\\/div&gt;&quot;);" type="button" value="Add child" />'
+      end
+    end
+  end
 end
