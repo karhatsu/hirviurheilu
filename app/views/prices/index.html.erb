@@ -1,10 +1,11 @@
 <% content_for :title, "Hinnat" %>
 <% content_for :page_title, yield(:title) %>
-<h2>Yhden kilpailun hinnat</h2>
 <% if Rails.env == 'staging' %>
   <div class="important">Käytät tällä hetkellä testiympäristöä. Sen käyttö on ilmaista.</div>
-  <a href="<%= PRODUCTION_URL %>/prices">Tutustu hintoihin varsinaisessa palvelussa</a>
+  <div class="action_box"><a href="<%= PRODUCTION_URL %>/prices">Tutustu hintoihin varsinaisessa
+    palvelussa</a></div>
 <% else %>
+  <h2>Yhden kilpailun hinta</h2>
   <div class="important">Aloitustarjous: Ensimmäinen kilpailu on ilmainen!</div>
   <div class="section">
     Perushinta: <%= "%.2f" % BasePrice.price %> euroa<br/>
