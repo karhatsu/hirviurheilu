@@ -1,7 +1,7 @@
 <% if @club.destroyed? %>
   $("#action_error").removeClass("error");
   $("#action_error").html("");
-  $("#club_row_<%= @club.id %>").attr('style', 'display: none;');
+  $("#club_row_<%= @club.id %>").remove();
 <% else %>
   $("#action_error").addClass("error");
   $("#action_error").html("Virhe poistettaessa seuraa!");

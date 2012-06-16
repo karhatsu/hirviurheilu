@@ -17,3 +17,14 @@ Feature: Clubs
     And I should see "Seurat" within "h2"
     And I should see "First club"
     And I should see "Another club"
+    
+  @javascript
+  Scenario: Remove a club that has no competitors
+    Given I am an official
+    And I have a race "Test race"
+    And the race has a club "Test club"
+    And I have logged in
+    And I am on the official clubs page for "Test race"
+    When I press "Poista"
+    Then I should not see "Test club"
+    
