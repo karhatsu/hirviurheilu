@@ -1,25 +1,27 @@
 <% content_for :title, "Hinnat" %>
 <% content_for :page_title, yield(:title) %>
 <h2>Yhden kilpailun hinnat</h2>
-<% unless Rails.env == 'production' %>
+<% if Rails.env == 'staging' %>
   <div class="important">Käytät tällä hetkellä testiympäristöä. Sen käyttö on ilmaista.</div>
-<% end %>
-<div class="important">Aloitustarjous: Ensimmäinen kilpailu on ilmainen!</div>
-<div class="section">
-  Perushinta: <%= "%.2f" % BasePrice.price %> euroa<br/>
-  <% @prices.each do |price| %>
-    <%= price.min_competitors %>-<%= price.max_competitors %> kilpailijaa:
-    <%= "%.2f" % price.price %> <%= t("euros", :count => price.price) %> / kilpailija<br/>
+  <a href="<%= PRODUCTION_URL %>/prices">Tutustu hintoihin varsinaisessa palvelussa</a>
+<% else %>
+  <div class="important">Aloitustarjous: Ensimmäinen kilpailu on ilmainen!</div>
+  <div class="section">
+    Perushinta: <%= "%.2f" % BasePrice.price %> euroa<br/>
+    <% @prices.each do |price| %>
+      <%= price.min_competitors %>-<%= price.max_competitors %> kilpailijaa:
+      <%= "%.2f" % price.price %> <%= t("euros", :count => price.price) %> / kilpailija<br/>
+    <% end %>
+    <br/>
+    Kaikki hinnat sisältävät 23 % arvonlisäveroa.
+  </div>
+  <h2>Hintalaskuri</h2>
+  <%= form_tag calculate_price_path, :remote => true do %>
+    <%= label_tag :competitors, "Kilpailijoita:" %>
+    <%= text_field_tag :competitors, @default_competitors_count, :size => 3 %>
+    <%= submit_tag "Laske" %>
   <% end %>
-  <br/>
-  Kaikki hinnat sisältävät 23 % arvonlisäveroa.
-</div>
-<h2>Hintalaskuri</h2>
-<%= form_tag calculate_price_path, :remote => true do %>
-  <%= label_tag :competitors, "Kilpailijoita:" %>
-  <%= text_field_tag :competitors, @default_competitors_count, :size => 3 %>
-  <%= submit_tag "Laske" %>
+  Hinta yhteensä: <span id="calculated_price"><%= "%.2f" % @price %></span> euroa
+  <h2>Hirviurheilu Offline</h2>
+  <%= link_to 'Katso Hirviurheilu Offline -tuotteen hinta.', offline_price_path %>
 <% end %>
-Hinta yhteensä: <span id="calculated_price"><%= "%.2f" % @price %></span> euroa
-<h2>Hirviurheilu Offline</h2>
-<%= link_to 'Katso Hirviurheilu Offline -tuotteen hinta.', offline_price_path %>

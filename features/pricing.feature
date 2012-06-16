@@ -18,3 +18,16 @@ Feature: Pricing
     And I should see "50-99 kilpailijaa: 2.50 euroa / kilpailija"
     And I should see "100- kilpailijaa: 1.00 euro / kilpailija"
     And I should see "Kaikki hinnat sisältävät 23 % arvonlisäveroa."
+
+  Scenario: Do not show prices in staging environment
+    Given there is a base price 5
+    And there is a price "2" for min competitors 1
+    And I use the service in the staging environment
+    And I am on the prices page
+    Then I should see "Käytät tällä hetkellä testiympäristöä. Sen käyttö on ilmaista."
+    But I should not see "Perushinta"
+    And I should not see "1- kilpailijaa"
+    And I should not see "Hintalaskuri"
+    And I should not see "Hirviurheilu Offline"
+    But I should see a link to the production environment with text "Tutustu hintoihin varsinaisessa palvelussa"
+    
