@@ -7,7 +7,7 @@
   $("#action_error").html("");
   $("#clubs_title").attr('style', '');
   $("#clubs_table").attr('style', '');
-  $("#clubs_table tr:last").after("<tr><td><%= @club.name %></td><td><%= @club.long_name %></td><td class='center'>0</td><td>&nbsp;</td></tr>");
+  $("#clubs_table tr:last").after("<%= escape_javascript(render :partial => 'club_row', :locals => { :club => @club }) %>");
   $("#club_name").val("");
 <% end %>
 $("#spinner").html("");

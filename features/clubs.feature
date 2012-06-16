@@ -19,7 +19,7 @@ Feature: Clubs
     And I should see "Another club"
     
   @javascript
-  Scenario: Add a club
+  Scenario: Add and remove a club
     Given I am an official
     And I have a race "Test race"
     And I have logged in
@@ -27,14 +27,6 @@ Feature: Clubs
     When I fill in "New club" for "Nimi"
     And I press "Lisää seura"
     Then I should see "New club"
-
-  @javascript
-  Scenario: Remove a club that has no competitors
-    Given I am an official
-    And I have a race "Test race"
-    And the race has a club "Test club"
-    And I have logged in
-    And I am on the official clubs page for "Test race"
     When I press "Poista"
     Then I should not see "Test club"
     

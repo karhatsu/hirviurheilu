@@ -31,28 +31,7 @@
       <th>&nbsp;</th>
     </tr>
     <% @race.clubs.each do |club| %>
-      <tr id="club_row_<%= club.id %>">
-        <td>
-          <a class="club_name_link" id="club_name_link_<%= club.id %>" href="javascript:void(0)">
-            <%= club.name %>
-          </a>
-          <span id="club_name_form_<%= club.id %>" style="display: none;">
-            <%= form_for([:official, @race, club], :remote => true,
-                :html => { :style => 'display:inline;' }) do |f| %>
-              <%= f.text_field :name, :size => 7 %>&nbsp
-              <%= f.text_field :long_name, :size => 15 %><%= submit_tag "Päivitä" %>
-            <% end %>
-            <%= tag(:input, {:type => 'button', :value => 'Peruuta', :onclick => "cancel_edit(#{club.id}, \"#{club.name}\")"}) %>
-          </span>
-        </td>
-        <td id="club_long_name_td_<%= club.id %>"><%= club.long_name %></td>
-        <td class="center"><%= club.competitors.count %></td>
-        <td class="center"><%= club.competitors.count == 0 ? (button_to "Poista",
-            official_race_club_path(@race.id, club),
-            :method => :delete,
-            :remote => true,
-            :class => 'remove_club') : raw('&nbsp;') %></td>
-      </tr>
+      <%= render :partial => 'club_row', :locals => { :club => club } %>
     <% end %>
   </table>
 </div>
