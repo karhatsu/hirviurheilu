@@ -2,6 +2,9 @@
   $("#action_error").removeClass("error");
   $("#action_error").html("");
   $("#club_row_<%= @club.id %>").remove();
+  <% if @clubs_count == 0 %>
+    $("#current_clubs").hide();
+  <% end %>
 <% else %>
   $("#action_error").addClass("error");
   $("#action_error").html("Virhe poistettaessa seuraa!");

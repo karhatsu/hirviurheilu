@@ -38,6 +38,7 @@ class Official::ClubsController < Official::OfficialController
   def destroy
     @club = Club.find(params[:id])
     @club.destroy
+    @clubs_count = @race.clubs.count
     respond_to do |format|
       format.html { redirect_to(official_race_clubs_path(@race) )}
       format.js { render :destroyed }
