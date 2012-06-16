@@ -42,7 +42,7 @@
               <%= f.text_field :name, :size => 7 %>&nbsp
               <%= f.text_field :long_name, :size => 15 %><%= submit_tag "Päivitä" %>
             <% end %>
-            <%= button_to_function 'Peruuta', "cancel_edit(#{club.id}, \"#{club.name}\")" %>
+            <%= tag(:input, {:type => 'button', :value => 'Peruuta', :onclick => "cancel_edit(#{club.id}, \"#{club.name}\")"}) %>
           </span>
         </td>
         <td id="club_long_name_td_<%= club.id %>"><%= club.long_name %></td>
