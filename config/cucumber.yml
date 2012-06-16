@@ -7,3 +7,4 @@ default: --drb <%= std_opts %> features
 wip: --drb --tags @wip:3 --wip features
 rerun: --drb <%= rerun_opts %> --format rerun --out rerun.txt --strict --tags ~@wip
 js: --drb --tags @javascript features
+all: --drb --tags ~@wip --format 'progress'
