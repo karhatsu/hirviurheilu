@@ -26,7 +26,7 @@
       <% end %>
       <% if remove_column %>
         <td><%= link_to "Poista", official_series_competitor_path(series.id, comp),
-            :confirm => "Haluatko varmasti poistaa tämän kilpailijan?",
+            :data => { :confirm => "Haluatko varmasti poistaa tämän kilpailijan?" },
             :method => :delete, :remote => true %></td>
       <% end %>
     </tr>

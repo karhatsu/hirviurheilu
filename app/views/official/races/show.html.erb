@@ -70,7 +70,7 @@
           <td colspan="6"><%= link_to "Lisää tämän sarjan ensimmäinen kilpailija",
               new_official_series_competitor_path(s) %></td>
           <td><%= link_to 'Poista sarja', official_series_path(s), :method => :delete,
-              :confirm => 'Haluatko varmasti poistaa tämän sarjan?' %></td>
+              :data => { :confirm => 'Haluatko varmasti poistaa tämän sarjan?' } %></td>
         <% end %>
       </tr>
     <% end %>

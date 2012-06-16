@@ -20,7 +20,7 @@
           <% if relay.relay_teams.empty? %>
             <td colspan="2"><%= link_to 'Poista viesti',
               official_race_relay_path(@race, relay), :method => :delete,
-              :confirm => 'Haluatko varmasti poistaa tämän viestin?' %></td>
+              :data => { :confirm => 'Haluatko varmasti poistaa tämän viestin?' } %></td>
           <% else %>
             <td><%= link_to 'Tulosten pikasyöttö',
                 official_relay_relay_quick_saves_path(relay) %></td>
