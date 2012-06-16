@@ -52,6 +52,8 @@ Feature: Manage cup
     When I follow "Takaisin Toimitsijan etusivulle"
     And I follow "Test cup"
     Then I should be on the official cup page of "Test cup"
+    When I click the first link in the email
+    Then I should be on the cup page of "Test cup"
     
   Scenario: Invalid basic data when adding cup
     Given I am an official

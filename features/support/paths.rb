@@ -59,8 +59,11 @@ module NavigationHelpers
     when /the official team competitions page of "(.*)"/
       official_race_team_competitions_path(Race.find_by_name($1))
       
-    when /the cup page/
+    when /^the cup page$/
       cup_path(@cup)
+
+    when /^the cup page of "(.*)"$/
+      cup_path(Cup.find_by_name($1))
 
     when /the race page of "(.*)"/
       race_path(Race.find_by_name($1))

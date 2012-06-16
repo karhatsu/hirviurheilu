@@ -32,6 +32,8 @@ Feature: Manage race
     And I should see "Aika: 13.07.2011" in the email body
     And I should see "Paikkakunta: Test town" in the email body
     And I should see "Toimitsija: Teppo Testaaja" in the email body
+    When I click the first link in the email
+    Then I should be on the race page of "Test race"
 
   Scenario: Create new race with default series
     Given I am an official
