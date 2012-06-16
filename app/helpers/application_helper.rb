@@ -239,7 +239,8 @@ module ApplicationHelper
 
   # -- Form child functions --
   def remove_child_link(name, f, hide_class, confirm_question)
-    f.hidden_field(:_destroy) + button_to_function(name, "remove_fields(this, '#{hide_class}', '#{confirm_question}')")
+    onclick = "remove_fields(this, '#{hide_class}', '#{confirm_question}');"
+    f.hidden_field(:_destroy) + tag(:input, {:type => 'button', :value => name, :onclick => onclick})
   end
 
   def add_child_link(name, f, method, id=nil)

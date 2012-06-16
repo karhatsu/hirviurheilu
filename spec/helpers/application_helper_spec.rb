@@ -1050,6 +1050,21 @@ describe ApplicationHelper do
     end
   end
   
+  describe "#remove_child_link" do
+    before do
+      @value = 'Add child'
+      @form = mock(Object)
+      @hide_class = 'hide_class'
+      @confirm_question = 'Are you sure?'
+      @form.should_receive(:hidden_field).with(:_destroy).and_return('<hidden-field/>')
+    end
+
+    it "should return hidden _destroy field and button with onclick call to remove_fields javascript" do
+      helper.remove_child_link(@value, @form, @hide_class, @confirm_question).
+        should == "<hidden-field/><input onclick=\"remove_fields(this, 'hide_class', 'Are you sure?');\" type=\"button\" value=\"Add child\" />"
+    end
+  end
+  
   describe "#add_child_link" do
     before do
       @value = 'Add child'
