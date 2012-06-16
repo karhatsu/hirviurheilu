@@ -21,6 +21,18 @@ describe Price do
       it { should allow_value(1).for(:price) }
     end
   end
+  
+  describe "default sort order" do
+    before do
+      FactoryGirl.create(:price, :min_competitors => 100)
+      FactoryGirl.create(:price, :min_competitors => 1)
+      FactoryGirl.create(:price, :min_competitors => 50)
+    end
+    
+    it "should be by min competitors" do
+      Price.all.collect {|price| price.min_competitors}.should == [1, 50, 100]
+    end
+  end
 
   describe "#price_for_competitor_amount" do
     before do
