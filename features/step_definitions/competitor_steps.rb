@@ -2,6 +2,11 @@ Given /^the series has a competitor$/ do
   @competitor = FactoryGirl.create(:competitor, :series => @series)
 end
 
+Given /^the series has a competitor "(.*?)" "(.*?)"$/ do |first_name, last_name|
+  @competitor = FactoryGirl.create(:competitor, :series => @series, :first_name => first_name,
+    :last_name => last_name)
+end
+
 Given /^the series has a competitor "([^"]*)" "([^"]*)" with (\d+)\+(\d+)\+(\d+) points$/ do |first_name, last_name, tpoints, epoints, spoints|
   best_time = 600
   seconds_lost = (300 - tpoints.to_i) * 10

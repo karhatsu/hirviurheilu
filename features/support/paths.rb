@@ -35,6 +35,9 @@ module NavigationHelpers
     when /the official start list page of the race "(.*)"/
       official_race_start_list_path(Race.find_by_name($1))
 
+    when /the official quick save page of "(.*)"/
+      official_race_quick_saves_path(Race.find_by_name($1))
+
     when /the official clubs page for "(.*)"/
       official_race_clubs_path(Race.find_by_name($1))
 
