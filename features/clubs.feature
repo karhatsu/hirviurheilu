@@ -19,7 +19,7 @@ Feature: Clubs
     And I should see "Another club"
     
   @javascript
-  Scenario: Add and remove a club
+  Scenario: Add, rename and remove a club
     Given I am an official
     And I have a race "Test race"
     And I have logged in
@@ -27,6 +27,16 @@ Feature: Clubs
     When I fill in "New club" for "Nimi"
     And I press "Lisää seura"
     Then I should see "New club"
+    When I follow "New club"
+    And I fill in "Renamed club" for "club_name"
+    And I press "Peruuta"
+    Then I should see "New club"
+    But I should not see "Renamed club"
+    When I follow "New club"
+    And I fill in "Renamed club" for "club_name"
+    And I press "Päivitä"
+    Then I should see "Renamed club"
+    But I should not see "New club"
     When I press "Poista"
-    Then I should not see "Test club"
+    Then I should not see "Renamed club"
     

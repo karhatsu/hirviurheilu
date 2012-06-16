@@ -5,9 +5,9 @@
 <% else %>
   $("#action_error").removeClass("error");
   $("#action_error").html("");
-  $("#clubs_title").attr('style', '');
-  $("#clubs_table").attr('style', '');
+  $("#current_clubs").show();
   $("#clubs_table tr:last").after("<%= escape_javascript(render :partial => 'club_row', :locals => { :club => @club }) %>");
-  $("#club_name").val("");
+  $("#new_club_name").val("");
+  $("#new_club_long_name").val("");
 <% end %>
 $("#spinner").html("");
