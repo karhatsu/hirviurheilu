@@ -2,3 +2,5 @@ Kilpailun nimi: <%= @race.name %>
 Aika: <%= race_date_interval(@race) %>
 Paikkakunta: <%= @race.location %>
 Kilpailijoiden määrä: <%= @race.competitors.count %>
+
+<%= race_url @race %>

@@ -96,3 +96,5 @@ Feature: Finish race
     Then I should see "Hirviurheilu - kilpailu päättynyt (test)" in the email subject
     And I should see "Kilpailun nimi: Test race" in the email body
     And I should see "Kilpailijoiden määrä: 1" in the email body
+    When I click the first link in the email
+    Then I should be on the race page of "Test race"
