@@ -35,6 +35,7 @@ group :development, :test do
   gem "autotest-rails"
   gem "factory_girl_rails", :require => false
   gem 'capybara'
+  gem 'poltergeist'
   gem 'database_cleaner'
   gem 'gherkin'
   gem 'cucumber-rails'
