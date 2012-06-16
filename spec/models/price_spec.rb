@@ -16,7 +16,7 @@ describe Price do
     describe "price" do
       it { should validate_numericality_of(:price) }
       it { should_not allow_value(-1).for(:price) }
-      it { should_not allow_value(0).for(:price) }
+      it { should allow_value(0).for(:price) }
       it { should allow_value(0.1).for(:price) }
       it { should allow_value(1).for(:price) }
     end
