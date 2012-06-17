@@ -1,25 +1,18 @@
 <% content_for(:title, "Tietoa Hirviurheilusta") %>
 <% content_for(:page_title, yield(:title)) %>
 <h2>Kysymyksiä ja vastauksia</h2>
-<%= link_to 'Lue vastaukset kysymyksiisi', answers_path %> - sisältää paljon tietoa Hirviurheilusta
+<%= link_to 'Kysymyksiä ja vastauksia', answers_path %><br/>
+Sisältää paljon tietoa Hirviurheilusta ja sen käytöstä
+<hr/>
+
+<h2>Harjoittele palvelun käyttöä</h2>
+<a href="<%=TEST_URL%>"><%= TEST_URL %></a><br/>
+Voit kokeilla ennen kilpailuja, kuinka tulospalvelun pyörittäminen onnistuu Hirviurheilun avulla
 <hr/>
 
 <h2>Ota yhteyttä</h2>
 <%= link_to "Lähetä palautetta järjestelmän kautta", new_feedback_path %><br/>
 (kysymyksiä, ehdotuksia uusista ominaisuuksista, virheraportteja, kehuja,...)
-<hr/>
-
-<a name="competition_types"></a>
-<h2>Kilpailumuodot</h2>
-Palvelu tukee seuraavia kilpailumuotoja:
-<ul>
-  <li>Normaali yksilökilpailu</li>
-  <li>Kävely- / metsästäjäsarja (4 arviomatkaa ilman aikapisteitä tai
-    2 arviomatkaa ja kaikille 300 aikapistettä)</li>
-  <li>Joukkuekilpailu</li>
-  <li>Viesti</li>
-  <li>Cup</li>
-</ul>
 <hr/>
 
 <h2>Ohjevideo</h2>

@@ -11,7 +11,6 @@ Feature: Info page
     And the page title should contain "Tietoa Hirviurheilusta"
     And I should see /Ota yhteyttä/ within "h2"
     And I should see /Kysymyksiä ja vastauksia/ within "h2"
-    And I should see /Kilpailumuodot/ within "h2"
     And I should see /Ohjevideo/ within "h2"
     And I should see /Palvelun toimittaja/ within ".company_contact"
     And I should see /Karhatsu IT Consulting Oy/ within ".company_contact"
