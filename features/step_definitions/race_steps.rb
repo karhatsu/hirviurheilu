@@ -42,6 +42,17 @@ Given /^I have a race with attributes:$/ do |fields|
   @user.races << @race
 end
 
+Given /^I have a race "(.*?)" with competitor "(.*?)" "(.*?)" in series "(.*?)", with number (\d+) and start time "(.*?)"$/ do |race_name,
+    first_name, last_name, series_name, number, start_time|
+  @race = FactoryGirl.create(:race, :name => race_name, :start_order => Race::START_ORDER_MIXED)
+  @series = FactoryGirl.build(:series, :race => @race, :name => series_name)
+  @race.series << @series
+  @competitor = FactoryGirl.build(:competitor, :series => @series, :first_name => first_name, :last_name => last_name,
+    :number => number, :start_time => start_time)
+  @series.competitors << @competitor
+  @user.races << @race
+end
+
 Given /^there is a race "([^"]*)" in the past$/ do |name|
   @race = FactoryGirl.create(:race, :start_date => Date.today - 1, :name => name)
 end

@@ -16,44 +16,21 @@ Feature: Quick result save
     And I should see "Tulosten pikasyöttö"
 
   @javascript
-  Scenario: Save arrival time
+  Scenario: Save arrival time, estimates, and shots
     Given I am an official
-    And I have a race "Quick race"
-    And the race has a series "Miehet" with first number 1 and start time "10:00"
-    And the series has a competitor "Tomi" "Testinen"
-    And the start list has been generated for the series
+    And I have a race "Quick race" with competitor "Tomi" "Testinen" in series "Miehet", with number 1 and start time "10:00"
     And I have logged in
     And I am on the official quick save page of "Quick race"
-    And I fill in "1,103045" for "time_string"
-    And I press "submit_time"
-    Then I should see "Kilpailijan 1. Testinen Tomi (Miehet) tulos tallennettu onnistuneesti (saapumisaika: 10:30:45)."
-
-  @javascript
-  Scenario: Save estimates
-    Given I am an official
-    And I have a race "Quick race"
-    And the race has a series "Miehet" with first number 1 and start time "10:00"
-    And the series has a competitor "Tomi" "Testinen"
-    And the start list has been generated for the series
-    And I have logged in
-    And I am on the official quick save page of "Quick race"
-    And I fill in "1,89,145" for "estimates_string"
-    And I press "submit_estimates"
-    Then I should see "Kilpailijan 1. Testinen Tomi (Miehet) tulos tallennettu onnistuneesti (arviot: 89 ja 145)."
-
-  @javascript
-  Scenario: Save shots
-    Given I am an official
-    And I have a race "Quick race"
-    And the race has a series "Miehet" with first number 1 and start time "10:00"
-    And the series has a competitor "Tomi" "Testinen"
-    And the start list has been generated for the series
-    And I have logged in
-    And I am on the official quick save page of "Quick race"
-    And I fill in "1,93" for "shots_string"
-    And I press "submit_shots"
-    Then I should see "Kilpailijan 1. Testinen Tomi (Miehet) tulos tallennettu onnistuneesti (ammunta: 93)."
-    Given I fill in "++1,+987654321" for "shots_string"
-    And I press "submit_shots"
-    Then I should see "Kilpailijan 1. Testinen Tomi (Miehet) tulos tallennettu onnistuneesti (ammunta: 55)."
+    When I fill in "1,103045" for "time_string"
+      And I press "submit_time"
+      Then I should see "Kilpailijan 1. Testinen Tomi (Miehet) tulos tallennettu onnistuneesti (saapumisaika: 10:30:45)."
+    When I fill in "1,89,145" for "estimates_string"
+      And I press "submit_estimates"
+      Then I should see "Kilpailijan 1. Testinen Tomi (Miehet) tulos tallennettu onnistuneesti (arviot: 89 ja 145)."
+    When I fill in "1,93" for "shots_string"
+      And I press "submit_shots"
+      Then I should see "Kilpailijan 1. Testinen Tomi (Miehet) tulos tallennettu onnistuneesti (ammunta: 93)."
+    When I fill in "++1,+987654321" for "shots_string"
+      And I press "submit_shots"
+      Then I should see "Kilpailijan 1. Testinen Tomi (Miehet) tulos tallennettu onnistuneesti (ammunta: 55)."
     
