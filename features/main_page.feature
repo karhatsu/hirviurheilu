@@ -7,10 +7,6 @@ Feature: Main page
     Given I go to the home page
     Then the page title should contain "Hirvenhiihdon ja hirvenjuoksun tulospalvelu"
     And the "Etusivu" main menu item should be selected
-    And I should see "Hirviurheilu on hirvenhiihdon ja hirvenjuoksun helppokäyttöinen tulospalvelu."
-    And I should see "Tutustu lukemalla lisää Info-sivulta ja katsomalla Youtube-video."
-    When I follow "Info-sivulta"
-    Then I should be on the info page
 
   Scenario: Listing races in the main page
     Given there is a race with attributes:
@@ -27,7 +23,7 @@ Feature: Main page
       | name | Ongoing race |
       | location | Ongoing city |
     And I go to the home page
-    Then I should see "Päättyneet kilpailut" within "div.old_races"
+    Then I should see "Viimeksi päättyneet kilpailut" within "div.old_races"
     And I should see "Old race" within "div.old_races"
     And I should see "01.01.2010 - 02.01.2010, Old city" within "div.old_races"
     And I should see "Tulevat kilpailut" within "div.future_races"
@@ -75,26 +71,12 @@ Feature: Main page
 
   Scenario: Showing registration link for unauthenticated users
     Given I am on the home page
-    Then I should see "Oletko järjestämässä hirvenhiihdon tai hirvenjuoksun kilpailua?"
-    When I follow "Aloita tästä."
+    Then I should see "Hirviurheilu on erinomainen valinta kisojesi tulospalveluksi!"
+    When I follow "Aloita käyttö"
     Then I should be on the registration page
 
   Scenario: No registration link for authenticated users
     Given I am an official
     And I have logged in
     And I am on the home page
-    Then I should not see "Oletko järjestämässä hirvenhiihdon tai hirvenjuoksun kilpailua?"
-    And I should not see "Aloita tästä."
-
-  Scenario: Showing login link for unauthenticated users
-    Given I am on the home page
-    Then I should see "Onko sinulla jo tunnukset?"
-    When I follow "Kirjaudu sisään."
-    Then I should be on the login page
-
-  Scenario: No login link for authenticated users
-    Given I am an official
-    And I have logged in
-    And I am on the home page
-    Then I should not see "Onko sinulla jo tunnukset?"
-    And I should not see "Kirjaudu sisään."
+    Then I should not see "Aloita käyttö"

@@ -4,20 +4,10 @@
 <%= flash_success %>
 <%= flash_error %>
 
-<% unless offline? %>
-  <div class="section main_info">
-    Hirviurheilu on hirvenhiihdon ja hirvenjuoksun helppokäyttöinen tulospalvelu.<br/>
-    Käytössäsi on kaksi vaihtoehtoa:
-    <%= link_to 'Hirviurheilu Online ja Hirviurheilu Offline', offline_vs_online_path %>.<br/>
-    Tutustu lukemalla lisää <%= link_to "Info-sivulta", info_path %> ja
-    katsomalla <%= link_to "Youtube-video", youtube_path, :target => '_blank' %>.
-  </div>
-<% end %>
-
 <div class="main_page_columns">
-  <div class="left_column races_box">
+  <div class="left_column main_page_box" id="races_box">
     <div class="box_title">Kilpailut</div>
-    <div class="races">
+    <div class="main_page_box_content">
       <% unless @ongoing.empty? %>
         <div class="ongoing_races">
           <div class="box_sub_title">Menossa olevat kilpailut</div>
@@ -38,7 +28,7 @@
       <% unless @past.empty? %>
         <hr/>
         <div class="old_races">
-          <div class="box_sub_title">Päättyneet kilpailut</div>
+          <div class="box_sub_title">Viimeksi päättyneet kilpailut</div>
           <%= render :partial => "race_list", :locals => { :competitions => @past, :max => 10 } %>
         </div>
       <% end %>
@@ -46,45 +36,44 @@
   </div>
 
   <% unless offline? %>
-    <div class="right_column">
-      <% unless current_user %>
-        <div class="commercial_box">
-          Oletko järjestämässä hirvenhiihdon tai hirvenjuoksun kilpailua?
-          <div class="commercial_box_link">
-            <%= link_to "Aloita tästä.", register_path %>
+    <div class="right_column main_page_box" id="commercial_box">
+      <div class="box_title">Kilpailun järjestäjille</div>
+      <div class="main_page_box_content">
+        <div>Hirviurheilu on erinomainen valinta kisojesi tulospalveluksi!</div>
+        <div id="changing_text_wrapper">
+          <div id="changing_text">
+            <div><span class="keyword">Helppokäyttöinen</span> - palvelu on heti käytössäsi ja sitä on helppo käyttää</div>
+            <div><span class="keyword">Nopeuttava</span> - useampi toimitsija voi syöttää tuloksia yhtä aikaa</div>
+            <div><span class="keyword">Reaaliaikainen</span> - tulokset ovat välittömästi yleisön nähtävissä</div>
+            <div><span class="keyword">Luotettava</span> - syötä kilpailijoiden suoritukset, palvelu hoitaa loput</div>
+            <div><span class="keyword">Joustava</span> - voit luoda juuri ne sarjat kuin haluat</div>
+            <div><span class="keyword">Monipuolinen</span> - myös joukkuekilpailut, viestit ja cup-kilpailut</div>
+            <div><span class="keyword">Luotettu</span> - jo kahdesti hirvenhiihdon SM-kisojen tulospalveluna</div>
+            <div><span class="keyword">Tehostava</span> - cup-kilpailuiden tuloslaskenta vähimmäisvaivalla</div>
+            <div><span class="keyword">Jännittävä</span> - mahdollistaa lähes reaaliaikaisen seurannan kotikatsomoissa</div>
           </div>
         </div>
-        <div class="commercial_box">
-          Onko sinulla jo tunnukset?
-          <div class="commercial_box_link">
-            <%= link_to "Kirjaudu sisään.", login_path %>
-          </div>
-        </div>
-      <% end %>
-      <div class="commercial_box">
-        Kuinka Hirviurheilu-palvelua käytetään?
-        <div class="commercial_box_link">
-          <%= link_to "Katso ohjevideo Youtubesta", youtube_path, :target => '_blank' %>
-        </div>
-      </div>
-      <% unless Rails.env == 'staging' %>
-        <div class="commercial_box">
-          Harjoittele palvelun käyttöä:
-          <div class="commercial_box_link">
-            <%= link_to TEST_URL, TEST_URL, :target => '_blank' %>
-          </div>
-        </div>
-      <% end %>
-      <div class="commercial_box special_offer">
-        Tutustu Hirviurheilu-tulospalveluun,
-        ensimmäinen kilpailu ilmaiseksi!
-      </div>
-      <div class="commercial_box">
-        Uutta Hirviurheilussa:
-        <div class="commercial_box_link">
-          <%= link_to 'Cup-kilpailuiden tuloslaskenta!', answers_path(:open => :cup, :anchor => :cup) %>
+        <div class="links">
+          <%= link_to 'Lue lisää', info_path, :class => 'commercial_box_link' %>
+          <% unless current_user %>
+            tai
+            <%= link_to 'Aloita käyttö', register_path, :class => 'commercial_box_link' %>
+          <% end %>
         </div>
       </div>
     </div>
   <% end %>
 </div>
+<%= javascript_tag do %>
+$(document).ready(function() {
+  $("#changing_text").bxSlider({
+    auto: true,
+    infiniteLoop: true,
+    nextText: '',
+    pause: 4000,
+    prevText: '',
+    randomStart: true,
+    speed: 1000
+  });
+});
+<% end %>

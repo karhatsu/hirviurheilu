@@ -98,35 +98,6 @@ div.right_column {
     float: right;
 }
 
-div.commercial_box {
-    background-color: olive;
-    color: white;
-    padding: 5px;
-    overflow: auto;
-    width: 290px;
-    text-align: center;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    box-shadow: 5px 4px 5px #666666;
-    -moz-box-shadow: 5px 4px 5px #666666;
-    -webkit-box-shadow: 5px 4px 5px #666666;
-}
-
-div.special_offer {
-    background-color: orange;
-}
-
-div.commercial_box_link {
-    margin-top: 3px;
-    background-color: white;
-    padding: 5px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-}
-
 .help {
     background-color: olive;
     color: white;
@@ -181,52 +152,90 @@ a.help:hover {
     font-weight: bold;
 }
 
-div.main_info {
-    width: 880px !important;
-    margin-top: 10px !important;
-    margin-bottom: 15px !important;
-    text-align: center !important;
-    font-size: 105% !important;
-}
-
 div.main_page_columns {
+    margin-top: 10px;
     width: 890px;
 }
 
-div.races_box {
-    width: 555px;
+div.main_page_box {
     border: 1px solid olive;
-    padding: 0;
-    margin-bottom: 10px;
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     box-shadow: 5px 4px 5px #666666;
     -moz-box-shadow: 5px 4px 5px #666666;
     -webkit-box-shadow: 5px 4px 5px #666666;
+    padding: 0;
 }
 
-div.races_box .box_title {
+div.main_page_box .box_title {
     background-color: olive;
     color: white;
     font-family: Arial;
     font-size: 16px;
     font-weight: bold;
     padding: 5px;
+    text-align: center;
     text-transform: uppercase;
 }
 
-div.races_box .races {
+.main_page_box_content {
     padding: 5px;
 }
 
-div.races_box .box_sub_title {
+#races_box {
+    width: 555px;
+    margin-bottom: 10px;
+}
+
+#races_box .box_sub_title {
+    background-color: #DDEEB5;
     font-size: 13px;
     margin: 3px 0;
+    padding: 3px;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
 }
 
 div.all_races_link {
     margin: 5px 0 0;
+}
+
+#commercial_box {
+    text-align: center;
+    width: 310px;
+}
+
+#commercial_box .links {
+    margin: 15px 3px;
+}
+
+.commercial_box_link {
+    background-color: olive;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+#changing_text_wrapper {
+    background-color: #DDEEB5;
+    padding: 5px;
+    height: 30px;
+    margin: 5px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
+#changing_text .keyword {
+    font-weight: bold;
+}
+
+div.special_offer {
+    background-color: orange;
 }
 
 th {
