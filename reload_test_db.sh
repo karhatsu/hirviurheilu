@@ -1,2 +1,2 @@
 #!/bin/sh
-RAILS_ENV=test rake db:schema:load
+RAILS_ENV=test bundle exec rake db:schema:load
