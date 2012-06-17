@@ -1,4 +1,5 @@
-<% competitions.each do |competition| %>
+<% limit = defined?(max) ? max : 1.0/0.0 %>
+<% competitions.each_with_index do |competition, index| %>
   <%= sport_icon(competition.sport) %>
   <% if competition.is_a?(Cup) %>
     <%= link_to competition.name, cup_path(competition) %><br/>
@@ -16,5 +17,12 @@
         <%= race.location %>
       </span><br/>
     <% end %>
+  <% end %>
+  <% if index + 1 == limit %>
+    <hr/>
+    <div class="all_races_link">
+      <%= link_to 'Kaikki kilpailut', races_path %>
+    </div>
+    <% break %>
   <% end %>
 <% end %>
