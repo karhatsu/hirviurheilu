@@ -36,12 +36,12 @@
   </div>
 
   <% unless offline? %>
-    <div class="right_column main_page_box" id="commercial_box">
+    <div class="right_column main_page_box commercial_box">
       <div class="box_title">Kilpailun järjestäjille</div>
       <div class="main_page_box_content">
         <div>Hirviurheilu on erinomainen valinta kisojesi tulospalveluksi!</div>
-        <div id="changing_text_wrapper">
-          <div id="changing_text">
+        <div class="changing_text_wrapper">
+          <div id="changing_text_official">
             <div><span class="keyword">Helppokäyttöinen</span> - palvelu on heti käytössäsi ja sitä on helppo käyttää</div>
             <div><span class="keyword">Nopeuttava</span> - useampi toimitsija voi syöttää tuloksia yhtä aikaa</div>
             <div><span class="keyword">Reaaliaikainen</span> - tulokset ovat välittömästi yleisön nähtävissä</div>
@@ -62,17 +62,42 @@
         </div>
       </div>
     </div>
+    <div class="right_column main_page_box commercial_box">
+      <div class="box_title">Kilpailijoille</div>
+      <div class="main_page_box_content">
+        <div>Muista suositella Hirviurheilua kilpailuiden järjestäjille!</div>
+        <div class="changing_text_wrapper">
+          <div id="changing_text_competitor">
+            <div>Lähtöaikasi voi olla saatavillasi hyvissä ajoin ennen kilpailua</div>
+            <div>Helppokäyttöinen palvelu nopeuttaa tulosten saamista suorituksen jälkeen</div>
+            <div>Voit luottaa siihen, että tulokset on laskettu oikein</div>
+            <div>Pystyt tarkastamaan tulokset netistä jopa jo kilpailun aikana</div>
+            <div>Kotijoukkosi voivat seurata kilpailua reaaliaikaisesti</div>
+            <div>Kilpailun jälkeen voit jossitella tuloksia kotona</div>
+          </div>
+        </div>
+      </div>
+    </div>
   <% end %>
 </div>
 <%= javascript_tag do %>
 $(document).ready(function() {
-  $("#changing_text").bxSlider({
+  $("#changing_text_official").bxSlider({
     auto: true,
     infiniteLoop: true,
     nextText: '',
     pause: 4000,
     prevText: '',
     randomStart: true,
+    speed: 1000
+  });
+  $("#changing_text_competitor").bxSlider({
+    auto: true,
+    infiniteLoop: true,
+    nextText: '',
+    pause: 4000,
+    prevText: '',
+    randomStart: false,
     speed: 1000
   });
 });
