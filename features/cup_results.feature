@@ -27,7 +27,7 @@ Feature: Cup results
     When I go to the cup page
     Then the "Kilpailut" main menu item should be selected
     And the "Cup-kilpailun etusivu" sub menu item should be selected
-    And I should see "Test cup" within ".main_title"
+    And the page title should contain "Test cup"
     And I should see "Osakilpailut" within "h2"
     And I should see "Cup race 1"
     And I should see "Another cup race"

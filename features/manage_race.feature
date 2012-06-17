@@ -22,7 +22,7 @@ Feature: Manage race
     And I uncheck "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
     Then I should be on the race edit page of "Test race"
-    And I should see "Test race" within ".main_title"
+    And the page title should contain "Test race"
     And I should see "Kilpailu lisätty."
     And I should see "Voit nyt lisätä sarjoja kilpailulle alla olevasta linkistä."
     And the admin should receive an email
@@ -50,7 +50,7 @@ Feature: Manage race
     Then I should be on the official race page of "Test race"
     And the official main menu item should be selected
     And the "Yhteenveto" sub menu item should be selected
-    And I should see "Test race" within ".main_title"
+    And the page title should contain "Test race"
     And I should see "Kilpailu lisätty."
     And I should see "Pääset lisäämään kilpailijoita klikkaamalla sarjan nimen vieressä olevaa linkkiä."
     And I should see "M60"
@@ -85,7 +85,7 @@ Feature: Manage race
     And I fill in "New name for series" for "Sarjan nimi"
     And I press "Tallenna kilpailun ja sarjojen tiedot"
     Then I should be on the official race page of "New name for race"
-    And I should see "New name for race (New race location" within ".main_title"
+    And the page title should contain "New name for race (New race location"
     And I should see "New name for series"
     But I should not see "Test race"
     And I should not see "Test series"

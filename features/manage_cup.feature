@@ -10,7 +10,7 @@ Feature: Manage cup
     When I follow "Lisää uusi cup-kilpailu"
     Then I should be on the new official cup page
     And the official main menu item should be selected
-    And I should see "Cup-kilpailun lisäys" within ".main_title"
+    And the page title should contain "Cup-kilpailun lisäys"
     But I should see "Sinulla täytyy olla vähintään 2 kilpailua ennen kuin voit lisätä cup-kilpailun" in an info message
     Given I have a race "My race"
     When I go to the new official cup page
@@ -35,7 +35,7 @@ Feature: Manage cup
     And I press "Lisää cup-kilpailu"
     Then I should be on the official cup page of "Test cup"
     And I should see "Cup-kilpailu lisätty" in a success message
-    And I should see "Test cup" within ".main_title"
+    And the page title should contain "Test cup"
     And I should see "Yhteistulokseen laskettavien kilpailuiden määrä: 2"
     And I should see "My race 1"
     And I should see "My race 3"
@@ -66,7 +66,7 @@ Feature: Manage cup
     And I check "race_id_0"
     And I check "race_id_1"
     And I press "Lisää cup-kilpailu"
-    Then I should see "Cup-kilpailun lisäys" within ".main_title"
+    Then the page title should contain "Cup-kilpailun lisäys"
     And I should see "Cup-kilpailun nimi on pakollinen" in an error message
 
   Scenario: Choose wrong amount of races for the cup
@@ -126,7 +126,7 @@ Feature: Manage cup
     And I press "Päivitä"
     Then I should be on the official cup page of "Renamed cup"
     And I should see "Cup-kilpailu päivitetty" in a success message
-    And I should see "Renamed cup" within ".main_title"
+    And the page title should contain "Renamed cup"
     And I should see "Yhteistulokseen laskettavien kilpailuiden määrä: 3"
     And I should see "My race 1"
     And I should see "My race 3"

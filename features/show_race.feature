@@ -15,8 +15,8 @@ Feature: Show race
     When I go to the race page
     Then the "Kilpailut" main menu item should be selected
     And the "Kilpailun etusivu" sub menu item should be selected
-    And I should see "My test race" within ".main_title"
-    And I should see "Test city, 01.01.2010 - 02.01.2010" within ".main_title"
+    And the page title should contain "My test race"
+    And the page title should contain "Test city, 01.01.2010 - 02.01.2010"
     And I should see "Men 50 years" within "tr#series_1"
     And I should see "01.01.2010 13:30" within "tr#series_1"
     And I should see "Sarjaan ei ole merkitty kilpailijoita" within "tr#series_1"

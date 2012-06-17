@@ -7,7 +7,7 @@ Feature: Media
     Given there is a race "Test race"
     When I go to the race page of "Test race"
     And I follow "Lehdistö"
-    Then I should see "Test race" within ".main_title"
+    Then the page title should contain "Test race"
     And the "Lehdistö" sub menu item should be selected
     And I should see "Lehdistö" within "h2"
     And I should see "Tältä sivulta voit ladata lehdistöraportin, kun kilpailu on päättynyt" in an info message
@@ -75,7 +75,7 @@ Feature: Media
     And the race is finished
     And I am on the race page of "Test race"
     And I follow "Lehdistö"
-    Then I should see "Test race" within ".main_title"
+    Then the page title should contain "Test race"
     And I should see "Lehdistö" within "h2"
     And I should see "Tältä sivulta voit ladata lehdistöraportin" in an info message
     But I should not see "kun kilpailu on päättynyt"

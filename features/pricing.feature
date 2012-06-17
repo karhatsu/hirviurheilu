@@ -12,7 +12,7 @@ Feature: Pricing
     When I follow "Hinnat"
     Then I should be on the prices page
     And the "Hinnat" main menu item should be selected
-    And I should see "Hinnat" within ".main_title"
+    And the page title should contain "Hinnat"
     And I should see "Perushinta: 15.00 euroa"
     And I should see "1-49 kilpailijaa: 3.00 euroa / kilpailija"
     And I should see "50-99 kilpailijaa: 2.50 euroa / kilpailija"

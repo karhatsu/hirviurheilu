@@ -21,7 +21,7 @@ Feature: Navigation between official and result sections
     When I follow "Kilpailut" within "div.menu"
     Then I should be on the races page
     And the "Kilpailut" main menu item should be selected
-    And I should see "Hirviurheilu - Kilpailut" within ".main_title"
+    And the page title should contain "Hirviurheilu - Kilpailut"
     And I should see "Run race, 18.08.2010, Running place"
     And I should see "Third test race, 09.01.2011 - 10.01.2011, Test location"
     And I should see "Ski race, 11.02.2011, Skiing place"
