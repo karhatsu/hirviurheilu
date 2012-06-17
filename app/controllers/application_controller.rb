@@ -254,4 +254,8 @@ class ApplicationController < ActionController::Base
   def pick_non_cup_races(races, cup_races)
     races.select { |race| !cup_races.include?(race) }
   end
+
+  def set_is_info
+    @is_info = true
+  end
 end

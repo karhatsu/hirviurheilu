@@ -16,6 +16,7 @@ ElkSports::Application.routes.draw do
   resource :mode
 
   resource :info
+  get 'answers' => 'infos#answers', :as => :answers
   resources :feedbacks
 
   get 'offline', :to => redirect('/offline_vs_online')

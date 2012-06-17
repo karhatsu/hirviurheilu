@@ -14,6 +14,8 @@
     <%= render :partial => 'shared/sub_menu' %>
   <% elsif @is_cup %>
     <%= render :partial => 'shared/cup_sub_menu' %>
+  <% elsif @is_info %>
+    <%= render :partial => 'shared/info_sub_menu' %>
   <% elsif @is_offline_info %>
     <%= render :partial => 'shared/offline_sub_menu' %>
   <% elsif @is_official %>

@@ -43,7 +43,6 @@ Feature: Offline usage
     When I follow "Lähetä palautetta"
     Then I should see "Lähetä palautetta" within "div.main_title"
     And I should see "Offline-versiossa et voi lähettää palautetta suoraan ohjelman kautta." in an info message
-    But I should not see "Palaute"
     But I should not see "Nimi"
     But I should not see "Sähköposti"
     But I should not see "Puhelin"

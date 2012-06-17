@@ -8,8 +8,8 @@ Feature: Info page
     And I follow "Info"
     Then I should be on the info page
     And the "Info" main menu item should be selected
-    And the page title should contain "Hirviurheilu - Info"
-    And I should see "Ota yhteyttä" within "h2"
+    And the page title should contain "Tietoa Hirviurheilusta"
+    And I should see /Ota yhteyttä/ within "h2"
     And I should see /Kysymyksiä ja vastauksia/ within "h2"
     And I should see /Kilpailumuodot/ within "h2"
     And I should see /Ohjevideo/ within "h2"

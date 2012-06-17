@@ -1,5 +1,6 @@
 # encoding: UTF-8
 class FeedbacksController < ApplicationController
+  before_filter :set_is_info, :set_is_feedback
   before_filter :check_offline
 
   def index
@@ -29,6 +30,10 @@ class FeedbacksController < ApplicationController
   end
 
   private
+  def set_is_feedback
+    @is_feedback = true
+  end
+  
   def check_offline
     render :offline if offline?
   end

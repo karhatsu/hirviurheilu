@@ -1,0 +1,344 @@
+<% content_for(:title, 'Kysymyksiä ja vastauksia') %>
+<% content_for(:page_title, yield(:title)) %>
+
+<h3>Yleistä Hirviurheilu-palvelusta</h3>
+<div class="question">Mikä on <span class="highligth">Hirviurheilu Online</span>?</div>
+<div class="answer">Hirviurheilu Online on helppokäyttöinen, internet-pohjainen tulospalvelu
+  hirvenhiihdon ja hirvenjuoksun kilpailuihin.
+  <% unless offline? %>
+    Käytät parhaillaan Hirviurheilu Online -palvelua.
+  <% end %>
+  <%= link_to 'Lue lisää Online ja Offline -tuotteiden eroista', offline_vs_online_path %>
+</div>
+
+<div class="question">Mikä on <span class="highligth">Hirviurheilu Offline</span>?</div>
+<div class="answer">Hirviurheilu Offline on helppokäyttöinen, toimitsijan
+  koneelle asennettava tulospalvelu hirvenhiihdon ja hirvenjuoksun kilpailuihin.
+  <% if offline? %>
+    Käytät parhaillaan Hirviurheilu Online -palvelua.
+  <% end %>
+  <%= link_to 'Lue lisää Online ja Offline -tuotteiden eroista', offline_vs_online_path %>
+</div>
+
+<div class="question">Mitä <span class="highligth">kilpailumuotoja</span> palvelu tukee?</div>
+<div class="answer">Katso vastaus <a href="#competition_types">tämän
+    sivun alalaidasta</a>.</div>
+
+<div class="question">Osaako palvelu laskea pisteet
+  <span class="highligth">kävelysarjalle (metsästäjäsarja)</span>?</div>
+<div class="answer">Kyllä osaa. Kun lisäät tällaisen sarjan kilpailuun,
+  valitset vain arviomatkojen määräksi neljä normaalin kahden sijaan ja
+  merkitset, ettei sarjassa lasketa aikapisteitä. Toinen vaihtoehto on
+  asettaa arviomatkojen määräksi kaksi ja merkitä, että kaikki kilpailijat
+  saavat automaattisesti 300 aikapistettä. Palvelu hoitaa kaiken muun
+  automaattisesti.</div>
+
+<div class="question">Mitä voin tehdä, jos palveluun tarvittaisiin mielestäni
+  ehdottomasti <span class="highligth">uusi ominaisuus</span>?</div>
+<div class="answer"><%= link_to "Ota rohkeasti yhteyttä", new_feedback_path %> ja kerro ideasi!</div>
+
+<h3>Hyödyt ja vaatimukset</h3>
+<div class="question">Mitä <span class="highligth">hyötyä</span>
+  palvelusta on kilpailun <span class="highligth">järjestäjille</span>?</div>
+<div class="answer">
+  <ul>
+    <li>Tulospalvelun järjestäminen onnistuu palvelun kautta vaivattomasti.
+      Palvelun käyttöönotto on erittäin nopeaa ja sen käyttäminen
+      helppoa.</li>
+    <li>Palvelu tarjoaa luotettavan tavan tulosten laskemiseen;
+      toimitsijoiden tarvitsee ainoastaan syöttää kilpailijoiden
+      saapumisaika, arviot sekä ammuntatulokset. Pisteet lasketaan näiden
+      perusteella automaattisesti.</li>
+    <li>Järjestäjien ei tarvitse huolehtia lähtölistojen tai tulosten
+      julkaisemisesta, koska ne ovat kaikkien saatavilla internetissä ilman
+      ylimääräisiä toimenpiteitä. (*)</li>
+    <li>Palvelu on hyvin joustava. Kilpailun järjestäjä voi esimerkiksi
+      syöttää juuri ne sarjat, mitkä kilpailussa tullaan järjestämään.
+      Mitään tiettyä sarjajoukkoa ei tarvitse käyttää.</li>
+    <li>Järjestäjät voivat ladata tulosraportin myös lehdistölle sopivassa muodossa.</li>
+    <li>Kaikki palveluun tehtävät uudet ominaisuudet ovat automaattisesti
+      järjestäjien käytössä ilman erillistä päivitystä. (*)</li>
+  </ul>
+(*) Ei koske <%= link_to 'Hirviurheilu Offline -tuotetta', offline_path %>.
+</div>
+
+<div class="question">Mitä <span class="highligth">hyötyä</span>
+  palvelusta on <span class="highligth">kilpailijoille</span>?</div>
+<div class="answer">
+  <ul>
+    <li>Ennakkoon ilmoittautuneilla kilpailijoilla on mahdollisuus
+      katsoa lähtölistat etukäteen internetistä. (*)</li>
+    <li>Kilpailijat näkevät tulokset reaaliaikaisina internetin kautta välittömästi,
+      kun toimitsijat syöttävät ne järjestelmään. (*)</li>
+    <li>Tulokset ovat näkyvillä mahdollisimman yksityiskohtaisesti, joten kilpailijat
+      voivat helposti varmistaa, että tulokset on syötetty ja laskettu oikein.</li>
+  </ul>
+(*) Ei koske <%= link_to 'Hirviurheilu Offline -tuotetta', offline_path %>.
+</div>
+
+<div class="question">Mitä palvelun käyttäminen <span class="highligth">vaatii</span>?</div>
+<div class="answer">Hirviurheilu Online vaatii internet-yhteyden,
+  sillä palvelu toimii internetissä selaimen välityksellä.
+  Hirviurheilu Offline ei sen sijaan tarvitse internet-yhteyttä.
+  <%= link_to 'Lue lisää Online ja Offline -tuotteiden eroista', offline_vs_online_path %>
+</div>
+
+<a name="connection"></a>
+<div class="question connection_question">Voiko Hirviurheilu Online -palvelua
+  käyttää, vaikka kilpailupaikalla
+  olisikin käytössä vain <span class="highligth">mokkula, ei
+  kiinteää internet-yhteyttä</span>?</div>
+<div class="answer">
+  Kyllä voi. Palvelu on alun alkaen suunniteltu se huomioon ottaen,
+  että harvalla kilpailupaikalla on kiinteää internet-yhteyttä. Käytännössä
+  tämä tarkoittaa sitä, että verkkoliikenne on pyritty pitämään mahdollisimman
+  alhaisena. Palvelusta ei esimerkiksi löydy isoja kuvatiedostoja, joiden lataus
+  veisi turhaa aikaa.<br/><br/>
+  Verkkoliikenteen määrään vaikuttaa se, minkä kokoisia sivut ovat.
+  Tässä on joitakin esimerkkejä. Esimerkit sisältävät sivun koon kilotavuina (kt)
+  sekä verkkoliikenteeseen kuluvan ajan, jos nettiyhteys toimii erittäin hitaasti
+  nopeudella 5kt/s:
+  <ul>
+    <li>Palvelun etusivu: 5 kt / 1 s</li>
+    <li>Yhden sarjan lopulliset tulokset, 10 kilpailijaa: 9 kt / 2 s</li>
+    <li>Kilpailun Yhteenveto-sivu toimitsijan sivuilla, 5 sarjaa: 9 kt / 2 s</li>
+    <li>Lähtölistojen luonti, 10 kilpailijaa: 13 kt / 3 s</li>
+    <li>Tulosten pikasyöttö: 8 kt / 2 s</li>
+  </ul>
+  Vertailuksi voidaan ottaa muutama tunnetun palvelun etusivu (01/2011)
+  samoilla parametreilla:
+  <ul>
+    <li>www.yle.fi - 118 kt / 25 s</li>
+    <li>www.mtv3.fi - 208 kt / 40 s</li>
+    <li>www.iltalehti.fi - 166 kt / 33 s</li>
+  </ul>
+  Näissä lukemissa ei ole mukana sivun mukana ladattavia tiedostoja
+  (kuvat, tyylipohjat, javascript-tiedostot), jotka tarvitsee ladata vain kerran.
+  Jos ne otetaan laskuihin, esim. www.mtv3.fi on kooltaan 2 Mt eli yli 2000 kt.
+  Sen sijaan www.hirviurheilu.com-etusivun koko on kaikkinensa vain 65 kt.
+  Täytyy kuitenkin muistaa, että tuosta lukemasta suurin osa on sellaista dataa,
+  joka ladataan vain kerran. Kun siirrytään palvelussa toiselle sivulle,
+  nämä tiedot tulevat selaimen välimuistista ilman mitään verkkoliikennettä.<br/><br/>
+  Hirviurheilu-palvelussa on lisäksi kiinnitetty erityistä huomiota usein
+  käytettävien toimintojen tehokkuuteen hyödyntämällä ns. AJAX-tekniikkaa.
+  Kyseinen tekniikka tarkoittaa käytännössä sitä, että kun sivulta lähetetään
+  tietoa (esim. kilpailijan ammuntatulos) palvelimelle, ei koko sivua ladata
+  uudestaan, ainoastaan tarpeellinen osa siitä. Tämä vaikuttaa merkittävästi
+  myös verkkoliikenteen määrään:
+  <ul>
+    <li>Kilpailijan lisäys: 0,6 kt / alle 0,5 s</li>
+    <li>Kilpailijan yhden tulospaikan tietojen tallennus Pikasyöttö-sivulla:
+      0,2 kt / alle 0,5 s</li>
+    <li>Kilpailijan ammuntatuloksen tallennus Ammunta-sivulla: 0,1 kt / alle 0,5 s</li>
+  </ul>
+  Palvelua voi siis käyttää myös hitaammalla yhteydellä. Voit kuitenkin tehostaa
+  käyttöä siten, että syötät mahdollisimman paljon tietoa etukäteen ennen
+  kilpailupaikalle menemistä, kuten kilpailun ja sarjojen perustiedot ja
+  etukäteen ilmoittautuneet kilpailijat.
+</div>
+
+<h3>Käyttö</h3>
+<div class="question">Kuinka palvelun <span class="highligth">käyttöönotto</span>
+  tapahtuu?</div>
+<div class="answer">Hirviurheilu Online -palvelun käyttöönotto on erittäin helppoa:
+  <%= link_to "rekisteröidy palveluun", register_path %>, jonka jälkeen voit
+  syöttää tulospalveluun kilpailun tiedot. Hirviurheilu Offline -tuotteen
+  saat käyttöösi <%= link_to 'asentamalla sen omalle koneellesi',
+  offline_installation_path %>.</div>
+
+<%
+series_list = []
+DefaultSeries.all.each do |df|
+  series = df.name
+  unless df.default_age_groups.empty?
+    series << " (#{(df.default_age_groups.collect &:name).join(', ')})"
+  end
+  series_list << series
+end
+%>
+<div class="question">Mitkä <span class="highligth">sarjoja</span>
+  tulospalvelussa käytetään?</div>
+<div class="answer">Voit itse päättää täysin, mitä sarjoja kilpailuusi syötät.
+  Kilpailun luomisen nopeuttamiseksi tarjolla on myös valmiit oletussarjat:
+  <%= series_list.join(', ') %>. Näiden käyttäminen ei ole kuitenkaan pakollista,
+  ja vaikka niitä käyttäisitkin, voit tehdä oletussarjoihin mitä tahansa
+  muutoksia.</div>
+
+<div class="question">Mitä asioita pitää tehdä
+  <span class="highligth">ennen kilpailua</span>?</div>
+<div class="answer">Ennen kilpailua sinun täytyy lisätä tulospalveluun kilpailun
+  perustiedot kuten sen nimi, ajankohta ja paikkakunta sekä sarjojen nimet.
+  Tämän jälkeen voit lisätä sarjoihin ilmoittautuneita kilpailijoita.
+  Kun olet lisännyt kaikki kilpailijat, voit palvelun avulla luoda kilpailijoille
+  helposti lähtönumerot ja lähtöajat. Tämän jälkeen kilpailu on valmis alkamaan.</div>
+
+<div class="question">Kuinka <span class="highligth">lähtölistat</span> luodaan?</div>
+<div class="answer">Kilpailua lisätessäsi voit valita kahdesta vaihtoehdosta sinulle sopivamman:
+  <ol>
+    <li>Lähtölistojen luonti sarjoittain</li>
+    <li>Lähtöaikojen määrittäminen suoraan kilpailijoille</li>
+  </ol>
+  Ensimmäinen vaihtoehto on kätevä erityisesti silloin, kun kilpailijat ilmoittautuvat
+  etukäteen ja lähtölistat voidaan näin ollen luoda valmiiksi ennen kilpailua.
+  Lähtölistojen luonti on helppoa. Kun olet lisännyt kilpailijat, mene toimitsijan sivuilla
+  Kilpailijat-sivulle. Sivulla sinun pitää kertoa, mikä on sarjan
+  lähtöaika ja ensimmäinen kilpailunumero. Lisäksi voit päättää, noudattaako
+  kilpailijoiden lähtöjärjestys heidän lisäämisjärjestystä vai arvotaanko se.
+  Näiden asetusten jälkeen saat luotua yhden sarjan lähtölistan automaattisesti.<br/><br/>
+  Toinen vaihtoehto sopii paremmin kilpailuihin, joissa kilpailijat lisätään järjestelmään
+  vasta kisapaikalla, jolloin heidän ilmoittautumisjärjestyksensä on samalla heidän
+  lähtöjärjestyksensä sarjoista välittämättä. Tässä vaihtoehdossa sinun täytyy määrittää
+  kilpailijan lähtönumero ja -aika samalla, kun syötät kilpailijan muut tiedot.
+  Lähtölista syntyy näin samalla, kun syötät kilpailijoita.<br/><br/>
+  Huom! Riippumatta siitä kumman tavan valitset voit määrittää yksittäiselle kilpailijalle
+  minkä tahansa lähtöajan ja -numeron. Eli vaikka kilpailijat lähtisivätkin sarjoittain,
+  järjestelmään pystyy aina lisäämään jälki-ilmoittautuneita lähtölistan loppupäähän.</div>
+
+<div class="question">Voiko <span class="highligth">kilpailijoita</span>
+  lisätä vielä sen jälkeen, kun <span class="highligth">lähtölista on jo luotu</span>?</div>
+<div class="answer">Kyllä voi. Vaikka osa kilpailijoista olisi jo tullut
+  maaliin ja heille olisi jopa syötetty tuloksia, voit edelleen lisätä uusia
+  kilpailijoita. Kun lisäät kilpailijoita lähtölistan luonnin jälkeen,
+  sinun täytyy vain itse määrittää heille lähtöaika sekä kilpailunumero.
+  Palvelu tosin ehdottaa automaattisesti sopivaa aikaa sekä numeroa.</div>
+
+<div class="question">Miten <span class="highligth">tulosten syöttäminen</span>
+  tapahtuu kilpailun aikana?</div>
+<div class="answer">
+  Tulosten syöttämiseen on kolme vaihtoehtoa. Voit itse päättää,
+  mitä vaihtoehtoa haluat käyttää tulosten syöttämiseen.
+  <ol>
+    <li>Pikasyöttö: Ns. pikasyötössä voit syöttää yhden kilpailijan aika-,
+      arviointi- tai ammuntatiedon kirjoittamalla kilpailijan numeron ja
+      tuloksen. Esimerkiksi kilpailijan 13 arviot 118 ja 87 metriä
+      syötetään muodossa 13,118,87. Pikasyöttö on kaikista nopein tapa syöttää
+      tuloksia.</li>
+    <li>Sarja- ja tulospaikkakohtainen syöttö: Tässä näkymässä voit syöttää
+      yhden sarjan esimerkiksi kaikki ammuntatulokset kerralla. Samanlaiset
+      näkymät löytyvät siis myös saapumisajoille ja arvioille. Tämä
+      vaihtoehto sopii hyvin tilanteeseen, jossa yhden toimitsijan vastuulla
+      on yksi tulospaikka. Lisäksi se antaa hyvän kokonaiskuvan sarjojen
+      tilanteesta.</li>
+    <li>Kilpailijakohtainen lomake: Jos kilpailijan tiedot avaa sen jälkeen,
+      kun lähtölista on luotu, hänelle voi syöttää samassa näkymässä kaikki
+      tulostiedot kerralla. Tätä vaihtoehtoa voi käyttää esimerkiksi silloin,
+      jos kaikki yksittäisten kilpailijoiden tiedot ovat saatavilla
+      numerojärjestyksessä, sillä lomakkeesta pääsee seuraavaan kilpailijaan
+      nappia painamalla.</li>
+  </ol>
+</div>
+
+<div class="question">Pitääkö <span class="highligth">ammuntatulokset</span>
+  syöttää summana vai yksittäisinä laukauksina?</div>
+<div class="answer">Saat päättää tämän itse. Molemmat vaihtoehdot ovat mahdollisia.</div>
+
+<div class="question">Kuinka sarjojen <span class="highligth">oikeat arviointimatkat</span>
+  määritetään?</div>
+<div class="answer">Oikeat arviointimatkat määritetään kilpailunumeroiden perusteella.
+  Voit esimerkiksi määrittää, että numeroiden 1-50 oikeat matkat ovat 100 ja 120 metriä
+  ja että numeroilla 51-100 matkat ovat 95 ja 125 metriä.</div>
+
+<div class="question">Mitä asioita täytyy tehdä
+  <span class="highligth">kilpailun jälkeen</span>?</div>
+<div class="answer">Kun olet syöttänyt kaikille kilpailijoille tulokset
+  sekä määrittänyt kilpailulle oikeat arviointimatkat,
+  muista merkitä vielä kilpailu päättyneeksi Yhteenveto-sivulta.
+  Tämä vaikuttaa mm. siihen, että tarkat arviointitiedot julkaistaan kilpailijoille.
+  Niin kauan kuin kilpailu on kesken, kilpailijat eivät näe arviointitietojen
+  osalta muuta kuin pisteet.</div>
+
+<div class="question">Voiko <span class="highligth">useampi toimitsija</span>
+  käyttää järjestelmää yhtä aikaa?</div>
+<div class="answer">Kyllä voi. Kilpailun perustaja voi kutsua muita henkilöitä
+  toimitsijaksi samaan kilpailuun. (Tämä ominaisuus käytössä vain Online-palvelussa.)</div>
+
+<div class="question">Onko mahdollista
+  <span class="highligth">kokeilla palvelun käyttämistä</span> jossain?</div>
+<div class="answer">Osoitteessa <a href="<%= TEST_URL %>"><%= TEST_URL %></a>
+  voit harjoitella toimitsijana toimimista. Tämän version käyttäminen on täysin
+  ilmaista mutta sitä ei ole sallittu käytettäväksi oikeiden kilpailuiden
+  tuloslaskentaan.<br/><br/>
+  Huom! Testipalvelu (<a href="<%= TEST_URL %>"><%= TEST_URL %></a>) ja varsinainen
+  palvelu (<a href="<%= PRODUCTION_URL %>"><%= PRODUCTION_URL %></a>) käyttävät
+  eri tietokantoja, joten toiseen palveluun luodut käyttäjätunnukset eivät ole
+  käytössä toisessa. Voit kuitenkin halutessasi käyttää molemmissa samoja
+  kirjautumistietoja (sähköposti ja salasana).<br/><br/>
+  <%= link_to 'Lue Hirviurheilu Offline -tuotteen kokeilemisesta.', offline_price_path %></div>
+
+<a name="cup"></a>
+<h3>Cup-kilpailut</h3>
+
+<div class="question cup_question">Kuinka <span class="highligth">cup-kilpailuita luodaan</span>?</div>
+<div class="answer">Cup-kilpailuiden luominen on erittäin helppoa. Mene Toimitsijan etusivulle
+  ja lisää sieltä uusi cup-kilpailu. Sinun tarvitsee vain kertoa cup-kilpailun nimi ja valita,
+  mistä (osa)kilpailuista cup koostuu. Osakilpailut tarkoittavat tässä yhteydessä aivan normaaleja
+  Hirviurheilun kilpailuita, joiden tulokset olet palveluun syöttänyt tai tulet syöttämään.
+</div>
+
+<div class="question cup_question">Kuinka <span class="highligth">cup-sarjat</span> määritetään?</div>
+<div class="answer">Kun lisäät cup-kilpailun ja valitset siihen osakilpailut, järjestelmä
+  luo automaattisesti ensimmäisen osakilpailun perusteella cup-sarjat käyttäen kyseisen
+  osakilpailun sarjojen nimiä. Jos nämä sarjat ovat myös cup-sarjat, sinun ei tarvitse tehdä mitään.<br/><br/>
+  Voit kuitenkin halutessasi määrittää eri cup-sarjat muokkaamalla cup-kilpailun asetuksia.
+  Cup-sarja voi koostua yhdestä tai useammasta osakilpailuiden sarjasta. Esimerkiksi:
+  <ul>
+    <li>Cup-sarja 'M', jonka tulokset lasketaan suoraan osakilpailuissa olevan sarjan 'M' perusteella.
+      (Cup-kilpailuiden oletussarjat toimivat tällä periaatteella.)</li>
+    <li>Cup-sarja 'Miehet', jonka tulokset lasketaan osakilpailuissa olevien sarjojen 'M', 'M60' ja 'M70'
+      perusteella.</li>
+  </ul>
+</div>
+
+<div class="question cup_question">Kuinka <span class="highligth">cup-kilpailuiden tuloslaskenta</span> toimii?</div>
+<div class="answer">Cup-kilpailussa lasketaan tulokset niille sarjoille, jotka olet määrittänyt
+  kuuluvan cup-kilpailun sarjoihin (ks. edellä). Eri osakilpailuiden kilpailijat yhdistetään yhdeksi henkilöksi
+  kilpailijan nimen perusteella. Jos siis osakilpailuissa esiintyy kilpailija "Timo Testinen",
+  palvelu tunnistaa hänet yhdeksi henkilöksi ja osaa laskea hänelle cup-yhteispisteet.<br/><br/>
+  Cup-yhteispisteet ovat summa osakilpailuiden pisteistä. Voit kuitenkin halutessasi määrittää
+  cup-kilpailun asetuksiin esimerkiksi, että kolmesta osakilpailusta yhteispisteisiin lasketaan
+  vain kaksi parasta tulosta.
+</div>
+
+<h3>Tulosten julkaisu</h3>
+<div class="question">Miten tulokset saadaan <span class="highligth">julkaistua</span>
+  kilpailijoiden nähtäville?</div>
+<div class="answer">Hirviurheilu Online -palvelussa sinun ei tarvitse tehdä
+  mitään erillistoimenpiteitä. Tulospalvelu on täysin reaaliaikainen,
+  joten kaikki tulokset ovat näkyvissä koko ajan. Hirviurheilu Offline
+  -tuotteessa on sivu, jonka avulla voit julkaista valmiit tulokset
+  muiden nähtäville Hirviurheilu Online -palveluun.</div>
+
+<div class="question">Haluaisin tulostaa tulokset / lähtölistan
+  <span class="highligth">paperille</span>. Kuinka tämä onnistuu?</div>
+<div class="answer">Tulostaminen onnistuu parhaiten siten, että lataat
+  tuloslistan tai lähtölistan PDF-tiedostona, jonka voit sitten tulostaa
+  paperille. Linkit löytyvät tulos- ja lähtölistasivuilta.</div>
+
+<div class="question">Voiko palvelusta tulostaa tuloslistat
+  <span class="highligth">lehdistölle</span> sopivassa muodossa?</div>
+<div class="answer">Kyllä voi. Toimitsijan sivuilta löytyy Lehdistö-sivu,
+  josta saat yksinkertaisten tulosluettelon haluamallesi määrälle kilpailijoita /
+  sarja.</div>
+
+<% unless offline? %>
+  <h3>Hinnoittelu</h3>
+  <div class="question">Kuinka paljon palvelun käyttö
+    <span class="highligth">maksaa</span>?</div>
+  <div class="answer"><%= link_to "Katso tämän hetken hinnasto.", prices_path %></div>
+<% end %>
+
+<script type="text/javascript">
+  <% if params[:open] %>
+    $(document).ready(function() {
+      $('.<%= params[:open] %>_question').next().show();
+    });
+  <% end %>
+  $(".question").next().hide();
+  $(".question").click(function() {
+    if($(this).next().is(":visible")) {
+      $(this).next().hide('fast');
+    } else {
+      $(this).next().show('fast');
+    }
+  });
+</script>
