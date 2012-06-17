@@ -151,8 +151,7 @@ Feature: Results
     Then I should be on the results page of the series
     And the page title should contain "My test race"
     And I should see "Men 50 years - Tulokset" within "h2"
-    And I should see "Tälle sarjalle ei lasketa aikapisteitä." in an info message
-    And I should see /Tässä sarjassa on 4 arviomatkaa./ within "div.info"
+    And I should see "Sarjalle ei lasketa aikapisteitä. Sarjassa on 4 arviomatkaa." in an info message
     And I should see a result row 1 with values:
       | name | Atkinsson Tim |
       | number | 51 |
@@ -204,7 +203,7 @@ Feature: Results
     Then I should be on the results page of the series
     And the page title should contain "My test race"
     And I should see "Men 50 years - Tulokset" within "h2"
-    And I should see "Tässä sarjassa kaikki saavat 300 aikapistettä." in an info message
+    And I should see "Sarjassa kaikki saavat 300 aikapistettä." in an info message
     And I should see a result row 1 with values:
       | name | Johnson James |
       | number | 50 |
@@ -215,7 +214,7 @@ Feature: Results
       | time | 300 |
     When I follow "Johnson James"
     Then I should be on the results page of the competitor
-    And I should see "Tässä sarjassa kaikki saavat 300 aikapistettä." in an info message
+    And I should see "Sarjassa kaikki saavat 300 aikapistettä." in an info message
     And I should see "Pisteet" within "#points h3"
     And I should see /510/ within "#points td"
     And I should see /296/ within "#points td"
@@ -364,8 +363,7 @@ Feature: Results
     And I am on the results page of the series
     When I follow "Atkinsson Tim"
     Then I should be on the results page of the competitor
-    And I should see "Tälle sarjalle ei lasketa aikapisteitä." in an info message
-    And I should see /Tässä sarjassa on 4 arviomatkaa./ within "div.info"
+    And I should see "Sarjalle ei lasketa aikapisteitä. Sarjassa on 4 arviomatkaa." in an info message
     And the page title should contain "My test race"
     And I should see "Men 50 years - Atkinsson Tim" within "h2"
     And I should see "Pisteet" within "#points h3"

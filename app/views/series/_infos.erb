@@ -1,12 +1,17 @@
-<% if series.active? %>
+<% show_estimate_info = defined?(show_race_unfinished) ? show_race_unfinished : true %>
+<% if show_estimate_info and series.active? %>
   <div class="info">Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan
     kilpailun päätyttyä.</div>
 <% end %>
+<% walking_info = [] %>
 <% if series.time_points_type == Series::TIME_POINTS_TYPE_NONE %>
-  <div class="info">Tälle sarjalle ei lasketa aikapisteitä.</div>
+  <% walking_info << 'Sarjalle ei lasketa aikapisteitä.' %>
 <% elsif series.time_points_type == Series::TIME_POINTS_TYPE_ALL_300 %>
-  <div class="info">Tässä sarjassa kaikki saavat 300 aikapistettä.</div>
+  <% walking_info << 'Sarjassa kaikki saavat 300 aikapistettä.' %>
 <% end %>
 <% if series.estimates == 4 %>
-  <div class="info">Tässä sarjassa on 4 arviomatkaa.</div>
+  <% walking_info << 'Sarjassa on 4 arviomatkaa.' %>
+<% end %>
+<% unless walking_info.empty? %>
+  <div class="info"><%= walking_info.join(' ') %></div>
 <% end %>

@@ -2,16 +2,11 @@
 <%= @competitor.series.race.location %>, <%= race_date_interval(@competitor.series.race) %>
 <h2><%= @competitor.series.name %> - <%= full_name(@competitor) %>
   <%= (@competitor.age_group ? " (#{@competitor.age_group.name})" : "") %></h2>
-<% if @competitor.series.time_points_type == Series::TIME_POINTS_TYPE_NONE %>
-  <div class="info">Tälle sarjalle ei lasketa aikapisteitä.</div>
-<% elsif @competitor.series.time_points_type == Series::TIME_POINTS_TYPE_ALL_300 %>
-  <div class="info">Tässä sarjassa kaikki saavat 300 aikapistettä.</div>
-<% end %>
-<% if @competitor.series.estimates == 4 %>
-  <div class="info">Tässä sarjassa on 4 arviomatkaa.</div>
-<% end %>
 <% if @competitor.no_result_reason %>
   <div class="info"><%= t "competitor.#{@competitor.no_result_reason}" %></div>
+<% else %>
+  <%= render :partial => 'series/infos', :locals => { :series => @competitor.series,
+    :show_race_unfinished => false } %>
 <% end %>
 <h3>Pisteet</h3>
 <table>
