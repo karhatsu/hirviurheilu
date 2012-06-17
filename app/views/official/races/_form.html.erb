@@ -75,6 +75,7 @@
       <a class="help" id="start_order_help">?</a>
     </span>
     <span>
+      <%= f.radio_button :start_order, Race::START_ORDER_NOT_SELECTED, :style => 'display:none;' %>
       <%= f.radio_button :start_order, Race::START_ORDER_BY_SERIES %>
       <%= f.label "start_order_#{Race::START_ORDER_BY_SERIES}", 'Pääsääntöisesti sarjoittain' %>
       <%= f.radio_button :start_order, Race::START_ORDER_MIXED %>
