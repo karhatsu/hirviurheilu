@@ -1,15 +1,23 @@
 <% content_for(:title, 'Lähetä palautetta') %>
 <% content_for(:page_title, yield(:title)) %>
 <%= flash_error %>
-<%= form_tag(feedbacks_path) do %>
-  <%= label_tag :comment, 'Palaute' %><br/>
-  <%= text_area_tag :comment, @comment, :cols => 60, :rows => 8 %><br/>
-  <%= label_tag :name, 'Nimi' %>
-  <%= text_field_tag :name, @name %><br/>
-  <%= label_tag :email, 'Sähköposti' %>
-  <%= email_field_tag :email, @email %><br/>
-  <%= label_tag :tel, 'Puhelin' %>
-  <%= text_field_tag :tel, @tel %><br/>
+<%= form_tag(feedbacks_path, :class => 'feedback_form') do %>
+  <div>
+    <span class="form_label"><%= label_tag :comment, 'Palaute' %></span>
+    <span><%= text_area_tag :comment, @comment, :cols => 60, :rows => 8 %></span>
+  </div>
+  <div>
+    <span class="form_label"><%= label_tag :name, 'Nimi' %></span>
+    <span><%= text_field_tag :name, @name %></span>
+  </div>
+  <div>
+    <span class="form_label"><%= label_tag :email, 'Sähköposti' %></span>
+    <span><%= email_field_tag :email, @email %></span>
+  </div>
+  <div>
+    <span class="form_label"><%= label_tag :tel, 'Puhelin' %></span>
+    <span><%= text_field_tag :tel, @tel %></span>
+  </div>
   <%= submit_tag 'Lähetä' %>
 <% end %>
 <%= render :partial => 'shared/company_contact', :locals => { :corner => true } %>
