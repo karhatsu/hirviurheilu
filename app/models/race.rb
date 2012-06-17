@@ -11,13 +11,13 @@ class Race < ActiveRecord::Base
   START_ORDER_MIXED = 2
 
   belongs_to :sport
-  has_many :series, :order => 'name'
+  has_many :series, :order => 'name', :dependent => :destroy
   has_many :age_groups, :through => :series
   has_many :competitors, :through => :series
-  has_many :clubs
+  has_many :clubs, :dependent => :destroy
   has_many :correct_estimates, :order => 'min_number'
   has_many :relays, :order => 'name'
-  has_many :team_competitions, :order => 'name'
+  has_many :team_competitions, :order => 'name', :dependent => :destroy
   has_and_belongs_to_many :users, :join_table => :race_officials
   has_and_belongs_to_many :cups
 
@@ -48,7 +48,7 @@ class Race < ActiveRecord::Base
   
   after_save :set_series_start_lists_if_needed, :on => :update
 
-  before_destroy :prevent_destroy_if_series
+  before_destroy :prevent_destroy
 
   scope :past, :conditions => ['end_date<?', Time.zone.today], :order => 'end_date DESC'
   scope :ongoing, :conditions => ['start_date<=? and end_date>=?',
@@ -199,6 +199,10 @@ class Race < ActiveRecord::Base
     end
     true
   end
+  
+  def can_destroy?
+    competitors.count == 0 and relays.count == 0
+  end
 
   private
   def end_date_not_before_start_date
@@ -242,9 +246,9 @@ class Race < ActiveRecord::Base
     self.club_level = CLUB_LEVEL_SEURA unless club_level
   end
 
-  def prevent_destroy_if_series
-    if series.count > 0
-      errors.add(:base, "Kilpailun voi poistaa vain jos siinä ei ole sarjoja")
+  def prevent_destroy
+    unless can_destroy?
+      errors.add(:base, "Kilpailun voi poistaa vain, jos siinä ei ole yhtään kilpailijaa eikä viestiä")
       return false
     end
   end

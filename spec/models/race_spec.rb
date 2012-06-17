@@ -293,22 +293,82 @@ describe Race do
       lambda { @race.finish! }.should raise_error
     end
   end
+  
+  describe "#can_destroy?" do
+    before do
+      @race = FactoryGirl.create(:race)
+    end
+    
+    it "should be false when competitors" do
+      series = FactoryGirl.build(:series, :race => @race)
+      @race.series << series
+      series.competitors << FactoryGirl.build(:competitor)
+      @race.can_destroy?.should be_false
+    end
+    
+    it "should be false when relays" do
+      @race.relays << FactoryGirl.build(:relay, :race => @race)
+      @race.can_destroy?.should be_false
+    end
+    
+    it "should be true when no competitors, nor relays" do
+      @series = FactoryGirl.build(:series, :race => @race)
+      @race.series << @series
+      @race.can_destroy?.should be_true
+    end
+  end
 
   describe "#destroy" do
     before do
       @race = FactoryGirl.create(:race)
+      @club = FactoryGirl.build(:club, :race => @race)
+      @race.clubs << @club
+      @team_competition = FactoryGirl.build(:team_competition, :race => @race)
+      @race.team_competitions << @team_competition
     end
 
-    it "should be prevented if race has series" do
-      @race.series << FactoryGirl.build(:series, :race => @race)
-      @race.destroy
-      @race.should have(1).errors
-      Race.should be_exist(@race.id)
+    context "when series but no competitors" do
+      before do
+        @series = FactoryGirl.build(:series, :race => @race)
+        @race.series << @series
+        @race.destroy
+      end
+      
+      it "should destroy the race" do
+        Race.exists?(@race.id).should be_false
+      end
+      
+      it "should destroy the series" do
+        Series.exists?(@series.id).should be_false
+      end
+      
+      it "should destroy the clubs" do
+        Club.exists?(@club.id).should be_false
+      end
+      
+      it "should destroy the team competitions" do
+        TeamCompetition.exists?(@team_competition.id).should be_false
+      end
     end
 
-    it "should destroy race when no series" do
-      @race.destroy
-      Race.should_not be_exist(@race.id)
+    context "when competitors" do
+      it "should not destroy the race" do
+        series = FactoryGirl.build(:series, :race => @race)
+        @race.series << series
+        series.competitors << FactoryGirl.build(:competitor)
+        @race.destroy
+        @race.should have(1).errors
+        Race.exists?(@race.id).should be_true
+      end
+    end
+    
+    context "when relays" do
+      it "should not destroy the race" do
+        @race.relays << FactoryGirl.build(:relay, :race => @race)
+        @race.destroy
+        @race.should have(1).errors
+        Race.exists?(@race.id).should be_true
+      end
     end
   end
 

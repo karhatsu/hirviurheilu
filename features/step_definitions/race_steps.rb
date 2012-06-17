@@ -109,3 +109,7 @@ Given /^I have a complete race "([^"]*)" located in "([^"]*)"$/ do |name, locati
   @race.set_correct_estimates_for_competitors
   @race.finish!
 end
+
+Then /^the page should not contain the remove race button$/ do
+  page.should have_no_button('Poista kilpailu')
+end
