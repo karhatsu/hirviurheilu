@@ -11,10 +11,10 @@ Feature: Manage cup
     Then I should be on the new official cup page
     And the official main menu item should be selected
     And I should see "Cup-kilpailun lisäys" within ".main_title"
-    But I should see "Sinulla täytyy olla vähintään 2 kilpailua ennen kuin voit lisätä cup-kilpailun" within "div.info"
+    But I should see "Sinulla täytyy olla vähintään 2 kilpailua ennen kuin voit lisätä cup-kilpailun" in an info message
     Given I have a race "My race"
     When I go to the new official cup page
-    Then I should see "Sinulla täytyy olla vähintään 2 kilpailua ennen kuin voit lisätä cup-kilpailun" within "div.info"
+    Then I should see "Sinulla täytyy olla vähintään 2 kilpailua ennen kuin voit lisätä cup-kilpailun" in an info message
 
   Scenario: Add cup
     Given I am an official "Teppo Testaaja"
@@ -34,7 +34,7 @@ Feature: Manage cup
     And I check "race_id_2"
     And I press "Lisää cup-kilpailu"
     Then I should be on the official cup page of "Test cup"
-    And I should see "Cup-kilpailu lisätty" within "div.success"
+    And I should see "Cup-kilpailu lisätty" in a success message
     And I should see "Test cup" within ".main_title"
     And I should see "Yhteistulokseen laskettavien kilpailuiden määrä: 2"
     And I should see "My race 1"
@@ -67,7 +67,7 @@ Feature: Manage cup
     And I check "race_id_1"
     And I press "Lisää cup-kilpailu"
     Then I should see "Cup-kilpailun lisäys" within ".main_title"
-    And I should see "Cup-kilpailun nimi on pakollinen" within "div.error"
+    And I should see "Cup-kilpailun nimi on pakollinen" in an error message
 
   Scenario: Choose wrong amount of races for the cup
     Given I am an official
@@ -125,7 +125,7 @@ Feature: Manage cup
     And I fill in "N40,N60" for "cup_cup_series_attributes_1_series_names"
     And I press "Päivitä"
     Then I should be on the official cup page of "Renamed cup"
-    And I should see "Cup-kilpailu päivitetty" within "div.success"
+    And I should see "Cup-kilpailu päivitetty" in a success message
     And I should see "Renamed cup" within ".main_title"
     And I should see "Yhteistulokseen laskettavien kilpailuiden määrä: 3"
     And I should see "My race 1"
@@ -149,7 +149,7 @@ Feature: Manage cup
     And I follow "Muokkaa cup-kilpailun asetuksia"
     When I fill in "" for "Cup-kilpailun nimi"
     And I press "Päivitä"
-    Then I should see "Cup-kilpailun nimi on pakollinen" within "div.error"
+    Then I should see "Cup-kilpailun nimi on pakollinen" in an error message
     When I fill in "Renamed cup" for "Cup-kilpailun nimi"
     And I uncheck "race_id_0"
     And I press "Päivitä"

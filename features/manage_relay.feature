@@ -17,10 +17,10 @@ Feature: Manager relays
     Then the official main menu item should be selected
     And the "Viestit" sub menu item should be selected
     And I should see "Uusi viesti" within "h2"
-    And I should see "Huom! Osuuksien määrää ei voi muuttaa sen jälkeen, kun viesti on luotu." within "div.warning"
+    And I should see "Huom! Osuuksien määrää ei voi muuttaa sen jälkeen, kun viesti on luotu." in an warning message
     And the "Osuuksien määrä" field should contain "4"
     When I press "Tallenna"
-    Then I should see "Viestin nimi on pakollinen" within "div.error"
+    Then I should see "Viestin nimi on pakollinen" in an error message
     When I fill in "Test relay" for "Viestin nimi"
     And I fill in "3" for "Osuuksien määrä"
     And I select "11" from "relay_start_time_4i"
@@ -28,8 +28,8 @@ Feature: Manager relays
     And I select "30" from "relay_start_time_6i"
     And I press "Tallenna"
     Then I should be on the edit relay page of "Test relay"
-    And I should see "Viesti luotu. Voit nyt lisätä viestiin joukkueita." within "div.success"
-    And I should see "Et ole vielä lisännyt viestiin yhtään joukkuetta. Lisää joukkueita alla olevasta napista." within "div.info"
+    And I should see "Viesti luotu. Voit nyt lisätä viestiin joukkueita." in a success message
+    And I should see "Et ole vielä lisännyt viestiin yhtään joukkuetta. Lisää joukkueita alla olevasta napista." in an info message
     And the "Viestin nimi" field should contain "Test relay"
     And I should see "3"
     And the "relay_start_time_4i" field should contain "11"
@@ -54,13 +54,13 @@ Feature: Manager relays
     But I should not see "Huom! Osuuksien määrää"
     When I fill in "" for "Viestin nimi"
     And I press "Tallenna"
-    Then I should see "Viestin nimi on pakollinen" within "div.error"
+    Then I should see "Viestin nimi on pakollinen" in an error message
     When I fill in "New name" for "Viestin nimi"
     And I select "08" from "relay_start_time_4i"
     And I select "12" from "relay_start_time_5i"
     And I press "Tallenna"
     Then I should be on the official relays page of "Relay race"
-    And I should see "Viestin tiedot päivitetty" within "div.success"
+    And I should see "Viestin tiedot päivitetty" in a success message
     And I should see "New name"
     And I should see "08:12:00"
 
@@ -101,10 +101,10 @@ Feature: Manager relays
     And the official main menu item should be selected
     And the "Viestit" sub menu item should be selected
     And I should see "Viestin päättäminen" within "h2"
-    And I should see "Kun kaikki viestin tiedot on syötetty, voit alla olevan napin avulla merkitä viestin päättyneeksi. Ohjelma tarkastaa automaattisesti, ettei mitään tietoja puutu." within "div.info"
+    And I should see "Kun kaikki viestin tiedot on syötetty, voit alla olevan napin avulla merkitä viestin päättyneeksi. Ohjelma tarkastaa automaattisesti, ettei mitään tietoja puutu." in an info message
     Given the relay team is deleted
     When I press "Merkitse viesti päättyneeksi"
-    Then I should see "Viestissä ei ole yhtään joukkuetta" within "div.error"
+    Then I should see "Viestissä ei ole yhtään joukkuetta" in an error message
     Given the relay has a team "Test team"
     And the relay team has a competitor with attributes:
       | first_name | Tim |
@@ -124,15 +124,15 @@ Feature: Manager relays
       | 1 | 105 |
       | 2 | 88 |
     When I press "Merkitse viesti päättyneeksi"
-    Then I should see "Osalta kilpailijoista puuttuu arvio" within "div.error"
+    Then I should see "Osalta kilpailijoista puuttuu arvio" in an error message
     Given the estimate for the relay competitor "John" "Stevenson" is 75
     When I press "Merkitse viesti päättyneeksi"
     Then I should be on the official relays page of "Relay race"
-    And I should see "Viesti 'Test relay' merkitty päättyneeksi" within "div.success"
+    And I should see "Viesti 'Test relay' merkitty päättyneeksi" in a success message
     And I should see "Viesti päättynyt" within "table"
     But I should not see "Viestin päättäminen"
     When I go to the finish relay page of "Test relay"
-    Then I should see "Tämä viesti on jo merkitty päättyneeksi" within "div.info"
+    Then I should see "Tämä viesti on jo merkitty päättyneeksi" in an info message
     But I should not see "Kun kaikki viestin tiedot on syötetty"
     When I follow "Takaisin viestien etusivulle"
     Then I should be on the official relays page of "Relay race"

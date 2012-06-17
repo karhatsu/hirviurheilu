@@ -23,7 +23,7 @@ Feature: Generate start list
     Then I should see "Test series - Kilpailijat" within "h2"
     And the official main menu item should be selected
     And the "Kilpailijat" sub menu item should be selected
-    And I should see "Kun olet syöttänyt sarjaan kaikki kilpailijat, lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot." within "div.info"
+    And I should see "Kun olet syöttänyt sarjaan kaikki kilpailijat, lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot." in an info message
     And I should see "Stevensson John" within "tr#competitor_1"
     And I should see "Bears Peter" within "tr#competitor_2"
     When I fill in "15" for "Sarjan ensimmäinen numero"
@@ -102,7 +102,7 @@ Feature: Generate start list
     When I follow "Tee lista"
     And I fill in "-1" for "Sarjan ensimmäinen numero"
     And I press "Luo lähtölista sarjalle"
-    Then I should see "Sarjan ensimmäinen numero täytyy olla suurempi kuin 0" within "div.error"
+    Then I should see "Sarjan ensimmäinen numero täytyy olla suurempi kuin 0" in an error message
     But I should not see "-1" within "tr#competitor_1"
 
   Scenario: Missing values for generation
@@ -126,7 +126,7 @@ Feature: Generate start list
     When I follow "Tee lista"
     And I fill in "" for "Sarjan ensimmäinen numero"
     And I press "Luo lähtölista sarjalle"
-    Then I should see "Numeroita ei voi generoida, sillä sarjan ensimmäistä numeroa ei ole määritetty" within "div.error"
+    Then I should see "Numeroita ei voi generoida, sillä sarjan ensimmäistä numeroa ei ole määritetty" in an error message
     But I should not see "0" within "tr#competitor_1/td[3]"
 
   Scenario: Don't show start list form when some competitor has an arrival time
@@ -162,7 +162,7 @@ Feature: Generate start list
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test location |
     And I press "Lisää kilpailu"
-    Then I should see "Kilpailijoiden lähtöjärjestys" within "div.error"
+    Then I should see "Kilpailijoiden lähtöjärjestys" in an error message
     When I choose "Sarjat sekaisin"
     And I check "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"

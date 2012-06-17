@@ -51,7 +51,7 @@ Feature: Offline info
     And I am on the home page
     When I follow "Offline"
     And I follow "Offline-asennus"
-    Then I should see "Hirviurheilu Offline -asennusohjeet ovat nähtävillä vain varsinaisessa Hirviurheilu Online -palvelussa." within "div.error"
+    Then I should see "Hirviurheilu Offline -asennusohjeet ovat nähtävillä vain varsinaisessa Hirviurheilu Online -palvelussa." in an error message
     But I should not see "Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki."
     Given I am an official
     And I have logged in

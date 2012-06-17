@@ -15,13 +15,13 @@ Feature: Import competitors with CSV file
     Then the official main menu item should be selected
     And I should see "CSV race" within ".main_title"
     And I should see "Lisää kilpailijoita CSV-tiedostosta" within "h2"
-    And I should see "Jos sinulla on kilpailijoiden tiedot" within "div.info"
+    And I should see "Jos sinulla on kilpailijoiden tiedot" in an info message
     When I press "Lataa kilpailijat tietokantaan"
-    Then I should see "Valitse tiedosto" within "div.error"
+    Then I should see "Valitse tiedosto" in an error message
     When I attach the import test file "import_valid.csv" to "CSV-tiedosto"
     And I press "Lataa kilpailijat tietokantaan"
     Then I should be on the official race page of "CSV race"
-    And I should see "Kilpailijat ladattu tietokantaan" within "div.success"
+    And I should see "Kilpailijat ladattu tietokantaan" in a success message
     When I follow "Kilpailijat"
     Then I should see "Räsänen Heikki"
     When I follow "N" within "div.sub_sub_menu"
@@ -36,6 +36,6 @@ Feature: Import competitors with CSV file
     When I follow "Lisää kilpailijoita CSV-tiedostosta"
     And I attach the import test file "import_valid.csv" to "CSV-tiedosto"
     And I press "Lataa kilpailijat tietokantaan"
-    Then I should see "Tuntematon sarja/ikäryhmä: 'N'" within "div.error"
+    Then I should see "Tuntematon sarja/ikäryhmä: 'N'" in an error message
     And I should see "Lisää kilpailijoita CSV-tiedostosta" within "h2"
     

@@ -37,7 +37,7 @@ Feature: Official
     And I fill in "test" for "Salasana"
     And I press "Kirjaudu"
     Then I should be on the official index page
-    And I should see "Sinulla ei ole vielä yhtään kilpailua. Aloita luomalla kilpailu alla olevasta linkistä." within "div.info"
+    And I should see "Sinulla ei ole vielä yhtään kilpailua. Aloita luomalla kilpailu alla olevasta linkistä." in an info message
     But I should not see "Valitse kilpailu"
     But I should not see "Tai"
 

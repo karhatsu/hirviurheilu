@@ -50,7 +50,7 @@ Feature: Feedback
       | Sähköposti | pekka@palaute.com |
       | Puhelin    | 123 456           |
     And I press "Lähetä"
-    Then I should see "Älä unohda kirjoittaa palautetta" within "div.error"
+    Then I should see "Älä unohda kirjoittaa palautetta" in an error message
     And the "Nimi" field should contain "Pekka Miettinen"
     And the "Sähköposti" field should contain "pekka@palaute.com"
     And the "Puhelin" field should contain "123 456"

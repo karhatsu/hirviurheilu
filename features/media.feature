@@ -10,7 +10,7 @@ Feature: Media
     Then I should see "Test race" within ".main_title"
     And the "Lehdistö" sub menu item should be selected
     And I should see "Lehdistö" within "h2"
-    And I should see "Tältä sivulta voit ladata lehdistöraportin, kun kilpailu on päättynyt" within "div.info"
+    And I should see "Tältä sivulta voit ladata lehdistöraportin, kun kilpailu on päättynyt" in an info message
     But I should not see "Kilpailijoiden määrä / sarja"
     And I should not see "Lisäksi kaikki kilpailijat"
 
@@ -77,7 +77,7 @@ Feature: Media
     And I follow "Lehdistö"
     Then I should see "Test race" within ".main_title"
     And I should see "Lehdistö" within "h2"
-    And I should see "Tältä sivulta voit ladata lehdistöraportin" within "div.info"
+    And I should see "Tältä sivulta voit ladata lehdistöraportin" in an info message
     But I should not see "kun kilpailu on päättynyt"
     When I press "Lataa lehdistöraportti"
     Then I should see "Sarja Another test series: 1) Thomsson Tina Sports club 1140, 2) Hamilton Mary Shooting club 1105. Sarja Test series: 1) Atkinsson Tim Sports club 1140 (SE), 2) Johnson James Shooting club 1105." within "div.main_content"
@@ -145,7 +145,7 @@ Feature: Media
     When I go to the media page of "Test race"
     And I fill in "x" for "Kilpailijoiden määrä / sarja"
     And I press "Lataa lehdistöraportti"
-    Then I should see "Syötä kilpailijoiden määräksi positiivinen kokonaisluku" within "div.error"
+    Then I should see "Syötä kilpailijoiden määräksi positiivinen kokonaisluku" in an error message
     When I fill in "1" for "Kilpailijoiden määrä / sarja"
     And I select "Club C" from "Lisäksi kaikki kilpailijat seurasta"
     And I press "Lataa lehdistöraportti"

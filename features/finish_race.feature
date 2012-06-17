@@ -35,7 +35,7 @@ Feature: Finish race
     When I go to the official race page of "Test race"
     Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
     When I press "Merkitse kilpailu päättyneeksi"
-    Then I should see "Osalta kilpailijoista puuttuu oikea arviomatka." within "div.error"
+    Then I should see "Osalta kilpailijoista puuttuu oikea arviomatka." in an error message
     When I go to the official race page of "Test race"
     Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
 
@@ -59,7 +59,7 @@ Feature: Finish race
     When I go to the official race page of "Test race"
     Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
     When I press "Merkitse kilpailu päättyneeksi"
-    Then I should see "Ainakin yhdeltä kilpailijalta (James Johnson, Test series) puuttuu tulos." within "div.error"
+    Then I should see "Ainakin yhdeltä kilpailijalta (James Johnson, Test series) puuttuu tulos." in an error message
     When I go to the official race page of "Test race"
     Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
 
@@ -89,7 +89,7 @@ Feature: Finish race
     Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
     When I press "Merkitse kilpailu päättyneeksi"
     Then I should be on the official race page of "Test race"
-    And I should see "Kilpailu Test race on merkitty päättyneeksi" within "div.success"
+    And I should see "Kilpailu Test race on merkitty päättyneeksi" in a success message
     But I should not see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista."
     And the admin should receive an email
     When I open the email

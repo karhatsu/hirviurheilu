@@ -12,7 +12,7 @@ Feature: Results
     And I should see "No competitors series - (Ei kilpailijoita)" within "h2"
     But I should not see "Tulokset" within "h2"
     And I should not see "Väliaikatulokset" within "h2"
-    And I should see "Tähän sarjaan ei ole merkitty kilpailijoita." within "div.info"
+    And I should see "Tähän sarjaan ei ole merkitty kilpailijoita." in an info message
     
   Scenario: The series has no start list yet
     Given there is a race "My race" in the future
@@ -22,7 +22,7 @@ Feature: Results
     Then I should see "My series - (Sarja ei ole vielä alkanut)" within "h2"
     But I should not see "Tulokset" within "h2"
     And I should not see "Väliaikatulokset" within "h2"
-    And I should see "Sarjan lähtölistaa ei ole vielä luotu" within "div.info"
+    And I should see "Sarjan lähtölistaa ei ole vielä luotu" in an info message
     And I should not see "Lataa tulokset pdf-tiedostona"
 
   Scenario: The series has a start list but it has not started yet
@@ -37,8 +37,8 @@ Feature: Results
     Then I should see "My series - (Sarja ei ole vielä alkanut)" within "h2"
     But I should not see "Tulokset" within "h2"
     And I should not see "Väliaikatulokset" within "h2"
-    And I should see "Sarjan lähtöaika" within "div.info"
-    And I should see "Sarjan alkuun on aikaa" within "div.info"
+    And I should see "Sarjan lähtöaika" in an info message
+    And I should see "Sarjan alkuun on aikaa" in an info message
     And I should not see "Lataa tulokset pdf-tiedostona"
 
   Scenario: Go to see the final results of a series
@@ -151,7 +151,7 @@ Feature: Results
     Then I should be on the results page of the series
     And I should see "My test race" within ".main_title"
     And I should see "Men 50 years - Tulokset" within "h2"
-    And I should see "Tälle sarjalle ei lasketa aikapisteitä." within "div.info"
+    And I should see "Tälle sarjalle ei lasketa aikapisteitä." in an info message
     And I should see /Tässä sarjassa on 4 arviomatkaa./ within "div.info"
     And I should see a result row 1 with values:
       | name | Atkinsson Tim |
@@ -204,7 +204,7 @@ Feature: Results
     Then I should be on the results page of the series
     And I should see "My test race" within ".main_title"
     And I should see "Men 50 years - Tulokset" within "h2"
-    And I should see "Tässä sarjassa kaikki saavat 300 aikapistettä." within "div.info"
+    And I should see "Tässä sarjassa kaikki saavat 300 aikapistettä." in an info message
     And I should see a result row 1 with values:
       | name | Johnson James |
       | number | 50 |
@@ -215,7 +215,7 @@ Feature: Results
       | time | 300 |
     When I follow "Johnson James"
     Then I should be on the results page of the competitor
-    And I should see "Tässä sarjassa kaikki saavat 300 aikapistettä." within "div.info"
+    And I should see "Tässä sarjassa kaikki saavat 300 aikapistettä." in an info message
     And I should see "Pisteet" within "#points h3"
     And I should see /510/ within "#points td"
     And I should see /296/ within "#points td"
@@ -364,7 +364,7 @@ Feature: Results
     And I am on the results page of the series
     When I follow "Atkinsson Tim"
     Then I should be on the results page of the competitor
-    And I should see "Tälle sarjalle ei lasketa aikapisteitä." within "div.info"
+    And I should see "Tälle sarjalle ei lasketa aikapisteitä." in an info message
     And I should see /Tässä sarjassa on 4 arviomatkaa./ within "div.info"
     And I should see "My test race" within ".main_title"
     And I should see "Men 50 years - Atkinsson Tim" within "h2"

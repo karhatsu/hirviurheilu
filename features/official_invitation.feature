@@ -22,7 +22,7 @@ Feature: Official invitation
     And I should see "Tim Thomas" within "#current_officials"
     When I fill in "another@official.com" for "Sähköposti"
     And I press "Lähetä kutsu"
-    Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi" within "div.success"
+    Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi" in a success message
     And I should see "Tim Thomas, Another Official" within "#current_officials"
     And "another@official.com" should receive an email with subject "Kutsu kilpailun Test race toimitsijaksi"
     When "another@official.com" opens the email
@@ -39,7 +39,7 @@ Feature: Official invitation
     When I follow "Toimitsijat"
     When I fill in "another@official.com" for "Sähköposti"
     And I press "Lähetä kutsu"
-    Then I should see "Tietokannasta ei löytynyt syöttämääsi sähköpostiosoitetta" within "div.error"
+    Then I should see "Tietokannasta ei löytynyt syöttämääsi sähköpostiosoitetta" in an error message
     And I should see "Tim Thomas" within "#current_officials"
 
   Scenario: Try to invite an official that already is an official for this race
@@ -50,5 +50,5 @@ Feature: Official invitation
     When I follow "Toimitsijat"
     When I fill in "tim@official.com" for "Sähköposti"
     And I press "Lähetä kutsu"
-    Then I should see "Henkilö on jo tämän kilpailun toimitsija" within "div.error"
+    Then I should see "Henkilö on jo tämän kilpailun toimitsija" in an error message
     And I should see "Tim Thomas" within "#current_officials"

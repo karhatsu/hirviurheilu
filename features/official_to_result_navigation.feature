@@ -63,7 +63,7 @@ Feature: Navigation between official and result sections
     Given I use the software offline
     When I go to the home page
     And I follow "Kilpailut"
-    Then I should see "Et ole lisännyt vielä yhtään kilpailua" within "div.info"
+    Then I should see "Et ole lisännyt vielä yhtään kilpailua" in an info message
     When I follow "Lisää kilpailu"
     Then I should be on the new race page
     When I fill in the following:

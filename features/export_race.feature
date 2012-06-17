@@ -12,8 +12,8 @@ Feature: Export race
     And the official main menu item should be selected
     And the "Julkaise" sub menu item should be selected
     And I should see "Julkaise kilpailu internetissä" within "h2"
-    And I should see "Tällä sivulla voit julkaista kilpailun lopulliset tulokset internetissä, Hirviurheilu-palvelussa." within "div.info"
-    And I should see "Voit julkaista kilpailun vasta, kun olet merkinnyt sen päättyneeksi." within "div.error"
+    And I should see "Tällä sivulla voit julkaista kilpailun lopulliset tulokset internetissä, Hirviurheilu-palvelussa." in an info message
+    And I should see "Voit julkaista kilpailun vasta, kun olet merkinnyt sen päättyneeksi." in an error message
 
   # In this scenario the race is exported to the same system which is relevant only for testing.
   # The first user in the scenario is automatically used in the offline state.
@@ -99,7 +99,7 @@ Feature: Export race
     And I fill in "online" for "Salasana"
     And I select "Integration test" from "Kohde"
     And I press "Julkaise"
-    Then I should see "Kilpailun tiedot ladattu kohdejärjestelmään" within "div.success"
+    Then I should see "Kilpailun tiedot ladattu kohdejärjestelmään" in a success message
     And the admin should receive an email
     When I open the email
     Then I should see "Hirviurheilu - kilpailu julkaistu (test)" in the email subject
@@ -186,7 +186,7 @@ Feature: Export race
     And I fill in "wrong password" for "Salasana"
     And I select "Integration test" from "Kohde"
     And I press "Julkaise"
-    Then I should see "Virheelliset tunnukset" within "div.error"
+    Then I should see "Virheelliset tunnukset" in an error message
 
   Scenario: Try to export same race twice without renaming the race
     Given there is an official with email "offline@hirviurheilu.com" and password "offline"
@@ -197,7 +197,7 @@ Feature: Export race
     And I fill in "offline" for "Salasana"
     And I select "Integration test" from "Kohde"
     And I press "Julkaise"
-    Then I should see "Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä" within "div.error"
+    Then I should see "Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä" in an error message
 
   # In this scenario the race is exported to the same system which is relevant only for testing.
   # The first user in the scenario is automatically used in the offline state.
@@ -211,7 +211,7 @@ Feature: Export race
     And I am on the official race page of "Online race"
     And I follow "Lataa"
     Then I should be on the export race page of "Online race"
-    And I should see "Jos sinulla on Hirviurheilu Offline, voit ladata tämän kilpailun omalle koneellesi." within "div.info"
+    And I should see "Jos sinulla on Hirviurheilu Offline, voit ladata tämän kilpailun omalle koneellesi." in an info message
     But I should not see "Voit julkaista kilpailun vasta, kun olet merkinnyt sen päättyneeksi."
     And I should not see "Kohde"
     And I should not see "Sähköposti"
@@ -219,7 +219,7 @@ Feature: Export race
     And the "Kilpailun nimi" field should contain "Online race"
     When I fill in "Downloaded race" for "Kilpailun nimi"
     And I press "Lataa"
-    Then I should see "Kilpailun tiedot ladattu omalle koneellesi" within "div.success"
+    Then I should see "Kilpailun tiedot ladattu omalle koneellesi" in a success message
     But the admin should receive no email
     Given I use the software offline
     When I follow "Toimitsijan sivut"

@@ -17,7 +17,7 @@ Feature: Club level
     When I follow "Seurat" within ".sub_menu"
     Then the "Seurat" sub menu item should be selected
     And I should see "Seurat" within "h2"
-    And I should see "seuroja" within "div.info"
+    And I should see "seuroja" in an info message
     And I should see "Lisää seura"
     When I fill in "Testi" for "Nimi"
     And I press "Lisää seura"
@@ -57,7 +57,7 @@ Feature: Club level
     When I follow "Piirit" within ".sub_menu"
     Then the "Piirit" sub menu item should be selected
     And I should see "Piirit" within "h2"
-    And I should see "piirejä" within "div.info"
+    And I should see "piirejä" in an info message
     And I should see "Lisää piiri"
     When I fill in "Testi" for "Nimi"
     And I press "Lisää piiri"

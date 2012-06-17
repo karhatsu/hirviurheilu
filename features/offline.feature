@@ -42,7 +42,7 @@ Feature: Offline usage
     And I am on the home page
     When I follow "Lähetä palautetta"
     Then I should see "Lähetä palautetta" within "div.main_title"
-    And I should see "Offline-versiossa et voi lähettää palautetta suoraan ohjelman kautta." within "div.info"
+    And I should see "Offline-versiossa et voi lähettää palautetta suoraan ohjelman kautta." in an info message
     But I should not see "Palaute"
     But I should not see "Nimi"
     But I should not see "Sähköposti"
@@ -62,22 +62,22 @@ Feature: Offline usage
     Given the database contains in total 100 competitors
     When I go to the new competitor page of the series
     Then I should see "Voit lisätä vielä 0 kilpailijaa. Hanki lisenssi." within "div.offline_limit"
-    And I should see "Olet tallentanut järjestelmään 100 kilpailijaa. Ennen kuin voit lisätä uusia kilpailijoita, sinun täytyy hankkia tuotteeseen lisenssi." within "div.error"
+    And I should see "Olet tallentanut järjestelmään 100 kilpailijaa. Ennen kuin voit lisätä uusia kilpailijoita, sinun täytyy hankkia tuotteeseen lisenssi." in an error message
     But I should not see "Etunimi"
     When I follow "Hanki lisenssi"
     Then I should be on the new license page
     And I should see "Hanki lisenssi" within "div.main_title"
-    And I should see "Kirjaudu osoitteseen http://www.hirviurheilu.com/activation_key/new omilla tunnuksillasi. Saat käyttöösi aktivointitunnuksen. Sen jälkeen syötä alla olevaan lomakkeseen saamasi aktivointitunnus sekä omat tunnuksesi." within "div.info"
+    And I should see "Kirjaudu osoitteseen http://www.hirviurheilu.com/activation_key/new omilla tunnuksillasi. Saat käyttöösi aktivointitunnuksen. Sen jälkeen syötä alla olevaan lomakkeseen saamasi aktivointitunnus sekä omat tunnuksesi." in an info message
     When I fill in "online@hirviurheilu.com" for "Sähköposti"
     And I fill in "online" for "Salasana"
     And I fill in "testkey123" for "Aktivointitunnus"
     And I press "Tallenna"
-    Then I should see "Virheellinen aktivointitunnus" within "div.error"
+    Then I should see "Virheellinen aktivointitunnus" in an error message
     When I fill in "online@hirviurheilu.com" for "Sähköposti"
     And I fill in "online" for "Salasana"
     And I fill in "5bd11fe7d2" for "Aktivointitunnus"
     And I press "Tallenna"
-    Then I should see "Hirviurheilun offline-versiosi on aktivoitu. Voit käyttää nyt tuotetta ilman rajoituksia." within "div.success"
+    Then I should see "Hirviurheilun offline-versiosi on aktivoitu. Voit käyttää nyt tuotetta ilman rajoituksia." in a success message
     But I should not see "Voit lisätä vielä 0 kilpailijaa."
     When I go to the new competitor page of the series
     Then I should not see "Olet tallentanut järjestelmään 100 kilpailijaa."

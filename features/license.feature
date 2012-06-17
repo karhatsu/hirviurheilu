@@ -11,20 +11,20 @@ Feature: License
     Then the "Offline" main menu item should be selected
     And the "Hanki aktivointitunnus" sub menu item should be selected
     And I should see "Hanki aktivointitunnus offline-tuotetta varten" within "div.main_title"
-    And I should see "Tältä sivulta voit hankkia offline-tuotteeseen aktivointitunnuksen, joka poistaa tuotteesta käyttörajoitukset. Jos käytät Hirviurheilu-palvelua pelkästään internetin välityksellä, sinun ei tarvitse hankkia aktivointitunnusta." within "div.info"
-    And I should see "TÄRKEÄÄ! Jos avaat aktivointitunnuksen, se tarkoittaa sitä, että Hirviurheilu-palvelulla on oikeus laskuttaa sinua Offline-tuotteesta riippumatta siitä, käytätkö sitä vai et." within "div.warning"
+    And I should see "Tältä sivulta voit hankkia offline-tuotteeseen aktivointitunnuksen, joka poistaa tuotteesta käyttörajoitukset. Jos käytät Hirviurheilu-palvelua pelkästään internetin välityksellä, sinun ei tarvitse hankkia aktivointitunnusta." in an info message
+    And I should see "TÄRKEÄÄ! Jos avaat aktivointitunnuksen, se tarkoittaa sitä, että Hirviurheilu-palvelulla on oikeus laskuttaa sinua Offline-tuotteesta riippumatta siitä, käytätkö sitä vai et." in an warning message
     When I fill in "license" for "Salasana"
     And I press "Näytä aktivointitunnus"
-    Then I should see "Sinun täytyy hyväksyä käyttöehdot" within "div.error"
+    Then I should see "Sinun täytyy hyväksyä käyttöehdot" in an error message
     When I check "Hyväksyn käyttöehdot ja ymmärrän, että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä"
     And I fill in "wrong password" for "Salasana"
     And I press "Näytä aktivointitunnus"
-    Then I should see "Väärä salasana" within "div.error"
+    Then I should see "Väärä salasana" in an error message
     When I check "Hyväksyn käyttöehdot ja ymmärrän, että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä"
     And I fill in "license" for "Salasana"
     And I press "Näytä aktivointitunnus"
-    Then I should see "Aktivointitunnus: CC81E12F02" within "div.success"
-    And I should see "Siirry seuraavaksi offline-tuotteen puolelle ja syötä sinne tämän palvelun käyttäjätunnukset sekä yllä oleva aktivointitunnus." within "div.info"
+    Then I should see "Aktivointitunnus: CC81E12F02" in a success message
+    And I should see "Siirry seuraavaksi offline-tuotteen puolelle ja syötä sinne tämän palvelun käyttäjätunnukset sekä yllä oleva aktivointitunnus." in an info message
     And the admin should receive an email
     When I open the email
     Then I should see "Hirviurheilu - aktivointitunnus katsottu" in the email subject
@@ -46,7 +46,7 @@ Feature: License
     And I am an official
     And I have logged in
     And I go to the activation key page
-    Then I should see "Voit hankkia aktivointitunnuksen vain varsinaisesta Hirviurheilu Online -palvelusta." within "div.error"
+    Then I should see "Voit hankkia aktivointitunnuksen vain varsinaisesta Hirviurheilu Online -palvelusta." in an error message
     But I should not see "Salasana"
     And I should not see "Hyväksyn käyttöehdot"
 

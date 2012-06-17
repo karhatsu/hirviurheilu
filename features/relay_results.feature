@@ -15,7 +15,7 @@ Feature: Relay results
     Then the "Kilpailut" main menu item should be selected
     And the "Viestit" sub menu item should be selected
     And I should see "Women's relay - (Ei joukkueita)" within "h2"
-    And I should see "Viestiin ei ole vielä merkitty joukkueita" within "div.info"
+    And I should see "Viestiin ei ole vielä merkitty joukkueita" in an info message
     
   Scenario: The relay has teams but no start time defined
     Given there is a race "Relay race"
@@ -24,7 +24,7 @@ Feature: Relay results
     And the relay has a team "Relay team"
     When I go to the relay results page of "Women's relay"
     Then I should see "Women's relay - (Viesti ei ole vielä alkanut)" within "h2"
-    And I should see "Viestin lähtöaikaa ei ole vielä päätetty" within "div.info"
+    And I should see "Viestin lähtöaikaa ei ole vielä päätetty" in an info message
 
   Scenario: The relay has not started yet
     Given there is a race "My race" in the future
@@ -34,8 +34,8 @@ Feature: Relay results
     And the relay has a team "Relay team"
     When I go to the relay results page of "Women's relay"
     Then I should see "Women's relay - (Viesti ei ole vielä alkanut)" within "h2"
-    And I should see "Viestin lähtöaika" within "div.info"
-    And I should see "Viestin alkuun on aikaa" within "div.info"
+    And I should see "Viestin lähtöaika" in an info message
+    And I should see "Viestin alkuun on aikaa" in an info message
 
   Scenario: Relay results
     Given there is a race with attributes:
@@ -125,7 +125,7 @@ Feature: Relay results
     Then I should be on the relay results page of "Men's relay"
     And the "Viestit" sub menu item should be selected
     And I should see "Men's relay - Väliaikatulokset" within "h2"
-    And I should see "Kilpailu on kesken. Tarkemmat arviotiedot julkaistaan, kun kilpailu on päättynyt." within "div.info"
+    And I should see "Kilpailu on kesken. Tarkemmat arviotiedot julkaistaan, kun kilpailu on päättynyt." in an info message
     But I should not see "Oikeat arviot"
     And I should see "1." within "tr#team_1"
     And I should see "Red team" within "tr#team_1"
