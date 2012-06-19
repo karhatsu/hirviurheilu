@@ -13,9 +13,9 @@
           <div class="box_sub_title">Menossa olevat kilpailut</div>
           <%= render :partial => "race_list", :locals => { :competitions => @ongoing } %>
         </div>
+        <hr/>
       <% end %>
 
-      <hr/>
       <div class="future_races">
         <div class="box_sub_title">Tulevat kilpailut</div>
         <% unless @future.empty? %>
