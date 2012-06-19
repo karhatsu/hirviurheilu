@@ -220,6 +220,34 @@ describe Race do
     it "#future should return future races" do
       Race.future.should == [@future2, @future1]
     end
+
+    describe "no date caching" do
+      before do
+        @zone = mock(Object)
+        Time.stub!(:zone).and_return(@zone)
+      end
+      
+      it "past" do
+        @zone.stub!(:today).and_return(Date.today)
+        Race.past.should_not be_empty
+        @zone.stub!(:today).and_return(Date.today - 10)
+        Race.past.should be_empty
+      end
+      
+      it "ongoing" do
+        @zone.stub!(:today).and_return(Date.today)
+        Race.ongoing.should_not be_empty
+        @zone.stub!(:today).and_return(Date.today + 10)
+        Race.ongoing.should be_empty
+      end
+      
+      it "future" do
+        @zone.stub!(:today).and_return(Date.today)
+        Race.future.should_not be_empty
+        @zone.stub!(:today).and_return(Date.today + 10)
+        Race.future.should be_empty
+      end
+    end
   end
 
   describe "#finish" do
