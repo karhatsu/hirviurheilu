@@ -8,8 +8,10 @@ Feature: Official
     Then I should be on the login page
 
   Scenario: Official registration
-    Given I go to the registration page
-    Then the "Aloita" main menu item should be selected
+    Given I am on the home page
+    When I follow "Aloita käyttö"
+    Then I should be on the registration page
+    And the "Aloita" main menu item should be selected
     When I fill in the following:
       | Etunimi | Tim |
       | Sukunimi | Tester |
@@ -27,6 +29,12 @@ Feature: Official
     And I should see "Etunimi: Tim" in the email body
     And I should see "Sukunimi: Tester" in the email body
     And I should see "Sähköposti: tim@tester.com" in the email body
+
+  Scenario: Previously registered official goes to the registration page
+    Given I am on the registration page
+    Then I should see "Jos sinulla on jo tunnukset"
+    When I follow "Kirjaudu sisään"
+    Then I should be on the login page
 
   Scenario: Official goes to the official index
     Given I am an official with email "test@test.com" and password "test"
