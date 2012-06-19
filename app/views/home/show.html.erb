@@ -5,9 +5,9 @@
 <%= flash_error %>
 
 <div class="main_page_columns">
-  <div class="left_column main_page_box" id="races_box">
+  <div class="left_column title_box" id="races_box">
     <div class="box_title">Kilpailut</div>
-    <div class="main_page_box_content">
+    <div class="title_box_content">
       <% unless @ongoing.empty? %>
         <div class="ongoing_races">
           <div class="box_sub_title">Menossa olevat kilpailut</div>
@@ -36,9 +36,9 @@
   </div>
 
   <% unless offline? %>
-    <div class="right_column main_page_box commercial_box">
+    <div class="right_column title_box commercial_box">
       <div class="box_title">Kilpailun järjestäjille</div>
-      <div class="main_page_box_content">
+      <div class="title_box_content">
         <div>Hirviurheilu on erinomainen valinta kisojesi tulospalveluksi!</div>
         <div class="changing_text_wrapper">
           <div id="changing_text_official">
@@ -62,9 +62,9 @@
         </div>
       </div>
     </div>
-    <div class="right_column main_page_box commercial_box">
+    <div class="right_column title_box commercial_box">
       <div class="box_title">Kilpailijoille</div>
-      <div class="main_page_box_content">
+      <div class="title_box_content">
         <div>Muista suositella Hirviurheilua kilpailuiden järjestäjille!</div>
         <div class="changing_text_wrapper">
           <div id="changing_text_competitor">
