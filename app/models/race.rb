@@ -50,9 +50,12 @@ class Race < ActiveRecord::Base
 
   before_destroy :prevent_destroy
 
-  scope :past, lambda { where('end_date<?', Time.zone.today).order('end_date DESC') }
-  scope :ongoing, lambda { where('start_date<=? and end_date>=?', Time.zone.today, Time.zone.today) }
-  scope :future, lambda { where('start_date>?', Time.zone.today).order('start_date') }
+  scope :past, lambda { where('end_date<?', Time.zone.today).
+    includes(:sport).order('end_date DESC') }
+  scope :ongoing, lambda { where('start_date<=? and end_date>=?', Time.zone.today, Time.zone.today).
+    includes(:sport) }
+  scope :future, lambda { where('start_date>?', Time.zone.today).
+    includes(:sport).order('start_date') }
 
   attr_accessor :email, :password # for publishing
 
