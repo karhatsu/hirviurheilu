@@ -6,16 +6,20 @@
     <th>Nro</th>
     <th><%= club_title(series.race) %></th>
     <th class="center">
-      <%= link_to_unless(pdf, time_title(series.race), series_competitors_path(series, :sort => Competitor::SORT_BY_TIME)) %>
+      <%= link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_TIME),
+        time_title(series.race), series_competitors_path(series, :sort => Competitor::SORT_BY_TIME)) %>
     </th>
     <th class="center">
-      <%= link_to_unless(pdf, 'Arviointi', series_competitors_path(series, :sort => Competitor::SORT_BY_ESTIMATES)) %>
+      <%= link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_ESTIMATES),
+        'Arviointi', series_competitors_path(series, :sort => Competitor::SORT_BY_ESTIMATES)) %>
     </th>
     <th class="center">
-      <%= link_to_unless(pdf, 'Ammunta', series_competitors_path(series, :sort => Competitor::SORT_BY_SHOTS)) %>
+      <%= link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_SHOTS),
+        'Ammunta', series_competitors_path(series, :sort => Competitor::SORT_BY_SHOTS)) %>
     </th>
     <th>
-      <%= link_to_unless(pdf, 'Pisteet', series_competitors_path(series)) %>
+      <%= link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_POINTS),
+        'Pisteet', series_competitors_path(series)) %>
     </th>
   </tr>
   <% time_css = params[:sort].to_i == Competitor::SORT_BY_TIME ? ' class=total_points' : '' %>
