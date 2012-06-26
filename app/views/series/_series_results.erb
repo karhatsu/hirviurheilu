@@ -5,10 +5,12 @@
     <th>Nimi</th>
     <th>Nro</th>
     <th><%= club_title(series.race) %></th>
-    <th class="center">
-      <%= link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_TIME),
-        time_title(series.race), series_competitors_path(series, :sort => Competitor::SORT_BY_TIME)) %>
-    </th>
+    <% unless series.time_points_type == Series::TIME_POINTS_TYPE_NONE %>
+      <th class="center">
+        <%= link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_TIME),
+          time_title(series.race), series_competitors_path(series, :sort => Competitor::SORT_BY_TIME)) %>
+      </th>
+    <% end %>
     <th class="center">
       <%= link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_ESTIMATES),
         'Arviointi', series_competitors_path(series, :sort => Competitor::SORT_BY_ESTIMATES)) %>
@@ -46,9 +48,11 @@
       </td>
       <td><%= comp.number ? comp.number : '' %></td>
       <td><%= comp.club.name %></td>
-      <td<%= comparison_time_title(comp, params[:all_competitors], pdf) %><%= time_css %>>
-        <%= time_points_and_time(comp, params[:all_competitors]) %>
-      </td>
+      <% unless series.time_points_type == Series::TIME_POINTS_TYPE_NONE %>
+        <td<%= comparison_time_title(comp, params[:all_competitors], pdf) %><%= time_css %>>
+          <%= time_points_and_time(comp, params[:all_competitors]) %>
+        </td>
+      <% end %>
       <td<%= est_css %>><%= series.race.finished ? estimate_points_and_diffs(comp) :
           estimate_points(comp) %></td>
       <td<%= shots_css %>><%= shot_points_and_total(comp) %></td>
