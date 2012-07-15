@@ -15,13 +15,6 @@
     Kilpailuun ei ole vielä lisätty sarjoja
   <% else %>
     <%= render :partial => 'series_table' %>
-    <h3>Kaikkien sarjojen lähtöajat (PDF)</h3>
-    <%= form_tag(race_start_lists_path(@race, :format => :pdf), :method => :get) do %>
-      <%= select_tag :club_id,
-        options_from_collection_for_select(@race.clubs, :id, :name),
-        :prompt => "Kaikki #{clubs_title(@race).downcase}" %>
-      <%= submit_tag 'Lataa lähtöajat' %>
-    <% end %>
     <% if @race.finished? %>
       <% estimates_at_most = @race.estimates_at_most %>
       <h3>Oikeat arviot</h3>
@@ -47,6 +40,13 @@
           </tr>
         <% end %>
       </table>
+    <% end %>
+    <h3>Kaikkien sarjojen lähtöajat (PDF)</h3>
+    <%= form_tag(race_start_lists_path(@race, :format => :pdf), :method => :get) do %>
+      <%= select_tag :club_id,
+        options_from_collection_for_select(@race.clubs, :id, :name),
+        :prompt => "Kaikki #{clubs_title(@race).downcase}" %>
+      <%= submit_tag 'Lataa lähtöajat' %>
     <% end %>
   <% end %>
 </div>
