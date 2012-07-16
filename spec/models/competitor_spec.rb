@@ -263,6 +263,33 @@ describe Competitor do
       end
     end
   end
+  
+  describe "concurrency check" do
+    context "on create" do
+      it "should do nothing" do
+        @competitor = FactoryGirl.build(:competitor)
+        @competitor.should_not_receive(:values_equal?)
+        @competitor.save!
+      end
+    end
+    
+    context "on update" do
+      before do
+        @competitor = FactoryGirl.create(:competitor)
+      end
+    
+      it "should pass if old and current values equal" do
+        @competitor.should_receive(:values_equal?).and_return(true)
+        @competitor.save
+        @competitor.should have(0).errors
+      end
+      
+      it "should fail if old and current values differ" do
+        @competitor.should_receive(:values_equal?).and_return(false)
+        @competitor.should have(1).errors_on(:base)
+      end
+    end
+  end
 
   describe "#sort_competitors" do
     before do

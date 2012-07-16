@@ -47,3 +47,21 @@ Feature: Save results by result place
     And I should see "296 (+1m/-1m)"
     And I should see "594 (99)"
     
+  @javascript
+  Scenario: Prevent concurrent changes for same competitor's same estimate results
+    Given I am an official
+    And I have a race "Result race"
+    And the race has a series "M" with first number 10 and start time "12:00"
+    And the series has a competitor "Mikko" "Mallikas"
+    And the start list has been generated for the series
+    And I have logged in
+    And I am on the official race page of "Result race"
+    And I follow "Arviot"
+    Given someone else saves estimates 100 and 150 for the competitor
+    When I fill in "101" for "competitor_estimate1"
+    And I fill in "151" for "competitor_estimate2"
+    And I press "Tallenna"
+    Then I should not see "Tallennettu"
+    But I should see "Virhe"
+    And I should see "Tälle kilpailijalle on syötetty samanaikaisesti toinen tulos. Lataa sivu uudestaan ja yritä tallentamista sen jälkeen."
+    

@@ -79,3 +79,10 @@ Given /^the shots for the competitor "([^"]*)" "([^"]*)" are (\d+),(\d+),(\d+),(
   competitor.shots << Shot.new(:value => s9)
   competitor.shots << Shot.new(:value => s10)
 end
+
+Given /^someone else saves estimates (\d+) and (\d+) for the competitor$/ do |estimate1, estimate2|
+  @competitor.reload
+  @competitor.estimate1 = estimate1
+  @competitor.estimate2 = estimate2
+  @competitor.save!
+end

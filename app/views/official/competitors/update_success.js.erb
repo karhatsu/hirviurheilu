@@ -2,6 +2,10 @@ $("#update_error").removeClass("error");
 $("#update_error").html("");
 $("#status_<%=@competitor.id%>").html("<span class='success'>Tallennettu</span>");
 $("#status_<%=@competitor.id%>").show();
+$("#competitor_old_values_estimate1").val(<%= @competitor.estimate1 %>);
+$("#competitor_old_values_estimate2").val(<%= @competitor.estimate2 %>);
+$("#competitor_old_values_estimate3").val(<%= @competitor.estimate3 %>);
+$("#competitor_old_values_estimate4").val(<%= @competitor.estimate4 %>);
 setTimeout(function() {
   $("#status_<%=@competitor.id%>").hide('slow');
 }, 5000);

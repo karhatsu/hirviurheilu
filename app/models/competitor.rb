@@ -1,5 +1,9 @@
 # encoding: UTF-8
+require 'model_value_comparator'
+
 class Competitor < ActiveRecord::Base
+  include ModelValueComparator
+  
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish
   MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE = 100
@@ -47,11 +51,12 @@ class Competitor < ActiveRecord::Base
   validate :check_no_result_reason
   validate :check_if_series_has_start_list
   validate :unique_number
+  validate :concurrent_changes, :on => :update
 
   after_create :set_correct_estimates
   after_save :update_series_start_time_and_number
 
-  attr_accessor :club_name, :age_group_name
+  attr_accessor :club_name, :age_group_name, :old_values
   
   def race
     series.race
@@ -315,6 +320,13 @@ class Competitor < ActiveRecord::Base
       condition = "number = #{number}"
       condition << " and competitors.id <> #{id}" if id
       errors.add(:number, 'on varattu') if series.race.competitors.where(condition).length > 0
+    end
+  end
+  
+  def concurrent_changes
+    unless values_equal?
+      msg = 'Tälle kilpailijalle on syötetty samanaikaisesti toinen tulos. Lataa sivu uudestaan ja yritä tallentamista sen jälkeen'
+      errors.add(:base, msg)
     end
   end
 
