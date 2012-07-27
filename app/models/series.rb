@@ -96,7 +96,7 @@ class Series < ActiveRecord::Base
     c = (order_method.to_i == START_LIST_RANDOM ?
         competitors.shuffle : Competitor.where(:series_id => id).order('id asc'))
     c.each_with_index do |comp, i|
-      comp.update_attribute(:number, first_number + i)
+      comp.update_column(:number, first_number + i)
     end
 
     race.set_correct_estimates_for_competitors
@@ -284,7 +284,7 @@ class Series < ActiveRecord::Base
     competitors.each do |comp|
       time_diff = time_diff_to_series_start_time(comp, interval,
         batch_size, last_batch_start, last_batch_size, batch_interval)
-      comp.update_attribute(:start_time, start_time + time_diff)
+      comp.update_column(:start_time, start_time + time_diff)
     end
   end
 
