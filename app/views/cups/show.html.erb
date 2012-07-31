@@ -1,14 +1,18 @@
 <% content_for :title, @cup.name %>
+<h2>Cup-sarjat</h2>
+<div class="section">
+  <% @cup.cup_series.each do |cs| %>
+    <%= link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs) %><br/>
+  <% end %>
+</div>
+<h2>Pistelaskenta</h2>
+<div class="section">
+  Yhteispisteet lasketaan <%= @cup.top_competitions %> parhaan tuloksen perusteella.
+</div>
 <h2>Osakilpailut</h2>
 <div class="section">
   <% @cup.races.each do |race| %>
     <%= link_to race.name, race_path(race) %><br/>
-  <% end %>
-</div>
-<h2>Sarjat</h2>
-<div class="section">
-  <% @cup.cup_series.each do |cs| %>
-    <%= link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs) %><br/>
   <% end %>
 </div>
 <hr/>
