@@ -182,6 +182,18 @@ describe CupCompetitor do
       @cc.competitor_for_race(race).should == competitor
     end
   end
+
+  describe ".name for competitor" do
+    it "should be competitor last name, space, first name" do
+      competitor = mock_model(Competitor, :first_name => 'First', :last_name => 'Last')
+      CupCompetitor.name(competitor).should == 'Last First'
+    end
+
+    it "should trim spaces" do
+      competitor = mock_model(Competitor, :first_name => ' First  ', :last_name => '  Last ')
+      CupCompetitor.name(competitor).should == 'Last First'
+    end
+  end
   
   def valid_competitor
     mock_model(Competitor, :first_name => @competitor.first_name, :last_name => @competitor.last_name)
