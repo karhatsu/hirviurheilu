@@ -3,7 +3,7 @@ class Cup < ActiveRecord::Base
   has_many :cup_series
   
   validates :name, :presence => true
-  validates :top_competitions, :numericality => { :greater_than => 1, :only_integer => true }
+  validates :top_competitions, :numericality => { :greater_than_or_equal_to => 1, :only_integer => true }
   
   accepts_nested_attributes_for :cup_series, :allow_destroy => true
   
