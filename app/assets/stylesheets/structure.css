@@ -1,5 +1,5 @@
 div.offline_limit {
-    width: 906px;
+    width: 1056px;
     margin: 0 0 5px 10px;
     padding: 3px;
     background-color: #FF7F00;
@@ -17,13 +17,13 @@ div.offline_limit a {
 }
 
 div.header {
-    width: 910px;
+    width: 1060px;
     margin-left: 10px;
 }
 
 div.main_title {
     clear: left;
-    width: 900px;
+    width: 1050px;
     background-color: olive;
     padding: 4px 0px 4px 10px;
     border: 1px solid white;
@@ -43,29 +43,29 @@ div.main_title span {
 }
 
 div.second_level_menu {
-    width: 910px;
+    width: 1060px;
     margin-left: 10px;
 }
 
 div.middle_section {
-    width: 1032px;
+    width: 1182px;
     overflow: hidden;
     margin-left: 10px;
 }
 
 div.footer {
-    width: 910px;
+    width: 1060px;
     overflow: hidden;
     margin-left: 10px;
 }
 
 div.middle_section_no_menus {
-    width: 912px;
+    width: 1062px;
 }
 
 div.main_menu {
     float: left;
-    width: 560px;
+    width: 710px;
     padding-left: 5px;
 }
 
@@ -73,7 +73,7 @@ div.sub_menu {
     border-left: 1px solid white;
     border-right: 1px solid white;
     float: left;
-    width: 910px;
+    width: 1060px;
 }
 
 div.sub_sub_menu {
@@ -84,7 +84,7 @@ div.sub_sub_menu {
 
 div.env_info {
     text-align: right;
-    width: 920px;
+    width: 1070px;
     color: orange;
 }
 
@@ -106,7 +106,7 @@ div.login_links a {
 }
 
 div.main_content {
-    width: 890px;
+    width: 1040px;
     padding: 3px 10px 10px 10px;
     background-color: white;
     border: white solid 1px;
