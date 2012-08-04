@@ -1,6 +1,6 @@
 class Cup < ActiveRecord::Base
   has_and_belongs_to_many :races, :order => :start_date
-  has_many :cup_series
+  has_many :cup_series, :order => :name
   
   validates :name, :presence => true
   validates :top_competitions, :numericality => { :greater_than_or_equal_to => 1, :only_integer => true }
