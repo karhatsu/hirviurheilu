@@ -16,9 +16,7 @@ class CupSeries < ActiveRecord::Base
   end
   
   def ordered_competitors
-    cup_competitors.sort do |a, b|
-      [b.points.to_i, b.points!.to_i] <=> [a.points.to_i, a.points!.to_i]
-    end
+    cup_competitors.sort { |a, b| b.points!.to_i <=> a.points!.to_i }
   end
   
   private

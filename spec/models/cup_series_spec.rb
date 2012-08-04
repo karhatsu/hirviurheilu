@@ -162,13 +162,13 @@ describe CupSeries do
       @cs.ordered_competitors.should == []
     end
     
-    it "should return cup competitors ordered by descending 1. total points 2. partial points" do
-      cc1 = mock(CupCompetitor, :points => 3000, :points! => 3000)
-      cc2 = mock(CupCompetitor, :points => 3001, :points! => 3000)
-      cc3 = mock(CupCompetitor, :points => nil, :points! => 3000)
-      cc4 = mock(CupCompetitor, :points => 2999, :points! => 3000)
-      cc5 = mock(CupCompetitor, :points => nil, :points! => nil)
-      cc6 = mock(CupCompetitor, :points => nil, :points! => 3001)
+    it "should return cup competitors ordered by descending partial points" do
+      cc1 = mock(CupCompetitor, :points! => 3003)
+      cc2 = mock(CupCompetitor, :points! => 3004)
+      cc3 = mock(CupCompetitor, :points! => 3000)
+      cc4 = mock(CupCompetitor, :points! => 3002)
+      cc5 = mock(CupCompetitor, :points! => nil)
+      cc6 = mock(CupCompetitor, :points! => 3001)
       @cs.stub!(:cup_competitors).and_return([cc1, cc2, cc3, cc4, cc5, cc6])
       @cs.ordered_competitors.should == [cc2, cc1, cc4, cc6, cc3, cc5]
     end
