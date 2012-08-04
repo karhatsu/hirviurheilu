@@ -1,6 +1,6 @@
 <% limit = defined?(max) ? max : 1.0/0.0 %>
 <% competitions.each_with_index do |competition, index| %>
-  <%= sport_icon(competition.sport) %>
+  <%= competition_icon(competition) %>
   <% if competition.is_a?(Cup) %>
     <%= link_to competition.name, cup_path(competition) %><br/>
   <% else %>
@@ -11,7 +11,7 @@
   <% if competition.is_a?(Cup) %>
     <% competition.races.each do |race| %>
       <span class="cup_race">
-        <%= sport_icon(race.sport) %>
+        <%= competition_icon(race) %>
         <%= link_to race.name, race_path(race) %>
         <%= date_interval(race.start_date, race.end_date) %>,
         <%= race.location %>

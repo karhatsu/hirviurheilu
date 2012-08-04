@@ -261,9 +261,10 @@ module ApplicationHelper
   end
   # -- Form child functions (end) --
 
-  def sport_icon(sport)
-    return '' unless sport
-    image_tag "#{sport.key.downcase}_icon.gif"
+  def competition_icon(competition)
+    image_prefix = "#{competition.sport.key.downcase}_icon"
+    return image_tag("#{image_prefix}_cup.gif") if competition.is_a?(Cup)
+    image_tag "#{image_prefix}.gif"
   end
 
   def menu_item(title, link, selected, truncate_length=nil, do_block=false, &block)
