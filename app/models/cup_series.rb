@@ -33,7 +33,7 @@ class CupSeries < ActiveRecord::Base
   end
   
   def series_names_as_array
-    return series_names.split(',') if series_names
+    return series_names.strip.split(',') unless series_names.blank?
     [name]
   end
   

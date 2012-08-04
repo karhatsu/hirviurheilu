@@ -41,8 +41,23 @@ describe CupSeries do
       cup_series.send(:series_names_as_array).should == ['Cup series']
     end
     
+    it "should return cup series name as an array when series_names is empty string" do
+      cup_series = FactoryGirl.build(:cup_series, :name => 'Cup series', :series_names => '')
+      cup_series.send(:series_names_as_array).should == ['Cup series']
+    end
+    
+    it "should return cup series name as an array when series_names is string with spaces" do
+      cup_series = FactoryGirl.build(:cup_series, :name => 'Cup series', :series_names => '  ')
+      cup_series.send(:series_names_as_array).should == ['Cup series']
+    end
+    
     it "should return series_names split by comma when series_names given" do
       cup_series = FactoryGirl.build(:cup_series, :name => 'Cup series', :series_names => 'M,M60,M70')
+      cup_series.send(:series_names_as_array).should == ['M', 'M60', 'M70']
+    end
+    
+    it "should return series_names split by comma when series_names with trailing spaces given" do
+      cup_series = FactoryGirl.build(:cup_series, :name => 'Cup series', :series_names => '  M,M60,M70   ')
       cup_series.send(:series_names_as_array).should == ['M', 'M60', 'M70']
     end
   end
