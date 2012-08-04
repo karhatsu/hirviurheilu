@@ -184,14 +184,14 @@ describe CupCompetitor do
   end
 
   describe ".name for competitor" do
-    it "should be competitor last name, space, first name" do
+    it "should be competitor last name, space, first name in lower case" do
       competitor = mock_model(Competitor, :first_name => 'First', :last_name => 'Last')
-      CupCompetitor.name(competitor).should == 'Last First'
+      CupCompetitor.name(competitor).should == 'last first'
     end
 
     it "should trim spaces" do
       competitor = mock_model(Competitor, :first_name => ' First  ', :last_name => '  Last ')
-      CupCompetitor.name(competitor).should == 'Last First'
+      CupCompetitor.name(competitor).should == 'last first'
     end
   end
   

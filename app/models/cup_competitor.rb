@@ -42,7 +42,7 @@ class CupCompetitor
   end
   
   def self.name(competitor)
-    "#{competitor.last_name.strip} #{competitor.first_name.strip}"
+    "#{competitor.last_name.strip} #{competitor.first_name.strip}".downcase
   end
 
   private

@@ -122,8 +122,8 @@ describe CupSeries do
     context "when competitors in series" do
       before do
         @cMM1 = competitor('Mikko', 'Miettinen')
-        @cMM2 = competitor('Mikko', 'Miettinen')
-        @cMM3 = competitor('Mikko', 'Miettinen')
+        @cMM2 = competitor('mikko', 'Miettinen')
+        @cMM3 = competitor('Mikko', 'miettinen')
         @cTM1 = competitor('Timo', 'Miettinen')
         @cTM3 = competitor('Timo', 'Miettinen')
         @cMT1 = competitor('Mikko', 'Turunen')
@@ -134,7 +134,7 @@ describe CupSeries do
         @cs.stub!(:series).and_return([series1, series2, series3])
       end
       
-      it "should return cup competitors created based on competitors' first and last name" do
+      it "should return cup competitors created based on competitors' first and last name (case ins.)" do
         cup_competitors = @cs.cup_competitors
         cup_competitors.length.should == 4
         cup_competitors[0].competitors[0].should == @cMM1
