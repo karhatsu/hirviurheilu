@@ -16,7 +16,7 @@ class Race < ActiveRecord::Base
   has_many :competitors, :through => :series
   has_many :clubs, :dependent => :destroy
   has_many :correct_estimates, :order => 'min_number'
-  has_many :relays, :order => 'name'
+  has_many :relays, :dependent => :destroy, :order => 'name'
   has_many :team_competitions, :order => 'name', :dependent => :destroy
   has_and_belongs_to_many :users, :join_table => :race_officials
   has_and_belongs_to_many :cups
@@ -47,8 +47,6 @@ class Race < ActiveRecord::Base
   validate :check_competitors_on_change_to_mixed_start_order, :on => :update
   
   after_save :set_series_start_lists_if_needed, :on => :update
-
-  before_destroy :prevent_destroy
 
   scope :past, lambda { where('end_date<?', Time.zone.today).
     includes(:sport).order('end_date DESC') }
@@ -205,7 +203,7 @@ class Race < ActiveRecord::Base
   def can_destroy?
     competitors.count == 0 and relays.count == 0
   end
-
+  
   private
   def end_date_not_before_start_date
     if end_date and end_date < start_date
@@ -246,13 +244,6 @@ class Race < ActiveRecord::Base
 
   def set_club_level
     self.club_level = CLUB_LEVEL_SEURA unless club_level
-  end
-
-  def prevent_destroy
-    unless can_destroy?
-      errors.add(:base, "Kilpailun voi poistaa vain, jos siinä ei ole yhtään kilpailijaa eikä viestiä")
-      return false
-    end
   end
 
   def set_correct_estimates_for_competitor(competitor, number_to_corrects_hash, key)

@@ -14,7 +14,7 @@ class Series < ActiveRecord::Base
 
   belongs_to :race, :counter_cache => true
   has_many :age_groups, :dependent => :destroy
-  has_many :competitors, :order => 'number, id'
+  has_many :competitors, :dependent => :destroy, :order => 'number, id'
   has_many :start_list, :class_name => "Competitor", :foreign_key => 'series_id',
     :conditions => "start_time is not null", :order => "start_time"
 
@@ -39,7 +39,6 @@ class Series < ActiveRecord::Base
   validate :start_day_not_bigger_than_race_days_count
   
   before_create :set_has_start_list
-  before_destroy :prevent_destroy_if_competitors
   
   def best_time_in_seconds(age_group_ids, all_competitors)
     @best_time_cache ||= Hash.new
@@ -218,13 +217,6 @@ class Series < ActiveRecord::Base
     return unless race
     self.has_start_list ||= (race.start_order.to_i == Race::START_ORDER_MIXED)
     true
-  end
-
-  def prevent_destroy_if_competitors
-    if competitors.count > 0
-      errors.add(:base, "Sarjan voi poistaa vain jos siinä ei ole kilpailijoita")
-      return false
-    end
   end
 
   def start_day_not_bigger_than_race_days_count

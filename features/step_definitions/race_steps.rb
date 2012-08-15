@@ -16,6 +16,24 @@ Given /^there is a race with attributes:$/ do |fields|
   @race = FactoryGirl.create(:race, hash)
 end
 
+Given /^there is a race "(.*?)" with series, competitors, team competitions, and relays$/ do |name|
+  @race = FactoryGirl.create(:race, :name => name)
+  @series = FactoryGirl.build(:series, :race => @race)
+  @race.series << @series
+  @age_group = FactoryGirl.build(:age_group, :series => @series)
+  @series.age_groups << @age_group
+  @competitor = FactoryGirl.build(:competitor, :series => @series, :age_group => @age_group)
+  @series.competitors << @competitor
+  @team_competition = FactoryGirl.build(:team_competition, :race => @race)
+  @race.team_competitions << @team_competition
+  @relay = FactoryGirl.build(:relay, :race => @race)
+  @race.relays << @relay
+  @relay_team = FactoryGirl.build(:relay_team, :relay => @relay)
+  @relay.relay_teams << @relay_team
+  @relay_competitor = FactoryGirl.build(:relay_competitor, :relay_team => @relay_team)
+  @relay_team.relay_competitors << @relay_competitor
+end
+
 Given /^the race "([^"]*)" is renamed to "([^"]*)"$/ do |old_name, new_name|
   race = Race.find_by_name(old_name)
   race.name = new_name
@@ -112,4 +130,15 @@ end
 
 Then /^the page should not contain the remove race button$/ do
   page.should have_no_button('Poista kilpailu')
+end
+
+Then /^the race should be completely removed from the database$/ do
+#  Race.exists?(@race.id).should be_false
+  Series.exists?(@series.id).should be_false
+  AgeGroup.exists?(@age_group.id).should be_false
+  Competitor.exists?(@competitor.id).should be_false
+  TeamCompetition.exists?(@team_competition.id).should be_false
+  Relay.exists?(@relay.id).should be_false
+  RelayTeam.exists?(@relay_team.id).should be_false
+  RelayCompetitor.exists?(@relay_competitor.id).should be_false
 end

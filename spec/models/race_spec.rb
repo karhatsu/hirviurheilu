@@ -349,54 +349,30 @@ describe Race do
   describe "#destroy" do
     before do
       @race = FactoryGirl.create(:race)
-      @club = FactoryGirl.build(:club, :race => @race)
-      @race.clubs << @club
+      @series = FactoryGirl.build(:series, :race => @race)
+      @race.series << @series
+      @competitor = FactoryGirl.build(:competitor, :series => @series)
+      @series.competitors << @competitor
       @team_competition = FactoryGirl.build(:team_competition, :race => @race)
       @race.team_competitions << @team_competition
+      @relay = FactoryGirl.build(:relay, :race => @race)
+      @race.relays << @relay
+      @relay_team = FactoryGirl.build(:relay_team, :relay => @relay)
+      @relay.relay_teams << @relay_team
+      @relay_competitor = FactoryGirl.build(:relay_competitor, :relay_team => @relay_team)
+      @relay_team.relay_competitors << @relay_competitor
     end
-
-    context "when series but no competitors" do
-      before do
-        @series = FactoryGirl.build(:series, :race => @race)
-        @race.series << @series
-        @race.destroy
-      end
-      
-      it "should destroy the race" do
-        Race.exists?(@race.id).should be_false
-      end
-      
-      it "should destroy the series" do
-        Series.exists?(@series.id).should be_false
-      end
-      
-      it "should destroy the clubs" do
-        Club.exists?(@club.id).should be_false
-      end
-      
-      it "should destroy the team competitions" do
-        TeamCompetition.exists?(@team_competition.id).should be_false
-      end
-    end
-
-    context "when competitors" do
-      it "should not destroy the race" do
-        series = FactoryGirl.build(:series, :race => @race)
-        @race.series << series
-        series.competitors << FactoryGirl.build(:competitor)
-        @race.destroy
-        @race.should have(1).errors
-        Race.exists?(@race.id).should be_true
-      end
-    end
-    
-    context "when relays" do
-      it "should not destroy the race" do
-        @race.relays << FactoryGirl.build(:relay, :race => @race)
-        @race.destroy
-        @race.should have(1).errors
-        Race.exists?(@race.id).should be_true
-      end
+  
+    it "should destroy race and all its children" do
+      @race.reload
+      @race.destroy
+      @race.should be_destroyed
+      Series.exists?(@series.id).should be_false
+      Competitor.exists?(@competitor.id).should be_false
+      TeamCompetition.exists?(@team_competition.id).should be_false
+      Relay.exists?(@relay.id).should be_false
+      RelayTeam.exists?(@relay_team.id).should be_false
+      RelayCompetitor.exists?(@relay_competitor.id).should be_false
     end
   end
 

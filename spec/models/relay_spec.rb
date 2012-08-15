@@ -408,21 +408,4 @@ describe Relay do
       end
     end
   end
-
-  describe "destroy" do
-    before do
-      @relay = FactoryGirl.create(:relay)
-    end
-
-    it "should not be possible when relay has teams" do
-      @relay.relay_teams << FactoryGirl.build(:relay_team, :relay => @relay)
-      @relay.destroy
-      Relay.find(@relay.id).should == @relay
-    end
-
-    it "should be possible when relay has no teams" do
-      @relay.destroy
-      lambda { Relay.find(@relay.id) }.should raise_error
-    end
-  end
 end

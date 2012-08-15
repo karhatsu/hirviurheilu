@@ -5,7 +5,7 @@ class Relay < ActiveRecord::Base
   include TimeHelper
   
   belongs_to :race
-  has_many :relay_teams, :order => 'number'
+  has_many :relay_teams, :dependent => :destroy, :order => 'number'
   has_many :relay_correct_estimates, :order => 'leg'
   has_many :relay_competitors, :through => :relay_teams
 
@@ -14,8 +14,6 @@ class Relay < ActiveRecord::Base
   validates :start_day, :numericality => { :only_integer => true,
     :allow_nil => true, :greater_than => 0 }
   validate :start_day_not_bigger_than_race_days_count
-
-  before_destroy :check_teams
 
   attr_readonly :legs_count
 
@@ -114,13 +112,6 @@ class Relay < ActiveRecord::Base
   def start_day_not_bigger_than_race_days_count
     if race and start_day > race.days_count
       errors.add(:start_day, "ei voi olla suurempi kuin kilpailupäivien määrä")
-    end
-  end
-
-  def check_teams
-    unless relay_teams.empty?
-      errors.add(:base, 'Viestiä ei voi poistaa, koska siihen on lisätty joukkueita')
-      return false
     end
   end
 end
