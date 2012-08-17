@@ -1,5 +1,6 @@
 class CompetitorsController < ApplicationController
   before_filter :assign_series_by_series_id, :only => :index
+  before_filter :assign_competitor_by_id, :only => :show
   before_filter :set_races, :set_results
 
   def index
@@ -14,7 +15,6 @@ class CompetitorsController < ApplicationController
   end
 
   def show
-    @competitor = Competitor.find(params[:id])
     respond_to do |format|
       format.html
       format.pdf do

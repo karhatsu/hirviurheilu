@@ -123,6 +123,19 @@ class ApplicationController < ActionController::Base
       render 'errors/series_not_found'
     end
   end
+  
+  def assign_competitor_by_id
+    assign_competitor params[:id]
+  end
+  
+  def assign_competitor(id)
+    begin
+      @competitor = Competitor.find(id)
+    rescue ActiveRecord::RecordNotFound
+      @id = id
+      render 'errors/competitor_not_found'
+    end
+  end
 
   def assign_relay_by_id
     assign_relay params[:id]
