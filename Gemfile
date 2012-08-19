@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.8'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'authlogic'
 gem 'wicked_pdf'
 
