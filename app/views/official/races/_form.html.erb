@@ -23,7 +23,7 @@
   <div>
     <span class="form_label">
       <%= f.label :home_page, 'Linkki kilpailun kotisivuille' %>
-      <a class="help" id="home_page_help">?</a>
+      <a class="help" id="home_page_help" href="javascript:void(0);">?</a>
     </span>
     <span><%= f.url_field :home_page %></span>
   </div>
@@ -72,7 +72,7 @@
   <div>
     <span class="form_label">
       <%= f.label :start_order, t('attributes.start_order') %>
-      <a class="help" id="start_order_help">?</a>
+      <a class="help" id="start_order_help" href="javascript:void(0);">?</a>
     </span>
     <span>
       <%= f.radio_button :start_order, Race::START_ORDER_NOT_SELECTED, :style => 'display:none;' %>
@@ -83,7 +83,7 @@
     </span>
   </div>
   <div class="batch_size_row">
-    <span class="form_label"><%= f.label :batch_size %> <a class="help" id="batch_size_help">?</a></span>
+    <span class="form_label"><%= f.label :batch_size %> <a class="help" id="batch_size_help" href="javascript:void(0);">?</a></span>
     <span><%= f.text_field :batch_size, :size => 3, :maxlength => 3 %> (0 = lähtöerät eivät käytössä)</span>
   </div>
   <div class="batch_size_row">
@@ -95,7 +95,7 @@
     <div>
       <span class="form_label">
         <%= label_tag :add_default_series, "Lisää oletussarjat automaattisesti" %>
-        <a class="help" id="default_series_help">?</a>
+        <a class="help" id="default_series_help" href="javascript:void(0);">?</a>
       </span>
       <span><%= check_box_tag :add_default_series, "1", true %></span>
     </div>
