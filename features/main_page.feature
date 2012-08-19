@@ -29,7 +29,7 @@ Feature: Main page
     And I should see "Tulevat kilpailut" within "div.future_races"
     And I should see "Upcoming race" within "div.future_races"
     And I should see "01.01.2020 - 02.01.2020, Upcoming city" within "div.future_races"
-    And I should see "Menossa olevat kilpailut" within "div.ongoing_races"
+    And I should see "Kilpailut tänään" within "div.ongoing_races"
     And I should see "Ongoing race" within "div.ongoing_races"
     And I should see "Ongoing city" within "div.ongoing_races"
     

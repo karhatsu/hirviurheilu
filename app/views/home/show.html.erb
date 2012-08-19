@@ -10,7 +10,7 @@
     <div class="title_box_content">
       <% unless @ongoing.empty? %>
         <div class="ongoing_races">
-          <div class="box_sub_title">Menossa olevat kilpailut</div>
+          <div class="box_sub_title">Kilpailut tänään</div>
           <%= render :partial => "race_list", :locals => { :competitions => @ongoing } %>
         </div>
         <hr/>
