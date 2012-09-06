@@ -4,6 +4,8 @@
 <br/>
 <%= @user ? @user.inspect : 'Ei kirjautunutta käyttäjää' %><br/>
 <br/>
+Request headers: <%= @request.headers %></br/>
+<br/>
 <% begin %>
   <%= raw @exception.backtrace.join('<br/>') %>
 <% rescue => e %>
