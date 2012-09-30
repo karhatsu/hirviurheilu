@@ -5,6 +5,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'authlogic'
 gem 'wicked_pdf'
+gem 'turbolinks'
 
 group :development, :staging, :production do
   gem 'pg'

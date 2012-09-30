@@ -200,6 +200,8 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
+    turbolinks (0.6.1)
+      coffee-rails
     tzinfo (0.3.33)
     uglifier (1.2.7)
       execjs (>= 0.3.0)
@@ -240,6 +242,7 @@ DEPENDENCIES
   sqlite3-ruby
   therubyracer
   thin
+  turbolinks
   uglifier
   watchr
   wicked_pdf
