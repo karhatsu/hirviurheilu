@@ -6,15 +6,20 @@
     palvelussa</a></div>
 <% else %>
   <h2>Yhden kilpailun hinta</h2>
-  <div class="important">Aloitustarjous: Ensimmäinen kilpailu on ilmainen!</div>
   <div class="section">
-    Perushinta: <%= "%.2f" % BasePrice.price %> euroa<br/>
-    <% @prices.each do |price| %>
-      <%= price.min_competitors %>-<%= price.max_competitors %> kilpailijaa:
-      <%= "%.2f" % price.price %> <%= t("euros", :count => price.price) %> / kilpailija<br/>
-    <% end %>
-    <br/>
-    Kaikki hinnat sisältävät 23 % arvonlisäveroa.
+    <table>
+     <tr>
+      <td>Perushinta</td><td><%= "%.2f" % BasePrice.price %> euroa</td>
+     </tr>  
+      <% @prices.each do |price| %>
+        <tr>
+          <td><%= price.min_competitors %>-<%= price.max_competitors %> kilpailijaa</td>
+          <td><%= "%.2f" % price.price %> <%= t("euros", :count => price.price) %> / kilpailija</td>
+        </tr>
+      <% end %>
+    </table>
+    <p>(Kaikki hinnat sisältävät 23 % arvonlisäveroa.)</p>
+    <div class="important">Aloitustarjous: Ensimmäinen kilpailu on ilmainen!</div>
   </div>
   <h2>Joukkuekilpailut, viestit, cup-kilpailut</h2>
   Näistä kilpailumuodoista ei veloiteta erikseen.
