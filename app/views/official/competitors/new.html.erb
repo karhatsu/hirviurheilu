@@ -14,6 +14,7 @@
   <ul id="latest_competitors_list"></ul>
 </div>
 <hr/>
+<%= link_to 'Lisää kilpailijoita CSV-tiedostosta', new_official_race_csv_import_path(@series.race) %><br/>
 <%= link_to raw("Takaisin sarjan <span id='series_name'>#{@series.name}</span> kilpailijaluetteloon"),
   official_series_competitors_path(@series), :id => 'back_to_series' %><br/>
 <%= link_to "Takaisin Yhteenveto-sivulle", official_race_path(@series.race) %>
