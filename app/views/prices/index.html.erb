@@ -25,6 +25,8 @@
     <%= submit_tag "Laske" %>
   <% end %>
   Hinta yhteensä: <span id="calculated_price"><%= "%.2f" % @price %></span> euroa
+  <h2>Isot kilpailut, monta kilpailua kauden aikana tms.</h2>
+  <%= link_to 'Ota yhteyttä, niin sovitaan tilanteeseen sopiva hinta.', new_feedback_path %>
   <h2>Hirviurheilu Offline</h2>
   <%= link_to 'Katso Hirviurheilu Offline -tuotteen hinta.', offline_price_path %>
 <% end %>
