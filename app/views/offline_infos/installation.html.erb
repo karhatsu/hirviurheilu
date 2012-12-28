@@ -17,7 +17,8 @@
   <% end %>
   <h3>2. Lataa asennustiedosto</h3>
   <% if current_user %>
-    Lataa asennustiedosto: <%= link_to 'HirviurheiluOffline-asennus.exe', download_installer_path %>
+    Lataa asennustiedosto: <%= link_to 'HirviurheiluOffline-asennus.exe', download_installer_path,
+      :'data-no-turbolink' => true %>
   <% else %>
     <div class="info">Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki.</div>
   <% end %>
