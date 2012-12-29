@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'authlogic'
@@ -48,5 +48,5 @@ group :development, :test do
   gem 'ruby-prof'
   gem 'watchr'
   gem 'mongrel', '~> 1.2.0.pre'
-  gem 'therubyracer'
+  gem 'therubyracer', '0.10.2'
 end
