@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121229133219) do
+ActiveRecord::Schema.define(:version => 20121229134854) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -250,11 +250,12 @@ ActiveRecord::Schema.define(:version => 20121229133219) do
   add_index "team_competition_series", ["team_competition_id"], :name => "index_team_competition_series_on_team_competition_id"
 
   create_table "team_competitions", :force => true do |t|
-    t.integer  "race_id",               :null => false
-    t.string   "name",                  :null => false
-    t.integer  "team_competitor_count", :null => false
+    t.integer  "race_id",                                  :null => false
+    t.string   "name",                                     :null => false
+    t.integer  "team_competitor_count",                    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "use_team_name",         :default => false, :null => false
   end
 
   add_index "team_competitions", ["race_id"], :name => "index_team_competitions_on_race_id"
