@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120518175537) do
+ActiveRecord::Schema.define(:version => 20121229133219) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20120518175537) do
     t.integer  "correct_estimate3"
     t.integer  "correct_estimate4"
     t.boolean  "unofficial",        :default => false, :null => false
+    t.string   "team_name"
   end
 
   add_index "competitors", ["series_id"], :name => "index_competitors_on_series_id"
