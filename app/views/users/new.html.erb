@@ -4,7 +4,7 @@
 <div class="info">Rekisteröityminen on pakollista kilpailun järjestäjille
   eli toimitsijoille. Kilpailijoiden ei tarvitse rekisteröityä palveluun.</div>
 
-<% if Rails.env == 'production' %>
+<% if Rails.env.production? %>
   <div class="important">Huom! Jos haluat harjoitella Hirviurheilun käyttöä,
     käytä mielummin osoitetta <a href="<%= TEST_URL %>"><%= TEST_URL %></a>.
     Tämä palvelu on tarkoitettu oikeille kilpailuille.
@@ -16,7 +16,7 @@
     <%= render :partial => "form", :object => f %>
     <%#<div class="info">Klikkaamalla alla olevaa Rekisteröidy-nappia hyväksyt
       käyttämään palvelua kulloisenkin hinnaston mukaisesti.</div>%>
-    <% unless Rails.env == 'production' %>
+    <% unless Rails.env.production? %>
       <%#<div class="important">Käytät testiympäristöä. Sen käyttö on ilmaista.</div>%>
     <% end %>
     <%= f.submit "Rekisteröidy" %>

@@ -8,6 +8,6 @@ class DownloadsController < ApplicationController
   
   private
   def check_staging
-    redirect_to root_path if Rails.env == 'staging'
+    redirect_to root_path if Rails.env.staging?
   end
 end

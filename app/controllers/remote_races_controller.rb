@@ -32,7 +32,7 @@ class RemoteRacesController < ApplicationController
 
   def offline_or_fake_offline?
     # this hack is for cucumber features
-    (offline? and Rails.env != 'test') or (online? and Rails.env == 'test')
+    (offline? and !Rails.env.test?) or (online? and Rails.env.test?)
   end
 
   def prepare_clubs_for_competitors

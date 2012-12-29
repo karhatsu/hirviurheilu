@@ -35,7 +35,7 @@ class Official::ExportsController < Official::OfficialController
     @servers = []
     @servers << ["Hirviurheilu (#{PRODUCTION_URL})", PRODUCTION_URL]
     @servers << ["Hirviurheilun harjoitusversio (#{TEST_URL})", TEST_URL]
-    @servers << ["Localhost", ''] if Rails.env == 'development'
-    @servers << ["Integration test", ''] if Rails.env == 'test'
+    @servers << ["Localhost", ''] if Rails.env.development?
+    @servers << ["Integration test", ''] if Rails.env.test?
   end
 end

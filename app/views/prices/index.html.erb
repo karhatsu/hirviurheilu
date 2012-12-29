@@ -1,6 +1,6 @@
 <% content_for :title, "Hinnat" %>
 <% content_for :page_title, yield(:title) %>
-<% if Rails.env == 'staging' %>
+<% if Rails.env.staging? %>
   <div class="important">Käytät tällä hetkellä testiympäristöä. Sen käyttö on ilmaista.</div>
   <div class="action_box"><a href="<%= PRODUCTION_URL %>/prices">Tutustu hintoihin varsinaisessa
     palvelussa</a></div>

@@ -134,7 +134,7 @@ class Official::CompetitorsController < Official::OfficialController
       end
     end
     # Cucumber hack
-    if Rails.env == 'test'
+    if Rails.env.test?
       if competitor.club.nil? and competitor.club_id.nil? and params[:club]
         competitor.club_id = params[:club]
       end

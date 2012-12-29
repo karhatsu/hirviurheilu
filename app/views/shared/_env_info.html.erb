@@ -1,4 +1,4 @@
-<% unless Rails.env == 'production' or offline? %>
+<% unless Rails.env.production? or offline? %>
   <div class="env_info">Tämä on <span class="env_info_link">testiympäristö</span></div>
   <div id="env_info_dialog" class="dialog" style="display: none;">
     Käytät Hirviurheilun testiympäristöä. Se tarkoittaa seuraavia asioita:

@@ -9,7 +9,7 @@ class Mode
   end
 
   def self.switch
-    raise "Mode switching allowed only in dev environment" unless Rails.env == 'development'
+    raise "Mode switching allowed only in dev environment" unless Rails.env.development?
     Thread.main[:offline] = !Thread.main[:offline]
   end
 end
