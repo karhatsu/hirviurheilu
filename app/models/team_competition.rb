@@ -59,14 +59,16 @@ class TeamCompetition < ActiveRecord::Base
 
     Competitor.sort_competitors(competitors, false).each do |competitor|
       break if competitor.points.nil? or competitor.unofficial
-      competitor_count = competitor_counter[competitor.club] || 0
+      team = team_for(competitor)
+      next unless team
+      competitor_count = competitor_counter[team] || 0
       if competitor_count < team_competitor_count
-        competitor_counter[competitor.club] = competitor_count + 1
-        if team_results_hash[competitor.club]
-          team_hash = team_results_hash[competitor.club]
+        competitor_counter[team] = competitor_count + 1
+        if team_results_hash[team]
+          team_hash = team_results_hash[team]
           update_team_hash(team_hash, competitor)
         else
-          team_results_hash[competitor.club] = create_team_hash(competitor)
+          team_results_hash[team] = create_team_hash(competitor)
         end
       end
     end
@@ -87,8 +89,9 @@ class TeamCompetition < ActiveRecord::Base
   end
 
   def create_team_hash(competitor)
-    team_hash = Hash.new(:club => competitor.club, :points => 0, :competitors => [])
-    team_hash[:club] = competitor.club
+    team = team_for(competitor)
+    team_hash = Hash.new(:club => team, :points => 0, :competitors => [])
+    team_hash[:club] = team
     team_hash[:points] = competitor.points
     team_hash[:best_points] = competitor.points
     team_hash[:best_shot_points] = competitor.shot_points
@@ -110,5 +113,10 @@ class TeamCompetition < ActiveRecord::Base
 
   def remove_teams_without_enough_competitors(sorted_teams)
     sorted_teams.delete_if { |club| club[:competitors].length < team_competitor_count }
+  end
+  
+  def team_for(competitor)
+    return competitor.team_name if use_team_name
+    competitor.club
   end
 end

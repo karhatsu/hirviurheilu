@@ -100,10 +100,13 @@ describe TeamCompetition do
         @tc.stub!(:race).and_return(@race)
         @race.stub!(:finished?).and_return(true)
         Competitor.should_receive(:sort_competitors).with(@competitors, false).and_return(@competitors)
-        @results = @tc.results_for_competitors(@competitors)
       end
 
       describe "should return an array of hashes" do
+        before do
+          @results = @tc.results_for_competitors(@competitors)
+        end
+        
         context "when race is finished" do
           it "including only the clubs with enough official competitors with complete points " +
               "so that the clubs are ordered: 1. total points " +
@@ -157,7 +160,38 @@ describe TeamCompetition do
       def create_competitor(club, points, options={})
         mock_model(Competitor, {:points => points, :club => club,
             :shot_points => 200, :time_in_seconds => 1000,
-            :unofficial => false}.merge(options))
+            :unofficial => false, :team_name => nil}.merge(options))
+      end
+
+      context "and team name is wanted to use" do
+        before do
+          @tc.use_team_name = true
+        end
+        
+        context "but no team names defined" do
+          it "should return no results" do
+            @tc.results_for_competitors(@competitors).should == []
+          end
+        end
+        
+        context "and team names defined for some competitors" do
+          before do
+            @club_best_total_points_c1.stub!(:team_name).and_return('Team best')
+            @club_best_total_points_c2.stub!(:team_name).and_return('Team best')
+            @club_best_single_points_c1.stub!(:team_name).and_return('Team second')
+            @club_best_single_points_c2.stub!(:team_name).and_return('Team second')
+            @results = @tc.results_for_competitors(@competitors)
+          end
+          
+          it "should return results for teams with those competitors" do
+            @results.length.should == 2
+          end
+          
+          it "should sort teams correctly" do
+            @results[0][:club].should == 'Team best'
+            @results[1][:club].should == 'Team second'
+          end
+        end
       end
     end
   end
