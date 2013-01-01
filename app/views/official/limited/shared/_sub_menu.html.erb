@@ -1,0 +1,10 @@
+<% race = menu_race %>
+<% if race %>
+  <div class="second_level_menu">
+    <div class="menu sub_menu">
+      <ul>
+        <%= menu_item "Kilpailijat", official_limited_race_competitors_path(race), true %>
+      </ul>
+    </div>
+  </div>
+<% end %>

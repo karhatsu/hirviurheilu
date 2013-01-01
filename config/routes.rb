@@ -57,6 +57,12 @@ ElkSports::Application.routes.draw do
   end
 
   namespace :official do
+    namespace :limited do
+      resources :races do
+        resources :competitors
+      end
+    end
+    
     resources :cups
     
     resources :races do

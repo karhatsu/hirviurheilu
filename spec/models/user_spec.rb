@@ -121,6 +121,23 @@ describe User do
       @user.should be_official_for_cup(@cup)
     end
   end
+  
+  describe "#has_full_rights_for_race" do
+    before do
+      @user = FactoryGirl.create(:user)
+      @race = FactoryGirl.create(:race)
+    end
+    
+    it "should return false when user has only add competitors rights" do
+      @user.add_race(@race, true)
+      @user.should_not have_full_rights_for_race(@race) 
+    end
+    
+    it "should return true when user has full rights" do
+      @user.add_race(@race)
+      @user.should have_full_rights_for_race(@race) 
+    end
+  end
 
   describe "offline usage" do
     describe "maximum amount of users" do

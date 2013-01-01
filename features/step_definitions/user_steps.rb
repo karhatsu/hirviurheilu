@@ -69,6 +69,10 @@ Given /^I am an official with attributes:$/ do |fields|
   @user.add_official_rights
 end
 
+Given /^I have only add competitors rights for the race$/ do
+  @user.add_race(@race, true)
+end
+
 Given /^I am an admin$/ do
   @user = FactoryGirl.build(:user)
   @user.save_without_session_maintenance

@@ -48,6 +48,10 @@ class User < ActiveRecord::Base
     end
     false
   end
+  
+  def has_full_rights_for_race?(race)
+    !race_rights.where(:race_id => race.id).first.only_add_competitors
+  end
 
   def self.create_offline_user
     raise "Cannot create offline user unless offline mode" if Mode.online?

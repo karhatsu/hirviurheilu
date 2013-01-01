@@ -6,15 +6,22 @@ class Official::OfficialController < ApplicationController
     redirect_to root_path unless official_rights
   end
 
-  def check_race(race)
+  def check_race(race, require_full_rights=true)
     unless own_race?(race)
       flash[:error] = "Et ole kilpailun toimitsija"
       redirect_to official_root_path
+    end
+    if require_full_rights and !current_user.has_full_rights_for_race?(race)
+      redirect_to official_limited_race_competitors_path(race)
     end
   end
 
   def check_assigned_race
     check_race(@race)
+  end
+
+  def check_assigned_race_without_full_rights
+    check_race(@race, false)
   end
 
   def check_assigned_series
