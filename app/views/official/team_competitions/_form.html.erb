@@ -11,8 +11,20 @@
       <span><%= f.text_field :team_competitor_count, :size => 2 %></span>
     </div>
     <div>
-      <span class="form_label"><%= f.label :use_team_name %></span>
+      <span class="form_label">
+        <%= f.label :use_team_name %>
+        <a class="help" id="use_team_name_help" href="javascript:void(0);">?</a>
+      </span>
       <span><%= f.check_box :use_team_name %></span>
+    </div>
+    <div id="use_team_name_help_dialog" class="dialog" style="display: none;">
+      Normaalisti joukkueet muodostetaan piirin tai seuran perusteella.
+      Jos kuitenkin valitset kohdan '<%= t('attributes.use_team_name') %>',
+      joukkueet muodostetaan jokaiselle kilpailijalle syötetyn joukkueen nimen perusteella.
+      Tällöin yhden joukkueen jäsenten ei tarvitse kuulua samaan piiriin tai seuraan
+      ja toisaalta samasta piirista tai seurasta voidaan muodostaa useita joukkueita.
+      <br/></br/>
+      Voit asettaa kilpailijalle joukkueen nimen muokkaamalla kilpailijan perustietoja.
     </div>
     <h3>Sarjat ja/tai ikäryhmät tässä joukkuekilpailussa</h3>
     <div class="info">Valitse kaikki sarjat ja ikäryhmät, jotka kuuluvat tähän joukkuekilpailuun.
@@ -53,3 +65,10 @@
     <%= submit_tag 'Tallenna' %>
   <% end %>
 </div>
+<%= javascript_tag do %>
+  var use_team_name_help_title = 'Joukkueiden muodostaminen';
+  $('.help').click(function() {
+    var id = $(this).attr('id');
+    $('#' + id + '_dialog').dialog({ title: eval(id + '_title'), closeText: 'Sulje' });
+  });
+<% end %>
