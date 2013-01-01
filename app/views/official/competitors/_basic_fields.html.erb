@@ -66,29 +66,11 @@
     Odota hetki...
   </span>
 
+  <%= render :partial => 'shared/reload_age_groups_js' %>
   <%= javascript_tag do %>
     function change_series(series_id) {
       reload_age_groups(series_id);
       reload_number_and_start_time_and_link(series_id);
-    }
-
-    function reload_age_groups(series_id) {
-      $('#age_groups_spinner').show();
-      $.getJSON('/official/series/' + series_id + '/age_groups', function(age_groups) {
-        while($('#competitor_age_group_id').children().length > 1) {
-          $('#competitor_age_group_id').children().last().remove();
-        }
-        if(age_groups.length == 0) {
-          $('#age_groups_span').hide();
-        } else {
-          $.each(age_groups, function(i, age_group) {
-            $('#competitor_age_group_id').append('<option value="' +
-              age_group.id + '">' + age_group.name + '</option>');
-          });
-          $('#age_groups_span').show();
-        }
-        $('#age_groups_spinner').hide();
-      });
     }
 
     function reload_number_and_start_time_and_link(series_id) {

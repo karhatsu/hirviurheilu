@@ -1,0 +1,20 @@
+<%= javascript_tag do %>
+  function reload_age_groups(series_id) {
+    $('#age_groups_spinner').show();
+    $.getJSON('/official/series/' + series_id + '/age_groups', function(age_groups) {
+      while($('#competitor_age_group_id').children().length > 1) {
+        $('#competitor_age_group_id').children().last().remove();
+      }
+      if(age_groups.length == 0) {
+        $('#age_groups_span').hide();
+      } else {
+        $.each(age_groups, function(i, age_group) {
+          $('#competitor_age_group_id').append('<option value="' +
+            age_group.id + '">' + age_group.name + '</option>');
+        });
+        $('#age_groups_span').show();
+      }
+      $('#age_groups_spinner').hide();
+    });
+    }
+<% end %>
