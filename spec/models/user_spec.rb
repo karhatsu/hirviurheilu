@@ -12,7 +12,8 @@ describe User do
   
   describe "associations" do
     it { should have_and_belong_to_many(:roles) }
-    it { should have_and_belong_to_many(:races) }
+    it { should have_many(:race_rights) }
+    it { should have_many(:races).through(:race_rights) }
     it { should have_and_belong_to_many(:cups) }
   end
 
@@ -45,11 +46,25 @@ describe User do
       end
     end
   end
+  
+  describe "#add_race" do
+    before do
+      @race = FactoryGirl.create(:race)
+      @user = FactoryGirl.create(:user)
+    end
+    
+    it "should make the user official for the race" do
+      @user.should_not be_official_for_race(@race)
+      @user.add_race(@race)
+      @user.reload
+      @user.should be_official_for_race(@race)
+    end
+  end
 
   describe "#official_for_race?" do
     before do
       @race = FactoryGirl.create(:race)
-      @user = FactoryGirl.build(:user)
+      @user = FactoryGirl.create(:user)
     end
 
     it "should return false when no races for this user" do
@@ -58,12 +73,14 @@ describe User do
 
     it "should return false when user is not official for the given race" do
       race = FactoryGirl.create(:race)
-      @user.races << race
+      @user.race_rights << RaceRight.new(:user_id => @user.id, :race_id => race.id)
+      @user.reload
       @user.should_not be_official_for_race(@race)
     end
 
     it "should return true when user is official for the given race" do
-      @user.races << @race
+      @user.race_rights << RaceRight.new(:user_id => @user.id, :race_id => @race.id)
+      @user.reload
       @user.should be_official_for_race(@race)
     end
   end

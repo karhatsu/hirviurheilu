@@ -28,7 +28,7 @@ Price.create!(:min_competitors => 50, :price => 1.0)
 race2 = ski.races.build(:name => "P-Savon hirvenhiihtokisat",
   :location => "Karttula", :start_date => '2010-12-13', :start_interval_seconds => 60)
 race2.save!
-official2.races << race2
+official2.add_race(race2)
 
 race_titles = ['P-Savon hirvenjuoksukisat', 'Hirvenjuoksupeijaiset',
   'Joensuun syyskisat', 'Hirvenhiihtokauden avajaiskilpailut',
@@ -44,7 +44,7 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
     :location => race_locations[race_i], :start_date => race_start_dates[race_i],
     :end_date => race_end_dates[race_i], :start_interval_seconds => interval)
   race.save!
-  official1.races << race
+  official1.add_race(race)
   correct1 = 100 + 5 * race_i
   correct2 = 160 - 5 * race_i
 

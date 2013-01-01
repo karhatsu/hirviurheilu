@@ -7,7 +7,7 @@ class RemoteRacesController < ApplicationController
 
   def create
     if @race.save
-      @user.races << @race
+      @user.add_race(@race)
       unless offline_or_fake_offline?
         PublishMailer.publish_mail(@race, @user).deliver
       end

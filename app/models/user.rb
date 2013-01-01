@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
   acts_as_authentic
 
   has_and_belongs_to_many :roles, :join_table => :rights
-  has_and_belongs_to_many :races, :join_table => :race_rights
+  has_many :race_rights
+  has_many :races, :through => :race_rights
   has_and_belongs_to_many :cups, :join_table => :cup_officials
 
   validates :first_name, :presence => true
@@ -27,6 +28,10 @@ class User < ActiveRecord::Base
 
   def official?
     has_role?(Role::OFFICIAL)
+  end
+  
+  def add_race(race)
+    race_rights << RaceRight.new(:user_id => id, :race_id => race.id)
   end
 
   def official_for_race?(race)

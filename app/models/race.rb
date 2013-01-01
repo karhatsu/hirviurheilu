@@ -18,7 +18,8 @@ class Race < ActiveRecord::Base
   has_many :correct_estimates, :order => 'min_number'
   has_many :relays, :dependent => :destroy, :order => 'name'
   has_many :team_competitions, :order => 'name', :dependent => :destroy
-  has_and_belongs_to_many :users, :join_table => :race_rights
+  has_many :race_rights
+  has_many :users, :through => :race_rights
   has_and_belongs_to_many :cups
 
   accepts_nested_attributes_for :series, :allow_destroy => true

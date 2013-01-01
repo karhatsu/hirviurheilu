@@ -12,7 +12,7 @@ class Official::InviteOfficialsController < Official::OfficialController
         flash[:error] = "Henkilö on jo tämän kilpailun toimitsija"
         render :index
       else
-        user.races << @race
+        user.add_race(@race)
         InviteOfficialMailer.invite(@race, current_user, user, site_url).deliver
         flash[:success] = "Toimitsija #{user.first_name} #{user.
           last_name} lisätty kilpailun #{@race.name} toimitsijaksi"

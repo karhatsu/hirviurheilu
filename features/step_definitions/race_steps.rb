@@ -42,7 +42,7 @@ end
 
 Given /^I have a race "([^"]*)"$/ do |name|
   @race = FactoryGirl.create(:race, :name => name)
-  @user.races << @race
+  @user.add_race @race
 end
 
 Given /^I have a race with attributes:$/ do |fields|
@@ -57,7 +57,7 @@ Given /^I have a race with attributes:$/ do |fields|
     raise "Unknown sport key: #{hash[:sport]}"
   end
   @race = FactoryGirl.create(:race, hash)
-  @user.races << @race
+  @user.add_race @race
 end
 
 Given /^I have a race "(.*?)" with competitor "(.*?)" "(.*?)" in series "(.*?)", with number (\d+) and start time "(.*?)"$/ do |race_name,
@@ -68,7 +68,7 @@ Given /^I have a race "(.*?)" with competitor "(.*?)" "(.*?)" in series "(.*?)",
   @competitor = FactoryGirl.build(:competitor, :series => @series, :first_name => first_name, :last_name => last_name,
     :number => number, :start_time => start_time)
   @series.competitors << @competitor
-  @user.races << @race
+  @user.add_race @race
 end
 
 Given /^there is a race "([^"]*)" in the past$/ do |name|
@@ -91,24 +91,24 @@ end
 Given /^I have an ongoing race "([^"]*)"$/ do |name|
   @race = FactoryGirl.create(:race, :start_date => Date.today, :name => name,
     :sport => Sport.find_ski)
-  @user.races << @race
+  @user.add_race @race
 end
 
 Given /^I have an ongoing race with attributes:$/ do |fields|
   @race = FactoryGirl.create(:race, {:start_date => Date.today,
     :sport => Sport.find_ski}.merge(fields.rows_hash))
-  @user.races << @race
+  @user.add_race @race
 end
 
 Given /^I have a future race "([^"]*)"$/ do |name|
   @race = FactoryGirl.create(:race, :start_date => Date.today + 1, :name => name)
-  @user.races << @race
+  @user.add_race @race
 end
 
 Given /^I have a complete race "([^"]*)" located in "([^"]*)"$/ do |name, location|
   @race = FactoryGirl.create(:race, :name => name, :location => location,
     :start_date => Date.today - 1)
-  @user.races << @race
+  @user.add_race @race
   @race.clubs << FactoryGirl.build(:club, :race => @race)
   series = FactoryGirl.build(:series, :race => @race, :first_number => 1,
     :start_time => '12:00')

@@ -101,7 +101,8 @@ describe Race do
     it { should have_many(:correct_estimates) }
     it { should have_many(:relays) }
     it { should have_many(:team_competitions) }
-    it { should have_and_belong_to_many(:users) }
+    it { should have_many(:race_rights) }
+    it { should have_many(:users).through(:race_rights) }
     it { should have_and_belong_to_many(:cups) }
   end
 
