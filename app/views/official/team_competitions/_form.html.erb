@@ -67,8 +67,5 @@
 </div>
 <%= javascript_tag do %>
   var use_team_name_help_title = 'Joukkueiden muodostaminen';
-  $('.help').click(function() {
-    var id = $(this).attr('id');
-    $('#' + id + '_dialog').dialog({ title: eval(id + '_title'), closeText: 'Sulje' });
-  });
 <% end %>
+<%= render :partial => 'shared/help_dialog_opener' %>
