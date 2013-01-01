@@ -38,6 +38,9 @@
   });
 <% end %>
 
+<%= f.label :team_name %>
+<%= f.text_field :team_name %>
+
 <% if f.object.new_record? %>
   <% number_style = 'display:none;' %>
   <% if f.object.series.has_start_list? %>

@@ -60,6 +60,7 @@ fi:
     start_order: Kilpailijoiden lähtöjärjestys
     start_time: Lähtöaika
     team_competitor_count: Kilpailijoita / joukkue
+    team_name: Joukkueen nimi
     time_points_type: Aikapisteiden laskenta
     top_competitions: Yhteistulokseen laskettavien kilpailuiden määrä
     unofficial: Epävirallinen kilpailija
