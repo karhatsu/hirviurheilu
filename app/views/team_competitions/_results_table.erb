@@ -14,14 +14,16 @@
   </tr>
   <% results.each_with_index do |team_result, i| %>
     <% club = team_result[:club] %>
+    <% club_name = club.is_a?(Club) ? club.expanded : club %>
+    <% club_id = club.is_a?(Club) ? club.id : club.gsub(/\s+/, '') %>
     <tr id="team_<%= i + 1 %>">
       <td><%= i + 1 %>.</td>
       <td class="team_name">
         <% if pdf %>
-          <%= club.expanded %>
+          <%= club_name %>
         <% else %>
           <a href="javascript:void(0)" class="club_name_link"
-             id="<%= club.id %>"><%= club.expanded %></a>
+             id="<%= club_id %>"><%= club_name %></a>
            <% end %>
       </td>
       <td class="center team_points"><%= team_result[:points] %></td>
@@ -32,7 +34,7 @@
     <% unless params[:exclude_competitors] %>
       <% team_result[:competitors].each_with_index do |competitor, j| %>
         <tr id="team_<%= i + 1 %>_comp_<%= j + 1 %>"
-            class="club_<%= club.id %> competitor_row" style="<%= competitor_style %>">
+            class="club_<%= club_id %> competitor_row" style="<%= competitor_style %>">
           <td>&nbsp;</td>
           <td><%= link_to_unless pdf, full_name(competitor),
               series_competitor_path(competitor.series, competitor) %></td>
