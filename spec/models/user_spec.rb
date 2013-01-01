@@ -59,6 +59,21 @@ describe User do
       @user.reload
       @user.should be_official_for_race(@race)
     end
+    
+    context "when only add competitors limitation" do
+      before do
+        @user.add_race(@race, true)
+        @user.reload
+      end
+      
+      it "should make the user official for the race" do
+        @user.should be_official_for_race(@race)
+      end
+      
+      it "should give only add competitors rights for the race" do
+        @user.race_rights.first.only_add_competitors.should be_true
+      end
+    end
   end
 
   describe "#official_for_race?" do

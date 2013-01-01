@@ -3,14 +3,27 @@
 <%= flash_error %>
 <%= flash_success %>
 <div id="current_officials">
-  <%= (@race.users.collect do |user| full_name(user, true) end).join(", ") %>
+  <% names = [] %>
+  <% @race.race_rights.each do |race_right|
+    name = full_name(race_right.user, true)
+    name += " (vain kilpailijoiden lisäys)" if race_right.only_add_competitors
+    names << name
+  end %>
+  <%= names.join(", ") %>
 </div>
 <h3>Kutsu toinen henkilö tämän kilpailun toimitsijaksi</h3>
 <div class="info">Henkilön täytyy olla rekisteröitynyt palveluun omalla
   sähköpostiosoitteellaan.</div>
-<%= form_tag :url => official_race_invite_officials_path(@race), :method => :post do %>
-  <%= label_tag :email, 'Sähköposti' %>
-  <%= email_field_tag :email, '', :size => 30 %>
+<%= form_tag(official_race_invite_officials_path(@race), :class => 'invite_officials_form' ) do %>
+  <div>
+    <span class="form_label"><%= label_tag :email, 'Sähköposti' %></span>
+    <span><%= email_field_tag :email, '', :size => 30 %></span>
+  </div>
+  <div>
+    <span class="form_label"><%= label_tag :only_adding_competitors,
+      'Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita' %></span>
+    <span><%= check_box_tag :only_adding_competitors %></span>
+  </div>
   <%= submit_tag "Lähetä kutsu" %>
 <% end %>
 <hr/>

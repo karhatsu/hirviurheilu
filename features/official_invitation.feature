@@ -52,3 +52,28 @@ Feature: Official invitation
     And I press "Lähetä kutsu"
     Then I should see "Henkilö on jo tämän kilpailun toimitsija" in an error message
     And I should see "Tim Thomas" within "#current_officials"
+
+  Scenario: Invite official with only rights to add competitors
+    Given there exists an official "Another Official" with email "another@official.com"
+    And I am an official "Tim Thomas" with email "tim@official.com"
+    And I have a race with attributes:
+      | sport | SKI |
+      | name | Test race |
+      | location | Test town |
+      | start_date | 2010-12-12 |
+      | end_date | 2010-12-13 |
+    And I have logged in
+    And I am on the race edit page of "Test race"
+    When I follow "Toimitsijat"
+    When I fill in "another@official.com" for "Sähköposti"
+    And I check "Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita"
+    And I press "Lähetä kutsu"
+    Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi rajoitetuin oikeuksin" in a success message
+    And I should see "Tim Thomas, Another Official (vain kilpailijoiden lisäys)" within "#current_officials"
+    And "another@official.com" should receive an email with subject "Kilpailun Test race kilpailijoiden lisäyspyyntö"
+    When "another@official.com" opens the email
+    Then they should see "Hei Another Official" in the email body
+    And they should see "Tim Thomas on pyytänyt sinua lisäämään kilpailijoita Hirviurheilu-palvelussa olevaan Hirvenhiihtokilpailuun: Test race (12.12.2010 - 13.12.2010, Test town)" in the email body
+    And they should see "Hirviurheilu-palvelun osoite:" in the email body
+    And they should see "http://www.example.com" in the email body
+  

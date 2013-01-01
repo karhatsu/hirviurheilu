@@ -1,0 +1,10 @@
+Hei <%= full_name(@invitee, true) %>,
+
+<%= full_name(@inviter, true) %> on pyytänyt sinua lisäämään kilpailijoita Hirviurheilu-palvelussa olevaan <%= @race.
+  sport.ski? ? 'Hirvenhiihto' : 'Hirvenjuoksu' %>kilpailuun: <%= @race.
+  name %> (<%= race_date_interval(@race) %>, <%= @race.location %>).
+
+Hirviurheilu-palvelun osoite:
+<%= @url %>
+
+(Tämä viesti on lähetetty automaattisesti. Älä vastaa siihen.)
