@@ -63,6 +63,7 @@ fi:
     time_points_type: Aikapisteiden laskenta
     top_competitions: Yhteistulokseen laskettavien kilpailuiden määrä
     unofficial: Epävirallinen kilpailija
+    use_team_name: Muodosta joukkueet kilpailijan joukkuenimen perusteella
 
   activerecord:
     models:
