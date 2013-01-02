@@ -43,13 +43,15 @@
     Jätä kenttä tyhjäksi, mikäli joukkuekilpailua ei ole tai mikäli
     joukkueet muodostetaan piirin tai seuran perusteella.
   </div>
-  
-  <h2>Lisätyt kilpailijat</h2>
-  <div id="all_competitors">
-    <%= (@race.competitors.collect do |comp| %>
-      <% full_name(comp) %>
-    <% end).join(", ") %>
-  </div>
+
+  <% unless @race.competitors.empty? %>  
+    <h2>Lisätyt kilpailijat</h2>
+    <div id="all_competitors">
+      <%= (@race.competitors.collect do |comp| %>
+        <% full_name(comp) %>
+      <% end).join(", ") %>
+    </div>
+  <% end %>
   
   <%= javascript_tag do %>
     var team_name_help_title = 'Joukkueen nimi';

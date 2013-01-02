@@ -35,7 +35,8 @@ Feature: Official only adding competitors
     Given I am a limited official for the race "Limited race"
     And the race has series "Limited series"
     And I have logged in
-    And I am on the the limited official competitors page for "Limited race"
+    When I go to the the limited official competitors page for "Limited race"
+    Then I should not see "Lisätyt kilpailijat"
     When I press "Tallenna"
     Then I should see "Etunimi on pakollinen" in an error message
     When I fill in "Keijo" for "Etunimi"
@@ -43,6 +44,7 @@ Feature: Official only adding competitors
     And I press "Tallenna"
     Then I should be on the the limited official competitors page for "Limited race"
     And I should see "Kilpailija lisätty" in a success message
+    And I should see "Lisätyt kilpailijat"
     And I should see "Kisaaja Keijo" within "#all_competitors"
     When I fill in "Heikki" for "Etunimi"
     And I fill in "Hiihtäjä" for "Sukunimi"
