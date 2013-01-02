@@ -4,7 +4,7 @@ class Official::Limited::CompetitorsController < Official::OfficialController
   
   def index
     @is_limited_official = true
-    @competitor = @race.series.first.competitors.build
+    @competitor = @race.series.first.competitors.build unless @race.series.empty?
   end
   
   def create

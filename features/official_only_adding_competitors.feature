@@ -5,6 +5,7 @@ Feature: Official only adding competitors
   
   Scenario: Race official with limited rights sees only limited competitors page
     Given I am a limited official for the race "Limited race"
+    And the race has series "Limited series"
     And I have logged in
     And I am on the official index page
     When I follow "Limited race"
@@ -32,6 +33,7 @@ Feature: Official only adding competitors
     
   Scenario: Race official with limited rights can add a competitor
     Given I am a limited official for the race "Limited race"
+    And the race has series "Limited series"
     And I have logged in
     And I am on the the limited official competitors page for "Limited race"
     When I press "Tallenna"
@@ -46,4 +48,12 @@ Feature: Official only adding competitors
     And I fill in "Hiihtäjä" for "Sukunimi"
     And I press "Tallenna"
     Then I should see "Kisaaja Keijo, Hiihtäjä Heikki" within "#all_competitors"
+    
+  Scenario: No series added for the race
+    Given I am a limited official for the race "Limited race"
+    And I have logged in
+    And I am on the the limited official competitors page for "Limited race"
+    Then I should see "Tähän kilpailuun ei ole vielä lisätty yhtään sarjaa. Voit lisätä kilpailijoita vasta sen jälkeen, kun päätoimitsija on lisännyt kilpailuun sarjat." in a warning message
+    But I should not see "Etunimi"
+    And I should not see "Lisätyt kilpailijat"
     
