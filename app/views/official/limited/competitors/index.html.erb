@@ -2,6 +2,9 @@
 <% if @race.series.empty? %>
   <div class="warning">Tähän kilpailuun ei ole vielä lisätty yhtään sarjaa.
     Voit lisätä kilpailijoita vasta sen jälkeen, kun päätoimitsija on lisännyt kilpailuun sarjat.</div>
+<% elsif @race.clubs.empty? %>
+  <div class="warning">Tähän kilpailuun ei ole vielä lisätty yhtään piiriä tai seuraa.
+    Voit lisätä kilpailijoita vasta sen jälkeen, kun päätoimitsija on lisännyt kilpailuun piirit/seurat.</div>
 <% else %>
   <h2>Lisää kilpailija</h2>
   <%= flash_success %>
