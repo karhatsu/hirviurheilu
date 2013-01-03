@@ -28,7 +28,7 @@ Feature: Official invitation
     When I logout
     And "another@official.com" opens the email
     Then I should see "Hei Another Official" in the email body
-    And I should see "Tim Thomas on kutsunut sinut toimitsijaksi Hirviurheilu-palvelussa olevaan Hirvenhiihtokilpailuun: Test race (12.12.2010 - 13.12.2010, Test town)" in the email body
+    And I should see "Tim Thomas on kutsunut sinut toimitsijaksi Hirviurheilu-palvelussa olevaan hirvenhiihtokilpailuun: Test race (12.12.2010 - 13.12.2010, Test town)" in the email body
     And I should see "Linkki kilpailuun:" in the email body
     When I click the first link in the email
     Then I should be on the login page
@@ -80,7 +80,7 @@ Feature: Official invitation
     When I logout
     And "another@official.com" opens the email
     Then I should see "Hei Another Official" in the email body
-    And I should see "Tim Thomas on pyytänyt sinua lisäämään kilpailijoita Hirviurheilu-palvelussa olevaan Hirvenhiihtokilpailuun: Test race (12.12.2010 - 13.12.2010, Test town)" in the email body
+    And I should see "Tim Thomas on pyytänyt sinua lisäämään kilpailijoita Hirviurheilu-palvelussa olevaan hirvenhiihtokilpailuun: Test race (12.12.2010 - 13.12.2010, Test town)" in the email body
     And I should see "Siirry syöttämään kilpailijoita:" in the email body
     When I click the first link in the email
     Then I should be on the login page
