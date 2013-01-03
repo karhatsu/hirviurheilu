@@ -34,7 +34,8 @@ Feature: Official only adding competitors
     
   Scenario: Race official with limited rights can add a competitor
     Given I am a limited official for the race "Limited race"
-    And the race has series "Limited series"
+    And the race has series "M"
+    And the race has series "N"
     And the race has a club "Limited club"
     And I have logged in
     When I go to the the limited official competitors page for "Limited race"
@@ -47,11 +48,13 @@ Feature: Official only adding competitors
     Then I should be on the the limited official competitors page for "Limited race"
     And I should see "Kilpailija lisätty" in a success message
     And I should see "Lisätyt kilpailijat"
-    And I should see "Kisaaja Keijo" within "#all_competitors"
-    When I fill in "Heikki" for "Etunimi"
+    And I should see "Kisaaja Keijo (M)" within "#all_competitors"
+    When I fill in "Helena" for "Etunimi"
     And I fill in "Hiihtäjä" for "Sukunimi"
+    Then show me the page
+    And I select "N" from "competitor_series_id"
     And I press "Tallenna"
-    Then I should see "Kisaaja Keijo, Hiihtäjä Heikki" within "#all_competitors"
+    Then I should see "Kisaaja Keijo (M), Hiihtäjä Helena (N)" within "#all_competitors"
     
   Scenario: No series added for the race
     Given I am a limited official for the race "Limited race"

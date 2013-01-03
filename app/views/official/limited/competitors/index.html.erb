@@ -10,7 +10,7 @@
   <%= flash_success %>
   <%= render :partial => "shared/form_errors", :locals => { :item => @competitor } %>
   <%= form_for([:official, :limited, @race, @competitor]) do |f| %>
-    <span class="form_label"><%= f.label :series %></span>
+    <span class="form_label"><%= f.label :series_id %></span>
     <%= f.select :series_id, options_from_collection_for_select(@race.series,
       :id, :name, @competitor.series.id), {}, :onchange => 'change_series(this.value)' %>
     <% age_group_style = f.object.series.age_groups.empty? ? 'display:none;' : '' %>
@@ -51,7 +51,7 @@
     <h2>Lisätyt kilpailijat</h2>
     <div id="all_competitors">
       <%= (@race.competitors.collect do |comp| %>
-        <% full_name(comp) %>
+        <% "#{full_name(comp)} (#{comp.series.name})" %>
       <% end).join(", ") %>
     </div>
   <% end %>
