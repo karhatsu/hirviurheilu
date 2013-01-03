@@ -51,7 +51,7 @@
     <h2>Lisätyt kilpailijat</h2>
     <div id="all_competitors">
       <%= (@race.competitors.collect do |comp| %>
-        <% "#{full_name(comp)} (#{comp.series.name})" %>
+        <% "#{full_name(comp)} (#{comp.series.name}#{comp.age_group ? '/' + comp.age_group.name : ''})" %>
       <% end).join(", ") %>
     </div>
   <% end %>
