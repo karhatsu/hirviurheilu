@@ -6,11 +6,15 @@
   <%= club_word %> myös samalla, kun lisäät kilpailijoita.</div>
 <h2>Lisää <%= club_title(@race).downcase %></h2>
 <div id="action_error"></div>
-<%= form_for([:official, @race, Club.new], :remote => true) do |f| %>
-  <%= f.label :name, :for => 'new_club_name' %>
-  <%= f.text_field :name, :id => 'new_club_name' %><br/>
-  <%= f.label :long_name, :for => 'new_club_long_name' %>
-  <%= f.text_field :long_name, :id => 'new_club_long_name' %> (ei pakollinen)<br/>
+<%= form_for([:official, @race, Club.new], :remote => true, :html => {:class => 'club_form'}) do |f| %>
+  <div>
+    <span class="form_label"><%= f.label :name, :for => 'new_club_name' %></span>
+    <%= f.text_field :name, :id => 'new_club_name' %>
+  </div>
+  <div>
+    <span class="form_label"><%= f.label :long_name, :for => 'new_club_long_name' %></span>
+    <%= f.text_field :long_name, :id => 'new_club_long_name' %> (käytetään joukkuekilpailuissa, jos syötetty)
+  </div>
   <%= submit_tag "Lisää #{club_title(@race).downcase}", :id => 'submit' %>
   <span id="spinner"></span>
 <% end %>
