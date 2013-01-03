@@ -43,27 +43,27 @@ describe CsvImport do
             @race.reload
             @race.should have(4).competitors
             c = @race.competitors.order('id')[0]
-            c.first_name.should == 'Heikki'
-            c.last_name.should == 'Räsänen'
-            c.series.name.should == 'M40'
-            c.club.name.should == 'SS'
-            c = @race.competitors.order('id')[1]
-            c.first_name.should == 'Minna'
-            c.last_name.should == 'Miettinen'
-            c.series.name.should == 'N'
-            c.age_group.should be_nil
-            c.club.name.should == 'PS'
-            c = @race.competitors.order('id')[2]
             c.first_name.should == 'Maija'
             c.last_name.should == 'Hämäläinen'
             c.series.name.should == 'N'
             c.age_group.name.should == 'N50'
             c.club.name.should == 'SS'
-            c = @race.competitors.order('id')[3]
+            c = @race.competitors.order('id')[1]
             c.first_name.should == 'Minna'
             c.last_name.should == 'Hämäläinen'
             c.series.name.should == 'N'
             c.age_group.name.should == 'N50'
+            c.club.name.should == 'SS'
+            c = @race.competitors.order('id')[2]
+            c.first_name.should == 'Minna'
+            c.last_name.should == 'Miettinen'
+            c.series.name.should == 'N'
+            c.age_group.should be_nil
+            c.club.name.should == 'PS'
+            c = @race.competitors.order('id')[3]
+            c.first_name.should == 'Heikki'
+            c.last_name.should == 'Räsänen'
+            c.series.name.should == 'M40'
             c.club.name.should == 'SS'
             @race.should have(2).clubs
           end
