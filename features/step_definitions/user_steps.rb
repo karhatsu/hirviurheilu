@@ -91,3 +91,7 @@ Given /^I have logged in$/ do
   fill_in("Salasana", :with => @user.password)
   click_button("Kirjaudu")
 end
+
+When /^I logout$/ do
+  click_link("Kirjaudu ulos")
+end
