@@ -51,10 +51,9 @@ Feature: Official only adding competitors
     And I should see "Kisaaja Keijo (M)" within "#all_competitors"
     When I fill in "Helena" for "Etunimi"
     And I fill in "Hiihtäjä" for "Sukunimi"
-    Then show me the page
     And I select "N" from "competitor_series_id"
     And I press "Tallenna"
-    Then I should see "Kisaaja Keijo (M), Hiihtäjä Helena (N)" within "#all_competitors"
+    Then I should see "Hiihtäjä Helena (N), Kisaaja Keijo (M)" within "#all_competitors"
     
   Scenario: No series added for the race
     Given I am a limited official for the race "Limited race"
