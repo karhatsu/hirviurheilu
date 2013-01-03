@@ -5,6 +5,8 @@
       while($('#competitor_age_group_id').children().length > 1) {
         $('#competitor_age_group_id').children().last().remove();
       }
+      var series_name = $('#competitor_series_id option:selected').text();
+      $('#competitor_age_group_id').children().first().text(series_name);
       if(age_groups.length == 0) {
         $('#age_groups_span').hide();
       } else {
