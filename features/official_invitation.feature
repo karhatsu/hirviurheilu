@@ -88,4 +88,19 @@ Feature: Official invitation
     And I fill in "pword" for "Salasana"
     And I press "Kirjaudu"
     Then I should be on the limited official competitors page for "Test race"
-  
+
+  Scenario: Invite official with limited rights to certain club
+    Given there is an official "Another" "Official" with email "another@official.com" and password "pword"
+    And I am an official "Tim Thomas" with email "tim@official.com"
+    And I have a race "Test race"
+    And the race has a club "Club 1"
+    And the race has a club "Club 2"
+    And I have logged in
+    And I am on the invite officials page for "Test race"
+    When I check "Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita"
+    And I fill in "another@official.com" for "Sähköposti"
+    And I select "Club 2" from "Salli kilpailijoiden lisäys vain tiettyyn piiriin/seuraan"
+    And I press "Lähetä kutsu"
+    Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi rajoitetuin oikeuksin" in a success message
+    And I should see "Tim Thomas, Another Official (vain kilpailijoiden lisäys, Club 2)" within "#current_officials"
+    
