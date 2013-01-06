@@ -3,6 +3,7 @@
     <th>Kilpailija</th>
     <th>Sarja</th>
     <th><%= club_title(@race) %></th>
+    <th>Joukkueen nimi</th>
     <th>&nbsp;</th>
   </tr>
   <% @competitors.each do |comp| %>
@@ -10,6 +11,7 @@
       <td><%= link_to(full_name(comp), edit_official_limited_race_competitor_path(@race, comp)) %></td>
       <td><%= comp.series.name %><%= comp.age_group ? '/' + comp.age_group.name : '' %></td>
       <td><%= comp.club.name %></td>
+      <td><%= comp.team_name %></td>
       <td><%= link_to 'Poista', official_limited_race_competitor_path(@race, comp),
         :data => { :confirm => "Haluatko varmasti poistaa tämän kilpailijan?" },
         :method => :delete %></td>
