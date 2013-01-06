@@ -205,6 +205,13 @@ class Series < ActiveRecord::Base
   def competitors_only_to_age_groups?
     !!(name =~ /^S\d\d?$/)
   end
+  
+  def age_groups_with_main_series
+    return [] if age_groups.empty?
+    groups = age_groups
+    groups.unshift(AgeGroup.new(:id => nil, :name => name)) unless competitors_only_to_age_groups?
+    groups
+  end
 
   private
   def check_time_points_type

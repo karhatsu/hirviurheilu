@@ -1129,4 +1129,42 @@ describe Series do
       Series.new(:name => name).competitors_only_to_age_groups?.should == expected
     end
   end
+  
+  describe "#age_groups_with_main_series" do
+    context "when no age groups" do
+      it "should be empty array" do
+        Series.new.age_groups_with_main_series.should be_empty
+      end
+    end
+    
+    context "when age groups" do
+      before do
+        @series = FactoryGirl.create(:series)
+        @age_group = FactoryGirl.build(:age_group, :series => @series)
+        @series.age_groups << @age_group
+      end
+
+      context "and competitors can be added to main group" do
+        it "should be age groups array prepended with main series" do
+          @series.stub!(:competitors_only_to_age_groups?).and_return(false)
+          age_groups = @series.age_groups_with_main_series
+          age_groups.length.should == 2
+          age_groups[0].id.should be_nil
+          age_groups[0].name.should == @series.name
+          age_groups[1].id.should == @age_group.id
+          age_groups[1].name.should == @age_group.name
+        end
+      end
+      
+      context "and competitors can be added only to age groups" do
+        it "should be age groups array prepended with main series" do
+          @series.stub!(:competitors_only_to_age_groups?).and_return(true)
+          age_groups = @series.age_groups_with_main_series
+          age_groups.length.should == 1
+          age_groups[0].id.should == @age_group.id
+          age_groups[0].name.should == @age_group.name
+        end
+      end
+    end
+  end
 end

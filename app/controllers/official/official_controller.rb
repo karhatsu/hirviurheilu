@@ -54,10 +54,7 @@ class Official::OfficialController < ApplicationController
   def collect_age_groups(series)
     @age_groups = {}
     series.each do |s|
-      @age_groups[s.id] = s.age_groups
-      unless s.age_groups.empty? or s.competitors_only_to_age_groups?
-        @age_groups[s.id].unshift(AgeGroup.new(:id => nil, :name => s.name))
-      end
+      @age_groups[s.id] = s.age_groups_with_main_series
     end
   end
 end
