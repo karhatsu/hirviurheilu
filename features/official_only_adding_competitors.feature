@@ -56,6 +56,28 @@ Feature: Official only adding competitors
     Then I should see "Hiihtäjä Helena (N), Kisaaja Keijo (M)" within "#all_competitors"
     And I should see "Lisätyt kilpailijat (2)"
     
+  Scenario: When limitation is on club level, club is defined automatically
+    Given there is a race "Limited race"
+    And the race has series "M"
+    And the race has a club "Some other club"
+    And the race has a club "My club"
+    And the series "M" contains a competitor with attributes:
+      | first_name | Teppo |
+      | club | Some other club |
+    And I have limited rights to add competitors to the club "My club" in the race
+    And I have logged in
+    When I go to the limited official competitors page for "Limited race"
+    Then I should see "My club"
+    But I should not see "Some other club"
+    But I should not see "Teppo"
+    When I fill in "Keijo" for "Etunimi"
+    And I fill in "Kisaaja" for "Sukunimi"
+    And I press "Tallenna"
+    Then I should be on the the limited official competitors page for "Limited race"
+    And I should see "Kilpailija lisätty" in a success message
+    And I should see "Lisätyt kilpailijat (1)"
+    And I should see "Kisaaja Keijo (M)" within "#all_competitors"
+    
   Scenario: No series added for the race
     Given I am a limited official for the race "Limited race"
     And the race has a club "Limited club"

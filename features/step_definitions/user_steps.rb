@@ -73,6 +73,16 @@ Given /^I have only add competitors rights for the race$/ do
   @user.race_rights.create!(:race => @race, :only_add_competitors => true)
 end
 
+Given /^I have limited rights to add competitors to the club "(.*?)" in the race$/ do |club_name|
+  unless @user
+    @user = FactoryGirl.build(:user)
+    @user.save_without_session_maintenance
+    @user.add_official_rights
+  end
+  @user.race_rights.create!(:race => @race, :only_add_competitors => true,
+    :club => Club.find_by_name(club_name))
+end
+
 Given /^I am an admin$/ do
   @user = FactoryGirl.build(:user)
   @user.save_without_session_maintenance
