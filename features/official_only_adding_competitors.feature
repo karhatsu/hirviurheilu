@@ -47,13 +47,14 @@ Feature: Official only adding competitors
     And I press "Tallenna"
     Then I should be on the the limited official competitors page for "Limited race"
     And I should see "Kilpailija lisätty" in a success message
-    And I should see "Lisätyt kilpailijat"
+    And I should see "Lisätyt kilpailijat (1)"
     And I should see "Kisaaja Keijo (M)" within "#all_competitors"
     When I fill in "Helena" for "Etunimi"
     And I fill in "Hiihtäjä" for "Sukunimi"
     And I select "N" from "competitor_series_id"
     And I press "Tallenna"
     Then I should see "Hiihtäjä Helena (N), Kisaaja Keijo (M)" within "#all_competitors"
+    And I should see "Lisätyt kilpailijat (2)"
     
   Scenario: No series added for the race
     Given I am a limited official for the race "Limited race"

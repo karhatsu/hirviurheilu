@@ -48,7 +48,7 @@
   </div>
 
   <% unless @race.competitors.empty? %>  
-    <h2>Lisätyt kilpailijat</h2>
+    <h2>Lisätyt kilpailijat (<%= @race.competitors.count %>)</h2>
     <div id="all_competitors">
       <%= (@race.competitors.collect do |comp| %>
         <% "#{full_name(comp)} (#{comp.series.name}#{comp.age_group ? '/' + comp.age_group.name : ''})" %>
