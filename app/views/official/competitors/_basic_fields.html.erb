@@ -65,38 +65,38 @@
     <%= image_tag 'spinner.gif' %>
     Odota hetki...
   </span>
-
-  <%= render :partial => 'official/shared/reload_age_groups_js' %>
-  <%= javascript_tag do %>
-    function change_series(series_id) {
-      reload_age_groups(series_id);
-      reload_number_and_start_time_and_link(series_id);
-    }
-
-    function reload_number_and_start_time_and_link(series_id) {
-      $('#number_spinner').show();
-      $.getJSON('/series/' + series_id, function(series) {
-        if(series.has_start_list) {
-          $('#competitor_number').val(series.next_start_number);
-          $('#competitor_start_time_4i').val(series.next_start_time.substring(11, 13));
-          $('#competitor_start_time_5i').val(series.next_start_time.substring(14, 16));
-          $('#competitor_start_time_6i').val(series.next_start_time.substring(17, 19));
-          $('#number_span').show();
-        } else {
-          $('#competitor_number').val('');
-          $('#competitor_start_time_4i').val('');
-          $('#competitor_start_time_5i').val('');
-          $('#competitor_start_time_6i').val('');
-          $('#number_span').hide();
-        }
-        $('#back_to_series').attr('href', '/official/series/' + series_id + '/competitors');
-        $('#back_to_series #series_name').text(series.name);
-        $('#number_spinner').hide();
-      });
-    }
-  <% end %>
 <% end %>
 <%= javascript_tag do %>
   var team_name_help_title = 'Joukkueen nimi';
+  $(document).ready(function() {
+    change_series(<%= f.object.series_id %>);
+  });
+  function change_series(series_id) {
+    reload_age_groups(series_id);
+    reload_number_and_start_time_and_link(series_id);
+  }
+
+  function reload_number_and_start_time_and_link(series_id) {
+    $('#number_spinner').show();
+    $.getJSON('/series/' + series_id, function(series) {
+      if(series.has_start_list) {
+        $('#competitor_number').val(series.next_start_number);
+        $('#competitor_start_time_4i').val(series.next_start_time.substring(11, 13));
+        $('#competitor_start_time_5i').val(series.next_start_time.substring(14, 16));
+        $('#competitor_start_time_6i').val(series.next_start_time.substring(17, 19));
+        $('#number_span').show();
+      } else {
+        $('#competitor_number').val('');
+        $('#competitor_start_time_4i').val('');
+        $('#competitor_start_time_5i').val('');
+        $('#competitor_start_time_6i').val('');
+        $('#number_span').hide();
+      }
+      $('#back_to_series').attr('href', '/official/series/' + series_id + '/competitors');
+      $('#back_to_series #series_name').text(series.name);
+      $('#number_spinner').hide();
+    });
+  }
 <% end %>
+<%= render :partial => 'official/shared/reload_age_groups_js' %>
 <%= render :partial => 'shared/help_dialog_opener' %>

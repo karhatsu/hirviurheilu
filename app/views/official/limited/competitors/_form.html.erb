@@ -51,6 +51,9 @@
 <% end %>
 <%= render :partial => 'official/shared/reload_age_groups_js' %>
 <%= javascript_tag do %>
+  $(document).ready(function() {
+    change_series(<%= @competitor.series_id %>);
+  });
   function change_series(series_id) {
     reload_age_groups(series_id);
   }
