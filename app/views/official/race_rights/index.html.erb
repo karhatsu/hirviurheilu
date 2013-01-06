@@ -27,9 +27,15 @@
     <span><%= f.check_box :only_add_competitors %></span>
   </div>
   <div style="display: none;" id="club_limitation">
-    <span class="form_label"><%= f.label :club_id, 'Salli kilpailijoiden lisäys vain tiettyyn piiriin/seuraan' %></span>
-    <span><%= f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name),
-      :prompt => 'Ei rajausta' %></span>
+    <span class="form_label"><%= f.label :club_id,
+      'Salli kilpailijoiden lisäys vain tiettyyn piiriin/seuraan' %></span>
+    <% if @race.clubs.empty? %>
+      (Käyttöä ei voi rajata, koska <%= link_to 'yhtään piiriä/seuraa ei ole lisätty',
+        official_race_clubs_path(@race) %>.)
+    <% else %>
+      <%= f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name),
+        :prompt => 'Ei rajausta' %>
+    <% end %>
   </div>
   <%= submit_tag "Lähetä kutsu" %>
 <% end %>

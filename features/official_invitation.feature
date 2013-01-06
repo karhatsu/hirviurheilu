@@ -103,4 +103,15 @@ Feature: Official invitation
     And I press "Lähetä kutsu"
     Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi rajoitetuin oikeuksin" in a success message
     And I should see "Tim Thomas, Another Official (vain kilpailijoiden lisäys, Club 2)" within "#current_officials"
-    
+
+  Scenario: If no clubs, official sees explicitly that club limitation cannot be used
+    Given there is an official "Another" "Official" with email "another@official.com" and password "pword"
+    And I am an official "Tim Thomas" with email "tim@official.com"
+    And I have a race "Test race"
+    And I have logged in
+    And I am on the invite officials page for "Test race"
+    When I check "Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita"
+    Then I should see "(Käyttöä ei voi rajata, koska yhtään piiriä/seuraa ei ole lisätty.)"
+    When I follow "yhtään piiriä/seuraa ei ole lisätty"
+    Then I should be on the official clubs page for "Test race"
+     
