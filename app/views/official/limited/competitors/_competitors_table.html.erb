@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <th>Kilpailija</th>
+    <th>Sarja</th>
+    <th><%= club_title(@race) %></th>
+  </tr>
+  <% @competitors.each do |comp| %>
+    <tr>
+      <td><%= link_to(full_name(comp), edit_official_limited_race_competitor_path(@race, comp)) %></td>
+      <td><%= comp.series.name %><%= comp.age_group ? '/' + comp.age_group.name : '' %></td>
+      <td><%= comp.club.name %></td>
+    </tr>
+  <% end %>
+</table>

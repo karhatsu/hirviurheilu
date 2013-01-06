@@ -7,67 +7,13 @@
     Voit lisätä kilpailijoita vasta sen jälkeen, kun päätoimitsija on lisännyt kilpailuun piirit/seurat.</div>
 <% else %>
   <h2>Lisää kilpailija</h2>
-  <%= flash_success %>
-  <%= render :partial => "shared/form_errors", :locals => { :item => @competitor } %>
-  <%= form_for([:official, :limited, @race, @competitor]) do |f| %>
-    <span class="form_label"><%= f.label :series_id %></span>
-    <%= f.select :series_id, options_from_collection_for_select(@race.series,
-      :id, :name, @competitor.series.id), {}, :onchange => 'change_series(this.value)' %>
-    <% age_group_style = f.object.series.age_groups.empty? ? 'display:none;' : '' %>
-    <span id="age_groups_span" style="<%= age_group_style %>">
-      <span class="form_label"><%= f.label :age_group %></span>
-      <%= f.collection_select :age_group_id, @competitor.series.age_groups, :id, :name,
-        :prompt => 'Pääsarja' %>
-    </span>
-    <span id="age_groups_spinner" style="display:none;">
-      <%= image_tag 'spinner.gif' %>
-      Odota hetki...
-    </span>
-    <br/>
-    <span class="form_label"><%= f.label :first_name %></span>
-    <%= f.text_field :first_name, :size => 15 %>
-    <span class="form_label"><%= f.label :last_name %></span>
-    <%= f.text_field :last_name, :size => 20 %><br/>
-    <span class="form_label"><%= f.label :club_id, club_title(@race) %></span>
-    <% if @race_right.club %>
-      <%= @race_right.club.name %>
-    <% else %>
-      <%= f.select :club_id, options_from_collection_for_select(@race.clubs,
-        :id, :name) %>
-    <% end %>
-    <span class="form_label">
-      <%= f.label :team_name %>
-      <a class="help" id="team_name_help" href="javascript:void(0);">?</a>
-    </span>
-    <%= f.text_field :team_name %><br/>
-    <%= submit_tag "Tallenna" %>
-  <% end %>
-  <div id="team_name_help_dialog" class="dialog" style="display: none;">
-    Jos kilpailuun kuuluu joukkuekilpailu, jossa joukkueita ei muodosteta
-    automaattisesti piirin tai seuran perusteella, syötä tähän kenttään
-    sen joukkueen nimi, johon kilpailija kuuluu.
-    <br/><br/>
-    Jätä kenttä tyhjäksi, mikäli joukkuekilpailua ei ole tai mikäli
-    joukkueet muodostetaan piirin tai seuran perusteella.
-  </div>
+  <%= render :partial => 'form' %>
 
   <% unless @competitors.empty? %>  
     <h2>Lisätyt kilpailijat (<%= @competitors.count %>)</h2>
-    <div id="all_competitors">
-      <%= (@competitors.collect do |comp| %>
-        <% "#{full_name(comp)} (#{comp.series.name}#{comp.age_group ? '/' + comp.age_group.name : ''})" %>
-      <% end).join(", ") %>
+    <div id="all_competitors" class="section">
+      <%= render :partial => 'competitors_table' %>
     </div>
   <% end %>
   
-  <%= javascript_tag do %>
-    var team_name_help_title = 'Joukkueen nimi';
-  <% end %>
-  <%= render :partial => 'official/shared/reload_age_groups_js' %>
-  <%= javascript_tag do %>
-    function change_series(series_id) {
-      reload_age_groups(series_id);
-    }
-  <% end %>
-  <%= render :partial => 'shared/help_dialog_opener' %>
 <% end %>
