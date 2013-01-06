@@ -51,6 +51,7 @@ fi:
     remember_me: Muista minut
     roles: Roolit
     series: Sarja
+    series_id: Sarja
     series_names: Osakilpailuiden sarjojen nimet
     shots_total_input: Ammunta yhteensä
     sport: Laji

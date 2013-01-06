@@ -51,7 +51,7 @@ Feature: Official only adding competitors
     And I should see "Kisaaja Keijo (M)" within "#all_competitors"
     When I fill in "Helena" for "Etunimi"
     And I fill in "Hiihtäjä" for "Sukunimi"
-    And I select "N" from "competitor_series_id"
+    And I select "N" from "Sarja"
     And I press "Tallenna"
     Then I should see "Hiihtäjä Helena (N), Kisaaja Keijo (M)" within "#all_competitors"
     And I should see "Lisätyt kilpailijat (2)"
