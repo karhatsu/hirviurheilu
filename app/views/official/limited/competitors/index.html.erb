@@ -7,7 +7,7 @@
     Voit lisätä kilpailijoita vasta sen jälkeen, kun päätoimitsija on lisännyt kilpailuun piirit/seurat.</div>
 <% else %>
   <h2>Lisää kilpailija</h2>
-  <%= render :partial => 'form' %>
+  <%= render :partial => 'form', :locals => { :show_cancel => false } %>
 
   <% unless @competitors.empty? %>  
     <h2>Lisätyt kilpailijat (<%= @competitors.count %>)</h2>

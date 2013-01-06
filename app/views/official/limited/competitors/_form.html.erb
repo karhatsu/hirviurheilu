@@ -32,6 +32,10 @@
   </span>
   <%= f.text_field :team_name %><br/>
   <%= submit_tag "Tallenna" %>
+  <% if show_cancel %>
+    <%= tag(:input, {:type => 'button', :value => 'Peruuta',
+      :onclick => "cancel_edit();"}) %>
+  <% end %>
 <% end %>
 <div id="team_name_help_dialog" class="dialog" style="display: none;">
   Jos kilpailuun kuuluu joukkuekilpailu, jossa joukkueita ei muodosteta
@@ -49,6 +53,9 @@
 <%= javascript_tag do %>
   function change_series(series_id) {
     reload_age_groups(series_id);
+  }
+  function cancel_edit() {
+    window.location = '<%= official_limited_race_competitors_path(@race) %>';
   }
 <% end %>
 <%= render :partial => 'shared/help_dialog_opener' %>
