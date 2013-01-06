@@ -2,7 +2,7 @@
 class Official::Limited::CompetitorsController < Official::OfficialController
   before_filter :assign_race_by_race_id, :check_assigned_race_without_full_rights,
     :assign_race_right, :assign_current_competitors, :set_limited_official
-  before_filter :assign_competitor, :only => [:edit, :update]
+  before_filter :assign_competitor, :only => [:edit, :update, :destroy]
   
   def index
     @competitor = @race.series.first.competitors.build unless @race.series.empty?
@@ -29,6 +29,12 @@ class Official::Limited::CompetitorsController < Official::OfficialController
     else
       render :edit
     end
+  end
+  
+  def destroy
+    @competitor.destroy
+    flash[:success] = 'Kilpailija poistettu'
+    redirect_to official_limited_race_competitors_path(@race)
   end
   
   private
