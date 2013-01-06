@@ -70,7 +70,7 @@ Given /^I am an official with attributes:$/ do |fields|
 end
 
 Given /^I have only add competitors rights for the race$/ do
-  @user.add_race(@race, true)
+  @user.race_rights.create!(:race => @race, :only_add_competitors => true)
 end
 
 Given /^I am an admin$/ do

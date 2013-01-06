@@ -19,7 +19,7 @@ class Official::RacesController < Official::OfficialController
   def create
     @race = Race.new(params[:race])
     if @race.save
-      current_user.add_race(@race)
+      current_user.race_rights.create!(:race => @race)
       NewCompetitionMailer.new_race(@race, current_user).deliver
       flash[:success] = "Kilpailu lisätty. "
       if params[:add_default_series]

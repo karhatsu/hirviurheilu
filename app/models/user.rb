@@ -30,11 +30,6 @@ class User < ActiveRecord::Base
     has_role?(Role::OFFICIAL)
   end
   
-  def add_race(race, only_add_competitors=false)
-    race_rights << RaceRight.new(:user_id => id, :race_id => race.id,
-      :only_add_competitors => only_add_competitors)
-  end
-
   def official_for_race?(race)
     races.each do |r|
       return true if r == race

@@ -47,35 +47,6 @@ describe User do
     end
   end
   
-  describe "#add_race" do
-    before do
-      @race = FactoryGirl.create(:race)
-      @user = FactoryGirl.create(:user)
-    end
-    
-    it "should make the user official for the race" do
-      @user.should_not be_official_for_race(@race)
-      @user.add_race(@race)
-      @user.reload
-      @user.should be_official_for_race(@race)
-    end
-    
-    context "when only add competitors limitation" do
-      before do
-        @user.add_race(@race, true)
-        @user.reload
-      end
-      
-      it "should make the user official for the race" do
-        @user.should be_official_for_race(@race)
-      end
-      
-      it "should give only add competitors rights for the race" do
-        @user.race_rights.first.only_add_competitors.should be_true
-      end
-    end
-  end
-
   describe "#official_for_race?" do
     before do
       @race = FactoryGirl.create(:race)
@@ -129,12 +100,12 @@ describe User do
     end
     
     it "should return false when user has only add competitors rights" do
-      @user.add_race(@race, true)
+      @user.race_rights.create!(:race => @race, :only_add_competitors => true)
       @user.should_not have_full_rights_for_race(@race) 
     end
     
     it "should return true when user has full rights" do
-      @user.add_race(@race)
+      @user.race_rights.create!(:race => @race, :only_add_competitors => false)
       @user.should have_full_rights_for_race(@race) 
     end
   end
