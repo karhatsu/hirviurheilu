@@ -1,6 +1,6 @@
 # encoding: UTF-8
-class Official::InviteOfficialsController < Official::OfficialController
-  before_filter :assign_race_by_race_id, :check_assigned_race, :set_clubs
+class Official::RaceRightsController < Official::OfficialController
+  before_filter :assign_race_by_race_id, :check_assigned_race, :set_race_rights
 
   def index
   end
@@ -12,11 +12,12 @@ class Official::InviteOfficialsController < Official::OfficialController
         flash[:error] = "Henkilö on jo tämän kilpailun toimitsija"
         render :index
       else
-        only_competitor_adding = params[:only_adding_competitors] == "1"
-        user.add_race(@race, only_competitor_adding)
-        send_invitation_mail only_competitor_adding, user
-        flash[:success] = invitation_success_message(only_competitor_adding, user)
-        redirect_to official_race_invite_officials_path(@race)
+        race_right = @race.race_rights.build(params[:race_right])
+        race_right.user = user
+        race_right.save!
+        send_invitation_mail race_right
+        set_invitation_success_message race_right
+        redirect_to official_race_race_rights_path(@race)
       end
     else
       flash[:error] = "Tietokannasta ei löytynyt syöttämääsi sähköpostiosoitetta"
@@ -25,23 +26,25 @@ class Official::InviteOfficialsController < Official::OfficialController
   end
 
   private
-  def set_clubs
-    @is_officials = true
+  def set_race_rights
+    @is_race_rights = true
   end
   
-  def send_invitation_mail(only_competitor_adding, user)
+  def send_invitation_mail(race_right)
+    user = race_right.user
     url = official_race_url(@race)
-    if only_competitor_adding
+    if race_right.only_add_competitors
       InviteOfficialMailer.invite_only_competitor_adding(@race, current_user, user, url).deliver
     else
       InviteOfficialMailer.invite(@race, current_user, user, url).deliver
     end
   end
   
-  def invitation_success_message(only_competitor_adding, user)
+  def set_invitation_success_message(race_right)
+    user = race_right.user
     message = "Toimitsija #{user.first_name} #{user.
       last_name} lisätty kilpailun #{@race.name} toimitsijaksi"
-    message += " rajoitetuin oikeuksin" if only_competitor_adding
-    message
+    message += " rajoitetuin oikeuksin" if race_right.only_add_competitors
+    flash[:success] = message
   end
 end

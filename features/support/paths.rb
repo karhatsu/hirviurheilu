@@ -42,7 +42,7 @@ module NavigationHelpers
       official_race_clubs_path(Race.find_by_name($1))
 
     when /the invite officials page for "(.*)"/
-      official_race_invite_officials_path(Race.find_by_name($1))
+      official_race_race_rights_path(Race.find_by_name($1))
 
     when /the export race page of "(.*)"/
       new_official_race_exports_path(Race.find_by_name($1))

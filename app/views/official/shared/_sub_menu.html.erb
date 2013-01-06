@@ -28,7 +28,7 @@
         <%= menu_item "Viestit", official_race_relays_path(race), @is_relays %>
         <%= menu_item clubs_title(race), official_race_clubs_path(race), @is_clubs %>
         <% if online? %>
-          <%= menu_item "Toimitsijat", official_race_invite_officials_path(race), @is_officials %>
+          <%= menu_item "Toimitsijat", official_race_race_rights_path(race), @is_race_rights %>
         <% end %>
         <% export_title = (offline? ? 'Julkaise' : 'Lataa') %>
         <%= menu_item export_title, new_official_race_exports_path(race), @is_export %>
