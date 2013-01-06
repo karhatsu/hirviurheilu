@@ -3,7 +3,9 @@ class Official::AgeGroupsController < Official::OfficialController
   
   def index
     age_groups = @series.age_groups
-    age_groups.unshift(AgeGroup.new(:id => nil, :name => @series.name)) unless age_groups.empty?
+    unless age_groups.empty? or @series.competitors_only_to_age_groups?
+      age_groups.unshift(AgeGroup.new(:id => nil, :name => @series.name))
+    end
     respond_to do |format|
       format.json { render :json => age_groups }
     end

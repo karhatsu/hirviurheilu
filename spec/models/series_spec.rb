@@ -1112,4 +1112,21 @@ describe Series do
       @series.should have_unofficial_competitors
     end
   end
+  
+  describe "#competitors_only_to_age_groups?" do
+    it "false for M" do verify('M', false) end
+    it "false for M60" do verify('M60', false) end
+    it "false for N50" do verify('N50', false) end
+    it "true for S9" do verify('S9', true) end
+    it "true for S10" do verify('S10', true) end
+    it "true for S11" do verify('S11', true) end
+    it "true for S20" do verify('S20', true) end
+    it "false for S1X" do verify('S1X', false) end
+    it "false for 1S3" do verify('AS3', false) end
+    it "false for S132" do verify('S132', false) end
+    
+    def verify(name, expected)
+      Series.new(:name => name).competitors_only_to_age_groups?.should == expected
+    end
+  end
 end

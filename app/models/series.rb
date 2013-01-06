@@ -201,6 +201,10 @@ class Series < ActiveRecord::Base
   def has_unofficial_competitors?
     competitors.where(:unofficial => true).exists?
   end
+  
+  def competitors_only_to_age_groups?
+    !!(name =~ /^S\d\d?$/)
+  end
 
   private
   def check_time_points_type

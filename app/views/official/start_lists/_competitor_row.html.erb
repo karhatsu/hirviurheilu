@@ -15,7 +15,7 @@
     <% age_groups_visibility = @age_groups[c.series_id].length > 0 ? '' : 'display:none;' %>
     <div class="value age_group">
       <%= f.collection_select :age_group_id, @age_groups[c.series_id], :id, :name,
-      { :include_blank => true }, { :id => "age_groups_#{id}", :style => age_groups_visibility } %>
+      {}, { :id => "age_groups_#{id}", :style => age_groups_visibility } %>
       <%= image_tag 'spinner.gif', :style => 'display:none;', :id => "age_groups_spinner_#{id}" %>
     </div>
     <div class="value button"><input type="submit" class="save_button" value="<%= save_button %>"

@@ -35,7 +35,7 @@
       $age_group_menu.hide();
       $age_group_spinner.show();
       $.getJSON('/official/series/' + series_id + '/age_groups', function(age_groups) {
-        while($age_group_menu.children().length > 1) {
+        while($age_group_menu.children().length > 0) {
           $age_group_menu.children().last().remove();
         }
         if(age_groups.length > 0) {
