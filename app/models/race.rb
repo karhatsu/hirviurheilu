@@ -167,6 +167,10 @@ class Race < ActiveRecord::Base
   def has_team_competition?
     not team_competitions.empty?
   end
+  
+  def has_team_competitions_with_team_names?
+    team_competitions.exists?(:use_team_name => true)
+  end
 
   def has_any_national_records_defined?
     series.each do |s|

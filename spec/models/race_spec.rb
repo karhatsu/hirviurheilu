@@ -803,4 +803,28 @@ describe Race do
       end
     end
   end
+  
+  describe "#has_team_competitions_with_team_names" do
+    context "when no team competitions" do
+      it "should return false" do
+        Race.new.should_not have_team_competitions_with_team_names
+      end
+    end
+    
+    context "when team competitions but none of them uses team name" do
+      it "should return false" do
+        race = FactoryGirl.create(:race)
+        race.team_competitions << FactoryGirl.build(:team_competition, :race => race, :use_team_name => false)
+        race.should_not have_team_competitions_with_team_names
+      end
+    end
+    
+    context "when at least one team competition uses team name" do
+      it "should return true" do
+        race = FactoryGirl.create(:race)
+        race.team_competitions << FactoryGirl.build(:team_competition, :race => race, :use_team_name => true)
+        race.should have_team_competitions_with_team_names
+      end
+    end
+  end
 end

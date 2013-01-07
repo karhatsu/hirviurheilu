@@ -26,11 +26,13 @@
     <%= f.select :club_id, options_from_collection_for_select(@race.clubs,
       :id, :name) %>
   <% end %>
-  <span class="form_label">
-    <%= f.label :team_name %>
-    <a class="help" id="team_name_help" href="javascript:void(0);">?</a>
-  </span>
-  <%= f.text_field :team_name %><br/>
+  <% if @race.has_team_competitions_with_team_names? %>
+    <span class="form_label">
+      <%= f.label :team_name %>
+      <a class="help" id="team_name_help" href="javascript:void(0);">?</a>
+    </span>
+    <%= f.text_field :team_name %>
+  <% end %><br/>
   <%= submit_tag "Tallenna" %>
   <% if show_cancel %>
     <%= tag(:input, {:type => 'button', :value => 'Peruuta',
