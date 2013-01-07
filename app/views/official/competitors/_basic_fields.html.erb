@@ -44,7 +44,7 @@
 <div id="team_name_help_dialog" class="dialog" style="display: none;">
   Jos kilpailuun kuuluu joukkuekilpailu, jossa joukkueita ei muodosteta
   automaattisesti piirin tai seuran perusteella, syötä tähän kenttään
-  sen joukkueen nimi, johon kilpailija kuuluu.
+  sen jotosjoukkueen nimi, johon kilpailija kuuluu.
   <br/><br/>
   Jätä kenttä tyhjäksi, mikäli joukkuekilpailua ei ole tai mikäli
   joukkueet muodostetaan piirin tai seuran perusteella.
@@ -67,7 +67,7 @@
   </span>
 <% end %>
 <%= javascript_tag do %>
-  var team_name_help_title = 'Joukkueen nimi';
+  var team_name_help_title = 'Jotosjoukkueen nimi';
   $(document).ready(function() {
     change_series(<%= f.object.series_id %>);
   });
