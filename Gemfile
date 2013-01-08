@@ -4,7 +4,7 @@ gem 'rails', '3.2.10'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'authlogic'
-gem 'wicked_pdf'
+gem 'wicked_pdf', '0.7.9'
 gem 'turbolinks'
 
 group :development, :staging, :production do
