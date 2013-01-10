@@ -38,14 +38,14 @@ Feature: Official only adding competitors
     And the race has series "Women"
     And the race has a club "Limited club"
     And I have logged in
-    When I go to the the limited official competitors page for "Limited race"
+    When I go to the limited official competitors page for "Limited race"
     Then I should not see "Lisätyt kilpailijat"
     When I press "Tallenna"
     Then I should see "Etunimi on pakollinen" in an error message
     When I fill in "Keijo" for "Etunimi"
     And I fill in "Kisaaja" for "Sukunimi"
     And I press "Tallenna"
-    Then I should be on the the limited official competitors page for "Limited race"
+    Then I should be on the limited official competitors page for "Limited race"
     And I should see "Kilpailija lisätty" in a success message
     And I should see "Lisätyt kilpailijat (1)"
     And I should see "Kisaaja Keijo" within "#all_competitors"
@@ -75,7 +75,7 @@ Feature: Official only adding competitors
     When I fill in "Keijo" for "Etunimi"
     And I fill in "Kisaaja" for "Sukunimi"
     And I press "Tallenna"
-    Then I should be on the the limited official competitors page for "Limited race"
+    Then I should be on the limited official competitors page for "Limited race"
     And I should see "Kilpailija lisätty" in a success message
     And I should see "Lisätyt kilpailijat (1)"
     And I should see "Kisaaja Keijo" within "#all_competitors"
@@ -102,7 +102,7 @@ Feature: Official only adding competitors
     And I fill in "Kisaaja" for "Sukunimi"
     And I select "M60" from "Sarja"
     And I press "Tallenna"
-    Then I should be on the the limited official competitors page for "Limited race"
+    Then I should be on the limited official competitors page for "Limited race"
     And I should see "Kilpailija päivitetty" in a success message
     And I should see "Lisätyt kilpailijat (1)"
     And I should see "Kisaaja Keijo" within "#all_competitors"
@@ -112,7 +112,7 @@ Feature: Official only adding competitors
     Given I am a limited official for the race "Limited race"
     And the race has a club "Limited club"
     And I have logged in
-    And I am on the the limited official competitors page for "Limited race"
+    And I am on the limited official competitors page for "Limited race"
     Then I should see "Tähän kilpailuun ei ole vielä lisätty yhtään sarjaa. Voit lisätä kilpailijoita vasta sen jälkeen, kun päätoimitsija on lisännyt kilpailuun sarjat." in a warning message
     But I should not see "Etunimi"
     
@@ -120,7 +120,7 @@ Feature: Official only adding competitors
     Given I am a limited official for the race "Limited race"
     And the race has series "Limited series"
     And I have logged in
-    And I am on the the limited official competitors page for "Limited race"
+    And I am on the limited official competitors page for "Limited race"
     Then I should see "Tähän kilpailuun ei ole vielä lisätty yhtään piiriä tai seuraa. Voit lisätä kilpailijoita vasta sen jälkeen, kun päätoimitsija on lisännyt kilpailuun piirit/seurat." in a warning message
     But I should not see "Etunimi"
     
