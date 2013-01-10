@@ -4,6 +4,35 @@ Feature: Age group selection
   I want to select age groups for the competitors
   
   @javascript
+  Scenario: Age group selection in competitor add and edit
+    Given I am an official for the race "Ikäkisa"
+    And the race has series "M"
+    And the race has series "M60"
+    And the series has an age group "M65"
+    And the race has series "S15"
+    And the series has an age group "T15"
+    And the series has an age group "P15"
+    And I have logged in
+    And I am on the new competitor page of the series "S15"
+    Then the age group menu should not be hidden
+    And the age group menu should contain items "T15,P15"
+    When I select "M" from "Sarja"
+    Then the age group menu should be hidden
+    When I select "M60" from "Sarja"
+    Then the age group menu should not be hidden
+    And the age group menu should contain items "M60,M65"
+    When I select "M65" from "Ikäryhmä"
+    And I fill in "Matti" for "Etunimi"
+    And I fill in "Majala" for "Sukunimi"
+    And I fill in "Testiseura" for "club_name"
+    And I press "Tallenna"
+    Then "Majala Matti" should be saved as new competitor
+    When I follow "Takaisin sarjan M60 kilpailijaluetteloon"
+    And I follow "Majala Matti"
+    Then the age group menu should not be hidden
+    And "M65" should be selected in the age group menu
+  
+  @javascript
   Scenario: Age group selection in limited official competitors page
     Given I am a limited official for the race "Ikäkisa"
     And the race has a club "Test club"

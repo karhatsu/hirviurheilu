@@ -69,6 +69,14 @@ Given /^I am an official with attributes:$/ do |fields|
   @user.add_official_rights
 end
 
+Given /^I am an official for the race "(.*?)"$/ do |race_name|
+  @user = FactoryGirl.build(:user)
+  @user.save_without_session_maintenance
+  @user.add_official_rights
+  @race = FactoryGirl.create(:race, :name => race_name)
+  @user.race_rights << RaceRight.new(:user => @user, :race => @race)
+end
+
 Given /^I have only add competitors rights for the race$/ do
   @user.race_rights.create!(:race => @race, :only_add_competitors => true)
 end

@@ -86,3 +86,7 @@ Given /^someone else saves estimates (\d+) and (\d+) for the competitor$/ do |es
   @competitor.estimate2 = estimate2
   @competitor.save!
 end
+
+Then /^"(.*?)" should be saved as new competitor$/ do |name|
+  page.should have_content(name)
+end
