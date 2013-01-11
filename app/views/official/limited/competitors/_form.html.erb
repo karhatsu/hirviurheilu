@@ -38,18 +38,7 @@
       :onclick => "cancel_edit();"}) %>
   <% end %>
 <% end %>
-<div id="team_name_help_dialog" class="dialog" style="display: none;">
-  Jos kilpailuun kuuluu joukkuekilpailu, jossa joukkueita ei muodosteta
-  automaattisesti piirin tai seuran perusteella, syötä tähän kenttään
-  sen jotosjoukkueen nimi, johon kilpailija kuuluu.
-  <br/><br/>
-  Jätä kenttä tyhjäksi, mikäli joukkuekilpailua ei ole tai mikäli
-  joukkueet muodostetaan piirin tai seuran perusteella.
-</div>
-
-<%= javascript_tag do %>
-  var team_name_help_title = 'Jotosjoukkueen nimi';
-<% end %>
+<%= render :partial => 'official/shared/team_name_help_dialog' %>
 <%= render :partial => 'official/shared/reload_age_groups_js' %>
 <%= javascript_tag do %>
   function cancel_edit() {

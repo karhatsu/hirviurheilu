@@ -41,14 +41,7 @@
   <%= f.label :team_name %>
   <a class="help" id="team_name_help" href="javascript:void(0);">?</a>
   <%= f.text_field :team_name %><br/>
-  <div id="team_name_help_dialog" class="dialog" style="display: none;">
-    Jos kilpailuun kuuluu joukkuekilpailu, jossa joukkueita ei muodosteta
-    automaattisesti piirin tai seuran perusteella, syötä tähän kenttään
-    sen jotosjoukkueen nimi, johon kilpailija kuuluu.
-    <br/><br/>
-    Jätä kenttä tyhjäksi, mikäli joukkuekilpailua ei ole tai mikäli
-    joukkueet muodostetaan piirin tai seuran perusteella.
-  </div>
+  <%= render :partial => 'official/shared/team_name_help_dialog' %>
 <% end %>
 
 <% if f.object.new_record? %>
@@ -68,7 +61,6 @@
   </span>
 <% end %>
 <%= javascript_tag do %>
-  var team_name_help_title = 'Jotosjoukkueen nimi';
   function change_series(series_id) {
     reload_age_groups(series_id);
     reload_number_and_start_time_and_link(series_id);
