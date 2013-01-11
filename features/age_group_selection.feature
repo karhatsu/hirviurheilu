@@ -57,7 +57,10 @@ Feature: Age group selection
     When I fill in "Matti" for "Etunimi"
     And I fill in "Majala" for "Sukunimi"
     And I press "Tallenna"
-    And I follow "Majala Matti"
+    Then I should be on the limited official competitors page for "Ikäkisa"
+    And "S15" should be selected in the series menu
+    And "P15" should be selected in the age group menu
+    When I follow "Majala Matti"
     Then the age group menu should not be hidden
     And "P15" should be selected in the age group menu
     

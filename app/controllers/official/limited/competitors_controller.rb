@@ -5,7 +5,11 @@ class Official::Limited::CompetitorsController < Official::OfficialController
   before_filter :assign_competitor, :only => [:edit, :update, :destroy]
   
   def index
-    @competitor = @race.series.first.competitors.build unless @race.series.empty?
+    return if @race.series.empty?
+    series = @race.series.where(:id => params[:series_id]).first if params[:series_id]
+    series = @race.series.first unless series
+    @competitor = series.competitors.build
+    @competitor.age_group_id = params[:age_group_id]
   end
   
   def create
@@ -13,7 +17,8 @@ class Official::Limited::CompetitorsController < Official::OfficialController
     @competitor.club = @race_right.club if @race_right.club
     if @competitor.save
       flash[:success] = 'Kilpailija lisätty'
-      redirect_to official_limited_race_competitors_path(@race)
+      redirect_to official_limited_race_competitors_path(@race, :series_id => @competitor.series_id,
+        :age_group_id => @competitor.age_group_id)
     else
       render :index
     end
