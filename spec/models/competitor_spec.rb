@@ -17,8 +17,6 @@ describe Competitor do
   describe "validation" do
     it { should validate_presence_of(:first_name) }
     it { should validate_presence_of(:last_name) }
-    #it { should validate_presence_of(:series) }
-    #it { should validate_presence_of(:club) }
 
     describe "number" do
       it { should allow_value(nil).for(:number) }
@@ -215,6 +213,21 @@ describe Competitor do
         comp.should be_valid
         comp.save!
         comp.no_result_reason.should == nil
+      end
+    end
+    
+    describe "names" do
+      it "should be unique for same series" do
+        c1 = FactoryGirl.create(:competitor)
+        s2 = FactoryGirl.create(:series, :race => c1.race)
+        FactoryGirl.build(:competitor, :first_name => c1.first_name,
+          :last_name => c1.last_name, :series => c1.series).should_not be_valid
+        FactoryGirl.build(:competitor, :first_name => 'Other first name',
+          :last_name => c1.last_name, :series => c1.series).should be_valid
+        FactoryGirl.build(:competitor, :first_name => c1.first_name,
+          :last_name => 'Other last name', :series => c1.series).should be_valid
+        FactoryGirl.build(:competitor, :first_name => c1.first_name,
+          :last_name => c1.last_name, :series => s2).should be_valid
       end
     end
   end

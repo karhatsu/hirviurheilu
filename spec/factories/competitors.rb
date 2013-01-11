@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :competitor do
     club
     series
-    first_name 'Tauno'
+    sequence(:first_name) { |n| "Tauno #{n}" }
     last_name 'Miettinen'
     sequence(:number) { |n| n }
   end

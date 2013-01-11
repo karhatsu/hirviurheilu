@@ -20,10 +20,8 @@ class Competitor < ActiveRecord::Base
 
   accepts_nested_attributes_for :shots, :allow_destroy => true
 
-  #validates :series, :presence => true
   validates :first_name, :presence => true
   validates :last_name, :presence => true
-  #validates :club, :presence => true
   validates :number,
     :numericality => { :only_integer => true, :greater_than => 0, :allow_nil => true }
   validates :shots_total_input, :allow_nil => true,
@@ -51,6 +49,7 @@ class Competitor < ActiveRecord::Base
   validate :check_no_result_reason
   validate :check_if_series_has_start_list
   validate :unique_number
+  validate :unique_name
   validate :concurrent_changes, :on => :update
 
   after_create :set_correct_estimates
@@ -320,6 +319,15 @@ class Competitor < ActiveRecord::Base
       condition = "number = #{number}"
       condition << " and competitors.id <> #{id}" if id
       errors.add(:number, 'on varattu') if series.race.competitors.where(condition).length > 0
+    end
+  end
+  
+  def unique_name
+    return unless series
+    condition = "first_name=? and last_name=?"
+    condition << " and id<>#{id}" if id
+    if series.competitors.where(condition, first_name, last_name).length > 0
+      errors.add(:base, 'Tässä sarjassa on jo saman niminen kilpailija')
     end
   end
   
