@@ -16,6 +16,13 @@
   <div>
     <span class="form_label"><%= f.label :password %></span>
     <%= f.text_field :password %>
+    <a href="javascript:void(0);" id="generate_password">Generoi salasana</a>
   </div>
   <%= submit_tag 'Lisää käyttäjä' %>
+<% end %>
+<%= javascript_tag do %>
+$('#generate_password').live('click', function() {
+  var pw = Math.random().toString(36).slice(-8);
+  $('#user_password').val(pw);
+});
 <% end %>
