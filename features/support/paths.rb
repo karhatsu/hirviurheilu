@@ -101,6 +101,12 @@ module NavigationHelpers
     when /the admin index page/
       admin_root_path
       
+    when /the admin users page/
+      admin_users_path
+      
+    when /the admin new user page/
+      new_admin_user_path
+      
     when /the admin races page/
       admin_races_path
 

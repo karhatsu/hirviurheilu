@@ -2,6 +2,7 @@
   <div class="menu sub_menu">
     <ul>
       <%= menu_item "Käyttäjät", admin_users_path, @is_admin_users %>
+      <%= menu_item "Lisää käyttäjä", new_admin_user_path, @is_admin_new_user %>
       <%= menu_item "Kilpailut", admin_races_path, @is_admin_races %>
     </ul>
   </div>

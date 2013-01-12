@@ -1,0 +1,21 @@
+<h2>Lisää käyttäjä</h2>
+<%= render :partial => "shared/form_errors", :locals => { :item => @user } %>
+<%= form_for([:admin, @user]) do |f| %>
+  <div>
+    <span class="form_label"><%= f.label :first_name %></span>
+    <%= f.text_field :first_name %>
+  </div>
+  <div>
+    <span class="form_label"><%= f.label :last_name %></span>
+    <%= f.text_field :last_name %>
+  </div>
+  <div>
+    <span class="form_label"><%= f.label :email %></span>
+    <%= f.text_field :email %>
+  </div>
+  <div>
+    <span class="form_label"><%= f.label :password %></span>
+    <%= f.text_field :password %>
+  </div>
+  <%= submit_tag 'Lisää käyttäjä' %>
+<% end %>
