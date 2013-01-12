@@ -32,4 +32,6 @@ Feature: Admin adds users
     And I press "Kirjaudu"
     Then I should see "Kirjautuminen onnistui"
     And I should be on the root page
+    When I follow "Toimitsijan sivut"
+    Then I should be on the official index page
     
