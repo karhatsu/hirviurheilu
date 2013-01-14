@@ -19,6 +19,8 @@ PRODUCTION_URL = "http://" + PRODUCTION_HOST
 
 NATIONAL_RECORD_URL = "http://www.metsastajaliitto.fi/?q=fi/node/126"
 
+VAT = 24
+
 WINDOWS_PLATFORM = (RUBY_PLATFORM =~ /mswin|mingw/)
 
 module ElkSports

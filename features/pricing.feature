@@ -21,7 +21,7 @@ Feature: Pricing
     And I should see "2.50 euroa / kilpailija"
     And I should see "100- kilpailijaa"
     And I should see "1.00 euro / kilpailija"
-    And I should see "Kaikki hinnat sisältävät 23 % arvonlisäveroa."
+    And I should see "Kaikki hinnat sisältävät 24 % arvonlisäveroa."
 
   Scenario: Do not show prices in staging environment
     Given there is a base price 5
