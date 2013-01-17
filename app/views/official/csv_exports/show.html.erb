@@ -1,0 +1,10 @@
+<h2>Kilpailijoiden vienti CSV-tiedostoon</h2>
+<% if @race.competitors.empty? %>
+  <div class="info">Kilpailussa ei ole yhtään kilpailijaa</div>
+<% else %>
+  <div class="info">Voit ladata tästä kilpailijat CSV-tiedostossa.
+    Tiedosto sisältää kilpailijan nimen, sarjan, seuran sekä lähtönumeron ja -ajan.</div>
+  <%= form_tag(official_race_csv_export_path(@race)) do |f| %>
+    <%= submit_tag 'Luo CSV-tiedosto' %>
+  <% end %>
+<% end %>

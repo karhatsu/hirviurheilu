@@ -7,4 +7,5 @@ log/*.log
 nbproject
 public/javascripts/all.js
 public/stylesheets/all.css
+spec/files/generated.csv
 tmp/**/*

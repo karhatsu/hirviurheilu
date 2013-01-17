@@ -23,6 +23,7 @@
             <% series_dropdown_menu(race, 'shots') %>
           <% end %>
           <%= menu_item "Oikeat arviot", official_race_correct_estimates_path(race), @is_correct_estimates %>
+          <%= menu_item "CSV", official_race_csv_export_path(race), @is_csv %>
           <%= menu_item "Joukkuek.", official_race_team_competitions_path(race), @is_team_competitions %>
         <% end %>
         <%= menu_item "Viestit", official_race_relays_path(race), @is_relays %>

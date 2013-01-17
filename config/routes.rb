@@ -84,6 +84,7 @@ ElkSports::Application.routes.draw do
       resources :team_competitions
       resources :csv_imports
       resource :start_list
+      resource :csv_export
     end
 
     resources :series do
