@@ -45,4 +45,6 @@ ElkSports::Application.configure do
   config.assets.allow_debugging = true
 
   config.i18n.locale = :fi
+  
+  config.log_level = :warn
 end
