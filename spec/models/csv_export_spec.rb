@@ -11,9 +11,11 @@ describe CsvExport do
     series1 = FactoryGirl.create(:series, :name => 'M', :race => @race, :first_number => 10, :start_time => '12:00:30')
     series2 = FactoryGirl.create(:series, :name => 'N50', :race => @race, :first_number => 25, :start_time => '13:05:25')
     age_group2 = FactoryGirl.create(:age_group, :series => series2, :name => 'N60')
+    series3 = FactoryGirl.create(:series, :name => 'M60', :race => @race)
     FactoryGirl.create(:competitor, :series => series1, :first_name => 'Mika', :last_name => 'Heikkinen', :club => club1)
     FactoryGirl.create(:competitor, :series => series2, :first_name => 'Maija', :last_name => 'Miettinen', :club => club2, :age_group => age_group2)
     FactoryGirl.create(:competitor, :series => series2, :first_name => 'Auli', :last_name => 'Ahtola', :club => club1, :age_group => age_group2)
+    FactoryGirl.create(:competitor, :series => series3, :first_name => 'Petteri', :last_name => 'Pehtola', :club => club1, :number => nil)
     series1.generate_start_list!(Series::START_LIST_ADDING_ORDER)
     series2.generate_start_list!(Series::START_LIST_ADDING_ORDER)
   end

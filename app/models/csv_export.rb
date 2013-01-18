@@ -39,6 +39,7 @@ class CsvExport
   end
   
   def start_time(competitor)
+    return nil unless competitor.start_time
     competitor.start_time.strftime('%H.%M.%S')
   end
 end
