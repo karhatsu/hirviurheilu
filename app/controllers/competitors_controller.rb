@@ -9,7 +9,8 @@ class CompetitorsController < ApplicationController
       format.pdf do
         title = 
         render :pdf => "#{@series.name}-tulokset", :layout => true, :margin => pdf_margin,
-          :header => pdf_header("#{@series.race.name} - #{@series.name}\n"), :footer => pdf_footer
+          :header => pdf_header("#{@series.race.name} - #{@series.name}\n"), :footer => pdf_footer,
+          :orientation => 'Landscape'
       end
     end
   end
