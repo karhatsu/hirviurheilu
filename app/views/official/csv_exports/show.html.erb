@@ -8,3 +8,7 @@
     <%= submit_tag 'Luo CSV-tiedosto' %>
   <% end %>
 <% end %>
+<h2>Kilpailijointi lisäys CSV-tiedostosta</h2>
+<div class="action_box">
+  <%= link_to 'Lisää kilpailijoita CSV-tiedostosta', new_official_race_csv_import_path(@race) %>
+</div>
