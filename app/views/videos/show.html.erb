@@ -1,0 +1,26 @@
+<%= content_for(:title, "#{@race.name} - Video")%>
+<h2>Video</h2>
+<div style="float: left;">
+  <object width="580" height="360"
+    codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"
+    classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="live_embed_player_flash">
+    <param value="true" name="allowFullScreen"/>
+    <param value="always" name="allowScriptAccess"/>
+    <param value="all" name="allowNetworking"/>
+    <param value="hostname=www.justin.tv&amp;channel=studioreplay&amp;auto_play=false&amp;start_volume=0.5" name="flashvars"/>
+    <param value="http://www.justin.tv/widgets/live_embed_player.swf?channel=studioreplay" name="src"/>
+    <param value="true" name="allowfullscreen"/>
+    <param value="always" name="allowscriptaccess"/>
+    <param value="all" name="allownetworking"/>
+    <embed width="580" height="360"
+      flashvars="hostname=www.justin.tv&amp;channel=studioreplay&amp;auto_play=false&amp;start_volume=0.5"
+      allownetworking="all" allowscriptaccess="always" allowfullscreen="true"
+      src="http://www.justin.tv/widgets/live_embed_player.swf?channel=studioreplay"
+      type="application/x-shockwave-flash" id="live_embed_player_flash"/>
+  </object>
+</div>
+<div style="float: left; margin-left: 10px;">
+  <% series = @race.series.last %>
+  <h3 style="margin-top: 0;">Tulosseuranta - <%= series.name %></h3>
+  <%= render :partial => 'simple_series_table', :locals => { :series => series } %>
+</div>

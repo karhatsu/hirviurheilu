@@ -126,6 +126,18 @@ module ApplicationHelper
     raw(html)
   end
 
+  #TODO: test
+  def time_points(competitor, all_competitors=false)
+    return '' if competitor.no_result_reason
+    return 300 if competitor.series.time_points_type == Series::TIME_POINTS_TYPE_ALL_300
+    return '-' if competitor.time_in_seconds.nil?
+    points = competitor.time_points(all_competitors)
+    html = (points == 300 ? "<span class='series_best_time'>" : '')
+    html << "#{points}"
+    html << (points == 300 ? "</span>" : '')
+    raw(html)
+  end
+
   def relay_time_adjustment(adjustment)
     return '' unless adjustment
     return '' if adjustment == 0
@@ -141,6 +153,13 @@ module ApplicationHelper
     return '' if competitor.no_result_reason
     return "-" if competitor.shots_sum.nil?
     "#{competitor.shot_points} (#{competitor.shots_sum})"
+  end
+
+  #TODO: test
+  def shot_points(competitor)
+    return '' if competitor.no_result_reason
+    return "-" if competitor.shots_sum.nil?
+    competitor.shot_points
   end
 
   def shots_list(competitor)

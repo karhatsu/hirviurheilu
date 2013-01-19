@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <th>Kilpailija</th>
+    <th>Aika</th>
+    <th>Arvio</th>
+    <th>Ammunta</th>
+    <th>Pisteet</th>
+  </tr>
+  <% series.ordered_competitors(false).each do |comp| %>
+    <tr>
+      <td><%= full_name(comp) %></td>
+      <td><%= time_points(comp) %></td>
+      <td><%= estimate_points(comp) %></td>
+      <td><%= shot_points(comp) %></td>
+      <td><%= points_print(comp) %></td>
+    </tr>
+  <% end %>
+</table>
