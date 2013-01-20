@@ -27,7 +27,9 @@ race = menu_race
             <% relays_dropdown_menu(race) %>
           <% end %>
         <% end %>
-        <%= menu_item 'Video', race_video_path(race), @is_video %>
+        <% if race.video_source %>
+          <%= menu_item 'Video', race_video_path(race), @is_video %>
+        <% end %>
         <% unless offline? or @is_start_list or race.all_competitions_finished? %>
           <%= menu_item "Tuloskehä", race_result_rotation_path(race), result_rotation_cookie %>
         <% end %>

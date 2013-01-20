@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130104162214) do
+ActiveRecord::Schema.define(:version => 20130120103310) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -137,6 +137,8 @@ ActiveRecord::Schema.define(:version => 20130104162214) do
     t.integer  "batch_interval_seconds", :default => 180,   :null => false
     t.integer  "club_level",             :default => 0,     :null => false
     t.integer  "start_order",            :default => 1,     :null => false
+    t.text     "video_source"
+    t.text     "video_description"
   end
 
   add_index "races", ["sport_id"], :name => "index_races_on_sport_id"

@@ -7,6 +7,7 @@
     <th>Pvm</th>
     <th>Sijainti</th>
     <th>Toimitsijat</th>
+    <th>&nbsp;</th>
   </tr>
   <% @races.each do |race| %>
     <tr>
@@ -14,6 +15,7 @@
       <td><%= race_date_interval(race) %></td>
       <td><%= race.location %></td>
       <td><%= race.users.collect { |user| full_name(user) }.join(', ') %></td>
+      <td><%= link_to 'Video', admin_race_video_path(race) %></td>
     </tr>
   <% end %>
 </table>
