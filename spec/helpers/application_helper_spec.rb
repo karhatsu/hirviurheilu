@@ -193,23 +193,37 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#shot_points_and_total" do
-    it "should print empty string if no result reason defined" do
-      competitor = mock_model(Competitor, :shots_sum => 88,
-        :no_result_reason => Competitor::DNS)
-      helper.shot_points_and_total(competitor).should == ''
+  describe "#shot_points" do
+    context "when reason for no result" do
+      it "should return empty string" do
+        competitor = mock_model(Competitor, :shots_sum => 88,
+          :no_result_reason => Competitor::DNS)
+        helper.shot_points(competitor).should == ''
+      end
     end
 
-    it "should return dash when no shots sum" do
-      competitor = mock_model(Competitor, :shots_sum => nil,
-        :no_result_reason => nil)
-      helper.shot_points_and_total(competitor).should == "-"
+    context "when no shots sum" do
+      it "should return dash" do
+        competitor = mock_model(Competitor, :shots_sum => nil,
+          :no_result_reason => nil)
+        helper.shot_points(competitor).should == "-"
+      end
     end
 
-    it "should return shot points and sum in brackets" do
-      competitor = mock_model(Competitor, :shot_points => 480, :shots_sum => 80,
-        :no_result_reason => nil)
-      helper.shot_points_and_total(competitor).should == "480 (80)"
+    context "when no total shots wanted" do
+      it "should return shot points" do
+        competitor = mock_model(Competitor, :shot_points => 480, :shots_sum => 80,
+          :no_result_reason => nil)
+        helper.shot_points(competitor, false).should == "480"
+      end
+    end
+
+    context "when total shots wanted" do
+      it "should return shot points and sum in brackets" do
+        competitor = mock_model(Competitor, :shot_points => 480, :shots_sum => 80,
+          :no_result_reason => nil)
+        helper.shot_points(competitor, true).should == "480 (80)"
+      end
     end
   end
 

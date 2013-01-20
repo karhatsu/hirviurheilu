@@ -138,17 +138,12 @@ module ApplicationHelper
     raw(html)
   end
 
-  def shot_points_and_total(competitor)
+  def shot_points(competitor, shots_total=false)
     return '' if competitor.no_result_reason
     return "-" if competitor.shots_sum.nil?
-    "#{competitor.shot_points} (#{competitor.shots_sum})"
-  end
-
-  #TODO: test
-  def shot_points(competitor)
-    return '' if competitor.no_result_reason
-    return "-" if competitor.shots_sum.nil?
-    competitor.shot_points
+    points = competitor.shot_points.to_s
+    points << " (#{competitor.shots_sum})" if shots_total
+    points
   end
 
   def shots_list(competitor)
