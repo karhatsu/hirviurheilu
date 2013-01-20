@@ -50,7 +50,7 @@
       <td><%= comp.club.name %></td>
       <% unless series.time_points_type == Series::TIME_POINTS_TYPE_NONE %>
         <td<%= comparison_time_title(comp, params[:all_competitors], pdf) %><%= time_css %>>
-          <%= time_points_and_time(comp, params[:all_competitors]) %>
+          <%= time_points(comp, true, params[:all_competitors]) %>
         </td>
       <% end %>
       <td<%= est_css %>><%= series.race.finished ? estimate_points_and_diffs(comp) :

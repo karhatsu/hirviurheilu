@@ -39,7 +39,7 @@
           <td><%= link_to_unless pdf, full_name(competitor),
               series_competitor_path(competitor.series, competitor) %></td>
           <td class="center"><%= competitor.points %></td>
-          <td class="center"><%= time_points_and_time(competitor) %></td>
+          <td class="center"><%= time_points(competitor, true) %></td>
           <td class="center"><%= @race.finished ? estimate_points_and_diffs(competitor) :
               estimate_points(competitor) %></td>
           <td class="center"><%= shot_points_and_total(competitor) %></td>
