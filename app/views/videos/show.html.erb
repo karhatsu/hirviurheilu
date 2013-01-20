@@ -1,17 +1,19 @@
 <%= content_for(:title, "#{@race.name} - Video")%>
 <h2>Video</h2>
-<%= content_tag(:div, @race.video_description, :class => 'video_description') if @race.video_description -%>
-<div style="float: left;">
-  <%= raw @race.video_source %>
-</div>
-<div style="float: left; margin-left: 10px;">
-  <% series = @race.series.first %>
-  <% if series %>
-    <h3 style="margin-top: 0;">Tulosseuranta - <%= series.name %></h3>
-    <%= render :layout => 'series/series_status', :locals => { :series => series } do %>
-      <%= render :partial => 'simple_series_table', :locals => { :series => series } %>
+<div id="video_page">
+  <%= content_tag(:div, @race.video_description, :class => 'video_description') if @race.video_description -%>
+  <div class="column">
+    <%= raw @race.video_source %>
+  </div>
+  <div class="column results_column">
+    <% series = @race.series.first unless @race.series.empty? %>
+    <h3 style="margin-top: 0;">Tulosseuranta <%= "- #{series.name}" if series %></h3>
+    <% if series %>
+      <%= render :layout => 'series/series_status', :locals => { :series => series } do %>
+        <%= render :partial => 'simple_series_table', :locals => { :series => series } %>
+      <% end %>
+    <% else %>
+      <div class="info">Kun kilpailu on käynnissä, pääset seuraamaan tuloksia reaaliajassa.</div>
     <% end %>
-  <% else %>
-    TODO
-  <% end %>
+  </div>
 </div>

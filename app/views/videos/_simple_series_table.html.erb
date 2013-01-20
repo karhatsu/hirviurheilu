@@ -1,6 +1,7 @@
 <table>
   <tr>
     <th>Kilpailija</th>
+    <th><%= club_title(series.race) %></th>
     <th>Aika</th>
     <th>Arvio</th>
     <th>Ammunta</th>
@@ -9,6 +10,7 @@
   <% series.ordered_competitors(false).each do |comp| %>
     <tr>
       <td><%= full_name(comp) %></td>
+      <td><%= comp.club.name %></td>
       <td><%= time_points(comp) %></td>
       <td><%= estimate_points(comp) %></td>
       <td><%= shot_points(comp) %></td>
