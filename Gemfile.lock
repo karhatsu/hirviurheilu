@@ -234,8 +234,8 @@ DEPENDENCIES
   email_spec
   factory_girl_rails
   gherkin
-  jquery-rails
-  jquery-ui-rails
+  jquery-rails (= 2.1.4)
+  jquery-ui-rails (= 3.0.0)
   launchy
   mongrel (~> 1.2.0.pre)
   newrelic_rpm
