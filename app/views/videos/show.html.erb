@@ -21,10 +21,12 @@
     $('#results_spinner').show();
     $.ajax('/series/' + id + '.js');
   }
-  <% unless @race.series.empty? %>
-    reload_series('<%= @race.series.first.id %>');
-  <% end %>
   $('#series_select').live('change', function() {
     reload_series($(this).val());
   });
+  <% unless @race.series.empty? %>
+    $(document).ready(function() {
+      reload_series($('#series_select').val());
+    });
+  <% end %>
 <% end %>
