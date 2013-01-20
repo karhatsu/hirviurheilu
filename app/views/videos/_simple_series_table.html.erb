@@ -1,8 +1,11 @@
+<% show_time_column = series.time_points_type != Series::TIME_POINTS_TYPE_NONE %>
 <table>
   <tr>
     <th>Kilpailija</th>
     <th><%= club_title(series.race) %></th>
-    <th>Aika</th>
+    <% if show_time_column %>
+      <th>Aika</th>
+    <% end %>
     <th>Arvio</th>
     <th>Ammunta</th>
     <th>Pisteet</th>
@@ -11,7 +14,9 @@
     <tr>
       <td><%= full_name(comp) %></td>
       <td><%= comp.club.name %></td>
-      <td><%= time_points(comp) %></td>
+      <% if show_time_column %>
+        <td><%= time_points(comp) %></td>
+      <% end %>
       <td><%= estimate_points(comp) %></td>
       <td><%= shot_points(comp) %></td>
       <td><%= points_print(comp) %></td>

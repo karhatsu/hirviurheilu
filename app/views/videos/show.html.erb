@@ -10,6 +10,7 @@
     <h3 style="margin-top: 0;">Tulosseuranta <%= "- #{series.name}" if series %></h3>
     <% if series %>
       <%= render :layout => 'series/series_status', :locals => { :series => series } do %>
+        <%= render :partial => 'series/infos', :locals => { :series => series } %>
         <%= render :partial => 'simple_series_table', :locals => { :series => series } %>
       <% end %>
     <% else %>
