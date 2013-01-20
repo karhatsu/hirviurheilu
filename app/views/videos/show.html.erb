@@ -1,0 +1,30 @@
+<%= content_for(:title, "#{@race.name} - Video")%>
+<h2>Video</h2>
+<div id="video_page">
+  <%= content_tag(:div, @race.video_description, :class => 'video_description') if @race.video_description -%>
+  <div class="column">
+    <%= raw @race.video_source %>
+  </div>
+  <div class="column results_column">
+    <h3 style="margin-top: 0;">Tulosseuranta <span id="result_title_series_name"></span></h3>
+    <% if @race.series.empty? %>
+      <div class="info">Kun kilpailu on käynnissä, pääset seuraamaan tällä sivulla tuloksia reaaliajassa.</div>
+    <% else %>
+      <%= select_tag(:series_id, options_from_collection_for_select(@race.series, :id, :name), :id => 'series_select') %>
+      <div id="results_spinner" style="display:none;"><%= image_tag 'spinner.gif' %> Haetaan tuloksia...</div>
+      <div id="series_results"/>
+    <% end %>
+  </div>
+</div>
+<%= javascript_tag do %>
+  function reload_series(id) {
+    $('#results_spinner').show();
+    $.ajax('/series/' + id + '.js');
+  }
+  <% unless @race.series.empty? %>
+    reload_series('<%= @race.series.first.id %>');
+  <% end %>
+  $('#series_select').live('change', function() {
+    reload_series($(this).val());
+  });
+<% end %>

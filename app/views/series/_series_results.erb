@@ -50,12 +50,12 @@
       <td><%= comp.club.name %></td>
       <% unless series.time_points_type == Series::TIME_POINTS_TYPE_NONE %>
         <td<%= comparison_time_title(comp, params[:all_competitors], pdf) %><%= time_css %>>
-          <%= time_points_and_time(comp, params[:all_competitors]) %>
+          <%= time_points(comp, true, params[:all_competitors]) %>
         </td>
       <% end %>
       <td<%= est_css %>><%= series.race.finished ? estimate_points_and_diffs(comp) :
           estimate_points(comp) %></td>
-      <td<%= shots_css %>><%= shot_points_and_total(comp) %></td>
+      <td<%= shots_css %>><%= shot_points(comp, true) %></td>
       <td class="center <%= points_css %>"><%= points_print(comp, params[:all_competitors]) %>
         <%= national_record(comp) if comp.points.to_i >= @max_points.to_i %>
       </td>

@@ -10,6 +10,13 @@ class Admin::RacesController < Admin::AdminController
     @race = Race.find(params[:id])
   end
   
+  def update
+    race = Race.find(params[:id])
+    race.update_attributes!(params[:race])
+    flash[:success] = 'Kilpailu tallennettu'
+    redirect_to admin_races_path
+  end
+  
   def destroy
     @race = Race.find(params[:id])
     if params[:confirm_name] == @race.name

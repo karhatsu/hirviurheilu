@@ -39,6 +39,7 @@ ElkSports::Application.routes.draw do
     resources :relays
     resource :result_rotation
     resource :medium
+    resource :video
   end
 
   resources :series do
@@ -51,7 +52,9 @@ ElkSports::Application.routes.draw do
   end
 
   namespace :admin do
-    resources :races
+    resources :races do
+      resource :video
+    end
     resources :users
     root :to => "index#show"
   end

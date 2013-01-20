@@ -115,13 +115,14 @@ module ApplicationHelper
     time << "#{sec < 10 ? "0" : ""}#{sec}"
   end
 
-  def time_points_and_time(competitor, all_competitors=false)
+  def time_points(competitor, with_time=false, all_competitors=false)
     return '' if competitor.no_result_reason
     return 300 if competitor.series.time_points_type == Series::TIME_POINTS_TYPE_ALL_300
     return '-' if competitor.time_in_seconds.nil?
     points = competitor.time_points(all_competitors)
     html = (points == 300 ? "<span class='series_best_time'>" : '')
-    html << "#{points} (#{time_from_seconds(competitor.time_in_seconds)})"
+    html << points.to_s
+    html << " (#{time_from_seconds(competitor.time_in_seconds)})" if with_time
     html << (points == 300 ? "</span>" : '')
     raw(html)
   end
@@ -137,10 +138,12 @@ module ApplicationHelper
     raw(html)
   end
 
-  def shot_points_and_total(competitor)
+  def shot_points(competitor, shots_total=false)
     return '' if competitor.no_result_reason
     return "-" if competitor.shots_sum.nil?
-    "#{competitor.shot_points} (#{competitor.shots_sum})"
+    points = competitor.shot_points.to_s
+    points << " (#{competitor.shots_sum})" if shots_total
+    points
   end
 
   def shots_list(competitor)

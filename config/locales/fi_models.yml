@@ -67,6 +67,8 @@ fi:
     top_competitions: Yhteistulokseen laskettavien kilpailuiden määrä
     unofficial: Epävirallinen kilpailija
     use_team_name: Muodosta joukkueet kilpailijan joukkuenimen perusteella
+    video_description: Kuvaus
+    video_source: Lähdekoodi
 
   activerecord:
     models:

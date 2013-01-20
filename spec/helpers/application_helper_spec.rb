@@ -193,23 +193,37 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#shot_points_and_total" do
-    it "should print empty string if no result reason defined" do
-      competitor = mock_model(Competitor, :shots_sum => 88,
-        :no_result_reason => Competitor::DNS)
-      helper.shot_points_and_total(competitor).should == ''
+  describe "#shot_points" do
+    context "when reason for no result" do
+      it "should return empty string" do
+        competitor = mock_model(Competitor, :shots_sum => 88,
+          :no_result_reason => Competitor::DNS)
+        helper.shot_points(competitor).should == ''
+      end
     end
 
-    it "should return dash when no shots sum" do
-      competitor = mock_model(Competitor, :shots_sum => nil,
-        :no_result_reason => nil)
-      helper.shot_points_and_total(competitor).should == "-"
+    context "when no shots sum" do
+      it "should return dash" do
+        competitor = mock_model(Competitor, :shots_sum => nil,
+          :no_result_reason => nil)
+        helper.shot_points(competitor).should == "-"
+      end
     end
 
-    it "should return shot points and sum in brackets" do
-      competitor = mock_model(Competitor, :shot_points => 480, :shots_sum => 80,
-        :no_result_reason => nil)
-      helper.shot_points_and_total(competitor).should == "480 (80)"
+    context "when no total shots wanted" do
+      it "should return shot points" do
+        competitor = mock_model(Competitor, :shot_points => 480, :shots_sum => 80,
+          :no_result_reason => nil)
+        helper.shot_points(competitor, false).should == "480"
+      end
+    end
+
+    context "when total shots wanted" do
+      it "should return shot points and sum in brackets" do
+        competitor = mock_model(Competitor, :shot_points => 480, :shots_sum => 80,
+          :no_result_reason => nil)
+        helper.shot_points(competitor, true).should == "480 (80)"
+      end
     end
   end
 
@@ -422,46 +436,73 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#time_points_and_time" do
+  describe "#time_points" do
     before do
       @series = mock_model(Series, :time_points_type => Series::TIME_POINTS_TYPE_NORMAL)
     end
 
-    it "should print empty string if no result reason defined" do
-      competitor = mock_model(Competitor, :series => @series,
-        :no_result_reason => Competitor::DNS)
-      helper.time_points_and_time(competitor).should == ''
+    context "when reason for no result" do
+      it "should return empty string" do
+        competitor = mock_model(Competitor, :series => @series,
+          :no_result_reason => Competitor::DNS)
+        helper.time_points(competitor).should == ''
+      end
     end
-
-    it "should return 300 if 300 points for all competitors in this series" do
-      @series.stub!(:time_points_type).and_return(Series::TIME_POINTS_TYPE_ALL_300)
-      competitor = mock_model(Competitor, :series => @series, :no_result_reason => nil)
-      helper.time_points_and_time(competitor).should == 300
+  
+    context "when 300 points for all competitors in this series" do
+      it "should return 300" do
+        @series.stub!(:time_points_type).and_return(Series::TIME_POINTS_TYPE_ALL_300)
+        competitor = mock_model(Competitor, :series => @series, :no_result_reason => nil)
+        helper.time_points(competitor).should == 300
+      end
     end
-
-    it "should return dash when no time" do
-      competitor = mock_model(Competitor, :time_in_seconds => nil,
-        :no_result_reason => nil, :series => @series)
-      helper.time_points_and_time(competitor).should == "-"
+  
+    context "when no time" do
+      it "should return dash" do
+        competitor = mock_model(Competitor, :time_in_seconds => nil,
+          :no_result_reason => nil, :series => @series)
+        helper.time_points(competitor).should == "-"
+      end
     end
-
-    it "should return time points and time in brackets" do
-      all_competitors = true
-      competitor = mock_model(Competitor, :series => @series,
-        :time_in_seconds => 2680, :no_result_reason => nil)
-      competitor.should_receive(:time_points).with(all_competitors).and_return(270)
-      helper.should_receive(:time_from_seconds).with(2680).and_return("45:23")
-      helper.time_points_and_time(competitor, all_competitors).should == "270 (45:23)"
+  
+    context "when time points and time wanted" do
+      it "should return time points and time in brackets" do
+        all_competitors = true
+        competitor = mock_model(Competitor, :series => @series,
+          :time_in_seconds => 2680, :no_result_reason => nil)
+        competitor.should_receive(:time_points).with(all_competitors).and_return(270)
+        helper.should_receive(:time_from_seconds).with(2680).and_return("45:23")
+        helper.time_points(competitor, true, all_competitors).should == "270 (45:23)"
+      end
+  
+      it "should wrap with best time span when full points" do
+        all_competitors = true
+        competitor = mock_model(Competitor, :series => @series,
+          :time_in_seconds => 2680, :no_result_reason => nil)
+        competitor.should_receive(:time_points).with(all_competitors).and_return(300)
+        helper.should_receive(:time_from_seconds).with(2680).and_return("45:23")
+        helper.time_points(competitor, true, all_competitors).
+          should == "<span class='series_best_time'>300 (45:23)</span>"
+      end
     end
-
-    it "should wrap with best time span when full points" do
-      all_competitors = true
-      competitor = mock_model(Competitor, :series => @series,
-        :time_in_seconds => 2680, :no_result_reason => nil)
-      competitor.should_receive(:time_points).with(all_competitors).and_return(300)
-      helper.should_receive(:time_from_seconds).with(2680).and_return("45:23")
-      helper.time_points_and_time(competitor, all_competitors).
-        should == "<span class='series_best_time'>300 (45:23)</span>"
+    
+    context "when time points but no time wanted" do
+      it "should return time points" do
+        all_competitors = true
+        competitor = mock_model(Competitor, :series => @series,
+          :time_in_seconds => 2680, :no_result_reason => nil)
+        competitor.should_receive(:time_points).with(all_competitors).and_return(270)
+        helper.time_points(competitor, false, all_competitors).should == "270"
+      end
+  
+      it "should wrap with best time span when full points" do
+        all_competitors = true
+        competitor = mock_model(Competitor, :series => @series,
+          :time_in_seconds => 2680, :no_result_reason => nil)
+        competitor.should_receive(:time_points).with(all_competitors).and_return(300)
+        helper.time_points(competitor, false, all_competitors).
+          should == "<span class='series_best_time'>300</span>"
+      end
     end
   end
 

@@ -70,6 +70,9 @@ module NavigationHelpers
 
     when /the race page of "(.*)"/
       race_path(Race.find_by_name($1))
+      
+    when /the video page of race "(.*)"/
+      race_video_path(Race.find_by_name($1))
 
     when /the race page/
       race_path(@race)
@@ -109,6 +112,9 @@ module NavigationHelpers
       
     when /the admin races page/
       admin_races_path
+      
+    when /the admin video page of the race/
+      admin_race_video_path(@race)
 
     when /the send feedback page/
       new_feedback_path
