@@ -5,9 +5,13 @@
   <%= raw @race.video_source %>
 </div>
 <div style="float: left; margin-left: 10px;">
-  <% series = @race.series.last %>
+  <% series = @race.series.first %>
   <% if series %>
     <h3 style="margin-top: 0;">Tulosseuranta - <%= series.name %></h3>
-    <%= render :partial => 'simple_series_table', :locals => { :series => series } %>
+    <%= render :layout => 'series/series_status', :locals => { :series => series } do %>
+      <%= render :partial => 'simple_series_table', :locals => { :series => series } %>
+    <% end %>
+  <% else %>
+    TODO
   <% end %>
 </div>
