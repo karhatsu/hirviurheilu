@@ -1,8 +1,6 @@
 <%= content_for(:title, "#{@race.name} - Video")%>
 <h2>Video</h2>
-<div>
-  <%= @race.video_description %>
-</div>
+<%= content_tag(:div, @race.video_description, :class => 'video_description') if @race.video_description -%>
 <div style="float: left;">
   <%= raw @race.video_source %>
 </div>
