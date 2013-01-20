@@ -6,15 +6,20 @@
     <%= raw @race.video_source %>
   </div>
   <div class="column results_column">
-    <% series = @race.series.first unless @race.series.empty? %>
-    <h3 style="margin-top: 0;">Tulosseuranta <%= "- #{series.name}" if series %></h3>
-    <% if series %>
-      <%= render :layout => 'series/series_status', :locals => { :series => series } do %>
-        <%= render :partial => 'series/infos', :locals => { :series => series } %>
-        <%= render :partial => 'simple_series_table', :locals => { :series => series } %>
-      <% end %>
-    <% else %>
-      <div class="info">Kun kilpailu on käynnissä, pääset seuraamaan tuloksia reaaliajassa.</div>
+    <h3 style="margin-top: 0;">Tulosseuranta <span id="result_title_series_name"></span></h3>
+    <div id="results_spinner" style="display:none;"><%= image_tag 'spinner.gif' %> Haetaan tuloksia...</div>
+    <div id="series_results"/>
+    <% if @race.series.empty? %>
+      <div class="info">Kun kilpailu on käynnissä, pääset seuraamaan tällä sivulla tuloksia reaaliajassa.</div>
     <% end %>
   </div>
 </div>
+<%= javascript_tag do %>
+  function reload_series(path) {
+    $('#results_spinner').show();
+    $.ajax(path);
+  }
+  <% unless @race.series.empty? %>
+    reload_series('<%= series_path(@race.series.first, :format => 'js') %>');
+  <% end %>
+<% end %>

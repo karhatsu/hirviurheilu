@@ -1,0 +1,7 @@
+$('#result_title_series_name').text(' - <%= @series.name %>');
+$('#series_results').html("<%= escape_javascript(render(:layout => 'series/series_status',
+  :locals => { :series => @series }) do
+    render :partial => 'series/infos', :locals => { :series => @series }
+    render :partial => 'videos/simple_series_table', :locals => { :series => @series }
+  end) %>");
+$('#results_spinner').hide();
