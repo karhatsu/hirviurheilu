@@ -17,6 +17,9 @@
         <%= select_tag(:series_id, options_from_collection_for_select(@race.series, :id, :name),
           :id => 'series_select') %>
       </div>
+      <div class="refresh_link">
+        <a href="javascript:void(0);" id="refresh">Päivitä tulokset</a>
+      </div>
       <div id="series_results" class="section"/>
     <% end %>
   </div>
@@ -26,12 +29,16 @@
     $('#results_spinner').show();
     $.ajax('/series/' + id + '.js');
   }
+  function reload_selected_series() {
+    reload_series($('#series_select').val());
+  }
   $('#series_select').live('change', function() {
     reload_series($(this).val());
   });
+  $('#refresh').live('click', reload_selected_series);
   <% unless @race.series.empty? %>
     $(document).ready(function() {
-      reload_series($('#series_select').val());
+      reload_selected_series();
     });
   <% end %>
 <% end %>
