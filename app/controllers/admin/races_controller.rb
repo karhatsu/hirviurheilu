@@ -12,7 +12,7 @@ class Admin::RacesController < Admin::AdminController
   
   def update
     race = Race.find(params[:id])
-    race.update_attributes!(params[:race])
+    race.update_attributes!(params[:race], :as => :admin)
     flash[:success] = 'Kilpailu tallennettu'
     redirect_to admin_races_path
   end
