@@ -10,9 +10,14 @@
     <% if @race.series.empty? %>
       <div class="info">Kun kilpailu on käynnissä, pääset seuraamaan tällä sivulla tuloksia reaaliajassa.</div>
     <% else %>
-      <%= select_tag(:series_id, options_from_collection_for_select(@race.series, :id, :name), :id => 'series_select') %>
-      <div id="results_spinner" style="display:none;"><%= image_tag 'spinner.gif' %> Haetaan tuloksia...</div>
-      <div id="series_results"/>
+      <div class="series_menu">
+        <span id="results_spinner" style="display:none;">
+          <%= image_tag 'spinner.gif' %> Haetaan tuloksia...
+        </span>
+        <%= select_tag(:series_id, options_from_collection_for_select(@race.series, :id, :name),
+          :id => 'series_select') %>
+      </div>
+      <div id="series_results" class="section"/>
     <% end %>
   </div>
 </div>
