@@ -1,8 +1,7 @@
 $('#result_title_series_name').text(' - <%= @series.name %>');
 $('#series_results').html("<%= escape_javascript(render(:layout => 'series/series_status',
   :locals => { :series => @series }) do
-    render :partial => 'series/infos', :locals => { :series => @series }
-    render :partial => 'videos/simple_series_table', :locals => { :series => @series }
+    render :partial => 'videos/series_info_and_results', :locals => { :series => @series }
   end) %>");
 <% if @series.started? and not @series.race.finished? %>
   $('#refresh_link_wrapper').show();
