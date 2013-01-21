@@ -1,5 +1,5 @@
 <% content_for :title, "#{@race.name} - Joukkuekilpailut - #{@tc.name}" %>
-<% unless @race.finished? %>
+<% if @tc.started? and not @race.finished? %>
   <%= render :partial => 'shared/refresh_counter' %>
 <% end %>
 <h2><%= @tc.name %> - Tulokset</h2>

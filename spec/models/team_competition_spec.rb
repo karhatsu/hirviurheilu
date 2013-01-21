@@ -313,4 +313,38 @@ describe TeamCompetition do
       @tc.age_groups[1].name.should == 'second age_group'
     end
   end
+  
+  describe  "#started?" do
+    context "when no series" do
+      it "should return false" do
+        TeamCompetition.new.should_not be_started
+      end
+    end
+    
+    context "when series" do
+      before do
+        @tc = FactoryGirl.build(:team_competition)
+      end
+      
+      context "but none of them started" do
+        it "should return false" do
+          s1 = mock_model(Series)
+          @tc.should_receive(:series).and_return([s1])
+          s1.stub!(:started?).and_return(false)
+          @tc.should_not be_started
+        end
+      end
+      
+      context "and at least one of them started" do
+        it "should return true" do
+          s1 = mock_model(Series)
+          s2 = mock_model(Series)
+          @tc.should_receive(:series).and_return([s1, s2])
+          s1.stub!(:started?).and_return(false)
+          s2.stub!(:started?).and_return(true)
+          @tc.should be_started
+        end
+      end
+    end
+  end
 end

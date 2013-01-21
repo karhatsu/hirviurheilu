@@ -28,6 +28,13 @@ class TeamCompetition < ActiveRecord::Base
       age_groups << race.age_groups.find_by_name(name)
     end
   end
+  
+  def started?
+    series.each do |s|
+      return true if s.started?
+    end
+    false
+  end
 
   def results
     competitors = []
