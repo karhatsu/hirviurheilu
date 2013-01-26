@@ -16,6 +16,10 @@ class Club < ActiveRecord::Base
     return long_name if long_name
     name
   end
+  
+  def can_be_removed?
+    competitors.empty?
+  end
 
   private
   def handle_empty_long_name
@@ -23,7 +27,7 @@ class Club < ActiveRecord::Base
   end
 
   def check_competitors
-    unless competitors.empty?
+    unless can_be_removed?
       errors.add(:base, 'Seuraa ei voi poistaa, koska sillä on kilpailijoita')
       return false
     end

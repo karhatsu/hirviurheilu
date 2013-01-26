@@ -14,7 +14,7 @@
   </td>
   <td id="club_long_name_td_<%= club.id %>"><%= club.long_name %></td>
   <td class="center"><%= club.competitors.count %></td>
-  <td class="center"><%= club.competitors.count == 0 ? (button_to "Poista",
+  <td class="center"><%= club.can_be_removed? ? (button_to "Poista",
       official_race_club_path(@race.id, club),
       :method => :delete,
       :remote => true,

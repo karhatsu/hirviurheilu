@@ -38,21 +38,47 @@ describe Club do
     it { should belong_to(:race) }
     it { should have_many(:competitors) }
   end
-
-  describe "removal" do
-    it "should be allowed when no competitors" do
-      club = FactoryGirl.create(:club)
-      club.destroy
-      club.should be_destroyed
+  
+  describe "#can_be_removed?" do
+    context "when club has no competitors" do
+      it "should return true" do
+        Club.new.can_be_removed?.should be_true
+      end
     end
 
-    it "should not be allowed when club has competitors" do
-      club = FactoryGirl.create(:club)
-      competitor = FactoryGirl.create(:competitor, :club => club)
-      club.reload
-      club.should have(1).competitors
-      club.destroy
-      club.should_not be_destroyed
+    context "when club has competitors" do
+      before do
+        @club = FactoryGirl.create(:club)
+        competitor = FactoryGirl.create(:competitor, :club => @club)
+        @club.reload
+        @club.should have(1).competitors
+      end
+      
+      it "should return false" do
+        @club.can_be_removed?.should be_false
+      end
+    end
+  end
+
+  describe "removal" do
+    before do
+      @club = FactoryGirl.create(:club)
+    end
+    
+    context "when can be done" do
+      it "should remove the club" do
+        @club.should_receive(:can_be_removed?).and_return(true)
+        @club.destroy
+        @club.should be_destroyed
+      end
+    end
+
+    context "when cannot be done" do
+      it "should provide an error but not remove the club" do
+        @club.should_receive(:can_be_removed?).and_return(false)
+        @club.destroy
+        @club.should_not be_destroyed
+      end
     end
   end
 
