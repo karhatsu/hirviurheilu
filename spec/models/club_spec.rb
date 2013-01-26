@@ -37,12 +37,29 @@ describe Club do
   describe "associations" do
     it { should belong_to(:race) }
     it { should have_many(:competitors) }
+    it { should have_many(:race_rights) }
   end
   
   describe "#can_be_removed?" do
     context "when club has no competitors" do
-      it "should return true" do
-        Club.new.can_be_removed?.should be_true
+      context "and no-one has official rights for this club only" do
+        it "should return true" do
+          Club.new.can_be_removed?.should be_true
+        end
+      end
+      
+      context "but someone has official rights for this club only" do
+        before do
+          race = FactoryGirl.create(:race)
+          @club = FactoryGirl.create(:club, :race => race)
+          user = FactoryGirl.create(:user)
+          RaceRight.create(:race => race, :user => user, :only_add_competitors => true, :club => @club)
+          @club.reload
+        end
+        
+        it "should return false" do
+          @club.can_be_removed?.should be_false
+        end
       end
     end
 
@@ -53,7 +70,7 @@ describe Club do
         @club.reload
         @club.should have(1).competitors
       end
-      
+
       it "should return false" do
         @club.can_be_removed?.should be_false
       end

@@ -4,6 +4,7 @@ class Club < ActiveRecord::Base
 
   belongs_to :race
   has_many :competitors
+  has_many :race_rights
 
   before_validation :handle_empty_long_name
 
@@ -18,7 +19,7 @@ class Club < ActiveRecord::Base
   end
   
   def can_be_removed?
-    competitors.empty?
+    competitors.empty? and race_rights.empty?
   end
 
   private
@@ -28,7 +29,7 @@ class Club < ActiveRecord::Base
 
   def check_competitors
     unless can_be_removed?
-      errors.add(:base, 'Seuraa ei voi poistaa, koska sillä on kilpailijoita')
+      errors.add(:base, 'Seuraa ei voi poistaa, koska sillä on kilpailijoita tai jollain toimitsijalla on oikeudet vain tähän seuraan')
       return false
     end
   end
