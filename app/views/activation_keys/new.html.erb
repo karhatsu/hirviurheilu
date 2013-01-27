@@ -14,7 +14,8 @@
 <div class="section">
   <%= flash_error %>
   <%= form_tag activation_key_path do %>
-    Hirviurheilu Offline -tuotteen hinta: <%= ActivationKey::OFFLINE_PRICE %> euroa.<br/>
+    Hirviurheilu Offline -tuotteen hinta: <%= ActivationKey::OFFLINE_PRICE %> euroa
+    (sis. ALV <%= VAT %>%).<br/>
     <%= label_tag :password, 'Salasana' %>
     <%= password_field_tag :password %><br/>
     <%= check_box_tag :accept %>
