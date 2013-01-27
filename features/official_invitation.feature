@@ -18,7 +18,6 @@ Feature: Official invitation
     Then I should be on the invite officials page for "Test race"
     And the official main menu item should be selected
     And the "Toimitsijat" sub menu item should be selected
-    And I should see "Toimitsijat" within "h2"
     And I should see "Tim Thomas" within "#current_officials"
     When I fill in "another@official.com" for "Sähköposti"
     And I press "Lähetä kutsu"

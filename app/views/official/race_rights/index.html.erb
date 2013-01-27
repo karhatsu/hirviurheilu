@@ -1,5 +1,38 @@
 <% content_for :title, "#{@race.name} - Toimitsijat" %>
-<h2>Toimitsijat</h2>
+<h2>Kutsu toinen henkilö tämän kilpailun toimitsijaksi</h2>
+<div class="section">
+  <div class="info">Henkilön täytyy olla rekisteröitynyt palveluun omalla
+    sähköpostiosoitteellaan.</div>
+  <%= form_for([:official, @race, RaceRight.new], :html => { :class => 'invite_officials_form' } ) do |f| %>
+    <div>
+      <span class="form_label"><%= label_tag :email, 'Sähköposti' %></span>
+      <span><%= email_field_tag :email, '', :size => 30 %></span>
+    </div>
+    <div>
+      <span class="form_label"><%= f.label :only_add_competitors,
+        'Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita' %></span>
+      <span><%= f.check_box :only_add_competitors %></span>
+    </div>
+    <div style="display: none;" id="club_limitation">
+      <span class="form_label"><%= f.label :club_id,
+        'Salli kilpailijoiden lisäys vain tiettyyn piiriin/seuraan' %></span>
+      <% if @race.clubs.empty? %>
+        (Käyttöä ei voi rajata, koska <%= link_to 'yhtään piiriä/seuraa ei ole lisätty',
+          official_race_clubs_path(@race) %>.)
+      <% else %>
+        <%= f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name),
+          :prompt => 'Ei rajausta' %>
+      <% end %>
+    </div>
+    <%= submit_tag "Lähetä kutsu" %>
+  <% end %>
+</div>
+<%= javascript_tag do %>
+  $('#race_right_only_add_competitors').live('click', function() {
+    $('#club_limitation').toggle(this.checked);
+  });
+<% end %>
+<h2>Kilpailun toimitsijat</h2>
 <%= flash_error %>
 <%= flash_success %>
 <div id="current_officials">
@@ -13,36 +46,5 @@
   end %>
   <%= names.join(", ") %>
 </div>
-<h3>Kutsu toinen henkilö tämän kilpailun toimitsijaksi</h3>
-<div class="info">Henkilön täytyy olla rekisteröitynyt palveluun omalla
-  sähköpostiosoitteellaan.</div>
-<%= form_for([:official, @race, RaceRight.new], :html => { :class => 'invite_officials_form' } ) do |f| %>
-  <div>
-    <span class="form_label"><%= label_tag :email, 'Sähköposti' %></span>
-    <span><%= email_field_tag :email, '', :size => 30 %></span>
-  </div>
-  <div>
-    <span class="form_label"><%= f.label :only_add_competitors,
-      'Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita' %></span>
-    <span><%= f.check_box :only_add_competitors %></span>
-  </div>
-  <div style="display: none;" id="club_limitation">
-    <span class="form_label"><%= f.label :club_id,
-      'Salli kilpailijoiden lisäys vain tiettyyn piiriin/seuraan' %></span>
-    <% if @race.clubs.empty? %>
-      (Käyttöä ei voi rajata, koska <%= link_to 'yhtään piiriä/seuraa ei ole lisätty',
-        official_race_clubs_path(@race) %>.)
-    <% else %>
-      <%= f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name),
-        :prompt => 'Ei rajausta' %>
-    <% end %>
-  </div>
-  <%= submit_tag "Lähetä kutsu" %>
-<% end %>
-<%= javascript_tag do %>
-  $('#race_right_only_add_competitors').live('click', function() {
-    $('#club_limitation').toggle(this.checked);
-  });
-<% end %>
 <hr/>
 <%= link_to 'Takaisin Yhteenveto-sivulle', official_race_path(@race) %>
