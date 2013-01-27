@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130120103310) do
+ActiveRecord::Schema.define(:version => 20130127054829) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -294,6 +294,7 @@ ActiveRecord::Schema.define(:version => 20130120103310) do
     t.datetime "updated_at"
     t.string   "reset_hash"
     t.string   "activation_key"
+    t.text     "invoicing_info"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

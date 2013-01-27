@@ -8,17 +8,23 @@ class ActivationKeysController < ApplicationController
   def create
     if params[:accept]
       if current_user.valid_password?(params[:password])
-        @activation_key = ActivationKey.get_key(current_user.email, params[:password])
-        current_user.activation_key = @activation_key
-        current_user.save!
-        LicenseMailer.license_mail(current_user).deliver
-        render :show
+        if params[:invoicing_info].blank?
+          flash[:error] = 'Syötä laskutustiedot'
+          render :new
+        else
+          @activation_key = ActivationKey.get_key(current_user.email, params[:password])
+          current_user.activation_key = @activation_key
+          current_user.invoicing_info = params[:invoicing_info]
+          current_user.save!
+          LicenseMailer.license_mail(current_user).deliver
+          render :show
+        end
       else
         flash[:error] = 'Väärä salasana'
         render :new
       end
     else
-      flash[:error] = 'Sinun täytyy hyväksyä käyttöehdot'
+      flash[:error] = 'Sinun täytyy hyväksyä laskutusehto'
       render :new
     end
   end

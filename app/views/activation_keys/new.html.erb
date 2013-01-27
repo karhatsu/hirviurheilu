@@ -1,27 +1,37 @@
-<% content_for(:title, "Hanki aktivointitunnus offline-tuotetta varten") %>
+<% content_for(:title, "Hanki aktivointitunnus Offline-tuotetta varten") %>
 <% content_for(:page_title, yield(:title)) %>
+<h2>Tärkeää tietoa aktivointitunnuksesta</h2>
 <div class="info">
-  Tältä sivulta voit hankkia offline-tuotteeseen aktivointitunnuksen,
+  Tältä sivulta voit hankkia Offline-tuotteeseen aktivointitunnuksen,
   joka poistaa tuotteesta käyttörajoitukset.
   Jos käytät Hirviurheilu-palvelua pelkästään internetin välityksellä,
   sinun ei tarvitse hankkia aktivointitunnusta.
 </div>
+<div class="info">Hirviurheilu Offline -tuotteen hinta: <%= ActivationKey::OFFLINE_PRICE %> euroa
+  (sis. ALV <%= VAT %>%).</div>
 <div class="warning">
   TÄRKEÄÄ! Jos avaat aktivointitunnuksen, se tarkoittaa sitä,
   että Hirviurheilu-palvelulla on oikeus laskuttaa sinua Offline-tuotteesta
   riippumatta siitä, käytätkö sitä vai et.
 </div>
-<div class="section">
+<h2>Avaa aktivointitunnus</h2>
+<div class="section" id="activation_key_form">
   <%= flash_error %>
   <%= form_tag activation_key_path do %>
-    Hirviurheilu Offline -tuotteen hinta: <%= ActivationKey::OFFLINE_PRICE %> euroa
-    (sis. ALV <%= VAT %>%).<br/>
-    <%= label_tag :password, 'Salasana' %>
-    <%= password_field_tag :password %><br/>
-    <%= check_box_tag :accept %>
-    <b><%= label_tag :accept, 'Ymmärrän, ' +
-      'että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä riippumatta ' +
-      'siitä, käytänkö tuotetta vai en.' %></b><br/>
+    <div>
+      <span class="form_label"><%= label_tag :password, 'Salasana' %></span>
+      <%= password_field_tag :password %>
+    </div>
+    <div>
+      <span class="form_label"><%= label_tag :invoicing_info, 'Laskutustiedot (esim. seuran nimi)' %></span>
+      <%= text_area_tag :invoicing_info, params[:invoicing_info], :cols => 40, :rows => 4 %>
+    </div>
+    <div>
+      <span class="form_label"><b><%= label_tag :accept, 'Ymmärrän, ' +
+        'että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä riippumatta ' +
+        'siitä, käytänkö tuotetta vai en.' %></b></span>
+      <%= check_box_tag :accept %>
+    </div>
     <%= submit_tag 'Näytä aktivointitunnus' %>
   <% end %>
 </div>
