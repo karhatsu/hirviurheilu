@@ -20,6 +20,6 @@ class Official::CorrectEstimatesController < Official::OfficialController
   end
 
   def assign_competitors
-    @competitors = @race.competitors.includes(:series).order('number, id')
+    @competitors = @race.competitors.includes(:series).except(:order).order('number, id')
   end
 end
