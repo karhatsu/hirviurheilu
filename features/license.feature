@@ -45,7 +45,7 @@ Feature: License
     
   Scenario: When user has already checked the activation key, no invoicing info needed
     Given I am an official "Mathew Stevensson" with email "license@hirviurheilu.com" and password "license"
-    And I have already opened the activation key
+    And I have already opened the activation key with invoicing info "Laskutusseura"
     And I have logged in
     And I am on the offline price page
     When I follow "Hanki aktivointitunnus"
@@ -54,6 +54,9 @@ Feature: License
     And I fill in "license" for "Salasana"
     And I press "Näytä aktivointitunnus"
     Then I should see "Aktivointitunnus: CC81E12F02" in a success message
+    And the admin should receive an email
+    When I open the email
+    Then I should see "Laskutustiedot: Laskutusseura" in the email body
 
   Scenario: Unauthenticated user wants to see activation key
     Given I go to the activation key page

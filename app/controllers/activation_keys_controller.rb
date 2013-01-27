@@ -8,13 +8,14 @@ class ActivationKeysController < ApplicationController
   def create
     if params[:accept]
       if current_user.valid_password?(params[:password])
-        if current_user.invoicing_info.nil? and params[:invoicing_info].blank?
+        invoicing_info = params[:invoicing_info]
+        if current_user.invoicing_info.nil? and invoicing_info.blank?
           flash[:error] = 'Syötä laskutustiedot'
           render :new
         else
           @activation_key = ActivationKey.get_key(current_user.email, params[:password])
           current_user.activation_key = @activation_key
-          current_user.invoicing_info = params[:invoicing_info]
+          current_user.invoicing_info = invoicing_info unless invoicing_info.blank?
           current_user.save!
           LicenseMailer.license_mail(current_user).deliver
           render :show

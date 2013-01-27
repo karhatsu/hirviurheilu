@@ -103,9 +103,9 @@ Given /^I am an admin with email "([^"]*)" and password "([^"]*)"$/ do |email, p
   @user.add_admin_rights
 end
 
-Given /^I have already opened the activation key$/ do
+Given /^I have already opened the activation key with invoicing info "(.*?)"$/ do |invoicing_info|
   @user.activation_key = 'activation-key'
-  @user.invoicing_info = 'Test Club, Street, City'
+  @user.invoicing_info = invoicing_info
   @user.save!
 end
 
