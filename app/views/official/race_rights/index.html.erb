@@ -35,16 +35,21 @@
 <h2>Kilpailun toimitsijat</h2>
 <%= flash_error %>
 <%= flash_success %>
-<div id="current_officials">
-  <% names = [] %>
-  <% @race.race_rights.each do |race_right|
-    name = full_name(race_right.user, true)
-    if race_right.only_add_competitors
-      name += " (vain kilpailijoiden lisäys#{race_right.club ? ', ' + race_right.club.name : ''})" 
-    end
-    names << name
-  end %>
-  <%= names.join(", ") %>
+<div id="current_officials" class="section">
+  <table>
+    <tr>
+      <th>Nimi</th>
+      <th>Vain kilpailijat</th>
+      <th><%= club_title(@race) %></th>
+    </tr>
+    <% @race.race_rights.each do |rr| %>
+      <tr>
+        <td><%= full_name(rr.user, true) %></td>
+        <td class="center"><%= rr.only_add_competitors? ? image_tag('icon_yes.gif') : raw('&nbsp;') %></td>
+        <td><%= rr.club ? rr.club.name : raw('&nbsp;') %></td>
+      </tr>
+    <% end %>
+  </table>
 </div>
 <hr/>
 <%= link_to 'Takaisin Yhteenveto-sivulle', official_race_path(@race) %>

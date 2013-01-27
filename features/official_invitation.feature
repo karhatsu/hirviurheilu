@@ -18,11 +18,12 @@ Feature: Official invitation
     Then I should be on the invite officials page for "Test race"
     And the official main menu item should be selected
     And the "Toimitsijat" sub menu item should be selected
-    And I should see "Tim Thomas" within "#current_officials"
+    And current officials table row 1 should contain "Tim Thomas" with full rights
     When I fill in "another@official.com" for "Sähköposti"
     And I press "Lähetä kutsu"
     Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi" in a success message
-    And I should see "Tim Thomas, Another Official" within "#current_officials"
+    And current officials table row 1 should contain "Tim Thomas" with full rights
+    And current officials table row 2 should contain "Another Official" with full rights
     And "another@official.com" should receive an email with subject "Kutsu kilpailun Test race toimitsijaksi"
     When I logout
     And "another@official.com" opens the email
@@ -45,7 +46,6 @@ Feature: Official invitation
     When I fill in "another@official.com" for "Sähköposti"
     And I press "Lähetä kutsu"
     Then I should see "Tietokannasta ei löytynyt syöttämääsi sähköpostiosoitetta" in an error message
-    And I should see "Tim Thomas" within "#current_officials"
 
   Scenario: Try to invite an official that already is an official for this race
     Given I am an official "Tim Thomas" with email "tim@official.com"
@@ -56,7 +56,6 @@ Feature: Official invitation
     When I fill in "tim@official.com" for "Sähköposti"
     And I press "Lähetä kutsu"
     Then I should see "Henkilö on jo tämän kilpailun toimitsija" in an error message
-    And I should see "Tim Thomas" within "#current_officials"
 
   Scenario: Invite official with only rights to add competitors
     Given there is an official "Another" "Official" with email "another@official.com" and password "pword"
@@ -74,7 +73,7 @@ Feature: Official invitation
     And I check "Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita"
     And I press "Lähetä kutsu"
     Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi rajoitetuin oikeuksin" in a success message
-    And I should see "Tim Thomas, Another Official (vain kilpailijoiden lisäys)" within "#current_officials"
+    And current officials table row 2 should contain "Another Official" with limited rights to all clubs
     And "another@official.com" should receive an email with subject "Kilpailun Test race kilpailijoiden lisäyspyyntö"
     When I logout
     And "another@official.com" opens the email
@@ -101,7 +100,7 @@ Feature: Official invitation
     And I select "Club 2" from "Salli kilpailijoiden lisäys vain tiettyyn piiriin/seuraan"
     And I press "Lähetä kutsu"
     Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi rajoitetuin oikeuksin" in a success message
-    And I should see "Tim Thomas, Another Official (vain kilpailijoiden lisäys, Club 2)" within "#current_officials"
+    And current officials table row 2 should contain "Another Official" with limited rights to club "Club 2"
 
   Scenario: If no clubs, official sees explicitly that club limitation cannot be used
     Given there is an official "Another" "Official" with email "another@official.com" and password "pword"
