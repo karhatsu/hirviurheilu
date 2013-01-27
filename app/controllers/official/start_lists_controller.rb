@@ -10,7 +10,7 @@ class Official::StartListsController < Official::OfficialController
   def show
     @is_start_list = true
     start_list_condition = "series.has_start_list = #{DatabaseHelper.true_value}"
-    @competitors = @race.competitors.where(start_list_condition).includes(:club, :age_group, :series).order(:number)
+    @competitors = @race.competitors.where(start_list_condition).includes(:club, :age_group, :series).except(:order).order(:number)
     @all_series = @race.series.where(start_list_condition)
     collect_age_groups(@all_series)
     unless @all_series.empty?
