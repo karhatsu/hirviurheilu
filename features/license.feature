@@ -16,11 +16,11 @@ Feature: License
     When I fill in "license" for "Salasana"
     And I press "Näytä aktivointitunnus"
     Then I should see "Sinun täytyy hyväksyä käyttöehdot" in an error message
-    When I check "Hyväksyn käyttöehdot ja ymmärrän, että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä"
+    When I check "Ymmärrän, että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä"
     And I fill in "wrong password" for "Salasana"
     And I press "Näytä aktivointitunnus"
     Then I should see "Väärä salasana" in an error message
-    When I check "Hyväksyn käyttöehdot ja ymmärrän, että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä"
+    When I check "Ymmärrän, että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä"
     And I fill in "license" for "Salasana"
     And I press "Näytä aktivointitunnus"
     Then I should see "Aktivointitunnus: CC81E12F02" in a success message
