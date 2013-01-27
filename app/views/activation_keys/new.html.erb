@@ -22,10 +22,12 @@
       <span class="form_label"><%= label_tag :password, 'Salasana' %></span>
       <%= password_field_tag :password %>
     </div>
-    <div>
-      <span class="form_label"><%= label_tag :invoicing_info, 'Laskutustiedot (esim. seuran nimi)' %></span>
-      <%= text_area_tag :invoicing_info, params[:invoicing_info], :cols => 40, :rows => 4 %>
-    </div>
+    <% unless current_user.invoicing_info %>
+      <div>
+        <span class="form_label"><%= label_tag :invoicing_info, 'Laskutustiedot (esim. seuran nimi)' %></span>
+        <%= text_area_tag :invoicing_info, params[:invoicing_info], :cols => 40, :rows => 4 %>
+      </div>
+    <% end %>
     <div>
       <span class="form_label"><b><%= label_tag :accept, 'Ymmärrän, ' +
         'että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä riippumatta ' +

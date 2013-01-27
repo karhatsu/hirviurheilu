@@ -8,7 +8,7 @@ class ActivationKeysController < ApplicationController
   def create
     if params[:accept]
       if current_user.valid_password?(params[:password])
-        if params[:invoicing_info].blank?
+        if current_user.invoicing_info.nil? and params[:invoicing_info].blank?
           flash[:error] = 'Syötä laskutustiedot'
           render :new
         else

@@ -42,6 +42,18 @@ Feature: License
     When I follow "Admin"
     And I follow "Käyttäjät"
     Then I should see "CC81E12F02"
+    
+  Scenario: When user has already checked the activation key, no invoicing info needed
+    Given I am an official "Mathew Stevensson" with email "license@hirviurheilu.com" and password "license"
+    And I have already opened the activation key
+    And I have logged in
+    And I am on the offline price page
+    When I follow "Hanki aktivointitunnus"
+    Then I should not see "Laskutustiedot"
+    When I check "Ymmärrän, että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä"
+    And I fill in "license" for "Salasana"
+    And I press "Näytä aktivointitunnus"
+    Then I should see "Aktivointitunnus: CC81E12F02" in a success message
 
   Scenario: Unauthenticated user wants to see activation key
     Given I go to the activation key page

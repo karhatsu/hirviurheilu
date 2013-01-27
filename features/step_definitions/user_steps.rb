@@ -103,6 +103,12 @@ Given /^I am an admin with email "([^"]*)" and password "([^"]*)"$/ do |email, p
   @user.add_admin_rights
 end
 
+Given /^I have already opened the activation key$/ do
+  @user.activation_key = 'activation-key'
+  @user.invoicing_info = 'Test Club, Street, City'
+  @user.save!
+end
+
 Given /^I have logged in$/ do
   visit login_path
   fill_in("Sähköposti", :with => @user.email)
