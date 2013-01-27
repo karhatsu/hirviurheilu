@@ -474,7 +474,7 @@ module ApplicationHelper
     return '' if always_empty
     comparison_time = competitor.comparison_time_in_seconds(all_competitors)
     return '' unless comparison_time
-    " title='Vertailuaika: #{time_from_seconds(comparison_time, false)}'"
+    raw " title='Vertailuaika: #{time_from_seconds(comparison_time, false)}'"
   end
   
   def title_prefix
