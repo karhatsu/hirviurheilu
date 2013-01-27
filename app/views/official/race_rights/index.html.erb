@@ -52,7 +52,9 @@
           <% if rr.user == current_user %>
             &nbsp;
           <% else %>
-            <%= link_to 'Peruuta kutsu', official_race_race_right_path(@race, rr), :method => :delete %>
+            <%= link_to 'Peruuta kutsu', official_race_race_right_path(@race, rr),
+              :data => { :confirm => "Haluatko varmasti poistaa käyttäjän toimitsijaoikeudet tähän kilpailuun?" },
+              :method => :delete %>
           <% end %>
         </td>
       </tr>
