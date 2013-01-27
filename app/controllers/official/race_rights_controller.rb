@@ -24,6 +24,14 @@ class Official::RaceRightsController < Official::OfficialController
       render :index
     end
   end
+  
+  def destroy
+    race_right = @race.race_rights.find(params[:id])
+    race_right.destroy
+    user = race_right.user
+    flash[:success] = "#{user.first_name} #{user.last_name} ei ole enää kilpailun toimitsija"
+    redirect_to official_race_race_rights_path(@race)
+  end
 
   private
   def set_race_rights

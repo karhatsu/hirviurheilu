@@ -112,4 +112,24 @@ Feature: Official invitation
     Then I should see "(Käyttöä ei voi rajata, koska yhtään piiriä/seuraa ei ole lisätty.)"
     When I follow "yhtään piiriä/seuraa ei ole lisätty"
     Then I should be on the official clubs page for "Test race"
-     
+  
+  Scenario: Official cannot delete herself from the race
+    Given I am an official
+    And I have a race "Test race"
+    And I have logged in
+    And I am on the invite officials page for "Test race"
+    Then I should not see "Peruuta kutsu"
+
+  Scenario: Official can cancel sent invitation
+    Given there is an official "Another" "Official"
+    And I am an official
+    And I have a race "Test race"
+    And I have invited "Another" "Official" to the race
+    And I have logged in
+    And I am on the invite officials page for "Test race"
+    Then current officials table row 2 should contain "Another Official" with full rights
+    When I follow "Peruuta kutsu"
+    Then I should be on the invite officials page for "Test race"
+    And I should see "Another Official ei ole enää kilpailun toimitsija" in a success message
+    And the current officials table should not contain "Another Official"
+    

@@ -1,5 +1,7 @@
 <% content_for :title, "#{@race.name} - Toimitsijat" %>
 <h2>Kutsu toinen henkilö tämän kilpailun toimitsijaksi</h2>
+<%= flash_error %>
+<%= flash_success %>
 <div class="section">
   <div class="info">Henkilön täytyy olla rekisteröitynyt palveluun omalla
     sähköpostiosoitteellaan.</div>
@@ -33,20 +35,26 @@
   });
 <% end %>
 <h2>Kilpailun toimitsijat</h2>
-<%= flash_error %>
-<%= flash_success %>
 <div id="current_officials" class="section">
   <table>
     <tr>
       <th>Nimi</th>
       <th>Vain kilpailijat</th>
       <th><%= club_title(@race) %></th>
+      <th>&nbsp;</th>
     </tr>
     <% @race.race_rights.each do |rr| %>
       <tr>
         <td><%= full_name(rr.user, true) %></td>
         <td class="center"><%= rr.only_add_competitors? ? image_tag('icon_yes.gif') : raw('&nbsp;') %></td>
         <td><%= rr.club ? rr.club.name : raw('&nbsp;') %></td>
+        <td>
+          <% if rr.user == current_user %>
+            &nbsp;
+          <% else %>
+            <%= link_to 'Peruuta kutsu', official_race_race_right_path(@race, rr), :method => :delete %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </table>

@@ -7,6 +7,12 @@ Given /^there exists an official "(.*) (.*)" with email "([^"]*)"$/ do |firstnam
   user.add_official_rights
 end
 
+Given /^there is an official "([^"]*)" "([^"]*)"$/ do |first_name, last_name|
+  user = FactoryGirl.build(:user, :first_name => first_name, :last_name => last_name)
+  user.save_without_session_maintenance
+  user.add_official_rights
+end
+
 Given /^there is an official with email "([^"]*)" and password "([^"]*)"$/ do |email, password|
   user = FactoryGirl.build(:user, :email => email, :password => password,
     :password_confirmation => password)
