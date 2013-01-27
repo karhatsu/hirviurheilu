@@ -640,3 +640,22 @@ Feature: Results
       | time | 299 (1:00:10) |
     When I follow "Näytä viralliset tulokset"
     Then I should see "Men 50 years - Tulokset" within "h2"
+
+  Scenario: Results show reference time for each competitor
+    Given there is a race with attributes:
+      | name | My test race |
+      | start_interval_seconds | 60 |
+    And the race has series with attributes:
+      | name | Men 50 years |
+      | start_time | 13:00 |
+      | first_number | 50 |
+    And the series has a competitor "James" "Johnson"
+    And the series has a competitor "Tim" "Atkinsson"
+    And the start list has been generated for the series
+    And the competitor "James" "Johnson" has the following results:
+      | arrival_time | 13:30:25 |
+    And the competitor "Tim" "Atkinsson" has the following results:
+      | arrival_time | 13:40:00 |
+    And I am on the results page of the series
+    Then the result row 1 should have time "30:25" with reference time "30:25"
+    And the result row 2 should have time "39:00" with reference time "30:25"

@@ -10,3 +10,7 @@ Then /^I should see a team (\d+) competitor row (\d+) with values:$/ do |team_or
     step %{I should see "#{cell}" within "tr#team_#{team_order_number}_comp_#{competitor_order_number}"}
   end
 end
+
+Then /^the result row (\d+) should have time "(.*?)" with reference time "(.*?)"$/ do |row, time, comparison_time|
+  find(:xpath, "//tr[@id='comp_#{row}']//td[@title='Vertailuaika: #{comparison_time}']").should have_content(time)
+end
