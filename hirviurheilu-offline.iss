@@ -13,6 +13,9 @@ Name: "{commondesktop}\Hirviurheilu Offline"; Filename: "{app}\hirviurheilu.exe"
 [Languages]
 Name: "fi"; MessagesFile: "compiler:Languages\Finnish.isl"
 
+[Messages]
+WelcomeLabel2=Olet asentamassa koneellesi ohjelmaa [name/ver]. %n%n****** TÄRKEÄÄ! ****** %nMikäli Hirviurheilu Offline on tällä hetkellä käynnissä, SULJE SE ENNEN KUIN ALOITAT PÄIVITYKSEN. (Jos olet asentamassa ohjelmaa ensimmäistä kertaa, voit jatkaa normaalisti.)
+
 [InstallDelete]
 Type: filesandordirs; Name: "{app}\lib"
 Type: filesandordirs; Name: "{app}\src\public"
