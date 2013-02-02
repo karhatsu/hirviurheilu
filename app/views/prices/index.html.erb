@@ -5,33 +5,49 @@
   <div class="action_box"><a href="<%= PRODUCTION_URL %>/prices">Tutustu hintoihin varsinaisessa
     palvelussa</a></div>
 <% else %>
-  <h2>Yhden kilpailun hinta</h2>
+  <div class="info">Hirviurheilun hinnoittelu on uudistunut! Tutustu alla uuteen hinnoitteluun.</div>
+  <h2>Hirviurheilu Offline -paketti</h2>
   <div class="section">
-    <table>
-     <tr>
-      <td>Perushinta</td><td><%= "%.2f" % BasePrice.price %> euroa</td>
-     </tr>  
+    Hirviurheilu Offline -paketti sisältää:
+    <ul>
+      <li>Hirviurheilu Offline</li>
+      <li>Kilpailuiden julkaisu Offline-tuotteesta Online-palveluun</li>
+      <li>Hirviurheilu Online -palvelu kahdeksi vuodeksi kilpailuille, joissa on enintään sata kilpailijaa</li>
+      <li>Hinta <%= ActivationKey::OFFLINE_PRICE %> euroa (sis. ALV <%= VAT %>%)</li>
+    </ul>
+    Paketin hankinta:
+    <ol>
+      <li><%= link_to 'Lataa ja asenna Hirviurheilu Offline.', offline_installation_path %></li>
+      <li>Kokeile halutessasi Hirviurheilu Offlinea enintään <%= Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE %>
+        kilpailijan verran.</li>
+      <li><%= link_to 'Lunasta aktivointitunnus.', new_activation_key_path %></li>
+      <li>Syötä aktivointitunnus Hirviurheilu Offlineen ja käytä tuotetta rajoituksetta.</li>
+    </ol>
+  </div>
+  <h2>Hirviurheilu Online</h2>
+  <div class="section">
+    Voit myös käyttää pelkästään Hirviurheilu Online -palvelua. Palvelu sisältää:
+    <ul>
+      <li>Yksilökilpailut alla olevan hinnoittelun mukaan</li>
+      <li>Joukkuekilpailut, viestit, cup-kilpailut ilman erillistä veloitusta</li>
+    </ul>
+    Yhden kilpailun hinta (sis. ALV <%= VAT %>%):
+    <ul>
+      <li>Perushinta: <%= "%.2f" % BasePrice.price %> euroa</li>
       <% @prices.each do |price| %>
-        <tr>
-          <td><%= price.min_competitors %>-<%= price.max_competitors %> kilpailijaa</td>
-          <td><%= "%.2f" % price.price %> <%= t("euros", :count => price.price) %> / kilpailija</td>
-        </tr>
+        <li>
+          <%= price.min_competitors %>-<%= price.max_competitors %> kilpailijaa:
+          <%= "%.2f" % price.price %> <%= t("euros", :count => price.price) %> / kilpailija
+        </li>
       <% end %>
-    </table>
-    <p>(Kaikki hinnat sisältävät <%= VAT %> % arvonlisäveroa.)</p>
+    </ul>
+    Palvelun käyttöönotto:
+    <ol>
+      <li><%= current_user ? link_to('Siirry Toimitsijan sivuille', official_root_path) :
+        link_to('Rekisteröidy ja aloita käyttö', register_path) %></li>
+    </ol>
     <div class="important">Aloitustarjous: Ensimmäinen kilpailu on ilmainen!</div>
   </div>
-  <h2>Joukkuekilpailut, viestit, cup-kilpailut</h2>
-  Näistä kilpailumuodoista ei veloiteta erikseen.
-  <h2>Hintalaskuri</h2>
-  <%= form_tag calculate_price_path, :remote => true do %>
-    <%= label_tag :competitors, "Kilpailijoita:" %>
-    <%= text_field_tag :competitors, @default_competitors_count, :size => 3 %>
-    <%= submit_tag "Laske" %>
-  <% end %>
-  Hinta yhteensä: <span id="calculated_price"><%= "%.2f" % @price %></span> euroa
-  <h2>Isot kilpailut, monta kilpailua kauden aikana tms.</h2>
+  <h2>Isojen kilpailuiden tulospalvelu (yli 100 kilpailijaa)</h2>
   <%= link_to 'Ota yhteyttä, niin sovitaan tilanteeseen sopiva hinta.', new_feedback_path %>
-  <h2>Hirviurheilu Offline</h2>
-  <%= link_to 'Katso Hirviurheilu Offline -tuotteen hinta.', offline_price_path %>
 <% end %>

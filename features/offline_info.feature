@@ -38,13 +38,18 @@ Feature: Offline info
     And I should see "Lataa asennustiedosto:"
     But I should not see "Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki."
 
-  Scenario: Show offline price
-    Given I am on the offline installation page
+  Scenario: Provide price information in the prices page
+    Given there is a base price 5
+    And there is a price "2" for min competitors 1
+    And I am on the offline installation page
     When I follow "Hinta"
     Then I should be on the offline price page
     And the "Offline" main menu item should be selected
     And the "Hinta" sub menu item should be selected
     And I should see "Hirviurheilu Offline - hinta" within "div.main_title"
+    And I should see "Hinnoittelu uudistunut" within "h2"
+    When I follow "Tutustu uuteen hinnoitteluun"
+    Then I should be on the prices page
 
   Scenario: No offline download in staging environment
     Given I use the service in the staging environment

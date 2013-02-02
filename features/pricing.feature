@@ -13,15 +13,11 @@ Feature: Pricing
     Then I should be on the prices page
     And the "Hinnat" main menu item should be selected
     And the page title should contain "Hinnat"
-    And I should see "Perushinta"
-    And I should see "15.00 euroa"
-    And I should see "1-49 kilpailijaa"
-    And I should see "3.00 euroa / kilpailija"
-    And I should see "50-99 kilpailijaa"
-    And I should see "2.50 euroa / kilpailija"
-    And I should see "100- kilpailijaa"
-    And I should see "1.00 euro / kilpailija"
-    And I should see "Kaikki hinnat sisältävät 24 % arvonlisäveroa."
+    And I should see "Perushinta: 15.00 euroa"
+    And I should see "1-49 kilpailijaa: 3.00 euroa / kilpailija"
+    And I should see "50-99 kilpailijaa: 2.50 euroa / kilpailija"
+    And I should see "100- kilpailijaa: 1.00 euro / kilpailija"
+    And I should see "sis. ALV 24%"
 
   Scenario: Do not show prices in staging environment
     Given there is a base price 5

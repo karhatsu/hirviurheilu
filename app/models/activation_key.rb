@@ -1,7 +1,7 @@
 require 'digest/md5'
 
 class ActivationKey < ActiveRecord::Base
-  OFFLINE_PRICE = 395
+  OFFLINE_PRICE = 420
 
   validates :comment, :presence => true
 
