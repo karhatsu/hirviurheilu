@@ -15,6 +15,7 @@ ElkSports::Application.routes.draw do
 
   resource :mode
 
+  resources :announcements
   resource :info
   get 'answers' => 'infos#answers', :as => :answers
   resources :feedbacks
@@ -52,6 +53,7 @@ ElkSports::Application.routes.draw do
   end
 
   namespace :admin do
+    resources :announcements
     resources :races do
       resource :video
     end

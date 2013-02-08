@@ -6,6 +6,7 @@ class HomeController < ApplicationController
     @past = past_competitions(cup_races, all_cups)
     @ongoing = ongoing_competitions(cup_races, all_cups)
     @future = future_competitions(cup_races, all_cups)
+    @announcements = Announcement.all
   end
   
   private

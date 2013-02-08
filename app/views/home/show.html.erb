@@ -36,6 +36,9 @@
   </div>
 
   <% unless offline? %>
+    <% unless @announcements.empty? %>
+      <%= render :partial => 'announcements' %>
+    <% end %>
     <div class="right_column title_box commercial_box">
       <div class="box_title">Kilpailun järjestäjille</div>
       <div class="title_box_content">

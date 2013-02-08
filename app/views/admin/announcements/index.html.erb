@@ -1,0 +1,20 @@
+<% content_for(:title, 'Admin - Tiedotteet') %>
+<h2>Tiedotteet</h2>
+<%= flash_success %>
+<div class="action_box"><%= link_to 'Lisää tiedote', new_admin_announcement_path %></div>
+<div id="all_news">
+  <table>
+    <tr>
+      <th>Pvm</th>
+      <th>Otsikko</th>
+      <th>Aktiivinen</th>
+    </tr>
+    <% @announcements.each do |a| %>
+      <tr>
+        <td><%= a.published %></td>
+        <td><%= a.title %></td>
+        <td><%= a.active? %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

@@ -1,11 +1,13 @@
 fi:
   attributes:
+    active: Aktiivinen
     age_group: Ikäryhmä
     age_group_id: Ikäryhmä
     arrival_time: Saapumisaika
     batch_interval_seconds: Tauko lähtöerien välissä
     batch_size: Lähtöerien koko
     club: Seura/piiri
+    content: Sisältö
     correct_estimate1: Oikea arviomatka 1
     correct_estimate2: Oikea arviomatka 2
     correct_estimate3: Oikea arviomatka 3
@@ -48,6 +50,7 @@ fi:
     password: Salasana
     password_confirmation: Salasana uudestaan
     price: Hinta
+    published: Julkaistu
     race: Kilpailu
     remember_me: Muista minut
     roles: Roolit
@@ -64,6 +67,7 @@ fi:
     team_competitor_count: Kilpailijoita / joukkue
     team_name: Jotosjoukkue
     time_points_type: Aikapisteiden laskenta
+    title: Otsikko
     top_competitions: Yhteistulokseen laskettavien kilpailuiden määrä
     unofficial: Epävirallinen kilpailija
     use_team_name: Muodosta joukkueet kilpailijan joukkuenimen perusteella
