@@ -5,9 +5,23 @@
       <% @announcements.each do |a| %>
         <tr>
           <td><%= a.published %></td>
-          <td><%= a.title %></td>
+          <td><a href="javascript:void(0);" id="<%= a.id %>" class="announcement_link"><%= a.title %></a></td>
         </tr>
       <% end %>
     </table>
   </div>
 </div>
+<div id="announcement_dialog" style="display:none;">
+  <div id="announcement_content"></div>
+</div>
+<%= javascript_tag do %>
+  $('.announcement_link').click(function() {
+    $.getJSON('/announcements/' + $(this).attr('id'), function(announcement) {
+      $('#announcement_content').text(announcement.content);
+      $('#announcement_dialog').dialog({
+        title: announcement.title,
+        closeText: 'Sulje'
+      });
+    });
+  });
+<% end %>

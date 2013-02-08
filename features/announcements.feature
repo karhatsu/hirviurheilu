@@ -52,3 +52,10 @@ Feature: Announcements
     And I should see "Tiedote päivitetty" in a success message
     And I should see "New title" within "#all_news"
     
+  @javascript
+  Scenario: Open announcement
+    Given there is an active announcement with title "Test announcement" and content "Good news!"
+    And I am on the home page
+    When I follow "Test announcement"
+    Then I should see "Good news!"
+    
