@@ -20,6 +20,20 @@ class Admin::AnnouncementsController < Admin::AdminController
     end
   end
   
+  def edit
+    @announcement = Announcement.find(params[:id])
+  end
+  
+  def update
+    @announcement = Announcement.find(params[:id])
+    if @announcement.update_attributes(params[:announcement])
+      flash[:success] = 'Tiedote päivitetty'
+      redirect_to admin_announcements_path
+    else
+      render :edit
+    end
+  end
+  
   private
   def set_admin_announcements
     @is_admin_announcements = true

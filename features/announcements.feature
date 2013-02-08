@@ -40,3 +40,15 @@ Feature: Announcements
     Then I should see "Active announcement"
     But I should not see "Non-active announcement"
     
+  Scenario: Edit announcement
+    Given there is an active announcement "Test announcement"
+    And I am an admin
+    And I have logged in
+    And I am on the admin announcements page
+    When I follow "Test announcement"
+    And I fill in "New title" for "Otsikko"
+    And I press "Tallenna"
+    Then I should be on the admin announcements page
+    And I should see "Tiedote päivitetty" in a success message
+    And I should see "New title" within "#all_news"
+    

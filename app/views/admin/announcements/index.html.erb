@@ -12,7 +12,7 @@
     <% @announcements.each do |a| %>
       <tr>
         <td><%= a.published %></td>
-        <td><%= a.title %></td>
+        <td><%= link_to a.title, edit_admin_announcement_path(a) %></td>
         <td><%= a.active? %></td>
       </tr>
     <% end %>
