@@ -33,3 +33,10 @@ Feature: Announcements
     Then I should see "Tiedotteet"
     And I should see "Good news"
     
+  Scenario: Show only active announcements
+    Given there is an active announcement "Active announcement"
+    And there is a non-active announcement "Non-active announcement"
+    And I am on the home page
+    Then I should see "Active announcement"
+    But I should not see "Non-active announcement"
+    
