@@ -69,3 +69,12 @@ Feature: Official
     And I am on the official index page
     Then I should see "Test cup"
     And I should see "Test race"
+
+  Scenario: Official cannot access someone else's races in official pages
+    Given there is a race "Test race"
+    And I am an official
+    And I have logged in
+    When I go to the official race page of "Test race"
+    Then I should be on the official index page
+    And I should see "Et ole kilpailun toimitsija" in an error message
+    

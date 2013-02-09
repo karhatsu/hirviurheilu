@@ -11,6 +11,7 @@ class Official::OfficialController < ApplicationController
     unless own_race?(race)
       flash[:error] = "Et ole kilpailun toimitsija"
       redirect_to official_root_path
+      return
     end
     if require_full_rights and !current_user.has_full_rights_for_race?(race)
       redirect_to official_limited_race_competitors_path(race)

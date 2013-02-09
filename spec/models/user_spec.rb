@@ -99,6 +99,10 @@ describe User do
       @race = FactoryGirl.create(:race)
     end
     
+    it "should return false when user is not official for the race" do
+      @user.should_not have_full_rights_for_race(@race)
+    end
+    
     it "should return false when user has only add competitors rights" do
       @user.race_rights.create!(:race => @race, :only_add_competitors => true)
       @user.should_not have_full_rights_for_race(@race) 

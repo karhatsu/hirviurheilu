@@ -45,7 +45,8 @@ class User < ActiveRecord::Base
   end
   
   def has_full_rights_for_race?(race)
-    !race_rights.where(:race_id => race.id).first.only_add_competitors
+    race_right = race_rights.where(:race_id => race.id).first
+    race_right and !race_right.only_add_competitors
   end
 
   def self.create_offline_user
