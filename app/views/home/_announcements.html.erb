@@ -17,7 +17,7 @@
 <%= javascript_tag do %>
   $('.announcement_link').click(function() {
     $.getJSON('/announcements/' + $(this).attr('id'), function(announcement) {
-      $('#announcement_content').text(announcement.content);
+      $('#announcement_content').html(announcement.content);
       $('#announcement_dialog').dialog({
         title: announcement.title,
         closeText: 'Sulje'
