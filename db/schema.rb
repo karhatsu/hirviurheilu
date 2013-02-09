@@ -28,12 +28,12 @@ ActiveRecord::Schema.define(:version => 20130208180440) do
   end
 
   create_table "announcements", :force => true do |t|
-    t.date     "published",                     :null => false
-    t.string   "title",                         :null => false
-    t.text     "content",                       :null => false
-    t.boolean  "active",     :default => false, :null => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.date     "published",                                    :null => false
+    t.string   "title",                                        :null => false
+    t.text     "content",    :limit => 255,                    :null => false
+    t.boolean  "active",                    :default => false, :null => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
   end
 
   create_table "base_prices", :force => true do |t|
