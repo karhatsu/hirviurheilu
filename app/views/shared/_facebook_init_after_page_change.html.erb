@@ -1,0 +1,15 @@
+<% if facebook_env? %>
+  <%= javascript_tag do %>
+    $(document).on('page:change', function() {
+      if ($(".fb-like").length > 0 || $(".fb-like-box").length > 0) {
+        if (typeof (FB) != 'undefined') {
+            FB.init({ status: true, cookie: true, xfbml: true });
+        } else {
+            $.getScript("http://connect.facebook.net/fi_FI/all.js#xfbml=1&appId=475946925802148", function () {
+                FB.init({ status: true, cookie: true, xfbml: true });
+            });
+        }
+      }
+    });
+  <% end %>
+<% end %>

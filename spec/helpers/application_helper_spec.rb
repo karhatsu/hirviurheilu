@@ -1191,4 +1191,21 @@ describe ApplicationHelper do
       end
     end
   end
+  
+  describe "#facebook_env?" do
+    it "should be true for development" do
+      Rails.stub!(:env).and_return('development')
+      helper.facebook_env?.should be_true
+    end
+    
+    it "should be true for production" do
+      Rails.stub!(:env).and_return('production')
+      helper.facebook_env?.should be_true
+    end
+    
+    it "should be false for all others" do
+      Rails.stub!(:env).and_return('test')
+      helper.facebook_env?.should be_false
+    end
+  end
 end

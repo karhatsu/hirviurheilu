@@ -1,4 +1,5 @@
 <body>
+  <%= render :partial => 'shared/facebook_init' %>
   <%= render :partial => 'shared/env_info' %>
   <% unless ActivationKey.activated? %>
     <%= render :partial => 'shared/offline_limit' %>

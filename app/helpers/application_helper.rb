@@ -507,6 +507,10 @@ module ApplicationHelper
     I18n.locale
   end
   
+  def facebook_env?
+    ['development', 'production'].include?(Rails.env)
+  end
+  
   private
   def result_rotation_series_list(race)
     race_day = race.race_day
