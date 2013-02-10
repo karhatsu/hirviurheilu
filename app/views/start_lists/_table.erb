@@ -20,7 +20,7 @@
   </tr>
   <% competitors.each_with_index do |comp, i| %>
     <% show_team_name ||= !comp.team_name.nil? %>
-    <tr id="comp_<%= i + 1 %>">
+    <tr id="comp_<%= i + 1 %>"<%= i % 2 == 0 ? raw(' class="odd"') : '' %>>
       <td><%= comp.number %></td>
       <td><%= full_name(comp) %>
         <%= "(#{comp.age_group.name})" if comp.age_group %>
