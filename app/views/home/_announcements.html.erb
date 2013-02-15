@@ -4,7 +4,7 @@
     <table>
       <% @announcements.each do |a| %>
         <tr>
-          <td><%= a.published %></td>
+          <td><%= date_print a.published %></td>
           <td><a href="javascript:void(0);" id="<%= a.id %>" class="announcement_link"><%= a.title %></a></td>
         </tr>
       <% end %>
