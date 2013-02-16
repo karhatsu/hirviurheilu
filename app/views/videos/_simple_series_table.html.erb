@@ -14,7 +14,7 @@
   </tr>
   <% prev_rel_points = 1.0/0.0 %>
   <% series.ordered_competitors(false).each_with_index do |comp, i| %>
-    <tr>
+    <tr<%= i % 2 == 0 ? raw(' class="odd"') : '' %>>
       <td><%= "#{i + 1}." unless comp.relative_points == prev_rel_points %></td>
       <td><%= full_name(comp) %></td>
       <td><%= comp.club.name %></td>
