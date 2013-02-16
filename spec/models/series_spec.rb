@@ -1167,4 +1167,42 @@ describe Series do
       end
     end
   end
+  
+  describe "#update_start_time_and_number" do
+    context "when series has no start list" do
+      before do
+        @series = FactoryGirl.create(:series, :has_start_list => false)
+        @series.competitors << FactoryGirl.create(:competitor, :series => @series,
+          :start_time => '10:00', :number => 5)
+      end
+      
+      it "should not update start times nor numbers" do
+        @series.update_start_time_and_number
+        @series.start_time.should be_nil
+        @series.first_number.should be_nil
+      end
+    end
+    
+    context "when series has start list" do
+      before do
+        @series = FactoryGirl.create(:series, :has_start_list => true)
+        @series.competitors << FactoryGirl.create(:competitor, :series => @series,
+          :start_time => '10:00', :number => 5)
+        c2 = FactoryGirl.create(:competitor, :series => @series, :start_time => '10:01', :number => 6)
+        c3 = FactoryGirl.create(:competitor, :series => @series, :start_time => '10:02', :number => 7)
+        c2.update_column(:number, 4)
+        c3.update_column(:start_time, '09:59')
+        @series.reload
+        @series.update_start_time_and_number
+      end
+      
+      it "should set the minimum competitor start time as series start time" do
+        @series.start_time.strftime('%H:%M').should == '09:59'
+      end
+      
+      it "should set the minimum competitor number as series first number" do
+        @series.first_number.should == 4
+      end
+    end
+  end
 end

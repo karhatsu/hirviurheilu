@@ -364,10 +364,7 @@ class Competitor < ActiveRecord::Base
   
   def update_series_start_time_and_number
     return unless start_time and number
-    return if series.start_time or series.first_number
-    series.start_time = start_time
-    series.first_number = number
-    series.save!
+    series.update_start_time_and_number
   end
 
   def previous_or_next_competitor(previous)

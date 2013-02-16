@@ -242,37 +242,39 @@ describe Competitor do
   end
   
   describe "save" do
-    context "when series has no start time nor number but competitor has" do
-      it "should set series start time and first number" do
-        series = FactoryGirl.create(:series, :start_time => nil, :first_number => nil)
-        comp = FactoryGirl.create(:competitor, :series => series, :start_time => '12:35:30', :number => 15)
-        series.reload
-        series.first_number.should == 15
-        series.start_time.strftime('%H:%M:%S').should == '12:35:30'
-      end
-    end
-    
-    context "when series already has start time and number" do
-      it "should not modify series start time and first number" do
-        series = FactoryGirl.create(:series, :start_time => '11:35:30', :first_number => 20)
-        comp = FactoryGirl.build(:competitor, :series => series, :start_time => '12:00:30', :number => 25)
-        comp.series.should_not_receive(:save!)
-        comp.save!
-        series.reload
-        series.first_number.should == 20
-        series.start_time.strftime('%H:%M:%S').should == '11:35:30'
-      end
-    end
-    
     context "when competitor has no start time or number" do
       it "should not save series for nothing" do
         series = FactoryGirl.create(:series, :start_time => nil, :first_number => nil)
         comp = FactoryGirl.build(:competitor, :series => series, :start_time => nil, :number => nil)
-        comp.series.should_not_receive(:save!)
+        comp.series.should_not_receive(:update_start_time_and_number)
         comp.save!
-        series.reload
-        series.first_number.should be_nil
-        series.start_time.should be_nil
+      end
+    end
+    
+    context "when competitor has no start time but has number" do
+      it "should not save series" do
+        series = FactoryGirl.create(:series, :start_time => nil, :first_number => nil)
+        comp = FactoryGirl.build(:competitor, :series => series, :start_time => nil, :number => 12)
+        comp.series.should_not_receive(:update_start_time_and_number)
+        comp.save!
+      end
+    end
+
+    context "when competitor has start time but has no number" do
+      it "should not save series" do
+        series = FactoryGirl.create(:series, :start_time => nil, :first_number => nil)
+        comp = FactoryGirl.build(:competitor, :series => series, :start_time => '12:00', :number => nil)
+        comp.series.should_not_receive(:update_start_time_and_number)
+        comp.save!
+      end
+    end
+    
+    context "when competitor has both start time and number" do
+      it "should let series update its start time and first number" do
+        series = FactoryGirl.create(:series, :start_time => nil, :first_number => nil, :has_start_list => true)
+        comp = FactoryGirl.create(:competitor, :series => series, :start_time => '12:35:30', :number => 15)
+        comp.series.should_receive(:update_start_time_and_number)
+        comp.save!
       end
     end
   end

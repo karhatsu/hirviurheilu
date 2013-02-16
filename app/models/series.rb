@@ -200,6 +200,13 @@ class Series < ActiveRecord::Base
     groups.unshift(AgeGroup.new(:id => nil, :name => name)) unless competitors_only_to_age_groups?
     groups
   end
+  
+  def update_start_time_and_number
+    return unless has_start_list?
+    self.start_time = competitors.minimum(:start_time)
+    self.first_number = competitors.minimum(:number)
+    save!
+  end
 
   private
   def check_time_points_type
