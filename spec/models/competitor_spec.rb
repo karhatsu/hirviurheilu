@@ -411,6 +411,7 @@ describe Competitor do
       comp = FactoryGirl.build(:competitor, :shots_total_input => nil)
       comp.shots << FactoryGirl.build(:shot, :value => 8, :competitor => comp)
       comp.shots << FactoryGirl.build(:shot, :value => 9, :competitor => comp)
+      comp.shots << FactoryGirl.build(:shot, :value => nil, :competitor => comp)
       comp.shots_sum.should == 17
     end
   end

@@ -80,11 +80,7 @@ class Competitor < ActiveRecord::Base
     elsif shots.empty?
       return nil
     else
-      sum = 0
-      shots.each do |s|
-        sum += s.value.to_i
-      end
-      @shots_sum = sum
+      @shots_sum = shots.map(&:value).map(&:to_i).inject(:+)
     end
     @shots_sum
   end
@@ -209,57 +205,72 @@ class Competitor < ActiveRecord::Base
 
   def self.sort_competitors(competitors, all_competitors, sort_by=SORT_BY_POINTS)
     if sort_by == SORT_BY_TIME
-      competitors.sort do |a, b|
-        [a.no_result_reason.to_s, a.time_in_seconds.to_i,
-          ((!all_competitors and a.unofficial) ? 1 : 0),
-          b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
-          b.shot_points.to_i] <=>
-        [b.no_result_reason.to_s, b.time_in_seconds.to_i,
-          ((!all_competitors and b.unofficial) ? 1 : 0),
-          a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
-          a.shot_points.to_i]
-      end
+      sort_competitors_by_time competitors, all_competitors
     elsif sort_by == SORT_BY_SHOTS
-      competitors.sort do |a, b|
-        [a.no_result_reason.to_s, b.shot_points.to_i,
-          ((!all_competitors and a.unofficial) ? 1 : 0),
-          b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
-          a.time_in_seconds.to_i] <=>
-        [b.no_result_reason.to_s, a.shot_points.to_i,
-          ((!all_competitors and b.unofficial) ? 1 : 0),
-          a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
-          b.time_in_seconds.to_i]
-      end
+      sort_competitors_by_shots competitors, all_competitors 
     elsif sort_by == SORT_BY_ESTIMATES
-      competitors.sort do |a, b|
-        [a.no_result_reason.to_s, b.estimate_points.to_i,
-          ((!all_competitors and a.unofficial) ? 1 : 0),
-          b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
-          b.shot_points.to_i, a.time_in_seconds.to_i] <=>
-        [b.no_result_reason.to_s, a.estimate_points.to_i,
-          ((!all_competitors and b.unofficial) ? 1 : 0),
-          a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
-          a.shot_points.to_i, b.time_in_seconds.to_i]
-      end
+      sort_competitors_by_estimates competitors, all_competitors
     else
-      competitors.sort do |a, b|
-        [a.no_result_reason.to_s, ((!all_competitors and a.unofficial) ? 1 : 0),
-          b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
-          b.shot_points.to_i, a.time_in_seconds.to_i] <=>
-        [b.no_result_reason.to_s, ((!all_competitors and b.unofficial) ? 1 : 0),
-          a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
-          a.shot_points.to_i, b.time_in_seconds.to_i]
-      end
+      sort_competitors_by_points competitors, all_competitors
     end
   end
 
+  def self.sort_competitors_by_time(competitors, all_competitors)
+    competitors.sort do |a, b|
+      [a.no_result_reason.to_s, a.time_in_seconds.to_i,
+        ((!all_competitors and a.unofficial) ? 1 : 0),
+        b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
+        b.shot_points.to_i] <=>
+      [b.no_result_reason.to_s, b.time_in_seconds.to_i,
+        ((!all_competitors and b.unofficial) ? 1 : 0),
+        a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
+        a.shot_points.to_i]
+    end
+  end
+    
+  def self.sort_competitors_by_shots(competitors, all_competitors)
+    competitors.sort do |a, b|
+      [a.no_result_reason.to_s, b.shot_points.to_i,
+        ((!all_competitors and a.unofficial) ? 1 : 0),
+        b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
+        a.time_in_seconds.to_i] <=>
+      [b.no_result_reason.to_s, a.shot_points.to_i,
+        ((!all_competitors and b.unofficial) ? 1 : 0),
+        a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
+        b.time_in_seconds.to_i]
+    end
+  end
+  
+  def self.sort_competitors_by_estimates(competitors, all_competitors)
+    competitors.sort do |a, b|
+      [a.no_result_reason.to_s, b.estimate_points.to_i,
+        ((!all_competitors and a.unofficial) ? 1 : 0),
+        b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
+        b.shot_points.to_i, a.time_in_seconds.to_i] <=>
+      [b.no_result_reason.to_s, a.estimate_points.to_i,
+        ((!all_competitors and b.unofficial) ? 1 : 0),
+        a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
+        a.shot_points.to_i, b.time_in_seconds.to_i]
+    end
+  end
+
+  def self.sort_competitors_by_points(competitors, all_competitors)
+    competitors.sort do |a, b|
+      [a.no_result_reason.to_s, ((!all_competitors and a.unofficial) ? 1 : 0),
+        b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
+        b.shot_points.to_i, a.time_in_seconds.to_i] <=>
+      [b.no_result_reason.to_s, ((!all_competitors and b.unofficial) ? 1 : 0),
+        a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
+        a.shot_points.to_i, b.time_in_seconds.to_i]
+    end
+  end
+  
   def self.free_offline_competitors_left
     raise "Method available only in offline mode" if Mode.online?
     left = MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE - count
     left = 0 if left < 0
     left
   end
-
 
   def national_record_reached?
     series.national_record and points.to_i == series.national_record.to_i
