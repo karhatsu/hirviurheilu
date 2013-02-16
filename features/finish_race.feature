@@ -72,12 +72,16 @@ Feature: Finish race
       | first_number | 1 |
     And the race has correct estimates with attributes:
       | min_number | 1 |
-      | max_number | 1 |
+      | max_number | 2 |
       | distance1 | 110 |
       | distance2 | 130 |
     And the series has a competitor with attributes:
       | first_name | James |
       | last_name | Johnson |
+    And the series has a competitor with attributes:
+      | first_name | Lary |
+      | last_name | Late |
+      | no_result_reason | DNS |
     And the start list has been generated for the series
     And the competitor "James" "Johnson" has the following results:
       | shots_total_input | 85 |
@@ -95,6 +99,7 @@ Feature: Finish race
     When I open the email
     Then I should see "Hirviurheilu - kilpailu päättynyt (test)" in the email subject
     And I should see "Kilpailun nimi: Test race" in the email body
-    And I should see "Kilpailijoiden määrä: 1" in the email body
+    And I should see "Kilpailijoiden määrä: 2" in the email body
+    And I should see "Maaliin tulleiden kilpailijoiden määrä: 1" in the email body
     When I click the first link in the email
     Then I should be on the race page of "Test race"
