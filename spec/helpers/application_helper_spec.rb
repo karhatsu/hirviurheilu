@@ -1045,6 +1045,20 @@ describe ApplicationHelper do
     end
   end
   
+  describe "#shots_total_title" do
+    it "should return empty string when no shots sum for competitor" do
+      competitor = mock_model(Competitor)
+      competitor.should_receive(:shots_sum).and_return(nil)
+      helper.shots_total_title(competitor).should == ''
+    end
+    
+    it "should return space and title attribute with title and shots sum when sum available" do
+      competitor = mock_model(Competitor)
+      competitor.should_receive(:shots_sum).and_return(89)
+      helper.shots_total_title(competitor).should == " title='Ammuntatulos: 89'"
+    end
+  end
+  
   describe "#title_prefix" do
     it "should be '(Dev) ' when development environment" do
       Rails.stub!(:env).and_return('development')

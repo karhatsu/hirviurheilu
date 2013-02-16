@@ -477,6 +477,12 @@ module ApplicationHelper
     raw " title='Vertailuaika: #{time_from_seconds(comparison_time, false)}'"
   end
   
+  def shots_total_title(competitor)
+    shots_sum = competitor.shots_sum
+    return '' unless shots_sum
+    raw " title='Ammuntatulos: #{shots_sum}'"
+  end
+  
   def title_prefix
     env = Rails.env
     return '' if env == 'production'
