@@ -167,7 +167,8 @@ Feature: Generate start list
     And I check "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
-    When I follow "Lisää tämän sarjan ensimmäinen kilpailija"
+    When I follow "Kilpailijat"
+    And I follow "Lisää kilpailija"
     Then I should see "Numero"
     And I should see "Lähtöaika"
     

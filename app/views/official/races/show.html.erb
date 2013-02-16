@@ -59,8 +59,10 @@
           <td colspan="4">&nbsp;</td>
         <% end %>
       <% else %>
+        <% add_competitor_path = @race.start_order == Race::START_ORDER_MIXED ?
+          official_race_start_list_path(@race) : new_official_series_competitor_path(s) %>
         <td colspan="6"><%= link_to "Lisää tämän sarjan ensimmäinen kilpailija",
-            new_official_series_competitor_path(s) %></td>
+            add_competitor_path %></td>
         <td><%= link_to 'Poista sarja', official_series_path(s), :method => :delete,
             :data => { :confirm => 'Haluatko varmasti poistaa tämän sarjan?' } %></td>
       <% end %>
