@@ -138,32 +138,20 @@ class Series < ActiveRecord::Base
   end
 
   def each_competitor_has_number?
-    competitors.each do |comp|
-      return false if comp.number.nil?
-    end
-    true
+    !competitors.where(:number => nil).exists?
   end
 
   def each_competitor_has_start_time?
-    competitors.each do |comp|
-      return false if comp.start_time.nil?
-    end
-    true
+    !competitors.where(:start_time => nil).exists?
   end
 
   def each_competitor_finished?
-    competitors.each do |comp|
-      return false unless comp.finished?
-    end
+    competitors.each { |comp| return false unless comp.finished? }
     true
   end
 
   def finished_competitors_count
-    count = 0
-    competitors.each do |comp|
-      count += 1 if comp.finished?
-    end
-    count
+    competitors.count { |comp| comp.finished? }
   end
 
   def ready?
