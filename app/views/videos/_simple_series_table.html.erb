@@ -20,7 +20,9 @@
       <td><%= comp.club.name %></td>
       <td><%= comp.number %></td>
       <% if show_time_column %>
-        <td><%= time_points(comp) %></td>
+        <td<%= comparison_time_title(comp) %>>
+          <%= time_points(comp) %>
+        </td>
       <% end %>
       <td><%= estimate_points(comp) %></td>
       <td><%= shot_points(comp) %></td>

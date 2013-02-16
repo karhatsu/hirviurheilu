@@ -470,7 +470,7 @@ module ApplicationHelper
     raise "Unknown club level: #{race.club_level}"
   end
   
-  def comparison_time_title(competitor, all_competitors, always_empty)
+  def comparison_time_title(competitor, all_competitors=false, always_empty=false)
     return '' if always_empty
     comparison_time = competitor.comparison_time_in_seconds(all_competitors)
     return '' unless comparison_time
