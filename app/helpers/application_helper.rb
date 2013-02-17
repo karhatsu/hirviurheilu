@@ -477,6 +477,16 @@ module ApplicationHelper
     raw " title='Vertailuaika: #{time_from_seconds(comparison_time, false)}'"
   end
   
+  def comparison_and_own_time_title(competitor)
+    time_in_seconds = competitor.time_in_seconds
+    return '' unless time_in_seconds
+    title = " title='Aika: #{time_from_seconds(time_in_seconds)}"
+    comparison_time_in_seconds = competitor.comparison_time_in_seconds(false)
+    title << ". Vertailuaika: #{time_from_seconds(comparison_time_in_seconds)}." if comparison_time_in_seconds
+    title << "'"
+    raw title
+  end
+  
   def shots_total_title(competitor)
     shots_sum = competitor.shots_sum
     return '' unless shots_sum

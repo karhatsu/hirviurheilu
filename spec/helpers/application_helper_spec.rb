@@ -1045,6 +1045,37 @@ describe ApplicationHelper do
     end
   end
   
+  describe "#comparison_and_own_time_title" do
+    context "when no time for competitor" do
+      it "should return empty string" do
+        competitor = mock_model(Competitor)
+        competitor.stub!(:time_in_seconds).and_return(nil)
+        helper.comparison_and_own_time_title(competitor).should == ''
+      end
+    end
+  
+    context "when no comparison time for competitor" do
+      it "should return space and title attribute with time title and time" do
+        competitor = mock_model(Competitor)
+        competitor.should_receive(:time_in_seconds).and_return(123)
+        competitor.should_receive(:comparison_time_in_seconds).with(false).and_return(nil)
+        helper.should_receive(:time_from_seconds).with(123).and_return('1:23')
+        helper.comparison_and_own_time_title(competitor).should == " title='Aika: 1:23'"
+      end
+    end
+
+    context "when own and comparison time available" do
+      it "should return space and title attribute with time title, time, comparison time title and comparison time" do
+        competitor = mock_model(Competitor)
+        competitor.should_receive(:time_in_seconds).and_return(123)
+        competitor.should_receive(:comparison_time_in_seconds).with(false).and_return(456)
+        helper.should_receive(:time_from_seconds).with(123).and_return('1:23')
+        helper.should_receive(:time_from_seconds).with(456).and_return('4:56')
+        helper.comparison_and_own_time_title(competitor).should == " title='Aika: 1:23. Vertailuaika: 4:56.'"
+      end
+    end
+  end
+  
   describe "#shots_total_title" do
     it "should return empty string when no shots sum for competitor" do
       competitor = mock_model(Competitor)
