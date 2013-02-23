@@ -1,4 +1,11 @@
 fi:
   main_menu:
+    home_page: Etusivu
     competitions: Kilpailut
+    official: Toimitsijan sivut
+    info: Info
     prices: Hinnat
+    personal: Omat tiedot
+    start: Aloita
+    offline: Offline
+    
