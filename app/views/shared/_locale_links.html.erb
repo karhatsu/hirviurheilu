@@ -1,2 +1,2 @@
-<%= link_to 'Suomeksi', '?new_locale=fi' unless I18n.locale == :fi %>
-<%= link_to 'På svenska', '?new_locale=sv' unless I18n.locale == :sv %>
+<%= link_to 'Suomeksi', '?new_locale=fi', :class => 'new_locale_link' unless I18n.locale == :fi %>
+<%= link_to 'På svenska', '?new_locale=sv', :class => 'new_locale_link' unless I18n.locale == :sv %>
