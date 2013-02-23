@@ -24,10 +24,10 @@
     <%= render :partial => 'series/series_results', :locals => { :series => @series } %>
   </div>
   <div class="action_box">
-    <%= link_to "Lataa tulokset pdf-tiedostona", series_competitors_path(@series,
+    <%= link_to t('competitors.index.download_results_pdf'), series_competitors_path(@series,
       :format => 'pdf', :all_competitors => params[:all_competitors]) %>
   </div>
 <% end %>
 <hr/>
-<%= link_to "Lähtölista", series_start_list_path(@series) %><br/>
-<%= link_to "Takaisin sivulle #{@series.race.name}", race_path(@series.race) %>
+<%= link_to t(:start_list), series_start_list_path(@series) %><br/>
+<%= link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race) %>

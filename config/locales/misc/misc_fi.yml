@@ -14,6 +14,7 @@ fi:
   count_competitors:
     one: 1 kilpailija
     other: "%{count} kilpailijaa"
+  estimating: Arviointi
   euros:
     one: euro
     other: euroa
@@ -21,12 +22,16 @@ fi:
   order_method: Kilpailijoiden järjestys
   order_method_0: Lisäysjärjestys
   order_method_1: Arvotaan
+  points: Pisteet
   relay_team:
     DNS: Joukkue ei osallistunut kilpailuun
     DNF: Joukkue keskeytti kilpailun
+  run: Juoksu
   results: Tulokset
   series: Sarja
   series_start_time: Sarjan lähtöaika
+  shooting: Ammunta
+  ski: Hiihto
   start_list: Lähtölista
   unofficial: Epävirallinen kilpailija
   unofficial_short: epäv.

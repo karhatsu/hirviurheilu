@@ -14,6 +14,7 @@ sv:
   count_competitors:
     one: 1 kilpailija
     other: "%{count} kilpailijaa"
+  estimating: Bedömning
   euros:
     one: euro
     other: euro
@@ -21,12 +22,16 @@ sv:
   order_method: Kilpailijoiden järjestys
   order_method_0: Lisäysjärjestys
   order_method_1: Arvotaan
+  points: Poäng
   relay_team:
     DNS: Joukkue ei osallistunut kilpailuun
     DNF: Joukkue keskeytti kilpailun
+  run: Löpning
   results: Resultat
   series: Klass
   series_start_time: Klassens starttid
+  shooting: Skytte
+  ski: Skidning
   start_list: Startlista
   unofficial: Epävirallinen kilpailija
   unofficial_short: epäv.

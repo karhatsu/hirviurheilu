@@ -431,12 +431,12 @@ module ApplicationHelper
 
   def series_result_title(series, all_competitors=false)
     suffix = ''
-    suffix = ' - Kaikki kilpailijat' if all_competitors
-    return '(Ei kilpailijoita)' if series.competitors.empty?
-    return '(Sarja ei ole vielä alkanut)' unless series.started?
-    return "Tulokset#{suffix}" if series.race.finished?
-    return "Väliaikatulokset (päivitetty: #{datetime_print(series.competitors.
-      maximum(:updated_at), true, true, '-', true)})#{suffix}"
+    suffix = " - #{t('competitors.index.all_competitors')}" if all_competitors
+    return "(#{t('competitors.index.no_competitors')})" if series.competitors.empty?
+    return "(#{t('competitors.index.series_has_not_started_yet')})" unless series.started?
+    return "#{t('results')}#{suffix}" if series.race.finished?
+    return "#{t('competitors.index.standing')} (#{t('competitors.index.updated')}: #{datetime_print(series.
+      competitors.maximum(:updated_at), true, true, '-', true)})#{suffix}"
   end
 
   def relay_result_title(relay)
@@ -454,8 +454,8 @@ module ApplicationHelper
   end
   
   def time_title(race)
-    return 'Juoksu' if race.sport.run?
-    'Hiihto'
+    return t(:run) if race.sport.run?
+    t(:ski)
   end
 
   def club_title(race)

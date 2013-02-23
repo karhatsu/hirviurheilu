@@ -11,7 +11,7 @@ Feature: Results
     And the "Tulokset" sub menu item should be selected
     And I should see "No competitors series - (Ei kilpailijoita)" within "h2"
     But I should not see "Tulokset" within "h2"
-    And I should not see "Väliaikatulokset" within "h2"
+    And I should not see "Tilanne" within "h2"
     And I should see "Tähän sarjaan ei ole merkitty kilpailijoita." in an info message
     
   Scenario: The series has no start list yet
@@ -21,7 +21,7 @@ Feature: Results
     When I go to the results page of the series
     Then I should see "My series - (Sarja ei ole vielä alkanut)" within "h2"
     But I should not see "Tulokset" within "h2"
-    And I should not see "Väliaikatulokset" within "h2"
+    And I should not see "Tilanne" within "h2"
     And I should see "Sarjan lähtölistaa ei ole vielä luotu" in an info message
     And I should not see "Lataa tulokset pdf-tiedostona"
 
@@ -36,7 +36,7 @@ Feature: Results
     When I go to the results page of the series
     Then I should see "My series - (Sarja ei ole vielä alkanut)" within "h2"
     But I should not see "Tulokset" within "h2"
-    And I should not see "Väliaikatulokset" within "h2"
+    And I should not see "Tilanne" within "h2"
     And I should see "Sarjan lähtöaika" in an info message
     And I should see "Sarjan alkuun on aikaa" in an info message
     And I should not see "Lataa tulokset pdf-tiedostona"
@@ -258,7 +258,7 @@ Feature: Results
     When I follow "Tulokset"
     Then I should be on the results page of the series
     And the page title should contain "My test race"
-    And I should see "Men 50 years - Väliaikatulokset" within "h2"
+    And I should see "Men 50 years - Tilanne" within "h2"
     And I should see "Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan kilpailun päätyttyä."
     And I should see a result row 1 with values:
       | name | Atkinsson Tim |

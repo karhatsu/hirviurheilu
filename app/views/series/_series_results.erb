@@ -2,8 +2,8 @@
 <table>
   <tr>
     <th>&nbsp;</th>
-    <th>Nimi</th>
-    <th>Nro</th>
+    <th><%= t 'attributes.name' %></th>
+    <th><%= t 'number_short' %></th>
     <th><%= club_title(series.race) %></th>
     <% unless series.time_points_type == Series::TIME_POINTS_TYPE_NONE %>
       <th class="center">
@@ -13,15 +13,15 @@
     <% end %>
     <th class="center">
       <%= link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_ESTIMATES),
-        'Arviointi', series_competitors_path(series, :sort => Competitor::SORT_BY_ESTIMATES)) %>
+        t(:estimating), series_competitors_path(series, :sort => Competitor::SORT_BY_ESTIMATES)) %>
     </th>
     <th class="center">
       <%= link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_SHOTS),
-        'Ammunta', series_competitors_path(series, :sort => Competitor::SORT_BY_SHOTS)) %>
+        t(:shooting), series_competitors_path(series, :sort => Competitor::SORT_BY_SHOTS)) %>
     </th>
     <th>
       <%= link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_POINTS),
-        'Pisteet', series_competitors_path(series)) %>
+        t(:points), series_competitors_path(series)) %>
     </th>
   </tr>
   <% time_css = params[:sort].to_i == Competitor::SORT_BY_TIME ? ' class=total_points' : '' %>
