@@ -8,4 +8,7 @@ fi:
     personal: Omat tiedot
     start: Aloita
     offline: Offline
+  login: Kirjaudu sisään
+  logout: "Kirjaudu ulos, %{name}"
+  forgotten_password: Unohtunut salasana?
     

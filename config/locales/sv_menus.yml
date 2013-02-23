@@ -8,3 +8,6 @@ sv:
     personal: Min sida
     start: Börja
     offline: Offline
+  login: Logga in
+  logout: "Logga ut, %{name}"
+  forgotten_password: Glömt lösenord?

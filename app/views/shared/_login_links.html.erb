@@ -1,8 +1,8 @@
 <% if current_user %>
-  <%= link_to "Kirjaudu ulos, #{current_user.first_name}", logout_path,
+  <%= link_to t(:logout, :name => current_user.first_name), logout_path,
     :method => :delete, :class => 'navigation' %>
 <% else %>
-  <%= link_to "Kirjaudu sisään", login_path, :class => 'navigation' %>
+  <%= link_to t(:login), login_path, :class => 'navigation' %>
   <span class="navigation">|</span>
-  <%= link_to "Unohtunut salasana", new_reset_password_path, :class => 'navigation' %>
+  <%= link_to t(:forgotten_password), new_reset_password_path, :class => 'navigation' %>
 <% end %>
