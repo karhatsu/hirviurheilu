@@ -1,0 +1,11 @@
+fi:
+  home_page:
+    main_title: Hirviurheilu - Hirvenhiihdon ja hirvenjuoksun tulospalvelu
+    left_column_title: Kilpailut
+    competitions_today: Kilpailut tänään
+    upcoming_competitions: Tulevat kilpailut
+    no_upcoming_competitions: Tällä hetkellä ei tiedossa tulevia kilpailuita
+    latest_ended_competitions: Viimeksi päättyneet kilpailut
+    all_competitions: Kaikki kilpailut
+    announcements: Tiedotteet
+  

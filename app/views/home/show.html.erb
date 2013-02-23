@@ -1,4 +1,4 @@
-<% content_for(:title, 'Hirviurheilu - Hirvenhiihdon ja hirvenjuoksun tulospalvelu') %>
+<% content_for(:title, t('home_page.main_title')) %>
 <% content_for(:page_title, yield(:title)) %>
 
 <%= flash_success %>
@@ -6,29 +6,29 @@
 
 <div class="main_page_columns">
   <div class="left_column title_box" id="races_box">
-    <div class="box_title">Kilpailut</div>
+    <div class="box_title"><%= t 'home_page.left_column_title' %></div>
     <div class="title_box_content">
       <% unless @ongoing.empty? %>
         <div class="ongoing_races">
-          <div class="box_sub_title">Kilpailut tänään</div>
+          <div class="box_sub_title"><%= t 'home_page.competitions_today' %></div>
           <%= render :partial => "race_list", :locals => { :competitions => @ongoing } %>
         </div>
         <hr/>
       <% end %>
 
       <div class="future_races">
-        <div class="box_sub_title">Tulevat kilpailut</div>
+        <div class="box_sub_title"><%= t 'home_page.upcoming_competitions' %></div>
         <% unless @future.empty? %>
           <%= render :partial => "race_list", :locals => { :competitions => @future } %>
         <% else %>
-          Tällä hetkellä ei tiedossa tulevia kilpailuita
+          <%= t 'home_page.no_upcoming_competitions' %>
         <% end %>
       </div>
   
       <% unless @past.empty? %>
         <hr/>
         <div class="old_races">
-          <div class="box_sub_title">Viimeksi päättyneet kilpailut</div>
+          <div class="box_sub_title"><%= t 'home_page.latest_ended_competitions' %></div>
           <%= render :partial => "race_list", :locals => { :competitions => @past, :max => 10 } %>
         </div>
       <% end %>
