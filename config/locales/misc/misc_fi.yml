@@ -1,5 +1,6 @@
 fi:
   back_to_home_page: Takaisin etusivulle
+  back_to_page: Takaisin sivulle
   competition: Kilpailu
   competitor:
     DNS: Kilpailija ei osallistunut kilpailuun
@@ -16,6 +17,7 @@ fi:
   euros:
     one: euro
     other: euroa
+  number_short: Nro
   order_method: Kilpailijoiden järjestys
   order_method_0: Lisäysjärjestys
   order_method_1: Arvotaan
@@ -24,6 +26,7 @@ fi:
     DNF: Joukkue keskeytti kilpailun
   results: Tulokset
   series: Sarja
+  series_start_time: Sarjan lähtöaika
   start_list: Lähtölista
   unofficial: Epävirallinen kilpailija
   unofficial_short: epäv.

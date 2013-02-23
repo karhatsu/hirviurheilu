@@ -1,0 +1,6 @@
+sv:
+  start_lists:
+    show:
+      download_start_list_pdf: Ladda startlista som PDF-fil
+      no_competitors_or_start_times: Denna klassen här inga tävlar eller dom har inga starttider ännu.
+      

@@ -80,8 +80,8 @@ sv:
         one: Piiri/seura
         other: Piirit/seurat
       competitor:
-        one: Kilpailija
-        other: Kilpailijat
+        one: Tävlare
+        other: Tävlar
       correct_estimate:
         one: Oikea arvio
         other: Oikeat arviot

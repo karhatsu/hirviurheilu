@@ -1,12 +1,12 @@
 <table>
   <tr>
-    <th>Nro</th>
-    <th>Kilpailija</th>
+    <th><%= t :number_short %></th>
+    <th><%= t 'activerecord.models.competitor', :count => 1 %></th>
     <% if defined?(show_series) %>
       <th>Sarja</th>
     <% end %>
     <th><%= club_title(race) %></th>
-    <th>Lähtöaika</th>
+    <th><%= t 'attributes.start_time' %></th>
   </tr>
   <% competitors.each_with_index do |comp, i| %>
     <tr id="comp_<%= i + 1 %>">
