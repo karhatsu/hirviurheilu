@@ -27,7 +27,6 @@ ElkSports::Application.routes.draw do
   get 'offline_version_history' => 'offline_infos#version_history', :as => :offline_version_history
   get 'download/installer' => 'downloads#installer', :as => :download_installer
   
-  post 'calculate_price' => 'prices#calculate_price', :as => :calculate_price
   resources :prices
   
   resources :cups do
