@@ -1,4 +1,4 @@
-fi:
+sv:
   attributes:
     active: Aktiivinen
     age_group: Ikäryhmä
@@ -63,7 +63,7 @@ fi:
     start_day: Aloituspäivä
     start_interval_seconds: Lähtöaikojen väli
     start_order: Kilpailijoiden lähtöjärjestys
-    start_time: Lähtöaika
+    start_time: Starttid
     team_competitor_count: Kilpailijoita / joukkue
     team_name: Jotosjoukkue
     time_points_type: Aikapisteiden laskenta
@@ -98,17 +98,17 @@ fi:
         one: Kilpailu
         other: Kilpailut
       relay:
-        one: Viesti
-        other: Viestit
+        one: Stafett
+        other: Stafetter
       series:
-        one: Sarja
-        other: Sarjat
+        one: Klass
+        other: Klasser
       sport:
         one: Laji
         other: Lajit
       team_competition:
-        one: Joukkuekilpailu
-        other: Joukkuekilpailut
+        one: Lagtävling
+        other: Lagtävlingar
       user:
         one: Käyttäjä
         other: Käyttäjät

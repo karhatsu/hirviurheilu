@@ -80,7 +80,7 @@ Feature: Show race
     Given there is a race with attributes:
       | name | My test race |
     When I go to the race page
-    Then I should not see "Oikeat arviot"
+    Then I should not see "Oikeat etäisyydet"
 
   Scenario: Show correct estimates when race has finished
     Given there is a race with attributes:
@@ -123,11 +123,11 @@ Feature: Show race
       | arrival_time | 14:01:00 |
     And the race is finished
     When I go to the race page
-    Then I should see /Oikeat arviot/ within "h3"
-    And I should see "Oikea arvio 1"
-    And I should see "Oikea arvio 2"
-    But I should not see "Oikea arvio 3"
-    But I should not see "Oikea arvio 4"
+    Then I should see /Oikeat etäisyydet/ within "h3"
+    And I should see "Oikea etäisyys 1"
+    And I should see "Oikea etäisyys 2"
+    But I should not see "Oikea etäisyys 3"
+    But I should not see "Oikea etäisyys 4"
     And I should see "1-9"
     And I should see "50"
     And I should see "60"
@@ -191,11 +191,11 @@ Feature: Show race
       | arrival_time | 14:01:00 |
     And the race is finished
     When I go to the race page
-    Then I should see /Oikeat arviot/ within "h3"
-    And I should see "Oikea arvio 1"
-    And I should see "Oikea arvio 2"
-    And I should see "Oikea arvio 3"
-    And I should see "Oikea arvio 4"
+    Then I should see /Oikeat etäisyydet/ within "h3"
+    And I should see "Oikea etäisyys 1"
+    And I should see "Oikea etäisyys 2"
+    And I should see "Oikea etäisyys 3"
+    And I should see "Oikea etäisyys 4"
     And I should see "1-9"
     And I should see "50"
     And I should see "60"

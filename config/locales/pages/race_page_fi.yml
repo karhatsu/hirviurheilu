@@ -1,0 +1,17 @@
+fi:
+  races:
+    show:
+      extra_information: Lisätietoa kilpailusta
+      race_home_page: Kilpailun kotisivut
+      single_competitor_competitions: Yksilökilpailut
+      no_series_for_race: Kilpailuun ei ole vielä lisätty sarjoja
+      competitors: Kilpailijoita
+      correct_distances: Oikeat etäisyydet
+      start_lists_for_all_series_pdf: Kaikkien sarjojen lähtöajat (PDF)
+      download_start_times: Lataa lähtöajat
+      competitor_numbers: Kilpailunumerot
+      teams: Joukkueita
+      all_results_pdf: Tuloskooste (PDF)
+      download_all_results: Lataa tuloskooste
+      competition_begins: Kilpailun alkuun on aikaa
+      

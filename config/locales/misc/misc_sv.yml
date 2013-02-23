@@ -1,6 +1,6 @@
-fi:
-  back_to_home_page: Takaisin etusivulle
-  competition: Kilpailu
+sv:
+  back_to_home_page: Tillbaka till hemsida
+  competition: Tävling
   competitor:
     DNS: Kilpailija ei osallistunut kilpailuun
     DNF: Kilpailija keskeytti kilpailun
@@ -8,22 +8,22 @@ fi:
     people_short:
       one: 1 hlö
       other: "%{count} hlöä"
-  competitors_per_team: Kilpailijoita / joukkue
-  correct_distance: Oikea etäisyys
+  competitors_per_team: Tävlar / lag
+  correct_distance: Rätt avstånd
   count_competitors:
     one: 1 kilpailija
     other: "%{count} kilpailijaa"
   euros:
     one: euro
-    other: euroa
+    other: euro
   order_method: Kilpailijoiden järjestys
   order_method_0: Lisäysjärjestys
   order_method_1: Arvotaan
   relay_team:
     DNS: Joukkue ei osallistunut kilpailuun
     DNF: Joukkue keskeytti kilpailun
-  results: Tulokset
-  series: Sarja
-  start_list: Lähtölista
+  results: Resultat
+  series: Klass
+  start_list: Startlista
   unofficial: Epävirallinen kilpailija
   unofficial_short: epäv.

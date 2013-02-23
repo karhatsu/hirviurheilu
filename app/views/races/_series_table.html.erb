@@ -2,9 +2,9 @@
 <% show_start_time = @race.start_order == Race::START_ORDER_BY_SERIES %>
 <table>
   <tr>
-    <th>Nimi</th>
-    <% if show_start_time %><th>Lähtöaika</th><% end %>
-    <th>Kilpailijoita</th>
+    <th><%= t 'activerecord.models.series', :count => 1 %></th>
+    <% if show_start_time %><th><%= t 'attributes.start_time' %></th><% end %>
+    <th><%= t 'races.show.competitors' %></th>
     <th>&nbsp;</th>
     <% if show_national_records %>
       <th>SE</th>
@@ -24,8 +24,8 @@
           <% if !s.has_start_list? %>
             Sarjan lähtöluetteloa ei ole vielä julkaistu
           <% else %>
-            <%= link_to "Tulokset", series_competitors_path(s) %>,
-            <%= link_to "Lähtölista", series_start_list_path(s) %>
+            <%= link_to t(:results), series_competitors_path(s) %>,
+            <%= link_to t(:start_list), series_start_list_path(s) %>
           <% end %>
         </td>
       <% end %>

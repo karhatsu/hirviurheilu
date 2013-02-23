@@ -3,29 +3,28 @@
   <% content_for(:refresh, true) %>
 <% end %>
 <% unless @race.home_page.blank? %>
-  <h2>Lisätietoa kilpailusta</h2>
+  <h2><%= t '.extra_information' %></h2>
   <div class="section">
-    <a href="<%= link_with_protocol(@race.home_page) %>" target="_blank">Kilpailun
-      kotisivut</a>
+    <a href="<%= link_with_protocol(@race.home_page) %>" target="_blank"><%= t '.race_home_page' %></a>
   </div>
 <% end %>
-<h2>Yksilökilpailut</h2>
+<h2><%= t '.single_competitor_competitions' %></h2>
 <div class="section">
   <% if @race.series.empty? %>
-    Kilpailuun ei ole vielä lisätty sarjoja
+    <%= t '.no_series_for_race' %>
   <% else %>
     <%= render :partial => 'series_table' %>
     <% if @race.finished? %>
       <% estimates_at_most = @race.estimates_at_most %>
-      <h3>Oikeat arviot</h3>
+      <h3><%= t '.correct_distances' %></h3>
       <table>
         <tr>
-          <th>Kilpailunumerot</th>
-          <th>Oikea arvio 1</th>
-          <th>Oikea arvio 2</th>
+          <th><%= t '.competitor_numbers' %></th>
+          <th><%= t :correct_distance %> 1</th>
+          <th><%= t :correct_distance %> 2</th>
           <% if estimates_at_most == 4 %>
-            <th>Oikea arvio 3</th>
-            <th>Oikea arvio 4</th>
+            <th><%= t :correct_distance %> 3</th>
+            <th><%= t :correct_distance %> 4</th>
           <% end %>
         </tr>
         <% @race.correct_estimates.each do |ce| %>
@@ -41,18 +40,18 @@
         <% end %>
       </table>
     <% end %>
-    <h3>Kaikkien sarjojen lähtöajat (PDF)</h3>
+    <h3><%= t '.start_lists_for_all_series_pdf' %></h3>
     <%= form_tag(race_start_lists_path(@race, :format => :pdf), :method => :get) do %>
       <%= select_tag :club_id,
         options_from_collection_for_select(@race.clubs, :id, :name),
         :prompt => "Kaikki #{clubs_title(@race).downcase}" %>
-      <%= submit_tag 'Lataa lähtöajat' %>
+      <%= submit_tag t('.download_start_times') %>
     <% end %>
   <% end %>
 </div>
 <% if @race.has_team_competition? and @race.start_date <= Time.zone.today and
     !@race.series.empty? %>
-  <h2>Joukkuekilpailut</h2>
+  <h2><%= t 'activerecord.models.team_competition', :count => @race.team_competitions.count %></h2>
   <div class="section">
     <% if @race.team_competitions.count == 1 %>
       <%= link_to "Joukkuekilpailu", race_team_competition_path(@race,
@@ -60,8 +59,8 @@
     <% else %>
       <table>
         <tr>
-          <th>Kilpailu</th>
-          <th>Kilpailijoita / joukkue</th>
+          <th><%= t :competition %></th>
+          <th><%= t :competitors_per_team %></th>
         </tr>
         <% @race.team_competitions.each do |tc| %>
           <tr>
@@ -74,13 +73,13 @@
   </div>
 <% end %>
 <% unless @race.relays.empty? %>
-  <h2>Viestit</h2>
+  <h2><%= t 'activerecord.models.relay', :count => @race.relays.count %></h2>
   <div class="section">
     <table>
       <tr>
-        <th>Viesti</th>
-        <th>Lähtöaika</th>
-        <th>Joukkueita</th>
+        <th><%= t 'activerecord.models.relay', :count => 1 %></th>
+        <th><%= t 'attributes.start_time' %></th>
+        <th><%= t '.teams' %></th>
       </tr>
       <% @race.relays.each do |relay| %>
         <tr>
@@ -93,20 +92,19 @@
   </div>
 <% end %>
 <% unless @race.series.empty? %>
-  <h2>Tuloskooste (PDF)</h2>
+  <h2><%= t '.all_results_pdf' %></h2>
   <div class="section">
-    <div class="info">PDF-tuloskooste sisältää kaikkien kilpailuiden tulokset</div>
     <%= form_tag(race_path(@race, :format => :pdf), :method => :get) do %>
       <%= select_tag :club_id,
         options_from_collection_for_select(@race.clubs, :id, :name),
         :prompt => "Kaikki #{clubs_title(@race).downcase}" %>
-      <%= submit_tag 'Lataa tuloskooste' %>
+      <%= submit_tag t('.download_all_results') %>
     <% end %>
   </div>
 <% end %>
 <% if @race.start_date > Time.zone.today %>
   <div class="info">
-    Kilpailun alkuun on aikaa
+    <%= t '.competition_begins' %>
     <%= distance_of_time_in_words(Time.zone.today, @race.start_date, false) %>.</div>
 <% end %>
 <% cup = @race.cups.first unless @race.cups.empty? %>
@@ -115,4 +113,4 @@
   <div class="section">Tämä kilpailu on cup-kilpailun <%= link_to cup.name, cup_path(cup) %> osakilpailu</div>
 <% end %>
 <hr/>
-<%= link_to "Takaisin etusivulle", root_path %>
+<%= link_to t(:back_to_home_page), root_path %>
