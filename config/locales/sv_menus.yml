@@ -11,3 +11,13 @@ sv:
   login: Logga in
   logout: "Logga ut, %{name}"
   forgotten_password: Glömt lösenord?
+  race_sub_menu:
+    home_page: Tävling hemsida
+    start_lists: Startlistor
+    results: Resultat
+    team_competitions: Lagtävlingar
+    relays: Stafetter
+    video: Video
+    result_rotation: Resultatskrets
+    press: Press
+    

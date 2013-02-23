@@ -11,4 +11,13 @@ fi:
   login: Kirjaudu sisään
   logout: "Kirjaudu ulos, %{name}"
   forgotten_password: Unohtunut salasana?
+  race_sub_menu:
+    home_page: Kilpailun etusivu
+    start_lists: Lähtölistat
+    results: Tulokset
+    team_competitions: Joukkuekilpailut
+    relays: Viestit
+    video: Video
+    result_rotation: Tuloskehä
+    press: Lehdistö
     
