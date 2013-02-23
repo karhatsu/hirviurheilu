@@ -1,0 +1,16 @@
+sv:
+  relays:
+    show:
+      no_teams: Inga lag
+      relay_has_not_started_yet: Stafetten har inte ännu börjat
+      standing: Poängsumma
+      updated: updaterad
+      relay_has_no_teams: Inga lagen tillsatt för stafetten ännu
+      relay_has_no_start_time: Stafetten har inte ännu starttid
+      relay_start_time: Stafettens starttid
+      relay_starts: Stafetten börjar om
+      estimate_penalties: Bedömningsfinar
+      shooting_penalties: Skyttefinar
+      finish: Mål
+      legs_title: Mellantider
+      

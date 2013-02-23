@@ -434,16 +434,16 @@ module ApplicationHelper
     suffix = " - #{t('competitors.index.all_competitors')}" if all_competitors
     return "(#{t('competitors.index.no_competitors')})" if series.competitors.empty?
     return "(#{t('competitors.index.series_has_not_started_yet')})" unless series.started?
-    return "#{t('results')}#{suffix}" if series.race.finished?
+    return "#{t(:results)}#{suffix}" if series.race.finished?
     return "#{t('competitors.index.standing')} (#{t('competitors.index.updated')}: #{datetime_print(series.
       competitors.maximum(:updated_at), true, true, '-', true)})#{suffix}"
   end
 
   def relay_result_title(relay)
     return '(Ei joukkueita)' if relay.relay_teams.empty?
-    return '(Viesti ei ole vielä alkanut)' unless relay.started?
-    return 'Tulokset' if relay.finished?
-    return "Väliaikatulokset (päivitetty: #{datetime_print(relay.relay_competitors.
+    return "(#{t('relays.show.relay_has_not_started_yet')})" unless relay.started?
+    return t(:results) if relay.finished?
+    return "#{t('relays.show.standing')} (#{t('relays.show.updated')}: #{datetime_print(relay.relay_competitors.
       maximum(:updated_at), true, true, '-', true)})"
   end
 

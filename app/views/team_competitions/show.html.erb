@@ -15,9 +15,9 @@
 <% if results.empty? %>
   <div class="info"><%= t '.cannot_calculate_results' %></div>
 <% else %>
-  <a href="javascript:void(0)" id="show_all_competitors"><%= t '.show_all_competitors' %></a>
+  <a href="javascript:void(0)" id="show_all_competitors"><%= t :show_all_competitors %></a>
   <a href="javascript:void(0)" id="hide_all_competitors"
-    style="display:none;"><%= t '.hide_all_competitors' %></a>
+    style="display:none;"><%= t :hide_all_competitors %></a>
   <div class="section">
     <%= render :partial => 'results_table', :locals => { :results => results } %>
   </div>

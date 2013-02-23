@@ -1,4 +1,4 @@
-<% content_for :title, "#{@relay.race.name} - Viestit - #{@relay.name} - #{relay_result_title(@relay)}" %>
+<% content_for :title, "#{@relay.race.name} - #{t('activerecord.models.relay', :count => 2)} - #{@relay.name} - #{relay_result_title(@relay)}" %>
 <% if @relay.active? %>
   <%= render :partial => 'shared/refresh_counter' %>
 <% end %>
@@ -9,30 +9,30 @@
     :relay_id => @relay.id } do |relay| %><%= race_relay_path(relay.race, relay) %><% end %>
 <% end %>
 <% if @results.empty? %>
-  <div class="info">Viestiin ei ole vielä merkitty joukkueita</div>
+  <div class="info"><%= t '.relay_has_no_teams' %></div>
 <% elsif !@relay.start_time %>
-  <div class="info">Viestin lähtöaikaa ei ole vielä päätetty</div>
+  <div class="info"><%= t '.relay_has_no_start_time' %></div>
 <% elsif !@relay.started? %>
   <div class="info">
-    Viestin lähtöaika: <%= datetime_print(@relay.start_datetime, true) %>.
-    Viestin alkuun on aikaa <%= distance_of_time_in_words(Time.zone.now, @relay.start_datetime) %>.
+    <%= t '.relay_start_time' %>: <%= datetime_print(@relay.start_datetime, true) %>.
+    <%= t '.relay_starts' %> <%= distance_of_time_in_words(Time.zone.now, @relay.start_datetime) %>.
   </div>
 <% else %>
   <%= render :partial => 'relays/correct_estimates' %>
   <%= render :partial => 'relays/leg_links' %>
-  <a href="javascript:void(0)" id="show_all_competitors">Näytä kaikki kilpailijat</a>
-  <a href="javascript:void(0)" id="hide_all_competitors" style="display:none;">Piilota kaikki kilpailijat</a>
+  <a href="javascript:void(0)" id="show_all_competitors"><%= t :show_all_competitors %></a>
+  <a href="javascript:void(0)" id="hide_all_competitors" style="display:none;"><%= t :hide_all_competitors %></a>
   <%= render :partial => 'results', :locals => { :relay => @relay, :pdf => false } %>
   <div class="action_box">
-    Lataa tulokset pdf-tiedostona:
-    <%= link_to "Ilman kilpailijoita", race_relay_path(@relay.race, @relay,
+    <%= t(:download_results_pdf) %>:
+    <%= link_to t(:without_competitors), race_relay_path(@relay.race, @relay,
       :exclude_competitors => true, :format => 'pdf') %> -
-    <%= link_to "Kilpailijoiden kanssa", race_relay_path(@relay.race, @relay,
+    <%= link_to t(:with_competitors), race_relay_path(@relay.race, @relay,
       :format => 'pdf') %>
   </div>
 <% end %>
 <hr/>
-<%= link_to 'Takaisin kilpailun etusivulle', race_path(@relay.race) %>
+<%= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@relay.race) %>
 <%= javascript_tag do %>
   function showAllCompetitors() {
     $('.competitor_row').show();

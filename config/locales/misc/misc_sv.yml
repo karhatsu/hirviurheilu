@@ -2,6 +2,7 @@ sv:
   back_to_home_page: Tillbaka till hemsida
   back_to_page: Tillbaka till sida
   competition: Tävling
+  competition_unfinished_detailed_estimates_later: Tävlingen ofärdig. Precis avståndsdata publiseras, när tävlingen har slutat.
   competitor:
     DNS: Kilpailija ei osallistunut kilpailuun
     DNF: Kilpailija keskeytti kilpailun
@@ -11,6 +12,7 @@ sv:
       other: "%{count} hlöä"
   competitors_per_team: Tävlar / lag
   correct_distance: Rätt avstånd
+  correct_distances: Rätta avstånd
   count_competitors:
     one: 1 kilpailija
     other: "%{count} kilpailijaa"
@@ -19,6 +21,8 @@ sv:
   euros:
     one: euro
     other: euro
+  hide_all_competitors: Gömma alla tävlarna
+  leg: Sträcka
   number_short: Nr
   order_method: Kilpailijoiden järjestys
   order_method_0: Lisäysjärjestys
@@ -32,6 +36,7 @@ sv:
   series: Klass
   series_start_time: Klassens starttid
   shooting: Skytte
+  show_all_competitors: Visa alla tävlarna
   ski: Skidning
   start_list: Startlista
   team: Lag

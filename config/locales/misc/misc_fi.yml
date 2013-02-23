@@ -2,6 +2,7 @@ fi:
   back_to_home_page: Takaisin etusivulle
   back_to_page: Takaisin sivulle
   competition: Kilpailu
+  competition_unfinished_detailed_estimates_later: Kilpailu on kesken. Tarkemmat arviotiedot julkaistaan, kun kilpailu on päättynyt.
   competitor:
     DNS: Kilpailija ei osallistunut kilpailuun
     DNF: Kilpailija keskeytti kilpailun
@@ -11,6 +12,7 @@ fi:
       other: "%{count} hlöä"
   competitors_per_team: Kilpailijoita / joukkue
   correct_distance: Oikea etäisyys
+  correct_distances: Oikeat etäisyydet
   count_competitors:
     one: 1 kilpailija
     other: "%{count} kilpailijaa"
@@ -19,6 +21,8 @@ fi:
   euros:
     one: euro
     other: euroa
+  hide_all_competitors: Piilota kaikki kilpailijat
+  leg: Osuus
   number_short: Nro
   order_method: Kilpailijoiden järjestys
   order_method_0: Lisäysjärjestys
@@ -32,6 +36,7 @@ fi:
   series: Sarja
   series_start_time: Sarjan lähtöaika
   shooting: Ammunta
+  show_all_competitors: Näytä kaikki kilpailijat
   ski: Hiihto
   start_list: Lähtölista
   team: Joukkue

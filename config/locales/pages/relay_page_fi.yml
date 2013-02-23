@@ -1,0 +1,16 @@
+fi:
+  relays:
+    show:
+      no_teams: Ei joukkueita
+      relay_has_not_started_yet: Viesti ei ole vielä alkanut
+      standing: Tilanne
+      updated: päivitetty
+      relay_has_no_teams: Viestiin ei ole vielä merkitty joukkueita
+      relay_has_no_start_time: Viestin lähtöaikaa ei ole vielä päätetty
+      relay_start_time: Viestin lähtöaika
+      relay_starts: Viestin alkuun on aikaa
+      estimate_penalties: Arviosakot
+      shooting_penalties: Ammuntasakot
+      finish: Maali
+      legs_title: Väliajat
+      

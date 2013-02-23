@@ -3,11 +3,11 @@
   <table>
     <tr>
       <th>&nbsp;</th>
-      <th>Joukkue</th>
-      <th>Nro</th>
-      <th>Aika</th>
-      <th>Arviosakot</th>
-      <th>Ammuntasakot</th>
+      <th><%= t :team %></th>
+      <th><%= t :number_short %></th>
+      <th><%= time_title @race %></th>
+      <th><%= t 'relays.show.estimate_penalties' %></th>
+      <th><%= t 'relays.show.shooting_penalties' %></th>
     </tr>
     <% relay.results.each_with_index do |team, i| %>
       <tr id="team_<%= i + 1 %>">

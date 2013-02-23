@@ -941,13 +941,13 @@ describe ApplicationHelper do
       relay_result_title(@relay).should == 'Tulokset'
     end
 
-    it "should return 'Väliaikatulokset (päivitetty: <time>)' when relay still active" do
+    it "should return 'Tilanne (päivitetty: <time>)' when relay still active" do
       original_zone = Time.zone
       Time.zone = 'Tokyo' # UTC+9 (without summer time so that test settings won't change) 
       time = Time.utc(2011, 5, 13, 13, 45, 58)
       @relay.should_receive(:relay_competitors).and_return(@competitors)
       @competitors.should_receive(:maximum).with(:updated_at).and_return(time) # db return UTC
-      relay_result_title(@relay).should == 'Väliaikatulokset (päivitetty: 13.05.2011 22:45:58)'
+      relay_result_title(@relay).should == 'Tilanne (päivitetty: 13.05.2011 22:45:58)'
       Time.zone = original_zone
     end
   end

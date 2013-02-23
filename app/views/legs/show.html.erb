@@ -1,5 +1,5 @@
-<% content_for :title, "#{@relay.race.name} - Viestit - #{@relay.name} - Tulokset" %>
-<h2><%= @relay.name %> - Osuus <%= @leg %></h2>
+<% content_for :title, "#{@relay.race.name} - #{t('activerecord.models.relay', :count => 2)} - #{@relay.name} - #{t(:results)}" %>
+<h2><%= @relay.name %> - <%= t :leg %> <%= @leg %></h2>
 <% content_for :sub_sub_menu do %>
   <%= render :layout => 'shared/relays_sub_menu',
     :locals => { :race => @relay.race,
@@ -14,12 +14,12 @@
     <table>
       <tr>
         <th>&nbsp;</th>
-        <th>Joukkue</th>
-        <th>Kilpailija</th>
-        <th>Nro</th>
-        <th>Aika</th>
-        <th>Ammuntasakot</th>
-        <th>Arviosakot</th>
+        <th><%= t :team %></th>
+        <th><%= t 'activerecord.models.competitor', :count => 1 %></th>
+        <th><%= t :number_short %></th>
+        <th><%= time_title @relay.race %></th>
+        <th><%= t 'relays.show.estimate_penalties' %></th>
+        <th><%= t 'relays.show.shooting_penalties' %></th>
       </tr>
       <% @results.each_with_index do |team, i| %>
         <% competitor = team.relay_competitors.find_by_leg(@leg) %>
@@ -47,4 +47,4 @@
   </div>
 <% end %>
 <hr/>
-<%= link_to 'Takaisin kilpailun etusivulle', race_path(@relay.race) %>
+<%= link_to "#{t(:back_to_page)} #{@relay.race.name}", race_path(@relay.race) %>

@@ -124,9 +124,9 @@ Feature: Relay results
     When I follow "Men's relay"
     Then I should be on the relay results page of "Men's relay"
     And the "Viestit" sub menu item should be selected
-    And I should see "Men's relay - Väliaikatulokset" within "h2"
+    And I should see "Men's relay - Tilanne" within "h2"
     And I should see "Kilpailu on kesken. Tarkemmat arviotiedot julkaistaan, kun kilpailu on päättynyt." in an info message
-    But I should not see "Oikeat arviot"
+    But I should not see "Oikeat etäisyydet"
     And I should see "1." within "tr#team_1"
     And I should see "Red team" within "tr#team_1"
     And I should see "43:12" within "tr#team_1"
@@ -141,7 +141,7 @@ Feature: Relay results
     And I am on on the relay results page of "Men's relay"
     Then I should see "Men's relay - Tulokset"
     But I should not see "Kilpailu on kesken"
-    But I should see "Oikeat arviot" within "h3"
+    But I should see "Oikeat etäisyydet" within "h3"
     And I should see "Osuus 1: 105 m"
     And I should see "Osuus 2: 88 m"
     And I should see "123m"
@@ -163,5 +163,5 @@ Feature: Relay results
     Then I should be on the relay results page of "Men's relay"
     When I follow "Women's relay"
     Then I should be on the relay results page of "Women's relay"
-    When I follow "Takaisin kilpailun etusivulle"
+    When I follow "Takaisin sivulle Relay race"
     Then I should be on the race page of "Relay race"

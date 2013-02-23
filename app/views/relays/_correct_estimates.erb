@@ -1,14 +1,12 @@
 # encoding: UTF-8
 <% unless @relay.finished? %>
-  <div class="info">
-    Kilpailu on kesken. Tarkemmat arviotiedot julkaistaan, kun kilpailu on päättynyt.
-  </div>
+  <div class="info"><%= t :competition_unfinished_detailed_estimates_later %></div>
 <% else %>
-  <h3>Oikeat arviot</h3>
+  <h3><%= t :correct_distances %></h3>
   <div class="section">
     <% @relay.relay_correct_estimates.each do |ce| %>
-      Osuus <%= ce.leg %>: <%= ce.distance %> m
+      <%= t :leg %> <%= ce.leg %>: <%= ce.distance %> m
     <% end %>
   </div>
-  <h3>Tulokset</h3>
+  <h3><%= t :results %></h3>
 <% end %>
