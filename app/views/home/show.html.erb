@@ -1,4 +1,4 @@
-<% content_for(:title, t('home_page.main_title')) %>
+<% content_for(:title, t('.main_title')) %>
 <% content_for(:page_title, yield(:title)) %>
 
 <%= flash_success %>
@@ -6,29 +6,29 @@
 
 <div class="main_page_columns">
   <div class="left_column title_box" id="races_box">
-    <div class="box_title"><%= t 'home_page.left_column_title' %></div>
+    <div class="box_title"><%= t '.left_column_title' %></div>
     <div class="title_box_content">
       <% unless @ongoing.empty? %>
         <div class="ongoing_races">
-          <div class="box_sub_title"><%= t 'home_page.competitions_today' %></div>
+          <div class="box_sub_title"><%= t '.competitions_today' %></div>
           <%= render :partial => "race_list", :locals => { :competitions => @ongoing } %>
         </div>
         <hr/>
       <% end %>
 
       <div class="future_races">
-        <div class="box_sub_title"><%= t 'home_page.upcoming_competitions' %></div>
+        <div class="box_sub_title"><%= t '.upcoming_competitions' %></div>
         <% unless @future.empty? %>
           <%= render :partial => "race_list", :locals => { :competitions => @future } %>
         <% else %>
-          <%= t 'home_page.no_upcoming_competitions' %>
+          <%= t '.no_upcoming_competitions' %>
         <% end %>
       </div>
   
       <% unless @past.empty? %>
         <hr/>
         <div class="old_races">
-          <div class="box_sub_title"><%= t 'home_page.latest_ended_competitions' %></div>
+          <div class="box_sub_title"><%= t '.latest_ended_competitions' %></div>
           <%= render :partial => "race_list", :locals => { :competitions => @past, :max => 10 } %>
         </div>
       <% end %>

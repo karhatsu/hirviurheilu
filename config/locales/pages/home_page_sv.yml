@@ -1,10 +1,11 @@
 sv:
-  home_page:
-    main_title: Hirviurheilu - Resultatservice för älgskidskytte och älglöpning
-    left_column_title: Tävlingar
-    competitions_today: Tävlingar i dag
-    upcoming_competitions: Nästä tävlingar
-    no_upcoming_competitions: Inga kommande tävlingar just nu
-    latest_ended_competitions: Senaste slutade tävlingar
-    all_competitions: Alla tävlingar
-    announcements: Nyheter
+  home:
+    show:
+      main_title: Hirviurheilu - Resultatservice för älgskidskytte och älglöpning
+      left_column_title: Tävlingar
+      competitions_today: Tävlingar i dag
+      upcoming_competitions: Nästä tävlingar
+      no_upcoming_competitions: Inga kommande tävlingar just nu
+      latest_ended_competitions: Senaste slutade tävlingar
+      all_competitions: Alla tävlingar
+      announcements: Nyheter
