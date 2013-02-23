@@ -24,7 +24,7 @@
     <%= render :partial => 'series/series_results', :locals => { :series => @series } %>
   </div>
   <div class="action_box">
-    <%= link_to t('competitors.index.download_results_pdf'), series_competitors_path(@series,
+    <%= link_to t(:download_results_pdf), series_competitors_path(@series,
       :format => 'pdf', :all_competitors => params[:all_competitors]) %>
   </div>
 <% end %>

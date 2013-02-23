@@ -1,0 +1,7 @@
+sv:
+  team_competitions:
+    show:
+      cannot_calculate_results: Lagtävlingens resultat kan inte beräknas ännu
+      show_all_competitors: Visa alla tävlarna
+      hide_all_competitors: Gömma alla tävlarna
+      

@@ -1,0 +1,7 @@
+fi:
+  team_competitions:
+    show:
+      cannot_calculate_results: Joukkuekilpailun tuloksia ei voida vielä laskea
+      show_all_competitors: Näytä kaikki kilpailijat
+      hide_all_competitors: Piilota kaikki kilpailijat
+      

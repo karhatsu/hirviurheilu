@@ -14,6 +14,7 @@ fi:
   count_competitors:
     one: 1 kilpailija
     other: "%{count} kilpailijaa"
+  download_results_pdf: Lataa tulokset PDF-tiedostona
   estimating: Arviointi
   euros:
     one: euro
@@ -33,5 +34,9 @@ fi:
   shooting: Ammunta
   ski: Hiihto
   start_list: Lähtölista
+  team: Joukkue
   unofficial: Epävirallinen kilpailija
   unofficial_short: epäv.
+  with_competitors: Kilpailijoiden kanssa
+  without_competitors: Ilman kilpailijoita
+  

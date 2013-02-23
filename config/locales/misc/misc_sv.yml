@@ -14,6 +14,7 @@ sv:
   count_competitors:
     one: 1 kilpailija
     other: "%{count} kilpailijaa"
+  download_results_pdf: Ladda resultaten som PDF-fil
   estimating: Bedömning
   euros:
     one: euro
@@ -33,5 +34,9 @@ sv:
   shooting: Skytte
   ski: Skidning
   start_list: Startlista
+  team: Lag
   unofficial: Epävirallinen kilpailija
   unofficial_short: epäv.
+  with_competitors: Med tävlarna
+  without_competitors: Utan tävlarna
+  

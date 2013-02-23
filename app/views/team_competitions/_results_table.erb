@@ -3,13 +3,13 @@
 <table>
   <tr>
     <th>&nbsp;</th>
-    <th>Joukkue</th>
-    <th>Pisteet</th>
+    <th><%= t(:team) %></th>
+    <th><%= t(:points) %></th>
     <% unless params[:exclude_competitors] %>
-      <th class="center">Aika</th>
-      <th class="center">Arviointi</th>
-      <th class="center">Ammunta</th>
-      <th>Sarja</th>
+      <th class="center"><%= time_title(@race) %></th>
+      <th class="center"><%= t(:estimating) %></th>
+      <th class="center"><%= t(:shooting) %></th>
+      <th><%= t 'activerecord.models.series', :count => 1 %></th>
     <% end %>
   </tr>
   <% results.each_with_index do |team_result, i| %>
