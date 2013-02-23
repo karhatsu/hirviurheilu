@@ -4,8 +4,21 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user, :official_rights,
     :online?, :offline?, :own_race?, :result_rotation_cookie_name, :result_rotation_tc_cookie_name
   before_filter :ensure_user_in_offline
-
+  before_filter :set_locale
+  
   private
+  def set_locale
+    I18n.locale = params[:new_locale] || params[:locale] || I18n.default_locale
+  end
+
+  def default_url_options(options={})
+    if I18n.locale == I18n.default_locale
+      { :locale => nil }
+    else
+      { :locale => I18n.locale }
+    end
+  end
+
   def official_rights
     current_user and (current_user.official? or current_user.admin?)
   end
@@ -35,7 +48,7 @@ class ApplicationController < ActionController::Base
     @user_session = UserSession.login_offline_user
     raise "Could not create user session" unless @user_session
   end
-
+  
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
     @current_user_session = UserSession.find

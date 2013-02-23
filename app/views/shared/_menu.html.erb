@@ -1,7 +1,7 @@
 <div class="menu main_menu">
   <ul>
     <%= menu_item "Etusivu", root_path, @is_main_page %>
-    <%= menu_item "Kilpailut", races_path, (@is_races or @is_cup), nil, (!@is_races and menu_race) do %>
+    <%= menu_item t('main_menu.competitions'), races_path, (@is_races or @is_cup), nil, (!@is_races and menu_race) do %>
       <% dropdown_menu_single(link_to(menu_race.name, race_path(menu_race))) %>
     <% end %>
     <%= menu_item "Toimitsijan sivut", official_root_path, @is_official, nil,
@@ -10,7 +10,7 @@
     <% end %>
     <%= menu_item "Info", info_path, @is_info %>
     <% unless offline? %>
-      <%= menu_item "Hinnat", prices_path, @is_prices %>
+      <%= menu_item t('main_menu.prices'), prices_path, @is_prices %>
       <% if current_user %>
         <%= menu_item "Omat tiedot", account_path, @is_account %>
       <% elsif %>

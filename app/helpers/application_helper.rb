@@ -293,17 +293,17 @@ module ApplicationHelper
     menu = "<ul>"
     race.series.each do |series|
       if type == 'results'
-        link = series_competitors_path(series)
+        link = series_competitors_path(locale_for_path, series)
       elsif type == 'start_list'
-        link = series_start_list_path(series)
+        link = series_start_list_path(locale_for_path, series)
       elsif type == 'competitors'
-        link = official_series_competitors_path(series)
+        link = official_series_competitors_path(locale_for_path, series)
       elsif type == 'times'
-        link = official_series_times_path(series)
+        link = official_series_times_path(locale_for_path, series)
       elsif type == 'estimates'
-        link = official_series_estimates_path(series)
+        link = official_series_estimates_path(locale_for_path, series)
       elsif type == 'shots'
-        link = official_series_shots_path(series)
+        link = official_series_shots_path(locale_for_path, series)
       end
       menu << "<li>#{link_to series.name, link}</li>"
     end
@@ -315,7 +315,7 @@ module ApplicationHelper
     return '' if race.relays.count <= 1
     menu = "<ul>"
     race.relays.each do |relay|
-      menu << "<li>#{link_to relay.name, race_relay_path(race, relay)}</li>"
+      menu << "<li>#{link_to relay.name, race_relay_path(locale_for_path, race, relay)}</li>"
     end
     menu << "</ul>"
     raw(menu)
@@ -325,7 +325,7 @@ module ApplicationHelper
     return '' if race.team_competitions.count <= 1
     menu = "<ul>"
     race.team_competitions.each do |tc|
-      menu << "<li>#{link_to tc.name, race_team_competition_path(race, tc)}</li>"
+      menu << "<li>#{link_to tc.name, race_team_competition_path(locale_for_path, race, tc)}</li>"
     end
     menu << "</ul>"
     raw(menu)
@@ -335,7 +335,7 @@ module ApplicationHelper
     return '' if cup.cup_series.length <= 1
     menu = "<ul>"
     cup.cup_series.each do |cs|
-      menu << "<li>#{link_to cs.name, cup_cup_series_path(cup, cs)}</li>"
+      menu << "<li>#{link_to cs.name, cup_cup_series_path(locale_for_path, cup, cs)}</li>"
     end
     menu << "</ul>"
     raw(menu)
@@ -420,7 +420,7 @@ module ApplicationHelper
   def next_result_rotation(url)
     @race = @series.race if @series
     list = result_rotation_list(@race)
-    return race_path(@race) if list.empty? and url.nil?
+    return race_path(locale_for_path, @race) if list.empty? and url.nil?
     return url if list.empty?
     place = list.index(url)
     if (place and place != list.size - 1)
@@ -502,20 +502,25 @@ module ApplicationHelper
     '(Testi) '
   end
   
+  def locale_for_path
+    return nil if I18n.locale == I18n.default_locale
+    I18n.locale
+  end
+  
   private
   def result_rotation_series_list(race)
     race_day = race.race_day
     return [] if race_day == 0
     list = []
     race.series.where(:start_day => race_day).each do |s|
-      list << series_competitors_path(s) if s.started?
+      list << series_competitors_path(locale_for_path, s) if s.started?
     end
     list
   end
 
   def result_rotation_tc_list(race)
     race.team_competitions.collect do |tc|
-      race_team_competition_path(race, tc)
+      race_team_competition_path(locale_for_path, race, tc)
     end
   end
 
@@ -524,7 +529,7 @@ module ApplicationHelper
     return [] if race_day == 0
     list = []
     race.relays.where(:start_day => race_day).each do |relay|
-      list << race_relay_path(race, relay) if relay.started?
+      list << race_relay_path(locale_for_path, race, relay) if relay.started?
     end
     list
   end

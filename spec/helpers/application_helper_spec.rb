@@ -764,8 +764,8 @@ describe ApplicationHelper do
           it "should return the paths for started series today" do
             list = result_rotation_series_list(@race)
             list.size.should == 2
-            list[0].should == series_competitors_path(@series1_1)
-            list[1].should == series_competitors_path(@series1_2)
+            list[0].should == series_competitors_path(nil, @series1_1)
+            list[1].should == series_competitors_path(nil, @series1_2)
           end
         end
 
@@ -776,7 +776,7 @@ describe ApplicationHelper do
             @race.save!
             list = result_rotation_series_list(@race)
             list.size.should == 1
-            list[0].should == series_competitors_path(@series2_1)
+            list[0].should == series_competitors_path(nil, @series2_1)
           end
         end
       end
@@ -800,8 +800,8 @@ describe ApplicationHelper do
       it "should return the paths for team competitions" do
         list = result_rotation_tc_list(@race)
         list.size.should == 2
-        list[0].should == race_team_competition_path(@race, @tc1)
-        list[1].should == race_team_competition_path(@race, @tc2)
+        list[0].should == race_team_competition_path(nil, @race, @tc1)
+        list[1].should == race_team_competition_path(nil, @race, @tc2)
       end
 
       def build_team_competition(race)
@@ -843,8 +843,8 @@ describe ApplicationHelper do
           it "should return the paths for started relays today" do
             list = result_rotation_relay_list(@race)
             list.size.should == 2
-            list[0].should == race_relay_path(@race, @relay1_1)
-            list[1].should == race_relay_path(@race, @relay1_2)
+            list[0].should == race_relay_path(nil, @race, @relay1_1)
+            list[1].should == race_relay_path(nil, @race, @relay1_2)
           end
         end
 
@@ -855,7 +855,7 @@ describe ApplicationHelper do
             @race.save!
             list = result_rotation_relay_list(@race)
             list.size.should == 1
-            list[0].should == race_relay_path(@race, @relay2_1)
+            list[0].should == race_relay_path(nil, @race, @relay2_1)
           end
         end
       end

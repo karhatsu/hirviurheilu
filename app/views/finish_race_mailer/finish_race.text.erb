@@ -4,4 +4,4 @@ Paikkakunta: <%= @race.location %>
 Kilpailijoiden määrä: <%= @race.competitors.count %>
 Maaliin tulleiden kilpailijoiden määrä: <%= @race.competitors.where(:no_result_reason => nil).count %>
 
-<%= race_url @race %>
+<%= race_url @locale, @race %>
