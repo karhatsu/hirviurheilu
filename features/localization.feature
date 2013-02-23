@@ -7,7 +7,7 @@ Feature: Localization
     Given there is a base price 15
     And I am on the home page
     And I follow "På svenska"
-    Then I should be on the home page
+    Then I should be on the Swedish home page
     And I should see "Tävlingar"
     But I should not see "På svenska"
     When I follow "Priser"

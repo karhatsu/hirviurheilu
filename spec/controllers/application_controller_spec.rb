@@ -56,4 +56,66 @@ describe ApplicationController do
     specify { @margin[:top].should == 20 }
     specify { @margin[:bottom].should == 20 }
   end
+  
+  describe "#path_after_locale_change" do
+    context "empty path" do
+      it "to fi keeps the empty path" do
+        request.stub!(:path).and_return('')
+        controller.send(:path_after_locale_change, 'fi').should == ''
+      end
+      
+      it "to sv appends sv to the path" do
+        request.stub!(:path).and_return('')
+        controller.send(:path_after_locale_change, 'sv').should == '/sv'
+      end
+    end
+
+    context "root path" do
+      it "to fi keeps the root path" do
+        request.stub!(:path).and_return('/')
+        controller.send(:path_after_locale_change, 'fi').should == '/'
+      end
+      
+      it "to sv appends sv to the path" do
+        request.stub!(:path).and_return('/')
+        controller.send(:path_after_locale_change, 'sv').should == '/sv'
+      end
+    end
+
+    context "no locale in path" do
+      it "to fi does not prepend fi to the path" do
+        request.stub!(:path).and_return('/prices')
+        controller.send(:path_after_locale_change, 'fi').should == '/prices'
+      end
+      
+      it "to sv prepends sv to the path" do
+        request.stub!(:path).and_return('/prices')
+        controller.send(:path_after_locale_change, 'sv').should == '/sv/prices'
+      end
+    end
+
+    context "fi in path" do
+      it "to fi removes fi from the path" do
+        request.stub!(:path).and_return('/fi/prices')
+        controller.send(:path_after_locale_change, 'fi').should == '/prices'
+      end
+
+      it "to sv replaces fi to sv in the path" do
+        request.stub!(:path).and_return('/fi/prices')
+        controller.send(:path_after_locale_change, 'sv').should == '/sv/prices'
+      end
+    end
+
+    context "sv in path" do
+      it "to fi removes sv from the path" do
+        request.stub!(:path).and_return('/sv/prices')
+        controller.send(:path_after_locale_change, 'fi').should == '/prices'
+      end
+      
+      it "to sv keeps the path the same" do
+        request.stub!(:path).and_return('/sv/prices')
+        controller.send(:path_after_locale_change, 'sv').should == '/sv/prices'
+      end
+    end
+  end
 end

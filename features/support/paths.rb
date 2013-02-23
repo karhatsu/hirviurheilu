@@ -13,6 +13,9 @@ module NavigationHelpers
     when /^the home\s?page/
       '/'
 
+    when /^the Swedish home page/
+      '/sv'
+
     when /the official index page/
       official_root_path locale
 

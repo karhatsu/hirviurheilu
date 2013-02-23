@@ -8,7 +8,38 @@ class ApplicationController < ActionController::Base
   
   private
   def set_locale
-    I18n.locale = params[:new_locale] || params[:locale] || I18n.default_locale
+    new_locale = params[:new_locale]
+    if new_locale
+      I18n.locale = new_locale
+      redirect_to path_after_locale_change(new_locale)
+    else
+      I18n.locale = params[:locale] || I18n.default_locale
+    end
+  end
+  
+  def path_after_locale_change(new_locale)
+    new_locale = new_locale.to_s
+    default_locale = I18n.default_locale.to_s
+    path = request.path
+    if path =~ /^\/#{default_locale}/
+      if new_locale == default_locale
+        return path.gsub(/^\/#{default_locale}/, '')
+      else
+        return path.gsub(/^\/#{default_locale}/, '/' + new_locale)
+      end
+    elsif path =~ /^\/sv/
+      if new_locale == default_locale
+        return path.gsub(/^\/sv/, '')
+      else
+        return path
+      end
+    elsif new_locale == default_locale
+      return path
+    elsif path == '/'
+      return '/' + new_locale
+    else
+      return '/' + new_locale + path
+    end
   end
 
   def default_url_options(options={})
