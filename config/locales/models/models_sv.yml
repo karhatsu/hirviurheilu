@@ -1,90 +1,90 @@
 sv:
   attributes:
-    active: Aktiivinen
-    age_group: Ikäryhmä
-    age_group_id: Ikäryhmä
-    arrival_time: Saapumisaika
-    batch_interval_seconds: Tauko lähtöerien välissä
-    batch_size: Lähtöerien koko
-    club: Seura/piiri
-    content: Sisältö
-    correct_estimate1: Oikea arviomatka 1
-    correct_estimate2: Oikea arviomatka 2
-    correct_estimate3: Oikea arviomatka 3
-    correct_estimate4: Oikea arviomatka 4
+    active: Aktiv
+    age_group: Åldersgrupp
+    age_group_id: Åldersgrupp
+    arrival_time: Avkomstid
+    batch_interval_seconds: Paus mellan startsatser
+    batch_size: Startsatsers storlek
+    club: Klubb
+    content: Innehål
+    correct_estimate1: Rätt avstånd 1
+    correct_estimate2: Rätt avstånd 2
+    correct_estimate3: Rätt avstånd 3
+    correct_estimate4: Rätt avstånd 4
     current_login_at: Nyk. kirj.
     current_login_ip: Nyk. IP
-    days_count: Kesto
+    days_count: Längd
     default_age_group: Oletusikäryhmä
     default_age_groups: Oletusikäryhmät
     default_series: Oletussarja
-    distance1: Etäisyys 1
-    distance2: Etäisyys 2
-    distance3: Etäisyys 3
-    distance4: Etäisyys 4
-    races: Kilpailut
-    email: Sähköposti
-    end_date: Loppupvm
-    estimate: Arvio
-    estimate1: Arvio 1
-    estimate2: Arvio 2
-    estimate3: Arvio 3
-    estimate4: Arvio 4
-    first_name: Etunimi
-    first_number: Ensimmäinen kilpailunumero
-    key: Avain
-    last_name: Sukunimi
-    last_login_at: Viim. kirj.
-    last_login_ip: Viim. IP
-    last_request_at: Viim. käyt.
-    legs_count: Osuuksien määrä
-    location: Paikkakunta
-    long_name: Pitkä nimi
-    max_number: Suurin numero
-    min_competitors: Kilpailijoita vähintään
-    min_number: Pienin numero
-    misses: Ohilaukaukset
+    distance1: Avstånd 1
+    distance2: Avstånd 2
+    distance3: Avstånd 3
+    distance4: Avstånd 4
+    races: Tävlingar
+    email: Epost
+    end_date: Slutdatum
+    estimate: Bedömning
+    estimate1: Bedömning 1
+    estimate2: Bedömning 2
+    estimate3: Bedömning 3
+    estimate4: Bedömning 4
+    first_name: Förnamn
+    first_number: Första tävlingsnummer
+    key: Nyckel
+    last_name: Efternamn
+    last_login_at: Senaste login
+    last_login_ip: Senaste IP
+    last_request_at: Senaste användad
+    legs_count: Sträckor
+    location: Ort
+    long_name: Långt namn
+    max_number: Storaste nummer
+    min_competitors: Tävlingar mindst
+    min_number: Minst nummer
+    misses: Skotts över
     name: Namn
-    national_record: SE
-    number: Numero
-    password: Salasana
-    password_confirmation: Salasana uudestaan
-    price: Hinta
-    published: Julkaistu
-    race: Kilpailu
-    remember_me: Muista minut
-    roles: Roolit
-    series: Sarja
-    series_id: Sarja
-    series_names: Osakilpailuiden sarjojen nimet
-    shots_total_input: Ammunta yhteensä
-    sport: Laji
-    start_date: Alkupvm
-    start_day: Aloituspäivä
-    start_interval_seconds: Lähtöaikojen väli
-    start_order: Kilpailijoiden lähtöjärjestys
+    national_record: FR
+    number: Nummer
+    password: Lösenord
+    password_confirmation: Lösenord igen
+    price: Pris
+    published: Publiserad
+    race: Tävling
+    remember_me: Kom ihåg mig
+    roles: Roller
+    series: Klass
+    series_id: Klass
+    series_names: Klassnamn för tävlingar
+    shots_total_input: Skottstotal
+    sport: Gren
+    start_date: Startdatum
+    start_day: Startdag
+    start_interval_seconds: Gap mellan starttider
+    start_order: Tävlarnas startordning
     start_time: Starttid
-    team_competitor_count: Kilpailijoita / joukkue
-    team_name: Jotosjoukkue
-    time_points_type: Aikapisteiden laskenta
-    title: Otsikko
-    top_competitions: Yhteistulokseen laskettavien kilpailuiden määrä
-    unofficial: Epävirallinen kilpailija
-    use_team_name: Muodosta joukkueet kilpailijan joukkuenimen perusteella
-    video_description: Kuvaus
-    video_source: Lähdekoodi
+    team_competitor_count: Tävlarna / lag
+    team_name: Jotos-lag
+    time_points_type: Tidpoängsberäkning
+    title: Titel
+    top_competitions: Tävlingsantal för totalpoäng
+    unofficial: Informella tävlare
+    use_team_name: Forma lag på grund av Jotos-lag
+    video_description: Beskrivning
+    video_source: Källkod
 
   activerecord:
     models:
       club:
-        one: Piiri/seura
-        other: Piirit/seurat
+        one: Klubb
+        other: Klubbar
       competitor:
         one: Tävlare
         other: Tävlar
       correct_estimate:
-        one: Oikea arvio
-        other: Oikeat arviot
+        one: Rätt avstånd
+        other: Rätta avstånd
       default_age_group:
         one: Oletusikäryhmä
         other: Oletusikäryhmät
@@ -92,11 +92,11 @@ sv:
         one: Oletussarja
         other: Oletussarjat
       price:
-        one: Hinta
-        other: Hinnat
+        one: Pris
+        other: Priser
       race:
-        one: Kilpailu
-        other: Kilpailut
+        one: Tävling
+        other: Tävlingar
       relay:
         one: Stafett
         other: Stafetter
@@ -104,55 +104,55 @@ sv:
         one: Klass
         other: Klasser
       sport:
-        one: Laji
-        other: Lajit
+        one: Gren
+        other: Grenar
       team_competition:
         one: Lagtävling
         other: Lagtävlingar
       user:
-        one: Käyttäjä
-        other: Käyttäjät
+        one: Änvandare
+        other: Änvandar
     attributes:
       competitor:
         shots:
-          value: Laukaus
+          value: Skott
       cup:
-        name: Cup-kilpailun nimi
+        name: Cup-tävlings namn
       cup_series:
-        name: Cup-sarjan nimi
+        name: Cup-klassens namn
       race:
         correct_estimates:
-          distance1: Etäisyys 1
-          distance2: Etäisyys 2
-          distance3: Etäisyys 3
-          distance4: Etäisyys 4
-          min_number: Pienin numero
-          max_number: Suurin numero
-        name: Kilpailun nimi
+          distance1: Avstånd 1
+          distance2: Avstånd 2
+          distance3: Avstånd 3
+          distance4: Avstånd 4
+          min_number: Minst nummer
+          max_number: Störst nummer
+        name: Tävlings namn
         series:
           age_groups:
-            name: Ikäryhmän nimi
-          name: Sarjan nimi
-          national_record: SE
+            name: Äldsgruppens namn
+          name: Klassens namn
+          national_record: NR
       relay:
-        name: Viestin nimi
+        name: Stafettens namn
         relay_teams:
-          name: Joukkueen nimi
-          number: Joukkueen numero
+          name: Lags namn
+          number: Lags nummer
           relay_competitors:
-            estimate: Arvio
-            first_name: Kilpailijan etunimi
-            last_name: Kilpailijan sukunimi
-            misses: Ohilaukaukset
+            estimate: Bedömning
+            first_name: Tävlarens förnnamn
+            last_name: Tävlarens efternamn
+            misses: Skotts över
       relay_team:
-        name: Joukkueen nimi
-        relay_competitors: Kilpailijat
+        name: Lags namn
+        relay_competitors: Tävlar
       series:
         age_groups:
-          name: Ikäryhmän nimi
-        first_number: Sarjan ensimmäinen numero
-        name: Sarjan nimi
-        national_record: SE
-        start_time: Sarjan lähtöaika
+          name: Äldsgruppens namn
+        first_number: Klassens första nummer
+        name: Klassens namn
+        national_record: NR
+        start_time: Klassens starttid
       team_competition:
-        name: Kilpailun nimi
+        name: Tävlingens namn
