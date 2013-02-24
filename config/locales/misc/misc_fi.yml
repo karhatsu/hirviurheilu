@@ -2,6 +2,7 @@ fi:
   back_to_home_page: Takaisin etusivulle
   back_to_page: Takaisin sivulle
   competition: Kilpailu
+  competitions: Kilpailut
   competition_unfinished_detailed_estimates_later: Kilpailu on kesken. Tarkemmat arviotiedot julkaistaan, kun kilpailu on päättynyt.
   competitor:
     DNS: Kilpailija ei osallistunut kilpailuun

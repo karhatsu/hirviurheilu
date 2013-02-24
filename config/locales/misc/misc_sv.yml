@@ -2,6 +2,7 @@ sv:
   back_to_home_page: Tillbaka till hemsida
   back_to_page: Tillbaka till sida
   competition: Tävling
+  competitions: Tävlingar
   competition_unfinished_detailed_estimates_later: Tävlingen ofärdig. Precis avståndsdata publiseras, när tävlingen har slutat.
   competitor:
     DNS: Kilpailija ei osallistunut kilpailuun
