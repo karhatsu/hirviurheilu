@@ -4,6 +4,7 @@ fi:
       email_invalid: pitää olla oikeanmuotoinen
       password_blank: ei voi olla tyhjä
       password_invalid: ei ole kelvollinen
+      no_authentication_details: Syötä sähköposti ja salasana.
     models:
       user_session: Istunto
     attributes:

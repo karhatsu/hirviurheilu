@@ -1,0 +1,14 @@
+sv:
+  authlogic:
+    error_messages:
+      email_invalid: har fel format
+      password_blank: får ej vara tom
+      password_invalid: har fel format
+      no_authentication_details: Skriv epost och lösenord.
+    models:
+      user_session: Session
+    attributes:
+      user_session:
+        email: Epost
+        password: Lösenord
+        remember_me: Kom ihåg mig
