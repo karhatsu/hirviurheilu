@@ -74,7 +74,7 @@ open_page(link_to_race)
 link_to_results = find_link "//table/tr[2]/td[4]/a[1]", 'Tulokset'
 
 open_page(link_to_results)
-link_to_pdf = find_link "//div[@class='action_box']/a", 'Lataa tulokset pdf-tiedostona'
+link_to_pdf = find_link "//div[@class='action_box']/a", 'Lataa tulokset PDF-tiedostona'
 verify_http_status link_to_pdf
 
 p "All tests passed"
