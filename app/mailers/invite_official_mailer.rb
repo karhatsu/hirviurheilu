@@ -1,5 +1,5 @@
 # encoding: UTF-8
-class InviteOfficialMailer < ActionMailer::Base
+class InviteOfficialMailer < ApplicationMailer
   add_template_helper ApplicationHelper
 
   def invite(race, inviter, invitee, url)
@@ -7,7 +7,7 @@ class InviteOfficialMailer < ActionMailer::Base
     @inviter = inviter
     @invitee = invitee
     @url = url
-    mail :to => invitee.email, :from => 'Hirviurheilu <noreply@hirviurheilu.com>',
+    mail :to => invitee.email, :from => NOREPLY_ADDRESS,
       :subject => "Kutsu kilpailun #{race.name} toimitsijaksi"
   end
   
@@ -16,7 +16,7 @@ class InviteOfficialMailer < ActionMailer::Base
     @inviter = inviter
     @invitee = invitee
     @url = url
-    mail :to => invitee.email, :from => 'Hirviurheilu <noreply@hirviurheilu.com>',
+    mail :to => invitee.email, :from => NOREPLY_ADDRESS,
       :subject => "Kilpailun #{race.name} kilpailijoiden lisäyspyyntö"
   end
 end
