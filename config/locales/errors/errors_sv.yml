@@ -1,0 +1,9 @@
+fi:
+  activerecord:
+    errors:
+      models:
+
+        result:
+          attributes:
+            arrival_time:
+              arrival_not_before_start_time: måste inte vara före starttid
