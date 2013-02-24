@@ -1,5 +1,5 @@
 ElkSports::Application.routes.draw do
-  scope "(/:locale)", :locale => /fi|sv/ do
+  scope "(/:locale)", :locale => /#{I18n.available_locales.join('|')}/ do
     resource :home
   
     delete 'logout' => 'user_sessions#destroy', :as => :logout
@@ -121,6 +121,6 @@ ElkSports::Application.routes.draw do
     resources :remote_races
   end
 
-  match '/:locale' => 'home#show'
+  match '/:locale' => 'home#show', :locale => /#{I18n.available_locales.join('|')}/
   root :to => "home#show"
 end
