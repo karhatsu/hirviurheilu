@@ -5,18 +5,18 @@ sv:
   competitions: Tävlingar
   competition_unfinished_detailed_estimates_later: Tävlingen ofärdig. Precis avståndsdata publiseras, när tävlingen har slutat.
   competitor:
-    DNS: Kilpailija ei osallistunut kilpailuun
-    DNF: Kilpailija keskeytti kilpailun
+    DNS: Tävlaren startade inte
+    DNF: Tävlaren avbröt
   competitors:
     people_short:
-      one: 1 hlö
-      other: "%{count} hlöä"
+      one: 1 person
+      other: "%{count} pers."
   competitors_per_team: Tävlar / lag
   correct_distance: Rätt avstånd
   correct_distances: Rätta avstånd
   count_competitors:
-    one: 1 kilpailija
-    other: "%{count} kilpailijaa"
+    one: 1 tävlare
+    other: "%{count} tävlar"
   download_results_pdf: Ladda resultaten som PDF-fil
   estimating: Bedömning
   euros:
@@ -25,13 +25,13 @@ sv:
   hide_all_competitors: Gömma alla tävlarna
   leg: Sträcka
   number_short: Nr
-  order_method: Kilpailijoiden järjestys
-  order_method_0: Lisäysjärjestys
-  order_method_1: Arvotaan
+  order_method: Tävlarnas ordning
+  order_method_0: Som ökat
+  order_method_1: Lottas
   points: Poäng
   relay_team:
-    DNS: Joukkue ei osallistunut kilpailuun
-    DNF: Joukkue keskeytti kilpailun
+    DNS: Laget startade inte
+    DNF: Laget avbröt
   run: Löpning
   results: Resultat
   series: Klass
@@ -41,8 +41,8 @@ sv:
   ski: Skidning
   start_list: Startlista
   team: Lag
-  unofficial: Epävirallinen kilpailija
-  unofficial_short: epäv.
+  unofficial: Informella tävlare
+  unofficial_short: inf.
   with_competitors: Med tävlarna
   without_competitors: Utan tävlarna
   
