@@ -24,7 +24,8 @@ class CsvExport
   end
   
   def row(competitor)
-    [name(competitor), competitor.club.name, series(competitor), competitor.number, start_time(competitor)]
+    [name(competitor), competitor.club.name, series(competitor), competitor.number,
+      start_time(competitor), competitor.team_name]
   end
   
   def name(competitor)
