@@ -1,4 +1,5 @@
 fi:
+  add_competitors: Lisää kilpailijoita
   all: Kaikki
   back_to_home_page: Takaisin etusivulle
   back_to_page: Takaisin sivulle
@@ -6,7 +7,7 @@ fi:
   clubs: Seurat
   competition: Kilpailu
   competitions: Kilpailut
-  competition_unfinished_detailed_estimates_later: Kilpailu on kesken. Tarkemmat arviotiedot julkaistaan, kun kilpailu on päättynyt.
+  competition_unfinished_detailed_estimates_later: Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan, kun kilpailu on päättynyt.
   competitor:
     DNS: Kilpailija ei osallistunut kilpailuun
     DNF: Kilpailija keskeytti kilpailun
@@ -23,12 +24,15 @@ fi:
   district: Piiri
   districts: Piirit
   download_results_pdf: Lataa tulokset PDF-tiedostona
+  estimate_count_4: Sarjassa on 4 arviomatkaa.
   estimating: Arviointi
   euros:
     one: euro
     other: euroa
   hide_all_competitors: Piilota kaikki kilpailijat
   leg: Osuus
+  no_competitors_for_series: Sarjaan ei ole lisätty kilpailijoita
+  no_start_list: Sarjan lähtöluetteloa ei ole vielä julkaistu
   number_short: Nro
   order_method: Kilpailijoiden järjestys
   order_method_0: Lisäysjärjestys
@@ -41,11 +45,14 @@ fi:
   results: Tulokset
   series: Sarja
   series_start_time: Sarjan lähtöaika
+  series_starts_in: Sarjan alkuun on aikaa
   shooting: Ammunta
   show_all_competitors: Näytä kaikki kilpailijat
   ski: Hiihto
   start_list: Lähtölista
   team: Joukkue
+  time_points_none: Sarjalle ei lasketa aikapisteitä.
+  time_points_300: Sarjassa kaikki saavat 300 aikapistettä.
   unofficial: Epävirallinen kilpailija
   unofficial_short: epäv.
   with_competitors: Kilpailijoiden kanssa

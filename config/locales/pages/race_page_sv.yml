@@ -6,8 +6,6 @@ sv:
       single_competitor_competitions: Normaltävlingar
       no_series_for_race: Tävlingen saknas klasser för tillfället
       competitors: Tävlar
-      no_competitors_for_series: Inga tävlar i klassen
-      no_start_list: Klassens startlist har inte ännu publiserats
       correct_distances: Rätta avstånd
       start_lists_for_all_series_pdf: Starttider för alla klasser (PDF)
       download_start_times: Ladda starttider

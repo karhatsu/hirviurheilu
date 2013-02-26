@@ -1,14 +1,14 @@
 <% if series.competitors.empty? %>
-  <div class="info">Tähän sarjaan ei ole merkitty kilpailijoita.</div>
+  <div class="info"><%= t :no_competitors_for_series %></div>
   <% if official_rights %>
-    <div><%= link_to "Lisää kilpailijoita", new_official_series_competitor_path(series) %></div>
+    <div><%= link_to t(:add_competitors), new_official_series_competitor_path(series) %></div>
   <% end %>
 <% elsif !series.has_start_list? %>
-  <div class="info">Sarjan lähtölistaa ei ole vielä luotu</div>
+  <div class="info"><%= t :no_start_list %></div>
 <% elsif !series.started? %>
   <div class="info">
-    Sarjan lähtöaika: <%= datetime_print(series.start_datetime, true) %>.
-    Sarjan alkuun on aikaa <%= distance_of_time_in_words(Time.zone.now, series.start_datetime) %>.
+    <%= t :series_start_time %>: <%= datetime_print(series.start_datetime, true) %>.
+    <%= t :series_starts_in %> <%= distance_of_time_in_words(Time.zone.now, series.start_datetime) %>.
   </div>
 <% else %>
   <%= yield %>

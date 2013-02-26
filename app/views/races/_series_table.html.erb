@@ -17,7 +17,7 @@
         <td><% if s.start_time %><%= series_datetime_print(s, true) %><% else %>-<% end %></td>
       <% end %>
       <% if s.competitors.empty? %>
-        <td colspan="2"><%= t 'races.show.no_competitors_for_series' %></td>
+        <td colspan="2"><%= t :no_competitors_for_series %></td>
       <% else %>
         <td><%= s.competitors.count %></td>
         <td>

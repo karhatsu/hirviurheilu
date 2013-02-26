@@ -12,7 +12,7 @@ Feature: Results
     And I should see "No competitors series - (Ei kilpailijoita)" within "h2"
     But I should not see "Tulokset" within "h2"
     And I should not see "Tilanne" within "h2"
-    And I should see "Tähän sarjaan ei ole merkitty kilpailijoita." in an info message
+    And I should see "Sarjaan ei ole lisätty kilpailijoita" in an info message
     
   Scenario: The series has no start list yet
     Given there is a race "My race" in the future
@@ -22,8 +22,8 @@ Feature: Results
     Then I should see "My series - (Sarja ei ole vielä alkanut)" within "h2"
     But I should not see "Tulokset" within "h2"
     And I should not see "Tilanne" within "h2"
-    And I should see "Sarjan lähtölistaa ei ole vielä luotu" in an info message
-    And I should not see "Lataa tulokset pdf-tiedostona"
+    And I should see "Sarjan lähtöluetteloa ei ole vielä julkaistu" in an info message
+    And I should not see "Lataa tulokset PDF-tiedostona"
 
   Scenario: The series has a start list but it has not started yet
     Given there is a race "My race" in the future
@@ -39,7 +39,7 @@ Feature: Results
     And I should not see "Tilanne" within "h2"
     And I should see "Sarjan lähtöaika" in an info message
     And I should see "Sarjan alkuun on aikaa" in an info message
-    And I should not see "Lataa tulokset pdf-tiedostona"
+    And I should not see "Lataa tulokset PDF-tiedostona"
 
   Scenario: Go to see the final results of a series
     Given there is a race with attributes:
@@ -259,7 +259,7 @@ Feature: Results
     Then I should be on the results page of the series
     And the page title should contain "My test race"
     And I should see "Men 50 years - Tilanne" within "h2"
-    And I should see "Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan kilpailun päätyttyä."
+    And I should see "Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan, kun kilpailu on päättynyt."
     And I should see a result row 1 with values:
       | name | Atkinsson Tim |
       | number | 51 |

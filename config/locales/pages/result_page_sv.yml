@@ -6,4 +6,6 @@ sv:
       series_has_not_started_yet: Klassen har inte ännu börjat
       standing: Poängsumma
       updated: updaterad
+      show_official_results: Visa formella resultaten
+      show_unofficial_results: Visa informella resultaten (inkl. all tävlarna)
       

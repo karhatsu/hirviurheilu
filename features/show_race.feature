@@ -19,7 +19,7 @@ Feature: Show race
     And the page title should contain "Test city, 01.01.2010 - 02.01.2010"
     And I should see "Men 50 years" within "tr#series_1"
     And I should see "01.01.2010 13:30" within "tr#series_1"
-    And I should see "Sarjaan ei ole merkitty kilpailijoita" within "tr#series_1"
+    And I should see "Sarjaan ei ole lisätty kilpailijoita" within "tr#series_1"
 
   Scenario: Competitors but no start list
     Given there is a race with attributes:
