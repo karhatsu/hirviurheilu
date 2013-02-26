@@ -6,6 +6,8 @@ fi:
       single_competitor_competitions: Yksilökilpailut
       no_series_for_race: Kilpailuun ei ole vielä lisätty sarjoja
       competitors: Kilpailijoita
+      no_competitors_for_series: Sarjaan ei ole lisätty kilpailijoita
+      no_start_list: Sarjan lähtöluetteloa ei ole vielä julkaistu
       correct_distances: Oikeat etäisyydet
       start_lists_for_all_series_pdf: Kaikkien sarjojen lähtöajat (PDF)
       download_start_times: Lataa lähtöajat

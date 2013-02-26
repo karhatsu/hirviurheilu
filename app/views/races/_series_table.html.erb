@@ -7,7 +7,7 @@
     <th><%= t 'races.show.competitors' %></th>
     <th>&nbsp;</th>
     <% if show_national_records %>
-      <th>SE</th>
+      <th><%= t 'attributes.national_record' %></th>
     <% end %>
   </tr>
   <% @race.series.each do |s| %>
@@ -17,12 +17,12 @@
         <td><% if s.start_time %><%= series_datetime_print(s, true) %><% else %>-<% end %></td>
       <% end %>
       <% if s.competitors.empty? %>
-        <td colspan="2">Sarjaan ei ole merkitty kilpailijoita</td>
+        <td colspan="2"><%= t 'races.show.no_competitors_for_series' %></td>
       <% else %>
         <td><%= s.competitors.count %></td>
         <td>
           <% if !s.has_start_list? %>
-            Sarjan lähtöluetteloa ei ole vielä julkaistu
+            <%= t :no_start_list %>
           <% else %>
             <%= link_to t(:results), series_competitors_path(s) %>,
             <%= link_to t(:start_list), series_start_list_path(s) %>
