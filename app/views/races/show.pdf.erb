@@ -2,7 +2,7 @@
 <%= @race.location %>, <%= race_date_interval(@race) %>
 <hr/>
 
-<h2>Yksilökilpailut</h2>
+<h2><%= t '.single_competitor_competitions' %></h2>
 <% @race.series.each_with_index do |series, index| %>
   <% if index > 0 %>
     <div class="page-break"></div>
@@ -15,7 +15,7 @@
 
 <% if @race.team_competitions.count > 0 %>
   <div class="page-break"></div>
-  <h2>Joukkuekilpailut</h2>
+  <h2><%= t 'activerecord.models.team_competition', :count => @race.team_competitions.count %></h2>
   <% @race.team_competitions.each_with_index do |tc, index| %>
     <% if index > 0 %>
       <div class="page-break"></div>
@@ -28,7 +28,7 @@
 
 <% if @race.relays.count > 0 %>
   <div class="page-break"></div>
-  <h2>Viestit</h2>
+  <h2><%= t 'activerecord.models.relay', :count => @race.relays.count %></h2>
   <% @race.relays.each_with_index do |relay, index| %>
     <% if index > 0 %>
       <div class="page-break"></div>
