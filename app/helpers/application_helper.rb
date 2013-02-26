@@ -459,14 +459,14 @@ module ApplicationHelper
   end
 
   def club_title(race)
-    return 'Seura' if race.club_level == Race::CLUB_LEVEL_SEURA
-    return 'Piiri' if race.club_level == Race::CLUB_LEVEL_PIIRI
+    return t(:club) if race.club_level == Race::CLUB_LEVEL_SEURA
+    return t(:district) if race.club_level == Race::CLUB_LEVEL_PIIRI
     raise "Unknown club level: #{race.club_level}"
   end
 
   def clubs_title(race)
-    return 'Seurat' if race.club_level == Race::CLUB_LEVEL_SEURA
-    return 'Piirit' if race.club_level == Race::CLUB_LEVEL_PIIRI
+    return t(:clubs) if race.club_level == Race::CLUB_LEVEL_SEURA
+    return t(:districts) if race.club_level == Race::CLUB_LEVEL_PIIRI
     raise "Unknown club level: #{race.club_level}"
   end
   

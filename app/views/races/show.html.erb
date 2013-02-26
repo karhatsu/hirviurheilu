@@ -44,7 +44,7 @@
     <%= form_tag(race_start_lists_path(@race, :format => :pdf), :method => :get) do %>
       <%= select_tag :club_id,
         options_from_collection_for_select(@race.clubs, :id, :name),
-        :prompt => "Kaikki #{clubs_title(@race).downcase}" %>
+        :prompt => "#{t :all} #{clubs_title(@race).downcase}" %>
       <%= submit_tag t('.download_start_times') %>
     <% end %>
   <% end %>
@@ -97,7 +97,7 @@
     <%= form_tag(race_path(@race, :format => :pdf), :method => :get) do %>
       <%= select_tag :club_id,
         options_from_collection_for_select(@race.clubs, :id, :name),
-        :prompt => "Kaikki #{clubs_title(@race).downcase}" %>
+        :prompt => "#{t :all} #{clubs_title(@race).downcase}" %>
       <%= submit_tag t('.download_all_results') %>
     <% end %>
   </div>

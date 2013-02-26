@@ -1,6 +1,9 @@
 fi:
+  all: Kaikki
   back_to_home_page: Takaisin etusivulle
   back_to_page: Takaisin sivulle
+  club: Seura
+  clubs: Seurat
   competition: Kilpailu
   competitions: Kilpailut
   competition_unfinished_detailed_estimates_later: Kilpailu on kesken. Tarkemmat arviotiedot julkaistaan, kun kilpailu on päättynyt.
@@ -17,6 +20,8 @@ fi:
   count_competitors:
     one: 1 kilpailija
     other: "%{count} kilpailijaa"
+  district: Piiri
+  districts: Piirit
   download_results_pdf: Lataa tulokset PDF-tiedostona
   estimating: Arviointi
   euros:
