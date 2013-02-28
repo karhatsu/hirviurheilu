@@ -1,16 +1,16 @@
 <% secs = defined?(seconds) ? seconds : 30 %>
 <div id="reload_counter">
-  <span id="reload_text">Uusi tulossivu ladataan automaattisesti <span id="secs">...</span>
-    <a id="stop" href="javascript:void(0)">Pysäytä laskenta.</a></span>
-  <span id="continue_text" style="display: none;">Uuden tulossivun automaattinen lataus pysäytetty.
-    <a id="start" href="javascript:void(0)">Ota automaattinen lataus takaisin käyttöön.</a></span>
+  <span id="reload_text"><%= t :refresh_counter_new_page_pre %> <span id="secs">...</span>
+    <a id="stop" href="javascript:void(0)"><%= t :refresh_counter_pause %></a></span>
+  <span id="continue_text" style="display: none;"><%= t :refresh_counter_paused %>
+    <a id="start" href="javascript:void(0)"><%= t :refresh_counter_continue %></a></span>
 </div>
 <%= javascript_tag do %>
   var seconds = <%= secs %>;
   function decreaseSeconds() {
     if(seconds > 0) {
       $('#stop').show();
-      $('#secs').text(seconds + ' sekunnin kuluttua.');
+      $('#secs').text(seconds + ' <%= t :refresh_counter_new_page_post %>.');
       seconds--;
     } else {
       $('#stop').hide();

@@ -42,6 +42,11 @@ sv:
     DNS: Laget startade inte
     DNF: Laget avbröt
   run: Löpning
+  refresh_counter_new_page_pre: Ny resultatssida uppdateras automatiskt om
+  refresh_counter_new_page_post: sekunder
+  refresh_counter_pause: Stoppa
+  refresh_counter_paused: Automatisk uppdatering om ny resultatssida stoppats.
+  refresh_counter_continue: Ta automatisk uppdatering tillbaka i bruk.
   results: Resultat
   series: Klass
   series_start_time: Klassens starttid
