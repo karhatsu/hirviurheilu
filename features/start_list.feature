@@ -41,4 +41,28 @@ Feature: Start list
       | name | Atkinsson Tim |
       | club | Sports club |
       | time | 13:00:30 |
+    But I should not see "Jotosjoukkue"
+    
+  Scenario: Start list for competitors having team name
+    Given there is a race with attributes:
+      | name | My test race |
+      | start_date | 2010-07-15 |
+    And the race has series with attributes:
+      | name | Men 50 years |
+      | start_time | 13:00 |
+      | first_number | 50 |
+    And the race has a club "Shooting club"
+    And the series has a competitor with attributes:
+      | first_name | James |
+      | last_name | Johnson |
+      | club | Shooting club |
+      | team_name | Special team |
+    And the start list has been generated for the series
+    And I am on the race page
+    When I follow "Lähtölista"
+    Then I should be on the start list page of the series
+    And I should see "Jotosjoukkue"
+    And I should see a start list row 1 with values:
+      | name | Johnson James |
+      | team_name | Special team |
     

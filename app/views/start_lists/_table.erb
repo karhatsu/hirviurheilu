@@ -1,3 +1,10 @@
+<% show_team_name = false %>
+<% competitors.each { |c|
+  unless c.team_name.blank?
+    show_team_name = true
+    break
+  end
+} %>
 <table>
   <tr>
     <th><%= t :number_short %></th>
@@ -7,8 +14,12 @@
     <% end %>
     <th><%= club_title(race) %></th>
     <th><%= t 'attributes.start_time' %></th>
+    <% if show_team_name %>
+      <th><%= t 'attributes.team_name' %></th>
+    <% end %>
   </tr>
   <% competitors.each_with_index do |comp, i| %>
+    <% show_team_name ||= !comp.team_name.nil? %>
     <tr id="comp_<%= i + 1 %>">
       <td><%= comp.number %></td>
       <td><%= full_name(comp) %>
@@ -27,6 +38,9 @@
       <% end %>
       <td><%= comp.club.name %></td>
       <td><%= time_print(comp.start_time, true) %></td>
+      <% if show_team_name %>
+        <td><%= comp.team_name %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>
