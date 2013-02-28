@@ -1,0 +1,12 @@
+sv:
+  result_rotations:
+    show:
+      info: På den här sidan kan du starta och stoppa resultatskretsen. När kretsen är i bruk, servicen växlar resultatssidorna automatiskt.
+      status: Resultatskretsens status
+      no_active_competitions: Kan inte starta resultatskretsen, eftersom inga tävlingar igång.
+      status_active: Resultatskretsen är igång.
+      status_inactive: Resultatskretsen är inte igång.
+      start: Starta resultatskretsen
+      stop: Stoppa resultatskretsen
+      include_team_competitions: Innehål lagtävlingarna i resultatskretsen
+      

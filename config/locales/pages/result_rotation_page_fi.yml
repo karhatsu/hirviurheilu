@@ -1,0 +1,12 @@
+fi:
+  result_rotations:
+    show:
+      info: Tältä sivulta voit käynnistää ja sammuttaa tuloskehän. Kun tuloskehä on päällä, palvelu vaihtaa eri kilpailuiden tulossivuja automaattisesti.
+      status: Tuloskehän tila
+      no_active_competitions: Tuloskehää ei voida käynnistää, koska yhtään kilpailua ei ole tällä hetkellä käynnissä.
+      status_active: Tuloskehä on käynnissä.
+      status_inactive: Tuloskehä ei ole käynnissä.
+      start: Ota tuloskehä käyttöön
+      stop: Ota tuloskehä pois käytöstä
+      include_team_competitions: Sisällytä joukkuekilpailut tuloskehään
+      
