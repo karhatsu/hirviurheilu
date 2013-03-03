@@ -1,19 +1,19 @@
-<% content_for :title, "#{@race.name} - Lehdistö" %>
-<h2>Lehdistö</h2>
+<% content_for :title, "#{@race.name} - #{t 'race_sub_menu.press'}" %>
+<h2><%= t 'race_sub_menu.press' %></h2>
 <div class="info">
-  Tältä sivulta voit ladata lehdistöraportin<%= @race.finished? ? '' :
-    ', kun kilpailu on päättynyt' %>
+  <%= t 'media.show.info' %><%= @race.finished? ? '' :
+    ", #{t 'media.show.when_race_finished'}." %>
 </div>
 <% if @race.finished? %>
-  <% club_word = (@race.club_level == Race::CLUB_LEVEL_PIIRI ? 'piiristä' : 'seurasta') %>
+  <% club_word = (@race.club_level == Race::CLUB_LEVEL_PIIRI ? t('media.show.from_district') : t('media.show.from_club')) %>
   <%= flash_error %>
   <%= form_tag(race_medium_path(@race)) do %>
-    <%= label_tag :competitors_count, 'Kilpailijoiden määrä / sarja' %>
+    <%= label_tag :competitors_count, t('media.show.competitors_per_series') %>
     <%= text_field_tag :competitors_count, @competitors_count, :size => 3 %><br/>
-    <%= label_tag :club_id, "Lisäksi kaikki kilpailijat #{club_word}" %>
+    <%= label_tag :club_id, "#{t 'media.show.also_all_competitors' } #{club_word}" %>
     <%= select_tag :club_id,
       options_from_collection_for_select(@race.clubs, :id, :name, params[:club_id]),
-      :prompt => '- Ei mitään -' %><br/>
-    <%= submit_tag "Lataa lehdistöraportti" %>
+      :prompt => "- #{t 'media.show.none'} -" %><br/>
+    <%= submit_tag t('media.show.download_report') %>
   <% end %>
 <% end %>

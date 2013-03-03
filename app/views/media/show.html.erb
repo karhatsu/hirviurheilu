@@ -2,7 +2,7 @@
 <% results = [] %>
 <% @race.series.each do |series| %>
   <% unless series.competitors.empty? %>
-    <% series_results = "Sarja #{series.name}: " %>
+    <% series_results = "#{t(:series)} #{series.name}: " %>
     <% comp_results = [] %>
     <% series.ordered_competitors(false).each_with_index do |c, i| %>
       <% max_points = c.points if i == 0 %>
@@ -18,11 +18,10 @@
     <% results << series_results %>
   <% end %>
 <% end %>
-<h3>Lehdistöraportti</h3>
-<div class="info">Maalaa alla oleva tulosraportti ja kopioi se esimerkiksi
-  sähköpostiisi tai vaikkapa tekstinkäsittelyohjelmaan jatkokäsittelyä varten.</div>
+<h3><%= t '.report' %></h3>
+<div class="info"><%= t '.result_info' %></div>
 <div class="section">
   <%= results.join(" ") %>
 </div>
 <hr/>
-<%= link_to 'Takaisin kilpailun etusivulle', race_path(@race) %>
+<%= link_to t(:back_to_race_home_page), race_path(@race) %>

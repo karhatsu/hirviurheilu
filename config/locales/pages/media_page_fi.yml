@@ -1,0 +1,14 @@
+fi:
+  media:
+    show:
+      info: Tältä sivulta voit ladata lehdistöraportin
+      when_race_finished: kun kilpailu on päättynyt
+      competitors_per_series: Kilpailijoiden määrä / sarja
+      also_all_competitors: Lisäksi kaikki kilpailijat
+      from_club: seurasta
+      from_district: piiristä
+      none: Ei mitään
+      download_report: Lataa lehdistöraportti
+      report: Lehdistöraportti
+      result_info: Maalaa alla oleva tulosraportti ja kopioi se esimerkiksi sähköpostiisi tai vaikkapa tekstinkäsittelyohjelmaan jatkokäsittelyä varten.
+      
