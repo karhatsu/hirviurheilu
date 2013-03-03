@@ -93,7 +93,7 @@ span.env_info_link {
     text-decoration: underline;
 }
 
-div.login_links {
+div.login_and_locale_links {
     float: left;
     color: white;
     text-align: right;
@@ -101,8 +101,13 @@ div.login_links {
     padding-top: 5px;
 }
 
-div.login_links a {
+div.login_and_locale_links a {
     color: white;
+}
+
+.locale_flag {
+    background-color: white;
+    padding: 1px;
 }
 
 div.main_content {
@@ -134,8 +139,4 @@ div.footer a {
 
 div.footer a:hover {
     text-decoration: underline;
-}
-
-.new_locale_link {
-    color: olive !important;
 }

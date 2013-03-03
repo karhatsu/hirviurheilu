@@ -9,11 +9,12 @@ Feature: Localization
     And I follow "På svenska"
     Then I should be on the Swedish home page
     And I should see "Tävlingar"
-    But I should not see "På svenska"
+    And Finnish locale flag should be visible
+    But Swedish locale flag should not be visible
     When I follow "Priser"
     Then I should see "Priser" within ".main_title"
     When I follow "Suomeksi"
     Then I should see "Hinnat" within ".main_title"
-    And I should see "På svenska"
-    But I should not see "Suomeksi"
+    And Swedish locale flag should be visible
+    But Finnish locale flag should not be visible
         

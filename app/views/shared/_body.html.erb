@@ -5,9 +5,12 @@
   <% end %>
   <div class="header">
     <%= render :partial => 'shared/menu' %>
-    <% unless offline? %>
-      <div class="login_links"><%= render :partial => "shared/login_links" %></div>
-    <% end %>
+    <div class="login_and_locale_links">
+      <% unless offline? %>
+        <%= render :partial => "shared/login_links" %>
+      <% end %>
+      <%= render :partial => 'shared/locale_links' %>
+    </div>
   </div>
   <%= render :partial => 'shared/race_title' %>
   <% if @is_races %>
