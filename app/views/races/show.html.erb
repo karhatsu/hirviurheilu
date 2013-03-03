@@ -109,8 +109,8 @@
 <% end %>
 <% cup = @race.cups.first unless @race.cups.empty? %>
 <% if cup %>
-  <h2>Cup-kilpailu</h2>
-  <div class="section">Tämä kilpailu on cup-kilpailun <%= link_to cup.name, cup_path(cup) %> osakilpailu</div>
+  <h2><%= t 'activerecord.models.cup', :count => 1 %></h2>
+  <div class="section"><%= link_to t('.race_belongs_to_cup', :cup_name => cup.name), cup_path(cup) %></div>
 <% end %>
 <hr/>
 <%= link_to t(:back_to_home_page), root_path %>

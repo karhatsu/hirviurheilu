@@ -85,6 +85,9 @@ sv:
       correct_estimate:
         one: Rätt avstånd
         other: Rätta avstånd
+      cup:
+        one: Cup-tävling
+        other: Cup-tävlingar
       default_age_group:
         one: Oletusikäryhmä
         other: Oletusikäryhmät

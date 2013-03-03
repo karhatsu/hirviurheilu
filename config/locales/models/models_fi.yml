@@ -85,6 +85,9 @@ fi:
       correct_estimate:
         one: Oikea arvio
         other: Oikeat arviot
+      cup:
+        one: Cup-kilpailu
+        other: Cup-kilpailut
       default_age_group:
         one: Oletusikäryhmä
         other: Oletusikäryhmät

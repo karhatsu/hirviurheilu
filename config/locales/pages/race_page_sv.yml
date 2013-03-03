@@ -14,4 +14,5 @@ sv:
       all_results_pdf: Alla resultat (PDF)
       download_all_results: Ladda alla resultat
       competition_begins: Tävlingen börjar om
+      race_belongs_to_cup: Den här tävlingen är deltävling för cup-tävling %{cup_name}
       

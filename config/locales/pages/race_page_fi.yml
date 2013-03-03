@@ -14,4 +14,5 @@ fi:
       all_results_pdf: Tuloskooste (PDF)
       download_all_results: Lataa tuloskooste
       competition_begins: Kilpailun alkuun on aikaa
+      race_belongs_to_cup: Tämä kilpailu on cup-kilpailun %{cup_name} osakilpailu
       
