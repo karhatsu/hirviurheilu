@@ -440,7 +440,7 @@ module ApplicationHelper
   end
 
   def relay_result_title(relay)
-    return '(Ei joukkueita)' if relay.relay_teams.empty?
+    return "(#{t('relays.show.no_teams')})" if relay.relay_teams.empty?
     return "(#{t('relays.show.relay_has_not_started_yet')})" unless relay.started?
     return t(:results) if relay.finished?
     return "#{t('relays.show.standing')} (#{t('relays.show.updated')}: #{datetime_print(relay.relay_competitors.
