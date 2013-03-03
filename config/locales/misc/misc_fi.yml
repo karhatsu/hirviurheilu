@@ -1,6 +1,7 @@
 fi:
   add_competitors: Lisää kilpailijoita
   all: Kaikki
+  back_to_cup_page: Takaisin cup-kilpailun etusivulle
   back_to_home_page: Takaisin etusivulle
   back_to_page: Takaisin sivulle
   back_to_race_home_page: Takaisin kilpailun etusivulle
@@ -64,6 +65,7 @@ fi:
   time_points_none: Sarjalle ei lasketa aikapisteitä.
   time_points_300: Sarjassa kaikki saavat 300 aikapistettä.
   total: Yhteensä
+  total_points: Yhteispisteet
   unofficial: Epävirallinen kilpailija
   unofficial_short: epäv.
   with_competitors: Kilpailijoiden kanssa

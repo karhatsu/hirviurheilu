@@ -4,12 +4,12 @@
   <thead>
     <tr>
       <th>&nbsp;</th>
-      <th>Kilpailija</th>
-      <% if show_series_name %><th>Sarja</th><% end %>
+      <th><%= t 'activerecord.models.competitor.one' %></th>
+      <% if show_series_name %><th><%= t 'activerecord.models.series.one' %></th><% end %>
       <% @cup.races.each do |race| %>
         <th title="<%= race.name %>"><%= truncate(race.name, :length => 20) %></th>
       <% end %>
-      <th>Yhteispisteet</th>
+      <th><%= t :total_points %></th>
     </tr>
   </thead>
   <% @cup_series.ordered_competitors.each_with_index do |cc, i| %>

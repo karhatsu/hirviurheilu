@@ -1,4 +1,4 @@
-<% content_for(:title, "Tulokset - #{long_cup_series_name(@cup_series)}") %>
+<% content_for(:title, "#{t :results} - #{long_cup_series_name(@cup_series)}") %>
 <h2><%= yield :title %></h2>
 <% content_for :sub_sub_menu do %>
   <%= render :partial => 'shared/cup_series_sub_menu' %>
@@ -7,7 +7,7 @@
   <%= render :partial => 'cup_series_results' %>
 </div>
 <div class="action_box">
-  <%= link_to 'Lataa tulokset pdf-tiedostona', cup_cup_series_path(@cup, @cup_series, :format => :pdf) %>
+  <%= link_to t(:download_results_pdf), cup_cup_series_path(@cup, @cup_series, :format => :pdf) %>
 </div>
 <hr/>
-<%= link_to "Takaisin cup-kilpailun etusivulle", cup_path(@cup) %>
+<%= link_to t(:back_to_cup_page), cup_path(@cup) %>
