@@ -8,7 +8,7 @@ class RelaysController < ApplicationController
       format.html
       format.pdf do
         render :pdf => "viesti-#{@relay.name}-tulokset", :layout => true,
-          :margin => pdf_margin, :header => pdf_header("Viesti - #{@relay.name}"),
+          :margin => pdf_margin, :header => pdf_header("#{t 'activerecord.models.relay.one'} - #{@relay.name}"),
           :footer => pdf_footer
       end
     end

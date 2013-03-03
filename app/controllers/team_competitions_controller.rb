@@ -7,7 +7,7 @@ class TeamCompetitionsController < ApplicationController
       format.html
       format.pdf do
         render :pdf => "joukkuekilpailu-#{@tc.name}-tulokset", :layout => true,
-          :margin => pdf_margin, :header => pdf_header("Joukkuekilpailu - #{@tc.name}"),
+          :margin => pdf_margin, :header => pdf_header("#{t 'activerecord.models.team_competition.one'} - #{@tc.name}"),
           :footer => pdf_footer, :orientation => 'Landscape'
       end
     end

@@ -8,7 +8,7 @@ class StartListsController < ApplicationController
     respond_to do |format|
       format.pdf do
         render :pdf => "#{@race.name}-lahtoajat", :layout => true,
-          :margin => pdf_margin, :header => pdf_header("Lähtöajat - kaikki kilpailijat"),
+          :margin => pdf_margin, :header => pdf_header("#{t :start_list} - #{t :all_competitors}"),
           :footer => pdf_footer
       end
     end
@@ -20,7 +20,7 @@ class StartListsController < ApplicationController
       format.html
       format.pdf do
         render :pdf => "#{@series.name}-lahtolista", :layout => true,
-          :margin => pdf_margin, :header => pdf_header("Lähtöajat - #{@series.name}"),
+          :margin => pdf_margin, :header => pdf_header("#{t :start_list} - #{@series.name}"),
           :footer => pdf_footer
       end
     end

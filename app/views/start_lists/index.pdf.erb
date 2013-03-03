@@ -1,4 +1,4 @@
-<h1><%= @race.name %> - Lähtöajat</h1>
+<h1><%= @race.name %> - <%= t :start_list %></h1>
 <%= @race.location %>, <%= race_date_interval(@race) %>
 <% where_condition = "number > 0 and competitors.start_time is not null" %>
 <% where_condition << " and club_id=#{params[:club_id].to_i}" unless params[:club_id].blank? %>

@@ -1,8 +1,8 @@
 <h1><%= @relay.race.name %></h1>
 <%= @race.location %>, <%= race_date_interval(@race) %>
-<h2>Viesti - <%= @relay.name %> - <%= relay_result_title(@relay) %></h2>
+<h2><%= t 'activerecord.models.relay.one' %> - <%= @relay.name %> - <%= relay_result_title(@relay) %></h2>
 <% if @results.empty? %>
-  <div class="info">Viestiin ei ole vielä merkitty joukkueita</div>
+  <div class="info"><%= t '.relay_has_no_teams' %></div>
 <% else %>
   <%= render :partial => 'correct_estimates' %>
   <%= render :partial => 'results', :locals => { :relay => @relay, :pdf => true } %>

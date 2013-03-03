@@ -431,7 +431,7 @@ module ApplicationHelper
 
   def series_result_title(series, all_competitors=false)
     suffix = ''
-    suffix = " - #{t('competitors.index.all_competitors')}" if all_competitors
+    suffix = " - #{t(:all_competitors)}" if all_competitors
     return "(#{t('competitors.index.no_competitors')})" if series.competitors.empty?
     return "(#{t('competitors.index.series_has_not_started_yet')})" unless series.started?
     return "#{t(:results)}#{suffix}" if series.race.finished?
