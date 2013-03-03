@@ -2,8 +2,9 @@ sv:
   add_competitors: Öka tävlar
   all: Alla
   back_to_home_page: Tillbaka till hemsida
-  back_to_race_home_page: Tillbaka till tävlingens hemsida
   back_to_page: Tillbaka till sida
+  back_to_race_home_page: Tillbaka till tävlingens hemsida
+  back_to_series_results: Tillbaka till klassens %{series_name} resultat
   club: Klubb
   clubs: Klubbar
   competition: Tävling
@@ -26,7 +27,9 @@ sv:
   districts: Trakter
   download_results_pdf: Ladda resultaten som PDF-fil
   estimate_count_4: Tävlarna bedömner 4 gånger i den här klassen.
+  estimated_distances: Bedömnade avstånd
   estimating: Bedömning
+  estimation_errors: Bedömningsfel
   euros:
     one: euro
     other: euro
@@ -48,6 +51,7 @@ sv:
   refresh_counter_pause: Stoppa
   refresh_counter_paused: Automatisk uppdatering om ny resultatssida stoppats.
   refresh_counter_continue: Ta automatisk uppdatering tillbaka i bruk.
+  result_time: Tid
   results: Resultat
   series: Klass
   series_start_time: Klassens starttid
@@ -59,6 +63,7 @@ sv:
   team: Lag
   time_points_none: Inga tidpoäng i den här klassen.
   time_points_300: Alla tävlarna får 300 tidpoäng i den här klassen.
+  total: Totalt
   unofficial: Informella tävlare
   unofficial_short: inf.
   with_competitors: Med tävlarna

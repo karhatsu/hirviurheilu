@@ -435,7 +435,7 @@ Feature: Results
     And I should not see /130/ within "#estimates"
     And I should not see /\+1/ within "#estimates"
     And I should not see /-1/ within "#estimates"
-    And I should see "Tarkemmat arviointitiedot näytetään kilpailun päätyttyä."
+    And I should see "Tarkemmat arviointitiedot julkaistaan, kun kilpailu on päättynyt."
     And I should see "Juoksu" within "#time h3"
     And I should see /13:00:00/ within "#time td"
     And I should see /14:00:00/ within "#time td"
