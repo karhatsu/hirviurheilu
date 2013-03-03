@@ -88,6 +88,9 @@ sv:
       cup:
         one: Cup-tävling
         other: Cup-tävlingar
+      cup_series:
+        one: Cup-klass
+        other: Cup-klasser
       default_age_group:
         one: Oletusikäryhmä
         other: Oletusikäryhmät

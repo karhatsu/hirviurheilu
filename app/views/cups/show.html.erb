@@ -1,19 +1,17 @@
 <% content_for :title, @cup.name %>
-<h2>Cup-sarjat</h2>
+<h2><%= t 'activerecord.models.cup_series', :count => @cup.cup_series.length %></h2>
 <div class="section">
   <% @cup.cup_series.each do |cs| %>
     <%= link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs) %><br/>
   <% end %>
 </div>
-<h2>Pistelaskenta</h2>
-<div class="section">
-  Yhteispisteet lasketaan <%= @cup.top_competitions %> parhaan tuloksen perusteella.
-</div>
-<h2>Osakilpailut</h2>
+<h2><%= t '.points_rule_title' %></h2>
+<div class="section"><%= t '.points_rule', :best_competitions_count => @cup.top_competitions %></div>
+<h2><%= t '.sub_competitions' %></h2>
 <div class="section">
   <% @cup.races.each do |race| %>
     <%= link_to race.name, race_path(race) %><br/>
   <% end %>
 </div>
 <hr/>
-<%= link_to 'Takaisin etusivulle', root_path %>
+<%= link_to t(:back_to_home_page), root_path %>

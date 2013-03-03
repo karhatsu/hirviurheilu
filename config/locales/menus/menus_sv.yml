@@ -20,4 +20,7 @@ sv:
     video: Video
     result_rotation: Resultatskrets
     press: Press
+  cup_sub_menu:
+    home_page: Cup-tävlingens hemsida
+    results: Resultat
     

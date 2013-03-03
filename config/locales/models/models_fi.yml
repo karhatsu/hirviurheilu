@@ -88,6 +88,9 @@ fi:
       cup:
         one: Cup-kilpailu
         other: Cup-kilpailut
+      cup_series:
+        one: Cup-sarja
+        other: Cup-sarjat
       default_age_group:
         one: Oletusikäryhmä
         other: Oletusikäryhmät

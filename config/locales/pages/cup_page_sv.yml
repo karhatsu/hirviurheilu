@@ -1,0 +1,7 @@
+sv:
+  cups:
+    show:
+      points_rule_title: Poängsberäkning
+      points_rule: Totalpoäng beräknas på grund av %{best_competitions_count} bäst resultat.
+      sub_competitions: Deltävlingar
+      

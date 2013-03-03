@@ -20,4 +20,7 @@ fi:
     video: Video
     result_rotation: Tuloskehä
     press: Lehdistö
-    
+  cup_sub_menu:
+    home_page: Cup-kilpailun etusivu
+    results: Tulokset
+        
