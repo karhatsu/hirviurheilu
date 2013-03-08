@@ -180,6 +180,8 @@ describe TeamCompetition do
             @club_best_total_points_c2.stub!(:team_name).and_return('Team best')
             @club_best_single_points_c1.stub!(:team_name).and_return('Team second')
             @club_best_single_points_c2.stub!(:team_name).and_return('Team second')
+            @club_best_single_shots_c1.stub!(:team_name).and_return('')
+            @club_best_single_shots_c2.stub!(:team_name).and_return('')
             @results = @tc.results_for_competitors(@competitors)
           end
           

@@ -123,7 +123,10 @@ class TeamCompetition < ActiveRecord::Base
   end
   
   def team_for(competitor)
-    return competitor.team_name if use_team_name
+    if use_team_name
+      return nil if competitor.team_name.blank?
+      return competitor.team_name
+    end
     competitor.club
   end
 end
