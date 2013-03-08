@@ -2,8 +2,15 @@
 <% min_seconds = 20 %>
 <% series = menu_series %>
 <% auto_scroll = series and result_rotation_auto_scroll %>
-<% secs = defined?(seconds) ? seconds :
-  (auto_scroll and series.competitors.count > min_seconds ? series.competitors.count : default_seconds) %>
+<%
+if defined?(seconds)
+  secs = seconds
+elsif auto_scroll and series.competitors.count > min_seconds
+  secs = series.competitors.count
+else
+  secs = default_seconds
+end
+%>
 <div id="reload_counter">
   <span id="reload_text"><%= t :refresh_counter_new_page_pre %> <span id="secs">...</span>
     <a id="stop" href="javascript:void(0)"><%= t :refresh_counter_pause %></a></span>
