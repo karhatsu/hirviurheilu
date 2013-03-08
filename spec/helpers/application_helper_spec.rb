@@ -782,8 +782,10 @@ describe ApplicationHelper do
       end
 
       def build_series(race, start_day, start_time)
-        FactoryGirl.build(:series, :race => race, :start_day => start_day,
+        series = FactoryGirl.build(:series, :race => race, :start_day => start_day,
           :start_time => start_time)
+        series.competitors << FactoryGirl.build(:competitor, :series => series, :estimate1 => 100)
+        series
       end
     end
 

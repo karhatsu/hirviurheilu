@@ -516,8 +516,8 @@ module ApplicationHelper
     race_day = race.race_day
     return [] if race_day == 0
     list = []
-    race.series.where(:start_day => race_day).each do |s|
-      list << series_competitors_path(locale_for_path, s) if s.started?
+    race.series.where(['start_day=?', race_day]).each do |s|
+      list << series_competitors_path(locale_for_path, s) if s.started? and s.has_result_for_some_competitor?
     end
     list
   end

@@ -207,6 +207,11 @@ class Series < ActiveRecord::Base
     self.first_number = competitors.minimum(:number)
     save!
   end
+  
+  def has_result_for_some_competitor?
+    competitors.where('arrival_time is not null or estimate1 is not null or estimate2 is not null or ' +
+      'shots_total_input is not null').exists?
+  end
 
   private
   def check_time_points_type

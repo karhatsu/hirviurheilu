@@ -1205,4 +1205,63 @@ describe Series do
       end
     end
   end
+  
+  describe "#has_result_for_some_competitor?" do
+    context "when no competitors" do
+      it "should return false" do
+        Series.new.should_not have_result_for_some_competitor
+      end
+    end
+    
+    context "when has competitors" do
+      before do
+        @series = FactoryGirl.create(:series)
+        @c1 = FactoryGirl.create(:competitor, :series => @series, :start_time => '12:00')
+        @c2 = FactoryGirl.create(:competitor, :series => @series, :start_time => '12:01')
+      end
+      
+      context "but none of the competitors have neither arrival time, estimates nor shots total" do
+        it "should return false" do
+          @series.reload
+          @series.should_not have_result_for_some_competitor
+        end
+      end
+      
+      context "and some competitor has arrival time" do
+        it "should return true" do
+          @c1.arrival_time = '12:23:34'
+          @c1.save!
+          @series.reload
+          @series.should have_result_for_some_competitor
+        end
+      end
+      
+      context "and some competitor has estimate 1" do
+        it "should return true" do
+          @c2.estimate1 = 123
+          @c2.save!
+          @series.reload
+          @series.should have_result_for_some_competitor
+        end
+      end
+      
+      context "and some competitor has estimate 2" do
+        it "should return true" do
+          @c1.estimate2 = 111
+          @c1.save!
+          @series.reload
+          @series.should have_result_for_some_competitor
+        end
+      end
+      
+      context "and some competitor has shots total" do
+        it "should return true" do
+          @c2.shots_total_input = 99
+          @c2.save!
+          @series.reload
+          @series.should have_result_for_some_competitor
+        end
+      end
+    end
+  end
 end
