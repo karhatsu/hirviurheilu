@@ -1,7 +1,7 @@
 <% default_seconds = 30 %>
 <% min_seconds = 20 %>
 <% series = menu_series %>
-<% auto_scroll = series and result_rotation_auto_scroll %>
+<% auto_scroll = !(series.nil? or result_rotation_auto_scroll.nil?) %>
 <%
 if defined?(seconds)
   secs = seconds
