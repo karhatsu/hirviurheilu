@@ -511,6 +511,10 @@ module ApplicationHelper
     ['development', 'production'].include?(Rails.env)
   end
   
+  def result_rotation_auto_scroll
+    cookies[result_rotation_scroll_cookie_name]
+  end
+  
   private
   def result_rotation_series_list(race)
     race_day = race.race_day

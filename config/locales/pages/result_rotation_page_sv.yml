@@ -8,5 +8,6 @@ sv:
       status_inactive: Resultatskretsen är inte igång.
       start: Starta resultatskretsen
       stop: Stoppa resultatskretsen
+      auto_scroll: Vieritä ruutua automaattisesti alaspäin
       include_team_competitions: Innehål lagtävlingarna i resultatskretsen
       

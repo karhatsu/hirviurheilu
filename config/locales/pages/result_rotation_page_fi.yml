@@ -8,5 +8,6 @@ fi:
       status_inactive: Tuloskehä ei ole käynnissä.
       start: Ota tuloskehä käyttöön
       stop: Ota tuloskehä pois käytöstä
+      auto_scroll: Vieritä ruutua automaattisesti alaspäin
       include_team_competitions: Sisällytä joukkuekilpailut tuloskehään
       

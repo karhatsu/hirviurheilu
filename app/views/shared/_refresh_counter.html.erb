@@ -1,4 +1,7 @@
-<% secs = defined?(seconds) ? seconds : 30 %>
+<% default_seconds = 30 %>
+<% series = menu_series %>
+<% auto_scroll = series and result_rotation_auto_scroll %>
+<% secs = defined?(seconds) ? seconds : (auto_scroll ? series.competitors.count : default_seconds) %>
 <div id="reload_counter">
   <span id="reload_text"><%= t :refresh_counter_new_page_pre %> <span id="secs">...</span>
     <a id="stop" href="javascript:void(0)"><%= t :refresh_counter_pause %></a></span>
@@ -38,7 +41,13 @@
     $('#reload_text').hide();
     $('#continue_text').show();
   }
+  function startCounting() {
+    <% if auto_scroll and secs > default_seconds %>
+      $('html, body').animate({scrollTop:$(document).height()-$(window).height()}, seconds * 1000);
+    <% end %>
+    continueCounting();
+  }
   $('#stop').click(stopCounting);
   $('#start').click(continueCounting);
-  $(document).ready(continueCounting);
+  $(document).ready(startCounting);
 <% end %>

@@ -16,6 +16,8 @@
     <div class="section"><%= t '.status_inactive' %></div>
     <div class="section">
       <%= form_tag(race_result_rotation_path(@race)) do %>
+        <%= check_box_tag :auto_scroll %>
+        <%= label_tag :auto_scroll, t('.auto_scroll') %><br/>
         <% unless @race.team_competitions.empty? %>
           <%= check_box_tag :team_competitions %>
           <%= label_tag :team_competitions, t('.include_team_competitions') %><br/>
