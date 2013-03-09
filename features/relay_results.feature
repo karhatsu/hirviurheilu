@@ -31,11 +31,23 @@ Feature: Relay results
     And the race has a relay with attributes:
       | name | Women's relay |
       | start_time | 16:30 |
+      | legs_count | 2 |
+    And the relay has a team "Ladies team" with number 1
+    And the relay team has a competitor with attributes:
+      | first_name | Mary |
+      | last_name | Smith |
+      | leg | 1 |
+    And the relay team has a competitor with attributes:
+      | first_name | Tina |
+      | last_name | Smith |
+      | leg | 2 |
     And the relay has a team "Relay team"
     When I go to the relay results page of "Women's relay"
     Then I should see "Women's relay - (Viesti ei ole vielä alkanut)" within "h2"
     And I should see "Viestin lähtöaika" in an info message
     And I should see "Viestin alkuun on aikaa" in an info message
+    And I should see "Ladies team"
+    And I should see "Smith Mary"
 
   Scenario: Relay results
     Given there is a race with attributes:

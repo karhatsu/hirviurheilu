@@ -12,11 +12,6 @@
   <div class="info"><%= t '.relay_has_no_teams' %></div>
 <% elsif !@relay.start_time %>
   <div class="info"><%= t '.relay_has_no_start_time' %></div>
-<% elsif !@relay.started? %>
-  <div class="info">
-    <%= t '.relay_start_time' %>: <%= datetime_print(@relay.start_datetime, true) %>.
-    <%= t '.relay_starts' %> <%= distance_of_time_in_words(Time.zone.now, @relay.start_datetime) %>.
-  </div>
 <% else %>
   <%= render :partial => 'relays/correct_estimates' %>
   <%= render :partial => 'relays/leg_links' %>
