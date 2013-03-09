@@ -102,30 +102,48 @@ describe RelayTeam do
   end
 
   describe "#estimate_penalties_sum" do
-    before do
-      @team = FactoryGirl.create(:relay_team)
-      c1 = mock_model(RelayCompetitor, :estimate_penalties => 10)
-      c2 = mock_model(RelayCompetitor, :estimate_penalties => 2)
-      c3 = mock_model(RelayCompetitor, :estimate_penalties => nil)
-      @team.stub!(:relay_competitors).and_return([c1, c2, c3])
+    context "when all competitors have nil for penalties" do
+      it "should return nil" do
+        team = FactoryGirl.create(:relay_team)
+        c1 = mock_model(RelayCompetitor, :estimate_penalties => nil)
+        c2 = mock_model(RelayCompetitor, :estimate_penalties => nil)
+        team.stub!(:relay_competitors).and_return([c1, c2])
+        team.estimate_penalties_sum.should be_nil
+      end
     end
 
-    it "should return sum of competitors' estimate penalties so that nil refers to 0 penalties" do
-      @team.estimate_penalties_sum.should == 12
+    context "when at least one competitor has non-nil penalties" do
+      it "should return sum of competitors' estimate penalties so that nil refers to 0 penalties" do
+        team = FactoryGirl.create(:relay_team)
+        c1 = mock_model(RelayCompetitor, :estimate_penalties => 10)
+        c2 = mock_model(RelayCompetitor, :estimate_penalties => 2)
+        c3 = mock_model(RelayCompetitor, :estimate_penalties => nil)
+        team.stub!(:relay_competitors).and_return([c1, c2, c3])
+        team.estimate_penalties_sum.should == 12
+      end
     end
   end
 
   describe "#shoot_penalties_sum" do
-    before do
-      @team = FactoryGirl.create(:relay_team)
-      c1 = mock_model(RelayCompetitor, :misses => 3)
-      c2 = mock_model(RelayCompetitor, :misses => 4)
-      c3 = mock_model(RelayCompetitor, :misses => nil)
-      @team.stub!(:relay_competitors).and_return([c1, c2, c3])
+    context "when all competitors have nil for penalties" do
+      it "should return nil" do
+        team = FactoryGirl.create(:relay_team)
+        c1 = mock_model(RelayCompetitor, :misses => nil)
+        c2 = mock_model(RelayCompetitor, :misses => nil)
+        team.stub!(:relay_competitors).and_return([c1, c2])
+        team.shoot_penalties_sum.should be_nil
+      end
     end
-
-    it "should return the sum of shoot penalties for the team so that nil refers to 0 penalties" do
-      @team.shoot_penalties_sum.should == 7
+    
+    context "when at least one competitor has non-nil penalties" do
+      it "should return the sum of shoot penalties for the team so that nil refers to 0 penalties" do
+        team = FactoryGirl.create(:relay_team)
+        c1 = mock_model(RelayCompetitor, :misses => 3)
+        c2 = mock_model(RelayCompetitor, :misses => 4)
+        c3 = mock_model(RelayCompetitor, :misses => nil)
+        team.stub!(:relay_competitors).and_return([c1, c2, c3])
+        team.shoot_penalties_sum.should == 7
+      end
     end
   end
 
