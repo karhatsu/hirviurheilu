@@ -8,7 +8,7 @@
 <% if @results.empty? %>
   <div class="info">Viestiin ei ole vielä merkitty joukkueita</div>
 <% else %>
-  <%= render :partial => 'relays/correct_estimates' %>
+  <%= render :partial => 'relays/correct_estimates', :locals => { :pdf => false } %>
   <%= render :partial => 'relays/leg_links' %>
   <div class="section">
     <table>
