@@ -34,13 +34,13 @@
             (<span class='adjustment' title="Aika sisältää korjausta <%= time_from_seconds(team.adjustment(@leg.to_i).to_i, true) %> "><%= time_from_seconds(team.adjustment(@leg.to_i).to_i, true)%></span>)
             <% end %>
           </td>
-          <td class="center"><%= competitor.misses %></td>
           <td class="center">
             <%= competitor.estimate_penalties %>
             <% if @relay.finished? and competitor.estimate %>
               (<%= competitor.estimate %>m)
             <% end %>
           </td>
+          <td class="center"><%= competitor.misses %></td>
         </tr>
       <% end %>
     </table>
