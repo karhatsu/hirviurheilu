@@ -515,6 +515,27 @@ module ApplicationHelper
     cookies[result_rotation_scroll_cookie_name]
   end
   
+  def refresh_counter_min_seconds
+    20
+  end
+  
+  def refresh_counter_default_seconds
+    30
+  end
+  
+  def refresh_counter_auto_scroll
+    !(menu_series.nil? or result_rotation_auto_scroll.nil?)
+  end
+  
+  def refresh_counter_seconds(seconds=nil)
+    return seconds if seconds
+    auto_scroll = refresh_counter_auto_scroll
+    return refresh_counter_default_seconds unless auto_scroll
+    series = menu_series
+    return refresh_counter_default_seconds unless series
+    [refresh_counter_min_seconds, series.competitors.count].max
+  end
+  
   private
   def result_rotation_series_list(race)
     race_day = race.race_day

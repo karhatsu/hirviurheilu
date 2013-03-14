@@ -1210,4 +1210,91 @@ describe ApplicationHelper do
       helper.facebook_env?.should be_false
     end
   end
+  
+  describe "#refresh_counter_min_seconds" do
+    it { helper.refresh_counter_min_seconds.should == 20 }
+  end
+  
+  describe "#refresh_counter_default_seconds" do
+    it { helper.refresh_counter_default_seconds.should == 30 }
+  end
+  
+  describe "#refresh_counter_auto_scroll" do
+    context "when menu_series defined and result rotation auto scroll cookie defined" do
+      it "should return true" do
+        helper.should_receive(:menu_series).and_return(mock_model(Series))
+        helper.should_receive(:result_rotation_auto_scroll).and_return('cookie')
+        helper.refresh_counter_auto_scroll.should be_true
+      end
+    end
+    
+    context "when menu_series not available" do
+      it "should return false" do
+        helper.should_receive(:menu_series).and_return(nil)
+        helper.refresh_counter_auto_scroll.should be_false
+      end
+    end
+    
+    context "when result rotation auto scroll cookie not available" do
+      it "should return false" do
+        helper.should_receive(:menu_series).and_return(mock_model(Series))
+        helper.should_receive(:result_rotation_auto_scroll).and_return(nil)
+        helper.refresh_counter_auto_scroll.should be_false
+      end
+    end
+  end
+  
+  describe "#refresh_counter_seconds" do
+    context "when explicit seconds given" do
+      it "should return given seconds" do
+        helper.refresh_counter_seconds(25).should == 25
+      end
+    end
+    
+    context "when no explicit seconds" do
+      context "and no autoscroll" do
+        it "should return refresh counter default seconds" do
+          helper.should_receive(:refresh_counter_auto_scroll).and_return(false)
+          helper.refresh_counter_seconds.should == helper.refresh_counter_default_seconds
+        end
+      end
+      
+      context "and autoscroll" do
+        context "but no menu series" do
+          it "should return refresh counter default seconds" do
+            competitors = mock(Array)
+            helper.should_receive(:refresh_counter_auto_scroll).and_return(true)
+            helper.should_receive(:menu_series).and_return(nil)
+            helper.refresh_counter_seconds.should == helper.refresh_counter_default_seconds
+          end
+        end
+        
+        context "and menu series" do
+          context "but series have less competitors than minimum seconds" do
+            it "should return refresh counter default seconds" do
+              helper.should_receive(:refresh_counter_auto_scroll).and_return(true)
+              series = mock_model(Series)
+              competitors = mock(Array)
+              helper.should_receive(:menu_series).and_return(series)
+              series.should_receive(:competitors).and_return(competitors)
+              competitors.should_receive(:count).and_return(helper.refresh_counter_min_seconds - 1)
+              helper.refresh_counter_seconds.should == helper.refresh_counter_min_seconds
+            end            
+          end
+          
+          context "and series have at least as many competitors as minimum seconds" do
+            it "should return competitor count" do
+              helper.should_receive(:refresh_counter_auto_scroll).and_return(true)
+              series = mock_model(Series)
+              competitors = mock(Array)
+              helper.should_receive(:menu_series).and_return(series)
+              series.should_receive(:competitors).and_return(competitors)
+              competitors.should_receive(:count).and_return(helper.refresh_counter_min_seconds)
+              helper.refresh_counter_seconds.should == helper.refresh_counter_min_seconds
+            end
+          end
+        end
+      end
+    end
+  end
 end
