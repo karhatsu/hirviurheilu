@@ -17,7 +17,7 @@
         <th><%= t :team %></th>
         <th><%= t 'activerecord.models.competitor', :count => 1 %></th>
         <th><%= t :number_short %></th>
-        <th><%= time_title @relay.race %></th>
+        <th class="center"><%= time_title @relay.race %></th>
         <th><%= t 'relays.show.estimate_penalties' %></th>
         <th><%= t 'relays.show.shooting_penalties' %></th>
       </tr>
@@ -30,8 +30,11 @@
           <td class="center"><%= team.number %></td>
           <td class="center team_points">
             <%= time_from_seconds(team.time_in_seconds(@leg.to_i)) %>
-	    <% if team.adjustment(@leg.to_i) != 0 %>
-            (<span class='adjustment' title="Aika sisältää korjausta <%= time_from_seconds(team.adjustment(@leg.to_i).to_i, true) %> "><%= time_from_seconds(team.adjustment(@leg.to_i).to_i, true)%></span>)
+            <% if @leg.to_i > 1 %>
+              (<%= time_from_seconds competitor.time_in_seconds %>)
+            <% end %>
+            <% if team.adjustment(@leg.to_i) != 0 %>
+              (<span class='adjustment' title="Aika sisältää korjausta <%= time_from_seconds(team.adjustment(@leg.to_i).to_i, true) %> "><%= time_from_seconds(team.adjustment(@leg.to_i).to_i, true)%></span>)
             <% end %>
           </td>
           <td class="center">
