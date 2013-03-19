@@ -5,7 +5,7 @@
       <th>&nbsp;</th>
       <th><%= t :team %></th>
       <th><%= t :number_short %></th>
-      <th><%= time_title @race %></th>
+      <th class="center"><%= time_title @race %></th>
       <th><%= t 'relays.show.estimate_penalties' %></th>
       <th><%= t 'relays.show.shooting_penalties' %></th>
     </tr>
@@ -39,7 +39,9 @@
             <td>&nbsp;</td>
             <td><%= full_name(comp) %></td>
             <td class="center">(<%= comp.leg %>)</td>
-            <td class="center"><%= time_from_seconds(comp.time_in_seconds) %>
+            <td class="center">
+              <%= time_from_seconds(team.time_in_seconds(comp.leg)) %>
+              (<%= time_from_seconds comp.time_in_seconds %>)
               <%= relay_time_adjustment(comp.adjustment.to_i) %>
             </td>
             <td class="center">
