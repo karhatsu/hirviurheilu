@@ -12,6 +12,7 @@
   <div>
     <span class="form_label"><%= f.label :location %></span>
     <span><%= f.text_field :location %></span>
+  </div>
   <div>
     <span class="form_label"><%= f.label :start_date %></span>
     <span><%= f.date_select :start_date %></span>
@@ -19,6 +20,10 @@
   <div>
     <span class="form_label"><%= f.label :days_count %></span>
     <span><%= f.select :days_count, [['1 päivä', 1], ['2 päivää', 2], ['3 päivää', 3]] %></span>
+  </div>
+  <div>
+    <span class="form_label"><%= f.label :organizer %></span>
+    <span><%= f.text_field :organizer %></span>
   </div>
   <div>
     <span class="form_label">

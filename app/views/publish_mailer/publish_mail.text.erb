@@ -1,4 +1,5 @@
 Julkaistu kilpailu: <%= @race.name %> (<%= @race.location %>)
+Järjestäjä: <%= @race.organizer %>
 Toimitsija: <%= @user.first_name %> <%= @user.last_name %>
 
 <%= race_url @locale, @race %>

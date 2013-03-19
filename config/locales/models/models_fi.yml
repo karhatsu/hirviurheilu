@@ -47,6 +47,7 @@ fi:
     name: Nimi
     national_record: SE
     number: Numero
+    organizer: Järjestäjä (esim. seura)
     password: Salasana
     password_confirmation: Salasana uudestaan
     price: Hinta

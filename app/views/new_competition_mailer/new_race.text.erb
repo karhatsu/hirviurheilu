@@ -1,6 +1,7 @@
 Kilpailun nimi: <%= @race.name %>
 Aika: <%= race_date_interval(@race) %>
 Paikkakunta: <%= @race.location %>
+Järjestäjä: <%= @race.organizer %>
 Toimitsija: <%= full_name(@user, true) %>
 
 <%= race_url @locale, @race %>

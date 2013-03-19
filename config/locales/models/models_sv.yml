@@ -47,6 +47,7 @@ sv:
     name: Namn
     national_record: NR
     number: Nummer
+    organizer: Organizatör (t.ex. klubb)
     password: Lösenord
     password_confirmation: Lösenord igen
     price: Pris
