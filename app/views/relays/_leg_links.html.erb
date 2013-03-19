@@ -1,6 +1,5 @@
 <div class="section">
-  <b><%= t 'relays.show.legs_title' %>:</b>
-  <% (@relay.legs_count - 1).times do |i| %>
+  <% @relay.legs_count.times do |i| %>
     <% leg = i + 1 %>
     <%= link_to_unless @leg.to_i == leg, "#{t('leg')} #{leg}", relay_leg_path(@relay, leg) %>
     -
