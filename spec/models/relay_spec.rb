@@ -133,13 +133,15 @@ describe Relay do
         @team3 = create_team(3)
         @team4 = create_team(4)
         @team5 = create_team(5)
-        @team_DNS = create_team(6, RelayTeam::DNS)
-        @team_DNF = create_team(7, RelayTeam::DNF)
+        @team6 = create_team(6)
+        @team_DNS = create_team(7, RelayTeam::DNS)
+        @team_DNF = create_team(8, RelayTeam::DNF)
         create_competitor @team1, 1, '12:13:16'
         create_competitor @team2, 1, '12:13:15'
-        create_competitor @team3, 1, '12:13:14'
+        create_competitor @team3, 1, '12:13:15'
         create_competitor @team4, 1, '12:13:13'
         create_competitor @team5, 1, '12:13:12'
+        create_competitor @team6, 1, '12:13:11'
         create_competitor @team_DNS, 1, nil
         create_competitor @team_DNF, 1, '12:12:00'
         create_competitor @team1, 2, '12:24:15'
@@ -147,6 +149,7 @@ describe Relay do
         create_competitor @team3, 2, '12:24:17'
         create_competitor @team4, 2, nil
         create_competitor @team5, 2, '12:24:15'
+        create_competitor @team6, 2, '12:24:15'
         create_competitor @team_DNS, 2, nil
         create_competitor @team_DNF, 2, '12:24:16'
         create_competitor @team1, 3, '12:35:14'
@@ -154,10 +157,11 @@ describe Relay do
         create_competitor @team3, 3, '12:35:16'
         create_competitor @team4, 3, nil
         create_competitor @team5, 3, '12:35:16'
+        create_competitor @team6, 3, '12:35:16'
         create_competitor @team_DNS, 3, nil
         create_competitor @team_DNF, 3, nil
         
-        @finish_order = [@team1, @team5, @team3, @team2, @team4, @team_DNF, @team_DNS]
+        @finish_order = [@team1, @team6, @team5, @team3, @team2, @team4, @team_DNF, @team_DNS]
       end
 
       describe "#results" do
@@ -173,9 +177,9 @@ describe Relay do
         it "should return the teams sorted in a same way as in full results " +
           "except that DNF/DNS does not matter for non-last leg" do
           @relay.leg_results(1).should ==
-            [@team_DNF, @team5, @team4, @team3, @team2, @team1, @team_DNS]
+            [@team_DNF, @team6, @team5, @team4, @team2, @team3, @team1, @team_DNS]
           @relay.leg_results('2').should ==
-            [@team2, @team5, @team1, @team_DNF, @team3, @team4, @team_DNS]
+            [@team2, @team6, @team5, @team1, @team_DNF, @team3, @team4, @team_DNS]
           @relay.leg_results(3).should == @finish_order
         end
       end

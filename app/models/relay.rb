@@ -33,16 +33,22 @@ class Relay < ActiveRecord::Base
 
   def leg_results(leg)
     leg = leg.to_i
-    last_leg = (leg == legs_count)
     first_leg = (leg == 1)
+    second_leg = (leg == 2)
+    third_leg = (leg == 3)
+    last_leg = (leg == legs_count)
     relay_teams.includes(:relay_competitors => :relay_team).sort do |a,b|
       [last_leg ? a.no_result_reason.to_s : 0,
         a.time_in_seconds(leg) || 99999999,
         first_leg ? 1 : a.time_in_seconds(leg - 1) || 99999999,
+        second_leg ? 1 : a.time_in_seconds(leg - 2) || 99999999,
+        third_leg ? 1 : a.time_in_seconds(leg - 3) || 99999999,
         a.number] <=>
       [last_leg ? b.no_result_reason.to_s : 0,
         b.time_in_seconds(leg) || 99999999,
         first_leg ? 1 : b.time_in_seconds(leg - 1) || 99999999,
+        second_leg ? 1 : b.time_in_seconds(leg - 2) || 99999999,
+        third_leg ? 1 : b.time_in_seconds(leg - 3) || 99999999,
         b.number]
     end
   end
