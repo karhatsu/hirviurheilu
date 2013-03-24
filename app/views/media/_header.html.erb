@@ -8,12 +8,12 @@
   <% club_word = (@race.club_level == Race::CLUB_LEVEL_PIIRI ? t('media.show.from_district') : t('media.show.from_club')) %>
   <%= flash_error %>
   <%= form_tag(race_medium_path(@race)) do %>
-    <%= label_tag :competitors_count, t('media.show.competitors_per_series') %>
+    <span class="form_label"><%= label_tag :competitors_count, t('media.show.competitors_per_series') %></span>
     <%= text_field_tag :competitors_count, @competitors_count, :size => 3 %><br/>
-    <%= label_tag :club_id, "#{t 'media.show.also_all_competitors' } #{club_word}" %>
+    <span class="form_label"><%= label_tag :club_id, "#{t 'media.show.also_all_competitors', :from_club => club_word }" %></span><br/>
     <%= select_tag :club_id,
       options_from_collection_for_select(@race.clubs, :id, :name, params[:club_id]),
-      :prompt => "- #{t 'media.show.none'} -" %><br/>
+      :multiple => true, :size => 5 %><br/>
     <%= submit_tag t('media.show.download_report') %>
   <% end %>
 <% end %>
