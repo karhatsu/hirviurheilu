@@ -1153,13 +1153,14 @@ describe Competitor do
       FactoryGirl.build(:competitor).relative_points(@all_competitors).should == 0
     end
     
-    it "should be 1000 x points + 100 x partial points + 10 x shot points + time points" do
+    it "should be 10000 x points + 1000 x partial points + 100 x shot points + 10 x time points + negative time" do
       c = FactoryGirl.build(:competitor)
       c.stub!(:points).with(@all_competitors).and_return(800)
       c.stub!(:points!).with(@all_competitors).and_return(500)
       c.stub!(:shot_points).and_return(300)
       c.stub!(:time_points).with(@all_competitors).and_return(250)
-      c.relative_points(@all_competitors).should == 1000*800 + 100*500 + 10*300 + 250
+      c.stub!(:time_in_seconds).and_return(3000)
+      c.relative_points(@all_competitors).should == 10000*800 + 1000*500 + 100*300 + 10*250 - 3000
     end
   end
 end
