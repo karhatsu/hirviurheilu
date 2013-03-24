@@ -5,17 +5,12 @@ describe RelayMissesQuickSave do
     @race = FactoryGirl.create(:race)
     @relay = FactoryGirl.create(:relay, :race => @race, :legs_count => 2)
     @team = FactoryGirl.create(:relay_team, :relay => @relay, :number => 5)
-    @c = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 2,
-      :misses => 3)
+    @c = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 2)
   end
 
   it "should save the misses when competitor found and valid misses" do
     @qs = RelayMissesQuickSave.new(@relay.id, '5,2,1')
-    @qs.save.should be_true
-    @qs.competitor.should == @c
-    @qs.error.should be_nil
-    @c.reload
-    @c.misses.should == 1
+    check_success 1
   end
 
   it "should handle error when invalid misses" do
@@ -37,14 +32,40 @@ describe RelayMissesQuickSave do
     @qs = RelayMissesQuickSave.new(@relay.id, '5,x2,1')
     check_failure
   end
+  
+  context "when data already stored" do
+    before do
+      @c.misses = 2
+      @c.save!
+    end
+    
+    it "should handle error when normal input" do
+      @qs = RelayMissesQuickSave.new(@relay.id, '5,2,1')
+      check_failure true, 2
+    end
+    
+    it "should override when input starts with ++" do
+      @qs = RelayMissesQuickSave.new(@relay.id, '++5,2,3')
+      check_success 3
+    end
+  end
+  
+  def check_success(misses)
+    saved = @qs.save
+    raise @qs.error unless saved
+    @qs.competitor.should == @c
+    @qs.error.should be_nil
+    @c.reload
+    @c.misses.should == misses
+  end
 
-  def check_failure(competitor=false)
+  def check_failure(competitor=false, misses=nil)
     @qs.save.should be_false
     @qs.error.should_not be_nil
     @qs.competitor.should == @c if competitor
     @qs.competitor.should be_nil unless competitor
     @c.reload
-    @c.misses.should == 3
+    @c.misses.should == misses
   end
 end
 

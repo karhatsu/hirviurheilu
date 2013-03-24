@@ -14,11 +14,16 @@ class RelayQuickSave
     if valid_string?
       if find_team
         if find_competitor
-          set_competitor_attrs
-          if save_competitor
-            return true
+          if competitor_has_attrs? && !overwrite?
+            set_stored_already_error
+            return false
           else
-            set_save_error
+            set_competitor_attrs
+            if save_competitor
+              return true
+            else
+              set_save_error
+            end
           end
         else
           set_unknown_competitor_error
@@ -40,8 +45,14 @@ class RelayQuickSave
     false
   end
 
+  def overwrite?
+    @string.split(',')[0][0,2] == '++'
+  end
+
   def team_number
-    @string.split(',')[0]
+    s = @string.split(',')[0]
+    s = s[2,] if (s[0,2]) == '++'
+    s
   end
 
   def leg_number
@@ -65,6 +76,10 @@ class RelayQuickSave
   def set_competitor_attrs
     raise "Must be implemented in the sub class"
   end
+  
+  def competitor_has_attrs?
+    raise "Must be implemented in the sub class"
+  end
 
   def set_invalid_format_error
     @error = 'Syöte vääränmuotoinen'
@@ -80,5 +95,9 @@ class RelayQuickSave
 
   def set_save_error
     @error = @competitor.errors.full_messages.join(". ")
+  end
+
+  def set_stored_already_error
+    @error = 'Kilpailijalle on jo talletettu tieto, ++numero,tulos ylikirjoittaa'
   end
 end
