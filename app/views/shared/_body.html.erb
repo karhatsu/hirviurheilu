@@ -1,4 +1,5 @@
 <body>
+  <div id='page_spinner'><%= image_tag 'page_spinner.gif' %></div>
   <%= render :partial => 'shared/facebook_init' %>
   <%= render :partial => 'shared/env_info' %>
   <% unless ActivationKey.activated? %>
@@ -37,4 +38,9 @@
   <div class="footer">
     <%= render :partial => 'shared/footer' %>
   </div>
+  <%= javascript_tag do %>
+    $(document).on('page:fetch', function() {
+      $('#page_spinner').show();
+    });
+  <% end %>
 </body>

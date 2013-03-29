@@ -1,3 +1,11 @@
+#page_spinner {
+    display: none;
+    position: absolute;
+    margin: auto;
+    left: 525px;
+    top: 130px;
+    z-index: 100;
+}
 div.offline_limit {
     width: 1056px;
     margin: 0 0 5px 10px;
