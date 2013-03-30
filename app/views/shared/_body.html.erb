@@ -42,5 +42,8 @@
     $(document).on('page:fetch', function() {
       $('#page_spinner').show();
     });
+    $(document).on('page:restore', function() {
+      $('#page_spinner').hide();
+    });
   <% end %>
 </body>
