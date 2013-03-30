@@ -151,7 +151,11 @@ class Series < ActiveRecord::Base
   end
 
   def finished_competitors_count
-    competitors.count { |comp| comp.finished? }
+    count = 0
+    competitors.each do |comp|
+      count += 1 if comp.finished?
+    end
+    count
   end
 
   def ready?
