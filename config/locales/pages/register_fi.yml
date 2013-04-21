@@ -1,0 +1,8 @@
+fi:
+  register:
+    title: Rekisteröidy
+    info: Rekisteröityminen on pakollista kilpailun järjestäjille eli toimitsijoille. Kilpailijoiden ei tarvitse rekisteröityä palveluun.
+    submit: Rekisteröidy
+    already_account: Onko sinulla jo tunnukset?
+    if_has_account: Jos sinulla on jo tunnukset
+  
