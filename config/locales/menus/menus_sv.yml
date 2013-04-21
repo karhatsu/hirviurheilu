@@ -23,4 +23,19 @@ sv:
   cup_sub_menu:
     home_page: Cup-tävlingens hemsida
     results: Resultat
-    
+  official_sub_menu:
+    summary: Sammanfattning
+    race: Tävling & klasser
+    competitors: Tävlar
+    start_times: Starttider
+    quick_save: Resultat
+    times: Tider
+    estimates: Bedömningar
+    shooting: Skyttning
+    correct_distances: Riktiga avstånder
+    csv: CSV
+    team_competitions: Lagstävlingar
+    relays: Stafetter
+    officials: Funktionärer
+    download: Ladda
+    publish: Publisera

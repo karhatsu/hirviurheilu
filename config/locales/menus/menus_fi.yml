@@ -23,4 +23,19 @@ fi:
   cup_sub_menu:
     home_page: Cup-kilpailun etusivu
     results: Tulokset
-        
+  official_sub_menu:
+    summary: Yhteenveto
+    race: Kilpailu & sarjat
+    competitors: Kilpailijat
+    start_times: Lähtöajat
+    quick_save: Pikasyöttö
+    times: Ajat
+    estimates: Arviot
+    shooting: Ammunta
+    correct_distances: Oikeat arviot
+    csv: CSV
+    team_competitions: Joukkuek.
+    relays: Viestit
+    officials: Toimitsijat
+    download: Lataa
+    publish: Julkaise
