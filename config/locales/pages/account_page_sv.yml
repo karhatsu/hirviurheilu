@@ -5,3 +5,7 @@ sv:
       modify_information: Redigera avgifterna
       own_races: Egna tävlingar
       no_own_races: Du har inga egna tävlingar. Klicka Funktionärs sidor -linken på överdelen av sidan.
+    edit:
+      title: Redigera egna avgifterna
+      change_password: Växla lösenord
+      back_to_account_page: Tillbaka till Min sida

@@ -5,3 +5,7 @@ fi:
       modify_information: Muokkaa tietoja
       own_races: Omat kilpailut
       no_own_races: Sinulla ei ole vielä yhtään kilpailua. Pääset syöttämään kilpailun tietoja Toimitsijan sivut -linkistä sivun ylälaidasta.
+    edit:
+      title: Muokkaa omia tietoja
+      change_password: Vaihda salasana
+      back_to_account_page: Takaisin omiin tietoihin

@@ -69,6 +69,7 @@ fi:
   total_points: Yhteispisteet
   unofficial: Epävirallinen kilpailija
   unofficial_short: epäv.
+  update: Päivitä
   with_competitors: Kilpailijoiden kanssa
   without_competitors: Ilman kilpailijoita
   
