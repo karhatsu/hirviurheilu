@@ -1,10 +1,10 @@
-<% content_for(:title, 'Toimitsijan etusivu') %>
+<% content_for(:title, t('.title')) %>
 <% content_for(:page_title, yield(:title)) %>
 <%= flash_error %>
 <%= flash_success %>
 <% unless @races.empty? %>
   <div id="existing_races">
-    <h2>Valitse kilpailu</h2>
+    <h2><%= t('.choose_race') %></h2>
     <% @races.each do |r| %>
       <%= link_to r.name, official_race_path(r) %> (<%= race_date_interval(r) %>,
       <%= r.location %>)<br/>
@@ -14,14 +14,13 @@
       <%= link_to cup.name, official_cup_path(cup) %><br/>
     <% end %>
   </div>
-  <h2 id="new_race">Tai</h2>
+  <h2 id="new_race"><%= t('.or') %></h2>
 <% else %>
-  <%= highlight_info('Sinulla ei ole vielä yhtään kilpailua. ' +
-      'Aloita luomalla kilpailu alla olevasta linkistä.') %>
+  <%= highlight_info(t('.no_races_yet')) %>
 <% end %>
 <div class="action_box">
-  <%= link_to "Lisää uusi kilpailu", new_official_race_path %>
+  <%= link_to t('.add_new_race'), new_official_race_path %>
 </div>
 <div class="action_box">
-  <%= link_to "Lisää uusi cup-kilpailu", new_official_cup_path %>
+  <%= link_to t('.add_new_cup'), new_official_cup_path %>
 </div>
