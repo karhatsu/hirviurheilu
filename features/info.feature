@@ -10,7 +10,7 @@ Feature: Info page
     And the "Info" main menu item should be selected
     And the page title should contain "Tietoa Hirviurheilusta"
     And I should see /Ota yhteyttä/ within "h2"
-    And I should see /Palvelun toimittaja/ within ".company_contact"
+    And I should see /Palvelun tarjoaa/ within ".company_contact"
     And I should see /Karhatsu IT Consulting Oy/ within ".company_contact"
     When I follow "Lähetä palautetta"
     Then I should be on the send feedback page

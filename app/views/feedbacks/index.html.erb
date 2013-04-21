@@ -1,4 +1,5 @@
-<% content_for(:page_title, 'Kiitos palautteesta') %>
-Jos jätit yhteystietosi, otamme sinuun yhteyttä mahdollisimman pian.
+<% content_for(:page_title, t('.title')) %>
+<h2><%= t '.title' %></h2>
+<div class="info"><%= t '.info' %></div>
 <hr/>
-<%= link_to "Takaisin etusivulle", root_path %>
+<%= link_to t(:back_to_home_page), root_path %>
