@@ -30,4 +30,17 @@ sv:
         add_age_group: Öka äldsgrupp
         remove_series: Radera klassen
         add_series: Öka ny klass till tävlingen
-        
+      show:
+        no_series_for_race: Du har ökat inga klasser för tävlingen. Klicka länken nedenför för att öka klasser.
+        no_competitors_for_race: Du har ökat inga tävlar för tävlingen. Klicka en länk nästan klassens namn för att öka tävlar.
+        add_series_first_competitor: Öka klassens första tävlare
+        remove_race: Radera tävlingen
+        edit_race_and_series: Redigera tävlingens och klassernas avgifter, öka klasser
+        add_competitors_from_csv: Öka tävlar från CSV-fil
+        finish_race_submit: Slut tävlingen
+        finish_race_text: när du har sparat alla resultaten, så att de rätta avstånderna kan publiseras
+        add_new: Öka ny
+        create_start_list: Gör startlista
+        input_results: Spara resultat
+        set_correct_estimates: Sätt
+        publish_race_to_internet: Publisera tävlingen till internet

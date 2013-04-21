@@ -1,4 +1,4 @@
 <%= form_tag(official_race_finish_race_path(race)) do %>
-  <%= submit_tag "Merkitse kilpailu päättyneeksi" %>
-  kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista.
+  <%= submit_tag t('official.races.show.finish_race_submit') %>
+  <%= t('official.races.show.finish_race_text') %>
 <% end %>
