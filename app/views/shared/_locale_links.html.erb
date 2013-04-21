@@ -1,7 +1,7 @@
 <%
 def locale_link(locale, text)
-  link_to image_tag("locale_#{locale}.png", :alt => text, :title => text, :class => 'locale_flag'), "?new_locale=#{locale}",
-    :class => 'navigation' unless I18n.locale == locale
+  link_to_unless I18n.locale == locale, image_tag("locale_#{locale}.png", :alt => text,
+    :title => text, :class => 'locale_flag'), "?new_locale=#{locale}", :class => 'navigation'
 end
 %>
 <%= locale_link :fi, 'Suomeksi' %>
