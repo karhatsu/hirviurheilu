@@ -1,6 +1,6 @@
 <%= form_for([:official, @race], :html => { :class => 'race_form' }) do |f| %>
   <%= render :partial => "shared/form_errors", :locals => { :item => @race } %>
-  <h3>Kilpailun perustiedot</h3>
+  <h3><%= t 'official.races.form.basic_information' %></h3>
   <div>
     <span class="form_label"><%= f.label :sport %></span>
     <span><%= f.collection_select(:sport_id, Sport.all, :id, :name) %></span>
@@ -27,18 +27,18 @@
   </div>
   <div>
     <span class="form_label">
-      <%= f.label :home_page, 'Linkki kilpailun kotisivuille' %>
+      <%= f.label :home_page, t('official.races.form.link_to_race_home_page') %>
       <a class="help" id="home_page_help" href="javascript:void(0);">?</a>
     </span>
     <span><%= f.url_field :home_page %></span>
   </div>
   <div>
-    <span class="form_label">Kilpailijan edustustaso</span>
+    <span class="form_label"><%= t 'official.races.form.competitor_organisation' %></span>
     <span>
       <%= f.radio_button :club_level, Race::CLUB_LEVEL_SEURA %>
-      <%= f.label "club_level_#{Race::CLUB_LEVEL_SEURA}", 'Seura' %>
+      <%= f.label "club_level_#{Race::CLUB_LEVEL_SEURA}", t(:club) %>
       <%= f.radio_button :club_level, Race::CLUB_LEVEL_PIIRI %>
-      <%= f.label "club_level_#{Race::CLUB_LEVEL_PIIRI}", 'Piiri' %>
+      <%= f.label "club_level_#{Race::CLUB_LEVEL_PIIRI}", t(:district) %>
     </span>
   </div>
   <div id="home_page_help_dialog" class="dialog" style="display: none;">
@@ -69,10 +69,10 @@
     että kun olet lisäämässä kilpailijaa, sinun täytyy myös määrittää hänelle lähtöaika
     ja lähtönumero. Lähtölistat syntyvät näin ollen samalla, kun lisäät kilpailijoita.
   </div>
-  <h3>Lähtöajat</h3>
+  <h3><%= t 'official.races.form.start_times' %></h3>
   <div>
     <span class="form_label"><%= f.label :start_interval_seconds %></span>
-    <span><%= f.text_field :start_interval_seconds, :size => 3, :maxlength => 3 %> sekuntia</span>
+    <span><%= f.text_field :start_interval_seconds, :size => 3, :maxlength => 3 %> <%= t 'official.races.form.seconds' %></span>
   </div>
   <div>
     <span class="form_label">
@@ -82,24 +82,24 @@
     <span>
       <%= f.radio_button :start_order, Race::START_ORDER_NOT_SELECTED, :style => 'display:none;' %>
       <%= f.radio_button :start_order, Race::START_ORDER_BY_SERIES %>
-      <%= f.label "start_order_#{Race::START_ORDER_BY_SERIES}", 'Pääsääntöisesti sarjoittain' %>
+      <%= f.label "start_order_#{Race::START_ORDER_BY_SERIES}", t('official.races.form.competitors_start_order_series') %>
       <%= f.radio_button :start_order, Race::START_ORDER_MIXED %>
-      <%= f.label "start_order_#{Race::START_ORDER_MIXED}", 'Sarjat sekaisin' %>
+      <%= f.label "start_order_#{Race::START_ORDER_MIXED}", t('official.races.form.competitors_start_order_mixed') %>
     </span>
   </div>
   <div class="batch_size_row">
     <span class="form_label"><%= f.label :batch_size %> <a class="help" id="batch_size_help" href="javascript:void(0);">?</a></span>
-    <span><%= f.text_field :batch_size, :size => 3, :maxlength => 3 %> (0 = lähtöerät eivät käytössä)</span>
+    <span><%= f.text_field :batch_size, :size => 3, :maxlength => 3 %> (0 = <%= t 'official.races.form.start_batches_not_in_use' %>)</span>
   </div>
   <div class="batch_size_row">
     <span class="form_label"><%= f.label :batch_interval_seconds %></span>
-    <span><%= f.text_field :batch_interval_seconds, :size => 3, :maxlength => 3 %> sekuntia</span>
+    <span><%= f.text_field :batch_interval_seconds, :size => 3, :maxlength => 3 %> <%= t 'official.races.form.seconds' %></span>
   </div>
   <% if @race.new_record? %>
-    <h3>Sarjat</h3>
+    <h3><%= t 'activerecord.models.series.other' %></h3>
     <div>
       <span class="form_label">
-        <%= label_tag :add_default_series, "Lisää oletussarjat automaattisesti" %>
+        <%= label_tag :add_default_series, t('official.races.new.add_default_series_automatically') %>
         <a class="help" id="default_series_help" href="javascript:void(0);">?</a>
       </span>
       <span><%= check_box_tag :add_default_series, "1", true %></span>
@@ -125,7 +125,7 @@
     <br/>
   <% else %>
     <%= submit_tag submit_label %>
-    <h3>Sarjat</h3>
+    <h3><%= t 'activerecord.models.series.other' %></h3>
     <%= f.fields_for :series do |series_form| %>
       <%= render :partial => "series", :locals => { :f => series_form } %>
     <% end %>

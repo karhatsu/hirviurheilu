@@ -8,3 +8,18 @@ fi:
         add_new_race: Lisää uusi kilpailu
         add_new_cup: Lisää uusi cup-kilpailu
         no_races_yet: Sinulla ei ole vielä yhtään kilpailua. Aloita luomalla kilpailu alla olevasta linkistä.
+    races:
+      new:
+        title: Kilpailun lisäys
+        add_default_series_automatically: Lisää oletussarjat automaattisesti
+        submit: Lisää kilpailu
+      form:
+        basic_information: Kilpailun perustiedot
+        link_to_race_home_page: Linkki kilpailun kotisivuille
+        competitor_organisation: Kilpailijoiden edustustaso
+        seconds: sekuntia
+        start_times: Lähtöajat
+        competitors_start_order_series: Pääsääntöisesti sarjoittain
+        competitors_start_order_mixed: Sarjat sekaisin
+        start_batches_not_in_use: lähtöerät eivät käytössä
+        

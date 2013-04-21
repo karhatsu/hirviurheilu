@@ -8,3 +8,17 @@ sv:
         add_new_race: Öka en tävling
         add_new_cup: Öka en cup-tävling
         no_races_yet: Du har ännu inga tävlingar. Klicka linken nedenför för att öka en tävling.
+    races:
+      new:
+        title: Öka tävling
+        add_default_series_automatically: Öka standardklasser automatiskt
+        submit: Öka tävling
+      form:
+        basic_information: Tävlingens basavgifter
+        link_to_race_home_page: Länken till tävlingens hemsida
+        competitor_organisation: Tävlarnas hörar till
+        seconds: sekunder
+        start_times: Starttider
+        competitors_start_order_series: Klass efter klass
+        competitors_start_order_mixed: Klasser blandad
+        start_batches_not_in_use: inga startsatser
