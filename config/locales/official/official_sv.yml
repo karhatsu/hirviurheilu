@@ -1,5 +1,6 @@
 sv:
   official:
+    estimate_count: Bedömningsavstånd antal
     index:
       show:
         title: Funktionärs hemsida
@@ -13,6 +14,9 @@ sv:
         title: Öka tävling
         add_default_series_automatically: Öka standardklasser automatiskt
         submit: Öka tävling
+      edit:
+        title: Tävlingens redigering
+        submit: Spara tävlingens och klassernas avgifter
       form:
         basic_information: Tävlingens basavgifter
         link_to_race_home_page: Länken till tävlingens hemsida
@@ -22,3 +26,8 @@ sv:
         competitors_start_order_series: Klass efter klass
         competitors_start_order_mixed: Klasser blandad
         start_batches_not_in_use: inga startsatser
+        age_groups_with_own_time_points: Äldsgrupper med egna tidpöang
+        add_age_group: Öka äldsgrupp
+        remove_series: Radera klassen
+        add_series: Öka ny klass till tävlingen
+        

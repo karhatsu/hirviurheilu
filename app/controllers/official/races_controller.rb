@@ -60,9 +60,9 @@ class Official::RacesController < Official::OfficialController
   private
   def create_time_points_type_options
     @time_points_type_options = [
-      ['Normaali', Series::TIME_POINTS_TYPE_NORMAL],
-      ['Ei aikapisteitä', Series::TIME_POINTS_TYPE_NONE],
-      ['Kaikille 300', Series::TIME_POINTS_TYPE_ALL_300]
+      [t(:time_points_normal), Series::TIME_POINTS_TYPE_NORMAL],
+      [t(:time_points_none), Series::TIME_POINTS_TYPE_NONE],
+      [t(:time_points_300), Series::TIME_POINTS_TYPE_ALL_300]
     ]
   end
 end
