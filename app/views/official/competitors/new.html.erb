@@ -14,7 +14,7 @@
   <ul id="latest_competitors_list"></ul>
 </div>
 <hr/>
-<%= link_to t('.add_competitors_from_csv_file'), new_official_race_csv_import_path(@series.race) %><br/>
+<%= link_to t('official.add_competitors_from_csv_file'), new_official_race_csv_import_path(@series.race) %><br/>
 <%= link_to raw(t('.back_to_series_competitors_list', :series_name => @series.name)),
   official_series_competitors_path(@series), :id => 'back_to_series' %><br/>
 <%= link_to t(:back_to_official_race_page), official_race_path(@series.race) %>

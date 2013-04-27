@@ -1,6 +1,5 @@
 fi:
   start_lists:
     show:
-      download_start_list_pdf: Lataa lähtölista PDF-tiedostona
       no_competitors_or_start_times: Tähän sarjaan ei ole merkitty kilpailijoita tai heille ei ole määritetty vielä lähtöaikoja.
       

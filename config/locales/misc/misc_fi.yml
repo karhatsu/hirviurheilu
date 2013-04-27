@@ -30,6 +30,7 @@ fi:
   district: Piiri
   districts: Piirit
   download_results_pdf: Lataa tulokset PDF-tiedostona
+  download_start_list_pdf: Lataa lähtölista PDF-tiedostona
   estimate_count_4: Sarjassa on 4 arviomatkaa.
   estimated_distances: Arvioidut etäisyydet
   estimating: Arviointi
@@ -56,6 +57,7 @@ fi:
   refresh_counter_pause: Pysäytä laskenta.
   refresh_counter_paused: Uuden tulossivun automaattinen lataus pysäytetty.
   refresh_counter_continue: Ota automaattinen lataus takaisin käyttöön.
+  remove: Poista
   result_time: Aika
   results: Tulokset
   save: Tallenna

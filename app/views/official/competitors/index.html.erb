@@ -1,30 +1,27 @@
-<% content_for :title, "#{@series.race.name} - #{@series.name} - Kilpailijat" %>
-<h2><%= "#{@series.name} - Kilpailijat" %></h2>
+<% content_for :title, "#{@series.race.name} - #{@series.name} - #{t('.title')}" %>
+<h2><%= "#{@series.name} - #{t('.title')}" %></h2>
 <% content_for :sub_sub_menu do %>
   <%= render :layout => 'shared/series_sub_menu',
     :locals => { :race => @series.race, :series_id => @series.id } do |series| %><%= official_series_competitors_path(series) %><% end %>
 <% end %>
 <% if @series.competitors.empty? %>
-  <%= highlight_info('Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.') %>
+  <%= highlight_info(t('.no_competitors_in_series')) %>
   <div class="action_box">
-    <%= link_to "Lisää kilpailija", new_official_series_competitor_path(@series) %>
+    <%= link_to t('.add_competitor'), new_official_series_competitor_path(@series) %>
   </div>
 <% else %>
   <div class="action_box">
-    <%= link_to "Lisää uusi kilpailija", new_official_series_competitor_path(@series) %>
+    <%= link_to t('.add_new_competitor'), new_official_series_competitor_path(@series) %>
   </div>
   <% unless @series.has_start_list? %>
-    <%= highlight_info('Kun olet syöttänyt sarjaan kaikki kilpailijat, ' +
-        'lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot. ' +
-        '(Voit lisätä jälki-ilmoittautuneita kilpailijoita vielä lähtölistan ' +
-        'luomisen jälkeenkin.)') %>
+    <%= highlight_info(t('.create_start_list_info')) %>
   <% end %>
   <div class="section">
     <% unless @series.some_competitor_has_arrival_time? or @series.race.start_order == Race::START_ORDER_MIXED %>
       <%= flash_error %>
       <%= flash_success %>
       <%= render :partial => 'shared/form_errors', :locals => { :item => @series } %>
-      <div class="info">Valitse lähtöajaksi todellinen kellonaika, esim. 10:30.</div>
+      <div class="info"><%= t('.start_time_info') %></div>
       <%= form_for([:official, @series], :url => official_series_start_list_path,
             :html => { :onsubmit => 'return warnRerun()' }) do |f| %>
         <%= f.label :first_number %>
@@ -39,8 +36,7 @@
         <%= radio_button_tag :order_method, Series::START_LIST_RANDOM,
           Series::START_LIST_RANDOM == @order_method %>
         <%= t "order_method_#{Series::START_LIST_RANDOM}" %>
-        <%= submit_tag (@series.has_start_list? ? "Tee uusi lähtölista sarjalle" :
-            "Luo lähtölista sarjalle") %>
+        <%= submit_tag (@series.has_start_list? ? t('.create_new_start_list') : t('.create_start_list')) %>
       <% end %>
       <hr/>
     <% end %>
@@ -59,13 +55,11 @@
 <% end %>
 <% if @series.has_start_list? %>
   <div class="action_box">
-    <%= link_to "Lataa lähtölista pdf-tiedostona", series_start_list_path(@series,
-      :format => 'pdf') %>
+    <%= link_to t(:download_start_list_pdf), series_start_list_path(@series, :format => 'pdf') %>
   </div>
 <% end %>
 <div class="action_box">
-  <%= link_to "Lisää kilpailijoita CSV-tiedostosta",
-    new_official_race_csv_import_path(@series.race) %>
+  <%= link_to t('official.add_competitors_from_csv_file'), new_official_race_csv_import_path(@series.race) %>
 </div>
 <hr/>
-<%= link_to "Takaisin Yhteenveto-sivulle", official_race_path(@series.race) %>
+<%= link_to t(:back_to_official_race_page), official_race_path(@series.race) %>

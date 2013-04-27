@@ -1,11 +1,11 @@
 <table cellspacing="0" border="1" style="margin-bottom: 5px;">
   <tr>
-    <th>Kilpailija</th>
+    <th><%= t 'activerecord.models.competitor.one' %></th>
     <th><%= club_title(series.race) %></th>
-    <th>Nro</th>
-    <th>Lähtöaika</th>
+    <th><%= t :number_short %></th>
+    <th><%= t 'attributes.start_time' %></th>
     <% if result_column %>
-      <th>Tulos syötetty</th>
+      <th><%= t 'official.competitors.index.result_saved' %></th>
     <% end %>
     <% if remove_column %>
       <th>&nbsp;</th>
@@ -25,8 +25,8 @@
         <td class="center"><%= yes_or_empty(comp.finished?) %></td>
       <% end %>
       <% if remove_column %>
-        <td><%= link_to "Poista", official_series_competitor_path(series.id, comp),
-            :data => { :confirm => "Haluatko varmasti poistaa tämän kilpailijan?" },
+        <td><%= link_to t(:remove), official_series_competitor_path(series.id, comp),
+            :data => { :confirm => t('official.competitors.index.remove_confirmation') },
             :method => :delete, :remote => true %></td>
       <% end %>
     </tr>

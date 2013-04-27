@@ -1,5 +1,6 @@
 fi:
   official:
+    add_competitors_from_csv_file: Lisää kilpailijoita CSV-tiedostosta
     estimate_count: Arviomatkojen lkm
     index:
       show:
@@ -46,8 +47,18 @@ fi:
         set_correct_estimates: Aseta
         publish_race_to_internet: Julkaise kilpailu internetissä
     competitors:
+      index:
+        title: Kilpailijat
+        no_competitors_in_series: Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.
+        add_competitor: Lisää kilpailija
+        add_new_competitor: Lisää uusi kilpailija
+        create_start_list_info: Kun olet syöttänyt sarjaan kaikki kilpailijat, lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot. (Voit lisätä jälki-ilmoittautuneita kilpailijoita vielä lähtölistan luomisen jälkeenkin.
+        start_time_info: Valitse lähtöajaksi todellinen kellonaika, esim. 10:30.
+        create_start_list: Luo lähtölista sarjalle
+        create_new_start_list: Tee uusi lähtölista sarjalle
+        result_saved: Tulos syötetty
+        remove_confirmation: Haluatko varmasti poistaa tämän kilpailijan?
       new:
-        title: uusi kilpailija
+        title: Uusi kilpailija
         latest_added_competitors: Viimeksi lisätyt kilpailijat
-        add_competitors_from_csv_file: Lisää kilpailijoita CSV-tiedostosta
         back_to_series_competitors_list: Takaisin sarjan <span id='series_name'>%{series_name}</span> kilpailijaluetteloon

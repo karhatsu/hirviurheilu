@@ -1,5 +1,6 @@
 sv:
   official:
+    add_competitors_from_csv_file: Öka tävlar från CSV-fil
     estimate_count: Bedömningsavstånd antal
     index:
       show:
@@ -46,8 +47,18 @@ sv:
         set_correct_estimates: Sätt
         publish_race_to_internet: Publisera tävlingen till internet
     competitors:
+      index:
+        title: Tävlar
+        no_competitors_in_series: Du har sparat inga tävlar för den här klassen.
+        add_competitor: Öka tävlare
+        add_new_competitor: Öka ny tävlare
+        create_start_list_info: När du har sparat alla tävlar för klassen, skapa dem starttider och -nummer med formuläret neden. (Du kan öka mera tävlar även efter du has skapat startlistan.)
+        start_time_info: Använd en verklig tid som starttiden, t.ex. 10:30.
+        create_start_list: Skapa en startlista för klassen
+        create_new_start_list: Skapa en ny startlista för klassen
+        result_saved: Resultat sparat
+        remove_confirmation: Är du säker att du vill radera tävlaren?
       new:
-        title: ny tävlare
+        title: Ny tävlare
         latest_added_competitors: Senaste ökade tävlarna
-        add_competitors_from_csv_file: Öka tävlar från CSV-fil
         back_to_series_competitors_list: Tillbaka till klassens <span id='series_name'>%{series_name}</span> tävlarlist

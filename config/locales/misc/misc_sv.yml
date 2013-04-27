@@ -30,6 +30,7 @@ sv:
   district: Trakt
   districts: Trakter
   download_results_pdf: Ladda resultaten som PDF-fil
+  download_start_list_pdf: Ladda startlista som PDF-fil
   estimate_count_4: Tävlarna bedömner 4 gånger i den här klassen.
   estimated_distances: Bedömnade avstånd
   estimating: Bedömning
@@ -56,6 +57,7 @@ sv:
   refresh_counter_pause: Pausa
   refresh_counter_paused: Automatisk uppdatering om ny resultatssida pausats.
   refresh_counter_continue: Ta automatisk uppdatering tillbaka i bruk.
+  remove: Radera
   result_time: Tid
   results: Resultat
   save: Spara
