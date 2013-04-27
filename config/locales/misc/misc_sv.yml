@@ -5,6 +5,7 @@ sv:
   back_to_cup_page: Tillbaka till cup-tävlingens hemsida
   back_to_home_page: Tillbaka till hemsida
   back_to_official_home_page: Tillbaka till funktionärs hemsida
+  back_to_official_race_page: Tillbaka till Sammanfattning-sida
   back_to_page: Tillbaka till sida
   back_to_race_home_page: Tillbaka till tävlingens hemsida
   back_to_series_results: Tillbaka till klassens %{series_name} resultat
@@ -57,6 +58,7 @@ sv:
   refresh_counter_continue: Ta automatisk uppdatering tillbaka i bruk.
   result_time: Tid
   results: Resultat
+  save: Spara
   send: Skicka
   send_feedback: Skicka feedback
   series: Klass

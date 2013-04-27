@@ -28,6 +28,7 @@ fi:
         start_batches_not_in_use: lähtöerät eivät käytössä
         age_groups_with_own_time_points: Ikäryhmät, joille lasketaan omat aikapisteet
         add_age_group: Lisää ikäryhmä
+        remove_age_group: Poista ikäryhmä
         remove_series: Poista tämä sarja
         add_series: Lisää uusi sarja tähän kilpailuun
       show:
@@ -44,3 +45,9 @@ fi:
         input_results: Tulosten syöttö
         set_correct_estimates: Aseta
         publish_race_to_internet: Julkaise kilpailu internetissä
+    competitors:
+      new:
+        title: uusi kilpailija
+        latest_added_competitors: Viimeksi lisätyt kilpailijat
+        add_competitors_from_csv_file: Lisää kilpailijoita CSV-tiedostosta
+        back_to_series_competitors_list: Takaisin sarjan <span id='series_name'>%{series_name}</span> kilpailijaluetteloon

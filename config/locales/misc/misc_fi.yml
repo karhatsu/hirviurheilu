@@ -5,6 +5,7 @@ fi:
   back_to_cup_page: Takaisin cup-kilpailun etusivulle
   back_to_home_page: Takaisin etusivulle
   back_to_official_home_page: Takaisin toimitsijan etusivulle
+  back_to_official_race_page: Takaisin Yhteenveto-sivulle
   back_to_page: Takaisin sivulle
   back_to_race_home_page: Takaisin kilpailun etusivulle
   back_to_series_results: Takaisin sarjan %{series_name} tuloksiin
@@ -57,6 +58,7 @@ fi:
   refresh_counter_continue: Ota automaattinen lataus takaisin käyttöön.
   result_time: Aika
   results: Tulokset
+  save: Tallenna
   send: Lähetä
   send_feedback: Lähetä palautetta
   series: Sarja

@@ -28,6 +28,7 @@ sv:
         start_batches_not_in_use: inga startsatser
         age_groups_with_own_time_points: Äldsgrupper med egna tidpöang
         add_age_group: Öka äldsgrupp
+        remove_age_group: Radera äldsgruppen
         remove_series: Radera klassen
         add_series: Öka ny klass till tävlingen
       show:
@@ -44,3 +45,9 @@ sv:
         input_results: Spara resultat
         set_correct_estimates: Sätt
         publish_race_to_internet: Publisera tävlingen till internet
+    competitors:
+      new:
+        title: ny tävlare
+        latest_added_competitors: Senaste ökade tävlarna
+        add_competitors_from_csv_file: Öka tävlar från CSV-fil
+        back_to_series_competitors_list: Tillbaka till klassens <span id='series_name'>%{series_name}</span> tävlarlist
