@@ -1,14 +1,12 @@
-<div class="info">Syötä joko yhteistulos TAI yksittäiset laukaukset,
-  ei molempia.</div>
-<div class="info">Jos syötät vahingossa virheellisen tuloksen jollekin kilpailijalle
-  ja haluat muuttaa tulosta, lataa koko sivu ensin uudestaan.</div>
+<div class="info"><%= t 'official.result_place.shooting.either_total_or_shots' %></div>
+<div class="info"><%= t 'official.result_place.shooting.reload_after_save' %></div>
 <table>
   <tr>
-    <th>Nro</th>
-    <th>Kilpailija</th>
-    <th>Summa</th>
-    <th>Yksittäiset laukaukset</th>
-    <th>Tulos</th>
+    <th><%= t :number_short %></th>
+    <th><%= t 'activerecord.models.competitor.one' %></th>
+    <th><%= t 'official.result_place.shooting.sum' %></th>
+    <th><%= t 'official.result_place.shooting.individual_shots' %></th>
+    <th><%= t 'official.result_place.shooting.result' %></th>
     <th>&nbsp;</th>
     <th>&nbsp;</th>
   </tr>
@@ -24,7 +22,7 @@
             :competitor => c } %></td>
         <td><%= text_field_tag :result, c.shots_sum, :class => 'result',
             :disabled => true, :size => 2 %></td>
-        <td><%= submit_tag "Tallenna", :onclick => "start_updating(#{c.id})",
+        <td><%= submit_tag t(:save), :onclick => "start_updating(#{c.id})",
             :class => 'save', :id => "submit_#{c.id}" %></td>
         <td id="status_<%= c.id %>">&nbsp;</td>
       </tr>

@@ -80,3 +80,9 @@ fi:
       no_competitors_in_series: Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.
       no_start_list_for_series: Tähän sarjaan ei ole luotu vielä lähtölistaa. Tulokset voi syöttää vasta sitten kun lähtölista on luotu.
       generate_start_times: Lähtöaikojen ja -numeroiden luonti
+      shooting:
+        either_total_or_shots: Syötä joko yhteistulos TAI yksittäiset laukaukset, ei molempia.
+        reload_after_save: Jos syötät vahingossa virheellisen tuloksen jollekin kilpailijalle ja haluat muuttaa tulosta, lataa koko sivu ensin uudestaan.
+        sum: Summa
+        individual_shots: Yksittäiset laukaukset
+        result: Tulos

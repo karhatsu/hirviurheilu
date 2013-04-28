@@ -80,3 +80,9 @@ sv:
       no_competitors_in_series: Du har sparat inga tävlar för den här klassen.
       no_start_list_for_series: Den här klassen har inte ännu startlista. Du kan spara resultat efter startlistan har skapats.
       generate_start_times: Skapa starttider och -nummer
+      shooting:
+        either_total_or_shots: Spara antingen totalresultat eller enskilda skott, inte båda.
+        reload_after_save: Om du sparar ett felt resultat för någon tävlare och vill växla resultatet, ladda hela sidan igen.
+        sum: Summa
+        individual_shots: Enskilda skott
+        result: Resultat
