@@ -41,7 +41,6 @@ sv:
         add_competitors_from_csv: Öka tävlar från CSV-fil
         finish_race_submit: Slut tävlingen
         finish_race_text: när du har sparat alla resultaten, så att de rätta avstånderna kan publiseras
-        add_new: Öka ny
         create_start_list: Gör startlista
         input_results: Spara resultat
         set_correct_estimates: Sätt
@@ -62,3 +61,7 @@ sv:
         title: Ny tävlare
         latest_added_competitors: Senaste ökade tävlarna
         back_to_series_competitors_list: Tillbaka till klassens <span id='series_name'>%{series_name}</span> tävlarlist
+    start_lists:
+      show:
+        title: Starttider för all tävlarna
+        no_start_list_for_any_series: Ingen klass har startlist ännu

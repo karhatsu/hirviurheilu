@@ -1,5 +1,6 @@
 fi:
   add_competitors: Lisää kilpailijoita
+  add_new: Lisää uusi
   all: Kaikki
   all_competitors: Kaikki kilpailijat
   back_to_cup_page: Takaisin cup-kilpailun etusivulle

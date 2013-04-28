@@ -77,6 +77,9 @@ fi:
 
   activerecord:
     models:
+      age_group:
+        one: Ikäryhmä
+        other: Ikäryhmät
       club:
         one: Piiri/seura
         other: Piirit/seurat

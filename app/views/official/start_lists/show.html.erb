@@ -1,28 +1,28 @@
-<% content_for :title, "Kaikkien kilpailijoiden lähtöajat" %>
+<% content_for :title, t('.title') %>
 <% content_for :page_title, yield(:title) %>
-<h2>Kaikkien kilpailijoiden lähtöajat</h2>
+<h2><%= yield :title %></h2>
 <% if @all_series.length == 0 %>
-  <div class="info">Yhdellekään sarjalle ei ole luotu vielä lähtölistaa</div>
+  <div class="info"><%= t '.no_start_list_for_any_series' %></div>
 <% else %>
   <div id="update_error"></div>
   <div id="competitors_table">
     <div class="header_row">
-      <div class="title number">Nro</div>
-      <div class="title start_time">Lähtöaika</div>
-      <div class="title first_name">Etunimi</div>
-      <div class="title last_name">Sukunimi</div>
+      <div class="title number"><%= t :number_short %></div>
+      <div class="title start_time"><%= t 'attributes.start_time' %></div>
+      <div class="title first_name"><%= t 'attributes.first_name' %></div>
+      <div class="title last_name"><%= t 'attributes.last_name' %></div>
       <div class="title club"><%= club_title @race %></div>
-      <div class="title series">Sarja</div>
-      <div class="title age_group">Ikäryhmä</div>
+      <div class="title series"><%= t :series %></div>
+      <div class="title age_group"><%= t 'activerecord.models.age_group.one' %></div>
       <div class="title button">&nbsp;</div>
       <div class="title">&nbsp;</div>
     </div>
     <%= render :partial => 'competitor_row', :locals => { :c => @new_competitor,
-      :save_button => 'Lisää uusi', :id => 'new', :parent => @race } %>
+      :save_button => t(:add_new), :id => 'new', :parent => @race } %>
     <div id="ruler"><hr/></div>
     <% @competitors.each do |c| %>
       <%= render :partial => 'competitor_row', :locals => { :c => c,
-        :save_button => 'Tallenna', :id => c.id, :parent => c.series } %>
+        :save_button => t(:save), :id => c.id, :parent => c.series } %>
     <% end %>
   </div>
   <%= javascript_tag do %>
@@ -49,5 +49,5 @@
     }
   <% end %>
   <hr/>
-  <div class="action_box"><%= link_to 'Lataa lähtöajat PDF-tiedostona', race_start_lists_path(@race, :format => :pdf) %></div>
+  <div class="action_box"><%= link_to t(:download_start_list_pdf), race_start_lists_path(@race, :format => :pdf) %></div>
 <% end %>

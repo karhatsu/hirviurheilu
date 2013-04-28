@@ -33,7 +33,7 @@
       <% if competitor_count > 0 %>
         <td class="center"><%= link_to t("competitors.people_short",
             :count => competitor_count), official_series_competitors_path(s) %></td>
-        <td class="center"><%= link_to t('.add_new'),
+        <td class="center"><%= link_to t(:add_new),
             new_official_series_competitor_path(s) %></td>
         <td class="center"><%= yes_or_empty(s.has_start_list?) do
             link_to t('.create_start_list'), official_series_competitors_path(s)

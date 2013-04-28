@@ -77,6 +77,9 @@ sv:
 
   activerecord:
     models:
+      age_group:
+        one: Äldsgrupp
+        other: Äldsgruppar
       club:
         one: Klubb
         other: Klubbar
