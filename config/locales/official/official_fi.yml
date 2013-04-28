@@ -76,3 +76,7 @@ fi:
         instructions_shooting: Syötä tulos muodossa nro,ammuntatulos, esim. 45,87 (kilpailija 45, ammunta yhteensä 87). Tai vaihtoehtoisesti laukausten kanssa siten että +-merkki on 10, esim. 45,++99877420 (merkitse ohilaukauksille nollat).
         instructions_dns_dnf: Jos kilpailija ei lähtenyt matkaan, syötä tieto muodossa nro,dns esim. 45,dns (kilpailija 45, DNS = did not start). Jos kilpailija keskeytti, syötä tieto muodossa nro,dnf esim. 45,dnf (kilpailija 45, DNF = did not finish).
         latest_savings: Viimeisimmät tallennukset
+    result_place:
+      no_competitors_in_series: Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.
+      no_start_list_for_series: Tähän sarjaan ei ole luotu vielä lähtölistaa. Tulokset voi syöttää vasta sitten kun lähtölista on luotu.
+      generate_start_times: Lähtöaikojen ja -numeroiden luonti

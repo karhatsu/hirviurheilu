@@ -32,6 +32,7 @@ fi:
   districts: Piirit
   download_results_pdf: Lataa tulokset PDF-tiedostona
   download_start_list_pdf: Lataa lähtölista PDF-tiedostona
+  error: Virhe
   estimate_count_4: Sarjassa on 4 arviomatkaa.
   estimated_distances: Arvioidut etäisyydet
   estimating: Arviointi
@@ -62,6 +63,7 @@ fi:
   result_time: Aika
   results: Tulokset
   save: Tallenna
+  saved: Tallennettu
   send: Lähetä
   send_feedback: Lähetä palautetta
   series: Sarja

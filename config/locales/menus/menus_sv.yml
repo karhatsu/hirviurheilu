@@ -30,8 +30,8 @@ sv:
     start_times: Starttider
     quick_save: Resultat
     times: Tider
-    estimates: Bedömningar
-    shooting: Skyttning
+    estimates: Bedömning
+    shooting: Skytte
     correct_distances: Riktiga avstånder
     csv: CSV
     team_competitions: Lagstävlingar

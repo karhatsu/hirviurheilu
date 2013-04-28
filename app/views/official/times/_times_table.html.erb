@@ -1,9 +1,9 @@
 <table>
   <tr>
-    <th>Nro</th>
-    <th>Kilpailija</th>
-    <th>Lähtöaika (hh:mm:ss)</th>
-    <th>Saapumisaika (hh:mm:ss)</th>
+    <th><%= t :number_short %></th>
+    <th><%= t 'activerecord.models.competitor.one' %></th>
+    <th><%= t 'attributes.start_time' %> (hh:mm:ss)</th>
+    <th><%= t 'attributes.arrival_time' %> (hh:mm:ss)</th>
     <th>&nbsp;</th>
     <th>&nbsp;</th>
   </tr>
@@ -14,7 +14,7 @@
         <td><%= full_name(c) %></td>
         <td><%= f.time_text_field :start_time, :include_seconds => true, :blank => true %></td>
         <td><%= f.time_text_field :arrival_time, :include_seconds => true, :blank => true %></td>
-        <td><%= submit_tag "Tallenna", :onclick => "start_updating(#{c.id})" %></td>
+        <td><%= submit_tag t(:save), :onclick => "start_updating(#{c.id})" %></td>
         <td id="status_<%= c.id %>">&nbsp;</td>
       </tr>
     <% end %>

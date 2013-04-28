@@ -7,17 +7,15 @@
   <% end %>
 <% end %>
 <% if @series.competitors.empty? %>
-  <div class="warning">Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.</div>
+  <div class="warning"><%= t 'official.result_place.no_competitors_in_series' %></div>
   <div class="action_box">
     <%= link_to "Lisää kilpailija sarjaan #{@series.name}",
       new_official_series_competitor_path(@series) %>
   </div>
 <% elsif !@series.has_start_list? %>
-  <%= highlight_info('Tähän sarjaan ei ole luotu vielä lähtölistaa. ' +
-      'Tulokset voi syöttää vasta sitten kun lähtölista on luotu.') %>
+  <%= highlight_info(t('official.result_place.no_start_list_for_series')) %>
   <div class="action_box">
-    <%= link_to "Lähtöaikojen ja -numeroiden luonti...",
-      official_series_competitors_path(@series) %>
+    <%= link_to t('official.result_place.generate_start_times'), official_series_competitors_path(@series) %>
   </div>
 <% else %>
   <div id="update_error"></div>
@@ -25,7 +23,7 @@
   <hr/>
   <%= render :partial => 'official/shared/series_result_input_links',
     :locals => { :series_id => @series.id } %><br/>
-  <%= link_to "Takaisin Yhteenveto-sivulle", official_race_path(@series.race) %>
+  <%= link_to t(:back_to_official_race_page), official_race_path(@series.race) %>
   <script type="text/javascript">
     function start_updating(id) {
       $("#status_" + id).html('<%= image_tag 'spinner.gif' %>');

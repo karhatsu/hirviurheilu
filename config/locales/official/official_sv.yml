@@ -76,3 +76,7 @@ sv:
         instructions_shooting: Spara resultat som nr,skytteresultat, t.ex. 45,87 (tävlare 45, skytte totalt 87). Eller med skott så att +-tecken betyder 10, t.ex. 45,++99877420 (sätt 0 för alla missar).
         instructions_dns_dnf: Om tävlare startade inte, spara resultaten som nr,dns t.ex. 45,dns (tävlare 45, DNS = did not start). Om tävlare avbröt, spara resultaten som nr,dnf t.ex. 45,dnf (tävlare 45, DNF = did not finish).
         latest_savings: Senaste sparat
+    result_place:
+      no_competitors_in_series: Du har sparat inga tävlar för den här klassen.
+      no_start_list_for_series: Den här klassen har inte ännu startlista. Du kan spara resultat efter startlistan har skapats.
+      generate_start_times: Skapa starttider och -nummer
