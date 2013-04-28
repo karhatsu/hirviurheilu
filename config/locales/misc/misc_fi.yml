@@ -33,6 +33,7 @@ fi:
   download_results_pdf: Lataa tulokset PDF-tiedostona
   download_start_list_pdf: Lataa lähtölista PDF-tiedostona
   error: Virhe
+  estimate: Arvio
   estimate_count_4: Sarjassa on 4 arviomatkaa.
   estimated_distances: Arvioidut etäisyydet
   estimating: Arviointi

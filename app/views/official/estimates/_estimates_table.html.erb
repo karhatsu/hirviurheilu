@@ -1,12 +1,12 @@
 <table>
   <tr>
-    <th>Nro</th>
-    <th>Kilpailija</th>
-    <th>Arvio 1</th>
-    <th>Arvio 2</th>
+    <th><%= t :number_short %></th>
+    <th><%= t 'activerecord.models.competitor.one' %></th>
+    <th><%= t :estimate %> 1</th>
+    <th><%= t :estimate %> 2</th>
     <% if @series.estimates == 4 %>
-      <th>Arvio 3</th>
-      <th>Arvio 4</th>
+      <th><%= t :estimate %> 3</th>
+      <th><%= t :estimate %> 4</th>
     <% end %>
     <th>&nbsp;</th>
     <th>&nbsp;</th>
@@ -29,7 +29,7 @@
           <td><%= f.text_field :estimate3, :size => 3, :maxlength => 3 %></td>
           <td><%= f.text_field :estimate4, :size => 3, :maxlength => 3 %></td>
         <% end %>
-        <td><%= submit_tag "Tallenna", :onclick => "start_updating(#{c.id})" %></td>
+        <td><%= submit_tag t(:save), :onclick => "start_updating(#{c.id})" %></td>
         <td id="status_<%= c.id %>">&nbsp;</td>
       </tr>
     <% end %>
