@@ -1,41 +1,27 @@
-<% content_for :title, "#{@race.name} - Tulosten pikasyöttö" %>
-<h2>Tulosten pikasyöttö</h2>
-<div class="info">Tällä sivulla voit tallentaa kilpailijoiden tuloksia
-  ns. pikasyöttöä käyttäen. Syöttämiseen tarvitset kilpailijan numeron.</div>
+<% content_for :title, "#{@race.name} - #{t('.title')}" %>
+<h2><%= t '.title' %></h2>
 <% if @race.competitors.empty? %>
-  <div class="warning">Kilpailuun ei ole lisätty yhtään kilpailijaa</div>
+  <div class="warning"><%= t '.no_competitors' %></div>
 <% else %>
-  <h3>Ajat</h3>
-  <% instructions = 'Syötä tulos muodossa nro,hhmmss, ' +
-      'esim. 45,130728 (kilpailija 45, saapumisaika 13:07:28).' %>
+  <h3><%= t :times %></h3>
   <%= render :partial => 'result_place', :locals => { :name => 'time',
-    :instructions => instructions, :path => official_race_time_quick_save_path(@race) } %>
-  <h3>Arviot</h3>
-  <% instructions = 'Syötä tulos muodossa nro,arvio1,arvio2, ' +
-      'esim. 45,95,118 (kilpailija 45, arviot 95 ja 118 metriä)' %>
+    :instructions => t('.instructions_times'), :path => official_race_time_quick_save_path(@race) } %>
+  <h3><%= t :estimating %></h3>
+  <% instructions = t('.instructions_estimates') %>
   <% if @race.estimates_at_most == 4 %>
-        <% instructions << ' tai neljän ennusteen sarjan kilpailijoille ' +
-          'muodossa nro,arvio1,arvio2,arvio3,arvio4, esim. 45,95,118,185,134' %>
+    <% instructions << t('.instructions_estimates_4') %>
   <% end %>
   <% instructions << '.' %>
   <%= render :partial => 'result_place', :locals => { :name => 'estimates',
     :instructions => instructions, :path => official_race_estimates_quick_save_path(@race) } %>
-  <h3>Ammunta</h3>
-  <% instructions = 'Syötä tulos muodossa nro,ammuntatulos, ' +
-      'esim. 45,87 (kilpailija 45, ammunta yhteensä 87). Tai vaihtoehtoisesti ' +
-      'laukausten kanssa siten että +-merkki on 10, esim. ' +
-      '45,++99877420 (merkitse ohilaukauksille nollat).' %>
+  <h3><%= t :shooting %></h3>
   <%= render :partial => 'result_place', :locals => { :name => 'shots',
-    :instructions => instructions, :path => official_race_shots_quick_save_path(@race) } %>
-  <h3>Ei lähtenyt matkaan / Keskeytys</h3>
-  <% instructions = 'Jos kilpailija ei lähtenyt matkaan, syötä tieto muodossa ' +
-      'nro,dns esim. 45,dns (kilpailija 45, DNS = did not start). ' +
-      'Jos kilpailija keskeytti, syötä tieto muodossa ' +
-      'nro,dnf esim. 45,dnf (kilpailija 45, DNF = did not finish).' %>
+    :instructions => t('.instructions_shooting'), :path => official_race_shots_quick_save_path(@race) } %>
+  <h3><%= t '.dns_dnf' %></h3>
   <%= render :partial => 'result_place', :locals => { :name => 'no_result',
-    :instructions => instructions, :path => official_race_no_result_quick_save_path(@race) } %>
+    :instructions => t('.instructions_dns_dnf'), :path => official_race_no_result_quick_save_path(@race) } %>
   <div id="latest" style="display:none;">
-    <h3>Viimeisimmät tallennukset</h3>
+    <h3><%= t '.latest_savings' %></h3>
     <ul id="latest_list"></ul>
   </div>
 <% end %>

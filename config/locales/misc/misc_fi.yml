@@ -77,6 +77,7 @@ fi:
   time_points_normal: Sarjalle ei lasketa aikapisteitä.
   time_points_none: Sarjalle ei lasketa aikapisteitä.
   time_points_300: Sarjassa kaikki saavat 300 aikapistettä.
+  times: Ajat
   total: Yhteensä
   total_points: Yhteispisteet
   unofficial: Epävirallinen kilpailija
