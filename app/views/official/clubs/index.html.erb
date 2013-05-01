@@ -1,10 +1,8 @@
 <% content_for :title, "#{@race.name} - #{clubs_title(@race)}" %>
 <h2><%= clubs_title(@race) %></h2>
 <% club_word = (@race.club_level == Race::CLUB_LEVEL_PIIRI ? 'piirejä' : 'seuroja') %>
-<div class="info">Tällä sivulla voit lisätä kilpailuun osallistuvien kilpailijoiden
-  <%= club_word %> sekä korjata niiden nimiä ja poistaa ylimääräisiä. Huom! Voit lisätä
-  <%= club_word %> myös samalla, kun lisäät kilpailijoita.</div>
-<h2>Lisää <%= club_title(@race).downcase %></h2>
+<div class="info"><%= t '.info', :club_word => club_word %></div>
+<h2><%= t :add %> <%= club_title(@race).downcase %></h2>
 <div id="action_error"></div>
 <%= form_for([:official, @race, Club.new], :remote => true, :html => {:class => 'club_form'}) do |f| %>
   <div>
@@ -13,24 +11,22 @@
   </div>
   <div>
     <span class="form_label"><%= f.label :long_name, :for => 'new_club_long_name' %></span>
-    <%= f.text_field :long_name, :id => 'new_club_long_name' %> (käytetään joukkuekilpailuissa, jos syötetty)
+    <%= f.text_field :long_name, :id => 'new_club_long_name' %> (<%= t '.long_name_info' %>)
   </div>
-  <%= submit_tag "Lisää #{club_title(@race).downcase}", :id => 'submit' %>
+  <%= submit_tag "#{t(:add)} #{club_title(@race).downcase}", :id => 'submit' %>
   <span id="spinner"></span>
 <% end %>
 <% style = (@race.clubs.empty? ? 'display: none;' : '') %>
 <% club_word = (@race.club_level == Race::CLUB_LEVEL_PIIRI ? 'piirin' : 'seuran') %>
 <div id="current_clubs" style="<%= style %>">
-  <h2>Nykyiset <%= clubs_title(@race).downcase %></h2>
-  <div class="info">
-    Jos haluat muuttaa <%= club_word %> nimeä, klikkaa nimessä olevaa linkkiä.
-  </div>
+  <h2><%= t '.current' %> <%= clubs_title(@race).downcase %></h2>
+  <div class="info"><%= t '.edit_info', :club_word => club_word %></div>
   <div class="section">
     <table id="clubs_table">
       <tr>
-        <th>Nimi</th>
-        <th>Pitkä nimi</th>
-        <th>Kilpailijoita</th>
+        <th><%= t 'attributes.name' %></th>
+        <th><%= t 'attributes.long_name' %></th>
+        <th><%= t '.competitors' %></th>
         <th>&nbsp;</th>
       </tr>
       <% @race.clubs.each do |club| %>
@@ -54,4 +50,4 @@
   }
 <% end %>
 <hr/>
-<%= link_to 'Takaisin Yhteenveto-sivulle', official_race_path(@race) %>
+<%= link_to t(:back_to_official_race_page), official_race_path(@race) %>
