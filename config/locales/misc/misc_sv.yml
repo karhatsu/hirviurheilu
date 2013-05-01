@@ -51,6 +51,7 @@ sv:
   order_method: Tävlarnas ordning
   order_method_0: Som ökat
   order_method_1: Lottas
+  password: Lösenord
   points: Poäng
   relay_team:
     DNS: Laget startade inte

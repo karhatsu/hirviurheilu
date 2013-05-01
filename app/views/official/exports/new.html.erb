@@ -1,24 +1,14 @@
-<% if online? %>
-  <h2>Lataa kilpailu omalle koneelle</h2>
-  <div class="info">Jos sinulla on Hirviurheilu Offline, voit ladata tämän
-    kilpailun omalle koneellesi. Voit käyttää tätä toimintoa esimerkiksi
-    keskeneräisen online-kilpailun varmuuskopioimiseen. Jos otat useamman
-    kopion kilpailusta, anna jokaiselle eri nimi.</div>
-<% else %>
-  <h2>Julkaise kilpailu internetissä</h2>
-  <div class="info">Tällä sivulla voit julkaista kilpailun lopulliset tulokset internetissä,
-    Hirviurheilu-palvelussa. Näin kilpailijat pääsevät näkemään kilpailun tulokset.
-    Julkaiseminen ei maksa mitään. Ennen julkaisemista varmista, että sinulla
-    on käytössäsi internet-yhteys.</div>
-<% end %>
+<% content_for :title, (online? ? t('.download_title') : t('.publish_title')) %>
+<h2><%= yield :title %></h2>
+<% info_text = online? ? t('.download_info') : t('.publish_info') %>
+<div class="info"><%= info_text %></div>
 <% if offline? and !@race.finished? %>
-  <div class="error">Voit julkaista kilpailun vasta, kun olet merkinnyt sen päättyneeksi.
-    (Kilpailun voi päättää <%= link_to 'Yhteenveto-sivulla', official_race_path(@race) %>.)</div>
+  <div class="error"><%= t '.publish_after_finish_info' %>
+    (<%= link_to t('.finish_in_summary_page'), official_race_path(@race) %>.)</div>
 <% else %>
   <div class="section">
     <% if online? %>
-      <div class="info">Ennen kuin painat Lataa-nappia, varmista että
-        Hirviurheilu Offline -tuotteesi on käynnissä.</div>
+      <div class="info"><%= t '.before_download_info' %></div>
     <% end %>
     <%= flash_error %>
     <%= flash_success %>
@@ -29,21 +19,21 @@
       <%= f.label :name %>
       <%= f.text_field :name %><br/>
       <% if offline? %>
-        <%= label_tag :server, 'Kohde' %>
+        <%= label_tag :server, t('.target') %>
         <%= select_tag :server, options_for_select(@servers, params[:server]) %><br/>
-        <%= label_tag :email, 'Sähköposti' %>
+        <%= label_tag :email, t('attributes.email') %>
         <%= text_field_tag :email, params[:email] %><br/>
-        <%= label_tag :password, 'Salasana' %>
+        <%= label_tag :password, t(:password) %>
         <%= password_field_tag :password, params[:password] %><br/>
       <% end %>
-      <% submit_label = (offline? ? 'Julkaise' : 'Lataa Hirviurheilu Offline -tietokantaan') %>
+      <% submit_label = (offline? ? t('.publish_submit') : t('.download_submit')) %>
       <%= submit_tag submit_label, :id => 'submit_button' %>
       <span style="display:none;" id="please_wait">Ole hyvä ja odota...</span>
     <% end %>
   </div>
 <% end %>
 <hr/>
-<%= link_to 'Takaisin Yhteenveto-sivulle', official_race_path(@race) %>
+<%= link_to t(:back_to_official_race_page), official_race_path(@race) %>
 <%= javascript_tag do %>
   $('#submit_button').click(function() {
   action = $('form.edit_race').attr('action')
