@@ -86,3 +86,11 @@ sv:
         sum: Summa
         individual_shots: Enskilda skott
         result: Resultat
+    correct_estimates:
+      index:
+        start_numbers: Startnummer
+        add_new_range: Öka nytt startnummergap
+        submit_button: Spara riktiga avstånd och sätt dem för tävlarna
+        defined_correct_estimates: Riktiga avstånd sätt för tävlarna
+        no_competitors_info: Du har inte ökat tävlar. När du ökar tävlar, här kan du se riktiga avtånd för all tävlarna.
+        start_list_required_info: Tävlarna måste ha starttider så att dem kan ha riktiga avstånd som ses i den här tabellen.

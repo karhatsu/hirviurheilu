@@ -1,5 +1,5 @@
-<% content_for :title, "#{@race.name} - Oikeat arviot" %>
-<h2>Oikeat arviot</h2>
+<% content_for :title, "#{@race.name} - #{t('official_sub_menu.correct_distances')}" %>
+<h2><%= t 'official_sub_menu.correct_distances' %></h2>
 <%= flash_error %>
 <%= flash_success %>
 <div class="section">
@@ -8,29 +8,26 @@
     <%= f.fields_for :correct_estimates do |ce_form| %>
       <%= render :partial => 'correct_estimate', :locals => { :f => ce_form } %>
     <% end %>
-    <%= add_child_link "Lisää uusi lähtönumeroväli",
-      f, :correct_estimates, 'add_link' %>
-    <%= submit_tag 'Tallenna oikeat arviot ja aseta ne kilpailijoille' %>
+    <%= add_child_link t('.add_new_range'), f, :correct_estimates, 'add_link' %>
+    <%= submit_tag t('.submit_button') %>
   <% end %>
 </div>
 
-<h2>Kilpailijoille määritetyt oikeat arviot</h2>
+<h2><%= t '.defined_correct_estimates' %></h2>
 <% if @race.competitors.empty? %>
-  <div class="info">Et ole lisännyt kilpailuun vielä yhtään kilpailijaa.
-    Kun lisäät kilpailijoita, tähän ilmestyy kilpailijakohtaiset oikeat arviomatkat.</div>
+  <div class="info"><%= t '.no_competitors_info' %></div>
 <% else %>
-  <div class="info">Kilpailijoille täytyy olla luotu lähtölistat,
-    jotta heille voidaan asettaa oikeat arviomatkat alla olevaan taulukkoon.</div>
+  <div class="info"><%= t '.start_list_required_info' %></div>
   <table border="1" cellpadding="2" cellspacing="0">
     <tr>
-      <th>Numero</th>
-      <th>Nimi</th>
-      <th>Sarja</th>
-      <th>Oikea arvio 1</th>
-      <th>Oikea arvio 2</th>
+      <th><%= t :number_short %></th>
+      <th><%= t 'activerecord.models.competitor.one' %></th>
+      <th><%= t 'activerecord.models.series.one' %></th>
+      <th><%= t 'attributes.correct_estimate1' %></th>
+      <th><%= t 'attributes.correct_estimate2' %></th>
       <% if @race.estimates_at_most == 4 %>
-        <th>Oikea arvio 3</th>
-        <th>Oikea arvio 4</th>
+        <th><%= t 'attributes.correct_estimate3' %></th>
+        <th><%= t 'attributes.correct_estimate4' %></th>
       <% end %>
     </tr>
     <% @competitors.each do |c| %>
