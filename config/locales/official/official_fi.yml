@@ -113,3 +113,18 @@ fi:
         target: Kohde
         download_submit: Lataa Hirviurheilu Offline -tietokantaan
         publish_submit: Julkaise
+    team_competitions:
+      index:
+        title: Joukkuekilpailut
+        add_team_competition: Lisää joukkuekilpailu
+        remove_team_competition: Poista joukkuekilpailu
+        remove_team_competition_confirm: Haluatko varmasti poistaa tämän joukkuekilpailun?
+      new:
+        title: Uusi joukkuekilpailu
+      edit:
+        title: Muokkaa joukkuekilpailun tietoja
+      form:
+        series_age_groups: Sarjat ja/tai ikäryhmät tässä joukkuekilpailussa
+        choose_info: Valitse kaikki sarjat ja ikäryhmät, jotka kuuluvat tähän joukkuekilpailuun.
+        choose_info_full_series: Jos kilpailuun kuuluu kokonainen sarja, valitse kyseinen sarja ilman ikäryhmiä.
+        choose_info_age_groups: Jos kilpailuun kuuluu vain tietty ikäryhmä (ei kokonaista sarjaa), valitse kyseinen ikäryhmä (ei sarjaa).

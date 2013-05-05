@@ -26,20 +26,19 @@
       <br/></br/>
       Voit asettaa kilpailijalle joukkueen nimen muokkaamalla kilpailijan perustietoja.
     </div>
-    <h3>Sarjat ja/tai ikäryhmät tässä joukkuekilpailussa</h3>
-    <div class="info">Valitse kaikki sarjat ja ikäryhmät, jotka kuuluvat tähän joukkuekilpailuun.
+    <h3><%= t 'official.team_competitions.form.series_age_groups' %></h3>
+    <div class="info"><%= t 'official.team_competitions.form.choose_info' %>
       <ul>
-        <li>Jos kilpailuun kuuluu kokonainen sarja, valitse kyseinen sarja ilman ikäryhmiä.</li>
-        <li>Jos kilpailuun kuuluu vain tietty ikäryhmä (ei kokonaista sarjaa),
-          valitse kyseinen ikäryhmä (ei sarjaa).</li>
+        <li><%= t 'official.team_competitions.form.choose_info_full_series' %></li>
+        <li><%= t 'official.team_competitions.form.choose_info_age_groups' %></li>
       </ul>
     </div>
     <% current_series_ids = @tc.series_ids %>
     <% current_age_group_ids = @tc.age_group_ids %>
     <table border="1" cellpadding="2" cellspacing="0">
       <tr>
-        <th>Sarja</th>
-        <th>Ikäryhmät</th>
+        <th><%= t 'activerecord.models.series.one' %></th>
+        <th><%= t 'activerecord.models.age_group.other' %></th>
       </tr>
       <% @race.series.each do |series| %>
         <tr>
@@ -62,7 +61,7 @@
         </tr>
       <% end %>
     </table><br/>
-    <%= submit_tag 'Tallenna' %>
+    <%= submit_tag t(:save) %>
   <% end %>
 </div>
 <%= javascript_tag do %>

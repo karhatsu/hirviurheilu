@@ -113,3 +113,18 @@ sv:
         target: Tjänst
         download_submit: Ladda till din Hirviurheilu Offline
         publish_submit: Publisera
+    team_competitions:
+      index:
+        title: Lagtävlingar
+        add_team_competition: Öka lagtävling
+        remove_team_competition: Radera lagtävlingen
+        remove_team_competition_confirm: Är du säker att du vill radera den här lagtävlingen?
+      new:
+        title: Ny lagtävling
+      edit:
+        title: Redigera lagtävling
+      form:
+        series_age_groups: Klasser och/eller äldsgruppar på den här lagtävlingen
+        choose_info: Välj alla klasser och äldsgruppar som behör till den här lagtävlingen.
+        choose_info_full_series: Om hela klassen behör till lagtävlingen, välj klassen utan äldsgruppar.
+        choose_info_age_groups: Om bara någon äldsgrupp eller -gruppar behör till lagtävlingen (inte hela klassen), välj äldsgruppen (inte klassen).

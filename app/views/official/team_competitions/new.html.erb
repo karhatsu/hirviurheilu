@@ -1,6 +1,5 @@
-<% content_for :title, "#{@race.name} - Uusi joukkuekilpailu" %>
-<h2>Uusi joukkuekilpailu</h2>
+<% content_for :title, "#{@race.name} - #{t('.title')}" %>
+<h2><%= t '.title' %></h2>
 <%= render :partial => 'form' %>
 <hr/>
-<%= link_to 'Takaisin joukkuekilpailujen etusivulle',
-  official_race_team_competitions_path(@race) %>
+<%= link_to t(:back_to_official_team_competitions_page), official_race_team_competitions_path(@race) %>

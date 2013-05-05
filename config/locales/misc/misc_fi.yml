@@ -8,6 +8,7 @@ fi:
   back_to_home_page: Takaisin etusivulle
   back_to_official_home_page: Takaisin toimitsijan etusivulle
   back_to_official_race_page: Takaisin Yhteenveto-sivulle
+  back_to_official_team_competitions_page: Takaisin joukkuekilpailujen etusivulle
   back_to_page: Takaisin sivulle
   back_to_race_home_page: Takaisin kilpailun etusivulle
   back_to_series_results: Takaisin sarjan %{series_name} tuloksiin
@@ -33,6 +34,7 @@ fi:
   districts: Piirit
   download_results_pdf: Lataa tulokset PDF-tiedostona
   download_start_list_pdf: Lataa lähtölista PDF-tiedostona
+  edit: Muokkaa
   error: Virhe
   estimate: Arvio
   estimate_count_4: Sarjassa on 4 arviomatkaa.
