@@ -128,3 +128,8 @@ fi:
         choose_info: Valitse kaikki sarjat ja ikäryhmät, jotka kuuluvat tähän joukkuekilpailuun.
         choose_info_full_series: Jos kilpailuun kuuluu kokonainen sarja, valitse kyseinen sarja ilman ikäryhmiä.
         choose_info_age_groups: Jos kilpailuun kuuluu vain tietty ikäryhmä (ei kokonaista sarjaa), valitse kyseinen ikäryhmä (ei sarjaa).
+    finish_races:
+      new:
+        title: Kilpailun päättäminen
+        info: Kilpailu pitää merkitä päättyneeksi, jotta kilpailijat näkevät, että kaikkien tulokset on merkitty eikä tulosluettelo tule enää muuttumaan. Lisäksi kilpailijoille näytetään oikeat arviointimatkat vasta sitten, kun kilpailu on päättynyt.
+        already_finished: Tämä kilpailu on jo merkitty päättyneeksi.

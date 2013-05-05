@@ -1,16 +1,13 @@
-<%= content_for :title, "#{@race.name} - kilpailun päättäminen" %>
+<%= content_for :title, "#{@race.name} - #{t('.title')}" %>
 <h2><%= yield :title %></h2>
-<div class="info">Kilpailu pitää merkitä päättyneeksi,
-  jotta kilpailijat näkevät, että kaikkien tulokset on merkitty eikä
-  tulosluettelo tule enää muuttumaan. Lisäksi kilpailijoille näytetään oikeat
-  arviointimatkat vasta sitten, kun kilpailu on päättynyt.</div>
+<div class="info"><%= t '.info' %></div>
 <%= render :partial => "shared/form_errors", :locals => { :item => @race } %>
 <% if @race.finished? %>
-  Tämä kilpailu on jo merkitty päättyneeksi.
+  <%= t '.already_finished' %>
 <% else %>
   <div class="action_box">
     <%= render :partial => "official/finish_races/form", :locals => { :race => @race } %>
   </div>
 <% end %>
 <hr/>
-<%= link_to "Takaisin Yhteenveto-sivulle", official_race_path(@race) %>
+<%= link_to t(:back_to_official_race_page), official_race_path(@race) %>

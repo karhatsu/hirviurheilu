@@ -128,3 +128,8 @@ sv:
         choose_info: Välj alla klasser och äldsgruppar som behör till den här lagtävlingen.
         choose_info_full_series: Om hela klassen behör till lagtävlingen, välj klassen utan äldsgruppar.
         choose_info_age_groups: Om bara någon äldsgrupp eller -gruppar behör till lagtävlingen (inte hela klassen), välj äldsgruppen (inte klassen).
+    finish_races:
+      new:
+        title: Sluta tävlingen
+        info: Man måste sluta tävlingen så att tävlarna se att resulaten är slutliga. Ytterligare tävlingarna ser de riktiga avtstånden efter tävlingen är slut.
+        already_finished: Den här tävlingen är redan slutat.
