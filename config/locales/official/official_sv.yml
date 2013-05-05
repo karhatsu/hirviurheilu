@@ -133,3 +133,11 @@ sv:
         title: Sluta tävlingen
         info: Man måste sluta tävlingen så att tävlarna se att resulaten är slutliga. Ytterligare tävlingarna ser de riktiga avtstånden efter tävlingen är slut.
         already_finished: Den här tävlingen är redan slutat.
+    csv_exports:
+      show:
+        title: Export tävlarna till CSV-fil
+        no_competitors: Inga tävlar på tävlingen
+        info: Här kan du ladda tävlarna som CSV-fil. Filen innehåller tävlarnas namn, klasser, klubber, startnummer och starttider.
+        submit_button: Skapa CSV-fil
+        import_title: Import tävlarna från CSV-fil
+        import_link: Öka tävlar från CSV-fil

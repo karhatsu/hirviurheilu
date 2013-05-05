@@ -133,3 +133,11 @@ fi:
         title: Kilpailun päättäminen
         info: Kilpailu pitää merkitä päättyneeksi, jotta kilpailijat näkevät, että kaikkien tulokset on merkitty eikä tulosluettelo tule enää muuttumaan. Lisäksi kilpailijoille näytetään oikeat arviointimatkat vasta sitten, kun kilpailu on päättynyt.
         already_finished: Tämä kilpailu on jo merkitty päättyneeksi.
+    csv_exports:
+      show:
+        title: Kilpailijoiden vienti CSV-tiedostoon
+        no_competitors: Kilpailussa ei ole yhtään kilpailijaa
+        info: Voit ladata tästä kilpailijat CSV-tiedostossa. Tiedosto sisältää kilpailijoiden nimet, sarjat, seurat, lähtönumerot ja lähtöajat.
+        submit_button: Luo CSV-tiedosto
+        import_title: Kilpailijoiden lisäys CSV-tiedostosta
+        import_link: Lisää kilpailijoita CSV-tiedostosta
