@@ -81,7 +81,7 @@ fi:
   start_list: Lähtölista
   team: Joukkue
   tel: Puhelin
-  time_points_normal: Sarjalle ei lasketa aikapisteitä.
+  time_points_normal: Normaali
   time_points_none: Sarjalle ei lasketa aikapisteitä.
   time_points_300: Sarjassa kaikki saavat 300 aikapistettä.
   times: Ajat
