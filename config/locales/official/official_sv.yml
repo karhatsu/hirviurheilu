@@ -141,3 +141,13 @@ sv:
         submit_button: Skapa CSV-fil
         import_title: Import tävlarna från CSV-fil
         import_link: Öka tävlar från CSV-fil
+    csv_imports:
+      new:
+        title: Öka tävlar från CSV-fil
+        info: Om du har tävlarnas information t.ex. på en Excel-fil, kan du spara den som CSV-format. Därefter kan du ladda alla tävlarna till databasen med blanketten neden. CSV-fil måste ha kolumner förnamn, efternamn, klubb och klass eller äldsgrupp.
+        example_of_valid_file: Exempel av lämplig CSV-fil
+        example_row_1: Sven,Andersson,Testklubben,M40
+        example_row_2: Erika,Eriksson,Exempelklubben,Kvinnor
+        upload_file: Ladda fil
+        csv_file: CSV-fil
+        submit_button: Ladda tävlar till databasen

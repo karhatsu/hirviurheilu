@@ -141,3 +141,13 @@ fi:
         submit_button: Luo CSV-tiedosto
         import_title: Kilpailijoiden lisäys CSV-tiedostosta
         import_link: Lisää kilpailijoita CSV-tiedostosta
+    csv_imports:
+      new:
+        title: Lisää kilpailijoita CSV-tiedostosta
+        info: Jos sinulla on kilpailijoiden tiedot esim. Excel-taulukossa, voit tallentaa ne sieltä CSV-muotoon (CSV = pilkuilla erotetut sarakkeet). Sen jälkeen voit ladata kaikkien kilpailijoiden tiedot kerralla tietokantaan valitsemalla alla olevaan lomakkeeseen kyseisen CSV-tiedoston. CSV-tiedostossa täytyy olla sarakkeet etunimi, sukunimi, piiri tai seura ja sarja tai ikäryhmä. Huom! CSV-tiedostossa käytetyt sarjat täytyy olla syötetty tietokantaan ennen latausta.
+        example_of_valid_file: Esimerkki kelvollisesta CSV-tiedostosta
+        example_row_1: Matti,Meikäläinen,Testikylän ampumaseura,M40
+        example_row_2: Minna,Miettinen,Esimerkkilän hiihtäjät,N
+        upload_file: Tiedoston lataus
+        csv_file: CSV-tiedosto
+        submit_button: Lataa kilpailijat tietokantaan
