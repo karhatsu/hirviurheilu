@@ -48,6 +48,7 @@ sv:
   feedback: Feedback
   hide_all_competitors: Gömma alla tävlarna
   leg: Sträcka
+  login_required: Du måste logga in för att se sidan
   no_competitors_for_series: Inga tävlar i klassen
   no_start_list: Klassens startlist har inte ännu publiserats
   normal: Normal

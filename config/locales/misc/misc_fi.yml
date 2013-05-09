@@ -48,6 +48,7 @@ fi:
   feedback: Palaute
   hide_all_competitors: Piilota kaikki kilpailijat
   leg: Osuus
+  login_required: Sinun täytyy kirjautua sisään nähdäksesi pyytämäsi sivun
   no_competitors_for_series: Sarjaan ei ole lisätty kilpailijoita
   no_start_list: Sarjan lähtöluetteloa ei ole vielä julkaistu
   normal: Normaali

@@ -94,7 +94,7 @@ class ApplicationController < ActionController::Base
   def require_user
     unless current_user
       store_location
-      flash[:error] = "Sinun täytyy kirjautua sisään nähdäksesi pyydetyn sivun"
+      flash[:error] = t(:login_required)
       redirect_to login_url
       return false
     end
@@ -103,7 +103,6 @@ class ApplicationController < ActionController::Base
   def require_no_user
     if current_user
       store_location
-      flash[:error] = "Sinulla on jo käyttäjätunnukset ja olet kirjautunut sisään"
       redirect_to account_url
       return false
     end
