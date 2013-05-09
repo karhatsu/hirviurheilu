@@ -5,13 +5,14 @@
 <% if @hash_ok %>
   <%= form_tag(reset_password_path, :method => :put) do %>
     <%= hidden_field_tag :reset_hash, @reset_hash %>
-    <dl>
-      <dt><%= label_tag :password, t('.new_password') %></dt>
-      <dd><%= password_field_tag :password %></dd>
-
-      <dt><%= label_tag :password_confirmation, t('attributes.password_confirmation') %></dt>
-      <dd><%= password_field_tag :password_confirmation %></dd>
-    </dl>
+    <div>
+      <span class="form_label"><%= label_tag :password, t('.new_password') %></span>
+      <%= password_field_tag :password %>
+    </div>
+    <div>
+      <span class="form_label"><%= label_tag :password_confirmation, t('attributes.password_confirmation') %></span>
+      <%= password_field_tag :password_confirmation %>
+    </div>
     <%= submit_tag t('.submit_button') %>
   <% end %>
 <% end %>
