@@ -1,0 +1,13 @@
+sv:
+  user_sessions:
+    new:
+      title: Logga in
+      submit_button: Logga in
+      forgotten_password: Jag har glömt mitt lösenord
+      no_account_yet: Jag har inte ännu registrerat
+      register: Registrera
+    create:
+      login_succeeded: Du har loggat in
+    destroy:
+      logout_succeeded: Du har loggat ut av tjänsten
+      

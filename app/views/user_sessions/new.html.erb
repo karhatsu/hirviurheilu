@@ -1,4 +1,4 @@
-<% content_for(:title, 'Kirjaudu sisään') %>
+<% content_for(:title, t('.title')) %>
 <% content_for(:page_title, yield(:title)) %>
 <%= flash_error %>
 <%= flash_success %>
@@ -16,11 +16,11 @@
     <span class="form_label"><%= f.label :remember_me %></span>
     <span><%= f.check_box :remember_me %></span>
   </div>
-  <%= f.submit "Kirjaudu" %>
+  <%= f.submit t('.submit_button') %>
 <% end %>
 <hr/>
-<%= link_to "Olen unohtanut salasanani", new_reset_password_path %><br/>
-Minulla ei ole vielä tunnuksia: <%= link_to "Rekisteröidy", register_path %>
+<%= link_to t('.forgotten_password'), new_reset_password_path %><br/>
+<%= t '.no_account_yet' %>: <%= link_to t('.register'), register_path %>
 <script type="text/javascript">
   $(document).ready(function() { $("#user_session_email").focus(); });
 </script>

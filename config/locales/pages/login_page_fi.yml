@@ -1,0 +1,13 @@
+fi:
+  user_sessions:
+    new:
+      title: Kirjaudu sisään
+      submit_button: Kirjaudu
+      forgotten_password: Olen unohtanut salasanani
+      no_account_yet: Minulla ei ole vielä tunnuksia
+      register: Rekisteröidy
+    create:
+      login_succeeded: Kirjautuminen onnistui
+    destroy:
+      logout_succeeded: Olet kirjautunut ulos palvelusta
+      

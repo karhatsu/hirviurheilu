@@ -11,7 +11,7 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      flash[:success] = "Kirjautuminen onnistui"
+      flash[:success] = t('user_sessions.create.login_succeeded')
       redirect_back_or_default root_path
     else
       render :action => :new
@@ -20,7 +20,7 @@ class UserSessionsController < ApplicationController
 
   def destroy
     current_user_session.destroy
-    flash[:success] = "Olet kirjautunut ulos järjestelmästä"
+    flash[:success] = t('user_sessions.destroy.logout_succeeded')
     redirect_back_or_default root_path
   end
 end
