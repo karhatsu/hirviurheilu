@@ -1,26 +1,23 @@
-<% content_for(:title, t('register.title')) %>
+<% content_for(:title, t('.title')) %>
 <% content_for(:page_title, yield(:title)) %>
 
-<div class="info"><%= t 'register.info' %></div>
+<div class="info"><%= t '.info' %></div>
 
 <% if Rails.env.production? %>
-  <div class="important">Huom! Jos haluat harjoitella Hirviurheilun käyttöä,
-    käytä mielummin osoitetta <a href="<%= TEST_URL %>"><%= TEST_URL %></a>.
-    Tämä palvelu on tarkoitettu oikeille kilpailuille.
-  </div>
+  <div class="important"><%= raw t('.practise_info', :test_url => TEST_URL) %></div>
 <% end %>
 
 <div id="registration_form">
   <%= form_for @user, :url => account_path do |f| %>
     <%= render :partial => "form", :object => f %>
-    <%= f.submit t('register.submit') %>
+    <%= f.submit t('.submit') %>
   <% end %>
 </div>
 
 <div class="title_box" id="login_link_box">
-  <div class="box_title"><%= t 'register.already_account' %></div>
+  <div class="box_title"><%= t '.already_account' %></div>
   <div class="title_box_content">
-    <p><%= t 'register.if_has_account' %>:</p>
+    <p><%= t '.if_has_account' %>:</p>
     <div class="links">
       <%= link_to t(:login), login_path, :class => 'commercial_box_link' %>
     </div>

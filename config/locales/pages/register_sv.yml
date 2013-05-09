@@ -1,8 +1,0 @@
-sv:
-  register:
-    title: Registrera
-    info: Tävlarna behöver inte att registrera, bara tävlingsfunktionärer.
-    submit: Registrera
-    already_account: Har du redan registerad?
-    if_has_account: Om du redan har registerad
-  

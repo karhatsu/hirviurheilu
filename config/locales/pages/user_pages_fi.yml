@@ -1,0 +1,22 @@
+fi:
+  users:
+    new:
+      title: Rekisteröidy
+      info: Rekisteröityminen on pakollista kilpailun järjestäjille eli toimitsijoille. Kilpailijoiden ei tarvitse rekisteröityä palveluun.
+      practise_info: Huom! Jos haluat harjoitella Hirviurheilun käyttöä, käytä mieluummin osoitetta <a href="%{test_url}">%{test_url}</a>. Tämä palvelu on tarkoitettu oikeille kilpailuille.
+      submit: Rekisteröidy
+      already_account: Onko sinulla jo tunnukset?
+      if_has_account: Jos sinulla on jo tunnukset
+    create:
+      account_created: Käyttäjätili luotu. Pääset syöttämään kilpailun tietoja Toimitsijan sivut -linkistä.
+    show:
+      basic_information: Perustiedot
+      modify_information: Muokkaa tietoja
+      own_races: Omat kilpailut
+      no_own_races: Sinulla ei ole vielä yhtään kilpailua. Pääset syöttämään kilpailun tietoja Toimitsijan sivut -linkistä sivun ylälaidasta.
+    edit:
+      title: Muokkaa omia tietoja
+      change_password: Vaihda salasana
+      back_to_account_page: Takaisin omiin tietoihin
+    update:
+      account_updated: Käyttäjätili päivitetty

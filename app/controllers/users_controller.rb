@@ -15,8 +15,7 @@ class UsersController < ApplicationController
     if @user.save
       @user.add_official_rights
       NewUserMailer.new_user(@user).deliver
-      flash[:success] = "Käyttäjätili luotu. " +
-        "Pääset syöttämään kilpailun tietoja Toimitsijan sivut -linkistä."
+      flash[:success] = t('users.create.account_created')
       redirect_back_or_default account_url
     else
       render :action => :new
@@ -34,7 +33,7 @@ class UsersController < ApplicationController
   def update
     @user = @current_user
     if @user.update_attributes(params[:user])
-      flash[:success] = "Käyttäjätili päivitetty"
+      flash[:success] = t('users.update.account_updated')
       redirect_to account_url
     else
       render :action => :edit

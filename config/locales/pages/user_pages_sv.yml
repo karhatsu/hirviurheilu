@@ -1,0 +1,22 @@
+sv:
+  users:
+    new:
+      title: Registrera
+      info: Tävlarna behöver inte att registrera, bara tävlingsfunktionärer.
+      practise_info: Obs! Om du vill prova Hirviurheilu-tjänsten, använd hellre test-tjänsten på <a href="%{test_url}">%{test_url}</a>. Den hän tjänsten är för riktiga tävlingar.
+      submit: Registrera
+      already_account: Har du redan registerad?
+      if_has_account: Om du redan har registerad
+    create:
+      account_created: Användarsnamn skapat. Klick Funktionärs sidor länken över för att öka en tävling.
+    show:
+      basic_information: Basuppgifter
+      modify_information: Redigera uppgifterna
+      own_races: Egna tävlingar
+      no_own_races: Du har inte egna tävlingar. Klicka Funktionärs sidor länken över.
+    edit:
+      title: Redigera egna uppgifterna
+      change_password: Växla lösenord
+      back_to_account_page: Tillbaka till egna uppgifter
+    update:
+      account_updated: Uppgifter updaterad
