@@ -21,10 +21,9 @@ class FeedbacksController < ApplicationController
     @tel = params[:tel]
     unless @comment.blank?
       FeedbackMailer.feedback_mail(@comment, @name, @email, @tel, current_user).deliver
-      flash[:success] = 'Kiitos palautteesta'
       redirect_to feedbacks_path
     else
-      flash[:error] = 'Älä unohda kirjoittaa palautetta'
+      flash[:error] = t('feedbacks.create.feedback_missing')
       render :new
     end
   end
