@@ -8,7 +8,7 @@ class MediaController < ApplicationController
 
   def create
     if @competitors_count <= 0
-      flash[:error] = 'Syötä kilpailijoiden määräksi positiivinen kokonaisluku'
+      flash[:error] = t('media.show.invalid_competitor_count')
       render :new
     else
       redirect_to race_medium_path(@race, :competitors_count => @competitors_count,

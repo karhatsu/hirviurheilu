@@ -145,7 +145,7 @@ Feature: Media
     When I go to the media page of "Test race"
     And I fill in "x" for "Kilpailijoiden määrä / sarja"
     And I press "Lataa lehdistöraportti"
-    Then I should see "Syötä kilpailijoiden määräksi positiivinen kokonaisluku" in an error message
+    Then I should see "Kilpailijoiden määrä virheellinen" in an error message
     When I fill in "1" for "Kilpailijoiden määrä / sarja"
     And I select "Club C" from "Lisäksi kaikki kilpailijat seurasta"
     And I press "Lataa lehdistöraportti"

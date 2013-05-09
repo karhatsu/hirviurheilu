@@ -8,6 +8,7 @@ sv:
       from_club: från klubben
       from_district: från trakten
       download_report: Hämta pressraporten
+      invalid_competitor_count: Tävlaravtal på fel format
       report: Pressraporten
       result_info: Dun kan kopiera resultraporten nedenför och bifoga den till exempel till din epost.
       

@@ -8,6 +8,7 @@ fi:
       from_club: seurasta
       from_district: piiristä
       download_report: Lataa lehdistöraportti
+      invalid_competitor_count: Kilpailijoiden määrä virheellinen
       report: Lehdistöraportti
       result_info: Maalaa alla oleva tulosraportti ja kopioi se esimerkiksi sähköpostiisi tai vaikkapa tekstinkäsittelyohjelmaan jatkokäsittelyä varten.
       
