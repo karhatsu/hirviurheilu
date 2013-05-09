@@ -151,3 +151,28 @@ sv:
         upload_file: Ladda fil
         csv_file: CSV-fil
         submit_button: Ladda tävlar till databasen
+    relays:
+      index:
+        title: Stafetter
+        add_relay: Öka stafett
+        teams: Lag
+        remove_relay: Radera stafett
+        remove_relay_confirm: Är du säker att du vill radera den här stafetten?
+        results_quick_save: Spara resultat
+        finish_relay: Slut stafetten
+        relay_finished: Stafetten slutat
+      new:
+        title: Ny stafett
+        leg_count_warning: Obs! Du kan inte växla sträckavtal efter du har skapat en stafett.
+      edit:
+        title: Redigera stafetten
+      form:
+        teams: Lag
+        no_teams_info: Du har ökat ännu inga lag till stafetten.
+        add_new_team: Öka nytt lag till stafetten
+    finish_relays:
+      new:
+        title: Slut stafetten
+        already_finished: Stafetten är redan slut
+        info: Efter du har sparat alla resultat för stafetten, kan du sluta stafetten med knappen neden. Tjänsten inspekterar automatiskt att inga uppgifter saknas.
+        submit_button: Slut stafetten

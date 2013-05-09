@@ -8,6 +8,7 @@ fi:
   back_to_home_page: Takaisin etusivulle
   back_to_official_home_page: Takaisin toimitsijan etusivulle
   back_to_official_race_page: Takaisin Yhteenveto-sivulle
+  back_to_official_relays_page: Takaisin viestien etusivulle
   back_to_official_team_competitions_page: Takaisin joukkuekilpailujen etusivulle
   back_to_page: Takaisin sivulle
   back_to_race_home_page: Takaisin kilpailun etusivulle
@@ -49,6 +50,7 @@ fi:
   leg: Osuus
   no_competitors_for_series: Sarjaan ei ole lisätty kilpailijoita
   no_start_list: Sarjan lähtöluetteloa ei ole vielä julkaistu
+  normal: Normaali
   number_short: Nro
   order_method: Kilpailijoiden järjestys
   order_method_0: Lisäysjärjestys

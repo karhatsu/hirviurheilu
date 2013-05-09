@@ -156,6 +156,7 @@ sv:
             misses: Skotts över
       relay_team:
         name: Lags namn
+        no_result_reason: Status
         relay_competitors: Tävlar
       series:
         age_groups:

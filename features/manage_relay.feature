@@ -1,4 +1,4 @@
-Feature: Manager relays
+Feature: Manage relays
   In order to show relay results
   As an official
   I want to add and edit relays and fill results for them
@@ -35,7 +35,7 @@ Feature: Manager relays
     And the "relay_start_time_4i" field should contain "11"
     And the "relay_start_time_5i" field should contain "45"
     And the "relay_start_time_6i" field should contain "30"
-    And I should see /Oikeat arviot/ within "h2"
+    And I should see /Oikeat etäisyydet/ within "h2"
     And I should see /Joukkueet/ within "h2"
     When I follow "Takaisin viestien etusivulle"
     Then I should be on the official relays page of "Relay race"

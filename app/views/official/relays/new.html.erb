@@ -1,6 +1,6 @@
-<% content_for :title, "#{@race.name} - Uusi viesti" %>
-<h2>Uusi viesti</h2>
-<div class="warning">Huom! Osuuksien määrää ei voi muuttaa sen jälkeen, kun viesti on luotu.</div>
+<% content_for :title, "#{@race.name} - #{t '.title'}" %>
+<h2><%= t '.title' %></h2>
+<div class="warning"><%= t '.leg_count_warning' %></div>
 <%= render :partial => 'form' %>
 <hr/>
-<%= link_to 'Takaisin viestien etusivulle', official_race_relays_path(@race) %>
+<%= link_to t(:back_to_official_relays_page), official_race_relays_path(@race) %>

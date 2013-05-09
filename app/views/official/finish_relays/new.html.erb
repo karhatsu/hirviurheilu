@@ -1,16 +1,13 @@
-<% content_for :title, "#{@relay.race.name} - #{@relay.name} - Viestin päättäminen" %>
-<h2>Viestin päättäminen</h2>
+<% content_for :title, "#{@relay.race.name} - #{@relay.name} - #{t '.title'}" %>
+<h2><%= t '.title' %></h2>
 <% if @relay.finished? %>
-  <div class="info">Tämä viesti on jo merkitty päättyneeksi</div>
+  <div class="info"><%= t '.already_finished' %></div>
 <% else %>
-  <div class="info">
-    Kun kaikki viestin tiedot on syötetty, voit alla olevan napin avulla merkitä
-    viestin päättyneeksi. Ohjelma tarkastaa automaattisesti, ettei mitään tietoja puutu.
-  </div>
+  <div class="info"><%= t '.info' %></div>
   <%= render :partial => 'shared/form_errors', :locals => { :item => @relay } %>
   <%= form_tag(official_relay_finish_relay_path(@relay)) do %>
-    <%= submit_tag 'Merkitse viesti päättyneeksi' %>
+    <%= submit_tag t('.submit_button') %>
   <% end %>
 <% end %>
 <hr/>
-<%= link_to 'Takaisin viestien etusivulle', official_race_relays_path(@relay.race) %>
+<%= link_to t(:back_to_official_relays_page), official_race_relays_path(@relay.race) %>

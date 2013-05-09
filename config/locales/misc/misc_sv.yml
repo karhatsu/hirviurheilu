@@ -8,6 +8,7 @@ sv:
   back_to_home_page: Tillbaka till hemsida
   back_to_official_home_page: Tillbaka till funktionärs hemsida
   back_to_official_race_page: Tillbaka till Sammanfattning-sida
+  back_to_official_relays_page: Tillbaka till stafetters hemsida
   back_to_official_team_competitions_page: Tillbaka till lagtävlingars hemsida
   back_to_page: Tillbaka till sida
   back_to_race_home_page: Tillbaka till tävlingens hemsida
@@ -49,6 +50,7 @@ sv:
   leg: Sträcka
   no_competitors_for_series: Inga tävlar i klassen
   no_start_list: Klassens startlist har inte ännu publiserats
+  normal: Normal
   number_short: Nr
   order_method: Tävlarnas ordning
   order_method_0: Som ökat

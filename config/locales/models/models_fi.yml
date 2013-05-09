@@ -156,6 +156,7 @@ fi:
             misses: Ohilaukaukset
       relay_team:
         name: Joukkueen nimi
+        no_result_reason: Tila
         relay_competitors: Kilpailijat
       series:
         age_groups:

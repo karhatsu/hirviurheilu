@@ -151,3 +151,28 @@ fi:
         upload_file: Tiedoston lataus
         csv_file: CSV-tiedosto
         submit_button: Lataa kilpailijat tietokantaan
+    relays:
+      index:
+        title: Viestit
+        add_relay: Lisää viesti
+        teams: Joukkueita
+        remove_relay: Poista viesti
+        remove_relay_confirm: Haluatko varmasti poistaa tämän viestin?
+        results_quick_save: Tulosten pikasyöttö
+        finish_relay: Viestin päättäminen
+        relay_finished: Viesti päättynyt
+      new:
+        title: Uusi viesti
+        leg_count_warning: Huom! Osuuksien määrää ei voi muuttaa sen jälkeen, kun viesti on luotu.
+      edit:
+        title: Muokkaa viestin tietoja
+      form:
+        teams: Joukkueet
+        no_teams_info: Et ole vielä lisännyt viestiin yhtään joukkuetta. Lisää joukkueita alla olevasta napista.
+        add_new_team: Lisää uusi joukkue tähän kilpailuun
+    finish_relays:
+      new:
+        title: Viestin päättäminen
+        already_finished: Tämä viesti on jo merkitty päättyneeksi
+        info: Kun kaikki viestin tiedot on syötetty, voit alla olevan napin avulla merkitä viestin päättyneeksi. Ohjelma tarkastaa automaattisesti, ettei mitään tietoja puutu.
+        submit_button: Merkitse viesti päättyneeksi

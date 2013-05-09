@@ -42,7 +42,7 @@ class Official::RelaysController < Official::OfficialController
 
   private
   def set_no_result_reason_options
-    @no_result_reason_options = [['Normaali', '']]
+    @no_result_reason_options = [[t(:normal), '']]
     @no_result_reason_options << [RelayTeam::DNS, RelayTeam::DNS]
     @no_result_reason_options << [RelayTeam::DNF, RelayTeam::DNF]
   end
