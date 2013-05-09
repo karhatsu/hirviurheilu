@@ -1,5 +1,5 @@
-<% content_for :title, "Unohtuneen salasanan vaihto" %>
+<% content_for :title, t('.title') %>
 <% content_for(:page_title, yield(:title)) %>
 <%= flash_success %>
 <hr/>
-<%= link_to "Takaisin etusivulle", root_path %>
+<%= link_to t(:back_to_home_page), root_path %>

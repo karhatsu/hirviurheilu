@@ -16,7 +16,7 @@ Feature: Reset password
     Then I should see "Klikkaa alla olevaa linkkiä, niin pääset asettamaan uuden salasanan" in the email body
     When I click the first link in the email
     And I fill in "new-password" for "Uusi salasana"
-    And I fill in "new-password" for "Uusi salasana uudestaan"
+    And I fill in "new-password" for "Salasana uudestaan"
     And I press "Vaihda salasana"
     Then I should be on the account page
     And I should see "Salasana vaihdettu" in a success message
@@ -47,11 +47,11 @@ Feature: Reset password
     When I open the email
     And I click the first link in the email
     And I fill in "" for "Uusi salasana"
-    And I fill in "" for "Uusi salasana uudestaan"
+    And I fill in "" for "Salasana uudestaan"
     And I press "Vaihda salasana"
     Then I should see "Syötä uusi salasana"
     When I fill in "new-password" for "Uusi salasana"
-    And I fill in "different-password" for "Uusi salasana uudestaan"
+    And I fill in "different-password" for "Salasana uudestaan"
     And I press "Vaihda salasana"
     Then I should see "Salasana ei vastaa varmennusta." in an error message
 

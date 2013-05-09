@@ -1,4 +1,4 @@
-<% content_for(:title, 'Uuden salasanan asetus') %>
+<% content_for(:title, t('.title')) %>
 <% content_for(:page_title, yield(:title)) %>
 <%= flash_error %>
 <%= flash_success %>
@@ -6,12 +6,12 @@
   <%= form_tag(reset_password_path, :method => :put) do %>
     <%= hidden_field_tag :reset_hash, @reset_hash %>
     <dl>
-      <dt><%= label_tag :password, 'Uusi salasana' %></dt>
+      <dt><%= label_tag :password, t('.new_password') %></dt>
       <dd><%= password_field_tag :password %></dd>
 
-      <dt><%= label_tag :password_confirmation, 'Uusi salasana uudestaan' %></dt>
+      <dt><%= label_tag :password_confirmation, t('attributes.password_confirmation') %></dt>
       <dd><%= password_field_tag :password_confirmation %></dd>
     </dl>
-    <%= submit_tag 'Vaihda salasana' %>
+    <%= submit_tag t('.submit_button') %>
   <% end %>
 <% end %>

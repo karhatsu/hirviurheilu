@@ -12,11 +12,10 @@ class ResetPasswordsController < ApplicationController
       user.reset_hash = reset_hash
       user.save!
       ResetPasswordMailer.reset_mail(params[:email], reset_hash, site_url).deliver
-      flash[:success] = "Sähköpostiisi on lähetetty linkki, " +
-        "jonka avulla voit asettaa uuden salasanan."
+      flash[:success] = t('reset_passwords.create.email_sent')
       redirect_to reset_password_path
     else
-      flash[:error] = "Tuntematon sähköpostiosoite"
+      flash[:error] = t('reset_passwords.create.unknown_email')
       render :new
     end
   end
@@ -28,8 +27,7 @@ class ResetPasswordsController < ApplicationController
     @reset_hash = params[:reset_hash]
     @hash_ok = true
     unless User.find_by_reset_hash(@reset_hash)
-      flash[:error] = "Tuntematon tunnus. Varmista, että selaimen " +
-        "osoiterivillä on täsmälleen se linkki, jonka sait sähköpostiisi."
+      flash[:error] = t('reset_passwords.edit.unknown_hash')
       @hash_ok = false
     end
   end
@@ -38,7 +36,7 @@ class ResetPasswordsController < ApplicationController
     @reset_hash = params[:reset_hash]
     @hash_ok = true
     if params[:password].blank?
-      flash[:error] = "Syötä uusi salasana"
+      flash[:error] = t('reset_passwords.update.write_new_password')
       render :edit
       return
     end
@@ -47,7 +45,7 @@ class ResetPasswordsController < ApplicationController
       user.password = params[:password]
       user.password_confirmation = params[:password_confirmation]
       if user.save
-        flash[:success] = "Salasana vaihdettu"
+        flash[:success] = t('reset_passwords.update.password_changed')
         redirect_to account_path
       else
         flash[:error] = user.errors.full_messages.join(". ") + "."
@@ -55,7 +53,7 @@ class ResetPasswordsController < ApplicationController
       end
     else
       @hash_ok = false
-      flash[:error] = "Käyttäjää ei löytynyt"
+      flash[:error] = t('reset_passwords.update.user_not_found')
       render :edit
     end
   end

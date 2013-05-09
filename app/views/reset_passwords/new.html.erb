@@ -1,11 +1,10 @@
-<% content_for :title, "Unohtuneen salasanan vaihto" %>
+<% content_for :title, t('.title') %>
 <% content_for(:page_title, yield(:title)) %>
-<div class="info">Jos olet unohtanut salasanasi,
-  syötä alla olevaan kenttään sähköpostiosoitteesi.</div>
+<div class="info"><%= t '.info' %></div>
 <%= flash_error %>
 <%= flash_success %>
 <%= form_tag(reset_password_path) do %>
-  <span class="form_label"><%= label_tag :email, 'Sähköposti' %></span>
+  <span class="form_label"><%= label_tag :email, t('attributes.email') %></span>
   <%= email_field_tag :email %><br/>
-  <%= submit_tag 'Tilaa uusi salasana' %>
+  <%= submit_tag t('.button') %>
 <% end %>
