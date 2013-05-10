@@ -1,4 +1,24 @@
 fi:
+  activation_keys:
+    new:
+      title: Hanki aktivointitunnus Offline-tuotetta varten
+      important_information: Tärkeää tietoa aktivointitunnuksesta
+      info: Tältä sivulta voit hankkia Offline-tuotteeseen aktivointitunnuksen, joka poistaa tuotteesta käyttörajoitukset. Jos käytät Hirviurheilu-palvelua pelkästään internetin välityksellä, sinun ei tarvitse hankkia aktivointitunnusta.
+      price: "Hirviurheilu Offline -tuotteen hinta %{price} euroa (sis. ALV %{vat}%)."
+      invoicing_warning: TÄRKEÄÄ! Jos avaat aktivointitunnuksen, se tarkoittaa sitä, että Hirviurheilu-palvelulla on oikeus laskuttaa sinua Offline-tuotteesta riippumatta siitä, käytätkö sitä vai et.
+      open_activation_key: Avaa aktivointitunnus
+      invoicing_information: Laskutustiedot (esim. seuran nimi)
+      accept: Ymmärrän, että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä riippumatta siitä, käytänkö tuotetta vai en.
+      show_activation_key: Näytä aktivointitunnus
+    create:
+      invoicing_information_missing: Syötä laskutustiedot
+      wrong_password: Väärä salasana
+      not_accepted: Sinun täytyy hyväksyä laskutusehto
+    show:
+      title: Hanki aktivointitunnus Offline-tuotetta varten
+      hirviurheilu_offline_activation_key: Hirviurheilu Offlinen aktivointitunnus
+      activation_key: Aktivointitunnus
+      info: Siirry seuraavaksi offline-tuotteen puolelle ja syötä sinne tämän palvelun käyttäjätunnukset sekä yllä oleva aktivointitunnus.
   offline:
     price:
       title: Hirviurheilu Offline - hinta

@@ -10,7 +10,7 @@ class ActivationKeysController < ApplicationController
       if current_user.valid_password?(params[:password])
         invoicing_info = params[:invoicing_info]
         if current_user.invoicing_info.nil? and invoicing_info.blank?
-          flash[:error] = 'Syötä laskutustiedot'
+          flash[:error] = t('activation_keys.create.invoicing_information_missing')
           render :new
         else
           @activation_key = ActivationKey.get_key(current_user.email, params[:password])
@@ -21,11 +21,11 @@ class ActivationKeysController < ApplicationController
           render :show
         end
       else
-        flash[:error] = 'Väärä salasana'
+        flash[:error] = t('activation_keys.create.wrong_password')
         render :new
       end
     else
-      flash[:error] = 'Sinun täytyy hyväksyä laskutusehto'
+      flash[:error] = t('activation_keys.create.not_accepted')
       render :new
     end
   end

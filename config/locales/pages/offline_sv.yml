@@ -1,4 +1,24 @@
 sv:
+  activation_keys:
+    new:
+      title: Skaffa activeringsnyckel för Hirviurheilu Offline
+      important_information: Viktig information av activeringsnyckel
+      info: Här kan du skaffa activeringsnyckel för Hirviurheilu Offline. Nyckeln tar bort alla begränsningar från produkten. Om du använder Hirviurheilu-tjänsten bara via internet, behöver du inte skaffa activeringsnyckel.
+      price: "Hirviurheilu Offline pris: %{price} euro (inkl. moms %{vat}%)."
+      invoicing_warning: OBS! Om du skaffar activeringsnyckel, Hirviurheilu har rättighet att fakturera dig oberoende av om du använder produkten eller nej.
+      open_activation_key: Öppna activeringsnyckel
+      invoicing_information: Debiteringuppgifter (t.ex. klubbens namn)
+      accept: Jag förstår att jag ska debiteras oberoende av om jag ska använda produkten eller nej.
+      show_activation_key: Visa activeringsnyckel
+    create:
+      invoicing_information_missing: Debiteringsuppgifter saknas
+      wrong_password: Felt lösenord
+      not_accepted: Du måste acceptera debiteringsvillkor
+    show:
+      title: Skaffa activeringsnyckel för Hirviurheilu Offline
+      hirviurheilu_offline_activation_key: Hirviurheilu Offline activeringsnyckel 
+      activation_key: Activeringsnyckel
+      info: Gå nu till din Hirviurheilu Offline och ta bort användningsbegränsningar med nyckeln.
   offline:
     price:
       title: Hirviurheilu Offline - pris

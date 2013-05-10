@@ -1,8 +1,5 @@
-<% content_for(:title, "Hanki aktivointitunnus Offline-tuotetta varten") %>
+<% content_for(:title, t('.title')) %>
 <% content_for(:page_title, yield(:title)) %>
-<h2>Hirviurheilu Offlinen aktivointitunnus</h2>
-<div class="success">Aktivointitunnus: <%= @activation_key %></div>
-<div class="info">
-  Siirry seuraavaksi offline-tuotteen puolelle
-  ja syötä sinne tämän palvelun käyttäjätunnukset sekä yllä oleva aktivointitunnus.
-</div>
+<h2><%= t '.hirviurheilu_offline_activation_key' %></h2>
+<div class="success"><%= t '.activation_key' %>: <%= @activation_key %></div>
+<div class="info"><%= t '.info' %></div>
