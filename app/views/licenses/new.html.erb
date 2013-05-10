@@ -4,13 +4,19 @@
 <div class="info"><%= raw t('.info', :license_link => license_link) %></div>
 <div class="section">
   <%= flash_error %>
-  <%= form_tag license_path do %>
-    <%= label_tag :email, t('.email_in_hirviurheilu_com') %>
-    <%= email_field_tag :email %><br/>
-    <%= label_tag :password, t('.password_in_hirviurheilu_com') %>
-    <%= password_field_tag :password %><br/>
-    <%= label_tag :activation_key, t('.activation_key') %>
-    <%= text_field_tag :activation_key %><br/>
+  <%= form_tag license_path, :class => 'license_form' do %>
+    <div>
+      <span class="form_label"><%= label_tag :email, t('.email_in_hirviurheilu_com') %></span>
+      <%= email_field_tag :email %>
+    </div>
+    <div>
+      <span class="form_label"><%= label_tag :password, t('.password_in_hirviurheilu_com') %></span>
+      <%= password_field_tag :password %>
+    </div>
+    <div>
+      <span class="form_label"><%= label_tag :activation_key, t('.activation_key') %></span>
+      <%= text_field_tag :activation_key %>
+    </div>
     <%= submit_tag t(:save) %>
   <% end %>
 </div>
