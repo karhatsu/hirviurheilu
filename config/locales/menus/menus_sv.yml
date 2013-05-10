@@ -23,6 +23,12 @@ sv:
   cup_sub_menu:
     home_page: Cup-tävlingens hemsida
     results: Resultat
+  offline_sub_menu:
+    online_vs_offline: Online eller Offline?
+    offline_installation: Offline-installation
+    price: Pris
+    activation_key: Skaffa aktiveringsnyckel
+    version_history: Versionhistoria
   official_sub_menu:
     summary: Sammanfattning
     race: Tävling & klasser

@@ -23,6 +23,12 @@ fi:
   cup_sub_menu:
     home_page: Cup-kilpailun etusivu
     results: Tulokset
+  offline_sub_menu:
+    online_vs_offline: Online vai Offline?
+    offline_installation: Offline-asennus
+    price: Hinta
+    activation_key: Hanki aktivointitunnus
+    version_history: Versiohistoria
   official_sub_menu:
     summary: Yhteenveto
     race: Kilpailu & sarjat
