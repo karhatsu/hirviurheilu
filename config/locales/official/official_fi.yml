@@ -15,6 +15,10 @@ fi:
         title: Kilpailun lisäys
         add_default_series_automatically: Lisää oletussarjat automaattisesti
         submit: Lisää kilpailu
+      create:
+        race_added: Kilpailu lisätty
+        add_competitors_info: Pääset lisäämään kilpailijoita klikkaamalla sarjan nimen vieressä olevaa linkkiä.
+        add_series_info: Voit nyt lisätä sarjoja kilpailulle alla olevasta linkistä.
       edit:
         title: Kilpailun muokkaus
         submit: Tallenna kilpailun ja sarjojen tiedot
@@ -45,6 +49,9 @@ fi:
         input_results: Tulosten syöttö
         set_correct_estimates: Aseta
         publish_race_to_internet: Julkaise kilpailu internetissä
+      destroy:
+        race_removed: Kilpailu poistettu
+        cannot_remove_race: Kilpailua ei voi poistaa
     competitors:
       index:
         title: Kilpailijat

@@ -21,14 +21,13 @@ class Official::RacesController < Official::OfficialController
     if @race.save
       current_user.race_rights.create!(:race => @race)
       NewCompetitionMailer.new_race(@race, current_user).deliver
-      flash[:success] = "Kilpailu lisätty. "
+      flash[:success] = t('official.races.create.race_added') + ". "
       if params[:add_default_series]
         @race.add_default_series
-        flash[:success] << "Pääset lisäämään kilpailijoita klikkaamalla sarjan " +
-          "nimen vieressä olevaa linkkiä."
+        flash[:success] << t('official.races.create.add_competitors_info')
         redirect_to official_race_path(@race)
       else
-        flash[:success] << "Voit nyt lisätä sarjoja kilpailulle alla olevasta linkistä."
+        flash[:success] << t('official.races.create.add_series_info')
         redirect_to edit_official_race_path(@race)
       end
     else
@@ -50,9 +49,9 @@ class Official::RacesController < Official::OfficialController
 
   def destroy
     if @race.destroy
-      flash[:success] = "Kilpailu poistettu"
+      flash[:success] = t('official.races.destroy.race_removed')
     else
-      flash[:error] = "Kilpailua ei voi poistaa: #{@race.errors[:base]}"
+      flash[:error] = t('official.races.destroy.cannot_remove_race') + ": #{@race.errors[:base]}"
     end
     redirect_to official_root_path
   end

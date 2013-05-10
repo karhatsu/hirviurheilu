@@ -15,6 +15,10 @@ sv:
         title: Öka tävling
         add_default_series_automatically: Öka standardklasser automatiskt
         submit: Öka tävling
+      create:
+        race_added: Tävling ökat
+        add_competitors_info: Du kan nu öka tävlar. Klicka länken vid klassnamn.
+        add_series_info: Du kan nu öka klasser. Klicka knappen under.
       edit:
         title: Tävlingens redigering
         submit: Spara tävlingens och klassernas avgifter
@@ -45,6 +49,9 @@ sv:
         input_results: Spara resultat
         set_correct_estimates: Sätt
         publish_race_to_internet: Publisera tävlingen till internet
+      destroy:
+        race_removed: Tävlingen raderat
+        cannot_remove_race: Kan inte radera tävlingen
     competitors:
       index:
         title: Tävlar
