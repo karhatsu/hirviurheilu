@@ -19,6 +19,16 @@ fi:
       hirviurheilu_offline_activation_key: Hirviurheilu Offlinen aktivointitunnus
       activation_key: Aktivointitunnus
       info: Siirry seuraavaksi offline-tuotteen puolelle ja syötä sinne tämän palvelun käyttäjätunnukset sekä yllä oleva aktivointitunnus.
+  licenses:
+    new:
+      title: Hanki lisenssi
+      info: Kirjaudu osoitteseen <a href="%{license_link}" target="_blank">%{license_link}</a> omilla tunnuksillasi. Saat käyttöösi aktivointitunnuksen. Sen jälkeen syötä alla olevaan lomakkeseen saamasi aktivointitunnus sekä omat tunnuksesi.
+      email_in_hirviurheilu_com: Sähköposti (hirviurheilu.com-palvelussa)
+      password_in_hirviurheilu_com: Salasana (hirviurheilu.com-palvelussa)
+      activation_key: Aktivointitunnus
+    create:
+      success: Hirviurheilun offline-versiosi on aktivoitu. Voit käyttää nyt tuotetta ilman rajoituksia.
+      error: Virheellinen aktivointitunnus
   offline:
     price:
       title: Hirviurheilu Offline - hinta

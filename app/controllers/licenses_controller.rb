@@ -8,11 +8,10 @@ class LicensesController < ApplicationController
   def create
     if ActivationKey.valid?(params[:email], params[:password], params[:activation_key])
       ActivationKey.create!(:comment => 'Success')
-      flash[:success] = 'Hirviurheilun offline-versiosi on aktivoitu. ' +
-        'Voit käyttää nyt tuotetta ilman rajoituksia.'
+      flash[:success] = t('licenses.create.success')
       redirect_to root_path
     else
-      flash[:error] = 'Virheellinen aktivointitunnus'
+      flash[:error] = t('licenses.create.error')
       render :new
     end
   end

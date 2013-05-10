@@ -1,20 +1,16 @@
-<% content_for(:title, "Hanki lisenssi") %>
+<% content_for(:title, t('.title')) %>
 <% content_for(:page_title, yield(:title)) %>
 <% license_link = PRODUCTION_URL + new_activation_key_path %>
-<div class="info">
-  Kirjaudu osoitteseen <a href="<%= license_link %>" target="_blank"><%= license_link %></a>
-  omilla tunnuksillasi. Saat käyttöösi aktivointitunnuksen.
-  Sen jälkeen syötä alla olevaan lomakkeseen saamasi aktivointitunnus sekä omat tunnuksesi.
-</div>
+<div class="info"><%= raw t('.info', :license_link => license_link) %></div>
 <div class="section">
   <%= flash_error %>
   <%= form_tag license_path do %>
-    <%= label_tag :email, 'Sähköposti (hirviurheilu.com-palvelussa)' %>
+    <%= label_tag :email, t('.email_in_hirviurheilu_com') %>
     <%= email_field_tag :email %><br/>
-    <%= label_tag :password, 'Salasana (hirviurheilu.com-palvelussa)' %>
+    <%= label_tag :password, t('.password_in_hirviurheilu_com') %>
     <%= password_field_tag :password %><br/>
-    <%= label_tag :activation_key, 'Aktivointitunnus' %>
+    <%= label_tag :activation_key, t('.activation_key') %>
     <%= text_field_tag :activation_key %><br/>
-    <%= submit_tag 'Tallenna' %>
+    <%= submit_tag t(:save) %>
   <% end %>
 </div>

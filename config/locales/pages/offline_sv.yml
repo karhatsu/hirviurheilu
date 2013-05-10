@@ -19,6 +19,16 @@ sv:
       hirviurheilu_offline_activation_key: Hirviurheilu Offline activeringsnyckel 
       activation_key: Activeringsnyckel
       info: Gå nu till din Hirviurheilu Offline och ta bort användningsbegränsningar med nyckeln.
+  licenses:
+    new:
+      title: Skaffa licens
+      info: Logga in till <a href="%{license_link}" target="_blank">%{license_link}</a> och skaffa activeringsnyckel. Därefter ange nyckeln till blanketten på den här sidan.
+      email_in_hirviurheilu_com: Epost (i hirviurheilu.com-tjänsten)
+      password_in_hirviurheilu_com: Lösenord (i hirviurheilu.com-tjänsten)
+      activation_key: Activeringsnyckel
+    create:
+      success: Din Hirviurheilu Offline är nu aktiverats. Du kan använda produkten utan begränsningar.
+      error: Fel activeringsnyckel
   offline:
     price:
       title: Hirviurheilu Offline - pris
