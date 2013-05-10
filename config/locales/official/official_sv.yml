@@ -72,6 +72,8 @@ sv:
       show:
         title: Starttider för all tävlarna
         no_start_list_for_any_series: Ingen klass har startlist ännu
+      update:
+        start_list_create_for_series: Startlista skapat för klassen
     quick_saves:
       index:
         title: Spara resultat
