@@ -1,5 +1,5 @@
-<% content_for :title, "Hirviurheilu Offline - hinta" %>
+<% content_for :title, t('offline.price.title') %>
 <% content_for :page_title, yield(:title) %>
-<h2>Hinnoittelu uudistunut</h2>
-Hirviurheilun hinnoittelu on uudistunut 2.2.2013.
-<%= link_to 'Tutustu uuteen hinnoitteluun', prices_path %>
+<h2><%= t('offline.price.new_pricing_title') %></h2>
+<%= t('offline.price.new_pricing') %>
+<%= link_to t('offline.price.read_more_about_new_pricing'), prices_path %>
