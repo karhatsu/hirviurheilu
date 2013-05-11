@@ -142,6 +142,8 @@ fi:
         title: Kilpailun päättäminen
         info: Kilpailu pitää merkitä päättyneeksi, jotta kilpailijat näkevät, että kaikkien tulokset on merkitty eikä tulosluettelo tule enää muuttumaan. Lisäksi kilpailijoille näytetään oikeat arviointimatkat vasta sitten, kun kilpailu on päättynyt.
         already_finished: Tämä kilpailu on jo merkitty päättyneeksi.
+      create:
+        race_finished: Kilpailu %{race_name} on merkitty päättyneeksi
     csv_exports:
       show:
         title: Kilpailijoiden vienti CSV-tiedostoon

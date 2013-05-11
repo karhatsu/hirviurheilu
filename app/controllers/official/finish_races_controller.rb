@@ -8,7 +8,7 @@ class Official::FinishRacesController < Official::OfficialController
   def create
     if @race.finish
       FinishRaceMailer.finish_race(@race).deliver
-      flash[:success] = "Kilpailu #{@race.name} on merkitty päättyneeksi"
+      flash[:success] = t('official.finish_races.create.race_finished', :race_name => @race.name)
       redirect_to official_race_path(@race)
     else
       render :new

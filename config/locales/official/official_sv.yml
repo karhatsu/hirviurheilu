@@ -142,6 +142,8 @@ sv:
         title: Sluta tävlingen
         info: Man måste sluta tävlingen så att tävlarna se att resulaten är slutliga. Ytterligare tävlingarna ser de riktiga avtstånden efter tävlingen är slut.
         already_finished: Den här tävlingen är redan slutat.
+      create:
+        race_finished: Tävlingen %{race_name} slutat
     csv_exports:
       show:
         title: Export tävlarna till CSV-fil
