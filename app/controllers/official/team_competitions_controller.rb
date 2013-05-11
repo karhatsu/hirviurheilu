@@ -13,7 +13,7 @@ class Official::TeamCompetitionsController < Official::OfficialController
   def create
     @tc = @race.team_competitions.build(params[:team_competition])
     if @tc.save
-      flash[:success] = 'Joukkuekilpailu luotu'
+      flash[:success] = t('official.team_competitions.create.team_competition_created')
       redirect_to official_race_team_competitions_path(@race)
     else
       render :new
@@ -27,7 +27,7 @@ class Official::TeamCompetitionsController < Official::OfficialController
     if @tc.update_attributes(params[:team_competition])
       @tc.series.delete_all if params[:team_competition][:series_ids].blank?
       @tc.age_groups.delete_all if params[:team_competition][:age_group_ids].blank?
-      flash[:success] = 'Joukkuekilpailun tiedot päivitetty'
+      flash[:success] = t('official.team_competitions.update.team_competition_updated')
       redirect_to official_race_team_competitions_path(@race)
     else
       render :edit
@@ -36,7 +36,7 @@ class Official::TeamCompetitionsController < Official::OfficialController
 
   def destroy
     @tc.destroy
-    flash[:success] = 'Joukkuekilpailu poistettu'
+    flash[:success] = t('official.team_competitions.destroy.team_competition_removed')
     redirect_to official_race_team_competitions_path(@race)
   end
 

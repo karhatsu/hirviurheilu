@@ -130,13 +130,19 @@ fi:
         remove_team_competition_confirm: Haluatko varmasti poistaa tämän joukkuekilpailun?
       new:
         title: Uusi joukkuekilpailu
+      create:
+        team_competition_created: Joukkuekilpailu luotu
       edit:
         title: Muokkaa joukkuekilpailun tietoja
+      update:
+        team_competition_updated: Joukkuekilpailun tiedot päivitetty
       form:
         series_age_groups: Sarjat ja/tai ikäryhmät tässä joukkuekilpailussa
         choose_info: Valitse kaikki sarjat ja ikäryhmät, jotka kuuluvat tähän joukkuekilpailuun.
         choose_info_full_series: Jos kilpailuun kuuluu kokonainen sarja, valitse kyseinen sarja ilman ikäryhmiä.
         choose_info_age_groups: Jos kilpailuun kuuluu vain tietty ikäryhmä (ei kokonaista sarjaa), valitse kyseinen ikäryhmä (ei sarjaa).
+      destroy:
+        team_competition_removed: Joukkuekilpailu poistettu
     finish_races:
       new:
         title: Kilpailun päättäminen
