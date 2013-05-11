@@ -1,4 +1,4 @@
 <% count = Competitor.free_offline_competitors_left %>
-<div class="offline_limit">Voit lisätä vielä
+<div class="offline_limit"><%= t :you_can_still_add %>
   <span id="free_offline_competitors_left"><%= t 'count_competitors', :count => count %></span>.
   <%= link_to 'Hanki lisenssi.', new_license_path %></div>
