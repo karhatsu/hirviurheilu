@@ -197,3 +197,13 @@ sv:
               start_order_mixed_not_allowed: Du kan inte välja 'Klasser blandad' startordning eftersom du har ökat tävlar som inte har en starttid. Skapa startlistor för klasser med tävlar och kom tillbaka hit och välja 'Klasser blandad'.
             end_date:
               must_not_be_before_start_date: kan inte vara före startdag
+        series:
+          attributes:
+            base:
+              cannot_generate_numbers_without_first_number: Kan inte skapa startnummer, eftersom klassens första nummer sanknas
+              cannot_generate_numbers_already_arrival_times: Kan inte skapa startnummer, eftersom några tävlar redan har avkomstid
+              cannot_generate_numbers_no_free_numbers: Kan inte skapa startnummer, eftersom nummer %{first_number}-%{max_number} är upptaken
+              cannot_generate_start_times_without_start_time: Kan inte skapa starttider, eftersom klassens starttid sanknas
+              cannot_generate_start_times_without_first_number: Kan inte skapa starttider, eftersom klassens första nummer sanknas
+              cannot_generate_start_times_without_numbers_for_all_competitors: Kan inte skapa starttider, eftersom alla tävlar har inte startnummer
+              cannot_generate_start_times_already_arrival_times: Kan inte skapa starttider, eftersom några tävlar redan har avkomstid

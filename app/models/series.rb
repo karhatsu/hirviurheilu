@@ -242,21 +242,20 @@ class Series < ActiveRecord::Base
 
   def can_generate_numbers?
     ok = true
-    error_start = 'Numeroita ei voi generoida'
     unless first_number
-      errors.add(:base, "#{error_start}, sillä sarjan ensimmäistä numeroa ei ole määritetty")
+      errors.add :base, :cannot_generate_numbers_without_first_number
       ok = false
     end
     if some_competitor_has_arrival_time?
-      errors.add(:base, "#{error_start}, sillä osalla kilpailijoista on jo saapumisaika")
+      errors.add :base, :cannot_generate_numbers_already_arrival_times
       ok = false
     end
     if first_number
       max_number = first_number + competitors.count - 1
       unless race.competitors.where(['series_id<>? and number>=? and number<=?',
           id, first_number, max_number]).empty?
-        errors.add(:base, "#{error_start}, sillä kilpailunumerot " +
-          "#{first_number}-#{max_number} eivät ole vapaana")
+        errors.add :base, :cannot_generate_numbers_no_free_numbers,
+          :first_number => first_number, :max_number => max_number
         ok = false
       end
     end
@@ -265,21 +264,20 @@ class Series < ActiveRecord::Base
 
   def can_generate_start_times?
     ok = true
-    error_start = 'Lähtöaikoja ei voi generoida'
     unless start_time
-      errors.add(:base, "#{error_start}, sillä sarjan lähtöaikaa ei ole määritetty")
+      errors.add :base, :cannot_generate_start_times_without_start_time
       ok = false
     end
     unless first_number
-      errors.add(:base, "#{error_start}, sillä sarjan ensimmäistä numeroa ei ole määritetty")
+      errors.add :base, :cannot_generate_start_times_without_first_number
       ok = false
     end
     unless each_competitor_has_number?
-      errors.add(:base, "#{error_start}, sillä kaikilla kilpailijoilla ei ole numeroa")
+      errors.add :base, :cannot_generate_start_times_without_numbers_for_all_competitors
       ok = false
     end
     if some_competitor_has_arrival_time?
-      errors.add(:base, "#{error_start}, sillä osalla kilpailijoista on jo saapumisaika")
+      errors.add :base, :cannot_generate_start_times_already_arrival_times
       ok = false
     end
     ok

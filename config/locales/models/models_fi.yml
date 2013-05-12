@@ -197,4 +197,14 @@ fi:
               start_order_mixed_not_allowed: Et voi asettaa kilpailijoiden lähtöjärjestystä tilaan 'Sarjat sekaisin', koska olet lisännyt kilpailijoita, joilla ei ole lähtöaikaa. Käy luomassa lähtölistat nille sarjoille, joihin olet jo lisännyt kilpailijoita, ja palaa sen jälkeen muuttamaan tämä asetus.
             end_date:
               must_not_be_before_start_date: ei voi olla ennen alkupäivää
+        series:
+          attributes:
+            base:
+              cannot_generate_numbers_without_first_number: Numeroita ei voi generoida, sillä sarjan ensimmäistä numeroa ei ole määritetty
+              cannot_generate_numbers_already_arrival_times: Numeroita ei voi generoida, sillä osalla kilpailijoista on jo saapumisaika
+              cannot_generate_numbers_no_free_numbers: Numeroita ei voi generoida, sillä kilpailunumerot %{first_number}-%{max_number} eivät ole vapaana
+              cannot_generate_start_times_without_start_time: Lähtöaikoja ei voi generoida, sillä sarjan lähtöaikaa ei ole määritetty
+              cannot_generate_start_times_without_first_number: Lähtöaikoja ei voi generoida, sillä sarjan ensimmäistä numeroa ei ole määritetty
+              cannot_generate_start_times_without_numbers_for_all_competitors: Lähtöaikoja ei voi generoida, sillä kaikilla kilpailijoilla ei ole numeroa
+              cannot_generate_start_times_already_arrival_times: Lähtöaikoja ei voi generoida, sillä osalla kilpailijoista on jo saapumisaika
               
