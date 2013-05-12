@@ -1,5 +1,1 @@
-<div class="error">
-  Olet tallentanut järjestelmään <%= Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE %>
-  kilpailijaa. Ennen kuin voit lisätä uusia kilpailijoita,
-  sinun täytyy hankkia tuotteeseen lisenssi.
-</div>
+<div class="error"><%= t :offline_limit_full_long, :limit => Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE %></div>

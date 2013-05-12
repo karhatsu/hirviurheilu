@@ -13,6 +13,7 @@ fi:
   back_to_page: Takaisin sivulle
   back_to_race_home_page: Takaisin kilpailun etusivulle
   back_to_series_results: Takaisin sarjan %{series_name} tuloksiin
+  buy_license: Hanki lisenssi.
   club: Seura
   clubs: Seurat
   competition: Kilpailu
@@ -53,6 +54,8 @@ fi:
   no_start_list: Sarjan lähtöluetteloa ei ole vielä julkaistu
   normal: Normaali
   number_short: Nro
+  offline_limit_full: Et voi lisätä uusia kilpailijoita ennen kuin hankit lisenssin.
+  offline_limit_full_long: Olet tallentanut järjestelmään %{limit} kilpailijaa. Ennen kuin voit lisätä uusia kilpailijoita, sinun täytyy hankkia tuotteeseen lisenssi.
   order_method: Kilpailijoiden järjestys
   order_method_0: Lisäysjärjestys
   order_method_1: Arvotaan
