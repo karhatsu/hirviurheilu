@@ -73,16 +73,13 @@ class Race < ActiveRecord::Base
 
   def finish
     unless each_competitor_has_correct_estimates?
-      errors.add(:base, "Osalta kilpailijoista puuttuu oikea arviomatka.")
+      errors.add :base, :correct_estimate_missing
       return false
     end
     competitors.each do |c|
       unless c.finished?
         name = "#{c.first_name} #{c.last_name}"
-        errors.add(:base, "Ainakin yhdeltä kilpailijalta " +
-          "(#{name}, #{c.series.name}) puuttuu tulos. " +
-          "Jos kilpailija ei ole lähtenyt matkaan tai on keskeyttänyt, " +
-          "merkitse tieto tuloslomakkeen 'Ei tulosta' kohtaan.")
+        errors.add :base, :result_missing, :name => name, :series_name => c.series.name
         return false
       end
     end
@@ -214,24 +211,20 @@ class Race < ActiveRecord::Base
   private
   def end_date_not_before_start_date
     if end_date and end_date < start_date
-      errors.add(:end_date, "ei voi olla ennen alkupäivää")
+      errors.add :end_date, :must_not_be_before_start_date
     end
   end
 
   def check_duplicate_name_location_start_date
     if name and location and start_date and
         Race.exists?(:name => name, :location => location, :start_date => start_date)
-      errors.add(:base, 'Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä')
+      errors.add :base, :already_race_with_same_name_location_date
     end
   end
   
   def check_competitors_on_change_to_mixed_start_order
     if start_order == START_ORDER_MIXED and competitors.where(:start_time => nil).count > 0
-      error_msg = %(Et voi asettaa kilpailijoiden lähtöjärjestystä tilaan 'Sarjat sekaisin',
-        koska olet lisännyt kilpailijoita, joilla ei ole lähtöaikaa. Käy luomassa lähtölistat
-        nille sarjoille, joihin olet jo lisännyt kilpailijoita, ja palaa sen jälkeen
-        muuttamaan tämä asetus.)
-      errors.add(:base, error_msg)
+      errors.add :base, :start_order_mixed_not_allowed
     end
   end
   
