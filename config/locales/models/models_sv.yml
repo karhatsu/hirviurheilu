@@ -182,3 +182,9 @@ sv:
               is_in_use: är upptagen
             start_time:
               required_when_start_list_created: måste anges, när klassens startlista är redan skapat
+        correct_estimate:
+          attributes:
+            base:
+              overlapping_numbers: Riktiga avstånd kan inte ha nummer ovanpå varandra.
+            max_number:
+              only_one_can_be_empty: kan vara tommt bara på en nummergap.

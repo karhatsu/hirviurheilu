@@ -29,13 +29,11 @@ class CorrectEstimate < ActiveRecord::Base
     return unless min_number and race
     if max_number.nil?
       if another_max_number_nil_exists? or overlapping_min_numbers_exists?
-        errors.add(:max_number,
-          'Vain yksi oikeiden arvioiden asetuksista voi sisältää tyhjän isoimman numeron.')
+        errors.add :max_number, :only_one_can_be_empty
       end
     else
       if overlapping_numbers_exists?
-        errors.add(:base,
-          'Oikeiden arvioiden asetukset eivät voi sisältää päällekkäisiä numeroita.')
+        errors.add :base, :overlapping_numbers
       end
     end
   end

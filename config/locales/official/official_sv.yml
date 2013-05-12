@@ -44,7 +44,7 @@ sv:
         edit_race_and_series: Redigera tävlingens och klassernas avgifter, öka klasser
         add_competitors_from_csv: Öka tävlar från CSV-fil
         finish_race_submit: Slut tävlingen
-        finish_race_text: när du har sparat alla resultaten, så att de rätta avstånderna kan publiseras
+        finish_race_text: när du har sparat alla resultaten, så att de riktiga avstånden kan publiseras
         create_start_list: Gör startlista
         input_results: Spara resultat
         set_correct_estimates: Sätt
