@@ -54,7 +54,7 @@
   <h2><%= t 'activerecord.models.team_competition', :count => @race.team_competitions.count %></h2>
   <div class="section">
     <% if @race.team_competitions.count == 1 %>
-      <%= link_to "Joukkuekilpailu", race_team_competition_path(@race,
+      <%= link_to t('activerecord.models.team_competition.one'), race_team_competition_path(@race,
         @race.team_competitions.first) %>
     <% else %>
       <table>
