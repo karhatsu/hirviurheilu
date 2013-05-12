@@ -27,7 +27,7 @@
   </div>
   <%= javascript_tag do %>
     function start_updating(id) {
-      $("#status_" + id).html('<%= image_tag 'spinner.gif' %>');
+      $("#status_" + id).html('<%= image_tag 'spinner.gif', :id => 'spinner' %>');
     }
     function change_age_groups(competitor_id, series_id) {
       var $age_group_spinner = $('#age_groups_spinner_' + competitor_id);

@@ -2,3 +2,6 @@ $('div.success').hide();
 $('#spinner').hide();
 $('div.error').text('<%= t :offline_limit_full %>');
 $('div.error').show();
+$('div#update_error').addClass("error");
+$('div#update_error').text('<%= t :offline_limit_full %>');
+$('div#update_error').show();
