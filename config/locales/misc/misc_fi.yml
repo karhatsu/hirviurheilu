@@ -2,6 +2,7 @@ fi:
   add: Lisää
   add_competitors: Lisää kilpailijoita
   add_new: Lisää uusi
+  add_race: Lisää kilpailu
   all: Kaikki
   all_competitors: Kaikki kilpailijat
   back_to_cup_page: Takaisin cup-kilpailun etusivulle
@@ -53,6 +54,7 @@ fi:
   login_required: Sinun täytyy kirjautua sisään nähdäksesi pyytämäsi sivun
   no_competitors_for_series: Sarjaan ei ole lisätty kilpailijoita
   no_start_list: Sarjan lähtöluetteloa ei ole vielä julkaistu
+  no_races: Et ole lisännyt vielä yhtään kilpailua
   normal: Normaali
   number_short: Nro
   offline_limit_full: Et voi lisätä uusia kilpailijoita ennen kuin hankit lisenssin.
