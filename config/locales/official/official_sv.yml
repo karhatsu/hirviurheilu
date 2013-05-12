@@ -9,7 +9,7 @@ sv:
         or: Eller
         add_new_race: Öka en tävling
         add_new_cup: Öka en cup-tävling
-        no_races_yet: Du har ännu inga tävlingar. Klicka linken nedenför för att öka en tävling.
+        no_races_yet: Du har ännu inga tävlingar. Klicka länken nedenför för att öka en tävling.
     races:
       new:
         title: Öka tävling
@@ -31,8 +31,11 @@ sv:
         competitors_start_order_series: Klass efter klass
         competitors_start_order_mixed: Klasser blandad
         start_batches_not_in_use: inga startsatser
+        you_havent_added_series_yet: Du har ökat inga klasser till tävlingen. Klicka knappen under för att öka klasser.
         age_groups_with_own_time_points: Äldsgrupper med egna tidpöang
         add_age_group: Öka äldsgrupp
+        at_least: minst
+        competitors: tävlar
         remove_age_group: Radera äldsgruppen
         remove_series: Radera klassen
         add_series: Öka ny klass till tävlingen

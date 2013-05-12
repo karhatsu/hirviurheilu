@@ -31,8 +31,11 @@ fi:
         competitors_start_order_series: Pääsääntöisesti sarjoittain
         competitors_start_order_mixed: Sarjat sekaisin
         start_batches_not_in_use: lähtöerät eivät käytössä
+        you_havent_added_series_yet: Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta napista.
         age_groups_with_own_time_points: Ikäryhmät, joille lasketaan omat aikapisteet
         add_age_group: Lisää ikäryhmä
+        at_least: väh.
+        competitors: kilpailijaa
         remove_age_group: Poista ikäryhmä
         remove_series: Poista tämä sarja
         add_series: Lisää uusi sarja tähän kilpailuun

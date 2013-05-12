@@ -19,7 +19,7 @@
   </div>
   <div>
     <span class="form_label"><%= f.label :days_count %></span>
-    <span><%= f.select :days_count, [['1 päivä', 1], ['2 päivää', 2], ['3 päivää', 3]] %></span>
+    <span><%= f.select :days_count, [[t(:days, :count => 1), 1], [t(:days, :count => 2), 2], [t(:days, :count => 3), 3]] %></span>
   </div>
   <div>
     <span class="form_label"><%= f.label :organizer %></span>
@@ -130,8 +130,7 @@
       <%= render :partial => "series", :locals => { :f => series_form } %>
     <% end %>
     <% if @race.series.empty? %>
-      <%= highlight_info('Et ole vielä lisännyt kilpailuun yhtään sarjaa. ' +
-          'Lisää sarjoja alla olevasta napista.') %>
+      <%= highlight_info(t 'official.races.form.you_havent_added_series_yet') %>
     <% end %>
     <%= add_child_link t('official.races.form.add_series'), f, :series %><br/><br/>
   <% end %>

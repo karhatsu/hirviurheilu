@@ -33,6 +33,9 @@ fi:
   count_competitors:
     one: 1 kilpailija
     other: "%{count} kilpailijaa"
+  days:
+    one: 1 päivä
+    other: "%{count} päivää"
   district: Piiri
   districts: Piirit
   download_results_pdf: Lataa tulokset PDF-tiedostona

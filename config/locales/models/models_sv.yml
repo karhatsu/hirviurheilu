@@ -197,6 +197,8 @@ sv:
               start_order_mixed_not_allowed: Du kan inte välja 'Klasser blandad' startordning eftersom du har ökat tävlar som inte har en starttid. Skapa startlistor för klasser med tävlar och kom tillbaka hit och välja 'Klasser blandad'.
             end_date:
               must_not_be_before_start_date: kan inte vara före startdag
+            start_order:
+              have_to_choose: måste väljas
         series:
           attributes:
             base:

@@ -33,6 +33,9 @@ sv:
   count_competitors:
     one: 1 tävlare
     other: "%{count} tävlar"
+  days:
+    one: 1 dag
+    other: "%{count} dagar"
   district: Trakt
   districts: Trakter
   download_results_pdf: Ladda resultaten som PDF-fil
