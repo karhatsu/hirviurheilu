@@ -64,6 +64,7 @@ fi:
         create_new_start_list: Tee uusi lähtölista sarjalle
         result_saved: Tulos syötetty
         remove_confirmation: Haluatko varmasti poistaa tämän kilpailijan?
+        competitor_removed: Kilpailija poistettu
       new:
         title: Uusi kilpailija
         latest_added_competitors: Viimeksi lisätyt kilpailijat

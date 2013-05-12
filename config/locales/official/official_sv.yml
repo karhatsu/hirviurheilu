@@ -64,6 +64,7 @@ sv:
         create_new_start_list: Skapa en ny startlista för klassen
         result_saved: Resultat sparat
         remove_confirmation: Är du säker att du vill radera tävlaren?
+        competitor_removed: Tävlaren raderat
       new:
         title: Ny tävlare
         latest_added_competitors: Senaste ökade tävlarna
