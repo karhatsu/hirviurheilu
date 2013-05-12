@@ -141,8 +141,8 @@ class Official::CompetitorsController < Official::OfficialController
     end
     unless competitor.club_id
       # have to do this here instead of the competitor model since cannot have
-      # the presence validation for club the due to the nested forms usage
-      competitor.errors.add(:club, 'on pakollinen')
+      # the presence validation for club due to the nested forms usage
+      competitor.errors.add :club, :empty
       return false
     end
     true
