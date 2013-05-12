@@ -11,12 +11,12 @@ $("#competitors_table .order").each(function() {
   }
 });
 $row.after("<%= escape_javascript(render :partial => 'official/start_lists/competitor_row',
-  :locals => { :c => @competitor, :save_button => 'Tallenna', :parent => @competitor.series,
+  :locals => { :c => @competitor, :save_button => t(:save), :parent => @competitor.series,
     :id => @competitor.id }) %>");
 
 $("#status_new").html("");
 $("#status_<%= @competitor.id %>").closest('.competitor_row').addClass('after_action');
-$("#status_<%= @competitor.id %>").html("<span class='success'>Lisätty</span>");
+$("#status_<%= @competitor.id %>").html("<span class='success'><%= t :added %></span>");
 $("#status_<%= @competitor.id %>").show();
 setTimeout(function() {
   $("#status_<%= @competitor.id %>").hide('slow');
