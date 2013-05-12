@@ -39,6 +39,7 @@ fi:
   edit: Muokkaa
   error: Virhe
   estimate: Arvio
+  estimates: Arviot
   estimate_count_4: Sarjassa on 4 arviomatkaa.
   estimated_distances: Arvioidut etäisyydet
   estimating: Arviointi

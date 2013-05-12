@@ -1,6 +1,5 @@
-result_text = 'Kilpailijan <%= @competitor.number %>. ' +
-  '<%= full_name(@competitor) %> (<%= @competitor.series.name %>) ' +
-  'tulos tallennettu onnistuneesti (<%= @result %>).';
+result_text = '<%= t 'official.quick_saves.index.result_message', :competitor_number => @competitor.number,
+  :competitor_name => full_name(@competitor), :series_name => @competitor.series.name, :result => @result %>';
 $('#<%= @name %>_success').text(result_text);
 $('#<%= @name %>_string').val('');
 $('#<%= @name %>_spinner').hide();

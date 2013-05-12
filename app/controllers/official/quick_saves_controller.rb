@@ -9,10 +9,10 @@ class Official::QuickSavesController < Official::OfficialController
     @name = 'estimates'
     do_quick_save(EstimatesQuickSave.new(@race.id, params[:string])) do
       if @competitor.series.estimates == 4
-        @result = "arviot: #{@competitor.estimate1}, #{@competitor.estimate2}, " +
+        @result = t(:estimates) + ": #{@competitor.estimate1}, #{@competitor.estimate2}, " +
           "#{@competitor.estimate3} ja #{@competitor.estimate4}"
       else
-        @result = "arviot: #{@competitor.estimate1} ja #{@competitor.estimate2}"
+        @result = t(:estimates) + ": #{@competitor.estimate1} ja #{@competitor.estimate2}"
       end
     end
   end
@@ -20,22 +20,22 @@ class Official::QuickSavesController < Official::OfficialController
   def shots
     @name = 'shots'
     do_quick_save(ShotsQuickSave.new(@race.id, params[:string])) do
-      @result = "ammunta: #{@competitor.shots_sum}"
+      @result = t(:shooting) + ": #{@competitor.shots_sum}"
     end
   end
 
   def time
     @name = 'time'
     do_quick_save(TimeQuickSave.new(@race.id, params[:string])) do
-      @result = "saapumisaika: #{@competitor.arrival_time.strftime('%H:%M:%S')}"
+      @result = t('attributes.arrival_time') + ": #{@competitor.arrival_time.strftime('%H:%M:%S')}"
     end
   end
 
   def no_result
     @name = 'no_result'
     do_quick_save(UnfinishedCompetitorQuickSave.new(@race.id, params[:string])) do
-      @result = "ei lähtenyt matkaan" if @competitor.no_result_reason == Competitor::DNS
-      @result = "keskeytti" if @competitor.no_result_reason == Competitor::DNF
+      @result = t('competitor.DNS') if @competitor.no_result_reason == Competitor::DNS
+      @result = t('competitor.DNF') if @competitor.no_result_reason == Competitor::DNF
     end
   end
 
