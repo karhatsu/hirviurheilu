@@ -68,6 +68,14 @@ fi:
         title: Uusi kilpailija
         latest_added_competitors: Viimeksi lisätyt kilpailijat
         back_to_series_competitors_list: Takaisin sarjan <span id='series_name'>%{series_name}</span> kilpailijaluetteloon
+      edit:
+        either_total_or_shots: Syötä joko yhteistulos tai vain yksittäiset laukaukset.
+        shots: Yksittäiset laukaukset
+        dns: Ei lähtenyt matkaan (DNS)
+        dnf: Keskeytys (DNF)
+        save_and_previous_competitor: Tallenna ja avaa edellinen kilpailija
+        save_and_next_competitor: Tallenna ja avaa seuraava kilpailija
+        back_to_series_competitor_list: Takaisin sarjan %{series_name} kilpailijaluetteloon
     start_lists:
       show:
         title: Kaikkien kilpailijoiden lähtöajat

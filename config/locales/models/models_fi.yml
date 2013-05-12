@@ -167,3 +167,19 @@ fi:
         start_time: Sarjan lähtöaika
       team_competition:
         name: Kilpailun nimi
+    errors:
+      models:
+        competitor:
+          attributes:
+            base:
+              cannot_have_arrival_time_without_start_time: Kilpailijalla ei voi olla saapumisaikaa, jos hänellä ei ole lähtöaikaa
+              shooting_result_either_sum_or_by_shots: Ammuntatulokset voi syöttää vain summana tai yksittäisinä laukauksina
+              another_competitor_with_same_name_in_series: Tässä sarjassa on jo saman niminen kilpailija
+            arrival_time:
+              must_be_after_start_time: pitää olla lähtöajan jälkeen
+            number:
+              required_when_start_list_created: on pakollinen, kun sarjan lähtölista on jo luotu
+              is_in_use: on varattu
+            start_time:
+              required_when_start_list_created: on pakollinen, kun sarjan lähtölista on jo luotu
+              

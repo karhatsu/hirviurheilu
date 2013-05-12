@@ -167,3 +167,18 @@ sv:
         start_time: Klassens starttid
       team_competition:
         name: Tävlingens namn
+    errors:
+      models:
+        competitor:
+          attributes:
+            base:
+              cannot_have_arrival_time_without_start_time: Tävlaren kan inte ha avkomstid, om han inte har starttid
+              shooting_result_either_sum_or_by_shots: Spara skytteresultat antingen med summa eller enskilda skott
+              another_competitor_with_same_name_in_series: Klassen redan har en tävlare med samma namn
+            arrival_time:
+              must_be_after_start_time: måste vara efter starttid
+            number:
+              required_when_start_list_created: måste anges, när klassens startlista är redan skapat
+              is_in_use: är upptagen
+            start_time:
+              required_when_start_list_created: måste anges, när klassens startlista är redan skapat

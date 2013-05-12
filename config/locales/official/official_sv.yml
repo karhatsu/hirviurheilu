@@ -68,6 +68,14 @@ sv:
         title: Ny tävlare
         latest_added_competitors: Senaste ökade tävlarna
         back_to_series_competitors_list: Tillbaka till klassens <span id='series_name'>%{series_name}</span> tävlarlist
+      edit:
+        either_total_or_shots: Spara antingen totalresultat eller enskilda skott.
+        shots: Enskilda skott
+        dns: Startade inte (DNS)
+        dnf: Avbröt (DNF)
+        save_and_previous_competitor: Spara och öppna förra tävlare
+        save_and_next_competitor: Spara och öppna nästa tävlare
+        back_to_series_competitor_list: Tillbaka till klassens %{series_name} tävlarelista
     start_lists:
       show:
         title: Starttider för all tävlarna

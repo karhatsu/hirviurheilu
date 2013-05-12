@@ -285,12 +285,11 @@ class Competitor < ActiveRecord::Base
   def arrival_not_before_start_time
     return if start_time.nil? and arrival_time.nil?
     if start_time.nil?
-      errors.add(:base,
-        'Kilpailijalla ei voi olla saapumisaikaa, jos hänellä ei ole lähtöaikaa')
+      errors.add(:base, :cannot_have_arrival_time_without_start_time)
       return
     end
     if arrival_time and start_time >= arrival_time
-      errors.add(:arrival_time, "pitää olla lähtöajan jälkeen")
+      errors.add(:arrival_time, :must_be_after_start_time)
     end
   end
 
@@ -298,8 +297,7 @@ class Competitor < ActiveRecord::Base
     if shots_total_input
       shots.each do |s|
         if s.value
-          errors.add(:base,
-            "Ammuntatulokset voi syöttää vain summana tai yksittäisinä laukauksina")
+          errors.add(:base, :shooting_result_either_sum_or_by_shots)
           return
         end
       end
@@ -320,9 +318,8 @@ class Competitor < ActiveRecord::Base
 
   def check_if_series_has_start_list
     if series and series.has_start_list?
-      errors.add(:number, 'on pakollinen, kun sarjan lähtölista on jo luotu') unless number
-      errors.add(:start_time,
-        'on pakollinen, kun sarjan lähtölista on jo luotu') unless start_time
+      errors.add(:number, :required_when_start_list_created) unless number
+      errors.add(:start_time, :required_when_start_list_created) unless start_time
     end
   end
   
@@ -330,7 +327,7 @@ class Competitor < ActiveRecord::Base
     if series and number
       condition = "number = #{number}"
       condition << " and competitors.id <> #{id}" if id
-      errors.add(:number, 'on varattu') if series.race.competitors.where(condition).length > 0
+      errors.add(:number, :is_in_use) if series.race.competitors.where(condition).length > 0
     end
   end
   
@@ -339,7 +336,7 @@ class Competitor < ActiveRecord::Base
     condition = "first_name=? and last_name=?"
     condition << " and id<>#{id}" if id
     if series.competitors.where(condition, first_name, last_name).length > 0
-      errors.add(:base, 'Tässä sarjassa on jo saman niminen kilpailija')
+      errors.add(:base, :another_competitor_with_same_name_in_series)
     end
   end
   

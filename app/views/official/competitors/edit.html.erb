@@ -14,8 +14,8 @@
     <hr/>
     <%= f.label :shots_total_input %>
     <%= f.text_field :shots_total_input, :size => 5, :maxlength => 3 %>
-    (Syötä joko yhteistulos tai vain yksittäiset laukaukset.)<br/>
-    Yksittäiset laukaukset
+    (<%= t '.either_total_or_shots' %>)<br/>
+    <%= t '.shots' %>
     <%= render :partial => 'official/shots/individual_shots', :locals => { :f => f,
       :competitor => @competitor } %>
     <hr/>
@@ -31,17 +31,17 @@
     <% end %>
     <hr/>
     <%= f.radio_button :no_result_reason, '' %>Normaali
-    <%= f.radio_button :no_result_reason, Competitor::DNS %>Ei lähtenyt matkaan (DNS)
-    <%= f.radio_button :no_result_reason, Competitor::DNF %>Keskeytys (DNF)
+    <%= f.radio_button :no_result_reason, Competitor::DNS %><%= t '.dns' %>
+    <%= f.radio_button :no_result_reason, Competitor::DNF %><%= t '.dnf' %>
     <hr/>
   <% else %>
     <%= hidden_field_tag :no_times, true %>
     <br/>
   <% end %>
-  <%= submit_tag "Tallenna ja edellinen", :name => 'previous' %>
-  <%= submit_tag "Tallenna ja palaa listaan" %>
-  <%= submit_tag "Tallenna ja seuraava", :name => 'next' %>
+  <%= submit_tag t('.save_and_previous_competitor'), :name => 'previous' %>
+  <%= submit_tag t(:save) %>
+  <%= submit_tag t('.save_and_next_competitor'), :name => 'next' %>
 <% end %>
 <hr/>
-<%= link_to "Takaisin sarjan #{@series.name} kilpailijaluetteloon",
+<%= link_to t('.back_to_series_competitor_list', :series_name => @series.name),
   official_series_competitors_path(@series) %>
