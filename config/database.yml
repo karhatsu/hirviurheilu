@@ -1,6 +1,6 @@
 development:
   adapter: postgresql
-  database: elk_sports
+  database: <%= ENV['ELK_SPORTS_DATABASE_NAME'] || 'elk_sports' %>
   username: elk_sports
   password: elk_sports
   encoding: unicode
