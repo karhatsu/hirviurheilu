@@ -38,6 +38,7 @@ fi:
         competitors: kilpailijaa
         remove_age_group: Poista ikäryhmä
         remove_series: Poista tämä sarja
+        remove_series_confirm: Haluatko varmasti poistaa tämän sarjan?
         add_series: Lisää uusi sarja tähän kilpailuun
       show:
         no_series_for_race: Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta linkistä.

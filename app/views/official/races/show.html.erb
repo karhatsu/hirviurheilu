@@ -62,7 +62,7 @@
         <td colspan="6"><%= link_to t('.add_series_first_competitor'),
             add_competitor_path %></td>
         <td><%= link_to t('official.races.form.remove_series'), official_series_path(s), :method => :delete,
-            :data => { :confirm => 'Haluatko varmasti poistaa tämän sarjan?' } %></td>
+            :data => { :confirm => t('official.races.form.remove_series_confirm') } %></td>
       <% end %>
     </tr>
   <% end %>

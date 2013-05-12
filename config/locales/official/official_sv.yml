@@ -38,6 +38,7 @@ sv:
         competitors: tävlar
         remove_age_group: Radera äldsgruppen
         remove_series: Radera klassen
+        remove_series_confirm: Är du säker att du vill radera klassen?
         add_series: Öka ny klass till tävlingen
       show:
         no_series_for_race: Du har ökat inga klasser för tävlingen. Klicka länken nedenför för att öka klasser.
