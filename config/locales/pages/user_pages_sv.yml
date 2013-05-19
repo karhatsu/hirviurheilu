@@ -11,6 +11,7 @@ sv:
       account_created: Användarsnamn skapat. Klick Funktionärs sidor länken över för att öka en tävling.
     show:
       basic_information: Basuppgifter
+      activation_key: Hirviurheilu Offline aktiveringsnyckel
       modify_information: Redigera uppgifterna
       own_races: Egna tävlingar
       no_own_races: Du har inte egna tävlingar. Klicka Funktionärs sidor länken över.

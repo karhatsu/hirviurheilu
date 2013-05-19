@@ -11,6 +11,7 @@ fi:
       account_created: Käyttäjätili luotu. Pääset syöttämään kilpailun tietoja Toimitsijan sivut -linkistä.
     show:
       basic_information: Perustiedot
+      activation_key: Hirviurheilu Offline aktivointitunnus
       modify_information: Muokkaa tietoja
       own_races: Omat kilpailut
       no_own_races: Sinulla ei ole vielä yhtään kilpailua. Pääset syöttämään kilpailun tietoja Toimitsijan sivut -linkistä sivun ylälaidasta.
