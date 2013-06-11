@@ -18,7 +18,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'email_spec'
   gem "factory_girl_rails", :require => false
