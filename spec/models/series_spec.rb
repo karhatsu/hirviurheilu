@@ -439,17 +439,19 @@ describe Series do
       FactoryGirl.build(:series).start_list.should == []
     end
 
-    it "should return competitors with start time ordered by start time" do
+    it "should return competitors with start time ordered by start time, then by start number" do
       series = FactoryGirl.create(:series)
       c1 = FactoryGirl.build(:competitor, :series => series, :start_time => '15:15')
       c2 = FactoryGirl.build(:competitor, :series => series, :start_time => '9:00:00')
-      c3 = FactoryGirl.build(:competitor, :series => series, :start_time => '9:00:01')
-      c4 = FactoryGirl.build(:competitor, :series => series, :start_time => nil)
+      c3 = FactoryGirl.build(:competitor, :series => series, :start_time => '9:00:01', :number => 6)
+      c4 = FactoryGirl.build(:competitor, :series => series, :start_time => '9:00:01', :number => 5)
+      c5 = FactoryGirl.build(:competitor, :series => series, :start_time => nil)
       series.competitors << c1
       series.competitors << c2
       series.competitors << c3
       series.competitors << c4
-      series.start_list.should == [c2, c3, c1]
+      series.competitors << c5
+      series.start_list.should == [c2, c4, c3, c1]
     end
   end
   

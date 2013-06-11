@@ -4,4 +4,4 @@
 <% where_condition << " and club_id=#{params[:club_id].to_i}" unless params[:club_id].blank? %>
 <%= render :partial => 'table',
   :locals => { :show_series => true, :race => @race,
-  :competitors => @race.competitors.except(:order).where(where_condition).order('start_time').includes(:series, :club, :age_group) } %>
+  :competitors => @race.competitors.except(:order).where(where_condition).order('start_time, number').includes(:series, :club, :age_group) } %>
