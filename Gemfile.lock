@@ -1,7 +1,6 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    ZenTest (4.8.3)
     actionmailer (3.2.13)
       actionpack (= 3.2.13)
       mail (~> 2.5.3)
@@ -34,10 +33,6 @@ GEM
     authlogic (3.2.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
-    autotest (4.4.6)
-      ZenTest (>= 4.4.1)
-    autotest-rails (4.1.2)
-      ZenTest (~> 4.5)
     bourne (1.1.2)
       mocha (= 0.10.5)
     builder (3.0.4)
@@ -225,8 +220,6 @@ PLATFORMS
 
 DEPENDENCIES
   authlogic
-  autotest
-  autotest-rails
   capybara
   coffee-rails
   cucumber-rails

@@ -17,7 +17,18 @@ group :production do
 end
 
 group :test do
+  gem 'capybara'
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
+  gem 'email_spec'
+  gem "factory_girl_rails", :require => false
+  gem 'launchy'
+  gem 'poltergeist'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+  gem 'spork', '~> 0.9.0.rc'
   gem 'sqlite3-ruby', :require => 'sqlite3'
+  gem 'watchr'
 end
 
 # Gems used only for assets and not required
@@ -32,21 +43,8 @@ end
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem "rspec-rails"
-  gem "autotest"
-  gem "autotest-rails"
-  gem "factory_girl_rails", :require => false
-  gem 'capybara'
-  gem 'poltergeist'
-  gem 'database_cleaner'
   gem 'gherkin'
-  gem 'cucumber-rails'
-  gem 'spork', '~> 0.9.0.rc'
-  gem 'launchy'    # So you can do Then show me the page
-  gem 'shoulda-matchers'
-  gem 'email_spec'
   gem 'ruby-prof'
-  gem 'watchr'
   gem 'mongrel', '~> 1.2.0.pre'
   gem 'therubyracer', '0.10.2'
 end
