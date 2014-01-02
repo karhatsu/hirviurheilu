@@ -46,5 +46,5 @@ group :development, :test do
   gem 'gherkin'
   gem 'ruby-prof'
   gem 'mongrel', '~> 1.2.0.pre'
-  gem 'therubyracer', '0.10.2'
+  gem 'therubyracer', '0.12.0'
 end
