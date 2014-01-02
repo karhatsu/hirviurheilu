@@ -21,6 +21,7 @@ NATIONAL_RECORD_URL = "http://www.metsastajaliitto.fi/?q=fi/node/126"
 
 VAT = 24
 
+OSX_PLATFORM = (RUBY_PLATFORM =~ /darwin/)
 WINDOWS_PLATFORM = (RUBY_PLATFORM =~ /mswin|mingw/)
 
 module ElkSports

@@ -5,6 +5,8 @@ end
 if WINDOWS_PLATFORM
   exe_path = Rails.root.join('bin', 'wkhtmltopdf.exe').to_s
   check_path Rails.root.join('bin', 'libgcc_s_dw2-1.dll').to_s
+elsif OSX_PLATFORM
+  exe_path = Rails.root.join('/Applications', 'wkhtmltopdf.app', 'Contents', 'MacOS', 'wkhtmltopdf').to_s
 elsif Rails.env.test?
   exe_path = nil
 elsif ['staging', 'production'].include?(Rails.env)
