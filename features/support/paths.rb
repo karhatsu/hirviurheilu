@@ -55,6 +55,9 @@ module NavigationHelpers
     when /the official csv import page of the race/
       new_official_race_csv_import_path(locale, @race)
 
+    when /the official relays page of "(.*)"/
+      official_race_relays_path(locale, Race.find_by_name($1))
+
     when /the edit relay page of "(.*)"/
       edit_official_race_relay_path(locale, Relay.find_by_name($1).race, Relay.find_by_name($1))
 
