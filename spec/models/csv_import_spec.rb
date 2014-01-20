@@ -29,7 +29,7 @@ describe CsvImport do
       @race.should have(0).competitors
     end
   end
-  
+
   context "when correct amount of columns" do
     context "when all series and age groups exist" do
       context "and file encoding is UTF-8" do
@@ -213,7 +213,27 @@ describe CsvImport do
       end
     end
   end
-  
+
+  context "when mixed start order" do
+    before do
+      @race.start_order = Race::START_ORDER_MIXED
+      @race.save!
+    end
+
+    it "should reject file that would be valid for start order by series" do
+      @ci = CsvImport.new(@race, test_file_path('import_valid.csv'))
+      @ci.should have(1).errors
+    end
+
+    it "should accept file with start number and order" do
+      @ci = CsvImport.new(@race, test_file_path('import_valid_mixed_start_order.csv'))
+      @ci.save.should be_true
+      @race.should have(2).competitors
+      @race.series.first.competitors.first.number.should == 5
+      @race.series.first.competitors.first.start_time.strftime('%H:%M:%S').should == '09:59:30'
+    end
+  end
+
   def test_file_path(file_name)
     File.join(Rails.root, 'spec', 'files', file_name)
   end

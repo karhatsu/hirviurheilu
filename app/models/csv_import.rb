@@ -4,8 +4,12 @@ class CsvImport
   LAST_NAME_COLUMN = 1
   CLUB_COLUMN = 2
   SERIES_COLUMN = 3
-  COLUMNS_COUNT = 4
-  
+  START_NUMBER_COLUMN = 4
+  START_TIME_COLUMN = 5
+
+  COLUMNS_COUNT_START_ORDER_SERIES = 4
+  COLUMNS_COUNT_START_ORDER_MIXED = 6
+
   def initialize(race, file_path)
     @race = race
     @competitors = []
@@ -59,11 +63,16 @@ class CsvImport
   end
   
   def row_structure_correct(row)
-    if row.length != COLUMNS_COUNT
+    if row.length != expected_column_count
       @errors << "Virheellinen rivi tiedostossa: #{original_format(row)}"
       return false
     end
     true
+  end
+
+  def expected_column_count
+    return COLUMNS_COUNT_START_ORDER_MIXED if @race.start_order == Race::START_ORDER_MIXED
+    COLUMNS_COUNT_START_ORDER_SERIES
   end
   
   def row_missing_data?(row)
@@ -85,6 +94,10 @@ class CsvImport
       :last_name => row[LAST_NAME_COLUMN])
     competitor.club = find_or_create_club(row[CLUB_COLUMN])
     set_series_or_age_group(competitor, row[SERIES_COLUMN])
+    if @race.start_order == Race::START_ORDER_MIXED
+      competitor.number = row[START_NUMBER_COLUMN]
+      competitor.start_time = row[START_TIME_COLUMN]
+    end
     competitor
   end
   
