@@ -80,14 +80,18 @@ module ApplicationHelper
   end
 
   def national_record(competitor, raw=false)
-    tag=''
-    tag << 'SE' if competitor.national_record_passed?
-    tag << 'SE(sivuaa)' if competitor.national_record_reached?
-    tag << '?' if (competitor.national_record_reached? or competitor.national_record_passed?) and not competitor.series.race.finished?
-    return tag if tag and raw
-    return raw("<span class='explanation'>" + 
+    if competitor.national_record_passed?
+      tag = 'SE'
+    elsif competitor.national_record_reached?
+      tag = 'SE(sivuaa)'
+    else
+      return ''
+    end
+    tag << '?' unless competitor.series.race.finished?
+    return tag if raw
+    return raw("<span class='explanation'>" +
                '<a href="' + NATIONAL_RECORD_URL + '">' +
-               tag + '</a>' + '</span>' ) if tag
+               tag + '</a>' + '</span>' )
     ''
   end
 

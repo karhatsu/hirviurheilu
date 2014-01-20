@@ -1297,4 +1297,64 @@ describe ApplicationHelper do
       end
     end
   end
+
+  describe "#national_record" do
+    before do
+      @competitor = mock_model(Competitor)
+      @race = mock_model(Race)
+      series = mock_model(Series)
+      @competitor.stub!(:series).and_return(series)
+      series.stub!(:race).and_return(@race)
+    end
+
+    context "when race finished" do
+      before do
+        @race.stub!(:finished?).and_return(true)
+      end
+
+      context "when national record passed" do
+        it "should return SE" do
+          @competitor.stub!(:national_record_passed?).and_return(true)
+          helper.national_record(@competitor, true).should == 'SE'
+        end
+      end
+
+      context "when national record reached" do
+        it "should return SE(sivuaa)" do
+          @competitor.stub!(:national_record_passed?).and_return(false)
+          @competitor.stub!(:national_record_reached?).and_return(true)
+          helper.national_record(@competitor, true).should == 'SE(sivuaa)'
+        end
+      end
+    end
+
+    context "when race not finished" do
+      before do
+        @race.stub!(:finished?).and_return(false)
+      end
+
+      context "when national record passed" do
+        it "should return SE?" do
+          @competitor.stub!(:national_record_passed?).and_return(true)
+          helper.national_record(@competitor, true).should == 'SE?'
+        end
+      end
+
+      context "when national record reached" do
+        it "should return SE(sivuaa)?" do
+          @competitor.stub!(:national_record_passed?).and_return(false)
+          @competitor.stub!(:national_record_reached?).and_return(true)
+          helper.national_record(@competitor, true).should == 'SE(sivuaa)?'
+        end
+      end
+    end
+
+    context "with decoration" do
+      it "should surround text with span and link" do
+        @race.stub!(:finished?).and_return(true)
+        @competitor.stub!(:national_record_passed?).and_return(true)
+        helper.national_record(@competitor, false).should == "<span class='explanation'><a href=\"" + NATIONAL_RECORD_URL + "\">SE</a></span>"
+      end
+    end
+  end
 end
