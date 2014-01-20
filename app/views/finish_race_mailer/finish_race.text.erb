@@ -2,6 +2,7 @@ Kilpailun nimi: <%= @race.name %>
 Aika: <%= race_date_interval(@race) %>
 Paikkakunta: <%= @race.location %>
 Järjestäjä: <%= @race.organizer %>
+Toimitsija: <%= @race.users.first.first_name %> <%= @race.users.first.last_name %> (<%= @race.users.first.email %>)
 Kilpailijoiden määrä: <%= @race.competitors.count %>
 Maaliin tulleiden kilpailijoiden määrä: <%= @race.competitors.where(:no_result_reason => nil).count %>
 

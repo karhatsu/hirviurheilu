@@ -64,7 +64,7 @@ Feature: Finish race
     Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
 
   Scenario: Finish race successfully
-    Given I am an official
+    Given I am an official "Timo Toimitsija" with email "timo@test.com"
     And I have an ongoing race "Test race"
     And the race has series with attributes:
       | name | Test series |
@@ -101,5 +101,6 @@ Feature: Finish race
     And I should see "Kilpailun nimi: Test race" in the email body
     And I should see "Kilpailijoiden määrä: 2" in the email body
     And I should see "Maaliin tulleiden kilpailijoiden määrä: 1" in the email body
+    And I should see "Toimitsija: Timo Toimitsija (timo@test.com)" in the email body
     When I click the first link in the email
     Then I should be on the race page of "Test race"
