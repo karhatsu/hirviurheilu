@@ -1,10 +1,12 @@
 <% content_for :title, t('.title') %>
 <h2><%= yield :title %></h2>
 <div class="info"><%= t '.info' %></div>
+<h3><%= t '.format_title' %></h3>
+<div class="infox"><%= t ".format_info_#{@race.start_order}" %></div>
 <h3><%= t '.example_of_valid_file' %></h3>
 <pre class="file_example">
-<%= t '.example_row_1' %>
-<%= t '.example_row_2' %>
+<%= t ".example_row_#{@race.start_order}_1" %>
+<%= t ".example_row_#{@race.start_order}_2" %>
 </pre>
 <h3><%= t '.upload_file' %></h3>
 <%= flash_error %>
