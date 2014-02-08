@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
     :result_rotation_tc_cookie_name
   before_filter :ensure_user_in_offline
   before_filter :set_locale
+  before_filter :clear_old_data_from_staging
   
   private
   def set_locale
@@ -318,5 +319,11 @@ class ApplicationController < ActionController::Base
 
   def set_is_info
     @is_info = true
+  end
+
+  def clear_old_data_from_staging
+    return unless Rails.env.staging?
+    sql = 'delete from user_sessions where updated_at < now()::date - 30'
+    ActiveRecord::Base.connection.execute(sql)
   end
 end
