@@ -144,6 +144,7 @@ fi:
             name: Ikäryhmän nimi
           name: Sarjan nimi
           national_record: SE
+        start_time: Aloitusaika
       relay:
         name: Viestin nimi
         relay_teams:

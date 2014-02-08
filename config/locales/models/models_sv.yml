@@ -144,6 +144,7 @@ sv:
             name: Äldsgruppens namn
           name: Klassens namn
           national_record: NR
+        start_time: Starttid
       relay:
         name: Stafettens namn
         relay_teams:

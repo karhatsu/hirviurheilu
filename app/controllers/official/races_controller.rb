@@ -9,6 +9,7 @@ class Official::RacesController < Official::OfficialController
 
   def new
     @race = Race.new
+    @race.start_time = '00:00'
     @race.start_interval_seconds = Race::DEFAULT_START_INTERVAL
     @race.batch_size = 0
     @race.batch_interval_seconds = Race::DEFAULT_BATCH_INTERVAL

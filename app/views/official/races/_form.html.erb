@@ -18,6 +18,10 @@
     <span><%= f.date_select :start_date %></span>
   </div>
   <div>
+    <span class="form_label"><%= f.label :start_time %></span>
+    <span><%= f.time_select :start_time, value: @race.start_time %></span>
+  </div>
+  <div>
     <span class="form_label"><%= f.label :days_count %></span>
     <span><%= f.select :days_count, [[t(:days, :count => 1), 1], [t(:days, :count => 2), 2], [t(:days, :count => 3), 3]] %></span>
   </div>

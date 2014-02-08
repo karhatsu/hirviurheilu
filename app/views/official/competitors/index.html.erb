@@ -21,7 +21,6 @@
       <%= flash_error %>
       <%= flash_success %>
       <%= render :partial => 'shared/form_errors', :locals => { :item => @series } %>
-      <div class="info"><%= t('.start_time_info') %></div>
       <%= form_for([:official, @series], :url => official_series_start_list_path,
             :html => { :onsubmit => 'return warnRerun()' }) do |f| %>
         <%= f.label :first_number %>

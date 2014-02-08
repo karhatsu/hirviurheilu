@@ -63,7 +63,6 @@ fi:
         add_competitor: Lisää kilpailija
         add_new_competitor: Lisää uusi kilpailija
         create_start_list_info: Kun olet syöttänyt sarjaan kaikki kilpailijat, lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot. (Voit lisätä jälki-ilmoittautuneita kilpailijoita vielä lähtölistan luomisen jälkeenkin.
-        start_time_info: Valitse lähtöajaksi todellinen kellonaika, esim. 10:30.
         create_start_list: Luo lähtölista sarjalle
         create_new_start_list: Tee uusi lähtölista sarjalle
         result_saved: Tulos syötetty

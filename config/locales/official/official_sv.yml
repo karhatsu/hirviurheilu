@@ -63,7 +63,6 @@ sv:
         add_competitor: Öka tävlare
         add_new_competitor: Öka ny tävlare
         create_start_list_info: När du har sparat alla tävlar för klassen, skapa dem starttider och -nummer med formuläret neden. (Du kan öka mera tävlar även efter du has skapat startlistan.)
-        start_time_info: Använd en verklig tid som starttiden, t.ex. 10:30.
         create_start_list: Skapa en startlista för klassen
         create_new_start_list: Skapa en ny startlista för klassen
         result_saved: Resultat sparat

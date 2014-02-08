@@ -12,6 +12,7 @@ describe Race do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:location) }
     it { should validate_presence_of(:start_date) }
+    it { should validate_presence_of(:start_time) }
 
     describe "end_date" do
       it "can be nil which makes it same as start date" do
@@ -104,6 +105,12 @@ describe Race do
     it { should have_many(:race_rights) }
     it { should have_many(:users).through(:race_rights) }
     it { should have_and_belong_to_many(:cups) }
+  end
+
+  describe "default" do
+    it "start time should be 00:00:00" do
+      Race.new.start_time.strftime('%H:%M:%S').should == '00:00:00'
+    end
   end
 
   describe "update" do

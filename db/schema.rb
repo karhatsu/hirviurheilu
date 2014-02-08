@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130319151145) do
+ActiveRecord::Schema.define(:version => 20140127143716) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -131,24 +131,25 @@ ActiveRecord::Schema.define(:version => 20130319151145) do
   end
 
   create_table "races", :force => true do |t|
-    t.integer  "sport_id",                                  :null => false
-    t.string   "name",                                      :null => false
-    t.string   "location",                                  :null => false
-    t.date     "start_date",                                :null => false
-    t.date     "end_date",                                  :null => false
+    t.integer  "sport_id",                                                  :null => false
+    t.string   "name",                                                      :null => false
+    t.string   "location",                                                  :null => false
+    t.date     "start_date",                                                :null => false
+    t.date     "end_date",                                                  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "start_interval_seconds"
-    t.boolean  "finished",               :default => false, :null => false
-    t.integer  "series_count",           :default => 0,     :null => false
+    t.boolean  "finished",               :default => false,                 :null => false
+    t.integer  "series_count",           :default => 0,                     :null => false
     t.string   "home_page"
-    t.integer  "batch_size",             :default => 0,     :null => false
-    t.integer  "batch_interval_seconds", :default => 180,   :null => false
-    t.integer  "club_level",             :default => 0,     :null => false
-    t.integer  "start_order",            :default => 1,     :null => false
+    t.integer  "batch_size",             :default => 0,                     :null => false
+    t.integer  "batch_interval_seconds", :default => 180,                   :null => false
+    t.integer  "club_level",             :default => 0,                     :null => false
+    t.integer  "start_order",            :default => 1,                     :null => false
     t.text     "video_source"
     t.text     "video_description"
     t.string   "organizer"
+    t.time     "start_time",             :default => '2000-01-01 00:00:00', :null => false
   end
 
   add_index "races", ["sport_id"], :name => "index_races_on_sport_id"
