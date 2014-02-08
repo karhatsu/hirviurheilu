@@ -322,7 +322,7 @@ class ApplicationController < ActionController::Base
   end
 
   def clear_old_data_from_staging
-    return unless Rails.env.staging?
+    return unless Rails.env.staging? and DatabaseHelper.postgres?
     sql = 'delete from user_sessions where updated_at < now()::date - 30'
     ActiveRecord::Base.connection.execute(sql)
   end
