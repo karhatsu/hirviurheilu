@@ -11,7 +11,7 @@
 <h2><%= t '.single_competitor_competitions' %></h2>
 <div class="section">
   <% if @race.series.empty? %>
-    <%= t :no_series_for_race %>
+    <%= t '.no_series_for_race' %>
   <% else %>
     <%= render :partial => 'series_table' %>
     <% if @race.finished? %>
