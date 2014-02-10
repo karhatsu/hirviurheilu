@@ -1089,11 +1089,11 @@ describe Series do
     
     context "when race date and start time available" do
       before do
-        @race = FactoryGirl.build(:race, :start_date => '2011-06-30')
-        @series = FactoryGirl.build(:series, :race => @race, :start_time => '13:45:31')
+        @race = FactoryGirl.build(:race, :start_date => '2011-06-30', :start_time => '10:00')
+        @series = FactoryGirl.build(:series, :race => @race, :start_time => '03:45:31')
       end
       
-      it "should return the compination of race date and start time when both available" do
+      it "should return the combination of race date and time and series start time when both available" do
         @series.start_datetime.strftime('%d.%m.%Y %H:%M:%S').should == '30.06.2011 13:45:31'
       end
       

@@ -7,11 +7,12 @@ Feature: Show race
     Given there is a race with attributes:
       | name | My test race |
       | start_date | 2010-01-01 |
+      | start_time | 10:00 |
       | end_date | 2010-01-02 |
       | location | Test city |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:30 |
+      | start_time | 03:30 |
     When I go to the race page
     Then the "Kilpailut" main menu item should be selected
     And the "Kilpailun etusivu" sub menu item should be selected

@@ -175,7 +175,10 @@ class Series < ActiveRecord::Base
   def start_datetime
     return nil unless start_time and race and race.start_date
     time = Time.zone.local(race.start_date.year, race.start_date.month,
-      race.start_date.day, start_time.hour, start_time.min, start_time.sec)
+      race.start_date.day, race.start_time.hour, race.start_time.min, race.start_time.sec)
+    time = time.advance(:hours => start_time.hour)
+    time = time.advance(:minutes => start_time.min)
+    time = time.advance(:seconds => start_time.sec)
     time.advance(:days => start_day - 1)
   end
 
