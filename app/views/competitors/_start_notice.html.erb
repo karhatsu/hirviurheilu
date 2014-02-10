@@ -1,5 +1,5 @@
 <% if series.start_time and !series.started? %>
   <div class="info">
-    <%= t :series_start_time %>: <%= series_datetime_print(series, true) %>
+    <%= t :series_start_time %>: <%= series_start_time_print series %>
   </div>
 <% end %>

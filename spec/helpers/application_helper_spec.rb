@@ -89,18 +89,13 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#series_datetime_print" do
-    before do
-      @race = mock_model(Race, :start_date => '2010-12-25')
-      start_time = Time.local(2000, 1, 1, 12, 30, 0)
-      @series = mock_model(Series, :race => @race, :start_day => 3, :start_time => start_time)
-    end
-
-    it "should call datetime_print with correct date and time" do
-      datetime = DateTime.parse('2010-12-27 12:30')
-      helper.should_receive(:datetime_print).with(datetime, false, false, '').
-        and_return('result')
-      helper.series_datetime_print(@series).should == 'result'
+  describe "#series_start_time_print" do
+    it "should call datetime_print with series date and time" do
+      series = mock_model(Series)
+      datetime = 'some date time'
+      series.stub!(:start_datetime).and_return(datetime)
+      helper.should_receive(:datetime_print).with(datetime, true).and_return('result')
+      helper.series_start_time_print(series).should == 'result'
     end
   end
 

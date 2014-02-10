@@ -33,13 +33,6 @@ module ApplicationHelper
     time.strftime('%d.%m.%Y')
   end
 
-  def series_datetime_print(series, hours_and_minutes=false, seconds=false, nil_result='')
-    date = series.race.start_date.to_date
-    date += series.start_day - 1
-    datetime = DateTime.parse("#{date.to_date} #{series.start_time.strftime("%H:%M:%S")}")
-    datetime_print(datetime, hours_and_minutes, seconds, nil_result)
-  end
-
   def datetime_print(datetime, hours_and_minutes=false, seconds=false,
       nil_result='', to_local_zone=false)
     return nil_result if datetime.nil?
@@ -53,6 +46,17 @@ module ApplicationHelper
     format = (seconds ? '%H:%M:%S' : '%H:%M')
     return time.in_time_zone(Time.zone).strftime(format) if to_local_zone
     time.strftime(format)
+  end
+
+  def series_start_time_print(series)
+    datetime_print(series.start_datetime, true)
+  end
+
+  def relay_start_time_print(relay)
+    date = relay.race.start_date.to_date
+    date += relay.start_day - 1
+    datetime = DateTime.parse("#{date.to_date} #{relay.start_time.strftime("%H:%M:%S")}")
+    datetime_print(datetime, true, true)
   end
 
   def points_print(competitor, all_competitors=false)
