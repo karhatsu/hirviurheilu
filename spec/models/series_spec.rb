@@ -842,47 +842,61 @@ describe Series do
 
   describe "#active?" do
     before do
-      @race = FactoryGirl.build(:race, :start_date => Date.today,
-        :end_date => Date.today + 1, :finished => false)
-      @series = FactoryGirl.build(:series, :race => @race, :start_day => 1,
-        :start_time => (Time.now - 10).strftime('%H:%M:%S'))
+      @race = FactoryGirl.build(:race)
     end
 
-    it "should return true when the series is today and started " +
-        "but the race not finished yet" do
-      @series.should be_active
+    context "when race finished" do
+      it "should return false" do
+        @race.stub!(:finished?).and_return(true)
+        series = Series.new(race: @race)
+        series.should_not be_active
+      end
     end
 
-    it "should return true when the series was yesterday " +
-        "but the race is not finished yet" do
-      @race.start_date = Date.today - 1
-      @series.start_time = (Time.now + 100).strftime('%H:%M:%S') # time shouldn't matter
-      @series.should be_active
+    context "when race not finished" do
+      before do
+        @race.stub!(:finished?).and_return(false)
+      end
+
+      it "should return false when series not started" do
+        series = Series.new(race: @race)
+        series.stub!(:started?).and_return(false)
+        series.should_not be_active
+      end
+
+      it "should return true when series started" do
+        series = Series.new(race: @race)
+        series.stub!(:started?).and_return(true)
+        series.should be_active
+      end
+    end
+  end
+
+  describe "#started?" do
+    context "when no start time" do
+      it "should return false" do
+        Series.new.should_not be_started
+      end
     end
 
-    it "should return false when no start time defined" do
-      @series.start_time = nil
-      @series.should_not be_active
-    end
+    context "when start time" do
+      before do
+        @series = FactoryGirl.build(:series, start_time: '10:00')
+      end
 
-    it "should return false when the race will start in the future" do
-      @race.start_date = Date.today + 1
-      @series.should_not be_active
-    end
+      context "and start date time before current time" do
+        it "should return true" do
+          @series.stub!(:start_datetime).and_return(Time.now - 1)
+          @series.should be_started
+        end
+      end
 
-    it "should return false when the race has started but the series is not today" do
-      @series.start_day = 2
-      @series.should_not be_active
-    end
-
-    it "should return false when the series is today but has not started yet" do
-      @series.start_time = (Time.now + 100).strftime('%H:%M:%S')
-      @series.should_not be_active
-    end
-
-    it "should return false when the race is finished" do
-      @race.finished = true
-      @series.should_not be_active
+      context "and start date time after current time" do
+        it "should return false" do
+          @series.stub!(:start_datetime).and_return(Time.now + 1)
+          @series.should_not be_started
+        end
+      end
     end
   end
 
@@ -1246,7 +1260,7 @@ describe Series do
           @series.should have_result_for_some_competitor
         end
       end
-      
+
       context "and some competitor has estimate 2" do
         it "should return true" do
           @c1.estimate2 = 111
@@ -1255,7 +1269,7 @@ describe Series do
           @series.should have_result_for_some_competitor
         end
       end
-      
+
       context "and some competitor has shots total" do
         it "should return true" do
           @c2.shots_total_input = 99
