@@ -1,4 +1,4 @@
-<% if series.start_time and series.start_datetime > Time.zone.now %>
+<% if series.start_time and !series.started? %>
   <div class="info">
     <%= t :series_start_time %>: <%= series_datetime_print(series, true) %>
   </div>
