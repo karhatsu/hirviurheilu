@@ -7,11 +7,12 @@ Feature: Start list
     Given there is a race with attributes:
       | name | My test race |
       | start_date | 2010-07-15 |
+      | start_time | 10:00 |
       | location | Test city |
       | start_interval_seconds | 30 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 03:00 |
       | first_number | 50 |
     And the race has a club "Shooting club"
     And the race has a club "Sports club"
@@ -35,12 +36,12 @@ Feature: Start list
       | number | 50 |
       | name | Johnson James |
       | club | Shooting club |
-      | time | 13:00:00 |
+      | time | 03:00:00 (13:00:00) |
     And I should see a start list row 2 with values:
       | number | 51 |
       | name | Atkinsson Tim |
       | club | Sports club |
-      | time | 13:00:30 |
+      | time | 03:00:30 (13:00:30) |
     But I should not see "Jotosjoukkue"
     
   Scenario: Start list for competitors having team name

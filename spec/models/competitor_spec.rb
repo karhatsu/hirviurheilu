@@ -1163,4 +1163,14 @@ describe Competitor do
       c.relative_points(@all_competitors).should == 10000*800 + 1000*500 + 100*300 + 10*250 - 3000
     end
   end
+
+  describe "#start_datetime" do
+    it "should return value from StartDateTime module" do
+      race = mock_model(Race)
+      series = FactoryGirl.build(:series, race: race, start_day: 2)
+      competitor = FactoryGirl.build(:competitor, series: series)
+      competitor.should_receive(:start_date_time).with(race, 2, competitor.start_time).and_return('time')
+      competitor.start_datetime.should == 'time'
+    end
+  end
 end

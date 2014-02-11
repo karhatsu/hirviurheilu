@@ -3,6 +3,7 @@ require 'model_value_comparator'
 
 class Competitor < ActiveRecord::Base
   include ModelValueComparator
+  include StartDateTime
   
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish
@@ -202,6 +203,10 @@ class Competitor < ActiveRecord::Base
     self.correct_estimate2 = nil
     self.correct_estimate3 = nil
     self.correct_estimate4 = nil
+  end
+
+  def start_datetime
+    start_date_time race, series.start_day, start_time
   end
 
   def self.sort_competitors(competitors, all_competitors, sort_by=SORT_BY_POINTS)

@@ -37,7 +37,7 @@
         <td><%= comp.series.name %></td>
       <% end %>
       <td><%= comp.club.name %></td>
-      <td><%= time_print(comp.start_time, true) %></td>
+      <td><%= time_print(comp.start_time, true) %> (<%= time_print comp.start_datetime, true %>)</td>
       <% if show_team_name %>
         <td><%= comp.team_name %></td>
       <% end %>
