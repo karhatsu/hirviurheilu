@@ -91,7 +91,7 @@ sv:
         title: Spara resultat
         no_competitors: Inga tävlar i tävlingen
         dns_dnf: Startade inte / avbröt
-        instructions_times: Spara resultat som nr,hhmmss, t.ex. 45,130728 (tävlare 45, avkomstid 13:07:28).
+        instructions_times: Spara resultat som nr,hhmmss, t.ex. 45,020728 (tävlare 45, avkomstid 02:07:28).
         instructions_estimates: Spara resultat som nr,bedömning1,bedömning2, t.ex. 45,95,118 (tävlare 45, bedömningar 95 och 118 meter)
         instructions_estimates_4:  eller om tävlarna har fyra bedömningar, nr,bedömning1,bedömning2,bedömning3,bedömning4, t.ex. 45,95,118,185,134
         instructions_shooting: Spara resultat som nr,skytteresultat, t.ex. 45,87 (tävlare 45, skytte totalt 87). Eller med skott så att +-tecken betyder 10, t.ex. 45,++99877420 (sätt 0 för alla missar).

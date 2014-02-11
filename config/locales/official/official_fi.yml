@@ -91,7 +91,7 @@ fi:
         title: Tulosten pikasyöttö
         no_competitors: Kilpailuun ei ole lisätty yhtään kilpailijaa
         dns_dnf: Ei lähtenyt matkaan / Keskeytys
-        instructions_times: Syötä tulos muodossa nro,hhmmss, esim. 45,130728 (kilpailija 45, saapumisaika 13:07:28).
+        instructions_times: Syötä tulos muodossa nro,hhmmss, esim. 45,020728 (kilpailija 45, saapumisaika 02:07:28).
         instructions_estimates: Syötä tulos muodossa nro,arvio1,arvio2, esim. 45,95,118 (kilpailija 45, arviot 95 ja 118 metriä)
         instructions_estimates_4:  tai neljän ennusteen sarjan kilpailijoille muodossa nro,arvio1,arvio2,arvio3,arvio4, esim. 45,95,118,185,134
         instructions_shooting: Syötä tulos muodossa nro,ammuntatulos, esim. 45,87 (kilpailija 45, ammunta yhteensä 87). Tai vaihtoehtoisesti laukausten kanssa siten että +-merkki on 10, esim. 45,++99877420 (merkitse ohilaukauksille nollat).
