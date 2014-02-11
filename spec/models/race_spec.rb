@@ -834,4 +834,18 @@ describe Race do
       end
     end
   end
+
+  describe "#start_time_defined?", focus: true do
+    it "should be false when nil" do
+      Race.new.start_time_defined?.should be_false
+    end
+
+    it "should be false when start time is 00:00" do
+      FactoryGirl.build(:race, start_time: '00:00').start_time_defined?.should be_false
+    end
+
+    it "should be true when start time other than 00:00" do
+      FactoryGirl.build(:race, start_time: '00:01').start_time_defined?.should be_true
+    end
+  end
 end

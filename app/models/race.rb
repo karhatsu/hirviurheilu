@@ -208,6 +208,10 @@ class Race < ActiveRecord::Base
   def can_destroy?
     competitors.count == 0 and relays.count == 0
   end
+
+  def start_time_defined?
+    start_time and start_time.strftime('%H:%M') != '00:00'
+  end
   
   private
   def end_date_not_before_start_date

@@ -39,7 +39,7 @@
       <td><%= comp.club.name %></td>
       <td>
         <%= time_print(comp.start_time, true) %>
-        <% unless comp.race.start_time.strftime('%H:%M:%S') == '00:00:00' %>(<%= time_print comp.start_datetime, true %>)<% end %>
+        <% if comp.race.start_time_defined? %>(<%= time_print comp.start_datetime, true %>)<% end %>
       </td>
       <% if show_team_name %>
         <td><%= comp.team_name %></td>
