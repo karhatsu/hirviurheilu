@@ -835,7 +835,7 @@ describe Race do
     end
   end
 
-  describe "#start_time_defined?", focus: true do
+  describe "#start_time_defined?" do
     it "should be false when nil" do
       Race.new.start_time_defined?.should be_false
     end
