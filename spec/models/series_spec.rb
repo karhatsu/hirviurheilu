@@ -1074,41 +1074,11 @@ describe Series do
   end
   
   describe "#start_datetime" do
-    it "should return nil when no start time" do
-      FactoryGirl.build(:series, :start_time => nil).start_datetime.should be_nil
-    end
-    
-    it "should return nil when no race" do
-      FactoryGirl.build(:series, :race => nil, :start_time => '13:45:31').start_datetime.should be_nil
-    end
-    
-    it "should return nil when no race start date" do
-      race = FactoryGirl.build(:race, :start_date => nil)
-      FactoryGirl.build(:series, :race => race, :start_time => '13:45:31').start_datetime.should be_nil
-    end
-    
-    context "when race date and start time available" do
-      before do
-        @race = FactoryGirl.build(:race, :start_date => '2011-06-30', :start_time => '10:00')
-        @series = FactoryGirl.build(:series, :race => @race, :start_time => '03:45:31')
-      end
-      
-      it "should return the combination of race date and time and series start time when both available" do
-        @series.start_datetime.strftime('%d.%m.%Y %H:%M:%S').should == '30.06.2011 13:45:31'
-      end
-      
-      it "should return the object with local zone" do
-        original_zone = Time.zone
-        Time.zone = 'Hawaii'
-        @series.start_datetime.zone.should == 'HST'
-        Time.zone = original_zone # must reset back to original!
-      end
-      
-      it "should return the correct date when series start day is not 1" do
-        @race.end_date = '2011-07-02'
-        @series.start_day = 3
-        @series.start_datetime.strftime('%d.%m.%Y %H:%M:%S').should == '02.07.2011 13:45:31'
-      end
+    it "should return value from StartDateTime module" do
+      race = mock_model(Race)
+      series = FactoryGirl.build(:series, race: race, start_day: 2, start_time: '12:00')
+      series.should_receive(:start_date_time).with(race, 2, series.start_time).and_return('time')
+      series.start_datetime.should == 'time'
     end
   end
 

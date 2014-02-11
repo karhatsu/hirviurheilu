@@ -4,6 +4,7 @@ require 'time_helper.rb'
 
 class Series < ActiveRecord::Base
   include TimeHelper
+  include StartDateTime
 
   TIME_POINTS_TYPE_NORMAL = 0
   TIME_POINTS_TYPE_NONE = 1
@@ -173,13 +174,7 @@ class Series < ActiveRecord::Base
   end
   
   def start_datetime
-    return nil unless start_time and race and race.start_date
-    time = Time.zone.local(race.start_date.year, race.start_date.month,
-      race.start_date.day, race.start_time.hour, race.start_time.min, race.start_time.sec)
-    time = time.advance(:hours => start_time.hour)
-    time = time.advance(:minutes => start_time.min)
-    time = time.advance(:seconds => start_time.sec)
-    time.advance(:days => start_day - 1)
+    start_date_time race, start_day, start_time
   end
 
   def today?
