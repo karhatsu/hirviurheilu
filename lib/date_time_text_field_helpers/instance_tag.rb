@@ -108,7 +108,7 @@ module DateTimeTextFieldHelpers
       value = extract_field_param_value(options) || value
       size = case type
         when :hour, :minute, :second
-          1
+          2
         when :year
           4
         else
