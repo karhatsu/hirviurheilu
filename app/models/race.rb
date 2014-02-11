@@ -34,7 +34,6 @@ class Race < ActiveRecord::Base
   validates :name, :presence => true
   validates :location, :presence => true
   validates :start_date, :presence => true
-  validates :start_time, :presence => true
   validates :start_interval_seconds, :numericality => { :only_integer => true,
     :greater_than => 0 }
   validates :batch_size, :numericality => { :only_integer => true,

@@ -12,7 +12,6 @@ describe Race do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:location) }
     it { should validate_presence_of(:start_date) }
-    it { should validate_presence_of(:start_time) }
 
     describe "end_date" do
       it "can be nil which makes it same as start date" do
