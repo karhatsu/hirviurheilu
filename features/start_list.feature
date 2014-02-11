@@ -43,7 +43,25 @@ Feature: Start list
       | club | Sports club |
       | time | 03:00:30 (13:00:30) |
     But I should not see "Jotosjoukkue"
-    
+
+  Scenario: Don't show real start time when race start time is 00:00
+    Given there is a race with attributes:
+      | name | My test race |
+      | start_date | 2010-07-15 |
+      | start_time | 00:00 |
+      | start_interval_seconds | 30 |
+    And the race has series with attributes:
+      | name | Men 50 years |
+      | start_time | 03:00 |
+      | first_number | 1 |
+    And the series has a competitor with attributes:
+      | first_name | James |
+      | last_name | Johnson |
+    And the start list has been generated for the series
+    And I am on the start list page of the series
+    And I should see "03:00:00"
+    But I should not see "(03:00:00)"
+
   Scenario: Start list for competitors having team name
     Given there is a race with attributes:
       | name | My test race |
