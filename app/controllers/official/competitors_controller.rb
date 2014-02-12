@@ -1,6 +1,7 @@
 class Official::CompetitorsController < Official::OfficialController
   before_filter :assign_series_by_series_id, :check_assigned_series, :except => :create
   before_filter :assign_race_by_race_id, :check_assigned_race, :only => :create
+  before_filter :assign_competitor_by_id, only: [ :edit, :update, :destroy ]
   before_filter :check_offline_limit, :only => [:new, :create]
   before_filter :handle_start_time, :only => :create
   before_filter :clear_empty_shots, :only => :update
@@ -45,11 +46,9 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   def edit
-    @competitor = Competitor.find(params[:id])
   end
 
   def update
-    @competitor = Competitor.find(params[:id])
     club_ok = handle_club(@competitor)
     change_series_id_to_series(params) # counter cache hack
     if club_ok and handle_time_parameters and @competitor.update_attributes(params[:competitor])
@@ -78,7 +77,6 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   def destroy
-    @competitor = Competitor.find(params[:id])
     if @competitor.series_id == params[:series_id].to_i
       @competitor.destroy
       respond_to do |format|
