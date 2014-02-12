@@ -70,29 +70,25 @@ describe RelayCompetitor do
           @team = FactoryGirl.build(:relay_team, :relay => @relay)
         end
 
-        it "can be nil even when start time is not nil" do
+        it "can be nil" do
           FactoryGirl.build(:relay_competitor, :relay_team => @team, :leg => 1,
             :arrival_time => nil).should be_valid
         end
 
         it "should not be before start time" do
-          FactoryGirl.build(:relay_competitor, :relay_team => @team, :leg => 1,
-            :arrival_time => '13:59').should have(1).errors_on(:arrival_time)
+          FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 1, :arrival_time => '00:10:00')
+          FactoryGirl.build(:relay_competitor, :relay_team => @team, :leg => 2, :arrival_time => '00:09:59').
+              should have(1).errors_on(:arrival_time)
         end
 
         it "should not be same as start time" do
           FactoryGirl.build(:relay_competitor, :relay_team => @team, :leg => 1,
-            :arrival_time => '14:00').should have(1).errors_on(:arrival_time)
+            :arrival_time => '00:00').should have(1).errors_on(:arrival_time)
         end
 
         it "is valid when later than start time" do
           FactoryGirl.build(:relay_competitor, :relay_team => @team, :leg => 1,
-            :arrival_time => '14:01').should be_valid
-        end
-
-        it "cannot be given if no start time" do
-          FactoryGirl.build(:relay_competitor, :relay_team => @team, :leg => 1,
-            :arrival_time => '13:59').should_not be_valid
+            :arrival_time => '00:01').should be_valid
         end
       end
 
@@ -101,10 +97,10 @@ describe RelayCompetitor do
           relay = FactoryGirl.create(:relay, :start_time => '14:00')
           team = FactoryGirl.create(:relay_team, :relay => relay)
           comp1 = FactoryGirl.create(:relay_competitor, :relay_team => team, :leg => 1,
-            :arrival_time => '14:10:00')
+            :arrival_time => '00:10:00')
           FactoryGirl.create(:relay_competitor, :relay_team => team, :leg => 2,
-            :arrival_time => '14:20:00')
-          comp1.arrival_time = '14:20:01'
+            :arrival_time => '00:20:00')
+          comp1.arrival_time = '00:20:01'
           comp1.should have(1).errors_on(:arrival_time)
         end
       end
@@ -164,13 +160,9 @@ describe RelayCompetitor do
     end
 
     context "when first competitor is saved" do
-      it "should set the relay start time as competitor start time" do
+      it "should set 00:00 as competitor start time" do
         @c1.save!
-        @c1.start_time.strftime('%H:%M:%S').should == '10:30:00'
-        @relay.start_time = '13:15'
-        @relay.save!
-        @c1.save!
-        @c1.start_time.strftime('%H:%M:%S').should == '13:15:00'
+        @c1.start_time.strftime('%H:%M:%S').should == '00:00:00'
       end
     end
 

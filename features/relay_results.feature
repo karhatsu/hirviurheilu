@@ -67,21 +67,21 @@ Feature: Relay results
       | first_name | TimG |
       | last_name | SmithG |
       | leg | 1 |
-      | arrival_time | 12:15:10 |
+      | arrival_time | 00:15:10 |
       | misses | 0 |
       | estimate | 123 |
     And the relay team has a competitor with attributes:
       | first_name | JohnG |
       | last_name | StevensonG |
       | leg | 2 |
-      | arrival_time | 12:31:12 |
+      | arrival_time | 00:31:12 |
       | misses | 0 |
       | estimate | 100 |
     And the relay team has a competitor with attributes:
       | first_name | GaryG |
       | last_name | JohnsonG |
       | leg | 3 |
-      | arrival_time | 12:44:54 |
+      | arrival_time | 00:44:54 |
       | misses | 0 |
       | estimate | 100 |
     And the relay has a team "Yellow team" with number 2
@@ -89,21 +89,21 @@ Feature: Relay results
       | first_name | TimY |
       | last_name | SmithY |
       | leg | 1 |
-      | arrival_time | 12:15:05 |
+      | arrival_time | 00:15:05 |
       | misses | 0 |
       | estimate | 100 |
     And the relay team has a competitor with attributes:
       | first_name | JohnY |
       | last_name | StevensonY |
       | leg | 2 |
-      | arrival_time | 12:32:12 |
+      | arrival_time | 00:32:12 |
       | misses | 0 |
       | estimate | 100 |
     And the relay team has a competitor with attributes:
       | first_name | GaryY |
       | last_name | JohnsonY |
       | leg | 3 |
-      | arrival_time | 12:43:13 |
+      | arrival_time | 00:43:13 |
       | misses | 0 |
       | estimate | 100 |
     And the relay has a team "Red team" with number 3
@@ -111,21 +111,21 @@ Feature: Relay results
       | first_name | TimR |
       | last_name | SmithR |
       | leg | 1 |
-      | arrival_time | 12:15:06 |
+      | arrival_time | 00:15:06 |
       | misses | 0 |
       | estimate | 100 |
     And the relay team has a competitor with attributes:
       | first_name | JohnR |
       | last_name | StevensonR |
       | leg | 2 |
-      | arrival_time | 12:35:12 |
+      | arrival_time | 00:35:12 |
       | misses | 0 |
       | estimate | 100 |
     And the relay team has a competitor with attributes:
       | first_name | GaryR |
       | last_name | JohnsonR |
       | leg | 3 |
-      | arrival_time | 12:43:12 |
+      | arrival_time | 00:43:12 |
       | misses | 0 |
       | estimate | 100 |
     Given I am on the home page

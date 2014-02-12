@@ -75,7 +75,7 @@ class RelayCompetitor < ActiveRecord::Base
   def set_start_time
     return unless relay_team
     if leg == 1
-      self.start_time = relay_team.relay.start_time
+      self.start_time = '00:00'
     else
       prev = previous_competitor
       self.start_time = prev.arrival_time if prev

@@ -22,7 +22,7 @@ class RelayTeam < ActiveRecord::Base
     leg = relay.legs_count unless leg
     competitor = competitor(leg)
     return nil unless competitor and competitor.arrival_time
-    competitor.arrival_time - relay.start_time + adjustment(leg)
+    competitor.arrival_time - competitor(1).start_time + adjustment(leg)
   end
 
   def estimate_penalties_sum

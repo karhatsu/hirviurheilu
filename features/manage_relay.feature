@@ -110,14 +110,14 @@ Feature: Manage relays
       | first_name | Tim |
       | last_name | Smith |
       | leg | 1 |
-      | arrival_time | 12:15:10 |
+      | arrival_time | 00:15:10 |
       | misses | 0 |
       | estimate | 91 |
     And the relay team has a competitor with attributes:
       | first_name | John |
       | last_name | Stevenson |
       | leg | 2 |
-      | arrival_time | 12:31:12 |
+      | arrival_time | 00:31:12 |
       | misses | 1 |
     And the relay has the correct estimates:
       | leg | distance |

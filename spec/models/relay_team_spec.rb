@@ -63,9 +63,9 @@ describe RelayTeam do
       @relay = FactoryGirl.create(:relay, :legs_count => 3, :start_time => '12:00')
       @team = FactoryGirl.create(:relay_team, :relay => @relay)
       @c1 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 1,
-        :arrival_time => '12:10:00')
+        :arrival_time => '00:10:00')
       @c2 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 2,
-        :arrival_time => '12:20:54')
+        :arrival_time => '00:20:54')
     end
 
     it "should return nil if no last competitor defined" do
@@ -75,16 +75,16 @@ describe RelayTeam do
     context "when last competitor defined" do
       before do
         @c3 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 3,
-            :arrival_time => '12:31:15')
+            :arrival_time => '00:31:15')
       end
 
-      it "should return the arrival time for the last competitor - relay start time" do
+      it "should return the arrival time for the last competitor" do
         @team.time_in_seconds.should == 31 * 60 + 15
       end
     end
 
     context "when leg number given" do
-      it "should return the arrival time for the given competitor - relay start time" do
+      it "should return the arrival time for the given competitor" do
         @team.time_in_seconds(2).should == 20 * 60 + 54
       end
     end
@@ -93,9 +93,9 @@ describe RelayTeam do
         @c1.adjustment = -20
         @c1.save!
         @c3 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 3,
-          :arrival_time => '12:31:15', :adjustment => 90)
+          :arrival_time => '00:31:15', :adjustment => 90)
       end
-      it "should return the arrival time for the given competitor - relay start time + adjustment for current and previous legs" do
+      it "should return the arrival time for the given competitor + adjustment for current and previous legs" do
         @team.time_in_seconds(2).should == 20 * 60 + 54 - 20
       end
     end
