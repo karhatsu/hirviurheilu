@@ -5,7 +5,7 @@ class FinishRaceMailer < ApplicationMailer
   def finish_race(race)
     set_locale
     @race = race
-    mail :to => ADMIN_EMAIL, :from => NOREPLY_ADDRESS,
+    mail :to => ADMIN_EMAIL, :from => NOREPLY_ADDRESS, :reply_to => race.users.first.email,
       :subject => "Hirviurheilu - kilpailu päättynyt (#{Rails.env})"
   end
 end
