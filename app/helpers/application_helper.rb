@@ -56,7 +56,7 @@ module ApplicationHelper
     date = relay.race.start_date.to_date
     date += relay.start_day - 1
     datetime = DateTime.parse("#{date.to_date} #{relay.start_time.strftime("%H:%M:%S")}")
-    datetime_print(datetime, true, true)
+    datetime_print(datetime, true)
   end
 
   def points_print(competitor, all_competitors=false)

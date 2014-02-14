@@ -19,7 +19,7 @@
     <span class="form_label"><%= f.label :start_time %></span>
     <span>
       <%= start_days_form_field(f, @relay) %>
-      <%= f.time_select :start_time, :include_seconds => true, :include_blank => true %>
+      <%= f.time_select :start_time, :include_blank => true %>
     </span>
   </div>
   <% unless @relay.new_record? %>
