@@ -18,6 +18,9 @@
     <%= link_to t('official.result_place.generate_start_times'), official_series_competitors_path(@series) %>
   </div>
 <% else %>
+  <div class="error">Huom! Tämän sivun käytössä havaittu ongelmia joillain selaimilla (tulokset eivät tallennu). Kunnes virhe saadaan korjattua,
+    kokeile jompaa kumpaa vaihtoehtoa: 1. Lataa sivu uudestaan. 2. Käytä <%= link_to 'Pikasyöttö', official_race_quick_saves_path(@series.race) %>-sivua
+    tulosten tallentamiseen.</div>
   <div id="update_error"></div>
   <%= render :partial => partial_table %>
   <hr/>
