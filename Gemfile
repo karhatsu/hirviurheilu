@@ -6,7 +6,8 @@ gem 'jquery-rails', '2.1.4'
 gem 'jquery-ui-rails', '3.0.0'
 gem 'authlogic'
 gem 'wicked_pdf', '0.7.9'
-gem 'turbolinks'
+gem 'turbolinks', '2.2.1'
+gem 'jquery-turbolinks', '2.0.2'
 
 group :development, :staging, :production do
   gem 'pg'
