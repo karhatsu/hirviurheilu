@@ -25,7 +25,6 @@ Feature: Manage relays
     And I fill in "3" for "Osuuksien määrä"
     And I select "11" from "relay_start_time_4i"
     And I select "45" from "relay_start_time_5i"
-    And I select "30" from "relay_start_time_6i"
     And I press "Tallenna"
     Then I should be on the edit relay page of "Test relay"
     And I should see "Viesti luotu. Voit nyt lisätä viestiin joukkueita." in a success message
@@ -34,14 +33,13 @@ Feature: Manage relays
     And I should see "3"
     And the "relay_start_time_4i" field should contain "11"
     And the "relay_start_time_5i" field should contain "45"
-    And the "relay_start_time_6i" field should contain "30"
     And I should see /Oikeat etäisyydet/ within "h2"
     And I should see /Joukkueet/ within "h2"
     When I follow "Takaisin viestien etusivulle"
     Then I should be on the official relays page of "Relay race"
     And I should see "Test relay"
     And I should see "3"
-    And I should see "11:45:30"
+    And I should see "11:45"
 
   Scenario: Edit relay
     Given I am an official
@@ -62,7 +60,7 @@ Feature: Manage relays
     Then I should be on the official relays page of "Relay race"
     And I should see "Viestin tiedot päivitetty" in a success message
     And I should see "New name"
-    And I should see "08:12:00"
+    And I should see "08:12"
 
   Scenario: Relay results quick save
     Given I am an official
