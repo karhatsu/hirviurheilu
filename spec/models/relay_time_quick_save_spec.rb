@@ -7,6 +7,7 @@ describe RelayTimeQuickSave do
       :start_time => '11:00')
     @team = FactoryGirl.create(:relay_team, :relay => @relay, :number => 5)
     @c = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 1)
+    @c2 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 2)
   end
 
   it "should save the arrival time when competitor found and valid arrival time" do
@@ -15,12 +16,14 @@ describe RelayTimeQuickSave do
   end
 
   it "should handle error when invalid arrival time" do
-    @qs = RelayTimeQuickSave.new(@relay.id, '5,1,105959')
-    check_failure true
+    qs = RelayTimeQuickSave.new(@relay.id, '5,1,002059')
+    qs.save
+    @qs = RelayTimeQuickSave.new(@relay.id, '5,2,002058')
+    check_failure @c2
   end
 
   it "should handle error when unknown leg number" do
-    @qs = RelayTimeQuickSave.new(@relay.id, '5,2,112059')
+    @qs = RelayTimeQuickSave.new(@relay.id, '5,3,112059')
     check_failure
   end
 
@@ -42,7 +45,7 @@ describe RelayTimeQuickSave do
     
     it "should handle error when normal input" do
       @qs = RelayTimeQuickSave.new(@relay.id, '5,1,112513')
-      check_failure true, '11:25:12'
+      check_failure @c, '11:25:12'
     end
     
     it "should override when input starts with ++" do
@@ -60,16 +63,19 @@ describe RelayTimeQuickSave do
     @c.arrival_time.strftime('%H:%M:%S').should == arrival_time
   end
 
-  def check_failure(competitor=false, arrival_time=nil)
+  def check_failure(expected_competitor=nil, arrival_time=nil)
     @qs.save.should be_false
     @qs.error.should_not be_nil
-    @qs.competitor.should == @c if competitor
-    @qs.competitor.should be_nil unless competitor
-    @c.reload
-    if arrival_time
-      @c.arrival_time.strftime('%H:%M:%S').should == arrival_time
+    if expected_competitor
+      @qs.competitor.should == expected_competitor
+      expected_competitor.reload
+      if arrival_time
+        expected_competitor.arrival_time.strftime('%H:%M:%S').should == arrival_time
+      else
+        expected_competitor.arrival_time.should be_nil
+      end
     else
-      @c.arrival_time.should be_nil
+      @qs.competitor.should be_nil
     end
   end
 end
