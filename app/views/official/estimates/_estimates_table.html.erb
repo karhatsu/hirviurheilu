@@ -1,16 +1,14 @@
-<table>
-  <tr>
-    <th><%= t :number_short %></th>
-    <th><%= t 'activerecord.models.competitor.one' %></th>
-    <th><%= t :estimate %> 1</th>
-    <th><%= t :estimate %> 2</th>
+<div id="estimates_table" class="competitors_table">
+  <div class="header_row">
+    <div class="title number"><%= t :number_short %></div>
+    <div class="title name"><%= t 'activerecord.models.competitor.one' %></div>
+    <div class="title estimate"><%= t :estimate %> 1</div>
+    <div class="title estimate"><%= t :estimate %> 2</div>
     <% if @series.estimates == 4 %>
-      <th><%= t :estimate %> 3</th>
-      <th><%= t :estimate %> 4</th>
+      <div class="title estimate"><%= t :estimate %> 3</div>
+      <div class="title estimate"><%= t :estimate %> 4</div>
     <% end %>
-    <th>&nbsp;</th>
-    <th>&nbsp;</th>
-  </tr>
+  </div>
   <% @series.competitors.each do |c| %>
     <%= form_for([:official, @series, c], :remote => true) do |f| %>
       <%= hidden_field_tag :no_times, true %>
@@ -20,18 +18,18 @@
         <%= hidden_field_tag 'competitor[old_values[estimate3]]', c.estimate3 %>
         <%= hidden_field_tag 'competitor[old_values[estimate4]]', c.estimate4 %>
       <% end %>
-      <tr>
-        <td><%= c.number %></td>
-        <td><%= full_name(c) %></td>
-        <td><%= f.text_field :estimate1, :size => 3, :maxlength => 3 %></td>
-        <td><%= f.text_field :estimate2, :size => 3, :maxlength => 3 %></td>
+      <div class="competitor_row">
+        <div class="value number"><%= c.number %></div>
+        <div class="value name"><%= full_name(c) %></div>
+        <div class="value estimate"><%= f.text_field :estimate1, :size => 3, :maxlength => 3 %></div>
+        <div class="value estimate"><%= f.text_field :estimate2, :size => 3, :maxlength => 3 %></div>
         <% if @series.estimates == 4 %>
-          <td><%= f.text_field :estimate3, :size => 3, :maxlength => 3 %></td>
-          <td><%= f.text_field :estimate4, :size => 3, :maxlength => 3 %></td>
+          <div class="value estimate"><%= f.text_field :estimate3, :size => 3, :maxlength => 3 %></div>
+          <div class="value estimate"><%= f.text_field :estimate4, :size => 3, :maxlength => 3 %></div>
         <% end %>
-        <td><%= submit_tag t(:save), :onclick => "start_updating(#{c.id})" %></td>
-        <td id="status_<%= c.id %>">&nbsp;</td>
-      </tr>
+        <div class="value"><%= submit_tag t(:save), :onclick => "start_updating(#{c.id})" %></div>
+        <div class="value" id="status_<%= c.id %>">&nbsp;</div>
+      </div>
     <% end %>
   <% end %>
-</table>
+</div>
