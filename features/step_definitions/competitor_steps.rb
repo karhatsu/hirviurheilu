@@ -28,7 +28,7 @@ end
 # This is against the principles of integration tests but
 # big count slows down the tests too much.
 Given /^the database contains in total (\d+) competitors$/ do |count|
-  Competitor.stub!(:count).and_return(count.to_i)
+  Competitor.stub(:count).and_return(count.to_i)
 end
 
 Given /^the series has a competitor with attributes:$/ do |fields|

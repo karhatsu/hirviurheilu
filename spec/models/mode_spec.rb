@@ -9,7 +9,7 @@ describe Mode do
 
     context "when development environment" do
       before do
-        Rails.stub!(:env).and_return(ActiveSupport::StringInquirer.new('development'))
+        Rails.stub(:env).and_return(ActiveSupport::StringInquirer.new('development'))
       end
 
       it "should change mode to offline after the first switch and " +
@@ -28,7 +28,7 @@ describe Mode do
 
     context "when not development environment" do
       before do
-        Rails.stub!(:env).and_return('production')
+        Rails.stub(:env).and_return('production')
       end
 
       it "should raise an error" do

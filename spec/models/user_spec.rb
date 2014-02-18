@@ -122,7 +122,7 @@ describe User do
 
       context "when online usage" do
         before do
-          Mode.stub!(:offline?).and_return(false)
+          Mode.stub(:offline?).and_return(false)
         end
 
         it "should not be limited" do
@@ -132,7 +132,7 @@ describe User do
 
       context "when offline usage" do
         before do
-          Mode.stub!(:offline?).and_return(true)
+          Mode.stub(:offline?).and_return(true)
         end
 
         it "should be one" do

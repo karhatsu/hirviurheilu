@@ -52,7 +52,7 @@ describe Cup do
     
     it "should be the sport of the first race" do
       cup = FactoryGirl.build(:cup)
-      cup.stub!(:races).and_return([mock_model(Race, :sport => Sport::RUN), mock_model(Race, :sport => Sport::SKI)])
+      cup.stub(:races).and_return([mock_model(Race, :sport => Sport::RUN), mock_model(Race, :sport => Sport::SKI)])
       cup.sport.should == Sport::RUN
     end
   end
@@ -66,7 +66,7 @@ describe Cup do
       cup = FactoryGirl.build(:cup)
       race1 = FactoryGirl.build(:race, :start_date => '2012-04-01')
       race2 = FactoryGirl.build(:race, :start_date => '2012-03-31')
-      cup.stub!(:races).and_return([race2, race1])
+      cup.stub(:races).and_return([race2, race1])
       cup.start_date.strftime('%Y-%m-%d').should == '2012-03-31'
     end
   end
@@ -80,7 +80,7 @@ describe Cup do
       cup = FactoryGirl.build(:cup)
       race1 = FactoryGirl.build(:race, :start_date => '2012-04-01', :end_date => '2012-04-02')
       race2 = FactoryGirl.build(:race, :start_date => '2012-03-31', :end_date => '2012-03-31')
-      cup.stub!(:races).and_return([race2, race1])
+      cup.stub(:races).and_return([race2, race1])
       cup.end_date.strftime('%Y-%m-%d').should == '2012-04-02'
     end
   end
@@ -96,7 +96,7 @@ describe Cup do
         race1 = FactoryGirl.build(:race, :location => 'Shooting city')
         race2 = FactoryGirl.build(:race, :location => 'Skiing town')
         race3 = FactoryGirl.build(:race, :location => 'Running village')
-        cup.stub!(:races).and_return([race1, race2, race3])
+        cup.stub(:races).and_return([race1, race2, race3])
         cup.location.should == 'Shooting city / Skiing town / Running village'
       end
     end
@@ -106,7 +106,7 @@ describe Cup do
         cup = FactoryGirl.build(:cup)
         race1 = FactoryGirl.build(:race, :location => 'Shooting city')
         race2 = FactoryGirl.build(:race, :location => 'Shooting city')
-        cup.stub!(:races).and_return([race1, race2])
+        cup.stub(:races).and_return([race1, race2])
         cup.location.should == 'Shooting city'
       end
     end
@@ -117,7 +117,7 @@ describe Cup do
         race1 = FactoryGirl.build(:race, :location => 'Shooting city')
         race2 = FactoryGirl.build(:race, :location => 'Skiing town')
         race3 = FactoryGirl.build(:race, :location => 'Shooting city')
-        cup.stub!(:races).and_return([race1, race2, race3])
+        cup.stub(:races).and_return([race1, race2, race3])
         cup.location.should == 'Shooting city / Skiing town'
       end
     end
@@ -136,14 +136,14 @@ describe Cup do
         race1 = mock_model(Race)
         series1_1 = mock_model(Series, :name => 'M50')
         series1_2 = mock_model(Series, :name => 'M60')
-        race1.stub!(:series).and_return([series1_1, series1_2])
+        race1.stub(:series).and_return([series1_1, series1_2])
         race2 = mock_model(Race)
         series2_1 = mock_model(Series, :name => 'M70')
         series2_2 = mock_model(Series, :name => 'M80')
-        race2.stub!(:series).and_return([series2_1, series2_2])
+        race2.stub(:series).and_return([series2_1, series2_2])
         races = [race1, race2]
         @cup = FactoryGirl.create(:cup)
-        @cup.stub!(:races).and_return(races)
+        @cup.stub(:races).and_return(races)
       end
     
       it "should create cup series based on series names in the first race" do
@@ -160,7 +160,7 @@ describe Cup do
     context "when already has cup series" do
       it "should raise an exception" do
         cup = FactoryGirl.build(:cup)
-        cup.stub!(:cup_series).and_return([mock_model(CupSeries)])
+        cup.stub(:cup_series).and_return([mock_model(CupSeries)])
         lambda { cup.create_default_cup_series }.should raise_error
       end
     end

@@ -107,7 +107,7 @@ describe RelayTeam do
         team = FactoryGirl.create(:relay_team)
         c1 = mock_model(RelayCompetitor, :estimate_penalties => nil)
         c2 = mock_model(RelayCompetitor, :estimate_penalties => nil)
-        team.stub!(:relay_competitors).and_return([c1, c2])
+        team.stub(:relay_competitors).and_return([c1, c2])
         team.estimate_penalties_sum.should be_nil
       end
     end
@@ -118,7 +118,7 @@ describe RelayTeam do
         c1 = mock_model(RelayCompetitor, :estimate_penalties => 10)
         c2 = mock_model(RelayCompetitor, :estimate_penalties => 2)
         c3 = mock_model(RelayCompetitor, :estimate_penalties => nil)
-        team.stub!(:relay_competitors).and_return([c1, c2, c3])
+        team.stub(:relay_competitors).and_return([c1, c2, c3])
         team.estimate_penalties_sum.should == 12
       end
     end
@@ -130,7 +130,7 @@ describe RelayTeam do
         team = FactoryGirl.create(:relay_team)
         c1 = mock_model(RelayCompetitor, :misses => nil)
         c2 = mock_model(RelayCompetitor, :misses => nil)
-        team.stub!(:relay_competitors).and_return([c1, c2])
+        team.stub(:relay_competitors).and_return([c1, c2])
         team.shoot_penalties_sum.should be_nil
       end
     end
@@ -141,7 +141,7 @@ describe RelayTeam do
         c1 = mock_model(RelayCompetitor, :misses => 3)
         c2 = mock_model(RelayCompetitor, :misses => 4)
         c3 = mock_model(RelayCompetitor, :misses => nil)
-        team.stub!(:relay_competitors).and_return([c1, c2, c3])
+        team.stub(:relay_competitors).and_return([c1, c2, c3])
         team.shoot_penalties_sum.should == 7
       end
     end

@@ -9,7 +9,7 @@ describe ApplicationHelper do
 
     it "should print no result reason if it is defined" do
       competitor = mock_model(Competitor, :no_result_reason => Competitor::DNS)
-      competitor.stub!(:points).with(@all_competitors).and_return(145)
+      competitor.stub(:points).with(@all_competitors).and_return(145)
       helper.points_print(competitor, @all_competitors).should ==
         "<span class='explanation' title='Kilpailija ei osallistunut kilpailuun'>DNS</span>"
     end
@@ -39,20 +39,20 @@ describe ApplicationHelper do
   
   describe "#cup_points_print" do
     it "should print points in case they are available" do
-      competitor = mock(CupCompetitor)
+      competitor = double(CupCompetitor)
       competitor.should_receive(:points).and_return(2000)
       helper.cup_points_print(competitor).should == "2000"
     end
     
     it "should print points in brackets if only partial points are available" do
-      competitor = mock(CupCompetitor)
+      competitor = double(CupCompetitor)
       competitor.should_receive(:points).and_return(nil)
       competitor.should_receive(:points!).and_return(1000)
       helper.cup_points_print(competitor).should == "(1000)"
     end
     
     it "should print '-' if no points at all" do
-      competitor = mock(CupCompetitor)
+      competitor = double(CupCompetitor)
       competitor.should_receive(:points).and_return(nil)
       competitor.should_receive(:points!).and_return(nil)
       helper.cup_points_print(competitor).should == "-"
@@ -93,7 +93,7 @@ describe ApplicationHelper do
     it "should call datetime_print with series date and time" do
       series = mock_model(Series)
       datetime = 'some date time'
-      series.stub!(:start_datetime).and_return(datetime)
+      series.stub(:start_datetime).and_return(datetime)
       helper.should_receive(:datetime_print).with(datetime, true).and_return('result')
       helper.series_start_time_print(series).should == 'result'
     end
@@ -172,7 +172,7 @@ describe ApplicationHelper do
 
   describe "#relay_time_adjustment" do
     before do
-      helper.stub!(:time_from_seconds).and_return('00:01')
+      helper.stub(:time_from_seconds).and_return('00:01')
     end
 
     it "should return nothing when nil given" do
@@ -446,7 +446,7 @@ describe ApplicationHelper do
   
     context "when 300 points for all competitors in this series" do
       it "should return 300" do
-        @series.stub!(:time_points_type).and_return(Series::TIME_POINTS_TYPE_ALL_300)
+        @series.stub(:time_points_type).and_return(Series::TIME_POINTS_TYPE_ALL_300)
         competitor = mock_model(Competitor, :series => @series, :no_result_reason => nil)
         helper.time_points(competitor).should == 300
       end
@@ -549,7 +549,7 @@ describe ApplicationHelper do
       end
 
       it "should call block when block given" do
-        s = mock(Series)
+        s = double(Series)
         s.should_receive(:id)
         helper.yes_or_empty(false) do s.id end
       end
@@ -569,7 +569,7 @@ describe ApplicationHelper do
 
   describe "#start_days_form_field" do
     before do
-      @f = mock(String)
+      @f = double(String)
       @race = mock_model(Race, :start_date => '2010-12-20')
       @series = mock_model(Series, :race => @race)
     end
@@ -578,7 +578,7 @@ describe ApplicationHelper do
       it "should return hidden field with value 1" do
         @series.should_receive(:start_day=).with(1)
         @f.should_receive(:hidden_field).with(:start_day).and_return("input")
-        @race.stub!(:days_count).and_return(1)
+        @race.stub(:days_count).and_return(1)
         helper.start_days_form_field(@f, @series).should == "input"
       end
     end
@@ -588,7 +588,7 @@ describe ApplicationHelper do
         @series.should_receive(:start_day).and_return(2)
         options = options_for_select([['20.12.2010', 1], ['21.12.2010', 2]], 2)
         @f.should_receive(:select).with(:start_day, options).and_return("select")
-        @race.stub!(:days_count).and_return(2)
+        @race.stub(:days_count).and_return(2)
         helper.start_days_form_field(@f, @series).should == "select"
       end
     end
@@ -596,12 +596,12 @@ describe ApplicationHelper do
 
   describe "#offline?" do
     it "should return true when Mode.offline? returns true" do
-      Mode.stub!(:offline?).and_return(true)
+      Mode.stub(:offline?).and_return(true)
       helper.should be_offline
     end
 
     it "should return true when Mode.offline? returns false" do
-      Mode.stub!(:offline?).and_return(false)
+      Mode.stub(:offline?).and_return(false)
       helper.should_not be_offline
     end
   end
@@ -624,56 +624,57 @@ describe ApplicationHelper do
     context "when url list is empty" do
       context "and parameter is non-nil" do
         it "should return the parameter url" do
-          stub!(:result_rotation_list).and_return([])
-          next_result_rotation('/abc').should == '/abc'
+          helper.stub(:result_rotation_list).and_return([])
+          helper.next_result_rotation('/abc').should == '/abc'
         end
       end
 
       context "and parameter is nil" do
         before do
-          path = '/this/is/race/frontpage'
-          stub!(:race_path).and_return(path)
+          @race_path = '/this/is/race/frontpage'
+          helper.stub(:race_path).and_return(@race_path)
         end
 
         it "should return the race front page" do
-          stub!(:result_rotation_list).and_return([])
-          next_result_rotation(nil).should == race_path()
+          helper.stub(:result_rotation_list).and_return([])
+          helper.next_result_rotation(nil).should == @race_path
         end
       end
     end
     
     context "when url list is not empty" do
       before do
-        stub!(:result_rotation_list).and_return(['/races/12/relays/1', '/series/56/competitors', '/series/67/competitors'])
+        @result_rotation_list = ['/races/12/relays/1', '/series/56/competitors', '/series/67/competitors']
+        helper.stub(:result_rotation_list).and_return(@result_rotation_list)
       end
 
       context "when nil url is given" do
         it "should return first url from url rotation" do
-          next_result_rotation(nil).should == result_rotation_list[0]
+          helper.next_result_rotation(nil).should == @result_rotation_list[0]
         end
       end
 
       context "when unknown url is given" do
         it "should return first url from url rotation" do
-          next_result_rotation('/unknown').should == result_rotation_list[0]
+          helper.next_result_rotation('/unknown').should == @result_rotation_list[0]
         end
       end
 
       context "when existing url is given" do
         it "should return next url from url rotation" do
-          next_result_rotation(result_rotation_list[0]).should == result_rotation_list[1]
+          helper.next_result_rotation(@result_rotation_list[0]).should == @result_rotation_list[1]
         end
       end
 
       context "when another existing url is given" do
         it "should return next url from url rotation" do
-          next_result_rotation(result_rotation_list[1]).should == result_rotation_list[2]
+          helper.next_result_rotation(@result_rotation_list[1]).should == @result_rotation_list[2]
         end
       end
 
       context "when last url is given" do
         it "should return first url from url rotation" do
-          next_result_rotation(result_rotation_list.size - 1).should == result_rotation_list[0]
+          helper.next_result_rotation(@result_rotation_list.size - 1).should == @result_rotation_list[0]
         end
       end
     end
@@ -683,20 +684,20 @@ describe ApplicationHelper do
     describe "aggregate" do
       before do
         @race = mock_model(Race)
-        stub!(:result_rotation_series_list).with(@race).and_return(['series1', 'series2'])
-        stub!(:result_rotation_tc_list).with(@race).and_return(['tc1', 'tc2'])
-        stub!(:result_rotation_relay_list).with(@race).and_return(['relay1', 'relay2'])
-        stub!(:result_rotation_tc_cookie).and_return(true)
+        helper.stub(:result_rotation_series_list).with(@race).and_return(['series1', 'series2'])
+        helper.stub(:result_rotation_tc_list).with(@race).and_return(['tc1', 'tc2'])
+        helper.stub(:result_rotation_relay_list).with(@race).and_return(['relay1', 'relay2'])
+        helper.stub(:result_rotation_tc_cookie).and_return(true)
       end
 
       it "should return an empty list when offline" do
-        Mode.stub!(:offline?).and_return(true)
-        Mode.stub!(:online?).and_return(false)
-        result_rotation_list(@race).should be_empty
+        Mode.stub(:offline?).and_return(true)
+        Mode.stub(:online?).and_return(false)
+        helper.result_rotation_list(@race).should be_empty
       end
 
       it "should return all paths when all available" do
-        list = result_rotation_list(@race)
+        list = helper.result_rotation_list(@race)
         list.size.should == 6
         list[0].should == 'series1'
         list[1].should == 'series2'
@@ -707,16 +708,16 @@ describe ApplicationHelper do
       end
 
       it "should not return either team competition paths if no series" do
-        should_receive(:result_rotation_series_list).with(@race).and_return([])
-        list = result_rotation_list(@race)
+        helper.should_receive(:result_rotation_series_list).with(@race).and_return([])
+        list = helper.result_rotation_list(@race)
         list.size.should == 2
         list[0].should == 'relay1'
         list[1].should == 'relay2'
       end
       
       it "should not return team competition paths unless cookie for that" do
-        stub!(:result_rotation_tc_cookie).and_return(false)
-        list = result_rotation_list(@race)
+        helper.stub(:result_rotation_tc_cookie).and_return(false)
+        list = helper.result_rotation_list(@race)
         list.size.should == 4
         list[0].should == 'series1'
         list[1].should == 'series2'
@@ -866,8 +867,8 @@ describe ApplicationHelper do
 
   describe "#series_result_title" do
     before do
-      @competitors = mock(Array)
-      @competitors.stub!(:empty?).and_return(false)
+      @competitors = double(Array)
+      @competitors.stub(:empty?).and_return(false)
       @race = mock_model(Race, :finished? => false)
       @series = mock_model(Series, :race => @race, :competitors => @competitors, :started? => true)
     end
@@ -915,9 +916,9 @@ describe ApplicationHelper do
 
   describe "#series_result_title" do
     before do
-      @competitors = mock(Array)
-      @teams = mock(Array)
-      @teams.stub!(:empty?).and_return(false)
+      @competitors = double(Array)
+      @teams = double(Array)
+      @teams.stub(:empty?).and_return(false)
       @race = mock_model(Race)
       @relay = mock_model(Relay, :race => @race, :started? => true,
         :relay_teams => @teams, :finished? => false)
@@ -973,12 +974,12 @@ describe ApplicationHelper do
     end
     
     it "should be 'Juoksu' when run sport" do
-      @sport.stub!(:run?).and_return(true)
+      @sport.stub(:run?).and_return(true)
       helper.time_title(@race).should == 'Juoksu'
     end
     
     it "should be 'Hiihto' when no run sport" do
-      @sport.stub!(:run?).and_return(false)
+      @sport.stub(:run?).and_return(false)
       helper.time_title(@race).should == 'Hiihto'
     end
   end
@@ -1020,7 +1021,7 @@ describe ApplicationHelper do
   describe "#comparison_time_title" do
     before do
       @competitor = mock_model(Competitor)
-      @competitor.stub!(:comparison_time_in_seconds).and_return(1545)
+      @competitor.stub(:comparison_time_in_seconds).and_return(1545)
     end
     
     it "should return empty string when empty always wanted" do
@@ -1028,7 +1029,7 @@ describe ApplicationHelper do
     end
     
     it "should return empty string when no comparison time available" do
-      @competitor.stub!(:comparison_time_in_seconds).and_return(nil)
+      @competitor.stub(:comparison_time_in_seconds).and_return(nil)
       helper.comparison_time_title(@competitor, true, false).should == ''
     end
     
@@ -1037,7 +1038,7 @@ describe ApplicationHelper do
     end
     
     it "should use all_competitors parameter when getting the comparison time" do
-      @competitor.stub!(:comparison_time_in_seconds).with(false).and_return(1550)
+      @competitor.stub(:comparison_time_in_seconds).with(false).and_return(1550)
       helper.comparison_time_title(@competitor, false, false).should == " title='Vertailuaika: 25:50'"
     end
   end
@@ -1046,7 +1047,7 @@ describe ApplicationHelper do
     context "when no time for competitor" do
       it "should return empty string" do
         competitor = mock_model(Competitor)
-        competitor.stub!(:time_in_seconds).and_return(nil)
+        competitor.stub(:time_in_seconds).and_return(nil)
         helper.comparison_and_own_time_title(competitor).should == ''
       end
     end
@@ -1089,32 +1090,32 @@ describe ApplicationHelper do
   
   describe "#title_prefix" do
     it "should be '(Dev) ' when development environment" do
-      Rails.stub!(:env).and_return('development')
+      Rails.stub(:env).and_return('development')
       helper.title_prefix.should == '(Dev) '
     end
     
     it "should be '(Testi) ' when test environment" do
-      Rails.stub!(:env).and_return('test')
+      Rails.stub(:env).and_return('test')
       helper.title_prefix.should == '(Testi) '
     end
     
     it "should be '(Testi) ' when staging environment" do
-      Rails.stub!(:env).and_return('staging')
+      Rails.stub(:env).and_return('staging')
       helper.title_prefix.should == '(Testi) '
     end
     
     it "should be '(Offline) ' when offline production environment" do
-      Rails.stub!(:env).and_return('winoffline-prod')
+      Rails.stub(:env).and_return('winoffline-prod')
       helper.title_prefix.should == '(Offline) '
     end
     
     it "should be '(Offline-dev) ' when offline development environment" do
-      Rails.stub!(:env).and_return('winoffline-dev')
+      Rails.stub(:env).and_return('winoffline-dev')
       helper.title_prefix.should == '(Offline-dev) '
     end
     
     it "should be '' when production environment" do
-      Rails.stub!(:env).and_return('production')
+      Rails.stub(:env).and_return('production')
       helper.title_prefix.should == ''
     end
   end
@@ -1136,7 +1137,7 @@ describe ApplicationHelper do
   describe "#remove_child_link" do
     before do
       @value = 'Add child'
-      @form = mock(Object)
+      @form = double(Object)
       @hide_class = 'hide_class'
       @confirm_question = 'Are you sure?'
       @form.should_receive(:hidden_field).with(:_destroy).and_return('<hidden-field/>')
@@ -1151,7 +1152,7 @@ describe ApplicationHelper do
   describe "#add_child_link" do
     before do
       @value = 'Add child'
-      @form = mock(Object)
+      @form = double(Object)
       @method = 'method'
       helper.should_receive(:new_child_fields).with(@form, @method).and_return('<div id="f">fields</div>')
     end
@@ -1191,17 +1192,17 @@ describe ApplicationHelper do
   
   describe "#facebook_env?" do
     it "should be true for development" do
-      Rails.stub!(:env).and_return('development')
+      Rails.stub(:env).and_return('development')
       helper.facebook_env?.should be_true
     end
     
     it "should be true for production" do
-      Rails.stub!(:env).and_return('production')
+      Rails.stub(:env).and_return('production')
       helper.facebook_env?.should be_true
     end
     
     it "should be false for all others" do
-      Rails.stub!(:env).and_return('test')
+      Rails.stub(:env).and_return('test')
       helper.facebook_env?.should be_false
     end
   end
@@ -1257,7 +1258,7 @@ describe ApplicationHelper do
       context "and autoscroll" do
         context "but no menu series" do
           it "should return refresh counter default seconds" do
-            competitors = mock(Array)
+            competitors = double(Array)
             helper.should_receive(:refresh_counter_auto_scroll).and_return(true)
             helper.should_receive(:menu_series).and_return(nil)
             helper.refresh_counter_seconds.should == helper.refresh_counter_default_seconds
@@ -1269,7 +1270,7 @@ describe ApplicationHelper do
             it "should return refresh counter default seconds" do
               helper.should_receive(:refresh_counter_auto_scroll).and_return(true)
               series = mock_model(Series)
-              competitors = mock(Array)
+              competitors = double(Array)
               helper.should_receive(:menu_series).and_return(series)
               series.should_receive(:competitors).and_return(competitors)
               competitors.should_receive(:count).and_return(helper.refresh_counter_min_seconds - 1)
@@ -1281,7 +1282,7 @@ describe ApplicationHelper do
             it "should return competitor count" do
               helper.should_receive(:refresh_counter_auto_scroll).and_return(true)
               series = mock_model(Series)
-              competitors = mock(Array)
+              competitors = double(Array)
               helper.should_receive(:menu_series).and_return(series)
               series.should_receive(:competitors).and_return(competitors)
               competitors.should_receive(:count).and_return(helper.refresh_counter_min_seconds)
@@ -1298,26 +1299,26 @@ describe ApplicationHelper do
       @competitor = mock_model(Competitor)
       @race = mock_model(Race)
       series = mock_model(Series)
-      @competitor.stub!(:series).and_return(series)
-      series.stub!(:race).and_return(@race)
+      @competitor.stub(:series).and_return(series)
+      series.stub(:race).and_return(@race)
     end
 
     context "when race finished" do
       before do
-        @race.stub!(:finished?).and_return(true)
+        @race.stub(:finished?).and_return(true)
       end
 
       context "when national record passed" do
         it "should return SE" do
-          @competitor.stub!(:national_record_passed?).and_return(true)
+          @competitor.stub(:national_record_passed?).and_return(true)
           helper.national_record(@competitor, true).should == 'SE'
         end
       end
 
       context "when national record reached" do
         it "should return SE(sivuaa)" do
-          @competitor.stub!(:national_record_passed?).and_return(false)
-          @competitor.stub!(:national_record_reached?).and_return(true)
+          @competitor.stub(:national_record_passed?).and_return(false)
+          @competitor.stub(:national_record_reached?).and_return(true)
           helper.national_record(@competitor, true).should == 'SE(sivuaa)'
         end
       end
@@ -1325,20 +1326,20 @@ describe ApplicationHelper do
 
     context "when race not finished" do
       before do
-        @race.stub!(:finished?).and_return(false)
+        @race.stub(:finished?).and_return(false)
       end
 
       context "when national record passed" do
         it "should return SE?" do
-          @competitor.stub!(:national_record_passed?).and_return(true)
+          @competitor.stub(:national_record_passed?).and_return(true)
           helper.national_record(@competitor, true).should == 'SE?'
         end
       end
 
       context "when national record reached" do
         it "should return SE(sivuaa)?" do
-          @competitor.stub!(:national_record_passed?).and_return(false)
-          @competitor.stub!(:national_record_reached?).and_return(true)
+          @competitor.stub(:national_record_passed?).and_return(false)
+          @competitor.stub(:national_record_reached?).and_return(true)
           helper.national_record(@competitor, true).should == 'SE(sivuaa)?'
         end
       end
@@ -1346,8 +1347,8 @@ describe ApplicationHelper do
 
     context "with decoration" do
       it "should surround text with span and link" do
-        @race.stub!(:finished?).and_return(true)
-        @competitor.stub!(:national_record_passed?).and_return(true)
+        @race.stub(:finished?).and_return(true)
+        @competitor.stub(:national_record_passed?).and_return(true)
         helper.national_record(@competitor, false).should == "<span class='explanation'><a href=\"" + NATIONAL_RECORD_URL + "\">SE</a></span>"
       end
     end

@@ -699,7 +699,7 @@ describe Competitor do
       @series = FactoryGirl.build(:series)
       @competitor = FactoryGirl.build(:competitor, :series => @series)
       @best_time_seconds = 3603.0 # rounded: 3600
-      @competitor.stub!(:comparison_time_in_seconds).with(@all_competitors).and_return(@best_time_seconds)
+      @competitor.stub(:comparison_time_in_seconds).with(@all_competitors).and_return(@best_time_seconds)
     end
 
     it "should be nil when time cannot be calculated yet" do
@@ -760,7 +760,7 @@ describe Competitor do
     context "when no time points" do
       it "should be nil" do
         @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_NONE
-        @competitor.stub!(:time_in_seconds).and_return(@best_time_seconds)
+        @competitor.stub(:time_in_seconds).and_return(@best_time_seconds)
         @competitor.time_points(@all_competitors).should be_nil
       end
     end
@@ -768,7 +768,7 @@ describe Competitor do
     context "when 300 time points for all competitors in the series" do
       it "should be 300" do
         @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_ALL_300
-        @competitor.stub!(:time_in_seconds).and_return(nil)
+        @competitor.stub(:time_in_seconds).and_return(nil)
         @competitor.time_points(@all_competitors).should == 300
       end
     end
@@ -778,7 +778,7 @@ describe Competitor do
         @competitor = FactoryGirl.build(:competitor, :series => @series,
           :no_result_reason => Competitor::DNF)
         @best_time_seconds = 3603.0
-        @competitor.stub!(:comparison_time_in_seconds).with(@all_competitors).and_return(@best_time_seconds)
+        @competitor.stub(:comparison_time_in_seconds).with(@all_competitors).and_return(@best_time_seconds)
       end
 
       it "should be like normally when the competitor has not the best time" do
@@ -799,9 +799,9 @@ describe Competitor do
     before do
       @all_competitors = true
       @competitor = FactoryGirl.build(:competitor)
-      @competitor.stub!(:shot_points).and_return(100)
-      @competitor.stub!(:estimate_points).and_return(150)
-      @competitor.stub!(:time_points).with(@all_competitors).and_return(200)
+      @competitor.stub(:shot_points).and_return(100)
+      @competitor.stub(:estimate_points).and_return(150)
+      @competitor.stub(:time_points).with(@all_competitors).and_return(200)
     end
 
     it "should be nil when no shot points" do
@@ -838,9 +838,9 @@ describe Competitor do
     before do
       @all_competitors = true
       @competitor = FactoryGirl.build(:competitor)
-      @competitor.stub!(:shot_points).and_return(100)
-      @competitor.stub!(:estimate_points).and_return(150)
-      @competitor.stub!(:time_points).with(@all_competitors).and_return(200)
+      @competitor.stub(:shot_points).and_return(100)
+      @competitor.stub(:estimate_points).and_return(150)
+      @competitor.stub(:time_points).with(@all_competitors).and_return(200)
     end
 
     it "should be estimate + time points when no shot points" do
@@ -1068,16 +1068,16 @@ describe Competitor do
   describe "#free_offline_competitors_left" do
     context "when online state" do
       it "should raise error" do
-        Mode.stub!(:online?).and_return(true)
-        Mode.stub!(:offline?).and_return(false)
+        Mode.stub(:online?).and_return(true)
+        Mode.stub(:offline?).and_return(false)
         lambda { Competitor.free_offline_competitors_left }.should raise_error
       end
     end
 
     context "when offline state" do
       before do
-        Mode.stub!(:online?).and_return(false)
-        Mode.stub!(:offline?).and_return(true)
+        Mode.stub(:online?).and_return(false)
+        Mode.stub(:offline?).and_return(true)
       end
 
       it "should return full amount initially" do
@@ -1093,7 +1093,7 @@ describe Competitor do
       end
 
       it "should be zero when would actually be negative (for some reason)" do
-        Competitor.stub!(:count).and_return(Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE + 1)
+        Competitor.stub(:count).and_return(Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE + 1)
         Competitor.free_offline_competitors_left.should == 0
       end
     end
@@ -1155,11 +1155,11 @@ describe Competitor do
     
     it "should be 10000 x points + 1000 x partial points + 100 x shot points + 10 x time points + negative time" do
       c = FactoryGirl.build(:competitor)
-      c.stub!(:points).with(@all_competitors).and_return(800)
-      c.stub!(:points!).with(@all_competitors).and_return(500)
-      c.stub!(:shot_points).and_return(300)
-      c.stub!(:time_points).with(@all_competitors).and_return(250)
-      c.stub!(:time_in_seconds).and_return(3000)
+      c.stub(:points).with(@all_competitors).and_return(800)
+      c.stub(:points!).with(@all_competitors).and_return(500)
+      c.stub(:shot_points).and_return(300)
+      c.stub(:time_points).with(@all_competitors).and_return(250)
+      c.stub(:time_in_seconds).and_return(3000)
       c.relative_points(@all_competitors).should == 10000*800 + 1000*500 + 100*300 + 10*250 - 3000
     end
   end

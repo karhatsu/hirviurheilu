@@ -230,28 +230,28 @@ describe Race do
 
     describe "no date caching" do
       before do
-        @zone = mock(Object)
-        Time.stub!(:zone).and_return(@zone)
+        @zone = double(Object)
+        Time.stub(:zone).and_return(@zone)
       end
       
       it "past" do
-        @zone.stub!(:today).and_return(Date.today)
+        @zone.stub(:today).and_return(Date.today)
         Race.past.should_not be_empty
-        @zone.stub!(:today).and_return(Date.today - 10)
+        @zone.stub(:today).and_return(Date.today - 10)
         Race.past.should be_empty
       end
       
       it "ongoing" do
-        @zone.stub!(:today).and_return(Date.today)
+        @zone.stub(:today).and_return(Date.today)
         Race.ongoing.should_not be_empty
-        @zone.stub!(:today).and_return(Date.today + 10)
+        @zone.stub(:today).and_return(Date.today + 10)
         Race.ongoing.should be_empty
       end
       
       it "future" do
-        @zone.stub!(:today).and_return(Date.today)
+        @zone.stub(:today).and_return(Date.today)
         Race.future.should_not be_empty
-        @zone.stub!(:today).and_return(Date.today + 10)
+        @zone.stub(:today).and_return(Date.today + 10)
         Race.future.should be_empty
       end
     end
@@ -262,7 +262,7 @@ describe Race do
       @race = FactoryGirl.create(:race)
       @series = FactoryGirl.build(:series, :race => @race)
       @race.series << @series
-      @race.stub!(:each_competitor_has_correct_estimates?).and_return(true)
+      @race.stub(:each_competitor_has_correct_estimates?).and_return(true)
     end
 
     context "when competitors missing correct estimates" do
@@ -387,7 +387,7 @@ describe Race do
     before do
       @ds1 = DefaultSeries.new('DS1', ['DAG1', 1], ['DAG2', 2])
       @ds2 = DefaultSeries.new('DS2')
-      DefaultSeries.stub!(:all).and_return([@ds1, @ds2])
+      DefaultSeries.stub(:all).and_return([@ds1, @ds2])
       @race = FactoryGirl.build(:race)
     end
 
@@ -799,12 +799,12 @@ describe Race do
       end
 
       it "should return false when at least one relay is not finished" do
-        @race.stub!(:relays).and_return([@finished_relay, @unfinished_relay])
+        @race.stub(:relays).and_return([@finished_relay, @unfinished_relay])
         @race.all_competitions_finished?.should be_false
       end
 
       it "should return true when all relays are finished" do
-        @race.stub!(:relays).and_return([@finished_relay, @finished_relay])
+        @race.stub(:relays).and_return([@finished_relay, @finished_relay])
         @race.all_competitions_finished?.should be_true
       end
     end

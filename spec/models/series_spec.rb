@@ -26,7 +26,7 @@ describe Series do
 
       before do
         race = FactoryGirl.build(:race)
-        race.stub!(:days_count).and_return(2)
+        race.stub(:days_count).and_return(2)
         @series = FactoryGirl.build(:series, :race => race, :start_day => 3)
       end
 
@@ -153,7 +153,7 @@ describe Series do
       end
   
       it "should use postgres syntax when postgres database" do
-        competitors = mock(Array)
+        competitors = double(Array)
         DatabaseHelper.should_receive(:postgres?).and_return(true)
         @series.should_receive(:competitors).and_return(competitors)
         competitors.should_receive(:minimum).
@@ -220,7 +220,7 @@ describe Series do
       end
   
       it "should use postgres syntax when postgres database" do
-        competitors = mock(Array)
+        competitors = double(Array)
         DatabaseHelper.should_receive(:postgres?).and_return(true)
         @series.should_receive(:competitors).and_return(competitors)
         competitors.should_receive(:minimum).
@@ -304,15 +304,15 @@ describe Series do
         @age_group2 = mock_model(AgeGroup, :id => @age_group2_id, :name => 'M80', :min_competitors => 3)
         @age_group3 = mock_model(AgeGroup, :id => @age_group3_id, :name => 'M85', :min_competitors => 3)
         @age_groups = [@age_group1, @age_group2, @age_group3]
-        @series.stub!(:age_groups).and_return(@age_groups)
-        @age_groups.stub!(:order).with('name desc').and_return(@age_groups.reverse)
+        @series.stub(:age_groups).and_return(@age_groups)
+        @age_groups.stub(:order).with('name desc').and_return(@age_groups.reverse)
       end
       
       context "and all age groups have enough competitors" do
         before do
-          @age_group1.stub!(:competitors_count).with(@all_competitors).and_return(3)
-          @age_group2.stub!(:competitors_count).with(@all_competitors).and_return(4)
-          @age_group3.stub!(:competitors_count).with(@all_competitors).and_return(3)
+          @age_group1.stub(:competitors_count).with(@all_competitors).and_return(3)
+          @age_group2.stub(:competitors_count).with(@all_competitors).and_return(4)
+          @age_group3.stub(:competitors_count).with(@all_competitors).and_return(3)
         end
         
         it "should return all age groups as keys and id + older age group ids as values" do
@@ -326,9 +326,9 @@ describe Series do
       
       context "and the first+second age group have together enough competitors" do
         before do
-          @age_group1.stub!(:competitors_count).with(@all_competitors).and_return(1)
-          @age_group2.stub!(:competitors_count).with(@all_competitors).and_return(2)
-          @age_group3.stub!(:competitors_count).with(@all_competitors).and_return(3)
+          @age_group1.stub(:competitors_count).with(@all_competitors).and_return(1)
+          @age_group2.stub(:competitors_count).with(@all_competitors).and_return(2)
+          @age_group3.stub(:competitors_count).with(@all_competitors).and_return(3)
         end
         
         it "should return a hash where second age group key has all group ids as values" do
@@ -342,9 +342,9 @@ describe Series do
       
       context "and the first ones have no enough competitors" do
         before do
-          @age_group1.stub!(:competitors_count).with(@all_competitors).and_return(1)
-          @age_group2.stub!(:competitors_count).with(@all_competitors).and_return(1)
-          @age_group3.stub!(:competitors_count).with(@all_competitors).and_return(3)
+          @age_group1.stub(:competitors_count).with(@all_competitors).and_return(1)
+          @age_group2.stub(:competitors_count).with(@all_competitors).and_return(1)
+          @age_group3.stub(:competitors_count).with(@all_competitors).and_return(3)
         end
         
         it "should return a hash where the first age groups have nil id as value" do
@@ -368,10 +368,10 @@ describe Series do
           @age_group7 = mock_model(AgeGroup, :id => @age_group7_id, :name => 'M89', :min_competitors => 3)
           @age_groups = [@age_group1, @age_group2, @age_group3, @age_group4, @age_group5, @age_group6, @age_group7]
           @age_groups.each do |age_group|
-            age_group.stub!(:competitors_count).with(@all_competitors).and_return(1)
+            age_group.stub(:competitors_count).with(@all_competitors).and_return(1)
           end
-          @series.stub!(:age_groups).and_return(@age_groups)
-          @age_groups.stub!(:order).with('name desc').and_return(@age_groups.reverse)
+          @series.stub(:age_groups).and_return(@age_groups)
+          @age_groups.stub(:order).with('name desc').and_return(@age_groups.reverse)
         end
         
         it "should return correct hash" do
@@ -395,8 +395,8 @@ describe Series do
         @age_group1 = mock_model(AgeGroup, :id => @age_group1_id, :name => 'T16', :min_competitors => 1)
         @age_group2 = mock_model(AgeGroup, :id => @age_group2_id, :name => 'P16', :min_competitors => 1)
         @age_groups = [@age_group1, @age_group2]
-        @series.stub!(:age_groups).and_return(@age_groups)
-        @age_groups.stub!(:order).with('name desc').and_return(@age_groups.reverse)
+        @series.stub(:age_groups).and_return(@age_groups)
+        @age_groups.stub(:order).with('name desc').and_return(@age_groups.reverse)
       end
       
       it "should return all groups with only their own ids" do
@@ -413,7 +413,7 @@ describe Series do
       all_competitors = false
       series = FactoryGirl.build(:series)
       competitors, included = ['a', 'b', 'c'], ['d', 'e']
-      series.stub!(:competitors).and_return(competitors)
+      series.stub(:competitors).and_return(competitors)
       competitors.should_receive(:includes).with([:shots, :club, :age_group, :series]).
         and_return(included)
       Competitor.should_receive(:sort_competitors).with(included, all_competitors, Competitor::SORT_BY_POINTS).and_return([1, 2, 3])
@@ -425,7 +425,7 @@ describe Series do
         all_competitors = false
         series = FactoryGirl.build(:series)
         competitors, included = ['a', 'b', 'c'], ['d', 'e']
-        series.stub!(:competitors).and_return(competitors)
+        series.stub(:competitors).and_return(competitors)
         competitors.should_receive(:includes).with([:shots, :club, :age_group, :series]).
           and_return(included)
         Competitor.should_receive(:sort_competitors).with(included, all_competitors, Competitor::SORT_BY_TIME).and_return([1, 2, 3])
@@ -483,14 +483,14 @@ describe Series do
     end
 
     it "should return false when none of the competitors have an arrival time" do
-      @series.stub!(:competitors).and_return([@c1, @c2])
+      @series.stub(:competitors).and_return([@c1, @c2])
       @series.some_competitor_has_arrival_time?.should be_false
     end
 
     it "should return true when any of the competitors have an arrival time" do
       @c2.start_time = '11:34:45'
       @c2.arrival_time = '12:34:45'
-      @series.stub!(:competitors).and_return([@c1, @c2])
+      @series.stub(:competitors).and_return([@c1, @c2])
       @series.some_competitor_has_arrival_time?.should be_true
     end
   end
@@ -513,7 +513,7 @@ describe Series do
           @series.reload
           @series.generate_numbers(Series::START_LIST_ADDING_ORDER).should be_false
           @series.should have(1).errors
-          check_competitors_no_changes
+          check_no_changes_in_competitors
         end
       end
 
@@ -527,7 +527,7 @@ describe Series do
           @series.reload
           @series.generate_numbers(Series::START_LIST_ADDING_ORDER).should be_false
           @series.should have(1).errors
-          check_competitors_no_changes
+          check_no_changes_in_competitors
         end
       end
 
@@ -542,11 +542,11 @@ describe Series do
           @series.reload
           @series.generate_numbers(Series::START_LIST_ADDING_ORDER).should be_false
           @series.should have(1).errors
-          check_competitors_no_changes
+          check_no_changes_in_competitors
         end
       end
       
-      def check_competitors_no_changes
+      def check_no_changes_in_competitors
         reload_competitors
         @c1.number.should == @old1
         @c2.number.should == @old2
@@ -847,7 +847,7 @@ describe Series do
 
     context "when race finished" do
       it "should return false" do
-        @race.stub!(:finished?).and_return(true)
+        @race.stub(:finished?).and_return(true)
         series = Series.new(race: @race)
         series.should_not be_active
       end
@@ -855,18 +855,18 @@ describe Series do
 
     context "when race not finished" do
       before do
-        @race.stub!(:finished?).and_return(false)
+        @race.stub(:finished?).and_return(false)
       end
 
       it "should return false when series not started" do
         series = Series.new(race: @race)
-        series.stub!(:started?).and_return(false)
+        series.stub(:started?).and_return(false)
         series.should_not be_active
       end
 
       it "should return true when series started" do
         series = Series.new(race: @race)
-        series.stub!(:started?).and_return(true)
+        series.stub(:started?).and_return(true)
         series.should be_active
       end
     end
@@ -886,14 +886,14 @@ describe Series do
 
       context "and start date time before current time" do
         it "should return true" do
-          @series.stub!(:start_datetime).and_return(Time.now - 1)
+          @series.stub(:start_datetime).and_return(Time.now - 1)
           @series.should be_started
         end
       end
 
       context "and start date time after current time" do
         it "should return false" do
-          @series.stub!(:start_datetime).and_return(Time.now + 1)
+          @series.stub(:start_datetime).and_return(Time.now + 1)
           @series.should_not be_started
         end
       end
@@ -951,7 +951,7 @@ describe Series do
 
     context "when at least one competitor hasn't finished" do
       before do
-        @series.stub!(:competitors).and_return([@c1, @c2])
+        @series.stub(:competitors).and_return([@c1, @c2])
       end
 
       specify { @series.each_competitor_finished?.should be_false }
@@ -959,7 +959,7 @@ describe Series do
 
     context "when all competitors have finished" do
       before do
-        @series.stub!(:competitors).and_return([@c1])
+        @series.stub(:competitors).and_return([@c1])
       end
 
       specify { @series.each_competitor_finished?.should be_true }
@@ -969,11 +969,11 @@ describe Series do
   describe "#finished_competitors_count" do
     before do
       @series = FactoryGirl.build(:series)
-      @c1, @c2, @c3 = mock(Competitor), mock(Competitor), mock(Competitor)
-      @series.stub!(:competitors).and_return([@c1, @c2, @c3])
-      @c1.stub!(:finished?).and_return(true)
-      @c2.stub!(:finished?).and_return(false)
-      @c3.stub!(:finished?).and_return(true)
+      @c1, @c2, @c3 = double(Competitor), double(Competitor), double(Competitor)
+      @series.stub(:competitors).and_return([@c1, @c2, @c3])
+      @c1.stub(:finished?).and_return(true)
+      @c2.stub(:finished?).and_return(false)
+      @c3.stub(:finished?).and_return(true)
     end
 
     it "should return count of competitors who have finished" do
@@ -984,7 +984,7 @@ describe Series do
   describe "#ready?" do
     before do
       @series = FactoryGirl.build(:series, :has_start_list => true)
-      @series.stub!(:each_competitor_finished?).and_return(true)
+      @series.stub(:each_competitor_finished?).and_return(true)
     end
 
     context "when start list not generated" do
@@ -1132,7 +1132,7 @@ describe Series do
 
       context "and competitors can be added to main group" do
         it "should be age groups array prepended with main series" do
-          @series.stub!(:competitors_only_to_age_groups?).and_return(false)
+          @series.stub(:competitors_only_to_age_groups?).and_return(false)
           age_groups = @series.age_groups_with_main_series
           age_groups.length.should == 2
           age_groups[0].id.should be_nil
@@ -1144,7 +1144,7 @@ describe Series do
       
       context "and competitors can be added only to age groups" do
         it "should be age groups array prepended with main series" do
-          @series.stub!(:competitors_only_to_age_groups?).and_return(true)
+          @series.stub(:competitors_only_to_age_groups?).and_return(true)
           age_groups = @series.age_groups_with_main_series
           age_groups.length.should == 1
           age_groups[0].id.should == @age_group.id

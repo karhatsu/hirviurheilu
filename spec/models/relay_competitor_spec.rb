@@ -212,7 +212,7 @@ describe RelayCompetitor do
       team = FactoryGirl.create(:relay_team, :relay => @relay)
       @comp = FactoryGirl.create(:relay_competitor, :relay_team => team, :leg => 2,
         :estimate => 100)
-      @relay.stub!(:correct_estimate).with(2).and_return(100)
+      @relay.stub(:correct_estimate).with(2).and_return(100)
     end
 
     context "when estimate is nil" do
@@ -224,7 +224,7 @@ describe RelayCompetitor do
 
     context "when the correct estimate for the same leg is nil" do
       it "should be nil" do
-        @relay.stub!(:correct_estimate).with(2).and_return(nil)
+        @relay.stub(:correct_estimate).with(2).and_return(nil)
         @comp.estimate_penalties.should be_nil
       end
     end

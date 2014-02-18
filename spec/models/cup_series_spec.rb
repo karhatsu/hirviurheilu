@@ -74,17 +74,17 @@ describe CupSeries do
     end
     
     it "should return an empty array when races have no series" do
-      @cup.stub!(:races).and_return([FactoryGirl.build(:race)])
+      @cup.stub(:races).and_return([FactoryGirl.build(:race)])
       @cs.series.should == []
     end
     
     it "should return all series that have a same name as any given series name" do
       name_condition = ['M', 'M50']
-      @cs.should_receive(:series_names_as_array).any_number_of_times.and_return(name_condition)
+      @cs.should_receive(:series_names_as_array).at_least(1).times.and_return(name_condition)
       race1 = create_race(name_condition)
       race2 = create_race(name_condition)
       race3 = create_race(name_condition)
-      @cup.stub!(:races).and_return([race1, race2, race3])
+      @cup.stub(:races).and_return([race1, race2, race3])
       series = @cs.series
       series.length.should == 3
       series[0].name.should == @cup_series_name
@@ -98,9 +98,9 @@ describe CupSeries do
     def create_race(name_condition)
       race = FactoryGirl.build(:race)
       series = FactoryGirl.build(:series, :race => race, :name => @cup_series_name)
-      all_series = mock(Object)
-      race.stub!(:series).and_return(all_series)
-      all_series.stub!(:where).with(:name => name_condition).and_return([series])
+      all_series = double(Object)
+      race.stub(:series).and_return(all_series)
+      all_series.stub(:where).with(:name => name_condition).and_return([series])
       race
     end
   end
@@ -114,7 +114,7 @@ describe CupSeries do
     context "when no competitors in series" do
       it "should return an empty array" do
         series = mock_model(Series, :competitors => [])
-        @cs.stub!(:series).and_return([series])
+        @cs.stub(:series).and_return([series])
         @cs.cup_competitors.should == []
       end
     end
@@ -131,7 +131,7 @@ describe CupSeries do
         series1 = mock_model(Series, :competitors => [@cMM1, @cTM1, @cMT1])
         series2 = mock_model(Series, :competitors => [@cMM2, @cAA2])
         series3 = mock_model(Series, :competitors => [@cMM3, @cTM3])
-        @cs.stub!(:series).and_return([series1, series2, series3])
+        @cs.stub(:series).and_return([series1, series2, series3])
       end
       
       it "should return cup competitors created based on competitors' first and last name (case ins.)" do
@@ -158,18 +158,18 @@ describe CupSeries do
     end
     
     it "should return an empty array when no competitors" do
-      @cs.stub!(:cup_competitors).and_return([])
+      @cs.stub(:cup_competitors).and_return([])
       @cs.ordered_competitors.should == []
     end
     
     it "should return cup competitors ordered by descending partial points" do
-      cc1 = mock(CupCompetitor, :points! => 3003)
-      cc2 = mock(CupCompetitor, :points! => 3004)
-      cc3 = mock(CupCompetitor, :points! => 3000)
-      cc4 = mock(CupCompetitor, :points! => 3002)
-      cc5 = mock(CupCompetitor, :points! => nil)
-      cc6 = mock(CupCompetitor, :points! => 3001)
-      @cs.stub!(:cup_competitors).and_return([cc1, cc2, cc3, cc4, cc5, cc6])
+      cc1 = double(CupCompetitor, :points! => 3003)
+      cc2 = double(CupCompetitor, :points! => 3004)
+      cc3 = double(CupCompetitor, :points! => 3000)
+      cc4 = double(CupCompetitor, :points! => 3002)
+      cc5 = double(CupCompetitor, :points! => nil)
+      cc6 = double(CupCompetitor, :points! => 3001)
+      @cs.stub(:cup_competitors).and_return([cc1, cc2, cc3, cc4, cc5, cc6])
       @cs.ordered_competitors.should == [cc2, cc1, cc4, cc6, cc3, cc5]
     end
   end

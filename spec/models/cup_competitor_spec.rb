@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe CupCompetitor do
   before do
-    @cup = mock(Cup)
-    @cs = mock(CupSeries, :cup => @cup)
+    @cup = double(Cup)
+    @cs = double(CupSeries, :cup => @cup)
     @competitor = mock_model(Competitor, :first_name => 'Mikko', :last_name => 'Miettinen')
     @cc = CupCompetitor.new(@cs, @competitor)
   end
@@ -53,14 +53,14 @@ describe CupCompetitor do
       @competitor3 = valid_competitor
       @cc << @competitor2
       @cc << @competitor3
-      @cup.stub!(:top_competitions).and_return(3)
+      @cup.stub(:top_competitions).and_return(3)
     end
     
     context "when no points available in any of the competitions" do
       it "should be nil" do
-        @competitor.stub!(:points).with(false).and_return(nil)
-        @competitor2.stub!(:points).with(false).and_return(nil)
-        @competitor3.stub!(:points).with(false).and_return(nil)
+        @competitor.stub(:points).with(false).and_return(nil)
+        @competitor2.stub(:points).with(false).and_return(nil)
+        @competitor3.stub(:points).with(false).and_return(nil)
         @cc.points.should be_nil
       end
     end
@@ -68,20 +68,20 @@ describe CupCompetitor do
     context "when points available only in some of the competitions" do
       context "but in less than top competitions" do
         it "should be nil" do
-          @cup.stub!(:top_competitions).and_return(3)
-          @competitor.stub!(:points).with(false).and_return(1000)
-          @competitor2.stub!(:points).with(false).and_return(nil)
-          @competitor3.stub!(:points).with(false).and_return(1100)
+          @cup.stub(:top_competitions).and_return(3)
+          @competitor.stub(:points).with(false).and_return(1000)
+          @competitor2.stub(:points).with(false).and_return(nil)
+          @competitor3.stub(:points).with(false).and_return(1100)
           @cc.points.should be_nil
         end
       end
       
       context "and in at least top competitions" do
         it "should be sum of those that have points" do
-          @cup.stub!(:top_competitions).and_return(2)
-          @competitor.stub!(:points).with(false).and_return(1000)
-          @competitor2.stub!(:points).with(false).and_return(nil)
-          @competitor3.stub!(:points).with(false).and_return(1100)
+          @cup.stub(:top_competitions).and_return(2)
+          @competitor.stub(:points).with(false).and_return(1000)
+          @competitor2.stub(:points).with(false).and_return(nil)
+          @competitor3.stub(:points).with(false).and_return(1100)
           @cc.points.should == 1000 + 0 + 1100
         end
       end
@@ -89,18 +89,18 @@ describe CupCompetitor do
     
     context "when points available in all the competitions" do
       before do
-        @competitor.stub!(:points).with(false).and_return(1000)
-        @competitor2.stub!(:points).with(false).and_return(2000)
-        @competitor3.stub!(:points).with(false).and_return(3000)
+        @competitor.stub(:points).with(false).and_return(1000)
+        @competitor2.stub(:points).with(false).and_return(2000)
+        @competitor3.stub(:points).with(false).and_return(3000)
       end
       
       it "should be sum of points in individual competitions when all competitions matter" do
-        @cup.stub!(:top_competitions).and_return(3)
+        @cup.stub(:top_competitions).and_return(3)
         @cc.points.should == 1000 + 2000 + 3000
       end
       
       it "should be sum of top two points in individual competitions when top two of them matter" do
-        @cup.stub!(:top_competitions).and_return(2)
+        @cup.stub(:top_competitions).and_return(2)
         @cc.points.should == 2000 + 3000
       end
     end
@@ -112,14 +112,14 @@ describe CupCompetitor do
       @competitor3 = valid_competitor
       @cc << @competitor2
       @cc << @competitor3
-      @cup.stub!(:top_competitions).and_return(3)
+      @cup.stub(:top_competitions).and_return(3)
     end
     
     context "when no points available in any of the competitions" do
       it "should be nil" do
-        @competitor.stub!(:points).with(false).and_return(nil)
-        @competitor2.stub!(:points).with(false).and_return(nil)
-        @competitor3.stub!(:points).with(false).and_return(nil)
+        @competitor.stub(:points).with(false).and_return(nil)
+        @competitor2.stub(:points).with(false).and_return(nil)
+        @competitor3.stub(:points).with(false).and_return(nil)
         @cc.points!.should be_nil
       end
     end
@@ -127,20 +127,20 @@ describe CupCompetitor do
     context "when points available only in some of the competitions" do
       context "but in less than top competitions" do
         it "should be sum of those that have points" do
-          @cup.stub!(:top_competitions).and_return(3)
-          @competitor.stub!(:points).with(false).and_return(1000)
-          @competitor2.stub!(:points).with(false).and_return(nil)
-          @competitor3.stub!(:points).with(false).and_return(1100)
+          @cup.stub(:top_competitions).and_return(3)
+          @competitor.stub(:points).with(false).and_return(1000)
+          @competitor2.stub(:points).with(false).and_return(nil)
+          @competitor3.stub(:points).with(false).and_return(1100)
           @cc.points!.should == 1000 + 0 + 1100
         end
       end
       
       context "and in at least top competitions" do
         it "should be sum of those that have points" do
-          @cup.stub!(:top_competitions).and_return(2)
-          @competitor.stub!(:points).with(false).and_return(1000)
-          @competitor2.stub!(:points).with(false).and_return(nil)
-          @competitor3.stub!(:points).with(false).and_return(1100)
+          @cup.stub(:top_competitions).and_return(2)
+          @competitor.stub(:points).with(false).and_return(1000)
+          @competitor2.stub(:points).with(false).and_return(nil)
+          @competitor3.stub(:points).with(false).and_return(1100)
           @cc.points!.should == 1000 + 0 + 1100
         end
       end
@@ -148,18 +148,18 @@ describe CupCompetitor do
     
     context "when points available in all the competitions" do
       before do
-        @competitor.stub!(:points).with(false).and_return(1000)
-        @competitor2.stub!(:points).with(false).and_return(2000)
-        @competitor3.stub!(:points).with(false).and_return(3000)
+        @competitor.stub(:points).with(false).and_return(1000)
+        @competitor2.stub(:points).with(false).and_return(2000)
+        @competitor3.stub(:points).with(false).and_return(3000)
       end
       
       it "should be sum of points in individual competitions when all competitions matter" do
-        @cup.stub!(:top_competitions).and_return(3)
+        @cup.stub(:top_competitions).and_return(3)
         @cc.points!.should == 1000 + 2000 + 3000
       end
       
       it "should be sum of top two points in individual competitions when top two of them matter" do
-        @cup.stub!(:top_competitions).and_return(2)
+        @cup.stub(:top_competitions).and_return(2)
         @cc.points!.should == 2000 + 3000
       end
     end
@@ -167,7 +167,7 @@ describe CupCompetitor do
   
   describe "#competitor_for_race" do
     before do
-      @competitor.stub!(:race).and_return(mock_model(Race))
+      @competitor.stub(:race).and_return(mock_model(Race))
     end
     
     it "should be nil when no match" do
@@ -177,7 +177,7 @@ describe CupCompetitor do
     it "should be the competitor that belongs to the given race" do
       competitor = valid_competitor
       race = FactoryGirl.build(:race)
-      competitor.stub!(:race).and_return(race)
+      competitor.stub(:race).and_return(race)
       @cc << competitor
       @cc.competitor_for_race(race).should == competitor
     end

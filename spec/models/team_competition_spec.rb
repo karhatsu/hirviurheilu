@@ -37,8 +37,8 @@ describe TeamCompetition do
           :shot_points => 300, :time_in_seconds => 500, :unofficial => false,
                         :race => @race)
         Competitor.should_receive(:sort_competitors).with([@c], false).and_return([@c])
-        @race.stub!(:finished?).and_return(false)
-        @tc.stub!(:race).and_return(@race)
+        @race.stub(:finished?).and_return(false)
+        @tc.stub(:race).and_return(@race)
         @tc.results_for_competitors([@c])[0] == 1100
       end
     end
@@ -51,8 +51,8 @@ describe TeamCompetition do
           :shot_points => 300, :time_in_seconds => 500, :unofficial => false,
                         :race => @race)
         Competitor.should_receive(:sort_competitors).with([@c], false).and_return([@c])
-        @race.stub!(:finished?).and_return(true)
-        @tc.stub!(:race).and_return(@race)
+        @race.stub(:finished?).and_return(true)
+        @tc.stub(:race).and_return(@race)
         @tc.results_for_competitors([@c]).should == []
       end
     end
@@ -97,8 +97,8 @@ describe TeamCompetition do
             @club_best_single_time_c2, @club_worst_c2,
             @club_best_single_points_c2,
             @club_unofficial1, @club_unofficial2, @club_small_nil_points]
-        @tc.stub!(:race).and_return(@race)
-        @race.stub!(:finished?).and_return(true)
+        @tc.stub(:race).and_return(@race)
+        @race.stub(:finished?).and_return(true)
         Competitor.should_receive(:sort_competitors).with(@competitors, false).and_return(@competitors)
       end
 
@@ -126,8 +126,8 @@ describe TeamCompetition do
               "so that the clubs are ordered: 1. total points " +
               "2. best individual points 3. best individual shot points " +
               "4. fastest individual time" do
-            @tc.stub!(:race).and_return(@race)
-            @race.stub!(:finished?).and_return(false)
+            @tc.stub(:race).and_return(@race)
+            @race.stub(:finished?).and_return(false)
             Competitor.should_receive(:sort_competitors).with(@competitors, false).and_return(@competitors)
             @results = @tc.results_for_competitors(@competitors)
             @results.length.should == 6
@@ -176,12 +176,12 @@ describe TeamCompetition do
         
         context "and team names defined for some competitors" do
           before do
-            @club_best_total_points_c1.stub!(:team_name).and_return('Team best')
-            @club_best_total_points_c2.stub!(:team_name).and_return('Team best')
-            @club_best_single_points_c1.stub!(:team_name).and_return('Team second')
-            @club_best_single_points_c2.stub!(:team_name).and_return('Team second')
-            @club_best_single_shots_c1.stub!(:team_name).and_return('')
-            @club_best_single_shots_c2.stub!(:team_name).and_return('')
+            @club_best_total_points_c1.stub(:team_name).and_return('Team best')
+            @club_best_total_points_c2.stub(:team_name).and_return('Team best')
+            @club_best_single_points_c1.stub(:team_name).and_return('Team second')
+            @club_best_single_points_c2.stub(:team_name).and_return('Team second')
+            @club_best_single_shots_c1.stub(:team_name).and_return('')
+            @club_best_single_shots_c2.stub(:team_name).and_return('')
             @results = @tc.results_for_competitors(@competitors)
           end
           
@@ -332,7 +332,7 @@ describe TeamCompetition do
         it "should return false" do
           s1 = mock_model(Series)
           @tc.should_receive(:series).and_return([s1])
-          s1.stub!(:started?).and_return(false)
+          s1.stub(:started?).and_return(false)
           @tc.should_not be_started
         end
       end
@@ -342,8 +342,8 @@ describe TeamCompetition do
           s1 = mock_model(Series)
           s2 = mock_model(Series)
           @tc.should_receive(:series).and_return([s1, s2])
-          s1.stub!(:started?).and_return(false)
-          s2.stub!(:started?).and_return(true)
+          s1.stub(:started?).and_return(false)
+          s2.stub(:started?).and_return(true)
           @tc.should be_started
         end
       end

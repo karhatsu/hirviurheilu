@@ -24,7 +24,7 @@ describe Relay do
 
       before do
         race = FactoryGirl.build(:race)
-        race.stub!(:days_count).and_return(2)
+        race.stub(:days_count).and_return(2)
         @relay = FactoryGirl.build(:relay, :race => race, :start_day => 3)
       end
 
@@ -240,7 +240,7 @@ describe Relay do
 
     context "when no teams" do
       it "should return an array with error" do
-        @relay.stub!(:relay_teams).and_return([])
+        @relay.stub(:relay_teams).and_return([])
         confirm_cannot_finish
       end
     end
@@ -274,7 +274,7 @@ describe Relay do
 
     context "when no correct estimates at all" do
       it "should return an array with error" do
-        @relay.stub!(:relay_correct_estimates).and_return([])
+        @relay.stub(:relay_correct_estimates).and_return([])
         confirm_cannot_finish
       end
     end
