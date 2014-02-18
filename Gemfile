@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 ruby '2.0.0'
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.17'
 gem 'jquery-rails', '2.1.4'
 gem 'jquery-ui-rails', '3.0.0'
 gem 'authlogic'
@@ -19,13 +19,13 @@ group :production do
 end
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '1.1.4'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'email_spec'
   gem "factory_girl_rails", :require => false
   gem 'launchy'
-  gem 'poltergeist'
+  gem 'poltergeist', '1.0.3'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'spork', '~> 0.9.0.rc'
