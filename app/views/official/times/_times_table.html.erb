@@ -1,22 +1,20 @@
-<table>
-  <tr>
-    <th><%= t :number_short %></th>
-    <th><%= t 'activerecord.models.competitor.one' %></th>
-    <th><%= t 'attributes.start_time' %> (hh:mm:ss)</th>
-    <th><%= t 'attributes.arrival_time' %> (hh:mm:ss)</th>
-    <th>&nbsp;</th>
-    <th>&nbsp;</th>
-  </tr>
+<div id="times_table" class="competitors_table">
+  <div class="header_row">
+    <div class="title number"><%= t :number_short %></div>
+    <div class="title name"><%= t 'activerecord.models.competitor.one' %></div>
+    <div class="title time"><%= t 'attributes.start_time' %> (hh:mm:ss)</div>
+    <div class="title time"><%= t 'attributes.arrival_time' %> (hh:mm:ss)</div>
+  </div>
   <% @series.competitors.each do |c| %>
     <%= form_for([:official, @series, c], :remote => true) do |f| %>
-      <tr>
-        <td><%= c.number %></td>
-        <td><%= full_name(c) %></td>
-        <td><%= f.time_text_field :start_time, :include_seconds => true, :blank => true %></td>
-        <td><%= f.time_text_field :arrival_time, :include_seconds => true, :blank => true %></td>
-        <td><%= submit_tag t(:save), :onclick => "start_updating(#{c.id})" %></td>
-        <td id="status_<%= c.id %>">&nbsp;</td>
-      </tr>
+      <div class="competitor_row">
+        <div class="value number"><%= c.number %></div>
+        <div class="value name"><%= full_name(c) %></div>
+        <div class="value time"><%= f.time_text_field :start_time, :include_seconds => true, :blank => true %></div>
+        <div class="value time"><%= f.time_text_field :arrival_time, :include_seconds => true, :blank => true %></div>
+        <div class="value"><%= submit_tag t(:save), :onclick => "start_updating(#{c.id})" %></div>
+        <div class="value" id="status_<%= c.id %>">&nbsp;</div>
+      </div>
     <% end %>
   <% end %>
-</table>
+</div>
