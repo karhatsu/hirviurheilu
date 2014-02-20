@@ -1,5 +1,5 @@
 @ECHO off
-rem Builds two hirviurheilu.zip files containing the exe file and the SQLite3 database file (only in the second zip).
+rem Builds HirviurheiluOffline-asennus.exe installation file and zips it.
 rem Dependencies:
 rem - ocra: gem install ocra
 rem - 7za.exe: http://7-zip.org/download.html (the command line version)
