@@ -29,7 +29,7 @@ group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'spork', '~> 0.9.0.rc'
-  gem 'sqlite3-ruby', :require => 'sqlite3'
+  gem 'sqlite3'
   gem 'watchr'
 end
 
