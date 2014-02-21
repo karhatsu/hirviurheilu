@@ -2,10 +2,10 @@
 <% unless result_rotation_list(menu_race).empty? %>
   <% content_for(:refresh, true) %>
 <% end %>
-<% unless @race.home_page.blank? %>
-  <h2><%= t '.extra_information' %></h2>
+<% unless @race.home_page.blank? and @race.organizer.blank? %>
+  <h2><%= t '.organizer_info' %></h2>
   <div class="section">
-    <a href="<%= link_with_protocol(@race.home_page) %>" target="_blank"><%= t '.race_home_page' %></a>
+    <%= organizer_info_with_possible_link(@race) %>
   </div>
 <% end %>
 <h2><%= t '.single_competitor_competitions' %></h2>

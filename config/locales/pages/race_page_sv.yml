@@ -1,7 +1,7 @@
 sv:
   races:
     show:
-      extra_information: Mera information om tävlingen
+      organizer_info: Tävlingens organizatör
       race_home_page: Tävlingens hemsidor
       single_competitor_competitions: Normaltävlingar
       no_series_for_race: Tävlingen saknas klasser för tillfället

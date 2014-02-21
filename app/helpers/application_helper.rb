@@ -545,6 +545,13 @@ module ApplicationHelper
     [refresh_counter_min_seconds, series.competitors.count].max
   end
   
+  def organizer_info_with_possible_link(race)
+    return nil if race.home_page.blank? and race.organizer.blank?
+    return race.organizer if race.home_page.blank?
+    label = race.organizer.blank? ? t("races.show.race_home_page") : race.organizer
+    raw('<a href="' + link_with_protocol(race.home_page) + '" target="_blank">' + label + '</a>')
+  end
+  
   private
   def result_rotation_series_list(race)
     race_day = race.race_day

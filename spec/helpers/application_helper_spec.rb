@@ -1352,4 +1352,36 @@ describe ApplicationHelper do
       end
     end
   end
+  
+  describe "#organizer_info_with_possible_link", focus: true do
+    context "when no home page nor organizer" do
+      it "should return nil" do
+        race = FactoryGirl.build(:race, home_page: '', organizer: '')
+        helper.organizer_info_with_possible_link(Race.new).should be_nil
+      end
+    end
+    
+    context "when organizer but no home page" do
+      it "should return organizer name" do
+        race = FactoryGirl.build(:race, home_page: '', organizer: 'Organizer')
+        helper.organizer_info_with_possible_link(race).should == 'Organizer'
+      end
+    end
+    
+    context "when home page but no organizer" do
+      it "should return link to home page with static text" do
+        race = FactoryGirl.build(:race, home_page: 'www.home.com', organizer: '')
+        expected_link = '<a href="http://www.home.com" target="_blank">' + t("races.show.race_home_page") + '</a>'
+        helper.organizer_info_with_possible_link(race).should == expected_link
+      end
+    end
+      
+    context "when home page and organizer" do
+      it "should return link to home page with organizer as text" do
+        race = FactoryGirl.build(:race, home_page: 'http://www.home.com', organizer: 'Organizer')
+        expected_link = '<a href="http://www.home.com" target="_blank">Organizer</a>'
+        helper.organizer_info_with_possible_link(race).should == expected_link
+      end
+    end
+  end
 end
