@@ -1,17 +1,17 @@
 <div class="sub_element sub_form">
   <%= f.label :min_number, t('official.correct_estimates.index.start_numbers') + ':' %>
-  <%= f.text_field :min_number, :size => 3 %>
+  <%= f.number_field :min_number, :size => 3 %>
   <%= f.label :max_number, raw('&#8211;') %>
-  <%= f.text_field :max_number, :size => 3 %>
+  <%= f.number_field :max_number, :size => 3 %>
   <%= f.label :distance1 %>:
-  <%= f.text_field :distance1, :size => 3 %>
+  <%= f.number_field :distance1, :size => 3 %>
   <%= f.label :distance2 %>:
-  <%= f.text_field :distance2, :size => 3 %>
+  <%= f.number_field :distance2, :size => 3 %>
   <% if @race.estimates_at_most == 4 %>
     <%= f.label :distance3 %>:
-    <%= f.text_field :distance3, :size => 3 %>
+    <%= f.number_field :distance3, :size => 3 %>
     <%= f.label :distance4 %>:
-    <%= f.text_field :distance4, :size => 3 %>
+    <%= f.number_field :distance4, :size => 3 %>
   <% end %>
   <%= remove_child_link t(:remove), f, 'sub_form', "" %>
 </div>

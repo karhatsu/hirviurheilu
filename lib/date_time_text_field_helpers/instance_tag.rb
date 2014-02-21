@@ -115,7 +115,7 @@ module DateTimeTextFieldHelpers
           2
       end
       max_length = type == :year ? 4 : 2
-      datetime_text_field_html = %(<input type="text" id="#{options[:id]}" name="#{options[:name]}" size="#{size}" value="#{value}" class="#{options[:class]}" maxlength="#{max_length}" />)
+      datetime_text_field_html = %(<input type="number" id="#{options[:id]}" name="#{options[:name]}" size="#{size}" value="#{value}" class="#{options[:class]}" maxlength="#{max_length}" />)
     end
 
     if Rails::VERSION::STRING < '2.2'

@@ -4,7 +4,7 @@
   <%= form_for([:official, parent, c], :remote => true) do |f| %>
     <% unless c.new_record? %><%= hidden_field_tag '_method', :put %><% end %>
     <%= hidden_field_tag :start_list, true %>
-    <div class="value number"><%= f.text_field :number, :size => 2, :class => order_class %></div>
+    <div class="value number"><%= f.number_field :number, :size => 2, :class => order_class %></div>
     <div class="value start_time" style="white-space: nowrap;"><%= f.time_text_field :start_time,
       :include_seconds => true, :blank => true %></div>
     <div class="value first_name"><%= f.text_field :first_name, :size => 9 %></div>

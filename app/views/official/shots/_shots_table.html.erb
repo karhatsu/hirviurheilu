@@ -14,7 +14,7 @@
       <div class="competitor_row">
         <div class="value number"><%= c.number %></div>
         <div class="value name"><%= full_name(c) %></div>
-        <div class="value total_shots"><%= f.text_field :shots_total_input, :size => 3,
+        <div class="value total_shots"><%= f.number_field :shots_total_input, :size => 3,
             :maxlength => 3, :class => 'total' %></div>
         <div class="value"><%= render :partial => 'official/shots/individual_shots', :locals => { :f => f,
             :competitor => c } %></div>

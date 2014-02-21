@@ -9,7 +9,7 @@
     <span class="form_label"><%= f.label :legs_count %></span>
     <span>
       <% if @relay.new_record? %>
-        <%= f.text_field :legs_count, :size => 2 %>
+        <%= f.number_field :legs_count, :size => 2 %>
       <% else %>
         <%= @relay.legs_count %>
       <% end %>
