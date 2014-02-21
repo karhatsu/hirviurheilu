@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe Sport do
+  before do
+    Sport.find_by_key(Sport::SKI) || FactoryGirl.create(:sport, :key => Sport::SKI)
+    Sport.find_by_key(Sport::RUN) || FactoryGirl.create(:sport, :key => Sport::RUN)
+  end
+  
   describe "create" do
     it "should create sport with valid attrs" do
       FactoryGirl.create(:sport)
@@ -56,8 +61,8 @@ describe Sport do
 
   describe "find by key" do
     before do
-      @ski = Sport.find_by_key(Sport::SKI) || FactoryGirl.create(:sport, :key => Sport::SKI)
-      @run = Sport.find_by_key(Sport::RUN) || FactoryGirl.create(:sport, :key => Sport::RUN)
+      @ski = Sport.find_by_key(Sport::SKI)
+      @run = Sport.find_by_key(Sport::RUN)
     end
 
     describe "#find_ski" do
@@ -75,8 +80,8 @@ describe Sport do
 
   describe "#default_sport" do
     before do
-      @ski = Sport.find_by_key(Sport::SKI) || FactoryGirl.create(:sport, :key => Sport::SKI)
-      @run = Sport.find_by_key(Sport::RUN) || FactoryGirl.create(:sport, :key => Sport::RUN)
+      @ski = Sport.find_by_key(Sport::SKI)
+      @run = Sport.find_by_key(Sport::RUN)
       @time = Time.new
       Time.stub!(:new).and_return(@time)
     end
