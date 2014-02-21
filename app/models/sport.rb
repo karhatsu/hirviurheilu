@@ -15,6 +15,10 @@ class Sport < ActiveRecord::Base
   def run?
     key == RUN
   end
+  
+  def initials
+    ski? ? 'HH' : 'HJ'
+  end
 
   def self.find_ski
     find_by_key(SKI)

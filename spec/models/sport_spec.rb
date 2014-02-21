@@ -130,5 +130,15 @@ describe Sport do
       Sport.default_sport.key.should == Sport::SKI
     end
   end
+  
+  describe "#initials" do
+    it "should be HJ for run" do
+      Sport.find_run.initials.should == 'HJ'
+    end
+
+    it "should be HH for ski" do
+      Sport.find_ski.initials.should == 'HH'
+    end
+  end
 end
 
