@@ -4,12 +4,13 @@ class ActivationKeysController < ApplicationController
 
   def new
   end
-
+  
   def create
-    if params[:accept]
+    existing_activation_key = current_user.activation_key
+    if params[:accept] or existing_activation_key
       if current_user.valid_password?(params[:password])
         invoicing_info = params[:invoicing_info]
-        if current_user.invoicing_info.nil? and invoicing_info.blank?
+        if existing_activation_key.nil? and invoicing_info.blank?
           flash[:error] = t('activation_keys.create.invoicing_information_missing')
           render :new
         else
@@ -17,7 +18,7 @@ class ActivationKeysController < ApplicationController
           current_user.activation_key = @activation_key
           current_user.invoicing_info = invoicing_info unless invoicing_info.blank?
           current_user.save!
-          LicenseMailer.license_mail(current_user).deliver
+          LicenseMailer.license_mail(current_user).deliver unless existing_activation_key
           render :show
         end
       else

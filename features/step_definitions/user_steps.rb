@@ -122,6 +122,16 @@ Given /^I have logged in$/ do
   click_button("Kirjaudu")
 end
 
+Given /^I change my password to "(.*?)"$/ do |new_password|
+  steps %Q{
+    When I follow "Omat tiedot"
+    And I follow "Muokkaa tietoja"
+    And I fill in "#{new_password}" for "Vaihda salasana"
+    And I fill in "#{new_password}" for "Salasana uudestaan"
+    And I press "Päivitä"
+  }
+end
+
 When /^I logout$/ do
   click_link("Kirjaudu ulos")
 end

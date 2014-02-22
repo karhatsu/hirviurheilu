@@ -46,20 +46,20 @@ Feature: License
     And I follow "Käyttäjät"
     Then I should see "CC81E12F02"
     
-  Scenario: When user has already checked the activation key, no invoicing info needed
+  Scenario: When user has already checked the activation key, just ask password
     Given I am an official "Mathew Stevensson" with email "license@hirviurheilu.com" and password "license"
     And I have already opened the activation key with invoicing info "Laskutusseura"
     And I have logged in
-    And I am on the offline price page
-    When I follow "Hanki aktivointitunnus"
+    And I change my password to "new-password"
+    When I go to the offline price page
+    And I follow "Hanki aktivointitunnus"
     Then I should not see "Laskutustiedot"
-    When I check "Ymmärrän, että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä"
-    And I fill in "license" for "Salasana"
+    And I should not see "Hirviurheilu Offline -tuotteen hinta"
+    And I should not see "Ymmärrän, että minua laskutetaan Hirviurheilu offline-tuotteen käytöstä"
+    When I fill in "new-password" for "Salasana"
     And I press "Näytä aktivointitunnus"
-    Then I should see "Aktivointitunnus: CC81E12F02" in a success message
-    And the admin should receive an email
-    When I open the email
-    Then I should see "Laskutustiedot: Laskutusseura" in the email body
+    Then I should see "Aktivointitunnus: 3DD4C0AA32" in a success message
+    And the admin should receive no emails
 
   Scenario: Unauthenticated user wants to see activation key
     Given I go to the activation key page
