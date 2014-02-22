@@ -36,9 +36,6 @@ Feature: License
     And I should see "Käyttäjä: Mathew Stevensson" in the email body
     And I should see "Laskutustiedot: Testiseura" in the email body
     And I should see "Aktivointitunnus: CC81E12F02" in the email body
-    Given I follow "Omat tiedot"
-    Then I should see "Hirviurheilu Offline aktivointitunnus"
-    And I should see "CC81E12F02"
     Given I follow "Kirjaudu ulos"
     And I am an admin
     And I have logged in

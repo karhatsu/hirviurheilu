@@ -16,14 +16,11 @@
     <span class="form_label"><%= t 'attributes.last_name' %></span>
     <span><%=h @user.last_name %></span>
   </div>
-  <% unless @user.activation_key.blank? %>
-    <div class="read_only_form_row">
-      <span class="form_label"><%= t '.activation_key' %></span>
-      <span><%=h @user.activation_key %></span>
-    </div>
-  <% end %>
 </div>
 <div class="action_box"><%= link_to t('.modify_information'), edit_account_path %></div>
+<% unless @user.activation_key.blank? %>
+  <div class="action_box"><%= link_to t('.see_activation_key'), new_activation_key_path %></div>
+<% end %>
 <h2><%= t '.own_races' %></h2>
 <% if @user.races.empty? %>
   <%= highlight_info(t('.no_own_races')) %>
