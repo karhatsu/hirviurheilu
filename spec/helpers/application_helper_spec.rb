@@ -1354,7 +1354,7 @@ describe ApplicationHelper do
     end
   end
   
-  describe "#organizer_info_with_possible_link", focus: true do
+  describe "#organizer_info_with_possible_link" do
     context "when no home page nor organizer" do
       it "should return nil" do
         race = FactoryGirl.build(:race, home_page: '', organizer: '')
