@@ -5,8 +5,8 @@ $('div.error').hide();
 
 $('#competitor_first_name').val('');
 $('#competitor_last_name').val('');
-$('#club').next().val('');
-$('#club').next().next().val('');
+$('#club_name').val('');
+$('#competitor_team_name').val('');
 
 <% if @competitor.series.has_start_list? %>
   $('#competitor_number').val(<%= @competitor.race.next_start_number %>);

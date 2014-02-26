@@ -4,6 +4,5 @@
 //= require jquery-ui
 //= require jquery-utils-0.8.5-min
 //= require jquery.bxSlider.min
-//= require jquery.sexy-combo.pack
 //= require elk_sports
 //= require turbolinks

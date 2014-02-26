@@ -59,6 +59,7 @@ Feature: Manage competitors
     And I should not see "Arvio 1"
     When I fill in "Peter" for "Etunimi"
     And I fill in "Ford" for "Sukunimi"
+    And I fill in "Testiseura" for "club_name"
     And I press "Tallenna"
     Then I should be on the official competitors page of the series
     And I should see "Ford Peter" within "tr#competitor_1"
@@ -80,12 +81,14 @@ Feature: Manage competitors
   Scenario: Updating competitor without shots, adding shots, updating shots
     Given I am an official
     And I have a race "Test race"
+    And the race has a club "Testiseura"
     And the race has series with attributes:
       | first_number | 10 |
       | start_time | 11:00 |
     And the series has a competitor with attributes:
       | first_name | James |
       | last_name | Johnson |
+      | club | Testiseura |
     And the start list has been generated for the series
     And I have logged in
     When I go to the official competitors page of the series

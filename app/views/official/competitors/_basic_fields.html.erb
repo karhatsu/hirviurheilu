@@ -25,17 +25,10 @@
 <br/>
 
 <%= f.label :club_id, club_title(f.object.series.race) %>
-<%= select_tag :club, options_from_collection_for_select(f.object.series.race.clubs,
-  :id, :name, f.object.club_id), :include_blank => true %>
-<%= javascript_tag do %>
-  $("#club").sexyCombo({
-    triggerSelected: true,
-    autoFill: true,
-    suffix: '_name',
-    hiddenSuffix: '_id',
-    width: 5000
-  });
-<% end %>
+<%= select_tag :club_id, options_from_collection_for_select(f.object.series.race.clubs,
+  :id, :name, f.object.club_id), prompt: 'Valitse seura tai lisää uusi' %>
+<%= text_field_tag :club_name, '', placeholder: 'Uusi seura' %>
+<br/>
 
 <% if @series.race.has_team_competitions_with_team_names? %>
   <%= f.label :team_name %>
