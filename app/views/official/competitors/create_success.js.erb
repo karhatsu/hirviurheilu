@@ -16,6 +16,15 @@ $('#competitor_team_name').val('');
   $('#competitor_start_time_6i').val('<%= start_time.strftime('%S') %>');
 <% end %>
 
+var clubPrompt = $('#club_id').find('option').first().text();
+$('#club_id').children().remove();
+$('#club_id').append("<option>" + clubPrompt + "</option>");
+$.getJSON('/official/races/' + <%= @competitor.race.id %> + '/clubs', function(clubs) {
+  for (var i = 0; i < clubs.length; i++) {
+    $('#club_id').append("<option value='" + clubs[i].id + "'>" + clubs[i].name + "</option>");
+  }
+});
+
 $('#latest_competitors').show();
 if($('li#latest').length > 0) {
   $('li#latest').attr('style', '');
