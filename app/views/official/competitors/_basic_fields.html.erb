@@ -54,6 +54,16 @@
   </span>
 <% end %>
 <%= javascript_tag do %>
+  $('#club_id').on('change', show_club_name_field);
+  
+  function show_club_name_field() {
+     if ($('#club_id').prop('selectedIndex') == 0) {
+       $('#club_name').show();
+     } else {
+       $('#club_name').hide();
+     }
+  }
+
   function change_series(series_id) {
     reload_age_groups(series_id);
     reload_number_and_start_time_and_link(series_id);
@@ -80,6 +90,8 @@
       $('#number_spinner').hide();
     });
   }
+  
+  show_club_name_field();
 <% end %>
 <%= render :partial => 'official/shared/reload_age_groups_js' %>
 <%= render :partial => 'shared/help_dialog_opener' %>
