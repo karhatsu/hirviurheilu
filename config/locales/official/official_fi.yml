@@ -70,6 +70,10 @@ fi:
         competitor_removed: Kilpailija poistettu
       new:
         title: Uusi kilpailija
+        club_selection_prompt_0: Valitse seura tai lisää uusi
+        club_selection_prompt_1: Valitse piiri tai lisää uusi
+        new_club_hint_0: Uusi seura
+        new_club_hint_1: Uusi piiri
         latest_added_competitors: Viimeksi lisätyt kilpailijat
         back_to_series_competitors_list: Takaisin sarjan <span id='series_name'>%{series_name}</span> kilpailijaluetteloon
       edit:

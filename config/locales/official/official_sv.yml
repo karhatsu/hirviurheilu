@@ -70,6 +70,10 @@ sv:
         competitor_removed: Tävlaren raderat
       new:
         title: Ny tävlare
+        club_selection_prompt_0: Välj klubb eller öka ny
+        club_selection_prompt_1: Välj klubb eller öka ny
+        new_club_hint_0: Ny klubb
+        new_club_hint_1: Ny klubb
         latest_added_competitors: Senaste ökade tävlarna
         back_to_series_competitors_list: Tillbaka till klassens <span id='series_name'>%{series_name}</span> tävlarlist
       edit:
