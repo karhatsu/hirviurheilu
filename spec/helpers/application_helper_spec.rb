@@ -1355,32 +1355,47 @@ describe ApplicationHelper do
   end
   
   describe "#organizer_info_with_possible_link" do
-    context "when no home page nor organizer" do
+    context "when no home page, organizer or phone" do
       it "should return nil" do
-        race = FactoryGirl.build(:race, home_page: '', organizer: '')
+        race = FactoryGirl.build(:race, home_page: '', organizer: '', organizer_phone: '')
         helper.organizer_info_with_possible_link(Race.new).should be_nil
       end
     end
     
-    context "when organizer but no home page" do
+    context "when only organizer" do
       it "should return organizer name" do
         race = FactoryGirl.build(:race, home_page: '', organizer: 'Organizer')
         helper.organizer_info_with_possible_link(race).should == 'Organizer'
       end
     end
     
-    context "when home page but no organizer" do
+    context "when only home page" do
       it "should return link to home page with static text" do
         race = FactoryGirl.build(:race, home_page: 'www.home.com', organizer: '')
         expected_link = '<a href="http://www.home.com" target="_blank">' + t("races.show.race_home_page") + '</a>'
         helper.organizer_info_with_possible_link(race).should == expected_link
       end
     end
+    
+    context "when only phone" do
+      it "should return phone" do
+        race = FactoryGirl.build(:race, home_page: '', organizer: '', organizer_phone: '123 456')
+        helper.organizer_info_with_possible_link(race).should == '123 456'
+      end
+    end
       
-    context "when home page and organizer" do
-      it "should return link to home page with organizer as text" do
-        race = FactoryGirl.build(:race, home_page: 'http://www.home.com', organizer: 'Organizer')
-        expected_link = '<a href="http://www.home.com" target="_blank">Organizer</a>'
+    context "when organizer and phone" do
+      it "should return organizer name appended with phone" do
+        race = FactoryGirl.build(:race, home_page: nil, organizer: 'Organizer', organizer_phone: '123 456')
+        expected_link = 'Organizer, 123 456'
+        helper.organizer_info_with_possible_link(race).should == expected_link
+      end
+    end
+      
+    context "when home page, organizer and phone" do
+      it "should return link to home page with organizer as text, appended with phone" do
+        race = FactoryGirl.build(:race, home_page: 'http://www.home.com', organizer: 'Organizer', organizer_phone: '123 456')
+        expected_link = '<a href="http://www.home.com" target="_blank">Organizer</a>, 123 456'
         helper.organizer_info_with_possible_link(race).should == expected_link
       end
     end

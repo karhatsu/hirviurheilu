@@ -2,7 +2,7 @@
 <% unless result_rotation_list(menu_race).empty? %>
   <% content_for(:refresh, true) %>
 <% end %>
-<% unless @race.home_page.blank? and @race.organizer.blank? %>
+<% unless @race.home_page.blank? and @race.organizer.blank? and @race.organizer_phone.blank? %>
   <h2><%= t '.organizer_info' %></h2>
   <div class="section">
     <%= organizer_info_with_possible_link(@race) %>

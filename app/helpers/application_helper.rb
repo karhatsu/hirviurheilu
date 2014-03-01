@@ -546,10 +546,12 @@ module ApplicationHelper
   end
   
   def organizer_info_with_possible_link(race)
-    return nil if race.home_page.blank? and race.organizer.blank?
-    return race.organizer if race.home_page.blank?
-    label = race.organizer.blank? ? t("races.show.race_home_page") : race.organizer
-    raw('<a href="' + link_with_protocol(race.home_page) + '" target="_blank">' + label + '</a>')
+    return nil if race.home_page.blank? and race.organizer.blank? and race.organizer_phone.blank?
+    return race.organizer_phone if race.home_page.blank? and race.organizer.blank?
+    info = race.organizer.blank? ? t("races.show.race_home_page") : race.organizer
+    info = raw('<a href="' + link_with_protocol(race.home_page) + '" target="_blank">' + info + '</a>') unless race.home_page.blank?
+    info << ", #{race.organizer_phone}" unless race.organizer_phone.blank?
+    info
   end
   
   private

@@ -48,6 +48,7 @@ sv:
     national_record: NR
     number: Nummer
     organizer: Organizatör (t.ex. klubb)
+    organizer_phone: Telefon
     password: Lösenord
     password_confirmation: Lösenord igen
     price: Pris

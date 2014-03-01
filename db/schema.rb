@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140127143716) do
+ActiveRecord::Schema.define(:version => 20140301200251) do
 
   create_table "activation_keys", :force => true do |t|
     t.string   "comment",    :null => false
@@ -150,6 +150,7 @@ ActiveRecord::Schema.define(:version => 20140127143716) do
     t.text     "video_description"
     t.string   "organizer"
     t.time     "start_time",             :default => '2000-01-01 00:00:00', :null => false
+    t.string   "organizer_phone"
   end
 
   add_index "races", ["sport_id"], :name => "index_races_on_sport_id"
