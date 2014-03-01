@@ -1,4 +1,4 @@
-<%= f.label :series_id %>
+<span class="form_label"><%= f.label :series_id %></span>
 <% if f.object.new_record? %>
   <%= f.select :series_id, options_from_collection_for_select(f.object.series.race.series,
     :id, :name, f.object.series.id), {}, :onchange => 'change_series(this.value)' %>
@@ -16,16 +16,16 @@
 </span>
 <br/>
 
-<%= f.label :first_name %>
+<span class="form_label"><%= f.label :first_name %></span>
 <%= f.text_field :first_name, :size => 15 %>
-<%= f.label :last_name %>
+<span class="form_label"><%= f.label :last_name %></span>
 <%= f.text_field :last_name, :size => 20 %>
 <%= f.check_box :unofficial %>
 <%= f.label :unofficial %>
 <br/>
 
 <% club_level = f.object.race.club_level %>
-<%= f.label :club_id, club_title(f.object.series.race) %>
+<span class="form_label"><%= f.label :club_id, club_title(f.object.series.race) %></span>
 <% menu_style = f.object.race.clubs.empty? ? 'display:none;' : '' %>
 <%= select_tag :club_id, options_from_collection_for_select(f.object.race.clubs,
   :id, :name, f.object.club_id), prompt: t("official.competitors.new.club_selection_prompt_#{club_level}"),
@@ -34,7 +34,7 @@
 <br/>
 
 <% if @series.race.has_team_competitions_with_team_names? %>
-  <%= f.label :team_name %>
+  <span class="form_label"><%= f.label :team_name %></span>
   <a class="help" id="team_name_help" href="javascript:void(0);">?</a>
   <%= f.text_field :team_name %><br/>
   <%= render :partial => 'official/shared/team_name_help_dialog' %>
@@ -46,9 +46,9 @@
     <% number_style = '' %>
   <% end %>
   <span id="number_span" style="<%= number_style %>">
-    <%= f.label :number %>
+    <span class="form_label"><%= f.label :number %></span>
     <%= f.text_field :number, :size => 3 %>
-    <%= f.label :start_time %>
+    <span class="form_label"><%= f.label :start_time %></span>
     <%= f.time_text_field :start_time, :include_seconds => true, :blank => true %>
   </span>
   <span id="number_spinner" style="display:none;">
