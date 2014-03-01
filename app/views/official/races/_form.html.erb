@@ -26,6 +26,16 @@
     <span><%= f.select :days_count, [[t(:days, :count => 1), 1], [t(:days, :count => 2), 2], [t(:days, :count => 3), 3]] %></span>
   </div>
   <div>
+    <span class="form_label"><%= t 'official.races.form.competitor_organisation' %></span>
+    <span>
+      <%= f.radio_button :club_level, Race::CLUB_LEVEL_SEURA %>
+      <%= f.label "club_level_#{Race::CLUB_LEVEL_SEURA}", t(:club) %>
+      <%= f.radio_button :club_level, Race::CLUB_LEVEL_PIIRI %>
+      <%= f.label "club_level_#{Race::CLUB_LEVEL_PIIRI}", t(:district) %>
+    </span>
+  </div>
+  <h3><%= t 'official.races.form.organizer_information' %></h3>
+  <div>
     <span class="form_label"><%= f.label :organizer %></span>
     <span><%= f.text_field :organizer %></span>
   </div>
@@ -39,15 +49,6 @@
   <div>
     <span class="form_label"><%= f.label :organizer_phone %></span>
     <span><%= f.text_field :organizer_phone %></span>
-  </div>
-  <div>
-    <span class="form_label"><%= t 'official.races.form.competitor_organisation' %></span>
-    <span>
-      <%= f.radio_button :club_level, Race::CLUB_LEVEL_SEURA %>
-      <%= f.label "club_level_#{Race::CLUB_LEVEL_SEURA}", t(:club) %>
-      <%= f.radio_button :club_level, Race::CLUB_LEVEL_PIIRI %>
-      <%= f.label "club_level_#{Race::CLUB_LEVEL_PIIRI}", t(:district) %>
-    </span>
   </div>
   <div id="home_page_help_dialog" class="dialog" style="display: none;">
     Jos kilpailusta on tarjolla lisätietoa esimerkiksi piirin tai seuran

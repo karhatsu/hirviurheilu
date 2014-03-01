@@ -26,6 +26,7 @@ sv:
         basic_information: Tävlingens basavgifter
         link_to_race_home_page: Länken till tävlingens hemsida
         competitor_organisation: Tävlarnas hörar till
+        organizer_information: Organizatörinformation
         seconds: sekunder
         start_times: Starttider
         competitors_start_order_series: Klass efter klass
