@@ -26,8 +26,10 @@
 
 <% club_level = f.object.race.club_level %>
 <%= f.label :club_id, club_title(f.object.series.race) %>
-<%= select_tag :club_id, options_from_collection_for_select(f.object.series.race.clubs,
-  :id, :name, f.object.club_id), prompt: t("official.competitors.new.club_selection_prompt_#{club_level}") %>
+<% menu_style = f.object.race.clubs.empty? ? 'display:none;' : '' %>
+<%= select_tag :club_id, options_from_collection_for_select(f.object.race.clubs,
+  :id, :name, f.object.club_id), prompt: t("official.competitors.new.club_selection_prompt_#{club_level}"),
+  :style => menu_style %>
 <%= text_field_tag :club_name, '', placeholder: t("official.competitors.new.new_club_hint_#{club_level}") %>
 <br/>
 
