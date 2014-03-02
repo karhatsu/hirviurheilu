@@ -28,7 +28,6 @@ group :test do
   gem 'poltergeist', '1.0.3'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
-  gem 'spork', '~> 0.9.0.rc'
   gem 'sqlite3'
 end
 
