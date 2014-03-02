@@ -30,7 +30,6 @@ group :test do
   gem 'shoulda-matchers'
   gem 'spork', '~> 0.9.0.rc'
   gem 'sqlite3'
-  gem 'watchr'
 end
 
 # Gems used only for assets and not required

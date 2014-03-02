@@ -207,7 +207,6 @@ GEM
     uglifier (2.4.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    watchr (0.7)
     websocket (1.0.7)
     wicked_pdf (0.7.9)
     xpath (0.1.4)
@@ -245,5 +244,4 @@ DEPENDENCIES
   thin
   turbolinks (= 2.2.1)
   uglifier
-  watchr
   wicked_pdf (= 0.7.9)
