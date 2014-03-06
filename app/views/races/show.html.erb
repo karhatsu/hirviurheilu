@@ -1,4 +1,7 @@
 <%= content_for(:title, @race.name) %>
+<div class="title-and-fb-share race-page">
+  <%= render partial: 'shared/facebook_share' %>
+</div>
 <% unless result_rotation_list(menu_race).empty? %>
   <% content_for(:refresh, true) %>
 <% end %>
