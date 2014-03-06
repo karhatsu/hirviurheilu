@@ -1,0 +1,4 @@
+<% if facebook_env? %>
+  <% url = Rails.env.development? ? PRODUCTION_URL : request.original_url %>
+  <div class="fb-share-button" data-href="<%= url %>" data-type="button_count"></div>
+<% end %>

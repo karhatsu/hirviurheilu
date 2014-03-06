@@ -2,7 +2,10 @@
 <% if @series.active? %>
   <%= render :partial => 'shared/refresh_counter' %>
 <% end %>
-<h2><%= yield :title %></h2>
+<div class="title-and-fb-share">
+  <h2><%= yield :title %></h2>
+  <%= render partial: 'shared/facebook_share' %>
+</div>
 <% content_for :sub_sub_menu do %>
   <%= render :layout => 'shared/series_sub_menu',
     :locals => { :race => @series.race, :series_id => @series.id } do |series| %>
