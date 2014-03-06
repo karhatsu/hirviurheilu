@@ -73,7 +73,7 @@ Feature: Cup results
     And I follow "Men"
     Then the "Kilpailut" main menu item should be selected
     And the "Tulokset" sub menu item should be selected
-    And I should see "Tulokset - Men" within "h2"
+    And I should see "Men - Tulokset" within "h2"
     And I should see "Cup race 1" within "thead"
     And I should see "Another" within "thead"
     And I should see "Third " within "thead"
@@ -125,7 +125,7 @@ Feature: Cup results
     And I follow "Men"
     Then the "Kilpailut" main menu item should be selected
     And the "Tulokset" sub menu item should be selected
-    And I should see "Tulokset - Men" within "h2"
+    And I should see "Men (M, M60) - Tulokset" within "h2"
     And I should see "Cup race 1" within "thead"
     And I should see "Another" within "thead"
     And I should see "Pöllänen Markku"
