@@ -2,7 +2,10 @@
 <% if @relay.active? %>
   <%= render :partial => 'shared/refresh_counter' %>
 <% end %>
-<h2><%= @relay.name %> - <%= relay_result_title(@relay) %></h2>
+<div class="title-and-fb-share">
+  <h2><%= @relay.name %> - <%= relay_result_title(@relay) %></h2>
+  <%= render partial: 'shared/facebook_share' %>
+</div>
 <% content_for :sub_sub_menu do %>
   <%= render :layout => 'shared/relays_sub_menu',
     :locals => { :race => @relay.race,
