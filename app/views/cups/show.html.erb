@@ -1,5 +1,8 @@
 <% content_for :title, @cup.name %>
-<h2><%= t 'activerecord.models.cup_series', :count => @cup.cup_series.length %></h2>
+<div class="title-and-fb-share">
+  <h2><%= t 'activerecord.models.cup_series', :count => @cup.cup_series.length %></h2>
+  <%= render partial: 'shared/facebook_share' %>
+</div>
 <div class="section">
   <% @cup.cup_series.each do |cs| %>
     <%= link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs) %><br/>
