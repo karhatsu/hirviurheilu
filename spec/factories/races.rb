@@ -8,6 +8,6 @@ FactoryGirl.define do
     start_order Race::START_ORDER_BY_SERIES
     batch_size 0
     batch_interval_seconds 180
-    start_time '10:00:00'
+    start_time '00:00:00'
   end
 end
