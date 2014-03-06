@@ -1,5 +1,8 @@
 <%= content_for(:title, "#{@series.name} - #{t(:start_list)}") %>
-<h2><%= yield :title %></h2>
+<div class="title-and-fb-share">
+  <h2><%= yield :title %></h2>
+  <%= render partial: 'shared/facebook_share' %>
+</div>
 <% content_for :sub_sub_menu do %>
   <%= render :layout => 'shared/series_sub_menu',
     :locals => { :race => @series.race, :series_id => @series.id } do |series| %>
