@@ -1,7 +1,7 @@
-<%= content_for(:title, "#{@competitor.series.name} - #{full_name(@competitor)}" +
+<%= content_for(:title, "#{@competitor.race.name} - #{@competitor.series.name} - #{full_name(@competitor)}" +
   (@competitor.age_group ? " (#{@competitor.age_group.name})" : "")) %>
 <div class="title-and-fb-share">
-  <h2><%= yield :title %></h2>
+  <h2><%= "#{@competitor.series.name} - #{full_name(@competitor)}" %></h2>
   <%= render partial: 'shared/facebook_share' %>
 </div>
 <%= render :partial => 'result_card' %>

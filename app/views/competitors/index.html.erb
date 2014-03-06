@@ -1,9 +1,9 @@
-<% content_for(:title, "#{@series.name} - #{series_result_title(@series, params[:all_competitors])}") %>
+<% content_for(:title, "#{@series.race.name} - #{@series.name} - #{series_result_title(@series, params[:all_competitors])}") %>
 <% if @series.active? %>
   <%= render :partial => 'shared/refresh_counter' %>
 <% end %>
 <div class="title-and-fb-share">
-  <h2><%= yield :title %></h2>
+  <h2><%= "#{@series.name} - #{series_result_title(@series, params[:all_competitors])}" %></h2>
   <%= render partial: 'shared/facebook_share' %>
 </div>
 <% content_for :sub_sub_menu do %>

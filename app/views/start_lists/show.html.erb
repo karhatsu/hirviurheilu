@@ -1,6 +1,6 @@
-<%= content_for(:title, "#{@series.name} - #{t(:start_list)}") %>
+<%= content_for(:title, "#{@series.race.name} - #{@series.name} - #{t(:start_list)}") %>
 <div class="title-and-fb-share">
-  <h2><%= yield :title %></h2>
+  <h2><%= "#{@series.name} - #{t(:start_list)}" %></h2>
   <%= render partial: 'shared/facebook_share' %>
 </div>
 <% content_for :sub_sub_menu do %>
