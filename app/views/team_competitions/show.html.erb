@@ -2,7 +2,10 @@
 <% if @tc.started? and not @race.finished? %>
   <%= render :partial => 'shared/refresh_counter' %>
 <% end %>
-<h2><%= @tc.name %> - <%= t :results %></h2>
+<div class="title-and-fb-share">
+  <h2><%= @tc.name %> - <%= t :results %></h2>
+  <%= render partial: 'shared/facebook_share' %>
+</div>
 <% if @tc.race.team_competitions.count > 1 %>
   <% content_for :sub_sub_menu do %>
     <%= render :layout => 'team_competitions_sub_menu',
