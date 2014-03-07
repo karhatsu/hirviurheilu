@@ -25,6 +25,7 @@ $.getJSON('/official/races/' + <%= @competitor.race.id %> + '/clubs', function(c
   }
 });
 $('#club_id').show();
+$('#club_name').show();
 
 $('#latest_competitors').show();
 if($('li#latest').length > 0) {
