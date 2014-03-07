@@ -67,11 +67,13 @@ Feature: Generate start list
     When I go to the official competitors page of the series
     Then the "Sarjan ensimmäinen numero" field should contain "13"
     And the "series_start_time_4i" field should contain "13"
-    And the "series_start_time_5i" field should contain "48"
+    And the "series_start_time_5i" field should contain "47"
+    And the "series_start_time_6i" field should contain "15"
     When I follow "Test series"
     Then the "Sarjan ensimmäinen numero" field should contain "10"
     And the "series_start_time_4i" field should contain "13"
     And the "series_start_time_5i" field should contain "45"
+    And the "series_start_time_6i" field should contain "00"
 
   Scenario: No competitors added yet
     Given I am an official

@@ -749,7 +749,7 @@ describe Race do
 
   describe "#next_start_time" do
     before do
-      @race = FactoryGirl.create(:race, :start_interval_seconds => 40)
+      @race = FactoryGirl.create(:race, :start_interval_seconds => 30)
       @series = FactoryGirl.build(:series, :race => @race)
       @race.series << @series
     end
@@ -768,16 +768,8 @@ describe Race do
         @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '10:34:11')
         @series.competitors << FactoryGirl.build(:competitor, :series => @series,
-          :start_time => '18:06:20')
-        @race.next_start_time.strftime('%H:%M:%S').should == '18:07:00'
-      end
-
-      it "should round up the suggested start time to full minutes" do
-        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
-          :start_time => '10:34:11')
-        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
-          :start_time => '18:03:21')
-        @race.next_start_time.strftime('%H:%M:%S').should == '18:05:00'
+          :start_time => '18:03:00')
+        @race.next_start_time.strftime('%H:%M:%S').should == '18:03:30'
       end
     end
   end

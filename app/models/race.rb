@@ -192,7 +192,6 @@ class Race < ActiveRecord::Base
     max_time = competitors.maximum(:start_time)
     return nil unless max_time
     start_time = max_time + start_interval_seconds
-    start_time += (60 - start_time.sec) unless start_time.sec == 0
     start_time
   end
 
