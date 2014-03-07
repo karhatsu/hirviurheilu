@@ -52,6 +52,15 @@ describe Official::CompetitorsController do
         assigns(:club).should == @club
       end
     end
+
+    context "when club_id 0 and club name is given" do
+      it "should ignore zero club id and use the name" do
+        post :create, :series_id => @series.id, :club_id => 0, :club_name => 'Test club'
+        club = Club.find_by_name('Test club')
+        club.should_not be_nil
+        assigns(:club).should == club
+      end
+    end
   end
 end
 
