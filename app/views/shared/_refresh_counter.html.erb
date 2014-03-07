@@ -6,6 +6,7 @@
     <a id="start" href="javascript:void(0)"><%= t :refresh_counter_continue %></a></span>
 </div>
 <%= javascript_tag do %>
+  var intervalId;
   var seconds = <%= secs %>;
   function decreaseSeconds() {
     if(seconds > 0) {
@@ -29,6 +30,7 @@
     }
   }
   function continueCounting() {
+    clearInterval(intervalId);
     intervalId = setInterval(decreaseSeconds, 1000);
     $('#continue_text').hide();
     $('#reload_text').show();
