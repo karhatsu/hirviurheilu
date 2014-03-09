@@ -158,7 +158,9 @@ Feature: Relay results
     And I should see "Osuus 2: 88 m"
     And I should see "123m"
     When I follow "Osuus 2"
-    Then I should see "Men's relay - Osuus 2" within "h2"
+    Then the "Kilpailut" main menu item should be selected
+    And the "Viestit" sub menu item should be selected
+    And I should see "Men's relay - Osuus 2" within "h2"
     And I should see "1." within "tr#team_1"
     And I should see "Green team" within "tr#team_1"
     And I should see "StevensonG JohnG" within "tr#team_1"

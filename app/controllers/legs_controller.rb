@@ -2,6 +2,7 @@ class LegsController < ApplicationController
   before_filter :set_races, :assign_relay_by_relay_id
 
   def show
+    @is_relays = true
     @leg = params[:id]
     redirect_to race_relay_path(@relay.race, @relay) if invalid_leg?
     @results = @relay.leg_results(@leg)
