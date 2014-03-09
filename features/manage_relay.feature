@@ -82,7 +82,7 @@ Feature: Manage relays
     When I follow "Tulosten pikasyöttö"
     Then the official main menu item should be selected
     And the "Viestit" sub menu item should be selected
-    And I should see "Viestin tulosten pikasyöttö" within "h2"
+    And I should see "Viesti - Test relay - Tulosten pikasyöttö" within "h2"
 
   Scenario: Finish relay
     Given I am an official

@@ -1,5 +1,5 @@
 <% content_for :title, "#{@relay.race.name} - #{@relay.name} - #{t '.title'}" %>
-<h2><%= t '.title' %></h2>
+<h2><%= yield :title %></h2>
 <% if @relay.finished? %>
   <div class="info"><%= t '.already_finished' %></div>
 <% else %>

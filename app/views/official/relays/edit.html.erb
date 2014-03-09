@@ -1,5 +1,5 @@
-<% content_for :title, "#{@race.name} - #{@relay.name} - #{t :edit}" %>
-<h2><%= t '.title' %></h2>
+<% content_for :title, "#{@race.name} - #{@relay.name} - #{t '.title'}" %>
+<h2><%= yield :title %></h2>
 <%= render :partial => 'form' %>
 <hr/>
 <%= link_to t(:back_to_official_relays_page), official_race_relays_path(@race) %>
