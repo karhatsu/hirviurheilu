@@ -68,7 +68,7 @@ link_to_races = find_link "//div[@class='menu main_menu']/ul/li[2]/a", 'Kilpailu
 
 open_page(link_to_races)
 verify_contains "//div[@class='main_title']/span", 'Hirviurheilu - Kilpailut'
-link_to_race = find_link "//div[@class='main_content']//a[last()]"
+link_to_race = find_link "(//div[@class='main_content']//a)[last()]"
 
 open_page(link_to_race)
 link_to_results = find_link "//table//tr[2]/td/a[1]", 'Tulokset'
