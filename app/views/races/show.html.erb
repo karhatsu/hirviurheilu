@@ -113,11 +113,13 @@
         <%= t '.competition_begins' %>
         <%= distance_of_time_in_words(Time.zone.today, @race.start_date, false) %>.</div>
     <% end %>
-    <% cup = @race.cups.first unless @race.cups.empty? %>
-    <% if cup %>
-      <h2><%= t 'activerecord.models.cup', :count => 1 %></h2>
-      <div class="section"><%= link_to t('.race_belongs_to_cup', :cup_name => cup.name), cup_path(cup) %></div>
-    <% end %>
 </div>
-<hr style="clear:both;"/>
+<div style="clear: both;">
+  <% cup = @race.cups.first unless @race.cups.empty? %>
+  <% if cup %>
+    <h2><%= t 'activerecord.models.cup', :count => 1 %></h2>
+    <div class="section" style="margin-bottom: 30px;"><%= link_to t('.race_belongs_to_cup', :cup_name => cup.name), cup_path(cup) %></div>
+  <% end %>
+</div>
+<hr/>
 <%= link_to t(:back_to_home_page), root_path %>
