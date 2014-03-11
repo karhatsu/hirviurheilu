@@ -82,6 +82,6 @@ class QuickSave
   end
 
   def set_stored_already_error
-    @error = 'Kilpailijalle on jo talletettu tieto, ++numero,tulos ylikirjoittaa'
+    @error = 'Kilpailijalle on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos.'
   end
 end
