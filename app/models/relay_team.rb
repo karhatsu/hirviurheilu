@@ -10,7 +10,7 @@ class RelayTeam < ActiveRecord::Base
     :uniqueness => { :scope => :relay_id }
   validate :check_no_result_reason
 
-  accepts_nested_attributes_for :relay_competitors
+  accepts_nested_attributes_for :relay_competitors, :allow_destroy => true
 
   def competitor(leg)
     competitor = relay_competitors[leg.to_i - 1] # faster solution but not reliable

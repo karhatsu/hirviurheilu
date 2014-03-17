@@ -17,7 +17,7 @@ class Relay < ActiveRecord::Base
 
   attr_readonly :legs_count
 
-  accepts_nested_attributes_for :relay_teams
+  accepts_nested_attributes_for :relay_teams, :allow_destroy => true
   accepts_nested_attributes_for :relay_correct_estimates
 
   def correct_estimate(leg)
