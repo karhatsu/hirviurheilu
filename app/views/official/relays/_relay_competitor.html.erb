@@ -8,7 +8,7 @@
 <%= f.label :misses %>
 <%= f.text_field :misses, :size => 1 %>
 <%= f.label :estimate %>
-<%= f.text_field :estimate, :size => 2 %>m
+<%= f.text_field :estimate, :size => 3 %>m
 <%= f.label :arrival_time %>
 <%= time_print(f.object.arrival_time, true, '-') %>
 <% if f.object.adjustment %>
