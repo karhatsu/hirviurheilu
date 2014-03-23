@@ -15,9 +15,8 @@ class Series < ActiveRecord::Base
 
   belongs_to :race, :counter_cache => true
   has_many :age_groups, :dependent => :destroy
-  has_many :competitors, :dependent => :destroy, :order => 'number, id'
-  has_many :start_list, :class_name => "Competitor", :foreign_key => 'series_id',
-    :conditions => "start_time is not null", :order => "start_time, number"
+  has_many :competitors, -> { order(:number, :id) }, :dependent => :destroy
+  has_many :start_list, -> { where('start_time is not null').order(:start_time, :number) }, :class_name => "Competitor", :foreign_key => 'series_id'
 
   accepts_nested_attributes_for :age_groups, :allow_destroy => true
   accepts_nested_attributes_for :competitors

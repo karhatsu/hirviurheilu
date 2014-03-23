@@ -17,7 +17,7 @@ class Competitor < ActiveRecord::Base
   belongs_to :club
   belongs_to :series, :counter_cache => true
   belongs_to :age_group
-  has_many :shots, :order => 'value desc', :dependent => :destroy
+  has_many :shots, -> { order 'value desc' }, :dependent => :destroy
 
   accepts_nested_attributes_for :shots, :allow_destroy => true
 

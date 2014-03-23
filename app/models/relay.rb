@@ -5,8 +5,9 @@ class Relay < ActiveRecord::Base
   include TimeHelper
   
   belongs_to :race
-  has_many :relay_teams, :dependent => :destroy, :order => 'number'
-  has_many :relay_correct_estimates, :order => 'leg'
+  has_many :relay_teams, -> { order :number }, :dependent => :destroy
+  has_many :relay_correct_estimates, -> { order :leg }
+
   has_many :relay_competitors, :through => :relay_teams
 
   validates :name, :presence => true
