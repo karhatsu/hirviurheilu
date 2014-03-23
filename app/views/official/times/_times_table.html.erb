@@ -10,8 +10,8 @@
       <div class="competitor_row">
         <div class="value number"><%= c.number %></div>
         <div class="value name"><%= full_name(c) %></div>
-        <div class="value time"><%= f.time_text_field :start_time, :include_seconds => true, :blank => true %></div>
-        <div class="value time"><%= f.time_text_field :arrival_time, :include_seconds => true, :blank => true %></div>
+        <div class="value time"><%= f.text_field :start_time, :include_seconds => true, :blank => true, size: 8 %></div>
+        <div class="value time"><%= f.text_field :arrival_time, :include_seconds => true, :blank => true, size: 8 %></div>
         <div class="value"><%= submit_tag t(:save), :onclick => "start_updating(#{c.id})" %></div>
         <div class="value" id="status_<%= c.id %>">&nbsp;</div>
       </div>
