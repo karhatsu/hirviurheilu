@@ -121,6 +121,6 @@ ElkSports::Application.routes.draw do
     resources :remote_races
   end
 
-  match '/:locale' => 'home#show', :locale => /#{I18n.available_locales.join('|')}/
+  get '/:locale' => 'home#show', :locale => /#{I18n.available_locales.join('|')}/
   root :to => "home#show"
 end
