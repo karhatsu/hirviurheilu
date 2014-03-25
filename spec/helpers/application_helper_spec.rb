@@ -1145,7 +1145,7 @@ describe ApplicationHelper do
 
     it "should return hidden _destroy field and button with onclick call to remove_fields javascript" do
       helper.remove_child_link(@value, @form, @hide_class, @confirm_question).
-        should == "<hidden-field/><input onclick=\"remove_fields(this, &#x27;hide_class&#x27;, &#x27;Are you sure?&#x27;);\" type=\"button\" value=\"Add child\" />"
+        should == "<hidden-field/><input onclick=\"remove_fields(this, &#39;hide_class&#39;, &#39;Are you sure?&#39;);\" type=\"button\" value=\"Add child\" />"
     end
   end
   
