@@ -1143,7 +1143,7 @@ describe Series do
       end
       
       context "and competitors can be added only to age groups" do
-        it "should be age groups array prepended with main series" do
+        it "should be age groups array" do
           @series.stub(:competitors_only_to_age_groups?).and_return(true)
           age_groups = @series.age_groups_with_main_series
           age_groups.length.should == 1

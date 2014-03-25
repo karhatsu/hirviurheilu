@@ -198,7 +198,10 @@ class Series < ActiveRecord::Base
   def age_groups_with_main_series
     return [] if age_groups.empty?
     groups = age_groups
-    groups.unshift(AgeGroup.new(:id => nil, :name => name)) unless competitors_only_to_age_groups?
+    unless competitors_only_to_age_groups?
+      dummy_age_group_with_series_name = AgeGroup.new(name: name)
+      groups = groups.unshift(dummy_age_group_with_series_name)
+    end
     groups
   end
   
