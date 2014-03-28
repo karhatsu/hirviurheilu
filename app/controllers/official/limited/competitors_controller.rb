@@ -5,6 +5,10 @@ class Official::Limited::CompetitorsController < Official::OfficialController
   before_filter :assign_competitor, :only => [:edit, :update, :destroy]
   
   def index
+    redirect_to new_official_limited_race_competitor_path(@race)
+  end
+
+  def new
     return if @race.series.empty?
     series = @race.series.where(:id => params[:series_id]).first if params[:series_id]
     series = @race.series.first unless series
@@ -17,10 +21,10 @@ class Official::Limited::CompetitorsController < Official::OfficialController
     @competitor.club = @race_right.club if @race_right.club
     if @competitor.save
       flash[:success] = 'Kilpailija lisätty'
-      redirect_to official_limited_race_competitors_path(@race, :series_id => @competitor.series_id,
+      redirect_to new_official_limited_race_competitor_path(@race, :series_id => @competitor.series_id,
         :age_group_id => @competitor.age_group_id)
     else
-      render :index
+      render :new
     end
   end
   
@@ -30,7 +34,7 @@ class Official::Limited::CompetitorsController < Official::OfficialController
   def update
     if @competitor.update_attributes(params[:competitor])
       flash[:success] = 'Kilpailija päivitetty'
-      redirect_to official_limited_race_competitors_path(@race)
+      redirect_to new_official_limited_race_competitor_path(@race)
     else
       render :edit
     end
@@ -39,7 +43,7 @@ class Official::Limited::CompetitorsController < Official::OfficialController
   def destroy
     @competitor.destroy
     flash[:success] = 'Kilpailija poistettu'
-    redirect_to official_limited_race_competitors_path(@race)
+    redirect_to new_official_limited_race_competitor_path(@race)
   end
   
   private

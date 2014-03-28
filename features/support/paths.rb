@@ -68,7 +68,7 @@ module NavigationHelpers
       official_race_team_competitions_path(locale, Race.find_by_name($1))
       
     when /the limited official competitors page for "(.*)"/
-      official_limited_race_competitors_path(locale, Race.find_by_name($1))
+      new_official_limited_race_competitor_path(locale, Race.find_by_name($1))
       
     when /^the cup page$/
       cup_path(locale, @cup)
