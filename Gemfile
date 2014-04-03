@@ -18,6 +18,10 @@ group :development, :staging, :production do
   gem 'thin'
 end
 
+group :staging, :production do
+  gem 'rails_12factor'
+end
+
 group :production do
   gem 'newrelic_rpm'
 end
