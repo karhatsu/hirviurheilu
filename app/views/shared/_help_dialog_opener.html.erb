@@ -1,5 +1,5 @@
 <%= javascript_tag do %>
-  $('.help').click(function() {
+  $(document).on('click', '.help', function() {
     var id = $(this).attr('id');
     $('#' + id + '_dialog').dialog({ title: eval(id + '_title'), closeText: 'Sulje' });
   });
