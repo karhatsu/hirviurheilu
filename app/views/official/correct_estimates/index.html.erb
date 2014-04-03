@@ -3,7 +3,7 @@
 <%= flash_error %>
 <%= flash_success %>
 <div class="section">
-  <%= form_for([:official, @race], :url => official_race_correct_estimates_path(@race)) do |f| %>
+  <%= form_for([:official, @race], :url => official_race_correct_estimates_path(@race), method: 'PUT') do |f| %>
     <%= render :partial => 'shared/form_errors', :locals => { :item => @race } %>
     <%= f.fields_for :correct_estimates do |ce_form| %>
       <%= render :partial => 'correct_estimate', :locals => { :f => ce_form } %>
