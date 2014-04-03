@@ -6,8 +6,10 @@
 <% content_for :sub_sub_menu do %>
   <%= render :partial => 'shared/cup_series_sub_menu' %>
 <% end %>
-<div class="section">
-  <%= render :partial => 'cup_series_results' %>
+<div class="cup_results">
+  <div class="section">
+    <%= render :partial => 'cup_series_results' %>
+  </div>
 </div>
 <div class="action_box">
   <%= link_to t(:download_results_pdf), cup_cup_series_path(@cup, @cup_series, :format => :pdf) %>
