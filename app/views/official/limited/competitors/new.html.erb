@@ -9,11 +9,11 @@
   <h2>Lisää kilpailija</h2>
   <%= render :partial => 'form', :locals => { :show_cancel => false } %>
 
-  <% unless @competitors.empty? %>  
+  <% unless @competitors.empty? %>
     <h2>Lisätyt kilpailijat (<%= @competitors.count %>)</h2>
     <div id="all_competitors" class="section">
       <%= render :partial => 'competitors_table' %>
     </div>
   <% end %>
-  
+
 <% end %>

@@ -3,7 +3,9 @@ class User < ActiveRecord::Base
   OFFLINE_USER_EMAIL = 'offline@hirviurheilu.com'
   OFFLINE_USER_PASSWORD = 'offline'
 
-  acts_as_authentic
+  acts_as_authentic do |config|
+    config.crypto_provider = Authlogic::CryptoProviders::Sha512
+  end
 
   has_and_belongs_to_many :roles, :join_table => :rights
   has_many :race_rights

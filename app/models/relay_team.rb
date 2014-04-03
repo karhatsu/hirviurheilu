@@ -3,7 +3,7 @@ class RelayTeam < ActiveRecord::Base
   DNF = 'DNF' # did not finish
 
   belongs_to :relay
-  has_many :relay_competitors, :dependent => :destroy, :order => 'leg'
+  has_many :relay_competitors, -> { order :leg }, :dependent => :destroy
 
   validates :name, :presence => true
   validates :number, :numericality => { :only_integer => true, :greater_than => 0 },

@@ -49,7 +49,8 @@
     <span class="form_label"><%= f.label :number %></span>
     <%= f.text_field :number, :size => 3 %>
     <span class="form_label"><%= f.label :start_time %></span>
-    <%= f.time_text_field :start_time, :include_seconds => true, :blank => true %>
+    <% start_time = time_print(f.object.start_time, true, '') %>
+    <%= f.text_field :start_time, :include_seconds => true, :blank => true, size: 8, value: start_time %>
   </span>
   <span id="number_spinner" style="display:none;">
     <%= image_tag 'spinner.gif' %>

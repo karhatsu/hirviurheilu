@@ -11,13 +11,13 @@ class Race < ActiveRecord::Base
   START_ORDER_MIXED = 2
 
   belongs_to :sport
-  has_many :series, :order => 'name', :dependent => :destroy
+  has_many :series, -> { order(:name) }, :dependent => :destroy
   has_many :age_groups, :through => :series
-  has_many :competitors, :through => :series, :order => 'last_name, first_name'
+  has_many :competitors, -> { order(:last_name, :first_name) }, :through => :series
   has_many :clubs, :dependent => :destroy
-  has_many :correct_estimates, :order => 'min_number'
-  has_many :relays, :dependent => :destroy, :order => 'name'
-  has_many :team_competitions, :order => 'name', :dependent => :destroy
+  has_many :correct_estimates, -> { order :min_number }
+  has_many :relays, -> { order(:name) }, :dependent => :destroy
+  has_many :team_competitions, -> { order :name }, :dependent => :destroy
   has_many :race_rights
   has_many :users, :through => :race_rights
   has_and_belongs_to_many :cups

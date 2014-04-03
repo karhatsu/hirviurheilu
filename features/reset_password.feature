@@ -53,7 +53,7 @@ Feature: Reset password
     When I fill in "new-password" for "Uusi salasana"
     And I fill in "different-password" for "Salasana uudestaan"
     And I press "Vaihda salasana"
-    Then I should see "Salasana ei vastaa varmennusta." in an error message
+    Then I should see "Salasana uudestaan ei vastaa varmennusta." in an error message
 
   Scenario: Unknown reset hash
     Given I go to /reset_password/unknown/edit

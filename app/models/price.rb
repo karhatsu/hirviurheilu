@@ -3,7 +3,7 @@ class Price < ActiveRecord::Base
     :greater_than => 0 }
   validates :price, :numericality => { :greater_than_or_equal_to => 0 }
   
-  default_scope :order => :min_competitors
+  default_scope { order :min_competitors }
 
   def max_competitors
     Price.all.each do |p|

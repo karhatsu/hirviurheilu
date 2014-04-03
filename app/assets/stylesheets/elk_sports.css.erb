@@ -26,6 +26,14 @@ form {
     margin: 0px;
 }
 
+input[type='number'] {
+    width: 40px;
+}
+
+input[type='number'].max2 {
+  width: 30px;
+}
+
 div.sub_element {
     background-color: #DDEEB5;
     padding: 5px;
@@ -67,7 +75,7 @@ div.relay_competitors_element input {
 }
 
 div.action_box {
-    background-image: url('action_arrow.png');
+    background-image: url(<%= image_path 'action_arrow.png' %>);
     background-repeat: no-repeat;
     background-position: 5px;
     border: dashed 1px gray;
@@ -321,10 +329,6 @@ div.section {
     -webkit-box-shadow: 5px 4px 5px #666666;
 }
 
-input.shot {
-    width: 20px;
-}
-
 .team_name, .team_points {
     font-weight: bold;
 }
@@ -419,9 +423,7 @@ tr.odd {
 }
 
 #competitors_table .number { width: 40px; }
-#competitors_table .number input { width: 30px; }
 #competitors_table .start_time { width: 150px; }
-#competitors_table .start_time input { width: 30px; }
 #competitors_table .first_name { width: 100px; }
 #competitors_table .last_name { width: 140px; }
 #competitors_table .club { width: 140px; }
@@ -442,7 +444,8 @@ tr.odd {
 #shots_table .number { width: 40px; }
 #shots_table .name { width: 200px; }
 #shots_table .total_shots { margin-left: 10px; width: 50px; }
-#shots_table .individual_shots { width: 330px; }
+#shots_table .individual_shots { width: 425px; }
+#shots_table .result { width: 40px; }
 
 #times_table .number { width: 40px; }
 #times_table .name { width: 200px; }

@@ -1,17 +1,25 @@
 source 'http://rubygems.org'
 ruby '2.1.1'
 
-gem 'rails', '3.2.17'
+gem 'rails', '4.0.4'
 gem 'jquery-rails', '2.1.4'
 gem 'jquery-ui-rails', '3.0.0'
-gem 'authlogic'
-gem 'wicked_pdf', '0.7.9'
-gem 'turbolinks', '2.2.1'
-gem 'jquery-turbolinks', '2.0.2'
+gem 'authlogic', '3.4.0'
+gem 'wicked_pdf', '0.9.10'
+gem 'turbolinks'
+gem 'jquery-turbolinks'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'uglifier'
+gem 'activerecord-session_store'
+gem 'protected_attributes'
 
 group :development, :staging, :production do
   gem 'pg'
   gem 'thin'
+end
+
+group :staging, :production do
+  gem 'rails_12factor'
 end
 
 group :production do
@@ -29,14 +37,6 @@ group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'sqlite3'
-end
-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
 end
 
 # Bundle gems for the local environment. Make sure to

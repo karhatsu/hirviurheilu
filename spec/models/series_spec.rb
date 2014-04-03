@@ -153,13 +153,7 @@ describe Series do
       end
   
       it "should use postgres syntax when postgres database" do
-        competitors = double(Array)
-        DatabaseHelper.should_receive(:postgres?).and_return(true)
-        @series.should_receive(:competitors).and_return(competitors)
-        competitors.should_receive(:minimum).
-          with("EXTRACT(EPOCH FROM (arrival_time-start_time))",
-          :conditions => {:unofficial => false, :no_result_reason => nil}).
-          and_return(123)
+        expect_postgres_query_for_minimum_time({:unofficial => false, :no_result_reason => nil}, 123)
         @series.best_time_in_seconds(nil, false).should == 123
       end
     end
@@ -220,13 +214,7 @@ describe Series do
       end
   
       it "should use postgres syntax when postgres database" do
-        competitors = double(Array)
-        DatabaseHelper.should_receive(:postgres?).and_return(true)
-        @series.should_receive(:competitors).and_return(competitors)
-        competitors.should_receive(:minimum).
-          with("EXTRACT(EPOCH FROM (arrival_time-start_time))",
-          :conditions => {:unofficial => false, :no_result_reason => nil, :age_group_id => @age_group_ids}).
-          and_return(123)
+        expect_postgres_query_for_minimum_time({:unofficial => false, :no_result_reason => nil, :age_group_id => @age_group_ids}, 123)
         @series.best_time_in_seconds(@age_group_ids, false).should == 123
       end
     end
@@ -241,7 +229,9 @@ describe Series do
       context "when first method call returns non-nil" do
         it "should return correct value without db query" do
           result = "1234"
-          @competitors.should_receive(:minimum).once.and_return(result)
+          limited_competitors = double(Array)
+          @competitors.should_receive(:where).once.and_return(limited_competitors)
+          limited_competitors.should_receive(:minimum).once.and_return(result)
           @series.best_time_in_seconds([1,2], true).should == result.to_i
           @series.best_time_in_seconds([1,2], true).should == result.to_i
         end
@@ -249,7 +239,9 @@ describe Series do
       
       context "when first method call returns nil" do
         it "should return nil without db query" do
-          @competitors.should_receive(:minimum).once.and_return(nil)
+          limited_competitors = double(Array)
+          @competitors.should_receive(:where).once.and_return(limited_competitors)
+          limited_competitors.should_receive(:minimum).once.and_return(nil)
           @series.best_time_in_seconds([1,2], true).should == nil
           @series.best_time_in_seconds([1,2], true).should == nil
         end
@@ -1143,7 +1135,7 @@ describe Series do
       end
       
       context "and competitors can be added only to age groups" do
-        it "should be age groups array prepended with main series" do
+        it "should be age groups array" do
           @series.stub(:competitors_only_to_age_groups?).and_return(true)
           age_groups = @series.age_groups_with_main_series
           age_groups.length.should == 1
@@ -1249,5 +1241,14 @@ describe Series do
         end
       end
     end
+  end
+
+  def expect_postgres_query_for_minimum_time(conditions, return_value)
+    competitors = double(Array)
+    limited_competitors = double(Array)
+    DatabaseHelper.should_receive(:postgres?).and_return(true)
+    @series.should_receive(:competitors).and_return(competitors)
+    competitors.should_receive(:where).with(conditions).and_return(limited_competitors)
+    limited_competitors.should_receive(:minimum).with("EXTRACT(EPOCH FROM (arrival_time-start_time))").and_return(return_value)
   end
 end

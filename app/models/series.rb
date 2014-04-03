@@ -15,9 +15,8 @@ class Series < ActiveRecord::Base
 
   belongs_to :race, :counter_cache => true
   has_many :age_groups, :dependent => :destroy
-  has_many :competitors, :dependent => :destroy, :order => 'number, id'
-  has_many :start_list, :class_name => "Competitor", :foreign_key => 'series_id',
-    :conditions => "start_time is not null", :order => "start_time, number"
+  has_many :competitors, -> { order(:number, :id) }, :dependent => :destroy
+  has_many :start_list, -> { where('start_time is not null').order(:start_time, :number) }, :class_name => "Competitor", :foreign_key => 'series_id'
 
   accepts_nested_attributes_for :age_groups, :allow_destroy => true
   accepts_nested_attributes_for :competitors
@@ -48,7 +47,7 @@ class Series < ActiveRecord::Base
     conditions = { :no_result_reason => nil }
     conditions[:unofficial] = false unless all_competitors
     conditions[:age_group_id] = age_group_ids if age_group_ids
-    time = competitors.minimum(time_subtraction_sql, :conditions => conditions)
+    time = competitors.where(conditions).minimum(time_subtraction_sql)
     if time
       @best_time_cache[cache_key] = time.to_i
       return time.to_i
@@ -199,7 +198,10 @@ class Series < ActiveRecord::Base
   def age_groups_with_main_series
     return [] if age_groups.empty?
     groups = age_groups
-    groups.unshift(AgeGroup.new(:id => nil, :name => name)) unless competitors_only_to_age_groups?
+    unless competitors_only_to_age_groups?
+      dummy_age_group_with_series_name = AgeGroup.new(name: name)
+      groups = groups.unshift(dummy_age_group_with_series_name)
+    end
     groups
   end
   
