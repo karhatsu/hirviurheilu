@@ -36,9 +36,7 @@ Feature: Save results by result place
     Then the "Toimitsijan sivut" main menu item should be selected
     And the "Ajat" sub menu item should be selected
     And I should see "Result race" within ".main_title"
-    When I fill in "12" for "competitor_arrival_time_4i"
-    And I fill in "25" for "competitor_arrival_time_5i"
-    And I fill in "41" for "competitor_arrival_time_6i"
+    When I fill in "12:25:41" for "competitor_arrival_time"
     And I press "Tallenna"
     Then I should see "Tallennettu"
     When the race is finished
