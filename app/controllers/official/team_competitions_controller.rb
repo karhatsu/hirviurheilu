@@ -11,7 +11,7 @@ class Official::TeamCompetitionsController < Official::OfficialController
   end
 
   def create
-    @tc = @race.team_competitions.build(params[:team_competition])
+    @tc = @race.team_competitions.build(team_competition_params)
     if @tc.save
       flash[:success] = t('official.team_competitions.create.team_competition_created')
       redirect_to official_race_team_competitions_path(@race)
@@ -24,7 +24,7 @@ class Official::TeamCompetitionsController < Official::OfficialController
   end
 
   def update
-    if @tc.update(params[:team_competition])
+    if @tc.update(team_competition_params)
       @tc.series.delete_all if params[:team_competition][:series_ids].blank?
       @tc.age_groups.delete_all if params[:team_competition][:age_group_ids].blank?
       flash[:success] = t('official.team_competitions.update.team_competition_updated')
@@ -43,5 +43,9 @@ class Official::TeamCompetitionsController < Official::OfficialController
   private
   def set_team_competitions
     @is_team_competitions = true
+  end
+
+  def team_competition_params
+    params.require(:team_competition).permit(:name, :team_competitor_count, :use_team_name, series_ids: [], age_group_ids: [])
   end
 end
