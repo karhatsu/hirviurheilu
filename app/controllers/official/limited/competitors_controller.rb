@@ -17,7 +17,7 @@ class Official::Limited::CompetitorsController < Official::OfficialController
   end
   
   def create
-    @competitor = @race.competitors.build(params[:competitor])
+    @competitor = @race.competitors.build(competitor_params)
     @competitor.club = @race_right.club if @race_right.club
     if @competitor.save
       flash[:success] = 'Kilpailija lisätty'
@@ -32,7 +32,7 @@ class Official::Limited::CompetitorsController < Official::OfficialController
   end
   
   def update
-    if @competitor.update(params[:competitor])
+    if @competitor.update(competitor_params)
       flash[:success] = 'Kilpailija päivitetty'
       redirect_to new_official_limited_race_competitor_path(@race)
     else
@@ -67,5 +67,9 @@ class Official::Limited::CompetitorsController < Official::OfficialController
     conditions = { :id => params[:id] }
     conditions[:club_id] = @race_right.club.id if @race_right.club
     @competitor = @race.competitors.where(conditions).first
+  end
+
+  def competitor_params
+    params.require(:competitor).permit(:series_id, :age_group_id, :first_name, :last_name, :club_id, :team_name)
   end
 end
