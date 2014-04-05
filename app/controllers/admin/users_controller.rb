@@ -12,7 +12,7 @@ class Admin::UsersController < Admin::AdminController
   
   def create
     @is_admin_new_user = true
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     @user.password_confirmation = @user.password
     if @user.save
       @user.add_official_rights
@@ -22,5 +22,10 @@ class Admin::UsersController < Admin::AdminController
     else
       render :new
     end
+  end
+
+  private
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :password)
   end
 end
