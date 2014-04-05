@@ -41,7 +41,7 @@ class Official::RacesController < Official::OfficialController
   end
 
   def update
-    if @race.update_attributes(params[:race])
+    if @race.update(params[:race])
       redirect_to official_race_path(@race)
     else
       render :edit

@@ -25,7 +25,7 @@ class Official::ClubsController < Official::OfficialController
 
   def update
     @club = Club.find(params[:id])
-    @club.update_attributes(params[:club])
+    @club.update(params[:club])
     if @club.save
       respond_to do |format|
         format.html { redirect_to(official_race_clubs_path(@race) )}

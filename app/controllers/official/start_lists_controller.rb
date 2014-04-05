@@ -21,7 +21,7 @@ class Official::StartListsController < Official::OfficialController
 
   def update
     @order_method = params[:order_method].to_i
-    if @series.update_attributes(params[:series]) and
+    if @series.update(params[:series]) and
         @series.generate_start_list(@order_method)
       flash[:success] = t('official.start_lists.update.start_list_create_for_series') + " #{@series.name}"
       redirect_to official_series_competitors_path(@series,

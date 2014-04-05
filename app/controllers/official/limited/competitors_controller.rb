@@ -32,7 +32,7 @@ class Official::Limited::CompetitorsController < Official::OfficialController
   end
   
   def update
-    if @competitor.update_attributes(params[:competitor])
+    if @competitor.update(params[:competitor])
       flash[:success] = 'Kilpailija päivitetty'
       redirect_to new_official_limited_race_competitor_path(@race)
     else

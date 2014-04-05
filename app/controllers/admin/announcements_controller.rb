@@ -26,7 +26,7 @@ class Admin::AnnouncementsController < Admin::AdminController
   
   def update
     @announcement = Announcement.find(params[:id])
-    if @announcement.update_attributes(params[:announcement])
+    if @announcement.update(params[:announcement])
       flash[:success] = 'Tiedote päivitetty'
       redirect_to admin_announcements_path
     else

@@ -6,7 +6,7 @@ class Official::CorrectEstimatesController < Official::OfficialController
   end
 
   def update
-    if @race.update_attributes(params[:race])
+    if @race.update(params[:race])
       @race.set_correct_estimates_for_competitors
       redirect_to official_race_correct_estimates_path(@race)
     else

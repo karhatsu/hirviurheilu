@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
   def update
     @user = @current_user
-    if @user.update_attributes(params[:user])
+    if @user.update(params[:user])
       flash[:success] = t('users.update.account_updated')
       redirect_to account_url
     else

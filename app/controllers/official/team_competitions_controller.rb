@@ -24,7 +24,7 @@ class Official::TeamCompetitionsController < Official::OfficialController
   end
 
   def update
-    if @tc.update_attributes(params[:team_competition])
+    if @tc.update(params[:team_competition])
       @tc.series.delete_all if params[:team_competition][:series_ids].blank?
       @tc.age_groups.delete_all if params[:team_competition][:age_group_ids].blank?
       flash[:success] = t('official.team_competitions.update.team_competition_updated')

@@ -26,7 +26,7 @@ class Official::RelaysController < Official::OfficialController
   end
 
   def update
-    if @relay.update_attributes(params[:relay])
+    if @relay.update(params[:relay])
       flash[:success] = 'Viestin tiedot päivitetty'
       redirect_to official_race_relays_path(@race)
     else
