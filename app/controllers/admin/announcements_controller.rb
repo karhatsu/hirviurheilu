@@ -11,7 +11,7 @@ class Admin::AnnouncementsController < Admin::AdminController
   end
   
   def create
-    @announcement = Announcement.new(params[:announcement])
+    @announcement = Announcement.new(announcement_params)
     if @announcement.save
       flash[:success] = 'Tiedote lisätty'
       redirect_to admin_announcements_path
@@ -26,7 +26,7 @@ class Admin::AnnouncementsController < Admin::AdminController
   
   def update
     @announcement = Announcement.find(params[:id])
-    if @announcement.update(params[:announcement])
+    if @announcement.update(announcement_params)
       flash[:success] = 'Tiedote päivitetty'
       redirect_to admin_announcements_path
     else
@@ -37,5 +37,9 @@ class Admin::AnnouncementsController < Admin::AdminController
   private
   def set_admin_announcements
     @is_admin_announcements = true
+  end
+
+  def announcement_params
+    params.require(:announcement).permit(:published, :title, :content, :active)
   end
 end
