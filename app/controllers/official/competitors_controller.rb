@@ -28,7 +28,7 @@ class Official::CompetitorsController < Official::OfficialController
   # official/races/:race_id/competitors (not series)
   def create
     assign_series(params[:competitor][:series_id])
-    @competitor = @series.competitors.build(params[:competitor])
+    @competitor = @series.competitors.build(add_competitor_params)
     club_ok = handle_club(@competitor)
     start_list_page = params[:start_list]
     if club_ok and @competitor.save
@@ -157,4 +157,8 @@ class Official::CompetitorsController < Official::OfficialController
     @is_competitors = true
   end
 
+  def add_competitor_params
+    params.require(:competitor).permit(:series_id, :age_group_id, :club_id, :first_name, :last_name, :unofficial,
+      :team_name, :number, :start_time)
+  end
 end
