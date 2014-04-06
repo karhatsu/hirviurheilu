@@ -3,17 +3,6 @@ Feature: Manage competitors
   As an official
   I want to add and edit competitors
   
-  Scenario: When competitors' start order is mixed default way to add competitors is from the start list page
-    Given I am an official
-    And I have a race with attributes:
-      | name | Test race |
-      | start_order | 2 |
-    And the race has series "Test series"
-    And I have logged in
-    And I am on the official race page of "Test race"
-    When I follow "Lisää tämän sarjan ensimmäinen kilpailija"
-    Then I should be on the official start list page of the race "Test race"
-
   Scenario: When race has series but no competitors
     Given I am an official
     And I have a race "Test race"
