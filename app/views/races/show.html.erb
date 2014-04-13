@@ -13,6 +13,11 @@
 <% end %>
 <div class="race-page-column" style="margin-right: 40px;">
     <h2><%= t '.single_competitor_competitions' %></h2>
+    <% if @race.start_time_defined? and not @race.finished? %>
+      <div class="section">
+        Kilpailu alkaa: <%= time_print @race.start_time %>
+      </div>
+    <% end %>
     <div class="section">
       <% if @race.series.empty? %>
         <%= t '.no_series_for_race' %>

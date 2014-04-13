@@ -18,11 +18,12 @@ Feature: Show race
     And the "Kilpailun etusivu" sub menu item should be selected
     And the page title should contain "My test race"
     And the page title should contain "Test city, 01.01.2010 - 02.01.2010"
+    And I should see "Kilpailu alkaa: 10:00"
     And I should see "Men 50 years" within "tr#series_1"
     And I should see "01.01.2010 13:30" within "tr#series_1"
     And I should see "Sarjaan ei ole lisätty kilpailijoita" within "tr#series_1"
 
-  Scenario: Competitors but no start list
+  Scenario: Competitors but no start list, nor race start time
     Given there is a race with attributes:
       | name | My test race |
       | start_date | 2010-01-01 |
@@ -36,6 +37,7 @@ Feature: Show race
       | last_name | Johnson |
     When I go to the race page
     Then I should see "Sarjan lähtöluetteloa ei ole vielä julkaistu" within "tr#series_1"
+    But I should not see "Kilpailu alkaa"
 
   Scenario: Start list exists
     Given there is a race with attributes:
@@ -83,9 +85,10 @@ Feature: Show race
     When I go to the race page
     Then I should not see "Oikeat etäisyydet"
 
-  Scenario: Show correct estimates when race has finished
+  Scenario: Show correct estimates but no race start time when race has finished
     Given there is a race with attributes:
       | name | My test race |
+      | start_time | 09:30 |
     And the race has series with attributes:
       | name | Men 50 years |
       | start_time | 13:00 |
@@ -139,6 +142,7 @@ Feature: Show race
     And I should see "101-"
     And I should see "90"
     And I should see "99"
+    But I should not see "Kilpailu alkaa"
 
   Scenario: Show correct estimates also for walking series
     Given there is a race with attributes:
