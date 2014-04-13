@@ -49,12 +49,14 @@
             <% end %>
           </table>
         <% end %>
-        <h3><%= t '.start_lists_for_all_series_pdf' %></h3>
-        <%= form_tag(race_start_lists_path(@race, :format => :pdf), :method => :get) do %>
-          <%= select_tag :club_id,
-            options_from_collection_for_select(@race.clubs, :id, :name),
-            :prompt => "#{t :all} #{clubs_title(@race).downcase}" %>
-          <%= submit_tag t('.download_start_times') %>
+        <% unless @race.finished? or @race.competitors.empty? %>
+          <h3><%= t '.start_lists_for_all_series_pdf' %></h3>
+          <%= form_tag(race_start_lists_path(@race, :format => :pdf), :method => :get) do %>
+            <%= select_tag :club_id,
+              options_from_collection_for_select(@race.clubs, :id, :name),
+              :prompt => "#{t :all} #{clubs_title(@race).downcase}" %>
+            <%= submit_tag t('.download_start_times') %>
+          <% end %>
         <% end %>
       <% end %>
     </div>

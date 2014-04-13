@@ -22,6 +22,7 @@ Feature: Show race
     And I should see "Men 50 years" within "tr#series_1"
     And I should see "01.01.2010 13:30" within "tr#series_1"
     And I should see "Sarjaan ei ole lisätty kilpailijoita" within "tr#series_1"
+    But I should not see "Kaikkien sarjojen lähtöajat (PDF)"
 
   Scenario: Competitors but no start list, nor race start time
     Given there is a race with attributes:
@@ -37,6 +38,7 @@ Feature: Show race
       | last_name | Johnson |
     When I go to the race page
     Then I should see "Sarjan lähtöluetteloa ei ole vielä julkaistu" within "tr#series_1"
+    And I should see "Kaikkien sarjojen lähtöajat (PDF)"
     But I should not see "Kilpailu alkaa"
 
   Scenario: Start list exists
@@ -60,7 +62,7 @@ Feature: Show race
     Then I should be on the race page
     When I follow "Tulokset"
     Then I should be on the results page of the series
-    
+
   Scenario: Don't show start time column when competitor order is mixed between series
     Given there is a race with attributes:
       | name | My test race |
@@ -85,7 +87,7 @@ Feature: Show race
     When I go to the race page
     Then I should not see "Oikeat etäisyydet"
 
-  Scenario: Show correct estimates but no race start time when race has finished
+  Scenario: Show correct estimates but no race start time or all series start list PDF link when race has finished
     Given there is a race with attributes:
       | name | My test race |
       | start_time | 09:30 |
@@ -143,6 +145,7 @@ Feature: Show race
     And I should see "90"
     And I should see "99"
     But I should not see "Kilpailu alkaa"
+    But I should not see "Kaikkien sarjojen lähtöajat (PDF)"
 
   Scenario: Show correct estimates also for walking series
     Given there is a race with attributes:
