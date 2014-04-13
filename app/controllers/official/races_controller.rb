@@ -18,7 +18,7 @@ class Official::RacesController < Official::OfficialController
   end
 
   def create
-    @race = Race.new(params[:race])
+    @race = Race.new(create_race_params)
     if @race.save
       current_user.race_rights.create!(:race => @race)
       NewCompetitionMailer.new_race(@race, current_user).deliver
@@ -41,7 +41,7 @@ class Official::RacesController < Official::OfficialController
   end
 
   def update
-    if @race.update(params[:race])
+    if @race.update(update_race_params)
       redirect_to official_race_path(@race)
     else
       render :edit
@@ -64,5 +64,23 @@ class Official::RacesController < Official::OfficialController
       [t(:time_points_none), Series::TIME_POINTS_TYPE_NONE],
       [t(:time_points_300), Series::TIME_POINTS_TYPE_ALL_300]
     ]
+  end
+
+  def create_race_params
+    params.require(:race).permit(accepted_create_params)
+  end
+
+  def update_race_params
+    accepted = accepted_create_params
+    accepted << { series_attributes: [:id, :name, :national_record, :estimates, :time_points_type, :_destroy,
+                                      age_groups_attributes: [:id, :name, :min_competitors, :_destroy]] }
+    params.require(:race).permit(accepted)
+  end
+
+  def accepted_create_params
+    [ :sport_id, :name, :location, 'start_date(1i)', 'start_date(2i)', 'start_date(3i)',
+      'start_time(1i)', 'start_time(2i)', 'start_time(3i)', 'start_time(4i)', 'start_time(5i)',
+      :days_count, :club_level, :organizer, :home_page, :organizer_phone,
+      :start_interval_seconds, :start_order, :batch_size, :batch_interval_seconds ]
   end
 end

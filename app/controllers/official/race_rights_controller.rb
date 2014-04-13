@@ -12,7 +12,7 @@ class Official::RaceRightsController < Official::OfficialController
         flash[:error] = "Henkilö on jo tämän kilpailun toimitsija"
         render :index
       else
-        race_right = @race.race_rights.build(params[:race_right])
+        race_right = @race.race_rights.build(race_rights_params)
         race_right.user = user
         race_right.save!
         send_invitation_mail race_right
@@ -54,5 +54,9 @@ class Official::RaceRightsController < Official::OfficialController
       last_name} lisätty kilpailun #{@race.name} toimitsijaksi"
     message += " rajoitetuin oikeuksin" if race_right.only_add_competitors
     flash[:success] = message
+  end
+
+  def race_rights_params
+    params.require(:race_right).permit(:only_add_competitors, :club_id)
   end
 end

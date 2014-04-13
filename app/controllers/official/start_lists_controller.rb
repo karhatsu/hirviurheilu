@@ -21,7 +21,7 @@ class Official::StartListsController < Official::OfficialController
 
   def update
     @order_method = params[:order_method].to_i
-    if @series.update(params[:series]) and
+    if @series.update(series_params) and
         @series.generate_start_list(@order_method)
       flash[:success] = t('official.start_lists.update.start_list_create_for_series') + " #{@series.name}"
       redirect_to official_series_competitors_path(@series,
@@ -34,5 +34,9 @@ class Official::StartListsController < Official::OfficialController
   private
   def handle_time_parameters
     handle_time_parameter params[:series], "start_time"
+  end
+
+  def series_params
+    params.require(:series).permit(:start_time, :first_number, :start_day)
   end
 end

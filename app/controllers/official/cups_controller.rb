@@ -7,7 +7,7 @@ class Official::CupsController < Official::OfficialController
   end
   
   def create
-    @cup = current_user.cups.build(params[:cup])
+    @cup = current_user.cups.build(create_cup_params)
     if @cup.valid? and enough_races?
       @cup.save!
       @cup.create_default_cup_series
@@ -25,7 +25,7 @@ class Official::CupsController < Official::OfficialController
   end
   
   def update
-    @cup.attributes = params[:cup]
+    @cup.attributes = update_cup_params
     if @cup.valid? and enough_races?
       @cup.save!
       flash[:success] = 'Cup-kilpailu päivitetty'
@@ -44,5 +44,13 @@ class Official::CupsController < Official::OfficialController
   
   def flash_error_for_too_few_races
     flash[:error] = 'Sinun täytyy valita vähintään yhtä monta kilpailua kuin on yhteistulokseen laskettavien kilpailuiden määrä'
+  end
+
+  def create_cup_params
+    params.require(:cup).permit(:name, :top_competitions, race_ids: [])
+  end
+
+  def update_cup_params
+    params.require(:cup).permit(:name, :top_competitions, race_ids: [], cup_series_attributes: [:id, :name, :series_names, :_destroy])
   end
 end

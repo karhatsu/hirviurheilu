@@ -6,7 +6,7 @@ class Official::CorrectEstimatesController < Official::OfficialController
   end
 
   def update
-    if @race.update(params[:race])
+    if @race.update(correct_estimates_params)
       @race.set_correct_estimates_for_competitors
       redirect_to official_race_correct_estimates_path(@race)
     else
@@ -21,5 +21,9 @@ class Official::CorrectEstimatesController < Official::OfficialController
 
   def assign_competitors
     @competitors = @race.competitors.includes(:series).except(:order).order('number, id')
+  end
+
+  def correct_estimates_params
+    params.require(:race).permit(correct_estimates_attributes: [:id, :min_number, :max_number, :distance1, :distance2, :distance3, :distance4])
   end
 end

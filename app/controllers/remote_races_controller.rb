@@ -44,7 +44,7 @@ class RemoteRacesController < ApplicationController
   end
 
   def save_race_without_children
-    @race = Race.new(params[:race])
+    @race = Race.new(race_params)
     @race = Race.new(@race.attributes) # no children in @race
     unless @race.save
       redirect_to_error @race.errors.full_messages.join('. ') + '.'
@@ -54,7 +54,7 @@ class RemoteRacesController < ApplicationController
   end
 
   def include_children_to_saved_race
-    @race.attributes = params[:race]
+    @race.attributes = race_params
   end
 
   def save_clubs
@@ -110,5 +110,24 @@ class RemoteRacesController < ApplicationController
     path << "&server=#{CGI::escape(params[:server])}" if params[:server]
     path << "&email=#{CGI::escape(params[:email])}" if params[:email]
     redirect_to path
+  end
+
+  def race_params
+    params.require(:race).permit(:sport_id, :name, :location, :start_date, :end_date, :start_interval_seconds,
+      :finished, :home_page, :batch_size, :batch_interval_seconds, :club_level, :start_order, :video_source,
+      :video_description, :organizer, :organizer_phone, :start_time,
+      clubs_attributes: [:id, :name, :long_name],
+      correct_estimates_attributes: [:id, :min_number, :max_number, :distance1, :distance2, :distance3, :distance4],
+      series_attributes: [:id, :name, :start_time, :first_number, :has_start_list, :start_day, :estimates, :national_record, :time_points_type,
+        age_groups_attributes: [:id, :name, :min_competitors],
+        competitors_attributes: [:id, :first_name, :last_name, :number, :start_time, :arrival_time, :shots_total_input,
+                                 :estimate1, :estimate2, :estimate3, :estimate4, :correct_estimate1, :correct_estimate2, :correct_estimate3, :correct_estimate4,
+                                 :no_result_reason, :unofficial, :team_name, :club_name, :age_group_name,
+                                 shots_attributes: [:id, :value] ] ],
+      relays_attributes: [:id, :start_day, :start_time, :name, :legs_count, :finished,
+        relay_correct_estimates_attributes: [:id, :distance, :leg],
+        relay_teams_attributes: [:id, :name, :number, :no_result_reason,
+          relay_competitors_attributes: [:id, :first_name, :last_name, :leg, :start_time, :arrival_time, :misses, :estimate, :adjustment]]],
+      team_competitions_attributes: [:id, :name, :team_competitor_count, :use_team_name, :temp_series_names, :temp_age_groups_names])
   end
 end

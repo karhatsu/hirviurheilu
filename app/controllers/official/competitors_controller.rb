@@ -28,7 +28,7 @@ class Official::CompetitorsController < Official::OfficialController
   # official/races/:race_id/competitors (not series)
   def create
     assign_series(params[:competitor][:series_id])
-    @competitor = @series.competitors.build(params[:competitor])
+    @competitor = @series.competitors.build(add_competitor_params)
     club_ok = handle_club(@competitor)
     start_list_page = params[:start_list]
     if club_ok and @competitor.save
@@ -51,7 +51,7 @@ class Official::CompetitorsController < Official::OfficialController
   def update
     club_ok = handle_club(@competitor)
     change_series_id_to_series(params) # counter cache hack
-    if club_ok and handle_time_parameters and @competitor.update(params[:competitor])
+    if club_ok and handle_time_parameters and @competitor.update(update_competitor_params)
       js_template = params[:start_list] ? 'official/start_lists/update_success' :
         'official/competitors/update_success'
       respond_to do |format|
@@ -157,4 +157,17 @@ class Official::CompetitorsController < Official::OfficialController
     @is_competitors = true
   end
 
+  def add_competitor_params
+    params.require(:competitor).permit(:series_id, :age_group_id, :club_id, :first_name, :last_name, :unofficial,
+      :team_name, :number, :start_time)
+  end
+
+  def update_competitor_params
+    shots_attrs = [:id, :value]
+    10.times { |i| shots_attrs << { "new_#{i}_shots" => :value } }
+    params.require(:competitor).permit(:series_id, :age_group_id, :club_id, :first_name, :last_name, :unofficial,
+      :team_name, :number, :start_time, :arrival_time, :shots_total_input, :estimate1, :estimate2, :estimate3,
+      :estimate4, :no_result_reason, old_values: [:estimate1, :estimate2, :estimate3, :estimate4],
+      shots_attributes: shots_attrs)
+  end
 end

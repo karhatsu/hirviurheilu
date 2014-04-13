@@ -9,7 +9,7 @@ class Official::ClubsController < Official::OfficialController
   end
 
   def create
-    @club = @race.clubs.build(params[:club])
+    @club = @race.clubs.build(club_params)
     if @club.save
       respond_to do |format|
         format.html { redirect_to(official_race_clubs_path(@race) )}
@@ -25,7 +25,7 @@ class Official::ClubsController < Official::OfficialController
 
   def update
     @club = Club.find(params[:id])
-    @club.update(params[:club])
+    @club.update(club_params)
     if @club.save
       respond_to do |format|
         format.html { redirect_to(official_race_clubs_path(@race) )}
@@ -52,5 +52,9 @@ class Official::ClubsController < Official::OfficialController
   private
   def set_clubs
     @is_clubs = true
+  end
+
+  def club_params
+    params.require(:club).permit(:name, :long_name)
   end
 end

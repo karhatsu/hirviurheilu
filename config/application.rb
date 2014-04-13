@@ -50,8 +50,6 @@ module ElkSports
     config.i18n.available_locales = [:fi, :sv]
     config.i18n.default_locale = :fi
 
-    config.active_record.whitelist_attributes = false
-
     # JavaScript files you want as :defaults (application.js is always included).
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
 

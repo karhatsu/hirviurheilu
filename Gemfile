@@ -11,7 +11,6 @@ gem 'jquery-turbolinks'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier'
 gem 'activerecord-session_store'
-gem 'protected_attributes'
 
 group :development, :staging, :production do
   gem 'pg'

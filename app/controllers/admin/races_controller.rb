@@ -12,7 +12,7 @@ class Admin::RacesController < Admin::AdminController
   
   def update
     race = Race.find(params[:id])
-    race.update_attributes!(params[:race], :as => :admin)
+    race.update!(video_params)
     flash[:success] = 'Kilpailu tallennettu'
     redirect_to admin_races_path
   end
@@ -35,5 +35,9 @@ class Admin::RacesController < Admin::AdminController
   private
   def set_admin_races
     @is_admin_races = true
+  end
+
+  def video_params
+    params.require(:race).permit(:video_source, :video_description)
   end
 end

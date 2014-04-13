@@ -58,8 +58,6 @@ class Race < ActiveRecord::Base
 
   attr_accessor :email, :password # for publishing
   
-  attr_protected :video_source, :as => :default
-
   def add_default_series
     DefaultSeries.all.each do |ds|
       s = Series.new(:name => ds.name)

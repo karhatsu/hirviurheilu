@@ -27,4 +27,6 @@ ElkSports::Application.configure do
   config.assets.debug = true
 
   config.eager_load = false
+
+  config.action_controller.action_on_unpermitted_parameters = :raise
 end
