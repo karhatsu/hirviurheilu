@@ -754,13 +754,13 @@ describe Race do
       @race.series << @series
     end
 
-    it "should return nil when no competitors" do
-      @race.next_start_time.should be_nil
+    it "should return 00:00:00 when no competitors" do
+      @race.next_start_time.should == '00:00:00'
     end
 
-    it "should return nil when competitors without start times" do
+    it "should return 00:00:00 when competitors without start times" do
       @series.competitors << FactoryGirl.build(:competitor, :series => @series)
-      @race.next_start_time.should be_nil
+      @race.next_start_time.should == '00:00:00'
     end
 
     context "when competitors with start times" do
