@@ -83,7 +83,7 @@ Feature: Manage race
     And I fill in "New name for race" for "Kilpailun nimi"
     And I fill in "New race location" for "Paikkakunta"
     And I fill in "New name for series" for "Sarjan nimi"
-    And I press "Tallenna kilpailun ja sarjojen tiedot"
+    And I press the first "Tallenna kilpailun ja sarjojen tiedot" button
     Then I should be on the official race page of "New name for race"
     And the page title should contain "New name for race (New race location"
     And I should see "New name for series"
