@@ -14,7 +14,6 @@ Feature: Clubs
     Then I should be on the official clubs page for "Test race"
     And the official main menu item should be selected
     And the "Seurat" sub menu item should be selected
-    And I should see "Seurat" within "h2"
     And I should see "First club"
     And I should see "Another club"
     
