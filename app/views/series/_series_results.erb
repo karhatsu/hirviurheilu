@@ -4,7 +4,7 @@
     <th>&nbsp;</th>
     <th><%= t 'attributes.name' %></th>
     <th><%= t 'number_short' %></th>
-    <th><%= club_title(series.race) %></th>
+    <th id="table_club_title"><%= club_title(series.race) %></th>
     <% unless series.time_points_type == Series::TIME_POINTS_TYPE_NONE %>
       <th class="center">
         <%= link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_TIME),

@@ -1,5 +1,5 @@
 <% content_for :title, "#{@race.name} - #{clubs_title(@race)}" %>
-<h2><%= clubs_title(@race) %></h2>
+<h2 id="clubs_title"><%= clubs_title(@race) %></h2>
 <% club_word = (@race.club_level == Race::CLUB_LEVEL_PIIRI ? 'piirejä' : 'seuroja') %>
 <div class="info"><%= t '.info', :club_word => club_word %></div>
 <h2><%= t :add %> <%= club_title(@race).downcase %></h2>
