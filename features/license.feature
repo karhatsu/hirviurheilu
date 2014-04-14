@@ -11,7 +11,7 @@ Feature: License
     Then the "Offline" main menu item should be selected
     And the "Hanki aktivointitunnus" sub menu item should be selected
     And I should see "Hanki aktivointitunnus Offline-tuotetta varten" within "div.main_title"
-    And I should see "Tältä sivulta voit hankkia Offline-tuotteeseen aktivointitunnuksen, joka poistaa tuotteesta käyttörajoitukset. Jos käytät Hirviurheilu-palvelua pelkästään internetin välityksellä, sinun ei tarvitse hankkia aktivointitunnusta." in an info message
+    And I should see "Tältä sivulta voit hankkia Offline-tuotteeseen aktivointitunnuksen, joka poistaa tuotteesta käyttörajoitukset. Jos käytät Hirviurheilu-palvelua pelkästään internetin välityksellä, sinun ei tarvitse hankkia aktivointitunnusta."
     And I should see "TÄRKEÄÄ! Jos avaat aktivointitunnuksen, se tarkoittaa sitä, että Hirviurheilu-palvelulla on oikeus laskuttaa sinua Offline-tuotteesta riippumatta siitä, käytätkö sitä vai et." in an warning message
     When I fill in "license" for "Salasana"
     And I press "Näytä aktivointitunnus"
@@ -40,7 +40,7 @@ Feature: License
     And I am an admin
     And I have logged in
     When I follow "Admin"
-    And I follow "Käyttäjät"
+    And I choose "Käyttäjät" from sub menu
     Then I should see "CC81E12F02"
     
   Scenario: When user has already checked the activation key, just ask password
