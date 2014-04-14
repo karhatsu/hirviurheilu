@@ -39,3 +39,10 @@ end
 Given /^the relay team is deleted$/ do
   @relay.relay_teams.last.destroy
 end
+
+Then(/^there should be editable relay competitor "(.*?)" "(.*?)" with (\d+) misses and estimate (\d+)$/) do |first_name, last_name, misses, estimate|
+  expect(find('#relay_relay_teams_attributes_0_relay_competitors_attributes_0_first_name').value).to eq(first_name)
+  expect(find('#relay_relay_teams_attributes_0_relay_competitors_attributes_0_last_name').value).to eq(last_name)
+  expect(find('#relay_relay_teams_attributes_0_relay_competitors_attributes_0_misses').value).to eq(misses)
+  expect(find('#relay_relay_teams_attributes_0_relay_competitors_attributes_0_estimate').value).to eq(estimate)
+end
