@@ -60,7 +60,7 @@ Feature: Show race
     Then I should be on the start list page of the series
     When I follow "Takaisin sivulle My test race"
     Then I should be on the race page
-    When I follow "Tulokset"
+    When I choose "Tulokset" from sub menu
     Then I should be on the results page of the series
 
   Scenario: Don't show start time column when competitor order is mixed between series
