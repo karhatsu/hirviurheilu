@@ -1,3 +1,7 @@
+When(/^I choose "(.*?)" from main menu$/) do |menu_item|
+  find('.main_menu').click_link(menu_item)
+end
+
 When(/^I choose "(.*?)" from sub menu$/) do |menu_item|
   find('.second_level_menu').click_link(menu_item)
 end
