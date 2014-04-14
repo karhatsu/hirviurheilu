@@ -3,24 +3,28 @@
 <%= flash_error %>
 <%= flash_success %>
 <% unless @races.empty? %>
-  <div id="existing_races">
-    <h2><%= t('.choose_race') %></h2>
+  <div id="existing_races" class="official-page-column-left">
+    <h2><%= t('.competitions') %></h2>
     <% @races.each do |r| %>
       <%= link_to r.name, official_race_path(r) %> (<%= race_date_interval(r) %>,
       <%= r.location %>)<br/>
     <% end %>
-    <% unless @cups.empty? %><hr/><% end %>
-    <% @cups.each do |cup| %>
-      <%= link_to cup.name, official_cup_path(cup) %><br/>
-    <% end %>
   </div>
-  <h2 id="new_race"><%= t('.or') %></h2>
 <% else %>
   <%= highlight_info(t('.no_races_yet')) %>
 <% end %>
-<div class="action_box">
-  <%= link_to t('.add_new_race'), new_official_race_path %>
-</div>
-<div class="action_box">
-  <%= link_to t('.add_new_cup'), new_official_cup_path %>
+<div class="official-page-column-right">
+  <% unless @cups.empty? %>
+    <h2><%= t '.cup_competitions' %></h2>
+    <% @cups.each do |cup| %>
+      <%= link_to cup.name, official_cup_path(cup) %><br/>
+    <% end %>
+  <% end %>
+  <h2><%= t '.new_competition' %></h2>
+  <div class="action_box">
+    <%= link_to t('.add_new_race'), new_official_race_path %>
+  </div>
+  <div class="action_box">
+    <%= link_to t('.add_new_cup'), new_official_cup_path %>
+  </div>
 </div>

@@ -54,9 +54,8 @@ Feature: Official
     And I have a race "Test race"
     And I have logged in
     And I am on the official index page
-    Then I should see "Valitse kilpailu" within "#existing_races h2"
+    Then I should see "Kilpailut" within "#existing_races h2"
     And I should see "Test race" within "#existing_races"
-    And I should see "Tai" within "h2#new_race"
     And I should see "Lisää uusi kilpailu"
     And I should see "Lisää uusi cup-kilpailu"
 

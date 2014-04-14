@@ -5,8 +5,9 @@ sv:
     index:
       show:
         title: Funktionärs hemsida
-        choose_race: Välj tävling
-        or: Eller
+        competitions: Tävlingar
+        cup_competitions: Cup-tävlingar
+        new_competition: Ny tävling
         add_new_race: Öka en tävling
         add_new_cup: Öka en cup-tävling
         no_races_yet: Du har ännu inga tävlingar. Klicka länken nedenför för att öka en tävling.

@@ -5,8 +5,9 @@ fi:
     index:
       show:
         title: Toimitsijan etusivu
-        choose_race: Valitse kilpailu
-        or: Tai
+        competitions: Kilpailut
+        cup_competitions: Cup-kilpailut
+        new_competition: Uusi kilpailu
         add_new_race: Lisää uusi kilpailu
         add_new_cup: Lisää uusi cup-kilpailu
         no_races_yet: Sinulla ei ole vielä yhtään kilpailua. Aloita luomalla kilpailu alla olevasta linkistä.
