@@ -1,3 +1,7 @@
+When(/^I choose "(.*?)" from sub menu$/) do |menu_item|
+  find('.second_level_menu').click_link(menu_item)
+end
+
 Then /^the "([^"]*)" main menu item should be selected$/ do |title|
   steps %Q{
     Then I should see "#{title}" within "div.main_menu a.selected"

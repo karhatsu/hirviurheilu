@@ -30,7 +30,7 @@ Feature: Admin
     Given I am an admin
     And I have logged in
     And I am on the admin index page
-    When I follow "Käyttäjät"
+    When I choose "Käyttäjät" from sub menu
     Then the "Admin" main menu item should be selected
     And the "Käyttäjät" sub menu item should be selected
     And I should see "Käyttäjät" within "h2"
