@@ -8,7 +8,7 @@ Feature: Manage relays
     And I have a race "Relay race"
     And I have logged in
     And I am on the official race page of "Relay race"
-    When I follow "Viestit"
+    When I choose "Viestit" from sub menu
     Then the official main menu item should be selected
     And the "Viestit" sub menu item should be selected
     And I should be on the official relays page of "Relay race"
@@ -33,8 +33,6 @@ Feature: Manage relays
     And I should see "3"
     And the "relay_start_time_4i" field should contain "11"
     And the "relay_start_time_5i" field should contain "45"
-    And I should see /Oikeat etäisyydet/ within "h2"
-    And I should see /Joukkueet/ within "h2"
     When I follow "Takaisin viestien etusivulle"
     Then I should be on the official relays page of "Relay race"
     And I should see "Test relay"
@@ -48,7 +46,7 @@ Feature: Manage relays
     And I have logged in
     And I am on the official relays page of "Relay race"
     When I follow "Test relay"
-    Then I should see "Muokkaa viestin tietoja" within "h2"
+    Then I should see "Muokkaa viestin tietoja"
     But I should not see "Huom! Osuuksien määrää"
     When I fill in "" for "Viestin nimi"
     And I press "Tallenna"
