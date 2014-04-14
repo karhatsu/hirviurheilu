@@ -13,7 +13,7 @@ Feature: Add competitor
     And the series has an age group "M70"
     And I have logged in
     And I am on the official race page of "Test race"
-    When I follow "Lisää tämän sarjan ensimmäinen kilpailija"
+    When I follow the first "Lisää tämän sarjan ensimmäinen kilpailija" link
     Then the "Toimitsijan sivut" main menu item should be selected
     And the "Kilpailijat" sub menu item should be selected
     When I select "M60" from "Sarja"
@@ -37,7 +37,7 @@ Feature: Add competitor
     And the series has an age group "M70"
     And I have logged in
     And I am on the official race page of "Test race"
-    When I follow "Lisää tämän sarjan ensimmäinen kilpailija"
+    When I follow the first "Lisää tämän sarjan ensimmäinen kilpailija" link
     Then I should be on the official start list page of the race "Test race"
     And the "Toimitsijan sivut" main menu item should be selected
     And the "Lähtöajat" sub menu item should be selected
