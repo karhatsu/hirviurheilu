@@ -80,7 +80,7 @@ Feature: Results
       | arrival_time | 14:01:00 |
     And the race is finished
     And I am on the race page
-    When I follow "Tulokset"
+    When I choose "Tulokset" from sub menu
     Then I should be on the results page of the series
     And the page title should contain "My test race"
     And I should see "Men 50 years - Tulokset" within "h2"
@@ -147,7 +147,7 @@ Feature: Results
       | arrival_time | 14:01:00 |
     And the race is finished
     And I am on the race page
-    When I follow "Tulokset"
+    When I choose "Tulokset" from sub menu
     Then I should be on the results page of the series
     And the page title should contain "My test race"
     And I should see "Men 50 years - Tulokset" within "h2"
@@ -199,7 +199,7 @@ Feature: Results
       | estimate2 | 129 |
     And the race is finished
     And I am on the race page
-    When I follow "Tulokset"
+    When I choose "Tulokset" from sub menu
     Then I should be on the results page of the series
     And the page title should contain "My test race"
     And I should see "Men 50 years - Tulokset" within "h2"
@@ -216,13 +216,9 @@ Feature: Results
     Then I should be on the results page of the competitor
     And I should see "Sarjassa kaikki saavat 300 aikapistettä." in an info message
     And I should see "Pisteet" within "#points h3"
-    And I should see /510/ within "#points td"
-    And I should see /296/ within "#points td"
-    And I should see /300/ within "#points td"
-    And I should see /1106/ within "#points td"
+    And I should see individual competitor page points 510+296+300=1106
     And I should see "Hiihto" within "#time h3"
-    And I should see /13:00:00/ within "#time td"
-    And I should see /-/ within "#time td"
+    And I should see individual competitor page time result "13:00:00"-"-"="-"
 
   Scenario: See the results of an unfinished race
     Given there is a race with attributes:
@@ -255,7 +251,7 @@ Feature: Results
       | estimate1 | 110 |
       | estimate2 | 130 |
     And I am on the race page
-    When I follow "Tulokset"
+    When I choose "Tulokset" from sub menu
     Then I should be on the results page of the series
     And the page title should contain "My test race"
     And I should see "Men 50 years - Tilanne" within "h2"
@@ -310,23 +306,13 @@ Feature: Results
     And the page title should contain "My test race"
     And I should see "Men 50 years - Atkinsson Tim" within "h2"
     And I should see "Pisteet" within "#points h3"
-    And I should see /540/ within "#points td"
-    And I should see /296/ within "#points td"
-    And I should see /300/ within "#points td"
-    And I should see /1136/ within "#points td"
+    And I should see individual competitor page points 540+296+300=1136
     And I should see "Ammunta" within "#shooting h3"
     And I should see "90" within "#shooting"
     And I should see "Arviointi" within "#estimates h3"
-    And I should see /111/ within "#estimates td"
-    And I should see /129/ within "#estimates td"
-    And I should see /110/ within "#estimates td"
-    And I should see /130/ within "#estimates td"
-    And I should see /\+1/ within "#estimates td"
-    And I should see /-1/ within "#estimates td"
+    And I should see at individual competitor page estimates 111 and 129 with correct estimates 110 and 130 with distance error "+1" and "-1"
     And I should see "Juoksu" within "#time h3"
-    And I should see /13:00:00/ within "#time td"
-    And I should see /14:00:00/ within "#time td"
-    And I should see /1:00:00/ within "#time td"
+    And I should see individual competitor page time result "13:00:00"-"14:00:00"="1:00:00"
 
   Scenario: See the results of an individual competitor in a walking series
     Given there is a race with attributes:
@@ -367,29 +353,13 @@ Feature: Results
     And the page title should contain "My test race"
     And I should see "Men 50 years - Atkinsson Tim" within "h2"
     And I should see "Pisteet" within "#points h3"
-    And I should see /540/ within "#points td"
-    And I should see /588/ within "#points td"
-    But I should not see /300/ within "#points td"
-    And I should see /1128/ within "#points td"
+    And I should see individual competitor page points 540+588=1128 without time points
     And I should see "Ammunta" within "#shooting h3"
     And I should see "90" within "#shooting"
     And I should see "Arviointi" within "#estimates h3"
-    And I should see /111/ within "#estimates td"
-    And I should see /129/ within "#estimates td"
-    And I should see /82/ within "#estimates td"
-    And I should see /188/ within "#estimates td"
-    And I should see /110/ within "#estimates td"
-    And I should see /130/ within "#estimates td"
-    And I should see /80/ within "#estimates td"
-    And I should see /190/ within "#estimates td"
-    And I should see /\+1/ within "#estimates td"
-    And I should see /-1/ within "#estimates td"
-    And I should see /\+2/ within "#estimates td"
-    And I should see /-2/ within "#estimates td"
+    And I should see at individual competitor page estimates 111, 129, 82 and 188 with correct estimates 110, 130, 80 and 190 with distance error "+1", "-1", "+2" and "-2"
     And I should see "Juoksu" within "#time h3"
-    And I should see /13:00:00/ within "#time td"
-    And I should see /14:00:00/ within "#time td"
-    And I should see /1:00:00/ within "#time td"
+    And I should see individual competitor page time result "13:00:00"-"14:00:00"="1:00:00"
 
   Scenario: See the results of an individual competitor in an unfinished race
     Given there is a race with attributes:
@@ -422,24 +392,14 @@ Feature: Results
     And the page title should contain "My test race"
     And I should see "Men 50 years - Atkinsson Tim" within "h2"
     And I should see "Pisteet" within "#points h3"
-    And I should see /540/ within "#points td"
-    And I should see /296/ within "#points td"
-    And I should see /300/ within "#points td"
-    And I should see /1136/ within "#points td"
+    And I should see individual competitor page points 540+296+300=1136
     And I should see "Ammunta" within "#shooting h3"
     And I should see "90" within "#shooting"
     And I should see "Arviointi" within "#estimates h3"
-    And I should not see /111/ within "#estimates"
-    And I should not see /129/ within "#estimates"
-    And I should not see /110/ within "#estimates"
-    And I should not see /130/ within "#estimates"
-    And I should not see /\+1/ within "#estimates"
-    And I should not see /-1/ within "#estimates"
     And I should see "Tarkemmat arviointitiedot julkaistaan, kun kilpailu on päättynyt."
+    But I should not see 111, 129, 110, 130, "+1" or "-1" in individual competitor page estimates
     And I should see "Juoksu" within "#time h3"
-    And I should see /13:00:00/ within "#time td"
-    And I should see /14:00:00/ within "#time td"
-    And I should see /1:00:00/ within "#time td"
+    And I should see individual competitor page time result "13:00:00"-"14:00:00"="1:00:00"
 
   Scenario: See the results with national record reached mention of an individul competitor in an unfinished race
     Given there is a race with attributes:
@@ -554,7 +514,6 @@ Feature: Results
       | arrival_time | 14:05:00 |
     And I am on the results page of the series
     And I should see "1136 SE"
-    And I should see /974/ within "td"
     But I should not see "1136 SE sivuaa"
     But I should not see "1136 SE?"
     But I should not see "974 SE"
@@ -600,7 +559,7 @@ Feature: Results
       | arrival_time | 14:01:00 |
     And the race is finished
     And I am on the race page
-    When I follow "Tulokset"
+    When I choose "Tulokset" from sub menu
     Then I should be on the results page of the series
     And the page title should contain "My test race"
     And I should see "Men 50 years - Tulokset" within "h2"
