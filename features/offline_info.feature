@@ -28,7 +28,7 @@ Feature: Offline info
     And the "Offline" main menu item should be selected
     And the "Offline-asennus" sub menu item should be selected
     And I should see "Hirviurheilu Offline -tuotteen asennusohjeet" within "div.main_title"
-    And I should see /Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki./ within "div.info"
+    And I should see "Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki."
     But I should not see "Lataa asennustiedosto:"
     When I follow "kirjaudu sisään palveluun"
     And I fill in "test@test.com" for "Sähköposti"
@@ -70,6 +70,6 @@ Feature: Offline info
     And the "Offline" main menu item should be selected
     And the "Versiohistoria" sub menu item should be selected
     And I should see "Hirviurheilu Offline versiohistoria" within "div.main_title"
-    And I should see /1.1.1 - 1.3.2012/ within "h2"
+    And I should see "1.1.1 - 1.3.2012"
     When I follow "Offline-asennus-sivulta"
     Then I should be on the offline installation page

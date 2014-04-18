@@ -47,7 +47,6 @@ Feature: Relay results
     And I should see "Viestin lähtöaika" in an info message
     And I should see "Viestin alkuun on aikaa" in an info message
     And I should see "Ladies team"
-    And I should see "Smith Mary"
 
   Scenario: Relay results
     Given there is a race with attributes:
@@ -130,10 +129,10 @@ Feature: Relay results
       | estimate | 100 |
     Given I am on the home page
     When I follow "Relay race"
-    Then I should see /Viestit/ within "h2"
+    Then I should see "Viestit"
     And I should see "Men's relay"
     And I should see "12:00"
-    When I follow "Men's relay"
+    When I follow "Men's relay" within ".second_level_menu"
     Then I should be on the relay results page of "Men's relay"
     And the "Viestit" sub menu item should be selected
     And I should see "Men's relay - Tilanne" within "h2"
@@ -153,10 +152,9 @@ Feature: Relay results
     And I am on on the relay results page of "Men's relay"
     Then I should see "Men's relay - Tulokset"
     But I should not see "Kilpailu on kesken"
-    But I should see "Oikeat etäisyydet" within "h3"
+    But I should see "Oikeat etäisyydet"
     And I should see "Osuus 1: 105 m"
     And I should see "Osuus 2: 88 m"
-    And I should see "123m"
     When I follow "Osuus 2"
     Then the "Kilpailut" main menu item should be selected
     And the "Viestit" sub menu item should be selected
@@ -175,7 +173,7 @@ Feature: Relay results
     And I should see "35:12" within "tr#team_3"
     When I follow "Maali"
     Then I should be on the relay results page of "Men's relay"
-    When I follow "Women's relay"
+    When I follow "Women's relay" within ".second_level_menu"
     Then I should be on the relay results page of "Women's relay"
     When I follow "Takaisin sivulle Relay race"
     Then I should be on the race page of "Relay race"

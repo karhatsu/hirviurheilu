@@ -9,10 +9,9 @@ Feature: Info page
     Then I should be on the info page
     And the "Info" main menu item should be selected
     And the page title should contain "Tietoa Hirviurheilusta"
-    And I should see /Ota yhteyttä/ within "h2"
     And I should see /Palvelun tarjoaa/ within ".company_contact"
     And I should see /Karhatsu IT Consulting Oy/ within ".company_contact"
-    When I follow "Lähetä palautetta"
+    When I follow "Lähetä palautetta" within ".main_content"
     Then I should be on the send feedback page
 
   Scenario: Unauthenticated user goes to info page

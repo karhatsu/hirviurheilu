@@ -87,6 +87,7 @@ Feature: Official invitation
     And I press "Kirjaudu"
     Then I should be on the limited official competitors page for "Test race"
 
+  @javascript
   Scenario: Invite official with limited rights to certain club
     Given there is an official "Another" "Official" with email "another@official.com" and password "pword"
     And I am an official "Tim Thomas" with email "tim@official.com"
@@ -102,6 +103,7 @@ Feature: Official invitation
     Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi rajoitetuin oikeuksin" in a success message
     And current officials table row 2 should contain "Another Official" with limited rights to club "Club 2"
 
+  @javascript
   Scenario: If no clubs, official sees explicitly that club limitation cannot be used
     Given there is an official "Another" "Official" with email "another@official.com" and password "pword"
     And I am an official "Tim Thomas" with email "tim@official.com"

@@ -1,7 +1,7 @@
 <table cellspacing="0" border="1" style="margin-bottom: 5px;">
   <tr>
     <th><%= t 'activerecord.models.competitor.one' %></th>
-    <th><%= club_title(series.race) %></th>
+    <th id="table_club_title"><%= club_title(series.race) %></th>
     <th><%= t :number_short %></th>
     <th><%= t 'attributes.start_time' %></th>
     <% if result_column %>

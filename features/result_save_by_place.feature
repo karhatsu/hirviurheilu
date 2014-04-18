@@ -25,14 +25,14 @@ Feature: Save results by result place
     And I fill in "149" for "competitor_estimate2"
     And I press "Tallenna"
     Then I should see "Tallennettu"
-    When I follow "Ammunta"
+    When I choose "Ammunta" from sub menu
     Then the "Toimitsijan sivut" main menu item should be selected
     And the "Ammunta" sub menu item should be selected
     And I should see "Result race" within ".main_title"
     When I fill in "99" for "competitor_shots_total_input"
     And I press "Tallenna"
     Then I should see "Tallennettu"
-    When I follow "Ajat"
+    When I choose "Ajat" from sub menu
     Then the "Toimitsijan sivut" main menu item should be selected
     And the "Ajat" sub menu item should be selected
     And I should see "Result race" within ".main_title"

@@ -28,11 +28,9 @@ Feature: Cup results
     Then the "Kilpailut" main menu item should be selected
     And the "Cup-kilpailun etusivu" sub menu item should be selected
     And the page title should contain "Test cup"
-    And I should see /Osakilpailut/ within "h2"
     And I should see "Cup race 1"
     And I should see "Another cup race"
     But I should not see "Non-cup race"
-    And I should see /Cup-sarjat/ within "h2"
     And I should see "Men"
     And I should see "Women"
     But I should not see "Special series"

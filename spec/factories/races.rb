@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :race do
-    sport
+    sport { Sport.default_sport }
     name 'Championships'
     sequence(:location) { |n| "Tervo#{n}" }
     start_date '2010-08-14'

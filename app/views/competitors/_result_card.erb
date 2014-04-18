@@ -7,12 +7,12 @@
 <div id="points">
   <h3><%= t :points %></h3>
   <table>
-    <tr><td><%= t :shooting %></td><td align="right"><%= @competitor.shot_points %></td></tr>
-    <tr><td><%= t :estimating %></td><td align="right"><%= @competitor.estimate_points %></td></tr>
+    <tr><td><%= t :shooting %></td><td align="right" id="shooting_points"><%= @competitor.shot_points %></td></tr>
+    <tr><td><%= t :estimating %></td><td align="right" id="estimate_points"><%= @competitor.estimate_points %></td></tr>
     <% if @competitor.series.estimates == 2 %>
-      <tr><td><%= time_title @competitor.series.race %></td><td align="right"><%= @competitor.time_points %></td></tr>
+      <tr><td><%= time_title @competitor.series.race %></td><td align="right" id="time_points"><%= @competitor.time_points %></td></tr>
     <% end %>
-    <tr><td><%= t :total %></td><td align="right"><%= @competitor.points %></td></tr>
+    <tr><td><%= t :total %></td><td align="right" id="total_points"><%= @competitor.points %></td></tr>
   </table>
 </div>
 <div id="shooting">
@@ -25,29 +25,29 @@
     <table>
       <tr>
         <td><%= t :estimated_distances %></td>
-        <td><%= @competitor.estimate1 ? @competitor.estimate1 : "-" %></td>
-        <td><%= @competitor.estimate2 ? @competitor.estimate2 : "-" %></td>
+        <td id="estimate1"><%= @competitor.estimate1 ? @competitor.estimate1 : "-" %></td>
+        <td id="estimate2"><%= @competitor.estimate2 ? @competitor.estimate2 : "-" %></td>
         <% if @competitor.series.estimates == 4 %>
-          <td><%= @competitor.estimate3 ? @competitor.estimate3 : "-" %></td>
-          <td><%= @competitor.estimate4 ? @competitor.estimate4 : "-" %></td>
+          <td id="estimate3"><%= @competitor.estimate3 ? @competitor.estimate3 : "-" %></td>
+          <td id="estimate4"><%= @competitor.estimate4 ? @competitor.estimate4 : "-" %></td>
         <% end %>
       </tr>
       <tr>
         <td><%= t 'activerecord.models.correct_estimate', :count => 2 %></td>
-        <td><%= correct_estimate(@competitor, 1, '-') %></td>
-        <td><%= correct_estimate(@competitor, 2, '-') %></td>
+        <td id="correct_estimate1"><%= correct_estimate(@competitor, 1, '-') %></td>
+        <td id="correct_estimate2"><%= correct_estimate(@competitor, 2, '-') %></td>
         <% if @competitor.series.estimates == 4 %>
-          <td><%= correct_estimate(@competitor, 3, '-') %></td>
-          <td><%= correct_estimate(@competitor, 4, '-') %></td>
+          <td id="correct_estimate3"><%= correct_estimate(@competitor, 3, '-') %></td>
+          <td id="correct_estimate4"><%= correct_estimate(@competitor, 4, '-') %></td>
         <% end %>
       </tr>
       <tr>
         <td><%= t :estimation_errors %></td>
-        <td><%= print_estimate_diff(@competitor.estimate_diff1_m) %></td>
-        <td><%= print_estimate_diff(@competitor.estimate_diff2_m) %></td>
+        <td id="distance_error1"><%= print_estimate_diff(@competitor.estimate_diff1_m) %></td>
+        <td id="distance_error2"><%= print_estimate_diff(@competitor.estimate_diff2_m) %></td>
         <% if @competitor.series.estimates == 4 %>
-          <td><%= print_estimate_diff(@competitor.estimate_diff3_m) %></td>
-          <td><%= print_estimate_diff(@competitor.estimate_diff4_m) %></td>
+          <td id="distance_error3"><%= print_estimate_diff(@competitor.estimate_diff3_m) %></td>
+          <td id="distance_error4"><%= print_estimate_diff(@competitor.estimate_diff4_m) %></td>
         <% end %>
       </tr>
     </table>
@@ -60,15 +60,15 @@
   <table>
     <tr>
       <td><%= t 'attributes.start_time' %></td>
-      <td><%= time_print(@competitor.start_time, true, '-') %></td>
+      <td id="start_time"><%= time_print(@competitor.start_time, true, '-') %></td>
     </tr>
     <tr>
       <td><%= t 'attributes.arrival_time' %></td>
-      <td><%= time_print(@competitor.arrival_time, true, '-') %></td>
+      <td id="arrival_time"><%= time_print(@competitor.arrival_time, true, '-') %></td>
     </tr>
     <tr>
       <td><%= t :result_time %></td>
-      <td><%= time_from_seconds(@competitor.time_in_seconds) %></td>
+      <td id="total_time"><%= time_from_seconds(@competitor.time_in_seconds) %></td>
     </tr>
   </table>
 </div>

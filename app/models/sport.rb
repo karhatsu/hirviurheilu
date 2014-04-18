@@ -37,6 +37,11 @@ class Sport < ActiveRecord::Base
     end
   end
 
+  def self.ensure_default_sports_exist
+    Sport.create!(name: "Hirvenjuoksu", key: RUN) unless find_run
+    Sport.create!(name: "Hirvenhiihto", key: SKI) unless find_ski
+  end
+
   def self.create_ski
     create!(:name => "Hirvenhiihto", :key => "SKI")
   end

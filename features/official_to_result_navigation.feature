@@ -34,22 +34,22 @@ Feature: Navigation between official and result sections
     And the race has series "My series"
     And I have logged in
     And I am on the race page
-    When I follow "My race" within "div.menu"
+    When I choose "My race" from main menu
     Then I should be on the official race page of "My race"
     When I follow "Kilpailijat"
     Then I should be on the official competitors page of the series
-    When I follow "My race" within "div.menu"
+    When I choose "My race" from main menu
     Then I should be on the race page
     When I follow "Tulokset"
     Then I should be on the results page of the series
-    When I follow "My race" within "div.menu"
+    When I choose "My race" from main menu
     Then I should be on the official race page of "My race"
 
   Scenario: No quick navigation when not logged in
     Given I am an official
     And I have a race "My race"
     And I am on the race page
-    Then I should not see "My race" within "div.menu"
+    Then I should not see "My race" within "div.main_menu"
 
   Scenario: No quick navigation when not own race
     Given I am an official
@@ -57,7 +57,7 @@ Feature: Navigation between official and result sections
     And I have a race "My race"
     And there is a race "Another race"
     And I am on the race page
-    Then I should not see "Another race" within "div.menu"
+    Then I should not see "Another race" within "div.main_menu"
 
   Scenario: (Offline) user is instructed to add race when in the competitions page without competitions
     Given I use the software offline

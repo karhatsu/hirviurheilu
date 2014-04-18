@@ -3,6 +3,7 @@ Feature: Team competition results
   As a user
   I want to see the team competition results
 
+  @javascript
   Scenario: Show results
     Given there is a race with attributes:
       | name | My test race |
@@ -78,14 +79,16 @@ Feature: Team competition results
     And I should see "2." within "tr#team_2"
     And I should see "Shooting club" within "tr#team_2"
     And I should see "2206" within "tr#team_2"
-    And I should see a team 1 competitor row 1 with values:
+    When I follow "Sports club"
+    Then I should see a team 1 competitor row 1 with values:
       | name | Smith Peter |
       | series | Men 50 years |
       | points | 1142 |
       | shooting | 564 (94) |
       | estimates | 278 (-10m/+1m) |
       | time | 300 (1:00:00) |
-    And I should see a team 1 competitor row 2 with values:
+    When I follow "Shooting club"
+    Then I should see a team 1 competitor row 2 with values:
       | name | Atkinsson Tim |
       | series | Men 50 years |
       | points | 1140 |
@@ -93,6 +96,7 @@ Feature: Team competition results
       | estimates | 300 (0m/0m) |
       | time | 300 (1:00:00) |
 
+  @javascript
   Scenario: Show results when teams are formed based on team name
     Given there is a race with attributes:
       | name | My test race |
@@ -171,10 +175,12 @@ Feature: Team competition results
     And I should see "2." within "tr#team_2"
     And I should see "Team 2" within "tr#team_2"
     And I should see "2243" within "tr#team_2"
-    And I should see a team 1 competitor row 1 with values:
+    When I follow "Team 1"
+    Then I should see a team 1 competitor row 1 with values:
       | name | Atkinsson Tim |
       | points | 1140 |
-    And I should see a team 1 competitor row 2 with values:
+    When I follow "Team 2"
+    Then I should see a team 1 competitor row 2 with values:
       | name | Johnson James |
       | points | 1105 |
     

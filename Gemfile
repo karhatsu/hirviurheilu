@@ -26,13 +26,13 @@ group :production do
 end
 
 group :test do
-  gem 'capybara', '1.1.4'
+  gem 'capybara', '2.2.1'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'email_spec'
   gem "factory_girl_rails", :require => false
   gem 'launchy'
-  gem 'poltergeist', '1.0.3'
+  gem 'poltergeist', '1.5.0'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'sqlite3'
