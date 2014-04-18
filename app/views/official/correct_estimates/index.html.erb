@@ -18,7 +18,7 @@
   <div class="info"><%= t '.no_competitors_info' %></div>
 <% else %>
   <div class="info"><%= t '.start_list_required_info' %></div>
-  <table border="1" cellpadding="2" cellspacing="0">
+  <table border="1" cellpadding="2" cellspacing="0" id="competitor_correct_estimates">
     <tr>
       <th><%= t :number_short %></th>
       <th><%= t 'activerecord.models.competitor.one' %></th>

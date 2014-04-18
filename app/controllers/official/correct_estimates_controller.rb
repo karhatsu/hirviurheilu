@@ -24,6 +24,6 @@ class Official::CorrectEstimatesController < Official::OfficialController
   end
 
   def correct_estimates_params
-    params.require(:race).permit(correct_estimates_attributes: [:id, :min_number, :max_number, :distance1, :distance2, :distance3, :distance4])
+    params.require(:race).permit(correct_estimates_attributes: [:id, :min_number, :max_number, :distance1, :distance2, :distance3, :distance4, :_destroy])
   end
 end
