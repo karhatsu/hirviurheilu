@@ -155,7 +155,7 @@ GEM
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
     ruby-prof (0.14.2)
-    shoulda-matchers (2.5.0)
+    shoulda-matchers (2.6.0)
       activesupport (>= 3.0.0)
     spring (1.1.2)
     spring-commands-cucumber (1.0.1)

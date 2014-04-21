@@ -24,3 +24,8 @@ RSpec.configure do |config|
 end
 
 Sport.ensure_default_sports_exist
+
+include Shoulda::Matchers::ActiveRecord
+extend Shoulda::Matchers::ActiveRecord
+include Shoulda::Matchers::ActiveModel
+extend Shoulda::Matchers::ActiveModel
