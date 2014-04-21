@@ -46,5 +46,7 @@ group :development, :test do
   gem 'ruby-prof'
   gem 'mongrel', '~> 1.2.0.pre'
   gem 'therubyracer', '0.12.0'
-  gem 'zeus'
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'spring-commands-cucumber'
 end
