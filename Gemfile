@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 ruby '2.1.1'
 
-gem 'rails', '4.0.4'
+gem 'rails', '4.1.0'
 gem 'jquery-rails', '2.1.4'
 gem 'jquery-ui-rails', '3.0.0'
 gem 'authlogic', '3.4.0'
