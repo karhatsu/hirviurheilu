@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 ruby '2.1.1'
 
-gem 'rails', '4.0.4'
+gem 'rails', '4.1.0'
 gem 'jquery-rails', '2.1.4'
 gem 'jquery-ui-rails', '3.0.0'
 gem 'authlogic', '3.4.0'
@@ -26,6 +26,7 @@ group :production do
 end
 
 group :test do
+  gem 'minitest'
   gem 'capybara', '2.2.1'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
@@ -46,5 +47,7 @@ group :development, :test do
   gem 'ruby-prof'
   gem 'mongrel', '~> 1.2.0.pre'
   gem 'therubyracer', '0.12.0'
-  gem 'zeus'
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'spring-commands-cucumber'
 end
