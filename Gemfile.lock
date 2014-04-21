@@ -215,6 +215,7 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails (= 3.0.0)
   launchy
+  minitest
   mongrel (~> 1.2.0.pre)
   newrelic_rpm
   pg

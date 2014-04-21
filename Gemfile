@@ -26,6 +26,7 @@ group :production do
 end
 
 group :test do
+  gem 'minitest'
   gem 'capybara', '2.2.1'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
