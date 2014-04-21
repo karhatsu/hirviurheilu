@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class Official::RaceRightsController < Official::OfficialController
-  before_filter :assign_race_by_race_id, :check_assigned_race, :set_race_rights
+  before_action :assign_race_by_race_id, :check_assigned_race, :set_race_rights
 
   def index
   end

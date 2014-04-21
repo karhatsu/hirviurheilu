@@ -1,11 +1,11 @@
 class Official::CompetitorsController < Official::OfficialController
-  before_filter :assign_series_by_series_id, :check_assigned_series, :except => :create
-  before_filter :assign_race_by_race_id, :check_assigned_race, :only => :create
-  before_filter :assign_competitor_by_id, only: [ :edit, :update, :destroy ]
-  before_filter :check_offline_limit, :only => [:new, :create]
-  before_filter :handle_start_time, :only => :create
-  before_filter :clear_empty_shots, :only => :update
-  before_filter :set_competitors
+  before_action :assign_series_by_series_id, :check_assigned_series, :except => :create
+  before_action :assign_race_by_race_id, :check_assigned_race, :only => :create
+  before_action :assign_competitor_by_id, only: [ :edit, :update, :destroy ]
+  before_action :check_offline_limit, :only => [:new, :create]
+  before_action :handle_start_time, :only => :create
+  before_action :clear_empty_shots, :only => :update
+  before_action :set_competitors
 
   def index
     # for start list generation:

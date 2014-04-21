@@ -1,6 +1,6 @@
 class RacesController < ApplicationController
-  before_filter :set_races
-  before_filter :assign_race_by_id, :only => :show
+  before_action :set_races
+  before_action :assign_race_by_id, :only => :show
 
   def index
     @competitions = all_competitions_as_sorted

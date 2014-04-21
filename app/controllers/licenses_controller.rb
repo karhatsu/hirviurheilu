@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class LicensesController < ApplicationController
-  before_filter :check_offline
+  before_action :check_offline
 
   def new
   end

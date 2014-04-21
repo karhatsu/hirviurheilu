@@ -1,5 +1,5 @@
 class OfflineInfosController < ApplicationController
-  before_filter :set_offline_info
+  before_action :set_offline_info
 
   def comparison
     @is_offline_vs_online = true

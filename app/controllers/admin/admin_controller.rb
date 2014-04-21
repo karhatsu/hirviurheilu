@@ -1,5 +1,5 @@
 class Admin::AdminController < ApplicationController
-  before_filter :require_user, :check_rights, :set_admin
+  before_action :require_user, :check_rights, :set_admin
   layout 'admin'
 
   protected

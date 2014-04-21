@@ -1,9 +1,9 @@
 # encoding: UTF-8
 class Official::RelaysController < Official::OfficialController
-  before_filter :assign_race_by_race_id, :check_assigned_race, :set_relays
-  before_filter :assign_relay_by_id, :only => [:edit, :update, :destroy]
-  before_filter :handle_time_parameters, :only => [:create, :update]
-  before_filter :set_no_result_reason_options, :only => [:edit, :update]
+  before_action :assign_race_by_race_id, :check_assigned_race, :set_relays
+  before_action :assign_relay_by_id, :only => [:edit, :update, :destroy]
+  before_action :handle_time_parameters, :only => [:create, :update]
+  before_action :set_no_result_reason_options, :only => [:edit, :update]
 
   def index
   end

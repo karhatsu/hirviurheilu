@@ -1,5 +1,5 @@
 class ResultRotationsController < ApplicationController
-  before_filter :assign_race_by_race_id, :set_races
+  before_action :assign_race_by_race_id, :set_races
 
   def show
     @rotation = cookies[result_rotation_cookie_name]

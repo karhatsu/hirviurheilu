@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class ResetPasswordsController < ApplicationController
-  before_filter :require_no_user
+  before_action :require_no_user
 
   def new
   end

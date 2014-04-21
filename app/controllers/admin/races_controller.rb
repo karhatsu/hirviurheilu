@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class Admin::RacesController < Admin::AdminController
-  before_filter :set_admin_races
+  before_action :set_admin_races
   
   def index
     @races = Race.includes(:users).order('start_date desc')

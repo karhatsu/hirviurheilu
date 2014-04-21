@@ -1,5 +1,5 @@
 class Official::OfficialController < ApplicationController
-  before_filter :require_user, :check_rights, :set_official
+  before_action :require_user, :check_rights, :set_official
 
   protected
   def check_rights

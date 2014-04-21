@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class FeedbacksController < ApplicationController
-  before_filter :set_is_info, :set_is_feedback
-  before_filter :check_offline
+  before_action :set_is_info, :set_is_feedback
+  before_action :check_offline
 
   def index
   end

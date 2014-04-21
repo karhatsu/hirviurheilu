@@ -1,5 +1,5 @@
 class Official::SeriesController < Official::OfficialController
-  before_filter :assign_series_by_id, :check_assigned_series
+  before_action :assign_series_by_id, :check_assigned_series
 
   def destroy
     @series.destroy

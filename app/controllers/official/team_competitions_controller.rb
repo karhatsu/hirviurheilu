@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class Official::TeamCompetitionsController < Official::OfficialController
-  before_filter :assign_race_by_race_id, :check_assigned_race, :set_team_competitions
-  before_filter :assign_team_competition_by_id, :only => [:edit, :update, :destroy]
+  before_action :assign_race_by_race_id, :check_assigned_race, :set_team_competitions
+  before_action :assign_team_competition_by_id, :only => [:edit, :update, :destroy]
 
   def index
   end

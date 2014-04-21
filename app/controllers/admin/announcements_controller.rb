@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class Admin::AnnouncementsController < Admin::AdminController
-  before_filter :set_admin_announcements
+  before_action :set_admin_announcements
   
   def index
     @announcements = Announcement.all

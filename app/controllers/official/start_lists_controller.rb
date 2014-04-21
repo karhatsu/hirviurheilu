@@ -3,9 +3,9 @@ require 'database_helper.rb'
 
 class Official::StartListsController < Official::OfficialController
   include DatabaseHelper
-  before_filter :assign_race_by_race_id, :check_assigned_race, :only => :show
-  before_filter :assign_series_by_series_id, :check_assigned_series, :only => :update
-  before_filter :handle_time_parameters, :only => :update
+  before_action :assign_race_by_race_id, :check_assigned_race, :only => :show
+  before_action :assign_series_by_series_id, :check_assigned_series, :only => :update
+  before_action :handle_time_parameters, :only => :update
   
   def show
     @is_start_list = true

@@ -1,5 +1,5 @@
 class VideosController < ApplicationController
-  before_filter :assign_race_by_race_id
+  before_action :assign_race_by_race_id
   
   def show
     @is_races = true

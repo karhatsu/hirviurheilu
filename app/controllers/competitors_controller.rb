@@ -1,7 +1,7 @@
 class CompetitorsController < ApplicationController
-  before_filter :assign_series_by_series_id, :only => :index
-  before_filter :assign_competitor_by_id, :only => :show
-  before_filter :set_races, :set_results
+  before_action :assign_series_by_series_id, :only => :index
+  before_action :assign_competitor_by_id, :only => :show
+  before_action :set_races, :set_results
 
   def index
     respond_to do |format|

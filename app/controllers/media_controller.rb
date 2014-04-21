@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class MediaController < ApplicationController
-  before_filter :set_races, :assign_race_by_race_id, :set_media, :set_competitors_count
-  skip_before_filter :assign_race_by_race_id, :only => :show
+  before_action :set_races, :assign_race_by_race_id, :set_media, :set_competitors_count
+  skip_before_action :assign_race_by_race_id, :only => :show
 
   def new
   end

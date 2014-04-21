@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class Official::RacesController < Official::OfficialController
-  before_filter :assign_race_by_id, :check_assigned_race, :except => [:new, :create]
-  before_filter :create_time_points_type_options
+  before_action :assign_race_by_id, :check_assigned_race, :except => [:new, :create]
+  before_action :create_time_points_type_options
 
   def show
     @is_race = true

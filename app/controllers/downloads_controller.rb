@@ -1,5 +1,5 @@
 class DownloadsController < ApplicationController
-  before_filter :require_user, :check_staging
+  before_action :require_user, :check_staging
   
   def installer
     OfflineDownloadMailer.download(current_user).deliver

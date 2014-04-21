@@ -1,10 +1,10 @@
 # encoding: UTF-8
 class UsersController < ApplicationController
-  before_filter :no_account_changes_in_offline
-  before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => [:show, :edit, :update]
-  before_filter :set_account, :only => [:show, :edit, :update]
-  before_filter :set_start, :only => [:new]
+  before_action :no_account_changes_in_offline
+  before_action :require_no_user, :only => [:new, :create]
+  before_action :require_user, :only => [:show, :edit, :update]
+  before_action :set_account, :only => [:show, :edit, :update]
+  before_action :set_start, :only => [:new]
 
   def new
     @user = User.new

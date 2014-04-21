@@ -1,5 +1,5 @@
 class Official::ClubsController < Official::OfficialController
-  before_filter :assign_race_by_race_id, :check_assigned_race, :set_clubs
+  before_action :assign_race_by_race_id, :check_assigned_race, :set_clubs
 
   def index
     respond_to do |format|

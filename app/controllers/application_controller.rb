@@ -5,9 +5,9 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user, :official_rights,
     :online?, :offline?, :own_race?, :result_rotation_cookie_name, :result_rotation_scroll_cookie_name,
     :result_rotation_tc_cookie_name
-  before_filter :ensure_user_in_offline
-  before_filter :set_locale
-  before_filter :clear_old_data_from_staging
+  before_action :ensure_user_in_offline
+  before_action :set_locale
+  before_action :clear_old_data_from_staging
   
   private
   def set_locale

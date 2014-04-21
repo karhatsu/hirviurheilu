@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class Official::CsvImportsController < Official::OfficialController
-  before_filter :assign_race_by_race_id, :check_assigned_race
+  before_action :assign_race_by_race_id, :check_assigned_race
   
   def new
   end

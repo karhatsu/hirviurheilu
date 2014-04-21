@@ -1,8 +1,8 @@
 # encoding: UTF-8
 class Official::Limited::CompetitorsController < Official::OfficialController
-  before_filter :assign_race_by_race_id, :check_assigned_race_without_full_rights,
+  before_action :assign_race_by_race_id, :check_assigned_race_without_full_rights,
     :assign_race_right, :assign_current_competitors, :set_limited_official
-  before_filter :assign_competitor, :only => [:edit, :update, :destroy]
+  before_action :assign_competitor, :only => [:edit, :update, :destroy]
   
   def index
     redirect_to new_official_limited_race_competitor_path(@race)

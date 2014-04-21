@@ -1,5 +1,5 @@
 class Official::CorrectEstimatesController < Official::OfficialController
-  before_filter :assign_race_by_race_id, :check_assigned_race,
+  before_action :assign_race_by_race_id, :check_assigned_race,
     :set_correct_estimates, :assign_competitors
 
   def index

@@ -1,5 +1,5 @@
 class InfosController < ApplicationController
-  before_filter :set_is_info
+  before_action :set_is_info
   
   def show
     @is_info_main = true

@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class Official::FinishRelaysController < Official::OfficialController
-  before_filter :assign_relay_by_relay_id, :check_assigned_relay, :set_relays
+  before_action :assign_relay_by_relay_id, :check_assigned_relay, :set_relays
 
   def new
   end
