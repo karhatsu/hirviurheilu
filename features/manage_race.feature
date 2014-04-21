@@ -61,6 +61,28 @@ Feature: Manage race
     Then I should be on the race edit page of "Test race"
     But I should not see "Et ole vielä lisännyt kilpailuun yhtään sarjaa."
 
+  @javascript
+  Scenario: Create new race without default series and add series afterwards
+    Given I am an official
+    And I have logged in
+    And I am on the new race page
+    When I fill in the following:
+      | Kilpailun nimi | Test race |
+      | Paikkakunta | Test town |
+      | Lähtöaikojen väli | 30 |
+    And I choose "Pääsääntöisesti sarjoittain"
+    And I uncheck "Lisää oletussarjat automaattisesti"
+    And I press "Lisää kilpailu"
+    Then I should be on the race edit page of "Test race"
+    And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta napista." in an info message
+    When I press "Lisää uusi sarja tähän kilpailuun"
+    And I fill in "Test series" for "Sarjan nimi"
+    And I press "Lisää ikäryhmä"
+    And I fill in "Test age group" for "Nimi"
+    And I press the first "Tallenna kilpailun ja sarjojen tiedot" button
+    Then I should be on the official race page of "Test race"
+    And I should see "Test series"
+
   Scenario: Race has no series
     Given I am an official
     And I have a race "Test race"
