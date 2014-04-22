@@ -63,3 +63,7 @@ a:hover {
 .races_of_cup {
     margin: 0 0 0 10px;
 }
+
+tr.odd {
+    background-color: #DDEEB5;
+}
