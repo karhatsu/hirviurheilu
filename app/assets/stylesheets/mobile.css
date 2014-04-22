@@ -4,6 +4,14 @@ body {
     font-size: 12px;
 }
 
+h2 {
+    font-size: 15px;
+}
+
+th {
+    text-align: left;
+}
+
 a {
     color: olive;
     text-decoration: none;

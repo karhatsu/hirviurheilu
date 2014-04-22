@@ -1,0 +1,97 @@
+<%= content_for(:title, @race.name) %>
+<% unless @race.home_page.blank? and @race.organizer.blank? and @race.organizer_phone.blank? %>
+  <h2><%= t '.organizer_info' %></h2>
+  <div class="section">
+    <%= organizer_info_with_possible_link(@race) %>
+  </div>
+<% end %>
+<div class="race-page-column" style="margin-right: 40px;">
+  <h2><%= t '.single_competitor_competitions' %></h2>
+  <% if @race.start_time_defined? and not @race.finished? %>
+    <div class="section">
+      Kilpailu alkaa: <%= time_print @race.start_time %>
+    </div>
+  <% end %>
+  <div class="section">
+    <% if @race.series.empty? %>
+      <%= t '.no_series_for_race' %>
+    <% else %>
+      <% show_start_time = @race.start_order == Race::START_ORDER_BY_SERIES %>
+      <table>
+        <tr>
+          <th><%= t :series %></th>
+          <% if show_start_time %>
+            <th><%= t 'attributes.start_time' %></th>
+          <% end %>
+        </tr>
+        <% @race.series.each do |s| %>
+          <tr id="series_<%= s.id %>">
+            <td><%= link_to s.name, series_competitors_path(s) %></td>
+            <% if show_start_time %>
+              <td><% if s.start_time %><%= link_to series_start_time_print(s), series_start_list_path(s) %><% else %>-<% end %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+      <% if @race.finished? %>
+        <% estimates_at_most = @race.estimates_at_most %>
+        <h3><%= t '.correct_distances' %></h3>
+        <table>
+          <% @race.correct_estimates.each do |ce| %>
+            <tr>
+              <td class="center"><%= correct_estimate_range(ce) %>:</td>
+              <td class="center">
+                <%= ce.distance1 %> / <%= ce.distance2 %>
+                <% unless ce.distance3.blank? %>/ <%= ce.distance3 %><% end %>
+                <% unless ce.distance4.blank? %> / <%= ce.distance4 %><% end %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<div class="race-page-column">
+  <% if @race.has_team_competition? and @race.start_date <= Time.zone.today and
+      !@race.series.empty? %>
+    <h2><%= t 'activerecord.models.team_competition', :count => @race.team_competitions.count %></h2>
+    <div class="section">
+      <% if @race.team_competitions.count == 1 %>
+        <%= link_to t('activerecord.models.team_competition.one'), race_team_competition_path(@race,
+          @race.team_competitions.first) %>
+      <% else %>
+        <% @race.team_competitions.each do |tc| %>
+          <%= link_to tc.name, race_team_competition_path(@race, tc) %><br/>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <% unless @race.relays.empty? %>
+    <h2><%= t 'activerecord.models.relay', :count => @race.relays.count %></h2>
+    <div class="section">
+      <table>
+        <% @race.relays.each do |relay| %>
+          <tr>
+            <td><%= link_to relay.name, race_relay_path(@race, relay) %></td>
+            <td><%= relay_start_time_print relay if relay.start_time %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
+  <% if @race.start_date > Time.zone.today %>
+    <div class="info">
+      <%= t '.competition_begins' %>
+      <%= distance_of_time_in_words(Time.zone.today, @race.start_date, false) %>.</div>
+  <% end %>
+</div>
+<div style="clear: both;">
+  <% cup = @race.cups.first unless @race.cups.empty? %>
+  <% if cup %>
+    <h2><%= t 'activerecord.models.cup', :count => 1 %></h2>
+    <div class="section" style="margin-bottom: 30px;"><%= link_to t('.race_belongs_to_cup', :cup_name => cup.name), cup_path(cup) %></div>
+  <% end %>
+</div>
+<hr/>
+<%= link_to t(:back_to_home_page), root_path %>
