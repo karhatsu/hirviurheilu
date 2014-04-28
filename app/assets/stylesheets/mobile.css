@@ -39,6 +39,14 @@ a:hover {
     padding: 3%;
 }
 
+#footer {
+    text-align: center;
+}
+
+#footer a {
+    color: #fff;
+}
+
 .home_page_races {
     border: 1px solid #ccc;
     border-radius: 2px;
