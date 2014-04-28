@@ -37,6 +37,7 @@ group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'sqlite3'
+  gem 'fuubar'
 end
 
 # Bundle gems for the local environment. Make sure to
