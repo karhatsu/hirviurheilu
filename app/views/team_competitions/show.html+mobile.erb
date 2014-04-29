@@ -1,0 +1,48 @@
+<% content_for :title, "#{@race.name} - #{t('activerecord.models.team_competition', :count => 2)} - #{@tc.name}" %>
+<h2><%= yield :title %></h2>
+<% results = @tc.results %>
+<% if results.empty? %>
+  <div class="info"><%= t '.cannot_calculate_results' %></div>
+<% else %>
+  <a href="javascript:void(0)" id="show_all_competitors"><%= t :show_all_competitors %></a>
+  <a href="javascript:void(0)" id="hide_all_competitors"
+    style="display:none;"><%= t :hide_all_competitors %></a>
+  <div class="section">
+    <%= render :partial => 'results_table', :locals => { :results => results } %>
+  </div>
+<% end %>
+<hr/>
+<%= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@race) %>
+<%= javascript_tag do %>
+  function showAllCompetitors() {
+    $('.competitor_row').show();
+    window.location.hash = 'competitors'
+    $('#show_all_competitors').hide();
+    $('#hide_all_competitors').show();
+  }
+  function hideAllCompetitors() {
+    $('.competitor_row').hide();
+    window.location.hash = ''
+    $('#show_all_competitors').show();
+    $('#hide_all_competitors').hide();
+  }
+  $('.club_name_link').click(function() {
+    competitors = '.club_' + $(this).attr('id');
+    if($(competitors).is(':hidden')) {
+      $(competitors).show();
+    } else {
+      $(competitors).hide();
+    }
+  });
+  $('#show_all_competitors').click(function() {
+    showAllCompetitors();
+  });
+  $('#hide_all_competitors').click(function() {
+    hideAllCompetitors();
+  });
+  $(document).ready(function() {
+    if(window.location.hash == '#competitors') {
+      showAllCompetitors();
+    }
+  });
+<% end %>

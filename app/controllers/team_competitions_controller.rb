@@ -1,5 +1,5 @@
 class TeamCompetitionsController < ApplicationController
-  before_action :set_races, :assign_race_by_race_id, :assign_team_competition_by_id
+  before_action :set_races, :assign_race_by_race_id, :assign_team_competition_by_id, :set_variant
 
   def show
     @is_team_results = true
