@@ -25,7 +25,7 @@
     </tr>
     <tr id="details_<%= i %>" style="display: none;" <%= i % 2 == 0 ? raw(' class="odd"') : '' %>>
       <td colspan="5">
-        <% unless series.time_points_type == Series::TIME_POINTS_TYPE_NONE %><%= time_points(comp, true, params[:all_competitors]) %><% end %> |
+        <% unless series.time_points_type == Series::TIME_POINTS_TYPE_NONE %><%= time_points(comp, true, params[:all_competitors]) %> |<% end %>
         <%= series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp) %> |
         <%= shot_points(comp, true) %>
       </td>
