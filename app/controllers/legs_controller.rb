@@ -1,5 +1,5 @@
 class LegsController < ApplicationController
-  before_action :set_races, :assign_relay_by_relay_id
+  before_action :set_races, :assign_relay_by_relay_id, :set_variant
 
   def show
     @is_relays = true
