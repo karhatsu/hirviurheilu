@@ -1,0 +1,20 @@
+<% content_for(:title, "#{@series.race.name} - #{@series.name} - #{series_result_title(@series, params[:all_competitors])}") %>
+<h2><%= yield :title %></h2>
+<%= render :layout => 'series/series_status', :locals => { :series => @series } do %>
+  <%= render :partial => 'series/infos', :locals => { :series => @series } %>
+  <% if @series.has_unofficial_competitors? %>
+    <% if params[:all_competitors] %>
+      <div class="action_box"><%= link_to t('competitors.index.show_official_results'),
+        series_competitors_path(@series) %></div>
+    <% else %>
+      <div class="action_box"><%= link_to t('competitors.index.show_unofficial_results'),
+        series_competitors_path(@series, :all_competitors => true) %></div>
+    <% end %>
+  <% end %>
+  <div class="section">
+    <%= render :partial => 'series/series_results', :locals => { :series => @series } %>
+  </div>
+<% end %>
+<hr/>
+<%= link_to t(:start_list), series_start_list_path(@series) %><br/>
+<%= link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race) %>

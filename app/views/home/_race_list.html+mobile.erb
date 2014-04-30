@@ -1,0 +1,30 @@
+<% limit = defined?(max) ? max : 1.0/0.0 %>
+<% competitions.each_with_index do |competition, index| %>
+  <div class="race_link">
+    <% if competition.is_a?(Cup) %>
+      <%= link_to competition.name, cup_path(competition) %><br/>
+    <% else %>
+      <%= link_to competition.name, race_path(competition) %><br/>
+      <span class="race_info"><%= date_interval(competition.start_date, competition.end_date) %>,
+        <%= competition.location %></span><br/>
+    <% end %>
+    <% if competition.is_a?(Cup) %>
+      <div class="races_of_cup">
+        <% competition.races.each do |race| %>
+          <span class="cup_race">
+            <%= link_to race.name, race_path(race) %><br/>
+            <span class="race_info"><%= date_interval(race.start_date, race.end_date) %>,
+              <%= race.location %></span>
+          </span><br/>
+        <% end %>
+      </div>
+    <% end %>
+    <% if index + 1 == limit %>
+      <hr/>
+      <div class="all_races_link">
+        <%= link_to t('home.show.all_competitions'), races_path %>
+      </div>
+      <% break %>
+    <% end %>
+  </div>
+<% end %>

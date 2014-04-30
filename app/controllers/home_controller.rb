@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  before_action :set_variant
+
   def show
     @is_main_page = true
     all_cups = Cup.includes(:races)

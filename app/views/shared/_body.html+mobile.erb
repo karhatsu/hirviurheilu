@@ -1,0 +1,11 @@
+<body>
+  <div id="header">
+    Hirviurheilu
+  </div>
+  <div id="main_area">
+    <div id="main_content"><%= yield %></div>
+  </div>
+  <div id="footer">
+    <%= link_to 'Normaalinäkymä', root_path(variant: :normal), "data-no-turbolink" => true %>
+  </div>
+</body>

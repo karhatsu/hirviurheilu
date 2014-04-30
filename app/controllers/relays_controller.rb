@@ -1,5 +1,5 @@
 class RelaysController < ApplicationController
-  before_action :set_races, :assign_race_by_race_id, :assign_relay_by_id
+  before_action :set_races, :assign_race_by_race_id, :assign_relay_by_id, :set_variant
 
   def show
     @is_relays = true

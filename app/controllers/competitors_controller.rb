@@ -2,6 +2,7 @@ class CompetitorsController < ApplicationController
   before_action :assign_series_by_series_id, :only => :index
   before_action :assign_competitor_by_id, :only => :show
   before_action :set_races, :set_results
+  before_action :set_variant, only: :index
 
   def index
     respond_to do |format|

@@ -327,4 +327,19 @@ class ApplicationController < ActionController::Base
     sql = 'delete from user_sessions where updated_at < now()::date - 30'
     ActiveRecord::Base.connection.execute(sql)
   end
+
+  def set_variant
+    return if set_forced_variant
+    request.variant = :mobile if request.user_agent =~ /iPhone|Android/
+  end
+
+  def set_forced_variant
+    session[:request_variant] = :mobile if params[:variant] == 'mobile'
+    session[:request_variant] = :normal if params[:variant] == 'normal'
+    if session[:request_variant]
+      request.variant = :mobile if session[:request_variant] == :mobile
+      return true
+    end
+    false
+  end
 end

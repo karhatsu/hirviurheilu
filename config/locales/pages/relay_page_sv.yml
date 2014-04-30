@@ -11,6 +11,8 @@ sv:
       relay_starts: Stafetten börjar om
       estimate_penalties: Bedömningsfinar
       shooting_penalties: Skyttefinar
+      estimate_penalties_short: B
+      shooting_penalties_short: S
       finish: Mål
       legs_title: Mellantider
       
