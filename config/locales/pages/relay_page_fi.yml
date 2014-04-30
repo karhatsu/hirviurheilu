@@ -11,6 +11,8 @@ fi:
       relay_starts: Viestin alkuun on aikaa
       estimate_penalties: Arviosakot
       shooting_penalties: Ammuntasakot
+      estimate_penalties_short: AR
+      shooting_penalties_short: AM
       finish: Maali
       legs_title: Väliajat
       

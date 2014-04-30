@@ -1,0 +1,52 @@
+<div class="section">
+  <table>
+    <tr>
+      <th>&nbsp;</th>
+      <th><%= t :team %></th>
+      <th class="center"><%= time_title @race %></th>
+      <th><%= t 'relays.show.estimate_penalties_short' %></th>
+      <th><%= t 'relays.show.shooting_penalties_short' %></th>
+    </tr>
+    <% relay.results.each_with_index do |team, i| %>
+      <tr id="team_<%= i + 1 %>">
+        <td><b><%= i + 1 %>.</b></td>
+        <td class="team_name">
+          <a href="javascript:void(0)" class="team_name_link"
+             id="<%= team.id %>"><%= team.name %></a> (<%= team.number %>)
+        </td>
+        <td class="center team_points">
+          <% if team.no_result_reason %>
+            <%= no_result_reason_print(team.no_result_reason, 'relay_team') %>
+          <% else %>
+            <%= time_from_seconds(team.time_in_seconds) %>
+            <%= relay_time_adjustment(team.adjustment.to_i) %>
+          <% end %>
+        </td>
+        <td class="center"><%= team.estimate_penalties_sum %></td>
+        <td class="center"><%= team.shoot_penalties_sum %></td>
+        <td colspan="2">&nbsp;</td>
+      </tr>
+      <% unless params[:exclude_competitors] %>
+        <% team.relay_competitors.each do |comp| %>
+          <tr class="competitor_row team_<%= team.id %>" style="display: none;">
+            <td>&nbsp;</td>
+            <td><%= full_name(comp) %></td>
+            <td class="center">(<%= comp.leg %>)</td>
+            <td class="center">
+              <%= time_from_seconds(team.time_in_seconds(comp.leg)) %>
+              (<%= time_from_seconds comp.time_in_seconds %>)
+              <%= relay_time_adjustment(comp.adjustment.to_i) %>
+            </td>
+            <td class="center">
+              <%= comp.estimate_penalties %>
+              <% if relay.finished? and comp.estimate %>
+                (<%= comp.estimate %>m)
+              <% end %>
+            </td>
+            <td class="center"><%= comp.misses %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  </table>
+</div>
