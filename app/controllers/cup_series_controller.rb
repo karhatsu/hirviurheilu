@@ -1,4 +1,6 @@
 class CupSeriesController < ApplicationController
+  before_action :set_variant
+
   def show
     return unless assign_cup
     return unless assign_cup_series

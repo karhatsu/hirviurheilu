@@ -1,0 +1,9 @@
+<% content_for(:title, "#{@cup_series.cup.name} - #{long_cup_series_name(@cup_series)} - #{t :results}") %>
+<h2><%= yield :title %></h2>
+<div class="cup_results">
+  <div class="section">
+    <%= render :partial => 'cup_series_results' %>
+  </div>
+</div>
+<hr/>
+<%= link_to t(:back_to_cup_page), cup_path(@cup) %>
