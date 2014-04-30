@@ -5,7 +5,7 @@
     <%= organizer_info_with_possible_link(@race) %>
   </div>
 <% end %>
-<div class="race-page-column" style="margin-right: 40px;">
+<div class="race-page-column">
   <h2><%= t '.single_competitor_competitions' %></h2>
   <% if @race.start_time_defined? and not @race.finished? %>
     <div class="section">

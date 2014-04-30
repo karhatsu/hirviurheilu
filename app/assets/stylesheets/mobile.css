@@ -47,6 +47,13 @@ a:hover {
     color: #fff;
 }
 
+.section {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    padding: 5px;
+}
+
 .home_page_races {
     border: 1px solid #ccc;
     border-radius: 2px;
