@@ -2,6 +2,10 @@ Given /^there is a race "([^"]*)"$/ do |name|
   @race = FactoryGirl.create(:race, :name => name)
 end
 
+Given(/^there is a race "(.*?)" that starts in 7 days$/) do |name|
+  @race = FactoryGirl.create(:race, name: name, start_date: 7.days.from_now)
+end
+
 Given /^there is a race with attributes:$/ do |fields|
   hash = fields.rows_hash
   if hash[:sport] == 'SKI'

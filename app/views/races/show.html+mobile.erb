@@ -83,7 +83,7 @@
   <% if @race.start_date > Time.zone.today %>
     <div class="info">
       <%= t '.competition_begins' %>
-      <%= distance_of_time_in_words(Time.zone.today, @race.start_date, false) %>.</div>
+      <%= distance_of_time_in_words(Time.zone.today, @race.start_date) %>.</div>
   <% end %>
 </div>
 <div style="clear: both;">

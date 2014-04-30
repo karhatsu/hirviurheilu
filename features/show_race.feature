@@ -41,6 +41,11 @@ Feature: Show race
     And I should see "Kaikkien sarjojen lähtöajat (PDF)"
     But I should not see "Kilpailu alkaa"
 
+  Scenario: Race starts in 7 days
+    Given there is a race "Future race" that starts in 7 days
+    And I go to the race page of "Future race"
+    Then I should see "Kilpailun alkuun on aikaa 7 päivää"
+
   Scenario: Start list exists
     Given there is a race with attributes:
       | name | My test race |
