@@ -690,39 +690,46 @@ describe ApplicationHelper do
         helper.stub(:result_rotation_tc_cookie).and_return(true)
       end
 
-      it "should return an empty list when offline" do
-        Mode.stub(:offline?).and_return(true)
-        Mode.stub(:online?).and_return(false)
-        helper.result_rotation_list(@race).should be_empty
+      context "when offline" do
+        it "should return an empty list when offline" do
+          Mode.stub(:offline?).and_return(true)
+          helper.result_rotation_list(@race).should be_empty
+        end
       end
 
-      it "should return all paths when all available" do
-        list = helper.result_rotation_list(@race)
-        list.size.should == 6
-        list[0].should == 'series1'
-        list[1].should == 'series2'
-        list[2].should == 'tc1'
-        list[3].should == 'tc2'
-        list[4].should == 'relay1'
-        list[5].should == 'relay2'
-      end
+      context "when online" do
+        before do
+          Mode.stub(:offline?).and_return(false)
+        end
 
-      it "should not return either team competition paths if no series" do
-        helper.should_receive(:result_rotation_series_list).with(@race).and_return([])
-        list = helper.result_rotation_list(@race)
-        list.size.should == 2
-        list[0].should == 'relay1'
-        list[1].should == 'relay2'
-      end
-      
-      it "should not return team competition paths unless cookie for that" do
-        helper.stub(:result_rotation_tc_cookie).and_return(false)
-        list = helper.result_rotation_list(@race)
-        list.size.should == 4
-        list[0].should == 'series1'
-        list[1].should == 'series2'
-        list[2].should == 'relay1'
-        list[3].should == 'relay2'
+        it "should return all paths when all available" do
+          list = helper.result_rotation_list(@race)
+          list.size.should == 6
+          list[0].should == 'series1'
+          list[1].should == 'series2'
+          list[2].should == 'tc1'
+          list[3].should == 'tc2'
+          list[4].should == 'relay1'
+          list[5].should == 'relay2'
+        end
+
+        it "should not return series paths nor team competition paths if no series" do
+          helper.should_receive(:result_rotation_series_list).with(@race).and_return([])
+          list = helper.result_rotation_list(@race)
+          list.size.should == 2
+          list[0].should == 'relay1'
+          list[1].should == 'relay2'
+        end
+
+        it "should not return team competition paths unless cookie for that" do
+          helper.stub(:result_rotation_tc_cookie).and_return(false)
+          list = helper.result_rotation_list(@race)
+          list.size.should == 4
+          list[0].should == 'series1'
+          list[1].should == 'series2'
+          list[2].should == 'relay1'
+          list[3].should == 'relay2'
+        end
       end
     end
 
