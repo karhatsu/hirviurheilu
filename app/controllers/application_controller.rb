@@ -130,6 +130,7 @@ class ApplicationController < ActionController::Base
     begin
       @cup = Cup.find(id)
     rescue ActiveRecord::RecordNotFound
+      set_variant
       @id = id
       render 'errors/cup_not_found'
     end
@@ -147,6 +148,7 @@ class ApplicationController < ActionController::Base
     begin
       @race = Race.find(id)
     rescue ActiveRecord::RecordNotFound
+      set_variant
       @id = id
       render 'errors/race_not_found'
     end
@@ -164,6 +166,7 @@ class ApplicationController < ActionController::Base
     begin
       @series = Series.find(id)
     rescue ActiveRecord::RecordNotFound
+      set_variant
       @id = id
       render 'errors/series_not_found'
     end
@@ -177,6 +180,7 @@ class ApplicationController < ActionController::Base
     begin
       @competitor = Competitor.find(id)
     rescue ActiveRecord::RecordNotFound
+      set_variant
       @id = id
       render 'errors/competitor_not_found'
     end
@@ -194,6 +198,7 @@ class ApplicationController < ActionController::Base
     begin
       @relay = Relay.find(id)
     rescue ActiveRecord::RecordNotFound
+      set_variant
       @id = id
       render 'errors/relay_not_found'
     end
@@ -211,6 +216,7 @@ class ApplicationController < ActionController::Base
     begin
       @tc = TeamCompetition.find(id)
     rescue ActiveRecord::RecordNotFound
+      set_variant
       @id = id
       render 'errors/team_competition_not_found'
     end
