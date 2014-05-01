@@ -177,6 +177,7 @@ Feature: Results
       | start_date | 2010-07-15 |
       | location | Test city |
       | start_interval_seconds | 60 |
+      | sport | SKI |
     And the race has series with attributes:
       | name | Men 50 years |
       | start_time | 13:00 |
