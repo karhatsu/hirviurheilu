@@ -3,4 +3,5 @@
 <% if Rails.env.development? %>
   <br/><%= render :partial => "shared/change_mode" %>
 <% end %>
+<br/>
 <%= link_to 'Mobiilinäkymä', root_path(variant: :mobile), "data-no-turbolink" => true %>
