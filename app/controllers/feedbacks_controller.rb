@@ -2,6 +2,7 @@
 class FeedbacksController < ApplicationController
   before_action :set_is_info, :set_is_feedback
   before_action :check_offline
+  before_action :set_variant
 
   def index
   end

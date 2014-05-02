@@ -55,3 +55,25 @@ Feature: Mobile usage
       | number | 1. |
       | club | Mobile club |
       | points | 1106 |
+
+  Scenario: Send feedback in mobile view
+    Given I am on the home page
+    And I follow "Mobiilinäkymä"
+    When I follow "Lähetä palautetta"
+    Then I should be on the send feedback page
+    When I fill in the following:
+      | Palaute    | Hyvä järjestelmä! |
+      | Nimi       | Pekka Miettinen   |
+      | Sähköposti | pekka@palaute.com |
+      | Puhelin    | 123 456           |
+    When I press "Lähetä"
+    Then I should see "Kiitos palautteesta"
+    And the admin should receive an email
+    When I open the email
+    Then I should see the email delivered from "pekka@palaute.com"
+    And I should see "Hirviurheilu - palaute" in the email subject
+    And I should see "Hyvä järjestelmä!" in the email body
+    And I should see "Nimi: Pekka Miettinen" in the email body
+    And I should see "Sähköposti: pekka@palaute.com" in the email body
+    And I should see "Puhelin: 123 456" in the email body
+    And I should see "Ympäristö: test" in the email body
