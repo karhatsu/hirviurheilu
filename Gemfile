@@ -25,6 +25,11 @@ group :production do
   gem 'newrelic_rpm'
 end
 
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
+
 group :test do
   gem 'minitest'
   gem 'capybara', '2.2.1'
