@@ -102,3 +102,31 @@ Feature: Manage competitors
     When I go to the results page of the series
     And I follow "Johnson James"
     Then I should see "10,10,10,10,9,9,9,8,7,5"
+
+  @javascript
+  Scenario: Update competitor in start list page
+    Given I am an official
+    And I have a race with attributes:
+      | name | Test race |
+      | start_order | 2 |
+    And the race has series "M60"
+    And the series has an age group "M65"
+    And the series has an age group "M70"
+    And the race has series "M"
+    And the series has a competitor with attributes:
+      | first_name | Tom      |
+      | last_name  | Johnson  |
+      | number     | 12       |
+      | start_time | 00:00:30 |
+    And I have logged in
+    And I am on the official race page of "Test race"
+    When I choose "Lähtöajat" from sub menu
+    And I update the first competitor values to "M60"/"M70", "Tim", "Smith", "New club", "00:10:30", 567 in start list page
+    And I press "Tallenna"
+    Then I should see "Tallennettu"
+    When I go to the official competitors page of series "M60"
+    Then I should see "Smith Tim"
+    And I should see "M60"
+    And I should see "(M70)"
+    And I should see "00:10:30"
+    And I should see "567"

@@ -87,6 +87,19 @@ Given /^someone else saves estimates (\d+) and (\d+) for the competitor$/ do |es
   @competitor.save!
 end
 
+When(/^I update the first competitor values to "(.*?)"\/"(.*?)", "(.*?)", "(.*?)", "(.*?)", "(.*?)", (\d+) in start list page$/) do |series_name,
+    age_group_name, first_name, last_name, club_name, start_time, number|
+  within(:xpath, "//div[@class='competitor_row'][2]") do
+    select series_name, from: 'competitor_series_id'
+    select age_group_name, from: 'competitor[age_group_id]'
+    fill_in 'competitor_first_name', with: first_name
+    fill_in 'competitor_last_name', with: last_name
+    fill_in 'competitor_start_time', with: start_time
+    fill_in 'competitor_number', with: number
+    fill_in 'club_name', with: club_name
+  end
+end
+
 Then /^"(.*?)" should be saved as new competitor$/ do |name|
   page.should have_content(name)
 end
