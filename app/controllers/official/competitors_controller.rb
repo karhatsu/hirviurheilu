@@ -123,8 +123,9 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   def handle_club(competitor)
-    competitor.club_id = params[:club_id] if params[:club_id] and params[:club_id].to_i != 0
-    if competitor.club_id.nil? and !params[:club_name].blank?
+    club_id_given = (params[:club_id] and params[:club_id].to_i != 0)
+    competitor.club_id = params[:club_id] if club_id_given
+    unless club_id_given or params[:club_name].blank?
       new_name = params[:club_name]
       existing_club = competitor.series.race.clubs.find_by_name(new_name)
       if existing_club
