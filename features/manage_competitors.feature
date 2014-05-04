@@ -19,29 +19,30 @@ Feature: Manage competitors
 
   Scenario: Edit competitor before and after start list is created
     Given I am an official
-    And I have a race with attributes:
-      | name | Test race |
-      | start_date | 2010-11-23 |
-    And the race has series with attributes:
-      | name | Test series |
-      | first_number | 10 |
-      | start_time | 11:00 |
-    And the series has a competitor with attributes:
-      | first_name | James |
-      | last_name | Johnson |
+    And I have a race "Test race"
+    And the race has a series "Series A" with first number 10 and start time "00:00:00"
+    And the series has a competitor "Mary" "Smith"
+    And the start list has been generated for the series
+    And the race has series "Series B"
+    And the race has series "Series C"
+    And the race has series "Series D"
+    And the series has a competitor "James" "Johnson"
     And I have logged in
     When I go to the official competitors page of the series
     And I follow "Johnson James"
     Then I should not see "Saapumisaika"
     And I should not see "Ammunta yhteensä"
     And I should not see "Arvio 1"
+    And the series menu should contain options "Series B,Series C,Series D"
+    And "Series D" should be selected in the series menu
     When I fill in "Peter" for "Etunimi"
     And I fill in "Ford" for "Sukunimi"
+    And I select "Series B" from "Sarja"
     And I fill in "Testiseura" for "club_name"
     And I press "Tallenna"
-    Then I should be on the official competitors page of the series
-    And I should see "Ford Peter" within "tr#competitor_1"
-    When the start list has been generated for the series
+    Then I should be on the official competitors page of series "Series B"
+    And I should see "Ford Peter"
+    When I press "Luo lähtölista sarjalle"
     And I follow "Ford Peter"
     Then I should see "Saapumisaika"
     And I should see "Ammunta yhteensä"
@@ -51,8 +52,8 @@ Feature: Manage competitors
     And I fill in "120" for "Arvio 1"
     And I fill in "100" for "Arvio 2"
     And I press "Tallenna"
-    Then I should be on the official competitors page of the series
-    And I should see "" within "tr#competitor_1 img"
+    Then I should be on the official competitors page of series "Series B"
+    And I should see "" within "tr img"
     
   Scenario: Updating competitor without shots, adding shots, updating shots
     Given I am an official

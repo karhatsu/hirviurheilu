@@ -12,4 +12,13 @@ module DatabaseHelper
   def self.true_value
     postgres? ? true : "'t'"
   end
+
+  def self.false_value
+    postgres? ? false : "'f'"
+  end
+
+  def self.boolean_value(b)
+    return true_value if b
+    false_value
+  end
 end

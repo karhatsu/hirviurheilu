@@ -23,6 +23,7 @@ class Official::CompetitorsController < Official::OfficialController
       @competitor.number = next_number
       @competitor.start_time = next_start_time
     end
+    @series_menu_options = @series.race.series
   end
 
   # official/races/:race_id/competitors (not series)
@@ -46,6 +47,8 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   def edit
+    start_list_condition = "series.has_start_list = #{DatabaseHelper.boolean_value(@series.has_start_list)}"
+    @series_menu_options = @series.race.series.where(start_list_condition)
   end
 
   def update
