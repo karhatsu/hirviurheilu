@@ -23,6 +23,7 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
 end
 
+Role.ensure_default_roles_exist
 Sport.ensure_default_sports_exist
 
 include Shoulda::Matchers::ActiveRecord
