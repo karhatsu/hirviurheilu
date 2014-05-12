@@ -1,11 +1,4 @@
 <table>
-  <tr>
-    <th>&nbsp;</th>
-    <th><%= t 'attributes.name' %></th>
-    <th><%= t 'number_short' %></th>
-    <th id="table_club_title"><%= club_title(series.race) %></th>
-    <th><%= t(:points) %></th>
-  </tr>
   <% prev_rel_points = 1.0/0.0 %>
   <% series.ordered_competitors(params[:all_competitors], params[:sort].to_i).each_with_index do |comp, i| %>
     <tr id="comp_<%= i+1 %>"<%= i % 2 == 0 ? raw(' class="odd"') : '' %>>
@@ -17,7 +10,6 @@
         <%= raw("<span class='unofficial' title='#{t(:unofficial)}'>" +
             "#{t(:unofficial_short)}</span>") if comp.unofficial? %>
       </td>
-      <td><%= comp.number ? comp.number : '' %></td>
       <td><%= comp.club.name %></td>
       <td class="center"><%= points_print(comp, params[:all_competitors]) %>
         <%= national_record(comp) if comp.points.to_i >= @max_points.to_i %>
