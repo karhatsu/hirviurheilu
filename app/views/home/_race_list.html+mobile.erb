@@ -20,11 +20,10 @@
         <% end %>
       </div>
     <% end %>
-    <% if index + 1 == limit %>
-      <hr/>
-      <div class="all_races_link">
-        <%= link_to t('home.show.all_competitions'), races_path %>
-      </div>
-    <% end %>
   </div>
+  <% if index + 1 == limit %>
+    <div class="race_link all_races_link">
+      <%= link_to t('home.show.all_competitions'), races_path %>
+    </div>
+  <% end %>
 <% end %>
