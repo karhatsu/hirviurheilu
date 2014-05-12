@@ -53,10 +53,10 @@ Feature: Main page
     Then I should see "Finished cup" within "div.old_races"
     And I should see "Finished race 1" within "div.old_races"
     And I should see "Another finished race" within "div.old_races"
+    And I should see "Already finished race" within "div.old_races"
     And I should see "Upcoming race 1" within "div.future_races"
     And I should see "Another upcoming race" within "div.future_races"
     And I should see "Race not yet started" within "div.future_races"
-    But I should not see "Already finished race" within "div.old_races"
 
   Scenario: No races
     Given I go to the home page
