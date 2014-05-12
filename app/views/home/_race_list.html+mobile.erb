@@ -1,5 +1,6 @@
 <% limit = defined?(max) ? max : 1.0/0.0 %>
 <% competitions.each_with_index do |competition, index| %>
+  <% break if index == limit %>
   <div class="race_link">
     <% if competition.is_a?(Cup) %>
       <%= link_to competition.name, cup_path(competition) %><br/>
@@ -24,7 +25,6 @@
       <div class="all_races_link">
         <%= link_to t('home.show.all_competitions'), races_path %>
       </div>
-      <% break %>
     <% end %>
   </div>
 <% end %>

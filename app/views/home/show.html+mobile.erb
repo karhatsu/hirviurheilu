@@ -1,12 +1,12 @@
 <% unless @ongoing.empty? %>
-  <div class="home_page_races ongoing_races">
+  <div class="home_page_box ongoing_races">
     <div class="box_sub_title"><%= t '.competitions_today' %></div>
     <%= render :partial => "race_list", :locals => { :competitions => @ongoing } %>
   </div>
   <hr/>
 <% end %>
 
-<div class="home_page_races future_races">
+<div class="home_page_box future_races">
   <div class="box_sub_title"><%= t '.upcoming_competitions' %></div>
   <% unless @future.empty? %>
     <%= render :partial => "race_list", :locals => { :competitions => @future } %>
@@ -16,8 +16,20 @@
 </div>
 
 <% unless @past.empty? %>
-  <div class="home_page_races old_races">
+  <div class="home_page_box old_races">
     <div class="box_sub_title"><%= t '.latest_ended_competitions' %></div>
     <%= render :partial => "race_list", :locals => { :competitions => @past, :max => 10 } %>
+  </div>
+<% end %>
+
+<% unless @announcements.empty? %>
+  <div class="home_page_box announcements">
+    <div class="box_sub_title"><%= t '.announcements' %></div>
+    <% @announcements.each do |ann| %>
+      <div class="announcement_link">
+        <%= date_print ann.published %><br/>
+        <%= link_to ann.title, announcement_path(ann) %>
+      </div>
+    <% end %>
   </div>
 <% end %>
