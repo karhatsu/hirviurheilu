@@ -34,7 +34,6 @@
         <% end %>
       </table>
       <% if @race.finished? %>
-        <% estimates_at_most = @race.estimates_at_most %>
         <h3><%= t '.correct_distances' %></h3>
         <table>
           <% @race.correct_estimates.each do |ce| %>
@@ -62,7 +61,7 @@
           @race.team_competitions.first) %>
       <% else %>
         <% @race.team_competitions.each do |tc| %>
-          <%= link_to tc.name, race_team_competition_path(@race, tc) %><br/>
+          <div class="list_item"><%= link_to tc.name, race_team_competition_path(@race, tc) %></div>
         <% end %>
       <% end %>
     </div>
