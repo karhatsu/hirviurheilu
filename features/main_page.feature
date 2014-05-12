@@ -49,6 +49,7 @@ Feature: Main page
     And the race belongs to the cup
     And there is a race "Race not yet started" in the future
     And the race belongs to the cup
+    And there is a race "Today's race" today
     When I go to the home page
     Then I should see "Finished cup" within "div.old_races"
     And I should see "Finished race 1" within "div.old_races"
@@ -57,6 +58,7 @@ Feature: Main page
     And I should see "Upcoming race 1" within "div.future_races"
     And I should see "Another upcoming race" within "div.future_races"
     And I should see "Race not yet started" within "div.future_races"
+    And I should see "Today's race" within "div.ongoing_races"
 
   Scenario: No races
     Given I go to the home page

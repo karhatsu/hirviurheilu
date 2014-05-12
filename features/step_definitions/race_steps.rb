@@ -79,12 +79,16 @@ Given /^there is a race "([^"]*)" in the past$/ do |name|
   @race = FactoryGirl.create(:race, :start_date => Date.today - 1, :name => name)
 end
 
-Given /^there is an ongoing race with attributes:$/ do |fields|
-  @race = FactoryGirl.create(:race, {:start_date => Date.today}.merge(fields.rows_hash))
+Given /^there is a race "([^"]*)" today/ do |name|
+  @race = FactoryGirl.create(:race, :start_date => Date.today, :name => name)
 end
 
 Given /^there is a race "([^"]*)" in the future$/ do |name|
   @race = FactoryGirl.create(:race, :start_date => Date.today + 1, :name => name)
+end
+
+Given /^there is an ongoing race with attributes:$/ do |fields|
+  @race = FactoryGirl.create(:race, {:start_date => Date.today}.merge(fields.rows_hash))
 end
 
 Given /^the race is finished$/ do
