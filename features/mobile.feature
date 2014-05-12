@@ -14,6 +14,15 @@ Feature: Mobile usage
     And I should see "Tulevat kilpailut"
     And I should see "Kilpailun järjestäjille"
 
+  Scenario: Show mobile home page
+    Given there is a race "Finished race" in the past
+    And there is a race "Today's race" today
+    And there is a race "Upcoming race" in the future
+    And I use the mobile UI
+    Then I should see "Finished race" within "div.old_races"
+    And I should see "Today's race" within "div.ongoing_races"
+    And I should see "Upcoming race" within "div.future_races"
+
   Scenario: See results in mobile view
     Given there is a race "Mobile race"
     And the race has series with attributes:
