@@ -1,3 +1,6 @@
+<div class="facebook_share">
+  <%= render partial: 'shared/facebook_share' %>
+</div>
 <%= content_for(:title, "#{@series.race.name} - #{@series.name} - #{t(:start_list)}") %>
 <h2><%= yield :title %></h2>
 <%= render :partial => "competitors/start_notice", :locals => { :series => @series } %>

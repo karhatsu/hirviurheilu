@@ -1,3 +1,6 @@
+<div class="facebook_share">
+  <%= render partial: 'shared/facebook_share' %>
+</div>
 <% content_for(:title, "#{@cup_series.cup.name} - #{long_cup_series_name(@cup_series)} - #{t :results}") %>
 <h2><%= yield :title %></h2>
 <div class="cup_results">
