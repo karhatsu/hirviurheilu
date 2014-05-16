@@ -1,3 +1,6 @@
+<div class="facebook_share">
+  <%= render partial: 'shared/facebook_share' %>
+</div>
 <%= content_for(:title, @race.name) %>
 <h1><%= yield :title %></h1>
 <% unless @race.home_page.blank? and @race.organizer.blank? and @race.organizer_phone.blank? %>
