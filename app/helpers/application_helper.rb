@@ -301,6 +301,7 @@ module ApplicationHelper
     return '' if race.series.count <= 1
     menu = "<ul>"
     race.series.each do |series|
+      next if series.new_record?
       if type == 'results'
         link = series_competitors_path(locale_for_path, series)
       elsif type == 'start_list'
