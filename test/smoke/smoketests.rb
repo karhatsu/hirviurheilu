@@ -3,7 +3,7 @@ require 'open-uri'
 
 @url = ARGV[0]
 unless @url and @url.start_with?('http')
-  p "ruby smoketests.rb <@url>"
+  puts "ruby smoketests.rb <@url>"
   exit
 end
 
@@ -13,7 +13,7 @@ end
 
 def open_page(path='')
   full_path = @url + path
-  p "Opening page #{full_path}"
+  puts "Opening page #{full_path}"
   @page = Nokogiri::HTML(open(full_path))
 end
 
@@ -22,31 +22,31 @@ def find_xpath(xpath)
   if element.empty?
     error "FAILURE: nothing found with given xpath"
   else
-    p "Element found"
+    puts "Element found"
   end
   element
 end
 
 def verify_text(element, expected)
   if expected and element.text == expected
-    p "Text OK"
+    puts "Text OK"
   elsif expected
     error "FAILURE: element text is #{element.text}"
   end
 end
 
 def verify_contains(xpath, text)
-  p "Expecting xpath #{xpath} to contain text '#{text}'"
+  puts "Expecting xpath #{xpath} to contain text '#{text}'"
   element = find_xpath(xpath)
   verify_text element, text
 end
 
 def find_link(xpath, text=nil)
-  p "Looking for link #{text ? "'" + text + "'" : 'with any text'} in xpath '#{xpath}'"
+  puts "Looking for link #{text ? "'" + text + "'" : 'with any text'} in xpath '#{xpath}'"
   element = find_xpath(xpath)
   verify_text element, text
   href = element.attribute('href').value
-  p "Link href: #{href}"
+  puts "Link href: #{href}"
   href
 end
 
@@ -56,7 +56,7 @@ def verify_http_status(path)
   req = Net::HTTP::Get.new(uri.to_s)
   res = Net::HTTP.start(uri.host, uri.port) {|http| http.request(req)}
   if res.header.code.to_i == 200
-    p "Status OK"
+    puts "Status OK"
   else
     error "FAILURE: HTTP status #{res.header.code}"
   end
@@ -77,4 +77,4 @@ open_page(link_to_results)
 link_to_pdf = find_link "//div[@class='action_box']/a", 'Lataa tulokset PDF-tiedostona'
 verify_http_status link_to_pdf
 
-p "--- ALL SMOKE TESTS PASSED FOR #{@url} ---"
+puts "--- ALL SMOKE TESTS PASSED FOR #{@url} ---"
