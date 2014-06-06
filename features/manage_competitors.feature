@@ -35,6 +35,9 @@ Feature: Manage competitors
     And I should not see "Arvio 1"
     And the series menu should contain options "Series B,Series C,Series D"
     And "Series D" should be selected in the series menu
+    When I fill in "" for "Etunimi"
+    And I press "Tallenna"
+    Then I should see "Etunimi on pakollinen" in an error message
     When I fill in "Peter" for "Etunimi"
     And I fill in "Ford" for "Sukunimi"
     And I select "Series B" from "Sarja"

@@ -47,8 +47,7 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   def edit
-    start_list_condition = "series.has_start_list = #{DatabaseHelper.boolean_value(@series.has_start_list)}"
-    @series_menu_options = @series.race.series.where(start_list_condition)
+    set_series_list_options_in_edit
   end
 
   def update
@@ -74,7 +73,10 @@ class Official::CompetitorsController < Official::OfficialController
       end
     else
       respond_to do |format|
-        format.html { render :edit }
+        format.html do
+          set_series_list_options_in_edit
+          render :edit
+        end
         format.js { render 'official/competitors/update_error', :layout => false }
       end
     end
@@ -101,6 +103,11 @@ class Official::CompetitorsController < Official::OfficialController
         format.js { render :offline_limit }
       end
     end
+  end
+
+  def set_series_list_options_in_edit
+    start_list_condition = "series.has_start_list = #{DatabaseHelper.boolean_value(@series.has_start_list)}"
+    @series_menu_options = @series.race.series.where(start_list_condition)
   end
 
   def handle_start_time
