@@ -45,7 +45,7 @@
     </tr>
     <% @race.race_rights.each do |rr| %>
       <tr>
-        <td><%= full_name(rr.user, true) %></td>
+        <td><%= full_name(rr.user, true) %> (<%= link_to rr.user.email, "mailto:#{rr.user.email}" %>)</td>
         <td class="center"><%= rr.only_add_competitors? ? image_tag('icon_yes.gif') : raw('&nbsp;') %></td>
         <td><%= rr.club ? rr.club.name : raw('&nbsp;') %></td>
         <td>
