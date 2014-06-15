@@ -41,25 +41,27 @@
   </div>
 </div>
 <%= javascript_tag do %>
-  $(document).ready(function() {
-    $("#changing_text_official").bxSlider({
-      auto: true,
-      infiniteLoop: true,
-      nextText: '',
-      pause: 6000,
-      prevText: '',
-      randomStart: true,
-      speed: 1500
-    });
-    $("#changing_text_competitor").bxSlider({
-      auto: true,
-      autoDelay: 3000,
-      infiniteLoop: true,
-      nextText: '',
-      pause: 6000,
-      prevText: '',
-      randomStart: false,
-      speed: 1500
-    });
+  var officialSlider = $("#changing_text_official").bxSlider({
+    auto: true,
+    infiniteLoop: true,
+    nextText: '',
+    pause: 6000,
+    prevText: '',
+    randomStart: true,
+    speed: 1500
+  });
+  var competitorSlider = $("#changing_text_competitor").bxSlider({
+    auto: true,
+    autoDelay: 3000,
+    infiniteLoop: true,
+    nextText: '',
+    pause: 6000,
+    prevText: '',
+    randomStart: false,
+    speed: 1500
+  });
+  $(document).on('page:fetch', function() {
+    officialSlider.stopShow();
+    competitorSlider.stopShow();
   });
 <% end %>
