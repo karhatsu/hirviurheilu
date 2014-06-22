@@ -13,7 +13,7 @@
       <%= menu_item t('main_menu.prices'), prices_path, @is_prices %>
       <% if current_user %>
         <%= menu_item t('main_menu.personal'), account_path, @is_account %>
-      <% elsif %>
+      <% else %>
         <%= menu_item t('main_menu.start'), register_path, @is_start %>
       <% end %>
       <%= menu_item t('main_menu.offline'), offline_vs_online_path, @is_offline_info %>
