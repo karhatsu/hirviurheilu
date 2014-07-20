@@ -20,7 +20,7 @@ class Official::RacesController < Official::OfficialController
   def create
     @race = Race.new(create_race_params)
     if @race.save
-      current_user.race_rights.create!(:race => @race)
+      current_user.race_rights.create!(race: @race, primary: true)
       NewCompetitionMailer.new_race(@race, current_user).deliver
       flash[:success] = t('official.races.create.race_added') + ". "
       if params[:add_default_series]

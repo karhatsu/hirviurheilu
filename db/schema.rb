@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140301200251) do
+ActiveRecord::Schema.define(version: 20140720101705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 20140301200251) do
     t.integer "user_id",                              null: false
     t.boolean "only_add_competitors", default: false, null: false
     t.integer "club_id"
+    t.boolean "primary",              default: false, null: false
   end
 
   create_table "races", force: true do |t|
