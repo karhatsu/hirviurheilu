@@ -7,16 +7,6 @@ Given /^there exists an official "(.*) (.*)" with email "([^"]*)"$/ do |firstnam
   user.add_official_rights
 end
 
-Given(/^there exists an official "(.*) (.*)" with email "(.*?)" and race "(.*?)" in "(.*)" at "(.*)"$/) do |firstname,
-    lastname, email, race_name, date, location|
-  user = FactoryGirl.build(:user, :first_name => firstname, :last_name => lastname,
-                           :email => email)
-  user.save_without_session_maintenance
-  user.add_official_rights
-  race = FactoryGirl.create(:race, name: race_name, start_date: date, location: location)
-  user.races << race
-end
-
 Given /^there is an official "([^"]*)" "([^"]*)"$/ do |first_name, last_name|
   user = FactoryGirl.build(:user, :first_name => first_name, :last_name => last_name)
   user.save_without_session_maintenance
@@ -37,6 +27,14 @@ Given /^there is an official "([^"]*)" "([^"]*)" with email "([^"]*)" and passwo
     :last_name => last_name)
   user.save_without_session_maintenance
   user.add_official_rights
+end
+
+Given(/^the race has an official "(.*) (.*)" with email "(.*?)"$/) do |firstname, lastname, email|
+  user = FactoryGirl.build(:user, :first_name => firstname, :last_name => lastname,
+                           :email => email)
+  user.save_without_session_maintenance
+  user.add_official_rights
+  user.races << @race
 end
 
 Given /^I am an official$/ do

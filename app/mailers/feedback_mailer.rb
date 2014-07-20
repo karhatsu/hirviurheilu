@@ -19,6 +19,7 @@ class FeedbackMailer < ApplicationMailer
     @email = email
     @tel = tel
     from = email.blank? ? NOREPLY_ADDRESS : email
-    mail to: race.users.first.email, bcc: ADMIN_EMAIL, from: from, subject: 'Hirviurheilu - palaute'
+    mail to: race.users.order('created_at').first.email, bcc: ADMIN_EMAIL, from: from,
+         subject: 'Hirviurheilu - palaute'
   end
 end
