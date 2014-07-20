@@ -3,6 +3,8 @@ fi:
     index:
       title: Kiitos palautteesta
       info: Jos jätit yhteystietosi, otamme sinuun yhteyttä mahdollisimman pian.
+    new:
+      feedback_receiver: Palautteen kohde
     create:
       feedback_missing: Älä unohda kirjoittaa palautetta
       

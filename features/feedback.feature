@@ -25,6 +25,18 @@ Feature: Feedback
     And I should see "Puhelin: 123 456" in the email body
     And I should see "Ympäristö: test" in the email body
 
+  Scenario: Send feedback for the race official
+    Given there exists an official "Petteri Pesonen" with email "petteri@test.com" and race "Good race"
+    And I am on the new feedback page
+    When I select "Good race" from "Palautteen kohde"
+    And I fill in "Kilpailijan tiedot väärin, voitko korjata?" for "Palaute"
+    And I fill in "Yksi kilpailija" for "Nimi"
+    And I press "Lähetä"
+    Then "petteri@test.com" should receive an email with subject "Hirviurheilu - palaute"
+    When I open the email
+    Then I should see "Kilpailijan tiedot väärin, voitko korjata?" in the email body
+    And I should see "Nimi: Yksi kilpailija" in the email body
+
   Scenario: Send feedback without email address
     Given I am on the new feedback page
     When I fill in the following:

@@ -3,6 +3,8 @@ sv:
     index:
       title: Tack för feedback
       info: Om du lämnade din kontaktavgifter, vi kontakter dig så snabbt som möjlig.
+    new:
+      feedback_receiver: Feedback mottagare
     create:
       feedback_missing: Glöm inte att skriva feedback
       

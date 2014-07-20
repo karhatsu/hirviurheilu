@@ -1,0 +1,11 @@
+Nimi: <%= @name %><br/>
+Sähköposti: <%= @email %><br/>
+Puhelin: <%= @tel %><br/>
+<br/>
+Palaute:<br/>
+<%= @comment %>
+<br/><br/>
+Ympäristö: <%= Rails.env %><br/>
+<% if @current_user %>
+  Id: <%= @current_user.id %>
+<% end %>

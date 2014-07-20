@@ -20,8 +20,14 @@ class FeedbacksController < ApplicationController
     @name = params[:name]
     @email = params[:email]
     @tel = params[:tel]
+    @race_id = params[:race_id]
     unless @comment.blank?
-      FeedbackMailer.feedback_mail(@comment, @name, @email, @tel, current_user).deliver
+      unless @race_id.blank?
+        race = Race.find(@race_id)
+        FeedbackMailer.race_feedback_mail(race, @comment, @name, @email, @tel, current_user).deliver
+      else
+        FeedbackMailer.feedback_mail(@comment, @name, @email, @tel, current_user).deliver
+      end
       redirect_to feedbacks_path
     else
       flash[:error] = t('feedbacks.create.feedback_missing')

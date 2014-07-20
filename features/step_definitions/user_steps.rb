@@ -7,6 +7,16 @@ Given /^there exists an official "(.*) (.*)" with email "([^"]*)"$/ do |firstnam
   user.add_official_rights
 end
 
+Given(/^there exists an official "(.*) (.*)" with email "(.*?)" and race "(.*?)"$/) do |firstname,
+    lastname, email, race_name|
+  user = FactoryGirl.build(:user, :first_name => firstname, :last_name => lastname,
+                           :email => email)
+  user.save_without_session_maintenance
+  user.add_official_rights
+  race = FactoryGirl.create(:race, name: race_name)
+  user.races << race
+end
+
 Given /^there is an official "([^"]*)" "([^"]*)"$/ do |first_name, last_name|
   user = FactoryGirl.build(:user, :first_name => first_name, :last_name => last_name)
   user.save_without_session_maintenance
