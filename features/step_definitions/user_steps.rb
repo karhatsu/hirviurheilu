@@ -34,6 +34,11 @@ Given(/^"(.*?)" is an official for the race$/) do |email|
   user.races << @race
 end
 
+Given(/^"(.*?)" is the primary official for the race$/) do |email|
+  user = User.where(email: email).first
+  user.race_rights.create!(race: @race, primary: true)
+end
+
 Given /^I am an official$/ do
   @user = FactoryGirl.build(:user)
   @user.save_without_session_maintenance

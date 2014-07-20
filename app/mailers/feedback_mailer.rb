@@ -19,7 +19,7 @@ class FeedbackMailer < ApplicationMailer
     @email = email
     @tel = tel
     from = email.blank? ? NOREPLY_ADDRESS : email
-    mail to: race.race_rights.first.user.email, bcc: ADMIN_EMAIL, from: from,
+    mail to: race.race_rights.where(primary: true).first.user.email, bcc: ADMIN_EMAIL, from: from,
          subject: 'Hirviurheilu - palaute'
   end
 end

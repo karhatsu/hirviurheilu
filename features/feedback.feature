@@ -32,8 +32,8 @@ Feature: Feedback
       | name       | Hyvä kisa  |
       | start_date | 2020-08-01 |
       | location   | Kisakylä   |
-    And "petteri@test.com" is an official for the race
     And "other@test.com" is an official for the race
+    And "petteri@test.com" is the primary official for the race
     And I am on the new feedback page
     When I select "Hyvä kisa (01.08.2020, Kisakylä)" from "Palautteen kohde"
     And I fill in "Kilpailijan tiedot väärin, voitko korjata?" for "Palaute"
