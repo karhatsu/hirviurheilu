@@ -61,6 +61,10 @@ class User < ActiveRecord::Base
     offline_user
   end
 
+  def relevant_attributes
+    attributes.except('crypted_password', 'password_salt', 'persistence_token', 'single_access_token', 'perishable_token')
+  end
+
   private
   def add_role(role)
     roles << Role.find_by_name(role)

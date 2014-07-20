@@ -2,7 +2,7 @@ Nimi: <%= @name %><br/>
 Sähköposti: <%= @email %><br/>
 Puhelin: <%= @tel %><br/>
 Ympäristö: <%= Rails.env %><br/>
-Käyttäjä: <%= @current_user ? @current_user.inspect : '-' %><br/>
+Käyttäjä: <%= @current_user ? @current_user.relevant_attributes : '-' %><br/>
 <br/>
 Palaute:<br/>
 <%= @comment %>
