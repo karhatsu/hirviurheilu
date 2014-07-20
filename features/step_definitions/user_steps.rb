@@ -29,11 +29,8 @@ Given /^there is an official "([^"]*)" "([^"]*)" with email "([^"]*)" and passwo
   user.add_official_rights
 end
 
-Given(/^the race has an official "(.*) (.*)" with email "(.*?)"$/) do |firstname, lastname, email|
-  user = FactoryGirl.build(:user, :first_name => firstname, :last_name => lastname,
-                           :email => email)
-  user.save_without_session_maintenance
-  user.add_official_rights
+Given(/^"(.*?)" is an official for the race$/) do |email|
+  user = User.where(email: email).first
   user.races << @race
 end
 

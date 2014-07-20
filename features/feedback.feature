@@ -26,12 +26,14 @@ Feature: Feedback
     And I should see "Ympäristö: test" in the email body
 
   Scenario: Send feedback for the race official
-    Given there is a race with attributes:
+    Given there exists an official "Joku Muu" with email "other@test.com"
+    And there exists an official "Petteri Pesonen" with email "petteri@test.com"
+    And there is a race with attributes:
       | name       | Hyvä kisa  |
       | start_date | 2020-08-01 |
       | location   | Kisakylä   |
-    And the race has an official "Petteri Pesonen" with email "petteri@test.com"
-    And the race has an official "Joku Muu" with email "other@test.com"
+    And "petteri@test.com" is an official for the race
+    And "other@test.com" is an official for the race
     And I am on the new feedback page
     When I select "Hyvä kisa (01.08.2020, Kisakylä)" from "Palautteen kohde"
     And I fill in "Kilpailijan tiedot väärin, voitko korjata?" for "Palaute"
