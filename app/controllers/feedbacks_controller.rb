@@ -1,5 +1,7 @@
 # encoding: UTF-8
 class FeedbacksController < ApplicationController
+  include ApplicationHelper
+
   before_action :set_is_info, :set_is_feedback
   before_action :check_offline
   before_action :set_variant
@@ -13,6 +15,7 @@ class FeedbacksController < ApplicationController
       @name = "#{current_user.first_name} #{current_user.last_name}"
       @email = "#{current_user.email}"
     end
+    set_races
   end
 
   def create
@@ -30,6 +33,7 @@ class FeedbacksController < ApplicationController
       end
       redirect_to feedbacks_path
     else
+      set_races
       flash[:error] = t('feedbacks.create.feedback_missing')
       render :new
     end
@@ -42,5 +46,9 @@ class FeedbacksController < ApplicationController
   
   def check_offline
     render :offline if offline?
+  end
+
+  def set_races
+    @races = Race.where('start_date>?', Date.today - 14.days).order('start_date').map { |race| ["#{race.name} (#{race_date_interval(race)}, #{race.location})", race.id] }
   end
 end

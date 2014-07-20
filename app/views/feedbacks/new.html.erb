@@ -1,11 +1,10 @@
 <% content_for(:title, t(:send_feedback)) %>
 <% content_for(:page_title, yield(:title)) %>
-<% races = Race.all.map { |race| [race.name, race.id] } %>
 <%= flash_error %>
 <%= form_tag(feedbacks_path, :class => 'feedback_form') do %>
   <div>
     <span class="form_label"><%= label_tag :race_id, t('.feedback_receiver') %></span>
-    <span><%= select_tag :race_id, options_for_select(races, @race_id), prompt: '- Hirviurheilu -' %></span>
+    <span><%= select_tag :race_id, options_for_select(@races, @race_id), prompt: '- Yleinen Hirviurheilu-palaute -' %></span>
   </div>
   <div>
     <span class="form_label"><%= label_tag :comment, t(:feedback) %></span>
