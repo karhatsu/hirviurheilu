@@ -4,7 +4,7 @@
 <br/>
 <%= @exception.inspect %><br/>
 <br/>
-<%= @user ? @user.inspect : 'Ei kirjautunutta käyttäjää' %><br/>
+<%= @user ? @user.relevant_attributes : 'Ei kirjautunutta käyttäjää' %><br/>
 <br/>
 <% begin %>
   <%= raw @exception.backtrace.join('<br/>') %>
