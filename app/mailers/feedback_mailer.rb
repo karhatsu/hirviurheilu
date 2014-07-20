@@ -1,4 +1,6 @@
 class FeedbackMailer < ApplicationMailer
+  add_template_helper ApplicationHelper
+
   def feedback_mail(comment, name, email, tel, current_user)
     @comment = comment
     @current_user = current_user
@@ -10,6 +12,7 @@ class FeedbackMailer < ApplicationMailer
   end
 
   def race_feedback_mail(race, comment, name, email, tel, current_user)
+    @race = race
     @comment = comment
     @current_user = current_user
     @name = name
