@@ -51,10 +51,9 @@ Feature: Age group selection
     When I select "S15" from "Sarja"
     Then the age group menu should contain items "T15,P15"
     When I select "P15" from "Ikäryhmä"
-    # TODO: For some reason this gives no route error in test but not otherwise.
-    #And I press "Tallenna"
-    #Then I should see "Etunimi on pakollinen" in an error message
-    #And "P15" should be selected in the age group menu
+    And I press "Tallenna"
+    Then I should see "Etunimi on pakollinen" in an error message
+    And "P15" should be selected in the age group menu
     When I fill in "Matti" for "Etunimi"
     And I fill in "Majala" for "Sukunimi"
     And I press "Tallenna"

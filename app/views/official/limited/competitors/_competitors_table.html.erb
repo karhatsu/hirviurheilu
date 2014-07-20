@@ -6,7 +6,7 @@
     <th>Jotosjoukkue</th>
     <th>&nbsp;</th>
   </tr>
-  <% @competitors.each do |comp| %>
+  <% @competitors.select{|c| !c.new_record?}.each do |comp| %>
     <tr>
       <td><%= link_to(full_name(comp), edit_official_limited_race_competitor_path(@race, comp)) %></td>
       <td><%= comp.series.name %><%= comp.age_group ? '/' + comp.age_group.name : '' %></td>

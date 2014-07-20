@@ -40,9 +40,8 @@ Feature: Official only adding competitors
     And I have logged in
     When I go to the limited official competitors page for "Limited race"
     Then I should not see "Lisätyt kilpailijat"
-    #TODO: These steps fail in cucumber but not in normal usage.
-    #When I press "Tallenna"
-    #Then I should see "Etunimi on pakollinen" in an error message
+    When I press "Tallenna"
+    Then I should see "Etunimi on pakollinen" in an error message
     When I fill in "Keijo" for "Etunimi"
     And I fill in "Kisaaja" for "Sukunimi"
     And I press "Tallenna"
