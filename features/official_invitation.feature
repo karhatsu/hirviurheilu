@@ -122,6 +122,15 @@ Feature: Official invitation
     And I am on the invite officials page for "Test race"
     Then I should not see "Peruuta kutsu"
 
+  Scenario: Primary official cannot be deleted from the race
+    Given I am an official
+    And I have a race "Test race"
+    And I have logged in
+    And there exists an official "Pekka Päätoimitsija" with email "primary@test.com"
+    And "primary@test.com" is the primary official for the race
+    And I am on the invite officials page for "Test race"
+    Then I should not see "Peruuta kutsu"
+
   Scenario: Official can cancel sent invitation
     Given there is an official "Another" "Official"
     And I am an official

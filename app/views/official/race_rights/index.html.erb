@@ -49,7 +49,7 @@
         <td class="center"><%= rr.only_add_competitors? ? image_tag('icon_yes.gif') : raw('&nbsp;') %></td>
         <td><%= rr.club ? rr.club.name : raw('&nbsp;') %></td>
         <td>
-          <% if rr.user == current_user %>
+          <% if rr.user == current_user or rr.primary? %>
             &nbsp;
           <% else %>
             <%= link_to 'Peruuta kutsu', official_race_race_right_path(@race, rr),
