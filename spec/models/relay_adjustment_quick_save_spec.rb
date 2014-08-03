@@ -4,27 +4,27 @@ describe RelayAdjustmentQuickSave do
   before do
     @race = FactoryGirl.create(:race)
     @relay = FactoryGirl.create(:relay, :race => @race, :legs_count => 2)
-    @team = FactoryGirl.create(:relay_team, :relay => @relay, :number => 5)
+    @team = FactoryGirl.create(:relay_team, :relay => @relay, :number => 15)
     @c = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 2)
   end
 
   it "should save the adjustment when competitor found and valid adjustment" do
-    @qs = RelayAdjustmentQuickSave.new(@relay.id, '5,2,105')
+    @qs = RelayAdjustmentQuickSave.new(@relay.id, '15,2,105')
     check_success 105
   end
 
   it "should save the adjustment when competitor found and valid negative adjustment" do
-    @qs = RelayAdjustmentQuickSave.new(@relay.id, '5,2,-125')
+    @qs = RelayAdjustmentQuickSave.new(@relay.id, '15,2,-125')
     check_success(-125)
   end
 
   it "should handle error when invalid adjustment" do
-    @qs = RelayAdjustmentQuickSave.new(@relay.id, '5,2,1.1')
+    @qs = RelayAdjustmentQuickSave.new(@relay.id, '15,2,1.1')
     check_failure
   end
 
   it "should handle error when unknown leg number" do
-    @qs = RelayAdjustmentQuickSave.new(@relay.id, '5,1,105')
+    @qs = RelayAdjustmentQuickSave.new(@relay.id, '15,1,105')
     check_failure
   end
 
@@ -34,7 +34,7 @@ describe RelayAdjustmentQuickSave do
   end
 
   it "should handle error when invalid string format" do
-    @qs = RelayAdjustmentQuickSave.new(@relay.id, '5,2.105')
+    @qs = RelayAdjustmentQuickSave.new(@relay.id, '15,2.105')
     check_failure
   end
 
@@ -45,12 +45,12 @@ describe RelayAdjustmentQuickSave do
     end
     
     it "should handle error when normal input" do
-      @qs = RelayAdjustmentQuickSave.new(@relay.id, '5,2,13')
+      @qs = RelayAdjustmentQuickSave.new(@relay.id, '15,2,13')
       check_failure true, 9
     end
     
     it "should override when input starts with ++" do
-      @qs = RelayAdjustmentQuickSave.new(@relay.id, '++5,2,13')
+      @qs = RelayAdjustmentQuickSave.new(@relay.id, '++15,2,13')
       check_success 13
     end
   end

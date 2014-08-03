@@ -51,7 +51,7 @@ class RelayQuickSave
 
   def team_number
     s = @string.split(',')[0]
-    s = s[2,] if (s[0,2]) == '++'
+    s = s[2..-1] if (s[0,2]) == '++'
     s
   end
 
