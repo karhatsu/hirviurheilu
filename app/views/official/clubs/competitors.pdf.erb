@@ -1,0 +1,16 @@
+<h1><%= @race.name %></h1>
+<% @race.clubs.each do |club| %>
+  <h2><%= club.long_name.blank? ? club.name : club.long_name %></h2>
+  <% if club.competitors.empty? %>
+    Ei kilpailijoita
+  <% else %>
+    <table>
+      <% club.competitors.sort { |a,b| full_name(a) <=> full_name(b) }.each do |competitor| %>
+        <tr>
+          <td><%= competitor.last_name %> <%= competitor.first_name %></td>
+          <td><%= competitor.series.name %><%= " (#{competitor.age_group.name})" if competitor.age_group %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+<% end %>

@@ -49,6 +49,15 @@ class Official::ClubsController < Official::OfficialController
     end
   end
 
+  def competitors
+    respond_to do |format|
+      format.pdf do
+        render :pdf => "#{@race.name}-kilpailijat-seuroittain", :layout => true, :margin => pdf_margin,
+               :header => pdf_header("#{@race.name} - Kilpailijat piireittäin/seuroittain\n"), :footer => pdf_footer
+      end
+    end
+  end
+
   private
   def set_clubs
     @is_clubs = true

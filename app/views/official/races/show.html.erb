@@ -88,5 +88,10 @@
     <%= link_to t('.add_competitors_from_csv'), new_official_race_csv_import_path(@race) %>
   </div>
 <% end %>
+<% unless @race.competitors.empty? %>
+  <div class="action_box">
+    <%= link_to t('.download_competitors_by_clubs'), official_race_clubs_competitors_path(@race, format: :pdf) %>
+  </div>
+<% end %>
 <hr/>
 <%= link_to t(:back_to_official_home_page), official_root_path %>

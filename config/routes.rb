@@ -72,6 +72,7 @@ ElkSports::Application.routes.draw do
       
       resources :races do
         resources :competitors, :only => [:create, :update]
+        get 'clubs/competitors' => 'clubs#competitors'
         resources :clubs
         put 'correct_estimates' => 'correct_estimates#update', :as => :correct_estimates
         resources :correct_estimates

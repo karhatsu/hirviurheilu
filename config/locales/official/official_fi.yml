@@ -49,6 +49,7 @@ fi:
         remove_race: Poista kilpailu
         edit_race_and_series: Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja
         add_competitors_from_csv: Lisää kilpailijoita CSV-tiedostosta
+        download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)
         finish_race_submit: Merkitse kilpailu päättyneeksi
         finish_race_text: kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista.
         create_start_list: Tee lista
