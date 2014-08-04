@@ -14,6 +14,12 @@
   <a href="javascript:void(0)" id="hide_all_competitors" style="display:none;"><%= t :hide_all_competitors %></a>
   <%= render :partial => 'results', :locals => { :relay => @relay } %>
 <% end %>
+<% if @relay.race.relays.count > 1 %>
+  <hr/>
+  <% @relay.race.relays.each do |r| %>
+    <%= link_to_unless r == @relay, r.name, race_relay_path(r.race, r) %>&NonBreakingSpace;
+  <% end %>
+<% end %>
 <hr/>
 <%= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@relay.race) %>
 <%= javascript_tag do %>
