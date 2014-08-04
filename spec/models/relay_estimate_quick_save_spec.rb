@@ -4,8 +4,8 @@ describe RelayEstimateQuickSave do
   before do
     @race = FactoryGirl.create(:race)
     @relay = FactoryGirl.create(:relay, :race => @race, :legs_count => 2)
-    @team = FactoryGirl.create(:relay_team, :relay => @relay, :number => 5)
-    @c = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 2)
+    @team = FactoryGirl.create(:relay_team, :relay => @relay, :number => 5, name: 'Pohjanmaa')
+    @c = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 2, first_name: 'Mikko', last_name: 'Miettinen')
   end
 
   it "should save the estimate when competitor found and valid estimate" do
@@ -42,6 +42,7 @@ describe RelayEstimateQuickSave do
     it "should handle error when normal input" do
       @qs = RelayEstimateQuickSave.new(@relay.id, '5,2,100')
       check_failure true, 99
+      @qs.error.should eq('Kilpailijalle (Mikko Miettinen, Pohjanmaa) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos.')
     end
     
     it "should override when input starts with ++" do

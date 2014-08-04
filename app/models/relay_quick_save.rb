@@ -98,6 +98,6 @@ class RelayQuickSave
   end
 
   def set_stored_already_error
-    @error = 'Kilpailijalle on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos.'
+    @error = "Kilpailijalle (#{@competitor.first_name} #{@competitor.last_name}, #{@team.name}) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos."
   end
 end
