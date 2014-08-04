@@ -8,26 +8,22 @@
 <% else %>
   <h3>Arviointi</h3>
   <% instructions = 'Syötä tulos muodossa joukkue,osuus,arvio, ' +
-      'esim. 11,3,118 (joukkue 11, osuus 3, arvio 118 metriä)' %>
-  <% instructions << '.' %>
+      'esim. 11,3,118 (joukkue 11, osuus 3, arvio 118 metriä).' %>
   <%= render :partial => 'result_place', :locals => { :name => 'estimate',
     :instructions => instructions, :path => official_relay_relay_estimate_quick_save_path(@relay) } %>
   <h3>Ohilaukaukset</h3>
   <% instructions = 'Syötä tulos muodossa joukkue,osuus,ohilaukaukset, ' +
-      'esim. 11,3,2 (joukkue 11, osuus 3, 2 ohilaukausta)' %>
-  <% instructions << '.' %>
+      'esim. 11,3,2 (joukkue 11, osuus 3, 2 ohilaukausta).' %>
   <%= render :partial => 'result_place', :locals => { :name => 'misses',
     :instructions => instructions, :path => official_relay_relay_misses_quick_save_path(@relay) } %>
   <h3>Saapumisaika</h3>
   <% instructions = 'Syötä tulos muodossa joukkue,osuus,hhmmss, ' +
-      'esim. 11,3,002438 (joukkue 11, osuus 3, saapumisaika 00:24:38)' %>
-  <% instructions << '.' %>
+      'esim. 11,3,002438 (joukkue 11, osuus 3, saapumisaika 00:24:38).' %>
   <%= render :partial => 'result_place', :locals => { :name => 'time',
     :instructions => instructions, :path => official_relay_relay_time_quick_save_path(@relay) } %>
   <h3>Korjaukset</h3>
   <% instructions = 'Syötä korjaus aikaan muodossa joukkue,osuus,korjaus, ' +
-      'esim. 11,3,-10 (joukkue 11, osuus 3, 10 sekunnin hyvitys)' %>
-  <% instructions << '.' %>
+      'esim. 11,3,-10 (joukkue 11, osuus 3, 10 sekunnin hyvitys).' %>
   <%= render :partial => 'result_place', :locals => { :name => 'adjustment',
     :instructions => instructions, :path => official_relay_relay_adjustment_quick_save_path(@relay) } %>
   <div id="latest" style="display:none;">
