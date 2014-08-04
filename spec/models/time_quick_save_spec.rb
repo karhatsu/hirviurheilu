@@ -3,7 +3,7 @@ require 'spec_helper'
 describe TimeQuickSave do
   before do
     @race = FactoryGirl.create(:race)
-    @series = FactoryGirl.create(:series, :race => @race)
+    @series = FactoryGirl.create(:series, :race => @race, name: 'M45')
     FactoryGirl.create(:competitor, :series => @series, :number => 1,
       :start_time => '11:00:00')
     @c = FactoryGirl.create(:competitor, :series => @series, :number => 10,
@@ -191,7 +191,7 @@ describe TimeQuickSave do
   describe "data already stored" do
     before do
       @c = FactoryGirl.create(:competitor, :series => @series, :number => 12,
-        :start_time => '11:30:00', :arrival_time => '12:00:00')
+        :start_time => '11:30:00', :arrival_time => '12:00:00', first_name: 'Mikko', last_name: 'Miettinen')
       @qs = TimeQuickSave.new(@race.id, '12,131245')
     end
 
@@ -213,7 +213,7 @@ describe TimeQuickSave do
     describe "#error" do
       it "should contain data already stored message" do
         @qs.save
-        @qs.error.should match(/talletettu/)
+        @qs.error.should eq('Kilpailijalle (Mikko Miettinen, M45) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos.')
       end
     end
   end
