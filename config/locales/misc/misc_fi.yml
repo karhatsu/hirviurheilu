@@ -24,6 +24,7 @@ fi:
   competitor:
     DNS: Kilpailija ei osallistunut kilpailuun
     DNF: Kilpailija keskeytti kilpailun
+    DQ: Kilpailija hylättiin
   competitors:
     people_short:
       one: 1 hlö

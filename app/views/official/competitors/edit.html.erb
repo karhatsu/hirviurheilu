@@ -33,6 +33,7 @@
     <%= f.radio_button :no_result_reason, '' %>Normaali
     <%= f.radio_button :no_result_reason, Competitor::DNS %><%= t '.dns' %>
     <%= f.radio_button :no_result_reason, Competitor::DNF %><%= t '.dnf' %>
+    <%= f.radio_button :no_result_reason, Competitor::DQ %><%= t '.dq' %>
     <hr/>
   <% else %>
     <%= hidden_field_tag :no_times, true %>

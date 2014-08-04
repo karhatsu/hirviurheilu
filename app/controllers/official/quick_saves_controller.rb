@@ -36,6 +36,7 @@ class Official::QuickSavesController < Official::OfficialController
     do_quick_save(UnfinishedCompetitorQuickSave.new(@race.id, params[:string])) do
       @result = t('competitor.DNS') if @competitor.no_result_reason == Competitor::DNS
       @result = t('competitor.DNF') if @competitor.no_result_reason == Competitor::DNF
+      @result = t('competitor.DQ') if @competitor.no_result_reason == Competitor::DQ
     end
   end
 

@@ -106,12 +106,12 @@ describe UnfinishedCompetitorQuickSave do
   describe "data already stored" do
     before do
       @c = FactoryGirl.create(:competitor, :series => @series, :number => 12,
-        :no_result_reason => Competitor::DNF)
-      @qs = UnfinishedCompetitorQuickSave.new(@race.id, '12,dns')
+        :no_result_reason => Competitor::DQ)
+      @qs = UnfinishedCompetitorQuickSave.new(@race.id, '12,dq')
     end
 
     it "should cause failed save" do
-      check_failed_save @qs, /talletettu/, true, @c, Competitor::DNF
+      check_failed_save @qs, /talletettu/, true, @c, Competitor::DQ
     end
   end
 

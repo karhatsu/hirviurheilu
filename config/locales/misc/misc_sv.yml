@@ -24,6 +24,7 @@ sv:
   competitor:
     DNS: Tävlaren startade inte
     DNF: Tävlaren avbröt
+    DQ: Tävlaren disqualified
   competitors:
     people_short:
       one: 1 person

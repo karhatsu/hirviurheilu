@@ -7,6 +7,7 @@ class Competitor < ActiveRecord::Base
   
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish
+  DQ = 'DQ' # disqualified
   MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE = 100
   
   SORT_BY_POINTS = 0
@@ -154,7 +155,7 @@ class Competitor < ActiveRecord::Base
       elsif no_result_reason
         return nil
       else
-        raise "Competitor time better than the best time and no DNS/DNF/unofficial!"
+        raise "Competitor time better than the best time and no DNS/DNF/DQ/unofficial!"
       end
     end
     points = 300 - (round_seconds(own_time) - round_seconds(best_time)) / 10
@@ -177,6 +178,7 @@ class Competitor < ActiveRecord::Base
   end
   
   def relative_points(all_competitors=false)
+    return -3 if no_result_reason == DQ
     return -2 if no_result_reason == DNS
     return -1 if no_result_reason == DNF
     10000*points(all_competitors).to_i + 1000*points!(all_competitors).to_i + 100*shot_points.to_i +
@@ -315,7 +317,7 @@ class Competitor < ActiveRecord::Base
 
   def check_no_result_reason
     self.no_result_reason = nil if no_result_reason == ''
-    unless [nil, DNS, DNF].include?(no_result_reason)
+    unless [nil, DNS, DNF, DQ].include?(no_result_reason)
       errors.add(:no_result_reason,
         "Tuntematon syy tuloksen puuttumiselle: '#{no_result_reason}'")
     end

@@ -120,6 +120,9 @@ describe Series do
           :start_time => '12:00:00', :arrival_time => '12:01:00',
           :no_result_reason => "DNF")
         @series.competitors << FactoryGirl.build(:competitor, :series => @series,
+           :start_time => '12:00:00', :arrival_time => '12:01:00',
+           :no_result_reason => "DQ")
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00',
           :arrival_time => '12:01:00', :unofficial => true)
       end
@@ -177,6 +180,9 @@ describe Series do
         @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00', :arrival_time => '12:01:00',
           :no_result_reason => "DNF", :age_group => @age_group1)
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
+          :start_time => '12:00:00', :arrival_time => '12:01:00',
+          :no_result_reason => "DQ", :age_group => @age_group1)
         @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00',
           :arrival_time => '12:01:00', :unofficial => true, :age_group => @age_group2)

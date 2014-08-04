@@ -83,6 +83,7 @@ fi:
         shots: Yksittäiset laukaukset
         dns: Ei lähtenyt matkaan (DNS)
         dnf: Keskeytys (DNF)
+        dq: Hylätty (DQ)
         save_and_previous_competitor: Tallenna ja avaa edellinen kilpailija
         save_and_next_competitor: Tallenna ja avaa seuraava kilpailija
         back_to_series_competitor_list: Takaisin sarjan %{series_name} kilpailijaluetteloon
@@ -96,12 +97,12 @@ fi:
       index:
         title: Tulosten pikasyöttö
         no_competitors: Kilpailuun ei ole lisätty yhtään kilpailijaa
-        dns_dnf: Ei lähtenyt matkaan / Keskeytys
+        dns_dnf_dq: Ei lähtenyt matkaan / Keskeytys / Hylkäys
         instructions_times: Syötä tulos muodossa nro,hhmmss, esim. 45,020728 (kilpailija 45, saapumisaika 02:07:28).
         instructions_estimates: Syötä tulos muodossa nro,arvio1,arvio2, esim. 45,95,118 (kilpailija 45, arviot 95 ja 118 metriä)
         instructions_estimates_4:  tai neljän ennusteen sarjan kilpailijoille muodossa nro,arvio1,arvio2,arvio3,arvio4, esim. 45,95,118,185,134
         instructions_shooting: Syötä tulos muodossa nro,ammuntatulos, esim. 45,87 (kilpailija 45, ammunta yhteensä 87). Tai vaihtoehtoisesti laukausten kanssa siten että +-merkki on 10, esim. 45,++99877420 (merkitse ohilaukauksille nollat).
-        instructions_dns_dnf: Jos kilpailija ei lähtenyt matkaan, syötä tieto muodossa nro,dns esim. 45,dns (kilpailija 45, DNS = did not start). Jos kilpailija keskeytti, syötä tieto muodossa nro,dnf esim. 45,dnf (kilpailija 45, DNF = did not finish).
+        instructions_dns_dnf_dq: Jos kilpailija ei lähtenyt matkaan, syötä tieto muodossa nro,dns esim. 45,dns (kilpailija 45, DNS = did not start). Jos kilpailija keskeytti, syötä tieto muodossa nro,dnf esim. 45,dnf (kilpailija 45, DNF = did not finish). Jos kilpailija hylättiin, syötä tieto muodossa nro,dq esim. 45,dq (kilpailija 45, DQ = disqualified).
         latest_savings: Viimeisimmät tallennukset
         result_message: Kilpailijan %{competitor_number}. %{competitor_name} (%{series_name}) tulos tallennettu onnistuneesti (%{result}).
     result_place:

@@ -17,9 +17,9 @@
   <h3><%= t :shooting %></h3>
   <%= render :partial => 'result_place', :locals => { :name => 'shots',
     :instructions => t('.instructions_shooting'), :path => official_race_shots_quick_save_path(@race) } %>
-  <h3><%= t '.dns_dnf' %></h3>
+  <h3><%= t '.dns_dnf_dq' %></h3>
   <%= render :partial => 'result_place', :locals => { :name => 'no_result',
-    :instructions => t('.instructions_dns_dnf'), :path => official_race_no_result_quick_save_path(@race) } %>
+    :instructions => t('.instructions_dns_dnf_dq'), :path => official_race_no_result_quick_save_path(@race) } %>
   <div id="latest" style="display:none;">
     <h3><%= t '.latest_savings' %></h3>
     <ul id="latest_list"></ul>

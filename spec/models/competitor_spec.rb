@@ -206,6 +206,7 @@ describe Competitor do
       it { should allow_value(nil).for(:no_result_reason) }
       it { should allow_value(Competitor::DNS).for(:no_result_reason) }
       it { should allow_value(Competitor::DNF).for(:no_result_reason) }
+      it { should allow_value(Competitor::DQ).for(:no_result_reason) }
       it { should_not allow_value('test').for(:no_result_reason) }
 
       it "converts empty string to nil" do
@@ -338,6 +339,9 @@ describe Competitor do
       @c_dns = mock_model(Competitor, :points => 300, :points! => 300,
         :no_result_reason => "DNS", :shot_points => 88, :time_points => 30,
         :time_in_seconds => 1000, :unofficial => false, :estimate_points => 255)
+      @c_dq = mock_model(Competitor, :points => 300, :points! => 300,
+        :no_result_reason => "DQ", :shot_points => 88, :time_points => 30,
+        :time_in_seconds => 999, :unofficial => false, :estimate_points => 256)
       @unofficial = mock_model(Competitor, :points => 300, :points! => 300,
         :no_result_reason => nil, :shot_points => 100, :time_points => 100,
         :time_in_seconds => 1000, :unofficial => true, :estimate_points => 250)
@@ -349,53 +353,53 @@ describe Competitor do
 
     # note that partial points equal points when all results are available
     it "should sort by: 1. points 2. partial points 3. shot points " +
-        "4. time (secs) 5. normal competitors before DNS/DNF " +
-        "6. unofficial competitors before DNS/DNF" do
+        "4. time (secs) 5. normal competitors before DNS/DNF/DQ " +
+        "6. unofficial competitors before DNS/DNF/DQ" do
       competitors = [@unofficial, @second_partial, @worst_partial, @best_partial,
-        @c_dnf, @c_dns, @best_time, @best_points, @worst_points, @best_shots]
+        @c_dnf, @c_dns, @c_dq, @best_time, @best_points, @worst_points, @best_shots]
       Competitor.sort_competitors(competitors, false).should ==
         [@best_points, @best_shots, @best_time, @worst_points, @best_partial,
-        @second_partial, @worst_partial, @unofficial, @c_dnf, @c_dns]
+        @second_partial, @worst_partial, @unofficial, @c_dnf, @c_dns, @c_dq]
     end
 
     context "when unofficial competitors are handled equal" do
       it "should sort by: 1. points 2. partial points 3. shot points " +
-          "4. time (secs) 5. normal competitors before DNS/DNF" do
+          "4. time (secs) 5. normal competitors before DNS/DNF/DQ" do
         competitors = [@unofficial, @second_partial, @worst_partial, @best_partial,
-          @c_dnf, @c_dns, @best_time, @best_points, @worst_points, @best_shots]
+          @c_dnf, @c_dns, @c_dq, @best_time, @best_points, @worst_points, @best_shots]
         Competitor.sort_competitors(competitors, true).should ==
           [@unofficial, @best_points, @best_shots, @best_time, @worst_points,
-          @best_partial, @second_partial, @worst_partial, @c_dnf, @c_dns]
+          @best_partial, @second_partial, @worst_partial, @c_dnf, @c_dns, @c_dq]
       end
     end
     
     describe "by time" do
-      it "should sort by: 1. time (secs) 2. points 3. partial points 4. shot points 5. DNS/DNF " do
+      it "should sort by: 1. time (secs) 2. points 3. partial points 4. shot points 5. DNS/DNF/DQ " do
         competitors = [@second_partial, @worst_partial, @best_partial,
-          @c_dnf, @c_dns, @best_time, @best_points, @worst_points, @best_shots]
+          @c_dnf, @c_dns, @c_dq, @best_time, @best_points, @worst_points, @best_shots]
         Competitor.sort_competitors(competitors, false, Competitor::SORT_BY_TIME).should ==
           [@best_time, @second_partial, @best_points, @best_shots, @worst_points,
-            @best_partial, @worst_partial, @c_dnf, @c_dns]
+            @best_partial, @worst_partial, @c_dnf, @c_dns, @c_dq]
       end
     end
     
     describe "by shots" do
-      it "should sort by: 1. shot points 2. points 3. partial points 4. time (secs) 5. DNS/DNF " do
+      it "should sort by: 1. shot points 2. points 3. partial points 4. time (secs) 5. DNS/DNF/DQ " do
         competitors = [@second_partial, @worst_partial, @best_partial,
-          @c_dnf, @c_dns, @best_time, @best_points, @worst_points, @best_shots]
+          @c_dnf, @c_dns, @c_dq, @best_time, @best_points, @worst_points, @best_shots]
         Competitor.sort_competitors(competitors, false, Competitor::SORT_BY_SHOTS).should ==
         [@best_shots, @best_time, @worst_points, @worst_partial, @best_points,
-          @best_partial, @second_partial, @c_dnf, @c_dns]
+          @best_partial, @second_partial, @c_dnf, @c_dns, @c_dq]
       end
     end
     
     describe "by estimates" do
-      it "should sort by: 1. estimate points 2. points 3. partial points 4. shot points 5. DNS/DNF " do
+      it "should sort by: 1. estimate points 2. points 3. partial points 4. shot points 5. DNS/DNF/DQ " do
         competitors = [@worst_partial, @best_partial,
-          @c_dnf, @c_dns, @best_time, @best_points, @worst_points, @best_shots, @best_estimates]
+          @c_dnf, @c_dns, @c_dq, @best_time, @best_points, @worst_points, @best_shots, @best_estimates]
         Competitor.sort_competitors(competitors, false, Competitor::SORT_BY_ESTIMATES).should ==
         [@best_estimates, @best_points, @best_shots, @best_time, @worst_points, @best_partial,
-          @worst_partial, @c_dnf, @c_dns]
+          @worst_partial, @c_dnf, @c_dns, @c_dq]
       end
     end
   end
@@ -1139,6 +1143,10 @@ describe Competitor do
   describe "#relative_points" do
     before do
       @all_competitors = false
+    end
+
+    it "should be -3 when competitor was disqualified" do
+      FactoryGirl.build(:competitor, :no_result_reason => Competitor::DQ).relative_points(@all_competitors).should == -3
     end
     
     it "should be -2 when competitor did not start" do
