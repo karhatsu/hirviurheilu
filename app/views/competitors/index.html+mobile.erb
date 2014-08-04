@@ -18,6 +18,12 @@
     <%= render :partial => 'series/series_results', :locals => { :series => @series } %>
   </div>
 <% end %>
+<% if @series.race.series.count > 1 %>
+  <hr/>
+  <% @series.race.series.each do |s| %>
+    <%= link_to_unless s == @series, s.name, series_competitors_path(s) %>&NonBreakingSpace;
+  <% end %>
+<% end %>
 <hr/>
 <%= link_to t(:start_list), series_start_list_path(@series) %><br/>
 <%= link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race) %>
