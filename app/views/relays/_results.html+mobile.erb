@@ -31,7 +31,6 @@
           <tr class="competitor_row team_<%= team.id %>" style="display: none;">
             <td>&nbsp;</td>
             <td><%= full_name(comp) %></td>
-            <td class="center">(<%= comp.leg %>)</td>
             <td class="center">
               <%= time_from_seconds(team.time_in_seconds(comp.leg)) %>
               (<%= time_from_seconds comp.time_in_seconds %>)
