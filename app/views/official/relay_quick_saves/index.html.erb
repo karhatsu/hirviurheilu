@@ -23,7 +23,10 @@
     :instructions => instructions, :path => official_relay_relay_time_quick_save_path(@relay) } %>
   <h3>Korjaukset</h3>
   <% instructions = 'Syötä korjaus aikaan muodossa joukkue,osuus,korjaus, ' +
-      'esim. 11,3,-10 (joukkue 11, osuus 3, 10 sekunnin hyvitys).' %>
+      'esim. 11,3,-10 (joukkue 11, osuus 3, 10 sekunnin hyvitys). Jos aikakorjauksia ' +
+      'joudutaan käyttämään, tulee ajat syöttää silti sen mukaan, kuinka viestin tuojat ovat ' +
+      'tulleet osuutensa maaliin. Tietyn osuuden korjaus otetaan automaattisesti huomioon kaikissa ' +
+      'myöhäisemmissä osuuksissa eli korjauksen tarvitsee syöttää vain kerran.' %>
   <%= render :partial => 'result_place', :locals => { :name => 'adjustment',
     :instructions => instructions, :path => official_relay_relay_adjustment_quick_save_path(@relay) } %>
   <div id="latest" style="display:none;">
