@@ -1,6 +1,7 @@
 class RelayTeam < ActiveRecord::Base
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish
+  DQ = 'DQ' # disqualified
 
   belongs_to :relay
   has_many :relay_competitors, -> { order :leg }, :dependent => :destroy
@@ -58,7 +59,7 @@ class RelayTeam < ActiveRecord::Base
   private
   def check_no_result_reason
     self.no_result_reason = nil if no_result_reason == ''
-    unless [nil, DNS, DNF].include?(no_result_reason)
+    unless [nil, DNS, DNF, DQ].include?(no_result_reason)
       errors.add(:no_result_reason,
         "Tuntematon syy tuloksen puuttumiselle: '#{no_result_reason}'")
     end

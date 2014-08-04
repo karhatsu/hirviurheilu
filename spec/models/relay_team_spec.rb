@@ -31,6 +31,7 @@ describe RelayTeam do
       it { should allow_value(nil).for(:no_result_reason) }
       it { should allow_value(RelayTeam::DNS).for(:no_result_reason) }
       it { should allow_value(RelayTeam::DNF).for(:no_result_reason) }
+      it { should allow_value(RelayTeam::DQ).for(:no_result_reason) }
       it { should_not allow_value('test').for(:no_result_reason) }
       it "should change empty string to nil" do
         team = FactoryGirl.create(:relay_team, :no_result_reason => '')

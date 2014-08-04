@@ -71,6 +71,7 @@ fi:
   relay_team:
     DNS: Joukkue ei osallistunut kilpailuun
     DNF: Joukkue keskeytti kilpailun
+    DQ: Joukkue hylättiin
   run: Juoksu
   refresh_counter_new_page_pre: Uusi tulossivu ladataan automaattisesti
   refresh_counter_new_page_post: sekunnin kuluttua
