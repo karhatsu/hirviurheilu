@@ -59,8 +59,8 @@ class Series < ActiveRecord::Base
   
   def comparison_time_in_seconds(age_group, all_competitors)
     return best_time_in_seconds(nil, all_competitors) unless age_group
-    @age_group_ids ||= age_group_comparison_group_ids(all_competitors)
-    best_time_in_seconds(@age_group_ids[age_group], all_competitors)
+    @age_group_ids_hash ||= age_group_comparison_group_ids(all_competitors)
+    best_time_in_seconds(@age_group_ids_hash[age_group], all_competitors)
   end
   
   def ordered_competitors(all_competitors, sort_by=Competitor::SORT_BY_POINTS)
@@ -321,7 +321,7 @@ class Series < ActiveRecord::Base
 
     # hash: { age_group => [own age group id, another age group id, ...] }
     hash = build_hash_for_groups_without_enough_competitors(age_groups_without_enough_competitors)
-    build_hash_for_groups_with_enough_competitors hash, groupped_age_groups
+    add_to_hash_groups_with_enough_competitors_including_older_age_groups hash, groupped_age_groups
   end
 
   def each_group_starts_with_same_letter(age_groups)
@@ -348,7 +348,7 @@ class Series < ActiveRecord::Base
     ordered_age_groups.each do |age_group|
       groupped_age_group << age_group
       competitors_count += age_group.competitors_count(all_competitors)
-      if competitors_count >= age_group.min_competitors
+      if enough_competitors_for_own_reference_time(age_group, competitors_count)
         groupped_age_groups << groupped_age_group
         groupped_age_group = []
         competitors_count = 0
@@ -356,7 +356,11 @@ class Series < ActiveRecord::Base
     end
     return groupped_age_groups, groupped_age_group
   end
-  
+
+  def enough_competitors_for_own_reference_time(age_group, competitors_count)
+    competitors_count >= age_group.min_competitors
+  end
+
   def build_hash_for_groups_without_enough_competitors(age_groups_without_enough_competitors)
     hash = {}
     age_groups_without_enough_competitors.each do |age_group|
@@ -365,7 +369,7 @@ class Series < ActiveRecord::Base
     hash
   end
   
-  def build_hash_for_groups_with_enough_competitors(hash, groupped_age_groups)
+  def add_to_hash_groups_with_enough_competitors_including_older_age_groups(hash, groupped_age_groups)
     groupped_age_groups.each do |group|
       group.each do |age_group|
         ids = []
