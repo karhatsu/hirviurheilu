@@ -3,19 +3,19 @@ module ComparisonTime
 
   def comparison_time_in_seconds(age_group, all_competitors)
     return best_time_in_seconds(nil, all_competitors) unless age_group
-    @age_group_ids_hash ||= age_group_comparison_group_ids(all_competitors)
-    best_time_in_seconds(@age_group_ids_hash[age_group], all_competitors)
+    @age_groups_hash ||= age_groups_for_comparison_time(all_competitors)
+    best_time_in_seconds(@age_groups_hash[age_group], all_competitors)
   end
 
   private
 
-  def best_time_in_seconds(age_group_ids, all_competitors)
+  def best_time_in_seconds(age_groups, all_competitors)
     @best_time_cache ||= Hash.new
-    cache_key = age_group_ids.to_s + all_competitors.to_s
+    cache_key = age_groups.to_s + all_competitors.to_s
     return @best_time_cache[cache_key] if @best_time_cache.has_key?(cache_key)
     conditions = { :no_result_reason => nil }
     conditions[:unofficial] = false unless all_competitors
-    conditions[:age_group_id] = age_group_ids if age_group_ids
+    conditions[:age_group_id] = age_groups.map { |group| group.id } if age_groups
     time = competitors.where(conditions).minimum(time_subtraction_sql)
     if time
       @best_time_cache[cache_key] = time.to_i
@@ -26,80 +26,66 @@ module ComparisonTime
     end
   end
 
-  def age_group_comparison_group_ids(all_competitors)
+  def age_groups_for_comparison_time(all_competitors)
     ordered_age_groups = age_groups.order('name desc')
-    unless each_group_starts_with_same_letter(ordered_age_groups)
-      return build_age_group_to_own_id_hash ordered_age_groups
-    end
 
-    groupped_age_groups, age_groups_without_enough_competitors =
-        build_groupped_age_groups(ordered_age_groups, all_competitors)
+    # e.g. P17/T17 in series S17
+    return hash_with_each_age_group_referring_to_itself ordered_age_groups if
+        different_first_letter_in_group_names(ordered_age_groups)
 
-    # hash: { age_group => [own age group id, another age group id, ...] }
-    hash = build_hash_for_groups_without_enough_competitors(age_groups_without_enough_competitors)
-    add_to_hash_groups_with_enough_competitors_including_older_age_groups hash, groupped_age_groups
+    # e.g. N55, N60, N65 in series N50
+    hash_with_age_group_referring_to_comparison_groups(ordered_age_groups, all_competitors)
   end
 
-  def each_group_starts_with_same_letter(age_groups)
+  def different_first_letter_in_group_names(age_groups)
     return false if age_groups.empty?
-    first_letter = age_groups[0].name[0]
     age_groups.each do |age_group|
-      return false unless first_letter == age_group.name[0]
+      return true if age_groups[0].name[0] != age_group.name[0]
     end
-    true
+    false
   end
 
-  def build_age_group_to_own_id_hash(age_groups)
-    hash = {}
-    age_groups.each do |age_group|
-      hash[age_group] = age_group.id
+  def hash_with_each_age_group_referring_to_itself(age_groups)
+    age_groups.inject({}) do |hash, age_group|
+      hash[age_group] = age_group
+      hash
     end
-    return hash
   end
 
-  def build_groupped_age_groups(ordered_age_groups, all_competitors)
-    groupped_age_groups = []
-    groupped_age_group = []
+  def hash_with_age_group_referring_to_comparison_groups(ordered_age_groups, all_competitors)
+    hash = Hash.new # { M75 => [M75], M70 => [M75, M70],... }
     competitors_count = 0
+    to_same_pool = [] # age groups in the same pool use the same comparison time
     ordered_age_groups.each do |age_group|
-      groupped_age_group << age_group
+      to_same_pool << age_group
       competitors_count += age_group.competitors_count(all_competitors)
-      if enough_competitors_for_own_reference_time(age_group, competitors_count)
-        groupped_age_groups << groupped_age_group
-        groupped_age_group = []
+      if enough_competitors_for_own_comparison_time(age_group, competitors_count)
+        add_groups_from_pool_to_hash(hash, ordered_age_groups, to_same_pool)
+        to_same_pool = []
         competitors_count = 0
       end
     end
-    return groupped_age_groups, groupped_age_group
+    to_same_pool.each do |handled_age_group|
+      hash[handled_age_group] = nil # means that all age groups will be used in the query
+    end
+    hash
   end
 
-  def enough_competitors_for_own_reference_time(age_group, competitors_count)
+  def enough_competitors_for_own_comparison_time(age_group, competitors_count)
     competitors_count >= age_group.min_competitors
   end
 
-  def build_hash_for_groups_without_enough_competitors(age_groups_without_enough_competitors)
-    hash = {}
-    age_groups_without_enough_competitors.each do |age_group|
-      hash[age_group] = nil
-    end
-    hash
-  end
-
-  def add_to_hash_groups_with_enough_competitors_including_older_age_groups(hash, groupped_age_groups)
-    groupped_age_groups.each do |group|
-      group.each do |age_group|
-        ids = []
-        own_group = false
-        groupped_age_groups.each do |group2|
-          group2.each do |age_group2|
-            ids << age_group2.id
-            own_group = true if age_group == age_group2
-          end
-          break if own_group
-        end
-        hash[age_group] = ids
+  def add_groups_from_pool_to_hash(hash, ordered_age_groups, groups_in_same_pool)
+    groups_in_same_pool.each do |age_group|
+      comparison_groups = []
+      # pick older age groups
+      ordered_age_groups.each do |older_group|
+        break if groups_in_same_pool[0] == older_group
+        comparison_groups << older_group
       end
+      # pick age groups from the pool
+      groups_in_same_pool.each { |pool_group| comparison_groups << pool_group }
+      hash[age_group] = comparison_groups
     end
-    hash
   end
 end
