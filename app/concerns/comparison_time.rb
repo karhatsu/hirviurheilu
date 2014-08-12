@@ -56,23 +56,27 @@ module ComparisonTime
     hash = Hash.new # { M75 => [M75], M70 => [M75, M70],... }
     competitors_count = 0
     to_same_pool = [] # age groups in the same pool use the same comparison time
-    ordered_age_groups.each do |age_group|
+    ordered_age_groups.each_with_index do |age_group, i|
       to_same_pool << age_group
       competitors_count += age_group.competitors_count(all_competitors)
-      if enough_competitors_for_own_comparison_time(age_group, competitors_count)
+      if enough_competitors_for_own_comparison_time(age_group, competitors_count) ||
+          last_age_group_with_different_trip_length(ordered_age_groups, i)
         add_groups_from_pool_to_hash(hash, ordered_age_groups, to_same_pool)
         to_same_pool = []
         competitors_count = 0
       end
     end
-    to_same_pool.each do |handled_age_group|
-      hash[handled_age_group] = nil # means that all age groups will be used in the query
-    end
+    add_groups_from_pool_to_hash(hash, ordered_age_groups, to_same_pool)
     hash
   end
 
   def enough_competitors_for_own_comparison_time(age_group, competitors_count)
     competitors_count >= age_group.min_competitors
+  end
+
+  def last_age_group_with_different_trip_length(ordered_age_groups, i)
+    return false if i == ordered_age_groups.length - 1
+    ordered_age_groups[i].shorter_trip != ordered_age_groups[i + 1].shorter_trip
   end
 
   def add_groups_from_pool_to_hash(hash, ordered_age_groups, groups_in_same_pool)
@@ -81,7 +85,7 @@ module ComparisonTime
       # pick older age groups
       ordered_age_groups.each do |older_group|
         break if groups_in_same_pool[0] == older_group
-        comparison_groups << older_group
+        comparison_groups << older_group if age_group.shorter_trip == older_group.shorter_trip
       end
       # pick age groups from the pool
       groups_in_same_pool.each { |pool_group| comparison_groups << pool_group }

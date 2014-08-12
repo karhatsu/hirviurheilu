@@ -312,7 +312,7 @@ describe Series do
           @age_group_M85.stub(:competitors_count).with(@all_competitors).and_return(3)
         end
         
-        it "should return all age groups as keys and id + older age group ids as values" do
+        it "should return all age groups as keys and self with older age groups as values" do
           groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
           groups.length.should == 3
           groups[@age_group_M75].should == [@age_group_M85, @age_group_M80, @age_group_M75]
@@ -321,34 +321,18 @@ describe Series do
         end
       end
       
-      context "and the first+second age group have together enough competitors" do
+      context "and the first+second youngest age groups have together enough competitors" do
         before do
           @age_group_M75.stub(:competitors_count).with(@all_competitors).and_return(1)
           @age_group_M80.stub(:competitors_count).with(@all_competitors).and_return(2)
           @age_group_M85.stub(:competitors_count).with(@all_competitors).and_return(3)
         end
         
-        it "should return a hash where second age group key has all group ids as values" do
+        it "should return a hash where the youngest age groups have all age groups" do
           groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
           groups.length.should == 3
           groups[@age_group_M75].should == [@age_group_M85, @age_group_M80, @age_group_M75]
           groups[@age_group_M80].should == [@age_group_M85, @age_group_M80, @age_group_M75]
-          groups[@age_group_M85].should == [@age_group_M85]
-        end
-      end
-      
-      context "and the first ones have no enough competitors" do
-        before do
-          @age_group_M75.stub(:competitors_count).with(@all_competitors).and_return(1)
-          @age_group_M80.stub(:competitors_count).with(@all_competitors).and_return(1)
-          @age_group_M85.stub(:competitors_count).with(@all_competitors).and_return(3)
-        end
-        
-        it "should return a hash where the first age groups have nil id as value" do
-          groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
-          groups.length.should == 3
-          groups[@age_group_M75].should == nil
-          groups[@age_group_M80].should == nil
           groups[@age_group_M85].should == [@age_group_M85]
         end
       end
@@ -362,6 +346,7 @@ describe Series do
           @age_groups = [@age_group_M75, @age_group_M80, @age_group_M85, @age_group_M86, @age_group_M87, @age_group_M88, @age_group_M89]
           @age_groups.each do |age_group|
             age_group.stub(:competitors_count).with(@all_competitors).and_return(1)
+            age_group.stub(:shorter_trip).and_return(false)
           end
           @series.stub(:age_groups).and_return(@age_groups)
           @age_groups.stub(:order).with('name desc').and_return(@age_groups.reverse)
@@ -370,13 +355,34 @@ describe Series do
         it "should return correct hash" do
           groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
           groups.length.should == 7
-          groups[@age_group_M75].should == nil
+          all_age_groups = @age_groups.reverse
+          groups[@age_group_M75].should == all_age_groups
           groups[@age_group_M80].should == [@age_group_M89, @age_group_M88, @age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80]
           groups[@age_group_M85].should == [@age_group_M89, @age_group_M88, @age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80]
           groups[@age_group_M86].should == [@age_group_M89, @age_group_M88, @age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80]
           groups[@age_group_M87].should == [@age_group_M89, @age_group_M88, @age_group_M87]
           groups[@age_group_M88].should == [@age_group_M89, @age_group_M88, @age_group_M87]
           groups[@age_group_M89].should == [@age_group_M89, @age_group_M88, @age_group_M87]
+        end
+
+        context "and oldest groups have shorter trip to run" do
+          before do
+            @age_group_M88.stub(:shorter_trip).and_return(true)
+            @age_group_M89.stub(:shorter_trip).and_return(true)
+          end
+
+          it "should not mix those age groups with the other ones having a longer trip" do
+            groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
+            groups.length.should == 7
+            all_groups_with_longer_trip = [@age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80, @age_group_M75]
+            groups[@age_group_M75].should == all_groups_with_longer_trip
+            groups[@age_group_M80].should == all_groups_with_longer_trip
+            groups[@age_group_M85].should == [@age_group_M87, @age_group_M86, @age_group_M85]
+            groups[@age_group_M86].should == [@age_group_M87, @age_group_M86, @age_group_M85]
+            groups[@age_group_M87].should == [@age_group_M87, @age_group_M86, @age_group_M85]
+            groups[@age_group_M88].should == [@age_group_M89, @age_group_M88]
+            groups[@age_group_M89].should == [@age_group_M89, @age_group_M88]
+          end
         end
       end
     end
@@ -390,7 +396,7 @@ describe Series do
         @age_groups.stub(:order).with('name desc').and_return(@age_groups.reverse)
       end
       
-      it "should return all groups with only their own ids" do
+      it "should return hash with each age group referring only to itself" do
         groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
         groups.length.should == 2
         groups[@age_group_T16].should == @age_group_T16
