@@ -50,7 +50,7 @@ module ComparisonTime
 
   def hash_with_each_age_group_referring_to_itself(age_groups)
     age_groups.inject({}) do |hash, age_group|
-      hash[age_group] = age_group
+      hash[age_group] = [age_group]
       hash
     end
   end

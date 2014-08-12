@@ -400,11 +400,11 @@ describe Series do
         @age_groups.stub(:order).with('name desc').and_return(@age_groups.reverse)
       end
       
-      it "should return hash with each age group referring only to itself" do
+      it "should return hash with each age group referring only to itself inside of an array" do
         groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
         groups.length.should == 2
-        groups[@age_group_T16].should == @age_group_T16
-        groups[@age_group_P16].should == @age_group_P16
+        groups[@age_group_T16].should == [@age_group_T16]
+        groups[@age_group_P16].should == [@age_group_P16]
       end
     end
   end
