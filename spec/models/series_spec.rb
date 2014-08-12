@@ -357,7 +357,8 @@ describe Series do
         it "should return correct hash" do
           groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
           groups.length.should == 8
-          all_age_groups = @age_groups.reverse
+          all_age_groups = (@age_groups.reverse << nil)
+          groups[nil].should == all_age_groups
           groups[@age_group_M75].should == all_age_groups
           groups[@age_group_M80].should == [@age_group_M89, @age_group_M88, @age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80]
           groups[@age_group_M85].should == [@age_group_M89, @age_group_M88, @age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80]
@@ -365,7 +366,6 @@ describe Series do
           groups[@age_group_M87].should == [@age_group_M89, @age_group_M88, @age_group_M87]
           groups[@age_group_M88].should == [@age_group_M89, @age_group_M88, @age_group_M87]
           groups[@age_group_M89].should == [@age_group_M89, @age_group_M88, @age_group_M87]
-          groups[nil].should == (all_age_groups << nil)
         end
 
         context "and oldest groups have shorter trip to run" do
@@ -377,7 +377,8 @@ describe Series do
           it "should not mix those age groups with the other ones having a longer trip" do
             groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
             groups.length.should == 8
-            all_groups_with_longer_trip = [@age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80, @age_group_M75]
+            all_groups_with_longer_trip = [@age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80, @age_group_M75, nil]
+            groups[nil].should == all_groups_with_longer_trip
             groups[@age_group_M75].should == all_groups_with_longer_trip
             groups[@age_group_M80].should == all_groups_with_longer_trip
             groups[@age_group_M85].should == [@age_group_M87, @age_group_M86, @age_group_M85]
@@ -385,7 +386,6 @@ describe Series do
             groups[@age_group_M87].should == [@age_group_M87, @age_group_M86, @age_group_M85]
             groups[@age_group_M88].should == [@age_group_M89, @age_group_M88]
             groups[@age_group_M89].should == [@age_group_M89, @age_group_M88]
-            groups[nil].should == (all_groups_with_longer_trip << nil)
           end
         end
       end

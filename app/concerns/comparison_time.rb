@@ -69,7 +69,7 @@ module ComparisonTime
         competitors_count = 0
       end
     end
-    add_groups_from_pool_to_hash(hash, ordered_age_groups, to_same_pool)
+    add_groups_from_pool_to_hash(hash, ordered_age_groups, to_same_pool, include_main_series=true)
     hash
   end
 
@@ -82,7 +82,7 @@ module ComparisonTime
     ordered_age_groups[i].shorter_trip != ordered_age_groups[i + 1].shorter_trip
   end
 
-  def add_groups_from_pool_to_hash(hash, ordered_age_groups, groups_in_same_pool)
+  def add_groups_from_pool_to_hash(hash, ordered_age_groups, groups_in_same_pool, include_main_series=false)
     groups_in_same_pool.each do |age_group|
       comparison_groups = []
       # pick older age groups
@@ -92,6 +92,7 @@ module ComparisonTime
       end
       # pick age groups from the pool
       groups_in_same_pool.each { |pool_group| comparison_groups << pool_group }
+      comparison_groups << nil if include_main_series
       hash[age_group] = comparison_groups
     end
   end
