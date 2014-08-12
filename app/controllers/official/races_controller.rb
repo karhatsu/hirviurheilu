@@ -73,7 +73,7 @@ class Official::RacesController < Official::OfficialController
   def update_race_params
     accepted = accepted_create_params
     accepted << { series_attributes: [:id, :name, :national_record, :estimates, :time_points_type, :_destroy,
-                                      age_groups_attributes: [:id, :name, :min_competitors, :_destroy]] }
+                                      age_groups_attributes: [:id, :name, :min_competitors, :shorter_trip, :_destroy]] }
     params.require(:race).permit(accepted)
   end
 

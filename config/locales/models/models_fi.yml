@@ -22,7 +22,6 @@ fi:
     distance2: Etäisyys 2
     distance3: Etäisyys 3
     distance4: Etäisyys 4
-    races: Kilpailut
     email: Sähköposti
     end_date: Loppupvm
     estimate: Arvio
@@ -54,11 +53,13 @@ fi:
     price: Hinta
     published: Julkaistu
     race: Kilpailu
+    races: Kilpailut
     remember_me: Muista minut
     roles: Roolit
     series: Sarja
     series_id: Sarja
     series_names: Osakilpailuiden sarjojen nimet
+    shorter_trip: Lyhennetty matka
     shots_total_input: Ammunta yhteensä
     sport: Laji
     start_date: Alkupvm

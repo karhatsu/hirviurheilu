@@ -22,7 +22,6 @@ sv:
     distance2: Avstånd 2
     distance3: Avstånd 3
     distance4: Avstånd 4
-    races: Tävlingar
     email: Epost
     end_date: Slutdatum
     estimate: Bedömning
@@ -54,11 +53,13 @@ sv:
     price: Pris
     published: Publiserad
     race: Tävling
+    races: Tävlingar
     remember_me: Kom ihåg mig
     roles: Roller
     series: Klass
     series_id: Klass
     series_names: Klassnamn för tävlingar
+    shorter_trip: Kortare löpning
     shots_total_input: Skottstotal
     sport: Gren
     start_date: Startdatum
