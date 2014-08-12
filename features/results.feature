@@ -402,7 +402,7 @@ Feature: Results
     And I should see "Juoksu" within "#time h3"
     And I should see individual competitor page time result "13:00:00"-"14:00:00"="1:00:00"
 
-  Scenario: See the results with national record reached mention of an individul competitor in an unfinished race
+  Scenario: See the results with national record reached mention of an individual competitor in an unfinished race
     Given there is a race with attributes:
       | sport | RUN |
       | name | My test race |
@@ -619,3 +619,30 @@ Feature: Results
     And I am on the results page of the series
     Then the result row 1 should have time "30:25" with reference time "30:25"
     And the result row 2 should have time "39:00" with reference time "30:25"
+
+  Scenario: Results for series where some age groups have shorter trip
+    Given there is a race with attributes:
+      | name | My test race |
+      | start_interval_seconds | 60 |
+    And the race has series with attributes:
+      | name | M70 |
+      | start_time | 13:00 |
+      | first_number | 50 |
+    And the series has an age group "M75" with 2 minimum competitors for own comparison time
+    And the series has an age group "M80" with shorter trip
+    And the series has a competitor "James" "Johnson"
+    And the series has a competitor "Tim" "Atkinsson"
+    And the competitor belongs to an age group "M75"
+    And the series has a competitor "Old" "Grandpa"
+    And the competitor belongs to an age group "M80"
+    And the start list has been generated for the series
+    And the competitor "James" "Johnson" has the following results:
+      | arrival_time | 13:30:25 |
+    And the competitor "Tim" "Atkinsson" has the following results:
+      | arrival_time | 13:40:00 |
+    And the competitor "Old" "Grandpa" has the following results:
+      | arrival_time | 13:20:00 |
+    And I am on the results page of the series
+    Then the result row 1 should have time "18:00" with reference time "18:00"
+    And the result row 2 should have time "30:25" with reference time "30:25"
+    And the result row 3 should have time "39:00" with reference time "30:25"
