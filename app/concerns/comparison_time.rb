@@ -2,7 +2,6 @@ module ComparisonTime
   extend ActiveSupport::Concern
 
   def comparison_time_in_seconds(age_group, all_competitors)
-    return best_time_in_seconds(nil, all_competitors) unless age_group
     @age_groups_hash ||= age_groups_for_comparison_time(all_competitors)
     best_time_in_seconds(@age_groups_hash[age_group], all_competitors)
   end
@@ -15,7 +14,7 @@ module ComparisonTime
     return @best_time_cache[cache_key] if @best_time_cache.has_key?(cache_key)
     conditions = { :no_result_reason => nil }
     conditions[:unofficial] = false unless all_competitors
-    conditions[:age_group_id] = age_groups.map { |group| group.id } if age_groups
+    conditions[:age_group_id] = age_groups.map { |group| group ? group.id : nil } if age_groups
     time = competitors.where(conditions).minimum(time_subtraction_sql)
     if time
       @best_time_cache[cache_key] = time.to_i
@@ -28,13 +27,17 @@ module ComparisonTime
 
   def age_groups_for_comparison_time(all_competitors)
     ordered_age_groups = age_groups.order('name desc')
+    return {} if ordered_age_groups.empty?
 
     # e.g. P17/T17 in series S17
     return hash_with_each_age_group_referring_to_itself ordered_age_groups if
         different_first_letter_in_group_names(ordered_age_groups)
 
     # e.g. N55, N60, N65 in series N50
-    hash_with_age_group_referring_to_comparison_groups(ordered_age_groups, all_competitors)
+    hash = hash_with_age_group_referring_to_comparison_groups(ordered_age_groups, all_competitors)
+
+    # nil (refers to main series) => [nil, all age groups with normal trip length]
+    append_main_series_to_hash(hash, ordered_age_groups)
   end
 
   def different_first_letter_in_group_names(age_groups)
@@ -91,5 +94,11 @@ module ComparisonTime
       groups_in_same_pool.each { |pool_group| comparison_groups << pool_group }
       hash[age_group] = comparison_groups
     end
+  end
+
+  def append_main_series_to_hash(hash, ordered_age_groups)
+    hash[nil] = ordered_age_groups.select { |age_group| !age_group.shorter_trip }
+    hash[nil] << nil
+    hash
   end
 end
