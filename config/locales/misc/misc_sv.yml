@@ -24,7 +24,7 @@ sv:
   competitor:
     DNS: Tävlaren startade inte
     DNF: Tävlaren avbröt
-    DQ: Tävlaren disqualified
+    DQ: Tävlaren diskad
   competitors:
     people_short:
       one: 1 person
@@ -72,6 +72,7 @@ sv:
   relay_team:
     DNS: Laget startade inte
     DNF: Laget avbröt
+    DQ: Laget diskad
   run: Löpning
   refresh_counter_new_page_pre: Ny resultatssida uppdateras automatiskt om
   refresh_counter_new_page_post: sekunder
