@@ -14,7 +14,7 @@ module ComparisonTime
     return @best_time_cache[cache_key] if @best_time_cache.has_key?(cache_key)
     conditions = { :no_result_reason => nil }
     conditions[:unofficial] = false unless all_competitors
-    conditions[:age_group_id] = age_groups.map { |group| group ? group.id : nil } if age_groups
+    conditions[:age_group_id] = age_groups.map { |group| group ? group.id : [nil, 0] }.flatten if age_groups
     time = competitors.where(conditions).minimum(time_subtraction_sql)
     if time
       @best_time_cache[cache_key] = time.to_i

@@ -156,7 +156,7 @@ describe Series do
       end
   
       it "should use postgres syntax when postgres database" do
-        expect_postgres_query_for_minimum_time({:unofficial => false, :no_result_reason => nil, age_group_id: [nil]}, 123)
+        expect_postgres_query_for_minimum_time({:unofficial => false, :no_result_reason => nil, age_group_id: [nil, 0]}, 123)
         @series.send(:best_time_in_seconds, [nil], false).should == 123
       end
     end
@@ -189,7 +189,7 @@ describe Series do
         @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00', :arrival_time => '12:01:00', :age_group => @age_group_other)
         @age_groups = [@age_group_M75, @age_group_M80, nil]
-        @age_group_ids = [@age_group_M75.id, @age_group_M80.id, nil]
+        @age_group_ids = [@age_group_M75.id, @age_group_M80.id, nil, 0]
       end
   
       it "should return nil if no competitors" do
