@@ -1252,6 +1252,25 @@ describe Series do
     end
   end
 
+  describe '#age_groups_with_shorter_trip' do
+    context 'when no age groups' do
+      it 'is an empty array' do
+        expect(Series.new.age_groups_with_shorter_trip).to eq([])
+      end
+    end
+
+    context 'when age groups' do
+      it 'returns groups that have a shorter trip' do
+        series = FactoryGirl.build(:series)
+        normal_group = double(AgeGroup, shorter_trip: false)
+        shorter_trip_group = double(AgeGroup, shorter_trip: true)
+        age_groups = [normal_group, shorter_trip_group]
+        expect(series).to receive(:age_groups).and_return(age_groups)
+        expect(series.age_groups_with_shorter_trip).to eq([shorter_trip_group])
+      end
+    end
+  end
+
   def expect_postgres_query_for_minimum_time(conditions, return_value)
     competitors = double(Array)
     limited_competitors = double(Array)

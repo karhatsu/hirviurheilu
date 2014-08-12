@@ -91,6 +91,9 @@ fi:
   series_starts_in: Sarjan alkuun on aikaa
   service_provided_by: Palvelun tarjoaa
   shooting: Ammunta
+  shorter_trip_notice:
+    one: Ikäryhmällä %{age_group} on lyhennetty matka.
+    other: Ikäryhmillä %{age_group} on lyhennetty matka.
   show_all_competitors: Näytä kaikki kilpailijat
   ski: Hiihto
   start_list: Lähtölista

@@ -195,6 +195,10 @@ class Series < ActiveRecord::Base
       'shots_total_input is not null').exists?
   end
 
+  def age_groups_with_shorter_trip
+    age_groups.select {|age_group| age_group.shorter_trip}
+  end
+
   private
   def check_time_points_type
     self.time_points_type = TIME_POINTS_TYPE_NORMAL if time_points_type == nil

@@ -646,3 +646,17 @@ Feature: Results
     Then the result row 1 should have time "18:00" with reference time "18:00"
     And the result row 2 should have time "30:25" with reference time "30:25"
     And the result row 3 should have time "39:00" with reference time "30:25"
+    And I should see "Ikäryhmällä M80 on lyhennetty matka." in the second info message
+
+  Scenario: Multiple age groups have shorter trip
+    Given there is a race "Race with shorter trip age groups"
+    And the race has series with attributes:
+      | name | M70 |
+      | start_time | 13:00 |
+      | first_number | 50 |
+    And the series has a competitor "James" "Johnson"
+    And the series has an age group "M80" with shorter trip
+    And the series has an age group "M90" with shorter trip
+    And the start list has been generated for the series
+    And I am on the results page of the series
+    Then I should see "Ikäryhmillä M80, M90 on lyhennetty matka." in the second info message
