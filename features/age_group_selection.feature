@@ -15,7 +15,7 @@ Feature: Age group selection
     And I have logged in
     And I am on the new competitor page of the series "S15"
     Then the age group menu should not be hidden
-    And the age group menu should contain items "T15,P15"
+    And the age group menu should contain items "P15,T15"
     When I select "M" from "Sarja"
     Then the age group menu should be hidden
     When I select "M60" from "Sarja"
@@ -49,7 +49,7 @@ Feature: Age group selection
     Then the age group menu should not be hidden
     And the age group menu should contain items "M60,M65"
     When I select "S15" from "Sarja"
-    Then the age group menu should contain items "T15,P15"
+    Then the age group menu should contain items "P15,T15"
     When I select "P15" from "Ikäryhmä"
     And I press "Tallenna"
     Then I should see "Etunimi on pakollinen" in an error message

@@ -26,7 +26,7 @@ module ComparisonTime
   end
 
   def age_groups_for_comparison_time(all_competitors)
-    ordered_age_groups = age_groups.order('name desc')
+    ordered_age_groups = age_groups.except(:order).order('name desc')
     return {} if ordered_age_groups.empty?
 
     # e.g. P17/T17 in series S17

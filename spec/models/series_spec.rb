@@ -292,13 +292,11 @@ describe Series do
         @age_group_M75 = mock_model(AgeGroup, :name => 'M75', :min_competitors => 3)
         @age_group_M80 = mock_model(AgeGroup, :name => 'M80', :min_competitors => 3)
         @age_group_M85 = mock_model(AgeGroup, :name => 'M85', :min_competitors => 3)
-        @age_groups = [@age_group_M75, @age_group_M80, @age_group_M85]
-        @series.stub(:age_groups).and_return(@age_groups)
-        @age_groups.stub(:order).with('name desc').and_return(@age_groups.reverse)
       end
       
       context "and all age groups have enough competitors" do
         before do
+          expect_ordered_age_groups(@series, [@age_group_M75, @age_group_M80, @age_group_M85])
           @age_group_M75.stub(:competitors_count).with(@all_competitors).and_return(3)
           @age_group_M80.stub(:competitors_count).with(@all_competitors).and_return(4)
           @age_group_M85.stub(:competitors_count).with(@all_competitors).and_return(3)
@@ -320,6 +318,7 @@ describe Series do
       
       context "and the first+second youngest age groups have together enough competitors" do
         before do
+          expect_ordered_age_groups(@series, [@age_group_M75, @age_group_M80, @age_group_M85])
           @age_group_M75.stub(:competitors_count).with(@all_competitors).and_return(1)
           @age_group_M80.stub(:competitors_count).with(@all_competitors).and_return(2)
           @age_group_M85.stub(:competitors_count).with(@all_competitors).and_return(3)
@@ -350,8 +349,7 @@ describe Series do
             age_group.stub(:competitors_count).with(@all_competitors).and_return(1)
             age_group.stub(:shorter_trip).and_return(false)
           end
-          @series.stub(:age_groups).and_return(@age_groups)
-          @age_groups.stub(:order).with('name desc').and_return(@age_groups.reverse)
+          expect_ordered_age_groups(@series, @age_groups)
         end
         
         it "should return correct hash" do
@@ -395,9 +393,7 @@ describe Series do
       before do
         @age_group_T16 = mock_model(AgeGroup, :name => 'T16', :min_competitors => 1)
         @age_group_P16 = mock_model(AgeGroup, :name => 'P16', :min_competitors => 1)
-        @age_groups = [@age_group_T16, @age_group_P16]
-        @series.stub(:age_groups).and_return(@age_groups)
-        @age_groups.stub(:order).with('name desc').and_return(@age_groups.reverse)
+        expect_ordered_age_groups(@series, [@age_group_T16, @age_group_P16])
       end
       
       it "should return hash with each age group referring only to itself inside of an array" do
@@ -406,6 +402,13 @@ describe Series do
         groups[@age_group_T16].should == [@age_group_T16]
         groups[@age_group_P16].should == [@age_group_P16]
       end
+    end
+
+    def expect_ordered_age_groups(series, age_groups)
+      tmp_groups = double(Array)
+      expect(series).to receive(:age_groups).and_return(tmp_groups)
+      expect(tmp_groups).to receive(:except).with(:order).and_return(age_groups)
+      expect(age_groups).to receive(:order).with('name desc').and_return(age_groups.reverse)
     end
   end
 
