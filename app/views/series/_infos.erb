@@ -14,3 +14,9 @@
 <% unless walking_info.empty? %>
   <div class="info"><%= walking_info.join(' ') %></div>
 <% end %>
+<% shorter_trip_groups = series.age_groups_with_shorter_trip %>
+<% unless shorter_trip_groups.empty? %>
+  <div class="info"><%= t :shorter_trip_notice,
+                          age_group: shorter_trip_groups.map { |group| group.name }.join(', '),
+                          count: shorter_trip_groups.count %></div>
+<% end %>

@@ -79,6 +79,7 @@ Feature: Manage race
     And I fill in "Test series" for "Sarjan nimi"
     And I press "Lisää ikäryhmä"
     And I fill in "Test age group" for "Nimi"
+    And I check "Lyhennetty matka"
     And I press the first "Tallenna kilpailun ja sarjojen tiedot" button
     Then I should be on the official race page of "Test race"
     And I should see "Test series"

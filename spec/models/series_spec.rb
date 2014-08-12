@@ -129,11 +129,11 @@ describe Series do
   
       it "should return nil if no competitors" do
         series = FactoryGirl.create(:series)
-        series.best_time_in_seconds(nil, false).should be_nil
+        series.send(:best_time_in_seconds, [nil], false).should be_nil
       end
   
       it "should return nil if no official, finished competitors with time" do
-        @series.best_time_in_seconds(nil, false).should be_nil
+        @series.send(:best_time_in_seconds, [nil], false).should be_nil
       end
   
       describe "finished competitors found" do
@@ -147,81 +147,82 @@ describe Series do
         end
   
         it "should return the fastest time for official, finished competitors" do
-          @series.best_time_in_seconds(nil, false).should == 61
+          @series.send(:best_time_in_seconds, [nil], false).should == 61
         end
   
         it "should return the fastest time of all finished competitors when unofficials included" do
-          @series.best_time_in_seconds(nil, true).should == 60
+          @series.send(:best_time_in_seconds, [nil], true).should == 60
         end
       end
   
       it "should use postgres syntax when postgres database" do
-        expect_postgres_query_for_minimum_time({:unofficial => false, :no_result_reason => nil}, 123)
-        @series.best_time_in_seconds(nil, false).should == 123
+        expect_postgres_query_for_minimum_time({:unofficial => false, :no_result_reason => nil, age_group_id: [nil]}, 123)
+        @series.send(:best_time_in_seconds, [nil], false).should == 123
       end
     end
     
-    describe "for given age group ids" do
+    describe "for given age groups" do
       before do
         @series = FactoryGirl.create(:series)
-        @age_group1 = FactoryGirl.build(:age_group, :series => @series)
-        @age_group2 = FactoryGirl.build(:age_group, :series => @series)
+        @age_group_M75 = FactoryGirl.build(:age_group, :series => @series)
+        @age_group_M80 = FactoryGirl.build(:age_group, :series => @series)
         @age_group_other = FactoryGirl.build(:age_group, :series => @series)
-        @series.age_groups << @age_group1
-        @series.age_groups << @age_group2
+        @series.age_groups << @age_group_M75
+        @series.age_groups << @age_group_M80
         @series.age_groups << @age_group_other
-        @series.competitors << FactoryGirl.build(:competitor, :series => @series, :age_group => @age_group1)
+        @series.competitors << FactoryGirl.build(:competitor, :series => @series, :age_group => @age_group_M75)
         @series.competitors << FactoryGirl.build(:competitor, :series => @series,
-          :start_time => '12:00:00', :age_group => @age_group1)
+          :start_time => '12:00:00', :age_group => @age_group_M75)
         # below the time is 60 secs but the competitors are not valid
         @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00', :arrival_time => '12:01:00',
-          :no_result_reason => "DNS", :age_group => @age_group2)
+          :no_result_reason => "DNS", :age_group => @age_group_M80)
         @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00', :arrival_time => '12:01:00',
-          :no_result_reason => "DNF", :age_group => @age_group1)
+          :no_result_reason => "DNF", :age_group => @age_group_M75)
         @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00', :arrival_time => '12:01:00',
-          :no_result_reason => "DQ", :age_group => @age_group1)
+          :no_result_reason => "DQ", :age_group => @age_group_M75)
         @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00',
-          :arrival_time => '12:01:00', :unofficial => true, :age_group => @age_group2)
+          :arrival_time => '12:01:00', :unofficial => true, :age_group => @age_group_M80)
         @series.competitors << FactoryGirl.build(:competitor, :series => @series,
           :start_time => '12:00:00', :arrival_time => '12:01:00', :age_group => @age_group_other)
-        @age_group_ids = [@age_group1.id, @age_group2.id]
+        @age_groups = [@age_group_M75, @age_group_M80, nil]
+        @age_group_ids = [@age_group_M75.id, @age_group_M80.id, nil]
       end
   
       it "should return nil if no competitors" do
         series = FactoryGirl.create(:series)
-        series.best_time_in_seconds(@age_group_ids, false).should be_nil
+        series.send(:best_time_in_seconds, @age_groups, false).should be_nil
       end
   
       it "should return nil if no official, finished competitors with time" do
-        @series.best_time_in_seconds(@age_group_ids, false).should be_nil
+        @series.send(:best_time_in_seconds, @age_groups, false).should be_nil
       end
   
       describe "finished competitors found" do
         before do
           @series.competitors << FactoryGirl.build(:competitor, :series => @series,
-            :start_time => '12:00:00', :arrival_time => '12:01:02', :age_group => @age_group1) # 62 s
+            :start_time => '12:00:00', :arrival_time => '12:01:02', :age_group => @age_group_M75) # 62 s
           @series.competitors << FactoryGirl.build(:competitor, :series => @series,
-            :start_time => '12:00:01', :arrival_time => '12:01:03', :age_group => @age_group2) # 62 s
+            :start_time => '12:00:01', :arrival_time => '12:01:03', :age_group => @age_group_M80) # 62 s
           @series.competitors << FactoryGirl.build(:competitor, :series => @series,
-            :start_time => '12:00:03', :arrival_time => '12:01:04', :age_group => @age_group1) # 61 s
+            :start_time => '12:00:03', :arrival_time => '12:01:04', :age_group => @age_group_M75) # 61 s
         end
   
         it "should return the fastest time for official, finished competitors" do
-          @series.best_time_in_seconds(@age_group_ids, false).should == 61
+          @series.send(:best_time_in_seconds, @age_groups, false).should == 61
         end
   
         it "should return the fastest time of all finished competitors when unofficials included" do
-          @series.best_time_in_seconds(@age_group_ids, true).should == 60
+          @series.send(:best_time_in_seconds, @age_groups, true).should == 60
         end
       end
   
       it "should use postgres syntax when postgres database" do
         expect_postgres_query_for_minimum_time({:unofficial => false, :no_result_reason => nil, :age_group_id => @age_group_ids}, 123)
-        @series.best_time_in_seconds(@age_group_ids, false).should == 123
+        @series.send(:best_time_in_seconds, @age_groups, false).should == 123
       end
     end
     
@@ -230,6 +231,7 @@ describe Series do
         @series = FactoryGirl.build(:series)
         @competitors = [mock_model(Competitor)]
         @series.should_receive(:competitors).once.and_return(@competitors)
+        @age_groups = [double(AgeGroup, id: 1), double(AgeGroup, id: 2)]
       end
       
       context "when first method call returns non-nil" do
@@ -238,8 +240,8 @@ describe Series do
           limited_competitors = double(Array)
           @competitors.should_receive(:where).once.and_return(limited_competitors)
           limited_competitors.should_receive(:minimum).once.and_return(result)
-          @series.best_time_in_seconds([1,2], true).should == result.to_i
-          @series.best_time_in_seconds([1,2], true).should == result.to_i
+          @series.send(:best_time_in_seconds, @age_groups, true).should == result.to_i
+          @series.send(:best_time_in_seconds, @age_groups, true).should == result.to_i
         end
       end
       
@@ -248,8 +250,8 @@ describe Series do
           limited_competitors = double(Array)
           @competitors.should_receive(:where).once.and_return(limited_competitors)
           limited_competitors.should_receive(:minimum).once.and_return(nil)
-          @series.best_time_in_seconds([1,2], true).should == nil
-          @series.best_time_in_seconds([1,2], true).should == nil
+          @series.send(:best_time_in_seconds, @age_groups, true).should == nil
+          @series.send(:best_time_in_seconds, @age_groups, true).should == nil
         end
       end
     end
@@ -261,26 +263,18 @@ describe Series do
       @all_competitors = true
     end
     
-    context "when nil age_group given" do
-      it "should call best_time_in_seconds with nil age_group_ids" do
-        @series.should_receive(:best_time_in_seconds).with(nil, @all_competitors).and_return(5678)
-        @series.comparison_time_in_seconds(nil, @all_competitors).should == 5678
-      end
-    end
-    
-    context "when real age group given" do
-      it "should get age group comparison group ids and call best_time_in_seconds with that" do
-        ids = [1, 4, 7]
-        age_group = mock_model(AgeGroup)
-        id_hash = { :foo => :bar, age_group => ids }
-        @series.should_receive(:age_group_comparison_group_ids).with(@all_competitors).and_return(id_hash)
-        @series.should_receive(:best_time_in_seconds).with(ids, @all_competitors).and_return(9998)
-        @series.comparison_time_in_seconds(age_group, @all_competitors).should == 9998
-      end
+    it "should get age group comparison groups and call best_time_in_seconds with that" do
+      age_group = mock_model(AgeGroup)
+      hash = double(Hash)
+      age_group_array = double(Array)
+      expect(@series).to receive(:age_groups_for_comparison_time).with(@all_competitors).and_return(hash)
+      expect(hash).to receive(:[]).with(age_group).and_return(age_group_array)
+      @series.should_receive(:best_time_in_seconds).with(age_group_array, @all_competitors).and_return(9998)
+      @series.comparison_time_in_seconds(age_group, @all_competitors).should == 9998
     end
   end
   
-  describe "#age_group_comparison_group_ids" do
+  describe "#age_groups_for_comparison_time" do
     before do
       @series = FactoryGirl.build(:series, :name => 'M70')
       @all_competitors = true
@@ -288,120 +282,129 @@ describe Series do
     
     context "when no age groups" do
       it "should return an empty hash" do
-        groups = @series.send(:age_group_comparison_group_ids, @all_competitors)
+        groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
         groups.should == {}
       end
     end
     
     context "when age groups that start with same letters" do
       before do
-        @age_group1_id = 10
-        @age_group2_id = 11
-        @age_group3_id = 12
-        @age_group1 = mock_model(AgeGroup, :id => @age_group1_id, :name => 'M75', :min_competitors => 3)
-        @age_group2 = mock_model(AgeGroup, :id => @age_group2_id, :name => 'M80', :min_competitors => 3)
-        @age_group3 = mock_model(AgeGroup, :id => @age_group3_id, :name => 'M85', :min_competitors => 3)
-        @age_groups = [@age_group1, @age_group2, @age_group3]
+        @age_group_M75 = mock_model(AgeGroup, :name => 'M75', :min_competitors => 3)
+        @age_group_M80 = mock_model(AgeGroup, :name => 'M80', :min_competitors => 3)
+        @age_group_M85 = mock_model(AgeGroup, :name => 'M85', :min_competitors => 3)
+        @age_groups = [@age_group_M75, @age_group_M80, @age_group_M85]
         @series.stub(:age_groups).and_return(@age_groups)
         @age_groups.stub(:order).with('name desc').and_return(@age_groups.reverse)
       end
       
       context "and all age groups have enough competitors" do
         before do
-          @age_group1.stub(:competitors_count).with(@all_competitors).and_return(3)
-          @age_group2.stub(:competitors_count).with(@all_competitors).and_return(4)
-          @age_group3.stub(:competitors_count).with(@all_competitors).and_return(3)
+          @age_group_M75.stub(:competitors_count).with(@all_competitors).and_return(3)
+          @age_group_M80.stub(:competitors_count).with(@all_competitors).and_return(4)
+          @age_group_M85.stub(:competitors_count).with(@all_competitors).and_return(3)
         end
         
-        it "should return all age groups as keys and id + older age group ids as values" do
-          groups = @series.send(:age_group_comparison_group_ids, @all_competitors)
-          groups.length.should == 3
-          groups[@age_group1].should == [@age_group3_id, @age_group2_id, @age_group1_id]
-          groups[@age_group2].should == [@age_group3_id, @age_group2_id]
-          groups[@age_group3].should == [@age_group3_id]
+        it "should return all age groups as keys and self with older age groups as values" do
+          groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
+          groups.length.should == 3+1 # see the next test
+          groups[@age_group_M75].should == [@age_group_M85, @age_group_M80, @age_group_M75]
+          groups[@age_group_M80].should == [@age_group_M85, @age_group_M80]
+          groups[@age_group_M85].should == [@age_group_M85]
+        end
+
+        it "should have nil referring to main series in the hash with all groups + nil (self) as values" do
+          groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
+          groups[nil].should == [@age_group_M85, @age_group_M80, @age_group_M75, nil]
         end
       end
       
-      context "and the first+second age group have together enough competitors" do
+      context "and the first+second youngest age groups have together enough competitors" do
         before do
-          @age_group1.stub(:competitors_count).with(@all_competitors).and_return(1)
-          @age_group2.stub(:competitors_count).with(@all_competitors).and_return(2)
-          @age_group3.stub(:competitors_count).with(@all_competitors).and_return(3)
+          @age_group_M75.stub(:competitors_count).with(@all_competitors).and_return(1)
+          @age_group_M80.stub(:competitors_count).with(@all_competitors).and_return(2)
+          @age_group_M85.stub(:competitors_count).with(@all_competitors).and_return(3)
         end
         
-        it "should return a hash where second age group key has all group ids as values" do
-          groups = @series.send(:age_group_comparison_group_ids, @all_competitors)
-          groups.length.should == 3
-          groups[@age_group1].should == [@age_group3_id, @age_group2_id, @age_group1_id]
-          groups[@age_group2].should == [@age_group3_id, @age_group2_id, @age_group1_id]
-          groups[@age_group3].should == [@age_group3_id]
+        it "should return a hash where the youngest age groups have all age groups" do
+          groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
+          groups.length.should == 4
+          groups[@age_group_M75].should == [@age_group_M85, @age_group_M80, @age_group_M75]
+          groups[@age_group_M80].should == [@age_group_M85, @age_group_M80, @age_group_M75]
+          groups[@age_group_M85].should == [@age_group_M85]
         end
-      end
-      
-      context "and the first ones have no enough competitors" do
-        before do
-          @age_group1.stub(:competitors_count).with(@all_competitors).and_return(1)
-          @age_group2.stub(:competitors_count).with(@all_competitors).and_return(1)
-          @age_group3.stub(:competitors_count).with(@all_competitors).and_return(3)
-        end
-        
-        it "should return a hash where the first age groups have nil id as value" do
-          groups = @series.send(:age_group_comparison_group_ids, @all_competitors)
-          groups.length.should == 3
-          groups[@age_group1].should == nil
-          groups[@age_group2].should == nil
-          groups[@age_group3].should == [@age_group3_id]
+
+        it "should have nil referring to main series in the hash with all groups + nil (self) as values" do
+          groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
+          groups[nil].should == [@age_group_M85, @age_group_M80, @age_group_M75, nil]
         end
       end
       
       context "and age groups form two combined groups plus one without enough competitors" do
         before do
-          @age_group4_id = 14
-          @age_group5_id = 15
-          @age_group6_id = 16
-          @age_group7_id = 17
-          @age_group4 = mock_model(AgeGroup, :id => @age_group4_id, :name => 'M86', :min_competitors => 3)
-          @age_group5 = mock_model(AgeGroup, :id => @age_group5_id, :name => 'M87', :min_competitors => 3)
-          @age_group6 = mock_model(AgeGroup, :id => @age_group6_id, :name => 'M88', :min_competitors => 3)
-          @age_group7 = mock_model(AgeGroup, :id => @age_group7_id, :name => 'M89', :min_competitors => 3)
-          @age_groups = [@age_group1, @age_group2, @age_group3, @age_group4, @age_group5, @age_group6, @age_group7]
+          @age_group_M86 = mock_model(AgeGroup, :id => @age_group_M86, :name => 'M86', :min_competitors => 3)
+          @age_group_M87 = mock_model(AgeGroup, :id => @age_group_M87, :name => 'M87', :min_competitors => 3)
+          @age_group_M88 = mock_model(AgeGroup, :id => @age_group_M88, :name => 'M88', :min_competitors => 3)
+          @age_group_M89 = mock_model(AgeGroup, :id => @age_group_M89, :name => 'M89', :min_competitors => 3)
+          @age_groups = [@age_group_M75, @age_group_M80, @age_group_M85, @age_group_M86, @age_group_M87, @age_group_M88, @age_group_M89]
           @age_groups.each do |age_group|
             age_group.stub(:competitors_count).with(@all_competitors).and_return(1)
+            age_group.stub(:shorter_trip).and_return(false)
           end
           @series.stub(:age_groups).and_return(@age_groups)
           @age_groups.stub(:order).with('name desc').and_return(@age_groups.reverse)
         end
         
         it "should return correct hash" do
-          groups = @series.send(:age_group_comparison_group_ids, @all_competitors)
-          groups.length.should == 7
-          groups[@age_group1].should == nil
-          groups[@age_group2].should == [@age_group7_id, @age_group6_id, @age_group5_id, @age_group4_id, @age_group3_id, @age_group2_id]
-          groups[@age_group3].should == [@age_group7_id, @age_group6_id, @age_group5_id, @age_group4_id, @age_group3_id, @age_group2_id]
-          groups[@age_group4].should == [@age_group7_id, @age_group6_id, @age_group5_id, @age_group4_id, @age_group3_id, @age_group2_id]
-          groups[@age_group5].should == [@age_group7_id, @age_group6_id, @age_group5_id]
-          groups[@age_group6].should == [@age_group7_id, @age_group6_id, @age_group5_id]
-          groups[@age_group7].should == [@age_group7_id, @age_group6_id, @age_group5_id]
+          groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
+          groups.length.should == 8
+          all_age_groups = (@age_groups.reverse << nil)
+          groups[nil].should == all_age_groups
+          groups[@age_group_M75].should == all_age_groups
+          groups[@age_group_M80].should == [@age_group_M89, @age_group_M88, @age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80]
+          groups[@age_group_M85].should == [@age_group_M89, @age_group_M88, @age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80]
+          groups[@age_group_M86].should == [@age_group_M89, @age_group_M88, @age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80]
+          groups[@age_group_M87].should == [@age_group_M89, @age_group_M88, @age_group_M87]
+          groups[@age_group_M88].should == [@age_group_M89, @age_group_M88, @age_group_M87]
+          groups[@age_group_M89].should == [@age_group_M89, @age_group_M88, @age_group_M87]
+        end
+
+        context "and oldest groups have shorter trip to run" do
+          before do
+            @age_group_M88.stub(:shorter_trip).and_return(true)
+            @age_group_M89.stub(:shorter_trip).and_return(true)
+          end
+
+          it "should not mix those age groups with the other ones having a longer trip" do
+            groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
+            groups.length.should == 8
+            all_groups_with_longer_trip = [@age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80, @age_group_M75, nil]
+            groups[nil].should == all_groups_with_longer_trip
+            groups[@age_group_M75].should == all_groups_with_longer_trip
+            groups[@age_group_M80].should == all_groups_with_longer_trip
+            groups[@age_group_M85].should == [@age_group_M87, @age_group_M86, @age_group_M85]
+            groups[@age_group_M86].should == [@age_group_M87, @age_group_M86, @age_group_M85]
+            groups[@age_group_M87].should == [@age_group_M87, @age_group_M86, @age_group_M85]
+            groups[@age_group_M88].should == [@age_group_M89, @age_group_M88]
+            groups[@age_group_M89].should == [@age_group_M89, @age_group_M88]
+          end
         end
       end
     end
       
     context "when age groups that start with different letters" do
       before do
-        @age_group1_id = 10
-        @age_group2_id = 11
-        @age_group1 = mock_model(AgeGroup, :id => @age_group1_id, :name => 'T16', :min_competitors => 1)
-        @age_group2 = mock_model(AgeGroup, :id => @age_group2_id, :name => 'P16', :min_competitors => 1)
-        @age_groups = [@age_group1, @age_group2]
+        @age_group_T16 = mock_model(AgeGroup, :name => 'T16', :min_competitors => 1)
+        @age_group_P16 = mock_model(AgeGroup, :name => 'P16', :min_competitors => 1)
+        @age_groups = [@age_group_T16, @age_group_P16]
         @series.stub(:age_groups).and_return(@age_groups)
         @age_groups.stub(:order).with('name desc').and_return(@age_groups.reverse)
       end
       
-      it "should return all groups with only their own ids" do
-        groups = @series.send(:age_group_comparison_group_ids, @all_competitors)
+      it "should return hash with each age group referring only to itself inside of an array" do
+        groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
         groups.length.should == 2
-        groups[@age_group1].should == @age_group1_id
-        groups[@age_group2].should == @age_group2_id
+        groups[@age_group_T16].should == [@age_group_T16]
+        groups[@age_group_P16].should == [@age_group_P16]
       end
     end
   end
@@ -1245,6 +1248,25 @@ describe Series do
           @series.reload
           @series.should have_result_for_some_competitor
         end
+      end
+    end
+  end
+
+  describe '#age_groups_with_shorter_trip' do
+    context 'when no age groups' do
+      it 'is an empty array' do
+        expect(Series.new.age_groups_with_shorter_trip).to eq([])
+      end
+    end
+
+    context 'when age groups' do
+      it 'returns groups that have a shorter trip' do
+        series = FactoryGirl.build(:series)
+        normal_group = double(AgeGroup, shorter_trip: false)
+        shorter_trip_group = double(AgeGroup, shorter_trip: true)
+        age_groups = [normal_group, shorter_trip_group]
+        expect(series).to receive(:age_groups).and_return(age_groups)
+        expect(series.age_groups_with_shorter_trip).to eq([shorter_trip_group])
       end
     end
   end

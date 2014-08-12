@@ -119,7 +119,7 @@ class RemoteRacesController < ApplicationController
       clubs_attributes: [:id, :name, :long_name],
       correct_estimates_attributes: [:id, :min_number, :max_number, :distance1, :distance2, :distance3, :distance4],
       series_attributes: [:id, :name, :start_time, :first_number, :has_start_list, :start_day, :estimates, :national_record, :time_points_type,
-        age_groups_attributes: [:id, :name, :min_competitors],
+        age_groups_attributes: [:id, :name, :min_competitors, :shorter_trip],
         competitors_attributes: [:id, :first_name, :last_name, :number, :start_time, :arrival_time, :shots_total_input,
                                  :estimate1, :estimate2, :estimate3, :estimate4, :correct_estimate1, :correct_estimate2, :correct_estimate3, :correct_estimate4,
                                  :no_result_reason, :unofficial, :team_name, :club_name, :age_group_name,

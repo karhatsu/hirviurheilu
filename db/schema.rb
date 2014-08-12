@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140720101705) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20140812083602) do
 
   create_table "activation_keys", force: true do |t|
     t.string   "comment",    null: false
@@ -23,11 +20,12 @@ ActiveRecord::Schema.define(version: 20140720101705) do
   end
 
   create_table "age_groups", force: true do |t|
-    t.integer  "series_id",                   null: false
-    t.string   "name",                        null: false
+    t.integer  "series_id",                       null: false
+    t.string   "name",                            null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "min_competitors", default: 0, null: false
+    t.integer  "min_competitors", default: 0,     null: false
+    t.boolean  "shorter_trip",    default: false, null: false
   end
 
   create_table "announcements", force: true do |t|
@@ -53,7 +51,7 @@ ActiveRecord::Schema.define(version: 20140720101705) do
     t.string   "long_name"
   end
 
-  add_index "clubs", ["race_id"], name: "index_clubs_on_race_id", using: :btree
+  add_index "clubs", ["race_id"], name: "index_clubs_on_race_id"
 
   create_table "competitors", force: true do |t|
     t.integer  "series_id",                         null: false
@@ -80,7 +78,8 @@ ActiveRecord::Schema.define(version: 20140720101705) do
     t.string   "team_name"
   end
 
-  add_index "competitors", ["series_id"], name: "index_competitors_on_series_id", using: :btree
+  add_index "competitors", ["age_group_id"], name: "index_competitors_on_age_group_id"
+  add_index "competitors", ["series_id"], name: "index_competitors_on_series_id"
 
   create_table "correct_estimates", force: true do |t|
     t.integer  "race_id",    null: false
@@ -157,7 +156,7 @@ ActiveRecord::Schema.define(version: 20140720101705) do
     t.string   "organizer_phone"
   end
 
-  add_index "races", ["sport_id"], name: "index_races_on_sport_id", using: :btree
+  add_index "races", ["sport_id"], name: "index_races_on_sport_id"
 
   create_table "relay_competitors", force: true do |t|
     t.integer  "relay_team_id", null: false
@@ -173,7 +172,7 @@ ActiveRecord::Schema.define(version: 20140720101705) do
     t.integer  "adjustment"
   end
 
-  add_index "relay_competitors", ["relay_team_id"], name: "index_relay_competitors_on_relay_team_id", using: :btree
+  add_index "relay_competitors", ["relay_team_id"], name: "index_relay_competitors_on_relay_team_id"
 
   create_table "relay_correct_estimates", force: true do |t|
     t.integer  "relay_id",   null: false
@@ -183,7 +182,7 @@ ActiveRecord::Schema.define(version: 20140720101705) do
     t.integer  "leg",        null: false
   end
 
-  add_index "relay_correct_estimates", ["relay_id"], name: "index_relay_correct_estimates_on_relay_id", using: :btree
+  add_index "relay_correct_estimates", ["relay_id"], name: "index_relay_correct_estimates_on_relay_id"
 
   create_table "relay_teams", force: true do |t|
     t.integer  "relay_id",         null: false
@@ -194,7 +193,7 @@ ActiveRecord::Schema.define(version: 20140720101705) do
     t.string   "no_result_reason"
   end
 
-  add_index "relay_teams", ["relay_id"], name: "index_relay_teams_on_relay_id", using: :btree
+  add_index "relay_teams", ["relay_id"], name: "index_relay_teams_on_relay_id"
 
   create_table "relays", force: true do |t|
     t.integer  "race_id",                    null: false
@@ -207,14 +206,14 @@ ActiveRecord::Schema.define(version: 20140720101705) do
     t.boolean  "finished",   default: false, null: false
   end
 
-  add_index "relays", ["race_id"], name: "index_relays_on_race_id", using: :btree
+  add_index "relays", ["race_id"], name: "index_relays_on_race_id"
 
   create_table "rights", id: false, force: true do |t|
     t.integer "user_id", null: false
     t.integer "role_id", null: false
   end
 
-  add_index "rights", ["user_id"], name: "index_rights_on_user_id", using: :btree
+  add_index "rights", ["user_id"], name: "index_rights_on_user_id"
 
   create_table "roles", force: true do |t|
     t.string   "name",       null: false
@@ -237,7 +236,7 @@ ActiveRecord::Schema.define(version: 20140720101705) do
     t.integer  "time_points_type",  default: 0,     null: false
   end
 
-  add_index "series", ["race_id"], name: "index_series_on_race_id", using: :btree
+  add_index "series", ["race_id"], name: "index_series_on_race_id"
 
   create_table "shots", force: true do |t|
     t.integer  "competitor_id", null: false
@@ -246,7 +245,7 @@ ActiveRecord::Schema.define(version: 20140720101705) do
     t.datetime "updated_at"
   end
 
-  add_index "shots", ["competitor_id"], name: "index_shots_on_competitor_id", using: :btree
+  add_index "shots", ["competitor_id"], name: "index_shots_on_competitor_id"
 
   create_table "sports", force: true do |t|
     t.string   "name",       null: false
@@ -260,14 +259,14 @@ ActiveRecord::Schema.define(version: 20140720101705) do
     t.integer "age_group_id",        null: false
   end
 
-  add_index "team_competition_age_groups", ["team_competition_id"], name: "index_team_competition_age_groups_on_team_competition_id", using: :btree
+  add_index "team_competition_age_groups", ["team_competition_id"], name: "index_team_competition_age_groups_on_team_competition_id"
 
   create_table "team_competition_series", id: false, force: true do |t|
     t.integer "team_competition_id", null: false
     t.integer "series_id",           null: false
   end
 
-  add_index "team_competition_series", ["team_competition_id"], name: "index_team_competition_series_on_team_competition_id", using: :btree
+  add_index "team_competition_series", ["team_competition_id"], name: "index_team_competition_series_on_team_competition_id"
 
   create_table "team_competitions", force: true do |t|
     t.integer  "race_id",                               null: false
@@ -278,7 +277,7 @@ ActiveRecord::Schema.define(version: 20140720101705) do
     t.boolean  "use_team_name",         default: false, null: false
   end
 
-  add_index "team_competitions", ["race_id"], name: "index_team_competitions_on_race_id", using: :btree
+  add_index "team_competitions", ["race_id"], name: "index_team_competitions_on_race_id"
 
   create_table "user_sessions", force: true do |t|
     t.string   "session_id"
@@ -287,8 +286,8 @@ ActiveRecord::Schema.define(version: 20140720101705) do
     t.datetime "updated_at"
   end
 
-  add_index "user_sessions", ["session_id"], name: "index_user_sessions_on_session_id", using: :btree
-  add_index "user_sessions", ["updated_at"], name: "index_user_sessions_on_updated_at", using: :btree
+  add_index "user_sessions", ["session_id"], name: "index_user_sessions_on_session_id"
+  add_index "user_sessions", ["updated_at"], name: "index_user_sessions_on_updated_at"
 
   create_table "users", force: true do |t|
     t.string   "first_name",                      null: false
@@ -313,6 +312,6 @@ ActiveRecord::Schema.define(version: 20140720101705) do
     t.text     "invoicing_info"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email"
 
 end
