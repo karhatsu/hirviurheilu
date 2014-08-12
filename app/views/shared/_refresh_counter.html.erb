@@ -49,5 +49,6 @@
   $('#stop').click(stopCounting);
   $('#start').click(continueCounting);
   $(document).ready(startCounting);
-  $(document).on('page:fetch', stopCounting);
+  $(document).on('page:load', stopCounting);
+  $(document).on('page:restore', stopCounting);
 <% end %>
