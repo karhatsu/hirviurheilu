@@ -12,12 +12,18 @@ class ApplicationController < ActionController::Base
   private
   def set_locale
     new_locale = params[:new_locale]
-    if new_locale
+    if new_locale and valid_locale?(new_locale)
       I18n.locale = new_locale
       redirect_to path_after_locale_change(new_locale)
+    elsif valid_locale?(params[:locale])
+      I18n.locale = params[:locale]
     else
-      I18n.locale = params[:locale] || I18n.default_locale
+      I18n.locale = I18n.default_locale
     end
+  end
+
+  def valid_locale?(locale)
+    %w(fi sv).include? locale
   end
   
   def path_after_locale_change(new_locale)
