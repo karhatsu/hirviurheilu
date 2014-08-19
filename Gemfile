@@ -16,7 +16,7 @@ gem 'activerecord-session_store'
 
 group :development, :staging, :production do
   gem 'pg'
-  gem 'thin'
+  gem 'unicorn'
 end
 
 group :staging, :production do
