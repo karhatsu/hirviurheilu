@@ -17,7 +17,7 @@
 <% if @relay.race.relays.count > 1 %>
   <hr/>
   <% @relay.race.relays.each do |r| %>
-    <%= link_to_unless r == @relay, r.name, race_relay_path(r.race, r) %>&NonBreakingSpace;
+    <%= link_to_unless r == @relay, r.name, race_relay_path(r.race, r) %>&nbsp;
   <% end %>
 <% end %>
 <hr/>

@@ -21,7 +21,7 @@
 <% if @series.race.series.count > 1 %>
   <hr/>
   <% @series.race.series.each do |s| %>
-    <%= link_to_unless s == @series, s.name, series_competitors_path(s) %>&NonBreakingSpace;
+    <%= link_to_unless s == @series, s.name, series_competitors_path(s) %>&nbsp;
   <% end %>
 <% end %>
 <hr/>
