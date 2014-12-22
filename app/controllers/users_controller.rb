@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       @user.add_official_rights
-      NewUserMailer.new_user(@user).deliver
+      NewUserMailer.new_user(@user).deliver_now
       flash[:success] = t('users.create.account_created')
       redirect_back_or_default account_url
     else

@@ -9,7 +9,7 @@ class RemoteRacesController < ApplicationController
     if @race.save
       @race.race_rights.create!(:user => @user)
       unless offline_or_fake_offline?
-        PublishMailer.publish_mail(@race, @user).deliver
+        PublishMailer.publish_mail(@race, @user).deliver_now
       end
       redirect_to_success
     else

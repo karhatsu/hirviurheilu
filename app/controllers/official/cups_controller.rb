@@ -12,7 +12,7 @@ class Official::CupsController < Official::OfficialController
       @cup.save!
       @cup.create_default_cup_series
       current_user.cups << @cup
-      NewCompetitionMailer.new_cup(@cup, current_user).deliver
+      NewCompetitionMailer.new_cup(@cup, current_user).deliver_now
       flash[:success] = 'Cup-kilpailu lisätty'
       redirect_to official_cup_path(@cup)
     else
