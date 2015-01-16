@@ -539,7 +539,7 @@ describe ApplicationHelper do
   describe "#yes_or_empty" do
     context "when boolean is true" do
       it "should return yes icon" do
-        helper.yes_or_empty('test').should match(/<img .* src=.*icon_yes.gif.*\/>/)
+        helper.yes_or_empty('test').should match(/<img.* src=.*icon_yes.gif.*\/>/)
       end
     end
 
@@ -1152,7 +1152,7 @@ describe ApplicationHelper do
 
     it "should return hidden _destroy field and button with onclick call to remove_fields javascript" do
       helper.remove_child_link(@value, @form, @hide_class, @confirm_question).
-        should == "<hidden-field/><input onclick=\"remove_fields(this, &#39;hide_class&#39;, &#39;Are you sure?&#39;);\" type=\"button\" value=\"Add child\" />"
+        should == "<hidden-field/><input type=\"button\" value=\"Add child\" onclick=\"remove_fields(this, &#39;hide_class&#39;, &#39;Are you sure?&#39;);\" />"
     end
   end
   
@@ -1167,14 +1167,14 @@ describe ApplicationHelper do
     context "without id" do    
       it "should return button with onclick call to insert_fields javascript as escaped" do
         helper.add_child_link(@value, @form, @method).
-          should == '<input onclick="insert_fields(this, &quot;method&quot;, &quot;&lt;div id=\\&quot;f\\&quot;&gt;fields&lt;\\/div&gt;&quot;);" type="button" value="Add child" />'
+          should == '<input type="button" value="Add child" onclick="insert_fields(this, &quot;method&quot;, &quot;&lt;div id=\\&quot;f\\&quot;&gt;fields&lt;\\/div&gt;&quot;);" />'
       end
     end
 
     context "with id" do    
       it "should return button with id and onclick call to insert_fields javascript" do
         helper.add_child_link(@value, @form, @method, 'myid').
-          should == '<input id="myid" onclick="insert_fields(this, &quot;method&quot;, &quot;&lt;div id=\\&quot;f\\&quot;&gt;fields&lt;\\/div&gt;&quot;);" type="button" value="Add child" />'
+          should == '<input type="button" value="Add child" onclick="insert_fields(this, &quot;method&quot;, &quot;&lt;div id=\\&quot;f\\&quot;&gt;fields&lt;\\/div&gt;&quot;);" id="myid" />'
       end
     end
   end

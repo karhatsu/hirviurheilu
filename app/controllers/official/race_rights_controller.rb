@@ -42,9 +42,9 @@ class Official::RaceRightsController < Official::OfficialController
     user = race_right.user
     url = official_race_url(@race)
     if race_right.only_add_competitors
-      InviteOfficialMailer.invite_only_competitor_adding(@race, current_user, user, url).deliver
+      InviteOfficialMailer.invite_only_competitor_adding(@race, current_user, user, url).deliver_now
     else
-      InviteOfficialMailer.invite(@race, current_user, user, url).deliver
+      InviteOfficialMailer.invite(@race, current_user, user, url).deliver_now
     end
   end
   

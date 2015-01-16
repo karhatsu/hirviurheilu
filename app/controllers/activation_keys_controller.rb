@@ -18,7 +18,7 @@ class ActivationKeysController < ApplicationController
           current_user.activation_key = @activation_key
           current_user.invoicing_info = invoicing_info unless invoicing_info.blank?
           current_user.save!
-          LicenseMailer.license_mail(current_user).deliver unless existing_activation_key
+          LicenseMailer.license_mail(current_user).deliver_now unless existing_activation_key
           render :show
         end
       else

@@ -27,9 +27,9 @@ class FeedbacksController < ApplicationController
     unless @comment.blank?
       unless @race_id.blank?
         race = Race.find(@race_id)
-        FeedbackMailer.race_feedback_mail(race, @comment, @name, @email, @tel, current_user).deliver
+        FeedbackMailer.race_feedback_mail(race, @comment, @name, @email, @tel, current_user).deliver_now
       else
-        FeedbackMailer.feedback_mail(@comment, @name, @email, @tel, current_user).deliver
+        FeedbackMailer.feedback_mail(@comment, @name, @email, @tel, current_user).deliver_now
       end
       redirect_to feedbacks_path
     else
