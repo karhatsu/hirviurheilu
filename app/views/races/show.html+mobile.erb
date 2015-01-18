@@ -3,6 +3,7 @@
 </div>
 <%= content_for(:title, @race.name) %>
 <h1><%= yield :title %></h1>
+<span><%= @race.location %>, <%= race_date_interval(@race) %></span>
 <% unless @race.home_page.blank? and @race.organizer.blank? and @race.organizer_phone.blank? %>
   <h2><%= t '.organizer_info' %></h2>
   <div class="section">
