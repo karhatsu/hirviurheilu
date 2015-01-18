@@ -341,7 +341,7 @@ class ApplicationController < ActionController::Base
 
   def set_variant
     return if set_forced_variant
-    request.variant = :mobile if request.user_agent =~ /iPhone|Android/
+    request.variant = :mobile if request.user_agent =~ /Mobile/ && request.user_agent !~ /iPad/
   end
 
   def set_forced_variant
