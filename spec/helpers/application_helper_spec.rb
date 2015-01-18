@@ -514,23 +514,27 @@ describe ApplicationHelper do
   describe "#date_interval" do
     it "should print start - end when dates differ" do
       helper.date_interval("2010-08-01".to_date, "2010-08-03".to_date).
-        should == "01.08.2010 - 03.08.2010"
+        should == "<time datetime='2010-08-01'>01.08.2010</time> - 03.08.2010"
     end
 
     it "should print only start date when end date is same" do
       helper.date_interval("2010-08-03".to_date, "2010-08-03".to_date).
-        should == "03.08.2010"
+        should == "<time datetime='2010-08-03'>03.08.2010</time>"
     end
 
     it "should print only start date when end date is nil" do
-      helper.date_interval("2010-08-03".to_date, nil).should == "03.08.2010"
+      helper.date_interval("2010-08-03".to_date, nil).should == "<time datetime='2010-08-03'>03.08.2010</time>"
+    end
+
+    it 'should exclude time tag if it is not wanted' do
+      helper.date_interval("2015-01-18".to_date, nil, false).should == "18.01.2015"
     end
   end
 
   describe "#race_date_interval" do
     it "should call date_interval with race dates" do
       race = FactoryGirl.build(:race)
-      helper.should_receive(:date_interval).with(race.start_date, race.end_date).
+      helper.should_receive(:date_interval).with(race.start_date, race.end_date, true).
         and_return('result')
       helper.race_date_interval(race).should == 'result'
     end
@@ -1405,6 +1409,18 @@ describe ApplicationHelper do
         expected_link = '<a href="http://www.home.com" target="_blank">Organizer</a>, 123 456'
         helper.organizer_info_with_possible_link(race).should == expected_link
       end
+    end
+  end
+
+  describe '#races_drop_down_array' do
+    let(:race1) { FactoryGirl.build :race, id: 1, name: 'Race 1', location: 'Location 1' }
+    let(:race2) { FactoryGirl.build :race, id: 2, name: 'Race 2', location: 'Location 2' }
+    let(:races) { [race1, race2] }
+
+    it 'should return array containing elements with race info in first element, race id in second' do
+      allow(helper).to receive(:race_date_interval).and_return('Dates')
+      expect(helper.races_drop_down_array(races)).to eq [['Race 1 (Dates, Location 1)', 1],
+                                                         ['Race 2 (Dates, Location 2)', 2]]
     end
   end
 end

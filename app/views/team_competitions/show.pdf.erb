@@ -1,5 +1,5 @@
 <h1><%= @race.name %></h1>
-<%= @race.location %>, <%= race_date_interval(@race) %>
+<%= @race.location %>, <%= race_date_interval(@race, false) %>
 <h2>Joukkuekilpailu - <%= @tc.name %></h2>
 <% results = @tc.results %>
 <% if results.empty? %>

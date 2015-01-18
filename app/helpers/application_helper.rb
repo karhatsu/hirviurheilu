@@ -236,16 +236,19 @@ module ApplicationHelper
     end
   end
 
-  def race_date_interval(race)
-    date_interval(race.start_date, race.end_date)
+  def race_date_interval(race, time_tag=true)
+    date_interval race.start_date, race.end_date, time_tag
   end
 
-  def date_interval(start_date, end_date)
-    interval = start_date.strftime('%d.%m.%Y')
+  def date_interval(start_date, end_date, time_tag=true)
+    interval = ''
+    interval << "<time datetime='#{start_date.strftime('%Y-%m-%d')}'>" if time_tag
+    interval << start_date.strftime('%d.%m.%Y')
+    interval << "</time>" if time_tag
     unless end_date.nil? or start_date == end_date
       interval << " - #{end_date.strftime('%d.%m.%Y')}"
     end
-    interval
+    raw interval
   end
 
   # -- Form child functions --
@@ -553,6 +556,10 @@ module ApplicationHelper
     info = raw('<a href="' + link_with_protocol(race.home_page) + '" target="_blank">' + info + '</a>') unless race.home_page.blank?
     info << ", #{race.organizer_phone}" unless race.organizer_phone.blank?
     info
+  end
+
+  def races_drop_down_array(races)
+    races.map { |race| ["#{race.name} (#{race_date_interval(race, false)}, #{race.location})", race.id] }
   end
   
   private

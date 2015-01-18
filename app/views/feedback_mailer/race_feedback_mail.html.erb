@@ -4,7 +4,7 @@ Nimi: <%= @name %><br/>
 Sähköposti: <%= @email %><br/>
 Puhelin: <%= @tel %><br/>
 <br/>
-Kilpailu: <%= "#{@race.name} (#{race_date_interval(@race)}, #{@race.location})" %><br/>
+Kilpailu: <%= "#{@race.name} (#{race_date_interval(@race, false)}, #{@race.location})" %><br/>
 Palaute:<br/>
 <%= @comment %>
 <br/><br/>

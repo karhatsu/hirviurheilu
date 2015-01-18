@@ -49,6 +49,6 @@ class FeedbacksController < ApplicationController
   end
 
   def set_races
-    @races = Race.where('start_date>?', Date.today - 14.days).order('start_date').map { |race| ["#{race.name} (#{race_date_interval(race)}, #{race.location})", race.id] }
+    @races = Race.where('start_date>?', Date.today - 14.days).order('start_date')
   end
 end

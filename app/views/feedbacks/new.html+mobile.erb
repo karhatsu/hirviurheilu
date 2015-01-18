@@ -6,7 +6,7 @@
     <%= label_tag :race_id, t('.feedback_receiver') %>
   </div>
   <div>
-    <%= select_tag :race_id, options_for_select(@races, @race_id), prompt: '- Yleinen Hirviurheilu-palaute -' %>
+    <%= select_tag :race_id, options_for_select(races_drop_down_array(@races), @race_id), prompt: '- Yleinen Hirviurheilu-palaute -' %>
   </div>
   <div class="form_label">
     <%= label_tag :comment, t(:feedback) %>

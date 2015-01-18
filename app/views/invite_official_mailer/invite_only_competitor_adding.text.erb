@@ -2,7 +2,7 @@ Hei <%= full_name(@invitee, true) %>,
 
 <%= full_name(@inviter, true) %> on pyytänyt sinua lisäämään kilpailijoita Hirviurheilu-palvelussa olevaan <%= @race.
   sport.ski? ? 'hirvenhiihto' : 'hirvenjuoksu' %>kilpailuun: <%= @race.
-  name %> (<%= race_date_interval(@race) %>, <%= @race.location %>).
+  name %> (<%= race_date_interval(@race, false) %>, <%= @race.location %>).
 
 Siirry syöttämään kilpailijoita:
 <%= @url %>

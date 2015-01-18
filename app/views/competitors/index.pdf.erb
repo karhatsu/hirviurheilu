@@ -1,5 +1,5 @@
 <h1><%= @series.race.name %></h1>
-<%= @series.race.location %>, <%= race_date_interval(@series.race) %>
+<%= @series.race.location %>, <%= race_date_interval(@series.race, false) %>
 <h2><%= "#{@series.name} - #{series_result_title(@series, params[:all_competitors])}" %></h2>
 <%= render :partial => 'series/infos', :locals => { :series => @series } %>
 <%= render :partial => 'series/series_results', :locals => { :series => @series } %>
