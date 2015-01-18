@@ -154,6 +154,12 @@ describe ApplicationController do
         controller.send(:set_variant)
       end
 
+      it 'user agent for an Android Opera sets mobile variant' do
+        expect_user_agent('Opera/9.80 (Android 2.3.3; Linux; Opera Mobi/ADR-1301080958) Presto/2.11.355 Version/12.10')
+        expect_mobile_variant
+        controller.send(:set_variant)
+      end
+
       it 'user agent for an Android tablet does not set mobile variant' do
         expect_user_agent('Mozilla/5.0 (Linux; U; Android 3.0; en-us; Xoom Build/HRI39) AppleWebKit/534.13 (KHTML, like Gecko) Version/4.0 Safari/534.13')
         expect_no_mobile_variant
