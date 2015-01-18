@@ -14,7 +14,7 @@
       <%= render :partial => 'shared/locale_links' %>
     </div>
   </div>
-  <div<%= @race ? ' itemscope itemtype=http://schema.org/SportsEvent' : '' %>>
+  <div<%= menu_race ? ' itemscope itemtype=http://schema.org/SportsEvent' : '' %>>
     <%= render :partial => 'shared/race_title' %>
     <% if @is_races %>
       <%= render :partial => 'shared/sub_menu' %>
