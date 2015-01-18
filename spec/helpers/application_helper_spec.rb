@@ -513,21 +513,21 @@ describe ApplicationHelper do
 
   describe "#date_interval" do
     it "should print start - end when dates differ" do
-      helper.date_interval("2010-08-01".to_date, "2010-08-03".to_date).
-        should == "<time datetime='2010-08-01'>01.08.2010</time> - 03.08.2010"
+      helper.date_interval("2010-08-01".to_date, "2010-08-03".to_date, false).
+        should == "01.08.2010 - 03.08.2010"
     end
 
     it "should print only start date when end date is same" do
-      helper.date_interval("2010-08-03".to_date, "2010-08-03".to_date).
-        should == "<time datetime='2010-08-03'>03.08.2010</time>"
+      helper.date_interval("2010-08-03".to_date, "2010-08-03".to_date, false).
+        should == "03.08.2010"
     end
 
     it "should print only start date when end date is nil" do
-      helper.date_interval("2010-08-03".to_date, nil).should == "<time datetime='2010-08-03'>03.08.2010</time>"
+      helper.date_interval("2010-08-03".to_date, nil, false).should == "03.08.2010"
     end
 
-    it 'should exclude time tag if it is not wanted' do
-      helper.date_interval("2015-01-18".to_date, nil, false).should == "18.01.2015"
+    it 'should include time tag if it is wanted' do
+      helper.date_interval("2015-01-18".to_date, nil).should == "<time itemprop='startDate' datetime='2015-01-18'>18.01.2015</time>"
     end
   end
 

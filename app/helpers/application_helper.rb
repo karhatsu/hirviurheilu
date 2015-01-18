@@ -242,7 +242,7 @@ module ApplicationHelper
 
   def date_interval(start_date, end_date, time_tag=true)
     interval = ''
-    interval << "<time datetime='#{start_date.strftime('%Y-%m-%d')}'>" if time_tag
+    interval << "<time itemprop='startDate' datetime='#{start_date.strftime('%Y-%m-%d')}'>" if time_tag
     interval << start_date.strftime('%d.%m.%Y')
     interval << "</time>" if time_tag
     unless end_date.nil? or start_date == end_date
