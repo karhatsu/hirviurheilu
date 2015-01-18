@@ -340,6 +340,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_variant
+    logger.info "user agent: #{request.user_agent}"
     return if set_forced_variant
     request.variant = :mobile if request.user_agent =~ /Mobile/ && request.user_agent !~ /iPad/
   end
