@@ -13,6 +13,7 @@ gem 'jquery-turbolinks'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier'
 gem 'activerecord-session_store'
+gem 'haml-rails'
 
 group :development, :staging, :production do
   gem 'pg'
