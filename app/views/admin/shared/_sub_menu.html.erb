@@ -1,10 +1,8 @@
-<div class="second_level_menu">
-  <div class="menu sub_menu">
-    <ul>
-      <%= menu_item "Käyttäjät", admin_users_path, @is_admin_users %>
-      <%= menu_item "Lisää käyttäjä", new_admin_user_path, @is_admin_new_user %>
-      <%= menu_item "Kilpailut", admin_races_path, @is_admin_races %>
-      <%= menu_item "Tiedotteet", admin_announcements_path, @is_admin_announcements %>
-    </ul>
-  </div>
+<div class="menu sub_menu">
+  <ul>
+    <%= menu_item "Käyttäjät", admin_users_path, @is_admin_users %>
+    <%= menu_item "Lisää käyttäjä", new_admin_user_path, @is_admin_new_user %>
+    <%= menu_item "Kilpailut", admin_races_path, @is_admin_races %>
+    <%= menu_item "Tiedotteet", admin_announcements_path, @is_admin_announcements %>
+  </ul>
 </div>

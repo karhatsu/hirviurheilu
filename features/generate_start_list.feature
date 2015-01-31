@@ -69,7 +69,7 @@ Feature: Generate start list
     And the "series_start_time_4i" field should contain "13"
     And the "series_start_time_5i" field should contain "47"
     And the "series_start_time_6i" field should contain "15"
-    When I follow "Test series" within ".sub_sub_menu"
+    When I choose "Test series" from third level menu
     Then the "Sarjan ensimmäinen numero" field should contain "10"
     And the "series_start_time_4i" field should contain "13"
     And the "series_start_time_5i" field should contain "45"

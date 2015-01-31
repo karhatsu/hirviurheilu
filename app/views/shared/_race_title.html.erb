@@ -10,8 +10,8 @@
     <%= competition_icon(cup) %>
     <span><%= cup.name %></span>
   <% else %>
-    <%= image_tag "#{Sport.find_ski.key.downcase}_icon.gif" %>
-    <%= image_tag "#{Sport.find_run.key.downcase}_icon.gif" %>
+    <%= image_tag "#{Sport.find_ski.key.downcase}_icon.gif", class: 'competition_icon' %>
+    <%= image_tag "#{Sport.find_run.key.downcase}_icon.gif", class: 'competition_icon' %>
     <span><%= yield :page_title %></span>
   <% end %>
 </div>

@@ -1,7 +1,10 @@
 body {
     background-color: olive;
+    background: linear-gradient(to right, rgba(128, 128, 0, 0.6), rgba(128, 128, 0, 0.9), rgba(128, 128, 0, 0.6));
     font-family: monospace;
     font-size: 12px;
+    margin: 0;
+    padding: 0;
 }
 
 a {
@@ -32,6 +35,13 @@ input[type='number'] {
 
 input[type='number'].max2 {
   width: 30px;
+}
+
+img.competition_icon {
+  -ms-transform: rotate(357deg);
+  -webkit-transform: rotate(357deg);
+  transform: rotate(357deg);
+  box-shadow: 2px 2px 6px #ccc;
 }
 
 div.sub_element {
@@ -78,8 +88,7 @@ div.action_box {
     background-image: url(<%= image_path 'action_arrow.png' %>);
     background-repeat: no-repeat;
     background-position: 5px;
-    border: dashed 1px gray;
-    padding: 5px 5px 5px 20px;
+    padding: 3px 5px 3px 20px;
     margin: 5px 0;
     border-radius: 5px;
     -moz-border-radius: 5px;
@@ -176,12 +185,8 @@ div.main_page_columns {
 
 div.title_box {
     border: 1px solid olive;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    box-shadow: 5px 4px 5px #666666;
-    -moz-box-shadow: 5px 4px 5px #666666;
-    -webkit-box-shadow: 5px 4px 5px #666666;
+    border-radius: 2px;
+    box-shadow: 5px 5px 5px #666666;
     padding: 0;
 }
 
@@ -247,9 +252,7 @@ div.all_races_link {
     color: white;
     padding: 5px 10px;
     border: 1px solid olive;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+    border-radius: 2px;
 }
 
 .commercial_box_link:hover {
@@ -320,7 +323,7 @@ div.section {
     border: 1px solid black;
     padding: 4px;
     display: table;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;

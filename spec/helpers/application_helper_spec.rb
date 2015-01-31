@@ -1187,7 +1187,7 @@ describe ApplicationHelper do
     context "when single race" do
       it "should be image tag for competition's sport's lower case key with _icon.gif suffix" do
         sport = mock_model(Sport, :key => 'RUN', :initials => 'HJ')
-        helper.should_receive(:image_tag).with("run_icon.gif", alt: 'HJ').and_return("image")
+        helper.should_receive(:image_tag).with("run_icon.gif", alt: 'HJ', class: 'competition_icon').and_return("image")
         helper.competition_icon(mock_model(Race, :sport => sport)).should == "image"
       end
     end
@@ -1195,7 +1195,7 @@ describe ApplicationHelper do
     context "when cup" do
       it "should be image tag for cup's sport's lower case key with _icon_cup.gif suffix" do
         sport = mock_model(Sport, :key => 'SKI', :initials => 'HH')
-        helper.should_receive(:image_tag).with("ski_icon_cup.gif", alt: 'HH').and_return("cup-image")
+        helper.should_receive(:image_tag).with("ski_icon_cup.gif", alt: 'HH', class: 'competition_icon').and_return("cup-image")
         helper.competition_icon(mock_model(Cup, :sport => sport)).should == "cup-image"
       end
     end

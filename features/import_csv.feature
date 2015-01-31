@@ -24,7 +24,7 @@ Feature: Import competitors with CSV file
     And I should see "Kilpailijat ladattu tietokantaan" in a success message
     When I follow "Kilpailijat"
     Then I should see "Räsänen Heikki"
-    When I follow "N" within "div.sub_sub_menu"
+    When I choose "N" from third level menu
     Then I should see "Miettinen Minna"
 
   Scenario: Import valid CSV file when mixed start order for competitors

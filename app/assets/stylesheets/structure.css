@@ -24,76 +24,44 @@ div.offline_limit a {
     text-decoration: underline;
 }
 
-div.header {
+div.centered_section {
+    margin: 0 auto;
     width: 1060px;
-    margin-left: 10px;
+}
+
+div.white_area {
+    box-shadow: 10px 10px 20px #666;
 }
 
 div.main_title {
     clear: left;
     width: 1050px;
-    background-color: olive;
     padding: 4px 0px 4px 10px;
-    border: 1px solid white;
-    margin-left: 10px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    -moz-border-radius-topright: 4px;
-    -moz-border-radius-topleft: 4px;
-    -webkit-border-top-left-radius: 4px;
-    -webkit-border-top-right-radius: 4px;
 }
 
 div.main_title span {
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-div.second_level_menu {
-    width: 1060px;
-    margin-left: 10px;
+    color: #fff;
+    font-family: arial, helvetica, sans-serif;
+    font-size: 24px;
+    text-shadow: 4px 4px 3px #666;
 }
 
 div.middle_section {
-    width: 1182px;
+    width: 1062px;
     overflow: hidden;
-    margin-left: 10px;
 }
 
 div.footer {
+    margin-top: 10px;
     width: 1060px;
     overflow: hidden;
-    margin-left: 10px;
 }
 
-div.middle_section_no_menus {
-    width: 1062px;
-}
-
-div.main_menu {
-    float: left;
-    width: 710px;
-    padding-left: 5px;
-}
-
-div.sub_menu {
-    border-left: 1px solid white;
-    border-right: 1px solid white;
-    float: left;
-    width: 1060px;
-}
-
-div.sub_sub_menu {
-    margin: 0px;
-    width: 120px;
-    float: right;
-}
-
-div.env_info {
-    text-align: right;
-    width: 1070px;
-    color: orange;
+.env_info {
+    font-size: 13px;
+    font-weight: bold;
+    padding: 0 10px 0 0;
+    text-transform: uppercase;
 }
 
 span.env_info_link {
@@ -102,11 +70,10 @@ span.env_info_link {
 }
 
 div.login_and_locale_links {
-    float: left;
+    float: right;
     color: white;
     text-align: right;
-    width: 345px;
-    padding-top: 5px;
+    padding: 5px 20px 0 0;
 }
 
 div.login_and_locale_links a {
@@ -123,15 +90,8 @@ div.main_content {
     padding: 3px 10px 10px 10px;
     background-color: white;
     border: white solid 1px;
-    border-top: none;
     float: left;
     position: relative;
-    border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px;
-    -moz-border-radius-bottomright: 4px;
-    -moz-border-radius-bottomleft: 4px;
-    -webkit-border-bottom-right-radius: 4px;
-    -webkit-border-bottom-left-radius: 4px;
 }
 
 div.footer {

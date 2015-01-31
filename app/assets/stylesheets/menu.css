@@ -1,15 +1,37 @@
+div.header {
+    background-color: olive;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    margin: 2px 0 20px 0;
+    height: 30px;
+    width: 100%;
+}
+
 div.menu {
     font-family: arial;
+}
+
+div.main_menu {
+    float: left;
+    padding-left: 0;
+}
+
+div.second_level_menu, div.third_level_menu {
+    width: 1060px;
+}
+
+div.sub_menu {
+    background-color: olive;
+    border: 1px solid white;
+    border-bottom: none;
+    float: left;
+    width: 1060px;
 }
 
 /* ul */
 div.menu ul {
     margin: 0px;
     padding: 0px;
-}
-
-div.sub_sub_menu ul {
-    list-style: none;
 }
 
 /* li */
@@ -25,12 +47,6 @@ div.sub_menu ul li {
     float: left;
 }
 
-div.sub_sub_menu ul li {
-    text-align: center;
-    margin-bottom: 2px;
-    float: left;
-}
-
 /* a */
 div.menu ul li a {
     color: white;
@@ -41,37 +57,14 @@ div.menu ul li a {
 div.main_menu ul li a {
     display: block;
     float: left;
-    margin-right: 4px;
-    border: white solid 1px;
-    border-bottom-width: 0;
-    padding: 6px 6px;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    -moz-border-radius-topleft: 3px;
-    -moz-border-radius-topright: 3px;
-    -webkit-border-top-left-radius: 3px;
-    -webkit-border-top-right-radius: 3px;
+    margin: 0;
+    padding: 8px 15px;
 }
 
 div.sub_menu ul li a {
     display: block;
     float: left;
-    border-right: white solid 1px;
-    padding: 6px 6px;
-}
-
-div.sub_sub_menu ul li a {
-    margin-right: 0px;
-    display: block;
-    width: 110px;
-    padding: 3px;
-    border: white solid 1px;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-    -moz-border-radius-topright: 3px;
-    -moz-border-radius-bottomright: 3px;
-    -webkit-border-top-right-radius: 3px;
-    -webkit-border-bottom-right-radius: 3px;
+    padding: 7px 9px;
 }
 
 /* a:hover */
@@ -82,10 +75,6 @@ div.menu ul li a:hover {
 
 div.main_menu ul li a:hover {
     border-bottom-color: white;
-}
-
-div.sub_sub_menu ul li a:hover {
-    border-right-color: white;
 }
 
 /* a.selected */
@@ -102,7 +91,8 @@ div.menu ul li ul {
 }
 
 div.main_menu ul li ul {
-    top: 27px;
+    border: white solid 1px;
+    top: 30px;
 }
 
 div.sub_menu ul li ul {

@@ -278,8 +278,8 @@ module ApplicationHelper
   def competition_icon(competition)
     alt = competition.sport.initials
     image_prefix = "#{competition.sport.key.downcase}_icon"
-    return image_tag("#{image_prefix}_cup.gif", alt: alt) if competition.is_a?(Cup)
-    image_tag "#{image_prefix}.gif", alt: alt
+    return image_tag("#{image_prefix}_cup.gif", alt: alt, class: 'competition_icon') if competition.is_a?(Cup)
+    image_tag "#{image_prefix}.gif", alt: alt, class: 'competition_icon'
   end
 
   def menu_item(title, link, selected, truncate_length=nil, do_block=false, &block)

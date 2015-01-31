@@ -2,39 +2,29 @@
 race = menu_race
 %>
 <% if race %>
-  <div class="second_level_menu">
-    <div class="menu sub_menu">
-      <ul>
-        <%= menu_item t('race_sub_menu.home_page'), race_path(race), @is_race %>
-        <% series = menu_series %>
-        <% series = race.series.first unless series %>
-        <% if series %>
-          <%= menu_item t('race_sub_menu.start_lists'), series_start_list_path(series), @is_start_list, nil, true do %>
-            <% series_dropdown_menu(race, 'start_list') %>
-          <% end %>
-          <%= menu_item t('race_sub_menu.results'), series_competitors_path(series), @is_results, nil, true do %>
-            <% series_dropdown_menu(race, 'results') %>
-          <% end %>
-          <% if race.has_team_competition? %>
-            <%= menu_item t('race_sub_menu.team_competitions'), race_team_competition_path(race,
-              race.team_competitions.first), @is_team_results, nil, true do %>
-              <% team_competitions_dropdown_menu(race) %>
-            <% end %>
-          <% end %>
+  <div class="menu sub_menu">
+    <ul>
+      <%= menu_item t('race_sub_menu.home_page'), race_path(race), @is_race %>
+      <% series = menu_series %>
+      <% series = race.series.first unless series %>
+      <% if series %>
+        <%= menu_item t('race_sub_menu.start_lists'), series_start_list_path(series), @is_start_list, nil, true %>
+        <%= menu_item t('race_sub_menu.results'), series_competitors_path(series), @is_results, nil, true %>
+        <% if race.has_team_competition? %>
+          <%= menu_item t('race_sub_menu.team_competitions'), race_team_competition_path(race,
+            race.team_competitions.first), @is_team_results, nil, true %>
         <% end %>
-        <% unless race.relays.empty? %>
-          <%= menu_item t('race_sub_menu.relays'), race_relay_path(race, race.relays.first), @is_relays, nil, true do %>
-            <% relays_dropdown_menu(race) %>
-          <% end %>
-        <% end %>
-        <% if race.video_source %>
-          <%= menu_item t('race_sub_menu.video'), race_video_path(race), @is_video %>
-        <% end %>
-        <% unless offline? or @is_start_list or race.all_competitions_finished? %>
-          <%= menu_item t('race_sub_menu.result_rotation'), race_result_rotation_path(race), result_rotation_cookie %>
-        <% end %>
-        <%= menu_item t('race_sub_menu.press'), new_race_medium_path(race), @is_media %>
-        </ul>
-    </div>
+      <% end %>
+      <% unless race.relays.empty? %>
+        <%= menu_item t('race_sub_menu.relays'), race_relay_path(race, race.relays.first), @is_relays, nil, true %>
+      <% end %>
+      <% if race.video_source %>
+        <%= menu_item t('race_sub_menu.video'), race_video_path(race), @is_video %>
+      <% end %>
+      <% unless offline? or @is_start_list or race.all_competitions_finished? %>
+        <%= menu_item t('race_sub_menu.result_rotation'), race_result_rotation_path(race), result_rotation_cookie %>
+      <% end %>
+      <%= menu_item t('race_sub_menu.press'), new_race_medium_path(race), @is_media %>
+      </ul>
   </div>
 <% end %>

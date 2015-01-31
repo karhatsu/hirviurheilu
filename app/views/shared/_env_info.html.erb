@@ -1,5 +1,5 @@
 <% unless Rails.env.production? or offline? %>
-  <div class="env_info">Tämä on <span class="env_info_link">testiympäristö</span></div>
+  <span class="env_info"><span class="env_info_link">testiympäristö</span></span>
   <div id="env_info_dialog" class="dialog" style="display: none;">
     Käytät Hirviurheilun testiympäristöä. Se tarkoittaa seuraavia asioita:
     <ul>
@@ -9,7 +9,8 @@
       <li>Ympäristöä ei saa käyttää oikeiden kilpailujen järjestämiseen.</li>
     </ul>
     Toisin sanoen tätä ympäristöä ei ole tarkoitettu oikeiden kilpailujen
-    järjestämiseen, ainoastaan niiden testaamiseen.
+    järjestämiseen, ainoastaan niiden testaamiseen sekä palvelun kokeilemiseen
+    ja sen käytön harjoitteluun.
     <br/><br/>
     <a href="<%= PRODUCTION_URL %>">Siirry varsinaiseen Hirviurheilu-palveluun
       tästä linkistä.</a>
