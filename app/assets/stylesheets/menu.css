@@ -13,7 +13,6 @@ div.menu {
 }
 
 div.main_menu {
-    float: left;
     padding-left: 0;
 }
 
@@ -57,14 +56,12 @@ div.menu ul li a {
 
 div.main_menu ul li a {
     display: block;
-    float: left;
     margin: 0;
     padding: 8px 15px;
 }
 
 div.sub_menu ul li a {
     display: block;
-    float: left;
     padding: 7px 9px;
 }
 

@@ -90,7 +90,7 @@ div.main_content {
     padding: 3px 10px 10px 10px;
     background-color: white;
     border: white solid 1px;
-    float: left;
+    clear: both;
     position: relative;
 }
 
