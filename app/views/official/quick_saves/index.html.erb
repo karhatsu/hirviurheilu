@@ -1,7 +1,7 @@
 <% content_for :title, "#{@race.name} - #{t('.title')}" %>
 <h2><%= t '.title' %></h2>
 <% if @race.competitors.empty? %>
-  <div class="warning"><%= t '.no_competitors' %></div>
+  <div class="info"><%= t '.no_competitors' %></div>
 <% else %>
   <h3><%= t :times %></h3>
   <%= render :partial => 'result_place', :locals => { :name => 'time',

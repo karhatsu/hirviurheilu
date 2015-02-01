@@ -4,7 +4,7 @@
   ns. pikasyöttöä käyttäen. Syöttämiseen tarvitset joukkueen numeron
   sekä kilpailijan osuuden numeron.</div>
 <% if @relay.relay_competitors.empty? %>
-  <div class="warning">Kilpailuun ei ole lisätty yhtään kilpailijaa</div>
+  <div class="info">Kilpailuun ei ole lisätty yhtään kilpailijaa</div>
 <% else %>
   <h3>Arviointi</h3>
   <% instructions = 'Syötä tulos muodossa joukkue,osuus,arvio, ' +

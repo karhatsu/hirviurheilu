@@ -7,7 +7,7 @@
   <% end %>
 <% end %>
 <% if @series.competitors.empty? %>
-  <div class="warning"><%= t 'official.result_place.no_competitors_in_series' %></div>
+  <div class="info"><%= t 'official.result_place.no_competitors_in_series' %></div>
   <div class="action_box">
     <%= link_to t('official.result_place.add_competitor_to_series', :series_name => @series.name),
       new_official_series_competitor_path(@series) %>

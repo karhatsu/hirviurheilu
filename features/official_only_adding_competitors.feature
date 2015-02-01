@@ -113,7 +113,7 @@ Feature: Official only adding competitors
     And the race has a club "Limited club"
     And I have logged in
     And I am on the limited official competitors page for "Limited race"
-    Then I should see "Tähän kilpailuun ei ole vielä lisätty yhtään sarjaa. Voit lisätä kilpailijoita vasta sen jälkeen, kun päätoimitsija on lisännyt kilpailuun sarjat." in a warning message
+    Then I should see "Tähän kilpailuun ei ole vielä lisätty yhtään sarjaa. Voit lisätä kilpailijoita vasta sen jälkeen, kun päätoimitsija on lisännyt kilpailuun sarjat." in an info message
     But I should not see "Etunimi"
     
   Scenario: No clubs added for the race
@@ -121,6 +121,6 @@ Feature: Official only adding competitors
     And the race has series "Limited series"
     And I have logged in
     And I am on the limited official competitors page for "Limited race"
-    Then I should see "Tähän kilpailuun ei ole vielä lisätty yhtään piiriä tai seuraa. Voit lisätä kilpailijoita vasta sen jälkeen, kun päätoimitsija on lisännyt kilpailuun piirit/seurat." in a warning message
+    Then I should see "Tähän kilpailuun ei ole vielä lisätty yhtään piiriä tai seuraa. Voit lisätä kilpailijoita vasta sen jälkeen, kun päätoimitsija on lisännyt kilpailuun piirit/seurat." in an info message
     But I should not see "Etunimi"
     
