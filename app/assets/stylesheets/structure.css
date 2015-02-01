@@ -1,3 +1,7 @@
+.clear {
+    clear: both;
+}
+
 #page_spinner {
     display: none;
     position: absolute;
@@ -29,7 +33,8 @@ div.centered_section {
     width: 1060px;
 }
 
-div.white_area {
+div.main_shadow_area {
+    background-color: #fff;
     box-shadow: 10px 10px 20px #666;
 }
 
@@ -47,7 +52,7 @@ div.main_title span {
 }
 
 div.middle_section {
-    width: 1062px;
+    width: 1060px;
     overflow: hidden;
 }
 
@@ -89,7 +94,6 @@ div.main_content {
     width: 1040px;
     padding: 3px 10px 10px 10px;
     background-color: white;
-    border: white solid 1px;
     clear: both;
     position: relative;
 }

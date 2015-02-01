@@ -7,7 +7,7 @@
   <%= render 'shared/header' %>
   <div class="centered_section" <%= menu_race ? ' itemscope itemtype=http://schema.org/SportsEvent' : '' %>>
     <%= render :partial => 'shared/race_title' %>
-    <div class="white_area">
+    <div class="main_shadow_area">
       <div class="second_level_menu">
         <% if @is_races %>
           <%= render :partial => 'shared/sub_menu' %>
@@ -24,9 +24,11 @@
         <% elsif @is_admin %>
           <%= render :partial => 'admin/shared/sub_menu' %>
         <% end %>
+        <div class="clear"></div>
       </div>
       <div class="third_level_menu">
         <%= yield :sub_sub_menu %>
+        <div class="clear"></div>
       </div>
       <div class="middle_section">
         <div class="main_content"><%= yield %></div>
