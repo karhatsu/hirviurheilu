@@ -8,8 +8,8 @@ race = menu_race
       <% series = menu_series %>
       <% series = race.series.first unless series %>
       <% if series %>
-        <%= menu_item t('race_sub_menu.start_lists'), series_start_list_path(series), @is_start_list, nil, true %>
         <%= menu_item t('race_sub_menu.results'), series_competitors_path(series), @is_results, nil, true %>
+        <%= menu_item t('race_sub_menu.start_lists'), series_start_list_path(series), @is_start_list, nil, true %>
         <% if race.has_team_competition? %>
           <%= menu_item t('race_sub_menu.team_competitions'), race_team_competition_path(race,
             race.team_competitions.first), @is_team_results, nil, true %>
