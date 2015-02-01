@@ -2,6 +2,11 @@
 <h2><%= t '.title' %></h2>
 <% if @race.competitors.empty? %>
   <div class="info"><%= t '.no_competitors' %></div>
+  <% unless @race.series.empty? %>
+    <div class="action_box">
+      <%= link_to t('official.competitors.index.add_competitor'), new_official_series_competitor_path(@race.series.first) %>
+    </div>
+  <% end %>
 <% else %>
   <h3><%= t :times %></h3>
   <%= render :partial => 'result_place', :locals => { :name => 'time',
