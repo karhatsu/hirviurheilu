@@ -1,6 +1,4 @@
 %body
-  #page_spinner
-    = image_tag 'page_spinner.gif'
   = render :partial => 'shared/facebook_init'
   - unless ActivationKey.activated?
     = render :partial => 'shared/offline_limit'
@@ -12,6 +10,7 @@
         = render 'shared/second_level_menu'
         = render 'shared/third_level_menu'
         .main_content
+          #page_spinner= image_tag 'page_spinner.gif'
           = yield
     .footer
       = render :partial => 'shared/footer'

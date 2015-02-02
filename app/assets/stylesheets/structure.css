@@ -2,14 +2,6 @@
     clear: both;
 }
 
-#page_spinner {
-    display: none;
-    position: absolute;
-    margin: auto;
-    left: 525px;
-    top: 120px;
-    z-index: 100;
-}
 div.offline_limit {
     width: 1056px;
     margin: 0 0 5px 10px;
@@ -86,6 +78,14 @@ div.main_content {
     position: relative;
     padding: 10px;
     width: 1040px;
+}
+
+#page_spinner {
+    display: none;
+    position: absolute;
+    left: 530px;
+    top: 5px;
+    z-index: 100;
 }
 
 div.footer {
