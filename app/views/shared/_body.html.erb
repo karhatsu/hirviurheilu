@@ -8,24 +8,7 @@
   <div class="centered_section" <%= menu_race ? ' itemscope itemtype=http://schema.org/SportsEvent' : '' %>>
     <%= render :partial => 'shared/race_title' %>
     <div class="main_shadow_area">
-      <div class="second_level_menu">
-        <% if @is_races %>
-          <%= render :partial => 'shared/race_sub_menu' %>
-        <% elsif @is_cup %>
-          <%= render :partial => 'shared/cup_sub_menu' %>
-        <% elsif @is_info %>
-          <%= render :partial => 'shared/info_sub_menu' %>
-        <% elsif @is_offline_info %>
-          <%= render :partial => 'shared/offline_sub_menu' %>
-        <% elsif @is_limited_official %>
-          <%= render :partial => 'official/limited/shared/sub_menu' %>
-        <% elsif @is_official %>
-          <%= render :partial => 'official/shared/sub_menu' %>
-        <% elsif @is_admin %>
-          <%= render :partial => 'admin/shared/sub_menu' %>
-        <% end %>
-        <div class="clear"></div>
-      </div>
+      <%= render 'shared/second_level_menu' %>
       <div class="third_level_menu">
         <%= yield :sub_sub_menu %>
         <div class="clear"></div>
