@@ -5,15 +5,16 @@
   - unless ActivationKey.activated?
     = render :partial => 'shared/offline_limit'
   = render 'shared/header'
-  .centered_section{itemscope: true, itemtype: menu_race ? 'http://schema.org/SportsEvent' : ''}
-    = render :partial => 'shared/race_title'
-    .main_shadow_area
-      = render 'shared/second_level_menu'
-      .third_level_menu
-        = yield :sub_sub_menu
-        .clear
-      .main_content
-        = yield
+  .centered_section
+    %div{itemscope: true, itemtype: menu_race ? 'http://schema.org/SportsEvent' : ''}
+      = render :partial => 'shared/race_title'
+      .main_shadow_area
+        = render 'shared/second_level_menu'
+        .third_level_menu
+          = yield :sub_sub_menu
+          .clear
+        .main_content
+          = yield
     .footer
       = render :partial => 'shared/footer'
   :javascript
