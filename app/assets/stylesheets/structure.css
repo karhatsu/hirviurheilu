@@ -28,33 +28,15 @@ div.offline_limit a {
     text-decoration: underline;
 }
 
-div.centered_section {
-    margin: 0 auto;
-    width: 1060px;
+div.login_and_locale_links {
+    float: right;
+    color: white;
+    text-align: right;
+    padding: 5px 20px 0 0;
 }
 
-div.main_shadow_area {
-    background-color: #fff;
-    box-shadow: 10px 10px 20px #666;
-}
-
-div.main_title {
-    clear: left;
-    width: 1050px;
-    padding: 4px 0px 4px 10px;
-}
-
-div.main_title span {
-    color: #fff;
-    font-family: arial, helvetica, sans-serif;
-    font-size: 24px;
-    text-shadow: 4px 4px 3px #666;
-}
-
-div.footer {
-    margin-top: 10px;
-    width: 1060px;
-    overflow: hidden;
+div.login_and_locale_links a {
+    color: white;
 }
 
 .env_info {
@@ -69,20 +51,32 @@ span.env_info_link {
     text-decoration: underline;
 }
 
-div.login_and_locale_links {
-    float: right;
-    color: white;
-    text-align: right;
-    padding: 5px 20px 0 0;
-}
-
-div.login_and_locale_links a {
-    color: white;
-}
-
 .locale_flag {
     background-color: white;
     padding: 1px;
+}
+
+div.centered_section {
+    margin: 0 auto;
+    width: 1060px;
+}
+
+div.main_title {
+    clear: left;
+    width: 1050px;
+    padding: 4px 0 4px 10px;
+}
+
+div.main_title span {
+    color: #fff;
+    font-family: arial, helvetica, sans-serif;
+    font-size: 24px;
+    text-shadow: 4px 4px 3px #666;
+}
+
+div.main_shadow_area {
+    background-color: #fff;
+    box-shadow: 10px 10px 20px #666;
 }
 
 div.main_content {
@@ -96,8 +90,11 @@ div.main_content {
 
 div.footer {
     color: white;
+    margin-top: 10px;
+    overflow: hidden;
+    padding: 5px 0;
     text-align: center;
-    padding: 5px 0px;
+    width: 1060px;
 }
 
 div.footer a {
