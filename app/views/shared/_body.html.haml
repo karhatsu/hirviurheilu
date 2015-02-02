@@ -10,9 +10,7 @@
       = render :partial => 'shared/race_title'
       .main_shadow_area
         = render 'shared/second_level_menu'
-        .third_level_menu
-          = yield :sub_sub_menu
-          .clear
+        = render 'shared/third_level_menu'
         .main_content
           = yield
     .footer
