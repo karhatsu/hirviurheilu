@@ -21,7 +21,7 @@ race = menu_race
       <% if race.video_source %>
         <%= menu_item t('race_sub_menu.video'), race_video_path(race), @is_video %>
       <% end %>
-      <% unless offline? or @is_start_list or race.all_competitions_finished? %>
+      <% unless offline? or race.all_competitions_finished? %>
         <%= menu_item t('race_sub_menu.result_rotation'), race_result_rotation_path(race), result_rotation_cookie %>
       <% end %>
       <%= menu_item t('race_sub_menu.press'), new_race_medium_path(race), @is_media %>
