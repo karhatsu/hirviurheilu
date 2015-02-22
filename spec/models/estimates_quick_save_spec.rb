@@ -20,7 +20,7 @@ describe EstimatesQuickSave do
 
         describe "#save" do
           it "should save given 2 estimates for the competitor and return true" do
-            expect(@qs.save).to be_true
+            expect(@qs.save).to be_truthy
             @c2.reload
             expect(@c2.estimate1).to eq(98)
             expect(@c2.estimate2).to eq(115)
@@ -52,7 +52,7 @@ describe EstimatesQuickSave do
 
         describe "#save" do
           it "should save given 4 estimates for the competitor and return true" do
-            expect(@qs.save).to be_true
+            expect(@qs.save).to be_truthy
             @c2.reload
             expect(@c2.estimate1).to eq(98)
             expect(@c2.estimate2).to eq(115)
@@ -85,7 +85,7 @@ describe EstimatesQuickSave do
 
       describe "#save" do
         it "should not save given estimates for the competitor and return false" do
-          expect(@qs.save).to be_false
+          expect(@qs.save).to be_falsey
           @c.reload
           expect(@c.estimate1).to eq(1)
           expect(@c.estimate2).to eq(2)
@@ -115,7 +115,7 @@ describe EstimatesQuickSave do
 
       describe "#save" do
         it "should not save given estimates for the competitor and return false" do
-          expect(@qs.save).to be_false
+          expect(@qs.save).to be_falsey
           @c.reload
           expect(@c.estimate1).to eq(1)
           expect(@c.estimate2).to eq(2)
@@ -149,7 +149,7 @@ describe EstimatesQuickSave do
 
       describe "#save" do
         it "should not save given estimates for the competitor and return false" do
-          expect(@qs.save).to be_false
+          expect(@qs.save).to be_falsey
           @c.reload
           expect(@c.estimate1).to eq(1)
           expect(@c.estimate2).to eq(2)
@@ -185,7 +185,7 @@ describe EstimatesQuickSave do
 
     describe "#save" do
       it "should not save given estimates for the competitor and return false" do
-        expect(@qs.save).to be_false
+        expect(@qs.save).to be_falsey
         @c.reload
         expect(@c.estimate1).to eq(1)
         expect(@c.estimate2).to eq(2)
@@ -214,7 +214,7 @@ describe EstimatesQuickSave do
 
     describe "#save" do
       it "should not save given estimates for the competitor and return false" do
-        expect(@qs.save).to be_false
+        expect(@qs.save).to be_falsey
         @c.reload
         expect(@c.estimate1).to eq(1)
         expect(@c.estimate2).to eq(2)
@@ -244,7 +244,7 @@ describe EstimatesQuickSave do
 
     describe "#save" do
       it "should not save given estimates for the competitor and return false" do
-        expect(@qs.save).to be_false
+        expect(@qs.save).to be_falsey
         @c.reload
         expect(@c.estimate1).to eq(52)
       end

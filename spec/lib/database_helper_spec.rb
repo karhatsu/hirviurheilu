@@ -8,11 +8,11 @@ describe DatabaseHelper do
     end
 
     it "true value should be true" do
-      expect(DatabaseHelper.true_value).to be_true
+      expect(DatabaseHelper.true_value).to be_truthy
     end
 
     it "false value should be false" do
-      expect(DatabaseHelper.false_value).to be_false
+      expect(DatabaseHelper.false_value).to be_falsey
     end
   end
 

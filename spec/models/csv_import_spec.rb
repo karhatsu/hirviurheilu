@@ -17,7 +17,7 @@ describe CsvImport do
     end
     
     it "#save should return false" do
-      expect(@ci.save).to be_false
+      expect(@ci.save).to be_falsey
     end
     
     it "#errors should contain a message about invalid file format" do
@@ -39,7 +39,7 @@ describe CsvImport do
         
         describe "#save" do
           it "should save the defined competitors and new clubs to the database and return true" do
-            expect(@ci.save).to be_true
+            expect(@ci.save).to be_truthy
             @race.reload
             expect(@race.competitors.size).to eq(4)
             competitors = @race.competitors#.order('id')
@@ -82,7 +82,7 @@ describe CsvImport do
         
         describe "#save" do
           it "should save the defined competitors and new clubs to the database and return true" do
-            expect(@ci.save).to be_true
+            expect(@ci.save).to be_truthy
             @race.reload
             expect(@race.competitors.size).to eq(3)
             c = @race.competitors.order('id')[0]
@@ -116,7 +116,7 @@ describe CsvImport do
       end
     
       it "#save should return false" do
-        expect(@ci.save).to be_false
+        expect(@ci.save).to be_falsey
       end
       
       it "#errors should contain a message about unknown series" do
@@ -136,7 +136,7 @@ describe CsvImport do
       end
     
       it "#save should return false" do
-        expect(@ci.save).to be_false
+        expect(@ci.save).to be_falsey
       end
       
       it "there should be only one error message" do
@@ -158,7 +158,7 @@ describe CsvImport do
       end
     
       it "#save should return false" do
-        expect(@ci.save).to be_false
+        expect(@ci.save).to be_falsey
       end
       
       it "#errors should contain a message about missing data" do
@@ -180,7 +180,7 @@ describe CsvImport do
       end
     
       it "#save should return false" do
-        expect(@ci.save).to be_false
+        expect(@ci.save).to be_falsey
       end
       
       it "#errors should contain a message about missing data" do
@@ -202,7 +202,7 @@ describe CsvImport do
       end
     
       it "#save should return false" do
-        expect(@ci.save).to be_false
+        expect(@ci.save).to be_falsey
       end
       
       it "#errors should contain two errors" do
@@ -228,7 +228,7 @@ describe CsvImport do
 
     it "should accept file with start number and order" do
       @ci = CsvImport.new(@race, test_file_path('import_valid_mixed_start_order.csv'))
-      expect(@ci.save).to be_true
+      expect(@ci.save).to be_truthy
       expect(@race.competitors.size).to eq(2)
       expect(@race.series.first.competitors.first.number).to eq(5)
       expect(@race.series.first.competitors.first.start_time.strftime('%H:%M:%S')).to eq('09:59:30')

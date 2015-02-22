@@ -64,7 +64,7 @@ describe RelayTimeQuickSave do
   end
 
   def check_failure(expected_competitor=nil, arrival_time=nil)
-    expect(@qs.save).to be_false
+    expect(@qs.save).to be_falsey
     expect(@qs.error).not_to be_nil
     if expected_competitor
       expect(@qs.competitor).to eq(expected_competitor)

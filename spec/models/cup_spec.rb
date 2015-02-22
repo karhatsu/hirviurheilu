@@ -6,22 +6,22 @@ describe Cup do
   end
   
   describe "associations" do
-    it { should have_many(:cup_series) }
+    it { is_expected.to have_many(:cup_series) }
   end
   
   describe "validation" do
-    it { should validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:name) }
     
-    it { should validate_numericality_of(:top_competitions) }
-    it { should_not allow_value(nil).for(:top_competitions) }
-    it { should_not allow_value(0).for(:top_competitions) }
-    it { should allow_value(1).for(:top_competitions) }
-    it { should_not allow_value(2.1).for(:top_competitions) }
+    it { is_expected.to validate_numericality_of(:top_competitions) }
+    it { is_expected.not_to allow_value(nil).for(:top_competitions) }
+    it { is_expected.not_to allow_value(0).for(:top_competitions) }
+    it { is_expected.to allow_value(1).for(:top_competitions) }
+    it { is_expected.not_to allow_value(2.1).for(:top_competitions) }
   end
   
   describe "relations" do
-    it { should have_and_belong_to_many(:races) }
-    it { should have_many(:cup_series) }
+    it { is_expected.to have_and_belong_to_many(:races) }
+    it { is_expected.to have_many(:cup_series) }
 
     describe "races" do
       it "should be ordered by start date" do

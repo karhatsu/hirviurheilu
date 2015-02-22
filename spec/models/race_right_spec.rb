@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe RaceRight do
   describe "associations" do
-    it { should belong_to(:user) }
-    it { should belong_to(:race) }
-    it { should belong_to(:club) }
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:race) }
+    it { is_expected.to belong_to(:club) }
   end
 end

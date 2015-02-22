@@ -8,22 +8,22 @@ describe Competitor do
   end
 
   describe "associations" do
-    it { should belong_to(:club) }
-    it { should belong_to(:series) }
-    it { should belong_to(:age_group) }
-    it { should have_many(:shots) }
+    it { is_expected.to belong_to(:club) }
+    it { is_expected.to belong_to(:series) }
+    it { is_expected.to belong_to(:age_group) }
+    it { is_expected.to have_many(:shots) }
   end
 
   describe "validation" do
-    it { should validate_presence_of(:first_name) }
-    it { should validate_presence_of(:last_name) }
+    it { is_expected.to validate_presence_of(:first_name) }
+    it { is_expected.to validate_presence_of(:last_name) }
 
     describe "number" do
-      it { should allow_value(nil).for(:number) }
-      it { should validate_numericality_of(:number) }
-      it { should_not allow_value(23.5).for(:number) }
-      it { should_not allow_value(0).for(:number) }
-      it { should allow_value(1).for(:number) }
+      it { is_expected.to allow_value(nil).for(:number) }
+      it { is_expected.to validate_numericality_of(:number) }
+      it { is_expected.not_to allow_value(23.5).for(:number) }
+      it { is_expected.not_to allow_value(0).for(:number) }
+      it { is_expected.to allow_value(1).for(:number) }
 
       describe "uniqueness" do
         before do
@@ -65,7 +65,7 @@ describe Competitor do
     end
 
     describe "start_time" do
-      it { should allow_value(nil).for(:start_time) }
+      it { is_expected.to allow_value(nil).for(:start_time) }
 
       context "when series has start list" do
         it "should not be nil" do
@@ -77,11 +77,11 @@ describe Competitor do
     end
 
     describe "shots_total_input" do
-      it { should allow_value(nil).for(:shots_total_input) }
-      it { should_not allow_value(1.1).for(:shots_total_input) }
-      it { should_not allow_value(-1).for(:shots_total_input) }
-      it { should allow_value(100).for(:shots_total_input) }
-      it { should_not allow_value(101).for(:shots_total_input) }
+      it { is_expected.to allow_value(nil).for(:shots_total_input) }
+      it { is_expected.not_to allow_value(1.1).for(:shots_total_input) }
+      it { is_expected.not_to allow_value(-1).for(:shots_total_input) }
+      it { is_expected.to allow_value(100).for(:shots_total_input) }
+      it { is_expected.not_to allow_value(101).for(:shots_total_input) }
 
       it "cannot be given if also individual shots have been defined" do
         comp = FactoryGirl.build(:competitor, :shots_total_input => 50)
@@ -110,71 +110,71 @@ describe Competitor do
     end
 
     describe "estimate1" do
-      it { should allow_value(nil).for(:estimate1) }
-      it { should_not allow_value(1.1).for(:estimate1) }
-      it { should_not allow_value(-1).for(:estimate1) }
-      it { should_not allow_value(0).for(:estimate1) }
-      it { should allow_value(1).for(:estimate1) }
+      it { is_expected.to allow_value(nil).for(:estimate1) }
+      it { is_expected.not_to allow_value(1.1).for(:estimate1) }
+      it { is_expected.not_to allow_value(-1).for(:estimate1) }
+      it { is_expected.not_to allow_value(0).for(:estimate1) }
+      it { is_expected.to allow_value(1).for(:estimate1) }
     end
 
     describe "estimate2" do
-      it { should allow_value(nil).for(:estimate2) }
-      it { should_not allow_value(1.1).for(:estimate2) }
-      it { should_not allow_value(-1).for(:estimate2) }
-      it { should_not allow_value(0).for(:estimate2) }
-      it { should allow_value(1).for(:estimate2) }
+      it { is_expected.to allow_value(nil).for(:estimate2) }
+      it { is_expected.not_to allow_value(1.1).for(:estimate2) }
+      it { is_expected.not_to allow_value(-1).for(:estimate2) }
+      it { is_expected.not_to allow_value(0).for(:estimate2) }
+      it { is_expected.to allow_value(1).for(:estimate2) }
     end
 
     describe "estimate3" do
-      it { should allow_value(nil).for(:estimate3) }
-      it { should_not allow_value(1.1).for(:estimate3) }
-      it { should_not allow_value(-1).for(:estimate3) }
-      it { should_not allow_value(0).for(:estimate3) }
-      it { should allow_value(1).for(:estimate3) }
+      it { is_expected.to allow_value(nil).for(:estimate3) }
+      it { is_expected.not_to allow_value(1.1).for(:estimate3) }
+      it { is_expected.not_to allow_value(-1).for(:estimate3) }
+      it { is_expected.not_to allow_value(0).for(:estimate3) }
+      it { is_expected.to allow_value(1).for(:estimate3) }
     end
 
     describe "estimate4" do
-      it { should allow_value(nil).for(:estimate4) }
-      it { should_not allow_value(1.1).for(:estimate4) }
-      it { should_not allow_value(-1).for(:estimate4) }
-      it { should_not allow_value(0).for(:estimate4) }
-      it { should allow_value(1).for(:estimate4) }
+      it { is_expected.to allow_value(nil).for(:estimate4) }
+      it { is_expected.not_to allow_value(1.1).for(:estimate4) }
+      it { is_expected.not_to allow_value(-1).for(:estimate4) }
+      it { is_expected.not_to allow_value(0).for(:estimate4) }
+      it { is_expected.to allow_value(1).for(:estimate4) }
     end
 
     describe "correct_estimate1" do
-      it { should allow_value(nil).for(:correct_estimate1) }
-      it { should_not allow_value(1.1).for(:correct_estimate1) }
-      it { should_not allow_value(-1).for(:correct_estimate1) }
-      it { should_not allow_value(0).for(:correct_estimate1) }
-      it { should allow_value(1).for(:correct_estimate1) }
+      it { is_expected.to allow_value(nil).for(:correct_estimate1) }
+      it { is_expected.not_to allow_value(1.1).for(:correct_estimate1) }
+      it { is_expected.not_to allow_value(-1).for(:correct_estimate1) }
+      it { is_expected.not_to allow_value(0).for(:correct_estimate1) }
+      it { is_expected.to allow_value(1).for(:correct_estimate1) }
     end
 
     describe "correct_estimate2" do
-      it { should allow_value(nil).for(:correct_estimate2) }
-      it { should_not allow_value(1.1).for(:correct_estimate2) }
-      it { should_not allow_value(-1).for(:correct_estimate2) }
-      it { should_not allow_value(0).for(:correct_estimate2) }
-      it { should allow_value(1).for(:correct_estimate2) }
+      it { is_expected.to allow_value(nil).for(:correct_estimate2) }
+      it { is_expected.not_to allow_value(1.1).for(:correct_estimate2) }
+      it { is_expected.not_to allow_value(-1).for(:correct_estimate2) }
+      it { is_expected.not_to allow_value(0).for(:correct_estimate2) }
+      it { is_expected.to allow_value(1).for(:correct_estimate2) }
     end
 
     describe "correct_estimate3" do
-      it { should allow_value(nil).for(:correct_estimate3) }
-      it { should_not allow_value(1.1).for(:correct_estimate3) }
-      it { should_not allow_value(-1).for(:correct_estimate3) }
-      it { should_not allow_value(0).for(:correct_estimate3) }
-      it { should allow_value(1).for(:correct_estimate3) }
+      it { is_expected.to allow_value(nil).for(:correct_estimate3) }
+      it { is_expected.not_to allow_value(1.1).for(:correct_estimate3) }
+      it { is_expected.not_to allow_value(-1).for(:correct_estimate3) }
+      it { is_expected.not_to allow_value(0).for(:correct_estimate3) }
+      it { is_expected.to allow_value(1).for(:correct_estimate3) }
     end
 
     describe "correct_estimate4" do
-      it { should allow_value(nil).for(:correct_estimate4) }
-      it { should_not allow_value(1.1).for(:correct_estimate4) }
-      it { should_not allow_value(-1).for(:correct_estimate4) }
-      it { should_not allow_value(0).for(:correct_estimate4) }
-      it { should allow_value(1).for(:correct_estimate4) }
+      it { is_expected.to allow_value(nil).for(:correct_estimate4) }
+      it { is_expected.not_to allow_value(1.1).for(:correct_estimate4) }
+      it { is_expected.not_to allow_value(-1).for(:correct_estimate4) }
+      it { is_expected.not_to allow_value(0).for(:correct_estimate4) }
+      it { is_expected.to allow_value(1).for(:correct_estimate4) }
     end
 
     describe "arrival_time" do
-      it { should allow_value(nil).for(:arrival_time) }
+      it { is_expected.to allow_value(nil).for(:arrival_time) }
 
       it "can be nil even when start time is not nil" do
         expect(FactoryGirl.build(:competitor, :start_time => '14:00', :arrival_time => nil)).
@@ -203,11 +203,11 @@ describe Competitor do
     end
 
     describe "no_result_reason" do
-      it { should allow_value(nil).for(:no_result_reason) }
-      it { should allow_value(Competitor::DNS).for(:no_result_reason) }
-      it { should allow_value(Competitor::DNF).for(:no_result_reason) }
-      it { should allow_value(Competitor::DQ).for(:no_result_reason) }
-      it { should_not allow_value('test').for(:no_result_reason) }
+      it { is_expected.to allow_value(nil).for(:no_result_reason) }
+      it { is_expected.to allow_value(Competitor::DNS).for(:no_result_reason) }
+      it { is_expected.to allow_value(Competitor::DNF).for(:no_result_reason) }
+      it { is_expected.to allow_value(Competitor::DQ).for(:no_result_reason) }
+      it { is_expected.not_to allow_value('test').for(:no_result_reason) }
 
       it "converts empty string to nil" do
         comp = FactoryGirl.build(:competitor, :no_result_reason => '')

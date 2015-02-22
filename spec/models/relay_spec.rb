@@ -6,21 +6,21 @@ describe Relay do
   end
   
   describe "associations" do
-    it { should belong_to(:race) }
-    it { should have_many(:relay_teams) }
-    it { should have_many(:relay_correct_estimates) }
-    it { should have_many(:relay_competitors).through(:relay_teams) }
+    it { is_expected.to belong_to(:race) }
+    it { is_expected.to have_many(:relay_teams) }
+    it { is_expected.to have_many(:relay_correct_estimates) }
+    it { is_expected.to have_many(:relay_competitors).through(:relay_teams) }
   end
 
   describe "validations" do
-    it { should validate_presence_of(:name) }
-    it { should allow_value(nil).for(:start_time) }
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to allow_value(nil).for(:start_time) }
 
     describe "start_day" do
-      it { should validate_numericality_of(:start_day) }
-      it { should_not allow_value(0).for(:start_day) }
-      it { should allow_value(1).for(:start_day) }
-      it { should_not allow_value(1.1).for(:start_day) }
+      it { is_expected.to validate_numericality_of(:start_day) }
+      it { is_expected.not_to allow_value(0).for(:start_day) }
+      it { is_expected.to allow_value(1).for(:start_day) }
+      it { is_expected.not_to allow_value(1.1).for(:start_day) }
 
       before do
         race = FactoryGirl.build(:race)
@@ -34,11 +34,11 @@ describe Relay do
     end
 
     describe "legs_count" do
-      it { should_not allow_value(nil).for(:legs_count) }
-      it { should_not allow_value(0).for(:legs_count) }
-      it { should_not allow_value(1).for(:legs_count) }
-      it { should allow_value(2).for(:legs_count) }
-      it { should_not allow_value(2.1).for(:legs_count) }
+      it { is_expected.not_to allow_value(nil).for(:legs_count) }
+      it { is_expected.not_to allow_value(0).for(:legs_count) }
+      it { is_expected.not_to allow_value(1).for(:legs_count) }
+      it { is_expected.to allow_value(2).for(:legs_count) }
+      it { is_expected.not_to allow_value(2.1).for(:legs_count) }
 
       it "should not be allowed to change after create" do
         relay = FactoryGirl.create(:relay, :legs_count => 5)
@@ -308,7 +308,7 @@ describe Relay do
     context "when the relay can be finished" do
       it "should mark the race as finished and return true" do
         expect(@relay).to receive(:finish_errors).and_return([])
-        expect(@relay.finish).to be_true
+        expect(@relay.finish).to be_truthy
         expect(@relay.errors.size).to eq(0)
         @relay.reload
         expect(@relay).to be_finished
@@ -318,7 +318,7 @@ describe Relay do
     context "when the relay cannot be finished" do
       it "should not mark the race as finished and return false" do
         expect(@relay).to receive(:finish_errors).and_return(['error'])
-        expect(@relay.finish).to be_false
+        expect(@relay.finish).to be_falsey
         expect(@relay.errors.size).to eq(1)
         @relay.reload
         expect(@relay).not_to be_finished
@@ -333,7 +333,7 @@ describe Relay do
 
     it "should return true when finishing the relay succeeds" do
       expect(@relay).to receive(:finish).and_return(true)
-      expect(@relay.finish!).to be_true
+      expect(@relay.finish!).to be_truthy
     end
 
     it "should raise exception if finishing the relay fails" do

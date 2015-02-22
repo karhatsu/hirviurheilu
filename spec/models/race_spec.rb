@@ -8,10 +8,10 @@ describe Race do
   end
 
   describe "validation" do
-    it { should validate_presence_of(:sport) }
-    it { should validate_presence_of(:name) }
-    it { should validate_presence_of(:location) }
-    it { should validate_presence_of(:start_date) }
+    it { is_expected.to validate_presence_of(:sport) }
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:location) }
+    it { is_expected.to validate_presence_of(:start_date) }
 
     describe "end_date" do
       it "can be nil which makes it same as start date" do
@@ -26,31 +26,31 @@ describe Race do
     end
 
     describe "start_interval_seconds" do
-      it { should validate_numericality_of(:start_interval_seconds) }
-      it { should_not allow_value(nil).for(:start_interval_seconds) }
-      it { should_not allow_value(23.5).for(:start_interval_seconds) }
-      it { should_not allow_value(0).for(:start_interval_seconds) }
+      it { is_expected.to validate_numericality_of(:start_interval_seconds) }
+      it { is_expected.not_to allow_value(nil).for(:start_interval_seconds) }
+      it { is_expected.not_to allow_value(23.5).for(:start_interval_seconds) }
+      it { is_expected.not_to allow_value(0).for(:start_interval_seconds) }
     end
 
     describe "batch_interval_seconds" do
-      it { should validate_numericality_of(:batch_interval_seconds) }
-      it { should_not allow_value(nil).for(:batch_interval_seconds) }
-      it { should_not allow_value(23.5).for(:batch_interval_seconds) }
-      it { should_not allow_value(0).for(:batch_interval_seconds) }
+      it { is_expected.to validate_numericality_of(:batch_interval_seconds) }
+      it { is_expected.not_to allow_value(nil).for(:batch_interval_seconds) }
+      it { is_expected.not_to allow_value(23.5).for(:batch_interval_seconds) }
+      it { is_expected.not_to allow_value(0).for(:batch_interval_seconds) }
     end
 
     describe "batch_size" do
-      it { should validate_numericality_of(:batch_size) }
-      it { should_not allow_value(nil).for(:batch_size) }
-      it { should_not allow_value(23.5).for(:batch_size) }
-      it { should_not allow_value(-1).for(:batch_size) }
-      it { should allow_value(0).for(:batch_size) }
+      it { is_expected.to validate_numericality_of(:batch_size) }
+      it { is_expected.not_to allow_value(nil).for(:batch_size) }
+      it { is_expected.not_to allow_value(23.5).for(:batch_size) }
+      it { is_expected.not_to allow_value(-1).for(:batch_size) }
+      it { is_expected.to allow_value(0).for(:batch_size) }
     end
 
     describe "club_level" do
-      it { should allow_value(Race::CLUB_LEVEL_SEURA).for(:club_level) }
-      it { should allow_value(Race::CLUB_LEVEL_PIIRI).for(:club_level) }
-      it { should_not allow_value(2).for(:club_level) }
+      it { is_expected.to allow_value(Race::CLUB_LEVEL_SEURA).for(:club_level) }
+      it { is_expected.to allow_value(Race::CLUB_LEVEL_PIIRI).for(:club_level) }
+      it { is_expected.not_to allow_value(2).for(:club_level) }
 
       it "should convert nil to SEURA" do
         race = FactoryGirl.create(:race, :club_level => nil)
@@ -59,10 +59,10 @@ describe Race do
     end
     
     describe "start_order" do
-      it { should_not allow_value(Race::START_ORDER_BY_SERIES - 1).for(:start_order) }
-      it { should allow_value(Race::START_ORDER_BY_SERIES).for(:start_order) }
-      it { should allow_value(Race::START_ORDER_MIXED).for(:start_order) }
-      it { should_not allow_value(Race::START_ORDER_MIXED + 1).for(:start_order) }
+      it { is_expected.not_to allow_value(Race::START_ORDER_BY_SERIES - 1).for(:start_order) }
+      it { is_expected.to allow_value(Race::START_ORDER_BY_SERIES).for(:start_order) }
+      it { is_expected.to allow_value(Race::START_ORDER_MIXED).for(:start_order) }
+      it { is_expected.not_to allow_value(Race::START_ORDER_MIXED + 1).for(:start_order) }
     end
 
     describe "race with same name" do
@@ -93,17 +93,17 @@ describe Race do
   end
 
   describe "associations" do
-    it { should belong_to(:sport) }
-    it { should have_many(:series) }
-    it { should have_many(:age_groups).through(:series) }
-    it { should have_many(:competitors).through(:series) }
-    it { should have_many(:clubs) }
-    it { should have_many(:correct_estimates) }
-    it { should have_many(:relays) }
-    it { should have_many(:team_competitions) }
-    it { should have_many(:race_rights) }
-    it { should have_many(:users).through(:race_rights) }
-    it { should have_and_belong_to_many(:cups) }
+    it { is_expected.to belong_to(:sport) }
+    it { is_expected.to have_many(:series) }
+    it { is_expected.to have_many(:age_groups).through(:series) }
+    it { is_expected.to have_many(:competitors).through(:series) }
+    it { is_expected.to have_many(:clubs) }
+    it { is_expected.to have_many(:correct_estimates) }
+    it { is_expected.to have_many(:relays) }
+    it { is_expected.to have_many(:team_competitions) }
+    it { is_expected.to have_many(:race_rights) }
+    it { is_expected.to have_many(:users).through(:race_rights) }
+    it { is_expected.to have_and_belong_to_many(:cups) }
   end
 
   describe "default" do
@@ -300,14 +300,14 @@ describe Race do
 
     def confirm_successfull_finish(race)
       race.reload
-      expect(race.finish).to be_true
+      expect(race.finish).to be_truthy
       expect(race.errors.size).to eq(0)
       expect(race).to be_finished
     end
 
     def confirm_unsuccessfull_finish(race)
       race.reload
-      expect(race.finish).to be_false
+      expect(race.finish).to be_falsey
       expect(race.errors.size).to eq(1)
       expect(race).not_to be_finished
     end
@@ -320,7 +320,7 @@ describe Race do
 
     it "should return true when finishing the race succeeds" do
       expect(@race).to receive(:finish).and_return(true)
-      expect(@race.finish!).to be_true
+      expect(@race.finish!).to be_truthy
     end
 
     it "raise exception if finishing the race fails" do
@@ -338,18 +338,18 @@ describe Race do
       series = FactoryGirl.build(:series, :race => @race)
       @race.series << series
       series.competitors << FactoryGirl.build(:competitor)
-      expect(@race.can_destroy?).to be_false
+      expect(@race.can_destroy?).to be_falsey
     end
     
     it "should be false when relays" do
       @race.relays << FactoryGirl.build(:relay, :race => @race)
-      expect(@race.can_destroy?).to be_false
+      expect(@race.can_destroy?).to be_falsey
     end
     
     it "should be true when no competitors, nor relays" do
       @series = FactoryGirl.build(:series, :race => @race)
       @race.series << @series
-      expect(@race.can_destroy?).to be_true
+      expect(@race.can_destroy?).to be_truthy
     end
   end
 
@@ -374,12 +374,12 @@ describe Race do
       @race.reload
       @race.destroy
       expect(@race).to be_destroyed
-      expect(Series.exists?(@series.id)).to be_false
-      expect(Competitor.exists?(@competitor.id)).to be_false
-      expect(TeamCompetition.exists?(@team_competition.id)).to be_false
-      expect(Relay.exists?(@relay.id)).to be_false
-      expect(RelayTeam.exists?(@relay_team.id)).to be_false
-      expect(RelayCompetitor.exists?(@relay_competitor.id)).to be_false
+      expect(Series.exists?(@series.id)).to be_falsey
+      expect(Competitor.exists?(@competitor.id)).to be_falsey
+      expect(TeamCompetition.exists?(@team_competition.id)).to be_falsey
+      expect(Relay.exists?(@relay.id)).to be_falsey
+      expect(RelayTeam.exists?(@relay_team.id)).to be_falsey
+      expect(RelayCompetitor.exists?(@relay_competitor.id)).to be_falsey
     end
   end
 
@@ -607,14 +607,14 @@ describe Race do
 
     it "should return true when correct estimates exists for all competitors" do
       @race.reload
-      expect(@race.each_competitor_has_correct_estimates?).to be_true
+      expect(@race.each_competitor_has_correct_estimates?).to be_truthy
     end
 
     it "should return false when at least one competitor is missing correct estimates" do
       @c3.correct_estimate2 = nil
       @c3.save!
       @race.reload
-      expect(@race.each_competitor_has_correct_estimates?).to be_false
+      expect(@race.each_competitor_has_correct_estimates?).to be_falsey
     end
   end
 
@@ -780,7 +780,7 @@ describe Race do
     end
 
     it "should return false when race is not finished" do
-      expect(@race.all_competitions_finished?).to be_false
+      expect(@race.all_competitions_finished?).to be_falsey
     end
 
     context "when race is finished" do
@@ -792,12 +792,12 @@ describe Race do
 
       it "should return false when at least one relay is not finished" do
         allow(@race).to receive(:relays).and_return([@finished_relay, @unfinished_relay])
-        expect(@race.all_competitions_finished?).to be_false
+        expect(@race.all_competitions_finished?).to be_falsey
       end
 
       it "should return true when all relays are finished" do
         allow(@race).to receive(:relays).and_return([@finished_relay, @finished_relay])
-        expect(@race.all_competitions_finished?).to be_true
+        expect(@race.all_competitions_finished?).to be_truthy
       end
     end
   end
@@ -828,15 +828,15 @@ describe Race do
 
   describe "#start_time_defined?" do
     it "should be false when nil" do
-      expect(Race.new.start_time_defined?).to be_false
+      expect(Race.new.start_time_defined?).to be_falsey
     end
 
     it "should be false when start time is 00:00" do
-      expect(FactoryGirl.build(:race, start_time: '00:00').start_time_defined?).to be_false
+      expect(FactoryGirl.build(:race, start_time: '00:00').start_time_defined?).to be_falsey
     end
 
     it "should be true when start time other than 00:00" do
-      expect(FactoryGirl.build(:race, start_time: '00:01').start_time_defined?).to be_true
+      expect(FactoryGirl.build(:race, start_time: '00:01').start_time_defined?).to be_truthy
     end
   end
 end

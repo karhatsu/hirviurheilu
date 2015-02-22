@@ -6,18 +6,18 @@ describe RelayCompetitor do
   end
 
   describe "associations" do
-    it { should belong_to(:relay_team) }
+    it { is_expected.to belong_to(:relay_team) }
   end
 
   describe "validations" do
-    it { should validate_presence_of(:first_name) }
-    it { should validate_presence_of(:last_name) }
+    it { is_expected.to validate_presence_of(:first_name) }
+    it { is_expected.to validate_presence_of(:last_name) }
 
     describe "leg" do
-      it { should validate_numericality_of(:leg) }
-      it { should_not allow_value(0).for(:leg) }
-      it { should allow_value(1).for(:leg) }
-      it { should_not allow_value(1.1).for(:leg) }
+      it { is_expected.to validate_numericality_of(:leg) }
+      it { is_expected.not_to allow_value(0).for(:leg) }
+      it { is_expected.to allow_value(1).for(:leg) }
+      it { is_expected.not_to allow_value(1.1).for(:leg) }
       it "should not allow bigger leg value than relay legs count" do
         relay = FactoryGirl.build(:relay, :legs_count => 3)
         team = FactoryGirl.build(:relay_team, :relay => relay)
@@ -31,38 +31,38 @@ describe RelayCompetitor do
         before do
           FactoryGirl.create(:relay_competitor)
         end
-        it { should validate_uniqueness_of(:leg).scoped_to(:relay_team_id) }
+        it { is_expected.to validate_uniqueness_of(:leg).scoped_to(:relay_team_id) }
       end
     end
 
     describe "misses" do
-      it { should validate_numericality_of(:misses) }
-      it { should allow_value(nil).for(:misses) }
-      it { should allow_value(0).for(:misses) }
-      it { should allow_value(1).for(:misses) }
-      it { should_not allow_value(1.1).for(:misses) }
-      it { should allow_value(5).for(:misses) }
-      it { should_not allow_value(6).for(:misses) }
+      it { is_expected.to validate_numericality_of(:misses) }
+      it { is_expected.to allow_value(nil).for(:misses) }
+      it { is_expected.to allow_value(0).for(:misses) }
+      it { is_expected.to allow_value(1).for(:misses) }
+      it { is_expected.not_to allow_value(1.1).for(:misses) }
+      it { is_expected.to allow_value(5).for(:misses) }
+      it { is_expected.not_to allow_value(6).for(:misses) }
     end
 
     describe "estimate" do
-      it { should allow_value(nil).for(:estimate) }
-      it { should_not allow_value(1.1).for(:estimate) }
-      it { should_not allow_value(-1).for(:estimate) }
-      it { should_not allow_value(0).for(:estimate) }
-      it { should allow_value(1).for(:estimate) }
+      it { is_expected.to allow_value(nil).for(:estimate) }
+      it { is_expected.not_to allow_value(1.1).for(:estimate) }
+      it { is_expected.not_to allow_value(-1).for(:estimate) }
+      it { is_expected.not_to allow_value(0).for(:estimate) }
+      it { is_expected.to allow_value(1).for(:estimate) }
     end
 
     describe "adjustment" do
-      it { should allow_value(nil).for(:adjustment) }
-      it { should allow_value(-1).for(:adjustment) }
-      it { should allow_value(0).for(:adjustment) }
-      it { should allow_value(1).for(:adjustment) }
-      it { should_not allow_value(1.1).for(:adjustment) }
+      it { is_expected.to allow_value(nil).for(:adjustment) }
+      it { is_expected.to allow_value(-1).for(:adjustment) }
+      it { is_expected.to allow_value(0).for(:adjustment) }
+      it { is_expected.to allow_value(1).for(:adjustment) }
+      it { is_expected.not_to allow_value(1.1).for(:adjustment) }
     end
 
     describe "arrival_time" do
-      it { should allow_value(nil).for(:arrival_time) }
+      it { is_expected.to allow_value(nil).for(:arrival_time) }
 
       describe "compared to start time" do
         before do

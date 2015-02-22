@@ -6,33 +6,33 @@ describe RelayTeam do
   end
 
   describe "associations" do
-    it { should belong_to(:relay) }
-    it { should have_many(:relay_competitors) }
+    it { is_expected.to belong_to(:relay) }
+    it { is_expected.to have_many(:relay_competitors) }
   end
 
   describe "validations" do
-    it { should validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:name) }
 
     describe "number" do
-      it { should validate_numericality_of(:number) }
-      it { should_not allow_value(0).for(:number) }
-      it { should allow_value(1).for(:number) }
-      it { should_not allow_value(1.1).for(:number) }
+      it { is_expected.to validate_numericality_of(:number) }
+      it { is_expected.not_to allow_value(0).for(:number) }
+      it { is_expected.to allow_value(1).for(:number) }
+      it { is_expected.not_to allow_value(1.1).for(:number) }
 
       describe "uniqueness" do
         before do
           FactoryGirl.create(:relay_team)
         end
-        it { should validate_uniqueness_of(:number).scoped_to(:relay_id) }
+        it { is_expected.to validate_uniqueness_of(:number).scoped_to(:relay_id) }
       end
     end
 
     describe "no_result_reason" do
-      it { should allow_value(nil).for(:no_result_reason) }
-      it { should allow_value(RelayTeam::DNS).for(:no_result_reason) }
-      it { should allow_value(RelayTeam::DNF).for(:no_result_reason) }
-      it { should allow_value(RelayTeam::DQ).for(:no_result_reason) }
-      it { should_not allow_value('test').for(:no_result_reason) }
+      it { is_expected.to allow_value(nil).for(:no_result_reason) }
+      it { is_expected.to allow_value(RelayTeam::DNS).for(:no_result_reason) }
+      it { is_expected.to allow_value(RelayTeam::DNF).for(:no_result_reason) }
+      it { is_expected.to allow_value(RelayTeam::DQ).for(:no_result_reason) }
+      it { is_expected.not_to allow_value('test').for(:no_result_reason) }
       it "should change empty string to nil" do
         team = FactoryGirl.create(:relay_team, :no_result_reason => '')
         expect(team.no_result_reason).to be_nil

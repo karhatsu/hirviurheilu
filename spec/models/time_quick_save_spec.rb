@@ -20,7 +20,7 @@ describe TimeQuickSave do
 
       describe "#save" do
         it "should save given time for the competitor and return true" do
-          expect(@qs.save).to be_true
+          expect(@qs.save).to be_truthy
           @c2.reload
           expect(@c2.arrival_time.strftime('%H:%M:%S')).to eq('13:12:59')
         end
@@ -48,7 +48,7 @@ describe TimeQuickSave do
 
         describe "#save" do
           it "should save given time for the competitor and return true" do
-            expect(@qs.save).to be_true
+            expect(@qs.save).to be_truthy
             @c.reload
             expect(@c.arrival_time.strftime('%H:%M:%S')).to eq('13:12:59')
           end
@@ -79,7 +79,7 @@ describe TimeQuickSave do
 
       describe "#save" do
         it "should not save given time for the competitor and return false" do
-          expect(@qs.save).to be_false
+          expect(@qs.save).to be_falsey
           @c.reload
           expect(@c.arrival_time).to be_nil
         end
@@ -113,7 +113,7 @@ describe TimeQuickSave do
 
     describe "#save" do
       it "should not save given time for the competitor and return false" do
-        expect(@qs.save).to be_false
+        expect(@qs.save).to be_falsey
       end
     end
 
@@ -139,7 +139,7 @@ describe TimeQuickSave do
 
     describe "#save" do
       it "should not save given time for the competitor and return false" do
-        expect(@qs.save).to be_false
+        expect(@qs.save).to be_falsey
         @c.reload
         expect(@c.arrival_time.strftime('%H:%M:%S')).to eq('12:00:00')
       end
@@ -167,7 +167,7 @@ describe TimeQuickSave do
 
     describe "#save" do
       it "should not save given time for the competitor and return false" do
-        expect(@qs.save).to be_false
+        expect(@qs.save).to be_falsey
         @c.reload
         expect(@c.arrival_time.strftime('%H:%M:%S')).to eq('12:00:00')
       end
@@ -197,7 +197,7 @@ describe TimeQuickSave do
 
     describe "#save" do
       it "should not save given time for the competitor and return false" do
-        expect(@qs.save).to be_false
+        expect(@qs.save).to be_falsey
         @c.reload
         expect(@c.arrival_time.strftime('%H:%M:%S')).to eq('12:00:00')
       end

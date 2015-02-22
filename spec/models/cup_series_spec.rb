@@ -6,11 +6,11 @@ describe CupSeries do
   end
   
   describe "associations" do
-    it { should belong_to(:cup) }
+    it { is_expected.to belong_to(:cup) }
   end
   
   describe "validations" do
-    it { should validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:name) }
   end
   
   describe "#has_single_series_with_same_name?" do

@@ -1135,17 +1135,17 @@ describe ApplicationHelper do
   describe "#facebook_env?" do
     it "should be true for development" do
       allow(Rails).to receive(:env).and_return('development')
-      expect(helper.facebook_env?).to be_true
+      expect(helper.facebook_env?).to be_truthy
     end
     
     it "should be true for production" do
       allow(Rails).to receive(:env).and_return('production')
-      expect(helper.facebook_env?).to be_true
+      expect(helper.facebook_env?).to be_truthy
     end
     
     it "should be false for all others" do
       allow(Rails).to receive(:env).and_return('test')
-      expect(helper.facebook_env?).to be_false
+      expect(helper.facebook_env?).to be_falsey
     end
   end
   
@@ -1162,14 +1162,14 @@ describe ApplicationHelper do
       it "should return true" do
         expect(helper).to receive(:menu_series).and_return(mock_model(Series))
         expect(helper).to receive(:result_rotation_auto_scroll).and_return('cookie')
-        expect(helper.refresh_counter_auto_scroll).to be_true
+        expect(helper.refresh_counter_auto_scroll).to be_truthy
       end
     end
     
     context "when menu_series not available" do
       it "should return false" do
         expect(helper).to receive(:menu_series).and_return(nil)
-        expect(helper.refresh_counter_auto_scroll).to be_false
+        expect(helper.refresh_counter_auto_scroll).to be_falsey
       end
     end
     
@@ -1177,7 +1177,7 @@ describe ApplicationHelper do
       it "should return false" do
         expect(helper).to receive(:menu_series).and_return(mock_model(Series))
         expect(helper).to receive(:result_rotation_auto_scroll).and_return(nil)
-        expect(helper.refresh_counter_auto_scroll).to be_false
+        expect(helper.refresh_counter_auto_scroll).to be_falsey
       end
     end
   end

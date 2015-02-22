@@ -60,7 +60,7 @@ describe RelayMissesQuickSave do
   end
 
   def check_failure(competitor=false, misses=nil)
-    expect(@qs.save).to be_false
+    expect(@qs.save).to be_falsey
     expect(@qs.error).not_to be_nil
     expect(@qs.competitor).to eq(@c) if competitor
     expect(@qs.competitor).to be_nil unless competitor

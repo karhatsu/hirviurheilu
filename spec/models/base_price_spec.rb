@@ -14,15 +14,15 @@ describe BasePrice do
     it "should allow updating the only base price" do
       bp = FactoryGirl.create(:base_price)
       bp.price = 30
-      expect(bp.save).to be_true
+      expect(bp.save).to be_truthy
     end
   end
 
   describe "validations" do
-    it { should validate_numericality_of(:price) }
-    it { should_not allow_value(-1).for(:price) }
-    it { should allow_value(0).for(:price) }
-    it { should_not allow_value(1.1).for(:price) }
+    it { is_expected.to validate_numericality_of(:price) }
+    it { is_expected.not_to allow_value(-1).for(:price) }
+    it { is_expected.to allow_value(0).for(:price) }
+    it { is_expected.not_to allow_value(1.1).for(:price) }
   end
 
   describe "#self.price" do

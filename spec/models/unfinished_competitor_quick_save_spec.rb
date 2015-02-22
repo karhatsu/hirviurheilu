@@ -18,7 +18,7 @@ describe UnfinishedCompetitorQuickSave do
 
       describe "#save" do
         it "should save given status for the competitor and return true" do
-          expect(@qs.save).to be_true
+          expect(@qs.save).to be_truthy
           @c2.reload
           expect(@c2.no_result_reason).to eq(Competitor::DNS)
         end
@@ -46,7 +46,7 @@ describe UnfinishedCompetitorQuickSave do
 
         describe "#save" do
           it "should save given no result reason for the competitor and return true" do
-            expect(@qs.save).to be_true
+            expect(@qs.save).to be_truthy
             @c.reload
             expect(@c.no_result_reason).to eq(Competitor::DNF)
           end
@@ -117,7 +117,7 @@ describe UnfinishedCompetitorQuickSave do
 
   def check_failed_save(qs, error_regex, find_competitor,
       original_competitor=nil, original_reason=nil)
-    expect(qs.save).to be_false
+    expect(qs.save).to be_falsey
     expect(qs.error).to match(error_regex)
     expect(qs.competitor).to be_nil unless find_competitor
     if original_competitor

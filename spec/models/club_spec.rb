@@ -8,16 +8,16 @@ describe Club do
   end
 
   describe "validation" do
-    it { should validate_presence_of(:name) }
-    it { should_not validate_presence_of(:long_name) }
-    it { should allow_value(nil).for(:long_name) }
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.not_to validate_presence_of(:long_name) }
+    it { is_expected.to allow_value(nil).for(:long_name) }
 
     describe "unique name" do
       before do
         FactoryGirl.create(:club, :long_name => 'Long name')
       end
-      it { should validate_uniqueness_of(:name).scoped_to(:race_id) }
-      it { should validate_uniqueness_of(:long_name).scoped_to(:race_id) }
+      it { is_expected.to validate_uniqueness_of(:name).scoped_to(:race_id) }
+      it { is_expected.to validate_uniqueness_of(:long_name).scoped_to(:race_id) }
 
       it "should allow two nil long names for same race" do
         club = FactoryGirl.create(:club, :long_name => nil)
@@ -35,16 +35,16 @@ describe Club do
   end
 
   describe "associations" do
-    it { should belong_to(:race) }
-    it { should have_many(:competitors) }
-    it { should have_many(:race_rights) }
+    it { is_expected.to belong_to(:race) }
+    it { is_expected.to have_many(:competitors) }
+    it { is_expected.to have_many(:race_rights) }
   end
   
   describe "#can_be_removed?" do
     context "when club has no competitors" do
       context "and no-one has official rights for this club only" do
         it "should return true" do
-          expect(Club.new.can_be_removed?).to be_true
+          expect(Club.new.can_be_removed?).to be_truthy
         end
       end
       
@@ -58,7 +58,7 @@ describe Club do
         end
         
         it "should return false" do
-          expect(@club.can_be_removed?).to be_false
+          expect(@club.can_be_removed?).to be_falsey
         end
       end
     end
@@ -72,7 +72,7 @@ describe Club do
       end
 
       it "should return false" do
-        expect(@club.can_be_removed?).to be_false
+        expect(@club.can_be_removed?).to be_falsey
       end
     end
   end

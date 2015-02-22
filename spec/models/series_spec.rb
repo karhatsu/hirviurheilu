@@ -8,21 +8,21 @@ describe Series do
   end
 
   describe "associations" do
-    it { should belong_to(:race) }
-    it { should have_many(:age_groups) }
-    it { should have_many(:competitors) }
+    it { is_expected.to belong_to(:race) }
+    it { is_expected.to have_many(:age_groups) }
+    it { is_expected.to have_many(:competitors) }
   end
 
   describe "validations" do
-    it { should validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:name) }
     #it { should validate_presence_of(:race) }
-    it { should allow_value(nil).for(:start_time) }
+    it { is_expected.to allow_value(nil).for(:start_time) }
 
     describe "start_day" do
-      it { should validate_numericality_of(:start_day) }
-      it { should_not allow_value(0).for(:start_day) }
-      it { should allow_value(1).for(:start_day) }
-      it { should_not allow_value(1.1).for(:start_day) }
+      it { is_expected.to validate_numericality_of(:start_day) }
+      it { is_expected.not_to allow_value(0).for(:start_day) }
+      it { is_expected.to allow_value(1).for(:start_day) }
+      it { is_expected.not_to allow_value(1.1).for(:start_day) }
 
       before do
         race = FactoryGirl.build(:race)
@@ -36,38 +36,38 @@ describe Series do
     end
 
     describe "first_number" do
-      it { should validate_numericality_of(:first_number) }
-      it { should allow_value(nil).for(:first_number) }
-      it { should_not allow_value(23.5).for(:first_number) }
-      it { should_not allow_value(0).for(:first_number) }
-      it { should allow_value(1).for(:first_number) }
+      it { is_expected.to validate_numericality_of(:first_number) }
+      it { is_expected.to allow_value(nil).for(:first_number) }
+      it { is_expected.not_to allow_value(23.5).for(:first_number) }
+      it { is_expected.not_to allow_value(0).for(:first_number) }
+      it { is_expected.to allow_value(1).for(:first_number) }
     end
 
     describe "estimates" do
-      it { should_not allow_value(nil).for(:estimates) }
-      it { should_not allow_value(0).for(:estimates) }
-      it { should_not allow_value(1).for(:estimates) }
-      it { should allow_value(2).for(:estimates) }
-      it { should_not allow_value(3).for(:estimates) }
-      it { should allow_value(4).for(:estimates) }
-      it { should_not allow_value(5).for(:estimates) }
-      it { should_not allow_value(2.1).for(:estimates) }
+      it { is_expected.not_to allow_value(nil).for(:estimates) }
+      it { is_expected.not_to allow_value(0).for(:estimates) }
+      it { is_expected.not_to allow_value(1).for(:estimates) }
+      it { is_expected.to allow_value(2).for(:estimates) }
+      it { is_expected.not_to allow_value(3).for(:estimates) }
+      it { is_expected.to allow_value(4).for(:estimates) }
+      it { is_expected.not_to allow_value(5).for(:estimates) }
+      it { is_expected.not_to allow_value(2.1).for(:estimates) }
     end
 
     describe "national_record" do
-      it { should validate_numericality_of(:national_record) }
-      it { should allow_value(nil).for(:national_record) }
-      it { should_not allow_value(23.5).for(:national_record) }
-      it { should_not allow_value(0).for(:national_record) }
-      it { should allow_value(1).for(:national_record) }
-      it { should_not allow_value(-51).for(:national_record) }
+      it { is_expected.to validate_numericality_of(:national_record) }
+      it { is_expected.to allow_value(nil).for(:national_record) }
+      it { is_expected.not_to allow_value(23.5).for(:national_record) }
+      it { is_expected.not_to allow_value(0).for(:national_record) }
+      it { is_expected.to allow_value(1).for(:national_record) }
+      it { is_expected.not_to allow_value(-51).for(:national_record) }
     end
 
     describe "time_points_type" do
-      it { should allow_value(Series::TIME_POINTS_TYPE_NORMAL).for(:time_points_type) }
-      it { should allow_value(Series::TIME_POINTS_TYPE_NONE).for(:time_points_type) }
-      it { should allow_value(Series::TIME_POINTS_TYPE_ALL_300).for(:time_points_type) }
-      it { should_not allow_value(3).for(:time_points_type) }
+      it { is_expected.to allow_value(Series::TIME_POINTS_TYPE_NORMAL).for(:time_points_type) }
+      it { is_expected.to allow_value(Series::TIME_POINTS_TYPE_NONE).for(:time_points_type) }
+      it { is_expected.to allow_value(Series::TIME_POINTS_TYPE_ALL_300).for(:time_points_type) }
+      it { is_expected.not_to allow_value(3).for(:time_points_type) }
 
       it "should convert nil to default value" do
         series = FactoryGirl.create(:series, :time_points_type => nil)
@@ -483,19 +483,19 @@ describe Series do
     end
 
     it "should return false when no competitors" do
-      expect(@series.some_competitor_has_arrival_time?).to be_false
+      expect(@series.some_competitor_has_arrival_time?).to be_falsey
     end
 
     it "should return false when none of the competitors have an arrival time" do
       allow(@series).to receive(:competitors).and_return([@c1, @c2])
-      expect(@series.some_competitor_has_arrival_time?).to be_false
+      expect(@series.some_competitor_has_arrival_time?).to be_falsey
     end
 
     it "should return true when any of the competitors have an arrival time" do
       @c2.start_time = '11:34:45'
       @c2.arrival_time = '12:34:45'
       allow(@series).to receive(:competitors).and_return([@c1, @c2])
-      expect(@series.some_competitor_has_arrival_time?).to be_true
+      expect(@series.some_competitor_has_arrival_time?).to be_truthy
     end
   end
 
@@ -515,7 +515,7 @@ describe Series do
           @c4 = FactoryGirl.create(:competitor, :series => @series,
             :start_time => '14:00', :arrival_time => '14:30', :number => 5)
           @series.reload
-          expect(@series.generate_numbers(Series::START_LIST_ADDING_ORDER)).to be_false
+          expect(@series.generate_numbers(Series::START_LIST_ADDING_ORDER)).to be_falsey
           expect(@series.errors.size).to eq(1)
           check_no_changes_in_competitors
         end
@@ -529,7 +529,7 @@ describe Series do
 
         it "should do nothing for competitors, add error and return false" do
           @series.reload
-          expect(@series.generate_numbers(Series::START_LIST_ADDING_ORDER)).to be_false
+          expect(@series.generate_numbers(Series::START_LIST_ADDING_ORDER)).to be_falsey
           expect(@series.errors.size).to eq(1)
           check_no_changes_in_competitors
         end
@@ -544,7 +544,7 @@ describe Series do
 
         it "should do nothing for competitors, add error and return false" do
           @series.reload
-          expect(@series.generate_numbers(Series::START_LIST_ADDING_ORDER)).to be_false
+          expect(@series.generate_numbers(Series::START_LIST_ADDING_ORDER)).to be_falsey
           expect(@series.errors.size).to eq(1)
           check_no_changes_in_competitors
         end
@@ -561,7 +561,7 @@ describe Series do
     describe "generation succeeds" do
       describe "adding order" do
         it "should generate numbers based on series first number and return true" do
-          expect(@series.generate_numbers(Series::START_LIST_ADDING_ORDER)).to be_true
+          expect(@series.generate_numbers(Series::START_LIST_ADDING_ORDER)).to be_truthy
           expect(@series).to be_valid
           reload_competitors
           expect(@c1.number).to eq(5)
@@ -572,7 +572,7 @@ describe Series do
 
       describe "random order" do
         it "should generate numbers based on series first number and return true" do
-          expect(@series.generate_numbers(Series::START_LIST_RANDOM)).to be_true
+          expect(@series.generate_numbers(Series::START_LIST_RANDOM)).to be_truthy
           expect(@series).to be_valid
           reload_competitors
           expect([5,6,7]).to include(@c1.number)
@@ -592,7 +592,7 @@ describe Series do
 
       it "should set correct estimates for competitors" do
         expect(@race).to receive(:set_correct_estimates_for_competitors)
-        expect(@series.generate_numbers(Series::START_LIST_ADDING_ORDER)).to be_true
+        expect(@series.generate_numbers(Series::START_LIST_ADDING_ORDER)).to be_truthy
       end
     end
 
@@ -610,7 +610,7 @@ describe Series do
 
     it "should return true when generation succeeds" do
       expect(@series).to receive(:generate_numbers).with(0).and_return(true)
-      expect(@series.generate_numbers!(0)).to be_true
+      expect(@series.generate_numbers!(0)).to be_truthy
     end
 
     it "raise exception if generation fails" do
@@ -635,7 +635,7 @@ describe Series do
         it "should do nothing for competitors, add error and return false" do
           @c4 = FactoryGirl.create(:competitor, :series => @series, :number => nil)
           @series.reload
-          expect(@series.generate_start_times).to be_false
+          expect(@series.generate_start_times).to be_falsey
           expect(@series.errors.size).to eq(1)
           check_competitors_no_changes([@c1, @c2, @c3, @c4])
         end
@@ -646,7 +646,7 @@ describe Series do
           @c4 = FactoryGirl.create(:competitor, :series => @series,
             :start_time => '14:00', :arrival_time => '14:30', :number => 5)
           @series.reload
-          expect(@series.generate_start_times).to be_false
+          expect(@series.generate_start_times).to be_falsey
           expect(@series.errors.size).to eq(1)
           check_competitors_no_changes([@c1, @c2, @c3])
         end
@@ -660,7 +660,7 @@ describe Series do
 
         it "should do nothing for competitors, add error and return false" do
           @series.reload
-          expect(@series.generate_start_times).to be_false
+          expect(@series.generate_start_times).to be_falsey
           expect(@series.errors.size).to eq(1)
           check_competitors_no_changes([@c1, @c2, @c3])
         end
@@ -674,7 +674,7 @@ describe Series do
   
         it "should do nothing for competitors, add error and return false" do
           @series.reload
-          expect(@series.generate_start_times).to be_false
+          expect(@series.generate_start_times).to be_falsey
           expect(@series.errors.size).to eq(1)
           check_competitors_no_changes([@c1, @c2, @c3])
         end
@@ -691,7 +691,7 @@ describe Series do
     describe "generation succeeds" do
       context "without batches" do
         it "should generate start times based on time interval and numbers and return true" do
-          expect(@series.generate_start_times).to be_true
+          expect(@series.generate_start_times).to be_truthy
           expect(@series).to be_valid
           @c1.reload
           @c2.reload
@@ -721,7 +721,7 @@ describe Series do
   
         describe "when batch generation succeeds" do
           it "should generate start times based on batch size, batch interval and time interval and numbers and return true" do
-            expect(@series.generate_start_times).to be_true
+            expect(@series.generate_start_times).to be_truthy
             expect(@series).to be_valid
             @c1.reload
             @c2.reload
@@ -740,7 +740,7 @@ describe Series do
         context "when last batch is short" do
           describe "when last batch tail attachment succeeds" do
             it "should generate start times based on batch size, batch interval and time interval and numbers and return true" do
-              expect(@series.generate_start_times).to be_true
+              expect(@series.generate_start_times).to be_truthy
               expect(@series).to be_valid
               @c7.reload
               @c8.reload
@@ -758,11 +758,11 @@ describe Series do
               @c6.destroy
               @c7.destroy
               @c8.destroy
-              expect(@series.generate_start_times).to be_true
+              expect(@series.generate_start_times).to be_truthy
               expect(@series).to be_valid
             end
             it "should generate start times based on batch size, batch interval and time interval and numbers and return true" do
-              expect(@series.generate_start_times).to be_true
+              expect(@series.generate_start_times).to be_truthy
               expect(@series).to be_valid
               @c1.reload
               @c2.reload
@@ -783,7 +783,7 @@ describe Series do
     
     it "should return true when generation succeeds" do
       expect(@series).to receive(:generate_start_times).and_return(true)
-      expect(@series.generate_start_times!).to be_true
+      expect(@series.generate_start_times!).to be_truthy
     end
     
     it "raise exception if generation fails" do
@@ -801,7 +801,7 @@ describe Series do
       it "should call generate_numbers and generate_start_times" do
         expect(@series).to receive(:generate_numbers).with(0).and_return(true)
         expect(@series).to receive(:generate_start_times).and_return(true)
-        expect(@series.generate_start_list(0)).to be_true
+        expect(@series.generate_start_list(0)).to be_truthy
         @series.reload
         expect(@series).to have_start_list
       end
@@ -811,7 +811,7 @@ describe Series do
       it "should not generate start times, should return false and have no start list" do
         expect(@series).to receive(:generate_numbers).with(0).and_return(false)
         expect(@series).not_to receive(:generate_start_times)
-        expect(@series.generate_start_list(0)).to be_false
+        expect(@series.generate_start_list(0)).to be_falsey
         @series.reload
         expect(@series).not_to have_start_list
       end
@@ -821,7 +821,7 @@ describe Series do
       it "should return false and have no start list" do
         expect(@series).to receive(:generate_numbers).with(0).and_return(true)
         expect(@series).to receive(:generate_start_times).and_return(false)
-        expect(@series.generate_start_list(0)).to be_false
+        expect(@series.generate_start_list(0)).to be_falsey
         @series.reload
         expect(@series).not_to have_start_list
       end
@@ -837,7 +837,7 @@ describe Series do
       it "should set has_start_list to true and return true" do
         expect(@series).to receive(:generate_numbers!).with(0)
         expect(@series).to receive(:generate_start_times!)
-        expect(@series.generate_start_list!(0)).to be_true
+        expect(@series.generate_start_list!(0)).to be_truthy
         @series.reload
         expect(@series).to have_start_list
       end
@@ -917,11 +917,11 @@ describe Series do
           :number => nil)
       end
 
-      specify { expect(@series.each_competitor_has_number?).to be_false }
+      specify { expect(@series.each_competitor_has_number?).to be_falsey }
     end
 
     context "when no numbers missing" do
-      specify { expect(@series.each_competitor_has_number?).to be_true }
+      specify { expect(@series.each_competitor_has_number?).to be_truthy }
     end
   end
 
@@ -938,11 +938,11 @@ describe Series do
           :start_time => nil)
       end
 
-      specify { expect(@series.each_competitor_has_start_time?).to be_false }
+      specify { expect(@series.each_competitor_has_start_time?).to be_falsey }
     end
 
     context "when no start_times missing" do
-      specify { expect(@series.each_competitor_has_start_time?).to be_true }
+      specify { expect(@series.each_competitor_has_start_time?).to be_truthy }
     end
   end
 
@@ -958,7 +958,7 @@ describe Series do
         allow(@series).to receive(:competitors).and_return([@c1, @c2])
       end
 
-      specify { expect(@series.each_competitor_finished?).to be_false }
+      specify { expect(@series.each_competitor_finished?).to be_falsey }
     end
 
     context "when all competitors have finished" do
@@ -966,7 +966,7 @@ describe Series do
         allow(@series).to receive(:competitors).and_return([@c1])
       end
 
-      specify { expect(@series.each_competitor_finished?).to be_true }
+      specify { expect(@series.each_competitor_finished?).to be_truthy }
     end
   end
 
@@ -1026,21 +1026,21 @@ describe Series do
     context "when 2 estimates for the series" do
       it "should return true when correct estimates exists for all competitors" do
         @series.reload
-        expect(@series.each_competitor_has_correct_estimates?).to be_true
+        expect(@series.each_competitor_has_correct_estimates?).to be_truthy
       end
 
       it "should return false when at least one competitor is missing correct estimate 1" do
         @c2.correct_estimate1 = nil
         @c2.save!
         @series.reload
-        expect(@series.each_competitor_has_correct_estimates?).to be_false
+        expect(@series.each_competitor_has_correct_estimates?).to be_falsey
       end
 
       it "should return false when at least one competitor is missing correct estimate 2" do
         @c2.correct_estimate2 = nil
         @c2.save!
         @series.reload
-        expect(@series.each_competitor_has_correct_estimates?).to be_false
+        expect(@series.each_competitor_has_correct_estimates?).to be_falsey
       end
     end
 
@@ -1058,21 +1058,21 @@ describe Series do
 
       it "should return true when correct estimates exists for all competitors" do
         @series.reload
-        expect(@series.each_competitor_has_correct_estimates?).to be_true
+        expect(@series.each_competitor_has_correct_estimates?).to be_truthy
       end
 
       it "should return false when at least one competitor is missing correct estimate 3" do
         @c2.correct_estimate3 = nil
         @c2.save!
         @series.reload
-        expect(@series.each_competitor_has_correct_estimates?).to be_false
+        expect(@series.each_competitor_has_correct_estimates?).to be_falsey
       end
 
       it "should return false when at least one competitor is missing correct estimate 3" do
         @c2.correct_estimate4 = nil
         @c2.save!
         @series.reload
-        expect(@series.each_competitor_has_correct_estimates?).to be_false
+        expect(@series.each_competitor_has_correct_estimates?).to be_falsey
       end
     end
   end

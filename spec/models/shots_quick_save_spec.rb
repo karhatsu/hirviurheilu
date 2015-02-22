@@ -20,7 +20,7 @@ describe ShotsQuickSave do
 
           describe "#save" do
             it "should save given shots sum for the competitor and return true" do
-              expect(@qs.save).to be_true
+              expect(@qs.save).to be_truthy
               @c2.reload
               expect(@c2.shots_total_input).to eq(98)
             end
@@ -52,7 +52,7 @@ describe ShotsQuickSave do
 
           describe "#save" do
             it "should save given shots sum for the competitor and return true" do
-              expect(@qs.save).to be_true
+              expect(@qs.save).to be_truthy
               @c2.reload
               expect(@c2.shots_total_input).to eq(98)
             end
@@ -83,7 +83,7 @@ describe ShotsQuickSave do
 
           describe "#save" do
             it "should save given shots for the competitor and return true" do
-              expect(@qs.save).to be_true
+              expect(@qs.save).to be_truthy
               @c.reload
               expect(@c.shots_total_input).to be_nil
               expect(@c.shots.size).to eq(10)
@@ -117,7 +117,7 @@ describe ShotsQuickSave do
 
           describe "#save" do
             it "should save given shots for the competitor and return true" do
-              expect(@qs.save).to be_true
+              expect(@qs.save).to be_truthy
               @c.reload
               expect(@c.shots_total_input).to be_nil
               expect(@c.shots.size).to eq(10)
@@ -150,7 +150,7 @@ describe ShotsQuickSave do
 
       describe "#save" do
         it "should not save given shots for the competitor and return false" do
-          expect(@qs.save).to be_false
+          expect(@qs.save).to be_falsey
           @c.reload
           expect(@c.shots_total_input).to eq(50)
         end
@@ -183,7 +183,7 @@ describe ShotsQuickSave do
 
     describe "#save" do
       it "should not save given shots for the competitor and return false" do
-        expect(@qs.save).to be_false
+        expect(@qs.save).to be_falsey
         @c.reload
         expect(@c.shots_total_input).to eq(50)
       end
@@ -211,7 +211,7 @@ describe ShotsQuickSave do
 
     describe "#save" do
       it "should not save given shots for the competitor and return false" do
-        expect(@qs.save).to be_false
+        expect(@qs.save).to be_falsey
         @c.reload
         expect(@c.shots_total_input).to eq(50)
       end
@@ -242,7 +242,7 @@ describe ShotsQuickSave do
 
     describe "#save" do
       it "should not save given shots for the competitor and return false" do
-        expect(@qs.save).to be_false
+        expect(@qs.save).to be_falsey
         @c.reload
         expect(@c.shots_total_input).to eq(50)
       end

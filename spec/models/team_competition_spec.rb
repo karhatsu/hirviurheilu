@@ -6,21 +6,21 @@ describe TeamCompetition do
   end
 
   describe "associations" do
-    it { should belong_to(:race) }
-    it { should have_and_belong_to_many(:series) }
-    it { should have_and_belong_to_many(:age_groups) }
+    it { is_expected.to belong_to(:race) }
+    it { is_expected.to have_and_belong_to_many(:series) }
+    it { is_expected.to have_and_belong_to_many(:age_groups) }
   end
 
   describe "validations" do
-    it { should validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:name) }
 
     describe "team_competitor_count" do
-      it { should validate_numericality_of(:team_competitor_count) }
-      it { should_not allow_value(nil).for(:team_competitor_count) }
-      it { should_not allow_value(0).for(:team_competitor_count) }
-      it { should_not allow_value(1).for(:team_competitor_count) }
-      it { should allow_value(2).for(:team_competitor_count) }
-      it { should_not allow_value(2.1).for(:team_competitor_count) }
+      it { is_expected.to validate_numericality_of(:team_competitor_count) }
+      it { is_expected.not_to allow_value(nil).for(:team_competitor_count) }
+      it { is_expected.not_to allow_value(0).for(:team_competitor_count) }
+      it { is_expected.not_to allow_value(1).for(:team_competitor_count) }
+      it { is_expected.to allow_value(2).for(:team_competitor_count) }
+      it { is_expected.not_to allow_value(2.1).for(:team_competitor_count) }
     end
   end
 

@@ -6,15 +6,15 @@ describe User do
   end
 
   describe "validation" do
-    it { should validate_presence_of(:first_name) }
-    it { should validate_presence_of(:last_name) }
+    it { is_expected.to validate_presence_of(:first_name) }
+    it { is_expected.to validate_presence_of(:last_name) }
   end
   
   describe "associations" do
-    it { should have_and_belong_to_many(:roles) }
-    it { should have_many(:race_rights) }
-    it { should have_many(:races).through(:race_rights) }
-    it { should have_and_belong_to_many(:cups) }
+    it { is_expected.to have_and_belong_to_many(:roles) }
+    it { is_expected.to have_many(:race_rights) }
+    it { is_expected.to have_many(:races).through(:race_rights) }
+    it { is_expected.to have_and_belong_to_many(:cups) }
   end
 
   describe "rights" do

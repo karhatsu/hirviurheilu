@@ -7,18 +7,18 @@ describe Price do
 
   describe "validations" do
     describe "min_competitors" do
-      it { should validate_numericality_of(:min_competitors) }
-      it { should_not allow_value(-1).for(:min_competitors) }
-      it { should_not allow_value(0).for(:min_competitors) }
-      it { should_not allow_value(1.1).for(:min_competitors) }
-      it { should allow_value(1).for(:min_competitors) }
+      it { is_expected.to validate_numericality_of(:min_competitors) }
+      it { is_expected.not_to allow_value(-1).for(:min_competitors) }
+      it { is_expected.not_to allow_value(0).for(:min_competitors) }
+      it { is_expected.not_to allow_value(1.1).for(:min_competitors) }
+      it { is_expected.to allow_value(1).for(:min_competitors) }
     end
     describe "price" do
-      it { should validate_numericality_of(:price) }
-      it { should_not allow_value(-1).for(:price) }
-      it { should allow_value(0).for(:price) }
-      it { should allow_value(0.1).for(:price) }
-      it { should allow_value(1).for(:price) }
+      it { is_expected.to validate_numericality_of(:price) }
+      it { is_expected.not_to allow_value(-1).for(:price) }
+      it { is_expected.to allow_value(0).for(:price) }
+      it { is_expected.to allow_value(0.1).for(:price) }
+      it { is_expected.to allow_value(1).for(:price) }
     end
   end
   
