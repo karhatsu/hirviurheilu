@@ -20,9 +20,9 @@ describe Announcement do
     
     it "should order by descending published time" do
       announcements = Announcement.all
-      announcements[0].published.day.should == 9
-      announcements[1].published.day.should == 8
-      announcements[2].published.day.should == 7
+      expect(announcements[0].published.day).to eq(9)
+      expect(announcements[1].published.day).to eq(8)
+      expect(announcements[2].published.day).to eq(7)
     end
   end
   
@@ -35,9 +35,9 @@ describe Announcement do
     
     it "should return only active announcements" do
       announcements = Announcement.active
-      announcements.length.should == 2
-      announcements[0].title.should_not == 'Non-active'
-      announcements[1].title.should_not == 'Non-active'
+      expect(announcements.length).to eq(2)
+      expect(announcements[0].title).not_to eq('Non-active')
+      expect(announcements[1].title).not_to eq('Non-active')
     end
   end
 end

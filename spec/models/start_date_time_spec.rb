@@ -7,16 +7,16 @@ describe StartDateTime do
 
   describe "#start_datetime" do
     it "should return nil when no start time" do
-      start_date_time(mock_model(Race), 1, nil).should be_nil
+      expect(start_date_time(mock_model(Race), 1, nil)).to be_nil
     end
 
     it "should return nil when no race" do
-      start_date_time(nil, 1, '13:45:31').should be_nil
+      expect(start_date_time(nil, 1, '13:45:31')).to be_nil
     end
 
     it "should return nil when no race start date" do
       race = FactoryGirl.build(:race, :start_date => nil)
-      start_date_time(race, 1, '13:45:31').should be_nil
+      expect(start_date_time(race, 1, '13:45:31')).to be_nil
     end
 
     context "when race date available but start time not" do
@@ -27,7 +27,7 @@ describe StartDateTime do
       end
 
       it "should return the combination of race date and series start time when both available" do
-        start_date_time(@race, 1, @start_time).strftime('%d.%m.%Y %H:%M:%S').should == '30.06.2011 13:45:31'
+        expect(start_date_time(@race, 1, @start_time).strftime('%d.%m.%Y %H:%M:%S')).to eq('30.06.2011 13:45:31')
       end
     end
 
@@ -40,17 +40,17 @@ describe StartDateTime do
       end
 
       it "should return the combination of race date and time and series start time when both available" do
-        start_date_time(@race, 1, @start_time).strftime('%d.%m.%Y %H:%M:%S').should == '30.06.2011 13:45:31'
+        expect(start_date_time(@race, 1, @start_time).strftime('%d.%m.%Y %H:%M:%S')).to eq('30.06.2011 13:45:31')
       end
 
       it "should return the object with local zone" do
         Time.zone = 'Hawaii'
-        start_date_time(@race, 1, @start_time).zone.should == 'HST'
+        expect(start_date_time(@race, 1, @start_time).zone).to eq('HST')
       end
 
       it "should return the correct date when series start day is not 1" do
         @race.end_date = '2011-07-02'
-        start_date_time(@race, 3, @start_time).strftime('%d.%m.%Y %H:%M:%S').should == '02.07.2011 13:45:31'
+        expect(start_date_time(@race, 3, @start_time).strftime('%d.%m.%Y %H:%M:%S')).to eq('02.07.2011 13:45:31')
       end
 
       after do

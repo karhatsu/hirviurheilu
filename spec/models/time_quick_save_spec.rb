@@ -20,9 +20,9 @@ describe TimeQuickSave do
 
       describe "#save" do
         it "should save given time for the competitor and return true" do
-          @qs.save.should be_true
+          expect(@qs.save).to be_true
           @c2.reload
-          @c2.arrival_time.strftime('%H:%M:%S').should == '13:12:59'
+          expect(@c2.arrival_time.strftime('%H:%M:%S')).to eq('13:12:59')
         end
       end
 
@@ -30,14 +30,14 @@ describe TimeQuickSave do
         it "should return the correct competitor" do
           @qs.save
           @c2.reload
-          @qs.competitor.should == @c2
+          expect(@qs.competitor).to eq(@c2)
         end
       end
 
       describe "#error" do
         it "should be nil" do
           @qs.save
-          @qs.error.should be_nil
+          expect(@qs.error).to be_nil
         end
       end
 
@@ -48,9 +48,9 @@ describe TimeQuickSave do
 
         describe "#save" do
           it "should save given time for the competitor and return true" do
-            @qs.save.should be_true
+            expect(@qs.save).to be_true
             @c.reload
-            @c.arrival_time.strftime('%H:%M:%S').should == '13:12:59'
+            expect(@c.arrival_time.strftime('%H:%M:%S')).to eq('13:12:59')
           end
         end
 
@@ -58,14 +58,14 @@ describe TimeQuickSave do
           it "should return the correct competitor" do
             @qs.save
             @c.reload
-            @qs.competitor.should == @c
+            expect(@qs.competitor).to eq(@c)
           end
         end
 
         describe "#error" do
           it "should be nil" do
             @qs.save
-            @qs.error.should be_nil
+            expect(@qs.error).to be_nil
           end
         end
       end
@@ -79,9 +79,9 @@ describe TimeQuickSave do
 
       describe "#save" do
         it "should not save given time for the competitor and return false" do
-          @qs.save.should be_false
+          expect(@qs.save).to be_false
           @c.reload
-          @c.arrival_time.should be_nil
+          expect(@c.arrival_time).to be_nil
         end
       end
 
@@ -89,14 +89,14 @@ describe TimeQuickSave do
         it "should return the correct competitor" do
           @qs.save
           @c.reload
-          @qs.competitor.should == @c
+          expect(@qs.competitor).to eq(@c)
         end
       end
 
       describe "#error" do
         it "should contain an error message" do
           @qs.save
-          @qs.error.should_not be_nil
+          expect(@qs.error).not_to be_nil
         end
       end
     end
@@ -113,21 +113,21 @@ describe TimeQuickSave do
 
     describe "#save" do
       it "should not save given time for the competitor and return false" do
-        @qs.save.should be_false
+        expect(@qs.save).to be_false
       end
     end
 
     describe "#competitor" do
       it "should return nil" do
         @qs.save
-        @qs.competitor.should be_nil
+        expect(@qs.competitor).to be_nil
       end
     end
 
     describe "#error" do
       it "should contain competitor error message" do
         @qs.save
-        @qs.error.should match(/kilpailija/)
+        expect(@qs.error).to match(/kilpailija/)
       end
     end
   end
@@ -139,23 +139,23 @@ describe TimeQuickSave do
 
     describe "#save" do
       it "should not save given time for the competitor and return false" do
-        @qs.save.should be_false
+        expect(@qs.save).to be_false
         @c.reload
-        @c.arrival_time.strftime('%H:%M:%S').should == '12:00:00'
+        expect(@c.arrival_time.strftime('%H:%M:%S')).to eq('12:00:00')
       end
     end
 
     describe "#competitor" do
       it "should return nil" do
         @qs.save
-        @qs.competitor.should be_nil
+        expect(@qs.competitor).to be_nil
       end
     end
 
     describe "#error" do
       it "should contain invalid format error message" do
         @qs.save
-        @qs.error.should match(/muoto/)
+        expect(@qs.error).to match(/muoto/)
       end
     end
   end
@@ -167,23 +167,23 @@ describe TimeQuickSave do
 
     describe "#save" do
       it "should not save given time for the competitor and return false" do
-        @qs.save.should be_false
+        expect(@qs.save).to be_false
         @c.reload
-        @c.arrival_time.strftime('%H:%M:%S').should == '12:00:00'
+        expect(@c.arrival_time.strftime('%H:%M:%S')).to eq('12:00:00')
       end
     end
 
     describe "#competitor" do
       it "should return nil" do
         @qs.save
-        @qs.competitor.should be_nil
+        expect(@qs.competitor).to be_nil
       end
     end
 
     describe "#error" do
       it "should contain invalid format error message" do
         @qs.save
-        @qs.error.should match(/muoto/)
+        expect(@qs.error).to match(/muoto/)
       end
     end
   end
@@ -197,23 +197,23 @@ describe TimeQuickSave do
 
     describe "#save" do
       it "should not save given time for the competitor and return false" do
-        @qs.save.should be_false
+        expect(@qs.save).to be_false
         @c.reload
-        @c.arrival_time.strftime('%H:%M:%S').should == '12:00:00'
+        expect(@c.arrival_time.strftime('%H:%M:%S')).to eq('12:00:00')
       end
     end
 
     describe "#competitor" do
       it "should return competitor" do
         @qs.save
-        @qs.competitor.should == @c
+        expect(@qs.competitor).to eq(@c)
       end
     end
 
     describe "#error" do
       it "should contain data already stored message" do
         @qs.save
-        @qs.error.should eq('Kilpailijalle (Mikko Miettinen, M45) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos.')
+        expect(@qs.error).to eq('Kilpailijalle (Mikko Miettinen, M45) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos.')
       end
     end
   end

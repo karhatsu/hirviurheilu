@@ -33,25 +33,25 @@ describe Competitor do
         it "should require uniqueness for numbers in the same race" do
           series = FactoryGirl.create(:series, :race => @c.series.race)
           competitor = FactoryGirl.build(:competitor, :series => series, :number => 6)
-          competitor.should be_valid
+          expect(competitor).to be_valid
           competitor.number = 5
-          competitor.should_not be_valid
+          expect(competitor).not_to be_valid
         end
         
         it "should allow updating the competitor" do
-          @c.should be_valid
+          expect(@c).to be_valid
         end
         
         it "should allow same number in another race" do
           race = FactoryGirl.create(:race)
           series = FactoryGirl.create(:series)
-          FactoryGirl.build(:competitor, :series => series, :number => 5).should be_valid
+          expect(FactoryGirl.build(:competitor, :series => series, :number => 5)).to be_valid
         end
         
         it "should allow two nils for same series" do
           c = FactoryGirl.create(:competitor, :number => nil)
-          FactoryGirl.build(:competitor, :number => nil, :series => c.series).
-            should be_valid
+          expect(FactoryGirl.build(:competitor, :number => nil, :series => c.series)).
+            to be_valid
         end
       end
 
@@ -59,7 +59,7 @@ describe Competitor do
         it "should not be nil" do
           series = FactoryGirl.build(:series, :has_start_list => true)
           competitor = FactoryGirl.build(:competitor, :series => series, :number => nil)
-          competitor.should have(1).errors_on(:number)
+          expect(competitor).to have(1).errors_on(:number)
         end
       end
     end
@@ -71,7 +71,7 @@ describe Competitor do
         it "should not be nil" do
           series = FactoryGirl.build(:series, :has_start_list => true)
           competitor = FactoryGirl.build(:competitor, :series => series, :start_time => nil)
-          competitor.should have(1).errors_on(:start_time)
+          expect(competitor).to have(1).errors_on(:start_time)
         end
       end
     end
@@ -87,13 +87,13 @@ describe Competitor do
         comp = FactoryGirl.build(:competitor, :shots_total_input => 50)
         comp.shots << FactoryGirl.build(:shot, :competitor => comp, :value => 8)
         comp.shots << FactoryGirl.build(:shot, :competitor => comp, :value => 8)
-        comp.should have(1).errors_on(:base)
+        expect(comp).to have(1).errors_on(:base)
       end
 
       it "can be given if individual shots only with nils" do
         comp = FactoryGirl.build(:competitor, :shots_total_input => 50)
         comp.shots << FactoryGirl.build(:shot, :competitor => comp, :value => nil)
-        comp.should be_valid
+        expect(comp).to be_valid
       end
     end
     
@@ -103,9 +103,9 @@ describe Competitor do
         10.times do
           comp.shots << FactoryGirl.build(:shot, :competitor => comp, :value => 8)
         end
-        comp.should be_valid
+        expect(comp).to be_valid
         comp.shots << FactoryGirl.build(:shot, :competitor => comp, :value => 8)
-        comp.should have(1).errors_on(:shots)
+        expect(comp).to have(1).errors_on(:shots)
       end
     end
 
@@ -177,28 +177,28 @@ describe Competitor do
       it { should allow_value(nil).for(:arrival_time) }
 
       it "can be nil even when start time is not nil" do
-        FactoryGirl.build(:competitor, :start_time => '14:00', :arrival_time => nil).
-          should be_valid
+        expect(FactoryGirl.build(:competitor, :start_time => '14:00', :arrival_time => nil)).
+          to be_valid
       end
 
       it "should not be before start time" do
-        FactoryGirl.build(:competitor, :start_time => '14:00', :arrival_time => '13:59').
-          should have(1).errors_on(:arrival_time)
+        expect(FactoryGirl.build(:competitor, :start_time => '14:00', :arrival_time => '13:59')).
+          to have(1).errors_on(:arrival_time)
       end
 
       it "should not be same as start time" do
-        FactoryGirl.build(:competitor, :start_time => '14:00', :arrival_time => '14:00').
-          should have(1).errors_on(:arrival_time)
+        expect(FactoryGirl.build(:competitor, :start_time => '14:00', :arrival_time => '14:00')).
+          to have(1).errors_on(:arrival_time)
       end
 
       it "is valid when later than start time" do
-        FactoryGirl.build(:competitor, :start_time => '14:00', :arrival_time => '14:01').
-          should be_valid
+        expect(FactoryGirl.build(:competitor, :start_time => '14:00', :arrival_time => '14:01')).
+          to be_valid
       end
 
       it "cannot be given if no start time" do
-        FactoryGirl.build(:competitor, :start_time => nil, :arrival_time => '13:59').
-          should_not be_valid
+        expect(FactoryGirl.build(:competitor, :start_time => nil, :arrival_time => '13:59')).
+          not_to be_valid
       end
     end
 
@@ -211,9 +211,9 @@ describe Competitor do
 
       it "converts empty string to nil" do
         comp = FactoryGirl.build(:competitor, :no_result_reason => '')
-        comp.should be_valid
+        expect(comp).to be_valid
         comp.save!
-        comp.no_result_reason.should == nil
+        expect(comp.no_result_reason).to eq(nil)
       end
     end
     
@@ -221,14 +221,14 @@ describe Competitor do
       it "should be unique for same series" do
         c1 = FactoryGirl.create(:competitor)
         s2 = FactoryGirl.create(:series, :race => c1.race)
-        FactoryGirl.build(:competitor, :first_name => c1.first_name,
-          :last_name => c1.last_name, :series => c1.series).should_not be_valid
-        FactoryGirl.build(:competitor, :first_name => 'Other first name',
-          :last_name => c1.last_name, :series => c1.series).should be_valid
-        FactoryGirl.build(:competitor, :first_name => c1.first_name,
-          :last_name => 'Other last name', :series => c1.series).should be_valid
-        FactoryGirl.build(:competitor, :first_name => c1.first_name,
-          :last_name => c1.last_name, :series => s2).should be_valid
+        expect(FactoryGirl.build(:competitor, :first_name => c1.first_name,
+          :last_name => c1.last_name, :series => c1.series)).not_to be_valid
+        expect(FactoryGirl.build(:competitor, :first_name => 'Other first name',
+          :last_name => c1.last_name, :series => c1.series)).to be_valid
+        expect(FactoryGirl.build(:competitor, :first_name => c1.first_name,
+          :last_name => 'Other last name', :series => c1.series)).to be_valid
+        expect(FactoryGirl.build(:competitor, :first_name => c1.first_name,
+          :last_name => c1.last_name, :series => s2)).to be_valid
       end
     end
   end
@@ -238,7 +238,7 @@ describe Competitor do
       race = FactoryGirl.build(:race)
       series = FactoryGirl.build(:series, :race => race)
       competitor = FactoryGirl.build(:competitor, :series => series)
-      competitor.race.should == race
+      expect(competitor.race).to eq(race)
     end
   end
   
@@ -247,7 +247,7 @@ describe Competitor do
       it "should not save series for nothing" do
         series = FactoryGirl.create(:series, :start_time => nil, :first_number => nil)
         comp = FactoryGirl.build(:competitor, :series => series, :start_time => nil, :number => nil)
-        comp.series.should_not_receive(:update_start_time_and_number)
+        expect(comp.series).not_to receive(:update_start_time_and_number)
         comp.save!
       end
     end
@@ -256,7 +256,7 @@ describe Competitor do
       it "should not save series" do
         series = FactoryGirl.create(:series, :start_time => nil, :first_number => nil)
         comp = FactoryGirl.build(:competitor, :series => series, :start_time => nil, :number => 12)
-        comp.series.should_not_receive(:update_start_time_and_number)
+        expect(comp.series).not_to receive(:update_start_time_and_number)
         comp.save!
       end
     end
@@ -265,7 +265,7 @@ describe Competitor do
       it "should not save series" do
         series = FactoryGirl.create(:series, :start_time => nil, :first_number => nil)
         comp = FactoryGirl.build(:competitor, :series => series, :start_time => '12:00', :number => nil)
-        comp.series.should_not_receive(:update_start_time_and_number)
+        expect(comp.series).not_to receive(:update_start_time_and_number)
         comp.save!
       end
     end
@@ -274,7 +274,7 @@ describe Competitor do
       it "should let series update its start time and first number" do
         series = FactoryGirl.create(:series, :start_time => nil, :first_number => nil, :has_start_list => true)
         comp = FactoryGirl.create(:competitor, :series => series, :start_time => '12:35:30', :number => 15)
-        comp.series.should_receive(:update_start_time_and_number)
+        expect(comp.series).to receive(:update_start_time_and_number)
         comp.save!
       end
     end
@@ -284,7 +284,7 @@ describe Competitor do
     context "on create" do
       it "should do nothing" do
         @competitor = FactoryGirl.build(:competitor)
-        @competitor.should_not_receive(:values_equal?)
+        expect(@competitor).not_to receive(:values_equal?)
         @competitor.save!
       end
     end
@@ -295,14 +295,14 @@ describe Competitor do
       end
     
       it "should pass if old and current values equal" do
-        @competitor.should_receive(:values_equal?).and_return(true)
+        expect(@competitor).to receive(:values_equal?).and_return(true)
         @competitor.save
-        @competitor.should have(0).errors
+        expect(@competitor.errors.size).to eq(0)
       end
       
       it "should fail if old and current values differ" do
-        @competitor.should_receive(:values_equal?).and_return(false)
-        @competitor.should have(1).errors_on(:base)
+        expect(@competitor).to receive(:values_equal?).and_return(false)
+        expect(@competitor).to have(1).errors_on(:base)
       end
     end
   end
@@ -348,7 +348,7 @@ describe Competitor do
     end
 
     it "should return empty list when no competitors defined" do
-      Competitor.sort_competitors([], false).should == []
+      expect(Competitor.sort_competitors([], false)).to eq([])
     end
 
     # note that partial points equal points when all results are available
@@ -357,9 +357,10 @@ describe Competitor do
         "6. unofficial competitors before DNS/DNF/DQ" do
       competitors = [@unofficial, @second_partial, @worst_partial, @best_partial,
         @c_dnf, @c_dns, @c_dq, @best_time, @best_points, @worst_points, @best_shots]
-      Competitor.sort_competitors(competitors, false).should ==
+      expect(Competitor.sort_competitors(competitors, false)).to eq(
         [@best_points, @best_shots, @best_time, @worst_points, @best_partial,
         @second_partial, @worst_partial, @unofficial, @c_dnf, @c_dns, @c_dq]
+      )
     end
 
     context "when unofficial competitors are handled equal" do
@@ -367,9 +368,10 @@ describe Competitor do
           "4. time (secs) 5. normal competitors before DNS/DNF/DQ" do
         competitors = [@unofficial, @second_partial, @worst_partial, @best_partial,
           @c_dnf, @c_dns, @c_dq, @best_time, @best_points, @worst_points, @best_shots]
-        Competitor.sort_competitors(competitors, true).should ==
+        expect(Competitor.sort_competitors(competitors, true)).to eq(
           [@unofficial, @best_points, @best_shots, @best_time, @worst_points,
           @best_partial, @second_partial, @worst_partial, @c_dnf, @c_dns, @c_dq]
+        )
       end
     end
     
@@ -377,9 +379,10 @@ describe Competitor do
       it "should sort by: 1. time (secs) 2. points 3. partial points 4. shot points 5. DNS/DNF/DQ " do
         competitors = [@second_partial, @worst_partial, @best_partial,
           @c_dnf, @c_dns, @c_dq, @best_time, @best_points, @worst_points, @best_shots]
-        Competitor.sort_competitors(competitors, false, Competitor::SORT_BY_TIME).should ==
+        expect(Competitor.sort_competitors(competitors, false, Competitor::SORT_BY_TIME)).to eq(
           [@best_time, @second_partial, @best_points, @best_shots, @worst_points,
             @best_partial, @worst_partial, @c_dnf, @c_dns, @c_dq]
+        )
       end
     end
     
@@ -387,9 +390,10 @@ describe Competitor do
       it "should sort by: 1. shot points 2. points 3. partial points 4. time (secs) 5. DNS/DNF/DQ " do
         competitors = [@second_partial, @worst_partial, @best_partial,
           @c_dnf, @c_dns, @c_dq, @best_time, @best_points, @worst_points, @best_shots]
-        Competitor.sort_competitors(competitors, false, Competitor::SORT_BY_SHOTS).should ==
+        expect(Competitor.sort_competitors(competitors, false, Competitor::SORT_BY_SHOTS)).to eq(
         [@best_shots, @best_time, @worst_points, @worst_partial, @best_points,
           @best_partial, @second_partial, @c_dnf, @c_dns, @c_dq]
+        )
       end
     end
     
@@ -397,20 +401,21 @@ describe Competitor do
       it "should sort by: 1. estimate points 2. points 3. partial points 4. shot points 5. DNS/DNF/DQ " do
         competitors = [@worst_partial, @best_partial,
           @c_dnf, @c_dns, @c_dq, @best_time, @best_points, @worst_points, @best_shots, @best_estimates]
-        Competitor.sort_competitors(competitors, false, Competitor::SORT_BY_ESTIMATES).should ==
+        expect(Competitor.sort_competitors(competitors, false, Competitor::SORT_BY_ESTIMATES)).to eq(
         [@best_estimates, @best_points, @best_shots, @best_time, @worst_points, @best_partial,
           @worst_partial, @c_dnf, @c_dns, @c_dq]
+        )
       end
     end
   end
 
   describe "#shots_sum" do
     it "should return nil when total input is nil and no shots" do
-      FactoryGirl.build(:competitor).shots_sum.should be_nil
+      expect(FactoryGirl.build(:competitor).shots_sum).to be_nil
     end
 
     it "should be shots_total_input when it is given" do
-      FactoryGirl.build(:competitor, :shots_total_input => 55).shots_sum.should == 55
+      expect(FactoryGirl.build(:competitor, :shots_total_input => 55).shots_sum).to eq(55)
     end
 
     it "should be sum of defined individual shots if no input sum" do
@@ -418,109 +423,109 @@ describe Competitor do
       comp.shots << FactoryGirl.build(:shot, :value => 8, :competitor => comp)
       comp.shots << FactoryGirl.build(:shot, :value => 9, :competitor => comp)
       comp.shots << FactoryGirl.build(:shot, :value => nil, :competitor => comp)
-      comp.shots_sum.should == 17
+      expect(comp.shots_sum).to eq(17)
     end
   end
 
   describe "#shot_points" do
     it "should be nil if shots not defined" do
       competitor = FactoryGirl.build(:competitor)
-      competitor.should_receive(:shots_sum).and_return(nil)
-      competitor.shot_points.should be_nil
+      expect(competitor).to receive(:shots_sum).and_return(nil)
+      expect(competitor.shot_points).to be_nil
     end
 
     it "should be 6 times shots_sum" do
       competitor = FactoryGirl.build(:competitor)
-      competitor.should_receive(:shots_sum).and_return(50)
-      competitor.shot_points.should == 300
+      expect(competitor).to receive(:shots_sum).and_return(50)
+      expect(competitor.shot_points).to eq(300)
     end
   end
 
   describe "#estimate_diff1_m" do
     it "should be nil when no correct estimate1" do
-      FactoryGirl.build(:competitor, :estimate1 => 100, :correct_estimate1 => nil).
-        estimate_diff1_m.should be_nil
+      expect(FactoryGirl.build(:competitor, :estimate1 => 100, :correct_estimate1 => nil).
+        estimate_diff1_m).to be_nil
     end
 
     it "should be nil when no estimate1" do
-      FactoryGirl.build(:competitor, :estimate1 => nil, :correct_estimate1 => 100).
-        estimate_diff1_m.should be_nil
+      expect(FactoryGirl.build(:competitor, :estimate1 => nil, :correct_estimate1 => 100).
+        estimate_diff1_m).to be_nil
     end
 
     it "should be positive diff when estimate1 is more than correct" do
-      FactoryGirl.build(:competitor, :estimate1 => 105, :correct_estimate1 => 100).
-        estimate_diff1_m.should == 5
+      expect(FactoryGirl.build(:competitor, :estimate1 => 105, :correct_estimate1 => 100).
+        estimate_diff1_m).to eq(5)
     end
 
     it "should be negative diff when estimate1 is less than correct" do
-      FactoryGirl.build(:competitor, :estimate1 => 91, :correct_estimate1 => 100).
-        estimate_diff1_m.should == -9
+      expect(FactoryGirl.build(:competitor, :estimate1 => 91, :correct_estimate1 => 100).
+        estimate_diff1_m).to eq(-9)
     end
   end
 
   describe "#estimate_diff2_m" do
     it "should be nil when no correct estimate2" do
-      FactoryGirl.build(:competitor, :estimate2 => 100, :correct_estimate2 => nil).
-        estimate_diff2_m.should be_nil
+      expect(FactoryGirl.build(:competitor, :estimate2 => 100, :correct_estimate2 => nil).
+        estimate_diff2_m).to be_nil
     end
 
     it "should be nil when no estimate2" do
-      FactoryGirl.build(:competitor, :estimate2 => nil, :correct_estimate2 => 200).
-        estimate_diff2_m.should be_nil
+      expect(FactoryGirl.build(:competitor, :estimate2 => nil, :correct_estimate2 => 200).
+        estimate_diff2_m).to be_nil
     end
 
     it "should be positive diff when estimate2 is more than correct" do
-      FactoryGirl.build(:competitor, :estimate2 => 205, :correct_estimate2 => 200).
-        estimate_diff2_m.should == 5
+      expect(FactoryGirl.build(:competitor, :estimate2 => 205, :correct_estimate2 => 200).
+        estimate_diff2_m).to eq(5)
     end
 
     it "should be negative diff when estimate2 is less than correct" do
-      FactoryGirl.build(:competitor, :estimate2 => 191, :correct_estimate2 => 200).
-        estimate_diff2_m.should == -9
+      expect(FactoryGirl.build(:competitor, :estimate2 => 191, :correct_estimate2 => 200).
+        estimate_diff2_m).to eq(-9)
     end
   end
 
   describe "#estimate_diff3_m" do
     it "should be nil when no correct estimate3" do
-      FactoryGirl.build(:competitor, :estimate3 => 100, :correct_estimate3 => nil).
-        estimate_diff3_m.should be_nil
+      expect(FactoryGirl.build(:competitor, :estimate3 => 100, :correct_estimate3 => nil).
+        estimate_diff3_m).to be_nil
     end
 
     it "should be nil when no estimate3" do
-      FactoryGirl.build(:competitor, :estimate3 => nil, :correct_estimate3 => 100).
-        estimate_diff3_m.should be_nil
+      expect(FactoryGirl.build(:competitor, :estimate3 => nil, :correct_estimate3 => 100).
+        estimate_diff3_m).to be_nil
     end
 
     it "should be positive diff when estimate3 is more than correct" do
-      FactoryGirl.build(:competitor, :estimate3 => 105, :correct_estimate3 => 100).
-        estimate_diff3_m.should == 5
+      expect(FactoryGirl.build(:competitor, :estimate3 => 105, :correct_estimate3 => 100).
+        estimate_diff3_m).to eq(5)
     end
 
     it "should be negative diff when estimate3 is less than correct" do
-      FactoryGirl.build(:competitor, :estimate3 => 91, :correct_estimate3 => 100).
-        estimate_diff3_m.should == -9
+      expect(FactoryGirl.build(:competitor, :estimate3 => 91, :correct_estimate3 => 100).
+        estimate_diff3_m).to eq(-9)
     end
   end
 
   describe "#estimate_diff4_m" do
     it "should be nil when no correct estimate4" do
-      FactoryGirl.build(:competitor, :estimate4 => 100, :correct_estimate4 => nil).
-        estimate_diff4_m.should be_nil
+      expect(FactoryGirl.build(:competitor, :estimate4 => 100, :correct_estimate4 => nil).
+        estimate_diff4_m).to be_nil
     end
 
     it "should be nil when no estimate4" do
-      FactoryGirl.build(:competitor, :estimate4 => nil, :correct_estimate4 => 200).
-        estimate_diff4_m.should be_nil
+      expect(FactoryGirl.build(:competitor, :estimate4 => nil, :correct_estimate4 => 200).
+        estimate_diff4_m).to be_nil
     end
 
     it "should be positive diff when estimate4 is more than correct" do
-      FactoryGirl.build(:competitor, :estimate4 => 205, :correct_estimate4 => 200).
-        estimate_diff4_m.should == 5
+      expect(FactoryGirl.build(:competitor, :estimate4 => 205, :correct_estimate4 => 200).
+        estimate_diff4_m).to eq(5)
     end
 
     it "should be negative diff when estimate4 is less than correct" do
-      FactoryGirl.build(:competitor, :estimate4 => 191, :correct_estimate4 => 200).
-        estimate_diff4_m.should == -9
+      expect(FactoryGirl.build(:competitor, :estimate4 => 191, :correct_estimate4 => 200).
+        estimate_diff4_m).to eq(-9)
     end
   end
 
@@ -530,14 +535,14 @@ describe Competitor do
         competitor = FactoryGirl.build(:competitor,
           :estimate1 => nil, :estimate2 => 145,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
-        competitor.estimate_points.should be_nil
+        expect(competitor.estimate_points).to be_nil
       end
 
       it "should be nil if estimate2 is missing" do
         competitor = FactoryGirl.build(:competitor,
           :estimate1 => 156, :estimate2 => nil,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
-        competitor.estimate_points.should be_nil
+        expect(competitor.estimate_points).to be_nil
       end
 
       context "when 4 estimates for the series" do
@@ -551,7 +556,7 @@ describe Competitor do
             :estimate3 => nil, :estimate4 => 150,
             :correct_estimate1 => 100, :correct_estimate2 => 200,
             :correct_estimate3 => 100, :correct_estimate4 => 200)
-          competitor.estimate_points.should be_nil
+          expect(competitor.estimate_points).to be_nil
         end
 
         it "should be nil if estimate4 is missing" do
@@ -560,7 +565,7 @@ describe Competitor do
             :estimate3 => 150, :estimate4 => nil,
             :correct_estimate1 => 100, :correct_estimate2 => 200,
             :correct_estimate3 => 100, :correct_estimate4 => 200)
-          competitor.estimate_points.should be_nil
+          expect(competitor.estimate_points).to be_nil
         end
       end
     end
@@ -570,14 +575,14 @@ describe Competitor do
         competitor = FactoryGirl.build(:competitor,
           :estimate1 => 100, :estimate2 => 200,
           :correct_estimate1 => nil, :correct_estimate2 => 200)
-        competitor.estimate_points.should be_nil
+        expect(competitor.estimate_points).to be_nil
       end
 
       it "should be nil if correct estimate 2 is missing" do
         competitor = FactoryGirl.build(:competitor,
           :estimate1 => 100, :estimate2 => 200,
           :correct_estimate1 => 100, :correct_estimate2 => nil)
-        competitor.estimate_points.should be_nil
+        expect(competitor.estimate_points).to be_nil
       end
 
       context "when 4 estimates for the series" do
@@ -591,7 +596,7 @@ describe Competitor do
             :estimate3 => 100, :estimate4 => 200,
             :correct_estimate1 => 100, :correct_estimate2 => 200,
             :correct_estimate3 => nil, :correct_estimate4 => 200)
-          competitor.estimate_points.should be_nil
+          expect(competitor.estimate_points).to be_nil
         end
 
         it "should be nil if correct estimate 4 is missing" do
@@ -600,7 +605,7 @@ describe Competitor do
             :estimate3 => 100, :estimate4 => 200,
             :correct_estimate1 => 100, :correct_estimate2 => 150,
             :correct_estimate3 => 100, :correct_estimate4 => nil)
-          competitor.estimate_points.should be_nil
+          expect(competitor.estimate_points).to be_nil
         end
       end
     end
@@ -610,49 +615,49 @@ describe Competitor do
         competitor = FactoryGirl.build(:competitor,
           :estimate1 => 100, :estimate2 => 200,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
-        competitor.estimate_points.should == 300
+        expect(competitor.estimate_points).to eq(300)
       end
 
       it "should be 298 when the first is 1 meter too low" do
         competitor = FactoryGirl.build(:competitor,
           :estimate1 => 99, :estimate2 => 200,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
-        competitor.estimate_points.should == 298
+        expect(competitor.estimate_points).to eq(298)
       end
 
       it "should be 298 when the second is 1 meter too low" do
         competitor = FactoryGirl.build(:competitor,
           :estimate1 => 100, :estimate2 => 199,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
-        competitor.estimate_points.should == 298
+        expect(competitor.estimate_points).to eq(298)
       end
 
       it "should be 298 when the first is 1 meter too high" do
         competitor = FactoryGirl.build(:competitor,
           :estimate1 => 101, :estimate2 => 200,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
-        competitor.estimate_points.should == 298
+        expect(competitor.estimate_points).to eq(298)
       end
 
       it "should be 298 when the second is 1 meter too high" do
         competitor = FactoryGirl.build(:competitor,
           :estimate1 => 100, :estimate2 => 201,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
-        competitor.estimate_points.should == 298
+        expect(competitor.estimate_points).to eq(298)
       end
 
       it "should be 296 when both have 1 meter difference" do
         competitor = FactoryGirl.build(:competitor,
           :estimate1 => 99, :estimate2 => 201,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
-        competitor.estimate_points.should == 296
+        expect(competitor.estimate_points).to eq(296)
       end
 
       it "should never be negative" do
         competitor = FactoryGirl.build(:competitor,
           :estimate1 => 111111, :estimate2 => 222222,
           :correct_estimate1 => 100, :correct_estimate2 => 200)
-        competitor.estimate_points.should == 0
+        expect(competitor.estimate_points).to eq(0)
       end
       
       context "when 4 estimates for the series" do
@@ -666,7 +671,7 @@ describe Competitor do
             :estimate3 => 80, :estimate4 => 140,
             :correct_estimate1 => 100, :correct_estimate2 => 200,
             :correct_estimate3 => 80, :correct_estimate4 => 140)
-          competitor.estimate_points.should == 600
+          expect(competitor.estimate_points).to eq(600)
         end
 
         it "should be 584 when each estimate is 2 meters wrong" do
@@ -675,7 +680,7 @@ describe Competitor do
             :estimate3 => 108, :estimate4 => 152,
             :correct_estimate1 => 100, :correct_estimate2 => 200,
             :correct_estimate3 => 110, :correct_estimate4 => 150)
-          competitor.estimate_points.should == 584 # 600 - 4*4
+          expect(competitor.estimate_points).to eq(584) # 600 - 4*4
         end
       end
     end
@@ -683,17 +688,17 @@ describe Competitor do
 
   describe "#time_in_seconds" do
     it "should be nil when start time not known yet" do
-      FactoryGirl.build(:competitor, :start_time => nil).time_in_seconds.should be_nil
+      expect(FactoryGirl.build(:competitor, :start_time => nil).time_in_seconds).to be_nil
     end
 
     it "should be nil when arrival time is not known yet" do
-      FactoryGirl.build(:competitor, :start_time => '14:00', :arrival_time => nil).
-        time_in_seconds.should be_nil
+      expect(FactoryGirl.build(:competitor, :start_time => '14:00', :arrival_time => nil).
+        time_in_seconds).to be_nil
     end
 
     it "should be difference of arrival and start times" do
-      FactoryGirl.build(:competitor, :start_time => '13:58:02', :arrival_time => '15:02:04').
-        time_in_seconds.should == 64 * 60 + 2
+      expect(FactoryGirl.build(:competitor, :start_time => '13:58:02', :arrival_time => '15:02:04').
+        time_in_seconds).to eq(64 * 60 + 2)
     end
   end
 
@@ -703,77 +708,77 @@ describe Competitor do
       @series = FactoryGirl.build(:series)
       @competitor = FactoryGirl.build(:competitor, :series => @series)
       @best_time_seconds = 3603.0 # rounded: 3600
-      @competitor.stub(:comparison_time_in_seconds).with(@all_competitors).and_return(@best_time_seconds)
+      allow(@competitor).to receive(:comparison_time_in_seconds).with(@all_competitors).and_return(@best_time_seconds)
     end
 
     it "should be nil when time cannot be calculated yet" do
-      @competitor.should_receive(:time_in_seconds).and_return(nil)
-      @competitor.time_points(@all_competitors).should == nil
+      expect(@competitor).to receive(:time_in_seconds).and_return(nil)
+      expect(@competitor.time_points(@all_competitors)).to eq(nil)
     end
 
     it "should be nil when competitor has time but best time cannot be calculated" do
       # this happens if competitor has time but did not finish (no_result_reason=DNF)
       # and no-one else has result either
-      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds)
-      @competitor.should_receive(:comparison_time_in_seconds).with(@all_competitors).and_return(nil)
-      @competitor.time_points(@all_competitors).should == nil
+      expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds)
+      expect(@competitor).to receive(:comparison_time_in_seconds).with(@all_competitors).and_return(nil)
+      expect(@competitor.time_points(@all_competitors)).to eq(nil)
     end
 
     context "when the competitor has the best time" do
       it "should be 300" do
-        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds)
-        @competitor.time_points(@all_competitors).should == 300
+        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds)
+        expect(@competitor.time_points(@all_competitors)).to eq(300)
       end
     end
 
     context "when the competitor has worse time which is rounded down to 10 secs" do
       it "should be 300 when the rounded time is the same as the best time rounded" do
-        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 6)
-        @competitor.time_points(@all_competitors).should == 300
+        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 6)
+        expect(@competitor.time_points(@all_competitors)).to eq(300)
       end
 
       it "should be 299 when the rounded time is 10 seconds worse than the best time" do
-        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 7)
-        @competitor.time_points(@all_competitors).should == 299
+        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 7)
+        expect(@competitor.time_points(@all_competitors)).to eq(299)
       end
 
       it "should be 299 when the rounded time is still 10 seconds worse" do
-        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 16)
-        @competitor.time_points(@all_competitors).should == 299
+        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 16)
+        expect(@competitor.time_points(@all_competitors)).to eq(299)
       end
 
       it "should be 298 when the rounded time is 20 seconds worse" do
-        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 17)
-        @competitor.time_points(@all_competitors).should == 298
+        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 17)
+        expect(@competitor.time_points(@all_competitors)).to eq(298)
       end
     end
     
     context "when the competitor is an unofficial competitor and has better time than official best time" do
       it "should be 300" do
         @competitor.unofficial = true
-        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds - 60)
-        @competitor.time_points(@all_competitors).should == 300
+        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds - 60)
+        expect(@competitor.time_points(@all_competitors)).to eq(300)
       end
     end
 
     it "should never be negative" do
-      @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 100000)
-      @competitor.time_points(@all_competitors).should == 0
+      expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 100000)
+      expect(@competitor.time_points(@all_competitors)).to eq(0)
     end
 
     context "when no time points" do
       it "should be nil" do
         @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_NONE
-        @competitor.stub(:time_in_seconds).and_return(@best_time_seconds)
-        @competitor.time_points(@all_competitors).should be_nil
+        allow(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds)
+        expect(@competitor.time_points(@all_competitors)).to be_nil
       end
     end
 
     context "when 300 time points for all competitors in the series" do
       it "should be 300" do
         @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_ALL_300
-        @competitor.stub(:time_in_seconds).and_return(nil)
-        @competitor.time_points(@all_competitors).should == 300
+        allow(@competitor).to receive(:time_in_seconds).and_return(nil)
+        expect(@competitor.time_points(@all_competitors)).to eq(300)
       end
     end
 
@@ -782,19 +787,19 @@ describe Competitor do
         @competitor = FactoryGirl.build(:competitor, :series => @series,
           :no_result_reason => Competitor::DNF)
         @best_time_seconds = 3603.0
-        @competitor.stub(:comparison_time_in_seconds).with(@all_competitors).and_return(@best_time_seconds)
+        allow(@competitor).to receive(:comparison_time_in_seconds).with(@all_competitors).and_return(@best_time_seconds)
       end
 
       it "should be like normally when the competitor has not the best time" do
-        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds + 20)
-        @competitor.time_points(@all_competitors).should == 298
+        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 20)
+        expect(@competitor.time_points(@all_competitors)).to eq(298)
       end
 
       it "should be nil when competitor's time is better than the best time" do
         # note: when no result, the time really can be better than the best time
         # since such a competitor's time cannot be the best time
-        @competitor.should_receive(:time_in_seconds).and_return(@best_time_seconds - 1)
-        @competitor.time_points(@all_competitors).should be_nil
+        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds - 1)
+        expect(@competitor.time_points(@all_competitors)).to be_nil
       end
     end
   end
@@ -803,38 +808,38 @@ describe Competitor do
     before do
       @all_competitors = true
       @competitor = FactoryGirl.build(:competitor)
-      @competitor.stub(:shot_points).and_return(100)
-      @competitor.stub(:estimate_points).and_return(150)
-      @competitor.stub(:time_points).with(@all_competitors).and_return(200)
+      allow(@competitor).to receive(:shot_points).and_return(100)
+      allow(@competitor).to receive(:estimate_points).and_return(150)
+      allow(@competitor).to receive(:time_points).with(@all_competitors).and_return(200)
     end
 
     it "should be nil when no shot points" do
-      @competitor.should_receive(:shot_points).and_return(nil)
-      @competitor.points(@all_competitors).should be_nil
+      expect(@competitor).to receive(:shot_points).and_return(nil)
+      expect(@competitor.points(@all_competitors)).to be_nil
     end
 
     it "should be nil when no estimate points" do
-      @competitor.should_receive(:estimate_points).and_return(nil)
-      @competitor.points(@all_competitors).should be_nil
+      expect(@competitor).to receive(:estimate_points).and_return(nil)
+      expect(@competitor.points(@all_competitors)).to be_nil
     end
 
     context "when series calculates time points" do
       it "should be nil when no time points" do
-        @competitor.should_receive(:time_points).with(@all_competitors).and_return(nil)
-        @competitor.points(@all_competitors).should be_nil
+        expect(@competitor).to receive(:time_points).with(@all_competitors).and_return(nil)
+        expect(@competitor.points(@all_competitors)).to be_nil
       end
     end
 
     context "when series does not calculate time points and shot/estimate points available" do
       it "should be shot + estimate points" do
         @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_NONE
-        @competitor.should_receive(:time_points).with(@all_competitors).and_return(nil)
-        @competitor.points(@all_competitors).should == 100 + 150
+        expect(@competitor).to receive(:time_points).with(@all_competitors).and_return(nil)
+        expect(@competitor.points(@all_competitors)).to eq(100 + 150)
       end
     end
 
     it "should be sum of sub points when all of them are available" do
-      @competitor.points(@all_competitors).should == 100 + 150 + 200
+      expect(@competitor.points(@all_competitors)).to eq(100 + 150 + 200)
     end
   end
 
@@ -842,28 +847,28 @@ describe Competitor do
     before do
       @all_competitors = true
       @competitor = FactoryGirl.build(:competitor)
-      @competitor.stub(:shot_points).and_return(100)
-      @competitor.stub(:estimate_points).and_return(150)
-      @competitor.stub(:time_points).with(@all_competitors).and_return(200)
+      allow(@competitor).to receive(:shot_points).and_return(100)
+      allow(@competitor).to receive(:estimate_points).and_return(150)
+      allow(@competitor).to receive(:time_points).with(@all_competitors).and_return(200)
     end
 
     it "should be estimate + time points when no shot points" do
-      @competitor.should_receive(:shot_points).and_return(nil)
-      @competitor.points!(@all_competitors).should == 150 + 200
+      expect(@competitor).to receive(:shot_points).and_return(nil)
+      expect(@competitor.points!(@all_competitors)).to eq(150 + 200)
     end
 
     it "should be shot + time points when no estimate points" do
-      @competitor.should_receive(:estimate_points).and_return(nil)
-      @competitor.points!(@all_competitors).should == 100 + 200
+      expect(@competitor).to receive(:estimate_points).and_return(nil)
+      expect(@competitor.points!(@all_competitors)).to eq(100 + 200)
     end
 
     it "should be shot + estimate points when no time points" do
-      @competitor.should_receive(:time_points).with(@all_competitors).and_return(nil)
-      @competitor.points!(@all_competitors).should == 100 + 150
+      expect(@competitor).to receive(:time_points).with(@all_competitors).and_return(nil)
+      expect(@competitor.points!(@all_competitors)).to eq(100 + 150)
     end
 
     it "should be sum of sub points when all of them are available" do
-      @competitor.points!(@all_competitors).should == 100 + 150 + 200
+      expect(@competitor.points!(@all_competitors)).to eq(100 + 150 + 200)
     end
   end
 
@@ -878,7 +883,7 @@ describe Competitor do
       c.shots << FactoryGirl.build(:shot, :value => 0, :competitor => c)
       c.shots << FactoryGirl.build(:shot, :value => 9, :competitor => c)
       c.shots << FactoryGirl.build(:shot, :value => 7, :competitor => c)
-      c.shot_values.should == [10,9,9,7,4,3,1,0,nil,nil]
+      expect(c.shot_values).to eq([10,9,9,7,4,3,1,0,nil,nil])
     end
   end
 
@@ -890,7 +895,7 @@ describe Competitor do
     end
 
     it "should return itself when no other competitors" do
-      @c.next_competitor.should == @c
+      expect(@c.next_competitor).to eq(@c)
     end
 
     context "other competitors" do
@@ -904,15 +909,15 @@ describe Competitor do
       end
 
       it "should return the competitor with next biggest number when such exists" do
-        @c.next_competitor.should == @next
+        expect(@c.next_competitor).to eq(@next)
       end
 
       it "should return the competitor with smallest number when no bigger numbers" do
-        @last.next_competitor.should == @first
+        expect(@last.next_competitor).to eq(@first)
       end
 
       it "should return the next by id if competitor has no number" do
-        @nil.next_competitor.should == @prev
+        expect(@nil.next_competitor).to eq(@prev)
       end
     end
   end
@@ -925,7 +930,7 @@ describe Competitor do
     end
 
     it "should return itself when no other competitors" do
-      @c.previous_competitor.should == @c
+      expect(@c.previous_competitor).to eq(@c)
     end
 
     context "other competitors" do
@@ -939,15 +944,15 @@ describe Competitor do
       end
 
       it "should return the competitor with next smallest number when such exists" do
-        @c.previous_competitor.should == @prev
+        expect(@c.previous_competitor).to eq(@prev)
       end
 
       it "should return the competitor with biggest number when no smaller numbers" do
-        @first.previous_competitor.should == @last
+        expect(@first.previous_competitor).to eq(@last)
       end
 
       it "should return the previous by id if competitor has no number" do
-        @nil.previous_competitor.should == @first
+        expect(@nil.previous_competitor).to eq(@first)
       end
     end
   end
@@ -956,7 +961,7 @@ describe Competitor do
     context "when competitor has some 'no result reason'" do
       it "should return true" do
         c = FactoryGirl.build(:competitor, :no_result_reason => Competitor::DNS)
-        c.should be_finished
+        expect(c).to be_finished
       end
     end
 
@@ -976,17 +981,17 @@ describe Competitor do
       context "when competitor has shots and arrival time" do
         context "when competitor has both estimates" do
           it "should return true" do
-            @competitor.should be_finished
+            expect(@competitor).to be_finished
           end
         end
 
         context "when either estimate is missing" do
           it "should return false" do
             @competitor.estimate2 = nil
-            @competitor.should_not be_finished
+            expect(@competitor).not_to be_finished
             @competitor.estimate1 = nil
             @competitor.estimate2 = 110
-            @competitor.should_not be_finished
+            expect(@competitor).not_to be_finished
           end
         end
 
@@ -999,7 +1004,7 @@ describe Competitor do
             it "should return false" do
               @competitor.estimate3 = nil
               @competitor.estimate4 = 110
-              @competitor.should_not be_finished
+              expect(@competitor).not_to be_finished
             end
           end
 
@@ -1007,7 +1012,7 @@ describe Competitor do
             it "should return false" do
               @competitor.estimate3 = 110
               @competitor.estimate4 = nil
-              @competitor.should_not be_finished
+              expect(@competitor).not_to be_finished
             end
           end
         end
@@ -1016,14 +1021,14 @@ describe Competitor do
       context "when shots result is missing" do
         it "should return false" do
           @competitor.shots_total_input = nil
-          @competitor.should_not be_finished
+          expect(@competitor).not_to be_finished
         end
       end
 
       context "when time result is missing" do
         it "should return false" do
           @competitor.arrival_time = nil
-          @competitor.should_not be_finished
+          expect(@competitor).not_to be_finished
         end
       end
 
@@ -1031,7 +1036,7 @@ describe Competitor do
         it "should return true" do
           @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_NONE
           @competitor.arrival_time = nil
-          @competitor.should be_finished
+          expect(@competitor).to be_finished
         end
       end
 
@@ -1039,7 +1044,7 @@ describe Competitor do
         it "should return true" do
           @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_ALL_300
           @competitor.arrival_time = nil
-          @competitor.should be_finished
+          expect(@competitor).to be_finished
         end
       end
     end
@@ -1051,8 +1056,8 @@ describe Competitor do
       series = mock_model(Series)
       age_group = mock_model(AgeGroup)
       competitor = FactoryGirl.build(:competitor, :series => series, :age_group => age_group)
-      series.should_receive(:comparison_time_in_seconds).with(age_group, all_competitors).and_return(12345)
-      competitor.comparison_time_in_seconds(all_competitors).should == 12345
+      expect(series).to receive(:comparison_time_in_seconds).with(age_group, all_competitors).and_return(12345)
+      expect(competitor.comparison_time_in_seconds(all_competitors)).to eq(12345)
     end
   end
 
@@ -1062,43 +1067,45 @@ describe Competitor do
         :correct_estimate2 => 110, :correct_estimate3 => 130,
         :correct_estimate4 => 140)
       c.reset_correct_estimates
-      c.correct_estimate1.should be_nil
-      c.correct_estimate2.should be_nil
-      c.correct_estimate3.should be_nil
-      c.correct_estimate4.should be_nil
+      expect(c.correct_estimate1).to be_nil
+      expect(c.correct_estimate2).to be_nil
+      expect(c.correct_estimate3).to be_nil
+      expect(c.correct_estimate4).to be_nil
     end
   end
 
   describe "#free_offline_competitors_left" do
     context "when online state" do
       it "should raise error" do
-        Mode.stub(:online?).and_return(true)
-        Mode.stub(:offline?).and_return(false)
-        lambda { Competitor.free_offline_competitors_left }.should raise_error
+        allow(Mode).to receive(:online?).and_return(true)
+        allow(Mode).to receive(:offline?).and_return(false)
+        expect { Competitor.free_offline_competitors_left }.to raise_error
       end
     end
 
     context "when offline state" do
       before do
-        Mode.stub(:online?).and_return(false)
-        Mode.stub(:offline?).and_return(true)
+        allow(Mode).to receive(:online?).and_return(false)
+        allow(Mode).to receive(:offline?).and_return(true)
       end
 
       it "should return full amount initially" do
-        Competitor.free_offline_competitors_left.should ==
+        expect(Competitor.free_offline_competitors_left).to eq(
           Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE
+        )
       end
 
       it "should recude added competitors from the full amount" do
         FactoryGirl.create(:competitor)
         FactoryGirl.create(:competitor)
-        Competitor.free_offline_competitors_left.should ==
+        expect(Competitor.free_offline_competitors_left).to eq(
           Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE - 2
+        )
       end
 
       it "should be zero when would actually be negative (for some reason)" do
-        Competitor.stub(:count).and_return(Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE + 1)
-        Competitor.free_offline_competitors_left.should == 0
+        allow(Competitor).to receive(:count).and_return(Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE + 1)
+        expect(Competitor.free_offline_competitors_left).to eq(0)
       end
     end
   end
@@ -1133,10 +1140,10 @@ describe Competitor do
 
     def verify_correct_estimates(ce1, ce2, ce3, ce4)
       @competitor.reload
-      @competitor.correct_estimate1.should == ce1
-      @competitor.correct_estimate2.should == ce2
-      @competitor.correct_estimate3.should == ce3
-      @competitor.correct_estimate4.should == ce4
+      expect(@competitor.correct_estimate1).to eq(ce1)
+      expect(@competitor.correct_estimate2).to eq(ce2)
+      expect(@competitor.correct_estimate3).to eq(ce3)
+      expect(@competitor.correct_estimate4).to eq(ce4)
     end
   end
   
@@ -1146,29 +1153,29 @@ describe Competitor do
     end
 
     it "should be -3 when competitor was disqualified" do
-      FactoryGirl.build(:competitor, :no_result_reason => Competitor::DQ).relative_points(@all_competitors).should == -3
+      expect(FactoryGirl.build(:competitor, :no_result_reason => Competitor::DQ).relative_points(@all_competitors)).to eq(-3)
     end
     
     it "should be -2 when competitor did not start" do
-      FactoryGirl.build(:competitor, :no_result_reason => Competitor::DNS).relative_points(@all_competitors).should == -2
+      expect(FactoryGirl.build(:competitor, :no_result_reason => Competitor::DNS).relative_points(@all_competitors)).to eq(-2)
     end
     
     it "should be -1 when competitor did not finish" do
-      FactoryGirl.build(:competitor, :no_result_reason => Competitor::DNF).relative_points(@all_competitors).should == -1
+      expect(FactoryGirl.build(:competitor, :no_result_reason => Competitor::DNF).relative_points(@all_competitors)).to eq(-1)
     end
     
     it "should be 0 when competitor has no results yet" do
-      FactoryGirl.build(:competitor).relative_points(@all_competitors).should == 0
+      expect(FactoryGirl.build(:competitor).relative_points(@all_competitors)).to eq(0)
     end
     
     it "should be 10000 x points + 1000 x partial points + 100 x shot points + 10 x time points + negative time" do
       c = FactoryGirl.build(:competitor)
-      c.stub(:points).with(@all_competitors).and_return(800)
-      c.stub(:points!).with(@all_competitors).and_return(500)
-      c.stub(:shot_points).and_return(300)
-      c.stub(:time_points).with(@all_competitors).and_return(250)
-      c.stub(:time_in_seconds).and_return(3000)
-      c.relative_points(@all_competitors).should == 10000*800 + 1000*500 + 100*300 + 10*250 - 3000
+      allow(c).to receive(:points).with(@all_competitors).and_return(800)
+      allow(c).to receive(:points!).with(@all_competitors).and_return(500)
+      allow(c).to receive(:shot_points).and_return(300)
+      allow(c).to receive(:time_points).with(@all_competitors).and_return(250)
+      allow(c).to receive(:time_in_seconds).and_return(3000)
+      expect(c.relative_points(@all_competitors)).to eq(10000*800 + 1000*500 + 100*300 + 10*250 - 3000)
     end
   end
 
@@ -1177,8 +1184,8 @@ describe Competitor do
       race = mock_model(Race)
       series = FactoryGirl.build(:series, race: race, start_day: 2)
       competitor = FactoryGirl.build(:competitor, series: series)
-      competitor.should_receive(:start_date_time).with(race, 2, competitor.start_time).and_return('time')
-      competitor.start_datetime.should == 'time'
+      expect(competitor).to receive(:start_date_time).with(race, 2, competitor.start_time).and_return('time')
+      expect(competitor.start_datetime).to eq('time')
     end
   end
 end

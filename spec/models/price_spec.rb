@@ -30,7 +30,7 @@ describe Price do
     end
     
     it "should be by min competitors" do
-      Price.all.collect {|price| price.min_competitors}.should == [1, 50, 100]
+      expect(Price.all.collect {|price| price.min_competitors}).to eq([1, 50, 100])
     end
   end
 
@@ -42,12 +42,12 @@ describe Price do
       FactoryGirl.create(:price, :min_competitors => 10, :price => 1.0)
     end
 
-    specify { Price.price_for_competitor_amount(1).should == 20 + 1.5 }
-    specify { Price.price_for_competitor_amount(9).should == 20 + 9 * 1.5 }
-    specify { Price.price_for_competitor_amount(10).should == 20 + 10 * 1 }
-    specify { Price.price_for_competitor_amount(19).should == 20 + 19 * 1 }
-    specify { Price.price_for_competitor_amount(20).should == 20 + 20 * 0.5 }
-    specify { Price.price_for_competitor_amount(100).should == 20 + 100 * 0.5 }
+    specify { expect(Price.price_for_competitor_amount(1)).to eq(20 + 1.5) }
+    specify { expect(Price.price_for_competitor_amount(9)).to eq(20 + 9 * 1.5) }
+    specify { expect(Price.price_for_competitor_amount(10)).to eq(20 + 10 * 1) }
+    specify { expect(Price.price_for_competitor_amount(19)).to eq(20 + 19 * 1) }
+    specify { expect(Price.price_for_competitor_amount(20)).to eq(20 + 20 * 0.5) }
+    specify { expect(Price.price_for_competitor_amount(100)).to eq(20 + 100 * 0.5) }
   end
 
   describe "#max_competitors" do
@@ -57,8 +57,8 @@ describe Price do
       @price2 = FactoryGirl.create(:price, :min_competitors => 10, :price => 1.0)
     end
 
-    specify { @price1.max_competitors.should == 9 }
-    specify { @price2.max_competitors.should == 19 }
-    specify { @price3.max_competitors.should == nil }
+    specify { expect(@price1.max_competitors).to eq(9) }
+    specify { expect(@price2.max_competitors).to eq(19) }
+    specify { expect(@price3.max_competitors).to eq(nil) }
   end
 end

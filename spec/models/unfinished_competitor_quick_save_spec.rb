@@ -18,9 +18,9 @@ describe UnfinishedCompetitorQuickSave do
 
       describe "#save" do
         it "should save given status for the competitor and return true" do
-          @qs.save.should be_true
+          expect(@qs.save).to be_true
           @c2.reload
-          @c2.no_result_reason.should == Competitor::DNS
+          expect(@c2.no_result_reason).to eq(Competitor::DNS)
         end
       end
 
@@ -28,14 +28,14 @@ describe UnfinishedCompetitorQuickSave do
         it "should return the correct competitor" do
           @qs.save
           @c2.reload
-          @qs.competitor.should == @c2
+          expect(@qs.competitor).to eq(@c2)
         end
       end
 
       describe "#error" do
         it "should be nil" do
           @qs.save
-          @qs.error.should be_nil
+          expect(@qs.error).to be_nil
         end
       end
 
@@ -46,9 +46,9 @@ describe UnfinishedCompetitorQuickSave do
 
         describe "#save" do
           it "should save given no result reason for the competitor and return true" do
-            @qs.save.should be_true
+            expect(@qs.save).to be_true
             @c.reload
-            @c.no_result_reason.should == Competitor::DNF
+            expect(@c.no_result_reason).to eq(Competitor::DNF)
           end
         end
 
@@ -56,14 +56,14 @@ describe UnfinishedCompetitorQuickSave do
           it "should return the correct competitor" do
             @qs.save
             @c.reload
-            @qs.competitor.should == @c
+            expect(@qs.competitor).to eq(@c)
           end
         end
 
         describe "#error" do
           it "should be nil" do
             @qs.save
-            @qs.error.should be_nil
+            expect(@qs.error).to be_nil
           end
         end
       end
@@ -117,12 +117,12 @@ describe UnfinishedCompetitorQuickSave do
 
   def check_failed_save(qs, error_regex, find_competitor,
       original_competitor=nil, original_reason=nil)
-    qs.save.should be_false
-    qs.error.should match(error_regex)
-    qs.competitor.should be_nil unless find_competitor
+    expect(qs.save).to be_false
+    expect(qs.error).to match(error_regex)
+    expect(qs.competitor).to be_nil unless find_competitor
     if original_competitor
       original_competitor.reload
-      original_competitor.no_result_reason.should == original_reason
+      expect(original_competitor.no_result_reason).to eq(original_reason)
     end
   end
 end

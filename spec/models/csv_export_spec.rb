@@ -26,7 +26,7 @@ describe CsvExport do
   end
   
   def verify_files_equal(generated, expected)
-    calculate_sha1(generated).should == calculate_sha1(expected)
+    expect(calculate_sha1(generated)).to eq(calculate_sha1(expected))
   end
   
   def calculate_sha1(file_name)

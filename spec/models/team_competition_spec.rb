@@ -36,9 +36,9 @@ describe TeamCompetition do
         @c = mock_model(Competitor, :points => 1100, :club => @club,
           :shot_points => 300, :time_in_seconds => 500, :unofficial => false,
                         :race => @race)
-        Competitor.should_receive(:sort_competitors).with([@c], false).and_return([@c])
-        @race.stub(:finished?).and_return(false)
-        @tc.stub(:race).and_return(@race)
+        expect(Competitor).to receive(:sort_competitors).with([@c], false).and_return([@c])
+        allow(@race).to receive(:finished?).and_return(false)
+        allow(@tc).to receive(:race).and_return(@race)
         @tc.results_for_competitors([@c])[0] == 1100
       end
     end
@@ -50,10 +50,10 @@ describe TeamCompetition do
         @c = mock_model(Competitor, :points => 1100, :club => @club,
           :shot_points => 300, :time_in_seconds => 500, :unofficial => false,
                         :race => @race)
-        Competitor.should_receive(:sort_competitors).with([@c], false).and_return([@c])
-        @race.stub(:finished?).and_return(true)
-        @tc.stub(:race).and_return(@race)
-        @tc.results_for_competitors([@c]).should == []
+        expect(Competitor).to receive(:sort_competitors).with([@c], false).and_return([@c])
+        allow(@race).to receive(:finished?).and_return(true)
+        allow(@tc).to receive(:race).and_return(@race)
+        expect(@tc.results_for_competitors([@c])).to eq([])
       end
     end
 
@@ -97,9 +97,9 @@ describe TeamCompetition do
             @club_best_single_time_c2, @club_worst_c2,
             @club_best_single_points_c2,
             @club_unofficial1, @club_unofficial2, @club_small_nil_points]
-        @tc.stub(:race).and_return(@race)
-        @race.stub(:finished?).and_return(true)
-        Competitor.should_receive(:sort_competitors).with(@competitors, false).and_return(@competitors)
+        allow(@tc).to receive(:race).and_return(@race)
+        allow(@race).to receive(:finished?).and_return(true)
+        expect(Competitor).to receive(:sort_competitors).with(@competitors, false).and_return(@competitors)
       end
 
       describe "should return an array of hashes" do
@@ -112,12 +112,12 @@ describe TeamCompetition do
               "so that the clubs are ordered: 1. total points " +
               "2. best individual points 3. best individual shot points " +
               "4. fastest individual time" do
-            @results.length.should == 5
-            @results[0][:club].should == @club_best_total_points
-            @results[1][:club].should == @club_best_single_points
-            @results[2][:club].should == @club_best_single_shots
-            @results[3][:club].should == @club_best_single_time
-            @results[4][:club].should == @club_worst
+            expect(@results.length).to eq(5)
+            expect(@results[0][:club]).to eq(@club_best_total_points)
+            expect(@results[1][:club]).to eq(@club_best_single_points)
+            expect(@results[2][:club]).to eq(@club_best_single_shots)
+            expect(@results[3][:club]).to eq(@club_best_single_time)
+            expect(@results[4][:club]).to eq(@club_worst)
           end
         end
 
@@ -126,34 +126,34 @@ describe TeamCompetition do
               "so that the clubs are ordered: 1. total points " +
               "2. best individual points 3. best individual shot points " +
               "4. fastest individual time" do
-            @tc.stub(:race).and_return(@race)
-            @race.stub(:finished?).and_return(false)
-            Competitor.should_receive(:sort_competitors).with(@competitors, false).and_return(@competitors)
+            allow(@tc).to receive(:race).and_return(@race)
+            allow(@race).to receive(:finished?).and_return(false)
+            expect(Competitor).to receive(:sort_competitors).with(@competitors, false).and_return(@competitors)
             @results = @tc.results_for_competitors(@competitors)
-            @results.length.should == 6
-            @results[0][:club].should == @club_best_total_points
-            @results[1][:club].should == @club_best_single_points
-            @results[2][:club].should == @club_best_single_shots
-            @results[3][:club].should == @club_best_single_time
-            @results[4][:club].should == @club_worst
+            expect(@results.length).to eq(6)
+            expect(@results[0][:club]).to eq(@club_best_total_points)
+            expect(@results[1][:club]).to eq(@club_best_single_points)
+            expect(@results[2][:club]).to eq(@club_best_single_shots)
+            expect(@results[3][:club]).to eq(@club_best_single_time)
+            expect(@results[4][:club]).to eq(@club_worst)
           end
         end
 
         it "including total points" do
-          @results[0][:points].should == 1100 + 1000
-          @results[1][:points].should == 1050 + 800
-          @results[2][:points].should == 1049 + 801
-          @results[3][:points].should == 1049 + 801
-          @results[4][:points].should == 1049 + 801
+          expect(@results[0][:points]).to eq(1100 + 1000)
+          expect(@results[1][:points]).to eq(1050 + 800)
+          expect(@results[2][:points]).to eq(1049 + 801)
+          expect(@results[3][:points]).to eq(1049 + 801)
+          expect(@results[4][:points]).to eq(1049 + 801)
         end
 
         it "including ordered competitors inside of each team" do
-          @results[0][:competitors].length.should == 2
-          @results[0][:competitors][0].should == @club_best_total_points_c1
-          @results[0][:competitors][1].should == @club_best_total_points_c2
-          @results[1][:competitors].length.should == 2
-          @results[1][:competitors][0].should == @club_best_single_points_c1
-          @results[1][:competitors][1].should == @club_best_single_points_c2
+          expect(@results[0][:competitors].length).to eq(2)
+          expect(@results[0][:competitors][0]).to eq(@club_best_total_points_c1)
+          expect(@results[0][:competitors][1]).to eq(@club_best_total_points_c2)
+          expect(@results[1][:competitors].length).to eq(2)
+          expect(@results[1][:competitors][0]).to eq(@club_best_single_points_c1)
+          expect(@results[1][:competitors][1]).to eq(@club_best_single_points_c2)
         end
       end
 
@@ -170,28 +170,28 @@ describe TeamCompetition do
         
         context "but no team names defined" do
           it "should return no results" do
-            @tc.results_for_competitors(@competitors).should == []
+            expect(@tc.results_for_competitors(@competitors)).to eq([])
           end
         end
         
         context "and team names defined for some competitors" do
           before do
-            @club_best_total_points_c1.stub(:team_name).and_return('Team best')
-            @club_best_total_points_c2.stub(:team_name).and_return('Team best')
-            @club_best_single_points_c1.stub(:team_name).and_return('Team second')
-            @club_best_single_points_c2.stub(:team_name).and_return('Team second')
-            @club_best_single_shots_c1.stub(:team_name).and_return('')
-            @club_best_single_shots_c2.stub(:team_name).and_return('')
+            allow(@club_best_total_points_c1).to receive(:team_name).and_return('Team best')
+            allow(@club_best_total_points_c2).to receive(:team_name).and_return('Team best')
+            allow(@club_best_single_points_c1).to receive(:team_name).and_return('Team second')
+            allow(@club_best_single_points_c2).to receive(:team_name).and_return('Team second')
+            allow(@club_best_single_shots_c1).to receive(:team_name).and_return('')
+            allow(@club_best_single_shots_c2).to receive(:team_name).and_return('')
             @results = @tc.results_for_competitors(@competitors)
           end
           
           it "should return results for teams with those competitors" do
-            @results.length.should == 2
+            expect(@results.length).to eq(2)
           end
           
           it "should sort teams correctly" do
-            @results[0][:club].should == 'Team best'
-            @results[1][:club].should == 'Team second'
+            expect(@results[0][:club]).to eq('Team best')
+            expect(@results[1][:club]).to eq('Team second')
           end
         end
       end
@@ -242,10 +242,10 @@ describe TeamCompetition do
 
     it "should call #results_for_competitors with all unique competitors from " +
       "series and age groups as parameters, and return the result" do
-      @tc.should_receive(:results_for_competitors).
+      expect(@tc).to receive(:results_for_competitors).
         with([@s_c1, @s_c2, @s_c3, @s_c4, @s_ag_c, @ag_c1, @ag_c2, @ag_c3, @ag_c4]).
         and_return("results")
-      @tc.results.should == "results"
+      expect(@tc.results).to eq("results")
     end
   end
 
@@ -255,13 +255,13 @@ describe TeamCompetition do
     end
 
     it "should return empty string when no series attached" do
-      @tc.series_names.should == ''
+      expect(@tc.series_names).to eq('')
     end
 
     it "should return the names of the series separated with comma" do
       @tc.series << FactoryGirl.build(:series, :name => 'first series')
       @tc.series << FactoryGirl.build(:series, :name => 'second series')
-      @tc.series_names.should == 'first series,second series'
+      expect(@tc.series_names).to eq('first series,second series')
     end
   end
 
@@ -275,9 +275,9 @@ describe TeamCompetition do
 
     it "should find the names from the race and attach the corresponding series" do
       @tc.attach_series_by_names('first series,second series')
-      @tc.should have(2).series
-      @tc.series[0].name.should == 'first series'
-      @tc.series[1].name.should == 'second series'
+      expect(@tc.series.size).to eq(2)
+      expect(@tc.series[0].name).to eq('first series')
+      expect(@tc.series[1].name).to eq('second series')
     end
   end
 
@@ -287,13 +287,13 @@ describe TeamCompetition do
     end
 
     it "should return empty string when no age_groups attached" do
-      @tc.age_groups_names.should == ''
+      expect(@tc.age_groups_names).to eq('')
     end
 
     it "should return the names of the age_groups separated with comma" do
       @tc.age_groups << FactoryGirl.build(:age_group, :name => 'first age_group')
       @tc.age_groups << FactoryGirl.build(:age_group, :name => 'second age_group')
-      @tc.age_groups_names.should == 'first age_group,second age_group'
+      expect(@tc.age_groups_names).to eq('first age_group,second age_group')
     end
   end
 
@@ -310,16 +310,16 @@ describe TeamCompetition do
 
     it "should find the names from the race and attach the corresponding age_groups" do
       @tc.attach_age_groups_by_names('first age_group,second age_group')
-      @tc.should have(2).age_groups
-      @tc.age_groups[0].name.should == 'first age_group'
-      @tc.age_groups[1].name.should == 'second age_group'
+      expect(@tc.age_groups.size).to eq(2)
+      expect(@tc.age_groups[0].name).to eq('first age_group')
+      expect(@tc.age_groups[1].name).to eq('second age_group')
     end
   end
   
   describe  "#started?" do
     context "when no series" do
       it "should return false" do
-        TeamCompetition.new.should_not be_started
+        expect(TeamCompetition.new).not_to be_started
       end
     end
     
@@ -331,9 +331,9 @@ describe TeamCompetition do
       context "but none of them started" do
         it "should return false" do
           s1 = mock_model(Series)
-          @tc.should_receive(:series).and_return([s1])
-          s1.stub(:started?).and_return(false)
-          @tc.should_not be_started
+          expect(@tc).to receive(:series).and_return([s1])
+          allow(s1).to receive(:started?).and_return(false)
+          expect(@tc).not_to be_started
         end
       end
       
@@ -341,10 +341,10 @@ describe TeamCompetition do
         it "should return true" do
           s1 = mock_model(Series)
           s2 = mock_model(Series)
-          @tc.should_receive(:series).and_return([s1, s2])
-          s1.stub(:started?).and_return(false)
-          s2.stub(:started?).and_return(true)
-          @tc.should be_started
+          expect(@tc).to receive(:series).and_return([s1, s2])
+          allow(s1).to receive(:started?).and_return(false)
+          allow(s2).to receive(:started?).and_return(true)
+          expect(@tc).to be_started
         end
       end
     end

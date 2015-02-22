@@ -58,19 +58,19 @@ describe RelayAdjustmentQuickSave do
   def check_success(adjustment)
     saved = @qs.save
     raise @qs.error unless saved
-    @qs.competitor.should == @c
-    @qs.error.should be_nil
+    expect(@qs.competitor).to eq(@c)
+    expect(@qs.error).to be_nil
     @c.reload
-    @c.adjustment.should == adjustment
+    expect(@c.adjustment).to eq(adjustment)
   end
 
   def check_failure(competitor=false, adjustment=nil)
-    @qs.save.should be_false
-    @qs.error.should_not be_nil
-    @qs.competitor.should == @c if competitor
-    @qs.competitor.should be_nil unless competitor
+    expect(@qs.save).to be_false
+    expect(@qs.error).not_to be_nil
+    expect(@qs.competitor).to eq(@c) if competitor
+    expect(@qs.competitor).to be_nil unless competitor
     @c.reload
-    @c.adjustment.should == adjustment
+    expect(@c.adjustment).to eq(adjustment)
   end
 end
 

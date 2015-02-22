@@ -24,12 +24,12 @@ describe Relay do
 
       before do
         race = FactoryGirl.build(:race)
-        race.stub(:days_count).and_return(2)
+        allow(race).to receive(:days_count).and_return(2)
         @relay = FactoryGirl.build(:relay, :race => race, :start_day => 3)
       end
 
       it "should not be bigger than race days count" do
-        @relay.should have(1).errors_on(:start_day)
+        expect(@relay).to have(1).errors_on(:start_day)
       end
     end
 
@@ -45,7 +45,7 @@ describe Relay do
         relay.legs_count = 4
         relay.save
         relay.reload
-        relay.legs_count.should == 5
+        expect(relay.legs_count).to eq(5)
       end
     end
   end
@@ -60,9 +60,9 @@ describe Relay do
     end
 
     it "should be ordered by number" do
-      @relay.relay_teams[0].number.should == 1
-      @relay.relay_teams[1].number.should == 2
-      @relay.relay_teams[2].number.should == 3
+      expect(@relay.relay_teams[0].number).to eq(1)
+      expect(@relay.relay_teams[1].number).to eq(2)
+      expect(@relay.relay_teams[2].number).to eq(3)
     end
   end
 
@@ -79,9 +79,9 @@ describe Relay do
     end
 
     it "should be ordered by leg" do
-      @relay.relay_correct_estimates[0].leg.should == 1
-      @relay.relay_correct_estimates[1].leg.should == 2
-      @relay.relay_correct_estimates[2].leg.should == 3
+      expect(@relay.relay_correct_estimates[0].leg).to eq(1)
+      expect(@relay.relay_correct_estimates[1].leg).to eq(2)
+      expect(@relay.relay_correct_estimates[2].leg).to eq(3)
     end
   end
 
@@ -91,19 +91,19 @@ describe Relay do
     end
 
     it "should return nil if no correct estimates at all" do
-      @relay.correct_estimate(1).should be_nil
+      expect(@relay.correct_estimate(1)).to be_nil
     end
 
     it "should return nil if no correct estimate for this leg" do
       @relay.relay_correct_estimates << FactoryGirl.build(:relay_correct_estimate,
         :relay => @relay, :leg => 1)
-      @relay.correct_estimate(2).should be_nil
+      expect(@relay.correct_estimate(2)).to be_nil
     end
 
     it "should return the distance of correct estimate for the given leg" do
       @relay.relay_correct_estimates << FactoryGirl.build(:relay_correct_estimate,
         :relay => @relay, :leg => 2, :distance => 111)
-      @relay.correct_estimate(2).should == 111
+      expect(@relay.correct_estimate(2)).to eq(111)
     end
   end
 
@@ -115,13 +115,13 @@ describe Relay do
     context "when no teams" do
       describe "#results" do
         it "should return empty array" do
-          @relay.results.should == []
+          expect(@relay.results).to eq([])
         end
       end
 
       describe "#leg_results" do
         it "should return empty array" do
-          @relay.leg_results(1).should == []
+          expect(@relay.leg_results(1)).to eq([])
         end
       end
     end
@@ -173,18 +173,20 @@ describe Relay do
             "teams with least full time are best, " +
             "previous leg times are used if two teams have same time, " +
             "and team number is used everything else is same" do
-          @relay.results.should == @finish_order
+          expect(@relay.results).to eq(@finish_order)
         end
       end
 
       describe "#leg_results" do
         it "should return the teams sorted in a same way as in full results " +
           "except that DNF/DNS/DQ does not matter for non-last leg" do
-          @relay.leg_results(1).should ==
+          expect(@relay.leg_results(1)).to eq(
             [@team_DQ, @team_DNF, @team6, @team5, @team4, @team2, @team3, @team1, @team_DNS]
-          @relay.leg_results('2').should ==
+          )
+          expect(@relay.leg_results('2')).to eq(
             [@team2, @team6, @team5, @team1, @team_DNF, @team3, @team_DQ, @team4, @team_DNS]
-          @relay.leg_results(3).should == @finish_order
+          )
+          expect(@relay.leg_results(3)).to eq(@finish_order)
         end
       end
 
@@ -230,7 +232,7 @@ describe Relay do
     context "when all the necessary data is there" do
       it "should return an empty array" do
         @relay.reload
-        @relay.finish_errors.should be_empty
+        expect(@relay.finish_errors).to be_empty
       end
     end
 
@@ -244,7 +246,7 @@ describe Relay do
 
     context "when no teams" do
       it "should return an array with error" do
-        @relay.stub(:relay_teams).and_return([])
+        allow(@relay).to receive(:relay_teams).and_return([])
         confirm_cannot_finish
       end
     end
@@ -278,7 +280,7 @@ describe Relay do
 
     context "when no correct estimates at all" do
       it "should return an array with error" do
-        @relay.stub(:relay_correct_estimates).and_return([])
+        allow(@relay).to receive(:relay_correct_estimates).and_return([])
         confirm_cannot_finish
       end
     end
@@ -294,7 +296,7 @@ describe Relay do
 
     def confirm_cannot_finish
       @relay.reload
-      @relay.finish_errors.should_not be_empty
+      expect(@relay.finish_errors).not_to be_empty
     end
   end
 
@@ -305,21 +307,21 @@ describe Relay do
 
     context "when the relay can be finished" do
       it "should mark the race as finished and return true" do
-        @relay.should_receive(:finish_errors).and_return([])
-        @relay.finish.should be_true
-        @relay.should have(0).errors
+        expect(@relay).to receive(:finish_errors).and_return([])
+        expect(@relay.finish).to be_true
+        expect(@relay.errors.size).to eq(0)
         @relay.reload
-        @relay.should be_finished
+        expect(@relay).to be_finished
       end
     end
 
     context "when the relay cannot be finished" do
       it "should not mark the race as finished and return false" do
-        @relay.should_receive(:finish_errors).and_return(['error'])
-        @relay.finish.should be_false
-        @relay.should have(1).errors
+        expect(@relay).to receive(:finish_errors).and_return(['error'])
+        expect(@relay.finish).to be_false
+        expect(@relay.errors.size).to eq(1)
         @relay.reload
-        @relay.should_not be_finished
+        expect(@relay).not_to be_finished
       end
     end
   end
@@ -330,13 +332,13 @@ describe Relay do
     end
 
     it "should return true when finishing the relay succeeds" do
-      @relay.should_receive(:finish).and_return(true)
-      @relay.finish!.should be_true
+      expect(@relay).to receive(:finish).and_return(true)
+      expect(@relay.finish!).to be_true
     end
 
     it "should raise exception if finishing the relay fails" do
-      @relay.should_receive(:finish).and_return(false)
-      lambda { @relay.finish! }.should raise_error
+      expect(@relay).to receive(:finish).and_return(false)
+      expect { @relay.finish! }.to raise_error
     end
   end
 
@@ -349,53 +351,53 @@ describe Relay do
     end
 
     it "should return true when the relay is today and started but not finished yet" do
-      @relay.should be_active
+      expect(@relay).to be_active
     end
 
     it "should return true when the relay was yesterday but is not finished yet" do
       @race.start_date = Date.today - 1
       @relay.start_time = (Time.now + 100).strftime('%H:%M:%S') # time shouldn't matter
-      @relay.should be_active
+      expect(@relay).to be_active
     end
 
     it "should return false when no start time defined" do
       @relay.start_time = nil
-      @relay.should_not be_active
+      expect(@relay).not_to be_active
     end
 
     it "should return false when the race is not today" do
       @race.start_date = Date.today + 1
-      @relay.should_not be_active
+      expect(@relay).not_to be_active
     end
 
     it "should return false when the relay is not today" do
       @relay.start_day = 2
-      @relay.should_not be_active
+      expect(@relay).not_to be_active
     end
 
     it "should return false when the relay is today but has not started yet" do
       @relay.start_time = (Time.now + 100).strftime('%H:%M:%S')
-      @relay.should_not be_active
+      expect(@relay).not_to be_active
     end
 
     it "should return false when the relay is finished" do
       @relay.finished = true
-      @relay.should_not be_active
+      expect(@relay).not_to be_active
     end
   end
   
   describe "#start_datetime" do
     it "should return nil when no start time" do
-      FactoryGirl.build(:relay, :start_time => nil).start_datetime.should be_nil
+      expect(FactoryGirl.build(:relay, :start_time => nil).start_datetime).to be_nil
     end
     
     it "should return nil when no race" do
-      FactoryGirl.build(:relay, :race => nil, :start_time => '13:45:31').start_datetime.should be_nil
+      expect(FactoryGirl.build(:relay, :race => nil, :start_time => '13:45:31').start_datetime).to be_nil
     end
     
     it "should return nil when no race start date" do
       race = FactoryGirl.build(:race, :start_date => nil)
-      FactoryGirl.build(:relay, :race => race, :start_time => '13:45:31').start_datetime.should be_nil
+      expect(FactoryGirl.build(:relay, :race => race, :start_time => '13:45:31').start_datetime).to be_nil
     end
     
     context "when race date and start time available" do
@@ -405,20 +407,20 @@ describe Relay do
       end
       
       it "should return the compination of race date and start time when both available" do
-        @relay.start_datetime.strftime('%d.%m.%Y %H:%M:%S').should == '30.06.2011 13:45:31'
+        expect(@relay.start_datetime.strftime('%d.%m.%Y %H:%M:%S')).to eq('30.06.2011 13:45:31')
       end
       
       it "should return the object with local zone" do
         original_zone = Time.zone
         Time.zone = 'Hawaii'
-        @relay.start_datetime.zone.should == 'HST'
+        expect(@relay.start_datetime.zone).to eq('HST')
         Time.zone = original_zone # must reset back to original!
       end
       
       it "should return the correct date when relay start day is not 1" do
         @race.end_date = '2011-07-02'
         @relay.start_day = 3
-        @relay.start_datetime.strftime('%d.%m.%Y %H:%M:%S').should == '02.07.2011 13:45:31'
+        expect(@relay.start_datetime.strftime('%d.%m.%Y %H:%M:%S')).to eq('02.07.2011 13:45:31')
       end
     end
   end

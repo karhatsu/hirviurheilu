@@ -8,13 +8,13 @@ describe BasePrice do
 
     it "should prevent creating two base prices" do
       FactoryGirl.create(:base_price)
-      FactoryGirl.build(:base_price).should_not be_valid
+      expect(FactoryGirl.build(:base_price)).not_to be_valid
     end
 
     it "should allow updating the only base price" do
       bp = FactoryGirl.create(:base_price)
       bp.price = 30
-      bp.save.should be_true
+      expect(bp.save).to be_true
     end
   end
 
@@ -31,7 +31,7 @@ describe BasePrice do
     end
 
     it "should return the base price" do
-      BasePrice.price.should == 17
+      expect(BasePrice.price).to eq(17)
     end
   end
 end

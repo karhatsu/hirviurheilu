@@ -82,24 +82,24 @@ describe CorrectEstimate do
       end
 
       it "should prevent overlapping numbers for same race" do
-        FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 1,
-          :max_number => 5).should_not be_valid
-        FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 10,
-          :max_number => 15).should_not be_valid
+        expect(FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 1,
+          :max_number => 5)).not_to be_valid
+        expect(FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 10,
+          :max_number => 15)).not_to be_valid
         FactoryGirl.create(:correct_estimate, :race => @race1, :min_number => 15,
           :max_number => 20)
-        FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 11,
-          :max_number => 14).should be_valid
-        FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 11,
-          :max_number => 15).should_not be_valid
+        expect(FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 11,
+          :max_number => 14)).to be_valid
+        expect(FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 11,
+          :max_number => 15)).not_to be_valid
       end
 
       describe "saving max_number=nil" do
         it "should prevent overlapping min number" do
-          FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 4,
-            :max_number => nil).should_not be_valid
-          FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 10,
-            :max_number => nil).should_not be_valid
+          expect(FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 4,
+            :max_number => nil)).not_to be_valid
+          expect(FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 10,
+            :max_number => nil)).not_to be_valid
         end
       end
 
@@ -115,19 +115,19 @@ describe CorrectEstimate do
         end
 
         it "should prevent another nil for same race" do
-          FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 100,
-            :max_number => nil).should have(1).errors_on(:max_number)
+          expect(FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 100,
+            :max_number => nil)).to have(1).errors_on(:max_number)
         end
 
         it "should allow updating numbers" do
           @ce_nil.min_number = 51
-          @ce_nil.should be_valid
+          expect(@ce_nil).to be_valid
         end
       end
 
       it "should allow updating numbers" do
         @ce.min_number = 6
-        @ce.should be_valid
+        expect(@ce).to be_valid
       end
     end
   end
@@ -141,7 +141,7 @@ describe CorrectEstimate do
     end
 
     it "should return nil if nothing found" do
-      CorrectEstimate.for_number_in_race(10, @race).should be_nil
+      expect(CorrectEstimate.for_number_in_race(10, @race)).to be_nil
     end
 
     context "when correct estimate defined" do
@@ -158,23 +158,23 @@ describe CorrectEstimate do
       end
 
       it "should return the correct estimates (case middle)" do
-        CorrectEstimate.for_number_in_race(6, @race).should == @ce1
-        CorrectEstimate.for_number_in_race(10, @race).should == @ce2
+        expect(CorrectEstimate.for_number_in_race(6, @race)).to eq(@ce1)
+        expect(CorrectEstimate.for_number_in_race(10, @race)).to eq(@ce2)
       end
 
       it "should return the correct estimates (case lower bound)" do
-        CorrectEstimate.for_number_in_race(5, @race).should == @ce1
-        CorrectEstimate.for_number_in_race(9, @race).should == @ce2
-        CorrectEstimate.for_number_in_race(14, @race).should == @ce3
+        expect(CorrectEstimate.for_number_in_race(5, @race)).to eq(@ce1)
+        expect(CorrectEstimate.for_number_in_race(9, @race)).to eq(@ce2)
+        expect(CorrectEstimate.for_number_in_race(14, @race)).to eq(@ce3)
       end
 
       it "should return the correct estimates (case upper bound)" do
-        CorrectEstimate.for_number_in_race(7, @race).should == @ce1
-        CorrectEstimate.for_number_in_race(11, @race).should == @ce2
+        expect(CorrectEstimate.for_number_in_race(7, @race)).to eq(@ce1)
+        expect(CorrectEstimate.for_number_in_race(11, @race)).to eq(@ce2)
       end
 
       it "should return the correct estimates (case nil max number)" do
-        CorrectEstimate.for_number_in_race(15, @race).should == @ce3
+        expect(CorrectEstimate.for_number_in_race(15, @race)).to eq(@ce3)
       end
     end
   end

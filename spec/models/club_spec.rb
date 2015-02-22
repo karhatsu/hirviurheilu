@@ -21,15 +21,15 @@ describe Club do
 
       it "should allow two nil long names for same race" do
         club = FactoryGirl.create(:club, :long_name => nil)
-        FactoryGirl.build(:club, :long_name => nil, :race_id => club.race.id).
-          should be_valid
+        expect(FactoryGirl.build(:club, :long_name => nil, :race_id => club.race.id)).
+          to be_valid
       end
 
       it "should convert empty strings to nils for long names" do
         club = FactoryGirl.create(:club, :long_name => '')
-        club.long_name.should be_nil
-        FactoryGirl.build(:club, :long_name => '', :race_id => club.race.id).
-          should be_valid
+        expect(club.long_name).to be_nil
+        expect(FactoryGirl.build(:club, :long_name => '', :race_id => club.race.id)).
+          to be_valid
       end
     end
   end
@@ -44,7 +44,7 @@ describe Club do
     context "when club has no competitors" do
       context "and no-one has official rights for this club only" do
         it "should return true" do
-          Club.new.can_be_removed?.should be_true
+          expect(Club.new.can_be_removed?).to be_true
         end
       end
       
@@ -58,7 +58,7 @@ describe Club do
         end
         
         it "should return false" do
-          @club.can_be_removed?.should be_false
+          expect(@club.can_be_removed?).to be_false
         end
       end
     end
@@ -68,11 +68,11 @@ describe Club do
         @club = FactoryGirl.create(:club)
         competitor = FactoryGirl.create(:competitor, :club => @club)
         @club.reload
-        @club.should have(1).competitors
+        expect(@club.competitors.size).to eq(1)
       end
 
       it "should return false" do
-        @club.can_be_removed?.should be_false
+        expect(@club.can_be_removed?).to be_false
       end
     end
   end
@@ -84,17 +84,17 @@ describe Club do
     
     context "when can be done" do
       it "should remove the club" do
-        @club.should_receive(:can_be_removed?).and_return(true)
+        expect(@club).to receive(:can_be_removed?).and_return(true)
         @club.destroy
-        @club.should be_destroyed
+        expect(@club).to be_destroyed
       end
     end
 
     context "when cannot be done" do
       it "should provide an error but not remove the club" do
-        @club.should_receive(:can_be_removed?).and_return(false)
+        expect(@club).to receive(:can_be_removed?).and_return(false)
         @club.destroy
-        @club.should_not be_destroyed
+        expect(@club).not_to be_destroyed
       end
     end
   end
@@ -102,12 +102,12 @@ describe Club do
   describe "#result_name" do
     it "should return long name when long name set" do
       club = FactoryGirl.create(:club, :name => 'PS', :long_name => 'Pohjois-Savo')
-      club.expanded.should == 'Pohjois-Savo'
+      expect(club.expanded).to eq('Pohjois-Savo')
     end
 
     it "should return name when long name not set" do
       club = FactoryGirl.create(:club, :name => 'PS')
-      club.expanded.should == 'PS'
+      expect(club.expanded).to eq('PS')
     end
   end
 end

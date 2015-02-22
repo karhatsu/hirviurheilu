@@ -20,11 +20,11 @@ describe User do
   describe "rights" do
     context "default" do
       it "user should not be admin" do
-        FactoryGirl.build(:user).should_not be_admin
+        expect(FactoryGirl.build(:user)).not_to be_admin
       end
 
       it "user should not be official" do
-        FactoryGirl.build(:user).should_not be_official
+        expect(FactoryGirl.build(:user)).not_to be_official
       end
     end
 
@@ -33,7 +33,7 @@ describe User do
         FactoryGirl.create(:role, :name => Role::ADMIN) unless Role.find_by_name(Role::ADMIN)
         user = FactoryGirl.build(:user)
         user.add_admin_rights
-        user.should be_admin
+        expect(user).to be_admin
       end
     end
 
@@ -42,7 +42,7 @@ describe User do
         FactoryGirl.create(:role, :name => Role::OFFICIAL) unless Role.find_by_name(Role::OFFICIAL)
         user = FactoryGirl.build(:user)
         user.add_official_rights
-        user.should be_official
+        expect(user).to be_official
       end
     end
   end
@@ -54,20 +54,20 @@ describe User do
     end
 
     it "should return false when no races for this user" do
-      @user.should_not be_official_for_race(@race)
+      expect(@user).not_to be_official_for_race(@race)
     end
 
     it "should return false when user is not official for the given race" do
       race = FactoryGirl.create(:race)
       @user.race_rights << RaceRight.new(:user_id => @user.id, :race_id => race.id)
       @user.reload
-      @user.should_not be_official_for_race(@race)
+      expect(@user).not_to be_official_for_race(@race)
     end
 
     it "should return true when user is official for the given race" do
       @user.race_rights << RaceRight.new(:user_id => @user.id, :race_id => @race.id)
       @user.reload
-      @user.should be_official_for_race(@race)
+      expect(@user).to be_official_for_race(@race)
     end
   end
   
@@ -78,18 +78,18 @@ describe User do
     end
     
     it "should return false when no cups for this user" do
-      @user.should_not be_official_for_cup(@cup)
+      expect(@user).not_to be_official_for_cup(@cup)
     end
 
     it "should return false when user is not official for the given cup" do
       cup = FactoryGirl.create(:cup)
       @user.cups << cup
-      @user.should_not be_official_for_cup(@cup)
+      expect(@user).not_to be_official_for_cup(@cup)
     end
 
     it "should return true when user is official for the given cup" do
       @user.cups << @cup
-      @user.should be_official_for_cup(@cup)
+      expect(@user).to be_official_for_cup(@cup)
     end
   end
   
@@ -100,17 +100,17 @@ describe User do
     end
     
     it "should return false when user is not official for the race" do
-      @user.should_not have_full_rights_for_race(@race)
+      expect(@user).not_to have_full_rights_for_race(@race)
     end
     
     it "should return false when user has only add competitors rights" do
       @user.race_rights.create!(:race => @race, :only_add_competitors => true)
-      @user.should_not have_full_rights_for_race(@race) 
+      expect(@user).not_to have_full_rights_for_race(@race)
     end
     
     it "should return true when user has full rights" do
       @user.race_rights.create!(:race => @race, :only_add_competitors => false)
-      @user.should have_full_rights_for_race(@race) 
+      expect(@user).to have_full_rights_for_race(@race)
     end
   end
 
@@ -122,7 +122,7 @@ describe User do
 
       context "when online usage" do
         before do
-          Mode.stub(:offline?).and_return(false)
+          allow(Mode).to receive(:offline?).and_return(false)
         end
 
         it "should not be limited" do
@@ -132,11 +132,11 @@ describe User do
 
       context "when offline usage" do
         before do
-          Mode.stub(:offline?).and_return(true)
+          allow(Mode).to receive(:offline?).and_return(true)
         end
 
         it "should be one" do
-          FactoryGirl.build(:user).should_not be_valid
+          expect(FactoryGirl.build(:user)).not_to be_valid
         end
       end
     end

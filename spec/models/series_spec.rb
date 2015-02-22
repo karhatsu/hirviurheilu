@@ -26,12 +26,12 @@ describe Series do
 
       before do
         race = FactoryGirl.build(:race)
-        race.stub(:days_count).and_return(2)
+        allow(race).to receive(:days_count).and_return(2)
         @series = FactoryGirl.build(:series, :race => race, :start_day => 3)
       end
 
       it "should not be bigger than race days count" do
-        @series.should have(1).errors_on(:start_day)
+        expect(@series).to have(1).errors_on(:start_day)
       end
     end
 
@@ -71,7 +71,7 @@ describe Series do
 
       it "should convert nil to default value" do
         series = FactoryGirl.create(:series, :time_points_type => nil)
-        series.time_points_type.should == Series::TIME_POINTS_TYPE_NORMAL
+        expect(series.time_points_type).to eq(Series::TIME_POINTS_TYPE_NORMAL)
       end
     end
   end
@@ -84,12 +84,12 @@ describe Series do
       
       it "should become false on create" do
         series = FactoryGirl.create(:series, :race => @race)
-        series.should_not have_start_list
+        expect(series).not_to have_start_list
       end
       
       it "should stay true if already is true" do
         series = FactoryGirl.create(:series, :race => @race, :has_start_list => true)
-        series.should have_start_list
+        expect(series).to have_start_list
       end
     end
     
@@ -100,7 +100,7 @@ describe Series do
       end
       
       it "should become true on create" do
-        @series.should have_start_list
+        expect(@series).to have_start_list
       end
     end
   end
@@ -129,11 +129,11 @@ describe Series do
   
       it "should return nil if no competitors" do
         series = FactoryGirl.create(:series)
-        series.send(:best_time_in_seconds, [nil], false).should be_nil
+        expect(series.send(:best_time_in_seconds, [nil], false)).to be_nil
       end
   
       it "should return nil if no official, finished competitors with time" do
-        @series.send(:best_time_in_seconds, [nil], false).should be_nil
+        expect(@series.send(:best_time_in_seconds, [nil], false)).to be_nil
       end
   
       describe "finished competitors found" do
@@ -147,17 +147,17 @@ describe Series do
         end
   
         it "should return the fastest time for official, finished competitors" do
-          @series.send(:best_time_in_seconds, [nil], false).should == 61
+          expect(@series.send(:best_time_in_seconds, [nil], false)).to eq(61)
         end
   
         it "should return the fastest time of all finished competitors when unofficials included" do
-          @series.send(:best_time_in_seconds, [nil], true).should == 60
+          expect(@series.send(:best_time_in_seconds, [nil], true)).to eq(60)
         end
       end
   
       it "should use postgres syntax when postgres database" do
         expect_postgres_query_for_minimum_time({:unofficial => false, :no_result_reason => nil, age_group_id: [nil, 0]}, 123)
-        @series.send(:best_time_in_seconds, [nil], false).should == 123
+        expect(@series.send(:best_time_in_seconds, [nil], false)).to eq(123)
       end
     end
     
@@ -194,11 +194,11 @@ describe Series do
   
       it "should return nil if no competitors" do
         series = FactoryGirl.create(:series)
-        series.send(:best_time_in_seconds, @age_groups, false).should be_nil
+        expect(series.send(:best_time_in_seconds, @age_groups, false)).to be_nil
       end
   
       it "should return nil if no official, finished competitors with time" do
-        @series.send(:best_time_in_seconds, @age_groups, false).should be_nil
+        expect(@series.send(:best_time_in_seconds, @age_groups, false)).to be_nil
       end
   
       describe "finished competitors found" do
@@ -212,17 +212,17 @@ describe Series do
         end
   
         it "should return the fastest time for official, finished competitors" do
-          @series.send(:best_time_in_seconds, @age_groups, false).should == 61
+          expect(@series.send(:best_time_in_seconds, @age_groups, false)).to eq(61)
         end
   
         it "should return the fastest time of all finished competitors when unofficials included" do
-          @series.send(:best_time_in_seconds, @age_groups, true).should == 60
+          expect(@series.send(:best_time_in_seconds, @age_groups, true)).to eq(60)
         end
       end
   
       it "should use postgres syntax when postgres database" do
         expect_postgres_query_for_minimum_time({:unofficial => false, :no_result_reason => nil, :age_group_id => @age_group_ids}, 123)
-        @series.send(:best_time_in_seconds, @age_groups, false).should == 123
+        expect(@series.send(:best_time_in_seconds, @age_groups, false)).to eq(123)
       end
     end
     
@@ -230,7 +230,7 @@ describe Series do
       before do
         @series = FactoryGirl.build(:series)
         @competitors = [mock_model(Competitor)]
-        @series.should_receive(:competitors).once.and_return(@competitors)
+        expect(@series).to receive(:competitors).once.and_return(@competitors)
         @age_groups = [double(AgeGroup, id: 1), double(AgeGroup, id: 2)]
       end
       
@@ -238,20 +238,20 @@ describe Series do
         it "should return correct value without db query" do
           result = "1234"
           limited_competitors = double(Array)
-          @competitors.should_receive(:where).once.and_return(limited_competitors)
-          limited_competitors.should_receive(:minimum).once.and_return(result)
-          @series.send(:best_time_in_seconds, @age_groups, true).should == result.to_i
-          @series.send(:best_time_in_seconds, @age_groups, true).should == result.to_i
+          expect(@competitors).to receive(:where).once.and_return(limited_competitors)
+          expect(limited_competitors).to receive(:minimum).once.and_return(result)
+          expect(@series.send(:best_time_in_seconds, @age_groups, true)).to eq(result.to_i)
+          expect(@series.send(:best_time_in_seconds, @age_groups, true)).to eq(result.to_i)
         end
       end
       
       context "when first method call returns nil" do
         it "should return nil without db query" do
           limited_competitors = double(Array)
-          @competitors.should_receive(:where).once.and_return(limited_competitors)
-          limited_competitors.should_receive(:minimum).once.and_return(nil)
-          @series.send(:best_time_in_seconds, @age_groups, true).should == nil
-          @series.send(:best_time_in_seconds, @age_groups, true).should == nil
+          expect(@competitors).to receive(:where).once.and_return(limited_competitors)
+          expect(limited_competitors).to receive(:minimum).once.and_return(nil)
+          expect(@series.send(:best_time_in_seconds, @age_groups, true)).to eq(nil)
+          expect(@series.send(:best_time_in_seconds, @age_groups, true)).to eq(nil)
         end
       end
     end
@@ -269,8 +269,8 @@ describe Series do
       age_group_array = double(Array)
       expect(@series).to receive(:age_groups_for_comparison_time).with(@all_competitors).and_return(hash)
       expect(hash).to receive(:[]).with(age_group).and_return(age_group_array)
-      @series.should_receive(:best_time_in_seconds).with(age_group_array, @all_competitors).and_return(9998)
-      @series.comparison_time_in_seconds(age_group, @all_competitors).should == 9998
+      expect(@series).to receive(:best_time_in_seconds).with(age_group_array, @all_competitors).and_return(9998)
+      expect(@series.comparison_time_in_seconds(age_group, @all_competitors)).to eq(9998)
     end
   end
   
@@ -283,7 +283,7 @@ describe Series do
     context "when no age groups" do
       it "should return an empty hash" do
         groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
-        groups.should == {}
+        expect(groups).to eq({})
       end
     end
     
@@ -297,44 +297,44 @@ describe Series do
       context "and all age groups have enough competitors" do
         before do
           expect_ordered_age_groups(@series, [@age_group_M75, @age_group_M80, @age_group_M85])
-          @age_group_M75.stub(:competitors_count).with(@all_competitors).and_return(3)
-          @age_group_M80.stub(:competitors_count).with(@all_competitors).and_return(4)
-          @age_group_M85.stub(:competitors_count).with(@all_competitors).and_return(3)
+          allow(@age_group_M75).to receive(:competitors_count).with(@all_competitors).and_return(3)
+          allow(@age_group_M80).to receive(:competitors_count).with(@all_competitors).and_return(4)
+          allow(@age_group_M85).to receive(:competitors_count).with(@all_competitors).and_return(3)
         end
         
         it "should return all age groups as keys and self with older age groups as values" do
           groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
-          groups.length.should == 3+1 # see the next test
-          groups[@age_group_M75].should == [@age_group_M85, @age_group_M80, @age_group_M75]
-          groups[@age_group_M80].should == [@age_group_M85, @age_group_M80]
-          groups[@age_group_M85].should == [@age_group_M85]
+          expect(groups.length).to eq(3+1) # see the next test
+          expect(groups[@age_group_M75]).to eq([@age_group_M85, @age_group_M80, @age_group_M75])
+          expect(groups[@age_group_M80]).to eq([@age_group_M85, @age_group_M80])
+          expect(groups[@age_group_M85]).to eq([@age_group_M85])
         end
 
         it "should have nil referring to main series in the hash with all groups + nil (self) as values" do
           groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
-          groups[nil].should == [@age_group_M85, @age_group_M80, @age_group_M75, nil]
+          expect(groups[nil]).to eq([@age_group_M85, @age_group_M80, @age_group_M75, nil])
         end
       end
       
       context "and the first+second youngest age groups have together enough competitors" do
         before do
           expect_ordered_age_groups(@series, [@age_group_M75, @age_group_M80, @age_group_M85])
-          @age_group_M75.stub(:competitors_count).with(@all_competitors).and_return(1)
-          @age_group_M80.stub(:competitors_count).with(@all_competitors).and_return(2)
-          @age_group_M85.stub(:competitors_count).with(@all_competitors).and_return(3)
+          allow(@age_group_M75).to receive(:competitors_count).with(@all_competitors).and_return(1)
+          allow(@age_group_M80).to receive(:competitors_count).with(@all_competitors).and_return(2)
+          allow(@age_group_M85).to receive(:competitors_count).with(@all_competitors).and_return(3)
         end
         
         it "should return a hash where the youngest age groups have all age groups" do
           groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
-          groups.length.should == 4
-          groups[@age_group_M75].should == [@age_group_M85, @age_group_M80, @age_group_M75]
-          groups[@age_group_M80].should == [@age_group_M85, @age_group_M80, @age_group_M75]
-          groups[@age_group_M85].should == [@age_group_M85]
+          expect(groups.length).to eq(4)
+          expect(groups[@age_group_M75]).to eq([@age_group_M85, @age_group_M80, @age_group_M75])
+          expect(groups[@age_group_M80]).to eq([@age_group_M85, @age_group_M80, @age_group_M75])
+          expect(groups[@age_group_M85]).to eq([@age_group_M85])
         end
 
         it "should have nil referring to main series in the hash with all groups + nil (self) as values" do
           groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
-          groups[nil].should == [@age_group_M85, @age_group_M80, @age_group_M75, nil]
+          expect(groups[nil]).to eq([@age_group_M85, @age_group_M80, @age_group_M75, nil])
         end
       end
       
@@ -346,44 +346,44 @@ describe Series do
           @age_group_M89 = mock_model(AgeGroup, :id => @age_group_M89, :name => 'M89', :min_competitors => 3)
           @age_groups = [@age_group_M75, @age_group_M80, @age_group_M85, @age_group_M86, @age_group_M87, @age_group_M88, @age_group_M89]
           @age_groups.each do |age_group|
-            age_group.stub(:competitors_count).with(@all_competitors).and_return(1)
-            age_group.stub(:shorter_trip).and_return(false)
+            allow(age_group).to receive(:competitors_count).with(@all_competitors).and_return(1)
+            allow(age_group).to receive(:shorter_trip).and_return(false)
           end
           expect_ordered_age_groups(@series, @age_groups)
         end
         
         it "should return correct hash" do
           groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
-          groups.length.should == 8
+          expect(groups.length).to eq(8)
           all_age_groups = (@age_groups.reverse << nil)
-          groups[nil].should == all_age_groups
-          groups[@age_group_M75].should == all_age_groups
-          groups[@age_group_M80].should == [@age_group_M89, @age_group_M88, @age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80]
-          groups[@age_group_M85].should == [@age_group_M89, @age_group_M88, @age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80]
-          groups[@age_group_M86].should == [@age_group_M89, @age_group_M88, @age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80]
-          groups[@age_group_M87].should == [@age_group_M89, @age_group_M88, @age_group_M87]
-          groups[@age_group_M88].should == [@age_group_M89, @age_group_M88, @age_group_M87]
-          groups[@age_group_M89].should == [@age_group_M89, @age_group_M88, @age_group_M87]
+          expect(groups[nil]).to eq(all_age_groups)
+          expect(groups[@age_group_M75]).to eq(all_age_groups)
+          expect(groups[@age_group_M80]).to eq([@age_group_M89, @age_group_M88, @age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80])
+          expect(groups[@age_group_M85]).to eq([@age_group_M89, @age_group_M88, @age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80])
+          expect(groups[@age_group_M86]).to eq([@age_group_M89, @age_group_M88, @age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80])
+          expect(groups[@age_group_M87]).to eq([@age_group_M89, @age_group_M88, @age_group_M87])
+          expect(groups[@age_group_M88]).to eq([@age_group_M89, @age_group_M88, @age_group_M87])
+          expect(groups[@age_group_M89]).to eq([@age_group_M89, @age_group_M88, @age_group_M87])
         end
 
         context "and oldest groups have shorter trip to run" do
           before do
-            @age_group_M88.stub(:shorter_trip).and_return(true)
-            @age_group_M89.stub(:shorter_trip).and_return(true)
+            allow(@age_group_M88).to receive(:shorter_trip).and_return(true)
+            allow(@age_group_M89).to receive(:shorter_trip).and_return(true)
           end
 
           it "should not mix those age groups with the other ones having a longer trip" do
             groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
-            groups.length.should == 8
+            expect(groups.length).to eq(8)
             all_groups_with_longer_trip = [@age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80, @age_group_M75, nil]
-            groups[nil].should == all_groups_with_longer_trip
-            groups[@age_group_M75].should == all_groups_with_longer_trip
-            groups[@age_group_M80].should == all_groups_with_longer_trip
-            groups[@age_group_M85].should == [@age_group_M87, @age_group_M86, @age_group_M85]
-            groups[@age_group_M86].should == [@age_group_M87, @age_group_M86, @age_group_M85]
-            groups[@age_group_M87].should == [@age_group_M87, @age_group_M86, @age_group_M85]
-            groups[@age_group_M88].should == [@age_group_M89, @age_group_M88]
-            groups[@age_group_M89].should == [@age_group_M89, @age_group_M88]
+            expect(groups[nil]).to eq(all_groups_with_longer_trip)
+            expect(groups[@age_group_M75]).to eq(all_groups_with_longer_trip)
+            expect(groups[@age_group_M80]).to eq(all_groups_with_longer_trip)
+            expect(groups[@age_group_M85]).to eq([@age_group_M87, @age_group_M86, @age_group_M85])
+            expect(groups[@age_group_M86]).to eq([@age_group_M87, @age_group_M86, @age_group_M85])
+            expect(groups[@age_group_M87]).to eq([@age_group_M87, @age_group_M86, @age_group_M85])
+            expect(groups[@age_group_M88]).to eq([@age_group_M89, @age_group_M88])
+            expect(groups[@age_group_M89]).to eq([@age_group_M89, @age_group_M88])
           end
         end
       end
@@ -398,9 +398,9 @@ describe Series do
       
       it "should return hash with each age group referring only to itself inside of an array" do
         groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
-        groups.length.should == 2
-        groups[@age_group_T16].should == [@age_group_T16]
-        groups[@age_group_P16].should == [@age_group_P16]
+        expect(groups.length).to eq(2)
+        expect(groups[@age_group_T16]).to eq([@age_group_T16])
+        expect(groups[@age_group_P16]).to eq([@age_group_P16])
       end
     end
 
@@ -417,11 +417,11 @@ describe Series do
       all_competitors = false
       series = FactoryGirl.build(:series)
       competitors, included = ['a', 'b', 'c'], ['d', 'e']
-      series.stub(:competitors).and_return(competitors)
-      competitors.should_receive(:includes).with([:shots, :club, :age_group, :series]).
+      allow(series).to receive(:competitors).and_return(competitors)
+      expect(competitors).to receive(:includes).with([:shots, :club, :age_group, :series]).
         and_return(included)
-      Competitor.should_receive(:sort_competitors).with(included, all_competitors, Competitor::SORT_BY_POINTS).and_return([1, 2, 3])
-      series.ordered_competitors(all_competitors).should == [1, 2, 3]
+      expect(Competitor).to receive(:sort_competitors).with(included, all_competitors, Competitor::SORT_BY_POINTS).and_return([1, 2, 3])
+      expect(series.ordered_competitors(all_competitors)).to eq([1, 2, 3])
     end
     
     context "when sort parameter given" do
@@ -429,18 +429,18 @@ describe Series do
         all_competitors = false
         series = FactoryGirl.build(:series)
         competitors, included = ['a', 'b', 'c'], ['d', 'e']
-        series.stub(:competitors).and_return(competitors)
-        competitors.should_receive(:includes).with([:shots, :club, :age_group, :series]).
+        allow(series).to receive(:competitors).and_return(competitors)
+        expect(competitors).to receive(:includes).with([:shots, :club, :age_group, :series]).
           and_return(included)
-        Competitor.should_receive(:sort_competitors).with(included, all_competitors, Competitor::SORT_BY_TIME).and_return([1, 2, 3])
-        series.ordered_competitors(all_competitors, Competitor::SORT_BY_TIME).should == [1, 2, 3]
+        expect(Competitor).to receive(:sort_competitors).with(included, all_competitors, Competitor::SORT_BY_TIME).and_return([1, 2, 3])
+        expect(series.ordered_competitors(all_competitors, Competitor::SORT_BY_TIME)).to eq([1, 2, 3])
       end
     end
   end
 
   describe "#start_list" do
     it "should return empty array when no competitors" do
-      FactoryGirl.build(:series).start_list.should == []
+      expect(FactoryGirl.build(:series).start_list).to eq([])
     end
 
     it "should return competitors with start time ordered by start time, then by start number" do
@@ -455,7 +455,7 @@ describe Series do
       series.competitors << c3
       series.competitors << c4
       series.competitors << c5
-      series.start_list.should == [c2, c4, c3, c1]
+      expect(series.start_list).to eq([c2, c4, c3, c1])
     end
   end
   
@@ -463,7 +463,7 @@ describe Series do
     it "should return the value from race" do
       race = mock_model(Race, :next_start_number => 123)
       series = FactoryGirl.build(:series, :race => race)
-      series.next_start_number.should == 123
+      expect(series.next_start_number).to eq(123)
     end
   end
   
@@ -471,7 +471,7 @@ describe Series do
     it "should return the value from race" do
       race = mock_model(Race, :next_start_time => 456)
       series = FactoryGirl.build(:series, :race => race)
-      series.next_start_time.should == 456
+      expect(series.next_start_time).to eq(456)
     end
   end
 
@@ -483,19 +483,19 @@ describe Series do
     end
 
     it "should return false when no competitors" do
-      @series.some_competitor_has_arrival_time?.should be_false
+      expect(@series.some_competitor_has_arrival_time?).to be_false
     end
 
     it "should return false when none of the competitors have an arrival time" do
-      @series.stub(:competitors).and_return([@c1, @c2])
-      @series.some_competitor_has_arrival_time?.should be_false
+      allow(@series).to receive(:competitors).and_return([@c1, @c2])
+      expect(@series.some_competitor_has_arrival_time?).to be_false
     end
 
     it "should return true when any of the competitors have an arrival time" do
       @c2.start_time = '11:34:45'
       @c2.arrival_time = '12:34:45'
-      @series.stub(:competitors).and_return([@c1, @c2])
-      @series.some_competitor_has_arrival_time?.should be_true
+      allow(@series).to receive(:competitors).and_return([@c1, @c2])
+      expect(@series.some_competitor_has_arrival_time?).to be_true
     end
   end
 
@@ -515,8 +515,8 @@ describe Series do
           @c4 = FactoryGirl.create(:competitor, :series => @series,
             :start_time => '14:00', :arrival_time => '14:30', :number => 5)
           @series.reload
-          @series.generate_numbers(Series::START_LIST_ADDING_ORDER).should be_false
-          @series.should have(1).errors
+          expect(@series.generate_numbers(Series::START_LIST_ADDING_ORDER)).to be_false
+          expect(@series.errors.size).to eq(1)
           check_no_changes_in_competitors
         end
       end
@@ -529,8 +529,8 @@ describe Series do
 
         it "should do nothing for competitors, add error and return false" do
           @series.reload
-          @series.generate_numbers(Series::START_LIST_ADDING_ORDER).should be_false
-          @series.should have(1).errors
+          expect(@series.generate_numbers(Series::START_LIST_ADDING_ORDER)).to be_false
+          expect(@series.errors.size).to eq(1)
           check_no_changes_in_competitors
         end
       end
@@ -544,40 +544,40 @@ describe Series do
 
         it "should do nothing for competitors, add error and return false" do
           @series.reload
-          @series.generate_numbers(Series::START_LIST_ADDING_ORDER).should be_false
-          @series.should have(1).errors
+          expect(@series.generate_numbers(Series::START_LIST_ADDING_ORDER)).to be_false
+          expect(@series.errors.size).to eq(1)
           check_no_changes_in_competitors
         end
       end
       
       def check_no_changes_in_competitors
         reload_competitors
-        @c1.number.should == @old1
-        @c2.number.should == @old2
-        @c3.number.should == @old3
+        expect(@c1.number).to eq(@old1)
+        expect(@c2.number).to eq(@old2)
+        expect(@c3.number).to eq(@old3)
       end
     end
 
     describe "generation succeeds" do
       describe "adding order" do
         it "should generate numbers based on series first number and return true" do
-          @series.generate_numbers(Series::START_LIST_ADDING_ORDER).should be_true
-          @series.should be_valid
+          expect(@series.generate_numbers(Series::START_LIST_ADDING_ORDER)).to be_true
+          expect(@series).to be_valid
           reload_competitors
-          @c1.number.should == 5
-          @c2.number.should == 6
-          @c3.number.should == 7
+          expect(@c1.number).to eq(5)
+          expect(@c2.number).to eq(6)
+          expect(@c3.number).to eq(7)
         end
       end
 
       describe "random order" do
         it "should generate numbers based on series first number and return true" do
-          @series.generate_numbers(Series::START_LIST_RANDOM).should be_true
-          @series.should be_valid
+          expect(@series.generate_numbers(Series::START_LIST_RANDOM)).to be_true
+          expect(@series).to be_valid
           reload_competitors
-          [5,6,7].should include(@c1.number)
-          [5,6,7].should include(@c2.number)
-          [5,6,7].should include(@c3.number)
+          expect([5,6,7]).to include(@c1.number)
+          expect([5,6,7]).to include(@c2.number)
+          expect([5,6,7]).to include(@c3.number)
           i = 0
           while @c1.number == 5 and @c2.number == 6 and @c3.number == 7 do
             @series.generate_numbers(Series::START_LIST_RANDOM)
@@ -591,8 +591,8 @@ describe Series do
       end
 
       it "should set correct estimates for competitors" do
-        @race.should_receive(:set_correct_estimates_for_competitors)
-        @series.generate_numbers(Series::START_LIST_ADDING_ORDER).should be_true
+        expect(@race).to receive(:set_correct_estimates_for_competitors)
+        expect(@series.generate_numbers(Series::START_LIST_ADDING_ORDER)).to be_true
       end
     end
 
@@ -609,13 +609,13 @@ describe Series do
     end
 
     it "should return true when generation succeeds" do
-      @series.should_receive(:generate_numbers).with(0).and_return(true)
-      @series.generate_numbers!(0).should be_true
+      expect(@series).to receive(:generate_numbers).with(0).and_return(true)
+      expect(@series.generate_numbers!(0)).to be_true
     end
 
     it "raise exception if generation fails" do
-      @series.should_receive(:generate_numbers).with(0).and_return(false)
-      lambda { @series.generate_numbers!(0) }.should raise_error
+      expect(@series).to receive(:generate_numbers).with(0).and_return(false)
+      expect { @series.generate_numbers!(0) }.to raise_error
     end
   end
 
@@ -635,8 +635,8 @@ describe Series do
         it "should do nothing for competitors, add error and return false" do
           @c4 = FactoryGirl.create(:competitor, :series => @series, :number => nil)
           @series.reload
-          @series.generate_start_times.should be_false
-          @series.should have(1).errors
+          expect(@series.generate_start_times).to be_false
+          expect(@series.errors.size).to eq(1)
           check_competitors_no_changes([@c1, @c2, @c3, @c4])
         end
       end
@@ -646,8 +646,8 @@ describe Series do
           @c4 = FactoryGirl.create(:competitor, :series => @series,
             :start_time => '14:00', :arrival_time => '14:30', :number => 5)
           @series.reload
-          @series.generate_start_times.should be_false
-          @series.should have(1).errors
+          expect(@series.generate_start_times).to be_false
+          expect(@series.errors.size).to eq(1)
           check_competitors_no_changes([@c1, @c2, @c3])
         end
       end
@@ -660,8 +660,8 @@ describe Series do
 
         it "should do nothing for competitors, add error and return false" do
           @series.reload
-          @series.generate_start_times.should be_false
-          @series.should have(1).errors
+          expect(@series.generate_start_times).to be_false
+          expect(@series.errors.size).to eq(1)
           check_competitors_no_changes([@c1, @c2, @c3])
         end
       end
@@ -674,8 +674,8 @@ describe Series do
   
         it "should do nothing for competitors, add error and return false" do
           @series.reload
-          @series.generate_start_times.should be_false
-          @series.should have(1).errors
+          expect(@series.generate_start_times).to be_false
+          expect(@series.errors.size).to eq(1)
           check_competitors_no_changes([@c1, @c2, @c3])
         end
       end
@@ -683,7 +683,7 @@ describe Series do
       def check_competitors_no_changes(competitors)
         competitors.each do |c|
           c.reload
-          c.start_time.should be_nil
+          expect(c.start_time).to be_nil
         end
       end
     end
@@ -691,14 +691,14 @@ describe Series do
     describe "generation succeeds" do
       context "without batches" do
         it "should generate start times based on time interval and numbers and return true" do
-          @series.generate_start_times.should be_true
-          @series.should be_valid
+          expect(@series.generate_start_times).to be_true
+          expect(@series).to be_valid
           @c1.reload
           @c2.reload
           @c3.reload
-          @c1.start_time.strftime('%H:%M:%S').should == '10:00:15'
-          @c2.start_time.strftime('%H:%M:%S').should == '10:01:15'
-          @c3.start_time.strftime('%H:%M:%S').should == '10:02:15'
+          expect(@c1.start_time.strftime('%H:%M:%S')).to eq('10:00:15')
+          expect(@c2.start_time.strftime('%H:%M:%S')).to eq('10:01:15')
+          expect(@c3.start_time.strftime('%H:%M:%S')).to eq('10:02:15')
         end
       end
 
@@ -721,31 +721,31 @@ describe Series do
   
         describe "when batch generation succeeds" do
           it "should generate start times based on batch size, batch interval and time interval and numbers and return true" do
-            @series.generate_start_times.should be_true
-            @series.should be_valid
+            expect(@series.generate_start_times).to be_true
+            expect(@series).to be_valid
             @c1.reload
             @c2.reload
             @c3.reload
             @c4.reload
             @c5.reload
             @c6.reload
-            @c1.start_time.strftime('%H:%M:%S').should == '10:00:15'
-            @c2.start_time.strftime('%H:%M:%S').should == '10:00:45'
-            @c3.start_time.strftime('%H:%M:%S').should == '10:01:15'
-            @c4.start_time.strftime('%H:%M:%S').should == '10:04:15'
-            @c5.start_time.strftime('%H:%M:%S').should == '10:04:45'
-            @c6.start_time.strftime('%H:%M:%S').should == '10:05:15'
+            expect(@c1.start_time.strftime('%H:%M:%S')).to eq('10:00:15')
+            expect(@c2.start_time.strftime('%H:%M:%S')).to eq('10:00:45')
+            expect(@c3.start_time.strftime('%H:%M:%S')).to eq('10:01:15')
+            expect(@c4.start_time.strftime('%H:%M:%S')).to eq('10:04:15')
+            expect(@c5.start_time.strftime('%H:%M:%S')).to eq('10:04:45')
+            expect(@c6.start_time.strftime('%H:%M:%S')).to eq('10:05:15')
           end
         end
         context "when last batch is short" do
           describe "when last batch tail attachment succeeds" do
             it "should generate start times based on batch size, batch interval and time interval and numbers and return true" do
-              @series.generate_start_times.should be_true
-              @series.should be_valid
+              expect(@series.generate_start_times).to be_true
+              expect(@series).to be_valid
               @c7.reload
               @c8.reload
-              @c7.start_time.strftime('%H:%M:%S').should == '10:05:45'
-              @c8.start_time.strftime('%H:%M:%S').should == '10:06:15'
+              expect(@c7.start_time.strftime('%H:%M:%S')).to eq('10:05:45')
+              expect(@c8.start_time.strftime('%H:%M:%S')).to eq('10:06:15')
             end
           end
         end
@@ -758,17 +758,17 @@ describe Series do
               @c6.destroy
               @c7.destroy
               @c8.destroy
-              @series.generate_start_times.should be_true
-              @series.should be_valid
+              expect(@series.generate_start_times).to be_true
+              expect(@series).to be_valid
             end
             it "should generate start times based on batch size, batch interval and time interval and numbers and return true" do
-              @series.generate_start_times.should be_true
-              @series.should be_valid
+              expect(@series.generate_start_times).to be_true
+              expect(@series).to be_valid
               @c1.reload
               @c2.reload
-              @c1.start_time.strftime('%H:%M:%S').should == '10:00:15'
-              @c2.start_time.strftime('%H:%M:%S').should == '10:00:45'
-              @c3.start_time.should be_nil
+              expect(@c1.start_time.strftime('%H:%M:%S')).to eq('10:00:15')
+              expect(@c2.start_time.strftime('%H:%M:%S')).to eq('10:00:45')
+              expect(@c3.start_time).to be_nil
             end
           end
         end
@@ -782,13 +782,13 @@ describe Series do
     end
     
     it "should return true when generation succeeds" do
-      @series.should_receive(:generate_start_times).and_return(true)
-      @series.generate_start_times!.should be_true
+      expect(@series).to receive(:generate_start_times).and_return(true)
+      expect(@series.generate_start_times!).to be_true
     end
     
     it "raise exception if generation fails" do
-      @series.should_receive(:generate_start_times).and_return(false)
-      lambda { @series.generate_start_times! }.should raise_error
+      expect(@series).to receive(:generate_start_times).and_return(false)
+      expect { @series.generate_start_times! }.to raise_error
     end
   end
 
@@ -799,31 +799,31 @@ describe Series do
 
     context "when generation succeeds" do
       it "should call generate_numbers and generate_start_times" do
-        @series.should_receive(:generate_numbers).with(0).and_return(true)
-        @series.should_receive(:generate_start_times).and_return(true)
-        @series.generate_start_list(0).should be_true
+        expect(@series).to receive(:generate_numbers).with(0).and_return(true)
+        expect(@series).to receive(:generate_start_times).and_return(true)
+        expect(@series.generate_start_list(0)).to be_true
         @series.reload
-        @series.should have_start_list
+        expect(@series).to have_start_list
       end
     end
 
     context "when number generation fails" do
       it "should not generate start times, should return false and have no start list" do
-        @series.should_receive(:generate_numbers).with(0).and_return(false)
-        @series.should_not_receive(:generate_start_times)
-        @series.generate_start_list(0).should be_false
+        expect(@series).to receive(:generate_numbers).with(0).and_return(false)
+        expect(@series).not_to receive(:generate_start_times)
+        expect(@series.generate_start_list(0)).to be_false
         @series.reload
-        @series.should_not have_start_list
+        expect(@series).not_to have_start_list
       end
     end
 
     context "when start number generation fails" do
       it "should return false and have no start list" do
-        @series.should_receive(:generate_numbers).with(0).and_return(true)
-        @series.should_receive(:generate_start_times).and_return(false)
-        @series.generate_start_list(0).should be_false
+        expect(@series).to receive(:generate_numbers).with(0).and_return(true)
+        expect(@series).to receive(:generate_start_times).and_return(false)
+        expect(@series.generate_start_list(0)).to be_false
         @series.reload
-        @series.should_not have_start_list
+        expect(@series).not_to have_start_list
       end
     end
   end
@@ -835,11 +835,11 @@ describe Series do
 
     context "when generation succeeds" do
       it "should set has_start_list to true and return true" do
-        @series.should_receive(:generate_numbers!).with(0)
-        @series.should_receive(:generate_start_times!)
-        @series.generate_start_list!(0).should be_true
+        expect(@series).to receive(:generate_numbers!).with(0)
+        expect(@series).to receive(:generate_start_times!)
+        expect(@series.generate_start_list!(0)).to be_true
         @series.reload
-        @series.should have_start_list
+        expect(@series).to have_start_list
       end
     end
   end
@@ -851,27 +851,27 @@ describe Series do
 
     context "when race finished" do
       it "should return false" do
-        @race.stub(:finished?).and_return(true)
+        allow(@race).to receive(:finished?).and_return(true)
         series = Series.new(race: @race)
-        series.should_not be_active
+        expect(series).not_to be_active
       end
     end
 
     context "when race not finished" do
       before do
-        @race.stub(:finished?).and_return(false)
+        allow(@race).to receive(:finished?).and_return(false)
       end
 
       it "should return false when series not started" do
         series = Series.new(race: @race)
-        series.stub(:started?).and_return(false)
-        series.should_not be_active
+        allow(series).to receive(:started?).and_return(false)
+        expect(series).not_to be_active
       end
 
       it "should return true when series started" do
         series = Series.new(race: @race)
-        series.stub(:started?).and_return(true)
-        series.should be_active
+        allow(series).to receive(:started?).and_return(true)
+        expect(series).to be_active
       end
     end
   end
@@ -879,7 +879,7 @@ describe Series do
   describe "#started?" do
     context "when no start time" do
       it "should return false" do
-        Series.new.should_not be_started
+        expect(Series.new).not_to be_started
       end
     end
 
@@ -890,15 +890,15 @@ describe Series do
 
       context "and start date time before current time" do
         it "should return true" do
-          @series.stub(:start_datetime).and_return(Time.now - 1)
-          @series.should be_started
+          allow(@series).to receive(:start_datetime).and_return(Time.now - 1)
+          expect(@series).to be_started
         end
       end
 
       context "and start date time after current time" do
         it "should return false" do
-          @series.stub(:start_datetime).and_return(Time.now + 1)
-          @series.should_not be_started
+          allow(@series).to receive(:start_datetime).and_return(Time.now + 1)
+          expect(@series).not_to be_started
         end
       end
     end
@@ -917,11 +917,11 @@ describe Series do
           :number => nil)
       end
 
-      specify { @series.each_competitor_has_number?.should be_false }
+      specify { expect(@series.each_competitor_has_number?).to be_false }
     end
 
     context "when no numbers missing" do
-      specify { @series.each_competitor_has_number?.should be_true }
+      specify { expect(@series.each_competitor_has_number?).to be_true }
     end
   end
 
@@ -938,11 +938,11 @@ describe Series do
           :start_time => nil)
       end
 
-      specify { @series.each_competitor_has_start_time?.should be_false }
+      specify { expect(@series.each_competitor_has_start_time?).to be_false }
     end
 
     context "when no start_times missing" do
-      specify { @series.each_competitor_has_start_time?.should be_true }
+      specify { expect(@series.each_competitor_has_start_time?).to be_true }
     end
   end
 
@@ -955,18 +955,18 @@ describe Series do
 
     context "when at least one competitor hasn't finished" do
       before do
-        @series.stub(:competitors).and_return([@c1, @c2])
+        allow(@series).to receive(:competitors).and_return([@c1, @c2])
       end
 
-      specify { @series.each_competitor_finished?.should be_false }
+      specify { expect(@series.each_competitor_finished?).to be_false }
     end
 
     context "when all competitors have finished" do
       before do
-        @series.stub(:competitors).and_return([@c1])
+        allow(@series).to receive(:competitors).and_return([@c1])
       end
 
-      specify { @series.each_competitor_finished?.should be_true }
+      specify { expect(@series.each_competitor_finished?).to be_true }
     end
   end
 
@@ -974,41 +974,41 @@ describe Series do
     before do
       @series = FactoryGirl.build(:series)
       @c1, @c2, @c3 = double(Competitor), double(Competitor), double(Competitor)
-      @series.stub(:competitors).and_return([@c1, @c2, @c3])
-      @c1.stub(:finished?).and_return(true)
-      @c2.stub(:finished?).and_return(false)
-      @c3.stub(:finished?).and_return(true)
+      allow(@series).to receive(:competitors).and_return([@c1, @c2, @c3])
+      allow(@c1).to receive(:finished?).and_return(true)
+      allow(@c2).to receive(:finished?).and_return(false)
+      allow(@c3).to receive(:finished?).and_return(true)
     end
 
     it "should return count of competitors who have finished" do
-      @series.finished_competitors_count.should == 2
+      expect(@series.finished_competitors_count).to eq(2)
     end
   end
 
   describe "#ready?" do
     before do
       @series = FactoryGirl.build(:series, :has_start_list => true)
-      @series.stub(:each_competitor_finished?).and_return(true)
+      allow(@series).to receive(:each_competitor_finished?).and_return(true)
     end
 
     context "when start list not generated" do
       it "should return false" do
         @series.has_start_list = false
-        @series.should_not be_ready
+        expect(@series).not_to be_ready
       end
     end
 
     context "when start list generated" do
       context "when some competitor has no result" do
         it "should return false" do
-          @series.should_receive(:each_competitor_finished?).and_return(false)
-          @series.should_not be_ready
+          expect(@series).to receive(:each_competitor_finished?).and_return(false)
+          expect(@series).not_to be_ready
         end
       end
 
       context "when each competitor has a result" do
         it "should return true" do
-          @series.should be_ready
+          expect(@series).to be_ready
         end
       end
     end
@@ -1026,21 +1026,21 @@ describe Series do
     context "when 2 estimates for the series" do
       it "should return true when correct estimates exists for all competitors" do
         @series.reload
-        @series.each_competitor_has_correct_estimates?.should be_true
+        expect(@series.each_competitor_has_correct_estimates?).to be_true
       end
 
       it "should return false when at least one competitor is missing correct estimate 1" do
         @c2.correct_estimate1 = nil
         @c2.save!
         @series.reload
-        @series.each_competitor_has_correct_estimates?.should be_false
+        expect(@series.each_competitor_has_correct_estimates?).to be_false
       end
 
       it "should return false when at least one competitor is missing correct estimate 2" do
         @c2.correct_estimate2 = nil
         @c2.save!
         @series.reload
-        @series.each_competitor_has_correct_estimates?.should be_false
+        expect(@series.each_competitor_has_correct_estimates?).to be_false
       end
     end
 
@@ -1058,21 +1058,21 @@ describe Series do
 
       it "should return true when correct estimates exists for all competitors" do
         @series.reload
-        @series.each_competitor_has_correct_estimates?.should be_true
+        expect(@series.each_competitor_has_correct_estimates?).to be_true
       end
 
       it "should return false when at least one competitor is missing correct estimate 3" do
         @c2.correct_estimate3 = nil
         @c2.save!
         @series.reload
-        @series.each_competitor_has_correct_estimates?.should be_false
+        expect(@series.each_competitor_has_correct_estimates?).to be_false
       end
 
       it "should return false when at least one competitor is missing correct estimate 3" do
         @c2.correct_estimate4 = nil
         @c2.save!
         @series.reload
-        @series.each_competitor_has_correct_estimates?.should be_false
+        expect(@series.each_competitor_has_correct_estimates?).to be_false
       end
     end
   end
@@ -1081,8 +1081,8 @@ describe Series do
     it "should return value from StartDateTime module" do
       race = mock_model(Race)
       series = FactoryGirl.build(:series, race: race, start_day: 2, start_time: '12:00')
-      series.should_receive(:start_date_time).with(race, 2, series.start_time).and_return('time')
-      series.start_datetime.should == 'time'
+      expect(series).to receive(:start_date_time).with(race, 2, series.start_time).and_return('time')
+      expect(series.start_datetime).to eq('time')
     end
   end
 
@@ -1093,13 +1093,13 @@ describe Series do
     end
 
     it "should return false when no unofficial competitors" do
-      @series.should_not have_unofficial_competitors
+      expect(@series).not_to have_unofficial_competitors
     end
 
     it "should return true when at least one unofficial competitor" do
       @series.competitors << FactoryGirl.build(:competitor, :series => @series,
         :unofficial => true)
-      @series.should have_unofficial_competitors
+      expect(@series).to have_unofficial_competitors
     end
   end
   
@@ -1116,14 +1116,14 @@ describe Series do
     it "false for S132" do verify('S132', false) end
     
     def verify(name, expected)
-      Series.new(:name => name).competitors_only_to_age_groups?.should == expected
+      expect(Series.new(:name => name).competitors_only_to_age_groups?).to eq(expected)
     end
   end
   
   describe "#age_groups_with_main_series" do
     context "when no age groups" do
       it "should be empty array" do
-        Series.new.age_groups_with_main_series.should be_empty
+        expect(Series.new.age_groups_with_main_series).to be_empty
       end
     end
     
@@ -1136,23 +1136,23 @@ describe Series do
 
       context "and competitors can be added to main group" do
         it "should be age groups array prepended with main series" do
-          @series.stub(:competitors_only_to_age_groups?).and_return(false)
+          allow(@series).to receive(:competitors_only_to_age_groups?).and_return(false)
           age_groups = @series.age_groups_with_main_series
-          age_groups.length.should == 2
-          age_groups[0].id.should be_nil
-          age_groups[0].name.should == @series.name
-          age_groups[1].id.should == @age_group.id
-          age_groups[1].name.should == @age_group.name
+          expect(age_groups.length).to eq(2)
+          expect(age_groups[0].id).to be_nil
+          expect(age_groups[0].name).to eq(@series.name)
+          expect(age_groups[1].id).to eq(@age_group.id)
+          expect(age_groups[1].name).to eq(@age_group.name)
         end
       end
       
       context "and competitors can be added only to age groups" do
         it "should be age groups array" do
-          @series.stub(:competitors_only_to_age_groups?).and_return(true)
+          allow(@series).to receive(:competitors_only_to_age_groups?).and_return(true)
           age_groups = @series.age_groups_with_main_series
-          age_groups.length.should == 1
-          age_groups[0].id.should == @age_group.id
-          age_groups[0].name.should == @age_group.name
+          expect(age_groups.length).to eq(1)
+          expect(age_groups[0].id).to eq(@age_group.id)
+          expect(age_groups[0].name).to eq(@age_group.name)
         end
       end
     end
@@ -1168,8 +1168,8 @@ describe Series do
       
       it "should not update start times nor numbers" do
         @series.update_start_time_and_number
-        @series.start_time.should be_nil
-        @series.first_number.should be_nil
+        expect(@series.start_time).to be_nil
+        expect(@series.first_number).to be_nil
       end
     end
     
@@ -1187,11 +1187,11 @@ describe Series do
       end
       
       it "should set the minimum competitor start time as series start time" do
-        @series.start_time.strftime('%H:%M').should == '09:59'
+        expect(@series.start_time.strftime('%H:%M')).to eq('09:59')
       end
       
       it "should set the minimum competitor number as series first number" do
-        @series.first_number.should == 4
+        expect(@series.first_number).to eq(4)
       end
     end
   end
@@ -1199,7 +1199,7 @@ describe Series do
   describe "#has_result_for_some_competitor?" do
     context "when no competitors" do
       it "should return false" do
-        Series.new.should_not have_result_for_some_competitor
+        expect(Series.new).not_to have_result_for_some_competitor
       end
     end
     
@@ -1213,7 +1213,7 @@ describe Series do
       context "but none of the competitors have neither arrival time, estimates nor shots total" do
         it "should return false" do
           @series.reload
-          @series.should_not have_result_for_some_competitor
+          expect(@series).not_to have_result_for_some_competitor
         end
       end
       
@@ -1222,7 +1222,7 @@ describe Series do
           @c1.arrival_time = '12:23:34'
           @c1.save!
           @series.reload
-          @series.should have_result_for_some_competitor
+          expect(@series).to have_result_for_some_competitor
         end
       end
       
@@ -1231,7 +1231,7 @@ describe Series do
           @c2.estimate1 = 123
           @c2.save!
           @series.reload
-          @series.should have_result_for_some_competitor
+          expect(@series).to have_result_for_some_competitor
         end
       end
 
@@ -1240,7 +1240,7 @@ describe Series do
           @c1.estimate2 = 111
           @c1.save!
           @series.reload
-          @series.should have_result_for_some_competitor
+          expect(@series).to have_result_for_some_competitor
         end
       end
 
@@ -1249,7 +1249,7 @@ describe Series do
           @c2.shots_total_input = 99
           @c2.save!
           @series.reload
-          @series.should have_result_for_some_competitor
+          expect(@series).to have_result_for_some_competitor
         end
       end
     end
@@ -1277,9 +1277,9 @@ describe Series do
   def expect_postgres_query_for_minimum_time(conditions, return_value)
     competitors = double(Array)
     limited_competitors = double(Array)
-    DatabaseHelper.should_receive(:postgres?).and_return(true)
-    @series.should_receive(:competitors).and_return(competitors)
-    competitors.should_receive(:where).with(conditions).and_return(limited_competitors)
-    limited_competitors.should_receive(:minimum).with("EXTRACT(EPOCH FROM (arrival_time-start_time))").and_return(return_value)
+    expect(DatabaseHelper).to receive(:postgres?).and_return(true)
+    expect(@series).to receive(:competitors).and_return(competitors)
+    expect(competitors).to receive(:where).with(conditions).and_return(limited_competitors)
+    expect(limited_competitors).to receive(:minimum).with("EXTRACT(EPOCH FROM (arrival_time-start_time))").and_return(return_value)
   end
 end

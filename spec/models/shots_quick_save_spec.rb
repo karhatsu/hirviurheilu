@@ -20,9 +20,9 @@ describe ShotsQuickSave do
 
           describe "#save" do
             it "should save given shots sum for the competitor and return true" do
-              @qs.save.should be_true
+              expect(@qs.save).to be_true
               @c2.reload
-              @c2.shots_total_input.should == 98
+              expect(@c2.shots_total_input).to eq(98)
             end
           end
 
@@ -30,14 +30,14 @@ describe ShotsQuickSave do
             it "should return the correct competitor" do
               @qs.save
               @c2.reload
-              @qs.competitor.should == @c2
+              expect(@qs.competitor).to eq(@c2)
             end
           end
 
           describe "#error" do
             it "should be nil" do
               @qs.save
-              @qs.error.should be_nil
+              expect(@qs.error).to be_nil
             end
           end
         end
@@ -52,9 +52,9 @@ describe ShotsQuickSave do
 
           describe "#save" do
             it "should save given shots sum for the competitor and return true" do
-              @qs.save.should be_true
+              expect(@qs.save).to be_true
               @c2.reload
-              @c2.shots_total_input.should == 98
+              expect(@c2.shots_total_input).to eq(98)
             end
           end
 
@@ -62,14 +62,14 @@ describe ShotsQuickSave do
             it "should return the correct competitor" do
               @qs.save
               @c2.reload
-              @qs.competitor.should == @c2
+              expect(@qs.competitor).to eq(@c2)
             end
           end
 
           describe "#error" do
             it "should be nil" do
               @qs.save
-              @qs.error.should be_nil
+              expect(@qs.error).to be_nil
             end
           end
         end
@@ -83,11 +83,11 @@ describe ShotsQuickSave do
 
           describe "#save" do
             it "should save given shots for the competitor and return true" do
-              @qs.save.should be_true
+              expect(@qs.save).to be_true
               @c.reload
-              @c.shots_total_input.should be_nil
-              @c.should have(10).shots
-              @c.shots_sum.should == 10+9+9+8+8+7+6+5+1+0
+              expect(@c.shots_total_input).to be_nil
+              expect(@c.shots.size).to eq(10)
+              expect(@c.shots_sum).to eq(10+9+9+8+8+7+6+5+1+0)
             end
           end
 
@@ -95,14 +95,14 @@ describe ShotsQuickSave do
             it "should return the correct competitor" do
               @qs.save
               @c.reload
-              @qs.competitor.should == @c
+              expect(@qs.competitor).to eq(@c)
             end
           end
 
           describe "#error" do
             it "should be nil" do
               @qs.save
-              @qs.error.should be_nil
+              expect(@qs.error).to be_nil
             end
           end
         end
@@ -117,11 +117,11 @@ describe ShotsQuickSave do
 
           describe "#save" do
             it "should save given shots for the competitor and return true" do
-              @qs.save.should be_true
+              expect(@qs.save).to be_true
               @c.reload
-              @c.shots_total_input.should be_nil
-              @c.should have(10).shots
-              @c.shots_sum.should == 10+9+9+8+8+7+6+5+0+1
+              expect(@c.shots_total_input).to be_nil
+              expect(@c.shots.size).to eq(10)
+              expect(@c.shots_sum).to eq(10+9+9+8+8+7+6+5+0+1)
             end
           end
 
@@ -129,14 +129,14 @@ describe ShotsQuickSave do
             it "should return the correct competitor" do
               @qs.save
               @c.reload
-              @qs.competitor.should == @c
+              expect(@qs.competitor).to eq(@c)
             end
           end
 
           describe "#error" do
             it "should be nil" do
               @qs.save
-              @qs.error.should be_nil
+              expect(@qs.error).to be_nil
             end
           end
         end
@@ -150,9 +150,9 @@ describe ShotsQuickSave do
 
       describe "#save" do
         it "should not save given shots for the competitor and return false" do
-          @qs.save.should be_false
+          expect(@qs.save).to be_false
           @c.reload
-          @c.shots_total_input.should == 50
+          expect(@c.shots_total_input).to eq(50)
         end
       end
 
@@ -160,14 +160,14 @@ describe ShotsQuickSave do
         it "should return the correct competitor" do
           @qs.save
           @c.reload
-          @qs.competitor.should == @c
+          expect(@qs.competitor).to eq(@c)
         end
       end
 
       describe "#error" do
         it "should contain an error message" do
           @qs.save
-          @qs.error.should_not be_nil
+          expect(@qs.error).not_to be_nil
         end
       end
     end
@@ -183,23 +183,23 @@ describe ShotsQuickSave do
 
     describe "#save" do
       it "should not save given shots for the competitor and return false" do
-        @qs.save.should be_false
+        expect(@qs.save).to be_false
         @c.reload
-        @c.shots_total_input.should == 50
+        expect(@c.shots_total_input).to eq(50)
       end
     end
 
     describe "#competitor" do
       it "should return nil" do
         @qs.save
-        @qs.competitor.should be_nil
+        expect(@qs.competitor).to be_nil
       end
     end
 
     describe "#error" do
       it "should contain competitor error message" do
         @qs.save
-        @qs.error.should match(/kilpailija/)
+        expect(@qs.error).to match(/kilpailija/)
       end
     end
   end
@@ -211,23 +211,23 @@ describe ShotsQuickSave do
 
     describe "#save" do
       it "should not save given shots for the competitor and return false" do
-        @qs.save.should be_false
+        expect(@qs.save).to be_false
         @c.reload
-        @c.shots_total_input.should == 50
+        expect(@c.shots_total_input).to eq(50)
       end
     end
 
     describe "#competitor" do
       it "should return nil" do
         @qs.save
-        @qs.competitor.should be_nil
+        expect(@qs.competitor).to be_nil
       end
     end
 
     describe "#error" do
       it "should contain invalid format error message" do
         @qs.save
-        @qs.error.should match(/muoto/)
+        expect(@qs.error).to match(/muoto/)
       end
     end
   end
@@ -242,23 +242,23 @@ describe ShotsQuickSave do
 
     describe "#save" do
       it "should not save given shots for the competitor and return false" do
-        @qs.save.should be_false
+        expect(@qs.save).to be_false
         @c.reload
-        @c.shots_total_input.should == 50
+        expect(@c.shots_total_input).to eq(50)
       end
     end
 
     describe "#competitor" do
       it "should return competitor" do
         @qs.save
-        @qs.competitor.should == @c
+        expect(@qs.competitor).to eq(@c)
       end
     end
 
     describe "#error" do
       it "should contain data already stored message" do
         @qs.save
-        @qs.error.should match(/talletettu/)
+        expect(@qs.error).to match(/talletettu/)
       end
     end
   end

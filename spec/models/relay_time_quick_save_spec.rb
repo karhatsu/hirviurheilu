@@ -57,25 +57,25 @@ describe RelayTimeQuickSave do
   def check_success(arrival_time)
     saved = @qs.save
     raise @qs.error unless saved
-    @qs.competitor.should == @c
-    @qs.error.should be_nil
+    expect(@qs.competitor).to eq(@c)
+    expect(@qs.error).to be_nil
     @c.reload
-    @c.arrival_time.strftime('%H:%M:%S').should == arrival_time
+    expect(@c.arrival_time.strftime('%H:%M:%S')).to eq(arrival_time)
   end
 
   def check_failure(expected_competitor=nil, arrival_time=nil)
-    @qs.save.should be_false
-    @qs.error.should_not be_nil
+    expect(@qs.save).to be_false
+    expect(@qs.error).not_to be_nil
     if expected_competitor
-      @qs.competitor.should == expected_competitor
+      expect(@qs.competitor).to eq(expected_competitor)
       expected_competitor.reload
       if arrival_time
-        expected_competitor.arrival_time.strftime('%H:%M:%S').should == arrival_time
+        expect(expected_competitor.arrival_time.strftime('%H:%M:%S')).to eq(arrival_time)
       else
-        expected_competitor.arrival_time.should be_nil
+        expect(expected_competitor.arrival_time).to be_nil
       end
     else
-      @qs.competitor.should be_nil
+      expect(@qs.competitor).to be_nil
     end
   end
 end

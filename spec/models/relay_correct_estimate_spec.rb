@@ -28,9 +28,9 @@ describe RelayCorrectEstimate do
       it "should not allow bigger leg value than relay legs count" do
         relay = FactoryGirl.build(:relay, :legs_count => 3)
         ce = FactoryGirl.build(:relay_correct_estimate, :relay => relay, :leg => 3)
-        ce.should be_valid
+        expect(ce).to be_valid
         ce.leg = 4
-        ce.should have(1).errors_on(:leg)
+        expect(ce).to have(1).errors_on(:leg)
       end
 
       describe "uniqueness" do

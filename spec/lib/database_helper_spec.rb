@@ -4,41 +4,41 @@ require 'database_helper.rb'
 describe DatabaseHelper do
   context "when postgres" do
     before do
-      DatabaseHelper.stub(:postgres?).and_return(true)
+      allow(DatabaseHelper).to receive(:postgres?).and_return(true)
     end
 
     it "true value should be true" do
-      DatabaseHelper.true_value.should be_true
+      expect(DatabaseHelper.true_value).to be_true
     end
 
     it "false value should be false" do
-      DatabaseHelper.false_value.should be_false
+      expect(DatabaseHelper.false_value).to be_false
     end
   end
 
   context "when sqlite3" do
     before do
-      DatabaseHelper.stub(:postgres?).and_return(false)
+      allow(DatabaseHelper).to receive(:postgres?).and_return(false)
     end
 
     it "true value should be 't'" do
-      DatabaseHelper.true_value.should == "'t'"
+      expect(DatabaseHelper.true_value).to eq("'t'")
     end
 
     it "false value should be 'f'" do
-      DatabaseHelper.false_value.should == "'f'"
+      expect(DatabaseHelper.false_value).to eq("'f'")
     end
   end
 
   describe "#boolean_value" do
     it "should be #true_value for true" do
-      DatabaseHelper.stub(:true_value).and_return('TRUE')
-      DatabaseHelper.boolean_value(true).should == 'TRUE'
+      allow(DatabaseHelper).to receive(:true_value).and_return('TRUE')
+      expect(DatabaseHelper.boolean_value(true)).to eq('TRUE')
     end
 
     it "should be #false_value for false" do
-      DatabaseHelper.stub(:false_value).and_return('FALSE')
-      DatabaseHelper.boolean_value(nil).should == 'FALSE'
+      allow(DatabaseHelper).to receive(:false_value).and_return('FALSE')
+      expect(DatabaseHelper.boolean_value(nil)).to eq('FALSE')
     end
   end
 end

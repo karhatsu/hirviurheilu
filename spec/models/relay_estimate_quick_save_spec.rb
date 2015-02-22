@@ -42,7 +42,7 @@ describe RelayEstimateQuickSave do
     it "should handle error when normal input" do
       @qs = RelayEstimateQuickSave.new(@relay.id, '5,2,100')
       check_failure true, 99
-      @qs.error.should eq('Kilpailijalle (Mikko Miettinen, Pohjanmaa) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos.')
+      expect(@qs.error).to eq('Kilpailijalle (Mikko Miettinen, Pohjanmaa) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos.')
     end
     
     it "should override when input starts with ++" do
@@ -54,19 +54,19 @@ describe RelayEstimateQuickSave do
   def check_success(estimate)
     saved = @qs.save
     raise @qs.error unless saved
-    @qs.competitor.should == @c
-    @qs.error.should be_nil
+    expect(@qs.competitor).to eq(@c)
+    expect(@qs.error).to be_nil
     @c.reload
-    @c.estimate.should == estimate
+    expect(@c.estimate).to eq(estimate)
   end
 
   def check_failure(competitor=false, estimate=nil)
-    @qs.save.should be_false
-    @qs.error.should_not be_nil
-    @qs.competitor.should == @c if competitor
-    @qs.competitor.should be_nil unless competitor
+    expect(@qs.save).to be_false
+    expect(@qs.error).not_to be_nil
+    expect(@qs.competitor).to eq(@c) if competitor
+    expect(@qs.competitor).to be_nil unless competitor
     @c.reload
-    @c.estimate.should == estimate
+    expect(@c.estimate).to eq(estimate)
   end
 end
 

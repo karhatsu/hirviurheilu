@@ -35,7 +35,7 @@ describe RelayTeam do
       it { should_not allow_value('test').for(:no_result_reason) }
       it "should change empty string to nil" do
         team = FactoryGirl.create(:relay_team, :no_result_reason => '')
-        team.no_result_reason.should be_nil
+        expect(team.no_result_reason).to be_nil
       end
     end
   end
@@ -53,9 +53,9 @@ describe RelayTeam do
     end
 
     it "should be ordered by leg number" do
-      @team.relay_competitors[0].leg.should == 1
-      @team.relay_competitors[1].leg.should == 2
-      @team.relay_competitors[2].leg.should == 3
+      expect(@team.relay_competitors[0].leg).to eq(1)
+      expect(@team.relay_competitors[1].leg).to eq(2)
+      expect(@team.relay_competitors[2].leg).to eq(3)
     end
   end
 
@@ -70,7 +70,7 @@ describe RelayTeam do
     end
 
     it "should return nil if no last competitor defined" do
-      @team.time_in_seconds.should be_nil
+      expect(@team.time_in_seconds).to be_nil
     end
 
     context "when last competitor defined" do
@@ -80,13 +80,13 @@ describe RelayTeam do
       end
 
       it "should return the arrival time for the last competitor" do
-        @team.time_in_seconds.should == 31 * 60 + 15
+        expect(@team.time_in_seconds).to eq(31 * 60 + 15)
       end
     end
 
     context "when leg number given" do
       it "should return the arrival time for the given competitor" do
-        @team.time_in_seconds(2).should == 20 * 60 + 54
+        expect(@team.time_in_seconds(2)).to eq(20 * 60 + 54)
       end
     end
     context "when leg number given and adjustment exists" do
@@ -97,7 +97,7 @@ describe RelayTeam do
           :arrival_time => '00:31:15', :adjustment => 90)
       end
       it "should return the arrival time for the given competitor + adjustment for current and previous legs" do
-        @team.time_in_seconds(2).should == 20 * 60 + 54 - 20
+        expect(@team.time_in_seconds(2)).to eq(20 * 60 + 54 - 20)
       end
     end
   end
@@ -108,8 +108,8 @@ describe RelayTeam do
         team = FactoryGirl.create(:relay_team)
         c1 = mock_model(RelayCompetitor, :estimate_penalties => nil)
         c2 = mock_model(RelayCompetitor, :estimate_penalties => nil)
-        team.stub(:relay_competitors).and_return([c1, c2])
-        team.estimate_penalties_sum.should be_nil
+        allow(team).to receive(:relay_competitors).and_return([c1, c2])
+        expect(team.estimate_penalties_sum).to be_nil
       end
     end
 
@@ -119,8 +119,8 @@ describe RelayTeam do
         c1 = mock_model(RelayCompetitor, :estimate_penalties => 10)
         c2 = mock_model(RelayCompetitor, :estimate_penalties => 2)
         c3 = mock_model(RelayCompetitor, :estimate_penalties => nil)
-        team.stub(:relay_competitors).and_return([c1, c2, c3])
-        team.estimate_penalties_sum.should == 12
+        allow(team).to receive(:relay_competitors).and_return([c1, c2, c3])
+        expect(team.estimate_penalties_sum).to eq(12)
       end
     end
   end
@@ -131,8 +131,8 @@ describe RelayTeam do
         team = FactoryGirl.create(:relay_team)
         c1 = mock_model(RelayCompetitor, :misses => nil)
         c2 = mock_model(RelayCompetitor, :misses => nil)
-        team.stub(:relay_competitors).and_return([c1, c2])
-        team.shoot_penalties_sum.should be_nil
+        allow(team).to receive(:relay_competitors).and_return([c1, c2])
+        expect(team.shoot_penalties_sum).to be_nil
       end
     end
     
@@ -142,8 +142,8 @@ describe RelayTeam do
         c1 = mock_model(RelayCompetitor, :misses => 3)
         c2 = mock_model(RelayCompetitor, :misses => 4)
         c3 = mock_model(RelayCompetitor, :misses => nil)
-        team.stub(:relay_competitors).and_return([c1, c2, c3])
-        team.shoot_penalties_sum.should == 7
+        allow(team).to receive(:relay_competitors).and_return([c1, c2, c3])
+        expect(team.shoot_penalties_sum).to eq(7)
       end
     end
   end
@@ -151,7 +151,7 @@ describe RelayTeam do
   describe "#competitor" do
     it "should return nil if no competitor defined for given leg" do
       relay_team = FactoryGirl.build(:relay_team)
-      relay_team.competitor(2).should be_nil
+      expect(relay_team.competitor(2)).to be_nil
     end
 
     context "when competitor exists for given leg" do
@@ -166,15 +166,15 @@ describe RelayTeam do
       it "should return the competitor" do
         comp2 = FactoryGirl.build(:relay_competitor, :relay_team => @team, :leg => 2)
         @team.relay_competitors << comp2
-        @team.competitor(3).should == @comp3
+        expect(@team.competitor(3)).to eq(@comp3)
       end
 
       it "should return the competitor even though some other competitor missing" do
-        @team.competitor(3).should == @comp3
+        expect(@team.competitor(3)).to eq(@comp3)
       end
 
       it "should return the competitor also when string instead of int is given" do
-        @team.competitor("1").should == @comp1
+        expect(@team.competitor("1")).to eq(@comp1)
       end
     end
   end

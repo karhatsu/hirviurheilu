@@ -36,10 +36,10 @@ describe Official::CompetitorsController do
     context "on create" do
       context "when club_id and club_name are given" do
         it "should set the id for the competitor and ignore the name" do
-          Club.should_not_receive(:create!)
+          expect(Club).not_to receive(:create!)
           post :create, :series_id => @series.id, :club_id => 7, :club_name => 'Test club'
-          assigns(:club_id).should == 7
-          assigns(:club).should be_nil
+          expect(assigns(:club_id)).to eq(7)
+          expect(assigns(:club)).to be_nil
         end
       end
 
@@ -47,8 +47,8 @@ describe Official::CompetitorsController do
         it "should create a new club and set it for the competitor" do
           post :create, :series_id => @series.id, :club_name => 'Test club'
           club = Club.find_by_name('Test club')
-          club.should_not be_nil
-          assigns(:club).should == club
+          expect(club).not_to be_nil
+          expect(assigns(:club)).to eq(club)
         end
       end
 
@@ -59,7 +59,7 @@ describe Official::CompetitorsController do
 
         it "should find the existing club and set it for the competitor" do
           post :create, :series_id => @series.id, :club_name => 'Existing club'
-          assigns(:club).should == @club
+          expect(assigns(:club)).to eq(@club)
         end
       end
 
@@ -67,8 +67,8 @@ describe Official::CompetitorsController do
         it "should ignore zero club id and use the name" do
           post :create, :series_id => @series.id, :club_id => 0, :club_name => 'Test club'
           club = Club.find_by_name('Test club')
-          club.should_not be_nil
-          assigns(:club).should == club
+          expect(club).not_to be_nil
+          expect(assigns(:club)).to eq(club)
         end
       end
     end
@@ -82,9 +82,9 @@ describe Official::CompetitorsController do
         it "should create a new club and set it for the competitor" do
           patch :update, series_id: @series.id, id: @competitor.id, club_id:0, club_name: 'Test club', competitor: {}
           club = Club.find_by_name('Test club')
-          club.should_not be_nil
-          assigns(:club).should == club
-          assigns(:club_id).should == club.id
+          expect(club).not_to be_nil
+          expect(assigns(:club)).to eq(club)
+          expect(assigns(:club_id)).to eq(club.id)
         end
       end
     end
