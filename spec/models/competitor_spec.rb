@@ -1053,8 +1053,8 @@ describe Competitor do
   describe "#comparison_time_in_seconds" do
     it "should delegate call to series with own age group and all_competitors as parameters" do
       all_competitors = true
-      series = instance_double(Series)
-      age_group = instance_double(AgeGroup)
+      series = FactoryGirl.build :series
+      age_group = FactoryGirl.build :age_group
       competitor = FactoryGirl.build(:competitor, :series => series, :age_group => age_group)
       expect(series).to receive(:comparison_time_in_seconds).with(age_group, all_competitors).and_return(12345)
       expect(competitor.comparison_time_in_seconds(all_competitors)).to eq(12345)
@@ -1181,7 +1181,7 @@ describe Competitor do
 
   describe "#start_datetime" do
     it "should return value from StartDateTime module" do
-      race = instance_double(Race)
+      race = FactoryGirl.build :race
       series = FactoryGirl.build(:series, race: race, start_day: 2)
       competitor = FactoryGirl.build(:competitor, series: series)
       expect(competitor).to receive(:start_date_time).with(race, 2, competitor.start_time).and_return('time')

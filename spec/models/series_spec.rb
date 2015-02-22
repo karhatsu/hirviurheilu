@@ -289,9 +289,9 @@ describe Series do
     
     context "when age groups that start with same letters" do
       before do
-        @age_group_M75 = instance_double(AgeGroup, :name => 'M75', :min_competitors => 3)
-        @age_group_M80 = instance_double(AgeGroup, :name => 'M80', :min_competitors => 3)
-        @age_group_M85 = instance_double(AgeGroup, :name => 'M85', :min_competitors => 3)
+        @age_group_M75 = FactoryGirl.build :age_group, name: 'M75', min_competitors: 3
+        @age_group_M80 = FactoryGirl.build :age_group, name: 'M80', min_competitors: 3
+        @age_group_M85 = FactoryGirl.build :age_group, name: 'M85', min_competitors: 3
       end
       
       context "and all age groups have enough competitors" do
@@ -461,7 +461,8 @@ describe Series do
   
   describe "#next_start_number" do
     it "should return the value from race" do
-      race = instance_double(Race, :next_start_number => 123)
+      race = FactoryGirl.build :race
+      expect(race).to receive(:next_start_number).and_return(123)
       series = FactoryGirl.build(:series, :race => race)
       expect(series.next_start_number).to eq(123)
     end
@@ -469,7 +470,8 @@ describe Series do
   
   describe "#next_start_time" do
     it "should return the value from race" do
-      race = instance_double(Race, :next_start_time => 456)
+      race = FactoryGirl.build :race
+      expect(race).to receive(:next_start_time).and_return(456)
       series = FactoryGirl.build(:series, :race => race)
       expect(series.next_start_time).to eq(456)
     end
@@ -1079,7 +1081,7 @@ describe Series do
   
   describe "#start_datetime" do
     it "should return value from StartDateTime module" do
-      race = instance_double(Race)
+      race = FactoryGirl.build :race
       series = FactoryGirl.build(:series, race: race, start_day: 2, start_time: '12:00')
       expect(series).to receive(:start_date_time).with(race, 2, series.start_time).and_return('time')
       expect(series.start_datetime).to eq('time')

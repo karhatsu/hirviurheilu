@@ -1125,9 +1125,12 @@ describe ApplicationHelper do
     
     context "when cup" do
       it "should be image tag for cup's sport's lower case key with _icon_cup.gif suffix" do
-        sport = instance_double(Sport, :key => 'SKI', :initials => 'HH')
+        sport = FactoryGirl.build :sport, key: 'SKI'
+        expect(sport).to receive(:initials).and_return('HH')
         expect(helper).to receive(:image_tag).with("ski_icon_cup.gif", alt: 'HH', class: 'competition_icon').and_return("cup-image")
-        expect(helper.competition_icon(instance_double(Cup, :sport => sport))).to eq("cup-image")
+        cup = FactoryGirl.build :cup
+        allow(cup).to receive(:sport).and_return(sport)
+        expect(helper.competition_icon(cup)).to eq("cup-image")
       end
     end
   end
