@@ -690,7 +690,6 @@ describe ApplicationHelper do
         @race = mock_model(Race)
         helper.stub(:result_rotation_series_list).with(@race).and_return(['series1', 'series2'])
         helper.stub(:result_rotation_tc_list).with(@race).and_return(['tc1', 'tc2'])
-        helper.stub(:result_rotation_relay_list).with(@race).and_return(['relay1', 'relay2'])
         helper.stub(:result_rotation_tc_cookie).and_return(true)
       end
 
@@ -708,31 +707,24 @@ describe ApplicationHelper do
 
         it "should return all paths when all available" do
           list = helper.result_rotation_list(@race)
-          list.size.should == 6
+          list.size.should == 4
           list[0].should == 'series1'
           list[1].should == 'series2'
           list[2].should == 'tc1'
           list[3].should == 'tc2'
-          list[4].should == 'relay1'
-          list[5].should == 'relay2'
         end
 
         it "should not return series paths nor team competition paths if no series" do
           helper.should_receive(:result_rotation_series_list).with(@race).and_return([])
-          list = helper.result_rotation_list(@race)
-          list.size.should == 2
-          list[0].should == 'relay1'
-          list[1].should == 'relay2'
+          helper.result_rotation_list(@race).should be_empty
         end
 
         it "should not return team competition paths unless cookie for that" do
           helper.stub(:result_rotation_tc_cookie).and_return(false)
           list = helper.result_rotation_list(@race)
-          list.size.should == 4
+          list.size.should == 2
           list[0].should == 'series1'
           list[1].should == 'series2'
-          list[2].should == 'relay1'
-          list[3].should == 'relay2'
         end
       end
     end
@@ -815,63 +807,6 @@ describe ApplicationHelper do
 
       def build_team_competition(race)
         FactoryGirl.build(:team_competition, :race => race)
-      end
-    end
-
-    describe "#result_rotation_relay_list" do
-      it "should return an empty list when race in the future" do
-        race = FactoryGirl.create(:race, :start_date => Date.today - 1)
-        race.relays << build_relay(race, 1, '0:00')
-        result_rotation_relay_list(race).size.should == 0
-      end
-
-      it "should return an empty list when race was in the past" do
-        race = FactoryGirl.create(:race, :start_date => Date.today - 2,
-          :end_date => Date.today - 1)
-        race.relays << build_relay(race, 1, '0:00')
-        result_rotation_relay_list(race).size.should == 0
-      end
-
-      context "when race is ongoing today" do
-        before do
-          @race = FactoryGirl.create(:race, :start_date => Date.today,
-            :end_date => Date.today + 1)
-          @relay1_1 = build_relay(@race, 1, '0:00')
-          @relay1_2 = build_relay(@race, 1, '0:00')
-          @relay1_3 = build_relay(@race, 1, '23:59')
-          @relay2_1 = build_relay(@race, 2, '0:00')
-          @relay2_2 = build_relay(@race, 2, '23:59')
-          @race.relays << @relay1_1
-          @race.relays << @relay1_2
-          @race.relays << @relay1_3
-          @race.relays << @relay2_1
-          @race.relays << @relay2_2
-        end
-
-        context "when race has started today" do
-          it "should return the paths for started relays today" do
-            list = result_rotation_relay_list(@race)
-            list.size.should == 2
-            list[0].should == race_relay_path(nil, @race, @relay1_1)
-            list[1].should == race_relay_path(nil, @race, @relay1_2)
-          end
-        end
-
-        context "when race started yesterday" do
-          it "should return the paths for started relays today" do
-            @race.start_date = Date.today - 1
-            @race.end_date = Date.today
-            @race.save!
-            list = result_rotation_relay_list(@race)
-            list.size.should == 1
-            list[0].should == race_relay_path(nil, @race, @relay2_1)
-          end
-        end
-      end
-
-      def build_relay(race, start_day, start_time)
-        FactoryGirl.build(:relay, :race => race, :start_day => start_day,
-          :start_time => start_time)
       end
     end
   end

@@ -426,7 +426,6 @@ module ApplicationHelper
     list = result_rotation_series_list(race)
     # team competition is active only when at least one series is active
     list += result_rotation_tc_list(race) unless list.empty? or !result_rotation_tc_cookie
-    list += result_rotation_relay_list(race)
     list
   end
 
@@ -577,16 +576,6 @@ module ApplicationHelper
     race.team_competitions.collect do |tc|
       race_team_competition_path(locale_for_path, race, tc)
     end
-  end
-
-  def result_rotation_relay_list(race)
-    race_day = race.race_day
-    return [] if race_day == 0
-    list = []
-    race.relays.where(:start_day => race_day).each do |relay|
-      list << race_relay_path(locale_for_path, race, relay) if relay.started?
-    end
-    list
   end
 
   def result_rotation_cookie
