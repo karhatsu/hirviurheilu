@@ -42,10 +42,10 @@ group :test do
   gem "factory_girl_rails", :require => false
   gem 'launchy'
   gem 'poltergeist', '1.5.0'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '3.2.0'
   gem 'shoulda-matchers'
   gem 'sqlite3'
-  gem 'fuubar'
+  gem 'fuubar', '2.0.0'
 end
 
 # Bundle gems for the local environment. Make sure to
