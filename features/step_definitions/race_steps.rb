@@ -142,11 +142,11 @@ end
 
 Then /^the race should be completely removed from the database$/ do
 #  Race.exists?(@race.id).should be_false
-  Series.exists?(@series.id).should be_false
-  AgeGroup.exists?(@age_group.id).should be_false
-  Competitor.exists?(@competitor.id).should be_false
-  TeamCompetition.exists?(@team_competition.id).should be_false
-  Relay.exists?(@relay.id).should be_false
-  RelayTeam.exists?(@relay_team.id).should be_false
-  RelayCompetitor.exists?(@relay_competitor.id).should be_false
+  Series.exists?(@series.id).should be_falsey
+  AgeGroup.exists?(@age_group.id).should be_falsey
+  Competitor.exists?(@competitor.id).should be_falsey
+  TeamCompetition.exists?(@team_competition.id).should be_falsey
+  Relay.exists?(@relay.id).should be_falsey
+  RelayTeam.exists?(@relay_team.id).should be_falsey
+  RelayCompetitor.exists?(@relay_competitor.id).should be_falsey
 end
