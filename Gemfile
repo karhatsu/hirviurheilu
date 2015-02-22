@@ -43,6 +43,7 @@ group :test do
   gem 'launchy'
   gem 'poltergeist', '1.5.0'
   gem 'rspec-rails', '3.2.0'
+  gem 'rspec-collection_matchers'
   gem 'shoulda-matchers'
   gem 'sqlite3'
   gem 'fuubar', '2.0.0'
