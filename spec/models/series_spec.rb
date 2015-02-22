@@ -229,7 +229,7 @@ describe Series do
     describe "cache" do
       before do
         @series = FactoryGirl.build(:series)
-        @competitors = [mock_model(Competitor)]
+        @competitors = [instance_double(Competitor)]
         expect(@series).to receive(:competitors).once.and_return(@competitors)
         @age_groups = [double(AgeGroup, id: 1), double(AgeGroup, id: 2)]
       end
@@ -264,7 +264,7 @@ describe Series do
     end
     
     it "should get age group comparison groups and call best_time_in_seconds with that" do
-      age_group = mock_model(AgeGroup)
+      age_group = instance_double(AgeGroup)
       hash = double(Hash)
       age_group_array = double(Array)
       expect(@series).to receive(:age_groups_for_comparison_time).with(@all_competitors).and_return(hash)
@@ -289,9 +289,9 @@ describe Series do
     
     context "when age groups that start with same letters" do
       before do
-        @age_group_M75 = mock_model(AgeGroup, :name => 'M75', :min_competitors => 3)
-        @age_group_M80 = mock_model(AgeGroup, :name => 'M80', :min_competitors => 3)
-        @age_group_M85 = mock_model(AgeGroup, :name => 'M85', :min_competitors => 3)
+        @age_group_M75 = instance_double(AgeGroup, :name => 'M75', :min_competitors => 3)
+        @age_group_M80 = instance_double(AgeGroup, :name => 'M80', :min_competitors => 3)
+        @age_group_M85 = instance_double(AgeGroup, :name => 'M85', :min_competitors => 3)
       end
       
       context "and all age groups have enough competitors" do
@@ -340,10 +340,10 @@ describe Series do
       
       context "and age groups form two combined groups plus one without enough competitors" do
         before do
-          @age_group_M86 = mock_model(AgeGroup, :id => @age_group_M86, :name => 'M86', :min_competitors => 3)
-          @age_group_M87 = mock_model(AgeGroup, :id => @age_group_M87, :name => 'M87', :min_competitors => 3)
-          @age_group_M88 = mock_model(AgeGroup, :id => @age_group_M88, :name => 'M88', :min_competitors => 3)
-          @age_group_M89 = mock_model(AgeGroup, :id => @age_group_M89, :name => 'M89', :min_competitors => 3)
+          @age_group_M86 = instance_double(AgeGroup, :id => @age_group_M86, :name => 'M86', :min_competitors => 3)
+          @age_group_M87 = instance_double(AgeGroup, :id => @age_group_M87, :name => 'M87', :min_competitors => 3)
+          @age_group_M88 = instance_double(AgeGroup, :id => @age_group_M88, :name => 'M88', :min_competitors => 3)
+          @age_group_M89 = instance_double(AgeGroup, :id => @age_group_M89, :name => 'M89', :min_competitors => 3)
           @age_groups = [@age_group_M75, @age_group_M80, @age_group_M85, @age_group_M86, @age_group_M87, @age_group_M88, @age_group_M89]
           @age_groups.each do |age_group|
             allow(age_group).to receive(:competitors_count).with(@all_competitors).and_return(1)
@@ -391,8 +391,8 @@ describe Series do
       
     context "when age groups that start with different letters" do
       before do
-        @age_group_T16 = mock_model(AgeGroup, :name => 'T16', :min_competitors => 1)
-        @age_group_P16 = mock_model(AgeGroup, :name => 'P16', :min_competitors => 1)
+        @age_group_T16 = instance_double(AgeGroup, :name => 'T16', :min_competitors => 1)
+        @age_group_P16 = instance_double(AgeGroup, :name => 'P16', :min_competitors => 1)
         expect_ordered_age_groups(@series, [@age_group_T16, @age_group_P16])
       end
       
@@ -461,7 +461,7 @@ describe Series do
   
   describe "#next_start_number" do
     it "should return the value from race" do
-      race = mock_model(Race, :next_start_number => 123)
+      race = instance_double(Race, :next_start_number => 123)
       series = FactoryGirl.build(:series, :race => race)
       expect(series.next_start_number).to eq(123)
     end
@@ -469,7 +469,7 @@ describe Series do
   
   describe "#next_start_time" do
     it "should return the value from race" do
-      race = mock_model(Race, :next_start_time => 456)
+      race = instance_double(Race, :next_start_time => 456)
       series = FactoryGirl.build(:series, :race => race)
       expect(series.next_start_time).to eq(456)
     end
@@ -949,8 +949,8 @@ describe Series do
   describe "#each_competitor_finished?" do
     before do
       @series = FactoryGirl.build(:series)
-      @c1 = mock_model(Competitor, :finished? => true)
-      @c2 = mock_model(Competitor, :finished? => false)
+      @c1 = instance_double(Competitor, :finished? => true)
+      @c2 = instance_double(Competitor, :finished? => false)
     end
 
     context "when at least one competitor hasn't finished" do
@@ -1079,7 +1079,7 @@ describe Series do
   
   describe "#start_datetime" do
     it "should return value from StartDateTime module" do
-      race = mock_model(Race)
+      race = instance_double(Race)
       series = FactoryGirl.build(:series, race: race, start_day: 2, start_time: '12:00')
       expect(series).to receive(:start_date_time).with(race, 2, series.start_time).and_return('time')
       expect(series.start_datetime).to eq('time')

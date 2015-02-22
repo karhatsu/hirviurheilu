@@ -31,9 +31,9 @@ describe TeamCompetition do
 
     context "when the race is not finished" do
       it "should return array with results even if none of the clubs have enough competitors" do
-        @club = mock_model(Club)
-        @race = mock_model(Race)
-        @c = mock_model(Competitor, :points => 1100, :club => @club,
+        @club = instance_double(Club)
+        @race = instance_double(Race)
+        @c = instance_double(Competitor, :points => 1100, :club => @club,
           :shot_points => 300, :time_in_seconds => 500, :unofficial => false,
                         :race => @race)
         expect(Competitor).to receive(:sort_competitors).with([@c], false).and_return([@c])
@@ -45,9 +45,9 @@ describe TeamCompetition do
 
     context "when the race is finished" do
       it "should return empty array if none of the clubs have enough competitors" do
-        @club = mock_model(Club)
-        @race = mock_model(Race)
-        @c = mock_model(Competitor, :points => 1100, :club => @club,
+        @club = instance_double(Club)
+        @race = instance_double(Race)
+        @c = instance_double(Competitor, :points => 1100, :club => @club,
           :shot_points => 300, :time_in_seconds => 500, :unofficial => false,
                         :race => @race)
         expect(Competitor).to receive(:sort_competitors).with([@c], false).and_return([@c])
@@ -59,14 +59,14 @@ describe TeamCompetition do
 
     context "when the clubs have enough competitors" do
       before do
-        @race = mock_model(Race)
-        @club_best_total_points = mock_model(Club, :name => 'Club 1')
-        @club_best_single_points = mock_model(Club, :name => 'Club 2')
-        @club_best_single_shots = mock_model(Club, :name => 'Club 3')
-        @club_best_single_time = mock_model(Club, :name => 'Club 4')
-        @club_worst = mock_model(Club, :name => 'Club 5')
-        @club_small = mock_model(Club, :name => 'Club small')
-        @club_unofficial = mock_model(Club, :name => 'Club unofficial')
+        @race = instance_double(Race)
+        @club_best_total_points = instance_double(Club, :name => 'Club 1')
+        @club_best_single_points = instance_double(Club, :name => 'Club 2')
+        @club_best_single_shots = instance_double(Club, :name => 'Club 3')
+        @club_best_single_time = instance_double(Club, :name => 'Club 4')
+        @club_worst = instance_double(Club, :name => 'Club 5')
+        @club_small = instance_double(Club, :name => 'Club small')
+        @club_unofficial = instance_double(Club, :name => 'Club unofficial')
 
         @club_best_total_points_c1 = create_competitor(@club_best_total_points, 1100,
           :time_in_seconds => nil)
@@ -158,7 +158,7 @@ describe TeamCompetition do
       end
 
       def create_competitor(club, points, options={})
-        mock_model(Competitor, {:points => points, :club => club,
+        instance_double(Competitor, {:points => points, :club => club,
             :shot_points => 200, :time_in_seconds => 1000,
             :unofficial => false, :team_name => nil}.merge(options))
       end
@@ -330,7 +330,7 @@ describe TeamCompetition do
       
       context "but none of them started" do
         it "should return false" do
-          s1 = mock_model(Series)
+          s1 = instance_double(Series)
           expect(@tc).to receive(:series).and_return([s1])
           allow(s1).to receive(:started?).and_return(false)
           expect(@tc).not_to be_started
@@ -339,8 +339,8 @@ describe TeamCompetition do
       
       context "and at least one of them started" do
         it "should return true" do
-          s1 = mock_model(Series)
-          s2 = mock_model(Series)
+          s1 = instance_double(Series)
+          s2 = instance_double(Series)
           expect(@tc).to receive(:series).and_return([s1, s2])
           allow(s1).to receive(:started?).and_return(false)
           allow(s2).to receive(:started?).and_return(true)

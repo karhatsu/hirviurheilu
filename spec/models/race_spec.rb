@@ -786,8 +786,8 @@ describe Race do
     context "when race is finished" do
       before do
         @race.finished = true
-        @finished_relay = mock_model(Relay, :finished => true)
-        @unfinished_relay = mock_model(Relay, :finished => false)
+        @finished_relay = instance_double(Relay, :finished => true)
+        @unfinished_relay = instance_double(Relay, :finished => false)
       end
 
       it "should return false when at least one relay is not finished" do

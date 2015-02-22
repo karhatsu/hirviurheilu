@@ -4,7 +4,7 @@ describe CupCompetitor do
   before do
     @cup = double(Cup)
     @cs = double(CupSeries, :cup => @cup)
-    @competitor = mock_model(Competitor, :first_name => 'Mikko', :last_name => 'Miettinen')
+    @competitor = instance_double(Competitor, :first_name => 'Mikko', :last_name => 'Miettinen')
     @cc = CupCompetitor.new(@cs, @competitor)
   end
   
@@ -22,7 +22,7 @@ describe CupCompetitor do
   
   describe "#series_name" do
     it "should be the name of the series of the first competitor" do
-      series = mock_model(Series, :name => 'M20')
+      series = instance_double(Series, :name => 'M20')
       expect(@competitor).to receive(:series).and_return(series)
       expect(@cc.series_name).to eq('M20')
     end
@@ -35,13 +35,13 @@ describe CupCompetitor do
     end
     
     it "should not accept another competitor when first names differs" do
-      expect { @cc << mock_model(Competitor, :first_name => 'Other',
+      expect { @cc << instance_double(Competitor, :first_name => 'Other',
         :last_name => @competitor.last_name) }.to raise_error
       expect(@cc.competitors.length).to eq(1)
     end
     
     it "should not accept another competitor when last names differs" do
-      expect { @cc << mock_model(Competitor, :first_name => @competitor.first_name,
+      expect { @cc << instance_double(Competitor, :first_name => @competitor.first_name,
         :last_name => 'Other') }.to raise_error
       expect(@cc.competitors.length).to eq(1)
     end
@@ -167,7 +167,7 @@ describe CupCompetitor do
   
   describe "#competitor_for_race" do
     before do
-      allow(@competitor).to receive(:race).and_return(mock_model(Race))
+      allow(@competitor).to receive(:race).and_return(instance_double(Race))
     end
     
     it "should be nil when no match" do
@@ -185,17 +185,17 @@ describe CupCompetitor do
 
   describe ".name for competitor" do
     it "should be competitor last name, space, first name in lower case" do
-      competitor = mock_model(Competitor, :first_name => 'First', :last_name => 'Last')
+      competitor = instance_double(Competitor, :first_name => 'First', :last_name => 'Last')
       expect(CupCompetitor.name(competitor)).to eq('last first')
     end
 
     it "should trim spaces" do
-      competitor = mock_model(Competitor, :first_name => ' First  ', :last_name => '  Last ')
+      competitor = instance_double(Competitor, :first_name => ' First  ', :last_name => '  Last ')
       expect(CupCompetitor.name(competitor)).to eq('last first')
     end
   end
   
   def valid_competitor
-    mock_model(Competitor, :first_name => @competitor.first_name, :last_name => @competitor.last_name)
+    instance_double(Competitor, :first_name => @competitor.first_name, :last_name => @competitor.last_name)
   end
 end

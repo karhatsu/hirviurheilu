@@ -52,7 +52,7 @@ describe Cup do
     
     it "should be the sport of the first race" do
       cup = FactoryGirl.build(:cup)
-      allow(cup).to receive(:races).and_return([mock_model(Race, :sport => Sport::RUN), mock_model(Race, :sport => Sport::SKI)])
+      allow(cup).to receive(:races).and_return([instance_double(Race, :sport => Sport::RUN), instance_double(Race, :sport => Sport::SKI)])
       expect(cup.sport).to eq(Sport::RUN)
     end
   end
@@ -133,13 +133,13 @@ describe Cup do
   
     context "when races" do
       before do
-        race1 = mock_model(Race)
-        series1_1 = mock_model(Series, :name => 'M50')
-        series1_2 = mock_model(Series, :name => 'M60')
+        race1 = instance_double(Race)
+        series1_1 = instance_double(Series, :name => 'M50')
+        series1_2 = instance_double(Series, :name => 'M60')
         allow(race1).to receive(:series).and_return([series1_1, series1_2])
-        race2 = mock_model(Race)
-        series2_1 = mock_model(Series, :name => 'M70')
-        series2_2 = mock_model(Series, :name => 'M80')
+        race2 = instance_double(Race)
+        series2_1 = instance_double(Series, :name => 'M70')
+        series2_2 = instance_double(Series, :name => 'M80')
         allow(race2).to receive(:series).and_return([series2_1, series2_2])
         races = [race1, race2]
         @cup = FactoryGirl.create(:cup)
@@ -160,7 +160,7 @@ describe Cup do
     context "when already has cup series" do
       it "should raise an exception" do
         cup = FactoryGirl.build(:cup)
-        allow(cup).to receive(:cup_series).and_return([mock_model(CupSeries)])
+        allow(cup).to receive(:cup_series).and_return([instance_double(CupSeries)])
         expect { cup.create_default_cup_series }.to raise_error
       end
     end

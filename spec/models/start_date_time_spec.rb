@@ -7,7 +7,7 @@ describe StartDateTime do
 
   describe "#start_datetime" do
     it "should return nil when no start time" do
-      expect(start_date_time(mock_model(Race), 1, nil)).to be_nil
+      expect(start_date_time(instance_double(Race), 1, nil)).to be_nil
     end
 
     it "should return nil when no race" do

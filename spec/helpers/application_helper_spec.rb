@@ -8,7 +8,7 @@ describe ApplicationHelper do
     end
 
     it "should print no result reason if it is defined" do
-      competitor = mock_model(Competitor, :no_result_reason => Competitor::DNS)
+      competitor = instance_double(Competitor, :no_result_reason => Competitor::DNS)
       allow(competitor).to receive(:points).with(@all_competitors).and_return(145)
       expect(helper.points_print(competitor, @all_competitors)).to eq(
         "<span class='explanation' title='Kilpailija ei osallistunut kilpailuun'>DNS</span>"
@@ -16,21 +16,21 @@ describe ApplicationHelper do
     end
 
     it "should print points in case they are available" do
-      competitor = mock_model(Competitor, :no_result_reason => nil,
+      competitor = instance_double(Competitor, :no_result_reason => nil,
         :series => nil)
       expect(competitor).to receive(:points).with(@all_competitors).and_return(145)
       expect(helper.points_print(competitor, @all_competitors)).to eq("145")
     end
 
     it "should print points in brackets if only partial points are available" do
-      competitor = mock_model(Competitor, :no_result_reason => nil)
+      competitor = instance_double(Competitor, :no_result_reason => nil)
       expect(competitor).to receive(:points).with(@all_competitors).and_return(nil)
       expect(competitor).to receive(:points!).with(@all_competitors).and_return(100)
       expect(helper.points_print(competitor, @all_competitors)).to eq("(100)")
     end
 
     it "should print - if no points at all" do
-      competitor = mock_model(Competitor, :no_result_reason => nil,
+      competitor = instance_double(Competitor, :no_result_reason => nil,
         :series => nil)
       expect(competitor).to receive(:points).with(@all_competitors).and_return(nil)
       expect(competitor).to receive(:points!).with(@all_competitors).and_return(nil)
@@ -92,7 +92,7 @@ describe ApplicationHelper do
 
   describe "#series_start_time_print" do
     it "should call datetime_print with series date and time" do
-      series = mock_model(Series)
+      series = instance_double(Series)
       datetime = 'some date time'
       allow(series).to receive(:start_datetime).and_return(datetime)
       expect(helper).to receive(:datetime_print).with(datetime, true).and_return('result')
@@ -192,7 +192,7 @@ describe ApplicationHelper do
   describe "#shot_points" do
     context "when reason for no result" do
       it "should return empty string" do
-        competitor = mock_model(Competitor, :shots_sum => 88,
+        competitor = instance_double(Competitor, :shots_sum => 88,
           :no_result_reason => Competitor::DNS)
         expect(helper.shot_points(competitor)).to eq('')
       end
@@ -200,7 +200,7 @@ describe ApplicationHelper do
 
     context "when no shots sum" do
       it "should return dash" do
-        competitor = mock_model(Competitor, :shots_sum => nil,
+        competitor = instance_double(Competitor, :shots_sum => nil,
           :no_result_reason => nil)
         expect(helper.shot_points(competitor)).to eq("-")
       end
@@ -208,7 +208,7 @@ describe ApplicationHelper do
 
     context "when no total shots wanted" do
       it "should return shot points" do
-        competitor = mock_model(Competitor, :shot_points => 480, :shots_sum => 80,
+        competitor = instance_double(Competitor, :shot_points => 480, :shots_sum => 80,
           :no_result_reason => nil)
         expect(helper.shot_points(competitor, false)).to eq("480")
       end
@@ -216,7 +216,7 @@ describe ApplicationHelper do
 
     context "when total shots wanted" do
       it "should return shot points and sum in brackets" do
-        competitor = mock_model(Competitor, :shot_points => 480, :shots_sum => 80,
+        competitor = instance_double(Competitor, :shot_points => 480, :shots_sum => 80,
           :no_result_reason => nil)
         expect(helper.shot_points(competitor, true)).to eq("480 (80)")
       end
@@ -225,18 +225,18 @@ describe ApplicationHelper do
 
   describe "#shots_list" do
     it "should return dash when no shots sum" do
-      competitor = mock_model(Competitor, :shots_sum => nil)
+      competitor = instance_double(Competitor, :shots_sum => nil)
       expect(helper.shots_list(competitor)).to eq("-")
     end
 
     it "should return input total if such is given" do
-      competitor = mock_model(Competitor, :shots_sum => 45, :shots_total_input => 45)
+      competitor = instance_double(Competitor, :shots_sum => 45, :shots_total_input => 45)
       expect(helper.shots_list(competitor)).to eq(45)
     end
 
     it "should return comma separated list if individual shots defined" do
       shots = [10, 1, 9, 5, 5, nil, nil, 6, 4, 0]
-      competitor = mock_model(Competitor, :shots_sum => 50,
+      competitor = instance_double(Competitor, :shots_sum => 50,
         :shots_total_input => nil, :shot_values => shots)
       expect(helper.shots_list(competitor)).to eq("10,1,9,5,5,0,0,6,4,0")
     end
@@ -259,29 +259,29 @@ describe ApplicationHelper do
   describe "#estimate_diffs" do
     describe "2 estimates" do
       before do
-        @series = mock_model(Series, :estimates => 2)
+        @series = instance_double(Series, :estimates => 2)
       end
 
       it "should return empty string when no estimates" do
-        competitor = mock_model(Competitor, :estimate1 => nil, :estimate2 => nil,
+        competitor = instance_double(Competitor, :estimate1 => nil, :estimate2 => nil,
           :series => @series)
         expect(helper.estimate_diffs(competitor)).to eq("")
       end
 
       it "should return first and dash when first is available" do
-        competitor = mock_model(Competitor, :estimate1 => 50, :estimate2 => nil,
+        competitor = instance_double(Competitor, :estimate1 => 50, :estimate2 => nil,
           :estimate_diff1_m => 10, :estimate_diff2_m => nil, :series => @series)
         expect(helper.estimate_diffs(competitor)).to eq("+10m/-")
       end
 
       it "should return dash and second when second is available" do
-        competitor = mock_model(Competitor, :estimate1 => nil, :estimate2 => 60,
+        competitor = instance_double(Competitor, :estimate1 => nil, :estimate2 => 60,
           :estimate_diff1_m => nil, :estimate_diff2_m => -5, :series => @series)
         expect(helper.estimate_diffs(competitor)).to eq("-/-5m")
       end
 
       it "should return both when both are available" do
-        competitor = mock_model(Competitor, :estimate1 => 120, :estimate2 => 60,
+        competitor = instance_double(Competitor, :estimate1 => 120, :estimate2 => 60,
           :estimate_diff1_m => -5, :estimate_diff2_m => 14, :series => @series)
         expect(helper.estimate_diffs(competitor)).to eq("-5m/+14m")
       end
@@ -289,45 +289,45 @@ describe ApplicationHelper do
 
     describe "4 estimates" do
       before do
-        @series = mock_model(Series, :estimates => 4)
+        @series = instance_double(Series, :estimates => 4)
       end
 
       it "should return empty string when no estimates" do
-        competitor = mock_model(Competitor, :estimate1 => nil, :estimate2 => nil,
+        competitor = instance_double(Competitor, :estimate1 => nil, :estimate2 => nil,
           :estimate3 => nil, :estimate4 => nil, :series => @series)
         expect(helper.estimate_diffs(competitor)).to eq("")
       end
 
       it "should return dash for others when only third is available" do
-        competitor = mock_model(Competitor, :estimate1 => 50, :estimate2 => nil,
+        competitor = instance_double(Competitor, :estimate1 => 50, :estimate2 => nil,
           :estimate_diff1_m => nil, :estimate_diff2_m => nil,
           :estimate_diff3_m => 12, :estimate_diff4_m => nil, :series => @series)
         expect(helper.estimate_diffs(competitor)).to eq("-/-/+12m/-")
       end
 
       it "should return dash for others when only fourth is available" do
-        competitor = mock_model(Competitor, :estimate1 => 50, :estimate2 => nil,
+        competitor = instance_double(Competitor, :estimate1 => 50, :estimate2 => nil,
           :estimate_diff1_m => nil, :estimate_diff2_m => nil,
           :estimate_diff3_m => nil, :estimate_diff4_m => -5, :series => @series)
         expect(helper.estimate_diffs(competitor)).to eq("-/-/-/-5m")
       end
 
       it "should return dash for third when others are available" do
-        competitor = mock_model(Competitor, :estimate1 => 50, :estimate2 => nil,
+        competitor = instance_double(Competitor, :estimate1 => 50, :estimate2 => nil,
           :estimate_diff1_m => 10, :estimate_diff2_m => -9,
           :estimate_diff3_m => nil, :estimate_diff4_m => 12, :series => @series)
         expect(helper.estimate_diffs(competitor)).to eq("+10m/-9m/-/+12m")
       end
 
       it "should return dash for fourth when others are available" do
-        competitor = mock_model(Competitor, :estimate1 => nil, :estimate2 => 60,
+        competitor = instance_double(Competitor, :estimate1 => nil, :estimate2 => 60,
           :estimate_diff1_m => 10, :estimate_diff2_m => -5,
           :estimate_diff3_m => 12, :estimate_diff4_m => nil, :series => @series)
         expect(helper.estimate_diffs(competitor)).to eq("+10m/-5m/+12m/-")
       end
 
       it "should return all diffs when all are available" do
-        competitor = mock_model(Competitor, :estimate1 => 120, :estimate2 => 60,
+        competitor = instance_double(Competitor, :estimate1 => 120, :estimate2 => 60,
           :estimate_diff1_m => -5, :estimate_diff2_m => 14,
           :estimate_diff3_m => 12, :estimate_diff4_m => -1, :series => @series)
         expect(helper.estimate_diffs(competitor)).to eq("-5m/+14m/+12m/-1m")
@@ -337,19 +337,19 @@ describe ApplicationHelper do
 
   describe "#estimate_points" do
     it "should print empty string if no result reason defined" do
-      competitor = mock_model(Competitor, :shots_sum => 88,
+      competitor = instance_double(Competitor, :shots_sum => 88,
         :no_result_reason => Competitor::DNS)
       expect(helper.estimate_points(competitor)).to eq('')
     end
 
     it "should return dash if no estimate points" do
-      competitor = mock_model(Competitor, :estimate_points => nil,
+      competitor = instance_double(Competitor, :estimate_points => nil,
         :no_result_reason => nil)
       expect(helper.estimate_points(competitor)).to eq("-")
     end
 
     it "should return points otherwise" do
-      competitor = mock_model(Competitor, :estimate_points => 189,
+      competitor = instance_double(Competitor, :estimate_points => 189,
         :no_result_reason => nil)
       expect(helper.estimate_points(competitor)).to eq(189)
     end
@@ -357,19 +357,19 @@ describe ApplicationHelper do
 
   describe "#estimate_points_and_diffs" do
     it "should print empty string if no result reason defined" do
-      competitor = mock_model(Competitor, :shots_sum => 88,
+      competitor = instance_double(Competitor, :shots_sum => 88,
         :no_result_reason => Competitor::DNS)
       expect(helper.estimate_points_and_diffs(competitor)).to eq('')
     end
 
     it "should return dash if no estimate points" do
-      competitor = mock_model(Competitor, :estimate_points => nil,
+      competitor = instance_double(Competitor, :estimate_points => nil,
         :no_result_reason => nil)
       expect(helper.estimate_points_and_diffs(competitor)).to eq("-")
     end
 
     it "should return points and diffs when points available" do
-      competitor = mock_model(Competitor, :estimate_points => 189,
+      competitor = instance_double(Competitor, :estimate_points => 189,
         :no_result_reason => nil)
       expect(helper).to receive(:estimate_diffs).with(competitor).and_return("3m")
       expect(helper.estimate_points_and_diffs(competitor)).to eq("189 (3m)")
@@ -387,9 +387,9 @@ describe ApplicationHelper do
 
     context "race not finished" do
       before do
-        race = mock_model(Race, :finished => false)
-        series = mock_model(Series, :race => race)
-        @competitor = mock_model(Competitor, :series => series,
+        race = instance_double(Race, :finished => false)
+        series = instance_double(Series, :race => race)
+        @competitor = instance_double(Competitor, :series => series,
           :correct_estimate1 => 100, :correct_estimate2 => 150)
       end
 
@@ -402,9 +402,9 @@ describe ApplicationHelper do
     context "race finished" do
       context "estimates available" do
         before do
-          race = mock_model(Race, :finished => true)
-          series = mock_model(Series, :race => race)
-          @competitor = mock_model(Competitor, :series => series,
+          race = instance_double(Race, :finished => true)
+          series = instance_double(Series, :race => race)
+          @competitor = instance_double(Competitor, :series => series,
             :correct_estimate1 => 100, :correct_estimate2 => 150,
             :correct_estimate3 => 110, :correct_estimate4 => 160)
         end
@@ -417,9 +417,9 @@ describe ApplicationHelper do
 
       context "estimates not available" do
         before do
-          race = mock_model(Race, :finished => true)
-          series = mock_model(Series, :race => race)
-          @competitor = mock_model(Competitor, :series => series,
+          race = instance_double(Race, :finished => true)
+          series = instance_double(Series, :race => race)
+          @competitor = instance_double(Competitor, :series => series,
             :correct_estimate1 => nil, :correct_estimate2 => nil,
             :correct_estimate3 => nil, :correct_estimate4 => nil)
         end
@@ -434,12 +434,12 @@ describe ApplicationHelper do
 
   describe "#time_points" do
     before do
-      @series = mock_model(Series, :time_points_type => Series::TIME_POINTS_TYPE_NORMAL)
+      @series = instance_double(Series, :time_points_type => Series::TIME_POINTS_TYPE_NORMAL)
     end
 
     context "when reason for no result" do
       it "should return empty string" do
-        competitor = mock_model(Competitor, :series => @series,
+        competitor = instance_double(Competitor, :series => @series,
           :no_result_reason => Competitor::DNS)
         expect(helper.time_points(competitor)).to eq('')
       end
@@ -448,14 +448,14 @@ describe ApplicationHelper do
     context "when 300 points for all competitors in this series" do
       it "should return 300" do
         allow(@series).to receive(:time_points_type).and_return(Series::TIME_POINTS_TYPE_ALL_300)
-        competitor = mock_model(Competitor, :series => @series, :no_result_reason => nil)
+        competitor = instance_double(Competitor, :series => @series, :no_result_reason => nil)
         expect(helper.time_points(competitor)).to eq(300)
       end
     end
   
     context "when no time" do
       it "should return dash" do
-        competitor = mock_model(Competitor, :time_in_seconds => nil,
+        competitor = instance_double(Competitor, :time_in_seconds => nil,
           :no_result_reason => nil, :series => @series)
         expect(helper.time_points(competitor)).to eq("-")
       end
@@ -464,7 +464,7 @@ describe ApplicationHelper do
     context "when time points and time wanted" do
       it "should return time points and time in brackets" do
         all_competitors = true
-        competitor = mock_model(Competitor, :series => @series,
+        competitor = instance_double(Competitor, :series => @series,
           :time_in_seconds => 2680, :no_result_reason => nil)
         expect(competitor).to receive(:time_points).with(all_competitors).and_return(270)
         expect(helper).to receive(:time_from_seconds).with(2680).and_return("45:23")
@@ -473,7 +473,7 @@ describe ApplicationHelper do
   
       it "should wrap with best time span when full points" do
         all_competitors = true
-        competitor = mock_model(Competitor, :series => @series,
+        competitor = instance_double(Competitor, :series => @series,
           :time_in_seconds => 2680, :no_result_reason => nil)
         expect(competitor).to receive(:time_points).with(all_competitors).and_return(300)
         expect(helper).to receive(:time_from_seconds).with(2680).and_return("45:23")
@@ -485,7 +485,7 @@ describe ApplicationHelper do
     context "when time points but no time wanted" do
       it "should return time points" do
         all_competitors = true
-        competitor = mock_model(Competitor, :series => @series,
+        competitor = instance_double(Competitor, :series => @series,
           :time_in_seconds => 2680, :no_result_reason => nil)
         expect(competitor).to receive(:time_points).with(all_competitors).and_return(270)
         expect(helper.time_points(competitor, false, all_competitors)).to eq("270")
@@ -493,7 +493,7 @@ describe ApplicationHelper do
   
       it "should wrap with best time span when full points" do
         all_competitors = true
-        competitor = mock_model(Competitor, :series => @series,
+        competitor = instance_double(Competitor, :series => @series,
           :time_in_seconds => 2680, :no_result_reason => nil)
         expect(competitor).to receive(:time_points).with(all_competitors).and_return(300)
         expect(helper.time_points(competitor, false, all_competitors)).
@@ -503,11 +503,11 @@ describe ApplicationHelper do
   end
 
   describe "#full_name" do
-    specify { expect(helper.full_name(mock_model(Competitor, :last_name => "Tester",
+    specify { expect(helper.full_name(instance_double(Competitor, :last_name => "Tester",
         :first_name => "Tim"))).to eq("Tester Tim") }
 
     describe "first name first" do
-      specify { expect(helper.full_name(mock_model(Competitor, :last_name => "Tester",
+      specify { expect(helper.full_name(instance_double(Competitor, :last_name => "Tester",
           :first_name => "Tim"), true)).to eq("Tim Tester") }
     end
   end
@@ -575,8 +575,8 @@ describe ApplicationHelper do
   describe "#start_days_form_field" do
     before do
       @f = double(String)
-      @race = mock_model(Race, :start_date => '2010-12-20')
-      @series = mock_model(Series, :race => @race)
+      @race = instance_double(Race, :start_date => '2010-12-20')
+      @series = instance_double(Series, :race => @race)
     end
 
     context "when only one start day" do
@@ -627,7 +627,7 @@ describe ApplicationHelper do
 
   describe "#next_result_rotation" do
     let(:request) { double }
-    let(:race) { mock_model Race }
+    let(:race) { instance_double Race }
 
     before do
       allow(helper).to receive(:request).and_return(request)
@@ -683,7 +683,7 @@ describe ApplicationHelper do
   describe "#result_rotation_list" do
     describe "aggregate" do
       before do
-        @race = mock_model(Race)
+        @race = instance_double(Race)
         allow(helper).to receive(:result_rotation_series_list).with(@race).and_return(['series1', 'series2'])
         allow(helper).to receive(:result_rotation_tc_list).with(@race).and_return(['tc1', 'tc2'])
         allow(helper).to receive(:result_rotation_tc_cookie).and_return(true)
@@ -811,8 +811,8 @@ describe ApplicationHelper do
     before do
       @competitors = double(Array)
       allow(@competitors).to receive(:empty?).and_return(false)
-      @race = mock_model(Race, :finished? => false)
-      @series = mock_model(Series, :race => @race, :competitors => @competitors, :started? => true)
+      @race = instance_double(Race, :finished? => false)
+      @series = instance_double(Series, :race => @race, :competitors => @competitors, :started? => true)
     end
     
     it "should return '(Ei kilpailijoita)' when no competitors" do
@@ -861,8 +861,8 @@ describe ApplicationHelper do
       @competitors = double(Array)
       @teams = double(Array)
       allow(@teams).to receive(:empty?).and_return(false)
-      @race = mock_model(Race)
-      @relay = mock_model(Relay, :race => @race, :started? => true,
+      @race = instance_double(Race)
+      @relay = instance_double(Relay, :race => @race, :started? => true,
         :relay_teams => @teams, :finished? => false)
     end
     
@@ -911,8 +911,8 @@ describe ApplicationHelper do
   
   describe "#time_title" do
     before do
-      @sport = mock_model(Sport)
-      @race = mock_model(Race, :sport => @sport)
+      @sport = instance_double(Sport)
+      @race = instance_double(Race, :sport => @sport)
     end
     
     it "should be 'Juoksu' when run sport" do
@@ -962,7 +962,7 @@ describe ApplicationHelper do
   
   describe "#comparison_time_title" do
     before do
-      @competitor = mock_model(Competitor)
+      @competitor = instance_double(Competitor)
       allow(@competitor).to receive(:comparison_time_in_seconds).and_return(1545)
     end
     
@@ -988,7 +988,7 @@ describe ApplicationHelper do
   describe "#comparison_and_own_time_title" do
     context "when no time for competitor" do
       it "should return empty string" do
-        competitor = mock_model(Competitor)
+        competitor = instance_double(Competitor)
         allow(competitor).to receive(:time_in_seconds).and_return(nil)
         expect(helper.comparison_and_own_time_title(competitor)).to eq('')
       end
@@ -996,7 +996,7 @@ describe ApplicationHelper do
   
     context "when no comparison time for competitor" do
       it "should return space and title attribute with time title and time" do
-        competitor = mock_model(Competitor)
+        competitor = instance_double(Competitor)
         expect(competitor).to receive(:time_in_seconds).and_return(123)
         expect(competitor).to receive(:comparison_time_in_seconds).with(false).and_return(nil)
         expect(helper).to receive(:time_from_seconds).with(123).and_return('1:23')
@@ -1006,7 +1006,7 @@ describe ApplicationHelper do
 
     context "when own and comparison time available" do
       it "should return space and title attribute with time title, time, comparison time title and comparison time" do
-        competitor = mock_model(Competitor)
+        competitor = instance_double(Competitor)
         expect(competitor).to receive(:time_in_seconds).and_return(123)
         expect(competitor).to receive(:comparison_time_in_seconds).with(false).and_return(456)
         expect(helper).to receive(:time_from_seconds).with(123).and_return('1:23')
@@ -1018,13 +1018,13 @@ describe ApplicationHelper do
   
   describe "#shots_total_title" do
     it "should return empty string when no shots sum for competitor" do
-      competitor = mock_model(Competitor)
+      competitor = instance_double(Competitor)
       expect(competitor).to receive(:shots_sum).and_return(nil)
       expect(helper.shots_total_title(competitor)).to eq('')
     end
     
     it "should return space and title attribute with title and shots sum when sum available" do
-      competitor = mock_model(Competitor)
+      competitor = instance_double(Competitor)
       expect(competitor).to receive(:shots_sum).and_return(89)
       expect(helper.shots_total_title(competitor)).to eq(" title='Ammuntatulos: 89'")
     end
@@ -1117,17 +1117,17 @@ describe ApplicationHelper do
   describe "#competition_icon" do
     context "when single race" do
       it "should be image tag for competition's sport's lower case key with _icon.gif suffix" do
-        sport = mock_model(Sport, :key => 'RUN', :initials => 'HJ')
+        sport = instance_double(Sport, :key => 'RUN', :initials => 'HJ')
         expect(helper).to receive(:image_tag).with("run_icon.gif", alt: 'HJ', class: 'competition_icon').and_return("image")
-        expect(helper.competition_icon(mock_model(Race, :sport => sport))).to eq("image")
+        expect(helper.competition_icon(instance_double(Race, :sport => sport))).to eq("image")
       end
     end
     
     context "when cup" do
       it "should be image tag for cup's sport's lower case key with _icon_cup.gif suffix" do
-        sport = mock_model(Sport, :key => 'SKI', :initials => 'HH')
+        sport = instance_double(Sport, :key => 'SKI', :initials => 'HH')
         expect(helper).to receive(:image_tag).with("ski_icon_cup.gif", alt: 'HH', class: 'competition_icon').and_return("cup-image")
-        expect(helper.competition_icon(mock_model(Cup, :sport => sport))).to eq("cup-image")
+        expect(helper.competition_icon(instance_double(Cup, :sport => sport))).to eq("cup-image")
       end
     end
   end
@@ -1160,7 +1160,7 @@ describe ApplicationHelper do
   describe "#refresh_counter_auto_scroll" do
     context "when menu_series defined and result rotation auto scroll cookie defined" do
       it "should return true" do
-        expect(helper).to receive(:menu_series).and_return(mock_model(Series))
+        expect(helper).to receive(:menu_series).and_return(instance_double(Series))
         expect(helper).to receive(:result_rotation_auto_scroll).and_return('cookie')
         expect(helper.refresh_counter_auto_scroll).to be_truthy
       end
@@ -1175,7 +1175,7 @@ describe ApplicationHelper do
     
     context "when result rotation auto scroll cookie not available" do
       it "should return false" do
-        expect(helper).to receive(:menu_series).and_return(mock_model(Series))
+        expect(helper).to receive(:menu_series).and_return(instance_double(Series))
         expect(helper).to receive(:result_rotation_auto_scroll).and_return(nil)
         expect(helper.refresh_counter_auto_scroll).to be_falsey
       end
@@ -1211,7 +1211,7 @@ describe ApplicationHelper do
           context "but series have less competitors than minimum seconds" do
             it "should return refresh counter default seconds" do
               expect(helper).to receive(:refresh_counter_auto_scroll).and_return(true)
-              series = mock_model(Series)
+              series = instance_double(Series)
               competitors = double(Array)
               expect(helper).to receive(:menu_series).and_return(series)
               expect(series).to receive(:competitors).and_return(competitors)
@@ -1223,7 +1223,7 @@ describe ApplicationHelper do
           context "and series have at least as many competitors as minimum seconds" do
             it "should return competitor count" do
               expect(helper).to receive(:refresh_counter_auto_scroll).and_return(true)
-              series = mock_model(Series)
+              series = instance_double(Series)
               competitors = double(Array)
               expect(helper).to receive(:menu_series).and_return(series)
               expect(series).to receive(:competitors).and_return(competitors)
@@ -1238,9 +1238,9 @@ describe ApplicationHelper do
 
   describe "#national_record" do
     before do
-      @competitor = mock_model(Competitor)
-      @race = mock_model(Race)
-      series = mock_model(Series)
+      @competitor = instance_double(Competitor)
+      @race = instance_double(Race)
+      series = instance_double(Series)
       allow(@competitor).to receive(:series).and_return(series)
       allow(series).to receive(:race).and_return(@race)
     end

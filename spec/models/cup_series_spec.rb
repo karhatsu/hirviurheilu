@@ -113,7 +113,7 @@ describe CupSeries do
     
     context "when no competitors in series" do
       it "should return an empty array" do
-        series = mock_model(Series, :competitors => [])
+        series = instance_double(Series, :competitors => [])
         allow(@cs).to receive(:series).and_return([series])
         expect(@cs.cup_competitors).to eq([])
       end
@@ -128,9 +128,9 @@ describe CupSeries do
         @cTM3 = competitor('Timo', 'Miettinen')
         @cMT1 = competitor('Mikko', 'Turunen')
         @cAA2 = competitor('Aki', 'Aalto')
-        series1 = mock_model(Series, :competitors => [@cMM1, @cTM1, @cMT1])
-        series2 = mock_model(Series, :competitors => [@cMM2, @cAA2])
-        series3 = mock_model(Series, :competitors => [@cMM3, @cTM3])
+        series1 = instance_double(Series, :competitors => [@cMM1, @cTM1, @cMT1])
+        series2 = instance_double(Series, :competitors => [@cMM2, @cAA2])
+        series3 = instance_double(Series, :competitors => [@cMM3, @cTM3])
         allow(@cs).to receive(:series).and_return([series1, series2, series3])
       end
       
@@ -147,7 +147,7 @@ describe CupSeries do
       end
       
       def competitor(first_name, last_name)
-        mock_model(Competitor, :first_name => first_name, :last_name => last_name)
+        instance_double(Competitor, :first_name => first_name, :last_name => last_name)
       end
     end
   end

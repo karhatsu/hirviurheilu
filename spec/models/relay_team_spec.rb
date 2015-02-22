@@ -106,8 +106,8 @@ describe RelayTeam do
     context "when all competitors have nil for penalties" do
       it "should return nil" do
         team = FactoryGirl.create(:relay_team)
-        c1 = mock_model(RelayCompetitor, :estimate_penalties => nil)
-        c2 = mock_model(RelayCompetitor, :estimate_penalties => nil)
+        c1 = instance_double(RelayCompetitor, :estimate_penalties => nil)
+        c2 = instance_double(RelayCompetitor, :estimate_penalties => nil)
         allow(team).to receive(:relay_competitors).and_return([c1, c2])
         expect(team.estimate_penalties_sum).to be_nil
       end
@@ -116,9 +116,9 @@ describe RelayTeam do
     context "when at least one competitor has non-nil penalties" do
       it "should return sum of competitors' estimate penalties so that nil refers to 0 penalties" do
         team = FactoryGirl.create(:relay_team)
-        c1 = mock_model(RelayCompetitor, :estimate_penalties => 10)
-        c2 = mock_model(RelayCompetitor, :estimate_penalties => 2)
-        c3 = mock_model(RelayCompetitor, :estimate_penalties => nil)
+        c1 = instance_double(RelayCompetitor, :estimate_penalties => 10)
+        c2 = instance_double(RelayCompetitor, :estimate_penalties => 2)
+        c3 = instance_double(RelayCompetitor, :estimate_penalties => nil)
         allow(team).to receive(:relay_competitors).and_return([c1, c2, c3])
         expect(team.estimate_penalties_sum).to eq(12)
       end
@@ -129,8 +129,8 @@ describe RelayTeam do
     context "when all competitors have nil for penalties" do
       it "should return nil" do
         team = FactoryGirl.create(:relay_team)
-        c1 = mock_model(RelayCompetitor, :misses => nil)
-        c2 = mock_model(RelayCompetitor, :misses => nil)
+        c1 = instance_double(RelayCompetitor, :misses => nil)
+        c2 = instance_double(RelayCompetitor, :misses => nil)
         allow(team).to receive(:relay_competitors).and_return([c1, c2])
         expect(team.shoot_penalties_sum).to be_nil
       end
@@ -139,9 +139,9 @@ describe RelayTeam do
     context "when at least one competitor has non-nil penalties" do
       it "should return the sum of shoot penalties for the team so that nil refers to 0 penalties" do
         team = FactoryGirl.create(:relay_team)
-        c1 = mock_model(RelayCompetitor, :misses => 3)
-        c2 = mock_model(RelayCompetitor, :misses => 4)
-        c3 = mock_model(RelayCompetitor, :misses => nil)
+        c1 = instance_double(RelayCompetitor, :misses => 3)
+        c2 = instance_double(RelayCompetitor, :misses => 4)
+        c3 = instance_double(RelayCompetitor, :misses => nil)
         allow(team).to receive(:relay_competitors).and_return([c1, c2, c3])
         expect(team.shoot_penalties_sum).to eq(7)
       end

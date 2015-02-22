@@ -309,40 +309,40 @@ describe Competitor do
 
   describe "#sort_competitors" do
     before do
-      @second_partial = mock_model(Competitor, :points => nil, :points! => 12,
+      @second_partial = instance_double(Competitor, :points => nil, :points! => 12,
         :no_result_reason => nil, :shot_points => 50, :time_points => 30,
         :time_in_seconds => 999, :unofficial => false, :estimate_points => nil)
-      @worst_partial = mock_model(Competitor, :points => nil, :points! => nil,
+      @worst_partial = instance_double(Competitor, :points => nil, :points! => nil,
         :no_result_reason => nil, :shot_points => 51, :time_points => 30,
         :time_in_seconds => 1000, :unofficial => false, :estimate_points => nil)
-      @best_partial = mock_model(Competitor, :points => nil, :points! => 88,
+      @best_partial = instance_double(Competitor, :points => nil, :points! => 88,
         :no_result_reason => nil, :shot_points => 50, :time_points => 30,
         :time_in_seconds => 1000, :unofficial => false, :estimate_points => nil)
-      @best_time = mock_model(Competitor, :points => 199, :points! => 199,
+      @best_time = instance_double(Competitor, :points => 199, :points! => 199,
         :no_result_reason => nil, :shot_points => 87, :time_points => 30,
         :time_in_seconds => 999, :unofficial => false, :estimate_points => 250)
-      @best_points = mock_model(Competitor, :points => 201, :points! => 201,
+      @best_points = instance_double(Competitor, :points => 201, :points! => 201,
         :no_result_reason => nil, :shot_points => 50, :time_points => 30,
         :time_in_seconds => 1000, :unofficial => false, :estimate_points => 250)
-      @worst_points = mock_model(Competitor, :points => 199, :points! => 199,
+      @worst_points = instance_double(Competitor, :points => 199, :points! => 199,
         :no_result_reason => nil, :shot_points => 87, :time_points => 30,
         :time_in_seconds => 1000, :unofficial => false, :estimate_points => 250)
-      @best_shots = mock_model(Competitor, :points => 199, :points! => 199,
+      @best_shots = instance_double(Competitor, :points => 199, :points! => 199,
         :no_result_reason => nil, :shot_points => 88, :time_points => 30,
         :time_in_seconds => 1000, :unofficial => false, :estimate_points => 250)
-      @best_estimates = mock_model(Competitor, :points => 199, :points! => 199,
+      @best_estimates = instance_double(Competitor, :points => 199, :points! => 199,
         :no_result_reason => nil, :shot_points => 86, :time_points => 30,
         :time_in_seconds => 1000, :unofficial => false, :estimate_points => 252)
-      @c_dnf = mock_model(Competitor, :points => 300, :points! => 300,
+      @c_dnf = instance_double(Competitor, :points => 300, :points! => 300,
         :no_result_reason => "DNF", :shot_points => 88, :time_points => 30,
         :time_in_seconds => 999, :unofficial => false, :estimate_points => 256)
-      @c_dns = mock_model(Competitor, :points => 300, :points! => 300,
+      @c_dns = instance_double(Competitor, :points => 300, :points! => 300,
         :no_result_reason => "DNS", :shot_points => 88, :time_points => 30,
         :time_in_seconds => 1000, :unofficial => false, :estimate_points => 255)
-      @c_dq = mock_model(Competitor, :points => 300, :points! => 300,
+      @c_dq = instance_double(Competitor, :points => 300, :points! => 300,
         :no_result_reason => "DQ", :shot_points => 88, :time_points => 30,
         :time_in_seconds => 999, :unofficial => false, :estimate_points => 256)
-      @unofficial = mock_model(Competitor, :points => 300, :points! => 300,
+      @unofficial = instance_double(Competitor, :points => 300, :points! => 300,
         :no_result_reason => nil, :shot_points => 100, :time_points => 100,
         :time_in_seconds => 1000, :unofficial => true, :estimate_points => 250)
     end
@@ -1053,8 +1053,8 @@ describe Competitor do
   describe "#comparison_time_in_seconds" do
     it "should delegate call to series with own age group and all_competitors as parameters" do
       all_competitors = true
-      series = mock_model(Series)
-      age_group = mock_model(AgeGroup)
+      series = instance_double(Series)
+      age_group = instance_double(AgeGroup)
       competitor = FactoryGirl.build(:competitor, :series => series, :age_group => age_group)
       expect(series).to receive(:comparison_time_in_seconds).with(age_group, all_competitors).and_return(12345)
       expect(competitor.comparison_time_in_seconds(all_competitors)).to eq(12345)
@@ -1181,7 +1181,7 @@ describe Competitor do
 
   describe "#start_datetime" do
     it "should return value from StartDateTime module" do
-      race = mock_model(Race)
+      race = instance_double(Race)
       series = FactoryGirl.build(:series, race: race, start_day: 2)
       competitor = FactoryGirl.build(:competitor, series: series)
       expect(competitor).to receive(:start_date_time).with(race, 2, competitor.start_time).and_return('time')
