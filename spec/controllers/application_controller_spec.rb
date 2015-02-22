@@ -1,10 +1,13 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe ApplicationController do
+describe ApplicationController, type: :controller do
+  before do
+    allow(Date).to receive(:today).and_return(Date.new(2012, 1, 2))
+  end
+
   controller do
     def index
-      allow(Date).to receive(:today).and_return(Date.new(2012, 1, 2))
       @pdf_header = pdf_header(params[:title])
       @pdf_footer = pdf_footer
       @pdf_margin = pdf_margin
@@ -45,7 +48,7 @@ describe ApplicationController do
     end
     specify { expect(@footer[:center]).to eq('www.hirviurheilu.com') }
     specify { expect(@footer[:spacing]).to eq(10) }
-    specify { expect(@footer[:line]).to be_true }
+    specify { expect(@footer[:line]).to be_truthy }
   end
   
   describe "#pdf_margin" do

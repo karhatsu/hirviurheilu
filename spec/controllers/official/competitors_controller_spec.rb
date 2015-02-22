@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Official::CompetitorsController do
+describe Official::CompetitorsController, type: :controller do
   describe "#handle_club" do
     before do
       @race = FactoryGirl.create(:race)
