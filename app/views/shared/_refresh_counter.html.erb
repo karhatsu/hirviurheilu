@@ -25,7 +25,7 @@
       if(<%= result_rotation_cookie.nil? %>) {
         window.location.reload()
       } else {
-        window.location = '<%= next_result_rotation(request.fullpath) %>';
+        window.location = '<%= next_result_rotation(race) %>';
       }
     }
   }

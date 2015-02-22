@@ -8,7 +8,7 @@
     <%= submit_tag t('.stop') %>
   <% end %>
   <hr/>
-  <%= render :partial => 'shared/refresh_counter', :locals => { :seconds => 10 } %>
+  <%= render :partial => 'shared/refresh_counter', :locals => { seconds: 10, race: @race } %>
 <% else %>
   <% if result_rotation_list(menu_race).empty? %>
     <%= t '.no_active_competitions' %>

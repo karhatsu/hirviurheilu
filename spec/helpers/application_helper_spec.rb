@@ -625,60 +625,55 @@ describe ApplicationHelper do
   end
 
   describe "#next_result_rotation" do
+    let(:request) { double }
+    let(:race) { mock_model Race }
+
+    before do
+      allow(helper).to receive(:request).and_return(request)
+    end
+
     context "when url list is empty" do
-      context "and parameter is non-nil" do
-        it "should return the parameter url" do
-          helper.stub(:result_rotation_list).and_return([])
-          helper.next_result_rotation('/abc').should == '/abc'
-        end
+      before do
+        helper.should_receive(:result_rotation_list).with(race).and_return([])
       end
 
-      context "and parameter is nil" do
-        before do
-          @race_path = '/this/is/race/frontpage'
-          helper.stub(:race_path).and_return(@race_path)
-        end
-
-        it "should return the race front page" do
-          helper.stub(:result_rotation_list).and_return([])
-          helper.next_result_rotation(nil).should == @race_path
-        end
+      it "should return the current url" do
+        allow(request).to receive(:fullpath).and_return('/here/i/am')
+        helper.next_result_rotation(race).should == '/here/i/am'
       end
     end
     
     context "when url list is not empty" do
       before do
-        @result_rotation_list = ['/races/12/relays/1', '/series/56/competitors', '/series/67/competitors']
-        helper.stub(:result_rotation_list).and_return(@result_rotation_list)
+        @result_rotation_list = ['/first', '/second', '/third']
+        helper.should_receive(:result_rotation_list).with(race).and_return(@result_rotation_list)
       end
 
-      context "when nil url is given" do
+      context "when current url is unknown" do
         it "should return first url from url rotation" do
-          helper.next_result_rotation(nil).should == @result_rotation_list[0]
-        end
-      end
-
-      context "when unknown url is given" do
-        it "should return first url from url rotation" do
-          helper.next_result_rotation('/unknown').should == @result_rotation_list[0]
+          allow(request).to receive(:fullpath).and_return('/unknown')
+          helper.next_result_rotation(race).should == @result_rotation_list[0]
         end
       end
 
       context "when existing url is given" do
         it "should return next url from url rotation" do
-          helper.next_result_rotation(@result_rotation_list[0]).should == @result_rotation_list[1]
+          allow(request).to receive(:fullpath).and_return(@result_rotation_list[0])
+          helper.next_result_rotation(race).should == @result_rotation_list[1]
         end
       end
 
       context "when another existing url is given" do
         it "should return next url from url rotation" do
-          helper.next_result_rotation(@result_rotation_list[1]).should == @result_rotation_list[2]
+          allow(request).to receive(:fullpath).and_return(@result_rotation_list[1])
+          helper.next_result_rotation(race).should == @result_rotation_list[2]
         end
       end
 
       context "when last url is given" do
         it "should return first url from url rotation" do
-          helper.next_result_rotation(@result_rotation_list.size - 1).should == @result_rotation_list[0]
+          allow(request).to receive(:fullpath).and_return(@result_rotation_list[2])
+          helper.next_result_rotation(race).should == @result_rotation_list[0]
         end
       end
     end

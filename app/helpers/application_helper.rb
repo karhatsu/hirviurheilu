@@ -429,16 +429,15 @@ module ApplicationHelper
     list
   end
 
-  def next_result_rotation(url)
-    @race = @series.race if @series
-    list = result_rotation_list(@race)
-    return race_path(locale_for_path, @race) if list.empty? and url.nil?
+  def next_result_rotation(race)
+    url = request.fullpath
+    list = result_rotation_list(race)
     return url if list.empty?
     place = list.index(url)
     if (place and place != list.size - 1)
       return list[place + 1]
     end
-    return list[0]
+    list[0]
   end
 
   def series_result_title(series, all_competitors=false)

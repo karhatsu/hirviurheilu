@@ -1,6 +1,6 @@
 <% content_for :title, "#{@race.name} - #{t('activerecord.models.team_competition', :count => 2)} - #{@tc.name}" %>
 <% if @tc.started? and not @race.finished? %>
-  <%= render :partial => 'shared/refresh_counter' %>
+  <%= render :partial => 'shared/refresh_counter', locals: {race: @race} %>
 <% end %>
 <div class="title-and-fb-share">
   <h2><%= @tc.name %> - <%= t :results %></h2>
