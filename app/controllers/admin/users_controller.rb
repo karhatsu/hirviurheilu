@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class Admin::UsersController < Admin::AdminController
   def index
     @is_admin_users = true

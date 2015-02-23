@@ -1,4 +1,3 @@
-# encoding: UTF-8
 Given /^the admin has defined video source "(.*?)" with description "(.*?)" for the race$/ do |source, description|
   steps %Q{
     Given I am an admin

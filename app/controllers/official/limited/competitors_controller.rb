@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class Official::Limited::CompetitorsController < Official::OfficialController
   before_action :assign_race_by_race_id, :check_assigned_race_without_full_rights,
     :assign_race_right, :assign_current_competitors, :set_limited_official

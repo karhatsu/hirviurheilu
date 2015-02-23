@@ -1,4 +1,3 @@
-# encoding: UTF-8
 require 'time_helper.rb'
 
 class Relay < ActiveRecord::Base

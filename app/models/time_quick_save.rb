@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class TimeQuickSave < QuickSave
   def initialize(race_id, string)
     super(race_id, string, /^(\+\+|)\d+\,[0-2][0-9][0-5][0-9][0-5][0-9]$/)

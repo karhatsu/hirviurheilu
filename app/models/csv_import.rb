@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class CsvImport
   FIRST_NAME_COLUMN = 0
   LAST_NAME_COLUMN = 1

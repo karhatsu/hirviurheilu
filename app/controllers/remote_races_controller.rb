@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class RemoteRacesController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :check_user, :prepare_clubs_for_competitors

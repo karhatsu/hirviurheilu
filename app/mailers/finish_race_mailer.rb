@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class FinishRaceMailer < ApplicationMailer
   add_template_helper ApplicationHelper
 

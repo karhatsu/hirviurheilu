@@ -1,4 +1,3 @@
-# encoding: UTF-8
 require 'database_helper'
 class ApplicationController < ActionController::Base
   protect_from_forgery

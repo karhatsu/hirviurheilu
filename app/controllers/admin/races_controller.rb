@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class Admin::RacesController < Admin::AdminController
   before_action :set_admin_races
   

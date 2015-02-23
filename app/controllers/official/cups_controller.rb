@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class Official::CupsController < Official::OfficialController
   before_action :assign_cup_by_id, :check_assigned_cup, :except => [:new, :create]
   

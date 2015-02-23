@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class Official::CsvImportsController < Official::OfficialController
   before_action :assign_race_by_race_id, :check_assigned_race
   

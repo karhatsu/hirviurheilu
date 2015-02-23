@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class User < ActiveRecord::Base
   OFFLINE_USER_EMAIL = 'offline@hirviurheilu.com'
   OFFLINE_USER_PASSWORD = 'offline'

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 require 'database_helper.rb'
 
 class Official::StartListsController < Official::OfficialController

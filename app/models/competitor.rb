@@ -1,4 +1,3 @@
-# encoding: UTF-8
 require 'model_value_comparator'
 
 class Competitor < ActiveRecord::Base

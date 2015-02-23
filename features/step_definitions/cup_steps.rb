@@ -1,4 +1,3 @@
-# encoding: UTF-8
 Given /^there is a cup "([^"]*)"$/ do |name|
   @cup = FactoryGirl.create(:cup, :name => name)
 end

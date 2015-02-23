@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class InviteOfficialMailer < ApplicationMailer
   add_template_helper ApplicationHelper
 

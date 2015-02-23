@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class RelayCompetitor < ActiveRecord::Base
   belongs_to :relay_team
 

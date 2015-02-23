@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class Admin::AnnouncementsController < Admin::AdminController
   before_action :set_admin_announcements
   

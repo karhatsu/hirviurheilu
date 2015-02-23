@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class NewUserMailer < ApplicationMailer
   add_template_helper ApplicationHelper
   

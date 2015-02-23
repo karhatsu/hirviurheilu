@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class FeedbacksController < ApplicationController
   include ApplicationHelper
 

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class ActivationKeysController < ApplicationController
   before_action :require_user, :set_offline_info, :check_env
 

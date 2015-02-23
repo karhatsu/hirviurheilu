@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class LicensesController < ApplicationController
   before_action :check_offline
 

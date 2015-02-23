@@ -1,4 +1,3 @@
-# encoding: UTF-8
 class EstimatesQuickSave < QuickSave
   def initialize(race_id, string)
     super(race_id, string, /^(\+\+|)\d+\,\d+\,\d+$/, /^(\+\+|)\d+\,\d+\,\d+\,\d+\,\d+$/)
