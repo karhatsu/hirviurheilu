@@ -257,6 +257,13 @@ describe Race do
     end
   end
 
+  describe '#race' do
+    it 'should be self' do
+      race = Race.new
+      expect(race.race).to eq(race)
+    end
+  end
+
   describe "#finish" do
     before do
       @race = FactoryGirl.create(:race)

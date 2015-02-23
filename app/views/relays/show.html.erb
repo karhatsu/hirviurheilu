@@ -1,6 +1,6 @@
 <% content_for :title, "#{@relay.race.name} - #{t('activerecord.models.relay', :count => 2)} - #{@relay.name} - #{relay_result_title(@relay)}" %>
 <% if @relay.active? %>
-  <%= render :partial => 'shared/refresh_counter', locals: {race: @relay.race} %>
+  <%= render :partial => 'shared/refresh_counter', locals: {competition: @relay} %>
 <% end %>
 <div class="title-and-fb-share">
   <h2><%= @relay.name %> - <%= relay_result_title(@relay) %></h2>

@@ -420,25 +420,6 @@ module ApplicationHelper
     'http://' + link
   end
 
-  def result_rotation_list(race)
-    return [] if offline?
-    list = result_rotation_series_list(race)
-    # team competition is active only when at least one series is active
-    list += result_rotation_tc_list(race) unless list.empty? or !result_rotation_tc_cookie
-    list
-  end
-
-  def next_result_rotation(race)
-    url = request.fullpath
-    list = result_rotation_list(race)
-    return url if list.empty?
-    place = list.index(url)
-    if (place and place != list.size - 1)
-      return list[place + 1]
-    end
-    list[0]
-  end
-
   def series_result_title(series, all_competitors=false)
     suffix = ''
     suffix = " - #{t(:all_competitors)}" if all_competitors
@@ -521,31 +502,6 @@ module ApplicationHelper
     ['development', 'production'].include?(Rails.env)
   end
   
-  def result_rotation_auto_scroll
-    cookies[result_rotation_scroll_cookie_name]
-  end
-  
-  def refresh_counter_min_seconds
-    20
-  end
-  
-  def refresh_counter_default_seconds
-    30
-  end
-  
-  def refresh_counter_auto_scroll
-    !(menu_series.nil? or result_rotation_auto_scroll.nil?)
-  end
-  
-  def refresh_counter_seconds(seconds=nil)
-    return seconds if seconds
-    auto_scroll = refresh_counter_auto_scroll
-    return refresh_counter_default_seconds unless auto_scroll
-    series = menu_series
-    return refresh_counter_default_seconds unless series
-    [refresh_counter_min_seconds, series.competitors.count].max
-  end
-  
   def organizer_info_with_possible_link(race)
     return nil if race.home_page.blank? and race.organizer.blank? and race.organizer_phone.blank?
     return race.organizer_phone if race.home_page.blank? and race.organizer.blank?
@@ -557,30 +513,5 @@ module ApplicationHelper
 
   def races_drop_down_array(races)
     races.map { |race| ["#{race.name} (#{race_date_interval(race, false)}, #{race.location})", race.id] }
-  end
-  
-  private
-  def result_rotation_series_list(race)
-    race_day = race.race_day
-    return [] if race_day == 0
-    list = []
-    race.series.where(['start_day=?', race_day]).each do |s|
-      list << series_competitors_path(locale_for_path, s) if s.started? and s.has_result_for_some_competitor?
-    end
-    list
-  end
-
-  def result_rotation_tc_list(race)
-    race.team_competitions.collect do |tc|
-      race_team_competition_path(locale_for_path, race, tc)
-    end
-  end
-
-  def result_rotation_cookie
-    return cookies[result_rotation_cookie_name]
-  end
-  
-  def result_rotation_tc_cookie
-    return cookies[result_rotation_tc_cookie_name]
   end
 end

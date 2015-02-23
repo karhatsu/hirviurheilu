@@ -1,6 +1,6 @@
 <% content_for(:title, "#{@series.race.name} - #{@series.name} - #{series_result_title(@series, params[:all_competitors])}") %>
 <% if @series.active? %>
-  <%= render :partial => 'shared/refresh_counter', locals: {race: @series.race} %>
+  <%= render :partial => 'shared/refresh_counter', locals: {competition: @series} %>
 <% end %>
 <div class="title-and-fb-share">
   <h2><%= "#{@series.name} - #{series_result_title(@series, params[:all_competitors])}" %></h2>

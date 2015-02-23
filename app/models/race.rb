@@ -56,6 +56,10 @@ class Race < ActiveRecord::Base
     includes(:sport).order('start_date') }
 
   attr_accessor :email, :password # for publishing
+
+  def race
+    self
+  end
   
   def add_default_series
     DefaultSeries.all.each do |ds|
