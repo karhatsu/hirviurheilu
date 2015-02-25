@@ -22,6 +22,10 @@
           <%= check_box_tag :team_competitions %>
           <%= label_tag :team_competitions, t('.include_team_competitions') %><br/>
         <% end %>
+        <% result_rotation_series(@race).each do |series| %>
+          <%= check_box_tag 'competition_paths[]', series_competitors_path(series) %>
+          <%= label_tag 'competition_paths[]', series.name %>
+        <% end %>
         <%= submit_tag t('.start') %>
       <% end %>
     </div>

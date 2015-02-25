@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user_session, :current_user, :official_rights,
     :online?, :offline?, :own_race?, :result_rotation_cookie_name, :result_rotation_scroll_cookie_name,
-    :result_rotation_tc_cookie_name
+    :result_rotation_tc_cookie_name, :result_rotation_selected_competitions_cookie_name
   before_action :ensure_user_in_offline
   before_action :set_locale
   before_action :clear_old_data_from_staging
