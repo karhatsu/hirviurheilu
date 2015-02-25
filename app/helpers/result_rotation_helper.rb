@@ -17,6 +17,7 @@ module ResultRotationHelper
 
   def result_rotation_competitions_paths(race)
     return [] if Mode.offline?
+    return result_rotation_selected_competitions.split(',') unless result_rotation_selected_competitions.blank?
     competitions = result_rotation_series(race)
     unless competitions.empty? || !result_rotation_team_competitions_cookie
       competitions += result_rotation_team_competitions(race)
@@ -68,5 +69,9 @@ module ResultRotationHelper
 
   def result_rotation_auto_scroll
     cookies[result_rotation_scroll_cookie_name]
+  end
+
+  def result_rotation_selected_competitions
+    cookies[result_rotation_selected_competitions_cookie_name]
   end
 end

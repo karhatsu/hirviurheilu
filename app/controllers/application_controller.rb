@@ -242,6 +242,10 @@ class ApplicationController < ActionController::Base
   def result_rotation_tc_cookie_name
     'result_rotation_tc'
   end
+
+  def result_rotation_selected_competitions_cookie_name
+    'result_rotation_competitions'
+  end
   
   def pdf_header(title)
     { :left => replace_scands(title), :right => Date.today.strftime('%d.%m.%Y'),
