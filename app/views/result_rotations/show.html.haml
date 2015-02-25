@@ -22,7 +22,14 @@
           = check_box_tag :team_competitions
           = label_tag :team_competitions, t('.include_team_competitions')
           %br
-        - result_rotation_series(@race).each do |series|
+        - series = result_rotation_series(@race)
+        - series.each do |series|
           = check_box_tag 'competition_paths[]', series_competitors_path(series)
           = label_tag 'competition_paths[]', series.name
+          %br
+        - unless series.empty?
+          - result_rotation_team_competitions(@race).each do |tc|
+            = check_box_tag 'competition_paths[]', race_team_competition_path(@race, tc)
+            = label_tag 'competition_paths[]', tc.name
+            %br
         = submit_tag t('.start')
