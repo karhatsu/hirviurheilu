@@ -10,5 +10,6 @@ sv:
       start: Starta resultatskretsen
       stop: Stoppa resultatskretsen
       auto_scroll: Vieritä ruutua automaattisesti alaspäin
+      all_competitions: Alla aktiva tävlingar
       include_team_competitions: Innehål lagtävlingarna i resultatskretsen
-      
+      select_competitions: Endast några tävlingar

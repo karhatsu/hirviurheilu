@@ -18,19 +18,25 @@
       = form_tag(race_result_rotation_path(@race)) do
         = check_box_tag :auto_scroll
         = label_tag :auto_scroll, t('.auto_scroll')
-        %br
-        - unless @race.team_competitions.empty?
-          = check_box_tag :team_competitions
-          = label_tag :team_competitions, t('.include_team_competitions')
-          %br
-        - series = result_rotation_series(@race)
-        - series.each do |series|
-          = check_box_tag 'competition_paths[]', series_competitors_path(series)
-          = label_tag 'competition_paths[]', series.name
-          %br
-        - unless series.empty?
-          - result_rotation_team_competitions(@race).each do |tc|
-            = check_box_tag 'competition_paths[]', race_team_competition_path(@race, tc)
-            = label_tag 'competition_paths[]', tc.name
+        %hr
+        = radio_button_tag :selection_type, :all, checked: true
+        = label_tag :selection_type_all, t('.all_competitions')
+        .result_rotation_sub_selection
+          - unless @race.team_competitions.empty?
+            = check_box_tag :team_competitions
+            = label_tag :team_competitions, t('.include_team_competitions')
             %br
+        = radio_button_tag :selection_type, :certain
+        = label_tag :selection_type_certain, t('.select_competitions')
+        .result_rotation_sub_selection
+          - series = result_rotation_series(@race)
+          - series.each do |series|
+            = check_box_tag 'competition_paths[]', series_competitors_path(series)
+            = label_tag 'competition_paths[]', series.name
+            %br
+          - unless series.empty?
+            - result_rotation_team_competitions(@race).each do |tc|
+              = check_box_tag 'competition_paths[]', race_team_competition_path(@race, tc)
+              = label_tag 'competition_paths[]', tc.name
+              %br
         = submit_tag t('.start')
