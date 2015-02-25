@@ -7,8 +7,8 @@ fi:
       status_active: Tuloskehä on käynnissä.
       status_inactive: Tuloskehä ei ole käynnissä.
       ignition: Tuloskehän käynnistys
-      start: Ota tuloskehä käyttöön
-      stop: Ota tuloskehä pois käytöstä
+      start: Käynnistä tuloskehä
+      stop: Sammuta tuloskehä
       auto_scroll: Vieritä ruutua automaattisesti alaspäin
       all_competitions: Kaikki aktiiviset kilpailut
       include_team_competitions: Sisällytä joukkuekilpailut tuloskehään
