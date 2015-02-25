@@ -1,0 +1,28 @@
+- content_for :title, "#{@race.name} - #{t 'race_sub_menu.result_rotation'}"
+%h2= yield :title
+.info= t '.info'
+%h3= t '.status'
+- if @rotation
+  .section= t '.status_active'
+  = form_tag(race_result_rotation_path(@race), method: :delete) do
+    = submit_tag t('.stop')
+  %hr
+  = render partial: 'shared/refresh_counter', locals: { seconds: 10, competition: @race }
+- else
+  - if result_rotation_competitions_paths(menu_race).empty?
+    = t '.no_active_competitions'
+  - else
+    .section= t '.status_inactive'
+    .section
+      = form_tag(race_result_rotation_path(@race)) do
+        = check_box_tag :auto_scroll
+        = label_tag :auto_scroll, t('.auto_scroll')
+        %br
+        - unless @race.team_competitions.empty?
+          = check_box_tag :team_competitions
+          = label_tag :team_competitions, t('.include_team_competitions')
+          %br
+        - result_rotation_series(@race).each do |series|
+          = check_box_tag 'competition_paths[]', series_competitors_path(series)
+          = label_tag 'competition_paths[]', series.name
+        = submit_tag t('.start')
