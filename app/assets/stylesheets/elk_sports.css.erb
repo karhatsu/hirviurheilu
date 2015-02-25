@@ -37,19 +37,28 @@ input[type='number'].max2 {
   width: 30px;
 }
 
-input[type='submit'] {
-  background-color: olive;
-  background: linear-gradient(to right, rgba(128, 128, 0, 0.9), rgba(128, 128, 0, 0.7));
+input[type='submit'],input[type='button'] {
   border: solid 1px olive;
   border-radius: 2px;
   box-shadow: 3px 3px 3px #ccc;
-  color: #fff;
   cursor: pointer;
   padding: 5px 10px;
 }
 
-input[type='submit']:hover {
+input[type='submit'] {
+  background-color: olive;
+  background: linear-gradient(to right, rgba(128, 128, 0, 0.9), rgba(128, 128, 0, 0.7));
+  color: #fff;
+}
+
+input[type='button'] {
+  background-color: #fff;
+  color: olive;
+}
+
+input[type='submit']:hover,input[type='button']:hover {
   background: linear-gradient(to right, rgba(29, 99, 153, 0.9), rgba(29, 99, 153, 0.7));
+  color: #fff;
 }
 
 img.competition_icon {
