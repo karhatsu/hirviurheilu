@@ -13,6 +13,7 @@
     = t '.no_active_competitions'
   - else
     .section= t '.status_inactive'
+    %h3= t '.ignition'
     .section
       = form_tag(race_result_rotation_path(@race)) do
         = check_box_tag :auto_scroll

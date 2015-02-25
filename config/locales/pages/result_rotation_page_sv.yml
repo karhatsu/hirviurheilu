@@ -6,6 +6,7 @@ sv:
       no_active_competitions: Kan inte starta resultatskretsen, eftersom inga tävlingar igång.
       status_active: Resultatskretsen är igång.
       status_inactive: Resultatskretsen är inte igång.
+      ignition: Starta resultatskretsen
       start: Starta resultatskretsen
       stop: Stoppa resultatskretsen
       auto_scroll: Vieritä ruutua automaattisesti alaspäin

@@ -6,6 +6,7 @@ fi:
       no_active_competitions: Tuloskehää ei voida käynnistää, koska yhtään kilpailua ei ole tällä hetkellä käynnissä tai tuloksia ei ole vielä syötetty.
       status_active: Tuloskehä on käynnissä.
       status_inactive: Tuloskehä ei ole käynnissä.
+      ignition: Tuloskehän käynnistys
       start: Ota tuloskehä käyttöön
       stop: Ota tuloskehä pois käytöstä
       auto_scroll: Vieritä ruutua automaattisesti alaspäin
