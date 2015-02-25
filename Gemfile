@@ -41,7 +41,7 @@ group :test do
   gem 'email_spec'
   gem "factory_girl_rails", :require => false
   gem 'launchy'
-  gem 'poltergeist', '1.5.0'
+  gem 'poltergeist', '1.6.0'
   gem 'rspec-rails', '3.2.0'
   gem 'rspec-collection_matchers'
   gem 'shoulda-matchers'
