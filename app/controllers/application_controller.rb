@@ -360,6 +360,6 @@ class ApplicationController < ActionController::Base
   end
 
   def assign_races_for_main_menu
-    @main_menu_races = Race.where('start_date>?', 7.days.ago)
+    @main_menu_races = Race.where('start_date>?', 7.days.ago).order('start_date desc')
   end
 end
