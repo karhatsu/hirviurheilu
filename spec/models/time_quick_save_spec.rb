@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe TimeQuickSave do
   before do
-    @race = FactoryGirl.create(:race)
-    @series = FactoryGirl.create(:series, :race => @race, name: 'M45')
-    FactoryGirl.create(:competitor, :series => @series, :number => 1,
+    @race = create(:race)
+    @series = create(:series, :race => @race, name: 'M45')
+    create(:competitor, :series => @series, :number => 1,
       :start_time => '11:00:00')
-    @c = FactoryGirl.create(:competitor, :series => @series, :number => 10,
+    @c = create(:competitor, :series => @series, :number => 10,
       :start_time => '11:30:00', :arrival_time => '12:00:00')
-    @c2 = FactoryGirl.create(:competitor, :series => @series, :number => 11,
+    @c2 = create(:competitor, :series => @series, :number => 11,
       :start_time => '11:30:00')
   end
 
@@ -73,7 +73,7 @@ describe TimeQuickSave do
 
     describe "save fails" do
       before do
-        @c = FactoryGirl.create(:competitor, :series => @series, :number => 8) # no start time
+        @c = create(:competitor, :series => @series, :number => 8) # no start time
         @qs = TimeQuickSave.new(@race.id, '8,131245')
       end
 
@@ -104,9 +104,9 @@ describe TimeQuickSave do
 
   describe "unknown competitor" do
     before do
-      another_race = FactoryGirl.create(:race)
-      series = FactoryGirl.create(:series, :race => another_race)
-      FactoryGirl.create(:competitor, :series => series, :number => 8,
+      another_race = create(:race)
+      series = create(:series, :race => another_race)
+      create(:competitor, :series => series, :number => 8,
         :start_time => '11:00:00')
       @qs = TimeQuickSave.new(@race.id, '8,131209')
     end
@@ -190,7 +190,7 @@ describe TimeQuickSave do
 
   describe "data already stored" do
     before do
-      @c = FactoryGirl.create(:competitor, :series => @series, :number => 12,
+      @c = create(:competitor, :series => @series, :number => 12,
         :start_time => '11:30:00', :arrival_time => '12:00:00', first_name: 'Mikko', last_name: 'Miettinen')
       @qs = TimeQuickSave.new(@race.id, '12,131245')
     end

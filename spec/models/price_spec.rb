@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Price do
   it "create" do
-    FactoryGirl.create(:price)
+    create(:price)
   end
 
   describe "validations" do
@@ -24,9 +24,9 @@ describe Price do
   
   describe "default sort order" do
     before do
-      FactoryGirl.create(:price, :min_competitors => 100)
-      FactoryGirl.create(:price, :min_competitors => 1)
-      FactoryGirl.create(:price, :min_competitors => 50)
+      create(:price, :min_competitors => 100)
+      create(:price, :min_competitors => 1)
+      create(:price, :min_competitors => 50)
     end
     
     it "should be by min competitors" do
@@ -36,10 +36,10 @@ describe Price do
 
   describe "#price_for_competitor_amount" do
     before do
-      FactoryGirl.create(:base_price, :price => 20)
-      FactoryGirl.create(:price, :min_competitors => 20, :price => 0.5)
-      FactoryGirl.create(:price, :min_competitors => 1, :price => 1.5)
-      FactoryGirl.create(:price, :min_competitors => 10, :price => 1.0)
+      create(:base_price, :price => 20)
+      create(:price, :min_competitors => 20, :price => 0.5)
+      create(:price, :min_competitors => 1, :price => 1.5)
+      create(:price, :min_competitors => 10, :price => 1.0)
     end
 
     specify { expect(Price.price_for_competitor_amount(1)).to eq(20 + 1.5) }
@@ -52,9 +52,9 @@ describe Price do
 
   describe "#max_competitors" do
     before do
-      @price3 = FactoryGirl.create(:price, :min_competitors => 20, :price => 0.5)
-      @price1 = FactoryGirl.create(:price, :min_competitors => 1, :price => 1.5)
-      @price2 = FactoryGirl.create(:price, :min_competitors => 10, :price => 1.0)
+      @price3 = create(:price, :min_competitors => 20, :price => 0.5)
+      @price1 = create(:price, :min_competitors => 1, :price => 1.5)
+      @price2 = create(:price, :min_competitors => 10, :price => 1.0)
     end
 
     specify { expect(@price1.max_competitors).to eq(9) }

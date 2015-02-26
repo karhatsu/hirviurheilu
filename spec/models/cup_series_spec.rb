@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe CupSeries do
   it "create" do
-    FactoryGirl.create(:cup_series)
+    create(:cup_series)
   end
   
   describe "associations" do
@@ -15,49 +15,49 @@ describe CupSeries do
   
   describe "#has_single_series_with_same_name?" do
     it "should return true when series_names is nil" do
-      cup_series = FactoryGirl.build(:cup_series, :series_names => nil)
+      cup_series = build(:cup_series, :series_names => nil)
       expect(cup_series).to have_single_series_with_same_name
     end
     
     it "should return true when series_names is empty string" do
-      cup_series = FactoryGirl.build(:cup_series, :series_names => '')
+      cup_series = build(:cup_series, :series_names => '')
       expect(cup_series).to have_single_series_with_same_name
     end
     
     it "should return true when series_names is same as cup series name" do
-      cup_series = FactoryGirl.build(:cup_series, :name => 'M', :series_names => 'M')
+      cup_series = build(:cup_series, :name => 'M', :series_names => 'M')
       expect(cup_series).to have_single_series_with_same_name
     end
     
     it "should return false when series_names differs from cup series name" do
-      cup_series = FactoryGirl.build(:cup_series, :name => 'Men', :series_names => 'M')
+      cup_series = build(:cup_series, :name => 'Men', :series_names => 'M')
       expect(cup_series).not_to have_single_series_with_same_name
     end
   end
   
   describe "#series_names_as_array" do
     it "should return cup series name as an array when series_names is nil" do
-      cup_series = FactoryGirl.build(:cup_series, :name => 'Cup series', :series_names => nil)
+      cup_series = build(:cup_series, :name => 'Cup series', :series_names => nil)
       expect(cup_series.send(:series_names_as_array)).to eq(['Cup series'])
     end
     
     it "should return cup series name as an array when series_names is empty string" do
-      cup_series = FactoryGirl.build(:cup_series, :name => 'Cup series', :series_names => '')
+      cup_series = build(:cup_series, :name => 'Cup series', :series_names => '')
       expect(cup_series.send(:series_names_as_array)).to eq(['Cup series'])
     end
     
     it "should return cup series name as an array when series_names is string with spaces" do
-      cup_series = FactoryGirl.build(:cup_series, :name => 'Cup series', :series_names => '  ')
+      cup_series = build(:cup_series, :name => 'Cup series', :series_names => '  ')
       expect(cup_series.send(:series_names_as_array)).to eq(['Cup series'])
     end
     
     it "should return series_names split by comma when series_names given" do
-      cup_series = FactoryGirl.build(:cup_series, :name => 'Cup series', :series_names => 'M,M60,M70')
+      cup_series = build(:cup_series, :name => 'Cup series', :series_names => 'M,M60,M70')
       expect(cup_series.send(:series_names_as_array)).to eq(['M', 'M60', 'M70'])
     end
     
     it "should return series_names split by comma when series_names with trailing spaces given" do
-      cup_series = FactoryGirl.build(:cup_series, :name => 'Cup series', :series_names => '  M,M60,M70   ')
+      cup_series = build(:cup_series, :name => 'Cup series', :series_names => '  M,M60,M70   ')
       expect(cup_series.send(:series_names_as_array)).to eq(['M', 'M60', 'M70'])
     end
   end
@@ -65,8 +65,8 @@ describe CupSeries do
   describe "#series" do
     before do
       @cup_series_name = 'M'
-      @cup = FactoryGirl.build(:cup)
-      @cs = FactoryGirl.build(:cup_series, :cup => @cup, :name => @cup_series_name)
+      @cup = build(:cup)
+      @cs = build(:cup_series, :cup => @cup, :name => @cup_series_name)
     end
 
     it "should return an empty array when no races" do
@@ -74,7 +74,7 @@ describe CupSeries do
     end
     
     it "should return an empty array when races have no series" do
-      allow(@cup).to receive(:races).and_return([FactoryGirl.build(:race)])
+      allow(@cup).to receive(:races).and_return([build(:race)])
       expect(@cs.series).to eq([])
     end
     
@@ -96,8 +96,8 @@ describe CupSeries do
     end
     
     def create_race(name_condition)
-      race = FactoryGirl.build(:race)
-      series = FactoryGirl.build(:series, :race => race, :name => @cup_series_name)
+      race = build(:race)
+      series = build(:series, :race => race, :name => @cup_series_name)
       all_series = double(Object)
       allow(race).to receive(:series).and_return(all_series)
       allow(all_series).to receive(:where).with(:name => name_condition).and_return([series])
@@ -107,8 +107,8 @@ describe CupSeries do
 
   describe "#cup_competitors" do
     before do
-      @series1 = FactoryGirl.build(:series)
-      @cs = FactoryGirl.build(:cup_series)
+      @series1 = build(:series)
+      @cs = build(:cup_series)
     end
     
     context "when no competitors in series" do
@@ -154,7 +154,7 @@ describe CupSeries do
   
   describe "#ordered_competitors" do
     before do
-      @cs = FactoryGirl.build(:cup_series)
+      @cs = build(:cup_series)
     end
     
     it "should return an empty array when no competitors" do

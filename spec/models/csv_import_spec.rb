@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe CsvImport do
   before do
-    @race = FactoryGirl.create(:race)
-    series = FactoryGirl.build(:series, :race => @race, :name => 'N')
+    @race = create(:race)
+    series = build(:series, :race => @race, :name => 'N')
     @race.series << series
-    series.age_groups << FactoryGirl.build(:age_group, :series => series, :name => 'N50')
-    @race.series << FactoryGirl.build(:series, :race => @race, :name => 'M40')
-    @race.clubs << FactoryGirl.build(:club, :race => @race, :name => 'PS')
+    series.age_groups << build(:age_group, :series => series, :name => 'N50')
+    @race.series << build(:series, :race => @race, :name => 'M40')
+    @race.clubs << build(:club, :race => @race, :name => 'PS')
   end
   
   context "when not correct amount of columns in each row" do

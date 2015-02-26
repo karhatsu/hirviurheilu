@@ -1,19 +1,19 @@
 Given /^there exists an official "(.*) (.*)" with email "([^"]*)"$/ do |firstname,
     lastname, email|
-  user = FactoryGirl.build(:user, :first_name => firstname, :last_name => lastname,
+  user = build(:user, :first_name => firstname, :last_name => lastname,
     :email => email)
   user.save_without_session_maintenance
   user.add_official_rights
 end
 
 Given /^there is an official "([^"]*)" "([^"]*)"$/ do |first_name, last_name|
-  user = FactoryGirl.build(:user, :first_name => first_name, :last_name => last_name)
+  user = build(:user, :first_name => first_name, :last_name => last_name)
   user.save_without_session_maintenance
   user.add_official_rights
 end
 
 Given /^there is an official with email "([^"]*)" and password "([^"]*)"$/ do |email, password|
-  user = FactoryGirl.build(:user, :email => email, :password => password,
+  user = build(:user, :email => email, :password => password,
     :password_confirmation => password)
   user.save_without_session_maintenance
   user.add_official_rights
@@ -21,7 +21,7 @@ end
 
 Given /^there is an official "([^"]*)" "([^"]*)" with email "([^"]*)" and password "([^"]*)"$/ do |first_name,
     last_name, email, password|
-  user = FactoryGirl.build(:user, :email => email, :password => password,
+  user = build(:user, :email => email, :password => password,
     :password_confirmation => password, :first_name => first_name,
     :last_name => last_name)
   user.save_without_session_maintenance
@@ -39,26 +39,26 @@ Given(/^"(.*?)" is the primary official for the race$/) do |email|
 end
 
 Given /^I am an official$/ do
-  @user = FactoryGirl.build(:user)
+  @user = build(:user)
   @user.save_without_session_maintenance
   @user.add_official_rights
 end
 
 Given /^I am an official with email "([^"]*)"$/ do |email|
-  @user = FactoryGirl.build(:user, :email => email)
+  @user = build(:user, :email => email)
   @user.save_without_session_maintenance
   @user.add_official_rights
 end
 
 Given /^I am an official "(.*) ([a-zA-Z]*)"$/ do |firstname, lastname|
-  @user = FactoryGirl.build(:user, :first_name => firstname, :last_name => lastname)
+  @user = build(:user, :first_name => firstname, :last_name => lastname)
   @user.save_without_session_maintenance
   @user.add_official_rights
 end
 
 Given /^I am an official "(.*) (.*)" with email "([^"]*)"$/ do |firstname,
     lastname, email|
-  @user = FactoryGirl.build(:user, :first_name => firstname, :last_name => lastname,
+  @user = build(:user, :first_name => firstname, :last_name => lastname,
     :email => email)
   @user.save_without_session_maintenance
   @user.add_official_rights
@@ -66,29 +66,29 @@ end
 
 Given /^I am an official "(.*) (.*)" with email "([^"]*)" and password "([^"]*)"$/ do |firstname,
     lastname, email, pw|
-  @user = FactoryGirl.build(:user, :first_name => firstname, :last_name => lastname,
+  @user = build(:user, :first_name => firstname, :last_name => lastname,
     :email => email, :password => pw, :password_confirmation => pw)
   @user.save_without_session_maintenance
   @user.add_official_rights
 end
 
 Given /^I am an official with email "([^"]*)" and password "([^"]*)"$/ do |email, pw|
-  @user = FactoryGirl.build(:user, :email => email, :password => pw, :password_confirmation => pw)
+  @user = build(:user, :email => email, :password => pw, :password_confirmation => pw)
   @user.save_without_session_maintenance
   @user.add_official_rights
 end
 
 Given /^I am an official with attributes:$/ do |fields|
-  @user = FactoryGirl.build(:user, fields.rows_hash)
+  @user = build(:user, fields.rows_hash)
   @user.save_without_session_maintenance
   @user.add_official_rights
 end
 
 Given /^I am an official for the race "(.*?)"$/ do |race_name|
-  @user = FactoryGirl.build(:user)
+  @user = build(:user)
   @user.save_without_session_maintenance
   @user.add_official_rights
-  @race = FactoryGirl.create(:race, :name => race_name)
+  @race = create(:race, :name => race_name)
   @user.race_rights << RaceRight.new(:user => @user, :race => @race)
 end
 
@@ -98,7 +98,7 @@ end
 
 Given /^I have limited rights to add competitors to the club "(.*?)" in the race$/ do |club_name|
   unless @user
-    @user = FactoryGirl.build(:user)
+    @user = build(:user)
     @user.save_without_session_maintenance
     @user.add_official_rights
   end
@@ -107,13 +107,13 @@ Given /^I have limited rights to add competitors to the club "(.*?)" in the race
 end
 
 Given /^I am an admin$/ do
-  @user = FactoryGirl.build(:user)
+  @user = build(:user)
   @user.save_without_session_maintenance
   @user.add_admin_rights
 end
 
 Given /^I am an admin with email "([^"]*)" and password "([^"]*)"$/ do |email, pw|
-  @user = FactoryGirl.build(:user, :email => email, :password => pw, :password_confirmation => pw)
+  @user = build(:user, :email => email, :password => pw, :password_confirmation => pw)
   @user.save_without_session_maintenance
   @user.add_admin_rights
 end

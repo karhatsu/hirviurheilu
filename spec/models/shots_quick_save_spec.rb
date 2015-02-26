@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe ShotsQuickSave do
   before do
-    @race = FactoryGirl.create(:race)
-    series = FactoryGirl.create(:series, :race => @race)
-    FactoryGirl.create(:competitor, :series => series, :number => 1)
-    @c = FactoryGirl.create(:competitor, :series => series, :number => 10,
+    @race = create(:race)
+    series = create(:series, :race => @race)
+    create(:competitor, :series => series, :number => 1)
+    @c = create(:competitor, :series => series, :number => 10,
       :shots_total_input => 50)
-    @c2 = FactoryGirl.create(:competitor, :series => series, :number => 11)
+    @c2 = create(:competitor, :series => series, :number => 11)
   end
 
   context "when string format is correct and competitor is found" do
@@ -45,7 +45,7 @@ describe ShotsQuickSave do
         context "when competitor has invidivual shots" do
           before do
             @c2.shots_total_input = nil
-            @c2.shots << FactoryGirl.build(:shot, :competitor => @c2, :value => 10)
+            @c2.shots << build(:shot, :competitor => @c2, :value => 10)
             @c2.save!
             @qs = ShotsQuickSave.new(@race.id, '++11,98')
           end
@@ -110,7 +110,7 @@ describe ShotsQuickSave do
         context "when competitor has individual shots" do
           before do
             @c.shots_total_input = nil
-            @c.shots << FactoryGirl.build(:shot, :competitor => @c, :value => 10)
+            @c.shots << build(:shot, :competitor => @c, :value => 10)
             @c.save!
             @qs = ShotsQuickSave.new(@race.id, '++10,+998876501')
           end
@@ -175,9 +175,9 @@ describe ShotsQuickSave do
 
   describe "unknown competitor" do
     before do
-      another_race = FactoryGirl.create(:race)
-      series = FactoryGirl.create(:series, :race => another_race)
-      FactoryGirl.create(:competitor, :series => series, :number => 8)
+      another_race = create(:race)
+      series = create(:series, :race => another_race)
+      create(:competitor, :series => series, :number => 8)
       @qs = ShotsQuickSave.new(@race.id, '8,98')
     end
 
@@ -234,8 +234,8 @@ describe ShotsQuickSave do
 
   describe "data already stored" do
     before do
-      series = FactoryGirl.create(:series, :race => @race)
-      @c = FactoryGirl.create(:competitor, :series => series, :number => 12,
+      series = create(:series, :race => @race)
+      @c = create(:competitor, :series => series, :number => 12,
         :shots_total_input => 50)
       @qs = ShotsQuickSave.new(@race.id, '12,++++998870')
     end

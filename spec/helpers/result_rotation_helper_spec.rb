@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe ResultRotationHelper do
   describe '#next_result_rotation_path' do
-    let(:race) { FactoryGirl.build :race }
-    let(:competition) { FactoryGirl.build :relay, race: race }
+    let(:race) { build :race }
+    let(:competition) { build :relay, race: race }
     let(:competition_path) { '/competition/5' }
 
     context 'when no result rotation competition paths' do
@@ -56,30 +56,30 @@ describe ResultRotationHelper do
   describe '#result_path' do
     context 'for series' do
       it 'is series competitors path' do
-        competition = FactoryGirl.build :series, id: 123
+        competition = build :series, id: 123
         expect(helper.result_path(competition)).to eq(series_competitors_path(nil, 123))
       end
     end
 
     context 'for team competition' do
       it 'is race team competition path' do
-        race = FactoryGirl.build :race, id: 456
-        competition = FactoryGirl.build :team_competition, id: 789, race: race
+        race = build :race, id: 456
+        competition = build :team_competition, id: 789, race: race
         expect(helper.result_path(competition)).to eq(race_team_competition_path(nil, 456, 789))
       end
     end
 
     context 'for relay' do
       it 'is race relay path' do
-        race = FactoryGirl.build :race, id: 111
-        competition = FactoryGirl.build :relay, id: 222, race: race
+        race = build :race, id: 111
+        competition = build :relay, id: 222, race: race
         expect(helper.result_path(competition)).to eq(race_relay_path(nil, 111, 222))
       end
     end
 
     context 'for race' do
       it 'is race path' do
-        competition = FactoryGirl.build :race, id: 444
+        competition = build :race, id: 444
         expect(helper.result_path(competition)).to eq(race_path(nil, 444))
       end
     end
@@ -101,7 +101,7 @@ describe ResultRotationHelper do
     let(:tc2) { instance_double TeamCompetition }
     let(:tc1_path) { '/tc/1' }
     let(:tc2_path) { '/tc/2' }
-    let(:race) { FactoryGirl.build :race }
+    let(:race) { build :race }
 
     before do
       allow(helper).to receive(:result_rotation_series).with(race).and_return([series1, series2])
@@ -171,19 +171,19 @@ describe ResultRotationHelper do
 
   describe '#result_rotation_series' do
     it 'should return an empty list when race in the future' do
-      race = FactoryGirl.create :race, start_date: Date.today - 1
+      race = create :race, start_date: Date.today - 1
       race.series << build_series(race, 1, '0:00', true)
       expect(result_rotation_series(race).size).to eq(0)
     end
 
     it 'should return an empty list when race was in the past' do
-      race = FactoryGirl.create :race, start_date: Date.today - 2, end_date: Date.today - 1
+      race = create :race, start_date: Date.today - 2, end_date: Date.today - 1
       race.series << build_series(race, 1, '0:00', true)
       expect(result_rotation_series(race).size).to eq(0)
     end
 
     context 'when race is today' do
-      let(:race) { FactoryGirl.create :race, start_date: Date.today, end_date: Date.today + 1 }
+      let(:race) { create :race, start_date: Date.today, end_date: Date.today + 1 }
 
       before do
         @series1_1 = build_series race, 1, '0:00', true
@@ -221,8 +221,8 @@ describe ResultRotationHelper do
     end
 
     def build_series(race, start_day, start_time, has_results)
-      series = FactoryGirl.build :series, race: race, start_day: start_day, start_time: start_time
-      competitor = FactoryGirl.build :competitor, series: series
+      series = build :series, race: race, start_day: start_day, start_time: start_time
+      competitor = build :competitor, series: series
       competitor.estimate1 = 100 if has_results
       series.competitors << competitor
       series
@@ -230,9 +230,9 @@ describe ResultRotationHelper do
   end
 
   describe '#result_rotation_team_competitions' do
-    let(:race) { FactoryGirl.build :race }
-    let(:tc1) { FactoryGirl.build :team_competition }
-    let(:tc2) { FactoryGirl.build :team_competition }
+    let(:race) { build :race }
+    let(:tc1) { build :team_competition }
+    let(:tc2) { build :team_competition }
 
     it 'should return the team competitions' do
       expect(race).to receive(:team_competitions).and_return([tc1, tc2])

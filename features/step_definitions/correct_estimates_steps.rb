@@ -1,5 +1,5 @@
 Given /^the race has correct estimates with attributes:$/ do |fields|
-  FactoryGirl.create(:correct_estimate, {:race => @race}.merge(fields.rows_hash))
+  create(:correct_estimate, {:race => @race}.merge(fields.rows_hash))
 end
 
 When(/^I fill correct estimate (\d+) and (\d+) for the range (\d+)\-(\d+) in row (\d+)$/) do |distance1, distance2, min, max, index|

@@ -15,14 +15,14 @@ describe StartDateTime do
     end
 
     it "should return nil when no race start date" do
-      race = FactoryGirl.build(:race, :start_date => nil)
+      race = build(:race, :start_date => nil)
       expect(start_date_time(race, 1, '13:45:31')).to be_nil
     end
 
     context "when race date available but start time not" do
       before do
-        @race = FactoryGirl.build(:race, :start_date => '2011-06-30', :start_time => nil)
-        series = FactoryGirl.build(:series, :race => @race, :start_time => '13:45:31')
+        @race = build(:race, :start_date => '2011-06-30', :start_time => nil)
+        series = build(:series, :race => @race, :start_time => '13:45:31')
         @start_time = series.start_time
       end
 
@@ -33,8 +33,8 @@ describe StartDateTime do
 
     context "when race date and start time available" do
       before do
-        @race = FactoryGirl.build(:race, :start_date => '2011-06-30', :start_time => '10:00')
-        series = FactoryGirl.build(:series, :race => @race, :start_time => '03:45:31')
+        @race = build(:race, :start_date => '2011-06-30', :start_time => '10:00')
+        series = build(:series, :race => @race, :start_time => '03:45:31')
         @start_time = series.start_time
         @original_zone = Time.zone
       end

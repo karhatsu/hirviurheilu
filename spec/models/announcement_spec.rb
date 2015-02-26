@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Announcement do
   it "create" do
-    FactoryGirl.create(:announcement)
+    create(:announcement)
   end
   
   describe "validations" do
@@ -13,9 +13,9 @@ describe Announcement do
   
   describe "default scope" do
     before do
-      FactoryGirl.create(:announcement, :published => '2013-02-08')
-      FactoryGirl.create(:announcement, :published => '2013-02-09')
-      FactoryGirl.create(:announcement, :published => '2013-02-07')
+      create(:announcement, :published => '2013-02-08')
+      create(:announcement, :published => '2013-02-09')
+      create(:announcement, :published => '2013-02-07')
     end
     
     it "should order by descending published time" do
@@ -28,9 +28,9 @@ describe Announcement do
   
   describe "active" do
     before do
-      FactoryGirl.create(:announcement, :active => true, :title => 'Active 1')
-      FactoryGirl.create(:announcement, :active => false, :title => 'Non-active')
-      FactoryGirl.create(:announcement, :active => true, :title => 'Active 2')
+      create(:announcement, :active => true, :title => 'Active 1')
+      create(:announcement, :active => false, :title => 'Non-active')
+      create(:announcement, :active => true, :title => 'Active 2')
     end
     
     it "should return only active announcements" do

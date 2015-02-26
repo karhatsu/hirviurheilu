@@ -533,7 +533,7 @@ describe ApplicationHelper do
 
   describe "#race_date_interval" do
     it "should call date_interval with race dates" do
-      race = FactoryGirl.build(:race)
+      race = build(:race)
       expect(helper).to receive(:date_interval).with(race.start_date, race.end_date, true).
         and_return('result')
       expect(helper.race_date_interval(race)).to eq('result')
@@ -711,17 +711,17 @@ describe ApplicationHelper do
 
   describe "#correct_estimate_range" do
     it "should return min_number- if no max_number" do
-      ce = FactoryGirl.build(:correct_estimate, :min_number => 56, :max_number => nil)
+      ce = build(:correct_estimate, :min_number => 56, :max_number => nil)
       expect(helper.correct_estimate_range(ce)).to eq("56-")
     end
 
     it "should return min_number if max_number equals to it" do
-      ce = FactoryGirl.build(:correct_estimate, :min_number => 57, :max_number => 57)
+      ce = build(:correct_estimate, :min_number => 57, :max_number => 57)
       expect(helper.correct_estimate_range(ce)).to eq(57)
     end
 
     it "should return min_number-max_number if both defined and different" do
-      ce = FactoryGirl.build(:correct_estimate, :min_number => 57, :max_number => 58)
+      ce = build(:correct_estimate, :min_number => 57, :max_number => 58)
       expect(helper.correct_estimate_range(ce)).to eq("57-58")
     end
   end
@@ -745,34 +745,34 @@ describe ApplicationHelper do
 
   describe "#club_title" do
     it "should be 'Piiri' when club level such" do
-      race = FactoryGirl.build(:race, :club_level => Race::CLUB_LEVEL_PIIRI)
+      race = build(:race, :club_level => Race::CLUB_LEVEL_PIIRI)
       expect(helper.club_title(race)).to eq('Piiri')
     end
 
     it "should be 'Seura' when club level such" do
-      race = FactoryGirl.build(:race, :club_level => Race::CLUB_LEVEL_SEURA)
+      race = build(:race, :club_level => Race::CLUB_LEVEL_SEURA)
       expect(helper.club_title(race)).to eq('Seura')
     end
 
     it "should throw exception when unknown club level" do
-      race = FactoryGirl.build(:race, :club_level => 100)
+      race = build(:race, :club_level => 100)
       expect { helper.club_title(race) }.to raise_error
     end
   end
 
   describe "#clubs_title" do
     it "should be 'Piirit' when club level such" do
-      race = FactoryGirl.build(:race, :club_level => Race::CLUB_LEVEL_PIIRI)
+      race = build(:race, :club_level => Race::CLUB_LEVEL_PIIRI)
       expect(helper.clubs_title(race)).to eq('Piirit')
     end
 
     it "should be 'Seurat' when club level such" do
-      race = FactoryGirl.build(:race, :club_level => Race::CLUB_LEVEL_SEURA)
+      race = build(:race, :club_level => Race::CLUB_LEVEL_SEURA)
       expect(helper.clubs_title(race)).to eq('Seurat')
     end
 
     it "should throw exception when unknown club level" do
-      race = FactoryGirl.build(:race, :club_level => 100)
+      race = build(:race, :club_level => 100)
       expect { helper.clubs_title(race) }.to raise_error
     end
   end
@@ -881,13 +881,13 @@ describe ApplicationHelper do
   
   describe "#long_cup_series_name" do
     it "should be cup series name when no series names" do
-      cs = FactoryGirl.build(:cup_series, :name => 'Series')
+      cs = build(:cup_series, :name => 'Series')
       expect(cs).to receive(:has_single_series_with_same_name?).and_return(true)
       expect(helper.long_cup_series_name(cs)).to eq('Series')
     end
     
     it "should be cup series name and series names in brackets when given" do
-      cs = FactoryGirl.build(:cup_series, :name => 'Series', :series_names => 'M,M50,M80')
+      cs = build(:cup_series, :name => 'Series', :series_names => 'M,M50,M80')
       expect(cs).to receive(:has_single_series_with_same_name?).and_return(false)
       expect(helper.long_cup_series_name(cs)).to eq('Series (M, M50, M80)')
     end
@@ -942,10 +942,10 @@ describe ApplicationHelper do
     
     context "when cup" do
       it "should be image tag for cup's sport's lower case key with _icon_cup.gif suffix" do
-        sport = FactoryGirl.build :sport, key: 'SKI'
+        sport = build :sport, key: 'SKI'
         expect(sport).to receive(:initials).and_return('HH')
         expect(helper).to receive(:image_tag).with("ski_icon_cup.gif", alt: 'HH', class: 'competition_icon').and_return("cup-image")
-        cup = FactoryGirl.build :cup
+        cup = build :cup
         allow(cup).to receive(:sport).and_return(sport)
         expect(helper.competition_icon(cup)).to eq("cup-image")
       end
@@ -1032,21 +1032,21 @@ describe ApplicationHelper do
   describe "#organizer_info_with_possible_link" do
     context "when no home page, organizer or phone" do
       it "should return nil" do
-        race = FactoryGirl.build(:race, home_page: '', organizer: '', organizer_phone: '')
+        race = build(:race, home_page: '', organizer: '', organizer_phone: '')
         expect(helper.organizer_info_with_possible_link(Race.new)).to be_nil
       end
     end
     
     context "when only organizer" do
       it "should return organizer name" do
-        race = FactoryGirl.build(:race, home_page: '', organizer: 'Organizer')
+        race = build(:race, home_page: '', organizer: 'Organizer')
         expect(helper.organizer_info_with_possible_link(race)).to eq('Organizer')
       end
     end
     
     context "when only home page" do
       it "should return link to home page with static text" do
-        race = FactoryGirl.build(:race, home_page: 'www.home.com', organizer: '')
+        race = build(:race, home_page: 'www.home.com', organizer: '')
         expected_link = '<a href="http://www.home.com" target="_blank">' + t("races.show.race_home_page") + '</a>'
         expect(helper.organizer_info_with_possible_link(race)).to eq(expected_link)
       end
@@ -1054,14 +1054,14 @@ describe ApplicationHelper do
     
     context "when only phone" do
       it "should return phone" do
-        race = FactoryGirl.build(:race, home_page: '', organizer: '', organizer_phone: '123 456')
+        race = build(:race, home_page: '', organizer: '', organizer_phone: '123 456')
         expect(helper.organizer_info_with_possible_link(race)).to eq('123 456')
       end
     end
       
     context "when organizer and phone" do
       it "should return organizer name appended with phone" do
-        race = FactoryGirl.build(:race, home_page: nil, organizer: 'Organizer', organizer_phone: '123 456')
+        race = build(:race, home_page: nil, organizer: 'Organizer', organizer_phone: '123 456')
         expected_link = 'Organizer, 123 456'
         expect(helper.organizer_info_with_possible_link(race)).to eq(expected_link)
       end
@@ -1069,7 +1069,7 @@ describe ApplicationHelper do
       
     context "when home page, organizer and phone" do
       it "should return link to home page with organizer as text, appended with phone" do
-        race = FactoryGirl.build(:race, home_page: 'http://www.home.com', organizer: 'Organizer', organizer_phone: '123 456')
+        race = build(:race, home_page: 'http://www.home.com', organizer: 'Organizer', organizer_phone: '123 456')
         expected_link = '<a href="http://www.home.com" target="_blank">Organizer</a>, 123 456'
         expect(helper.organizer_info_with_possible_link(race)).to eq(expected_link)
       end
@@ -1077,8 +1077,8 @@ describe ApplicationHelper do
   end
 
   describe '#races_drop_down_array' do
-    let(:race1) { FactoryGirl.build :race, id: 1, name: 'Race 1', location: 'Location 1' }
-    let(:race2) { FactoryGirl.build :race, id: 2, name: 'Race 2', location: 'Location 2' }
+    let(:race1) { build :race, id: 1, name: 'Race 1', location: 'Location 1' }
+    let(:race2) { build :race, id: 2, name: 'Race 2', location: 'Location 2' }
     let(:races) { [race1, race2] }
 
     it 'should return array containing elements with race info in first element, race id in second' do

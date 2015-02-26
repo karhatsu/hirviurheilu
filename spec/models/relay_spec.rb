@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Relay do
   it "create" do
-    FactoryGirl.create(:relay)
+    create(:relay)
   end
   
   describe "associations" do
@@ -23,9 +23,9 @@ describe Relay do
       it { is_expected.not_to allow_value(1.1).for(:start_day) }
 
       before do
-        race = FactoryGirl.build(:race)
+        race = build(:race)
         allow(race).to receive(:days_count).and_return(2)
-        @relay = FactoryGirl.build(:relay, :race => race, :start_day => 3)
+        @relay = build(:relay, :race => race, :start_day => 3)
       end
 
       it "should not be bigger than race days count" do
@@ -41,7 +41,7 @@ describe Relay do
       it { is_expected.not_to allow_value(2.1).for(:legs_count) }
 
       it "should not be allowed to change after create" do
-        relay = FactoryGirl.create(:relay, :legs_count => 5)
+        relay = create(:relay, :legs_count => 5)
         relay.legs_count = 4
         relay.save
         relay.reload
@@ -52,10 +52,10 @@ describe Relay do
 
   describe "teams" do
     before do
-      @relay = FactoryGirl.create(:relay)
-      @relay.relay_teams << FactoryGirl.build(:relay_team, :relay => @relay, :number => 3)
-      @relay.relay_teams << FactoryGirl.build(:relay_team, :relay => @relay, :number => 1)
-      @relay.relay_teams << FactoryGirl.build(:relay_team, :relay => @relay, :number => 2)
+      @relay = create(:relay)
+      @relay.relay_teams << build(:relay_team, :relay => @relay, :number => 3)
+      @relay.relay_teams << build(:relay_team, :relay => @relay, :number => 1)
+      @relay.relay_teams << build(:relay_team, :relay => @relay, :number => 2)
       @relay.reload
     end
 
@@ -68,12 +68,12 @@ describe Relay do
 
   describe "correct estimates" do
     before do
-      @relay = FactoryGirl.create(:relay)
-      @relay.relay_correct_estimates << FactoryGirl.build(:relay_correct_estimate,
+      @relay = create(:relay)
+      @relay.relay_correct_estimates << build(:relay_correct_estimate,
         :relay => @relay, :leg => 3)
-      @relay.relay_correct_estimates << FactoryGirl.build(:relay_correct_estimate,
+      @relay.relay_correct_estimates << build(:relay_correct_estimate,
         :relay => @relay, :leg => 1)
-      @relay.relay_correct_estimates << FactoryGirl.build(:relay_correct_estimate,
+      @relay.relay_correct_estimates << build(:relay_correct_estimate,
         :relay => @relay, :leg => 2)
       @relay.reload
     end
@@ -87,7 +87,7 @@ describe Relay do
 
   describe "#correct_estimate" do
     before do
-      @relay = FactoryGirl.create(:relay)
+      @relay = create(:relay)
     end
 
     it "should return nil if no correct estimates at all" do
@@ -95,13 +95,13 @@ describe Relay do
     end
 
     it "should return nil if no correct estimate for this leg" do
-      @relay.relay_correct_estimates << FactoryGirl.build(:relay_correct_estimate,
+      @relay.relay_correct_estimates << build(:relay_correct_estimate,
         :relay => @relay, :leg => 1)
       expect(@relay.correct_estimate(2)).to be_nil
     end
 
     it "should return the distance of correct estimate for the given leg" do
-      @relay.relay_correct_estimates << FactoryGirl.build(:relay_correct_estimate,
+      @relay.relay_correct_estimates << build(:relay_correct_estimate,
         :relay => @relay, :leg => 2, :distance => 111)
       expect(@relay.correct_estimate(2)).to eq(111)
     end
@@ -109,7 +109,7 @@ describe Relay do
 
   describe "results" do
     before do
-      @relay = FactoryGirl.create(:relay, :legs_count => 3, :start_time => '12:00')
+      @relay = create(:relay, :legs_count => 3, :start_time => '12:00')
     end
 
     context "when no teams" do
@@ -191,12 +191,12 @@ describe Relay do
       end
 
       def create_team(number, no_result_reason=nil)
-        FactoryGirl.create(:relay_team, :relay => @relay, :name => "Team #{number}",
+        create(:relay_team, :relay => @relay, :name => "Team #{number}",
           :number => number, :no_result_reason => no_result_reason)
       end
 
       def create_competitor(team, leg, arrival_time)
-        FactoryGirl.create(:relay_competitor, :relay_team => team, :leg => leg,
+        create(:relay_competitor, :relay_team => team, :leg => leg,
           :arrival_time => arrival_time)
       end
     end
@@ -204,29 +204,29 @@ describe Relay do
 
   describe "#finish_errors" do
     before do
-      @relay = FactoryGirl.create(:relay, :start_time => '12:00', :legs_count => 2)
-      team1 = FactoryGirl.create(:relay_team, :relay => @relay, :number => 1)
-      team2 = FactoryGirl.create(:relay_team, :relay => @relay, :number => 2)
-      team3 = FactoryGirl.create(:relay_team, :relay => @relay, :number => 3,
+      @relay = create(:relay, :start_time => '12:00', :legs_count => 2)
+      team1 = create(:relay_team, :relay => @relay, :number => 1)
+      team2 = create(:relay_team, :relay => @relay, :number => 2)
+      team3 = create(:relay_team, :relay => @relay, :number => 3,
         :no_result_reason => RelayTeam::DNS)
-      team4 = FactoryGirl.create(:relay_team, :relay => @relay, :number => 4,
+      team4 = create(:relay_team, :relay => @relay, :number => 4,
         :no_result_reason => RelayTeam::DNF)
-      FactoryGirl.create(:relay_competitor, :relay_team => team1, :leg => 1,
+      create(:relay_competitor, :relay_team => team1, :leg => 1,
         :estimate => 100, :misses => 1, :arrival_time => '12:15')
-      FactoryGirl.create(:relay_competitor, :relay_team => team1, :leg => 2,
+      create(:relay_competitor, :relay_team => team1, :leg => 2,
         :estimate => 100, :misses => 1, :arrival_time => '12:30')
-      FactoryGirl.create(:relay_competitor, :relay_team => team2, :leg => 1,
+      create(:relay_competitor, :relay_team => team2, :leg => 1,
         :estimate => 100, :misses => 1, :arrival_time => '12:15')
-      FactoryGirl.create(:relay_competitor, :relay_team => team2, :leg => 2,
+      create(:relay_competitor, :relay_team => team2, :leg => 2,
         :estimate => 100, :misses => 1, :arrival_time => '12:30')
-      FactoryGirl.create(:relay_competitor, :relay_team => team3, :leg => 1)
-      FactoryGirl.create(:relay_competitor, :relay_team => team3, :leg => 2)
-      FactoryGirl.create(:relay_competitor, :relay_team => team4, :leg => 1,
+      create(:relay_competitor, :relay_team => team3, :leg => 1)
+      create(:relay_competitor, :relay_team => team3, :leg => 2)
+      create(:relay_competitor, :relay_team => team4, :leg => 1,
         :estimate => 100, :arrival_time => '12:15')
-      FactoryGirl.create(:relay_competitor, :relay_team => team4, :leg => 2,
+      create(:relay_competitor, :relay_team => team4, :leg => 2,
         :estimate => 100, :misses => 1)
-      FactoryGirl.create(:relay_correct_estimate, :relay => @relay, :distance => 90, :leg => 1)
-      FactoryGirl.create(:relay_correct_estimate, :relay => @relay, :distance => 90, :leg => 2)
+      create(:relay_correct_estimate, :relay => @relay, :distance => 90, :leg => 1)
+      create(:relay_correct_estimate, :relay => @relay, :distance => 90, :leg => 2)
     end
 
     context "when all the necessary data is there" do
@@ -302,7 +302,7 @@ describe Relay do
 
   describe "#finish" do
     before do
-      @relay = FactoryGirl.create(:relay)
+      @relay = create(:relay)
     end
 
     context "when the relay can be finished" do
@@ -328,7 +328,7 @@ describe Relay do
 
   describe "#finish!" do
     before do
-      @relay = FactoryGirl.build(:relay)
+      @relay = build(:relay)
     end
 
     it "should return true when finishing the relay succeeds" do
@@ -344,9 +344,9 @@ describe Relay do
 
   describe "#active?" do
     before do
-      @race = FactoryGirl.build(:race, :start_date => Date.today,
+      @race = build(:race, :start_date => Date.today,
         :end_date => Date.today + 1)
-      @relay = FactoryGirl.build(:relay, :race => @race, :start_day => 1,
+      @relay = build(:relay, :race => @race, :start_day => 1,
         :start_time => (Time.now - 10).strftime('%H:%M:%S'), :finished => false)
     end
 
@@ -388,22 +388,22 @@ describe Relay do
   
   describe "#start_datetime" do
     it "should return nil when no start time" do
-      expect(FactoryGirl.build(:relay, :start_time => nil).start_datetime).to be_nil
+      expect(build(:relay, :start_time => nil).start_datetime).to be_nil
     end
     
     it "should return nil when no race" do
-      expect(FactoryGirl.build(:relay, :race => nil, :start_time => '13:45:31').start_datetime).to be_nil
+      expect(build(:relay, :race => nil, :start_time => '13:45:31').start_datetime).to be_nil
     end
     
     it "should return nil when no race start date" do
-      race = FactoryGirl.build(:race, :start_date => nil)
-      expect(FactoryGirl.build(:relay, :race => race, :start_time => '13:45:31').start_datetime).to be_nil
+      race = build(:race, :start_date => nil)
+      expect(build(:relay, :race => race, :start_time => '13:45:31').start_datetime).to be_nil
     end
     
     context "when race date and start time available" do
       before do
-        @race = FactoryGirl.build(:race, :start_date => '2011-06-30')
-        @relay = FactoryGirl.build(:relay, :race => @race, :start_time => '13:45:31')
+        @race = build(:race, :start_date => '2011-06-30')
+        @relay = build(:relay, :race => @race, :start_time => '13:45:31')
       end
       
       it "should return the compination of race date and start time when both available" do

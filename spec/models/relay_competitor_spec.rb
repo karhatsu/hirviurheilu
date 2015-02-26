@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe RelayCompetitor do
   it "create" do
-    FactoryGirl.create(:relay_competitor)
+    create(:relay_competitor)
   end
 
   describe "associations" do
@@ -19,9 +19,9 @@ describe RelayCompetitor do
       it { is_expected.to allow_value(1).for(:leg) }
       it { is_expected.not_to allow_value(1.1).for(:leg) }
       it "should not allow bigger leg value than relay legs count" do
-        relay = FactoryGirl.build(:relay, :legs_count => 3)
-        team = FactoryGirl.build(:relay_team, :relay => relay)
-        competitor = FactoryGirl.build(:relay_competitor, :relay_team => team, :leg => 3)
+        relay = build(:relay, :legs_count => 3)
+        team = build(:relay_team, :relay => relay)
+        competitor = build(:relay_competitor, :relay_team => team, :leg => 3)
         expect(competitor).to be_valid
         competitor.leg = 4
         expect(competitor).to have(1).errors_on(:leg)
@@ -29,7 +29,7 @@ describe RelayCompetitor do
 
       describe "uniqueness" do
         before do
-          FactoryGirl.create(:relay_competitor)
+          create(:relay_competitor)
         end
         it { is_expected.to validate_uniqueness_of(:leg).scoped_to(:relay_team_id) }
       end
@@ -66,39 +66,39 @@ describe RelayCompetitor do
 
       describe "compared to start time" do
         before do
-          @relay = FactoryGirl.build(:relay, :start_time => '14:00')
-          @team = FactoryGirl.build(:relay_team, :relay => @relay)
+          @relay = build(:relay, :start_time => '14:00')
+          @team = build(:relay_team, :relay => @relay)
         end
 
         it "can be nil" do
-          expect(FactoryGirl.build(:relay_competitor, :relay_team => @team, :leg => 1,
+          expect(build(:relay_competitor, :relay_team => @team, :leg => 1,
             :arrival_time => nil)).to be_valid
         end
 
         it "should not be before start time" do
-          FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 1, :arrival_time => '00:10:00')
-          expect(FactoryGirl.build(:relay_competitor, :relay_team => @team, :leg => 2, :arrival_time => '00:09:59')).
+          create(:relay_competitor, :relay_team => @team, :leg => 1, :arrival_time => '00:10:00')
+          expect(build(:relay_competitor, :relay_team => @team, :leg => 2, :arrival_time => '00:09:59')).
               to have(1).errors_on(:arrival_time)
         end
 
         it "should not be same as start time" do
-          expect(FactoryGirl.build(:relay_competitor, :relay_team => @team, :leg => 1,
+          expect(build(:relay_competitor, :relay_team => @team, :leg => 1,
             :arrival_time => '00:00')).to have(1).errors_on(:arrival_time)
         end
 
         it "is valid when later than start time" do
-          expect(FactoryGirl.build(:relay_competitor, :relay_team => @team, :leg => 1,
+          expect(build(:relay_competitor, :relay_team => @team, :leg => 1,
             :arrival_time => '00:01')).to be_valid
         end
       end
 
       describe "compared to the next competitor's arrival time" do
         it "cannot be later than the next one's arrival time" do
-          relay = FactoryGirl.create(:relay, :start_time => '14:00')
-          team = FactoryGirl.create(:relay_team, :relay => relay)
-          comp1 = FactoryGirl.create(:relay_competitor, :relay_team => team, :leg => 1,
+          relay = create(:relay, :start_time => '14:00')
+          team = create(:relay_team, :relay => relay)
+          comp1 = create(:relay_competitor, :relay_team => team, :leg => 1,
             :arrival_time => '00:10:00')
-          FactoryGirl.create(:relay_competitor, :relay_team => team, :leg => 2,
+          create(:relay_competitor, :relay_team => team, :leg => 2,
             :arrival_time => '00:20:00')
           comp1.arrival_time = '00:20:01'
           expect(comp1).to have(1).errors_on(:arrival_time)
@@ -109,10 +109,10 @@ describe RelayCompetitor do
 
   describe "#previous_competitor" do
     before do
-      @team = FactoryGirl.create(:relay_team)
-      @c1 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 1)
-      @c2 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 2)
-      @c3 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 3)
+      @team = create(:relay_team)
+      @c1 = create(:relay_competitor, :relay_team => @team, :leg => 1)
+      @c2 = create(:relay_competitor, :relay_team => @team, :leg => 2)
+      @c3 = create(:relay_competitor, :relay_team => @team, :leg => 3)
       @team.reload
     end
 
@@ -131,10 +131,10 @@ describe RelayCompetitor do
 
   describe "#next_competitor" do
     before do
-      @team = FactoryGirl.create(:relay_team)
-      @c1 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 1)
-      @c2 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 2)
-      @c3 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 3)
+      @team = create(:relay_team)
+      @c1 = create(:relay_competitor, :relay_team => @team, :leg => 1)
+      @c2 = create(:relay_competitor, :relay_team => @team, :leg => 2)
+      @c3 = create(:relay_competitor, :relay_team => @team, :leg => 3)
       @team.reload
     end
 
@@ -153,10 +153,10 @@ describe RelayCompetitor do
 
   describe "set start time in save" do
     before do
-      @relay = FactoryGirl.create(:relay, :start_time => '10:30')
-      @team = FactoryGirl.create(:relay_team, :relay => @relay)
-      @c1 = FactoryGirl.build(:relay_competitor, :relay_team => @team, :leg => 1)
-      @c2 = FactoryGirl.build(:relay_competitor, :relay_team => @team, :leg => 2)
+      @relay = create(:relay, :start_time => '10:30')
+      @team = create(:relay_team, :relay => @relay)
+      @c1 = build(:relay_competitor, :relay_team => @team, :leg => 1)
+      @c2 = build(:relay_competitor, :relay_team => @team, :leg => 2)
     end
 
     context "when first competitor is saved" do
@@ -182,10 +182,10 @@ describe RelayCompetitor do
 
   describe "set start time for next competitor in update" do
     before do
-      @relay = FactoryGirl.create(:relay, :start_time => '10:30', :legs_count => 2)
-      @team = FactoryGirl.create(:relay_team, :relay => @relay)
-      @c1 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 1)
-      @c2 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 2)
+      @relay = create(:relay, :start_time => '10:30', :legs_count => 2)
+      @team = create(:relay_team, :relay => @relay)
+      @c1 = create(:relay_competitor, :relay_team => @team, :leg => 1)
+      @c2 = create(:relay_competitor, :relay_team => @team, :leg => 2)
       @c1.arrival_time = '10:53:29'
     end
 
@@ -208,9 +208,9 @@ describe RelayCompetitor do
 
   describe "#estimate_penalties" do
     before do
-      @relay = FactoryGirl.create(:relay)
-      team = FactoryGirl.create(:relay_team, :relay => @relay)
-      @comp = FactoryGirl.create(:relay_competitor, :relay_team => team, :leg => 2,
+      @relay = create(:relay)
+      team = create(:relay_team, :relay => @relay)
+      @comp = create(:relay_competitor, :relay_team => team, :leg => 2,
         :estimate => 100)
       allow(@relay).to receive(:correct_estimate).with(2).and_return(100)
     end
@@ -300,24 +300,24 @@ describe RelayCompetitor do
 
   describe "#time_in_seconds" do
     it "should be nil when start time not known yet" do
-      expect(FactoryGirl.build(:relay_competitor, :start_time => nil).time_in_seconds).to be_nil
+      expect(build(:relay_competitor, :start_time => nil).time_in_seconds).to be_nil
     end
 
     it "should be nil when arrival time is not known yet" do
-      expect(FactoryGirl.build(:relay_competitor, :start_time => '14:00', :arrival_time => nil).
+      expect(build(:relay_competitor, :start_time => '14:00', :arrival_time => nil).
         time_in_seconds).to be_nil
     end
 
     it "should be difference of arrival and start times when no adjustment" do
-      expect(FactoryGirl.build(:relay_competitor, :start_time => '13:58:02', :arrival_time => '15:02:04').
+      expect(build(:relay_competitor, :start_time => '13:58:02', :arrival_time => '15:02:04').
         time_in_seconds).to eq(64 * 60 + 2)
     end
     it "should be difference of arrival and start times added with adjustment" do
-      expect(FactoryGirl.build(:relay_competitor, :start_time => '13:58:02', :arrival_time => '15:02:04', :adjustment => 15).
+      expect(build(:relay_competitor, :start_time => '13:58:02', :arrival_time => '15:02:04', :adjustment => 15).
         time_in_seconds).to eq(64 * 60 + 2 + 15)
     end
     it "should be difference of arrival and start times added with negative adjustment" do
-      expect(FactoryGirl.build(:relay_competitor, :start_time => '13:58:02', :arrival_time => '15:02:04', :adjustment => -15).
+      expect(build(:relay_competitor, :start_time => '13:58:02', :arrival_time => '15:02:04', :adjustment => -15).
         time_in_seconds).to eq(64 * 60 + 2 + -15)
     end
   end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe RelayTeam do
   it "create" do
-    FactoryGirl.create(:relay_team)
+    create(:relay_team)
   end
 
   describe "associations" do
@@ -21,7 +21,7 @@ describe RelayTeam do
 
       describe "uniqueness" do
         before do
-          FactoryGirl.create(:relay_team)
+          create(:relay_team)
         end
         it { is_expected.to validate_uniqueness_of(:number).scoped_to(:relay_id) }
       end
@@ -34,7 +34,7 @@ describe RelayTeam do
       it { is_expected.to allow_value(RelayTeam::DQ).for(:no_result_reason) }
       it { is_expected.not_to allow_value('test').for(:no_result_reason) }
       it "should change empty string to nil" do
-        team = FactoryGirl.create(:relay_team, :no_result_reason => '')
+        team = create(:relay_team, :no_result_reason => '')
         expect(team.no_result_reason).to be_nil
       end
     end
@@ -42,12 +42,12 @@ describe RelayTeam do
 
   describe "competitors" do
     before do
-      @team = FactoryGirl.create(:relay_team)
-      @team.relay_competitors << FactoryGirl.build(:relay_competitor,
+      @team = create(:relay_team)
+      @team.relay_competitors << build(:relay_competitor,
         :relay_team => @team, :leg => 3)
-      @team.relay_competitors << FactoryGirl.build(:relay_competitor,
+      @team.relay_competitors << build(:relay_competitor,
         :relay_team => @team, :leg => 1)
-      @team.relay_competitors << FactoryGirl.build(:relay_competitor,
+      @team.relay_competitors << build(:relay_competitor,
         :relay_team => @team, :leg => 2)
       @team.reload
     end
@@ -61,11 +61,11 @@ describe RelayTeam do
 
   describe "#time_in_seconds" do
     before do
-      @relay = FactoryGirl.create(:relay, :legs_count => 3, :start_time => '12:00')
-      @team = FactoryGirl.create(:relay_team, :relay => @relay)
-      @c1 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 1,
+      @relay = create(:relay, :legs_count => 3, :start_time => '12:00')
+      @team = create(:relay_team, :relay => @relay)
+      @c1 = create(:relay_competitor, :relay_team => @team, :leg => 1,
         :arrival_time => '00:10:00')
-      @c2 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 2,
+      @c2 = create(:relay_competitor, :relay_team => @team, :leg => 2,
         :arrival_time => '00:20:54')
     end
 
@@ -75,7 +75,7 @@ describe RelayTeam do
 
     context "when last competitor defined" do
       before do
-        @c3 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 3,
+        @c3 = create(:relay_competitor, :relay_team => @team, :leg => 3,
             :arrival_time => '00:31:15')
       end
 
@@ -93,7 +93,7 @@ describe RelayTeam do
       before do
         @c1.adjustment = -20
         @c1.save!
-        @c3 = FactoryGirl.create(:relay_competitor, :relay_team => @team, :leg => 3,
+        @c3 = create(:relay_competitor, :relay_team => @team, :leg => 3,
           :arrival_time => '00:31:15', :adjustment => 90)
       end
       it "should return the arrival time for the given competitor + adjustment for current and previous legs" do
@@ -105,7 +105,7 @@ describe RelayTeam do
   describe "#estimate_penalties_sum" do
     context "when all competitors have nil for penalties" do
       it "should return nil" do
-        team = FactoryGirl.create(:relay_team)
+        team = create(:relay_team)
         c1 = instance_double(RelayCompetitor, :estimate_penalties => nil)
         c2 = instance_double(RelayCompetitor, :estimate_penalties => nil)
         allow(team).to receive(:relay_competitors).and_return([c1, c2])
@@ -115,7 +115,7 @@ describe RelayTeam do
 
     context "when at least one competitor has non-nil penalties" do
       it "should return sum of competitors' estimate penalties so that nil refers to 0 penalties" do
-        team = FactoryGirl.create(:relay_team)
+        team = create(:relay_team)
         c1 = instance_double(RelayCompetitor, :estimate_penalties => 10)
         c2 = instance_double(RelayCompetitor, :estimate_penalties => 2)
         c3 = instance_double(RelayCompetitor, :estimate_penalties => nil)
@@ -128,7 +128,7 @@ describe RelayTeam do
   describe "#shoot_penalties_sum" do
     context "when all competitors have nil for penalties" do
       it "should return nil" do
-        team = FactoryGirl.create(:relay_team)
+        team = create(:relay_team)
         c1 = instance_double(RelayCompetitor, :misses => nil)
         c2 = instance_double(RelayCompetitor, :misses => nil)
         allow(team).to receive(:relay_competitors).and_return([c1, c2])
@@ -138,7 +138,7 @@ describe RelayTeam do
     
     context "when at least one competitor has non-nil penalties" do
       it "should return the sum of shoot penalties for the team so that nil refers to 0 penalties" do
-        team = FactoryGirl.create(:relay_team)
+        team = create(:relay_team)
         c1 = instance_double(RelayCompetitor, :misses => 3)
         c2 = instance_double(RelayCompetitor, :misses => 4)
         c3 = instance_double(RelayCompetitor, :misses => nil)
@@ -150,21 +150,21 @@ describe RelayTeam do
 
   describe "#competitor" do
     it "should return nil if no competitor defined for given leg" do
-      relay_team = FactoryGirl.build(:relay_team)
+      relay_team = build(:relay_team)
       expect(relay_team.competitor(2)).to be_nil
     end
 
     context "when competitor exists for given leg" do
       before do
-        @team = FactoryGirl.create(:relay_team)
-        @comp3 = FactoryGirl.build(:relay_competitor, :relay_team => @team, :leg => 3)
-        @comp1 = FactoryGirl.build(:relay_competitor, :relay_team => @team, :leg => 1)
+        @team = create(:relay_team)
+        @comp3 = build(:relay_competitor, :relay_team => @team, :leg => 3)
+        @comp1 = build(:relay_competitor, :relay_team => @team, :leg => 1)
         @team.relay_competitors << @comp1
         @team.relay_competitors << @comp3
       end
 
       it "should return the competitor" do
-        comp2 = FactoryGirl.build(:relay_competitor, :relay_team => @team, :leg => 2)
+        comp2 = build(:relay_competitor, :relay_team => @team, :leg => 2)
         @team.relay_competitors << comp2
         expect(@team.competitor(3)).to eq(@comp3)
       end

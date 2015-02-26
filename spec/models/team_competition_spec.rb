@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe TeamCompetition do
   it "create" do
-    FactoryGirl.create(:team_competition)
+    create(:team_competition)
   end
 
   describe "associations" do
@@ -26,7 +26,7 @@ describe TeamCompetition do
 
   describe "#results_for_competitors" do
     before do
-      @tc = FactoryGirl.build(:team_competition, :team_competitor_count => 2)
+      @tc = build(:team_competition, :team_competitor_count => 2)
     end
 
     context "when the race is not finished" do
@@ -200,42 +200,42 @@ describe TeamCompetition do
 
   describe "#results" do
     before do
-      race = FactoryGirl.create(:race)
-      @tc = FactoryGirl.create(:team_competition, :race => race)
+      race = create(:race)
+      @tc = create(:team_competition, :race => race)
 
       # competitors belong to series without age groups, series included in competition
-      series1 = FactoryGirl.build(:series, :race => race)
+      series1 = build(:series, :race => race)
       @tc.series << series1
-      @s_c1 = FactoryGirl.create(:competitor, :series => series1)
-      @s_c2 = FactoryGirl.create(:competitor, :series => series1)
+      @s_c1 = create(:competitor, :series => series1)
+      @s_c2 = create(:competitor, :series => series1)
 
       # competitors belong to (series and) age groups, series included in competition
-      series4 = FactoryGirl.build(:series, :race => race)
+      series4 = build(:series, :race => race)
       @tc.series << series4
-      age_group4 = FactoryGirl.create(:age_group, :series => series4)
-      @s_c3 = FactoryGirl.create(:competitor, :series => series4, :age_group => age_group4)
-      age_group5 = FactoryGirl.create(:age_group, :series => series4)
-      @s_c4 = FactoryGirl.create(:competitor, :series => series4, :age_group => age_group5)
+      age_group4 = create(:age_group, :series => series4)
+      @s_c3 = create(:competitor, :series => series4, :age_group => age_group4)
+      age_group5 = create(:age_group, :series => series4)
+      @s_c4 = create(:competitor, :series => series4, :age_group => age_group5)
 
       # both series and age group included in competition, competitor should be only once
-      series4 = FactoryGirl.create(:series, :race => race)
-      age_group3 = FactoryGirl.create(:age_group, :series => series4)
+      series4 = create(:series, :race => race)
+      age_group3 = create(:age_group, :series => series4)
       @tc.series << series4
       @tc.age_groups << age_group3
-      @s_ag_c = FactoryGirl.create(:competitor, :series => series4, :age_group => age_group3)
+      @s_ag_c = create(:competitor, :series => series4, :age_group => age_group3)
 
       # competitors belong to (series and) age group, age group included in competition
-      series2 = FactoryGirl.create(:series, :race => race)
-      age_group1 = FactoryGirl.build(:age_group, :series => series2)
+      series2 = create(:series, :race => race)
+      age_group1 = build(:age_group, :series => series2)
       @tc.age_groups << age_group1
-      @ag_c1 = FactoryGirl.create(:competitor, :series => series2, :age_group => age_group1)
-      @ag_c2 = FactoryGirl.create(:competitor, :series => series2, :age_group => age_group1)
+      @ag_c1 = create(:competitor, :series => series2, :age_group => age_group1)
+      @ag_c2 = create(:competitor, :series => series2, :age_group => age_group1)
       # another similar
-      series3 = FactoryGirl.create(:series, :race => race)
-      age_group2 = FactoryGirl.build(:age_group, :series => series3)
+      series3 = create(:series, :race => race)
+      age_group2 = build(:age_group, :series => series3)
       @tc.age_groups << age_group2
-      @ag_c3 = FactoryGirl.create(:competitor, :series => series3, :age_group => age_group2)
-      @ag_c4 = FactoryGirl.create(:competitor, :series => series3, :age_group => age_group2)
+      @ag_c3 = create(:competitor, :series => series3, :age_group => age_group2)
+      @ag_c4 = create(:competitor, :series => series3, :age_group => age_group2)
 
       @tc.reload
     end
@@ -251,7 +251,7 @@ describe TeamCompetition do
 
   describe "#series_names" do
     before do
-      @tc = FactoryGirl.create(:team_competition)
+      @tc = create(:team_competition)
     end
 
     it "should return empty string when no series attached" do
@@ -259,18 +259,18 @@ describe TeamCompetition do
     end
 
     it "should return the names of the series separated with comma" do
-      @tc.series << FactoryGirl.build(:series, :name => 'first series')
-      @tc.series << FactoryGirl.build(:series, :name => 'second series')
+      @tc.series << build(:series, :name => 'first series')
+      @tc.series << build(:series, :name => 'second series')
       expect(@tc.series_names).to eq('first series,second series')
     end
   end
 
   describe "#attach_series_by_names" do
     before do
-      @race = FactoryGirl.create(:race)
-      @tc = FactoryGirl.create(:team_competition, :race => @race)
-      @series1 = FactoryGirl.create(:series, :race => @race, :name => 'first series')
-      @series2 = FactoryGirl.create(:series, :race => @race, :name => 'second series')
+      @race = create(:race)
+      @tc = create(:team_competition, :race => @race)
+      @series1 = create(:series, :race => @race, :name => 'first series')
+      @series2 = create(:series, :race => @race, :name => 'second series')
     end
 
     it "should find the names from the race and attach the corresponding series" do
@@ -283,7 +283,7 @@ describe TeamCompetition do
 
   describe "#age_groups_names" do
     before do
-      @tc = FactoryGirl.create(:team_competition)
+      @tc = create(:team_competition)
     end
 
     it "should return empty string when no age_groups attached" do
@@ -291,20 +291,20 @@ describe TeamCompetition do
     end
 
     it "should return the names of the age_groups separated with comma" do
-      @tc.age_groups << FactoryGirl.build(:age_group, :name => 'first age_group')
-      @tc.age_groups << FactoryGirl.build(:age_group, :name => 'second age_group')
+      @tc.age_groups << build(:age_group, :name => 'first age_group')
+      @tc.age_groups << build(:age_group, :name => 'second age_group')
       expect(@tc.age_groups_names).to eq('first age_group,second age_group')
     end
   end
 
   describe "#attach_age_groups_by_names" do
     before do
-      @race = FactoryGirl.create(:race)
-      @tc = FactoryGirl.create(:team_competition, :race => @race)
-      series = FactoryGirl.create(:series, :race => @race)
-      @age_groups1 = FactoryGirl.create(:age_group, :series => series,
+      @race = create(:race)
+      @tc = create(:team_competition, :race => @race)
+      series = create(:series, :race => @race)
+      @age_groups1 = create(:age_group, :series => series,
         :name => 'first age_group')
-      @age_groups2 = FactoryGirl.create(:age_group, :series => series,
+      @age_groups2 = create(:age_group, :series => series,
         :name => 'second age_group')
     end
 
@@ -325,7 +325,7 @@ describe TeamCompetition do
     
     context "when series" do
       before do
-        @tc = FactoryGirl.build(:team_competition)
+        @tc = build(:team_competition)
       end
       
       context "but none of them started" do

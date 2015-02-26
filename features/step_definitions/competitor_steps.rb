@@ -1,16 +1,16 @@
 Given /^the series has a competitor$/ do
-  @competitor = FactoryGirl.create(:competitor, :series => @series)
+  @competitor = create(:competitor, :series => @series)
 end
 
 Given /^the series has a competitor "(.*?)" "(.*?)"$/ do |first_name, last_name|
-  @competitor = FactoryGirl.create(:competitor, :series => @series, :first_name => first_name,
+  @competitor = create(:competitor, :series => @series, :first_name => first_name,
     :last_name => last_name)
 end
 
 Given /^the series has a competitor "([^"]*)" "([^"]*)" with (\d+)\+(\d+)\+(\d+) points$/ do |first_name, last_name, tpoints, epoints, spoints|
   best_time = 600
   seconds_lost = (300 - tpoints.to_i) * 10
-  @competitor = FactoryGirl.create(:competitor, :series => @series, :first_name => first_name, :last_name => last_name,
+  @competitor = create(:competitor, :series => @series, :first_name => first_name, :last_name => last_name,
     :start_time => @series.start_time, :arrival_time => @series.start_time + best_time - seconds_lost,
     :estimate1 => 100, :correct_estimate1 => 100,
     :estimate2 => 150, :correct_estimate2 => 150 - (300 - epoints.to_i) / 2,
@@ -21,7 +21,7 @@ end
 
 Given /^the series has (\d+) competitors$/ do |amount|
   amount.to_i.times do
-    FactoryGirl.create(:competitor, :series => @series)
+    create(:competitor, :series => @series)
   end
 end
 
@@ -38,7 +38,7 @@ Given /^the series has a competitor with attributes:$/ do |fields|
     hash[:club] = club
     hash.delete "club" # workaround for ruby 1.9
   end
-  @competitor = FactoryGirl.create(:competitor, {:series => @series}.merge(hash))
+  @competitor = create(:competitor, {:series => @series}.merge(hash))
 end
 
 Given /^the series "([^"]*)" contains a competitor with attributes:$/ do |series_name, fields|
@@ -50,7 +50,7 @@ Given /^the series "([^"]*)" contains a competitor with attributes:$/ do |series
     hash[:club] = club
     hash.delete "club" # workaround for ruby 1.9
   end
-  @competitor = FactoryGirl.create(:competitor, {:series => @series}.merge(hash))
+  @competitor = create(:competitor, {:series => @series}.merge(hash))
 end
 
 Given /^the competitor belongs to an age group "([^"]*)"$/ do |age_group_name|

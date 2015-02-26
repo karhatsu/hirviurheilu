@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Official::CompetitorsController, type: :controller do
   describe "#handle_club" do
     before do
-      @race = FactoryGirl.create(:race)
-      @series = FactoryGirl.create(:series, :race => @race)
+      @race = create(:race)
+      @series = create(:series, :race => @race)
     end
 
     controller(Official::CompetitorsController) do
@@ -54,7 +54,7 @@ describe Official::CompetitorsController, type: :controller do
 
       context "when existing club name is given" do
         before do
-          @club = FactoryGirl.create(:club, :name => 'Existing club', :race => @race)
+          @club = create(:club, :name => 'Existing club', :race => @race)
         end
 
         it "should find the existing club and set it for the competitor" do
@@ -75,7 +75,7 @@ describe Official::CompetitorsController, type: :controller do
 
     context "on update" do
       before do
-        @competitor = FactoryGirl.create(:competitor, series: @series)
+        @competitor = create(:competitor, series: @series)
       end
 
       context "when club_id 0 and new club name is given" do

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe CorrectEstimate do
   it "create" do
-    FactoryGirl.create(:correct_estimate)
+    create(:correct_estimate)
   end
 
   describe "associations" do
@@ -70,52 +70,52 @@ describe CorrectEstimate do
 
     describe "overlapping numbers" do
       before do
-        @race1 = FactoryGirl.create(:race)
-        @race2 = FactoryGirl.create(:race)
-        @ce = FactoryGirl.create(:correct_estimate, :race => @race1, :min_number => 5,
+        @race1 = create(:race)
+        @race2 = create(:race)
+        @ce = create(:correct_estimate, :race => @race1, :min_number => 5,
           :max_number => 10)
       end
 
       it "should allow same numbers for different race" do
-        FactoryGirl.create(:correct_estimate, :race => @race2, :min_number => 5,
+        create(:correct_estimate, :race => @race2, :min_number => 5,
           :max_number => 10)
       end
 
       it "should prevent overlapping numbers for same race" do
-        expect(FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 1,
+        expect(build(:correct_estimate, :race => @race1, :min_number => 1,
           :max_number => 5)).not_to be_valid
-        expect(FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 10,
+        expect(build(:correct_estimate, :race => @race1, :min_number => 10,
           :max_number => 15)).not_to be_valid
-        FactoryGirl.create(:correct_estimate, :race => @race1, :min_number => 15,
+        create(:correct_estimate, :race => @race1, :min_number => 15,
           :max_number => 20)
-        expect(FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 11,
+        expect(build(:correct_estimate, :race => @race1, :min_number => 11,
           :max_number => 14)).to be_valid
-        expect(FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 11,
+        expect(build(:correct_estimate, :race => @race1, :min_number => 11,
           :max_number => 15)).not_to be_valid
       end
 
       describe "saving max_number=nil" do
         it "should prevent overlapping min number" do
-          expect(FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 4,
+          expect(build(:correct_estimate, :race => @race1, :min_number => 4,
             :max_number => nil)).not_to be_valid
-          expect(FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 10,
+          expect(build(:correct_estimate, :race => @race1, :min_number => 10,
             :max_number => nil)).not_to be_valid
         end
       end
 
       describe "existing max_number=nil" do
         before do
-          @ce_nil = FactoryGirl.create(:correct_estimate, :race => @race1, :min_number => 50,
+          @ce_nil = create(:correct_estimate, :race => @race1, :min_number => 50,
             :max_number => nil)
         end
 
         it "should allow another nil for different race" do
-          FactoryGirl.create(:correct_estimate, :race => @race2, :min_number => 50,
+          create(:correct_estimate, :race => @race2, :min_number => 50,
             :max_number => nil)
         end
 
         it "should prevent another nil for same race" do
-          expect(FactoryGirl.build(:correct_estimate, :race => @race1, :min_number => 100,
+          expect(build(:correct_estimate, :race => @race1, :min_number => 100,
             :max_number => nil)).to have(1).errors_on(:max_number)
         end
 
@@ -134,10 +134,10 @@ describe CorrectEstimate do
 
   describe "#for_number_in_race" do
     before do
-      another_race = FactoryGirl.create(:race)
-      another_race.correct_estimates << FactoryGirl.build(:correct_estimate,
+      another_race = create(:race)
+      another_race.correct_estimates << build(:correct_estimate,
         :race => another_race, :min_number => 1)
-      @race = FactoryGirl.create(:race)
+      @race = create(:race)
     end
 
     it "should return nil if nothing found" do
@@ -146,11 +146,11 @@ describe CorrectEstimate do
 
     context "when correct estimate defined" do
       before do
-        @ce1 = FactoryGirl.build(:correct_estimate,
+        @ce1 = build(:correct_estimate,
           :race => @race, :min_number => 5, :max_number => 7)
-        @ce2 = FactoryGirl.build(:correct_estimate,
+        @ce2 = build(:correct_estimate,
           :race => @race, :min_number => 9, :max_number => 11)
-        @ce3 = FactoryGirl.build(:correct_estimate,
+        @ce3 = build(:correct_estimate,
           :race => @race, :min_number => 14, :max_number => nil)
         @race.correct_estimates << @ce1
         @race.correct_estimates << @ce2

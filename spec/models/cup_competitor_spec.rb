@@ -171,12 +171,12 @@ describe CupCompetitor do
     end
     
     it "should be nil when no match" do
-      expect(@cc.competitor_for_race(FactoryGirl.build(:race))).to be_nil
+      expect(@cc.competitor_for_race(build(:race))).to be_nil
     end
     
     it "should be the competitor that belongs to the given race" do
       competitor = valid_competitor
-      race = FactoryGirl.build(:race)
+      race = build(:race)
       allow(competitor).to receive(:race).and_return(race)
       @cc << competitor
       expect(@cc.competitor_for_race(race)).to eq(competitor)

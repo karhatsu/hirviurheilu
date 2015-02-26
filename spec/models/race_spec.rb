@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Race do
   describe "create" do
     it "should create race with valid attrs" do
-      FactoryGirl.create(:race)
+      create(:race)
     end
   end
 
@@ -15,12 +15,12 @@ describe Race do
 
     describe "end_date" do
       it "can be nil which makes it same as start date" do
-        race = FactoryGirl.create(:race, :end_date => nil)
+        race = create(:race, :end_date => nil)
         expect(race.end_date).to eq(race.start_date)
       end
 
       it "cannot be before start date" do
-        expect(FactoryGirl.build(:race, :start_date => Date.today + 3, :end_date => Date.today + 2)).
+        expect(build(:race, :start_date => Date.today + 3, :end_date => Date.today + 2)).
           to have(1).errors_on(:end_date)
       end
     end
@@ -53,7 +53,7 @@ describe Race do
       it { is_expected.not_to allow_value(2).for(:club_level) }
 
       it "should convert nil to SEURA" do
-        race = FactoryGirl.create(:race, :club_level => nil)
+        race = create(:race, :club_level => nil)
         expect(race.club_level).to eq(Race::CLUB_LEVEL_SEURA)
       end
     end
@@ -67,17 +67,17 @@ describe Race do
 
     describe "race with same name" do
       before do
-        @race = FactoryGirl.create(:race, :name => 'My race', :start_date => '2010-01-01',
+        @race = create(:race, :name => 'My race', :start_date => '2010-01-01',
           :location => 'My town')
       end
 
       it "should allow if same location, different start date" do
-        expect(FactoryGirl.build(:race, :name => 'My race', :start_date => '2011-01-01',
+        expect(build(:race, :name => 'My race', :start_date => '2011-01-01',
           :location => 'My town')).to be_valid
       end
 
       it "should allow if different location, same start date" do
-        expect(FactoryGirl.build(:race, :name => 'My race', :start_date => '2010-01-01',
+        expect(build(:race, :name => 'My race', :start_date => '2010-01-01',
           :location => 'Different town')).to be_valid
       end
 
@@ -86,7 +86,7 @@ describe Race do
       end
 
       it "should prevent if same location, same start date" do
-        expect(FactoryGirl.build(:race, :name => 'My race', :start_date => '2010-01-01',
+        expect(build(:race, :name => 'My race', :start_date => '2010-01-01',
           :location => 'My town')).not_to be_valid
       end
     end
@@ -115,9 +115,9 @@ describe Race do
   describe "update" do
     context "when start order changed from mixed to by series" do
       before do
-        @race = FactoryGirl.create(:race, :start_order => Race::START_ORDER_MIXED)
-        @series = FactoryGirl.create(:series, :race => @race)
-        FactoryGirl.create(:competitor, :series => @series, :start_time => '11:00:00', :number => 4)
+        @race = create(:race, :start_order => Race::START_ORDER_MIXED)
+        @series = create(:series, :race => @race)
+        create(:competitor, :series => @series, :start_time => '11:00:00', :number => 4)
         @race.reload
       end
   
@@ -135,15 +135,15 @@ describe Race do
       
     context "when start order changed from by series to mixed" do
       before do
-        @race = FactoryGirl.create(:race, :start_order => Race::START_ORDER_BY_SERIES)
-        @series1 = FactoryGirl.create(:series, :race => @race, :has_start_list => false)
-        @series2 = FactoryGirl.create(:series, :race => @race, :has_start_list => true)
-        @series3 = FactoryGirl.create(:series, :race => @race, :has_start_list => false)
+        @race = create(:race, :start_order => Race::START_ORDER_BY_SERIES)
+        @series1 = create(:series, :race => @race, :has_start_list => false)
+        @series2 = create(:series, :race => @race, :has_start_list => true)
+        @series3 = create(:series, :race => @race, :has_start_list => false)
       end
     
       context "when at least one competitor without start time" do
         it "should not be allowed" do
-          FactoryGirl.create(:competitor, :series => @series1, :number => 55)
+          create(:competitor, :series => @series1, :number => 55)
           @race.reload
           @race.start_order = Race::START_ORDER_MIXED
           expect(@race).not_to be_valid
@@ -152,7 +152,7 @@ describe Race do
       
       context "when only competitors with start time and number" do
         it "should be allowed" do
-          FactoryGirl.create(:competitor, :series => @series1, :start_time => '12:00:00', :number => 2)
+          create(:competitor, :series => @series1, :start_time => '12:00:00', :number => 2)
           @race.reload
           @race.start_order = Race::START_ORDER_MIXED
           expect(@race).to be_valid
@@ -171,8 +171,8 @@ describe Race do
     
     context "when start order remains as mixed" do
       before do
-        @race = FactoryGirl.create(:race, :start_order => Race::START_ORDER_MIXED)
-        @series = FactoryGirl.create(:series, :race => @race)
+        @race = create(:race, :start_order => Race::START_ORDER_MIXED)
+        @series = create(:series, :race => @race)
         @race.reload
       end
       
@@ -185,8 +185,8 @@ describe Race do
     
     context "when start order remains as by series" do
       before do
-        @race = FactoryGirl.create(:race, :start_order => Race::START_ORDER_BY_SERIES)
-        @series = FactoryGirl.create(:series, :race => @race)
+        @race = create(:race, :start_order => Race::START_ORDER_BY_SERIES)
+        @series = create(:series, :race => @race)
         @race.reload
       end
       
@@ -200,19 +200,19 @@ describe Race do
 
   describe "past/ongoing/future" do
     before do
-      @past1 = FactoryGirl.create(:race, :start_date => Date.today - 10,
+      @past1 = create(:race, :start_date => Date.today - 10,
         :end_date => nil)
-      @past2 = FactoryGirl.create(:race, :start_date => Date.today - 2,
+      @past2 = create(:race, :start_date => Date.today - 2,
         :end_date => Date.today - 1)
-      @current1 = FactoryGirl.create(:race, :start_date => Date.today - 1,
+      @current1 = create(:race, :start_date => Date.today - 1,
         :end_date => Date.today + 0)
-      @current2 = FactoryGirl.create(:race, :start_date => Date.today,
+      @current2 = create(:race, :start_date => Date.today,
         :end_date => nil)
-      @current3 = FactoryGirl.create(:race, :start_date => Date.today,
+      @current3 = create(:race, :start_date => Date.today,
         :end_date => Date.today + 1)
-      @future1 = FactoryGirl.create(:race, :start_date => Date.today + 2,
+      @future1 = create(:race, :start_date => Date.today + 2,
         :end_date => Date.today + 3)
-      @future2 = FactoryGirl.create(:race, :start_date => Date.today + 1,
+      @future2 = create(:race, :start_date => Date.today + 1,
         :end_date => nil)
     end
 
@@ -266,8 +266,8 @@ describe Race do
 
   describe "#finish" do
     before do
-      @race = FactoryGirl.create(:race)
-      @series = FactoryGirl.build(:series, :race => @race)
+      @race = create(:race)
+      @series = build(:series, :race => @race)
       @race.series << @series
       allow(@race).to receive(:each_competitor_has_correct_estimates?).and_return(true)
     end
@@ -285,7 +285,7 @@ describe Race do
     context "when competitors not missing correct estimates" do
       context "when competitors missing results" do
         before do
-          @series.competitors << FactoryGirl.build(:competitor, :series => @series)
+          @series.competitors << build(:competitor, :series => @series)
         end
 
         it "should not be possible to finish the race" do
@@ -295,7 +295,7 @@ describe Race do
 
       context "when all competitors have results filled" do
         before do
-          @series.competitors << FactoryGirl.build(:competitor, :series => @series,
+          @series.competitors << build(:competitor, :series => @series,
             :no_result_reason => Competitor::DNF)
         end
 
@@ -322,7 +322,7 @@ describe Race do
 
   describe "#finish!" do
     before do
-      @race = FactoryGirl.build(:race)
+      @race = build(:race)
     end
 
     it "should return true when finishing the race succeeds" do
@@ -338,23 +338,23 @@ describe Race do
   
   describe "#can_destroy?" do
     before do
-      @race = FactoryGirl.create(:race)
+      @race = create(:race)
     end
     
     it "should be false when competitors" do
-      series = FactoryGirl.build(:series, :race => @race)
+      series = build(:series, :race => @race)
       @race.series << series
-      series.competitors << FactoryGirl.build(:competitor)
+      series.competitors << build(:competitor)
       expect(@race.can_destroy?).to be_falsey
     end
     
     it "should be false when relays" do
-      @race.relays << FactoryGirl.build(:relay, :race => @race)
+      @race.relays << build(:relay, :race => @race)
       expect(@race.can_destroy?).to be_falsey
     end
     
     it "should be true when no competitors, nor relays" do
-      @series = FactoryGirl.build(:series, :race => @race)
+      @series = build(:series, :race => @race)
       @race.series << @series
       expect(@race.can_destroy?).to be_truthy
     end
@@ -362,18 +362,18 @@ describe Race do
 
   describe "#destroy" do
     before do
-      @race = FactoryGirl.create(:race)
-      @series = FactoryGirl.build(:series, :race => @race)
+      @race = create(:race)
+      @series = build(:series, :race => @race)
       @race.series << @series
-      @competitor = FactoryGirl.build(:competitor, :series => @series)
+      @competitor = build(:competitor, :series => @series)
       @series.competitors << @competitor
-      @team_competition = FactoryGirl.build(:team_competition, :race => @race)
+      @team_competition = build(:team_competition, :race => @race)
       @race.team_competitions << @team_competition
-      @relay = FactoryGirl.build(:relay, :race => @race)
+      @relay = build(:relay, :race => @race)
       @race.relays << @relay
-      @relay_team = FactoryGirl.build(:relay_team, :relay => @relay)
+      @relay_team = build(:relay_team, :relay => @relay)
       @relay.relay_teams << @relay_team
-      @relay_competitor = FactoryGirl.build(:relay_competitor, :relay_team => @relay_team)
+      @relay_competitor = build(:relay_competitor, :relay_team => @relay_team)
       @relay_team.relay_competitors << @relay_competitor
     end
   
@@ -395,7 +395,7 @@ describe Race do
       @ds1 = DefaultSeries.new('DS1', ['DAG1', 1], ['DAG2', 2])
       @ds2 = DefaultSeries.new('DS2')
       allow(DefaultSeries).to receive(:all).and_return([@ds1, @ds2])
-      @race = FactoryGirl.build(:race)
+      @race = build(:race)
     end
 
     it "should add default series and age groups for the race" do
@@ -426,7 +426,7 @@ describe Race do
 
   describe "#days_count" do
     before do
-      @race = FactoryGirl.build(:race, :start_date => '2010-12-20')
+      @race = build(:race, :start_date => '2010-12-20')
     end
 
     context "when only start date defined" do
@@ -453,7 +453,7 @@ describe Race do
   
   describe "#days_count=" do
     before do
-      @race = FactoryGirl.build(:race, :start_date => nil, :end_date => nil)
+      @race = build(:race, :start_date => nil, :end_date => nil)
     end
     
     describe "invalid value" do
@@ -521,27 +521,27 @@ describe Race do
 
   describe "#set_correct_estimates_for_competitors" do
     before do
-      @race = FactoryGirl.create(:race)
-      @series1 = FactoryGirl.create(:series, :race => @race)
-      @series2 = FactoryGirl.create(:series, :race => @race, :estimates => 4)
-      FactoryGirl.create(:correct_estimate, :min_number => 1, :max_number => 5,
+      @race = create(:race)
+      @series1 = create(:series, :race => @race)
+      @series2 = create(:series, :race => @race, :estimates => 4)
+      create(:correct_estimate, :min_number => 1, :max_number => 5,
         :distance1 => 100, :distance2 => 200,
         :distance3 => 80, :distance4 => 90, :race => @race)
-      FactoryGirl.create(:correct_estimate, :min_number => 10, :max_number => nil,
+      create(:correct_estimate, :min_number => 10, :max_number => nil,
         :distance1 => 50, :distance2 => 150, :race => @race)
-      @c1 = FactoryGirl.create(:competitor, :series => @series1, :number => 1,
+      @c1 = create(:competitor, :series => @series1, :number => 1,
         :correct_estimate1 => 1, :correct_estimate2 => 2)
-      @c4 = FactoryGirl.create(:competitor, :series => @series2, :number => 4)
-      @c5 = FactoryGirl.create(:competitor, :series => @series1, :number => 5)
-      @c6 = FactoryGirl.create(:competitor, :series => @series1, :number => 6,
+      @c4 = create(:competitor, :series => @series2, :number => 4)
+      @c5 = create(:competitor, :series => @series1, :number => 5)
+      @c6 = create(:competitor, :series => @series1, :number => 6,
         :correct_estimate1 => 10, :correct_estimate2 => 20,
         :correct_estimate3 => 100, :correct_estimate4 => 200)
-      @c9 = FactoryGirl.create(:competitor, :series => @series2, :number => 9,
+      @c9 = create(:competitor, :series => @series2, :number => 9,
         :correct_estimate1 => 30, :correct_estimate2 => 40,
         :correct_estimate3 => 100, :correct_estimate4 => 200)
-      @c10 = FactoryGirl.create(:competitor, :series => @series2, :number => 10)
-      @c150 = FactoryGirl.create(:competitor, :series => @series1, :number => 150)
-      @cnil = FactoryGirl.create(:competitor, :series => @series1, :number => nil,
+      @c10 = create(:competitor, :series => @series2, :number => 10)
+      @c150 = create(:competitor, :series => @series1, :number => 150)
+      @cnil = create(:competitor, :series => @series1, :number => nil,
         :correct_estimate1 => 50, :correct_estimate2 => 60)
       @race.reload
       @race.set_correct_estimates_for_competitors
@@ -599,16 +599,16 @@ describe Race do
 
   describe "#each_competitor_has_correct_estimates?" do
     before do
-      @race = FactoryGirl.create(:race)
-      series1 = FactoryGirl.create(:series, :race => @race)
-      series2 = FactoryGirl.create(:series, :race => @race)
-      @c1 = FactoryGirl.create(:competitor, :series => series1,
+      @race = create(:race)
+      series1 = create(:series, :race => @race)
+      series2 = create(:series, :race => @race)
+      @c1 = create(:competitor, :series => series1,
         :correct_estimate1 => 55, :correct_estimate2 => 111)
-      @c2 = FactoryGirl.create(:competitor, :series => series2,
+      @c2 = create(:competitor, :series => series2,
         :correct_estimate1 => 100, :correct_estimate2 => 99)
-      @c3 = FactoryGirl.create(:competitor, :series => series1,
+      @c3 = create(:competitor, :series => series1,
         :correct_estimate1 => 123, :correct_estimate2 => 100)
-      @c4 = FactoryGirl.create(:competitor, :series => series2,
+      @c4 = create(:competitor, :series => series2,
         :correct_estimate1 => 77, :correct_estimate2 => 88)
     end
 
@@ -627,26 +627,26 @@ describe Race do
 
   describe "#estimates_at_most" do
     it "should return 2 when no series defined" do
-      expect(FactoryGirl.build(:race).estimates_at_most).to eq(2)
+      expect(build(:race).estimates_at_most).to eq(2)
     end
 
     it "should return 2 when all series have 2 estimates" do
-      race = FactoryGirl.create(:race)
-      race.series << FactoryGirl.build(:series, :race => race)
+      race = create(:race)
+      race.series << build(:series, :race => race)
       expect(race.estimates_at_most).to eq(2)
     end
 
     it "should return 4 when at least one series has 4 estimates" do
-      race = FactoryGirl.create(:race)
-      race.series << FactoryGirl.build(:series, :race => race)
-      race.series << FactoryGirl.build(:series, :race => race, :estimates => 4)
+      race = create(:race)
+      race.series << build(:series, :race => race)
+      race.series << build(:series, :race => race, :estimates => 4)
       expect(race.estimates_at_most).to eq(4)
     end
   end
 
   describe "#has_team_competition?" do
     before do
-      @race = FactoryGirl.build(:race)
+      @race = build(:race)
     end
 
     context "when team_competitions is empty" do
@@ -655,7 +655,7 @@ describe Race do
 
     context "when team_competitions is not empty" do
       before do
-        @race.team_competitions << FactoryGirl.build(:team_competition, :race => @race)
+        @race.team_competitions << build(:team_competition, :race => @race)
       end
       it "should return true" do expect(@race).to have_team_competition end
     end
@@ -663,10 +663,10 @@ describe Race do
 
   describe "relays" do
     before do
-      @race = FactoryGirl.create(:race)
-      @race.relays << FactoryGirl.build(:relay, :race => @race, :name => 'C')
-      @race.relays << FactoryGirl.build(:relay, :race => @race, :name => 'A')
-      @race.relays << FactoryGirl.build(:relay, :race => @race, :name => 'B')
+      @race = create(:race)
+      @race.relays << build(:relay, :race => @race, :name => 'C')
+      @race.relays << build(:relay, :race => @race, :name => 'A')
+      @race.relays << build(:relay, :race => @race, :name => 'B')
       @race.reload
     end
 
@@ -679,7 +679,7 @@ describe Race do
 
   describe "#has_any_national_records_defined?" do
     before do
-      @race = FactoryGirl.create(:race)
+      @race = create(:race)
     end
 
     it "should return false when no series exists" do
@@ -688,8 +688,8 @@ describe Race do
 
     context "when series exist" do
       before do
-        @race.series << FactoryGirl.build(:series, :race => @race)
-        @race.series << FactoryGirl.build(:series, :race => @race, :national_record => '')
+        @race.series << build(:series, :race => @race)
+        @race.series << build(:series, :race => @race, :national_record => '')
       end
 
       it "should return false when no national records have been defined" do
@@ -697,7 +697,7 @@ describe Race do
       end
 
       it "should return true when at least one national record" do
-        @race.series << FactoryGirl.build(:series, :race => @race, :national_record => 900)
+        @race.series << build(:series, :race => @race, :national_record => 900)
         expect(@race).to have_any_national_records_defined
       end
     end
@@ -705,27 +705,27 @@ describe Race do
 
   describe "#race_day" do
     it "should return 0 if race ended in the past" do
-      expect(FactoryGirl.build(:race, :start_date => Date.today - 1).race_day).to eq(0)
-      expect(FactoryGirl.build(:race, :start_date => Date.today - 2).race_day).to eq(0)
+      expect(build(:race, :start_date => Date.today - 1).race_day).to eq(0)
+      expect(build(:race, :start_date => Date.today - 2).race_day).to eq(0)
     end
 
     it "should return 0 if race starts in the future" do
-      expect(FactoryGirl.build(:race, :start_date => Date.today + 1).race_day).to eq(0)
-      expect(FactoryGirl.build(:race, :start_date => Date.today + 2).race_day).to eq(0)
+      expect(build(:race, :start_date => Date.today + 1).race_day).to eq(0)
+      expect(build(:race, :start_date => Date.today + 2).race_day).to eq(0)
     end
 
     context "when race is today" do
       it "should return 1 if race started today" do
-        expect(FactoryGirl.build(:race, :start_date => Date.today).race_day).to eq(1)
+        expect(build(:race, :start_date => Date.today).race_day).to eq(1)
       end
 
       it "should return 2 if race started yesterday" do
-        expect(FactoryGirl.build(:race, :start_date => Date.today - 1, :end_date => Date.today + 1).
+        expect(build(:race, :start_date => Date.today - 1, :end_date => Date.today + 1).
           race_day).to eq(2)
       end
 
       it "should return 3 if race started two days ago" do
-        expect(FactoryGirl.build(:race, :start_date => Date.today - 2, :end_date => Date.today).
+        expect(build(:race, :start_date => Date.today - 2, :end_date => Date.today).
           race_day).to eq(3)
       end
     end
@@ -733,8 +733,8 @@ describe Race do
 
   describe "#next_start_number" do
     before do
-      @race = FactoryGirl.create(:race)
-      @series = FactoryGirl.build(:series, :race => @race)
+      @race = create(:race)
+      @series = build(:series, :race => @race)
       @race.series << @series
     end
 
@@ -743,21 +743,21 @@ describe Race do
     end
 
     it "should return 1 when competitors without numbers" do
-      @series.competitors << FactoryGirl.build(:competitor, :series => @series, :number => nil)
+      @series.competitors << build(:competitor, :series => @series, :number => nil)
       expect(@race.next_start_number).to eq(1)
     end
 
     it "should return the biggest competitor number + 1 when competitors with numbers" do
-      @series.competitors << FactoryGirl.build(:competitor, :series => @series, :number => 2)
-      @series.competitors << FactoryGirl.build(:competitor, :series => @series, :number => 8)
+      @series.competitors << build(:competitor, :series => @series, :number => 2)
+      @series.competitors << build(:competitor, :series => @series, :number => 8)
       expect(@race.next_start_number).to eq(9)
     end
   end
 
   describe "#next_start_time" do
     before do
-      @race = FactoryGirl.create(:race, :start_interval_seconds => 30)
-      @series = FactoryGirl.build(:series, :race => @race)
+      @race = create(:race, :start_interval_seconds => 30)
+      @series = build(:series, :race => @race)
       @race.series << @series
     end
 
@@ -766,15 +766,15 @@ describe Race do
     end
 
     it "should return 00:00:00 when competitors without start times" do
-      @series.competitors << FactoryGirl.build(:competitor, :series => @series)
+      @series.competitors << build(:competitor, :series => @series)
       expect(@race.next_start_time).to eq('00:00:00')
     end
 
     context "when competitors with start times" do
       it "should return the biggest competitor start time + time interval" do
-        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
+        @series.competitors << build(:competitor, :series => @series,
           :start_time => '10:34:11')
-        @series.competitors << FactoryGirl.build(:competitor, :series => @series,
+        @series.competitors << build(:competitor, :series => @series,
           :start_time => '18:03:00')
         expect(@race.next_start_time.strftime('%H:%M:%S')).to eq('18:03:30')
       end
@@ -783,7 +783,7 @@ describe Race do
 
   describe "#all_competitions_finished?" do
     before do
-      @race = FactoryGirl.build(:race)
+      @race = build(:race)
     end
 
     it "should return false when race is not finished" do
@@ -818,16 +818,16 @@ describe Race do
     
     context "when team competitions but none of them uses team name" do
       it "should return false" do
-        race = FactoryGirl.create(:race)
-        race.team_competitions << FactoryGirl.build(:team_competition, :race => race, :use_team_name => false)
+        race = create(:race)
+        race.team_competitions << build(:team_competition, :race => race, :use_team_name => false)
         expect(race).not_to have_team_competitions_with_team_names
       end
     end
     
     context "when at least one team competition uses team name" do
       it "should return true" do
-        race = FactoryGirl.create(:race)
-        race.team_competitions << FactoryGirl.build(:team_competition, :race => race, :use_team_name => true)
+        race = create(:race)
+        race.team_competitions << build(:team_competition, :race => race, :use_team_name => true)
         expect(race).to have_team_competitions_with_team_names
       end
     end
@@ -839,11 +839,11 @@ describe Race do
     end
 
     it "should be false when start time is 00:00" do
-      expect(FactoryGirl.build(:race, start_time: '00:00').start_time_defined?).to be_falsey
+      expect(build(:race, start_time: '00:00').start_time_defined?).to be_falsey
     end
 
     it "should be true when start time other than 00:00" do
-      expect(FactoryGirl.build(:race, start_time: '00:01').start_time_defined?).to be_truthy
+      expect(build(:race, start_time: '00:01').start_time_defined?).to be_truthy
     end
   end
 end

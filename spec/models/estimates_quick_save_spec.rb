@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe EstimatesQuickSave do
   before do
-    @race = FactoryGirl.create(:race)
-    @series = FactoryGirl.create(:series, :race => @race)
-    FactoryGirl.create(:competitor, :series => @series, :number => 1)
-    @c = FactoryGirl.create(:competitor, :series => @series, :number => 10,
+    @race = create(:race)
+    @series = create(:series, :race => @race)
+    create(:competitor, :series => @series, :number => 1)
+    @c = create(:competitor, :series => @series, :number => 10,
       :estimate1 => 1, :estimate2 => 2)
-    @c2 = FactoryGirl.create(:competitor, :series => @series, :number => 11)
+    @c2 = create(:competitor, :series => @series, :number => 11)
   end
 
   context "when string format is correct and competitor is found" do
@@ -176,9 +176,9 @@ describe EstimatesQuickSave do
 
   describe "unknown competitor" do
     before do
-      another_race = FactoryGirl.create(:race)
-      series = FactoryGirl.create(:series, :race => another_race)
-      FactoryGirl.create(:competitor, :series => series, :number => 8)
+      another_race = create(:race)
+      series = create(:series, :race => another_race)
+      create(:competitor, :series => series, :number => 8)
       @qs = EstimatesQuickSave.new(@race.id, '8,98,115')
     end
 
@@ -236,7 +236,7 @@ describe EstimatesQuickSave do
   end
   describe "data already stored" do
     before do
-      @c = FactoryGirl.create(:competitor, :series => @series, :number => 12,
+      @c = create(:competitor, :series => @series, :number => 12,
         :estimate1 => 52)
       @qs = EstimatesQuickSave.new(@race.id, '12,98,102')
     end

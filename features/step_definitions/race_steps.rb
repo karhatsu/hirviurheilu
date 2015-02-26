@@ -1,9 +1,9 @@
 Given /^there is a race "([^"]*)"$/ do |name|
-  @race = FactoryGirl.create(:race, :name => name)
+  @race = create(:race, :name => name)
 end
 
 Given(/^there is a race "(.*?)" that starts in 7 days$/) do |name|
-  @race = FactoryGirl.create(:race, name: name, start_date: 7.days.from_now)
+  @race = create(:race, name: name, start_date: 7.days.from_now)
 end
 
 Given /^there is a race with attributes:$/ do |fields|
@@ -17,24 +17,24 @@ Given /^there is a race with attributes:$/ do |fields|
   elsif hash[:sport]
     raise "Unknown sport key: #{hash[:sport]}"
   end
-  @race = FactoryGirl.create(:race, hash)
+  @race = create(:race, hash)
 end
 
 Given /^there is a race "(.*?)" with series, competitors, team competitions, and relays$/ do |name|
-  @race = FactoryGirl.create(:race, :name => name)
-  @series = FactoryGirl.build(:series, :race => @race)
+  @race = create(:race, :name => name)
+  @series = build(:series, :race => @race)
   @race.series << @series
-  @age_group = FactoryGirl.build(:age_group, :series => @series)
+  @age_group = build(:age_group, :series => @series)
   @series.age_groups << @age_group
-  @competitor = FactoryGirl.build(:competitor, :series => @series, :age_group => @age_group)
+  @competitor = build(:competitor, :series => @series, :age_group => @age_group)
   @series.competitors << @competitor
-  @team_competition = FactoryGirl.build(:team_competition, :race => @race)
+  @team_competition = build(:team_competition, :race => @race)
   @race.team_competitions << @team_competition
-  @relay = FactoryGirl.build(:relay, :race => @race)
+  @relay = build(:relay, :race => @race)
   @race.relays << @relay
-  @relay_team = FactoryGirl.build(:relay_team, :relay => @relay)
+  @relay_team = build(:relay_team, :relay => @relay)
   @relay.relay_teams << @relay_team
-  @relay_competitor = FactoryGirl.build(:relay_competitor, :relay_team => @relay_team)
+  @relay_competitor = build(:relay_competitor, :relay_team => @relay_team)
   @relay_team.relay_competitors << @relay_competitor
 end
 
@@ -45,7 +45,7 @@ Given /^the race "([^"]*)" is renamed to "([^"]*)"$/ do |old_name, new_name|
 end
 
 Given /^I have a race "([^"]*)"$/ do |name|
-  @race = FactoryGirl.create(:race, :name => name)
+  @race = create(:race, :name => name)
   @user.race_rights.create!(:race => @race)
 end
 
@@ -60,35 +60,35 @@ Given /^I have a race with attributes:$/ do |fields|
   elsif hash[:sport]
     raise "Unknown sport key: #{hash[:sport]}"
   end
-  @race = FactoryGirl.create(:race, hash)
+  @race = create(:race, hash)
   @user.race_rights.create!(:race => @race)
 end
 
 Given /^I have a race "(.*?)" with competitor "(.*?)" "(.*?)" in series "(.*?)", with number (\d+) and start time "(.*?)"$/ do |race_name,
     first_name, last_name, series_name, number, start_time|
-  @race = FactoryGirl.create(:race, :name => race_name, :start_order => Race::START_ORDER_MIXED)
-  @series = FactoryGirl.build(:series, :race => @race, :name => series_name)
+  @race = create(:race, :name => race_name, :start_order => Race::START_ORDER_MIXED)
+  @series = build(:series, :race => @race, :name => series_name)
   @race.series << @series
-  @competitor = FactoryGirl.build(:competitor, :series => @series, :first_name => first_name, :last_name => last_name,
+  @competitor = build(:competitor, :series => @series, :first_name => first_name, :last_name => last_name,
     :number => number, :start_time => start_time)
   @series.competitors << @competitor
   @user.race_rights.create!(:race => @race)
 end
 
 Given /^there is a race "([^"]*)" in the past$/ do |name|
-  @race = FactoryGirl.create(:race, :start_date => Date.today - 1, :name => name)
+  @race = create(:race, :start_date => Date.today - 1, :name => name)
 end
 
 Given /^there is a race "([^"]*)" today/ do |name|
-  @race = FactoryGirl.create(:race, :start_date => Date.today, :name => name)
+  @race = create(:race, :start_date => Date.today, :name => name)
 end
 
 Given /^there is a race "([^"]*)" in the future$/ do |name|
-  @race = FactoryGirl.create(:race, :start_date => Date.today + 1, :name => name)
+  @race = create(:race, :start_date => Date.today + 1, :name => name)
 end
 
 Given /^there is an ongoing race with attributes:$/ do |fields|
-  @race = FactoryGirl.create(:race, {:start_date => Date.today}.merge(fields.rows_hash))
+  @race = create(:race, {:start_date => Date.today}.merge(fields.rows_hash))
 end
 
 Given /^the race is finished$/ do
@@ -97,31 +97,31 @@ Given /^the race is finished$/ do
 end
 
 Given /^I have an ongoing race "([^"]*)"$/ do |name|
-  @race = FactoryGirl.create(:race, :start_date => Date.today, :name => name,
+  @race = create(:race, :start_date => Date.today, :name => name,
     :sport => Sport.find_ski)
   @user.race_rights.create!(:race => @race)
 end
 
 Given /^I have an ongoing race with attributes:$/ do |fields|
-  @race = FactoryGirl.create(:race, {:start_date => Date.today,
+  @race = create(:race, {:start_date => Date.today,
     :sport => Sport.find_ski}.merge(fields.rows_hash))
   @user.race_rights.create!(:race => @race)
 end
 
 Given /^I have a future race "([^"]*)"$/ do |name|
-  @race = FactoryGirl.create(:race, :start_date => Date.today + 1, :name => name)
+  @race = create(:race, :start_date => Date.today + 1, :name => name)
   @user.race_rights.create!(:race => @race)
 end
 
 Given /^I have a complete race "([^"]*)" located in "([^"]*)"$/ do |name, location|
-  @race = FactoryGirl.create(:race, :name => name, :location => location,
+  @race = create(:race, :name => name, :location => location,
     :start_date => Date.today - 1)
   @user.race_rights.create!(:race => @race)
-  @race.clubs << FactoryGirl.build(:club, :race => @race)
-  series = FactoryGirl.build(:series, :race => @race, :first_number => 1,
+  @race.clubs << build(:club, :race => @race)
+  series = build(:series, :race => @race, :first_number => 1,
     :start_time => '12:00')
   @race.series << series
-  competitor = FactoryGirl.build(:competitor, :series => series)
+  competitor = build(:competitor, :series => series)
   series.competitors << competitor
   series.generate_start_list! Series::START_LIST_ADDING_ORDER
   competitor.reload
@@ -130,7 +130,7 @@ Given /^I have a complete race "([^"]*)" located in "([^"]*)"$/ do |name, locati
   competitor.estimate2 = 150
   competitor.arrival_time = '13:00'
   competitor.save!
-  @race.correct_estimates << FactoryGirl.build(:correct_estimate, :race => @race,
+  @race.correct_estimates << build(:correct_estimate, :race => @race,
     :min_number => 1, :max_number => 1)
   @race.set_correct_estimates_for_competitors
   @race.finish!

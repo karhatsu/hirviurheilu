@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Club do
   describe "create" do
     it "should create club with valid attrs" do
-      FactoryGirl.create(:club)
+      create(:club)
     end
   end
 
@@ -14,21 +14,21 @@ describe Club do
 
     describe "unique name" do
       before do
-        FactoryGirl.create(:club, :long_name => 'Long name')
+        create(:club, :long_name => 'Long name')
       end
       it { is_expected.to validate_uniqueness_of(:name).scoped_to(:race_id) }
       it { is_expected.to validate_uniqueness_of(:long_name).scoped_to(:race_id) }
 
       it "should allow two nil long names for same race" do
-        club = FactoryGirl.create(:club, :long_name => nil)
-        expect(FactoryGirl.build(:club, :long_name => nil, :race_id => club.race.id)).
+        club = create(:club, :long_name => nil)
+        expect(build(:club, :long_name => nil, :race_id => club.race.id)).
           to be_valid
       end
 
       it "should convert empty strings to nils for long names" do
-        club = FactoryGirl.create(:club, :long_name => '')
+        club = create(:club, :long_name => '')
         expect(club.long_name).to be_nil
-        expect(FactoryGirl.build(:club, :long_name => '', :race_id => club.race.id)).
+        expect(build(:club, :long_name => '', :race_id => club.race.id)).
           to be_valid
       end
     end
@@ -50,9 +50,9 @@ describe Club do
       
       context "but someone has official rights for this club only" do
         before do
-          race = FactoryGirl.create(:race)
-          @club = FactoryGirl.create(:club, :race => race)
-          user = FactoryGirl.create(:user)
+          race = create(:race)
+          @club = create(:club, :race => race)
+          user = create(:user)
           RaceRight.create(:race => race, :user => user, :only_add_competitors => true, :club => @club)
           @club.reload
         end
@@ -65,8 +65,8 @@ describe Club do
 
     context "when club has competitors" do
       before do
-        @club = FactoryGirl.create(:club)
-        competitor = FactoryGirl.create(:competitor, :club => @club)
+        @club = create(:club)
+        competitor = create(:competitor, :club => @club)
         @club.reload
         expect(@club.competitors.size).to eq(1)
       end
@@ -79,7 +79,7 @@ describe Club do
 
   describe "removal" do
     before do
-      @club = FactoryGirl.create(:club)
+      @club = create(:club)
     end
     
     context "when can be done" do
@@ -101,12 +101,12 @@ describe Club do
 
   describe "#result_name" do
     it "should return long name when long name set" do
-      club = FactoryGirl.create(:club, :name => 'PS', :long_name => 'Pohjois-Savo')
+      club = create(:club, :name => 'PS', :long_name => 'Pohjois-Savo')
       expect(club.expanded).to eq('Pohjois-Savo')
     end
 
     it "should return name when long name not set" do
-      club = FactoryGirl.create(:club, :name => 'PS')
+      club = create(:club, :name => 'PS')
       expect(club.expanded).to eq('PS')
     end
   end

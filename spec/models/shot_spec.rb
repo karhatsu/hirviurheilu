@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Shot do
   it "should create shot with valid attrs" do
-    FactoryGirl.create(:shot)
+    create(:shot)
   end
 
   describe "associations" do

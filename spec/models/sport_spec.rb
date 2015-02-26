@@ -2,28 +2,28 @@ require 'spec_helper'
 
 describe Sport do
   before do
-    Sport.find_by_key(Sport::SKI) || FactoryGirl.create(:sport, :key => Sport::SKI)
-    Sport.find_by_key(Sport::RUN) || FactoryGirl.create(:sport, :key => Sport::RUN)
+    Sport.find_by_key(Sport::SKI) || create(:sport, :key => Sport::SKI)
+    Sport.find_by_key(Sport::RUN) || create(:sport, :key => Sport::RUN)
   end
   
   describe "create" do
     it "should create sport with valid attrs" do
-      FactoryGirl.create(:sport)
+      create(:sport)
     end
   end
 
   describe "validation" do
     it "should require name" do
-      expect(FactoryGirl.build(:sport, :name => nil)).to have(1).errors_on(:name)
+      expect(build(:sport, :name => nil)).to have(1).errors_on(:name)
     end
 
     it "should require key" do
-      expect(FactoryGirl.build(:sport, :key => nil)).to have(1).errors_on(:key)
+      expect(build(:sport, :key => nil)).to have(1).errors_on(:key)
     end
 
     it "key should be unique" do
-      FactoryGirl.create(:sport, :key => "XYZ")
-      expect(FactoryGirl.build(:sport, :key => "XYZ")).to have(1).errors_on(:key)
+      create(:sport, :key => "XYZ")
+      expect(build(:sport, :key => "XYZ")).to have(1).errors_on(:key)
     end
   end
   
@@ -41,21 +41,21 @@ describe Sport do
 
   describe "ski?" do
     it "should be true when key is SKI" do
-      expect(FactoryGirl.build(:sport, :key => Sport::SKI)).to be_ski
+      expect(build(:sport, :key => Sport::SKI)).to be_ski
     end
 
     it "should be false when key is not SKI" do
-      expect(FactoryGirl.build(:sport, :key => Sport::RUN)).not_to be_ski
+      expect(build(:sport, :key => Sport::RUN)).not_to be_ski
     end
   end
 
   describe "run?" do
     it "should be true when key is RUN" do
-      expect(FactoryGirl.build(:sport, :key => Sport::RUN)).to be_run
+      expect(build(:sport, :key => Sport::RUN)).to be_run
     end
 
     it "should be false when key is not RUN" do
-      expect(FactoryGirl.build(:sport, :key => Sport::SKI)).not_to be_run
+      expect(build(:sport, :key => Sport::SKI)).not_to be_run
     end
   end
 

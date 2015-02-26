@@ -1,12 +1,12 @@
 Given /^the race has series "([^*]*)"$/ do |name|
-  @series = FactoryGirl.create(:series, :race => @race, :name => name)
+  @series = create(:series, :race => @race, :name => name)
 end
 
 Given /^the race has a series "(.*?)" with first number (\d+) and start time "(.*?)"$/ do |name, first_number, start_time|
-  @series = FactoryGirl.create(:series, :race => @race, :name => name, :first_number => first_number,
+  @series = create(:series, :race => @race, :name => name, :first_number => first_number,
     :start_time => start_time)
 end
 
 Given /^the race has series with attributes:$/ do |fields|
-  @series = FactoryGirl.create(:series, {:race => @race}.merge(fields.rows_hash))
+  @series = create(:series, {:race => @race}.merge(fields.rows_hash))
 end
