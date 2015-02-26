@@ -85,6 +85,9 @@ module NavigationHelpers
     when /the video page of race "(.*)"/
       race_video_path(locale, Race.find_by_name($1))
 
+    when /the races page/
+      races_path
+
     when /the race page/
       race_path(locale, @race)
 

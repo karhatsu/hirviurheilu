@@ -304,6 +304,7 @@ module ApplicationHelper
     races.each do |race|
       menu << "<li>#{link_to race.name, race_path(race)}</li>"
     end
+    menu << "<li>#{link_to "- #{t('home.show.all_competitions')} -", races_path}</li>"
     menu << "</ul>"
     raw(menu)
   end

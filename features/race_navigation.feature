@@ -15,3 +15,5 @@ Feature: Race navigation
     But the races main menu item should not contain "Too old race"
     When I choose "Next week's race" from main menu
     Then I should be on the race page of "Next week's race"
+    When I choose "- Kaikki kilpailut -" from main menu
+    Then I should be on the races page
