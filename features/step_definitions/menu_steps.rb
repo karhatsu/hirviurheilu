@@ -21,3 +21,11 @@ end
 Then /^the "([^"]*)" sub menu item should be selected$/ do |title|
   find('div.second_level_menu div.sub_menu a.selected').should have_text(title)
 end
+
+Then(/^the races main menu item should contain "(.*?)"$/) do |race_name|
+  find('.main_menu').should have_text(race_name)
+end
+
+Then(/^the races main menu item should not contain "(.*?)"$/) do |race_name|
+  find('.main_menu').should_not have_text(race_name)
+end

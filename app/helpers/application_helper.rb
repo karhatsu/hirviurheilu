@@ -299,6 +299,15 @@ module ApplicationHelper
     raw("<ul><li>#{item}</li></ul>")
   end
 
+  def races_dropdown_menu(races)
+    menu = "<ul>"
+    races.each do |race|
+      menu << "<li>#{link_to race.name, race_path(race)}</li>"
+    end
+    menu << "</ul>"
+    raw(menu)
+  end
+
   def series_dropdown_menu(race, type)
     return '' if race.series.count <= 1
     menu = "<ul>"

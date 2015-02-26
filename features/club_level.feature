@@ -38,7 +38,7 @@ Feature: Club level
     And I select "00" from "series_start_time_6i"
     And I press "Luo lähtölista sarjalle"
     And I follow "Kilpailut"
-    And I follow "Test race"
+    And I choose "Test race" from main menu
     And I follow "Lähtölista"
     Then I should see "Seura" within "th#table_club_title"
     When I choose "Tulokset" from sub menu
@@ -81,7 +81,7 @@ Feature: Club level
     And I select "00" from "series_start_time_6i"
     And I press "Luo lähtölista sarjalle"
     And I follow "Kilpailut"
-    And I follow "Test race"
+    And I choose "Test race" from main menu
     And I follow "Lähtölista"
     Then I should see "Piiri" within "th#table_club_title"
     When I choose "Tulokset" from sub menu

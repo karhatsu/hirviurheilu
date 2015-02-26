@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :ensure_user_in_offline
   before_action :set_locale
   before_action :clear_old_data_from_staging
+  before_action :assign_races_for_main_menu
   
   private
   def set_locale
@@ -356,5 +357,9 @@ class ApplicationController < ActionController::Base
       return true
     end
     false
+  end
+
+  def assign_races_for_main_menu
+    @main_menu_races = Race.where('start_date>?', 7.days.ago)
   end
 end

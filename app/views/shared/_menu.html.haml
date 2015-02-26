@@ -1,8 +1,11 @@
 .menu.main_menu
   %ul
     = menu_item t('main_menu.home_page'), root_path, @is_main_page
-    = menu_item t('main_menu.competitions'), races_path, (@is_races or @is_cup), nil, (!@is_races and menu_race) do
-      - dropdown_menu_single(link_to(menu_race.name, race_path(menu_race)))
+    = menu_item t('main_menu.competitions'), races_path, (@is_races or @is_cup), nil, ((!@is_races && menu_race) || @main_menu_races) do
+      - if @is_official && !@is_races && menu_race
+        - dropdown_menu_single(link_to(menu_race.name, race_path(menu_race)))
+      - else
+        - races_dropdown_menu @main_menu_races
     = menu_item t('main_menu.official'), official_root_path, @is_official, nil, (!@is_official and menu_race and own_race?(menu_race)) do
       - dropdown_menu_single(link_to(menu_race.name, official_race_path(menu_race)))
     = menu_item t('main_menu.info'), info_path, @is_info

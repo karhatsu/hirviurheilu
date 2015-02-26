@@ -79,6 +79,10 @@ Given /^there is a race "([^"]*)" in the past$/ do |name|
   @race = create(:race, :start_date => Date.today - 1, :name => name)
 end
 
+Given(/^there is a race "(.*?)" that was (\d+) days ago$/) do |name, days_ago|
+  @race = create :race, start_date: days_ago.to_i.days.ago, name: name
+end
+
 Given /^there is a race "([^"]*)" today/ do |name|
   @race = create(:race, :start_date => Date.today, :name => name)
 end

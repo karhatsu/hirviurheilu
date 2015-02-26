@@ -113,7 +113,7 @@ Feature: Export race
     And I press "Kirjaudu"
     And I follow "Toimitsijan sivut"
     Then I should be on the official index page
-    When I follow "New name for race"
+    When I follow "New name for race" within "#existing_races"
     Then I should see "Offline series"
     But I should not see "kun kaikki tulokset on syötetty"
     When I follow "Kilpailu & sarjat"
