@@ -9,7 +9,12 @@
   .section
     = render :partial => 'table',
       :locals => { :competitors => @series.start_list.includes(:club, :age_group), :race => @series.race }
+- if @series.race.series.count > 1
+  %hr
+  - @series.race.series.each do |s|
+    - unless s == @series
+      = link_to s.name, series_start_list_path(s), class: 'primary_link'
 %hr
-= link_to t(:results), series_competitors_path(@series)
+= link_to t(:results), series_competitors_path(@series), class: 'secondary_link'
 %br
-= link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race)
+= link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race), class: 'back_link'
