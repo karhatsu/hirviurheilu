@@ -1,0 +1,10 @@
+.facebook_share
+  = render partial: 'shared/facebook_share'
+- content_for(:title, "#{@cup_series.cup.name} - #{long_cup_series_name(@cup_series)} - #{t :results}")
+%h2= yield :title
+.info= t 'cups.show.points_rule', :best_competitions_count => @cup.top_competitions
+.cup_results
+  .section
+    = render :partial => 'cup_series_results'
+%hr
+= link_to t(:back_to_cup_page), cup_path(@cup)
