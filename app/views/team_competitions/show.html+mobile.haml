@@ -10,6 +10,11 @@
   %a#hide_all_competitors{href: "javascript:void(0)", style: "display:none;"}= t :hide_all_competitors
   .section
     = render :partial => 'results_table', :locals => { :results => results }
+- if @race.team_competitions.count > 1
+  %hr
+  - @race.team_competitions.each do |tc|
+    - unless tc == @tc
+      = link_to tc.name, race_team_competition_path(@race, tc), class: 'primary_link'
 %hr
 = link_to "#{t(:back_to_page)} #{@race.name}", race_path(@race), class: 'back_link'
 :javascript
