@@ -36,4 +36,4 @@
               (#{competitor.estimate}m)
           %td.center= competitor.misses
 %hr
-= link_to "#{t(:back_to_page)} #{@relay.race.name}", race_path(@relay.race)
+= link_to "#{t(:back_to_page)} #{@relay.race.name}", race_path(@relay.race), class: 'back_link'
