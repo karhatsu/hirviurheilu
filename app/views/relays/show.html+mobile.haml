@@ -15,10 +15,11 @@
 - if @relay.race.relays.count > 1
   %hr
   - @relay.race.relays.each do |r|
-    = link_to_unless r == @relay, r.name, race_relay_path(r.race, r)
-    &nbsp;
+    - unless r == @relay
+      = link_to r.name, race_relay_path(r.race, r), class: 'primary_link'
+      &nbsp;
 %hr
-= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@relay.race)
+= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@relay.race), class: 'back_link'
 :javascript
   function showAllCompetitors() {
     $('.competitor_row').show();
