@@ -1,0 +1,6 @@
+.section
+  - @relay.legs_count.times do |i|
+    - leg = i + 1
+    = link_to_unless @leg.to_i == leg, "#{t('leg')} #{leg}", relay_leg_path(@relay, leg)
+    \-
+  = link_to_if @leg, t('relays.show.finish'), race_relay_path(@relay.race, @relay)
