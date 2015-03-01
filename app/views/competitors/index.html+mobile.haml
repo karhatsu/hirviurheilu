@@ -1,0 +1,24 @@
+.facebook_share
+  = render partial: 'shared/facebook_share'
+- content_for(:title, "#{@series.race.name} - #{@series.name} - #{series_result_title(@series, params[:all_competitors])}")
+%h2= yield :title
+= render :layout => 'series/series_status', :locals => { :series => @series } do
+  = render :partial => 'series/infos', :locals => { :series => @series }
+  - if @series.has_unofficial_competitors?
+    - if params[:all_competitors]
+      .action_box= link_to t('competitors.index.show_official_results'),
+        series_competitors_path(@series)
+    - else
+      .action_box= link_to t('competitors.index.show_unofficial_results'),
+        series_competitors_path(@series, :all_competitors => true)
+  .section
+    = render :partial => 'series/series_results', :locals => { :series => @series }
+- if @series.race.series.count > 1
+  %hr
+  - @series.race.series.each do |s|
+    = link_to_unless s == @series, s.name, series_competitors_path(s)
+    &nbsp;
+%hr
+= link_to t(:start_list), series_start_list_path(@series)
+%br
+= link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race)
