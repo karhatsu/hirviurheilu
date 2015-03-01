@@ -88,6 +88,7 @@ Feature: Finish race
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 14:00:10 |
+    And the race has series "Empty series to be deleted automatically"
     And I have logged in
     When I go to the official race page of "Test race"
     Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
@@ -95,6 +96,8 @@ Feature: Finish race
     Then I should be on the official race page of "Test race"
     And I should see "Kilpailu Test race on merkitty päättyneeksi" in a success message
     But I should not see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista."
+    And I should see "Test series"
+    But I should not see "Empty series to be deleted automatically"
     And the admin should receive an email
     When I open the email
     Then I should see "Hirviurheilu - kilpailu päättynyt (test)" in the email subject

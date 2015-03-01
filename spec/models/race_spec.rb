@@ -269,6 +269,7 @@ describe Race do
       @race = create(:race)
       @series = build(:series, :race => @race)
       @race.series << @series
+      @race.series << build(:series, race: @race, name: 'Empty series, will be deleted')
       allow(@race).to receive(:each_competitor_has_correct_estimates?).and_return(true)
     end
 
@@ -301,6 +302,11 @@ describe Race do
 
         it "should be possible to finish the race" do
           confirm_successfull_finish(@race)
+        end
+
+        it 'should delete the series that have no competitors' do
+          @race.reload.finish
+          expect(@race.series.count).to be(1)
         end
       end
     end

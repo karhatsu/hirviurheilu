@@ -86,6 +86,7 @@ class Race < ActiveRecord::Base
     end
     self.finished = true
     save!
+    series.where(competitors_count: 0).destroy_all
     true
   end
 
