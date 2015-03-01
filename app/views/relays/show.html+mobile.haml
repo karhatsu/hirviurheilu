@@ -1,0 +1,53 @@
+.facebook_share
+  = render partial: 'shared/facebook_share'
+- content_for :title, "#{@relay.race.name} - #{t('activerecord.models.relay', :count => 2)} - #{@relay.name} - #{relay_result_title(@relay)}"
+%h2= yield :title
+- if @results.empty?
+  .info= t '.relay_has_no_teams'
+- elsif !@relay.start_time
+  .info= t '.relay_has_no_start_time'
+- else
+  = render :partial => 'relays/correct_estimates', :locals => { :pdf => false }
+  = render :partial => 'relays/leg_links'
+  %a#show_all_competitors{href: 'javascript:void(0)'}= t :show_all_competitors
+  %a#hide_all_competitors{href: 'javascript:void(0)', style: 'display:none;'}= t :hide_all_competitors
+  = render :partial => 'results', :locals => { :relay => @relay }
+- if @relay.race.relays.count > 1
+  %hr
+  - @relay.race.relays.each do |r|
+    = link_to_unless r == @relay, r.name, race_relay_path(r.race, r)
+    &nbsp;
+%hr
+= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@relay.race)
+:javascript
+  function showAllCompetitors() {
+    $('.competitor_row').show();
+    window.location.hash = 'competitors'
+    $('#show_all_competitors').hide();
+    $('#hide_all_competitors').show();
+  }
+  function hideAllCompetitors() {
+    $('.competitor_row').hide();
+    window.location.hash = ''
+    $('#show_all_competitors').show();
+    $('#hide_all_competitors').hide();
+  }
+  $('.team_name_link').click(function() {
+    competitors = '.team_' + $(this).attr('id');
+    if($(competitors).is(':hidden')) {
+      $(competitors).show();
+    } else {
+      $(competitors).hide();
+    }
+  });
+  $('#show_all_competitors').click(function() {
+    showAllCompetitors();
+  });
+  $('#hide_all_competitors').click(function() {
+    hideAllCompetitors();
+  });
+  $(document).ready(function() {
+    if(window.location.hash == '#competitors') {
+      showAllCompetitors();
+    }
+  });
