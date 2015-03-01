@@ -21,6 +21,10 @@ th, td {
     padding: 3px 2px;
 }
 
+th.with_primary_link, td.with_primary_link {
+    padding: 0;
+}
+
 .list_item {
     padding: 3px 0;
 }
@@ -34,18 +38,47 @@ a:hover {
     text-decoration: underline;
 }
 
+.primary_link, .secondary_link {
+  border: solid 1px olive;
+  border-radius: 2px;
+  box-shadow: 3px 3px 3px #ccc;
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 3px;
+  min-width: 25px;
+}
+
+.primary_link {
+  background-color: olive;
+  background: linear-gradient(to right, rgba(128, 128, 0, 0.9), rgba(128, 128, 0, 0.7));
+  color: #fff;
+}
+
+.secondary_link {
+  background-color: #fff;
+  color: olive;
+}
+
+.primary_link:hover,.secondary_link:hover {
+  background-color: #1d6399;
+  background: linear-gradient(to right, rgba(29, 99, 153, 0.9), rgba(29, 99, 153, 0.7));
+  color: #fff;
+}
+
 .clear {
   clear: both;
 }
 
 #header {
     color: #FFF;
-    font-size: 16px;
+    font-size: 20px;
     text-align: center;
 }
 
 #header a {
     color: #FFF;
+    font-weight: bold;
     text-decoration: none;
 }
 
@@ -114,7 +147,9 @@ div.form_label {
 
 .box_sub_title {
     background-color: #DDEEB5;
-    font-size: 13px;
+    border-bottom: solid 2px #888;
+    font-family: arial, helvetica, sans-serif;
+    font-size: 15px;
     margin: 0 0 3px;
     padding: 4px;
 }
@@ -124,8 +159,8 @@ div.form_label {
   color: #fff;
 }
 
-.race_link {
-    margin: 0 0 5px;
+.race_link, .cup_race_link {
+    margin: 0 0 10px;
 }
 
 .race_info {

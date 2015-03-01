@@ -16,8 +16,8 @@
 - if @series.race.series.count > 1
   %hr
   - @series.race.series.each do |s|
-    = link_to_unless s == @series, s.name, series_competitors_path(s)
-    &nbsp;
+    - unless s == @series
+      = link_to s.name, series_competitors_path(s), class: 'primary_link'
 %hr
 = link_to t(:start_list), series_start_list_path(@series)
 %br

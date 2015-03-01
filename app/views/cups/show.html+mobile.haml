@@ -6,7 +6,7 @@
 .section
   - @cup.cup_series.each do |cs|
     .list_item
-      = link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs)
+      = link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs), class: 'primary_link'
 %h2= t '.points_rule_title'
 .section
   = t '.points_rule', :best_competitions_count => @cup.top_competitions
@@ -14,6 +14,6 @@
 .section
   - @cup.races.each do |race|
     .list_item
-      = link_to race.name, race_path(race)
+      = link_to race.name, race_path(race), class: 'secondary_link'
 %hr
 = link_to t(:back_to_home_page), root_path
