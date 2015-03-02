@@ -3,4 +3,4 @@
 %h2= yield :title
 = raw @announcement.content
 %hr
-= link_to t(:back_to_home_page), root_path
+= link_to t(:back_to_home_page), root_path, class: 'back_link'
