@@ -1,4 +1,6 @@
 STABLE_COMMIT
+STABLE_COMMIT_RSPEC
+STABLE_COMMIT_CUKE
 .bundle
 .idea
 .project

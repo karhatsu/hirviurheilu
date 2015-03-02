@@ -3,8 +3,22 @@ set -e
 if [ "$(cat STABLE_COMMIT)" != "$(git rev-list --max-count=1 HEAD)" ]
 then
   echo "Running all tests..."
-  spring rspec spec
-  spring cucumber --format progress features
+  if [ "$(cat STABLE_COMMIT_RSPEC)" != "$(git rev-list --max-count=1 HEAD)" ]
+  then
+    echo "Running RSpec..."
+    spring rspec spec
+    git rev-list --max-count=1 HEAD > STABLE_COMMIT_RSPEC
+  else
+    echo "No need to run RSpec."
+  fi
+  if [ "$(cat STABLE_COMMIT_CUKE)" != "$(git rev-list --max-count=1 HEAD)" ]
+  then
+    echo "Running Cucumber..."
+    spring cucumber --format progress features
+    git rev-list --max-count=1 HEAD > STABLE_COMMIT_CUKE
+  else
+    echo "No need to run Cucumber."
+  fi
   spring cucumber -p js --format progress features
   git rev-list --max-count=1 HEAD > STABLE_COMMIT
 else
