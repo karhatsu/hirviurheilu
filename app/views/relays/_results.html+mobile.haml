@@ -11,8 +11,8 @@
         %td
           %b #{i + 1}.
         %td.team_name
-          %a.team_name_link{id: team.id, href: 'javascript:void(0)'}= team.name
-          (#{team.number})
+          %a.team_name_link.name_link{id: team.id, href: 'javascript:void(0)'}
+            #{team.name} (#{team.number})
         %td.center.team_points
           - if team.no_result_reason
             = no_result_reason_print(team.no_result_reason, 'relay_team')
