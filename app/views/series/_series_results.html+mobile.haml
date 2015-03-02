@@ -1,7 +1,7 @@
 %table
   - prev_rel_points = 1.0/0.0
   - series.ordered_competitors(params[:all_competitors], params[:sort].to_i).each_with_index do |comp, i|
-    %tr{id: 'comp_= i+1', class: i % 2 == 0 ? 'odd' : ''}
+    %tr{id: "comp_#{i+1}", class: i % 2 == 0 ? 'odd' : ''}
       - if i == 0
         - @max_points = comp.points(false)
       %td= "#{i + 1}." unless comp.relative_points == prev_rel_points
