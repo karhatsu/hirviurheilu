@@ -6,7 +6,7 @@
         - @max_points = comp.points(false)
       %td= "#{i + 1}." unless comp.relative_points == prev_rel_points
       %td
-        = link_to full_name(comp), 'javascript:Void(0);', onclick: "competitorDetails(#{i.to_s});"
+        = link_to full_name(comp), 'javascript:Void(0);', onclick: "competitorDetails(#{i.to_s});", class: 'name_link'
         - if comp.age_group
           = "(#{comp.age_group.name})"
         - if comp.unofficial?
