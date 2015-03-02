@@ -1,0 +1,9 @@
+%body
+  #header
+    = link_to 'Hirviurheilu', root_path
+  #main_area
+    #main_content= yield
+  #footer
+    = link_to 'Lähetä palautetta', new_feedback_path
+    %br
+    = link_to 'Normaalinäkymä', root_path(variant: :normal), 'data-no-turbolink' => true
