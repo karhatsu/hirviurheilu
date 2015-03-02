@@ -1,0 +1,32 @@
+- show_series_name = !@cup_series.has_single_series_with_same_name?
+%table
+  %thead
+    %tr
+      %th &nbsp;
+      %th= t 'activerecord.models.competitor.one'
+      %th= t :total_points
+  - @cup_series.ordered_competitors.each_with_index do |cc, i|
+    %tr{id: "comp_#{i+1}", class: i % 2 == 0 ? 'odd' : ''}
+      %td #{i + 1}.
+      %td
+        = link_to full_name(cc), 'javascript:Void(0);', onclick: "competitorDetails(#{i});"
+        - if show_series_name
+          (#{cc.series_name})
+      %td.center.total_points= cup_points_print(cc)
+    - @cup.races.each do |race|
+      - c = cc.competitor_for_race(race)
+      - if c
+        %tr{class: "details_#{i}", style: 'display: none;'}
+          %td &nbsp;
+          %td{title: race.name}
+            %i= truncate(race.name, :length => 20)
+          %td.center
+            %i= link_to points_print(c, false), series_competitors_path(c.series)
+:javascript
+  function competitorDetails(i) {
+    if ($('.details_' + i + ':hidden').length > 0) {
+      $('.details_' + i).show();
+    } else {
+      $('.details_' + i).hide();
+    }
+  }
