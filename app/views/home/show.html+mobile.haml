@@ -1,0 +1,23 @@
+- unless @ongoing.empty?
+  .home_page_box.ongoing_races
+    .box_sub_title= t '.competitions_today'
+    = render partial: 'race_list', locals: { competitions: @ongoing }
+.home_page_box.future_races
+  .box_sub_title= t '.upcoming_competitions'
+  - unless @future.empty?
+    = render partial: 'race_list', locals: { competitions: @future }
+  - else
+    = t '.no_upcoming_competitions'
+- unless @past.empty?
+  .home_page_box.old_races
+    .box_sub_title= t '.latest_ended_competitions'
+    = render partial: 'race_list', locals: { competitions: @past, max: 10 }
+- unless @announcements.empty?
+  .home_page_box.announcements
+    .box_sub_title= t '.announcements'
+    - @announcements.each do |ann|
+      .announcement_link
+        = date_print ann.published
+        %br
+        = link_to ann.title, announcement_path(ann)
+= render :partial => 'shared/facebook_like_box'
