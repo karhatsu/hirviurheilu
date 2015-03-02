@@ -9,7 +9,7 @@
     %tr{id: "comp_#{i+1}", class: i % 2 == 0 ? 'odd' : ''}
       %td #{i + 1}.
       %td
-        = link_to full_name(cc), 'javascript:Void(0);', onclick: "competitorDetails(#{i});"
+        = link_to full_name(cc), 'javascript:Void(0);', onclick: "competitorDetails(#{i});", class: 'name_link'
         - if show_series_name
           (#{cc.series_name})
       %td.center.total_points= cup_points_print(cc)
