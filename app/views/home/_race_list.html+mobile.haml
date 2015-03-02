@@ -6,16 +6,14 @@
       = link_to competition.name, cup_path(competition), class: 'primary_link'
     - else
       = link_to competition.name, race_path(competition), class: 'primary_link'
-      %br
-      %span.race_info
+      .race_info
         #{date_interval(competition.start_date, competition.end_date)}, #{competition.location}
     - if competition.is_a?(Cup)
       .races_of_cup
         - competition.races.each do |race|
           .cup_race_link
             = link_to race.name, race_path(race), class: 'secondary_link'
-            %br
-            %span.race_info
+            .race_info
               #{date_interval(race.start_date, race.end_date)}, #{race.location}
   - if index + 1 == limit
     .race_link#all_races_link
