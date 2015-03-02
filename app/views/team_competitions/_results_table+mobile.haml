@@ -15,7 +15,7 @@
         - if pdf
           = club_name
         - else
-          %a.club_name_link{id: club_id, href: "javascript:void(0)"}= club_name
+          %a.club_name_link.name_link{id: club_id, href: "javascript:void(0)"}= club_name
       %td.center.team_points= team_result[:points]
     - unless params[:exclude_competitors]
       - team_result[:competitors].each_with_index do |competitor, j|
