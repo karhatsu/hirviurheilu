@@ -268,8 +268,9 @@ describe Race do
     before do
       @race = create(:race)
       @series = build(:series, :race => @race)
+      @empty_series = build(:series, race: @race, name: 'Empty series, will be deleted')
       @race.series << @series
-      @race.series << build(:series, race: @race, name: 'Empty series, will be deleted')
+      @race.series << @empty_series
       allow(@race).to receive(:each_competitor_has_correct_estimates?).and_return(true)
     end
 
@@ -298,6 +299,10 @@ describe Race do
         before do
           @series.competitors << build(:competitor, :series => @series,
             :no_result_reason => Competitor::DNF)
+          # Counter cache is not reliable. Make sure that one is not used.
+          conn = ActiveRecord::Base.connection
+          conn.execute("update series set competitors_count=0 where id=#{@series.id}")
+          conn.execute("update series set competitors_count=1 where id=#{@empty_series.id}")
         end
 
         it "should be possible to finish the race" do
@@ -306,7 +311,8 @@ describe Race do
 
         it 'should delete the series that have no competitors' do
           @race.reload.finish
-          expect(@race.series.count).to eq(1)
+          expect(@race.reload.series.count).to eq(1)
+          expect(@race.series.first.name).to eq(@series.name)
           confirm_successfull_finish @race
         end
       end
