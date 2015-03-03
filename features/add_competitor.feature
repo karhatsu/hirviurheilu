@@ -38,9 +38,9 @@ Feature: Add competitor
     And I have logged in
     And I am on the official race page of "Test race"
     When I follow the first "Lisää tämän sarjan ensimmäinen kilpailija" link
-    Then I should be on the official start list page of the race "Test race"
     And the "Toimitsijan sivut" main menu item should be selected
     And the "Lähtöajat" sub menu item should be selected
+    And I should be on the official start list page of the race "Test race"
     When I fill in "00:00:00" for "competitor_start_time"
     And I fill in "Matti" for "competitor_first_name"
     And I fill in "Myöhänen" for "competitor_last_name"

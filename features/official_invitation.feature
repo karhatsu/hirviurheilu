@@ -113,7 +113,8 @@ Feature: Official invitation
     When I check "Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita"
     Then I should see "(Käyttöä ei voi rajata, koska yhtään piiriä/seuraa ei ole lisätty.)"
     When I follow "yhtään piiriä/seuraa ei ole lisätty"
-    Then I should be on the official clubs page for "Test race"
+    Then the "Seurat" sub menu item should be selected
+    And I should be on the official clubs page for "Test race"
   
   Scenario: Official cannot delete herself from the race
     Given I am an official
