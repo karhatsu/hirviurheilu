@@ -306,7 +306,8 @@ describe Race do
 
         it 'should delete the series that have no competitors' do
           @race.reload.finish
-          expect(@race.series.count).to be(1)
+          expect(@race.series.count).to eq(1)
+          confirm_successfull_finish @race
         end
       end
     end
