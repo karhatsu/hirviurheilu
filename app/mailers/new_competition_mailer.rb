@@ -1,5 +1,6 @@
 class NewCompetitionMailer < ApplicationMailer
   add_template_helper ApplicationHelper
+  add_template_helper TimeFormatHelper
 
   def new_race(race, user)
     set_locale

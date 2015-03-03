@@ -1,5 +1,6 @@
 class InviteOfficialMailer < ApplicationMailer
   add_template_helper ApplicationHelper
+  add_template_helper TimeFormatHelper
 
   def invite(race, inviter, invitee, url)
     @race = race

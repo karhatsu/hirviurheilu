@@ -1,5 +1,6 @@
 class FinishRaceMailer < ApplicationMailer
   add_template_helper ApplicationHelper
+  add_template_helper TimeFormatHelper
 
   def finish_race(race)
     set_locale
