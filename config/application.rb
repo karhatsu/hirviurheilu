@@ -62,7 +62,7 @@ module ElkSports
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.1'
 
-    config.assets.precompile += ['pdf.css', 'mobile.css', 'mobile.js', 'social.js']
+    config.assets.precompile += ['pdf.css', 'mobile.css', 'messages.css', 'mobile.js', 'social.js']
 
     config.assets.initialize_on_precompile = false
 
