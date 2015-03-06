@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe ApplicationHelper do
-  include TimeFormatHelper
 
   describe "#points_print" do
     before do
@@ -464,91 +463,6 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#series_result_title" do
-    before do
-      @competitors = double(Array)
-      allow(@competitors).to receive(:empty?).and_return(false)
-      @race = instance_double(Race, :finished? => false)
-      @series = instance_double(Series, :race => @race, :competitors => @competitors, :started? => true)
-    end
-    
-    it "should return '(Ei kilpailijoita)' when no competitors" do
-      expect(@competitors).to receive(:empty?).and_return(true)
-      expect(series_result_title(@series)).to eq('(Ei kilpailijoita)')
-    end
-    
-    it "should return '(Sarja ei ole vielä alkanut)' when the series has not started yet" do
-      expect(@series).to receive(:started?).and_return(false)
-      expect(series_result_title(@series)).to eq('(Sarja ei ole vielä alkanut)')
-    end
-    
-    it "should return 'Tulokset' when competitors and the race is finished" do
-      expect(@race).to receive(:finished?).and_return(true)
-      expect(series_result_title(@series)).to eq('Tulokset')
-    end
-
-    it "should return 'Tilanne (päivitetty: <time>)' when series still active" do
-      original_zone = Time.zone
-      Time.zone = 'Tokyo' # UTC+9 (without summer time so that test settings won't change) 
-      time = Time.utc(2011, 5, 13, 13, 45, 58)
-      expect(@series).to receive(:competitors).and_return(@competitors)
-      expect(@competitors).to receive(:maximum).with(:updated_at).and_return(time) # db return UTC
-      expect(series_result_title(@series)).to eq('Tilanne (päivitetty: 13.05.2011 22:45:58)')
-      Time.zone = original_zone
-    end
-
-    it "should return 'Tulokset - Kaikki kilpailijat' when all competitors and the race is finished" do
-      expect(@race).to receive(:finished?).and_return(true)
-      expect(series_result_title(@series, true)).to eq('Tulokset - Kaikki kilpailijat')
-    end
-
-    it "should return 'Tilanne (päivitetty: <time>) - Kaikki kilpailijat' when all competitors and series still active" do
-      original_zone = Time.zone
-      Time.zone = 'Tokyo' # UTC+9 (without summer time so that test settings won't change)
-      time = Time.utc(2011, 5, 13, 13, 45, 58)
-      expect(@series).to receive(:competitors).and_return(@competitors)
-      expect(@competitors).to receive(:maximum).with(:updated_at).and_return(time) # db return UTC
-      expect(series_result_title(@series, true)).to eq('Tilanne (päivitetty: 13.05.2011 22:45:58) - Kaikki kilpailijat')
-      Time.zone = original_zone
-    end
-  end
-
-  describe "#relay_result_title" do
-    before do
-      @competitors = double(Array)
-      @teams = double(Array)
-      allow(@teams).to receive(:empty?).and_return(false)
-      @race = instance_double(Race)
-      @relay = instance_double(Relay, :race => @race, :started? => true,
-        :relay_teams => @teams, :finished? => false)
-    end
-    
-    it "should return '(Ei joukkueita)' when no teams" do
-      expect(@teams).to receive(:empty?).and_return(true)
-      expect(relay_result_title(@relay)).to eq('(Ei joukkueita)')
-    end
-    
-    it "should return '(Viesti ei ole vielä alkanut)' when the relay has not started yet" do
-      expect(@relay).to receive(:started?).and_return(false)
-      expect(relay_result_title(@relay)).to eq('(Viesti ei ole vielä alkanut)')
-    end
-    
-    it "should return 'Tulokset' when teams and the race is finished" do
-      expect(@relay).to receive(:finished?).and_return(true)
-      expect(relay_result_title(@relay)).to eq('Tulokset')
-    end
-
-    it "should return 'Tilanne (päivitetty: <time>)' when relay still active" do
-      original_zone = Time.zone
-      Time.zone = 'Tokyo' # UTC+9 (without summer time so that test settings won't change) 
-      time = Time.utc(2011, 5, 13, 13, 45, 58)
-      expect(@relay).to receive(:relay_competitors).and_return(@competitors)
-      expect(@competitors).to receive(:maximum).with(:updated_at).and_return(time) # db return UTC
-      expect(relay_result_title(@relay)).to eq('Tilanne (päivitetty: 13.05.2011 22:45:58)')
-      Time.zone = original_zone
-    end
-  end
-
   describe "#correct_estimate_range" do
     it "should return min_number- if no max_number" do
       ce = build(:correct_estimate, :min_number => 56, :max_number => nil)
@@ -565,83 +479,32 @@ describe ApplicationHelper do
       expect(helper.correct_estimate_range(ce)).to eq("57-58")
     end
   end
-  
-  describe "#time_title" do
-    before do
-      @sport = instance_double(Sport)
-      @race = instance_double(Race, :sport => @sport)
-    end
-    
-    it "should be 'Juoksu' when run sport" do
-      allow(@sport).to receive(:run?).and_return(true)
-      expect(helper.time_title(@race)).to eq('Juoksu')
-    end
-    
-    it "should be 'Hiihto' when no run sport" do
-      allow(@sport).to receive(:run?).and_return(false)
-      expect(helper.time_title(@race)).to eq('Hiihto')
-    end
-  end
 
-  describe "#club_title" do
-    it "should be 'Piiri' when club level such" do
-      race = build(:race, :club_level => Race::CLUB_LEVEL_PIIRI)
-      expect(helper.club_title(race)).to eq('Piiri')
-    end
-
-    it "should be 'Seura' when club level such" do
-      race = build(:race, :club_level => Race::CLUB_LEVEL_SEURA)
-      expect(helper.club_title(race)).to eq('Seura')
-    end
-
-    it "should throw exception when unknown club level" do
-      race = build(:race, :club_level => 100)
-      expect { helper.club_title(race) }.to raise_error
-    end
-  end
-
-  describe "#clubs_title" do
-    it "should be 'Piirit' when club level such" do
-      race = build(:race, :club_level => Race::CLUB_LEVEL_PIIRI)
-      expect(helper.clubs_title(race)).to eq('Piirit')
-    end
-
-    it "should be 'Seurat' when club level such" do
-      race = build(:race, :club_level => Race::CLUB_LEVEL_SEURA)
-      expect(helper.clubs_title(race)).to eq('Seurat')
-    end
-
-    it "should throw exception when unknown club level" do
-      race = build(:race, :club_level => 100)
-      expect { helper.clubs_title(race) }.to raise_error
-    end
-  end
-  
   describe "#comparison_time_title" do
     before do
       @competitor = instance_double(Competitor)
       allow(@competitor).to receive(:comparison_time_in_seconds).and_return(1545)
     end
-    
+
     it "should return empty string when empty always wanted" do
       expect(helper.comparison_time_title(@competitor, true, true)).to eq('')
     end
-    
+
     it "should return empty string when no comparison time available" do
       allow(@competitor).to receive(:comparison_time_in_seconds).and_return(nil)
       expect(helper.comparison_time_title(@competitor, true, false)).to eq('')
     end
-    
+
     it "should return space and title attribute with title and comparison time when empty not wanted" do
       expect(helper.comparison_time_title(@competitor, true, false)).to eq(" title='Vertailuaika: 25:45'")
     end
-    
+
     it "should use all_competitors parameter when getting the comparison time" do
       allow(@competitor).to receive(:comparison_time_in_seconds).with(false).and_return(1550)
       expect(helper.comparison_time_title(@competitor, false, false)).to eq(" title='Vertailuaika: 25:50'")
     end
   end
-  
+
   describe "#comparison_and_own_time_title" do
     context "when no time for competitor" do
       it "should return empty string" do
@@ -650,7 +513,7 @@ describe ApplicationHelper do
         expect(helper.comparison_and_own_time_title(competitor)).to eq('')
       end
     end
-  
+
     context "when no comparison time for competitor" do
       it "should return space and title attribute with time title and time" do
         competitor = instance_double(Competitor)
@@ -670,52 +533,6 @@ describe ApplicationHelper do
         expect(helper).to receive(:time_from_seconds).with(456).and_return('4:56')
         expect(helper.comparison_and_own_time_title(competitor)).to eq(" title='Aika: 1:23. Vertailuaika: 4:56.'")
       end
-    end
-  end
-  
-  describe "#shots_total_title" do
-    it "should return empty string when no shots sum for competitor" do
-      competitor = instance_double(Competitor)
-      expect(competitor).to receive(:shots_sum).and_return(nil)
-      expect(helper.shots_total_title(competitor)).to eq('')
-    end
-    
-    it "should return space and title attribute with title and shots sum when sum available" do
-      competitor = instance_double(Competitor)
-      expect(competitor).to receive(:shots_sum).and_return(89)
-      expect(helper.shots_total_title(competitor)).to eq(" title='Ammuntatulos: 89'")
-    end
-  end
-  
-  describe "#title_prefix" do
-    it "should be '(Dev) ' when development environment" do
-      allow(Rails).to receive(:env).and_return('development')
-      expect(helper.title_prefix).to eq('(Dev) ')
-    end
-    
-    it "should be '(Testi) ' when test environment" do
-      allow(Rails).to receive(:env).and_return('test')
-      expect(helper.title_prefix).to eq('(Testi) ')
-    end
-    
-    it "should be '(Testi) ' when staging environment" do
-      allow(Rails).to receive(:env).and_return('staging')
-      expect(helper.title_prefix).to eq('(Testi) ')
-    end
-    
-    it "should be '(Offline) ' when offline production environment" do
-      allow(Rails).to receive(:env).and_return('winoffline-prod')
-      expect(helper.title_prefix).to eq('(Offline) ')
-    end
-    
-    it "should be '(Offline-dev) ' when offline development environment" do
-      allow(Rails).to receive(:env).and_return('winoffline-dev')
-      expect(helper.title_prefix).to eq('(Offline-dev) ')
-    end
-    
-    it "should be '' when production environment" do
-      allow(Rails).to receive(:env).and_return('production')
-      expect(helper.title_prefix).to eq('')
     end
   end
   
