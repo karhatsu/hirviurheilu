@@ -3,15 +3,19 @@ require 'spec_helper'
 describe EstimatesHelper do
   describe '#print_estimate_diff' do
     it 'should return empty string when nil given' do
-      expect(helper.print_estimate_diff(nil)).to eq('-')
+      expect_estimate_diff nil, '-'
     end
 
     it 'should return negative diff with minus sign' do
-      expect(helper.print_estimate_diff(-12)).to eq('-12')
+      expect_estimate_diff -12, '-12'
     end
 
     it 'should return positive diff with plus sign' do
-      expect(helper.print_estimate_diff(13)).to eq('+13')
+      expect_estimate_diff 13, '+13'
+    end
+
+    def expect_estimate_diff(diff, expected)
+      expect(helper.print_estimate_diff(diff)).to eq(expected)
     end
   end
 
@@ -22,27 +26,25 @@ describe EstimatesHelper do
       end
 
       it 'should return empty string when no estimates' do
-        competitor = instance_double(Competitor, :estimate1 => nil, :estimate2 => nil,
-                                     :series => @series)
-        expect(helper.estimate_diffs(competitor)).to eq('')
+        expect_estimate_diffs_2 nil, nil, nil, nil, ''
       end
 
       it 'should return first and dash when first is available' do
-        competitor = instance_double(Competitor, :estimate1 => 50, :estimate2 => nil,
-                                     :estimate_diff1_m => 10, :estimate_diff2_m => nil, :series => @series)
-        expect(helper.estimate_diffs(competitor)).to eq('+10m/-')
+        expect_estimate_diffs_2 50, nil, 10, nil, '+10m/-'
       end
 
       it 'should return dash and second when second is available' do
-        competitor = instance_double(Competitor, :estimate1 => nil, :estimate2 => 60,
-                                     :estimate_diff1_m => nil, :estimate_diff2_m => -5, :series => @series)
-        expect(helper.estimate_diffs(competitor)).to eq('-/-5m')
+        expect_estimate_diffs_2 nil, 60, nil, -5, '-/-5m'
       end
 
       it 'should return both when both are available' do
-        competitor = instance_double(Competitor, :estimate1 => 120, :estimate2 => 60,
-                                     :estimate_diff1_m => -5, :estimate_diff2_m => 14, :series => @series)
-        expect(helper.estimate_diffs(competitor)).to eq('-5m/+14m')
+        expect_estimate_diffs_2 120, 60, -5, 14, '-5m/+14m'
+      end
+
+      def expect_estimate_diffs_2(e1, e2, d1, d2, expected)
+        competitor = instance_double(Competitor, :estimate1 => e1, :estimate2 => e2,
+                                     :estimate_diff1_m => d1, :estimate_diff2_m => d2, :series => @series)
+        expect(helper.estimate_diffs(competitor)).to eq(expected)
       end
     end
 
@@ -58,38 +60,30 @@ describe EstimatesHelper do
       end
 
       it 'should return dash for others when only third is available' do
-        competitor = instance_double(Competitor, :estimate1 => 50, :estimate2 => nil,
-                                     :estimate_diff1_m => nil, :estimate_diff2_m => nil,
-                                     :estimate_diff3_m => 12, :estimate_diff4_m => nil, :series => @series)
-        expect(helper.estimate_diffs(competitor)).to eq("-/-/+12m/-")
+        expect_estimate_diffs_4 50, nil, nil, nil, 12, nil, '-/-/+12m/-'
       end
 
       it 'should return dash for others when only fourth is available' do
-        competitor = instance_double(Competitor, :estimate1 => 50, :estimate2 => nil,
-                                     :estimate_diff1_m => nil, :estimate_diff2_m => nil,
-                                     :estimate_diff3_m => nil, :estimate_diff4_m => -5, :series => @series)
-        expect(helper.estimate_diffs(competitor)).to eq("-/-/-/-5m")
+        expect_estimate_diffs_4 50, nil, nil, nil, nil, -5, '-/-/-/-5m'
       end
 
       it 'should return dash for third when others are available' do
-        competitor = instance_double(Competitor, :estimate1 => 50, :estimate2 => nil,
-                                     :estimate_diff1_m => 10, :estimate_diff2_m => -9,
-                                     :estimate_diff3_m => nil, :estimate_diff4_m => 12, :series => @series)
-        expect(helper.estimate_diffs(competitor)).to eq("+10m/-9m/-/+12m")
+        expect_estimate_diffs_4 50, nil, 10, -9, nil, 12, '+10m/-9m/-/+12m'
       end
 
       it 'should return dash for fourth when others are available' do
-        competitor = instance_double(Competitor, :estimate1 => nil, :estimate2 => 60,
-                                     :estimate_diff1_m => 10, :estimate_diff2_m => -5,
-                                     :estimate_diff3_m => 12, :estimate_diff4_m => nil, :series => @series)
-        expect(helper.estimate_diffs(competitor)).to eq("+10m/-5m/+12m/-")
+        expect_estimate_diffs_4 nil, 60, 10, -5, 12, nil, '+10m/-5m/+12m/-'
       end
 
       it 'should return all diffs when all are available' do
-        competitor = instance_double(Competitor, :estimate1 => 120, :estimate2 => 60,
-                                     :estimate_diff1_m => -5, :estimate_diff2_m => 14,
-                                     :estimate_diff3_m => 12, :estimate_diff4_m => -1, :series => @series)
-        expect(helper.estimate_diffs(competitor)).to eq("-5m/+14m/+12m/-1m")
+        expect_estimate_diffs_4 120, 60, -5, 14, 12, -1, '-5m/+14m/+12m/-1m'
+      end
+
+      def expect_estimate_diffs_4(e1, e2, d1, d2, d3, d4, expected)
+        competitor = instance_double(Competitor, :estimate1 => e1, :estimate2 => e2,
+                                     :estimate_diff1_m => d1, :estimate_diff2_m => d2,
+                                     :estimate_diff3_m => d3, :estimate_diff4_m => d4, :series => @series)
+        expect(helper.estimate_diffs(competitor)).to eq(expected)
       end
     end
   end
