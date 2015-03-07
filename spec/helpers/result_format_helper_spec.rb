@@ -107,7 +107,7 @@ describe ResultFormatHelper do
     end
   end
 
-  describe '#time_points' do
+  describe '#time_points_print' do
     before do
       @series = instance_double(Series, :time_points_type => Series::TIME_POINTS_TYPE_NORMAL)
     end
@@ -115,7 +115,7 @@ describe ResultFormatHelper do
     context 'when reason for no result' do
       it 'should return empty string' do
         competitor = instance_double(Competitor, :series => @series, :no_result_reason => Competitor::DNS)
-        expect(helper.time_points(competitor)).to eq('')
+        expect(helper.time_points_print(competitor)).to eq('')
       end
     end
 
@@ -123,7 +123,7 @@ describe ResultFormatHelper do
       it 'should return 300' do
         allow(@series).to receive(:time_points_type).and_return(Series::TIME_POINTS_TYPE_ALL_300)
         competitor = instance_double(Competitor, :series => @series, :no_result_reason => nil)
-        expect(helper.time_points(competitor)).to eq(300)
+        expect(helper.time_points_print(competitor)).to eq(300)
       end
     end
 
@@ -131,7 +131,7 @@ describe ResultFormatHelper do
       it 'should return dash' do
         competitor = instance_double(Competitor, :time_in_seconds => nil,
                                      :no_result_reason => nil, :series => @series)
-        expect(helper.time_points(competitor)).to eq('-')
+        expect(helper.time_points_print(competitor)).to eq('-')
       end
     end
 
@@ -142,7 +142,7 @@ describe ResultFormatHelper do
                                      :time_in_seconds => 2680, :no_result_reason => nil)
         expect(competitor).to receive(:time_points).with(all_competitors).and_return(270)
         expect(helper).to receive(:time_from_seconds).with(2680).and_return('45:23')
-        expect(helper.time_points(competitor, true, all_competitors)).to eq('270 (45:23)')
+        expect(helper.time_points_print(competitor, true, all_competitors)).to eq('270 (45:23)')
       end
 
       it 'should wrap with best time span when full points' do
@@ -151,7 +151,7 @@ describe ResultFormatHelper do
                                      :time_in_seconds => 2680, :no_result_reason => nil)
         expect(competitor).to receive(:time_points).with(all_competitors).and_return(300)
         expect(helper).to receive(:time_from_seconds).with(2680).and_return('45:23')
-        expect(helper.time_points(competitor, true, all_competitors)).
+        expect(helper.time_points_print(competitor, true, all_competitors)).
             to eq("<span class='series_best_time'>300 (45:23)</span>")
       end
     end
@@ -162,7 +162,7 @@ describe ResultFormatHelper do
         competitor = instance_double(Competitor, :series => @series,
                                      :time_in_seconds => 2680, :no_result_reason => nil)
         expect(competitor).to receive(:time_points).with(all_competitors).and_return(270)
-        expect(helper.time_points(competitor, false, all_competitors)).to eq('270')
+        expect(helper.time_points_print(competitor, false, all_competitors)).to eq('270')
       end
 
       it 'should wrap with best time span when full points' do
@@ -170,7 +170,7 @@ describe ResultFormatHelper do
         competitor = instance_double(Competitor, :series => @series,
                                      :time_in_seconds => 2680, :no_result_reason => nil)
         expect(competitor).to receive(:time_points).with(all_competitors).and_return(300)
-        expect(helper.time_points(competitor, false, all_competitors)).
+        expect(helper.time_points_print(competitor, false, all_competitors)).
             to eq("<span class='series_best_time'>300</span>")
       end
     end

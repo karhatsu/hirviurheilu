@@ -10,7 +10,7 @@ module ResultFormatHelper
     '-'
   end
 
-  def time_points(competitor, with_time=false, all_competitors=false)
+  def time_points_print(competitor, with_time=false, all_competitors=false)
     return '' if competitor.no_result_reason
     return 300 if competitor.series.time_points_type == Series::TIME_POINTS_TYPE_ALL_300
     return '-' if competitor.time_in_seconds.nil?
