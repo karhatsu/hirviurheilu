@@ -346,44 +346,6 @@ describe ApplicationHelper do
     end
   end
   
-  describe "#remove_child_link" do
-    before do
-      @value = 'Add child'
-      @form = double(Object)
-      @hide_class = 'hide_class'
-      @confirm_question = 'Are you sure?'
-      expect(@form).to receive(:hidden_field).with(:_destroy).and_return('<hidden-field/>')
-    end
-
-    it "should return hidden _destroy field and button with onclick call to remove_fields javascript" do
-      expect(helper.remove_child_link(@value, @form, @hide_class, @confirm_question)).
-        to eq("<hidden-field/><input type=\"button\" value=\"Add child\" onclick=\"remove_fields(this, &#39;hide_class&#39;, &#39;Are you sure?&#39;);\" />")
-    end
-  end
-  
-  describe "#add_child_link" do
-    before do
-      @value = 'Add child'
-      @form = double(Object)
-      @method = 'method'
-      expect(helper).to receive(:new_child_fields).with(@form, @method).and_return('<div id="f">fields</div>')
-    end
-
-    context "without id" do    
-      it "should return button with onclick call to insert_fields javascript as escaped" do
-        expect(helper.add_child_link(@value, @form, @method)).
-          to eq('<input type="button" value="Add child" onclick="insert_fields(this, &quot;method&quot;, &quot;&lt;div id=\\&quot;f\\&quot;&gt;fields&lt;\\/div&gt;&quot;);" />')
-      end
-    end
-
-    context "with id" do    
-      it "should return button with id and onclick call to insert_fields javascript" do
-        expect(helper.add_child_link(@value, @form, @method, 'myid')).
-          to eq('<input type="button" value="Add child" onclick="insert_fields(this, &quot;method&quot;, &quot;&lt;div id=\\&quot;f\\&quot;&gt;fields&lt;\\/div&gt;&quot;);" id="myid" />')
-      end
-    end
-  end
-  
   describe "#competition_icon" do
     context "when single race" do
       it "should be image tag for competition's sport's lower case key with _icon.gif suffix" do
