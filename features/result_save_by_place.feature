@@ -55,6 +55,7 @@ Feature: Save results by result place
     And I have logged in
     And I am on the official race page of "Result race"
     And I follow "Arviot"
+    Then I should see "M - Arviot"
     Given someone else saves estimates 100 and 150 for the competitor
     When I fill in "101" for "competitor_estimate1"
     And I fill in "151" for "competitor_estimate2"
