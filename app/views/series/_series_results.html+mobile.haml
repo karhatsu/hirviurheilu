@@ -18,7 +18,7 @@
       %td.center
         = points_print(comp, params[:all_competitors])
         - if comp.points.to_i >= @max_points.to_i
-          = national_record(comp)
+          = national_record_print(comp)
     %tr{id: "details_#{i}", style: 'display: none;', class: i % 2 == 0 ? 'odd' : ''}
       %td{colspan: 5}
         - unless series.time_points_type == Series::TIME_POINTS_TYPE_NONE

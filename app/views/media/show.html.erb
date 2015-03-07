@@ -9,7 +9,7 @@
       <% max_points = c.points if i == 0 %>
       <% next unless i < @competitors_count or clubs.include?(c.club_id.to_s) %>
       <% unless c.no_result_reason %>
-        <% record = national_record(c, true) if c.points.to_i >= max_points.to_i %>
+        <% record = national_record_print(c, true) if c.points.to_i >= max_points.to_i %>
         <% comp_results << "#{i+1}) #{full_name(c)} #{c.club.name} #{c.points}" +
           "#{" (" + record + ")" unless record.blank? }" %>
       <% end %>

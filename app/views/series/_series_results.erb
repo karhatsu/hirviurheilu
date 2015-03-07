@@ -57,7 +57,7 @@
           estimate_points(comp) %></td>
       <td<%= shots_css %>><%= shot_points_print(comp, true) %></td>
       <td class="center <%= points_css %>"><%= points_print(comp, params[:all_competitors]) %>
-        <%= national_record(comp) if comp.points.to_i >= @max_points.to_i %>
+        <%= national_record_print(comp) if comp.points.to_i >= @max_points.to_i %>
       </td>
     </tr>
     <% prev_rel_points = comp.relative_points %>

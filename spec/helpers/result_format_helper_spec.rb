@@ -232,7 +232,7 @@ describe ResultFormatHelper do
     end
   end
 
-  describe '#national_record' do
+  describe '#national_record_print' do
     before do
       @competitor = instance_double(Competitor)
       @race = instance_double(Race)
@@ -249,7 +249,7 @@ describe ResultFormatHelper do
       context 'when national record passed' do
         it 'should return SE' do
           allow(@competitor).to receive(:national_record_passed?).and_return(true)
-          expect(helper.national_record(@competitor, true)).to eq('SE')
+          expect(helper.national_record_print(@competitor, true)).to eq('SE')
         end
       end
 
@@ -257,7 +257,7 @@ describe ResultFormatHelper do
         it 'should return SE(sivuaa)' do
           allow(@competitor).to receive(:national_record_passed?).and_return(false)
           allow(@competitor).to receive(:national_record_reached?).and_return(true)
-          expect(helper.national_record(@competitor, true)).to eq('SE(sivuaa)')
+          expect(helper.national_record_print(@competitor, true)).to eq('SE(sivuaa)')
         end
       end
     end
@@ -270,7 +270,7 @@ describe ResultFormatHelper do
       context 'when national record passed' do
         it 'should return SE?' do
           allow(@competitor).to receive(:national_record_passed?).and_return(true)
-          expect(helper.national_record(@competitor, true)).to eq('SE?')
+          expect(helper.national_record_print(@competitor, true)).to eq('SE?')
         end
       end
 
@@ -278,7 +278,7 @@ describe ResultFormatHelper do
         it 'should return SE(sivuaa)?' do
           allow(@competitor).to receive(:national_record_passed?).and_return(false)
           allow(@competitor).to receive(:national_record_reached?).and_return(true)
-          expect(helper.national_record(@competitor, true)).to eq('SE(sivuaa)?')
+          expect(helper.national_record_print(@competitor, true)).to eq('SE(sivuaa)?')
         end
       end
     end
@@ -287,7 +287,7 @@ describe ResultFormatHelper do
       it 'should surround text with span and link' do
         allow(@race).to receive(:finished?).and_return(true)
         allow(@competitor).to receive(:national_record_passed?).and_return(true)
-        expect(helper.national_record(@competitor, false)).to eq("<span class='explanation'><a href=\"" + NATIONAL_RECORD_URL + "\">SE</a></span>")
+        expect(helper.national_record_print(@competitor, false)).to eq("<span class='explanation'><a href=\"" + NATIONAL_RECORD_URL + "\">SE</a></span>")
       end
     end
   end

@@ -34,7 +34,7 @@ module ResultFormatHelper
     raw("<span class='explanation' title='#{t(scope + '.' + no_result_reason)}'>#{no_result_reason}</span>")
   end
 
-  def national_record(competitor, raw=false)
+  def national_record_print(competitor, raw=false)
     if competitor.national_record_passed?
       tag = 'SE'
     elsif competitor.national_record_reached?
