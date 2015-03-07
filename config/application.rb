@@ -17,6 +17,7 @@ PRODUCTION_HOST = "www.hirviurheilu.com"
 PRODUCTION_URL = "http://" + PRODUCTION_HOST
 
 NATIONAL_RECORD_URL = "http://www.metsastajaliitto.fi/?q=fi/node/126"
+YOUTUBE_URL = 'http://www.youtube.com/watch?v=oRNIy1G4qWM'
 
 VAT = 24
 
