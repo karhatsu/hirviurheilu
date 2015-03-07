@@ -75,7 +75,7 @@ Feature: Mobile usage
   Scenario: Send feedback in mobile view
     Given I am on the home page
     And I follow "Mobiilinäkymä"
-    When I follow "Lähetä palautetta"
+    When I follow "Palaute"
     Then I should be on the send feedback page
     When I fill in the following:
       | Palaute    | Hyvä järjestelmä! |
