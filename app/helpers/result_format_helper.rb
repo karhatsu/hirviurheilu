@@ -67,7 +67,7 @@ module ResultFormatHelper
     raw " title='Vertailuaika: #{time_from_seconds(comparison_time, false)}'"
   end
 
-  def comparison_and_own_time_title(competitor)
+  def comparison_and_own_time_title_attribute(competitor)
     time_in_seconds = competitor.time_in_seconds
     return '' unless time_in_seconds
     title = " title='Aika: #{time_from_seconds(time_in_seconds)}"

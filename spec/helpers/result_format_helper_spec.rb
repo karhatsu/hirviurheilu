@@ -201,12 +201,12 @@ describe ResultFormatHelper do
     end
   end
 
-  describe '#comparison_and_own_time_title' do
+  describe '#comparison_and_own_time_title_attribute' do
     context 'when no time for competitor' do
       it 'should return empty string' do
         competitor = instance_double(Competitor)
         allow(competitor).to receive(:time_in_seconds).and_return(nil)
-        expect(helper.comparison_and_own_time_title(competitor)).to eq('')
+        expect(helper.comparison_and_own_time_title_attribute(competitor)).to eq('')
       end
     end
 
@@ -216,7 +216,7 @@ describe ResultFormatHelper do
         expect(competitor).to receive(:time_in_seconds).and_return(123)
         expect(competitor).to receive(:comparison_time_in_seconds).with(false).and_return(nil)
         expect(helper).to receive(:time_from_seconds).with(123).and_return('1:23')
-        expect(helper.comparison_and_own_time_title(competitor)).to eq(" title='Aika: 1:23'")
+        expect(helper.comparison_and_own_time_title_attribute(competitor)).to eq(" title='Aika: 1:23'")
       end
     end
 
@@ -227,7 +227,7 @@ describe ResultFormatHelper do
         expect(competitor).to receive(:comparison_time_in_seconds).with(false).and_return(456)
         expect(helper).to receive(:time_from_seconds).with(123).and_return('1:23')
         expect(helper).to receive(:time_from_seconds).with(456).and_return('4:56')
-        expect(helper.comparison_and_own_time_title(competitor)).to eq(" title='Aika: 1:23. Vertailuaika: 4:56.'")
+        expect(helper.comparison_and_own_time_title_attribute(competitor)).to eq(" title='Aika: 1:23. Vertailuaika: 4:56.'")
       end
     end
   end
