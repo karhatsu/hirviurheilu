@@ -49,7 +49,7 @@
       <td><%= comp.number ? comp.number : '' %></td>
       <td><%= comp.club.name %></td>
       <% unless series.time_points_type == Series::TIME_POINTS_TYPE_NONE %>
-        <td<%= comparison_time_title(comp, params[:all_competitors], pdf) %><%= time_css %>>
+        <td<%= comparison_time_title_attribute(comp, params[:all_competitors], pdf) %><%= time_css %>>
           <%= time_points_print(comp, true, params[:all_competitors]) %>
         </td>
       <% end %>

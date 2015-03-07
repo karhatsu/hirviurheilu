@@ -60,7 +60,7 @@ module ResultFormatHelper
     shot_values.map {|value| value.to_i}.join(',')
   end
 
-  def comparison_time_title(competitor, all_competitors=false, always_empty=false)
+  def comparison_time_title_attribute(competitor, all_competitors=false, always_empty=false)
     return '' if always_empty
     comparison_time = competitor.comparison_time_in_seconds(all_competitors)
     return '' unless comparison_time
