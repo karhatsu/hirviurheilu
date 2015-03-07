@@ -1,15 +1,22 @@
 class RemoteRacesController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :check_user, :prepare_clubs_for_competitors
+  before_action :check_user
   after_filter :set_series_for_team_competitions,
     :set_age_groups_for_team_competitions, :set_age_groups_for_competitors
 
   def create
-    if @race.save
-      @race.race_rights.create!(:user => @user)
-      unless offline_or_fake_offline?
-        PublishMailer.publish_mail(@race, @user).deliver_now
+    success = false
+    Race.transaction do
+      return unless prepare_clubs_for_competitors
+      if @race.save
+        @race.race_rights.create!(:user => @user)
+        unless offline_or_fake_offline?
+          PublishMailer.publish_mail(@race, @user).deliver_now
+        end
+        success = true
       end
+    end
+    if success
       redirect_to_success
     else
       redirect_to_error @race.errors.full_messages.join('. ') + '.'
@@ -43,8 +50,7 @@ class RemoteRacesController < ApplicationController
   end
 
   def save_race_without_children
-    @race = Race.new(race_params)
-    @race = Race.new(@race.attributes) # no children in @race
+    @race = Race.new(Race.new(race_params).attributes) # no children in @race
     unless @race.save
       redirect_to_error @race.errors.full_messages.join('. ') + '.'
       return false
