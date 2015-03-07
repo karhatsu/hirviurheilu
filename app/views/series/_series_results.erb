@@ -55,7 +55,7 @@
       <% end %>
       <td<%= est_css %>><%= series.race.finished ? estimate_points_and_diffs(comp) :
           estimate_points(comp) %></td>
-      <td<%= shots_css %>><%= shot_points(comp, true) %></td>
+      <td<%= shots_css %>><%= shot_points_print(comp, true) %></td>
       <td class="center <%= points_css %>"><%= points_print(comp, params[:all_competitors]) %>
         <%= national_record(comp) if comp.points.to_i >= @max_points.to_i %>
       </td>

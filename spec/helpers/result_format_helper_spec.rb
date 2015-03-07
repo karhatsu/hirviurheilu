@@ -54,32 +54,32 @@ describe ResultFormatHelper do
     end
   end
 
-  describe '#shot_points' do
+  describe '#shot_points_print' do
     context 'when reason for no result' do
       it 'should return empty string' do
         competitor = stub_competitor 500, 88, Competitor::DNS
-        expect(helper.shot_points(competitor)).to eq('')
+        expect(helper.shot_points_print(competitor)).to eq('')
       end
     end
 
     context 'when no shots sum' do
       it 'should return dash' do
         competitor = stub_competitor 150, nil
-        expect(helper.shot_points(competitor)).to eq('-')
+        expect(helper.shot_points_print(competitor)).to eq('-')
       end
     end
 
     context 'when no total shots wanted' do
       it 'should return shot points' do
         competitor = stub_competitor 480, 80
-        expect(helper.shot_points(competitor)).to eq('480')
+        expect(helper.shot_points_print(competitor)).to eq('480')
       end
     end
 
     context 'when total shots wanted' do
       it 'should return shot points and sum in brackets' do
         competitor = stub_competitor 480, 80
-        expect(helper.shot_points(competitor, true)).to eq('480 (80)')
+        expect(helper.shot_points_print(competitor, true)).to eq('480 (80)')
       end
     end
 

@@ -42,7 +42,7 @@
           <td class="center"><%= time_points_print(competitor, true) %></td>
           <td class="center"><%= @race.finished ? estimate_points_and_diffs(competitor) :
               estimate_points(competitor) %></td>
-          <td class="center"><%= shot_points(competitor, true) %></td>
+          <td class="center"><%= shot_points_print(competitor, true) %></td>
           <td>
             <%= competitor.series.name %>
             <%= competitor.age_group ? "(#{competitor.age_group.name})" : '' %>

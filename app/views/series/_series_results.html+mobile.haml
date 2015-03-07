@@ -26,7 +26,7 @@
           \|
         = series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp)
         \|
-        = shot_points(comp, true)
+        = shot_points_print(comp, true)
     - prev_rel_points = comp.relative_points
 :javascript
   function competitorDetails(i) {
