@@ -47,7 +47,7 @@ module ResultFormatHelper
     raw("<span class='explanation'><a href=\"#{NATIONAL_RECORD_URL}\">#{tag}</a></span>")
   end
 
-  def relay_time_adjustment(adjustment)
+  def relay_time_adjustment_print(adjustment)
     return '' unless adjustment
     return '' if adjustment == 0
     raw("(<span class='adjustment' title=\"Aika sisältää korjausta #{time_from_seconds(adjustment, true)}\">#{time_from_seconds(adjustment, true)}</span>)")

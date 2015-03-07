@@ -36,21 +36,21 @@ describe ResultFormatHelper do
     end
   end
 
-  describe '#relay_time_adjustment' do
+  describe '#relay_time_adjustment_print' do
     before do
       allow(helper).to receive(:time_from_seconds).and_return('00:01')
     end
 
     it 'should return nothing when nil given' do
-      expect(helper.relay_time_adjustment(nil)).to eq('')
+      expect(helper.relay_time_adjustment_print(nil)).to eq('')
     end
 
     it 'should return nothing when 0 seconds given' do
-      expect(helper.relay_time_adjustment(0)).to eq('')
+      expect(helper.relay_time_adjustment_print(0)).to eq('')
     end
 
     it 'should return the html span block when 1 second given' do
-      expect(helper.relay_time_adjustment(1)).to eq("(<span class='adjustment' title=\"Aika sisältää korjausta 00:01\">00:01</span>)")
+      expect(helper.relay_time_adjustment_print(1)).to eq("(<span class='adjustment' title=\"Aika sisältää korjausta 00:01\">00:01</span>)")
     end
   end
 

@@ -26,7 +26,7 @@
             <%= no_result_reason_print(team.no_result_reason, 'relay_team') %>
           <% else %>
             <%= time_from_seconds(team.time_in_seconds) %>
-            <%= relay_time_adjustment(team.adjustment.to_i) %>
+            <%= relay_time_adjustment_print(team.adjustment.to_i) %>
           <% end %>
         </td>
         <td class="center"><b><%= team.estimate_penalties_sum %></b></td>
@@ -42,7 +42,7 @@
             <td class="center">
               <%= time_from_seconds(team.time_in_seconds(comp.leg)) %>
               (<%= time_from_seconds comp.time_in_seconds %>)
-              <%= relay_time_adjustment(comp.adjustment.to_i) %>
+              <%= relay_time_adjustment_print(comp.adjustment.to_i) %>
             </td>
             <td class="center">
               <%= comp.estimate_penalties %>
