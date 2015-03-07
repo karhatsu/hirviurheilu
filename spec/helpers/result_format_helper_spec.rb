@@ -88,22 +88,22 @@ describe ResultFormatHelper do
     end
   end
 
-  describe '#shots_list' do
+  describe '#shots_list_print' do
     it 'should return dash when no shots sum' do
       competitor = instance_double(Competitor, :shots_sum => nil)
-      expect(helper.shots_list(competitor)).to eq('-')
+      expect(helper.shots_list_print(competitor)).to eq('-')
     end
 
     it "should return input total if such is given" do
       competitor = instance_double(Competitor, :shots_sum => 45, :shots_total_input => 45)
-      expect(helper.shots_list(competitor)).to eq(45)
+      expect(helper.shots_list_print(competitor)).to eq(45)
     end
 
     it 'should return comma separated list if individual shots defined' do
       shots = [10, 1, 9, 5, 5, nil, nil, 6, 4, 0]
       competitor = instance_double(Competitor, :shots_sum => 50,
                                    :shots_total_input => nil, :shot_values => shots)
-      expect(helper.shots_list(competitor)).to eq('10,1,9,5,5,0,0,6,4,0')
+      expect(helper.shots_list_print(competitor)).to eq('10,1,9,5,5,0,0,6,4,0')
     end
   end
 

@@ -53,7 +53,7 @@ module ResultFormatHelper
     raw("(<span class='adjustment' title=\"Aika sisältää korjausta #{time_from_seconds(adjustment, true)}\">#{time_from_seconds(adjustment, true)}</span>)")
   end
 
-  def shots_list(competitor)
+  def shots_list_print(competitor)
     return '-' if competitor.shots_sum.nil?
     return competitor.shots_total_input unless competitor.shots_total_input.nil?
     shot_values = competitor.shot_values
