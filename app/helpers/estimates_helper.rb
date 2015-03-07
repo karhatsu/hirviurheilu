@@ -26,11 +26,8 @@ module EstimatesHelper
   end
 
   def estimate_diff_with_sign_and_symbol(diff)
-    if diff.nil?
-      return '-'
-    else
-      return "#{diff > 0 ? '+' : ''}#{diff}m"
-    end
+    return '-' if diff.nil?
+    "#{diff > 0 ? '+' : ''}#{diff}m"
   end
 
   def estimate_points_and_diffs(competitor)

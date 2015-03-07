@@ -90,42 +90,40 @@ describe EstimatesHelper do
 
   describe '#estimate_points' do
     it 'should print empty string if no result reason defined' do
-      competitor = instance_double(Competitor, :shots_sum => 88,
-                                   :no_result_reason => Competitor::DNS)
-      expect(helper.estimate_points(competitor)).to eq('')
+      expect_estimate_points 189, Competitor::DNS, ''
     end
 
     it 'should return dash if no estimate points' do
-      competitor = instance_double(Competitor, :estimate_points => nil,
-                                   :no_result_reason => nil)
-      expect(helper.estimate_points(competitor)).to eq("-")
+      expect_estimate_points nil, nil, '-'
     end
 
     it 'should return points otherwise' do
-      competitor = instance_double(Competitor, :estimate_points => 189,
-                                   :no_result_reason => nil)
-      expect(helper.estimate_points(competitor)).to eq(189)
+      expect_estimate_points 189, nil, 189
+    end
+
+    def expect_estimate_points(points, no_result_reason, expected_points)
+      competitor = instance_double Competitor, estimate_points: points, no_result_reason: no_result_reason
+      expect(helper.estimate_points(competitor)).to eq(expected_points)
     end
   end
 
   describe '#estimate_points_and_diffs' do
     it 'should print empty string if no result reason defined' do
-      competitor = instance_double(Competitor, :shots_sum => 88,
-                                   :no_result_reason => Competitor::DNS)
-      expect(helper.estimate_points_and_diffs(competitor)).to eq('')
+      expect_estimate_points_and_diffs 150, Competitor::DNF, '1m', ''
     end
 
     it 'should return dash if no estimate points' do
-      competitor = instance_double(Competitor, :estimate_points => nil,
-                                   :no_result_reason => nil)
-      expect(helper.estimate_points_and_diffs(competitor)).to eq("-")
+      expect_estimate_points_and_diffs nil, nil, '6m', '-'
     end
 
     it 'should return points and diffs when points available' do
-      competitor = instance_double(Competitor, :estimate_points => 189,
-                                   :no_result_reason => nil)
-      expect(helper).to receive(:estimate_diffs).with(competitor).and_return("3m")
-      expect(helper.estimate_points_and_diffs(competitor)).to eq("189 (3m)")
+      expect_estimate_points_and_diffs 199, nil, '6m', '199 (6m)'
+    end
+
+    def expect_estimate_points_and_diffs(points, no_result_reason, meters, expected)
+      competitor = instance_double Competitor, estimate_points: points, no_result_reason: no_result_reason
+      allow(helper).to receive(:estimate_diffs).with(competitor).and_return(meters)
+      expect(helper.estimate_points_and_diffs(competitor)).to eq(expected)
     end
   end
 
