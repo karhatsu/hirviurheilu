@@ -273,23 +273,6 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#correct_estimate_range" do
-    it "should return min_number- if no max_number" do
-      ce = build(:correct_estimate, :min_number => 56, :max_number => nil)
-      expect(helper.correct_estimate_range(ce)).to eq("56-")
-    end
-
-    it "should return min_number if max_number equals to it" do
-      ce = build(:correct_estimate, :min_number => 57, :max_number => 57)
-      expect(helper.correct_estimate_range(ce)).to eq(57)
-    end
-
-    it "should return min_number-max_number if both defined and different" do
-      ce = build(:correct_estimate, :min_number => 57, :max_number => 58)
-      expect(helper.correct_estimate_range(ce)).to eq("57-58")
-    end
-  end
-
   describe "#comparison_time_title" do
     before do
       @competitor = instance_double(Competitor)

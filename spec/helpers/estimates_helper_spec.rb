@@ -182,4 +182,23 @@ describe EstimatesHelper do
       end
     end
   end
+
+  describe '#correct_estimate_range' do
+    it 'should return min_number- if no max_number' do
+      expect_estimate_range 56, nil, '56-'
+    end
+
+    it 'should return min_number if max_number equals to it' do
+      expect_estimate_range 57, 57, '57'
+    end
+
+    it 'should return min_number-max_number if both defined and different' do
+      expect_estimate_range 57, 58, '57-58'
+    end
+
+    def expect_estimate_range(min_number, max_number, expected_range)
+      ce = build(:correct_estimate, min_number: min_number, max_number: max_number)
+      expect(helper.correct_estimate_range(ce)).to eq(expected_range)
+    end
+  end
 end

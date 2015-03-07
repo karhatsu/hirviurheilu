@@ -57,4 +57,10 @@ module EstimatesHelper
     return not_available_str unless correct
     correct
   end
+
+  def correct_estimate_range(ce)
+    return "#{ce.min_number}-" unless ce.max_number
+    return "#{ce.min_number}" unless ce.min_number != ce.max_number
+    "#{ce.min_number}-#{ce.max_number}"
+  end
 end

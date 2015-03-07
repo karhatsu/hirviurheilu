@@ -267,12 +267,6 @@ module ApplicationHelper
     return link if link[0, 7] == 'http://' or link[0, 8] == 'https://'
     'http://' + link
   end
-
-  def correct_estimate_range(ce)
-    return "#{ce.min_number}-" unless ce.max_number
-    return ce.min_number unless ce.min_number != ce.max_number
-    "#{ce.min_number}-#{ce.max_number}"
-  end
   
   def comparison_time_title(competitor, all_competitors=false, always_empty=false)
     return '' if always_empty
