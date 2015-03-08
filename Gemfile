@@ -14,6 +14,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier'
 gem 'activerecord-session_store'
 gem 'haml-rails'
+gem 'rack-mini-profiler'
 
 group :development, :staging, :production do
   gem 'pg'

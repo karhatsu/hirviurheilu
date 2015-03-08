@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :clear_old_data_from_staging
   before_action :assign_races_for_main_menu
+  before_action :allow_rack_profiler
   
   private
   def set_locale
@@ -361,5 +362,9 @@ class ApplicationController < ActionController::Base
 
   def assign_races_for_main_menu
     @main_menu_races = Race.where('start_date>?', 7.days.ago).order('start_date desc')
+  end
+
+  def allow_rack_profiler
+    Rack::MiniProfiler.authorize_request if current_user && current_user.admin?
   end
 end

@@ -6,4 +6,5 @@
  *= require menu
  *= require messages
  *= require dialogs
+ *= require rack_profiler
 */
