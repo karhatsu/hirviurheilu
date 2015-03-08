@@ -16,7 +16,7 @@ class HomeController < ApplicationController
   end
   
   def past_races_without_finished_cups
-    Race.past.select { |race| race.cups.first.nil? or race.cups.first.end_date >= Date.today }
+    Race.past.includes(cups: [:cups_races, :races]).select { |race| race.cups.first.nil? || race.cups.first.end_date >= Date.today }
   end
 
   def finished_cups(all_cups)
