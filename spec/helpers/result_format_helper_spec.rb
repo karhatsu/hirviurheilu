@@ -191,13 +191,13 @@ describe ResultFormatHelper do
       expect(helper.comparison_time_title_attribute(@competitor, true, false)).to eq('')
     end
 
-    it 'should return space and title attribute with title and comparison time when empty not wanted' do
-      expect(helper.comparison_time_title_attribute(@competitor, true, false)).to eq(" title='Vertailuaika: 25:45'")
+    it 'should title and comparison time when empty not wanted' do
+      expect(helper.comparison_time_title_attribute(@competitor, true, false)).to eq('Vertailuaika: 25:45')
     end
 
     it 'should use all_competitors parameter when getting the comparison time' do
       allow(@competitor).to receive(:comparison_time_in_seconds).with(false).and_return(1550)
-      expect(helper.comparison_time_title_attribute(@competitor, false, false)).to eq(" title='Vertailuaika: 25:50'")
+      expect(helper.comparison_time_title_attribute(@competitor, false, false)).to eq('Vertailuaika: 25:50')
     end
   end
 

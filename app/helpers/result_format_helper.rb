@@ -64,7 +64,7 @@ module ResultFormatHelper
     return '' if always_empty
     comparison_time = competitor.comparison_time_in_seconds(all_competitors)
     return '' unless comparison_time
-    raw " title='Vertailuaika: #{time_from_seconds(comparison_time, false)}'"
+    "Vertailuaika: #{time_from_seconds(comparison_time, false)}"
   end
 
   def comparison_and_own_time_title_attribute(competitor)
