@@ -11,7 +11,8 @@
   = render :partial => 'relays/leg_links'
   %a#show_all_competitors{href: 'javascript:void(0)'}= t :show_all_competitors
   %a#hide_all_competitors{href: 'javascript:void(0)', style: 'display:none;'}= t :hide_all_competitors
-  = render :partial => 'results', :locals => { :relay => @relay }
+  - cache @relay do
+    = render :partial => 'results', :locals => { :relay => @relay }
 - if @relay.race.relays.count > 1
   %hr
   - @relay.race.relays.each do |r|
