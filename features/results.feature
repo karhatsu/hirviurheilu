@@ -573,7 +573,7 @@ Feature: Results
       | estimates | 296 (+1m/-1m) |
       | time | 300 (1:00:10) |
     And I should see a result row 2 with values:
-      | name | Atkinsson Tim epäv. |
+      | name | Atkinsson Tim (epäv.) |
       | number | 51 |
       | club | Sports club |
       | points | 1140 |
@@ -583,7 +583,7 @@ Feature: Results
     When I follow "Näytä epäviralliset tulokset (kaikki kilpailijat mukana)"
     Then I should see "Men 50 years - Tulokset - Kaikki kilpailijat" within "h2"
     And I should see a result row 1 with values:
-      | name | Atkinsson Tim epäv. |
+      | name | Atkinsson Tim (epäv.) |
       | number | 51 |
       | club | Sports club |
       | points | 1140 |
