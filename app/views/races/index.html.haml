@@ -1,0 +1,7 @@
+- content_for(:title, "Hirviurheilu - #{t :competitions}")
+- content_for(:page_title, yield(:title))
+- if @competitions.empty?
+  .info= t :no_races
+  .action_box= link_to t(:add_race), new_official_race_path
+- else
+  = render :partial => 'home/race_list', :locals => { :competitions => @competitions }
