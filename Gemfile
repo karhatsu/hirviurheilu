@@ -15,6 +15,7 @@ gem 'uglifier'
 gem 'activerecord-session_store'
 gem 'haml-rails'
 gem 'rack-mini-profiler'
+gem 'dalli'
 
 group :development, :staging, :production do
   gem 'pg'

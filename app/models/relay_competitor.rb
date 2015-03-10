@@ -1,5 +1,5 @@
 class RelayCompetitor < ActiveRecord::Base
-  belongs_to :relay_team
+  belongs_to :relay_team, touch: true
 
   before_validation :set_start_time
 

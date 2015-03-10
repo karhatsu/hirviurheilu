@@ -1,7 +1,7 @@
 class Club < ActiveRecord::Base
   default_scope { order :name }
 
-  belongs_to :race
+  belongs_to :race, touch: true
   has_many :competitors
   has_many :race_rights
 

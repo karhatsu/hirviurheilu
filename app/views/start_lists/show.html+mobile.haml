@@ -7,8 +7,9 @@
   .info= t '.no_competitors_or_start_times'
 - else
   .section
-    = render :partial => 'table',
-      :locals => { :competitors => @series.start_list.includes(:club, :age_group), :race => @series.race }
+    - cache @series do
+      = render :partial => 'table',
+        :locals => { :competitors => @series.start_list.includes(:club, :age_group), :race => @series.race }
 - if @series.race.series.count > 1
   %hr
   - @series.race.series.each do |s|

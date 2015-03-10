@@ -1,5 +1,5 @@
 class RelayCorrectEstimate < ActiveRecord::Base
-  belongs_to :relay
+  belongs_to :relay, touch: true
 
   validates :distance, :numericality => { :only_integer => true, :allow_nil => true,
     :greater_than_or_equal_to => 50, :less_than_or_equal_to => 200 }

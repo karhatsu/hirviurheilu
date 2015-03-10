@@ -17,9 +17,11 @@
   <% end %>
 <% else %>
   <div class="section">
-    <%= render :partial => 'table',
-      :locals => { :competitors => @series.start_list.includes(:club, :age_group),
-        :race => @series.race } %>
+    <% cache @series do %>
+      <%= render :partial => 'table',
+        :locals => { :competitors => @series.start_list.includes(:club, :age_group),
+          :race => @series.race } %>
+    <% end %>
   </div>
   <div class="action_box">
     <%= link_to t(:download_start_list_pdf), series_start_list_path(@series,

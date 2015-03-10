@@ -1,5 +1,5 @@
 class Shot < ActiveRecord::Base
-  belongs_to :competitor
+  belongs_to :competitor, touch: true
 
   #validates :competitor, :presence => true
   validates :value, :allow_nil => true, :numericality => { :only_integer => true,

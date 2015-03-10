@@ -60,6 +60,10 @@ class Race < ActiveRecord::Base
   def race
     self
   end
+
+  def self.cache_key_for_all
+    "races/all-#{Race.maximum(:updated_at).try(:utc).try(:to_s, :nsec)}"
+  end
   
   def add_default_series
     DefaultSeries.all.each do |ds|

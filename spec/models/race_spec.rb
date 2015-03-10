@@ -198,6 +198,27 @@ describe Race do
     end
   end
 
+  describe '.cache_key_for_all' do
+    context 'when no races' do
+      it 'is races/all-' do
+        expect(Race.cache_key_for_all).to eq("races/all-")
+      end
+    end
+
+    context 'when races' do
+      before do
+        @race1 = create :race
+        create :race
+        @race1.update_attribute :name, 'New name'
+      end
+
+      it 'contains timestamp of the latest updated race' do
+        timestamp = @race1.updated_at.utc.to_s(:nsec)
+        expect(Race.cache_key_for_all).to eq("races/all-#{timestamp}")
+      end
+    end
+  end
+
   describe "past/ongoing/future" do
     before do
       @past1 = create(:race, :start_date => Date.today - 10,

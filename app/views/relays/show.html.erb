@@ -20,7 +20,9 @@
   <%= render :partial => 'relays/leg_links' %>
   <a href="javascript:void(0)" id="show_all_competitors"><%= t :show_all_competitors %></a>
   <a href="javascript:void(0)" id="hide_all_competitors" style="display:none;"><%= t :hide_all_competitors %></a>
-  <%= render :partial => 'results', :locals => { :relay => @relay, :pdf => false } %>
+  <% cache @relay do %>
+    <%= render :partial => 'results', :locals => { :relay => @relay, :pdf => false } %>
+  <% end %>
   <div class="action_box">
     <%= t(:download_results_pdf) %>:
     <%= link_to t(:without_competitors), race_relay_path(@relay.race, @relay,
