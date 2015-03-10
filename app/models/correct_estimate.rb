@@ -1,5 +1,5 @@
 class CorrectEstimate < ActiveRecord::Base
-  belongs_to :race
+  belongs_to :race, touch: true
 
   #validates :race, :presence => true
   validates :min_number, :numericality => { :only_integer => true,

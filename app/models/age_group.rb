@@ -1,5 +1,5 @@
 class AgeGroup < ActiveRecord::Base
-  belongs_to :series
+  belongs_to :series, touch: true
   has_many :competitors
 
   before_validation :set_min_competitors_default

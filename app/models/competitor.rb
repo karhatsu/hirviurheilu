@@ -15,7 +15,7 @@ class Competitor < ActiveRecord::Base
   SORT_BY_ESTIMATES = 3
 
   belongs_to :club
-  belongs_to :series, :counter_cache => true
+  belongs_to :series, counter_cache: true, touch: true
   belongs_to :age_group
   has_many :shots, -> { order 'value desc' }, :dependent => :destroy
 
