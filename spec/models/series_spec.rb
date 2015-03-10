@@ -75,6 +75,17 @@ describe Series do
       end
     end
   end
+
+  describe '#cache_key' do
+    let(:race) { create :race }
+    let(:series) { create :series, race: race }
+
+    it 'contains series and race timestamps' do
+      race_ts = race.updated_at.utc.to_s(:nsec)
+      series_ts = series.updated_at.utc.to_s(:nsec)
+      expect(series.cache_key).to eq("series/#{series.id}-#{series_ts}-#{race_ts}")
+    end
+  end
   
   describe "has_start_list" do
     context "when race start order is by series" do

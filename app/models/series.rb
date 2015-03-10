@@ -39,7 +39,11 @@ class Series < ActiveRecord::Base
   validate :start_day_not_bigger_than_race_days_count
   
   before_create :set_has_start_list
-  
+
+  def cache_key
+    "#{super}-#{race.updated_at.utc.to_s(:nsec)}"
+  end
+
   def ordered_competitors(all_competitors, sort_by=Competitor::SORT_BY_POINTS)
     Competitor.sort_competitors(competitors.includes([:shots, :club, :age_group, :series]), all_competitors, sort_by)
   end
