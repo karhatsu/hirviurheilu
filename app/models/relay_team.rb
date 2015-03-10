@@ -3,7 +3,7 @@ class RelayTeam < ActiveRecord::Base
   DNF = 'DNF' # did not finish
   DQ = 'DQ' # disqualified
 
-  belongs_to :relay
+  belongs_to :relay, touch: true
   has_many :relay_competitors, -> { order :leg }, :dependent => :destroy
 
   validates :name, :presence => true
