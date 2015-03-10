@@ -24,7 +24,9 @@
     <% end %>
   <% end %>
   <div class="section">
-    <%= render :partial => 'series/series_results', :locals => { :series => @series } %>
+    <% cache @series do %>
+      <%= render :partial => 'series/series_results', :locals => { :series => @series } %>
+    <% end %>
   </div>
   <div class="action_box">
     <%= link_to t(:download_results_pdf), series_competitors_path(@series,
