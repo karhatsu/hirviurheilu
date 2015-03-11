@@ -1,0 +1,7 @@
+- content_for :sub_sub_menu do
+  .menu.sub_menu
+    %ul
+      %li
+        = menu_item t('official.relays.all_relays'), official_race_relays_path(@race), relay_id.nil?
+      - @race.relays.each do |relay|
+        = menu_item relay.name, edit_official_race_relay_path(relay.race, relay), relay.id == relay_id unless relay.new_record?

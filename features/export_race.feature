@@ -158,7 +158,7 @@ Feature: Export race
     And I should see "08:30"
     And I should see /1/ within "td.teams_count"
     And I should see "Viesti päättynyt"
-    When I follow "Offline relay"
+    When I choose "Offline relay" from third level menu
     Then the "relay_relay_correct_estimates_attributes_0_distance" field should contain "105"
     And the "relay_relay_correct_estimates_attributes_1_distance" field should contain "88"
     And the "Joukkueen nimi" field should contain "Offline relay team"

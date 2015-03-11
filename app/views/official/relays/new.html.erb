@@ -1,4 +1,5 @@
 <% content_for :title, "#{@race.name} - #{t '.title'}" %>
+<% render partial: 'sub_sub_menu', locals: { relay_id: 'new' } %>
 <h2><%= t '.title' %></h2>
 <div class="warning"><%= t '.leg_count_warning' %></div>
 <%= render :partial => 'form' %>

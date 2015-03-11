@@ -1,4 +1,5 @@
 <% content_for :title, "Viesti - #{@relay.name} - Tulosten pikasyöttö" %>
+<% render partial: 'official/relays/sub_sub_menu', locals: { relay_id: @relay.id } %>
 <h2><%= yield :title %></h2>
 <div class="info">Tällä sivulla voit tallentaa viestin tuloksia
   ns. pikasyöttöä käyttäen. Syöttämiseen tarvitset joukkueen numeron

@@ -196,6 +196,7 @@ fi:
         csv_file: CSV-tiedosto
         submit_button: Lataa kilpailijat tietokantaan
     relays:
+      all_relays: Kaikki viestit
       index:
         title: Viestit
         add_relay: Lisää viesti

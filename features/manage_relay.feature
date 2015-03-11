@@ -45,7 +45,7 @@ Feature: Manage relays
     And the race has a relay "Test relay"
     And I have logged in
     And I am on the official relays page of "Relay race"
-    When I follow "Test relay"
+    When I choose "Test relay" from third level menu
     Then I should see "Muokkaa viestin tietoja"
     But I should not see "Huom! Osuuksien määrää"
     When I fill in "" for "Viestin nimi"

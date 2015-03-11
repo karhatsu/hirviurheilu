@@ -196,6 +196,7 @@ sv:
         csv_file: CSV-fil
         submit_button: Ladda tävlar till databasen
     relays:
+      all_relays: Alla stafetter
       index:
         title: Stafetter
         add_relay: Öka stafett
