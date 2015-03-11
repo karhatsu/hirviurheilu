@@ -6,34 +6,6 @@
   = render :partial => 'relays/correct_estimates', :locals => { :pdf => false }
   = render :partial => 'relays/leg_links'
   .section
-    %table
-      %tr
-        %th &nbsp;
-        %th= t :team
-        %th.center= time_title @relay.race
-        %th= t 'relays.show.estimate_penalties_short'
-        %th= t 'relays.show.shooting_penalties_short'
-      - @results.each_with_index do |team, i|
-        - competitor = team.relay_competitors.find_by_leg(@leg)
-        %tr{id: "team_#{i + 1}"}
-          %td
-            #{i + 1}.
-          %td
-            #{team.name} (#{team.number}) /
-            = full_name competitor
-          %td.center.team_points
-            = time_from_seconds(team.time_in_seconds(@leg.to_i))
-            - if @leg.to_i > 1
-              (#{time_from_seconds competitor.time_in_seconds})
-            - if team.adjustment(@leg.to_i) != 0
-              (
-              %span.adjustment{title: "Aika sisältää korjausta #{time_from_seconds(team.adjustment(@leg.to_i).to_i, true)}"}><
-                = time_from_seconds(team.adjustment(@leg.to_i).to_i, true)
-              )
-          %td.center
-            = competitor.estimate_penalties
-            - if @relay.finished? and competitor.estimate
-              (#{competitor.estimate}m)
-          %td.center= competitor.misses
+    = render 'table'
 %hr
 = link_to "#{t(:back_to_page)} #{@relay.race.name}", race_path(@relay.race), class: 'back_link'
