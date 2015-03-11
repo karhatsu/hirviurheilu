@@ -6,6 +6,7 @@
   = render :partial => 'relays/correct_estimates', :locals => { :pdf => false }
   = render :partial => 'relays/leg_links'
   .section
-    = render 'table'
+    - cache [@relay, @leg] do
+      = render 'table'
 %hr
 = link_to "#{t(:back_to_page)} #{@relay.race.name}", race_path(@relay.race), class: 'back_link'
