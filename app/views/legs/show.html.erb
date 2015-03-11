@@ -11,42 +11,7 @@
   <%= render :partial => 'relays/correct_estimates', :locals => { :pdf => false } %>
   <%= render :partial => 'relays/leg_links' %>
   <div class="section">
-    <table>
-      <tr>
-        <th>&nbsp;</th>
-        <th><%= t :team %></th>
-        <th><%= t 'activerecord.models.competitor', :count => 1 %></th>
-        <th><%= t :number_short %></th>
-        <th class="center"><%= time_title @relay.race %></th>
-        <th><%= t 'relays.show.estimate_penalties' %></th>
-        <th><%= t 'relays.show.shooting_penalties' %></th>
-      </tr>
-      <% @results.each_with_index do |team, i| %>
-        <% competitor = team.relay_competitors.find_by_leg(@leg) %>
-        <tr id="team_<%= i + 1 %>">
-          <td><%= i + 1 %>.</td>
-          <td><%= team.name %></td>
-          <td><%= full_name competitor %></td>
-          <td class="center"><%= team.number %></td>
-          <td class="center team_points">
-            <%= time_from_seconds(team.time_in_seconds(@leg.to_i)) %>
-            <% if @leg.to_i > 1 %>
-              (<%= time_from_seconds competitor.time_in_seconds %>)
-            <% end %>
-            <% if team.adjustment(@leg.to_i) != 0 %>
-              (<span class='adjustment' title="Aika sisältää korjausta <%= time_from_seconds(team.adjustment(@leg.to_i).to_i, true) %> "><%= time_from_seconds(team.adjustment(@leg.to_i).to_i, true)%></span>)
-            <% end %>
-          </td>
-          <td class="center">
-            <%= competitor.estimate_penalties %>
-            <% if @relay.finished? and competitor.estimate %>
-              (<%= competitor.estimate %>m)
-            <% end %>
-          </td>
-          <td class="center"><%= competitor.misses %></td>
-        </tr>
-      <% end %>
-    </table>
+    <%= render partial: 'table' %>
   </div>
 <% end %>
 <hr/>
