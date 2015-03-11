@@ -9,6 +9,10 @@ class TeamCompetition < ActiveRecord::Base
 
   attr_accessor :temp_series_names, :temp_age_groups_names
 
+  def cache_key
+    "#{super}-#{race.updated_at.utc.to_s(:nsec)}-#{race.series.maximum(:updated_at).try(:utc).try(:to_s, :nsec)}"
+  end
+
   def series_names
     (series.map &:name).join(',')
   end

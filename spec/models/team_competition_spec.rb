@@ -24,6 +24,22 @@ describe TeamCompetition do
     end
   end
 
+  describe '#cache_key' do
+    let(:race) { create :race }
+    let(:tc) { create :team_competition, race: race }
+    let(:series1) { create :series, race: race }
+    let(:series2) { create :series, race: race }
+
+    it 'is a combination of team competition, race, and biggest series timestamp' do
+      series2
+      series1.update_attribute :name, 'new name'
+      tc_ts = tc.updated_at.utc.to_s(:nsec)
+      race_ts = race.updated_at.utc.to_s(:nsec)
+      series_ts = series1.updated_at.utc.to_s(:nsec)
+      expect(tc.cache_key).to eq("team_competitions/#{tc.id}-#{tc_ts}-#{race_ts}-#{series_ts}")
+    end
+  end
+
   describe "#results_for_competitors" do
     before do
       @tc = build(:team_competition, :team_competitor_count => 2)

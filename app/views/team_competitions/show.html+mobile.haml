@@ -2,14 +2,15 @@
   = render partial: 'shared/facebook_share'
 - content_for :title, "#{@race.name} - #{t('activerecord.models.team_competition', :count => 2)} - #{@tc.name}"
 %h2= yield :title
-- results = @tc.results
-- if results.empty?
-  .info= t '.cannot_calculate_results'
-- else
-  %a#show_all_competitors{href: "javascript:void(0)"}= t :show_all_competitors
-  %a#hide_all_competitors{href: "javascript:void(0)", style: "display:none;"}= t :hide_all_competitors
-  .section
-    = render :partial => 'results_table', :locals => { :results => results }
+- cache @tc do
+  - results = @tc.results
+  - if results.empty?
+    .info= t '.cannot_calculate_results'
+  - else
+    %a#show_all_competitors{href: "javascript:void(0)"}= t :show_all_competitors
+    %a#hide_all_competitors{href: "javascript:void(0)", style: "display:none;"}= t :hide_all_competitors
+    .section
+      = render :partial => 'results_table', :locals => { :results => results }
 - if @race.team_competitions.count > 1
   %hr
   - @race.team_competitions.each do |tc|

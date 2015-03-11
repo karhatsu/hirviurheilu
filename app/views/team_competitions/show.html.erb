@@ -14,23 +14,25 @@
     <% end %>
   <% end %>
 <% end %>
-<% results = @tc.results %>
-<% if results.empty? %>
-  <div class="info"><%= t '.cannot_calculate_results' %></div>
-<% else %>
-  <a href="javascript:void(0)" id="show_all_competitors"><%= t :show_all_competitors %></a>
-  <a href="javascript:void(0)" id="hide_all_competitors"
-    style="display:none;"><%= t :hide_all_competitors %></a>
-  <div class="section">
-    <%= render :partial => 'results_table', :locals => { :results => results } %>
-  </div>
-  <div class="action_box">
-    <%= t(:download_results_pdf) %>:
-    <%= link_to t(:without_competitors), race_team_competition_path(@race, @tc,
-      :exclude_competitors => true, :format => 'pdf') %> -
-    <%= link_to t(:with_competitors), race_team_competition_path(@race, @tc,
-      :format => 'pdf') %>
-  </div>
+<% cache @tc do %>
+  <% results = @tc.results %>
+  <% if results.empty? %>
+    <div class="info"><%= t '.cannot_calculate_results' %></div>
+  <% else %>
+    <a href="javascript:void(0)" id="show_all_competitors"><%= t :show_all_competitors %></a>
+    <a href="javascript:void(0)" id="hide_all_competitors"
+      style="display:none;"><%= t :hide_all_competitors %></a>
+    <div class="section">
+      <%= render :partial => 'results_table', :locals => { :results => results } %>
+    </div>
+    <div class="action_box">
+      <%= t(:download_results_pdf) %>:
+      <%= link_to t(:without_competitors), race_team_competition_path(@race, @tc,
+        :exclude_competitors => true, :format => 'pdf') %> -
+      <%= link_to t(:with_competitors), race_team_competition_path(@race, @tc,
+        :format => 'pdf') %>
+    </div>
+  <% end %>
 <% end %>
 <hr/>
 <%= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@race) %>
