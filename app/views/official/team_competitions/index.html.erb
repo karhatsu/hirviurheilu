@@ -1,4 +1,5 @@
 <% content_for :title, "#{@race.name} - #{t('official_sub_menu.team_competitions')}" %>
+<% render partial: 'sub_sub_menu', locals: { team_competition_id: nil } %>
 <h2><%= t '.title' %></h2>
 <%= flash_success %>
 <% unless @race.team_competitions.empty? %>

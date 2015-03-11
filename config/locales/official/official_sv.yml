@@ -145,6 +145,7 @@ sv:
         download_submit: Ladda till din Hirviurheilu Offline
         publish_submit: Publisera
     team_competitions:
+      all_team_competitions: Alla lagtävlingar
       index:
         title: Lagtävlingar
         add_team_competition: Öka lagtävling

@@ -33,7 +33,7 @@ Feature: Manage team competitions
     And I should see "My team competition"
     And I should see "8"
     And I should see "First series, Age group 2"
-    When I follow "My team competition"
+    When I choose "My team competition" from third level menu
     Then the official main menu item should be selected
     And the "Joukkuek." sub menu item should be selected
     And I should see "Muokkaa joukkuekilpailun tietoja" within "h2"

@@ -145,6 +145,7 @@ fi:
         download_submit: Lataa Hirviurheilu Offline -tietokantaan
         publish_submit: Julkaise
     team_competitions:
+      all_team_competitions: Kaikki joukkuekilpailut
       index:
         title: Joukkuekilpailut
         add_team_competition: Lisää joukkuekilpailu

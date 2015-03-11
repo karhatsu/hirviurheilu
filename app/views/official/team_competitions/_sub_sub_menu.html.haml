@@ -1,0 +1,7 @@
+- content_for :sub_sub_menu do
+  .menu.sub_menu
+    %ul
+      %li
+        = menu_item t('official.team_competitions.all_team_competitions'), official_race_team_competitions_path(@race), team_competition_id.nil?
+      - @race.team_competitions.each do |team_competition|
+        = menu_item team_competition.name, edit_official_race_team_competition_path(team_competition.race, team_competition), team_competition.id == team_competition_id unless team_competition.new_record?
