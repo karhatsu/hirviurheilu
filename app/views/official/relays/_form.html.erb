@@ -21,6 +21,7 @@
       <%= start_days_form_field(f, @relay) %>
       <%= f.time_select :start_time, :include_blank => true %>
     </span>
+    (arvioitu kellonaika)
   </div>
   <% unless @relay.new_record? %>
     <h2><%= t :correct_distances %></h2>
