@@ -24,7 +24,7 @@
     <% end %>
   <% end %>
   <div class="section">
-    <% cache @series do %>
+    <% cache [@series, params[:all_competitors]] do %>
       <%= render :partial => 'series/series_results', :locals => { :series => @series } %>
     <% end %>
   </div>
