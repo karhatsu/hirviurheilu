@@ -1,6 +1,0 @@
-<h1><%= @series.race.name %></h1>
-<%= @series.race.location %>, <%= race_date_interval(@series.race, false) %>
-<h2><%= @series.name %> - Lähtölista</h2>
-<%= render :partial => 'table',
-  :locals => { :competitors => @series.start_list.includes(:club, :age_group),
-    :race => @series.race } %>
