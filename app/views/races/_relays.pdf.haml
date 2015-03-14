@@ -5,5 +5,6 @@
     - if index > 0
       .page-break
     %h2= relay.name
-    = render :partial => 'relays/results', :locals => { :relay => relay, :pdf => true }
+    - cache relay do
+      = render :partial => 'relays/results', :locals => { :relay => relay, :pdf => true }
     %hr
