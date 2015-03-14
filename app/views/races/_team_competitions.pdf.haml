@@ -1,0 +1,9 @@
+- if @race.team_competitions.count > 0
+  .page-break
+  %h2= t 'activerecord.models.team_competition', :count => @race.team_competitions.count
+  - @race.team_competitions.each_with_index do |tc, index|
+    - if index > 0
+      .page-break
+    %h2= tc.name
+    = render :partial => 'team_competitions/results_table', :locals => { :results => tc.results }
+    %hr

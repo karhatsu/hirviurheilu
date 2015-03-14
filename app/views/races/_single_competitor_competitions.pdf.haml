@@ -1,0 +1,8 @@
+%h2= t '.single_competitor_competitions'
+- @race.series.each_with_index do |series, index|
+  - if index > 0
+    .page-break
+  %h3= series.name
+  = render :partial => 'series/infos', :locals => { :series => series }
+  = render :partial => 'series/series_results', :locals => { :series => series }
+  %hr
