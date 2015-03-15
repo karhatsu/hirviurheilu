@@ -4,7 +4,8 @@
 <% if @results.empty? %>
   <div class="info"><%= t '.relay_has_no_teams' %></div>
 <% else %>
-  <%= render :partial => 'correct_estimates', :locals => { :pdf => true } %>
+  <%= render 'correct_estimates' %>
+  <%= render 'results_title' %>
   <% cache [@relay, params[:exclude_competitors]] do %>
     <%= render :partial => 'results', :locals => { :relay => @relay, :pdf => true } %>
   <% end %>
