@@ -2,7 +2,7 @@
   %tr
     %th= t 'attributes.name'
     %th{colspan: 2}= t 'official.relays.index.teams'
-    %th= t 'attributes.start_time'
+    %th{colspan: 2}= t 'attributes.start_time'
     %th{colspan: 2}= t 'official.relays.index.results'
     %th= t :correct_distances
     %th &nbsp;
@@ -13,12 +13,11 @@
         = relay.relay_teams.count
       %td
         = link_to t('official.relays.index.add_new_team'), edit_official_race_relay_path(@race, relay)
-      %td
-        - if relay.start_time_defined?
-          = image_tag 'icon_yes.gif'
-          = relay_start_time_print relay
-        - else
-          = link_to t('official.relays.index.set_start_time'), edit_official_race_relay_path(@race, relay)
+      - if relay.start_time_defined?
+        %td= image_tag 'icon_yes.gif'
+        %td= relay_start_time_print relay
+      - else
+        %td{colspan: 2}= link_to t('official.relays.index.set_start_time'), edit_official_race_relay_path(@race, relay)
       - if relay.relay_teams.empty?
         %td{colspan: 4}
           = link_to t('official.relays.index.remove_relay'), official_race_relay_path(@race, relay), method: :delete,
