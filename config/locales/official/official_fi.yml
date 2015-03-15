@@ -205,6 +205,7 @@ fi:
         add_new_team: Lisää uusi
         set_start_time: Aseta lähtöaika
         results: Tulokset
+        set_correct_estimates: Aseta
         remove_relay: Poista viesti
         remove_relay_confirm: Haluatko varmasti poistaa tämän viestin?
         results_quick_save: Tulosten pikasyöttö

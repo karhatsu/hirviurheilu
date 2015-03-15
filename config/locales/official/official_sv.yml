@@ -205,6 +205,7 @@ sv:
         add_new_team: Öka nytt
         set_start_time: Sätt starttid
         results: Resultat
+        set_correct_estimates: Sätt
         remove_relay: Radera stafett
         remove_relay_confirm: Är du säker att du vill radera den här stafetten?
         results_quick_save: Spara resultat
