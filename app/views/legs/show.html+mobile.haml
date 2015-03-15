@@ -1,12 +1,13 @@
 - content_for :title, "#{@relay.race.name} - #{t('activerecord.models.relay', :count => 2)} - #{@relay.name} - #{t(:results)}"
 %h2= yield :title
-- if @results.empty?
-  .info Viestiin ei ole vielä merkitty joukkueita
-- else
-  = render :partial => 'relays/correct_estimates', :locals => { :pdf => false }
-  = render :partial => 'relays/leg_links'
-  .section
-    - cache [@relay, @leg] do
+- cache [@relay, @leg] do
+  - @results = @relay.leg_results(@leg)
+  - if @results.empty?
+    .info Viestiin ei ole vielä merkitty joukkueita
+  - else
+    = render :partial => 'relays/correct_estimates', :locals => { :pdf => false }
+    = render :partial => 'relays/leg_links'
+    .section
       = render 'table'
 %hr
 = link_to "#{t(:back_to_page)} #{@relay.race.name}", race_path(@relay.race), class: 'back_link'
