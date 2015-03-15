@@ -6,5 +6,7 @@
   = render 'index_table'
 .action_box
   = link_to t('.add_relay'), new_official_race_relay_path(@race)
+- if online?
+  = render 'relay_instructions'
 %hr
 = link_to t(:back_to_official_race_page), official_race_path(@race)

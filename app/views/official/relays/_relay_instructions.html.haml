@@ -1,0 +1,32 @@
+.info
+  %a#relay_official_help.help{href: 'javascript:void(0);'} Ohjeita viestin toimitsijoille.
+  (Lue ohje ennen viestien alkua.)
+  #relay_official_help_dialog.dialog{style: 'display: none;'}
+    Lue tämä ohje ennen viestien alkamista. Siten kotikatsomosi saa eniten irti viestin seuraamisesta.
+    %ol
+      %li
+        Vähän ennen viestin alkua voit syöttää viestin oikeat etäisyydet jo etukäteen.
+        Tämän ansiosta tietoja arviointisakoista ilmestyy heti, kun kilpailijoiden arvioita tallennetaan.
+      %li
+        Järjestä arviointipaikan ja tulospalvelun välille yhteys, esim. puhelimitse.
+        Heti kun tulee tietoa kilpailijoiden arviometreistä, tallenna ne pikasyötöllä tulospalveluun.
+        %b Huom!
+        Tulospalveluun ei tallenneta arviosakkojen määrää vaan nimenomaan arviometrit.
+        Sakot lasketaan automaattisesti.
+      %li
+        Järjestä samalla tavalla yhteys myös ammuntapaikan ja tulospalvelun välille.
+        Syötä ammuntasakot tulospalveluun heti, kun niistä tulee tietoa.
+      %li
+        Järjestä vielä yhteys ajanoton ja tulospalvelun välille.
+        Syötä vaihto- ja maaliintuloajat tulospalveluun heti, kun niistä tulee tietoa.
+      %li
+        Lopuksi kun kaikki tiedot on syötetty, merkitse viesti päättyneeksi tältä sivulta.
+        Jokainen viesti päätetään erikseen eli muiden viestin päättymistä ei tarvitse odottaa.
+    Näitä ohjeita seuraamalla kotikatsomo saa tietoa viestin etenemisestä lähes reaaliajassa.
+    Viestissähän tärkeintä on lopulta maaliintuloaika mutta seuraamisesta tulee mielenkiintoisempaa,
+    kun vaihtoajan jälkeen seuraavaksi on tiedossa sakkojen määrä ennen kuin seuraava vaihtoaika
+    tai maaliintulo selviää. Sakkojen määrä antaa siis mahdollisuuden arvailla viestin etenemistä
+    siinä vaiheessa, kun aikatietoja ei ole vielä näkyvillä.
+  :javascript
+    var relay_official_help_title = 'Ohjeita viestin toimitsijoille';
+  = render partial: 'shared/help_dialog_opener'
