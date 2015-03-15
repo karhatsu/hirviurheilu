@@ -120,6 +120,10 @@ class Relay < ActiveRecord::Base
     finish || raise(errors.full_messages.to_s)
   end
 
+  def start_time_defined?
+    start_time && start_time.strftime('%H:%M') != '00:00'
+  end
+
   private
   def start_day_not_bigger_than_race_days_count
     if race and start_day > race.days_count

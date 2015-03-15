@@ -424,4 +424,18 @@ describe Relay do
       end
     end
   end
+
+  describe "#start_time_defined?" do
+    it "should be false when nil" do
+      expect(Relay.new.start_time_defined?).to be_falsey
+    end
+
+    it "should be false when start time is 00:00" do
+      expect(build(:relay, start_time: '00:00').start_time_defined?).to be_falsey
+    end
+
+    it "should be true when start time other than 00:00" do
+      expect(build(:relay, start_time: '00:01').start_time_defined?).to be_truthy
+    end
+  end
 end
