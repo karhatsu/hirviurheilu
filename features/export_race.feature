@@ -156,7 +156,7 @@ Feature: Export race
     Then I should see "Offline relay"
     And I should see "08:30"
     And I should see /1/ within "td.teams_count"
-    And I should see "Viesti päättynyt"
+    But I should not see "Päätä tämä viesti"
     When I choose "Offline relay" from third level menu
     Then the "relay_relay_correct_estimates_attributes_0_distance" field should contain "105"
     And the "relay_relay_correct_estimates_attributes_1_distance" field should contain "88"

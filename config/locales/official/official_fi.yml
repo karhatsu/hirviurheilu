@@ -209,8 +209,9 @@ fi:
         remove_relay: Poista viesti
         remove_relay_confirm: Haluatko varmasti poistaa tämän viestin?
         results_quick_save: Tulosten pikasyöttö
-        finish_relay: Viestin päättäminen
-        relay_finished: Viesti päättynyt
+        relay_finishing: Viestin päättäminen
+        finish_relay: Päätä tämä viesti
+        results_missing: Tuloksia puuttuu
       new:
         title: Uusi viesti
         leg_count_warning: Huom! Osuuksien määrää ei voi muuttaa sen jälkeen, kun viesti on luotu.

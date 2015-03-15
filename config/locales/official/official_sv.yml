@@ -209,8 +209,9 @@ sv:
         remove_relay: Radera stafett
         remove_relay_confirm: Är du säker att du vill radera den här stafetten?
         results_quick_save: Spara resultat
+        relay_finishing: Slut stafetten
         finish_relay: Slut stafetten
-        relay_finished: Stafetten slutat
+        results_missing: Resultat saknas
       new:
         title: Ny stafett
         leg_count_warning: Obs! Du kan inte växla sträckavtal efter du har skapat en stafett.

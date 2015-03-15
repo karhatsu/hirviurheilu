@@ -5,7 +5,7 @@
     %th{colspan: 2}= t 'attributes.start_time'
     %th{colspan: 2}= t 'official.relays.index.results'
     %th= t :correct_distances
-    %th &nbsp;
+    %th= t 'official.relays.index.relay_finishing'
   - @race.relays.each do |relay|
     %tr
       %td= link_to relay.name, edit_official_race_relay_path(@race, relay)
@@ -35,8 +35,10 @@
             = image_tag 'icon_yes.gif'
           - else
             = link_to t('official.relays.index.set_correct_estimates'), edit_official_race_relay_path(@race, relay)
-        %td
+        %td.center
           - if relay.finished?
-            = t 'official.relays.index.relay_finished'
+            = image_tag 'icon_yes.gif'
+          - elsif relay.can_finish?
+            = button_to t('official.relays.index.finish_relay'), official_relay_finish_relay_path(relay)
           - else
-            = link_to t('official.relays.index.finish_relay'), new_official_relay_finish_relay_path(relay)
+            = t 'official.relays.index.results_missing'

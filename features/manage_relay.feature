@@ -89,18 +89,6 @@ Feature: Manage relays
       | legs_count | 2 |
       | start_time | 12:00 |
     And the relay has a team "Test team"
-    And I have logged in
-    And I am on the official relays page of "Relay race"
-    When I follow "Viestin päättäminen"
-    Then I should be on the finish relay page of "Test relay"
-    And the official main menu item should be selected
-    And the "Viestit" sub menu item should be selected
-    And I should see "Viestin päättäminen" within "h2"
-    And I should see "Kun kaikki viestin tiedot on syötetty, voit alla olevan napin avulla merkitä viestin päättyneeksi. Ohjelma tarkastaa automaattisesti, ettei mitään tietoja puutu." in an info message
-    Given the relay team is deleted
-    When I press "Merkitse viesti päättyneeksi"
-    Then I should see "Viestissä ei ole yhtään joukkuetta" in an error message
-    Given the relay has a team "Test team"
     And the relay team has a competitor with attributes:
       | first_name | Tim |
       | last_name | Smith |
@@ -118,14 +106,14 @@ Feature: Manage relays
       | leg | distance |
       | 1 | 105 |
       | 2 | 88 |
-    When I press "Merkitse viesti päättyneeksi"
-    Then I should see "Osalta kilpailijoista puuttuu arvio" in an error message
+    And I have logged in
+    And I am on the official relays page of "Relay race"
+    Then I should not see "Päätä tämä viesti"
     Given the estimate for the relay competitor "John" "Stevenson" is 75
-    When I press "Merkitse viesti päättyneeksi"
+    And I go to the official relays page of "Relay race"
+    And I press "Päätä tämä viesti"
     Then I should be on the official relays page of "Relay race"
     And I should see "Viesti 'Test relay' merkitty päättyneeksi" in a success message
-    And I should see "Viesti päättynyt" within "table"
-    But I should not see "Viestin päättäminen"
     When I go to the finish relay page of "Test relay"
     Then I should see "Tämä viesti on jo merkitty päättyneeksi" in an info message
     But I should not see "Kun kaikki viestin tiedot on syötetty"
