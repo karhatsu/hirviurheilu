@@ -300,6 +300,20 @@ describe Relay do
     end
   end
 
+  describe "#can_finish?" do
+    it 'no when has finish errors' do
+      relay = build :relay
+      expect(relay).to receive(:finish_errors).and_return(['missing results'])
+      expect(relay.can_finish?).to be_falsey
+    end
+
+    it 'yes when no finish errors' do
+      relay = build :relay
+      expect(relay).to receive(:finish_errors).and_return([])
+      expect(relay.can_finish?).to be_truthy
+    end
+  end
+
   describe "#finish" do
     before do
       @relay = create(:relay)

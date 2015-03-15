@@ -86,6 +86,10 @@ class Relay < ActiveRecord::Base
     return errors
   end
 
+  def can_finish?
+    finish_errors.empty?
+  end
+
   def finish
     fin_errors = finish_errors
     unless fin_errors.empty?

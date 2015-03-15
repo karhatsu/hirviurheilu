@@ -3,7 +3,8 @@
     %th= t 'attributes.name'
     %th{colspan: 2}= t 'official.relays.index.teams'
     %th= t 'attributes.start_time'
-    %th{colspan: 2} &nbsp;
+    %th{colspan: 2}= t 'official.relays.index.results'
+    %th &nbsp;
   - @race.relays.each do |relay|
     %tr
       %td= link_to relay.name, edit_official_race_relay_path(@race, relay)
@@ -18,10 +19,15 @@
         - else
           = link_to t('official.relays.index.set_start_time'), edit_official_race_relay_path(@race, relay)
       - if relay.relay_teams.empty?
-        %td{colspan: 2}
+        %td{colspan: 3}
           = link_to t('official.relays.index.remove_relay'), official_race_relay_path(@race, relay), method: :delete,
             data: { confirm: t('official.relays.index.remove_relay_confirm') }
       - else
+        %td
+          - if relay.can_finish?
+            = image_tag 'icon_yes.gif'
+          - else
+            &nbsp;
         %td
           = link_to t('official.relays.index.results_quick_save'), official_relay_relay_quick_saves_path(relay)
         %td
