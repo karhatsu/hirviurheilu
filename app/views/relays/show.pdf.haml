@@ -1,0 +1,10 @@
+%h1= @relay.race.name
+#{@race.location}, #{race_date_interval(@race, false)}
+%h2 #{t 'activerecord.models.relay.one'} - #{@relay.name} - #{relay_result_title(@relay)}
+- if @results.empty?
+  .info= t '.relay_has_no_teams'
+- else
+  = render 'correct_estimates'
+  = render 'results_title'
+  - cache [@relay, params[:exclude_competitors]] do
+    = render :partial => 'results', :locals => { :relay => @relay, :pdf => true }
