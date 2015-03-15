@@ -1,0 +1,61 @@
+- content_for :title, "#{@relay.race.name} - #{t('activerecord.models.relay', :count => 2)} - #{@relay.name} - #{relay_result_title(@relay)}"
+- if @relay.active?
+  = render :partial => 'shared/refresh_counter', locals: {competition: @relay}
+.title-and-fb-share
+  %h2 #{@relay.name} - #{relay_result_title(@relay)}
+  = render partial: 'shared/facebook_share'
+- content_for :sub_sub_menu do
+  = render :layout => 'shared/relays_sub_menu', :locals => { :race => @relay.race, :relay_id => @relay.id } do |relay|
+    - race_relay_path(relay.race, relay)
+- if @results.empty?
+  .info= t '.relay_has_no_teams'
+- elsif !@relay.start_time
+  .info= t '.relay_has_no_start_time'
+- else
+  = render 'start_time_info'
+  = render 'correct_estimates'
+  = render 'results_title'
+  = render 'leg_links'
+  %a#show_all_competitors{href: 'javascript:void(0)'}= t :show_all_competitors
+  %a#hide_all_competitors{href: 'javascript:void(0)', style: 'display:none;'}= t :hide_all_competitors
+  - cache @relay do
+    = render :partial => 'results', :locals => { :relay => @relay, :pdf => false }
+  .action_box
+    #{t(:download_results_pdf)}:
+    = link_to t(:without_competitors), race_relay_path(@relay.race, @relay, :exclude_competitors => true, :format => 'pdf')
+    \-
+    = link_to t(:with_competitors), race_relay_path(@relay.race, @relay, :format => 'pdf')
+%hr
+= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@relay.race)
+:javascript
+  function showAllCompetitors() {
+    $('.competitor_row').show();
+    window.location.hash = 'competitors'
+    $('#show_all_competitors').hide();
+    $('#hide_all_competitors').show();
+  }
+  function hideAllCompetitors() {
+    $('.competitor_row').hide();
+    window.location.hash = ''
+    $('#show_all_competitors').show();
+    $('#hide_all_competitors').hide();
+  }
+  $('.team_name_link').click(function() {
+    competitors = '.team_' + $(this).attr('id');
+    if($(competitors).is(':hidden')) {
+      $(competitors).show();
+    } else {
+      $(competitors).hide();
+    }
+  });
+  $('#show_all_competitors').click(function() {
+    showAllCompetitors();
+  });
+  $('#hide_all_competitors').click(function() {
+    hideAllCompetitors();
+  });
+  $(document).ready(function() {
+    if(window.location.hash == '#competitors') {
+      showAllCompetitors();
+    }
+  });
