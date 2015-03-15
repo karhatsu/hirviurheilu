@@ -202,6 +202,7 @@ fi:
         title: Viestit
         add_relay: Lisää viesti
         teams: Joukkueita
+        add_new_team: Lisää uusi
         remove_relay: Poista viesti
         remove_relay_confirm: Haluatko varmasti poistaa tämän viestin?
         results_quick_save: Tulosten pikasyöttö

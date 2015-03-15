@@ -202,6 +202,7 @@ sv:
         title: Stafetter
         add_relay: Öka stafett
         teams: Lag
+        add_new_team: Öka nytt
         remove_relay: Radera stafett
         remove_relay_confirm: Är du säker att du vill radera den här stafetten?
         results_quick_save: Spara resultat

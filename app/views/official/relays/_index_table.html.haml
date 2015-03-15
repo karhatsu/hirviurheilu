@@ -1,15 +1,18 @@
 %table
   %tr
     %th= t 'attributes.name'
+    %th{colspan: 2}= t 'official.relays.index.teams'
     %th= t 'attributes.start_time'
-    %th= t 'official.relays.index.teams'
     %th{colspan: 2} &nbsp;
   - @race.relays.each do |relay|
     %tr
       %td= link_to relay.name, edit_official_race_relay_path(@race, relay)
+      %td.center.teams_count
+        = relay.relay_teams.count
+      %td
+        = link_to t('official.relays.index.add_new_team'), edit_official_race_relay_path(@race, relay)
       %td
         = relay_start_time_print relay if relay.start_time
-      %td.center.teams_count= relay.relay_teams.count
       - if relay.relay_teams.empty?
         %td{colspan: 2}
           = link_to t('official.relays.index.remove_relay'), official_race_relay_path(@race, relay), method: :delete,
