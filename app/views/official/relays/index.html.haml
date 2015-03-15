@@ -3,8 +3,7 @@
 %h2= t '.title'
 = flash_success
 - unless @race.relays.empty?
-  .section
-    = render 'index_table'
+  = render 'index_table'
 .action_box
   = link_to t('.add_relay'), new_official_race_relay_path(@race)
 %hr
