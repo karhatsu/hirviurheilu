@@ -16,8 +16,9 @@
 <% elsif !@relay.start_time %>
   <div class="info"><%= t '.relay_has_no_start_time' %></div>
 <% else %>
-  <%= render :partial => 'relays/correct_estimates', :locals => { :pdf => false } %>
-  <%= render :partial => 'relays/leg_links' %>
+  <%= render 'start_time_info' %>
+  <%= render 'correct_estimates' %>
+  <%= render 'leg_links' %>
   <a href="javascript:void(0)" id="show_all_competitors"><%= t :show_all_competitors %></a>
   <a href="javascript:void(0)" id="hide_all_competitors" style="display:none;"><%= t :hide_all_competitors %></a>
   <% cache @relay do %>

@@ -7,8 +7,9 @@
 - elsif !@relay.start_time
   .info= t '.relay_has_no_start_time'
 - else
-  = render :partial => 'relays/correct_estimates', :locals => { :pdf => false }
-  = render :partial => 'relays/leg_links'
+  = render 'start_time_info'
+  = render 'correct_estimates'
+  = render 'leg_links'
   %a#show_all_competitors{href: 'javascript:void(0)'}= t :show_all_competitors
   %a#hide_all_competitors{href: 'javascript:void(0)', style: 'display:none;'}= t :hide_all_competitors
   - cache @relay do

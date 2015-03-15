@@ -10,8 +10,9 @@
   - if @results.empty?
     .info Viestiin ei ole vielä merkitty joukkueita
   - else
-    = render :partial => 'relays/correct_estimates', :locals => { :pdf => false }
-    = render :partial => 'relays/leg_links'
+    = render 'relays/start_time_info'
+    = render 'relays/correct_estimates'
+    = render 'relays/leg_links'
     .section
       = render partial: 'table'
 %hr
