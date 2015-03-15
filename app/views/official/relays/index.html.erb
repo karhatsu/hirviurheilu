@@ -4,39 +4,7 @@
 <%= flash_success %>
 <% unless @race.relays.empty? %>
   <div class="section">
-    <table>
-      <tr>
-        <th><%= t 'attributes.name' %></th>
-        <th><%= t 'attributes.legs_count' %></th>
-        <th><%= t 'attributes.start_time' %></th>
-        <th><%= t '.teams' %></th>
-        <th colspan="2">&nbsp;</th>
-      </tr>
-      <% @race.relays.each do |relay| %>
-        <tr>
-          <td><%= link_to relay.name, edit_official_race_relay_path(@race, relay) %></td>
-          <td class="center legs_count"><%= relay.legs_count %></td>
-          <td><%= relay_start_time_print relay if relay.start_time %></td>
-          <td class="center teams_count"><%= relay.relay_teams.count %></td>
-          <% if relay.relay_teams.empty? %>
-            <td colspan="2"><%= link_to t('.remove_relay'),
-              official_race_relay_path(@race, relay), :method => :delete,
-              :data => { :confirm => t('.remove_relay_confirm') } %></td>
-          <% else %>
-            <td><%= link_to t('.results_quick_save'),
-                official_relay_relay_quick_saves_path(relay) %></td>
-            <td>
-              <% if relay.finished? %>
-                <%= t '.relay_finished' %>
-              <% else %>
-                <%= link_to t('.finish_relay'),
-                  new_official_relay_finish_relay_path(relay) %>
-              <% end %>
-            </td>
-          <% end %>
-        </tr>
-      <% end %>
-    </table>
+    <%= render 'index_table' %>
   </div>
 <% end %>
 <div class="action_box">

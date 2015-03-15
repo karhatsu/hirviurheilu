@@ -1,0 +1,26 @@
+%table
+  %tr
+    %th= t 'attributes.name'
+    %th= t 'attributes.legs_count'
+    %th= t 'attributes.start_time'
+    %th= t 'official.relays.index.teams'
+    %th{colspan: 2} &nbsp;
+  - @race.relays.each do |relay|
+    %tr
+      %td= link_to relay.name, edit_official_race_relay_path(@race, relay)
+      %td.center.legs_count= relay.legs_count
+      %td
+        = relay_start_time_print relay if relay.start_time
+      %td.center.teams_count= relay.relay_teams.count
+      - if relay.relay_teams.empty?
+        %td{colspan: 2}
+          = link_to t('official.relays.index.remove_relay'), official_race_relay_path(@race, relay), method: :delete,
+            data: { confirm: t('official.relays.index.remove_relay_confirm') }
+      - else
+        %td
+          = link_to t('official.relays.index.results_quick_save'), official_relay_relay_quick_saves_path(relay)
+        %td
+          - if relay.finished?
+            = t 'official.relays.index.relay_finished'
+          - else
+            = link_to t('official.relays.index.finish_relay'), new_official_relay_finish_relay_path(relay)
