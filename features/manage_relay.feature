@@ -36,7 +36,6 @@ Feature: Manage relays
     When I follow "Takaisin viestien etusivulle"
     Then I should be on the official relays page of "Relay race"
     And I should see "Test relay"
-    And I should see "3"
     And I should see "11:45"
 
   Scenario: Edit relay

@@ -154,7 +154,6 @@ Feature: Export race
     And the "competitor_shots_attributes_9_value" field should contain "0"
     When I follow "Viestit"
     Then I should see "Offline relay"
-    And I should see /2/ within "td.legs_count"
     And I should see "08:30"
     And I should see /1/ within "td.teams_count"
     And I should see "Viesti päättynyt"

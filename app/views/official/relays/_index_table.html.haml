@@ -1,14 +1,12 @@
 %table
   %tr
     %th= t 'attributes.name'
-    %th= t 'attributes.legs_count'
     %th= t 'attributes.start_time'
     %th= t 'official.relays.index.teams'
     %th{colspan: 2} &nbsp;
   - @race.relays.each do |relay|
     %tr
       %td= link_to relay.name, edit_official_race_relay_path(@race, relay)
-      %td.center.legs_count= relay.legs_count
       %td
         = relay_start_time_print relay if relay.start_time
       %td.center.teams_count= relay.relay_teams.count
