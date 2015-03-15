@@ -5,7 +5,7 @@
 - content_for :sub_sub_menu do
   = render :layout => 'shared/relays_sub_menu', :locals => { :race => @relay.race, :relay_id => @relay.id } do |relay|
     = race_relay_path(relay.race, relay)
-- cache [@relay, @leg] do
+- cache [@relay, @relay.started?, @leg] do
   - @results = @relay.leg_results(@leg)
   - if @results.empty?
     .info Viestiin ei ole vielä merkitty joukkueita

@@ -1,6 +1,6 @@
 - content_for :title, "#{@relay.race.name} - #{t('activerecord.models.relay', :count => 2)} - #{@relay.name} - #{t(:results)}"
 %h2= yield :title
-- cache [@relay, @leg] do
+- cache [@relay, @relay.started?, @leg] do
   - @results = @relay.leg_results(@leg)
   - if @results.empty?
     .info Viestiin ei ole vielä merkitty joukkueita
