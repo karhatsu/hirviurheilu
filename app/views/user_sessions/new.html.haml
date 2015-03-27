@@ -2,6 +2,11 @@
 - content_for(:page_title, yield(:title))
 = flash_error
 = flash_success
+- if Rails.env.staging?
+  .warning
+    Käytät parhaillaan Hirviurheilun testiympäristöä.
+    Varsinaiseen Hirviurheilu-palveluun luomasi tunnukset eivät käy suoraan tähän palveluun.
+    Voit luoda testipalveluun omat tunnukset klikkaamalla alla olevaa rekisteröintilinkkiä.
 = form_for @user_session, :url => user_session_path, :html => { :class => 'login_form' } do |f|
   = render :partial => 'shared/form_errors', :locals => { :item => @user_session }
   %div
