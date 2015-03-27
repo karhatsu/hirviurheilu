@@ -1,0 +1,20 @@
+- content_for(:title, t('.title'))
+- content_for(:page_title, yield(:title))
+= flash_error
+= flash_success
+= form_for @user_session, :url => user_session_path, :html => { :class => 'login_form' } do |f|
+  = render :partial => 'shared/form_errors', :locals => { :item => @user_session }
+  %div
+    %span.form_label= f.label :email
+    %span= f.email_field :email, autofocus: true
+  %div
+    %span.form_label= f.label :password
+    %span= f.password_field :password
+  %div
+    %span.form_label= f.label :remember_me
+    %span= f.check_box :remember_me
+  = f.submit t('.submit_button')
+%hr
+= link_to t('.forgotten_password'), new_reset_password_path
+%br
+#{t '.no_account_yet'}: #{link_to t('.register'), register_path}
