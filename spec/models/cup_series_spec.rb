@@ -162,13 +162,13 @@ describe CupSeries do
       expect(@cs.ordered_competitors).to eq([])
     end
     
-    it "should return cup competitors ordered by descending partial points" do
-      cc1 = double(CupCompetitor, :points! => 3003)
-      cc2 = double(CupCompetitor, :points! => 3004)
-      cc3 = double(CupCompetitor, :points! => 3000)
-      cc4 = double(CupCompetitor, :points! => 3002)
-      cc5 = double(CupCompetitor, :points! => nil)
-      cc6 = double(CupCompetitor, :points! => 3001)
+    it 'should return cup competitors ordered by descending partial points, secondary by best single race points' do
+      cc1 = double(CupCompetitor, points!: 3004, points_array: [1000, 1001, 1003])
+      cc2 = double(CupCompetitor, points!: 3004, points_array: [1004, 1000, 1000])
+      cc3 = double(CupCompetitor, points!: 3000, points_array: [nil, nil, 3000])
+      cc4 = double(CupCompetitor, points!: 3002, points_array: [999, 1001, 1002])
+      cc5 = double(CupCompetitor, points!: nil, points_array: [nil, nil, nil])
+      cc6 = double(CupCompetitor, points!: 3002, points_array: [1000, 1000, 1002])
       allow(@cs).to receive(:cup_competitors).and_return([cc1, cc2, cc3, cc4, cc5, cc6])
       expect(@cs.ordered_competitors).to eq([cc2, cc1, cc4, cc6, cc3, cc5])
     end

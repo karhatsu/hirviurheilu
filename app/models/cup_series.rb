@@ -16,7 +16,13 @@ class CupSeries < ActiveRecord::Base
   end
   
   def ordered_competitors
-    cup_competitors.sort { |a, b| b.points!.to_i <=> a.points!.to_i }
+    cup_competitors.sort do |a, b|
+      a_points = a.points_array.map {|p| p.to_i}.sort {|p1, p2| p2 <=> p1}
+      b_points = b.points_array.map {|p| p.to_i}.sort {|p1, p2| p2 <=> p1}
+      a_sort_params = [a.points!.to_i] + a_points
+      b_sort_params = [b.points!.to_i] + b_points
+      b_sort_params <=> a_sort_params
+    end
   end
   
   private
