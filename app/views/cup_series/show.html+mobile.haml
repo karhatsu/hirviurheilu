@@ -11,6 +11,5 @@
   - @cup_series.cup.cup_series.each do |cs|
     - unless cs == @cup_series
       = link_to cs.name, cup_cup_series_path(cs.cup, cs), class: 'primary_link'
-      &nbsp;
 %hr
 = link_to t(:back_to_cup_page), cup_path(@cup), class: 'back_link'

@@ -20,7 +20,6 @@
   - @relay.race.relays.each do |r|
     - unless r == @relay
       = link_to r.name, race_relay_path(r.race, r), class: 'primary_link'
-      &nbsp;
 %hr
 = link_to "#{t(:back_to_page)} #{@race.name}", race_path(@relay.race), class: 'back_link'
 :javascript
