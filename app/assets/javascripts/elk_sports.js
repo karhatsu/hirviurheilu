@@ -44,5 +44,5 @@ function calculate_shots_result(row) {
   if(error) {
     result = '?';
   }
-  row.find('.result').val(result);
+  row.find('.result').text(result);
 }

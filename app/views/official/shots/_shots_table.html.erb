@@ -18,8 +18,7 @@
             :maxlength => 3, :class => 'total' %></div>
         <div class="value"><%= render :partial => 'official/shots/individual_shots', :locals => { :f => f,
             :competitor => c } %></div>
-        <div class="value total_shots"><%= text_field_tag :result, c.shots_sum, :class => 'result',
-            :disabled => true, :size => 2 %></div>
+        <div class="value total_shots result"><%= c.shots_sum %></div>
         <div class="value"><%= submit_tag t(:save), :onclick => "start_updating(#{c.id})",
             :class => 'save', :id => "submit_#{c.id}" %></div>
         <div class="value" id="status_<%= c.id %>">&nbsp;</div>
