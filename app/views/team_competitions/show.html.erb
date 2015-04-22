@@ -14,7 +14,7 @@
     <% end %>
   <% end %>
 <% end %>
-<% cache @tc do %>
+<% cache [@tc, I18n.locale] do %>
   <% results = @tc.results %>
   <% if results.empty? %>
     <div class="info"><%= t '.cannot_calculate_results' %></div>

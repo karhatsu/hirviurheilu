@@ -17,7 +17,7 @@
   <% end %>
 <% else %>
   <div class="section">
-    <% cache @series do %>
+    <% cache [@series, I18n.locale] do %>
       <%= render :partial => 'table',
         :locals => { :competitors => @series.start_list.includes(:club, :age_group),
           :race => @series.race } %>

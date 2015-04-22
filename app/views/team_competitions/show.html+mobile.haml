@@ -2,7 +2,7 @@
   = render partial: 'shared/facebook_share'
 - content_for :title, "#{@race.name} - #{t('activerecord.models.team_competition', :count => 2)} - #{@tc.name}"
 %h2= yield :title
-- cache @tc do
+- cache [@tc, I18n.locale] do
   - results = @tc.results
   - if results.empty?
     .info= t '.cannot_calculate_results'

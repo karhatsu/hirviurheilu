@@ -6,5 +6,5 @@
 - else
   = render 'correct_estimates'
   = render 'results_title'
-  - cache [@relay, params[:exclude_competitors]] do
+  - cache [@relay, params[:exclude_competitors], I18n.locale] do
     = render :partial => 'results', :locals => { :relay => @relay, :pdf => true }

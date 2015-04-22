@@ -4,6 +4,6 @@
     .page-break
   %h3= series.name
   = render :partial => 'series/infos', :locals => { :series => series }
-  - cache [series, params[:club_id]] do
+  - cache [series, params[:club_id], I18n.locale] do
     = render :partial => 'series/series_results', :locals => { :series => series }
   %hr

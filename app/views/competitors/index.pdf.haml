@@ -2,5 +2,5 @@
 = @series.race.location, = race_date_interval(@series.race, false)
 %h2 #{@series.name} - #{series_result_title(@series, params[:all_competitors])}
 = render :partial => 'series/infos', :locals => { :series => @series }
-- cache @series do
+- cache [@series, I18n.locale] do
   = render :partial => 'series/series_results', :locals => { :series => @series }

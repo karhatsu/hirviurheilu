@@ -1,7 +1,7 @@
 %h1= @race.name
 #{@race.location}, #{race_date_interval(@race, false)}
 %h2 Joukkuekilpailu - #{@tc.name}
-- cache [@tc, params[:exclude_competitors]] do
+- cache [@tc, params[:exclude_competitors], I18n.locale] do
   - results = @tc.results
   - if results.empty?
     .info Joukkuekilpailun tuloksia ei voida vielä laskea
