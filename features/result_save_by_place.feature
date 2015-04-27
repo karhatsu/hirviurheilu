@@ -25,6 +25,15 @@ Feature: Save results by result place
     And I fill in "149" for "competitor_estimate2"
     And I press "Tallenna"
     Then I should see "Tallennettu"
+    When I choose "Ajat" from sub menu
+    Then the "Toimitsijan sivut" main menu item should be selected
+    And the "Ajat" sub menu item should be selected
+    And I should see "Result race" within ".main_title"
+    And the "competitor_start_time" text field value should be "12:00:00"
+    And the "competitor_arrival_time" text field value should be ""
+    When I fill in "12:25:41" for "competitor_arrival_time"
+    And I press "Tallenna"
+    Then I should see "Tallennettu"
     When I choose "Ammunta" from sub menu
     Then the "Toimitsijan sivut" main menu item should be selected
     And the "Ammunta" sub menu item should be selected
@@ -33,18 +42,14 @@ Feature: Save results by result place
     And I press "Tallenna"
     Then I should see "Tallennettu"
     When I choose "Ajat" from sub menu
-    Then the "Toimitsijan sivut" main menu item should be selected
-    And the "Ajat" sub menu item should be selected
-    And I should see "Result race" within ".main_title"
-    When I fill in "12:25:41" for "competitor_arrival_time"
-    And I press "Tallenna"
-    Then I should see "Tallennettu"
+    Then the "competitor_start_time" text field value should be "12:00:00"
+    And the "competitor_arrival_time" text field value should be "12:25:41"
     When the race is finished
     And I go to the results page of the series
     Then I should see "300 (25:41)"
     And I should see "296 (+1m/-1m)"
     And I should see "594 (99)"
-    
+
   @javascript
   Scenario: Prevent concurrent changes for same competitor's same estimate results
     Given I am an official
