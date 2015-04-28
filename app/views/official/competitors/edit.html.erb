@@ -8,9 +8,11 @@
     <span class="form_label"><%= f.label :number %></span>
     <%= f.number_field :number, :size => 3 %>
     <span class="form_label"><%= f.label :start_time %></span>
-    <%= f.text_field :start_time, :include_seconds => true, :blank => true, size: 8 %>
+    <% start_time = time_print(f.object.start_time, true, '') %>
+    <%= f.text_field :start_time, value: start_time, size: 8 %>
     <span class="form_label"><%= f.label :arrival_time %></span>
-    <%= f.text_field :arrival_time, :include_seconds => true, :blank => true, size: 8 %>
+    <% arrival_time = time_print(f.object.arrival_time, true, '') %>
+    <%= f.text_field :arrival_time, value: arrival_time, size: 8 %>
     <hr/>
     <span class="form_label"><%= f.label :shots_total_input %></span>
     <%= f.number_field :shots_total_input, :size => 5, :maxlength => 3 %>

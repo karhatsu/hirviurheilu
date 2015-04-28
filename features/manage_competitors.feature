@@ -51,13 +51,16 @@ Feature: Manage competitors
     Then I should see "Saapumisaika"
     And I should see "Ammunta yhteensä"
     And I should see "Arvio 1"
+    And the "competitor_start_time" text field value should be "00:01:00"
     When I fill in "95" for "Ammunta yhteensä"
-    And I fill in "11:35:23" for "competitor_arrival_time"
+    And I fill in "00:23:45" for "competitor_arrival_time"
     And I fill in "120" for "Arvio 1"
     And I fill in "100" for "Arvio 2"
     And I press "Tallenna"
     Then I should be on the official competitors page of series "Series B"
     And I should see "" within "tr img"
+    When I follow "Ford Peter"
+    Then the "competitor_arrival_time" text field value should be "00:23:45"
     
   Scenario: Updating competitor without shots, adding shots, updating shots
     Given I am an official
