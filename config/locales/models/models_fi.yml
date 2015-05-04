@@ -115,6 +115,9 @@ fi:
       series:
         one: Sarja
         other: Sarjat
+      shot:
+        one: Laukaus
+        other: Laukaukset
       sport:
         one: Laji
         other: Lajit

@@ -115,6 +115,9 @@ sv:
       series:
         one: Klass
         other: Klasser
+      shot:
+        one: Skott
+        other: Skott
       sport:
         one: Gren
         other: Grenar
