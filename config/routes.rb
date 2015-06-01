@@ -54,9 +54,7 @@ ElkSports::Application.routes.draw do
   
     namespace :admin do
       resources :announcements
-      resources :races do
-        resource :video
-      end
+      resources :races
       resources :users
       root :to => "index#show"
     end
