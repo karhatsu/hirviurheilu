@@ -49,11 +49,12 @@
     %span.form_label= f.label :organizer_phone
     %span= f.text_field :organizer_phone
 
-  %div
-    %span.form_label
-      = f.label :billing_info
-      %a.help#billing_info_help{href: 'javascript:void(0);'} ?
-    %span= f.text_field :billing_info
+  - unless Rails.env.staging?
+    %div
+      %span.form_label
+        = f.label :billing_info
+        %a.help#billing_info_help{href: 'javascript:void(0);'} ?
+      %span= f.text_field :billing_info
 
   #home_page_help_dialog.dialog{style: 'display:none;'}
     Jos kilpailusta on tarjolla lisätietoa esimerkiksi piirin tai seuran
