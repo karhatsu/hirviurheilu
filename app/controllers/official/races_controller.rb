@@ -80,6 +80,6 @@ class Official::RacesController < Official::OfficialController
     [ :sport_id, :name, :location, 'start_date(1i)', 'start_date(2i)', 'start_date(3i)',
       'start_time(1i)', 'start_time(2i)', 'start_time(3i)', 'start_time(4i)', 'start_time(5i)',
       :days_count, :club_level, :organizer, :home_page, :organizer_phone,
-      :start_interval_seconds, :start_order, :batch_size, :batch_interval_seconds ]
+      :start_interval_seconds, :start_order, :batch_size, :batch_interval_seconds, :billing_info ]
   end
 end

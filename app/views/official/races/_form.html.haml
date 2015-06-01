@@ -43,12 +43,17 @@
     %span.form_label
       = f.label :home_page, t('official.races.form.link_to_race_home_page')
       %a.help#home_page_help{href: 'javascript:void(0);'} ?
-
     %span= f.url_field :home_page
 
   %div
     %span.form_label= f.label :organizer_phone
     %span= f.text_field :organizer_phone
+
+  %div
+    %span.form_label
+      = f.label :billing_info
+      %a.help#billing_info_help{href: 'javascript:void(0);'} ?
+    %span= f.text_field :billing_info
 
   #home_page_help_dialog.dialog{style: 'display:none;'}
     Jos kilpailusta on tarjolla lisätietoa esimerkiksi piirin tai seuran
@@ -77,6 +82,10 @@
     kilpailijoiden lisäysjärjestys. Toimitsijan kannalta tämä tarkoittaa sitä,
     että kun olet lisäämässä kilpailijaa, sinun täytyy myös määrittää hänelle lähtöaika
     ja lähtönumero. Lähtölistat syntyvät näin ollen samalla, kun lisäät kilpailijoita.
+
+  #billing_info_help_dialog.dialog{style: 'display:none;'}
+    Jos olet sopinut laskutuksesta erikseen Hirviurheilun kanssa, syötä laskutustunnus
+    tähän kenttään. Muussa tapauksessa voit jättää kentän tyhjäksi.
 
   %h3= t 'official.races.form.start_times'
   %div
@@ -147,6 +156,7 @@
 
 :javascript
   var home_page_help_title = 'Linkki kilpailun sivuille';
+  var billing_info_help_title = 'Laskutustieto';
   var start_order_help_title = 'Kilpailijoiden lähtöjärjestys';
   var batch_size_help_title = 'Lähtöerät';
   var default_series_help_title = 'Lisää oletussarjat automaattisesti';

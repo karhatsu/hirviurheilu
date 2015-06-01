@@ -6,6 +6,7 @@ sv:
     arrival_time: Avkomstid
     batch_interval_seconds: Paus mellan startsatser
     batch_size: Startsatsers storlek
+    billing_info: Faktureringsinfo
     club: Klubb
     content: Innehål
     correct_estimate1: Rätt avstånd 1

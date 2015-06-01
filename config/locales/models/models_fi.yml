@@ -6,6 +6,7 @@ fi:
     arrival_time: Saapumisaika
     batch_interval_seconds: Tauko lähtöerien välissä
     batch_size: Lähtöerien koko
+    billing_info: Laskutustieto
     club: Seura/piiri
     content: Sisältö
     correct_estimate1: Oikea arviomatka 1
