@@ -1,0 +1,17 @@
+- content_for(:title, "Admin - Kilpailut")
+%h2= yield :title
+= flash_success
+%table
+  %tr
+    %th Nimi
+    %th Pvm
+    %th Sijainti
+    %th Toimitsijat
+    %th &nbsp;
+  - @races.each do |race|
+    %tr
+      %td= link_to race.name, admin_race_path(race)
+      %td= race_date_interval(race)
+      %td= race.location
+      %td= race.users.collect { |user| full_name(user) }.join(', ')
+      %td= link_to 'Video', admin_race_video_path(race)
