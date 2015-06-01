@@ -1,0 +1,165 @@
+= form_for([:official, @race], html: { class: 'race_form' }) do |f|
+  = render :partial => 'shared/form_errors', :locals => { :item => @race }
+  %h3= t 'official.races.form.basic_information'
+  %div
+    %span.form_label= f.label :sport
+    %span= f.collection_select(:sport_id, Sport.all, :id, :name)
+
+  %div
+    %span.form_label= f.label :name
+    %span= f.text_field :name
+
+  %div
+    %span.form_label= f.label :location
+    %span= f.text_field :location
+
+  %div
+    %span.form_label= f.label :start_date
+    %span= f.date_select :start_date
+
+  %div
+    %span.form_label= f.label :start_time
+    %span= f.time_select :start_time, value: @race.start_time
+
+  %div
+    %span.form_label= f.label :days_count
+    %span= f.select :days_count, [[t(:days, count: 1), 1], [t(:days, count: 2), 2], [t(:days, count: 3), 3]]
+
+  %div
+    %span.form_label= t 'official.races.form.competitor_organisation'
+    %span
+      = f.radio_button :club_level, Race::CLUB_LEVEL_SEURA
+      = f.label "club_level_#{Race::CLUB_LEVEL_SEURA}", t(:club)
+      = f.radio_button :club_level, Race::CLUB_LEVEL_PIIRI
+      = f.label "club_level_#{Race::CLUB_LEVEL_PIIRI}", t(:district)
+
+
+  %h3= t 'official.races.form.organizer_information'
+  %div
+    %span.form_label= f.label :organizer
+    %span= f.text_field :organizer
+
+  %div
+    %span.form_label
+      = f.label :home_page, t('official.races.form.link_to_race_home_page')
+      %a.help#home_page_help{href: 'javascript:void(0);'} ?
+
+    %span= f.url_field :home_page
+
+  %div
+    %span.form_label= f.label :organizer_phone
+    %span= f.text_field :organizer_phone
+
+  #home_page_help_dialog.dialog{style: 'display:none;'}
+    Jos kilpailusta on tarjolla lisätietoa esimerkiksi piirin tai seuran
+    omilla sivuilla, voit laittaa tähän linkin kyseiselle sivulle.
+    Voit myös jättää kentän tyhjäksi.
+
+  #batch_size_help_dialog.dialog{style: 'display:none;'}
+    Lähtöerien avulla voit luoda taukoa kilpailijoiden välille.
+    Voit esimerkiksi määrittää lähtöerän kooksi 20 kilpailijaa,
+    jonka jälkeen tulee lähtöajoissa tauko. Nämä asetukset otetaan huomioon,
+    kun luodaan lähtölistoja.<br/><br/>
+    Mikäli haluat, että kaikki kilpailijat lähtevät tasaisin väliajoin,
+    jätä kentän arvoksi 0.<br/><br/>
+    Lähtöeriä käytetään yleensä suuremmissa kilpailuissa, jotta esimerkiksi
+    ammuntapaikoille ei tulisi liikaa ruuhkaa.
+
+  #start_order_help_dialog.dialog{style: 'display:none;'}
+    Kilpailijoiden lähtöjärjestys vaikuttaa siihen, kuinka lähtölistat luodaan.
+    %h3 Pääsääntöisesti sarjoittain
+    Tässä vaihtoehdossa kilpailijat lähtevät liikkeelle pääsääntöisesti sarja
+    kerrallaan (poikkeukset ovat siis mahdollisia). Toimitsijan kannalta se tarkoittaa
+    sitä, että kun olet syöttänyt sarjan kilpailijat, voit järjestelmän avulla
+    luoda sarjalle kätevästi lähtölistan.
+    %h3 Sarjat sekaisin
+    Tässä vaihtoehdossa kilpailijoiden sarjat eivät vaikuta lähtöaikaan, pikemminkin
+    kilpailijoiden lisäysjärjestys. Toimitsijan kannalta tämä tarkoittaa sitä,
+    että kun olet lisäämässä kilpailijaa, sinun täytyy myös määrittää hänelle lähtöaika
+    ja lähtönumero. Lähtölistat syntyvät näin ollen samalla, kun lisäät kilpailijoita.
+
+  %h3= t 'official.races.form.start_times'
+  %div
+    %span.form_label= f.label :start_interval_seconds
+    %span
+      = f.text_field :start_interval_seconds, size: 3, maxlength: 3
+      = t 'official.races.form.seconds'
+
+  %div
+    %span.form_label
+      = f.label :start_order, t('attributes.start_order')
+      %a.help#start_order_help{href: 'javascript:void(0);'} ?
+
+    %span
+      = f.radio_button :start_order, Race::START_ORDER_NOT_SELECTED, :style => 'display:none;'
+      = f.radio_button :start_order, Race::START_ORDER_BY_SERIES
+      = f.label "start_order_#{Race::START_ORDER_BY_SERIES}", t('official.races.form.competitors_start_order_series')
+      = f.radio_button :start_order, Race::START_ORDER_MIXED
+      = f.label "start_order_#{Race::START_ORDER_MIXED}", t('official.races.form.competitors_start_order_mixed')
+
+
+  .batch_size_row
+    %span.form_label
+      = f.label :batch_size
+      %a.help#batch_size_help{href: 'javascript:void(0);'} ?
+    %span
+      = f.text_field :batch_size, size: 3, maxlength: 3
+      (0 = #{t 'official.races.form.start_batches_not_in_use'})
+
+  .batch_size_row
+    %span.form_label= f.label :batch_interval_seconds
+    %span
+      = f.text_field :batch_interval_seconds, size: 3, maxlength: 3
+      = t 'official.races.form.seconds'
+
+  - if @race.new_record?
+    %h3= t 'activerecord.models.series.other'
+    %div
+      %span.form_label
+        = label_tag :add_default_series, t('official.races.new.add_default_series_automatically')
+        %a.help#default_series_help{href: 'javascript:void(0);'} ?
+      %span= check_box_tag :add_default_series, '1', true
+
+    #default_series_help_dialog.dialog{style: 'display:none;'}
+      Jos merkitset 'Lisää oletussarjat automaattisesti'-kentän valituksi,
+      kilpailulle luodaan automaattisesti seuraavat sarjat:
+      %ul
+        - DefaultSeries.all.each do |df|
+          %li
+            = df.name
+            - unless df.default_age_groups.empty?
+              = (df.default_age_groups.collect &:name).join(', ')
+      Voit kilpailun lisäämisen jälkeen tarvittaessa poistaa tarpeettomat sarjat
+      ja lisätä uusia.
+      %p Mikäli et valitse tätä vaihtoehtoa, pääset lisäämään haluamasi sarjat heti kilpailun jälkeen.
+    %br
+  - else
+    = submit_tag submit_label
+    %h3= t 'activerecord.models.series.other'
+    = f.fields_for :series do |series_form|
+      = render partial: 'series', locals: { f: series_form }
+    - if @race.series.empty?
+      = highlight_info(t 'official.races.form.you_havent_added_series_yet')
+    = add_child_link t('official.races.form.add_series'), f, :series
+    %br
+    %br
+  = submit_tag submit_label
+
+:javascript
+  var home_page_help_title = 'Linkki kilpailun sivuille';
+  var start_order_help_title = 'Kilpailijoiden lähtöjärjestys';
+  var batch_size_help_title = 'Lähtöerät';
+  var default_series_help_title = 'Lisää oletussarjat automaattisesti';
+  var age_groups_help_title = 'Ikäryhmät';
+
+  function showOrHideBatchSizes() {
+    if($("#race_start_order_" + #{Race::START_ORDER_BY_SERIES} + ":checked").length) {
+      $(".batch_size_row").show();
+    } else {
+      $(".batch_size_row").hide();
+    }
+  }
+  $(document).ready(showOrHideBatchSizes);
+  $("#race_start_order_" + #{Race::START_ORDER_BY_SERIES}).click(showOrHideBatchSizes);
+  $("#race_start_order_" + #{Race::START_ORDER_MIXED}).click(showOrHideBatchSizes);
+= render :partial => 'shared/help_dialog_opener'
