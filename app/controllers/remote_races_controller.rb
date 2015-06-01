@@ -51,6 +51,7 @@ class RemoteRacesController < ApplicationController
 
   def save_race_without_children
     @race = Race.new(Race.new(race_params).attributes) # no children in @race
+    @race.billing_info = 'Offline' unless offline_or_fake_offline?
     unless @race.save
       redirect_to_error @race.errors.full_messages.join('. ') + '.'
       return false

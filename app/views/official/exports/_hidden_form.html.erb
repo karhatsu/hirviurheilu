@@ -1,7 +1,9 @@
 <% race_attrs = f.object.attribute_names-["id", "created_at", "updated_at",
     "series_count", "name"] %>
 <% race_attrs.each do |attr| %>
-  <%= f.hidden_field attr %>
+  <% if attr != 'billing_info'%>
+    <%= f.hidden_field attr %>
+  <% end %>
 <% end %>
 
 <%= f.fields_for(:clubs) do |club_f| %>

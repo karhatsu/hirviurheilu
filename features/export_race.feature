@@ -170,6 +170,7 @@ Feature: Export race
     And I should see "Offline series, Offline age group"
     Then I should see "Young men"
     And I should see "9"
+    And the last race billing info should be "Offline"
 
   Scenario: Try to export with invalid account
     Given there is an official with email "offline@hirviurheilu.com" and password "offline"
@@ -219,3 +220,4 @@ Feature: Export race
     Then I should be on the official index page
     When I follow "Downloaded race"
     Then I should see "Online series"
+    And the last race billing info should be ""

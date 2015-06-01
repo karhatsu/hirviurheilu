@@ -154,3 +154,8 @@ Then /^the race should be completely removed from the database$/ do
   RelayTeam.exists?(@relay_team.id).should be_falsey
   RelayCompetitor.exists?(@relay_competitor.id).should be_falsey
 end
+
+Then(/^the last race billing info should be "(.*?)"$/) do |billing_info|
+  billing_info = nil if billing_info.empty?
+  expect(Race.last.billing_info).to eql billing_info
+end
