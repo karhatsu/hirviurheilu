@@ -8,6 +8,10 @@ class Admin::RacesController < Admin::AdminController
   def show
     @race = Race.find(params[:id])
   end
+
+  def edit
+    @race = Race.find(params[:id])
+  end
   
   def update
     race = Race.find(params[:id])
@@ -37,6 +41,6 @@ class Admin::RacesController < Admin::AdminController
   end
 
   def video_params
-    params.require(:race).permit(:video_source, :video_description)
+    params.require(:race).permit(:billing_info)
   end
 end

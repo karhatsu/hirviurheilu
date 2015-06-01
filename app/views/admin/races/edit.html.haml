@@ -1,0 +1,7 @@
+- content_for :title, "#{@race.name} - Muokkaus"
+%h2= yield :title
+= form_for([:admin, @race]) do |f|
+  %div
+    %span.label_for= f.label :billing_info
+    = f.text_field :billing_info
+  = submit_tag 'Tallenna'
