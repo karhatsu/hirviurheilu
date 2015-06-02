@@ -1,0 +1,60 @@
+- content_for :title, t('prices.title')
+- content_for :page_title, yield(:title)
+- if Rails.env.staging?
+  .important Käytät tällä hetkellä testiympäristöä. Sen käyttö on ilmaista.
+  .action_box
+    %a{href: "#{PRODUCTION_URL}/prices"} Tutustu hintoihin varsinaisessa palvelussa
+- else
+  %h2 Hirviurheilu Offline -paketti
+  .section.prices_section
+    .box_sub_title Hirviurheilu Offline -paketti sisältää:
+    %ul
+      %li Hirviurheilu Offline
+      %li Kilpailuiden julkaisu Offline-tuotteesta Online-palveluun
+      %li Hirviurheilu Online -palvelu kahdeksi vuodeksi kilpailuille, joissa on enintään sata kilpailijaa
+      %li
+        Hinta
+        = ActivationKey::OFFLINE_PRICE
+        euroa (sis. ALV #{VAT}%)
+    .box_sub_title Paketin hankinta:
+    %ol
+      %li
+        = link_to 'Lataa ja asenna Hirviurheilu Offline.', offline_installation_path
+      %li
+        Kokeile halutessasi Hirviurheilu Offlinea enintään
+        = Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE
+        kilpailijan verran.
+      %li
+        = link_to 'Lunasta aktivointitunnus.', new_activation_key_path
+      %li Syötä aktivointitunnus Hirviurheilu Offlineen ja käytä tuotetta rajoituksetta.
+  %h2 Hirviurheilu Online
+  .section.prices_section
+    .box_sub_title Voit myös käyttää pelkästään Hirviurheilu Online -palvelua. Palvelu sisältää:
+    %ul
+      %li Yksilökilpailut alla olevan hinnoittelun mukaan
+      %li Joukkuekilpailut, viestit ja cup-kilpailut ilman erillistä veloitusta
+    .box_sub_title Yhden kilpailun hinta (sis. ALV #{VAT}%):
+    %ul
+      %li
+        Perushinta:
+        = "%.2f" % BasePrice.price
+        euroa
+      - @prices.each do |price|
+        %li
+          = price.min_competitors
+          -
+          = price.max_competitors
+          kilpailijaa:
+          = "%.2f" % price.price
+          = t("euros", :count => price.price)
+          \ / kilpailija
+    .box_sub_title Palvelun käyttöönotto:
+    %ol
+      %li
+        - if current_user
+          = link_to('Siirry Toimitsijan sivuille', official_root_path)
+        - else
+          = link_to('Rekisteröidy ja aloita käyttö', register_path)
+    .important Aloitustarjous: Ensimmäinen Online-kilpailusi on ilmainen!
+  %h2 Isojen kilpailuiden tulospalvelu (yli 100 kilpailijaa)
+  = link_to 'Ota yhteyttä, niin sovitaan tilanteeseen sopiva hinta.', new_feedback_path
