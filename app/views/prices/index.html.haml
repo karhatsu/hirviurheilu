@@ -5,8 +5,8 @@
   .action_box
     %a{href: "#{PRODUCTION_URL}/prices"} Tutustu hintoihin varsinaisessa palvelussa
 - else
-  %h2 Hirviurheilu Online
-  .section.prices_section
+  .section.prices_section.first
+    %h2 Yksittäinen kilpailu
     .box_sub_title Palvelu sisältää:
     %ul
       %li Yksilökilpailut alla olevan hinnoittelun mukaan
@@ -23,11 +23,11 @@
         - else
           = link_to('Rekisteröidy ja aloita käyttö', register_path)
     .important Aloitustarjous: Ensimmäinen Online-kilpailusi on ilmainen!
-  %h2 Usean kilpailun pakettiratkaisu / Isot kilpailut (yli 100 kilpailijaa)
   .section.prices_section
+    %h2 Usean kilpailun pakettiratkaisu / Isot kilpailut (yli 100 kilpailijaa)
     = link_to 'Ota yhteyttä, niin sovitaan tilanteeseen sopiva hinta.', new_feedback_path
-  %h2 Hirviurheilu Offline
   .section.prices_section
+    %h2 Hirviurheilu Offline
     .box_sub_title Hirviurheilu Offline sisältää:
     %ul
       %li
