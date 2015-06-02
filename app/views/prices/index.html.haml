@@ -26,17 +26,19 @@
   %h2 Usean kilpailun pakettiratkaisu / Isot kilpailut (yli 100 kilpailijaa)
   .section.prices_section
     = link_to 'Ota yhteyttä, niin sovitaan tilanteeseen sopiva hinta.', new_feedback_path
-  %h2 Hirviurheilu Offline -paketti
+  %h2 Hirviurheilu Offline
   .section.prices_section
-    .box_sub_title Hirviurheilu Offline -paketti sisältää:
+    .box_sub_title Hirviurheilu Offline sisältää:
     %ul
-      %li Hirviurheilu Offline
-      %li Kilpailuiden julkaisu Offline-tuotteesta Online-palveluun
-      %li Hirviurheilu Online -palvelu kahdeksi vuodeksi kilpailuille, joissa on enintään sata kilpailijaa
       %li
-        Hinta
+        = link_to 'Hirviurheilu Offline', offline_path
+      %li Kilpailuiden julkaisu Offline-tuotteesta tähän Online-palveluun
+      %li Hirviurheilu Online -palvelu kahdeksi vuodeksi kilpailuille, joissa on enintään sata kilpailijaa
+    .box_sub_title Hinta (sis. ALV #{VAT}%):
+    %ul
+      %li
         = ActivationKey::OFFLINE_PRICE
-        euroa (sis. ALV #{VAT}%)
+        euroa
     .box_sub_title Paketin hankinta:
     %ol
       %li
