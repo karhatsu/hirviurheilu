@@ -43,6 +43,11 @@ module ApplicationHelper
     image_tag "#{image_prefix}.gif", alt: alt, class: 'competition_icon'
   end
 
+  def competition_icon_class(competition)
+    return "cup_icon_#{competition.sport.key.downcase}" if competition.is_a?(Cup)
+    "race_icon_#{competition.sport.key.downcase}"
+  end
+
   def yes_or_empty(boolean, value=nil, &block)
     if boolean
       image_tag('icon_yes.gif', :title => value)
