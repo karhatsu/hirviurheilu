@@ -1,0 +1,24 @@
+- limit = defined?(max) ? max : 1.0/0.0
+- competitions.each_with_index do |competition, index|
+  = competition_icon(competition)
+  - if competition.is_a?(Cup)
+    = link_to competition.name, cup_path(competition)
+    %br
+  - else
+    #{link_to competition.name, race_path(competition)},
+    #{date_interval(competition.start_date, competition.end_date)},
+    = competition.location
+    %br
+  - if competition.is_a?(Cup)
+    - competition.races.each do |race|
+      %span.cup_race
+        = competition_icon(race)
+        = link_to race.name, race_path(race)
+        #{date_interval(race.start_date, race.end_date)},
+        = race.location
+      %br
+  - if index + 1 == limit
+    %hr
+    .all_races_link
+      = link_to t('home.show.all_competitions'), races_path
+    - break
