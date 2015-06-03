@@ -1,0 +1,33 @@
+- content_for(:title, t('.main_title'))
+- content_for(:page_title, yield(:title))
+
+= flash_success
+= flash_error
+
+.main_page_columns
+  .left_column
+    .title_box#races_box
+      .box_title= t '.left_column_title'
+      .title_box_content
+        - unless @ongoing.empty?
+          .ongoing_races
+            .box_sub_title= t '.competitions_today'
+            = render partial: 'race_list', locals: { competitions: @ongoing }
+          %hr
+        .future_races
+          .box_sub_title= t '.upcoming_competitions'
+          - unless @future.empty?
+            = render partial: 'race_list', locals: { competitions: @future }
+          - else
+            = t '.no_upcoming_competitions'
+        - unless @past.empty?
+          %hr
+          .old_races
+            .box_sub_title= t '.latest_ended_competitions'
+            = render partial: 'race_list', locals: { competitions: @past, :max => 10 }
+  - unless offline?
+    .right_column
+      - unless @announcements.empty?
+        = render partial: 'announcements'
+      = render partial: 'shared/facebook_like_box'
+      = render partial: 'commercial_boxes'
