@@ -1,0 +1,24 @@
+.title_box.commercial_box
+  .box_title= t 'home.show.announcements'
+  .title_box_content.announcements
+    %table
+      - @announcements.each do |a|
+        %tr
+          %td= date_print a.published
+          %td
+            %a.announcement_link{href: 'javascript:void(0);', id: a.id}= a.title
+#announcement_dialog{style: 'display:none;'}
+  #announcement_content
+:javascript
+  $('.announcement_link').click(function() {
+    $.getJSON('/announcements/' + $(this).attr('id'), function(announcement) {
+      $('#announcement_content').html(announcement.content);
+      $('#announcement_dialog').dialog({
+        title: announcement.title,
+        closeText: 'Sulje'
+      });
+    });
+  });
+  $('#announcement_content a').live('click', function() {
+    $('#announcement_dialog').dialog('close');
+  });
