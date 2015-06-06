@@ -42,7 +42,7 @@ Feature: Remove race
     And the "Kilpailut" sub menu item should be selected
     And I should see "Test race 1"
     And I should see "Test race 2"
-    When I follow "Test race 1"
+    When I choose to delete the race "Test race 1"
     And I fill in "Wrong name" for "Vahvista poisto syöttämällä kilpailun nimi"
     And I press "Poista kilpailu"
     Then I should see "Kilpailun nimi on väärä" in an error message

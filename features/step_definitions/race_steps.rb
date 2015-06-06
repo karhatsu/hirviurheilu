@@ -140,6 +140,13 @@ Given /^I have a complete race "([^"]*)" located in "([^"]*)"$/ do |name, locati
   @race.finish!
 end
 
+When(/^I choose to delete the race "(.*?)"$/) do |race_name|
+  race = Race.find_by_name(race_name)
+  within "#race_row_#{race.id}" do
+    click_link 'Poista'
+  end
+end
+
 Then /^the page should not contain the remove race button$/ do
   page.should have_no_button('Poista kilpailu')
 end
