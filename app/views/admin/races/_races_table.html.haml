@@ -9,7 +9,7 @@
     %th &nbsp;
   - races.each_with_index do |race, i|
     %tr{id: "race_row_#{race.id}", class: i % 2 == 0 ? 'odd' : ''}
-      %td= truncate(race.name, length: 30)
+      %td= link_to truncate(race.name, length: 30), race_path(race), target: '_blank'
       %td
         = date_print(race.start_date)
         = "(#{race.days_count})" if race.days_count > 1
