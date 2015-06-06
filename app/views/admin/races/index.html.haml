@@ -10,8 +10,8 @@
     %th Laskutus
     %th &nbsp;
     %th &nbsp;
-  - @races.each do |race|
-    %tr{id: "race_row_#{race.id}"}
+  - @races.each_with_index do |race, i|
+    %tr{id: "race_row_#{race.id}", class: i % 2 == 0 ? 'odd' : ''}
       %td= truncate(race.name, length: 30)
       %td= race_date_interval(race)
       %td= truncate(race.location, length: 30)
