@@ -1,6 +1,10 @@
 - content_for(:title, "Admin - Kilpailut")
 %h2= yield :title
 = flash_success
+- if params[:no_billing].blank?
+  = link_to 'Ilman laskutustietoa', admin_races_path(no_billing: true)
+- else
+  = link_to 'Näytä laskutustieto', admin_races_path
 %h3
   Tulevat kilpailut
   (#{@future_races.length})
