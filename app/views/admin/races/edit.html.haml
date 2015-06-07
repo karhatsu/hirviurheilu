@@ -4,5 +4,5 @@
   = hidden_field_tag :no_billing, params[:no_billing]
   %div
     %span.label_for= f.label :billing_info
-    = f.text_field :billing_info
+    = f.text_field :billing_info, autofocus: true
   = submit_tag 'Tallenna'
