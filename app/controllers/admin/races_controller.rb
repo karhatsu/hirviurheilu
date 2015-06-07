@@ -5,8 +5,8 @@ class Admin::RacesController < Admin::AdminController
     @past_races = Race.where('start_date<?', Date.today)
     @future_races = Race.where('start_date>=?', Date.today)
     if params[:no_billing]
-      @past_races = @past_races.where('billing_info is null')
-      @future_races = @future_races.where('billing_info is null')
+      @past_races = @past_races.where("billing_info is null or billing_info=''")
+      @future_races = @future_races.where("billing_info is null or billing_info=''")
     end
     @past_races = @past_races.includes(:users).order('start_date desc')
     @future_races = @future_races.includes(:users).order('start_date desc')
