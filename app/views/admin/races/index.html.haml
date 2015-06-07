@@ -8,8 +8,8 @@
 %h3
   Tulevat kilpailut
   (#{@future_races.length})
-= render partial: 'races_table', locals: {races: @future_races}
+= render partial: 'races_table', locals: {races: @future_races, table_id: 'future_races_table'}
 %h3
   Päättyneet kilpailut
   (#{@past_races.length})
-= render partial: 'races_table', locals: {races: @past_races}
+= render partial: 'races_table', locals: {races: @past_races, table_id: 'past_races_table'}

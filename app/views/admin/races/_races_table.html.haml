@@ -1,4 +1,4 @@
-%table
+%table{id: table_id}
   %tr
     %th Nimi
     %th Pvm
@@ -18,3 +18,7 @@
       %td= race.billing_info
       %td= link_to 'Muokkaa', edit_admin_race_path(race, no_billing: params[:no_billing])
       %td= link_to 'Poista', admin_race_path(race)
+:javascript
+  $(document).ready(function () {
+    $("##{table_id}").filterTable();
+  });
