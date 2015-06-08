@@ -8,6 +8,7 @@ Feature: Pricing
     When I follow "Hinnat"
     Then I should be on the prices page
     And the "Hinnat" main menu item should be selected
+    And the "Hinnat" sub menu item should be selected
     And the page title should contain "Hinnat"
     And I should see "1,00 euro / kilpailija"
     And I should see "sis. ALV 24%"
