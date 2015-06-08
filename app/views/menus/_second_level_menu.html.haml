@@ -1,12 +1,12 @@
 .second_level_menu
   - if @is_races
-    = render :partial => 'shared/race_sub_menu'
+    = render :partial => 'menus/race_sub_menu'
   - elsif @is_cup
-    = render :partial => 'shared/cup_sub_menu'
+    = render :partial => 'menus/cup_sub_menu'
   - elsif @is_info
-    = render :partial => 'shared/info_sub_menu'
+    = render :partial => 'menus/info_sub_menu'
   - elsif @is_offline_info
-    = render :partial => 'shared/offline_sub_menu'
+    = render :partial => 'menus/offline_sub_menu'
   - elsif @is_limited_official
     = render :partial => 'official/limited/shared/sub_menu'
   - elsif @is_official

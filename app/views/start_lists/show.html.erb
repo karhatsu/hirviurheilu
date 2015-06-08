@@ -4,7 +4,7 @@
   <%= render partial: 'shared/facebook_share' %>
 </div>
 <% content_for :sub_sub_menu do %>
-  <%= render :layout => 'shared/series_sub_menu',
+  <%= render :layout => 'menus/series_sub_menu',
     :locals => { :race => @series.race, :series_id => @series.id } do |series| %>
     <%= series_start_list_path(series) %>
   <% end %>

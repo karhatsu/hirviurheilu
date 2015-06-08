@@ -7,8 +7,8 @@
     %div{itemscope: true, itemtype: menu_race ? 'http://schema.org/SportsEvent' : ''}
       = render :partial => 'shared/race_title'
       .main_shadow_area
-        = render 'shared/second_level_menu'
-        = render 'shared/third_level_menu'
+        = render 'menus/second_level_menu'
+        = render 'menus/third_level_menu'
         .main_content
           #page_spinner= image_tag 'page_spinner.gif'
           = yield
