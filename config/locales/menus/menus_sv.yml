@@ -29,6 +29,9 @@ sv:
     price: Pris
     activation_key: Skaffa aktiveringsnyckel
     version_history: Versionhistoria
+  prices_sub_menu:
+    prices: Priser
+    ask_for_offer: Offer
   official_sub_menu:
     summary: Sammanfattning
     race: Tävling & klasser

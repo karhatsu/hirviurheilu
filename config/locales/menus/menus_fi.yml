@@ -29,6 +29,9 @@ fi:
     price: Hinta
     activation_key: Hanki aktivointitunnus
     version_history: Versiohistoria
+  prices_sub_menu:
+    prices: Hinnat
+    ask_for_offer: Pyydä tarjous
   official_sub_menu:
     summary: Yhteenveto
     race: Kilpailu & sarjat

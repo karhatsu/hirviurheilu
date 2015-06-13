@@ -29,6 +29,8 @@ ElkSports::Application.routes.draw do
     get 'download/installer' => 'downloads#installer', :as => :download_installer
     
     resources :prices
+    resources :offers, only: [:new, :create]
+    get 'offer_sent' => 'offers#sent', as: :offer_sent
     
     resources :cups do
       resources :cup_series

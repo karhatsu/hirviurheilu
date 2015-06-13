@@ -1,0 +1,9 @@
+Nimi: #{@name}
+Sähköposti: #{@email}
+Puhelin: #{@tel}
+Ympäristö: #{Rails.env}
+\
+Tietoa kilpailusta:
+= @competition_info
+\
+Käyttäjä: #{@current_user ? @current_user.relevant_attributes : '-'}

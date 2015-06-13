@@ -20,6 +20,7 @@ fi:
   clubs: Seurat
   competition: Kilpailu
   competitions: Kilpailut
+  competition_info: "Tietoa kilpailuista: kuinka monta kilpailua, kuinka monta osanottajaa arviolta?"
   competition_unfinished_detailed_estimates_later: Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan, kun kilpailu on päättynyt.
   competitor:
     DNS: Kilpailija ei osallistunut kilpailuun
