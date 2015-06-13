@@ -16,3 +16,8 @@ Feature: Ask for an offer
     Then I should see "Hirviurheilu - tarjouspyyntö" in the email subject
     And the email sender should be the offer sender
     And the email body should contain the offer information
+
+  Scenario: No offer section in staging environment
+    Given I use the service in the staging environment
+    And I am on the home page
+    Then I should not see "Pyydä tarjous"
