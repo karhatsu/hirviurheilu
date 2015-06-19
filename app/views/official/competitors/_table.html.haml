@@ -16,7 +16,10 @@
         = "(#{comp.age_group.name})" if comp.age_group
       %td= comp.club.name
       %td.center= value_or_space(comp.number)
-      %td.center= time_print(comp.start_time, true, '&nbsp;')
+      %td.center
+        = time_print(comp.start_time, true, '&nbsp;')
+        - if comp.race.start_time_defined?
+          (#{time_print comp.start_datetime, true})
       - if result_column
         %td.center= yes_or_empty(comp.finished?)
       - if remove_column
