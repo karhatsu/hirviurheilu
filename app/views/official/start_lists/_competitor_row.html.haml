@@ -9,6 +9,8 @@
     - start_time = time_print(f.object.start_time, true, '')
     .value.start_time{style: 'white-space: nowrap;'}
       = f.text_field :start_time, value: start_time, include_seconds: true, blank: true, size: 8
+      - unless c.new_record? || !c.race.start_time_defined?
+        (#{time_print c.start_datetime, true})
     .value.first_name= f.text_field :first_name, size: 9
     .value.last_name= f.text_field :last_name, size: 14
     .value.club= text_field_tag :club_name, club_name, size: 14
