@@ -18,7 +18,7 @@
       %td.center= value_or_space(comp.number)
       %td.center
         = time_print(comp.start_time, true, '&nbsp;')
-        - if comp.race.start_time_defined?
+        - if series.has_start_list? && comp.race.start_time_defined?
           (#{time_print comp.start_datetime, true})
       - if result_column
         %td.center= yes_or_empty(comp.finished?)
