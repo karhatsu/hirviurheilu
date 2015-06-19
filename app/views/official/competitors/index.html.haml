@@ -24,11 +24,17 @@
           %span.form_label= f.label :first_number
           = f.text_field :first_number, :size => 3
         %div
+          %span.form_label Kilpailun alkamisaika
+          %span.form_read_only_value= time_print @series.race.start_time
+        %div
           %span.form_label= f.label :start_time
           = start_days_form_field(f, @series)
-          %span
+          %span#series_start_time_row
             = f.time_select :start_time, :include_seconds => true, :include_blank => true
             (00:00:00-pohjainen)
+        %div
+          %span.form_label Sarjan todellinen lähtöaika
+          %span.form_read_only_value#real_start_time
         %div
           %span.form_label #{t "order_method"}:
           %span
@@ -50,6 +56,9 @@
 %hr
 = link_to t(:back_to_official_race_page), official_race_path(@series.race)
 :javascript
+  var raceHours = #{@series.race.start_time.hour};
+  var raceMins = #{@series.race.start_time.min};
+  var raceSecs = #{@series.race.start_time.sec};
   function warnRerun(rerun) {
     if (rerun) {
       return confirm('Haluatko varmasti luoda uuden lähtölistan kilpailijoille? ' +
@@ -57,3 +66,20 @@
     }
     return true;
   }
+  function calculateRealStartTime() {
+    var seriesSecs = parseInt($('#series_start_time_6i').val(), 10) + raceSecs;
+    var seriesMins = parseInt($('#series_start_time_5i').val(), 10) + raceMins;
+    var extraHours = Math.floor(seriesMins / 60);
+    seriesMins %= 60;
+    var seriesHours = parseInt($('#series_start_time_4i').val(), 10) + raceHours + extraHours;
+    $('#real_start_time').text(padNumber(seriesHours) + ':' + padNumber(seriesMins) + ':' + padNumber(seriesSecs));
+  }
+  function padNumber(number) {
+    return number < 10 ? '0' + number : number;
+  }
+  $('#series_start_time_row select').live('change', function () {
+    calculateRealStartTime();
+  });
+  $(document).ready(function () {
+    calculateRealStartTime();
+  });
