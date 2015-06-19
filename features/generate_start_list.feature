@@ -8,6 +8,7 @@ Feature: Generate start list
     And I have a race with attributes:
       | name | Test race |
       | start_date | 2010-11-15 |
+      | start_time | 10:30 |
       | start_interval_seconds | 45 |
     And the race has series with attributes:
       | name | Test series |
@@ -27,21 +28,21 @@ Feature: Generate start list
     And I should see "Stevensson John" within "tr#competitor_1"
     And I should see "Bears Peter" within "tr#competitor_2"
     When I fill in "15" for "Sarjan ensimmäinen numero"
-    And I select "13" from "series_start_time_4i"
+    And I select "02" from "series_start_time_4i"
     And I select "45" from "series_start_time_5i"
     And I choose "order_method_0"
     And I press "Luo lähtölista sarjalle"
     Then I should see "Test series - Kilpailijat" within "h2"
     And the "Sarjan ensimmäinen numero" field should contain "15"
-    And the "series_start_time_4i" field should contain "13"
+    And the "series_start_time_4i" field should contain "02"
     And the "series_start_time_5i" field should contain "45"
     And I should not see "Kun olet syöttänyt sarjaan kaikki kilpailijat, lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot."
     And I should see "Stevensson John" within "tr#competitor_1/td[1]"
     And I should see "15" within "tr#competitor_1/td[3]"
-    And I should see "13:45:00" within "tr#competitor_1/td[4]"
+    And I should see "02:45:00 (13:15:00)" within "tr#competitor_1/td[4]"
     And I should see "Bears Peter" within "tr#competitor_2/td[1]"
     And I should see "16" within "tr#competitor_2/td[3]"
-    And I should see "13:45:45" within "tr#competitor_2/td[4]"
+    And I should see "02:45:45 (13:15:45)" within "tr#competitor_2/td[4]"
 
   Scenario: Propose next number and start time for the second series
     Given I am an official
