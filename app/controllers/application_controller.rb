@@ -84,7 +84,11 @@ class ApplicationController < ActionController::Base
     return if online? or @current_user_session
     unless @current_user
       @current_user = User.first
-      @current_user = User.create_offline_user unless @current_user
+      unless @current_user
+        Role.ensure_default_roles_exist
+        Sport.ensure_default_sports_exist
+        @current_user = User.create_offline_user
+      end
     end
     @user_session = UserSession.login_offline_user
     raise "Could not create user session" unless @user_session
