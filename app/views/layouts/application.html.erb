@@ -4,7 +4,11 @@
     <meta charset="UTF-8"/>
     <%= render :partial => 'shared/title' %>
     <%= stylesheet_link_tag 'application' %>
-    <%= javascript_include_tag 'application' %>
+    <% if Mode.offline? %>
+      <%= javascript_include_tag 'application-offline' %>
+    <% else %>
+      <%= javascript_include_tag 'application' %>
+    <% end %>
     <% if facebook_env? %>
       <%= javascript_include_tag 'social' %>
     <% end %>
