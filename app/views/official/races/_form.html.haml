@@ -49,7 +49,7 @@
     %span.form_label= f.label :organizer_phone
     %span= f.text_field :organizer_phone
 
-  - unless Rails.env.staging?
+  - unless Rails.env.staging? || Mode.offline?
     %div
       %span.form_label
         = f.label :billing_info
