@@ -4,6 +4,8 @@ rem Dependencies:
 rem - ocra: gem install ocra
 rem - 7za.exe: http://7-zip.org/download.html (the command line version)
 rem - wkhtmltopdf.exe must be in elk_sports\bin (download wkhtmltox.exe, install it, copy wkhtmltopdf.exe from install directory)
+rem - sqlite3.dll must be in Ruby bin directory (http://www.sqlite.org/download.html)
+rem - Innosetup must be installed (http://www.jrsoftware.org/isdl.php)
 
 @ECHO on
 SET RAILS_ENV=winoffline-prod
