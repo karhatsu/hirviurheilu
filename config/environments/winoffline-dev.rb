@@ -28,6 +28,7 @@ ElkSports::Application.configure do
 
   config.eager_load = false
   
-  config.log_level = :warn # hopefully fixes Windows crashing problem
+  config.log_level = :info
+  config.logger = Logger.new(STDOUT)
 
 end
