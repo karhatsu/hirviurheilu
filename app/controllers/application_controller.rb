@@ -271,6 +271,7 @@ class ApplicationController < ActionController::Base
   end
 
   def rescue_with_handler(exception)
+    return super if Mode.offline?
     begin
       ErrorMailer.error_mail("Virhe Hirviurheilussa", exception,
         request, params, current_user).deliver_now
