@@ -292,7 +292,7 @@ class ApplicationController < ActionController::Base
   # The check is also skipped in case the given parameter is not sent in the request.
   def handle_time_parameter(object, time_name)
     return true if params[:no_times]
-    return true if no_time_parameter(object, time_name)
+    return true if object.nil? || no_time_parameter(object, time_name)
     return false unless valid_time?(object, time_name)
     if time_cleared?(object, time_name)
       reset_date_parameters(object, time_name)
