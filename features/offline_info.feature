@@ -35,7 +35,7 @@ Feature: Offline info
     And I fill in "test" for "Salasana"
     And I press "Kirjaudu"
     Then I should be on the offline installation page
-    And I should see "Lataa asennustiedosto:"
+    And I should see "Lataa asennustiedosto"
     But I should not see "Kun olet kirjautunut palveluun, tähän ilmestyy latauslinkki."
 
   Scenario: Provide price information in the prices page
