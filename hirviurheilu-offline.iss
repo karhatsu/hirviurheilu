@@ -1,6 +1,6 @@
 [Setup]
 AppName=Hirviurheilu Offline
-AppVersion=1.7.0
+AppVersion=1.7.1
 DefaultDirName={pf}\Hirviurheilu
 DefaultGroupName=Hirviurheilu
 OutputBaseFilename=HirviurheiluOffline-asennus
