@@ -5,6 +5,7 @@ rem - ocra: gem install ocra
 rem - wkhtmltopdf.exe must be in elk_sports\bin (download wkhtmltox.exe, install it, copy wkhtmltopdf.exe from install directory)
 rem - sqlite3.dll must be in Ruby bin directory (http://www.sqlite.org/download.html)
 rem - Innosetup must be installed (http://www.jrsoftware.org/isdl.php)
+rem - RUBY/lib/ruby/x.x.x/webrick/server.rb: Add ElkSports::Application::ServerStartInfo.call, right after the pid and port printing
 
 @ECHO on
 SET RAILS_ENV=winoffline-prod
