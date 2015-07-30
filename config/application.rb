@@ -81,12 +81,5 @@ module ElkSports
         system('start http://localhost:3000')
       end
     end
-
-    module ServerStopInfo
-      def self.call
-        puts ''
-        puts 'SULJETAAN HIRVIURHEILU OFFLINE, ODOTA HETKI...'
-      end
-    end
   end
 end
