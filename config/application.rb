@@ -73,19 +73,19 @@ module ElkSports
 
     module ServerStartInfo
       def self.call
-        p ""
-        p "HIRVIURHEILU OFFLINE ON NYT VALMIS KAYTETTAVAKSI"
-        p "Jos palomuurisi kysyy erillista lupaa ohjelman kayttoon, salli kaytto."
-        p ""
-        p "AVATAAN OHJELMAN ALOITUSSIVU..."
+        puts ''
+        puts 'HIRVIURHEILU OFFLINE ON NYT VALMIS KAYTETTAVAKSI'
+        puts 'Jos palomuurisi kysyy erillista lupaa ohjelman kayttoon, salli kaytto.'
+        puts ''
+        puts 'AVATAAN OHJELMAN ALOITUSSIVU...'
         system('start http://localhost:3000')
       end
     end
 
     module ServerStopInfo
       def self.call
-        p ""
-        p "SULJETAAN HIRVIURHEILU OFFLINE, ODOTA HETKI..."
+        puts ''
+        puts 'SULJETAAN HIRVIURHEILU OFFLINE, ODOTA HETKI...'
       end
     end
   end
