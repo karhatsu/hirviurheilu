@@ -34,12 +34,16 @@ Feature: Announcements
     Then I should see "Tiedotteet"
     And I should see "Good news"
     
-  Scenario: Show only active announcements
+  Scenario: Show only active front page announcements on front page
     Given there is an active announcement "Active announcement"
+    And there is an active front page announcement "Active front page announcement"
     And there is a non-active announcement "Non-active announcement"
+    And there is a non-active front page announcement "Non-active front page announcement"
     And I am on the home page
-    Then I should see "Active announcement"
+    Then I should see "Active front page announcement"
+    But I should not see "Active announcement"
     But I should not see "Non-active announcement"
+    But I should not see "Non-active front page announcement"
     
   Scenario: Edit announcement
     Given there is an active announcement "Test announcement"
@@ -55,7 +59,7 @@ Feature: Announcements
     
   @javascript
   Scenario: Open announcement, allow html
-    Given there is an active announcement with title "Test announcement" and content "<b>Good news!</b>"
+    Given there is an active front page announcement with title "Test announcement" and content "<b>Good news!</b>"
     And I am on the home page
     When I follow "Test announcement"
     Then I should see "Good news!"

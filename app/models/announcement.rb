@@ -5,4 +5,5 @@ class Announcement < ActiveRecord::Base
   
   default_scope { order 'published desc' }
   scope :active, -> { where active: true }
+  scope :front_page, -> { where front_page: true }
 end

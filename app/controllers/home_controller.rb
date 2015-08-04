@@ -7,7 +7,7 @@ class HomeController < ApplicationController
     @past = past_competitions(all_cups)
     @ongoing = Race.ongoing
     @future = Race.future
-    @announcements = Announcement.active
+    @announcements = Announcement.active.front_page
   end
   
   private

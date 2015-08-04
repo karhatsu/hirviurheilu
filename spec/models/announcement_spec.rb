@@ -26,7 +26,7 @@ describe Announcement do
     end
   end
   
-  describe "active" do
+  describe '.active' do
     before do
       create(:announcement, :active => true, :title => 'Active 1')
       create(:announcement, :active => false, :title => 'Non-active')
@@ -38,6 +38,21 @@ describe Announcement do
       expect(announcements.length).to eq(2)
       expect(announcements[0].title).not_to eq('Non-active')
       expect(announcements[1].title).not_to eq('Non-active')
+    end
+  end
+
+  describe '.front_page' do
+    before do
+      create(:announcement, front_page: true, title: 'Front 1')
+      create(:announcement, front_page: false, title: 'Non-front')
+      create(:announcement, front_page: true, title: 'Front 2')
+    end
+
+    it "should return only active front page announcements" do
+      announcements = Announcement.front_page
+      expect(announcements.length).to eq(2)
+      expect(announcements[0].title).not_to eq('Non-front')
+      expect(announcements[1].title).not_to eq('Non-front')
     end
   end
 end

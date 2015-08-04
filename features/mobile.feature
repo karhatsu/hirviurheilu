@@ -18,7 +18,7 @@ Feature: Mobile usage
     Given there is a race "Finished race" in the past
     And there is a race "Today's race" today
     And there is a race "Upcoming race" in the future
-    And there is an active announcement with title "Active announcement" and content "Mobile UI released"
+    And there is an active front page announcement with title "Active announcement" and content "Mobile UI released"
     And I use the mobile UI
     Then I should see "Finished race" within "div.old_races"
     And I should see "Today's race" within "div.ongoing_races"
