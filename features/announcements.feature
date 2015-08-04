@@ -25,6 +25,7 @@ Feature: Announcements
     When I fill in "Good news" for "Otsikko"
     And I fill in "More about it" for "Sisältö"
     And I check "Aktiivinen"
+    And I check "Näytä etusivulla"
     And I press "Tallenna"
     Then I should be on the admin announcements page
     And I should see "Tiedote lisätty" in a success message

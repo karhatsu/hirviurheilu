@@ -32,6 +32,7 @@ fi:
     estimate4: Arvio 4
     first_name: Etunimi
     first_number: Ensimmäinen kilpailunumero
+    front_page: Näytä etusivulla
     key: Avain
     last_name: Sukunimi
     last_login_at: Viim. kirj.
