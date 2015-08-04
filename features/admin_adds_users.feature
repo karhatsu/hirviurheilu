@@ -7,7 +7,7 @@ Feature: Admin adds users
     Given I am an admin
     And I have logged in
     And I am on the admin index page
-    When I follow "Lisää käyttäjä"
+    When I follow the first "Lisää käyttäjä" link
     Then I should be on the admin new user page
     And the "Admin" main menu item should be selected
     And the "Lisää käyttäjä" sub menu item should be selected
