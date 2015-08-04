@@ -34,7 +34,8 @@ Feature: Main page
     And I should see "Ongoing city" within "div.ongoing_races"
     
   Scenario: Listing cups and their races in the main page
-    Given there is a cup "Finished cup"
+    Given there is a cup "Cup without races"
+    And there is a cup "Finished cup"
     And there is a race "Finished race 1" in the past
     And the race belongs to the cup
     And there is a race "Another finished race" in the past
@@ -59,6 +60,8 @@ Feature: Main page
     And I should see "Another upcoming race" within "div.future_races"
     And I should see "Race not yet started" within "div.future_races"
     And I should see "Today's race" within "div.ongoing_races"
+    When I follow "Kaikki kilpailut"
+    Then I should not see "Cup without races"
 
   Scenario: No races
     Given I go to the home page

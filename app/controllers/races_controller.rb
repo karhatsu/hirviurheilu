@@ -23,7 +23,7 @@ class RacesController < ApplicationController
   def all_competitions_as_sorted
     all_cups = Cup.includes(:races)
     cup_races = Cup.cup_races(all_cups)
-    (pick_non_cup_races(Race.all, cup_races) + all_cups).sort { |a,b| b.end_date <=> a.end_date }
+    (pick_non_cup_races(Race.all, cup_races) + all_cups).select { |r| r.end_date }.sort { |a,b| b.end_date <=> a.end_date }
   end
 
 end
