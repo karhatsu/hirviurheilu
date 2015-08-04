@@ -8,8 +8,10 @@
       %th Pvm
       %th Otsikko
       %th Aktiivinen
+      %th Näytä etusivulla
     - @announcements.each do |a|
       %tr
         %td= a.published
         %td= link_to a.title, edit_admin_announcement_path(a)
-        %td= a.active?
+        %td= yes_or_empty a.active?
+        %td= yes_or_empty a.front_page?
