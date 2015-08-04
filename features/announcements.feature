@@ -44,6 +44,11 @@ Feature: Announcements
     But I should not see "Active announcement"
     But I should not see "Non-active announcement"
     But I should not see "Non-active front page announcement"
+    When I follow "Kaikki tiedotteet"
+    Then I should see "Active announcement"
+    And I should see "Active front page announcement"
+    But I should not see "Non-active announcement"
+    But I should not see "Non-active front page announcement"
     
   Scenario: Edit announcement
     Given there is an active announcement "Test announcement"
@@ -64,4 +69,6 @@ Feature: Announcements
     When I follow "Test announcement"
     Then I should see "Good news!"
     But I should not see "<b>Good news!</b>"
-    
+    When I follow "Kaikki tiedotteet"
+    Then I should see "Good news!"
+    But I should not see "<b>Good news!</b>"

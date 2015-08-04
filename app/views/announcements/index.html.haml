@@ -1,0 +1,13 @@
+- content_for :title, 'Kaikki tiedotteet'
+- content_for :page_title, yield(:title)
+.section
+  - @announcements.each do |announcement|
+    %section.announcement
+      .title
+        = date_print announcement.published
+        \-
+        = announcement.title
+      %div
+        = raw announcement.content
+      %hr
+= link_to t(:back_to_home_page), root_path, class: 'back_link'

@@ -7,6 +7,8 @@
           %td= date_print a.published
           %td
             %a.announcement_link{href: 'javascript:void(0);', id: a.id}= a.title
+    %hr
+    = link_to 'Kaikki tiedotteet', announcements_path
 #announcement_dialog{style: 'display:none;'}
   #announcement_content
 :javascript
