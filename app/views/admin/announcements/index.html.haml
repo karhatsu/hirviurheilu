@@ -1,0 +1,15 @@
+- content_for(:title, 'Admin - Tiedotteet')
+%h2 Tiedotteet
+= flash_success
+.action_box= link_to 'Lisää tiedote', new_admin_announcement_path
+#all_news
+  %table
+    %tr
+      %th Pvm
+      %th Otsikko
+      %th Aktiivinen
+    - @announcements.each do |a|
+      %tr
+        %td= a.published
+        %td= link_to a.title, edit_admin_announcement_path(a)
+        %td= a.active?
