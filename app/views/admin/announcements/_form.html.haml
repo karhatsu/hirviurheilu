@@ -1,0 +1,15 @@
+= render :partial => 'shared/form_errors', :locals => { :item => @announcement }
+= form_for([:admin, @announcement]) do |f|
+  %div
+    .form_label= f.label :title
+    = f.text_field :title
+  %div
+    .form_label= f.label :content
+    = f.text_area :content, rows: 8, cols: 40
+  %div
+    .form_label= f.label :published
+    = f.date_select :published
+  %div
+    .form_label= f.label :active
+    = f.check_box :active
+  = submit_tag 'Tallenna'
