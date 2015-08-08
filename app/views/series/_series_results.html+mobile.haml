@@ -21,12 +21,15 @@
           = national_record_print(comp)
     %tr{id: "details_#{i}", style: 'display: none;', class: i % 2 == 0 ? 'odd' : ''}
       %td{colspan: 5}
-        - unless series.time_points_type == Series::TIME_POINTS_TYPE_NONE
-          = time_points_print(comp, true, params[:all_competitors])
+        - if comp.no_result_reason
+          = t "competitor.#{comp.no_result_reason}"
+        - else
+          - unless series.time_points_type == Series::TIME_POINTS_TYPE_NONE
+            = time_points_print(comp, true, params[:all_competitors])
+            \|
+          = series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp)
           \|
-        = series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp)
-        \|
-        = shot_points_print(comp, true)
+          = shot_points_print(comp, true)
     - prev_rel_points = comp.relative_points
 :javascript
   function competitorDetails(i) {
