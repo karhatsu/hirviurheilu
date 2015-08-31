@@ -4,6 +4,12 @@
   <h2><%= "#{@competitor.series.name} - #{full_name(@competitor)}" %></h2>
   <%= render partial: 'shared/facebook_share' %>
 </div>
+<% content_for :sub_sub_menu do %>
+  <%= render :layout => 'menus/series_sub_menu',
+             :locals => { :race => @competitor.series.race, :series_id => @competitor.series.id } do |series| %>
+    <%= series_competitors_path(series) %>
+  <% end %>
+<% end %>
 <%= render :partial => 'result_card' %>
 <br/>
 <div class="action_box">
