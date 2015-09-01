@@ -1,0 +1,7 @@
+- menu_cup_series = @cup_series || @cup.cup_series.first
+.menu.sub_menu
+  %ul
+    = menu_item t('cup_sub_menu.home_page'), cup_path(@cup), @is_cup_main
+    - unless @cup.cup_series.empty?
+      = menu_item t('cup_sub_menu.results'), cup_cup_series_path(@cup, menu_cup_series), @is_cup_series, nil, true do
+        - cup_series_dropdown_menu(@cup)
