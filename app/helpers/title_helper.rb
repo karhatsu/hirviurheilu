@@ -49,4 +49,10 @@ module TitleHelper
     '(Testi) '
   end
 
+  def competitor_title(competitor)
+    title = "#{competitor.race.name} - #{competitor.series.name} - #{full_name(competitor)}"
+    title << " (#{competitor.age_group.name})" if competitor.age_group
+    title
+  end
+
 end

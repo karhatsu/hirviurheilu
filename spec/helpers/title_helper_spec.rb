@@ -183,5 +183,26 @@ describe TitleHelper do
       allow(Rails).to receive(:env).and_return('production')
       expect(helper.title_prefix).to eq('')
     end
+
+    describe '#competitor_title' do
+      describe 'without age group' do
+        it 'contains race, series and competitor full name' do
+          race = create :race, name: 'Good race'
+          series = create :series, race: race, name: 'Fast series'
+          competitor = create :competitor, series: series, first_name: 'Gary', last_name: 'Robertson'
+          expect(helper.competitor_title(competitor)).to eq('Good race - Fast series - Robertson Gary')
+        end
+      end
+
+      describe 'with age group' do
+        it 'contains race, series and competitor full name appended with age group name' do
+          race = create :race, name: 'Good race'
+          series = create :series, race: race, name: 'Fast series'
+          age_group = create :age_group, series: series, name: 'Slower'
+          competitor = create :competitor, series: series, first_name: 'Gary', last_name: 'Robertson', age_group: age_group
+          expect(helper.competitor_title(competitor)).to eq('Good race - Fast series - Robertson Gary (Slower)')
+        end
+      end
+    end
   end
 end
