@@ -1,5 +1,0 @@
-<h1><%= @competitor.series.race.name %></h1>
-<%= @competitor.series.race.location %>, <%= race_date_interval(@competitor.series.race, false) %>
-<h2><%= @competitor.series.name %> - <%= full_name(@competitor) %>
-  <%= (@competitor.age_group ? " (#{@competitor.age_group.name})" : "") %></h2>
-<%= render :partial => 'result_card' %>
