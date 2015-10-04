@@ -5,10 +5,10 @@
 - content_for :sub_sub_menu do
   = render layout: 'menus/series_sub_menu',
              locals: { race: @competitor.series.race, series_id: @competitor.series.id } do |series|
-    = series_competitors_path(series)
+    = race_series_path(series.race, series)
 = render :partial => 'result_card'
 %br
 .action_box
   = link_to t(:download_results_pdf), series_competitor_path(@competitor.series.id, @competitor, format: 'pdf')
 %hr
-= link_to t(:back_to_series_results, series_name: @competitor.series.name), series_competitors_path(@competitor.series)
+= link_to t(:back_to_series_results, series_name: @competitor.series.name), race_series_path(@competitor.series.race, @competitor.series)

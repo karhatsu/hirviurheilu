@@ -6,7 +6,7 @@
       - series = menu_series
       - series = race.series.first unless series
       - if series
-        = menu_item t('race_sub_menu.results'), series_competitors_path(series), @is_results, nil, true do
+        = menu_item t('race_sub_menu.results'), race_series_path(race, series), @is_results, nil, true do
           - series_dropdown_menu(race, 'results')
         = menu_item t('race_sub_menu.start_lists'), series_start_list_path(series), @is_start_list, nil, true do
           - series_dropdown_menu(race, 'start_list')

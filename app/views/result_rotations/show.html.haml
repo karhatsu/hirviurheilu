@@ -31,7 +31,7 @@
         .result_rotation_sub_selection
           - series = result_rotation_series(@race)
           - series.each do |series|
-            = check_box_tag 'competition_paths[]', series_competitors_path(series), false, class: 'competition_path_checkbox'
+            = check_box_tag 'competition_paths[]', race_series_path(@race, series), false, class: 'competition_path_checkbox'
             = label_tag 'competition_paths[]', series.name, class: 'competition_path_label'
             %br
           - unless series.empty?

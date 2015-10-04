@@ -25,7 +25,7 @@
           <% if !s.has_start_list? %>
             <%= t :no_start_list %>
           <% else %>
-            <%= link_to t(:results), series_competitors_path(s) %>,
+            <%= link_to t(:results), race_series_path(@race, s) %>,
             <%= link_to t(:start_list), series_start_list_path(s) %>
           <% end %>
         </td>

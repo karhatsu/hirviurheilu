@@ -29,5 +29,5 @@
   </div>
 <% end %>
 <hr/>
-<%= link_to t(:results), series_competitors_path(@series) %><br/>
+<%= link_to t(:results), race_series_path(@series.race, @series) %><br/>
 <%= link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race) %>

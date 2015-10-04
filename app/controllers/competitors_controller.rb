@@ -6,12 +6,8 @@ class CompetitorsController < ApplicationController
 
   def index
     respond_to do |format|
-      format.html
-      format.pdf do
-        render :pdf => "#{@series.name}-tulokset", :layout => true, :margin => pdf_margin,
-          :header => pdf_header("#{@series.race.name} - #{@series.name}\n"), :footer => pdf_footer,
-          :orientation => 'Landscape'
-      end
+      format.html { redirect_to race_series_path(@series.race, @series), status: 301 }
+      format.pdf { redirect_to race_series_path(@series.race, @series, format: :pdf), status: 301 }
     end
   end
 

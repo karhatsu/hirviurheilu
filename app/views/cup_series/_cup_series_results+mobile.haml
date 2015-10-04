@@ -21,7 +21,7 @@
           %td{title: race.name}
             %i= truncate(race.name, :length => 20)
           %td.center
-            %i= link_to points_print(c, false), series_competitors_path(c.series)
+            %i= link_to points_print(c, false), race_series_path(c.series.race, c.series)
 :javascript
   function competitorDetails(i) {
     if ($('.details_' + i + ':hidden').length > 0) {

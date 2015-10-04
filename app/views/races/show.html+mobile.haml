@@ -28,7 +28,7 @@
         - @race.series.each do |s|
           %tr{id: "series_#{s.id}"}
             %td.with_primary_link
-              = link_to s.name, series_competitors_path(s), class: 'primary_link'
+              = link_to s.name, race_series_path(s.race, s), class: 'primary_link'
             - if show_start_time
               %td
                 - if s.start_time

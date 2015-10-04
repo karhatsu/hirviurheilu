@@ -1,9 +1,12 @@
 class SeriesController < ApplicationController
+  before_action :assign_series_by_id, only: :show
+  before_action :set_variant, only: :show
+  before_action :set_races
+
   def show
+    @is_results = true
     respond_to do |format|
-      format.html {
-        redirect_to(series_competitors_path(params[:id]))
-      }
+      format.html
       format.json {
         assign_series_by_id
         render :json => @series.to_json(:methods => [:next_start_number, :next_start_time])
@@ -11,6 +14,11 @@ class SeriesController < ApplicationController
       format.js {
         assign_series_by_id
         render 'videos/show_series' if @series
+      }
+      format.pdf {
+        render pdf: "#{@series.name}-tulokset", layout: true, margin: pdf_margin,
+               header: pdf_header("#{@series.race.name} - #{@series.name}\n"), footer: pdf_footer,
+               orientation: 'Landscape'
       }
     end
   end

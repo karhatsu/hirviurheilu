@@ -8,7 +8,7 @@ module ResultRotationHelper
   end
 
   def result_path(competition)
-    return series_competitors_path locale_for_path, competition.id if competition.is_a?(Series)
+    return race_series_path locale_for_path, competition.race, competition.id if competition.is_a?(Series)
     return race_team_competition_path locale_for_path, competition.race.id, competition.id if competition.is_a?(TeamCompetition)
     return race_relay_path locale_for_path, competition.race.id, competition.id if competition.is_a?(Relay)
     return race_path locale_for_path, competition.id if competition.is_a?(Race)

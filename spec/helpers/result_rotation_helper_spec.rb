@@ -56,8 +56,9 @@ describe ResultRotationHelper do
   describe '#result_path' do
     context 'for series' do
       it 'is series competitors path' do
-        competition = build :series, id: 123
-        expect(helper.result_path(competition)).to eq(series_competitors_path(nil, 123))
+        race = build :race, id: 456
+        competition = build :series, id: 123, race: race
+        expect(helper.result_path(competition)).to eq(race_series_path(nil, 456, 123))
       end
     end
 

@@ -95,7 +95,7 @@ module NavigationHelpers
       new_race_medium_path(locale, Race.find_by_name($1))
 
     when /the results page of the series/
-      series_competitors_path(locale, @series)
+      race_series_path(locale, @series.race, @series)
 
     when /the results page of the competitor/
       series_competitor_path(locale, @competitor.series, @competitor)

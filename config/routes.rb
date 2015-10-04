@@ -37,6 +37,7 @@ ElkSports::Application.routes.draw do
     end
   
     resources :races do
+      resources :series
       resources :start_lists
       resources :team_competitions
       resources :relays

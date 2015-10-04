@@ -16,6 +16,6 @@
     - unless s == @series
       = link_to s.name, series_start_list_path(s), class: 'primary_link'
 %hr
-= link_to t(:results), series_competitors_path(@series), class: 'secondary_link'
+= link_to t(:results), race_series_path(@series.race, @series), class: 'secondary_link'
 %br
 = link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race), class: 'back_link'

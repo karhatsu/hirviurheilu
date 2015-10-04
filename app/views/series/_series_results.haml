@@ -8,16 +8,16 @@
     - unless series.time_points_type == Series::TIME_POINTS_TYPE_NONE
       %th.center
         = link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_TIME),
-          time_title(series.race), series_competitors_path(series, :sort => Competitor::SORT_BY_TIME))
+          time_title(series.race), race_series_path(series.race, series, :sort => Competitor::SORT_BY_TIME))
     %th.center
       = link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_ESTIMATES),
-        t(:estimating), series_competitors_path(series, :sort => Competitor::SORT_BY_ESTIMATES))
+        t(:estimating), race_series_path(series.race, series, :sort => Competitor::SORT_BY_ESTIMATES))
     %th.center
       = link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_SHOTS),
-        t(:shooting), series_competitors_path(series, :sort => Competitor::SORT_BY_SHOTS))
+        t(:shooting), race_series_path(series.race, series, :sort => Competitor::SORT_BY_SHOTS))
     %th
       = link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_POINTS),
-        t(:points), series_competitors_path(series))
+        t(:points), race_series_path(series.race, series))
   - time_css = params[:sort].to_i == Competitor::SORT_BY_TIME ? 'total_points' : ''
   - est_css = params[:sort].to_i == Competitor::SORT_BY_ESTIMATES ? 'total_points' : ''
   - shots_css = params[:sort].to_i == Competitor::SORT_BY_SHOTS ? 'total_points' : ''

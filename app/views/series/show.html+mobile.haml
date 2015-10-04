@@ -7,10 +7,10 @@
   - if @series.has_unofficial_competitors?
     - if params[:all_competitors]
       .action_box= link_to t('competitors.index.show_official_results'),
-        series_competitors_path(@series)
+        race_series_path(@series.race, @series)
     - else
       .action_box= link_to t('competitors.index.show_unofficial_results'),
-        series_competitors_path(@series, :all_competitors => true)
+        race_series_path(@series.race, @series, :all_competitors => true)
   .section
     - cache [@series, params[:sort], params[:all_competitors], I18n.locale] do
       = render :partial => 'series/series_results', :locals => { :series => @series }
@@ -18,7 +18,7 @@
   %hr
   - @series.race.series.each do |s|
     - unless s == @series
-      = link_to s.name, series_competitors_path(s), class: 'primary_link'
+      = link_to s.name, race_series_path(s.race, s), class: 'primary_link'
 %hr
 = link_to t(:start_list), series_start_list_path(@series), class: 'secondary_link'
 %br
