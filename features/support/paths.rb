@@ -101,7 +101,7 @@ module NavigationHelpers
       series_competitor_path(locale, @competitor.series, @competitor)
 
     when /the start list page of the series/
-      series_start_list_path(locale, @series)
+      race_series_start_list_path(locale, @series.race, @series)
 
     when /the relay results page of "(.*)"/
       race_relay_path(locale, Relay.find_by_name($1).race, Relay.find_by_name($1))

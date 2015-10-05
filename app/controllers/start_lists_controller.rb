@@ -16,6 +16,7 @@ class StartListsController < ApplicationController
   end
 
   def show
+    return redirect_to(race_series_start_list_path(@series.race, @series), status: 301) if params[:race_id].blank?
     @is_start_list = true
     respond_to do |format|
       format.html

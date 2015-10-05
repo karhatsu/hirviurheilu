@@ -63,7 +63,7 @@ module MenuHelper
       if type == 'results'
         link = race_series_path(locale_for_path, race, series)
       elsif type == 'start_list'
-        link = series_start_list_path(locale_for_path, series)
+        link = race_series_start_list_path(locale_for_path, race, series)
       elsif type == 'competitors'
         link = official_series_competitors_path(locale_for_path, series)
       elsif type == 'times'

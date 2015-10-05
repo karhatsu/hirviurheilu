@@ -34,5 +34,5 @@
   </div>
 <% end %>
 <hr/>
-<%= link_to t(:start_list), series_start_list_path(@series) %><br/>
+<%= link_to t(:start_list), race_series_start_list_path(@series.race, @series) %><br/>
 <%= link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race) %>

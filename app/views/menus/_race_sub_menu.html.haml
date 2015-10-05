@@ -8,7 +8,7 @@
       - if series
         = menu_item t('race_sub_menu.results'), race_series_path(race, series), @is_results, nil, true do
           - series_dropdown_menu(race, 'results')
-        = menu_item t('race_sub_menu.start_lists'), series_start_list_path(series), @is_start_list, nil, true do
+        = menu_item t('race_sub_menu.start_lists'), race_series_start_list_path(series.race, series), @is_start_list, nil, true do
           - series_dropdown_menu(race, 'start_list')
         - if race.has_team_competition?
           = menu_item t('race_sub_menu.team_competitions'), race_team_competition_path(race,

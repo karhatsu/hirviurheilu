@@ -32,7 +32,7 @@
             - if show_start_time
               %td
                 - if s.start_time
-                  = link_to time_print(s.start_datetime), series_start_list_path(s), class: 'secondary_link'
+                  = link_to time_print(s.start_datetime), race_series_start_list_path(s.race, s), class: 'secondary_link'
                 - else
                   -
       - if @race.finished?
