@@ -24,6 +24,6 @@
           %td
             #{full_name competitor},
             = link_to "#{competitor.series.name}#{competitor.age_group ? " (#{competitor.age_group.name})" : ''}",
-                        race_series_path(competitors.series.race, competitor.series)
+                        race_series_path(competitor.series.race, competitor.series)
           %td.center
             %i= competitor.points
