@@ -114,6 +114,13 @@ describe ApplicationHelper do
         allow(cup).to receive(:sport).and_return(sport)
         expect(helper.competition_icon(cup)).to eq("cup-image")
       end
+
+      context 'that has no races' do
+        it 'returns empty string' do
+          cup = create :cup
+          expect(helper.competition_icon(cup)).to eq('')
+        end
+      end
     end
   end
   

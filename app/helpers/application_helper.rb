@@ -37,7 +37,9 @@ module ApplicationHelper
   end
 
   def competition_icon(competition)
-    alt = competition.sport.initials
+    sport = competition.sport
+    return '' unless sport
+    alt = sport.initials
     image_prefix = "#{competition.sport.key.downcase}_icon"
     return image_tag("#{image_prefix}_cup.gif", alt: alt, class: 'competition_icon') if competition.is_a?(Cup)
     image_tag "#{image_prefix}.gif", alt: alt, class: 'competition_icon'
