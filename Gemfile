@@ -17,12 +17,12 @@ gem 'haml-rails'
 gem 'rack-mini-profiler'
 gem 'dalli'
 
-group :development, :staging, :production do
+group :development, :production do
   gem 'pg'
   gem 'unicorn'
 end
 
-group :staging, :production do
+group :production do
   gem 'rails_12factor'
 end
 

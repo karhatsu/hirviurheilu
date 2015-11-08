@@ -9,7 +9,7 @@ elsif OSX_PLATFORM
   exe_path = Rails.root.join('/Applications', 'wkhtmltopdf.app', 'Contents', 'MacOS', 'wkhtmltopdf').to_s
 elsif Rails.env.test?
   exe_path = nil
-elsif ['staging', 'production'].include?(Rails.env)
+elsif Rails.env.production?
   exe_path = Rails.root.join('bin', 'wkhtmltopdf-amd64').to_s
 # winoffline-dev is used in Linux when testing sqlite3 migrations
 elsif ['development', 'winoffline-dev'].include?(Rails.env)
