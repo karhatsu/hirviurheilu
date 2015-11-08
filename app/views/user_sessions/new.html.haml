@@ -2,7 +2,7 @@
 - content_for(:page_title, yield(:title))
 = flash_error
 = flash_success
-- if Rails.env.staging?
+- if ProductionEnvironment.staging?
   .warning
     Käytät parhaillaan Hirviurheilun testiympäristöä.
     Varsinaiseen Hirviurheilu-palveluun luomasi tunnukset eivät käy suoraan tähän palveluun.

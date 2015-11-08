@@ -344,9 +344,9 @@ class ApplicationController < ActionController::Base
   end
 
   def clear_old_data_from_staging
-    return unless Rails.env.staging? and DatabaseHelper.postgres?
-    sql = 'delete from user_sessions where updated_at < now()::date - 30'
-    ActiveRecord::Base.connection.execute(sql)
+    if ProductionEnvironment.staging? && DatabaseHelper.postgres?
+      ActiveRecord::Base.connection.execute('delete from user_sessions where updated_at < now()::date - 30')
+    end
   end
 
   def set_variant

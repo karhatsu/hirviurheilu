@@ -3,7 +3,7 @@
 
 <div class="info"><%= t '.info' %></div>
 
-<% if Rails.env.production? %>
+<% if PRODUCTION_ENV %>
   <div class="important"><%= raw t('.practise_info', :test_url => TEST_URL) %></div>
 <% end %>
 

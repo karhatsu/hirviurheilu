@@ -13,6 +13,9 @@ ADMIN_EMAIL = ["com", ".", "karhatsu", "@", "henri"].reverse.join('')
 TEST_URL = 'http://testi.hirviurheilu.com'
 PRODUCTION_URL = 'http://www.hirviurheilu.com'
 
+TEST_ENV = ENV['TEST_ENV'] == 'true'
+PRODUCTION_ENV = !TEST_ENV
+
 NATIONAL_RECORD_URL = "http://www.metsastajaliitto.fi/node/35"
 YOUTUBE_URL = 'http://www.youtube.com/watch?v=oRNIy1G4qWM'
 

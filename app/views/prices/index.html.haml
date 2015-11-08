@@ -1,6 +1,6 @@
 - content_for :title, t('prices.title')
 - content_for :page_title, yield(:title)
-- if Rails.env.staging?
+- if ProductionEnvironment.staging?
   .important Käytät tällä hetkellä testiympäristöä. Sen käyttö on ilmaista.
   .action_box
     %a{href: "#{PRODUCTION_URL}/prices"} Tutustu hintoihin varsinaisessa palvelussa

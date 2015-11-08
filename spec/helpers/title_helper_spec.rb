@@ -165,7 +165,8 @@ describe TitleHelper do
     end
 
     it "should be '(Testi) ' when staging environment" do
-      allow(Rails).to receive(:env).and_return('staging')
+      allow(Rails).to receive(:env).and_return('production')
+      allow(ProductionEnvironment).to receive(:production?).and_return(false)
       expect(helper.title_prefix).to eq('(Testi) ')
     end
 
@@ -181,6 +182,7 @@ describe TitleHelper do
 
     it "should be '' when production environment" do
       allow(Rails).to receive(:env).and_return('production')
+      allow(ProductionEnvironment).to receive(:production?).and_return(true)
       expect(helper.title_prefix).to eq('')
     end
 

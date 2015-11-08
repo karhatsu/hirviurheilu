@@ -32,7 +32,7 @@ class ActivationKeysController < ApplicationController
 
   private
   def check_env
-    render :staging if Rails.env.staging?
+    render :staging if ProductionEnvironment.staging?
   end
 
   def set_offline_info

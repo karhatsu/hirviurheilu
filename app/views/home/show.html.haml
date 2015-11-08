@@ -29,7 +29,7 @@
     .right_column
       - unless @announcements.empty?
         = render partial: 'announcements'
-      - unless Rails.env.staging?
+      - if ProductionEnvironment.production?
         = render 'ask_for_offer'
       = render partial: 'shared/facebook_like_box'
       = render partial: 'commercial_boxes'
