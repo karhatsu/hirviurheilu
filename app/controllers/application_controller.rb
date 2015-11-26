@@ -272,6 +272,7 @@ class ApplicationController < ActionController::Base
 
   def rescue_with_handler(exception)
     return super if Mode.offline?
+    return if exception.is_a? ActionController::InvalidCrossOriginRequest
     begin
       ErrorMailer.error_mail("Virhe Hirviurheilussa", exception,
         request, params, current_user).deliver_now
