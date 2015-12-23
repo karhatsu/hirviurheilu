@@ -1,0 +1,23 @@
+- content_for(:title, t('.title'))
+- content_for(:page_title, yield(:title))
+= flash_error
+= flash_success
+- unless @races.empty?
+  #existing_races.official-page-column-left
+    %h2= t('.competitions')
+    - @races.each do |r|
+      #{link_to r.name, official_race_path(r)} (#{race_date_interval(r)}, #{r.location})
+      %br
+- else
+  = highlight_info(t('.no_races_yet'))
+.official-page-column-right
+  - unless @cups.empty?
+    %h2= t '.cup_competitions'
+    - @cups.each do |cup|
+      = link_to cup.name, official_cup_path(cup)
+      %br
+  %h2= t '.new_competition'
+  .action_box
+    = link_to t('.add_new_race'), new_official_race_path
+  .action_box
+    = link_to t('.add_new_cup'), new_official_cup_path
