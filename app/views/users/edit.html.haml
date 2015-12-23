@@ -1,0 +1,7 @@
+- content_for(:title, t('.title'))
+- content_for(:page_title, yield(:title))
+= form_for @user, :url => account_path do |f|
+  = render :partial => 'form', :object => f
+  = f.submit t(:update)
+%hr
+= link_to t('.back_to_account_page'), account_path
