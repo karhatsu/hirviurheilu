@@ -1,0 +1,8 @@
+= content_for(:title, "#{@race.name} - #{t 'official_sub_menu.summary' }")
+%h2= @race.name
+.info
+  Mobiilinäkymässä voi toistaiseksi syöttää vain kilpailijoiden tuloksia.
+  Muut toimitsijan tehtävät hoidetaan normaalinäkymässä.
+= link_to 'Tulosten tallennus', official_race_quick_saves_path(@race), class: 'primary_link'
+%hr
+= link_to t(:back_to_official_home_page), official_root_path, class: 'secondary_link'
