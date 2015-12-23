@@ -1,0 +1,17 @@
+= render :partial => "shared/form_errors", :locals => { :item => @user }
+.user_form
+  %div
+    .form_label= form.label :first_name
+    %span= form.text_field :first_name
+  %div
+    .form_label= form.label :last_name
+    %span= form.text_field :last_name
+  %div
+    .form_label= form.label :email
+    %span= form.email_field :email
+  %div
+    .form_label= form.label :password, form.object.new_record? ? nil : t('users.edit.change_password')
+    %span= form.password_field :password
+  %div
+    .form_label= form.label :password_confirmation
+    %span= form.password_field :password_confirmation
