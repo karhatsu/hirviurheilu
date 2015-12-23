@@ -1,0 +1,14 @@
+- content_for(:title, t('.title'))
+- content_for(:page_title, yield(:title))
+.info= t '.info'
+- if PRODUCTION_ENV
+  .important= raw t('.practise_info', :test_url => TEST_URL)
+#registration_form
+  = form_for @user, :url => account_path do |f|
+    = render :partial => "form", :object => f
+    = f.submit t('.submit')
+.title_box#login_link_box
+  .box_title= t '.already_account'
+  .title_box_content
+    .links
+      = link_to t(:login), login_path, :class => 'commercial_box_link'
