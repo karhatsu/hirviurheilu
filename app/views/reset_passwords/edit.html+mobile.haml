@@ -1,0 +1,13 @@
+- content_for(:title, t('.title'))
+- content_for(:page_title, yield(:title))
+= flash_error
+= flash_success
+- if @hash_ok
+  = form_tag(reset_password_path, :method => :put) do
+    = hidden_field_tag :reset_hash, @reset_hash
+    .form_label= label_tag :password, t('.new_password')
+    %div= password_field_tag :password
+    .form_label= label_tag :password_confirmation, t('attributes.password_confirmation')
+    %div= password_field_tag :password_confirmation
+    .submit_button
+      = submit_tag t('.submit_button'), class: 'primary_link'
