@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :set_variant
   before_action :no_account_changes_in_offline
   before_action :require_no_user, :only => [:new, :create]
   before_action :require_user, :only => [:show, :edit, :update]
