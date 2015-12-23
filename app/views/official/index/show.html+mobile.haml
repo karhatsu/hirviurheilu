@@ -1,0 +1,13 @@
+- content_for(:title, t('.title'))
+- content_for(:page_title, yield(:title))
+= flash_error
+= flash_success
+- if @races.empty?
+  .info= t('.no_races_yet')
+- else
+  #existing_races.official-page-column-left
+    - @races.each do |r|
+      .race_link
+        %div= link_to r.name, official_race_path(r), class: 'primary_link'
+        %div
+          #{race_date_interval(r)}, #{r.location}
