@@ -1,0 +1,24 @@
+- content_for(:title, t('.title'))
+- content_for(:page_title, yield(:title))
+= flash_error
+= flash_success
+- if ProductionEnvironment.staging?
+  .warning
+    Käytät parhaillaan Hirviurheilun testiympäristöä.
+    Varsinaiseen Hirviurheilu-palveluun luomasi tunnukset eivät käy suoraan tähän palveluun.
+    Voit luoda testipalveluun omat tunnukset klikkaamalla alla olevaa rekisteröintilinkkiä.
+= form_for @user_session, :url => user_session_path, :html => { :class => 'login_form' } do |f|
+  = render :partial => 'shared/form_errors', :locals => { :item => @user_session }
+  .form_label= f.label :email
+  %div= f.email_field :email, autofocus: true
+  .form_label= f.label :password
+  %div= f.password_field :password
+  %div
+    %span= f.check_box :remember_me
+    %span.form_label= f.label :remember_me
+  .submit_button
+    = f.submit t('.submit_button'), class: 'primary_link'
+%hr
+= link_to t('.forgotten_password'), new_reset_password_path, class: 'secondary_link'
+%br
+= link_to t('.register'), register_path, class: 'secondary_link'
