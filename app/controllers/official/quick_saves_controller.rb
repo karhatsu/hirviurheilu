@@ -1,4 +1,5 @@
 class Official::QuickSavesController < Official::OfficialController
+  before_action :set_variant
   before_action :assign_race_by_race_id, :check_assigned_race, :set_quick_saves
 
   def index
