@@ -13,6 +13,7 @@
   .read_only_form_row
     .form_label= t 'attributes.last_name'
     %span=h @user.last_name
+%hr
 .action_box= link_to t('.modify_information'), edit_account_path
 - unless @user.activation_key.blank?
   .action_box= link_to t('.see_activation_key'), new_activation_key_path

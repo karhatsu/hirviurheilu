@@ -6,7 +6,8 @@
 #registration_form
   = form_for @user, :url => account_path do |f|
     = render :partial => "form", :object => f
-    = f.submit t('.submit'), class: 'primary_link'
+    .submit_button
+      = f.submit t('.submit'), class: 'primary_link'
 %hr.mobile
 .title_box#login_link_box
   .box_title= t '.already_account'
