@@ -1,0 +1,5 @@
+#login_links
+  - if current_user
+    = link_to t(:logout, name: current_user.first_name), logout_path, method: :delete
+  - else
+    = link_to t('main_menu.official'), official_root_path
