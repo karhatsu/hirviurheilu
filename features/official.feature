@@ -32,7 +32,6 @@ Feature: Official
 
   Scenario: Previously registered official goes to the registration page
     Given I am on the registration page
-    Then I should see "Jos sinulla on jo tunnukset"
     When I follow "Kirjaudu sisään" within ".main_content"
     Then I should be on the login page
 
