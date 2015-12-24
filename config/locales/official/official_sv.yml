@@ -97,12 +97,15 @@ sv:
     quick_saves:
       index:
         title: Spara resultat
+        title_shots: Spara skottsresultat
+        title_estimates: Spara bedömningar
+        title_time: Spara avkomstider
         no_competitors: Inga tävlar i tävlingen
         dns_dnf_dq: Startade inte / avbröt / disqualified
-        instructions_times: Spara resultat som nr,hhmmss, t.ex. 45,020728 (tävlare 45, avkomstid 02:07:28).
+        instructions_time: Spara resultat som nr,hhmmss, t.ex. 45,020728 (tävlare 45, avkomstid 02:07:28).
         instructions_estimates: Spara resultat som nr,bedömning1,bedömning2, t.ex. 45,95,118 (tävlare 45, bedömningar 95 och 118 meter)
         instructions_estimates_4:  eller om tävlarna har fyra bedömningar, nr,bedömning1,bedömning2,bedömning3,bedömning4, t.ex. 45,95,118,185,134
-        instructions_shooting: Spara resultat som nr,skytteresultat, t.ex. 45,87 (tävlare 45, skytte totalt 87). Eller med skott så att +-tecken betyder 10, t.ex. 45,++99877420 (sätt 0 för alla missar).
+        instructions_shots: Spara resultat som nr,skytteresultat, t.ex. 45,87 (tävlare 45, skytte totalt 87). Eller med skott så att +-tecken betyder 10, t.ex. 45,++99877420 (sätt 0 för alla missar).
         instructions_dns_dnf_dq: Om tävlare startade inte, spara resultaten som nr,dns t.ex. 45,dns (tävlare 45, DNS = did not start). Om tävlare avbröt, spara resultaten som nr,dnf t.ex. 45,dnf (tävlare 45, DNF = did not finish). Om tävlare disqualified, spara resultaten som nr,dq t.ex. 45,dq (tävlare 45, DQ = diskad).
         latest_savings: Senaste sparat
         result_message: Tävlaren %{competitor_number} %{competitor_name}. (%{series_name}) resultat sparat (%{result}).

@@ -6,6 +6,15 @@ class Official::QuickSavesController < Official::OfficialController
   end
 
   def estimates
+  end
+
+  def shots
+  end
+
+  def times
+  end
+
+  def save_estimates
     @name = 'estimates'
     do_quick_save(EstimatesQuickSave.new(@race.id, params[:string])) do
       if @competitor.series.estimates == 4
@@ -17,21 +26,21 @@ class Official::QuickSavesController < Official::OfficialController
     end
   end
 
-  def shots
+  def save_shots
     @name = 'shots'
     do_quick_save(ShotsQuickSave.new(@race.id, params[:string])) do
       @result = t(:shooting) + ": #{@competitor.shots_sum}"
     end
   end
 
-  def time
+  def save_time
     @name = 'time'
     do_quick_save(TimeQuickSave.new(@race.id, params[:string])) do
       @result = t('attributes.arrival_time') + ": #{@competitor.arrival_time.strftime('%H:%M:%S')}"
     end
   end
 
-  def no_result
+  def save_no_result
     @name = 'no_result'
     do_quick_save(UnfinishedCompetitorQuickSave.new(@race.id, params[:string])) do
       @result = t('competitor.DNS') if @competitor.no_result_reason == Competitor::DNS

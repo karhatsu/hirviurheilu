@@ -8,20 +8,20 @@
 - else
   %h3= t :times
   = render :partial => 'result_place', :locals => { :name => 'time',
-    :instructions => t('.instructions_times'), :path => official_race_time_quick_save_path(@race) }
+    :instructions => t('.instructions_time'), :path => official_race_quick_save_time_path(@race) }
   %h3= t :estimating
   - instructions = t('.instructions_estimates')
   - if @race.estimates_at_most == 4
     - instructions << t('.instructions_estimates_4')
   - instructions << '.'
   = render :partial => 'result_place', :locals => { :name => 'estimates',
-    :instructions => instructions, :path => official_race_estimates_quick_save_path(@race) }
+    :instructions => instructions, :path => official_race_quick_save_estimates_path(@race) }
   %h3= t :shooting
   = render :partial => 'result_place', :locals => { :name => 'shots',
-    :instructions => t('.instructions_shooting'), :path => official_race_shots_quick_save_path(@race) }
+    :instructions => t('.instructions_shots'), :path => official_race_quick_save_shots_path(@race) }
   %h3= t '.dns_dnf_dq'
   = render :partial => 'result_place', :locals => { :name => 'no_result',
-    :instructions => t('.instructions_dns_dnf_dq'), :path => official_race_no_result_quick_save_path(@race) }
+    :instructions => t('.instructions_dns_dnf_dq'), :path => official_race_quick_save_no_result_path(@race) }
   #latest{style: 'display:none;'}
     %h3= t '.latest_savings'
     %ul#latest_list
