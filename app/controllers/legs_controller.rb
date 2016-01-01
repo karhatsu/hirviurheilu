@@ -4,7 +4,7 @@ class LegsController < ApplicationController
   def show
     @is_relays = true
     @leg = params[:id]
-    redirect_to race_relay_path(@relay.race, @relay) if invalid_leg?
+    return redirect_to race_relay_path(@relay.race, @relay) if invalid_leg?
     render :show
   end
 
