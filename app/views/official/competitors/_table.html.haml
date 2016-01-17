@@ -1,28 +1,29 @@
-%table{cellspacing: 0, border: 1, style: 'margin-bottom: 5px;'}
-  %tr
-    %th= t 'activerecord.models.competitor.one'
-    %th#table_club_title= club_title(series.race)
-    %th= t :number_short
-    %th= t 'attributes.start_time'
-    - if result_column
-      %th= t 'official.competitors.index.result_saved'
-    - if remove_column
-      %th &nbsp;
-  - series.competitors.includes(:shots, :club, :age_group, :series).each do |comp|
-    %tr{id: "competitor_#{comp.id}"}
-      %td
-        = link_to full_name(comp),
-          edit_official_series_competitor_path(series.id, comp)
-        = "(#{comp.age_group.name})" if comp.age_group
-      %td= comp.club.name
-      %td.center= value_or_space(comp.number)
-      %td.center
-        = time_print(comp.start_time, true, '&nbsp;')
-        - if series.has_start_list? && comp.race.start_time_defined?
-          (#{time_print comp.start_datetime, true})
+- cache [@series, I18n.locale] do
+  %table{cellspacing: 0, border: 1, style: 'margin-bottom: 5px;'}
+    %tr
+      %th= t 'activerecord.models.competitor.one'
+      %th#table_club_title= club_title(series.race)
+      %th= t :number_short
+      %th= t 'attributes.start_time'
       - if result_column
-        %td.center= yes_or_empty(comp.finished?)
+        %th= t 'official.competitors.index.result_saved'
       - if remove_column
-        %td= link_to t(:remove), official_series_competitor_path(series.id, comp),
-            :data => { :confirm => t('official.competitors.index.remove_confirmation') },
-            :method => :delete, :remote => true
+        %th &nbsp;
+    - series.competitors.includes(:shots, :club, :age_group, :series).each do |comp|
+      %tr{id: "competitor_#{comp.id}"}
+        %td
+          = link_to full_name(comp),
+            edit_official_series_competitor_path(series.id, comp)
+          = "(#{comp.age_group.name})" if comp.age_group
+        %td= comp.club.name
+        %td.center= value_or_space(comp.number)
+        %td.center
+          = time_print(comp.start_time, true, '&nbsp;')
+          - if series.has_start_list? && comp.race.start_time_defined?
+            (#{time_print comp.start_datetime, true})
+        - if result_column
+          %td.center= yes_or_empty(comp.finished?)
+        - if remove_column
+          %td= link_to t(:remove), official_series_competitor_path(series.id, comp),
+              :data => { :confirm => t('official.competitors.index.remove_confirmation') },
+              :method => :delete, :remote => true
