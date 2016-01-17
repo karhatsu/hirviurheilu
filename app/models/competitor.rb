@@ -66,12 +66,13 @@ class Competitor < ActiveRecord::Base
     values = shots.collect do |s|
       s.value
     end
+    values = values.sort do |a,b|
+      b.to_i <=> a.to_i
+    end
     (10 - values.length).times do
       values << nil
     end
-    values.sort do |a,b|
-      b.to_i <=> a.to_i
-    end
+    values
   end
 
   def shots_sum
