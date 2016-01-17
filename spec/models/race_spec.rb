@@ -219,6 +219,32 @@ describe Race do
     end
   end
 
+  describe '#cache_key_for_all_series' do
+    context 'when no series' do
+      it 'is races/<id>-<timestamp>-allseries-' do
+        race = create :race
+        timestamp = race.updated_at.utc.to_s(:nsec)
+        expect(race.cache_key_for_all_series).to eq("races/#{race.id}-#{timestamp}-allseries-")
+      end
+    end
+
+    context 'when series' do
+      before do
+        @race = create :race
+        @series1 = create :series, race: @race
+        create :series, race: @race
+        @series1.name = 'new name'
+        @series1.save!
+      end
+
+      it 'contains timestamp of the latest updated series' do
+        race_timestamp = @race.updated_at.utc.to_s(:nsec)
+        series_timestamp = @series1.updated_at.utc.to_s(:nsec)
+        expect(@race.cache_key_for_all_series).to eq("races/#{@race.id}-#{race_timestamp}-allseries-#{series_timestamp}")
+      end
+    end
+  end
+
   describe "past/ongoing/future" do
     before do
       @past1 = create(:race, :start_date => Date.today - 10,

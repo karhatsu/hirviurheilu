@@ -62,7 +62,11 @@ class Race < ActiveRecord::Base
   end
 
   def self.cache_key_for_all
-    "races/all-#{Race.maximum(:updated_at).try(:utc).try(:to_s, :nsec)}"
+    "races/all-#{cache_timestamp(Race.maximum(:updated_at))}"
+  end
+
+  def cache_key_for_all_series
+    "races/#{id}-#{cache_timestamp(updated_at)}-allseries-#{cache_timestamp(series.maximum(:updated_at))}"
   end
   
   def add_default_series
@@ -267,5 +271,13 @@ class Race < ActiveRecord::Base
       competitor.correct_estimate3 = nil
       competitor.correct_estimate4 = nil
     end
+  end
+
+  def cache_timestamp(updated_at)
+    Race.cache_timestamp updated_at
+  end
+
+  def self.cache_timestamp(updated_at)
+    updated_at.try(:utc).try(:to_s, :nsec)
   end
 end
