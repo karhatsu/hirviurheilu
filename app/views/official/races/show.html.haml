@@ -29,16 +29,16 @@
             %td.center= link_to t(:add_new), new_official_series_competitor_path(s)
             %td.center
               = yes_or_empty(s.has_start_list?) do
-                = link_to t('.create_start_list'), official_series_competitors_path(s)
+                - link_to t('.create_start_list'), official_series_competitors_path(s)
             - if s.has_start_list?
               - finished_count = s.finished_competitors_count
               %td
                 = yes_or_empty(finished_count == competitor_count, "#{finished_count}/#{competitor_count}") do
-                  #{finished_count}/#{competitor_count}
+                  - "#{finished_count}/#{competitor_count}"
               %td= link_to t('.input_results'), official_race_quick_saves_path(@race)
               %td.center
                 = yes_or_empty(s.each_competitor_has_correct_estimates?) do
-                  = link_to t('.set_correct_estimates'), official_race_correct_estimates_path(s.race)
+                  - link_to t('.set_correct_estimates'), official_race_correct_estimates_path(s.race)
               %td &nbsp;
             - else
               %td{colspan: 4} &nbsp;
