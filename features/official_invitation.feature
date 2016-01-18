@@ -19,7 +19,7 @@ Feature: Official invitation
     And the official main menu item should be selected
     And the "Toimitsijat" sub menu item should be selected
     And current officials table row 1 should contain "Tim Thomas" with full rights
-    When I fill in "another@official.com" for "Sähköposti"
+    When I fill in "Another@Official.COM" for "Sähköposti"
     And I press "Lähetä kutsu"
     Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi" in a success message
     And current officials table row 1 should contain "Tim Thomas" with full rights

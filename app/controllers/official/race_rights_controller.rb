@@ -5,7 +5,7 @@ class Official::RaceRightsController < Official::OfficialController
   end
 
   def create
-    user = User.find_by_email(params[:email])
+    user = User.where('lower(email)=?', params[:email].downcase).first
     if user
       if user.races.include?(@race)
         flash[:error] = "Henkilö on jo tämän kilpailun toimitsija"
