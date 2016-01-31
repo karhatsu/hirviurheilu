@@ -14,6 +14,9 @@ Feature: Feedback
       | Sähköposti | pekka@palaute.com |
       | Puhelin    | 123 456           |
     When I press "Lähetä"
+    Then I should see "Tarkastuskysymys meni väärin."
+    When I fill in "4" for "captcha"
+    And I press "Lähetä"
     Then I should see "Kiitos palautteesta"
     And the admin should receive an email
     When I open the email
@@ -38,6 +41,7 @@ Feature: Feedback
     When I select "Hyvä kisa (01.08.2020, Kisakylä)" from "Palautteen kohde"
     And I fill in "Kilpailijan tiedot väärin, voitko korjata?" for "Palaute"
     And I fill in "Yksi kilpailija" for "Nimi"
+    And I fill in "Neljä" for "captcha"
     And I press "Lähetä"
     Then "petteri@test.com" should receive an email with subject "Hirviurheilu - palaute"
     When I open the email
@@ -51,6 +55,7 @@ Feature: Feedback
       | Palaute    | Hyvä järjestelmä! |
       | Nimi       | Pekka Miettinen   |
       | Puhelin    | 123 456           |
+      | captcha    | neljä             |
     When I press "Lähetä"
     Then I should see "Kiitos palautteesta"
     And the admin should receive an email
@@ -69,6 +74,7 @@ Feature: Feedback
       | Nimi       | Pekka Miettinen   |
       | Sähköposti | pekka@palaute.com |
       | Puhelin    | 123 456           |
+      | captcha    | 4                 |
     And I press "Lähetä"
     Then I should see "Älä unohda kirjoittaa palautetta" in an error message
     And the "Nimi" field should contain "Pekka Miettinen"
@@ -88,6 +94,7 @@ Feature: Feedback
       | Palaute    | Hyvä järjestelmä! |
       | Nimi       | |
       | Sähköposti | |
+      | captcha    | fyra |
     And I press "Lähetä"
     Then the admin should receive an email
     When I open the email

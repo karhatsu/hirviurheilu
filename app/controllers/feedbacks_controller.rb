@@ -23,6 +23,12 @@ class FeedbacksController < ApplicationController
     @email = params[:email]
     @tel = params[:tel]
     @race_id = params[:race_id]
+    @captcha = params[:captcha]
+    unless ['4', 'neljä', 'fyra'].include? @captcha.downcase
+      set_races
+      flash[:error] = t(:wrong_captcha)
+      return render :new
+    end
     unless @comment.blank?
       unless @race_id.blank?
         race = Race.find(@race_id)

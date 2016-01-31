@@ -19,6 +19,10 @@
     %div
       .form_label= label_tag :tel, t(:tel)
       .form_field= text_field_tag :tel, @tel
+    %div
+      .form_label= label_tag :captch, t(:captcha)
+      .form_field= text_field_tag :captcha, @captcha
+    .form_field_info= t(:captcha_info)
     .submit_button
       = submit_tag t(:send), class: 'primary_link'
   = render :partial => 'shared/company_contact', :locals => { :corner => true }
