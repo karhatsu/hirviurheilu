@@ -18,30 +18,13 @@ class FeedbacksController < ApplicationController
   end
 
   def create
-    @comment = params[:comment]
-    @name = params[:name]
-    @email = params[:email]
-    @tel = params[:tel]
-    @race_id = params[:race_id]
-    @captcha = params[:captcha]
-    unless ['4', 'neljä', 'fyra'].include? @captcha.downcase
+    read_params
+    unless validate_feedback?
       set_races
-      flash[:error] = t(:wrong_captcha)
       return render :new
     end
-    unless @comment.blank?
-      unless @race_id.blank?
-        race = Race.find(@race_id)
-        FeedbackMailer.race_feedback_mail(race, @comment, @name, @email, @tel, current_user).deliver_now
-      else
-        FeedbackMailer.feedback_mail(@comment, @name, @email, @tel, current_user).deliver_now
-      end
-      redirect_to feedbacks_path
-    else
-      set_races
-      flash[:error] = t('feedbacks.create.feedback_missing')
-      render :new
-    end
+    send_feedback_email
+    redirect_to feedbacks_path
   end
 
   private
@@ -55,5 +38,35 @@ class FeedbacksController < ApplicationController
 
   def set_races
     @races = Race.where('start_date>?', Date.today - 14.days).order('start_date')
+  end
+
+  def read_params
+    @comment = params[:comment]
+    @name = params[:name]
+    @email = params[:email]
+    @tel = params[:tel]
+    @race_id = params[:race_id]
+    @captcha = params[:captcha]
+  end
+
+  def validate_feedback?
+    if @comment.blank?
+      flash[:error] = t('feedbacks.create.feedback_missing')
+      return false
+    end
+    unless ['4', 'neljä', 'fyra'].include? @captcha.downcase
+      flash[:error] = t(:wrong_captcha)
+      return false
+    end
+    true
+  end
+
+  def send_feedback_email
+    unless @race_id.blank?
+      race = Race.find(@race_id)
+      FeedbackMailer.race_feedback_mail(race, @comment, @name, @email, @tel, current_user).deliver_now
+    else
+      FeedbackMailer.feedback_mail(@comment, @name, @email, @tel, current_user).deliver_now
+    end
   end
 end
