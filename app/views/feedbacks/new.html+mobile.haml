@@ -1,0 +1,28 @@
+- content_for(:title, t(:send_feedback))
+- content_for(:page_title, yield(:title))
+= flash_error
+.info= t '.race_info'
+= form_tag(feedbacks_path, :class => 'feedback_form') do
+  .form_label
+    = label_tag :race_id, t('.feedback_receiver')
+  %div
+    = select_tag :race_id, options_for_select(races_drop_down_array(@races), @race_id), prompt: '- Yleinen Hirviurheilu-palaute -'
+  .form_label
+    = label_tag :comment, t(:feedback)
+  %div
+    = text_area_tag :comment, @comment, class: 'feedback_text_area'
+  .form_label
+    = label_tag :name, t('attributes.name')
+  %div
+    = text_field_tag :name, @name
+  .form_label
+    = label_tag :email, t('attributes.email')
+  %div
+    = email_field_tag :email, @email
+  .form_label
+    = label_tag :tel, t(:tel)
+  %div
+    = text_field_tag :tel, @tel
+  .submit_button
+    = submit_tag t(:send)
+= render :partial => 'shared/company_contact', :locals => { :corner => true }
