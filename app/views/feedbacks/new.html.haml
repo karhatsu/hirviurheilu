@@ -5,19 +5,20 @@
 %div{style: "position: relative;"}
   = form_tag(feedbacks_path, :class => 'feedback_form') do
     %div
-      %span.form_label= label_tag :race_id, t('.feedback_receiver')
-      %span= select_tag :race_id, options_for_select(races_drop_down_array(@races), @race_id), prompt: '- Yleinen Hirviurheilu-palaute -'
+      .form_label= label_tag :race_id, t('.feedback_receiver')
+      .form_field= select_tag :race_id, options_for_select(races_drop_down_array(@races), @race_id), prompt: '- Yleinen Hirviurheilu-palaute -'
     %div
-      %span.form_label= label_tag :comment, t(:feedback)
-      %span= text_area_tag :comment, @comment, :cols => 60, :rows => 8
+      .form_label= label_tag :comment, t(:feedback)
+      .form_field= text_area_tag :comment, @comment, :cols => 60, :rows => 8
     %div
-      %span.form_label= label_tag :name, t('attributes.name')
-      %span= text_field_tag :name, @name
+      .form_label= label_tag :name, t('attributes.name')
+      .form_field= text_field_tag :name, @name
     %div
-      %span.form_label= label_tag :email, t('attributes.email')
-      %span= email_field_tag :email, @email
+      .form_label= label_tag :email, t('attributes.email')
+      .form_field= email_field_tag :email, @email
     %div
-      %span.form_label= label_tag :tel, t(:tel)
-      %span= text_field_tag :tel, @tel
-    = submit_tag t(:send)
+      .form_label= label_tag :tel, t(:tel)
+      .form_field= text_field_tag :tel, @tel
+    .submit_button
+      = submit_tag t(:send), class: 'primary_link'
   = render :partial => 'shared/company_contact', :locals => { :corner => true }
