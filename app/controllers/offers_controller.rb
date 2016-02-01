@@ -5,7 +5,7 @@ class OffersController < ApplicationController
   end
 
   def create
-    FeedbackMailer.offer_mail(params[:name], params[:email], params[:tel], params[:competition_info], current_user).deliver_now
+    FeedbackMailer.offer_mail(params[:name], params[:email], params[:tel], params[:club], params[:competition_info], current_user).deliver_now
     redirect_to offer_sent_path
   end
 

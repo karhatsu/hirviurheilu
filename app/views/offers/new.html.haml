@@ -15,6 +15,9 @@
     %span.form_label= label_tag :tel, t(:tel)
     = text_field_tag :tel
   %div
+    %span.form_label= label_tag :club, t(:club)
+    = text_field_tag :club
+  %div
     %span.form_label= label_tag :competition_info, t(:competition_info)
     = text_area_tag :competition_info, params[:competition_info], cols: 50, rows: 10
   = submit_tag t(:send)

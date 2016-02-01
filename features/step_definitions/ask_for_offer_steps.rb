@@ -2,10 +2,12 @@ When(/^I fill the ask for an offer form$/) do
   @name = 'Timo Testinen'
   @email = 'sender@test.com'
   @tel = '123 456'
+  @club = 'Testiseura'
   @competition_info = 'We have 5 races this year.'
   fill_in 'Nimi', with: @name
   fill_in 'Sähköposti', with: @email
   fill_in 'Puhelin', with: @tel
+  fill_in 'Seura', with: @club
   fill_in 'Tietoa kilpailuista', with: @competition_info
   click_button 'Lähetä'
 end
@@ -14,6 +16,7 @@ Then(/^the email body should contain the offer information$/) do
   expect_email_text "Nimi: #{@name}"
   expect_email_text "Sähköposti: #{@email}"
   expect_email_text "Puhelin: #{@tel}"
+  expect_email_text "Seura: #{@club}"
   expect_email_text @competition_info
 end
 
