@@ -6,18 +6,19 @@
   yhteystietosi sekä tiedot tulevista kilpailuista, niin otamme sinuun yhteyttä tarjouksen kera.
 = form_tag offers_path, class: 'offer_form' do
   %div
-    %span.form_label= label_tag :name, t('attributes.name')
-    = text_field_tag :name, current_user ? full_name(current_user) : ''
+    .form_label= label_tag :name, t('attributes.name')
+    .form_field= text_field_tag :name, current_user ? full_name(current_user) : ''
   %div
-    %span.form_label= label_tag :email, t('attributes.email')
-    = text_field_tag :email, current_user ? current_user.email : ''
+    .form_label= label_tag :email, t('attributes.email')
+    .form_field= text_field_tag :email, current_user ? current_user.email : ''
   %div
-    %span.form_label= label_tag :tel, t(:tel)
-    = text_field_tag :tel
+    .form_label= label_tag :tel, t(:tel)
+    .form_field= text_field_tag :tel
   %div
-    %span.form_label= label_tag :club, t(:club)
-    = text_field_tag :club
+    .form_label= label_tag :club, t(:club)
+    .form_field= text_field_tag :club
   %div
-    %span.form_label= label_tag :competition_info, t(:competition_info)
-    = text_area_tag :competition_info, params[:competition_info], cols: 50, rows: 10
-  = submit_tag t(:send)
+    .form_label= label_tag :competition_info, t(:competition_info)
+    .form_field= text_area_tag :competition_info, params[:competition_info], cols: 50, rows: 10
+  .submit_button
+    = submit_tag t(:send)
