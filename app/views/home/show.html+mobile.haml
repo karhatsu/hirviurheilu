@@ -20,3 +20,8 @@
         = link_to ann.title, announcement_path(ann), class: 'primary_link'
         .announcement_info= date_print ann.published
 = render :partial => 'shared/facebook_like_box'
+- if ProductionEnvironment.production?
+  .home_page_box.announcements
+    .box_sub_title Kisajärjestäjä
+    %div Hirviurheilu tarjoaa nyt erikoishintaisia hinnoittelupaketteja!
+    = link_to 'Pyydä tarjous', new_offer_path, class: 'primary_link'

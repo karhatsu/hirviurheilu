@@ -21,4 +21,4 @@
     .form_label= label_tag :competition_info, t(:competition_info)
     .form_field= text_area_tag :competition_info, params[:competition_info], cols: 50, rows: 10
   .submit_button
-    = submit_tag t(:send)
+    = submit_tag t(:send), class: 'primary_link'

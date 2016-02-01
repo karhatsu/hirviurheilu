@@ -1,5 +1,5 @@
 class OffersController < ApplicationController
-  before_action :set_menu_selection
+  before_action :set_menu_selection, :set_variant
 
   def new
   end
