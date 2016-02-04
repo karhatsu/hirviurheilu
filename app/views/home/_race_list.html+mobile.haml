@@ -3,18 +3,22 @@
   - break if index == limit
   .race_link
     - if competition.is_a?(Cup)
-      = link_to competition.name, cup_path(competition), class: 'primary_link'
+      %a.primary_link{href: cup_path(competition)}
+        %span= competition.name
     - else
-      = link_to competition.name, race_path(competition), class: 'primary_link'
+      %a.primary_link{href: race_path(competition)}
+        %span= competition.name
       .race_info
         #{date_interval(competition.start_date, competition.end_date)}, #{competition.location}
     - if competition.is_a?(Cup)
       .races_of_cup
         - competition.races.each do |race|
           .cup_race_link
-            = link_to race.name, race_path(race), class: 'secondary_link'
+            %a.secondary_link{href: race_path(race)}
+              %span= race.name
             .race_info
               #{date_interval(race.start_date, race.end_date)}, #{race.location}
   - if index + 1 == limit
     .race_link#all_races_link
-      = link_to t('home.show.all_competitions'), races_path, class: 'secondary_link'
+      %a.secondary_link{href: races_path}
+        %span= t('home.show.all_competitions')

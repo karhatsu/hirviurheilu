@@ -190,6 +190,7 @@ div.form_label {
 .box_sub_title {
     background-color: #DDEEB5;
     border-bottom: solid 2px #888;
+    box-shadow: 3px 3px 3px #ccc;
     font-family: arial, helvetica, sans-serif;
     font-size: 15px;
     margin: 0 0 3px;
@@ -210,18 +211,20 @@ div.form_label {
     margin-left: 0;
 }
 
-.race_link .primary_link, .announcement_link .primary_link {
-  margin-left: 0;
-  margin-right: 4%;
-  width: 90%;
+.race_link .primary_link, .race_link .secondary_link, .announcement_link .primary_link {
+  margin: 3px 0;
+  padding: 0;
+  width: 100%;
 }
 
-.race_link .secondary_link {
-  width: 80%;
+.race_link .primary_link span, .race_link .secondary_link span, .announcement_link .primary_link  span {
+  display: inline-block;
+  padding: 5px 10px;
+  width: 100%;
 }
 
 .races_of_cup {
-    margin: 0 0 0 10px;
+    margin: 0 15px;
 }
 
 .all_races_link {

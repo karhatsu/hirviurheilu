@@ -17,7 +17,8 @@
     .box_sub_title= t '.announcements'
     - @announcements.each do |ann|
       .announcement_link
-        = link_to ann.title, announcement_path(ann), class: 'primary_link'
+        %a.primary_link{href: announcement_path(ann)}
+          %span= ann.title
         .announcement_info= date_print ann.published
 = render :partial => 'shared/facebook_like_box'
 - if ProductionEnvironment.production?
