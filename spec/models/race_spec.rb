@@ -245,34 +245,23 @@ describe Race do
     end
   end
 
-  describe "past/ongoing/future" do
+  describe "past/future" do
     before do
-      @past1 = create(:race, :start_date => Date.today - 10,
-        :end_date => nil)
-      @past2 = create(:race, :start_date => Date.today - 2,
-        :end_date => Date.today - 1)
-      @current1 = create(:race, :start_date => Date.today - 1,
-        :end_date => Date.today + 0)
-      @current2 = create(:race, :start_date => Date.today,
-        :end_date => nil)
-      @current3 = create(:race, :start_date => Date.today,
-        :end_date => Date.today + 1)
-      @future1 = create(:race, :start_date => Date.today + 2,
-        :end_date => Date.today + 3)
-      @future2 = create(:race, :start_date => Date.today + 1,
-        :end_date => nil)
+      @past1 = create(:race, start_date: Date.today - 10, end_date: nil)
+      @past2 = create(:race, start_date: Date.today - 2, end_date: Date.today - 1)
+      @current1 = create(:race, start_date: Date.today - 1, end_date: Date.today + 0)
+      @current2 = create(:race, start_date: Date.today, end_date: nil)
+      @current3 = create(:race, start_date: Date.today, end_date: Date.today + 1)
+      @future1 = create(:race, start_date: Date.today + 2, end_date: Date.today + 3)
+      @future2 = create(:race, start_date: Date.today + 1, end_date: nil)
     end
 
     it "#past should return past races" do
       expect(Race.past).to eq([@past2, @past1])
     end
 
-    it "#ongoing should return ongoing races" do
-      expect(Race.ongoing).to eq([@current1, @current2, @current3])
-    end
-
-    it "#future should return future races" do
-      expect(Race.future).to eq([@future2, @future1])
+    it "#future should return ongoing and future races" do
+      expect(Race.future).to eq([@current1, @current2, @current3, @future2, @future1])
     end
 
     describe "no date caching" do
@@ -286,13 +275,6 @@ describe Race do
         expect(Race.past).not_to be_empty
         allow(@zone).to receive(:today).and_return(Date.today - 10)
         expect(Race.past).to be_empty
-      end
-      
-      it "ongoing" do
-        allow(@zone).to receive(:today).and_return(Date.today)
-        expect(Race.ongoing).not_to be_empty
-        allow(@zone).to receive(:today).and_return(Date.today + 10)
-        expect(Race.ongoing).to be_empty
       end
       
       it "future" do

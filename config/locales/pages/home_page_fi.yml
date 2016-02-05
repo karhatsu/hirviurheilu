@@ -3,7 +3,14 @@ fi:
     show:
       main_title: Hirviurheilu - Hirvenhiihdon ja hirvenjuoksun tulospalvelu
       left_column_title: Kilpailut
-      competitions_today: Kilpailut tänään
+      competitions:
+        today: Kilpailut tänään
+        tomorrow: Kilpailut huomenna
+        this_week: Kilpailut tällä viikolla
+        next_week: Kilpailut ensi viikolla
+        this_month: Kilpailut tässä kuussa
+        next_month: Kilpailut ensi kuussa
+        later: Kilpailuja tulossa myöhemmin
       upcoming_competitions: Tulevat kilpailut
       no_upcoming_competitions: Tällä hetkellä ei tiedossa tulevia kilpailuita
       latest_ended_competitions: Viimeksi päättyneet kilpailut

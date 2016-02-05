@@ -48,12 +48,8 @@ class Race < ActiveRecord::Base
   
   after_save :set_series_start_lists_if_needed, :on => :update
 
-  scope :past, lambda { where('end_date<?', Time.zone.today).
-    includes(:sport).order('end_date DESC') }
-  scope :ongoing, lambda { where('start_date<=? and end_date>=?', Time.zone.today, Time.zone.today).
-    includes(:sport) }
-  scope :future, lambda { where('start_date>?', Time.zone.today).
-    includes(:sport).order('start_date') }
+  scope :past, lambda { where('end_date<?', Time.zone.today).includes(:sport).order('end_date DESC') }
+  scope :future, lambda { where('end_date>=?', Time.zone.today).includes(:sport).order('start_date') }
 
   attr_accessor :email, :password # for publishing
 

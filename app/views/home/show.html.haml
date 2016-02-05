@@ -9,20 +9,20 @@
     .title_box#races_box
       .box_title= t '.left_column_title'
       .title_box_content
-        - unless @ongoing.empty?
-          .ongoing_races
-            .box_sub_title= t '.competitions_today'
-            = render partial: 'race_list', locals: { competitions: @ongoing }
-          %hr
         .future_races
-          .box_sub_title= t '.upcoming_competitions'
-          - unless @future.empty?
-            = render partial: 'race_list', locals: { competitions: @future }
+          - if @future.empty?
+            .home_page_box
+              .box_sub_title= t '.upcoming_competitions'
+              = t '.no_upcoming_competitions'
           - else
-            = t '.no_upcoming_competitions'
+            - @future.each do |key, races|
+              - unless races.empty?
+                .home_page_box
+                  .box_sub_title= t ".competitions.#{key}"
+                  = render partial: 'race_list', locals: { competitions: races }
+        %hr
         - unless @past.empty?
-          %hr
-          .old_races
+          .home_page_box.old_races
             .box_sub_title= t '.latest_ended_competitions'
             = render partial: 'race_list', locals: { competitions: @past, :max => 10 }
   - unless offline?

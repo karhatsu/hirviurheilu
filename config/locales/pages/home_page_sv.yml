@@ -3,7 +3,14 @@ sv:
     show:
       main_title: Hirviurheilu - Resultatservice för älgskidskytte och älglöpning
       left_column_title: Tävlingar
-      competitions_today: Tävlingar i dag
+      competitions:
+        today: Tävlingar i dag
+        tomorrow: Tävlingar i morgon
+        this_week: Tävlingar på denna vecka
+        next_week: Tävlingar på nästa vecka
+        this_month: Tävlingar på denna månad
+        next_month: Tävlingar på nästa månad
+        later: Tävlingar senare
       upcoming_competitions: Nästä tävlingar
       no_upcoming_competitions: Inga kommande tävlingar just nu
       latest_ended_competitions: Senaste slutade tävlingar
