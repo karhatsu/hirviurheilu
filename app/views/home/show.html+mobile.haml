@@ -4,7 +4,7 @@
     = t '.no_upcoming_competitions'
   - else
     - @future.each do |key, races|
-      .home_page_box
+      .home_page_box{class: "races_#{key}"}
         .box_sub_title= t ".competitions.#{key}"
         = render partial: 'race_list', locals: { competitions: races }
 - unless @past.empty?

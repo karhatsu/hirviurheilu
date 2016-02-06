@@ -26,12 +26,12 @@ Feature: Main page
     Then I should see "Viimeksi päättyneet kilpailut" within "div.old_races"
     And I should see "Old race" within "div.old_races"
     And I should see "01.01.2010 - 02.01.2010, Old city" within "div.old_races"
-    And I should see "Tulevat kilpailut" within "div.future_races"
+    And I should see "Kilpailuja tulossa myöhemmin" within "div.future_races"
     And I should see "Upcoming race" within "div.future_races"
     And I should see "01.01.2020 - 02.01.2020, Upcoming city" within "div.future_races"
-    And I should see "Kilpailut tänään" within "div.ongoing_races"
-    And I should see "Ongoing race" within "div.ongoing_races"
-    And I should see "Ongoing city" within "div.ongoing_races"
+    And I should see "Kilpailut tänään" within "div.races_today"
+    And I should see "Ongoing race" within "div.races_today"
+    And I should see "Ongoing city" within "div.races_today"
     
   Scenario: Listing cups and their races in the main page
     Given there is a cup "Cup without races"
@@ -59,7 +59,7 @@ Feature: Main page
     And I should see "Upcoming race 1" within "div.future_races"
     And I should see "Another upcoming race" within "div.future_races"
     And I should see "Race not yet started" within "div.future_races"
-    And I should see "Today's race" within "div.ongoing_races"
+    And I should see "Today's race" within "div.races_today"
     When I follow "Kaikki kilpailut"
     Then I should not see "Cup without races"
 
