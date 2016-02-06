@@ -16,10 +16,9 @@
               = t '.no_upcoming_competitions'
           - else
             - @future.each do |key, races|
-              - unless races.empty?
-                .home_page_box
-                  .box_sub_title= t ".competitions.#{key}"
-                  = render partial: 'race_list', locals: { competitions: races }
+              .home_page_box
+                .box_sub_title= t ".competitions.#{key}"
+                = render partial: 'race_list', locals: { competitions: races }
         %hr
         - unless @past.empty?
           .home_page_box.old_races
