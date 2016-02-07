@@ -4,6 +4,6 @@ class PublishMailer < ApplicationMailer
     @race = race
     @user = user
     mail :to => ADMIN_EMAIL, :from => NOREPLY_ADDRESS,
-      :subject => "Hirviurheilu - kilpailu julkaistu (#{Rails.env})"
+      :subject => "Hirviurheilu - kilpailu julkaistu (#{ProductionEnvironment.name})"
   end
 end

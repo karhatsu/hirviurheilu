@@ -6,4 +6,9 @@ class ProductionEnvironment
   def self.production?
     Rails.env.production? && PRODUCTION_ENV
   end
+
+  def self.name
+    return 'staging' if self.staging?
+    Rails.env
+  end
 end

@@ -6,6 +6,6 @@ class ErrorMailer < ApplicationMailer
     @params = params
     @user = current_user
     mail :to => ADMIN_EMAIL, :from => NOREPLY_ADDRESS,
-      :subject => "#{subject} (#{Rails.env})"
+      :subject => "#{subject} (#{ProductionEnvironment.name})"
   end
 end

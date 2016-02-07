@@ -7,7 +7,7 @@ class NewCompetitionMailer < ApplicationMailer
     @race = race
     @user = user
     mail :to => ADMIN_EMAIL, :from => NOREPLY_ADDRESS,
-      :subject => "Hirviurheilu - uusi kilpailu (#{Rails.env})"
+      :subject => "Hirviurheilu - uusi kilpailu (#{ProductionEnvironment.name})"
   end
   
   def new_cup(cup, user)
@@ -15,6 +15,6 @@ class NewCompetitionMailer < ApplicationMailer
     @cup = cup
     @user = user
     mail :to => ADMIN_EMAIL, :from => NOREPLY_ADDRESS,
-      :subject => "Hirviurheilu - uusi cup-kilpailu (#{Rails.env})"
+      :subject => "Hirviurheilu - uusi cup-kilpailu (#{ProductionEnvironment.name})"
   end
 end
