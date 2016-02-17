@@ -1,0 +1,21 @@
+#times_table.competitors_table
+  .header_row
+    .title.number= t :number_short
+    .title.name= t 'activerecord.models.competitor.one'
+    .title.time
+      = t 'attributes.start_time'
+      (hh:mm:ss)
+    .title.time
+      = t 'attributes.arrival_time'
+      (hh:mm:ss)
+  - @series.competitors.each do |c|
+    = form_for([:official, @series, c], :remote => true) do |f|
+      .competitor_row
+        .value.number= c.number
+        .value.name= full_name(c)
+        - start_time = time_print(f.object.start_time, true, '')
+        - arrival_time = time_print(f.object.arrival_time, true, '')
+        .value.time= f.text_field :start_time, value: start_time, size: 8
+        .value.time= f.text_field :arrival_time, value: arrival_time, size: 8
+        .value= submit_tag t(:save), :onclick => "start_updating(#{c.id})"
+        .value{id: "status_#{c.id}"} &nbsp;
