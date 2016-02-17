@@ -13,9 +13,12 @@
       .competitor_row
         .value.number= c.number
         .value.name= full_name(c)
-        - start_time = time_print(f.object.start_time, true, '')
-        - arrival_time = time_print(f.object.arrival_time, true, '')
-        .value.time= f.text_field :start_time, value: start_time, size: 8
-        .value.time= f.text_field :arrival_time, value: arrival_time, size: 8
-        .value= submit_tag t(:save), :onclick => "start_updating(#{c.id})"
-        .value{id: "status_#{c.id}"} &nbsp;
+        - if c.no_result_reason
+          .value= c.no_result_reason
+        - else
+          - start_time = time_print(f.object.start_time, true, '')
+          - arrival_time = time_print(f.object.arrival_time, true, '')
+          .value.time= f.text_field :start_time, value: start_time, size: 8
+          .value.time= f.text_field :arrival_time, value: arrival_time, size: 8
+          .value= submit_tag t(:save), :onclick => "start_updating(#{c.id})"
+          .value{id: "status_#{c.id}"} &nbsp;
