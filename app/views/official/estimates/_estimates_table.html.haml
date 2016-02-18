@@ -1,0 +1,31 @@
+#estimates_table.competitors_table
+  .header_row
+    .title.number= t :number_short
+    .title.name= t 'activerecord.models.competitor.one'
+    .title.estimate
+      #{t :estimate} 1
+    .title.estimate
+      #{t :estimate} 2
+    - if @series.estimates == 4
+      .title.estimate
+        #{t :estimate} 3
+      .title.estimate
+        #{t :estimate} 4
+  - @series.competitors.each do |c|
+    = form_for([:official, @series, c], :remote => true) do |f|
+      = hidden_field_tag :no_times, true
+      = hidden_field_tag 'competitor[old_values[estimate1]]', c.estimate1
+      = hidden_field_tag 'competitor[old_values[estimate2]]', c.estimate2
+      - if @series.estimates == 4
+        = hidden_field_tag 'competitor[old_values[estimate3]]', c.estimate3
+        = hidden_field_tag 'competitor[old_values[estimate4]]', c.estimate4
+      .competitor_row
+        .value.number= c.number
+        .value.name= full_name(c)
+        .value.estimate= f.number_field :estimate1, :size => 3, :maxlength => 3
+        .value.estimate= f.number_field :estimate2, :size => 3, :maxlength => 3
+        - if @series.estimates == 4
+          .value.estimate= f.number_field :estimate3, :size => 3, :maxlength => 3
+          .value.estimate= f.number_field :estimate4, :size => 3, :maxlength => 3
+        .value= submit_tag t(:save), :onclick => "start_updating(#{c.id})"
+        .value{id: "status_#{c.id}"} &nbsp;
