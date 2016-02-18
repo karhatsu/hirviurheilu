@@ -13,11 +13,14 @@
       .competitor_row
         .value.number= c.number
         .value.name= full_name(c)
-        .value.total_shots= f.number_field :shots_total_input, :size => 3, :maxlength => 3, :class => 'total'
-        .value= render :partial => 'official/shots/individual_shots', :locals => { :f => f, :competitor => c }
-        .value.total_shots.result= c.shots_sum
-        .value= submit_tag t(:save), :onclick => "start_updating(#{c.id})", :class => 'save', :id => "submit_#{c.id}"
-        .value{id: "status_#{c.id}"} &nbsp;
+        - if c.no_result_reason
+          .value= c.no_result_reason
+        - else
+          .value.total_shots= f.number_field :shots_total_input, :size => 3, :maxlength => 3, :class => 'total'
+          .value= render :partial => 'official/shots/individual_shots', :locals => { :f => f, :competitor => c }
+          .value.total_shots.result= c.shots_sum
+          .value= submit_tag t(:save), :onclick => "start_updating(#{c.id})", :class => 'save', :id => "submit_#{c.id}"
+          .value{id: "status_#{c.id}"} &nbsp;
 :javascript
   $('.total').change(function() {
     calculate_shots_result($(this).closest('div.competitor_row'));
