@@ -22,10 +22,13 @@
       .competitor_row
         .value.number= c.number
         .value.name= full_name(c)
-        .value.estimate= f.number_field :estimate1, :size => 3, :maxlength => 3
-        .value.estimate= f.number_field :estimate2, :size => 3, :maxlength => 3
-        - if @series.estimates == 4
-          .value.estimate= f.number_field :estimate3, :size => 3, :maxlength => 3
-          .value.estimate= f.number_field :estimate4, :size => 3, :maxlength => 3
-        .value= submit_tag t(:save), :onclick => "start_updating(#{c.id})"
-        .value{id: "status_#{c.id}"} &nbsp;
+        - if c.no_result_reason
+          .value= c.no_result_reason
+        - else
+          .value.estimate= f.number_field :estimate1, :size => 3, :maxlength => 3
+          .value.estimate= f.number_field :estimate2, :size => 3, :maxlength => 3
+          - if @series.estimates == 4
+            .value.estimate= f.number_field :estimate3, :size => 3, :maxlength => 3
+            .value.estimate= f.number_field :estimate4, :size => 3, :maxlength => 3
+          .value= submit_tag t(:save), :onclick => "start_updating(#{c.id})"
+          .value{id: "status_#{c.id}"} &nbsp;
