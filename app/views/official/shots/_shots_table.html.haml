@@ -1,0 +1,33 @@
+.info= t 'official.result_place.shooting.either_total_or_shots'
+.info= t 'official.result_place.shooting.reload_after_save'
+#shots_table.competitors_table
+  .header_row
+    .title.number= t :number_short
+    .title.name= t 'activerecord.models.competitor.one'
+    .title.total_shots= t 'official.result_place.shooting.sum'
+    .title.individual_shots= t 'official.result_place.shooting.individual_shots'
+    .title.total_shots= t 'official.result_place.shooting.result'
+  - @series.competitors.each do |c|
+    = form_for([:official, @series, c], :remote => true, :html => { :onsubmit => "disableSubmit(#{c.id})" }) do |f|
+      = hidden_field_tag :no_times, true
+      .competitor_row
+        .value.number= c.number
+        .value.name= full_name(c)
+        .value.total_shots= f.number_field :shots_total_input, :size => 3, :maxlength => 3, :class => 'total'
+        .value= render :partial => 'official/shots/individual_shots', :locals => { :f => f, :competitor => c }
+        .value.total_shots.result= c.shots_sum
+        .value= submit_tag t(:save), :onclick => "start_updating(#{c.id})", :class => 'save', :id => "submit_#{c.id}"
+        .value{id: "status_#{c.id}"} &nbsp;
+:javascript
+  $('.total').change(function() {
+    calculate_shots_result($(this).closest('div.competitor_row'));
+  });
+  $('.shot').change(function() {
+    calculate_shots_result($(this).closest('div.competitor_row'));
+  });
+  function disableSubmit(id) {
+    $('#submit_' + id).attr('disabled', true);
+  }
+  $(document).ready(function() {
+    $('.save').attr('disabled', false);
+  });
