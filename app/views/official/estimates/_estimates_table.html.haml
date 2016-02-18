@@ -11,7 +11,7 @@
         #{t :estimate} 3
       .title.estimate
         #{t :estimate} 4
-  - @series.competitors.each do |c|
+  - @series.competitors.each_with_index do |c, i|
     = form_for([:official, @series, c], :remote => true) do |f|
       = hidden_field_tag :no_times, true
       = hidden_field_tag 'competitor[old_values[estimate1]]', c.estimate1
@@ -19,7 +19,9 @@
       - if @series.estimates == 4
         = hidden_field_tag 'competitor[old_values[estimate3]]', c.estimate3
         = hidden_field_tag 'competitor[old_values[estimate4]]', c.estimate4
-      .competitor_row{class: c.no_result_reason ? 'no_result_reason' : ''}
+      - row_classes = (c.no_result_reason ? 'no_result_reason' : '')
+      - row_classes << (i % 2 == 0 ? 'odd' : '')
+      .competitor_row{class: row_classes}
         .value.number= c.number
         .value.name= full_name(c)
         - if c.no_result_reason

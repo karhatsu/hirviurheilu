@@ -7,10 +7,12 @@
     .title.total_shots= t 'official.result_place.shooting.sum'
     .title.individual_shots= t 'official.result_place.shooting.individual_shots'
     .title.total_shots= t 'official.result_place.shooting.result'
-  - @series.competitors.each do |c|
+  - @series.competitors.each_with_index do |c, i|
     = form_for([:official, @series, c], :remote => true, :html => { :onsubmit => "disableSubmit(#{c.id})" }) do |f|
       = hidden_field_tag :no_times, true
-      .competitor_row{class: c.no_result_reason ? 'no_result_reason' : ''}
+      - row_classes = (c.no_result_reason ? 'no_result_reason' : '')
+      - row_classes << (i % 2 == 0 ? 'odd' : '')
+      .competitor_row{class: row_classes}
         .value.number= c.number
         .value.name= full_name(c)
         - if c.no_result_reason
