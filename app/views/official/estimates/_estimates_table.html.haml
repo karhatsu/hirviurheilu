@@ -19,7 +19,7 @@
       - if @series.estimates == 4
         = hidden_field_tag 'competitor[old_values[estimate3]]', c.estimate3
         = hidden_field_tag 'competitor[old_values[estimate4]]', c.estimate4
-      .competitor_row
+      .competitor_row{class: c.no_result_reason ? 'no_result_reason' : ''}
         .value.number= c.number
         .value.name= full_name(c)
         - if c.no_result_reason

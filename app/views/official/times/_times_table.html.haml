@@ -10,7 +10,7 @@
       (hh:mm:ss)
   - @series.competitors.each do |c|
     = form_for([:official, @series, c], :remote => true) do |f|
-      .competitor_row
+      .competitor_row{class: c.no_result_reason ? 'no_result_reason' : ''}
         .value.number= c.number
         .value.name= full_name(c)
         - if c.no_result_reason
