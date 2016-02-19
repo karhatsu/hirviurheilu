@@ -1,0 +1,40 @@
+- show_national_records = (!@race.finished? and @race.has_any_national_records_defined?)
+- show_start_time = @race.start_order == Race::START_ORDER_BY_SERIES
+- competitors_count = @race.competitors.count
+%table
+  %tr
+    %th= t 'activerecord.models.series', :count => 1
+    - if show_start_time
+      %th= t 'attributes.start_time'
+    %th= t 'races.show.competitors'
+    %th &nbsp;
+    - if show_national_records
+      %th= t 'attributes.national_record'
+  - @race.series.each do |s|
+    %tr{id: "series_#{s.id}"}
+      %td= s.name
+      - if show_start_time
+        %td
+          - if s.start_time
+            = series_start_time_print s
+          - else
+            -
+      - if s.competitors.empty?
+        %td{colspan: 2}= t :no_competitors_for_series
+      - else
+        %td.competitors_count= s.competitors.count
+        %td
+          - if !s.has_start_list?
+            = t :no_start_list
+          - else
+            #{link_to t(:results), race_series_path(@race, s)},
+            = link_to t(:start_list), race_series_start_list_path(@race, s)
+      - if show_national_records
+        %td= s.national_record
+  - if competitors_count > 0 and @race.series.count > 1
+    %tr
+      %td &nbsp;
+      - if show_start_time
+        %td &nbsp;
+      %td.competitors_count.competitors_total_count= competitors_count
+      %td &nbsp;
