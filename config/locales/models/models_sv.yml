@@ -53,6 +53,7 @@ sv:
     password: Lösenord
     password_confirmation: Lösenord igen
     price: Pris
+    public_message: Meddelande på tävlingens hemsida
     published: Publiserad
     race: Tävling
     races: Tävlingar

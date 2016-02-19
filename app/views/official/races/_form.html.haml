@@ -56,6 +56,12 @@
         %a.help#billing_info_help{href: 'javascript:void(0);'} ?
       %span= f.text_field :billing_info
 
+  %div
+    %span.form_label
+      = f.label :public_message
+      %a.help#public_message_help{href: 'javascript:void(0);'} ?
+    %span= f.text_area :public_message, cols: 50, rows: 6
+
   #home_page_help_dialog.dialog{style: 'display:none;'}
     Jos kilpailusta on tarjolla lisätietoa esimerkiksi piirin tai seuran
     omilla sivuilla, voit laittaa tähän linkin kyseiselle sivulle.
@@ -87,6 +93,10 @@
   #billing_info_help_dialog.dialog{style: 'display:none;'}
     Jos olet sopinut laskutuksesta erikseen Hirviurheilun kanssa, syötä laskutustunnus
     tähän kenttään. Muussa tapauksessa voit jättää kentän tyhjäksi.
+
+  #public_message_help_dialog.dialog{style: 'display:none;'}
+    Tähän kenttään kirjoittamasi viesti tulee näkyviin kilpailun etusivulle.
+    Voit tiedottaa sen avulla kilpailun tärkeistä asioista kilpailijoille ja kilpailua seuraavalla yleisölle.
 
   %h3= t 'official.races.form.start_times'
   %div
@@ -158,6 +168,7 @@
 :javascript
   var home_page_help_title = 'Linkki kilpailun sivuille';
   var billing_info_help_title = 'Laskutustieto';
+  var public_message_help_title = '#{t 'attributes.public_message'}';
   var start_order_help_title = 'Kilpailijoiden lähtöjärjestys';
   var batch_size_help_title = 'Lähtöerät';
   var default_series_help_title = 'Lisää oletussarjat automaattisesti';

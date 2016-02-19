@@ -53,6 +53,7 @@ fi:
     password: Salasana
     password_confirmation: Salasana uudestaan
     price: Hinta
+    public_message: Viesti kilpailun etusivulle
     published: Julkaistu
     race: Kilpailu
     races: Kilpailut
