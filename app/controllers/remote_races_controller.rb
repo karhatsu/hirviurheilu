@@ -121,7 +121,7 @@ class RemoteRacesController < ApplicationController
   def race_params
     params.require(:race).permit(:sport_id, :name, :location, :start_date, :end_date, :start_interval_seconds,
       :finished, :home_page, :batch_size, :batch_interval_seconds, :club_level, :start_order, :video_source,
-      :video_description, :organizer, :organizer_phone, :start_time,
+      :video_description, :organizer, :organizer_phone, :start_time, :public_message,
       clubs_attributes: [:id, :name, :long_name],
       correct_estimates_attributes: [:id, :min_number, :max_number, :distance1, :distance2, :distance3, :distance4],
       series_attributes: [:id, :name, :start_time, :first_number, :has_start_list, :start_day, :estimates, :national_record, :time_points_type,
