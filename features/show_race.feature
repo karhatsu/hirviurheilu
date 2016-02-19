@@ -10,6 +10,7 @@ Feature: Show race
       | start_time | 10:00 |
       | end_date | 2010-01-02 |
       | location | Test city |
+      | public_message | Tiedote kilpailijoille ja kotikatsojille |
     And the race has series with attributes:
       | name | Men 50 years |
       | start_time | 03:30 |
@@ -18,6 +19,7 @@ Feature: Show race
     And the "Kilpailun etusivu" sub menu item should be selected
     And the page title should contain "My test race"
     And the page title should contain "Test city, 01.01.2010 - 02.01.2010"
+    And I should see "Tiedote kilpailijoille ja kotikatsojille" within ".public_message"
     And I should see "Kilpailu alkaa: 10:00"
     And I should see "Men 50 years" within "tr#series_1"
     And I should see "01.01.2010 13:30" within "tr#series_1"
