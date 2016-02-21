@@ -1,0 +1,21 @@
+= Time.now.to_formatted_s
+%br
+%br
+= @path
+%br
+%br
+= @params.inspect
+%br
+%br
+= @exception.inspect
+%br
+%br
+= @user ? @user.relevant_attributes : 'Ei kirjautunutta käyttäjää'
+%br
+%br
+- begin
+  = raw @exception.backtrace.join('%br')
+- rescue => e
+  = "Stacktrace error: #{e.inspect}"
+%br
+%br
