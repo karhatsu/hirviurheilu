@@ -1,0 +1,16 @@
+!!! 5
+%html{lang: I18n.locale}
+  %head
+    %meta{charset: 'UTF-8'}
+    = render :partial => 'shared/title'
+    = stylesheet_link_tag 'application'
+    - if Mode.offline?
+      = javascript_include_tag 'application-offline'
+    - else
+      = javascript_include_tag 'application'
+    - if facebook_env?
+      = javascript_include_tag 'social'
+    = csrf_meta_tag
+    = render :partial => 'shared/google_analytics'
+    = render 'shared/facebook_meta'
+  = render :partial => 'shared/body'
