@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user, :official_rights,
     :online?, :offline?, :own_race?, :result_rotation_cookie_name, :result_rotation_scroll_cookie_name,
     :result_rotation_tc_cookie_name, :result_rotation_selected_competitions_cookie_name
+  before_action :test_error_email
   before_action :ensure_user_in_offline
   before_action :set_locale
   before_action :clear_old_data_from_staging
@@ -170,6 +171,10 @@ class ApplicationController < ActionController::Base
   
   def pdf_margin
     { :top => 20, :bottom => 20 }
+  end
+
+  def test_error_email
+    raise 'Testing error email' if params[:test_error_email] == 'true'
   end
 
   def rescue_with_handler(exception)
