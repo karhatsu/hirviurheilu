@@ -19,3 +19,12 @@
   = "Stacktrace error: #{e.inspect}"
 %br
 %br
+Request headers:
+- @headers.each do |key, value|
+  #{key}: #{value}
+  %br
+%br
+Request env:
+- @env.each do |key, value|
+  #{key}: #{value}
+  %br
