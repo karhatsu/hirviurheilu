@@ -6,6 +6,7 @@ fi:
       competitions:
         today: Kilpailut tänään
         tomorrow: Kilpailut huomenna
+        day_after_tomorrow: Kilpailut ylihuomenna
         this_week: Kilpailut tällä viikolla
         next_week: Kilpailut ensi viikolla
         this_month: Kilpailut tässä kuussa
