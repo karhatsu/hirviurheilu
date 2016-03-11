@@ -16,7 +16,7 @@ describe HomeHelper do
     describe 'when one race' do
       it 'allocates it to correct group and returns only that group' do
         race_day_after_tomorrow = create_race 2
-        expect(helper.group_future_races([race_day_after_tomorrow])).to eql({this_week: [race_day_after_tomorrow]})
+        expect(helper.group_future_races([race_day_after_tomorrow])).to eql({day_after_tomorrow: [race_day_after_tomorrow]})
       end
     end
 
@@ -46,7 +46,8 @@ describe HomeHelper do
         expected = {
             today: [@race_today, @race_2_days_starts_today, @race_2_days_ends_today],
             tomorrow: [@race_tomorrow],
-            this_week: [@race_day_after_tomorrow, @race_this_week_sunday],
+            day_after_tomorrow: [@race_day_after_tomorrow],
+            this_week: [@race_this_week_sunday],
             next_week: [@race_next_week_monday, @race_next_week_sunday],
             this_month: [@race_monday_in_two_weeks, @race_this_month_last_day],
             next_month: [@race_next_month_first_day, @race_next_month_last_day],
