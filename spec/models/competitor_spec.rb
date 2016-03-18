@@ -278,6 +278,37 @@ describe Competitor do
         comp.save!
       end
     end
+
+    describe 'result saving' do
+      before do
+        @competitor = create :competitor, start_time: '00:00:30'
+        expect(@competitor.has_result?).to be_falsey
+      end
+
+      context 'when arrival_time is saved' do
+        it 'marks has_result true' do
+          @competitor.arrival_time = '00:25:00'
+          @competitor.save!
+          expect(@competitor.has_result?).to be_truthy
+        end
+      end
+
+      context 'when estimate1 is saved' do
+        it 'marks has_result true' do
+          @competitor.estimate1 = 100
+          @competitor.save!
+          expect(@competitor.has_result?).to be_truthy
+        end
+      end
+
+      context 'when shots_total_input is saved' do
+        it 'marks has_result true' do
+          @competitor.shots_total_input = 88
+          @competitor.save!
+          expect(@competitor.has_result?).to be_truthy
+        end
+      end
+    end
   end
   
   describe "concurrency check" do

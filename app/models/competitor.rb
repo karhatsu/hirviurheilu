@@ -53,6 +53,8 @@ class Competitor < ActiveRecord::Base
   validate :unique_name
   validate :concurrent_changes, :on => :update
 
+  before_save :set_has_result
+
   after_create :set_correct_estimates
   after_save :update_series_start_time_and_number
 
@@ -352,6 +354,10 @@ class Competitor < ActiveRecord::Base
       msg = 'Tälle kilpailijalle on syötetty samanaikaisesti toinen tulos. Lataa sivu uudestaan ja yritä tallentamista sen jälkeen'
       errors.add(:base, msg)
     end
+  end
+
+  def set_has_result
+    self.has_result = true if arrival_time || estimate1 || shots_total_input
   end
 
   def set_correct_estimates
