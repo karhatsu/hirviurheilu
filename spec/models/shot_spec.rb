@@ -10,8 +10,6 @@ describe Shot do
   end
 
   describe "validation" do
-    #it { should validate_presence_of(:competitor) }
-
     describe "value" do
       it { is_expected.to validate_numericality_of(:value) }
       it { is_expected.to allow_value(nil).for(:value) }
@@ -20,6 +18,16 @@ describe Shot do
       it { is_expected.to allow_value(0).for(:value) }
       it { is_expected.to allow_value(10).for(:value) }
       it { is_expected.not_to allow_value(11).for(:value) }
+    end
+  end
+
+  describe 'callbacks' do
+    context 'when shot is saved' do
+      it 'sets competitor.has_result' do
+        competitor = create :competitor
+        create :shot, competitor: competitor
+        expect(competitor.has_result?).to be_truthy
+      end
     end
   end
 end
