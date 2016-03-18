@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160219053328) do
+ActiveRecord::Schema.define(version: 20160318172926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20160219053328) do
     t.integer  "correct_estimate4"
     t.boolean  "unofficial",                    default: false, null: false
     t.string   "team_name",         limit: 255
+    t.boolean  "has_result",                    default: false, null: false
   end
 
   add_index "competitors", ["age_group_id"], name: "index_competitors_on_age_group_id", using: :btree
