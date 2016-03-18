@@ -128,7 +128,7 @@ class RemoteRacesController < ApplicationController
         age_groups_attributes: [:id, :name, :min_competitors, :shorter_trip],
         competitors_attributes: [:id, :first_name, :last_name, :number, :start_time, :arrival_time, :shots_total_input,
                                  :estimate1, :estimate2, :estimate3, :estimate4, :correct_estimate1, :correct_estimate2, :correct_estimate3, :correct_estimate4,
-                                 :no_result_reason, :unofficial, :team_name, :club_name, :age_group_name,
+                                 :no_result_reason, :unofficial, :team_name, :club_name, :age_group_name, :has_result,
                                  shots_attributes: [:id, :value] ] ],
       relays_attributes: [:id, :start_day, :start_time, :name, :legs_count, :finished,
         relay_correct_estimates_attributes: [:id, :distance, :leg],
