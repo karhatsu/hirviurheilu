@@ -1248,19 +1248,18 @@ describe Series do
         end
       end
 
-      context "and some competitor has estimate 2" do
+      context "and some competitor has shots total" do
         it "should return true" do
-          @c1.estimate2 = 111
-          @c1.save!
+          @c2.shots_total_input = 99
+          @c2.save!
           @series.reload
           expect(@series).to have_result_for_some_competitor
         end
       end
 
-      context "and some competitor has shots total" do
-        it "should return true" do
-          @c2.shots_total_input = 99
-          @c2.save!
+      context 'and some competitor has a shot' do
+        it 'should return true' do
+          @c2.shots << create(:shot)
           @series.reload
           expect(@series).to have_result_for_some_competitor
         end

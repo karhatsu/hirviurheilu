@@ -194,8 +194,7 @@ class Series < ActiveRecord::Base
   end
   
   def has_result_for_some_competitor?
-    competitors.where('arrival_time is not null or estimate1 is not null or estimate2 is not null or ' +
-      'shots_total_input is not null').exists?
+    competitors.where('has_result=?', true).exists?
   end
 
   def age_groups_with_shorter_trip
