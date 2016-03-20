@@ -42,7 +42,7 @@ describe RelayEstimateQuickSave do
     it "should handle error when normal input" do
       @qs = RelayEstimateQuickSave.new(@relay.id, '5,2,100')
       check_failure true, 99
-      expect(@qs.error).to eq('Kilpailijalle (Mikko Miettinen, Pohjanmaa) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos.')
+      expect(@qs.error).to eq('Kilpailijalle (Mikko Miettinen, Pohjanmaa) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++joukkue,osuus,tulos.')
     end
     
     it "should override when input starts with ++" do
