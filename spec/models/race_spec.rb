@@ -252,8 +252,9 @@ describe Race do
       @current1 = create(:race, start_date: Date.today - 1, end_date: Date.today + 0)
       @current2 = create(:race, start_date: Date.today, end_date: nil)
       @current3 = create(:race, start_date: Date.today, end_date: Date.today + 1)
-      @future1 = create(:race, start_date: Date.today + 2, end_date: Date.today + 3)
+      @future1 = create(:race, start_date: Date.today + 2, end_date: Date.today + 3, name: 'B')
       @future2 = create(:race, start_date: Date.today + 1, end_date: nil)
+      @future3 = create(:race, start_date: Date.today + 2, end_date: Date.today + 3, name: 'A')
     end
 
     it "#past should return past races" do
@@ -261,7 +262,7 @@ describe Race do
     end
 
     it "#future should return ongoing and future races" do
-      expect(Race.future).to eq([@current1, @current2, @current3, @future2, @future1])
+      expect(Race.future).to eq([@current1, @current2, @current3, @future2, @future3, @future1])
     end
 
     describe "no date caching" do

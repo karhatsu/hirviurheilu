@@ -12,7 +12,7 @@ class HomeController < ApplicationController
   
   private
   def past_competitions(all_cups)
-    (past_races_without_finished_cups + finished_cups(all_cups)).sort { |a,b| b.end_date <=> a.end_date }
+    (past_races_without_finished_cups + finished_cups(all_cups)).sort { |a,b| [b.end_date, a.name] <=> [a.end_date, b.name] }
   end
   
   def past_races_without_finished_cups
