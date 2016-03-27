@@ -1,6 +1,21 @@
 require 'spec_helper'
 
 describe CsvImport do
+
+  shared_examples_for 'failed import' do |error_count|
+    it "#save should return false" do
+      expect(@ci.save).to be_falsey
+    end
+
+    it "there should be no new competitors for the race" do
+      expect(@race.competitors.size).to eq(0)
+    end
+
+    it "should contain correct amount of errors" do
+      expect(@ci.errors.size).to eq(error_count)
+    end
+  end
+
   before do
     @race = create(:race)
     series = build(:series, :race => @race, :name => 'N')
@@ -14,18 +29,11 @@ describe CsvImport do
     before do
       @ci = CsvImport.new(@race, test_file_path('import_with_invalid_structure.csv'))
     end
-    
-    it "#save should return false" do
-      expect(@ci.save).to be_falsey
-    end
+
+    it_should_behave_like 'failed import', 1
     
     it "#errors should contain a message about invalid file format" do
-      expect(@ci.errors.size).to eq(1)
       expect(@ci.errors[0]).to eq('Virheellinen rivi tiedostossa: Matti,Miettinen,SS,M40,additional column')
-    end
-    
-    it "there should be no new competitors for the race" do
-      expect(@race.competitors.size).to eq(0)
     end
   end
 
@@ -113,18 +121,11 @@ describe CsvImport do
         @race.series.find_by_name('M40').destroy
         @ci = CsvImport.new(@race, test_file_path('import_valid.csv'))
       end
-    
-      it "#save should return false" do
-        expect(@ci.save).to be_falsey
-      end
+
+      it_should_behave_like 'failed import', 1
       
       it "#errors should contain a message about unknown series" do
-        expect(@ci.errors.size).to eq(1)
         expect(@ci.errors[0]).to eq("Tuntematon sarja/ikäryhmä: 'M40'")
-      end
-      
-      it "there should be no new competitors for the race" do
-        expect(@race.competitors.size).to eq(0)
       end
     end
     
@@ -133,21 +134,11 @@ describe CsvImport do
         @race.age_groups.find_by_name('N50').destroy
         @ci = CsvImport.new(@race, test_file_path('import_valid.csv'))
       end
-    
-      it "#save should return false" do
-        expect(@ci.save).to be_falsey
-      end
-      
-      it "there should be only one error message" do
-        expect(@ci.errors.size).to eq(1)
-      end
+
+      it_should_behave_like 'failed import', 1
       
       it "the error message should be about unknown series" do
         expect(@ci.errors[0]).to eq("Tuntematon sarja/ikäryhmä: 'N50'")
-      end
-      
-      it "there should be no new competitors for the race" do
-        expect(@race.competitors.size).to eq(0)
       end
     end
     
@@ -155,21 +146,11 @@ describe CsvImport do
       before do
         @ci = CsvImport.new(@race, test_file_path('import_with_empty_column.csv'))
       end
-    
-      it "#save should return false" do
-        expect(@ci.save).to be_falsey
-      end
-      
-      it "#errors should contain a message about missing data" do
-        expect(@ci.errors.size).to eq(1)
-      end
+
+      it_should_behave_like 'failed import', 1
       
       it "the error message should contain the errorneous row" do
         expect(@ci.errors[0]).to eq("Riviltä puuttuu tietoja: Minna,Miettinen,,N")
-      end
-      
-      it "there should be no new competitors for the race" do
-        expect(@race.competitors.size).to eq(0)
       end
     end
     
@@ -177,21 +158,11 @@ describe CsvImport do
       before do
         @ci = CsvImport.new(@race, test_file_path('import_with_spaces_in_column.csv'))
       end
-    
-      it "#save should return false" do
-        expect(@ci.save).to be_falsey
-      end
-      
-      it "#errors should contain a message about missing data" do
-        expect(@ci.errors.size).to eq(1)
-      end
+
+      it_should_behave_like 'failed import', 1
       
       it "the error message should contain the errorneous row" do
         expect(@ci.errors[0]).to eq("Riviltä puuttuu tietoja: Minna,  ,PS,N")
-      end
-      
-      it "there should be no new competitors for the race" do
-        expect(@race.competitors.size).to eq(0)
       end
     end
     
@@ -199,18 +170,8 @@ describe CsvImport do
       before do
         @ci = CsvImport.new(@race, test_file_path('import_with_multiple_errors.csv'))
       end
-    
-      it "#save should return false" do
-        expect(@ci.save).to be_falsey
-      end
-      
-      it "#errors should contain two errors" do
-        expect(@ci.errors.size).to eq(2)
-      end
-      
-      it "there should be no new competitors for the race" do
-        expect(@race.competitors.size).to eq(0)
-      end
+
+      it_should_behave_like 'failed import', 2
     end
 
     context 'when the file contains duplicate competitors' do
@@ -218,17 +179,10 @@ describe CsvImport do
         @ci = CsvImport.new(@race, test_file_path('import_with_duplicate_competitors.csv'))
       end
 
-      it "#save should return false" do
-        expect(@ci.save).to be_falsey
-      end
+      it_should_behave_like 'failed import', 1
 
       it "#errors should contain one error about duplicate competitors" do
-        expect(@ci.errors.size).to eq(1)
         expect(@ci.errors.first).to eq('Tiedosto sisältää saman kilpailijan kahteen kertaan: Heikki,Räsänen,SS,M40')
-      end
-
-      it "there should be no new competitors for the race" do
-        expect(@race.competitors.size).to eq(0)
       end
     end
   end
