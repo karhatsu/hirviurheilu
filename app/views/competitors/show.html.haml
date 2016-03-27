@@ -7,8 +7,8 @@
              locals: { race: @competitor.series.race, series_id: @competitor.series.id } do |series|
     = race_series_path(series.race, series)
 = render :partial => 'result_card'
-%br
-.action_box
-  = link_to t(:download_results_pdf), series_competitor_path(@competitor.series.id, @competitor, format: 'pdf')
+- unless @competitor.no_result_reason
+  .action_box
+    = link_to t(:download_results_pdf), series_competitor_path(@competitor.series.id, @competitor, format: 'pdf')
 %hr
 = link_to t(:back_to_series_results, series_name: @competitor.series.name), race_series_path(@competitor.series.race, @competitor.series)
