@@ -15,6 +15,7 @@ class CsvImport
     @errors = []
     @data = read_file(file_path)
     validate_data
+    validate_duplicate_data
     strip_duplicate_errors
   end
   
@@ -124,6 +125,13 @@ class CsvImport
     else
       @errors += club.errors.full_messages
       return nil
+    end
+  end
+
+  def validate_duplicate_data
+    if @data.length != @data.uniq.length
+      first_duplicate = @data.group_by{ |e| e }.select { |k, v| v.size > 1 }.map(&:first)
+      @errors << "Tiedosto sisältää saman kilpailijan kahteen kertaan: #{original_format first_duplicate}"
     end
   end
   

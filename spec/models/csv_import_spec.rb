@@ -212,6 +212,25 @@ describe CsvImport do
         expect(@race.competitors.size).to eq(0)
       end
     end
+
+    context 'when the file contains duplicate competitors' do
+      before do
+        @ci = CsvImport.new(@race, test_file_path('import_with_duplicate_competitors.csv'))
+      end
+
+      it "#save should return false" do
+        expect(@ci.save).to be_falsey
+      end
+
+      it "#errors should contain one error about duplicate competitors" do
+        expect(@ci.errors.size).to eq(1)
+        expect(@ci.errors.first).to eq('Tiedosto sisältää saman kilpailijan kahteen kertaan: Heikki,Räsänen,SS,M40')
+      end
+
+      it "there should be no new competitors for the race" do
+        expect(@race.competitors.size).to eq(0)
+      end
+    end
   end
 
   context "when mixed start order" do
