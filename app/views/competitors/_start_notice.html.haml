@@ -1,0 +1,4 @@
+- if series.start_time && !series.started?
+  .info
+    #{t :series_start_time}:
+    = series_start_time_print series
