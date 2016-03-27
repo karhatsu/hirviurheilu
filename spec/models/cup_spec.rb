@@ -24,13 +24,12 @@ describe Cup do
     it { is_expected.to have_many(:cup_series) }
 
     describe "races" do
-      it "should be ordered by start date" do
+      it "should be ordered by start date and name" do
         cup = create(:cup)
-        cup.races << build(:race, :start_date => '2012-04-02')
-        cup.races << build(:race, :start_date => '2012-03-31')
-        cup.races << build(:race, :start_date => '2012-04-01')
-        expect(cup.races.collect { |r| r.start_date.strftime('%Y-%m-%d') }).
-          to eq(['2012-03-31', '2012-04-01', '2012-04-02'])
+        cup.races << build(:race, :start_date => '2012-04-01', name: 'Second B')
+        cup.races << build(:race, :start_date => '2012-03-31', name: 'First')
+        cup.races << build(:race, :start_date => '2012-04-01', name: 'Second A')
+        expect(cup.races.collect { |r| r.name }).to eq(['First', 'Second A', 'Second B'])
       end
     end
     

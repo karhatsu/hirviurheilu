@@ -1,5 +1,5 @@
 class Cup < ActiveRecord::Base
-  has_and_belongs_to_many :races, -> { order :start_date }
+  has_and_belongs_to_many :races, -> { order :start_date, :name }
   has_many :cup_series, -> { order :name }
   
   validates :name, :presence => true
