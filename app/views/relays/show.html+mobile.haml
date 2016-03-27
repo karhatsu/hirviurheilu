@@ -18,7 +18,9 @@
 - if @relay.race.relays.count > 1
   %hr
   - @relay.race.relays.each do |r|
-    - unless r == @relay
+    - if r == @relay
+      .current_link= r.name
+    - else
       = link_to r.name, race_relay_path(r.race, r), class: 'primary_link'
 %hr
 = link_to "#{t(:back_to_page)} #{@race.name}", race_path(@relay.race), class: 'back_link'
