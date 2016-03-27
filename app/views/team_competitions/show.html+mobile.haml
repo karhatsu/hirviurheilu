@@ -14,7 +14,9 @@
 - if @race.team_competitions.count > 1
   %hr
   - @race.team_competitions.each do |tc|
-    - unless tc == @tc
+    - if tc == @tc
+      .current_link= tc.name
+    - else
       = link_to tc.name, race_team_competition_path(@race, tc), class: 'primary_link'
 %hr
 = link_to "#{t(:back_to_page)} #{@race.name}", race_path(@race), class: 'back_link'
