@@ -11,7 +11,8 @@
 %h3= t '.upload_file'
 = flash_error
 = form_tag(official_race_csv_imports_path(@race), :multipart => true) do
-  = label_tag :file, t('.csv_file')
-  = file_field_tag :file
-  %br
-  = submit_tag t('.submit_button')
+  %div
+    .form_label= label_tag :file, t('.csv_file')
+    .form_field= file_field_tag :file
+  .submit_button
+    = submit_tag t('.submit_button')
