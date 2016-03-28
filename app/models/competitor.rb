@@ -91,7 +91,7 @@ class Competitor < ActiveRecord::Base
   end
 
   def time_in_seconds
-    return nil if start_time.nil? or arrival_time.nil?
+    return nil if start_time.nil? || arrival_time.nil?
     arrival_time - start_time
   end
 
@@ -100,42 +100,36 @@ class Competitor < ActiveRecord::Base
   end
 
   def shot_points
-    sum = shots_sum
-    return nil if sum.nil?
+    sum = shots_sum or return nil
     6 * sum
   end
 
   def estimate_diff1_m
-    return nil unless estimate1 and correct_estimate1
+    return nil unless estimate1 && correct_estimate1
     estimate1 - correct_estimate1
   end
 
   def estimate_diff2_m
-    return nil unless estimate2 and correct_estimate2
+    return nil unless estimate2 && correct_estimate2
     estimate2 - correct_estimate2
   end
 
   def estimate_diff3_m
-    return nil unless estimate3 and correct_estimate3
+    return nil unless estimate3 && correct_estimate3
     estimate3 - correct_estimate3
   end
 
   def estimate_diff4_m
-    return nil unless estimate4 and correct_estimate4
+    return nil unless estimate4 && correct_estimate4
     estimate4 - correct_estimate4
   end
 
   def estimate_points
-    return nil if estimate1.nil? or estimate2.nil? or
-      correct_estimate1.nil? or correct_estimate2.nil?
-    return nil if series.estimates == 4 and
-      (estimate3.nil? or estimate4.nil? or
-        correct_estimate3.nil? or correct_estimate4.nil?)
-    points = max_estimate_points - 2 * (correct_estimate1 - estimate1).abs -
-      2 * (correct_estimate2 - estimate2).abs
+    return nil if estimate1.nil? || estimate2.nil? || correct_estimate1.nil? || correct_estimate2.nil?
+    return nil if series.estimates == 4 && (estimate3.nil? || estimate4.nil? || correct_estimate3.nil? || correct_estimate4.nil?)
+    points = max_estimate_points - 2 * (correct_estimate1 - estimate1).abs - 2 * (correct_estimate2 - estimate2).abs
     if series.estimates == 4
-      points = points - 2 * (correct_estimate3 - estimate3).abs -
-        2 * (correct_estimate4 - estimate4).abs
+      points = points - 2 * (correct_estimate3 - estimate3).abs - 2 * (correct_estimate4 - estimate4).abs
     end
     return points if points >= 0
     0
@@ -148,10 +142,8 @@ class Competitor < ActiveRecord::Base
   def time_points(all_competitors=false)
     return nil if series.time_points_type == Series::TIME_POINTS_TYPE_NONE
     return 300 if series.time_points_type == Series::TIME_POINTS_TYPE_ALL_300
-    own_time = time_in_seconds
-    return nil if own_time.nil?
-    best_time = comparison_time_in_seconds(all_competitors)
-    return nil if best_time.nil?
+    own_time = time_in_seconds or return nil
+    best_time = comparison_time_in_seconds(all_competitors) or return nil
     if own_time < best_time
       if self.unofficial
         return 300
@@ -167,12 +159,10 @@ class Competitor < ActiveRecord::Base
   end
 
   def points(all_competitors=false)
-    sp = shot_points
-    return nil if sp.nil?
-    ep = estimate_points
-    return nil if ep.nil?
+    sp = shot_points or return nil
+    ep = estimate_points or return nil
     tp = time_points(all_competitors)
-    return nil unless tp or series.time_points_type == Series::TIME_POINTS_TYPE_NONE
+    return nil unless tp || series.time_points_type == Series::TIME_POINTS_TYPE_NONE
     sp + ep + tp.to_i
   end
 
@@ -189,10 +179,10 @@ class Competitor < ActiveRecord::Base
   end
 
   def finished?
-    no_result_reason or
-      (start_time and (arrival_time or series.time_points_type != Series::TIME_POINTS_TYPE_NORMAL) and
-        shots_sum and estimate1 and estimate2 and
-        (series.estimates == 2 or (estimate3 and estimate4)))
+    no_result_reason ||
+      (start_time && (arrival_time || series.time_points_type != Series::TIME_POINTS_TYPE_NORMAL) &&
+        shots_sum && estimate1 && estimate2 &&
+        (series.estimates == 2 || (estimate3 && estimate4)))
   end
 
   def next_competitor
@@ -229,11 +219,11 @@ class Competitor < ActiveRecord::Base
   def self.sort_competitors_by_time(competitors, all_competitors)
     competitors.sort do |a, b|
       [a.no_result_reason.to_s, a.time_in_seconds.to_i,
-        ((!all_competitors and a.unofficial) ? 1 : 0),
+        ((!all_competitors && a.unofficial) ? 1 : 0),
         b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
         b.shot_points.to_i] <=>
       [b.no_result_reason.to_s, b.time_in_seconds.to_i,
-        ((!all_competitors and b.unofficial) ? 1 : 0),
+        ((!all_competitors && b.unofficial) ? 1 : 0),
         a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
         a.shot_points.to_i]
     end
@@ -242,11 +232,11 @@ class Competitor < ActiveRecord::Base
   def self.sort_competitors_by_shots(competitors, all_competitors)
     competitors.sort do |a, b|
       [a.no_result_reason.to_s, b.shot_points.to_i,
-        ((!all_competitors and a.unofficial) ? 1 : 0),
+        ((!all_competitors && a.unofficial) ? 1 : 0),
         b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
         a.time_in_seconds.to_i] <=>
       [b.no_result_reason.to_s, a.shot_points.to_i,
-        ((!all_competitors and b.unofficial) ? 1 : 0),
+        ((!all_competitors && b.unofficial) ? 1 : 0),
         a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
         b.time_in_seconds.to_i]
     end
@@ -255,11 +245,11 @@ class Competitor < ActiveRecord::Base
   def self.sort_competitors_by_estimates(competitors, all_competitors)
     competitors.sort do |a, b|
       [a.no_result_reason.to_s, b.estimate_points.to_i,
-        ((!all_competitors and a.unofficial) ? 1 : 0),
+        ((!all_competitors && a.unofficial) ? 1 : 0),
         b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
         b.shot_points.to_i, a.time_in_seconds.to_i] <=>
       [b.no_result_reason.to_s, a.estimate_points.to_i,
-        ((!all_competitors and b.unofficial) ? 1 : 0),
+        ((!all_competitors && b.unofficial) ? 1 : 0),
         a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
         a.shot_points.to_i, b.time_in_seconds.to_i]
     end
@@ -267,10 +257,10 @@ class Competitor < ActiveRecord::Base
 
   def self.sort_competitors_by_points(competitors, all_competitors)
     competitors.sort do |a, b|
-      [a.no_result_reason.to_s, ((!all_competitors and a.unofficial) ? 1 : 0),
+      [a.no_result_reason.to_s, ((!all_competitors && a.unofficial) ? 1 : 0),
         b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
         b.shot_points.to_i, a.time_in_seconds.to_i] <=>
-      [b.no_result_reason.to_s, ((!all_competitors and b.unofficial) ? 1 : 0),
+      [b.no_result_reason.to_s, ((!all_competitors && b.unofficial) ? 1 : 0),
         a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
         a.shot_points.to_i, b.time_in_seconds.to_i]
     end
@@ -284,21 +274,21 @@ class Competitor < ActiveRecord::Base
   end
 
   def national_record_reached?
-    series.national_record and points.to_i == series.national_record.to_i
+    series.national_record && points.to_i == series.national_record.to_i
   end
 
   def national_record_passed?
-    series.national_record and points.to_i > series.national_record.to_i
+    series.national_record && points.to_i > series.national_record.to_i
   end
 
   private
   def arrival_not_before_start_time
-    return if start_time.nil? and arrival_time.nil?
+    return if start_time.nil? && arrival_time.nil?
     if start_time.nil?
       errors.add(:base, :cannot_have_arrival_time_without_start_time)
       return
     end
-    if arrival_time and start_time >= arrival_time
+    if arrival_time && start_time >= arrival_time
       errors.add(:arrival_time, :must_be_after_start_time)
     end
   end
@@ -327,14 +317,14 @@ class Competitor < ActiveRecord::Base
   end
 
   def check_if_series_has_start_list
-    if series and series.has_start_list?
+    if series && series.has_start_list?
       errors.add(:number, :required_when_start_list_created) unless number
       errors.add(:start_time, :required_when_start_list_created) unless start_time
     end
   end
   
   def unique_number
-    if series and number
+    if series && number
       condition = "number = #{number}"
       condition << " and competitors.id <> #{id}" if id
       errors.add(:number, :is_in_use) if series.race.competitors.where(condition).length > 0
@@ -375,7 +365,7 @@ class Competitor < ActiveRecord::Base
   end
   
   def update_series_start_time_and_number
-    return unless start_time and number
+    return unless start_time && number
     series.update_start_time_and_number
   end
 
