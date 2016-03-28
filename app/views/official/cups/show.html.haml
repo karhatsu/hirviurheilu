@@ -1,0 +1,19 @@
+- content_for(:title, "#{@cup.name} - Yhteenveto")
+%h2 Cup-kilpailun tiedot
+= flash_success
+.section
+  Nimi:
+  = @cup.name
+  %br
+  #{t 'attributes.top_competitions'}:
+  = @cup.top_competitions
+  %br
+  Osakilpailut:
+  = raw(@cup.races.collect { |race| link_to race.name, official_race_path(race) }.join(', '))
+  %br
+  Cup-sarjat:
+  = @cup.cup_series.collect { |cs| long_cup_series_name(cs) }.join(', ')
+.action_box
+  = link_to 'Muokkaa cup-kilpailun asetuksia', edit_official_cup_path(@cup)
+%hr
+= link_to 'Takaisin Toimitsijan etusivulle', official_root_path
