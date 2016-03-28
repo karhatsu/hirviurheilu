@@ -233,6 +233,35 @@ describe Competitor do
     end
   end
 
+  describe 'callbacks' do
+    describe 'on update' do
+      describe 'when series is updated' do
+        it 'resets competitors counters on old and new series' do
+          race = create :race
+          series1 = create :series, race: race
+          series2 = create :series, race: race
+          competitor1 = create :competitor, series: series1
+          create :competitor, series: series2
+          expect(series1.competitors_count).to eq(1)
+          expect(series2.competitors_count).to eq(1)
+          competitor1.series_id = series2.id
+          competitor1.save!
+          expect(series1.reload.competitors_count).to eq(0)
+          expect(series2.reload.competitors_count).to eq(2)
+        end
+      end
+
+      describe 'when series is not updated' do
+        it 'does not reset competitors counters' do
+          expect(Series).not_to receive(:reset_counters)
+          competitor = create :competitor
+          competitor.first_name = 'New name'
+          competitor.save!
+        end
+      end
+    end
+  end
+
   describe "race" do
     it "should be the series.race" do
       race = build(:race)

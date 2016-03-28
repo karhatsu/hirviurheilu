@@ -57,6 +57,7 @@ class Competitor < ActiveRecord::Base
 
   after_create :set_correct_estimates
   after_save :update_series_start_time_and_number
+  after_update :update_series_competitors_counter_cache
 
   attr_accessor :club_name, :age_group_name, :old_values
   
@@ -376,6 +377,13 @@ class Competitor < ActiveRecord::Base
   def update_series_start_time_and_number
     return unless start_time and number
     series.update_start_time_and_number
+  end
+
+  def update_series_competitors_counter_cache
+    if series_id_was && series_id_was != series_id
+      Series.reset_counters series_id, :competitors
+      Series.reset_counters series_id_was, :competitors
+    end
   end
 
   def previous_or_next_competitor(previous)
