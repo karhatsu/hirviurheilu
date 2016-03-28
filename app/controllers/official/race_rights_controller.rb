@@ -2,20 +2,21 @@ class Official::RaceRightsController < Official::OfficialController
   before_action :assign_race_by_race_id, :check_assigned_race, :set_race_rights
 
   def index
+    @race_right = RaceRight.new
   end
 
   def create
+    @race_right = @race.race_rights.build(race_rights_params)
     user = User.where('lower(email)=?', params[:email].downcase).first
     if user
       if user.races.include?(@race)
         flash[:error] = "Henkilö on jo tämän kilpailun toimitsija"
         render :index
       else
-        race_right = @race.race_rights.build(race_rights_params)
-        race_right.user = user
-        race_right.save!
-        send_invitation_mail race_right
-        set_invitation_success_message race_right
+        @race_right.user = user
+        @race_right.save!
+        send_invitation_mail @race_right
+        set_invitation_success_message @race_right
         redirect_to official_race_race_rights_path(@race)
       end
     else
