@@ -15,5 +15,7 @@
   = @cup.cup_series.collect { |cs| long_cup_series_name(cs) }.join(', ')
 .action_box
   = link_to 'Muokkaa cup-kilpailun asetuksia', edit_official_cup_path(@cup)
+.action_box
+  = link_to 'Poista cup-kilpailu', official_cup_path(@cup), method: :delete, data: {confirm: 'Haluatko varmasti poistaa cup-kilpailun?'}
 %hr
 = link_to 'Takaisin Toimitsijan etusivulle', official_root_path

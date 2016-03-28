@@ -34,6 +34,11 @@ class Official::CupsController < Official::OfficialController
       render :edit
     end
   end
+
+  def destroy
+    @cup.destroy
+    redirect_to official_root_path
+  end
   
   private
   def enough_races?
