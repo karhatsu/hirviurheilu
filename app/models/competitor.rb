@@ -159,14 +159,6 @@ class Competitor < ActiveRecord::Base
   end
 
   def points(all_competitors=false)
-    sp = shot_points or return nil
-    ep = estimate_points or return nil
-    tp = time_points(all_competitors)
-    return nil unless tp || series.time_points_type == Series::TIME_POINTS_TYPE_NONE
-    sp + ep + tp.to_i
-  end
-
-  def points!(all_competitors=false)
     shot_points.to_i + estimate_points.to_i + time_points(all_competitors).to_i
   end
   
@@ -174,7 +166,7 @@ class Competitor < ActiveRecord::Base
     return -3 if no_result_reason == DQ
     return -2 if no_result_reason == DNS
     return -1 if no_result_reason == DNF
-    10000*points(all_competitors).to_i + 1000*points!(all_competitors).to_i + 100*shot_points.to_i +
+    10000*points(all_competitors).to_i + 100*shot_points.to_i +
       10*time_points(all_competitors).to_i - time_in_seconds.to_i
   end
 
@@ -220,12 +212,10 @@ class Competitor < ActiveRecord::Base
     competitors.sort do |a, b|
       [a.no_result_reason.to_s, a.time_in_seconds.to_i,
         ((!all_competitors && a.unofficial) ? 1 : 0),
-        b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
-        b.shot_points.to_i] <=>
+        b.points(all_competitors).to_i, b.shot_points.to_i] <=>
       [b.no_result_reason.to_s, b.time_in_seconds.to_i,
         ((!all_competitors && b.unofficial) ? 1 : 0),
-        a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
-        a.shot_points.to_i]
+        a.points(all_competitors).to_i, a.shot_points.to_i]
     end
   end
     
@@ -233,12 +223,10 @@ class Competitor < ActiveRecord::Base
     competitors.sort do |a, b|
       [a.no_result_reason.to_s, b.shot_points.to_i,
         ((!all_competitors && a.unofficial) ? 1 : 0),
-        b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
-        a.time_in_seconds.to_i] <=>
+        b.points(all_competitors).to_i, a.time_in_seconds.to_i] <=>
       [b.no_result_reason.to_s, a.shot_points.to_i,
         ((!all_competitors && b.unofficial) ? 1 : 0),
-        a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
-        b.time_in_seconds.to_i]
+        a.points(all_competitors).to_i, b.time_in_seconds.to_i]
     end
   end
   
@@ -246,23 +234,19 @@ class Competitor < ActiveRecord::Base
     competitors.sort do |a, b|
       [a.no_result_reason.to_s, b.estimate_points.to_i,
         ((!all_competitors && a.unofficial) ? 1 : 0),
-        b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
-        b.shot_points.to_i, a.time_in_seconds.to_i] <=>
+        b.points(all_competitors).to_i, b.shot_points.to_i, a.time_in_seconds.to_i] <=>
       [b.no_result_reason.to_s, a.estimate_points.to_i,
         ((!all_competitors && b.unofficial) ? 1 : 0),
-        a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
-        a.shot_points.to_i, b.time_in_seconds.to_i]
+        a.points(all_competitors).to_i, a.shot_points.to_i, b.time_in_seconds.to_i]
     end
   end
 
   def self.sort_competitors_by_points(competitors, all_competitors)
     competitors.sort do |a, b|
       [a.no_result_reason.to_s, ((!all_competitors && a.unofficial) ? 1 : 0),
-        b.points(all_competitors).to_i, b.points!(all_competitors).to_i,
-        b.shot_points.to_i, a.time_in_seconds.to_i] <=>
+        b.points(all_competitors).to_i, b.shot_points.to_i, a.time_in_seconds.to_i] <=>
       [b.no_result_reason.to_s, ((!all_competitors && b.unofficial) ? 1 : 0),
-        a.points(all_competitors).to_i, a.points!(all_competitors).to_i,
-        a.shot_points.to_i, b.time_in_seconds.to_i]
+        a.points(all_competitors).to_i, a.shot_points.to_i, b.time_in_seconds.to_i]
     end
   end
   

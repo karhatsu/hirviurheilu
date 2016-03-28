@@ -4,9 +4,8 @@ module ResultFormatHelper
       return no_result_reason_print(competitor.no_result_reason)
     end
     points = competitor.points(all_competitors)
-    return points.to_s unless points.nil?
-    partial_points = competitor.points!(all_competitors)
-    return "(#{partial_points})" unless partial_points.nil?
+    return points.to_s if competitor.finished?
+    return "(#{points})" if points
     '-'
   end
 

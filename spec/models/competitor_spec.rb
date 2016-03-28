@@ -376,40 +376,40 @@ describe Competitor do
 
     context 'with competitors having shots_total_input' do
       before do
-        @second_partial = instance_double(Competitor, :points => nil, :points! => 12,
+        @second_partial = instance_double(Competitor, :points => 12,
           :no_result_reason => nil, :shot_points => 50, :time_points => 30,
           :time_in_seconds => 999, :unofficial => false, :estimate_points => nil)
-        @worst_partial = instance_double(Competitor, :points => nil, :points! => nil,
+        @worst_partial = instance_double(Competitor, :points => 11,
           :no_result_reason => nil, :shot_points => 51, :time_points => 30,
           :time_in_seconds => 1000, :unofficial => false, :estimate_points => nil)
-        @best_partial = instance_double(Competitor, :points => nil, :points! => 88,
+        @best_partial = instance_double(Competitor, :points => 88,
           :no_result_reason => nil, :shot_points => 50, :time_points => 30,
           :time_in_seconds => 1000, :unofficial => false, :estimate_points => nil)
-        @best_time = instance_double(Competitor, :points => 199, :points! => 199,
+        @best_time = instance_double(Competitor, :points => 199,
           :no_result_reason => nil, :shot_points => 87, :time_points => 30,
           :time_in_seconds => 999, :unofficial => false, :estimate_points => 250)
-        @best_points = instance_double(Competitor, :points => 201, :points! => 201,
+        @best_points = instance_double(Competitor, :points => 201,
           :no_result_reason => nil, :shot_points => 50, :time_points => 30,
           :time_in_seconds => 1000, :unofficial => false, :estimate_points => 250)
-        @worst_points = instance_double(Competitor, :points => 199, :points! => 199,
+        @worst_points = instance_double(Competitor, :points => 199,
           :no_result_reason => nil, :shot_points => 87, :time_points => 30,
           :time_in_seconds => 1000, :unofficial => false, :estimate_points => 250)
-        @best_shots = instance_double(Competitor, :points => 199, :points! => 199,
+        @best_shots = instance_double(Competitor, :points => 199,
           :no_result_reason => nil, :shot_points => 88, :time_points => 30,
           :time_in_seconds => 1000, :unofficial => false, :estimate_points => 250)
-        @best_estimates = instance_double(Competitor, :points => 199, :points! => 199,
+        @best_estimates = instance_double(Competitor, :points => 199,
           :no_result_reason => nil, :shot_points => 86, :time_points => 30,
           :time_in_seconds => 1000, :unofficial => false, :estimate_points => 252)
-        @c_dnf = instance_double(Competitor, :points => 300, :points! => 300,
+        @c_dnf = instance_double(Competitor, :points => 300,
           :no_result_reason => "DNF", :shot_points => 88, :time_points => 30,
           :time_in_seconds => 999, :unofficial => false, :estimate_points => 256)
-        @c_dns = instance_double(Competitor, :points => 300, :points! => 300,
+        @c_dns = instance_double(Competitor, :points => 300,
           :no_result_reason => "DNS", :shot_points => 88, :time_points => 30,
           :time_in_seconds => 1000, :unofficial => false, :estimate_points => 255)
-        @c_dq = instance_double(Competitor, :points => 300, :points! => 300,
+        @c_dq = instance_double(Competitor, :points => 300,
           :no_result_reason => "DQ", :shot_points => 88, :time_points => 30,
           :time_in_seconds => 999, :unofficial => false, :estimate_points => 256)
-        @unofficial = instance_double(Competitor, :points => 300, :points! => 300,
+        @unofficial = instance_double(Competitor, :points => 300,
           :no_result_reason => nil, :shot_points => 100, :time_points => 100,
           :time_in_seconds => 1000, :unofficial => true, :estimate_points => 250)
       end
@@ -877,62 +877,23 @@ describe Competitor do
       allow(@competitor).to receive(:time_points).with(@all_competitors).and_return(200)
     end
 
-    it "should be nil when no shot points" do
+    it "should consider missing shot points as 0" do
       expect(@competitor).to receive(:shot_points).and_return(nil)
-      expect(@competitor.points(@all_competitors)).to be_nil
+      expect(@competitor.points(@all_competitors)).to eq(150 + 200)
     end
 
-    it "should be nil when no estimate points" do
+    it "should consider missing estimate points as 0" do
       expect(@competitor).to receive(:estimate_points).and_return(nil)
-      expect(@competitor.points(@all_competitors)).to be_nil
+      expect(@competitor.points(@all_competitors)).to eq(100 + 200)
     end
 
-    context "when series calculates time points" do
-      it "should be nil when no time points" do
-        expect(@competitor).to receive(:time_points).with(@all_competitors).and_return(nil)
-        expect(@competitor.points(@all_competitors)).to be_nil
-      end
-    end
-
-    context "when series does not calculate time points and shot/estimate points available" do
-      it "should be shot + estimate points" do
-        @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_NONE
-        expect(@competitor).to receive(:time_points).with(@all_competitors).and_return(nil)
-        expect(@competitor.points(@all_competitors)).to eq(100 + 150)
-      end
+    it "should consider missing time points as 0" do
+      expect(@competitor).to receive(:time_points).with(@all_competitors).and_return(nil)
+      expect(@competitor.points(@all_competitors)).to eq(100 + 150)
     end
 
     it "should be sum of sub points when all of them are available" do
       expect(@competitor.points(@all_competitors)).to eq(100 + 150 + 200)
-    end
-  end
-
-  describe "#points!" do
-    before do
-      @all_competitors = true
-      @competitor = build(:competitor)
-      allow(@competitor).to receive(:shot_points).and_return(100)
-      allow(@competitor).to receive(:estimate_points).and_return(150)
-      allow(@competitor).to receive(:time_points).with(@all_competitors).and_return(200)
-    end
-
-    it "should be estimate + time points when no shot points" do
-      expect(@competitor).to receive(:shot_points).and_return(nil)
-      expect(@competitor.points!(@all_competitors)).to eq(150 + 200)
-    end
-
-    it "should be shot + time points when no estimate points" do
-      expect(@competitor).to receive(:estimate_points).and_return(nil)
-      expect(@competitor.points!(@all_competitors)).to eq(100 + 200)
-    end
-
-    it "should be shot + estimate points when no time points" do
-      expect(@competitor).to receive(:time_points).with(@all_competitors).and_return(nil)
-      expect(@competitor.points!(@all_competitors)).to eq(100 + 150)
-    end
-
-    it "should be sum of sub points when all of them are available" do
-      expect(@competitor.points!(@all_competitors)).to eq(100 + 150 + 200)
     end
   end
 
@@ -1232,14 +1193,13 @@ describe Competitor do
       expect(build(:competitor).relative_points(@all_competitors)).to eq(0)
     end
     
-    it "should be 10000 x points + 1000 x partial points + 100 x shot points + 10 x time points + negative time" do
+    it "should be 10000 x points + 100 x shot points + 10 x time points + negative time" do
       c = build(:competitor)
       allow(c).to receive(:points).with(@all_competitors).and_return(800)
-      allow(c).to receive(:points!).with(@all_competitors).and_return(500)
       allow(c).to receive(:shot_points).and_return(300)
       allow(c).to receive(:time_points).with(@all_competitors).and_return(250)
       allow(c).to receive(:time_in_seconds).and_return(3000)
-      expect(c.relative_points(@all_competitors)).to eq(10000*800 + 1000*500 + 100*300 + 10*250 - 3000)
+      expect(c.relative_points(@all_competitors)).to eq(10000*800 + 100*300 + 10*250 - 3000)
     end
   end
 
