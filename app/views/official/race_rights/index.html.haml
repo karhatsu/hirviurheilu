@@ -13,10 +13,10 @@
       %th Vain kilpailijat
       %th= club_title(@race)
       %th &nbsp;
-    - @race.race_rights.each do |rr|
+    - @race.race_rights.select{|rr| !rr.new_record?}.sort {|rr1, rr2| rr1.user.last_name.upcase <=> rr2.user.last_name.upcase}.each do |rr|
       %tr
         %td
-          = full_name(rr.user, true)
+          = full_name(rr.user)
           (#{link_to rr.user.email, "mailto:#{rr.user.email}"})
         %td.center= yes_or_empty(rr.only_add_competitors?)
         %td= rr.club ? rr.club.name : raw('&nbsp;')
