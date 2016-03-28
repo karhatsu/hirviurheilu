@@ -1,0 +1,5 @@
+- content_for :title, "#{@race.name} - Toimitsijat"
+%h2 Muokkaa toimitsijan oikeuksia
+.section
+  .info Henkilön täytyy olla rekisteröitynyt palveluun omalla sähköpostiosoitteellaan.
+  = render partial: 'form', locals: {edit: true, submit_label: 'Tallenna'}

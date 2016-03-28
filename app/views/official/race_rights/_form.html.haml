@@ -1,7 +1,11 @@
 = form_for([:official, @race, @race_right], html: { class: 'invite_officials_form' } ) do |f|
   %div
-    %span.form_label= label_tag :email, 'Sähköposti'
-    %span= email_field_tag :email, '', size: 30
+    - if edit
+      %span.form_label Henkilö
+      = full_name(@race_right.user)
+    - else
+      %span.form_label= label_tag :email, 'Sähköposti'
+      %span= email_field_tag :email, '', size: 30
   %div
     %span.form_label= f.label :only_add_competitors, 'Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita'
     %span= f.check_box :only_add_competitors
@@ -11,6 +15,13 @@
       (Käyttöä ei voi rajata, koska
       #{link_to 'yhtään piiriä/seuraa ei ole lisätty', official_race_clubs_path(@race)}.)
     - else
-      = f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: 'Ei rajausta'
+      = f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name, @race_right.club_id), include_blank: 'Ei rajausta'
   .submit_button
     = submit_tag submit_label
+:javascript
+  $('#race_right_only_add_competitors').live('click', function() {
+    $('#club_limitation').toggle(this.checked);
+  });
+  if($('#race_right_only_add_competitors:checked').length) {
+    $('#club_limitation').toggle(this.checked);
+  };

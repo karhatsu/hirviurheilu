@@ -24,6 +24,16 @@ class Official::RaceRightsController < Official::OfficialController
       render :index
     end
   end
+
+  def edit
+    @race_right = @race.race_rights.find(params[:id])
+  end
+
+  def update
+    @race_right = @race.race_rights.find(params[:id])
+    @race_right.update(race_rights_params)
+    redirect_to official_race_race_rights_path(@race)
+  end
   
   def destroy
     race_right = @race.race_rights.find(params[:id])
