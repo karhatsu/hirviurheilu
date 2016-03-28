@@ -18,7 +18,8 @@
         #{link_to 'yhtään piiriä/seuraa ei ole lisätty', official_race_clubs_path(@race)}.)
       - else
         = f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: 'Ei rajausta'
-    = submit_tag "Lähetä kutsu"
+    .submit_button
+      = submit_tag "Lähetä kutsu"
 :javascript
   $('#race_right_only_add_competitors').live('click', function() {
     $('#club_limitation').toggle(this.checked);
