@@ -1177,29 +1177,26 @@ describe Competitor do
       @all_competitors = false
     end
 
-    it "should be -3 when competitor was disqualified" do
-      expect(build(:competitor, :no_result_reason => Competitor::DQ).relative_points(@all_competitors)).to eq(-3)
+    it 'should rank best points, best shots points, best time, unofficials, DNF, DNS, DQ' do
+      dq = build(:competitor, :no_result_reason => Competitor::DQ).relative_points
+      dns = build(:competitor, :no_result_reason => Competitor::DNS).relative_points
+      dnf = build(:competitor, :no_result_reason => Competitor::DNF).relative_points
+      no_result = build(:competitor).relative_points
+      points_1 = create_competitor(1100, 500, 60*20).relative_points
+      points_2_shots_1 = create_competitor(1000, 600, 60*20).relative_points
+      points_2_shots_2 = create_competitor(1000, 594, 60*20).relative_points
+      points_3_time_1 = create_competitor(900, 600, 60*15-1).relative_points
+      points_3_time_2 = create_competitor(900, 600, 60*15).relative_points
+      expect([points_3_time_1, dns, points_1, dq, points_2_shots_1, no_result, points_3_time_2, points_2_shots_2, dnf].sort)
+          .to eq([dq, dns, dnf, no_result, points_3_time_2, points_3_time_1, points_2_shots_2, points_2_shots_1, points_1])
     end
-    
-    it "should be -2 when competitor did not start" do
-      expect(build(:competitor, :no_result_reason => Competitor::DNS).relative_points(@all_competitors)).to eq(-2)
-    end
-    
-    it "should be -1 when competitor did not finish" do
-      expect(build(:competitor, :no_result_reason => Competitor::DNF).relative_points(@all_competitors)).to eq(-1)
-    end
-    
-    it "should be 0 when competitor has no results yet" do
-      expect(build(:competitor).relative_points(@all_competitors)).to eq(0)
-    end
-    
-    it "should be 10000 x points + 100 x shot points + 10 x time points + negative time" do
-      c = build(:competitor)
-      allow(c).to receive(:points).with(@all_competitors).and_return(800)
-      allow(c).to receive(:shot_points).and_return(300)
-      allow(c).to receive(:time_points).with(@all_competitors).and_return(250)
-      allow(c).to receive(:time_in_seconds).and_return(3000)
-      expect(c.relative_points(@all_competitors)).to eq(10000*800 + 100*300 + 10*250 - 3000)
+
+    def create_competitor(points, shot_points, time_in_seconds)
+      competitor = build :competitor
+      expect(competitor).to receive(:points).and_return(points)
+      expect(competitor).to receive(:shot_points).and_return(shot_points)
+      allow(competitor).to receive(:time_in_seconds).and_return(time_in_seconds)
+      competitor
     end
   end
 
