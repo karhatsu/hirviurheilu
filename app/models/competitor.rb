@@ -168,7 +168,7 @@ class Competitor < ActiveRecord::Base
     return -1 if no_result_reason == DNF
     relative_points = 10000*points(all_competitors).to_i + 100*shot_points.to_i +
       10*time_points(all_competitors).to_i - time_in_seconds.to_i
-    relative_points = relative_points * 10 unless unofficial?
+    relative_points = relative_points * 10 unless all_competitors || unofficial?
     relative_points
   end
 

@@ -1197,6 +1197,13 @@ describe Competitor do
                   @points_3_time_1, @points_2_shots_2, @points_2_shots_1, @points_1].map {|c|c.relative_points})
     end
 
+    it 'should rank unofficial competitors among others when all competitors wanted' do
+      expect([@unofficial_1, @points_3_time_1, @dns, @points_1, @unofficial_4, @unofficial_3, @unofficial_2, @dq,
+              @points_2_shots_1, @no_result, @points_3_time_2, @points_2_shots_2, @dnf].map {|c|c.relative_points(true)}.sort)
+          .to eq([@dq, @dns, @dnf, @no_result, @points_3_time_2, @points_3_time_1, @points_2_shots_2, @points_2_shots_1,
+                  @points_1, @unofficial_4, @unofficial_3, @unofficial_2, @unofficial_1].map {|c|c.relative_points(true)})
+    end
+
     def create_competitor(points, shot_points, time_in_seconds, unofficial=false)
       competitor = build :competitor
       allow(competitor).to receive(:points).and_return(points)
