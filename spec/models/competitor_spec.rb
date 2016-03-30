@@ -415,11 +415,13 @@ describe Competitor do
       end
 
       it 'should sort by relative points' do
-        competitor1 = instance_double(Competitor, relative_points: 100)
-        competitor2 = instance_double(Competitor, relative_points: 99)
-        competitor3 = instance_double(Competitor, relative_points: 98)
-        competitors = [competitor3, competitor1, competitor2]
-        expect(Competitor.sort_competitors(competitors, false)).to eq([competitor1, competitor2, competitor3])
+        competitor1 = instance_double(Competitor, relative_points: 100, number: 30)
+        competitor2 = instance_double(Competitor, relative_points: 99, number: 4)
+        competitor3 = instance_double(Competitor, relative_points: 98, number: 99)
+        competitor0_1 = instance_double(Competitor, relative_points: 0, number: 15)
+        competitor0_2 = instance_double(Competitor, relative_points: 0, number: 16)
+        competitors = [competitor0_2, competitor3, competitor1, competitor2, competitor0_1]
+        expect(Competitor.sort_competitors(competitors, false)).to eq([competitor1, competitor2, competitor3, competitor0_1, competitor0_2])
       end
 
       describe "by time" do

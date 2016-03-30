@@ -245,7 +245,7 @@ class Competitor < ActiveRecord::Base
 
   def self.sort_competitors_by_points(competitors, all_competitors)
     competitors.sort do |a, b|
-      b.relative_points(all_competitors) <=> a.relative_points(all_competitors)
+      [b.relative_points(all_competitors), a.number] <=> [a.relative_points(all_competitors), b.number]
     end
   end
   
