@@ -1181,21 +1181,28 @@ describe Competitor do
       dq = build(:competitor, :no_result_reason => Competitor::DQ).relative_points
       dns = build(:competitor, :no_result_reason => Competitor::DNS).relative_points
       dnf = build(:competitor, :no_result_reason => Competitor::DNF).relative_points
+      unofficial_1 = create_competitor(1200, 600, 60*5, true).relative_points
+      unofficial_2 = create_competitor(1199, 600, 60*5, true).relative_points
+      unofficial_3 = create_competitor(1199, 599, 60*5-2, true).relative_points
+      unofficial_4 = create_competitor(1199, 599, 60*5-1, true).relative_points
       no_result = build(:competitor).relative_points
       points_1 = create_competitor(1100, 500, 60*20).relative_points
       points_2_shots_1 = create_competitor(1000, 600, 60*20).relative_points
       points_2_shots_2 = create_competitor(1000, 594, 60*20).relative_points
       points_3_time_1 = create_competitor(900, 600, 60*15-1).relative_points
       points_3_time_2 = create_competitor(900, 600, 60*15).relative_points
-      expect([points_3_time_1, dns, points_1, dq, points_2_shots_1, no_result, points_3_time_2, points_2_shots_2, dnf].sort)
-          .to eq([dq, dns, dnf, no_result, points_3_time_2, points_3_time_1, points_2_shots_2, points_2_shots_1, points_1])
+      expect([unofficial_1, points_3_time_1, dns, points_1, unofficial_4, unofficial_3, unofficial_2, dq,
+              points_2_shots_1, no_result, points_3_time_2, points_2_shots_2, dnf].sort)
+          .to eq([dq, dns, dnf, no_result, unofficial_4, unofficial_3, unofficial_2, unofficial_1, points_3_time_2,
+                  points_3_time_1, points_2_shots_2, points_2_shots_1, points_1])
     end
 
-    def create_competitor(points, shot_points, time_in_seconds)
+    def create_competitor(points, shot_points, time_in_seconds, unofficial=false)
       competitor = build :competitor
       expect(competitor).to receive(:points).and_return(points)
       expect(competitor).to receive(:shot_points).and_return(shot_points)
       allow(competitor).to receive(:time_in_seconds).and_return(time_in_seconds)
+      expect(competitor).to receive(:unofficial?).and_return(unofficial)
       competitor
     end
   end
