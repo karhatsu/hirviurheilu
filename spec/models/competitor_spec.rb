@@ -1175,34 +1175,34 @@ describe Competitor do
   describe "#relative_points" do
     before do
       @all_competitors = false
+      @dq = build(:competitor, :no_result_reason => Competitor::DQ)
+      @dns = build(:competitor, :no_result_reason => Competitor::DNS)
+      @dnf = build(:competitor, :no_result_reason => Competitor::DNF)
+      @unofficial_1 = create_competitor(1200, 600, 60*5, true)
+      @unofficial_2 = create_competitor(1199, 600, 60*5, true)
+      @unofficial_3 = create_competitor(1199, 599, 60*5-2, true)
+      @unofficial_4 = create_competitor(1199, 599, 60*5-1, true)
+      @no_result = build(:competitor)
+      @points_1 = create_competitor(1100, 500, 60*20)
+      @points_2_shots_1 = create_competitor(1000, 600, 60*20)
+      @points_2_shots_2 = create_competitor(1000, 594, 60*20)
+      @points_3_time_1 = create_competitor(900, 600, 60*15-1)
+      @points_3_time_2 = create_competitor(900, 600, 60*15)
     end
 
     it 'should rank best points, best shots points, best time, unofficials, DNF, DNS, DQ' do
-      dq = build(:competitor, :no_result_reason => Competitor::DQ).relative_points
-      dns = build(:competitor, :no_result_reason => Competitor::DNS).relative_points
-      dnf = build(:competitor, :no_result_reason => Competitor::DNF).relative_points
-      unofficial_1 = create_competitor(1200, 600, 60*5, true).relative_points
-      unofficial_2 = create_competitor(1199, 600, 60*5, true).relative_points
-      unofficial_3 = create_competitor(1199, 599, 60*5-2, true).relative_points
-      unofficial_4 = create_competitor(1199, 599, 60*5-1, true).relative_points
-      no_result = build(:competitor).relative_points
-      points_1 = create_competitor(1100, 500, 60*20).relative_points
-      points_2_shots_1 = create_competitor(1000, 600, 60*20).relative_points
-      points_2_shots_2 = create_competitor(1000, 594, 60*20).relative_points
-      points_3_time_1 = create_competitor(900, 600, 60*15-1).relative_points
-      points_3_time_2 = create_competitor(900, 600, 60*15).relative_points
-      expect([unofficial_1, points_3_time_1, dns, points_1, unofficial_4, unofficial_3, unofficial_2, dq,
-              points_2_shots_1, no_result, points_3_time_2, points_2_shots_2, dnf].sort)
-          .to eq([dq, dns, dnf, no_result, unofficial_4, unofficial_3, unofficial_2, unofficial_1, points_3_time_2,
-                  points_3_time_1, points_2_shots_2, points_2_shots_1, points_1])
+      expect([@unofficial_1, @points_3_time_1, @dns, @points_1, @unofficial_4, @unofficial_3, @unofficial_2, @dq,
+              @points_2_shots_1, @no_result, @points_3_time_2, @points_2_shots_2, @dnf].map {|c|c.relative_points}.sort)
+          .to eq([@dq, @dns, @dnf, @no_result, @unofficial_4, @unofficial_3, @unofficial_2, @unofficial_1, @points_3_time_2,
+                  @points_3_time_1, @points_2_shots_2, @points_2_shots_1, @points_1].map {|c|c.relative_points})
     end
 
     def create_competitor(points, shot_points, time_in_seconds, unofficial=false)
       competitor = build :competitor
-      expect(competitor).to receive(:points).and_return(points)
-      expect(competitor).to receive(:shot_points).and_return(shot_points)
+      allow(competitor).to receive(:points).and_return(points)
+      allow(competitor).to receive(:shot_points).and_return(shot_points)
       allow(competitor).to receive(:time_in_seconds).and_return(time_in_seconds)
-      expect(competitor).to receive(:unofficial?).and_return(unofficial)
+      allow(competitor).to receive(:unofficial?).and_return(unofficial)
       competitor
     end
   end
