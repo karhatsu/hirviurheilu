@@ -414,28 +414,12 @@ describe Competitor do
           :time_in_seconds => 1000, :unofficial => true, :estimate_points => 250)
       end
 
-      # note that partial points equal points when all results are available
-      it "should sort by: 1. points 2. partial points 3. shot points " +
-          "4. time (secs) 5. normal competitors before DNS/DNF/DQ " +
-          "6. unofficial competitors before DNS/DNF/DQ" do
-        competitors = [@unofficial, @second_partial, @worst_partial, @best_partial,
-          @c_dnf, @c_dns, @c_dq, @best_time, @best_points, @worst_points, @best_shots]
-        expect(Competitor.sort_competitors(competitors, false)).to eq(
-          [@best_points, @best_shots, @best_time, @worst_points, @best_partial,
-          @second_partial, @worst_partial, @unofficial, @c_dnf, @c_dns, @c_dq]
-        )
-      end
-
-      context "when unofficial competitors are handled equal" do
-        it "should sort by: 1. points 2. partial points 3. shot points " +
-            "4. time (secs) 5. normal competitors before DNS/DNF/DQ" do
-          competitors = [@unofficial, @second_partial, @worst_partial, @best_partial,
-            @c_dnf, @c_dns, @c_dq, @best_time, @best_points, @worst_points, @best_shots]
-          expect(Competitor.sort_competitors(competitors, true)).to eq(
-            [@unofficial, @best_points, @best_shots, @best_time, @worst_points,
-            @best_partial, @second_partial, @worst_partial, @c_dnf, @c_dns, @c_dq]
-          )
-        end
+      it 'should sort by relative points' do
+        competitor1 = instance_double(Competitor, relative_points: 100)
+        competitor2 = instance_double(Competitor, relative_points: 99)
+        competitor3 = instance_double(Competitor, relative_points: 98)
+        competitors = [competitor3, competitor1, competitor2]
+        expect(Competitor.sort_competitors(competitors, false)).to eq([competitor1, competitor2, competitor3])
       end
 
       describe "by time" do

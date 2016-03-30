@@ -245,10 +245,7 @@ class Competitor < ActiveRecord::Base
 
   def self.sort_competitors_by_points(competitors, all_competitors)
     competitors.sort do |a, b|
-      [a.no_result_reason.to_s, ((!all_competitors && a.unofficial) ? 1 : 0),
-        b.points(all_competitors).to_i, b.shot_points.to_i, a.time_in_seconds.to_i] <=>
-      [b.no_result_reason.to_s, ((!all_competitors && b.unofficial) ? 1 : 0),
-        a.points(all_competitors).to_i, a.shot_points.to_i, b.time_in_seconds.to_i]
+      b.relative_points(all_competitors) <=> a.relative_points(all_competitors)
     end
   end
   
