@@ -1221,6 +1221,27 @@ describe Competitor do
     end
   end
 
+  describe '#relative_shot_points' do
+    context 'when no shots' do
+      it 'returns 0' do
+        expect(build(:competitor).relative_shot_points).to eq 0
+      end
+    end
+
+    context 'when shots' do
+      it 'multiplies each shot by its value' do
+        competitor = create :competitor
+        create :shot, competitor: competitor, value: 10
+        create :shot, competitor: competitor, value: 10
+        create :shot, competitor: competitor, value: 8
+        create :shot, competitor: competitor, value: 7
+        create :shot, competitor: competitor, value: 3
+        create :shot, competitor: competitor, value: 3
+        expect(competitor.reload.relative_shot_points).to eq(2*10*10 + 8*8 + 7*7 + 2*3*3)
+      end
+    end
+  end
+
   describe "#start_datetime" do
     it "should return value from StartDateTime module" do
       race = build :race

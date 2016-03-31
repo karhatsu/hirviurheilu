@@ -181,6 +181,10 @@ class Competitor < ActiveRecord::Base
     end
   end
 
+  def relative_shot_points
+    shots.inject(0) {|sum, shot| sum = sum + shot.value * shot.value; sum}
+  end
+
   def finished?
     no_result_reason ||
       (start_time && (arrival_time || series.time_points_type != Series::TIME_POINTS_TYPE_NORMAL) &&
