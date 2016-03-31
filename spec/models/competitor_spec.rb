@@ -1174,20 +1174,22 @@ describe Competitor do
       @points_2_shots_2 = create_competitor(1000, 594, 60*20)
       @points_3_time_1 = create_competitor(900, 600, 60*15-1)
       @points_3_time_2 = create_competitor(900, 600, 60*15)
+      @competitors_in_random_order = [@unofficial_1, @points_3_time_1, @dns, @points_1, @unofficial_4,
+                                      @unofficial_3, @unofficial_2, @dq, @points_2_shots_1, @no_result,
+                                      @points_3_time_2, @points_2_shots_2, @dnf]
     end
 
     it 'should rank best points, best shots points, best time, unofficials, DNF, DNS, DQ' do
-      expect([@unofficial_1, @points_3_time_1, @dns, @points_1, @unofficial_4, @unofficial_3, @unofficial_2, @dq,
-              @points_2_shots_1, @no_result, @points_3_time_2, @points_2_shots_2, @dnf].map {|c|c.relative_points}.sort)
-          .to eq([@dq, @dns, @dnf, @no_result, @unofficial_4, @unofficial_3, @unofficial_2, @unofficial_1, @points_3_time_2,
-                  @points_3_time_1, @points_2_shots_2, @points_2_shots_1, @points_1].map {|c|c.relative_points})
+      expected_order = [@dq, @dns, @dnf, @no_result, @unofficial_4, @unofficial_3, @unofficial_2, @unofficial_1,
+                      @points_3_time_2, @points_3_time_1, @points_2_shots_2, @points_2_shots_1, @points_1]
+      expect(@competitors_in_random_order.map {|c|c.relative_points}.sort).to eq(expected_order.map {|c|c.relative_points})
     end
 
     it 'should rank unofficial competitors among others when all competitors wanted' do
-      expect([@unofficial_1, @points_3_time_1, @dns, @points_1, @unofficial_4, @unofficial_3, @unofficial_2, @dq,
-              @points_2_shots_1, @no_result, @points_3_time_2, @points_2_shots_2, @dnf].map {|c|c.relative_points(true)}.sort)
-          .to eq([@dq, @dns, @dnf, @no_result, @points_3_time_2, @points_3_time_1, @points_2_shots_2, @points_2_shots_1,
-                  @points_1, @unofficial_4, @unofficial_3, @unofficial_2, @unofficial_1].map {|c|c.relative_points(true)})
+      expected_order = [@dq, @dns, @dnf, @no_result, @points_3_time_2, @points_3_time_1, @points_2_shots_2,
+                        @points_2_shots_1, @points_1, @unofficial_4, @unofficial_3, @unofficial_2, @unofficial_1]
+      expect(@competitors_in_random_order.map {|c|c.relative_points(true)}.sort)
+          .to eq(expected_order.map {|c|c.relative_points(true)})
     end
 
     def create_competitor(points, shot_points, time_in_seconds, unofficial=false)
