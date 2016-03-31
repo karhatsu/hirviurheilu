@@ -368,94 +368,43 @@ describe Competitor do
   end
 
   describe "#sort_competitors" do
-    context 'when no competitors' do
-      it "should return empty list" do
-        expect(Competitor.sort_competitors([], false)).to eq([])
+    describe 'without unofficial competitors' do
+      before do
+        @all_competitors = false
+        @sort_by = 'some-sort-order'
+      end
+
+      it 'should sort by relative points and number' do
+        competitor1 = create_competitor_with_relative_points 100, 30
+        competitor2 = create_competitor_with_relative_points 99, 4
+        competitor3 = create_competitor_with_relative_points 98, 99
+        competitor0_1 = create_competitor_with_relative_points 0, 15
+        competitor0_2 = create_competitor_with_relative_points 0, 16
+        competitors = [competitor0_2, competitor3, competitor1, competitor2, competitor0_1]
+        expect(Competitor.sort_competitors(competitors, @all_competitors, @sort_by))
+            .to eq([competitor1, competitor2, competitor3, competitor0_1, competitor0_2])
       end
     end
 
-    context 'with competitors having shots_total_input' do
+    describe 'with unofficial competitors' do
       before do
-        @second_partial = instance_double(Competitor, :points => 12,
-          :no_result_reason => nil, :shot_points => 50, :time_points => 30,
-          :time_in_seconds => 999, :unofficial => false, :estimate_points => nil)
-        @worst_partial = instance_double(Competitor, :points => 11,
-          :no_result_reason => nil, :shot_points => 51, :time_points => 30,
-          :time_in_seconds => 1000, :unofficial => false, :estimate_points => nil)
-        @best_partial = instance_double(Competitor, :points => 88,
-          :no_result_reason => nil, :shot_points => 50, :time_points => 30,
-          :time_in_seconds => 1000, :unofficial => false, :estimate_points => nil)
-        @best_time = instance_double(Competitor, :points => 199,
-          :no_result_reason => nil, :shot_points => 87, :time_points => 30,
-          :time_in_seconds => 999, :unofficial => false, :estimate_points => 250)
-        @best_points = instance_double(Competitor, :points => 201,
-          :no_result_reason => nil, :shot_points => 50, :time_points => 30,
-          :time_in_seconds => 1000, :unofficial => false, :estimate_points => 250)
-        @worst_points = instance_double(Competitor, :points => 199,
-          :no_result_reason => nil, :shot_points => 87, :time_points => 30,
-          :time_in_seconds => 1000, :unofficial => false, :estimate_points => 250)
-        @best_shots = instance_double(Competitor, :points => 199,
-          :no_result_reason => nil, :shot_points => 88, :time_points => 30,
-          :time_in_seconds => 1000, :unofficial => false, :estimate_points => 250)
-        @best_estimates = instance_double(Competitor, :points => 199,
-          :no_result_reason => nil, :shot_points => 86, :time_points => 30,
-          :time_in_seconds => 1000, :unofficial => false, :estimate_points => 252)
-        @c_dnf = instance_double(Competitor, :points => 300,
-          :no_result_reason => "DNF", :shot_points => 88, :time_points => 30,
-          :time_in_seconds => 999, :unofficial => false, :estimate_points => 256)
-        @c_dns = instance_double(Competitor, :points => 300,
-          :no_result_reason => "DNS", :shot_points => 88, :time_points => 30,
-          :time_in_seconds => 1000, :unofficial => false, :estimate_points => 255)
-        @c_dq = instance_double(Competitor, :points => 300,
-          :no_result_reason => "DQ", :shot_points => 88, :time_points => 30,
-          :time_in_seconds => 999, :unofficial => false, :estimate_points => 256)
-        @unofficial = instance_double(Competitor, :points => 300,
-          :no_result_reason => nil, :shot_points => 100, :time_points => 100,
-          :time_in_seconds => 1000, :unofficial => true, :estimate_points => 250)
+        @all_competitors = true
+        @sort_by = 'another-sort-order'
       end
 
-      it 'should sort by relative points' do
-        competitor1 = instance_double(Competitor, relative_points: 100, number: 30)
-        competitor2 = instance_double(Competitor, relative_points: 99, number: 4)
-        competitor3 = instance_double(Competitor, relative_points: 98, number: 99)
-        competitor0_1 = instance_double(Competitor, relative_points: 0, number: 15)
-        competitor0_2 = instance_double(Competitor, relative_points: 0, number: 16)
-        competitors = [competitor0_2, competitor3, competitor1, competitor2, competitor0_1]
-        expect(Competitor.sort_competitors(competitors, false)).to eq([competitor1, competitor2, competitor3, competitor0_1, competitor0_2])
+      it 'should sort by relative points and number' do
+        competitor1 = create_competitor_with_relative_points 100, 30
+        competitor2 = create_competitor_with_relative_points 99, 4
+        competitors = [competitor1, competitor2]
+        expect(Competitor.sort_competitors(competitors, @all_competitors, @sort_by))
+            .to eq([competitor1, competitor2])
       end
+    end
 
-      describe "by time" do
-        it "should sort by: 1. time (secs) 2. points 3. partial points 4. shot points 5. DNS/DNF/DQ " do
-          competitors = [@second_partial, @worst_partial, @best_partial,
-            @c_dnf, @c_dns, @c_dq, @best_time, @best_points, @worst_points, @best_shots]
-          expect(Competitor.sort_competitors(competitors, false, Competitor::SORT_BY_TIME)).to eq(
-            [@best_time, @second_partial, @best_points, @best_shots, @worst_points,
-              @best_partial, @worst_partial, @c_dnf, @c_dns, @c_dq]
-          )
-        end
-      end
-
-      describe "by shots" do
-        it "should sort by: 1. shot points 2. points 3. partial points 4. time (secs) 5. DNS/DNF/DQ " do
-          competitors = [@second_partial, @worst_partial, @best_partial,
-            @c_dnf, @c_dns, @c_dq, @best_time, @best_points, @worst_points, @best_shots]
-          expect(Competitor.sort_competitors(competitors, false, Competitor::SORT_BY_SHOTS)).to eq(
-          [@best_shots, @best_time, @worst_points, @worst_partial, @best_points,
-            @best_partial, @second_partial, @c_dnf, @c_dns, @c_dq]
-          )
-        end
-      end
-
-      describe "by estimates" do
-        it "should sort by: 1. estimate points 2. points 3. partial points 4. shot points 5. DNS/DNF/DQ " do
-          competitors = [@worst_partial, @best_partial,
-            @c_dnf, @c_dns, @c_dq, @best_time, @best_points, @worst_points, @best_shots, @best_estimates]
-          expect(Competitor.sort_competitors(competitors, false, Competitor::SORT_BY_ESTIMATES)).to eq(
-          [@best_estimates, @best_points, @best_shots, @best_time, @worst_points, @best_partial,
-            @worst_partial, @c_dnf, @c_dns, @c_dq]
-          )
-        end
-      end
+    def create_competitor_with_relative_points(relative_points, number)
+      competitor = build :competitor, number: number
+      allow(competitor).to receive(:relative_points).with(@all_competitors, @sort_by).and_return(relative_points)
+      competitor
     end
   end
 
@@ -1160,15 +1109,14 @@ describe Competitor do
   
   describe "#relative_points" do
     before do
-      @all_competitors = false
-      @dq = build(:competitor, :no_result_reason => Competitor::DQ)
-      @dns = build(:competitor, :no_result_reason => Competitor::DNS)
-      @dnf = build(:competitor, :no_result_reason => Competitor::DNF)
-      @unofficial_1 = create_competitor(1200, 600, 60*5, true)
-      @unofficial_2 = create_competitor(1199, 600, 60*5, true)
-      @unofficial_3 = create_competitor(1199, 599, 60*5-2, true)
-      @unofficial_4 = create_competitor(1199, 599, 60*5-1, true)
-      @no_result = build(:competitor)
+      @dq = create_competitor(1200, 600, 60*1, Competitor::DQ)
+      @dns = create_competitor(1200, 600, 60*1, Competitor::DNS)
+      @dnf = create_competitor(1200, 600, 60*1, Competitor::DNF)
+      @unofficial_1 = create_competitor(1200, 600, 60*5, nil, true)
+      @unofficial_2 = create_competitor(1199, 600, 60*5, nil, true)
+      @unofficial_3 = create_competitor(1199, 599, 60*5-2, nil, true)
+      @unofficial_4 = create_competitor(1199, 599, 60*5-1, nil, true)
+      @no_result = create_competitor(nil, nil, nil)
       @points_1 = create_competitor(1100, 500, 60*20)
       @points_2_shots_1 = create_competitor(1000, 600, 60*20)
       @points_2_shots_2 = create_competitor(1000, 594, 60*20)
@@ -1182,23 +1130,94 @@ describe Competitor do
     it 'should rank best points, best shots points, best time, unofficials, DNF, DNS, DQ' do
       expected_order = [@dq, @dns, @dnf, @no_result, @unofficial_4, @unofficial_3, @unofficial_2, @unofficial_1,
                       @points_3_time_2, @points_3_time_1, @points_2_shots_2, @points_2_shots_1, @points_1]
-      expect(@competitors_in_random_order.map {|c|c.relative_points}.sort).to eq(expected_order.map {|c|c.relative_points})
+      expect_relative_points_order @competitors_in_random_order, expected_order
     end
 
     it 'should rank unofficial competitors among others when all competitors wanted' do
       expected_order = [@dq, @dns, @dnf, @no_result, @points_3_time_2, @points_3_time_1, @points_2_shots_2,
                         @points_2_shots_1, @points_1, @unofficial_4, @unofficial_3, @unofficial_2, @unofficial_1]
-      expect(@competitors_in_random_order.map {|c|c.relative_points(true)}.sort)
-          .to eq(expected_order.map {|c|c.relative_points(true)})
+      expect_relative_points_order @competitors_in_random_order, expected_order, true
     end
 
-    def create_competitor(points, shot_points, time_in_seconds, unofficial=false)
+    describe 'by shots' do
+      before do
+        @sort_by = Competitor::SORT_BY_SHOTS
+      end
+
+      it 'returns shot points for competitors with result' do
+        @competitors_in_random_order.each do |competitor|
+          unless competitor.no_result_reason
+            expect(competitor.relative_points(false, @sort_by)).to eq(competitor.shot_points.to_i)
+            expect(competitor.relative_points(true, @sort_by)).to eq(competitor.shot_points.to_i)
+          end
+        end
+      end
+
+      it 'handles DNF, DNS, DQ as usual' do
+        some_competitors = [@dns, @unofficial_3, @no_result, @dq, @dnf, @points_2_shots_2]
+        expected_order = [@dq, @dns, @dnf, @no_result, @points_2_shots_2, @unofficial_3]
+        expect_relative_points_order some_competitors, expected_order, false, @sort_by
+        expect_relative_points_order some_competitors, expected_order, true, @sort_by
+      end
+    end
+
+    describe 'by estimates' do
+      before do
+        @sort_by = Competitor::SORT_BY_ESTIMATES
+      end
+
+      it 'returns estimate points for competitors with result' do
+        @competitors_in_random_order.each do |competitor|
+          unless competitor.no_result_reason
+            expect(competitor.relative_points(false, @sort_by)).to eq(competitor.estimate_points.to_i)
+            expect(competitor.relative_points(true, @sort_by)).to eq(competitor.estimate_points.to_i)
+          end
+        end
+      end
+
+      it 'handles DNF, DNS, DQ as usual' do
+        some_competitors = [@dns, @no_result, @dq, @dnf, @points_2_shots_2]
+        expected_order = [@dq, @dns, @dnf, @no_result, @points_2_shots_2]
+        expect_relative_points_order some_competitors, expected_order, false, @sort_by
+      end
+    end
+
+    describe 'by time' do
+      before do
+        @sort_by = Competitor::SORT_BY_TIME
+      end
+
+      it 'returns negative time in seconds for competitors with result' do
+        @competitors_in_random_order.each do |competitor|
+          unless competitor.no_result_reason || competitor.time_in_seconds.nil?
+            expect(competitor.relative_points(false, @sort_by)).to eq(-competitor.time_in_seconds.to_i)
+            expect(competitor.relative_points(true, @sort_by)).to eq(-competitor.time_in_seconds.to_i)
+          end
+        end
+      end
+
+      it 'handles DNF, DNS, DQ as usual; does not set nil time to the top' do
+        some_competitors = [@no_result, @dns, @points_3_time_1, @dq, @dnf, @points_3_time_2]
+        expected_order = [@dq, @dns, @dnf, @no_result, @points_3_time_2, @points_3_time_1]
+        expect_relative_points_order some_competitors, expected_order, false, @sort_by
+        expect_relative_points_order some_competitors, expected_order, true, @sort_by
+      end
+    end
+
+    def create_competitor(points, shot_points, time_in_seconds, no_result_reason=nil, unofficial=false)
       competitor = build :competitor
+      allow(competitor).to receive(:no_result_reason).and_return(no_result_reason)
       allow(competitor).to receive(:points).and_return(points)
       allow(competitor).to receive(:shot_points).and_return(shot_points)
       allow(competitor).to receive(:time_in_seconds).and_return(time_in_seconds)
       allow(competitor).to receive(:unofficial?).and_return(unofficial)
+      allow(competitor).to receive(:estimate_points).and_return(550)
       competitor
+    end
+
+    def expect_relative_points_order(competitors, expected_order, all_competitors=false, sort_by=nil)
+      expect(competitors.map {|c|c.relative_points(all_competitors, sort_by)}.sort)
+          .to eq(expected_order.map {|c|c.relative_points(all_competitors, sort_by)})
     end
   end
 

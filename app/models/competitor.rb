@@ -162,14 +162,23 @@ class Competitor < ActiveRecord::Base
     shot_points.to_i + estimate_points.to_i + time_points(all_competitors).to_i
   end
   
-  def relative_points(all_competitors=false)
-    return -3 if no_result_reason == DQ
-    return -2 if no_result_reason == DNS
-    return -1 if no_result_reason == DNF
-    relative_points = 10000*points(all_competitors).to_i + 100*shot_points.to_i +
-      10*time_points(all_competitors).to_i - time_in_seconds.to_i
-    relative_points = relative_points * 10 unless all_competitors || unofficial?
-    relative_points
+  def relative_points(all_competitors=false, sort_by=SORT_BY_POINTS)
+    return -1000003 if no_result_reason == DQ
+    return -1000002 if no_result_reason == DNS
+    return -1000001 if no_result_reason == DNF
+    if sort_by == SORT_BY_SHOTS
+      shot_points.to_i
+    elsif sort_by == SORT_BY_ESTIMATES
+      estimate_points.to_i
+    elsif sort_by == SORT_BY_TIME
+      return -time_in_seconds.to_i if time_in_seconds
+      -1000000
+    else
+      relative_points = 10000*points(all_competitors).to_i + 100*shot_points.to_i +
+        10*time_points(all_competitors).to_i - time_in_seconds.to_i
+      relative_points = relative_points * 10 unless all_competitors || unofficial?
+      relative_points
+    end
   end
 
   def finished?
@@ -199,53 +208,8 @@ class Competitor < ActiveRecord::Base
   end
 
   def self.sort_competitors(competitors, all_competitors, sort_by=SORT_BY_POINTS)
-    if sort_by == SORT_BY_TIME
-      sort_competitors_by_time competitors, all_competitors
-    elsif sort_by == SORT_BY_SHOTS
-      sort_competitors_by_shots competitors, all_competitors 
-    elsif sort_by == SORT_BY_ESTIMATES
-      sort_competitors_by_estimates competitors, all_competitors
-    else
-      sort_competitors_by_points competitors, all_competitors
-    end
-  end
-
-  def self.sort_competitors_by_time(competitors, all_competitors)
     competitors.sort do |a, b|
-      [a.no_result_reason.to_s, a.time_in_seconds.to_i,
-        ((!all_competitors && a.unofficial) ? 1 : 0),
-        b.points(all_competitors).to_i, b.shot_points.to_i] <=>
-      [b.no_result_reason.to_s, b.time_in_seconds.to_i,
-        ((!all_competitors && b.unofficial) ? 1 : 0),
-        a.points(all_competitors).to_i, a.shot_points.to_i]
-    end
-  end
-    
-  def self.sort_competitors_by_shots(competitors, all_competitors)
-    competitors.sort do |a, b|
-      [a.no_result_reason.to_s, b.shot_points.to_i,
-        ((!all_competitors && a.unofficial) ? 1 : 0),
-        b.points(all_competitors).to_i, a.time_in_seconds.to_i] <=>
-      [b.no_result_reason.to_s, a.shot_points.to_i,
-        ((!all_competitors && b.unofficial) ? 1 : 0),
-        a.points(all_competitors).to_i, b.time_in_seconds.to_i]
-    end
-  end
-  
-  def self.sort_competitors_by_estimates(competitors, all_competitors)
-    competitors.sort do |a, b|
-      [a.no_result_reason.to_s, b.estimate_points.to_i,
-        ((!all_competitors && a.unofficial) ? 1 : 0),
-        b.points(all_competitors).to_i, b.shot_points.to_i, a.time_in_seconds.to_i] <=>
-      [b.no_result_reason.to_s, a.estimate_points.to_i,
-        ((!all_competitors && b.unofficial) ? 1 : 0),
-        a.points(all_competitors).to_i, a.shot_points.to_i, b.time_in_seconds.to_i]
-    end
-  end
-
-  def self.sort_competitors_by_points(competitors, all_competitors)
-    competitors.sort do |a, b|
-      [b.relative_points(all_competitors), a.number] <=> [a.relative_points(all_competitors), b.number]
+      [b.relative_points(all_competitors, sort_by), a.number] <=> [a.relative_points(all_competitors, sort_by), b.number]
     end
   end
   
