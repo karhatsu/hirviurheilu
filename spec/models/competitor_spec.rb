@@ -1139,6 +1139,12 @@ describe Competitor do
       expect_relative_points_order @competitors_in_random_order, expected_order, true
     end
 
+    it 'yet another test' do
+      c1 = create_competitor(927, 6*91, 60*53+6)
+      c2 = create_competitor(928, 6*67, 60*37+15)
+      expect_relative_points_order [c2, c1], [c1, c2]
+    end
+
     describe 'by shots' do
       before do
         @sort_by = Competitor::SORT_BY_SHOTS
