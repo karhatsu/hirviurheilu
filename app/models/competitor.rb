@@ -159,6 +159,7 @@ class Competitor < ActiveRecord::Base
   end
 
   def points(all_competitors=false)
+    return nil if no_result_reason
     shot_points.to_i + estimate_points.to_i + time_points(all_competitors).to_i
   end
   

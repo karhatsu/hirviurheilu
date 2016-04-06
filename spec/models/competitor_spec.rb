@@ -812,6 +812,11 @@ describe Competitor do
       allow(@competitor).to receive(:time_points).with(@all_competitors).and_return(200)
     end
 
+    it 'should return nil when no result reason' do
+      @competitor.no_result_reason = 'DNF'
+      expect(@competitor.points(@all_competitors)).to be_nil
+    end
+
     it "should consider missing shot points as 0" do
       expect(@competitor).to receive(:shot_points).and_return(nil)
       expect(@competitor.points(@all_competitors)).to eq(150 + 200)
