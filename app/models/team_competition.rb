@@ -69,7 +69,7 @@ class TeamCompetition < ActiveRecord::Base
     competitor_counter = Hash.new
 
     Competitor.sort_competitors(competitors, false).each do |competitor|
-      break if competitor.points.nil? or competitor.unofficial
+      break if competitor.points.nil? || competitor.unofficial
       team = team_for(competitor)
       next unless team
       competitor_count = competitor_counter[team] || 0
@@ -89,11 +89,9 @@ class TeamCompetition < ActiveRecord::Base
 
   def update_team_hash(team_hash, competitor)
     team_hash[:points] += competitor.points
-    team_hash[:best_points] = competitor.points if competitor.
-      points > team_hash[:points]
-    team_hash[:best_shot_points] = competitor.shot_points if competitor.
-      points > team_hash[:best_shot_points]
-    if competitor.time_in_seconds and competitor.time_in_seconds < team_hash[:fastest_time]
+    team_hash[:best_points] = competitor.points if competitor.points > team_hash[:points]
+    team_hash[:best_shot_points] = competitor.shot_points if competitor.points > team_hash[:best_shot_points]
+    if competitor.time_in_seconds && competitor.time_in_seconds < team_hash[:fastest_time]
       team_hash[:fastest_time] = competitor.time_in_seconds
     end
     team_hash[:competitors] << competitor

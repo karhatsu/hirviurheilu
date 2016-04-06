@@ -75,6 +75,9 @@ describe TeamCompetition do
 
     context "when the clubs have enough competitors" do
       before do
+        @default_shot_points = 200
+        @default_time_in_seconds = 1000
+
         @race = instance_double(Race)
         @club_best_total_points = instance_double(Club, :name => 'Club 1')
         @club_best_single_points = instance_double(Club, :name => 'Club 2')
@@ -83,19 +86,17 @@ describe TeamCompetition do
         @club_worst = instance_double(Club, :name => 'Club 5')
         @club_small = instance_double(Club, :name => 'Club small')
         @club_unofficial = instance_double(Club, :name => 'Club unofficial')
+        @club_no_result = instance_double(Club, name: 'Club DNS')
 
-        @club_best_total_points_c1 = create_competitor(@club_best_total_points, 1100,
-          :time_in_seconds => nil)
+        @club_best_total_points_c1 = create_competitor(@club_best_total_points, 1100, time_in_seconds: nil)
         @club_best_total_points_c2 = create_competitor(@club_best_total_points, 1000)
         @club_best_total_points_c_excl = create_competitor(@club_best_total_points, 999)
         @club_best_single_points_c1 = create_competitor(@club_best_single_points, 1050)
         @club_best_single_points_c2 = create_competitor(@club_best_single_points, 800)
         @club_best_single_shots_c1 = create_competitor(@club_best_single_shots, 1049)
-        @club_best_single_shots_c2 = create_competitor(@club_best_single_shots, 801,
-          :shot_points => 201)
+        @club_best_single_shots_c2 = create_competitor(@club_best_single_shots, 801, shot_points: @default_shot_points + 1)
         @club_best_single_time_c1 = create_competitor(@club_best_single_time, 1049)
-        @club_best_single_time_c2 = create_competitor(@club_best_single_time, 801,
-          :time_in_seconds => 999)
+        @club_best_single_time_c2 = create_competitor(@club_best_single_time, 801, time_in_seconds: @default_time_in_seconds - 1)
         @club_worst_c1 = create_competitor(@club_worst, 1049)
         @club_worst_c2 = create_competitor(@club_worst, 801)
 
@@ -174,9 +175,9 @@ describe TeamCompetition do
       end
 
       def create_competitor(club, points, options={})
-        instance_double(Competitor, {:points => points, :club => club,
-            :shot_points => 200, :time_in_seconds => 1000,
-            :unofficial => false, :team_name => nil}.merge(options))
+        instance_double(Competitor, {points: points, club: club, shot_points: @default_shot_points,
+                                     time_in_seconds: @default_time_in_seconds, :unofficial => false,
+                                     team_name: nil}.merge(options))
       end
 
       context "and team name is wanted to use" do
