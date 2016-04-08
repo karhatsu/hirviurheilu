@@ -103,7 +103,7 @@ class TeamCompetition < ActiveRecord::Base
     team_hash[:club] = team
     team_hash[:points] = competitor.points
     team_hash[:best_points] = competitor.points
-    team_hash[:best_shot_points] = competitor.shot_points
+    team_hash[:best_shot_points] = competitor.shot_points.to_i
     if competitor.time_in_seconds
       team_hash[:fastest_time] = competitor.time_in_seconds
     else

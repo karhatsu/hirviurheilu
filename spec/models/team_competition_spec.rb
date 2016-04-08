@@ -86,7 +86,7 @@ describe TeamCompetition do
         @club_worst = instance_double(Club, :name => 'Club 5')
         @club_small = instance_double(Club, :name => 'Club small')
         @club_unofficial = instance_double(Club, :name => 'Club unofficial')
-        @club_no_result = instance_double(Club, name: 'Club DNS')
+        @club_no_result = instance_double(Club, name: 'Club no results yet')
 
         @club_best_total_points_c1 = create_competitor(@club_best_total_points, 1100, time_in_seconds: nil)
         @club_best_total_points_c2 = create_competitor(@club_best_total_points, 1000)
@@ -99,6 +99,9 @@ describe TeamCompetition do
         @club_best_single_time_c2 = create_competitor(@club_best_single_time, 801, time_in_seconds: @default_time_in_seconds - 1)
         @club_worst_c1 = create_competitor(@club_worst, 1049)
         @club_worst_c2 = create_competitor(@club_worst, 801)
+
+        @club_no_result_c1 = create_competitor(@club_no_result, 0, shot_points: nil, time_in_seconds: nil)
+        @club_no_result_c2 = create_competitor(@club_no_result, 0, shot_points: nil)
 
         @club_small_c = create_competitor(@club_small, 1200)
         @club_small_nil_points = create_competitor(@club_small, nil)
@@ -113,6 +116,7 @@ describe TeamCompetition do
             @club_best_single_shots_c2,
             @club_best_single_time_c2, @club_worst_c2,
             @club_best_single_points_c2,
+            @club_no_result_c1, @club_no_result_c2,
             @club_unofficial1, @club_unofficial2, @club_small_nil_points]
         allow(@tc).to receive(:race).and_return(@race)
         allow(@race).to receive(:finished?).and_return(true)
@@ -129,12 +133,13 @@ describe TeamCompetition do
               "so that the clubs are ordered: 1. total points " +
               "2. best individual points 3. best individual shot points " +
               "4. fastest individual time" do
-            expect(@results.length).to eq(5)
+            expect(@results.length).to eq(6)
             expect(@results[0][:club]).to eq(@club_best_total_points)
             expect(@results[1][:club]).to eq(@club_best_single_points)
             expect(@results[2][:club]).to eq(@club_best_single_shots)
             expect(@results[3][:club]).to eq(@club_best_single_time)
             expect(@results[4][:club]).to eq(@club_worst)
+            expect(@results[5][:club]).to eq(@club_no_result)
           end
         end
 
@@ -147,12 +152,14 @@ describe TeamCompetition do
             allow(@race).to receive(:finished?).and_return(false)
             expect(Competitor).to receive(:sort_competitors).with(@competitors, false).and_return(@competitors)
             @results = @tc.results_for_competitors(@competitors)
-            expect(@results.length).to eq(6)
+            expect(@results.length).to eq(7)
             expect(@results[0][:club]).to eq(@club_best_total_points)
             expect(@results[1][:club]).to eq(@club_best_single_points)
             expect(@results[2][:club]).to eq(@club_best_single_shots)
             expect(@results[3][:club]).to eq(@club_best_single_time)
             expect(@results[4][:club]).to eq(@club_worst)
+            expect(@results[5][:club]).to eq(@club_small)
+            expect(@results[6][:club]).to eq(@club_no_result)
           end
         end
 
