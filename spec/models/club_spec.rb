@@ -99,15 +99,15 @@ describe Club do
     end
   end
 
-  describe "#result_name" do
+  describe "#display_name" do
     it "should return long name when long name set" do
       club = create(:club, :name => 'PS', :long_name => 'Pohjois-Savo')
-      expect(club.expanded).to eq('Pohjois-Savo')
+      expect(club.display_name).to eq('Pohjois-Savo')
     end
 
     it "should return name when long name not set" do
       club = create(:club, :name => 'PS')
-      expect(club.expanded).to eq('PS')
+      expect(club.display_name).to eq('PS')
     end
   end
 end
