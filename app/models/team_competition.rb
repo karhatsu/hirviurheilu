@@ -129,6 +129,6 @@ class TeamCompetition < ActiveRecord::Base
       return nil if competitor.team_name.blank?
       return competitor.team_name
     end
-    competitor.club
+    competitor.club.expanded
   end
 end

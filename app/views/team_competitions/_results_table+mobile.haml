@@ -7,8 +7,7 @@
     %th= t(:points)
   - results.each_with_index do |team_result, i|
     - club = team_result[:club]
-    - club_name = club.is_a?(Club) ? club.expanded : club
-    - club_id = club.is_a?(Club) ? club.id : club.gsub(/\s+/, '')
+    - club_id = club.gsub(/\s+/, '')
     %tr{id: "team_#{i + 1}"}
       %td #{i + 1}.
       %td.team_name

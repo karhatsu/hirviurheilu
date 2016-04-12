@@ -12,15 +12,14 @@
       %th= t 'activerecord.models.series', count: 1
   - results.each_with_index do |team_result, i|
     - club = team_result[:club]
-    - club_name = club.is_a?(Club) ? club.expanded : club
-    - club_id = club.is_a?(Club) ? club.id : club.gsub(/\s+/, '')
+    - club_id = club.gsub(/\s+/, '')
     %tr{id: "team_#{i + 1}"}
       %td #{i + 1}.
       %td.team_name
         - if pdf
-          = club_name
+          = club
         - else
-          %a.club_name_link{href: 'javascript:void(0)', id: club_id}= club_name
+          %a.club_name_link{href: 'javascript:void(0)', id: club_id}= club
       %td.center.team_points= team_result[:points]
       - unless params[:exclude_competitors]
         %td{colspan: 4} &nbsp;
