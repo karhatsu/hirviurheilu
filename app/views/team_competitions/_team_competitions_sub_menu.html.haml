@@ -1,0 +1,4 @@
+.menu.sub_menu
+  %ul
+    - race.team_competitions.each do |tc|
+      = menu_item tc.name, yield(tc), tc.id == team_competition_id, 18
