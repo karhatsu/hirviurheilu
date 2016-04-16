@@ -17,7 +17,7 @@ fi:
   back_to_series_results: Takaisin sarjan %{series_name} tuloksiin
   buy_license: Hanki lisenssi.
   captcha: Paljonko on kaksi plus kaksi?
-  captcha_info: Tällä tarkastetaan, ettet ole robotti. Oikea vastaus on siis 4.
+  captcha_info: Tällä tarkastetaan, ettet ole robotti. Oikea vastaus on siis neljä.
   club: Seura
   clubs: Seurat
   competition: Kilpailu

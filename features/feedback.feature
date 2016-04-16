@@ -15,7 +15,7 @@ Feature: Feedback
       | Puhelin    | 123 456           |
     When I press "Lähetä"
     Then I should see "Tarkastuskysymys meni väärin."
-    When I fill in "4" for "captcha"
+    When I fill in "neljä" for "captcha"
     And I press "Lähetä"
     Then I should see "Kiitos palautteesta"
     And the admin should receive an email
@@ -74,7 +74,7 @@ Feature: Feedback
       | Nimi       | Pekka Miettinen   |
       | Sähköposti | pekka@palaute.com |
       | Puhelin    | 123 456           |
-      | captcha    | 4                 |
+      | captcha    | neljä             |
     And I press "Lähetä"
     Then I should see "Älä unohda kirjoittaa palautetta" in an error message
     And the "Nimi" field should contain "Pekka Miettinen"

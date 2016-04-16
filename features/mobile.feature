@@ -82,7 +82,7 @@ Feature: Mobile usage
       | Nimi       | Pekka Miettinen   |
       | Sähköposti | pekka@palaute.com |
       | Puhelin    | 123 456           |
-      | captcha    | 4                 |
+      | captcha    | neljä             |
     When I press "Lähetä"
     Then I should see "Kiitos palautteesta"
     And the admin should receive an email
