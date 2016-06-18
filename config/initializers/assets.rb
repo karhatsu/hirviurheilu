@@ -1,0 +1,1 @@
+Rails.application.config.assets.precompile += %w( application-offline.js ) if Rails.env.test?
