@@ -15,7 +15,7 @@ describe ApplicationHelper do
   describe "#yes_or_empty" do
     context "when boolean is true" do
       it "should return yes icon" do
-        expect(helper.yes_or_empty('test')).to match(/<img.* src=.*icon_yes.gif.*\/>/)
+        expect(helper.yes_or_empty('test')).to match(/<img.* src=.*icon_yes.*.gif.*\/>/)
       end
     end
 
