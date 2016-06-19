@@ -1,5 +1,5 @@
 class DownloadsController < ApplicationController
-  OFFLINE_VERSION = '1.7.1'
+  OFFLINE_VERSION = '1.8.0'
 
   before_action :require_user, :check_staging
   
