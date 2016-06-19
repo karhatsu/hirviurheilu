@@ -42,7 +42,7 @@ describe TeamCompetition do
 
   describe "#results_for_competitors" do
     before do
-      @tc = build(:team_competition, :team_competitor_count => 2)
+      @tc = build(:team_competition, team_competitor_count: 2, multiple_teams: true)
     end
 
     context "when the race is not finished" do
@@ -214,6 +214,17 @@ describe TeamCompetition do
           expect(@results[0][:club]).to eq(@club_best_total_points.display_name)
           expect(@results[1][:club]).to eq(@club_best_single_points.display_name)
           expect(@results[2][:club]).to eq(@club_best_single_points.display_name + ' II')
+        end
+      end
+
+      context 'when no multiple teams wanted' do
+        before do
+          @tc.multiple_teams = false
+          @results = @tc.results_for_competitors(@competitors)
+        end
+
+        it 'does not create second teams' do
+          expect(@results.length).to eq(6)
         end
       end
 
