@@ -41,14 +41,7 @@ class TeamCompetition < ActiveRecord::Base
   end
 
   def results
-    competitors = []
-    series.each do |s|
-      competitors += s.competitors.includes([:series, :club, :age_group, :shots])
-    end
-    age_groups.each do |ag|
-      competitors += ag.competitors.where(['series_id NOT IN (?)', (series.map &:id)]).
-        includes([:series, :club, :age_group, :shots])
-    end
+    competitors = find_competitors
     results_for_competitors competitors
   end
 
@@ -61,6 +54,18 @@ class TeamCompetition < ActiveRecord::Base
   end
 
   private
+  def find_competitors
+    competitors = []
+    includes = [:series, :club, :age_group, :shots]
+    series.each do |s|
+      competitors += s.competitors.includes(includes)
+    end
+    age_groups.each do |ag|
+      competitors += ag.competitors.where(['series_id NOT IN (?)', (series.map &:id)]).includes(includes)
+    end
+    competitors
+  end
+
   def map_sorted_competitors_by_teams(competitors)
     competitor_counter_by_team = Hash.new
     teams = Hash.new
