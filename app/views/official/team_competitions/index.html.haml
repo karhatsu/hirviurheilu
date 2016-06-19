@@ -1,0 +1,26 @@
+- content_for :title, "#{@race.name} - #{t('official_sub_menu.team_competitions')}"
+- render partial: 'sub_sub_menu', locals: { team_competition_id: nil }
+%h2= t '.title'
+= flash_success
+- unless @race.team_competitions.empty?
+  .section
+    %table
+      %tr
+        %th= t 'activerecord.attributes.team_competition.name'
+        %th= t 'attributes.team_competitor_count'
+        %th
+          = t 'activerecord.models.series.other'
+          \/
+          = t 'activerecord.models.age_group.other'
+        %th &nbsp;
+      - @race.team_competitions.each do |tc|
+        %tr
+          %td= link_to tc.name, edit_official_race_team_competition_path(@race, tc)
+          %td.center= tc.team_competitor_count
+          %td= ((tc.series.map &:name) + (tc.age_groups.map &:name)).join(', ')
+          %td= link_to t('.remove_team_competition'),
+              official_race_team_competition_path(@race, tc), :method => :delete,
+              :data => { :confirm => t('.remove_team_competition_confirm') }
+.action_box= link_to t('.add_team_competition'), new_official_race_team_competition_path(@race)
+%hr
+= link_to t(:back_to_official_race_page), official_race_path(@race)
