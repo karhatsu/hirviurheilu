@@ -1,0 +1,6 @@
+- content_for :title, "#{@race.name} - #{t('.title')}"
+- render partial: 'sub_sub_menu', locals: { team_competition_id: 'new' }
+%h2= t '.title'
+= render :partial => 'form'
+%hr
+= link_to t(:back_to_official_team_competitions_page), official_race_team_competitions_path(@race)
