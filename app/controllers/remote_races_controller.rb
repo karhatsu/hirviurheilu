@@ -134,6 +134,6 @@ class RemoteRacesController < ApplicationController
         relay_correct_estimates_attributes: [:id, :distance, :leg],
         relay_teams_attributes: [:id, :name, :number, :no_result_reason,
           relay_competitors_attributes: [:id, :first_name, :last_name, :leg, :start_time, :arrival_time, :misses, :estimate, :adjustment]]],
-      team_competitions_attributes: [:id, :name, :team_competitor_count, :use_team_name, :temp_series_names, :temp_age_groups_names])
+      team_competitions_attributes: [:id, :name, :team_competitor_count, :multiple_teams, :use_team_name, :temp_series_names, :temp_age_groups_names])
   end
 end
