@@ -70,16 +70,16 @@ class TeamCompetition < ActiveRecord::Base
 
     Competitor.sort_competitors(competitors, false).each do |competitor|
       break if competitor.points.nil? || competitor.unofficial
-      team = team_for(competitor)
-      next unless team
-      competitor_count = competitor_counter[team] || 0
+      team_name = team_for(competitor)
+      next unless team_name
+      competitor_count = competitor_counter[team_name] || 0
       if competitor_count < team_competitor_count
-        competitor_counter[team] = competitor_count + 1
-        if team_results_hash[team]
-          team_hash = team_results_hash[team]
+        competitor_counter[team_name] = competitor_count + 1
+        if team_results_hash[team_name]
+          team_hash = team_results_hash[team_name]
           update_team_hash(team_hash, competitor)
         else
-          team_results_hash[team] = create_team_hash(competitor)
+          team_results_hash[team_name] = create_team_hash(competitor)
         end
       end
     end
@@ -98,9 +98,9 @@ class TeamCompetition < ActiveRecord::Base
   end
 
   def create_team_hash(competitor)
-    team = team_for(competitor)
-    team_hash = Hash.new(:club => team, :points => 0, :competitors => [])
-    team_hash[:club] = team
+    team_name = team_for(competitor)
+    team_hash = Hash.new(:club => team_name, :points => 0, :competitors => [])
+    team_hash[:club] = team_name
     team_hash[:points] = competitor.points
     team_hash[:best_points] = competitor.points
     team_hash[:best_shot_points] = competitor.shot_points.to_i
