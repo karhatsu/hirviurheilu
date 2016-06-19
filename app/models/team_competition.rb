@@ -53,37 +53,40 @@ class TeamCompetition < ActiveRecord::Base
   end
 
   def results_for_competitors(competitors)
-    hash = create_team_results_hash(competitors)
-    sorted_teams = sorted_teams_from_team_results_hash(hash)
+    teams_hash = map_sorted_competitors_by_teams competitors
+    team_results_hash = create_team_results_hash teams_hash
+    sorted_teams = sorted_teams_from_team_results_hash(team_results_hash)
     remove_teams_without_enough_competitors(sorted_teams) if race.finished?
     sorted_teams
   end
 
   private
-  def create_team_results_hash(competitors)
+  def map_sorted_competitors_by_teams(competitors)
+    teams = Hash.new
+    Competitor.sort_competitors(competitors, false).each do |competitor|
+      break if competitor.points.nil? || competitor.unofficial
+      team_name = team_for(competitor)
+      next unless team_name
+      teams[team_name] ||= []
+      teams[team_name] << competitor
+    end
+    teams
+  end
+
+  def create_team_results_hash(teams_hash)
     # { team1 => {:club => club1, :points => 0, :best_points => 0,
     #             :best_shot_points => 0, :fastest_time => 9999999,
     #             :competitors => []},
     #   team2 => {...} }
     team_results_hash = Hash.new
-    competitor_counter = Hash.new
-
-    Competitor.sort_competitors(competitors, false).each do |competitor|
-      break if competitor.points.nil? || competitor.unofficial
-      team_name = team_for(competitor)
-      next unless team_name
-      competitor_count = competitor_counter[team_name] || 0
-      if competitor_count < team_competitor_count
-        competitor_counter[team_name] = competitor_count + 1
-        if team_results_hash[team_name]
-          team_hash = team_results_hash[team_name]
-          update_team_hash(team_hash, competitor)
-        else
-          team_results_hash[team_name] = create_team_hash(competitor)
-        end
+    teams_hash.each do |team_name, competitors|
+      team_results_hash[team_name] = create_team_hash(competitors.first)
+      competitors.each_with_index do |competitor, index|
+        next if index == 0
+        break if index >= team_competitor_count
+        update_team_hash(team_results_hash[team_name], competitor)
       end
     end
-
     team_results_hash
   end
 
