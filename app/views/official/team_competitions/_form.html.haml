@@ -9,6 +9,9 @@
       %span.form_label= f.label :team_competitor_count
       %span= f.number_field :team_competitor_count, :size => 2, :maxlength => 2, :class => 'max2'
     %div
+      %span.form_label= f.label :multiple_teams
+      %span= f.check_box :multiple_teams
+    %div
       %span.form_label
         = f.label :use_team_name
         %a#use_team_name_help.help{href: 'javascript:void(0);'} ?

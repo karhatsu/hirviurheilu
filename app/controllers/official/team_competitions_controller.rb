@@ -45,6 +45,7 @@ class Official::TeamCompetitionsController < Official::OfficialController
   end
 
   def team_competition_params
-    params.require(:team_competition).permit(:name, :team_competitor_count, :use_team_name, series_ids: [], age_group_ids: [])
+    params.require(:team_competition).permit(:name, :team_competitor_count, :multiple_teams, :use_team_name,
+                                             series_ids: [], age_group_ids: [])
   end
 end

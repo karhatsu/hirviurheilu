@@ -45,6 +45,7 @@ sv:
     min_competitors: Tävlingar mindst
     min_number: Minst nummer
     misses: Skotts över
+    multiple_teams: Räkna poänger för andra lag
     name: Namn
     national_record: NR
     number: Nummer

@@ -45,6 +45,7 @@ fi:
     min_competitors: Kilpailijoita vähintään
     min_number: Pienin numero
     misses: Ohilaukaukset
+    multiple_teams: Laske pisteet 2-joukkueille
     name: Nimi
     national_record: SE
     number: Numero
