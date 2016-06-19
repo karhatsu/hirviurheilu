@@ -65,9 +65,10 @@ class TeamCompetition < ActiveRecord::Base
     teams = Hash.new
     Competitor.sort_competitors(competitors, false).each do |competitor|
       break if competitor.points.nil? || competitor.unofficial
-      team_name = team_for(competitor)
+      team_name = resolve_team_name competitor
       next unless team_name
       teams[team_name] ||= []
+      next if teams[team_name].length >= team_competitor_count
       teams[team_name] << competitor
     end
     teams
@@ -77,8 +78,7 @@ class TeamCompetition < ActiveRecord::Base
     team_results_hash = Hash.new
     teams_hash.each do |team_name, competitors|
       team_hash = { club: team_name, points: 0, best_points: 0, best_shot_points: 0, fastest_time: 9999999, competitors: [] }
-      competitors.each_with_index do |competitor, index|
-        break if index >= team_competitor_count
+      competitors.each do |competitor|
         add_competitor_to_team_hash team_hash, competitor
       end
       team_results_hash[team_name] = team_hash
@@ -108,7 +108,7 @@ class TeamCompetition < ActiveRecord::Base
     sorted_teams.delete_if { |club| club[:competitors].length < team_competitor_count }
   end
   
-  def team_for(competitor)
+  def resolve_team_name(competitor)
     if use_team_name
       return nil if competitor.team_name.blank?
       return competitor.team_name
