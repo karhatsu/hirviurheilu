@@ -62,16 +62,25 @@ class TeamCompetition < ActiveRecord::Base
 
   private
   def map_sorted_competitors_by_teams(competitors)
+    competitor_counter_by_team = Hash.new
     teams = Hash.new
     Competitor.sort_competitors(competitors, false).each do |competitor|
       break if competitor.points.nil? || competitor.unofficial
-      team_name = resolve_team_name competitor
-      next unless team_name
+      base_team_name = resolve_team_name competitor
+      next unless base_team_name
+      competitor_counter_by_team[base_team_name] ||= 0
+      team_name = team_name_with_number base_team_name, competitor_counter_by_team[base_team_name]
       teams[team_name] ||= []
-      next if teams[team_name].length >= team_competitor_count
       teams[team_name] << competitor
+      competitor_counter_by_team[base_team_name] = competitor_counter_by_team[base_team_name] + 1
     end
     teams
+  end
+
+  def team_name_with_number(base_team_name, previous_competitors_count)
+    team_number = (previous_competitors_count / 2) + 1
+    return base_team_name if team_number == 1
+    "#{base_team_name} #{team_number}"
   end
 
   def create_team_results_hash(teams_hash)
