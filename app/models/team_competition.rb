@@ -75,6 +75,7 @@ class TeamCompetition < ActiveRecord::Base
       next unless base_team_name
       competitor_counter_by_team[base_team_name] ||= 0
       team_name = team_name_with_number base_team_name, competitor_counter_by_team[base_team_name]
+      next unless team_name
       teams[team_name] ||= []
       teams[team_name] << competitor
       competitor_counter_by_team[base_team_name] = competitor_counter_by_team[base_team_name] + 1
@@ -84,6 +85,7 @@ class TeamCompetition < ActiveRecord::Base
 
   def team_name_with_number(base_team_name, previous_competitors_count)
     team_number = (previous_competitors_count / team_competitor_count) + 1
+    return nil if team_number > 1 && !multiple_teams
     return base_team_name if team_number == 1 || !multiple_teams
     "#{base_team_name} #{RomanNumerals.to_roman(team_number)}"
   end

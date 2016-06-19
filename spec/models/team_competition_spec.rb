@@ -225,6 +225,7 @@ describe TeamCompetition do
 
         it 'does not create second teams' do
           expect(@results.length).to eq(6)
+          expect(@results[0][:points]).to eq(@best_points_1 + @best_points_2)
         end
       end
 
