@@ -88,17 +88,21 @@ describe TeamCompetition do
         @club_unofficial = instance_double(Club, display_name: 'Club unofficial')
         @club_no_result = instance_double(Club, display_name: 'Club no results yet')
 
-        @club_best_total_points_c1 = create_competitor(@club_best_total_points, 1100, time_in_seconds: nil)
-        @club_best_total_points_c2 = create_competitor(@club_best_total_points, 1000)
-        @club_best_total_points_c_excl = create_competitor(@club_best_total_points, 999)
-        @club_best_single_points_c1 = create_competitor(@club_best_single_points, 1050)
-        @club_best_single_points_c2 = create_competitor(@club_best_single_points, 800)
-        @club_best_single_shots_c1 = create_competitor(@club_best_single_shots, 1049)
-        @club_best_single_shots_c2 = create_competitor(@club_best_single_shots, 801, shot_points: @default_shot_points + 1)
-        @club_best_single_time_c1 = create_competitor(@club_best_single_time, 1049)
-        @club_best_single_time_c2 = create_competitor(@club_best_single_time, 801, time_in_seconds: @default_time_in_seconds - 1)
-        @club_worst_c1 = create_competitor(@club_worst, 1049)
-        @club_worst_c2 = create_competitor(@club_worst, 801)
+        @best_points_1 = 1100
+        @best_points_2 = 1000
+        @second_points_1 = 1050
+        @second_points_2 = 800
+        @club_best_total_points_c1 = create_competitor(@club_best_total_points, @best_points_1, time_in_seconds: nil)
+        @club_best_total_points_c2 = create_competitor(@club_best_total_points, @best_points_2)
+        @club_best_total_points_c_excl = create_competitor(@club_best_total_points, @best_points_2 - 1)
+        @club_best_single_points_c1 = create_competitor(@club_best_single_points, @second_points_1 + 1)
+        @club_best_single_points_c2 = create_competitor(@club_best_single_points, @second_points_2 - 1)
+        @club_best_single_shots_c1 = create_competitor(@club_best_single_shots, @second_points_1)
+        @club_best_single_shots_c2 = create_competitor(@club_best_single_shots, @second_points_2, shot_points: @default_shot_points + 1)
+        @club_best_single_time_c1 = create_competitor(@club_best_single_time, @second_points_1)
+        @club_best_single_time_c2 = create_competitor(@club_best_single_time, @second_points_2, time_in_seconds: @default_time_in_seconds - 1)
+        @club_worst_c1 = create_competitor(@club_worst, @second_points_1)
+        @club_worst_c2 = create_competitor(@club_worst, @second_points_2)
 
         @club_no_result_c1 = create_competitor(@club_no_result, 0, shot_points: nil, time_in_seconds: nil)
         @club_no_result_c2 = create_competitor(@club_no_result, 0, shot_points: nil)
@@ -164,11 +168,11 @@ describe TeamCompetition do
         end
 
         it "including total points" do
-          expect(@results[0][:points]).to eq(1100 + 1000)
-          expect(@results[1][:points]).to eq(1050 + 800)
-          expect(@results[2][:points]).to eq(1049 + 801)
-          expect(@results[3][:points]).to eq(1049 + 801)
-          expect(@results[4][:points]).to eq(1049 + 801)
+          expect(@results[0][:points]).to eq(@best_points_1 + @best_points_2)
+          expect(@results[1][:points]).to eq(@second_points_1 + 1 + @second_points_2 - 1)
+          expect(@results[2][:points]).to eq(@second_points_1 + @second_points_2)
+          expect(@results[3][:points]).to eq(@second_points_1 + @second_points_2)
+          expect(@results[4][:points]).to eq(@second_points_1 + @second_points_2)
         end
 
         it "including ordered competitors inside of each team" do
