@@ -11,7 +11,7 @@ class CupSeriesController < ApplicationController
       format.pdf do
         render :pdf => "#{@cup_series.name}-tulokset", :layout => true, :margin => pdf_margin,
           :header => pdf_header("#{@cup.name} - #{@cup_series.name}\n"), :footer => pdf_footer,
-          :orientation => 'Landscape'
+          :orientation => 'Landscape', disable_smart_shrinking: true
       end
     end
   end

@@ -16,7 +16,8 @@ class CompetitorsController < ApplicationController
       format.html
       format.pdf do
         render :pdf => "#{@competitor.last_name}_#{@competitor.first_name}-tuloskortti",
-          :layout => true, :margin => pdf_margin, :header => pdf_header(nil), :footer => pdf_footer
+          :layout => true, :margin => pdf_margin, :header => pdf_header(nil), :footer => pdf_footer,
+               disable_smart_shrinking: true
       end
     end
   end

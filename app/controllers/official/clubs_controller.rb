@@ -53,7 +53,8 @@ class Official::ClubsController < Official::OfficialController
     respond_to do |format|
       format.pdf do
         render :pdf => "#{@race.name}-kilpailijat-seuroittain", :layout => true, :margin => pdf_margin,
-               :header => pdf_header("#{@race.name} - Kilpailijat piireittäin/seuroittain\n"), :footer => pdf_footer
+               :header => pdf_header("#{@race.name} - Kilpailijat piireittäin/seuroittain\n"), :footer => pdf_footer,
+               disable_smart_shrinking: true
       end
     end
   end

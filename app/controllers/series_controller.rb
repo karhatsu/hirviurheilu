@@ -18,7 +18,7 @@ class SeriesController < ApplicationController
       format.pdf {
         render pdf: "#{@series.name}-tulokset", layout: true, margin: pdf_margin,
                header: pdf_header("#{@series.race.name} - #{@series.name}\n"), footer: pdf_footer,
-               orientation: 'Landscape'
+               orientation: 'Landscape', disable_smart_shrinking: true
       }
     end
   end

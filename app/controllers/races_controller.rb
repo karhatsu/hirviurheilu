@@ -14,7 +14,7 @@ class RacesController < ApplicationController
       format.pdf do
         render :pdf => "#{@race.name} - tulokset", :layout => true,
           :margin => pdf_margin, :header => pdf_header("#{@race.name} - Tuloskooste"), :footer => pdf_footer,
-          :orientation => 'Landscape'
+          :orientation => 'Landscape', disable_smart_shrinking: true
       end
     end
   end

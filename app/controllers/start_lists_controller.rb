@@ -10,7 +10,7 @@ class StartListsController < ApplicationController
       format.pdf do
         render :pdf => "#{@race.name}-lahtoajat", :layout => true,
           :margin => pdf_margin, :header => pdf_header("#{t :start_list} - #{t :all_competitors}"),
-          :footer => pdf_footer
+          :footer => pdf_footer, disable_smart_shrinking: true
       end
     end
   end
@@ -23,7 +23,7 @@ class StartListsController < ApplicationController
       format.pdf do
         render :pdf => "#{@series.name}-lahtolista", :layout => true,
           :margin => pdf_margin, :header => pdf_header("#{t :start_list} - #{@series.name}"),
-          :footer => pdf_footer
+          :footer => pdf_footer, disable_smart_shrinking: true
       end
     end
   end
