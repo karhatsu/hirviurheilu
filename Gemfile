@@ -16,6 +16,7 @@ gem 'activerecord-session_store'
 gem 'haml-rails'
 gem 'rack-mini-profiler'
 gem 'dalli'
+gem 'roman-numerals'
 
 group :development, :production do
   gem 'pg'

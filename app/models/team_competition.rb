@@ -80,7 +80,7 @@ class TeamCompetition < ActiveRecord::Base
   def team_name_with_number(base_team_name, previous_competitors_count)
     team_number = (previous_competitors_count / 2) + 1
     return base_team_name if team_number == 1
-    "#{base_team_name} #{team_number}"
+    "#{base_team_name} #{RomanNumerals.to_roman(team_number)}"
   end
 
   def create_team_results_hash(teams_hash)

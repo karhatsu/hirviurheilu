@@ -150,8 +150,8 @@ describe TeamCompetition do
             expect(@results[2][:club]).to eq(@club_best_single_shots.display_name)
             expect(@results[3][:club]).to eq(@club_best_single_time.display_name)
             expect(@results[4][:club]).to eq(@club_worst.display_name)
-            expect(@results[5][:club]).to eq(@club_best_single_points.display_name + ' 2')
-            expect(@results[6][:club]).to eq(@club_best_single_points.display_name + ' 3')
+            expect(@results[5][:club]).to eq(@club_best_single_points.display_name + ' II')
+            expect(@results[6][:club]).to eq(@club_best_single_points.display_name + ' III')
             expect(@results[7][:club]).to eq(@club_no_result.display_name)
           end
         end
@@ -171,10 +171,10 @@ describe TeamCompetition do
             expect(@results[2][:club]).to eq(@club_best_single_shots.display_name)
             expect(@results[3][:club]).to eq(@club_best_single_time.display_name)
             expect(@results[4][:club]).to eq(@club_worst.display_name)
-            expect(@results[5][:club]).to eq(@club_best_single_points.display_name + ' 2')
+            expect(@results[5][:club]).to eq(@club_best_single_points.display_name + ' II')
             expect(@results[6][:club]).to eq(@club_small.display_name)
-            expect(@results[7][:club]).to eq(@club_best_single_points.display_name + ' 3')
-            expect(@results[8][:club]).to eq(@club_best_total_points.display_name + ' 2')
+            expect(@results[7][:club]).to eq(@club_best_single_points.display_name + ' III')
+            expect(@results[8][:club]).to eq(@club_best_total_points.display_name + ' II')
             expect(@results[9][:club]).to eq(@club_no_result.display_name)
           end
         end
