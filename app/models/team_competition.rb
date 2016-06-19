@@ -74,46 +74,27 @@ class TeamCompetition < ActiveRecord::Base
   end
 
   def create_team_results_hash(teams_hash)
-    # { team1 => {:club => club1, :points => 0, :best_points => 0,
-    #             :best_shot_points => 0, :fastest_time => 9999999,
-    #             :competitors => []},
-    #   team2 => {...} }
     team_results_hash = Hash.new
     teams_hash.each do |team_name, competitors|
-      team_results_hash[team_name] = create_team_hash(competitors.first)
+      team_hash = { club: team_name, points: 0, best_points: 0, best_shot_points: 0, fastest_time: 9999999, competitors: [] }
       competitors.each_with_index do |competitor, index|
-        next if index == 0
         break if index >= team_competitor_count
-        update_team_hash(team_results_hash[team_name], competitor)
+        add_competitor_to_team_hash team_hash, competitor
       end
+      team_results_hash[team_name] = team_hash
     end
     team_results_hash
   end
 
-  def update_team_hash(team_hash, competitor)
-    team_hash[:points] += competitor.points
-    team_hash[:best_points] = competitor.points if competitor.points > team_hash[:points]
-    team_hash[:best_shot_points] = competitor.shot_points if competitor.points > team_hash[:best_shot_points]
-    if competitor.time_in_seconds && competitor.time_in_seconds < team_hash[:fastest_time]
-      team_hash[:fastest_time] = competitor.time_in_seconds
-    end
+  def add_competitor_to_team_hash(team_hash, competitor)
+    competitor_points = competitor.points.to_i
+    competitor_shot_points = competitor.shot_points.to_i
+    competitor_time = competitor.time_in_seconds
     team_hash[:competitors] << competitor
-  end
-
-  def create_team_hash(competitor)
-    team_name = team_for(competitor)
-    team_hash = Hash.new(:club => team_name, :points => 0, :competitors => [])
-    team_hash[:club] = team_name
-    team_hash[:points] = competitor.points
-    team_hash[:best_points] = competitor.points
-    team_hash[:best_shot_points] = competitor.shot_points.to_i
-    if competitor.time_in_seconds
-      team_hash[:fastest_time] = competitor.time_in_seconds
-    else
-      team_hash[:fastest_time] = 9999999
-    end
-    team_hash[:competitors] = [competitor]
-    team_hash
+    team_hash[:points] += competitor_points
+    team_hash[:best_points] = competitor_points if competitor_points > team_hash[:best_points]
+    team_hash[:best_shot_points] = competitor_shot_points if competitor_shot_points > team_hash[:best_shot_points]
+    team_hash[:fastest_time] = competitor_time if competitor_time && competitor_time < team_hash[:fastest_time]
   end
 
   def sorted_teams_from_team_results_hash(hash)
