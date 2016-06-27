@@ -1,0 +1,15 @@
+- content_for :title, 'Virhe'
+- content_for :page_title, yield(:title)
+%h2
+  = title_word
+  ei löytynyt
+.error
+  Pyytämääsi
+  = sentence_word
+  ei löytynyt (id: #{@id}).
+%p
+  Jos tulit tälle sivulla jonkin linkin kautta, voisitko ystävällisesti
+  = link_to 'lähettää palautetta', new_feedback_path
+  ja kertoa, kuinka päädyit tälle virhesivulle. Näin voimme korjata ongelman.
+%hr
+= link_to 'Takaisin etusivulle', root_path
