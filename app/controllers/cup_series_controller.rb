@@ -22,19 +22,6 @@ class CupSeriesController < ApplicationController
       includes([
         :races => [:series => [:competitors => [:shots, :age_group, :club, :series]]]
       ]).first
-    return true if @cup
-    render 'errors/cup_not_found'
-    false
-  end
-  
-  def assign_cup_series
-    @id = params[:id]
-    begin
-      @cup_series = @cup.cup_series.find(@id)
-      return true
-    rescue ActiveRecord::RecordNotFound
-      render 'errors/cup_series_not_found'
-      return false
-    end
+    render 'errors/cup_not_found' unless @cup
   end
 end
