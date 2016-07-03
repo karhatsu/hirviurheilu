@@ -2,14 +2,14 @@
 - competitions.each_with_index do |competition, index|
   %div.competition_list_icon{class: competition_icon_class(competition)}
     - if competition.is_a?(Cup)
-      = link_to competition.name, cup_path(competition)
+      = link_to competition.name.strip, cup_path(competition)
       - competition.races.each do |race|
         %div.competition_sub_list_icon{class: competition_icon_class(race)}
-          = link_to race.name, race_path(race)
+          = link_to race.name.strip, race_path(race)
           #{date_interval(race.start_date, race.end_date)},
           = race.location
     - else
-      #{link_to competition.name, race_path(competition)},
+      #{link_to competition.name.strip, race_path(competition)},
       #{date_interval(competition.start_date, competition.end_date)},
       = competition.location
   - if index + 1 == limit
