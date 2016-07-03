@@ -12,6 +12,7 @@
   %h3= t :estimating
   - instructions = t('.instructions_estimates')
   - if @race.estimates_at_most == 4
+    - instructions << ' '
     - instructions << t('.instructions_estimates_4')
   - instructions << '.'
   = render :partial => 'result_place', :locals => { :name => 'estimates',
