@@ -33,9 +33,9 @@ Feature: License
     And the admin should receive an email
     When I open the email
     Then I should see "Hirviurheilu - aktivointitunnus katsottu" in the email subject
-    And I should see "Käyttäjä: Mathew Stevensson (license@hirviurheilu.com)" in the email body
-    And I should see "Laskutustiedot: Testiseura" in the email body
-    And I should see "Aktivointitunnus: CC81E12F02" in the email body
+    And I should see "Mathew Stevensson (license@hirviurheilu.com)" in the email body
+    And I should see "Testiseura" in the email body
+    And I should see "CC81E12F02" in the email body
     Given I follow "Kirjaudu ulos"
     And I am an admin
     And I have logged in
