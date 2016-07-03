@@ -5,7 +5,7 @@
       = link_to competition.name.strip, cup_path(competition)
       - competition.races.each do |race|
         %div.competition_sub_list_icon{class: competition_icon_class(race)}
-          = link_to race.name.strip, race_path(race)
+          #{link_to race.name.strip, race_path(race)},
           #{date_interval(race.start_date, race.end_date)},
           = race.location
     - else
