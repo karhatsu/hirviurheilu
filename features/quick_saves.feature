@@ -18,12 +18,12 @@ Feature: Quick result save
   @javascript
   Scenario: Save arrival time, estimates, and shots
     Given I am an official
-    And I have a race "Quick race" with competitor "Tomi" "Testinen" in series "Miehet", with number 1 and start time "10:00"
+    And I have a race "Quick race" with competitor "Tomi" "Testinen" in series "Miehet", with number 1 and start time "00:00"
     And I have logged in
     And I am on the official quick save page of "Quick race"
-    When I fill in "1,103045" for "time_string"
+    When I fill in "1,003045" for "time_string"
       And I press "submit_time"
-      Then I should see "Kilpailijan 1. Testinen Tomi (Miehet) tulos tallennettu onnistuneesti (Saapumisaika: 10:30:45)."
+      Then I should see "Kilpailijan 1. Testinen Tomi (Miehet) tulos tallennettu onnistuneesti (Saapumisaika: 00:30:45, Aika: 30:45)."
     When I fill in "1,89,145" for "estimates_string"
       And I press "submit_estimates"
       Then I should see "Kilpailijan 1. Testinen Tomi (Miehet) tulos tallennettu onnistuneesti (Arviot: 89 ja 145)."

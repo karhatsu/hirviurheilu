@@ -1,4 +1,5 @@
 class Official::QuickSavesController < Official::OfficialController
+  include TimeFormatHelper
   before_action :set_variant
   before_action :assign_race_by_race_id, :check_assigned_race, :set_quick_saves
 
@@ -36,7 +37,8 @@ class Official::QuickSavesController < Official::OfficialController
   def save_time
     @name = 'time'
     do_quick_save(TimeQuickSave.new(@race.id, params[:string])) do
-      @result = t('attributes.arrival_time') + ": #{@competitor.arrival_time.strftime('%H:%M:%S')}"
+      @result = t('attributes.arrival_time') + ": #{@competitor.arrival_time.strftime('%H:%M:%S')}, " +
+          "#{t(:result_time)}: #{time_from_seconds(@competitor.time_in_seconds)}"
     end
   end
 
