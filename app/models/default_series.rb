@@ -27,7 +27,7 @@ class DefaultSeries
       DefaultSeries.new('M70', ['M75', 2]),
       DefaultSeries.new('M80', ['M85', 2], ['M90', 2]),
       DefaultSeries.new('N'),
-      DefaultSeries.new('N50', ['N60', 2]),
+      DefaultSeries.new('N50', ['N55', 2], ['N60', 2]),
       DefaultSeries.new('N65', ['N70', 2], ['N75', 2], ['N80', 2], ['N85', 2], ['N90', 2])
     ]
   end
