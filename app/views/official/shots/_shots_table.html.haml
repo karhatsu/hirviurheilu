@@ -8,7 +8,7 @@
     .title.individual_shots= t 'official.result_place.shooting.individual_shots'
     .title.total_shots= t 'official.result_place.shooting.result'
   - @series.competitors.each_with_index do |c, i|
-    = form_for([:official, @series, c], :remote => true, :html => { :onsubmit => "disableSubmit(#{c.id})" }) do |f|
+    = form_for([:official, @series, c], :remote => true, :html => { :onsubmit => "disableSubmit(#{c.id})", id: "#{c.id}_shots_form" }) do |f|
       = hidden_field_tag :no_times, true
       - row_classes = (c.no_result_reason ? 'no_result_reason' : '')
       - row_classes << (i % 2 == 0 ? 'odd' : '')
@@ -23,6 +23,12 @@
           .value.total_shots.result= c.shots_sum
           .value= submit_tag t(:save), :onclick => "start_updating(#{c.id})", :class => 'save', :id => "submit_#{c.id}"
           .value{id: "status_#{c.id}"} &nbsp;
+      :javascript
+        $("##{c.id}_shots_form").bind('ajax:error', function() {
+          $("#update_error").addClass("error");
+          $("#update_error").html('Yhteysvirhe, yritä uudelleen');
+          $("#status_#{c.id}").html("<span class='error'>#{t :error}!</span>");
+        });
 :javascript
   $('.total').change(function() {
     calculate_shots_result($(this).closest('div.competitor_row'));
