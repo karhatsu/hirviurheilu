@@ -249,6 +249,18 @@ describe Competitor do
           expect(series1.reload.competitors_count).to eq(0)
           expect(series2.reload.competitors_count).to eq(2)
         end
+
+        it 'reset age group when new series has no age groups' do
+          race = create :race
+          series1 = create :series, race: race
+          series2 = create :series, race: race
+          age_group = create :age_group, series: series2
+          competitor = create :competitor, series: series2, age_group: age_group
+          expect(competitor.age_group_id).to eq(age_group.id)
+          competitor.series_id = series1.id
+          competitor.save!
+          expect(competitor.age_group_id).to be_nil
+        end
       end
 
       describe 'when series is not updated' do

@@ -53,7 +53,7 @@ class Competitor < ActiveRecord::Base
   validate :unique_name
   validate :concurrent_changes, :on => :update
 
-  before_save :set_has_result
+  before_save :set_has_result, :reset_age_group
 
   after_create :set_correct_estimates
   after_save :update_series_start_time_and_number
@@ -300,6 +300,10 @@ class Competitor < ActiveRecord::Base
 
   def set_has_result
     self.has_result = true if arrival_time || estimate1 || shots_total_input
+  end
+
+  def reset_age_group
+    self.age_group_id = nil if series.age_groups.empty?
   end
 
   def set_correct_estimates
