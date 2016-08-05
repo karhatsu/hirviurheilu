@@ -1,0 +1,17 @@
+- content_for :title, @cup.name
+.title-and-fb-share
+  %h2= t :results
+  = render partial: 'shared/facebook_share'
+.section
+  - @cup.cup_series.each do |cs|
+    = link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs)
+    %br
+%h2= t '.points_rule_title'
+.section= t '.points_rule', :best_competitions_count => @cup.top_competitions
+%h2= t '.sub_competitions'
+.section
+  - @cup.races.each do |race|
+    = link_to race.name, race_path(race)
+    %br
+%hr
+= link_to t(:back_to_home_page), root_path
