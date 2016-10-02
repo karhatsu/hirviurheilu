@@ -280,7 +280,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
-  authlogic (= 3.4.4)
+  authlogic
   better_errors
   binding_of_caller
   capybara
@@ -292,9 +292,9 @@ DEPENDENCIES
   fuubar
   gherkin
   haml-rails
-  jquery-rails (= 2.1.4)
+  jquery-rails
   jquery-turbolinks
-  jquery-ui-rails (= 3.0.0)
+  jquery-ui-rails
   jquery-ui-themes
   launchy
   minitest
@@ -319,7 +319,7 @@ DEPENDENCIES
   turbolinks
   uglifier
   unicorn
-  wicked_pdf (= 0.9.10)
+  wicked_pdf
 
 BUNDLED WITH
    1.11.2
