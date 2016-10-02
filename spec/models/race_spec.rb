@@ -376,7 +376,7 @@ describe Race do
 
     it "raise exception if finishing the race fails" do
       expect(@race).to receive(:finish).and_return(false)
-      expect { @race.finish! }.to raise_error
+      expect { @race.finish! }.to raise_error(RuntimeError)
     end
   end
   
@@ -502,15 +502,15 @@ describe Race do
     
     describe "invalid value" do
       it "should raise error when 0 given" do
-        expect { @race.days_count = 0 }.to raise_error
+        expect { @race.days_count = 0 }.to raise_error(RuntimeError)
       end
 
       it "should raise error when negative number given" do
-        expect { @race.days_count = -1 }.to raise_error
+        expect { @race.days_count = -1 }.to raise_error(RuntimeError)
       end
 
       it "should raise error when nil given" do
-        expect { @race.days_count = nil }.to raise_error
+        expect { @race.days_count = nil }.to raise_error(RuntimeError)
       end
     end
     

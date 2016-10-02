@@ -28,11 +28,13 @@ describe Mode do
 
     context "when not development environment" do
       before do
-        allow(Rails).to receive(:env).and_return('production')
+        env = double
+        allow(Rails).to receive(:env).and_return(env)
+        allow(env).to receive(:development?).and_return(false)
       end
 
       it "should raise an error" do
-        expect { Mode.switch }.to raise_error
+        expect { Mode.switch }.to raise_error(RuntimeError)
       end
     end
   end

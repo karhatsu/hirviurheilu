@@ -628,7 +628,7 @@ describe Series do
 
     it "raise exception if generation fails" do
       expect(@series).to receive(:generate_numbers).with(0).and_return(false)
-      expect { @series.generate_numbers!(0) }.to raise_error
+      expect { @series.generate_numbers!(0) }.to raise_error(RuntimeError)
     end
   end
 
@@ -801,7 +801,7 @@ describe Series do
     
     it "raise exception if generation fails" do
       expect(@series).to receive(:generate_start_times).and_return(false)
-      expect { @series.generate_start_times! }.to raise_error
+      expect { @series.generate_start_times! }.to raise_error(RuntimeError)
     end
   end
 

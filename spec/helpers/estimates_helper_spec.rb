@@ -129,11 +129,11 @@ describe EstimatesHelper do
 
   describe '#correct_estimate' do
     it 'should raise error when index less than 1' do
-      expect { helper.correct_estimate(nil, 0, '') }.to raise_error
+      expect { helper.correct_estimate(nil, 0, '') }.to raise_error(RuntimeError)
     end
 
     it 'should raise error when index more than 4' do
-      expect { helper.correct_estimate(nil, 5, '') }.to raise_error
+      expect { helper.correct_estimate(nil, 5, '') }.to raise_error(RuntimeError)
     end
 
     context 'race not finished' do

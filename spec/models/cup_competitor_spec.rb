@@ -36,13 +36,13 @@ describe CupCompetitor do
     
     it "should not accept another competitor when first names differs" do
       expect { @cc << instance_double(Competitor, :first_name => 'Other',
-        :last_name => @competitor.last_name) }.to raise_error
+        :last_name => @competitor.last_name) }.to raise_error(RuntimeError)
       expect(@cc.competitors.length).to eq(1)
     end
     
     it "should not accept another competitor when last names differs" do
       expect { @cc << instance_double(Competitor, :first_name => @competitor.first_name,
-        :last_name => 'Other') }.to raise_error
+        :last_name => 'Other') }.to raise_error(RuntimeError)
       expect(@cc.competitors.length).to eq(1)
     end
   end

@@ -160,7 +160,7 @@ describe Cup do
       it "should raise an exception" do
         cup = build(:cup)
         allow(cup).to receive(:cup_series).and_return([instance_double(CupSeries)])
-        expect { cup.create_default_cup_series }.to raise_error
+        expect { cup.create_default_cup_series }.to raise_error(RuntimeError)
       end
     end
   end

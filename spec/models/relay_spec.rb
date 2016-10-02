@@ -352,7 +352,7 @@ describe Relay do
 
     it "should raise exception if finishing the relay fails" do
       expect(@relay).to receive(:finish).and_return(false)
-      expect { @relay.finish! }.to raise_error
+      expect { @relay.finish! }.to raise_error(RuntimeError)
     end
   end
 

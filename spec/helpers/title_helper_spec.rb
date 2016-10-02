@@ -118,7 +118,7 @@ describe TitleHelper do
 
     it 'should throw exception when unknown club level' do
       race = build(:race, :club_level => 100)
-      expect { helper.club_title(race) }.to raise_error
+      expect { helper.club_title(race) }.to raise_error(RuntimeError)
     end
   end
 
@@ -135,7 +135,7 @@ describe TitleHelper do
 
     it 'should throw exception when unknown club level' do
       race = build(:race, :club_level => 100)
-      expect { helper.clubs_title(race) }.to raise_error
+      expect { helper.clubs_title(race) }.to raise_error(RuntimeError)
     end
   end
 

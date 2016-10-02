@@ -1056,7 +1056,7 @@ describe Competitor do
       it "should raise error" do
         allow(Mode).to receive(:online?).and_return(true)
         allow(Mode).to receive(:offline?).and_return(false)
-        expect { Competitor.free_offline_competitors_left }.to raise_error
+        expect { Competitor.free_offline_competitors_left }.to raise_error(RuntimeError)
       end
     end
 
