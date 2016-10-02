@@ -37,18 +37,18 @@ end
 
 group :test do
   gem 'minitest'
-  gem 'capybara', '2.2.1'
+  gem 'capybara'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'email_spec'
   gem "factory_girl_rails", :require => false
   gem 'launchy'
-  gem 'poltergeist', '1.6.0'
-  gem 'rspec-rails', '3.2.1'
+  gem 'poltergeist'
+  gem 'rspec-rails'
   gem 'rspec-collection_matchers'
   gem 'shoulda-matchers'
   gem 'sqlite3'
-  gem 'fuubar', '2.0.0'
+  gem 'fuubar'
 end
 
 # Bundle gems for the local environment. Make sure to
@@ -57,8 +57,8 @@ end
 group :development, :test do
   gem 'gherkin'
   gem 'ruby-prof'
-  gem 'mongrel', '~> 1.2.0.pre'
-  gem 'therubyracer', '0.12.0'
+  gem 'mongrel'
+  gem 'therubyracer'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-commands-cucumber'
