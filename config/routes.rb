@@ -21,12 +21,12 @@ ElkSports::Application.routes.draw do
     get 'answers' => 'infos#answers', :as => :answers
     resources :feedbacks
   
-    get 'offline', :to => redirect('/offline_vs_online')
-    get 'offline_vs_online' => 'offline_infos#comparison', :as => :offline_vs_online
-    get 'offline_installation' => 'offline_infos#installation', :as => :offline_installation
-    get 'offline_price' => 'offline_infos#price', :as => :offline_price
-    get 'offline_version_history' => 'offline_infos#version_history', :as => :offline_version_history
-    get 'download/installer' => 'downloads#installer', :as => :download_installer
+    get 'offline', to: redirect('/')
+    get 'offline_vs_online', to: redirect('/')
+    get 'offline_installation', to: redirect('/')
+    get 'offline_price', to: redirect('/')
+    get 'offline_version_history', to: redirect('/')
+    get 'download/installer', to: redirect('/')
     
     resources :prices
     resources :offers, only: [:new, :create]

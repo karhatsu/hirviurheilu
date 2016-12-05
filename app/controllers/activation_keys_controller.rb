@@ -36,7 +36,6 @@ class ActivationKeysController < ApplicationController
   end
 
   def set_offline_info
-    @is_offline_info = true
     @is_activation_key = true
   end
 end

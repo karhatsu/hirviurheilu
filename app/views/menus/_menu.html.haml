@@ -15,6 +15,5 @@
         = menu_item t('main_menu.personal'), account_path, @is_account
       - else
         = menu_item t('main_menu.start'), register_path, @is_start
-      = menu_item t('main_menu.offline'), offline_vs_online_path, @is_offline_info
     - if current_user and current_user.admin?
       = menu_item "Admin", admin_root_path, @is_admin

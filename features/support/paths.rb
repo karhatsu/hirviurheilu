@@ -136,9 +136,6 @@ module NavigationHelpers
     when /the info page/
       info_path locale
 
-    when /the offline-online comparison page/
-      offline_vs_online_path locale
-
     when "/reset_password/unknown/edit"
       edit_reset_password_path(locale, :reset_hash => 'unknown')
 

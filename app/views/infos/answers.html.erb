@@ -2,22 +2,9 @@
 <% content_for(:page_title, yield(:title)) %>
 
 <h3>Yleistä Hirviurheilu-palvelusta</h3>
-<div class="question">Mikä on <span class="highligth">Hirviurheilu Online</span>?</div>
-<div class="answer">Hirviurheilu Online on helppokäyttöinen, internet-pohjainen tulospalvelu
+<div class="question">Mikä on <span class="highligth">Hirviurheilu</span>?</div>
+<div class="answer">Hirviurheilu on helppokäyttöinen, internet-pohjainen tulospalvelu
   hirvenhiihdon ja hirvenjuoksun kilpailuihin.
-  <% unless offline? %>
-    Käytät parhaillaan Hirviurheilu Online -palvelua.
-  <% end %>
-  <%= link_to 'Lue lisää Online ja Offline -tuotteiden eroista', offline_vs_online_path %>
-</div>
-
-<div class="question">Mikä on <span class="highligth">Hirviurheilu Offline</span>?</div>
-<div class="answer">Hirviurheilu Offline on helppokäyttöinen, toimitsijan
-  koneelle asennettava tulospalvelu hirvenhiihdon ja hirvenjuoksun kilpailuihin.
-  <% if offline? %>
-    Käytät parhaillaan Hirviurheilu Online -palvelua.
-  <% end %>
-  <%= link_to 'Lue lisää Online ja Offline -tuotteiden eroista', offline_vs_online_path %>
 </div>
 
 <div class="question">Mitä <span class="highligth">kilpailumuotoja</span> palvelu tukee?</div>
@@ -59,15 +46,14 @@
       perusteella automaattisesti.</li>
     <li>Järjestäjien ei tarvitse huolehtia lähtölistojen tai tulosten
       julkaisemisesta, koska ne ovat kaikkien saatavilla internetissä ilman
-      ylimääräisiä toimenpiteitä. (*)</li>
+      ylimääräisiä toimenpiteitä.</li>
     <li>Palvelu on hyvin joustava. Kilpailun järjestäjä voi esimerkiksi
-      syöttää juuri ne sarjat, mitkä kilpailussa tullaan järjestämään.
+      syöttää juuri ne sarjat, jotka kilpailussa tullaan järjestämään.
       Mitään tiettyä sarjajoukkoa ei tarvitse käyttää.</li>
     <li>Järjestäjät voivat ladata tulosraportin myös lehdistölle sopivassa muodossa.</li>
     <li>Kaikki palveluun tehtävät uudet ominaisuudet ovat automaattisesti
-      järjestäjien käytössä ilman erillistä päivitystä. (*)</li>
+      järjestäjien käytössä ilman erillistä päivitystä.</li>
   </ul>
-(*) Ei koske <%= link_to 'Hirviurheilu Offline -tuotetta', offline_path %>.
 </div>
 
 <div class="question">Mitä <span class="highligth">hyötyä</span>
@@ -75,27 +61,22 @@
 <div class="answer">
   <ul>
     <li>Ennakkoon ilmoittautuneilla kilpailijoilla on mahdollisuus
-      katsoa lähtölistat etukäteen internetistä. (*)</li>
+      katsoa lähtölistat etukäteen internetistä.</li>
     <li>Kilpailijat näkevät tulokset reaaliaikaisina internetin kautta välittömästi,
-      kun toimitsijat syöttävät ne järjestelmään. (*)</li>
+      kun toimitsijat syöttävät ne järjestelmään.</li>
     <li>Tulokset ovat näkyvillä mahdollisimman yksityiskohtaisesti, joten kilpailijat
       voivat helposti varmistaa, että tulokset on syötetty ja laskettu oikein.</li>
   </ul>
-(*) Ei koske <%= link_to 'Hirviurheilu Offline -tuotetta', offline_path %>.
 </div>
 
 <div class="question">Mitä palvelun käyttäminen <span class="highligth">vaatii</span>?</div>
-<div class="answer">Hirviurheilu Online vaatii internet-yhteyden,
+<div class="answer">Hirviurheilu vaatii internet-yhteyden,
   sillä palvelu toimii internetissä selaimen välityksellä.
-  Hirviurheilu Offline ei sen sijaan tarvitse internet-yhteyttä.
-  <%= link_to 'Lue lisää Online ja Offline -tuotteiden eroista', offline_vs_online_path %>
 </div>
 
 <a name="connection"></a>
-<div class="question connection_question">Voiko Hirviurheilu Online -palvelua
-  käyttää, vaikka kilpailupaikalla
-  olisikin käytössä vain <span class="highligth">mokkula, ei
-  kiinteää internet-yhteyttä</span>?</div>
+<div class="question connection_question">Voiko palvelua käyttää, vaikka kilpailupaikalla
+  olisikin käytössä vain <span class="highligth">mokkula, ei kiinteää internet-yhteyttä</span>?</div>
 <div class="answer">
   Kyllä voi. Palvelu on alun alkaen suunniteltu se huomioon ottaen,
   että harvalla kilpailupaikalla on kiinteää internet-yhteyttä. Käytännössä
@@ -148,11 +129,9 @@
 <h3>Käyttö</h3>
 <div class="question">Kuinka palvelun <span class="highligth">käyttöönotto</span>
   tapahtuu?</div>
-<div class="answer">Hirviurheilu Online -palvelun käyttöönotto on erittäin helppoa:
+<div class="answer">Hirviurheilu-palvelun käyttöönotto on erittäin helppoa:
   <%= link_to "rekisteröidy palveluun", register_path %>, jonka jälkeen voit
-  syöttää tulospalveluun kilpailun tiedot. Hirviurheilu Offline -tuotteen
-  saat käyttöösi <%= link_to 'asentamalla sen omalle koneellesi',
-  offline_installation_path %>.</div>
+  syöttää tulospalveluun kilpailun tiedot.</div>
 
 <%
 series_list = []
@@ -258,7 +237,7 @@ end
 <div class="question">Voiko <span class="highligth">useampi toimitsija</span>
   käyttää järjestelmää yhtä aikaa?</div>
 <div class="answer">Kyllä voi. Kilpailun perustaja voi kutsua muita henkilöitä
-  toimitsijaksi samaan kilpailuun. (Tämä ominaisuus käytössä vain Online-palvelussa.)</div>
+  toimitsijaksi samaan kilpailuun.</div>
 
 <div class="question">Onko mahdollista
   <span class="highligth">kokeilla palvelun käyttämistä</span> jossain?</div>
@@ -270,9 +249,7 @@ end
   palvelu (<a href="<%= PRODUCTION_URL %>"><%= PRODUCTION_URL %></a>) käyttävät
   eri tietokantoja, joten toiseen palveluun luodut käyttäjätunnukset eivät ole
   käytössä toisessa. Voit kuitenkin halutessasi käyttää molemmissa samoja
-  kirjautumistietoja (sähköposti ja salasana).<br/><br/>
-  <%= link_to 'Hirviurheilu Offline -tuotetta', offline_path %> voit kokeilla ilmaiseksi
-  <%= Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE %> käyttäjän verran.</div>
+  kirjautumistietoja (sähköposti ja salasana).</div>
 
 <a name="cup"></a>
 <h3>Cup-kilpailut</h3>
@@ -311,11 +288,8 @@ end
 <h3>Tulosten julkaisu</h3>
 <div class="question">Miten tulokset saadaan <span class="highligth">julkaistua</span>
   kilpailijoiden nähtäville?</div>
-<div class="answer">Hirviurheilu Online -palvelussa sinun ei tarvitse tehdä
-  mitään erillistoimenpiteitä. Tulospalvelu on täysin reaaliaikainen,
-  joten kaikki tulokset ovat näkyvissä koko ajan. Hirviurheilu Offline
-  -tuotteessa on sivu, jonka avulla voit julkaista valmiit tulokset
-  muiden nähtäville Hirviurheilu Online -palveluun.</div>
+<div class="answer">Sinun ei tarvitse tehdä mitään erillistoimenpiteitä. Tulospalvelu on täysin reaaliaikainen,
+  joten kaikki tulokset ovat näkyvissä koko ajan.</div>
 
 <div class="question">Haluaisin tulostaa tulokset / lähtölistan
   <span class="highligth">paperille</span>. Kuinka tämä onnistuu?</div>
@@ -329,12 +303,10 @@ end
   josta saat yksinkertaisten tulosluettelon haluamallesi määrälle kilpailijoita /
   sarja.</div>
 
-<% unless offline? %>
-  <h3>Hinnoittelu</h3>
-  <div class="question">Kuinka paljon palvelun käyttö
-    <span class="highligth">maksaa</span>?</div>
-  <div class="answer"><%= link_to "Katso tämän hetken hinnasto.", prices_path %></div>
-<% end %>
+<h3>Hinnoittelu</h3>
+<div class="question">Kuinka paljon palvelun käyttö
+  <span class="highligth">maksaa</span>?</div>
+<div class="answer"><%= link_to "Katso tämän hetken hinnasto.", prices_path %></div>
 
 <script type="text/javascript">
   <% if params[:open] %>
