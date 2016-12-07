@@ -1,0 +1,16 @@
+- content_for :title, "#{@race.name} - Kilpailijat"
+- if @race.series.empty?
+  .info
+    Tähän kilpailuun ei ole vielä lisätty yhtään sarjaa.
+    Voit lisätä kilpailijoita vasta sen jälkeen, kun päätoimitsija on lisännyt kilpailuun sarjat.
+- elsif @race.clubs.empty?
+  .info
+    Tähän kilpailuun ei ole vielä lisätty yhtään piiriä tai seuraa.
+    Voit lisätä kilpailijoita vasta sen jälkeen, kun päätoimitsija on lisännyt kilpailuun piirit/seurat.
+- else
+  %h2 Lisää kilpailija
+  = render :partial => 'form', :locals => { :show_cancel => false }
+  - unless @competitors.empty?
+    %h2 Lisätyt kilpailijat (#{@competitors.count})
+    #all_competitors.section
+      = render :partial => 'competitors_table'
