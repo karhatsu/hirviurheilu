@@ -1,0 +1,17 @@
+%table
+  %tr
+    %th Kilpailija
+    %th Sarja
+    %th= club_title(@race)
+    %th Jotosjoukkue
+    %th &nbsp;
+  - @competitors.select{|c| !c.new_record?}.each do |comp|
+    %tr
+      %td= link_to(full_name(comp), edit_official_limited_race_competitor_path(@race, comp))
+      %td
+        = comp.series.name
+        = comp.age_group ? '/' + comp.age_group.name : ''
+      %td= comp.club.name
+      %td= comp.team_name
+      %td= link_to 'Poista', official_limited_race_competitor_path(@race, comp),
+        data: { confirm: "Haluatko varmasti poistaa tämän kilpailijan?" }, method: :delete
