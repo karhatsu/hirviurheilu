@@ -1,0 +1,40 @@
+= flash_success
+= render :partial => "shared/form_errors", :locals => { :item => @competitor }
+= form_for([:official, :limited, @race, @competitor]) do |f|
+  %span.form_label= f.label :series_id
+  = f.select :series_id, options_from_collection_for_select(@race.series,
+    :id, :name, @competitor.series.id), {}, :onchange => 'reload_age_groups(this.value)'
+  - age_group_style = f.object.series.age_groups.empty? ? 'display:none;' : ''
+  %span#age_groups_span{style: age_group_style}
+    %span.form_label= f.label :age_group_id
+    = f.collection_select :age_group_id, @competitor.series.age_groups_with_main_series, :id, :name
+  %span#age_groups_spinner{style: 'display:none;'}
+    = image_tag 'spinner.gif'
+    Odota hetki...
+  %br
+  %span.form_label= f.label :first_name
+  = f.text_field :first_name, :size => 15
+  %span.form_label= f.label :last_name
+  = f.text_field :last_name, :size => 20
+  %br
+  %span.form_label= f.label :club_id, club_title(@race)
+  - if @race_right.club
+    = @race_right.club.name
+  - else
+    = f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name)
+  - if @race.has_team_competitions_with_team_names?
+    %span.form_label
+      = f.label :team_name
+      %a.help#team_name_help{href: 'javascript:void(0);'} ?
+    = f.text_field :team_name
+  %br
+  = submit_tag "Tallenna"
+  - if show_cancel
+    = tag(:input, {:type => 'button', :value => 'Peruuta', :onclick => 'cancel_edit();'})
+= render :partial => 'official/shared/team_name_help_dialog'
+= render :partial => 'official/shared/reload_age_groups_js'
+:javascript
+  function cancel_edit() {
+    window.location = '#{official_limited_race_competitors_path(@race)}';
+  }
+= render :partial => 'shared/help_dialog_opener'
