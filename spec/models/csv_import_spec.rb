@@ -207,6 +207,32 @@ describe CsvImport do
     end
   end
 
+  context 'when limited club rights' do
+    let(:limited_club) { 'SS' }
+
+    context 'and the csv file contains a different club' do
+      before do
+        @ci = CsvImport.new(@race, test_file_path('import_valid.csv'), limited_club)
+      end
+
+      it_should_behave_like 'failed import', 1
+
+      it 'the error message should contain the valid club name' do
+        expect(@ci.errors[0]).to eq("Sinulla on oikeus lisätä kilpailijoita vain \"#{limited_club}\"-piiriin")
+      end
+    end
+
+    context 'and the csv file contains only the allowed club' do
+      before do
+        @ci = CsvImport.new(@race, test_file_path('import_valid_limited_club.csv'), limited_club)
+      end
+
+      it "#errors should be empty" do
+        expect(@ci.errors.size).to eq(0)
+      end
+    end
+  end
+
   def test_file_path(file_name)
     File.join(Rails.root, 'spec', 'files', file_name)
   end

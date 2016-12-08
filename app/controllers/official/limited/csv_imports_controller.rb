@@ -17,6 +17,10 @@ class Official::Limited::CsvImportsController < Official::Limited::LimitedOffici
     @limited_csv_import = true
   end
 
+  def create_csv_import
+    CsvImport.new @race, params[:file].tempfile.path, @race_right.club.try(:name)
+  end
+
   def redirect_path_after_csv_import
     new_official_limited_race_competitor_path(@race)
   end

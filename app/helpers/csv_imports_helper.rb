@@ -5,7 +5,7 @@ module CsvImportsHelper
       render :new
     else
       begin
-        import = CsvImport.new(@race, params[:file].tempfile.path)
+        import = create_csv_import
         if import.save
           flash[:success] = 'Kilpailijat ladattu tietokantaan'
           redirect_to redirect_path_after_csv_import

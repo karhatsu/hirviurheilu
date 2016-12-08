@@ -9,12 +9,12 @@ class CsvImport
   COLUMNS_COUNT_START_ORDER_SERIES = 4
   COLUMNS_COUNT_START_ORDER_MIXED = 6
 
-  def initialize(race, file_path)
+  def initialize(race, file_path, limited_club=nil)
     @race = race
     @competitors = []
     @errors = []
     @data = read_file(file_path)
-    validate_data
+    validate_data limited_club
     validate_duplicate_data
     strip_duplicate_errors
   end
@@ -48,12 +48,14 @@ class CsvImport
     raise UnknownCSVEncodingException.new
   end
   
-  def validate_data
+  def validate_data(limited_club)
     @data.each do |row|
       return unless row_structure_correct(row)
       unless row_missing_data?(row)
         competitor = new_competitor(row)
-        if competitor.valid?
+        if limited_club && competitor.club.name != limited_club
+          @errors << "Sinulla on oikeus lisätä kilpailijoita vain \"#{limited_club}\"-piiriin"
+        elsif competitor.valid?
           @competitors << competitor
         else
           @errors += competitor.errors.full_messages
