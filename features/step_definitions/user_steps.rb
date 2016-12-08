@@ -106,6 +106,15 @@ Given /^I have limited rights to add competitors to the club "(.*?)" in the race
     :club => Club.find_by_name(club_name))
 end
 
+Given /^I have limited rights to add competitors for any new club in the race$/ do
+  unless @user
+    @user = build(:user)
+    @user.save_without_session_maintenance
+    @user.add_official_rights
+  end
+  @user.race_rights.create! race: @race, only_add_competitors: true, new_clubs: true
+end
+
 Given /^I am an admin$/ do
   @user = build(:user)
   @user.save_without_session_maintenance

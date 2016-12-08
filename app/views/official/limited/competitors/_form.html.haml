@@ -17,10 +17,14 @@
   %span.form_label= f.label :last_name
   = f.text_field :last_name, :size => 20
   %br
-  %span.form_label= f.label :club_id, club_title(@race)
   - if @race_right.club
+    %span.form_label= club_title(@race)
     = @race_right.club.name
+  - elsif @race_right.new_clubs?
+    %span.form_label= label_tag :club_name, club_title(@race)
+    %span= text_field_tag :club_name, params[:club_name]
   - else
+    %span.form_label= f.label :club_id, club_title(@race)
     = f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name)
   - if @race.has_team_competitions_with_team_names?
     %span.form_label

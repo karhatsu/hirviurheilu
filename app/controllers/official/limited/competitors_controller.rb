@@ -1,4 +1,6 @@
 class Official::Limited::CompetitorsController < Official::Limited::LimitedOfficialController
+  include CompetitorsHelper
+
   before_action :assign_race_by_race_id, :check_assigned_race_without_full_rights,
     :assign_race_right, :assign_current_competitors, :set_limited_official, :set_limited_official_add_competitor
   before_action :assign_competitor, :only => [:edit, :update, :destroy]
@@ -17,8 +19,13 @@ class Official::Limited::CompetitorsController < Official::Limited::LimitedOffic
   
   def create
     @competitor = @race.competitors.build(competitor_params)
-    @competitor.club = @race_right.club if @race_right.club
-    if @competitor.save
+    club_ok = true
+    if @race_right.new_clubs?
+      club_ok = handle_club(@competitor)
+    else
+      @competitor.club = @race_right.club if @race_right.club
+    end
+    if club_ok && @competitor.save
       flash[:success] = 'Kilpailija lisätty'
       redirect_to new_official_limited_race_competitor_path(@race, :series_id => @competitor.series_id,
         :age_group_id => @competitor.age_group_id)

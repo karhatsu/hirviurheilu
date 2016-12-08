@@ -1,4 +1,6 @@
 class Official::CompetitorsController < Official::OfficialController
+  include CompetitorsHelper
+
   before_action :assign_series_by_series_id, :check_assigned_series, :except => :create
   before_action :assign_race_by_race_id, :check_assigned_race, :only => :create
   before_action :assign_competitor_by_id, only: [ :edit, :update, :destroy ]
@@ -119,33 +121,6 @@ class Official::CompetitorsController < Official::OfficialController
     arrival_ok = handle_time_parameter params[:competitor], "arrival_time"
     @competitor.errors.add(:arrival_time, 'virheellinen') unless arrival_ok
     start_ok and arrival_ok
-  end
-  
-  def handle_club(competitor)
-    club_id_given = (params[:club_id] and params[:club_id].to_i != 0)
-    competitor.club_id = params[:club_id] if club_id_given
-    unless club_id_given or params[:club_name].blank?
-      new_name = params[:club_name]
-      existing_club = competitor.series.race.clubs.find_by_name(new_name)
-      if existing_club
-        competitor.club = existing_club
-      else
-        competitor.club = Club.create!(:race => competitor.series.race, :name => new_name)
-      end
-    end
-    # Cucumber hack
-    if Rails.env.test?
-      if competitor.club.nil? and competitor.club_id.nil? and params[:club]
-        competitor.club_id = params[:club]
-      end
-    end
-    unless competitor.club_id
-      # have to do this here instead of the competitor model since cannot have
-      # the presence validation for club due to the nested forms usage
-      competitor.errors.add :club, :empty
-      return false
-    end
-    true
   end
   
   def clear_empty_shots

@@ -80,6 +80,21 @@ Feature: Official only adding competitors
     And I should see "Lisätyt kilpailijat (1)"
     And I should see "Kisaaja Keijo" within "#all_competitors"
     
+  Scenario: Race official has limited rights but rights to add new clubs
+    Given there is a race "Limited race"
+    And the race has series "M"
+    And I have limited rights to add competitors for any new club in the race
+    And I have logged in
+    When I go to the limited official competitors page for "Limited race"
+    And I fill in "Keijo" for "Etunimi"
+    And I fill in "Kisaaja" for "Sukunimi"
+    And I fill in "Testiseura" for "Seura"
+    And I press "Tallenna"
+    Then I should be on the limited official competitors page for "Limited race"
+    And I should see "Kilpailija lisätty" in a success message
+    And I should see "Lisätyt kilpailijat (1)"
+    And I should see "Kisaaja Keijo" within "#all_competitors"
+
   Scenario: Race official with limited rights can modify competitor
     Given there is a race "Limited race"
     And the race has series "M"
