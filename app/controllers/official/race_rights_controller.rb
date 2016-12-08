@@ -67,6 +67,6 @@ class Official::RaceRightsController < Official::OfficialController
   end
 
   def race_rights_params
-    params.require(:race_right).permit(:only_add_competitors, :club_id)
+    params.require(:race_right).permit(:only_add_competitors, :club_id, :new_clubs)
   end
 end

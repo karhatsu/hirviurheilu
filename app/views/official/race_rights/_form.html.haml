@@ -10,12 +10,16 @@
     %span.form_label= f.label :only_add_competitors, 'Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita'
     %span= f.check_box :only_add_competitors
   #club_limitation{style: "display: none;"}
-    %span.form_label= f.label :club_id, 'Salli kilpailijoiden lisäys vain tiettyyn piiriin/seuraan'
-    - if @race.clubs.empty?
-      (Käyttöä ei voi rajata, koska
-      #{link_to 'yhtään piiriä/seuraa ei ole lisätty', official_race_clubs_path(@race)}.)
-    - else
-      = f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name, @race_right.club_id), include_blank: 'Ei rajausta'
+    %div
+      %span.form_label= f.label :new_clubs, 'Salli uusien piirien/seurojen lisäys'
+      %span= f.check_box :new_clubs
+    #specific_club_limitation
+      %span.form_label= f.label :club_id, 'Salli kilpailijoiden lisäys vain tiettyyn piiriin/seuraan'
+      - if @race.clubs.empty?
+        (Käyttöä ei voi rajata, koska
+        #{link_to 'yhtään piiriä/seuraa ei ole lisätty', official_race_clubs_path(@race)}.)
+      - else
+        = f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name, @race_right.club_id), include_blank: 'Ei rajausta'
   .submit_button
     = submit_tag submit_label
 :javascript
@@ -25,3 +29,16 @@
   if($('#race_right_only_add_competitors:checked').length) {
     $('#club_limitation').toggle(this.checked);
   };
+  $('#race_right_new_clubs').live('click', function() {
+    $('#specific_club_limitation').toggle(!this.checked);
+    resetClub();
+  });
+  if($('#race_right_new_clubs:checked').length) {
+    $('#specific_club_limitation').toggle(this.checked);
+  };
+  resetClub();
+  function resetClub() {
+    if($('#race_right_new_clubs:checked').length && $("#race_right_club_id").length) {
+      $("#race_right_club_id").val($("#race_right_club_id option:first").val());
+    }
+  }

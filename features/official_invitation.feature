@@ -115,7 +115,21 @@ Feature: Official invitation
     When I follow "yhtään piiriä/seuraa ei ole lisätty"
     Then the "Seurat" sub menu item should be selected
     And I should be on the official clubs page for "Test race"
-  
+
+  @javascript
+  Scenario: Invite official with limited rights but rights to add new clubs
+    Given there is an official "Another" "Official" with email "another@official.com" and password "pword"
+    And I am an official "Tim Thomas" with email "tim@official.com"
+    And I have a race "Test race"
+    And I have logged in
+    And I am on the invite officials page for "Test race"
+    When I check "Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita"
+    And I fill in "another@official.com" for "Sähköposti"
+    And I check "Salli uusien piirien/seurojen lisäys"
+    And I press "Lähetä kutsu"
+    Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi rajoitetuin oikeuksin" in a success message
+    And current officials table row 1 should contain "Official Another" with limited rights to club "Lisäys sallittu"
+
   Scenario: Official cannot delete herself from the race
     Given I am an official
     And I have a race "Test race"

@@ -19,7 +19,15 @@
           = full_name(rr.user)
           (#{link_to rr.user.email, "mailto:#{rr.user.email}"})
         %td.center= yes_or_empty(rr.only_add_competitors?)
-        %td= rr.club ? rr.club.name : raw('&nbsp;')
+        %td
+          - if rr.new_clubs?
+            Lisäys sallittu
+          - elsif rr.club
+            = rr.club.name
+          - elsif rr.only_add_competitors?
+            Kaikki nykyiset
+          - else
+            &nbsp;
         - if rr.user == current_user || rr.primary?
           %td &nbsp;
           %td &nbsp;

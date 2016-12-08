@@ -7,6 +7,25 @@ describe RaceRight do
     it { is_expected.to belong_to(:club) }
   end
 
+  describe 'validations' do
+    let(:club) { create :club }
+
+    it 'prevent new club creation and club limitation at the same time' do
+      rr = build :race_right, new_clubs: true, club: club
+      expect(rr).not_to be_valid
+    end
+
+    it 'allows new club creation to be true when no club limitation' do
+      rr = build :race_right, new_clubs: true, club: nil
+      expect(rr).to be_valid
+    end
+
+    it 'allows new club limitation to be true when no new club creation' do
+      rr = build :race_right, new_clubs: false, club: club
+      expect(rr).to be_valid
+    end
+  end
+
   describe 'callbacks' do
     describe 'on update' do
       it 'resets club_id when full rights given' do
