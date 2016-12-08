@@ -8,8 +8,6 @@
     %th Käyttökerrat
     %th Viim. login
     %th Viim. käyttö
-    %th Lisenssi
-    %th Laskutustiedot
   - @users.each do |user|
     %tr
       %td= user.first_name
@@ -18,5 +16,3 @@
       %td.center= user.login_count
       %td= datetime_print(user.last_login_at, true, false, raw('&nbsp;'))
       %td= datetime_print(user.last_request_at, true, false, raw('&nbsp;'))
-      %td= user.activation_key
-      %td= user.invoicing_info
