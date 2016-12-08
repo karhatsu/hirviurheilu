@@ -1,38 +1,41 @@
 = flash_success
 = render :partial => "shared/form_errors", :locals => { :item => @competitor }
-= form_for([:official, :limited, @race, @competitor]) do |f|
-  %span.form_label= f.label :series_id
-  = f.select :series_id, options_from_collection_for_select(@race.series,
-    :id, :name, @competitor.series.id), {}, :onchange => 'reload_age_groups(this.value)'
+= form_for([:official, :limited, @race, @competitor], html: { class: 'limited_competitor_form' }) do |f|
+  %div
+    .form_label= f.label :series_id
+    .form_field= f.select :series_id, options_from_collection_for_select(@race.series,
+      :id, :name, @competitor.series.id), {}, :onchange => 'reload_age_groups(this.value)'
   - age_group_style = f.object.series.age_groups.empty? ? 'display:none;' : ''
-  %span#age_groups_span{style: age_group_style}
-    %span.form_label= f.label :age_group_id
-    = f.collection_select :age_group_id, @competitor.series.age_groups_with_main_series, :id, :name
-  %span#age_groups_spinner{style: 'display:none;'}
-    = image_tag 'spinner.gif'
-    Odota hetki...
-  %br
-  %span.form_label= f.label :first_name
-  = f.text_field :first_name, :size => 15
-  %span.form_label= f.label :last_name
-  = f.text_field :last_name, :size => 20
-  %br
-  - if @race_right.club
-    %span.form_label= club_title(@race)
-    = @race_right.club.name
-  - elsif @race_right.new_clubs?
-    %span.form_label= label_tag :club_name, club_title(@race)
-    %span= text_field_tag :club_name, params[:club_name]
-  - else
-    %span.form_label= f.label :club_id, club_title(@race)
-    = f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name)
-  - if @race.has_team_competitions_with_team_names?
-    %span.form_label
-      = f.label :team_name
-      %a.help#team_name_help{href: 'javascript:void(0);'} ?
-    = f.text_field :team_name
-  %br
-  = submit_tag "Tallenna"
+  %div
+    %span#age_groups_span{style: age_group_style}
+      .form_label= f.label :age_group_id
+      = f.collection_select :age_group_id, @competitor.series.age_groups_with_main_series, :id, :name
+    %span#age_groups_spinner{style: age_group_style}
+      = image_tag 'spinner.gif'
+      Odota hetki...
+  %div
+    .form_label= f.label :first_name
+    .form_field= f.text_field :first_name, :size => 15
+  %div
+    .form_label= f.label :last_name
+    .form_field= f.text_field :last_name, :size => 20
+  %div
+    - if @race_right.club
+      .form_label= club_title(@race)
+      .form_field= @race_right.club.name
+    - elsif @race_right.new_clubs?
+      .form_label= label_tag :club_name, club_title(@race)
+      .form_field= text_field_tag :club_name, params[:club_name]
+    - else
+      .form_label= f.label :club_id, club_title(@race)
+      .form_field= f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name)
+  %div
+    - if @race.has_team_competitions_with_team_names?
+      .form_label
+        = f.label :team_name
+        %a.help#team_name_help{href: 'javascript:void(0);'} ?
+      .form_field= f.text_field :team_name
+  .submit_button= submit_tag "Tallenna"
   - if show_cancel
     = tag(:input, {:type => 'button', :value => 'Peruuta', :onclick => 'cancel_edit();'})
 = render :partial => 'official/shared/team_name_help_dialog'
