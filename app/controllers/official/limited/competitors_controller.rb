@@ -1,6 +1,6 @@
-class Official::Limited::CompetitorsController < Official::OfficialController
+class Official::Limited::CompetitorsController < Official::Limited::LimitedOfficialController
   before_action :assign_race_by_race_id, :check_assigned_race_without_full_rights,
-    :assign_race_right, :assign_current_competitors, :set_limited_official
+    :assign_race_right, :assign_current_competitors, :set_limited_official, :set_limited_official_add_competitor
   before_action :assign_competitor, :only => [:edit, :update, :destroy]
   
   def index
@@ -46,14 +46,10 @@ class Official::Limited::CompetitorsController < Official::OfficialController
   end
   
   private
-  def set_limited_official
-    @is_limited_official = true
+  def set_limited_official_add_competitor
+    @limited_add_competitor = true
   end
-  
-  def assign_race_right
-    @race_right = current_user.race_rights.where(:race_id => @race.id).first
-  end
-  
+
   def assign_current_competitors
     if @race_right.club
       @competitors = @race.competitors.where(:club_id => @race_right.club.id)

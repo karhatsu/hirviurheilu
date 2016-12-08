@@ -1,0 +1,18 @@
+- content_for :title, t('official.csv_imports.new.title')
+%h2= yield :title
+.info= t 'official.csv_imports.new.info_limited'
+%h3= t 'official.csv_imports.new.format_title'
+.info= t "official.csv_imports.new.format_info_#{@race.start_order}"
+%h3= t 'official.csv_imports.new.example_of_valid_file'
+%pre.file_example
+  = t "official.csv_imports.new.example_row_#{@race.start_order}_1"
+  %br
+  = t "official.csv_imports.new.example_row_#{@race.start_order}_2"
+%h3= t 'official.csv_imports.new.upload_file'
+= flash_error
+= form_tag(official_limited_race_csv_imports_path(@race), :multipart => true) do
+  %div
+    .form_label= label_tag :file, t('official.csv_imports.new.csv_file')
+    .form_field= file_field_tag :file
+  .submit_button
+    = submit_tag t('official.csv_imports.new.submit_button')

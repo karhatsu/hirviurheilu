@@ -68,6 +68,7 @@ ElkSports::Application.routes.draw do
       namespace :limited do
         resources :races do
           resources :competitors
+          resources :csv_imports
         end
       end
       

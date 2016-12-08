@@ -22,10 +22,6 @@ class Official::OfficialController < ApplicationController
     check_race(@race)
   end
 
-  def check_assigned_race_without_full_rights
-    check_race(@race, false)
-  end
-
   def check_assigned_series
     check_race(@series.race)
   end

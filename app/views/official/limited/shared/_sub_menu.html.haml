@@ -2,4 +2,5 @@
 - if race
   .menu.sub_menu
     %ul
-      = menu_item "Kilpailijat", official_limited_race_competitors_path(race), true
+      = menu_item "Kilpailijat", official_limited_race_competitors_path(race), @limited_add_competitor
+      = menu_item 'Lisää monta kilpailijaa', new_official_limited_race_csv_import_path(race), @limited_csv_import

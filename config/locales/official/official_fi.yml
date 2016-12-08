@@ -188,6 +188,7 @@ fi:
       new:
         title: Lisää kilpailijoita CSV-tiedostosta
         info: Jos sinulla on kilpailijoiden tiedot esim. Excel-taulukossa, voit tallentaa ne sieltä CSV-muotoon (CSV = pilkuilla erotetut sarakkeet). Sen jälkeen voit ladata kaikkien kilpailijoiden tiedot kerralla tietokantaan valitsemalla alla olevaan lomakkeeseen kyseisen CSV-tiedoston. Huom! CSV-tiedostossa käytetyt sarjat täytyy olla syötetty tietokantaan ennen latausta.
+        info_limited: Jos sinulla on kilpailijoiden tiedot esim. Excel-taulukossa, voit tallentaa ne sieltä CSV-muotoon (CSV = pilkuilla erotetut sarakkeet). Sen jälkeen voit ladata kaikkien kilpailijoiden tiedot kerralla tietokantaan valitsemalla alla olevaan lomakkeeseen kyseisen CSV-tiedoston.
         format_title: Tiedoston rakenne
         format_info_1: CSV-tiedostossa täytyy olla sarakkeet etunimi, sukunimi, piiri tai seura ja sarja tai ikäryhmä.
         format_info_2: CSV-tiedostossa täytyy olla sarakkeet etunimi, sukunimi, piiri tai seura, sarja tai ikäryhmä, lähtönumero sekä lähtöaika (hh:mm:ss).
