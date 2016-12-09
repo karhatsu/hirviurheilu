@@ -1,0 +1,6 @@
+Kilpailun nimi: #{@cup.name}
+%br
+Toimitsija: #{full_name(@user, true)}
+%br
+%br
+%a{href: cup_url(@locale, @cup)}= cup_url @locale, @cup

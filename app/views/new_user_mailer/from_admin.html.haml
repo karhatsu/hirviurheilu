@@ -1,14 +1,22 @@
 Hei #{full_name(@user, true)}
-\
+%br
+%br
 Sinulle on luotu käyttäjätunnus Hirviurheilu-palveluun.
-\
+%br
+%br
 Pääset kirjautumaan sisään palveluun seuraavilla tunnuksilla:
+%br
 Sähköposti: #{@user.email}
+%br
 Salasana: #{@user.password}
-\
+%br
+%br
 Kirjaudu sisään osoitteessa:
-= @url
-\
-Hirviurheilu on internetissä toimiva hirvenhiihdon ja hirvenjuoksun tulospalvelu. 
-\
+%br
+%a{href: @url}= @url
+%br
+%br
+Hirviurheilu on internetissä toimiva hirvenhiihdon ja hirvenjuoksun tulospalvelu.
+%br
+%br
 (Tämä viesti on lähetetty automaattisesti. Älä vastaa siihen.)

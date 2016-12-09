@@ -1,0 +1,16 @@
+Hei #{full_name(@invitee, true)},
+%br
+%br
+#{full_name(@inviter, true)} on pyytänyt sinua lisäämään kilpailijoita Hirviurheilu-palvelussa olevaan #{@race.sport.ski? ? 'hirvenhiihto' : 'hirvenjuoksu'}kilpailuun:
+#{@race.name} (#{race_date_interval(@race, false)}, #{@race.location}).
+%br
+%br
+Siirry syöttämään kilpailijoita:
+%a{href: @url}= @url
+%br
+%br
+Tämä viesti on lähetetty Hirviurheilu-järjestelmästä. Älä vastaa siihen.
+%br
+Jos haluat ottaa yhteyttä Hirviurheiluun, voit lähettää palautetta osoitteessa:
+%br
+%a{href: new_feedback_url}= new_feedback_url
