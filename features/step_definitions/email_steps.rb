@@ -167,10 +167,6 @@ When /^(?:I|they) follow "([^"]*?)" in the email$/ do |link|
   visit_in_email(link)
 end
 
-When /^(?:I|they) click the first link in the email$/ do
-  click_first_link_in_email
-end
-
 #
 # Debugging
 # These only work with Rails and OSx ATM since EmailViewer uses RAILS_ROOT and OSx's 'open' command.
