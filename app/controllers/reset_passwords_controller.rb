@@ -11,7 +11,7 @@ class ResetPasswordsController < ApplicationController
     if user
       user.reset_hash = reset_hash
       user.save!
-      ResetPasswordMailer.reset_mail(params[:email], reset_hash, site_url).deliver_now
+      ResetPasswordMailer.reset_mail(params[:email], reset_hash).deliver_now
       flash[:success] = t('reset_passwords.create.email_sent')
       redirect_to reset_password_path
     else

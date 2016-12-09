@@ -7,9 +7,8 @@ class NewUserMailer < ApplicationMailer
       :subject => "Hirviurheilu - uusi käyttäjä (#{ProductionEnvironment.name})"
   end
   
-  def from_admin(user, url)
+  def from_admin(user)
     @user = user
-    @url = url
     mail :to => user.email, :from => NOREPLY_ADDRESS,
       :subject => "Tunnukset Hirviurheilu-palveluun"
   end

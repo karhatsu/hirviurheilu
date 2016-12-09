@@ -50,11 +50,10 @@ class Official::RaceRightsController < Official::OfficialController
   
   def send_invitation_mail(race_right)
     user = race_right.user
-    url = official_race_url(@race)
     if race_right.only_add_competitors
-      InviteOfficialMailer.invite_only_competitor_adding(@race, current_user, user, url).deliver_now
+      InviteOfficialMailer.invite_only_competitor_adding(@race, current_user, user).deliver_now
     else
-      InviteOfficialMailer.invite(@race, current_user, user, url).deliver_now
+      InviteOfficialMailer.invite(@race, current_user, user).deliver_now
     end
   end
   

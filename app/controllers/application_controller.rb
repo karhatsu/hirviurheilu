@@ -136,10 +136,6 @@ class ApplicationController < ActionController::Base
     @is_races = true
   end
   
-  def site_url
-    request.protocol + request.host_with_port
-  end
-  
   def result_rotation_cookie_name
     'seriescount'
   end

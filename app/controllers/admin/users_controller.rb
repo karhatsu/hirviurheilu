@@ -15,7 +15,7 @@ class Admin::UsersController < Admin::AdminController
     @user.password_confirmation = @user.password
     if @user.save
       @user.add_official_rights
-      NewUserMailer.from_admin(@user, login_url).deliver_now
+      NewUserMailer.from_admin(@user).deliver_now
       flash[:success] = 'Käyttäjä lisätty'
       redirect_to admin_users_path
     else

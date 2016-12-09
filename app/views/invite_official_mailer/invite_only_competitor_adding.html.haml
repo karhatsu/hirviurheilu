@@ -6,5 +6,5 @@ Hei #{full_name(@invitee, true)},
 %br
 %br
 Siirry syöttämään kilpailijoita:
-%a{href: @url}= @url
+%a{href: official_race_url(@locale, @race)}= official_race_url(@locale, @race)
 = render partial: 'shared/customer_email_footer'

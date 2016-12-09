@@ -1,5 +1,5 @@
 Klikkaa alla olevaa linkkiä, niin pääset asettamaan uuden salasanan:
 %br
 %br
-%a{href: "#{@site_url}/reset_password/#{@reset_hash}/edit"} #{@site_url}/reset_password/#{@reset_hash}/edit
+%a{href: edit_reset_password_url(reset_hash: @reset_hash)}= edit_reset_password_url(reset_hash: @reset_hash)
 = render partial: 'shared/customer_email_footer'

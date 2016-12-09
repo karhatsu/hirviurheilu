@@ -4,6 +4,6 @@ class NewUserMailerPreview < ActionMailer::Preview
   end
 
   def from_admin
-    NewUserMailer.from_admin User.last, 'http://www.hirviurheilu.com/login'
+    NewUserMailer.from_admin User.last
   end
 end
