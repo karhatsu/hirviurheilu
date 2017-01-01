@@ -63,6 +63,7 @@ sv:
     series: Klass
     series_id: Klass
     series_names: Klassnamn för tävlingar
+    shooting_overtime_min: Skottstidens överminuter
     shorter_trip: Kortare löpning
     shots_total_input: Skottstotal
     sport: Gren

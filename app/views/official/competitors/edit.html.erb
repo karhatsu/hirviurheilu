@@ -32,6 +32,9 @@
       <%= f.number_field :estimate4, :size => 5, :maxlength => 3 %>
     <% end %>
     <hr/>
+    <span class="form_label"><%= f.label :shooting_overtime_min %></span>
+    <%= f.number_field :shooting_overtime_min, :size => 3 %>
+    <hr/>
     <%= f.radio_button :no_result_reason, '' %>Normaali
     <%= f.radio_button :no_result_reason, Competitor::DNS %><%= t '.dns' %>
     <%= f.radio_button :no_result_reason, Competitor::DNF %><%= t '.dnf' %>

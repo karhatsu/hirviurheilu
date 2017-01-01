@@ -63,6 +63,7 @@ fi:
     series: Sarja
     series_id: Sarja
     series_names: Osakilpailuiden sarjojen nimet
+    shooting_overtime_min: Ammunta-ajan ylitysminuutit (metsästäjäsarjat)
     shorter_trip: Lyhennetty matka
     shots_total_input: Ammunta yhteensä
     sport: Laji
