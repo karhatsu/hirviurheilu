@@ -448,6 +448,12 @@ describe Competitor do
       expect(competitor).to receive(:shots_sum).and_return(50)
       expect(competitor.shot_points).to eq(300)
     end
+
+    it 'should subtract 3 points from every overtime minute' do
+      competitor = build(:competitor, shooting_overtime_min: 2)
+      expect(competitor).to receive(:shots_sum).and_return(90)
+      expect(competitor.shot_points).to eq(540 - 6)
+    end
   end
 
   describe "#estimate_diff1_m" do

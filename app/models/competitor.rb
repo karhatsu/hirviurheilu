@@ -102,7 +102,7 @@ class Competitor < ActiveRecord::Base
 
   def shot_points
     sum = shots_sum or return nil
-    6 * sum
+    6 * sum - 3 * shooting_overtime_min.to_i
   end
 
   def estimate_diff1_m
