@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161208084635) do
+ActiveRecord::Schema.define(version: 20170101091254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,10 +58,10 @@ ActiveRecord::Schema.define(version: 20161208084635) do
   add_index "clubs", ["race_id"], name: "index_clubs_on_race_id", using: :btree
 
   create_table "competitors", force: :cascade do |t|
-    t.integer  "series_id",                                     null: false
-    t.integer  "club_id",                                       null: false
-    t.string   "first_name",        limit: 255,                 null: false
-    t.string   "last_name",         limit: 255,                 null: false
+    t.integer  "series_id",                                         null: false
+    t.integer  "club_id",                                           null: false
+    t.string   "first_name",            limit: 255,                 null: false
+    t.string   "last_name",             limit: 255,                 null: false
     t.integer  "number"
     t.time     "start_time"
     t.time     "arrival_time"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20161208084635) do
     t.integer  "estimate2"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "no_result_reason",  limit: 255
+    t.string   "no_result_reason",      limit: 255
     t.integer  "age_group_id"
     t.integer  "correct_estimate1"
     t.integer  "correct_estimate2"
@@ -78,9 +78,10 @@ ActiveRecord::Schema.define(version: 20161208084635) do
     t.integer  "estimate4"
     t.integer  "correct_estimate3"
     t.integer  "correct_estimate4"
-    t.boolean  "unofficial",                    default: false, null: false
-    t.string   "team_name",         limit: 255
-    t.boolean  "has_result",                    default: false, null: false
+    t.boolean  "unofficial",                        default: false, null: false
+    t.string   "team_name",             limit: 255
+    t.boolean  "has_result",                        default: false, null: false
+    t.integer  "shooting_overtime_min"
   end
 
   add_index "competitors", ["age_group_id"], name: "index_competitors_on_age_group_id", using: :btree

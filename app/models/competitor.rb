@@ -44,6 +44,7 @@ class Competitor < ActiveRecord::Base
     :numericality => { :only_integer => true, :greater_than => 0 }
   validates :correct_estimate4, :allow_nil => true,
     :numericality => { :only_integer => true, :greater_than => 0 }
+  validates :shooting_overtime_min, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
   validate :arrival_not_before_start_time
   validate :only_one_shot_input_method_used
   validate :max_ten_shots
