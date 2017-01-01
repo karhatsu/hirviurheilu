@@ -15,7 +15,7 @@
 
   %div
     %span.form_label= f.label :start_date
-    %span= f.date_select :start_date
+    %span= f.date_select :start_date, start_year: Date.today.year - 1, end_year: Date.today.year + 1
 
   %div
     %span.form_label= f.label :start_time
