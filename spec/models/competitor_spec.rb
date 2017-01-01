@@ -456,6 +456,23 @@ describe Competitor do
     end
   end
 
+  describe '#shooting_overtime_penalty' do
+    it 'is nil when no overtime minutes' do
+      competitor = build :competitor
+      expect(competitor.shooting_overtime_penalty).to be_nil
+    end
+
+    it 'is nil when overtime minutes is 0' do
+      competitor = build :competitor, shooting_overtime_min: 0
+      expect(competitor.shooting_overtime_penalty).to be_nil
+    end
+
+    it 'is 3 times overtime minutes as negative' do
+      competitor = build :competitor, shooting_overtime_min: 4
+      expect(competitor.shooting_overtime_penalty).to eql -12
+    end
+  end
+
   describe "#estimate_diff1_m" do
     it "should be nil when no correct estimate1" do
       expect(build(:competitor, :estimate1 => 100, :correct_estimate1 => nil).

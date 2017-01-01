@@ -82,10 +82,18 @@ describe ResultFormatHelper do
         competitor = stub_competitor 480, 80
         expect(helper.shot_points_print(competitor, true)).to eq('480 (80)')
       end
+
+      context 'and overtime penalty' do
+        it 'should return penalty in brackets after shots sum' do
+          competitor = stub_competitor 480, 80, nil, -9
+          expect(helper.shot_points_print(competitor, true)).to eq('480 (80, -9)')
+        end
+      end
     end
 
-    def stub_competitor(shot_points, shots_sum, no_result_reason=nil)
-      instance_double Competitor, shot_points: shot_points, shots_sum: shots_sum, no_result_reason: no_result_reason
+    def stub_competitor(shot_points, shots_sum, no_result_reason=nil, shooting_overtime_penalty=nil)
+      instance_double Competitor, shot_points: shot_points, shots_sum: shots_sum, no_result_reason: no_result_reason,
+                      shooting_overtime_penalty: shooting_overtime_penalty
     end
   end
 

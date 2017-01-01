@@ -25,7 +25,11 @@ module ResultFormatHelper
     return '' if competitor.no_result_reason
     return '-' if competitor.shots_sum.nil?
     points = competitor.shot_points.to_s
-    points << " (#{competitor.shots_sum})" if shots_total
+    if shots_total
+      points << " (#{competitor.shots_sum}"
+      points << ", #{competitor.shooting_overtime_penalty}" if competitor.shooting_overtime_penalty
+      points << ')'
+    end
     points
   end
 
