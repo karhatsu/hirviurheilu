@@ -19,11 +19,8 @@ describe Competitor do
     it { is_expected.to validate_presence_of(:last_name) }
 
     describe "number" do
+      it_should_behave_like 'positive integer', :number
       it { is_expected.to allow_value(nil).for(:number) }
-      it { is_expected.to validate_numericality_of(:number) }
-      it { is_expected.not_to allow_value(23.5).for(:number) }
-      it { is_expected.not_to allow_value(0).for(:number) }
-      it { is_expected.to allow_value(1).for(:number) }
 
       describe "uniqueness" do
         before do
