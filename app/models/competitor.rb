@@ -149,28 +149,8 @@ class Competitor < ActiveRecord::Base
     return 300 if series.time_points_type == Series::TIME_POINTS_TYPE_ALL_300
     own_time = time_in_seconds or return nil
     best_time = comparison_time_in_seconds(all_competitors) or return nil
-    if own_time < best_time
-      if self.unofficial
-        return 300
-      elsif no_result_reason
-        return nil
-      else
-        raise "Competitor time better than the best time and no DNS/DNF/DQ/unofficial!"
-      end
-    end
-    seconds_diff = round_seconds(own_time) - round_seconds(best_time)
-    if seconds_diff.abs <= 5 * 60 || race_year < 2017
-      points = 300 - seconds_diff / 10
-    else
-      points = 300 - 5 * 6                           # 0-5 min: -1 point / every 10 seconds
-      points = points - (seconds_diff - 5 * 60) / 20 # 5-  min: -1 point / every 20 seconds
-    end
-    return points.to_i if points >= 0
-    0
-  end
-
-  def race_year
-    race.start_date.year
+    return resolve_time_points_for_invalid_own_time if own_time < best_time
+    calculate_time_points own_time, best_time
   end
 
   def points(all_competitors=false)
@@ -360,8 +340,34 @@ class Competitor < ActiveRecord::Base
       order("#{compare_column} #{sort_order}").first
   end
 
+  def resolve_time_points_for_invalid_own_time
+    if unofficial?
+      300
+    elsif no_result_reason
+      nil
+    else
+      raise 'Competitor time better than the best time and no DNS/DNF/DQ/unofficial!'
+    end
+  end
+
+  def calculate_time_points(own_time, best_time)
+    seconds_diff = round_seconds(own_time) - round_seconds(best_time)
+    if seconds_diff <= 5 * 60 || race_year < 2017
+      points = 300 - seconds_diff / 10
+    else
+      # 0-5 min: -1 point / every 10 seconds, 5- min: -1 point / every 20 seconds
+      points = 300 - 5 * 6 - (seconds_diff - 5 * 60) / 20
+    end
+    return points.to_i if points >= 0
+    0
+  end
+
   def round_seconds(seconds)
     # round down to closest 10 seconds, e.g. 34:49 => 34:40
     seconds.to_i / 10 * 10
+  end
+
+  def race_year
+    race.start_date.year
   end
 end
