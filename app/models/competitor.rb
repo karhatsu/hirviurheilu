@@ -158,9 +158,19 @@ class Competitor < ActiveRecord::Base
         raise "Competitor time better than the best time and no DNS/DNF/DQ/unofficial!"
       end
     end
-    points = 300 - (round_seconds(own_time) - round_seconds(best_time)) / 10
+    seconds_diff = round_seconds(own_time) - round_seconds(best_time)
+    if seconds_diff.abs <= 5 * 60 || race_year < 2017
+      points = 300 - seconds_diff / 10
+    else
+      points = 300 - 5 * 6                           # 0-5 min: -1 point / every 10 seconds
+      points = points - (seconds_diff - 5 * 60) / 20 # 5-  min: -1 point / every 20 seconds
+    end
     return points.to_i if points >= 0
     0
+  end
+
+  def race_year
+    race.start_date.year
   end
 
   def points(all_competitors=false)
