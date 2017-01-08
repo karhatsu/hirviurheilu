@@ -9,7 +9,7 @@ module AssignModel
     rescue ActiveRecord::RecordNotFound
       set_variant
       @id = id
-      render 'errors/cup_not_found'
+      render 'errors/cup_not_found', status: 404
     end
   end
 
@@ -27,7 +27,7 @@ module AssignModel
     rescue ActiveRecord::RecordNotFound
       set_variant
       @id = id
-      render 'errors/race_not_found'
+      render 'errors/race_not_found', status: 404
     end
   end
 
@@ -45,7 +45,7 @@ module AssignModel
     rescue ActiveRecord::RecordNotFound
       set_variant
       @id = id
-      render 'errors/series_not_found'
+      render 'errors/series_not_found', status: 404
     end
   end
 
@@ -59,7 +59,7 @@ module AssignModel
     rescue ActiveRecord::RecordNotFound
       set_variant
       @id = id
-      render 'errors/competitor_not_found'
+      render 'errors/competitor_not_found', status: 404
     end
   end
 
@@ -77,7 +77,7 @@ module AssignModel
     rescue ActiveRecord::RecordNotFound
       set_variant
       @id = id
-      render 'errors/relay_not_found'
+      render 'errors/relay_not_found', status: 404
     end
   end
 
@@ -95,7 +95,7 @@ module AssignModel
     rescue ActiveRecord::RecordNotFound
       set_variant
       @id = id
-      render 'errors/team_competition_not_found'
+      render 'errors/team_competition_not_found', status: 404
     end
   end
 
@@ -104,7 +104,7 @@ module AssignModel
     begin
       @cup_series = @cup.cup_series.find(@id)
     rescue ActiveRecord::RecordNotFound
-      render 'errors/cup_series_not_found'
+      render 'errors/cup_series_not_found', status: 404
     end
   end
 end
