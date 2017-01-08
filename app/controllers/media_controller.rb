@@ -1,6 +1,5 @@
 class MediaController < ApplicationController
   before_action :set_races, :assign_race_by_race_id, :set_media, :set_competitors_count
-  skip_before_action :assign_race_by_race_id, :only => :show
 
   def new
   end
