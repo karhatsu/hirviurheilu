@@ -58,7 +58,6 @@ end
 group :development, :test do
   gem 'gherkin'
   gem 'ruby-prof'
-  gem 'mongrel'
   gem 'therubyracer'
   gem 'spring'
   gem 'spring-commands-rspec'

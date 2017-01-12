@@ -90,7 +90,6 @@ GEM
       nokogiri (~> 1.5)
       railties (>= 3, < 5.1)
     cucumber-wire (0.0.1)
-    daemons (1.0.10)
     dalli (2.7.6)
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
@@ -113,7 +112,6 @@ GEM
     fuubar (2.2.0)
       rspec-core (~> 3.0)
       ruby-progressbar (~> 1.4)
-    gem_plugin (0.2.3)
     gherkin (4.0.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
@@ -159,9 +157,6 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.9.1)
-    mongrel (1.2.0.pre2)
-      daemons (~> 1.0.10)
-      gem_plugin (~> 0.2.3)
     multi_json (1.12.1)
     multi_test (0.1.2)
     multi_xml (0.5.5)
@@ -306,7 +301,6 @@ DEPENDENCIES
   jquery-ui-themes
   launchy
   minitest
-  mongrel
   newrelic_rpm
   pg
   poltergeist
@@ -329,5 +323,8 @@ DEPENDENCIES
   unicorn
   wicked_pdf
 
+RUBY VERSION
+   ruby 2.3.0p0
+
 BUNDLED WITH
-   1.11.2
+   1.13.7
