@@ -1,6 +1,6 @@
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.dialog
+//= require jquery-ui/widgets/dialog
 //= require jquery-utils-0.8.5-min
 //= require jquery.bxSlider.min
 //= require jquery.filtertable.min
