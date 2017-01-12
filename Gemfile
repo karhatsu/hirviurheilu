@@ -17,6 +17,7 @@ gem 'haml-rails'
 gem 'rack-mini-profiler'
 gem 'dalli'
 gem 'roman-numerals'
+gem 'nokogiri', '>=1.7.0.1'
 
 group :development, :production do
   gem 'pg'
