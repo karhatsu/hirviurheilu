@@ -32,10 +32,10 @@
   function reload_selected_series() {
     reload_series($('#series_select').val());
   }
-  $('#series_select').live('change', function() {
+  $('.series_menu').on('change', '#series_select', function() {
     reload_series($(this).val());
   });
-  $('#refresh_link').live('click', reload_selected_series);
+  $('#refresh_link_wrapper').on('click', '#refresh_link', reload_selected_series);
   <% unless @race.series.empty? %>
     $(document).ready(function() {
       reload_selected_series();

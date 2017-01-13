@@ -23,13 +23,13 @@
   .submit_button
     = submit_tag submit_label
 :javascript
-  $('#race_right_only_add_competitors').live('click', function() {
+  $('.invite_officials_form').on('click', '#race_right_only_add_competitors', function() {
     $('#club_limitation').toggle(this.checked);
   });
   if($('#race_right_only_add_competitors:checked').length) {
     $('#club_limitation').toggle(this.checked);
   };
-  $('#race_right_new_clubs').live('click', function() {
+  $('.invite_officials_form').on('click', '#race_right_new_clubs', function() {
     $('#specific_club_limitation').toggle(!this.checked);
     resetClub();
   });

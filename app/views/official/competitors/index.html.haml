@@ -77,7 +77,7 @@
   function padNumber(number) {
     return number < 10 ? '0' + number : number;
   }
-  $('#series_start_time_row select').live('change', function () {
+  $('#series_start_time_row').on('change', 'select', function () {
     calculateRealStartTime();
   });
   $(document).ready(function () {

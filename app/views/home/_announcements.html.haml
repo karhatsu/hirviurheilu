@@ -21,6 +21,6 @@
       });
     });
   });
-  $('#announcement_content a').live('click', function() {
+  $('#announcement_content').on('click', 'a', function() {
     $('#announcement_dialog').dialog('close');
   });

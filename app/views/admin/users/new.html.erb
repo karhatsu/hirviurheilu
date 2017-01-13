@@ -21,7 +21,7 @@
   <%= submit_tag 'Lisää käyttäjä' %>
 <% end %>
 <%= javascript_tag do %>
-$('#generate_password').live('click', function() {
+$('form').on('click', '#generate_password', function() {
   var pw = Math.random().toString(36).slice(-8);
   $('#user_password').val(pw);
 });

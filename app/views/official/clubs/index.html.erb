@@ -39,7 +39,7 @@
   $("#submit").click(function() {
     $("#spinner").html('<%= image_tag 'spinner.gif' %>');
   });
-  $(".club_name_link").live('click', function() {
+  $("#clubs_table").on('click', '.club_name_link', function() {
     $(this).hide();
     $(this).next().show();
   });
