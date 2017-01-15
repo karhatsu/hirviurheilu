@@ -26,10 +26,8 @@ end
 
 group :production do
   gem 'rails_12factor'
-end
-
-group :production do
   gem 'newrelic_rpm'
+  gem 'exception_notification'
 end
 
 group :development do

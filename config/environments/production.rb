@@ -82,4 +82,9 @@ ElkSports::Application.configure do
   config.active_support.deprecation = :notify
 
   config.eager_load = true
+
+  Rails.application.config.middleware.use ExceptionNotification::Rack, email: {
+      sender_address: 'errors@hirviurheilu.com',
+      exception_recipients: ADMIN_EMAIL
+  }
 end

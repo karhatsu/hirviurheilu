@@ -100,6 +100,9 @@ GEM
       launchy (~> 2.1)
       mail (~> 2.6.3)
     erubis (2.7.0)
+    exception_notification (4.2.1)
+      actionmailer (>= 4.0, < 6)
+      activesupport (>= 4.0, < 6)
     execjs (2.7.0)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
@@ -291,6 +294,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   email_spec
+  exception_notification
   factory_girl_rails
   fuubar
   gherkin
