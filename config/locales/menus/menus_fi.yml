@@ -6,7 +6,7 @@ fi:
     info: Info
     prices: Hinnat
     personal: Omat tiedot
-    start: Aloita
+    start: Aloita käyttö
     offline: Offline
   login: Kirjaudu sisään
   logout: "Kirjaudu ulos, %{name}"

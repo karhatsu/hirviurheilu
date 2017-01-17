@@ -9,7 +9,7 @@ Feature: Official
 
   Scenario: Official registration
     Given I am on the home page
-    When I follow "Aloita käyttö"
+    When I choose "Aloita käyttö" from main menu
     Then I should be on the registration page
     And the "Aloita" main menu item should be selected
     When I fill in the following:
