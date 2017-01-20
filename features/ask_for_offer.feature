@@ -5,7 +5,7 @@ Feature: Ask for an offer
 
   Scenario: Send offer form
     Given I use the service in the production environment
-    And I am on the home page
+    And I am on the prices page
     And I follow "Pyydä tarjous"
     Then the "Hinnat" main menu item should be selected
     And the "Pyydä tarjous" sub menu item should be selected
