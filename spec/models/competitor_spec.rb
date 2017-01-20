@@ -335,6 +335,56 @@ describe Competitor do
   end
 
   describe 'callbacks' do
+    describe 'shooting times' do
+      before do
+        @competitor = build :competitor, start_time: '00:05:00', shooting_overtime_min: 10
+      end
+
+      describe 'when shooting start and finish times available' do
+        describe 'and shooting time was max 7 minutes' do
+          it 'sets shooting overtime minutes to 0 min' do
+            test_overtime '00:10:00', '00:17:00', 0
+          end
+        end
+
+        describe 'and shooting time was 7:01-8:00' do
+          it 'sets shooting overtime minutes to 1 min' do
+            test_overtime '00:10:00', '00:17:01', 1
+            test_overtime '00:10:00', '00:17:59', 1
+          end
+        end
+
+        describe 'and shooting time was 8:01-9:00' do
+          it 'sets shooting overtime minutes to 2 min' do
+            test_overtime '00:10:00', '00:18:01', 2
+            test_overtime '00:10:00', '00:18:59', 2
+          end
+        end
+
+        def test_overtime(start_time, finish_time, expected_overtime_min)
+          @competitor.shooting_start_time = start_time
+          @competitor.shooting_finish_time = finish_time
+          @competitor.save!
+          expect(@competitor.shooting_overtime_min).to eql expected_overtime_min
+        end
+      end
+
+      describe 'when shooting start time not available' do
+        it 'keeps overtime minutes as is' do
+          @competitor.save!
+          expect(@competitor.shooting_overtime_min).to eql 10
+        end
+      end
+
+      describe 'when shooting finish time not available' do
+        it 'keeps overtime minutes as is' do
+          @competitor.shooting_start_time = '00:10:00'
+          @competitor.save!
+          expect(@competitor.shooting_overtime_min).to eql 10
+        end
+      end
+    end
+
     describe 'on update' do
       describe 'when series is updated' do
         it 'resets competitors counters on old and new series' do

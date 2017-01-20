@@ -54,7 +54,7 @@ class Competitor < ActiveRecord::Base
   validate :unique_name
   validate :concurrent_changes, :on => :update
 
-  before_save :set_has_result, :reset_age_group
+  before_save :set_has_result, :reset_age_group, :set_shooting_overtime_min
 
   after_create :set_correct_estimates
   after_save :update_series_start_time_and_number
@@ -317,6 +317,16 @@ class Competitor < ActiveRecord::Base
 
   def reset_age_group
     self.age_group_id = nil if series.age_groups.empty?
+  end
+
+  def set_shooting_overtime_min
+    return unless shooting_start_time && shooting_finish_time
+    shooting_overtime_seconds = shooting_finish_time - shooting_start_time - 7 * 60
+    if shooting_overtime_seconds > 0
+      self.shooting_overtime_min = (shooting_overtime_seconds / 60).to_i + 1
+    else
+      self.shooting_overtime_min = 0
+    end
   end
 
   def set_correct_estimates
