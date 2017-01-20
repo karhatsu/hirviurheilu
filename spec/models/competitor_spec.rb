@@ -171,32 +171,135 @@ describe Competitor do
       it { is_expected.to allow_value(1).for(:correct_estimate4) }
     end
 
-    describe "arrival_time" do
-      it { is_expected.to allow_value(nil).for(:arrival_time) }
-
-      it "can be nil even when start time is not nil" do
-        expect(build(:competitor, :start_time => '14:00', :arrival_time => nil)).
-          to be_valid
+    describe 'shooting_start_time' do
+      it 'can be nil' do
+        test_shooting_start_time nil, nil, true
+        test_shooting_start_time '00:04:00', nil, true
       end
 
-      it "should not be before start time" do
-        expect(build(:competitor, :start_time => '14:00', :arrival_time => '13:59')).
-          to have(1).errors_on(:arrival_time)
+      it 'should not be before start time' do
+        test_shooting_start_time '00:04:00', '00:03:59', false
       end
 
-      it "should not be same as start time" do
-        expect(build(:competitor, :start_time => '14:00', :arrival_time => '14:00')).
-          to have(1).errors_on(:arrival_time)
+      it 'should not be same as start time' do
+        test_shooting_start_time '00:04:00', '00:04:00', false
       end
 
-      it "is valid when later than start time" do
-        expect(build(:competitor, :start_time => '14:00', :arrival_time => '14:01')).
-          to be_valid
+      it 'is valid when later than start time' do
+        test_shooting_start_time '00:04:00', '00:04:01', true
       end
 
-      it "cannot be given if no start time" do
-        expect(build(:competitor, :start_time => nil, :arrival_time => '13:59')).
-          not_to be_valid
+      it 'cannot be given if no start time' do
+        test_shooting_start_time nil, '00:04:00', false
+      end
+
+      def test_shooting_start_time(start_time, shooting_start_time, valid)
+        competitor = build :competitor, start_time: start_time, shooting_start_time: shooting_start_time
+        if valid
+          expect(competitor).to be_valid
+        else
+          expect(competitor).not_to be_valid
+          expect(competitor).to have(1).errors_on(:shooting_start_time)
+        end
+      end
+    end
+
+    describe 'shooting_finish_time' do
+      it 'can be nil' do
+        test_shooting_finish_time nil, nil, nil, true
+        test_shooting_finish_time '00:04:00', '00:05:00', nil, true
+        test_shooting_finish_time '00:04:00', nil, nil, true
+      end
+
+      it 'should not be before start time' do
+        test_shooting_finish_time '00:04:00', nil, '00:03:59', false
+      end
+
+      it 'should not be same as start time' do
+        test_shooting_finish_time '00:04:00', nil, '00:04:00', false
+      end
+
+      it 'should not be before shooting start time' do
+        test_shooting_finish_time '00:04:00', '00:04:02', '00:04:01', false
+      end
+
+      it 'should not be same as shooting start time' do
+        test_shooting_finish_time '00:04:00', '00:04:02', '00:04:02', false
+      end
+
+      it 'is valid when later than start time and shooting start time' do
+        test_shooting_finish_time '00:04:00', '00:04:01', '00:04:02', true
+      end
+
+      it 'cannot be given if no start time' do
+        test_shooting_finish_time nil, nil, '00:04:00', false
+      end
+
+      def test_shooting_finish_time(start_time, shooting_start_time, shooting_finish_time, valid)
+        competitor = build :competitor, start_time: start_time, shooting_start_time: shooting_start_time,
+                           shooting_finish_time: shooting_finish_time
+        if valid
+          expect(competitor).to be_valid
+        else
+          expect(competitor).not_to be_valid
+          expect(competitor).to have(1).errors_on(:shooting_finish_time)
+        end
+      end
+    end
+
+    describe 'arrival_time' do
+      it 'can be nil' do
+        test_arrival_time nil, nil, nil, nil, true
+        test_arrival_time '00:04:00', nil, nil, nil, true
+        test_arrival_time '00:04:00', '00:05:00', nil, nil, true
+        test_arrival_time '00:04:00', '00:05:00', '00:06:00', nil, true
+      end
+
+      it 'should not be before start time' do
+        test_arrival_time '00:04:00', nil, nil, '00:03:59', false
+      end
+
+      it 'should not be same as start time' do
+        test_arrival_time '00:04:00', nil, nil, '00:04:00', false
+      end
+
+      it 'should not be before shooting start time' do
+        test_arrival_time '00:04:00', '00:04:03', nil, '00:04:02', false
+      end
+
+      it 'should not be same as shooting start time' do
+        test_arrival_time '00:04:00', '00:04:03', nil, '00:04:03', false
+      end
+
+      it 'should not be before shooting finish time' do
+        test_arrival_time '00:04:00', '00:04:03', '00:04:05', '00:04:04', false
+      end
+
+      it 'should not be same as shooting finish time' do
+        test_arrival_time '00:04:00', '00:04:03', '00:04:05', '00:04:05', false
+      end
+
+      it 'is valid when later than start time' do
+        test_arrival_time '00:04:00', nil, nil, '00:04:03', true
+      end
+
+      it 'is valid when later than start time, shooting start time, and shooting finish time' do
+        test_arrival_time '00:04:00', '00:04:01', '00:04:02', '00:04:03', true
+      end
+
+      it 'cannot be given if no start time' do
+        test_arrival_time nil, nil, nil, '00:04:00', false
+      end
+
+      def test_arrival_time(start_time, shooting_start_time, shooting_finish_time, arrival_time, valid)
+        competitor = build :competitor, start_time: start_time, shooting_start_time: shooting_start_time,
+                           shooting_finish_time: shooting_finish_time, arrival_time: arrival_time
+        if valid
+          expect(competitor).to be_valid
+        else
+          expect(competitor).not_to be_valid
+          expect(competitor).to have(1).errors_on(:arrival_time)
+        end
       end
     end
 

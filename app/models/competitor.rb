@@ -45,7 +45,7 @@ class Competitor < ActiveRecord::Base
   validates :correct_estimate4, :allow_nil => true,
     :numericality => { :only_integer => true, :greater_than => 0 }
   validates :shooting_overtime_min, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
-  validate :arrival_not_before_start_time
+  validate :times_in_correct_order
   validate :only_one_shot_input_method_used
   validate :max_ten_shots
   validate :check_no_result_reason
@@ -228,15 +228,33 @@ class Competitor < ActiveRecord::Base
   end
 
   private
-  def arrival_not_before_start_time
-    return if start_time.nil? && arrival_time.nil?
-    if start_time.nil?
-      errors.add(:base, :cannot_have_arrival_time_without_start_time)
-      return
+  def times_in_correct_order
+    return if start_time.nil? && shooting_start_time.nil? && shooting_finish_time.nil? && arrival_time.nil?
+    unless start_time
+      validate_against_missing_start_time :shooting_start_time
+      validate_against_missing_start_time :shooting_finish_time
+      validate_against_missing_start_time :arrival_time
     end
-    if arrival_time && start_time >= arrival_time
-      errors.add(:arrival_time, :must_be_after_start_time)
-    end
+
+    validate_times_order :start_time, :shooting_start_time
+
+    validate_times_order :start_time, :shooting_finish_time
+    validate_times_order :shooting_start_time, :shooting_finish_time
+
+    validate_times_order :start_time, :arrival_time
+    validate_times_order :shooting_start_time, :arrival_time
+    validate_times_order :shooting_finish_time, :arrival_time
+  end
+
+  def validate_against_missing_start_time(time_field)
+    errors.add time_field, :cannot_have_without_start_time if self[time_field]
+  end
+
+  def validate_times_order(first_time_field, second_time_field)
+    second_time = self[second_time_field]
+    return unless second_time
+    first_time = self[first_time_field]
+    errors.add second_time_field, "must_be_after_#{first_time_field}".to_sym if first_time && first_time >= second_time
   end
 
   def only_one_shot_input_method_used

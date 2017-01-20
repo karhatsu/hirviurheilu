@@ -63,7 +63,9 @@ sv:
     series: Klass
     series_id: Klass
     series_names: Klassnamn för tävlingar
+    shooting_finish_time: Skytte sluttid
     shooting_overtime_min: Skottstidens överminuter
+    shooting_start_time: Skytte starttid
     shorter_trip: Kortare löpning
     shots_total_input: Skottstotal
     sport: Gren
@@ -183,10 +185,19 @@ sv:
         competitor:
           attributes:
             base:
-              cannot_have_arrival_time_without_start_time: Tävlaren kan inte ha avkomstid, om han inte har starttid
               shooting_result_either_sum_or_by_shots: Spara skytteresultat antingen med summa eller enskilda skott
               another_competitor_with_same_name_in_series: Klassen redan har en tävlare med samma namn
+            shooting_start_time:
+              cannot_have_without_start_time: kan sparas efter starttiden är sparats
+              must_be_after_start_time: måste vara efter starttid
+            shooting_finish_time:
+              cannot_have_without_start_time: kan sparas efter starttiden är sparats
+              must_be_after_start_time: måste vara efter starttid
+              must_be_after_shooting_start_time: måste vara efter skytte starttid
             arrival_time:
+              cannot_have_without_start_time: kan sparas efter starttiden är sparats
+              must_be_after_shooting_start_time: måste vara efter skytte starttid
+              must_be_after_shooting_finish_time: måste vara efter skytte sluttid
               must_be_after_start_time: måste vara efter starttid
             number:
               required_when_start_list_created: måste anges, när klassens startlista är redan skapat

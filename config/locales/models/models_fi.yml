@@ -63,7 +63,9 @@ fi:
     series: Sarja
     series_id: Sarja
     series_names: Osakilpailuiden sarjojen nimet
+    shooting_finish_time: Ammunnan lopetusaika
     shooting_overtime_min: Ammunta-ajan ylitysminuutit (metsästäjäsarjat)
+    shooting_start_time: Ammunnan aloitusaika
     shorter_trip: Lyhennetty matka
     shots_total_input: Ammunta yhteensä
     sport: Laji
@@ -183,10 +185,19 @@ fi:
         competitor:
           attributes:
             base:
-              cannot_have_arrival_time_without_start_time: Kilpailijalla ei voi olla saapumisaikaa, jos hänellä ei ole lähtöaikaa
               shooting_result_either_sum_or_by_shots: Ammuntatulokset voi syöttää vain summana tai yksittäisinä laukauksina
               another_competitor_with_same_name_in_series: Tässä sarjassa on jo saman niminen kilpailija
+            shooting_start_time:
+              cannot_have_without_start_time: saa olla syötetty vasta, kun kilpailijan lähtöaika on syötetty
+              must_be_after_start_time: pitää olla lähtöajan jälkeen
+            shooting_finish_time:
+              cannot_have_without_start_time: saa olla syötetty vasta, kun kilpailijan lähtöaika on syötetty
+              must_be_after_start_time: pitää olla lähtöajan jälkeen
+              must_be_after_shooting_start_time: pitää olla ammunnan aloitusajan jälkeen
             arrival_time:
+              cannot_have_without_start_time: saa olla syötetty vasta, kun kilpailijan lähtöaika on syötetty
+              must_be_after_shooting_start_time: pitää olla ammunnan aloitussajan jälkeen
+              must_be_after_shooting_finish_time: pitää olla ammunnan lopetusajan jälkeen
               must_be_after_start_time: pitää olla lähtöajan jälkeen
             number:
               required_when_start_list_created: on pakollinen, kun sarjan lähtölista on jo luotu
