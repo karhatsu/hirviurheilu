@@ -173,18 +173,6 @@ class ApplicationController < ActionController::Base
     raise 'Testing error email' if params[:test_error_email] == 'true'
   end
 
-  def rescue_with_handler(exception)
-    return super if Mode.offline?
-    return if exception.is_a? ActionController::InvalidCrossOriginRequest
-    begin
-      ErrorMailer.error_mail("Virhe Hirviurheilussa", exception,
-        request, params, current_user).deliver_now
-    rescue
-      p "Cannot send error email for exception: #{exception}"
-    end
-    super
-  end
-
   # f.time_text_field / f.time_select creates hidden date fields and visible text fields.
   # When time is entered the first time, the params sent contain an empty date
   # and non-empty time. This throws an error in assigning multiparameter values.
