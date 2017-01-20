@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170101091254) do
+ActiveRecord::Schema.define(version: 20170120155426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,8 @@ ActiveRecord::Schema.define(version: 20170101091254) do
     t.string   "team_name",             limit: 255
     t.boolean  "has_result",                        default: false, null: false
     t.integer  "shooting_overtime_min"
+    t.time     "shooting_start_time"
+    t.time     "shooting_finish_time"
   end
 
   add_index "competitors", ["age_group_id"], name: "index_competitors_on_age_group_id", using: :btree
