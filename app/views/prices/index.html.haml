@@ -5,6 +5,11 @@
   .action_box
     %a{href: "#{PRODUCTION_URL}/prices"} Tutustu hintoihin varsinaisessa palvelussa
 - else
+  %h1 Metsästäjäliiton jäsenseurat
+  .important
+    Hirviurheilu on Metsästäjäliiton jäsenseurojen vapaassa käytössä ilman erillistä veloitusta vuonna 2017!
+    = link_to 'Lue lisää tiedotteista.', announcements_path
+  %h1 Muut käyttäjät
   .section.prices_section.first
     %h2 Yksittäinen kilpailu
     .box_sub_title Palvelu sisältää:
