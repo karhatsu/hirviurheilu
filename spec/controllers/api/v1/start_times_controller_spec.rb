@@ -1,11 +1,22 @@
 require 'spec_helper'
 
 describe Api::V1::StartTimesController, type: :api do
+  let(:api_secret) { 'really-secret' }
   let(:race_start_time) { '10:00' }
-  let(:body) { {ms_since_midnight: ms_since_midnigh(10 + 2, 15, 20)} } # 02:15:20
+  let(:ms_since_midnight) { calculate_ms_since_midnight(10 + 2, 15, 20) } # 02:15:20
+  let(:body) {
+    {
+        ms_since_midnight: ms_since_midnight,
+        checksum: md5("#{ms_since_midnight}#{api_secret}")
+    }
+  }
 
-  def ms_since_midnigh(hours, minutes, seconds)
+  def calculate_ms_since_midnight(hours, minutes, seconds)
     1000 * (seconds + 60 * (minutes + 60 * hours))
+  end
+
+  def md5(message)
+    Digest::MD5.hexdigest message
   end
 
   context 'when race not found' do
@@ -16,7 +27,7 @@ describe Api::V1::StartTimesController, type: :api do
   end
 
   context 'when race found' do
-    let(:race) { create :race, start_time: race_start_time }
+    let(:race) { create :race, api_secret: api_secret, start_time: race_start_time }
 
     context 'but competitor not found' do
       it 'returns 404' do
@@ -45,8 +56,10 @@ describe Api::V1::StartTimesController, type: :api do
 
       context 'but content is invalid' do
         before do
-          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.id}/start_times",
-                      {ms_since_midnight: ms_since_midnigh(23, 0, 0)}
+          ms_since_midnight = calculate_ms_since_midnight 23, 0, 0
+          body[:ms_since_midnight] = ms_since_midnight
+          body[:checksum] = md5 "#{ms_since_midnight}#{api_secret}"
+          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.id}/start_times", body
         end
 
         it 'returns 400' do
@@ -55,6 +68,21 @@ describe Api::V1::StartTimesController, type: :api do
 
         it 'returns validation errors in the body' do
           expect_json({errors: ['Lähtöaika on liian iso (lähtöajat alkavat lukemasta 00:00:00)']})
+        end
+      end
+
+      context 'but checksum is invalid' do
+        before do
+          body[:checksum] = 'wrong'
+          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.id}/start_times", body
+        end
+
+        it 'returns 400' do
+          expect_status_code 400
+        end
+
+        it 'returns hash error in the body' do
+          expect_json({errors: ['Invalid checksum']})
         end
       end
     end
