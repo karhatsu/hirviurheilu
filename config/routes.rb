@@ -129,6 +129,16 @@ ElkSports::Application.routes.draw do
     resources :remote_races
   end
 
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      resources :races, only: [] do
+        resources :competitors, only: [] do
+          resource :start_times, only: :update
+        end
+      end
+    end
+  end
+
   get '/:locale' => 'home#show', :locale => /#{I18n.available_locales.join('|')}/
   root :to => "home#show"
 end

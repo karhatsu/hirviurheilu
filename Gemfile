@@ -46,6 +46,7 @@ group :test do
   gem 'poltergeist'
   gem 'rspec-rails'
   gem 'rspec-collection_matchers'
+  gem 'rspec-json_expectations'
   gem 'shoulda-matchers'
   gem 'sqlite3'
   gem 'fuubar'

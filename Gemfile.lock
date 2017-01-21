@@ -220,6 +220,7 @@ GEM
     rspec-expectations (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
+    rspec-json_expectations (2.1.0)
     rspec-mocks (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
@@ -314,6 +315,7 @@ DEPENDENCIES
   rails_12factor
   roman-numerals
   rspec-collection_matchers
+  rspec-json_expectations
   rspec-rails
   ruby-prof
   sass
