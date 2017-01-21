@@ -23,7 +23,19 @@
 
   #shooting
     %h3= t :shooting
-    = shots_list_print(@competitor)
+    %table
+      %tr
+        %td= t :result
+        %td= shots_list_print(@competitor)
+      - if @competitor.shooting_overtime_min
+        %tr
+          %td= t 'attributes.shooting_overtime_min'
+          %td
+            = @competitor.shooting_overtime_min
+            min
+            \=
+            = @competitor.shooting_overtime_penalty
+            p
 
   #estimates
     %h3= t :estimating
