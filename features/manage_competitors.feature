@@ -99,7 +99,7 @@ Feature: Manage competitors
     Then I should be on the official competitors page of the series
     When I go to the results page of the series
     And I follow "Johnson James"
-    Then I should see "10, 10, 10, 10, 10, 9, 9, 9, 8, 0"
+    Then I should see "85 (10, 10, 10, 10, 10, 9, 9, 9, 8, 0)"
     When I go to the official competitors page of the series
     And I follow "Johnson James"
     And I fill in the following:
@@ -109,7 +109,7 @@ Feature: Manage competitors
     Then I should be on the official competitors page of the series
     When I go to the results page of the series
     And I follow "Johnson James"
-    Then I should see "10, 10, 10, 10, 9, 9, 9, 8, 7, 5"
+    Then I should see "87 (10, 10, 10, 10, 9, 9, 9, 8, 7, 5)"
 
   @javascript
   Scenario: Update competitor in start list page
