@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170121110038) do
+ActiveRecord::Schema.define(version: 20170121134938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(version: 20170121110038) do
     t.string   "organizer_phone",        limit: 255
     t.string   "billing_info"
     t.text     "public_message"
+    t.string   "api_secret"
   end
 
   add_index "races", ["sport_id"], name: "index_races_on_sport_id", using: :btree
