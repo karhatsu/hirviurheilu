@@ -1,5 +1,6 @@
 = render :partial => "shared/form_errors", :locals => { :item => @user }
 .user_form
+  %h3 Perustiedot
   %div
     .form_label= form.label :first_name
     .form_field= form.text_field :first_name
@@ -12,6 +13,8 @@
   %div
     .form_label= form.label :email
     .form_field= form.email_field :email
+  %h3 Salasanan vaihto
+  %p Jos haluat vaihtaa salasanasi, syötä uusi salasana alla oleviin kenttiin
   %div
     .form_label= form.label :password, form.object.new_record? ? nil : t('users.edit.change_password')
     .form_field= form.password_field :password
