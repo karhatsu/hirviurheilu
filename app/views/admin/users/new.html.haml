@@ -1,21 +1,21 @@
 %h2 Lisää käyttäjä
 = render :partial => "shared/form_errors", locals: { item: @user }
-= form_for([:admin, @user]) do |f|
+= form_for([:admin, @user], {html: {class: 'user_form'}}) do |f|
   %div
-    %span.form_label= f.label :first_name
-    = f.text_field :first_name
+    .form_label= f.label :first_name
+    .form_field= f.text_field :first_name
   %div
-    %span.form_label= f.label :last_name
-    = f.text_field :last_name
+    .form_label= f.label :last_name
+    .form_field= f.text_field :last_name
   %div
-    %span.form_label= f.label :club_name
-    = f.text_field :club_name
+    .form_label= f.label :club_name
+    .form_field= f.text_field :club_name
   %div
-    %span.form_label= f.label :email
-    = f.text_field :email
+    .form_label= f.label :email
+    .form_field= f.text_field :email
   %div
-    %span.form_label= f.label :password
-    = f.text_field :password
+    .form_label= f.label :password
+    .form_field= f.text_field :password
     %a#generate_password{href: 'javascript:void(0);'} Generoi salasana
   = submit_tag 'Lisää käyttäjä'
 :javascript
