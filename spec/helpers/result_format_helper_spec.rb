@@ -112,7 +112,7 @@ describe ResultFormatHelper do
       shots = [10, 1, 9, 5, 5, nil, nil, 6, 4, 0]
       competitor = instance_double(Competitor, :shots_sum => 50,
                                    :shots_total_input => nil, :shot_values => shots)
-      expect(helper.shots_list_print(competitor)).to eq('10,1,9,5,5,0,0,6,4,0')
+      expect(helper.shots_list_print(competitor)).to eq('10, 1, 9, 5, 5, 0, 0, 6, 4, 0')
     end
   end
 

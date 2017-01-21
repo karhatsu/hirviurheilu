@@ -60,7 +60,7 @@ module ResultFormatHelper
     return '-' if competitor.shots_sum.nil?
     return competitor.shots_total_input unless competitor.shots_total_input.nil?
     shot_values = competitor.shot_values
-    shot_values.map {|value| value.to_i}.join(',')
+    shot_values.map {|value| value.to_i}.join(', ')
   end
 
   def comparison_time_title_attribute(competitor, all_competitors=false, always_empty=false)
