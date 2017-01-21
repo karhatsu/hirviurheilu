@@ -34,7 +34,7 @@ Feature: Show race
       | location | Test city |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:30 |
+      | start_time | 01:30 |
     And the series has a competitor with attributes:
       | first_name | James |
       | last_name | Johnson |
@@ -56,7 +56,7 @@ Feature: Show race
       | location | Test city |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:30 |
+      | start_time | 01:30 |
       | first_number | 1 |
     And the series has a competitor with attributes:
       | first_name | James |
@@ -76,17 +76,17 @@ Feature: Show race
       | start_order | 2 |
     And the race has series with attributes:
       | name | Women |
-      | start_time | 12:45 |
+      | start_time | 00:45 |
     And the series has a competitor with attributes:
       | first_name | James |
       | last_name | Johnson |
-      | start_time | 13:30 |
+      | start_time | 01:30 |
       | number | 100 |
     When I go to the race page
     Then I should see "Women"
     But I should not see "Lähtöaika"
-    And I should not see "12:45"
-    And I should not see "13:30"
+    And I should not see "00:45"
+    And I should not see "01:30"
 
   Scenario: Don't show correct estimates when race has not finished
     Given there is a race with attributes:
@@ -100,7 +100,7 @@ Feature: Show race
       | start_time | 09:30 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 1 |
     And the race has correct estimates with attributes:
       | min_number | 55 |
@@ -159,7 +159,7 @@ Feature: Show race
       | name | My test race |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 1 |
       | estimates | 4 |
     And the race has correct estimates with attributes:

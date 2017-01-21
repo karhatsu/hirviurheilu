@@ -30,7 +30,7 @@ Feature: Export race
     And the race has series with attributes:
       | name | Offline series |
       | first_number | 15 |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | national_record | 1050 |
     And the series has an age group "Offline age group"
     And the race has correct estimates with attributes:
@@ -52,11 +52,11 @@ Feature: Export race
       | shots_total_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:10:25 |
+      | arrival_time | 02:10:25 |
     And the competitor "Tim" "Smith" has the following results:
       | estimate1 | 109 |
       | estimate2 | 131 |
-      | arrival_time | 13:58:11 |
+      | arrival_time | 01:58:11 |
     And the shots for the competitor "Tim" "Smith" are 10,10,9,9,9,8,7,6,5,0
     And the race is finished
     And the race has a relay with attributes:
@@ -132,14 +132,14 @@ Feature: Export race
     When I follow "Kilpailijat"
     Then I should see "Johnson James"
     And I should see "(Offline age group)"
-    And I should see "13:00:00"
+    And I should see "01:00:00"
     And I should see "15"
     And I should see "Offline club"
     When I follow "Johnson James"
     Then the "Ammunta yhteensä" field should contain "85"
     And the "Arvio 1" field should contain "111"
     And the "Arvio 2" field should contain "129"
-    And the "Saapumisaika" field should contain "14:10:25"
+    And the "Saapumisaika" field should contain "02:10:25"
     When I follow "Kilpailijat"
     And I follow "Smith Tim"
     Then the "competitor_shots_attributes_0_value" field should contain "10"

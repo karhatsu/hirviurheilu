@@ -43,7 +43,7 @@ Feature: Start list modification
       | last_name | Miettinen |
     And the race has series with attributes:
       | name | M |
-      | start_time | 13:25 |
+      | start_time | 01:25 |
       | first_number | 50 |
     And the series has a competitor with attributes:
       | first_name | Timo |
@@ -52,7 +52,7 @@ Feature: Start list modification
     And I have logged in
     When I go to the official start list page of the race "Test race"
     Then the "competitor_number" text field in edit form should contain "50"
-    And the "competitor_start_time" text field in edit form should contain "13:25:00"
+    And the "competitor_start_time" text field in edit form should contain "01:25:00"
     And the "competitor_first_name" text field in edit form should contain "Timo"
     And the "competitor_last_name" text field in edit form should contain "Turunen"
     But I should not see "Matti"

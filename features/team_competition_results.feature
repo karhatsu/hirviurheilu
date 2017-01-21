@@ -10,7 +10,7 @@ Feature: Team competition results
       | start_interval_seconds | 60 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
     And the race has correct estimates with attributes:
       | min_number | 1 |
@@ -44,27 +44,27 @@ Feature: Team competition results
       | shots_total_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:00:10 |
+      | arrival_time | 02:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
       | shots_total_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
-      | arrival_time | 14:01:00 |
+      | arrival_time | 02:01:00 |
     And the competitor "John" "Stewards" has the following results:
       | shots_total_input | 88 |
       | estimate1 | 118 |
       | estimate2 | 125 |
-      | arrival_time | 14:02:10 |
+      | arrival_time | 02:02:10 |
     And the competitor "Peter" "Smith" has the following results:
       | shots_total_input | 94 |
       | estimate1 | 100 |
       | estimate2 | 131 |
-      | arrival_time | 14:03:00 |
+      | arrival_time | 02:03:00 |
     And the competitor "Gilbert" "Worst" has the following results:
       | shots_total_input | 70 |
       | estimate1 | 100 |
       | estimate2 | 150 |
-      | arrival_time | 14:11:00 |
+      | arrival_time | 02:11:00 |
     And the race has a team competition "Teams" with 2 competitors / team
     And the team competition contains the series "Men 50 years"
     And the race is finished
@@ -103,7 +103,7 @@ Feature: Team competition results
       | start_interval_seconds | 60 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
     And the race has correct estimates with attributes:
       | min_number | 1 |
@@ -142,27 +142,27 @@ Feature: Team competition results
       | shots_total_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:00:10 |
+      | arrival_time | 02:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
       | shots_total_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
-      | arrival_time | 14:01:00 |
+      | arrival_time | 02:01:00 |
     And the competitor "John" "Stewards" has the following results:
       | shots_total_input | 88 |
       | estimate1 | 118 |
       | estimate2 | 125 |
-      | arrival_time | 14:02:10 |
+      | arrival_time | 02:02:10 |
     And the competitor "Peter" "Smith" has the following results:
       | shots_total_input | 94 |
       | estimate1 | 100 |
       | estimate2 | 131 |
-      | arrival_time | 14:03:00 |
+      | arrival_time | 02:03:00 |
     And the competitor "Gilbert" "Worst" has the following results:
       | shots_total_input | 70 |
       | estimate1 | 100 |
       | estimate2 | 150 |
-      | arrival_time | 14:11:00 |
+      | arrival_time | 02:11:00 |
     And the race has a team name based team competition "Teams" with 2 competitors / team
     And the team competition contains the series "Men 50 years"
     And the race is finished

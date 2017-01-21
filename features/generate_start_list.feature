@@ -54,7 +54,7 @@ Feature: Generate start list
     And the race has series with attributes:
       | name | Test series |
       | first_number | 10 |
-      | start_time | 13:45:00 |
+      | start_time | 01:45:00 |
     And the series has a competitor
     And the series has a competitor
     And the series has a competitor
@@ -67,12 +67,12 @@ Feature: Generate start list
       | number |  |
     When I go to the official competitors page of the series
     Then the "Sarjan ensimmäinen numero" field should contain "13"
-    And the "series_start_time_4i" field should contain "13"
+    And the "series_start_time_4i" field should contain "01"
     And the "series_start_time_5i" field should contain "47"
     And the "series_start_time_6i" field should contain "15"
     When I choose "Test series" from third level menu
     Then the "Sarjan ensimmäinen numero" field should contain "10"
-    And the "series_start_time_4i" field should contain "13"
+    And the "series_start_time_4i" field should contain "01"
     And the "series_start_time_5i" field should contain "45"
     And the "series_start_time_6i" field should contain "00"
 
@@ -141,7 +141,7 @@ Feature: Generate start list
     And the race has series with attributes:
       | name | Test series |
       | first_number | 1 |
-      | start_time | 12:00 |
+      | start_time | 00:00 |
     And the series has a competitor with attributes:
       | first_name | John |
       | last_name | Stevensson |
@@ -150,7 +150,7 @@ Feature: Generate start list
       | last_name | Bears |
     And the start list has been generated for the series
     And the competitor "Peter" "Bears" has the following results:
-      | arrival_time | 13:00:10 |
+      | arrival_time | 01:00:10 |
     And I have logged in
     When I am on the official competitors page of the series
     Then I should not see "Sarjan ensimmäinen numero"
@@ -186,7 +186,7 @@ Feature: Generate start list
       | first_name | Teppo |
       | last_name | Testinen |
       | club | Test club |
-      | start_time | 12:00:00 |
+      | start_time | 01:00:00 |
       | number | 1 |
     And I have logged in
     And I am on the official race page of "Test race"

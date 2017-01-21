@@ -7,7 +7,7 @@ Feature: Save results by result place
   Scenario: Save estimates, shots, and arrival time
     Given I am an official
     And I have a race "Result race"
-    And the race has a series "M" with first number 10 and start time "12:00"
+    And the race has a series "M" with first number 10 and start time "01:00"
     And the series has a competitor "Mikko" "Mallikas"
     And the race has correct estimates with attributes:
       | min_number | 10  |
@@ -29,9 +29,9 @@ Feature: Save results by result place
     Then the "Toimitsijan sivut" main menu item should be selected
     And the "Ajat" sub menu item should be selected
     And I should see "Result race" within ".main_title"
-    And the "competitor_start_time" text field value should be "12:00:00"
+    And the "competitor_start_time" text field value should be "01:00:00"
     And the "competitor_arrival_time" text field value should be ""
-    When I fill in "12:25:41" for "competitor_arrival_time"
+    When I fill in "01:25:41" for "competitor_arrival_time"
     And I press "Tallenna"
     Then I should see "Tallennettu"
     When I choose "Ammunta" from sub menu
@@ -42,8 +42,8 @@ Feature: Save results by result place
     And I press "Tallenna"
     Then I should see "Tallennettu"
     When I choose "Ajat" from sub menu
-    Then the "competitor_start_time" text field value should be "12:00:00"
-    And the "competitor_arrival_time" text field value should be "12:25:41"
+    Then the "competitor_start_time" text field value should be "01:00:00"
+    And the "competitor_arrival_time" text field value should be "01:25:41"
     When the race is finished
     And I go to the results page of the series
     Then I should see "300 (25:41)"
@@ -54,7 +54,7 @@ Feature: Save results by result place
   Scenario: Prevent concurrent changes for same competitor's same estimate results
     Given I am an official
     And I have a race "Result race"
-    And the race has a series "M" with first number 10 and start time "12:00"
+    And the race has a series "M" with first number 10 and start time "01:00"
     And the series has a competitor "Mikko" "Mallikas"
     And the start list has been generated for the series
     And I have logged in

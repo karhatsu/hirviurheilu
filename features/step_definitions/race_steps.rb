@@ -123,7 +123,7 @@ Given /^I have a complete race "([^"]*)" located in "([^"]*)"$/ do |name, locati
   @user.race_rights.create!(:race => @race)
   @race.clubs << build(:club, :race => @race)
   series = build(:series, :race => @race, :first_number => 1,
-    :start_time => '12:00')
+    :start_time => '01:00')
   @race.series << series
   competitor = build(:competitor, :series => series)
   series.competitors << competitor
@@ -132,7 +132,7 @@ Given /^I have a complete race "([^"]*)" located in "([^"]*)"$/ do |name, locati
   competitor.shots_total_input = 85
   competitor.estimate1 = 100
   competitor.estimate2 = 150
-  competitor.arrival_time = '13:00'
+  competitor.arrival_time = '02:00'
   competitor.save!
   @race.correct_estimates << build(:correct_estimate, :race => @race,
     :min_number => 1, :max_number => 1)

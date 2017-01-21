@@ -68,7 +68,7 @@ Feature: Start list
       | start_date | 2010-07-15 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
     And the race has a club "Shooting club"
     And the series has a competitor with attributes:

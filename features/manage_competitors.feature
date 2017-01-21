@@ -68,7 +68,7 @@ Feature: Manage competitors
     And the race has a club "Testiseura"
     And the race has series with attributes:
       | first_number | 10 |
-      | start_time | 11:00 |
+      | start_time | 01:00 |
     And the series has a competitor with attributes:
       | first_name | James |
       | last_name | Johnson |

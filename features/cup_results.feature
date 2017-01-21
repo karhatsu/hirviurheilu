@@ -43,7 +43,7 @@ Feature: Cup results
     And there is a race "Cup race 1"
     And the race has series with attributes:
       | name | Men |
-      | start_time | 10:00 |
+      | start_time | 01:00 |
       | first_number | 1 |
       | has_start_list | true |
     And the series has a competitor "Antti" "Miettinen" with 300+300+594 points
@@ -52,7 +52,7 @@ Feature: Cup results
     And there is a race "Another cup race"
     And the race has series with attributes:
       | name | Men |
-      | start_time | 10:00 |
+      | start_time | 01:00 |
       | first_number | 1 |
       | has_start_list | true |
     And the series has a competitor "Timo" "Turunen" with 300+296+600 points
@@ -61,7 +61,7 @@ Feature: Cup results
     And there is a race "Third race for cup"
     And the race has series with attributes:
       | name | Men |
-      | start_time | 10:00 |
+      | start_time | 01:00 |
       | first_number | 1 |
       | has_start_list | true |
     And the series has a competitor "Timo" "Turunen" with 300+300+600 points
@@ -93,14 +93,14 @@ Feature: Cup results
     And there is a race "Cup race 1"
     And the race has series with attributes:
       | name | M |
-      | start_time | 10:00 |
+      | start_time | 00:00 |
       | first_number | 1 |
       | has_start_list | true |
     And the series has a competitor "Antti" "Miettinen" with 300+300+594 points
     And the series has a competitor "Timo" "Turunen" with 300+298+600 points
     And the race has series with attributes:
       | name | M60 |
-      | start_time | 11:00 |
+      | start_time | 01:00 |
       | first_number | 10 |
       | has_start_list | true |
     And the series has a competitor "Markku" "Pöllänen" with 300+300+600 points
@@ -108,14 +108,14 @@ Feature: Cup results
     And there is a race "Another cup race"
     And the race has series with attributes:
       | name | M |
-      | start_time | 10:00 |
+      | start_time | 00:00 |
       | first_number | 1 |
       | has_start_list | true |
     And the series has a competitor "Timo" "Turunen" with 300+296+600 points
     And the series has a competitor "Antti" "Miettinen" with 300+300+588 points
     And the race has series with attributes:
       | name | M60 |
-      | start_time | 11:00 |
+      | start_time | 01:00 |
       | first_number | 10 |
       | has_start_list | true |
     And the series has a competitor "Markku" "Pöllänen" with 300+300+600 points

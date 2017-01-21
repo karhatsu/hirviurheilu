@@ -30,7 +30,7 @@ Feature: Results
     And the race has series with attributes:
       | name | My series |
       | first_number | 1 |
-      | start_time | 14:30 |
+      | start_time | 02:30 |
     And the series has a competitor
     And the start list has been generated for the series
     When I go to the results page of the series
@@ -50,7 +50,7 @@ Feature: Results
       | finished | true |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
     And the race has correct estimates with attributes:
       | min_number | 1 |
@@ -72,12 +72,12 @@ Feature: Results
       | shots_total_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:00:10 |
+      | arrival_time | 02:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
       | shots_total_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
-      | arrival_time | 14:01:00 |
+      | arrival_time | 02:01:00 |
     And the race is finished
     And I am on the race page
     When I choose "Tulokset" from sub menu
@@ -109,7 +109,7 @@ Feature: Results
       | start_interval_seconds | 60 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
       | time_points_type | 1 |
       | estimates | 4 |
@@ -137,14 +137,14 @@ Feature: Results
       | estimate2 | 129 |
       | estimate3 | 149 |
       | estimate4 | 181 |
-      | arrival_time | 14:00:10 |
+      | arrival_time | 02:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
       | shots_total_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
       | estimate3 | 150 |
       | estimate4 | 180 |
-      | arrival_time | 14:01:00 |
+      | arrival_time | 02:01:00 |
     And the race is finished
     And I am on the race page
     When I choose "Tulokset" from sub menu
@@ -180,7 +180,7 @@ Feature: Results
       | sport | SKI |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
       | time_points_type | 2 |
     And the race has correct estimates with attributes:
@@ -219,7 +219,7 @@ Feature: Results
     And I should see "Pisteet" within "#points h3"
     And I should see individual competitor page points 510+296+300=1106
     And I should see "Hiihto" within "#time h3"
-    And I should see individual competitor page time result "13:00:00"-"-"="-"
+    And I should see individual competitor page time result "01:00:00"-"-"="-"
 
   Scenario: See the results of an unfinished race
     Given there is a race with attributes:
@@ -229,7 +229,7 @@ Feature: Results
       | start_interval_seconds | 60 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
     And the race has correct estimates with attributes:
       | min_number | 1 |
@@ -284,7 +284,7 @@ Feature: Results
       | start_interval_seconds | 60 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
     And the race has correct estimates with attributes:
       | min_number | 1 |
@@ -299,7 +299,7 @@ Feature: Results
       | shots_total_input | 90 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:00:00 |
+      | arrival_time | 02:00:00 |
     And the race is finished
     And I am on the results page of the series
     When I follow "Atkinsson Tim"
@@ -313,7 +313,7 @@ Feature: Results
     And I should see "Arviointi" within "#estimates h3"
     And I should see at individual competitor page estimates 111 and 129 with correct estimates 110 and 130 with distance error "+1" and "-1"
     And I should see "Juoksu" within "#time h3"
-    And I should see individual competitor page time result "13:00:00"-"14:00:00"="1:00:00"
+    And I should see individual competitor page time result "01:00:00"-"02:00:00"="1:00:00"
 
   Scenario: See the results of an individual competitor in a walking series
     Given there is a race with attributes:
@@ -324,7 +324,7 @@ Feature: Results
       | start_interval_seconds | 60 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
       | time_points_type | 1 |
       | estimates | 4 |
@@ -345,7 +345,7 @@ Feature: Results
       | estimate2 | 129 |
       | estimate3 | 82 |
       | estimate4 | 188 |
-      | arrival_time | 14:00:00 |
+      | arrival_time | 02:00:00 |
     And the race is finished
     And I am on the results page of the series
     When I follow "Atkinsson Tim"
@@ -360,7 +360,7 @@ Feature: Results
     And I should see "Arviointi" within "#estimates h3"
     And I should see at individual competitor page estimates 111, 129, 82 and 188 with correct estimates 110, 130, 80 and 190 with distance error "+1", "-1", "+2" and "-2"
     And I should see "Juoksu" within "#time h3"
-    And I should see individual competitor page time result "13:00:00"-"14:00:00"="1:00:00"
+    And I should see individual competitor page time result "01:00:00"-"02:00:00"="1:00:00"
 
   Scenario: See the results of an individual competitor in an unfinished race
     Given there is a race with attributes:
@@ -371,7 +371,7 @@ Feature: Results
       | start_interval_seconds | 60 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
     And the race has correct estimates with attributes:
       | min_number | 1 |
@@ -386,7 +386,7 @@ Feature: Results
       | shots_total_input | 90 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:00:00 |
+      | arrival_time | 02:00:00 |
     And I am on the results page of the series
     When I follow "Atkinsson Tim"
     Then I should be on the results page of the competitor
@@ -400,7 +400,7 @@ Feature: Results
     And I should see "Tarkemmat arviointitiedot julkaistaan, kun kilpailu on päättynyt."
     But I should not see 111, 129, 110, 130, "+1" or "-1" in individual competitor page estimates
     And I should see "Juoksu" within "#time h3"
-    And I should see individual competitor page time result "13:00:00"-"14:00:00"="1:00:00"
+    And I should see individual competitor page time result "01:00:00"-"02:00:00"="1:00:00"
 
   Scenario: See the results with national record reached mention of an individual competitor in an unfinished race
     Given there is a race with attributes:
@@ -411,7 +411,7 @@ Feature: Results
       | start_interval_seconds | 60 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
       | national_record | 1136 |
     And the race has correct estimates with attributes:
@@ -430,12 +430,12 @@ Feature: Results
       | shots_total_input | 90 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:00:00 |
+      | arrival_time | 02:00:00 |
     And the competitor "Tom" "Betkinsson" has the following results:
       | shots_total_input | 67 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:05:00 |
+      | arrival_time | 02:05:00 |
     And I am on the results page of the series
     And I should see "1136 SE(sivuaa)"
 
@@ -448,7 +448,7 @@ Feature: Results
       | start_interval_seconds | 60 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
       | national_record | 950 |
     And the race has correct estimates with attributes:
@@ -467,12 +467,12 @@ Feature: Results
       | shots_total_input | 90 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:00:00 |
+      | arrival_time | 02:00:00 |
     And the competitor "Tom" "Betkinsson" has the following results:
       | shots_total_input | 67 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:00:00 |
+      | arrival_time | 02:00:00 |
     And I am on the results page of the series
     And I should see "SE?"
     And I should see "1130 SE?"
@@ -488,7 +488,7 @@ Feature: Results
       | finished | true |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
       | national_record | 1000 |
     And the race has correct estimates with attributes:
@@ -507,12 +507,12 @@ Feature: Results
       | shots_total_input | 90 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:00:00 |
+      | arrival_time | 02:00:00 |
     And the competitor "Tom" "Betkinsson" has the following results:
       | shots_total_input | 67 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:05:00 |
+      | arrival_time | 02:05:00 |
     And I am on the results page of the series
     And I should see "1136 SE"
     But I should not see "1136 SE sivuaa"
@@ -529,7 +529,7 @@ Feature: Results
       | finished | true |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
     And the race has correct estimates with attributes:
       | min_number | 1 |
@@ -552,12 +552,12 @@ Feature: Results
       | shots_total_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:00:10 |
+      | arrival_time | 02:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
       | shots_total_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
-      | arrival_time | 14:01:00 |
+      | arrival_time | 02:01:00 |
     And the race is finished
     And I am on the race page
     When I choose "Tulokset" from sub menu
@@ -607,15 +607,15 @@ Feature: Results
       | start_interval_seconds | 60 |
     And the race has series with attributes:
       | name | Men 50 years |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
     And the series has a competitor "James" "Johnson"
     And the series has a competitor "Tim" "Atkinsson"
     And the start list has been generated for the series
     And the competitor "James" "Johnson" has the following results:
-      | arrival_time | 13:30:25 |
+      | arrival_time | 01:30:25 |
     And the competitor "Tim" "Atkinsson" has the following results:
-      | arrival_time | 13:40:00 |
+      | arrival_time | 01:40:00 |
     And I am on the results page of the series
     Then the result row 1 should have time "30:25" with reference time "30:25"
     And the result row 2 should have time "39:00" with reference time "30:25"
@@ -626,7 +626,7 @@ Feature: Results
       | start_interval_seconds | 60 |
     And the race has series with attributes:
       | name | M70 |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
     And the series has an age group "M75" with 2 minimum competitors for own comparison time
     And the series has an age group "M80" with shorter trip
@@ -637,11 +637,11 @@ Feature: Results
     And the competitor belongs to an age group "M80"
     And the start list has been generated for the series
     And the competitor "James" "Johnson" has the following results:
-      | arrival_time | 13:30:25 |
+      | arrival_time | 01:30:25 |
     And the competitor "Tim" "Atkinsson" has the following results:
-      | arrival_time | 13:40:00 |
+      | arrival_time | 01:40:00 |
     And the competitor "Old" "Grandpa" has the following results:
-      | arrival_time | 13:20:00 |
+      | arrival_time | 01:20:00 |
     And I am on the results page of the series
     Then the result row 1 should have time "18:00" with reference time "18:00"
     And the result row 2 should have time "30:25" with reference time "30:25"
@@ -652,7 +652,7 @@ Feature: Results
     Given there is a race "Race with shorter trip age groups"
     And the race has series with attributes:
       | name | M70 |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 50 |
     And the series has a competitor "James" "Johnson"
     And the series has an age group "M80" with shorter trip

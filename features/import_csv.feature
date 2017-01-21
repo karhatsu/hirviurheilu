@@ -41,7 +41,7 @@ Feature: Import competitors with CSV file
     When I follow "Kilpailijat"
     Then I should see "Räsänen Heikki"
     And I should see "5"
-    And I should see "9:59:30"
+    And I should see "04:59:30"
 
   Scenario: Trying to import an invalid CSV file (series missing)
     Given I am an official

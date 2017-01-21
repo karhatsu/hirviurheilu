@@ -26,7 +26,7 @@ Feature: Media
     And the race has a club "Sports club"
     And the race has series with attributes:
       | name | Test series |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 1 |
       | national_record | 1139 |
     And the series has a competitor with attributes:
@@ -43,15 +43,15 @@ Feature: Media
       | shots_total_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:00:10 |
+      | arrival_time | 02:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
       | shots_total_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
-      | arrival_time | 14:01:00 |
+      | arrival_time | 02:01:00 |
     And the race has series with attributes:
       | name | Another test series |
-      | start_time | 14:00 |
+      | start_time | 02:00 |
       | first_number | 5 |
     And the series has a competitor with attributes:
       | first_name | Mary |
@@ -97,7 +97,7 @@ Feature: Media
     And the race has a club "Club D"
     And the race has series with attributes:
       | name | Test series |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 1 |
     And the series has a competitor with attributes:
       | first_name | James |
@@ -112,15 +112,15 @@ Feature: Media
       | shots_total_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:00:10 |
+      | arrival_time | 02:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
       | shots_total_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
-      | arrival_time | 14:01:00 |
+      | arrival_time | 02:01:00 |
     And the race has series with attributes:
       | name | Another test series |
-      | start_time | 14:00 |
+      | start_time | 02:00 |
       | first_number | 5 |
     And the series has a competitor with attributes:
       | first_name | Mary |

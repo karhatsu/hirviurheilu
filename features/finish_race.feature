@@ -44,7 +44,7 @@ Feature: Finish race
     And I have an ongoing race "Test race"
     And the race has series with attributes:
       | name | Test series |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 1 |
     And the race has correct estimates with attributes:
       | min_number | 1 |
@@ -68,7 +68,7 @@ Feature: Finish race
     And I have an ongoing race "Test race"
     And the race has series with attributes:
       | name | Test series |
-      | start_time | 13:00 |
+      | start_time | 01:00 |
       | first_number | 1 |
     And the race has correct estimates with attributes:
       | min_number | 1 |
@@ -87,7 +87,7 @@ Feature: Finish race
       | shots_total_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
-      | arrival_time | 14:00:10 |
+      | arrival_time | 02:00:10 |
     And the race has series "Empty series to be deleted automatically"
     And I have logged in
     When I go to the official race page of "Test race"
