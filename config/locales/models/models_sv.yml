@@ -66,6 +66,7 @@ sv:
     shooting_finish_time: Skytte sluttid
     shooting_overtime_min: Skottstidens överminuter
     shooting_start_time: Skytte starttid
+    shooting_time: Skyttetid
     shorter_trip: Kortare löpning
     shots_total_input: Skottstotal
     sport: Gren

@@ -109,6 +109,11 @@ class Competitor < ActiveRecord::Base
     -3 * shooting_overtime_min if shooting_overtime_min.to_i > 0
   end
 
+  def shooting_time_seconds
+    return nil unless shooting_start_time && shooting_finish_time
+    shooting_finish_time - shooting_start_time
+  end
+
   def estimate_diff1_m
     return nil unless estimate1 && correct_estimate1
     estimate1 - correct_estimate1

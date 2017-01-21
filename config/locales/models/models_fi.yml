@@ -66,6 +66,7 @@ fi:
     shooting_finish_time: Ammunnan lopetusaika
     shooting_overtime_min: Ammunta-ajan ylitysminuutit
     shooting_start_time: Ammunnan aloitusaika
+    shooting_time: Ammunta-aika
     shorter_trip: Lyhennetty matka
     shots_total_input: Ammunta yhteensä
     sport: Laji

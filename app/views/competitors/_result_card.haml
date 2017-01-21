@@ -27,6 +27,16 @@
       %tr
         %td= t :result
         %td= shots_list_print(@competitor)
+      - if @competitor.shooting_start_time
+        %tr
+          %td= t 'attributes.shooting_start_time'
+          %td= time_print @competitor.shooting_start_time, true
+        %tr
+          %td= t 'attributes.shooting_finish_time'
+          %td= time_print @competitor.shooting_finish_time, true, '-'
+        %tr
+          %td= t 'attributes.shooting_time'
+          %td= time_from_seconds @competitor.shooting_time_seconds
       - if @competitor.shooting_overtime_min
         %tr
           %td= t 'attributes.shooting_overtime_min'
@@ -34,7 +44,7 @@
             = @competitor.shooting_overtime_min
             min
             \=
-            = @competitor.shooting_overtime_penalty
+            = @competitor.shooting_overtime_penalty.to_i
             p
 
   #estimates
