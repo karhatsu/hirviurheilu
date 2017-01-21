@@ -1,0 +1,25 @@
+%h2 Lisää käyttäjä
+= render :partial => "shared/form_errors", locals: { item: @user }
+= form_for([:admin, @user]) do |f|
+  %div
+    %span.form_label= f.label :first_name
+    = f.text_field :first_name
+  %div
+    %span.form_label= f.label :last_name
+    = f.text_field :last_name
+  %div
+    %span.form_label= f.label :club_name
+    = f.text_field :club_name
+  %div
+    %span.form_label= f.label :email
+    = f.text_field :email
+  %div
+    %span.form_label= f.label :password
+    = f.text_field :password
+    %a#generate_password{href: 'javascript:void(0);'} Generoi salasana
+  = submit_tag 'Lisää käyttäjä'
+:javascript
+$('form').on('click', '#generate_password', function() {
+  var pw = Math.random().toString(36).slice(-8);
+  $('#user_password').val(pw);
+});
