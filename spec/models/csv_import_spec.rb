@@ -203,7 +203,7 @@ describe CsvImport do
       expect(@ci.save).to be_truthy
       expect(@race.competitors.size).to eq(2)
       expect(@race.series.first.competitors.first.number).to eq(5)
-      expect(@race.series.first.competitors.first.start_time.strftime('%H:%M:%S')).to eq('09:59:30')
+      expect(@race.series.first.competitors.first.start_time.strftime('%H:%M:%S')).to eq('04:59:30')
     end
   end
 

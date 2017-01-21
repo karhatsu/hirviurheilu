@@ -30,7 +30,7 @@ module ResultRotationHelper
     return [] if race_day == 0
     list = []
     race.series.where(['start_day=?', race_day]).each do |s|
-      list << s if s.started? and s.has_result_for_some_competitor?
+      list << s if s.started? && s.has_result_for_some_competitor?
     end
     list
   end

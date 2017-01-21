@@ -468,7 +468,7 @@ describe Competitor do
     context "when competitor has start time but has no number" do
       it "should not save series" do
         series = create(:series, :start_time => nil, :first_number => nil)
-        comp = build(:competitor, :series => series, :start_time => '12:00', :number => nil)
+        comp = build(:competitor, :series => series, :start_time => '02:00', :number => nil)
         expect(comp.series).not_to receive(:update_start_time_and_number)
         comp.save!
       end
@@ -477,7 +477,7 @@ describe Competitor do
     context "when competitor has both start time and number" do
       it "should let series update its start time and first number" do
         series = create(:series, :start_time => nil, :first_number => nil, :has_start_list => true)
-        comp = create(:competitor, :series => series, :start_time => '12:35:30', :number => 15)
+        comp = create(:competitor, :series => series, :start_time => '02:35:30', :number => 15)
         expect(comp.series).to receive(:update_start_time_and_number)
         comp.save!
       end

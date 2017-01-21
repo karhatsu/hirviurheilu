@@ -5,24 +5,24 @@ describe TimeQuickSave do
     @race = create(:race)
     @series = create(:series, :race => @race, name: 'M45')
     create(:competitor, :series => @series, :number => 1,
-      :start_time => '11:00:00')
+      :start_time => '01:00:00')
     @c = create(:competitor, :series => @series, :number => 10,
-      :start_time => '11:30:00', :arrival_time => '12:00:00')
+      :start_time => '01:30:00', :arrival_time => '02:00:00')
     @c2 = create(:competitor, :series => @series, :number => 11,
-      :start_time => '11:30:00')
+      :start_time => '01:30:00')
   end
 
   context "when string format is correct and competitor is found" do
     describe "successfull save" do
       before do
-        @qs = TimeQuickSave.new(@race.id, '11,131259')
+        @qs = TimeQuickSave.new(@race.id, '11,031259')
       end
 
       describe "#save" do
         it "should save given time for the competitor and return true" do
           expect(@qs.save).to be_truthy
           @c2.reload
-          expect(@c2.arrival_time.strftime('%H:%M:%S')).to eq('13:12:59')
+          expect(@c2.arrival_time.strftime('%H:%M:%S')).to eq('03:12:59')
         end
       end
 
@@ -43,14 +43,14 @@ describe TimeQuickSave do
 
       describe "with overwrite" do
         before do
-          @qs = TimeQuickSave.new(@race.id, '++10,131259')
+          @qs = TimeQuickSave.new(@race.id, '++10,031259')
         end
 
         describe "#save" do
           it "should save given time for the competitor and return true" do
             expect(@qs.save).to be_truthy
             @c.reload
-            expect(@c.arrival_time.strftime('%H:%M:%S')).to eq('13:12:59')
+            expect(@c.arrival_time.strftime('%H:%M:%S')).to eq('03:12:59')
           end
         end
 
@@ -74,7 +74,7 @@ describe TimeQuickSave do
     describe "save fails" do
       before do
         @c = create(:competitor, :series => @series, :number => 8) # no start time
-        @qs = TimeQuickSave.new(@race.id, '8,131245')
+        @qs = TimeQuickSave.new(@race.id, '8,031245')
       end
 
       describe "#save" do
@@ -107,8 +107,8 @@ describe TimeQuickSave do
       another_race = create(:race)
       series = create(:series, :race => another_race)
       create(:competitor, :series => series, :number => 8,
-        :start_time => '11:00:00')
-      @qs = TimeQuickSave.new(@race.id, '8,131209')
+        :start_time => '01:00:00')
+      @qs = TimeQuickSave.new(@race.id, '8,031209')
     end
 
     describe "#save" do
@@ -134,14 +134,14 @@ describe TimeQuickSave do
 
   describe "invalid string format (1)" do
     before do
-      @qs = TimeQuickSave.new(@race.id, '10,1312451')
+      @qs = TimeQuickSave.new(@race.id, '10,0312451')
     end
 
     describe "#save" do
       it "should not save given time for the competitor and return false" do
         expect(@qs.save).to be_falsey
         @c.reload
-        expect(@c.arrival_time.strftime('%H:%M:%S')).to eq('12:00:00')
+        expect(@c.arrival_time.strftime('%H:%M:%S')).to eq('02:00:00')
       end
     end
 
@@ -169,7 +169,7 @@ describe TimeQuickSave do
       it "should not save given time for the competitor and return false" do
         expect(@qs.save).to be_falsey
         @c.reload
-        expect(@c.arrival_time.strftime('%H:%M:%S')).to eq('12:00:00')
+        expect(@c.arrival_time.strftime('%H:%M:%S')).to eq('02:00:00')
       end
     end
 
@@ -191,15 +191,15 @@ describe TimeQuickSave do
   describe "data already stored" do
     before do
       @c = create(:competitor, :series => @series, :number => 12,
-        :start_time => '11:30:00', :arrival_time => '12:00:00', first_name: 'Mikko', last_name: 'Miettinen')
-      @qs = TimeQuickSave.new(@race.id, '12,131245')
+        :start_time => '01:30:00', :arrival_time => '02:00:00', first_name: 'Mikko', last_name: 'Miettinen')
+      @qs = TimeQuickSave.new(@race.id, '12,031245')
     end
 
     describe "#save" do
       it "should not save given time for the competitor and return false" do
         expect(@qs.save).to be_falsey
         @c.reload
-        expect(@c.arrival_time.strftime('%H:%M:%S')).to eq('12:00:00')
+        expect(@c.arrival_time.strftime('%H:%M:%S')).to eq('02:00:00')
       end
     end
 

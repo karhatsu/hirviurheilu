@@ -117,7 +117,7 @@ describe Race do
       before do
         @race = create(:race, :start_order => Race::START_ORDER_MIXED)
         @series = create(:series, :race => @race)
-        create(:competitor, :series => @series, :start_time => '11:00:00', :number => 4)
+        create(:competitor, :series => @series, :start_time => '01:00:00', :number => 4)
         @race.reload
       end
   
@@ -152,7 +152,7 @@ describe Race do
       
       context "when only competitors with start time and number" do
         it "should be allowed" do
-          create(:competitor, :series => @series1, :start_time => '12:00:00', :number => 2)
+          create(:competitor, :series => @series1, :start_time => '02:00:00', :number => 2)
           @race.reload
           @race.start_order = Race::START_ORDER_MIXED
           expect(@race).to be_valid
@@ -817,10 +817,10 @@ describe Race do
     context "when competitors with start times" do
       it "should return the biggest competitor start time + time interval" do
         @series.competitors << build(:competitor, :series => @series,
-          :start_time => '10:34:11')
+          :start_time => '00:34:11')
         @series.competitors << build(:competitor, :series => @series,
-          :start_time => '18:03:00')
-        expect(@race.next_start_time.strftime('%H:%M:%S')).to eq('18:03:30')
+          :start_time => '04:03:00')
+        expect(@race.next_start_time.strftime('%H:%M:%S')).to eq('04:03:30')
       end
     end
   end

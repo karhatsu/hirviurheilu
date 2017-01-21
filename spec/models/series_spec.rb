@@ -137,20 +137,20 @@ describe Series do
         @series = create(:series)
         @series.competitors << build(:competitor, :series => @series)
         @series.competitors << build(:competitor, :series => @series,
-          :start_time => '12:00:00')
+          :start_time => '01:00:00')
         # below the time is 60 secs but the competitors are not valid
         @series.competitors << build(:competitor, :series => @series,
-          :start_time => '12:00:00', :arrival_time => '12:01:00',
+          :start_time => '01:00:00', :arrival_time => '01:01:00',
           :no_result_reason => "DNS")
         @series.competitors << build(:competitor, :series => @series,
-          :start_time => '12:00:00', :arrival_time => '12:01:00',
+          :start_time => '01:00:00', :arrival_time => '01:01:00',
           :no_result_reason => "DNF")
         @series.competitors << build(:competitor, :series => @series,
-           :start_time => '12:00:00', :arrival_time => '12:01:00',
+           :start_time => '01:00:00', :arrival_time => '01:01:00',
            :no_result_reason => "DQ")
         @series.competitors << build(:competitor, :series => @series,
-          :start_time => '12:00:00',
-          :arrival_time => '12:01:00', :unofficial => true)
+          :start_time => '01:00:00',
+          :arrival_time => '01:01:00', :unofficial => true)
       end
   
       it "should return nil if no competitors" do
@@ -165,11 +165,11 @@ describe Series do
       describe "finished competitors found" do
         before do
           @series.competitors << build(:competitor, :series => @series,
-            :start_time => '12:00:00', :arrival_time => '12:01:02') # 62 s
+            :start_time => '01:00:00', :arrival_time => '01:01:02') # 62 s
           @series.competitors << build(:competitor, :series => @series,
-            :start_time => '12:00:01', :arrival_time => '12:01:03') # 62 s
+            :start_time => '01:00:01', :arrival_time => '01:01:03') # 62 s
           @series.competitors << build(:competitor, :series => @series,
-            :start_time => '12:00:03', :arrival_time => '12:01:04') # 61 s
+            :start_time => '01:00:03', :arrival_time => '01:01:04') # 61 s
         end
   
         it "should return the fastest time for official, finished competitors" do
@@ -198,22 +198,22 @@ describe Series do
         @series.age_groups << @age_group_other
         @series.competitors << build(:competitor, :series => @series, :age_group => @age_group_M75)
         @series.competitors << build(:competitor, :series => @series,
-          :start_time => '12:00:00', :age_group => @age_group_M75)
+          :start_time => '01:00:00', :age_group => @age_group_M75)
         # below the time is 60 secs but the competitors are not valid
         @series.competitors << build(:competitor, :series => @series,
-          :start_time => '12:00:00', :arrival_time => '12:01:00',
+          :start_time => '01:00:00', :arrival_time => '01:01:00',
           :no_result_reason => "DNS", :age_group => @age_group_M80)
         @series.competitors << build(:competitor, :series => @series,
-          :start_time => '12:00:00', :arrival_time => '12:01:00',
+          :start_time => '01:00:00', :arrival_time => '01:01:00',
           :no_result_reason => "DNF", :age_group => @age_group_M75)
         @series.competitors << build(:competitor, :series => @series,
-          :start_time => '12:00:00', :arrival_time => '12:01:00',
+          :start_time => '01:00:00', :arrival_time => '01:01:00',
           :no_result_reason => "DQ", :age_group => @age_group_M75)
         @series.competitors << build(:competitor, :series => @series,
-          :start_time => '12:00:00',
-          :arrival_time => '12:01:00', :unofficial => true, :age_group => @age_group_M80)
+          :start_time => '01:00:00',
+          :arrival_time => '01:01:00', :unofficial => true, :age_group => @age_group_M80)
         @series.competitors << build(:competitor, :series => @series,
-          :start_time => '12:00:00', :arrival_time => '12:01:00', :age_group => @age_group_other)
+          :start_time => '01:00:00', :arrival_time => '01:01:00', :age_group => @age_group_other)
         @age_groups = [@age_group_M75, @age_group_M80, nil]
         @age_group_ids = [@age_group_M75.id, @age_group_M80.id, nil, 0]
       end
@@ -230,11 +230,11 @@ describe Series do
       describe "finished competitors found" do
         before do
           @series.competitors << build(:competitor, :series => @series,
-            :start_time => '12:00:00', :arrival_time => '12:01:02', :age_group => @age_group_M75) # 62 s
+            :start_time => '01:00:00', :arrival_time => '01:01:02', :age_group => @age_group_M75) # 62 s
           @series.competitors << build(:competitor, :series => @series,
-            :start_time => '12:00:01', :arrival_time => '12:01:03', :age_group => @age_group_M80) # 62 s
+            :start_time => '01:00:01', :arrival_time => '01:01:03', :age_group => @age_group_M80) # 62 s
           @series.competitors << build(:competitor, :series => @series,
-            :start_time => '12:00:03', :arrival_time => '12:01:04', :age_group => @age_group_M75) # 61 s
+            :start_time => '01:00:03', :arrival_time => '01:01:04', :age_group => @age_group_M75) # 61 s
         end
   
         it "should return the fastest time for official, finished competitors" do
@@ -471,10 +471,10 @@ describe Series do
 
     it "should return competitors with start time ordered by start time, then by start number" do
       series = create(:series)
-      c1 = build(:competitor, :series => series, :start_time => '15:15')
-      c2 = build(:competitor, :series => series, :start_time => '9:00:00')
-      c3 = build(:competitor, :series => series, :start_time => '9:00:01', :number => 6)
-      c4 = build(:competitor, :series => series, :start_time => '9:00:01', :number => 5)
+      c1 = build(:competitor, :series => series, :start_time => '02:15')
+      c2 = build(:competitor, :series => series, :start_time => '01:00:00')
+      c3 = build(:competitor, :series => series, :start_time => '01:00:01', :number => 6)
+      c4 = build(:competitor, :series => series, :start_time => '01:00:01', :number => 5)
       c5 = build(:competitor, :series => series, :start_time => nil)
       series.competitors << c1
       series.competitors << c2
@@ -520,8 +520,8 @@ describe Series do
     end
 
     it "should return true when any of the competitors have an arrival time" do
-      @c2.start_time = '11:34:45'
-      @c2.arrival_time = '12:34:45'
+      @c2.start_time = '01:34:45'
+      @c2.arrival_time = '02:34:45'
       allow(@series).to receive(:competitors).and_return([@c1, @c2])
       expect(@series.some_competitor_has_arrival_time?).to be_truthy
     end
@@ -541,7 +541,7 @@ describe Series do
       context "some competitor already has arrival time" do
         it "should do nothing for competitors, add error and return false" do
           @c4 = create(:competitor, :series => @series,
-            :start_time => '14:00', :arrival_time => '14:30', :number => 5)
+            :start_time => '04:00', :arrival_time => '04:30', :number => 5)
           @series.reload
           expect(@series.generate_numbers(Series::START_LIST_ADDING_ORDER)).to be_falsey
           expect(@series.errors.size).to eq(1)
@@ -652,7 +652,7 @@ describe Series do
       @race = create(:race, :start_date => '2010-08-15',
         :start_interval_seconds => 30)
       @series = create(:series, :race => @race,
-        :first_number => 9, :start_time => '2010-08-15 10:00:15')
+        :first_number => 9, :start_time => '2010-08-15 01:00:15')
       @c1 = create(:competitor, :series => @series, :number => 9)
       @c2 = create(:competitor, :series => @series, :number => 11)
       @c3 = create(:competitor, :series => @series, :number => 13)
@@ -672,7 +672,7 @@ describe Series do
       context "some competitor already has arrival time" do
         it "should do nothing for competitors, add error and return false" do
           @c4 = create(:competitor, :series => @series,
-            :start_time => '14:00', :arrival_time => '14:30', :number => 5)
+            :start_time => '01:00', :arrival_time => '01:30', :number => 5)
           @series.reload
           expect(@series.generate_start_times).to be_falsey
           expect(@series.errors.size).to eq(1)
@@ -724,9 +724,9 @@ describe Series do
           @c1.reload
           @c2.reload
           @c3.reload
-          expect(@c1.start_time.strftime('%H:%M:%S')).to eq('10:00:15')
-          expect(@c2.start_time.strftime('%H:%M:%S')).to eq('10:01:15')
-          expect(@c3.start_time.strftime('%H:%M:%S')).to eq('10:02:15')
+          expect(@c1.start_time.strftime('%H:%M:%S')).to eq('01:00:15')
+          expect(@c2.start_time.strftime('%H:%M:%S')).to eq('01:01:15')
+          expect(@c3.start_time.strftime('%H:%M:%S')).to eq('01:02:15')
         end
       end
 
@@ -736,7 +736,7 @@ describe Series do
             :start_interval_seconds => 30, :batch_interval_seconds => 180,
             :batch_size => 3)
           @series = create(:series, :race => @race,
-            :first_number => 1, :start_time => '2010-08-15 10:00:15')
+            :first_number => 1, :start_time => '2010-08-15 01:00:15')
           @c1 = create(:competitor, :series => @series, :number => 1)
           @c2 = create(:competitor, :series => @series, :number => 2)
           @c3 = create(:competitor, :series => @series, :number => 3)
@@ -757,12 +757,12 @@ describe Series do
             @c4.reload
             @c5.reload
             @c6.reload
-            expect(@c1.start_time.strftime('%H:%M:%S')).to eq('10:00:15')
-            expect(@c2.start_time.strftime('%H:%M:%S')).to eq('10:00:45')
-            expect(@c3.start_time.strftime('%H:%M:%S')).to eq('10:01:15')
-            expect(@c4.start_time.strftime('%H:%M:%S')).to eq('10:04:15')
-            expect(@c5.start_time.strftime('%H:%M:%S')).to eq('10:04:45')
-            expect(@c6.start_time.strftime('%H:%M:%S')).to eq('10:05:15')
+            expect(@c1.start_time.strftime('%H:%M:%S')).to eq('01:00:15')
+            expect(@c2.start_time.strftime('%H:%M:%S')).to eq('01:00:45')
+            expect(@c3.start_time.strftime('%H:%M:%S')).to eq('01:01:15')
+            expect(@c4.start_time.strftime('%H:%M:%S')).to eq('01:04:15')
+            expect(@c5.start_time.strftime('%H:%M:%S')).to eq('01:04:45')
+            expect(@c6.start_time.strftime('%H:%M:%S')).to eq('01:05:15')
           end
         end
         context "when last batch is short" do
@@ -772,8 +772,8 @@ describe Series do
               expect(@series).to be_valid
               @c7.reload
               @c8.reload
-              expect(@c7.start_time.strftime('%H:%M:%S')).to eq('10:05:45')
-              expect(@c8.start_time.strftime('%H:%M:%S')).to eq('10:06:15')
+              expect(@c7.start_time.strftime('%H:%M:%S')).to eq('01:05:45')
+              expect(@c8.start_time.strftime('%H:%M:%S')).to eq('01:06:15')
             end
           end
         end
@@ -794,8 +794,8 @@ describe Series do
               expect(@series).to be_valid
               @c1.reload
               @c2.reload
-              expect(@c1.start_time.strftime('%H:%M:%S')).to eq('10:00:15')
-              expect(@c2.start_time.strftime('%H:%M:%S')).to eq('10:00:45')
+              expect(@c1.start_time.strftime('%H:%M:%S')).to eq('01:00:15')
+              expect(@c2.start_time.strftime('%H:%M:%S')).to eq('01:00:45')
               expect(@c3.start_time).to be_nil
             end
           end
@@ -956,8 +956,7 @@ describe Series do
   describe "#each_competitor_has_start_time?" do
     before do
       @series = create(:series)
-      @series.competitors << build(:competitor, :series => @series,
-        :start_time => '12:45')
+      @series.competitors << build(:competitor, :series => @series, :start_time => '01:45')
     end
 
     context "when at least one start_time is missing" do
@@ -1191,7 +1190,7 @@ describe Series do
       before do
         @series = create(:series, :has_start_list => false)
         @series.competitors << create(:competitor, :series => @series,
-          :start_time => '10:00', :number => 5)
+          :start_time => '01:00', :number => 5)
       end
       
       it "should not update start times nor numbers" do
@@ -1205,17 +1204,17 @@ describe Series do
       before do
         @series = create(:series, :has_start_list => true)
         @series.competitors << create(:competitor, :series => @series,
-          :start_time => '10:00', :number => 5)
-        c2 = create(:competitor, :series => @series, :start_time => '10:01', :number => 6)
-        c3 = create(:competitor, :series => @series, :start_time => '10:02', :number => 7)
+          :start_time => '01:00', :number => 5)
+        c2 = create(:competitor, :series => @series, :start_time => '01:01', :number => 6)
+        c3 = create(:competitor, :series => @series, :start_time => '01:02', :number => 7)
         c2.update_column(:number, 4)
-        c3.update_column(:start_time, '09:59')
+        c3.update_column(:start_time, '00:59')
         @series.reload
         @series.update_start_time_and_number
       end
       
       it "should set the minimum competitor start time as series start time" do
-        expect(@series.start_time.strftime('%H:%M')).to eq('09:59')
+        expect(@series.start_time.strftime('%H:%M')).to eq('00:59')
       end
       
       it "should set the minimum competitor number as series first number" do
@@ -1234,8 +1233,8 @@ describe Series do
     context "when has competitors" do
       before do
         @series = create(:series)
-        @c1 = create(:competitor, :series => @series, :start_time => '12:00')
-        @c2 = create(:competitor, :series => @series, :start_time => '12:01')
+        @c1 = create(:competitor, :series => @series, :start_time => '02:00')
+        @c2 = create(:competitor, :series => @series, :start_time => '02:01')
       end
       
       context "but none of the competitors have neither arrival time, estimates nor shots total" do
@@ -1247,7 +1246,7 @@ describe Series do
       
       context "and some competitor has arrival time" do
         it "should return true" do
-          @c1.arrival_time = '12:23:34'
+          @c1.arrival_time = '02:23:34'
           @c1.save!
           @series.reload
           expect(@series).to have_result_for_some_competitor

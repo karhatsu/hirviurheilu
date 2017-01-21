@@ -189,10 +189,9 @@ describe ResultRotationHelper do
       before do
         @series1_1 = build_series race, 1, '0:00', true
         @series1_2 = build_series race, 1, '0:00', true
-        @series1_3 = build_series race, 1, '23:59', true
-        @series1_4 = build_series race, 1, '0:00', false
+        @series1_3 = build_series race, 1, '0:00', false
         @series2_1 = build_series race, 2, '0:00', true
-        @series2_2 = build_series race, 2, '23:59', true
+        @series2_2 = build_series race, 2, '0:00', false
         race.series << @series1_1
         race.series << @series1_2
         race.series << @series1_3
