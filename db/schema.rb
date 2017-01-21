@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170120155426) do
+ActiveRecord::Schema.define(version: 20170121110038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -322,6 +322,7 @@ ActiveRecord::Schema.define(version: 20170120155426) do
     t.string   "reset_hash",          limit: 255
     t.string   "activation_key",      limit: 255
     t.text     "invoicing_info"
+    t.string   "club_name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
