@@ -8,6 +8,7 @@ fi:
     batch_size: Lähtöerien koko
     billing_info: Laskutustieto
     club: Seura/piiri
+    club_name: Seura
     content: Sisältö
     correct_estimate1: Oikea arviomatka 1
     correct_estimate2: Oikea arviomatka 2

@@ -13,6 +13,9 @@
   .read_only_form_row
     .form_label= t 'attributes.last_name'
     %span=h @user.last_name
+  .read_only_form_row
+    .form_label= t 'attributes.club_name'
+    %span=h @user.club_name
 %hr
 .action_box= link_to t('.modify_information'), edit_account_path
 - unless @user.activation_key.blank?

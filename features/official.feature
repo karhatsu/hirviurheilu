@@ -15,6 +15,7 @@ Feature: Official
     When I fill in the following:
       | Etunimi | Tim |
       | Sukunimi | Tester |
+      | Seura | Club |
       | Sähköposti | tim@tester.com |
       | Salasana | testpassword |
       | Salasana uudestaan | testpassword |

@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
+  validates :club_name, presence: true, on: :create
   validate :only_one_user_in_offline_mode
 
   def add_admin_rights
@@ -55,7 +56,7 @@ class User < ActiveRecord::Base
     offline_user = User.create!(:email => OFFLINE_USER_EMAIL,
       :password => OFFLINE_USER_PASSWORD,
       :password_confirmation => OFFLINE_USER_PASSWORD,
-      :first_name => 'Offline', :last_name => 'Käyttäjä')
+      :first_name => 'Offline', :last_name => 'Käyttäjä', club_name: 'Seura')
     offline_user.add_official_rights
     offline_user
   end

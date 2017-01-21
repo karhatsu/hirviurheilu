@@ -13,6 +13,7 @@ Feature: Admin adds users
     And the "Lisää käyttäjä" sub menu item should be selected
     When I fill in "Mikko" for "Etunimi"
     And I fill in "Mäkelä" for "Sukunimi"
+    And I fill in "Testiseura" for "Seura"
     And I fill in "mikko@test.com" for "Sähköposti"
     And I fill in "mikkosala" for "Salasana"
     And I press "Lisää käyttäjä"

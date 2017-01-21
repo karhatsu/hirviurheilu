@@ -8,6 +8,7 @@ sv:
     batch_size: Startsatsers storlek
     billing_info: Faktureringsinfo
     club: Klubb
+    club_name: Klubb
     content: Innehål
     correct_estimate1: Rätt avstånd 1
     correct_estimate2: Rätt avstånd 2
