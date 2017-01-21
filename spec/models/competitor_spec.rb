@@ -65,6 +65,18 @@ describe Competitor do
     describe "start_time" do
       it { is_expected.to allow_value(nil).for(:start_time) }
 
+      it 'has to be less than 07:00' do
+        expect(build :competitor, start_time: '06:59:59').to be_valid
+      end
+
+      it 'cannot be 07:00:00' do
+        expect(build :competitor, start_time: '07:00:00').to have(1).errors_on(:start_time)
+      end
+
+      it 'cannot be 07:00:01' do
+        expect(build :competitor, start_time: '07:00:01').to have(1).errors_on(:start_time)
+      end
+
       context "when series has start list" do
         it "should not be nil" do
           series = build(:series, :has_start_list => true)

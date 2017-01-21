@@ -204,6 +204,7 @@ sv:
               required_when_start_list_created: måste anges, när klassens startlista är redan skapat
               is_in_use: är upptagen
             start_time:
+              too_big: är för stor (starttider börjar av 00:00:00)
               required_when_start_list_created: måste anges, när klassens startlista är redan skapat
         correct_estimate:
           attributes:
@@ -232,3 +233,5 @@ sv:
               cannot_generate_start_times_without_first_number: Kan inte skapa starttider, eftersom klassens första nummer sanknas
               cannot_generate_start_times_without_numbers_for_all_competitors: Kan inte skapa starttider, eftersom alla tävlar har inte startnummer
               cannot_generate_start_times_already_arrival_times: Kan inte skapa starttider, eftersom några tävlar redan har avkomstid
+            start_time:
+              too_big: är för stor (starttider börjar av 00:00:00)

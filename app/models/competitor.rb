@@ -14,6 +14,8 @@ class Competitor < ActiveRecord::Base
   SORT_BY_SHOTS = 2
   SORT_BY_ESTIMATES = 3
 
+  MAX_START_TIME = Time.utc 2000, 1, 1, 6, 59, 59
+
   belongs_to :club
   belongs_to :series, counter_cache: true, touch: true
   belongs_to :age_group
@@ -45,6 +47,7 @@ class Competitor < ActiveRecord::Base
   validates :correct_estimate4, :allow_nil => true,
     :numericality => { :only_integer => true, :greater_than => 0 }
   validates :shooting_overtime_min, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
+  validate :start_time_max
   validate :times_in_correct_order
   validate :only_one_shot_input_method_used
   validate :max_ten_shots
@@ -233,6 +236,11 @@ class Competitor < ActiveRecord::Base
   end
 
   private
+
+  def start_time_max
+    errors.add :start_time, :too_big if start_time && start_time > MAX_START_TIME
+  end
+
   def times_in_correct_order
     return if start_time.nil? && shooting_start_time.nil? && shooting_finish_time.nil? && arrival_time.nil?
     unless start_time

@@ -16,7 +16,6 @@ describe Series do
   describe "validations" do
     it { is_expected.to validate_presence_of(:name) }
     #it { should validate_presence_of(:race) }
-    it { is_expected.to allow_value(nil).for(:start_time) }
 
     describe "start_day" do
       it { is_expected.to validate_numericality_of(:start_day) }
@@ -32,6 +31,22 @@ describe Series do
 
       it "should not be bigger than race days count" do
         expect(@series).to have(1).errors_on(:start_day)
+      end
+    end
+
+    describe 'start_time' do
+      it { is_expected.to allow_value(nil).for(:start_time) }
+
+      it 'has to be less than 07:00' do
+        expect(build :series, start_time: '06:59:59').to be_valid
+      end
+
+      it 'cannot be 07:00:00' do
+        expect(build :series, start_time: '07:00:00').to have(1).errors_on(:start_time)
+      end
+
+      it 'cannot be 07:00:01' do
+        expect(build :series, start_time: '07:00:01').to have(1).errors_on(:start_time)
       end
     end
 

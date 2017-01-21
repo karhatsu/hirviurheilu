@@ -36,6 +36,7 @@ class Series < ActiveRecord::Base
   validates :time_points_type,
     :inclusion => { :in => [TIME_POINTS_TYPE_NORMAL, TIME_POINTS_TYPE_NONE,
       TIME_POINTS_TYPE_ALL_300] }
+  validate :start_time_max
   validate :start_day_not_bigger_than_race_days_count
   
   before_create :set_has_start_list
@@ -216,6 +217,10 @@ class Series < ActiveRecord::Base
     return unless race
     self.has_start_list ||= (race.start_order.to_i == Race::START_ORDER_MIXED)
     true
+  end
+
+  def start_time_max
+    errors.add :start_time, :too_big if start_time && start_time > Competitor::MAX_START_TIME
   end
 
   def start_day_not_bigger_than_race_days_count

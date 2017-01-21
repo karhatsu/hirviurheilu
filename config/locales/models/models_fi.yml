@@ -204,6 +204,7 @@ fi:
               required_when_start_list_created: on pakollinen, kun sarjan lähtölista on jo luotu
               is_in_use: on varattu
             start_time:
+              too_big: on liian iso (lähtöajat alkavat lukemasta 00:00:00)
               required_when_start_list_created: on pakollinen, kun sarjan lähtölista on jo luotu
         correct_estimate:
           attributes:
@@ -232,4 +233,5 @@ fi:
               cannot_generate_start_times_without_first_number: Lähtöaikoja ei voi generoida, sillä sarjan ensimmäistä numeroa ei ole määritetty
               cannot_generate_start_times_without_numbers_for_all_competitors: Lähtöaikoja ei voi generoida, sillä kaikilla kilpailijoilla ei ole numeroa
               cannot_generate_start_times_already_arrival_times: Lähtöaikoja ei voi generoida, sillä osalla kilpailijoista on jo saapumisaika
-              
+            start_time:
+              too_big: on liian iso (lähtöajat alkavat lukemasta 00:00:00)
