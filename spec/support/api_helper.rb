@@ -55,7 +55,7 @@ module ApiHelper
 
       context 'and competitor found' do
         let(:series) { create :series, race: race }
-        let(:competitor) { create :competitor, series: series }
+        let(:competitor) { create :competitor, series: series, start_time: '01:00:00' }
 
         context 'and request is valid' do
           before do
@@ -73,10 +73,7 @@ module ApiHelper
 
         context 'but content is invalid' do
           before do
-            ms_since_midnight = calculate_ms_since_midnight 23, 0, 0
-            body[:ms_since_midnight] = ms_since_midnight
-            body[:checksum] = md5 "#{ms_since_midnight}#{api_secret}"
-            put_request "/api/v1/races/#{race.id}/competitors/#{competitor.id}/#{api_times_string}", body
+            put_request "/api/v1/races/#{race.id}/competitors/#{competitor.id}/#{api_times_string}", invalid_body
           end
 
           it 'returns 400' do
@@ -84,7 +81,7 @@ module ApiHelper
           end
 
           it 'returns validation errors in the body' do
-            expect_json({errors: ['Lähtöaika on liian iso (lähtöajat alkavat lukemasta 00:00:00)']})
+            expect_json({errors: [expected_validation_error]})
           end
         end
 
