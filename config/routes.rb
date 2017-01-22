@@ -134,6 +134,7 @@ ElkSports::Application.routes.draw do
       resources :races, only: [] do
         resources :competitors, only: [] do
           resource :start_time, only: :update
+          resource :shooting_start_time, only: :update
           resource :arrival_time, only: :update
         end
       end
