@@ -18,7 +18,7 @@ class Api::V1::TimesBaseController < Api::V1::ApiBaseController
   end
 
   def competitor
-    @competitor ||= @race.competitors.where(id: params[:competitor_id]).first
+    @competitor ||= @race.competitors.where(number: params[:competitor_id]).first
   end
 
   def validate_checksum

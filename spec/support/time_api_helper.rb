@@ -36,11 +36,11 @@ shared_examples_for 'times API' do
 
     context 'and competitor found' do
       let(:series) { create :series, race: race }
-      let(:competitor) { create :competitor, series: series, start_time: '01:00:00' }
+      let(:competitor) { create :competitor, series: series, start_time: '01:00:00', number: 123 }
 
       context 'and request is valid' do
         before do
-          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.id}/#{api_times_string}", body
+          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/#{api_times_string}", body
         end
 
         it 'returns 201' do
@@ -54,7 +54,7 @@ shared_examples_for 'times API' do
 
       context 'but content is invalid' do
         before do
-          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.id}/#{api_times_string}", invalid_body
+          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/#{api_times_string}", invalid_body
         end
 
         it 'returns 400' do
@@ -69,7 +69,7 @@ shared_examples_for 'times API' do
       context 'but checksum is invalid' do
         before do
           body[:checksum] = 'wrong'
-          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.id}/#{api_times_string}", body
+          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/#{api_times_string}", body
         end
 
         it 'returns 400' do
