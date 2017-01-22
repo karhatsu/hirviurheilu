@@ -67,7 +67,22 @@ shared_examples_for 'times API' do
         end
       end
 
-      context 'but content is invalid' do
+      context 'but content is missing' do
+        before do
+          body[:ms_since_midnight] = nil
+          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/#{time_field}", body
+        end
+
+        it 'returns 400' do
+          expect_status_code 400
+        end
+
+        it 'returns validation errors in the body' do
+          expect_json({errors: ['ms_since_midnight missing']})
+        end
+      end
+
+      context 'but content is invalid for the competitor' do
         before do
           put_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/#{time_field}", invalid_body
         end
