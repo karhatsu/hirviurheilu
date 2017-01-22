@@ -19,7 +19,7 @@ shared_examples_for 'times API' do
 
   context 'when race not found' do
     it 'returns 404' do
-      put_request "/api/v1/races/10/competitors/15/#{api_times_string}", body
+      put_request "/api/v1/races/10/competitors/15/#{time_field}", body
       expect_status_code 404
     end
   end
@@ -29,7 +29,7 @@ shared_examples_for 'times API' do
 
     context 'but competitor not found' do
       it 'returns 404' do
-        put_request "/api/v1/races/#{race.id}/competitors/15/#{api_times_string}", body
+        put_request "/api/v1/races/#{race.id}/competitors/15/#{time_field}", body
         expect_status_code 404
       end
     end
@@ -40,7 +40,7 @@ shared_examples_for 'times API' do
 
       context 'and request is valid' do
         before do
-          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/#{api_times_string}", body
+          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/#{time_field}", body
         end
 
         it 'returns 201' do
@@ -54,7 +54,7 @@ shared_examples_for 'times API' do
 
       context 'but content is invalid' do
         before do
-          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/#{api_times_string}", invalid_body
+          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/#{time_field}", invalid_body
         end
 
         it 'returns 400' do
@@ -69,7 +69,7 @@ shared_examples_for 'times API' do
       context 'but checksum is invalid' do
         before do
           body[:checksum] = 'wrong'
-          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/#{api_times_string}", body
+          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/#{time_field}", body
         end
 
         it 'returns 400' do

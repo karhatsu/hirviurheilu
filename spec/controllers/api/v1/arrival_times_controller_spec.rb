@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Api::V1::ArrivalTimesController, type: :api do
-  let(:api_times_string) { 'arrival_times' }
   let(:time_field) { 'arrival_time' }
   let(:expected_validation_error) { 'Saapumisaika pitää olla lähtöajan jälkeen' }
   let(:invalid_body) { build_invalid_body }

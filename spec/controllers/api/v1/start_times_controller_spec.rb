@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Api::V1::StartTimesController, type: :api do
-  let(:api_times_string) { 'start_times' }
   let(:time_field) { 'start_time' }
   let(:expected_validation_error) { 'Lähtöaika on liian iso (lähtöajat alkavat lukemasta 00:00:00)' }
   let(:invalid_body) { build_invalid_body }
