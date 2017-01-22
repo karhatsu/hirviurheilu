@@ -1,6 +1,7 @@
 class Api::V1::TimesBaseController < Api::V1::ApiBaseController
   def update
     return render status: 404, body: nil unless race && competitor
+    return render status: 500, json: {errors: ['Race not configured for API usage']} if race.api_secret.blank?
     competitor[time_field] = resolve_competitor_time
     if !validate_checksum
       render status: 400, json: {errors: ['Invalid checksum']}

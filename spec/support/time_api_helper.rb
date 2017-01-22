@@ -38,6 +38,21 @@ shared_examples_for 'times API' do
       let(:series) { create :series, race: race }
       let(:competitor) { create :competitor, series: series, start_time: '01:00:00', number: 123 }
 
+      context 'but race has no api secret defined' do
+        before do
+          race.update_attribute :api_secret, ''
+          put_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/#{time_field}", body
+        end
+
+        it 'returns 500' do
+          expect_status_code 500
+        end
+
+        it 'returns error' do
+          expect_json({errors: ['Race not configured for API usage']})
+        end
+      end
+
       context 'and request is valid' do
         before do
           put_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/#{time_field}", body
