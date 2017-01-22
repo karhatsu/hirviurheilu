@@ -1,5 +1,5 @@
 :javascript
   $(document).on('click', '.help', function() {
     var id = $(this).attr('id');
-    $('#' + id + '_dialog').dialog({ minWidth: 400, title: eval(id + '_title'), closeText: 'Sulje' });
+    $('#' + id + '_dialog').dialog({ minWidth: 400, title: eval(id + '_title'), closeText: '' });
   });
