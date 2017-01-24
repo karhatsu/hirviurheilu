@@ -218,6 +218,11 @@ class Race < ActiveRecord::Base
   def start_time_defined?
     start_time and start_time.strftime('%H:%M') != '00:00'
   end
+
+  def short_start_time
+    return nil unless start_time_defined?
+    start_time.strftime '%H:%M:%S'
+  end
   
   private
   def end_date_not_before_start_date

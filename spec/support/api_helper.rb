@@ -16,6 +16,10 @@ module ApiHelper
   def expect_json(json)
     expect(last_response.body).to include_json(json)
   end
+
+  def api_date(date)
+    date.strftime '%Y-%m-%d'
+  end
 end
 
 RSpec.configure do |config|
