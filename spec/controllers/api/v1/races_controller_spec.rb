@@ -10,8 +10,11 @@ describe Api::V1::RacesController, type: :api do
 
   context 'when race found' do
     let(:race) { create :race }
+    let(:series) { create :series, race: race }
+    let(:competitor) { create :competitor, series: series, number: 123 }
 
     before do
+      competitor
       get "/api/v1/races/#{race.id}"
       json = {
           name: race.name,
@@ -22,7 +25,20 @@ describe Api::V1::RacesController, type: :api do
           organizer: race.organizer,
           sport: {
               name: 'Hirvenhiihto'
-          }
+          },
+          series: [
+              {
+                  name: series.name,
+                  competitors: [
+                      {
+                          first_name: competitor.first_name,
+                          last_name: competitor.last_name,
+                          number: competitor.number,
+                          start_datetime: competitor.start_datetime
+                      }
+                  ]
+              }
+          ]
       }
       expect_json(json)
     end
