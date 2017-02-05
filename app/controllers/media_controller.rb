@@ -16,7 +16,7 @@ class MediaController < ApplicationController
 
   def show
     @race = Race.where(:id => params[:race_id]).
-      includes(:series => [:competitors => [:shots, :age_group, :club]]).first
+      includes(:series => [:competitors => [:age_group, :club]]).first
   end
 
   private

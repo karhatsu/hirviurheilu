@@ -51,14 +51,6 @@
       <%= competitor_f.hidden_field :age_group_name,
         :value => competitor_f.object.age_group.name %>
     <% end %>
-    <%= competitor_f.fields_for(:shots) do |shot_f| %>
-      <%= shot_f.hidden_field :id, :value => '' %>
-      <% shot_attrs = shot_f.object.attribute_names-["id", "created_at",
-          "updated_at", "competitor_id"] %>
-      <% shot_attrs.each do |attr| %>
-        <%= shot_f.hidden_field attr %>
-      <% end %>
-    <% end %>
   <% end %>
 <% end %>
 

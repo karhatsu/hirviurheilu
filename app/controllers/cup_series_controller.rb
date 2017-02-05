@@ -20,7 +20,7 @@ class CupSeriesController < ApplicationController
     @id = params[:cup_id]
     @cup = Cup.where(:id => @id).
       includes([
-        :races => [:series => [:competitors => [:shots, :age_group, :club, :series]]]
+        :races => [:series => [:competitors => [:age_group, :club, :series]]]
       ]).first
     render 'errors/cup_not_found' unless @cup
   end

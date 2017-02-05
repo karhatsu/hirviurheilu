@@ -5,8 +5,7 @@ describe ShotsQuickSave do
     @race = create(:race)
     series = create(:series, :race => @race)
     create(:competitor, :series => series, :number => 1)
-    @c = create(:competitor, :series => series, :number => 10,
-      :shots_total_input => 50)
+    @c = create(:competitor, :series => series, :number => 10, :shots_total_input => 50)
     @c2 = create(:competitor, :series => series, :number => 11)
   end
 
@@ -42,10 +41,11 @@ describe ShotsQuickSave do
           end
         end
 
-        context "when competitor has invidivual shots" do
+        context "when competitor has individual shots" do
           before do
             @c2.shots_total_input = nil
-            @c2.shots << build(:shot, :competitor => @c2, :value => 10)
+            @c2.shot_0 = 10
+            @c2.shot_9 = 5
             @c2.save!
             @qs = ShotsQuickSave.new(@race.id, '++11,98')
           end
@@ -55,6 +55,7 @@ describe ShotsQuickSave do
               expect(@qs.save).to be_truthy
               @c2.reload
               expect(@c2.shots_total_input).to eq(98)
+              expect(@c2.shots).to eq([])
             end
           end
 
@@ -110,7 +111,7 @@ describe ShotsQuickSave do
         context "when competitor has individual shots" do
           before do
             @c.shots_total_input = nil
-            @c.shots << build(:shot, :competitor => @c, :value => 10)
+            @c.shot_5 = 10
             @c.save!
             @qs = ShotsQuickSave.new(@race.id, '++10,+998876501')
           end

@@ -109,10 +109,9 @@ describe ResultFormatHelper do
     end
 
     it 'should return total shots together with comma separated list of individual shots when they are defined' do
-      shots = [10, 1, 9, 5, 5, nil, nil, 6, 4, 0]
-      competitor = instance_double(Competitor, :shots_sum => 50,
-                                   :shots_total_input => nil, :shot_values => shots)
-      expect(helper.shots_list_print(competitor)).to eq('50 (10, 1, 9, 5, 5, 0, 0, 6, 4, 0)')
+      shots = [10, 1, 9, 5, 5, 6, 4, 0]
+      competitor = instance_double(Competitor, shots_sum: 50, shots_total_input: nil, shots: shots)
+      expect(helper.shots_list_print(competitor)).to eq('50 (10, 1, 9, 5, 5, 6, 4, 0)')
     end
   end
 

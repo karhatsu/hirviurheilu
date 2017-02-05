@@ -69,6 +69,16 @@ sv:
     shooting_start_time: Skytte starttid
     shooting_time: Skyttetid
     shorter_trip: Kortare löpning
+    shot_0: Skott 1
+    shot_1: Skott 2
+    shot_2: Skott 3
+    shot_3: Skott 4
+    shot_4: Skott 5
+    shot_5: Skott 6
+    shot_6: Skott 7
+    shot_7: Skott 8
+    shot_8: Skott 9
+    shot_9: Skott 10
     shots_total_input: Skottstotal
     sport: Gren
     start_date: Startdatum
@@ -137,9 +147,6 @@ sv:
         one: Änvandare
         other: Änvandar
     attributes:
-      competitor:
-        shots:
-          value: Skott
       cup:
         name: Cup-tävlings namn
       cup_series:

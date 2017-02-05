@@ -69,6 +69,16 @@ fi:
     shooting_start_time: Ammunnan aloitusaika
     shooting_time: Ammunta-aika
     shorter_trip: Lyhennetty matka
+    shot_0: Laukaus 1
+    shot_1: Laukaus 2
+    shot_2: Laukaus 3
+    shot_3: Laukaus 4
+    shot_4: Laukaus 5
+    shot_5: Laukaus 6
+    shot_6: Laukaus 7
+    shot_7: Laukaus 8
+    shot_8: Laukaus 9
+    shot_9: Laukaus 10
     shots_total_input: Ammunta yhteensä
     sport: Laji
     start_date: Alkupvm
@@ -137,9 +147,6 @@ fi:
         one: Käyttäjä
         other: Käyttäjät
     attributes:
-      competitor:
-        shots:
-          value: Laukaus
       cup:
         name: Cup-kilpailun nimi
       cup_series:

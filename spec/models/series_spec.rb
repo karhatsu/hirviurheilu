@@ -444,7 +444,7 @@ describe Series do
       series = build(:series)
       competitors, included = ['a', 'b', 'c'], ['d', 'e']
       allow(series).to receive(:competitors).and_return(competitors)
-      expect(competitors).to receive(:includes).with([:shots, :club, :age_group, :series]).
+      expect(competitors).to receive(:includes).with([:club, :age_group, :series]).
         and_return(included)
       expect(Competitor).to receive(:sort_competitors).with(included, all_competitors, Competitor::SORT_BY_POINTS).and_return([1, 2, 3])
       expect(series.ordered_competitors(all_competitors)).to eq([1, 2, 3])
@@ -456,7 +456,7 @@ describe Series do
         series = build(:series)
         competitors, included = ['a', 'b', 'c'], ['d', 'e']
         allow(series).to receive(:competitors).and_return(competitors)
-        expect(competitors).to receive(:includes).with([:shots, :club, :age_group, :series]).
+        expect(competitors).to receive(:includes).with([:club, :age_group, :series]).
           and_return(included)
         expect(Competitor).to receive(:sort_competitors).with(included, all_competitors, Competitor::SORT_BY_TIME).and_return([1, 2, 3])
         expect(series.ordered_competitors(all_competitors, Competitor::SORT_BY_TIME)).to eq([1, 2, 3])
@@ -1273,7 +1273,8 @@ describe Series do
 
       context 'and some competitor has a shot' do
         it 'should return true' do
-          @c2.shots << create(:shot)
+          @c2.shot_9 = 7
+          @c2.save!
           @series.reload
           expect(@series).to have_result_for_some_competitor
         end

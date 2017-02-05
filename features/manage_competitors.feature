@@ -85,16 +85,16 @@ Feature: Manage competitors
     When I go to the official competitors page of the series
     And I follow "Johnson James"
     And I fill in the following:
-      | competitor_shots_attributes_new_0_shots_value | 10 |
-      | competitor_shots_attributes_new_1_shots_value | 10 |
-      | competitor_shots_attributes_new_2_shots_value | 10 |
-      | competitor_shots_attributes_new_3_shots_value | 10 |
-      | competitor_shots_attributes_new_4_shots_value | 10 |
-      | competitor_shots_attributes_new_5_shots_value | 9 |
-      | competitor_shots_attributes_new_6_shots_value | 9 |
-      | competitor_shots_attributes_new_7_shots_value | 9 |
-      | competitor_shots_attributes_new_8_shots_value | 8 |
-      | competitor_shots_attributes_new_9_shots_value | 0 |
+      | competitor_shot_0 | 10 |
+      | competitor_shot_1 | 10 |
+      | competitor_shot_2 | 10 |
+      | competitor_shot_3 | 10 |
+      | competitor_shot_4 | 10 |
+      | competitor_shot_5 | 9 |
+      | competitor_shot_6 | 9 |
+      | competitor_shot_7 | 9 |
+      | competitor_shot_8 | 8 |
+      | competitor_shot_9 | 0 |
     And I press "Tallenna"
     Then I should be on the official competitors page of the series
     When I go to the results page of the series
@@ -103,8 +103,8 @@ Feature: Manage competitors
     When I go to the official competitors page of the series
     And I follow "Johnson James"
     And I fill in the following:
-      | competitor_shots_attributes_3_value | 5 |
-      | competitor_shots_attributes_9_value | 7 |
+      | competitor_shot_3 | 5 |
+      | competitor_shot_9 | 7 |
     And I press "Tallenna"
     Then I should be on the official competitors page of the series
     When I go to the results page of the series

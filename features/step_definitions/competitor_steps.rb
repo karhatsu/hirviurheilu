@@ -68,16 +68,17 @@ end
 Given /^the shots for the competitor "([^"]*)" "([^"]*)" are (\d+),(\d+),(\d+),(\d+),(\d+),(\d+),(\d+),(\d+),(\d+),(\d+)$/ do |first_name,
     last_name, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10|
   competitor = Competitor.where(['first_name=? and last_name=?', first_name, last_name]).first
-  competitor.shots << Shot.new(:value => s1)
-  competitor.shots << Shot.new(:value => s2)
-  competitor.shots << Shot.new(:value => s3)
-  competitor.shots << Shot.new(:value => s4)
-  competitor.shots << Shot.new(:value => s5)
-  competitor.shots << Shot.new(:value => s6)
-  competitor.shots << Shot.new(:value => s7)
-  competitor.shots << Shot.new(:value => s8)
-  competitor.shots << Shot.new(:value => s9)
-  competitor.shots << Shot.new(:value => s10)
+  competitor.shot_0 = s1
+  competitor.shot_1 = s2
+  competitor.shot_2 = s3
+  competitor.shot_3 = s4
+  competitor.shot_4 = s5
+  competitor.shot_5 = s6
+  competitor.shot_6 = s7
+  competitor.shot_7 = s8
+  competitor.shot_8 = s9
+  competitor.shot_9 = s10
+  competitor.save!
 end
 
 Given /^someone else saves estimates (\d+) and (\d+) for the competitor$/ do |estimate1, estimate2|

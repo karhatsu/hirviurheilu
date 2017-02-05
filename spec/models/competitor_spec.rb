@@ -11,7 +11,6 @@ describe Competitor do
     it { is_expected.to belong_to(:club) }
     it { is_expected.to belong_to(:series) }
     it { is_expected.to belong_to(:age_group) }
-    it { is_expected.to have_many(:shots) }
   end
 
   describe "validation" do
@@ -94,28 +93,24 @@ describe Competitor do
       it { is_expected.not_to allow_value(101).for(:shots_total_input) }
 
       it "cannot be given if also individual shots have been defined" do
-        comp = build(:competitor, :shots_total_input => 50)
-        comp.shots << build(:shot, :competitor => comp, :value => 8)
-        comp.shots << build(:shot, :competitor => comp, :value => 8)
+        comp = build(:competitor, :shots_total_input => 50, shot_0: 8)
         expect(comp).to have(1).errors_on(:base)
       end
 
       it "can be given if individual shots only with nils" do
         comp = build(:competitor, :shots_total_input => 50)
-        comp.shots << build(:shot, :competitor => comp, :value => nil)
         expect(comp).to be_valid
       end
     end
-    
-    describe "shots" do
-      it "should have at maximum ten shots" do
-        comp = build(:competitor)
-        10.times do
-          comp.shots << build(:shot, :competitor => comp, :value => 8)
-        end
-        expect(comp).to be_valid
-        comp.shots << build(:shot, :competitor => comp, :value => 8)
-        expect(comp).to have(1).errors_on(:base)
+
+    describe 'shots' do
+      10.times do |i|
+        it { is_expected.to allow_value(nil).for("shot_#{i}") }
+        it { is_expected.not_to allow_value(1.1).for("shot_#{i}") }
+        it { is_expected.not_to allow_value(-1).for("shot_#{i}") }
+        it { is_expected.to allow_value(0).for("shot_#{i}") }
+        it { is_expected.to allow_value(10).for("shot_#{i}") }
+        it { is_expected.not_to allow_value(11).for("shot_#{i}") }
       end
     end
 
@@ -512,6 +507,14 @@ describe Competitor do
           expect(@competitor.has_result?).to be_truthy
         end
       end
+
+      context 'when shots are saved' do
+        it 'marks has_result true' do
+          @competitor.shot_9 = 9
+          @competitor.save!
+          expect(@competitor.has_result?).to be_truthy
+        end
+      end
     end
   end
   
@@ -593,10 +596,7 @@ describe Competitor do
     end
 
     it "should be sum of defined individual shots if no input sum" do
-      comp = build(:competitor, :shots_total_input => nil)
-      comp.shots << build(:shot, :value => 8, :competitor => comp)
-      comp.shots << build(:shot, :value => 9, :competitor => comp)
-      comp.shots << build(:shot, :value => nil, :competitor => comp)
+      comp = build(:competitor, :shots_total_input => nil, shot_0: 8, shot_1: 9)
       expect(comp.shots_sum).to eq(17)
     end
   end
@@ -1057,18 +1057,10 @@ describe Competitor do
     end
   end
 
-  describe "#shot_values" do
-    it "should return an ordered array of 10 shots" do
-      c = build(:competitor)
-      c.shots << build(:shot, :value => 10, :competitor => c)
-      c.shots << build(:shot, :value => 3, :competitor => c)
-      c.shots << build(:shot, :value => 4, :competitor => c)
-      c.shots << build(:shot, :value => 9, :competitor => c)
-      c.shots << build(:shot, :value => 1, :competitor => c)
-      c.shots << build(:shot, :value => 0, :competitor => c)
-      c.shots << build(:shot, :value => 9, :competitor => c)
-      c.shots << build(:shot, :value => 7, :competitor => c)
-      expect(c.shot_values).to eq([10,9,9,7,4,3,1,0,nil,nil])
+  describe "#shots" do
+    it "should return an ordered array of shots" do
+      c = build(:competitor, shot_0: 10, shot_1: 3, shot_2: 4, shot_3: 9, shot_4: 1, shot_5: 0, shot_6: 9, shot_7: 7)
+      expect(c.shots).to eq([10,9,9,7,4,3,1,0])
     end
   end
 
@@ -1461,13 +1453,7 @@ describe Competitor do
 
     context 'when shots' do
       it 'multiplies each shot by its value' do
-        competitor = create :competitor
-        create :shot, competitor: competitor, value: 10
-        create :shot, competitor: competitor, value: 10
-        create :shot, competitor: competitor, value: 8
-        create :shot, competitor: competitor, value: 7
-        create :shot, competitor: competitor, value: 3
-        create :shot, competitor: competitor, value: 3
+        competitor = create :competitor, shot_0: 10, shot_1: 10, shot_2: 8, shot_3: 7, shot_4: 3, shot_5: 3
         expect(competitor.reload.relative_shot_points).to eq(2*10*10 + 8*8 + 7*7 + 2*3*3)
       end
     end

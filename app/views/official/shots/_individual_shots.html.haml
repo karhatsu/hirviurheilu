@@ -1,4 +1,2 @@
-= f.fields_for :shots do |shot_form|
-  = render :partial => 'official/shots/shot', :locals => { :f => shot_form }
-- (10 - competitor.shots.length).times do |i|
-  = new_child_fields(f, :shots, i)
+- 10.times do |i|
+  = f.telephone_field "shot_#{i}", maxlength: 2, class: 'max2 shot'

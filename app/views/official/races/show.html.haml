@@ -20,7 +20,7 @@
         %th.center{colspan: 2}= t :results
         %th.center= t :correct_distances
         %th &nbsp;
-      - @race.series.includes(:competitors => [:shots, :series]).each do |s|
+      - @race.series.includes(:competitors => [:series]).each do |s|
         %tr
           %td= s.name
           - competitor_count = s.competitors.count

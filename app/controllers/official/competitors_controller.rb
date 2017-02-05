@@ -6,7 +6,6 @@ class Official::CompetitorsController < Official::OfficialController
   before_action :assign_competitor_by_id, only: [ :edit, :update, :destroy ]
   before_action :check_offline_limit, :only => [:new, :create]
   before_action :handle_start_time, :only => :create
-  before_action :clear_empty_shots, :only => :update
   before_action :set_competitors
 
   def index
@@ -122,15 +121,6 @@ class Official::CompetitorsController < Official::OfficialController
     @competitor.errors.add(:arrival_time, 'virheellinen') unless arrival_ok
     start_ok and arrival_ok
   end
-  
-  def clear_empty_shots
-    shots_params = params[:competitor]["shots_attributes"]
-    return unless shots_params
-    10.times do |i|
-      shot_param = shots_params["new_#{i}_shots"]
-      shots_params.delete("new_#{i}_shots") if shot_param and shot_param["value"].blank?
-    end
-  end
 
   def set_competitors
     @is_competitors = true
@@ -142,11 +132,9 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   def update_competitor_params
-    shots_attrs = [:id, :value]
-    10.times { |i| shots_attrs << { "new_#{i}_shots" => :value } }
     params.require(:competitor).permit(:series_id, :age_group_id, :club_id, :first_name, :last_name, :unofficial,
+      :shot_0, :shot_1, :shot_2, :shot_3, :shot_4, :shot_5, :shot_6, :shot_7, :shot_8, :shot_9,
       :team_name, :number, :start_time, :arrival_time, :shots_total_input, :estimate1, :estimate2, :estimate3,
-      :estimate4, :no_result_reason, :shooting_overtime_min, old_values: [:estimate1, :estimate2, :estimate3, :estimate4],
-      shots_attributes: shots_attrs)
+      :estimate4, :no_result_reason, :shooting_overtime_min, old_values: [:estimate1, :estimate2, :estimate3, :estimate4])
   end
 end

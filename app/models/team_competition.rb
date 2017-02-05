@@ -56,7 +56,7 @@ class TeamCompetition < ActiveRecord::Base
   private
   def find_competitors
     competitors = []
-    includes = [:series, :club, :age_group, :shots]
+    includes = [:series, :club, :age_group]
     series.each do |s|
       competitors += s.competitors.includes(includes)
     end

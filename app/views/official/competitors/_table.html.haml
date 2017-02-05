@@ -9,7 +9,7 @@
         %th= t 'official.competitors.index.result_saved'
       - if remove_column
         %th &nbsp;
-    - series.competitors.includes(:shots, :club, :age_group, :series).each do |comp|
+    - series.competitors.includes(:club, :age_group, :series).each do |comp|
       %tr{id: "competitor_#{comp.id}"}
         %td
           = link_to full_name(comp),

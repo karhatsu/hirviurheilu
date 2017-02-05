@@ -19,9 +19,6 @@ class Competitor < ActiveRecord::Base
   belongs_to :club
   belongs_to :series, counter_cache: true, touch: true
   belongs_to :age_group
-  has_many :shots, -> { order 'value desc' }, :dependent => :destroy
-
-  accepts_nested_attributes_for :shots, :allow_destroy => true
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
@@ -39,11 +36,21 @@ class Competitor < ActiveRecord::Base
   validates :correct_estimate2, estimate_validations
   validates :correct_estimate3, estimate_validations
   validates :correct_estimate4, estimate_validations
+  shot_validations = {numericality: {only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 10, allow_nil: true}}
+  validates :shot_0, shot_validations
+  validates :shot_1, shot_validations
+  validates :shot_2, shot_validations
+  validates :shot_3, shot_validations
+  validates :shot_4, shot_validations
+  validates :shot_5, shot_validations
+  validates :shot_6, shot_validations
+  validates :shot_7, shot_validations
+  validates :shot_8, shot_validations
+  validates :shot_9, shot_validations
   validates :shooting_overtime_min, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
   validate :start_time_max
   validate :times_in_correct_order
   validate :only_one_shot_input_method_used
-  validate :max_ten_shots
   validate :check_no_result_reason
   validate :check_if_series_has_start_list
   validate :unique_number
@@ -62,27 +69,12 @@ class Competitor < ActiveRecord::Base
     series.race
   end
 
-  def shot_values
-    values = shots.collect do |s|
-      s.value
-    end
-    values = values.sort do |a,b|
-      b.to_i <=> a.to_i
-    end
-    (10 - values.length).times do
-      values << nil
-    end
-    values
-  end
-
   def shots_sum
     return @shots_sum if @shots_sum
     if shots_total_input
       @shots_sum = shots_total_input
-    elsif shots.empty?
-      return nil
     else
-      @shots_sum = shots.map(&:value).map(&:to_i).inject(:+)
+      @shots_sum = shots.map(&:to_i).inject(:+)
     end
     @shots_sum
   end
@@ -178,7 +170,11 @@ class Competitor < ActiveRecord::Base
   end
 
   def relative_shot_points
-    shots.inject(0) {|sum, shot| sum = sum + shot.value * shot.value; sum}
+    shots.inject(0) {|sum, shot| sum = sum + shot * shot; sum}
+  end
+
+  def shots
+    (0..9).to_a.map {|i| self["shot_#{i}"]}.reject{|s| s.nil?}.sort {|a, b| b.to_i <=> a.to_i}
   end
 
   def finished?
@@ -265,17 +261,13 @@ class Competitor < ActiveRecord::Base
 
   def only_one_shot_input_method_used
     if shots_total_input
-      shots.each do |s|
-        if s.value
+      10.times do |i|
+        if self["shot_#{i}"]
           errors.add(:base, :shooting_result_either_sum_or_by_shots)
-          return
+          break
         end
       end
     end
-  end
-
-  def max_ten_shots
-    errors.add(:base, "Laukauksia voi olla enintään 10") if shots.length > 10
   end
 
   def check_no_result_reason
@@ -318,7 +310,7 @@ class Competitor < ActiveRecord::Base
   end
 
   def set_has_result
-    self.has_result = true if arrival_time || estimate1 || shots_total_input
+    self.has_result = true if arrival_time || estimate1 || shots_total_input || shots.any?
   end
 
   def reset_age_group
