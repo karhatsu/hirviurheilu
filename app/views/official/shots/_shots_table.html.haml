@@ -1,5 +1,4 @@
 .info= t 'official.result_place.shooting.either_total_or_shots'
-.info= t 'official.result_place.shooting.reload_after_save'
 #shots_table.competitors_table
   .header_row
     .title.number= t :number_short
@@ -8,7 +7,7 @@
     .title.individual_shots= t 'official.result_place.shooting.individual_shots'
     .title.total_shots= t 'official.result_place.shooting.result'
   - @series.competitors.each_with_index do |c, i|
-    = form_for([:official, @series, c], :remote => true, :html => { :onsubmit => "disableSubmit(#{c.id})", id: "#{c.id}_shots_form" }) do |f|
+    = form_for([:official, @series, c], :remote => true, :html => { id: "#{c.id}_shots_form" }) do |f|
       = hidden_field_tag :no_times, true
       - row_classes = (c.no_result_reason ? 'no_result_reason' : '')
       - row_classes << (i % 2 == 0 ? 'odd' : '')
@@ -36,9 +35,6 @@
   $('.shot').change(function() {
     calculate_shots_result($(this).closest('div.competitor_row'));
   });
-  function disableSubmit(id) {
-    $('#submit_' + id).attr('disabled', true);
-  }
   $(document).ready(function() {
     $('.save').attr('disabled', false);
   });

@@ -116,7 +116,6 @@ fi:
       add_competitor_to_series: Lisää kilpailija sarjaan %{series_name}
       shooting:
         either_total_or_shots: Syötä joko yhteistulos TAI yksittäiset laukaukset, ei molempia.
-        reload_after_save: Jos syötät vahingossa virheellisen tuloksen jollekin kilpailijalle ja haluat muuttaa tulosta, lataa koko sivu ensin uudestaan.
         sum: Summa
         individual_shots: Yksittäiset laukaukset
         result: Tulos
