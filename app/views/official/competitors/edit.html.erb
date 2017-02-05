@@ -6,7 +6,7 @@
   <% if @series.has_start_list? %>
     <hr/>
     <span class="form_label"><%= f.label :number %></span>
-    <%= f.number_field :number, :size => 3 %>
+    <%= f.telephone_field :number, :size => 3 %>
     <span class="form_label"><%= f.label :start_time %></span>
     <% start_time = time_print(f.object.start_time, true, '') %>
     <%= f.text_field :start_time, value: start_time, size: 8 %>
@@ -15,25 +15,25 @@
     <%= f.text_field :arrival_time, value: arrival_time, size: 8 %>
     <hr/>
     <span class="form_label"><%= f.label :shots_total_input %></span>
-    <%= f.number_field :shots_total_input, :size => 5, :maxlength => 3 %>
+    <%= f.telephone_field :shots_total_input, :size => 5, :maxlength => 3 %>
     (<%= t '.either_total_or_shots' %>)<br/>
     <span class="form_label"><%= t '.shots' %></span>
     <%= render :partial => 'official/shots/individual_shots', :locals => { :f => f,
       :competitor => @competitor } %>
     <hr/>
     <span class="form_label"><%= f.label :estimate1 %></span>
-    <%= f.number_field :estimate1, :size => 5, :maxlength => 3 %>
+    <%= f.telephone_field :estimate1, :size => 5, :maxlength => 3 %>
     <span class="form_label"><%= f.label :estimate2 %></span>
-    <%= f.number_field :estimate2, :size => 5, :maxlength => 3 %>
+    <%= f.telephone_field :estimate2, :size => 5, :maxlength => 3 %>
     <% if @competitor.series.estimates == 4 %>
       <span class="form_label"><%= f.label :estimate3 %></span>
-      <%= f.number_field :estimate3, :size => 5, :maxlength => 3 %>
+      <%= f.telephone_field :estimate3, :size => 5, :maxlength => 3 %>
       <span class="form_label"><%= f.label :estimate4 %></span>
-      <%= f.number_field :estimate4, :size => 5, :maxlength => 3 %>
+      <%= f.telephone_field :estimate4, :size => 5, :maxlength => 3 %>
     <% end %>
     <hr/>
     <span class="form_label"><%= f.label :shooting_overtime_min %></span>
-    <%= f.number_field :shooting_overtime_min, :size => 3 %>
+    <%= f.telephone_field :shooting_overtime_min, :size => 3 %>
     <hr/>
     <%= f.radio_button :no_result_reason, '' %>Normaali
     <%= f.radio_button :no_result_reason, Competitor::DNS %><%= t '.dns' %>

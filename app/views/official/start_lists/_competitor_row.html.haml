@@ -5,7 +5,7 @@
     - unless c.new_record?
       = hidden_field_tag '_method', :put
     = hidden_field_tag :start_list, true
-    .value.number= f.number_field :number, size: 2, class: order_class
+    .value.number= f.telephone_field :number, size: 2, class: order_class
     - start_time = time_print(f.object.start_time, true, '')
     .value.start_time{style: 'white-space: nowrap;'}
       = f.text_field :start_time, value: start_time, include_seconds: true, blank: true, size: 8
