@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170121134938) do
+ActiveRecord::Schema.define(version: 20170205122259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,16 @@ ActiveRecord::Schema.define(version: 20170121134938) do
     t.integer  "shooting_overtime_min"
     t.time     "shooting_start_time"
     t.time     "shooting_finish_time"
+    t.integer  "shot_0"
+    t.integer  "shot_1"
+    t.integer  "shot_2"
+    t.integer  "shot_3"
+    t.integer  "shot_4"
+    t.integer  "shot_5"
+    t.integer  "shot_6"
+    t.integer  "shot_7"
+    t.integer  "shot_8"
+    t.integer  "shot_9"
   end
 
   add_index "competitors", ["age_group_id"], name: "index_competitors_on_age_group_id", using: :btree
