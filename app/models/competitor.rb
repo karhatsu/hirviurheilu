@@ -30,22 +30,15 @@ class Competitor < ActiveRecord::Base
   validates :shots_total_input, :allow_nil => true,
     :numericality => { :only_integer => true,
       :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
-  validates :estimate1, :allow_nil => true,
-    :numericality => { :only_integer => true, :greater_than => 0 }
-  validates :estimate2, :allow_nil => true,
-    :numericality => { :only_integer => true, :greater_than => 0 }
-  validates :estimate3, :allow_nil => true,
-    :numericality => { :only_integer => true, :greater_than => 0 }
-  validates :estimate4, :allow_nil => true,
-    :numericality => { :only_integer => true, :greater_than => 0 }
-  validates :correct_estimate1, :allow_nil => true,
-    :numericality => { :only_integer => true, :greater_than => 0 }
-  validates :correct_estimate2, :allow_nil => true,
-    :numericality => { :only_integer => true, :greater_than => 0 }
-  validates :correct_estimate3, :allow_nil => true,
-    :numericality => { :only_integer => true, :greater_than => 0 }
-  validates :correct_estimate4, :allow_nil => true,
-    :numericality => { :only_integer => true, :greater_than => 0 }
+  estimate_validations = {allow_nil: true, numericality: { only_integer: true, greater_than: 0 }}
+  validates :estimate1, estimate_validations
+  validates :estimate2, estimate_validations
+  validates :estimate3, estimate_validations
+  validates :estimate4, estimate_validations
+  validates :correct_estimate1, estimate_validations
+  validates :correct_estimate2, estimate_validations
+  validates :correct_estimate3, estimate_validations
+  validates :correct_estimate4, estimate_validations
   validates :shooting_overtime_min, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
   validate :start_time_max
   validate :times_in_correct_order
