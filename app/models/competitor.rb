@@ -282,7 +282,7 @@ class Competitor < ActiveRecord::Base
   end
 
   def max_ten_shots
-    errors.add(:shots, "Laukauksia voi olla enintään 10") if shots.length > 10
+    errors.add(:base, "Laukauksia voi olla enintään 10") if shots.length > 10
   end
 
   def check_no_result_reason

@@ -115,7 +115,7 @@ describe Competitor do
         end
         expect(comp).to be_valid
         comp.shots << build(:shot, :competitor => comp, :value => 8)
-        expect(comp).to have(1).errors_on(:shots)
+        expect(comp).to have(1).errors_on(:base)
       end
     end
 
