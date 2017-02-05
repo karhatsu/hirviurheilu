@@ -3,10 +3,10 @@ class MoveShotsToCompetitors < ActiveRecord::Migration
     10.times do |i|
       add_column :competitors, "shot_#{i}", :integer
     end
-    Competitor.all.includes(:shots).each do |competitor|
-      if competitor.shots.count > 0
+    Competitor.all.each do |competitor|
+      shots = Shot.where(competitor_id: competitor.id).order('value desc').map &:value
+      if shots.count > 0
         puts "Competitor id #{competitor.id}"
-        shots = competitor.shots.map &:value
         shots.each_with_index do |shot, i|
           break if i == 10
           competitor["shot_#{i}"] = shot
@@ -17,6 +17,8 @@ class MoveShotsToCompetitors < ActiveRecord::Migration
   end
 
   def down
-    raise ActiveRecord::IrreversibleMigration
+    10.times do |i|
+      remove_column :competitors, "shot_#{i}"
+    end
   end
 end
