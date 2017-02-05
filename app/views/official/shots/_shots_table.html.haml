@@ -18,7 +18,7 @@
           .value= c.no_result_reason
         - else
           .value.total_shots= f.telephone_field :shots_total_input, :size => 3, :maxlength => 3, :class => 'total'
-          .value= render :partial => 'official/shots/individual_shots', :locals => { :f => f, :competitor => c }
+          .value.individual_shots= render :partial => 'official/shots/individual_shots', :locals => { :f => f, :competitor => c }
           .value.total_shots.result= c.shots_sum
           .value= submit_tag t(:save), :onclick => "start_updating(#{c.id})", :class => 'save', :id => "submit_#{c.id}"
           .value{id: "status_#{c.id}"} &nbsp;
