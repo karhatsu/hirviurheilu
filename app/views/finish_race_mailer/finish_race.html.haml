@@ -12,7 +12,5 @@ Kilpailijoiden määrä: #{@race.competitors.count}
 %br
 Maaliin tulleiden kilpailijoiden määrä: #{@race.competitors.where(no_result_reason: nil).count}
 %br
-Laskutustieto: #{@race.billing_info}
-%br
 %br
 %a{href: race_url(@locale, @race)}= race_url @locale, @race

@@ -8,7 +8,5 @@ Järjestäjä: #{@race.organizer}
 %br
 Toimitsija: #{full_name(@user, true)} (#{@user.club_name})
 %br
-Laskutustieto: #{@race.billing_info}
-%br
 %br
 %a{href: race_url(@locale, @race)}= race_url @locale, @race
