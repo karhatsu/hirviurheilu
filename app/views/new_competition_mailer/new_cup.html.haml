@@ -1,6 +1,6 @@
 Kilpailun nimi: #{@cup.name}
 %br
-Toimitsija: #{full_name(@user, true)}
+Toimitsija: #{full_name(@user, true)} (#{@user.club_name})
 %br
 %br
 %a{href: cup_url(@locale, @cup)}= cup_url @locale, @cup
