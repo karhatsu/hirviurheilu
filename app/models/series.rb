@@ -202,6 +202,10 @@ class Series < ActiveRecord::Base
     age_groups.select {|age_group| age_group.shorter_trip}
   end
 
+  def walking_series?
+    time_points_type != TIME_POINTS_TYPE_NORMAL
+  end
+
   private
   def check_time_points_type
     self.time_points_type = TIME_POINTS_TYPE_NORMAL if time_points_type == nil

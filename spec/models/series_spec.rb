@@ -1301,6 +1301,24 @@ describe Series do
     end
   end
 
+  describe '#walking_series?' do
+    it 'is false for default time points type' do
+      test_walking_series Series::TIME_POINTS_TYPE_NORMAL, false
+    end
+
+    it 'is true when no time points' do
+      test_walking_series Series::TIME_POINTS_TYPE_NONE, true
+    end
+
+    it 'is true when all get 300 time points' do
+      test_walking_series Series::TIME_POINTS_TYPE_ALL_300, true
+    end
+
+    def test_walking_series(time_points_type, expected)
+      expect(build(:series, time_points_type: time_points_type).walking_series?).to eql expected
+    end
+  end
+
   def expect_postgres_query_for_minimum_time(conditions, return_value)
     competitors = double(Array)
     limited_competitors = double(Array)

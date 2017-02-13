@@ -1326,6 +1326,7 @@ describe Competitor do
   
   describe "#relative_points" do
     before do
+      @series = double Series, walking_series?: true
       @dq = create_competitor(1200, 600, 60*1, Competitor::DQ)
       @dns = create_competitor(1200, 600, 60*1, Competitor::DNS)
       @dnf = create_competitor(1200, 600, 60*1, Competitor::DNF)
@@ -1339,19 +1340,25 @@ describe Competitor do
       @points_2_shots_2 = create_competitor(1000, 594, 60*20)
       @points_3_time_1 = create_competitor(900, 600, 60*15-1)
       @points_3_time_2 = create_competitor(900, 600, 60*15)
+      @points_4_individual_shots_1 = create_competitor(800, 500, 60*20, nil, false, [10,10,10,10,10,10,9,9,9,6])
+      @points_4_individual_shots_2 = create_competitor(800, 500, 60*20, nil, false, [10,10,10,10,10,10,9,9,8,7])
+      @points_4_individual_shots_3 = create_competitor(800, 500, 60*20, nil, false, [10,10,10,10,10,10,9,8,8,8])
       @competitors_in_random_order = [@unofficial_1, @points_3_time_1, @dns, @points_1, @unofficial_4,
                                       @unofficial_3, @unofficial_2, @dq, @points_2_shots_1, @no_result,
-                                      @points_3_time_2, @points_2_shots_2, @dnf]
+                                      @points_3_time_2, @points_2_shots_2, @points_4_individual_shots_2,
+                                      @points_4_individual_shots_1, @dnf, @points_4_individual_shots_3]
     end
 
-    it 'should rank best points, best shots points, best time, unofficials, DNF, DNS, DQ' do
+    it 'should rank best points, best shots points, best time, individual shots, unofficials, DNF, DNS, DQ' do
       expected_order = [@dq, @dns, @dnf, @no_result, @unofficial_4, @unofficial_3, @unofficial_2, @unofficial_1,
-                      @points_3_time_2, @points_3_time_1, @points_2_shots_2, @points_2_shots_1, @points_1]
+                        @points_4_individual_shots_3, @points_4_individual_shots_2, @points_4_individual_shots_1,
+                        @points_3_time_2, @points_3_time_1, @points_2_shots_2, @points_2_shots_1, @points_1]
       expect_relative_points_order @competitors_in_random_order, expected_order
     end
 
     it 'should rank unofficial competitors among others when all competitors wanted' do
-      expected_order = [@dq, @dns, @dnf, @no_result, @points_3_time_2, @points_3_time_1, @points_2_shots_2,
+      expected_order = [@dq, @dns, @dnf, @no_result, @points_4_individual_shots_3, @points_4_individual_shots_2,
+                        @points_4_individual_shots_1, @points_3_time_2, @points_3_time_1, @points_2_shots_2,
                         @points_2_shots_1, @points_1, @unofficial_4, @unofficial_3, @unofficial_2, @unofficial_1]
       expect_relative_points_order @competitors_in_random_order, expected_order, true
     end
@@ -1360,6 +1367,21 @@ describe Competitor do
       c1 = create_competitor(927, 6*91, 60*53+6)
       c2 = create_competitor(928, 6*67, 60*37+15)
       expect_relative_points_order [c2, c1], [c1, c2]
+    end
+
+    describe 'when walking series' do
+      it 'should make a difference between individual shots' do
+        expect(@points_4_individual_shots_1.relative_points).to be > @points_4_individual_shots_2.relative_points
+        expect(@points_4_individual_shots_2.relative_points).to be > @points_4_individual_shots_3.relative_points
+      end
+    end
+
+    describe 'when not walking series' do
+      it 'should not make difference between individual shots' do
+        allow(@series).to receive(:walking_series?).and_return(false)
+        expect(@points_4_individual_shots_1.relative_points).to eql @points_4_individual_shots_2.relative_points
+        expect(@points_4_individual_shots_2.relative_points).to eql @points_4_individual_shots_3.relative_points
+      end
     end
 
     describe 'by shots' do
@@ -1427,14 +1449,17 @@ describe Competitor do
       end
     end
 
-    def create_competitor(points, shot_points, time_in_seconds, no_result_reason=nil, unofficial=false)
+    def create_competitor(points, shot_points, time_in_seconds, no_result_reason=nil, unofficial=false,
+                          shots=[0,0,0,0,0,0,0,0,0,0])
       competitor = build :competitor
+      allow(competitor).to receive(:series).and_return(@series)
       allow(competitor).to receive(:no_result_reason).and_return(no_result_reason)
       allow(competitor).to receive(:points).and_return(points)
       allow(competitor).to receive(:shot_points).and_return(shot_points)
       allow(competitor).to receive(:time_in_seconds).and_return(time_in_seconds)
       allow(competitor).to receive(:unofficial?).and_return(unofficial)
       allow(competitor).to receive(:estimate_points).and_return(550)
+      allow(competitor).to receive(:shots).and_return(shots)
       competitor
     end
 
