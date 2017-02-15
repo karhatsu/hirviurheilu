@@ -3,7 +3,7 @@
   .success{id: "#{name}_success", style: "display:none;"}
   .error{id: "#{name}_error", style: "display:none;"}
   = form_tag(path, :remote => true, :onsubmit => "show_spinner('#{name}')", id: "#{name}_quick_save_form") do
-    = text_field_tag :string, '', :id => "#{name}_string", :size => 30
+    = telephone_field_tag :string, '', :id => "#{name}_string", :size => 30
     = submit_tag t(:save), :id => "submit_#{name}", class: 'primary_link'
     = image_tag 'spinner.gif', :id => "#{name}_spinner", :style => 'display:none;'
 :javascript
