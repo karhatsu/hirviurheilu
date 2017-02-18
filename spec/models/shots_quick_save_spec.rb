@@ -113,7 +113,7 @@ describe ShotsQuickSave do
             @c.shots_total_input = nil
             @c.shot_5 = 10
             @c.save!
-            @qs = ShotsQuickSave.new(@race.id, '++10,+998876501')
+            @qs = ShotsQuickSave.new(@race.id, '++10,**98876501')
           end
 
           describe "#save" do
@@ -122,7 +122,7 @@ describe ShotsQuickSave do
               @c.reload
               expect(@c.shots_total_input).to be_nil
               expect(@c.shots.size).to eq(10)
-              expect(@c.shots_sum).to eq(10+9+9+8+8+7+6+5+0+1)
+              expect(@c.shots_sum).to eq(10+10+9+8+8+7+6+5+0+1)
             end
           end
 
