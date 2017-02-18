@@ -8,6 +8,8 @@
   #existing_races.official-page-column-left
     - @races.each do |r|
       .race_link
-        %div= link_to r.name, official_race_path(r), class: 'primary_link'
+        %div
+          %a.primary_link{href: official_race_path(r)}
+            %span= r.name
         %div
           #{race_date_interval(r)}, #{r.location}
