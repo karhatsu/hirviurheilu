@@ -1,6 +1,6 @@
 class TimeQuickSave < QuickSave
   def initialize(race_id, string)
-    super(race_id, string, /^(\+\+|)\d+\,[0-2][0-9][0-5][0-9][0-5][0-9]$/)
+    super(race_id, string, /^(\+\+|)\d+(\,|#)[0-2][0-9][0-5][0-9][0-5][0-9]$/)
   end
 
   private
@@ -22,14 +22,14 @@ class TimeQuickSave < QuickSave
   end
 
   def hours
-    @string.split(',')[1][0,2]
+    result_string[0,2]
   end
 
   def minutes
-    @string.split(',')[1][2,2]
+    result_string[2,2]
   end
 
   def seconds
-    @string.split(',')[1][4,2]
+    result_string[4,2]
   end
 end

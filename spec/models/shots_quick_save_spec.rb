@@ -263,5 +263,33 @@ describe ShotsQuickSave do
       end
     end
   end
-end
 
+  context 'when # is used instead of ,' do
+    context 'and result is saved first time' do
+      it 'saves result' do
+        @qs = ShotsQuickSave.new(@race.id, '11#87')
+        expect(@qs.save).to be_truthy
+        expect(@c2.reload.shots_total_input).to eq(87)
+      end
+    end
+
+    context 'and result is overridden' do
+      context 'and input has ++ in the beginning' do
+        it 'saves result' do
+          @qs = ShotsQuickSave.new(@race.id, '++10#91')
+          expect(@qs.save).to be_truthy
+          expect(@c.reload.shots_total_input).to eq(91)
+        end
+      end
+
+      context 'but input is missing ++ in the beginning' do
+        it 'returns error' do
+          @qs = ShotsQuickSave.new(@race.id, '10#91')
+          @qs.save
+          expect(@qs.save).to be_falsey
+          expect(@qs.error).to match(/talletettu/)
+        end
+      end
+    end
+  end
+end

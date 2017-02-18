@@ -115,6 +115,16 @@ describe UnfinishedCompetitorQuickSave do
     end
   end
 
+  context 'when # is used instead of ,' do
+    context 'and input is valid' do
+      it 'saves result' do
+        @qs = UnfinishedCompetitorQuickSave.new(@race.id, '11#dq')
+        expect(@qs.save).to be_truthy
+        expect(@c2.reload.no_result_reason).to eq(Competitor::DQ)
+      end
+    end
+  end
+
   def check_failed_save(qs, error_regex, find_competitor,
       original_competitor=nil, original_reason=nil)
     expect(qs.save).to be_falsey

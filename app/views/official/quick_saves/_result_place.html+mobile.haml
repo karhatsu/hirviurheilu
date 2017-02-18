@@ -4,7 +4,7 @@
 - if @race.competitors.empty?
   .info= t 'official.quick_saves.index.no_competitors'
 - else
-  .info= t("official.quick_saves.index.instructions_#{name}")
+  .info= instructions
   .success{id: "#{name}_success", style: "display:none;"}
   .error{id: "#{name}_error", style: "display:none;"}
   = form_tag(path, :remote => true, :onsubmit => "show_spinner('#{name}')") do

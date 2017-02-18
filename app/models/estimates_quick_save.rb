@@ -1,11 +1,11 @@
 class EstimatesQuickSave < QuickSave
   def initialize(race_id, string)
-    super(race_id, string, /^(\+\+|)\d+\,\d+\,\d+$/, /^(\+\+|)\d+\,\d+\,\d+\,\d+\,\d+$/)
+    super(race_id, string, /^(\+\+|)\d+(\,|#)\d+(\,|#)\d+$/, /^(\+\+|)\d+(\,|#)\d+(\,|#)\d+(\,|#)\d+(\,|#)\d+$/)
   end
 
   private
   def set_competitor_attrs
-    numbers = @string.split(',')
+    numbers = @string.split(main_separator)
     @competitor.estimate1 = numbers[1]
     @competitor.estimate2 = numbers[2]
     @competitor.estimate3 = numbers[3] # can be nil
@@ -13,12 +13,12 @@ class EstimatesQuickSave < QuickSave
   end
 
   def save_competitor
-    estimate_count = @string.split(',').length - 1
+    estimate_count = @string.split(main_separator).length - 1
     name = "#{@competitor.last_name} #{@competitor.first_name}, #{@competitor.series.name}"
-    if @competitor.series.estimates == 4 and estimate_count != 4
+    if @competitor.series.estimates == 4 && estimate_count != 4
       @error = "Tälle kilpailijalle (#{name}) täytyy syöttää neljä ennustetta"
       return false
-    elsif @competitor.series.estimates == 2 and estimate_count != 2
+    elsif @competitor.series.estimates == 2 && estimate_count != 2
       @error = "Tälle kilpailijalle (#{name}) täytyy syöttää kaksi ennustetta"
       return false
     end

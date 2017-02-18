@@ -1,1 +1,2 @@
-= render partial: 'result_place', locals: { name: 'time', path: official_race_quick_save_time_path(@race) }
+- instructions = t("official.quick_saves.index.instructions_time")
+= render partial: 'result_place', locals: { name: 'time', instructions: instructions, path: official_race_quick_save_time_path(@race) }

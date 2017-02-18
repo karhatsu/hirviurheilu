@@ -1,11 +1,11 @@
 class UnfinishedCompetitorQuickSave < QuickSave
   def initialize(race_id, string)
-    super(race_id, string, /^(\+\+|)\d+\,dns$|dnf$|dq$|DNS$|DNF$|DQ$/)
+    super(race_id, string, /^(\+\+|)\d+(\,|#)dns$|dnf$|dq$|DNS$|DNF$|DQ$/)
   end
 
   private
   def set_competitor_attrs
-    @competitor.no_result_reason = @string.split(',')[1].upcase
+    @competitor.no_result_reason = result_string.upcase
   end
 
   def competitor_has_attrs?

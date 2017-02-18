@@ -263,5 +263,16 @@ describe EstimatesQuickSave do
       end
     end
   end
-end
 
+  context 'when # is used instead of ,' do
+    context 'and input is valid' do
+      it 'saves result' do
+        @qs = EstimatesQuickSave.new(@race.id, '11#156#65')
+        expect(@qs.save).to be_truthy
+        @c2.reload
+        expect(@c2.estimate1).to eq(156)
+        expect(@c2.estimate2).to eq(65)
+      end
+    end
+  end
+end

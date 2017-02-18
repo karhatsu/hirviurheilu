@@ -33,6 +33,10 @@ class QuickSave
   end
 
   private
+  def main_separator
+    @string.index('#') ? '#' : ','
+  end
+
   def valid_string?
     @valid_patterns.each do |pattern|
       return true if @string.match(pattern)
@@ -41,13 +45,17 @@ class QuickSave
   end
 
   def overwrite?
-    @string.split(',')[0][0,2] == '++'
+    @string[0,2] == '++'
   end
 
   def number
-    s = @string.split(',')[0]
+    s = @string.split(main_separator)[0]
     s = s[2..-1] if (s[0,2]) == '++'
     s
+  end
+
+  def result_string
+    @string.split(main_separator)[1]
   end
 
   def find_competitor
@@ -81,6 +89,6 @@ class QuickSave
   end
 
   def set_stored_already_error
-    @error = "Kilpailijalle (#{@competitor.first_name} #{@competitor.last_name}, #{@competitor.series.name}) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos."
+    @error = "Kilpailijalle (#{@competitor.first_name} #{@competitor.last_name}, #{@competitor.series.name}) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos tai ++numero#tulos."
   end
 end

@@ -1,6 +1,6 @@
 class ShotsQuickSave < QuickSave
   def initialize(race_id, string)
-    super(race_id, string, /^(\+\+|)\d+\,[0-9][0-9]?0?$/, /^(\+\+|)\d+\,[\+\*0-9]{10}$/)
+    super(race_id, string, /^(\+\+|)\d+(\,|#)[0-9][0-9]?0?$/, /^(\+\+|)\d+(\,|#)[\+\*0-9]{10}$/)
   end
 
   private
@@ -9,9 +9,9 @@ class ShotsQuickSave < QuickSave
       for i in 0..9
         @competitor["shot_#{i}"] = nil
       end
-      @competitor.shots_total_input = @string.split(',')[1]
+      @competitor.shots_total_input = result_string
     else
-      shots = @string[@string.index(',') + 1, 10]
+      shots = result_string
       @competitor.shots_total_input = nil
       for i in 0..9
         shot = shots[i, 1]

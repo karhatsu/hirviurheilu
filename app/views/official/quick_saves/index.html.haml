@@ -10,11 +10,7 @@
   = render :partial => 'result_place', :locals => { :name => 'time',
     :instructions => t('.instructions_time'), :path => official_race_quick_save_time_path(@race) }
   %h3= t :estimating
-  - instructions = t('.instructions_estimates')
-  - if @race.estimates_at_most == 4
-    - instructions << ' '
-    - instructions << t('.instructions_estimates_4')
-  - instructions << '.'
+  - instructions = build_estimates_instructions @race
   = render :partial => 'result_place', :locals => { :name => 'estimates',
     :instructions => instructions, :path => official_race_quick_save_estimates_path(@race) }
   %h3= t :shooting

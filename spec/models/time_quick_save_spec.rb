@@ -213,9 +213,18 @@ describe TimeQuickSave do
     describe "#error" do
       it "should contain data already stored message" do
         @qs.save
-        expect(@qs.error).to eq('Kilpailijalle (Mikko Miettinen, M45) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos.')
+        expect(@qs.error).to eq('Kilpailijalle (Mikko Miettinen, M45) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos tai ++numero#tulos.')
+      end
+    end
+  end
+
+  context 'when # is used instead of ,' do
+    context 'and input is valid' do
+      it 'saves result' do
+        @qs = TimeQuickSave.new(@race.id, '11#014541')
+        expect(@qs.save).to be_truthy
+        expect(@c2.reload.arrival_time.strftime('%H:%M:%S')).to eq('01:45:41')
       end
     end
   end
 end
-
