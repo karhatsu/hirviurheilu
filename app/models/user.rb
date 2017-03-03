@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :club_name, presence: true, on: :create
+  validate :prevent_bot
   validate :only_one_user_in_offline_mode
 
   def add_admin_rights
@@ -75,6 +76,10 @@ class User < ActiveRecord::Base
       return true if r.name == role
     end
     false
+  end
+
+  def prevent_bot
+    errors.add :base, 'Odottamaton virhe' if first_name == last_name || first_name == club_name || last_name == club_name
   end
 
   def only_one_user_in_offline_mode

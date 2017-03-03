@@ -9,6 +9,30 @@ describe User do
     it { is_expected.to validate_presence_of(:first_name) }
     it { is_expected.to validate_presence_of(:last_name) }
     it { is_expected.to validate_presence_of(:club_name) }
+
+    describe 'simple bot prevention' do
+      context 'when first and last names equal' do
+        it 'is not valid' do
+          expect(build_with_names('Name', 'Name', 'Club name')).to have(1).errors_on(:base)
+        end
+      end
+
+      context 'when first name and club name equal' do
+        it 'is not valid' do
+          expect(build_with_names('Name', 'Last name', 'Name')).to have(1).errors_on(:base)
+        end
+      end
+
+      context 'when last name and club name equal' do
+        it 'is not valid' do
+          expect(build_with_names('First name', 'Name', 'Name')).to have(1).errors_on(:base)
+        end
+      end
+
+      def build_with_names(first_name, last_name, club_name)
+        build :user, first_name: first_name, last_name: last_name, club_name: club_name
+      end
+    end
   end
   
   describe "associations" do
