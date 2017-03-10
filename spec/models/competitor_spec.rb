@@ -617,7 +617,7 @@ describe Competitor do
     it 'should subtract 3 points from every overtime minute' do
       competitor = build(:competitor, shooting_overtime_min: 2)
       expect(competitor).to receive(:shots_sum).and_return(90)
-      expect(competitor.shot_points).to eq(540 - 6)
+      expect(competitor.shot_points).to eq(6 * (90-2*3))
     end
   end
 
