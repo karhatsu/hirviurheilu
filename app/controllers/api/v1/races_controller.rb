@@ -19,6 +19,6 @@ class Api::V1::RacesController < Api::V1::ApiBaseController
   private
 
   def race
-    @race ||= Race.where(id: params[:id]).first
+    @race ||= Race.where(id: params[:id]).includes(series: [:race, competitors: [:club, series: [:race]]]).first
   end
 end
