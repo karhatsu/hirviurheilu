@@ -6,7 +6,12 @@ class Api::V1::RacesController < Api::V1::ApiBaseController
            include: {
                sport: {only: [:name]},
                series: {only: [:name], include: {
-                   competitors: {only: [:first_name, :last_name, :number], methods: [:start_datetime]}
+                   competitors: {
+                       only: [:first_name, :last_name, :number], methods: [:start_datetime],
+                       include: {
+                           club: {only: [:name]}
+                       }
+                   }
                }}
            }
   end

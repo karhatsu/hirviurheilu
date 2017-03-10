@@ -9,9 +9,10 @@ describe Api::V1::RacesController, type: :api do
   end
 
   context 'when race found' do
+    let(:club) { create :club }
     let(:race) { create :race }
     let(:series) { create :series, race: race }
-    let(:competitor) { create :competitor, series: series, number: 123 }
+    let(:competitor) { create :competitor, series: series, number: 123, club: club }
 
     before do
       competitor
@@ -34,7 +35,10 @@ describe Api::V1::RacesController, type: :api do
                           first_name: competitor.first_name,
                           last_name: competitor.last_name,
                           number: competitor.number,
-                          start_datetime: competitor.start_datetime
+                          start_datetime: competitor.start_datetime,
+                          club: {
+                              name: club.name
+                          }
                       }
                   ]
               }
