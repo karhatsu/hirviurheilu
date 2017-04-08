@@ -5,7 +5,7 @@
     %th= t 'attributes.name'
     %th= t 'number_short'
     %th#table_club_title= club_title(series.race)
-    - unless series.time_points_type == Series::TIME_POINTS_TYPE_NONE
+    - unless series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
       %th.center
         = link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_TIME),
           time_title(series.race), race_series_path(series.race, series, :sort => Competitor::SORT_BY_TIME))
@@ -44,7 +44,7 @@
             )
       %td= comp.number ? comp.number : ''
       %td= comp.club.name
-      - unless series.time_points_type == Series::TIME_POINTS_TYPE_NONE
+      - unless series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
         %td{class: time_css, title: comparison_time_title_attribute(comp, params[:all_competitors], pdf)}
           = time_points_print(comp, true, params[:all_competitors])
       %td{class: est_css}= series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp)

@@ -26,7 +26,7 @@ class Series < ActiveRecord::Base
   accepts_nested_attributes_for :age_groups, :allow_destroy => true
   accepts_nested_attributes_for :competitors
 
-  before_validation :check_time_points_type
+  before_validation :check_points_method
 
   validates :name, :presence => true
   #validates :race, :presence => true
@@ -34,13 +34,8 @@ class Series < ActiveRecord::Base
     :allow_nil => true, :greater_than => 0 }
   validates :start_day, :numericality => { :only_integer => true,
     :allow_nil => true, :greater_than => 0 }
-  validates :estimates, :numericality => { :only_integer => true },
-    :inclusion => { :in => [2, 4] }
   validates :national_record, :numericality => { :only_integer => true,
     :allow_nil => true, :greater_than => 0 }
-  validates :time_points_type,
-    :inclusion => { :in => [TIME_POINTS_TYPE_NORMAL, TIME_POINTS_TYPE_NONE,
-      TIME_POINTS_TYPE_ALL_300] }
   validates :points_method, inclusion: {in: [POINTS_METHOD_TIME_2_ESTIMATES,
                                              POINTS_METHOD_TIME_4_ESTIMATES,
                                              POINTS_METHOD_NO_TIME_4_ESTIMATES,
@@ -211,13 +206,22 @@ class Series < ActiveRecord::Base
     age_groups.select {|age_group| age_group.shorter_trip}
   end
 
+  def estimates
+    return 4 if points_method == POINTS_METHOD_NO_TIME_4_ESTIMATES || points_method == POINTS_METHOD_TIME_4_ESTIMATES
+    2
+  end
+
   def walking_series?
-    time_points_type != TIME_POINTS_TYPE_NORMAL
+    points_method == POINTS_METHOD_300_TIME_2_ESTIMATES || points_method == POINTS_METHOD_NO_TIME_4_ESTIMATES
+  end
+
+  def with_time?
+    !walking_series?
   end
 
   private
-  def check_time_points_type
-    self.time_points_type = TIME_POINTS_TYPE_NORMAL if time_points_type == nil
+  def check_points_method
+    self.points_method = POINTS_METHOD_TIME_2_ESTIMATES if points_method == nil
   end
 
   def time_subtraction_sql

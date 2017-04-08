@@ -1,7 +1,7 @@
 class Official::RacesController < Official::OfficialController
   before_action :set_variant, only: :show
   before_action :assign_race_by_id, :check_assigned_race, :except => [:new, :create]
-  before_action :create_time_points_type_options
+  before_action :create_points_method_options
 
   def show
     @is_race = true
@@ -58,12 +58,12 @@ class Official::RacesController < Official::OfficialController
   end
 
   private
-  def create_time_points_type_options
-    @time_points_type_options = [
-      [t(:time_points_normal), Series::TIME_POINTS_TYPE_NORMAL],
-      [t(:time_points_none), Series::TIME_POINTS_TYPE_NONE],
-      [t(:time_points_300), Series::TIME_POINTS_TYPE_ALL_300]
-    ]
+  def create_points_method_options
+    @points_method_options = [
+        Series::POINTS_METHOD_TIME_2_ESTIMATES,
+        Series::POINTS_METHOD_NO_TIME_4_ESTIMATES,
+        Series::POINTS_METHOD_300_TIME_2_ESTIMATES
+    ].map { |points_method| [t("points_method_#{points_method}.both"), points_method] }
   end
 
   def create_race_params
@@ -72,7 +72,7 @@ class Official::RacesController < Official::OfficialController
 
   def update_race_params
     accepted = accepted_create_params
-    accepted << { series_attributes: [:id, :name, :national_record, :estimates, :time_points_type, :_destroy,
+    accepted << { series_attributes: [:id, :name, :national_record, :points_method, :_destroy,
                                       age_groups_attributes: [:id, :name, :min_competitors, :shorter_trip, :_destroy]] }
     params.require(:race).permit(accepted)
   end

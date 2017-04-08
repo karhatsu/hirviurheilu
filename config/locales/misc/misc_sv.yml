@@ -103,9 +103,16 @@ sv:
   start_list: Startlista
   team: Lag
   tel: Telefon
-  time_points_normal: Normal
-  time_points_none: Inga tidpoäng i den här klassen.
-  time_points_300: Alla tävlarna får 300 tidpoäng i den här klassen.
+  points_method_0:
+    both: Normal
+  points_method_2:
+    both: 4 bedömningar, inga tidpoäng
+    SKI: 4 bedömningar, inga tidpoäng
+    RUN: 4 bedömningar, inga tidpoäng
+  points_method_3:
+    both: 2 bedömningar, alla tävlarna får 300 tidpoäng
+    SKI: 2 bedömningar, alla tävlarna får 300 tidpoäng
+    RUN: 2 bedömningar, alla tävlarna får 300 tidpoäng
   times: Tider
   total: Totalt
   total_points: Totalpoäng

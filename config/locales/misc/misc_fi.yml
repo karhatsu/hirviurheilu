@@ -103,9 +103,16 @@ fi:
   start_list: Lähtölista
   team: Joukkue
   tel: Puhelin
-  time_points_normal: Normaali
-  time_points_none: Sarjalle ei lasketa aikapisteitä.
-  time_points_300: Sarjassa kaikki saavat 300 aikapistettä.
+  points_method_0:
+    both: Normaali
+  points_method_2:
+    both: Hirvikävely/-hiihtely (4 arviota, ei aikapisteitä)
+    SKI: Hirvenhiihtely (sarjassa on 4 arviota, ei aikapisteitä)
+    RUN: Hirvikävely (sarjassa on 4 arviota, ei aikapisteitä)
+  points_method_3:
+    both: Hirvikävely/-hiihtely (2 arviota, kaikille 300 aikapistettä)
+    SKI: Hirvenhiihtely (sarjassa on 2 arviota, kaikki saavat 300 aikapistettä)
+    RUN: Hirvikävely (sarjassa on 2 arviota, kaikki saavat 300 aikapistettä)
   times: Ajat
   total: Yhteensä
   total_points: Yhteispisteet

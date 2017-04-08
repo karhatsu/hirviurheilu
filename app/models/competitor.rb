@@ -126,7 +126,7 @@ class Competitor < ActiveRecord::Base
     return nil if estimate1.nil? || estimate2.nil? || correct_estimate1.nil? || correct_estimate2.nil?
     return nil if series.estimates == 4 && (estimate3.nil? || estimate4.nil? || correct_estimate3.nil? || correct_estimate4.nil?)
     points = max_estimate_points - 2 * (correct_estimate1 - estimate1).abs - 2 * (correct_estimate2 - estimate2).abs
-    if series.estimates == 4
+    if series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
       points = points - 2 * (correct_estimate3 - estimate3).abs - 2 * (correct_estimate4 - estimate4).abs
     end
     return points if points >= 0
@@ -134,12 +134,12 @@ class Competitor < ActiveRecord::Base
   end
 
   def max_estimate_points
-    series.estimates == 4 ? 600 : 300
+    series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES ? 600 : 300
   end
 
   def time_points(all_competitors=false)
-    return nil if series.time_points_type == Series::TIME_POINTS_TYPE_NONE
-    return 300 if series.time_points_type == Series::TIME_POINTS_TYPE_ALL_300
+    return nil if series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
+    return 300 if series.points_method == Series::POINTS_METHOD_300_TIME_2_ESTIMATES
     own_time = time_in_seconds or return nil
     best_time = comparison_time_in_seconds(all_competitors) or return nil
     return resolve_time_points_for_invalid_own_time if own_time < best_time
@@ -180,8 +180,7 @@ class Competitor < ActiveRecord::Base
 
   def finished?
     no_result_reason ||
-      (start_time && (arrival_time || series.time_points_type != Series::TIME_POINTS_TYPE_NORMAL) &&
-        shots_sum && estimate1 && estimate2 &&
+      (start_time && (arrival_time || series.walking_series?) && shots_sum && estimate1 && estimate2 &&
         (series.estimates == 2 || (estimate3 && estimate4)))
   end
 

@@ -117,7 +117,7 @@ describe ResultFormatHelper do
 
   describe '#time_points_print' do
     before do
-      @series = instance_double(Series, :time_points_type => Series::TIME_POINTS_TYPE_NORMAL)
+      @series = instance_double(Series, :points_method => Series::POINTS_METHOD_TIME_2_ESTIMATES)
     end
 
     context 'when reason for no result' do
@@ -129,7 +129,7 @@ describe ResultFormatHelper do
 
     context 'when 300 points for all competitors in this series' do
       it 'should return 300' do
-        allow(@series).to receive(:time_points_type).and_return(Series::TIME_POINTS_TYPE_ALL_300)
+        allow(@series).to receive(:points_method).and_return(Series::POINTS_METHOD_300_TIME_2_ESTIMATES)
         competitor = instance_double(Competitor, :series => @series, :no_result_reason => nil)
         expect(helper.time_points_print(competitor)).to eq(300)
       end

@@ -744,7 +744,7 @@ describe Competitor do
 
       context "when 4 estimates for the series" do
         before do
-          @series = build(:series, :estimates => 4)
+          @series = build(:series, points_method: Series::POINTS_METHOD_NO_TIME_4_ESTIMATES)
         end
 
         it "should be nil if estimate3 is missing" do
@@ -784,7 +784,7 @@ describe Competitor do
 
       context "when 4 estimates for the series" do
         before do
-          @series = build(:series, :estimates => 4)
+          @series = build(:series, points_method: Series::POINTS_METHOD_NO_TIME_4_ESTIMATES)
         end
 
         it "should be nil if correct estimate 3 is missing" do
@@ -859,7 +859,7 @@ describe Competitor do
       
       context "when 4 estimates for the series" do
         before do
-          @series = build(:series, :estimates => 4)
+          @series = build(:series, points_method: Series::POINTS_METHOD_NO_TIME_4_ESTIMATES)
         end
         
         it "should be 600 when perfect estimates" do
@@ -987,7 +987,7 @@ describe Competitor do
 
     context "when no time points" do
       it "should be nil" do
-        @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_NONE
+        @competitor.series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
         allow(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds)
         expect(@competitor.time_points(@all_competitors)).to be_nil
       end
@@ -995,7 +995,7 @@ describe Competitor do
 
     context "when 300 time points for all competitors in the series" do
       it "should be 300" do
-        @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_ALL_300
+        @competitor.series.points_method = Series::POINTS_METHOD_300_TIME_2_ESTIMATES
         allow(@competitor).to receive(:time_in_seconds).and_return(nil)
         expect(@competitor.time_points(@all_competitors)).to eq(300)
       end
@@ -1174,7 +1174,7 @@ describe Competitor do
 
         context "when 4 estimates for the series" do
           before do
-            @competitor.series.estimates = 4
+            @competitor.series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
           end
 
           context "when 3rd estimate is missing" do
@@ -1211,7 +1211,9 @@ describe Competitor do
 
       context "when series does not calculate time points and other results are there" do
         it "should return true" do
-          @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_NONE
+          @competitor.series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
+          @competitor.estimate3 = 110
+          @competitor.estimate4 = 100
           @competitor.arrival_time = nil
           expect(@competitor).to be_finished
         end
@@ -1219,7 +1221,7 @@ describe Competitor do
 
       context "when series gives 300 time points for all and other results are there" do
         it "should return true" do
-          @competitor.series.time_points_type = Series::TIME_POINTS_TYPE_ALL_300
+          @competitor.series.points_method = Series::POINTS_METHOD_300_TIME_2_ESTIMATES
           @competitor.arrival_time = nil
           expect(@competitor).to be_finished
         end

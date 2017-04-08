@@ -567,7 +567,7 @@ describe Race do
     before do
       @race = create(:race)
       @series1 = create(:series, :race => @race)
-      @series2 = create(:series, :race => @race, :estimates => 4)
+      @series2 = create(:series, :race => @race, points_method: Series::POINTS_METHOD_NO_TIME_4_ESTIMATES)
       create(:correct_estimate, :min_number => 1, :max_number => 5,
         :distance1 => 100, :distance2 => 200,
         :distance3 => 80, :distance4 => 90, :race => @race)
@@ -683,7 +683,7 @@ describe Race do
     it "should return 4 when at least one series has 4 estimates" do
       race = create(:race)
       race.series << build(:series, :race => race)
-      race.series << build(:series, :race => race, :estimates => 4)
+      race.series << build(:series, :race => race, points_method: Series::POINTS_METHOD_NO_TIME_4_ESTIMATES)
       expect(race.estimates_at_most).to eq(4)
     end
   end

@@ -2,17 +2,9 @@
 <% if show_estimate_info and series.active? %>
   <div class="info"><%= t :competition_unfinished_detailed_estimates_later %></div>
 <% end %>
-<% walking_info = [] %>
-<% if series.time_points_type == Series::TIME_POINTS_TYPE_NONE %>
-  <% walking_info << t(:time_points_none) %>
-<% elsif series.time_points_type == Series::TIME_POINTS_TYPE_ALL_300 %>
-  <% walking_info << t(:time_points_300) %>
-<% end %>
-<% if series.estimates == 4 %>
-  <% walking_info << t(:estimate_count_4) %>
-<% end %>
-<% unless walking_info.empty? %>
-  <div class="info"><%= walking_info.join(' ') %></div>
+<% walking_info = special_series_info(series) %>
+<% if walking_info %>
+  <div class="info"><%= walking_info %></div>
 <% end %>
 <% shorter_trip_groups = series.age_groups_with_shorter_trip %>
 <% unless shorter_trip_groups.empty? %>

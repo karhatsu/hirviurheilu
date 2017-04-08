@@ -161,7 +161,7 @@ Feature: Show race
       | name | Men 50 years |
       | start_time | 01:00 |
       | first_number | 1 |
-      | estimates | 4 |
+      | points_method | 2 |
     And the race has correct estimates with attributes:
       | min_number | 55 |
       | max_number | 55 |

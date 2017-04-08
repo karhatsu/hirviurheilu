@@ -124,7 +124,7 @@ class RemoteRacesController < ApplicationController
       :video_description, :organizer, :organizer_phone, :start_time, :public_message, :api_secret,
       clubs_attributes: [:id, :name, :long_name],
       correct_estimates_attributes: [:id, :min_number, :max_number, :distance1, :distance2, :distance3, :distance4],
-      series_attributes: [:id, :name, :start_time, :first_number, :has_start_list, :start_day, :estimates, :national_record, :time_points_type,
+      series_attributes: [:id, :name, :start_time, :first_number, :has_start_list, :start_day, :estimates, :national_record, :time_points_type, :points_method,
         age_groups_attributes: [:id, :name, :min_competitors, :shorter_trip],
         competitors_attributes: [:id, :first_name, :last_name, :number, :start_time, :arrival_time, :shots_total_input,
                                  :shot_0, :shot_1, :shot_2, :shot_3, :shot_4, :shot_5, :shot_6, :shot_7, :shot_8, :shot_9,

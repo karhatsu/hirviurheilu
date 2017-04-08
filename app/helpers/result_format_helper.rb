@@ -11,7 +11,7 @@ module ResultFormatHelper
 
   def time_points_print(competitor, with_time=false, all_competitors=false)
     return '' if competitor.no_result_reason
-    return 300 if competitor.series.time_points_type == Series::TIME_POINTS_TYPE_ALL_300
+    return 300 if competitor.series.points_method == Series::POINTS_METHOD_300_TIME_2_ESTIMATES
     return '-' if competitor.time_in_seconds.nil?
     points = competitor.time_points(all_competitors)
     html = (points == 300 ? "<span class='series_best_time'>" : '')
@@ -78,5 +78,10 @@ module ResultFormatHelper
     title << ". Vertailuaika: #{time_from_seconds(comparison_time_in_seconds)}." if comparison_time_in_seconds
     title << "'"
     raw title
+  end
+
+  def special_series_info(series)
+    return nil if series.points_method == Series::POINTS_METHOD_TIME_2_ESTIMATES
+    t("points_method_#{series.points_method}.#{series.race.sport.key}")
   end
 end

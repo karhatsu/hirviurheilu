@@ -44,7 +44,7 @@ describe EstimatesQuickSave do
 
       describe "4 estimates" do
         before do
-          @series.estimates = 4
+          @series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
           @series.save!
           @qs = EstimatesQuickSave.new(@race.id, '11,98,115,160,144')
         end
@@ -141,7 +141,7 @@ describe EstimatesQuickSave do
 
     describe "trying to save 2 estimates for a competitor of the series with 4 estimates" do
       before do
-        @series.estimates = 4
+        @series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
         @series.save!
         @qs = EstimatesQuickSave.new(@race.id, '++10,111,122')
       end

@@ -58,17 +58,6 @@ describe Series do
       it { is_expected.to allow_value(1).for(:first_number) }
     end
 
-    describe "estimates" do
-      it { is_expected.not_to allow_value(nil).for(:estimates) }
-      it { is_expected.not_to allow_value(0).for(:estimates) }
-      it { is_expected.not_to allow_value(1).for(:estimates) }
-      it { is_expected.to allow_value(2).for(:estimates) }
-      it { is_expected.not_to allow_value(3).for(:estimates) }
-      it { is_expected.to allow_value(4).for(:estimates) }
-      it { is_expected.not_to allow_value(5).for(:estimates) }
-      it { is_expected.not_to allow_value(2.1).for(:estimates) }
-    end
-
     describe "national_record" do
       it { is_expected.to validate_numericality_of(:national_record) }
       it { is_expected.to allow_value(nil).for(:national_record) }
@@ -76,18 +65,6 @@ describe Series do
       it { is_expected.not_to allow_value(0).for(:national_record) }
       it { is_expected.to allow_value(1).for(:national_record) }
       it { is_expected.not_to allow_value(-51).for(:national_record) }
-    end
-
-    describe "time_points_type" do
-      it { is_expected.to allow_value(Series::TIME_POINTS_TYPE_NORMAL).for(:time_points_type) }
-      it { is_expected.to allow_value(Series::TIME_POINTS_TYPE_NONE).for(:time_points_type) }
-      it { is_expected.to allow_value(Series::TIME_POINTS_TYPE_ALL_300).for(:time_points_type) }
-      it { is_expected.not_to allow_value(3).for(:time_points_type) }
-
-      it "should convert nil to default value" do
-        series = create(:series, :time_points_type => nil)
-        expect(series.time_points_type).to eq(Series::TIME_POINTS_TYPE_NORMAL)
-      end
     end
   end
 
@@ -1073,7 +1050,7 @@ describe Series do
 
     context "when 4 estimates for the series" do
       before do
-        @series.estimates = 4
+        @series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
         @series.save!
         @c1.correct_estimate3 = 120
         @c1.correct_estimate4 = 110
@@ -1302,20 +1279,21 @@ describe Series do
   end
 
   describe '#walking_series?' do
-    it 'is false for default time points type' do
-      test_walking_series Series::TIME_POINTS_TYPE_NORMAL, false
+    it 'is false for points methods with time' do
+      test_walking_series Series::POINTS_METHOD_TIME_2_ESTIMATES, false
+      test_walking_series Series::POINTS_METHOD_TIME_4_ESTIMATES, false
     end
 
     it 'is true when no time points' do
-      test_walking_series Series::TIME_POINTS_TYPE_NONE, true
+      test_walking_series Series::POINTS_METHOD_NO_TIME_4_ESTIMATES, true
     end
 
     it 'is true when all get 300 time points' do
-      test_walking_series Series::TIME_POINTS_TYPE_ALL_300, true
+      test_walking_series Series::POINTS_METHOD_300_TIME_2_ESTIMATES, true
     end
 
-    def test_walking_series(time_points_type, expected)
-      expect(build(:series, time_points_type: time_points_type).walking_series?).to eql expected
+    def test_walking_series(points_method, expected)
+      expect(build(:series, points_method: points_method).walking_series?).to eql expected
     end
   end
 

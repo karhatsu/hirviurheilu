@@ -1,4 +1,4 @@
-<% show_time_column = series.time_points_type != Series::TIME_POINTS_TYPE_NONE %>
+<% show_time_column = series.with_time? %>
 <table>
   <tr>
     <th>&nbsp;</th>

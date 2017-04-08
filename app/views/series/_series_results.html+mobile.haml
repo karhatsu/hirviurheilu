@@ -24,7 +24,7 @@
         - if comp.no_result_reason
           = t "competitor.#{comp.no_result_reason}"
         - else
-          - unless series.time_points_type == Series::TIME_POINTS_TYPE_NONE
+          - unless series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
             = time_points_print(comp, true, params[:all_competitors])
             \|
           = series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp)
