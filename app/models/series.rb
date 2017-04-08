@@ -10,6 +10,11 @@ class Series < ActiveRecord::Base
   TIME_POINTS_TYPE_NONE = 1
   TIME_POINTS_TYPE_ALL_300 = 2
 
+  POINTS_METHOD_TIME_2_ESTIMATES = 0
+  POINTS_METHOD_TIME_4_ESTIMATES = 1
+  POINTS_METHOD_NO_TIME_4_ESTIMATES = 2
+  POINTS_METHOD_300_TIME_2_ESTIMATES = 3
+
   START_LIST_ADDING_ORDER = 0
   START_LIST_RANDOM = 1
 
@@ -36,9 +41,13 @@ class Series < ActiveRecord::Base
   validates :time_points_type,
     :inclusion => { :in => [TIME_POINTS_TYPE_NORMAL, TIME_POINTS_TYPE_NONE,
       TIME_POINTS_TYPE_ALL_300] }
+  validates :points_method, inclusion: {in: [POINTS_METHOD_TIME_2_ESTIMATES,
+                                             POINTS_METHOD_TIME_4_ESTIMATES,
+                                             POINTS_METHOD_NO_TIME_4_ESTIMATES,
+                                             POINTS_METHOD_300_TIME_2_ESTIMATES]}
   validate :start_time_max
   validate :start_day_not_bigger_than_race_days_count
-  
+
   before_create :set_has_start_list
 
   def cache_key

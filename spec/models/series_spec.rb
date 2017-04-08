@@ -15,7 +15,7 @@ describe Series do
 
   describe "validations" do
     it { is_expected.to validate_presence_of(:name) }
-    #it { should validate_presence_of(:race) }
+    it { is_expected.to validate_inclusion_of(:points_method).in_array([0, 1, 2, 3]) }
 
     describe "start_day" do
       it { is_expected.to validate_numericality_of(:start_day) }
