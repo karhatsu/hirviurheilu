@@ -125,9 +125,16 @@ class Competitor < ActiveRecord::Base
   def estimate_points
     return nil if estimate1.nil? || estimate2.nil? || correct_estimate1.nil? || correct_estimate2.nil?
     return nil if series.estimates == 4 && (estimate3.nil? || estimate4.nil? || correct_estimate3.nil? || correct_estimate4.nil?)
-    points = max_estimate_points - 2 * (correct_estimate1 - estimate1).abs - 2 * (correct_estimate2 - estimate2).abs
+    error_meters = (correct_estimate1 - estimate1).abs + (correct_estimate2 - estimate2).abs
+    if series.estimates == 4
+      error_meters = error_meters + (correct_estimate3 - estimate3).abs + (correct_estimate4 - estimate4).abs
+    end
     if series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
-      points = points - 2 * (correct_estimate3 - estimate3).abs - 2 * (correct_estimate4 - estimate4).abs
+      points = 600 - 2 * error_meters
+    elsif series.points_method == Series::POINTS_METHOD_TIME_4_ESTIMATES
+      points = 300 - 1 * error_meters
+    else
+      points = 300 - 2 * error_meters
     end
     return points if points >= 0
     0

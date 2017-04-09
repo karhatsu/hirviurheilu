@@ -61,6 +61,7 @@ class Official::RacesController < Official::OfficialController
   def create_points_method_options
     @points_method_options = [
         Series::POINTS_METHOD_TIME_2_ESTIMATES,
+        Series::POINTS_METHOD_TIME_4_ESTIMATES,
         Series::POINTS_METHOD_NO_TIME_4_ESTIMATES,
         Series::POINTS_METHOD_300_TIME_2_ESTIMATES
     ].map { |points_method| [t("points_method_#{points_method}.both"), points_method] }

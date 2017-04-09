@@ -105,6 +105,10 @@ fi:
   tel: Puhelin
   points_method_0:
     both: Normaali
+  points_method_1:
+    both: Normaali (4 arviota, arviopisteet -1p/1m)
+    SKI: Sarjassa on 4 arviota, arviopisteet -1p/1m
+    RUN: Sarjassa on 4 arviota, arviopisteet -1p/1m
   points_method_2:
     both: Hirvikävely/-hiihtely (4 arviota, ei aikapisteitä)
     SKI: Hirvenhiihtely (sarjassa on 4 arviota, ei aikapisteitä)

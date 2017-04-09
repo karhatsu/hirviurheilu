@@ -857,7 +857,7 @@ describe Competitor do
         expect(competitor.estimate_points).to eq(0)
       end
       
-      context "when 4 estimates for the series" do
+      context "when 4 estimates without time points for the series" do
         before do
           @series = build(:series, points_method: Series::POINTS_METHOD_NO_TIME_4_ESTIMATES)
         end
@@ -878,6 +878,30 @@ describe Competitor do
             :correct_estimate1 => 100, :correct_estimate2 => 200,
             :correct_estimate3 => 110, :correct_estimate4 => 150)
           expect(competitor.estimate_points).to eq(584) # 600 - 4*4
+        end
+      end
+
+      context "when 4 estimates with time points for the series" do
+        before do
+          @series = build(:series, points_method: Series::POINTS_METHOD_TIME_4_ESTIMATES)
+        end
+
+        it "should be 300 when perfect estimates" do
+          competitor = build(:competitor, :series => @series,
+                             :estimate1 => 100, :estimate2 => 200,
+                             :estimate3 => 80, :estimate4 => 140,
+                             :correct_estimate1 => 100, :correct_estimate2 => 200,
+                             :correct_estimate3 => 80, :correct_estimate4 => 140)
+          expect(competitor.estimate_points).to eq(300)
+        end
+
+        it "should be 592 when each estimate is 2 meters wrong" do
+          competitor = build(:competitor, :series => @series,
+                             :estimate1 => 98, :estimate2 => 202,
+                             :estimate3 => 108, :estimate4 => 152,
+                             :correct_estimate1 => 100, :correct_estimate2 => 200,
+                             :correct_estimate3 => 110, :correct_estimate4 => 150)
+          expect(competitor.estimate_points).to eq(292)
         end
       end
     end

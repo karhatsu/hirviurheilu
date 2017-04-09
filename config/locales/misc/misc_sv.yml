@@ -105,6 +105,10 @@ sv:
   tel: Telefon
   points_method_0:
     both: Normal
+  points_method_1:
+    both: Normal (4 bedömningar, -1p/1m)
+    SKI: 4 bedömningar, -1p/1m
+    RUN: 4 bedömningar, -1p/1m
   points_method_2:
     both: 4 bedömningar, inga tidpoäng
     SKI: 4 bedömningar, inga tidpoäng
