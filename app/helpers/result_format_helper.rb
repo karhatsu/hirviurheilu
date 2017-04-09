@@ -4,7 +4,7 @@ module ResultFormatHelper
       return no_result_reason_print(competitor.no_result_reason)
     end
     points = competitor.points(all_competitors)
-    return points.to_s if competitor.finished?
+    return points.to_s if competitor.finished? && competitor.has_correct_estimates?
     return "(#{points})" if points
     '-'
   end

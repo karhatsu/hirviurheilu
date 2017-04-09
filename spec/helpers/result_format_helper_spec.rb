@@ -13,11 +13,12 @@ describe ResultFormatHelper do
           to eq("<span class='explanation' title='Kilpailija ei osallistunut kilpailuun'>DNS</span>")
     end
 
-    it 'should print points if competitor finished' do
+    it 'should print points if competitor finished and has correct estimates' do
       competitor = instance_double(Competitor, :no_result_reason => nil,
                                    :series => nil)
       expect(competitor).to receive(:points).with(@all_competitors).and_return(145)
       expect(competitor).to receive(:finished?).and_return(true)
+      expect(competitor).to receive(:has_correct_estimates?).and_return(true)
       expect(helper.points_print(competitor, @all_competitors)).to eq('145')
     end
 
@@ -25,6 +26,14 @@ describe ResultFormatHelper do
       competitor = instance_double(Competitor, :no_result_reason => nil)
       expect(competitor).to receive(:points).with(@all_competitors).and_return(100)
       expect(competitor).to receive(:finished?).and_return(false)
+      expect(helper.points_print(competitor, @all_competitors)).to eq('(100)')
+    end
+
+    it 'should print points in brackets if competitor has no correct estimates yet' do
+      competitor = instance_double(Competitor, :no_result_reason => nil)
+      expect(competitor).to receive(:points).with(@all_competitors).and_return(100)
+      expect(competitor).to receive(:finished?).and_return(true)
+      expect(competitor).to receive(:has_correct_estimates?).and_return(false)
       expect(helper.points_print(competitor, @all_competitors)).to eq('(100)')
     end
 

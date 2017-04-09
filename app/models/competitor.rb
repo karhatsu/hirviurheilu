@@ -123,8 +123,7 @@ class Competitor < ActiveRecord::Base
   end
 
   def estimate_points
-    return nil if estimate1.nil? || estimate2.nil? || correct_estimate1.nil? || correct_estimate2.nil?
-    return nil if series.estimates == 4 && (estimate3.nil? || estimate4.nil? || correct_estimate3.nil? || correct_estimate4.nil?)
+    return nil unless has_estimates? && has_correct_estimates?
     error_meters = (correct_estimate1 - estimate1).abs + (correct_estimate2 - estimate2).abs
     if series.estimates == 4
       error_meters = error_meters + (correct_estimate3 - estimate3).abs + (correct_estimate4 - estimate4).abs
@@ -138,6 +137,18 @@ class Competitor < ActiveRecord::Base
     end
     return points if points >= 0
     0
+  end
+
+  def has_estimates?
+    return false if estimate1.nil? || estimate2.nil?
+    return false if series.estimates == 4 && (estimate3.nil? || estimate4.nil?)
+    true
+  end
+
+  def has_correct_estimates?
+    return false if correct_estimate1.nil? || correct_estimate2.nil?
+    return false if series.estimates == 4 && (correct_estimate3.nil? || correct_estimate4.nil?)
+    true
   end
 
   def max_estimate_points
