@@ -38,6 +38,7 @@ class QuickSave
   end
 
   def valid_string?
+    return false unless @string
     @valid_patterns.each do |pattern|
       return true if @string.match(pattern)
     end

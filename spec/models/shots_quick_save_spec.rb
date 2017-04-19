@@ -233,6 +233,17 @@ describe ShotsQuickSave do
     end
   end
 
+  context 'when string is nil' do
+    before do
+      @qs = ShotsQuickSave.new(@race.id, nil)
+    end
+
+    it "error should contain invalid format error message" do
+      @qs.save
+      expect(@qs.error).to match(/muoto/)
+    end
+  end
+
   describe "data already stored" do
     before do
       series = create(:series, :race => @race)
