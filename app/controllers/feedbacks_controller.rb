@@ -54,11 +54,11 @@ class FeedbacksController < ApplicationController
       flash[:error] = t('feedbacks.create.feedback_missing')
       return false
     end
-    unless ['neljä', 'fyra'].include? @captcha.downcase
-      flash[:error] = t(:wrong_captcha)
-      return false
+    if @captcha && ['neljä', 'fyra'].include?(@captcha.downcase)
+      return true
     end
-    true
+    flash[:error] = t(:wrong_captcha)
+    false
   end
 
   def send_feedback_email
