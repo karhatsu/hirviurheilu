@@ -10,7 +10,8 @@ describe Api::V1::RacesController, type: :api do
 
   context 'when race found' do
     let(:club) { create :club }
-    let(:race) { create :race }
+    let(:sport) { Sport.find_by_key(Sport::SKI) }
+    let(:race) { create :race, sport: sport }
     let(:series) { create :series, race: race }
     let(:competitor) { create :competitor, series: series, number: 123, club: club }
 
