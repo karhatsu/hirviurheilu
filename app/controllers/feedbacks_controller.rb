@@ -62,11 +62,11 @@ class FeedbacksController < ApplicationController
   end
 
   def send_feedback_email
-    unless @race_id.blank?
+    if @race_id.blank?
+      FeedbackMailer.feedback_mail(@comment, @name, @email, @tel, current_user).deliver_now
+    else
       race = Race.find(@race_id)
       FeedbackMailer.race_feedback_mail(race, @comment, @name, @email, @tel, current_user).deliver_now
-    else
-      FeedbackMailer.feedback_mail(@comment, @name, @email, @tel, current_user).deliver_now
     end
   end
 end
