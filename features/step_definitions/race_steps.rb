@@ -45,7 +45,7 @@ Given /^the race "([^"]*)" is renamed to "([^"]*)"$/ do |old_name, new_name|
 end
 
 Given /^I have a race "([^"]*)"$/ do |name|
-  @race = create(:race, :name => name)
+  @race = create(:race, name: name, start_date: 10.days.ago)
   @user.race_rights.create!(:race => @race)
 end
 
