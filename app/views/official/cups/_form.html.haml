@@ -10,7 +10,7 @@
     %span= f.telephone_field :top_competitions, :max_length => 1, :size => 2, :class => 'max2'
   %h3 Osakilpailut
   .cup_form_races
-    - current_user.races.each_with_index do |race, i|
+    - current_user.races.order('start_date').each_with_index do |race, i|
       = check_box_tag 'cup[race_ids][]', race.id, @cup.races.include?(race), id: "race_id_#{i}"
       %span.form_label= race.name
       %br
