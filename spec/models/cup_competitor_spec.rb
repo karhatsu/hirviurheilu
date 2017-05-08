@@ -46,121 +46,102 @@ describe CupCompetitor do
       expect(@cc.competitors.length).to eq(1)
     end
   end
-  
-  describe "#points" do
-    before do
-      @competitor2 = valid_competitor
-      @competitor3 = valid_competitor
-      @cc << @competitor2
-      @cc << @competitor3
-      allow(@cup).to receive(:top_competitions).and_return(3)
-    end
-    
-    context "when no points available in any of the competitions" do
-      it "should be nil" do
-        allow(@competitor).to receive(:points).with(false).and_return(nil)
-        allow(@competitor2).to receive(:points).with(false).and_return(nil)
-        allow(@competitor3).to receive(:points).with(false).and_return(nil)
-        expect(@cc.points).to be_nil
+
+  describe 'points calculation' do
+    context 'when the last race is not necessarily included to the results' do
+      before do
+        @competitor2 = valid_competitor
+        @competitor3 = valid_competitor
+        @cc << @competitor2
+        @cc << @competitor3
+        allow(@cup).to receive(:top_competitions).and_return(3)
       end
-    end
-    
-    context "when points available only in some of the competitions" do
-      context "but in less than top competitions" do
-        it "should be nil" do
-          allow(@cup).to receive(:top_competitions).and_return(3)
-          allow(@competitor).to receive(:points).with(false).and_return(1000)
+
+      context 'when no points available in any of the competitions' do
+        before do
+          allow(@competitor).to receive(:points).with(false).and_return(nil)
           allow(@competitor2).to receive(:points).with(false).and_return(nil)
-          allow(@competitor3).to receive(:points).with(false).and_return(1100)
+          allow(@competitor3).to receive(:points).with(false).and_return(nil)
+        end
+
+        it '#points should be nil' do
           expect(@cc.points).to be_nil
         end
-      end
-      
-      context "and in at least top competitions" do
-        it "should be sum of those that have points" do
-          allow(@cup).to receive(:top_competitions).and_return(2)
-          allow(@competitor).to receive(:points).with(false).and_return(1000)
-          allow(@competitor2).to receive(:points).with(false).and_return(nil)
-          allow(@competitor3).to receive(:points).with(false).and_return(1100)
-          expect(@cc.points).to eq(1000 + 0 + 1100)
+
+        it '#points! should be nil' do
+          expect(@cc.points!).to be_nil
         end
       end
-    end
-    
-    context "when points available in all the competitions" do
-      before do
-        allow(@competitor).to receive(:points).with(false).and_return(1000)
-        allow(@competitor2).to receive(:points).with(false).and_return(2000)
-        allow(@competitor3).to receive(:points).with(false).and_return(3000)
-      end
-      
-      it "should be sum of points in individual competitions when all competitions matter" do
-        allow(@cup).to receive(:top_competitions).and_return(3)
-        expect(@cc.points).to eq(1000 + 2000 + 3000)
-      end
-      
-      it "should be sum of top two points in individual competitions when top two of them matter" do
-        allow(@cup).to receive(:top_competitions).and_return(2)
-        expect(@cc.points).to eq(2000 + 3000)
-      end
-    end
-  end
-  
-  describe "#points!" do
-    before do
-      @competitor2 = valid_competitor
-      @competitor3 = valid_competitor
-      @cc << @competitor2
-      @cc << @competitor3
-      allow(@cup).to receive(:top_competitions).and_return(3)
-    end
-    
-    context "when no points available in any of the competitions" do
-      it "should be nil" do
-        allow(@competitor).to receive(:points).with(false).and_return(nil)
-        allow(@competitor2).to receive(:points).with(false).and_return(nil)
-        allow(@competitor3).to receive(:points).with(false).and_return(nil)
-        expect(@cc.points!).to be_nil
-      end
-    end
-    
-    context "when points available only in some of the competitions" do
-      context "but in less than top competitions" do
-        it "should be sum of those that have points" do
-          allow(@cup).to receive(:top_competitions).and_return(3)
-          allow(@competitor).to receive(:points).with(false).and_return(1000)
-          allow(@competitor2).to receive(:points).with(false).and_return(nil)
-          allow(@competitor3).to receive(:points).with(false).and_return(1100)
-          expect(@cc.points!).to eq(1000 + 0 + 1100)
+
+      context 'when points available only in some of the competitions' do
+        context 'but in less than top competitions' do
+          before do
+            allow(@competitor).to receive(:points).with(false).and_return(1000)
+            allow(@competitor2).to receive(:points).with(false).and_return(nil)
+            allow(@competitor3).to receive(:points).with(false).and_return(1100)
+          end
+
+          it '#points should be nil' do
+            expect(@cc.points).to be_nil
+          end
+
+          it '#points! should be sum of those that have points' do
+            expect(@cc.points!).to eq(1000 + 0 + 1100)
+          end
+        end
+
+        context 'and in at least top competitions' do
+          before do
+            allow(@competitor).to receive(:points).with(false).and_return(1000)
+            allow(@competitor2).to receive(:points).with(false).and_return(nil)
+            allow(@competitor3).to receive(:points).with(false).and_return(1100)
+            allow(@cup).to receive(:top_competitions).and_return(2)
+          end
+
+          it '#points should be sum of those that have points' do
+            expect(@cc.points).to eq(1000 + 0 + 1100)
+          end
+
+          it '#points! should be sum of those that have points' do
+            expect(@cc.points!).to eq(1000 + 0 + 1100)
+          end
         end
       end
-      
-      context "and in at least top competitions" do
-        it "should be sum of those that have points" do
-          allow(@cup).to receive(:top_competitions).and_return(2)
+
+      context 'when points available in all the competitions' do
+        before do
           allow(@competitor).to receive(:points).with(false).and_return(1000)
-          allow(@competitor2).to receive(:points).with(false).and_return(nil)
-          allow(@competitor3).to receive(:points).with(false).and_return(1100)
-          expect(@cc.points!).to eq(1000 + 0 + 1100)
+          allow(@competitor2).to receive(:points).with(false).and_return(2000)
+          allow(@competitor3).to receive(:points).with(false).and_return(3000)
         end
-      end
-    end
-    
-    context "when points available in all the competitions" do
-      before do
-        allow(@competitor).to receive(:points).with(false).and_return(1000)
-        allow(@competitor2).to receive(:points).with(false).and_return(2000)
-        allow(@competitor3).to receive(:points).with(false).and_return(3000)
-      end
-      
-      it "should be sum of points in individual competitions when all competitions matter" do
-        allow(@cup).to receive(:top_competitions).and_return(3)
-        expect(@cc.points!).to eq(1000 + 2000 + 3000)
-      end
-      
-      it "should be sum of top two points in individual competitions when top two of them matter" do
-        allow(@cup).to receive(:top_competitions).and_return(2)
-        expect(@cc.points!).to eq(2000 + 3000)
+
+        context 'and when all competitions matter' do
+          before do
+            allow(@cup).to receive(:top_competitions).and_return(3)
+          end
+
+          it '#points should be sum of points in individual competitions' do
+            expect(@cc.points).to eq(1000 + 2000 + 3000)
+          end
+
+          it '#points! should be sum of points in individual competitions when all competitions matter' do
+            expect(@cc.points!).to eq(1000 + 2000 + 3000)
+          end
+        end
+
+        context 'and when top two of all three matter' do
+          before do
+            allow(@cup).to receive(:top_competitions).and_return(2)
+          end
+
+          it '#points should be sum of top two points in individual competitions' do
+            expect(@cc.points).to eq(2000 + 3000)
+          end
+
+          it '#points! should be sum of top two points in individual competitions when top two of them matter' do
+            expect(@cc.points!).to eq(2000 + 3000)
+          end
+        end
       end
     end
   end
