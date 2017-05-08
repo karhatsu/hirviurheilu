@@ -34,6 +34,7 @@ fi:
     first_name: Etunimi
     first_number: Ensimmäinen kilpailunumero
     front_page: Näytä etusivulla
+    include_always_last_race: Laske viimeinen kilpailu aina mukaan tuloksiin
     key: Avain
     last_name: Sukunimi
     last_login_at: Viim. kirj.

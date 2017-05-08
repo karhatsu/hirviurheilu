@@ -34,6 +34,7 @@ sv:
     first_name: Förnamn
     first_number: Första tävlingsnummer
     front_page: Visa på frontsida
+    include_always_last_race: Innehål den sista tävlingen alltid till resulten
     key: Nyckel
     last_name: Efternamn
     last_login_at: Senaste login

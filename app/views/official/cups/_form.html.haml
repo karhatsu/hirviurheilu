@@ -6,6 +6,9 @@
     %span.form_label= f.label :name
     %span= f.text_field :name
   %div
+    %span.form_label= f.label :include_always_last_race
+    %span= f.check_box :include_always_last_race
+  %div
     %span.form_label= f.label :top_competitions
     %span= f.telephone_field :top_competitions, :max_length => 1, :size => 2, :class => 'max2'
   %h3 Osakilpailut
