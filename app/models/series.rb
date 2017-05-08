@@ -45,6 +45,8 @@ class Series < ActiveRecord::Base
 
   before_create :set_has_start_list
 
+  attr_accessor :last_cup_race
+
   def cache_key
     "#{super}-#{race.updated_at.utc.to_s(:nsec)}"
   end

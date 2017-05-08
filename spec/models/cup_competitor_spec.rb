@@ -1,10 +1,13 @@
 require 'spec_helper'
 
 describe CupCompetitor do
+  let(:first_name) { 'Mikko' }
+  let(:last_name) { 'Miettinen' }
+
   before do
-    @cup = double(Cup)
+    @cup = double(Cup, include_always_last_race?: false)
     @cs = double(CupSeries, :cup => @cup)
-    @competitor = instance_double(Competitor, :first_name => 'Mikko', :last_name => 'Miettinen')
+    @competitor = valid_competitor
     @cc = CupCompetitor.new(@cs, @competitor)
   end
   
@@ -144,6 +147,52 @@ describe CupCompetitor do
         end
       end
     end
+
+    context 'when the last race is always included to the results' do
+      before do
+        @competitor = valid_competitor false
+        @competitor2 = valid_competitor false
+        @competitor3 = valid_competitor false
+        @competitor4 = valid_competitor true
+        @cc = CupCompetitor.new @cs, @competitor
+        @cc << @competitor2
+        @cc << @competitor3
+        @cc << @competitor4
+        allow(@cup).to receive(:top_competitions).and_return(2)
+        allow(@cup).to receive(:include_always_last_race?).and_return(true)
+        allow(@competitor).to receive(:points).with(false).and_return(1000)
+        allow(@competitor2).to receive(:points).with(false).and_return(2000)
+        allow(@competitor3).to receive(:points).with(false).and_return(3000)
+      end
+
+      context 'and points not available for the last race' do
+        before do
+          allow(@competitor4).to receive(:points).with(false).and_return(nil)
+        end
+
+        it '#points returns nil' do
+          expect(@cc.points).to be_nil
+        end
+
+        it '#points! returns sum of points in top competitions' do
+          expect(@cc.points!).to eq(2000+3000)
+        end
+      end
+
+      context 'and points available for the last race' do
+        before do
+          allow(@competitor4).to receive(:points).with(false).and_return(500)
+        end
+
+        it '#points return the points of last race and sum of points in top competitions' do
+          expect(@cc.points).to eq(500+2000+3000)
+        end
+
+        it '#points! return the points of last race and sum of points in top competitions' do
+          expect(@cc.points).to eq(500+2000+3000)
+        end
+      end
+    end
   end
   
   describe "#competitor_for_race" do
@@ -176,7 +225,8 @@ describe CupCompetitor do
     end
   end
   
-  def valid_competitor
-    instance_double(Competitor, :first_name => @competitor.first_name, :last_name => @competitor.last_name)
+  def valid_competitor(last_cup_race=false)
+    series = instance_double Series, last_cup_race: last_cup_race
+    instance_double Competitor, first_name: first_name, last_name: last_name, series: series
   end
 end

@@ -19,17 +19,19 @@ class CupSeries < ActiveRecord::Base
     cup_competitors.sort do |a, b|
       a_points = a.points_array.map {|p| p.to_i}.sort {|p1, p2| p2 <=> p1}
       b_points = b.points_array.map {|p| p.to_i}.sort {|p1, p2| p2 <=> p1}
-      a_sort_params = [a.points!.to_i] + a_points
-      b_sort_params = [b.points!.to_i] + b_points
-      b_sort_params <=> a_sort_params
+      [b.points!.to_i, b_points] <=> [a.points!.to_i, a_points]
     end
   end
   
   private
   def pick_series_with_given_name
     series = []
-    cup.races.each do |race|
+    cup_races = cup.races.order(:start_date)
+    race_count = cup_races.count
+    cup_races.each_with_index do |race, i|
+      last_cup_race = i + 1 == race_count
       race.series.where(:name => series_names_as_array).each do |s|
+        s.last_cup_race = last_cup_race
         series << s
       end
     end
@@ -45,6 +47,7 @@ class CupSeries < ActiveRecord::Base
     name_to_competitor = Hash.new
     series.each do |s|
       s.competitors.each do |competitor|
+        competitor.series.last_cup_race = s.last_cup_race
         name = CupCompetitor.name(competitor)
         if name_to_competitor.has_key?(name)
           name_to_competitor[name] << competitor

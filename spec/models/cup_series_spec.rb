@@ -79,28 +79,33 @@ describe CupSeries do
     end
     
     it "should return all series that have a same name as any given series name" do
-      name_condition = ['M', 'M50']
-      expect(@cs).to receive(:series_names_as_array).at_least(1).times.and_return(name_condition)
-      race1 = create_race(name_condition)
-      race2 = create_race(name_condition)
-      race3 = create_race(name_condition)
-      allow(@cup).to receive(:races).and_return([race1, race2, race3])
+      series_name_condition = ['M', 'M50']
+      expect(@cs).to receive(:series_names_as_array).at_least(1).times.and_return(series_name_condition)
+      race1 = create_race(series_name_condition)
+      race2 = create_race(series_name_condition)
+      race3 = create_race(series_name_condition)
+      unordered_races = double Object
+      allow(@cup).to receive(:races).and_return(unordered_races)
+      allow(unordered_races).to receive(:order).with(:start_date).and_return([race1, race2, race3])
       series = @cs.series
       expect(series.length).to eq(3)
       expect(series[0].name).to eq(@cup_series_name)
       expect(series[0].race).to eq(race1)
+      expect(series[0].last_cup_race).to be_falsey
       expect(series[1].name).to eq(@cup_series_name)
       expect(series[1].race).to eq(race2)
+      expect(series[1].last_cup_race).to be_falsey
       expect(series[2].name).to eq(@cup_series_name)
       expect(series[2].race).to eq(race3)
+      expect(series[2].last_cup_race).to be_truthy
     end
     
-    def create_race(name_condition)
+    def create_race(series_name_condition)
       race = build(:race)
       series = build(:series, :race => race, :name => @cup_series_name)
       all_series = double(Object)
       allow(race).to receive(:series).and_return(all_series)
-      allow(all_series).to receive(:where).with(:name => name_condition).and_return([series])
+      allow(all_series).to receive(:where).with(:name => series_name_condition).and_return([series])
       race
     end
   end
