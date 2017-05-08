@@ -1,9 +1,0 @@
-<% content_for(:title, 'Cup-kilpailun lisäys') %>
-<% content_for(:page_title, yield(:title)) %>
-<% if current_user.races.count < 2 %>
-  <div class="info">Sinulla täytyy olla vähintään 2 kilpailua ennen kuin voit lisätä cup-kilpailun</div>
-<% else %>
-  <%= render :partial => 'form', :locals => { :submit_label => 'Lisää cup-kilpailu' } %>
-<% end %>
-<hr/>
-<%= link_to 'Takaisin toimitsijan etusivulle', official_root_path %>
