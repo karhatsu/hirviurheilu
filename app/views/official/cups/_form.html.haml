@@ -9,8 +9,28 @@
     %span.form_label= f.label :include_always_last_race
     %span= f.check_box :include_always_last_race
   %div
-    %span.form_label= f.label :top_competitions
+    %span.form_label
+      = f.label :top_competitions
+      %a.help#top_competitions_help{href: 'javascript:void(0);'} ?
     %span= f.telephone_field :top_competitions, :max_length => 1, :size => 2, :class => 'max2'
+    #top_competitions_help_dialog.dialog{style: 'display:none;'}
+      %h3
+        Kun
+        %i Laske viimeinen kilpailu aina mukaan tuloksiin
+        ei ole valittu
+      %p
+        %i Yhteistulokseen laskettavien kilpailuiden määrä
+        kohdistuu kaikkiin kilpailuihin. Toisin sanoen, jos cup sisältää esim. 4 kilpailua ja tämä luku on 2,
+        valitaan 2 parasta tulosta kaikista näistä 4 kilpailusta.
+      %h3
+        Kun
+        %i Laske viimeinen kilpailu aina mukaan tuloksiin
+        on valittu
+      %p
+        %i Yhteistulokseen laskettavien kilpailuiden määrä
+        vaikuttaa muihin paitsi viimeiseen kilpailuun. Toisin sanoen, jos cup sisältää esim. 4 kilpailua
+        ja tämä luku on 2, valitaan 2 parasta tulosta 3 ensimmäisestä kilpailusta.
+        Kokonaispisteisiin lasketaan automaattisesti mukaan myös viimeinen kilpailu.
   %h3 Osakilpailut
   .cup_form_races
     - year_condition = @cup.new_record? ? Date.today.year - 1 : 2010
@@ -31,3 +51,6 @@
       = render :partial => "cup_series", :locals => { :f => cs_form }
     = add_child_link "Lisää uusi cup-sarja", f, :cup_series
   = submit_tag submit_label, class: 'submit_button'
+:javascript
+  var top_competitions_help_title = 'Yhteistulokseen laskettavien kilpailuiden määrä';
+= render :partial => 'shared/help_dialog_opener'
