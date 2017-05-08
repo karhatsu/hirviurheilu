@@ -12,7 +12,8 @@
   .cup_form_races
     - current_user.races.order('start_date').each_with_index do |race, i|
       = check_box_tag 'cup[race_ids][]', race.id, @cup.races.include?(race), id: "race_id_#{i}"
-      %span.form_label= race.name
+      %span.form_label
+        #{race.name}, #{date_print(race.start_date)}, #{race.location}
       %br
   - unless @cup.new_record?
     %h3 Cup-sarjat
