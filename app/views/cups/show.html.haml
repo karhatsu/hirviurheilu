@@ -7,7 +7,7 @@
     = link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs)
     %br
 %h2= t '.points_rule_title'
-.section= t '.points_rule', :best_competitions_count => @cup.top_competitions
+.section= render partial: 'points_rule', locals: {cup: @cup}
 %h2= t '.sub_competitions'
 .section
   - @cup.races.each do |race|

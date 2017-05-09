@@ -6,7 +6,7 @@
 <% content_for :sub_sub_menu do %>
   <%= render :partial => 'menus/cup_series_sub_menu' %>
 <% end %>
-<div class="info"><%= t 'cups.show.points_rule', :best_competitions_count => @cup.top_competitions %></div>
+<div class="info"><%= render partial: 'cups/points_rule', locals: {cup: @cup} %></div>
 <div class="cup_results">
   <div class="section">
     <%= render :partial => 'cup_series_results' %>
