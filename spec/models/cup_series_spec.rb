@@ -65,8 +65,8 @@ describe CupSeries do
   describe "#series" do
     before do
       @cup_series_name = 'M'
-      @cup = build(:cup)
-      @cs = build(:cup_series, :cup => @cup, :name => @cup_series_name)
+      @cup = create :cup
+      @cs = create :cup_series, :cup => @cup, :name => @cup_series_name
     end
 
     it "should return an empty array when no races" do
@@ -74,7 +74,7 @@ describe CupSeries do
     end
     
     it "should return an empty array when races have no series" do
-      allow(@cup).to receive(:races).and_return([build(:race)])
+      @cup.races << create(:race)
       expect(@cs.series).to eq([])
     end
     
@@ -126,16 +126,19 @@ describe CupSeries do
     
     context "when competitors in series" do
       before do
-        @cMM1 = competitor('Mikko', 'Miettinen')
-        @cMM2 = competitor('mikko', 'Miettinen')
-        @cMM3 = competitor('Mikko', 'miettinen')
-        @cTM1 = competitor('Timo', 'Miettinen')
-        @cTM3 = competitor('Timo', 'Miettinen')
-        @cMT1 = competitor('Mikko', 'Turunen')
-        @cAA2 = competitor('Aki', 'Aalto')
-        series1 = instance_double(Series, :competitors => [@cMM1, @cTM1, @cMT1])
-        series2 = instance_double(Series, :competitors => [@cMM2, @cAA2])
-        series3 = instance_double(Series, :competitors => [@cMM3, @cTM3])
+        series1 = create_series
+        series2 = create_series
+        series3 = create_series
+        @cMM1 = competitor('Mikko', 'Miettinen', series1)
+        @cMM2 = competitor('mikko', 'Miettinen', series2)
+        @cMM3 = competitor('Mikko', 'miettinen', series3)
+        @cTM1 = competitor('Timo', 'Miettinen', series1)
+        @cTM3 = competitor('Timo', 'Miettinen', series3)
+        @cMT1 = competitor('Mikko', 'Turunen', series1)
+        @cAA2 = competitor('Aki', 'Aalto', series2)
+        allow(series1).to receive(:competitors).and_return([@cMM1, @cTM1, @cMT1])
+        allow(series2).to receive(:competitors).and_return([@cMM2, @cAA2])
+        allow(series3).to receive(:competitors).and_return([@cMM3, @cTM3])
         allow(@cs).to receive(:series).and_return([series1, series2, series3])
       end
       
@@ -150,9 +153,15 @@ describe CupSeries do
         expect(cup_competitors[2].competitors[0]).to eq(@cMT1)
         expect(cup_competitors[3].competitors[0]).to eq(@cAA2)
       end
-      
-      def competitor(first_name, last_name)
-        instance_double(Competitor, :first_name => first_name, :last_name => last_name)
+
+      def competitor(first_name, last_name, series)
+        instance_double(Competitor, first_name: first_name, last_name: last_name, series: series)
+      end
+
+      def create_series
+        series = instance_double Series, last_cup_race: false
+        allow(series).to receive(:last_cup_race=)
+        series
       end
     end
   end
