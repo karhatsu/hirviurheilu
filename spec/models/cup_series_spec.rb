@@ -65,7 +65,7 @@ describe CupSeries do
   describe "#series" do
     before do
       @cup_series_name = 'M'
-      @cup = create :cup
+      @cup = create :cup, include_always_last_race: true
       @cs = create :cup_series, :cup => @cup, :name => @cup_series_name
     end
 

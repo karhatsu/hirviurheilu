@@ -29,7 +29,7 @@ class CupSeries < ActiveRecord::Base
     cup_races = cup.races.order(:start_date)
     race_count = cup_races.count
     cup_races.each_with_index do |race, i|
-      last_cup_race = i + 1 == race_count
+      last_cup_race = cup.include_always_last_race? && i + 1 == race_count
       race.series.where(:name => series_names_as_array).each do |s|
         s.last_cup_race = last_cup_race
         series << s
