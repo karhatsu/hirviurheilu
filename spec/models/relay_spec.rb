@@ -390,7 +390,7 @@ describe Relay do
     end
 
     it "should return false when the relay is today but has not started yet" do
-      @relay.start_time = (Time.now + 100).strftime('%H:%M:%S')
+      @relay.start_time = (Time.zone.now + 100).strftime('%H:%M:%S')
       expect(@relay).not_to be_active
     end
 
