@@ -87,6 +87,56 @@ Feature: Cup results
     And I should see "1190" within "tr#comp_2"
     And I should see "2384" within "tr#comp_2"
 
+  Scenario: Show results for a cup series with the last race as mandatory
+    Given there is a cup "Test cup" with 1 top competitions and last race as mandatory
+    And the cup has a series "Men"
+    And there is a race "Cup race 1"
+    And the race has series with attributes:
+      | name | Men |
+      | start_time | 01:00 |
+      | first_number | 1 |
+      | has_start_list | true |
+    And the series has a competitor "Antti" "Miettinen" with 300+300+594 points
+    And the series has a competitor "Timo" "Turunen" with 300+298+600 points
+    And the race belongs to the cup
+    And there is a race "Another cup race"
+    And the race has series with attributes:
+      | name | Men |
+      | start_time | 01:00 |
+      | first_number | 1 |
+      | has_start_list | true |
+    And the series has a competitor "Timo" "Turunen" with 300+296+600 points
+    And the series has a competitor "Antti" "Miettinen" with 300+300+588 points
+    And the race belongs to the cup
+    And there is a race "Third race for cup"
+    And the race has series with attributes:
+      | name | Men |
+      | start_time | 01:00 |
+      | first_number | 1 |
+      | has_start_list | true |
+    And the series has a competitor "Timo" "Turunen" with 300+200+480 points
+    And the series has a competitor "Antti" "Miettinen" with 300+190+480 points
+    And the race belongs to the cup
+    When I go to the cup page
+    And I follow "Men"
+    Then the "Kilpailut" main menu item should be selected
+    And the "Tulokset" sub menu item should be selected
+    And I should see "Yhteispisteet lasketaan viimeisen kilpailun sekä muista kilpailuista 1 parhaan tuloksen perusteella." in an info message
+    And I should see "Men - Tulokset" within "h2"
+    And I should see "Cup race 1" within "thead"
+    And I should see "Another" within "thead"
+    And I should see "Third " within "thead"
+    And I should see "Turunen Timo"
+    And I should see "1198" within "tr#comp_1"
+    And I should see "1196" within "tr#comp_1"
+    And I should see "980" within "tr#comp_1"
+    And I should see "2178" within "tr#comp_1"
+    And I should see "Miettinen Antti"
+    And I should see "1194" within "tr#comp_2"
+    And I should see "1188" within "tr#comp_2"
+    And I should see "970" within "tr#comp_2"
+    And I should see "2164" within "tr#comp_2"
+
   Scenario: Show results for a cup series containing two series
     Given there is a cup "Test cup" with 2 top competitions
     And the cup has a series "Men" with series names "M,M60"

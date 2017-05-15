@@ -6,6 +6,10 @@ Given /^there is a cup "([^"]*)" with (\d+) top competitions$/ do |name, top_com
   @cup = create(:cup, :name => name, :top_competitions => top_competitions)
 end
 
+Given(/^there is a cup "([^"]*)" with (\d+) top competitions and last race as mandatory$/) do |name, top_competitions|
+  @cup = create :cup, name: name, top_competitions: top_competitions, include_always_last_race: true
+end
+
 Given /^I have a cup "([^"]*)"$/ do |name|
   @cup = create(:cup, :name => name)
   @user.cups << @cup
