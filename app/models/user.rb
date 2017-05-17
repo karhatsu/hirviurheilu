@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   OFFLINE_USER_EMAIL = 'offline@hirviurheilu.com'
-  OFFLINE_USER_PASSWORD = 'offline'
+  OFFLINE_USER_PASSWORD = 'offline1'
 
   acts_as_authentic do |config|
     config.crypto_provider = Authlogic::CryptoProviders::Sha512

@@ -4,7 +4,7 @@ Feature: Official invitation
   I want to invite other officials to work with my race
 
   Scenario: Invite official that exists in the database
-    Given there is an official "Another" "Official" with email "another@official.com" and password "pword"
+    Given there is an official "Another" "Official" with email "another@official.com" and password "pword123"
     And I am an official "Tim Thomas" with email "tim@official.com"
     And I have a race with attributes:
       | sport | SKI |
@@ -34,7 +34,7 @@ Feature: Official invitation
     When I click the first link in the email
     Then I should be on the login page
     When I fill in "another@official.com" for "Sähköposti"
-    And I fill in "pword" for "Salasana"
+    And I fill in "pword123" for "Salasana"
     And I press "Kirjaudu"
     Then I should be on the official race page of "Test race"
 
@@ -59,7 +59,7 @@ Feature: Official invitation
     Then I should see "Henkilö on jo tämän kilpailun toimitsija" in an error message
 
   Scenario: Invite official with only rights to add competitors
-    Given there is an official "Another" "Official" with email "another@official.com" and password "pword"
+    Given there is an official "Another" "Official" with email "another@official.com" and password "pword123"
     And I am an official "Tim Thomas" with email "tim@official.com"
     And I have a race with attributes:
       | sport | SKI |
@@ -85,13 +85,13 @@ Feature: Official invitation
     When I click the first link in the email
     Then I should be on the login page
     When I fill in "another@official.com" for "Sähköposti"
-    And I fill in "pword" for "Salasana"
+    And I fill in "pword123" for "Salasana"
     And I press "Kirjaudu"
     Then I should be on the limited official competitors page for "Test race"
 
   @javascript
   Scenario: Invite official with limited rights to certain club
-    Given there is an official "Another" "Official" with email "another@official.com" and password "pword"
+    Given there is an official "Another" "Official" with email "another@official.com" and password "pword123"
     And I am an official "Tim Thomas" with email "tim@official.com"
     And I have a race "Test race"
     And the race has a club "Club 1"
@@ -107,7 +107,7 @@ Feature: Official invitation
 
   @javascript
   Scenario: If no clubs, official sees explicitly that club limitation cannot be used
-    Given there is an official "Another" "Official" with email "another@official.com" and password "pword"
+    Given there is an official "Another" "Official" with email "another@official.com" and password "pword123"
     And I am an official "Tim Thomas" with email "tim@official.com"
     And I have a race "Test race"
     And I have logged in
@@ -120,7 +120,7 @@ Feature: Official invitation
 
   @javascript
   Scenario: Invite official with limited rights but rights to add new clubs
-    Given there is an official "Another" "Official" with email "another@official.com" and password "pword"
+    Given there is an official "Another" "Official" with email "another@official.com" and password "pword123"
     And I am an official "Tim Thomas" with email "tim@official.com"
     And I have a race "Test race"
     And I have logged in

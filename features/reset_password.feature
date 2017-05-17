@@ -4,7 +4,7 @@ Feature: Reset password
   I want to reset my password
 
   Scenario: Reset password
-    Given I am an official with email "test@test.com" and password "test"
+    Given I am an official with email "test@test.com" and password "test1234"
     And I am on the home page
     When I follow "Unohtunut salasana"
     Then I should see "Jos olet unohtanut salasanasi, syötä alla olevaan kenttään sähköpostiosoitteesi." in an info message
@@ -38,7 +38,7 @@ Feature: Reset password
     And "test@test.com" should have no emails
 
   Scenario: Invalid new password
-    Given I am an official with email "test@test.com" and password "test"
+    Given I am an official with email "test@test.com" and password "test1234"
     And I am on the home page
     When I follow "Unohtunut salasana"
     When I fill in "test@test.com" for "Sähköposti"

@@ -19,8 +19,8 @@ Feature: Export race
   # The first user in the scenario is automatically used in the offline state.
   # The second user is meant for receiving the uploaded race.
   Scenario: Export finished race from offline to online
-    Given there is an official with email "offline@hirviurheilu.com" and password "offline"
-    Given there is an official "Robert" "Onliner" with email "online@hirviurheilu.com" and password "online"
+    Given there is an official with email "offline@hirviurheilu.com" and password "offline1"
+    Given there is an official "Robert" "Onliner" with email "online@hirviurheilu.com" and password "online12"
     Given I use the software offline
     And I have an ongoing race with attributes:
       | name | Offline race |
@@ -96,7 +96,7 @@ Feature: Export race
     And the "Kilpailun nimi" field should contain "Offline race"
     When I fill in "New name for race" for "Kilpailun nimi"
     And I fill in "online@hirviurheilu.com" for "Sähköposti"
-    And I fill in "online" for "Salasana"
+    And I fill in "online12" for "Salasana"
     And I select "Integration test" from "Kohde"
     And I press "Julkaise"
     Then I should see "Kilpailun tiedot ladattu kohdejärjestelmään" in a success message
@@ -109,7 +109,7 @@ Feature: Export race
     And I am on the home page
     And I follow "Kirjaudu sisään"
     And I fill in "online@hirviurheilu.com" for "Sähköposti"
-    And I fill in "online" for "Salasana"
+    And I fill in "online12" for "Salasana"
     And I press "Kirjaudu"
     And I follow "Toimitsijan sivut"
     Then I should be on the official index page
@@ -173,7 +173,7 @@ Feature: Export race
     And the last race billing info should be "Offline"
 
   Scenario: Try to export with invalid account
-    Given there is an official with email "offline@hirviurheilu.com" and password "offline"
+    Given there is an official with email "offline@hirviurheilu.com" and password "offline1"
     Given I use the software offline
     And I have a complete race "Offline race" located in "Offline city"
     And I am on the export race page of "Offline race"
@@ -184,12 +184,12 @@ Feature: Export race
     Then I should see "Virheelliset tunnukset" in an error message
 
   Scenario: Try to export same race twice without renaming the race
-    Given there is an official with email "offline@hirviurheilu.com" and password "offline"
+    Given there is an official with email "offline@hirviurheilu.com" and password "offline1"
     Given I use the software offline
     And I have a complete race "Offline race" located in "Offline city"
     And I am on the export race page of "Offline race"
     When I fill in "offline@hirviurheilu.com" for "Sähköposti"
-    And I fill in "offline" for "Salasana"
+    And I fill in "offline1" for "Salasana"
     And I select "Integration test" from "Kohde"
     And I press "Julkaise"
     Then I should see "Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä" in an error message
@@ -198,8 +198,8 @@ Feature: Export race
   # The first user in the scenario is automatically used in the offline state.
   # The second user is meant for receiving the uploaded race.
   Scenario: Export race from online to offline
-    Given there is an official with email "offline@hirviurheilu.com" and password "offline"
-    Given I am an official with email "online@hirviurheilu.com" and password "online"
+    Given there is an official with email "offline@hirviurheilu.com" and password "offline1"
+    Given I am an official with email "online@hirviurheilu.com" and password "online12"
     And I have a race "Online race"
     And the race has series "Online series"
     And I have logged in

@@ -37,12 +37,12 @@ Feature: Official
     Then I should be on the login page
 
   Scenario: Official goes to the official index
-    Given I am an official with email "test@test.com" and password "test"
+    Given I am an official with email "test@test.com" and password "test1234"
     And I am on the home page
     When I follow "Toimitsijan sivut"
     Then I should be on the login page
     When I fill in "test@test.com" for "Sähköposti"
-    And I fill in "test" for "Salasana"
+    And I fill in "test1234" for "Salasana"
     And I press "Kirjaudu"
     Then I should be on the official index page
     And I should see "Sinulla ei ole vielä yhtään kilpailua. Aloita luomalla kilpailu alla olevasta linkistä." in an info message

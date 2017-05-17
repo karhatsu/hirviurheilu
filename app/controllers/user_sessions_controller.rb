@@ -9,7 +9,7 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    @user_session = UserSession.new(params[:user_session])
+    @user_session = UserSession.new(session_params)
     if @user_session.save
       flash[:success] = t('user_sessions.create.login_succeeded')
       redirect_back_or_default root_path
@@ -22,5 +22,11 @@ class UserSessionsController < ApplicationController
     current_user_session.destroy
     flash[:success] = t('user_sessions.destroy.logout_succeeded')
     redirect_back_or_default root_path
+  end
+
+  private
+
+  def session_params
+    params.require(:user_session).permit(:email, :password, :remember_me)
   end
 end

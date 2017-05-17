@@ -48,8 +48,8 @@ Feature: Offline usage
     But I should not see "Puhelin"
 
   Scenario: Limited amount of companies until license is acquired
-    Given there is an official with email "offline@hirviurheilu.com" and password "offline"
-    Given there is an official with email "online@hirviurheilu.com" and password "online"
+    Given there is an official with email "offline@hirviurheilu.com" and password "offline1"
+    Given there is an official with email "online@hirviurheilu.com" and password "online12"
     Given I use the software offline
     And I am on the home page
     Then I should see "Voit lisätä vielä 100 kilpailijaa. Hanki lisenssi." within "div.offline_limit"

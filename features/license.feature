@@ -4,7 +4,7 @@ Feature: License
   I want to see my activation key in the online service
 
   Scenario: When user has already checked the activation key, just ask password
-    Given I am an official "Mathew Stevensson" with email "license@hirviurheilu.com" and password "license"
+    Given I am an official "Mathew Stevensson" with email "license@hirviurheilu.com" and password "license1"
     And I have already opened the activation key with invoicing info "Laskutusseura"
     And I have logged in
     And I change my password to "new-password"
