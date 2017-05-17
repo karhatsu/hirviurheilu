@@ -13,8 +13,11 @@
   %div
     .form_label= form.label :email
     .form_field= form.email_field :email
-  %h3 Salasanan vaihto
-  %p Jos haluat vaihtaa salasanasi, syötä uusi salasana alla oleviin kenttiin
+  - if form.object.new_record?
+    %h3 Salasana
+  - else
+    %h3 Salasanan vaihto
+    %p Jos haluat vaihtaa salasanasi, syötä uusi salasana alla oleviin kenttiin
   %div
     .form_label= form.label :password, form.object.new_record? ? nil : t('users.edit.change_password')
     .form_field= form.password_field :password
