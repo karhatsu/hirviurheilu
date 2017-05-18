@@ -10,7 +10,7 @@ class TeamCompetition < ApplicationRecord
   attr_accessor :temp_series_names, :temp_age_groups_names
 
   def cache_key
-    "#{super}-#{race.updated_at.utc.to_s(:nsec)}-#{race.series.maximum(:updated_at).try(:utc).try(:to_s, :nsec)}"
+    "#{super}-#{race.updated_at.utc.to_s(:usec)}-#{race.series.maximum(:updated_at).try(:utc).try(:to_s, :usec)}"
   end
 
   def series_names

@@ -33,9 +33,9 @@ describe TeamCompetition do
     it 'is a combination of team competition, race, and biggest series timestamp' do
       series2
       series1.update_attribute :name, 'new name'
-      tc_ts = tc.updated_at.utc.to_s(:nsec)
-      race_ts = race.updated_at.utc.to_s(:nsec)
-      series_ts = series1.updated_at.utc.to_s(:nsec)
+      tc_ts = tc.updated_at.utc.to_s(:usec)
+      race_ts = race.updated_at.utc.to_s(:usec)
+      series_ts = series1.updated_at.utc.to_s(:usec)
       expect(tc.cache_key).to eq("team_competitions/#{tc.id}-#{tc_ts}-#{race_ts}-#{series_ts}")
     end
   end

@@ -48,7 +48,7 @@ class Series < ApplicationRecord
   attr_accessor :last_cup_race
 
   def cache_key
-    "#{super}-#{race.updated_at.utc.to_s(:nsec)}"
+    "#{super}-#{race.updated_at.utc.to_s(:usec)}"
   end
 
   def ordered_competitors(all_competitors, sort_by=Competitor::SORT_BY_POINTS)
