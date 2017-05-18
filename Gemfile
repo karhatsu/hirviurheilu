@@ -47,7 +47,7 @@ group :test do
   gem 'rspec-rails'
   gem 'rspec-collection_matchers'
   gem 'rspec-json_expectations'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
   gem 'sqlite3'
   gem 'fuubar'
   gem 'rails-controller-testing'
