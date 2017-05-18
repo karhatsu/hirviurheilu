@@ -29,7 +29,7 @@ class Club < ApplicationRecord
   def check_competitors
     unless can_be_removed?
       errors.add(:base, 'Seuraa ei voi poistaa, koska sillä on kilpailijoita tai jollain toimitsijalla on oikeudet vain tähän seuraan')
-      return false
+      throw :abort
     end
   end
 end
