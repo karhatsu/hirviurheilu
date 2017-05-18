@@ -11,7 +11,7 @@ describe Official::CompetitorsController, type: :controller do
       skip_before_action :require_user, :check_rights, :set_official
       skip_before_action :assign_series_by_series_id, :check_assigned_series
       skip_before_action :assign_race_by_race_id, :check_assigned_race
-      skip_before_action :handle_start_time, :handle_time_parameters
+      skip_before_action :handle_start_time, only: :create
       skip_before_action :set_competitors, :ensure_user_in_offline
 
       def create
