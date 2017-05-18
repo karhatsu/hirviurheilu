@@ -69,6 +69,8 @@ module ElkSports
 
     config.assets.initialize_on_precompile = false
 
+    config.action_controller.per_form_csrf_tokens = true
+
     config.generators do |g|
       g.test_framework :rspec
     end
