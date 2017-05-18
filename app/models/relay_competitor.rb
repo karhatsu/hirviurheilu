@@ -1,4 +1,4 @@
-class RelayCompetitor < ActiveRecord::Base
+class RelayCompetitor < ApplicationRecord
   belongs_to :relay_team, touch: true
 
   before_validation :set_start_time

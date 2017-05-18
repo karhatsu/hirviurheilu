@@ -1,4 +1,4 @@
-class Race < ActiveRecord::Base
+class Race < ApplicationRecord
   DEFAULT_START_INTERVAL = 60
   DEFAULT_BATCH_INTERVAL = 180
 

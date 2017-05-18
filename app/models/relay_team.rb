@@ -1,4 +1,4 @@
-class RelayTeam < ActiveRecord::Base
+class RelayTeam < ApplicationRecord
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish
   DQ = 'DQ' # disqualified

@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   OFFLINE_USER_EMAIL = 'offline@hirviurheilu.com'
   OFFLINE_USER_PASSWORD = 'offline1'
 

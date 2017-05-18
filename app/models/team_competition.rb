@@ -1,4 +1,4 @@
-class TeamCompetition < ActiveRecord::Base
+class TeamCompetition < ApplicationRecord
   belongs_to :race
   has_and_belongs_to_many :series, :join_table => 'team_competition_series'
   has_and_belongs_to_many :age_groups, :join_table => 'team_competition_age_groups'

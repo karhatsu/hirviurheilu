@@ -1,4 +1,4 @@
-class Club < ActiveRecord::Base
+class Club < ApplicationRecord
   default_scope { order :name }
 
   belongs_to :race, touch: true

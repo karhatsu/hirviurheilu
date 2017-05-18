@@ -1,7 +1,7 @@
 require 'database_helper.rb'
 require 'time_helper.rb'
 
-class Series < ActiveRecord::Base
+class Series < ApplicationRecord
   include TimeHelper
   include StartDateTime
   include ComparisonTime

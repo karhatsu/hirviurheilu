@@ -1,6 +1,6 @@
 require 'time_helper.rb'
 
-class Relay < ActiveRecord::Base
+class Relay < ApplicationRecord
   include TimeHelper
   
   belongs_to :race

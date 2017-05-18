@@ -1,4 +1,4 @@
-class CorrectEstimate < ActiveRecord::Base
+class CorrectEstimate < ApplicationRecord
   belongs_to :race, touch: true
 
   #validates :race, :presence => true

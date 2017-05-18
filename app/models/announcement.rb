@@ -1,4 +1,4 @@
-class Announcement < ActiveRecord::Base
+class Announcement < ApplicationRecord
   validates :published, :presence => true
   validates :title, :presence => true
   validates :content, :presence => true
