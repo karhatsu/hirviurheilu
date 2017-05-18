@@ -188,7 +188,7 @@ class Series < ApplicationRecord
     groups = age_groups
     unless competitors_only_to_age_groups?
       dummy_age_group_with_series_name = AgeGroup.new(name: name)
-      groups = groups.unshift(dummy_age_group_with_series_name)
+      groups = [dummy_age_group_with_series_name] + groups
     end
     groups
   end
