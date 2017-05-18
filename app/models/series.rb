@@ -1,7 +1,7 @@
 require 'database_helper.rb'
 require 'time_helper.rb'
 
-class Series < ActiveRecord::Base
+class Series < ApplicationRecord
   include TimeHelper
   include StartDateTime
   include ComparisonTime
@@ -48,7 +48,7 @@ class Series < ActiveRecord::Base
   attr_accessor :last_cup_race
 
   def cache_key
-    "#{super}-#{race.updated_at.utc.to_s(:nsec)}"
+    "#{super}-#{race.updated_at.utc.to_s(:usec)}"
   end
 
   def ordered_competitors(all_competitors, sort_by=Competitor::SORT_BY_POINTS)
@@ -188,7 +188,7 @@ class Series < ActiveRecord::Base
     groups = age_groups
     unless competitors_only_to_age_groups?
       dummy_age_group_with_series_name = AgeGroup.new(name: name)
-      groups = groups.unshift(dummy_age_group_with_series_name)
+      groups = [dummy_age_group_with_series_name] + groups
     end
     groups
   end

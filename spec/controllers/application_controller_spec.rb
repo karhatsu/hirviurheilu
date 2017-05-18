@@ -10,7 +10,7 @@ describe ApplicationController, type: :controller do
       @pdf_header = pdf_header(params[:title])
       @pdf_footer = pdf_footer
       @pdf_margin = pdf_margin
-      render :nothing => true
+      head :ok
     end
   end
   
@@ -19,7 +19,7 @@ describe ApplicationController, type: :controller do
       allow(controller).to receive(:ensure_user_in_offline)
       @title = 'Lähtölistat, Äijälä, Örimäki'
       @title_expected = 'Lahtolistat, Aijala, Orimaki'
-      get :index, :title => @title
+      get :index, params: {title: @title}
       @header = assigns[:pdf_header]
     end
     

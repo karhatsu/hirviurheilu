@@ -1,4 +1,4 @@
-class Sport < ActiveRecord::Base
+class Sport < ApplicationRecord
   SKI = "SKI"
   RUN = "RUN"
 

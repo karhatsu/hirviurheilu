@@ -1,4 +1,4 @@
-class CupSeries < ActiveRecord::Base
+class CupSeries < ApplicationRecord
   belongs_to :cup
   
   validates :name, :presence => true

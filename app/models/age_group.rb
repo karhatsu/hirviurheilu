@@ -1,4 +1,4 @@
-class AgeGroup < ActiveRecord::Base
+class AgeGroup < ApplicationRecord
   belongs_to :series, touch: true
   has_many :competitors
 

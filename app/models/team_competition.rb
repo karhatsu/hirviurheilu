@@ -1,4 +1,4 @@
-class TeamCompetition < ActiveRecord::Base
+class TeamCompetition < ApplicationRecord
   belongs_to :race
   has_and_belongs_to_many :series, :join_table => 'team_competition_series'
   has_and_belongs_to_many :age_groups, :join_table => 'team_competition_age_groups'
@@ -10,7 +10,7 @@ class TeamCompetition < ActiveRecord::Base
   attr_accessor :temp_series_names, :temp_age_groups_names
 
   def cache_key
-    "#{super}-#{race.updated_at.utc.to_s(:nsec)}-#{race.series.maximum(:updated_at).try(:utc).try(:to_s, :nsec)}"
+    "#{super}-#{race.updated_at.utc.to_s(:usec)}-#{race.series.maximum(:updated_at).try(:utc).try(:to_s, :usec)}"
   end
 
   def series_names

@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
-ruby '2.3.0'
+ruby '2.4.0'
 
-gem 'rails', '4.2.6'
+gem 'rails', '5.0.3'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-themes'
@@ -47,9 +47,10 @@ group :test do
   gem 'rspec-rails'
   gem 'rspec-collection_matchers'
   gem 'rspec-json_expectations'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
   gem 'sqlite3'
   gem 'fuubar'
+  gem 'rails-controller-testing'
 end
 
 # Bundle gems for the local environment. Make sure to

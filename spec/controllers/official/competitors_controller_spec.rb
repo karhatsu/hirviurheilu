@@ -11,7 +11,7 @@ describe Official::CompetitorsController, type: :controller do
       skip_before_action :require_user, :check_rights, :set_official
       skip_before_action :assign_series_by_series_id, :check_assigned_series
       skip_before_action :assign_race_by_race_id, :check_assigned_race
-      skip_before_action :handle_start_time, :handle_time_parameters
+      skip_before_action :handle_start_time, only: :create
       skip_before_action :set_competitors, :ensure_user_in_offline
 
       def create
@@ -20,7 +20,7 @@ describe Official::CompetitorsController, type: :controller do
         handle_club(competitor)
         @club_id = competitor.club_id
         @club = competitor.club
-        render :nothing => true
+        render body: nil
       end
 
       def update
@@ -29,7 +29,7 @@ describe Official::CompetitorsController, type: :controller do
         handle_club(competitor)
         @club_id = competitor.club_id
         @club = competitor.club
-        render :nothing => true
+        render body: nil
       end
     end
 
@@ -37,7 +37,7 @@ describe Official::CompetitorsController, type: :controller do
       context "when club_id and club_name are given" do
         it "should set the id for the competitor and ignore the name" do
           expect(Club).not_to receive(:create!)
-          post :create, :series_id => @series.id, :club_id => 7, :club_name => 'Test club'
+          post :create, params: {series_id: @series.id, club_id: 7, club_name: 'Test club'}
           expect(assigns(:club_id)).to eq(7)
           expect(assigns(:club)).to be_nil
         end
@@ -45,7 +45,7 @@ describe Official::CompetitorsController, type: :controller do
 
       context "when new club name is given" do
         it "should create a new club and set it for the competitor" do
-          post :create, :series_id => @series.id, :club_name => 'Test club'
+          post :create, params: {series_id: @series.id, club_name: 'Test club'}
           club = Club.find_by_name('Test club')
           expect(club).not_to be_nil
           expect(assigns(:club)).to eq(club)
@@ -58,14 +58,14 @@ describe Official::CompetitorsController, type: :controller do
         end
 
         it "should find the existing club and set it for the competitor" do
-          post :create, :series_id => @series.id, :club_name => 'Existing club'
+          post :create, params: {series_id: @series.id, club_name: 'Existing club'}
           expect(assigns(:club)).to eq(@club)
         end
       end
 
       context "when club_id 0 and club name is given" do
         it "should ignore zero club id and use the name" do
-          post :create, :series_id => @series.id, :club_id => 0, :club_name => 'Test club'
+          post :create, params: {series_id: @series.id, club_id: 0, club_name: 'Test club'}
           club = Club.find_by_name('Test club')
           expect(club).not_to be_nil
           expect(assigns(:club)).to eq(club)
@@ -80,7 +80,7 @@ describe Official::CompetitorsController, type: :controller do
 
       context "when club_id 0 and new club name is given" do
         it "should create a new club and set it for the competitor" do
-          patch :update, series_id: @series.id, id: @competitor.id, club_id:0, club_name: 'Test club', competitor: {}
+          patch :update, params: {series_id: @series.id, id: @competitor.id, club_id:0, club_name: 'Test club', competitor: {}}
           club = Club.find_by_name('Test club')
           expect(club).not_to be_nil
           expect(assigns(:club)).to eq(club)

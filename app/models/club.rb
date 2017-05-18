@@ -1,4 +1,4 @@
-class Club < ActiveRecord::Base
+class Club < ApplicationRecord
   default_scope { order :name }
 
   belongs_to :race, touch: true
@@ -29,7 +29,7 @@ class Club < ActiveRecord::Base
   def check_competitors
     unless can_be_removed?
       errors.add(:base, 'Seuraa ei voi poistaa, koska sillä on kilpailijoita tai jollain toimitsijalla on oikeudet vain tähän seuraan')
-      return false
+      throw :abort
     end
   end
 end

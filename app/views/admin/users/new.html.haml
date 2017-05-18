@@ -19,7 +19,7 @@
     %a#generate_password{href: 'javascript:void(0);'} Generoi salasana
   = submit_tag 'Lisää käyttäjä'
 :javascript
-$('form').on('click', '#generate_password', function() {
-  var pw = Math.random().toString(36).slice(-8);
-  $('#user_password').val(pw);
-});
+  $('form').on('click', '#generate_password', function() {
+    var pw = Math.random().toString(36).slice(-8);
+    $('#user_password').val(pw);
+  });

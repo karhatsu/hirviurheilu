@@ -44,6 +44,8 @@ module ElkSports
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'Helsinki'
 
+    config.active_record.time_zone_aware_types = [:datetime]
+
     config.i18n.enforce_available_locales = true
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
@@ -66,6 +68,10 @@ module ElkSports
     config.assets.precompile += ['pdf.css', 'mobile.css', 'messages.css', 'mobile.js', 'social.js']
 
     config.assets.initialize_on_precompile = false
+
+    config.action_controller.per_form_csrf_tokens = true
+
+    config.action_controller.forgery_protection_origin_check = true
 
     config.generators do |g|
       g.test_framework :rspec

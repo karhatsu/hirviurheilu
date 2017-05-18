@@ -1,6 +1,6 @@
 require 'model_value_comparator'
 
-class Competitor < ActiveRecord::Base
+class Competitor < ApplicationRecord
   include ModelValueComparator
   include StartDateTime
   
@@ -81,7 +81,7 @@ class Competitor < ActiveRecord::Base
 
   def time_in_seconds
     return nil if start_time.nil? || arrival_time.nil?
-    arrival_time - start_time
+    arrival_time.to_i - start_time.to_i
   end
 
   def comparison_time_in_seconds(all_competitors)

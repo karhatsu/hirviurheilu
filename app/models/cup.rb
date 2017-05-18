@@ -1,4 +1,4 @@
-class Cup < ActiveRecord::Base
+class Cup < ApplicationRecord
   has_and_belongs_to_many :races, -> { order :start_date, :name }
   has_many :cup_series, -> { order :name }
   

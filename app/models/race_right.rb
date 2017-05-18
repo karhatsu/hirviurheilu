@@ -1,4 +1,4 @@
-class RaceRight < ActiveRecord::Base
+class RaceRight < ApplicationRecord
   belongs_to :user
   belongs_to :race
   belongs_to :club
