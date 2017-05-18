@@ -1,7 +1,7 @@
 class RemoteRacesController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :check_user
-  after_filter :set_series_for_team_competitions,
+  after_action :set_series_for_team_competitions,
     :set_age_groups_for_team_competitions, :set_age_groups_for_competitors
 
   def create
