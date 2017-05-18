@@ -50,6 +50,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'sqlite3'
   gem 'fuubar'
+  gem 'rails-controller-testing'
 end
 
 # Bundle gems for the local environment. Make sure to
