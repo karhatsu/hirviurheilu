@@ -364,9 +364,9 @@ class Competitor < ApplicationRecord
   end
 
   def update_series_competitors_counter_cache
-    if series_id_was && series_id_was != series_id
+    if saved_change_to_series_id
       Series.reset_counters series_id, :competitors
-      Series.reset_counters series_id_was, :competitors
+      Series.reset_counters series_id_before_last_save, :competitors if series_id_before_last_save
     end
   end
 
