@@ -1396,9 +1396,19 @@ describe Competitor do
     end
 
     describe 'when walking series' do
+      before do
+        allow(@series).to receive(:walking_series?).and_return(true)
+      end
+
       it 'should make a difference between individual shots' do
         expect(@points_4_individual_shots_1.relative_points).to be > @points_4_individual_shots_2.relative_points
         expect(@points_4_individual_shots_2.relative_points).to be > @points_4_individual_shots_3.relative_points
+      end
+
+      it 'should not matter if shots have been saved individually or as one number' do
+        c1 = create_competitor(1074, 6*84, 0, nil, false, [10, 10, 10, 9, 9, 8, 8, 8, 7, 5])
+        c2 = create_competitor(1074, 6*85, 0)
+        expect_relative_points_order [c2, c1], [c1, c2]
       end
     end
 
