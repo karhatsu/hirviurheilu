@@ -181,7 +181,8 @@ class Competitor < ApplicationRecord
       return -time_in_seconds.to_i if time_in_seconds
       -1000000
     else
-      relative_points = 1000000*points(all_competitors).to_i + 1000*shot_points.to_i - time_in_seconds.to_i
+      relative_points = 1000000*points(all_competitors).to_i + 1000*shot_points.to_i
+      relative_points = relative_points - time_in_seconds.to_i unless series.walking_series?
       relative_points = relative_points + relative_shot_points if series.walking_series?
       relative_points = relative_points * 10 unless all_competitors || unofficial?
       relative_points

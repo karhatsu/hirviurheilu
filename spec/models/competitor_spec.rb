@@ -1390,6 +1390,7 @@ describe Competitor do
     end
 
     it 'yet another test' do
+      allow(@series).to receive(:walking_series?).and_return(false)
       c1 = create_competitor(927, 6*91, 60*53+6)
       c2 = create_competitor(928, 6*67, 60*37+15)
       expect_relative_points_order [c2, c1], [c1, c2]
