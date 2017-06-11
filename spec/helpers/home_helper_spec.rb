@@ -22,9 +22,6 @@ describe HomeHelper do
 
     describe 'when races' do
       before do
-        @race_today = create_race 0
-        @race_2_days_starts_today = create_race 0, 1
-        @race_2_days_ends_today = create_race -1, 0
         @race_tomorrow = create_race 1
         @race_day_after_tomorrow = create_race 2
         @race_this_week_sunday = create_race 6
@@ -39,12 +36,11 @@ describe HomeHelper do
       end
 
       it 'allocates them to correct groups' do
-        races = [@race_today, @race_2_days_starts_today, @race_2_days_ends_today, @race_tomorrow,
+        races = [@race_tomorrow,
                  @race_day_after_tomorrow, @race_this_week_sunday, @race_next_week_monday, @race_next_week_sunday,
                  @race_monday_in_two_weeks, @race_this_month_last_day, @race_next_month_first_day,
                  @race_next_month_last_day, @race_two_months_first_day, @race_next_year]
         expected = {
-            today: [@race_today, @race_2_days_starts_today, @race_2_days_ends_today],
             tomorrow: [@race_tomorrow],
             day_after_tomorrow: [@race_day_after_tomorrow],
             this_week: [@race_this_week_sunday],

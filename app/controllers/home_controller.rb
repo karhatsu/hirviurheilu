@@ -5,6 +5,7 @@ class HomeController < ApplicationController
   def show
     @is_main_page = true
     all_cups = Cup.includes(:races)
+    @today = Race.today
     @past = past_competitions(all_cups)
     @future = group_future_races(Race.future)
     @announcements = Announcement.active.front_page

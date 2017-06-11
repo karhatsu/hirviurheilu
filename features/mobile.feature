@@ -20,9 +20,9 @@ Feature: Mobile usage
     And there is a race "Upcoming race" in the future
     And there is an active front page announcement with title "Active announcement" and content "Mobile UI released"
     And I use the mobile UI
-    Then I should see "Finished race" within "div.old_races"
-    And I should see "Today's race" within "div.races_today"
-    And I should see "Upcoming race" within "div.future_races"
+    Then I should see "Finished race" within "div#old_races"
+    And I should see "Today's race" within "div#races_today"
+    And I should see "Upcoming race" within "div#future_races"
     And I should see "Active announcement" within "div.announcements"
     When I follow "Active announcement"
     Then I should see "Active announcement"

@@ -1,11 +1,9 @@
 module HomeHelper
   def group_future_races(future_races)
     return {} if future_races.empty?
-    race_groups = {today: [], tomorrow: [], day_after_tomorrow: [], this_week: [], next_week: [], this_month: [], next_month: [], later: []}
+    race_groups = {tomorrow: [], day_after_tomorrow: [], this_week: [], next_week: [], this_month: [], next_month: [], later: []}
     future_races.each do |race|
-      if race.start_date == Date.today || race.end_date == Date.today
-        race_groups[:today] << race
-      elsif race.start_date == Date.tomorrow
+      if race.start_date == Date.tomorrow
         race_groups[:tomorrow] << race
       elsif race.start_date == Date.tomorrow + 1.day
         race_groups[:day_after_tomorrow] << race

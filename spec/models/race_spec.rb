@@ -245,7 +245,7 @@ describe Race do
     end
   end
 
-  describe "past/future" do
+  describe "past/today/future" do
     before do
       @past1 = create(:race, start_date: Date.today - 10, end_date: nil, name: 'B')
       @past2 = create(:race, start_date: Date.today - 2, end_date: Date.today - 1)
@@ -262,8 +262,12 @@ describe Race do
       expect(Race.past).to eq([@past2, @past3, @past1])
     end
 
-    it "#future should return ongoing and future races" do
-      expect(Race.future).to eq([@current1, @current2, @current3, @future2, @future3, @future1])
+    it "#today should return races starting or ending today" do
+      expect(Race.today).to eq([@current1, @current2, @current3])
+    end
+
+    it "#future should return future races" do
+      expect(Race.future).to eq([@future2, @future3, @future1])
     end
 
     describe "no date caching" do

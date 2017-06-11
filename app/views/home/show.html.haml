@@ -8,24 +8,29 @@
 
 .main_page_columns
   .left_column
-    .title_box#races_box
-      .box_title= t '.left_column_title'
+    .title_box.races_box#races_today
+      .box_title= t '.competitions.today'
       .title_box_content
-        .future_races
-          - if @future.empty?
-            .home_page_box
-              .box_sub_title= t '.upcoming_competitions'
-              = t '.no_upcoming_competitions'
-          - else
-            - @future.each do |key, races|
-              .home_page_box{class: "races_#{key}"}
-                .box_sub_title= t ".competitions.#{key}"
-                = render partial: 'race_list', locals: { competitions: races }
-        %hr
-        - unless @past.empty?
-          .home_page_box.old_races
-            .box_sub_title= t '.latest_ended_competitions'
-            = render partial: 'race_list', locals: { competitions: @past, :max => 10 }
+        - if @today.empty?
+          .home_page_box
+            = t '.no_competitions_today'
+        - else
+          = render partial: 'race_list', locals: { competitions: @today }
+    .title_box.races_box#future_races
+      .box_title= t '.upcoming_competitions'
+      .title_box_content
+        - if @future.empty?
+          .home_page_box
+            = t '.no_upcoming_competitions'
+        - else
+          - @future.each do |key, races|
+            .home_page_box{class: "races_#{key}"}
+              .box_sub_title= t ".competitions.#{key}"
+              = render partial: 'race_list', locals: { competitions: races }
+    .title_box.races_box#old_races
+      .box_title= t '.latest_ended_competitions'
+      .title_box_content
+        = render partial: 'race_list', locals: { competitions: @past, max: 10 }
   - unless offline?
     .right_column
       - unless @announcements.empty?
