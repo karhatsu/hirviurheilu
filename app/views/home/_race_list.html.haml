@@ -1,17 +1,12 @@
 - limit = defined?(max) ? max : 1.0/0.0
 - competitions.each_with_index do |competition, index|
-  %div.competition_list_icon{class: competition_icon_class(competition)}
-    - if competition.is_a?(Cup)
-      = link_to competition.name.strip, cup_path(competition)
+  - if competition.is_a?(Cup)
+    .cup
+      = render partial: 'home/race_link', locals: {icon: true, competition: competition}
       - competition.races.each do |race|
-        %div.competition_sub_list_icon{class: competition_icon_class(race)}
-          #{link_to race.name.strip, race_path(race)},
-          #{date_interval(race.start_date, race.end_date)},
-          = race.location
-    - else
-      #{link_to competition.name.strip, race_path(competition)},
-      #{date_interval(competition.start_date, competition.end_date)},
-      = competition.location
+        = render partial: 'home/race_link', locals: {icon: true, competition: race, secondary: true}
+  - else
+    = render partial: 'home/race_link', locals: {icon: true, competition: competition}
   - if index + 1 == limit
     %hr
     .all_races_link

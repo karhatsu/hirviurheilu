@@ -8,11 +8,9 @@ Feature: Mobile usage
     And I follow "Mobiilinäkymä"
     Then I should be on the home page
     And I should see "Tulevat kilpailut"
-    But I should not see "Kilpailun järjestäjille"
     When I follow "Normaalinäkymä"
     Then I should be on the home page
     And I should see "Tulevat kilpailut"
-    And I should see "Kilpailun järjestäjille"
 
   Scenario: Show mobile home page
     Given there is a race "Finished race" in the past

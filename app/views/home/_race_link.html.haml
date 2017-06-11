@@ -1,0 +1,12 @@
+- cup = competition.is_a?(Cup)
+.race_link
+  - a_class = defined?(secondary) ? 'secondary_link' : 'primary_link'
+  - href = cup ? cup_path(competition) : race_path(competition)
+  %a{class: a_class, href: href}
+    %span
+      = competition.name
+      - if cup
+        (CUP)
+  - unless cup
+    .race_info
+      #{date_interval(competition.start_date, competition.end_date)}, #{competition.location}

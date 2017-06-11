@@ -96,34 +96,6 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#competition_icon" do
-    context "when single race" do
-      it "should be image tag for competition's sport's lower case key with _icon.gif suffix" do
-        sport = instance_double(Sport, :key => 'RUN', :initials => 'HJ')
-        expect(helper).to receive(:image_tag).with("run_icon.gif", alt: 'HJ', class: 'competition_icon').and_return("image")
-        expect(helper.competition_icon(instance_double(Race, :sport => sport))).to eq("image")
-      end
-    end
-    
-    context "when cup" do
-      it "should be image tag for cup's sport's lower case key with _icon_cup.gif suffix" do
-        sport = build :sport, key: 'SKI'
-        expect(sport).to receive(:initials).and_return('HH')
-        expect(helper).to receive(:image_tag).with("ski_icon_cup.gif", alt: 'HH', class: 'competition_icon').and_return("cup-image")
-        cup = build :cup
-        allow(cup).to receive(:sport).and_return(sport)
-        expect(helper.competition_icon(cup)).to eq("cup-image")
-      end
-
-      context 'that has no races' do
-        it 'returns empty string' do
-          cup = create :cup
-          expect(helper.competition_icon(cup)).to eq('')
-        end
-      end
-    end
-  end
-  
   describe "#facebook_env?" do
     it "should be true for development" do
       allow(Rails).to receive(:env).and_return('development')

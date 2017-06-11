@@ -22,9 +22,12 @@ Feature: Navigation between official and result sections
     Then I should be on the races page
     And the "Kilpailut" main menu item should be selected
     And the page title should contain "Hirviurheilu - Kilpailut"
-    And I should see "Run race, 18.08.2010, Running place"
-    And I should see "Third test race, 09.01.2011 - 10.01.2011, Test location"
-    And I should see "Ski race, 11.02.2011, Skiing place"
+    And I should see "Run race"
+    And I should see "18.08.2010, Running place"
+    And I should see "Third test race"
+    And I should see "09.01.2011 - 10.01.2011, Test location"
+    And I should see "Ski race"
+    And I should see "11.02.2011, Skiing place"
     When I follow "Ski race"
     Then I should be on the race page of "Ski race"
 

@@ -2,16 +2,12 @@
 <% cup = menu_cup %>
 <div class="main_title">
   <% if race %>
-    <%= competition_icon(race) %>
     <span><span itemprop="name"><%= race.name %></span>
       (<span itemprop="location" itemtype="http://schema.org/Place"><%= race.location %></span>,
       <%= race_date_interval(race) %>)</span>
   <% elsif cup %>
-    <%= competition_icon(cup) %>
     <span><%= cup.name %></span>
   <% else %>
-    <%= image_tag "#{Sport.find_ski.key.downcase}_icon.gif", class: 'competition_icon' %>
-    <%= image_tag "#{Sport.find_run.key.downcase}_icon.gif", class: 'competition_icon' %>
     <span><%= yield :page_title %></span>
   <% end %>
 </div>

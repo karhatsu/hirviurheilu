@@ -27,13 +27,12 @@
             .home_page_box{class: "races_#{key}"}
               .box_sub_title= t ".competitions.#{key}"
               = render partial: 'race_list', locals: { competitions: races }
+  .right_column
+    - unless offline?
+      - unless @announcements.empty?
+        = render partial: 'announcements'
+      = render partial: 'shared/facebook_like_box'
     .title_box.races_box#old_races
       .box_title= t '.latest_ended_competitions'
       .title_box_content
         = render partial: 'race_list', locals: { competitions: @past, max: 10 }
-  - unless offline?
-    .right_column
-      - unless @announcements.empty?
-        = render partial: 'announcements'
-      = render partial: 'shared/facebook_like_box'
-      = render partial: 'commercial_boxes'

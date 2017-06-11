@@ -6,10 +6,7 @@
       %a.primary_link{href: cup_path(competition)}
         %span= competition.name
     - else
-      %a.primary_link{href: race_path(competition)}
-        %span= competition.name
-      .race_info
-        #{date_interval(competition.start_date, competition.end_date)}, #{competition.location}
+      = render partial: 'race_link', locals: {competition: competition}
     - if competition.is_a?(Cup)
       .races_of_cup
         - competition.races.each do |race|

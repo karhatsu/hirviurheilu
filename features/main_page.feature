@@ -72,7 +72,6 @@ Feature: Main page
 
   Scenario: Showing registration link for unauthenticated users
     Given I am on the home page
-    Then I should see "Hirviurheilu on erinomainen valinta kisojesi tulospalveluksi!"
     When I choose "Aloita käyttö" from main menu
     Then I should be on the registration page
 

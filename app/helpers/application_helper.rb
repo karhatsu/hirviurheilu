@@ -36,20 +36,6 @@ module ApplicationHelper
     end
   end
 
-  def competition_icon(competition)
-    sport = competition.sport
-    return '' unless sport
-    alt = sport.initials
-    image_prefix = "#{competition.sport.key.downcase}_icon"
-    return image_tag("#{image_prefix}_cup.gif", alt: alt, class: 'competition_icon') if competition.is_a?(Cup)
-    image_tag "#{image_prefix}.gif", alt: alt, class: 'competition_icon'
-  end
-
-  def competition_icon_class(competition)
-    return "cup_icon_#{competition.sport.key.downcase}" if competition.is_a?(Cup)
-    "race_icon_#{competition.sport.key.downcase}"
-  end
-
   def yes_or_empty(boolean, value=nil, &block)
     if boolean
       image_tag('icon_yes.gif', :title => value)
