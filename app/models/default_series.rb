@@ -17,7 +17,7 @@ class DefaultSeries
   
   def self.all
     [
-      DefaultSeries.new('S13', ['T13', 0], ['P13', 0]),
+      DefaultSeries.new('S13', ['T13', 0], ['P13', 0], ['T11', 0], ['P11', 0], ['T9', 0], ['P9', 0], ['T7', 0], ['P7', 0]),
       DefaultSeries.new('S15', ['T15', 0], ['P15', 0]),
       DefaultSeries.new('S17', ['T17', 0], ['P17', 0]),
       DefaultSeries.new('S20', ['T20', 0], ['P20', 0]),
