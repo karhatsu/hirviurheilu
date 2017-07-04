@@ -24,7 +24,7 @@ Feature: Manage race
     Then I should be on the race edit page of "Test race"
     And the page title should contain "Test race"
     And I should see "Kilpailu lisätty."
-    And I should see "Voit nyt lisätä sarjoja kilpailulle alla olevasta linkistä."
+    And I should see "Voit nyt lisätä sarjoja kilpailulle sivun alalaidasta."
     And the admin should receive an email
     When I open the email
     Then I should see "Hirviurheilu - uusi kilpailu (test)" in the email subject

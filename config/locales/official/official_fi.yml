@@ -19,7 +19,7 @@ fi:
       create:
         race_added: Kilpailu lisätty
         add_competitors_info: Pääset lisäämään kilpailijoita klikkaamalla sarjan nimen vieressä olevaa linkkiä.
-        add_series_info: Voit nyt lisätä sarjoja kilpailulle alla olevasta linkistä.
+        add_series_info: Voit nyt lisätä sarjoja kilpailulle sivun alalaidasta.
       edit:
         title: Kilpailun muokkaus
         submit: Tallenna kilpailun ja sarjojen tiedot
