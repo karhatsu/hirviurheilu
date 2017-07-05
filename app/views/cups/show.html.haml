@@ -3,9 +3,12 @@
   %h2= t :results
   = render partial: 'shared/facebook_share'
 .section
-  - @cup.cup_series.each do |cs|
-    = link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs)
-    %br
+  - if @cup.cup_series.empty?
+    Cup-sarjoja ei ole vielä määritetty
+  - else
+    - @cup.cup_series.each do |cs|
+      = link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs)
+      %br
 %h2= t '.points_rule_title'
 .section= render partial: 'points_rule', locals: {cup: @cup}
 %h2= t '.sub_competitions'
