@@ -4,6 +4,7 @@ fi:
       info: Tältä sivulta voit ladata lehdistöraportin
       when_race_finished: kun kilpailu on päättynyt
       competitors_per_series: Kilpailijoiden määrä / sarja
+      show_race_points: Näytä yksittäisten kilpailuiden pisteet
       also_all_competitors: Lisäksi kaikki kilpailijat %{from_club} (paina ctrl, jos haluat valita useita)
       from_club: seurasta
       from_district: piiristä

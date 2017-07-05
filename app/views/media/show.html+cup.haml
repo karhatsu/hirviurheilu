@@ -5,15 +5,17 @@
   - comp_results = []
   - cup_series.ordered_competitors.each_with_index do |cc, i|
     - next unless i < @competitors_count
-    - comp_result = "#{i+1}) #{full_name(cc)} #{cc.club_name} #{cc.points} ("
-    - @cup.races.each_with_index do |race, race_i|
-      - comp_result << ', ' if race_i > 0
-      - c = cc.competitor_for_race(race)
-      - if c
-        - comp_result << points_print(c, false)
-      - else
-        - comp_result << '-'
-    - comp_result << ')'
+    - comp_result = "#{i+1}) #{full_name(cc)} #{cc.club_name} #{cc.points}"
+    - if params[:show_race_points]
+      - comp_result << ' ('
+      - @cup.races.each_with_index do |race, race_i|
+        - comp_result << ', ' if race_i > 0
+        - c = cc.competitor_for_race(race)
+        - if c
+          - comp_result << points_print(c, false)
+        - else
+          - comp_result << '-'
+      - comp_result << ')'
     - comp_results << comp_result
   - unless comp_results.empty?
     - series_results << comp_results.join(', ')

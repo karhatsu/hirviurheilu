@@ -10,7 +10,7 @@ class MediaController < ApplicationController
       render :new
     else
       redirect_to race_medium_path(@race, competitors_count: @competitors_count, club_id: params[:club_id]) if params[:race_id]
-      redirect_to cup_medium_path(@cup, competitors_count: @competitors_count) if params[:cup_id]
+      redirect_to cup_medium_path(@cup, competitors_count: @competitors_count, show_race_points: params[:show_race_points]) if params[:cup_id]
     end
   end
 

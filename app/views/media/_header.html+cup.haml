@@ -5,7 +5,10 @@
 - if true
   = flash_error
   = form_tag(cup_medium_path(@cup)) do
-    %span.form_label= label_tag :competitors_count, t('media.show.competitors_per_series')
-    = text_field_tag :competitors_count, @competitors_count, size: 3
-    %br
+    %div
+      %span.form_label= label_tag :competitors_count, t('media.show.competitors_per_series')
+      = text_field_tag :competitors_count, @competitors_count, size: 3
+    %div
+      %span.form_label= label_tag :show_race_points, t('media.show.show_race_points')
+      %span= check_box_tag :show_race_points, true, params[:show_race_points]
     = submit_tag t('media.show.download_report')
