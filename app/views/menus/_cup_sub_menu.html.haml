@@ -5,3 +5,4 @@
     - unless @cup.cup_series.empty?
       = menu_item t('cup_sub_menu.results'), cup_cup_series_path(@cup, menu_cup_series), @is_cup_series, nil, true do
         - cup_series_dropdown_menu(@cup)
+      = menu_item t('cup_sub_menu.press'), new_cup_medium_path(@cup), @is_media

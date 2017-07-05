@@ -1,0 +1,11 @@
+- content_for :title, "#{@cup.name} - #{t 'race_sub_menu.press'}"
+%h2= t 'cup_sub_menu.press'
+.info
+  = t 'media.show.info'
+- if true
+  = flash_error
+  = form_tag(cup_medium_path(@cup)) do
+    %span.form_label= label_tag :competitors_count, t('media.show.competitors_per_series')
+    = text_field_tag :competitors_count, @competitors_count, size: 3
+    %br
+    = submit_tag t('media.show.download_report')

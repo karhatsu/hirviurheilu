@@ -11,4 +11,5 @@ fi:
       invalid_competitor_count: Kilpailijoiden määrä virheellinen
       report: Lehdistöraportti
       result_info: Maalaa alla oleva tulosraportti ja kopioi se esimerkiksi sähköpostiisi tai vaikkapa tekstinkäsittelyohjelmaan jatkokäsittelyä varten.
+      results_not_available: Tuloksia ei ole vielä saatavilla
       

@@ -15,6 +15,10 @@ class CupCompetitor
   def series_name
     @competitors.first.series.name
   end
+
+  def club_name
+    @competitors.first.club.name
+  end
   
   def <<(competitor)
     raise "Competitor name (#{name(competitor)}) should be #{name(self)}" unless name(competitor) == name(self)

@@ -31,6 +31,14 @@ describe CupCompetitor do
     end
   end
 
+  describe "#club_name" do
+    it "should be the name of the club of the first competitor" do
+      club = instance_double(Club, :name => 'Klubi')
+      expect(@competitor).to receive(:club).and_return(club)
+      expect(@cc.club_name).to eq('Klubi')
+    end
+  end
+
   describe "other competitors" do
     it "should accept other competitors when their name is the same as the first one's" do
       @cc << valid_competitor

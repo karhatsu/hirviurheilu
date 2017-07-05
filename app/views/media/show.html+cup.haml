@@ -1,0 +1,21 @@
+= render :partial => 'header'
+- results = []
+- @cup.cup_series.each do |cup_series|
+  - series_results = "#{cup_series.name}: "
+  - comp_results = []
+  - cup_series.ordered_competitors.each_with_index do |cc, i|
+    - next unless i < @competitors_count
+    - comp_results << "#{i+1}) #{full_name(cc)} #{cc.club_name} #{cc.points}"
+  - unless comp_results.empty?
+    - series_results << comp_results.join(', ')
+    - series_results << '.'
+    - results << series_results
+%h3= t '.report'
+.section
+  - if results.empty?
+    = t '.results_not_available'
+  - else
+    .info= t '.result_info'
+    = results.join(' ')
+%hr
+= link_to t(:back_to_cup_page), race_path(@cup)

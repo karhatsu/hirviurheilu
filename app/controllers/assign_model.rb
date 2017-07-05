@@ -3,6 +3,10 @@ module AssignModel
     assign_cup params[:id]
   end
 
+  def assign_cup_by_cup_id
+    assign_cup params[:cup_id]
+  end
+
   def assign_cup(id)
     begin
       @cup = Cup.find(id)

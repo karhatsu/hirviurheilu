@@ -23,6 +23,7 @@ fi:
   cup_sub_menu:
     home_page: Cup-kilpailun etusivu
     results: Tulokset
+    press: Lehdistö
   offline_sub_menu:
     online_vs_offline: Online vai Offline?
     offline_installation: Offline-asennus
