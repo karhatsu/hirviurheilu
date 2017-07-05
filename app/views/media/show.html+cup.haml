@@ -16,6 +16,7 @@
     = t '.results_not_available'
   - else
     .info= t '.result_info'
+    = render partial: 'cups/points_rule', locals: {cup: @cup}
     = results.join(' ')
 %hr
 = link_to t(:back_to_cup_page), race_path(@cup)
