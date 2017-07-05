@@ -1,28 +1,32 @@
 - is_pdf = defined?(pdf)
 - show_series_name = !@cup_series.has_single_series_with_same_name?
-%table
-  %thead
-    %tr
-      %th &nbsp;
-      %th= t 'activerecord.models.competitor.one'
-      - if show_series_name
-        %th= t 'activerecord.models.series.one'
-      - @cup.races.each do |race|
-        %th= race.name
-      %th= t :total_points
-  - @cup_series.ordered_competitors.each_with_index do |cc, i|
-    %tr{id: "comp_#{i+1}", class: i % 2 == 0 ? 'odd' : ''}
-      %td #{i + 1}.
-      %td
-        = cc.last_name
-        = cc.first_name
-      - if show_series_name
-        %td= cc.series_name
-      - @cup.races.each do |race|
-        - c = cc.competitor_for_race(race)
-        %td.center
-          - if c
-            = link_to_unless is_pdf, points_print(c, false), series_competitor_path(c.series, c)
-          - else
-            \-
-      %td.center.total_points= cup_points_print(cc)
+- competitors = @cup_series.ordered_competitors
+- if competitors.empty?
+  Tähän sarjaan ei ole lisätty kilpailijoita
+- else
+  %table
+    %thead
+      %tr
+        %th &nbsp;
+        %th= t 'activerecord.models.competitor.one'
+        - if show_series_name
+          %th= t 'activerecord.models.series.one'
+        - @cup.races.each do |race|
+          %th= race.name
+        %th= t :total_points
+    - competitors.each_with_index do |cc, i|
+      %tr{id: "comp_#{i+1}", class: i % 2 == 0 ? 'odd' : ''}
+        %td #{i + 1}.
+        %td
+          = cc.last_name
+          = cc.first_name
+        - if show_series_name
+          %td= cc.series_name
+        - @cup.races.each do |race|
+          - c = cc.competitor_for_race(race)
+          %td.center
+            - if c
+              = link_to_unless is_pdf, points_print(c, false), series_competitor_path(c.series, c)
+            - else
+              \-
+        %td.center.total_points= cup_points_print(cc)
