@@ -82,10 +82,15 @@
     %h2= t '.all_results_pdf'
     .section
       = form_tag(race_path(@race, :format => :pdf), :method => :get) do
-        = select_tag :club_id,
-          options_from_collection_for_select(@race.clubs, :id, :name),
-          :prompt => "#{t :all} #{clubs_title(@race).downcase}"
-        = submit_tag t('.download_all_results')
+        %div
+          = select_tag :club_id,
+            options_from_collection_for_select(@race.clubs, :id, :name),
+            :prompt => "#{t :all} #{clubs_title(@race).downcase}"
+        %div
+          = check_box_tag :page_breaks
+          = label_tag :page_breaks, t('.page_breaks'), class: 'form_label'
+        %div
+          = submit_tag t('.download_all_results')
   - if @race.start_date > Time.zone.today
     .info
       = t '.competition_begins'

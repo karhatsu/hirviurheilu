@@ -2,7 +2,7 @@
   .page-break
   %h2= t 'activerecord.models.relay', :count => @race.relays.count
   - @race.relays.each_with_index do |relay, index|
-    - if index > 0
+    - if index > 0 && @page_breaks
       .page-break
     %h2= relay.name
     - cache [relay, I18n.locale] do
