@@ -1,0 +1,19 @@
+- content_for :title, "#{@race.name} - #{t 'race_sub_menu.press'}"
+%h2= t 'race_sub_menu.press'
+.info
+  = t 'media.show.info'
+  = @race.finished? ? '' : ", #{t 'media.show.when_race_finished'}."
+- if @race.finished?
+  - club_word = (@race.club_level == Race::CLUB_LEVEL_PIIRI ? t('media.show.from_district') : t('media.show.from_club'))
+  = flash_error
+  = form_tag(race_medium_path(@race)) do
+    %span.form_label= label_tag :competitors_count, t('media.show.competitors_per_series')
+    = text_field_tag :competitors_count, @competitors_count, :size => 3
+    %br
+    %span.form_label= label_tag :club_id, "#{t 'media.show.also_all_competitors', :from_club => club_word }"
+    %br
+    = select_tag :club_id,
+      options_from_collection_for_select(@race.clubs, :id, :name, params[:club_id]),
+      :multiple => true, :size => 5
+    %br
+    = submit_tag t('media.show.download_report')
