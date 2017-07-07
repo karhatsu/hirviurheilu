@@ -38,7 +38,7 @@
     = f.text_field :number, :size => 3
     %span.form_label= f.label :start_time
     - start_time = time_print(f.object.start_time, true, '')
-    = f.text_field :start_time, :include_seconds => true, :blank => true, size: 8, value: start_time
+    = f.text_field :start_time, size: 8, value: start_time
   %span#number_spinner{style: "display:none;"}
     = image_tag 'spinner.gif'
     Odota hetki...
@@ -63,15 +63,11 @@
     $.getJSON('/series/' + series_id, function(series) {
       if(series.has_start_list) {
         $('#competitor_number').val(series.next_start_number);
-        $('#competitor_start_time_4i').val(series.next_start_time.substring(11, 13));
-        $('#competitor_start_time_5i').val(series.next_start_time.substring(14, 16));
-        $('#competitor_start_time_6i').val(series.next_start_time.substring(17, 19));
+        $('#competitor_start_time').val(series.next_start_time.substring(11, 19));
         $('#number_span').show();
       } else {
         $('#competitor_number').val('');
-        $('#competitor_start_time_4i').val('');
-        $('#competitor_start_time_5i').val('');
-        $('#competitor_start_time_6i').val('');
+        $('#competitor_start_time').val('');
         $('#number_span').hide();
       }
       $('#back_to_series').attr('href', '/official/series/' + series_id + '/competitors');
