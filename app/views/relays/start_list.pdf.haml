@@ -4,7 +4,8 @@
 - if @relay.relay_teams.empty?
   .info= t '.relay_has_no_teams'
 - else
-  - @relay.relay_teams.each do |team|
-    %div{style: 'margin-bottom: 10px'}
-      #{team.number}. #{team.name}
-      %div= team.relay_competitors.map {|competitor| full_name(competitor) }.join(', ')
+  - cache @relay do
+    - @relay.relay_teams.each do |team|
+      %div{style: 'margin-bottom: 10px'}
+        #{team.number}. #{team.name}
+        %div= team.relay_competitors.map {|competitor| full_name(competitor) }.join(', ')
