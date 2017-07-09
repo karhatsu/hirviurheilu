@@ -39,13 +39,18 @@ class CsvImport
       data = []
       begin
         File.open(file_path, read_encoding).each_line do |line|
-          data += [line.gsub(/\r\n?/, '').gsub(/\n?/, '').split(",")]
+          separator = resolve_separator line
+          data << line.gsub(/\r\n?/, '').gsub(/\n?/, '').split(separator)
         end
         return data
       rescue ArgumentError
       end
     end
     raise UnknownCSVEncodingException.new
+  end
+
+  def resolve_separator(line)
+    line.index(';') ? ';' : ','
   end
   
   def validate_data(limited_club)

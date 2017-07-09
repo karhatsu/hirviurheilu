@@ -233,6 +233,16 @@ describe CsvImport do
     end
   end
 
+  context 'when semicolon is used as column separator' do
+    before do
+      @ci = CsvImport.new@race, test_file_path('import_valid_semicolon.csv')
+    end
+
+    it 'should accept valid file' do
+      expect(@ci.save).to be_truthy
+    end
+  end
+
   def test_file_path(file_name)
     File.join(Rails.root, 'spec', 'files', file_name)
   end
