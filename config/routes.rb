@@ -14,8 +14,6 @@ ElkSports::Application.routes.draw do
     resource :license
     resource :activation_key
   
-    resource :mode
-  
     resources :announcements
     resource :info
     get 'answers' => 'infos#answers', :as => :answers
