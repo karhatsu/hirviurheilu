@@ -40,7 +40,9 @@ class CsvImport
       begin
         File.open(file_path, read_encoding).each_line do |line|
           separator = resolve_separator line
-          data << line.gsub(/\r\n?/, '').gsub(/\n?/, '').split(separator)
+          columns = line.gsub(/\r\n?/, '').gsub(/\n?/, '').split(separator)
+          break if columns.length == 0
+          data << columns
         end
         return data
       rescue ArgumentError

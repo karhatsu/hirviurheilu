@@ -243,6 +243,16 @@ describe CsvImport do
     end
   end
 
+  context 'when the end the file contains empty rows' do
+    before do
+      @ci = CsvImport.new@race, test_file_path('import_valid_with_empty_rows.csv')
+    end
+
+    it 'should accept valid file' do
+      expect(@ci.save).to be_truthy
+    end
+  end
+
   def test_file_path(file_name)
     File.join(Rails.root, 'spec', 'files', file_name)
   end
