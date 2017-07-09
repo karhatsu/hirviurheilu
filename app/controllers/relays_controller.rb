@@ -21,7 +21,7 @@ class RelaysController < ApplicationController
       format.pdf do
         render pdf: "viesti-#{@relay.name}-osallistujat", layout: false,
                margin: pdf_margin, header: pdf_header("#{t 'activerecord.models.relay.one'} - #{@relay.name}"),
-               footer: pdf_footer, disable_smart_shrinking: true
+               footer: pdf_footer, disable_smart_shrinking: true, encoding: 'utf-8'
       end
     end
   end
