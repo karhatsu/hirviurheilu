@@ -21,6 +21,8 @@
   - cache [@relay, I18n.locale] do
     = render :partial => 'results', :locals => { :relay => @relay, :pdf => false }
   .action_box
+    = link_to t('.download_start_list_pdf'), race_relay_start_list_path(@relay.race, @relay, format: :pdf)
+  .action_box
     #{t(:download_results_pdf)}:
     = link_to t(:without_competitors), race_relay_path(@relay.race, @relay, :exclude_competitors => true, :format => 'pdf')
     \-

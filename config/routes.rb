@@ -41,7 +41,9 @@ ElkSports::Application.routes.draw do
       end
       resources :start_lists, only: :index
       resources :team_competitions
-      resources :relays
+      resources :relays do
+        get 'start_list' => 'relays#start_list'
+      end
       resource :result_rotation
       resource :medium
       resource :video

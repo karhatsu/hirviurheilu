@@ -1,0 +1,10 @@
+%h1= @relay.race.name
+#{@race.location}, #{race_date_interval(@race, false)}
+%h2 #{t 'activerecord.models.relay.one'} - #{@relay.name}
+- if @relay.relay_teams.empty?
+  .info= t '.relay_has_no_teams'
+- else
+  - @relay.relay_teams.each do |team|
+    %div{style: 'margin-bottom: 10px'}
+      #{team.number}. #{team.name}
+      %div= team.relay_competitors.map {|competitor| full_name(competitor) }.join(', ')
