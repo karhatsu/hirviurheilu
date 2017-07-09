@@ -1,0 +1,10 @@
+&copy; 2010
+\-
+%a{href: 'http://www.karhatsu.com', target: '_blank'} Karhatsu IT Consulting Oy
+\-
+= link_to t(:send_feedback), new_feedback_path
+- if Rails.env.development?
+  %br
+  = render :partial => "shared/change_mode"
+%br
+= link_to 'Mobiilinäkymä', root_path(variant: :mobile), 'data-turbolinks' => false
