@@ -5,7 +5,12 @@
   .info= t '.relay_has_no_teams'
 - else
   - cache @relay do
-    - @relay.relay_teams.each do |team|
-      %div{style: 'margin-bottom: 10px'}
-        #{team.number}. #{team.name}
-        %div= team.relay_competitors.map {|competitor| full_name(competitor) }.join(', ')
+    - @relay.legs_count.times do |i|
+      - leg = i + 1
+      %h3 #{t :leg} #{leg}
+      %table{style: 'margin-bottom: 10px'}
+        - @relay.relay_teams.each do |team|
+          %tr
+            %td{style: 'text-align: right'} #{team.number}.
+            %td{style: 'padding-left: 10px'}= team.name
+            %td{style: 'padding-left: 10px'}= full_name team.competitor(leg)
