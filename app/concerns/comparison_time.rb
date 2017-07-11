@@ -30,8 +30,7 @@ module ComparisonTime
     return {} if ordered_age_groups.empty?
 
     # e.g. P17/T17 in series S17
-    return hash_with_each_age_group_referring_to_itself ordered_age_groups if
-        different_first_letter_in_group_names(ordered_age_groups)
+    return children_series_hash ordered_age_groups if children_series?
 
     # e.g. N55, N60, N65 in series N50
     hash = hash_with_age_group_referring_to_comparison_groups(ordered_age_groups, all_competitors)
@@ -40,18 +39,26 @@ module ComparisonTime
     append_main_series_to_hash(hash, ordered_age_groups)
   end
 
-  def different_first_letter_in_group_names(age_groups)
-    return false if age_groups.empty?
-    age_groups.each do |age_group|
-      return true if age_groups[0].name[0] != age_group.name[0]
-    end
-    false
+  def children_series?
+    name =~ /S1[0-9]/
   end
 
-  def hash_with_each_age_group_referring_to_itself(age_groups)
-    age_groups.inject({}) do |hash, age_group|
-      hash[age_group] = [age_group]
-      hash
+  def children_series_hash(age_groups)
+    hash = {}
+    build_children_series_hash hash, age_groups, 'P'
+    build_children_series_hash hash, age_groups, 'T'
+    hash
+  end
+
+  def build_children_series_hash(hash, age_groups, gender_letter)
+    ordered_age_groups = age_groups.select {|age_group| age_group.name[0] == gender_letter}.sort do |a, b|
+      b.name[1..-1].to_i <=> a.name[1..-1].to_i
+    end
+    ordered_age_groups.each_with_index do |age_group, i|
+      hash[age_group] = []
+      ordered_age_groups[i..-1].each do |ag|
+        hash[age_group] << ag
+      end
     end
   end
 

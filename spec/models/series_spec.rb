@@ -391,19 +391,29 @@ describe Series do
         end
       end
     end
-      
-    context "when age groups that start with different letters" do
+
+    context "when children's series" do
       before do
-        @age_group_T16 = instance_double(AgeGroup, :name => 'T16', :min_competitors => 1)
-        @age_group_P16 = instance_double(AgeGroup, :name => 'P16', :min_competitors => 1)
-        expect_ordered_age_groups(@series, [@age_group_T16, @age_group_P16])
+        @series = build(:series, :name => 'S13')
+        @age_group_T13 = instance_double(AgeGroup, :name => 'T13', :min_competitors => 1)
+        @age_group_P13 = instance_double(AgeGroup, :name => 'P13', :min_competitors => 1)
+        @age_group_T11 = instance_double(AgeGroup, :name => 'T11', :min_competitors => 1)
+        @age_group_P11 = instance_double(AgeGroup, :name => 'P11', :min_competitors => 1)
+        @age_group_T9 = instance_double(AgeGroup, :name => 'T9', :min_competitors => 1)
+        @age_group_P9 = instance_double(AgeGroup, :name => 'P9', :min_competitors => 1)
+        expect_ordered_age_groups(@series, [@age_group_T9, @age_group_P9,
+                                            @age_group_T13, @age_group_P13, @age_group_T11, @age_group_P11])
       end
-      
-      it "should return hash with each age group referring only to itself inside of an array" do
+
+      it "should return all age groups as keys and self with younger same gender age groups as values" do
         groups = @series.send(:age_groups_for_comparison_time, @all_competitors)
-        expect(groups.length).to eq(2)
-        expect(groups[@age_group_T16]).to eq([@age_group_T16])
-        expect(groups[@age_group_P16]).to eq([@age_group_P16])
+        expect(groups.length).to eq(6)
+        expect(groups[@age_group_T13]).to eq([@age_group_T13, @age_group_T11, @age_group_T9])
+        expect(groups[@age_group_T11]).to eq([@age_group_T11, @age_group_T9])
+        expect(groups[@age_group_T9]).to eq([@age_group_T9])
+        expect(groups[@age_group_P13]).to eq([@age_group_P13, @age_group_P11, @age_group_P9])
+        expect(groups[@age_group_P11]).to eq([@age_group_P11, @age_group_P9])
+        expect(groups[@age_group_P9]).to eq([@age_group_P9])
       end
     end
 
