@@ -16,6 +16,10 @@ class Official::CompetitorCopyingsController < Official::OfficialController
     end
   end
 
+  def show
+    redirect_to new_official_race_competitor_copying_path(@race)
+  end
+
   private
 
   def load_races
