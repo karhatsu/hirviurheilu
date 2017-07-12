@@ -10,6 +10,7 @@ module CompetitorsCopy
         age_group = ensure_age_group series, competitor.age_group
         create_competitor club, series, age_group, competitor if validate_competitor errors, competitor
       end
+      raise ActiveRecord::Rollback unless errors.empty?
     end
     errors
   end

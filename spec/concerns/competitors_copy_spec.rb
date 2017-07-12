@@ -78,6 +78,11 @@ describe CompetitorsCopy do
         expect(errors[0]).to eql "Kilpailijanumero #{source_competitor2.number} on jo käytössä tässä kilpailussa."
         expect(errors[1]).to eql "Kilpailijanumero #{source_competitor3.number} on jo käytössä tässä kilpailussa."
       end
+
+      it 'does not save valid competitors' do
+        target_race.copy_competitors_from source_race
+        expect(target_race.reload.competitors.count).to eq 2
+      end
     end
 
     context 'when race requires start times but competitors do not have them' do
