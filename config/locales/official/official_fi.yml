@@ -182,6 +182,7 @@ fi:
         title: Kopioi kilpailijat toisesta kilpailusta
         from_race: Kilpailu josta kilpailijat kopioidaan
         submit_button: Kopioi kilpailijat
+        no_races: Sinulla ei ole yhtään kilpailua, josta voisit kopioida kilpailijoita
       create:
         competitors_copied: Kilpailijat (%{amount}) kopioitu
     csv_exports:

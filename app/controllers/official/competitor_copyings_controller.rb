@@ -23,6 +23,6 @@ class Official::CompetitorCopyingsController < Official::OfficialController
   private
 
   def load_races
-    @races = current_user.races.order('start_date desc').select {|race| race.id != @race.id}
+    @races = current_user.races.order('start_date desc').select {|race| race.id != @race.id && race.competitors.count > 0}
   end
 end

@@ -3,6 +3,17 @@ Feature: Copy competitors
   As an official
   I want to copy competitors from another race of mine
 
+  Scenario: No source races available
+    Given I am an official
+    And I have a race "Target race"
+    And the race has series "Target series"
+    And the series has a competitor
+    And I have a race "Source race without competitors"
+    And I have logged in
+    And I am on the official race page of "Target race"
+    When I follow "Kopioi kilpailijat toisesta kilpailusta"
+    Then I should see "Sinulla ei ole yhtään kilpailua, josta voisit kopioida kilpailijoita" in a warning message
+
   Scenario: Copy competitors
     Given I am an official
     And I have a race "Source race"
@@ -15,6 +26,8 @@ Feature: Copy competitors
     And I have a race "Target race"
     And the race has series "Women"
     And I have a race "Yet another race"
+    And the race has series "M"
+    And the series has a competitor
     When I have logged in
     And I am on the official race page of "Target race"
     And I follow "Kopioi kilpailijat toisesta kilpailusta"

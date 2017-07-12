@@ -181,6 +181,7 @@ sv:
         title: Kopiera tävlarna från annan tävling
         from_race: Från tävling
         submit_button: Kopiera tävlarna
+        no_races: Inga tävlingar
       create:
         competitors_copied: Tävlarna (%{amount}) kopierad
     csv_exports:
