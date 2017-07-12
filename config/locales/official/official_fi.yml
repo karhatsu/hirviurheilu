@@ -48,6 +48,7 @@ fi:
         add_series_first_competitor: Lisää tämän sarjan ensimmäinen kilpailija
         remove_race: Poista kilpailu
         edit_race_and_series: Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja
+        copy_competitors: Kopioi kilpailijat toisesta kilpailusta
         add_competitors_from_csv: Lisää kilpailijoita CSV-tiedostosta
         download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)
         finish_race_submit: Merkitse yksilökilpailut päättyneeksi (ei koske viestejä)
@@ -176,6 +177,13 @@ fi:
         already_finished: Tämä kilpailu on jo merkitty päättyneeksi.
       create:
         race_finished: Kilpailu %{race_name} on merkitty päättyneeksi
+    competitor_copyings:
+      new:
+        title: Kopioi kilpailijat toisesta kilpailusta
+        from_race: Kilpailu josta kilpailijat kopioidaan
+        submit_button: Kopioi kilpailijat
+      create:
+        competitors_copied: Kilpailijat (%{amount}) kopioitu
     csv_exports:
       show:
         title: Kilpailijoiden vienti CSV-tiedostoon

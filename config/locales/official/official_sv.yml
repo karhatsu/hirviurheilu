@@ -48,6 +48,7 @@ sv:
         add_series_first_competitor: Öka klassens första tävlare
         remove_race: Radera tävlingen
         edit_race_and_series: Redigera tävlingens och klassernas avgifter, öka klasser
+        copy_competitors: Kopiera tävlarna från annan tävling
         add_competitors_from_csv: Öka tävlar från CSV-fil
         download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)
         finish_race_submit: Slut tävlingen
@@ -175,6 +176,13 @@ sv:
         already_finished: Den här tävlingen är redan slutat.
       create:
         race_finished: Tävlingen %{race_name} slutat
+    competitor_copyings:
+      new:
+        title: Kopiera tävlarna från annan tävling
+        from_race: Från tävling
+        submit_button: Kopiera tävlarna
+      create:
+        competitors_copied: Tävlarna (%{amount}) kopierad
     csv_exports:
       show:
         title: Export tävlarna till CSV-fil
