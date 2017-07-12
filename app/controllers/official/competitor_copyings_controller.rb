@@ -11,7 +11,7 @@ class Official::CompetitorCopyingsController < Official::OfficialController
       flash[:success] = t('.competitors_copied', amount: source_race.competitors.count)
       redirect_to official_race_path(@race)
     else
-      flash[:error] = errors.uniq.join(' ')
+      flash[:error] = errors.uniq.first(5).join(' ')
       render :new
     end
   end
