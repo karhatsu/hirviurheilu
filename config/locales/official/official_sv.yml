@@ -180,6 +180,7 @@ sv:
       new:
         title: Kopiera tävlarna från annan tävling
         from_race: Från tävling
+        race_with_competitors_count: "%{race} (%{competitors} tävlar)"
         submit_button: Kopiera tävlarna
         no_races: Inga tävlingar
       create:

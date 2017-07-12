@@ -7,6 +7,9 @@
   = form_tag official_race_competitor_copying_path(@race) do
     %div
       .form_label= label_tag :source_race_id, t('.from_race')
-      .form_field= select_tag :source_race_id, options_from_collection_for_select(@races, :id, :name, params[:source_race_id])
+      .form_field= select_tag :source_race_id,
+        options_from_collection_for_select(@races, :id,
+            lambda {|race| t('.race_with_competitors_count', race: race.name, competitors: race.competitors.count)},
+          params[:source_race_id])
     .submit_button
       = submit_tag t('.submit_button')

@@ -31,7 +31,7 @@ Feature: Copy competitors
     When I have logged in
     And I am on the official race page of "Target race"
     And I follow "Kopioi kilpailijat toisesta kilpailusta"
-    And I select "Source race" from "Kilpailu josta kilpailijat kopioidaan"
+    And I select "Source race (2 kilpailijaa)" from "Kilpailu josta kilpailijat kopioidaan"
     And I press "Kopioi kilpailijat"
     Then I should be on the official race page of "Target race"
     And I should see "Kilpailijat (2) kopioitu" in a success message
