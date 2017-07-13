@@ -54,17 +54,6 @@ describe CompetitorsCopy do
         errors = target_race.copy_competitors_from source_race, with_start_list
         expect(errors).to be_empty
       end
-
-      def expect_competitor_match(competitor, source_competitor)
-        expect(competitor.first_name).to eql source_competitor.first_name
-        expect(competitor.last_name).to eql source_competitor.last_name
-        expect(competitor.series.name).to eql source_competitor.series.name
-        expect(competitor.age_group.name).to eql source_competitor.age_group.name if source_competitor.age_group
-        expect(competitor.age_group).to be_nil unless source_competitor.age_group
-        expect(competitor.club.name).to eql source_competitor.club.name
-        expect(competitor.number).to eql source_competitor.number
-        expect(competitor.start_time.strftime('%H:%M:%S')).to eql source_competitor.start_time.strftime('%H:%M:%S')
-      end
     end
 
     context 'when duplicate competitor number in source and target race' do
@@ -118,6 +107,26 @@ describe CompetitorsCopy do
       end
     end
 
+    context 'when race does not require start times but source competitors have them' do
+      before do
+        target_race.update_attribute :start_order, Race::START_ORDER_BY_SERIES
+        target_race.copy_competitors_from source_race, with_start_list
+      end
+
+      it 'copies competitors with start times' do
+        competitors = target_race.reload.competitors
+        expect_competitor_match competitors.first, source_competitor1
+      end
+
+      it 'sets start time for the series' do
+        target_race.series.each do |series|
+          expect(series.has_start_list?).to be_truthy
+        end
+        expect(target_series.reload.first_number).to eql 2
+        expect(target_series.start_time.strftime('%H:%M:%S')).to eql '00:02:00'
+      end
+    end
+
     context 'when start list is not wanted to be copied' do
       let(:with_start_list) { false }
 
@@ -142,6 +151,17 @@ describe CompetitorsCopy do
           expect { target_race.copy_competitors_from source_race, with_start_list }.to raise_error(ArgumentError)
         end
       end
+    end
+
+    def expect_competitor_match(competitor, source_competitor)
+      expect(competitor.first_name).to eql source_competitor.first_name
+      expect(competitor.last_name).to eql source_competitor.last_name
+      expect(competitor.series.name).to eql source_competitor.series.name
+      expect(competitor.age_group.name).to eql source_competitor.age_group.name if source_competitor.age_group
+      expect(competitor.age_group).to be_nil unless source_competitor.age_group
+      expect(competitor.club.name).to eql source_competitor.club.name
+      expect(competitor.number).to eql source_competitor.number
+      expect(competitor.start_time.strftime('%H:%M:%S')).to eql source_competitor.start_time.strftime('%H:%M:%S')
     end
 
     def expect_competitors_without_start_times(competitors, expected_count)

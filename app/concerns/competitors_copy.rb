@@ -53,6 +53,7 @@ module CompetitorsCopy
     if with_start_list
       copied_competitor.number = competitor.number
       copied_competitor.start_time = competitor.start_time
+      series.update_attribute :has_start_list, true if competitor.number && !series.has_start_list?
     end
     copied_competitor.save!
   end
