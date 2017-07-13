@@ -89,41 +89,45 @@ describe CompetitorsCopy do
       end
     end
 
-    context 'when race does not require start times and source competitors do not have them' do
+    context 'when race does not require start times' do
       before do
         target_race.update_attribute :start_order, Race::START_ORDER_BY_SERIES
-        source_competitor1.update_attribute :number, nil
-        source_competitor2.update_attribute :number, nil
-        source_competitor3.update_attribute :number, nil
-        source_competitor1.update_attribute :start_time, nil
-        source_competitor2.update_attribute :start_time, nil
-        source_competitor3.update_attribute :start_time, nil
-        target_race.copy_competitors_from source_race, with_start_list
       end
 
-      it 'copies competitors without start times' do
-        competitors = target_race.reload.competitors
-        expect_competitors_without_start_times competitors, 3
-      end
-    end
-
-    context 'when race does not require start times but source competitors have them' do
-      before do
-        target_race.update_attribute :start_order, Race::START_ORDER_BY_SERIES
-        target_race.copy_competitors_from source_race, with_start_list
-      end
-
-      it 'copies competitors with start times' do
-        competitors = target_race.reload.competitors
-        expect_competitor_match competitors.first, source_competitor1
-      end
-
-      it 'sets start time for the series' do
-        target_race.series.each do |series|
-          expect(series.has_start_list?).to be_truthy
+      context 'and source competitors do not have them' do
+        before do
+          source_competitor1.update_attribute :number, nil
+          source_competitor2.update_attribute :number, nil
+          source_competitor3.update_attribute :number, nil
+          source_competitor1.update_attribute :start_time, nil
+          source_competitor2.update_attribute :start_time, nil
+          source_competitor3.update_attribute :start_time, nil
+          target_race.copy_competitors_from source_race, with_start_list
         end
-        expect(target_series.reload.first_number).to eql 2
-        expect(target_series.start_time.strftime('%H:%M:%S')).to eql '00:02:00'
+
+        it 'copies competitors without start times' do
+          competitors = target_race.reload.competitors
+          expect_competitors_without_start_times competitors, 3
+        end
+      end
+
+      context 'but source competitors have them' do
+        before do
+          target_race.copy_competitors_from source_race, with_start_list
+        end
+
+        it 'copies competitors with start times' do
+          competitors = target_race.reload.competitors
+          expect_competitor_match competitors.first, source_competitor1
+        end
+
+        it 'sets start time for the series' do
+          target_race.series.each do |series|
+            expect(series.has_start_list?).to be_truthy
+          end
+          expect(target_series.reload.first_number).to eql 2
+          expect(target_series.start_time.strftime('%H:%M:%S')).to eql '00:02:00'
+        end
       end
     end
 
