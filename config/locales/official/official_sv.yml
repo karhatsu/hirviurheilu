@@ -43,14 +43,19 @@ sv:
         remove_series_confirm: Är du säker att du vill radera klassen?
         add_series: Öka ny klass till tävlingen
       show:
+        single_series: Standardtävling
         no_series_for_race: Du har ökat inga klasser för tävlingen. Klicka länken nedenför för att öka klasser.
         no_competitors_for_race: Du har ökat inga tävlar för tävlingen. Klicka en länk nästan klassens namn för att öka tävlar.
         add_series_first_competitor: Öka klassens första tävlare
+        manage_race_settings: Hantera tävlings sättningar
         remove_race: Radera tävlingen
         edit_race_and_series: Redigera tävlingens och klassernas avgifter, öka klasser
+        add_multiple_competitors: Tillägg många tävlar
         copy_competitors: Kopiera tävlarna från annan tävling
         add_competitors_from_csv: Öka tävlar från CSV-fil
+        other: Övriga
         download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)
+        other_race_formats: Andra tävlingar
         finish_race_submit: Slut tävlingen
         finish_race_text: när du har sparat alla resultaten, så att de riktiga avstånden kan publiseras
         create_start_list: Gör startlista
