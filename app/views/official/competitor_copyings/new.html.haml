@@ -11,5 +11,11 @@
         options_from_collection_for_select(@races, :id,
             lambda {|race| t('.race_with_competitors_count', race: race.name, competitors: race.competitors.count)},
           params[:source_race_id])
+    - if @race.start_order == Race::START_ORDER_BY_SERIES
+      %div
+        .form_label= label_tag :with_start_list, t('.with_start_list')
+        .form_field= check_box_tag :with_start_list, true, params[:with_start_list]
+    - else
+      = hidden_field_tag :with_start_list, true
     .submit_button
       = submit_tag t('.submit_button')

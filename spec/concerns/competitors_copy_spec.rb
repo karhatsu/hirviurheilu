@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe CompetitorsCopy do
+  let(:with_start_list) { true }
   let(:existing_club_name) { 'existing club name' }
   let(:existing_series_name) { 'existing series name' }
   let(:existing_age_group_name) { 'existing age group name' }
@@ -33,7 +34,7 @@ describe CompetitorsCopy do
 
     context 'when data is valid' do
       it 'copies all competitors' do
-        target_race.copy_competitors_from source_race
+        target_race.copy_competitors_from source_race, with_start_list
         competitors = target_race.reload.competitors
         expect(competitors.count).to eql 3
         expect_competitor_match competitors[0], source_competitor1
@@ -42,7 +43,7 @@ describe CompetitorsCopy do
       end
 
       it 'create series, age groups and clubs only if needed' do
-        target_race.copy_competitors_from source_race
+        target_race.copy_competitors_from source_race, with_start_list
         target_race.reload
         expect(target_race.clubs.count).to eql 2
         expect(target_race.series.count).to eql 2
@@ -50,7 +51,7 @@ describe CompetitorsCopy do
       end
 
       it 'does not return errors' do
-        errors = target_race.copy_competitors_from source_race
+        errors = target_race.copy_competitors_from source_race, with_start_list
         expect(errors).to be_empty
       end
 
@@ -73,14 +74,14 @@ describe CompetitorsCopy do
       end
 
       it 'returns errors' do
-        errors = target_race.copy_competitors_from source_race
+        errors = target_race.copy_competitors_from source_race, with_start_list
         expect(errors.length).to eql 2
         expect(errors[0]).to eql "Kilpailijanumero #{source_competitor2.number} on jo käytössä tässä kilpailussa."
         expect(errors[1]).to eql "Kilpailijanumero #{source_competitor3.number} on jo käytössä tässä kilpailussa."
       end
 
       it 'does not save valid competitors' do
-        target_race.copy_competitors_from source_race
+        target_race.copy_competitors_from source_race, with_start_list
         expect(target_race.reload.competitors.count).to eq 2
       end
     end
@@ -92,10 +93,62 @@ describe CompetitorsCopy do
       end
 
       it 'returns error' do
-        errors = target_race.copy_competitors_from source_race
+        errors = target_race.copy_competitors_from source_race, with_start_list
         expect(errors.length).to eql 1
         error = 'Kohdekilpailu vaatii, että kilpailijoilla on lähtöajat mutta valitusta kilpailusta lähtöajat puuttuvat.'
         expect(errors[0]).to eql error
+      end
+    end
+
+    context 'when race does not require start times and source competitors do not have them' do
+      before do
+        target_race.update_attribute :start_order, Race::START_ORDER_BY_SERIES
+        source_competitor1.update_attribute :number, nil
+        source_competitor2.update_attribute :number, nil
+        source_competitor3.update_attribute :number, nil
+        source_competitor1.update_attribute :start_time, nil
+        source_competitor2.update_attribute :start_time, nil
+        source_competitor3.update_attribute :start_time, nil
+        target_race.copy_competitors_from source_race, with_start_list
+      end
+
+      it 'copies competitors without start times' do
+        competitors = target_race.reload.competitors
+        expect_competitors_without_start_times competitors, 3
+      end
+    end
+
+    context 'when start list is not wanted to be copied' do
+      let(:with_start_list) { false }
+
+      context 'and target race does not require start times' do
+        before do
+          target_race.update_attribute :start_order, Race::START_ORDER_BY_SERIES
+          target_race.copy_competitors_from source_race, with_start_list
+        end
+
+        it 'copies competitors without numbers and start times' do
+          competitors = target_race.reload.competitors
+          expect_competitors_without_start_times competitors, 3
+        end
+      end
+
+      context 'but target race requires start times' do
+        before do
+          target_race.update_attribute :start_order, Race::START_ORDER_MIXED
+        end
+
+        it 'raises error' do
+          expect { target_race.copy_competitors_from source_race, with_start_list }.to raise_error(ArgumentError)
+        end
+      end
+    end
+
+    def expect_competitors_without_start_times(competitors, expected_count)
+      expect(competitors.count).to eql expected_count
+      competitors.each do |competitor|
+        expect(competitor.number).to be_nil
+        expect(competitor.start_time).to be_nil
       end
     end
   end

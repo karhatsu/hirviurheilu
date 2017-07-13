@@ -1,14 +1,15 @@
 module CompetitorsCopy
   extend ActiveSupport::Concern
 
-  def copy_competitors_from(race)
+  def copy_competitors_from(race, with_start_list)
+    raise ArgumentError if start_order == Race::START_ORDER_MIXED && !with_start_list
     errors = []
     race.transaction do
       race.competitors.each do |competitor|
         club = ensure_club competitor.club
         series = ensure_series competitor.series
         age_group = ensure_age_group series, competitor.age_group
-        create_competitor club, series, age_group, competitor if validate_competitor errors, competitor
+        create_competitor club, series, age_group, competitor, with_start_list if validate_competitor errors, competitor
       end
       raise ActiveRecord::Rollback unless errors.empty?
     end
@@ -35,7 +36,7 @@ module CompetitorsCopy
   end
 
   def validate_competitor(errors, competitor)
-    if competitors.find_by_number(competitor.number)
+    if competitor.number && competitors.find_by_number(competitor.number)
       errors << "Kilpailijanumero #{competitor.number} on jo käytössä tässä kilpailussa."
       return false
     end
@@ -46,9 +47,13 @@ module CompetitorsCopy
     true
   end
 
-  def create_competitor(club, series, age_group, competitor)
-    Competitor.create! club: club, series: series, age_group: age_group,
-                       first_name: competitor.first_name, last_name: competitor.last_name,
-                       number: competitor.number, start_time: competitor.start_time
+  def create_competitor(club, series, age_group, competitor, with_start_list)
+    copied_competitor = Competitor.new club: club, series: series, age_group: age_group,
+                       first_name: competitor.first_name, last_name: competitor.last_name
+    if with_start_list
+      copied_competitor.number = competitor.number
+      copied_competitor.start_time = competitor.start_time
+    end
+    copied_competitor.save!
   end
 end
