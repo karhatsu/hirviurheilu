@@ -85,7 +85,11 @@ class Competitor < ApplicationRecord
   end
 
   def comparison_time_in_seconds(all_competitors)
-    series.comparison_time_in_seconds(age_group, all_competitors)
+    comparison_time = series.comparison_time_in_seconds(age_group, all_competitors)
+    if comparison_time.nil? && unofficial? && !all_competitors
+      comparison_time = series.comparison_time_in_seconds(age_group, true)
+    end
+    comparison_time
   end
 
   def shot_points

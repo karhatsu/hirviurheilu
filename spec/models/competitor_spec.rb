@@ -927,9 +927,10 @@ describe Competitor do
     before do
       @all_competitors = true
       @series = build(:series)
-      @competitor = build(:competitor, :series => @series)
+      @age_group = build :age_group, series: @series
+      @competitor = build(:competitor, series: @series, age_group: @age_group)
       @best_time_seconds = 3603.0 # rounded: 3600
-      allow(@competitor).to receive(:comparison_time_in_seconds).with(@all_competitors).and_return(@best_time_seconds)
+      allow(@series).to receive(:comparison_time_in_seconds).with(@age_group, @all_competitors).and_return(@best_time_seconds)
     end
 
     it "should be nil when time cannot be calculated yet" do
@@ -941,8 +942,21 @@ describe Competitor do
       # this happens if competitor has time but did not finish (no_result_reason=DNF)
       # and no-one else has result either
       expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds)
-      expect(@competitor).to receive(:comparison_time_in_seconds).with(@all_competitors).and_return(nil)
+      expect(@series).to receive(:comparison_time_in_seconds).with(@age_group, @all_competitors).and_return(nil)
       expect(@competitor.time_points(@all_competitors)).to eq(nil)
+    end
+
+    context 'when only unofficial competitors in the series' do
+      before do
+        @competitor.unofficial = true
+        expect(@series).to receive(:comparison_time_in_seconds).with(@age_group, false).and_return(nil)
+        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 10)
+      end
+
+      it 'should find the comparison time for all competitors and calculate time points based on that' do
+        expect(@series).to receive(:comparison_time_in_seconds).with(@age_group, true).and_return(@best_time_seconds)
+        expect(@competitor.time_points(false)).to eq(299)
+      end
     end
 
     context "when the competitor has the best time" do
@@ -1027,10 +1041,9 @@ describe Competitor do
 
     context "no result" do
       before do
-        @competitor = build(:competitor, :series => @series,
-          :no_result_reason => Competitor::DNF)
+        @competitor = build(:competitor, series: @series, age_group: @age_group, no_result_reason: Competitor::DQ)
         @best_time_seconds = 3603.0
-        allow(@competitor).to receive(:comparison_time_in_seconds).with(@all_competitors).and_return(@best_time_seconds)
+        allow(@series).to receive(:comparison_time_in_seconds).with(@age_group, @all_competitors).and_return(@best_time_seconds)
       end
 
       it "should be like normally when the competitor has not the best time" do
