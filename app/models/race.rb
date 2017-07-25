@@ -129,9 +129,14 @@ class Race < ApplicationRecord
     @days_count_temp = nil
   end
 
+  def set_correct_estimates_for_competitors!
+    errors = set_correct_estimates_for_competitors
+    raise errors.join('. ') unless errors.empty?
+  end
+
   def set_correct_estimates_for_competitors
     reload
-    return if correct_estimates.empty?
+    return [] if correct_estimates.empty?
 
     number_to_corrects_hash = Hash.new
     max_range_low_limit = nil
@@ -148,6 +153,7 @@ class Race < ApplicationRecord
       end
     end
 
+    errors = []
     competitors.each do |c|
       if c.number
         if max_range_low_limit and c.number >= max_range_low_limit
@@ -157,9 +163,15 @@ class Race < ApplicationRecord
         else
           c.reset_correct_estimates
         end
-        c.save!
+        if c.valid?
+          c.save
+        else
+          errors = errors + c.errors.full_messages
+        end
       end
     end
+
+    errors
   end
 
   def each_competitor_has_correct_estimates?
