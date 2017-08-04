@@ -81,12 +81,21 @@ module ApplicationHelper
   end
   
   def organizer_info_with_possible_link(race)
-    return nil if race.home_page.blank? and race.organizer.blank? and race.organizer_phone.blank?
-    return race.organizer_phone if race.home_page.blank? and race.organizer.blank?
-    info = race.organizer.blank? ? t("races.show.race_home_page") : race.organizer
-    info = raw('<a href="' + link_with_protocol(race.home_page) + '" target="_blank">' + info + '</a>') unless race.home_page.blank?
-    info << ", #{race.organizer_phone}" unless race.organizer_phone.blank?
-    info
+    home_page = race.home_page
+    organizer = race.organizer
+    organizer_phone = race.organizer_phone
+    address = race.address
+    return nil if home_page.blank? && organizer.blank? && organizer_phone.blank? && address.blank?
+    return organizer_phone if home_page.blank? && organizer.blank? && address.blank?
+    info = []
+    info << organizer if home_page.blank? && !organizer.blank?
+    unless home_page.blank?
+      link_label = organizer.blank? ? t('races.show.race_home_page') : organizer
+      info << '<a href="' + link_with_protocol(home_page) + '" target="_blank">' + link_label + '</a>'
+    end
+    info << '<a href="https://www.google.fi/maps/place/' + address.gsub(/ /, '+') + '" target="_blank">' + address + '</a>' unless address.blank?
+    info << organizer_phone unless organizer_phone.blank?
+    raw info.join(', ')
   end
 
   def races_drop_down_array(races)

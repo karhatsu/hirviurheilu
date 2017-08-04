@@ -142,6 +142,13 @@ describe ApplicationHelper do
         expect(helper.organizer_info_with_possible_link(race)).to eq('123 456')
       end
     end
+
+    context "when only address" do
+      it "should return link to Google with the address" do
+        race = build(:race, address: 'Teerinevantie 30, Ikaalinen')
+        expect(helper.organizer_info_with_possible_link(race)).to eq('<a href="https://www.google.fi/maps/place/Teerinevantie+30,+Ikaalinen" target="_blank">Teerinevantie 30, Ikaalinen</a>')
+      end
+    end
       
     context "when organizer and phone" do
       it "should return organizer name appended with phone" do
@@ -150,11 +157,19 @@ describe ApplicationHelper do
         expect(helper.organizer_info_with_possible_link(race)).to eq(expected_link)
       end
     end
-      
+
     context "when home page, organizer and phone" do
       it "should return link to home page with organizer as text, appended with phone" do
         race = build(:race, home_page: 'http://www.home.com', organizer: 'Organizer', organizer_phone: '123 456')
         expected_link = '<a href="http://www.home.com" target="_blank">Organizer</a>, 123 456'
+        expect(helper.organizer_info_with_possible_link(race)).to eq(expected_link)
+      end
+    end
+
+    context "when home page, organizer, phone, and address" do
+      it "should return link to home page with organizer as text, appended with google maps link, appended with phone" do
+        race = build(:race, home_page: 'http://www.home.com', organizer: 'Organizer', organizer_phone: '123 456', address: 'Testikatu 4 A, Kylä')
+        expected_link = '<a href="http://www.home.com" target="_blank">Organizer</a>, <a href="https://www.google.fi/maps/place/Testikatu+4+A,+Kylä" target="_blank">Testikatu 4 A, Kylä</a>, 123 456'
         expect(helper.organizer_info_with_possible_link(race)).to eq(expected_link)
       end
     end
