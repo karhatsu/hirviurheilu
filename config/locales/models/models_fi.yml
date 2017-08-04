@@ -1,6 +1,7 @@
 fi:
   attributes:
     active: Aktiivinen
+    address: Osoite
     age_group: Ikäryhmä
     age_group_id: Ikäryhmä
     arrival_time: Saapumisaika

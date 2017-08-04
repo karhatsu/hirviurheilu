@@ -41,6 +41,12 @@
 
   %div
     %span.form_label
+      = f.label :address
+      %a.help#address_help{href: 'javascript:void(0);'} ?
+    %span= f.text_field :address
+
+  %div
+    %span.form_label
       = f.label :home_page, t('official.races.form.link_to_race_home_page')
       %a.help#home_page_help{href: 'javascript:void(0);'} ?
     %span= f.url_field :home_page
@@ -82,6 +88,11 @@
     kilpailijoiden lisäysjärjestys. Toimitsijan kannalta tämä tarkoittaa sitä,
     että kun olet lisäämässä kilpailijaa, sinun täytyy myös määrittää hänelle lähtöaika
     ja lähtönumero. Lähtölistat syntyvät näin ollen samalla, kun lisäät kilpailijoita.
+
+  #address_help_dialog.dialog{style: 'display:none;'}
+    Kilpailupaikan osoite. Syötä osoite sellaisessa muodossa, jossa Google sen tunnistaa,
+    esim. "Kilpailukatu 15, Kisakylä".
+    %p Kilpailun etusivulle luodaan Google Maps -linkki tämän osoitteen avulla.
 
   #public_message_help_dialog.dialog{style: 'display:none;'}
     Tähän kenttään kirjoittamasi viesti tulee näkyviin kilpailun etusivulle.
@@ -156,6 +167,7 @@
 
 :javascript
   var home_page_help_title = 'Linkki kilpailun sivuille';
+  var address_help_title = 'Kilpailupaikan osoite';
   var public_message_help_title = '#{t 'attributes.public_message'}';
   var start_order_help_title = 'Kilpailijoiden lähtöjärjestys';
   var batch_size_help_title = 'Lähtöerät';

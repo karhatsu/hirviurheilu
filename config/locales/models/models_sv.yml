@@ -1,6 +1,7 @@
 sv:
   attributes:
     active: Aktiv
+    address: Adress
     age_group: Åldersgrupp
     age_group_id: Åldersgrupp
     arrival_time: Avkomstid
