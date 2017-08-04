@@ -12,7 +12,8 @@
 - unless @race.public_message.blank?
   %h2 Kilpailun järjestäjä tiedottaa
   %blockquote.public_message
-    = @race.public_message
+    - markdown = Redcarpet::Markdown.new Redcarpet::Render::HTML
+    = raw markdown.render(@race.public_message)
 .race-page-column
   %h2= t '.single_competitor_competitions'
   - if @race.start_time_defined? and not @race.finished?
