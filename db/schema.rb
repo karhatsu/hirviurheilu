@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170508090832) do
+ActiveRecord::Schema.define(version: 20170804161506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -174,6 +174,7 @@ ActiveRecord::Schema.define(version: 20170508090832) do
     t.string "billing_info"
     t.text "public_message"
     t.string "api_secret"
+    t.string "address"
     t.index ["sport_id"], name: "index_races_on_sport_id"
   end
 
