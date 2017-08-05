@@ -98,6 +98,7 @@ class Competitor < ApplicationRecord
   end
 
   def shooting_overtime_penalty
+    return nil if series.walking_series?
     -3 * shooting_overtime_min if shooting_overtime_min.to_i > 0
   end
 
