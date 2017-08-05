@@ -32,9 +32,10 @@
       %span.form_label= f.label :estimate4
       = f.telephone_field :estimate4, :size => 5, :maxlength => 3
     %hr
-    %span.form_label= f.label :shooting_overtime_min
-    = f.telephone_field :shooting_overtime_min, :size => 3
-    %hr
+    - if @competitor.series.walking_series?
+      %span.form_label= f.label :shooting_overtime_min
+      = f.telephone_field :shooting_overtime_min, :size => 3
+      %hr
     = f.radio_button :no_result_reason, ''
     Normaali
     = f.radio_button :no_result_reason, Competitor::DNS
