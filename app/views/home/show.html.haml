@@ -6,6 +6,8 @@
 
 = render 'user_club_name_alert'
 
+- few_upcoming_competitions = @today.length + @future.length < 5
+
 .main_page_columns
   .left_column
     .title_box.races_box#races_today
@@ -27,10 +29,12 @@
             .home_page_box{class: "races_#{key}"}
               .box_sub_title= t ".competitions.#{key}"
               = render partial: 'race_list', locals: { competitions: races }
+    - if few_upcoming_competitions
+      = render partial: 'announcements'
+      = render partial: 'shared/facebook_like_box'
   .right_column
-    - unless offline?
-      - unless @announcements.empty?
-        = render partial: 'announcements'
+    - unless few_upcoming_competitions
+      = render partial: 'announcements'
       = render partial: 'shared/facebook_like_box'
     .title_box.races_box#old_races
       .box_title= t '.latest_ended_competitions'
