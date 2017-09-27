@@ -615,7 +615,8 @@ describe Competitor do
     end
 
     it 'should subtract 3 points from every overtime minute' do
-      competitor = build(:competitor, shooting_overtime_min: 2)
+      series = build :series, points_method: Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
+      competitor = build(:competitor, series: series, shooting_overtime_min: 2)
       expect(competitor).to receive(:shots_sum).and_return(90)
       expect(competitor.shot_points).to eq(6 * (90-2*3))
     end
@@ -633,19 +634,19 @@ describe Competitor do
     end
 
     context 'when overtime minutes is positive number' do
-      context 'and running series' do
+      context 'and walking series' do
         it 'is 3 times overtime minutes as negative' do
           series = build :series
-          allow(series).to receive(:walking_series?).and_return(false)
+          allow(series).to receive(:walking_series?).and_return(true)
           competitor = build :competitor, shooting_overtime_min: 4, series: series
           expect(competitor.shooting_overtime_penalty).to eql -12
         end
       end
 
-      context 'and walking series' do
+      context 'and running series' do
         it 'is nil' do
           series = build :series
-          allow(series).to receive(:walking_series?).and_return(true)
+          allow(series).to receive(:walking_series?).and_return(false)
           competitor = build :competitor, shooting_overtime_min: 4, series: series
           expect(competitor.shooting_overtime_penalty).to be_nil
         end

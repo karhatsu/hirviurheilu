@@ -37,7 +37,7 @@
         %tr
           %td= t 'attributes.shooting_time'
           %td= time_from_seconds @competitor.shooting_time_seconds
-      - if @competitor.shooting_overtime_min && !@competitor.series.walking_series?
+      - if @competitor.shooting_overtime_min && @competitor.series.walking_series?
         %tr
           %td= t 'attributes.shooting_overtime_min'
           %td
