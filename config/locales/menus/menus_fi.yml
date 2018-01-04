@@ -7,7 +7,6 @@ fi:
     prices: Hinnat
     personal: Omat tiedot
     start: Aloita käyttö
-    offline: Offline
   login: Kirjaudu sisään
   logout: "Kirjaudu ulos, %{name}"
   forgotten_password: Unohtunut salasana?
@@ -24,12 +23,6 @@ fi:
     home_page: Cup-kilpailun etusivu
     results: Tulokset
     press: Lehdistö
-  offline_sub_menu:
-    online_vs_offline: Online vai Offline?
-    offline_installation: Offline-asennus
-    price: Hinta
-    activation_key: Hanki aktivointitunnus
-    version_history: Versiohistoria
   prices_sub_menu:
     prices: Hinnat
     ask_for_offer: Pyydä tarjous

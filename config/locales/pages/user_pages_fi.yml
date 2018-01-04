@@ -12,7 +12,6 @@ fi:
     show:
       basic_information: Perustiedot
       modify_information: Muokkaa tietoja
-      see_activation_key: Katso Hirviurheilu Offlinen aktivointitunnus
       own_races: Omat kilpailut
       no_own_races: Sinulla ei ole vielä yhtään kilpailua. Pääset syöttämään kilpailun tietoja Toimitsijan sivut -linkistä sivun ylälaidasta.
     edit:

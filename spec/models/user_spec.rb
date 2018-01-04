@@ -138,32 +138,4 @@ describe User do
       expect(@user).to have_full_rights_for_race(@race)
     end
   end
-
-  describe "offline usage" do
-    describe "maximum amount of users" do
-      before do
-        create(:user)
-      end
-
-      context "when online usage" do
-        before do
-          allow(Mode).to receive(:offline?).and_return(false)
-        end
-
-        it "should not be limited" do
-          create(:user)
-        end
-      end
-
-      context "when offline usage" do
-        before do
-          allow(Mode).to receive(:offline?).and_return(true)
-        end
-
-        it "should be one" do
-          expect(build(:user)).not_to be_valid
-        end
-      end
-    end
-  end
 end

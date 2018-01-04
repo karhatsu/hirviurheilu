@@ -114,57 +114,44 @@ describe ResultRotationHelper do
       allow(helper).to receive(:result_path).with(tc2).and_return(tc2_path)
     end
 
-    context 'when offline' do
-      it 'should return an empty list' do
-        expect(Mode).to receive(:offline?).and_return(true)
-        expect(helper.result_rotation_competitions_paths(race)).to be_empty
+    context 'and cookie contains pre-defined paths' do
+      before do
+        allow(helper).to receive(:result_rotation_selected_competitions).and_return '/series/5,/series/3,/tc/4'
+      end
+
+      it 'should return pre-defined paths' do
+        paths = helper.result_rotation_competitions_paths(race)
+        expect(paths.size).to eq(3)
+        expect(paths[0]).to eq('/series/5')
+        expect(paths[1]).to eq('/series/3')
+        expect(paths[2]).to eq('/tc/4')
       end
     end
 
-    context 'when online' do
+    context 'and cookie does not contain pre-defined paths' do
       before do
-        expect(Mode).to receive(:offline?).and_return(false)
+        allow(helper).to receive(:result_rotation_selected_competitions).and_return nil
       end
 
-      context 'and cookie contains pre-defined paths' do
-        before do
-          allow(helper).to receive(:result_rotation_selected_competitions).and_return '/series/5,/series/3,/tc/4'
-        end
-
-        it 'should return pre-defined paths' do
-          paths = helper.result_rotation_competitions_paths(race)
-          expect(paths.size).to eq(3)
-          expect(paths[0]).to eq('/series/5')
-          expect(paths[1]).to eq('/series/3')
-          expect(paths[2]).to eq('/tc/4')
+      context 'when series available and team competitions wanted' do
+        it 'should return paths for all series and team competitions' do
+          list = helper.result_rotation_competitions_paths(race)
+          expect(list).to eq([series1_path, series2_path, tc1_path, tc2_path])
         end
       end
 
-      context 'and cookie does not contain pre-defined paths' do
-        before do
-          allow(helper).to receive(:result_rotation_selected_competitions).and_return nil
+      context 'but no series' do
+        it 'should not return series paths nor team competition paths' do
+          expect(helper).to receive(:result_rotation_series).with(race).and_return([])
+          expect(helper.result_rotation_competitions_paths(race)).to be_empty
         end
+      end
 
-        context 'when series available and team competitions wanted' do
-          it 'should return paths for all series and team competitions' do
-            list = helper.result_rotation_competitions_paths(race)
-            expect(list).to eq([series1_path, series2_path, tc1_path, tc2_path])
-          end
-        end
-
-        context 'but no series' do
-          it 'should not return series paths nor team competition paths' do
-            expect(helper).to receive(:result_rotation_series).with(race).and_return([])
-            expect(helper.result_rotation_competitions_paths(race)).to be_empty
-          end
-        end
-
-        context 'and no cookie for team competitions' do
-          it 'should not return team competition paths unless cookie for that' do
-            allow(helper).to receive(:result_rotation_team_competitions_cookie).and_return(false)
-            list = helper.result_rotation_competitions_paths(race)
-            expect(list).to eq([series1_path, series2_path])
-          end
+      context 'and no cookie for team competitions' do
+        it 'should not return team competition paths unless cookie for that' do
+          allow(helper).to receive(:result_rotation_team_competitions_cookie).and_return(false)
+          list = helper.result_rotation_competitions_paths(race)
+          expect(list).to eq([series1_path, series2_path])
         end
       end
     end

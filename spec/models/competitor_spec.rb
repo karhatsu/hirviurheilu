@@ -1306,42 +1306,6 @@ describe Competitor do
     end
   end
 
-  describe "#free_offline_competitors_left" do
-    context "when online state" do
-      it "should raise error" do
-        allow(Mode).to receive(:online?).and_return(true)
-        allow(Mode).to receive(:offline?).and_return(false)
-        expect { Competitor.free_offline_competitors_left }.to raise_error(RuntimeError)
-      end
-    end
-
-    context "when offline state" do
-      before do
-        allow(Mode).to receive(:online?).and_return(false)
-        allow(Mode).to receive(:offline?).and_return(true)
-      end
-
-      it "should return full amount initially" do
-        expect(Competitor.free_offline_competitors_left).to eq(
-          Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE
-        )
-      end
-
-      it "should recude added competitors from the full amount" do
-        create(:competitor)
-        create(:competitor)
-        expect(Competitor.free_offline_competitors_left).to eq(
-          Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE - 2
-        )
-      end
-
-      it "should be zero when would actually be negative (for some reason)" do
-        allow(Competitor).to receive(:count).and_return(Competitor::MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE + 1)
-        expect(Competitor.free_offline_competitors_left).to eq(0)
-      end
-    end
-  end
-
   describe "create with number" do
     before do
       @race = create(:race)

@@ -112,9 +112,6 @@ module NavigationHelpers
     when /the login page/
       login_path locale
 
-    when /the activation key page/
-      new_activation_key_path locale
-
     when /the admin index page/
       admin_root_path locale
       

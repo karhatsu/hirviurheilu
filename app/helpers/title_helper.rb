@@ -46,9 +46,7 @@ module TitleHelper
       return '' if ProductionEnvironment.production?
       return '(Testi) '
     end
-    return '(Offline) ' if env == 'winoffline-prod'
     return '(Dev) ' if env == 'development'
-    return '(Offline-dev) ' if env == 'winoffline-dev'
     '(Testi) '
   end
 

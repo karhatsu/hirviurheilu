@@ -1,7 +1,4 @@
 class User < ApplicationRecord
-  OFFLINE_USER_EMAIL = 'offline@hirviurheilu.com'
-  OFFLINE_USER_PASSWORD = 'offline1'
-
   acts_as_authentic do |config|
     config.crypto_provider = Authlogic::CryptoProviders::Sha512
   end
@@ -15,7 +12,6 @@ class User < ApplicationRecord
   validates :last_name, :presence => true
   validates :club_name, presence: true, on: :create
   validate :prevent_bot
-  validate :only_one_user_in_offline_mode
 
   def add_admin_rights
     add_role Role::ADMIN
@@ -52,16 +48,6 @@ class User < ApplicationRecord
     race_right and !race_right.only_add_competitors
   end
 
-  def self.create_offline_user
-    raise "Cannot create offline user unless offline mode" if Mode.online?
-    offline_user = User.create!(:email => OFFLINE_USER_EMAIL,
-      :password => OFFLINE_USER_PASSWORD,
-      :password_confirmation => OFFLINE_USER_PASSWORD,
-      :first_name => 'Offline', :last_name => 'Käyttäjä', club_name: 'Seura')
-    offline_user.add_official_rights
-    offline_user
-  end
-
   def relevant_attributes
     attributes.except('crypted_password', 'password_salt', 'persistence_token', 'single_access_token', 'perishable_token')
   end
@@ -80,11 +66,5 @@ class User < ApplicationRecord
 
   def prevent_bot
     errors.add :base, 'Odottamaton virhe' if first_name == last_name || first_name == club_name || last_name == club_name
-  end
-
-  def only_one_user_in_offline_mode
-    if Mode.offline? and User.count == 1
-      errors.add(:base, 'Offline-tilassa voi olla vain yksi käyttäjä')
-    end
   end
 end

@@ -15,7 +15,6 @@ sv:
   back_to_page: Tillbaka till sida
   back_to_race_home_page: Tillbaka till tävlingens hemsida
   back_to_series_results: Tillbaka till klassens %{series_name} resultat
-  buy_license: Skaffa licens.
   captcha: Hur mycket år två plus två?
   captcha_info: Vi vill kontrollera att du är inte en robot. Den rätta svaren är naturligtvis fyra.
   club: Klubb
@@ -65,8 +64,6 @@ sv:
   no_races: Du har ökat inga tävlingar
   normal: Normal
   number_short: Nr
-  offline_limit_full: Du kan inte öka tävlar förran du har köppt licens.
-  offline_limit_full_long: Du har sparat %{limit} tävlar till tjänsten. Innan du kan öka mera tävlar, måste du skaffa licens.
   order_method: Tävlarnas ordning
   order_method_0: Som ökat
   order_method_1: Lottas

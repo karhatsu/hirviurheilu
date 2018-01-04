@@ -3,11 +3,6 @@ Feature: Announcements
   I want to read announcements
   so that I know what's happening in Hirviurheilu
 
-  Scenario: No announcements in offline
-    Given I use the software offline
-    And I am on the home page
-    Then I should not see "Tiedotteet"
-    
   Scenario: No announcements added
     Given I am on the home page
     Then I should not see "Tiedotteet"

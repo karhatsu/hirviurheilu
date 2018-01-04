@@ -2,21 +2,6 @@
     clear: both;
 }
 
-div.offline_limit {
-    width: 100%;
-    margin: 0 0 5px 0;
-    padding: 3px;
-    background-color: #FF7F00;
-    color: white;
-    text-align: center;
-    border-bottom: white solid 1px;
-}
-
-div.offline_limit a {
-    color: white;
-    text-decoration: underline;
-}
-
 div.login_and_locale_links {
     float: right;
     color: white;

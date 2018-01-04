@@ -7,8 +7,7 @@ class Competitor < ApplicationRecord
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish
   DQ = 'DQ' # disqualified
-  MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE = 100
-  
+
   SORT_BY_POINTS = 0
   SORT_BY_TIME = 1
   SORT_BY_SHOTS = 2
@@ -233,13 +232,6 @@ class Competitor < ApplicationRecord
     end
   end
   
-  def self.free_offline_competitors_left
-    raise "Method available only in offline mode" if Mode.online?
-    left = MAX_FREE_COMPETITOR_AMOUNT_IN_OFFLINE - count
-    left = 0 if left < 0
-    left
-  end
-
   def national_record_reached?
     series.national_record && points.to_i == series.national_record.to_i
   end

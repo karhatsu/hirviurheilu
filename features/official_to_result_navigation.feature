@@ -61,20 +61,3 @@ Feature: Navigation between official and result sections
     And there is a race "Another race"
     And I am on the race page
     Then I should not see "Another race" within "div.main_menu"
-
-  Scenario: (Offline) user is instructed to add race when in the competitions page without competitions
-    Given I use the software offline
-    When I go to the home page
-    And I follow "Kilpailut"
-    Then I should see "Et ole lisännyt vielä yhtään kilpailua" in an info message
-    When I follow "Lisää kilpailu"
-    Then I should be on the new race page
-    When I fill in the following:
-      | Kilpailun nimi | Test race |
-      | Paikkakunta | Test town |
-    And I choose "Pääsääntöisesti sarjoittain"
-    And I press "Lisää kilpailu"
-    Then I should see "Kilpailu lisätty"
-    When I go to the home page
-    And I follow "Kilpailut"
-    Then I should not see "Et ole lisännyt vielä yhtään kilpailua"

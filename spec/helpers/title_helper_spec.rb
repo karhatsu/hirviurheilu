@@ -170,16 +170,6 @@ describe TitleHelper do
       expect(helper.title_prefix).to eq('(Testi) ')
     end
 
-    it "should be '(Offline) ' when offline production environment" do
-      allow(Rails).to receive(:env).and_return('winoffline-prod')
-      expect(helper.title_prefix).to eq('(Offline) ')
-    end
-
-    it "should be '(Offline-dev) ' when offline development environment" do
-      allow(Rails).to receive(:env).and_return('winoffline-dev')
-      expect(helper.title_prefix).to eq('(Offline-dev) ')
-    end
-
     it "should be '' when production environment" do
       allow(Rails).to receive(:env).and_return('production')
       allow(ProductionEnvironment).to receive(:production?).and_return(true)

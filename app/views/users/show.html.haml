@@ -18,8 +18,6 @@
     %span=h @user.club_name
 %hr
 .action_box= link_to t('.modify_information'), edit_account_path
-- unless @user.activation_key.blank?
-  .action_box= link_to t('.see_activation_key'), new_activation_key_path
 %h2= t '.own_races'
 - if @user.races.empty?
   = highlight_info(t('.no_own_races'))

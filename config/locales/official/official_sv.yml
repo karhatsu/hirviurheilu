@@ -140,18 +140,6 @@ sv:
         current: Nuvarande
         edit_info: Om du vill växla namnet av en klubb, klicka länken på namnet.
         competitors: Tävlar
-    exports:
-      new:
-        download_title: Ladda tävlingen till din egen dator
-        publish_title: Publisera tävlingen till internet
-        download_info: Om du här Hirviurheilu Offline, du kan ladda den här tävlingen till din egen dator. Du kan änvanda funktionen till exempel för säkerhetskopiering av en tävling som är inte slut. Om du kopiera mer ofta, måste du ge ett olikt tävlingsnamn varje gång.
-        publish_info: På den här sidan kan du publisera de slutliga resultaten till Hirviurheilu-tjänsten. Publisering kostar ingenting men du måste ha internetuppkoppling.
-        publish_after_finish_info: Du kan publisera tävlingen efter du har slutat den.
-        finish_in_summary_page: Du kan sluta tävlingen på Sammanfattning-sida.
-        before_download_info: Innan du klickar Ladda-knappen, försäkra att din Hirviurheilu Offline är på.
-        target: Tjänst
-        download_submit: Ladda till din Hirviurheilu Offline
-        publish_submit: Publisera
     team_competitions:
       all_team_competitions: Alla lagtävlingar
       index:

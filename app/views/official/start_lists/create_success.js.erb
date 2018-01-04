@@ -1,7 +1,5 @@
 $('div.error').hide();
 
-<%= render :partial => 'free_competitors_update' %>
-
 $row = $("#ruler");
 $("#competitors_table .order").each(function() {
   if($(this).val() <= <%= @competitor.number %>) {

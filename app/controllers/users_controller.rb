@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_action :set_variant
-  before_action :no_account_changes_in_offline
   before_action :require_no_user, :only => [:new, :create]
   before_action :require_user, :only => [:show, :edit, :update]
   before_action :set_account, :only => [:show, :edit, :update]
@@ -41,9 +40,6 @@ class UsersController < ApplicationController
   end
 
   private
-  def no_account_changes_in_offline
-    redirect_to official_root_path if offline?
-  end
 
   def set_account
     @is_account = true

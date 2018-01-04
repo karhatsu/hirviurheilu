@@ -1,1 +1,0 @@
-/* asset pipeline workaround */

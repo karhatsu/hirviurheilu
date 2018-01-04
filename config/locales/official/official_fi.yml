@@ -141,18 +141,6 @@ fi:
         current: Nykyiset
         edit_info: Jos haluat muuttaa %{club_word} nimeä, klikkaa nimessä olevaa linkkiä.
         competitors: Kilpailijoita
-    exports:
-      new:
-        download_title: Lataa kilpailu omalle koneelle
-        publish_title: Julkaise kilpailu internetissä
-        download_info: Jos sinulla on Hirviurheilu Offline, voit ladata tämän kilpailun omalle koneellesi. Voit käyttää tätä toimintoa esimerkiksi keskeneräisen online-kilpailun varmuuskopioimiseen. Jos otat useamman kopion kilpailusta, anna jokaiselle eri nimi.
-        publish_info: Tällä sivulla voit julkaista kilpailun lopulliset tulokset internetissä, Hirviurheilu-palvelussa. Näin kilpailijat pääsevät näkemään kilpailun tulokset. Julkaiseminen ei maksa mitään. Ennen julkaisemista varmista, että sinulla on käytössäsi internet-yhteys.
-        publish_after_finish_info: Voit julkaista kilpailun vasta, kun olet merkinnyt sen päättyneeksi.
-        finish_in_summary_page: Kilpailun voi päättää Yhteenveto-sivulla.
-        before_download_info: Ennen kuin painat Lataa-nappia, varmista että Hirviurheilu Offline -tuotteesi on käynnissä.
-        target: Kohde
-        download_submit: Lataa Hirviurheilu Offline -tietokantaan
-        publish_submit: Julkaise
     team_competitions:
       all_team_competitions: Kaikki joukkuekilpailut
       index:

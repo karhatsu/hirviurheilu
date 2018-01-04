@@ -20,16 +20,3 @@ production:
 
 cucumber:
   <<: *test
-
-winoffline-dev:
-  adapter: sqlite3
-  database: db/offline-dev.sqlite3
-  pool: 5
-  timeout: 5000
-
-winoffline-prod:
-  adapter: sqlite3
-  database: db/hirviurheilu.sqlite3
-  pool: 5
-  timeout: 5000
-

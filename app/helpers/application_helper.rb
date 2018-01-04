@@ -1,9 +1,5 @@
 module ApplicationHelper
 
-  def offline?
-    Mode.offline?
-  end
-
   def flash_success
     raw("<div class='success'>#{flash[:success]}</div>") if flash[:success]
   end

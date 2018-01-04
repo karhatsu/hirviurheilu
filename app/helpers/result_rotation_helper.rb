@@ -16,7 +16,6 @@ module ResultRotationHelper
   end
 
   def result_rotation_competitions_paths(race)
-    return [] if Mode.offline?
     return result_rotation_selected_competitions.split(',') unless result_rotation_selected_competitions.blank?
     competitions = result_rotation_series(race)
     unless competitions.empty? || !result_rotation_team_competitions_cookie

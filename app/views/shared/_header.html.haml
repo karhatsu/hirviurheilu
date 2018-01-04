@@ -2,6 +2,5 @@
   = render :partial => 'menus/menu'
   .login_and_locale_links
     = render 'shared/env_info'
-    - unless offline?
-      = render :partial => 'shared/login_links'
+    = render :partial => 'shared/login_links'
     = render :partial => 'shared/locale_links'

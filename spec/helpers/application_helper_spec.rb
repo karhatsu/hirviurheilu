@@ -70,18 +70,6 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#offline?" do
-    it "should return true when Mode.offline? returns true" do
-      allow(Mode).to receive(:offline?).and_return(true)
-      expect(helper).to be_offline
-    end
-
-    it "should return true when Mode.offline? returns false" do
-      allow(Mode).to receive(:offline?).and_return(false)
-      expect(helper).not_to be_offline
-    end
-  end
-
   describe "#link_with_protocol" do
     it "should return the given link if it starts with http://" do
       expect(helper.link_with_protocol('http://www.test.com')).to eq('http://www.test.com')

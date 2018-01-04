@@ -4,7 +4,6 @@ class Official::CompetitorsController < Official::OfficialController
   before_action :assign_series_by_series_id, :check_assigned_series, :except => :create
   before_action :assign_race_by_race_id, :check_assigned_race, :only => :create
   before_action :assign_competitor_by_id, only: [ :edit, :update, :destroy ]
-  before_action :check_offline_limit, :only => [:new, :create]
   before_action :handle_start_time, :only => :create
   before_action :set_competitors
 
@@ -94,16 +93,6 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   private
-  def check_offline_limit
-    return if online?
-    return if ActivationKey.activated?
-    if Competitor.free_offline_competitors_left <= 0
-      respond_to do |format|
-        format.html { render :offline_limit }
-        format.js { render :offline_limit }
-      end
-    end
-  end
 
   def set_series_list_options_in_edit
     start_list_condition = "series.has_start_list = #{DatabaseHelper.boolean_value(@series.has_start_list)}"

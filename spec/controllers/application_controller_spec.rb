@@ -16,7 +16,6 @@ describe ApplicationController, type: :controller do
   
   describe "#pdf_header" do
     before do
-      allow(controller).to receive(:ensure_user_in_offline)
       @title = 'Lähtölistat, Äijälä, Örimäki'
       @title_expected = 'Lahtolistat, Aijala, Orimaki'
       get :index, params: {title: @title}

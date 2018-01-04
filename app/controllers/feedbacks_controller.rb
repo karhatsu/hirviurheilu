@@ -2,7 +2,6 @@ class FeedbacksController < ApplicationController
   include ApplicationHelper
 
   before_action :set_is_info, :set_is_feedback
-  before_action :check_offline
   before_action :set_variant
 
   def index
@@ -32,10 +31,6 @@ class FeedbacksController < ApplicationController
     @is_feedback = true
   end
   
-  def check_offline
-    render :offline if offline?
-  end
-
   def set_races
     @races = Race.where('start_date>?', Date.today - 14.days).order('start_date')
   end

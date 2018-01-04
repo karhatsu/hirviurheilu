@@ -11,21 +11,12 @@ ElkSports::Application.routes.draw do
     resources :users
     get 'reset_password/:reset_hash/edit' => 'reset_passwords#edit', :as => :edit_reset_password
     resource :reset_password
-    resource :license
-    resource :activation_key
-  
+
     resources :announcements
     resource :info
     get 'answers' => 'infos#answers', :as => :answers
     resources :feedbacks
   
-    get 'offline', to: redirect('/')
-    get 'offline_vs_online', to: redirect('/')
-    get 'offline_installation', to: redirect('/')
-    get 'offline_price', to: redirect('/')
-    get 'offline_version_history', to: redirect('/')
-    get 'download/installer', to: redirect('/')
-    
     resources :prices
     resources :offers, only: [:new, :create]
     get 'offer_sent' => 'offers#sent', as: :offer_sent
@@ -91,7 +82,6 @@ ElkSports::Application.routes.draw do
         post 'no_result_quick_save' => 'quick_saves#save_no_result', :as => :quick_save_no_result
         resources :quick_saves
         resource :finish_race
-        resource :exports
         get 'export/success' => 'exports#success'
         get 'export/error' => 'exports#error'
         resources :relays
@@ -127,8 +117,6 @@ ElkSports::Application.routes.draw do
       
       root :to => "index#show"
     end
-  
-    resources :remote_races
   end
 
   namespace :api, defaults: {format: 'json'} do

@@ -12,7 +12,6 @@ sv:
     show:
       basic_information: Basuppgifter
       modify_information: Redigera uppgifterna
-      see_activation_key: Se Hirviurheilu Offline aktiveringsnyckel
       own_races: Egna tävlingar
       no_own_races: Du har inte egna tävlingar. Klicka Funktionärs sidor länken över.
     edit:

@@ -9,11 +9,10 @@
     = menu_item t('main_menu.official'), official_root_path, @is_official, nil, (!@is_official and menu_race and own_race?(menu_race)) do
       - dropdown_menu_single(link_to(menu_race.name, official_race_path(menu_race)))
     = menu_item t('main_menu.info'), info_path, @is_info
-    - unless offline?
-      = menu_item t('main_menu.prices'), prices_path, @is_prices
-      - if current_user
-        = menu_item t('main_menu.personal'), account_path, @is_account
-      - else
-        = menu_item t('main_menu.start'), register_path, @is_start
+    = menu_item t('main_menu.prices'), prices_path, @is_prices
+    - if current_user
+      = menu_item t('main_menu.personal'), account_path, @is_account
+    - else
+      = menu_item t('main_menu.start'), register_path, @is_start
     - if current_user and current_user.admin?
       = menu_item "Admin", admin_root_path, @is_admin

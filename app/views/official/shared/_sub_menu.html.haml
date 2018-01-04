@@ -22,7 +22,4 @@
         = menu_item t('official_sub_menu.team_competitions'), official_race_team_competitions_path(race), @is_team_competitions
       = menu_item t('official_sub_menu.relays'), official_race_relays_path(race), @is_relays
       = menu_item clubs_title(race), official_race_clubs_path(race), @is_clubs
-      - if online?
-        = menu_item t('official_sub_menu.officials'), official_race_race_rights_path(race), @is_race_rights
-      - export_title = (offline? ? t('official_sub_menu.publish') : t('official_sub_menu.download'))
-      = menu_item export_title, new_official_race_exports_path(race), @is_export
+      = menu_item t('official_sub_menu.officials'), official_race_race_rights_path(race), @is_race_rights

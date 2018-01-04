@@ -4,10 +4,9 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
   helper_method :current_user_session, :current_user, :official_rights,
-    :online?, :offline?, :own_race?, :result_rotation_cookie_name, :result_rotation_scroll_cookie_name,
+    :own_race?, :result_rotation_cookie_name, :result_rotation_scroll_cookie_name,
     :result_rotation_tc_cookie_name, :result_rotation_selected_competitions_cookie_name
   before_action :test_error_email
-  before_action :ensure_user_in_offline
   before_action :set_locale
   before_action :clear_old_data_from_staging
   before_action :assign_races_for_main_menu
@@ -75,28 +74,6 @@ class ApplicationController < ActionController::Base
     current_user and (current_user.admin? or current_user.official_for_cup?(cup))
   end
 
-  def offline?
-    Mode.offline?
-  end
-
-  def online?
-    Mode.online?
-  end
-
-  def ensure_user_in_offline
-    return if online? or @current_user_session
-    unless @current_user
-      @current_user = User.first
-      unless @current_user
-        Role.ensure_default_roles_exist
-        Sport.ensure_default_sports_exist
-        @current_user = User.create_offline_user
-      end
-    end
-    @user_session = UserSession.login_offline_user
-    raise "Could not create user session" unless @user_session
-  end
-  
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
     @current_user_session = UserSession.find

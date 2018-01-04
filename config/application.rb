@@ -22,7 +22,6 @@ YOUTUBE_URL = 'http://www.youtube.com/watch?v=oRNIy1G4qWM'
 VAT = 24
 
 OSX_PLATFORM = (RUBY_PLATFORM =~ /darwin/)
-WINDOWS_PLATFORM = (RUBY_PLATFORM =~ /mswin|mingw/)
 
 module ElkSports
   class Application < Rails::Application
@@ -75,17 +74,6 @@ module ElkSports
 
     config.generators do |g|
       g.test_framework :rspec
-    end
-
-    module ServerStartInfo
-      def self.call
-        puts ''
-        puts 'HIRVIURHEILU OFFLINE ON NYT VALMIS KAYTETTAVAKSI'
-        puts 'Jos palomuurisi kysyy erillista lupaa ohjelman kayttoon, salli kaytto.'
-        puts ''
-        puts 'AVATAAN OHJELMAN ALOITUSSIVU...'
-        system('start http://localhost:3000')
-      end
     end
   end
 end
