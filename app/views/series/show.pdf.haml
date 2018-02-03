@@ -1,6 +1,7 @@
+- unofficials = unofficials_result_rule @series.race
 %h1= @series.race.name
 = @series.race.location, = race_date_interval(@series.race, false)
-%h2 #{@series.name} - #{series_result_title(@series, params[:all_competitors])}
+%h2 #{@series.name} - #{series_result_title(@series, unofficials)}
 = render :partial => 'series/infos', :locals => { :series => @series }
-- cache [@series, I18n.locale] do
+- cache [@series, unofficials, I18n.locale] do
   = render :partial => 'series/series_results', :locals => { :series => @series }

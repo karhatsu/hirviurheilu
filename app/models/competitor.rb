@@ -83,10 +83,10 @@ class Competitor < ApplicationRecord
     arrival_time.to_i - start_time.to_i
   end
 
-  def comparison_time_in_seconds(all_competitors)
-    comparison_time = series.comparison_time_in_seconds(age_group, all_competitors)
-    if comparison_time.nil? && unofficial? && !all_competitors
-      comparison_time = series.comparison_time_in_seconds(age_group, true)
+  def comparison_time_in_seconds(unofficials=UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
+    comparison_time = series.comparison_time_in_seconds(age_group, unofficials)
+    if comparison_time.nil? && unofficial? && [Series::UNOFFICIALS_EXCLUDED, Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME].include?(unofficials)
+      comparison_time = series.comparison_time_in_seconds(age_group, Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME)
     end
     comparison_time
   end
@@ -159,21 +159,21 @@ class Competitor < ApplicationRecord
     series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES ? 600 : 300
   end
 
-  def time_points(all_competitors=false)
+  def time_points(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     return nil if series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
     return 300 if series.points_method == Series::POINTS_METHOD_300_TIME_2_ESTIMATES
     own_time = time_in_seconds or return nil
-    best_time = comparison_time_in_seconds(all_competitors) or return nil
+    best_time = comparison_time_in_seconds(unofficials) or return nil
     return resolve_time_points_for_invalid_own_time if own_time < best_time
     calculate_time_points own_time, best_time
   end
 
-  def points(all_competitors=false)
+  def points(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     return nil if no_result_reason
-    shot_points.to_i + estimate_points.to_i + time_points(all_competitors).to_i
+    shot_points.to_i + estimate_points.to_i + time_points(unofficials).to_i
   end
   
-  def relative_points(all_competitors=false, sort_by=SORT_BY_POINTS)
+  def relative_points(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=SORT_BY_POINTS)
     return -1000003 if no_result_reason == DQ
     return -1000002 if no_result_reason == DNS
     return -1000001 if no_result_reason == DNF
@@ -185,10 +185,10 @@ class Competitor < ApplicationRecord
       return -time_in_seconds.to_i if time_in_seconds
       -1000000
     else
-      relative_points = 1000000*points(all_competitors).to_i + 1000*shot_points.to_i
+      relative_points = 1000000*points(unofficials).to_i + 1000*shot_points.to_i
       relative_points = relative_points - time_in_seconds.to_i unless series.walking_series?
       relative_points = relative_points + relative_shot_points if series.walking_series?
-      relative_points = relative_points * 10 unless all_competitors || unofficial?
+      relative_points = relative_points * 10 unless unofficials != Series::UNOFFICIALS_EXCLUDED || unofficial?
       relative_points
     end
   end
@@ -226,9 +226,9 @@ class Competitor < ApplicationRecord
     start_date_time race, series.start_day, start_time
   end
 
-  def self.sort_competitors(competitors, all_competitors, sort_by=SORT_BY_POINTS)
+  def self.sort_competitors(competitors, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=SORT_BY_POINTS)
     competitors.sort do |a, b|
-      [b.relative_points(all_competitors, sort_by), a.number] <=> [a.relative_points(all_competitors, sort_by), b.number]
+      [b.relative_points(unofficials, sort_by), a.number] <=> [a.relative_points(unofficials, sort_by), b.number]
     end
   end
   

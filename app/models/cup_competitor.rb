@@ -55,7 +55,7 @@ class CupCompetitor
   end
 
   def points_with_last_race_info_array
-    @points_array_with_last_race_info ||= @competitors.map { |c| {points: c.points(false), last_cup_race: c.series.last_cup_race} }
+    @points_array_with_last_race_info ||= @competitors.map { |c| {points: c.points, last_cup_race: c.series.last_cup_race} }
   end
   
   def total_points(min_competitions, last_race_required)

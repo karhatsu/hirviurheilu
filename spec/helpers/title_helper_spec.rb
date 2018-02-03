@@ -38,7 +38,8 @@ describe TitleHelper do
 
     it "should return 'Tulokset - Kaikki kilpailijat' when all competitors and the race is finished" do
       expect(@race).to receive(:finished?).and_return(true)
-      expect(series_result_title(@series, true)).to eq('Tulokset - Kaikki kilpailijat')
+      title = series_result_title(@series, Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME)
+      expect(title).to eq('Tulokset - Kaikki kilpailijat')
     end
 
     it "should return 'Tilanne (päivitetty: <time>) - Kaikki kilpailijat' when all competitors and series still active" do
@@ -47,7 +48,8 @@ describe TitleHelper do
       time = Time.utc(2011, 5, 13, 13, 45, 58)
       expect(@series).to receive(:competitors).and_return(@competitors)
       expect(@competitors).to receive(:maximum).with(:updated_at).and_return(time) # db return UTC
-      expect(series_result_title(@series, true)).to eq('Tilanne (päivitetty: 13.05.2011 22:45:58) - Kaikki kilpailijat')
+      title = series_result_title(@series, Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME)
+      expect(title).to eq('Tilanne (päivitetty: 13.05.2011 22:45:58) - Kaikki kilpailijat')
       Time.zone = original_zone
     end
   end

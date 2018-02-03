@@ -1,19 +1,19 @@
 module ComparisonTime
   extend ActiveSupport::Concern
 
-  def comparison_time_in_seconds(age_group, all_competitors)
-    @age_groups_hash ||= age_groups_for_comparison_time(all_competitors)
-    best_time_in_seconds(@age_groups_hash[age_group], all_competitors)
+  def comparison_time_in_seconds(age_group, unofficials)
+    @age_groups_hash ||= age_groups_for_comparison_time(unofficials)
+    best_time_in_seconds(@age_groups_hash[age_group], unofficials)
   end
 
   private
 
-  def best_time_in_seconds(age_groups, all_competitors)
+  def best_time_in_seconds(age_groups, unofficials)
     @best_time_cache ||= Hash.new
-    cache_key = age_groups.to_s + all_competitors.to_s
+    cache_key = age_groups.to_s + unofficials.to_s
     return @best_time_cache[cache_key] if @best_time_cache.has_key?(cache_key)
     conditions = { :no_result_reason => nil }
-    conditions[:unofficial] = false unless all_competitors
+    conditions[:unofficial] = false if unofficials != Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
     conditions[:age_group_id] = age_groups.map { |group| group ? group.id : [nil, 0] }.flatten if age_groups
     time = competitors.where(conditions).minimum(time_subtraction_sql)
     if time
@@ -25,7 +25,7 @@ module ComparisonTime
     end
   end
 
-  def age_groups_for_comparison_time(all_competitors)
+  def age_groups_for_comparison_time(unofficials)
     ordered_age_groups = age_groups.except(:order).order('name desc')
     return {} if ordered_age_groups.empty?
 
@@ -33,7 +33,7 @@ module ComparisonTime
     return children_series_hash ordered_age_groups if children_series?
 
     # e.g. N55, N60, N65 in series N50
-    hash = hash_with_age_group_referring_to_comparison_groups(ordered_age_groups, all_competitors)
+    hash = hash_with_age_group_referring_to_comparison_groups(ordered_age_groups, unofficials)
 
     # nil (refers to main series) => [nil, all age groups with normal trip length]
     append_main_series_to_hash(hash, ordered_age_groups)
@@ -62,13 +62,13 @@ module ComparisonTime
     end
   end
 
-  def hash_with_age_group_referring_to_comparison_groups(ordered_age_groups, all_competitors)
+  def hash_with_age_group_referring_to_comparison_groups(ordered_age_groups, unofficials)
     hash = Hash.new # { M75 => [M75], M70 => [M75, M70],... }
     competitors_count = 0
     to_same_pool = [] # age groups in the same pool use the same comparison time
     ordered_age_groups.each_with_index do |age_group, i|
       to_same_pool << age_group
-      competitors_count += age_group.competitors_count(all_competitors)
+      competitors_count += age_group.competitors_count(unofficials)
       if enough_competitors_for_own_comparison_time(age_group, competitors_count) ||
           last_age_group_with_different_trip_length(ordered_age_groups, i)
         add_groups_from_pool_to_hash(hash, ordered_age_groups, to_same_pool)

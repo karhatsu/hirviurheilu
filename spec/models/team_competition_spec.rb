@@ -52,7 +52,8 @@ describe TeamCompetition do
         @c = instance_double(Competitor, :points => 1100, :club => @club,
           :shot_points => 300, :time_in_seconds => 500, :unofficial => false,
                         :race => @race)
-        expect(Competitor).to receive(:sort_competitors).with([@c], false).and_return([@c])
+        allow(@c).to receive(:unofficial?).and_return(false)
+        expect(Competitor).to receive(:sort_competitors).with([@c]).and_return([@c])
         allow(@race).to receive(:finished?).and_return(false)
         allow(@tc).to receive(:race).and_return(@race)
         @tc.results_for_competitors([@c])[0] == 1100
@@ -66,7 +67,8 @@ describe TeamCompetition do
         @c = instance_double(Competitor, :points => 1100, :club => @club,
           :shot_points => 300, :time_in_seconds => 500, :unofficial => false,
                         :race => @race)
-        expect(Competitor).to receive(:sort_competitors).with([@c], false).and_return([@c])
+        allow(@c).to receive(:unofficial?).and_return(false)
+        expect(Competitor).to receive(:sort_competitors).with([@c]).and_return([@c])
         allow(@race).to receive(:finished?).and_return(true)
         allow(@tc).to receive(:race).and_return(@race)
         expect(@tc.results_for_competitors([@c])).to eq([])
@@ -129,9 +131,10 @@ describe TeamCompetition do
             @club_2_team_3_c1, @club_2_team_3_c2,
             @club_no_result_c1, @club_no_result_c2,
             @club_unofficial1, @club_unofficial2, @club_small_nil_points]
+        @official_competitors = @competitors - [@club_unofficial1, @club_unofficial2]
         allow(@tc).to receive(:race).and_return(@race)
         allow(@race).to receive(:finished?).and_return(true)
-        expect(Competitor).to receive(:sort_competitors).with(@competitors, false).and_return(@competitors)
+        expect(Competitor).to receive(:sort_competitors).with(@official_competitors).and_return(@official_competitors)
       end
 
       describe "should return an array of hashes" do
@@ -163,7 +166,7 @@ describe TeamCompetition do
               "4. fastest individual time" do
             allow(@tc).to receive(:race).and_return(@race)
             allow(@race).to receive(:finished?).and_return(false)
-            expect(Competitor).to receive(:sort_competitors).with(@competitors, false).and_return(@competitors)
+            expect(Competitor).to receive(:sort_competitors).with(@official_competitors).and_return(@official_competitors)
             @results = @tc.results_for_competitors(@competitors)
             expect(@results.length).to eq(10)
             expect(@results[0][:club]).to eq(@club_best_total_points.display_name)
@@ -198,9 +201,11 @@ describe TeamCompetition do
       end
 
       def create_competitor(club, points, options={})
-        instance_double(Competitor, {points: points, club: club, shot_points: @default_shot_points,
-                                     time_in_seconds: @default_time_in_seconds, :unofficial => false,
+        competitor = instance_double(Competitor, {points: points, club: club, shot_points: @default_shot_points,
+                                     time_in_seconds: @default_time_in_seconds,
                                      team_name: nil}.merge(options))
+        allow(competitor).to receive(:unofficial?).and_return(options[:unofficial])
+        competitor
       end
 
       context 'when 3 competitors / team' do

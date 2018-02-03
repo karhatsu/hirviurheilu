@@ -1,9 +1,10 @@
+- unofficials = unofficials_result_rule series.race
 %table
   - prev_rel_points = 1.0/0.0
-  - series.ordered_competitors(params[:all_competitors], params[:sort].to_i).each_with_index do |comp, i|
+  - series.ordered_competitors(unofficials, params[:sort].to_i).each_with_index do |comp, i|
     %tr{id: "comp_#{i+1}", class: i % 2 == 0 ? 'odd' : ''}
       - if i == 0
-        - @max_points = comp.points(false)
+        - @max_points = comp.points
       %td= "#{i + 1}." unless comp.relative_points == prev_rel_points
       %td
         - name = full_name(comp)
@@ -16,7 +17,7 @@
           )
       %td= comp.club.name
       %td.center
-        = points_print(comp, params[:all_competitors])
+        = points_print(comp, unofficials)
         - if comp.points.to_i >= @max_points.to_i
           = national_record_print(comp)
     %tr{id: "details_#{i}", style: 'display: none;', class: i % 2 == 0 ? 'odd' : ''}
@@ -25,7 +26,7 @@
           = t "competitor.#{comp.no_result_reason}"
         - else
           - unless series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
-            = time_points_print(comp, true, params[:all_competitors])
+            = time_points_print(comp, true, unofficials)
             \|
           = series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp)
           \|

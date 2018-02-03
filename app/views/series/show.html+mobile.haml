@@ -1,18 +1,18 @@
 .facebook_share
   = render partial: 'shared/facebook_share'
-- content_for(:title, "#{@series.race.name} - #{@series.name} - #{series_result_title(@series, params[:all_competitors])}")
+- unofficials = unofficials_result_rule @series.race
+- content_for(:title, "#{@series.race.name} - #{@series.name} - #{series_result_title(@series, unofficials)}")
 %h2= yield :title
 = render :layout => 'series/series_status', :locals => { :series => @series } do
   = render :partial => 'series/infos', :locals => { :series => @series }
   - if @series.has_unofficial_competitors?
-    - if params[:all_competitors]
-      .action_box= link_to t('competitors.index.show_official_results'),
-        race_series_path(@series.race, @series)
-    - else
+    - if unofficials == Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
+      .action_box= link_to t('competitors.index.show_official_results'), race_series_path(@series.race, @series)
+    - elsif unofficials == Series::UNOFFICIALS_EXCLUDED
       .action_box= link_to t('competitors.index.show_unofficial_results'),
         race_series_path(@series.race, @series, :all_competitors => true)
   .section
-    - cache [@series, params[:sort], params[:all_competitors], I18n.locale] do
+    - cache [@series, params[:sort], unofficials, I18n.locale] do
       = render :partial => 'series/series_results', :locals => { :series => @series }
 - if @series.race.series.count > 1
   %hr

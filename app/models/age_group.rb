@@ -8,13 +8,13 @@ class AgeGroup < ApplicationRecord
   validates :min_competitors, :numericality => { :only_integer => true,
     :greater_than_or_equal_to => 0 }
 
-  def competitors_count(all_competitors)
+  def competitors_count(unofficials)
     conditions = { :no_result_reason => nil }
-    if all_competitors
-      @competitors_count_all ||= competitors.where(conditions).size
-    else
+    if unofficials == Series::UNOFFICIALS_EXCLUDED
       conditions[:unofficial] = false
       @competitors_count ||= competitors.where(conditions).size
+    else
+      @competitors_count_all ||= competitors.where(conditions).size
     end
   end
 

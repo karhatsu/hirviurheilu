@@ -46,7 +46,8 @@ class TeamCompetition < ApplicationRecord
   end
 
   def results_for_competitors(competitors)
-    teams_hash = map_sorted_competitors_by_teams competitors
+    official_competitors = competitors.select { |c| !c.unofficial? }
+    teams_hash = map_sorted_competitors_by_teams official_competitors
     team_results_hash = create_team_results_hash teams_hash
     sorted_teams = sorted_teams_from_team_results_hash(team_results_hash)
     remove_teams_without_enough_competitors(sorted_teams) if race.finished?
@@ -69,8 +70,8 @@ class TeamCompetition < ApplicationRecord
   def map_sorted_competitors_by_teams(competitors)
     competitor_counter_by_team = Hash.new
     teams = Hash.new
-    Competitor.sort_competitors(competitors, false).each do |competitor|
-      break if competitor.points.nil? || competitor.unofficial
+    Competitor.sort_competitors(competitors).each do |competitor|
+      break if competitor.points.nil?
       base_team_name = resolve_team_name competitor
       next unless base_team_name
       competitor_counter_by_team[base_team_name] ||= 0

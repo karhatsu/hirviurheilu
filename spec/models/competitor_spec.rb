@@ -548,7 +548,7 @@ describe Competitor do
   describe "#sort_competitors" do
     describe 'without unofficial competitors' do
       before do
-        @all_competitors = false
+        @unofficials = Series::UNOFFICIALS_EXCLUDED
         @sort_by = 'some-sort-order'
       end
 
@@ -559,14 +559,14 @@ describe Competitor do
         competitor0_1 = create_competitor_with_relative_points 0, 15
         competitor0_2 = create_competitor_with_relative_points 0, 16
         competitors = [competitor0_2, competitor3, competitor1, competitor2, competitor0_1]
-        expect(Competitor.sort_competitors(competitors, @all_competitors, @sort_by))
+        expect(Competitor.sort_competitors(competitors, @unofficials, @sort_by))
             .to eq([competitor1, competitor2, competitor3, competitor0_1, competitor0_2])
       end
     end
 
     describe 'with unofficial competitors' do
       before do
-        @all_competitors = true
+        @unofficials = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
         @sort_by = 'another-sort-order'
       end
 
@@ -574,14 +574,14 @@ describe Competitor do
         competitor1 = create_competitor_with_relative_points 100, 30
         competitor2 = create_competitor_with_relative_points 99, 4
         competitors = [competitor1, competitor2]
-        expect(Competitor.sort_competitors(competitors, @all_competitors, @sort_by))
+        expect(Competitor.sort_competitors(competitors, @unofficials, @sort_by))
             .to eq([competitor1, competitor2])
       end
     end
 
     def create_competitor_with_relative_points(relative_points, number)
       competitor = build :competitor, number: number
-      allow(competitor).to receive(:relative_points).with(@all_competitors, @sort_by).and_return(relative_points)
+      allow(competitor).to receive(:relative_points).with(@unofficials, @sort_by).and_return(relative_points)
       competitor
     end
   end
@@ -941,66 +941,71 @@ describe Competitor do
 
   describe "#time_points" do
     before do
-      @all_competitors = true
+      @unofficials = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
       @series = build(:series)
       @age_group = build :age_group, series: @series
       @competitor = build(:competitor, series: @series, age_group: @age_group)
       @best_time_seconds = 3603.0 # rounded: 3600
-      allow(@series).to receive(:comparison_time_in_seconds).with(@age_group, @all_competitors).and_return(@best_time_seconds)
+      allow(@series).to receive(:comparison_time_in_seconds).with(@age_group, @unofficials).and_return(@best_time_seconds)
     end
 
     it "should be nil when time cannot be calculated yet" do
       expect(@competitor).to receive(:time_in_seconds).and_return(nil)
-      expect(@competitor.time_points(@all_competitors)).to eq(nil)
+      expect(@competitor.time_points(@unofficials)).to eq(nil)
     end
 
     it "should be nil when competitor has time but best time cannot be calculated" do
       # this happens if competitor has time but did not finish (no_result_reason=DNF)
       # and no-one else has result either
       expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds)
-      expect(@series).to receive(:comparison_time_in_seconds).with(@age_group, @all_competitors).and_return(nil)
-      expect(@competitor.time_points(@all_competitors)).to eq(nil)
+      expect(@series).to receive(:comparison_time_in_seconds).with(@age_group, @unofficials).and_return(nil)
+      expect(@competitor.time_points(@unofficials)).to eq(nil)
     end
 
     context 'when only unofficial competitors in the series' do
       before do
         @competitor.unofficial = true
-        expect(@series).to receive(:comparison_time_in_seconds).with(@age_group, false).and_return(nil)
         expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 10)
+        expect(@series).to receive(:comparison_time_in_seconds).with(@age_group, Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME).and_return(@best_time_seconds)
       end
 
       it 'should find the comparison time for all competitors and calculate time points based on that' do
-        expect(@series).to receive(:comparison_time_in_seconds).with(@age_group, true).and_return(@best_time_seconds)
-        expect(@competitor.time_points(false)).to eq(299)
+        expect(@series).to receive(:comparison_time_in_seconds).with(@age_group, Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME).and_return(nil)
+        expect(@competitor.time_points(Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)).to eq(299)
+      end
+
+      it 'should find the comparison time for all competitors and calculate time points based on that' do
+        expect(@series).to receive(:comparison_time_in_seconds).with(@age_group, Series::UNOFFICIALS_EXCLUDED).and_return(nil)
+        expect(@competitor.time_points(Series::UNOFFICIALS_EXCLUDED)).to eq(299)
       end
     end
 
     context "when the competitor has the best time" do
       it "should be 300" do
         expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds)
-        expect(@competitor.time_points(@all_competitors)).to eq(300)
+        expect(@competitor.time_points(@unofficials)).to eq(300)
       end
     end
 
     context "when the competitor has worse time which is rounded down to 10 secs" do
       it "should be 300 when the rounded time is the same as the best time rounded" do
         expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 6)
-        expect(@competitor.time_points(@all_competitors)).to eq(300)
+        expect(@competitor.time_points(@unofficials)).to eq(300)
       end
 
       it "should be 299 when the rounded time is 10 seconds worse than the best time" do
         expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 7)
-        expect(@competitor.time_points(@all_competitors)).to eq(299)
+        expect(@competitor.time_points(@unofficials)).to eq(299)
       end
 
       it "should be 299 when the rounded time is still 10 seconds worse" do
         expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 16)
-        expect(@competitor.time_points(@all_competitors)).to eq(299)
+        expect(@competitor.time_points(@unofficials)).to eq(299)
       end
 
       it "should be 298 when the rounded time is 20 seconds worse" do
         expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 17)
-        expect(@competitor.time_points(@all_competitors)).to eq(298)
+        expect(@competitor.time_points(@unofficials)).to eq(298)
       end
 
       context 'when the rounded time is over 5 minutes worse' do
@@ -1012,7 +1017,7 @@ describe Competitor do
           it 'should be 300 - 1 point for every 10 seconds' do
             race = build :race, start_date: '2016-12-31'
             allow(@competitor).to receive(:race).and_return(race)
-            expect(@competitor.time_points(@all_competitors)).to eq(300 - 6 * 6)
+            expect(@competitor.time_points(@unofficials)).to eq(300 - 6 * 6)
           end
         end
 
@@ -1020,7 +1025,7 @@ describe Competitor do
           it 'should be 300 - 1 point for every 10 seconds for the first 5 min, then -1 point for every 20 second' do
             race = build :race, start_date: '2017-01-01'
             allow(@competitor).to receive(:race).and_return(race)
-            expect(@competitor.time_points(@all_competitors)).to eq(300 - 5 * 6 - 3)
+            expect(@competitor.time_points(@unofficials)).to eq(300 - 5 * 6 - 3)
           end
         end
       end
@@ -1030,20 +1035,20 @@ describe Competitor do
       it "should be 300" do
         @competitor.unofficial = true
         expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds - 60)
-        expect(@competitor.time_points(@all_competitors)).to eq(300)
+        expect(@competitor.time_points(@unofficials)).to eq(300)
       end
     end
 
     it "should never be negative" do
       expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 100000)
-      expect(@competitor.time_points(@all_competitors)).to eq(0)
+      expect(@competitor.time_points(@unofficials)).to eq(0)
     end
 
     context "when no time points" do
       it "should be nil" do
         @competitor.series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
         allow(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds)
-        expect(@competitor.time_points(@all_competitors)).to be_nil
+        expect(@competitor.time_points(@unofficials)).to be_nil
       end
     end
 
@@ -1051,7 +1056,7 @@ describe Competitor do
       it "should be 300" do
         @competitor.series.points_method = Series::POINTS_METHOD_300_TIME_2_ESTIMATES
         allow(@competitor).to receive(:time_in_seconds).and_return(nil)
-        expect(@competitor.time_points(@all_competitors)).to eq(300)
+        expect(@competitor.time_points(@unofficials)).to eq(300)
       end
     end
 
@@ -1059,54 +1064,54 @@ describe Competitor do
       before do
         @competitor = build(:competitor, series: @series, age_group: @age_group, no_result_reason: Competitor::DQ)
         @best_time_seconds = 3603.0
-        allow(@series).to receive(:comparison_time_in_seconds).with(@age_group, @all_competitors).and_return(@best_time_seconds)
+        allow(@series).to receive(:comparison_time_in_seconds).with(@age_group, @unofficials).and_return(@best_time_seconds)
       end
 
       it "should be like normally when the competitor has not the best time" do
         expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 20)
-        expect(@competitor.time_points(@all_competitors)).to eq(298)
+        expect(@competitor.time_points(@unofficials)).to eq(298)
       end
 
       it "should be nil when competitor's time is better than the best time" do
         # note: when no result, the time really can be better than the best time
         # since such a competitor's time cannot be the best time
         expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds - 1)
-        expect(@competitor.time_points(@all_competitors)).to be_nil
+        expect(@competitor.time_points(@unofficials)).to be_nil
       end
     end
   end
 
   describe "#points" do
     before do
-      @all_competitors = true
+      @unofficials = Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
       @competitor = build(:competitor)
       allow(@competitor).to receive(:shot_points).and_return(100)
       allow(@competitor).to receive(:estimate_points).and_return(150)
-      allow(@competitor).to receive(:time_points).with(@all_competitors).and_return(200)
+      allow(@competitor).to receive(:time_points).with(@unofficials).and_return(200)
     end
 
     it 'should return nil when no result reason' do
       @competitor.no_result_reason = 'DNF'
-      expect(@competitor.points(@all_competitors)).to be_nil
+      expect(@competitor.points(@unofficials)).to be_nil
     end
 
     it "should consider missing shot points as 0" do
       expect(@competitor).to receive(:shot_points).and_return(nil)
-      expect(@competitor.points(@all_competitors)).to eq(150 + 200)
+      expect(@competitor.points(@unofficials)).to eq(150 + 200)
     end
 
     it "should consider missing estimate points as 0" do
       expect(@competitor).to receive(:estimate_points).and_return(nil)
-      expect(@competitor.points(@all_competitors)).to eq(100 + 200)
+      expect(@competitor.points(@unofficials)).to eq(100 + 200)
     end
 
     it "should consider missing time points as 0" do
-      expect(@competitor).to receive(:time_points).with(@all_competitors).and_return(nil)
-      expect(@competitor.points(@all_competitors)).to eq(100 + 150)
+      expect(@competitor).to receive(:time_points).with(@unofficials).and_return(nil)
+      expect(@competitor.points(@unofficials)).to eq(100 + 150)
     end
 
     it "should be sum of sub points when all of them are available" do
-      expect(@competitor.points(@all_competitors)).to eq(100 + 150 + 200)
+      expect(@competitor.points(@unofficials)).to eq(100 + 150 + 200)
     end
   end
 
@@ -1283,13 +1288,13 @@ describe Competitor do
   end
 
   describe "#comparison_time_in_seconds" do
-    it "should delegate call to series with own age group and all_competitors as parameters" do
-      all_competitors = true
+    it "should delegate call to series with own age group and unofficials as parameters" do
+      unofficials = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
       series = build :series
       age_group = build :age_group
       competitor = build(:competitor, :series => series, :age_group => age_group)
-      expect(series).to receive(:comparison_time_in_seconds).with(age_group, all_competitors).and_return(12345)
-      expect(competitor.comparison_time_in_seconds(all_competitors)).to eq(12345)
+      expect(series).to receive(:comparison_time_in_seconds).with(age_group, unofficials).and_return(12345)
+      expect(competitor.comparison_time_in_seconds(unofficials)).to eq(12345)
     end
   end
 
@@ -1369,17 +1374,25 @@ describe Competitor do
     end
 
     it 'should rank best points, best shots points, best time, individual shots, unofficials, DNF, DNS, DQ' do
+      expected_order = [@dq, @dns, @dnf, @no_result, @points_4_individual_shots_3, @points_4_individual_shots_2,
+                        @points_4_individual_shots_1, @points_3_time_2, @points_3_time_1, @points_2_shots_2,
+                        @points_2_shots_1, @points_1, @unofficial_4, @unofficial_3, @unofficial_2, @unofficial_1]
+      # Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME = default
+      expect_relative_points_order @competitors_in_random_order, expected_order
+    end
+
+    it 'should rank best points, best shots points, best time, individual shots, unofficials, DNF, DNS, DQ' do
       expected_order = [@dq, @dns, @dnf, @no_result, @unofficial_4, @unofficial_3, @unofficial_2, @unofficial_1,
                         @points_4_individual_shots_3, @points_4_individual_shots_2, @points_4_individual_shots_1,
                         @points_3_time_2, @points_3_time_1, @points_2_shots_2, @points_2_shots_1, @points_1]
-      expect_relative_points_order @competitors_in_random_order, expected_order
+      expect_relative_points_order @competitors_in_random_order, expected_order, Series::UNOFFICIALS_EXCLUDED
     end
 
     it 'should rank unofficial competitors among others when all competitors wanted' do
       expected_order = [@dq, @dns, @dnf, @no_result, @points_4_individual_shots_3, @points_4_individual_shots_2,
                         @points_4_individual_shots_1, @points_3_time_2, @points_3_time_1, @points_2_shots_2,
                         @points_2_shots_1, @points_1, @unofficial_4, @unofficial_3, @unofficial_2, @unofficial_1]
-      expect_relative_points_order @competitors_in_random_order, expected_order, true
+      expect_relative_points_order @competitors_in_random_order, expected_order, Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
     end
 
     it 'yet another test' do
@@ -1431,8 +1444,8 @@ describe Competitor do
       it 'handles DNF, DNS, DQ as usual' do
         some_competitors = [@dns, @unofficial_3, @no_result, @dq, @dnf, @points_2_shots_2]
         expected_order = [@dq, @dns, @dnf, @no_result, @points_2_shots_2, @unofficial_3]
-        expect_relative_points_order some_competitors, expected_order, false, @sort_by
-        expect_relative_points_order some_competitors, expected_order, true, @sort_by
+        expect_relative_points_order some_competitors, expected_order, Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, @sort_by
+        expect_relative_points_order some_competitors, expected_order, Series::UNOFFICIALS_EXCLUDED, @sort_by
       end
     end
 
@@ -1453,7 +1466,7 @@ describe Competitor do
       it 'handles DNF, DNS, DQ as usual' do
         some_competitors = [@dns, @no_result, @dq, @dnf, @points_2_shots_2]
         expected_order = [@dq, @dns, @dnf, @no_result, @points_2_shots_2]
-        expect_relative_points_order some_competitors, expected_order, false, @sort_by
+        expect_relative_points_order some_competitors, expected_order, Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, @sort_by
       end
     end
 
@@ -1474,8 +1487,8 @@ describe Competitor do
       it 'handles DNF, DNS, DQ as usual; does not set nil time to the top' do
         some_competitors = [@no_result, @dns, @points_3_time_1, @dq, @dnf, @points_3_time_2]
         expected_order = [@dq, @dns, @dnf, @no_result, @points_3_time_2, @points_3_time_1]
-        expect_relative_points_order some_competitors, expected_order, false, @sort_by
-        expect_relative_points_order some_competitors, expected_order, true, @sort_by
+        expect_relative_points_order some_competitors, expected_order, Series::UNOFFICIALS_EXCLUDED, @sort_by
+        expect_relative_points_order some_competitors, expected_order, Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, @sort_by
       end
     end
 
@@ -1493,9 +1506,9 @@ describe Competitor do
       competitor
     end
 
-    def expect_relative_points_order(competitors, expected_order, all_competitors=false, sort_by=nil)
-      expect(competitors.map {|c|c.relative_points(all_competitors, sort_by)}.sort)
-          .to eq(expected_order.map {|c|c.relative_points(all_competitors, sort_by)})
+    def expect_relative_points_order(competitors, expected_order, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=nil)
+      expect(competitors.map {|c|c.relative_points(unofficials, sort_by)}.sort)
+          .to eq(expected_order.map {|c|c.relative_points(unofficials, sort_by)})
     end
   end
 

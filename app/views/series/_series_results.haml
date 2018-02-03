@@ -1,3 +1,4 @@
+- unofficials = unofficials_result_rule series.race
 - pdf = params[:format] == 'pdf'
 %table
   %tr
@@ -23,11 +24,11 @@
   - shots_css = params[:sort].to_i == Competitor::SORT_BY_SHOTS ? 'total_points' : ''
   - points_css = params[:sort].blank? ? ' total_points' : ''
   - prev_rel_points = 1.0/0.0
-  - series.ordered_competitors(params[:all_competitors], params[:sort].to_i).each_with_index do |comp, i|
+  - series.ordered_competitors(unofficials, params[:sort].to_i).each_with_index do |comp, i|
     - next unless i < 3 or params[:club_id].blank? or comp.club_id == params[:club_id].to_i
-    - relative_points = comp.relative_points(params[:all_competitors], params[:sort].to_i)
+    - relative_points = comp.relative_points(unofficials, params[:sort].to_i)
     %tr{id: "comp_#{i+1}", class: i % 2 == 0 ? 'odd' : ''}
-      - @max_points = comp.points(false) if i == 0
+      - @max_points = comp.points if i == 0
       %td
         = relative_points == prev_rel_points ? raw('&nbsp;') : "#{i + 1}."
       %td
@@ -45,11 +46,11 @@
       %td= comp.number ? comp.number : ''
       %td= comp.club.name
       - unless series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
-        %td{class: time_css, title: comparison_time_title_attribute(comp, params[:all_competitors], pdf)}
-          = time_points_print(comp, true, params[:all_competitors])
+        %td{class: time_css, title: comparison_time_title_attribute(comp, unofficials, pdf)}
+          = time_points_print(comp, true, unofficials)
       %td{class: est_css}= series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp)
       %td{class: shots_css}= shot_points_print(comp, true)
       %td.center{class: points_css}
-        = points_print(comp, params[:all_competitors])
+        = points_print(comp, unofficials)
         = national_record_print(comp) if comp.points.to_i >= @max_points.to_i
     - prev_rel_points = relative_points

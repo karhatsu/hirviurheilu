@@ -1,7 +1,7 @@
 module TitleHelper
-  def series_result_title(series, all_competitors=false)
+  def series_result_title(series, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     suffix = ''
-    suffix = " - #{t(:all_competitors)}" if all_competitors
+    suffix = " - #{t(:all_competitors)}" if unofficials == Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
     return "(#{t('competitors.index.no_competitors')})" if series.competitors.empty?
     return "(#{t('competitors.index.series_has_not_started_yet')})" unless series.started?
     return "#{t(:results)}#{suffix}" if series.race.finished?

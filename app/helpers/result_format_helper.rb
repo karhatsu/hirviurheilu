@@ -1,19 +1,19 @@
 module ResultFormatHelper
-  def points_print(competitor, all_competitors=false)
+  def points_print(competitor, unofficials)
     if competitor.no_result_reason
       return no_result_reason_print(competitor.no_result_reason)
     end
-    points = competitor.points(all_competitors)
+    points = competitor.points(unofficials)
     return points.to_s if competitor.finished? && competitor.has_correct_estimates?
     return "(#{points})" if points
     '-'
   end
 
-  def time_points_print(competitor, with_time=false, all_competitors=false)
+  def time_points_print(competitor, with_time=false, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     return '' if competitor.no_result_reason
     return 300 if competitor.series.points_method == Series::POINTS_METHOD_300_TIME_2_ESTIMATES
     return '-' if competitor.time_in_seconds.nil?
-    points = competitor.time_points(all_competitors)
+    points = competitor.time_points(unofficials)
     html = (points == 300 ? "<span class='series_best_time'>" : '')
     html << points.to_s
     html << " (#{time_from_seconds(competitor.time_in_seconds)})" if with_time
@@ -63,9 +63,9 @@ module ResultFormatHelper
     "#{competitor.shots_sum} (#{shots.map {|shot| shot.to_i}.join(', ')})"
   end
 
-  def comparison_time_title_attribute(competitor, all_competitors=false, always_empty=false)
+  def comparison_time_title_attribute(competitor, unofficials, always_empty=false)
     return '' if always_empty
-    comparison_time = competitor.comparison_time_in_seconds(all_competitors)
+    comparison_time = competitor.comparison_time_in_seconds(unofficials)
     return '' unless comparison_time
     "Vertailuaika: #{time_from_seconds(comparison_time, false)}"
   end
@@ -74,7 +74,7 @@ module ResultFormatHelper
     time_in_seconds = competitor.time_in_seconds
     return '' unless time_in_seconds
     title = " title='Aika: #{time_from_seconds(time_in_seconds)}"
-    comparison_time_in_seconds = competitor.comparison_time_in_seconds(false)
+    comparison_time_in_seconds = competitor.comparison_time_in_seconds
     title << ". Vertailuaika: #{time_from_seconds(comparison_time_in_seconds)}." if comparison_time_in_seconds
     title << "'"
     raw title

@@ -2,47 +2,45 @@ require 'spec_helper'
 
 describe ResultFormatHelper do
   describe '#points_print' do
-    before do
-      @all_competitors = true
-    end
+    let(:unofficials) { Series::UNOFFICIALS_EXCLUDED }
 
     it 'should print no result reason if it is defined' do
       competitor = instance_double(Competitor, :no_result_reason => Competitor::DNS)
-      allow(competitor).to receive(:points).with(@all_competitors).and_return(145)
-      expect(helper.points_print(competitor, @all_competitors)).
+      allow(competitor).to receive(:points).with(unofficials).and_return(145)
+      expect(helper.points_print(competitor, unofficials)).
           to eq("<span class='explanation' title='Kilpailija ei osallistunut kilpailuun'>DNS</span>")
     end
 
     it 'should print points if competitor finished and has correct estimates' do
       competitor = instance_double(Competitor, :no_result_reason => nil,
                                    :series => nil)
-      expect(competitor).to receive(:points).with(@all_competitors).and_return(145)
+      expect(competitor).to receive(:points).with(unofficials).and_return(145)
       expect(competitor).to receive(:finished?).and_return(true)
       expect(competitor).to receive(:has_correct_estimates?).and_return(true)
-      expect(helper.points_print(competitor, @all_competitors)).to eq('145')
+      expect(helper.points_print(competitor, unofficials)).to eq('145')
     end
 
     it 'should print points in brackets if competitor not finished' do
       competitor = instance_double(Competitor, :no_result_reason => nil)
-      expect(competitor).to receive(:points).with(@all_competitors).and_return(100)
+      expect(competitor).to receive(:points).with(unofficials).and_return(100)
       expect(competitor).to receive(:finished?).and_return(false)
-      expect(helper.points_print(competitor, @all_competitors)).to eq('(100)')
+      expect(helper.points_print(competitor, unofficials)).to eq('(100)')
     end
 
     it 'should print points in brackets if competitor has no correct estimates yet' do
       competitor = instance_double(Competitor, :no_result_reason => nil)
-      expect(competitor).to receive(:points).with(@all_competitors).and_return(100)
+      expect(competitor).to receive(:points).with(unofficials).and_return(100)
       expect(competitor).to receive(:finished?).and_return(true)
       expect(competitor).to receive(:has_correct_estimates?).and_return(false)
-      expect(helper.points_print(competitor, @all_competitors)).to eq('(100)')
+      expect(helper.points_print(competitor, unofficials)).to eq('(100)')
     end
 
     it 'should print - if no points at all' do
       competitor = instance_double(Competitor, :no_result_reason => nil,
                                    :series => nil)
-      expect(competitor).to receive(:points).with(@all_competitors).and_return(nil)
+      expect(competitor).to receive(:points).with(unofficials).and_return(nil)
       expect(competitor).to receive(:finished?).and_return(false)
-      expect(helper.points_print(competitor, @all_competitors)).to eq('-')
+      expect(helper.points_print(competitor, unofficials)).to eq('-')
     end
   end
 
@@ -125,6 +123,8 @@ describe ResultFormatHelper do
   end
 
   describe '#time_points_print' do
+    let(:unofficials) { Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME }
+
     before do
       @series = instance_double(Series, :points_method => Series::POINTS_METHOD_TIME_2_ESTIMATES)
     end
@@ -154,67 +154,64 @@ describe ResultFormatHelper do
 
     context 'when time points and time wanted' do
       it 'should return time points and time in brackets' do
-        all_competitors = true
         competitor = instance_double(Competitor, :series => @series,
                                      :time_in_seconds => 2680, :no_result_reason => nil)
-        expect(competitor).to receive(:time_points).with(all_competitors).and_return(270)
+        expect(competitor).to receive(:time_points).with(unofficials).and_return(270)
         expect(helper).to receive(:time_from_seconds).with(2680).and_return('45:23')
-        expect(helper.time_points_print(competitor, true, all_competitors)).to eq('270 (45:23)')
+        expect(helper.time_points_print(competitor, true, unofficials)).to eq('270 (45:23)')
       end
 
       it 'should wrap with best time span when full points' do
-        all_competitors = true
         competitor = instance_double(Competitor, :series => @series,
                                      :time_in_seconds => 2680, :no_result_reason => nil)
-        expect(competitor).to receive(:time_points).with(all_competitors).and_return(300)
+        expect(competitor).to receive(:time_points).with(unofficials).and_return(300)
         expect(helper).to receive(:time_from_seconds).with(2680).and_return('45:23')
-        expect(helper.time_points_print(competitor, true, all_competitors)).
+        expect(helper.time_points_print(competitor, true, unofficials)).
             to eq("<span class='series_best_time'>300 (45:23)</span>")
       end
     end
 
     context 'when time points but no time wanted' do
       it 'should return time points' do
-        all_competitors = true
         competitor = instance_double(Competitor, :series => @series,
                                      :time_in_seconds => 2680, :no_result_reason => nil)
-        expect(competitor).to receive(:time_points).with(all_competitors).and_return(270)
-        expect(helper.time_points_print(competitor, false, all_competitors)).to eq('270')
+        expect(competitor).to receive(:time_points).with(unofficials).and_return(270)
+        expect(helper.time_points_print(competitor, false, unofficials)).to eq('270')
       end
 
       it 'should wrap with best time span when full points' do
-        all_competitors = true
         competitor = instance_double(Competitor, :series => @series,
                                      :time_in_seconds => 2680, :no_result_reason => nil)
-        expect(competitor).to receive(:time_points).with(all_competitors).and_return(300)
-        expect(helper.time_points_print(competitor, false, all_competitors)).
+        expect(competitor).to receive(:time_points).with(unofficials).and_return(300)
+        expect(helper.time_points_print(competitor, false, unofficials)).
             to eq("<span class='series_best_time'>300</span>")
       end
     end
   end
 
   describe '#comparison_time_title_attribute' do
+    let(:unofficials) { Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME }
     before do
       @competitor = instance_double(Competitor)
       allow(@competitor).to receive(:comparison_time_in_seconds).and_return(1545)
     end
 
     it 'should return empty string when empty always wanted' do
-      expect(helper.comparison_time_title_attribute(@competitor, true, true)).to eq('')
+      expect(helper.comparison_time_title_attribute(@competitor, unofficials, true)).to eq('')
     end
 
     it 'should return empty string when no comparison time available' do
       allow(@competitor).to receive(:comparison_time_in_seconds).and_return(nil)
-      expect(helper.comparison_time_title_attribute(@competitor, true, false)).to eq('')
+      expect(helper.comparison_time_title_attribute(@competitor, unofficials, false)).to eq('')
     end
 
     it 'should title and comparison time when empty not wanted' do
-      expect(helper.comparison_time_title_attribute(@competitor, true, false)).to eq('Vertailuaika: 25:45')
+      expect(helper.comparison_time_title_attribute(@competitor, unofficials, false)).to eq('Vertailuaika: 25:45')
     end
 
-    it 'should use all_competitors parameter when getting the comparison time' do
-      allow(@competitor).to receive(:comparison_time_in_seconds).with(false).and_return(1550)
-      expect(helper.comparison_time_title_attribute(@competitor, false, false)).to eq('Vertailuaika: 25:50')
+    it 'should use unofficials parameter when getting the comparison time' do
+      allow(@competitor).to receive(:comparison_time_in_seconds).with(unofficials).and_return(1550)
+      expect(helper.comparison_time_title_attribute(@competitor, unofficials, false)).to eq('Vertailuaika: 25:50')
     end
   end
 
@@ -231,7 +228,7 @@ describe ResultFormatHelper do
       it 'should return space and title attribute with time title and time' do
         competitor = instance_double(Competitor)
         expect(competitor).to receive(:time_in_seconds).and_return(123)
-        expect(competitor).to receive(:comparison_time_in_seconds).with(false).and_return(nil)
+        expect(competitor).to receive(:comparison_time_in_seconds).and_return(nil)
         expect(helper).to receive(:time_from_seconds).with(123).and_return('1:23')
         expect(helper.comparison_and_own_time_title_attribute(competitor)).to eq(" title='Aika: 1:23'")
       end
@@ -241,7 +238,7 @@ describe ResultFormatHelper do
       it 'should return space and title attribute with time title, time, comparison time title and comparison time' do
         competitor = instance_double(Competitor)
         expect(competitor).to receive(:time_in_seconds).and_return(123)
-        expect(competitor).to receive(:comparison_time_in_seconds).with(false).and_return(456)
+        expect(competitor).to receive(:comparison_time_in_seconds).and_return(456)
         expect(helper).to receive(:time_from_seconds).with(123).and_return('1:23')
         expect(helper).to receive(:time_from_seconds).with(456).and_return('4:56')
         expect(helper.comparison_and_own_time_title_attribute(competitor)).to eq(" title='Aika: 1:23. Vertailuaika: 4:56.'")

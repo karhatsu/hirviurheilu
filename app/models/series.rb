@@ -15,6 +15,10 @@ class Series < ApplicationRecord
   POINTS_METHOD_NO_TIME_4_ESTIMATES = 2
   POINTS_METHOD_300_TIME_2_ESTIMATES = 3
 
+  UNOFFICIALS_EXCLUDED = 1 # to the bottom in the results, cannot have the best time (until 2017, default)
+  UNOFFICIALS_INCLUDED_WITH_BEST_TIME = 2 # normally in the results, can have the best time (until 2017, by selection)
+  UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME = 3 # normally in the results, cannot have the best time (since 2018)
+
   START_LIST_ADDING_ORDER = 0
   START_LIST_RANDOM = 1
 
@@ -51,8 +55,8 @@ class Series < ApplicationRecord
     "#{super}-#{race.updated_at.utc.to_s(:usec)}"
   end
 
-  def ordered_competitors(all_competitors, sort_by=Competitor::SORT_BY_POINTS)
-    Competitor.sort_competitors(competitors.includes([:club, :age_group, :series]), all_competitors, sort_by)
+  def ordered_competitors(unofficials=UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=Competitor::SORT_BY_POINTS)
+    Competitor.sort_competitors(competitors.includes([:club, :age_group, :series]), unofficials, sort_by)
   end
   
   def next_start_number
