@@ -17,7 +17,7 @@ gem 'haml-rails'
 gem 'rack-mini-profiler'
 gem 'dalli'
 gem 'roman-numerals'
-gem 'nokogiri', '>=1.7.0.1'
+gem 'nokogiri'
 gem 'redcarpet'
 
 group :development, :production do
