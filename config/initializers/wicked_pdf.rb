@@ -3,7 +3,7 @@ def check_path(path)
 end
 
 if OSX_PLATFORM
-  exe_path = Rails.root.join('/Applications', 'wkhtmltopdf.app', 'Contents', 'MacOS', 'wkhtmltopdf').to_s
+  exe_path = Rails.root.join('/usr', 'local', 'bin', 'wkhtmltopdf').to_s
 elsif Rails.env.test?
   exe_path = nil
 elsif Rails.env.production?
