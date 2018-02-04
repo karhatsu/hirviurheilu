@@ -83,7 +83,7 @@ class Competitor < ApplicationRecord
     arrival_time.to_i - start_time.to_i
   end
 
-  def comparison_time_in_seconds(unofficials=UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
+  def comparison_time_in_seconds(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     comparison_time = series.comparison_time_in_seconds(age_group, unofficials)
     if comparison_time.nil? && unofficial? && [Series::UNOFFICIALS_EXCLUDED, Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME].include?(unofficials)
       comparison_time = series.comparison_time_in_seconds(age_group, Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME)
