@@ -4,7 +4,7 @@ end
 
 When(/^I fill correct estimate (\d+) and (\d+) for the range (\d+)\-(\d+) in row (\d+)$/) do |distance1, distance2, min, max, index|
   within(:xpath, "//div[@class='sub_element sub_form'][#{index}]") do
-    fill_in "Lähtönumerot:", with: min
+    fill_in "Lähtönumerot", with: min
     fill_in '–', with: max
     fill_in "Etäisyys 1", with: distance1
     fill_in "Etäisyys 2", with: distance2
@@ -13,7 +13,7 @@ end
 
 When(/^I fill correct estimate (\d+) and (\d+) for the range (\d+)\- in row (\d+)$/) do |distance1, distance2, min, index|
   within(:xpath, "//div[@class='sub_element sub_form'][#{index}]") do
-    fill_in "Lähtönumerot:", with: min
+    fill_in "Lähtönumerot", with: min
     fill_in "Etäisyys 1", with: distance1
     fill_in "Etäisyys 2", with: distance2
   end
