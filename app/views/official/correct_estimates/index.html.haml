@@ -1,0 +1,43 @@
+- content_for :title, "#{@race.name} - #{t('official_sub_menu.correct_distances')}"
+%h2= t 'official_sub_menu.correct_distances'
+= flash_error
+= flash_success
+.section
+  = form_for([:official, @race], :url => official_race_correct_estimates_path(@race), method: 'PUT') do |f|
+    = render :partial => 'shared/form_errors', :locals => { :item => @race }
+    = f.fields_for :correct_estimates do |ce_form|
+      = render :partial => 'correct_estimate', :locals => { :f => ce_form }
+    = add_child_link t('.add_new_range'), f, :correct_estimates, 'add_link'
+    = submit_tag t('.submit_button')
+
+%h2= t '.defined_correct_estimates'
+- if @race.competitors.empty?
+  .info= t '.no_competitors_info'
+- else
+  .info= t '.start_list_required_info'
+  %table#competitor_correct_estimates{border: 1, cellpadding: 2, cellspacing: 0}
+    %tr
+      %th= t :number_short
+      %th= t 'activerecord.models.competitor.one'
+      %th= t 'activerecord.models.series.one'
+      %th= t 'attributes.correct_estimate1'
+      %th= t 'attributes.correct_estimate2'
+      - if @race.estimates_at_most == 4
+        %th= t 'attributes.correct_estimate3'
+        %th= t 'attributes.correct_estimate4'
+    - @competitors.each do |c|
+      %tr
+        %td= c.number
+        %td= full_name(c)
+        %td= c.series.name
+        %td= c.correct_estimate1
+        %td= c.correct_estimate2
+        - if @race.estimates_at_most == 4
+          %td= c.correct_estimate3
+          %td= c.correct_estimate4
+
+- if @race.correct_estimates.empty?
+  :javascript
+    $(document).ready(function() {
+      $('#add_link').click();
+    });
