@@ -1,15 +1,15 @@
 .sub_element.sub_form
   = f.label :min_number, t('official.correct_estimates.index.start_numbers')
-  = f.telephone_field :min_number, size: 3
+  = f.telephone_field :min_number, size: 3, maxlength: 4
   = f.label :max_number, raw('&#8211;')
-  = f.telephone_field :max_number, size: 3
+  = f.telephone_field :max_number, size: 3, maxlength: 4
   = f.label :distance1
-  = f.telephone_field :distance1, size: 3
+  = f.telephone_field :distance1, size: 3, maxlength: 3
   = f.label :distance2
-  = f.telephone_field :distance2, size: 3
+  = f.telephone_field :distance2, size: 3, maxlength: 3
   - if @race.estimates_at_most == 4
     = f.label :distance3
-    = f.telephone_field :distance3, size: 3
+    = f.telephone_field :distance3, size: 3, maxlength: 3
     = f.label :distance4
-    = f.telephone_field :distance4, size: 3
+    = f.telephone_field :distance4, size: 3, maxlength: 3
   = remove_child_link t(:remove), f, 'sub_form', ''
