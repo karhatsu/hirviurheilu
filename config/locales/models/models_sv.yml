@@ -126,6 +126,9 @@ sv:
       default_series:
         one: Oletussarja
         other: Oletussarjat
+      district:
+        one: Distrikt
+        other: Distrikt
       price:
         one: Pris
         other: Priser
@@ -163,6 +166,8 @@ sv:
           distance4: Avstånd 4
           min_number: Minst nummer
           max_number: Störst nummer
+        district: Distrikt
+        district_id: Distrikt
         name: Tävlings namn
         series:
           age_groups:

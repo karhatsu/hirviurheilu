@@ -164,6 +164,7 @@ Feature: Generate start list
     When I fill in the following:
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test location |
+    And I select "Test district" from "Piiri"
     And I press "Lisää kilpailu"
     Then I should see "Kilpailijoiden lähtöjärjestys" in an error message
     When I choose "Sarjat sekaisin"

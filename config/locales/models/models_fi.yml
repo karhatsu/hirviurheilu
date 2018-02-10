@@ -126,6 +126,9 @@ fi:
       default_series:
         one: Oletussarja
         other: Oletussarjat
+      district:
+        one: Piiri
+        other: Piirit
       price:
         one: Hinta
         other: Hinnat
@@ -163,6 +166,8 @@ fi:
           distance4: Etäisyys 4
           min_number: Pienin numero
           max_number: Suurin numero
+        district: Piiri
+        district_id: Piiri
         name: Kilpailun nimi
         series:
           age_groups:
