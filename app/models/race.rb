@@ -11,6 +11,7 @@ class Race < ApplicationRecord
   START_ORDER_BY_SERIES = 1
   START_ORDER_MIXED = 2
 
+  belongs_to :district
   belongs_to :sport
   has_many :series, -> { order(:name) }, :dependent => :destroy
   has_many :age_groups, :through => :series

@@ -93,6 +93,7 @@ describe Race do
   end
 
   describe "associations" do
+    it { is_expected.to belong_to(:district) }
     it { is_expected.to belong_to(:sport) }
     it { is_expected.to have_many(:series) }
     it { is_expected.to have_many(:age_groups).through(:series) }
