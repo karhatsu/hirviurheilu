@@ -71,6 +71,7 @@ fi:
     shooting_overtime_min: Ammunta-ajan ylitysminuutit
     shooting_start_time: Ammunnan aloitusaika
     shooting_time: Ammunta-aika
+    short_name: Lyhyt nimi
     shorter_trip: Lyhennetty matka
     shot_0: Laukaus 1
     shot_1: Laukaus 2
