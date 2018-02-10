@@ -32,6 +32,7 @@ class Race < ApplicationRecord
 
   before_validation :set_end_date, :set_club_level
 
+  validates :district, presence: true, on: :create
   validates :sport, :presence => true
   validates :name, :presence => true
   validates :location, :presence => true

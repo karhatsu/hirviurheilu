@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :race do
+    district
     sport { Sport.default_sport }
     name 'Championships'
     sequence(:location) { |n| "Tervo#{n}" }

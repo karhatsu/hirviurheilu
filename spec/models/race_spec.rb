@@ -90,6 +90,16 @@ describe Race do
           :location => 'My town')).not_to be_valid
       end
     end
+
+    describe 'district' do
+      it { is_expected.to validate_presence_of(:district) }
+
+      it 'can be null on update (when race created without district)' do
+        race = create :race
+        race.district = nil
+        race.save!
+      end
+    end
   end
 
   describe "associations" do

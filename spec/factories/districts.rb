@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :district do
-    name 'Test district'
-    short_name 'TD'
+    sequence(:name) { |n| "Test district #{n}" }
+    sequence(:short_name) { |n| "TD#{n}" }
   end
 end
