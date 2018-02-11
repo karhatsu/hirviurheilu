@@ -63,6 +63,21 @@ Feature: Main page
     When I follow "Kaikki kilpailut"
     Then I should not see "Cup without races"
 
+  Scenario: Limiting races by district
+    Given there is a district "Southern District"
+    And there is a finished race "Finished southern race" for the district
+    And there is an ongoing race "Ongoing southern race" for the district
+    And there is a district "Northern District"
+    And there is a finished race "Finished northern race" for the district
+    And there is a future race "Future northern race" for the district
+    And I am on the home page
+    When I select "Southern District" from "district_id"
+    And I press "Valitse piiri"
+    Then I should see "Finished southern race" within "div#old_races"
+    And I should see "Ongoing southern race" within "div#races_today"
+    But I should not see "Finished northern race" within ".main_page_columns"
+    And I should not see "Future northern race" within ".main_page_columns"
+
   Scenario: No races
     Given I go to the home page
     Then I should see "Tulevat kilpailut" within "div#future_races"

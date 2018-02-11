@@ -79,6 +79,10 @@ Given /^there is a race "([^"]*)" in the past$/ do |name|
   @race = create(:race, :start_date => Date.today - 1, :name => name)
 end
 
+Given(/^there is a finished race "([^"]*)" for the district$/) do |name|
+  @race = create :race, name: name, district: @district, start_date: 5.days.ago
+end
+
 Given(/^there is a race "(.*?)" that was (\d+) days ago$/) do |name, days_ago|
   @race = create :race, start_date: days_ago.to_i.days.ago, name: name
 end
@@ -87,12 +91,20 @@ Given /^there is a race "([^"]*)" today/ do |name|
   @race = create(:race, :start_date => Date.today, :name => name)
 end
 
+Given(/^there is an ongoing race "([^"]*)" for the district$/) do |name|
+  @race = create :race, name: name, district: @district, start_date: Date.today
+end
+
 Given /^there is a race "([^"]*)" in the future$/ do |name|
   @race = create(:race, :start_date => Date.today + 1, :name => name)
 end
 
 Given /^there is an ongoing race with attributes:$/ do |fields|
   @race = create(:race, {:start_date => Date.today}.merge(fields.rows_hash))
+end
+
+Given(/^there is a future race "([^"]*)" for the district$/) do |name|
+  @race = create :race, name: name, district: @district, start_date: Date.today + 2
 end
 
 Given /^the race is finished$/ do
