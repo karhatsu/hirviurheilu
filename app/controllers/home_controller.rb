@@ -5,12 +5,12 @@ class HomeController < ApplicationController
   def show
     @is_main_page = true
     all_cups = Cup.joins(:races)
-    all_cups = all_cups.where('races.district_id=?', params[:district_id]) if params[:district_id]
+    all_cups = all_cups.where('races.district_id=?', params[:district_id]) unless params[:district_id].blank?
     @today = Race.today
-    @today = @today.where(district_id: params[:district_id]) if params[:district_id]
+    @today = @today.where(district_id: params[:district_id]) unless params[:district_id].blank?
     @past = past_competitions(all_cups)
     @future = Race.future
-    @future = @future.where(district_id: params[:district_id]) if params[:district_id]
+    @future = @future.where(district_id: params[:district_id]) unless params[:district_id].blank?
     @future = group_future_races(@future)
     @announcements = Announcement.active.front_page
   end
@@ -22,7 +22,7 @@ class HomeController < ApplicationController
   
   def past_races_without_finished_cups
     past_races = Race.past.includes(cups: [:cups_races, :races])
-    past_races = past_races.where(district_id: params[:district_id]) if params[:district_id]
+    past_races = past_races.where(district_id: params[:district_id]) unless params[:district_id].blank?
     past_races.select { |race| race.cups.first.nil? || race.cups.first.end_date >= Date.today }
   end
 

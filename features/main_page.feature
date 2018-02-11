@@ -77,6 +77,10 @@ Feature: Main page
     And I should see "Ongoing southern race" within "div#races_today"
     But I should not see "Finished northern race" within ".main_page_columns"
     And I should not see "Future northern race" within ".main_page_columns"
+    When I select "Kaikki piirit" from "district_id"
+    And I press "Valitse piiri"
+    Then I should see "Finished southern race" within "div#old_races"
+    And I should see "Finished northern race" within "div#old_races"
 
   Scenario: No races
     Given I go to the home page
