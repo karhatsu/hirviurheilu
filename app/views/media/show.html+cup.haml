@@ -12,7 +12,7 @@
         - comp_result << ', ' if race_i > 0
         - c = cc.competitor_for_race(race)
         - if c
-          - comp_result << points_print(c, false)
+          - comp_result << points_print(c)
         - else
           - comp_result << '-'
       - comp_result << ')'

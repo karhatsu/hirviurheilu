@@ -1,5 +1,5 @@
 module ResultFormatHelper
-  def points_print(competitor, unofficials)
+  def points_print(competitor, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     if competitor.no_result_reason
       return no_result_reason_print(competitor.no_result_reason)
     end
