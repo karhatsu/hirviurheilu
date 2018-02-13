@@ -8,6 +8,7 @@ describe Race do
   end
 
   describe "validation" do
+    it { is_expected.to validate_presence_of(:district) }
     it { is_expected.to validate_presence_of(:sport) }
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:location) }
@@ -88,16 +89,6 @@ describe Race do
       it "should prevent if same location, same start date" do
         expect(build(:race, :name => 'My race', :start_date => '2010-01-01',
           :location => 'My town')).not_to be_valid
-      end
-    end
-
-    describe 'district' do
-      it { is_expected.to validate_presence_of(:district) }
-
-      it 'can be null on update (when race created without district)' do
-        race = create :race
-        race.district = nil
-        race.save!
       end
     end
   end
