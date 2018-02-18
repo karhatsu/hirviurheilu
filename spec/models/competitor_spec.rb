@@ -579,6 +579,15 @@ describe Competitor do
       end
     end
 
+    describe 'when competitors have no points yet but only some competitors have number' do
+      it 'should consider number as 0' do
+        competitor1 = build :competitor, number: nil
+        competitor2 = build :competitor, number: 5
+        competitors = [competitor1, competitor2]
+        expect(Competitor.sort_competitors(competitors)).to eq competitors
+      end
+    end
+
     def create_competitor_with_relative_points(relative_points, number)
       competitor = build :competitor, number: number
       allow(competitor).to receive(:relative_points).with(@unofficials, @sort_by).and_return(relative_points)

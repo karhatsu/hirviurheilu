@@ -228,7 +228,7 @@ class Competitor < ApplicationRecord
 
   def self.sort_competitors(competitors, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=SORT_BY_POINTS)
     competitors.sort do |a, b|
-      [b.relative_points(unofficials, sort_by), a.number] <=> [a.relative_points(unofficials, sort_by), b.number]
+      [b.relative_points(unofficials, sort_by), a.number.to_i] <=> [a.relative_points(unofficials, sort_by), b.number.to_i]
     end
   end
   
