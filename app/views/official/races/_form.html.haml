@@ -10,7 +10,7 @@
     %span= f.text_field :name
 
   %div
-    %span.form_label= f.label :district_id
+    %span.form_label= f.label :district
     %span= f.collection_select(:district_id, District.all, :id, :name, prompt: true)
 
   %div

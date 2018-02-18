@@ -10,7 +10,7 @@ Feature: Club level
     When I fill in the following:
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |
-    And I select "Test district" from "Piiri"
+    And I select "Test district" from "race_district_id"
     And I choose "Pääsääntöisesti sarjoittain"
     And I check "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
@@ -53,7 +53,7 @@ Feature: Club level
     When I fill in the following:
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |
-    And I select "Test district" from "Piiri"
+    And I select "Test district" from "race_district_id"
     And I choose "Pääsääntöisesti sarjoittain"
     And I check "Lisää oletussarjat automaattisesti"
     And I choose "Piiri"
