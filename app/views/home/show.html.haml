@@ -10,10 +10,7 @@
 
 .main_page_columns
   .left_column
-    #district_menu
-      = form_tag '/', method: :get do
-        = select_tag :district_id, options_from_collection_for_select(District.all, :id, :name, params[:district_id]), prompt: 'Kaikki piirit'
-        = submit_tag 'Valitse piiri'
+    = render partial: 'district_menu'
     .title_box.races_box#races_today
       .box_title= t '.competitions.today'
       .title_box_content
