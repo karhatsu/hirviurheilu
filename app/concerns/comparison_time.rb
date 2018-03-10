@@ -40,7 +40,7 @@ module ComparisonTime
   end
 
   def children_series?
-    name =~ /S1[0-9]/
+    name =~ /S[1-2][0-9]/
   end
 
   def children_series_hash(age_groups)
