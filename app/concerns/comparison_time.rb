@@ -33,7 +33,11 @@ module ComparisonTime
     return children_series_hash ordered_age_groups if children_series?
 
     # e.g. N55, N60, N65 in series N50
-    hash = hash_with_age_group_referring_to_comparison_groups(ordered_age_groups, unofficials)
+    hash = Hash.new # { M75 => [M75], M70 => [M75, M70],... }
+    gender_age_groups = split_age_groups_by_gender ordered_age_groups
+    gender_age_groups.each do |age_groups|
+      hash_with_age_group_referring_to_comparison_groups(hash, age_groups, unofficials)
+    end
 
     # nil (refers to main series) => [nil, all age groups with normal trip length]
     append_main_series_to_hash(hash, ordered_age_groups)
@@ -62,8 +66,18 @@ module ComparisonTime
     end
   end
 
-  def hash_with_age_group_referring_to_comparison_groups(ordered_age_groups, unofficials)
-    hash = Hash.new # { M75 => [M75], M70 => [M75, M70],... }
+  def split_age_groups_by_gender(ordered_age_groups)
+    # [S20, S18, N50, N40, M50, M40] => [[S20, S18], [N50, N40, N30], [M50, M40]]
+    letter_to_age_groups = Hash.new
+    ordered_age_groups.each do |age_group|
+      first_letter = age_group.name[0]
+      letter_to_age_groups[first_letter] ||= []
+      letter_to_age_groups[first_letter] << age_group
+    end
+    letter_to_age_groups.values
+  end
+
+  def hash_with_age_group_referring_to_comparison_groups(hash, ordered_age_groups, unofficials)
     competitors_count = 0
     to_same_pool = [] # age groups in the same pool use the same comparison time
     ordered_age_groups.each_with_index do |age_group, i|

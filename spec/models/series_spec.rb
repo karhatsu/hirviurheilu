@@ -425,6 +425,33 @@ describe Series do
       end
     end
 
+    context "when children's, women's and men's age groups are mixed" do
+      before do
+        @series = build(:series, name: 'Mixed one')
+        @age_group_S20 = instance_double AgeGroup, name: 'S20', min_competitors: 1, competitors_count: 1, shorter_trip: false
+        @age_group_M70 = instance_double AgeGroup, name: 'M70', min_competitors: 1, competitors_count: 1, shorter_trip: false
+        @age_group_N70 = instance_double AgeGroup, name: 'N70', min_competitors: 1, competitors_count: 1, shorter_trip: false
+        @age_group_N75 = instance_double AgeGroup, name: 'N75', min_competitors: 1, competitors_count: 1, shorter_trip: false
+        @age_group_M80 = instance_double AgeGroup, name: 'M80', min_competitors: 1, competitors_count: 1, shorter_trip: false
+        @age_group_N80 = instance_double AgeGroup, name: 'N80', min_competitors: 1, competitors_count: 1, shorter_trip: false
+        expect_ordered_age_groups(@series, [@age_group_M70, @age_group_M80,
+                                            @age_group_N70, @age_group_N75, @age_group_N80, @age_group_S20])
+      end
+
+      it 'uses the age group first name as splitting the age groups into groups' do
+        groups = @series.send(:age_groups_for_comparison_time, @unofficials)
+        expect(groups.length).to eq(7)
+        expect(groups[nil]).to eq([@age_group_S20, @age_group_N80, @age_group_N75, @age_group_N70,
+                                   @age_group_M80, @age_group_M70, nil])
+        expect(groups[@age_group_M70]).to eq([@age_group_M80, @age_group_M70])
+        expect(groups[@age_group_M80]).to eq([@age_group_M80])
+        expect(groups[@age_group_N70]).to eq([@age_group_N80, @age_group_N75, @age_group_N70])
+        expect(groups[@age_group_N75]).to eq([@age_group_N80, @age_group_N75])
+        expect(groups[@age_group_N80]).to eq([@age_group_N80])
+        expect(groups[@age_group_S20]).to eq([@age_group_S20])
+      end
+    end
+
     def expect_ordered_age_groups(series, age_groups)
       tmp_groups = double(Array)
       expect(series).to receive(:age_groups).and_return(tmp_groups)
