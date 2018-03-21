@@ -1,5 +1,5 @@
 class AnnouncementsController < ApplicationController
-  before_action :set_variant
+  before_action :set_variant, :set_announcements_menu
 
   def index
     @announcements = Announcement.active
@@ -11,5 +11,11 @@ class AnnouncementsController < ApplicationController
       format.html
       format.json { render :json => @announcement }
     end
+  end
+
+  private
+
+  def set_announcements_menu
+    @is_announcements = true
   end
 end

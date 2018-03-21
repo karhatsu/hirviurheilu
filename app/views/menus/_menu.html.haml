@@ -8,6 +8,7 @@
         - races_dropdown_menu @main_menu_races
     = menu_item t('main_menu.official'), official_root_path, @is_official, nil, (!@is_official and menu_race and own_race?(menu_race)) do
       - dropdown_menu_single(link_to(menu_race.name, official_race_path(menu_race)))
+    = menu_item t('main_menu.announcements'), announcements_path, @is_announcements
     = menu_item t('main_menu.info'), info_path, @is_info
     = menu_item t('main_menu.prices'), prices_path, @is_prices
     - if current_user

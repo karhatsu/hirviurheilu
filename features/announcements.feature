@@ -3,15 +3,11 @@ Feature: Announcements
   I want to read announcements
   so that I know what's happening in Hirviurheilu
 
-  Scenario: No announcements added
-    Given I am on the home page
-    Then I should not see "Tiedotteet"
-  
   Scenario: Announcement added by admin can be seen in the home page
     Given I am an admin
     And I have logged in
     And I am on the admin index page
-    When I follow the first "Tiedotteet" link
+    When I follow "Tiedotteet" within "#announcements"
     Then I should be on the admin announcements page
     And the "Admin" main menu item should be selected
     And the "Tiedotteet" sub menu item should be selected
@@ -41,6 +37,7 @@ Feature: Announcements
     But I should not see "Non-active front page announcement"
     When I follow "Kaikki tiedotteet"
     Then I should see "Active announcement"
+    And the "Tiedotteet" main menu item should be selected
     And I should see "Active front page announcement"
     But I should not see "Non-active announcement"
     But I should not see "Non-active front page announcement"
