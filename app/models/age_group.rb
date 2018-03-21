@@ -9,12 +9,10 @@ class AgeGroup < ApplicationRecord
     :greater_than_or_equal_to => 0 }
 
   def competitors_count(unofficials)
-    conditions = { :no_result_reason => nil }
     if unofficials == Series::UNOFFICIALS_EXCLUDED
-      conditions[:unofficial] = false
-      @competitors_count ||= competitors.where(conditions).size
+      @competitors_count ||= competitors.where(unofficial: false).where('no_result_reason<>? OR no_result_reason IS NULL', Competitor::DNS).size
     else
-      @competitors_count_all ||= competitors.where(conditions).size
+      @competitors_count_all ||= competitors.where('no_result_reason<>? OR no_result_reason IS NULL', Competitor::DNS).size
     end
   end
 

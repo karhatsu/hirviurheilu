@@ -32,26 +32,30 @@ describe AgeGroup do
   
   describe "#competitors_count" do
     before do
-      series = create(:series)
-      @age_group = build(:age_group, :series => series)
-      series.age_groups << @age_group
-      series.competitors << build(:competitor, :series => series, :age_group => @age_group)
-      series.competitors << build(:competitor, :series => series, :age_group => @age_group)
-      series.competitors << build(:competitor, :series => series)
-      series.competitors << build(:competitor, :series => series, :age_group => @age_group, no_result_reason: 'DNS')
-      series.competitors << build(:competitor, :series => series, :age_group => @age_group, unofficial: true)
+      series = create :series
+      @age_group = create :age_group, series: series
+      create :competitor, series: series, age_group: @age_group # 1
+      create :competitor, series: series, age_group: @age_group # 2
+      create :competitor, series: series
+      create :competitor, series: series, age_group: @age_group, no_result_reason: 'DNS'
+      create :competitor, series: series, age_group: @age_group, no_result_reason: 'DNF' # 3
+      create :competitor, series: series, age_group: @age_group, no_result_reason: 'DNF' # 4
+      create :competitor, series: series, age_group: @age_group, no_result_reason: 'DQ' # 5
+      create :competitor, series: series, age_group: @age_group, no_result_reason: 'DQ' # 6
+      create :competitor, series: series, age_group: @age_group, unofficial: true # (7)
+      @age_group.reload
     end
     
     context "when all competitors" do
-      it "should count all competitors for the age group that have no no_result_reason" do
-        expect(@age_group.competitors_count(Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME)).to eq(3)
-        expect(@age_group.competitors_count(Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)).to eq(3)
+      it "should count all competitors for the age group that started" do
+        expect(@age_group.competitors_count(Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME)).to eq(7)
+        expect(@age_group.competitors_count(Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)).to eq(7)
       end
     end
     
     context "when unofficial competitors are excluded" do
-      it "should count all official competitors for the age group that have no no_result_reason" do
-        expect(@age_group.competitors_count(Series::UNOFFICIALS_EXCLUDED)).to eq(2)
+      it "should count all official competitors for the age group that started" do
+        expect(@age_group.competitors_count(Series::UNOFFICIALS_EXCLUDED)).to eq(6)
       end
     end
   end
