@@ -4,6 +4,8 @@
 - walking_info = special_series_info(series)
 - if walking_info
   .info= walking_info
+- if series.shorter_trip?
+  .info= t 'shorter_trip_notice.series'
 - shorter_trip_groups = series.age_groups_with_shorter_trip
 - unless shorter_trip_groups.empty?
-  .info= t :shorter_trip_notice, age_group: shorter_trip_groups.map { |group| group.name }.join(', '), count: shorter_trip_groups.count
+  .info= t 'shorter_trip_notice.age_groups', age_group: shorter_trip_groups.map { |group| group.name }.join(', '), count: shorter_trip_groups.count

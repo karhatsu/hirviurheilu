@@ -93,8 +93,10 @@ sv:
   service_provided_by: Tjänsten erbjudes
   shooting: Skytte
   shorter_trip_notice:
-    one: Äldsgrupp %{age_group} har kortare löpning.
-    other: Äldsgruppar %{age_group} har kortare löpning.
+    series: Klassen har kortare löpning.
+    age_groups:
+      one: Äldsgrupp %{age_group} har kortare löpning.
+      other: Äldsgruppar %{age_group} har kortare löpning.
   show_all_competitors: Visa alla tävlarna
   ski: Skidning
   start_list: Startlista
