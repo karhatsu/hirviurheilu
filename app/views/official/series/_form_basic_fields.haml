@@ -1,6 +1,8 @@
 = f.label :name
 = f.text_field :name
-= f.label :national_record
+= f.check_box :shorter_trip
+= f.label :shorter_trip
+= f.label :national_record, style: 'margin-left: 10px;'
 = f.text_field :national_record, size: 5, maxlength: 4
 %a{href: NATIONAL_RECORD_URL} Metsästäjäliiton SE-sivu
 %br
