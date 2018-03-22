@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180210161227) do
+ActiveRecord::Schema.define(version: 20180322050343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -258,6 +258,7 @@ ActiveRecord::Schema.define(version: 20180210161227) do
     t.integer "national_record"
     t.integer "time_points_type", default: 0, null: false
     t.integer "points_method", default: 0, null: false
+    t.boolean "shorter_trip", default: false, null: false
     t.index ["race_id"], name: "index_series_on_race_id"
   end
 
