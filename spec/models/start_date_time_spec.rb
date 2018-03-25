@@ -19,18 +19,6 @@ describe StartDateTime do
       expect(start_date_time(race, 1, '13:45:31')).to be_nil
     end
 
-    context "when race date available but start time not" do
-      before do
-        @race = build(:race, :start_date => '2011-06-30', :start_time => nil)
-        series = build(:series, :race => @race, :start_time => '13:45:31')
-        @start_time = series.start_time
-      end
-
-      it "should return the combination of race date and series start time when both available" do
-        expect(start_date_time(@race, 1, @start_time).strftime('%d.%m.%Y %H:%M:%S')).to eq('30.06.2011 13:45:31')
-      end
-    end
-
     context "when race date and start time available" do
       before do
         @race = build(:race, :start_date => '2011-06-30', :start_time => '10:00')
