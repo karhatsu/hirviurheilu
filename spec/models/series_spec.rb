@@ -50,13 +50,7 @@ describe Series do
       end
     end
 
-    describe "first_number" do
-      it { is_expected.to validate_numericality_of(:first_number) }
-      it { is_expected.to allow_value(nil).for(:first_number) }
-      it { is_expected.not_to allow_value(23.5).for(:first_number) }
-      it { is_expected.not_to allow_value(0).for(:first_number) }
-      it { is_expected.to allow_value(1).for(:first_number) }
-    end
+    it_should_behave_like 'non-negative integer', :first_number
 
     describe "national_record" do
       it { is_expected.to validate_numericality_of(:national_record) }

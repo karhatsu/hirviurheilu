@@ -22,7 +22,7 @@ class Competitor < ApplicationRecord
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :number,
-    :numericality => { :only_integer => true, :greater_than => 0, :allow_nil => true }
+    :numericality => { :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true }
   validates :shots_total_input, :allow_nil => true,
     :numericality => { :only_integer => true,
       :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }

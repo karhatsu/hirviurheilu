@@ -19,7 +19,7 @@ describe Competitor do
     it_should_behave_like 'non-negative integer', :shooting_overtime_min
 
     describe "number" do
-      it_should_behave_like 'positive integer', :number
+      it_should_behave_like 'non-negative integer', :number
       it { is_expected.to allow_value(nil).for(:number) }
 
       describe "uniqueness" do

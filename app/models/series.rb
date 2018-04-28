@@ -34,8 +34,7 @@ class Series < ApplicationRecord
 
   validates :name, :presence => true
   #validates :race, :presence => true
-  validates :first_number, :numericality => { :only_integer => true,
-    :allow_nil => true, :greater_than => 0 }
+  validates :first_number, numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 0 }
   validates :start_day, :numericality => { :only_integer => true,
     :allow_nil => true, :greater_than => 0 }
   validates :national_record, :numericality => { :only_integer => true,
