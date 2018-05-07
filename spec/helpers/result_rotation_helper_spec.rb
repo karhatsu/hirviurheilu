@@ -160,13 +160,13 @@ describe ResultRotationHelper do
   describe '#result_rotation_series' do
     it 'should return an empty list when race in the future' do
       race = create :race, start_date: Date.today - 1
-      race.series << build_series(race, 1, '0:00', true)
+      race.series << build_series(race, 1, '0:00', true, 'test')
       expect(result_rotation_series(race).size).to eq(0)
     end
 
     it 'should return an empty list when race was in the past' do
       race = create :race, start_date: Date.today - 2, end_date: Date.today - 1
-      race.series << build_series(race, 1, '0:00', true)
+      race.series << build_series(race, 1, '0:00', true, 'test')
       expect(result_rotation_series(race).size).to eq(0)
     end
 
@@ -174,11 +174,11 @@ describe ResultRotationHelper do
       let(:race) { create :race, start_date: Date.today, end_date: Date.today + 1 }
 
       before do
-        @series1_1 = build_series race, 1, '0:00', true
-        @series1_2 = build_series race, 1, '0:00', true
-        @series1_3 = build_series race, 1, '0:00', false
-        @series2_1 = build_series race, 2, '0:00', true
-        @series2_2 = build_series race, 2, '0:00', false
+        @series1_1 = build_series race, 1, '0:00', true, 'series 1.1'
+        @series1_2 = build_series race, 1, '0:00', true, 'series 1.2'
+        @series1_3 = build_series race, 1, '0:00', false, 'series 1.3'
+        @series2_1 = build_series race, 2, '0:00', true, 'series 2.1'
+        @series2_2 = build_series race, 2, '0:00', false, 'series 2.2'
         race.series << @series1_1
         race.series << @series1_2
         race.series << @series1_3
@@ -207,8 +207,8 @@ describe ResultRotationHelper do
       end
     end
 
-    def build_series(race, start_day, start_time, has_results)
-      series = build :series, race: race, start_day: start_day, start_time: start_time
+    def build_series(race, start_day, start_time, has_results, name)
+      series = build :series, race: race, start_day: start_day, start_time: start_time, name: name
       competitor = build :competitor, series: series
       competitor.estimate1 = 100 if has_results
       series.competitors << competitor

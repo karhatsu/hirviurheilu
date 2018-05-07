@@ -33,7 +33,7 @@ class Official::CompetitorsController < Official::OfficialController
     club_ok = handle_club(@competitor)
     start_list_page = params[:start_list]
     if club_ok and @competitor.save
-      start_list_condition = "series.has_start_list = #{DatabaseHelper.true_value}"
+      start_list_condition = 'series.has_start_list = true'
       @all_series = @race.series.where(start_list_condition)
       collect_age_groups(@all_series)
       template = start_list_page ? 'official/start_lists/create_success' :
@@ -95,7 +95,7 @@ class Official::CompetitorsController < Official::OfficialController
   private
 
   def set_series_list_options_in_edit
-    start_list_condition = "series.has_start_list = #{DatabaseHelper.boolean_value(@series.has_start_list)}"
+    start_list_condition = "series.has_start_list = #{@series.has_start_list?}"
     @series_menu_options = @series.race.series.where(start_list_condition)
   end
 

@@ -1,4 +1,3 @@
-require 'database_helper.rb'
 require 'time_helper.rb'
 
 class Series < ApplicationRecord
@@ -57,11 +56,11 @@ class Series < ApplicationRecord
   def ordered_competitors(unofficials=UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=Competitor::SORT_BY_POINTS)
     Competitor.sort_competitors(competitors.includes([:club, :age_group, :series]), unofficials, sort_by)
   end
-  
+
   def next_start_number
     race.next_start_number
   end
-  
+
   def next_start_time
     race.next_start_time
   end
@@ -162,7 +161,7 @@ class Series < ApplicationRecord
   def started?
     start_time and start_datetime < Time.zone.now
   end
-  
+
   def start_datetime
     start_date_time race, start_day, start_time
   end
@@ -181,11 +180,11 @@ class Series < ApplicationRecord
   def has_unofficial_competitors?
     competitors.where(:unofficial => true).exists?
   end
-  
+
   def competitors_only_to_age_groups?
     !!(name =~ /^S\d\d?$/)
   end
-  
+
   def age_groups_with_main_series
     return [] if age_groups.empty?
     groups = age_groups
@@ -195,14 +194,14 @@ class Series < ApplicationRecord
     end
     groups
   end
-  
+
   def update_start_time_and_number
     return unless has_start_list?
     self.start_time = competitors.minimum(:start_time)
     self.first_number = competitors.minimum(:number)
     save!
   end
-  
+
   def has_result_for_some_competitor?
     competitors.where('has_result=?', true).exists?
   end
@@ -229,12 +228,6 @@ class Series < ApplicationRecord
     self.points_method = POINTS_METHOD_TIME_2_ESTIMATES if points_method == nil
   end
 
-  def time_subtraction_sql
-    return "EXTRACT(EPOCH FROM (arrival_time-start_time))" if DatabaseHelper.postgres?
-    return "strftime('%s', arrival_time)-strftime('%s', start_time)" if DatabaseHelper.sqlite3?
-    raise "Unknown database adapter"
-  end
-  
   def set_has_start_list
     return unless race
     self.has_start_list ||= (race.start_order.to_i == Race::START_ORDER_MIXED)

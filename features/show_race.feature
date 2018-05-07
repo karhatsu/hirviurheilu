@@ -21,9 +21,9 @@ Feature: Show race
     And the page title should contain "Test city, 01.01.2010 - 02.01.2010"
     And I should see "Tiedote kilpailijoille ja kotikatsojille" within ".public_message"
     And I should see "Kilpailu alkaa: 10:00"
-    And I should see "Men 50 years" within "tr#series_1"
-    And I should see "01.01.2010 13:30" within "tr#series_1"
-    And I should see "Sarjaan ei ole lisätty kilpailijoita" within "tr#series_1"
+    And I should see "Men 50 years" within "tr[2]/td[1]"
+    And I should see "01.01.2010 13:30" within "tr[2]/td[2]"
+    And I should see "Sarjaan ei ole lisätty kilpailijoita" within "tr[2]/td[3]"
     But I should not see "Kaikkien sarjojen lähtöajat (PDF)"
 
   Scenario: Competitors but no start list, nor race start time
@@ -39,7 +39,7 @@ Feature: Show race
       | first_name | James |
       | last_name | Johnson |
     When I go to the race page
-    Then I should see "Sarjan lähtöluetteloa ei ole vielä julkaistu" within "tr#series_1"
+    Then I should see "Sarjan lähtöluetteloa ei ole vielä julkaistu" within "tr[2]"
     And I should see "Kaikkien sarjojen lähtöajat (PDF)"
     But I should not see "Kilpailu alkaa"
 
@@ -227,7 +227,7 @@ Feature: Show race
     And I should see "99"
     And I should see "153"
     And I should see "156"
-    
+
   Scenario: Show link to cup results when the race belongs to a cup
     Given there is a cup "Test cup"
     And there is a race "Test race"

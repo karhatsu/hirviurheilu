@@ -5,10 +5,10 @@ development:
   pool: 5
 
 test: &test
-  adapter: sqlite3
-  database: db/test.sqlite3
+  adapter: postgresql
+  database: elk_sports_test
+  encoding: unicode
   pool: 5
-  timeout: 5000
 
 production:
   adapter: postgresql

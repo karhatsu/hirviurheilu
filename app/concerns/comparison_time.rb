@@ -15,7 +15,7 @@ module ComparisonTime
     conditions = { :no_result_reason => nil }
     conditions[:unofficial] = false if unofficials != Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
     conditions[:age_group_id] = age_groups.map { |group| group ? group.id : [nil, 0] }.flatten if age_groups
-    time = competitors.where(conditions).minimum(time_subtraction_sql)
+    time = competitors.where(conditions).minimum('EXTRACT(EPOCH FROM (arrival_time-start_time))')
     if time
       @best_time_cache[cache_key] = time.to_i
       return time.to_i

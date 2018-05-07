@@ -1,14 +1,11 @@
-require 'database_helper.rb'
-
 class Official::StartListsController < Official::OfficialController
-  include DatabaseHelper
   before_action :assign_race_by_race_id, :check_assigned_race, :only => :show
   before_action :assign_series_by_series_id, :check_assigned_series, :only => :update
   before_action :handle_time_parameters, :only => :update
-  
+
   def show
     @is_start_list = true
-    start_list_condition = "series.has_start_list = #{DatabaseHelper.true_value}"
+    start_list_condition = 'series.has_start_list = true'
     @competitors = @race.competitors.where(start_list_condition).includes(:club, :age_group, :series).except(:order).order(:number)
     @all_series = @race.series.where(start_list_condition)
     collect_age_groups(@all_series)

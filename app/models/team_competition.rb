@@ -32,7 +32,7 @@ class TeamCompetition < ApplicationRecord
       age_groups << race.age_groups.find_by_name(name)
     end
   end
-  
+
   def started?
     series.each do |s|
       return true if s.started?
@@ -64,7 +64,7 @@ class TeamCompetition < ApplicationRecord
     age_groups.each do |ag|
       competitors += ag.competitors.where(['series_id NOT IN (?)', (series.map &:id)]).includes(includes)
     end
-    competitors
+    competitors.sort {|a, b| a.id <=> b.id} # sorting for the unit test
   end
 
   def map_sorted_competitors_by_teams(competitors)
@@ -124,7 +124,7 @@ class TeamCompetition < ApplicationRecord
   def remove_teams_without_enough_competitors(sorted_teams)
     sorted_teams.delete_if { |club| club[:competitors].length < team_competitor_count }
   end
-  
+
   def resolve_team_name(competitor)
     if use_team_name
       return nil if competitor.team_name.blank?

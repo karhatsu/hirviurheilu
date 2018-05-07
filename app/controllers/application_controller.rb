@@ -1,4 +1,3 @@
-require 'database_helper'
 class ApplicationController < ActionController::Base
   include AssignModel
 
@@ -11,7 +10,7 @@ class ApplicationController < ActionController::Base
   before_action :clear_old_data_from_staging
   before_action :assign_races_for_main_menu
   before_action :allow_rack_profiler
-  
+
   private
   def set_locale
     new_locale = params[:new_locale]
@@ -28,7 +27,7 @@ class ApplicationController < ActionController::Base
   def valid_locale?(locale)
     %w(fi sv).include? locale
   end
-  
+
   def path_after_locale_change(new_locale)
     new_locale = new_locale.to_s
     default_locale = I18n.default_locale.to_s
@@ -69,7 +68,7 @@ class ApplicationController < ActionController::Base
   def own_race?(race)
     current_user and (current_user.admin? or current_user.official_for_race?(race))
   end
-  
+
   def own_cup?(cup)
     current_user and (current_user.admin? or current_user.official_for_cup?(cup))
   end
@@ -112,15 +111,15 @@ class ApplicationController < ActionController::Base
   def set_races
     @is_races = true
   end
-  
+
   def result_rotation_cookie_name
     'seriescount'
   end
-  
+
   def result_rotation_scroll_cookie_name
     'result_rotation_scroll'
   end
-  
+
   def result_rotation_tc_cookie_name
     'result_rotation_tc'
   end
@@ -128,20 +127,20 @@ class ApplicationController < ActionController::Base
   def result_rotation_selected_competitions_cookie_name
     'result_rotation_competitions'
   end
-  
+
   def pdf_header(title)
     { :left => replace_scands(title), :right => Date.today.strftime('%d.%m.%Y'),
       :spacing => 10, :font_size => 10 }
   end
-  
+
   def replace_scands(title)
     title.gsub('ä', 'a').gsub('ö', 'o').gsub('Ä', 'A').gsub('Ö', 'O') if title
   end
-  
+
   def pdf_footer
     { :center => 'www.hirviurheilu.com', :spacing => 10, :line => true }
   end
-  
+
   def pdf_margin
     { :top => 20, :bottom => 20 }
   end
@@ -170,12 +169,12 @@ class ApplicationController < ActionController::Base
     end
     true
   end
-  
+
   def no_time_parameter(object_params, time_name)
     object_params["#{time_name}(4i)"].nil? and object_params["#{time_name}(5i)"].nil? and
       object_params["#{time_name}(6i)"].nil?
   end
-  
+
   def valid_time?(object_params, time_name)
     h = object_params["#{time_name}(4i)"]
     min = object_params["#{time_name}(5i)"]
@@ -203,7 +202,7 @@ class ApplicationController < ActionController::Base
     object_params["#{time_name}(2i)"] = "1"
     object_params["#{time_name}(3i)"] = "1"
   end
-  
+
   def pick_non_cup_races(races, cup_races)
     races.select { |race| !cup_races.include?(race) }
   end
@@ -213,7 +212,7 @@ class ApplicationController < ActionController::Base
   end
 
   def clear_old_data_from_staging
-    if ProductionEnvironment.staging? && DatabaseHelper.postgres?
+    if ProductionEnvironment.staging?
       ActiveRecord::Base.connection.execute('delete from user_sessions where updated_at < now()::date - 2')
     end
   end
