@@ -4,7 +4,7 @@ class HomeController < ApplicationController
 
   def show
     @is_main_page = true
-    all_cups = Cup.joins(:races)
+    all_cups = Cup.joins(races: :cups).includes(races: :cups)
     all_cups = all_cups.where('races.district_id=?', params[:district_id]) unless params[:district_id].blank?
     @today = Race.today
     @today = @today.where(district_id: params[:district_id]) unless params[:district_id].blank?
@@ -14,12 +14,12 @@ class HomeController < ApplicationController
     @future = group_future_races(@future)
     @announcements = Announcement.active.front_page
   end
-  
+
   private
   def past_competitions(all_cups)
     (past_races_without_finished_cups + finished_cups(all_cups)).sort { |a,b| [b.end_date, a.name] <=> [a.end_date, b.name] }
   end
-  
+
   def past_races_without_finished_cups
     past_races = Race.past.includes(cups: [:cups_races, :races])
     past_races = past_races.where(district_id: params[:district_id]) unless params[:district_id].blank?
