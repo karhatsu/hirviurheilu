@@ -105,7 +105,7 @@ Feature: Generate start list
     When I follow "Tee lista"
     And I fill in "-1" for "Sarjan ensimmäinen numero"
     And I press "Luo lähtölista sarjalle"
-    Then I should see "Sarjan ensimmäinen numero täytyy olla suurempi kuin 0" in an error message
+    Then I should see "Sarjan ensimmäinen numero täytyy olla suurempi tai yhtä suuri kuin 0" in an error message
     But I should not see "-1" within "tr#competitor_1"
 
   Scenario: Missing values for generation
@@ -175,7 +175,7 @@ Feature: Generate start list
     And I follow "Lisää kilpailija"
     Then I should see "Numero"
     And I should see "Lähtöaika"
-    
+
   Scenario: Don't show start list form when start order is mixed between series
     Given I am an official
     And I have a race with attributes:
@@ -196,4 +196,3 @@ Feature: Generate start list
     And I should not see "Sarjan ensimmäinen numero"
     And I should not see "Kilpailijoiden järjestys"
     But I should see "Testinen Teppo"
-    
