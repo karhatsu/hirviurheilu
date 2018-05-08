@@ -12,21 +12,8 @@ describe CorrectEstimate do
   describe "validations" do
     #it { should validate_presence_of(:race) }
 
-    describe "min_number" do
-      it { is_expected.to validate_numericality_of(:min_number) }
-      it { is_expected.not_to allow_value(nil).for(:min_number) }
-      it { is_expected.not_to allow_value(-1).for(:min_number) }
-      it { is_expected.not_to allow_value(0).for(:min_number) }
-      it { is_expected.not_to allow_value(1.1).for(:min_number) }
-    end
-
-    describe "max_number" do
-      it { is_expected.to validate_numericality_of(:max_number) }
-      it { is_expected.to allow_value(nil).for(:max_number) } # note!
-      it { is_expected.not_to allow_value(-1).for(:max_number) }
-      it { is_expected.not_to allow_value(0).for(:max_number) }
-      it { is_expected.not_to allow_value(1.1).for(:max_number) }
-    end
+    it_should_behave_like 'non-negative integer', :min_number
+    it_should_behave_like 'non-negative integer', :max_number
 
     describe "distance1" do
       it { is_expected.to validate_numericality_of(:distance1) }

@@ -2,10 +2,8 @@ class CorrectEstimate < ApplicationRecord
   belongs_to :race, touch: true
 
   #validates :race, :presence => true
-  validates :min_number, :numericality => { :only_integer => true,
-    :greater_than => 0 }
-  validates :max_number, :numericality => { :only_integer => true,
-    :greater_than => 0, :allow_nil => true }
+  validates :min_number, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
+  validates :max_number, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true }
   validates :distance1, :numericality => { :only_integer => true,
     :greater_than_or_equal_to => 50, :less_than_or_equal_to => 200 }
   validates :distance2, :numericality => { :only_integer => true,
