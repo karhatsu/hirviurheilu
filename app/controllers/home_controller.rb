@@ -16,17 +16,15 @@ class HomeController < ApplicationController
   end
 
   private
+
   def past_competitions(all_cups)
-    (past_races_without_finished_cups + finished_cups(all_cups)).sort { |a,b| [b.end_date, a.name] <=> [a.end_date, b.name] }
-  end
+    finished_cups = all_cups.select { |cup| cup.end_date && cup.end_date < Date.today }
+    finished_cups_race_ids = finished_cups.each { |cup| cup.races.map(&:id) }.flatten
 
-  def past_races_without_finished_cups
-    past_races = Race.past.includes(cups: [:cups_races, :races])
+    past_races = Race.past
+    past_races = past_races.where('id NOT IN(?)', finished_cups_race_ids) if finished_cups_race_ids.length > 0
     past_races = past_races.where(district_id: params[:district_id]) unless params[:district_id].blank?
-    past_races.select { |race| race.cups.first.nil? || race.cups.first.end_date >= Date.today }
-  end
 
-  def finished_cups(all_cups)
-    all_cups.select { |cup| cup.end_date and cup.end_date < Date.today }
+    (past_races + finished_cups).sort { |a,b| [b.end_date, a.name] <=> [a.end_date, b.name] }
   end
 end
