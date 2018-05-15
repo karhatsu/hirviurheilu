@@ -3,7 +3,7 @@
   - if competition.is_a?(Cup)
     .cup
       = render partial: 'home/race_link', locals: {icon: true, competition: competition}
-      - competition.races.each do |race|
+      - competition.races.except(:order).order('end_date desc').each do |race|
         = render partial: 'home/race_link', locals: {icon: true, competition: race, secondary: true}
   - else
     = render partial: 'home/race_link', locals: {icon: true, competition: competition}
