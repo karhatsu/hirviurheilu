@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :age_group do
     series
     name 'M75'

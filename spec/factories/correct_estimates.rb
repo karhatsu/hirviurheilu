@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :correct_estimate do
     race
     min_number 10

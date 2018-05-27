@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :race do
     district
     sport { Sport.default_sport }

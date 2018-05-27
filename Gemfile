@@ -42,7 +42,7 @@ group :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'email_spec'
-  gem "factory_girl_rails", :require => false
+  gem "factory_bot_rails", :require => false
   gem 'launchy'
   gem 'poltergeist'
   gem 'rspec-rails'

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :cup do
     name "Testi-cup"
     top_competitions 2

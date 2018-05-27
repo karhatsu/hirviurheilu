@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :relay_competitor do
     relay_team
     first_name 'Mikko'

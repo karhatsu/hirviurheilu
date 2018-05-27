@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :series do
     race
     name "Men under 50 yrs"

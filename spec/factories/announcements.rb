@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :announcement do
     published Date.today
     title 'Hello elks!'
