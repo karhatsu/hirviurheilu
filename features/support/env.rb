@@ -18,6 +18,8 @@ Capybara.default_selector = :css
 
 Capybara.javascript_driver = :poltergeist
 
+Capybara.server = :webrick
+
 require 'factory_girl_rails'
 World(FactoryGirl::Syntax::Methods)
 
