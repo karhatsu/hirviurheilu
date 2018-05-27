@@ -22,7 +22,7 @@ class HomeController < ApplicationController
     all_cups = Cup.joins(races: :cups).includes(races: :cups)
     all_cups = all_cups.where('races.district_id=?', params[:district_id]) unless params[:district_id].blank?
     finished_cups = all_cups.select { |cup| cup.end_date && cup.end_date < Date.today }
-    finished_cups_race_ids = finished_cups.each { |cup| cup.races.map(&:id) }.flatten
+    finished_cups_race_ids = finished_cups.map { |cup| cup.races.map(&:id) }.flatten
 
     past_races = Race.past
     past_races = past_races.where('id NOT IN(?)', finished_cups_race_ids) if finished_cups_race_ids.length > 0
