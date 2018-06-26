@@ -2,7 +2,7 @@ Feature: Results
   In order to see how a race went
   As a competitor
   I want to see the race results
-  
+
   Scenario: No competitors added for the series
     Given there is a race "My race"
     And the race has series "No competitors series"
@@ -13,7 +13,7 @@ Feature: Results
     But I should not see "Tulokset" within "h2"
     And I should not see "Tilanne" within "h2"
     And I should see "Sarjaan ei ole lisätty kilpailijoita" in an info message
-    
+
   Scenario: The series has no start list yet
     Given there is a race "My race" in the future
     And the race has series "My series"
@@ -151,7 +151,7 @@ Feature: Results
     Then I should be on the results page of the series
     And the page title should contain "My test race"
     And I should see "Men 50 years - Tulokset" within "h2"
-    And I should see "Hirvikävely (sarjassa on 4 arviota, ei aikapisteitä)" in an info message
+    And I should see "Hirvikävely (sarjassa on 4 arviota pistein -2p/1m, ei aikapisteitä)" in an info message
     And I should see a result row 1 with values:
       | name | Atkinsson Tim |
       | number | 51 |
@@ -349,7 +349,7 @@ Feature: Results
     And I am on the results page of the series
     When I follow "Atkinsson Tim"
     Then I should be on the results page of the competitor
-    And I should see "Hirvikävely (sarjassa on 4 arviota, ei aikapisteitä)" in an info message
+    And I should see "Hirvikävely (sarjassa on 4 arviota pistein -2p/1m, ei aikapisteitä)" in an info message
     And the page title should contain "My test race"
     And I should see "Men 50 years - Atkinsson Tim" within "h2"
     And I should see "Pisteet" within "#points h3"

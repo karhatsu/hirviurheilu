@@ -13,6 +13,7 @@ class Series < ApplicationRecord
   POINTS_METHOD_TIME_4_ESTIMATES = 1
   POINTS_METHOD_NO_TIME_4_ESTIMATES = 2
   POINTS_METHOD_300_TIME_2_ESTIMATES = 3
+  POINTS_METHOD_NO_TIME_2_ESTIMATES = 4
 
   UNOFFICIALS_EXCLUDED = 1 # to the bottom in the results, cannot have the best time (until 2017, default)
   UNOFFICIALS_INCLUDED_WITH_BEST_TIME = 2 # normally in the results, can have the best time (until 2017, by selection)
@@ -40,6 +41,7 @@ class Series < ApplicationRecord
     :allow_nil => true, :greater_than => 0 }
   validates :points_method, inclusion: {in: [POINTS_METHOD_TIME_2_ESTIMATES,
                                              POINTS_METHOD_TIME_4_ESTIMATES,
+                                             POINTS_METHOD_NO_TIME_2_ESTIMATES,
                                              POINTS_METHOD_NO_TIME_4_ESTIMATES,
                                              POINTS_METHOD_300_TIME_2_ESTIMATES]}
   validate :start_time_max
@@ -216,7 +218,8 @@ class Series < ApplicationRecord
   end
 
   def walking_series?
-    points_method == POINTS_METHOD_300_TIME_2_ESTIMATES || points_method == POINTS_METHOD_NO_TIME_4_ESTIMATES
+    points_method == POINTS_METHOD_300_TIME_2_ESTIMATES || points_method == POINTS_METHOD_NO_TIME_2_ESTIMATES ||
+        points_method == POINTS_METHOD_NO_TIME_4_ESTIMATES
   end
 
   def with_time?

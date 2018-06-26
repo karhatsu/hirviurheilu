@@ -116,6 +116,10 @@ sv:
     both: 2 bedömningar, alla tävlarna får 300 tidpoäng
     SKI: 2 bedömningar, alla tävlarna får 300 tidpoäng
     RUN: 2 bedömningar, alla tävlarna får 300 tidpoäng
+  points_method_4:
+    both: 2 bedömningar, inga tidpoäng
+    SKI: 2 bedömningar, inga tidpoäng
+    RUN: 2 bedömningar, inga tidpoäng
   times: Tider
   total: Totalt
   total_points: Totalpoäng
@@ -126,4 +130,3 @@ sv:
   without_competitors: Utan tävlarna
   wrong_captcha: Kontrollfrågan var fel.
   you_can_still_add: Du kan öka ännu mer
-  

@@ -26,7 +26,7 @@ describe Competitor do
         before do
           @c = create(:competitor, :number => 5)
         end
-        
+
         it "should require uniqueness for numbers in the same race" do
           series = create(:series, :race => @c.series.race)
           competitor = build(:competitor, :series => series, :number => 6)
@@ -34,17 +34,17 @@ describe Competitor do
           competitor.number = 5
           expect(competitor).not_to be_valid
         end
-        
+
         it "should allow updating the competitor" do
           expect(@c).to be_valid
         end
-        
+
         it "should allow same number in another race" do
           race = create(:race)
           series = create(:series)
           expect(build(:competitor, :series => series, :number => 5)).to be_valid
         end
-        
+
         it "should allow two nils for same series" do
           c = create(:competitor, :number => nil)
           expect(build(:competitor, :number => nil, :series => c.series)).
@@ -324,7 +324,7 @@ describe Competitor do
         expect(comp.no_result_reason).to eq(nil)
       end
     end
-    
+
     describe "names" do
       it "should be unique for same series" do
         c1 = create(:competitor)
@@ -440,7 +440,7 @@ describe Competitor do
       expect(competitor.race).to eq(race)
     end
   end
-  
+
   describe "save" do
     context "when competitor has no start time or number" do
       it "should not save series for nothing" do
@@ -450,7 +450,7 @@ describe Competitor do
         comp.save!
       end
     end
-    
+
     context "when competitor has no start time but has number" do
       it "should not save series" do
         series = create(:series, :start_time => nil, :first_number => nil)
@@ -468,7 +468,7 @@ describe Competitor do
         comp.save!
       end
     end
-    
+
     context "when competitor has both start time and number" do
       it "should let series update its start time and first number" do
         series = create(:series, :start_time => nil, :first_number => nil, :has_start_list => true)
@@ -517,7 +517,7 @@ describe Competitor do
       end
     end
   end
-  
+
   describe "concurrency check" do
     context "on create" do
       it "should do nothing" do
@@ -526,18 +526,18 @@ describe Competitor do
         @competitor.save!
       end
     end
-    
+
     context "on update" do
       before do
         @competitor = create(:competitor)
       end
-    
+
       it "should pass if old and current values equal" do
         expect(@competitor).to receive(:values_equal?).and_return(true)
         @competitor.save
         expect(@competitor.errors.size).to eq(0)
       end
-      
+
       it "should fail if old and current values differ" do
         expect(@competitor).to receive(:values_equal?).and_return(false)
         expect(@competitor).to have(1).errors_on(:base)
@@ -881,12 +881,12 @@ describe Competitor do
           :correct_estimate1 => 100, :correct_estimate2 => 200)
         expect(competitor.estimate_points).to eq(0)
       end
-      
+
       context "when 4 estimates without time points for the series" do
         before do
           @series = build(:series, points_method: Series::POINTS_METHOD_NO_TIME_4_ESTIMATES)
         end
-        
+
         it "should be 600 when perfect estimates" do
           competitor = build(:competitor, :series => @series,
             :estimate1 => 100, :estimate2 => 200,
@@ -927,6 +927,24 @@ describe Competitor do
                              :correct_estimate1 => 100, :correct_estimate2 => 200,
                              :correct_estimate3 => 110, :correct_estimate4 => 150)
           expect(competitor.estimate_points).to eq(292)
+        end
+      end
+
+      context "when 2 estimates without time points for the series" do
+        before do
+          @series = build(:series, points_method: Series::POINTS_METHOD_NO_TIME_2_ESTIMATES)
+        end
+
+        it "should be 600 when perfect estimates" do
+          competitor = build(:competitor, :series => @series, :estimate1 => 100, :estimate2 => 200,
+                             :correct_estimate1 => 100, :correct_estimate2 => 200)
+          expect(competitor.estimate_points).to eq(600)
+        end
+
+        it "should be 576 when both estimates are 3 meters wrong" do
+          competitor = build(:competitor, :series => @series, :estimate1 => 97, :estimate2 => 203,
+                             :correct_estimate1 => 100, :correct_estimate2 => 200)
+          expect(competitor.estimate_points).to eq(576) # 600 - 4*3 - 4*3
         end
       end
     end
@@ -1039,7 +1057,7 @@ describe Competitor do
         end
       end
     end
-    
+
     context "when the competitor is an unofficial competitor and has better time than official best time" do
       it "should be 300" do
         @competitor.unofficial = true
@@ -1053,9 +1071,17 @@ describe Competitor do
       expect(@competitor.time_points(@unofficials)).to eq(0)
     end
 
-    context "when no time points" do
+    context "when no time points (4 estimates)" do
       it "should be nil" do
         @competitor.series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
+        allow(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds)
+        expect(@competitor.time_points(@unofficials)).to be_nil
+      end
+    end
+
+    context "when no time points (2 estimates)" do
+      it "should be nil" do
+        @competitor.series.points_method = Series::POINTS_METHOD_NO_TIME_2_ESTIMATES
         allow(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds)
         expect(@competitor.time_points(@unofficials)).to be_nil
       end
@@ -1356,7 +1382,7 @@ describe Competitor do
       expect(@competitor.correct_estimate4).to eq(ce4)
     end
   end
-  
+
   describe "#relative_points" do
     before do
       @series = double Series, walking_series?: true

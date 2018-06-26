@@ -109,13 +109,17 @@ fi:
     SKI: Sarjassa on 4 arviota, arviopisteet -1p/1m
     RUN: Sarjassa on 4 arviota, arviopisteet -1p/1m
   points_method_2:
-    both: Hirvikävely/-hiihtely (4 arviota, ei aikapisteitä)
-    SKI: Hirvenhiihtely (sarjassa on 4 arviota, ei aikapisteitä)
-    RUN: Hirvikävely (sarjassa on 4 arviota, ei aikapisteitä)
+    both: Hirvikävely/-hiihtely (4 arviota pistein -2p/1m, ei aikapisteitä)
+    SKI: Hirvenhiihtely (sarjassa on 4 arviota pistein -2p/1m, ei aikapisteitä)
+    RUN: Hirvikävely (sarjassa on 4 arviota pistein -2p/1m, ei aikapisteitä)
   points_method_3:
     both: Hirvikävely/-hiihtely (2 arviota, kaikille 300 aikapistettä)
     SKI: Hirvenhiihtely (sarjassa on 2 arviota, kaikki saavat 300 aikapistettä)
     RUN: Hirvikävely (sarjassa on 2 arviota, kaikki saavat 300 aikapistettä)
+  points_method_4:
+    both: Hirvikävely/-hiihtely (2 arviota pistein -4p/1m, ei aikapisteitä)
+    SKI: Hirvenhiihtely (sarjassa on 2 arviota pistein -4p/1m, ei aikapisteitä)
+    RUN: Hirvikävely (sarjassa on 2 arviota pistein -4p/1m, ei aikapisteitä)
   times: Ajat
   total: Yhteensä
   total_points: Yhteispisteet
@@ -126,4 +130,3 @@ fi:
   without_competitors: Ilman kilpailijoita
   wrong_captcha: Tarkastuskysymys meni väärin.
   you_can_still_add: Voit lisätä vielä
-  

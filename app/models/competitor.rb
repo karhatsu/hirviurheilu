@@ -3,7 +3,7 @@ require 'model_value_comparator'
 class Competitor < ApplicationRecord
   include ModelValueComparator
   include StartDateTime
-  
+
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish
   DQ = 'DQ' # disqualified
@@ -63,7 +63,7 @@ class Competitor < ApplicationRecord
   after_update :update_series_competitors_counter_cache
 
   attr_accessor :club_name, :age_group_name, :old_values
-  
+
   def race
     series.race
   end
@@ -132,7 +132,9 @@ class Competitor < ApplicationRecord
     if series.estimates == 4
       error_meters = error_meters + (correct_estimate3 - estimate3).abs + (correct_estimate4 - estimate4).abs
     end
-    if series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
+    if series.points_method == Series::POINTS_METHOD_NO_TIME_2_ESTIMATES
+      points = 600 - 4 * error_meters
+    elsif series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
       points = 600 - 2 * error_meters
     elsif series.points_method == Series::POINTS_METHOD_TIME_4_ESTIMATES
       points = 300 - 1 * error_meters
@@ -155,12 +157,8 @@ class Competitor < ApplicationRecord
     true
   end
 
-  def max_estimate_points
-    series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES ? 600 : 300
-  end
-
   def time_points(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
-    return nil if series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
+    return nil if series.points_method == Series::POINTS_METHOD_NO_TIME_2_ESTIMATES || series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
     return 300 if series.points_method == Series::POINTS_METHOD_300_TIME_2_ESTIMATES
     own_time = time_in_seconds or return nil
     best_time = comparison_time_in_seconds(unofficials) or return nil
@@ -172,7 +170,7 @@ class Competitor < ApplicationRecord
     return nil if no_result_reason
     shot_points.to_i + estimate_points.to_i + time_points(unofficials).to_i
   end
-  
+
   def relative_points(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=SORT_BY_POINTS)
     return -1000003 if no_result_reason == DQ
     return -1000002 if no_result_reason == DNS
@@ -231,7 +229,7 @@ class Competitor < ApplicationRecord
       [b.relative_points(unofficials, sort_by), a.number.to_i] <=> [a.relative_points(unofficials, sort_by), b.number.to_i]
     end
   end
-  
+
   def national_record_reached?
     series.national_record && points.to_i == series.national_record.to_i
   end
@@ -300,7 +298,7 @@ class Competitor < ApplicationRecord
       errors.add(:start_time, :required_when_start_list_created) unless start_time
     end
   end
-  
+
   def unique_number
     if series && number
       condition = "number = #{number}"
@@ -308,7 +306,7 @@ class Competitor < ApplicationRecord
       errors.add(:number, :is_in_use) if series.race.competitors.where(condition).length > 0
     end
   end
-  
+
   def unique_name
     return unless series
     condition = "first_name=? and last_name=?"
@@ -317,7 +315,7 @@ class Competitor < ApplicationRecord
       errors.add(:base, :another_competitor_with_same_name_in_series)
     end
   end
-  
+
   def concurrent_changes
     unless values_equal?
       msg = 'Tälle kilpailijalle on syötetty samanaikaisesti toinen tulos. Lataa sivu uudestaan ja yritä tallentamista sen jälkeen'
@@ -355,7 +353,7 @@ class Competitor < ApplicationRecord
       end
     end
   end
-  
+
   def update_series_start_time_and_number
     return unless start_time && number
     series.update_start_time_and_number

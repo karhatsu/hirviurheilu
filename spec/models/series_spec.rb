@@ -477,17 +477,12 @@ describe Series do
 
     it "should return competitors with start time ordered by start time, then by start number" do
       series = create(:series)
-      c1 = build(:competitor, :series => series, :start_time => '02:15')
-      c2 = build(:competitor, :series => series, :start_time => '01:00:00')
-      c3 = build(:competitor, :series => series, :start_time => '01:00:01', :number => 6)
-      c4 = build(:competitor, :series => series, :start_time => '01:00:01', :number => 5)
-      c5 = build(:competitor, :series => series, :start_time => nil)
-      series.competitors << c1
-      series.competitors << c2
-      series.competitors << c3
-      series.competitors << c4
-      series.competitors << c5
-      expect(series.start_list).to eq([c2, c4, c3, c1])
+      c1 = create(:competitor, :series => series, :start_time => '02:15', :number => 1)
+      c2 = create(:competitor, :series => series, :start_time => '01:00:00', :number => 10)
+      c3 = create(:competitor, :series => series, :start_time => '01:00:01', :number => 6)
+      c4 = create(:competitor, :series => series, :start_time => '01:00:01', :number => 5)
+      create(:competitor, :series => series, :start_time => nil, number: nil)
+      expect(series.reload.start_list.map &:id).to eq([c2, c4, c3, c1].map &:id)
     end
   end
 
@@ -1314,6 +1309,7 @@ describe Series do
     end
 
     it 'is true when no time points' do
+      test_walking_series Series::POINTS_METHOD_NO_TIME_2_ESTIMATES, true
       test_walking_series Series::POINTS_METHOD_NO_TIME_4_ESTIMATES, true
     end
 
