@@ -49,6 +49,8 @@ class Series < ApplicationRecord
 
   before_create :set_has_start_list
 
+  after_destroy :touch_race
+
   attr_accessor :last_cup_race
 
   def cache_key
@@ -235,6 +237,10 @@ class Series < ApplicationRecord
     return unless race
     self.has_start_list ||= (race.start_order.to_i == Race::START_ORDER_MIXED)
     true
+  end
+
+  def touch_race
+    race.touch
   end
 
   def start_time_max
