@@ -1,0 +1,53 @@
+- content_for :title, t('.title')
+- content_for :page_title, yield(:title)
+%h2= yield :title
+- if @all_series.length == 0
+  .info= t '.no_start_list_for_any_series'
+- else
+  #update_error
+  #competitors_table.competitors_table
+    .header_row
+      .title.number= t :number_short
+      .title.start_time
+        = t 'attributes.start_time'
+        (hh:mm:ss)
+      .title.first_name= t 'attributes.first_name'
+      .title.last_name= t 'attributes.last_name'
+      .title.club= club_title @race
+      .title.series= t :series
+      .title.age_group= t 'activerecord.models.age_group.one'
+      .title.button &nbsp;
+      .title &nbsp;
+
+    = render :partial => 'competitor_row', :locals => { :c => @new_competitor,
+      :save_button => t(:add_new), :id => 'new', :parent => @race }
+    #ruler
+    %hr
+    - @competitors.each do |c|
+      = render :partial => 'competitor_row', :locals => { :c => c,
+        :save_button => t(:save), :id => c.id, :parent => c.series }
+
+  :javascript
+    function start_updating(id) {
+      $("#status_" + id).html('#{image_tag 'spinner.gif', id: 'spinner'}');
+    }
+    function change_age_groups(competitor_id, series_id) {
+      var $age_group_spinner = $('#age_groups_spinner_' + competitor_id);
+      var $age_group_menu = $('#age_groups_' + competitor_id);
+      $age_group_menu.hide();
+      $age_group_spinner.show();
+      $.getJSON('/official/series/' + series_id + '/age_groups', function(age_groups) {
+        while($age_group_menu.children().length > 0) {
+          $age_group_menu.children().last().remove();
+        }
+        if(age_groups.length > 0) {
+          $.each(age_groups, function(i, age_group) {
+            $age_group_menu.append('<option value="' + age_group.id + '">' + age_group.name + '</option>');
+          });
+          $age_group_menu.show();
+        }
+        $age_group_spinner.hide();
+      });
+    }
+  %hr
+  .action_box= link_to t(:download_start_list_pdf), race_start_lists_path(@race, :format => :pdf)
