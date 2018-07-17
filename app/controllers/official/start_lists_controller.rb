@@ -7,6 +7,7 @@ class Official::StartListsController < Official::OfficialController
     @is_start_list = true
     start_list_condition = 'series.has_start_list = true'
     @competitors = @race.competitors.where(start_list_condition).includes(:club, :age_group, :series).except(:order).order(:number)
+    @series_with_age_groups = find_series_with_age_groups
     @all_series = @race.series.where(start_list_condition)
     collect_age_groups(@all_series)
     unless @all_series.empty?
@@ -29,6 +30,17 @@ class Official::StartListsController < Official::OfficialController
   end
 
   private
+
+  def find_series_with_age_groups
+    series = @race.series.includes(:age_groups)
+    series_with_age_groups = Hash.new
+    series.each do |s|
+      series_with_age_groups[s.id] = s.age_groups.map {|ag| [ag.id, ag.name]}
+      series_with_age_groups[s.id].unshift([nil, s.name]) unless series_with_age_groups[s.id].empty?
+    end
+    series_with_age_groups
+  end
+
   def handle_time_parameters
     handle_time_parameter params[:series], "start_time"
   end

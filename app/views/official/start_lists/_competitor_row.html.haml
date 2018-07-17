@@ -20,7 +20,6 @@
     .value.age_group
       = f.collection_select :age_group_id, @age_groups[c.series_id], :id, :name,
         {}, { id: "age_groups_#{id}", style: age_groups_visibility }
-      = image_tag 'spinner.gif', style: 'display:none;', id: "age_groups_spinner_#{id}"
     .value.button
-      %input.save_button{type: 'submit', value: save_button, onClick: "start_updating('#{id}')"}
+      %input.save_button{type: 'submit', value: save_button}
     .value{id: "status_#{id}"} &nbsp;

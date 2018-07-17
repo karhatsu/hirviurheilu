@@ -28,26 +28,20 @@
         :save_button => t(:save), :id => c.id, :parent => c.series }
 
   :javascript
-    function start_updating(id) {
-      $("#status_" + id).html('#{image_tag 'spinner.gif', id: 'spinner'}');
-    }
+    var series_with_age_groups = #{raw @series_with_age_groups.to_json};
     function change_age_groups(competitor_id, series_id) {
-      var $age_group_spinner = $('#age_groups_spinner_' + competitor_id);
       var $age_group_menu = $('#age_groups_' + competitor_id);
       $age_group_menu.hide();
-      $age_group_spinner.show();
-      $.getJSON('/official/series/' + series_id + '/age_groups', function(age_groups) {
-        while($age_group_menu.children().length > 0) {
-          $age_group_menu.children().last().remove();
-        }
-        if(age_groups.length > 0) {
-          $.each(age_groups, function(i, age_group) {
-            $age_group_menu.append('<option value="' + age_group.id + '">' + age_group.name + '</option>');
-          });
-          $age_group_menu.show();
-        }
-        $age_group_spinner.hide();
-      });
+      var age_groups = series_with_age_groups[series_id];
+      while($age_group_menu.children().length > 0) {
+        $age_group_menu.children().last().remove();
+      }
+      if(age_groups.length > 0) {
+        $.each(age_groups, function(i, age_group) {
+          $age_group_menu.append('<option value="' + age_group[0] + '">' + age_group[1] + '</option>');
+        });
+        $age_group_menu.show();
+      }
     }
   %hr
   .action_box= link_to t(:download_start_list_pdf), race_start_lists_path(@race, :format => :pdf)
