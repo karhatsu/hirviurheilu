@@ -61,7 +61,7 @@ fi:
   login_required: Sinun täytyy kirjautua sisään nähdäksesi pyytämäsi sivun
   no_competitors_for_series: Sarjaan ei ole lisätty kilpailijoita
   no_start_list: Sarjan lähtöluetteloa ei ole vielä julkaistu
-  no_races: Et ole lisännyt vielä yhtään kilpailua
+  no_races: Kilpailuja ei löytynyt
   normal: Normaali
   number_short: Nro
   order_method: Kilpailijoiden järjestys
