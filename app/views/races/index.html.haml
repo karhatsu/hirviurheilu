@@ -8,6 +8,7 @@
     = text_field_tag :search_text, params[:search_text], placeholder: 'Kilpailun nimi tai sijainti'
     = select_tag :district_id, options_from_collection_for_select(District.all, :id, :name, params[:district_id]), include_blank: 'Kaikki piirit'
     = submit_tag 'Hae'
+    = link_to 'Tyhjennä', races_path, class: 'secondary_link'
   %hr
   - cache [Race.cache_key_for_all, I18n.locale, params[:page], params[:search_text], params[:district_id]] do
     = render :partial => 'home/race_list', :locals => { :competitions => @competitions }
