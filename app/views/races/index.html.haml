@@ -3,7 +3,7 @@
 = form_tag(races_path, method: :get) do
   = text_field_tag :search_text, params[:search_text], placeholder: 'Kilpailun nimi tai sijainti'
   = select_tag :district_id, options_from_collection_for_select(District.all, :id, :name, params[:district_id]), include_blank: 'Kaikki piirit'
-  = submit_tag 'Hae'
+  = submit_tag 'Hae', class: 'primary_link'
   = link_to 'Tyhjennä', races_path, class: 'secondary_link'
 %hr
 - if @competitions.empty?
