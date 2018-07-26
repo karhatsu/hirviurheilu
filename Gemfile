@@ -19,6 +19,7 @@ gem 'dalli'
 gem 'roman-numerals'
 gem 'nokogiri'
 gem 'redcarpet'
+gem 'kaminari'
 
 group :development, :production do
   gem 'pg'
