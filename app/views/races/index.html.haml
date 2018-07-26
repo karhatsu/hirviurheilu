@@ -4,5 +4,7 @@
   .info= t :no_races
   .action_box= link_to t(:add_race), new_official_race_path
 - else
-  - cache [Race.cache_key_for_all, I18n.locale] do
+  - cache [Race.cache_key_for_all, I18n.locale, params[:page]] do
     = render :partial => 'home/race_list', :locals => { :competitions => @competitions }
+    %hr
+    = paginate @competitions

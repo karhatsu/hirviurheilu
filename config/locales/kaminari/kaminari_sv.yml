@@ -1,0 +1,17 @@
+sv:
+  views:
+    pagination:
+      first: "&laquo; Första"
+      last: "Sista &raquo;"
+      previous: "&lsaquo; Förra"
+      next: "Nästa &rsaquo;"
+      truncate: "&hellip;"
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "Inga tävlingar"
+          one: "Visas <b>1</b> tävling"
+          other: "Visas <b>all %{count}</b> tävlingar"
+      more_pages:
+        display_entries: "Visas tävlingarna <b>%{first}&nbsp;-&nbsp;%{last}</b> / <b>%{total}</b>"

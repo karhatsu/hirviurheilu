@@ -4,7 +4,7 @@ class RacesController < ApplicationController
   before_action :set_variant
 
   def index
-    @competitions = all_competitions_as_sorted
+    @competitions = Race.order('start_date DESC').page(params[:page])
   end
 
   def show
@@ -18,13 +18,6 @@ class RacesController < ApplicationController
           :orientation => 'Landscape', disable_smart_shrinking: true
       end
     end
-  end
-
-  private
-  def all_competitions_as_sorted
-    all_cups = Cup.includes(:races)
-    cup_races = Cup.cup_races(all_cups)
-    (pick_non_cup_races(Race.all, cup_races) + all_cups).select { |r| r.end_date }.sort { |a,b| b.end_date <=> a.end_date }
   end
 
 end
