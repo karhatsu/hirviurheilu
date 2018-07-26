@@ -4,7 +4,9 @@ class RacesController < ApplicationController
   before_action :set_variant
 
   def index
-    @competitions = Race.order('start_date DESC').page(params[:page])
+    where = 'district_id=?' unless params[:district_id].blank?
+    where_params = [params[:district_id]] unless params[:district_id].blank?
+    @competitions = Race.where(where, where_params).order('start_date DESC').page(params[:page])
   end
 
   def show
