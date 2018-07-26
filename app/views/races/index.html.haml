@@ -5,10 +5,11 @@
   .action_box= link_to t(:add_race), new_official_race_path
 - else
   = form_tag(races_path, method: :get) do
+    = text_field_tag :search_text, params[:search_text], placeholder: 'Kilpailun nimi tai sijainti'
     = select_tag :district_id, options_from_collection_for_select(District.all, :id, :name, params[:district_id]), include_blank: 'Kaikki piirit'
     = submit_tag 'Hae'
   %hr
-  - cache [Race.cache_key_for_all, I18n.locale, params[:page], params[:district_id]] do
+  - cache [Race.cache_key_for_all, I18n.locale, params[:page], params[:search_text], params[:district_id]] do
     = render :partial => 'home/race_list', :locals => { :competitions => @competitions }
     %hr
     = paginate @competitions
