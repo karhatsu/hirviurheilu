@@ -16,7 +16,7 @@ PRODUCTION_URL = 'http://www.hirviurheilu.com'
 TEST_ENV = ENV['TEST_ENV'] == 'true'
 PRODUCTION_ENV = !TEST_ENV
 
-NATIONAL_RECORD_URL = "http://www.metsastajaliitto.fi/node/35"
+NATIONAL_RECORD_URL = "https://smlkilpailut.fi/fi/info/tuloksia/suomen-ennatykset"
 YOUTUBE_URL = 'http://www.youtube.com/watch?v=oRNIy1G4qWM'
 
 VAT = 24
