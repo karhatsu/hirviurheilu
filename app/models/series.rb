@@ -57,6 +57,11 @@ class Series < ApplicationRecord
     "#{super}-#{race.updated_at.utc.to_s(:usec)}"
   end
 
+  def points_method=(points_method)
+    super points_method
+    set_estimates
+  end
+
   def ordered_competitors(unofficials=UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=Competitor::SORT_BY_POINTS)
     Competitor.sort_competitors(competitors.includes([:club, :age_group, :series]), unofficials, sort_by)
   end
@@ -214,11 +219,6 @@ class Series < ApplicationRecord
     age_groups.select {|age_group| age_group.shorter_trip}
   end
 
-  def estimates
-    return 4 if points_method == POINTS_METHOD_NO_TIME_4_ESTIMATES || points_method == POINTS_METHOD_TIME_4_ESTIMATES
-    2
-  end
-
   def walking_series?
     points_method == POINTS_METHOD_300_TIME_2_ESTIMATES || points_method == POINTS_METHOD_NO_TIME_2_ESTIMATES ||
         points_method == POINTS_METHOD_NO_TIME_4_ESTIMATES
@@ -231,6 +231,14 @@ class Series < ApplicationRecord
   private
   def check_points_method
     self.points_method = POINTS_METHOD_TIME_2_ESTIMATES if points_method == nil
+  end
+
+  def set_estimates
+    if [POINTS_METHOD_TIME_4_ESTIMATES, POINTS_METHOD_NO_TIME_4_ESTIMATES].include? points_method
+      self.estimates = 4
+    else
+      self.estimates = 2
+    end
   end
 
   def set_has_start_list

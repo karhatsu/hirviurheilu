@@ -62,6 +62,20 @@ describe Series do
     end
   end
 
+  describe 'callbacks' do
+    describe 'set estimates' do
+      it { expect_estimates Series::POINTS_METHOD_TIME_2_ESTIMATES, 2 }
+      it { expect_estimates Series::POINTS_METHOD_TIME_4_ESTIMATES, 4 }
+      it { expect_estimates Series::POINTS_METHOD_NO_TIME_4_ESTIMATES, 4 }
+      it { expect_estimates Series::POINTS_METHOD_300_TIME_2_ESTIMATES, 2 }
+      it { expect_estimates Series::POINTS_METHOD_NO_TIME_2_ESTIMATES, 2 }
+    end
+
+    def expect_estimates(points_method, estimates)
+      expect(create(:series, points_method: points_method).estimates).to eql estimates
+    end
+  end
+
   describe '#cache_key' do
     let(:race) { create :race }
     let(:series) { create :series, race: race }
