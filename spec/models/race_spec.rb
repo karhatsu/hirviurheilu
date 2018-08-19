@@ -58,7 +58,7 @@ describe Race do
         expect(race.club_level).to eq(Race::CLUB_LEVEL_SEURA)
       end
     end
-    
+
     describe "start_order" do
       it { is_expected.not_to allow_value(Race::START_ORDER_BY_SERIES - 1).for(:start_order) }
       it { is_expected.to allow_value(Race::START_ORDER_BY_SERIES).for(:start_order) }
@@ -122,19 +122,19 @@ describe Race do
         create(:competitor, :series => @series, :start_time => '01:00:00', :number => 4)
         @race.reload
       end
-  
+
       it "should be valid" do
         @race.start_order = Race::START_ORDER_BY_SERIES
         expect(@race).to be_valid
       end
-      
+
       it "should not modify series anyhow" do
         @race.start_order = Race::START_ORDER_BY_SERIES
         @race.series.each { |s| expect(s).not_to receive(:save!) }
         @race.save!
       end
     end
-      
+
     context "when start order changed from by series to mixed" do
       before do
         @race = create(:race, :start_order => Race::START_ORDER_BY_SERIES)
@@ -142,7 +142,7 @@ describe Race do
         @series2 = create(:series, :race => @race, :has_start_list => true)
         @series3 = create(:series, :race => @race, :has_start_list => false)
       end
-    
+
       context "when at least one competitor without start time" do
         it "should not be allowed" do
           create(:competitor, :series => @series1, :number => 55)
@@ -151,7 +151,7 @@ describe Race do
           expect(@race).not_to be_valid
         end
       end
-      
+
       context "when only competitors with start time and number" do
         it "should be allowed" do
           create(:competitor, :series => @series1, :start_time => '02:00:00', :number => 2)
@@ -159,7 +159,7 @@ describe Race do
           @race.start_order = Race::START_ORDER_MIXED
           expect(@race).to be_valid
         end
-        
+
         it "should set that all series have start list" do
           @race.reload
           @race.start_order = Race::START_ORDER_MIXED
@@ -170,28 +170,28 @@ describe Race do
         end
       end
     end
-    
+
     context "when start order remains as mixed" do
       before do
         @race = create(:race, :start_order => Race::START_ORDER_MIXED)
         @series = create(:series, :race => @race)
         @race.reload
       end
-      
+
       it "should not modify series anyhow" do
         @race.days_count = 2
         @race.series.each { |s| expect(s).not_to receive(:save!) }
         @race.save!
       end
     end
-    
+
     context "when start order remains as by series" do
       before do
         @race = create(:race, :start_order => Race::START_ORDER_BY_SERIES)
         @series = create(:series, :race => @race)
         @race.reload
       end
-      
+
       it "should not modify series anyhow" do
         @race.days_count = 2
         @race.series.each { |s| expect(s).not_to receive(:save!) }
@@ -277,14 +277,14 @@ describe Race do
         @zone = double(Object)
         allow(Time).to receive(:zone).and_return(@zone)
       end
-      
+
       it "past" do
         allow(@zone).to receive(:today).and_return(Date.today)
         expect(Race.past).not_to be_empty
         allow(@zone).to receive(:today).and_return(Date.today - 10)
         expect(Race.past).to be_empty
       end
-      
+
       it "future" do
         allow(@zone).to receive(:today).and_return(Date.today)
         expect(Race.future).not_to be_empty
@@ -385,24 +385,24 @@ describe Race do
       expect { @race.finish! }.to raise_error(RuntimeError)
     end
   end
-  
+
   describe "#can_destroy?" do
     before do
       @race = create(:race)
     end
-    
+
     it "should be false when competitors" do
       series = build(:series, :race => @race)
       @race.series << series
       series.competitors << build(:competitor)
       expect(@race.can_destroy?).to be_falsey
     end
-    
+
     it "should be false when relays" do
       @race.relays << build(:relay, :race => @race)
       expect(@race.can_destroy?).to be_falsey
     end
-    
+
     it "should be true when no competitors, nor relays" do
       @series = build(:series, :race => @race)
       @race.series << @series
@@ -426,7 +426,7 @@ describe Race do
       @relay_competitor = build(:relay_competitor, :relay_team => @relay_team)
       @relay_team.relay_competitors << @relay_competitor
     end
-  
+
     it "should destroy race and all its children" do
       @race.reload
       @race.destroy
@@ -500,12 +500,12 @@ describe Race do
       end
     end
   end
-  
+
   describe "#days_count=" do
     before do
       @race = build(:race, :start_date => nil, :end_date => nil)
     end
-    
+
     describe "invalid value" do
       it "should raise error when 0 given" do
         expect { @race.days_count = 0 }.to raise_error(RuntimeError)
@@ -519,21 +519,21 @@ describe Race do
         expect { @race.days_count = nil }.to raise_error(RuntimeError)
       end
     end
-    
+
     context "when start date" do
       it "should set end date to same as start date when 1 given" do
         @race.start_date = '2011-12-17'
         @race.days_count = 1
         expect(@race.end_date).to eq(@race.start_date)
       end
-      
+
       it "should set end date to one bigger than start date when 2 given" do
         @race.start_date = '2011-12-17'
         @race.days_count = 2
         expect(@race.end_date).to eq(@race.start_date + 1)
       end
     end
-    
+
     context "when no start date" do
       it "should store days_count for future usage" do
         @race.days_count = 2
@@ -541,7 +541,7 @@ describe Race do
         @race.start_date = '2011-12-15'
         expect(@race.end_date).to eq(@race.start_date + 1)
       end
-      
+
       it "should not be used after end date is set" do
         @race.days_count = 2
         end_date = '2011-12-17'
@@ -551,7 +551,7 @@ describe Race do
         expect(@race.end_date.strftime('%Y-%m-%d')).to eq(end_date)
       end
     end
-    
+
     context "when start date set twice" do
       it "should change end date in both times" do
         @race.days_count = 3
@@ -561,7 +561,7 @@ describe Race do
         expect(@race.end_date).to eq(@race.start_date + 2)
       end
     end
-    
+
     it "should accept also string number" do
         @race.start_date = '2011-12-17'
         @race.days_count = "2"
@@ -572,78 +572,62 @@ describe Race do
   describe "#set_correct_estimates_for_competitors" do
     before do
       @race = create(:race)
-      @series1 = create(:series, :race => @race)
-      @series2 = create(:series, :race => @race, points_method: Series::POINTS_METHOD_NO_TIME_4_ESTIMATES)
-      create(:correct_estimate, :min_number => 1, :max_number => 5,
-        :distance1 => 100, :distance2 => 200,
-        :distance3 => 80, :distance4 => 90, :race => @race)
-      create(:correct_estimate, :min_number => 10, :max_number => nil,
-        :distance1 => 50, :distance2 => 150, :race => @race)
-      @c1 = create(:competitor, :series => @series1, :number => 1,
-        :correct_estimate1 => 1, :correct_estimate2 => 2)
-      @c4 = create(:competitor, :series => @series2, :number => 4)
-      @c5 = create(:competitor, :series => @series1, :number => 5)
-      @c6 = create(:competitor, :series => @series1, :number => 6,
-        :correct_estimate1 => 10, :correct_estimate2 => 20,
-        :correct_estimate3 => 100, :correct_estimate4 => 200)
-      @c9 = create(:competitor, :series => @series2, :number => 9,
-        :correct_estimate1 => 30, :correct_estimate2 => 40,
-        :correct_estimate3 => 100, :correct_estimate4 => 200)
-      @c10 = create(:competitor, :series => @series2, :number => 10)
-      @c150 = create(:competitor, :series => @series1, :number => 150)
-      @cnil = create(:competitor, :series => @series1, :number => nil,
-        :correct_estimate1 => 50, :correct_estimate2 => 60)
+      @series2 = create(:series, race: @race)
+      @series4 = create(:series, race: @race, points_method: Series::POINTS_METHOD_NO_TIME_4_ESTIMATES)
+      create(:correct_estimate, min_number: 1, max_number: 5, distance1: 100, distance2: 200, distance3: 80, distance4: 90, race: @race)
+      create(:correct_estimate, min_number: 10, max_number: nil, distance1: 50, distance2: 150, race: @race)
+      @c1 = create(:competitor, series: @series2, number: 1, correct_estimate1: 1, correct_estimate2: 2)
+      @c4 = create(:competitor, series: @series4, number: 4)
+      @c5 = create(:competitor, series: @series2, number: 5)
+      @c6 = create(:competitor, series: @series2, number: 6, correct_estimate1: 10, correct_estimate2: 20, correct_estimate3: 100, correct_estimate4: 200)
+      @c9 = create(:competitor, series: @series4, number: 9, correct_estimate1: 30, correct_estimate2: 40, correct_estimate3: 100, correct_estimate4: 200)
+      @c10 = create(:competitor, series: @series4, number: 10)
+      @c150 = create(:competitor, series: @series2, number: 150)
+      @cnil = create(:competitor, series: @series2, number: nil, correct_estimate1: 50, correct_estimate2: 60)
       @race.reload
       @race.set_correct_estimates_for_competitors
-      @c1.reload
-      @c4.reload
-      @c5.reload
-      @c6.reload
-      @c9.reload
-      @c10.reload
-      @c150.reload
-      @cnil.reload
+      [@c1, @c4, @c5, @c6, @c9, @c10, @c150, @cnil].each {|r| r.reload }
     end
 
     it "should copy correct estimates for those numbers that match" do
-      expect(@c1.correct_estimate1).to eq(100)
-      expect(@c1.correct_estimate2).to eq(200)
-      expect(@c4.correct_estimate1).to eq(100)
-      expect(@c4.correct_estimate2).to eq(200)
-      expect(@c4.correct_estimate3).to eq(80)
-      expect(@c4.correct_estimate4).to eq(90)
-      expect(@c5.correct_estimate1).to eq(100)
-      expect(@c5.correct_estimate2).to eq(200)
-      expect(@c10.correct_estimate1).to eq(50)
-      expect(@c10.correct_estimate2).to eq(150)
-      expect(@c150.correct_estimate1).to eq(50)
-      expect(@c150.correct_estimate2).to eq(150)
-      expect(@cnil.correct_estimate1).to eq(50)
-      expect(@cnil.correct_estimate2).to eq(60)
+      expect_correct_estimate @c1, 100, 200
+      expect_correct_estimate @c4, 100, 200, 80, 90
+      expect_correct_estimate @c5, 100, 200
+      expect_correct_estimate @c10, 50, 150
+      expect_correct_estimate @c150, 50, 150
+      expect_correct_estimate @cnil, 50, 60
     end
 
     it "should reset such competitors' correct estimates whose numbers don't match" do
-      expect(@c6.correct_estimate1).to be_nil
-      expect(@c6.correct_estimate2).to be_nil
-      expect(@c6.correct_estimate3).to be_nil
-      expect(@c6.correct_estimate4).to be_nil
-      expect(@c9.correct_estimate1).to be_nil
-      expect(@c9.correct_estimate2).to be_nil
-      expect(@c9.correct_estimate3).to be_nil
-      expect(@c9.correct_estimate4).to be_nil
+      expect_no_correct_estimates @c6
+      expect_no_correct_estimates @c9
     end
 
     it "should reset those competitors' correct estimates 3 and 4 who need to have only 2" do
-      expect(@c1.correct_estimate3).to be_nil
-      expect(@c1.correct_estimate4).to be_nil
-      expect(@c5.correct_estimate3).to be_nil
-      expect(@c5.correct_estimate4).to be_nil
-      expect(@c10.correct_estimate3).to be_nil
-      expect(@c10.correct_estimate4).to be_nil
-      expect(@c150.correct_estimate3).to be_nil
-      expect(@c150.correct_estimate4).to be_nil
-      expect(@cnil.correct_estimate3).to be_nil
-      expect(@cnil.correct_estimate4).to be_nil
+      expect_no_correct_estimates_3_and_4 @c1
+      expect_no_correct_estimates_3_and_4 @c5
+      expect_no_correct_estimates_3_and_4 @c10
+      expect_no_correct_estimates_3_and_4 @c150
+      expect_no_correct_estimates_3_and_4 @cnil
+    end
+
+    def expect_correct_estimate(competitor, ce1, ce2, ce3=nil, ce4=nil)
+      expect(competitor.correct_estimate1).to eq(ce1)
+      expect(competitor.correct_estimate2).to eq(ce2)
+      expect(competitor.correct_estimate3).to eq(ce3) if ce3
+      expect(competitor.correct_estimate4).to eq(ce4) if ce4
+    end
+
+    def expect_no_correct_estimates(competitor)
+      expect(competitor.correct_estimate1).to be_nil
+      expect(competitor.correct_estimate2).to be_nil
+      expect(competitor.correct_estimate3).to be_nil
+      expect(competitor.correct_estimate4).to be_nil
+    end
+
+    def expect_no_correct_estimates_3_and_4(competitor)
+      expect(competitor.correct_estimate3).to be_nil
+      expect(competitor.correct_estimate4).to be_nil
     end
   end
 
@@ -858,14 +842,14 @@ describe Race do
       end
     end
   end
-  
+
   describe "#has_team_competitions_with_team_names" do
     context "when no team competitions" do
       it "should return false" do
         expect(Race.new).not_to have_team_competitions_with_team_names
       end
     end
-    
+
     context "when team competitions but none of them uses team name" do
       it "should return false" do
         race = create(:race)
@@ -873,7 +857,7 @@ describe Race do
         expect(race).not_to have_team_competitions_with_team_names
       end
     end
-    
+
     context "when at least one team competition uses team name" do
       it "should return true" do
         race = create(:race)
