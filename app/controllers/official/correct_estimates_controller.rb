@@ -7,13 +7,8 @@ class Official::CorrectEstimatesController < Official::OfficialController
 
   def update
     if @race.update(correct_estimates_params)
-      errors = @race.set_correct_estimates_for_competitors
-      if errors.empty?
-        redirect_to official_race_correct_estimates_path(@race)
-      else
-        flash[:error] = "Virhe tallennettaessa kilpailjan tietoja: #{errors.uniq.join('. ')}"
-        render :index
-      end
+      @race.set_correct_estimates_for_competitors
+      redirect_to official_race_correct_estimates_path(@race)
     else
       render :index
     end
