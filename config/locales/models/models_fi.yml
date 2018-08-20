@@ -11,10 +11,10 @@ fi:
     club: Seura/piiri
     club_name: Seura
     content: Sisältö
-    correct_estimate1: Oikea arviomatka 1
-    correct_estimate2: Oikea arviomatka 2
-    correct_estimate3: Oikea arviomatka 3
-    correct_estimate4: Oikea arviomatka 4
+    correct_estimate1: Oikea etäisyys 1
+    correct_estimate2: Oikea etäisyys 2
+    correct_estimate3: Oikea etäisyys 3
+    correct_estimate4: Oikea etäisyys 4
     current_login_at: Nyk. kirj.
     current_login_ip: Nyk. IP
     days_count: Kesto
@@ -112,8 +112,8 @@ fi:
         one: Kilpailija
         other: Kilpailijat
       correct_estimate:
-        one: Oikea arvio
-        other: Oikeat arviot
+        one: Oikea etäisyys
+        other: Oikeat etäisyydet
       cup:
         one: Cup-kilpailu
         other: Cup-kilpailut

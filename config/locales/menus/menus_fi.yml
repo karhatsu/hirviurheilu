@@ -36,7 +36,7 @@ fi:
     times: Ajat
     estimates: Arviot
     shooting: Ammunta
-    correct_distances: Oikeat arviot
+    correct_distances: Oikeat etäisyydet
     csv: CSV
     team_competitions: Joukkuek.
     relays: Viestit
