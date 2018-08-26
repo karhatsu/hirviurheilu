@@ -24,14 +24,14 @@ describe CsvImport do
     @race.series << build(:series, :race => @race, :name => 'M40')
     @race.clubs << build(:club, :race => @race, :name => 'PS')
   end
-  
+
   context "when not correct amount of columns in each row" do
     before do
       @ci = CsvImport.new(@race, test_file_path('import_with_invalid_structure.csv'))
     end
 
     it_should_behave_like 'failed import', 1
-    
+
     it "#errors should contain a message about invalid file format" do
       expect(@ci.errors[0]).to eq('Virheellinen rivi tiedostossa: Matti,Miettinen,SS,M40,additional column')
     end
@@ -43,13 +43,13 @@ describe CsvImport do
         before do
           @ci = CsvImport.new(@race, test_file_path('import_valid.csv'))
         end
-        
+
         describe "#save" do
           it "should save the defined competitors and new clubs to the database and return true" do
             expect(@ci.save).to be_truthy
             @race.reload
             expect(@race.competitors.size).to eq(4)
-            competitors = @race.competitors#.order('id')
+            competitors = @race.competitors.except(:order).order('id')
             c = competitors[0]
             expect(c.first_name).to eq('Heikki')
             expect(c.last_name).to eq('Räsänen')
@@ -76,17 +76,17 @@ describe CsvImport do
             expect(@race.clubs.size).to eq(2)
           end
         end
-        
+
         it "#errors should be empty" do
           expect(@ci.errors.size).to eq(0)
         end
       end
-      
+
       context "and file encoding is Windows-1252" do
         before do
           @ci = CsvImport.new(@race, test_file_path('import_valid_windows-1252.csv'))
         end
-        
+
         describe "#save" do
           it "should save the defined competitors and new clubs to the database and return true" do
             expect(@ci.save).to be_truthy
@@ -109,13 +109,13 @@ describe CsvImport do
             expect(c.club.name).to eq('Sum Um')
           end
         end
-        
+
         it "#errors should be empty" do
           expect(@ci.errors.size).to eq(0)
         end
       end
     end
-    
+
     context "when an unknown series" do
       before do
         @race.series.find_by_name('M40').destroy
@@ -123,12 +123,12 @@ describe CsvImport do
       end
 
       it_should_behave_like 'failed import', 1
-      
+
       it "#errors should contain a message about unknown series" do
         expect(@ci.errors[0]).to eq("Tuntematon sarja/ikäryhmä: 'M40'")
       end
     end
-    
+
     context "when the same unknown series or age group for two competitors" do
       before do
         @race.age_groups.find_by_name('N50').destroy
@@ -136,36 +136,36 @@ describe CsvImport do
       end
 
       it_should_behave_like 'failed import', 1
-      
+
       it "the error message should be about unknown series" do
         expect(@ci.errors[0]).to eq("Tuntematon sarja/ikäryhmä: 'N50'")
       end
     end
-    
+
     context "when empty column in the file" do
       before do
         @ci = CsvImport.new(@race, test_file_path('import_with_empty_column.csv'))
       end
 
       it_should_behave_like 'failed import', 1
-      
+
       it "the error message should contain the errorneous row" do
         expect(@ci.errors[0]).to eq("Riviltä puuttuu tietoja: Minna,Miettinen,,N")
       end
     end
-    
+
     context "when some column contains only spaces" do
       before do
         @ci = CsvImport.new(@race, test_file_path('import_with_spaces_in_column.csv'))
       end
 
       it_should_behave_like 'failed import', 1
-      
+
       it "the error message should contain the errorneous row" do
         expect(@ci.errors[0]).to eq("Riviltä puuttuu tietoja: Minna,  ,PS,N")
       end
     end
-    
+
     context "when the file contains two errorneous rows" do
       before do
         @ci = CsvImport.new(@race, test_file_path('import_with_multiple_errors.csv'))
