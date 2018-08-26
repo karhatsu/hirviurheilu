@@ -9,6 +9,7 @@ module CompetitorsCopy
         club = ensure_club competitor.club
         series = ensure_series competitor.series
         age_group = ensure_age_group series, competitor.age_group
+        next if competitor_already_exists series, competitor
         create_competitor club, series, age_group, competitor, with_start_list if validate_competitor errors, competitor
       end
       raise ActiveRecord::Rollback unless errors.empty?
@@ -33,6 +34,10 @@ module CompetitorsCopy
   def ensure_age_group(series, source_age_group)
     return nil unless source_age_group
     AgeGroup.find_or_create_by! series: series, name: source_age_group.name
+  end
+
+  def competitor_already_exists(series, competitor)
+    Competitor.exists? series: series, first_name: competitor.first_name, last_name: competitor.last_name
   end
 
   def validate_competitor(errors, competitor)

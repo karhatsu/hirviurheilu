@@ -17,11 +17,11 @@ describe CompetitorsCopy do
   let(:source_age_group1) { create :age_group, series: source_series1, name: 'non-existing age group' }
   let(:source_age_group2) { create :age_group, series: source_series2, name: existing_age_group_name }
   let(:source_competitor1) { create :competitor, club: source_club1, series: source_series1,
-                                    age_group: source_age_group1, number: 1, start_time: '00:01:00' }
+                                    age_group: source_age_group1, number: 1, start_time: '00:01:00', first_name: 'f1' }
   let(:source_competitor2) { create :competitor, club: source_club2, series: source_series2,
-                                    age_group: source_age_group2, number: 2, start_time: '00:02:00' }
+                                    age_group: source_age_group2, number: 2, start_time: '00:02:00', first_name: 'f2' }
   let(:source_competitor3) { create :competitor, club: source_club2, series: source_series2,
-                                    age_group: nil, number: 3, start_time: '00:03:00' }
+                                    age_group: nil, number: 3, start_time: '00:03:00', first_name: 'f3' }
 
   describe '#copy_competitors_from' do
     before do
@@ -48,6 +48,30 @@ describe CompetitorsCopy do
         expect(target_race.clubs.count).to eql 2
         expect(target_race.series.count).to eql 2
         expect(target_race.age_groups.count).to eql 2
+      end
+
+      it 'does not return errors' do
+        errors = target_race.copy_competitors_from source_race, with_start_list
+        expect(errors).to be_empty
+      end
+    end
+
+    # Note. This assumes that the target competitor has the same number as the source competitor.
+    # If not, then the copying fails with duplicate number error, which however is better than unexpected error.
+    context 'when target race already has a competitor with same name (and number)' do
+      before do
+        create :competitor, series: target_series, age_group: target_age_group, club: target_club,
+               number: source_competitor2.number, start_time: source_competitor2.start_time,
+               first_name: source_competitor2.first_name, last_name: source_competitor2.last_name
+      end
+
+      it 'copies all other competitors' do
+        target_race.copy_competitors_from source_race, with_start_list
+        competitors = target_race.reload.competitors
+        expect(competitors.count).to eql 3
+        expect_competitor_match competitors[0], source_competitor1
+        expect_competitor_match competitors[1], source_competitor2
+        expect_competitor_match competitors[2], source_competitor3
       end
 
       it 'does not return errors' do
