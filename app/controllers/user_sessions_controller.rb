@@ -9,7 +9,7 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    @user_session = UserSession.new(session_params)
+    @user_session = UserSession.new(session_params.to_h)
     if @user_session.save
       flash[:success] = t('user_sessions.create.login_succeeded')
       redirect_back_or_default root_path
