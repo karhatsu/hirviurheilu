@@ -1,14 +1,14 @@
 class Admin::UsersController < Admin::AdminController
   def index
     @is_admin_users = true
-    @users = User.order("UPPER('last_name'), UPPER('first_name')")
+    @users = User.order(Arel.sql("UPPER('last_name'), UPPER('first_name')"))
   end
-  
+
   def new
     @is_admin_new_user = true
     @user = User.new
   end
-  
+
   def create
     @is_admin_new_user = true
     @user = User.new(user_params)
