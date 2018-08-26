@@ -3,7 +3,7 @@ FactoryBot.define do
     club
     series
     sequence(:first_name) { |n| "Tauno #{n}" }
-    last_name 'Miettinen'
+    last_name { 'Miettinen' }
     sequence(:number) { |n| n }
   end
 end
