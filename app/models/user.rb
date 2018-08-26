@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   acts_as_authentic do |config|
-    config.crypto_provider = Authlogic::CryptoProviders::Sha512
+    config.transition_from_crypto_providers = [Authlogic::CryptoProviders::Sha512]
+    config.crypto_provider = Authlogic::CryptoProviders::SCrypt
   end
 
   has_and_belongs_to_many :roles, :join_table => :rights
@@ -28,21 +29,21 @@ class User < ApplicationRecord
   def official?
     has_role?(Role::OFFICIAL)
   end
-  
+
   def official_for_race?(race)
     races.each do |r|
       return true if r == race
     end
     false
   end
-  
+
   def official_for_cup?(cup)
     cups.each do |c|
       return true if c == cup
     end
     false
   end
-  
+
   def has_full_rights_for_race?(race)
     race_right = race_rights.where(:race_id => race.id).first
     race_right and !race_right.only_add_competitors
