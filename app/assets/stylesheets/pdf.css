@@ -22,6 +22,10 @@ th {
     padding: 2px 5px;
 }
 
+tr {
+    page-break-inside: avoid;
+}
+
 td {
     padding: 2px 5px;
 }
