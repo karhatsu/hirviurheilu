@@ -7,7 +7,7 @@ class StartListsController < ApplicationController
   def index
     respond_to do |format|
       format.pdf do
-        where_condition = "number > 0 and competitors.start_time is not null"
+        where_condition = "number >= 0 and competitors.start_time is not null"
         where_condition << " and club_id=#{params[:club_id].to_i}" unless params[:club_id].blank?
         @competitors = @race.competitors.except(:order).where(where_condition).order('start_time, number').includes(:series, :club, :age_group)
         render :pdf => "#{@race.name}-lahtoajat", :layout => true,
