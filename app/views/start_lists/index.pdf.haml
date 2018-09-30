@@ -1,0 +1,6 @@
+%h1
+  = @race.name
+  \-
+  = t :start_list
+#{@race.location}, #{race_date_interval(@race, false)}
+= render partial: 'table', locals: { show_series: true, race: @race, competitors: @competitors }

@@ -1,4 +1,3 @@
-# encoding:UTF-8
 class StartListsController < ApplicationController
   before_action :set_races
   before_action :assign_race_by_race_id, :only => :index
@@ -8,6 +7,9 @@ class StartListsController < ApplicationController
   def index
     respond_to do |format|
       format.pdf do
+        where_condition = "number > 0 and competitors.start_time is not null"
+        where_condition << " and club_id=#{params[:club_id].to_i}" unless params[:club_id].blank?
+        @competitors = @race.competitors.except(:order).where(where_condition).order('start_time, number').includes(:series, :club, :age_group)
         render :pdf => "#{@race.name}-lahtoajat", :layout => true,
           :margin => pdf_margin, :header => pdf_header("#{t :start_list} - #{t :all_competitors}"),
           :footer => pdf_footer, disable_smart_shrinking: true
