@@ -1,0 +1,32 @@
+- show_team_name = competitors.any? {|c| !c.team_name.blank?}
+%table
+  %tr
+    %th= t :number_short
+    %th= t 'activerecord.models.competitor', count: 1
+    - if defined?(show_series)
+      %th Sarja
+    %th#table_club_title= club_title(race)
+    %th= t 'attributes.start_time'
+    - if show_team_name
+      %th= t 'attributes.team_name'
+  - competitors.each_with_index do |comp, i|
+    - show_team_name ||= !comp.team_name.nil?
+    %tr{id: "comp_#{i + 1}", class: i % 2 == 0 ? 'odd' : ''}
+      %td= comp.number
+      %td
+        = full_name(comp)
+        = "(#{comp.age_group.name})" if comp.age_group
+        - if comp.unofficial?
+          - if params[:format] == 'pdf'
+            = "(#{t(:unofficial_short)})"
+          - else
+            %span.unofficial{title: t(:unofficial)}= t(:unofficial_short)
+      - if defined?(show_series)
+        %td= comp.series.name
+      %td= comp.club.name
+      %td
+        = time_print(comp.start_time, true)
+        - if comp.race.start_time_defined?
+          (#{time_print comp.start_datetime, true})
+      - if show_team_name
+        %td= comp.team_name
