@@ -81,6 +81,8 @@ ElkSports::Application.configure do
 
   config.eager_load = true
 
+  config.force_ssl = !!ENV['FORCE_SSL']
+
   Rails.application.config.middleware.use ExceptionNotification::Rack, email: {
       sender_address: 'errors@hirviurheilu.com',
       exception_recipients: ADMIN_EMAIL
