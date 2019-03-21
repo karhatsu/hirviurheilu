@@ -19,7 +19,7 @@ Feature: Manage race
     And I choose "Pääsääntöisesti sarjoittain"
     And I select "13" from "race_start_date_3i"
     And I select "heinäkuu" from "race_start_date_2i"
-    And I select "2017" from "race_start_date_1i"
+    And I select "2019" from "race_start_date_1i"
     And I uncheck "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
     Then I should be on the race edit page of "Test race"
@@ -30,7 +30,7 @@ Feature: Manage race
     When I open the email
     Then I should see "Hirviurheilu - uusi kilpailu (test)" in the email subject
     And I should see "Kilpailun nimi: Test race" in the email body
-    And I should see "Aika: 13.07.2017" in the email body
+    And I should see "Aika: 13.07.2019" in the email body
     And I should see "Paikkakunta: Test town" in the email body
     And I should see "Toimitsija: Teppo Testaaja" in the email body
     When I click the first link in the email
