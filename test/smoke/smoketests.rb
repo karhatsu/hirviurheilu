@@ -54,7 +54,7 @@ def verify_http_status(path)
   full_path = @url + path
   uri = URI.parse(full_path)
   req = Net::HTTP::Get.new(uri.to_s)
-  res = Net::HTTP.start(uri.host, uri.port) {|http| http.request(req)}
+  res = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') {|http| http.request(req)}
   if res.header.code.to_i == 200
     puts "Status OK"
   else
