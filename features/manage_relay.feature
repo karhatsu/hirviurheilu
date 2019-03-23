@@ -119,3 +119,27 @@ Feature: Manage relays
     But I should not see "Kun kaikki viestin tiedot on syötetty"
     When I follow "Takaisin viestien etusivulle"
     Then I should be on the official relays page of "Relay race"
+
+  Scenario: Concurrent usage
+    Given I am an official
+    And I have a race "Relay race"
+    And the race has a relay with attributes:
+      | name | Test relay |
+      | legs_count | 2 |
+      | start_time | 12:00 |
+    And the relay has a team "Test team"
+    And the relay team has a competitor with attributes:
+      | first_name | Tim |
+      | last_name | Smith |
+      | leg | 1 |
+    And the relay team has a competitor with attributes:
+      | first_name | John |
+      | last_name | Stevenson |
+      | leg | 2 |
+    And I have logged in
+    And I am on the official relays page of "Relay race"
+    And I follow "Test relay" within "table"
+    When someone else saves data for the relay
+    And I fill in "1" for "relay_relay_teams_attributes_0_relay_competitors_attributes_0_misses"
+    And I press "Tallenna"
+    Then I should see "Joku muu on muokannut viestiä samaan aikaan." in an error message

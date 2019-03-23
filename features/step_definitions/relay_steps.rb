@@ -15,7 +15,7 @@ Given /^the relay has a team "([^"]*)" with number (\d+)$/ do |name, number|
 end
 
 Given /^the relay team has a competitor with attributes:$/ do |table|
-  create(:relay_competitor, {:relay_team => @relay_team}.merge(table.rows_hash))
+  @relay_competitor = create(:relay_competitor, {:relay_team => @relay_team}.merge(table.rows_hash))
 end
 
 Given /^the estimate for the relay competitor "([^"]*)" "([^"]*)" is (\d+)$/ do |first,
@@ -38,6 +38,11 @@ end
 
 Given /^the relay team is deleted$/ do
   @relay.relay_teams.last.destroy
+end
+
+When("someone else saves data for the relay") do
+  @relay_competitor.estimate = 123
+  @relay_competitor.save!
 end
 
 Then(/^there should be editable relay competitor "(.*?)" "(.*?)" with (\d+) misses and estimate (\d+)$/) do |first_name, last_name, misses, estimate|

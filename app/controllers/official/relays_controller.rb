@@ -25,7 +25,10 @@ class Official::RelaysController < Official::OfficialController
   end
 
   def update
-    if @relay.update(update_relay_params)
+    if @relay.updated_at.to_i != params[:updated_at].to_i
+      flash[:error] = 'Joku muu on muokannut viestiä samaan aikaan. Yritä tallennusta uudestaan tai kokeile tulosten tallentamista Pikasyötön avulla.'
+      redirect_to edit_official_race_relay_path(@race, @relay)
+    elsif @relay.update(update_relay_params)
       flash[:success] = 'Viestin tiedot päivitetty'
       redirect_to official_race_relays_path(@race)
     else

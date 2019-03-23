@@ -1,6 +1,8 @@
 <%= flash_success %>
+<%= flash_error %>
 <%= render :partial => 'shared/form_errors', :locals => { :item => @relay } %>
 <%= form_for([:official, @race, @relay], :html => { :class => 'relay_form' }) do |f| %>
+  <%= hidden_field_tag :updated_at, @relay.updated_at.to_i %>
   <div>
     <span class="form_label"><%= f.label :name %></span>
     <span><%= f.text_field :name %></span>
