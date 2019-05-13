@@ -8,7 +8,7 @@ fi:
         day_after_tomorrow: Kilpailut ylihuomenna
         this_week: Kilpailut tällä viikolla
         next_week: Kilpailut ensi viikolla
-        this_month: Kilpailut tässä kuussa
+        this_month: Kilpailut myöhemmin tässä kuussa
         next_month: Kilpailut ensi kuussa
         later: Kilpailuja tulossa myöhemmin
       upcoming_competitions: Tulevat kilpailut
@@ -17,4 +17,3 @@ fi:
       latest_ended_competitions: Viimeksi päättyneet kilpailut
       all_competitions: Kaikki kilpailut
       announcements: Tiedotteet
-      
