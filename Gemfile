@@ -1,11 +1,11 @@
 source 'http://rubygems.org'
 ruby '2.4.0'
 
-gem 'rails', '5.2.2.1'
+gem 'rails', '5.2.3'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-themes'
-gem 'sassc'
+gem 'sassc-rails'
 gem 'authlogic'
 gem 'wicked_pdf'
 gem 'turbolinks'

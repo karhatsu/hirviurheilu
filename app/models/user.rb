@@ -9,6 +9,12 @@ class User < ApplicationRecord
   has_many :races, :through => :race_rights
   has_and_belongs_to_many :cups, :join_table => :cup_officials
 
+  validates :email,
+            format: { with: /@/, message: "should look like an email address." },
+            length: { maximum: 100 },
+            uniqueness: { case_sensitive: false, if: :will_save_change_to_email? }
+  validates :email, uniqueness: { case_sensitive: false }
+  validates :password, confirmation: true, length: { minimum: 8, if: :require_password? }
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :club_name, presence: true, on: :create
