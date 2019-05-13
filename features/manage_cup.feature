@@ -2,7 +2,7 @@ Feature: Manage cup
   In order to calculate cup results
   As an official
   I want to add and modify cups
-  
+
   Scenario: Try to add cup when not enough races
     Given I am an official
     And I have logged in
@@ -44,17 +44,10 @@ Feature: Manage cup
     And I should see "M50"
     And I should see "M60"
     But I should not see "M70"
-    And the admin should receive an email
-    When I open the email
-    Then I should see "Hirviurheilu - uusi cup-kilpailu (test)" in the email subject
-    And I should see "Kilpailun nimi: Test cup" in the email body
-    And I should see "Toimitsija: Teppo Testaaja" in the email body
     When I follow "Takaisin Toimitsijan etusivulle"
     And I follow "Test cup"
     Then I should be on the official cup page of "Test cup"
-    When I click the first link in the email
-    Then I should be on the cup page of "Test cup"
-    
+
   Scenario: Invalid basic data when adding cup
     Given I am an official
     And I have a race "My race 1"

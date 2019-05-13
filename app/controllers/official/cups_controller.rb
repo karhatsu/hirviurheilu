@@ -1,17 +1,16 @@
 class Official::CupsController < Official::OfficialController
   before_action :assign_cup_by_id, :check_assigned_cup, :except => [:new, :create]
-  
+
   def new
     @cup = current_user.cups.build
   end
-  
+
   def create
     @cup = current_user.cups.build(create_cup_params)
     if @cup.valid? and enough_races?
       @cup.save!
       @cup.create_default_cup_series
       current_user.cups << @cup
-      NewCompetitionMailer.new_cup(@cup, current_user).deliver_now
       flash[:success] = 'Cup-kilpailu lisätty'
       redirect_to official_cup_path(@cup)
     else
@@ -19,10 +18,10 @@ class Official::CupsController < Official::OfficialController
       render :new
     end
   end
-  
+
   def show
   end
-  
+
   def update
     @cup.attributes = update_cup_params
     if @cup.valid? and enough_races?
@@ -39,13 +38,13 @@ class Official::CupsController < Official::OfficialController
     @cup.destroy
     redirect_to official_root_path
   end
-  
+
   private
   def enough_races?
     params[:cup][:race_ids] ||= []
     params[:cup][:race_ids].length >= @cup.top_competitions.to_i
   end
-  
+
   def flash_error_for_too_few_races
     flash[:error] = 'Sinun täytyy valita vähintään yhtä monta kilpailua kuin on yhteistulokseen laskettavien kilpailuiden määrä'
   end

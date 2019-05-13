@@ -26,15 +26,6 @@ Feature: Manage race
     And the page title should contain "Test race"
     And I should see "Kilpailu lisätty."
     And I should see "Voit nyt lisätä sarjoja kilpailulle sivun alalaidasta."
-    And the admin should receive an email
-    When I open the email
-    Then I should see "Hirviurheilu - uusi kilpailu (test)" in the email subject
-    And I should see "Kilpailun nimi: Test race" in the email body
-    And I should see "Aika: 13.07.2019" in the email body
-    And I should see "Paikkakunta: Test town" in the email body
-    And I should see "Toimitsija: Teppo Testaaja" in the email body
-    When I click the first link in the email
-    Then I should be on the race page of "Test race"
 
   Scenario: Create new race with default series
     Given I am an official
