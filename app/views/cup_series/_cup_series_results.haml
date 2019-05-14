@@ -21,7 +21,7 @@
           = cc.last_name
           = cc.first_name
         - if show_series_name
-          %td= cc.series_name
+          %td= cc.series_names
         - @cup.races.each do |race|
           - c = cc.competitor_for_race(race)
           %td.center

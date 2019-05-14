@@ -10,24 +10,40 @@ describe CupCompetitor do
     @competitor = valid_competitor
     @cc = CupCompetitor.new(@cs, @competitor)
   end
-  
+
   describe "#first_name" do
     it "should be the first name of the first competitor" do
       expect(@cc.first_name).to eq(@competitor.first_name)
     end
   end
-  
+
   describe "#last_name" do
     it "should be the last name of the first competitor" do
       expect(@cc.last_name).to eq(@competitor.last_name)
     end
   end
-  
+
   describe "#series_name" do
     it "should be the name of the series of the first competitor" do
       series = instance_double(Series, :name => 'M20')
       expect(@competitor).to receive(:series).and_return(series)
       expect(@cc.series_name).to eq('M20')
+    end
+  end
+
+  describe "#series_names" do
+    it "should be the unique names of all series" do
+      series1 = instance_double(Series, :name => 'M20')
+      expect(@competitor).to receive(:series).and_return(series1)
+      series2 = instance_double(Series, :name => 'Another series')
+      competitor2 = valid_competitor
+      expect(competitor2).to receive(:series).and_return(series2)
+      @cc << competitor2
+      series3 = instance_double(Series, :name => 'M20')
+      competitor3 = valid_competitor
+      expect(competitor3).to receive(:series).and_return(series3)
+      @cc << competitor3
+      expect(@cc.series_names).to eq('M20, Another series')
     end
   end
 
@@ -44,13 +60,13 @@ describe CupCompetitor do
       @cc << valid_competitor
       expect(@cc.competitors.length).to eq(2)
     end
-    
+
     it "should not accept another competitor when first names differs" do
       expect { @cc << instance_double(Competitor, :first_name => 'Other',
         :last_name => @competitor.last_name) }.to raise_error(RuntimeError)
       expect(@cc.competitors.length).to eq(1)
     end
-    
+
     it "should not accept another competitor when last names differs" do
       expect { @cc << instance_double(Competitor, :first_name => @competitor.first_name,
         :last_name => 'Other') }.to raise_error(RuntimeError)
@@ -202,16 +218,16 @@ describe CupCompetitor do
       end
     end
   end
-  
+
   describe "#competitor_for_race" do
     before do
       allow(@competitor).to receive(:race).and_return(instance_double(Race))
     end
-    
+
     it "should be nil when no match" do
       expect(@cc.competitor_for_race(build(:race))).to be_nil
     end
-    
+
     it "should be the competitor that belongs to the given race" do
       competitor = valid_competitor
       race = build(:race)
@@ -232,7 +248,7 @@ describe CupCompetitor do
       expect(CupCompetitor.name(competitor)).to eq('last first')
     end
   end
-  
+
   def valid_competitor(last_cup_race=false)
     series = instance_double Series, last_cup_race: last_cup_race
     instance_double Competitor, first_name: first_name, last_name: last_name, series: series
