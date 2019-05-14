@@ -52,6 +52,7 @@ group :test do
   gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
   gem 'fuubar'
   gem 'rails-controller-testing'
+  gem 'selenium-webdriver'
 end
 
 # Bundle gems for the local environment. Make sure to
