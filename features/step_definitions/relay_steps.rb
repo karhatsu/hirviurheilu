@@ -41,6 +41,7 @@ Given /^the relay team is deleted$/ do
 end
 
 When("someone else saves data for the relay") do
+  sleep 1 # to make sure that updated_at.to_i is at least 1 s off
   @relay_competitor.estimate = 123
   @relay_competitor.save!
 end
