@@ -71,6 +71,11 @@ describe Series do
       it { expect_estimates Series::POINTS_METHOD_NO_TIME_2_ESTIMATES, 2 }
     end
 
+    it 'trims name' do
+      series = create :series, name: ' With spaces  '
+      expect(series.name).to eql 'With spaces'
+    end
+
     def expect_estimates(points_method, estimates)
       expect(create(:series, points_method: points_method).estimates).to eql estimates
     end

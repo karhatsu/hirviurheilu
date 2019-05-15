@@ -30,7 +30,7 @@ class Series < ApplicationRecord
   accepts_nested_attributes_for :age_groups, :allow_destroy => true
   accepts_nested_attributes_for :competitors
 
-  before_validation :check_points_method
+  before_validation :check_points_method, :strip_series
 
   validates :name, :presence => true
   #validates :race, :presence => true
@@ -231,6 +231,10 @@ class Series < ApplicationRecord
   private
   def check_points_method
     self.points_method = POINTS_METHOD_TIME_2_ESTIMATES if points_method == nil
+  end
+
+  def strip_series
+    self.name = name.strip if name
   end
 
   def set_estimates
