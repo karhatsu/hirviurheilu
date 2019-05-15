@@ -11,4 +11,6 @@
     = render :partial => 'shared/google_analytics'
     = render 'shared/facebook_meta'
     = render 'shared/icons'
+    - if Rails.env.production?
+      = render 'shared/adsense'
   = render :partial => 'shared/body'
