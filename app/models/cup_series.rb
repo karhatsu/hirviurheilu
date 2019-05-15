@@ -1,28 +1,30 @@
 class CupSeries < ApplicationRecord
   belongs_to :cup
-  
+
   validates :name, :presence => true
 
   def series
     @series ||= pick_series_with_given_name
   end
-  
+
   def has_single_series_with_same_name?
     series_names.blank? or name == series_names
   end
-  
+
   def cup_competitors
     @cup_competitors ||= pick_competitors_with_same_name_in_all_races
   end
-  
+
   def ordered_competitors
     cup_competitors.sort do |a, b|
       a_points = a.points_array.map {|p| p.to_i}.sort {|p1, p2| p2 <=> p1}
       b_points = b.points_array.map {|p| p.to_i}.sort {|p1, p2| p2 <=> p1}
-      [b.points!.to_i, b_points] <=> [a.points!.to_i, a_points]
+      a_shot_points = a.shots_array.map {|p| p.to_i}.sort {|p1, p2| p2 <=> p1}
+      b_shot_points = b.shots_array.map {|p| p.to_i}.sort {|p1, p2| p2 <=> p1}
+      [b.points!.to_i, b_points, b_shot_points] <=> [a.points!.to_i, a_points, a_shot_points]
     end
   end
-  
+
   private
   def pick_series_with_given_name
     series = []
@@ -37,12 +39,12 @@ class CupSeries < ApplicationRecord
     end
     series
   end
-  
+
   def series_names_as_array
     return series_names.strip.split(',') unless series_names.blank?
     [name]
   end
-  
+
   def pick_competitors_with_same_name_in_all_races
     name_to_competitor = Hash.new
     series.each do |s|

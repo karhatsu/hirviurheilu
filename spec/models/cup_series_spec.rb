@@ -4,64 +4,64 @@ describe CupSeries do
   it "create" do
     create(:cup_series)
   end
-  
+
   describe "associations" do
     it { is_expected.to belong_to(:cup) }
   end
-  
+
   describe "validations" do
     it { is_expected.to validate_presence_of(:name) }
   end
-  
+
   describe "#has_single_series_with_same_name?" do
     it "should return true when series_names is nil" do
       cup_series = build(:cup_series, :series_names => nil)
       expect(cup_series).to have_single_series_with_same_name
     end
-    
+
     it "should return true when series_names is empty string" do
       cup_series = build(:cup_series, :series_names => '')
       expect(cup_series).to have_single_series_with_same_name
     end
-    
+
     it "should return true when series_names is same as cup series name" do
       cup_series = build(:cup_series, :name => 'M', :series_names => 'M')
       expect(cup_series).to have_single_series_with_same_name
     end
-    
+
     it "should return false when series_names differs from cup series name" do
       cup_series = build(:cup_series, :name => 'Men', :series_names => 'M')
       expect(cup_series).not_to have_single_series_with_same_name
     end
   end
-  
+
   describe "#series_names_as_array" do
     it "should return cup series name as an array when series_names is nil" do
       cup_series = build(:cup_series, :name => 'Cup series', :series_names => nil)
       expect(cup_series.send(:series_names_as_array)).to eq(['Cup series'])
     end
-    
+
     it "should return cup series name as an array when series_names is empty string" do
       cup_series = build(:cup_series, :name => 'Cup series', :series_names => '')
       expect(cup_series.send(:series_names_as_array)).to eq(['Cup series'])
     end
-    
+
     it "should return cup series name as an array when series_names is string with spaces" do
       cup_series = build(:cup_series, :name => 'Cup series', :series_names => '  ')
       expect(cup_series.send(:series_names_as_array)).to eq(['Cup series'])
     end
-    
+
     it "should return series_names split by comma when series_names given" do
       cup_series = build(:cup_series, :name => 'Cup series', :series_names => 'M,M60,M70')
       expect(cup_series.send(:series_names_as_array)).to eq(['M', 'M60', 'M70'])
     end
-    
+
     it "should return series_names split by comma when series_names with trailing spaces given" do
       cup_series = build(:cup_series, :name => 'Cup series', :series_names => '  M,M60,M70   ')
       expect(cup_series.send(:series_names_as_array)).to eq(['M', 'M60', 'M70'])
     end
   end
-  
+
   describe "#series" do
     before do
       @cup_series_name = 'M'
@@ -72,12 +72,12 @@ describe CupSeries do
     it "should return an empty array when no races" do
       expect(@cs.series).to eq([])
     end
-    
+
     it "should return an empty array when races have no series" do
       @cup.races << create(:race)
       expect(@cs.series).to eq([])
     end
-    
+
     it "should return all series that have a same name as any given series name" do
       series_name_condition = ['M', 'M50']
       expect(@cs).to receive(:series_names_as_array).at_least(1).times.and_return(series_name_condition)
@@ -99,7 +99,7 @@ describe CupSeries do
       expect(series[2].race).to eq(race3)
       expect(series[2].last_cup_race).to be_truthy
     end
-    
+
     def create_race(series_name_condition)
       race = build(:race)
       series = build(:series, :race => race, :name => @cup_series_name)
@@ -115,7 +115,7 @@ describe CupSeries do
       @series1 = build(:series)
       @cs = build(:cup_series)
     end
-    
+
     context "when no competitors in series" do
       it "should return an empty array" do
         series = instance_double(Series, :competitors => [])
@@ -123,7 +123,7 @@ describe CupSeries do
         expect(@cs.cup_competitors).to eq([])
       end
     end
-    
+
     context "when competitors in series" do
       before do
         series1 = create_series
@@ -141,7 +141,7 @@ describe CupSeries do
         allow(series3).to receive(:competitors).and_return([@cMM3, @cTM3])
         allow(@cs).to receive(:series).and_return([series1, series2, series3])
       end
-      
+
       it "should return cup competitors created based on competitors' first and last name (case ins.)" do
         cup_competitors = @cs.cup_competitors
         expect(cup_competitors.length).to eq(4)
@@ -165,26 +165,27 @@ describe CupSeries do
       end
     end
   end
-  
+
   describe "#ordered_competitors" do
     before do
       @cs = build(:cup_series)
     end
-    
+
     it "should return an empty array when no competitors" do
       allow(@cs).to receive(:cup_competitors).and_return([])
       expect(@cs.ordered_competitors).to eq([])
     end
-    
-    it 'should return cup competitors ordered by descending partial points, secondary by best single race points' do
-      cc1 = double(CupCompetitor, points!: 3004, points_array: [1000, 1001, 1003])
-      cc2 = double(CupCompetitor, points!: 3004, points_array: [1004, 1000, 1000])
-      cc3 = double(CupCompetitor, points!: 3000, points_array: [nil, nil, 3000])
-      cc4 = double(CupCompetitor, points!: 3002, points_array: [999, 1001, 1002])
-      cc5 = double(CupCompetitor, points!: nil, points_array: [nil, nil, nil])
-      cc6 = double(CupCompetitor, points!: 3002, points_array: [1000, 1000, 1002])
-      allow(@cs).to receive(:cup_competitors).and_return([cc1, cc2, cc3, cc4, cc5, cc6])
-      expect(@cs.ordered_competitors).to eq([cc2, cc1, cc4, cc6, cc3, cc5])
+
+    it 'should return cup competitors ordered by descending partial points, best single race points, best shot points' do
+      cc1 = double(CupCompetitor, points!: 3004, points_array: [1000, 1001, 1003], shots_array: [600, 594, 588])
+      cc2 = double(CupCompetitor, points!: 3004, points_array: [1004, 1000, 1000], shots_array: [600, 594, 588])
+      cc3 = double(CupCompetitor, points!: 3000, points_array: [nil, nil, 3000], shots_array: [600, 594, 588])
+      cc4 = double(CupCompetitor, points!: 3002, points_array: [999, 1001, 1002], shots_array: [600, 594, 588])
+      cc5 = double(CupCompetitor, points!: nil, points_array: [nil, nil, nil], shots_array: [600, 594, 588])
+      cc6 = double(CupCompetitor, points!: 3002, points_array: [1000, 1000, 1002], shots_array: [600, nil, 587])
+      cc7 = double(CupCompetitor, points!: 3002, points_array: [1000, 1000, 1002], shots_array: [600, nil, 588])
+      allow(@cs).to receive(:cup_competitors).and_return([cc1, cc2, cc3, cc4, cc5, cc6, cc7])
+      expect(@cs.ordered_competitors).to eq([cc2, cc1, cc4, cc7, cc6, cc3, cc5])
     end
   end
 end

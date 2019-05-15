@@ -49,6 +49,10 @@ class CupCompetitor
     @points_array ||= points_with_last_race_info_array.map {|item| item[:points]}
   end
 
+  def shots_array
+    @shots_array ||= @competitors.map { |c| c.shot_points }
+  end
+
   def self.name(competitor)
     "#{competitor.last_name.strip} #{competitor.first_name.strip}".downcase
   end
