@@ -56,9 +56,9 @@ describe CupSeries do
       expect(cup_series.send(:series_names_as_array)).to eq(['M', 'M60', 'M70'])
     end
 
-    it "should return series_names split by comma when series_names with trailing spaces given" do
-      cup_series = build(:cup_series, :name => 'Cup series', :series_names => '  M,M60,M70   ')
-      expect(cup_series.send(:series_names_as_array)).to eq(['M', 'M60', 'M70'])
+    it "should trim series names between commas" do
+      cup_series = build(:cup_series, :name => 'Cup series', :series_names => '  M, M60  ,M70 ,M80   ')
+      expect(cup_series.send(:series_names_as_array)).to eq(['M', 'M60', 'M70', 'M80'])
     end
   end
 

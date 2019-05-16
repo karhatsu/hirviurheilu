@@ -41,7 +41,7 @@ class CupSeries < ApplicationRecord
   end
 
   def series_names_as_array
-    return series_names.strip.split(',') unless series_names.blank?
+    return series_names.split(',').map(&:strip) unless series_names.blank?
     [name]
   end
 
