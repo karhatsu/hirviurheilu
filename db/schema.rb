@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180819173108) do
+ActiveRecord::Schema.define(version: 2019_07_01_051746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -229,6 +229,9 @@ ActiveRecord::Schema.define(version: 20180819173108) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "finished", default: false, null: false
+    t.integer "leg_distance"
+    t.integer "estimate_penalty_distance"
+    t.integer "shooting_penalty_distance"
     t.index ["race_id"], name: "index_relays_on_race_id"
   end
 

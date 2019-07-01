@@ -4,7 +4,7 @@ describe Relay do
   it "create" do
     create(:relay)
   end
-  
+
   describe "associations" do
     it { is_expected.to belong_to(:race) }
     it { is_expected.to have_many(:relay_teams) }
@@ -48,6 +48,10 @@ describe Relay do
         expect(relay.legs_count).to eq(5)
       end
     end
+
+    it_should_behave_like 'positive integer', :leg_distance
+    it_should_behave_like 'positive integer', :estimate_penalty_distance
+    it_should_behave_like 'positive integer', :shooting_penalty_distance
   end
 
   describe "teams" do
@@ -164,7 +168,7 @@ describe Relay do
         create_competitor @team_DNS, 3, nil
         create_competitor @team_DNF, 3, nil
         create_competitor @team_DQ, 3, nil
-        
+
         @finish_order = [@team1, @team6, @team5, @team3, @team2, @team4, @team_DNF, @team_DNS, @team_DQ]
       end
 
@@ -399,38 +403,38 @@ describe Relay do
       expect(@relay).not_to be_active
     end
   end
-  
+
   describe "#start_datetime" do
     it "should return nil when no start time" do
       expect(build(:relay, :start_time => nil).start_datetime).to be_nil
     end
-    
+
     it "should return nil when no race" do
       expect(build(:relay, :race => nil, :start_time => '13:45:31').start_datetime).to be_nil
     end
-    
+
     it "should return nil when no race start date" do
       race = build(:race, :start_date => nil)
       expect(build(:relay, :race => race, :start_time => '13:45:31').start_datetime).to be_nil
     end
-    
+
     context "when race date and start time available" do
       before do
         @race = build(:race, :start_date => '2011-06-30')
         @relay = build(:relay, :race => @race, :start_time => '13:45:31')
       end
-      
+
       it "should return the compination of race date and start time when both available" do
         expect(@relay.start_datetime.strftime('%d.%m.%Y %H:%M:%S')).to eq('30.06.2011 13:45:31')
       end
-      
+
       it "should return the object with local zone" do
         original_zone = Time.zone
         Time.zone = 'Hawaii'
         expect(@relay.start_datetime.zone).to eq('HST')
         Time.zone = original_zone # must reset back to original!
       end
-      
+
       it "should return the correct date when relay start day is not 1" do
         @race.end_date = '2011-07-02'
         @relay.start_day = 3
