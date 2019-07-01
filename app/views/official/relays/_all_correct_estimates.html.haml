@@ -1,0 +1,5 @@
+.sub_element.sub_form
+  = f.fields_for :relay_correct_estimates do |correct_form|
+    = render partial: 'relay_correct_estimate', locals: { f: correct_form }
+  - (@relay.legs_count - @relay.relay_correct_estimates.length).times do |i|
+    = new_child_fields(f, :relay_correct_estimates, i)
