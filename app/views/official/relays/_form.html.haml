@@ -1,0 +1,34 @@
+= flash_success
+= flash_error
+= render partial: 'shared/form_errors', locals: { item: @relay }
+= form_for([:official, @race, @relay], html: { class: 'relay_form' }) do |f|
+  = hidden_field_tag :updated_at, @relay.updated_at.to_i
+  %div
+    %span.form_label= f.label :name
+    %span= f.text_field :name
+  %div
+    %span.form_label= f.label :legs_count
+    %span
+      - if @relay.new_record?
+        = f.telephone_field :legs_count, size: 2, class: 'max2'
+      - else
+        = @relay.legs_count
+  %div
+    %span.form_label= f.label :start_time
+    %span
+      = start_days_form_field(f, @relay)
+      = f.time_select :start_time, include_blank: true
+    (arvioitu kellonaika)
+  - unless @relay.new_record?
+    %h2= t :correct_distances
+    = render partial: 'all_correct_estimates', locals: { f: f }
+    %h2= t 'official.relays.form.teams'
+    - if @relay.relay_teams.empty?
+      = highlight_info(t('official.relays.form.no_teams_info'))
+    - else
+      = f.fields_for :relay_teams do |team_form|
+        = render partial: "relay_team", locals: { f: team_form }
+    = add_child_link t('official.relays.form.add_new_team'), f, :relay_teams
+    %br
+    %br
+  = submit_tag t(:save)
