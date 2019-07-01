@@ -30,7 +30,8 @@ describe Race do
       it { is_expected.to validate_numericality_of(:start_interval_seconds) }
       it { is_expected.not_to allow_value(nil).for(:start_interval_seconds) }
       it { is_expected.not_to allow_value(23.5).for(:start_interval_seconds) }
-      it { is_expected.not_to allow_value(0).for(:start_interval_seconds) }
+      it { is_expected.not_to allow_value(-1).for(:start_interval_seconds) }
+      it { is_expected.to allow_value(0).for(:start_interval_seconds) }
     end
 
     describe "batch_interval_seconds" do
