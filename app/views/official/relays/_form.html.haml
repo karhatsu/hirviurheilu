@@ -19,6 +19,15 @@
       = start_days_form_field(f, @relay)
       = f.time_select :start_time, include_blank: true
     (arvioitu kellonaika)
+  %div
+    %span.form_label= f.label :leg_distance
+    %span= f.number_field :leg_distance
+  %div
+    %span.form_label= f.label :estimate_penalty_distance
+    %span= f.number_field :estimate_penalty_distance
+  %div
+    %span.form_label= f.label :shooting_penalty_distance
+    %span= f.number_field :shooting_penalty_distance
   - unless @relay.new_record?
     %h2= t :correct_distances
     = render partial: 'all_correct_estimates', locals: { f: f }

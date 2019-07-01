@@ -32,6 +32,7 @@ fi:
     estimate2: Arvio 2
     estimate3: Arvio 3
     estimate4: Arvio 4
+    estimate_penalty_distance: Arviosakkokierroksen pituus (m)
     first_name: Etunimi
     first_number: Ensimmäinen kilpailunumero
     front_page: Näytä etusivulla
@@ -41,6 +42,7 @@ fi:
     last_login_at: Viim. kirj.
     last_login_ip: Viim. IP
     last_request_at: Viim. käyt.
+    leg_distance: Osuuden pituus (m)
     legs_count: Osuuksien määrä
     location: Paikkakunta
     long_name: Pitkä nimi
@@ -69,6 +71,7 @@ fi:
     series_names: Osakilpailuiden sarjojen nimet
     shooting_finish_time: Ammunnan lopetusaika
     shooting_overtime_min: Ammunta-ajan ylitysminuutit
+    shooting_penalty_distance: Ammuntasakkokierroksen pituus (m)
     shooting_start_time: Ammunnan aloitusaika
     shooting_time: Ammunta-aika
     short_name: Lyhyt nimi
