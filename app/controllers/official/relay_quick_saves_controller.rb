@@ -29,7 +29,21 @@ class Official::RelayQuickSavesController < Official::OfficialController
   def adjustment
     @name = 'adjustment'
     do_quick_save(RelayAdjustmentQuickSave.new(@relay.id, params[:string])) do
-      @result = "korjaukset: #{@competitor.adjustment}"
+      @result = "korjaukset: #{"%+d" % @competitor.adjustment}"
+    end
+  end
+
+  def estimate_penalties_adjustment
+    @name = 'estimate_penalties_adjustment'
+    do_quick_save(RelayEstimatePenaltiesAdjustmentQuickSave.new(@relay.id, params[:string])) do
+      @result = "arviosakkojen korjaukset: #{"%+d" % @competitor.estimate_penalties_adjustment}"
+    end
+  end
+
+  def shooting_penalties_adjustment
+    @name = 'shooting_penalties_adjustment'
+    do_quick_save(RelayShootingPenaltiesAdjustmentQuickSave.new(@relay.id, params[:string])) do
+      @result = "ammuntasakkojen korjaukset: #{"%+d" % @competitor.shooting_penalties_adjustment}"
     end
   end
 

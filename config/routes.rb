@@ -1,11 +1,11 @@
 ElkSports::Application.routes.draw do
   scope "(/:locale)", :locale => /#{I18n.available_locales.join('|')}/ do
     resource :home
-  
+
     delete 'logout' => 'user_sessions#destroy', :as => :logout
     get 'login' => 'user_sessions#new', :as => :login
     resource :user_session
-  
+
     resource :account, :controller => 'users'
     get 'register' => 'users#new', :as => :register
     resources :users
@@ -16,16 +16,16 @@ ElkSports::Application.routes.draw do
     resource :info
     get 'answers' => 'infos#answers', :as => :answers
     resources :feedbacks
-  
+
     resources :prices
     resources :offers, only: [:new, :create]
     get 'offer_sent' => 'offers#sent', as: :offer_sent
-    
+
     resources :cups do
       resources :cup_series
       resource :medium
     end
-  
+
     resources :races do
       resources :series do
         resource :start_list, only: :show
@@ -39,23 +39,23 @@ ElkSports::Application.routes.draw do
       resource :medium
       resource :video
     end
-  
+
     resources :series do
       resources :competitors
       resource :start_list
     end
-  
+
     resources :relays do
       resources :legs
     end
-  
+
     namespace :admin do
       resources :announcements
       resources :races
       resources :users
       root :to => "index#show"
     end
-  
+
     namespace :official do
       namespace :limited do
         resources :races do
@@ -63,9 +63,9 @@ ElkSports::Application.routes.draw do
           resources :csv_imports
         end
       end
-      
+
       resources :cups
-      
+
       resources :races do
         resources :competitors, :only => [:create, :update]
         get 'clubs/competitors' => 'clubs#competitors'
@@ -91,7 +91,7 @@ ElkSports::Application.routes.draw do
         resource :csv_export
         resource :competitor_copying
       end
-  
+
       resources :series do
         resources :competitors, :except => :create
         resources :age_groups
@@ -100,7 +100,7 @@ ElkSports::Application.routes.draw do
         resources :estimates
         resources :times
       end
-  
+
       resources :relays do
         resources :relay_teams
         post 'relay_estimate_quick_save' => 'relay_quick_saves#estimate',
@@ -111,10 +111,14 @@ ElkSports::Application.routes.draw do
           :as => :relay_time_quick_save
         post 'relay_adjustment_quick_save' => 'relay_quick_saves#adjustment',
           :as => :relay_adjustment_quick_save
+        post 'relay_estimate_penalties_adjustment_quick_save' => 'relay_quick_saves#estimate_penalties_adjustment',
+             :as => :relay_estimate_penalties_adjustment_quick_save
+        post 'relay_shooting_penalties_adjustment_quick_save' => 'relay_quick_saves#shooting_penalties_adjustment',
+             :as => :relay_shooting_penalties_adjustment_quick_save
         resources :relay_quick_saves
         resource :finish_relay
       end
-      
+
       root :to => "index#show"
     end
   end
