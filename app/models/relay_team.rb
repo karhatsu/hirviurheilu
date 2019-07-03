@@ -43,7 +43,7 @@ class RelayTeam < ApplicationRecord
       competitor = competitor(i + 1)
       sum += competitor.adjustment.to_i if competitor
     end
-    sum
+    sum + penalties_adjustment(leg)
   end
 
   def shoot_penalties_sum
@@ -63,5 +63,26 @@ class RelayTeam < ApplicationRecord
       errors.add(:no_result_reason,
         "Tuntematon syy tuloksen puuttumiselle: '#{no_result_reason}'")
     end
+  end
+
+  def penalties_adjustment(leg)
+    return 0 unless relay.leg_distance && relay.estimate_penalty_distance && relay.shooting_penalty_distance
+    sum = 0
+    leg.to_i.times do |i|
+      competitor = competitor(i + 1)
+      sum += (distance_adjustment(competitor).to_d / total_competitor_distance(competitor) * competitor.time_in_seconds(false)).round
+    end
+    sum
+  end
+
+  def total_competitor_distance(competitor)
+    relay.leg_distance +
+        (competitor.estimate_penalties.to_i - competitor.estimate_penalties_adjustment.to_i) * relay.estimate_penalty_distance +
+        (competitor.misses.to_i - competitor.shooting_penalties_adjustment.to_i) * relay.shooting_penalty_distance
+  end
+
+  def distance_adjustment(competitor)
+    competitor.estimate_penalties_adjustment.to_i * relay.estimate_penalty_distance +
+        competitor.shooting_penalties_adjustment.to_i * relay.shooting_penalty_distance
   end
 end

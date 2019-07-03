@@ -41,9 +41,9 @@ class RelayCompetitor < ApplicationRecord
     penalties
   end
 
-  def time_in_seconds
+  def time_in_seconds(include_adjustment = true)
     return nil if start_time.nil? || arrival_time.nil?
-    arrival_time - start_time + adjustment.to_i
+    arrival_time - start_time + (include_adjustment ? adjustment.to_i : 0)
   end
 
   private
