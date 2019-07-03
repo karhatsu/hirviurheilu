@@ -15,14 +15,14 @@ class RelayTeam < ApplicationRecord
 
   def competitor(leg)
     competitor = relay_competitors[leg.to_i - 1] # faster solution but not reliable
-    return competitor if competitor and competitor.leg == leg.to_i
+    return competitor if competitor && competitor.leg == leg.to_i
     relay_competitors.where(:leg => leg).first # slower and reliable solution
   end
 
   def time_in_seconds(leg=nil)
     leg = relay.legs_count unless leg
     competitor = competitor(leg)
-    return nil unless competitor and competitor.arrival_time
+    return nil unless competitor&.arrival_time
     competitor.arrival_time - competitor(1).start_time + adjustment(leg)
   end
 
@@ -53,7 +53,7 @@ class RelayTeam < ApplicationRecord
         sum = sum.to_i + competitor.misses.to_i
       end
     end
-    return sum
+    sum
   end
 
   private

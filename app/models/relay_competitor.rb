@@ -42,7 +42,7 @@ class RelayCompetitor < ApplicationRecord
   end
 
   def time_in_seconds
-    return nil if start_time.nil? or arrival_time.nil?
+    return nil if start_time.nil? || arrival_time.nil?
     arrival_time - start_time + adjustment.to_i
   end
 
