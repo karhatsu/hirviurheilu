@@ -32,6 +32,7 @@ sv:
     estimate2: Bedömning 2
     estimate3: Bedömning 3
     estimate4: Bedömning 4
+    estimate_penalty_distance: Bedömningstraff avstånd (m)
     first_name: Förnamn
     first_number: Första tävlingsnummer
     front_page: Visa på frontsida
@@ -41,6 +42,7 @@ sv:
     last_login_at: Senaste login
     last_login_ip: Senaste IP
     last_request_at: Senaste användad
+    leg_distance: Sträck avstånd (m)
     legs_count: Sträckor
     location: Ort
     long_name: Långt namn
@@ -69,6 +71,7 @@ sv:
     series_names: Klassnamn för tävlingar
     shooting_finish_time: Skytte sluttid
     shooting_overtime_min: Skottstidens överminuter
+    shooting_penalty_distance: Skottsstraff avstånd (m)
     shooting_start_time: Skytte starttid
     shooting_time: Skyttetid
     short_name: Kort namn

@@ -1,0 +1,36 @@
+- content_for :title, "Viesti - #{@relay.name} - Tulosten pikasyöttö"
+- render partial: 'official/relays/sub_sub_menu', locals: { relay_id: @relay.id }
+%h2= yield :title
+.info Tällä sivulla voit tallentaa viestin tuloksia ns. pikasyöttöä käyttäen. Syöttämiseen tarvitset joukkueen numeron sekä kilpailijan osuuden numeron.
+- if @relay.relay_competitors.empty?
+  .info Kilpailuun ei ole lisätty yhtään kilpailijaa
+- else
+  %h3 Arviointi
+  - instructions = 'Syötä tulos muodossa joukkue,osuus,arvio, esim. 11,3,118 (joukkue 11, osuus 3, arvio 118 metriä).'
+  = render partial: 'result_place', locals: { name: 'estimate',
+    instructions: instructions, path: official_relay_relay_estimate_quick_save_path(@relay) }
+  %h3 Ohilaukaukset
+  - instructions = 'Syötä tulos muodossa joukkue,osuus,ohilaukaukset, esim. 11,3,2 (joukkue 11, osuus 3, 2 ohilaukausta).'
+  = render partial: 'result_place', locals: { name: 'misses',
+    instructions: instructions, path: official_relay_relay_misses_quick_save_path(@relay) }
+  %h3 Saapumisaika
+  - instructions = 'Syötä tulos muodossa joukkue,osuus,hhmmss, esim. 11,3,002438 (joukkue 11, osuus 3, saapumisaika 00:24:38).'
+  = render partial: 'result_place', locals: { name: 'time',
+    instructions: instructions, path: official_relay_relay_time_quick_save_path(@relay) }
+  %h3 Arviosakkojen korjaukset
+  - instructions = 'Syötä korjaus sakkojen määrään muodossa joukkue,osuus,korjaus, esim. 11,3,2 (joukkue 11, osuus 3, 2 sakkokierrosta arvionnista lisää).'
+  = render partial: 'result_place', locals: { name: 'estimate_penalties_adjustment',
+    instructions: instructions, path: official_relay_relay_estimate_penalties_adjustment_quick_save_path(@relay) }
+  %h3 Ammuntasakkojen korjaukset
+  - instructions = 'Syötä korjaus sakkojen määrään muodossa joukkue,osuus,korjaus, esim. 11,3,-1 (joukkue 11, osuus 3, 1 sakkokierros ammunnasta liikaa).'
+  = render partial: 'result_place', locals: { name: 'shooting_penalties_adjustment',
+    instructions: instructions, path: official_relay_relay_shooting_penalties_adjustment_quick_save_path(@relay) }
+  %h3 Aikakorjaukset
+  - instructions = 'Syötä korjaus aikaan muodossa joukkue,osuus,korjaus, esim. 11,3,-10 (joukkue 11, osuus 3, 10 sekunnin hyvitys). Käytä aikakorjauksia vain, jos korjausta ei voi tehdä sakkokorjausten avulla (yllä). Kun aikakorjausta käytetään, tulee saapumisajat syöttää silti sen mukaan, kuinka viestin tuojat ovat tulleet osuutensa maaliin. Tietyn osuuden korjaus otetaan automaattisesti huomioon kaikissa myöhäisemmissä osuuksissa eli korjauksen tarvitsee syöttää vain kerran.'
+  = render partial: 'result_place', locals: { name: 'adjustment',
+    instructions: instructions, path: official_relay_relay_adjustment_quick_save_path(@relay) }
+  #latest{style: 'display:none;'}
+    %h3 Viimeisimmät tallennukset
+    %ul#latest_list
+%hr
+= link_to 'Takaisin viestin etusivulle', official_race_relays_path(@relay.race)

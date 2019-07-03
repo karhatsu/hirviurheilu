@@ -12,6 +12,8 @@ class RelayCompetitor < ApplicationRecord
   validates :adjustment, :numericality => { :only_integer => true, :allow_nil => true }
   validates :leg, :numericality => { :only_integer => true, :greater_than => 0 },
     :uniqueness => { :scope => :relay_team_id }
+  validates :estimate_penalties_adjustment, numericality: { only_integer: true, allow_nil: true }
+  validates :shooting_penalties_adjustment, numericality: { only_integer: true, allow_nil: true }
   validate :leg_not_bigger_than_relay_legs_count
   validate :arrival_not_before_start_time
   validate :compare_arrival_time_to_next_competitor
@@ -39,9 +41,9 @@ class RelayCompetitor < ApplicationRecord
     penalties
   end
 
-  def time_in_seconds
-    return nil if start_time.nil? or arrival_time.nil?
-    arrival_time - start_time + adjustment.to_i
+  def time_in_seconds(include_adjustment = true)
+    return nil if start_time.nil? || arrival_time.nil?
+    arrival_time - start_time + (include_adjustment ? adjustment.to_i : 0)
   end
 
   private

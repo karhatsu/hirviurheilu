@@ -2,7 +2,7 @@ require 'time_helper.rb'
 
 class Relay < ApplicationRecord
   include TimeHelper
-  
+
   belongs_to :race
   has_many :relay_teams, -> { order :number }, :dependent => :destroy
   has_many :relay_correct_estimates, -> { order :leg }
@@ -13,6 +13,9 @@ class Relay < ApplicationRecord
   validates :legs_count, :numericality => { :only_integer => true, :greater_than => 1 }
   validates :start_day, :numericality => { :only_integer => true,
     :allow_nil => true, :greater_than => 0 }
+  validates :leg_distance, numericality: { allow_nil: true, greater_than: 0, only_integer: true }
+  validates :estimate_penalty_distance, numericality: { allow_nil: true, greater_than: 0, only_integer: true }
+  validates :shooting_penalty_distance, numericality: { allow_nil: true, greater_than: 0, only_integer: true }
   validate :start_day_not_bigger_than_race_days_count
 
   attr_readonly :legs_count
@@ -112,7 +115,7 @@ class Relay < ApplicationRecord
   def today?
     race.race_day == start_day
   end
-  
+
   def start_datetime
     return nil unless start_time and race and race.start_date
     time = Time.zone.local(race.start_date.year, race.start_date.month,

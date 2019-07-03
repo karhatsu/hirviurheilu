@@ -105,6 +105,9 @@ describe RelayCompetitor do
         end
       end
     end
+
+    it_should_behave_like 'integer', :estimate_penalties_adjustment
+    it_should_behave_like 'integer', :shooting_penalties_adjustment
   end
 
   describe "#previous_competitor" do
