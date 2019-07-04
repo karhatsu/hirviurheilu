@@ -70,7 +70,8 @@ class RelayTeam < ApplicationRecord
     sum = 0
     leg.to_i.times do |i|
       competitor = competitor(i + 1)
-      sum += (distance_adjustment(competitor).to_d / total_competitor_distance(competitor) * competitor.time_in_seconds(false)).round
+      competitor_time = competitor.time_in_seconds false
+      sum += (distance_adjustment(competitor).to_d / total_competitor_distance(competitor) * competitor_time).round if competitor_time
     end
     sum
   end

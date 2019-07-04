@@ -148,6 +148,11 @@ describe RelayTeam do
             expect(@team.time_in_seconds).to eq(31 * 60 + 15 + leg_1_adjustment)
           end
 
+          it 'should not crash adjustment when no arrival time yet' do
+            @c3.update_attribute :arrival_time, nil
+            expect(@team.adjustment).to eql leg_1_adjustment
+          end
+
           def leg_1_adjustment
             total_distance = leg_distance +
                 (c1_estimate_penalties - c1_estimate_penalties_adjustment) * estimate_penalty_distance +
