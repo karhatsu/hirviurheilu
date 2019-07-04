@@ -50,10 +50,17 @@ module ResultFormatHelper
     raw("<span class='explanation'><a href=\"#{NATIONAL_RECORD_URL}\">#{tag}</a></span>")
   end
 
-  def relay_time_adjustment_print(adjustment)
-    return '' unless adjustment
-    return '' if adjustment == 0
-    raw("(<span class='adjustment' title=\"Aika sisältää korjausta #{time_from_seconds(adjustment, true)}\">#{time_from_seconds(adjustment, true)}</span>)")
+  def relay_time_adjustment_print(source)
+    adjustment = source.adjustment.to_i
+    estimate_adjustment = source.estimate_adjustment.to_i
+    shooting_adjustment = source.shooting_adjustment.to_i
+    return '' if adjustment == 0 && estimate_adjustment == 0 && shooting_adjustment == 0
+    title = []
+    title << "Aika sisältää arviokorjausta #{time_from_seconds(estimate_adjustment, true)}." if estimate_adjustment != 0
+    title << "Aika sisältää ammuntakorjausta #{time_from_seconds(shooting_adjustment, true)}." if shooting_adjustment != 0
+    title << "Aika sisältää muuta korjausta #{time_from_seconds(adjustment, true)}." if adjustment != 0
+    total_adjustment = adjustment + estimate_adjustment + shooting_adjustment
+    raw("(<span class='adjustment' title=\"#{title.join(' ')}\">#{time_from_seconds(total_adjustment, true)}</span>)")
   end
 
   def shots_list_print(competitor)

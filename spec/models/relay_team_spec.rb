@@ -59,7 +59,7 @@ describe RelayTeam do
     end
   end
 
-  describe "#time_in_seconds" do
+  describe "#time_in_seconds and adjustments" do
     let(:correct_estimate) { 100 }
     before do
       @relay = create(:relay, :legs_count => 3, :start_time => '12:00')
@@ -142,25 +142,42 @@ describe RelayTeam do
             @relay.save!
           end
 
-          it 'should calculate adjustment time based on too many/few penalties run' do
+          it 'should calculate total adjustment time based on too many/few penalties run' do
+            leg_1_adjustment = leg_1_estimate_adjustment + leg_1_shooting_adjustment
             expect(@team.time_in_seconds(1)).to eq(10 * 60 + leg_1_adjustment)
             expect(@team.time_in_seconds(2)).to eq(20 * 60 + 54 + leg_1_adjustment)
             expect(@team.time_in_seconds).to eq(31 * 60 + 15 + leg_1_adjustment)
           end
 
-          it 'should not crash adjustment when no arrival time yet' do
-            @c3.update_attribute :arrival_time, nil
-            expect(@team.adjustment).to eql leg_1_adjustment
+          it 'should provide different adjustments' do
+            expect(@team.estimate_adjustment(1)).to eql leg_1_estimate_adjustment
+            expect(@team.shooting_adjustment(1)).to eql leg_1_shooting_adjustment
           end
 
-          def leg_1_adjustment
-            total_distance = leg_distance +
+          it 'should not crash adjustments when no arrival time yet' do
+            @c3.update_attribute :arrival_time, nil
+            expect(@team.estimate_adjustment).to eql leg_1_estimate_adjustment
+            expect(@team.estimate_adjustment(3)).to eql leg_1_estimate_adjustment
+            expect(@team.shooting_adjustment).to eql leg_1_shooting_adjustment
+            expect(@team.shooting_adjustment(3)).to eql leg_1_shooting_adjustment
+          end
+
+          def leg_1_estimate_adjustment
+            distance_adjustment = c1_estimate_penalties_adjustment * estimate_penalty_distance
+            arrival_time = 10 * 60
+            (distance_adjustment.to_d / leg_1_distance * arrival_time).round
+          end
+
+          def leg_1_shooting_adjustment
+            distance_adjustment = c1_shooting_penalties_adjustment * shooting_penalty_distance
+            arrival_time = 10 * 60
+            (distance_adjustment.to_d / leg_1_distance * arrival_time).round
+          end
+
+          def leg_1_distance
+            leg_distance +
                 (c1_estimate_penalties - c1_estimate_penalties_adjustment) * estimate_penalty_distance +
                 (c1_misses - c1_shooting_penalties_adjustment) * shooting_penalty_distance
-            distance_adjustment = c1_estimate_penalties_adjustment * estimate_penalty_distance +
-                c1_shooting_penalties_adjustment * shooting_penalty_distance
-            arrival_time = 10 * 60
-            (distance_adjustment.to_d / total_distance * arrival_time).round
           end
         end
       end

@@ -23,7 +23,7 @@ class RelayTeam < ApplicationRecord
     leg = relay.legs_count unless leg
     competitor = competitor(leg)
     return nil unless competitor&.arrival_time
-    competitor.arrival_time - competitor(1).start_time + adjustment(leg)
+    competitor.arrival_time - competitor(1).start_time + adjustment(leg) + estimate_adjustment(leg) + shooting_adjustment(leg)
   end
 
   def estimate_penalties_sum
@@ -43,7 +43,29 @@ class RelayTeam < ApplicationRecord
       competitor = competitor(i + 1)
       sum += competitor.adjustment.to_i if competitor
     end
-    sum + penalties_adjustment(leg)
+    sum
+  end
+
+  def estimate_adjustment(leg=nil)
+    return 0 unless relay.leg_distance && relay.estimate_penalty_distance
+    leg = relay.legs_count unless leg
+    sum = 0
+    leg.to_i.times do |i|
+      competitor = competitor(i + 1)
+      sum += competitor.estimate_adjustment.to_i if competitor
+    end
+    sum
+  end
+
+  def shooting_adjustment(leg=nil)
+    return 0 unless relay.leg_distance && relay.shooting_penalty_distance
+    leg = relay.legs_count unless leg
+    sum = 0
+    leg.to_i.times do |i|
+      competitor = competitor(i + 1)
+      sum += competitor.shooting_adjustment.to_i if competitor
+    end
+    sum
   end
 
   def shoot_penalties_sum
@@ -63,27 +85,5 @@ class RelayTeam < ApplicationRecord
       errors.add(:no_result_reason,
         "Tuntematon syy tuloksen puuttumiselle: '#{no_result_reason}'")
     end
-  end
-
-  def penalties_adjustment(leg)
-    return 0 unless relay.leg_distance && relay.estimate_penalty_distance && relay.shooting_penalty_distance
-    sum = 0
-    leg.to_i.times do |i|
-      competitor = competitor(i + 1)
-      competitor_time = competitor.time_in_seconds false
-      sum += (distance_adjustment(competitor).to_d / total_competitor_distance(competitor) * competitor_time).round if competitor_time
-    end
-    sum
-  end
-
-  def total_competitor_distance(competitor)
-    relay.leg_distance +
-        (competitor.estimate_penalties.to_i - competitor.estimate_penalties_adjustment.to_i) * relay.estimate_penalty_distance +
-        (competitor.misses.to_i - competitor.shooting_penalties_adjustment.to_i) * relay.shooting_penalty_distance
-  end
-
-  def distance_adjustment(competitor)
-    competitor.estimate_penalties_adjustment.to_i * relay.estimate_penalty_distance +
-        competitor.shooting_penalties_adjustment.to_i * relay.shooting_penalty_distance
   end
 end

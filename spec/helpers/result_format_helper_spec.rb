@@ -45,20 +45,27 @@ describe ResultFormatHelper do
   end
 
   describe '#relay_time_adjustment_print' do
-    before do
-      allow(helper).to receive(:time_from_seconds).and_return('00:01')
+    context 'when no adjustments' do
+      it 'returns empty string' do
+        source = double adjustment: nil, estimate_adjustment: nil, shooting_adjustment: nil
+        expect(helper.relay_time_adjustment_print(source)).to eq ''
+      end
     end
 
-    it 'should return nothing when nil given' do
-      expect(helper.relay_time_adjustment_print(nil)).to eq('')
+    context 'when 0 adjustments' do
+      it 'returns empty string' do
+        source = double adjustment: 0, estimate_adjustment: 0, shooting_adjustment: 0
+        expect(helper.relay_time_adjustment_print(source)).to eq ''
+      end
     end
 
-    it 'should return nothing when 0 seconds given' do
-      expect(helper.relay_time_adjustment_print(0)).to eq('')
-    end
 
-    it 'should return the html span block when 1 second given' do
-      expect(helper.relay_time_adjustment_print(1)).to eq("(<span class='adjustment' title=\"Aika sisältää korjausta 00:01\">00:01</span>)")
+    context 'when adjustments defined' do
+      it 'returns span block with total adjustment and individual adjustments in title' do
+        source = double adjustment: 35, estimate_adjustment: -20, shooting_adjustment: -100
+        expected = "(<span class='adjustment' title=\"Aika sisältää arviokorjausta -00:20. Aika sisältää ammuntakorjausta -01:40. Aika sisältää muuta korjausta +00:35.\">-01:25</span>)"
+        expect(helper.relay_time_adjustment_print(source)).to eq expected
+      end
     end
   end
 

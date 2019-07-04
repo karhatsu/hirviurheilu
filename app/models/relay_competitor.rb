@@ -20,6 +20,8 @@ class RelayCompetitor < ApplicationRecord
 
   after_update :set_next_competitor_start_time
 
+  delegate :relay, to: :relay_team
+
   def previous_competitor
     return nil if leg == 1
     relay_team.relay_competitors.where(:leg => leg - 1).first
@@ -41,9 +43,23 @@ class RelayCompetitor < ApplicationRecord
     penalties
   end
 
-  def time_in_seconds(include_adjustment = true)
+  def time_in_seconds
     return nil if start_time.nil? || arrival_time.nil?
-    arrival_time - start_time + (include_adjustment ? adjustment.to_i : 0)
+    arrival_time - start_time + adjustment.to_i + estimate_adjustment.to_i + shooting_adjustment.to_i
+  end
+
+  def estimate_adjustment
+    time = arrival_time - start_time if start_time && arrival_time
+    return 0 unless time && relay.leg_distance && relay.estimate_penalty_distance
+    distance_adjustment = estimate_penalties_adjustment.to_i * relay.estimate_penalty_distance
+    (distance_adjustment.to_d / total_distance * time).round
+  end
+
+  def shooting_adjustment
+    time = arrival_time - start_time if start_time && arrival_time
+    return 0 unless time && relay.leg_distance && relay.shooting_penalty_distance
+    distance_adjustment = shooting_penalties_adjustment.to_i * relay.shooting_penalty_distance
+    (distance_adjustment.to_d / total_distance * time).round
   end
 
   private
@@ -89,5 +105,11 @@ class RelayCompetitor < ApplicationRecord
       comp.start_time = arrival_time
       comp.save!
     end
+  end
+
+  def total_distance
+    relay.leg_distance +
+        (estimate_penalties.to_i - estimate_penalties_adjustment.to_i) * relay.estimate_penalty_distance +
+        (misses.to_i - shooting_penalties_adjustment.to_i) * relay.shooting_penalty_distance
   end
 end
