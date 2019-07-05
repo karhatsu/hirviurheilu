@@ -1,0 +1,7 @@
+%h1= @cup.name
+.section= render partial: 'points_rule', locals: {cup: @cup}
+- @cup.cup_series.each_with_index do |cs, index|
+  - if index > 0 && @page_breaks
+    .page-break
+  %h2= cs.name
+  = render partial: 'cup_series/cup_series_results', locals: { cup_series: cs, pdf: true }

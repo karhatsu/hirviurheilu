@@ -5,7 +5,7 @@
 .info= render partial: 'cups/points_rule', locals: {cup: @cup}
 .cup_results
   .section
-    = render :partial => 'cup_series_results'
+    = render partial: 'cup_series_results', locals: {cup_series: @cup_series}
 - if @cup_series.cup.cup_series.count > 1
   %hr
   - @cup_series.cup.cup_series.each do |cs|
