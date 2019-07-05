@@ -108,8 +108,10 @@ class RelayCompetitor < ApplicationRecord
   end
 
   def total_distance
+    extra_estimate_penalties = estimate_penalties_adjustment.to_i < 0 ? -estimate_penalties_adjustment.to_i : 0
+    extra_shooting_penalties = shooting_penalties_adjustment.to_i < 0 ? -shooting_penalties_adjustment.to_i : 0
     relay.leg_distance +
-        (estimate_penalties.to_i - estimate_penalties_adjustment.to_i) * relay.estimate_penalty_distance +
-        (misses.to_i - shooting_penalties_adjustment.to_i) * relay.shooting_penalty_distance
+        (estimate_penalties.to_i + extra_estimate_penalties) * relay.estimate_penalty_distance +
+        (misses.to_i + extra_shooting_penalties) * relay.shooting_penalty_distance
   end
 end
