@@ -109,9 +109,9 @@ describe RelayTeam do
         end
       end
 
-      context 'and negative penalties adjustments exist (competitor run too much)' do
+      context 'and penalties adjustments exist' do
         let(:c1_estimate_penalties) { 2 }
-        let(:c1_estimate_penalties_adjustment) { -1 }
+        let(:c1_estimate_penalties_adjustment) { 1 }
         let(:c1_misses) { 3 }
         let(:c1_shooting_penalties_adjustment) { -2 }
         before do
@@ -142,7 +142,7 @@ describe RelayTeam do
             @relay.save!
           end
 
-          it 'should calculate total adjustment time based on too many penalties run' do
+          it 'should calculate total adjustment time based on too many/few penalties run' do
             leg_1_adjustment = leg_1_estimate_adjustment + leg_1_shooting_adjustment
             expect(@team.time_in_seconds(1)).to eq(10 * 60 + leg_1_adjustment)
             expect(@team.time_in_seconds(2)).to eq(20 * 60 + 54 + leg_1_adjustment)
@@ -178,66 +178,6 @@ describe RelayTeam do
             leg_distance +
                 (c1_estimate_penalties - c1_estimate_penalties_adjustment) * estimate_penalty_distance +
                 (c1_misses - c1_shooting_penalties_adjustment) * shooting_penalty_distance
-          end
-        end
-      end
-
-      context 'and positive penalties adjustments exist (competitor run too little)' do
-        let(:c1_estimate_penalties) { 2 }
-        let(:c1_estimate_penalties_adjustment) { 1 }
-        let(:c1_misses) { 3 }
-        let(:c1_shooting_penalties_adjustment) { 2 }
-        before do
-          @c1.estimate = correct_estimate + c1_estimate_penalties * 6
-          @c1.estimate_penalties_adjustment = c1_estimate_penalties_adjustment
-          @c1.misses = c1_misses
-          @c1.shooting_penalties_adjustment = c1_shooting_penalties_adjustment
-          @c1.save!
-          @c3 = create(:relay_competitor, relay_team: @team, leg: 3, arrival_time: '00:31:15')
-        end
-
-        context 'but relay distance parameters missing' do
-          it 'should return time without adjustments' do
-            expect(@team.time_in_seconds(1)).to eq(10 * 60)
-            expect(@team.time_in_seconds(2)).to eq(20 * 60 + 54)
-            expect(@team.time_in_seconds).to eq(31 * 60 + 15)
-          end
-        end
-
-        context 'and relay distance parameters exist' do
-          let(:leg_distance) { 3600 }
-          let(:estimate_penalty_distance) { 200 }
-          let(:shooting_penalty_distance) { 400 }
-          before do
-            @relay.leg_distance = leg_distance
-            @relay.estimate_penalty_distance = estimate_penalty_distance
-            @relay.shooting_penalty_distance = shooting_penalty_distance
-            @relay.save!
-          end
-
-          it 'should calculate total adjustment time based on too few penalties run' do
-            leg_1_adjustment = leg_1_estimate_adjustment + leg_1_shooting_adjustment
-            expect(@team.time_in_seconds(1)).to eq(10 * 60 + leg_1_adjustment)
-            expect(@team.time_in_seconds(2)).to eq(20 * 60 + 54 + leg_1_adjustment)
-            expect(@team.time_in_seconds).to eq(31 * 60 + 15 + leg_1_adjustment)
-          end
-
-          def leg_1_estimate_adjustment
-            distance_adjustment = c1_estimate_penalties_adjustment * estimate_penalty_distance
-            arrival_time = 10 * 60
-            (distance_adjustment.to_d / leg_1_distance * arrival_time).round
-          end
-
-          def leg_1_shooting_adjustment
-            distance_adjustment = c1_shooting_penalties_adjustment * shooting_penalty_distance
-            arrival_time = 10 * 60
-            (distance_adjustment.to_d / leg_1_distance * arrival_time).round
-          end
-
-          def leg_1_distance
-            leg_distance +
-                c1_estimate_penalties * estimate_penalty_distance +
-                c1_misses * shooting_penalty_distance
           end
         end
       end
