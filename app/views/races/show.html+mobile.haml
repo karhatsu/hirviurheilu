@@ -84,10 +84,11 @@
       = t '.competition_begins'
       = distance_of_time_in_words(Time.zone.today, @race.start_date)
 .clear
-  - cup = @race.cups.first unless @race.cups.empty?
-  - if cup
+  - unless @race.cups.empty?
     %h2= t 'activerecord.models.cup', :count => 1
-    .section{style: 'margin-bottom: 30px;'}
-      = link_to t('.race_belongs_to_cup', :cup_name => cup.name), cup_path(cup), class: 'secondary_link'
+    .section
+      - @race.cups.each do |cup|
+        %div
+          = link_to t('.race_belongs_to_cup', :cup_name => cup.name), cup_path(cup), class: 'secondary_link'
 %hr
 = link_to t(:back_to_home_page), root_path, class: 'back_link'
