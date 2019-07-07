@@ -150,9 +150,10 @@
       %ul
         - DefaultSeries.all.each do |df|
           %li
-            = df.name
-            - unless df.default_age_groups.empty?
-              = (df.default_age_groups.collect &:name).join(', ')
+            - if df.default_age_groups.empty?
+              = df.name
+            - else
+              #{df.name} (#{(df.default_age_groups.collect &:name).join(', ')})
       Voit kilpailun lisäämisen jälkeen tarvittaessa poistaa tarpeettomat sarjat
       ja lisätä uusia.
       %p Mikäli et valitse tätä vaihtoehtoa, pääset lisäämään haluamasi sarjat heti kilpailun jälkeen.
