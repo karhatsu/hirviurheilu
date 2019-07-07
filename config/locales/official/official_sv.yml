@@ -15,6 +15,7 @@ sv:
       new:
         title: Öka tävling
         add_default_series_automatically: Öka standardklasser automatiskt
+        copy_series: Kopiera klasser från tävling
         submit: Öka tävling
       create:
         race_added: Tävling ökat

@@ -15,6 +15,7 @@ fi:
       new:
         title: Kilpailun lisäys
         add_default_series_automatically: Lisää oletussarjat automaattisesti
+        copy_series: Kopioi sarjat kilpailusta
         submit: Lisää kilpailu
       create:
         race_added: Kilpailu lisätty

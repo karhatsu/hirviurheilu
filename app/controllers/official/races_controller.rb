@@ -26,6 +26,9 @@ class Official::RacesController < Official::OfficialController
         @race.add_default_series
         flash[:success] << t('official.races.create.add_competitors_info')
         redirect_to official_race_path(@race)
+      elsif params[:copy_series]
+        @race.copy_series_from Race.find(params[:copy_series])
+        redirect_to official_race_path(@race)
       else
         flash[:success] << t('official.races.create.add_series_info')
         redirect_to edit_official_race_path(@race)

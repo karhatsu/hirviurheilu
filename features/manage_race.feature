@@ -20,7 +20,6 @@ Feature: Manage race
     And I select "13" from "race_start_date_3i"
     And I select "heinäkuu" from "race_start_date_2i"
     And I select "2019" from "race_start_date_1i"
-    And I uncheck "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
     Then I should be on the race edit page of "Test race"
     And the page title should contain "Test race"
@@ -39,6 +38,7 @@ Feature: Manage race
       | Lähtöaikojen väli | 30 |
     And I select "Test district" from "race_district_id"
     And I choose "Pääsääntöisesti sarjoittain"
+    And I check "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
     And the official main menu item should be selected

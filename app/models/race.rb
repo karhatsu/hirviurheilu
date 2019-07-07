@@ -80,6 +80,15 @@ class Race < ApplicationRecord
     end
   end
 
+  def copy_series_from(source_race)
+    source_race.series.each do |source_series|
+      series = Series.create! race: self, name: source_series.name
+      source_series.age_groups.each do |source_age_group|
+        AgeGroup.create! series: series, name: source_age_group.name, min_competitors: source_age_group.min_competitors
+      end
+    end
+  end
+
   def finish
     unless each_competitor_has_correct_estimates?
       errors.add :base, :correct_estimate_missing

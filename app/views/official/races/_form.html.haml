@@ -142,7 +142,7 @@
       %span.form_label
         = label_tag :add_default_series, t('official.races.new.add_default_series_automatically')
         %a.help#default_series_help{href: 'javascript:void(0);'} ?
-      %span= check_box_tag :add_default_series, '1', true
+      %span= check_box_tag :add_default_series, '1', params[:add_default_series]
 
     #default_series_help_dialog.dialog{style: 'display:none;'}
       Jos merkitset 'Lisää oletussarjat automaattisesti'-kentän valituksi,
@@ -156,7 +156,13 @@
       Voit kilpailun lisäämisen jälkeen tarvittaessa poistaa tarpeettomat sarjat
       ja lisätä uusia.
       %p Mikäli et valitse tätä vaihtoehtoa, pääset lisäämään haluamasi sarjat heti kilpailun jälkeen.
-    %br
+
+    - unless current_user.races.empty?
+      %div
+        %span.form_label
+          = label_tag :add_default_series, t('official.races.new.copy_series')
+        %span= select_tag :copy_series, options_from_collection_for_select(current_user.races, :id, :name, params[:copy_series]), prompt: '- Ei kopiointia -'
+
   - else
     = submit_tag submit_label
     %h3= t 'activerecord.models.series.other'
@@ -166,7 +172,7 @@
       = highlight_info(t 'official.races.form.you_havent_added_series_yet')
     = add_child_link t('official.races.form.add_series'), f, :series
     %br
-    %br
+  %br
   = submit_tag submit_label
 
 :javascript
@@ -188,4 +194,20 @@
   $(document).ready(showOrHideBatchSizes);
   $("#race_start_order_" + #{Race::START_ORDER_BY_SERIES}).click(showOrHideBatchSizes);
   $("#race_start_order_" + #{Race::START_ORDER_MIXED}).click(showOrHideBatchSizes);
+
+  $('#add_default_series').change(setSeriesMethodEnabling)
+  $('#copy_series').change(setSeriesMethodEnabling)
+
+  function setSeriesMethodEnabling() {
+    var defaultSeries = $('#add_default_series')[0].checked
+    var copySeries = !!$('#copy_series').val()
+    if (defaultSeries) {
+      $('#copy_series').attr('disabled', true)
+    } else if (copySeries) {
+      $('#add_default_series').attr('disabled', true)
+    } else {
+      $('#copy_series').removeAttr('disabled')
+      $('#add_default_series').removeAttr('disabled')
+    }
+  }
 = render :partial => 'shared/help_dialog_opener'
