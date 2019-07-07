@@ -1,0 +1,4 @@
+- content_for(:title, t('.title'))
+- content_for(:page_title, yield(:title))
+= flash_success
+= render partial: "form", locals: { submit_label: t('.submit') }
