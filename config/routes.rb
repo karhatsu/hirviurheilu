@@ -126,6 +126,7 @@ ElkSports::Application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       resources :races, only: [:show] do
+        resources :times, only: :index
         resources :competitors, only: [] do
           resource :start_time, only: :update
           resource :shooting_start_time, only: :update
