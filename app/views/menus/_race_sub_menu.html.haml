@@ -17,8 +17,6 @@
       - unless race.relays.empty?
         = menu_item t('race_sub_menu.relays'), race_relay_path(race, race.relays.first), @is_relays, nil, true do
           - relays_dropdown_menu(race)
-      - if race.video_source
-        = menu_item t('race_sub_menu.video'), race_video_path(race), @is_video
       - unless race.all_competitions_finished?
         = menu_item t('race_sub_menu.result_rotation'), race_result_rotation_path(race), result_rotation_cookie
       = menu_item t('race_sub_menu.press'), new_race_medium_path(race), @is_media

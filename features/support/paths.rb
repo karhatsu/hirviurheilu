@@ -82,9 +82,6 @@ module NavigationHelpers
     when /the race page of "(.*)"/
       race_path(locale, Race.find_by_name($1))
 
-    when /the video page of race "(.*)"/
-      race_video_path(locale, Race.find_by_name($1))
-
     when /the races page/
       races_path
 
@@ -123,9 +120,6 @@ module NavigationHelpers
 
     when /the admin races page/
       admin_races_path locale
-
-    when /the admin video page of the race/
-      admin_race_video_path(locale, @race)
 
     when /the send feedback page/
       new_feedback_path locale

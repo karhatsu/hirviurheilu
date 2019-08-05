@@ -37,7 +37,6 @@ ElkSports::Application.routes.draw do
       end
       resource :result_rotation
       resource :medium
-      resource :video
     end
 
     resources :series do

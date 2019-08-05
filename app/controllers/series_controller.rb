@@ -11,10 +11,6 @@ class SeriesController < ApplicationController
         assign_series_by_id
         render :json => @series.to_json(:methods => [:next_start_number, :next_start_time])
       }
-      format.js {
-        assign_series_by_id
-        render 'videos/show_series' if @series
-      }
       format.pdf {
         render pdf: "#{@series.name}-tulokset", layout: true, margin: pdf_margin,
                header: pdf_header("#{@series.race.name} - #{@series.name}\n"), footer: pdf_footer,
