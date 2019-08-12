@@ -52,6 +52,8 @@ describe Relay do
     it_should_behave_like 'positive integer', :leg_distance
     it_should_behave_like 'positive integer', :estimate_penalty_distance
     it_should_behave_like 'positive integer', :shooting_penalty_distance
+    it_should_behave_like 'positive integer', :penalty_seconds
+    it { is_expected.to allow_value(nil).for(:penalty_seconds) }
   end
 
   describe "teams" do
