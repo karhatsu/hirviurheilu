@@ -16,7 +16,7 @@ Feature: Relay results
     And the "Viestit" sub menu item should be selected
     And I should see "Women's relay - (Ei joukkueita)" within "h2"
     And I should see "Viestiin ei ole vielä merkitty joukkueita" in an info message
-    
+
   Scenario: The relay has teams but no start time defined
     Given there is a race "Relay race"
     And the race has a relay "Women's relay"
@@ -177,3 +177,73 @@ Feature: Relay results
     Then I should be on the relay results page of "Women's relay"
     When I follow "Takaisin sivulle Relay race"
     Then I should be on the race page of "Relay race"
+
+  Scenario: Relay with penalty seconds
+    Given there is a race with attributes:
+      | name | Relay race |
+      | start_date | 2011-01-15 |
+    And the race has a relay with attributes:
+      | name | Penalty secs relay |
+      | legs_count | 3 |
+      | penalty_seconds | 60 |
+      | start_time      | 10:00 |
+    And the relay has the correct estimates:
+      | leg | distance |
+      | 1 | 100 |
+      | 2 | 120 |
+    And the relay has a team "Green team" with number 1
+    And the relay team has a competitor with attributes:
+      | first_name | TimG |
+      | last_name | SmithG |
+      | leg | 1 |
+      | arrival_time | 00:15:10 |
+      | misses | 1 |
+      | estimate | 123 |
+    And the relay team has a competitor with attributes:
+      | first_name | JohnG |
+      | last_name | StevensonG |
+      | leg | 2 |
+      | arrival_time | 00:31:12 |
+      | misses | 0 |
+      | estimate | 100 |
+    And the relay team has a competitor with attributes:
+      | first_name | GaryG |
+      | last_name | JohnsonG |
+      | leg | 3 |
+      | arrival_time | 00:44:54 |
+      | misses | 2 |
+      | estimate | 100 |
+    And the relay has a team "Yellow team" with number 2
+    And the relay team has a competitor with attributes:
+      | first_name | TimY |
+      | last_name | SmithY |
+      | leg | 1 |
+      | arrival_time | 00:15:05 |
+      | misses | 5 |
+      | estimate | 100 |
+    And the relay team has a competitor with attributes:
+      | first_name | JohnY |
+      | last_name | StevensonY |
+      | leg | 2 |
+      | arrival_time | 00:32:12 |
+      | misses | 2 |
+      | estimate | 100 |
+    And the relay team has a competitor with attributes:
+      | first_name | GaryY |
+      | last_name | JohnsonY |
+      | leg | 3 |
+      | arrival_time | 00:43:13 |
+      | misses | 1 |
+      | estimate | 100 |
+    Given the relay is finished
+    And I am on the relay results page of "Penalty secs relay"
+    Then I should see "Sakkosekunnit: 60 s/sakko (sakkoja ei juosta)" in an info message
+    Then I should see "Yellow team" within "tr#team_1"
+    And I should see "54:13 (43:13)" within "tr#team_1"
+    And I should see "Green team" within "tr#team_2"
+    And I should see "54:54 (44:54)" within "tr#team_2"
+    When I follow "Osuus 2"
+    Then I should see "StevensonG JohnG" within "tr#team_1"
+    And I should see "39:12 (31:12)" within "tr#team_1"
+    And I should see "StevensonY JohnY" within "tr#team_2"
+    And I should see "42:12 (32:12)" within "tr#team_2"

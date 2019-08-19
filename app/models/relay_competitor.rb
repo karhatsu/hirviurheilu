@@ -65,7 +65,7 @@ class RelayCompetitor < ApplicationRecord
   end
 
   def penalty_seconds
-    relay.penalty_seconds * (misses + estimate_penalties)
+    relay.penalty_seconds * (misses + estimate_penalties.to_i)
   end
 
   private
