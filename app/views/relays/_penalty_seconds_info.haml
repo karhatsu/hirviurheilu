@@ -1,0 +1,3 @@
+- if @relay.penalty_seconds
+  - sport = @relay.race.sport.ski? ? 'ski' : 'run'
+  .info= t("relays.show.penalty_seconds_info.#{sport}", penalty_seconds: @relay.penalty_seconds)

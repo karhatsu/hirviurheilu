@@ -3,6 +3,9 @@ sv:
     show:
       no_teams: Inga lag
       relay_has_not_started_yet: Stafetten har inte ännu börjat
+      penalty_seconds_info:
+        run: "Straffsekunder: %{penalty_seconds} s/straff"
+        ski: "Straffsekunder: %{penalty_seconds} s/straff"
       standing: Poängsumma
       updated: updaterad
       relay_has_no_teams: Inga lagen tillsatt för stafetten ännu
@@ -16,4 +19,3 @@ sv:
       finish: Mål
       legs_title: Mellantider
       download_start_list_pdf: Ladda startlistan som PDF-fil
-      

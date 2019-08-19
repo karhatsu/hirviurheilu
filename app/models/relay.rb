@@ -16,6 +16,7 @@ class Relay < ApplicationRecord
   validates :leg_distance, numericality: { allow_nil: true, greater_than: 0, only_integer: true }
   validates :estimate_penalty_distance, numericality: { allow_nil: true, greater_than: 0, only_integer: true }
   validates :shooting_penalty_distance, numericality: { allow_nil: true, greater_than: 0, only_integer: true }
+  validates :penalty_seconds, numericality: { allow_nil: true, greater_than: 0, only_integer: true }
   validate :start_day_not_bigger_than_race_days_count
 
   attr_readonly :legs_count

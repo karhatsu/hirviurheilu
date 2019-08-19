@@ -4,6 +4,7 @@
 - if @results.empty?
   .info= t '.relay_has_no_teams'
 - else
+  = render 'penalty_seconds_info'
   = render 'correct_estimates'
   = render 'results_title'
   - cache [@relay, params[:exclude_competitors], I18n.locale] do

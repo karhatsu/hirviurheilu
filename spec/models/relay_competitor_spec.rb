@@ -323,5 +323,35 @@ describe RelayCompetitor do
       expect(build(:relay_competitor, :start_time => '13:58:02', :arrival_time => '15:02:04', :adjustment => -15).
         time_in_seconds).to eq(64 * 60 + 2 + -15)
     end
+
+    describe 'with penalty seconds' do
+      let(:relay) { create :relay, penalty_seconds: 40 }
+      let(:relay_team) { create :relay_team, relay: relay }
+      let(:competitor) { build :relay_competitor, relay_team: relay_team, leg: 1,
+                               start_time: '00:20:02', arrival_time: '00:40:07', misses: 2, estimate: 100 }
+
+      before do
+        create :relay_correct_estimate, relay: relay, leg: 1, distance: 121 # 4 penalties
+      end
+
+      context 'when they are not wanted' do
+        it 'does not add anything to the arrival time' do
+          expect(competitor.time_in_seconds(false)).to eq(20 * 60 + 5)
+        end
+      end
+
+      context 'when they are wanted' do
+        it 'add penalties seconds to the arrival time' do
+          expect(competitor.time_in_seconds(true)).to eq(20 * 60 + 5 + 40 * (2 + 4))
+        end
+      end
+
+      context 'when they are wanted but are not defined' do
+        it 'does not crash' do
+          relay.penalty_seconds = nil
+          expect(competitor.time_in_seconds(true)).to eq(20 * 60 + 5)
+        end
+      end
+    end
   end
 end

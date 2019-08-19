@@ -59,18 +59,16 @@ describe RelayTeam do
     end
   end
 
-  describe "#time_in_seconds and adjustments" do
+  describe "#time_in_seconds" do
     let(:correct_estimate) { 100 }
     before do
-      @relay = create(:relay, :legs_count => 3, :start_time => '12:00')
+      @relay = create :relay, legs_count: 3, start_time: '12:00'
       create :relay_correct_estimate, relay: @relay, leg: 1, distance: correct_estimate
       create :relay_correct_estimate, relay: @relay, leg: 2, distance: correct_estimate
       create :relay_correct_estimate, relay: @relay, leg: 3, distance: correct_estimate
-      @team = create(:relay_team, :relay => @relay)
-      @c1 = create(:relay_competitor, :relay_team => @team, :leg => 1,
-        :arrival_time => '00:10:00')
-      @c2 = create(:relay_competitor, :relay_team => @team, :leg => 2,
-        :arrival_time => '00:20:54')
+      @team = create :relay_team, relay: @relay
+      @c1 = create :relay_competitor, relay_team: @team, leg: 1, arrival_time: '00:10:00', misses: 3, estimate: correct_estimate - 6
+      @c2 = create :relay_competitor, relay_team: @team, leg: 2, arrival_time: '00:20:54', misses: 4, estimate: correct_estimate + 17
     end
 
     it "should return nil if no last competitor defined" do
@@ -180,6 +178,27 @@ describe RelayTeam do
                 (c1_misses - c1_shooting_penalties_adjustment) * shooting_penalty_distance
           end
         end
+      end
+    end
+
+    describe 'with_penalty_seconds' do
+      let(:penalty_seconds) { 60 }
+
+      before do
+        @relay.update_attribute :penalty_seconds, penalty_seconds
+        create :relay_competitor, relay_team: @team, leg: 3, arrival_time: '00:31:15', misses: 5, estimate: correct_estimate
+      end
+
+      it 'returns normal time if penalty seconds not wanted' do
+        expect(@team.time_in_seconds(1)).to eq(10 * 60)
+        expect(@team.time_in_seconds(nil)).to eq(31 * 60 + 15)
+      end
+
+      it 'returns cumulative leg time with cumulative penalty seconds' do
+        expect(@team.time_in_seconds(1, true)).to eq(10 * 60 + penalty_seconds * (3 + 1))
+        expect(@team.time_in_seconds(2, true)).to eq(20 * 60 + 54 + penalty_seconds * (3 + 1 + 4 + 3))
+        expect(@team.time_in_seconds(3, true)).to eq(31 * 60 + 15 + penalty_seconds * (3 + 1 + 4 + 3 + 5))
+        expect(@team.time_in_seconds(nil, true)).to eq(31 * 60 + 15 + penalty_seconds * (3 + 1 + 4 + 3 + 5))
       end
     end
   end

@@ -58,6 +58,7 @@ sv:
     organizer_phone: Telefon
     password: Lösenord
     password_confirmation: Lösenord igen
+    penalty_seconds: Straffsekonder
     points_method: Poängmetod
     price: Pris
     public_message: Meddelande på tävlingens hemsida

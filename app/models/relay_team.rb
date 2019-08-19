@@ -19,11 +19,13 @@ class RelayTeam < ApplicationRecord
     relay_competitors.where(:leg => leg).first # slower and reliable solution
   end
 
-  def time_in_seconds(leg=nil)
+  def time_in_seconds(leg=nil, with_penalty_seconds=false)
     leg = relay.legs_count unless leg
     competitor = competitor(leg)
     return nil unless competitor&.arrival_time
-    competitor.arrival_time - competitor(1).start_time + adjustment(leg) + estimate_adjustment(leg) + shooting_adjustment(leg)
+    time = competitor.arrival_time - competitor(1).start_time + adjustment(leg) + estimate_adjustment(leg) + shooting_adjustment(leg)
+    return time unless with_penalty_seconds
+    time + penalty_seconds(leg)
   end
 
   def estimate_penalties_sum
@@ -74,6 +76,17 @@ class RelayTeam < ApplicationRecord
       unless competitor.misses.nil?
         sum = sum.to_i + competitor.misses.to_i
       end
+    end
+    sum
+  end
+
+  def penalty_seconds(leg=nil)
+    return 0 unless relay.penalty_seconds
+    leg = relay.legs_count unless leg
+    sum = 0
+    leg.to_i.times do |i|
+      competitor = competitor(i + 1)
+      sum += competitor.penalty_seconds.to_i if competitor
     end
     sum
   end

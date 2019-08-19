@@ -13,6 +13,7 @@
   .info= t '.relay_has_no_start_time'
 - else
   = render 'start_time_info'
+  = render 'penalty_seconds_info'
   = render 'correct_estimates'
   = render 'results_title'
   = render 'leg_links'
@@ -42,14 +43,6 @@
     $('#show_all_competitors').show();
     $('#hide_all_competitors').hide();
   }
-  $('.team_name_link').click(function() {
-    competitors = '.team_' + $(this).attr('id');
-    if($(competitors).is(':hidden')) {
-      $(competitors).show();
-    } else {
-      $(competitors).hide();
-    }
-  });
   $('#show_all_competitors').click(function() {
     showAllCompetitors();
   });
