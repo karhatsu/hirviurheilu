@@ -43,14 +43,6 @@
     $('#show_all_competitors').show();
     $('#hide_all_competitors').hide();
   }
-  $('.team_name_link').click(function() {
-    competitors = '.team_' + $(this).attr('id');
-    if($(competitors).is(':hidden')) {
-      $(competitors).show();
-    } else {
-      $(competitors).hide();
-    }
-  });
   $('#show_all_competitors').click(function() {
     showAllCompetitors();
   });

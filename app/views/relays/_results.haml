@@ -6,17 +6,15 @@
       %th= t :team
       %th= t :number_short
       %th.center= time_title @race
+      - unless params[:exclude_competitors]
+        %th.center.competitor_row{style: competitor_style}= t :leg_time
       %th= t 'relays.show.estimate_penalties'
       %th= t 'relays.show.shooting_penalties'
     - relay.results.each_with_index do |team, i|
       %tr{id: "team_#{i + 1}"}
         %td
           %b #{i + 1}.
-        %td.team_name
-          - if pdf
-            = team.name
-          - else
-            %a.team_name_link{href: "javascript:void(0)", id: team.id}= team.name
+        %td.team_name= team.name
         %td.center
           %b= team.number
         %td.center.team_points
@@ -25,6 +23,8 @@
           - else
             = time_from_seconds(team.time_in_seconds)
             = relay_time_adjustment_print team
+        - unless params[:exclude_competitors]
+          %td.competitor_row{style: competitor_style}
         %td.center
           %b= team.estimate_penalties_sum
         %td.center
@@ -38,8 +38,9 @@
             %td.center (#{comp.leg})
             %td.center
               = time_from_seconds(team.time_in_seconds(comp.leg))
-              (#{time_from_seconds comp.time_in_seconds})
               = relay_time_adjustment_print comp
+            %td.center
+              = time_from_seconds comp.time_in_seconds
             %td.center
               = comp.estimate_penalties
               - if relay.finished? and comp.estimate

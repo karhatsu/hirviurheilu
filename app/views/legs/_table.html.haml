@@ -5,6 +5,8 @@
     %th= t 'activerecord.models.competitor', :count => 1
     %th= t :number_short
     %th.center= time_title @relay.race
+    - if @leg.to_i > 1
+      %th.center= t :leg_time
     %th= t 'relays.show.estimate_penalties'
     %th= t 'relays.show.shooting_penalties'
   - @results.each_with_index do |team, i|
@@ -16,9 +18,9 @@
       %td.center= team.number
       %td.center.team_points
         = time_from_seconds(team.time_in_seconds(@leg.to_i))
-        - if @leg.to_i > 1
-          (#{time_from_seconds competitor.time_in_seconds})
         = relay_time_adjustment_print competitor
+      - if @leg.to_i > 1
+        %td.center= time_from_seconds competitor.time_in_seconds
       %td.center
         = competitor.estimate_penalties
         - if @relay.finished? and competitor.estimate
