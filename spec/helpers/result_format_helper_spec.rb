@@ -312,4 +312,75 @@ describe ResultFormatHelper do
       end
     end
   end
+
+  describe '#relay_time_print' do
+    let(:relay) { instance_double Relay, penalty_seconds: penalty_seconds }
+    let(:team) { instance_double RelayTeam }
+    let(:penalty_seconds) { nil }
+
+    context 'when no penalty seconds' do
+      before do
+        expect(team).to receive(:time_in_seconds).with(nil).and_return(13 * 60 + 59)
+      end
+
+      it 'prints just relay time' do
+        expect(helper.relay_time_print(relay, team)).to eql '13:59'
+      end
+    end
+
+    context 'when penalty seconds' do
+      let(:penalty_seconds) { 45 }
+
+      before do
+        expect(team).to receive(:time_in_seconds).and_return(13 * 60 + 59)
+        expect(team).to receive(:time_in_seconds).with(nil, true).and_return(18 * 60 + 7)
+      end
+
+      it 'prints team time with and without penalty seconds' do
+        expect(helper.relay_time_print(relay, team)).to eql '18:07 (13:59)'
+      end
+    end
+
+    context 'with leg' do
+      let(:leg) { 2 }
+
+      before do
+        expect(team).to receive(:time_in_seconds).with(leg).and_return(9 * 60 + 58)
+      end
+
+      it 'returns leg time' do
+        expect(helper.relay_time_print(relay, team, leg)).to eql '09:58'
+      end
+    end
+  end
+
+  describe '#relay_leg_time_print' do
+    let(:relay) { instance_double Relay, penalty_seconds: penalty_seconds }
+    let(:competitor) { instance_double RelayCompetitor }
+
+    context 'when no penalty seconds' do
+      let(:penalty_seconds) { nil }
+
+      before do
+        expect(competitor).to receive(:time_in_seconds).and_return(4 * 60 + 12)
+      end
+
+      it 'prints just leg time' do
+        expect(helper.relay_leg_time_print(relay, competitor)).to eql '04:12'
+      end
+    end
+
+    context 'when penalty seconds' do
+      let(:penalty_seconds) { 60 }
+
+      before do
+        expect(competitor).to receive(:time_in_seconds).and_return(4 * 60 + 6)
+        expect(competitor).to receive(:time_in_seconds).with(true).and_return(5 * 60 + 6)
+      end
+
+      it 'prints leg times with and without penalty seconds' do
+        expect(helper.relay_leg_time_print(relay, competitor)).to eql '05:06 (04:06)'
+      end
+    end
+  end
 end

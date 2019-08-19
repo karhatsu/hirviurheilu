@@ -91,4 +91,16 @@ module ResultFormatHelper
     return nil if series.points_method == Series::POINTS_METHOD_TIME_2_ESTIMATES
     t("points_method_#{series.points_method}.#{series.race.sport.key}")
   end
+
+  def relay_time_print(relay, team, leg=nil)
+    team_time = time_from_seconds team.time_in_seconds(leg)
+    return "#{time_from_seconds team.time_in_seconds(leg, true)} (#{team_time})" if relay.penalty_seconds
+    team_time
+  end
+
+  def relay_leg_time_print(relay, competitor)
+    leg_time = time_from_seconds competitor.time_in_seconds
+    return "#{time_from_seconds competitor.time_in_seconds(true)} (#{leg_time})" if relay.penalty_seconds
+    leg_time
+  end
 end

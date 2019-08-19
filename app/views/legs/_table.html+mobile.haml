@@ -16,10 +16,10 @@
         #{team.name} (#{team.number}) /
         = full_name competitor
       %td.center.team_points
-        = time_from_seconds(team.time_in_seconds(@leg.to_i))
+        = relay_time_print @relay, team, @leg.to_i
         = relay_time_adjustment_print competitor
         - if @leg.to_i > 1
-          %td.center= time_from_seconds competitor.time_in_seconds
+          %td.center= relay_leg_time_print @relay, competitor
       %td.center
         = competitor.estimate_penalties
         - if @relay.finished? and competitor.estimate
