@@ -325,7 +325,7 @@ describe RelayCompetitor do
     end
 
     describe 'with penalty seconds' do
-      let(:relay) { create :relay, penalty_seconds: 40 }
+      let(:relay) { create :relay, estimate_penalty_seconds: 40, shooting_penalty_seconds: 60 }
       let(:relay_team) { create :relay_team, relay: relay }
       let(:competitor) { build :relay_competitor, relay_team: relay_team, leg: 1,
                                start_time: '00:20:02', arrival_time: '00:40:07', misses: 2, estimate: 100 }
@@ -342,13 +342,14 @@ describe RelayCompetitor do
 
       context 'when they are wanted' do
         it 'add penalties seconds to the arrival time' do
-          expect(competitor.time_in_seconds(true)).to eq(20 * 60 + 5 + 40 * (2 + 4))
+          expect(competitor.time_in_seconds(true)).to eq(20 * 60 + 5 + 40 * 4 + 60 * 2)
         end
       end
 
       context 'when they are wanted but are not defined' do
         it 'does not crash' do
-          relay.penalty_seconds = nil
+          relay.estimate_penalty_seconds = nil
+          relay.shooting_penalty_seconds = nil
           expect(competitor.time_in_seconds(true)).to eq(20 * 60 + 5)
         end
       end

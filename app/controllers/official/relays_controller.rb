@@ -68,7 +68,8 @@ class Official::RelaysController < Official::OfficialController
   end
 
   def accepted_create_params
-    [ :name, :legs_count, :start_day, :leg_distance, :estimate_penalty_distance, :shooting_penalty_distance, :penalty_seconds,
+    [ :name, :legs_count, :start_day, :leg_distance, :estimate_penalty_distance, :shooting_penalty_distance,
+      :estimate_penalty_seconds, :shooting_penalty_seconds,
       'start_time(1i)', 'start_time(2i)', 'start_time(3i)', 'start_time(4i)', 'start_time(5i)' ]
   end
 

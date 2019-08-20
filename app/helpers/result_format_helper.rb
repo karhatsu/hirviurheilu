@@ -94,13 +94,13 @@ module ResultFormatHelper
 
   def relay_time_print(relay, team, leg=nil)
     team_time = time_from_seconds team.time_in_seconds(leg)
-    return "#{time_from_seconds team.time_in_seconds(leg, true)} (#{team_time})" if relay.penalty_seconds
+    return "#{time_from_seconds team.time_in_seconds(leg, true)} (#{team_time})" if relay.penalty_seconds?
     team_time
   end
 
   def relay_leg_time_print(relay, competitor)
     leg_time = time_from_seconds competitor.time_in_seconds
-    return "#{time_from_seconds competitor.time_in_seconds(true)} (#{leg_time})" if relay.penalty_seconds
+    return "#{time_from_seconds competitor.time_in_seconds(true)} (#{leg_time})" if relay.penalty_seconds?
     leg_time
   end
 end

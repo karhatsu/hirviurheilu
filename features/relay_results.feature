@@ -185,7 +185,8 @@ Feature: Relay results
     And the race has a relay with attributes:
       | name | Penalty secs relay |
       | legs_count | 3 |
-      | penalty_seconds | 60 |
+      | estimate_penalty_seconds | 30 |
+      | shooting_penalty_seconds | 60 |
       | start_time      | 10:00 |
     And the relay has the correct estimates:
       | leg | distance |
@@ -237,13 +238,13 @@ Feature: Relay results
       | estimate | 100 |
     Given the relay is finished
     And I am on the relay results page of "Penalty secs relay"
-    Then I should see "Sakkosekunnit: 60 s/sakko (sakkoja ei juosta)" in an info message
+    Then I should see "Sakkoja ei juosta vaan ne lisätään aikaan. Arviointi: 30 s/sakko. Ammunta: 60 s/sakko." in an info message
     Then I should see "Yellow team" within "tr#team_1"
-    And I should see "54:13 (43:13)" within "tr#team_1"
+    And I should see "52:43 (43:13)" within "tr#team_1"
     And I should see "Green team" within "tr#team_2"
-    And I should see "54:54 (44:54)" within "tr#team_2"
+    And I should see "51:24 (44:54)" within "tr#team_2"
     When I follow "Osuus 2"
     Then I should see "StevensonG JohnG" within "tr#team_1"
-    And I should see "39:12 (31:12)" within "tr#team_1"
+    And I should see "35:42 (31:12)" within "tr#team_1"
     And I should see "StevensonY JohnY" within "tr#team_2"
-    And I should see "42:12 (32:12)" within "tr#team_2"
+    And I should see "40:42 (32:12)" within "tr#team_2"

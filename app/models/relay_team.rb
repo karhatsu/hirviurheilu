@@ -81,7 +81,7 @@ class RelayTeam < ApplicationRecord
   end
 
   def penalty_seconds(leg=nil)
-    return 0 unless relay.penalty_seconds
+    return 0 unless relay.penalty_seconds?
     leg = relay.legs_count unless leg
     sum = 0
     leg.to_i.times do |i|

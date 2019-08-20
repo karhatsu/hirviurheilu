@@ -314,9 +314,9 @@ describe ResultFormatHelper do
   end
 
   describe '#relay_time_print' do
-    let(:relay) { instance_double Relay, penalty_seconds: penalty_seconds }
+    let(:relay) { instance_double Relay, penalty_seconds?: penalty_seconds? }
     let(:team) { instance_double RelayTeam }
-    let(:penalty_seconds) { nil }
+    let(:penalty_seconds?) { nil }
 
     context 'when no penalty seconds' do
       before do
@@ -329,7 +329,7 @@ describe ResultFormatHelper do
     end
 
     context 'when penalty seconds' do
-      let(:penalty_seconds) { 45 }
+      let(:penalty_seconds?) { 45 }
 
       before do
         expect(team).to receive(:time_in_seconds).and_return(13 * 60 + 59)
@@ -355,11 +355,11 @@ describe ResultFormatHelper do
   end
 
   describe '#relay_leg_time_print' do
-    let(:relay) { instance_double Relay, penalty_seconds: penalty_seconds }
+    let(:relay) { instance_double Relay, penalty_seconds?: penalty_seconds? }
     let(:competitor) { instance_double RelayCompetitor }
 
     context 'when no penalty seconds' do
-      let(:penalty_seconds) { nil }
+      let(:penalty_seconds?) { nil }
 
       before do
         expect(competitor).to receive(:time_in_seconds).and_return(4 * 60 + 12)
@@ -371,7 +371,7 @@ describe ResultFormatHelper do
     end
 
     context 'when penalty seconds' do
-      let(:penalty_seconds) { 60 }
+      let(:penalty_seconds?) { true }
 
       before do
         expect(competitor).to receive(:time_in_seconds).and_return(4 * 60 + 6)

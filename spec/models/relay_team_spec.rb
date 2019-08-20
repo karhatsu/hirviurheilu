@@ -182,10 +182,12 @@ describe RelayTeam do
     end
 
     describe 'with_penalty_seconds' do
-      let(:penalty_seconds) { 60 }
+      let(:eps) { 60 }
+      let(:sps) { 90 }
 
       before do
-        @relay.update_attribute :penalty_seconds, penalty_seconds
+        @relay.update_attribute :estimate_penalty_seconds, eps
+        @relay.update_attribute :shooting_penalty_seconds, sps
         create :relay_competitor, relay_team: @team, leg: 3, arrival_time: '00:31:15', misses: 5, estimate: correct_estimate
       end
 
@@ -195,10 +197,10 @@ describe RelayTeam do
       end
 
       it 'returns cumulative leg time with cumulative penalty seconds' do
-        expect(@team.time_in_seconds(1, true)).to eq(10 * 60 + penalty_seconds * (3 + 1))
-        expect(@team.time_in_seconds(2, true)).to eq(20 * 60 + 54 + penalty_seconds * (3 + 1 + 4 + 3))
-        expect(@team.time_in_seconds(3, true)).to eq(31 * 60 + 15 + penalty_seconds * (3 + 1 + 4 + 3 + 5))
-        expect(@team.time_in_seconds(nil, true)).to eq(31 * 60 + 15 + penalty_seconds * (3 + 1 + 4 + 3 + 5))
+        expect(@team.time_in_seconds(1, true)).to eq(10 * 60 + 3 * sps + 1 * eps)
+        expect(@team.time_in_seconds(2, true)).to eq(20 * 60 + 54 + (3 + 4) * sps + (1 + 3) * eps)
+        expect(@team.time_in_seconds(3, true)).to eq(31 * 60 + 15 + (3 + 4 + 5) * sps + (1 + 3) * eps)
+        expect(@team.time_in_seconds(nil, true)).to eq(31 * 60 + 15 + (3 + 4 + 5) * sps + (1 + 3) * eps)
       end
     end
   end

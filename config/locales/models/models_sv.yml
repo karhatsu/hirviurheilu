@@ -33,6 +33,7 @@ sv:
     estimate3: Bedömning 3
     estimate4: Bedömning 4
     estimate_penalty_distance: Bedömningstraff avstånd (m)
+    estimate_penalty_seconds: Straffsekonder för bedömning
     first_name: Förnamn
     first_number: Första tävlingsnummer
     front_page: Visa på frontsida
@@ -58,7 +59,6 @@ sv:
     organizer_phone: Telefon
     password: Lösenord
     password_confirmation: Lösenord igen
-    penalty_seconds: Straffsekonder
     points_method: Poängmetod
     price: Pris
     public_message: Meddelande på tävlingens hemsida
@@ -73,6 +73,7 @@ sv:
     shooting_finish_time: Skytte sluttid
     shooting_overtime_min: Skottstidens överminuter
     shooting_penalty_distance: Skottsstraff avstånd (m)
+    shooting_penalty_seconds: Straffsekonder för skytte
     shooting_start_time: Skytte starttid
     shooting_time: Skyttetid
     short_name: Kort namn

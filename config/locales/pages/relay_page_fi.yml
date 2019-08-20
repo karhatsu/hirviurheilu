@@ -4,8 +4,8 @@ fi:
       no_teams: Ei joukkueita
       relay_has_not_started_yet: Viesti ei ole vielä alkanut
       penalty_seconds_info:
-        run: "Sakkosekunnit: %{penalty_seconds} s/sakko (sakkoja ei juosta)"
-        ski: "Sakkosekunnit: %{penalty_seconds} s/sakko (sakkoja ei hiihdetä)"
+        run: "Sakkoja ei juosta vaan ne lisätään aikaan. Arviointi: %{estimate_penalty_seconds} s/sakko. Ammunta: %{shooting_penalty_seconds} s/sakko."
+        ski: "Sakkoja ei hiihdetä vaan ne lisätään aikaan. Arviointi: %{estimate_penalty_seconds} s/sakko. Ammunta: %{shooting_penalty_seconds} s/sakko."
       standing: Tilanne
       updated: päivitetty
       relay_has_no_teams: Viestiin ei ole vielä merkitty joukkueita

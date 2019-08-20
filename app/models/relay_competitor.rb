@@ -46,7 +46,7 @@ class RelayCompetitor < ApplicationRecord
   def time_in_seconds(with_penalty_seconds = false)
     return nil if start_time.nil? || arrival_time.nil?
     time = arrival_time - start_time + adjustment.to_i + estimate_adjustment.to_i + shooting_adjustment.to_i
-    return time unless with_penalty_seconds && relay.penalty_seconds
+    return time unless with_penalty_seconds && relay.penalty_seconds?
     time + penalty_seconds
   end
 
@@ -65,7 +65,7 @@ class RelayCompetitor < ApplicationRecord
   end
 
   def penalty_seconds
-    relay.penalty_seconds * (misses + estimate_penalties.to_i)
+    relay.estimate_penalty_seconds * estimate_penalties.to_i + relay.shooting_penalty_seconds * misses
   end
 
   private
