@@ -33,7 +33,7 @@ fi:
     estimate3: Arvio 3
     estimate4: Arvio 4
     estimate_penalty_distance: Arviosakkokierroksen pituus (m)
-    estimate_penalty_seconds: Arvionnin sakkosekunnit (jos sakkoja ei juosta/hiihdetä)
+    estimate_penalty_seconds: Arvionnin sakkosekunnit
     first_name: Etunimi
     first_number: Ensimmäinen kilpailunumero
     front_page: Näytä etusivulla
@@ -73,7 +73,7 @@ fi:
     shooting_finish_time: Ammunnan lopetusaika
     shooting_overtime_min: Ammunta-ajan ylitysminuutit
     shooting_penalty_distance: Ammuntasakkokierroksen pituus (m)
-    shooting_penalty_seconds: Ammunnan sakkosekunnit (jos sakkoja ei juosta/hiihdetä)
+    shooting_penalty_seconds: Ammunnan sakkosekunnit
     shooting_start_time: Ammunnan aloitusaika
     shooting_time: Ammunta-aika
     short_name: Lyhyt nimi

@@ -9,9 +9,11 @@ class Official::RelaysController < Official::OfficialController
 
   def new
     @relay = @race.relays.build(:legs_count => 4)
+    @penalty_method = 'run'
   end
 
   def create
+    @penalty_method = params[:penalty_method]
     @relay = @race.relays.build(create_relay_params)
     if @relay.save
       flash[:success] = 'Viesti luotu. Voit nyt lisätä viestiin joukkueita.'
@@ -22,9 +24,11 @@ class Official::RelaysController < Official::OfficialController
   end
 
   def edit
+    @penalty_method = @relay.penalty_seconds? ? 'penalty_seconds' : 'run'
   end
 
   def update
+    @penalty_method = params[:penalty_method]
     if @relay.updated_at.to_i != params[:updated_at].to_i
       flash[:error] = 'Joku muu on muokannut viestiä samaan aikaan. Yritä tallennusta uudestaan tai kokeile tulosten tallentamista Pikasyötön avulla.'
       redirect_to edit_official_race_relay_path(@race, @relay)

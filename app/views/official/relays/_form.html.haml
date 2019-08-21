@@ -10,7 +10,7 @@
     %span.form_label= f.label :legs_count
     %span
       - if @relay.new_record?
-        = f.telephone_field :legs_count, size: 2, class: 'max2'
+        = f.number_field :legs_count, size: 2, class: 'max2'
       - else
         = @relay.legs_count
   %div
@@ -23,17 +23,26 @@
     %span.form_label= f.label :leg_distance
     %span= f.number_field :leg_distance
   %div
-    %span.form_label= f.label :estimate_penalty_distance
-    %span= f.number_field :estimate_penalty_distance
-  %div
-    %span.form_label= f.label :shooting_penalty_distance
-    %span= f.number_field :shooting_penalty_distance
-  %div
-    %span.form_label= f.label :estimate_penalty_seconds
-    %span= f.number_field :estimate_penalty_seconds
-  %div
-    %span.form_label= f.label :shooting_penalty_seconds
-    %span= f.number_field :shooting_penalty_seconds
+    %span.form_label Sakkojen suorittaminen
+    %span
+      = radio_button_tag :penalty_method, 'run', @penalty_method == 'run'
+      Juostaan / hiihdetään
+      = radio_button_tag :penalty_method, 'penalty_seconds', @penalty_method == 'penalty_seconds'
+      Lisätään loppuaikaan
+  .penalty_run{style: 'display: none'}
+    %div
+      %span.form_label= f.label :estimate_penalty_distance
+      %span= f.number_field :estimate_penalty_distance
+    %div
+      %span.form_label= f.label :shooting_penalty_distance
+      %span= f.number_field :shooting_penalty_distance
+  .penalty_seconds{style: 'display: none'}
+    %div
+      %span.form_label= f.label :estimate_penalty_seconds
+      %span= f.number_field :estimate_penalty_seconds
+    %div
+      %span.form_label= f.label :shooting_penalty_seconds
+      %span= f.number_field :shooting_penalty_seconds
   - unless @relay.new_record?
     %h2= t :correct_distances
     = render partial: 'all_correct_estimates', locals: { f: f }
@@ -47,3 +56,26 @@
     %br
     %br
   = submit_tag t(:save)
+
+:javascript
+  function showPenaltySecondFields() {
+    $('.penalty_seconds').show()
+    $('.penalty_run').hide()
+  }
+  function showRunFields() {
+    $('.penalty_run').show()
+    $('.penalty_seconds').hide()
+  }
+  $('#penalty_method_run').click(function() {
+    showRunFields();
+  });
+  $('#penalty_method_penalty_seconds').click(function() {
+    showPenaltySecondFields();
+  });
+  $(document).ready(function() {
+    if('#{@penalty_method}' === 'penalty_seconds') {
+      showPenaltySecondFields()
+    } else {
+      showRunFields()
+    }
+  });
