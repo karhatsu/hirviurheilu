@@ -239,10 +239,10 @@ Feature: Relay results
     Given the relay is finished
     And I am on the relay results page of "Penalty secs relay"
     Then I should see "Sakkoja ei juosta vaan ne lisätään aikaan. Arviointi: 30 s/sakko. Ammunta: 60 s/sakko." in an info message
-    Then I should see "Yellow team" within "tr#team_1"
-    And I should see "52:43 (43:13)" within "tr#team_1"
-    And I should see "Green team" within "tr#team_2"
-    And I should see "51:24 (44:54)" within "tr#team_2"
+    And I should see "Green team" within "tr#team_1"
+    And I should see "51:24 (44:54)" within "tr#team_1"
+    Then I should see "Yellow team" within "tr#team_2"
+    And I should see "52:43 (43:13)" within "tr#team_2"
     When I follow "Osuus 2"
     Then I should see "StevensonG JohnG" within "tr#team_1"
     And I should see "35:42 (31:12)" within "tr#team_1"
