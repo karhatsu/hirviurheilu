@@ -16,7 +16,7 @@
       .form_label= label_tag :source_race_id, t('.from_race')
       .form_field= select_tag :source_race_id,
         options_from_collection_for_select(@races, :id,
-            lambda {|race| t('.race_with_competitors_count', race: race.name, competitors: race.competitors.count)},
+            lambda {|race| t('.race_with_competitors_count', race: race.name, location: race.location, dates: race_date_interval(race, false), competitors: race.competitors.count)},
           params[:source_race_id])
     - if @race.start_order == Race::START_ORDER_BY_SERIES
       %div

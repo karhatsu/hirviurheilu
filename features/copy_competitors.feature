@@ -16,7 +16,10 @@ Feature: Copy competitors
 
   Scenario: Copy competitors
     Given I am an official
-    And I have a race "Source race"
+    And I have a race with attributes:
+      | name | Source race |
+      | location | Racing place |
+      | start_date | 2019-09-27 |
     And the race has series "Men"
     And the series has an age group "M50"
     And the series has a competitor "Simon" "Source"
@@ -31,7 +34,7 @@ Feature: Copy competitors
     When I have logged in
     And I am on the official race page of "Target race"
     And I follow "Kopioi kilpailijat toisesta kilpailusta"
-    And I select "Source race (2 kilpailijaa)" from "Kilpailu josta kilpailijat kopioidaan"
+    And I select "Source race, Racing place, 27.09.2019 (2 kilpailijaa)" from "Kilpailu josta kilpailijat kopioidaan"
     And I press "Kopioi kilpailijat"
     Then I should be on the official race page of "Target race"
     And I should see "Kilpailijat (2) kopioitu" in a success message
