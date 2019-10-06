@@ -24,4 +24,6 @@
 - else
   %ul
     - @user.races.each do |race|
-      %li= link_to race.name, race_path(race)
+      %li
+        = link_to race.name, race_path(race)
+        #{race.location}, #{race_date_interval(race, false)}
