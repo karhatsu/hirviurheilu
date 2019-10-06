@@ -34,7 +34,7 @@
   %h3 Osakilpailut
   .cup_form_races
     - year_condition = @cup.new_record? ? Date.today.year - 1 : 2010
-    - current_user.races.where('start_date>=?', "#{year_condition}-01-01").order('start_date').each_with_index do |race, i|
+    - current_user.races.where('start_date>=?', "#{year_condition}-01-01").each_with_index do |race, i|
       = check_box_tag 'cup[race_ids][]', race.id, @cup.races.include?(race), id: "race_id_#{i}"
       %span.form_label
         #{race.name}, #{date_print(race.start_date)}, #{race.location}

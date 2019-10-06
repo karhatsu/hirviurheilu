@@ -6,7 +6,7 @@ class Official::IndexController < Official::OfficialController
       @races = Race.order('start_date DESC')
       @cups = Cup.all
     else
-      @races = current_user.races.order('start_date DESC')
+      @races = current_user.races
       @cups = current_user.cups
     end
   end
