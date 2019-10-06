@@ -162,7 +162,7 @@
       %div
         %span.form_label
           = label_tag :add_default_series, t('official.races.new.copy_series')
-        %span= select_tag :copy_series, options_from_collection_for_select(current_user.races, :id, :name, params[:copy_series]), prompt: '- Ei kopiointia -'
+        %span= select_tag :copy_series, options_from_collection_for_select(current_user.races, :id, lambda {|r| "#{r.name}, #{r.location}, #{race_date_interval(r, false)}"}, params[:copy_series]), prompt: '- Ei kopiointia -'
 
   - else
     = submit_tag submit_label
