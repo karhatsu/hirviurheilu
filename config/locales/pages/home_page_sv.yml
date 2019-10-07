@@ -11,6 +11,8 @@ sv:
         this_month: Tävlingar senare på denna månad
         next_month: Tävlingar på nästa månad
         later: Tävlingar senare
+        past: Slutade tävlingar
+        cup: Cup-tävlingar
       upcoming_competitions: Nästä tävlingar
       no_competitions_today: Inga tävlingar i dag
       no_upcoming_competitions: Inga kommande tävlingar just nu

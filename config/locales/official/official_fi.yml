@@ -10,7 +10,9 @@ fi:
         new_competition: Uusi kilpailu
         add_new_race: Lisää uusi kilpailu
         add_new_cup: Lisää uusi cup-kilpailu
-        no_races_yet: Sinulla ei ole vielä yhtään kilpailua. Aloita luomalla kilpailu alla olevasta linkistä.
+        no_races_yet:
+          short: Sinulla ei ole vielä yhtään kilpailua.
+          long: Sinulla ei ole vielä yhtään kilpailua. Aloita luomalla kilpailu alla olevasta linkistä.
     races:
       new:
         title: Kilpailun lisäys

@@ -5,6 +5,7 @@ Feature: Manage cup
 
   Scenario: Try to add cup when not enough races
     Given I am an official
+    And I have a race "Only one race"
     And I have logged in
     And I am on the official index page
     When I follow "Lisää uusi cup-kilpailu"
@@ -12,9 +13,6 @@ Feature: Manage cup
     And the official main menu item should be selected
     And the page title should contain "Cup-kilpailun lisäys"
     But I should see "Sinulla täytyy olla vähintään 2 kilpailua ennen kuin voit lisätä cup-kilpailun" in an info message
-    Given I have a race "My race"
-    When I go to the new official cup page
-    Then I should see "Sinulla täytyy olla vähintään 2 kilpailua ennen kuin voit lisätä cup-kilpailun" in an info message
 
   Scenario: Add cup
     Given I am an official "Teppo Testaaja"

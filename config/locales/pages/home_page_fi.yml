@@ -11,6 +11,8 @@ fi:
         this_month: Kilpailut myöhemmin tässä kuussa
         next_month: Kilpailut ensi kuussa
         later: Kilpailuja tulossa myöhemmin
+        past: Päättyneet kilpailut
+        cup: Cup-kilpailut
       upcoming_competitions: Tulevat kilpailut
       no_competitions_today: Ei kilpailuita tänään
       no_upcoming_competitions: Tällä hetkellä ei tiedossa tulevia kilpailuita

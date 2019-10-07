@@ -10,7 +10,9 @@ sv:
         new_competition: Ny tävling
         add_new_race: Öka en tävling
         add_new_cup: Öka en cup-tävling
-        no_races_yet: Du har ännu inga tävlingar. Klicka länken nedenför för att öka en tävling.
+        no_races_yet:
+          short: Du har ännu inga tävlingar.
+          long: Du har ännu inga tävlingar. Klicka länken nedenför för att öka en tävling.
     races:
       new:
         title: Öka tävling

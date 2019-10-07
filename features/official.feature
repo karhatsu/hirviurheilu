@@ -54,8 +54,7 @@ Feature: Official
     And I have a race "Test race"
     And I have logged in
     And I am on the official index page
-    Then I should see "Kilpailut" within "#existing_races h2"
-    And I should see "Test race" within "#existing_races"
+    Then I should see "Test race" within "#finished_races"
     And I should see "Lisää uusi kilpailu"
     And I should see "Lisää uusi cup-kilpailu"
 
@@ -76,4 +75,3 @@ Feature: Official
     When I go to the official race page of "Test race"
     Then I should be on the official index page
     And I should see "Et ole kilpailun toimitsija" in an error message
-    

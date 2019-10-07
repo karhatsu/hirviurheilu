@@ -1,0 +1,7 @@
+- competitions.each do |competition|
+  - if competition.is_a?(Cup)
+    %div
+      = link_to competition.name, official_cup_path(competition), class: 'primary_link'
+  - else
+    %div
+      =link_to "#{competition.name} (#{race_date_interval(competition, false)}, #{competition.location})", official_race_path(competition), class: 'primary_link'
