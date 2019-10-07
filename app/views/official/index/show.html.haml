@@ -25,4 +25,4 @@
     .title_box.races_box#finished_races
       .box_title= t 'home.show.competitions.past'
       .title_box_content
-        = render partial: 'race_list', locals: { competitions: @past }
+        = render partial: 'race_list', locals: { competitions: @past, warn_unfinished: true }

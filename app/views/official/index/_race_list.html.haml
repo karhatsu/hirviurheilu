@@ -1,3 +1,4 @@
+- warn_unfinished = (defined?(warn_unfinished) ? warn_unfinished : false)
 - competitions.each do |competition|
   - if competition.is_a?(Cup)
     %div
@@ -5,3 +6,5 @@
   - else
     %div
       =link_to "#{competition.name} (#{race_date_interval(competition, false)}, #{competition.location})", official_race_path(competition), class: 'primary_link'
+      - if warn_unfinished && !competition.finished?
+        %span.error_inline Kilpailua ei ole päätetty!
