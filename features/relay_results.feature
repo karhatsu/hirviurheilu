@@ -182,6 +182,7 @@ Feature: Relay results
     Given there is a race with attributes:
       | name | Relay race |
       | start_date | 2011-01-15 |
+      | sport | RUN |
     And the race has a relay with attributes:
       | name | Penalty secs relay |
       | legs_count | 3 |
