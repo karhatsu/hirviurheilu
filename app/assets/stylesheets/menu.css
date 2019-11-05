@@ -8,10 +8,6 @@ div.header {
     width: 100%;
 }
 
-div.menu {
-    font-family: arial;
-}
-
 div.main_menu {
     padding-left: 0;
 }
@@ -50,7 +46,6 @@ div.sub_menu ul li {
 /* a */
 div.menu ul li a {
     color: white;
-    background-color: olive;
     text-decoration: none;
 }
 
