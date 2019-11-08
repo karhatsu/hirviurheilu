@@ -1,4 +1,5 @@
 <% content_for(:title, "Admin - Kilpailu - #{@race.name}") %>
+<% content_for :page_title, yield(:title) %>
 <h2><%= yield :title %></h2>
 <%= flash_error %>
 <%= render :partial => 'shared/form_errors', :locals => { :item => @race } %>

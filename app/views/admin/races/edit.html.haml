@@ -1,4 +1,5 @@
 - content_for :title, "#{@race.name} - Muokkaus"
+- content_for :page_title, yield(:title)
 %h2= yield :title
 = form_for([:admin, @race]) do |f|
   = hidden_field_tag :no_billing, params[:no_billing]

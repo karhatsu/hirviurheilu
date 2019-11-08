@@ -1,4 +1,5 @@
 - content_for(:title, "Admin - Kilpailut")
+- content_for :page_title, yield(:title)
 %h2= yield :title
 = flash_success
 - if params[:no_billing].blank?

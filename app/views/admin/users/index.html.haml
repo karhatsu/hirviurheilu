@@ -1,3 +1,5 @@
+- content_for(:title, 'Admin - Käyttäjät')
+- content_for :page_title, yield(:title)
 %h2 Käyttäjät
 = flash_success
 %table
