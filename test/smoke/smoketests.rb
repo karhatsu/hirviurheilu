@@ -64,7 +64,7 @@ end
 
 open_page('/')
 verify_contains "//div[@class='main_title']/span", 'Hirviurheilu - Hirvenhiihdon ja hirvenjuoksun tulospalvelu'
-link_to_races = find_link "//div[@class='menu main_menu']/ul/li[2]/a", 'Kilpailut'
+link_to_races = find_link "//div[@class='menu main_menu']/div[2]/a", 'Kilpailut'
 
 open_page(link_to_races)
 verify_contains "//div[@class='main_title']/span", 'Hirviurheilu - Kilpailut'
