@@ -3,10 +3,17 @@
 }
 
 div.login_and_locale_links {
-    float: right;
     color: white;
     text-align: right;
-    padding: 5px 20px 0 0;
+    margin-left: auto;
+    padding-right: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+div.login_and_locale_links .navigation {
+    margin-left: 8px;
 }
 
 div.login_and_locale_links a {

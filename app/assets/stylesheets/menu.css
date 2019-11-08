@@ -9,7 +9,8 @@ div.header {
 }
 
 div.main_menu {
-    padding-left: 0;
+    display: flex;
+    flex-direction: row;
 }
 
 div.second_level_menu, div.third_level_menu {
@@ -17,6 +18,8 @@ div.second_level_menu, div.third_level_menu {
 }
 
 div.sub_menu {
+    display: flex;
+    flex-direction: row;
     background-color: olive;
     border: 1px solid white;
     border-bottom: none;
@@ -24,77 +27,71 @@ div.sub_menu {
     width: 1058px;
 }
 
-/* ul */
-div.menu ul {
-    margin: 0px;
-    padding: 0px;
+div.menu {
+    margin: 0;
+    padding: 0;
 }
 
-/* li */
-div.main_menu ul li {
+div.main_menu .menu_item {
     display: block;
     position: relative;
     float: left;
 }
 
-div.sub_menu ul li {
+div.sub_menu .menu_item {
     display: block;
     position: relative;
     float: left;
 }
 
-/* a */
-div.menu ul li a {
+div.menu .menu_item a {
     color: white;
     text-decoration: none;
 }
 
-div.main_menu ul li a {
+div.main_menu .menu_item a {
     display: block;
     margin: 0;
     padding: 8px 15px;
 }
 
-div.sub_menu ul li a {
+div.sub_menu .menu_item a {
     display: block;
     padding: 7px 9px;
 }
 
-/* a:hover */
-div.menu ul li a:hover {
+div.menu .menu_item a:hover {
     color: olive;
     background-color: white;
 }
 
-div.main_menu ul li a:hover {
+div.main_menu .menu_item a:hover {
     border-bottom-color: white;
 }
 
-/* a.selected */
-div.menu ul li a.selected {
+div.menu .menu_item a.selected {
     color: olive;
     background-color: white;
 }
 
-/* dropdown (div.menu ul li -> ul) */
-div.menu ul li ul {
+div.menu .menu_item .dropdown_menu {
     position: absolute;
     display: none;
     z-index: 10;
 }
 
-div.main_menu ul li ul {
+div.main_menu .menu_item .dropdown_menu {
     border: white solid 1px;
     top: 30px;
 }
 
-div.sub_menu ul li ul {
+div.sub_menu .menu_item .dropdown_menu {
     border: white solid 1px;
     border-bottom-width: 0;
     top: 28px;
 }
 
-div.menu ul li ul a {
+div.menu .menu_item .dropdown_menu a {
     white-space: nowrap;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -105,11 +102,12 @@ div.menu ul li ul a {
     border-bottom-width: 1px;
 }
 
-div.menu ul li:hover ul {
+div.menu .menu_item:hover .dropdown_menu {
     display: block;
 }
 
-div.main_menu ul li ul a {
+div.main_menu .menu_item .dropdown_menu a {
+    background-color: olive;
     border-color: white;
     border-style: solid;
     border-width: 0 0 1px 0;
@@ -117,9 +115,20 @@ div.main_menu ul li ul a {
     width: 200px;
 }
 
-div.sub_menu ul li ul a {
+div.main_menu .menu_item .dropdown_menu a:hover {
+    background-color: white;
+    color: olive;
+}
+
+div.sub_menu .menu_item .dropdown_menu a {
+    background-color: olive;
     border-color: white;
     border-style: solid;
     border-width: 0 0 1px 0;
     width: 150px;
+}
+
+div.sub_menu .menu_item .dropdown_menu a:hover {
+    background-color: white;
+    color: olive;
 }

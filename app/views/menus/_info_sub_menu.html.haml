@@ -1,5 +1,4 @@
 .menu.sub_menu
-  %ul
-    = menu_item 'Tietoa Hirviurheilusta', info_path, @is_info_main
-    = menu_item 'Kysymyksiä ja vastauksia', answers_path, @is_answers
-    = menu_item t(:feedback), new_feedback_path, @is_feedback
+  = menu_item 'Tietoa Hirviurheilusta', info_path, @is_info_main
+  = menu_item 'Kysymyksiä ja vastauksia', answers_path, @is_answers
+  = menu_item t(:feedback), new_feedback_path, @is_feedback

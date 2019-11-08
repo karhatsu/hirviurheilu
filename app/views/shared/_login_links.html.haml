@@ -1,6 +1,4 @@
 - if current_user
-  = link_to t(:logout, name: current_user.first_name), logout_path, method: :delete, class: 'navigation'
+  .navigation= link_to t(:logout, name: current_user.first_name), logout_path, method: :delete
 - else
-  = link_to t(:login), login_path, class: 'navigation'
-  %span.navigation |
-  = link_to t(:forgotten_password), new_reset_password_path, class: 'navigation'
+  .navigation= link_to t(:login), login_path

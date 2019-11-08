@@ -1,8 +1,6 @@
 <div class="menu sub_menu">
-  <ul>
-    <% race.series.each do |series| %>
-      <%= menu_item series.name, yield(series),
-        series.id == series_id, 18 %>
-    <% end %>
-  </ul>
+  <% race.series.each do |series| %>
+    <%= menu_item series.name, yield(series),
+      series.id == series_id, 18 %>
+  <% end %>
 </div>
