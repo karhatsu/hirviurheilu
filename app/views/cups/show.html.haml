@@ -1,29 +1,24 @@
 - content_for :title, @cup.name
-.title-and-fb-share
-  %h2= t :results
+.title-and-fb-share.race-page
   = render partial: 'shared/facebook_share'
-.section
-  - if @cup.cup_series.empty?
-    Cup-sarjoja ei ole vielä määritetty
-  - else
-    - @cup.cup_series.each do |cs|
-      = link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs)
-      %br
+%h2= t :results
+- if @cup.cup_series.empty?
+  Cup-sarjoja ei ole vielä määritetty
+- else
+  - @cup.cup_series.each do |cs|
+    = link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs), class: 'primary_link'
 %h2= t '.points_rule_title'
-.section= render partial: 'points_rule', locals: {cup: @cup}
+= render partial: 'points_rule', locals: {cup: @cup}
 %h2= t '.sub_competitions'
-.section
-  - @cup.races.each do |race|
-    = link_to race.name, race_path(race)
-    %br
-- unless @cup.cup_series.empty?
+- @cup.races.each do |race|
+  = link_to race.name, race_path(race), class: 'secondary_link'
+- unless @cup.cup_series.empty? || mobile?
   %h2= t 'races.show.all_results_pdf'
-  .section
-    = form_tag(cup_path(@cup, format: :pdf), method: :get) do
-      %div
-        = check_box_tag :page_breaks
-        = label_tag :page_breaks, t('races.show.page_breaks'), class: 'form_label'
-      %div
-        = submit_tag t('races.show.download_all_results')
+  = form_tag(cup_path(@cup, format: :pdf), method: :get) do
+    %div
+      = check_box_tag :page_breaks
+      = label_tag :page_breaks, t('races.show.page_breaks'), class: 'form_label'
+    %div
+      = submit_tag t('races.show.download_all_results')
 %hr
 = link_to t(:back_to_home_page), root_path
