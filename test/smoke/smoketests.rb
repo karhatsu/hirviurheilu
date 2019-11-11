@@ -71,7 +71,7 @@ verify_contains "//div[@class='main_title']/span", 'Hirviurheilu - Kilpailut'
 link_to_race = find_link "(//div[@class='main_content']//div[@class='race_link']//a)[last()]"
 
 open_page(link_to_race)
-link_to_results = find_link "//table//tr[2]/td/a[1]", 'Tulokset'
+link_to_results = find_link "//a[@class='primary_link'][1]"
 
 open_page(link_to_results)
 link_to_pdf = find_link "//div[@class='action_box']/a", 'Lataa tulokset PDF-tiedostona'
