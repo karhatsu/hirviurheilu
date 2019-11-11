@@ -1,5 +1,6 @@
 class Race < ApplicationRecord
   include CompetitorsCopy
+  include StartDateTime
 
   DEFAULT_START_INTERVAL = 60
   DEFAULT_BATCH_INTERVAL = 180
@@ -137,6 +138,10 @@ class Race < ApplicationRecord
   def end_date=(date)
     super
     @days_count_temp = nil
+  end
+
+  def start_datetime
+    start_date_time self, 1, start_time
   end
 
   def set_correct_estimates_for_competitors

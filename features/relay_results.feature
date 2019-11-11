@@ -131,7 +131,6 @@ Feature: Relay results
     When I follow "Relay race"
     Then I should see "Viestit"
     And I should see "Men's relay"
-    And I should see "12:00"
     When I choose "Men's relay" from sub menu
     Then I should be on the relay results page of "Men's relay"
     And the "Viestit" sub menu item should be selected

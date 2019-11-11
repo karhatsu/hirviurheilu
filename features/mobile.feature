@@ -55,12 +55,6 @@ Feature: Mobile usage
     When I follow "Mobiilinäkymä"
     And I follow "Mobile race"
     Then I should be on the race page of "Mobile race"
-    When I follow "00:00"
-    Then I should be on the start list page of the series
-    And I should see "Mobile race - Men 50 years - Lähtölista" within "h2"
-    And I should see "Johnson James"
-    And I should see "00:00"
-    When I follow "Takaisin sivulle Mobile race"
     When I follow "Men 50 years"
     Then I should be on the results page of the series
     And I should see "Mobile race - Men 50 years - Tulokset" within "h2"

@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def mobile?
+    request.variant[0] == :mobile
+  end
+
   def flash_success
     raw("<div class='success'>#{flash[:success]}</div>") if flash[:success]
   end
@@ -46,7 +50,7 @@ module ApplicationHelper
     return value if value
     raw('&nbsp;')
   end
-  
+
   def start_days_form_field(form_builder, series)
     race = series.race
     if race.nil? or race.days_count == 1
@@ -66,16 +70,16 @@ module ApplicationHelper
     return link if link[0, 7] == 'http://' or link[0, 8] == 'https://'
     'http://' + link
   end
-  
+
   def locale_for_path
     return nil if I18n.locale == I18n.default_locale
     I18n.locale
   end
-  
+
   def facebook_env?
     ['development', 'production'].include?(Rails.env)
   end
-  
+
   def organizer_info_with_possible_link(race)
     home_page = race.home_page
     organizer = race.organizer

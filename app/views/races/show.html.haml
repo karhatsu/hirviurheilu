@@ -3,103 +3,63 @@
   = render partial: 'shared/facebook_share'
 - unless @race.home_page.blank? and @race.organizer.blank? and @race.organizer_phone.blank?
   %h2= t '.organizer_info'
-  .section
-    = organizer_info_with_possible_link(@race)
+  = organizer_info_with_possible_link(@race)
 - unless @race.public_message.blank?
   %h2 Kilpailun järjestäjä tiedottaa
   %blockquote.public_message
     - markdown = Redcarpet::Markdown.new Redcarpet::Render::HTML
     = raw markdown.render(@race.public_message)
-.race-page-column{style: 'margin-right: 40px;'}
-  %h2= t '.single_competitor_competitions'
-  - if @race.start_time_defined? and not @race.finished?
-    .section
-      Kilpailu alkaa:
-      = time_print @race.start_time
-  .section
-    - if @race.series.empty?
-      = t '.no_series_for_race'
+%h2= t '.single_competitor_competitions'
+- infos = []
+- if @race.start_date > Time.zone.today
+  - infos << "#{t '.competition_begins'} #{distance_of_time_in_words(Time.zone.today, @race.start_date)}."
+- if @race.start_time_defined? && !@race.finished?
+  - time_text =  Time.now > @race.start_datetime ? 'alkoi' : 'alkaa'
+  - infos << "Kilpailu #{time_text} #{time_print @race.start_time}."
+- if infos.length > 0
+  .info= infos.join(' ')
+- unless @race.series.empty?
+  - show_start_time = @race.start_order == Race::START_ORDER_BY_SERIES
+  - @race.series.each do |series|
+    - if !series.started? && show_start_time
+      - link_text = series.start_time ? "#{series.name} (#{time_print(series.start_datetime)})" : series.name
+      = link_to link_text, race_series_start_list_path(@race, series), class: 'secondary_link'
     - else
-      = render :partial => 'series_table'
-      - if @race.finished?
-        - estimates_at_most = @race.estimates_at_most
-        %h3= t '.correct_distances'
-        %table
-          %tr
-            %th= t '.competitor_numbers'
-            %th
-              #{t :correct_distance} 1
-            %th
-              #{t :correct_distance} 2
-            - if estimates_at_most == 4
-              %th
-                #{t :correct_distance} 3
-              %th
-                #{t :correct_distance} 4
-          - @race.correct_estimates.each do |ce|
-            %tr
-              %td.center= correct_estimate_range(ce)
-              %td.center= ce.distance1
-              %td.center= ce.distance2
-              - if estimates_at_most == 4
-                %td.center= ce.distance3
-                %td.center= ce.distance4
-      - unless @race.finished? or @race.competitors.empty?
-        %h3= t '.start_lists_for_all_series_pdf'
-        = form_tag(race_start_lists_path(@race, :format => :pdf), :method => :get) do
-          = select_tag :club_id,
-            options_from_collection_for_select(@race.clubs, :id, :name),
-            :prompt => "#{t :all} #{clubs_title(@race).downcase}"
-          = submit_tag t('.download_start_times')
-.race-page-column
-  - if @race.has_team_competition? && @race.start_date <= Time.zone.today && !@race.series.empty?
-    %h2= t 'activerecord.models.team_competition', :count => @race.team_competitions.count
-    .section
-      - if @race.team_competitions.count == 1
-        = link_to t('activerecord.models.team_competition.one'), race_team_competition_path(@race, @race.team_competitions.first)
-      - else
-        %table
-          %tr
-            %th= t :competition
-            %th= t :competitors_per_team
-          - @race.team_competitions.each do |tc|
-            %tr
-              %td= link_to tc.name, race_team_competition_path(@race, tc)
-              %td.center= tc.team_competitor_count
-  - unless @race.relays.empty?
-    %h2= t 'activerecord.models.relay', :count => @race.relays.count
-    .section
-      %table
-        %tr
-          %th= t 'activerecord.models.relay', :count => 1
-          %th= t 'attributes.start_time'
-          %th= t '.teams'
-        - @race.relays.each do |relay|
-          %tr
-            %td= link_to relay.name, race_relay_path(@race, relay)
-            %td= relay_start_time_print relay if relay.start_time
-            %td.center= relay.relay_teams.count
-  - unless @race.series.empty?
-    %h2= t '.all_results_pdf'
-    .section
-      = form_tag(race_path(@race, :format => :pdf), :method => :get) do
-        %div
-          = select_tag :club_id,
-            options_from_collection_for_select(@race.clubs, :id, :name),
-            :prompt => "#{t :all} #{clubs_title(@race).downcase}"
-        %div
-          = check_box_tag :page_breaks
-          = label_tag :page_breaks, t('.page_breaks'), class: 'form_label'
-        %div
-          = submit_tag t('.download_all_results')
-  - if @race.start_date > Time.zone.today
-    .info
-      = t '.competition_begins'
-      #{distance_of_time_in_words(Time.zone.today, @race.start_date)}.
-%div{style: 'clear: both; margin-bottom: 20px;'}
-  - unless @race.cups.empty?
-    %h2= t 'activerecord.models.cup', :count => 1
+      = link_to series.name, race_series_path(@race, series), class: 'primary_link'
+  - unless @race.finished? || @race.competitors.empty? || mobile?
+    %h3= t '.start_lists_for_all_series_pdf'
+    = form_tag(race_start_lists_path(@race, :format => :pdf), :method => :get) do
+      = select_tag :club_id,
+        options_from_collection_for_select(@race.clubs, :id, :name),
+        :prompt => "#{t :all} #{clubs_title(@race).downcase}"
+      = submit_tag t('.download_start_times')
+- if @race.has_team_competition? && @race.start_date <= Time.zone.today && !@race.series.empty?
+  %h2= t 'activerecord.models.team_competition', :count => @race.team_competitions.count
+  - if @race.team_competitions.count == 1
+    = link_to t('activerecord.models.team_competition.one'), race_team_competition_path(@race, @race.team_competitions.first), class: 'primary_link'
+  - else
+    - @race.team_competitions.each do |tc|
+      = link_to tc.name, race_team_competition_path(@race, tc), class: 'primary_link'
+- unless @race.relays.empty?
+  %h2= t 'activerecord.models.relay', :count => @race.relays.count
+  - @race.relays.each do |relay|
+    - link_text = !relay.started? && relay.start_time ? "#{relay.name} (#{relay_start_time_print(relay)})" : relay.name
+    = link_to link_text, race_relay_path(@race, relay), class: 'primary_link'
+- unless @race.series.empty? || mobile?
+  %h2= t '.all_results_pdf'
+  = form_tag(race_path(@race, :format => :pdf), :method => :get) do
+    %div{style: 'margin-bottom: 6px'}
+      = select_tag :club_id,
+        options_from_collection_for_select(@race.clubs, :id, :name),
+        :prompt => "#{t :all} #{clubs_title(@race).downcase}"
+    %div
+      = check_box_tag :page_breaks
+      = label_tag :page_breaks, t('.page_breaks'), class: 'form_label'
+    %div
+      = submit_tag t('.download_all_results')
+- unless @race.cups.empty?
+  %h2= t 'activerecord.models.cup', :count => 1
   - @race.cups.each do |cup|
-    .section= link_to t('.race_belongs_to_cup', :cup_name => cup.name), cup_path(cup)
+    = link_to cup.name, cup_path(cup), class: 'secondary_link'
 %hr
 = link_to t(:back_to_home_page), root_path
