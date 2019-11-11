@@ -12,15 +12,16 @@
   %blockquote.public_message
     - markdown = Redcarpet::Markdown.new Redcarpet::Render::HTML
     = raw markdown.render(@race.public_message)
-%h2= t '.single_competitor_competitions'
-- infos = []
-- if @race.start_date > Time.zone.today
-  - infos << "#{t '.competition_begins'} #{distance_of_time_in_words(Time.zone.today, @race.start_date)}."
-- if @race.start_time_defined? && !@race.finished?
-  - time_text =  Time.now > @race.start_datetime ? 'alkoi' : 'alkaa'
-  - infos << "Kilpailu #{time_text} #{time_print @race.start_time}."
-- if infos.length > 0
-  .info= infos.join(' ')
+- unless @race.series.empty? && !@race.relays.empty?
+  %h2= t '.single_competitor_competitions'
+  - infos = []
+  - if @race.start_date > Time.zone.today
+    - infos << "#{t '.competition_begins'} #{distance_of_time_in_words(Time.zone.today, @race.start_date)}."
+  - if @race.start_time_defined? && !@race.finished?
+    - time_text =  Time.now > @race.start_datetime ? 'alkoi' : 'alkaa'
+    - infos << "Kilpailu #{time_text} #{time_print @race.start_time}."
+  - if infos.length > 0
+    .info= infos.join(' ')
 - unless @race.series.empty?
   - show_start_time = @race.start_order == Race::START_ORDER_BY_SERIES
   - @race.series.each do |series|
