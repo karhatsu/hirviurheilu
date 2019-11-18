@@ -10,8 +10,7 @@ describe Api::V1::RacesController, type: :api do
 
   context 'when race found' do
     let(:club) { create :club }
-    let(:sport) { Sport.find_by_key(Sport::SKI) }
-    let(:race) { create :race, sport: sport }
+    let(:race) { create :race }
     let(:series) { create :series, race: race }
     let(:competitor) { create :competitor, series: series, number: 123, club: club }
 
@@ -25,9 +24,7 @@ describe Api::V1::RacesController, type: :api do
           end_date: api_date(race.end_date),
           short_start_time: race.short_start_time,
           organizer: race.organizer,
-          sport: {
-              name: 'Hirvenhiihto'
-          },
+          sport_name: 'Hirvenhiihto',
           series: [
               {
                   name: series.name,

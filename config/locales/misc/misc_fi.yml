@@ -75,7 +75,6 @@ fi:
     DNS: Joukkue ei osallistunut kilpailuun
     DNF: Joukkue keskeytti kilpailun
     DQ: Joukkue hylättiin
-  run: Juoksu
   refresh_counter_new_page_pre: Uusi tulossivu ladataan automaattisesti
   refresh_counter_new_page_post: sekunnin kuluttua
   refresh_counter_pause: Pysäytä laskenta.
@@ -100,10 +99,12 @@ fi:
       one: Ikäryhmällä %{age_group} on lyhennetty matka.
       other: Ikäryhmillä %{age_group} on lyhennetty matka.
   show_all_competitors: Näytä kaikki kilpailijat
-  ski: Hiihto
   start_list: Lähtölista
   team: Joukkue
   tel: Puhelin
+  time_title:
+    RUN: Juoksu
+    SKI: Hiihto
   points_method_0:
     both: Normaali
   points_method_1:

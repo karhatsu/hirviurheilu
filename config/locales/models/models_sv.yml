@@ -89,7 +89,7 @@ sv:
     shot_8: Skott 9
     shot_9: Skott 10
     shots_total_input: Skottstotal
-    sport: Gren
+    sport_key: Gren
     start_date: Startdatum
     start_day: Startdag
     start_interval_seconds: Gap mellan starttider
@@ -147,9 +147,6 @@ sv:
       shot:
         one: Skott
         other: Skott
-      sport:
-        one: Gren
-        other: Grenar
       team_competition:
         one: Lagtävling
         other: Lagtävlingar

@@ -2,9 +2,8 @@ class Api::V1::RacesController < Api::V1::ApiBaseController
   def show
     return render status: 404, body: nil unless race
     render json: race, only: [:name, :location, :start_date, :end_date, :organizer],
-           methods: [:short_start_time],
+           methods: [:short_start_time, :sport_name],
            include: {
-               sport: {only: [:name]},
                series: {only: [:name], include: {
                    competitors: {
                        only: [:first_name, :last_name, :number], methods: [:start_datetime],

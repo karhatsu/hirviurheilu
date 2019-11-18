@@ -89,7 +89,7 @@ module ResultFormatHelper
 
   def special_series_info(series)
     return nil if series.points_method == Series::POINTS_METHOD_TIME_2_ESTIMATES
-    t("points_method_#{series.points_method}.#{series.race.sport.key}")
+    t("points_method_#{series.points_method}.#{series.race.sport_key}")
   end
 
   def relay_time_print(relay, team, leg=nil)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_20_045708) do
+ActiveRecord::Schema.define(version: 2019_11_18_054952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,7 +158,7 @@ ActiveRecord::Schema.define(version: 2019_08_20_045708) do
   end
 
   create_table "races", id: :serial, force: :cascade do |t|
-    t.integer "sport_id", null: false
+    t.integer "sport_id"
     t.string "name", limit: 255, null: false
     t.string "location", limit: 255, null: false
     t.date "start_date", null: false
@@ -183,6 +183,7 @@ ActiveRecord::Schema.define(version: 2019_08_20_045708) do
     t.string "api_secret"
     t.string "address"
     t.integer "district_id"
+    t.string "sport_key"
     t.index ["sport_id"], name: "index_races_on_sport_id"
   end
 

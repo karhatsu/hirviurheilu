@@ -9,7 +9,6 @@ describe Race do
 
   describe "validation" do
     it { is_expected.to validate_presence_of(:district) }
-    it { is_expected.to validate_presence_of(:sport) }
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:location) }
     it { is_expected.to validate_presence_of(:start_date) }
@@ -96,7 +95,6 @@ describe Race do
 
   describe "associations" do
     it { is_expected.to belong_to(:district) }
-    it { is_expected.to belong_to(:sport) }
     it { is_expected.to have_many(:series) }
     it { is_expected.to have_many(:age_groups).through(:series) }
     it { is_expected.to have_many(:competitors).through(:series) }

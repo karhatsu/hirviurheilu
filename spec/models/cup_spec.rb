@@ -4,21 +4,21 @@ describe Cup do
   it "create" do
     create(:cup)
   end
-  
+
   describe "associations" do
     it { is_expected.to have_many(:cup_series) }
   end
-  
+
   describe "validation" do
     it { is_expected.to validate_presence_of(:name) }
-    
+
     it { is_expected.to validate_numericality_of(:top_competitions) }
     it { is_expected.not_to allow_value(nil).for(:top_competitions) }
     it { is_expected.not_to allow_value(0).for(:top_competitions) }
     it { is_expected.to allow_value(1).for(:top_competitions) }
     it { is_expected.not_to allow_value(2.1).for(:top_competitions) }
   end
-  
+
   describe "relations" do
     it { is_expected.to have_and_belong_to_many(:races) }
     it { is_expected.to have_many(:cup_series) }
@@ -32,7 +32,7 @@ describe Cup do
         expect(cup.races.collect { |r| r.name }).to eq(['First', 'Second A', 'Second B'])
       end
     end
-    
+
     describe "cup_series" do
       it "should be ordered by name" do
         cup = create(:cup)
@@ -43,24 +43,12 @@ describe Cup do
       end
     end
   end
-  
-  describe "#sport" do
-    it "should be nil when no races" do
-      expect(build(:cup).sport).to be_nil
-    end
-    
-    it "should be the sport of the first race" do
-      cup = build(:cup)
-      allow(cup).to receive(:races).and_return([instance_double(Race, :sport => Sport::RUN), instance_double(Race, :sport => Sport::SKI)])
-      expect(cup.sport).to eq(Sport::RUN)
-    end
-  end
-  
+
   describe "#start_date" do
     it "should be nil when no races" do
       expect(build(:cup).start_date).to be_nil
     end
-    
+
     it "should be the start date of the first race (since races are ordered by start date)" do
       cup = build(:cup)
       race1 = build(:race, :start_date => '2012-04-01')
@@ -69,12 +57,12 @@ describe Cup do
       expect(cup.start_date.strftime('%Y-%m-%d')).to eq('2012-03-31')
     end
   end
-  
+
   describe "#end_date" do
     it "should be nil when no races" do
       expect(build(:cup).end_date).to be_nil
     end
-    
+
     it "should be the end date of the last race (since races are ordered by start date)" do
       cup = build(:cup)
       race1 = build(:race, :start_date => '2012-04-01', :end_date => '2012-04-02')
@@ -83,12 +71,12 @@ describe Cup do
       expect(cup.end_date.strftime('%Y-%m-%d')).to eq('2012-04-02')
     end
   end
-  
+
   describe "#location" do
     it "should be nil when no races" do
       expect(build(:cup).location).to be_nil
     end
-    
+
     context "when each race has different location" do
       it "should be all race locations separated with /" do
         cup = build(:cup)
@@ -99,7 +87,7 @@ describe Cup do
         expect(cup.location).to eq('Shooting city / Skiing town / Running village')
       end
     end
-    
+
     context "when each race has the same location" do
       it "should be the location" do
         cup = build(:cup)
@@ -109,7 +97,7 @@ describe Cup do
         expect(cup.location).to eq('Shooting city')
       end
     end
-    
+
     context "when first and third race has the same location" do
       it "should be the first location / the second location" do
         cup = build(:cup)
@@ -121,7 +109,7 @@ describe Cup do
       end
     end
   end
-  
+
   describe "#create_default_cup_series" do
     context "when no races" do
       it "should do nothing" do
@@ -129,7 +117,7 @@ describe Cup do
         cup.create_default_cup_series
       end
     end
-  
+
     context "when races" do
       before do
         race1 = instance_double(Race)
@@ -144,7 +132,7 @@ describe Cup do
         @cup = create(:cup)
         allow(@cup).to receive(:races).and_return(races)
       end
-    
+
       it "should create cup series based on series names in the first race" do
         expect(@cup.cup_series).to be_empty
         @cup.create_default_cup_series
@@ -155,7 +143,7 @@ describe Cup do
         expect(cup_series[1].name).to eq('M60')
       end
     end
-    
+
     context "when already has cup series" do
       it "should raise an exception" do
         cup = build(:cup)
@@ -164,16 +152,16 @@ describe Cup do
       end
     end
   end
-  
+
   describe ".cup_races" do
     it "should return an empty array when nothing given" do
       expect(Cup.cup_races([])).to eq([])
     end
-    
+
     it "should return an empty array when cups without races" do
       expect(Cup.cup_races([create(:cup), create(:cup)])).to eq([])
     end
-    
+
     it "should return all races that are assigned to cups" do
       cup1 = create(:cup)
       race11 = build(:race)

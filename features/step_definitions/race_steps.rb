@@ -7,17 +7,7 @@ Given(/^there is a race "(.*?)" that starts in 7 days$/) do |name|
 end
 
 Given /^there is a race with attributes:$/ do |fields|
-  hash = fields.rows_hash
-  if hash[:sport] == 'SKI'
-    hash.delete("sport")
-    hash[:sport] = Sport.find_ski
-  elsif hash[:sport] == 'RUN'
-    hash.delete("sport")
-    hash[:sport] = Sport.find_run
-  elsif hash[:sport]
-    raise "Unknown sport key: #{hash[:sport]}"
-  end
-  @race = create(:race, hash)
+  @race = create(:race, fields.rows_hash)
 end
 
 Given /^there is a race "(.*?)" with series, competitors, team competitions, and relays$/ do |name|
@@ -50,17 +40,7 @@ Given /^I have a race "([^"]*)"$/ do |name|
 end
 
 Given /^I have a race with attributes:$/ do |fields|
-  hash = fields.rows_hash
-  if hash[:sport] == 'SKI'
-    hash.delete("sport")
-    hash[:sport] = Sport.find_ski
-  elsif hash[:sport] == 'RUN'
-    hash.delete("sport")
-    hash[:sport] = Sport.find_run
-  elsif hash[:sport]
-    raise "Unknown sport key: #{hash[:sport]}"
-  end
-  @race = create(:race, hash)
+  @race = create(:race, fields.rows_hash)
   @user.race_rights.create!(:race => @race)
 end
 
@@ -113,14 +93,12 @@ Given /^the race is finished$/ do
 end
 
 Given /^I have an ongoing race "([^"]*)"$/ do |name|
-  @race = create(:race, :start_date => Date.today, :name => name,
-    :sport => Sport.find_ski)
+  @race = create(:race, :start_date => Date.today, :name => name, sport_key: Sport::SKI)
   @user.race_rights.create!(:race => @race)
 end
 
 Given /^I have an ongoing race with attributes:$/ do |fields|
-  @race = create(:race, {:start_date => Date.today,
-    :sport => Sport.find_ski}.merge(fields.rows_hash))
+  @race = create(:race, {:start_date => Date.today, sport_key: Sport::SKI}.merge(fields.rows_hash))
   @user.race_rights.create!(:race => @race)
 end
 

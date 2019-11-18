@@ -13,10 +13,6 @@ official2 = User.create!(:email => 'official2@official2.com', :password => 'offi
   :password_confirmation => 'official2', :first_name => 'Taina', :last_name => 'Toimitsijatar')
 official2.add_official_rights
 
-# sports
-run = Sport.create_run
-ski = Sport.create_ski
-
 # pricing
 BasePrice.create!(:price => 20)
 Price.create!(:min_competitors => 1, :price => 1.5)
@@ -37,12 +33,11 @@ race_start_dates = ['2010-07-14', '2010-08-11', '2010-09-03', '2010-09-22',
   '2010-12-18', '2011-01-06', '2011-01-18']
 race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
 7.times do |race_i|
-  sport = (race_i < 4 ? run : ski)
+  sport_key = (race_i < 4 ? Sport::RUN : Sport::SKI)
   interval = (race_i % 2 == 0 ? 30 : 60)
-  race = sport.races.build(:name => race_titles[race_i],
+  race = Race.create!(sport_key: sport_key, :name => race_titles[race_i],
     :location => race_locations[race_i], :start_date => race_start_dates[race_i],
     :end_date => race_end_dates[race_i], :start_interval_seconds => interval)
-  race.save!
   official1.add_race(race)
   correct1 = 100 + 5 * race_i
   correct2 = 160 - 5 * race_i

@@ -7,7 +7,7 @@ Feature: Official invitation
     Given there is an official "Another" "Official" with email "another@official.com" and password "pword123"
     And I am an official "Tim Thomas" with email "tim@official.com"
     And I have a race with attributes:
-      | sport | SKI |
+      | sport_key | SKI |
       | name | Test race |
       | location | Test town |
       | start_date | 2010-12-12 |
@@ -62,7 +62,7 @@ Feature: Official invitation
     Given there is an official "Another" "Official" with email "another@official.com" and password "pword123"
     And I am an official "Tim Thomas" with email "tim@official.com"
     And I have a race with attributes:
-      | sport | SKI |
+      | sport_key | SKI |
       | name | Test race |
       | location | Test town |
       | start_date | 2010-12-12 |
@@ -160,4 +160,3 @@ Feature: Official invitation
     Then I should be on the invite officials page for "Test race"
     And I should see "Another Official ei ole enää kilpailun toimitsija" in a success message
     And the current officials table should not contain "Another Official"
-    

@@ -1,52 +1,24 @@
-class Sport < ApplicationRecord
+class Sport
   SKI = "SKI"
   RUN = "RUN"
 
-  has_many :races
-
-  validates :name, :presence => true
-  validates :key, :presence => true
-  validates :key, :uniqueness => true
-
-  def ski?
-    key == SKI
-  end
-
-  def run?
-    key == RUN
-  end
-  
-  def initials
-    ski? ? 'HH' : 'HJ'
-  end
-
-  def self.find_ski
-    find_by_key(SKI)
-  end
-
-  def self.find_run
-    find_by_key(RUN)
-  end
-
-  def self.default_sport
-    month = Time.new.month
-    if month >= 5 and month <= 10
-      return find_run
+  def self.by_key(key)
+    if key === RUN
+      OpenStruct.new({
+          name: 'Hirvenjuoksu'
+      })
+    elsif key === SKI
+      OpenStruct.new({
+          name: 'Hirvenhiihto'
+      })
     else
-      return find_ski
+      raise "Unknown sport key: #{key}"
     end
   end
 
-  def self.ensure_default_sports_exist
-    Sport.create!(name: "Hirvenjuoksu", key: RUN) unless find_run
-    Sport.create!(name: "Hirvenhiihto", key: SKI) unless find_ski
-  end
-
-  def self.create_ski
-    create!(:name => "Hirvenhiihto", :key => "SKI")
-  end
-
-  def self.create_run
-    create!(:name => "Hirvenjuoksu", :key => "RUN")
+  def self.default_sport_key
+    month = Time.new.month
+    return RUN if month >= 5 and month <= 10
+    SKI
   end
 end

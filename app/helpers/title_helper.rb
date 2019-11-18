@@ -18,8 +18,7 @@ module TitleHelper
   end
 
   def time_title(race)
-    return t(:run) if race.sport.run?
-    t(:ski)
+    t("time_title.#{race.sport_key}")
   end
 
   def club_title(race)

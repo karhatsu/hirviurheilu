@@ -75,7 +75,6 @@ sv:
     DNS: Laget startade inte
     DNF: Laget avbröt
     DQ: Laget diskad
-  run: Löpning
   refresh_counter_new_page_pre: Ny resultatssida uppdateras automatiskt om
   refresh_counter_new_page_post: sekunder
   refresh_counter_pause: Pausa
@@ -100,10 +99,12 @@ sv:
       one: Äldsgrupp %{age_group} har kortare löpning.
       other: Äldsgruppar %{age_group} har kortare löpning.
   show_all_competitors: Visa alla tävlarna
-  ski: Skidning
   start_list: Startlista
   team: Lag
   tel: Telefon
+  time_title:
+    RUN: Löpning
+    SKI: Skidning
   points_method_0:
     both: Normal
   points_method_1:

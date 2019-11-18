@@ -1,7 +1,7 @@
 Hei #{full_name(@invitee, true)},
 %br
 %br
-#{full_name(@inviter, true)} on kutsunut sinut toimitsijaksi Hirviurheilu-palvelussa olevaan #{@race.sport.ski? ? 'hirvenhiihto' : 'hirvenjuoksu'}kilpailuun:
+#{full_name(@inviter, true)} on kutsunut sinut toimitsijaksi Hirviurheilu-palvelussa olevaan #{@race.sport_key == Sport::SKI ? 'hirvenhiihto' : 'hirvenjuoksu'}kilpailuun:
 #{@race.name} (#{race_date_interval(@race, false)}, #{@race.location}).
 %br
 %br

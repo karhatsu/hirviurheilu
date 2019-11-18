@@ -91,19 +91,14 @@ describe TitleHelper do
   end
 
   describe '#time_title' do
-    before do
-      @sport = instance_double(Sport)
-      @race = instance_double(Race, :sport => @sport)
-    end
-
     it "should be 'Juoksu' when run sport" do
-      allow(@sport).to receive(:run?).and_return(true)
-      expect(helper.time_title(@race)).to eq('Juoksu')
+      race = instance_double(Race, sport_key: Sport::RUN)
+      expect(helper.time_title(race)).to eq('Juoksu')
     end
 
     it "should be 'Hiihto' when no run sport" do
-      allow(@sport).to receive(:run?).and_return(false)
-      expect(helper.time_title(@race)).to eq('Hiihto')
+      race = instance_double(Race, sport_key: Sport::SKI)
+      expect(helper.time_title(race)).to eq('Hiihto')
     end
   end
 

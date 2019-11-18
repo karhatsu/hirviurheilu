@@ -107,7 +107,7 @@ Feature: Results
       | start_date | 2010-07-15 |
       | location | Test city |
       | start_interval_seconds | 60 |
-      | sport | RUN |
+      | sport_key | RUN |
     And the race has series with attributes:
       | name | Men 50 years |
       | start_time | 01:00 |
@@ -177,7 +177,7 @@ Feature: Results
       | start_date | 2010-07-15 |
       | location | Test city |
       | start_interval_seconds | 60 |
-      | sport | SKI |
+      | sport_key | SKI |
     And the race has series with attributes:
       | name | Men 50 years |
       | start_time | 01:00 |
@@ -277,7 +277,7 @@ Feature: Results
 
   Scenario: See the results of an individual competitor
     Given there is a race with attributes:
-      | sport | RUN |
+      | sport_key | RUN |
       | name | My test race |
       | start_date | 2010-07-15 |
       | location | Test city |
@@ -317,7 +317,7 @@ Feature: Results
 
   Scenario: See the results of an individual competitor in a walking series
     Given there is a race with attributes:
-      | sport | RUN |
+      | sport_key | RUN |
       | name | My test race |
       | start_date | 2010-07-15 |
       | location | Test city |
@@ -363,7 +363,7 @@ Feature: Results
 
   Scenario: See the results of an individual competitor in an unfinished race
     Given there is a race with attributes:
-      | sport | RUN |
+      | sport_key | RUN |
       | name | My test race |
       | start_date | 2010-07-15 |
       | location | Test city |
@@ -403,7 +403,7 @@ Feature: Results
 
   Scenario: See the results with national record reached mention of an individual competitor in an unfinished race
     Given there is a race with attributes:
-      | sport | RUN |
+      | sport_key | RUN |
       | name | My test race |
       | start_date | 2010-07-15 |
       | location | Test city |
@@ -440,7 +440,7 @@ Feature: Results
 
   Scenario: See the results with national record mention of an individual competitor in an unfinished race
     Given there is a race with attributes:
-      | sport | RUN |
+      | sport_key | RUN |
       | name | My test race |
       | start_date | 2010-07-15 |
       | location | Test city |

@@ -4,8 +4,8 @@ sv:
       no_teams: Inga lag
       relay_has_not_started_yet: Stafetten har inte ännu börjat
       penalty_seconds_info:
-        run: "Sakkoja ei juosta vaan ne lisätään aikaan. Arviointi: %{estimate_penalty_seconds} s/sakko. Ammunta: %{shooting_penalty_seconds} s/sakko."
-        ski: "Sakkoja ei hiihdetä vaan ne lisätään aikaan. Arviointi: %{estimate_penalty_seconds} s/sakko. Ammunta: %{shooting_penalty_seconds} s/sakko."
+        RUN: "Sakkoja ei juosta vaan ne lisätään aikaan. Arviointi: %{estimate_penalty_seconds} s/sakko. Ammunta: %{shooting_penalty_seconds} s/sakko."
+        SKI: "Sakkoja ei hiihdetä vaan ne lisätään aikaan. Arviointi: %{estimate_penalty_seconds} s/sakko. Ammunta: %{shooting_penalty_seconds} s/sakko."
       standing: Poängsumma
       updated: updaterad
       relay_has_no_teams: Inga lagen tillsatt för stafetten ännu

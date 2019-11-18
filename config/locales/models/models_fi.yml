@@ -89,7 +89,7 @@ fi:
     shot_8: Laukaus 9
     shot_9: Laukaus 10
     shots_total_input: Ammunta yhteensä
-    sport: Laji
+    sport_key: Laji
     start_date: Alkupvm
     start_day: Aloituspäivä
     start_interval_seconds: Lähtöaikojen väli
@@ -147,9 +147,6 @@ fi:
       shot:
         one: Laukaus
         other: Laukaukset
-      sport:
-        one: Laji
-        other: Lajit
       team_competition:
         one: Joukkuekilpailu
         other: Joukkuekilpailut

@@ -2,8 +2,8 @@
   = render :partial => 'shared/form_errors', :locals => { :item => @race }
   %h3= t 'official.races.form.basic_information'
   %div
-    %span.form_label= f.label :sport
-    %span= f.collection_select(:sport_id, Sport.all, :id, :name)
+    %span.form_label= f.label :sport_key
+    %span= f.select(:sport_key, @sports)
 
   %div
     %span.form_label= f.label :name

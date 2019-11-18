@@ -34,7 +34,6 @@ RSpec.configure do |config|
 end
 
 Role.ensure_default_roles_exist
-Sport.ensure_default_sports_exist
 
 include Shoulda::Matchers::ActiveRecord
 extend Shoulda::Matchers::ActiveRecord

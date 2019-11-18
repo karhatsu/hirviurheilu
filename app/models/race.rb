@@ -13,7 +13,6 @@ class Race < ApplicationRecord
   START_ORDER_MIXED = 2
 
   belongs_to :district
-  belongs_to :sport
   has_many :series, -> { order(:name) }, :dependent => :destroy
   has_many :age_groups, :through => :series
   has_many :competitors, -> { order(:last_name, :first_name) }, :through => :series
@@ -34,7 +33,6 @@ class Race < ApplicationRecord
   before_validation :set_end_date, :set_club_level
 
   validates :district, presence: true
-  validates :sport, :presence => true
   validates :name, :presence => true
   validates :location, :presence => true
   validates :start_date, :presence => true
@@ -52,14 +50,22 @@ class Race < ApplicationRecord
 
   after_save :set_series_start_lists_if_needed, :on => :update
 
-  scope :past, lambda { where('end_date<?', Time.zone.today).includes(:sport).order('end_date DESC, name') }
-  scope :today, lambda { where('start_date=? OR end_date=?', Time.zone.today, Time.zone.today).includes(:sport).order('start_date, name') }
-  scope :future, lambda { where('start_date>?', Time.zone.today).includes(:sport).order('start_date, name') }
+  scope :past, lambda { where('end_date<?', Time.zone.today).order('end_date DESC, name') }
+  scope :today, lambda { where('start_date=? OR end_date=?', Time.zone.today, Time.zone.today).order('start_date, name') }
+  scope :future, lambda { where('start_date>?', Time.zone.today).order('start_date, name') }
 
   attr_accessor :email, :password # for publishing
 
   def race
     self
+  end
+
+  def sport
+    Sport.by_key sport_key
+  end
+
+  def sport_name
+    sport.name
   end
 
   def self.cache_key_for_all
