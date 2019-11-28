@@ -380,7 +380,6 @@ DEPENDENCIES
   exception_notification
   factory_bot_rails
   fuubar
-  gherkin
   haml-rails
   jquery-rails
   jquery-turbolinks
