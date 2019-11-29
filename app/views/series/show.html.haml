@@ -1,0 +1,27 @@
+- unofficials = unofficials_result_rule @series.race
+- content_for(:title, "#{@series.race.name} - #{@series.name} - #{series_result_title(@series, unofficials)}")
+- if @series.active?
+  = render :partial => 'shared/refresh_counter', locals: {competition: @series}
+.title-and-fb-share
+  %h2
+    #{@series.name} - #{series_result_title(@series, unofficials)}
+  = render partial: 'shared/facebook_share'
+- content_for :sub_sub_menu do
+  = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id } do |series|
+    = race_series_path(series.race, series)
+= render layout: 'series/series_status', locals: { series: @series } do
+  = render partial: 'series/infos', locals: { series: @series }
+  - if @series.has_unofficial_competitors?
+    - if unofficials == Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
+      .action_box= link_to t('competitors.index.show_official_results'), race_series_path(@series.race, @series)
+    - elsif unofficials == Series::UNOFFICIALS_EXCLUDED
+      .action_box= link_to t('competitors.index.show_unofficial_results'), race_series_path(@series.race, @series, all_competitors: true)
+  .section
+    - cache [@series, params[:sort], unofficials, I18n.locale] do
+      = render partial: 'series/series_results', locals: { series: @series }
+  .action_box
+    = link_to t(:download_results_pdf), race_series_path(@series.race, @series, format: 'pdf', all_competitors: params[:all_competitors])
+%hr
+= link_to t(:start_list), race_series_start_list_path(@series.race, @series)
+%br
+= link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race)
