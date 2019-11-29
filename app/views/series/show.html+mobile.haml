@@ -12,7 +12,7 @@
       .action_box= link_to t('competitors.index.show_unofficial_results'),
         race_series_path(@series.race, @series, :all_competitors => true)
   .section
-    - cache [@series, params[:sort], unofficials, I18n.locale] do
+    - cache [@series, params[:sort], unofficials, I18n.locale, mobile?] do
       = render :partial => 'series/series_results', :locals => { :series => @series }
 - if @series.race.series.count > 1
   %hr

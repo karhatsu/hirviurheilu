@@ -17,7 +17,7 @@
     - elsif unofficials == Series::UNOFFICIALS_EXCLUDED
       .action_box= link_to t('competitors.index.show_unofficial_results'), race_series_path(@series.race, @series, all_competitors: true)
   .section
-    - cache [@series, params[:sort], unofficials, I18n.locale] do
+    - cache [@series, params[:sort], unofficials, I18n.locale, mobile?] do
       = render partial: 'series/series_results', locals: { series: @series }
   .action_box
     = link_to t(:download_results_pdf), race_series_path(@series.race, @series, format: 'pdf', all_competitors: params[:all_competitors])
