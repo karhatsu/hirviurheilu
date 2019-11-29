@@ -48,7 +48,7 @@ class Race < ApplicationRecord
   validate :check_duplicate_name_location_start_date, :on => :create
   validate :check_competitors_on_change_to_mixed_start_order, :on => :update
 
-  after_save :set_series_start_lists_if_needed, :on => :update
+  after_update :set_series_start_lists_if_needed
 
   scope :past, lambda { where('end_date<?', Time.zone.today).order('end_date DESC, name') }
   scope :today, lambda { where('start_date=? OR end_date=?', Time.zone.today, Time.zone.today).order('start_date, name') }

@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 ruby '2.6.5'
 
-gem 'rails', '5.2.3'
+gem 'rails', '6.0.1'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-themes'
@@ -59,7 +59,6 @@ end
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'gherkin'
   gem 'ruby-prof'
   gem 'therubyracer'
   gem 'spring'
