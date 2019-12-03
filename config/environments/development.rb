@@ -8,7 +8,17 @@ ElkSports::Application.configure do
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = true
+
+  # Enable/disable caching. By default caching is disabled.
+  # Run rails dev:cache to toggle caching.
+  if Rails.root.join('tmp/caching-dev.txt').exist?
+    config.action_controller.perform_caching = true
+    config.static_cache_control = "public, max-age=172800"
+    config.cache_store = :mem_cache_store
+  else
+    config.action_controller.perform_caching = false
+    config.cache_store = :null_store
+  end
 
   config.cache_store = :memory_store
 
