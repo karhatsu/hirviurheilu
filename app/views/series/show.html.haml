@@ -22,6 +22,6 @@
   .action_box
     = link_to t(:download_results_pdf), race_series_path(@series.race, @series, format: 'pdf', all_competitors: params[:all_competitors])
 %hr
-= link_to t(:start_list), race_series_start_list_path(@series.race, @series)
+= link_to t(:start_list), race_series_start_list_path(@series.race, @series), class: 'secondary_link'
 %br
-= link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race)
+= link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race), class: 'back_link'

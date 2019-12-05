@@ -2,7 +2,7 @@
 - if @tc.started? and not @race.finished?
   = render :partial => 'shared/refresh_counter', locals: {competition: @tc}
 .title-and-fb-share
-  %h2 
+  %h2
     = @tc.name
     \-
     = t :results
@@ -26,7 +26,7 @@
       \-
       = link_to t(:with_competitors), race_team_competition_path(@race, @tc, :format => 'pdf')
 %hr
-= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@race)
+= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@race), class: 'back_link'
 :javascript
   function showAllCompetitors() {
     $('.competitor_row').show();

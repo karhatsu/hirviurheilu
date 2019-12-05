@@ -29,7 +29,7 @@
     \-
     = link_to t(:with_competitors), race_relay_path(@relay.race, @relay, :format => 'pdf')
 %hr
-= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@relay.race)
+= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@relay.race), class: 'back_link'
 :javascript
   function showAllCompetitors() {
     $('.competitor_row').show();

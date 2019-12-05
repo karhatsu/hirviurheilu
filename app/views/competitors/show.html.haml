@@ -11,4 +11,4 @@
   .action_box
     = link_to t(:download_results_pdf), series_competitor_path(@competitor.series.id, @competitor, format: 'pdf')
 %hr
-= link_to t(:back_to_series_results, series_name: @competitor.series.name), race_series_path(@competitor.series.race, @competitor.series)
+= link_to t(:back_to_series_results, series_name: @competitor.series.name), race_series_path(@competitor.series.race, @competitor.series), class: 'back_link'
