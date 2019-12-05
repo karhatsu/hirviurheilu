@@ -1,0 +1,22 @@
+= content_for(:title, "#{@series.race.name} - #{@series.name} - #{t(:start_list)}")
+.title-and-fb-share
+  %h2= "#{@series.name} - #{t(:start_list)}"
+  = render partial: 'shared/facebook_share'
+- content_for :sub_sub_menu do
+  = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id } do |series|
+    = race_series_start_list_path(series.race, series)
+= render :partial => "competitors/start_notice", locals: { series: @series }
+- if @series.start_list.empty?
+  .info= t '.no_competitors_or_start_times'
+  - if official_rights
+    %div= link_to "Lisää kilpailijoita", new_official_series_competitor_path(@series)
+- else
+  .section
+    - cache [@series, I18n.locale] do
+      = render :partial => 'table', locals: { competitors: @series.start_list.includes(:club, :age_group), race: @series.race }
+  .action_box
+    = link_to t(:download_start_list_pdf), race_series_start_list_path(@series.race, @series, :format => 'pdf')
+%hr
+= link_to t(:results), race_series_path(@series.race, @series), class: 'secondary_link'
+%br
+= link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race), class: 'back_link'
