@@ -1,42 +1,33 @@
 - unofficials = unofficials_result_rule series.race
-%table
+.cards
   - prev_rel_points = 1.0/0.0
   - series.ordered_competitors(unofficials, params[:sort].to_i).each_with_index do |comp, i|
-    %tr{id: "comp_#{i+1}", class: i % 2 == 0 ? 'odd' : ''}
+    .card{class: i % 2 == 0 ? 'card-odd' : ''}
       - if i == 0
         - @max_points = comp.points
-      %td= "#{i + 1}." unless comp.relative_points == prev_rel_points
-      %td
-        - name = full_name(comp)
-        - if comp.age_group
-          - name = "#{name} (#{comp.age_group.name})"
-        = link_to name, 'javascript:Void(0);', onclick: "competitorDetails(#{i.to_s});", class: 'name_link'
-        - if comp.unofficial?
-          (
-          %span.unofficial{title: t(:unofficial)}><= t(:unofficial_short)
-          )
-      %td= comp.club.name
-      %td.center
+      .card-number= "#{i + 1}." unless comp.relative_points == prev_rel_points
+      .card-middle
+        .card-name
+          = full_name(comp)
+          - if comp.age_group
+            %span
+              (#{comp.age_group.name})
+          - if comp.unofficial?
+            %span{title: t(:unofficial)}
+              (#{t(:unofficial_short)})
+        .card-club= comp.club.name
+        .card-sub-results
+          - if comp.no_result_reason
+            = t "competitor.#{comp.no_result_reason}"
+          - else
+            - if series.points_method != Series::POINTS_METHOD_NO_TIME_2_ESTIMATES && series.points_method != Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
+              = time_points_print(comp, true, unofficials)
+              \|
+            = series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp)
+            \|
+            = shot_points_print(comp, true)
+      %div.card-total-points
         = points_print(comp, unofficials)
         - if comp.points.to_i >= @max_points.to_i
           = national_record_print(comp)
-    %tr{id: "details_#{i}", style: 'display: none;', class: i % 2 == 0 ? 'odd' : ''}
-      %td{colspan: 5}
-        - if comp.no_result_reason
-          = t "competitor.#{comp.no_result_reason}"
-        - else
-          - if series.points_method != Series::POINTS_METHOD_NO_TIME_2_ESTIMATES && series.points_method != Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
-            = time_points_print(comp, true, unofficials)
-            \|
-          = series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp)
-          \|
-          = shot_points_print(comp, true)
     - prev_rel_points = comp.relative_points
-:javascript
-  function competitorDetails(i) {
-    if ($('#details_' + i + ':hidden').length > 0) {
-      $('#details_' + i).show();
-    } else {
-      $('#details_' + i).hide();
-    }
-  }

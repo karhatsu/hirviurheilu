@@ -7,11 +7,11 @@ body {
 }
 
 h1 {
-    font-size: 17px;
+    font-size: 18px;
 }
 
 h2 {
-    font-size: 15px;
+    font-size: 16px;
     margin: 16px 0 8px;
 }
 
@@ -291,4 +291,46 @@ blockquote.public_message p:first-child {
 
 blockquote.public_message p {
   margin-bottom: 0;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  border: 1px solid olive;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px;
+  margin: 4px 0;
+}
+
+.card-odd {
+  background-color: #DDEEB5;
+}
+
+.card-number, .card-name, .card-total-points {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.card-number {
+  min-width: 32px;
+  text-align: center;
+  padding-right: 6px;
+}
+
+.card-middle {
+  flex-grow: 1;
+}
+
+.card-name span {
+  font-size: 12px;
+}
+
+.card-club, .card-sub-results {
+  margin-top: 4px;
 }

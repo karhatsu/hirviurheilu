@@ -58,11 +58,7 @@ Feature: Mobile usage
     When I follow "Men 50 years"
     Then I should be on the results page of the series
     And I should see "Mobile race - Men 50 years - Tulokset" within "h2"
-    And I should see a result row 1 with values:
-      | name | Johnson James |
-      | number | 1. |
-      | club | Mobile club |
-      | points | 1106 |
+    And I should see a card 1 with 1, "Johnson James", "Mobile club" with points 1106
 
   Scenario: Send feedback in mobile view
     Given I am on the home page

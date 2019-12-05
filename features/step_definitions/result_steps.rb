@@ -4,6 +4,14 @@ Then /^I should see a result row (\d+) with values:$/ do |order_number, values|
   end
 end
 
+Then ("I should see a card {int} with {int}, {string}, {string} with points {int}") do |order_number, number, name, club, main_value|
+  card_locator = "//div[@class='cards']/div[contains(@class, 'card')][#{order_number}]"
+  expect(find(:xpath, "#{card_locator}/div[@class='card-number']")).to have_text(number)
+  expect(find(:xpath, "#{card_locator}/div[@class='card-middle']/div[@class='card-name']")).to have_text(name)
+  expect(find(:xpath, "#{card_locator}/div[@class='card-middle']/div[@class='card-club']")).to have_text(club)
+  expect(find(:xpath, "#{card_locator}/div[@class='card-main-value']")).to have_text(main_value)
+end
+
 Then /^I should see a team (\d+) competitor row (\d+) with values:$/ do |team_order_number,
     competitor_order_number, values|
   values.rows_hash.values.each do |cell|
