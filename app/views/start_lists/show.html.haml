@@ -5,7 +5,7 @@
 - content_for :sub_sub_menu do
   = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id } do |series|
     = race_series_start_list_path(series.race, series)
-= render :partial => "competitors/start_notice", locals: { series: @series }
+= render partial: "competitors/start_notice", locals: { series: @series }
 - if @series.start_list.empty?
   .info= t '.no_competitors_or_start_times'
   - if official_rights

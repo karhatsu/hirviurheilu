@@ -2,14 +2,13 @@
   = render partial: 'shared/facebook_share'
 = content_for(:title, "#{@series.race.name} - #{@series.name} - #{t(:start_list)}")
 %h2= yield :title
-= render :partial => "competitors/start_notice", :locals => { :series => @series }
+= render partial: "competitors/start_notice", locals: { series: @series }
 - if @series.start_list.empty?
   .info= t '.no_competitors_or_start_times'
 - else
   .section
     - cache [@series, I18n.locale] do
-      = render :partial => 'table',
-        :locals => { :competitors => @series.start_list.includes(:club, :age_group), :race => @series.race }
+      = render partial: 'table', locals: { competitors: @series.start_list.includes(:club, :age_group), race: @series.race }
 - if @series.race.series.count > 1
   %hr
   - @series.race.series.each do |s|
