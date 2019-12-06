@@ -12,7 +12,7 @@
               - results << "<span class='card-time'>#{time_from_seconds competitor.time_in_seconds(false)}</span>"
             - estimate = competitor.estimate_penalties
             - if estimate
-              - estimate = "#{estimate}, #{competitor.estimate}m" if @relay.finished?
+              - estimate = "#{estimate} / #{competitor.estimate}m" if @relay.finished?
               - if @relay.estimate_penalty_seconds && competitor.estimate_penalties > 0
                 - results << "<span class='card-estimate'>#{time_from_seconds(competitor.estimate_penalty_seconds, true)} (#{estimate})</span>"
               - else
