@@ -16,16 +16,18 @@
             %span{title: t(:unofficial)}
               (#{t(:unofficial_short)})
         .card-club= comp.club.name
-        .card-sub-results
-          - if comp.no_result_reason
-            = t "competitor.#{comp.no_result_reason}"
-          - else
-            - if series.points_method != Series::POINTS_METHOD_NO_TIME_2_ESTIMATES && series.points_method != Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
-              = time_points_print(comp, true, unofficials)
-              \|
-            = series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp)
-            \|
-            = shot_points_print(comp, true)
+        - if comp.no_result_reason
+          .card-sub-results= t "competitor.#{comp.no_result_reason}"
+        - elsif comp.points > 0
+          .card-sub-results
+            - results = []
+            - if comp.arrival_time && series.time_points?
+              - results << "#{comp.time_points(unofficials)} (#{time_from_seconds(comp.time_in_seconds)})"
+            - if comp.estimate_points
+              - results << (series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp))
+            - if comp.shots_sum
+              - results << shot_points_print(comp, true)
+            = results.join(' | ')
       %div.card-main-value
         = points_print(comp, unofficials)
         - if comp.points.to_i >= @max_points.to_i

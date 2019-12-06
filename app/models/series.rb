@@ -224,6 +224,10 @@ class Series < ApplicationRecord
         points_method == POINTS_METHOD_NO_TIME_4_ESTIMATES
   end
 
+  def time_points?
+    points_method != POINTS_METHOD_300_TIME_2_ESTIMATES && points_method != POINTS_METHOD_NO_TIME_2_ESTIMATES
+  end
+
   def with_time?
     !walking_series?
   end
