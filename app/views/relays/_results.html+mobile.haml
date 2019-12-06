@@ -8,19 +8,19 @@
           .card-sub-results<
             - results = []
             - if @relay.penalty_seconds? && team.time_in_seconds
-              - results << "Aika #{time_from_seconds team.time_in_seconds}"
+              - results << "<span class='card-time'>#{time_from_seconds team.time_in_seconds}</span>"
             - estimate = team.estimate_penalties_sum
             - if estimate
               - if @relay.estimate_penalty_seconds && estimate > 0
-                - results << "Arvio #{time_from_seconds(team.estimate_penalty_seconds, true)} (#{estimate})"
+                - results << "<span class='card-estimate'>#{time_from_seconds(team.estimate_penalty_seconds, true)} (#{estimate})</span>"
               - else
-                - results << "Arvio #{estimate}"
+                - results << "<span class='card-estimate'>#{estimate}</span>"
             - shooting = team.shoot_penalties_sum
             - if shooting
               - if @relay.shooting_penalty_seconds && shooting > 0
-                - results << "Ammunta #{time_from_seconds(team.shooting_penalty_seconds, true)} (#{shooting})"
+                - results << "<span class='card-shoot'>#{time_from_seconds(team.shooting_penalty_seconds, true)} (#{shooting})</span>"
               - else
-                - results << "Ammunta #{shooting}"
+                - results << "<span class='card-shoot'>#{shooting}</span>"
             - adjustment = team.adjustment.to_i
             - if adjustment != 0
               - results << "Aikakorjaus #{time_from_seconds(adjustment, true)}"
@@ -31,7 +31,7 @@
             - if shooting_adjustment != 0
               - results << "Ammuntakorjaus #{time_from_seconds(shooting_adjustment, true)}"
             - unless results.empty?
-              = results.join(' | ')
+              = raw results.join(' ')
       .card-main-value
         - if team.no_result_reason
           = no_result_reason_print(team.no_result_reason, 'relay_team')

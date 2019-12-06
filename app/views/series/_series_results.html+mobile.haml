@@ -22,12 +22,12 @@
           .card-sub-results
             - results = []
             - if comp.arrival_time && series.time_points?
-              - results << "#{comp.time_points(unofficials)} (#{time_from_seconds(comp.time_in_seconds)})"
+              - results << "<span class='card-time'>#{comp.time_points(unofficials)} (#{time_from_seconds(comp.time_in_seconds)})</span>"
             - if comp.estimate_points
-              - results << (series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp))
+              - results << "<span class='card-estimate'>#{(series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp))}</span>"
             - if comp.shots_sum
-              - results << shot_points_print(comp, true)
-            = results.join(' | ')
+              - results << "<span class='card-shoot'>#{shot_points_print(comp, true)}</span>"
+            = raw results.join(' ')
       %div.card-main-value
         = points_print(comp, unofficials)
         - if comp.points.to_i >= @max_points.to_i

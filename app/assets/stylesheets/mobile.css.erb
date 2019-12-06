@@ -349,3 +349,22 @@ blockquote.public_message p {
   align-items: center;
   padding-left: 6px;
 }
+
+.card-time, .card-shoot, .card-estimate {
+  background-size: 12px;
+  background-repeat: no-repeat;
+  padding-left: 14px;
+  padding-right: 4px;
+}
+
+.card-time {
+  background-image: url(<%= image_path 'icon-clock.png' %>);
+}
+
+.card-shoot {
+  background-image: url(<%= image_path 'icon-shoot.png' %>);
+}
+
+.card-estimate {
+  background-image: url(<%= image_path 'icon-estimate.png' %>);
+}
