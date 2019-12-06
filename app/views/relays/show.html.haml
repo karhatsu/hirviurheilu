@@ -33,15 +33,15 @@
 :javascript
   function showAllCompetitors() {
     $('.competitor_row').show();
-    window.location.hash = 'competitors'
     $('#show_all_competitors').hide();
     $('#hide_all_competitors').show();
+    window.location.hash = 'competitors'
   }
   function hideAllCompetitors() {
     $('.competitor_row').hide();
-    window.location.hash = ''
     $('#show_all_competitors').show();
     $('#hide_all_competitors').hide();
+    history.pushState(null, null, ' ')
   }
   $('#show_all_competitors').click(function() {
     showAllCompetitors();

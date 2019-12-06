@@ -16,15 +16,15 @@
 :javascript
   function showRaces() {
     $('.card-sub-results').show();
-    window.location.hash = 'competitors'
     $('#show_races').hide();
     $('#hide_races').show();
+    window.location.hash = 'competitors'
   }
   function hideRaces() {
     $('.card-sub-results').hide();
-    window.location.hash = ''
     $('#show_races').show();
     $('#hide_races').hide();
+    history.pushState(null, null, ' ')
   }
   $('#show_races').click(function() {
     showRaces();
