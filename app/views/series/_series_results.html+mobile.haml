@@ -26,7 +26,7 @@
             = series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp)
             \|
             = shot_points_print(comp, true)
-      %div.card-total-points
+      %div.card-main-value
         = points_print(comp, unofficials)
         - if comp.points.to_i >= @max_points.to_i
           = national_record_print(comp)
