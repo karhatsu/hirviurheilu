@@ -1,27 +1,40 @@
-%table
-  %tr
-    %th &nbsp;
-    %th= t :team
-    %th.center= time_title @relay.race
-    - if @leg.to_i > 1
-      %th.center= t :leg_time_short
-    %th= t 'relays.show.estimate_penalties_short'
-    %th= t 'relays.show.shooting_penalties_short'
+.cards
   - @results.each_with_index do |team, i|
     - competitor = team.relay_competitors.find_by_leg(@leg)
-    %tr{id: "team_#{i + 1}"}
-      %td
-        #{i + 1}.
-      %td
-        #{team.name} (#{team.number}) /
-        = full_name competitor
-      %td.center.team_points
-        = relay_time_print @relay, team, @leg.to_i
-        = relay_time_adjustment_print competitor
-        - if @leg.to_i > 1
-          %td.center= relay_leg_time_print @relay, competitor
-      %td.center
-        = competitor.estimate_penalties
-        - if @relay.finished? and competitor.estimate
-          (#{competitor.estimate}m)
-      %td.center= competitor.misses
+    .card{class: i % 2 == 0 ? 'card-odd' : ''}
+      .card-number #{i + 1}.
+      .card-middle
+        .card-name #{team.name} / #{full_name competitor}
+        - unless team.no_result_reason
+          .card-sub-results<
+            - results = []
+            - if @relay.penalty_seconds? && competitor.arrival_time
+              - results << "Aika #{time_from_seconds competitor.time_in_seconds(false)}"
+            - estimate = competitor.estimate_penalties
+            - if estimate
+              - estimate_str = "#{estimate}, #{competitor.estimate}m" if @relay.finished?
+              - if @relay.estimate_penalty_seconds && estimate > 0
+                - results << "Arvio #{time_from_seconds(competitor.estimate_penalty_seconds, true)} (#{estimate_str})"
+              - else
+                - results << "Arvio #{estimate_str}"
+            - shooting = competitor.misses
+            - if shooting
+              - if @relay.shooting_penalty_seconds && shooting > 0
+                - results << "Ammunta #{time_from_seconds(competitor.shooting_penalty_seconds, true)} (#{shooting})"
+              - else
+                - results << "Ammunta #{shooting}"
+            - adjustment = competitor.adjustment.to_i
+            - if adjustment != 0
+              - results << "Aikakorjaus #{time_from_seconds(adjustment, true)}"
+            - estimate_adjustment = competitor.estimate_adjustment.to_i
+            - if estimate_adjustment != 0
+              - results << "Arviokorjaus #{time_from_seconds(estimate_adjustment, true)}"
+            - shooting_adjustment = competitor.shooting_adjustment.to_i
+            - if shooting_adjustment != 0
+              - results << "Ammuntakorjaus #{time_from_seconds(shooting_adjustment, true)}"
+            - unless results.empty?
+              = results.join(' | ')
+      .card-main-value
+        %div= time_from_seconds team.time_in_seconds(@leg.to_i, true)
+        - if @leg.to_i > 1 && competitor.time_in_seconds
+          %div (#{time_from_seconds competitor.time_in_seconds(true)})

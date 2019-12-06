@@ -91,6 +91,28 @@ class RelayTeam < ApplicationRecord
     sum
   end
 
+  def estimate_penalty_seconds(leg=nil)
+    return 0 unless relay.penalty_seconds?
+    leg = relay.legs_count unless leg
+    sum = 0
+    leg.to_i.times do |i|
+      competitor = competitor(i + 1)
+      sum += competitor.estimate_penalty_seconds.to_i if competitor
+    end
+    sum
+  end
+
+  def shooting_penalty_seconds(leg=nil)
+    return 0 unless relay.penalty_seconds?
+    leg = relay.legs_count unless leg
+    sum = 0
+    leg.to_i.times do |i|
+      competitor = competitor(i + 1)
+      sum += competitor.shooting_penalty_seconds.to_i if competitor
+    end
+    sum
+  end
+
   private
   def check_no_result_reason
     self.no_result_reason = nil if no_result_reason == ''

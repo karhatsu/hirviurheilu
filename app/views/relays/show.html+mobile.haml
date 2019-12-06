@@ -12,8 +12,6 @@
   = render 'correct_estimates'
   = render 'results_title'
   = render 'leg_links'
-  %a#show_all_competitors{href: 'javascript:void(0)'}= t :show_all_competitors
-  %a#hide_all_competitors{href: 'javascript:void(0)', style: 'display:none;'}= t :hide_all_competitors
   - cache [@relay, I18n.locale] do
     = render :partial => 'results', :locals => { :relay => @relay }
 - if @relay.race.relays.count > 1
@@ -25,27 +23,3 @@
       = link_to r.name, race_relay_path(r.race, r), class: 'primary_link'
 %hr
 = link_to "#{t(:back_to_page)} #{@race.name}", race_path(@relay.race), class: 'back_link'
-:javascript
-  function showAllCompetitors() {
-    $('.competitor_row').show();
-    window.location.hash = 'competitors'
-    $('#show_all_competitors').hide();
-    $('#hide_all_competitors').show();
-  }
-  function hideAllCompetitors() {
-    $('.competitor_row').hide();
-    window.location.hash = ''
-    $('#show_all_competitors').show();
-    $('#hide_all_competitors').hide();
-  }
-  $('#show_all_competitors').click(function() {
-    showAllCompetitors();
-  });
-  $('#hide_all_competitors').click(function() {
-    hideAllCompetitors();
-  });
-  $(document).ready(function() {
-    if(window.location.hash == '#competitors') {
-      showAllCompetitors();
-    }
-  });

@@ -1,42 +1,39 @@
-.section
-  %table
-    %tr
-      %th &nbsp;
-      %th= t :team
-      %th.center= time_title @race
-      - unless params[:exclude_competitors]
-        %th.center.competitor_row{style: 'display: none;'}= t :leg_time_short
-      %th.center= t 'relays.show.estimate_penalties_short'
-      %th.center= t 'relays.show.shooting_penalties_short'
-    - relay.results.each_with_index do |team, i|
-      %tr{id: "team_#{i + 1}"}
-        %td
-          %b #{i + 1}.
-        %td.team_name
-          #{team.name} (#{team.number})
-        %td.center.team_points
-          - if team.no_result_reason
-            = no_result_reason_print(team.no_result_reason, 'relay_team')
-          - else
-            = relay_time_print relay, team
-            = relay_time_adjustment_print team
-        - unless params[:exclude_competitors]
-          %td.competitor_row{style: 'display: none;'}
-        %td.center= team.estimate_penalties_sum
-        %td.center= team.shoot_penalties_sum
-        %td{colspan: 2} &nbsp;
-      - unless params[:exclude_competitors]
-        - team.relay_competitors.each do |comp|
-          %tr.competitor_row{style: 'display: none;'}
-            %td &nbsp;
-            %td= full_name(comp)
-            %td.center
-              = relay_time_print relay, team, comp.leg
-              = relay_time_adjustment_print comp
-            %td.center
-              = relay_leg_time_print relay, comp
-            %td.center
-              = comp.estimate_penalties
-              - if relay.finished? and comp.estimate
-                (#{comp.estimate}m)
-            %td.center= comp.misses
+.cards
+  - relay.results.each_with_index do |team, i|
+    .card{class: i % 2 == 0 ? 'card-odd' : ''}
+      .card-number #{i + 1}.
+      .card-middle
+        .card-name= team.name
+        - unless team.no_result_reason
+          .card-sub-results<
+            - results = []
+            - if @relay.penalty_seconds? && team.time_in_seconds
+              - results << "Aika #{time_from_seconds team.time_in_seconds}"
+            - estimate = team.estimate_penalties_sum
+            - if estimate
+              - if @relay.estimate_penalty_seconds && estimate > 0
+                - results << "Arvio #{time_from_seconds(team.estimate_penalty_seconds, true)} (#{estimate})"
+              - else
+                - results << "Arvio #{estimate}"
+            - shooting = team.shoot_penalties_sum
+            - if shooting
+              - if @relay.shooting_penalty_seconds && shooting > 0
+                - results << "Ammunta #{time_from_seconds(team.shooting_penalty_seconds, true)} (#{shooting})"
+              - else
+                - results << "Ammunta #{shooting}"
+            - adjustment = team.adjustment.to_i
+            - if adjustment != 0
+              - results << "Aikakorjaus #{time_from_seconds(adjustment, true)}"
+            - estimate_adjustment = team.estimate_adjustment.to_i
+            - if estimate_adjustment != 0
+              - results << "Arviokorjaus #{time_from_seconds(estimate_adjustment, true)}"
+            - shooting_adjustment = team.shooting_adjustment.to_i
+            - if shooting_adjustment != 0
+              - results << "Ammuntakorjaus #{time_from_seconds(shooting_adjustment, true)}"
+            - unless results.empty?
+              = results.join(' | ')
+      .card-main-value
+        - if team.no_result_reason
+          = no_result_reason_print(team.no_result_reason, 'relay_team')
+        - else
+          = time_from_seconds team.time_in_seconds(nil, true)
