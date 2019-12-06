@@ -12,11 +12,11 @@
               - results << "Aika #{time_from_seconds competitor.time_in_seconds(false)}"
             - estimate = competitor.estimate_penalties
             - if estimate
-              - estimate_str = "#{estimate}, #{competitor.estimate}m" if @relay.finished?
-              - if @relay.estimate_penalty_seconds && estimate > 0
-                - results << "Arvio #{time_from_seconds(competitor.estimate_penalty_seconds, true)} (#{estimate_str})"
+              - estimate = "#{estimate}, #{competitor.estimate}m" if @relay.finished?
+              - if @relay.estimate_penalty_seconds && competitor.estimate_penalties > 0
+                - results << "Arvio #{time_from_seconds(competitor.estimate_penalty_seconds, true)} (#{estimate})"
               - else
-                - results << "Arvio #{estimate_str}"
+                - results << "Arvio #{estimate}"
             - shooting = competitor.misses
             - if shooting
               - if @relay.shooting_penalty_seconds && shooting > 0
