@@ -16,8 +16,8 @@ Feature: Main page
       | location | Old city |
     And there is a race with attributes:
       | name | Upcoming race |
-      | start_date | 2020-01-01 |
-      | end_date | 2020-01-02 |
+      | start_date | 2030-01-01 |
+      | end_date | 2030-01-02 |
       | location | Upcoming city |
     And there is an ongoing race with attributes:
       | name | Ongoing race |
@@ -28,11 +28,11 @@ Feature: Main page
     And I should see "01.01.2010 - 02.01.2010, Old city" within "div#old_races"
     And I should see "Kilpailuja tulossa myöhemmin" within "div#future_races"
     And I should see "Upcoming race" within "div#future_races"
-    And I should see "01.01.2020 - 02.01.2020, Upcoming city" within "div#future_races"
+    And I should see "01.01.2030 - 02.01.2030, Upcoming city" within "div#future_races"
     And I should see "Kilpailut tänään" within "div#races_today"
     And I should see "Ongoing race" within "div#races_today"
     And I should see "Ongoing city" within "div#races_today"
-    
+
   Scenario: Listing cups and their races in the main page
     Given there is a cup "Cup without races"
     And there is a cup "Finished cup"
