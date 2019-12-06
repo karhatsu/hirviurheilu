@@ -2,5 +2,5 @@
 #{@series.race.location}, #{race_date_interval(@series.race, false)}
 %h2 #{@series.name} - Lähtölista
 - cache [@series, I18n.locale] do
-  = render :partial => 'table', :locals => { :competitors => @series.start_list.includes(:club, :age_group),
+  = render :partial => 'start_list', :locals => { :competitors => @series.start_list.includes(:club, :age_group),
       :race => @series.race }
