@@ -3,9 +3,9 @@
 - content_for(:title, "#{@cup_series.cup.name} - #{long_cup_series_name(@cup_series)} - #{t :results}")
 %h2= yield :title
 .info= render partial: 'cups/points_rule', locals: {cup: @cup}
-.cup_results
-  .section
-    = render partial: 'cup_series_results', locals: {cup_series: @cup_series}
+%a#show_races.secondary_link{href: "javascript:void(0)"}= t :show_races_of_cup
+%a#hide_races.secondary_link{href: "javascript:void(0)", style: "display:none"}= t :hide_races_of_cup
+.cup_results= render partial: 'cup_series_results', locals: {cup_series: @cup_series}
 - if @cup_series.cup.cup_series.count > 1
   %hr
   - @cup_series.cup.cup_series.each do |cs|
@@ -13,3 +13,27 @@
       = link_to cs.name, cup_cup_series_path(cs.cup, cs), class: 'primary_link'
 %hr
 = link_to t(:back_to_cup_page), cup_path(@cup), class: 'back_link'
+:javascript
+  function showRaces() {
+    $('.card-sub-results').show();
+    window.location.hash = 'competitors'
+    $('#show_races').hide();
+    $('#hide_races').show();
+  }
+  function hideRaces() {
+    $('.card-sub-results').hide();
+    window.location.hash = ''
+    $('#show_races').show();
+    $('#hide_races').hide();
+  }
+  $('#show_races').click(function() {
+    showRaces();
+  });
+  $('#hide_races').click(function() {
+    hideRaces();
+  });
+  $(document).ready(function() {
+    if(window.location.hash == '#competitors') {
+      showRaces();
+    }
+  });

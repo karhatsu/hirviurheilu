@@ -57,6 +57,7 @@ sv:
     other: euro
   feedback: Feedback
   hide_all_competitors: Gömma alla tävlarna
+  hide_races_of_cup: Gömma tävlingarna
   leg: Sträcka
   leg_time: Sträckatid
   leg_time_short: Sträcka
@@ -99,6 +100,7 @@ sv:
       one: Äldsgrupp %{age_group} har kortare löpning.
       other: Äldsgruppar %{age_group} har kortare löpning.
   show_all_competitors: Visa alla tävlarna
+  show_races_of_cup: Visa tävlingar
   start_list: Startlista
   team: Lag
   tel: Telefon

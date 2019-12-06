@@ -57,6 +57,7 @@ fi:
     other: euroa
   feedback: Palaute
   hide_all_competitors: Piilota kaikki kilpailijat
+  hide_races_of_cup: Piilota osakilpailut
   leg: Osuus
   leg_time: Osuusaika
   leg_time_short: Osuus
@@ -99,6 +100,7 @@ fi:
       one: Ikäryhmällä %{age_group} on lyhennetty matka.
       other: Ikäryhmillä %{age_group} on lyhennetty matka.
   show_all_competitors: Näytä kaikki kilpailijat
+  show_races_of_cup: Näytä osakilpailut
   start_list: Lähtölista
   team: Joukkue
   tel: Puhelin
