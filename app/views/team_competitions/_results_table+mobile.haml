@@ -1,28 +1,14 @@
-- pdf = params[:format] == 'pdf'
-- competitor_style = pdf ? '' : 'display: none;'
-%table
-  %tr
-    %th &nbsp;
-    %th= t(:team)
-    %th= t(:points)
+.cards
   - results.each_with_index do |team_result, i|
     - club_name = team_result[:club]
-    - club_id = club_name.gsub(/\s+/, '')
-    %tr{id: "team_#{i + 1}"}
-      %td #{i + 1}.
-      %td.team_name
-        - if pdf
-          = club_name
-        - else
-          %a.club_name_link.name_link{id: club_id, href: "javascript:void(0)"}= club_name
-      %td.center.team_points= team_result[:points]
-    - unless params[:exclude_competitors]
-      - team_result[:competitors].each_with_index do |competitor, j|
-        %tr.competitor_row{id: "team_#{i + 1}_comp_#{j + 1}", class: "club_#{club_id}", style: competitor_style}
-          %td &nbsp;
-          %td
-            #{full_name competitor},
-            = link_to "#{competitor.series.name}#{competitor.age_group ? " (#{competitor.age_group.name})" : ''}",
-                        race_series_path(competitor.series.race, competitor.series)
-          %td.center
-            %i= competitor.points
+    .card{class: i % 2 == 0 ? 'card-odd' : ''}
+      .card-number #{i + 1}.
+      .card-middle
+        .card-name= club_name
+        .card-sub-results{style: 'display: none'}
+          - team_result[:competitors].each do |competitor|
+            %div
+              #{full_name competitor},
+              #{competitor.series.name}#{competitor.age_group ? " (#{competitor.age_group.name})" : ''},
+              = competitor.points
+      .card-main-value= team_result[:points]

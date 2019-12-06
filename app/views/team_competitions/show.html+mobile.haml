@@ -7,10 +7,9 @@
   - if results.empty?
     .info= t '.cannot_calculate_results'
   - else
-    %a#show_all_competitors{href: "javascript:void(0)"}= t :show_all_competitors
-    %a#hide_all_competitors{href: "javascript:void(0)", style: "display:none;"}= t :hide_all_competitors
-    .section
-      = render :partial => 'results_table', :locals => { :results => results }
+    %a#show_all_competitors.secondary_link{href: "javascript:void(0)"}= t :show_all_competitors
+    %a#hide_all_competitors.secondary_link{href: "javascript:void(0)", style: "display:none;"}= t :hide_all_competitors
+    = render partial: 'results_table', locals: { results: results }
 - if @race.team_competitions.count > 1
   %hr
   - @race.team_competitions.each do |tc|
@@ -22,25 +21,17 @@
 = link_to "#{t(:back_to_page)} #{@race.name}", race_path(@race), class: 'back_link'
 :javascript
   function showAllCompetitors() {
-    $('.competitor_row').show();
+    $('.card-sub-results').show();
     window.location.hash = 'competitors'
     $('#show_all_competitors').hide();
     $('#hide_all_competitors').show();
   }
   function hideAllCompetitors() {
-    $('.competitor_row').hide();
+    $('.card-sub-results').hide();
     window.location.hash = ''
     $('#show_all_competitors').show();
     $('#hide_all_competitors').hide();
   }
-  $('.club_name_link').click(function() {
-    competitors = '.club_' + $(this).attr('id');
-    if($(competitors).is(':hidden')) {
-      $(competitors).show();
-    } else {
-      $(competitors).hide();
-    }
-  });
   $('#show_all_competitors').click(function() {
     showAllCompetitors();
   });
