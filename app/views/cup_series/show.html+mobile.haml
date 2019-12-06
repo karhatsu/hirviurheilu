@@ -9,7 +9,9 @@
 - if @cup_series.cup.cup_series.count > 1
   %hr
   - @cup_series.cup.cup_series.each do |cs|
-    - unless cs == @cup_series
+    - if cs == @cup_series
+      .current_link= cs.name
+    - else
       = link_to cs.name, cup_cup_series_path(cs.cup, cs), class: 'primary_link'
 %hr
 = link_to t(:back_to_cup_page), cup_path(@cup), class: 'back_link'

@@ -11,7 +11,9 @@
 - if @series.race.series.count > 1
   %hr
   - @series.race.series.each do |s|
-    - unless s == @series
+    - if s == @series
+      .current_link= s.name
+    - else
       = link_to s.name, race_series_start_list_path(s.race, s), class: 'primary_link'
 %hr
 = link_to t(:results), race_series_path(@series.race, @series), class: 'secondary_link'
