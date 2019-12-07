@@ -2,6 +2,7 @@
 - if mobile?
   .facebook_share= render partial: 'shared/facebook_share'
   %h1= yield :title
+  %div #{@race.location}, #{race_date_interval(@race)}
 - else
   .title-and-fb-share.race-page= render partial: 'shared/facebook_share'
 - unless @race.home_page.blank? and @race.organizer.blank? and @race.organizer_phone.blank?
