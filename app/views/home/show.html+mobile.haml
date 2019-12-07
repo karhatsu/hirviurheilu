@@ -3,7 +3,7 @@
   .home_page_box#races_today
     .box_sub_title= t '.competitions.today'
     = render partial: 'race_list', locals: { competitions: @today }
-#future_races
+.home_page_box#future_races
   - if @future.empty?
     .box_sub_title= t '.upcoming_competitions'
     = t '.no_upcoming_competitions'
