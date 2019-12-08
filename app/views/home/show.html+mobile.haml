@@ -2,7 +2,7 @@
 - unless @today.empty?
   .home_page_box#races_today
     .box_sub_title= t '.competitions.today'
-    = render partial: 'race_list', locals: { competitions: @today }
+    = render partial: 'race_list', locals: { races: @today }
 .home_page_box#future_races
   - if @future.empty?
     .box_sub_title= t '.upcoming_competitions'
@@ -11,11 +11,11 @@
     - @future.each do |key, races|
       .home_page_box{class: "races_#{key}"}
         .box_sub_title= t ".competitions.#{key}"
-        = render partial: 'race_list', locals: { competitions: races }
+        = render partial: 'race_list', locals: { races: races }
 - unless @past.empty?
   .home_page_box#old_races
     .box_sub_title= t '.latest_ended_competitions'
-    = render partial: 'race_list', locals: { competitions: @past, max: 10 }
+    = render partial: 'race_list', locals: { races: @past, max: 10 }
 - unless @announcements.empty?
   .home_page_box.announcements
     .box_sub_title= t '.announcements'
