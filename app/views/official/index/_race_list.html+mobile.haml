@@ -1,0 +1,14 @@
+- warn_unfinished = (defined?(warn_unfinished) ? warn_unfinished : false)
+- competitions.each do |competition|
+  - if competition.is_a?(Cup)
+    %a.card{href: official_cup_path(competition)}
+      .card-middle
+        .card-name= competition.name
+  - else
+    %a.card{href: official_race_path(competition)}
+      .card-middle
+        .card-name= competition.name
+        .card-sub-results
+          %div #{race_date_interval(competition, false)}, #{competition.location}
+          - if warn_unfinished && !competition.finished?
+            .error_inline Kilpailua ei ole päätetty!
