@@ -3,4 +3,5 @@
   - break if index == limit
   = render partial: 'home/race_link', locals: {race: race}
   - if index + 1 == limit
-    #all_races_link= link_to t('home.show.all_competitions'), races_path
+    #all_races_link
+      .secondary_link= link_to t('home.show.all_competitions'), races_path
