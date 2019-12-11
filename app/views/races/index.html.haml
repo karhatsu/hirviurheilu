@@ -10,6 +10,6 @@
   .info= t :no_races
 - else
   - cache [Race.cache_key_for_all, I18n.locale, params[:page], params[:search_text], params[:district_id]] do
-    = render partial: 'home/race_list', locals: { races: @races }
+    .row= render partial: 'home/race_list', locals: { races: @races }
     %hr
     = paginate @races
