@@ -1,18 +1,18 @@
 - show_series_name = !@cup_series.has_single_series_with_same_name?
-.cards
+.result-cards
   - @cup_series.ordered_competitors.each_with_index do |cc, i|
-    .card{class: i % 2 == 0 ? 'card-odd' : ''}
-      .card-number #{i + 1}.
-      .card-middle
-        .card-name
+    .card{class: i % 2 == 0 ? 'card--odd' : ''}
+      .card__number #{i + 1}.
+      .card__middle
+        .card__name
           = full_name(cc)
           - if show_series_name
             (#{cc.series_name})
-        .card-sub-results{style: 'display: none'}
+        .card__middle-2{style: 'display: none'}
           - @cup.races.each do |race|
             - c = cc.competitor_for_race(race)
             - if c
               %div
                 = race.name
                 = points_print(c)
-      .card-main-value= cup_points_print(cc)
+      .card__main-value= cup_points_print(cc)

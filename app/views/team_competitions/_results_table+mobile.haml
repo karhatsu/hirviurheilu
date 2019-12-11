@@ -1,14 +1,14 @@
-.cards
+.result-cards
   - results.each_with_index do |team_result, i|
     - club_name = team_result[:club]
-    .card{class: i % 2 == 0 ? 'card-odd' : ''}
-      .card-number #{i + 1}.
-      .card-middle
-        .card-name= club_name
-        .card-sub-results{style: 'display: none'}
+    .card{class: i % 2 == 0 ? 'card--odd' : ''}
+      .card__number #{i + 1}.
+      .card__middle
+        .card__name= club_name
+        .card__middle-2{style: 'display: none'}
           - team_result[:competitors].each do |competitor|
             %div
               #{full_name competitor},
               #{competitor.series.name}#{competitor.age_group ? " (#{competitor.age_group.name})" : ''},
               = competitor.points
-      .card-main-value= team_result[:points]
+      .card__main-value= team_result[:points]

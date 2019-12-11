@@ -1,28 +1,28 @@
-.cards
+.result-cards
   - @results.each_with_index do |team, i|
     - competitor = team.relay_competitors.find_by_leg(@leg)
-    .card{class: i % 2 == 0 ? 'card-odd' : ''}
-      .card-number #{i + 1}.
-      .card-middle
-        .card-name #{team.name} / #{full_name competitor}
+    .card{class: i % 2 == 0 ? 'card--odd' : ''}
+      .card__number #{i + 1}.
+      .card__middle
+        .card__name #{team.name} / #{full_name competitor}
         - unless team.no_result_reason
-          .card-sub-results<
+          .card__middle-2<
             - results = []
             - if @relay.penalty_seconds? && competitor.arrival_time
-              - results << "<span class='card-time'>#{time_from_seconds competitor.time_in_seconds(false)}</span>"
+              - results << "<span class='card__sub-result card__sub-result--time'>#{time_from_seconds competitor.time_in_seconds(false)}</span>"
             - estimate = competitor.estimate_penalties
             - if estimate
               - estimate = "#{estimate} / #{competitor.estimate}m" if @relay.finished?
               - if @relay.estimate_penalty_seconds && competitor.estimate_penalties > 0
-                - results << "<span class='card-estimate'>#{time_from_seconds(competitor.estimate_penalty_seconds, true)} (#{estimate})</span>"
+                - results << "<span class='card__sub-result card__sub-result--estimate'>#{time_from_seconds(competitor.estimate_penalty_seconds, true)} (#{estimate})</span>"
               - else
-                - results << "<span class='card-estimate'>#{estimate}</span>"
+                - results << "<span class='card__sub-result card__sub-result--estimate'>#{estimate}</span>"
             - shooting = competitor.misses
             - if shooting
               - if @relay.shooting_penalty_seconds && shooting > 0
-                - results << "<span class='card-shoot'>#{time_from_seconds(competitor.shooting_penalty_seconds, true)} (#{shooting})</span>"
+                - results << "<span class='card__sub-result card__sub-result--shoot'>#{time_from_seconds(competitor.shooting_penalty_seconds, true)} (#{shooting})</span>"
               - else
-                - results << "<span class='card-shoot'>#{shooting}</span>"
+                - results << "<span class='card__sub-result card__sub-result--shoot'>#{shooting}</span>"
             - adjustment = competitor.adjustment.to_i
             - if adjustment != 0
               - results << "Aikakorjaus #{time_from_seconds(adjustment, true)}"
@@ -34,7 +34,7 @@
               - results << "Ammuntakorjaus #{time_from_seconds(shooting_adjustment, true)}"
             - unless results.empty?
               = raw results.join(' ')
-      .card-main-value
+      .card__main-value
         %div= time_from_seconds team.time_in_seconds(@leg.to_i, true)
         - if @leg.to_i > 1 && competitor.time_in_seconds
           %div (#{time_from_seconds competitor.time_in_seconds(true)})

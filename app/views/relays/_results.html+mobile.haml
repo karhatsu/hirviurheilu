@@ -1,26 +1,26 @@
-.cards
+.result-cards
   - relay.results.each_with_index do |team, i|
-    .card{class: i % 2 == 0 ? 'card-odd' : ''}
-      .card-number #{i + 1}.
-      .card-middle
-        .card-name= team.name
+    .card{class: i % 2 == 0 ? 'card--odd' : ''}
+      .card__number #{i + 1}.
+      .card__middle
+        .card__name= team.name
         - unless team.no_result_reason
-          .card-sub-results<
+          .card__middle-2<
             - results = []
             - if @relay.penalty_seconds? && team.time_in_seconds
-              - results << "<span class='card-time'>#{time_from_seconds team.time_in_seconds}</span>"
+              - results << "<span class='card__sub-result card__sub-result--time'>#{time_from_seconds team.time_in_seconds}</span>"
             - estimate = team.estimate_penalties_sum
             - if estimate
               - if @relay.estimate_penalty_seconds && estimate > 0
-                - results << "<span class='card-estimate'>#{time_from_seconds(team.estimate_penalty_seconds, true)} (#{estimate})</span>"
+                - results << "<span class='card__sub-result card__sub-result--estimate'>#{time_from_seconds(team.estimate_penalty_seconds, true)} (#{estimate})</span>"
               - else
-                - results << "<span class='card-estimate'>#{estimate}</span>"
+                - results << "<span class='card__sub-result card__sub-result--estimate'>#{estimate}</span>"
             - shooting = team.shoot_penalties_sum
             - if shooting
               - if @relay.shooting_penalty_seconds && shooting > 0
-                - results << "<span class='card-shoot'>#{time_from_seconds(team.shooting_penalty_seconds, true)} (#{shooting})</span>"
+                - results << "<span class='card__sub-result card__sub-result--shoot'>#{time_from_seconds(team.shooting_penalty_seconds, true)} (#{shooting})</span>"
               - else
-                - results << "<span class='card-shoot'>#{shooting}</span>"
+                - results << "<span class='card__sub-result card__sub-result--shoot'>#{shooting}</span>"
             - adjustment = team.adjustment.to_i
             - if adjustment != 0
               - results << "Aikakorjaus #{time_from_seconds(adjustment, true)}"
@@ -32,7 +32,7 @@
               - results << "Ammuntakorjaus #{time_from_seconds(shooting_adjustment, true)}"
             - unless results.empty?
               = raw results.join(' ')
-      .card-main-value
+      .card__main-value
         - if team.no_result_reason
           = no_result_reason_print(team.no_result_reason, 'relay_team')
         - else
