@@ -7,10 +7,10 @@
 - else
   - unless @today.empty?
     %h2= t 'home.show.competitions.today'
-    .cards= render partial: 'race_list', locals: { competitions: @today }
+    .row= render partial: 'race_list', locals: { competitions: @today }
   - unless @today.empty?
     %h2= t 'home.show.upcoming_competitions'
-    .cards= render partial: 'race_list', locals: { competitions: @future }
+    .row= render partial: 'race_list', locals: { competitions: @future }
   - unless @past.empty?
     %h2= t 'home.show.competitions.past'
-    .cards= render partial: 'race_list', locals: { competitions: @past }
+    .row= render partial: 'race_list', locals: { competitions: @past }
