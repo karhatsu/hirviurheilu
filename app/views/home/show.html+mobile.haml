@@ -1,7 +1,7 @@
 = render partial: 'district_menu'
 - unless @today.empty?
   %h2= t '.competitions.today'
-  .cards#races_today
+  .row#races_today
     = render partial: 'race_list', locals: { races: @today }
 #future_races
   - if @future.empty?
@@ -10,18 +10,19 @@
   - else
     - @future.each do |key, races|
       %h2= t ".competitions.#{key}"
-      .cards{class: "races_#{key}"}
+      .row{class: "races_#{key}"}
         = render partial: 'race_list', locals: { races: races }
 - unless @past.empty?
   %h2= t '.latest_ended_competitions'
-  .cards#old_races
-    = render partial: 'race_list', locals: { races: @past, max: 10 }
+  .row#old_races
+    = render partial: 'race_list', locals: { races: @past, max: 11 }
 - unless @announcements.empty?
   %h2= t '.announcements'
-  .cards
+  .row
     - @announcements.each do |ann|
-      %a.card{href: announcement_path(ann)}
-        .card-middle
-          .card-name= ann.title
-          .card-sub-results= date_print ann.published
+      .col-xs-12.col-sm-6.col-md-4.col-lg-3
+        %a.card{href: announcement_path(ann)}
+          .card-middle
+            .card-name= ann.title
+            .card-sub-results= date_print ann.published
 = render :partial => 'shared/facebook_like_box'
