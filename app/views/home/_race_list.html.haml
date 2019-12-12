@@ -1,12 +1,6 @@
 - limit = defined?(max) ? max : 1.0/0.0
-- competitions.each_with_index do |competition, index|
-  - if competition.is_a?(Cup)
-    .cup
-      = render partial: 'home/race_link', locals: {icon: true, competition: competition}
-      - competition.races.except(:order).order('end_date desc').each do |race|
-        = render partial: 'home/race_link', locals: {icon: true, competition: race, secondary: true}
-  - else
-    = render partial: 'home/race_link', locals: {icon: true, competition: competition}
+- races.each_with_index do |race, index|
+  = render partial: 'home/race_link', locals: {icon: true, race: race}
   - if index + 1 == limit
     %hr
     .all_races_link

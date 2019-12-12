@@ -1,8 +1,9 @@
 %body
   = render 'shared/login_links'
-  #header
-    = link_to 'Hirviurheilu', root_path
-  #main_area
-    #main_content= yield
+  %a#header{href: '/'}
+    = image_tag '/logo-128.png'
+    .header-title Hirviurheilu
+    = image_tag '/logo-128.png'
+  #main_content= yield
   #footer
     = render 'shared/footer'

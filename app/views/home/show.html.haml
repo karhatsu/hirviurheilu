@@ -18,7 +18,7 @@
           .home_page_box
             = t '.no_competitions_today'
         - else
-          = render partial: 'race_list', locals: { competitions: @today }
+          = render partial: 'race_list', locals: { races: @today }
     .title_box.races_box#future_races
       .box_title= t '.upcoming_competitions'
       .title_box_content
@@ -29,7 +29,7 @@
           - @future.each do |key, races|
             .home_page_box{class: "races_#{key}"}
               .box_sub_title= t ".competitions.#{key}"
-              = render partial: 'race_list', locals: { competitions: races }
+              = render partial: 'race_list', locals: { races: races }
     - if few_upcoming_competitions
       = render partial: 'announcements'
       = render partial: 'shared/facebook_like_box'
@@ -40,4 +40,4 @@
     .title_box.races_box#old_races
       .box_title= t '.latest_ended_competitions'
       .title_box_content
-        = render partial: 'race_list', locals: { competitions: @past, max: 10 }
+        = render partial: 'race_list', locals: { races: @past, max: 10 }

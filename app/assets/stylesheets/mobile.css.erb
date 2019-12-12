@@ -15,6 +15,10 @@ h2 {
     margin: 16px 0 8px;
 }
 
+h2.emphasize {
+  text-transform: uppercase;
+}
+
 h3 {
   font-size: 16px;
 }
@@ -71,6 +75,10 @@ a:hover {
   width: 90%;
 }
 
+#all_races_link .secondary_link {
+  margin: 8px 0 0;
+}
+
 .name_link {
   padding: 2px;
   margin: 2px 0;
@@ -114,29 +122,46 @@ select {
     background-color: olive;
     border-top: 1px solid #fff;
     border-bottom: 1px solid #fff;
-    font-size: 20px;
-    margin: 5px 0 20px 0;
-    padding: 5px 0;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    margin: 6px 0 20px 0;
+    padding: 4px 0;
     width: 100%;
 }
 
-#header a {
+#header img {
+  width: 32px;
+}
+
+#header .header-title {
     color: #fff;
+    flex-grow: 1;
+    font-size: 24px;
     font-weight: bold;
+    text-align: center;
     text-decoration: none;
 }
 
-#main_area {
-    margin: 2%;
-    width: 96%;
+#main_content {
+  background-color: #FFF;
+  border: 1px solid olive;
+  border-radius: 2px;
+  padding: 8px;
+  margin: 8px;
 }
 
-#main_content {
-    background-color: #FFF;
-    border: 1px solid olive;
-    border-radius: 2px;
-    padding: 3%;
+@media only screen and (min-width: 48em) {
+  #main_content {
+    padding: 16px;
+    margin: 16px;
+  }
+}
+
+@media only screen and (min-width: 64em) {
+  #main_content {
+    padding: 32px;
+    margin: 32px;
+  }
 }
 
 #footer {
@@ -206,61 +231,6 @@ div.form_label {
   margin-bottom: 5px;
 }
 
-.home_page_box {
-    margin: 0 0 20px;
-}
-
-.box_sub_title {
-    background-color: #DDEEB5;
-    border-bottom: solid 2px #888;
-    box-shadow: 3px 3px 3px #ccc;
-    font-size: 15px;
-    margin: 0 0 3px;
-    padding: 4px;
-}
-
-.home_page_box.announcements .box_sub_title {
-  background-color: #FF7F00;
-  color: #fff;
-}
-
-.race_link, .cup_race_link {
-    margin: 0 0 10px;
-}
-
-.race_info {
-    color: #444;
-    margin-left: 0;
-}
-
-.race_link .primary_link, .race_link .secondary_link, .announcement_link .primary_link {
-  margin: 3px 0;
-  padding: 0;
-  width: 100%;
-}
-
-.race_link .primary_link span, .race_link .secondary_link span, .announcement_link .primary_link  span {
-  display: inline-block;
-  padding: 5px 10px;
-  width: 100%;
-}
-
-.races_of_cup {
-    margin: 0 15px;
-}
-
-.all_races_link {
-  margin: 10px 0 0;
-}
-
-.announcement_link {
-    margin: 0 0 10px;
-}
-
-.announcement_info {
-  margin-left: 3px;
-}
-
 tr.odd {
     background-color: #DDEEB5;
 }
@@ -297,14 +267,15 @@ blockquote.public_message p {
   margin-bottom: 0;
 }
 
-.cards {
+.result-cards {
   display: flex;
   flex-direction: column;
 }
 
 .card {
   border: 1px solid olive;
-  border-radius: 4px;
+  border-radius: 2px;
+  box-shadow: 3px 3px 3px #ccc;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -312,45 +283,66 @@ blockquote.public_message p {
   margin: 4px 0;
 }
 
-.card-odd {
+a.card {
+  color: #000;
+}
+
+a.card .card__name {
+  color: olive;
+}
+
+a.card:active, a.card:hover {
+  text-decoration: none;
+}
+
+a.card:active {
+  background-color: olive;
+  color: #fff;
+}
+
+a.card:active .card__name {
+  color: #fff;
+}
+
+.card--odd {
   background-color: #DDEEB5;
 }
 
-.card-number, .card-name, .card-main-value {
+.card__number, .card__name, .card__main-value {
   font-size: 16px;
   font-weight: 600;
 }
 
-.card-number {
+.card__number {
   min-width: 32px;
   text-align: center;
   padding-right: 6px;
 }
 
-.card-middle {
+.card__middle {
   flex-grow: 1;
 }
 
-.card-name span {
+.card__name span {
   font-size: 12px;
 }
 
-.card-club, .card-sub-results {
+.card__middle-1, .card__middle-2 {
   margin-top: 4px;
 }
 
-.card-sub-results:empty {
+.card__middle-1:empty, .card__middle-2:empty {
   margin-top: 0;
 }
 
-.card-main-value {
+.card__main-value {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-left: 6px;
 }
 
-.card-time, .card-shoot, .card-estimate {
+.card__sub-result {
   background-size: 12px;
   background-repeat: no-repeat;
   padding-left: 16px;
@@ -358,14 +350,22 @@ blockquote.public_message p {
   white-space: nowrap;
 }
 
-.card-time {
+.card__sub-result--time {
   background-image: url(<%= image_path 'icon-clock.png' %>);
 }
 
-.card-shoot {
+.card__sub-result--shoot {
   background-image: url(<%= image_path 'icon-shoot.png' %>);
 }
 
-.card-estimate {
+.card__sub-result--estimate {
   background-image: url(<%= image_path 'icon-estimate.png' %>);
+}
+
+.before_facebook_like_box {
+  height: 16px;
+}
+
+.pagination {
+  margin: 8px 0;
 }

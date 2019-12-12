@@ -1,13 +1,13 @@
 - unofficials = unofficials_result_rule series.race
-.cards
+.result-cards
   - prev_rel_points = 1.0/0.0
   - series.ordered_competitors(unofficials, params[:sort].to_i).each_with_index do |comp, i|
-    .card{class: i % 2 == 0 ? 'card-odd' : ''}
+    .card{class: i % 2 == 0 ? 'card--odd' : ''}
       - if i == 0
         - @max_points = comp.points
-      .card-number= "#{i + 1}." unless comp.relative_points == prev_rel_points
-      .card-middle
-        .card-name
+      .card__number= "#{i + 1}." unless comp.relative_points == prev_rel_points
+      .card__middle
+        .card__name
           = full_name(comp)
           - if comp.age_group
             %span
@@ -15,20 +15,20 @@
           - if comp.unofficial?
             %span{title: t(:unofficial)}
               (#{t(:unofficial_short)})
-        .card-club= comp.club.name
+        .card__middle-1= comp.club.name
         - if comp.no_result_reason
-          .card-sub-results= t "competitor.#{comp.no_result_reason}"
+          .card__middle-2= t "competitor.#{comp.no_result_reason}"
         - elsif comp.points > 0
-          .card-sub-results
+          .card__middle-2
             - results = []
             - if comp.estimate_points
-              - results << "<span class='card-estimate'>#{(series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp))}</span>"
+              - results << "<span class='card__sub-result card__sub-result--estimate'>#{(series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp))}</span>"
             - if comp.arrival_time && series.time_points?
-              - results << "<span class='card-time'>#{comp.time_points(unofficials)} (#{time_from_seconds(comp.time_in_seconds)})</span>"
+              - results << "<span class='card__sub-result card__sub-result--time'>#{comp.time_points(unofficials)} (#{time_from_seconds(comp.time_in_seconds)})</span>"
             - if comp.shots_sum
-              - results << "<span class='card-shoot'>#{shot_points_print(comp, true)}</span>"
+              - results << "<span class='card__sub-result card__sub-result--shoot'>#{shot_points_print(comp, true)}</span>"
             = raw results.join(' ')
-      %div.card-main-value
+      %div.card__main-value
         = points_print(comp, unofficials)
         - if comp.points.to_i >= @max_points.to_i
           = national_record_print(comp)

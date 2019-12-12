@@ -21,7 +21,7 @@ Feature: Mobile usage
     Then I should see "Finished race" within "div#old_races"
     And I should see "Today's race" within "div#races_today"
     And I should see "Upcoming race" within "div#future_races"
-    And I should see "Active announcement" within "div.announcements"
+    And I should see "Active announcement" within "div#home_page_announcements"
     When I follow "Active announcement"
     Then I should see "Active announcement"
     And I should see "Mobile UI released"

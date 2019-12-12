@@ -33,36 +33,6 @@ Feature: Main page
     And I should see "Ongoing race" within "div#races_today"
     And I should see "Ongoing city" within "div#races_today"
 
-  Scenario: Listing cups and their races in the main page
-    Given there is a cup "Cup without races"
-    And there is a cup "Finished cup"
-    And there is a race "Finished race 1" in the past
-    And the race belongs to the cup
-    And there is a race "Another finished race" in the past
-    And the race belongs to the cup
-    And there is a cup "Upcoming cup"
-    And there is a race "Upcoming race 1" in the future
-    And the race belongs to the cup
-    And there is a race "Another upcoming race" in the future
-    And the race belongs to the cup
-    And there is a cup "Ongoing cup"
-    And there is a race "Already finished race" in the past
-    And the race belongs to the cup
-    And there is a race "Race not yet started" in the future
-    And the race belongs to the cup
-    And there is a race "Today's race" today
-    When I go to the home page
-    Then I should see "Finished cup" within "div#old_races"
-    And I should see "Finished race 1" within "div#old_races"
-    And I should see "Another finished race" within "div#old_races"
-    And I should see "Already finished race" within "div#old_races"
-    And I should see "Upcoming race 1" within "div#future_races"
-    And I should see "Another upcoming race" within "div#future_races"
-    And I should see "Race not yet started" within "div#future_races"
-    And I should see "Today's race" within "div#races_today"
-    When I follow "Kaikki kilpailut"
-    Then I should not see "Cup without races"
-
   Scenario: Limiting races by district
     Given there is a district "Southern District"
     And there is a finished race "Finished southern race" for the district

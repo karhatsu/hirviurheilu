@@ -6,10 +6,11 @@
   = submit_tag 'Hae', class: 'primary_link'
   = link_to 'Tyhjennä', races_path, class: 'secondary_link'
 %hr
-- if @competitions.empty?
+- if @races.empty?
   .info= t :no_races
 - else
   - cache [Race.cache_key_for_all, I18n.locale, params[:page], params[:search_text], params[:district_id]] do
-    = render :partial => 'home/race_list', :locals => { :competitions => @competitions }
-    %hr
-    = paginate @competitions
+    .row= render partial: 'home/race_list', locals: { races: @races }
+    .pagination= paginate @races
+%hr
+= link_to t(:back_to_home_page), root_path, class: 'secondary_link'

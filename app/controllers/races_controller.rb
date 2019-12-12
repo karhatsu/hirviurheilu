@@ -16,7 +16,7 @@ class RacesController < ApplicationController
       where << "(name ILIKE :search_text OR location ILIKE :search_text)"
       where_params[:search_text] = "%#{search_text}%"
     end
-    @competitions = Race.where(where.join(' AND '), where_params).order('start_date DESC').page(params[:page])
+    @races = Race.where(where.join(' AND '), where_params).order('start_date DESC').page(params[:page])
   end
 
   def show

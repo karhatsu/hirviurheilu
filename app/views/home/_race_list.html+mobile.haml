@@ -1,21 +1,7 @@
 - limit = defined?(max) ? max : 1.0/0.0
-- competitions.each_with_index do |competition, index|
+- races.each_with_index do |race, index|
   - break if index == limit
-  .race_link
-    - if competition.is_a?(Cup)
-      %a.primary_link{href: cup_path(competition)}
-        %span= competition.name
-    - else
-      = render partial: 'home/race_link', locals: {competition: competition}
-    - if competition.is_a?(Cup)
-      .races_of_cup
-        - competition.races.each do |race|
-          .cup_race_link
-            %a.secondary_link{href: race_path(race)}
-              %span= race.name
-            .race_info
-              #{date_interval(race.start_date, race.end_date)}, #{race.location}
+  = render partial: 'home/race_link', locals: {race: race}
   - if index + 1 == limit
-    .race_link#all_races_link
-      %a.secondary_link{href: races_path}
-        %span= t('home.show.all_competitions')
+    #all_races_link.col-xs-12.col-sm-6.col-md-4.col-lg-3
+      .secondary_link= link_to t('home.show.all_competitions'), races_path

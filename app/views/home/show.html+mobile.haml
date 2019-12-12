@@ -1,27 +1,26 @@
+- new_announcements = @announcements.length > 0 && @announcements[0].published > 1.month.ago
+- if new_announcements
+  = render partial: 'announcements'
+  %h2.emphasize= t :competitions
 = render partial: 'district_menu'
 - unless @today.empty?
-  .home_page_box#races_today
-    .box_sub_title= t '.competitions.today'
-    = render partial: 'race_list', locals: { competitions: @today }
-.home_page_box#future_races
+  %h2= t '.competitions.today'
+  .row#races_today
+    = render partial: 'race_list', locals: { races: @today }
+#future_races
   - if @future.empty?
-    .box_sub_title= t '.upcoming_competitions'
+    %h2= t '.upcoming_competitions'
     = t '.no_upcoming_competitions'
   - else
     - @future.each do |key, races|
-      .home_page_box{class: "races_#{key}"}
-        .box_sub_title= t ".competitions.#{key}"
-        = render partial: 'race_list', locals: { competitions: races }
+      %h2= t ".competitions.#{key}"
+      .row{class: "races_#{key}"}
+        = render partial: 'race_list', locals: { races: races }
 - unless @past.empty?
-  .home_page_box#old_races
-    .box_sub_title= t '.latest_ended_competitions'
-    = render partial: 'race_list', locals: { competitions: @past, max: 10 }
-- unless @announcements.empty?
-  .home_page_box.announcements
-    .box_sub_title= t '.announcements'
-    - @announcements.each do |ann|
-      .announcement_link
-        %a.primary_link{href: announcement_path(ann)}
-          %span= ann.title
-        .announcement_info= date_print ann.published
+  %h2= t '.latest_ended_competitions'
+  .row#old_races
+    = render partial: 'race_list', locals: { races: @past, max: 11 }
+- unless new_announcements
+  = render partial: 'announcements'
+.before_facebook_like_box
 = render :partial => 'shared/facebook_like_box'
