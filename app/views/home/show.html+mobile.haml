@@ -1,3 +1,7 @@
+- new_announcements = @announcements[0].published > 1.month.ago
+- if new_announcements
+  = render partial: 'announcements'
+  %h2.emphasize= t :competitions
 = render partial: 'district_menu'
 - unless @today.empty?
   %h2= t '.competitions.today'
@@ -16,13 +20,7 @@
   %h2= t '.latest_ended_competitions'
   .row#old_races
     = render partial: 'race_list', locals: { races: @past, max: 11 }
-- unless @announcements.empty?
-  %h2= t '.announcements'
-  .row#home_page_announcements
-    - @announcements.each do |ann|
-      .col-xs-12.col-sm-6.col-md-4.col-lg-3
-        %a.card{href: announcement_path(ann)}
-          .card__middle
-            .card__name= ann.title
-            .card__middle-1= date_print ann.published
+- unless new_announcements
+  = render partial: 'announcements'
+.before_facebook_like_box
 = render :partial => 'shared/facebook_like_box'
