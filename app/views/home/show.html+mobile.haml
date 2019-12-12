@@ -1,4 +1,4 @@
-- new_announcements = @announcements[0].published > 1.month.ago
+- new_announcements = @announcements.length > 0 && @announcements[0].published > 1.month.ago
 - if new_announcements
   = render partial: 'announcements'
   %h2.emphasize= t :competitions

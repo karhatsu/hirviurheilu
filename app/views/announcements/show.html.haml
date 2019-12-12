@@ -1,6 +1,7 @@
 - content_for :title, @announcement.title
 - content_for :page_title, 'Tiedotteet'
 %h2= yield :title
+%h3= @announcement.published.strftime '%d.%m.%Y'
 = raw @announcement.content
 %hr
 = link_to t(:back_to_home_page), root_path, class: 'back_link'
