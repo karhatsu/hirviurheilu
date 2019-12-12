@@ -11,5 +11,6 @@
 - else
   - cache [Race.cache_key_for_all, I18n.locale, params[:page], params[:search_text], params[:district_id]] do
     .row= render partial: 'home/race_list', locals: { races: @races }
-    %hr
-    = paginate @races
+    .pagination= paginate @races
+%hr
+= link_to t(:back_to_home_page), root_path, class: 'secondary_link'
