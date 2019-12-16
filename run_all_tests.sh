@@ -11,15 +11,7 @@ then
   else
     echo "No need to run RSpec."
   fi
-  if [ "$(cat STABLE_COMMIT_CUKE)" != "$(git rev-list --max-count=1 HEAD)" ]
-  then
-    echo "Running Cucumber..."
-    spring cucumber --format progress features
-    git rev-list --max-count=1 HEAD > STABLE_COMMIT_CUKE
-  else
-    echo "No need to run Cucumber."
-  fi
-  spring cucumber -p js --format progress features
+  spring cucumber --format progress features
   git rev-list --max-count=1 HEAD > STABLE_COMMIT
 else
   echo "No need to run tests."
