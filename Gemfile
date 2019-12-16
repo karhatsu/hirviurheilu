@@ -38,6 +38,7 @@ group :development do
 end
 
 group :test do
+  gem 'puma'
   gem 'minitest'
   gem 'capybara'
   gem 'cucumber-rails', :require => false

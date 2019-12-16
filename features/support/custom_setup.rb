@@ -3,7 +3,6 @@ require 'cucumber/rspec/doubles'
 require 'factory_bot_rails'
 World(FactoryBot::Syntax::Methods)
 
-Capybara.server = :webrick
 Capybara.javascript_driver = :selenium_chrome_headless
 
 def setup_database
