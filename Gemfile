@@ -46,7 +46,6 @@ group :test do
   gem 'email_spec'
   gem "factory_bot_rails", :require => false
   gem 'launchy'
-  gem 'poltergeist'
   gem 'rspec-rails'
   gem 'rspec-collection_matchers'
   gem 'rspec-json_expectations'
@@ -60,7 +59,6 @@ end
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'ruby-prof'
   gem 'therubyracer'
   gem 'spring'
   gem 'spring-commands-rspec'
