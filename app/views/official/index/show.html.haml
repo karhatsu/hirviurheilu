@@ -7,22 +7,14 @@
   .action_box= link_to t('.add_new_race'), new_official_race_path
 - else
   - unless @today.empty?
-    .title_box.races_box
-      .box_title= t 'home.show.competitions.today'
-      .title_box_content
-        = render partial: 'race_list', locals: { competitions: @today }
-  .title_box.races_box
-    .box_title= t 'home.show.upcoming_competitions'
-    .title_box_content
-      .action_box= link_to t('.add_new_race'), new_official_race_path
-      = render partial: 'race_list', locals: { competitions: @future }
-  .title_box.races_box
-    .box_title= t 'home.show.competitions.cup'
-    .title_box_content
-      .action_box= link_to t('.add_new_cup'), new_official_cup_path
-      = render partial: 'race_list', locals: { competitions: @cups }
+    %h2= t 'home.show.competitions.today'
+    .row= render partial: 'race_list', locals: { competitions: @today }
+  %h2= t 'home.show.upcoming_competitions'
+  .action_box= link_to t('.add_new_race'), new_official_race_path
+  .row= render partial: 'race_list', locals: { competitions: @future }
+  %h2= t 'home.show.competitions.cup'
+  .action_box= link_to t('.add_new_cup'), new_official_cup_path
+  .row= render partial: 'race_list', locals: { competitions: @cups }
   - unless @past.empty?
-    .title_box.races_box#finished_races
-      .box_title= t 'home.show.competitions.past'
-      .title_box_content
-        = render partial: 'race_list', locals: { competitions: @past, warn_unfinished: true }
+    %h2= t 'home.show.competitions.past'
+    .row= render partial: 'race_list', locals: { competitions: @past, warn_unfinished: true }

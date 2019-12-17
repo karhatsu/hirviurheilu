@@ -1,10 +1,16 @@
 - warn_unfinished = (defined?(warn_unfinished) ? warn_unfinished : false)
 - competitions.each do |competition|
   - if competition.is_a?(Cup)
-    %div
-      = link_to competition.name, official_cup_path(competition), class: 'primary_link'
+    .col-xs-12.col-sm-6.col-md-4
+      %a.card{href: official_cup_path(competition)}
+        .card__middle
+          .card__name= competition.name
   - else
-    %div
-      =link_to "#{competition.name} (#{race_date_interval(competition, false)}, #{competition.location})", official_race_path(competition), class: 'primary_link'
-      - if warn_unfinished && !competition.finished?
-        %span.error_inline Kilpailua ei ole päätetty!
+    .col-xs-12.col-sm-6.col-md-4
+      %a.card{href: official_race_path(competition)}
+        .card__middle
+          .card__name= competition.name
+          .card__middle-1
+            %div #{race_date_interval(competition, false)}, #{competition.location}
+            - if warn_unfinished && !competition.finished?
+              .error_inline Kilpailua ei ole päätetty!

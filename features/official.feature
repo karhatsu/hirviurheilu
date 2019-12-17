@@ -54,7 +54,7 @@ Feature: Official
     And I have a race "Test race"
     And I have logged in
     And I am on the official index page
-    Then I should see "Test race" within "#finished_races"
+    Then I should see "Test race"
     And I should see "Lisää uusi kilpailu"
     And I should see "Lisää uusi cup-kilpailu"
 
