@@ -9,7 +9,7 @@
   - unless @today.empty?
     %h2= t 'home.show.competitions.today'
     .row= render partial: 'race_list', locals: { competitions: @today }
-  - unless @today.empty?
+  - unless @future.empty?
     %h2= t 'home.show.upcoming_competitions'
     .row= render partial: 'race_list', locals: { competitions: @future }
   - unless @past.empty?
