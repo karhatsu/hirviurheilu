@@ -1,0 +1,94 @@
+.result-cards {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  border: 1px solid olive;
+  border-radius: 2px;
+  box-shadow: 3px 3px 3px #ccc;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px;
+  margin: 4px 0;
+}
+
+a.card {
+  color: #000;
+}
+
+a.card .card__name {
+  color: olive;
+}
+
+a.card:active, a.card:hover {
+  text-decoration: none;
+}
+
+a.card:active, a.card:hover {
+  background-color: olive;
+  color: #fff;
+}
+
+a.card:active .card__name, a.card:hover .card__name {
+  color: #fff;
+}
+
+.card--odd {
+  background-color: #DDEEB5;
+}
+
+.card__number, .card__name, .card__main-value {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.card__number {
+  min-width: 32px;
+  text-align: center;
+  padding-right: 6px;
+}
+
+.card__middle {
+  flex-grow: 1;
+}
+
+.card__name span {
+  font-size: 12px;
+}
+
+.card__middle-1, .card__middle-2 {
+  margin-top: 4px;
+}
+
+.card__middle-1:empty, .card__middle-2:empty {
+  margin-top: 0;
+}
+
+.card__main-value {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 6px;
+}
+
+.card__sub-result {
+  background-size: 12px;
+  background-repeat: no-repeat;
+  padding-left: 16px;
+  padding-right: 6px;
+  white-space: nowrap;
+}
+
+.card__sub-result--time {
+  background-image: url(<%= image_path 'icon-clock.png' %>);
+}
+
+.card__sub-result--shoot {
+  background-image: url(<%= image_path 'icon-shoot.png' %>);
+}
+
+.card__sub-result--estimate {
+  background-image: url(<%= image_path 'icon-estimate.png' %>);
+}

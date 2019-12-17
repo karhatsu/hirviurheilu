@@ -1,9 +1,0 @@
-- unless @announcements.empty?
-  %h2.emphasize= t 'home.show.announcements'
-  .row#home_page_announcements
-    - @announcements.each do |ann|
-      .col-xs-12.col-sm-6.col-md-4.col-lg-3
-        %a.card{href: announcement_path(ann)}
-          .card__middle
-            .card__name= ann.title
-            .card__middle-1= date_print ann.published

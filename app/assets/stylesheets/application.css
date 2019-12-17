@@ -7,4 +7,5 @@
  *= require messages
  *= require dialogs
  *= require rack_profiler
+ *= require card
 */

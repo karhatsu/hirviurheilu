@@ -1,8 +1,7 @@
 - limit = defined?(max) ? max : 1.0/0.0
 - races.each_with_index do |race, index|
-  = render partial: 'home/race_link', locals: {icon: true, race: race}
+  - break if index == limit
+  = render partial: 'home/race_link', locals: {race: race}
   - if index + 1 == limit
-    %hr
-    .all_races_link
-      = link_to t('home.show.all_competitions'), races_path
-    - break
+    #all_races_link.col-xs-12.col-sm-6.col-md-4.col-lg-3
+      = link_to t('home.show.all_competitions'), races_path, class: 'secondary_link'

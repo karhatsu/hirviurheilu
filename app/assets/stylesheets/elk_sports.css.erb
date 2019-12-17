@@ -21,8 +21,16 @@ h2 {
     font-size: 16px;
 }
 
+h2.emphasize {
+  text-transform: uppercase;
+}
+
 h2:first-of-type {
   margin-top: 8px;
+}
+
+.home_page h2:first-of-type {
+  margin-top: 24px;
 }
 
 h3 {
@@ -55,10 +63,18 @@ hr.mobile {
   color: olive;
 }
 
-.primary_link:hover,.secondary_link:hover, .back_link:hover, .name_link:hover {
-  background-color: #1d6399;
-  background: linear-gradient(to right, rgba(29, 99, 153, 0.9), rgba(29, 99, 153, 0.7));
+.primary_link:hover {
+  background-color: #fff;
+  background: #fff;
+  color: olive;
+  text-decoration: none;
+}
+
+.secondary_link:hover, .back_link:hover, .name_link:hover {
+  background-color: olive;
+  background: linear-gradient(to right, rgba(128, 128, 0, 0.9), rgba(128, 128, 0, 0.7));
   color: #fff;
+  text-decoration: none;
 }
 
 .race_link {
@@ -271,11 +287,6 @@ a.help:hover {
     font-weight: bold;
 }
 
-div.main_page_columns {
-    margin-top: 10px;
-    width: 1040px;
-}
-
 div.title_box {
     border: 1px solid olive;
     border-radius: 2px;
@@ -342,8 +353,8 @@ div.section.prices_section.first {
     margin: 2px 0 15px;
 }
 
-div.all_races_link {
-    margin: 5px 0 0;
+#all_races_link .secondary_link {
+  margin: 4px 0 0;
 }
 
 .home_page_fb_like {
@@ -690,4 +701,12 @@ blockquote.public_message p {
   font-size: 1.2em;
   font-weight: bold;
   margin: 0 0 15px;
+}
+
+.before_facebook_like_box {
+  height: 16px;
+}
+
+.pagination {
+  margin: 8px 0;
 }

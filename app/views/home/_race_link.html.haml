@@ -1,5 +1,6 @@
-.race_link
-  %a.primary_link{href: race_path(race)}
-    %span= race.name
-  .race_info
-    #{date_interval(race.start_date, race.end_date)}, #{race.location}
+.col-xs-12.col-sm-6.col-md-4
+  %a.card{href: race_path(race)}
+    .card__middle
+      .card__name= race.name
+      .card__middle-1 #{date_interval(race.start_date, race.end_date)}, #{race.location}
+      .card__middle-2= race.sport_name

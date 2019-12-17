@@ -1,27 +1,9 @@
 - unless @announcements.empty?
-  .title_box.races_box
-    .box_title= t 'home.show.announcements'
-    .title_box_content.announcements
-      %table
-        - @announcements.each do |a|
-          %tr
-            %td= date_print a.published
-            %td
-              %a.announcement_link{href: 'javascript:void(0);', id: a.id}= a.title
-      %hr
-      = link_to 'Kaikki tiedotteet', announcements_path
-  #announcement_dialog{style: 'display:none;'}
-    #announcement_content
-  :javascript
-    $('.announcement_link').click(function() {
-      $.getJSON('/announcements/' + $(this).attr('id'), function(announcement) {
-        $('#announcement_content').html(announcement.content);
-        $('#announcement_dialog').dialog({
-          title: announcement.title,
-          closeText: ''
-        });
-      });
-    });
-    $('#announcement_content').on('click', 'a', function() {
-      $('#announcement_dialog').dialog('close');
-    });
+  %h2.emphasize= t 'home.show.announcements'
+  .row#home_page_announcements
+    - @announcements.each do |ann|
+      .col-xs-12.col-sm-6.col-md-4
+        %a.card{href: announcement_path(ann)}
+          .card__middle
+            .card__name= ann.title
+            .card__middle-1= date_print ann.published

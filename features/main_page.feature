@@ -23,13 +23,13 @@ Feature: Main page
       | name | Ongoing race |
       | location | Ongoing city |
     And I go to the home page
-    Then I should see "Viimeksi päättyneet kilpailut" within "div#old_races"
+    Then I should see "Viimeksi päättyneet kilpailut"
     And I should see "Old race" within "div#old_races"
     And I should see "01.01.2010 - 02.01.2010, Old city" within "div#old_races"
     And I should see "Kilpailuja tulossa myöhemmin" within "div#future_races"
     And I should see "Upcoming race" within "div#future_races"
     And I should see "01.01.2030 - 02.01.2030, Upcoming city" within "div#future_races"
-    And I should see "Kilpailut tänään" within "div#races_today"
+    And I should see "Kilpailut tänään"
     And I should see "Ongoing race" within "div#races_today"
     And I should see "Ongoing city" within "div#races_today"
 
@@ -45,8 +45,8 @@ Feature: Main page
     And I press "Valitse piiri"
     Then I should see "Finished southern race" within "div#old_races"
     And I should see "Ongoing southern race" within "div#races_today"
-    But I should not see "Finished northern race" within ".main_page_columns"
-    And I should not see "Future northern race" within ".main_page_columns"
+    But I should not see "Finished northern race" within "div#old_races"
+    And I should not see "Future northern race" within "div#old_races"
     When I select "Kaikki piirit" from "district_id"
     And I press "Valitse piiri"
     Then I should see "Finished southern race" within "div#old_races"
@@ -56,8 +56,8 @@ Feature: Main page
     Given I go to the home page
     Then I should see "Tulevat kilpailut" within "div#future_races"
     And I should see "Tällä hetkellä ei tiedossa tulevia kilpailuita" within "div#future_races"
-    And I should see "Ei kilpailuita tänään" within "div#races_today"
-    But I should not see "Päättyneet kilpailut"
+    And I should not see "Ei kilpailuita tänään"
+    And I should not see "Päättyneet kilpailut"
 
   Scenario: Showing registration link for unauthenticated users
     Given I am on the home page
