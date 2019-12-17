@@ -3,7 +3,7 @@
   = render 'shared/header'
   .centered_section
     %div{itemscope: true, itemtype: menu_race ? 'http://schema.org/SportsEvent' : ''}
-      = render :partial => 'shared/race_title'
+      = render partial: 'shared/page_title'
       .main_shadow_area
         = render 'menus/second_level_menu'
         = render 'menus/third_level_menu'
