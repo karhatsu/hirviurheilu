@@ -7,3 +7,5 @@
           .card__middle
             .card__name= ann.title
             .card__middle-1= date_print ann.published
+    .extra_card.col-xs-12.col-sm-6.col-md-4
+      = link_to t('home.show.all_announcements'), announcements_path, class: 'secondary_link'
