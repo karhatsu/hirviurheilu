@@ -4,4 +4,6 @@
 %h3= @announcement.published.strftime '%d.%m.%Y'
 = raw @announcement.content
 %hr
+= link_to t(:all_announcements), announcements_path, class: 'back_link'
+%br
 = link_to t(:back_to_home_page), root_path, class: 'back_link'
