@@ -22,5 +22,4 @@
       = link_to s.name, race_series_path(s.race, s), class: 'primary_link'
 %hr
 = link_to t(:start_list), race_series_start_list_path(@series.race, @series), class: 'secondary_link'
-%br
 = link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race), class: 'back_link'
