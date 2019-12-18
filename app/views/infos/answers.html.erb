@@ -74,58 +74,6 @@
   sillä palvelu toimii internetissä selaimen välityksellä.
 </div>
 
-<a name="connection"></a>
-<div class="question connection_question">Voiko palvelua käyttää, vaikka kilpailupaikalla
-  olisikin käytössä vain <span class="highligth">mokkula, ei kiinteää internet-yhteyttä</span>?</div>
-<div class="answer">
-  Kyllä voi. Palvelu on alun alkaen suunniteltu se huomioon ottaen,
-  että harvalla kilpailupaikalla on kiinteää internet-yhteyttä. Käytännössä
-  tämä tarkoittaa sitä, että verkkoliikenne on pyritty pitämään mahdollisimman
-  alhaisena. Palvelusta ei esimerkiksi löydy isoja kuvatiedostoja, joiden lataus
-  veisi turhaa aikaa.<br/><br/>
-  Verkkoliikenteen määrään vaikuttaa se, minkä kokoisia sivut ovat.
-  Tässä on joitakin esimerkkejä. Esimerkit sisältävät sivun koon kilotavuina (kt)
-  sekä verkkoliikenteeseen kuluvan ajan, jos nettiyhteys toimii erittäin hitaasti
-  nopeudella 5kt/s:
-  <ul>
-    <li>Palvelun etusivu: 5 kt / 1 s</li>
-    <li>Yhden sarjan lopulliset tulokset, 10 kilpailijaa: 9 kt / 2 s</li>
-    <li>Kilpailun Yhteenveto-sivu toimitsijan sivuilla, 5 sarjaa: 9 kt / 2 s</li>
-    <li>Lähtölistojen luonti, 10 kilpailijaa: 13 kt / 3 s</li>
-    <li>Tulosten pikasyöttö: 8 kt / 2 s</li>
-  </ul>
-  Vertailuksi voidaan ottaa muutama tunnetun palvelun etusivu (01/2011)
-  samoilla parametreilla:
-  <ul>
-    <li>www.yle.fi - 118 kt / 25 s</li>
-    <li>www.mtv3.fi - 208 kt / 40 s</li>
-    <li>www.iltalehti.fi - 166 kt / 33 s</li>
-  </ul>
-  Näissä lukemissa ei ole mukana sivun mukana ladattavia tiedostoja
-  (kuvat, tyylipohjat, javascript-tiedostot), jotka tarvitsee ladata vain kerran.
-  Jos ne otetaan laskuihin, esim. www.mtv3.fi on kooltaan 2 Mt eli yli 2000 kt.
-  Sen sijaan www.hirviurheilu.com-etusivun koko on kaikkinensa vain 65 kt.
-  Täytyy kuitenkin muistaa, että tuosta lukemasta suurin osa on sellaista dataa,
-  joka ladataan vain kerran. Kun siirrytään palvelussa toiselle sivulle,
-  nämä tiedot tulevat selaimen välimuistista ilman mitään verkkoliikennettä.<br/><br/>
-  Hirviurheilu-palvelussa on lisäksi kiinnitetty erityistä huomiota usein
-  käytettävien toimintojen tehokkuuteen hyödyntämällä ns. AJAX-tekniikkaa.
-  Kyseinen tekniikka tarkoittaa käytännössä sitä, että kun sivulta lähetetään
-  tietoa (esim. kilpailijan ammuntatulos) palvelimelle, ei koko sivua ladata
-  uudestaan, ainoastaan tarpeellinen osa siitä. Tämä vaikuttaa merkittävästi
-  myös verkkoliikenteen määrään:
-  <ul>
-    <li>Kilpailijan lisäys: 0,6 kt / alle 0,5 s</li>
-    <li>Kilpailijan yhden tulospaikan tietojen tallennus Pikasyöttö-sivulla:
-      0,2 kt / alle 0,5 s</li>
-    <li>Kilpailijan ammuntatuloksen tallennus Ammunta-sivulla: 0,1 kt / alle 0,5 s</li>
-  </ul>
-  Palvelua voi siis käyttää myös hitaammalla yhteydellä. Voit kuitenkin tehostaa
-  käyttöä siten, että syötät mahdollisimman paljon tietoa etukäteen ennen
-  kilpailupaikalle menemistä, kuten kilpailun ja sarjojen perustiedot ja
-  etukäteen ilmoittautuneet kilpailijat.
-</div>
-
 <h3>Käyttö</h3>
 <div class="question">Kuinka palvelun <span class="highligth">käyttöönotto</span>
   tapahtuu?</div>
