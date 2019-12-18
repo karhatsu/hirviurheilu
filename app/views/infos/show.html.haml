@@ -1,42 +1,31 @@
 - content_for(:title, "Tietoa Hirviurheilusta")
 - content_for(:page_title, yield(:title))
 
-%h2 Mikä on Hirviurheilu? Miten sitä käytetään?
-%div
-  .title_box.info_page_big_box
-    .box_title Lue lisää
-    .title_box_content
-      %p Mikä on Hirviurheilu? Mitä palvelun käyttö vaatii?
-      %p Miksi se on erinomainen vaihtoehto kilpailusi tulospalveluksi? Miten palvelua käytetään?
-      .links= link_to 'Kysymyksiä ja vastauksia', answers_path, class: 'commercial_box_link'
-  .title_box.info_page_big_box
-    .box_title Kokeile itse
-    .title_box_content
-      %p Paras tapa tutustua Hirviurheilun käyttöön on kokeilla palvelua itse.
-      %p Tähän tarkoitukseen tarjoamme testipalvelun, jossa voit veloituksetta kokeilla palvelua.
-      .links
-        %a.commercial_box_link{href: TEST_URL}= TEST_URL
-  %div{style: 'clear: both'}
-%h2 Mitä palvelun käyttö maksaa? Mitä pitää tehdä seuraavaksi?
-%div
-  .title_box.info_page_big_box
-    .box_title Hinnat
-    .title_box_content
-      .links= link_to 'Tutustu hinnoitteluun', prices_path, class: 'commercial_box_link'
-  - if current_user
-    .title_box.info_page_big_box
-      .box_title Palvelu on käytössäsi
-      .title_box_content
-        .links= link_to 'Siirry Toimitsijan sivuille', official_root_path, class: 'commercial_box_link'
-  - else
-    .title_box.info_page_big_box.special_box
-      .box_title Aloita palvelun käyttö
-      .title_box_content
-        .links= link_to 'Aloita palvelun käyttö', register_path, class: 'commercial_box_link'
-  %div{style: 'clear: both'}
-%h2 Ota yhteyttä
-%p
-  Jäikö jokin asia epäselväksi? Haluatko ehdottaa jotain uutta ominaisuutta?
-  Haluatko tarjouksen isomman kilpailun tulospalvelusta?
-  #{link_to "Lähetä palautetta", new_feedback_path}, niin katsotaan, mitä voimme tehdä.
-= render :partial => 'shared/company_contact', locals: { corner: false }
+%h1.mobile= yield :page_title
+.row
+  .col-xs-12.col-sm-6
+    %a.card{href: answers_path}
+      .card__middle
+        .card__name Kysymyksiä ja vastauksia
+        .card__middle-1 Mikä on Hirviurheilu? Mitä palvelun käyttö vaatii? Miksi se on erinomainen vaihtoehto kilpailusi tulospalveluksi? Miten palvelua käytetään?
+  .col-xs-12.col-sm-6
+    %a.card{href: TEST_URL}
+      .card__middle
+        .card__name Testaa palvelua
+        .card__middle-1 Hirviurheilun testiympäristössä voit kokeilla palvelun käyttöä ja harjoitella toimitsijana olemista.
+  .col-xs-12.col-sm-6
+    - if current_user
+      %a.card{href: official_root_path}
+        .card__middle
+          .card__name Palvelu on käytössäsi
+          .card__middle-1 Olet kirjautunut sisään. Siirry toimitsijan etusivulle hallinnoimaan kilpailujasi.
+    - else
+      %a.card{href: register_path}
+        .card__middle
+          .card__name Aloita palvelun käyttö
+          .card__middle-1 Aloita palvelun käyttö rekisteröitymällä.
+  .col-xs-12.col-sm-6
+    %a.card{href: new_feedback_path}
+      .card__middle
+        .card__name Lähetä palautetta
+        .card__middle-1 Jäikö jokin asia epäselväksi? Haluatko ehdottaa jotain uutta ominaisuutta? Ota yhteyttä!
