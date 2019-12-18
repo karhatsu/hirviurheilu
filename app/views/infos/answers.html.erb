@@ -1,13 +1,15 @@
 <% content_for(:title, 'Kysymyksiä ja vastauksia') %>
 <% content_for(:page_title, yield(:title)) %>
 
-<h3>Yleistä Hirviurheilu-palvelusta</h3>
-<div class="question">Mikä on <span class="highligth">Hirviurheilu</span>?</div>
+<h1 class="mobile">Kysymyksiä ja vastauksia</h1>
+
+<h2>Yleistä Hirviurheilu-palvelusta</h2>
+<h3>Mikä on Hirviurheilu?</h3>
 <div class="answer">Hirviurheilu on helppokäyttöinen, internet-pohjainen tulospalvelu
   hirvenhiihdon ja hirvenjuoksun kilpailuihin.
 </div>
 
-<div class="question">Mitä <span class="highligth">kilpailumuotoja</span> palvelu tukee?</div>
+<h3>Mitä kilpailumuotoja palvelu tukee?</h3>
 <div class="answer">Palvelu tukee seuraavia kilpailumuotoja:
   <ul>
     <li>Normaali yksilökilpailu</li>
@@ -19,8 +21,8 @@
   </ul>
 </div>
 
-<div class="question">Osaako palvelu laskea pisteet
-  <span class="highligth">kävelysarjalle (metsästäjäsarja)</span>?</div>
+<h3>Osaako palvelu laskea pisteet
+  kävelysarjalle (metsästäjäsarja)?</h3>
 <div class="answer">Kyllä osaa. Kun lisäät tällaisen sarjan kilpailuun,
   valitset vain arviomatkojen määräksi neljä normaalin kahden sijaan ja
   merkitset, ettei sarjassa lasketa aikapisteitä. Toinen vaihtoehto on
@@ -28,13 +30,13 @@
   saavat automaattisesti 300 aikapistettä. Palvelu hoitaa kaiken muun
   automaattisesti.</div>
 
-<div class="question">Mitä voin tehdä, jos palveluun tarvittaisiin mielestäni
-  ehdottomasti <span class="highligth">uusi ominaisuus</span>?</div>
+<h3>Mitä voin tehdä, jos palveluun tarvittaisiin mielestäni
+  ehdottomasti uusi ominaisuus?</h3>
 <div class="answer"><%= link_to "Ota rohkeasti yhteyttä", new_feedback_path %> ja kerro ideasi!</div>
 
-<h3>Hyödyt ja vaatimukset</h3>
-<div class="question">Mitä <span class="highligth">hyötyä</span>
-  palvelusta on kilpailun <span class="highligth">järjestäjille</span>?</div>
+<h2>Hyödyt ja vaatimukset</h2>
+<h3>Mitä hyötyä
+  palvelusta on kilpailun järjestäjille?</h3>
 <div class="answer">
   <ul>
     <li>Tulospalvelun järjestäminen onnistuu palvelun kautta vaivattomasti.
@@ -56,8 +58,8 @@
   </ul>
 </div>
 
-<div class="question">Mitä <span class="highligth">hyötyä</span>
-  palvelusta on <span class="highligth">kilpailijoille</span>?</div>
+<h3>Mitä hyötyä
+  palvelusta on kilpailijoille?</h3>
 <div class="answer">
   <ul>
     <li>Ennakkoon ilmoittautuneilla kilpailijoilla on mahdollisuus
@@ -69,14 +71,14 @@
   </ul>
 </div>
 
-<div class="question">Mitä palvelun käyttäminen <span class="highligth">vaatii</span>?</div>
+<h3>Mitä palvelun käyttäminen vaatii?</h3>
 <div class="answer">Hirviurheilu vaatii internet-yhteyden,
   sillä palvelu toimii internetissä selaimen välityksellä.
 </div>
 
-<h3>Käyttö</h3>
-<div class="question">Kuinka palvelun <span class="highligth">käyttöönotto</span>
-  tapahtuu?</div>
+<h2>Käyttö</h2>
+<h3>Kuinka palvelun käyttöönotto
+  tapahtuu?</h3>
 <div class="answer">Hirviurheilu-palvelun käyttöönotto on erittäin helppoa:
   <%= link_to "rekisteröidy palveluun", register_path %>, jonka jälkeen voit
   syöttää tulospalveluun kilpailun tiedot.</div>
@@ -91,23 +93,23 @@ DefaultSeries.all.each do |df|
   series_list << series
 end
 %>
-<div class="question">Mitä <span class="highligth">sarjoja</span>
-  tulospalvelussa käytetään?</div>
+<h3>Mitä sarjoja
+  tulospalvelussa käytetään?</h3>
 <div class="answer">Voit itse päättää täysin, mitä sarjoja kilpailuusi syötät.
   Kilpailun luomisen nopeuttamiseksi tarjolla on myös valmiit oletussarjat:
   <%= series_list.join(', ') %>. Näiden käyttäminen ei ole kuitenkaan pakollista,
   ja vaikka niitä käyttäisitkin, voit tehdä oletussarjoihin mitä tahansa
   muutoksia.</div>
 
-<div class="question">Mitä asioita pitää tehdä
-  <span class="highligth">ennen kilpailua</span>?</div>
+<h3>Mitä asioita pitää tehdä
+  ennen kilpailua?</h3>
 <div class="answer">Ennen kilpailua sinun täytyy lisätä tulospalveluun kilpailun
   perustiedot kuten sen nimi, ajankohta ja paikkakunta sekä sarjojen nimet.
   Tämän jälkeen voit lisätä sarjoihin ilmoittautuneita kilpailijoita.
   Kun olet lisännyt kaikki kilpailijat, voit palvelun avulla luoda kilpailijoille
   helposti lähtönumerot ja lähtöajat. Tämän jälkeen kilpailu on valmis alkamaan.</div>
 
-<div class="question">Kuinka <span class="highligth">lähtölistat</span> luodaan?</div>
+<h3>Kuinka lähtölistat luodaan?</h3>
 <div class="answer">Kilpailua lisätessäsi voit valita kahdesta vaihtoehdosta sinulle sopivamman:
   <ol>
     <li>Lähtölistojen luonti sarjoittain</li>
@@ -129,16 +131,16 @@ end
   minkä tahansa lähtöajan ja -numeron. Eli vaikka kilpailijat lähtisivätkin sarjoittain,
   järjestelmään pystyy aina lisäämään jälki-ilmoittautuneita lähtölistan loppupäähän.</div>
 
-<div class="question">Voiko <span class="highligth">kilpailijoita</span>
-  lisätä vielä sen jälkeen, kun <span class="highligth">lähtölista on jo luotu</span>?</div>
+<h3>Voiko kilpailijoita
+  lisätä vielä sen jälkeen, kun lähtölista on jo luotu?</h3>
 <div class="answer">Kyllä voi. Vaikka osa kilpailijoista olisi jo tullut
   maaliin ja heille olisi jopa syötetty tuloksia, voit edelleen lisätä uusia
   kilpailijoita. Kun lisäät kilpailijoita lähtölistan luonnin jälkeen,
   sinun täytyy vain itse määrittää heille lähtöaika sekä kilpailunumero.
   Palvelu tosin ehdottaa automaattisesti sopivaa aikaa sekä numeroa.</div>
 
-<div class="question">Miten <span class="highligth">tulosten syöttäminen</span>
-  tapahtuu kilpailun aikana?</div>
+<h3>Miten tulosten syöttäminen
+  tapahtuu kilpailun aikana?</h3>
 <div class="answer">
   Tulosten syöttämiseen on kolme vaihtoehtoa. Voit itse päättää,
   mitä vaihtoehtoa haluat käyttää tulosten syöttämiseen.
@@ -163,18 +165,18 @@ end
   </ol>
 </div>
 
-<div class="question">Pitääkö <span class="highligth">ammuntatulokset</span>
-  syöttää summana vai yksittäisinä laukauksina?</div>
+<h3>Pitääkö ammuntatulokset
+  syöttää summana vai yksittäisinä laukauksina?</h3>
 <div class="answer">Saat päättää tämän itse. Molemmat vaihtoehdot ovat mahdollisia.</div>
 
-<div class="question">Kuinka sarjojen <span class="highligth">oikeat arviointimatkat</span>
-  määritetään?</div>
+<h3>Kuinka sarjojen oikeat arviointimatkat
+  määritetään?</h3>
 <div class="answer">Oikeat arviointimatkat määritetään kilpailunumeroiden perusteella.
   Voit esimerkiksi määrittää, että numeroiden 1-50 oikeat matkat ovat 100 ja 120 metriä
   ja että numeroilla 51-100 matkat ovat 95 ja 125 metriä.</div>
 
-<div class="question">Mitä asioita täytyy tehdä
-  <span class="highligth">kilpailun jälkeen</span>?</div>
+<h3>Mitä asioita täytyy tehdä
+  kilpailun jälkeen?</h3>
 <div class="answer">Kun olet syöttänyt kaikille kilpailijoille tulokset
   sekä määrittänyt kilpailulle oikeat arviointimatkat,
   muista merkitä vielä kilpailu päättyneeksi Yhteenveto-sivulta.
@@ -182,13 +184,13 @@ end
   Niin kauan kuin kilpailu on kesken, kilpailijat eivät näe arviointitietojen
   osalta muuta kuin pisteet.</div>
 
-<div class="question">Voiko <span class="highligth">useampi toimitsija</span>
-  käyttää järjestelmää yhtä aikaa?</div>
+<h3>Voiko useampi toimitsija
+  käyttää järjestelmää yhtä aikaa?</h3>
 <div class="answer">Kyllä voi. Kilpailun perustaja voi kutsua muita henkilöitä
   toimitsijaksi samaan kilpailuun.</div>
 
-<div class="question">Onko mahdollista
-  <span class="highligth">kokeilla palvelun käyttämistä</span> jossain?</div>
+<h3>Onko mahdollista
+  kokeilla palvelun käyttämistä jossain?</h3>
 <div class="answer">Osoitteessa <a href="<%= TEST_URL %>"><%= TEST_URL %></a>
   voit harjoitella toimitsijana toimimista. Tämän version käyttäminen on täysin
   ilmaista mutta sitä ei ole sallittu käytettäväksi oikeiden kilpailuiden
@@ -200,16 +202,16 @@ end
   kirjautumistietoja (sähköposti ja salasana).</div>
 
 <a name="cup"></a>
-<h3>Cup-kilpailut</h3>
+<h2>Cup-kilpailut</h2>
 
-<div class="question cup_question">Kuinka <span class="highligth">cup-kilpailuita luodaan</span>?</div>
+<h3>Kuinka cup-kilpailuita luodaan?</h3>
 <div class="answer">Cup-kilpailuiden luominen on erittäin helppoa. Mene Toimitsijan etusivulle
   ja lisää sieltä uusi cup-kilpailu. Sinun tarvitsee vain kertoa cup-kilpailun nimi ja valita,
   mistä (osa)kilpailuista cup koostuu. Osakilpailut tarkoittavat tässä yhteydessä aivan normaaleja
   Hirviurheilun kilpailuita, joiden tulokset olet palveluun syöttänyt tai tulet syöttämään.
 </div>
 
-<div class="question cup_question">Kuinka <span class="highligth">cup-sarjat</span> määritetään?</div>
+<h3>Kuinka cup-sarjat määritetään?</h3>
 <div class="answer">Kun lisäät cup-kilpailun ja valitset siihen osakilpailut, järjestelmä
   luo automaattisesti ensimmäisen osakilpailun perusteella cup-sarjat käyttäen kyseisen
   osakilpailun sarjojen nimiä. Jos nämä sarjat ovat myös cup-sarjat, sinun ei tarvitse tehdä mitään.<br/><br/>
@@ -223,7 +225,7 @@ end
   </ul>
 </div>
 
-<div class="question cup_question">Kuinka <span class="highligth">cup-kilpailuiden tuloslaskenta</span> toimii?</div>
+<h3>Kuinka cup-kilpailuiden tuloslaskenta toimii?</h3>
 <div class="answer">Cup-kilpailussa lasketaan tulokset niille sarjoille, jotka olet määrittänyt
   kuuluvan cup-kilpailun sarjoihin (ks. edellä). Eri osakilpailuiden kilpailijat yhdistetään yhdeksi henkilöksi
   kilpailijan nimen perusteella. Jos siis osakilpailuissa esiintyy kilpailija "Timo Testinen",
@@ -233,41 +235,25 @@ end
   vain kaksi parasta tulosta.
 </div>
 
-<h3>Tulosten julkaisu</h3>
-<div class="question">Miten tulokset saadaan <span class="highligth">julkaistua</span>
-  kilpailijoiden nähtäville?</div>
+<h2>Tulosten julkaisu</h2>
+<h3>Miten tulokset saadaan julkaistua
+  kilpailijoiden nähtäville?</h3>
 <div class="answer">Sinun ei tarvitse tehdä mitään erillistoimenpiteitä. Tulospalvelu on täysin reaaliaikainen,
   joten kaikki tulokset ovat näkyvissä koko ajan.</div>
 
-<div class="question">Haluaisin tulostaa tulokset / lähtölistan
-  <span class="highligth">paperille</span>. Kuinka tämä onnistuu?</div>
+<h3>Haluaisin tulostaa tulokset / lähtölistan
+  paperille. Kuinka tämä onnistuu?</h3>
 <div class="answer">Tulostaminen onnistuu parhaiten siten, että lataat
   tuloslistan tai lähtölistan PDF-tiedostona, jonka voit sitten tulostaa
   paperille. Linkit löytyvät tulos- ja lähtölistasivuilta.</div>
 
-<div class="question">Voiko palvelusta tulostaa tuloslistat
-  <span class="highligth">lehdistölle</span> sopivassa muodossa?</div>
+<h3>Voiko palvelusta tulostaa tuloslistat
+  lehdistölle sopivassa muodossa?</h3>
 <div class="answer">Kyllä voi. Toimitsijan sivuilta löytyy Lehdistö-sivu,
   josta saat yksinkertaisten tulosluettelon haluamallesi määrälle kilpailijoita /
   sarja.</div>
 
-<h3>Hinnoittelu</h3>
-<div class="question">Kuinka paljon palvelun käyttö
-  <span class="highligth">maksaa</span>?</div>
+<h2>Hinnoittelu</h2>
+<h3>Kuinka paljon palvelun käyttö
+  maksaa?</h3>
 <div class="answer"><%= link_to "Katso tämän hetken hinnasto.", prices_path %></div>
-
-<script type="text/javascript">
-  <% if params[:open] %>
-    $(document).ready(function() {
-      $('.<%= params[:open] %>_question').next().show();
-    });
-  <% end %>
-  $(".question").next().hide();
-  $(".question").click(function() {
-    if($(this).next().is(":visible")) {
-      $(this).next().hide('fast');
-    } else {
-      $(this).next().show('fast');
-    }
-  });
-</script>
