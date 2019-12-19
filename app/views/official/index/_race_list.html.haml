@@ -11,6 +11,6 @@
         .card__middle
           .card__name= competition.name
           .card__middle-1
-            %div #{race_date_interval(competition, false)}, #{competition.location}
-            - if warn_unfinished && !competition.finished?
-              .error_inline Kilpailua ei ole päätetty!
+            #{race_date_interval(competition, false)}, #{competition.location}
+          - if warn_unfinished && !competition.finished?
+            .card__middle-2.card__middle-2--error Kilpailua ei ole päätetty!

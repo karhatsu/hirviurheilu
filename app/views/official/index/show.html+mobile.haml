@@ -14,4 +14,4 @@
     .row= render partial: 'race_list', locals: { competitions: @future }
   - unless @past.empty?
     %h2= t 'home.show.competitions.past'
-    .row= render partial: 'race_list', locals: { competitions: @past }
+    .row= render partial: 'race_list', locals: { competitions: @past, warn_unfinished: true }
