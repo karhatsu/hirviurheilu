@@ -1,5 +1,7 @@
 - unless @announcements.empty?
-  %h2.emphasize= t 'home.show.announcements'
+  %h2.emphasize
+    %i.material-icons-outlined.md-18 info
+    = t 'home.show.announcements'
   .row#home_page_announcements
     - @announcements.each do |ann|
       .col-xs-12.col-sm-6.col-md-4
