@@ -22,16 +22,6 @@ class FeedbackMailer < ApplicationMailer
          subject: 'Hirviurheilu - palaute'
   end
 
-  def offer_mail(name, email, tel, club, competition_info, current_user)
-    @current_user = current_user
-    @name = name
-    @email = email
-    @tel = tel
-    @club = club
-    @competition_info = competition_info
-    mail to: ADMIN_EMAIL, from: from_address(email), subject: 'Hirviurheilu - tarjouspyyntö'
-  end
-
   private
 
   def from_address(email)

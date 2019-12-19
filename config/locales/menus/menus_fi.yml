@@ -23,9 +23,6 @@ fi:
     home_page: Cup-kilpailun etusivu
     results: Tulokset
     press: Lehdistö
-  prices_sub_menu:
-    prices: Hinnat
-    ask_for_offer: Pyydä tarjous
   official_sub_menu:
     summary: Yhteenveto
     race: Kilpailu & sarjat

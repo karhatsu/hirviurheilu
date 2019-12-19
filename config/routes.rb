@@ -18,8 +18,7 @@ ElkSports::Application.routes.draw do
     resources :feedbacks
 
     resources :prices
-    resources :offers, only: [:new, :create]
-    get 'offer_sent' => 'offers#sent', as: :offer_sent
+    get 'offers/new', to: redirect('/prices')
 
     resources :cups do
       resources :cup_series
