@@ -7,14 +7,22 @@
   .action_box= link_to t('.add_new_race'), new_official_race_path
 - else
   - unless @today.empty?
-    %h2= t 'home.show.competitions.today'
+    %h2
+      %i.material-icons-outlined.md-18 directions_run
+      = t 'home.show.competitions.today'
     .row= render partial: 'race_list', locals: { competitions: @today }
-  %h2= t 'home.show.upcoming_competitions'
+  %h2
+    %i.material-icons-outlined.md-18 today
+    = t 'home.show.upcoming_competitions'
   .action_box= link_to t('.add_new_race'), new_official_race_path
   .row= render partial: 'race_list', locals: { competitions: @future }
-  %h2= t 'home.show.competitions.cup'
+  %h2
+    %i.material-icons-outlined.md-18 dynamic_feed
+    = t 'home.show.competitions.cup'
   .action_box= link_to t('.add_new_cup'), new_official_cup_path
   .row= render partial: 'race_list', locals: { competitions: @cups }
   - unless @past.empty?
-    %h2= t 'home.show.competitions.past'
+    %h2
+      %i.material-icons-outlined.md-18 check_circle
+      = t 'home.show.competitions.past'
     .row= render partial: 'race_list', locals: { competitions: @past, warn_unfinished: true }

@@ -7,11 +7,17 @@
   .info= t('.no_races_yet.short')
 - else
   - unless @today.empty?
-    %h2= t 'home.show.competitions.today'
+    %h2
+      %i.material-icons-outlined.md-18 directions_run
+      = t 'home.show.competitions.today'
     .row= render partial: 'race_list', locals: { competitions: @today }
   - unless @future.empty?
-    %h2= t 'home.show.upcoming_competitions'
+    %h2
+      %i.material-icons-outlined.md-18 today
+      = t 'home.show.upcoming_competitions'
     .row= render partial: 'race_list', locals: { competitions: @future }
   - unless @past.empty?
-    %h2= t 'home.show.competitions.past'
+    %h2
+      %i.material-icons-outlined.md-18 check_circle
+      = t 'home.show.competitions.past'
     .row= render partial: 'race_list', locals: { competitions: @past, warn_unfinished: true }
