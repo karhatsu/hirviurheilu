@@ -1,0 +1,104 @@
+$inputHeight: 16px;
+
+.form__field {
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  input {
+    height: $inputHeight;
+    padding: 8px !important; /* important until input[type='text'] etc. removed */
+    width: calc(100% - 18px);
+  }
+
+  input[type='checkbox'] {
+    width: 16px;
+  }
+
+  select {
+    height: 34px;
+    max-width: 100%;
+    -webkit-appearance: menulist-button;
+  }
+}
+
+@media only screen and (min-width: 48em) {
+  .form__field input {
+    width: 24em;
+  }
+}
+
+.form__button {
+  border: solid 1px olive;
+  border-radius: 2px;
+  box-shadow: 3px 3px 3px #ccc;
+  cursor: pointer;
+  padding: 8px 16px !important; /* important until input[type='submit'] etc. removed */
+
+  &:hover {
+    background: linear-gradient(to right, rgba(29, 99, 153, 0.9), rgba(29, 99, 153, 0.7));
+    color: #fff;
+  }
+}
+
+.form__button--primary {
+  background-color: olive;
+  background: linear-gradient(to right, rgba(128, 128, 0, 0.9), rgba(128, 128, 0, 0.7));
+  color: #fff;
+}
+
+.form__button--secondary {
+  background-color: #fff;
+  color: olive;
+}
+
+.form--vertical {
+  margin-bottom: 16px;
+
+  .form__field {
+    margin-top: $inputHeight;
+
+    input {
+      margin-top: 8px;
+    }
+  }
+
+  .form__buttons {
+    margin-top: $inputHeight;
+  }
+}
+
+.form--horizontal {
+  .form__field, .form__buttons {
+    display: inline-block;
+  }
+
+  .form__field--hidden {
+    display: none;
+  }
+
+  .form__field {
+    margin: 8px 8px 8px 0;
+  }
+
+  .form__buttons {
+    margin: 8px 0;
+  }
+}
+
+.form__field__info {
+  color: #333;
+}
+
+textarea {
+  padding: 8px;
+  width: 95%;
+}
+
+@media only screen and (min-width: 48em) {
+  textarea {
+    width: auto;
+  }
+}
