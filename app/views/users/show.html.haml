@@ -1,29 +1,27 @@
 - content_for(:title, t('main_menu.personal'))
 - content_for(:page_title, yield(:title))
-%h2= t '.basic_information'
+%h1.mobile= yield :page_title
 = flash_error
 = flash_success
-.user_readonly_form
-  .read_only_form_row
-    .form_label= t 'attributes.email'
-    %span=h @user.email
-  .read_only_form_row
-    .form_label= t 'attributes.first_name'
-    %span=h @user.first_name
-  .read_only_form_row
-    .form_label= t 'attributes.last_name'
-    %span=h @user.last_name
-  .read_only_form_row
-    .form_label= t 'attributes.club_name'
-    %span=h @user.club_name
-%hr
-.action_box= link_to t('.modify_information'), edit_account_path
+.form.form--vertical
+  .form__field
+    %label= t 'attributes.email'
+    %div=h @user.email
+  .form__field
+    %label= t 'attributes.first_name'
+    %div=h @user.first_name
+  .form__field
+    %label= t 'attributes.last_name'
+    %div=h @user.last_name
+  .form__field
+    %label= t 'attributes.club_name'
+    %div=h @user.club_name
+  .form__buttons
+    = link_to t('.modify_information'), edit_account_path, class: 'secondary_link'
 %h2= t '.own_races'
 - if @user.races.empty?
   = highlight_info(t('.no_own_races'))
 - else
-  %ul
+  .row
     - @user.races.each do |race|
-      %li
-        = link_to race.name, race_path(race)
-        #{race.location}, #{race_date_interval(race, false)}
+      = render partial: 'home/race_link', locals: { race: race }
