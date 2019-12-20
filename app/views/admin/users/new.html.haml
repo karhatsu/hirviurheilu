@@ -1,25 +1,27 @@
 - content_for(:title, 'Admin - Uusi käyttäjä')
 - content_for :page_title, yield(:title)
 %h2 Lisää käyttäjä
-= render :partial => "shared/form_errors", locals: { item: @user }
-= form_for([:admin, @user], {html: {class: 'user_form'}}) do |f|
-  %div
-    .form_label= f.label :first_name
-    .form_field= f.text_field :first_name
-  %div
-    .form_label= f.label :last_name
-    .form_field= f.text_field :last_name
-  %div
-    .form_label= f.label :club_name
-    .form_field= f.text_field :club_name
-  %div
-    .form_label= f.label :email
-    .form_field= f.text_field :email
-  %div
-    .form_label= f.label :password
-    .form_field= f.text_field :password
-    %a#generate_password{href: 'javascript:void(0);'} Generoi salasana
-  = submit_tag 'Lisää käyttäjä'
+= render partial: "shared/form_errors", locals: { item: @user }
+= form_for([:admin, @user], { html: { class: 'form form--vertical' } }) do |f|
+  .form__field
+    = f.label :first_name
+    = f.text_field :first_name
+  .form__field
+    = f.label :last_name
+    = f.text_field :last_name
+  .form__field
+    = f.label :club_name
+    = f.text_field :club_name
+  .form__field
+    = f.label :email
+    = f.text_field :email
+  .form__field
+    = f.label :password
+    = f.text_field :password
+    .form__field__info
+      %a#generate_password{href: 'javascript:void(0);'} Generoi salasana
+  .form__buttons
+    = submit_tag 'Lisää käyttäjä', class: 'form__button form__button--primary'
 :javascript
   $('form').on('click', '#generate_password', function() {
     var pw = Math.random().toString(36).slice(-8);
