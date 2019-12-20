@@ -1,8 +1,9 @@
 - content_for(:title, t('.title'))
 - content_for(:page_title, yield(:title))
-= form_for @user, :url => account_path do |f|
+%h1.mobile= yield :page_title
+= form_for @user, url: account_path, html: { class: 'form form--vertical' } do |f|
   = render :partial => 'form', :object => f
   .submit_button
-    = f.submit t(:update), class: 'primary_link'
+    = f.submit t(:update), class: 'form__button form__button--primary'
 %hr
 = link_to t('.back_to_account_page'), account_path, class: 'back_link'
