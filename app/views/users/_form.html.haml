@@ -1,25 +1,24 @@
 = render :partial => "shared/form_errors", :locals => { :item => @user }
-.user_form
-  - unless form.object.new_record?
-    %h2 Perustiedot
-  .form__field
-    = form.label :first_name
-    = form.text_field :first_name
-  .form__field
-    = form.label :last_name
-    = form.text_field :last_name
-  .form__field
-    = form.label :club_name
-    = form.text_field :club_name
-  .form__field
-    = form.label :email
-    = form.email_field :email
-  - unless form.object.new_record?
-    %h2 Salasanan vaihto
-    .info Jos haluat vaihtaa salasanasi, syötä uusi salasana alla oleviin kenttiin
-  .form__field
-    = form.label :password, form.object.new_record? ? nil : t('users.edit.change_password')
-    = form.password_field :password
-  .form__field
-    = form.label :password_confirmation
-    = form.password_field :password_confirmation
+- unless form.object.new_record?
+  %h2 Perustiedot
+.form__field
+  = form.label :first_name
+  = form.text_field :first_name
+.form__field
+  = form.label :last_name
+  = form.text_field :last_name
+.form__field
+  = form.label :club_name
+  = form.text_field :club_name
+.form__field
+  = form.label :email
+  = form.email_field :email
+- unless form.object.new_record?
+  %h2 Salasanan vaihto
+  .info Jos haluat vaihtaa salasanasi, syötä uusi salasana alla oleviin kenttiin
+.form__field
+  = form.label :password, form.object.new_record? ? nil : t('users.edit.change_password')
+  = form.password_field :password
+.form__field
+  = form.label :password_confirmation
+  = form.password_field :password_confirmation
