@@ -2,9 +2,8 @@
 %h2 Kutsu toinen henkilö tämän kilpailun toimitsijaksi
 = flash_error
 = flash_success
-.section
-  .info Henkilön täytyy olla rekisteröitynyt palveluun omalla sähköpostiosoitteellaan.
-  = render partial: 'form', locals: {edit: false, submit_label: 'Lähetä kutsu'}
+.info Henkilön täytyy olla rekisteröitynyt palveluun omalla sähköpostiosoitteellaan.
+= render partial: 'form', locals: {edit: false, submit_label: 'Lähetä kutsu'}
 %h2 Kilpailun toimitsijat
 #current_officials.section
   %table
@@ -37,4 +36,4 @@
               data: { confirm: "Haluatko varmasti poistaa käyttäjän toimitsijaoikeudet tähän kilpailuun?" },
               method: :delete
 %hr
-= link_to 'Takaisin Yhteenveto-sivulle', official_race_path(@race)
+= link_to 'Takaisin Yhteenveto-sivulle', official_race_path(@race), class: 'back_link'

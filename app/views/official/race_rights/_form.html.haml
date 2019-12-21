@@ -1,27 +1,27 @@
 = form_for([:official, @race, @race_right], html: { class: 'invite_officials_form' } ) do |f|
-  %div
+  .form__field
     - if edit
-      %span.form_label Henkilö
+      %label Toimitsija
       = full_name(@race_right.user)
     - else
-      %span.form_label= label_tag :email, 'Sähköposti'
-      %span= email_field_tag :email, '', size: 30
-  %div
-    %span.form_label= f.label :only_add_competitors, 'Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita'
-    %span= f.check_box :only_add_competitors
+      = label_tag :email, 'Sähköposti'
+      = email_field_tag :email, '', size: 30
+  .form__field
+    = f.label :only_add_competitors, 'Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita'
+    = f.check_box :only_add_competitors
   #club_limitation{style: "display: none;"}
-    %div
-      %span.form_label= f.label :new_clubs, 'Salli uusien piirien/seurojen lisäys'
-      %span= f.check_box :new_clubs
-    #specific_club_limitation
-      %span.form_label= f.label :club_id, 'Salli kilpailijoiden lisäys vain tiettyyn piiriin/seuraan'
+    .form__field
+      = f.label :new_clubs, 'Salli uusien piirien/seurojen lisäys'
+      = f.check_box :new_clubs
+    #specific_club_limitation.form__field
+      = f.label :club_id, 'Salli kilpailijoiden lisäys vain tiettyyn piiriin/seuraan'
       - if @race.clubs.empty?
         (Käyttöä ei voi rajata, koska
         #{link_to 'yhtään piiriä/seuraa ei ole lisätty', official_race_clubs_path(@race)}.)
       - else
         = f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name, @race_right.club_id), include_blank: 'Ei rajausta'
-  .submit_button
-    = submit_tag submit_label
+  .form__buttons
+    = submit_tag submit_label, class: 'form__button form__button--primary'
 :javascript
   $('.invite_officials_form').on('click', '#race_right_only_add_competitors', function() {
     $('#club_limitation').toggle(this.checked);
