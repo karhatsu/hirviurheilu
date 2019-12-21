@@ -47,7 +47,7 @@ h3 {
     font-size: 14px;
 }
 
-.primary_link, .secondary_link, .back_link, .name_link, .current_link {
+.primary_link, .secondary_link, .back_link, .current_link {
   border: solid 1px olive;
   border-radius: 2px;
   box-shadow: 3px 3px 3px #ccc;
@@ -58,7 +58,7 @@ h3 {
   min-width: 25px;
 }
 
-.primary_link, .name_link {
+.primary_link {
   background-color: olive;
   background: linear-gradient(to right, rgba(128, 128, 0, 0.9), rgba(128, 128, 0, 0.7));
   color: #fff;
@@ -76,26 +76,11 @@ h3 {
   text-decoration: none;
 }
 
-.secondary_link:hover, .back_link:hover, .name_link:hover {
+.secondary_link:hover, .back_link:hover {
   background-color: olive;
   background: linear-gradient(to right, rgba(128, 128, 0, 0.9), rgba(128, 128, 0, 0.7));
   color: #fff;
   text-decoration: none;
-}
-
-.race_link {
-  margin: 0px 0px 10px;
-}
-
-.race_link .primary_link, .race_link .secondary_link, .announcement_link .primary_link {
-  margin: 3px 0;
-  padding: 0;
-  width: 100%;
-}
-
-.race_link .primary_link span, .race_link .secondary_link span, .announcement_link .primary_link  span {
-  display: inline-block;
-  padding: 5px 10px;
 }
 
 form {
@@ -200,14 +185,6 @@ div.action_box {
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-}
-
-div.left_column {
-    float: left;
-}
-
-div.right_column {
-    float: right;
 }
 
 #district_menu {
@@ -328,10 +305,6 @@ span.adjustment {
   text-align: center;
 }
 
-.full_width {
-  width: 880px;
-}
-
 .form_label {
   background-color: #DDEEB5;
   border-radius: 3px;
@@ -343,11 +316,6 @@ span.adjustment {
 
 .form_field {
   display: inline-block;
-}
-
-.form_field_info {
-  color: #888;
-  font-size: 0.9em;
 }
 
 input[type='text'], input[type='email'], input[type='tel'], input[type='password'] {
