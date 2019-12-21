@@ -4,12 +4,18 @@
       <%= club.name %>
     </a>
     <span id="club_name_form_<%= club.id %>" style="display: none;">
-      <%= form_for([:official, @race, club], :remote => true,
-          :html => { :style => 'display:inline;' }) do |f| %>
-        <%= f.text_field :name, :size => 7 %>&nbsp
-        <%= f.text_field :long_name, :size => 15 %><%= submit_tag "Päivitä" %>
+      <%= form_for([:official, @race, club], remote: true, html: { class: 'form form--horizontal' }) do |f| %>
+        <div class="form__field">
+          <%= f.text_field :name %>
+        </div>
+        <div class="form__field">
+          <%= f.text_field :long_name %>
+        </div>
+        <div class="form__buttons">
+          <%= submit_tag "Päivitä", class: 'form__button form__button--primary' %>
+          <%= tag(:input, {type: 'button', value: 'Peruuta', onclick: "cancel_edit(#{club.id}, \"#{club.name}\")", class: 'form__button form__button--secondary'}) %>
+        </div>
       <% end %>
-      <%= tag(:input, {:type => 'button', :value => 'Peruuta', :onclick => "cancel_edit(#{club.id}, \"#{club.name}\")"}) %>
     </span>
   </td>
   <td id="club_long_name_td_<%= club.id %>"><%= club.long_name %></td>

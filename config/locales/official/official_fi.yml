@@ -140,7 +140,7 @@ fi:
     clubs:
       index:
         info: Tällä sivulla voit lisätä kilpailuun osallistuvien kilpailijoiden %{club_word} sekä korjata niiden nimiä ja poistaa ylimääräisiä. Huom! Voit lisätä %{club_word} myös samalla, kun lisäät kilpailijoita.
-        long_name_info: käytetään joukkuekilpailuissa, jos syötetty
+        long_name_info: Käytetään joukkuekilpailuissa, jos syötetty
         current: Nykyiset
         edit_info: Jos haluat muuttaa %{club_word} nimeä, klikkaa nimessä olevaa linkkiä.
         competitors: Kilpailijoita
