@@ -80,6 +80,7 @@ fi:
         result_saved: Tulos syötetty
         remove_confirmation: Haluatko varmasti poistaa tämän kilpailijan?
         competitor_removed: Kilpailija poistettu
+        added_competitors: Lisätyt kilpailijat
       new:
         title: Uusi kilpailija
         club_selection_prompt_0: Valitse seura tai lisää uusi

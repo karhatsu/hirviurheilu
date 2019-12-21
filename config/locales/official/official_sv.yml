@@ -80,6 +80,7 @@ sv:
         result_saved: Resultat sparat
         remove_confirmation: Är du säker att du vill radera tävlaren?
         competitor_removed: Tävlaren raderat
+        added_competitors: Tävlar
       new:
         title: Ny tävlare
         club_selection_prompt_0: Välj klubb eller öka ny

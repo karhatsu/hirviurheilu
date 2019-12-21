@@ -36,6 +36,10 @@ $inputHeight: 16px;
     width: 16px;
   }
 
+  input[type='radio'] {
+    width: auto;
+  }
+
   select {
     height: 34px;
     max-width: 100%;
