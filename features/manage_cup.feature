@@ -96,8 +96,7 @@ Feature: Manage cup
     And I have logged in
     And I am on the official cup page of "My cup"
     And I follow "Muokkaa cup-kilpailun asetuksia"
-    Then I should see "Muokkaa cup-kilpailun asetuksia" within "h2"
-    And the "Cup-kilpailun nimi" field should contain "My cup"
+    Then the "Cup-kilpailun nimi" field should contain "My cup"
     And the "Yhteistulokseen laskettavien kilpailuiden määrä" field should contain "2"
     And the "race_id_0" checkbox should be checked
     And the "race_id_1" checkbox should be checked
@@ -114,7 +113,7 @@ Feature: Manage cup
     And I fill in "M60" for "cup_cup_series_attributes_0_name"
     And I fill in "N" for "cup_cup_series_attributes_1_name"
     And I fill in "N40,N60" for "cup_cup_series_attributes_1_series_names"
-    And I press "Päivitä"
+    And I press "Tallenna"
     Then I should be on the official cup page of "Renamed cup"
     And I should see "Cup-kilpailu päivitetty" in a success message
     And the page title should contain "Renamed cup"
@@ -139,9 +138,9 @@ Feature: Manage cup
     And I am on the official cup page of "My cup"
     And I follow "Muokkaa cup-kilpailun asetuksia"
     When I fill in "" for "Cup-kilpailun nimi"
-    And I press "Päivitä"
+    And I press "Tallenna"
     Then I should see "Cup-kilpailun nimi on pakollinen" in an error message
     When I fill in "Renamed cup" for "Cup-kilpailun nimi"
     And I uncheck "race_id_0"
-    And I press "Päivitä"
+    And I press "Tallenna"
     Then I should see error about too few races selected for the cup

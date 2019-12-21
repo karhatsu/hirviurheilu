@@ -28,6 +28,10 @@ $inputHeight: 16px;
     width: calc(100% - 18px);
   }
 
+  input[type='button'], input[type='submit'] {
+    height: auto;
+  }
+
   input[type='checkbox'] {
     width: 16px;
   }
@@ -42,6 +46,33 @@ $inputHeight: 16px;
 @media only screen and (min-width: 48em) {
   .form__field input {
     width: 24em;
+  }
+}
+
+.form__field--small {
+  input {
+    width: 64px;
+  }
+}
+
+.form__field--medium {
+  input {
+    width: 128px;
+  }
+}
+
+.form__field--horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  label {
+    margin-right: 8px;
+  }
+
+  input {
+    margin-top: 0;
+    margin-right: 8px;
   }
 }
 

@@ -1,13 +1,13 @@
 module ChildFormHelper
-  def remove_child_link(name, f, hide_class, confirm_question)
+  def remove_child_link(name, f, hide_class, confirm_question, class_name = '')
     onclick = "remove_fields(this, '#{hide_class}', '#{confirm_question}');"
-    f.hidden_field(:_destroy) + tag(:input, {:type => 'button', :value => name, :onclick => onclick})
+    f.hidden_field(:_destroy) + tag(:input, {:type => 'button', :value => name, :onclick => onclick, class: class_name })
   end
 
-  def add_child_link(name, f, method, id=nil)
+  def add_child_link(name, f, method, id=nil, class_name='')
     fields = new_child_fields(f, method)
     onclick = "insert_fields(this, \"#{method}\", \"#{escape_javascript(fields)}\");"
-    tag(:input, {:type => 'button', :value => name, :onclick => onclick, :id => id})
+    tag(:input, {:type => 'button', :value => name, :onclick => onclick, :id => id, class: class_name})
   end
 
   def new_child_fields(form_builder, method, index=nil, options = {})

@@ -1,18 +1,17 @@
 = render :partial => 'shared/form_errors', :locals => { :item => @cup }
 = flash_error
-= form_for([:official, @cup], :html => { :class => 'cup_form' }) do |f|
-  %h3 Perusasetukset
-  %div
-    %span.form_label= f.label :name
-    %span= f.text_field :name
-  %div
-    %span.form_label= f.label :include_always_last_race
-    %span= f.check_box :include_always_last_race
-  %div
-    %span.form_label
-      = f.label :top_competitions
+= form_for([:official, @cup], html: { class: 'form' }) do |f|
+  .form__field
+    = f.label :name
+    = f.text_field :name
+  .form__field
+    = f.label :include_always_last_race
+    = f.check_box :include_always_last_race
+  .form__field.form__field--small
+    = f.label :top_competitions
+    %span
+      = f.number_field :top_competitions, max_length: 1
       %a.help#top_competitions_help{href: 'javascript:void(0);'} ?
-    %span= f.telephone_field :top_competitions, :max_length => 1, :size => 2, :class => 'max2'
     #top_competitions_help_dialog.dialog{style: 'display:none;'}
       %h3
         Kun
@@ -31,16 +30,14 @@
         vaikuttaa muihin paitsi viimeiseen kilpailuun. Toisin sanoen, jos cup sisältää esim. 4 kilpailua
         ja tämä luku on 2, valitaan 2 parasta tulosta 3 ensimmäisestä kilpailusta.
         Kokonaispisteisiin lasketaan automaattisesti mukaan myös viimeinen kilpailu.
-  %h3 Osakilpailut
-  .cup_form_races
-    - year_condition = @cup.new_record? ? Date.today.year - 1 : 2010
-    - current_user.races.where('start_date>=?', "#{year_condition}-01-01").each_with_index do |race, i|
+  %h2 Osakilpailut
+  - year_condition = @cup.new_record? ? Date.today.year - 1 : 2010
+  - current_user.races.where('start_date>=?', "#{year_condition}-01-01").each_with_index do |race, i|
+    .form__field.form__field--horizontal
       = check_box_tag 'cup[race_ids][]', race.id, @cup.races.include?(race), id: "race_id_#{i}"
-      %span.form_label
-        #{race.name}, #{date_print(race.start_date)}, #{race.location}
-      %br
+      %label #{race.name}, #{date_print(race.start_date)}, #{race.location}
   - unless @cup.new_record?
-    %h3 Cup-sarjat
+    %h2 Cup-sarjat
     .info
       Osakilpailuiden sarjojen nimet -kenttään tulee pilkulla erotettuna
       niiden sarjojen nimet, joista cup-sarja koostuu. Esim. jos cup-sarjan nimi on
@@ -48,9 +45,11 @@
       Voit jättää kentän tyhjäksi, jos cup-sarja koostuu yhdestä sarjasta, jonka nimi
       on täsmälleen sama kuin cup-sarjan nimi.
     = f.fields_for :cup_series do |cs_form|
-      = render :partial => "cup_series", :locals => { :f => cs_form }
-    = add_child_link "Lisää uusi cup-sarja", f, :cup_series
-  = submit_tag submit_label, class: 'submit_button'
+      = render partial: "cup_series", locals: { f: cs_form }
+    .form__buttons
+      = add_child_link "Lisää uusi cup-sarja", f, :cup_series, nil, 'form__button'
+  .form__buttons
+    = submit_tag submit_label, class: 'form__button form__button--primary'
 :javascript
   var top_competitions_help_title = 'Yhteistulokseen laskettavien kilpailuiden määrä';
 = render :partial => 'shared/help_dialog_opener'
