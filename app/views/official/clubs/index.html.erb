@@ -4,7 +4,7 @@
 <div class="info"><%= t '.info', :club_word => club_word %></div>
 <h2><%= t :add %> <%= club_title(@race).downcase %></h2>
 <div id="action_error"></div>
-<%= form_for([:official, @race, Club.new], :remote => true, html: { class: 'form form--vertical' }) do |f| %>
+<%= form_for([:official, @race, Club.new], :remote => true, html: { class: 'form' }) do |f| %>
   <div class="form__field">
     <%= f.label :name, :for => 'new_club_name' %>
     <%= f.text_field :name, :id => 'new_club_name' %>

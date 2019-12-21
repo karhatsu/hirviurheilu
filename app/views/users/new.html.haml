@@ -4,7 +4,7 @@
 .info= t '.info'
 - if PRODUCTION_ENV
   .important= raw t('.practise_info', :test_url => TEST_URL)
-= form_for @user, url: account_path, html: { class: 'form form--vertical' } do |f|
+= form_for @user, url: account_path, html: { class: 'form' } do |f|
   = render partial: "form", object: f
   .form__buttons
     = f.submit t('.submit'), class: 'form__button form__button--primary'

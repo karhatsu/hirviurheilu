@@ -2,7 +2,7 @@
 - content_for :page_title, yield(:title)
 %h2 Lisää käyttäjä
 = render partial: "shared/form_errors", locals: { item: @user }
-= form_for([:admin, @user], { html: { class: 'form form--vertical' } }) do |f|
+= form_for([:admin, @user], { html: { class: 'form' } }) do |f|
   .form__field
     = f.label :first_name
     = f.text_field :first_name

@@ -1,7 +1,7 @@
 - content_for(:title, t('.title'))
 - content_for(:page_title, yield(:title))
 %h1.mobile= yield :page_title
-= form_for @user, url: account_path, html: { class: 'form form--vertical' } do |f|
+= form_for @user, url: account_path, html: { class: 'form' } do |f|
   = render :partial => 'form', :object => f
   .submit_button
     = f.submit t(:update), class: 'form__button form__button--primary'

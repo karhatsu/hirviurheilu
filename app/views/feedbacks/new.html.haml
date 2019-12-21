@@ -3,7 +3,7 @@
 %h1.mobile= yield :page_title
 = flash_error
 .info= t '.race_info'
-= form_tag(feedbacks_path, class: 'form form--vertical') do
+= form_tag(feedbacks_path, class: 'form') do
   .form__field
     = label_tag :race_id, t('.feedback_receiver')
     = select_tag :race_id, options_for_select(races_drop_down_array(@races), @race_id), prompt: '- Yleinen Hirviurheilu-palaute -'

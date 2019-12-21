@@ -1,6 +1,20 @@
 $inputHeight: 16px;
 
+.form {
+  margin-bottom: 16px;
+
+  &--horizontal {
+    margin-bottom: 0;
+  }
+
+  .secondary_link {
+    margin-left: 0;
+  }
+}
+
 .form__field {
+  margin-top: $inputHeight;
+
   label {
     display: block;
     font-size: 14px;
@@ -9,6 +23,7 @@ $inputHeight: 16px;
 
   input {
     height: $inputHeight;
+    margin-top: $inputHeight / 2;
     padding: 8px !important; /* important until input[type='text'] etc. removed */
     width: calc(100% - 18px);
   }
@@ -28,6 +43,10 @@ $inputHeight: 16px;
   .form__field input {
     width: 24em;
   }
+}
+
+.form__buttons {
+  margin-top: $inputHeight;
 }
 
 .form__button {
@@ -52,26 +71,6 @@ $inputHeight: 16px;
 .form__button--secondary {
   background-color: #fff;
   color: olive;
-}
-
-.form--vertical {
-  margin-bottom: 16px;
-
-  .form__field {
-    margin-top: $inputHeight;
-
-    input {
-      margin-top: 8px;
-    }
-  }
-
-  .form__buttons {
-    margin-top: $inputHeight;
-  }
-
-  .secondary_link {
-    margin-left: 0;
-  }
 }
 
 .form--horizontal {

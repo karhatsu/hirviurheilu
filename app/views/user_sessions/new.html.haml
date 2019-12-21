@@ -8,7 +8,7 @@
     Käytät parhaillaan Hirviurheilun testiympäristöä.
     Varsinaiseen Hirviurheilu-palveluun luomasi tunnukset eivät käy suoraan tähän palveluun.
     Voit luoda testipalveluun omat tunnukset klikkaamalla alla olevaa rekisteröintilinkkiä.
-= form_for @user_session, url: user_session_path, html: { class: 'form form--vertical' } do |f|
+= form_for @user_session, url: user_session_path, html: { class: 'form' } do |f|
   = render partial: 'shared/form_errors', locals: { item: @user_session }
   .form__field
     = f.label :email
