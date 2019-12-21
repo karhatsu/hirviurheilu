@@ -1,55 +1,54 @@
 = flash_success
-.section
-  = render :partial => 'shared/form_errors', :locals => { :item => @tc }
-  = form_for([:official, @race, @tc], :html => { :class => 'team_competition_form' }) do |f|
-    %div
-      %span.form_label= f.label :name
-      %span= f.text_field :name
-    %div
-      %span.form_label= f.label :team_competitor_count
-      %span= f.telephone_field :team_competitor_count, :size => 2, :maxlength => 2, :class => 'max2'
-    %div
-      %span.form_label= f.label :multiple_teams
-      %span= f.check_box :multiple_teams
-    %div
-      %span.form_label
-        = f.label :use_team_name
-        %a#use_team_name_help.help{href: 'javascript:void(0);'} ?
-      %span= f.check_box :use_team_name
-    #use_team_name_help_dialog.dialog{style: 'display: none;'}
-      Normaalisti joukkueet muodostetaan piirin tai seuran perusteella.
-      Jos kuitenkin valitset kohdan '#{t('attributes.use_team_name')}',
-      joukkueet muodostetaan jokaiselle kilpailijalle syötetyn joukkueen nimen perusteella.
-      Tällöin yhden joukkueen jäsenten ei tarvitse kuulua samaan piiriin tai seuraan
-      ja toisaalta samasta piirista tai seurasta voidaan muodostaa useita joukkueita.
-      %br
-      %br
-      Voit asettaa kilpailijalle joukkueen nimen muokkaamalla kilpailijan perustietoja.
-    %h3= t 'official.team_competitions.form.series_age_groups'
-    .info
-      = t 'official.team_competitions.form.choose_info'
-      %ul
-        %li= t 'official.team_competitions.form.choose_info_full_series'
-        %li= t 'official.team_competitions.form.choose_info_age_groups'
-    - current_series_ids = @tc.series_ids
-    - current_age_group_ids = @tc.age_group_ids
-    %table{border: 1, cellpadding: 2, cellspacing: 0}
-      %tr
-        %th= t 'activerecord.models.series.one'
-        %th= t 'activerecord.models.age_group.other'
-      - @race.series.each do |series|
-        %tr
-          %td
-            = label_tag do
-              = check_box_tag 'team_competition[series_ids][]', series.id, current_series_ids.include?(series.id)
-              = series.name
-          %td
-            - series.age_groups.each do |age_group|
-              = label_tag do
-                = check_box_tag 'team_competition[age_group_ids][]', age_group.id, current_age_group_ids.include?(age_group.id)
-                = age_group.name
+= render :partial => 'shared/form_errors', :locals => { :item => @tc }
+= form_for([:official, @race, @tc], :html => { :class => 'team_competition_form' }) do |f|
+  .form__field
+    = f.label :name
+    = f.text_field :name
+  .form__field.form__field--small
+    = f.label :team_competitor_count
+    = f.number_field :team_competitor_count, :size => 2, :maxlength => 2, :class => 'max2'
+  .form__field
+    = f.label :multiple_teams
+    = f.check_box :multiple_teams
+  .form__field
+    = f.label :use_team_name
+    %span
+      = f.check_box :use_team_name
+      %a#use_team_name_help.help{href: 'javascript:void(0);'} ?
+  #use_team_name_help_dialog.dialog{style: 'display: none;'}
+    Normaalisti joukkueet muodostetaan piirin tai seuran perusteella.
+    Jos kuitenkin valitset kohdan '#{t('attributes.use_team_name')}',
+    joukkueet muodostetaan jokaiselle kilpailijalle syötetyn joukkueen nimen perusteella.
+    Tällöin yhden joukkueen jäsenten ei tarvitse kuulua samaan piiriin tai seuraan
+    ja toisaalta samasta piirista tai seurasta voidaan muodostaa useita joukkueita.
     %br
-    = submit_tag t(:save)
+    %br
+    Voit asettaa kilpailijalle joukkueen nimen muokkaamalla kilpailijan perustietoja.
+  %h3= t 'official.team_competitions.form.series_age_groups'
+  .info
+    = t 'official.team_competitions.form.choose_info'
+    %ul
+      %li= t 'official.team_competitions.form.choose_info_full_series'
+      %li= t 'official.team_competitions.form.choose_info_age_groups'
+  - current_series_ids = @tc.series_ids
+  - current_age_group_ids = @tc.age_group_ids
+  %table
+    %tr
+      %th= t 'activerecord.models.series.one'
+      %th= t 'activerecord.models.age_group.other'
+    - @race.series.each do |series|
+      %tr
+        %td
+          = label_tag do
+            = check_box_tag 'team_competition[series_ids][]', series.id, current_series_ids.include?(series.id)
+            = series.name
+        %td
+          - series.age_groups.each do |age_group|
+            = label_tag do
+              = check_box_tag 'team_competition[age_group_ids][]', age_group.id, current_age_group_ids.include?(age_group.id)
+              = age_group.name
+  .form__buttons
+    = submit_tag t(:save), class: 'form__button form__button--primary'
 :javascript
   var use_team_name_help_title = 'Joukkueiden muodostaminen';
 = render :partial => 'shared/help_dialog_opener'
