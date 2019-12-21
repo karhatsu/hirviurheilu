@@ -5,7 +5,7 @@
     </a>
     <span id="club_name_form_<%= club.id %>" style="display: none;">
       <%= form_for([:official, @race, club], remote: true, html: { class: 'form form--horizontal' }) do |f| %>
-        <div class="form__field">
+        <div class="form__field form__field--medium">
           <%= f.text_field :name %>
         </div>
         <div class="form__field">
