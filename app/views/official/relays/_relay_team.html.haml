@@ -1,13 +1,15 @@
-.sub_element.sub_form
-  = f.label :name
-  = f.text_field :name
-  = f.label :number
-  = f.text_field :number, :size => 3
-  = f.label :no_result_reason
-  = f.select :no_result_reason, @no_result_reason_options
-  = remove_child_link t(:remove), f, 'sub_form', ""
-  .sub_sub_element.relay_competitors_element
-    = f.fields_for :relay_competitors do |competitor_form|
-      = render :partial => 'relay_competitor', :locals => { :f => competitor_form }
-    - (@relay.legs_count - f.object.relay_competitors.length).times do |i|
-      = new_child_fields(f, :relay_competitors, i)
+.form__sub-form
+  .form__fields--horizontal
+    .form__field.form__field--horizontal
+      = f.text_field :name, placeholder: t('activerecord.attributes.relay_team.name')
+    .form__field.form__field--horizontal.form__field--small
+      = f.label :number
+      = f.number_field :number, :size => 3
+    .form__field.form__field--horizontal
+      = f.label :no_result_reason
+      = f.select :no_result_reason, @no_result_reason_options
+    = remove_child_link t(:remove), f, 'sub_form', "", 'form__button form__button--danger'
+  = f.fields_for :relay_competitors do |competitor_form|
+    = render partial: 'relay_competitor', locals: { f: competitor_form }
+  - (@relay.legs_count - f.object.relay_competitors.length).times do |i|
+    = new_child_fields(f, :relay_competitors, i)

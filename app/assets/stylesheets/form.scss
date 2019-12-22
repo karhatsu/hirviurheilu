@@ -66,6 +66,22 @@ $inputHeight: 16px;
   }
 }
 
+.form__fields--horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 8px;
+
+  .form__field {
+    margin-top: 0;
+    margin-right: 16px;
+  }
+
+  .form__button {
+    margin-top: 0;
+  }
+}
+
 .form__field--horizontal {
   display: flex;
   flex-direction: row;
@@ -75,7 +91,7 @@ $inputHeight: 16px;
     margin-right: 8px;
   }
 
-  input {
+  input, select {
     margin-top: 0;
     margin-right: 8px;
   }
@@ -140,4 +156,8 @@ textarea {
   textarea {
     width: auto;
   }
+}
+
+.form__sub-form {
+  margin-bottom: 16px;
 }

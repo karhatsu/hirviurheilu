@@ -3,4 +3,4 @@
 %h2= yield :title
 = render :partial => 'form'
 %hr
-= link_to t(:back_to_official_relays_page), official_race_relays_path(@race)
+= link_to t(:back_to_official_relays_page), official_race_relays_path(@race), class: 'back_link'
