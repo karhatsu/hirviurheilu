@@ -4,8 +4,7 @@
 = flash_success
 - unless @race.relays.empty?
   = render 'index_table'
-.action_box
-  = link_to t('.add_relay'), new_official_race_relay_path(@race)
 = render 'relay_instructions'
 %hr
-= link_to t(:back_to_official_race_page), official_race_path(@race)
+= link_to t('.add_relay'), new_official_race_relay_path(@race), class: 'secondary_link'
+= link_to t(:back_to_official_race_page), official_race_path(@race), class: 'back_link'
