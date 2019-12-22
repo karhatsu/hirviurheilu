@@ -56,13 +56,13 @@ $inputHeight: 16px;
 
 .form__field--small {
   input {
-    width: 64px;
+    width: 64px !important; /* important until input[type='number'] removed */
   }
 }
 
 .form__field--medium {
   input {
-    width: 128px;
+    width: 128px !important; /* important until input[type='number'] removed */
   }
 }
 
