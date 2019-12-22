@@ -42,6 +42,7 @@ $inputHeight: 16px;
 
   select {
     height: 34px;
+    margin-top: $inputHeight / 2;
     max-width: 100%;
     -webkit-appearance: menulist-button;
   }

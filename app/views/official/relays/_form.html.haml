@@ -1,48 +1,48 @@
 = flash_success
 = flash_error
 = render partial: 'shared/form_errors', locals: { item: @relay }
-= form_for([:official, @race, @relay], html: { class: 'relay_form' }) do |f|
+= form_for([:official, @race, @relay], html: { class: 'form' }) do |f|
   = hidden_field_tag :updated_at, @relay.updated_at.to_i
-  %div
-    %span.form_label= f.label :name
-    %span= f.text_field :name
-  %div
-    %span.form_label= f.label :legs_count
+  .form__field
+    = f.label :name
+    = f.text_field :name
+  .form__field.form__field--small
+    = f.label :legs_count
     %span
       - if @relay.new_record?
-        = f.number_field :legs_count, size: 2, class: 'max2'
+        = f.number_field :legs_count
       - else
         = @relay.legs_count
-  %div
-    %span.form_label= f.label :start_time
+  .form__field
+    = f.label :start_time
     %span
       = start_days_form_field(f, @relay)
       = f.time_select :start_time, include_blank: true
-    (arvioitu kellonaika)
-  %div
-    %span.form_label= f.label :leg_distance
-    %span= f.number_field :leg_distance
-  %div
-    %span.form_label Sakkojen suorittaminen
+    .form__field__info (arvioitu kellonaika)
+  .form__field.form__field--medium
+    = f.label :leg_distance
+    = f.number_field :leg_distance
+  .form__field
+    %label Sakkojen suorittaminen
     %span
       = radio_button_tag :penalty_method, 'run', @penalty_method == 'run'
       Juostaan / hiihdetään
       = radio_button_tag :penalty_method, 'penalty_seconds', @penalty_method == 'penalty_seconds'
       Lisätään loppuaikaan
   .penalty_run{style: 'display: none'}
-    %div
-      %span.form_label= f.label :estimate_penalty_distance
-      %span= f.number_field :estimate_penalty_distance
-    %div
-      %span.form_label= f.label :shooting_penalty_distance
-      %span= f.number_field :shooting_penalty_distance
+    .form__field.form__field--medium
+      = f.label :estimate_penalty_distance
+      = f.number_field :estimate_penalty_distance
+    .form__field.form__field--medium
+      = f.label :shooting_penalty_distance
+      = f.number_field :shooting_penalty_distance
   .penalty_seconds{style: 'display: none'}
-    %div
-      %span.form_label= f.label :estimate_penalty_seconds
-      %span= f.number_field :estimate_penalty_seconds
-    %div
-      %span.form_label= f.label :shooting_penalty_seconds
-      %span= f.number_field :shooting_penalty_seconds
+    .form__field.form__field--medium
+      = f.label :estimate_penalty_seconds
+      = f.number_field :estimate_penalty_seconds
+    .form__field.form__field--medium
+      = f.label :shooting_penalty_seconds
+      = f.number_field :shooting_penalty_seconds
   - unless @relay.new_record?
     %h2= t :correct_distances
     = render partial: 'all_correct_estimates', locals: { f: f }
@@ -53,9 +53,8 @@
       = f.fields_for :relay_teams do |team_form|
         = render partial: "relay_team", locals: { f: team_form }
     = add_child_link t('official.relays.form.add_new_team'), f, :relay_teams
-    %br
-    %br
-  = submit_tag t(:save)
+  .form__buttons
+    = submit_tag t(:save), class: 'form__button form__button--primary'
 
 :javascript
   function showPenaltySecondFields() {
