@@ -6,10 +6,10 @@
     <span id="club_name_form_<%= club.id %>" style="display: none;">
       <%= form_for([:official, @race, club], remote: true, html: { class: 'form form--horizontal' }) do |f| %>
         <div class="form__field form__field--medium">
-          <%= f.text_field :name %>
+          <%= f.text_field :name, placeholder: t('attributes.name') %>
         </div>
         <div class="form__field">
-          <%= f.text_field :long_name %>
+          <%= f.text_field :long_name, placeholder: t('attributes.long_name') %>
         </div>
         <div class="form__buttons">
           <%= submit_tag "Päivitä", class: 'form__button form__button--primary' %>
