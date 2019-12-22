@@ -112,17 +112,28 @@ $inputHeight: 16px;
     background: linear-gradient(to right, rgba(29, 99, 153, 0.9), rgba(29, 99, 153, 0.7));
     color: #fff;
   }
-}
 
-.form__button--primary {
-  background-color: olive;
-  background: linear-gradient(to right, rgba(128, 128, 0, 0.9), rgba(128, 128, 0, 0.7));
-  color: #fff;
-}
+  &--primary {
+    background-color: olive;
+    background: linear-gradient(to right, rgba(128, 128, 0, 0.9), rgba(128, 128, 0, 0.7));
+    color: #fff;
+  }
 
-.form__button--secondary {
-  background-color: #fff;
-  color: olive;
+  &--secondary {
+    background-color: #fff;
+    color: olive;
+  }
+
+  &--danger {
+    background-color: #fff;
+    border: 1px solid #CC3300 !important; /* important until input[type='button'] removed */
+    color: #CC3300 !important;
+
+    &:hover {
+      background: #CC3300 !important;
+      color: #fff !important;
+    }
+  }
 }
 
 .form--horizontal {
