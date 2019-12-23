@@ -2,7 +2,7 @@ Feature: Age group selection
   In order to get correct results for all competitors
   As an official
   I want to select age groups for the competitors
-  
+
   @javascript
   Scenario: Age group selection in competitor add and edit
     Given I am an official for the race "Ikäkisa"
@@ -28,10 +28,11 @@ Feature: Age group selection
     And I press "Tallenna"
     Then "Majala Matti" should be saved as new competitor
     When I follow "Takaisin sarjan M60 kilpailijaluetteloon"
-    And I follow "Majala Matti"
+    Then I should see "M60 - Kilpailijat"
+    When I follow "Majala Matti"
     Then the age group menu should not be hidden
     And "M65" should be selected in the age group menu
-  
+
   @javascript
   Scenario: Age group selection in limited official competitors page
     Given I am a limited official for the race "Ikäkisa"
@@ -63,4 +64,3 @@ Feature: Age group selection
     When I follow "Majala Matti"
     Then the age group menu should not be hidden
     And "P15" should be selected in the age group menu
-    
