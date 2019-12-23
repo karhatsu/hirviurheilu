@@ -121,43 +121,38 @@ textarea {
   }
 }
 
-.form__sub-form {
-  background-color: #eee;
-  border-radius: 2px;
-  margin-bottom: 16px;
-  padding: 8px;
-}
-
 .form__fields--horizontal {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 16px;
 
   .form__field, .form__buttons {
     margin-top: 0;
   }
 
   .form__field {
+    display: flex;
+    align-items: center;
     margin-right: 16px;
 
-    input {
+    label {
+      margin-right: 8px;
+    }
+
+    input, select {
       margin-top: 0;
     }
   }
 }
 
-.form__field--horizontal {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.form__sub-form {
+  background-color: #eee;
+  border-radius: 2px;
+  margin-bottom: 16px;
+  padding: 8px;
 
-  label {
-    margin-right: 8px;
-  }
-
-  input, select {
+  .form__fields--horizontal:first-of-type {
     margin-top: 0;
-    margin-right: 8px;
   }
 }

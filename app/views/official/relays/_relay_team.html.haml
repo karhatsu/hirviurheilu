@@ -1,11 +1,11 @@
 .form__sub-form
   .form__fields--horizontal
-    .form__field.form__field--horizontal
+    .form__field
       = f.text_field :name, placeholder: t('activerecord.attributes.relay_team.name')
-    .form__field.form__field--horizontal.form__field--small
+    .form__field.form__field--small
       = f.label :number
       = f.number_field :number, :size => 3
-    .form__field.form__field--horizontal
+    .form__field
       = f.label :no_result_reason
       = f.select :no_result_reason, @no_result_reason_options
     = remove_child_link t('official.relays.form.delete_team'), f, 'form__sub-form', "", 'form__button form__button--danger'

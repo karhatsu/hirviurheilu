@@ -1,19 +1,19 @@
 .form__fields--horizontal
   - f.object.leg = index + 1 unless f.object.leg
   = f.hidden_field :leg
-  .form__field.form__field--horizontal #{f.object.leg}.
-  .form__field.form__field--horizontal.form__field--medium
+  .form__field #{f.object.leg}.
+  .form__field.form__field--medium
     = f.text_field :first_name, placeholder: t('attributes.first_name')
-  .form__field.form__field--horizontal.form__field--medium
+  .form__field.form__field--medium
     = f.text_field :last_name, placeholder: t('attributes.last_name')
   - unless f.object.new_record?
-    .form__field.form__field--horizontal.form__field--small
+    .form__field.form__field--small
       = f.label :misses
       = f.number_field :misses
-    .form__field.form__field--horizontal.form__field--small
+    .form__field.form__field--small
       = f.label :estimate
       #{f.number_field :estimate, size: 3}m
-    .form__field.form__field--horizontal.form__field--medium
+    .form__field.form__field--medium
       = f.label :arrival_time
       = time_print(f.object.arrival_time, true, '-')
     - if f.object.estimate_penalties_adjustment
