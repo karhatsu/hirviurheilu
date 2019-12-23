@@ -1,0 +1,15 @@
+%tr{id: "club_row_#{club.id}"}
+  %td
+    %a.club_name_link{id: "club_name_link_#{club.id}", href: 'javascript:void(0)'}= club.name
+    %span{id: "club_name_form_#{club.id}", style: 'display: none;'}
+      = form_for([:official, @race, club], remote: true, html: { class: 'form form--horizontal' }) do |f|
+        .form__field.form__field--medium
+          = f.text_field :name, placeholder: t('attributes.name')
+        .form__field
+          = f.text_field :long_name, placeholder: t('attributes.long_name')
+        .form__buttons
+          = submit_tag "Päivitä", class: 'form__button form__button--primary'
+          = tag(:input, {type: 'button', value: 'Peruuta', onclick: "cancel_edit(#{club.id}, \"#{club.name}\")", class: 'form__button form__button--secondary'})
+  %td{id: "club_long_name_td_#{club.id}"}= club.long_name
+  %td.center= club.competitors.count
+  %td.center= club.can_be_removed? ? (button_to "Poista", official_race_club_path(@race.id, club), method: :delete, remote: true, class: 'remove_club') : raw('&nbsp;')
