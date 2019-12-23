@@ -2,13 +2,13 @@
 %h2= t 'official_sub_menu.correct_distances'
 = flash_error
 = flash_success
-.section
-  = form_for([:official, @race], :url => official_race_correct_estimates_path(@race), method: 'PUT') do |f|
-    = render :partial => 'shared/form_errors', :locals => { :item => @race }
-    = f.fields_for :correct_estimates do |ce_form|
-      = render :partial => 'correct_estimate', :locals => { :f => ce_form }
-    = add_child_link t('.add_new_range'), f, :correct_estimates, 'add_link'
-    = submit_tag t('.submit_button')
+= form_for([:official, @race], url: official_race_correct_estimates_path(@race), method: 'PUT', class: 'form') do |f|
+  = render partial: 'shared/form_errors', locals: { item: @race }
+  = f.fields_for :correct_estimates do |ce_form|
+    = render partial: 'correct_estimate', locals: { f: ce_form }
+  = add_child_link t('.add_new_range'), f, :correct_estimates, 'add_link', 'button button--add-correct-estimates'
+  .form__buttons
+    = submit_tag t('.submit_button'), class: 'button button--primary'
 
 %h2= t '.defined_correct_estimates'
 - if @race.competitors.empty?
