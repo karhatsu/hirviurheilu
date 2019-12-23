@@ -44,6 +44,11 @@ $inputHeight: 16px;
 .form {
   margin-bottom: 16px;
 
+  &--inline {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+
   .secondary_link {
     margin-left: 0;
   }

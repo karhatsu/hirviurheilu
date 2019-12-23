@@ -1,4 +1,3 @@
-<%= form_tag(official_race_finish_race_path(race)) do %>
-  <%= submit_tag t('official.races.show.finish_race_submit') %>
-  <%= t('official.races.show.finish_race_text') %>
+<%= form_tag(official_race_finish_race_path(race), class: 'form form--inline') do %>
+  <%= submit_tag t('official.races.show.finish_race_submit'), class: 'button button--primary' %>
 <% end %>

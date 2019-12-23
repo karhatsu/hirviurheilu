@@ -33,11 +33,8 @@ Feature: Finish race
     And the series has a competitor
     And I have logged in
     When I go to the official race page of "Test race"
-    Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
-    When I press "Merkitse yksilökilpailut päättyneeksi"
+    And I press "Merkitse yksilökilpailut päättyneeksi"
     Then I should see "Osalta kilpailijoista puuttuu oikea arviomatka." in an error message
-    When I go to the official race page of "Test race"
-    Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
 
   Scenario: Competitors are missing results
     Given I am an official
@@ -57,11 +54,8 @@ Feature: Finish race
     And the start list has been generated for the series
     And I have logged in
     When I go to the official race page of "Test race"
-    Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
-    When I press "Merkitse yksilökilpailut päättyneeksi"
+    And I press "Merkitse yksilökilpailut päättyneeksi"
     Then I should see "Ainakin yhdeltä kilpailijalta (James Johnson, Test series) puuttuu tulos." in an error message
-    When I go to the official race page of "Test race"
-    Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
 
   Scenario: Finish race successfully
     Given I am an official "Timo Toimitsija" with email "timo@test.com"
@@ -91,11 +85,9 @@ Feature: Finish race
     And the race has series "Empty series to be deleted automatically"
     And I have logged in
     When I go to the official race page of "Test race"
-    Then I should see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista." within "form"
-    When I press "Merkitse yksilökilpailut päättyneeksi"
+    And I press "Merkitse yksilökilpailut päättyneeksi"
     Then I should be on the official race page of "Test race"
     And I should see "Kilpailu Test race on merkitty päättyneeksi" in a success message
-    But I should not see "kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista."
     And I should see "Test series"
     But I should not see "Empty series to be deleted automatically"
     And the admin should receive an email
