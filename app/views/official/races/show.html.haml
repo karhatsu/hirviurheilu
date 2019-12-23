@@ -55,14 +55,14 @@
   = form_tag(official_race_path(@race), method: :delete, class: 'form form--inline') do
     = submit_tag t('.remove_race'), class: 'button button--danger'
 %h3= t '.add_multiple_competitors'
-.action_box= link_to t('.copy_competitors'), new_official_race_competitor_copying_path(@race)
+= link_to t('.copy_competitors'), new_official_race_competitor_copying_path(@race), class: 'button'
 - unless @race.series.empty?
-  .action_box= link_to t('.add_competitors_from_csv'), new_official_race_csv_import_path(@race)
+  = link_to t('.add_competitors_from_csv'), new_official_race_csv_import_path(@race), class: 'button'
 - unless @race.competitors.empty?
   %h3= t '.other'
-  .action_box= link_to t('.download_competitors_by_clubs'), official_race_clubs_competitors_path(@race, format: :pdf)
+  = link_to t('.download_competitors_by_clubs'), official_race_clubs_competitors_path(@race, format: :pdf), class: 'button'
 %h2= t '.other_race_formats'
-.action_box= link_to t('activerecord.models.team_competition.other'), official_race_team_competitions_path(@race)
-.action_box= link_to t('activerecord.models.relay.other'), official_race_relays_path(@race)
+= link_to t('activerecord.models.team_competition.other'), official_race_team_competitions_path(@race), class: 'button'
+= link_to t('activerecord.models.relay.other'), official_race_relays_path(@race), class: 'button'
 %hr
 = link_to t(:back_to_official_home_page), official_root_path
