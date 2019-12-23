@@ -2,9 +2,10 @@
 %h2= yield :title
 .error{style: 'display: none;'}
 = render partial: "shared/form_errors", locals: { item: @competitor }
-= form_for([:official, @competitor.series.race, @competitor], remote: true) do |f|
-  = render :partial => "basic_fields", locals: { f: f }
-  = submit_tag t(:save), onclick: 'show_spinner()'
+= form_for([:official, @competitor.series.race, @competitor], remote: true, class: 'form') do |f|
+  = render partial: "basic_fields", locals: { f: f }
+  .form__buttons
+    = submit_tag t(:save), onclick: 'show_spinner()', class: 'button button--primary'
   = image_tag 'spinner.gif', style: 'display:none;', id: 'spinner'
 #latest_competitors{style: 'display: none;'}
   %hr
@@ -12,12 +13,9 @@
   %h3= t '.latest_added_competitors'
   %ul#latest_competitors_list
 %hr
-= link_to t('official.add_competitors_from_csv_file'), new_official_race_csv_import_path(@series.race)
-%br
-= link_to raw(t('.back_to_series_competitors_list', :series_name => @series.name)),
-  official_series_competitors_path(@series), :id => 'back_to_series'
-%br
-= link_to t(:back_to_official_race_page), official_race_path(@series.race)
+= link_to t('official.add_competitors_from_csv_file'), new_official_race_csv_import_path(@series.race), class: 'button'
+= link_to raw(t('.back_to_series_competitors_list', :series_name => @series.name)), official_series_competitors_path(@series), id: 'back_to_series', class: 'back_link'
+= link_to t(:back_to_official_race_page), official_race_path(@series.race), class: 'back_link'
 :javascript
   function show_spinner() {
     $('#spinner').show();

@@ -1,50 +1,53 @@
-%span.form_label= f.label :series_id
-= f.select :series_id, options_from_collection_for_select(@series_menu_options, :id, :name, f.object.series.id), {}, onchange: 'change_series(this.value)'
 - age_group_style = f.object.series.age_groups.empty? ? 'display:none;' : ''
-%span#age_groups_span{style: age_group_style}
-  = f.label :age_group_id
-  = f.collection_select :age_group_id, f.object.series.age_groups_with_main_series, :id, :name
-%span#age_groups_spinner{style: 'display:none;'}
-  = image_tag 'spinner.gif'
-  Odota hetki...
-%br
-%span.form_label= f.label :first_name
-= f.text_field :first_name, :size => 15
-%span.form_label= f.label :last_name
-= f.text_field :last_name, :size => 20
-= f.check_box :unofficial
-= f.label :unofficial
-%br
+.form__field.row
+  .col-xs-12.col-sm-3= f.label :series_id
+  .col-xs-12.col-sm-9= f.select :series_id, options_from_collection_for_select(@series_menu_options, :id, :name, f.object.series.id), {}, onchange: 'change_series(this.value)'
+.form__field.row#age_groups_span{style: age_group_style}
+  .col-xs-12.col-sm-3= f.label :age_group_id
+  .col-xs-12.col-sm-9
+    = f.collection_select :age_group_id, f.object.series.age_groups_with_main_series, :id, :name
+    %span#age_groups_spinner{style: 'display:none;'}
+      = image_tag 'spinner.gif'
+      Odota hetki...
+.form__field.row
+  .col-xs-12.col-sm-3= f.label :first_name
+  .col-xs-12.col-sm-9= f.text_field :first_name
+.form__field.row
+  .col-xs-12.col-sm-3= f.label :last_name
+  .col-xs-12.col-sm-9= f.text_field :last_name
+.form__field.row
+  .col-xs-12.col-sm-3= f.label :unofficial
+  .col-xs-12.col-sm-9= f.check_box :unofficial
 - club_level = f.object.race.club_level
-%span.form_label= f.label :club_id, club_title(f.object.series.race)
-- menu_style = f.object.race.clubs.empty? ? 'display:none;' : ''
-= select_tag :club_id, options_from_collection_for_select(f.object.race.clubs,
-  :id, :name, f.object.club_id), prompt: t("official.competitors.new.club_selection_prompt_#{club_level}"),
-  :style => menu_style
-= text_field_tag :club_name, '', placeholder: t("official.competitors.new.new_club_hint_#{club_level}")
-%br
+.form__field.row
+  .col-xs-12.col-sm-3= f.label :club_id, club_title(f.object.series.race)
+  - menu_style = f.object.race.clubs.empty? ? 'display:none;' : ''
+  .col-xs-12.col-sm-9
+    = select_tag :club_id, options_from_collection_for_select(f.object.race.clubs,
+      :id, :name, f.object.club_id), prompt: t("official.competitors.new.club_selection_prompt_#{club_level}"), style: menu_style
+    = text_field_tag :club_name, '', placeholder: t("official.competitors.new.new_club_hint_#{club_level}")
 - if @series.race.has_team_competitions_with_team_names?
-  %span.form_label= f.label :team_name
-  %a.help#team_name_help{href: "javascript:void(0);"} ?
-  = f.text_field :team_name
-  %br
+  .form__field.row
+    .col-xs-12.col-sm-3= f.label :team_name
+    .col-xs-12.col-sm-9
+      = f.text_field :team_name
+      %a.help#team_name_help{href: "javascript:void(0);"} ?
   = render :partial => 'official/shared/team_name_help_dialog'
 - if f.object.new_record?
   - number_style = 'display:none;'
   - if f.object.series.has_start_list?
     - number_style = ''
-  %span#number_span{style: number_style}
-    %span.form_label= f.label :number
-    = f.text_field :number, :size => 3
-    %span.form_label= f.label :start_time
-    - start_time = time_print(f.object.start_time, true, '')
-    = f.text_field :start_time, size: 8, value: start_time
-  %span#number_spinner{style: "display:none;"}
-    = image_tag 'spinner.gif'
-    Odota hetki...
+  #number_span{style: number_style}
+    .form__field.form__field--small.row
+      .col-xs-12.col-sm-3= f.label :number
+      .col-xs-12.col-sm-9= f.number_field :number
+    .form__field.form__field--small.row
+      .col-xs-12.col-sm-3= f.label :start_time
+      - start_time = time_print(f.object.start_time, true, '')
+      .col-xs-12.col-sm-9= f.text_field :start_time, value: start_time
 :javascript
   $('#club_id').on('change', show_club_name_field);
-  
+
   function show_club_name_field() {
      if ($('#club_id').prop('selectedIndex') == 0) {
        $('#club_name').show();
@@ -59,7 +62,6 @@
   }
 
   function reload_number_and_start_time_and_link(series_id) {
-    $('#number_spinner').show();
     $.getJSON('/series/' + series_id, function(series) {
       if(series.has_start_list) {
         $('#competitor_number').val(series.next_start_number);
@@ -72,10 +74,9 @@
       }
       $('#back_to_series').attr('href', '/official/series/' + series_id + '/competitors');
       $('#back_to_series #series_name').text(series.name);
-      $('#number_spinner').hide();
     });
   }
-  
+
   show_club_name_field();
 = render :partial => 'official/shared/reload_age_groups_js'
 = render :partial => 'shared/help_dialog_opener'
