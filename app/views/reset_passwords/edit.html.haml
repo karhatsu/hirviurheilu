@@ -1,14 +1,16 @@
 - content_for(:title, t('.title'))
 - content_for(:page_title, yield(:title))
+%h1.mobile= yield :page_title
 = flash_error
 = flash_success
 - if @hash_ok
-  = form_tag(reset_password_path, :method => :put) do
+  = form_tag(reset_password_path, method: :put, class: 'form') do
     = hidden_field_tag :reset_hash, @reset_hash
-    %div
-      %span.form_label= label_tag :password, t('.new_password')
+    .form__field
+      = label_tag :password, t('.new_password')
       = password_field_tag :password
-    %div
-      %span.form_label= label_tag :password_confirmation, t('attributes.password_confirmation')
+    .form__field
+      = label_tag :password_confirmation, t('attributes.password_confirmation')
       = password_field_tag :password_confirmation
-    = submit_tag t('.submit_button')
+    .form__buttons
+      = submit_tag t('.submit_button'), class: 'form__button form__button--primary'

@@ -3,8 +3,9 @@
 .info= t '.info'
 = flash_error
 = flash_success
-= form_tag(reset_password_path) do
-  %span.form_label= label_tag :email, t('attributes.email')
-  %span= email_field_tag :email
-  %div
-    = submit_tag t('.button'), class: 'primary_link'
+= form_tag(reset_password_path, class: 'form') do
+  .form__field
+    = label_tag :email, t('attributes.email')
+    = email_field_tag :email
+  .form__buttons
+    = submit_tag t('.button'), class: 'form__button form__button--primary'
