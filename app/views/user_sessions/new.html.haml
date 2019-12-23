@@ -20,7 +20,7 @@
     = f.label :remember_me
     = f.check_box :remember_me
   .form__buttons
-    = f.submit t('.submit_button'), class: 'form__button form__button--primary'
+    = f.submit t('.submit_button'), class: 'button button--primary'
 %hr
 = link_to t('.forgotten_password'), new_reset_password_path, class: 'secondary_link'
 = link_to t('.register'), register_path, class: 'secondary_link'

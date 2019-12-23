@@ -35,7 +35,7 @@
         = f.text_field :team_name
         %a.help#team_name_help{href: 'javascript:void(0);'} ?
   .form__buttons
-    = submit_tag "Tallenna", class: 'form__button form__button--primary'
+    = submit_tag "Tallenna", class: 'button button--primary'
   - if show_cancel
     = tag(:input, {:type => 'button', :value => 'Peruuta', :onclick => 'cancel_edit();'})
 = render :partial => 'official/shared/team_name_help_dialog'

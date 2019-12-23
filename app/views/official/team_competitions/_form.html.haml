@@ -48,7 +48,7 @@
               = check_box_tag 'team_competition[age_group_ids][]', age_group.id, current_age_group_ids.include?(age_group.id)
               = age_group.name
   .form__buttons
-    = submit_tag t(:save), class: 'form__button form__button--primary'
+    = submit_tag t(:save), class: 'button button--primary'
 :javascript
   var use_team_name_help_title = 'Joukkueiden muodostaminen';
 = render :partial => 'shared/help_dialog_opener'

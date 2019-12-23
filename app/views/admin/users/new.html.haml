@@ -21,7 +21,7 @@
     .form__field__info
       %a#generate_password{href: 'javascript:void(0);'} Generoi salasana
   .form__buttons
-    = submit_tag 'Lisää käyttäjä', class: 'form__button form__button--primary'
+    = submit_tag 'Lisää käyttäjä', class: 'button button--primary'
 :javascript
   $('form').on('click', '#generate_password', function() {
     var pw = Math.random().toString(36).slice(-8);

@@ -148,7 +148,7 @@
 
   - else
     .form__buttons
-      = submit_tag submit_label, class: 'form__button form__button--primary'
+      = submit_tag submit_label, class: 'button button--primary'
     %h2= t 'activerecord.models.series.other'
     %a{href: NATIONAL_RECORD_URL, target: '_blank'} Metsästäjäliiton SE-sivu
     = f.fields_for :series do |series_form|
@@ -157,7 +157,7 @@
       = highlight_info(t 'official.races.form.you_havent_added_series_yet')
     = add_child_link t('official.races.form.add_series'), f, :series
   .form__buttons
-    = submit_tag submit_label, class: 'form__button form__button--primary'
+    = submit_tag submit_label, class: 'button button--primary'
 
 :javascript
   var home_page_help_title = 'Linkki kilpailun sivuille';

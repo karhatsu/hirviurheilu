@@ -37,7 +37,7 @@
           = radio_button_tag :order_method, Series::START_LIST_RANDOM, Series::START_LIST_RANDOM == @order_method
           = t "order_method_#{Series::START_LIST_RANDOM}"
       .form__buttons
-        = submit_tag start_list_title, class: 'form__button form__button--primary'
+        = submit_tag start_list_title, class: 'button button--primary'
     %h3= t('.added_competitors')
   = render partial: 'official/competitors/table', locals: { series: @series, result_column: true, remove_column: true }
 - add_title = @series.competitors.empty? ? t('.add_competitor') : t('.add_new_competitor')

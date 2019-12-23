@@ -19,7 +19,7 @@
         vähimmäismääräksi 0.
     = f.fields_for :age_groups do |age_group_form|
       = render partial: "age_group", locals: { f: age_group_form }
-    = add_child_link t('official.races.form.add_age_group'), f, :age_groups, nil, 'form__button form__button--add-age-group'
+    = add_child_link t('official.races.form.add_age_group'), f, :age_groups, nil, 'button button--add-age-group'
   - if f.object.competitors.empty?
     .form__buttons
-      = remove_child_link t('official.races.form.remove_series'), f, 'series-sub-form', "", 'form__button form__button--danger'
+      = remove_child_link t('official.races.form.remove_series'), f, 'series-sub-form', "", 'button button--danger'

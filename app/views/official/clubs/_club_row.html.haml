@@ -9,8 +9,8 @@
           .form__field
             = f.text_field :long_name, placeholder: t('attributes.long_name')
           .form__buttons
-            = submit_tag "Päivitä", class: 'form__button form__button--primary'
-            = tag(:input, {type: 'button', value: 'Peruuta', onclick: "cancel_edit(#{club.id}, \"#{club.name}\")", class: 'form__button form__button--secondary'})
+            = submit_tag "Päivitä", class: 'button button--primary'
+            = tag(:input, {type: 'button', value: 'Peruuta', onclick: "cancel_edit(#{club.id}, \"#{club.name}\")", class: 'button button--secondary'})
   %td{id: "club_long_name_td_#{club.id}"}= club.long_name
   %td.center= club.competitors.count
-  %td.center= club.can_be_removed? ? (button_to "Poista", official_race_club_path(@race.id, club), method: :delete, remote: true, class: 'form__button form__button--danger') : raw('&nbsp;')
+  %td.center= club.can_be_removed? ? (button_to "Poista", official_race_club_path(@race.id, club), method: :delete, remote: true, class: 'button button--danger') : raw('&nbsp;')
