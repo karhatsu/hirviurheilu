@@ -10,9 +10,9 @@
   = t ".example_row_#{@race.start_order}_2"
 %h3= t '.upload_file'
 = flash_error
-= form_tag(official_race_csv_imports_path(@race), :multipart => true) do
-  %div
-    .form_label= label_tag :file, t('.csv_file')
-    .form_field= file_field_tag :file
-  .submit_button
-    = submit_tag t('.submit_button')
+= form_tag(official_race_csv_imports_path(@race), multipart: true, class: 'form') do
+  .form__field
+    = label_tag :file, t('.csv_file')
+    = file_field_tag :file
+  .form__buttons
+    = submit_tag t('.submit_button'), class: 'button button--primary'
