@@ -2,14 +2,14 @@ Feature: Start list modification
   In order to react changing needs before the race
   As an official
   I want to change start list positions between competitors
-  
+
   Scenario: When no series, don't show the start list modification tab
     Given I am an official
     And I have a race "Test race"
     And I have logged in
     And I am on the official race page of "Test race"
     Then I should not see "Lähtöajat"
-    
+
   Scenario: Go to the start list modification page
     Given I am an official
     And I have a race "Test race"
@@ -33,7 +33,7 @@ Feature: Start list modification
     When I go to the official start list page of the race "Test race"
     Then I should see "Yhdellekään sarjalle ei ole luotu vielä lähtölistaa"
     But I should not see "Matti"
-  
+
   Scenario: Show only competitors who have start times
     Given I am an official
     And I have a race "Test race"
@@ -51,9 +51,9 @@ Feature: Start list modification
     And the start list has been generated for the series
     And I have logged in
     When I go to the official start list page of the race "Test race"
-    Then the "competitor_number" text field in edit form should contain "50"
-    And the "competitor_start_time" text field in edit form should contain "01:25:00"
-    And the "competitor_first_name" text field in edit form should contain "Timo"
-    And the "competitor_last_name" text field in edit form should contain "Turunen"
+    Then the "competitor[number]" text field in edit form should contain "50"
+    And the "competitor[start_time]" text field in edit form should contain "01:25:00"
+    And the "competitor[first_name]" text field in edit form should contain "Timo"
+    And the "competitor[last_name]" text field in edit form should contain "Turunen"
     But I should not see "Matti"
     And I should not see "Miettinen"

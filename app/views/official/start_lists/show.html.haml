@@ -6,31 +6,15 @@
 - else
   #update_error
   #competitors_table.competitors_table
-    .header_row
-      .title.number= t :number_short
-      .title.start_time
-        = t 'attributes.start_time'
-        (hh:mm:ss)
-      .title.first_name= t 'attributes.first_name'
-      .title.last_name= t 'attributes.last_name'
-      .title.club= club_title @race
-      .title.series= t :series
-      .title.age_group= t 'activerecord.models.age_group.one'
-      .title.button &nbsp;
-      .title &nbsp;
-
-    = render :partial => 'competitor_row', :locals => { :c => @new_competitor,
-      :save_button => t(:add_new), :id => 'new', :parent => @race }
-    #ruler
-    %hr
+    = render partial: 'competitor_row', locals: { c: @new_competitor, save_button: t(:add_new), id: 'new', parent: @race }
+    %hr#ruler
     - @competitors.each do |c|
-      = render :partial => 'competitor_row', :locals => { :c => c,
-        :save_button => t(:save), :id => c.id, :parent => c.series }
+      = render partial: 'competitor_row', locals: { c: c, save_button: t(:save), id: c.id, parent: c.series }
 
   :javascript
     var series_with_age_groups = #{raw @series_with_age_groups.to_json};
     function change_age_groups(competitor_id, series_id) {
-      var $age_group_menu = $('#age_groups_' + competitor_id);
+      var $age_group_menu = $('#competitor_' + competitor_id + '_age_groups_' + competitor_id);
       $age_group_menu.hide();
       var age_groups = series_with_age_groups[series_id];
       while($age_group_menu.children().length > 0) {
@@ -44,4 +28,4 @@
       }
     }
   %hr
-  .action_box= link_to t(:download_start_list_pdf), race_start_lists_path(@race, :format => :pdf)
+  = link_to t(:download_start_list_pdf), race_start_lists_path(@race, format: :pdf), class: 'button'

@@ -41,11 +41,11 @@ Feature: Add competitor
     And the "Toimitsijan sivut" main menu item should be selected
     And the "Lähtöajat" sub menu item should be selected
     And I should be on the official start list page of the race "Test race"
-    When I fill in "00:00:00" for "competitor_start_time"
-    And I fill in "Matti" for "competitor_first_name"
-    And I fill in "Myöhänen" for "competitor_last_name"
-    And I fill in "Testiseura" for "club_name"
+    When I fill in "00:00:00" for "competitor_new_competitor_start_time"
+    And I fill in "Matti" for "competitor_new_competitor_first_name"
+    And I fill in "Myöhänen" for "competitor_new_competitor_last_name"
+    And I fill in "Testiseura" for "club_name_new"
     And I press "Lisää uusi"
-    And I select "M60" from "competitor_series_id"
+    And I select "M60" from "competitor_new_competitor_series_id"
     And I select "M70" from "competitor[age_group_id]"
     Then I should see "Lisätty"

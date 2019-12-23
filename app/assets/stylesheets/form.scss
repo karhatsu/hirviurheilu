@@ -156,13 +156,10 @@ textarea {
   align-items: center;
   margin-top: 16px;
 
-  .form__field, .form__buttons {
-    margin-top: 0;
-  }
-
   .form__field {
     display: flex;
     align-items: center;
+    margin-top: 0;
     margin-right: 16px;
 
     label {
@@ -172,6 +169,11 @@ textarea {
     input, select {
       margin-top: 0;
     }
+  }
+
+  .form__buttons {
+    margin-top: 0;
+    margin-right: 16px;
   }
 }
 

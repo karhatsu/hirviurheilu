@@ -13,10 +13,8 @@ if($current_row.attr('id') != $row.attr('id')) {
 
 $("#update_error").removeClass("error");
 $("#update_error").html("");
-$("#status_<%=@competitor.id%>").closest('.competitor_row').addClass('after_action');
 $("#status_<%=@competitor.id%>").html("<span class='success'><%=t :saved%></span>");
 $("#status_<%=@competitor.id%>").show();
 setTimeout(function() {
   $("#status_<%=@competitor.id%>").hide('slow');
-  $("#status_<%= @competitor.id %>").closest('.competitor_row').removeClass('after_action');
 }, 5000);
