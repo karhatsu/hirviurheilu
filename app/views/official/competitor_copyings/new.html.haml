@@ -11,18 +11,20 @@
     Mikäli olet jo lisännyt kohdekilpailuun kilpailijoita, heillä ei saa olla samoja lähtönumeroita kuin lähdekilpailun
     kilpailijoilla, paitsi jos kyseisellä numerolla oleva kilpailija on samanniminen molemmissa kilpailuissa.
   = flash_error
-  = form_tag official_race_competitor_copying_path(@race) do
-    %div
-      .form_label= label_tag :source_race_id, t('.from_race')
-      .form_field= select_tag :source_race_id,
+  = form_tag official_race_competitor_copying_path(@race), class: 'form' do
+    .form__field
+      = label_tag :source_race_id, t('.from_race')
+      = select_tag :source_race_id,
         options_from_collection_for_select(@races, :id,
             lambda {|race| t('.race_with_competitors_count', race: race.name, location: race.location, dates: race_date_interval(race, false), competitors: race.competitors.count)},
           params[:source_race_id])
     - if @race.start_order == Race::START_ORDER_BY_SERIES
-      %div
-        .form_label= label_tag :with_start_list, t('.with_start_list')
-        .form_field= check_box_tag :with_start_list, true, params[:with_start_list]
+      .form__field
+        = label_tag :with_start_list, t('.with_start_list')
+        = check_box_tag :with_start_list, true, params[:with_start_list]
     - else
       = hidden_field_tag :with_start_list, true
-    .submit_button
-      = submit_tag t('.submit_button')
+    .form__buttons
+      = submit_tag t('.submit_button'), class: 'button button--primary'
+%hr
+= link_to t(:back_to_official_race_page), official_race_path(@race), class: 'back_link'
