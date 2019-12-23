@@ -109,19 +109,19 @@ $inputHeight: 16px;
   }
 }
 
-.form__field--mini {
+.form__field--xs {
   input {
     width: 32px !important; /* important until input[type='number'] removed */
   }
 }
 
-.form__field--small {
+.form__field--sm {
   input {
     width: 64px !important; /* important until input[type='number'] removed */
   }
 }
 
-.form__field--medium {
+.form__field--md {
   input {
     width: 128px !important; /* important until input[type='number'] removed */
   }

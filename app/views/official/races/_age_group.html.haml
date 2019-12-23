@@ -1,8 +1,8 @@
 .form__fields--horizontal.age-group-sub-form
-  .form__field.form__field--medium
+  .form__field.form__field--md
     = f.label :name
     #{f.text_field :name}, #{t 'official.races.form.at_least'}
-  .form__field.form__field--small
+  .form__field.form__field--sm
     #{f.number_field :min_competitors} #{t 'official.races.form.competitors'},
   .form__field
     = f.check_box :shorter_trip

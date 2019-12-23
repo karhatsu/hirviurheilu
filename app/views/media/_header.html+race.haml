@@ -6,7 +6,7 @@
   - club_word = (@race.club_level == Race::CLUB_LEVEL_PIIRI ? t('media.show.from_district') : t('media.show.from_club'))
   = flash_error
   = form_tag(race_medium_path(@race), class: 'form') do
-    .form__field.form__field--small
+    .form__field.form__field--sm
       = label_tag :competitors_count, t('media.show.competitors_per_series')
       = number_field_tag :competitors_count, @competitors_count, :size => 3
     .form__field

@@ -6,7 +6,7 @@
   .form__field.row
     .col-xs-12.col-sm-3= f.label :name
     .col-xs-12.col-sm-9= f.text_field :name
-  .form__field.form__field--small.row
+  .form__field.form__field--sm.row
     .col-xs-12.col-sm-3= f.label :legs_count
     .col-xs-12.col-sm-9
       - if @relay.new_record?
@@ -19,7 +19,7 @@
       = start_days_form_field(f, @relay)
       = f.time_select :start_time, include_blank: true
       (arvioitu kellonaika)
-  .form__field.form__field--medium.row
+  .form__field.form__field--md.row
     .col-xs-12.col-sm-3= f.label :leg_distance
     .col-xs-12.col-sm-9= f.number_field :leg_distance
   .form__field.row
@@ -31,17 +31,17 @@
       = radio_button_tag :penalty_method, 'penalty_seconds', @penalty_method == 'penalty_seconds'
       Lisätään loppuaikaan
   .penalty_run{style: 'display: none'}
-    .form__field.form__field--medium.row
+    .form__field.form__field--md.row
       .col-xs-12.col-sm-3= f.label :estimate_penalty_distance
       .col-xs-12.col-sm-9= f.number_field :estimate_penalty_distance
-    .form__field.form__field--medium.row
+    .form__field.form__field--md.row
       .col-xs-12.col-sm-3= f.label :shooting_penalty_distance
       .col-xs-12.col-sm-9= f.number_field :shooting_penalty_distance
   .penalty_seconds{style: 'display: none'}
-    .form__field.form__field--medium.row
+    .form__field.form__field--md.row
       .col-xs-12.col-sm-3= f.label :estimate_penalty_seconds
       .col-xs-12.col-sm-9= f.number_field :estimate_penalty_seconds
-    .form__field.form__field--medium.row
+    .form__field.form__field--md.row
       .col-xs-12.col-sm-3= f.label :shooting_penalty_seconds
       .col-xs-12.col-sm-9= f.number_field :shooting_penalty_seconds
   - unless @relay.new_record?

@@ -14,7 +14,7 @@
     = flash_success
     = render :partial => 'shared/form_errors', locals: { item: @series }
     = form_for([:official, @series], url: official_series_start_list_path, html: { onsubmit: "return warnRerun(#{@series.has_start_list?})", class: 'form' }) do |f|
-      .form__field.form__field--small.row
+      .form__field.form__field--sm.row
         .col-xs-12.col-sm-3= f.label :first_number
         .col-xs-12.col-sm-9= f.number_field :first_number
       .form__field.row

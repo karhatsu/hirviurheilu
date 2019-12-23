@@ -4,7 +4,7 @@
     %span{id: "club_name_form_#{club.id}", style: 'display: none;'}
       = form_for([:official, @race, club], remote: true, html: { class: 'form' }) do |f|
         .form__fields--horizontal
-          .form__field.form__field--medium
+          .form__field.form__field--md
             = f.text_field :name, placeholder: t('attributes.name')
           .form__field
             = f.text_field :long_name, placeholder: t('attributes.long_name')

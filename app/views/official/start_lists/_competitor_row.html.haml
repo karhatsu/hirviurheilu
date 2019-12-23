@@ -6,14 +6,14 @@
       - unless c.new_record?
         = hidden_field_tag '_method', :put, id: "method_#{id}"
       = hidden_field_tag :start_list, true, id: "start_list_#{id}"
-      .form__field.form__field--mini
+      .form__field.form__field--xs
         = f.number_field :number, class: order_class
       - start_time = time_print(f.object.start_time, true, '')
-      .form__field.form__field--small{style: 'white-space: nowrap;'}
+      .form__field.form__field--sm{style: 'white-space: nowrap;'}
         = f.text_field :start_time, value: start_time, include_seconds: true, blank: true
-      .form__field.form__field--small= f.text_field :first_name, placeholder: t('attributes.first_name')
-      .form__field.form__field--medium= f.text_field :last_name, placeholder: t('attributes.last_name')
-      .form__field.form__field--medium= text_field_tag :club_name, club_name, placeholder: t('attributes.club_name'), id: "club_name_#{id}"
+      .form__field.form__field--sm= f.text_field :first_name, placeholder: t('attributes.first_name')
+      .form__field.form__field--md= f.text_field :last_name, placeholder: t('attributes.last_name')
+      .form__field.form__field--md= text_field_tag :club_name, club_name, placeholder: t('attributes.club_name'), id: "club_name_#{id}"
       .form__field= f.collection_select :series_id, @all_series, :id, :name, {},
         onchange: "change_age_groups('#{id}', this.value)"
       - age_groups_visibility = @age_groups[c.series_id].length > 0 ? '' : 'display:none;'

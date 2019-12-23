@@ -44,7 +44,7 @@
     .col-xs-12.col-sm-9
       = f.url_field :home_page
       %a.help#home_page_help{href: 'javascript:void(0);'} ?
-  .form__field.form__field--medium.row
+  .form__field.form__field--md.row
     .col-xs-12.col-sm-3= f.label :organizer_phone
     .col-xs-12.col-sm-9= f.text_field :organizer_phone
   .form__field.row
@@ -91,7 +91,7 @@
     Voit tiedottaa sen avulla kilpailun tärkeistä asioista kilpailijoille ja kilpailua seuraavalla yleisölle.
 
   %h2= t 'official.races.form.start_times'
-  .form__field.form__field--small.row
+  .form__field.form__field--sm.row
     .col-xs-12.col-sm-3= f.label :start_interval_seconds
     .col-xs-12.col-sm-9
       = f.number_field :start_interval_seconds, maxlength: 3
@@ -106,14 +106,14 @@
       = f.label "start_order_#{Race::START_ORDER_MIXED}", t('official.races.form.competitors_start_order_mixed'), class: 'form__label--radio'
       %a.help#start_order_help{href: 'javascript:void(0);'} ?
 
-  .form__field.form__field--small.batch_size_row.row
+  .form__field.form__field--sm.batch_size_row.row
     .col-xs-12.col-sm-3= f.label :batch_size
     .col-xs-12.col-sm-9
       = f.number_field :batch_size, maxlength: 3
       %a.help#batch_size_help{href: 'javascript:void(0);'} ?
       (0 = #{t 'official.races.form.start_batches_not_in_use'})
 
-  .form__field.form__field--small.batch_size_row.row
+  .form__field.form__field--sm.batch_size_row.row
     .col-xs-12.col-sm-3= f.label :batch_interval_seconds
     .col-xs-12.col-sm-9
       = f.number_field :batch_interval_seconds, maxlength: 3

@@ -38,10 +38,10 @@
   - if f.object.series.has_start_list?
     - number_style = ''
   #number_span{style: number_style}
-    .form__field.form__field--small.row
+    .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :number
       .col-xs-12.col-sm-9= f.number_field :number
-    .form__field.form__field--small.row
+    .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :start_time
       - start_time = time_print(f.object.start_time, true, '')
       .col-xs-12.col-sm-9= f.text_field :start_time, value: start_time
