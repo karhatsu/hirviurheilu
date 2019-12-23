@@ -1,10 +1,7 @@
 - content_for :title, 'Admin'
 - content_for :page_title, yield(:title)
 %h2 Admin-etusivu
-= link_to "Käyttäjät", admin_users_path
-%br
-= link_to "Lisää käyttäjä", new_admin_user_path
-%br
-= link_to "Kilpailut", admin_races_path
-%br
-%span#announcements= link_to "Tiedotteet", admin_announcements_path
+= link_to "Käyttäjät", admin_users_path, class: 'button'
+= link_to "Lisää käyttäjä", new_admin_user_path, class: 'button'
+= link_to "Kilpailut", admin_races_path, class: 'button'
+%span#announcements= link_to "Tiedotteet", admin_announcements_path, class: 'button'
