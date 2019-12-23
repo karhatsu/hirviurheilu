@@ -71,6 +71,7 @@ $inputHeight: 16px;
   border-radius: 2px;
   box-shadow: 3px 3px 3px #ccc;
   cursor: pointer;
+  display: inline-block;
   padding: 8px 16px !important; /* important until input[type='submit'] etc. removed */
 
   &:hover {

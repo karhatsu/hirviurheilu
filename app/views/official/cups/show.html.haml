@@ -1,21 +1,21 @@
 - content_for(:title, "#{@cup.name} - Yhteenveto")
 %h2 Cup-kilpailun tiedot
 = flash_success
-.section
-  Nimi:
-  = @cup.name
-  %br
-  #{t 'attributes.top_competitions'}:
-  = @cup.top_competitions
-  %br
-  Osakilpailut:
-  = raw(@cup.races.collect { |race| link_to race.name, official_race_path(race) }.join(', '))
-  %br
-  Cup-sarjat:
-  = @cup.cup_series.collect { |cs| long_cup_series_name(cs) }.join(', ')
-.action_box
-  = link_to 'Muokkaa cup-kilpailun asetuksia', edit_official_cup_path(@cup)
-.action_box
-  = link_to 'Poista cup-kilpailu', official_cup_path(@cup), method: :delete, data: {confirm: 'Haluatko varmasti poistaa cup-kilpailun?'}
+.form
+  .form__field
+    %label Nimi
+    = @cup.name
+  .form__field
+    %label #{t 'attributes.top_competitions'}:
+    = @cup.top_competitions
+  .form__field
+    %label Osakilpailut
+    = raw(@cup.races.collect { |race| link_to race.name, official_race_path(race) }.join(', '))
+  .form__field
+    %label Cup-sarjat
+    = @cup.cup_series.collect { |cs| long_cup_series_name(cs) }.join(', ')
+  .form__buttons
+    = link_to 'Muokkaa cup-kilpailun asetuksia', edit_official_cup_path(@cup), class: 'form__button'
+    = link_to 'Poista cup-kilpailu', official_cup_path(@cup), method: :delete, data: {confirm: 'Haluatko varmasti poistaa cup-kilpailun?'}, class: 'form__button form__button--danger'
 %hr
-= link_to 'Takaisin Toimitsijan etusivulle', official_root_path
+= link_to 'Takaisin Toimitsijan etusivulle', official_root_path, class: 'back_link'
