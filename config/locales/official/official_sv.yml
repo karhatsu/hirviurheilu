@@ -232,6 +232,7 @@ sv:
         teams: Lag
         no_teams_info: Du har ökat ännu inga lag till stafetten.
         add_new_team: Öka nytt lag till stafetten
+        delete_team: Radera laget
     finish_relays:
       new:
         title: Slut stafetten

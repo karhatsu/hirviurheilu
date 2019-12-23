@@ -8,7 +8,7 @@
     .form__field.form__field--horizontal
       = f.label :no_result_reason
       = f.select :no_result_reason, @no_result_reason_options
-    = remove_child_link t(:remove), f, 'sub_form', "", 'form__button form__button--danger'
+    = remove_child_link t('official.relays.form.delete_team'), f, 'sub_form', "", 'form__button form__button--danger'
   = f.fields_for :relay_competitors do |competitor_form|
     = render partial: 'relay_competitor', locals: { f: competitor_form }
   - (@relay.legs_count - f.object.relay_competitors.length).times do |i|

@@ -233,6 +233,7 @@ fi:
         teams: Joukkueet
         no_teams_info: Et ole vielä lisännyt viestiin yhtään joukkuetta. Lisää joukkueita alla olevasta napista.
         add_new_team: Lisää uusi joukkue tähän kilpailuun
+        delete_team: Poista joukkue
     finish_relays:
       new:
         title: Viestin päättäminen
