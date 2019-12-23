@@ -1,8 +1,7 @@
 %a{name: "series_#{f.object.new_record? ? 'new' : f.object.id}"}
-.sub_element.sub_form
+.form__sub-form.series-sub-form
   = render partial: 'official/series/form_basic_fields', locals: { f: f, race: @race }
-  %br
-  .sub_sub_element.age_groups_element
+  .form__sub-form-2
     %h3
       = t 'official.races.form.age_groups_with_own_time_points'
       %a.help.age_groups_help#age_groups_help ?
@@ -20,6 +19,7 @@
         vähimmäismääräksi 0.
     = f.fields_for :age_groups do |age_group_form|
       = render partial: "age_group", locals: { f: age_group_form }
-    = add_child_link t('official.races.form.add_age_group'), f, :age_groups
+    = add_child_link t('official.races.form.add_age_group'), f, :age_groups, nil, 'form__button form__button--add-age-group'
   - if f.object.competitors.empty?
-    = remove_child_link t('official.races.form.remove_series'), f, 'sub_form', ""
+    .form__buttons
+      = remove_child_link t('official.races.form.remove_series'), f, 'series-sub-form', "", 'form__button form__button--danger'

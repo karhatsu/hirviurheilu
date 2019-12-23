@@ -1,10 +1,13 @@
-= f.label :name
-= f.text_field :name
-= f.check_box :shorter_trip
-= f.label :shorter_trip
-= f.label :national_record, style: 'margin-left: 10px;'
-= f.text_field :national_record, size: 5, maxlength: 4
-%a{href: NATIONAL_RECORD_URL} Metsästäjäliiton SE-sivu
-%br
-= f.label :points_method
-= f.select :points_method, @points_method_options
+.form__fields--horizontal
+  .form__field
+    = f.text_field :name, placeholder: t('activerecord.attributes.series.name')
+  .form__field
+    = f.check_box :shorter_trip
+    = f.label :shorter_trip
+  .form__field.form__field--small
+    = f.label :national_record
+    = f.number_field :national_record, maxlength: 4
+.form__fields--horizontal
+  .form__field
+    = f.label :points_method
+    = f.select :points_method, @points_method_options

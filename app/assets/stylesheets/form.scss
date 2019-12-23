@@ -46,6 +46,14 @@ $inputHeight: 16px;
     max-width: 100%;
     -webkit-appearance: menulist-button;
   }
+
+  textarea {
+    margin-top: $inputHeight / 2;
+  }
+
+  .form__label--radio {
+    display: inline;
+  }
 }
 
 @media only screen and (min-width: 48em) {
@@ -104,6 +112,10 @@ $inputHeight: 16px;
       color: #fff !important;
     }
   }
+
+  &--add-age-group {
+    margin-top: 8px;
+  }
 }
 
 .form__field__info {
@@ -154,5 +166,17 @@ textarea {
 
   .form__fields--horizontal:first-of-type {
     margin-top: 0;
+  }
+
+  .form__sub-form-2 {
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 8px;
+    margin: 8px 0;
+
+    h3 {
+      font-size: 14px;
+      margin: 4px 0;
+    }
   }
 }

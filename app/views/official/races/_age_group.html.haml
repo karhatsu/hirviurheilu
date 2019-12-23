@@ -1,9 +1,12 @@
-.age_group_sub_form
-  = f.label :name
-  #{f.text_field :name, :size => 15}, #{t 'official.races.form.at_least'}
-  = f.number_field :min_competitors, :size => 2, :class => 'max2'
-  #{t 'official.races.form.competitors'},
-  = f.label :shorter_trip
-  = f.check_box :shorter_trip
+.form__fields--horizontal.age-group-sub-form
+  .form__field.form__field--medium
+    = f.label :name
+    #{f.text_field :name}, #{t 'official.races.form.at_least'}
+  .form__field.form__field--small
+    #{f.number_field :min_competitors} #{t 'official.races.form.competitors'},
+  .form__field
+    = f.check_box :shorter_trip
+    = f.label :shorter_trip
   - if f.object.competitors.empty?
-    = remove_child_link t('official.races.form.remove_age_group'), f, 'age_group_sub_form', ""
+    .form__buttons
+      = remove_child_link t('official.races.form.remove_age_group'), f, 'age-group-sub-form', "", 'form__button form__button--danger'
