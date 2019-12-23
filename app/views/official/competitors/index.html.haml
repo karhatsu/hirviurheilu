@@ -14,24 +14,28 @@
     = flash_success
     = render :partial => 'shared/form_errors', locals: { item: @series }
     = form_for([:official, @series], url: official_series_start_list_path, html: { onsubmit: "return warnRerun(#{@series.has_start_list?})", class: 'form' }) do |f|
-      .form__field.form__field--small
-        = f.label :first_number
-        = f.number_field :first_number
-      .form__field
-        %label Kilpailun alkamisaika
-        = time_print @series.race.start_time
-      .form__field
-        = f.label :start_time
-        = start_days_form_field(f, @series)
-        %span#series_start_time_row
-          = f.time_select :start_time, :include_seconds => true, :include_blank => true
-          (00:00:00-pohjainen)
-      .form__field
-        %label Sarjan todellinen lähtöaika
-        %span.form_read_only_value#real_start_time
-      .form__field
-        %label #{t "order_method"}:
-        %span
+      .form__field.form__field--small.row
+        .col-xs-12.col-sm-3= f.label :first_number
+        .col-xs-12.col-sm-9= f.number_field :first_number
+      .form__field.row
+        .col-xs-12.col-sm-3
+          %label Kilpailun alkamisaika
+        .col-xs-12.col-sm-9= time_print @series.race.start_time
+      .form__field.row
+        .col-xs-12.col-sm-3= f.label :start_time
+        .col-xs-12.col-sm-9
+          = start_days_form_field(f, @series)
+          %span#series_start_time_row
+            = f.time_select :start_time, :include_seconds => true, :include_blank => true
+            (00:00:00-pohjainen)
+      .form__field.row
+        .col-xs-12.col-sm-3
+          %label Sarjan todellinen lähtöaika
+        .col-xs-12.col-sm-9#real_start_time
+      .form__field.row
+        .col-xs-12.col-sm-3
+          %label #{t "order_method"}:
+        .col-xs-12.col-sm-9
           = radio_button_tag :order_method, Series::START_LIST_ADDING_ORDER, Series::START_LIST_ADDING_ORDER == @order_method
           = t "order_method_#{Series::START_LIST_ADDING_ORDER}"
           = radio_button_tag :order_method, Series::START_LIST_RANDOM, Series::START_LIST_RANDOM == @order_method
@@ -41,10 +45,10 @@
     %h3= t('.added_competitors')
   = render partial: 'official/competitors/table', locals: { series: @series, result_column: true, remove_column: true }
 - add_title = @series.competitors.empty? ? t('.add_competitor') : t('.add_new_competitor')
-= link_to add_title, new_official_series_competitor_path(@series), class: 'secondary_link'
+= link_to add_title, new_official_series_competitor_path(@series), class: 'button'
 - if @series.has_start_list?
-  = link_to t(:download_start_list_pdf), series_start_list_path(@series, :format => 'pdf'), class: 'secondary_link'
-= link_to t('official.add_competitors_from_csv_file'), new_official_race_csv_import_path(@series.race), class: 'secondary_link'
+  = link_to t(:download_start_list_pdf), series_start_list_path(@series, :format => 'pdf'), class: 'button'
+= link_to t('official.add_competitors_from_csv_file'), new_official_race_csv_import_path(@series.race), class: 'button'
 %hr
 = link_to t(:back_to_official_race_page), official_race_path(@series.race), class: 'back_link'
 :javascript
