@@ -3,7 +3,7 @@
 %h1.mobile= yield :page_title
 = form_for @user, url: account_path, html: { class: 'form' } do |f|
   = render :partial => 'form', :object => f
-  .submit_button
+  .form__buttons
     = f.submit t(:update), class: 'button button--primary'
 %hr
 = link_to t('.back_to_account_page'), account_path, class: 'back_link'
