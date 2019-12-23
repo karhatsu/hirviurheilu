@@ -3,46 +3,47 @@
 = render partial: 'shared/form_errors', locals: { item: @relay }
 = form_for([:official, @race, @relay], html: { class: 'form' }) do |f|
   = hidden_field_tag :updated_at, @relay.updated_at.to_i
-  .form__field
-    = f.label :name
-    = f.text_field :name
-  .form__field.form__field--small
-    = f.label :legs_count
-    %span
+  .form__field.row
+    .col-xs-12.col-sm-3= f.label :name
+    .col-xs-12.col-sm-9= f.text_field :name
+  .form__field.form__field--small.row
+    .col-xs-12.col-sm-3= f.label :legs_count
+    .col-xs-12.col-sm-9
       - if @relay.new_record?
         = f.number_field :legs_count
       - else
         = @relay.legs_count
-  .form__field
-    = f.label :start_time
-    %span
+  .form__field.row
+    .col-xs-12.col-sm-3= f.label :start_time
+    .col-xs-12.col-sm-9
       = start_days_form_field(f, @relay)
       = f.time_select :start_time, include_blank: true
-    .form__field__info (arvioitu kellonaika)
-  .form__field.form__field--medium
-    = f.label :leg_distance
-    = f.number_field :leg_distance
-  .form__field
-    %label Sakkojen suorittaminen
-    %span
+      (arvioitu kellonaika)
+  .form__field.form__field--medium.row
+    .col-xs-12.col-sm-3= f.label :leg_distance
+    .col-xs-12.col-sm-9= f.number_field :leg_distance
+  .form__field.row
+    .col-xs-12.col-sm-3
+      %label Sakkojen suorittaminen
+    .col-xs-12.col-sm-9
       = radio_button_tag :penalty_method, 'run', @penalty_method == 'run'
       Juostaan / hiihdetään
       = radio_button_tag :penalty_method, 'penalty_seconds', @penalty_method == 'penalty_seconds'
       Lisätään loppuaikaan
   .penalty_run{style: 'display: none'}
-    .form__field.form__field--medium
-      = f.label :estimate_penalty_distance
-      = f.number_field :estimate_penalty_distance
-    .form__field.form__field--medium
-      = f.label :shooting_penalty_distance
-      = f.number_field :shooting_penalty_distance
+    .form__field.form__field--medium.row
+      .col-xs-12.col-sm-3= f.label :estimate_penalty_distance
+      .col-xs-12.col-sm-9= f.number_field :estimate_penalty_distance
+    .form__field.form__field--medium.row
+      .col-xs-12.col-sm-3= f.label :shooting_penalty_distance
+      .col-xs-12.col-sm-9= f.number_field :shooting_penalty_distance
   .penalty_seconds{style: 'display: none'}
-    .form__field.form__field--medium
-      = f.label :estimate_penalty_seconds
-      = f.number_field :estimate_penalty_seconds
-    .form__field.form__field--medium
-      = f.label :shooting_penalty_seconds
-      = f.number_field :shooting_penalty_seconds
+    .form__field.form__field--medium.row
+      .col-xs-12.col-sm-3= f.label :estimate_penalty_seconds
+      .col-xs-12.col-sm-9= f.number_field :estimate_penalty_seconds
+    .form__field.form__field--medium.row
+      .col-xs-12.col-sm-3= f.label :shooting_penalty_seconds
+      .col-xs-12.col-sm-9= f.number_field :shooting_penalty_seconds
   - unless @relay.new_record?
     %h2= t :correct_distances
     = render partial: 'all_correct_estimates', locals: { f: f }

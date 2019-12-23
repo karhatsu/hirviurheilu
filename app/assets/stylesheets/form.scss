@@ -11,6 +11,10 @@ $inputHeight: 16px;
 .form__field {
   margin-top: $inputHeight;
 
+  &.row {
+    align-items: center;
+  }
+
   label {
     display: block;
     font-size: 14px;
