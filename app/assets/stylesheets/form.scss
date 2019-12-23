@@ -3,10 +3,6 @@ $inputHeight: 16px;
 .form {
   margin-bottom: 16px;
 
-  &--horizontal {
-    margin-bottom: 0;
-  }
-
   .secondary_link {
     margin-left: 0;
   }
@@ -66,37 +62,6 @@ $inputHeight: 16px;
   }
 }
 
-.form__fields--horizontal {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 8px;
-
-  .form__field {
-    margin-top: 0;
-    margin-right: 16px;
-  }
-
-  .form__button {
-    margin-top: 0;
-  }
-}
-
-.form__field--horizontal {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  label {
-    margin-right: 8px;
-  }
-
-  input, select {
-    margin-top: 0;
-    margin-right: 8px;
-  }
-}
-
 .form__buttons {
   margin-top: $inputHeight;
 }
@@ -136,24 +101,6 @@ $inputHeight: 16px;
   }
 }
 
-.form--horizontal {
-  .form__field, .form__buttons {
-    display: inline-block;
-  }
-
-  .form__field--hidden {
-    display: none;
-  }
-
-  .form__field {
-    margin: 8px 8px 8px 0;
-  }
-
-  .form__buttons {
-    margin: 8px 0;
-  }
-}
-
 .form__field__info {
   color: #333;
 }
@@ -171,4 +118,38 @@ textarea {
 
 .form__sub-form {
   margin-bottom: 16px;
+}
+
+.form__fields--horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 8px;
+
+  .form__field, .form__buttons {
+    margin-top: 0;
+  }
+
+  .form__field {
+    margin-right: 16px;
+
+    input {
+      margin-top: 0;
+    }
+  }
+}
+
+.form__field--horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  label {
+    margin-right: 8px;
+  }
+
+  input, select {
+    margin-top: 0;
+    margin-right: 8px;
+  }
 }
