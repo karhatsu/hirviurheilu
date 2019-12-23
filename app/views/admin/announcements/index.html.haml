@@ -2,8 +2,8 @@
 - content_for :page_title, yield(:title)
 %h2 Tiedotteet
 = flash_success
-.action_box= link_to 'Lisää tiedote', new_admin_announcement_path
-#all_news
+= link_to 'Lisää tiedote', new_admin_announcement_path, class: 'button'
+#all_news{style: 'margin-top: 16px'}
   %table
     %tr
       %th Pvm
