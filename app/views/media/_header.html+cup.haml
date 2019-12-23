@@ -2,13 +2,13 @@
 %h2= t 'cup_sub_menu.press'
 .info
   = t 'media.show.info'
-- if true
-  = flash_error
-  = form_tag(cup_medium_path(@cup)) do
-    %div
-      %span.form_label= label_tag :competitors_count, t('media.show.competitors_per_series')
-      = text_field_tag :competitors_count, @competitors_count, size: 3
-    %div
-      %span.form_label= label_tag :show_race_points, t('media.show.show_race_points')
-      %span= check_box_tag :show_race_points, true, params[:show_race_points]
-    = submit_tag t('media.show.download_report')
+= flash_error
+= form_tag(cup_medium_path(@cup), class: 'form') do
+  .form__field.form__field--small
+    = label_tag :competitors_count, t('media.show.competitors_per_series')
+    = number_field_tag :competitors_count, @competitors_count, size: 3
+  .form__field
+    = label_tag :show_race_points, t('media.show.show_race_points')
+    = check_box_tag :show_race_points, true, params[:show_race_points]
+  .form__buttons
+    = submit_tag t('media.show.download_report'), class: 'button button--primary'
