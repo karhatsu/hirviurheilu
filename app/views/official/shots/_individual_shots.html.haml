@@ -1,2 +1,3 @@
-- 10.times do |i|
-  = f.telephone_field "shot_#{i}", maxlength: 2, class: 'max2 shot'
+.form__fields--horizontal
+  - 10.times do |i|
+    .form__field.form__field--mini= f.number_field "shot_#{i}", maxlength: 2, class: 'shot'

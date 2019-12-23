@@ -1,55 +1,61 @@
 = content_for(:title, full_name(@competitor))
 %h2= yield :title
-= render :partial => "shared/form_errors", :locals => { :item => @competitor }
-= form_for([:official, @competitor.series, @competitor]) do |f|
-  = render :partial => "basic_fields", :locals => { :f => f }
+= render partial: "shared/form_errors", locals: { item: @competitor }
+= form_for([:official, @competitor.series, @competitor], class: 'form') do |f|
+  = render partial: "basic_fields", locals: { f: f }
   - if @series.has_start_list?
-    %hr
-    %span.form_label= f.label :number
-    = f.telephone_field :number, :size => 3
-    %span.form_label= f.label :start_time
-    - start_time = time_print(f.object.start_time, true, '')
-    = f.text_field :start_time, value: start_time, size: 8
-    %span.form_label= f.label :arrival_time
-    - arrival_time = time_print(f.object.arrival_time, true, '')
-    = f.text_field :arrival_time, value: arrival_time, size: 8
-    %hr
-    %span.form_label= f.label :shots_total_input
-    = f.telephone_field :shots_total_input, :size => 5, :maxlength => 3
-    (#{t '.either_total_or_shots'})
-    %br
-    %span.form_label= t '.shots'
-    = render :partial => 'official/shots/individual_shots', :locals => { :f => f,
-      :competitor => @competitor }
-    %hr
-    %span.form_label= f.label :estimate1
-    = f.telephone_field :estimate1, :size => 5, :maxlength => 3
-    %span.form_label= f.label :estimate2
-    = f.telephone_field :estimate2, :size => 5, :maxlength => 3
+    .form__field.row
+      .col-xs-12.col-sm-3= f.label :number
+      .col-xs-12.col-sm-9= f.number_field :number
+    .form__field.row
+      .col-xs-12.col-sm-3= f.label :start_time
+      - start_time = time_print(f.object.start_time, true, '')
+      .col-xs-12.col-sm-9= f.text_field :start_time, value: start_time
+    .form__field.row
+      .col-xs-12.col-sm-3= f.label :arrival_time
+      - arrival_time = time_print(f.object.arrival_time, true, '')
+      .col-xs-12.col-sm-9= f.text_field :arrival_time, value: arrival_time
+    .form__field.row
+      .col-xs-12.col-sm-3= f.label :shots_total_input
+      .col-xs-12.col-sm-9
+        = f.number_field :shots_total_input, maxlength: 3
+        (#{t '.either_total_or_shots'})
+    .form__field.row
+      .col-xs-12.col-sm-3
+        %label= t '.shots'
+      .col-xs-12.col-sm-9= render partial: 'official/shots/individual_shots', locals: { f: f, competitor: @competitor }
+    .form__field.row
+      .col-xs-12.col-sm-3= f.label :estimate1
+      .col-xs-12.col-sm-9= f.number_field :estimate1, maxlength: 3
+    .form__field.row
+      .col-xs-12.col-sm-3= f.label :estimate2
+      .col-xs-12.col-sm-9= f.number_field :estimate2, maxlength: 3
     - if @competitor.series.estimates == 4
-      %span.form_label= f.label :estimate3
-      = f.telephone_field :estimate3, :size => 5, :maxlength => 3
-      %span.form_label= f.label :estimate4
-      = f.telephone_field :estimate4, :size => 5, :maxlength => 3
-    %hr
+      .form__field.row
+        .col-xs-12.col-sm-3= f.label :estimate3
+        .col-xs-12.col-sm-9= f.number_field :estimate3, maxlength: 3
+      .form__field.row
+        .col-xs-12.col-sm-3= f.label :estimate4
+        .col-xs-12.col-sm-9= f.number_field :estimate4, maxlength: 3
     - if @competitor.series.walking_series?
-      %span.form_label= f.label :shooting_overtime_min
-      = f.telephone_field :shooting_overtime_min, :size => 3
-      %hr
-    = f.radio_button :no_result_reason, ''
-    Normaali
-    = f.radio_button :no_result_reason, Competitor::DNS
-    = t '.dns'
-    = f.radio_button :no_result_reason, Competitor::DNF
-    = t '.dnf'
-    = f.radio_button :no_result_reason, Competitor::DQ
-    = t '.dq'
-    %hr
+      .form__field.row
+        .col-xs-12.col-sm-3= f.label :shooting_overtime_min
+        .col-xs-12.col-sm-9= f.number_field :shooting_overtime_min
+    .form__field.row
+      .col-xs-12.col-sm-3
+        %label Tila
+      .col-xs-12.col-sm-9
+        = f.radio_button :no_result_reason, ''
+        Normaali
+        = f.radio_button :no_result_reason, Competitor::DNS
+        = t '.dns'
+        = f.radio_button :no_result_reason, Competitor::DNF
+        = t '.dnf'
+        = f.radio_button :no_result_reason, Competitor::DQ
+        = t '.dq'
   - else
     = hidden_field_tag :no_times, true
-    %br
-  = submit_tag t('.save_and_previous_competitor'), :name => 'previous'
-  = submit_tag t(:save)
-  = submit_tag t('.save_and_next_competitor'), :name => 'next'
+  .form__buttons
+    = submit_tag t(:save), class: 'button button--primary'
 %hr
-= link_to t('.back_to_series_competitor_list', :series_name => @series.name), official_series_competitors_path(@series)
+= link_to t('.back_to_series_competitor_list', :series_name => @series.name), official_series_competitors_path(@series), class: 'back_link'

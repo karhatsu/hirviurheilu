@@ -109,6 +109,12 @@ $inputHeight: 16px;
   }
 }
 
+.form__field--mini {
+  input {
+    width: 32px !important; /* important until input[type='number'] removed */
+  }
+}
+
 .form__field--small {
   input {
     width: 64px !important; /* important until input[type='number'] removed */

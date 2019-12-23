@@ -58,15 +58,7 @@ class Official::CompetitorsController < Official::OfficialController
         'official/competitors/update_success'
       respond_to do |format|
         format.html do
-          if params[:next]
-            redirect_to edit_official_series_competitor_path(@competitor.series,
-              @competitor.next_competitor)
-          elsif params[:previous]
-            redirect_to edit_official_series_competitor_path(@competitor.series,
-              @competitor.previous_competitor)
-          else
-            redirect_to official_series_competitors_path(@competitor.series)
-          end
+          redirect_to official_series_competitors_path(@competitor.series)
         end
         format.js { render js_template, :layout => false }
       end
