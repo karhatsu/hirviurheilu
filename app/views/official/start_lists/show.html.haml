@@ -5,7 +5,7 @@
   .info= t '.no_start_list_for_any_series'
 - else
   #update_error
-  #competitors_table.competitors_table
+  #competitors_table
     = render partial: 'competitor_row', locals: { c: @new_competitor, save_button: t(:add_new), id: 'new', parent: @race }
     %hr#ruler
     - @competitors.each do |c|

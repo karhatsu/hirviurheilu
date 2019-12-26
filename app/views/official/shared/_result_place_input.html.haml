@@ -11,12 +11,11 @@
   = link_to t('official.result_place.generate_start_times'), official_series_competitors_path(@series), class: 'button'
 - else
   #update_error
-  = render partial: partial_table
+  .result-place-table= render partial: partial_table
   %hr
   = render partial: 'official/shared/series_result_input_links', locals: { series_id: @series.id }
-  %br
   = link_to t(:back_to_official_race_page), official_race_path(@series.race), class: 'back_link'
   :javascript
     function start_updating(id) {
-      $("#status_" + id).html('= image_tag 'spinner.gif'');
+      $("#status_" + id).html('#{image_tag 'spinner.gif'}');
     }

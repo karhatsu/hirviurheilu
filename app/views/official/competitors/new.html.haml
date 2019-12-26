@@ -2,7 +2,7 @@
 %h2= yield :title
 .error{style: 'display: none;'}
 = render partial: "shared/form_errors", locals: { item: @competitor }
-= form_for([:official, @competitor.series.race, @competitor], remote: true, class: 'form') do |f|
+= form_for([:official, @competitor.series.race, @competitor], remote: true, html: { class: 'form' }) do |f|
   = render partial: "basic_fields", locals: { f: f }
   .form__buttons
     = submit_tag t(:save), onclick: 'show_spinner()', class: 'button button--primary'

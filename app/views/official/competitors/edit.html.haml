@@ -1,7 +1,7 @@
 = content_for(:title, full_name(@competitor))
 %h2= yield :title
 = render partial: "shared/form_errors", locals: { item: @competitor }
-= form_for([:official, @competitor.series, @competitor], class: 'form') do |f|
+= form_for([:official, @competitor.series, @competitor], html: { class: 'form' }) do |f|
   = render partial: "basic_fields", locals: { f: f }
   - if @series.has_start_list?
     .form__field.row

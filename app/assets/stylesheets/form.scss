@@ -50,17 +50,21 @@ $inputHeight: 16px;
     margin-bottom: 0;
   }
 
+  .row {
+    align-items: center;
+  }
+
   .secondary_link {
     margin-left: 0;
   }
 }
 
+.form__field-prefix {
+  margin-right: 4px;
+}
+
 .form__field {
   margin-top: $inputHeight;
-
-  &.row {
-    align-items: center;
-  }
 
   label {
     display: block;
@@ -162,6 +166,10 @@ textarea {
     margin-top: 0;
     margin-right: 16px;
 
+    &--shot {
+      margin-right: 6px;
+    }
+
     label {
       margin-right: 8px;
     }
@@ -175,6 +183,10 @@ textarea {
     margin-top: 0;
     margin-right: 16px;
   }
+}
+
+.form__fields--shots {
+  margin-top: 0;
 }
 
 .form__sub-form {
@@ -197,5 +209,11 @@ textarea {
       font-size: 14px;
       margin: 4px 0;
     }
+  }
+}
+
+.card {
+  .form__fields--horizontal {
+    margin-top: 0;
   }
 }

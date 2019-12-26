@@ -15,14 +15,14 @@ function remove_fields(link, hide_class, removal_question) {
 }
 
 function calculate_shots_result(row) {
-  var result = 0;
-  var error = false;
-  var total = row.find('.total').val();
-  if(total != '') {
+  let result = 0;
+  let error = false;
+  const total = row.find('.shots-total-input').val();
+  if(total !== '') {
     result = parseInt(total, 10);
     if(result >= 0 && result <= 100) {
       row.find('.shot').each(function() {
-        if($(this).val() != '') {
+        if($(this).val() !== '') {
           error = true;
         }
       });
@@ -31,7 +31,7 @@ function calculate_shots_result(row) {
     }
   } else {
     row.find('.shot').each(function() {
-      if($(this).val() != '') {
+      if($(this).val() !== '') {
         var shot = parseInt($(this).val(), 10);
         if(shot >= 0 && shot <= 10) {
           result += shot;
@@ -44,5 +44,5 @@ function calculate_shots_result(row) {
   if(error) {
     result = '?';
   }
-  row.find('.result').text(result);
+  row.find('.card__main-value').text(result);
 }

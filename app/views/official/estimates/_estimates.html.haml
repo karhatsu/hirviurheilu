@@ -1,0 +1,44 @@
+- four_estimates = @series.estimates == 4
+.row
+  - @series.competitors.each do |competitor|
+    .col-xs-12{class: four_estimates ? 'col-sm-12' : 'col-sm-6'}
+      .card
+        .card__number= competitor.number
+        .card__middle
+          .card__name= full_name competitor
+          - unless competitor.no_result_reason
+            .card__middle-1
+              = form_for([:official, @series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "estimates_form_#{competitor.id}", class: 'form form--inline' }) do |f|
+                = hidden_field_tag :no_times, true, id: "no_times_#{competitor.id}"
+                = hidden_field_tag 'competitor[old_values[estimate1]]', competitor.estimate1, id: "old_1_#{competitor.id}"
+                = hidden_field_tag 'competitor[old_values[estimate2]]', competitor.estimate2, id: "old_2_#{competitor.id}"
+                - if four_estimates
+                  = hidden_field_tag 'competitor[old_values[estimate3]]', competitor.estimate3, id: "old_3_#{competitor.id}"
+                  = hidden_field_tag 'competitor[old_values[estimate4]]', competitor.estimate4, id: "old_4_#{competitor.id}"
+                .form__fields--horizontal
+                  .form__field-prefix #1
+                  .form__field.form__field--sm
+                    = f.number_field :estimate1, maxlength: 3
+                  .form__field-prefix #2
+                  .form__field.form__field--sm
+                    = f.number_field :estimate2, maxlength: 3
+                  - if four_estimates
+                    .form__field-prefix #3
+                    .form__field.form__field--sm
+                      = f.number_field :estimate3, maxlength: 3
+                    .form__field-prefix #4
+                    .form__field.form__field--sm
+                      = f.number_field :estimate4, maxlength: 3
+                  .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
+                  %div{id: "status_#{competitor.id}"}
+        .card__main-value{id: "estimate_points_#{competitor.id}"}
+          - if competitor.no_result_reason
+            = competitor.no_result_reason
+          - else
+            = competitor.estimate_points
+    :javascript
+      $("#estimates_form_#{competitor.id}").bind('ajax:error', function() {
+        $("#update_error").addClass("error");
+        $("#update_error").html('Yhteysvirhe, yritä uudelleen');
+        $("#status_#{competitor.id}").html("<span class='error'>#{t :error}!</span>");
+      });

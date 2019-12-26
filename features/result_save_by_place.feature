@@ -2,7 +2,7 @@ Feature: Save results by result place
   So that results can be calculated
   As an official
   I want to save results for different result places
-  
+
   @javascript
   Scenario: Save estimates, shots, and arrival time
     Given I am an official
@@ -21,29 +21,29 @@ Feature: Save results by result place
     Then the "Toimitsijan sivut" main menu item should be selected
     And the "Arviot" sub menu item should be selected
     And I should see "Result race" within ".main_title"
-    When I fill in "100" for "competitor_estimate1"
-    And I fill in "149" for "competitor_estimate2"
+    When I fill in "100" for "competitor[estimate1]"
+    And I fill in "149" for "competitor[estimate2]"
     And I press "Tallenna"
     Then I should see "Tallennettu"
     When I choose "Ajat" from sub menu
     Then the "Toimitsijan sivut" main menu item should be selected
     And the "Ajat" sub menu item should be selected
     And I should see "Result race" within ".main_title"
-    And the "competitor_start_time" text field value should be "01:00:00"
-    And the "competitor_arrival_time" text field value should be ""
-    When I fill in "01:25:41" for "competitor_arrival_time"
+    And the "competitor[start_time]" text field value should be "01:00:00"
+    And the "competitor[arrival_time]" text field value should be ""
+    When I fill in "01:25:41" for "competitor[arrival_time]"
     And I press "Tallenna"
     Then I should see "Tallennettu"
     When I choose "Ammunta" from sub menu
     Then the "Toimitsijan sivut" main menu item should be selected
     And the "Ammunta" sub menu item should be selected
     And I should see "Result race" within ".main_title"
-    When I fill in "99" for "competitor_shots_total_input"
+    When I fill in "99" for "competitor[shots_total_input]"
     And I press "Tallenna"
     Then I should see "Tallennettu"
     When I choose "Ajat" from sub menu
-    Then the "competitor_start_time" text field value should be "01:00:00"
-    And the "competitor_arrival_time" text field value should be "01:25:41"
+    Then the "competitor[start_time]" text field value should be "01:00:00"
+    And the "competitor[arrival_time]" text field value should be "01:25:41"
     When the race is finished
     And I go to the results page of the series
     Then I should see "300 (25:41)"
@@ -62,10 +62,9 @@ Feature: Save results by result place
     And I follow "Arviot"
     Then I should see "M - Arviot"
     Given someone else saves estimates 100 and 150 for the competitor
-    When I fill in "101" for "competitor_estimate1"
-    And I fill in "151" for "competitor_estimate2"
+    When I fill in "101" for "competitor[estimate1]"
+    And I fill in "151" for "competitor[estimate2]"
     And I press "Tallenna"
     Then I should not see "Tallennettu"
     But I should see "Virhe"
     And I should see "Tälle kilpailijalle on syötetty samanaikaisesti toinen tulos. Lataa sivu uudestaan ja yritä tallentamista sen jälkeen."
-    
