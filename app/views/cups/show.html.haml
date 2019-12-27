@@ -5,13 +5,15 @@
 - if @cup.cup_series.empty?
   Cup-sarjoja ei ole vielä määritetty
 - else
-  - @cup.cup_series.each do |cs|
-    = link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs), class: 'primary_link'
+  .buttons
+    - @cup.cup_series.each do |cs|
+      = link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs), class: 'button button--primary'
 %h2= t '.points_rule_title'
 = render partial: 'points_rule', locals: {cup: @cup}
 %h2= t '.sub_competitions'
-- @cup.races.each do |race|
-  = link_to race.name, race_path(race), class: 'secondary_link'
+.buttons
+  - @cup.races.each do |race|
+    = link_to race.name, race_path(race), class: 'button'
 - unless @cup.cup_series.empty? || mobile?
   %h2= t 'races.show.all_results_pdf'
   = form_tag(cup_path(@cup, format: :pdf), method: :get) do
@@ -21,4 +23,4 @@
     %div
       = submit_tag t('races.show.download_all_results')
 %hr
-= link_to t(:back_to_home_page), root_path, class: 'back_link'
+= link_to t(:back_to_home_page), root_path, class: 'button button--back'

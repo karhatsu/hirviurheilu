@@ -1,4 +1,4 @@
 #district_menu
   = form_tag '/', method: :get do
     = select_tag :district_id, options_from_collection_for_select(District.all, :id, :name, params[:district_id]), prompt: 'Kaikki piirit'
-    = submit_tag 'Valitse piiri', class: 'primary_link'
+    = submit_tag 'Valitse piiri', class: 'button button--primary'

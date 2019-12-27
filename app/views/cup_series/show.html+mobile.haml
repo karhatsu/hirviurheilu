@@ -3,18 +3,19 @@
 - content_for(:title, "#{@cup_series.cup.name} - #{long_cup_series_name(@cup_series)} - #{t :results}")
 %h2= yield :title
 .info= render partial: 'cups/points_rule', locals: {cup: @cup}
-%a#show_races.secondary_link{href: "javascript:void(0)"}= t :show_races_of_cup
-%a#hide_races.secondary_link{href: "javascript:void(0)", style: "display:none"}= t :hide_races_of_cup
+%a#show_races.button{href: "javascript:void(0)"}= t :show_races_of_cup
+%a#hide_races.button{href: "javascript:void(0)", style: "display:none"}= t :hide_races_of_cup
 .cup_results= render partial: 'cup_series_results', locals: {cup_series: @cup_series}
 - if @cup_series.cup.cup_series.count > 1
   %hr
-  - @cup_series.cup.cup_series.each do |cs|
-    - if cs == @cup_series
-      .current_link= cs.name
-    - else
-      = link_to cs.name, cup_cup_series_path(cs.cup, cs), class: 'primary_link'
+  .buttons
+    - @cup_series.cup.cup_series.each do |cs|
+      - if cs == @cup_series
+        .button.button--current= cs.name
+      - else
+        = link_to cs.name, cup_cup_series_path(cs.cup, cs), class: 'button button--primary'
 %hr
-= link_to t(:back_to_cup_page), cup_path(@cup), class: 'back_link'
+= link_to t(:back_to_cup_page), cup_path(@cup), class: 'button button--back'
 :javascript
   function showRaces() {
     $('.card__middle-2').show();

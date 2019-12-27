@@ -17,7 +17,7 @@
     %h3= t 'official.quick_saves.index.latest_savings'
     %ul#latest_list
 %hr
-= link_to t(:back_to_race_home_page), official_race_path(@race), class: 'back_link'
+= link_to t(:back_to_race_home_page), official_race_path(@race), class: 'button button--back'
 :javascript
   function show_spinner(name) {
     $('#' + name + '_spinner').show();

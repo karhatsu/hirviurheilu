@@ -10,11 +10,12 @@
     = render partial: 'start_list', locals: { competitors: @series.start_list.includes(:club, :age_group), race: @series.race }
 - if @series.race.series.count > 1
   %hr
-  - @series.race.series.each do |s|
-    - if s == @series
-      .current_link= s.name
-    - else
-      = link_to s.name, race_series_start_list_path(s.race, s), class: 'primary_link'
+  .buttons
+    - @series.race.series.each do |s|
+      - if s == @series
+        .button.button--current= s.name
+      - else
+        = link_to s.name, race_series_start_list_path(s.race, s), class: 'button button--primary'
 %hr
-= link_to t(:results), race_series_path(@series.race, @series), class: 'secondary_link'
-= link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race), class: 'back_link'
+= link_to t(:results), race_series_path(@series.race, @series), class: 'button'
+= link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race), class: 'button button--back'

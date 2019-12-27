@@ -15,4 +15,4 @@
     .row= render partial: 'home/race_list', locals: { races: @races }
     .pagination= paginate @races
 %hr
-= link_to t(:back_to_home_page), root_path, class: 'secondary_link'
+= link_to t(:back_to_home_page), root_path, class: 'button'

@@ -1,12 +1,12 @@
-%div{style: 'margin-bottom: 8px'}
+.buttons{style: 'margin-bottom: 8px'}
   - @relay.legs_count.times do |i|
     - leg = i + 1
     - if @leg.to_i == leg
-      .current_link
+      .button.button--current
         #{t('leg')} #{leg}
     - else
-      = link_to "#{t('leg')} #{leg}", relay_leg_path(@relay, leg), class: 'primary_link'
+      = link_to "#{t('leg')} #{leg}", relay_leg_path(@relay, leg), class: 'button button--primary'
   - if @leg
-    = link_to t('relays.show.finish'), race_relay_path(@relay.race, @relay), class: 'primary_link'
+    = link_to t('relays.show.finish'), race_relay_path(@relay.race, @relay), class: 'button button--primary'
   - else
-    .current_link= t('relays.show.finish')
+    .button.button--current= t('relays.show.finish')

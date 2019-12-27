@@ -16,10 +16,11 @@
     = render :partial => 'results', :locals => { :relay => @relay }
 - if @relay.race.relays.count > 1
   %hr
-  - @relay.race.relays.each do |r|
-    - if r == @relay
-      .current_link= r.name
-    - else
-      = link_to r.name, race_relay_path(r.race, r), class: 'primary_link'
+  .buttons
+    - @relay.race.relays.each do |r|
+      - if r == @relay
+        .button.button--current= r.name
+      - else
+        = link_to r.name, race_relay_path(r.race, r), class: 'button button--primary'
 %hr
-= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@relay.race), class: 'back_link'
+= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@relay.race), class: 'button button--back'

@@ -26,12 +26,13 @@
   - if infos.length > 0
     .info= infos.join(' ')
   - show_start_time = @race.start_order == Race::START_ORDER_BY_SERIES
-  - @race.series.each do |series|
-    - if !series.started? && show_start_time
-      - link_text = series.start_time ? "#{series.name} (#{time_print(series.start_datetime)})" : series.name
-      = link_to link_text, race_series_start_list_path(@race, series), class: 'secondary_link'
-    - else
-      = link_to series.name, race_series_path(@race, series), class: 'primary_link'
+  .buttons
+    - @race.series.each do |series|
+      - if !series.started? && show_start_time
+        - link_text = series.start_time ? "#{series.name} (#{time_print(series.start_datetime)})" : series.name
+        = link_to link_text, race_series_start_list_path(@race, series), class: 'button'
+      - else
+        = link_to series.name, race_series_path(@race, series), class: 'button button--primary'
   - unless @race.finished? || @race.competitors.empty? || mobile?
     %h3= t '.start_lists_for_all_series_pdf'
     = form_tag(race_start_lists_path(@race, format: :pdf), method: :get, class: 'form') do
@@ -41,15 +42,17 @@
 - if @race.has_team_competition? && @race.start_date <= Time.zone.today && !@race.series.empty?
   %h2= t 'activerecord.models.team_competition', :count => @race.team_competitions.count
   - if @race.team_competitions.count == 1
-    = link_to t('activerecord.models.team_competition.one'), race_team_competition_path(@race, @race.team_competitions.first), class: 'primary_link'
+    = link_to t('activerecord.models.team_competition.one'), race_team_competition_path(@race, @race.team_competitions.first), class: 'button button--primary'
   - else
-    - @race.team_competitions.each do |tc|
-      = link_to tc.name, race_team_competition_path(@race, tc), class: 'primary_link'
+    .buttons
+      - @race.team_competitions.each do |tc|
+        = link_to tc.name, race_team_competition_path(@race, tc), class: 'button button--primary'
 - unless @race.relays.empty?
   %h2= t 'activerecord.models.relay', :count => @race.relays.count
-  - @race.relays.each do |relay|
-    - link_text = !relay.started? && relay.start_time ? "#{relay.name} (#{relay_start_time_print(relay)})" : relay.name
-    = link_to link_text, race_relay_path(@race, relay), class: 'primary_link'
+  .buttons
+    - @race.relays.each do |relay|
+      - link_text = !relay.started? && relay.start_time ? "#{relay.name} (#{relay_start_time_print(relay)})" : relay.name
+      = link_to link_text, race_relay_path(@race, relay), class: 'button button--primary'
 - unless mobile? || @race.start_date > Date.today || @race.series.empty?
   %h2= t '.all_results_pdf'
   = form_tag(race_path(@race, :format => :pdf), :method => :get) do
@@ -65,6 +68,6 @@
 - unless @race.cups.empty?
   %h2= t 'activerecord.models.cup', :count => 1
   - @race.cups.each do |cup|
-    = link_to cup.name, cup_path(cup), class: 'secondary_link'
+    = link_to cup.name, cup_path(cup), class: 'button'
 %hr
-= link_to t(:back_to_home_page), root_path, class: 'back_link'
+= link_to t(:back_to_home_page), root_path, class: 'button button--back'

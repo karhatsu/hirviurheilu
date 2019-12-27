@@ -17,7 +17,7 @@
     %label= t 'attributes.club_name'
     %div=h @user.club_name
   .form__buttons
-    = link_to t('.modify_information'), edit_account_path, class: 'secondary_link'
+    = link_to t('.modify_information'), edit_account_path, class: 'button'
 %h2= t '.own_races'
 - if @user.races.empty?
   = highlight_info(t('.no_own_races'))

@@ -26,7 +26,7 @@
       \-
       = link_to t(:with_competitors), race_team_competition_path(@race, @tc, :format => 'pdf')
 %hr
-= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@race), class: 'back_link'
+= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@race), class: 'button button--back'
 :javascript
   function showAllCompetitors() {
     $('.competitor_row').show();

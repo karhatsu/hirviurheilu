@@ -58,4 +58,4 @@
   .form__buttons
     = submit_tag t(:save), class: 'button button--primary'
 %hr
-= link_to t('.back_to_series_competitor_list', :series_name => @series.name), official_series_competitors_path(@series), class: 'back_link'
+= link_to t('.back_to_series_competitor_list', :series_name => @series.name), official_series_competitors_path(@series), class: 'button button--back'

@@ -1,4 +1,16 @@
+.buttons {
+  display: flex;
+  flex-direction: row;
+  flex-flow: wrap;
+  margin: -4px;
+
+  .button {
+    margin: 4px;
+  }
+}
+
 .button {
+  background-color: #fff;
   border: solid 1px olive;
   border-radius: 2px;
   box-shadow: 3px 3px 3px #ccc;
@@ -15,14 +27,8 @@
   }
 
   &--primary {
-    background-color: olive;
-    background: linear-gradient(to right, rgba(128, 128, 0, 0.9), rgba(128, 128, 0, 0.7));
+    background: olive linear-gradient(to right, rgba(128, 128, 0, 0.9), rgba(128, 128, 0, 0.7));
     color: #fff;
-  }
-
-  &--secondary {
-    background-color: #fff;
-    color: olive;
   }
 
   &--danger {
@@ -34,6 +40,16 @@
       background: #CC3300;
       color: #fff;
     }
+  }
+
+  &--current {
+    background: #1d6399 linear-gradient(to right, rgba(29, 99, 153, 0.9), rgba(29, 99, 153, 0.7));
+    color: #fff;
+    cursor: default;
+  }
+
+  &--back {
+    // arrow?
   }
 
   &--below-sub-form {
