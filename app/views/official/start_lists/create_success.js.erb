@@ -20,7 +20,7 @@ $('#competitor_first_name').val('');
 $('#competitor_last_name').val('');
 
 <% if @competitor.series.has_start_list? %>
-  $('#competitor_number').val(<%= @competitor.race.next_start_number %>);
+  $('#competitor_new_competitor_number').val(<%= @competitor.race.next_start_number %>);
   <% start_time = time_print(@competitor.race.next_start_time, true, '') %>
-  $('#competitor_start_time').val('<%= start_time %>');
+  $('#competitor_new_competitor_start_time').val('<%= start_time %>');
 <% end %>
