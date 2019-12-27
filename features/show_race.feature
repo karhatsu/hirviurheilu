@@ -21,7 +21,7 @@ Feature: Show race
     And the page title should contain "Test city, 01.01.2029 - 02.01.2029"
     And I should see "Tiedote kilpailijoille ja kotikatsojille" within ".public_message"
     And I should see "Kilpailun alkuun on aikaa noin 9 vuotta. Kilpailu alkaa 10:00." in an info message
-    And I should see "Men 50 years (13:30)" within ".button"
+    And I should see "Men 50 years (13:30)"
     But I should not see "Kaikkien sarjojen lähtöajat (PDF)"
 
   Scenario: Competitors but no start list, nor race start time
@@ -143,6 +143,6 @@ Feature: Show race
     And the race belongs to the cup
     And I am on the race page
     Then I should see "Cup-kilpailu"
-    And I should see "Test cup" within ".button"
+    And I should see "Test cup" within ".button:first-of-type"
     When I follow "Test cup"
     Then I should be on the cup page of "Test cup"

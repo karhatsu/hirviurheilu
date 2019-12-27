@@ -3,8 +3,7 @@
 - if @race.competitors.empty?
   .info= t '.no_competitors'
   - unless @race.series.empty?
-    .action_box
-      = link_to t('official.competitors.index.add_competitor'), new_official_series_competitor_path(@race.series.first)
+    = link_to t('official.competitors.index.add_competitor'), new_official_series_competitor_path(@race.series.first), class: 'button'
 - else
   %h3= t :times
   = render :partial => 'result_place', :locals => { :name => 'time',

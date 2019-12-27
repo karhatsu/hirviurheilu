@@ -44,6 +44,8 @@ sv:
   district: Trakt
   districts: Trakter
   download_results_pdf: Ladda resultaten som PDF-fil
+  download_results_pdf_with_competitors: Ladda PDF (med tävlarna)
+  download_results_pdf_without_competitors: Ladda PDF (utan tävlarna)
   download_start_list_pdf: Ladda startlista som PDF-fil
   edit: Redigera
   error: Fel
@@ -132,7 +134,5 @@ sv:
   unofficial: Informella tävlare
   unofficial_short: inf.
   update: Uppdatera
-  with_competitors: Med tävlarna
-  without_competitors: Utan tävlarna
   wrong_captcha: Kontrollfrågan var fel.
   you_can_still_add: Du kan öka ännu mer

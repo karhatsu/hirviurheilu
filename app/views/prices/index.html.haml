@@ -3,8 +3,7 @@
 %h1.mobile= yield :page_title
 - if ProductionEnvironment.staging?
   .important Käytät tällä hetkellä testiympäristöä. Sen käyttö on ilmaista.
-  .action_box
-    %a{href: "#{PRODUCTION_URL}/prices"} Tutustu hintoihin varsinaisessa palvelussa
+  %a.button{href: "#{PRODUCTION_URL}/prices"} Tutustu hintoihin varsinaisessa palvelussa
 - else
   %h2 Metsästäjäliiton jäsenseurat
   .important

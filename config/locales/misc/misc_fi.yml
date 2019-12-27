@@ -44,6 +44,8 @@ fi:
   district: Piiri
   districts: Piirit
   download_results_pdf: Lataa tulokset PDF-tiedostona
+  download_results_pdf_with_competitors: Lataa tulos-PDF (kilpailijoiden kanssa)
+  download_results_pdf_without_competitors: Lataa tulos-PDF (ilman kilpailijoita)
   download_start_list_pdf: Lataa lähtölista PDF-tiedostona
   edit: Muokkaa
   error: Virhe
@@ -132,7 +134,5 @@ fi:
   unofficial: Epävirallinen kilpailija
   unofficial_short: epäv.
   update: Päivitä
-  with_competitors: Kilpailijoiden kanssa
-  without_competitors: Ilman kilpailijoita
   wrong_captcha: Tarkastuskysymys meni väärin.
   you_can_still_add: Voit lisätä vielä

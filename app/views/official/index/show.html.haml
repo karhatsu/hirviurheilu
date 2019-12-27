@@ -4,7 +4,7 @@
 = flash_success
 - if @today.length == 0 && @future.length == 0 && @past.length == 0
   = highlight_info(t('.no_races_yet.long'))
-  .action_box= link_to t('.add_new_race'), new_official_race_path
+  = link_to t('.add_new_race'), new_official_race_path, class: 'button'
 - else
   - unless @today.empty?
     %h2
@@ -14,12 +14,12 @@
   %h2
     %i.material-icons-outlined.md-18 today
     = t 'home.show.upcoming_competitions'
-  .action_box= link_to t('.add_new_race'), new_official_race_path
+  = link_to t('.add_new_race'), new_official_race_path, class: 'button'
   .row= render partial: 'race_list', locals: { competitions: @future }
   %h2
     %i.material-icons-outlined.md-18 dynamic_feed
     = t 'home.show.competitions.cup'
-  .action_box= link_to t('.add_new_cup'), new_official_cup_path
+  = link_to t('.add_new_cup'), new_official_cup_path, class: 'button'
   .row= render partial: 'race_list', locals: { competitions: @cups }
   - unless @past.empty?
     %h2

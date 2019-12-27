@@ -21,15 +21,12 @@
   %a#hide_all_competitors{href: 'javascript:void(0)', style: 'display:none;'}= t :hide_all_competitors
   - cache [@relay, I18n.locale] do
     = render :partial => 'results', :locals => { :relay => @relay, :pdf => false }
-  .action_box
-    = link_to t('.download_start_list_pdf'), race_relay_start_list_path(@relay.race, @relay, format: :pdf)
-  .action_box
-    #{t(:download_results_pdf)}:
-    = link_to t(:without_competitors), race_relay_path(@relay.race, @relay, :exclude_competitors => true, :format => 'pdf')
-    \-
-    = link_to t(:with_competitors), race_relay_path(@relay.race, @relay, :format => 'pdf')
 %hr
 = link_to "#{t(:back_to_page)} #{@race.name}", race_path(@relay.race), class: 'button button--back'
+- unless @results.empty? || !@relay.start_time
+  = link_to t('.download_start_list_pdf'), race_relay_start_list_path(@relay.race, @relay, format: :pdf), class: 'button'
+  = link_to t(:download_results_pdf_without_competitors), race_relay_path(@relay.race, @relay, exclude_competitors: true, format: 'pdf'), class: 'button'
+  = link_to t(:download_results_pdf_with_competitors), race_relay_path(@relay.race, @relay, format: 'pdf'), class: 'button'
 :javascript
   function showAllCompetitors() {
     $('.competitor_row').show();
