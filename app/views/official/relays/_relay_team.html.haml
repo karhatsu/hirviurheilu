@@ -4,7 +4,7 @@
       = f.text_field :name, placeholder: t('activerecord.attributes.relay_team.name')
     .form__field.form__field--sm
       = f.label :number
-      = f.number_field :number, :size => 3
+      = f.number_field :number
     .form__field
       = f.label :no_result_reason
       = f.select :no_result_reason, @no_result_reason_options

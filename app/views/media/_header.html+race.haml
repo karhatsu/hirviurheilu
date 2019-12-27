@@ -8,7 +8,7 @@
   = form_tag(race_medium_path(@race), class: 'form') do
     .form__field.form__field--sm
       = label_tag :competitors_count, t('media.show.competitors_per_series')
-      = number_field_tag :competitors_count, @competitors_count, :size => 3
+      = number_field_tag :competitors_count, @competitors_count
     .form__field
       = label_tag :club_id, "#{t 'media.show.also_all_competitors', :from_club => club_word }"
       = select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name, params[:club_id]), multiple: true

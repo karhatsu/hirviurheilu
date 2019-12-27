@@ -6,7 +6,7 @@
 = form_tag(cup_medium_path(@cup), class: 'form') do
   .form__field.form__field--sm
     = label_tag :competitors_count, t('media.show.competitors_per_series')
-    = number_field_tag :competitors_count, @competitors_count, size: 3
+    = number_field_tag :competitors_count, @competitors_count
   .form__field
     = label_tag :show_race_points, t('media.show.show_race_points')
     = check_box_tag :show_race_points, true, params[:show_race_points]

@@ -5,7 +5,7 @@
       = full_name(@race_right.user)
     - else
       = label_tag :email, 'Sähköposti'
-      = email_field_tag :email, '', size: 30
+      = email_field_tag :email, ''
   .form__field
     = f.label :only_add_competitors, 'Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita'
     = f.check_box :only_add_competitors
