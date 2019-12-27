@@ -4,10 +4,9 @@
   .info= t '.no_competitors'
 - else
   .info= t '.info'
-  = form_tag(official_race_csv_export_path(@race)) do |f|
-    = submit_tag t('.submit_button')
+  = form_tag(official_race_csv_export_path(@race), class: 'form') do |f|
+    = submit_tag t('.submit_button'), class: 'button button--primary'
 %h2= t '.import_title'
-.action_box
-  = link_to t('.import_link'), new_official_race_csv_import_path(@race)
+= link_to t('.import_link'), new_official_race_csv_import_path(@race), class: 'button'
 %hr
-= link_to t(:back_to_official_race_page), official_race_path(@race)
+= link_to t(:back_to_official_race_page), official_race_path(@race), class: 'back_link'
