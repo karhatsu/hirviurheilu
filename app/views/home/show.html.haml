@@ -7,7 +7,7 @@
 .home_page
   - new_announcements = @announcements.length > 0 && @announcements[0].published > 1.month.ago
   - if new_announcements
-    = render partial: 'announcements'
+    = render partial: 'announcements', locals: { header_class: 'emphasize' }
     %h2.emphasize= t :competitions
   = render partial: 'district_menu'
   - unless @today.empty?
@@ -36,6 +36,6 @@
     .row#old_races
       = render partial: 'race_list', locals: { races: @past, max: 11 }
   - unless new_announcements
-    = render partial: 'announcements'
+    = render partial: 'announcements', locals: { header_class: '' }
   .before_facebook_like_box
   = render :partial => 'shared/facebook_like_box'
