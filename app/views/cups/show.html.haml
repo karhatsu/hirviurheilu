@@ -16,11 +16,12 @@
     = link_to race.name, race_path(race), class: 'button'
 - unless @cup.cup_series.empty? || mobile?
   %h2= t 'races.show.all_results_pdf'
-  = form_tag(cup_path(@cup, format: :pdf), method: :get) do
-    %div
-      = check_box_tag :page_breaks
-      = label_tag :page_breaks, t('races.show.page_breaks'), class: 'form_label'
-    %div
-      = submit_tag t('races.show.download_all_results')
+  = form_tag(cup_path(@cup, format: :pdf), method: :get, class: 'form') do
+    .form__fields--horizontal
+      .form__field
+        = check_box_tag :page_breaks
+        = label_tag :page_breaks, t('races.show.page_breaks')
+      .form__buttons
+        = submit_tag t('races.show.download_all_results'), class: 'button button--primary'
 %hr
 = link_to t(:back_to_home_page), root_path, class: 'button button--back'
