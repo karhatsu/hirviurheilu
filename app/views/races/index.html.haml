@@ -1,10 +1,12 @@
 - content_for(:title, "Hirviurheilu - #{t :competitions}")
 - content_for(:page_title, yield(:title))
-= form_tag(races_path, method: :get) do
-  = text_field_tag :search_text, params[:search_text], placeholder: 'Kilpailun nimi tai sijainti'
-  = select_tag :district_id, options_from_collection_for_select(District.all, :id, :name, params[:district_id]), include_blank: 'Kaikki piirit'
-  = submit_tag 'Hae', class: 'primary_link'
-  = link_to 'Tyhjennä', races_path, class: 'secondary_link'
+= form_tag(races_path, method: :get, class: 'form') do
+  .form__fields--horizontal
+    .form__field= text_field_tag :search_text, params[:search_text], placeholder: 'Kilpailun nimi tai sijainti'
+    .form__field= select_tag :district_id, options_from_collection_for_select(District.all, :id, :name, params[:district_id]), include_blank: 'Kaikki piirit'
+    .form__buttons
+      = submit_tag 'Hae', class: 'button button--primary'
+      = link_to 'Tyhjennä', races_path, class: 'button'
 %hr
 - if @races.empty?
   .info= t :no_races

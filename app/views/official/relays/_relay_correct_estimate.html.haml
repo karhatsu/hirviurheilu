@@ -1,6 +1,6 @@
 - f.object.leg = index + 1 unless f.object.leg
-.form__field.form__field--sm
+.form__field
   = f.hidden_field :leg
   #{f.object.leg}.
-.form__field
+.form__field.form__field--sm
   #{f.number_field :distance}m

@@ -4,10 +4,11 @@ $inputHeight: 16px;
   border: solid 1px olive;
   border-radius: 2px;
   box-shadow: 3px 3px 3px #ccc;
+  color: olive;
   cursor: pointer;
   display: inline-block;
   line-height: 14px;
-  padding: 6px 12px !important; /* important until input[type='submit'] etc. removed */
+  padding: 6px 12px;
 
   &:hover {
     background: linear-gradient(to right, rgba(29, 99, 153, 0.9), rgba(29, 99, 153, 0.7));
@@ -27,13 +28,13 @@ $inputHeight: 16px;
   }
 
   &--danger {
-    background: #fff !important;
-    border: 1px solid #CC3300 !important; /* important until input[type='button'] removed */
-    color: #CC3300 !important;
+    background: #fff;
+    border: 1px solid #CC3300;
+    color: #CC3300;
 
     &:hover {
-      background: #CC3300 !important;
-      color: #fff !important;
+      background: #CC3300;
+      color: #fff;
     }
   }
 
@@ -75,7 +76,7 @@ $inputHeight: 16px;
   input {
     height: $inputHeight;
     margin-top: $inputHeight / 2;
-    padding: 8px !important; /* important until input[type='text'] etc. removed */
+    padding: 8px;
     width: calc(100% - 18px);
   }
 
@@ -92,10 +93,17 @@ $inputHeight: 16px;
   }
 
   select {
+    background-color: #fff;
+    color: olive;
     height: 34px;
     margin-top: $inputHeight / 2;
     max-width: 100%;
     -webkit-appearance: menulist-button;
+  }
+
+  select[multiple] {
+    height: 200px;
+    width: 300px;
   }
 
   textarea {
@@ -115,19 +123,19 @@ $inputHeight: 16px;
 
 .form__field--xs {
   input {
-    width: 32px !important; /* important until input[type='number'] removed */
+    width: 32px;
   }
 }
 
 .form__field--sm {
   input {
-    width: 64px !important; /* important until input[type='number'] removed */
+    width: 64px;
   }
 }
 
 .form__field--md {
   input {
-    width: 128px !important; /* important until input[type='number'] removed */
+    width: 128px;
   }
 }
 
@@ -135,7 +143,7 @@ $inputHeight: 16px;
   margin-top: $inputHeight;
 
   .button {
-    padding: 8px 16px !important; /* important until input[type='submit'] etc. removed */
+    padding: 8px 16px;
   }
 }
 

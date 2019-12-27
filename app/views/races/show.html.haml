@@ -34,11 +34,10 @@
       = link_to series.name, race_series_path(@race, series), class: 'primary_link'
   - unless @race.finished? || @race.competitors.empty? || mobile?
     %h3= t '.start_lists_for_all_series_pdf'
-    = form_tag(race_start_lists_path(@race, :format => :pdf), :method => :get) do
-      = select_tag :club_id,
-        options_from_collection_for_select(@race.clubs, :id, :name),
-        :prompt => "#{t :all} #{clubs_title(@race).downcase}"
-      = submit_tag t('.download_start_times')
+    = form_tag(race_start_lists_path(@race, format: :pdf), method: :get, class: 'form') do
+      .form__fields--horizontal
+        .form__field= select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: "#{t :all} #{clubs_title(@race).downcase}"
+        .form__buttons= submit_tag t('.download_start_times'), class: 'button'
 - if @race.has_team_competition? && @race.start_date <= Time.zone.today && !@race.series.empty?
   %h2= t 'activerecord.models.team_competition', :count => @race.team_competitions.count
   - if @race.team_competitions.count == 1

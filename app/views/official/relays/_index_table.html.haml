@@ -39,6 +39,6 @@
           - if relay.finished?
             = image_tag 'icon_yes.gif'
           - elsif relay.can_finish?
-            = button_to t('official.relays.index.finish_relay'), official_relay_finish_relay_path(relay)
+            = button_to t('official.relays.index.finish_relay'), official_relay_finish_relay_path(relay), class: 'button button--primary'
           - else
             = t 'official.relays.index.results_missing'
