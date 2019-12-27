@@ -6,7 +6,7 @@
   = render partial: 'shared/form_errors', locals: { item: @race }
   = f.fields_for :correct_estimates do |ce_form|
     = render partial: 'correct_estimate', locals: { f: ce_form }
-  = add_child_link t('.add_new_range'), f, :correct_estimates, 'add_link', 'button button--add-correct-estimates'
+  = add_child_link t('.add_new_range'), f, :correct_estimates, 'add_link', 'button button--below-sub-form'
   .form__buttons
     = submit_tag t('.submit_button'), class: 'button button--primary'
 

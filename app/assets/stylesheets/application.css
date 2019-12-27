@@ -2,6 +2,7 @@
  *= require jquery-ui/dialog
  *= require jquery-ui/ui-lightness
  *= require fonts
+ *= require buttons
  *= require form
  *= require structure
  *= require elk_sports
