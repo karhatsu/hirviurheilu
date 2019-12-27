@@ -48,8 +48,10 @@
     cursor: default;
   }
 
-  &--back {
-    // arrow?
+  &--back::before {
+    font-family: 'Material Icons';
+    font-size: 9px;
+    content: 'chevron_left';
   }
 
   &--below-sub-form {
