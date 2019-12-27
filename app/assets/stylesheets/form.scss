@@ -117,7 +117,7 @@ textarea {
 
 .form__fields--horizontal {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   align-items: center;
   margin-top: 16px;
 
