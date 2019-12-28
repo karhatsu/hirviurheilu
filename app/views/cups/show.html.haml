@@ -23,5 +23,5 @@
         = label_tag :page_breaks, t('races.show.page_breaks')
       .form__buttons
         = submit_tag t('races.show.download_all_results'), class: 'button button--primary'
-%hr
-= link_to t(:back_to_home_page), root_path, class: 'button button--back'
+.buttons.buttons--nav
+  = link_to t(:back_to_home_page), root_path, class: 'button button--back'

@@ -16,5 +16,5 @@
     = @cup.cup_series.collect { |cs| long_cup_series_name(cs) }.join(', ')
 = link_to 'Muokkaa cup-kilpailun asetuksia', edit_official_cup_path(@cup), class: 'button'
 = link_to 'Poista cup-kilpailu', official_cup_path(@cup), method: :delete, data: {confirm: 'Haluatko varmasti poistaa cup-kilpailun?'}, class: 'button button--danger'
-%hr
-= link_to 'Takaisin Toimitsijan etusivulle', official_root_path, class: 'button button--back'
+.buttons.buttons--nav
+  = link_to 'Takaisin Toimitsijan etusivulle', official_root_path, class: 'button button--back'

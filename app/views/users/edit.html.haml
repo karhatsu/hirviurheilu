@@ -5,5 +5,5 @@
   = render :partial => 'form', :object => f
   .form__buttons
     = f.submit t(:update), class: 'button button--primary'
-%hr
-= link_to t('.back_to_account_page'), account_path, class: 'button button--back'
+.buttons.buttons--nav
+  = link_to t('.back_to_account_page'), account_path, class: 'button button--back'

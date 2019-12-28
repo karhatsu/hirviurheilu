@@ -7,12 +7,11 @@
     .form__buttons
       = submit_tag 'Hae', class: 'button button--primary'
       = link_to 'Tyhjennä', races_path, class: 'button'
-%hr
 - if @races.empty?
   .info= t :no_races
 - else
   - cache [Race.cache_key_for_all, I18n.locale, params[:page], params[:search_text], params[:district_id]] do
     .row= render partial: 'home/race_list', locals: { races: @races }
     .pagination= paginate @races
-%hr
-= link_to t(:back_to_home_page), root_path, class: 'button'
+.buttons.buttons--nav
+  = link_to t(:back_to_home_page), root_path, class: 'button'

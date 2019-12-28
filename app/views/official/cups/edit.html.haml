@@ -1,4 +1,4 @@
 %h2 Muokkaa cup-kilpailun asetuksia
 = render :partial => 'form', :locals => { submit_label: 'Tallenna' }
-%hr
-= link_to 'Takaisin cup-kilpailun etusivulle', official_cup_path(@cup), class: 'button button--back'
+.buttons.buttons--nav
+  = link_to 'Takaisin cup-kilpailun etusivulle', official_cup_path(@cup), class: 'button button--back'

@@ -7,15 +7,14 @@
 %a#hide_races.button{href: "javascript:void(0)", style: "display:none"}= t :hide_races_of_cup
 .cup_results= render partial: 'cup_series_results', locals: {cup_series: @cup_series}
 - if @cup_series.cup.cup_series.count > 1
-  %hr
   .buttons
     - @cup_series.cup.cup_series.each do |cs|
       - if cs == @cup_series
         .button.button--current= cs.name
       - else
         = link_to cs.name, cup_cup_series_path(cs.cup, cs), class: 'button button--primary'
-%hr
-= link_to t(:back_to_cup_page), cup_path(@cup), class: 'button button--back'
+.buttons.buttons--nav
+  = link_to t(:back_to_cup_page), cup_path(@cup), class: 'button button--back'
 :javascript
   function showRaces() {
     $('.card__middle-2').show();

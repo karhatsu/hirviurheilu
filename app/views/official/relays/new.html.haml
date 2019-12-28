@@ -3,5 +3,5 @@
 %h2= t '.title'
 .warning= t '.leg_count_warning'
 = render :partial => 'form'
-%hr
-= link_to t(:back_to_official_relays_page), official_race_relays_path(@race), class: 'button button--back'
+.buttons.buttons--nav
+  = link_to t(:back_to_official_relays_page), official_race_relays_path(@race), class: 'button button--back'

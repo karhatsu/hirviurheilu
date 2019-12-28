@@ -11,15 +11,14 @@
     %a#hide_all_competitors.button{href: "javascript:void(0)", style: "display:none;"}= t :hide_all_competitors
     = render partial: 'results_table', locals: { results: results }
 - if @race.team_competitions.count > 1
-  %hr
   .buttons
     - @race.team_competitions.each do |tc|
       - if tc == @tc
         .button.button--current= tc.name
       - else
         = link_to tc.name, race_team_competition_path(@race, tc), class: 'button button--primary'
-%hr
-= link_to "#{t(:back_to_page)} #{@race.name}", race_path(@race), class: 'button button--back'
+.buttons.buttons--nav
+  = link_to "#{t(:back_to_page)} #{@race.name}", race_path(@race), class: 'button button--back'
 :javascript
   function showAllCompetitors() {
     $('.card__middle-2').show();

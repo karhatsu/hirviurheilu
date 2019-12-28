@@ -2,5 +2,5 @@
 - content_for :page_title, yield(:title)
 %h2 Lisää tiedote
 = render :partial => 'form'
-%hr
-= link_to 'Takaisin tiedotteisiin', admin_announcements_path, class: 'button button--back'
+.buttons.buttons--nav
+  = link_to 'Takaisin tiedotteisiin', admin_announcements_path, class: 'button button--back'

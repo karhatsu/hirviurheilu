@@ -21,6 +21,6 @@
     = f.check_box :remember_me
   .form__buttons
     = f.submit t('.submit_button'), class: 'button button--primary'
-%hr
-= link_to t('.forgotten_password'), new_reset_password_path, class: 'button'
-= link_to t('.register'), register_path, class: 'button'
+.buttons.buttons--nav
+  = link_to t('.forgotten_password'), new_reset_password_path, class: 'button'
+  = link_to t('.register'), register_path, class: 'button'

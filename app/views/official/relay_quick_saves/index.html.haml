@@ -32,5 +32,5 @@
   #latest{style: 'display:none;'}
     %h3 Viimeisimmät tallennukset
     %ul#latest_list
-%hr
-= link_to 'Takaisin viestin etusivulle', official_race_relays_path(@relay.race)
+.buttons.buttons--nav
+  = link_to 'Takaisin viestin etusivulle', official_race_relays_path(@relay.race), class: 'button button--back'

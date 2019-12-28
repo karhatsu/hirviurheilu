@@ -1,5 +1,5 @@
 - content_for :title, t('.title')
 - content_for(:page_title, yield(:title))
 = flash_success
-%hr
-= link_to t(:back_to_home_page), root_path, class: 'button button--back'
+.buttons.buttons--nav
+  = link_to t(:back_to_home_page), root_path, class: 'button button--back'

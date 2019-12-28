@@ -64,5 +64,5 @@
 %h2= t '.other_race_formats'
 = link_to t('activerecord.models.team_competition.other'), official_race_team_competitions_path(@race), class: 'button'
 = link_to t('activerecord.models.relay.other'), official_race_relays_path(@race), class: 'button'
-%hr
-= link_to t(:back_to_official_home_page), official_root_path
+.buttons.buttons--nav
+  = link_to t(:back_to_official_home_page), official_root_path, class: 'button'

@@ -27,5 +27,5 @@
         $age_group_menu.show();
       }
     }
-  %hr
-  = link_to t(:download_start_list_pdf), race_start_lists_path(@race, format: :pdf), class: 'button'
+  .buttons.buttons--nav
+    = link_to t(:download_start_list_pdf), race_start_lists_path(@race, format: :pdf), class: 'button'

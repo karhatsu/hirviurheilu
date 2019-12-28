@@ -17,5 +17,5 @@
               official_race_team_competition_path(@race, tc), method: :delete,
               data: { confirm: t('.remove_team_competition_confirm') }, class: 'button button--danger'
 = link_to t('.add_team_competition'), new_official_race_team_competition_path(@race), class: 'button'
-%hr
-= link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'
+.buttons.buttons--nav
+  = link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'

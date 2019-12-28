@@ -2,10 +2,23 @@
   display: flex;
   flex-direction: row;
   flex-flow: wrap;
-  margin: -4px;
+
+  &--nav {
+    margin-top: 16px;
+    border-top: 1px #7a7a7a dotted;
+    padding-top: 6px;
+  }
 
   .button {
     margin: 4px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }
 

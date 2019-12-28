@@ -12,9 +12,9 @@
 - else
   #update_error
   .result-place-table= render partial: partial_table
-  %hr
   = render partial: 'official/shared/series_result_input_links', locals: { series_id: @series.id }
-  = link_to t(:back_to_official_race_page), official_race_path(@series.race), class: 'button button--back'
+  .buttons.buttons--nav
+    = link_to t(:back_to_official_race_page), official_race_path(@series.race), class: 'button button--back'
   :javascript
     function start_updating(id) {
       $("#status_" + id).html('#{image_tag 'spinner.gif'}');

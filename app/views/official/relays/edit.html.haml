@@ -2,5 +2,5 @@
 - render partial: 'sub_sub_menu', locals: { relay_id: @relay.id }
 %h2= yield :title
 = render :partial => 'form'
-%hr
-= link_to t(:back_to_official_relays_page), official_race_relays_path(@race), class: 'button button--back'
+.buttons.buttons--nav
+  = link_to t(:back_to_official_relays_page), official_race_relays_path(@race), class: 'button button--back'

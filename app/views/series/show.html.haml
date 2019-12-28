@@ -19,6 +19,6 @@
     - elsif unofficials == Series::UNOFFICIALS_EXCLUDED
       = link_to t('competitors.index.show_unofficial_results'), race_series_path(@series.race, @series, all_competitors: true), class: 'button'
   = link_to t(:download_results_pdf), race_series_path(@series.race, @series, format: 'pdf', all_competitors: params[:all_competitors]), class: 'button'
-%hr
-= link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race), class: 'button button--back'
-= link_to t(:start_list), race_series_start_list_path(@series.race, @series), class: 'button'
+.buttons.buttons--nav
+  = link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race), class: 'button button--back'
+  = link_to t(:start_list), race_series_start_list_path(@series.race, @series), class: 'button'
