@@ -1,0 +1,126 @@
+.result-cards {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  border: 1px solid olive;
+  border-radius: 2px;
+  box-shadow: 3px 3px 3px #ccc;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px;
+  margin: 4px 0;
+
+  &--odd {
+    background-color: #DDEEB5;
+  }
+
+  &__number, &__name, &__main-value {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  &__number {
+    min-width: 32px;
+    text-align: center;
+    padding-right: 6px;
+  }
+
+  &__name {
+    span {
+      font-size: 12px;
+    }
+  }
+
+  &__middle {
+    flex-grow: 1;
+  }
+
+  &__middle-1 {
+    margin-top: 4px;
+
+    &:empty {
+      margin-top: 0;
+    }
+  }
+
+  &__middle-2 {
+    margin-top: 4px;
+
+    &:empty {
+      margin-top: 0;
+    }
+
+    &--error {
+      color: #CC3300;
+    }
+  }
+
+  &__sub-result {
+    background-position-y: center;
+    background-size: 12px;
+    background-repeat: no-repeat;
+    padding-left: 16px;
+    padding-right: 6px;
+    white-space: nowrap;
+
+    &--time {
+      background-image: url(<%= image_path 'icon-clock.png' %>);
+    }
+
+    &--shoot {
+      background-image: url(<%= image_path 'icon-shoot.png' %>);
+    }
+
+    &--estimate {
+      background-image: url(<%= image_path 'icon-estimate.png' %>);
+    }
+  }
+
+  &__main-value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 6px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    margin: -4px 0;
+
+    .button {
+      margin: 4px 0;
+    }
+  }
+}
+
+a.card {
+  color: #000;
+
+  .card__name {
+    color: olive;
+  }
+
+  &:active, &:hover {
+    background-color: olive;
+    color: #fff;
+    text-decoration: none;
+
+    .card__name {
+      color: #fff;
+    }
+
+    .card__middle-2--error {
+      color: #fff;
+    }
+  }
+}
+
+.extra_card .button {
+  margin: 4px 0 0;
+}
