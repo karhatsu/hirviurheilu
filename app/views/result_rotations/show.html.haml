@@ -3,43 +3,51 @@
 .info= t '.info'
 %h3= t '.status'
 - if @rotation
-  .section= t '.status_active'
-  = form_tag(race_result_rotation_path(@race), method: :delete) do
-    = submit_tag t('.stop')
+  = t '.status_active'
+  = form_tag(race_result_rotation_path(@race), method: :delete, class: 'form') do
+    .form__buttons
+      = submit_tag t('.stop'), class: 'button'
   %hr
   = render partial: 'shared/refresh_counter', locals: { seconds: 10, competition: @race }
 - else
   - if result_rotation_competitions_paths(menu_race).empty?
     = t '.no_active_competitions'
   - else
-    .section= t '.status_inactive'
+    .info= t '.status_inactive'
     %h3= t '.ignition'
-    .section
-      = form_tag(race_result_rotation_path(@race)) do
-        = check_box_tag :auto_scroll
-        = label_tag :auto_scroll, t('.auto_scroll')
-        %hr
-        = radio_button_tag :selection_type, :all, true, class: 'selection_type_radio'
-        = label_tag :selection_type_all, t('.all_competitions')
-        .result_rotation_sub_selection
-          - unless @race.team_competitions.empty?
-            = check_box_tag :team_competitions, true, false, class: 'all_competitions_checkbox'
-            = label_tag :team_competitions, t('.include_team_competitions'), class: 'all_competitions_label'
-            %br
-        = radio_button_tag :selection_type, :certain, false, class: 'selection_type_radio'
-        = label_tag :selection_type_certain, t('.select_competitions')
-        .result_rotation_sub_selection
-          - series = result_rotation_series(@race)
-          - series.each do |series|
-            = check_box_tag 'competition_paths[]', race_series_path(@race, series), false, class: 'competition_path_checkbox'
-            = label_tag 'competition_paths[]', series.name, class: 'competition_path_label'
-            %br
-          - unless series.empty?
-            - result_rotation_team_competitions(@race).each do |tc|
-              = check_box_tag 'competition_paths[]', race_team_competition_path(@race, tc), false, class: 'competition_path_checkbox'
-              = label_tag 'competition_paths[]', tc.name, class: 'competition_path_label'
-              %br
-        = submit_tag t('.start')
+    = form_tag(race_result_rotation_path(@race), class: 'form') do
+      .form__fields--horizontal
+        .form__field
+          = check_box_tag :auto_scroll
+          = label_tag :auto_scroll, t('.auto_scroll')
+      .form__fields--horizontal
+        .form__field
+          = radio_button_tag :selection_type, :all, true, class: 'selection_type_radio'
+          = label_tag :selection_type_all, t('.all_competitions')
+      .result_rotation_sub_selection
+        - unless @race.team_competitions.empty?
+          .form__fields--horizontal
+            .form__field
+              = check_box_tag :team_competitions, true, false, class: 'all_competitions_checkbox'
+              = label_tag :team_competitions, t('.include_team_competitions'), class: 'all_competitions_label'
+      .form__fields--horizontal
+        .form__field
+          = radio_button_tag :selection_type, :certain, false, class: 'selection_type_radio'
+          = label_tag :selection_type_certain, t('.select_competitions')
+      .result_rotation_sub_selection
+        - series = result_rotation_series(@race)
+        - series.each do |series|
+          .form__fields--horizontal
+            .form__field
+              = check_box_tag 'competition_paths[]', race_series_path(@race, series), false, class: 'competition_path_checkbox'
+              = label_tag 'competition_paths[]', series.name, class: 'competition_path_label'
+          %br
+        - unless series.empty?
+          - result_rotation_team_competitions(@race).each do |tc|
+            = check_box_tag 'competition_paths[]', race_team_competition_path(@race, tc), false, class: 'competition_path_checkbox'
+            = label_tag 'competition_paths[]', tc.name, class: 'competition_path_label'
+      .form__buttons
+        = submit_tag t('.start'), class: 'button button--primary'
     :javascript
       function toggleResultRotationSelectionType() {
         if ($('#selection_type_all:checked').length) {
