@@ -13,9 +13,9 @@
   %h3= t '.latest_added_competitors'
   %ul#latest_competitors_list
 .buttons.buttons--nav
-  = link_to t('official.add_competitors_from_csv_file'), new_official_race_csv_import_path(@series.race), class: 'button'
   = link_to raw(t('.back_to_series_competitors_list', :series_name => @series.name)), official_series_competitors_path(@series), id: 'back_to_series', class: 'button button--back'
   = link_to t(:back_to_official_race_page), official_race_path(@series.race), class: 'button button--back'
+  = link_to t('official.add_competitors_from_csv_file'), new_official_race_csv_import_path(@series.race), class: 'button'
 :javascript
   function show_spinner() {
     $('#spinner').show();
