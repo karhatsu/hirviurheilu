@@ -1,5 +1,5 @@
 %h1= @cup.name
-.section= render partial: 'points_rule', locals: {cup: @cup}
+= render partial: 'points_rule', locals: {cup: @cup}
 - @cup.cup_series.each_with_index do |cs, index|
   - if index > 0 && @page_breaks
     .page-break

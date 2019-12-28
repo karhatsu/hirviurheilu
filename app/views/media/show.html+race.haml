@@ -16,7 +16,6 @@
     - results << series_results
 %h3= t '.report'
 .info= t '.result_info'
-.section
-  = results.join(' ')
+= results.join(' ')
 %hr
 = link_to t(:back_to_race_home_page), race_path(@race), class: 'button button--back'

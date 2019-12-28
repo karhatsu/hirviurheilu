@@ -22,12 +22,11 @@
     - series_results << '.'
     - results << series_results
 %h3= t '.report'
-.section
-  - if results.empty?
-    = t '.results_not_available'
-  - else
-    .info= t '.result_info'
-    = render partial: 'cups/points_rule', locals: {cup: @cup}
-    = results.join(' ')
+- if results.empty?
+  = t '.results_not_available'
+- else
+  .info= t '.result_info'
+  = render partial: 'cups/points_rule', locals: {cup: @cup}
+  = results.join(' ')
 %hr
 = link_to t(:back_to_cup_page), race_path(@cup), class: 'button button--back'
