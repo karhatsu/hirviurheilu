@@ -12,5 +12,4 @@
   = render :partial => 'form', :locals => { :show_cancel => false }
   - unless @competitors.empty?
     %h2 Lisätyt kilpailijat (#{@competitors.count})
-    #all_competitors.section
-      = render :partial => 'competitors_table'
+    #all_competitors= render partial: 'competitors'

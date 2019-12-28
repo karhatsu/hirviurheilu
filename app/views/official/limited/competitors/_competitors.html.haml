@@ -1,0 +1,17 @@
+.row
+  - @competitors.select{|c| !c.new_record?}.each do |competitor|
+    .col-xs-12.col-sm-6.col-md-4
+      .card
+        .card__middle
+          .card__name= full_name competitor
+          .card__middle-1
+            = competitor.club.name
+            - if competitor.team_name
+              (#{competitor.team_name})
+          .card__middle-2
+            = competitor.series.name
+            = competitor.age_group ? '/' + competitor.age_group.name : ''
+        .card__buttons
+          = link_to t(:edit), edit_official_limited_race_competitor_path(@race, competitor), class: 'button'
+          = link_to 'Poista', official_limited_race_competitor_path(@race, competitor),
+            data: { confirm: "Haluatko varmasti poistaa tämän kilpailijan?" }, method: :delete, class: 'button button--danger'
