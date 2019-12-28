@@ -1,48 +1,47 @@
 - competitor_style = pdf ? '' : 'display: none;'
-.section
-  %table
-    %tr
-      %th &nbsp;
-      %th= t :team
-      %th= t :number_short
-      %th.center= time_title @race
+%table.results-table
+  %tr
+    %th &nbsp;
+    %th= t :team
+    %th= t :number_short
+    %th.center= time_title @race
+    - unless params[:exclude_competitors]
+      %th.center.competitor_row{style: competitor_style}= t :leg_time
+    %th= t 'relays.show.estimate_penalties'
+    %th= t 'relays.show.shooting_penalties'
+  - relay.results.each_with_index do |team, i|
+    %tr{id: "team_#{i + 1}"}
+      %td
+        %b #{i + 1}.
+      %td.team_name= team.name
+      %td.center
+        %b= team.number
+      %td.center.team_points
+        - if team.no_result_reason
+          = no_result_reason_print(team.no_result_reason, 'relay_team')
+        - else
+          = relay_time_print relay, team
+          = relay_time_adjustment_print team
       - unless params[:exclude_competitors]
-        %th.center.competitor_row{style: competitor_style}= t :leg_time
-      %th= t 'relays.show.estimate_penalties'
-      %th= t 'relays.show.shooting_penalties'
-    - relay.results.each_with_index do |team, i|
-      %tr{id: "team_#{i + 1}"}
-        %td
-          %b #{i + 1}.
-        %td.team_name= team.name
-        %td.center
-          %b= team.number
-        %td.center.team_points
-          - if team.no_result_reason
-            = no_result_reason_print(team.no_result_reason, 'relay_team')
-          - else
-            = relay_time_print relay, team
-            = relay_time_adjustment_print team
-        - unless params[:exclude_competitors]
-          %td.competitor_row{style: competitor_style}
-        %td.center
-          %b= team.estimate_penalties_sum
-        %td.center
-          %b= team.shoot_penalties_sum
-        %td{colspan: 2} &nbsp;
-      - unless params[:exclude_competitors]
-        - team.relay_competitors.each do |comp|
-          %tr.competitor_row{style: competitor_style}
-            %td &nbsp;
-            %td= full_name(comp)
-            %td.center (#{comp.leg})
-            %td.center
-              = relay_time_print relay, team, comp.leg
-              = relay_time_adjustment_print comp
-            %td.center
-              = relay_leg_time_print relay, comp
-            %td.center
-              = comp.estimate_penalties
-              - if relay.finished? and comp.estimate
-                (#{comp.estimate}m)
-            %td.center= comp.misses
+        %td.competitor_row{style: competitor_style}
+      %td.center
+        %b= team.estimate_penalties_sum
+      %td.center
+        %b= team.shoot_penalties_sum
+      %td{colspan: 2} &nbsp;
+    - unless params[:exclude_competitors]
+      - team.relay_competitors.each do |comp|
+        %tr.competitor_row{style: competitor_style}
+          %td &nbsp;
+          %td= full_name(comp)
+          %td.center (#{comp.leg})
+          %td.center
+            = relay_time_print relay, team, comp.leg
+            = relay_time_adjustment_print comp
+          %td.center
+            = relay_leg_time_print relay, comp
+          %td.center
+            = comp.estimate_penalties
+            - if relay.finished? and comp.estimate
+              (#{comp.estimate}m)
+          %td.center= comp.misses

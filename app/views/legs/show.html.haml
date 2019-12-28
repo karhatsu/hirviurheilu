@@ -15,7 +15,6 @@
     = render 'relays/correct_estimates'
     = render 'relays/results_title'
     = render 'relays/leg_links'
-    .section
-      = render partial: 'table'
+    = render partial: 'table'
 %hr
 = link_to "#{t(:back_to_page)} #{@relay.race.name}", race_path(@relay.race), class: 'button button--back'

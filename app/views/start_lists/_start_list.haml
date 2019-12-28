@@ -1,5 +1,5 @@
 - show_team_name = competitors.any? {|c| !c.team_name.blank?}
-%table
+%table.results-table
   %tr
     %th= t :number_short
     %th= t 'activerecord.models.competitor', count: 1

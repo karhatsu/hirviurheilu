@@ -6,8 +6,7 @@
   = render :partial => 'menus/cup_series_sub_menu'
 .info= render partial: 'cups/points_rule', locals: {cup: @cup}
 .cup_results
-  .section
-    = render :partial => 'cup_series_results', locals: {cup_series: @cup_series}
+  = render partial: 'cup_series_results', locals: {cup_series: @cup_series}
 %hr
 = link_to t(:back_to_cup_page), cup_path(@cup), class: 'button button--back'
 = link_to t(:download_results_pdf), cup_cup_series_path(@cup, @cup_series, format: :pdf), class: 'button'

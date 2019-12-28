@@ -16,9 +16,10 @@
   - if results.empty?
     .info= t '.cannot_calculate_results'
   - else
-    %a#show_all_competitors{href: "javascript:void(0)"}= t :show_all_competitors
-    %a#hide_all_competitors{href: "javascript:void(0)", style: 'display:none;'}= t :hide_all_competitors
-    = render :partial => 'results_table', :locals => { :results => results }
+    .buttons
+      %a#show_all_competitors.button{href: "javascript:void(0)"}= t :show_all_competitors
+      %a#hide_all_competitors.button{href: "javascript:void(0)", style: 'display:none;'}= t :hide_all_competitors
+    = render partial: 'results_table', locals: { results: results }
   %hr
   = link_to "#{t(:back_to_page)} #{@race.name}", race_path(@race), class: 'button button--back'
   - unless results.empty?
