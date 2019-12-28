@@ -107,7 +107,7 @@ Feature: Official only adding competitors
     And I have limited rights to add competitors to the club "My club" in the race
     And I have logged in
     When I go to the limited official competitors page for "Limited race"
-    And I follow "Turunen Teppo"
+    And I follow "Muokkaa" within ".card__buttons"
     Then the "Etunimi" field should contain "Teppo"
     And the "Sukunimi" field should contain "Turunen"
     When I fill in "" for "Etunimi"

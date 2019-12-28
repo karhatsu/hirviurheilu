@@ -18,12 +18,12 @@ Feature: Official invitation
     Then I should be on the invite officials page for "Test race"
     And the official main menu item should be selected
     And the "Toimitsijat" sub menu item should be selected
-    And current officials table row 1 should contain "Thomas Tim" with full rights
+    And current officials card 1 should contain "Thomas Tim" with full rights
     When I fill in "Another@Official.COM" for "Sähköposti"
     And I press "Lähetä kutsu"
     Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi" in a success message
-    And current officials table row 1 should contain "Official Another" with full rights
-    And current officials table row 2 should contain "Thomas Tim" with full rights
+    And current officials card 1 should contain "Official Another" with full rights
+    And current officials card 2 should contain "Thomas Tim" with full rights
     And "another@official.com" should receive an email with subject "Kutsu kilpailun Test race toimitsijaksi"
     When I logout
     And "another@official.com" opens the email
@@ -74,7 +74,7 @@ Feature: Official invitation
     And I check "Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita"
     And I press "Lähetä kutsu"
     Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi rajoitetuin oikeuksin" in a success message
-    And current officials table row 1 should contain "Official Another" with limited rights to all clubs
+    And current officials card 1 should contain "Official Another" with limited rights to all clubs
     And "another@official.com" should receive an email with subject "Kilpailun Test race kilpailijoiden lisäyspyyntö"
     When I logout
     And "another@official.com" opens the email
@@ -103,7 +103,7 @@ Feature: Official invitation
     And I select "Club 2" from "Salli kilpailijoiden lisäys vain tiettyyn piiriin/seuraan"
     And I press "Lähetä kutsu"
     Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi rajoitetuin oikeuksin" in a success message
-    And current officials table row 1 should contain "Official Another" with limited rights to club "Club 2"
+    And current officials card 1 should contain "Official Another" with limited rights to club "Club 2"
 
   @javascript
   Scenario: If no clubs, official sees explicitly that club limitation cannot be used
@@ -130,7 +130,7 @@ Feature: Official invitation
     And I check "Salli uusien piirien/seurojen lisäys"
     And I press "Lähetä kutsu"
     Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi rajoitetuin oikeuksin" in a success message
-    And current officials table row 1 should contain "Official Another" with limited rights to club "Lisäys sallittu"
+    And current officials card 1 should contain "Official Another" with limited rights to club "Lisäys sallittu"
 
   Scenario: Official cannot delete herself from the race
     Given I am an official
@@ -155,7 +155,7 @@ Feature: Official invitation
     And I have invited "Another" "Official" to the race
     And I have logged in
     And I am on the invite officials page for "Test race"
-    Then current officials table row 1 should contain "Official Another" with full rights
+    Then current officials card 1 should contain "Official Another" with full rights
     When I follow "Peruuta kutsu"
     Then I should be on the invite officials page for "Test race"
     And I should see "Another Official ei ole enää kilpailun toimitsija" in a success message

@@ -5,35 +5,29 @@
 .info Henkilön täytyy olla rekisteröitynyt palveluun omalla sähköpostiosoitteellaan.
 = render partial: 'form', locals: {edit: false, submit_label: 'Lähetä kutsu'}
 %h2 Kilpailun toimitsijat
-#current_officials.section
-  %table
-    %tr
-      %th Nimi
-      %th Vain kilpailijat
-      %th= club_title(@race)
-      %th &nbsp;
-    - @race.race_rights.select{|rr| !rr.new_record?}.sort {|rr1, rr2| rr1.user.last_name.upcase <=> rr2.user.last_name.upcase}.each do |rr|
-      %tr
-        %td
-          = full_name(rr.user)
-          (#{link_to rr.user.email, "mailto:#{rr.user.email}"})
-        %td.center= yes_or_empty(rr.only_add_competitors?)
-        %td
-          - if rr.new_clubs?
-            Lisäys sallittu
-          - elsif rr.club
-            = rr.club.name
-          - elsif rr.only_add_competitors?
-            Kaikki nykyiset
-          - else
-            &nbsp;
-        - if rr.user == current_user || rr.primary?
-          %td &nbsp;
-          %td &nbsp;
-        - else
-          %td= link_to 'Muokkaa oikeuksia', edit_official_race_race_right_path(@race, rr)
-          %td= link_to 'Peruuta kutsu', official_race_race_right_path(@race, rr),
+#current_officials.row
+  - @race.race_rights.select{|rr| !rr.new_record?}.sort {|rr1, rr2| rr1.user.last_name.upcase <=> rr2.user.last_name.upcase}.each do |rr|
+    .col-xs-12.col-sm-6
+      .card
+        .card__middle
+          .card__name= full_name rr.user
+          .card__middle-1= link_to rr.user.email, "mailto:#{rr.user.email}"
+          .card__middle-2
+            - if rr.only_add_competitors?
+              #{clubs_title(@race)}:
+              - if rr.new_clubs?
+                Lisäys sallittu
+              - elsif rr.club
+                = rr.club.name
+              - else
+                Kaikki nykyiset
+            - else
+              Täydet oikeudet
+        - unless rr.user == current_user || rr.primary?
+          .card__buttons
+            = link_to 'Muokkaa oikeuksia', edit_official_race_race_right_path(@race, rr), class: 'button'
+            = link_to 'Peruuta kutsu', official_race_race_right_path(@race, rr),
               data: { confirm: "Haluatko varmasti poistaa käyttäjän toimitsijaoikeudet tähän kilpailuun?" },
-              method: :delete
+              method: :delete, class: 'button button--danger'
 %hr
 = link_to 'Takaisin Yhteenveto-sivulle', official_race_path(@race), class: 'button button--back'
