@@ -143,6 +143,6 @@ Feature: Show race
     And the race belongs to the cup
     And I am on the race page
     Then I should see "Cup-kilpailu"
-    And I should see "Test cup" within ".button:first-of-type"
+    And I should see "Test cup"
     When I follow "Test cup"
     Then I should be on the cup page of "Test cup"
