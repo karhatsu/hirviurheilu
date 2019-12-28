@@ -21,6 +21,10 @@ class CorrectEstimate < ApplicationRecord
         race.id, number, number, nil]).first
   end
 
+  def distances
+    [distance1, distance2, distance3, distance4].select {|d| !d.blank?}
+  end
+
   private
   def overlapping_numbers
     return unless min_number and race

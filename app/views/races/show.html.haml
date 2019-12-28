@@ -39,6 +39,15 @@
       .form__fields--horizontal
         .form__field= select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: "#{t :all} #{clubs_title(@race).downcase}"
         .form__buttons= submit_tag t('.download_start_times'), class: 'button'
+  - if @race.finished?
+    %h3= t :correct_distances
+    .row
+      - @race.correct_estimates.each do |ce|
+        .col-xs-6.col-sm-4.col-md-3.col-lg-2
+          .card
+            .card__middle
+              .card__name= correct_estimate_range ce
+              .card__middle-1= ce.distances.map{|d| "#{d} m"}.join(', ')
 - if @race.has_team_competition? && @race.start_date <= Time.zone.today && !@race.series.empty?
   %h2= t 'activerecord.models.team_competition', :count => @race.team_competitions.count
   - if @race.team_competitions.count == 1
