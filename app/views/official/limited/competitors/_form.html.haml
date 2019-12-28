@@ -19,12 +19,12 @@
     - if @race_right.club
       %label= club_title(@race)
       = @race_right.club.name
-    - elsif @race_right.new_clubs?
+    - elsif @race_right.new_clubs? && @competitor.new_record?
       = label_tag :club_name, club_title(@race)
       = text_field_tag :club_name, params[:club_name]
     - else
       = f.label :club_id, club_title(@race)
-      = f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name)
+      = f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name, @competitor.club_id)
   .form__field
     - if @race.has_team_competitions_with_team_names?
       = f.label :team_name
