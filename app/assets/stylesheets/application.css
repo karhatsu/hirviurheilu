@@ -2,6 +2,7 @@
  *= require jquery-ui/dialog
  *= require jquery-ui/ui-lightness
  *= require fonts
+ *= require titles
  *= require buttons
  *= require form
  *= require results-table
