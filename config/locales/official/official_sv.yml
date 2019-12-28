@@ -148,8 +148,8 @@ sv:
       all_team_competitions: Alla lagtävlingar
       index:
         title: Lagtävlingar
+        competitors_per_team: "%{competitors} tävlar / lag"
         add_team_competition: Öka lagtävling
-        remove_team_competition: Radera lagtävlingen
         remove_team_competition_confirm: Är du säker att du vill radera den här lagtävlingen?
       new:
         title: Ny lagtävling

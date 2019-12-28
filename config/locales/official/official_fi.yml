@@ -149,8 +149,8 @@ fi:
       all_team_competitions: Kaikki joukkuekilpailut
       index:
         title: Joukkuekilpailut
+        competitors_per_team: "%{competitors} kilpailijaa / joukkue"
         add_team_competition: Lisää joukkuekilpailu
-        remove_team_competition: Poista joukkuekilpailu
         remove_team_competition_confirm: Haluatko varmasti poistaa tämän joukkuekilpailun?
       new:
         title: Uusi joukkuekilpailu
