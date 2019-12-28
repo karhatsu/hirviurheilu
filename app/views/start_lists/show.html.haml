@@ -8,8 +8,6 @@
 = render partial: "competitors/start_notice", locals: { series: @series }
 - if @series.start_list.empty?
   .info= t '.no_competitors_or_start_times'
-  - if official_rights
-    %div= link_to "Lisää kilpailijoita", new_official_series_competitor_path(@series)
 - else
   - cache [@series, I18n.locale] do
     = render partial: 'start_list', locals: { competitors: @series.start_list.includes(:club, :age_group), race: @series.race }
