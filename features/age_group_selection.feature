@@ -61,6 +61,6 @@ Feature: Age group selection
     Then I should be on the limited official competitors page for "Ikäkisa"
     And "S15" should be selected in the series menu
     And "P15" should be selected in the age group menu
-    When I follow "Majala Matti"
+    When I follow "Muokkaa"
     Then the age group menu should not be hidden
     And "P15" should be selected in the age group menu
