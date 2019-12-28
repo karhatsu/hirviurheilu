@@ -1,5 +1,5 @@
 #district_menu
   = form_tag '/', method: :get, class: 'form' do
-    .form__fields--horizontal
+    .form__horizontal-fields
       .form__field= select_tag :district_id, options_from_collection_for_select(District.all, :id, :name, params[:district_id]), prompt: 'Kaikki piirit'
       .form__buttons= submit_tag 'Valitse piiri', class: 'button button--primary'

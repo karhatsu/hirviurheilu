@@ -15,7 +15,7 @@
                 - if four_estimates
                   = hidden_field_tag 'competitor[old_values[estimate3]]', competitor.estimate3, id: "old_3_#{competitor.id}"
                   = hidden_field_tag 'competitor[old_values[estimate4]]', competitor.estimate4, id: "old_4_#{competitor.id}"
-                .form__fields--horizontal
+                .form__horizontal-fields
                   .form__field-prefix #1
                   .form__field.form__field--sm
                     = f.number_field :estimate1, maxlength: 3

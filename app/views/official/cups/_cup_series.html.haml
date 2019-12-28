@@ -1,4 +1,4 @@
-.form__fields--horizontal
+.form__horizontal-fields
   .form__field.form__field--md
     = f.label :name
     = f.text_field :name
@@ -6,4 +6,4 @@
     = f.label :series_names
     = f.text_field :series_names
   .form__buttons
-    = remove_child_link 'Poista cup-sarja', f, 'form__fields--horizontal', nil, 'button button--danger'
+    = remove_child_link 'Poista cup-sarja', f, 'form__horizontal-fields', nil, 'button button--danger'

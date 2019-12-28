@@ -1,4 +1,4 @@
-.form__fields--horizontal
+.form__horizontal-fields
   = f.fields_for :relay_correct_estimates do |correct_form|
     = render partial: 'relay_correct_estimate', locals: { f: correct_form }
   - (@relay.legs_count - @relay.relay_correct_estimates.length).times do |i|

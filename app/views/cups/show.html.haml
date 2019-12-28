@@ -17,7 +17,7 @@
 - unless @cup.cup_series.empty? || mobile?
   %h2= t 'races.show.all_results_pdf'
   = form_tag(cup_path(@cup, format: :pdf), method: :get, class: 'form') do
-    .form__fields--horizontal
+    .form__horizontal-fields
       .form__field
         = check_box_tag :page_breaks
         = label_tag :page_breaks, t('races.show.page_breaks')

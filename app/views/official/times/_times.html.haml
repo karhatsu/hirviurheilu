@@ -8,7 +8,7 @@
           - unless competitor.no_result_reason
             .card__middle-1
               = form_for([:official, @series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "times_form_#{competitor.id}", class: 'form form--inline' }) do |f|
-                .form__fields--horizontal
+                .form__horizontal-fields
                   .form__field.form__field--sm
                     = f.text_field :start_time, value: time_print(f.object.start_time, true, '')
                   .card__sub-result.card__sub-result--time.form__field.form__field--sm

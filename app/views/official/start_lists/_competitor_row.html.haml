@@ -2,7 +2,7 @@
 %div.competitor_row{id: "competitor_#{id}"}
   - club_name = c.club.name if c.club
   = form_for([:official, parent, c], remote: true, class: 'form', namespace: "competitor_#{id}") do |f|
-    .form__fields--horizontal
+    .form__horizontal-fields
       - unless c.new_record?
         = hidden_field_tag '_method', :put, id: "method_#{id}"
       = hidden_field_tag :start_list, true, id: "start_list_#{id}"

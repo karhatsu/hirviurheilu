@@ -1,4 +1,4 @@
-.form__fields--horizontal
+.form__horizontal-fields
   .form__field.form__field--xs
     = f.label :min_number, t('official.correct_estimates.index.start_numbers')
     = f.number_field :min_number, maxlength: 4
@@ -18,4 +18,4 @@
     .form__field.form__field--xs
       = f.label :distance4
       = f.number_field :distance4, maxlength: 3
-  = remove_child_link t(:remove), f, 'form__fields--horizontal', '', 'button button--danger'
+  = remove_child_link t(:remove), f, 'form__horizontal-fields', '', 'button button--danger'

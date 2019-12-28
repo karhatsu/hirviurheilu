@@ -2,7 +2,7 @@
 .success{id: "#{name}_success", style: "display:none;"}
 .error{id: "#{name}_error", style: "display:none;"}
 = form_tag(path, remote: true, onsubmit: "show_spinner('#{name}')", id: "#{name}_quick_save_form", class: 'form') do
-  .form__fields--horizontal
+  .form__horizontal-fields
     .form__field
       = telephone_field_tag :string, '', id: "#{name}_string"
     .form__buttons

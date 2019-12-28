@@ -36,7 +36,7 @@
   - unless @race.finished? || @race.competitors.empty? || mobile?
     %h3= t '.start_lists_for_all_series_pdf'
     = form_tag(race_start_lists_path(@race, format: :pdf), method: :get, class: 'form') do
-      .form__fields--horizontal
+      .form__horizontal-fields
         .form__field= select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: "#{t :all} #{clubs_title(@race).downcase}"
         .form__buttons= submit_tag t('.download_start_times'), class: 'button'
   - if @race.finished?
@@ -65,7 +65,7 @@
 - unless mobile? || @race.start_date > Date.today || @race.series.empty?
   %h2= t '.all_results_pdf'
   = form_tag(race_path(@race, format: :pdf), method: :get, class: 'form') do
-    .form__fields--horizontal
+    .form__horizontal-fields
       .form__field
         = select_tag :club_id,
           options_from_collection_for_select(@race.clubs, :id, :name),

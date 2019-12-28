@@ -115,7 +115,7 @@ textarea {
   }
 }
 
-.form__fields--horizontal {
+.form__horizontal-fields {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -156,7 +156,7 @@ textarea {
   margin-bottom: 16px;
   padding: 8px;
 
-  .form__fields--horizontal:first-of-type {
+  .form__horizontal-fields:first-of-type {
     margin-top: 0;
   }
 
@@ -174,7 +174,7 @@ textarea {
 }
 
 .card {
-  .form__fields--horizontal {
+  .form__horizontal-fields {
     margin-top: 0;
   }
 }
