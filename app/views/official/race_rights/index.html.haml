@@ -25,7 +25,7 @@
               Täydet oikeudet
         - unless rr.user == current_user || rr.primary?
           .card__buttons
-            = link_to 'Muokkaa oikeuksia', edit_official_race_race_right_path(@race, rr), class: 'button'
+            = link_to 'Muokkaa oikeuksia', edit_official_race_race_right_path(@race, rr), class: 'button button--edit'
             = link_to 'Peruuta kutsu', official_race_race_right_path(@race, rr),
               data: { confirm: "Haluatko varmasti poistaa käyttäjän toimitsijaoikeudet tähän kilpailuun?" },
               method: :delete, class: 'button button--danger'

@@ -48,7 +48,7 @@
     = f.fields_for :cup_series do |cs_form|
       = render partial: "cup_series", locals: { f: cs_form }
     .form__buttons
-      = add_child_link "Lisää uusi cup-sarja", f, :cup_series, nil, 'button'
+      = add_child_link "Lisää uusi cup-sarja", f, :cup_series, nil, 'button button--add'
   .form__buttons
     = submit_tag submit_label, class: 'button button--primary'
 :javascript

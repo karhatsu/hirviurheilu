@@ -53,7 +53,7 @@
     - else
       = f.fields_for :relay_teams do |team_form|
         = render partial: "relay_team", locals: { f: team_form }
-    = add_child_link t('official.relays.form.add_new_team'), f, :relay_teams, nil, 'button'
+    = add_child_link t('official.relays.form.add_new_team'), f, :relay_teams, nil, 'button button--add'
   .form__buttons
     = submit_tag t(:save), class: 'button button--primary'
 

@@ -49,6 +49,10 @@
     border: 1px solid #CC3300;
     color: #CC3300;
 
+    &::before {
+      content: 'clear';
+    }
+
     &:hover {
       background: #CC3300;
       color: #fff;
@@ -61,10 +65,26 @@
     cursor: default;
   }
 
-  &--back::before {
+  &--add::before, &--back::before, &--danger::before, &--edit::before, &--pdf::before {
     font-family: 'Material Icons';
     font-size: 9px;
+    margin-right: 2px;
+  }
+
+  &--add::before {
+    content: 'add';
+  }
+
+  &--back::before {
     content: 'chevron_left';
+  }
+
+  &--edit::before {
+    content: 'create';
+  }
+
+  &--pdf::before {
+    content: 'print';
   }
 
   &--below-sub-form {

@@ -38,7 +38,7 @@
     = form_tag(race_start_lists_path(@race, format: :pdf), method: :get, class: 'form') do
       .form__horizontal-fields
         .form__field= select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: "#{t :all} #{clubs_title(@race).downcase}"
-        .form__buttons= submit_tag t('.download_start_times'), class: 'button'
+        .form__buttons= submit_tag t('.download_start_times'), class: 'button button--pdf'
   - if @race.finished?
     %h3= t :correct_distances
     .row
@@ -74,7 +74,7 @@
         = check_box_tag :page_breaks
         = label_tag :page_breaks, t('.page_breaks')
       .form__buttons
-        = submit_tag t('.download_all_results'), class: 'button button--primary'
+        = submit_tag t('.download_all_results'), class: 'button button--pdf'
 - unless @race.cups.empty?
   %h2= t 'activerecord.models.cup', :count => 1
   - @race.cups.each do |cup|

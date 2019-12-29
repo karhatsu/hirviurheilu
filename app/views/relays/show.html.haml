@@ -24,9 +24,9 @@
     = render :partial => 'results', :locals => { :relay => @relay, :pdf => false }
 .buttons
   - unless @results.empty? || !@relay.start_time
-    = link_to t('.download_start_list_pdf'), race_relay_start_list_path(@relay.race, @relay, format: :pdf), class: 'button'
-    = link_to t(:download_results_pdf_without_competitors), race_relay_path(@relay.race, @relay, exclude_competitors: true, format: 'pdf'), class: 'button'
-    = link_to t(:download_results_pdf_with_competitors), race_relay_path(@relay.race, @relay, format: 'pdf'), class: 'button'
+    = link_to t('.download_start_list_pdf'), race_relay_start_list_path(@relay.race, @relay, format: :pdf), class: 'button button--pdf'
+    = link_to t(:download_results_pdf_without_competitors), race_relay_path(@relay.race, @relay, exclude_competitors: true, format: 'pdf'), class: 'button button--pdf'
+    = link_to t(:download_results_pdf_with_competitors), race_relay_path(@relay.race, @relay, format: 'pdf'), class: 'button button--pdf'
 .buttons.buttons--nav
   = link_to "#{t(:back_to_page)} #{@race.name}", race_path(@relay.race), class: 'button button--back'
 :javascript

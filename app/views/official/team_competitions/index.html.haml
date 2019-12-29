@@ -12,10 +12,10 @@
             .card__middle-1= t '.competitors_per_team', competitors: tc.team_competitor_count
             .card__middle-2= ((tc.series.map &:name) + (tc.age_groups.map &:name)).join(', ')
           .card__buttons
-            = link_to t(:edit), edit_official_race_team_competition_path(@race, tc), class: 'button'
+            = link_to t(:edit), edit_official_race_team_competition_path(@race, tc), class: 'button button--edit'
             = link_to t(:remove),
               official_race_team_competition_path(@race, tc), method: :delete,
               data: { confirm: t('.remove_team_competition_confirm') }, class: 'button button--danger'
-= link_to t('.add_team_competition'), new_official_race_team_competition_path(@race), class: 'button'
+= link_to t('.add_team_competition'), new_official_race_team_competition_path(@race), class: 'button button--add'
 .buttons.buttons--nav
   = link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'

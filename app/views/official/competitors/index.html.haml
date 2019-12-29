@@ -46,9 +46,9 @@
   = render partial: 'official/competitors/table', locals: { series: @series, result_column: true, remove_column: true }
 .buttons
   - add_title = @series.competitors.empty? ? t('.add_competitor') : t('.add_new_competitor')
-  = link_to add_title, new_official_series_competitor_path(@series), class: 'button'
+  = link_to add_title, new_official_series_competitor_path(@series), class: 'button button--add'
   - if @series.has_start_list?
-    = link_to t(:download_start_list_pdf), series_start_list_path(@series, :format => 'pdf'), class: 'button'
+    = link_to t(:download_start_list_pdf), series_start_list_path(@series, format: 'pdf'), class: 'button button--pdf'
   = link_to t('official.add_competitors_from_csv_file'), new_official_race_csv_import_path(@series.race), class: 'button'
 .buttons.buttons--nav
   = link_to t(:back_to_official_race_page), official_race_path(@series.race), class: 'button button--back'
