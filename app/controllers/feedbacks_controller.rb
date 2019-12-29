@@ -30,7 +30,7 @@ class FeedbacksController < ApplicationController
   def set_is_feedback
     @is_feedback = true
   end
-  
+
   def set_races
     @races = Race.where('start_date>?', Date.today - 14.days).order('start_date')
   end
@@ -41,7 +41,7 @@ class FeedbacksController < ApplicationController
     @email = params[:email]
     @tel = params[:tel]
     @race_id = params[:race_id]
-    @captcha = params[:captcha]
+    @captcha = params[:captcha].strip
   end
 
   def validate_feedback?

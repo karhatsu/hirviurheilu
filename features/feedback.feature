@@ -15,7 +15,7 @@ Feature: Feedback
       | Puhelin    | 123 456           |
     When I press "Lähetä"
     Then I should see "Tarkastuskysymys meni väärin."
-    When I fill in "neljä" for "captcha"
+    When I fill in "neljä " for "captcha"
     And I press "Lähetä"
     Then I should see "Kiitos palautteesta"
     And the admin should receive an email
