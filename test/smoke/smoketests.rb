@@ -74,7 +74,7 @@ open_page(link_to_race)
 link_to_results = find_link "//a[@class='button button--primary'][1]"
 
 open_page(link_to_results)
-link_to_pdf = find_link "//div[@class='action_box']/a", 'Lataa tulokset PDF-tiedostona'
+link_to_pdf = find_link "//div[@class='buttons']//a[@class='button'][1]", 'Lataa tulokset PDF-tiedostona'
 verify_http_status link_to_pdf
 
 puts "--- ALL SMOKE TESTS PASSED FOR #{@url} ---"
