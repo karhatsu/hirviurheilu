@@ -1,6 +1,0 @@
-- if @relay.started? && !@relay.finished?
-  .info= t :competition_unfinished_detailed_estimates_later
-- elsif @relay.finished?
-  %h3= t :correct_distances
-  - @relay.relay_correct_estimates.each do |ce|
-    #{t :leg} #{ce.leg}: #{ce.distance} m

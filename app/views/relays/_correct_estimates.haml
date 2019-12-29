@@ -2,5 +2,10 @@
   .info= t :competition_unfinished_detailed_estimates_later
 - elsif @relay.finished?
   %h3= t :correct_distances
-  - @relay.relay_correct_estimates.each do |ce|
-    #{t :leg} #{ce.leg}: #{ce.distance} m
+  .row
+    - @relay.relay_correct_estimates.each do |ce|
+      .col-xs-4.col-sm-3.col-md-2
+        .card
+          .card__middle
+            .card__name #{t :leg} #{ce.leg}
+            .card__middle-1 #{ce.distance} m

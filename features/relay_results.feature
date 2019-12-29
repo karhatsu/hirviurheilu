@@ -152,8 +152,10 @@ Feature: Relay results
     Then I should see "Men's relay - Tulokset"
     But I should not see "Kilpailu on kesken"
     But I should see "Oikeat etäisyydet"
-    And I should see "Osuus 1: 105 m"
-    And I should see "Osuus 2: 88 m"
+    And I should see "Osuus 1"
+    And I should see "105 m"
+    And I should see "Osuus 2"
+    And I should see "88 m"
     When I follow "Osuus 2"
     Then the "Kilpailut" main menu item should be selected
     And the "Viestit" sub menu item should be selected
