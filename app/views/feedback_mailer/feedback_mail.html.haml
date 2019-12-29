@@ -4,7 +4,7 @@ Sähköposti: #{@email}
 %br
 Puhelin: #{@tel}
 %br
-Ympäristö: #{Rails.env}
+Ympäristö: #{ProductionEnvironment.name}
 %br
 Käyttäjä: #{@current_user ? @current_user.relevant_attributes : '-'}
 %br
