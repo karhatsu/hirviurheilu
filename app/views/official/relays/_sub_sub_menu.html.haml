@@ -1,5 +1,6 @@
 - content_for :sub_sub_menu do
-  .menu.sub_menu
-    = menu_item t('official.relays.all_relays'), official_race_relays_path(@race), relay_id.nil?
-    - @race.relays.each do |relay|
-      = menu_item relay.name, edit_official_race_relay_path(relay.race, relay), relay.id == relay_id unless relay.new_record?
+  - if @relay && !@relay.new_record?
+    .menu.sub_menu
+      = menu_item t('official.relays.sub_menu.main'), edit_official_race_relay_path(@relay.race_id, @relay), @relay_main
+      = menu_item t('official.relays.sub_menu.results'), official_relay_relay_quick_saves_path(@relay), @relay_quick_save
+      = menu_item t('official.relays.sub_menu.finish'), new_official_relay_finish_relay_path(@relay), @relay_finish

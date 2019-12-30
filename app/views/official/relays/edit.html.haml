@@ -1,6 +1,9 @@
 - content_for :title, "#{@race.name} - #{@relay.name} - #{t '.title'}"
-- render partial: 'sub_sub_menu', locals: { relay_id: @relay.id }
+- render partial: 'sub_sub_menu'
 %h2= yield :title
 = render :partial => 'form'
 .buttons.buttons--nav
   = link_to t(:back_to_official_relays_page), official_race_relays_path(@race), class: 'button button--back'
+  - if @relay.relay_teams.empty?
+    = link_to t('.remove_relay'), official_race_relay_path(@relay.race_id, @relay), method: :delete,
+      data: { confirm: t('.remove_relay_confirm') }, class: 'button button--danger'

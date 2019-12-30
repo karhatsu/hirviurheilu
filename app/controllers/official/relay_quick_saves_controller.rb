@@ -1,5 +1,5 @@
 class Official::RelayQuickSavesController < Official::OfficialController
-  before_action :assign_relay_by_relay_id, :check_assigned_relay, :set_relays
+  before_action :assign_relay_by_relay_id, :check_assigned_relay, :set_relays, :set_relay_quick_save
 
   def index
     @race = @relay.race
@@ -48,6 +48,11 @@ class Official::RelayQuickSavesController < Official::OfficialController
   end
 
   private
+
+  def set_relay_quick_save
+    @relay_quick_save = true
+  end
+
   def do_quick_save(quick_save, &block)
     if quick_save.save
       @competitor = quick_save.competitor

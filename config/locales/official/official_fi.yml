@@ -211,26 +211,24 @@ fi:
         csv_file: CSV-tiedosto
         submit_button: Lataa kilpailijat tietokantaan
     relays:
-      all_relays: Kaikki viestit
+      sub_menu:
+        main: Perustiedot ja joukkueet
+        results: Tulosten tallennus
+        finish: Viestin päättäminen
       index:
         title: Viestit
         add_relay: Lisää viesti
-        teams: Joukkueita
-        add_new_team: Lisää uusi
-        set_start_time: Aseta lähtöaika
-        results: Tulokset
-        set_correct_estimates: Aseta
-        remove_relay: Poista viesti
-        remove_relay_confirm: Haluatko varmasti poistaa tämän viestin?
-        results_quick_save: Tulosten pikasyöttö
-        relay_finishing: Viestin päättäminen
-        finish_relay: Päätä tämä viesti
-        results_missing: Tuloksia puuttuu
+        teams:
+          one: "%{count} joukkue"
+          other: "%{count} joukkuetta"
+        add_new_team: Lisää uusi viesti
       new:
         title: Uusi viesti
         leg_count_warning: Huom! Osuuksien määrää ei voi muuttaa sen jälkeen, kun viesti on luotu.
       edit:
         title: Muokkaa viestin tietoja
+        remove_relay: Poista viesti
+        remove_relay_confirm: Haluatko varmasti poistaa tämän viestin?
       form:
         teams: Joukkueet
         no_teams_info: Et ole vielä lisännyt viestiin yhtään joukkuetta. Lisää joukkueita alla olevasta napista.

@@ -1,5 +1,5 @@
 class Official::FinishRelaysController < Official::OfficialController
-  before_action :assign_relay_by_relay_id, :check_assigned_relay, :set_relays
+  before_action :assign_relay_by_relay_id, :check_assigned_relay, :set_relays, :set_relay_finish
 
   def new
   end
@@ -11,5 +11,11 @@ class Official::FinishRelaysController < Official::OfficialController
     else
       render :new
     end
+  end
+
+  private
+
+  def set_relay_finish
+    @relay_finish = true
   end
 end

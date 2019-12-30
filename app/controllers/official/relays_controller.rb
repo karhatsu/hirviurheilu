@@ -3,6 +3,7 @@ class Official::RelaysController < Official::OfficialController
   before_action :assign_relay_by_id, :only => [:edit, :update, :destroy]
   before_action :handle_time_parameters, :only => [:create, :update]
   before_action :set_no_result_reason_options, :only => [:edit, :update]
+  before_action :set_relay_main, only: [:edit, :update, :destroy]
 
   def index
   end
@@ -34,7 +35,7 @@ class Official::RelaysController < Official::OfficialController
       redirect_to edit_official_race_relay_path(@race, @relay)
     elsif @relay.update(update_relay_params)
       flash[:success] = 'Viestin tiedot päivitetty'
-      redirect_to official_race_relays_path(@race)
+      redirect_to edit_official_race_relay_path(@race, @relay)
     else
       render :edit
     end
@@ -47,6 +48,11 @@ class Official::RelaysController < Official::OfficialController
   end
 
   private
+
+  def set_relay_main
+    @relay_main = true
+  end
+
   def set_no_result_reason_options
     @no_result_reason_options = [[t(:normal), '']]
     @no_result_reason_options << [RelayTeam::DNS, RelayTeam::DNS]

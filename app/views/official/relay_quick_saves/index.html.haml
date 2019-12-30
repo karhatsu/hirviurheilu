@@ -1,9 +1,8 @@
 - content_for :title, "Viesti - #{@relay.name} - Tulosten pikasyöttö"
-- render partial: 'official/relays/sub_sub_menu', locals: { relay_id: @relay.id }
+- render partial: 'official/relays/sub_sub_menu'
 %h2= yield :title
-.info Tällä sivulla voit tallentaa viestin tuloksia ns. pikasyöttöä käyttäen. Syöttämiseen tarvitset joukkueen numeron sekä kilpailijan osuuden numeron.
 - if @relay.relay_competitors.empty?
-  .info Kilpailuun ei ole lisätty yhtään kilpailijaa
+  .info Viestiin ei ole lisätty yhtään kilpailijaa
 - else
   %h3 Arviointi
   - instructions = 'Syötä tulos muodossa joukkue,osuus,arvio, esim. 11,3,118 (joukkue 11, osuus 3, arvio 118 metriä).'
@@ -33,4 +32,4 @@
     %h3 Viimeisimmät tallennukset
     %ul#latest_list
 .buttons.buttons--nav
-  = link_to 'Takaisin viestin etusivulle', official_race_relays_path(@relay.race), class: 'button button--back'
+  = link_to t(:back_to_official_relays_page), official_race_relays_path(@relay.race), class: 'button button--back'

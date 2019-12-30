@@ -44,7 +44,7 @@ Feature: Manage relays
     And the race has a relay "Test relay"
     And I have logged in
     And I am on the official relays page of "Relay race"
-    When I choose "Test relay" from third level menu
+    When I follow "Test relay"
     Then I should see "Muokkaa viestin tietoja"
     But I should not see "Huom! Osuuksien määrää"
     When I fill in "" for "Viestin nimi"
@@ -54,9 +54,10 @@ Feature: Manage relays
     And I select "08" from "relay_start_time_4i"
     And I select "12" from "relay_start_time_5i"
     And I press "Tallenna"
-    Then I should be on the official relays page of "Relay race"
+    Then I should be on the edit relay page of "New name"
     And I should see "Viestin tiedot päivitetty" in a success message
-    And I should see "New name"
+    When I follow "Takaisin viestien etusivulle"
+    Then I should see "New name"
     And I should see "08:12"
 
   Scenario: Relay results quick save
@@ -76,7 +77,8 @@ Feature: Manage relays
       | leg | 2 |
     And I have logged in
     And I am on the official relays page of "Relay race"
-    When I follow "Tulosten pikasyöttö"
+    When I follow "Test relay"
+    And I follow "Tulosten tallennus"
     Then the official main menu item should be selected
     And the "Viestit" sub menu item should be selected
     And I should see "Viesti - Test relay - Tulosten pikasyöttö" within "h2"
@@ -111,7 +113,9 @@ Feature: Manage relays
     Then I should not see "Päätä tämä viesti"
     Given the estimate for the relay competitor "John" "Stevenson" is 75
     And I go to the official relays page of "Relay race"
-    And I press "Päätä tämä viesti"
+    And I follow "Test relay"
+    And I follow "Viestin päättäminen"
+    And I press "Merkitse viesti päättyneeksi"
     Then I should be on the official relays page of "Relay race"
     And I should see "Viesti 'Test relay' merkitty päättyneeksi" in a success message
     When I go to the finish relay page of "Test relay"
@@ -138,7 +142,7 @@ Feature: Manage relays
       | leg | 2 |
     And I have logged in
     And I am on the official relays page of "Relay race"
-    And I follow "Test relay" within "table"
+    And I follow "Test relay"
     When someone else saves data for the relay
     And I fill in "1" for "relay_relay_teams_attributes_0_relay_competitors_attributes_0_misses"
     And I press "Tallenna"
