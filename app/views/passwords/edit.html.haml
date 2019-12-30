@@ -1,0 +1,15 @@
+- content_for(:title, t('users.edit.change_password'))
+- content_for(:page_title, yield(:title))
+%h1.mobile= yield :page_title
+= render partial: "shared/form_errors", locals: { item: @user }
+= form_for @user, url: passwords_path, method: :put, html: { class: 'form' } do |f|
+  .form__field
+    = f.label :password, t('users.edit.new_password')
+    = f.password_field :password
+  .form__field
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation
+  .form__buttons
+    = f.submit t(:save), class: 'button button--primary'
+.buttons.buttons--nav
+  = link_to t('users.edit.back_to_account_page'), account_path, class: 'button button--back'

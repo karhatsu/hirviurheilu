@@ -17,6 +17,8 @@ sv:
     edit:
       title: Redigera egna uppgifterna
       change_password: Växla lösenord
+      new_password: Nytt lösenord
       back_to_account_page: Tillbaka till egna uppgifter
     update:
       account_updated: Uppgifter updaterad
+      password_changed: Lösenord växlad

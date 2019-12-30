@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(new_user_params)
     if @user.save
       @user.add_official_rights
       NewUserMailer.new_user(@user).deliver_now
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
   def update
     @user = @current_user
-    if @user.update(user_params)
+    if @user.update(old_user_params)
       flash[:success] = t('users.update.account_updated')
       redirect_to account_url
     else
@@ -49,7 +49,11 @@ class UsersController < ApplicationController
     @is_start = true
   end
 
-  def user_params
+  def new_user_params
     params.require(:user).permit(:first_name, :last_name, :club_name, :email, :password, :password_confirmation)
+  end
+
+  def old_user_params
+    params.require(:user).permit(:first_name, :last_name, :club_name, :email)
   end
 end
