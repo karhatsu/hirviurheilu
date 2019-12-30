@@ -1,0 +1,50 @@
+- content_for :title, "#{@race.name} - #{clubs_title(@race)}"
+%h2#clubs_title= clubs_title(@race)
+- club_word = (@race.club_level == Race::CLUB_LEVEL_PIIRI ? 'piirejä' : 'seuroja')
+.info= t '.info', club_word: club_word
+%h2
+  = t :add
+  = club_title(@race).downcase
+#action_error
+= form_for([:official, @race, Club.new], remote: true, html: { class: 'form' }) do |f|
+  .form__field
+    = f.label :name, for: 'new_club_name'
+    = f.text_field :name, id: 'new_club_name'
+  .form__field
+    = f.label :long_name, for: 'new_club_long_name'
+    = f.text_field :long_name, id: 'new_club_long_name'
+    .form__field__info= t '.long_name_info'
+  .form__buttons
+    = submit_tag "#{t(:add)} #{club_title(@race).downcase}", id: 'submit', class: 'button button--primary'
+  %span#spinner
+- style = (@race.clubs.empty? ? 'display: none;' : '')
+- club_word = (@race.club_level == Race::CLUB_LEVEL_PIIRI ? 'piirin' : 'seuran')
+#current_clubs{style: style}
+  %h2
+    = t '.current'
+    = clubs_title(@race).downcase
+  .info= t '.edit_info', club_word: club_word
+  %table#clubs_table
+    %tr
+      %th= t 'attributes.name'
+      %th= t 'attributes.long_name'
+      %th= t '.competitors'
+      %th &nbsp;
+    - @race.clubs.each do |club|
+      = render partial: 'club_row', locals: { club: club }
+
+:javascript
+  $("#submit").click(function() {
+    $("#spinner").html('#{image_tag 'spinner.gif'}');
+  });
+  $("#clubs_table").on('click', '.club_name_link', function() {
+    $(this).hide();
+    $(this).next().show();
+  });
+  function cancel_edit(id, original_name) {
+    $('#club_name_form_' + id + ' #club_name').val(original_name);
+    $('#club_name_form_' + id).hide();
+    $('#club_name_link_' + id).show();
+  }
+.buttons.buttons--nav
+  = link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'
