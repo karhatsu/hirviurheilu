@@ -8,34 +8,30 @@ class Official::ClubsController < Official::OfficialController
     end
   end
 
+  def new
+    @club = @race.clubs.build
+  end
+
   def create
     @club = @race.clubs.build(club_params)
     if @club.save
-      respond_to do |format|
-        format.html { redirect_to(official_race_clubs_path(@race) )}
-        format.js { render :created }
-      end
+      redirect_to official_race_clubs_path(@race)
     else
-      respond_to do |format|
-        format.html { render :index }
-        format.js { render :created }
-      end
+      render :new
     end
+  end
+
+  def edit
+    @club = Club.find(params[:id])
   end
 
   def update
     @club = Club.find(params[:id])
     @club.update(club_params)
     if @club.save
-      respond_to do |format|
-        format.html { redirect_to(official_race_clubs_path(@race) )}
-        format.js { render :updated }
-      end
+      redirect_to official_race_clubs_path(@race)
     else
-      respond_to do |format|
-        format.html { render :index }
-        format.js { render :updated }
-      end
+      render :edit
     end
   end
 
@@ -43,10 +39,7 @@ class Official::ClubsController < Official::OfficialController
     @club = Club.find(params[:id])
     @club.destroy
     @clubs_count = @race.clubs.count
-    respond_to do |format|
-      format.html { redirect_to(official_race_clubs_path(@race) )}
-      format.js { render :destroyed }
-    end
+    redirect_to official_race_clubs_path(@race)
   end
 
   def competitors

@@ -1,16 +1,11 @@
-%tr{id: "club_row_#{club.id}"}
-  %td
-    %a.club_name_link{id: "club_name_link_#{club.id}", href: 'javascript:void(0)'}= club.name
-    %span{id: "club_name_form_#{club.id}", style: 'display: none;'}
-      = form_for([:official, @race, club], remote: true, html: { class: 'form' }) do |f|
-        .form__horizontal-fields
-          .form__field.form__field--md
-            = f.text_field :name, placeholder: t('attributes.name')
-          .form__field
-            = f.text_field :long_name, placeholder: t('attributes.long_name')
-          .form__buttons
-            = submit_tag "Päivitä", class: 'button button--primary'
-            = tag(:input, {type: 'button', value: 'Peruuta', onclick: "cancel_edit(#{club.id}, \"#{club.name}\")", class: 'button'})
-  %td{id: "club_long_name_td_#{club.id}"}= club.long_name
-  %td.center= club.competitors.count
-  %td.center= club.can_be_removed? ? (button_to "Poista", official_race_club_path(@race.id, club), method: :delete, remote: true, class: 'button button--danger') : raw('&nbsp;')
+.col-xs-12.col-sm-6.col-md-4
+  .card
+    .card__middle
+      .card__name= club.name
+      - if club.long_name
+        .card__middle-1= club.long_name
+      .card__middle-2= t('count_competitors', count: club.competitors.count)
+    .card__buttons
+      = link_to t(:edit), edit_official_race_club_path(@race.id, club), class: 'button button--edit'
+      - if club.can_be_removed?
+        = link_to t(:remove), official_race_club_path(@race.id, club), method: :delete, remote: true, class: 'button button--danger'

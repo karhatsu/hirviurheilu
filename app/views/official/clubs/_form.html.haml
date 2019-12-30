@@ -1,0 +1,11 @@
+= render partial: 'shared/form_errors', locals: { item: @club }
+= form_for([:official, @race, @club], html: { class: 'form' }) do |f|
+  .form__field
+    = f.label :name
+    = f.text_field :name
+  .form__field
+    = f.label :long_name
+    = f.text_field :long_name
+    .form__field__info= t 'official.clubs.index.long_name_info'
+  .form__buttons
+    = submit_tag t(:save), class: 'button button--primary'

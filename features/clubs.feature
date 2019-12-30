@@ -16,26 +16,21 @@ Feature: Clubs
     And the "Seurat" sub menu item should be selected
     And I should see "First club"
     And I should see "Another club"
-    
+
   @javascript
   Scenario: Add, rename and remove a club
     Given I am an official
     And I have a race "Test race"
     And I have logged in
     And I am on the official clubs page for "Test race"
-    When I fill in "New club" for "Nimi"
-    And I press "Lisää seura"
+    When I follow "Lisää seura"
+    And I fill in "New club" for "Nimi"
+    And I press "Tallenna"
     Then I should see "New club"
-    When I follow "New club"
-    And I fill in "Renamed club" for "club_name"
-    And I press "Peruuta"
-    Then I should see "New club"
-    But I should not see "Renamed club"
-    When I follow "New club"
-    And I fill in "Renamed club" for "club_name"
-    And I press "Päivitä"
+    When I follow "Muokkaa"
+    And I fill in "Renamed club" for "Nimi"
+    And I press "Tallenna"
     Then I should see "Renamed club"
     But I should not see "New club"
-    When I press "Poista"
+    When I follow "Poista"
     Then I should not see "Renamed club"
-    

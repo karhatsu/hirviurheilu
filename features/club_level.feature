@@ -20,10 +20,11 @@ Feature: Club level
     And I should see "Seurat" within "h2#clubs_title"
     And I should see "seuroja" in an info message
     And I should see "Lisää seura"
-    When I fill in "Testi" for "Nimi"
-    And I press "Lisää seura"
+    When I follow "Lisää seura"
+    And I fill in "Testi" for "Nimi"
+    And I press "Tallenna"
     And I follow "Seurat" within ".sub_menu"
-    Then I should see "Nykyiset seurat"
+    Then I should see "Seurat" within "h2"
     When I follow "Yhteenveto"
     And I follow the first "Lisää ensimmäinen kilpailija" link
     Then I should see "Seura" within "form"
@@ -61,11 +62,11 @@ Feature: Club level
     Then the "Piirit" sub menu item should be selected
     And I should see "Piirit" within "h2#clubs_title"
     And I should see "piirejä" in an info message
-    And I should see "Lisää piiri"
-    When I fill in "Testi" for "Nimi"
-    And I press "Lisää piiri"
+    When I follow "Lisää piiri"
+    And I fill in "Testi" for "Nimi"
+    And I press "Tallenna"
     And I follow "Piirit" within ".sub_menu"
-    Then I should see "Nykyiset piirit"
+    Then I should see "Piirit" within "h2"
     When I follow "Yhteenveto"
     And I follow the first "Lisää ensimmäinen kilpailija" link
     Then I should see "Piiri" within "form"

@@ -1,0 +1,6 @@
+- content_for :page_title, "#{t :add} #{club_title(@race).downcase}"
+- content_for :title, "#{@race.name} - #{yield :page_title}"
+%h2= yield :page_title
+= render 'form'
+.buttons.buttons--nav
+  = link_to 'Takaisin piirien sivulle', official_race_clubs_path(@race), class: 'button button--back'

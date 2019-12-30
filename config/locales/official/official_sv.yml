@@ -144,7 +144,6 @@ sv:
         info: På den här sidan kan du öka klubbar och radera önodiga. Obs! Du kan öka klubbar också när du ökar tävlar.
         long_name_info: Användas i lagtävlingar om sätt
         current: Nuvarande
-        edit_info: Om du vill växla namnet av en klubb, klicka länken på namnet.
         competitors: Tävlar
     team_competitions:
       all_team_competitions: Alla lagtävlingar
