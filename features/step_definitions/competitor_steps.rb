@@ -101,10 +101,6 @@ When(/^I update the first competitor values to "(.*?)"\/"(.*?)", "(.*?)", "(.*?)
   end
 end
 
-Then /^"(.*?)" should be saved as new competitor$/ do |name|
-  page.should have_content(name)
-end
-
 Then("I should see competitor {int} {string} with start time {string} in card {int}") do |number, name, start_time, card|
   parent = "//a[@class='card']"
   find(:xpath, "(#{parent}//div[@class='card__number'])[#{card}]").should have_text(number)
