@@ -25,14 +25,13 @@ Feature: Club level
     And I follow "Seurat" within ".sub_menu"
     Then I should see "Nykyiset seurat"
     When I follow "Yhteenveto"
-    And I follow the first "Lisää tämän sarjan ensimmäinen kilpailija" link
+    And I follow the first "Lisää ensimmäinen kilpailija" link
     Then I should see "Seura" within "form"
     Given the series "M" contains a competitor with attributes:
       | first_name | Matti |
       | last_name | Meikäläinen |
       | club | Testiklubi |
-    When I follow "Yhteenveto"
-    And I follow "Kilpailijat"
+    When I follow the first "Kilpailijat" link
     And I select "00" from "series_start_time_4i"
     And I select "00" from "series_start_time_5i"
     And I select "00" from "series_start_time_6i"
@@ -68,14 +67,13 @@ Feature: Club level
     And I follow "Piirit" within ".sub_menu"
     Then I should see "Nykyiset piirit"
     When I follow "Yhteenveto"
-    And I follow the first "Lisää tämän sarjan ensimmäinen kilpailija" link
+    And I follow the first "Lisää ensimmäinen kilpailija" link
     Then I should see "Piiri" within "form"
     Given the series "M" contains a competitor with attributes:
       | first_name | Matti |
       | last_name | Meikäläinen |
       | club | Testiklubi |
-    When I follow "Yhteenveto"
-    And I follow "Kilpailijat"
+    When I follow the first "Kilpailijat" link
     And I select "00" from "series_start_time_4i"
     And I select "00" from "series_start_time_5i"
     And I select "00" from "series_start_time_6i"

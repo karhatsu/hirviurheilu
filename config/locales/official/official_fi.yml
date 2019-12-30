@@ -21,7 +21,7 @@ fi:
         submit: Lisää kilpailu
       create:
         race_added: Kilpailu lisätty
-        add_competitors_info: Pääset lisäämään kilpailijoita klikkaamalla sarjan nimen vieressä olevaa linkkiä.
+        add_competitors_info: Jatka lisäämällä sarjoihin ensimmäiset kilpailijat.
         add_series_info: Voit nyt lisätä sarjoja kilpailulle sivun alalaidasta.
       edit:
         title: Kilpailun muokkaus
@@ -42,14 +42,14 @@ fi:
         at_least: väh.
         competitors: kilpailijaa
         remove_age_group: Poista ikäryhmä
-        remove_series: Poista tämä sarja
+        remove_series: Poista sarja
         remove_series_confirm: Haluatko varmasti poistaa tämän sarjan?
         add_series: Lisää uusi sarja tähän kilpailuun
       show:
         single_series: Yksilökilpailut
-        no_series_for_race: Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta linkistä.
-        no_competitors_for_race: Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. Aloita klikkaamalla sarjan nimen vieressä olevaa linkkiä.
-        add_series_first_competitor: Lisää tämän sarjan ensimmäinen kilpailija
+        no_series_for_race: Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta napista.
+        no_competitors_for_race: Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. Aloita klikkaamalla sarjan nimen alla olevaa nappia.
+        add_series_first_competitor: Lisää ensimmäinen kilpailija
         manage_race_settings: Hallinnoi kilpailun asetuksia
         remove_race: Poista kilpailu
         edit_race_and_series: Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja
@@ -61,9 +61,9 @@ fi:
         other_race_formats: Muut kilpailumuodot
         finish_race_submit: Merkitse yksilökilpailut päättyneeksi
         finish_race_text: kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista.
-        create_start_list: Tee lista
+        create_start_list: Tee lähtölista
         input_results: Tulosten syöttö
-        set_correct_estimates: Aseta
+        correct_estimates: Oikeat etäisyydet
         publish_race_to_internet: Julkaise kilpailu internetissä
       destroy:
         race_removed: Kilpailu poistettu

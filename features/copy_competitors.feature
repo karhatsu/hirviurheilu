@@ -38,5 +38,5 @@ Feature: Copy competitors
     And I press "Kopioi kilpailijat"
     Then I should be on the official race page of "Target race"
     And I should see "Kilpailijat (2) kopioitu" in a success message
-    When I follow the first "1 hlö" link
+    When I follow the first "Kilpailijat" link
     Then I should see "Source Simon (M50)"

@@ -2,7 +2,7 @@ Feature: Import competitors with CSV file
   In order to get the new competitors easily to the database
   As an official
   I want to import an CSV file that contains the necessary competitor information
-  
+
   Scenario: Import valid CSV file
     Given I am an official
     And I have a race "CSV race"
@@ -21,7 +21,7 @@ Feature: Import competitors with CSV file
     And I press "Lataa kilpailijat tietokantaan"
     Then I should be on the official race page of "CSV race"
     And I should see "Kilpailijat ladattu tietokantaan" in a success message
-    When I follow "Kilpailijat"
+    When I follow the first "Kilpailijat" link
     Then I should see "Räsänen Heikki"
     When I choose "N" from third level menu
     Then I should see "Miettinen Minna"
@@ -38,7 +38,7 @@ Feature: Import competitors with CSV file
     When I attach the import test file "import_valid_mixed_start_order.csv" to "CSV-tiedosto"
     And I press "Lataa kilpailijat tietokantaan"
     Then I should see "Kilpailijat ladattu tietokantaan" in a success message
-    When I follow "Kilpailijat"
+    When I follow the first "Kilpailijat" link
     Then I should see "Räsänen Heikki"
     And I should see "5"
     And I should see "04:59:30"
@@ -54,4 +54,3 @@ Feature: Import competitors with CSV file
     And I press "Lataa kilpailijat tietokantaan"
     Then I should see "Tuntematon sarja/ikäryhmä: 'N'" in an error message
     And I should see "Lisää kilpailijoita CSV-tiedostosta" within "h2"
-    

@@ -20,7 +20,7 @@ Feature: Generate start list
       | last_name | Bears |
     And I have logged in
     And I am on the official race page of "Test race"
-    When I follow "Tee lista"
+    When I follow "Tee lähtölista"
     Then I should see "Test series - Kilpailijat" within "h2"
     And the official main menu item should be selected
     And the "Kilpailijat" sub menu item should be selected
@@ -96,7 +96,7 @@ Feature: Generate start list
       | last_name | Bears |
     And I have logged in
     And I am on the official race page of "Test race"
-    When I follow "Tee lista"
+    When I follow "Tee lähtölista"
     And I fill in "-1" for "Sarjan ensimmäinen numero"
     And I press "Luo lähtölista sarjalle"
     Then I should see "Sarjan ensimmäinen numero täytyy olla suurempi tai yhtä suuri kuin 0" in an error message
@@ -119,7 +119,7 @@ Feature: Generate start list
       | number |  |
     And I have logged in
     And I am on the official race page of "Test race"
-    When I follow "Tee lista"
+    When I follow "Tee lähtölista"
     And I fill in "" for "Sarjan ensimmäinen numero"
     And I press "Luo lähtölista sarjalle"
     Then I should see "Numeroita ei voi generoida, sillä sarjan ensimmäistä numeroa ei ole määritetty" in an error message
@@ -183,7 +183,7 @@ Feature: Generate start list
       | number | 1 |
     And I have logged in
     And I am on the official race page of "Test race"
-    When I follow "1 hlö"
+    When I follow the first "Kilpailijat" link
     Then I should not see "Valitse lähtöajaksi"
     And I should not see "Sarjan ensimmäinen numero"
     And I should not see "Kilpailijoiden järjestys"

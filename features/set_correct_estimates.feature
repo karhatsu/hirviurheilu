@@ -8,7 +8,7 @@ Feature: Set correct estimates
     And the race has series "Test series"
     And I have logged in
     And I am on the official race page of "Test race"
-    When I follow "Oikeat etäisyydet"
+    When I follow the first "Oikeat etäisyydet" link
     Then the "Toimitsijan sivut" main menu item should be selected
     And the "Oikeat etäisyydet" sub menu item should be selected
     And I should see "Et ole lisännyt kilpailuun vielä yhtään kilpailijaa." in an info message
@@ -25,7 +25,7 @@ Feature: Set correct estimates
     And the start list has been generated for the series
     And I have logged in
     And I am on the official race page of "Test race"
-    When I follow "Oikeat etäisyydet"
+    When I follow the first "Oikeat etäisyydet" link
     And I fill correct estimate 100 and 150 for the range 1-2 in row 1
     And I press "Lisää uusi lähtönumeroväli"
     And I fill correct estimate 120 and 80 for the range 3- in row 2

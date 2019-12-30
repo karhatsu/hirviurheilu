@@ -11,7 +11,7 @@ Feature: Manage competitors
     And I have logged in
     When I go to the official index page
     And I follow "Test race"
-    Then I should see "Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. Aloita klikkaamalla sarjan nimen vieressä olevaa linkkiä." in an info message
+    Then I should see "Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. Aloita klikkaamalla sarjan nimen alla olevaa nappia." in an info message
     When I go to the official competitors page of the series
     Then I should see "Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa." in an info message
     When I follow "Lisää kilpailija" within "div.main_content"
