@@ -1,0 +1,22 @@
+- cache [@series, I18n.locale] do
+  .row
+    - series.competitors.includes(:club, :age_group, :series).each do |comp|
+      .col-xs-12.col-sm-6.col-md-4
+        %a.card{href: edit_official_series_competitor_path(series.id, comp)}
+          - if comp.number
+            .card__number= comp.number
+          .card__middle
+            .card__name
+              = full_name comp
+              = "(#{comp.age_group.name})" if comp.age_group
+            .card__middle-1= comp.club.name
+            - if comp.start_time
+              .card__middle-2
+                = time_print(comp.start_time, true, '&nbsp;')
+                - if series.has_start_list? && comp.race.start_time_defined?
+                  (#{time_print comp.start_datetime, true})
+          .card__main-value
+            - if comp.no_result_reason
+              = comp.no_result_reason
+            - elsif comp.finished?
+              .material-icons-outlined.md-24 done

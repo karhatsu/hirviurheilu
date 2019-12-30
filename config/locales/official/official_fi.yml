@@ -78,7 +78,6 @@ fi:
         create_start_list: Luo lähtölista sarjalle
         create_new_start_list: Tee uusi lähtölista sarjalle
         result_saved: Tulos syötetty
-        remove_confirmation: Haluatko varmasti poistaa tämän kilpailijan?
         competitor_removed: Kilpailija poistettu
         added_competitors: Lisätyt kilpailijat
       new:
@@ -98,6 +97,8 @@ fi:
         save_and_previous_competitor: Tallenna ja avaa edellinen kilpailija
         save_and_next_competitor: Tallenna ja avaa seuraava kilpailija
         back_to_series_competitor_list: Takaisin sarjan %{series_name} kilpailijaluetteloon
+        delete_competitor: Poista kilpailija
+        remove_confirmation: Haluatko varmasti poistaa tämän kilpailijan?
     start_lists:
       show:
         title: Kaikkien kilpailijoiden lähtöajat

@@ -25,8 +25,6 @@ Feature: Generate start list
     And the official main menu item should be selected
     And the "Kilpailijat" sub menu item should be selected
     And I should see "Kun olet syöttänyt sarjaan kaikki kilpailijat, lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot." in an info message
-    And I should see "Stevensson John" within "tr[2]"
-    And I should see "Bears Peter" within "tr[3]"
     When I fill in "15" for "Sarjan ensimmäinen numero"
     And I select "02" from "series_start_time_4i"
     And I select "45" from "series_start_time_5i"
@@ -37,12 +35,8 @@ Feature: Generate start list
     And the "series_start_time_4i" field should contain "02"
     And the "series_start_time_5i" field should contain "45"
     And I should not see "Kun olet syöttänyt sarjaan kaikki kilpailijat, lisää heille alla olevan lomakkeen avulla lähtöajat- ja numerot."
-    And I should see "Stevensson John" within "tr[2]/td[1]"
-    And I should see "15" within "tr[2]/td[3]"
-    And I should see "02:45:00 (13:15:00)" within "tr[2]/td[4]"
-    And I should see "Bears Peter" within "tr[3]/td[1]"
-    And I should see "16" within "tr[3]/td[3]"
-    And I should see "02:45:45 (13:15:45)" within "tr[3]/td[4]"
+    And I should see competitor 15 "Stevensson John" with start time "02:45:00 (13:15:00)" in card 1
+    And I should see competitor 16 "Bears Peter" with start time "02:45:45 (13:15:45)" in card 2
 
   Scenario: Propose next number and start time for the second series
     Given I am an official
@@ -106,7 +100,6 @@ Feature: Generate start list
     And I fill in "-1" for "Sarjan ensimmäinen numero"
     And I press "Luo lähtölista sarjalle"
     Then I should see "Sarjan ensimmäinen numero täytyy olla suurempi tai yhtä suuri kuin 0" in an error message
-    But I should not see "-1" within "tr[2]"
 
   Scenario: Missing values for generation
     Given I am an official
@@ -130,7 +123,6 @@ Feature: Generate start list
     And I fill in "" for "Sarjan ensimmäinen numero"
     And I press "Luo lähtölista sarjalle"
     Then I should see "Numeroita ei voi generoida, sillä sarjan ensimmäistä numeroa ei ole määritetty" in an error message
-    But I should not see "0" within "tr[2]/td[3]"
 
   Scenario: Don't show start list form when some competitor has an arrival time
     Given I am an official

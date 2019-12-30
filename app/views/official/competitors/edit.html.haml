@@ -59,3 +59,5 @@
     = submit_tag t(:save), class: 'button button--primary'
 .buttons.buttons--nav
   = link_to t('.back_to_series_competitor_list', :series_name => @series.name), official_series_competitors_path(@series), class: 'button button--back'
+  = link_to t('.delete_competitor'), official_series_competitor_path(@competitor.series_id, @competitor),
+    data: { confirm: t('.remove_confirmation') }, method: :delete, remote: true, class: 'button button--danger'

@@ -33,8 +33,7 @@ Feature: Club level
       | club | Testiklubi |
     When I follow "Yhteenveto"
     And I follow "Kilpailijat"
-    Then I should see "Seura" within "#table_club_title"
-    When I select "00" from "series_start_time_4i"
+    And I select "00" from "series_start_time_4i"
     And I select "00" from "series_start_time_5i"
     And I select "00" from "series_start_time_6i"
     And I press "Luo lähtölista sarjalle"
@@ -77,8 +76,7 @@ Feature: Club level
       | club | Testiklubi |
     When I follow "Yhteenveto"
     And I follow "Kilpailijat"
-    Then I should see "Piiri" within "#table_club_title"
-    When I select "00" from "series_start_time_4i"
+    And I select "00" from "series_start_time_4i"
     And I select "00" from "series_start_time_5i"
     And I select "00" from "series_start_time_6i"
     And I press "Luo lähtölista sarjalle"

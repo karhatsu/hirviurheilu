@@ -78,7 +78,6 @@ sv:
         create_start_list: Skapa en startlista för klassen
         create_new_start_list: Skapa en ny startlista för klassen
         result_saved: Resultat sparat
-        remove_confirmation: Är du säker att du vill radera tävlaren?
         competitor_removed: Tävlaren raderat
         added_competitors: Tävlar
       new:
@@ -98,6 +97,8 @@ sv:
         save_and_previous_competitor: Spara och öppna förra tävlare
         save_and_next_competitor: Spara och öppna nästa tävlare
         back_to_series_competitor_list: Tillbaka till klassens %{series_name} tävlarelista
+        delete_competitor: Radera tävlaren
+        remove_confirmation: Är du säker att du vill radera tävlaren?
     start_lists:
       show:
         title: Starttider för all tävlarna

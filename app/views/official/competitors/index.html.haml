@@ -43,7 +43,7 @@
       .form__buttons
         = submit_tag start_list_title, class: 'button button--primary'
     %h3= t('.added_competitors')
-  = render partial: 'official/competitors/table', locals: { series: @series, result_column: true, remove_column: true }
+  = render partial: 'official/competitors/list', locals: { series: @series }
 .buttons
   - add_title = @series.competitors.empty? ? t('.add_competitor') : t('.add_new_competitor')
   = link_to add_title, new_official_series_competitor_path(@series), class: 'button button--add'

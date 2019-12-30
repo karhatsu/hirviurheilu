@@ -2,7 +2,7 @@ Feature: Manage competitors
   In order to be able to create start lists for my race
   As an official
   I want to add and edit competitors
-  
+
   Scenario: When race has series but no competitors
     Given I am an official
     And I have a race "Test race"
@@ -58,10 +58,10 @@ Feature: Manage competitors
     And I fill in "100" for "Arvio 2"
     And I press "Tallenna"
     Then I should be on the official competitors page of series "Series B"
-    And I should see "" within "tr img"
+    And I should see "done" within ".card__main-value"
     When I follow "Ford Peter"
     Then the "competitor_arrival_time" text field value should be "00:23:45"
-    
+
   Scenario: Updating competitor without shots, adding shots, updating shots
     Given I am an official
     And I have a race "Test race"
