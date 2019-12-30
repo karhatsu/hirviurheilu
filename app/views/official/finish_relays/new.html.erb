@@ -9,5 +9,6 @@
     <%= submit_tag t('.submit_button') %>
   <% end %>
 <% end %>
-<hr/>
-<%= link_to t(:back_to_official_relays_page), official_race_relays_path(@relay.race) %>
+<div class="buttons buttons--nav">
+  <%= link_to t(:back_to_official_relays_page), official_race_relays_path(@relay.race), class: 'button button--back' %>
+</div>

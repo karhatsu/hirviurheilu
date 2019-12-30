@@ -9,5 +9,6 @@
     <%= render :partial => "official/finish_races/form", :locals => { :race => @race } %>
   </div>
 <% end %>
-<hr/>
-<%= link_to t(:back_to_official_race_page), official_race_path(@race) %>
+<div class="buttons buttons--nav">
+  <%= link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back' %>
+</div>

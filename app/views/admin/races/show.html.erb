@@ -8,5 +8,6 @@
   <%= text_field_tag :confirm_name %>
   <%= submit_tag 'Poista kilpailu' %>
 <% end %>
-<hr/>
-<%= link_to 'Takaisin kilpailuihin', admin_races_path %>
+<div class="buttons buttons--nav">
+  <%= link_to 'Takaisin kilpailuihin', admin_races_path, class: 'button button--back' %>
+</div>
