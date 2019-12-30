@@ -4,18 +4,18 @@
 = form_for([:official, @competitor.series, @competitor], html: { class: 'form' }) do |f|
   = render partial: "basic_fields", locals: { f: f }
   - if @series.has_start_list?
-    .form__field.row
+    .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :number
       .col-xs-12.col-sm-9= f.number_field :number
-    .form__field.row
+    .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :start_time
       - start_time = time_print(f.object.start_time, true, '')
-      .col-xs-12.col-sm-9= f.text_field :start_time, value: start_time
-    .form__field.row
+      .col-xs-12.col-sm-9= f.text_field :start_time, value: start_time, placeholder: 'HH:MM:SS'
+    .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :arrival_time
       - arrival_time = time_print(f.object.arrival_time, true, '')
-      .col-xs-12.col-sm-9= f.text_field :arrival_time, value: arrival_time
-    .form__field.row
+      .col-xs-12.col-sm-9= f.text_field :arrival_time, value: arrival_time, placeholder: 'HH:MM:SS'
+    .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :shots_total_input
       .col-xs-12.col-sm-9
         = f.number_field :shots_total_input, maxlength: 3
@@ -24,21 +24,21 @@
       .col-xs-12.col-sm-3
         %label= t '.shots'
       .col-xs-12.col-sm-9= render partial: 'official/shots/individual_shots', locals: { f: f, competitor: @competitor }
-    .form__field.row
+    .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :estimate1
       .col-xs-12.col-sm-9= f.number_field :estimate1, maxlength: 3
-    .form__field.row
+    .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :estimate2
       .col-xs-12.col-sm-9= f.number_field :estimate2, maxlength: 3
     - if @competitor.series.estimates == 4
-      .form__field.row
+      .form__field.form__field--sm.row
         .col-xs-12.col-sm-3= f.label :estimate3
         .col-xs-12.col-sm-9= f.number_field :estimate3, maxlength: 3
-      .form__field.row
+      .form__field.form__field--sm.row
         .col-xs-12.col-sm-3= f.label :estimate4
         .col-xs-12.col-sm-9= f.number_field :estimate4, maxlength: 3
     - if @competitor.series.walking_series?
-      .form__field.row
+      .form__field.form__field--sm.row
         .col-xs-12.col-sm-3= f.label :shooting_overtime_min
         .col-xs-12.col-sm-9= f.number_field :shooting_overtime_min
     .form__field.row
