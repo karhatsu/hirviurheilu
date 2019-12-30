@@ -26,3 +26,5 @@
   .row
     - @user.races.each do |race|
       = render partial: 'home/race_link', locals: { race: race }
+.buttons.buttons--nav
+  = link_to t(:back_to_home_page), root_path, class: 'button button--back'
