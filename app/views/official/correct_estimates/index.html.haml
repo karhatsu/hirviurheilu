@@ -15,27 +15,19 @@
   .info= t '.no_competitors_info'
 - else
   .info= t '.start_list_required_info'
-  %table#competitor_correct_estimates{border: 1, cellpadding: 2, cellspacing: 0}
-    %tr
-      %th= t :number_short
-      %th= t 'activerecord.models.competitor.one'
-      %th= t 'activerecord.models.series.one'
-      %th= t 'attributes.correct_estimate1'
-      %th= t 'attributes.correct_estimate2'
-      - if @race.estimates_at_most == 4
-        %th= t 'attributes.correct_estimate3'
-        %th= t 'attributes.correct_estimate4'
+  .row
     - @competitors.each do |c|
-      %tr
-        %td= c.number
-        %td= full_name(c)
-        %td= c.series.name
-        %td= c.correct_estimate1
-        %td= c.correct_estimate2
-        - if @race.estimates_at_most == 4
-          %td= c.correct_estimate3
-          %td= c.correct_estimate4
-
+      .col-xs-12.col-sm-6.col-md-4
+        .card
+          .card__number= c.number
+          .card__middle
+            .card__name= full_name c
+            .card__middle-1= c.series.name
+            .card__middle-2
+              - if c.correct_distances.empty?
+                = t '.undefined'
+              - else
+                = c.correct_distances.map {|d| "#{d} m"}.join(', ')
 - if @race.correct_estimates.empty?
   :javascript
     $(document).ready(function() {

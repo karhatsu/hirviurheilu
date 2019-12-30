@@ -238,6 +238,10 @@ class Competitor < ApplicationRecord
     series.national_record && points.to_i > series.national_record.to_i
   end
 
+  def correct_distances
+    [correct_estimate1, correct_estimate2, correct_estimate3, correct_estimate4].select {|d| !d.blank?}
+  end
+
   private
 
   def start_time_max

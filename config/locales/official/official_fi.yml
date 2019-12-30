@@ -138,6 +138,7 @@ fi:
         defined_correct_estimates: Kilpailijoille määritetyt oikeat arviot
         no_competitors_info: Et ole lisännyt kilpailuun vielä yhtään kilpailijaa. Kun lisäät kilpailijoita, tähän ilmestyy kilpailijakohtaiset oikeat arviomatkat.
         start_list_required_info: Kilpailijoille täytyy olla luotu lähtölistat, jotta heille voidaan asettaa oikeat arviomatkat alla olevaan taulukkoon.
+        undefined: Ei määritetty
     clubs:
       index:
         info: Tällä sivulla voit lisätä kilpailuun osallistuvien kilpailijoiden %{club_word} sekä korjata niiden nimiä ja poistaa ylimääräisiä. Huom! Voit lisätä %{club_word} myös samalla, kun lisäät kilpailijoita.

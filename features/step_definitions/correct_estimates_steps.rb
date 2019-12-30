@@ -20,7 +20,7 @@ When(/^I fill correct estimate (\d+) and (\d+) for the range (\d+)\- in row (\d+
 end
 
 Then(/^I should see correct estimates (\d+) and (\d+) set for the competitor "(.*?)" "(.*?)" with number (\d+)$/) do |distance1, distance2, first_name, last_name, number|
-  expect(find(:xpath, "//table[@id='competitor_correct_estimates']//tr[#{number.to_i + 1}]/td[2]")).to have_text("#{last_name} #{first_name}")
-  expect(find(:xpath, "//table[@id='competitor_correct_estimates']//tr[#{number.to_i + 1}]/td[4]")).to have_text(distance1)
-  expect(find(:xpath, "//table[@id='competitor_correct_estimates']//tr[#{number.to_i + 1}]/td[5]")).to have_text(distance2)
+  expect(find(:xpath, "(//div[@class='card__number'])[#{number}]")).to have_text(number)
+  expect(find(:xpath, "(//div[@class='card__name'])[#{number}]")).to have_text("#{last_name} #{first_name}")
+  expect(find(:xpath, "(//div[@class='card__middle-2'])[#{number}]")).to have_text("#{distance1} m, #{distance2} m")
 end
