@@ -3,6 +3,14 @@
   margin-top: 8px;
   margin-bottom: 16px;
 
+  tr.odd {
+    background-color: #DDEEB5;
+  }
+
+  th {
+    text-align: left;
+  }
+
   th, td {
     padding: 8px 12px;
   }
