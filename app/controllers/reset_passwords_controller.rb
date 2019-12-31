@@ -1,5 +1,4 @@
 class ResetPasswordsController < ApplicationController
-  before_action :set_variant
   before_action :require_no_user
 
   def new

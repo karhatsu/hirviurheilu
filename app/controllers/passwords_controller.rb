@@ -1,5 +1,5 @@
 class PasswordsController < ApplicationController
-  before_action :set_variant, :require_user, :set_account
+  before_action :require_user, :set_account
 
   def edit
     @user = @current_user

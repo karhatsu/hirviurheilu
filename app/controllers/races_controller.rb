@@ -1,7 +1,6 @@
 class RacesController < ApplicationController
   before_action :set_races
   before_action :assign_race_by_id, :only => :show
-  before_action :set_variant
 
   def index
     where = []

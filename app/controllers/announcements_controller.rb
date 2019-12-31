@@ -1,5 +1,5 @@
 class AnnouncementsController < ApplicationController
-  before_action :set_variant, :set_announcements_menu
+  before_action :set_announcements_menu
 
   def index
     @announcements = Announcement.active

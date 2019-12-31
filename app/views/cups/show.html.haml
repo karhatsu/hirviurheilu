@@ -14,7 +14,7 @@
 .buttons
   - @cup.races.each do |race|
     = link_to race.name, race_path(race), class: 'button'
-- unless @cup.cup_series.empty? || mobile?
+- unless @cup.cup_series.empty?
   %h2= t 'races.show.all_results_pdf'
   = form_tag(cup_path(@cup, format: :pdf), method: :get, class: 'form') do
     .form__horizontal-fields

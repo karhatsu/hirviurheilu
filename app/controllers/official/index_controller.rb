@@ -1,6 +1,4 @@
 class Official::IndexController < Official::OfficialController
-  before_action :set_variant
-
   def show
     if current_user.admin?
       @today = Race.today.order('start_date ASC')

@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
   include HomeHelper
-  before_action :set_variant
 
   def show
     @is_main_page = true

@@ -1,5 +1,4 @@
 class CupSeriesController < ApplicationController
-  before_action :set_variant
   before_action :assign_cup, :assign_cup_series_by_id
 
   def show

@@ -1,9 +1,5 @@
 module ApplicationHelper
 
-  def mobile?
-    request.variant[0] == :mobile
-  end
-
   def flash_success
     raw("<div class='success'>#{flash[:success]}</div>") if flash[:success]
   end

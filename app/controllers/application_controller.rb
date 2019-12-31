@@ -217,22 +217,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def set_variant
-    logger.info "user agent: #{request.user_agent}"
-    return if set_forced_variant
-    request.variant = :mobile if request.user_agent =~ /Mobi/
-  end
-
-  def set_forced_variant
-    session[:request_variant] = :mobile if params[:variant] == 'mobile'
-    session[:request_variant] = :normal if params[:variant] == 'normal'
-    if session[:request_variant]
-      request.variant = :mobile if session[:request_variant] == :mobile
-      return true
-    end
-    false
-  end
-
   def assign_races_for_main_menu
     @main_menu_races = Race.where('start_date>?', 7.days.ago).order('start_date desc')
   end

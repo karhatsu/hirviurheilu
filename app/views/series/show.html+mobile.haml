@@ -5,7 +5,7 @@
 %h2= yield :title
 = render :layout => 'series/series_status', :locals => { :series => @series } do
   = render :partial => 'series/infos', :locals => { :series => @series }
-  - cache [@series, params[:sort], unofficials, I18n.locale, mobile?] do
+  - cache [@series, params[:sort], unofficials, I18n.locale] do
     = render :partial => 'series/series_results', :locals => { :series => @series }
   - if @series.has_unofficial_competitors?
     - if unofficials == Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
