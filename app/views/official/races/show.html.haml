@@ -19,13 +19,14 @@
   - cache [@race.cache_key_for_all_series, I18n.locale] do
     .row
       - @race.series.includes(:competitors => [:series]).each do |s|
+        - competitor_count = s.competitors.count
+        - finished = competitor_count > 0 && s.has_start_list? && s.finished_competitors_count == competitor_count && s.each_competitor_has_correct_estimates?
         .col-xs-12.col-sm-6.col-md-4
           .card
             .card__middle
               .card__name= s.name
               .card__middle-1= t(:count_competitors, count: s.competitors.count)
               .card__middle-2
-                - competitor_count = s.competitors.count
                 - if competitor_count == 0
                   - add_competitor_path = @race.start_order == Race::START_ORDER_MIXED ? official_race_start_list_path(@race) : new_official_series_competitor_path(s)
                   = link_to t('.add_series_first_competitor'), add_competitor_path, class: 'button button--add'
@@ -35,8 +36,9 @@
                   = link_to t('activerecord.models.competitor.other'), official_series_competitors_path(s), class: 'button'
                   - unless s.has_start_list?
                     = link_to t('.create_start_list'), official_series_competitors_path(s), class: 'button'
-                  = link_to t('.input_results'), official_race_quick_saves_path(@race), class: 'button'
-            - if competitor_count > 0 && s.has_start_list? && s.finished_competitors_count == competitor_count && s.each_competitor_has_correct_estimates?
+                  - unless finished
+                    = link_to t('.input_results'), official_race_quick_saves_path(@race), class: 'button'
+            - if finished
               .card__main-value
                 .material-icons-outlined.md-24 done
 %h3= t '.add_multiple_competitors'
