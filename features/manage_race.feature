@@ -68,7 +68,7 @@ Feature: Manage race
     And I uncheck "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
     Then I should be on the race edit page of "Test race"
-    And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta napista." in an info message
+    And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja yllä olevasta napista." in an info message
     When I press "Lisää uusi sarja tähän kilpailuun"
     And I fill in "Test series" for "Sarjan nimi"
     And I press "Lisää ikäryhmä"
@@ -84,10 +84,10 @@ Feature: Manage race
     When I go to the official index page
     And I follow "Test race"
     Then I should be on the official race page of "Test race"
-    And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta napista." in an info message
+    And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja yllä olevasta napista." in an info message
     When I follow "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja"
     Then I should be on the race edit page of "Test race"
-    And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja alla olevasta napista." in an info message
+    And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja yllä olevasta napista." in an info message
 
   Scenario: Edit race and series
     Given I am an official
