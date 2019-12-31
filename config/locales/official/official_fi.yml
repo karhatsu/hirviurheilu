@@ -135,10 +135,10 @@ fi:
       index:
         start_numbers: Lähtönumerot
         add_new_range: Lisää uusi lähtönumeroväli
-        submit_button: Tallenna oikeat arviot ja aseta ne kilpailijoille
-        defined_correct_estimates: Kilpailijoille määritetyt oikeat arviot
-        no_competitors_info: Et ole lisännyt kilpailuun vielä yhtään kilpailijaa. Kun lisäät kilpailijoita, tähän ilmestyy kilpailijakohtaiset oikeat arviomatkat.
-        start_list_required_info: Kilpailijoille täytyy olla luotu lähtölistat, jotta heille voidaan asettaa oikeat arviomatkat alla olevaan taulukkoon.
+        submit_button: Tallenna oikeat etäisyydet ja aseta ne kilpailijoille
+        defined_correct_estimates: Kilpailijoille määritetyt oikeat etäisyydet
+        no_competitors_info: Et ole lisännyt kilpailuun vielä yhtään kilpailijaa. Kun lisäät kilpailijoita, tähän ilmestyy kilpailijakohtaiset oikeat etäisyydet.
+        start_list_required_info: Tallennetut oikeat etäisyydet näkyvät alla niille kilpailijoille, joille on määritetty lähtöaika.
         undefined: Ei määritetty
     clubs:
       index:

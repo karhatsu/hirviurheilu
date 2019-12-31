@@ -29,7 +29,7 @@ Feature: Set correct estimates
     And I fill correct estimate 100 and 150 for the range 1-2 in row 1
     And I press "Lisää uusi lähtönumeroväli"
     And I fill correct estimate 120 and 80 for the range 3- in row 2
-    And I press "Tallenna oikeat arviot ja aseta ne kilpailijoille"
+    And I press "Tallenna oikeat etäisyydet ja aseta ne kilpailijoille"
     Then I should see correct estimates 100 and 150 set for the competitor "Filip" "First" with number 1
     And I should see correct estimates 100 and 150 set for the competitor "Simon" "Second" with number 2
     And I should see correct estimates 120 and 80 set for the competitor "Tim" "Third" with number 3
