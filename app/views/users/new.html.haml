@@ -2,6 +2,7 @@
 - content_for(:page_title, yield(:title))
 %h1.mobile= yield :page_title
 .info= t '.info'
+= render 'shared/staging_env_info'
 - if PRODUCTION_ENV
   .important= raw t('.practise_info', :test_url => TEST_URL)
 = form_for @user, url: account_path, html: { class: 'form' } do |f|

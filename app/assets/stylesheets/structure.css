@@ -16,18 +16,6 @@ div.login_and_locale_links a {
     color: white;
 }
 
-.env_info {
-    font-size: 13px;
-    font-weight: bold;
-    padding: 0 10px 0 0;
-    text-transform: uppercase;
-}
-
-span.env_info_link {
-    cursor: pointer;
-    text-decoration: underline;
-}
-
 .locale_flag {
     background-color: white;
     padding: 1px;

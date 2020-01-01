@@ -3,11 +3,7 @@
 = flash_error
 = flash_success
 %h1.mobile= yield :page_title
-- if ProductionEnvironment.staging?
-  .warning
-    Käytät parhaillaan Hirviurheilun testiympäristöä.
-    Varsinaiseen Hirviurheilu-palveluun luomasi tunnukset eivät käy suoraan tähän palveluun.
-    Voit luoda testipalveluun omat tunnukset klikkaamalla alla olevaa rekisteröintilinkkiä.
+= render 'shared/staging_env_info'
 = form_for @user_session, url: user_session_path, html: { class: 'form' } do |f|
   = render partial: 'shared/form_errors', locals: { item: @user_session }
   .form__field
