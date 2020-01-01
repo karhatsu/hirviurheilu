@@ -15,6 +15,7 @@
     = menu_item t('main_menu.start'), register_path, @is_start
   - if current_user && current_user.admin?
     = menu_item "Admin", admin_root_path, @is_admin
-  .login_and_locale_links
-    .navigation= locale_link :fi, 'Suomeksi'
-    .navigation= locale_link :sv, 'På svenska'
+  - if I18n.locale == :sv
+    = menu_item "Suomeksi", '?new_locale=fi', false
+  - else
+    = menu_item "På svenska", '?new_locale=sv', false

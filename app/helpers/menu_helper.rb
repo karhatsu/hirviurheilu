@@ -108,16 +108,4 @@ module MenuHelper
     menu << '</div>'
     raw(menu)
   end
-
-  def locale_link(locale, text)
-    if I18n.locale == locale
-      locale_image_tag(locale, text)
-    else
-      link_to locale_image_tag(locale, text), "?new_locale=#{locale}"
-    end
-  end
-
-  def locale_image_tag(locale, text)
-    image_tag "locale_#{locale}.png", alt: text, title: text, class: 'locale_flag'
-  end
 end

@@ -1,22 +1,3 @@
-div.login_and_locale_links {
-    color: white;
-    text-align: right;
-    margin-left: auto;
-    padding-right: 8px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-div.login_and_locale_links .navigation {
-    margin-left: 8px;
-}
-
-.locale_flag {
-    background-color: white;
-    padding: 1px;
-}
-
 div.centered_section {
     margin: 0 auto;
     width: 1060px;
