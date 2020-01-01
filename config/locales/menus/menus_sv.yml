@@ -9,7 +9,7 @@ sv:
     personal: Egna uppgifter
     start: Börja
   login: Logga in
-  logout: "Logga ut, %{name}"
+  logout: Logga ut
   forgotten_password: Glömt lösenord?
   race_sub_menu:
     home_page: Tävling hemsida

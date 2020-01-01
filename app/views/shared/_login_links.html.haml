@@ -1,4 +1,2 @@
-- if current_user
-  .navigation= link_to t(:logout, name: current_user.first_name), logout_path, method: :delete
-- else
+- unless current_user
   .navigation= link_to t(:login), login_path
