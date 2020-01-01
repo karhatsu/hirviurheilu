@@ -12,10 +12,6 @@ div.login_and_locale_links .navigation {
     margin-left: 8px;
 }
 
-div.login_and_locale_links a {
-    color: white;
-}
-
 .locale_flag {
     background-color: white;
     padding: 1px;

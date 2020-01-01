@@ -142,5 +142,6 @@ Given /^I change my password to "(.*?)"$/ do |new_password|
 end
 
 When /^I logout$/ do
+  click_link("Omat tiedot")
   click_link("Kirjaudu ulos")
 end

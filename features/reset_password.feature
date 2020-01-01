@@ -6,7 +6,8 @@ Feature: Reset password
   Scenario: Reset password
     Given I am an official with email "test@test.com" and password "test1234"
     And I am on the home page
-    When I follow "Kirjaudu sisään"
+    When I follow "Aloita"
+    And I follow "Kirjaudu sisään"
     And I follow "Olen unohtanut salasanani"
     Then I should see "Jos olet unohtanut salasanasi, syötä alla olevaan kenttään sähköpostiosoitteesi." in an info message
     When I fill in "test@test.com" for "Sähköposti"
@@ -22,6 +23,7 @@ Feature: Reset password
     Then I should be on the account page
     And I should see "Salasana vaihdettu" in a success message
     When I follow "Kirjaudu ulos"
+    And I follow "Aloita"
     And I follow "Kirjaudu sisään"
     And I fill in "test@test.com" for "Sähköposti"
     And I fill in "new-password" for "Salasana"
@@ -31,7 +33,8 @@ Feature: Reset password
 
   Scenario: Unknown email
     Given I am on the home page
-    When I follow "Kirjaudu sisään"
+    When I follow "Aloita"
+    And I follow "Kirjaudu sisään"
     And I follow "Olen unohtanut salasanani"
     And I fill in "test@test.com" for "Sähköposti"
     And I press "Tilaa uusi salasana"
@@ -42,7 +45,8 @@ Feature: Reset password
   Scenario: Invalid new password
     Given I am an official with email "test@test.com" and password "test1234"
     And I am on the home page
-    When I follow "Kirjaudu sisään"
+    When I follow "Aloita"
+    And I follow "Kirjaudu sisään"
     And I follow "Olen unohtanut salasanani"
     And I fill in "test@test.com" for "Sähköposti"
     And I press "Tilaa uusi salasana"
