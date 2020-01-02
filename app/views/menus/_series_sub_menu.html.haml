@@ -1,3 +1,11 @@
-.menu.menu--sub.menu--sub-2
-  - race.series.each do |series|
-    = menu_item series.name, yield(series), series.id == series_id, 18
+- if defined? mobile
+  .buttons.buttons--mobile
+    - race.series.each do |series|
+      - if series == @series
+        .button.button--current= series.name
+      - else
+        = link_to series.name, yield(series), class: 'button'
+- else
+  .menu.menu--sub.menu--sub-2
+    - race.series.each do |series|
+      = menu_item series.name, yield(series), series.id == series_id, 18

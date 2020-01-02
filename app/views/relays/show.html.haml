@@ -3,7 +3,7 @@
   = render :partial => 'shared/refresh_counter', locals: {competition: @relay}
 %h2 #{@relay.name} - #{relay_result_title(@relay)}
 - content_for :sub_sub_menu do
-  = render :layout => 'menus/relays_sub_menu', :locals => { :race => @relay.race, :relay_id => @relay.id } do |relay|
+  = render layout: 'menus/relays_sub_menu', locals: { race: @relay.race, relay_id: @relay.id } do |relay|
     - race_relay_path(relay.race, relay)
 - if @results.empty?
   .info= t '.relay_has_no_teams'
@@ -16,8 +16,8 @@
   = render 'results_title'
   = render 'leg_links'
   .buttons
-    %a#show_all_competitors.button{href: 'javascript:void(0)'}= t :show_all_competitors
-    %a#hide_all_competitors.button{href: 'javascript:void(0)', style: 'display:none;'}= t :hide_all_competitors
+    %a#show_all_relay_competitors.button{href: 'javascript:void(0)'}= t :show_all_competitors
+    %a#hide_all_relay_competitors.button{href: 'javascript:void(0)', style: 'display:none;'}= t :hide_all_competitors
   - cache [@relay, I18n.locale] do
     = render :partial => 'results', :locals => { :relay => @relay, :pdf => false }
 .buttons
@@ -25,25 +25,27 @@
     = link_to t('.download_start_list_pdf'), race_relay_start_list_path(@relay.race, @relay, format: :pdf), class: 'button button--pdf'
     = link_to t(:download_results_pdf_without_competitors), race_relay_path(@relay.race, @relay, exclude_competitors: true, format: 'pdf'), class: 'button button--pdf'
     = link_to t(:download_results_pdf_with_competitors), race_relay_path(@relay.race, @relay, format: 'pdf'), class: 'button button--pdf'
+= render layout: 'menus/relays_sub_menu', locals: { race: @relay.race, relay_id: @relay.id, mobile: true } do |relay|
+  - race_relay_path(relay.race, relay)
 .buttons.buttons--nav
   = link_to "#{t(:back_to_page)} #{@race.name}", race_path(@relay.race), class: 'button button--back'
 :javascript
   function showAllCompetitors() {
     $('.competitor_row').show();
-    $('#show_all_competitors').hide();
-    $('#hide_all_competitors').show();
+    $('#show_all_relay_competitors').hide();
+    $('#hide_all_relay_competitors').show();
     window.location.hash = 'competitors'
   }
   function hideAllCompetitors() {
     $('.competitor_row').hide();
-    $('#show_all_competitors').show();
-    $('#hide_all_competitors').hide();
+    $('#show_all_relay_competitors').show();
+    $('#hide_all_relay_competitors').hide();
     history.pushState(null, null, ' ')
   }
-  $('#show_all_competitors').click(function() {
+  $('#show_all_relay_competitors').click(function() {
     showAllCompetitors();
   });
-  $('#hide_all_competitors').click(function() {
+  $('#hide_all_relay_competitors').click(function() {
     hideAllCompetitors();
   });
   $(document).ready(function() {

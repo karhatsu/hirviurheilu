@@ -3,7 +3,7 @@
   = render partial: 'shared/refresh_counter', locals: {competition: @relay}
 %h2 #{@relay.name} - #{t :leg} #{@leg}
 - content_for :sub_sub_menu do
-  = render :layout => 'menus/relays_sub_menu', :locals => { :race => @relay.race, :relay_id => @relay.id } do |relay|
+  = render layout: 'menus/relays_sub_menu', locals: { race: @relay.race, relay_id: @relay.id } do |relay|
     = race_relay_path(relay.race, relay)
 - cache [@relay, @relay.started?, @leg, I18n.locale] do
   - @results = @relay.leg_results(@leg)
@@ -16,5 +16,7 @@
     = render 'relays/results_title'
     = render 'relays/leg_links'
     = render partial: 'table'
+= render layout: 'menus/relays_sub_menu', locals: { race: @relay.race, relay_id: @relay.id, mobile: true } do |relay|
+  - race_relay_path(relay.race, relay)
 .buttons.buttons--nav
   = link_to "#{t(:back_to_page)} #{@relay.race.name}", race_path(@relay.race), class: 'button button--back'

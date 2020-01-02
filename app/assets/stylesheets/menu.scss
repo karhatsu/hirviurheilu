@@ -19,6 +19,14 @@
     display: none;
   }
 
+  &--mobile {
+    display: flex;
+  }
+
+  &--desktop {
+    display: none;
+  }
+
   &__item {
     background-color: olive;
     display: block;
