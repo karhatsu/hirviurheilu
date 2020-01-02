@@ -21,8 +21,8 @@
   function toggleMainMenu() {
     const $mainMenu = $('.menu--main')
     if ($mainMenu.is(':visible')) {
-      $mainMenu.hide()
+      $mainMenu.removeClass('menu--visible')
     } else {
-      $mainMenu.show()
+      $mainMenu.addClass('menu--visible')
     }
   }
