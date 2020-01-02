@@ -1,11 +1,13 @@
 <% race = menu_race %>
 <% cup = menu_cup %>
 <% if race %>
-  <span><span itemprop="name"><%= race.name %></span>
-    (<span itemprop="location" itemtype="http://schema.org/Place"><%= race.location %></span>,
-    <%= race_date_interval(race) %>)</span>
+  <span class="race-title">
+    <span class="race-title__name" itemprop="name"><%= race.name %></span>
+    <span class="race-title__location" itemprop="location" itemtype="http://schema.org/Place"><%= race.location %></span>,
+    <span class="race-title__dates"><%= race_date_interval(race) %></span>
+  </span>
 <% elsif cup %>
-  <span><%= cup.name %></span>
+  <%= cup.name %>
 <% else %>
-  <span><%= yield :page_title %></span>
+  <%= yield :page_title %>
 <% end %>
