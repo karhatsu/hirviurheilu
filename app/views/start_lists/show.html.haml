@@ -8,7 +8,8 @@
   .info= t '.no_competitors_or_start_times'
 - else
   - cache [@series, I18n.locale] do
-    = render partial: 'start_list', locals: { competitors: @series.start_list.includes(:club, :age_group), race: @series.race }
+    .results--desktop= render partial: 'start_list', locals: { competitors: @series.start_list.includes(:club, :age_group), race: @series.race }
+    .results--mobile= render partial: 'start_list_mobile', locals: { competitors: @series.start_list.includes(:club, :age_group), race: @series.race }
   = link_to t(:download_start_list_pdf), race_series_start_list_path(@series.race, @series, :format => 'pdf'), class: 'button button--pdf'
 = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id, mobile: true } do |series|
   = race_series_start_list_path(series.race, series)

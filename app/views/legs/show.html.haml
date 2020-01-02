@@ -15,7 +15,8 @@
     = render 'relays/correct_estimates'
     = render 'relays/results_title'
     = render 'relays/leg_links'
-    = render partial: 'table'
+    .results--desktop= render partial: 'table'
+    .results--mobile= render partial: 'table_mobile'
 = render layout: 'menus/relays_sub_menu', locals: { race: @relay.race, relay_id: @relay.id, mobile: true } do |relay|
   - race_relay_path(relay.race, relay)
 .buttons.buttons--nav

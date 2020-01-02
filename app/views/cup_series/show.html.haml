@@ -5,7 +5,8 @@
 .info= render partial: 'cups/points_rule', locals: {cup: @cup}
 %a#show_cup_races.button{href: "javascript:void(0)"}= t :show_races_of_cup
 %a#hide_cup_races.button{href: "javascript:void(0)", style: "display:none"}= t :hide_races_of_cup
-.cup_results= render partial: 'cup_series_results', locals: {cup_series: @cup_series}
+.cup_results.results--desktop= render partial: 'cup_series_results', locals: {cup_series: @cup_series}
+.results--mobile= render partial: 'cup_series_results_mobile', locals: {cup_series: @cup_series}
 = render partial: 'menus/cup_series_sub_menu', locals: { mobile: true }
 .buttons.buttons--nav
   = link_to t(:back_to_cup_page), cup_path(@cup), class: 'button button--back'
