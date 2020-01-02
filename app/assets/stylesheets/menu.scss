@@ -40,7 +40,7 @@
       margin: 0;
       text-decoration: none;
 
-      &.selected, &:hover {
+      &:hover {
         color: olive;
         background-color: white;
       }
@@ -112,6 +112,11 @@
     .menu__item {
       border-bottom: none;
     }
+  }
+
+  .menu .menu__item a.selected {
+    color: olive;
+    background-color: white;
   }
 
   .menu--sub {
