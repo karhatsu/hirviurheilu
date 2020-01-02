@@ -5,8 +5,9 @@
 %h3= t '.manage_race_settings'
 - unless @race.finished? || @race.start_date > Time.zone.today || @race.competitors.empty?
   = render partial: "official/finish_races/form", locals: { race: @race }
-= link_to t('.edit_race_and_series'), edit_official_race_path(@race), class: 'button button--edit'
-= link_to t('.correct_estimates'), official_race_correct_estimates_path(@race), class: 'button'
+.buttons
+  = link_to t('.edit_race_and_series'), edit_official_race_path(@race), class: 'button button--edit'
+  = link_to t('.correct_estimates'), official_race_correct_estimates_path(@race), class: 'button'
 - if @race.can_destroy?
   = form_tag(official_race_path(@race), method: :delete, class: 'form form--inline') do
     = submit_tag t('.remove_race'), class: 'button button--danger'
@@ -42,14 +43,16 @@
               .card__main-value
                 .material-icons-outlined.md-24 done
 %h3= t '.add_multiple_competitors'
-= link_to t('.copy_competitors'), new_official_race_competitor_copying_path(@race), class: 'button'
-- unless @race.series.empty?
-  = link_to t('.add_competitors_from_csv'), new_official_race_csv_import_path(@race), class: 'button'
+.buttons
+  = link_to t('.copy_competitors'), new_official_race_competitor_copying_path(@race), class: 'button'
+  - unless @race.series.empty?
+    = link_to t('.add_competitors_from_csv'), new_official_race_csv_import_path(@race), class: 'button'
 - unless @race.competitors.empty?
   %h3= t '.other'
   = link_to t('.download_competitors_by_clubs'), official_race_clubs_competitors_path(@race, format: :pdf), class: 'button button--pdf'
 %h2= t '.other_race_formats'
-= link_to t('activerecord.models.team_competition.other'), official_race_team_competitions_path(@race), class: 'button'
-= link_to t('activerecord.models.relay.other'), official_race_relays_path(@race), class: 'button'
+.buttons
+  = link_to t('activerecord.models.team_competition.other'), official_race_team_competitions_path(@race), class: 'button'
+  = link_to t('activerecord.models.relay.other'), official_race_relays_path(@race), class: 'button'
 .buttons.buttons--nav
   = link_to t(:back_to_official_home_page), official_root_path, class: 'button button--back'
