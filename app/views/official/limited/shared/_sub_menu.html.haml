@@ -1,5 +1,5 @@
 - race = menu_race
 - if race
-  .menu.sub_menu
+  .menu.menu--sub.menu--sub-1
     = menu_item "Kilpailijat", official_limited_race_competitors_path(race), @limited_add_competitor
     = menu_item 'Lisää monta kilpailijaa', new_official_limited_race_csv_import_path(race), @limited_csv_import

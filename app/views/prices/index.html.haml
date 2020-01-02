@@ -1,6 +1,5 @@
 - content_for :title, t('prices.title')
 - content_for :page_title, yield(:title)
-%h1.mobile= yield :page_title
 - if ProductionEnvironment.staging?
   .important Käytät tällä hetkellä testiympäristöä. Sen käyttö on ilmaista.
   %a.button{href: "#{PRODUCTION_URL}/prices"} Tutustu hintoihin varsinaisessa palvelussa

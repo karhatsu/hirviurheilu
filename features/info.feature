@@ -9,7 +9,7 @@ Feature: Info page
     Then I should be on the info page
     And the "Info" main menu item should be selected
     And the page title should contain "Tietoa Hirviurheilusta"
-    When I follow "Lähetä palautetta" within ".main_content"
+    When I follow "Lähetä palautetta" within ".body__content"
     Then I should be on the send feedback page
 
   Scenario: Unauthenticated user goes to info page

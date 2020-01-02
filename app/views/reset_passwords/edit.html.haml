@@ -1,6 +1,5 @@
 - content_for(:title, t('.title'))
 - content_for(:page_title, yield(:title))
-%h1.mobile= yield :page_title
 = flash_error
 = flash_success
 - if @hash_ok

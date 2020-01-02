@@ -1,6 +1,6 @@
 - content_for :sub_sub_menu do
   - if @relay && !@relay.new_record?
-    .menu.sub_menu
+    .menu.menu--sub.menu--sub-2
       = menu_item t('official.relays.sub_menu.main'), edit_official_race_relay_path(@relay.race_id, @relay), @relay_main
       = menu_item t('official.relays.sub_menu.results'), official_relay_relay_quick_saves_path(@relay), @relay_quick_save
       = menu_item t('official.relays.sub_menu.finish'), new_official_relay_finish_relay_path(@relay), @relay_finish

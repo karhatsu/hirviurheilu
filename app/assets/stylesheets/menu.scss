@@ -1,0 +1,124 @@
+.menu {
+  background-color: olive;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
+
+  &--main {
+    display: none;
+    flex-direction: column;
+    border-bottom: 1px solid #fff;
+    height: 30px;
+    z-index: 100;
+  }
+
+  &--sub {
+    border: 1px solid white;
+    border-bottom: none;
+    display: none;
+  }
+
+  &__item {
+    background-color: olive;
+    display: block;
+    position: relative;
+    white-space: nowrap;
+    z-index: 100;
+
+    a {
+      color: white;
+      display: block;
+      margin: 0;
+      text-decoration: none;
+
+      &.selected, &:hover {
+        color: olive;
+        background-color: white;
+      }
+    }
+  }
+
+  &__dropdown {
+    border: white solid 1px;
+    border-bottom-width: 0;
+    display: none;
+    position: absolute;
+    z-index: 10;
+
+    a {
+      background-color: olive;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-color: white;
+      border-style: solid;
+      border-width: 0 0 1px 0;
+      white-space: nowrap;
+
+      &:hover {
+        background-color: white;
+        color: olive;
+      }
+    }
+  }
+}
+
+.menu--main {
+  .menu__item {
+    border-bottom: 1px solid #fff;
+
+    a {
+      padding: 8px 15px;
+    }
+  }
+
+  .menu__dropdown {
+    top: 30px;
+
+    a {
+      overflow: hidden;
+      width: 300px;
+    }
+  }
+}
+
+.menu--sub {
+  .menu__item a {
+    padding: 7px 9px;
+  }
+
+  .menu__dropdown {
+    top: 28px;
+
+    a {
+      width: 150px;
+    }
+  }
+}
+
+@media only screen and (min-width: 48em) {
+  .menu--main {
+    display: flex;
+    flex-direction: row;
+
+    .menu__item {
+      border-bottom: none;
+    }
+  }
+
+  .menu--sub {
+    display: flex;
+  }
+
+  .menu--sub-1 {
+    margin: -8px -16px 0 -16px;
+  }
+
+  .menu--sub-2 {
+    margin: 0 -16px;
+  }
+
+  .menu__item:hover .menu__dropdown {
+    display: block;
+  }
+}

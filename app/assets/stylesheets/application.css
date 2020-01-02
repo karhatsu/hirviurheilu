@@ -6,11 +6,13 @@
  *= require buttons
  *= require form
  *= require results-table
- *= require structure
  *= require elk_sports
  *= require menu
  *= require messages
  *= require dialogs
  *= require rack_profiler
  *= require card
+ *= require header
+ *= require body
+ *= require footer
 */

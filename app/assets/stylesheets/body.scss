@@ -1,0 +1,77 @@
+body {
+  background-color: rgb(162, 160, 86);
+  background: linear-gradient(to right, rgba(128, 128, 0, 0.4), rgba(128, 128, 0, 0.6), rgba(128, 128, 0, 0.4), rgba(128, 128, 0, 0.7));
+  font-family: 'Muli', sans-serif;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.body {
+  padding: 16px;
+  max-width: 1024px;
+  margin: 0 auto;
+
+  &__on-top-title {
+    display: none;
+    padding-left: 28px;
+    margin-bottom: 8px;
+    background-image: url('/logo-128.png');
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: center left;
+
+    span {
+      color: #fff;
+      font-size: 24px;
+      text-shadow: 4px 4px 3px #666;
+    }
+  }
+
+  &__under-top-title {
+    display: block;
+    font-size: 20px;
+    margin: 8px 0 16px 0;
+  }
+
+  &__content {
+    background-color: #fff;
+    border: 1px solid olive;
+    border-radius: 2px;
+    padding: 8px;
+  }
+
+  &__yield {
+    position: relative;
+  }
+}
+
+.fb-share-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+@media only screen and (min-width: 48em) {
+  .body {
+    padding: 24px;
+
+    &__on-top-title {
+      display: block;
+    }
+
+    &__under-top-title {
+      display: none;
+    }
+
+    &__content {
+      border: none;
+      box-shadow: 10px 10px 20px #666;
+      padding: 8px 16px;
+    }
+  }
+
+  .fb-share-container {
+    top: 8px;
+  }
+}

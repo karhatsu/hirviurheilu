@@ -46,6 +46,6 @@ Feature: Manage team competitions
     And I should see "Joukkuekilpailun tiedot päivitetty" in a success message
     And I should see "Modified name"
     And I should see "7"
-    And I should see "Age group 1" within "div.main_content"
-    And I should see "Age group 2" within "div.main_content"
-    But I should not see "First series" within "div.main_content"
+    And I should see "Age group 1" within ".body__yield"
+    And I should see "Age group 2" within ".body__yield"
+    But I should not see "First series" within ".body__yield"

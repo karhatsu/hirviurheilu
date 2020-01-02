@@ -1,6 +1,4 @@
 - content_for :title, @cup.name
-.title-and-fb-share.race-page
-  = render partial: 'shared/facebook_share'
 %h2= t :results
 - if @cup.cup_series.empty?
   Cup-sarjoja ei ole vielä määritetty

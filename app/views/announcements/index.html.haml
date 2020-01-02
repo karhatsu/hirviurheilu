@@ -1,6 +1,5 @@
 - content_for :title, 'Kaikki tiedotteet'
 - content_for :page_title, yield(:title)
-%h1.mobile= yield :title
 - @announcements.each do |announcement|
   %section.announcement
     %h2

@@ -30,7 +30,7 @@ module MenuHelper
   def menu_item(title, link, selected, truncate_length=nil, do_block=false, &block)
     a_title = (truncate_length ? title : nil)
     title = truncate(title, :length => truncate_length) if truncate_length
-    item = '<div class="menu_item">'
+    item = '<div class="menu__item">'
     if selected
       item << link_to(title, link, :class => 'selected', :title => a_title)
     else
@@ -42,11 +42,11 @@ module MenuHelper
   end
 
   def dropdown_menu_single(item)
-    raw("<div class='dropdown_menu'><div class='dropdown_menu_item'>#{item}</div></div>")
+    raw("<div class='menu__dropdown'><div class='dropdown_menu_item'>#{item}</div></div>")
   end
 
   def races_dropdown_menu(races)
-    menu = '<div class="dropdown_menu">'
+    menu = '<div class="menu__dropdown">'
     races.each do |race|
       menu << "<div class='dropdown_menu_item'>#{link_to race.name, race_path(race)}</div>"
     end
@@ -57,7 +57,7 @@ module MenuHelper
 
   def series_dropdown_menu(race, type)
     return '' if race.series.count <= 1
-    menu = '<div class="dropdown_menu">'
+    menu = '<div class="menu__dropdown">'
     race.series.each do |series|
       next if series.new_record?
       if type == 'results'
@@ -81,7 +81,7 @@ module MenuHelper
 
   def relays_dropdown_menu(race)
     return '' if race.relays.count <= 1
-    menu = '<div class="dropdown_menu">'
+    menu = '<div class="menu__dropdown">'
     race.relays.each do |relay|
       menu << "<div class='dropdown_menu_item'>#{link_to relay.name, race_relay_path(locale_for_path, race, relay)}</div>"
     end
@@ -91,7 +91,7 @@ module MenuHelper
 
   def team_competitions_dropdown_menu(race)
     return '' if race.team_competitions.count <= 1
-    menu = '<div class="dropdown_menu">'
+    menu = '<div class="menu__dropdown">'
     race.team_competitions.each do |tc|
       menu << "<div class='dropdown_menu_item'>#{link_to tc.name, race_team_competition_path(locale_for_path, race, tc)}</div>"
     end
@@ -101,7 +101,7 @@ module MenuHelper
 
   def cup_series_dropdown_menu(cup)
     return '' if cup.cup_series.length <= 1
-    menu = '<div class="dropdown_menu">'
+    menu = '<div class="menu__dropdown">'
     cup.cup_series.each do |cs|
       menu << "<div class='dropdown_menu_item'>#{link_to cs.name, cup_cup_series_path(locale_for_path, cup, cs)}</div>"
     end

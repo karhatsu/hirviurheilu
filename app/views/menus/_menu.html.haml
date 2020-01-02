@@ -1,4 +1,4 @@
-.menu.main_menu
+.menu.menu--main
   = menu_item t('main_menu.home_page'), root_path, @is_main_page
   = menu_item t('main_menu.competitions'), races_path, (@is_races or @is_cup), nil, ((!@is_races && menu_race) || @main_menu_races) do
     - if @is_official && !@is_races && menu_race
@@ -11,10 +11,10 @@
   = menu_item t('main_menu.info'), info_path, @is_info
   - if current_user
     = menu_item t('main_menu.personal'), account_path, @is_account
+    - if current_user.admin?
+      = menu_item "Admin", admin_root_path, @is_admin
   - else
     = menu_item t('main_menu.start'), register_path, @is_start
-  - if current_user && current_user.admin?
-    = menu_item "Admin", admin_root_path, @is_admin
   - if I18n.locale == :sv
     = menu_item "Suomeksi", '?new_locale=fi', false
   - else

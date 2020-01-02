@@ -2,10 +2,7 @@
 - content_for(:title, "#{@series.race.name} - #{@series.name} - #{series_result_title(@series, unofficials)}")
 - if @series.active?
   = render :partial => 'shared/refresh_counter', locals: {competition: @series}
-.title-and-fb-share
-  %h2
-    #{@series.name} - #{series_result_title(@series, unofficials)}
-  = render partial: 'shared/facebook_share'
+%h2 #{@series.name} - #{series_result_title(@series, unofficials)}
 - content_for :sub_sub_menu do
   = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id } do |series|
     = race_series_path(series.race, series)

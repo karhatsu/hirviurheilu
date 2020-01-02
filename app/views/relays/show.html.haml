@@ -1,9 +1,7 @@
 - content_for :title, "#{@relay.race.name} - #{t('activerecord.models.relay', :count => 2)} - #{@relay.name} - #{relay_result_title(@relay)}"
 - if @relay.active?
   = render :partial => 'shared/refresh_counter', locals: {competition: @relay}
-.title-and-fb-share
-  %h2 #{@relay.name} - #{relay_result_title(@relay)}
-  = render partial: 'shared/facebook_share'
+%h2 #{@relay.name} - #{relay_result_title(@relay)}
 - content_for :sub_sub_menu do
   = render :layout => 'menus/relays_sub_menu', :locals => { :race => @relay.race, :relay_id => @relay.id } do |relay|
     - race_relay_path(relay.race, relay)

@@ -1,7 +1,4 @@
 = content_for(:title, @race.name)
-.title-and-fb-share.race-page= render partial: 'shared/facebook_share'
-%h1.mobile= yield :title
-%div #{@race.location}, #{race_date_interval(@race)}
 - unless @race.home_page.blank? and @race.organizer.blank? and @race.organizer_phone.blank?
   %h2= t '.organizer_info'
   = organizer_info_with_possible_link(@race)

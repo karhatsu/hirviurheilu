@@ -1,6 +1,5 @@
 - content_for(:title, t(:send_feedback))
 - content_for(:page_title, yield(:title))
-%h1.mobile= yield :page_title
 = flash_error
 .info= t '.race_info'
 = form_tag(feedbacks_path, class: 'form') do

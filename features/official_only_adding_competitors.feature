@@ -11,7 +11,7 @@ Feature: Official only adding competitors
     And I am on the official index page
     When I follow "Limited race"
     Then I should be on the limited official competitors page for "Limited race"
-    And I should see "Limited race" within ".main_title"
+    And I should see "Limited race" within ".body__on-top-title"
     And the "Toimitsijan sivut" main menu item should be selected
     And the "Kilpailijat" sub menu item should be selected
     And I should not see "Yhteenveto"

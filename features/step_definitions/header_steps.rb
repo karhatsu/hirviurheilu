@@ -1,5 +1,5 @@
 Then /^the page title should contain "(.*?)"$/ do |title|
-  within(".main_title") do
+  within(".body__on-top-title") do
     page.should have_content(title)
   end
 end

@@ -1,7 +1,5 @@
 - content_for(:title, "#{@cup_series.cup.name} - #{long_cup_series_name(@cup_series)} - #{t :results}")
-.title-and-fb-share
-  %h2= "#{long_cup_series_name(@cup_series)} - #{t :results}"
-  = render partial: 'shared/facebook_share'
+%h2= "#{long_cup_series_name(@cup_series)} - #{t :results}"
 - content_for :sub_sub_menu do
   = render :partial => 'menus/cup_series_sub_menu'
 .info= render partial: 'cups/points_rule', locals: {cup: @cup}

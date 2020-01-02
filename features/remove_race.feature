@@ -2,7 +2,7 @@ Feature: Remove race
   As an official/admin
   I want to remove races
   So that I can get rid of useless test data
-  
+
   Scenario: Remove race when it has no competitors
     Given I am an official
     And I have a race "Test race"
@@ -12,7 +12,7 @@ Feature: Remove race
     When I press "Poista kilpailu"
     Then I should be on the official index page
     And I should see "Kilpailu poistettu" in a success message
-    
+
   Scenario: Cannot remove race when it has competitors
     Given I am an official
     And I have a race "Test race"
@@ -21,7 +21,7 @@ Feature: Remove race
     And I have logged in
     And I am on the official race page of "Test race"
     Then the page should not contain the remove race button
-  
+
   Scenario: Cannot remove race when it has relays
     Given I am an official
     And I have a race "Test race"
@@ -36,7 +36,7 @@ Feature: Remove race
     And I am an admin
     And I have logged in
     And I am on the admin index page
-    When I follow "Kilpailut" within ".sub_menu"
+    When I follow "Kilpailut" within ".menu--sub"
     Then I should be on the admin races page
     And the "Admin" main menu item should be selected
     And the "Kilpailut" sub menu item should be selected
@@ -53,4 +53,3 @@ Feature: Remove race
     And I should see "Test race 2"
     But I should not see "Test race 1"
     And the race should be completely removed from the database
-    
