@@ -2,3 +2,5 @@
 - content_for(:page_title, yield(:title))
 = flash_success
 = render partial: "form", locals: { submit_label: t('.submit') }
+.buttons.buttons--nav
+  = link_to t(:back_to_official_home_page), official_root_path, class: 'button button--back'

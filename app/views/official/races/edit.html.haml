@@ -1,3 +1,5 @@
 = content_for(:title, "#{@race.name} - #{t '.title' }")
 = flash_success
 = render partial: "form", locals: { submit_label: t('.submit') }
+.buttons.buttons--nav
+  = link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'
