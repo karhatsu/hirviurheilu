@@ -8,4 +8,4 @@
     .card__buttons
       = link_to t(:edit), edit_official_race_club_path(@race.id, club), class: 'button button--edit'
       - if club.can_be_removed?
-        = link_to t(:remove), official_race_club_path(@race.id, club), method: :delete, remote: true, class: 'button button--danger'
+        = link_to t(:remove), official_race_club_path(@race.id, club), method: :delete, class: 'button button--danger'
