@@ -8,10 +8,10 @@
     = f.label :include_always_last_race
     = f.check_box :include_always_last_race
   .form__field.form__field--sm
-    = f.label :top_competitions
-    %span
-      = f.number_field :top_competitions, max_length: 1
+    .form__help-label
+      = f.label :top_competitions
       %a.help#top_competitions_help{href: 'javascript:void(0);'} ?
+    = f.number_field :top_competitions, max_length: 1
     #top_competitions_help_dialog.dialog{style: 'display:none;'}
       %h3
         Kun

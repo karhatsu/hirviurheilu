@@ -27,10 +27,10 @@
       = f.select :club_id, options_from_collection_for_select(@race.clubs, :id, :name, @competitor.club_id)
   .form__field
     - if @race.has_team_competitions_with_team_names?
-      = f.label :team_name
-      %span
-        = f.text_field :team_name
+      .form__help-label
+        = f.label :team_name
         %a.help#team_name_help{href: 'javascript:void(0);'} ?
+      = f.text_field :team_name
   .form__buttons
     = submit_tag "Tallenna", class: 'button button--primary'
     - if show_cancel

@@ -28,10 +28,11 @@
     = text_field_tag :club_name, '', placeholder: t("official.competitors.new.new_club_hint_#{club_level}")
 - if @series.race.has_team_competitions_with_team_names?
   .form__field.row
-    .col-xs-12.col-sm-3= f.label :team_name
-    .col-xs-12.col-sm-9
-      = f.text_field :team_name
-      %a.help#team_name_help{href: "javascript:void(0);"} ?
+    .col-xs-12.col-sm-3
+      .form__help-label
+        = f.label :team_name
+        %a.help#team_name_help{href: "javascript:void(0);"} ?
+    .col-xs-12.col-sm-9= f.text_field :team_name
   = render :partial => 'official/shared/team_name_help_dialog'
 - if f.object.new_record?
   - number_style = 'display:none;'

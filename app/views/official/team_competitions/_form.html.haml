@@ -11,10 +11,10 @@
     = f.label :multiple_teams
     = f.check_box :multiple_teams
   .form__field
-    = f.label :use_team_name
-    %span
-      = f.check_box :use_team_name
+    .form__help-label
+      = f.label :use_team_name
       %a#use_team_name_help.help{href: 'javascript:void(0);'} ?
+    = f.check_box :use_team_name
   #use_team_name_help_dialog.dialog{style: 'display: none;'}
     Normaalisti joukkueet muodostetaan piirin tai seuran perusteella.
     Jos kuitenkin valitset kohdan '#{t('attributes.use_team_name')}',

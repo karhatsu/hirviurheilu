@@ -68,6 +68,16 @@ $inputHeight: 16px;
   }
 }
 
+.form__help-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .help {
+    margin-left: 6px;
+  }
+}
+
 @media only screen and (min-width: 48em) {
   .form__field input {
     width: 24em;
