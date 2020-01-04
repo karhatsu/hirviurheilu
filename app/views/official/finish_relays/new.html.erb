@@ -2,9 +2,9 @@
 <% render partial: 'official/relays/sub_sub_menu' %>
 <h2><%= yield :title %></h2>
 <% if @relay.finished? %>
-  <div class="info"><%= t '.already_finished' %></div>
+  <div class="message message--info"><%= t '.already_finished' %></div>
 <% else %>
-  <div class="info"><%= t '.info' %></div>
+  <div class="message message--info"><%= t '.info' %></div>
   <%= render :partial => 'shared/form_errors', :locals => { :item => @relay } %>
   <%= form_tag(official_relay_finish_relay_path(@relay)) do %>
     <%= submit_tag t('.submit_button'), class: 'button button--primary' %>

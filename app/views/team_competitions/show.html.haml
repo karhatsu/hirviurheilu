@@ -9,7 +9,7 @@
 - cache [@tc, I18n.locale] do
   - results = @tc.results
   - if results.empty?
-    .info= t '.cannot_calculate_results'
+    .message.message--info= t '.cannot_calculate_results'
   - else
     .buttons
       %a#show_all_competitors.button{href: "javascript:void(0)"}= t :show_all_competitors

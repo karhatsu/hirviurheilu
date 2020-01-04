@@ -1,4 +1,4 @@
-$("#status_new").html("<span class='error'><%= t :error %>!</span>");
-$('div#update_error').addClass("error");
+$("#status_new").html('<span class="message message--error message--inline"><%= t :error %>!</span>')
+$("#status_new").show()
 $('div#update_error').text("<%= @competitor.errors.full_messages.join(". ") + "." %>");
 $('div#update_error').show();

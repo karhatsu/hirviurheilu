@@ -1,6 +1,6 @@
 - content_for :title, "#{@race.name} - #{t 'race_sub_menu.result_rotation'}"
 %h2= yield :title
-.info= t '.info'
+.message.message--info= t '.info'
 %h3= t '.status'
 - if @rotation
   = t '.status_active'
@@ -13,7 +13,7 @@
   - if result_rotation_competitions_paths(menu_race).empty?
     = t '.no_active_competitions'
   - else
-    .info= t '.status_inactive'
+    .message.message--info= t '.status_inactive'
     %h3= t '.ignition'
     = form_tag(race_result_rotation_path(@race), class: 'form') do
       .form__horizontal-fields

@@ -1,4 +1,4 @@
 - if !@relay.started?
-  .info
+  .message.message--info
     #{t 'relays.show.relay_start_time'}: #{datetime_print(@relay.start_datetime, true)}.
     #{t 'relays.show.relay_starts'} #{distance_of_time_in_words(Time.zone.now, @relay.start_datetime)}.

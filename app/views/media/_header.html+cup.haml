@@ -1,7 +1,6 @@
 - content_for :title, "#{@cup.name} - #{t 'race_sub_menu.press'}"
 %h2= t 'cup_sub_menu.press'
-.info
-  = t 'media.show.info'
+.message.message--info= t 'media.show.info'
 = flash_error
 = form_tag(cup_medium_path(@cup), class: 'form') do
   .form__field.form__field--sm

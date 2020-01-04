@@ -8,7 +8,7 @@
 - cache [@relay, @relay.started?, @leg, I18n.locale] do
   - @results = @relay.leg_results(@leg)
   - if @results.empty?
-    .info Viestiin ei ole vielä merkitty joukkueita
+    .message.message--info Viestiin ei ole vielä merkitty joukkueita
   - else
     = render 'relays/start_time_info'
     = render 'relays/penalty_seconds_info'

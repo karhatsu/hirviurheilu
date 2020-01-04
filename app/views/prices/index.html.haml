@@ -1,11 +1,11 @@
 - content_for :title, t('prices.title')
 - content_for :page_title, yield(:title)
 - if ProductionEnvironment.staging?
-  .important Käytät tällä hetkellä testiympäristöä. Sen käyttö on ilmaista.
+  .message.message--important Käytät tällä hetkellä testiympäristöä. Sen käyttö on ilmaista.
   %a.button{href: "#{PRODUCTION_URL}/prices"} Tutustu hintoihin varsinaisessa palvelussa
 - else
   %h2 Metsästäjäliiton jäsenseurat
-  .important
+  .message.message--important
     Hirviurheilu on Metsästäjäliiton jäsenseurojen vapaassa käytössä ilman erillistä veloitusta vuoteen 2020 asti!
     = link_to 'Lue lisää tiedotteista.', announcements_path
   %h2 Muut käyttäjät

@@ -18,7 +18,7 @@
     - time_text =  Time.now > @race.start_datetime ? 'alkoi' : 'alkaa'
     - infos << "Kilpailu #{time_text} #{time_print @race.start_time}."
   - if infos.length > 0
-    .info= infos.join(' ')
+    .message.message--info= infos.join(' ')
   .buttons
     - @race.series.each do |series|
       - if !series.started?

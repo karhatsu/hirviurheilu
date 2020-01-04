@@ -5,7 +5,7 @@
     = race_series_start_list_path(series.race, series)
 = render partial: "competitors/start_notice", locals: { series: @series }
 - if @series.start_list.empty?
-  .info= t '.no_competitors_or_start_times'
+  .message.message--info= t '.no_competitors_or_start_times'
 - else
   - cache [@series, I18n.locale] do
     .results--desktop= render partial: 'start_list', locals: { competitors: @series.start_list.includes(:club, :age_group), race: @series.race }

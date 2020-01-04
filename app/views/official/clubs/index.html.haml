@@ -1,7 +1,7 @@
 - content_for :title, "#{@race.name} - #{clubs_title(@race)}"
 %h2#clubs_title= clubs_title(@race)
 - club_word = (@race.club_level == Race::CLUB_LEVEL_PIIRI ? 'piirejä' : 'seuroja')
-.info= t '.info', club_word: club_word
+.message.message--info= t '.info', club_word: club_word
 .row
   - @race.clubs.each do |club|
     = render partial: 'club_row', locals: { club: club }

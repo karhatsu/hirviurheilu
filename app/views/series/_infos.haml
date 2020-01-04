@@ -1,11 +1,11 @@
 - show_estimate_info = defined?(show_race_unfinished) ? show_race_unfinished : true
 - if show_estimate_info and series.active?
-  .info= t :competition_unfinished_detailed_estimates_later
+  .message.message--info= t :competition_unfinished_detailed_estimates_later
 - walking_info = special_series_info(series)
 - if walking_info
-  .info= walking_info
+  .message.message--info= walking_info
 - if series.shorter_trip?
-  .info= t 'shorter_trip_notice.series'
+  .message.message--info= t 'shorter_trip_notice.series'
 - shorter_trip_groups = series.age_groups_with_shorter_trip
 - unless shorter_trip_groups.empty?
-  .info= t 'shorter_trip_notice.age_groups', age_group: shorter_trip_groups.map { |group| group.name }.join(', '), count: shorter_trip_groups.count
+  .message.message--info= t 'shorter_trip_notice.age_groups', age_group: shorter_trip_groups.map { |group| group.name }.join(', '), count: shorter_trip_groups.count

@@ -2,7 +2,7 @@
 - render partial: 'official/relays/sub_sub_menu'
 %h2= yield :title
 - if @relay.relay_competitors.empty?
-  .info Viestiin ei ole lisätty yhtään kilpailijaa
+  .message.message--info Viestiin ei ole lisätty yhtään kilpailijaa
 - else
   %h3 Arviointi
   - instructions = 'Syötä tulos muodossa joukkue,osuus,arvio, esim. 11,3,118 (joukkue 11, osuus 3, arvio 118 metriä).'

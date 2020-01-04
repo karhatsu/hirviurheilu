@@ -1,4 +1,4 @@
 - content_for :title, "#{@race.name} - Toimitsijat"
 %h2 Muokkaa toimitsijan oikeuksia
-.info Henkilön täytyy olla rekisteröitynyt palveluun omalla sähköpostiosoitteellaan.
+.message.message--info Henkilön täytyy olla rekisteröitynyt palveluun omalla sähköpostiosoitteellaan.
 = render partial: 'form', locals: {edit: true, submit_label: 'Tallenna'}

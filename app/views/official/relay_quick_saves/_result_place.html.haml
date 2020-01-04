@@ -1,6 +1,6 @@
-.info= instructions
-.success{id: "#{name}_success", style: 'display:none;'}
-.error{id: "#{name}_error", style: 'display:none;'}
+.message.message--info= instructions
+.message.message--success{id: "#{name}_success", style: 'display:none;'}
+.message.message--error{id: "#{name}_error", style: 'display:none;'}
 = form_tag(path, remote: true, onsubmit: "show_spinner('#{name}')", class: 'form') do
   .form__horizontal-fields
     .form__field

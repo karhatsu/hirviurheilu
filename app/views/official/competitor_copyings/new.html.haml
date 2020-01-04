@@ -1,9 +1,9 @@
 - content_for :title, t('.title')
 %h2= yield :title
 - if @races.empty?
-  .warning= t('.no_races')
+  .message.message--warning= t('.no_races')
 - else
-  .info
+  .message.message--info
     Valitsemastasi kilpailusta kopioidaan kilpailijat siten, että kohdekilpailuun heille tulee sama nimi, seura,
     ikäryhmä, sarja, lähtönumero ja lähtöaika.
     %br

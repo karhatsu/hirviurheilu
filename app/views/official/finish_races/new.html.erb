@@ -1,6 +1,6 @@
 <%= content_for :title, "#{@race.name} - #{t('.title')}" %>
 <h2><%= yield :title %></h2>
-<div class="info"><%= t '.info' %></div>
+<div class="message message--info"><%= t '.info' %></div>
 <%= render :partial => "shared/form_errors", :locals => { :item => @race } %>
 <% if @race.finished? %>
   <%= t '.already_finished' %>

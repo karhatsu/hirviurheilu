@@ -1,8 +1,8 @@
 - content_for :title, t('.title')
 %h2= yield :title
-.info= t '.info'
+.message.message--info= t '.info'
 %h3= t '.format_title'
-.info= t ".format_info_#{@race.start_order}"
+.message.message--info= t ".format_info_#{@race.start_order}"
 %h3= t '.example_of_valid_file'
 %pre.file_example
   = t ".example_row_#{@race.start_order}_1"

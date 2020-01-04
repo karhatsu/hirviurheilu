@@ -6,9 +6,9 @@
   = render layout: 'menus/relays_sub_menu', locals: { race: @relay.race, relay_id: @relay.id } do |relay|
     - race_relay_path(relay.race, relay)
 - if @results.empty?
-  .info= t '.relay_has_no_teams'
+  .message.message--info= t '.relay_has_no_teams'
 - elsif !@relay.start_time
-  .info= t '.relay_has_no_start_time'
+  .message.message--info= t '.relay_has_no_start_time'
 - else
   = render 'start_time_info'
   = render 'penalty_seconds_info'

@@ -15,7 +15,7 @@
     - series_results << '.'
     - results << series_results
 %h3= t '.report'
-.info= t '.result_info'
+.message.message--info= t '.result_info'
 = results.join(' ')
 .buttons.buttons--nav
   = link_to t(:back_to_race_home_page), race_path(@race), class: 'button button--back'

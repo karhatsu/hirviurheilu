@@ -1,7 +1,7 @@
 - content_for :title, "#{@race.name} - #{t '.title'}"
 - render partial: 'sub_sub_menu', locals: { relay_id: 'new' }
 %h2= t '.title'
-.warning= t '.leg_count_warning'
+.message.message--warning= t '.leg_count_warning'
 = render :partial => 'form'
 .buttons.buttons--nav
   = link_to t(:back_to_official_relays_page), official_race_relays_path(@race), class: 'button button--back'

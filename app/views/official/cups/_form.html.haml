@@ -39,7 +39,7 @@
         %label #{race.name}, #{date_print(race.start_date)}, #{race.location}
   - unless @cup.new_record?
     %h2 Cup-sarjat
-    .info
+    .message.message--info
       Osakilpailuiden sarjojen nimet -kenttään tulee pilkulla erotettuna
       niiden sarjojen nimet, joista cup-sarja koostuu. Esim. jos cup-sarjan nimi on
       'Naiset', voisi osakilpailuiden sarjojen nimet olla 'N,N40,N60'.

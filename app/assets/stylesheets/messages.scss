@@ -1,4 +1,4 @@
-div.error, div.warning, div.success, div.important, div.info {
+.message {
   border: solid 1px olive;
   border-radius: 2px;
   box-shadow: 3px 3px 3px #ccc;
@@ -10,61 +10,56 @@ div.error, div.warning, div.success, div.important, div.info {
     color: white;
     text-decoration: underline;
   }
-}
 
-div.error {
-  background: linear-gradient(to right, rgba(190, 31, 4, 0.9), rgba(190, 31, 4, 0.7));
-  border-color: #CC3300;
-}
+  &--inline {
+    padding: 4px;
+  }
 
-div.warning {
-  background: linear-gradient(to right, rgba(253, 106, 7, 1), rgba(253, 106, 7, 0.7));
-  border-color: #FF7F00;
-}
+  &--error {
+    background: linear-gradient(to right, rgba(190, 31, 4, 0.9), rgba(190, 31, 4, 0.7));
+    border-color: #CC3300;
 
-div.important {
-  background: linear-gradient(to right, rgba(253, 66, 7, 1), rgba(253, 66, 7, 0.7));
-  border-color: #FF7F00;
-}
+    ul {
+      margin: 0;
+      list-style: none;
+      padding-left: 0;
+    }
+  }
 
-div.success {
-  background: linear-gradient(to right, rgba(128, 128, 0, 0.9), rgba(128, 128, 0, 0.7));
-  border-color: olive;
-}
+  &--warning {
+    background: linear-gradient(to right, rgba(253, 106, 7, 1), rgba(253, 106, 7, 0.7));
+    border-color: #FF7F00;
+  }
 
-div.info {
-  background: linear-gradient(to right, rgba(29, 99, 153, 0.9), rgba(29, 99, 153, 0.7));
-  border-color: #27A;
-}
+  &--important {
+    background: linear-gradient(to right, rgba(253, 66, 7, 1), rgba(253, 66, 7, 0.7));
+    border-color: #FF7F00;
+  }
 
-div.error ul {
-  margin: 0;
-  list-style: none;
-  padding-left: 0;
-}
+  &--success {
+    background: linear-gradient(to right, rgba(128, 128, 0, 0.9), rgba(128, 128, 0, 0.7));
+    border-color: olive;
+  }
 
-span.error {
-  background-color: #CC3300;
-  border-radius: 2px;
-  color: white;
-  padding: 4px 8px;
-}
+  &--info {
+    background: linear-gradient(to right, rgba(29, 99, 153, 0.9), rgba(29, 99, 153, 0.7));
+    border-color: #27A;
 
-span.success {
-  background-color: olive;
-  border-radius: 2px;
-  color: white;
-  padding: 4px 8px;
-}
+    .help {
+      background-color: transparent;
+      border: none;
+      padding: 0;
 
-li.success {
-  background-color: olive;
-  color: white;
-}
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
 
-div.info_flash {
-  background: #fff none;
-  color: #27A;
+  &--flash {
+    background: none;
+    color: #27A;
+  }
 }
 
 .help {
@@ -85,14 +80,3 @@ div.info_flash {
     color: olive;
   }
 }
-
-.info .help {
-  background-color: transparent;
-  border: none;
-  padding: 0;
-
-  &:hover {
-    color: #fff;
-  }
-}
-
