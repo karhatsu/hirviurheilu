@@ -2,7 +2,7 @@
 - content_for(:page_title, yield(:title))
 = flash_error
 = flash_success
-.form.form--vertical
+.form
   .form__field
     %label= t 'attributes.email'
     %div=h @user.email
@@ -15,10 +15,10 @@
   .form__field
     %label= t 'attributes.club_name'
     %div=h @user.club_name
-  .form__buttons
-    = link_to t('.modify_information'), edit_account_path, class: 'button button--edit'
-    = link_to t('users.edit.change_password'), edit_passwords_path, class: 'button button--edit'
-    = link_to t(:logout), logout_path, method: :delete, class: 'button button--danger'
+.buttons
+  = link_to t('.modify_information'), edit_account_path, class: 'button button--edit'
+  = link_to t('users.edit.change_password'), edit_passwords_path, class: 'button button--edit'
+  = link_to t(:logout), logout_path, method: :delete, class: 'button button--danger'
 %h2= t '.own_races'
 - if @user.races.empty?
   = highlight_info(t('.no_own_races'))
