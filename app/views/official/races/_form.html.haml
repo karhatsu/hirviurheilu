@@ -19,7 +19,7 @@
   .form__field.form__field--sm.row
     .col-xs-12.col-sm-3= f.label :start_time
     .col-xs-12.col-sm-9= f.time_select :start_time, value: @race.start_time
-  .form__field.row
+  .form__field.form__field--md.row
     .col-xs-12.col-sm-3= f.label :days_count
     .col-xs-12.col-sm-9= f.select :days_count, [[t(:days, count: 1), 1], [t(:days, count: 2), 2]]
   .form__field.row
