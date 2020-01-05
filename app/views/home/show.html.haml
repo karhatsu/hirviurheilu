@@ -37,5 +37,4 @@
       = render partial: 'race_list', locals: { races: @past, max: 11 }
   - unless new_announcements
     = render partial: 'announcements', locals: { header_class: '' }
-  .before_facebook_like_box
   = render :partial => 'shared/facebook_like_box'
