@@ -16,8 +16,8 @@ setTimeout(function() {
   $("#status_<%= @competitor.id %>").hide('slow');
 }, 5000);
 
-$('#competitor_first_name').val('');
-$('#competitor_last_name').val('');
+$('#competitor_new_competitor_first_name').val('');
+$('#competitor_new_competitor_last_name').val('');
 
 <% if @competitor.series.has_start_list? %>
   $('#competitor_new_competitor_number').val(<%= @competitor.race.next_start_number %>);
