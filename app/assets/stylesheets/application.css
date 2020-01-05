@@ -4,6 +4,7 @@
  *= require fonts
  *= require titles
  *= require buttons
+ *= require public-message
  *= require form
  *= require results-table
  *= require elk_sports

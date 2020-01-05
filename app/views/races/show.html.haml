@@ -4,7 +4,7 @@
   = organizer_info_with_possible_link(@race)
 - unless @race.public_message.blank?
   %h2 Kilpailun järjestäjä tiedottaa
-  %blockquote.public_message
+  .public-message
     - markdown = Redcarpet::Markdown.new Redcarpet::Render::HTML
     = raw markdown.render(@race.public_message)
 - unless @race.series.empty? && !@race.relays.empty?

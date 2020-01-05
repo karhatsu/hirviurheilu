@@ -1,0 +1,31 @@
+.public-message {
+  background-color: #eee;
+  border-radius: 2px;
+  color: #383838;
+  font-size: 12px;
+  font-style: italic;
+  margin: 0 0 10px;
+  padding: 4px 8px 4px 32px;
+  line-height: 1.45;
+  position: relative;
+
+  &::before {
+    color: #7a7a7a;
+    content: "\201C";
+    display: block;
+    font-family: Georgia, serif;
+    font-size: 35px;
+    padding-left: 8px;
+    position: absolute;
+    left: -4px;
+    top: -4px;
+  }
+
+  p:first-child {
+    margin: 0;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
