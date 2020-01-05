@@ -1,5 +1,6 @@
 - content_for :title, "#{@relay.race.name} - #{@relay.name} - #{t '.title'}"
 - render partial: 'official/relays/sub_sub_menu'
+= render partial: 'official/relays/mobile_sub_menu', locals: { selected: :finish }
 %h2 #{@relay.name} - #{t '.title'}
 - if @relay.finished?
   .message.message--info= t '.already_finished'

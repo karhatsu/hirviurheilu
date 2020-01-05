@@ -1,5 +1,6 @@
 - content_for :title, "#{@race.name} - #{@relay.name} - Tulosten tallennus"
 - render partial: 'official/relays/sub_sub_menu'
+= render partial: 'official/relays/mobile_sub_menu', locals: { selected: :results }
 %h2 #{@relay.name} - Tulosten tallennus
 - if @relay.relay_competitors.empty?
   .message.message--info Viestiin ei ole lisätty yhtään kilpailijaa

@@ -1,5 +1,6 @@
 - content_for :title, "#{@race.name} - #{@relay.name} - #{t '.title'}"
 - render partial: 'sub_sub_menu'
+= render partial: 'mobile_sub_menu', locals: { selected: :edit }
 %h2 #{@relay.name} - #{t '.title'}
 = render :partial => 'form'
 .buttons.buttons--nav
