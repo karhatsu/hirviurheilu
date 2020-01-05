@@ -1,0 +1,12 @@
+- content_for :title, "#{@relay.race.name} - #{@relay.name} - #{t '.title'}"
+- render partial: 'official/relays/sub_sub_menu'
+%h2= yield :title
+- if @relay.finished?
+  .message.message--info= t '.already_finished'
+- else
+  .message.message--info= t '.info'
+  = render partial: 'shared/form_errors', locals: { item: @relay }
+  = form_tag(official_relay_finish_relay_path(@relay)) do
+    = submit_tag t('.submit_button'), class: 'button button--primary'
+.buttons.buttons--nav
+  = link_to t(:back_to_official_relays_page), official_race_relays_path(@relay.race), class: 'button button--back'
