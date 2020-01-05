@@ -1,23 +1,28 @@
 /*
  *= require jquery-ui/dialog
  *= require jquery-ui/ui-lightness
- *= require fonts
- *= require titles
- *= require buttons
- *= require public-message
- *= require result-rotation
- *= require form
- *= require results-table
- *= require facebook
- *= require menu
- *= require messages
- *= require dialogs
  *= require rack_profiler
- *= require card
+
+ *= require buttons
+ *= require fonts
+ *= require messages
  *= require pagination
+ *= require public-message
+ *= require titles
+
+ *= require dialogs
+ *= require facebook
+
+ *= require announcements
  *= require csv
+ *= require result-rotation
+
  *= require header
+ *= require menu
  *= require body
  *= require footer
- *= require announcements
+
+ *= require card
+ *= require form
+ *= require results-table
 */
