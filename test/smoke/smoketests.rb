@@ -28,10 +28,10 @@ def find_xpath(xpath)
 end
 
 def verify_text(element, expected)
-  if expected and element.text == expected
+  if expected && element.text.strip == expected
     puts "Text OK"
   elsif expected
-    error "FAILURE: element text is #{element.text}"
+    error "FAILURE: element text is '#{element.text}' vs. '#{expected}'"
   end
 end
 
@@ -63,12 +63,12 @@ def verify_http_status(path)
 end
 
 open_page('/')
-verify_contains "//div[@class='main_title']/span", 'Hirviurheilu - Hirvenhiihdon ja hirvenjuoksun tulospalvelu'
-link_to_races = find_link "//div[@class='menu main_menu']/div[2]/a", 'Kilpailut'
+verify_contains "//div[@class='body__on-top-title']", 'Hirviurheilu - Hirvenhiihdon ja hirvenjuoksun tulospalvelu'
+link_to_races = find_link "//div[@class='menu menu--main']/div[2]/a", 'Kilpailut'
 
 open_page(link_to_races)
-verify_contains "//div[@class='main_title']/span", 'Hirviurheilu - Kilpailut'
-link_to_race = find_link "(//div[@class='main_content']//a[@class='card'])[last()]"
+verify_contains "//div[@class='body__on-top-title']", 'Hirviurheilu - Kilpailut'
+link_to_race = find_link "(//div[@class='body__yield']//a[@class='card'])[last()]"
 
 open_page(link_to_race)
 link_to_results = find_link "//a[@class='button button--primary'][1]"
