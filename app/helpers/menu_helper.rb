@@ -50,7 +50,7 @@ module MenuHelper
     races.each do |race|
       menu << "<div class='dropdown-menu__item'>#{link_to race.name, race_path(race)}</div>"
     end
-    menu << "<div>#{link_to "- #{t('home.show.all_competitions')} -", races_path}</div>"
+    menu << "<div class='dropdown-menu__item'>#{link_to "- #{t('home.show.all_competitions')} -", races_path}</div>"
     menu << '</div>'
     raw(menu)
   end
