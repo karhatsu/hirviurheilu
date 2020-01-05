@@ -1,0 +1,15 @@
+.reload-counter {
+  background-color: #DDEEB5;
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 2px;
+  text-align: center;
+
+  @media only screen and (min-width: 48em) {
+    width: calc(100% - 100px);
+  }
+}
+
+.result-rotation__sub-selection {
+  margin-left: 16px;
+}

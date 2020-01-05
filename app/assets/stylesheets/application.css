@@ -5,6 +5,7 @@
  *= require titles
  *= require buttons
  *= require public-message
+ *= require result-rotation
  *= require form
  *= require results-table
  *= require elk_sports
