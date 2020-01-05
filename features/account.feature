@@ -45,9 +45,10 @@ Feature: Account
     And I press "Tallenna"
     Then I should see "Salasana vaihdettu" in a success message
     When I follow "Kirjaudu ulos"
+    And I follow "Aloita"
     And I follow "Kirjaudu sisään"
     And I fill in "test@test.com" for "Sähköposti"
     And I fill in "new-password" for "Salasana"
     And I press "Kirjaudu"
     Then I should see "Kirjautuminen onnistui" in a success message
-    And I should see "Kirjaudu ulos"
+    And I should see "Omat tiedot"

@@ -20,7 +20,7 @@ Feature: Save results by result place
     When I follow "Arviot"
     Then the "Toimitsijan sivut" main menu item should be selected
     And the "Arviot" sub menu item should be selected
-    And I should see "Result race" within ".main_title"
+    And I should see "Result race" within ".body__on-top-title"
     When I fill in "100" for "competitor[estimate1]"
     And I fill in "149" for "competitor[estimate2]"
     And I press "Tallenna"
@@ -28,7 +28,7 @@ Feature: Save results by result place
     When I choose "Ajat" from sub menu
     Then the "Toimitsijan sivut" main menu item should be selected
     And the "Ajat" sub menu item should be selected
-    And I should see "Result race" within ".main_title"
+    And I should see "Result race" within ".body__on-top-title"
     And the "competitor[start_time]" text field value should be "01:00:00"
     And the "competitor[arrival_time]" text field value should be ""
     When I fill in "01:25:41" for "competitor[arrival_time]"
@@ -37,7 +37,7 @@ Feature: Save results by result place
     When I choose "Ammunta" from sub menu
     Then the "Toimitsijan sivut" main menu item should be selected
     And the "Ammunta" sub menu item should be selected
-    And I should see "Result race" within ".main_title"
+    And I should see "Result race" within ".body__on-top-title"
     When I fill in "99" for "competitor[shots_total_input]"
     And I press "Tallenna"
     Then I should see "Tallennettu"

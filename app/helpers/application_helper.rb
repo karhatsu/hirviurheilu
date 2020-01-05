@@ -1,27 +1,23 @@
 module ApplicationHelper
 
-  def mobile?
-    request.variant[0] == :mobile
-  end
-
   def flash_success
-    raw("<div class='success'>#{flash[:success]}</div>") if flash[:success]
+    raw("<div class='message message--success'>#{flash[:success]}</div>") if flash[:success]
   end
 
   def flash_error
-    raw("<div class='error'>#{flash[:error]}</div>") if flash[:error]
+    raw("<div class='message message--error'>#{flash[:error]}</div>") if flash[:error]
   end
 
   def highlight_info(content)
     timestamp = Time.now.to_f.to_s.gsub!('.', '')
     html = %{
-      <div class="info" id="highlight_#{timestamp}">#{content}</div>
+      <div class="message message--info" id="highlight_#{timestamp}">#{content}</div>
       <script type="text/javascript">
         $(document).ready(function() {
-          setTimeout(function() {$("#highlight_#{timestamp}").addClass('info_flash')}, 500);
-          setTimeout(function() {$("#highlight_#{timestamp}").removeClass('info_flash')}, 1000);
-          setTimeout(function() {$("#highlight_#{timestamp}").addClass('info_flash')}, 1500);
-          setTimeout(function() {$("#highlight_#{timestamp}").removeClass('info_flash')}, 2000);
+          setTimeout(function() {$("#highlight_#{timestamp}").addClass('message--flash')}, 500);
+          setTimeout(function() {$("#highlight_#{timestamp}").removeClass('message--flash')}, 1000);
+          setTimeout(function() {$("#highlight_#{timestamp}").addClass('message--flash')}, 1500);
+          setTimeout(function() {$("#highlight_#{timestamp}").removeClass('message--flash')}, 2000);
         });
       </script>
     }

@@ -1,7 +1,5 @@
 - content_for :title, competitor_title(@competitor)
-.title-and-fb-share
-  %h2= yield :title
-  = render partial: 'shared/facebook_share'
+%h2= yield :title
 - content_for :sub_sub_menu do
   = render layout: 'menus/series_sub_menu',
              locals: { race: @competitor.series.race, series_id: @competitor.series.id } do |series|

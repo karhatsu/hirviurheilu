@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :set_variant
   before_action :require_no_user, :only => [:new, :create]
   before_action :require_user, :only => [:show, :edit, :update]
   before_action :set_account, :only => [:show, :edit, :update]

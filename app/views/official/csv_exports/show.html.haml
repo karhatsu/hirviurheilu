@@ -1,9 +1,9 @@
 - content_for :title, t('.title')
 %h2= yield :title
 - if @race.competitors.empty?
-  .info= t '.no_competitors'
+  .message.message--info= t '.no_competitors'
 - else
-  .info= t '.info'
+  .message.message--info= t '.info'
   = form_tag(official_race_csv_export_path(@race), class: 'form') do |f|
     = submit_tag t('.submit_button'), class: 'button button--primary'
 %h2= t '.import_title'

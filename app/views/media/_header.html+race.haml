@@ -1,7 +1,6 @@
 - content_for :title, "#{@race.name} - #{t 'race_sub_menu.press'}"
 %h2= t 'race_sub_menu.press'
-.info
-  = "#{t 'media.show.info'}#{@race.finished? ? '' : ", #{t 'media.show.when_race_finished'}"}."
+.message.message--info #{t 'media.show.info'}#{@race.finished? ? '' : ", #{t 'media.show.when_race_finished'}"}.
 - if @race.finished?
   - club_word = (@race.club_level == Race::CLUB_LEVEL_PIIRI ? t('media.show.from_district') : t('media.show.from_club'))
   = flash_error

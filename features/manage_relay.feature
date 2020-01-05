@@ -78,10 +78,10 @@ Feature: Manage relays
     And I have logged in
     And I am on the official relays page of "Relay race"
     When I follow "Test relay"
-    And I follow "Tulosten tallennus"
+    And I follow the first "Tulosten tallennus" link
     Then the official main menu item should be selected
     And the "Viestit" sub menu item should be selected
-    And I should see "Viesti - Test relay - Tulosten pikasyöttö" within "h2"
+    And I should see "Test relay - Tulosten tallennus" within "h2"
 
   Scenario: Finish relay
     Given I am an official
@@ -114,7 +114,7 @@ Feature: Manage relays
     Given the estimate for the relay competitor "John" "Stevenson" is 75
     And I go to the official relays page of "Relay race"
     And I follow "Test relay"
-    And I follow "Viestin päättäminen"
+    And I follow the first "Viestin päättäminen" link
     And I press "Merkitse viesti päättyneeksi"
     Then I should be on the official relays page of "Relay race"
     And I should see "Viesti 'Test relay' merkitty päättyneeksi" in a success message

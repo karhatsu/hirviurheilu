@@ -1,6 +1,6 @@
 - content_for :title, "#{@race.name} - #{t 'race_sub_menu.result_rotation'}"
 %h2= yield :title
-.info= t '.info'
+.message.message--info= t '.info'
 %h3= t '.status'
 - if @rotation
   = t '.status_active'
@@ -13,7 +13,7 @@
   - if result_rotation_competitions_paths(menu_race).empty?
     = t '.no_active_competitions'
   - else
-    .info= t '.status_inactive'
+    .message.message--info= t '.status_inactive'
     %h3= t '.ignition'
     = form_tag(race_result_rotation_path(@race), class: 'form') do
       .form__horizontal-fields
@@ -24,7 +24,7 @@
         .form__field
           = radio_button_tag :selection_type, :all, true, class: 'selection_type_radio'
           = label_tag :selection_type_all, t('.all_competitions')
-      .result_rotation_sub_selection
+      .result-rotation__sub-selection
         - unless @race.team_competitions.empty?
           .form__horizontal-fields
             .form__field
@@ -34,7 +34,7 @@
         .form__field
           = radio_button_tag :selection_type, :certain, false, class: 'selection_type_radio'
           = label_tag :selection_type_certain, t('.select_competitions')
-      .result_rotation_sub_selection
+      .result-rotation__sub-selection
         - series = result_rotation_series(@race)
         - series.each do |series|
           .form__horizontal-fields

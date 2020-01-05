@@ -15,7 +15,7 @@ Feature: Club level
     And I check "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
-    When I follow "Seurat" within ".sub_menu"
+    When I follow "Seurat" within ".menu--sub"
     Then the "Seurat" sub menu item should be selected
     And I should see "Seurat" within "h2#clubs_title"
     And I should see "seuroja" in an info message
@@ -23,7 +23,7 @@ Feature: Club level
     When I follow "Lisää seura"
     And I fill in "Testi" for "Nimi"
     And I press "Tallenna"
-    And I follow "Seurat" within ".sub_menu"
+    And I follow "Seurat" within ".menu--sub"
     Then I should see "Seurat" within "h2"
     When I follow "Yhteenveto"
     And I follow the first "Lisää ensimmäinen kilpailija" link
@@ -58,14 +58,14 @@ Feature: Club level
     And I choose "Piiri"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
-    When I follow "Piirit" within ".sub_menu"
+    When I follow "Piirit" within ".menu--sub"
     Then the "Piirit" sub menu item should be selected
     And I should see "Piirit" within "h2#clubs_title"
     And I should see "piirejä" in an info message
     When I follow "Lisää piiri"
     And I fill in "Testi" for "Nimi"
     And I press "Tallenna"
-    And I follow "Piirit" within ".sub_menu"
+    And I follow "Piirit" within ".menu--sub"
     Then I should see "Piirit" within "h2"
     When I follow "Yhteenveto"
     And I follow the first "Lisää ensimmäinen kilpailija" link

@@ -1,2 +1,2 @@
 - if @relay.penalty_seconds?
-  .info= t("relays.show.penalty_seconds_info.#{@relay.race.sport_key}", estimate_penalty_seconds: @relay.estimate_penalty_seconds, shooting_penalty_seconds: @relay.shooting_penalty_seconds)
+  .message.message--info= t("relays.show.penalty_seconds_info.#{@relay.race.sport_key}", estimate_penalty_seconds: @relay.estimate_penalty_seconds, shooting_penalty_seconds: @relay.shooting_penalty_seconds)

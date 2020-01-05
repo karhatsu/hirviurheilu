@@ -13,7 +13,7 @@
         = f.number_field :legs_count
       - else
         = @relay.legs_count
-  .form__field.row
+  .form__field.form__field--sm.row
     .col-xs-12.col-sm-3= f.label :start_time
     .col-xs-12.col-sm-9
       = start_days_form_field(f, @relay)

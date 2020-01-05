@@ -51,6 +51,7 @@ $inputHeight: 16px;
     height: 34px;
     margin-top: $inputHeight / 2;
     max-width: 100%;
+    width: 100%;
     -webkit-appearance: menulist-button;
   }
 
@@ -68,6 +69,16 @@ $inputHeight: 16px;
   }
 }
 
+.form__help-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .help {
+    margin-left: 6px;
+  }
+}
+
 @media only screen and (min-width: 48em) {
   .form__field input {
     width: 24em;
@@ -81,14 +92,24 @@ $inputHeight: 16px;
 }
 
 .form__field--sm {
-  input {
+  input, select {
     width: 64px;
   }
 }
 
 .form__field--md {
-  input {
+  input, select {
     width: 128px;
+  }
+}
+
+.form__field--date {
+  select {
+    width: 128px;
+  }
+
+  select:first-child, select:last-child {
+    width: 64px;
   }
 }
 
@@ -123,9 +144,14 @@ textarea {
 
   .form__field {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    margin-top: 0;
+    margin-top: 6px;
     margin-right: 16px;
+
+    @media only screen and (min-width: 48em) {
+      margin-top: 0;
+    }
 
     &--shot {
       margin-right: 6px;
@@ -143,6 +169,14 @@ textarea {
   .form__buttons {
     margin-top: 0;
     margin-right: 16px;
+  }
+
+  .button {
+    margin-top: 6px;
+
+    @media only screen and (min-width: 48em) {
+      margin-top: 0;
+    }
   }
 }
 

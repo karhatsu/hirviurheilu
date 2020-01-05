@@ -1,39 +1,39 @@
 - content_for :title, "#{@race.name} - #{t('activerecord.models.team_competition', :count => 2)} - #{@tc.name}"
 - if @tc.started? and not @race.finished?
   = render :partial => 'shared/refresh_counter', locals: {competition: @tc}
-.title-and-fb-share
-  %h2
-    = @tc.name
-    \-
-    = t :results
-  = render partial: 'shared/facebook_share'
+%h2 #{@tc.name} - #{t :results}
 - if @tc.race.team_competitions.count > 1
   - content_for :sub_sub_menu do
-    = render :layout => 'team_competitions_sub_menu', :locals => { :race => @tc.race, :team_competition_id => @tc.id } do |tc|
+    = render layout: 'team_competitions_sub_menu', locals: { race: @tc.race, team_competition_id: @tc.id } do |tc|
       = race_team_competition_path(tc.race, tc)
 - cache [@tc, I18n.locale] do
   - results = @tc.results
   - if results.empty?
-    .info= t '.cannot_calculate_results'
+    .message.message--info= t '.cannot_calculate_results'
   - else
     .buttons
       %a#show_all_competitors.button{href: "javascript:void(0)"}= t :show_all_competitors
       %a#hide_all_competitors.button{href: "javascript:void(0)", style: 'display:none;'}= t :hide_all_competitors
-    = render partial: 'results_table', locals: { results: results }
+    .results--desktop= render partial: 'results_table', locals: { results: results }
+    .results--mobile= render partial: 'results_table_mobile', locals: { results: results }
   - unless results.empty?
     .buttons
       = link_to t(:download_results_pdf_without_competitors), race_team_competition_path(@race, @tc, exclude_competitors: true, format: 'pdf'), class: 'button button--pdf'
       = link_to t(:download_results_pdf_with_competitors), race_team_competition_path(@race, @tc, format: 'pdf'), class: 'button button--pdf'
+  = render layout: 'team_competitions_sub_menu', locals: { race: @tc.race, team_competition_id: @tc.id, mobile: true } do |tc|
+    = race_team_competition_path(tc.race, tc)
   .buttons.buttons--nav
     = link_to "#{t(:back_to_page)} #{@race.name}", race_path(@race), class: 'button button--back'
 :javascript
   function showAllCompetitors() {
+    $('.card__middle-2').show();
     $('.competitor_row').show();
     $('#show_all_competitors').hide();
     $('#hide_all_competitors').show();
     window.location.hash = 'competitors'
   }
   function hideAllCompetitors() {
+    $('.card__middle-2').hide();
     $('.competitor_row').hide();
     $('#show_all_competitors').show();
     $('#hide_all_competitors').hide();

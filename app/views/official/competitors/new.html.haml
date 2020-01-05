@@ -1,6 +1,6 @@
 = content_for(:title, "#{@series.race.name} - #{t('.title')}")
 %h2= yield :title
-.error{style: 'display: none;'}
+.message.message--error{style: 'display: none;'}
 = render partial: "shared/form_errors", locals: { item: @competitor }
 = form_for([:official, @competitor.series.race, @competitor], remote: true, html: { class: 'form' }) do |f|
   = render partial: "basic_fields", locals: { f: f }
@@ -9,7 +9,7 @@
   = image_tag 'spinner.gif', style: 'display:none;', id: 'spinner'
 #latest_competitors{style: 'display: none;'}
   %hr
-  .success{style: 'display: none;'}
+  .message.message--success{style: 'display: none;'}
   %h3= t '.latest_added_competitors'
   %ul#latest_competitors_list
 .buttons.buttons--nav

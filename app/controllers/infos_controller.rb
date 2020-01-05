@@ -1,5 +1,5 @@
 class InfosController < ApplicationController
-  before_action :set_is_info, :set_variant
+  before_action :set_is_info
 
   def show
     @is_info_main = true

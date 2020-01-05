@@ -37,5 +37,5 @@ Given /^the cup contains the default cup series$/ do
 end
 
 Then /^I should see error about too few races selected for the cup$/ do
-  step %{I should see "Sinun täytyy valita vähintään yhtä monta kilpailua kuin on yhteistulokseen laskettavien kilpailuiden määrä" within "div.error"}
+  step %{I should see "Sinun täytyy valita vähintään yhtä monta kilpailua kuin on yhteistulokseen laskettavien kilpailuiden määrä" within ".message--error"}
 end

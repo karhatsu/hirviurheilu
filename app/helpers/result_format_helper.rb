@@ -14,7 +14,7 @@ module ResultFormatHelper
     return 300 if competitor.series.points_method == Series::POINTS_METHOD_300_TIME_2_ESTIMATES
     return '-' if competitor.time_in_seconds.nil?
     points = competitor.time_points(unofficials)
-    html = (points == 300 ? "<span class='series_best_time'>" : '')
+    html = (points == 300 ? "<span class='series-best-time'>" : '')
     html << points.to_s
     html << " (#{time_from_seconds(competitor.time_in_seconds)})" if with_time
     html << (points == 300 ? '</span>' : '')

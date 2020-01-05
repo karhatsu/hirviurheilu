@@ -1,5 +1,4 @@
 class UserSessionsController < ApplicationController
-  before_action :set_variant
   before_action :require_no_user, :only => [:new, :create]
   before_action :require_user, :only => :destroy
 

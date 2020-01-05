@@ -8,7 +8,7 @@
       = submit_tag 'Hae', class: 'button button--primary'
       = link_to 'Tyhjennä', races_path, class: 'button'
 - if @races.empty?
-  .info= t :no_races
+  .message.message--info= t :no_races
 - else
   - cache [Race.cache_key_for_all, I18n.locale, params[:page], params[:search_text], params[:district_id]] do
     .row= render partial: 'home/race_list', locals: { races: @races }

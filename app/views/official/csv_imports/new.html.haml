@@ -1,10 +1,10 @@
 - content_for :title, t('.title')
 %h2= yield :title
-.info= t '.info'
+.message.message--info= t '.info'
 %h3= t '.format_title'
-.info= t ".format_info_#{@race.start_order}"
+.message.message--info= t ".format_info_#{@race.start_order}"
 %h3= t '.example_of_valid_file'
-%pre.file_example
+%pre.file-example
   = t ".example_row_#{@race.start_order}_1"
   %br
   = t ".example_row_#{@race.start_order}_2"
@@ -16,3 +16,5 @@
     = file_field_tag :file
   .form__buttons
     = submit_tag t('.submit_button'), class: 'button button--primary'
+.buttons.buttons--nav
+  = link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'

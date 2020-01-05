@@ -1,0 +1,6 @@
+- if facebook_env?
+  - path = request.path
+  - if path == '/' || path.match(/^\/races/) || path.match(/^\/announcements/) || path.match(/^\/cups/)
+    - url = Rails.env.development? ? PRODUCTION_URL : request.original_url
+    .fb-share-container
+      .fb-share-button{'data-href': url, 'data-type': 'button_count'}

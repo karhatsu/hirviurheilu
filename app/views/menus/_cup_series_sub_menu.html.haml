@@ -1,3 +1,11 @@
-.menu.sub_menu
-  - @cup.cup_series.each do |cup_series|
-    = menu_item cup_series.name, cup_cup_series_path(@cup, cup_series), cup_series == @cup_series, 18
+- if defined? mobile
+  .buttons.buttons--mobile
+    - @cup.cup_series.each do |cup_series|
+      - if cup_series == @cup_series
+        .button.button--current= cup_series.name
+      - else
+        = link_to cup_series.name, cup_cup_series_path(@cup, cup_series), class: 'button'
+- else
+  .menu.menu--sub.menu--sub-2
+    - @cup.cup_series.each do |cup_series|
+      = menu_item cup_series.name, cup_cup_series_path(@cup, cup_series), cup_series == @cup_series, 18

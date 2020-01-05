@@ -1,4 +1,4 @@
-$('div.success').hide();
+$('.message--success').hide();
 $('#spinner').hide();
-$('div.error').text("<%= @competitor.errors.full_messages.join(". ") + "." %>");
-$('div.error').show();
+$('.message--error').text("<%= @competitor.errors.full_messages.join(". ") + "." %>");
+$('.message--error').show();

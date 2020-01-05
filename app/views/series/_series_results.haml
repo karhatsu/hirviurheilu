@@ -19,10 +19,10 @@
     %th
       = link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_POINTS),
         t(:points), race_series_path(series.race, series))
-  - time_css = params[:sort].to_i == Competitor::SORT_BY_TIME ? 'total_points' : ''
-  - est_css = params[:sort].to_i == Competitor::SORT_BY_ESTIMATES ? 'total_points' : ''
-  - shots_css = params[:sort].to_i == Competitor::SORT_BY_SHOTS ? 'total_points' : ''
-  - points_css = params[:sort].blank? ? ' total_points' : ''
+  - time_css = params[:sort].to_i == Competitor::SORT_BY_TIME ? 'total-points' : ''
+  - est_css = params[:sort].to_i == Competitor::SORT_BY_ESTIMATES ? 'total-points' : ''
+  - shots_css = params[:sort].to_i == Competitor::SORT_BY_SHOTS ? 'total-points' : ''
+  - points_css = params[:sort].blank? ? ' total-points' : ''
   - prev_rel_points = 1.0/0.0
   - series.ordered_competitors(unofficials, params[:sort].to_i).each_with_index do |comp, i|
     - next unless i < 3 or params[:club_id].blank? or comp.club_id == params[:club_id].to_i

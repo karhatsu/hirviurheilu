@@ -1,13 +1,12 @@
-.second_level_menu
-  - if @is_races
-    = render 'menus/race_sub_menu'
-  - elsif @is_cup
-    = render 'menus/cup_sub_menu'
-  - elsif @is_info
-    = render 'menus/info_sub_menu'
-  - elsif @is_limited_official
-    = render 'official/limited/shared/sub_menu'
-  - elsif @is_official
-    = render 'official/shared/sub_menu'
-  - elsif @is_admin
-    = render 'admin/shared/sub_menu'
+- if @is_races
+  = render 'menus/race_sub_menu'
+- elsif @is_cup
+  = render 'menus/cup_sub_menu'
+- elsif @is_info
+  = render 'menus/info_sub_menu'
+- elsif @is_limited_official
+  = render 'official/limited/shared/sub_menu'
+- elsif @is_official
+  = render 'official/shared/sub_menu'
+- elsif @is_admin
+  = render 'admin/shared/sub_menu'

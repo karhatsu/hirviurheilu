@@ -1,6 +1,5 @@
 - content_for(:title, t('users.edit.change_password'))
 - content_for(:page_title, yield(:title))
-%h1.mobile= yield :page_title
 = render partial: "shared/form_errors", locals: { item: @user }
 = form_for @user, url: passwords_path, method: :put, html: { class: 'form' } do |f|
   .form__field

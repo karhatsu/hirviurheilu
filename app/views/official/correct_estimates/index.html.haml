@@ -12,9 +12,9 @@
 
 %h2= t '.defined_correct_estimates'
 - if @race.competitors.empty?
-  .info= t '.no_competitors_info'
+  .message.message--info= t '.no_competitors_info'
 - else
-  .info= t '.start_list_required_info'
+  .message.message--info= t '.start_list_required_info'
   .row
     - @competitors.each do |c|
       .col-xs-12.col-sm-6.col-md-4

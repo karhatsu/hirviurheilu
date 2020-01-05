@@ -13,13 +13,13 @@
   .form__field.row
     .col-xs-12.col-sm-3= f.label :location
     .col-xs-12.col-sm-9= f.text_field :location
-  .form__field.row
+  .form__field.form__field--date.row
     .col-xs-12.col-sm-3= f.label :start_date
     .col-xs-12.col-sm-9= f.date_select :start_date, start_year: Date.today.year - 1, end_year: Date.today.year + 1
-  .form__field.row
+  .form__field.form__field--sm.row
     .col-xs-12.col-sm-3= f.label :start_time
     .col-xs-12.col-sm-9= f.time_select :start_time, value: @race.start_time
-  .form__field.row
+  .form__field.form__field--md.row
     .col-xs-12.col-sm-3= f.label :days_count
     .col-xs-12.col-sm-9= f.select :days_count, [[t(:days, count: 1), 1], [t(:days, count: 2), 2]]
   .form__field.row
@@ -35,23 +35,26 @@
     .col-xs-12.col-sm-3= f.label :organizer
     .col-xs-12.col-sm-9= f.text_field :organizer
   .form__field.row
-    .col-xs-12.col-sm-3= f.label :address
-    .col-xs-12.col-sm-9
-      = f.text_field :address
-      %a.help#address_help{href: 'javascript:void(0);'} ?
+    .col-xs-12.col-sm-3
+      .form__help-label
+        = f.label :address
+        %a.help#address_help{href: 'javascript:void(0);'} ?
+    .col-xs-12.col-sm-9= f.text_field :address
   .form__field.row
-    .col-xs-12.col-sm-3= f.label :home_page, t('official.races.form.link_to_race_home_page')
-    .col-xs-12.col-sm-9
-      = f.url_field :home_page
-      %a.help#home_page_help{href: 'javascript:void(0);'} ?
+    .col-xs-12.col-sm-3
+      .form__help-label
+        = f.label :home_page, t('official.races.form.link_to_race_home_page')
+        %a.help#home_page_help{href: 'javascript:void(0);'} ?
+    .col-xs-12.col-sm-9= f.url_field :home_page
   .form__field.form__field--md.row
     .col-xs-12.col-sm-3= f.label :organizer_phone
-    .col-xs-12.col-sm-9= f.text_field :organizer_phone
+    .col-xs-12.col-sm-9= f.telephone_field :organizer_phone
   .form__field.row
-    .col-xs-12.col-sm-3= f.label :public_message
-    .col-xs-12.col-sm-9
-      = f.text_area :public_message, cols: 50, rows: 6
-      %a.help#public_message_help{href: 'javascript:void(0);'} ?
+    .col-xs-12.col-sm-3
+      .form__help-label
+        = f.label :public_message
+        %a.help#public_message_help{href: 'javascript:void(0);'} ?
+    .col-xs-12.col-sm-9= f.text_area :public_message, cols: 50, rows: 6
 
   #home_page_help_dialog.dialog{style: 'display:none;'}
     Jos kilpailusta on tarjolla lisätietoa esimerkiksi piirin tai seuran
@@ -97,20 +100,24 @@
       = f.number_field :start_interval_seconds, maxlength: 3
       = t 'official.races.form.seconds'
   .form__field.row
-    .col-xs-12.col-sm-3= f.label :start_order, t('attributes.start_order')
+    .col-xs-12.col-sm-3
+      .form__help-label
+        = f.label :start_order, t('attributes.start_order')
+        %a.help#start_order_help{href: 'javascript:void(0);'} ?
     .col-xs-12.col-sm-9
       = f.radio_button :start_order, Race::START_ORDER_NOT_SELECTED, style: 'display:none;'
       = f.radio_button :start_order, Race::START_ORDER_BY_SERIES
       = f.label "start_order_#{Race::START_ORDER_BY_SERIES}", t('official.races.form.competitors_start_order_series'), class: 'form__label--radio'
       = f.radio_button :start_order, Race::START_ORDER_MIXED
       = f.label "start_order_#{Race::START_ORDER_MIXED}", t('official.races.form.competitors_start_order_mixed'), class: 'form__label--radio'
-      %a.help#start_order_help{href: 'javascript:void(0);'} ?
 
   .form__field.form__field--sm.batch_size_row.row
-    .col-xs-12.col-sm-3= f.label :batch_size
+    .col-xs-12.col-sm-3
+      .form__help-label
+        = f.label :batch_size
+        %a.help#batch_size_help{href: 'javascript:void(0);'} ?
     .col-xs-12.col-sm-9
       = f.number_field :batch_size, maxlength: 3
-      %a.help#batch_size_help{href: 'javascript:void(0);'} ?
       (0 = #{t 'official.races.form.start_batches_not_in_use'})
 
   .form__field.form__field--sm.batch_size_row.row
@@ -122,10 +129,11 @@
   - if @race.new_record?
     %h2= t 'activerecord.models.series.other'
     .form__field.row
-      .col-xs-12.col-sm-3= label_tag :add_default_series, t('official.races.new.add_default_series_automatically')
-      .col-xs-12.col-sm-9
-        = check_box_tag :add_default_series, '1', params[:add_default_series]
-        %a.help#default_series_help{href: 'javascript:void(0);'} ?
+      .col-xs-12.col-sm-3
+        .form__help-label
+          = label_tag :add_default_series, t('official.races.new.add_default_series_automatically')
+          %a.help#default_series_help{href: 'javascript:void(0);'} ?
+      .col-xs-12.col-sm-9= check_box_tag :add_default_series, '1', params[:add_default_series]
 
     #default_series_help_dialog.dialog{style: 'display:none;'}
       Jos merkitset 'Lisää oletussarjat automaattisesti'-kentän valituksi,

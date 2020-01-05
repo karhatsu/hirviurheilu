@@ -1,5 +1,5 @@
 class CupsController < ApplicationController
-  before_action :assign_cup_by_id, :set_variant
+  before_action :assign_cup_by_id
 
   def show
     @is_cup = true

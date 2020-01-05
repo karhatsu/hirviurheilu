@@ -21,8 +21,42 @@ h2 {
 h3 {
   font-size: 16px;
   margin: 16px 0 8px;
+
+  &.desktop {
+    display: none;
+
+    @media only screen and (min-width: 48em) {
+      display: block;
+    }
+  }
 }
 
 .home_page h2:first-of-type {
   margin-top: 24px;
+}
+
+.race-title__name {
+  display: block;
+}
+
+.race-title__location {
+  font-size: 16px;
+
+  &::before {
+    content: '(';
+  }
+}
+
+.race-title__dates {
+  font-size: 16px;
+
+  &::after {
+    content: ')';
+  }
+}
+
+@media only screen and (min-width: 48em) {
+  .race-title__name {
+    display: inline;
+  }
 }

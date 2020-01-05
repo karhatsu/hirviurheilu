@@ -1,6 +1,5 @@
 class SeriesController < ApplicationController
   before_action :assign_series_by_id, only: :show
-  before_action :set_variant, only: :show
   before_action :set_races
 
   def show

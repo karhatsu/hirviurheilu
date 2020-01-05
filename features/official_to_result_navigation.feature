@@ -52,7 +52,7 @@ Feature: Navigation between official and result sections
     Given I am an official
     And I have a race "My race"
     And I am on the race page
-    Then I should not see "My race" within "div.main_menu"
+    Then I should not see "My race" within ".menu--main"
 
   Scenario: No quick navigation when not own race
     Given I am an official
@@ -60,4 +60,4 @@ Feature: Navigation between official and result sections
     And I have a race "My race"
     And there is a race "Another race"
     And I am on the race page
-    Then I should not see "Another race" within "div.main_menu"
+    Then I should not see "Another race" within ".menu--main"

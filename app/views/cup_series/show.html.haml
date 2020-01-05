@@ -1,12 +1,37 @@
 - content_for(:title, "#{@cup_series.cup.name} - #{long_cup_series_name(@cup_series)} - #{t :results}")
-.title-and-fb-share
-  %h2= "#{long_cup_series_name(@cup_series)} - #{t :results}"
-  = render partial: 'shared/facebook_share'
+%h2= "#{long_cup_series_name(@cup_series)} - #{t :results}"
 - content_for :sub_sub_menu do
-  = render :partial => 'menus/cup_series_sub_menu'
-.info= render partial: 'cups/points_rule', locals: {cup: @cup}
-.cup_results
-  = render partial: 'cup_series_results', locals: {cup_series: @cup_series}
+  = render partial: 'menus/cup_series_sub_menu'
+.message.message--info= render partial: 'cups/points_rule', locals: {cup: @cup}
+%a#show_cup_races.button{href: "javascript:void(0)"}= t :show_races_of_cup
+%a#hide_cup_races.button{href: "javascript:void(0)", style: "display:none"}= t :hide_races_of_cup
+.cup_results.results--desktop= render partial: 'cup_series_results', locals: {cup_series: @cup_series}
+.results--mobile= render partial: 'cup_series_results_mobile', locals: {cup_series: @cup_series}
+= render partial: 'menus/cup_series_sub_menu', locals: { mobile: true }
 .buttons.buttons--nav
   = link_to t(:back_to_cup_page), cup_path(@cup), class: 'button button--back'
   = link_to t(:download_results_pdf), cup_cup_series_path(@cup, @cup_series, format: :pdf), class: 'button button--pdf'
+:javascript
+  function showRaces() {
+    $('.card__middle-2').show();
+    $('#show_cup_races').hide();
+    $('#hide_cup_races').show();
+    window.location.hash = 'competitors'
+  }
+  function hideRaces() {
+    $('.card__middle-2').hide();
+    $('#show_cup_races').show();
+    $('#hide_cup_races').hide();
+    history.pushState(null, null, ' ')
+  }
+  $('#show_cup_races').click(function() {
+    showRaces();
+  });
+  $('#hide_cup_races').click(function() {
+    hideRaces();
+  });
+  $(document).ready(function() {
+    if(window.location.hash == '#competitors') {
+      showRaces();
+    }
+  });

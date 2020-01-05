@@ -18,11 +18,11 @@
         .card__main-value{id: "time_#{competitor.id}"}
           - if competitor.no_result_reason
             = competitor.no_result_reason
-          - else
+          - elsif competitor.time_in_seconds
             = time_from_seconds competitor.time_in_seconds
     :javascript
       $("#times_form_#{competitor.id}").bind('ajax:error', function() {
-        $("#update_error").addClass("error");
         $("#update_error").html('Yhteysvirhe, yritä uudelleen');
-        $("#status_#{competitor.id}").html("<span class='error'>#{t :error}!</span>");
+        $("#update_error").show();
+        $("#status_#{competitor.id}").html("<span class='message message--error message--inline'>#{t :error}!</span>");
       });

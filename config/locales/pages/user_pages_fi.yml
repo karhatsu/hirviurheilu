@@ -13,7 +13,7 @@ fi:
       basic_information: Perustiedot
       modify_information: Muokkaa tietoja
       own_races: Omat kilpailut
-      no_own_races: Sinulla ei ole vielä yhtään kilpailua. Pääset syöttämään kilpailun tietoja Toimitsijan sivut -linkistä sivun ylälaidasta.
+      no_own_races: Sinulla ei ole vielä yhtään kilpailua. Pääset lisäämään kilpailun päävalikon kohdasta Toimitsijan sivut.
     edit:
       title: Muokkaa omia tietoja
       change_password: Vaihda salasana

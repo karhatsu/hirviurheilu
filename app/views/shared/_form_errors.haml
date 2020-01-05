@@ -1,0 +1,5 @@
+- if item.errors.any?
+  .message.message--error
+    %ul
+      - item.errors.full_messages.each do |msg|
+        %li= msg

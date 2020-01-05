@@ -1,21 +1,28 @@
 %body
-  = render :partial => 'shared/facebook_init'
-  = render 'shared/header'
-  .centered_section
-    %div{itemscope: true, itemtype: menu_race ? 'http://schema.org/SportsEvent' : ''}
-      = render partial: 'shared/page_title'
-      .main_shadow_area
-        = render 'menus/second_level_menu'
-        = render 'menus/third_level_menu'
-        .main_content
-          #page_spinner= image_tag 'page_spinner.gif'
-          = yield
-    .footer
-      = render :partial => 'shared/footer'
-  :javascript
-    $(document).on('page:fetch', function() {
-      $('#page_spinner').show();
-    });
-    $(document).on('page:restore', function() {
-      $('#page_spinner').hide();
-    });
+  = render partial: 'shared/facebook_init'
+  .header
+    = image_tag '/logo-128.png', class: 'header__logo'
+    = link_to 'Hirviurheilu', root_path, class: 'header__title'
+    = image_tag '/logo-128.png', class: 'header__logo header__logo--right'
+    %a.header__menu.material-icons-outlined.md-24{onclick: 'event.preventDefault(); toggleMainMenu();', href: '#'} menu
+  = render partial: 'menus/menu'
+  .body{itemscope: true, itemtype: menu_race ? 'http://schema.org/SportsEvent' : ''}
+    .body__on-top-title= render partial: 'shared/page_title'
+    .body__content
+      = render 'menus/second_level_menu'
+      = yield :sub_sub_menu
+      .body__yield
+        .body__under-top-title= render partial: 'shared/page_title'
+        = render partial: 'shared/facebook_share'
+        = yield
+  .footer
+    = render partial: 'shared/footer'
+:javascript
+  function toggleMainMenu() {
+    const $mainMenu = $('.menu--main')
+    if ($mainMenu.is(':visible')) {
+      $mainMenu.removeClass('menu--visible')
+    } else {
+      $mainMenu.addClass('menu--visible')
+    }
+  }

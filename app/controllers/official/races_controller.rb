@@ -1,5 +1,4 @@
 class Official::RacesController < Official::OfficialController
-  before_action :set_variant, only: :show
   before_action :assign_race_by_id, :check_assigned_race, :except => [:new, :create]
   before_action :create_points_method_options
   before_action :set_sports

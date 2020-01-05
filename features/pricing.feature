@@ -5,9 +5,11 @@ Feature: Pricing
 
   Scenario: Show prices
     Given I am on the home page
-    When I follow "Hinnat"
+    When I follow "Info"
+    And I follow "Hinnat"
     Then I should be on the prices page
-    And the "Hinnat" main menu item should be selected
+    And the "Info" main menu item should be selected
+    And the "Hinnat" sub menu item should be selected
     And the page title should contain "Hinnat"
 
   Scenario: Do not show prices in staging environment

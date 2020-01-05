@@ -1,0 +1,13 @@
+.buttons.buttons--mobile
+  - if selected == :edit
+    .button.button--current= t('official.relays.sub_menu.main')
+  - else
+    = link_to t('official.relays.sub_menu.main'), edit_official_race_relay_path(@relay.race_id, @relay), class: 'button'
+  - if selected == :results
+    .button.button--current= t('official.relays.sub_menu.results')
+  - else
+    = link_to t('official.relays.sub_menu.results'), official_relay_relay_quick_saves_path(@relay), class: 'button'
+  - if selected == :finish
+    .button.button--current= t('official.relays.sub_menu.finish')
+  - else
+    = link_to t('official.relays.sub_menu.finish'), new_official_relay_finish_relay_path(@relay), class: 'button'

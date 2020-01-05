@@ -2,9 +2,9 @@
 - content_for :page_title, yield(:title)
 %h2= yield :title
 - if @all_series.length == 0
-  .info= t '.no_start_list_for_any_series'
+  .message.message--info= t '.no_start_list_for_any_series'
 - else
-  #update_error
+  #update_error.message.message--error{style: 'display: none'}
   #competitors_table
     = render partial: 'competitor_row', locals: { c: @new_competitor, save_button: t(:add_new), id: 'new', parent: @race }
     %hr#ruler
@@ -27,5 +27,7 @@
         $age_group_menu.show();
       }
     }
-  .buttons.buttons--nav
-    = link_to t(:download_start_list_pdf), race_start_lists_path(@race, format: :pdf), class: 'button button--pdf'
+.buttons.buttons--nav
+= link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'
+- if @all_series.length > 0
+  = link_to t(:download_start_list_pdf), race_start_lists_path(@race, format: :pdf), class: 'button button--pdf'

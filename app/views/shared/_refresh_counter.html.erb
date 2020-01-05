@@ -1,8 +1,8 @@
 <% secs = refresh_counter_seconds(defined?(seconds) ? seconds : nil) %>
-<div id="reload_counter">
-  <span id="reload_text"><%= t :refresh_counter_new_page_pre %> <span id="secs">...</span>
+<div class="reload-counter">
+  <span id="reload-text"><%= t :refresh_counter_new_page_pre %> <span id="secs">...</span>
     <a id="stop" href="javascript:void(0)"><%= t :refresh_counter_pause %></a></span>
-  <span id="continue_text" style="display: none;"><%= t :refresh_counter_paused %>
+  <span id="continue-text" style="display: none;"><%= t :refresh_counter_paused %>
     <a id="start" href="javascript:void(0)"><%= t :refresh_counter_continue %></a></span>
 </div>
 <%= javascript_tag do %>
@@ -32,13 +32,13 @@
   function continueCounting() {
     clearInterval(intervalId);
     intervalId = setInterval(decreaseSeconds, 1000);
-    $('#continue_text').hide();
-    $('#reload_text').show();
+    $('#continue-text').hide();
+    $('#reload-text').show();
   }
   function stopCounting() {
     clearInterval(intervalId);
-    $('#reload_text').hide();
-    $('#continue_text').show();
+    $('#reload-text').hide();
+    $('#continue-text').show();
   }
   function startCounting() {
     <% if refresh_counter_auto_scroll and secs > refresh_counter_min_seconds %>

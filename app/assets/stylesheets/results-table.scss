@@ -15,3 +15,52 @@
     padding: 8px 12px;
   }
 }
+
+.results--desktop {
+  display: none;
+}
+
+@media only screen and (min-width: 48em) {
+  .results--desktop {
+    display: block;
+  }
+
+  .results--mobile {
+    display: none;
+  }
+}
+
+.team_name, .team_points {
+  font-weight: bold;
+}
+
+.center {
+  text-align: center;
+}
+
+.explanation {
+  cursor: help;
+}
+
+span.unofficial {
+  font-style: italic;
+  font-size: 80%;
+  cursor: help;
+}
+
+span.adjustment {
+  cursor: help;
+}
+
+.series-best-time {
+  font-weight: bold;
+}
+
+.total-points {
+  font-weight: bold;
+}
+
+.cup_results {
+  overflow: scroll;
+  max-width: 1025px;
+}

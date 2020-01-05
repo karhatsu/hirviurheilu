@@ -1,16 +1,10 @@
 = content_for(:title, @race.name)
-- if mobile?
-  .facebook_share= render partial: 'shared/facebook_share'
-  %h1= yield :title
-  %div #{@race.location}, #{race_date_interval(@race)}
-- else
-  .title-and-fb-share.race-page= render partial: 'shared/facebook_share'
 - unless @race.home_page.blank? and @race.organizer.blank? and @race.organizer_phone.blank?
   %h2= t '.organizer_info'
   = organizer_info_with_possible_link(@race)
 - unless @race.public_message.blank?
   %h2 Kilpailun järjestäjä tiedottaa
-  %blockquote.public_message
+  .public-message
     - markdown = Redcarpet::Markdown.new Redcarpet::Render::HTML
     = raw markdown.render(@race.public_message)
 - unless @race.series.empty? && !@race.relays.empty?
@@ -24,7 +18,7 @@
     - time_text =  Time.now > @race.start_datetime ? 'alkoi' : 'alkaa'
     - infos << "Kilpailu #{time_text} #{time_print @race.start_time}."
   - if infos.length > 0
-    .info= infos.join(' ')
+    .message.message--info= infos.join(' ')
   .buttons
     - @race.series.each do |series|
       - if !series.started?
@@ -32,7 +26,7 @@
         = link_to link_text, race_series_start_list_path(@race, series), class: 'button'
       - else
         = link_to series.name, race_series_path(@race, series), class: 'button button--primary'
-  - unless @race.finished? || @race.competitors.empty? || mobile?
+  - unless @race.finished? || @race.competitors.empty?
     %h3= t '.start_lists_for_all_series_pdf'
     = form_tag(race_start_lists_path(@race, format: :pdf), method: :get, class: 'form') do
       .form__horizontal-fields
@@ -61,7 +55,7 @@
     - @race.relays.each do |relay|
       - link_text = !relay.started? && relay.start_time ? "#{relay.name} (#{relay_start_time_print(relay)})" : relay.name
       = link_to link_text, race_relay_path(@race, relay), class: 'button button--primary'
-- unless mobile? || @race.start_date > Date.today || @race.series.empty?
+- unless @race.start_date > Date.today || @race.series.empty?
   %h2= t '.all_results_pdf'
   = form_tag(race_path(@race, format: :pdf), method: :get, class: 'form') do
     .form__horizontal-fields

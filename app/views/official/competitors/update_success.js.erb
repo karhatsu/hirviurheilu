@@ -1,12 +1,12 @@
-$("#update_error").removeClass("error");
+$("#update_error").hide();
 $("#update_error").html("");
-$("#status_<%=@competitor.id%>").html("<span class='success'><%= t :saved %></span>");
+$("#status_<%= @competitor.id %>").html('<span class="message message--success message--inline"><%= t :saved %></span>')
 $("#status_<%=@competitor.id%>").show();
 $("#competitor_old_values_estimate1").val(<%= @competitor.estimate1 %>);
 $("#competitor_old_values_estimate2").val(<%= @competitor.estimate2 %>);
 $("#competitor_old_values_estimate3").val(<%= @competitor.estimate3 %>);
 $("#competitor_old_values_estimate4").val(<%= @competitor.estimate4 %>);
-$("#time_<%= @competitor.id %>").html("<%= time_from_seconds @competitor.time_in_seconds %>")
+$("#time_<%= @competitor.id %>").html("<%= @competitor.time_in_seconds ? time_from_seconds(@competitor.time_in_seconds) : '' %>")
 $("#estimate_points_<%= @competitor.id %>").html("<%= @competitor.estimate_points %>")
 $("#shots_result_<%= @competitor.id %>").html("<%= @competitor.shots_sum %>")
 setTimeout(function() {

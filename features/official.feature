@@ -33,7 +33,7 @@ Feature: Official
 
   Scenario: Previously registered official goes to the registration page
     Given I am on the registration page
-    When I follow "Kirjaudu sisään" within ".main_content"
+    When I follow "Kirjaudu sisään"
     Then I should be on the login page
 
   Scenario: Official goes to the official index

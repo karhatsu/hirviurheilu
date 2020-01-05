@@ -1,6 +1,6 @@
 - race = menu_race
 - if race
-  .menu.sub_menu
+  .menu.menu--sub.menu--sub-1
     = menu_item t('race_sub_menu.home_page'), race_path(race), @is_race
     - series = menu_series
     - series = race.series.first unless series

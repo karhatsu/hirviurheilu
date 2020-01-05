@@ -9,7 +9,7 @@ fi:
     personal: Omat tiedot
     start: Aloita käyttö
   login: Kirjaudu sisään
-  logout: "Kirjaudu ulos, %{name}"
+  logout: Kirjaudu ulos
   forgotten_password: Unohtunut salasana?
   race_sub_menu:
     home_page: Kilpailun etusivu

@@ -1,7 +1,7 @@
 - content_for(:title, 'Cup-kilpailun lisäys')
 - content_for(:page_title, yield(:title))
 - if current_user.races.count < 2
-  .info Sinulla täytyy olla vähintään 2 kilpailua ennen kuin voit lisätä cup-kilpailun
+  .message.message--info Sinulla täytyy olla vähintään 2 kilpailua ennen kuin voit lisätä cup-kilpailun
 - else
   = render :partial => 'form', :locals => { :submit_label => 'Lisää cup-kilpailu' }
 .buttons.buttons--nav

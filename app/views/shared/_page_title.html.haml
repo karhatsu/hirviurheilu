@@ -1,0 +1,11 @@
+- race = menu_race
+- cup = menu_cup
+- if race
+  %span.race-title
+    %span.race-title__name{itemprop: 'name'}= race.name
+    %span.race-title__location{itemprop: 'location', itemtype: 'http://schema.org/Place'} #{race.location},
+    %span.race-title__dates= race_date_interval(race)
+- elsif cup
+  = cup.name
+- else
+  = yield :page_title

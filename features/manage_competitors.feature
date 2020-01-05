@@ -14,7 +14,7 @@ Feature: Manage competitors
     Then I should see "Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. Aloita klikkaamalla sarjan nimen alla olevaa nappia." in an info message
     When I go to the official competitors page of the series
     Then I should see "Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa." in an info message
-    When I follow "Lisää kilpailija" within "div.main_content"
+    When I follow "Lisää kilpailija"
     Then I should be on the new competitor page of the series
 
   Scenario: Edit competitor before and after start list is created

@@ -1,5 +1,5 @@
 - if @relay.started? && !@relay.finished?
-  .info= t :competition_unfinished_detailed_estimates_later
+  .message.message--info= t :competition_unfinished_detailed_estimates_later
 - elsif @relay.finished?
   %h3= t :correct_distances
   .row

@@ -2,7 +2,6 @@ class FeedbacksController < ApplicationController
   include ApplicationHelper
 
   before_action :set_is_info, :set_is_feedback
-  before_action :set_variant
 
   def index
   end

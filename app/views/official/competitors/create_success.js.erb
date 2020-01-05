@@ -1,5 +1,5 @@
 $('#spinner').hide();
-$('div.error').hide();
+$('.message--error').hide();
 
 $('#competitor_first_name').val('');
 $('#competitor_last_name').val('');
@@ -33,8 +33,8 @@ $('#latest_competitors_list').prepend('' +
   '<%= full_name(@competitor) %>, <%= @competitor.club.name %> ' +
   '(<%= @competitor.series.name %><%= @competitor.age_group ? "/#{@competitor.age_group.name}" : '' %>)</li>');
 
-$('div.success').text('Kilpailija lisätty');
-$('div.success').show('fast');
+$('.message--success').text('Kilpailija lisätty');
+$('.message--success').show('fast');
 setTimeout(function() {
-  $('div.success').hide('slow');
+  $('.message--success').hide('slow');
 }, 3000);

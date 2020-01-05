@@ -4,6 +4,6 @@
 - cache [@tc, params[:exclude_competitors], I18n.locale] do
   - results = @tc.results
   - if results.empty?
-    .info Joukkuekilpailun tuloksia ei voida vielä laskea
+    .message.message--info Joukkuekilpailun tuloksia ei voida vielä laskea
   - else
     = render :partial => 'results_table', :locals => { :results => results }

@@ -1,5 +1,5 @@
 - if @competitor.no_result_reason
-  .warning= t "competitor.#{@competitor.no_result_reason}"
+  .message.message--warning= t "competitor.#{@competitor.no_result_reason}"
 - else
   = render :partial => 'series/infos', :locals => { :series => @competitor.series,
     :show_race_unfinished => false }
@@ -73,7 +73,7 @@
             %td#distance_error3= print_estimate_diff(@competitor.estimate_diff3_m)
             %td#distance_error4= print_estimate_diff(@competitor.estimate_diff4_m)
     - else
-      .info= t :competition_unfinished_detailed_estimates_later
+      .message.message--info= t :competition_unfinished_detailed_estimates_later
 
   #time
     %h3= time_title(@competitor.series.race)

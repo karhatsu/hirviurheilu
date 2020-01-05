@@ -1,5 +1,5 @@
 class RelaysController < ApplicationController
-  before_action :set_races, :assign_race_by_race_id, :set_variant
+  before_action :set_races, :assign_race_by_race_id
   before_action :assign_relay_by_id, only: :show
   before_action :assign_relay_by_relay_id, only: :start_list
 

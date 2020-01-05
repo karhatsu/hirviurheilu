@@ -2,7 +2,9 @@
 - if race
   - series = menu_series
   - series = race.series.first unless series
-  .menu.sub_menu
+  .menu-indicator
+    %a.material-icons-outlined.md-24{onclick: 'event.preventDefault(); toggleSubMenu();', href: '#'} menu
+  .menu.menu--sub.menu--sub-1
     = menu_item t('official_sub_menu.summary'), official_race_path(race), @is_race
     = menu_item t('official_sub_menu.race'), edit_official_race_path(race), @is_race_edit
     - if series and !race.series.first.new_record?
@@ -22,3 +24,12 @@
     = menu_item t('official_sub_menu.relays'), official_race_relays_path(race), @is_relays
     = menu_item clubs_title(race), official_race_clubs_path(race), @is_clubs
     = menu_item t('official_sub_menu.officials'), official_race_race_rights_path(race), @is_race_rights
+:javascript
+  function toggleSubMenu() {
+    const $subMenu = $('.menu--sub-1')
+    if ($subMenu.is(':visible')) {
+      $subMenu.removeClass('menu--visible')
+    } else {
+      $subMenu.addClass('menu--visible')
+    }
+  }

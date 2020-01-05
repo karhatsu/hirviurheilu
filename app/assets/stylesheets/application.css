@@ -1,16 +1,28 @@
 /*
  *= require jquery-ui/dialog
  *= require jquery-ui/ui-lightness
- *= require fonts
- *= require titles
+ *= require rack_profiler
+
  *= require buttons
+ *= require fonts
+ *= require messages
+ *= require pagination
+ *= require public-message
+ *= require titles
+
+ *= require dialogs
+ *= require facebook
+
+ *= require announcements
+ *= require csv
+ *= require result-rotation
+
+ *= require header
+ *= require menu
+ *= require body
+ *= require footer
+
+ *= require card
  *= require form
  *= require results-table
- *= require structure
- *= require elk_sports
- *= require menu
- *= require messages
- *= require dialogs
- *= require rack_profiler
- *= require card
 */

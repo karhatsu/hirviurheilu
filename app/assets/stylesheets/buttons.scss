@@ -1,7 +1,20 @@
+a {
+  color: olive;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 .buttons {
   display: flex;
   flex-direction: row;
   flex-flow: wrap;
+
+  &--mobile {
+    margin-top: 16px;
+  }
 
   &--nav {
     margin-top: 16px;
@@ -10,7 +23,8 @@
   }
 
   .button {
-    margin: 4px;
+    margin-right: 8px;
+    margin-bottom: 8px;
 
     &:first-child {
       margin-left: 0;
@@ -60,7 +74,7 @@
   }
 
   &--current {
-    background: #1d6399 linear-gradient(to right, rgba(29, 99, 153, 0.9), rgba(29, 99, 153, 0.7));
+    background: olive linear-gradient(to right, rgba(128, 128, 0, 0.9), rgba(128, 128, 0, 0.7));
     color: #fff;
     cursor: default;
   }
@@ -83,11 +97,37 @@
     content: 'create';
   }
 
+  &--pdf {
+    display: none;
+  }
+
   &--pdf::before {
     content: 'print';
   }
 
   &--below-sub-form {
     margin-top: 8px;
+  }
+}
+
+#show_all_relay_competitors, #hide_all_relay_competitors {
+  display: none;
+}
+
+@media only screen and (min-width: 48em) {
+  .buttons--mobile {
+    display: none;
+  }
+
+  .button--pdf {
+    display: inline-block;
+  }
+
+  #show_all_relay_competitors, #hide_all_relay_competitors {
+    display: inline-block;
+  }
+
+  #show_cup_races, #hide_cup_races {
+    display: none;
   }
 }
