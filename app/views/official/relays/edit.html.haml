@@ -1,6 +1,6 @@
 - content_for :title, "#{@race.name} - #{@relay.name} - #{t '.title'}"
 - render partial: 'sub_sub_menu'
-%h2= yield :title
+%h2 #{@relay.name} - #{t '.title'}
 = render :partial => 'form'
 .buttons.buttons--nav
   = link_to t(:back_to_official_relays_page), official_race_relays_path(@race), class: 'button button--back'

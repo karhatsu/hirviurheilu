@@ -1,6 +1,6 @@
 - content_for :title, "#{@relay.race.name} - #{@relay.name} - #{t '.title'}"
 - render partial: 'official/relays/sub_sub_menu'
-%h2= yield :title
+%h2 #{@relay.name} - #{t '.title'}
 - if @relay.finished?
   .message.message--info= t '.already_finished'
 - else
