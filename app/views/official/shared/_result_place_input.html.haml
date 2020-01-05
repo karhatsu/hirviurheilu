@@ -11,7 +11,7 @@
   = link_to t('official.result_place.generate_start_times'), official_series_competitors_path(@series), class: 'button'
 - else
   #update_error.message.message--error{style: 'display: none'}
-  .result-place-table= render partial: partial_table
+  %div{style: 'margin-bottom: 16px;'}= render partial: partial_table
   = render partial: 'official/shared/series_result_input_links', locals: { series_id: @series.id }
   = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id, mobile: true } do |series|
     = "/official/series/#{series.id}/#{controller_name}"
