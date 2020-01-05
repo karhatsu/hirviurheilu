@@ -3,9 +3,9 @@
 = flash_error
 = flash_success
 %h3= t '.manage_race_settings'
-- unless @race.finished? || @race.start_date > Time.zone.today || @race.competitors.empty?
-  = render partial: "official/finish_races/form", locals: { race: @race }
 .buttons
+  - unless @race.finished? || @race.start_date > Time.zone.today || @race.competitors.empty?
+    = render partial: "official/finish_races/form", locals: { race: @race }
   = link_to t('.edit_race_and_series'), edit_official_race_path(@race), class: 'button button--edit'
   = link_to t('.correct_estimates'), official_race_correct_estimates_path(@race), class: 'button'
 - if @race.can_destroy?

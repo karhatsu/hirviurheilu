@@ -33,7 +33,7 @@ Feature: Finish race
     And the series has a competitor
     And I have logged in
     When I go to the official race page of "Test race"
-    And I press "Merkitse yksilökilpailut päättyneeksi"
+    And I follow "Merkitse yksilökilpailut päättyneeksi"
     Then I should see "Osalta kilpailijoista puuttuu oikea arviomatka." in an error message
 
   Scenario: Competitors are missing results
@@ -54,7 +54,7 @@ Feature: Finish race
     And the start list has been generated for the series
     And I have logged in
     When I go to the official race page of "Test race"
-    And I press "Merkitse yksilökilpailut päättyneeksi"
+    And I follow "Merkitse yksilökilpailut päättyneeksi"
     Then I should see "Ainakin yhdeltä kilpailijalta (James Johnson, Test series) puuttuu tulos." in an error message
 
   Scenario: Finish race successfully
@@ -85,7 +85,7 @@ Feature: Finish race
     And the race has series "Empty series to be deleted automatically"
     And I have logged in
     When I go to the official race page of "Test race"
-    And I press "Merkitse yksilökilpailut päättyneeksi"
+    And I follow "Merkitse yksilökilpailut päättyneeksi"
     Then I should be on the official race page of "Test race"
     And I should see "Kilpailu Test race on merkitty päättyneeksi" in a success message
     And I should see "Test series"
