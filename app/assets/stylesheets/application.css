@@ -15,6 +15,7 @@
  *= require dialogs
  *= require rack_profiler
  *= require card
+ *= require csv
  *= require header
  *= require body
  *= require footer
