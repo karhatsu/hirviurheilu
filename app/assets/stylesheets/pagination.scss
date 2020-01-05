@@ -1,0 +1,27 @@
+.pagination {
+  margin: 16px 0;
+
+  .first, .prev, .page, .next, .last {
+    background-color: #fff;
+    border: solid 1px olive;
+    border-radius: 2px;
+    box-shadow: 3px 3px 3px #ccc;
+    color: olive;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 14px;
+    padding: 6px 12px;
+    margin-right: 4px;
+    margin-top: 4px;
+
+    &:hover {
+      background: olive;
+      color: #fff;
+
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+    }
+  }
+}
