@@ -144,7 +144,7 @@ textarea {
 
   .form__field {
     display: flex;
-    flex-flow: row wrap;
+    flex-direction: row;
     align-items: center;
     margin-top: 6px;
     margin-right: 16px;
