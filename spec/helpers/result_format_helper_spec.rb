@@ -174,7 +174,7 @@ describe ResultFormatHelper do
         expect(competitor).to receive(:time_points).with(unofficials).and_return(300)
         expect(helper).to receive(:time_from_seconds).with(2680).and_return('45:23')
         expect(helper.time_points_print(competitor, true, unofficials)).
-            to eq("<span class='series_best_time'>300 (45:23)</span>")
+            to eq("<span class='series-best-time'>300 (45:23)</span>")
       end
     end
 
@@ -191,7 +191,7 @@ describe ResultFormatHelper do
                                      :time_in_seconds => 2680, :no_result_reason => nil)
         expect(competitor).to receive(:time_points).with(unofficials).and_return(300)
         expect(helper.time_points_print(competitor, false, unofficials)).
-            to eq("<span class='series_best_time'>300</span>")
+            to eq("<span class='series-best-time'>300</span>")
       end
     end
   end
