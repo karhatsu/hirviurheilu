@@ -6,15 +6,21 @@ class Sport
   def self.by_key(key)
     if key == RUN
       OpenStruct.new({
-          name: 'Hirvenjuoksu'
+          name: 'Hirvenjuoksu',
+          start_list?: true,
+          batch_list?: false,
       })
     elsif key == SKI
       OpenStruct.new({
-          name: 'Hirvenhiihto'
+          name: 'Hirvenhiihto',
+          start_list?: true,
+          batch_list?: false,
       })
     elsif key == AIR
       OpenStruct.new({
-          name: 'Ilma-aseet'
+          name: 'Ilma-aseet',
+          start_list?: false,
+          batch_list?: true,
       })
     else
       raise "Unknown sport key: #{key}"
