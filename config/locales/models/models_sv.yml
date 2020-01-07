@@ -99,6 +99,7 @@ sv:
     team_name: Jotos-lag
     time_points_type: Tidpoängsberäkning
     title: Titel
+    track: Bana
     top_competitions: Tävlingsantal för totalpoäng
     unofficial: Informella tävlare
     use_team_name: Forma lag på grund av Jotos-lag

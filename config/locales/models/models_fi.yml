@@ -100,6 +100,7 @@ fi:
     time_points_type: Aikapisteiden laskenta
     title: Otsikko
     top_competitions: Yhteistulokseen laskettavien kilpailuiden määrä
+    track: Rata
     unofficial: Epävirallinen kilpailija
     use_team_name: Muodosta joukkueet kilpailijoiden jotosjoukkuenimien perusteella
 

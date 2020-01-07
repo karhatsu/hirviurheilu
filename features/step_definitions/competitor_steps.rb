@@ -35,8 +35,13 @@ Given /^the series has a competitor with attributes:$/ do |fields|
   hash = fields.rows_hash
   if hash[:club]
     club = Club.find_by_name(hash[:club])
-    hash[:club] = club
+    hash[:club_id] = club.id
     hash.delete "club" # workaround for ruby 1.9
+  end
+  if hash[:batch]
+    batch = Batch.where(race: @race.id, number: hash[:batch]).first
+    hash[:batch_id] = batch.id
+    hash.delete "batch"
   end
   @competitor = create(:competitor, {:series => @series}.merge(hash))
 end

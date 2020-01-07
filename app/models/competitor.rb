@@ -18,6 +18,7 @@ class Competitor < ApplicationRecord
   belongs_to :club
   belongs_to :series, counter_cache: true, touch: true
   belongs_to :age_group
+  belongs_to :batch
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
