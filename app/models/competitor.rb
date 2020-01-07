@@ -47,6 +47,7 @@ class Competitor < ApplicationRecord
   validates :shot_8, shot_validations
   validates :shot_9, shot_validations
   validates :shooting_overtime_min, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
+  validates :track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validate :start_time_max
   validate :times_in_correct_order
   validate :only_one_shot_input_method_used
