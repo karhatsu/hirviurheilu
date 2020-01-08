@@ -27,11 +27,15 @@
       - else
         = link_to series.name, race_series_path(@race, series), class: 'button button--primary'
   - unless @race.finished? || @race.competitors.empty?
-    %h3= t '.start_lists_for_all_series_pdf'
-    = form_tag(race_start_lists_path(@race, format: :pdf), method: :get, class: 'form') do
-      .form__horizontal-fields
-        .form__field= select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: "#{t :all} #{clubs_title(@race).downcase}"
-        .form__buttons= submit_tag t('.download_start_times'), class: 'button button--pdf'
+    - if @race.sport.start_list?
+      %h3= t '.start_lists_for_all_series_pdf'
+      = form_tag(race_start_lists_path(@race, format: :pdf), method: :get, class: 'form') do
+        .form__horizontal-fields
+          .form__field= select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: "#{t :all} #{clubs_title(@race).downcase}"
+          .form__buttons= submit_tag t('.download_start_times'), class: 'button button--pdf'
+    - elsif @race.sport.batch_list?
+      %h3= t '.batch_list_pdf'
+      = link_to t('.download_batch_list'), race_batch_list_path(@race, format: :pdf), class: 'button button--pdf'
   - if @race.finished?
     %h3= t :correct_distances
     .row

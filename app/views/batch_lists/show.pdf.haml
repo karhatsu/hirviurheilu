@@ -1,0 +1,13 @@
+%h2= t '.title'
+- if @batches.length == 0
+  .message.message--info= t('.no_batch_list')
+- else
+  - @batches.each do |batch|
+    %h3 #{batch.number}, #{batch.time.strftime('%H:%M')} (#{t('attributes.track')} #{batch.track})
+    %table
+      - batch.competitors.each do |competitor|
+        %tr
+          %td= competitor.track_place
+          %td #{full_name competitor} (#{competitor.number})
+          %td= competitor.club.name
+          %td= competitor.series.name

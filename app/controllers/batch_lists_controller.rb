@@ -3,6 +3,14 @@ class BatchListsController < ApplicationController
 
   def show
     @batches = @race.batches.includes(competitors: [:club, :series])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "#{@race.name}-eraluettelo", layout: true,
+               margin: pdf_margin, header: pdf_header("#{t :batch_list} - #{@race.name}"),
+               footer: pdf_footer, disable_smart_shrinking: true
+      end
+    end
   end
 
   private

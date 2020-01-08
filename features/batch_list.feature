@@ -47,6 +47,8 @@ Feature: Batch list
       | batch       | 2          |
       | track_place | 5          |
     And I am on the race page
+    Then I should see "Eräluettelo (PDF)"
+    But I should not see "Kaikkien sarjojen lähtöajat (PDF)"
     When I follow "Eräluettelo"
     Then I should see batch 1 on track 1 with time "10:00"
     And I should see batch 2 on track 2 with time "10:30"

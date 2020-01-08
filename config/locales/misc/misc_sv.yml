@@ -16,6 +16,7 @@ sv:
   back_to_page: Tillbaka till sida
   back_to_race_home_page: Tillbaka till tävlingens hemsida
   back_to_series_results: Tillbaka till klassens %{series_name} resultat
+  batch_list: Eräluettelo
   captcha: Hur mycket år två plus två?
   captcha_info: Vi vill kontrollera att du är inte en robot. Den rätta svaren är naturligtvis fyra.
   club: Klubb
