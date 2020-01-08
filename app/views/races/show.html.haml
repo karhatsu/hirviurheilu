@@ -21,7 +21,7 @@
     .message.message--info= infos.join(' ')
   .buttons
     - @race.series.each do |series|
-      - if !series.started?
+      - if !series.started? && @race.sport.start_list?
         - link_text = series.start_time ? "#{series.name} (#{time_print(series.start_datetime)})" : series.name
         = link_to link_text, race_series_start_list_path(@race, series), class: 'button'
       - else
