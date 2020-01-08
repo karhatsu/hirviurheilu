@@ -1,13 +1,13 @@
 = form_for([:official, @race], html: { class: 'form' }) do |f|
   = render partial: 'shared/form_errors', locals: { item: @race }
   %h2= t 'official.races.form.basic_information'
-  .form__field.row
+  .form__field.form__field--md.row
     .col-xs-12.col-sm-3= f.label :sport_key
     .col-xs-12.col-sm-9= f.select(:sport_key, @sports)
   .form__field.row
     .col-xs-12.col-sm-3= f.label :name
     .col-xs-12.col-sm-9= f.text_field :name
-  .form__field.row
+  .form__field.form__field--md.row
     .col-xs-12.col-sm-3= f.label :district
     .col-xs-12.col-sm-9= f.collection_select(:district_id, District.all, :id, :name, prompt: true)
   .form__field.row
