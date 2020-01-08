@@ -19,7 +19,9 @@
     - infos << "Kilpailu #{time_text} #{time_print @race.start_time}."
   - if infos.length > 0
     .message.message--info= infos.join(' ')
-  .buttons
+  .buttons#series-links
+    - if @race.sport.batch_list?
+      = link_to t(:batch_list), race_batch_list_path(@race), class: 'button'
     - @race.series.each do |series|
       - if !series.started? && @race.sport.start_list?
         - link_text = series.start_time ? "#{series.name} (#{time_print(series.start_datetime)})" : series.name
