@@ -1,8 +1,8 @@
 - age_group_style = f.object.series.age_groups.empty? ? 'display:none;' : ''
-.form__field.row
+.form__field.form__field--md.row
   .col-xs-12.col-sm-3= f.label :series_id
   .col-xs-12.col-sm-9= f.select :series_id, options_from_collection_for_select(@series_menu_options, :id, :name, f.object.series.id), {}, onchange: 'change_series(this.value)'
-.form__field.row#age_groups_span{style: age_group_style}
+.form__field.form__field--md.row#age_groups_span{style: age_group_style}
   .col-xs-12.col-sm-3= f.label :age_group_id
   .col-xs-12.col-sm-9
     = f.collection_select :age_group_id, f.object.series.age_groups_with_main_series, :id, :name
@@ -19,7 +19,7 @@
   .col-xs-12.col-sm-3= f.label :unofficial
   .col-xs-12.col-sm-9= f.check_box :unofficial
 - club_level = f.object.race.club_level
-.form__field.row
+.form__field.form__field--md.row
   .col-xs-12.col-sm-3= f.label :club_id, club_title(f.object.series.race)
   - menu_style = f.object.race.clubs.empty? ? 'display:none;' : ''
   .col-xs-12.col-sm-9
