@@ -1,0 +1,5 @@
+sv:
+  batch_lists:
+    show:
+      title: Eräluettelo
+      no_batch_list: Kilpailun eräluetteloa ei ole vielä tehty

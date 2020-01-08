@@ -4,11 +4,11 @@
       .card
         .card__middle
           .card__name= full_name competitor
-          .card__middle-1
+          .card__middle-row
             = competitor.club.name
             - if competitor.team_name
               (#{competitor.team_name})
-          .card__middle-2
+          .card__middle-row
             = competitor.series.name
             = competitor.age_group ? '/' + competitor.age_group.name : ''
         .card__buttons

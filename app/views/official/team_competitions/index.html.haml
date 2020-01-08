@@ -9,8 +9,8 @@
         .card
           .card__middle
             .card__name= tc.name
-            .card__middle-1= t '.competitors_per_team', competitors: tc.team_competitor_count
-            .card__middle-2= ((tc.series.map &:name) + (tc.age_groups.map &:name)).join(', ')
+            .card__middle-row= t '.competitors_per_team', competitors: tc.team_competitor_count
+            .card__middle-row= ((tc.series.map &:name) + (tc.age_groups.map &:name)).join(', ')
           .card__buttons
             = link_to t(:edit), edit_official_race_team_competition_path(@race, tc), class: 'button button--edit'
             = link_to t(:remove),

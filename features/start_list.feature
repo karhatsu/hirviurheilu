@@ -26,6 +26,7 @@ Feature: Start list
       | club | Sports club |
     And the start list has been generated for the series
     And I am on the race page
+    Then I should see "Kaikkien sarjojen lähtöajat (PDF)"
     When I follow "Lähtölista"
     Then I should be on the start list page of the series
     And the "Kilpailut" main menu item should be selected
@@ -84,4 +85,3 @@ Feature: Start list
     And I should see a start list row 1 with values:
       | name | Johnson James |
       | team_name | Special team |
-    

@@ -22,8 +22,8 @@
           .card__number= c.number
           .card__middle
             .card__name= full_name c
-            .card__middle-1= c.series.name
-            .card__middle-2
+            .card__middle-row= c.series.name
+            .card__middle-row
               - if c.correct_distances.empty?
                 = t '.undefined'
               - else

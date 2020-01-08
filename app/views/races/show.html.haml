@@ -19,19 +19,25 @@
     - infos << "Kilpailu #{time_text} #{time_print @race.start_time}."
   - if infos.length > 0
     .message.message--info= infos.join(' ')
-  .buttons
+  .buttons#series-links
+    - if @race.sport.batch_list?
+      = link_to t(:batch_list), race_batch_list_path(@race), class: 'button'
     - @race.series.each do |series|
-      - if !series.started?
+      - if !series.started? && @race.sport.start_list?
         - link_text = series.start_time ? "#{series.name} (#{time_print(series.start_datetime)})" : series.name
         = link_to link_text, race_series_start_list_path(@race, series), class: 'button'
       - else
         = link_to series.name, race_series_path(@race, series), class: 'button button--primary'
   - unless @race.finished? || @race.competitors.empty?
-    %h3= t '.start_lists_for_all_series_pdf'
-    = form_tag(race_start_lists_path(@race, format: :pdf), method: :get, class: 'form') do
-      .form__horizontal-fields
-        .form__field= select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: "#{t :all} #{clubs_title(@race).downcase}"
-        .form__buttons= submit_tag t('.download_start_times'), class: 'button button--pdf'
+    - if @race.sport.start_list?
+      %h3= t '.start_lists_for_all_series_pdf'
+      = form_tag(race_start_lists_path(@race, format: :pdf), method: :get, class: 'form') do
+        .form__horizontal-fields
+          .form__field= select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: "#{t :all} #{clubs_title(@race).downcase}"
+          .form__buttons= submit_tag t('.download_start_times'), class: 'button button--pdf'
+    - elsif @race.sport.batch_list?
+      %h3= t '.batch_list_pdf'
+      = link_to t('.download_batch_list'), race_batch_list_path(@race, format: :pdf), class: 'button button--pdf'
   - if @race.finished?
     %h3= t :correct_distances
     .row
@@ -40,7 +46,7 @@
           .card
             .card__middle
               .card__name= correct_estimate_range ce
-              .card__middle-1= ce.distances.map{|d| "#{d} m"}.join(', ')
+              .card__middle-row= ce.distances.map{|d| "#{d} m"}.join(', ')
 - if @race.has_team_competition? && @race.start_date <= Time.zone.today && !@race.series.empty?
   %h2= t 'activerecord.models.team_competition', :count => @race.team_competitions.count
   - if @race.team_competitions.count == 1

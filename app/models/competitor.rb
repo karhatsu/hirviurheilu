@@ -18,6 +18,7 @@ class Competitor < ApplicationRecord
   belongs_to :club
   belongs_to :series, counter_cache: true, touch: true
   belongs_to :age_group
+  belongs_to :batch
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
@@ -47,6 +48,7 @@ class Competitor < ApplicationRecord
   validates :shot_8, shot_validations
   validates :shot_9, shot_validations
   validates :shooting_overtime_min, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
+  validates :track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validate :start_time_max
   validate :times_in_correct_order
   validate :only_one_shot_input_method_used

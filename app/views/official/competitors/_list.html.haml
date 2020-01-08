@@ -9,9 +9,9 @@
             .card__name
               = full_name comp
               = "(#{comp.age_group.name})" if comp.age_group
-            .card__middle-1= comp.club.name
+            .card__middle-row= comp.club.name
             - if comp.start_time
-              .card__middle-2
+              .card__middle-row
                 = time_print(comp.start_time, true, '&nbsp;')
                 - if series.has_start_list? && comp.race.start_time_defined?
                   (#{time_print comp.start_datetime, true})

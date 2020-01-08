@@ -9,6 +9,10 @@ describe Sport do
     it 'SKI' do
       expect(Sport.by_key('SKI').name).to eq('Hirvenhiihto')
     end
+
+    it 'AIR' do
+      expect(Sport.by_key('AIR').name).to eq('Ilma-aseet')
+    end
   end
 
   describe "#default_sport_key" do

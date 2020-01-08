@@ -8,7 +8,7 @@ Then ("I should see a card {int} with {int}, {string}, {string} with points {int
   card_locator = "//div[@class='result-cards']/div[contains(@class, 'card')][#{order_number}]"
   expect(find(:xpath, "#{card_locator}/div[@class='card__number']")).to have_text(number)
   expect(find(:xpath, "#{card_locator}/div[@class='card__middle']/div[@class='card__name']")).to have_text(name)
-  expect(find(:xpath, "#{card_locator}/div[@class='card__middle']/div[@class='card__middle-1']")).to have_text(club)
+  expect(find(:xpath, "#{card_locator}/div[@class='card__middle']/div[@class='card__middle-row']")).to have_text(club)
   expect(find(:xpath, "#{card_locator}/div[@class='card__main-value']")).to have_text(main_value)
 end
 

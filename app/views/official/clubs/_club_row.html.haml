@@ -3,8 +3,8 @@
     .card__middle
       .card__name= club.name
       - if club.long_name
-        .card__middle-1= club.long_name
-      .card__middle-2= t('count_competitors', count: club.competitors.count)
+        .card__middle-row= club.long_name
+      .card__middle-row= t('count_competitors', count: club.competitors.count)
     .card__buttons
       = link_to t(:edit), edit_official_race_club_path(@race.id, club), class: 'button button--edit'
       - if club.can_be_removed?

@@ -1,0 +1,16 @@
+%h2= t '.title'
+- if @batches.length == 0
+  .message.message--info= t('.no_batch_list')
+- else
+  .row
+    - @batches.each do |batch|
+      .col-xs-12.col-sm-6
+        .card
+          .card__number= batch.number
+          .card__middle
+            .card__name #{t('attributes.track')} #{batch.track}
+            - batch.competitors.each do |competitor|
+              .card__middle-row #{competitor.track_place}. #{full_name(competitor)} (#{competitor.number}), #{competitor.club.name} (#{competitor.series.name})
+          .card__main-value= batch.time.strftime('%H:%M')
+.buttons.buttons--nav
+  = link_to t(:back_to_race_home_page), race_path(@race), class: 'button button--back'
