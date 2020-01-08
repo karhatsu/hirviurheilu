@@ -6,7 +6,7 @@
       .card__middle
         .card__name #{team.name} / #{full_name competitor}
         - unless team.no_result_reason
-          .card__middle-2<
+          .card__middle-row<
             - results = []
             - if @relay.penalty_seconds? && competitor.arrival_time
               - results << "<span class='card__sub-result card__sub-result--time'>#{time_from_seconds competitor.time_in_seconds(false)}</span>"

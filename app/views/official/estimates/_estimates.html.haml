@@ -7,7 +7,7 @@
         .card__middle
           .card__name= full_name competitor
           - unless competitor.no_result_reason
-            .card__middle-1
+            .card__middle-row
               = form_for([:official, @series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "estimates_form_#{competitor.id}", class: 'form form--inline' }) do |f|
                 = hidden_field_tag :no_times, true, id: "no_times_#{competitor.id}"
                 = hidden_field_tag 'competitor[old_values[estimate1]]', competitor.estimate1, id: "old_1_#{competitor.id}"

@@ -11,8 +11,8 @@
       .card
         .card__middle
           .card__name= full_name rr.user
-          .card__middle-1= link_to rr.user.email, "mailto:#{rr.user.email}"
-          .card__middle-2
+          .card__middle-row= link_to rr.user.email, "mailto:#{rr.user.email}"
+          .card__middle-row
             - if rr.only_add_competitors?
               #{clubs_title(@race)}:
               - if rr.new_clubs?

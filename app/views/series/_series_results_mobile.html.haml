@@ -15,11 +15,11 @@
           - if comp.unofficial?
             %span{title: t(:unofficial)}
               (#{t(:unofficial_short)})
-        .card__middle-1= comp.club.name
+        .card__middle-row= comp.club.name
         - if comp.no_result_reason
-          .card__middle-2= t "competitor.#{comp.no_result_reason}"
+          .card__middle-row= t "competitor.#{comp.no_result_reason}"
         - elsif comp.points > 0
-          .card__middle-2
+          .card__middle-row
             - results = []
             - if comp.estimate_points
               - results << "<span class='card__sub-result card__sub-result--estimate'>#{(series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp))}</span>"

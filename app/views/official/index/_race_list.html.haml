@@ -10,7 +10,7 @@
       %a.card{href: official_race_path(competition)}
         .card__middle
           .card__name= competition.name
-          .card__middle-1
+          .card__middle-row
             #{race_date_interval(competition, false)}, #{competition.location}
           - if warn_unfinished && !competition.finished?
-            .card__middle-2.card__middle-2--error Kilpailua ei ole päätetty!
+            .card__middle-row.card__middle-row--error Kilpailua ei ole päätetty!

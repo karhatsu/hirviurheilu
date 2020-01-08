@@ -5,7 +5,7 @@
       .card__number #{i + 1}.
       .card__middle
         .card__name= club_name
-        .card__middle-2{style: 'display: none'}
+        .card__middle-row{style: 'display: none'}
           - team_result[:competitors].each do |competitor|
             %div
               #{full_name competitor},

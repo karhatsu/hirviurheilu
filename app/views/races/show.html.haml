@@ -40,7 +40,7 @@
           .card
             .card__middle
               .card__name= correct_estimate_range ce
-              .card__middle-1= ce.distances.map{|d| "#{d} m"}.join(', ')
+              .card__middle-row= ce.distances.map{|d| "#{d} m"}.join(', ')
 - if @race.has_team_competition? && @race.start_date <= Time.zone.today && !@race.series.empty?
   %h2= t 'activerecord.models.team_competition', :count => @race.team_competitions.count
   - if @race.team_competitions.count == 1

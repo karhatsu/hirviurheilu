@@ -6,25 +6,25 @@
     %a.card{href: answers_path}
       .card__middle
         .card__name Kysymyksiä ja vastauksia
-        .card__middle-1 Mikä on Hirviurheilu? Mitä palvelun käyttö vaatii? Miksi se on erinomainen vaihtoehto kilpailusi tulospalveluksi? Miten palvelua käytetään?
+        .card__middle-row Mikä on Hirviurheilu? Mitä palvelun käyttö vaatii? Miksi se on erinomainen vaihtoehto kilpailusi tulospalveluksi? Miten palvelua käytetään?
   .col-xs-12.col-sm-6
     %a.card{href: TEST_URL}
       .card__middle
         .card__name Testaa palvelua
-        .card__middle-1 Hirviurheilun testiympäristössä voit kokeilla palvelun käyttöä ja harjoitella toimitsijana olemista.
+        .card__middle-row Hirviurheilun testiympäristössä voit kokeilla palvelun käyttöä ja harjoitella toimitsijana olemista.
   .col-xs-12.col-sm-6
     - if current_user
       %a.card{href: official_root_path}
         .card__middle
           .card__name Palvelu on käytössäsi
-          .card__middle-1 Olet kirjautunut sisään. Siirry toimitsijan etusivulle hallinnoimaan kilpailujasi.
+          .card__middle-row Olet kirjautunut sisään. Siirry toimitsijan etusivulle hallinnoimaan kilpailujasi.
     - else
       %a.card{href: register_path}
         .card__middle
           .card__name Aloita palvelun käyttö
-          .card__middle-1 Aloita palvelun käyttö rekisteröitymällä.
+          .card__middle-row Aloita palvelun käyttö rekisteröitymällä.
   .col-xs-12.col-sm-6
     %a.card{href: new_feedback_path}
       .card__middle
         .card__name Lähetä palautetta
-        .card__middle-1 Jäikö jokin asia epäselväksi? Haluatko ehdottaa jotain uutta ominaisuutta? Ota yhteyttä!
+        .card__middle-row Jäikö jokin asia epäselväksi? Haluatko ehdottaa jotain uutta ominaisuutta? Ota yhteyttä!

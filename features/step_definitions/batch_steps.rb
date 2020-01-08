@@ -9,5 +9,5 @@ Then("I should see batch {int} on track {int} with time {string}") do |number, t
 end
 
 Then("the batch {int} should contain a competitor {string} in row {int}") do |number, competitor, competitor_row|
-  expect(page.find(:xpath, "(//div[@class='card'])[#{number}]//div[@class='card__middle-1'][#{competitor_row}]")).to have_text(competitor)
+  expect(page.find(:xpath, "(//div[@class='card'])[#{number}]//div[@class='card__middle-row'][#{competitor_row}]")).to have_text(competitor)
 end

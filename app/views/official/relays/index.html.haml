@@ -10,7 +10,7 @@
         %a.card{href: edit_official_race_relay_path(@race, relay)}
           .card__middle
             .card__name= relay.name
-            .card__middle-1
+            .card__middle-row
               - if relay.start_time_defined?
                 #{relay_start_time_print relay},
               = t 'official.relays.index.teams', count: relay.relay_teams.count

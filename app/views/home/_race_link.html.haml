@@ -2,5 +2,5 @@
   %a.card{href: race_path(race)}
     .card__middle
       .card__name= race.name
-      .card__middle-1 #{date_interval(race.start_date, race.end_date)}, #{race.location}
-      .card__middle-2= race.sport_name
+      .card__middle-row #{date_interval(race.start_date, race.end_date)}, #{race.location}
+      .card__middle-row= race.sport_name

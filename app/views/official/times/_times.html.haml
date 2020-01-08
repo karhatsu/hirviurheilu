@@ -6,7 +6,7 @@
         .card__middle
           .card__name= full_name competitor
           - unless competitor.no_result_reason
-            .card__middle-1
+            .card__middle-row
               = form_for([:official, @series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "times_form_#{competitor.id}", class: 'form form--inline' }) do |f|
                 .form__horizontal-fields
                   .form__field.form__field--sm

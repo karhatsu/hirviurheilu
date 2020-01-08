@@ -26,8 +26,8 @@
           .card
             .card__middle
               .card__name= s.name
-              .card__middle-1= t(:count_competitors, count: s.competitors.count)
-              .card__middle-2
+              .card__middle-row= t(:count_competitors, count: s.competitors.count)
+              .card__middle-row
                 - if competitor_count == 0
                   - add_competitor_path = @race.start_order == Race::START_ORDER_MIXED ? official_race_start_list_path(@race) : new_official_series_competitor_path(s)
                   = link_to t('.add_series_first_competitor'), add_competitor_path, class: 'button button--add'

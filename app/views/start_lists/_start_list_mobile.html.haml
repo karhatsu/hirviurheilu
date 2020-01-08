@@ -8,7 +8,7 @@
           - if comp.age_group
             %span
               (#{comp.age_group.name})
-        .card__middle-1
+        .card__middle-row
           = comp.club.name
           - unless comp.team_name.blank?
             (#{comp.team_name})
