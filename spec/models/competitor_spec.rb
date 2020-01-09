@@ -94,7 +94,7 @@ describe Competitor do
       it { is_expected.not_to allow_value(101).for(:shots_total_input) }
 
       it "cannot be given if also individual shots have been defined" do
-        comp = build(:competitor, :shots_total_input => 50, shot_0: 8)
+        comp = build(:competitor, shots_total_input: 50, shots: [8])
         expect(comp).to have(1).errors_on(:base)
       end
 
@@ -105,14 +105,14 @@ describe Competitor do
     end
 
     describe 'shots' do
-      10.times do |i|
-        it { is_expected.to allow_value(nil).for("shot_#{i}") }
-        it { is_expected.not_to allow_value(1.1).for("shot_#{i}") }
-        it { is_expected.not_to allow_value(-1).for("shot_#{i}") }
-        it { is_expected.to allow_value(0).for("shot_#{i}") }
-        it { is_expected.to allow_value(10).for("shot_#{i}") }
-        it { is_expected.not_to allow_value(11).for("shot_#{i}") }
-      end
+      it { is_expected.to allow_value(nil).for('shots') }
+      it { is_expected.not_to allow_value([10, -1, 0]).for('shots') }
+      it { is_expected.not_to allow_value([11, 10]).for('shots') }
+      it { is_expected.not_to allow_value([10, 9, 1.1]).for('shots') }
+      it { is_expected.to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 0]).for('shots') }
+      it { is_expected.not_to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).for('shots') }
+      it { is_expected.to allow_value(['10', '9', '0']).for('shots') }
+      it { is_expected.not_to allow_value(['10', '9', '1.1']).for('shots') }
     end
 
     describe "estimate1" do
@@ -511,7 +511,7 @@ describe Competitor do
 
       context 'when shots are saved' do
         it 'marks has_result true' do
-          @competitor.shot_9 = 9
+          @competitor.shots = [9]
           @competitor.save!
           expect(@competitor.has_result?).to be_truthy
         end
@@ -606,7 +606,7 @@ describe Competitor do
     end
 
     it "should be sum of defined individual shots if no input sum" do
-      comp = build(:competitor, :shots_total_input => nil, shot_0: 8, shot_1: 9)
+      comp = build(:competitor, shots_total_input: nil, shots: [8, 9])
       expect(comp.shots_sum).to eq(17)
     end
   end
@@ -1151,13 +1151,6 @@ describe Competitor do
     end
   end
 
-  describe "#shots" do
-    it "should return an ordered array of shots" do
-      c = build(:competitor, shot_0: 10, shot_1: 3, shot_2: 4, shot_3: 9, shot_4: 1, shot_5: 0, shot_6: 9, shot_7: 7)
-      expect(c.shots).to eq([10,9,9,7,4,3,1,0])
-    end
-  end
-
   describe "#next_competitor" do
     before do
       @series = create(:series)
@@ -1557,7 +1550,7 @@ describe Competitor do
 
     context 'when shots' do
       it 'multiplies each shot by its value' do
-        competitor = create :competitor, shot_0: 10, shot_1: 10, shot_2: 8, shot_3: 7, shot_4: 3, shot_5: 3
+        competitor = create :competitor, shots: [10, 10, 8, 7, 3, 3]
         expect(competitor.reload.relative_shot_points).to eq(2*10*10 + 8*8 + 7*7 + 2*3*3)
       end
     end

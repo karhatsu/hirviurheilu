@@ -78,16 +78,7 @@ fi:
     shooting_time: Ammunta-aika
     short_name: Lyhyt nimi
     shorter_trip: Lyhennetty matka
-    shot_0: Laukaus 1
-    shot_1: Laukaus 2
-    shot_2: Laukaus 3
-    shot_3: Laukaus 4
-    shot_4: Laukaus 5
-    shot_5: Laukaus 6
-    shot_6: Laukaus 7
-    shot_7: Laukaus 8
-    shot_8: Laukaus 9
-    shot_9: Laukaus 10
+    shots: Laukaukset
     shots_total_input: Ammunta yhteensä
     sport_key: Laji
     start_date: Alkupvm
@@ -224,6 +215,9 @@ fi:
             start_time:
               too_big: on liian iso (lähtöajat alkavat lukemasta 00:00:00)
               required_when_start_list_created: on pakollinen, kun sarjan lähtölista on jo luotu
+            shots:
+              too_many: Liian monta laukausta
+              invalid_value: sisältää virheellisen numeron
         correct_estimate:
           attributes:
             base:

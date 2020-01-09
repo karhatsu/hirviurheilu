@@ -1293,7 +1293,7 @@ describe Series do
 
       context 'and some competitor has a shot' do
         it 'should return true' do
-          @c2.shot_9 = 7
+          @c2.shots = [7]
           @c2.save!
           @series.reload
           expect(@series).to have_result_for_some_competitor

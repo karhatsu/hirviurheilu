@@ -36,22 +36,12 @@ class Competitor < ApplicationRecord
   validates :correct_estimate2, estimate_validations
   validates :correct_estimate3, estimate_validations
   validates :correct_estimate4, estimate_validations
-  shot_validations = {numericality: {only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 10, allow_nil: true}}
-  validates :shot_0, shot_validations
-  validates :shot_1, shot_validations
-  validates :shot_2, shot_validations
-  validates :shot_3, shot_validations
-  validates :shot_4, shot_validations
-  validates :shot_5, shot_validations
-  validates :shot_6, shot_validations
-  validates :shot_7, shot_validations
-  validates :shot_8, shot_validations
-  validates :shot_9, shot_validations
   validates :shooting_overtime_min, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
   validates :track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validate :start_time_max
   validate :times_in_correct_order
   validate :only_one_shot_input_method_used
+  validate :shots_array_values
   validate :check_no_result_reason
   validate :check_if_series_has_start_list
   validate :unique_number
@@ -74,7 +64,7 @@ class Competitor < ApplicationRecord
     return @shots_sum if @shots_sum
     if shots_total_input
       @shots_sum = shots_total_input
-    else
+    elsif shots
       @shots_sum = shots.map(&:to_i).inject(:+)
     end
     @shots_sum
@@ -194,11 +184,8 @@ class Competitor < ApplicationRecord
   end
 
   def relative_shot_points
+    return 0 unless shots
     shots.inject(0) {|sum, shot| sum = sum + shot * shot; sum}
-  end
-
-  def shots
-    (0..9).to_a.map {|i| self["shot_#{i}"]}.reject{|s| s.nil?}.sort {|a, b| b.to_i <=> a.to_i}
   end
 
   def finished?
@@ -280,14 +267,13 @@ class Competitor < ApplicationRecord
   end
 
   def only_one_shot_input_method_used
-    if shots_total_input
-      10.times do |i|
-        if self["shot_#{i}"]
-          errors.add(:base, :shooting_result_either_sum_or_by_shots)
-          break
-        end
-      end
-    end
+    errors.add(:base, :shooting_result_either_sum_or_by_shots) if shots_total_input && shots
+  end
+
+  def shots_array_values
+    return unless shots
+    errors.add(:shots, :too_many) if shots.length > 10
+    errors.add(:shots, :invalid_value) if shots.any? { |shot| shot.to_i < 0 || shot.to_i > 10 || shot.to_i.to_s != shot.to_s }
   end
 
   def check_no_result_reason
@@ -330,7 +316,7 @@ class Competitor < ApplicationRecord
   end
 
   def set_has_result
-    self.has_result = true if arrival_time || estimate1 || shots_total_input || shots.any?
+    self.has_result = true if arrival_time || estimate1 || shots_total_input || shots
   end
 
   def reset_age_group
