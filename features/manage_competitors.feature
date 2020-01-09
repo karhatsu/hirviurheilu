@@ -85,16 +85,16 @@ Feature: Manage competitors
     When I go to the official competitors page of the series
     And I follow "Johnson James"
     And I fill in the following:
-      | competitor_shot_0 | 10 |
-      | competitor_shot_1 | 10 |
-      | competitor_shot_2 | 10 |
-      | competitor_shot_3 | 10 |
-      | competitor_shot_4 | 10 |
-      | competitor_shot_5 | 9 |
-      | competitor_shot_6 | 9 |
-      | competitor_shot_7 | 9 |
-      | competitor_shot_8 | 8 |
-      | competitor_shot_9 | 0 |
+      | shots0 | 10 |
+      | shots1 | 10 |
+      | shots2 | 10 |
+      | shots3 | 10 |
+      | shots4 | 10 |
+      | shots5 | 9 |
+      | shots6 | 9 |
+      | shots7 | 9 |
+      | shots8 | 8 |
+      | shots9 | 0 |
     And I press "Tallenna"
     Then I should be on the official competitors page of the series
     When I go to the results page of the series
@@ -103,8 +103,8 @@ Feature: Manage competitors
     When I go to the official competitors page of the series
     And I follow "Johnson James"
     And I fill in the following:
-      | competitor_shot_3 | 5 |
-      | competitor_shot_9 | 7 |
+      | shots3 | 5 |
+      | shots9 | 7 |
     And I press "Tallenna"
     Then I should be on the official competitors page of the series
     When I go to the results page of the series
