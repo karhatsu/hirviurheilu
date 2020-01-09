@@ -9,6 +9,9 @@
   - if new_announcements
     = render partial: 'announcements', locals: { header_class: 'emphasize' }
     %h2.emphasize= t :competitions
+  %a.link--to-finished-races{href: '#past-races'}
+    = t '.latest_ended_competitions'
+    %i.material-icons-outlined.md-18 arrow_downward
   = render partial: 'district_menu'
   - unless @today.empty?
     %h2
@@ -30,11 +33,12 @@
         .row{class: "races_#{key}"}
           = render partial: 'race_list', locals: { races: races }
   - unless @past.empty?
-    %h2
-      %i.material-icons-outlined.md-18 check_circle
-      = t '.latest_ended_competitions'
-    .row#old_races
-      = render partial: 'race_list', locals: { races: @past, max: 11 }
+    #past-races
+      %h2
+        %i.material-icons-outlined.md-18 check_circle
+        = t '.latest_ended_competitions'
+      .row
+        = render partial: 'race_list', locals: { races: @past, max: 11 }
   - unless new_announcements
     = render partial: 'announcements', locals: { header_class: '' }
   = render :partial => 'shared/facebook_like_box'

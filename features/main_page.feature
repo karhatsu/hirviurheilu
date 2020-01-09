@@ -24,8 +24,8 @@ Feature: Main page
       | location | Ongoing city |
     And I go to the home page
     Then I should see "Viimeksi päättyneet kilpailut"
-    And I should see "Old race" within "div#old_races"
-    And I should see "01.01.2010 - 02.01.2010, Old city" within "div#old_races"
+    And I should see "Old race" within "div#past-races"
+    And I should see "01.01.2010 - 02.01.2010, Old city" within "div#past-races"
     And I should see "Kilpailuja tulossa myöhemmin" within "div#future_races"
     And I should see "Upcoming race" within "div#future_races"
     And I should see "01.01.2030 - 02.01.2030, Upcoming city" within "div#future_races"
@@ -43,14 +43,14 @@ Feature: Main page
     And I am on the home page
     When I select "Southern District" from "district_id"
     And I press "Valitse piiri"
-    Then I should see "Finished southern race" within "div#old_races"
+    Then I should see "Finished southern race" within "div#past-races"
     And I should see "Ongoing southern race" within "div#races_today"
-    But I should not see "Finished northern race" within "div#old_races"
-    And I should not see "Future northern race" within "div#old_races"
+    But I should not see "Finished northern race" within "div#past-races"
+    And I should not see "Future northern race" within "div#past-races"
     When I select "Kaikki piirit" from "district_id"
     And I press "Valitse piiri"
-    Then I should see "Finished southern race" within "div#old_races"
-    And I should see "Finished northern race" within "div#old_races"
+    Then I should see "Finished southern race" within "div#past-races"
+    And I should see "Finished northern race" within "div#past-races"
 
   Scenario: No races
     Given I go to the home page

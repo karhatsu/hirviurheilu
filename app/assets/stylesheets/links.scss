@@ -1,0 +1,17 @@
+a {
+  color: olive;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.link--to-finished-races {
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

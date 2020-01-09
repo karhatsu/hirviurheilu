@@ -3,6 +3,7 @@
  *= require jquery-ui/ui-lightness
  *= require rack_profiler
 
+ *= require links
  *= require buttons
  *= require fonts
  *= require messages
