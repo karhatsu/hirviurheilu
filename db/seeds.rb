@@ -93,7 +93,8 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
         comp = competitors[i]
         if race.start_date < Date.today
           if i % 4 == 0
-            comp["shot_#{i}"] = i
+            comp.shots ||= []
+            comp.shots << i
           else
             shots = 71 + 2 * i
             shots = nil if (i == 3 or i == 7) and not old_race

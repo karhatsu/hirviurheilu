@@ -6,23 +6,20 @@ class ShotsQuickSave < QuickSave
   private
   def set_competitor_attrs
     if @string.length < 12
-      for i in 0..9
-        @competitor["shot_#{i}"] = nil
-      end
+      @competitor.shots = nil
       @competitor.shots_total_input = result_string
     else
       shots = result_string
       @competitor.shots_total_input = nil
-      for i in 0..9
+      @competitor.shots = (0..9).map do |i|
         shot = shots[i, 1]
         shot = 10 if shot == '+' || shot == '*'
-        @competitor["shot_#{i}"] = shot
+        shot
       end
     end
   end
 
   def competitor_has_attrs?
-    !@competitor.shots.empty? ||
-    !@competitor.shots_total_input.nil?
+    @competitor.shots || !@competitor.shots_total_input.nil?
   end
 end

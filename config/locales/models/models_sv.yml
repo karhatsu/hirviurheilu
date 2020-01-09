@@ -78,16 +78,7 @@ sv:
     shooting_time: Skyttetid
     short_name: Kort namn
     shorter_trip: Kortare löpning
-    shot_0: Skott 1
-    shot_1: Skott 2
-    shot_2: Skott 3
-    shot_3: Skott 4
-    shot_4: Skott 5
-    shot_5: Skott 6
-    shot_6: Skott 7
-    shot_7: Skott 8
-    shot_8: Skott 9
-    shot_9: Skott 10
+    shots: Skott
     shots_total_input: Skottstotal
     sport_key: Gren
     start_date: Startdatum
@@ -224,6 +215,9 @@ sv:
             start_time:
               too_big: är för stor (starttider börjar av 00:00:00)
               required_when_start_list_created: måste anges, när klassens startlista är redan skapat
+            shots:
+              too_many: För många skott
+              invalid_value: innehåller ett fel nummer
         correct_estimate:
           attributes:
             base:

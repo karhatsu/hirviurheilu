@@ -44,8 +44,7 @@ describe ShotsQuickSave do
         context "when competitor has individual shots" do
           before do
             @c2.shots_total_input = nil
-            @c2.shot_0 = 10
-            @c2.shot_9 = 5
+            @c2.shots = [10, 5]
             @c2.save!
             @qs = ShotsQuickSave.new(@race.id, '++11,98')
           end
@@ -55,7 +54,7 @@ describe ShotsQuickSave do
               expect(@qs.save).to be_truthy
               @c2.reload
               expect(@c2.shots_total_input).to eq(98)
-              expect(@c2.shots).to eq([])
+              expect(@c2.shots).to be_nil
             end
           end
 
@@ -111,7 +110,7 @@ describe ShotsQuickSave do
         context "when competitor has individual shots" do
           before do
             @c.shots_total_input = nil
-            @c.shot_5 = 10
+            @c.shots = [10]
             @c.save!
             @qs = ShotsQuickSave.new(@race.id, '++10,**98876501')
           end
