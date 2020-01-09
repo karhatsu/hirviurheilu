@@ -108,7 +108,7 @@ $inputHeight: 16px;
     width: 128px;
   }
 
-  select:first-child, select:last-child {
+  select:first-of-type, select:last-of-type {
     width: 64px;
   }
 }
