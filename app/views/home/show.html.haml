@@ -5,7 +5,7 @@
 = flash_error
 
 .home_page
-  - new_announcements = @announcements.length > 0 && @announcements[0].published > 1.month.ago
+  - new_announcements = @announcements.length > 0 && @announcements[0].published > 2.weeks.ago
   - if new_announcements
     = render partial: 'announcements', locals: { header_class: 'emphasize' }
     %h2.emphasize= t :competitions
