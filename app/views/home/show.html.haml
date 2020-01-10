@@ -9,9 +9,10 @@
   - if new_announcements
     = render partial: 'announcements', locals: { header_class: 'emphasize' }
     %h2.emphasize= t :competitions
-  %a.link--to-finished-races{href: '#past-races'}
-    = t '.latest_ended_competitions'
-    %i.material-icons-outlined.md-18 arrow_downward
+  - unless @past.empty?
+    %a.link--to-finished-races{href: '#past-races'}
+      = t '.latest_ended_competitions'
+      %i.material-icons-outlined.md-18 arrow_downward
   = render partial: 'district_menu'
   - unless @today.empty?
     %h2
