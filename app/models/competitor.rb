@@ -4,6 +4,7 @@ class Competitor < ApplicationRecord
   include ModelValueComparator
   include StartDateTime
   include Shots
+  include RelativePoints
 
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish
@@ -156,31 +157,6 @@ class Competitor < ApplicationRecord
   def points(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     return nil if no_result_reason
     shooting_points.to_i + estimate_points.to_i + time_points(unofficials).to_i
-  end
-
-  def relative_points(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=SORT_BY_POINTS)
-    return -1000003 if no_result_reason == DQ
-    return -1000002 if no_result_reason == DNS
-    return -1000001 if no_result_reason == DNF
-    if sort_by == SORT_BY_SHOTS
-      shooting_points.to_i
-    elsif sort_by == SORT_BY_ESTIMATES
-      estimate_points.to_i
-    elsif sort_by == SORT_BY_TIME
-      return -time_in_seconds.to_i if time_in_seconds
-      -1000000
-    else
-      relative_points = 1000000*points(unofficials).to_i + 1000*shooting_points.to_i
-      relative_points = relative_points - time_in_seconds.to_i unless series.walking_series?
-      relative_points = relative_points + relative_shooting_points if series.walking_series?
-      relative_points = relative_points * 10 unless unofficials != Series::UNOFFICIALS_EXCLUDED || unofficial?
-      relative_points
-    end
-  end
-
-  def relative_shooting_points
-    return 0 unless shots
-    shots.inject(0) {|sum, shot| sum = sum + shot * shot; sum}
   end
 
   def finished?
