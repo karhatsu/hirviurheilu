@@ -2,12 +2,7 @@ module Shots
   extend ActiveSupport::Concern
 
   def qualification_round_shots
-    rules = sport.qualification_round
-    return nil unless rules
-    part1 = shots[0, rules[0]]
-    return [part1] if rules.length == 1
-    part2 = shots[rules[0], rules[1]] || []
-    [part1, part2]
+    split_shots sport.qualification_round, 0
   end
 
   def qualification_round_sub_scores
@@ -22,7 +17,35 @@ module Shots
     sum_of_array sub_scores
   end
 
+  def final_round_shots
+    qualification_round_rules = sport.qualification_round
+    final_round_rules = sport.final_round
+    return nil unless qualification_round_rules && final_round_rules
+    qualification_round_shot_count = sum_of_array qualification_round_rules
+    split_shots final_round_rules, qualification_round_shot_count
+  end
+
+  def final_round_sub_scores
+    final_shots = final_round_shots
+    return nil unless final_shots
+    final_shots.map {|shots| sum_of_array shots}
+  end
+
+  def final_round_score
+    sub_scores = final_round_sub_scores
+    return nil unless sub_scores
+    sum_of_array sub_scores
+  end
+
   private
+
+  def split_shots(rules, start_index)
+    return nil unless rules
+    part1 = shots[start_index, rules[0]] || []
+    return [part1] if rules.length == 1
+    part2 = shots[start_index + rules[0], rules[1]] || []
+    [part1, part2]
+  end
 
   def sum_of_array(array)
     array&.inject(:+) || 0
