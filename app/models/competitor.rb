@@ -48,7 +48,7 @@ class Competitor < ApplicationRecord
   validate :unique_name
   validate :concurrent_changes, :on => :update
 
-  before_save :set_has_result, :reset_age_group, :set_shooting_overtime_min
+  before_save :set_has_result, :reset_age_group, :set_shooting_overtime_min, :convert_string_shots
 
   after_create :set_correct_estimates
   after_save :update_series_start_time_and_number
@@ -344,6 +344,11 @@ class Competitor < ApplicationRecord
         save!
       end
     end
+  end
+
+  def convert_string_shots
+    return unless shots
+    self.shots = shots.map {|shot| shot.to_i}
   end
 
   def update_series_start_time_and_number

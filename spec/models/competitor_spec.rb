@@ -343,6 +343,13 @@ describe Competitor do
   end
 
   describe 'callbacks' do
+    describe 'shots' do
+      it 'converts string shots into integers' do
+        competitor = create :competitor, shots: %w(10 9 8)
+        expect(competitor.shots).to eql([10, 9, 8])
+      end
+    end
+
     describe 'shooting times' do
       before do
         @competitor = build :competitor, start_time: '00:05:00', shooting_overtime_min: 10
