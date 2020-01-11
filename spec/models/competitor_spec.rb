@@ -611,24 +611,24 @@ describe Competitor do
     end
   end
 
-  describe "#shot_points" do
+  describe "#shooting_points" do
     it "should be nil if shots not defined" do
       competitor = build(:competitor)
       expect(competitor).to receive(:shots_sum).and_return(nil)
-      expect(competitor.shot_points).to be_nil
+      expect(competitor.shooting_points).to be_nil
     end
 
     it "should be 6 times shots_sum" do
       competitor = build(:competitor)
       expect(competitor).to receive(:shots_sum).and_return(50)
-      expect(competitor.shot_points).to eq(300)
+      expect(competitor.shooting_points).to eq(300)
     end
 
     it 'should subtract 3 points from every overtime minute' do
       series = build :series, points_method: Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
       competitor = build(:competitor, series: series, shooting_overtime_min: 2)
       expect(competitor).to receive(:shots_sum).and_return(90)
-      expect(competitor.shot_points).to eq(6 * (90-2*3))
+      expect(competitor.shooting_points).to eq(6 * (90-2*3))
     end
   end
 
@@ -1121,7 +1121,7 @@ describe Competitor do
     before do
       @unofficials = Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
       @competitor = build(:competitor)
-      allow(@competitor).to receive(:shot_points).and_return(100)
+      allow(@competitor).to receive(:shooting_points).and_return(100)
       allow(@competitor).to receive(:estimate_points).and_return(150)
       allow(@competitor).to receive(:time_points).with(@unofficials).and_return(200)
     end
@@ -1132,7 +1132,7 @@ describe Competitor do
     end
 
     it "should consider missing shot points as 0" do
-      expect(@competitor).to receive(:shot_points).and_return(nil)
+      expect(@competitor).to receive(:shooting_points).and_return(nil)
       expect(@competitor.points(@unofficials)).to eq(150 + 200)
     end
 
@@ -1464,8 +1464,8 @@ describe Competitor do
       it 'returns shot points for competitors with result' do
         @competitors_in_random_order.each do |competitor|
           unless competitor.no_result_reason
-            expect(competitor.relative_points(false, @sort_by)).to eq(competitor.shot_points.to_i)
-            expect(competitor.relative_points(true, @sort_by)).to eq(competitor.shot_points.to_i)
+            expect(competitor.relative_points(false, @sort_by)).to eq(competitor.shooting_points.to_i)
+            expect(competitor.relative_points(true, @sort_by)).to eq(competitor.shooting_points.to_i)
           end
         end
       end
@@ -1521,13 +1521,13 @@ describe Competitor do
       end
     end
 
-    def create_competitor(points, shot_points, time_in_seconds, no_result_reason=nil, unofficial=false,
+    def create_competitor(points, shooting_points, time_in_seconds, no_result_reason=nil, unofficial=false,
                           shots=[0,0,0,0,0,0,0,0,0,0])
       competitor = build :competitor
       allow(competitor).to receive(:series).and_return(@series)
       allow(competitor).to receive(:no_result_reason).and_return(no_result_reason)
       allow(competitor).to receive(:points).and_return(points)
-      allow(competitor).to receive(:shot_points).and_return(shot_points)
+      allow(competitor).to receive(:shooting_points).and_return(shooting_points)
       allow(competitor).to receive(:time_in_seconds).and_return(time_in_seconds)
       allow(competitor).to receive(:unofficial?).and_return(unofficial)
       allow(competitor).to receive(:estimate_points).and_return(550)
@@ -1541,17 +1541,17 @@ describe Competitor do
     end
   end
 
-  describe '#relative_shot_points' do
+  describe '#relative_shooting_points' do
     context 'when no shots' do
       it 'returns 0' do
-        expect(build(:competitor).relative_shot_points).to eq 0
+        expect(build(:competitor).relative_shooting_points).to eq 0
       end
     end
 
     context 'when shots' do
       it 'multiplies each shot by its value' do
         competitor = create :competitor, shots: [10, 10, 8, 7, 3, 3]
-        expect(competitor.reload.relative_shot_points).to eq(2*10*10 + 8*8 + 7*7 + 2*3*3)
+        expect(competitor.reload.relative_shooting_points).to eq(2*10*10 + 8*8 + 7*7 + 2*3*3)
       end
     end
   end

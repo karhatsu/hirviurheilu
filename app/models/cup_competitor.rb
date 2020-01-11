@@ -50,7 +50,7 @@ class CupCompetitor
   end
 
   def shots_array
-    @shots_array ||= @competitors.map { |c| c.shot_points }
+    @shots_array ||= @competitors.map { |c| c.shooting_points }
   end
 
   def self.name(competitor)

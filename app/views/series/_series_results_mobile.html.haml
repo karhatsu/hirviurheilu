@@ -26,7 +26,7 @@
             - if comp.arrival_time && series.time_points?
               - results << "<span class='card__sub-result card__sub-result--time'>#{comp.time_points(unofficials)} (#{time_from_seconds(comp.time_in_seconds)})</span>"
             - if comp.shots_sum
-              - results << "<span class='card__sub-result card__sub-result--shoot'>#{shot_points_print(comp, true)}</span>"
+              - results << "<span class='card__sub-result card__sub-result--shoot'>#{shooting_points_print(comp, true)}</span>"
             = raw results.join(' ')
       %div.card__main-value
         = points_print(comp, unofficials)

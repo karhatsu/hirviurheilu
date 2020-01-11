@@ -31,7 +31,7 @@
           %td.center= competitor.points
           %td.center= time_points_print(competitor, true)
           %td.center= @race.finished ? estimate_points_and_diffs(competitor) : estimate_points(competitor)
-          %td.center= shot_points_print(competitor, true)
+          %td.center= shooting_points_print(competitor, true)
           %td
             = competitor.series.name
             = competitor.age_group ? "(#{competitor.age_group.name})" : ''

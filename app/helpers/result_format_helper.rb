@@ -21,10 +21,10 @@ module ResultFormatHelper
     raw(html)
   end
 
-  def shot_points_print(competitor, shots_total=false)
+  def shooting_points_print(competitor, shots_total=false)
     return '' if competitor.no_result_reason
     return '-' if competitor.shots_sum.nil?
-    points = competitor.shot_points.to_s
+    points = competitor.shooting_points.to_s
     if shots_total
       points << " (#{competitor.shots_sum}"
       points << "#{competitor.shooting_overtime_penalty}" if competitor.shooting_overtime_penalty

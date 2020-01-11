@@ -16,7 +16,7 @@ Given /^the series has a competitor "([^"]*)" "([^"]*)" with (\d+)\+(\d+)\+(\d+)
     :estimate2 => 150, :correct_estimate2 => 150 - (300 - epoints.to_i) / 2,
     :shots_total_input => 100 - (600 - spoints.to_i) / 6)
   @competitor.estimate_points.should == epoints.to_i
-  @competitor.shot_points.should == spoints.to_i
+  @competitor.shooting_points.should == spoints.to_i
 end
 
 Given /^the series has (\d+) competitors$/ do |amount|

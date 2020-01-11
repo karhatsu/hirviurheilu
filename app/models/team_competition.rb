@@ -94,7 +94,7 @@ class TeamCompetition < ApplicationRecord
   def create_team_results_hash(teams_hash)
     team_results_hash = Hash.new
     teams_hash.each do |team_name, competitors|
-      team_hash = { club: team_name, points: 0, best_points: 0, best_shot_points: 0, fastest_time: 9999999, competitors: [] }
+      team_hash = { club: team_name, points: 0, best_points: 0, best_shooting_points: 0, fastest_time: 9999999, competitors: [] }
       competitors.each do |competitor|
         add_competitor_to_team_hash team_hash, competitor
       end
@@ -105,19 +105,19 @@ class TeamCompetition < ApplicationRecord
 
   def add_competitor_to_team_hash(team_hash, competitor)
     competitor_points = competitor.points.to_i
-    competitor_shot_points = competitor.shot_points.to_i
+    competitor_shooting_points = competitor.shooting_points.to_i
     competitor_time = competitor.time_in_seconds
     team_hash[:competitors] << competitor
     team_hash[:points] += competitor_points
     team_hash[:best_points] = competitor_points if competitor_points > team_hash[:best_points]
-    team_hash[:best_shot_points] = competitor_shot_points if competitor_shot_points > team_hash[:best_shot_points]
+    team_hash[:best_shooting_points] = competitor_shooting_points if competitor_shooting_points > team_hash[:best_shooting_points]
     team_hash[:fastest_time] = competitor_time if competitor_time && competitor_time < team_hash[:fastest_time]
   end
 
   def sorted_teams_from_team_results_hash(hash)
     hash.values.sort do |a, b|
-      [b[:points], b[:best_points], b[:best_shot_points], a[:fastest_time]] <=>
-        [a[:points], a[:best_points], a[:best_shot_points], b[:fastest_time]]
+      [b[:points], b[:best_points], b[:best_shooting_points], a[:fastest_time]] <=>
+        [a[:points], a[:best_points], a[:best_shooting_points], b[:fastest_time]]
     end
   end
 

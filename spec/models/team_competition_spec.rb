@@ -50,7 +50,7 @@ describe TeamCompetition do
         @club = instance_double(Club, display_name: 'Test club')
         @race = instance_double(Race)
         @c = instance_double(Competitor, :points => 1100, :club => @club,
-          :shot_points => 300, :time_in_seconds => 500, :unofficial => false,
+          :shooting_points => 300, :time_in_seconds => 500, :unofficial => false,
                         :race => @race)
         allow(@c).to receive(:unofficial?).and_return(false)
         expect(Competitor).to receive(:sort_competitors).with([@c]).and_return([@c])
@@ -65,7 +65,7 @@ describe TeamCompetition do
         @club = instance_double(Club, display_name: 'Test club')
         @race = instance_double(Race)
         @c = instance_double(Competitor, :points => 1100, :club => @club,
-          :shot_points => 300, :time_in_seconds => 500, :unofficial => false,
+          :shooting_points => 300, :time_in_seconds => 500, :unofficial => false,
                         :race => @race)
         allow(@c).to receive(:unofficial?).and_return(false)
         expect(Competitor).to receive(:sort_competitors).with([@c]).and_return([@c])
@@ -77,7 +77,7 @@ describe TeamCompetition do
 
     context "when the clubs have enough competitors" do
       before do
-        @default_shot_points = 200
+        @default_shooting_points = 200
         @default_time_in_seconds = 1000
 
         @race = instance_double(Race)
@@ -102,7 +102,7 @@ describe TeamCompetition do
         @club_best_single_points_c1 = create_competitor(@club_best_single_points, @second_points_1 + 1)
         @club_best_single_points_c2 = create_competitor(@club_best_single_points, @second_points_2 - 1)
         @club_best_single_shots_c1 = create_competitor(@club_best_single_shots, @second_points_1)
-        @club_best_single_shots_c2 = create_competitor(@club_best_single_shots, @second_points_2, shot_points: @default_shot_points + 1)
+        @club_best_single_shots_c2 = create_competitor(@club_best_single_shots, @second_points_2, shooting_points: @default_shooting_points + 1)
         @club_best_single_time_c1 = create_competitor(@club_best_single_time, @second_points_1)
         @club_best_single_time_c2 = create_competitor(@club_best_single_time, @second_points_2, time_in_seconds: @default_time_in_seconds - 1)
         @club_worst_c1 = create_competitor(@club_worst, @second_points_1)
@@ -112,8 +112,8 @@ describe TeamCompetition do
         @club_2_team_3_c1 = create_competitor(@club_best_single_points, @club_best_team_3_points)
         @club_2_team_3_c2 = create_competitor(@club_best_single_points, @club_best_team_3_points)
 
-        @club_no_result_c1 = create_competitor(@club_no_result, 0, shot_points: nil, time_in_seconds: nil)
-        @club_no_result_c2 = create_competitor(@club_no_result, 0, shot_points: nil)
+        @club_no_result_c1 = create_competitor(@club_no_result, 0, shooting_points: nil, time_in_seconds: nil)
+        @club_no_result_c2 = create_competitor(@club_no_result, 0, shooting_points: nil)
 
         @club_small_c = create_competitor(@club_small, 1200)
         @club_small_nil_points = create_competitor(@club_small, nil)
@@ -141,7 +141,7 @@ describe TeamCompetition do
         before do
           @results = @tc.results_for_competitors(@competitors)
         end
-        
+
         context "when race is finished" do
           it "including only the clubs with enough official competitors with complete points " +
               "so that the clubs are ordered: 1. total points " +
@@ -201,7 +201,7 @@ describe TeamCompetition do
       end
 
       def create_competitor(club, points, options={})
-        competitor = instance_double(Competitor, {points: points, club: club, shot_points: @default_shot_points,
+        competitor = instance_double(Competitor, {points: points, club: club, shooting_points: @default_shooting_points,
                                      time_in_seconds: @default_time_in_seconds,
                                      team_name: nil}.merge(options))
         allow(competitor).to receive(:unofficial?).and_return(options[:unofficial])
@@ -238,13 +238,13 @@ describe TeamCompetition do
         before do
           @tc.use_team_name = true
         end
-        
+
         context "but no team names defined" do
           it "should return no results" do
             expect(@tc.results_for_competitors(@competitors)).to eq([])
           end
         end
-        
+
         context "and team names defined for some competitors" do
           before do
             allow(@club_best_total_points_c1).to receive(:team_name).and_return('Team best')
@@ -255,11 +255,11 @@ describe TeamCompetition do
             allow(@club_best_single_shots_c2).to receive(:team_name).and_return('')
             @results = @tc.results_for_competitors(@competitors)
           end
-          
+
           it "should return results for teams with those competitors" do
             expect(@results.length).to eq(2)
           end
-          
+
           it "should sort teams correctly" do
             expect(@results[0][:club]).to eq('Team best')
             expect(@results[1][:club]).to eq('Team second')
@@ -386,19 +386,19 @@ describe TeamCompetition do
       expect(@tc.age_groups[1].name).to eq('second age_group')
     end
   end
-  
+
   describe  "#started?" do
     context "when no series" do
       it "should return false" do
         expect(TeamCompetition.new).not_to be_started
       end
     end
-    
+
     context "when series" do
       before do
         @tc = build(:team_competition)
       end
-      
+
       context "but none of them started" do
         it "should return false" do
           s1 = instance_double(Series)
@@ -407,7 +407,7 @@ describe TeamCompetition do
           expect(@tc).not_to be_started
         end
       end
-      
+
       context "and at least one of them started" do
         it "should return true" do
           s1 = instance_double(Series)
