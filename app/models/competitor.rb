@@ -60,6 +60,10 @@ class Competitor < ApplicationRecord
     series.race
   end
 
+  def sport
+    race.sport
+  end
+
   def shooting_score
     return @shooting_score if @shooting_score
     if shooting_score_input
