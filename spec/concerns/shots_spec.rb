@@ -34,6 +34,26 @@ describe Shots do
     it 'final round score is nil' do
       expect(competitor.final_round_score).to be_nil
     end
+
+    context 'and no shots nor shooting score input given' do
+      it 'shooting score is nil' do
+        competitor = FakeCompetitor.new sport, nil
+        expect(competitor.shooting_score).to be_nil
+      end
+    end
+
+    context 'and shots given' do
+      it 'shooting score is sum of all shots' do
+        expect(competitor.shooting_score).to eql 10 + 9 + 8
+      end
+    end
+
+    context 'and shooting score input given' do
+      it 'shooting score is the given input value' do
+        competitor.shooting_score_input = 94
+        expect(competitor.shooting_score).to eql 94
+      end
+    end
   end
 
   context 'when sport has qualification and final rounds in one part' do
@@ -68,6 +88,10 @@ describe Shots do
       it 'final round score is 0' do
         expect(competitor.final_round_score).to eql 0
       end
+
+      it 'shooting score is 0' do
+        expect(competitor.shooting_score).to eql 0
+      end
     end
 
     context 'and all qualification round shots not available' do
@@ -95,6 +119,10 @@ describe Shots do
 
       it 'final round score is 0' do
         expect(competitor.final_round_score).to eql 0
+      end
+
+      it 'shooting score is sum of shots' do
+        expect(competitor.shooting_score).to eql 10 + 9 + 4 + 3
       end
     end
 
@@ -214,6 +242,10 @@ describe Shots do
         it 'final round score is sum of final round shots' do
           expect(competitor.final_round_score).to eql 10 + 0 + 3 + 4 + 9
         end
+
+        it 'shooting score is sum of all shots' do
+          expect(competitor.shooting_score).to eql 10 + 9 + 4 + 3 + 9 + 12 + 6 + 8 + 7 + 2 + 10 + 0 + 3 + 4 + 9
+        end
       end
     end
   end
@@ -227,5 +259,6 @@ describe Shots do
     end
 
     attr_reader :sport, :shots
+    attr_accessor :shooting_score_input
   end
 end

@@ -37,6 +37,11 @@ module Shots
     sum_of_array sub_scores
   end
 
+  def shooting_score
+    return shooting_score_input if shooting_score_input
+    shots.map(&:to_i).inject(:+) || 0 if shots
+  end
+
   private
 
   def split_shots(rules, start_index)

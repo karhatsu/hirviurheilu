@@ -3,6 +3,7 @@ require 'model_value_comparator'
 class Competitor < ApplicationRecord
   include ModelValueComparator
   include StartDateTime
+  include Shots
 
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish
@@ -62,16 +63,6 @@ class Competitor < ApplicationRecord
 
   def sport
     race.sport
-  end
-
-  def shooting_score
-    return @shooting_score if @shooting_score
-    if shooting_score_input
-      @shooting_score = shooting_score_input
-    elsif shots
-      @shooting_score = shots.map(&:to_i).inject(:+)
-    end
-    @shooting_score
   end
 
   def time_in_seconds
