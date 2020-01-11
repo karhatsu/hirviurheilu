@@ -10,8 +10,12 @@ describe Sport do
       expect(Sport.by_key('SKI').name).to eq('Hirvenhiihto')
     end
 
-    it 'AIR' do
-      expect(Sport.by_key('AIR').name).to eq('Ilma-aseet')
+    it 'ILMAHIRVI' do
+      expect(Sport.by_key('ILMAHIRVI').name).to eq('Ilmahirvi')
+    end
+
+    it 'ILMALUODIKKO' do
+      expect(Sport.by_key('ILMALUODIKKO').name).to eq('Ilmaluodikko')
     end
   end
 

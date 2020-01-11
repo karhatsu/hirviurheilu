@@ -5,7 +5,7 @@ Feature: Batch list
 
   Scenario: No batches defined
     Given there is a race with attributes:
-      | sport_key | AIR |
+      | sport_key | ILMAHIRVI |
     And the race has series "M"
     And the series has a competitor "Teppo" "Testinen"
     And I am on the race page
@@ -19,7 +19,7 @@ Feature: Batch list
 
   Scenario: Race with batches
     Given there is a race with attributes:
-      | sport_key | AIR |
+      | sport_key | ILMALUODIKKO |
     And the race has a club "Testiseura"
     And the race has a batch 1 with track 1 and time "10:00"
     And the race has a batch 2 with track 2 and time "10:30"

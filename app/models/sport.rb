@@ -1,7 +1,8 @@
 class Sport
   SKI = "SKI"
   RUN = "RUN"
-  AIR = "AIR"
+  ILMAHIRVI = "ILMAHIRVI"
+  ILMALUODIKKO = "ILMALUODIKKO"
 
   def self.by_key(key)
     if key == RUN
@@ -16,12 +17,18 @@ class Sport
           start_list?: true,
           batch_list?: false,
       })
-    elsif key == AIR
+    elsif key == ILMAHIRVI
       OpenStruct.new({
-          name: 'Ilma-aseet',
+          name: 'Ilmahirvi',
           start_list?: false,
           batch_list?: true,
       })
+    elsif key == ILMALUODIKKO
+      OpenStruct.new({
+           name: 'Ilmaluodikko',
+           start_list?: false,
+           batch_list?: true,
+       })
     else
       raise "Unknown sport key: #{key}"
     end
