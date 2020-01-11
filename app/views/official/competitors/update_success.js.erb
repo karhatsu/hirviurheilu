@@ -8,7 +8,7 @@ $("#competitor_old_values_estimate3").val(<%= @competitor.estimate3 %>);
 $("#competitor_old_values_estimate4").val(<%= @competitor.estimate4 %>);
 $("#time_<%= @competitor.id %>").html("<%= @competitor.time_in_seconds ? time_from_seconds(@competitor.time_in_seconds) : '' %>")
 $("#estimate_points_<%= @competitor.id %>").html("<%= @competitor.estimate_points %>")
-$("#shots_result_<%= @competitor.id %>").html("<%= @competitor.shots_sum %>")
+$("#shots_result_<%= @competitor.id %>").html("<%= @competitor.shooting_score %>")
 setTimeout(function() {
   $("#status_<%=@competitor.id%>").hide('slow');
 }, 5000);

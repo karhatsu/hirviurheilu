@@ -139,13 +139,13 @@ describe TitleHelper do
   describe '#shots_total_title' do
     it 'should return empty string when no shots sum for competitor' do
       competitor = instance_double(Competitor)
-      expect(competitor).to receive(:shots_sum).and_return(nil)
+      expect(competitor).to receive(:shooting_score).and_return(nil)
       expect(helper.shots_total_title(competitor)).to eq('')
     end
 
     it 'should return space and title attribute with title and shots sum when sum available' do
       competitor = instance_double(Competitor)
-      expect(competitor).to receive(:shots_sum).and_return(89)
+      expect(competitor).to receive(:shooting_score).and_return(89)
       expect(helper.shots_total_title(competitor)).to eq(" title='Ammuntatulos: 89'")
     end
   end

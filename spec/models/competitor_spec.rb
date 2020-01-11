@@ -596,38 +596,38 @@ describe Competitor do
     end
   end
 
-  describe "#shots_sum" do
+  describe "#shooting_score" do
     it "should return nil when total input is nil and no shots" do
-      expect(build(:competitor).shots_sum).to be_nil
+      expect(build(:competitor).shooting_score).to be_nil
     end
 
     it "should be shots_total_input when it is given" do
-      expect(build(:competitor, :shots_total_input => 55).shots_sum).to eq(55)
+      expect(build(:competitor, :shots_total_input => 55).shooting_score).to eq(55)
     end
 
     it "should be sum of defined individual shots if no input sum" do
       comp = build(:competitor, shots_total_input: nil, shots: [8, 9])
-      expect(comp.shots_sum).to eq(17)
+      expect(comp.shooting_score).to eq(17)
     end
   end
 
   describe "#shooting_points" do
     it "should be nil if shots not defined" do
       competitor = build(:competitor)
-      expect(competitor).to receive(:shots_sum).and_return(nil)
+      expect(competitor).to receive(:shooting_score).and_return(nil)
       expect(competitor.shooting_points).to be_nil
     end
 
-    it "should be 6 times shots_sum" do
+    it "should be 6 times shooting_score" do
       competitor = build(:competitor)
-      expect(competitor).to receive(:shots_sum).and_return(50)
+      expect(competitor).to receive(:shooting_score).and_return(50)
       expect(competitor.shooting_points).to eq(300)
     end
 
     it 'should subtract 3 points from every overtime minute' do
       series = build :series, points_method: Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
       competitor = build(:competitor, series: series, shooting_overtime_min: 2)
-      expect(competitor).to receive(:shots_sum).and_return(90)
+      expect(competitor).to receive(:shooting_score).and_return(90)
       expect(competitor.shooting_points).to eq(6 * (90-2*3))
     end
   end

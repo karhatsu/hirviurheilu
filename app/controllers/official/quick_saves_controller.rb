@@ -29,7 +29,7 @@ class Official::QuickSavesController < Official::OfficialController
   def save_shots
     @name = 'shots'
     do_quick_save(ShotsQuickSave.new(@race.id, params[:string])) do
-      @result = t(:shooting) + ": #{@competitor.shots_sum}"
+      @result = t(:shooting) + ": #{@competitor.shooting_score}"
     end
   end
 

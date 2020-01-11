@@ -87,7 +87,7 @@ describe ShotsQuickSave do
               @c.reload
               expect(@c.shots_total_input).to be_nil
               expect(@c.shots.size).to eq(10)
-              expect(@c.shots_sum).to eq(10+9+9+8+8+7+6+5+1+0)
+              expect(@c.shooting_score).to eq(10+9+9+8+8+7+6+5+1+0)
             end
           end
 
@@ -121,7 +121,7 @@ describe ShotsQuickSave do
               @c.reload
               expect(@c.shots_total_input).to be_nil
               expect(@c.shots.size).to eq(10)
-              expect(@c.shots_sum).to eq(10+10+9+8+8+7+6+5+0+1)
+              expect(@c.shooting_score).to eq(10+10+9+8+8+7+6+5+0+1)
             end
           end
 

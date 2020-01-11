@@ -60,14 +60,14 @@ class Competitor < ApplicationRecord
     series.race
   end
 
-  def shots_sum
-    return @shots_sum if @shots_sum
+  def shooting_score
+    return @shooting_score if @shooting_score
     if shots_total_input
-      @shots_sum = shots_total_input
+      @shooting_score = shots_total_input
     elsif shots
-      @shots_sum = shots.map(&:to_i).inject(:+)
+      @shooting_score = shots.map(&:to_i).inject(:+)
     end
-    @shots_sum
+    @shooting_score
   end
 
   def time_in_seconds
@@ -84,7 +84,7 @@ class Competitor < ApplicationRecord
   end
 
   def shooting_points
-    sum = shots_sum or return nil
+    sum = shooting_score or return nil
     6 * (sum + shooting_overtime_penalty.to_i)
   end
 
@@ -190,7 +190,7 @@ class Competitor < ApplicationRecord
 
   def finished?
     no_result_reason ||
-      (start_time && (arrival_time || series.walking_series?) && shots_sum && estimate1 && estimate2 &&
+      (start_time && (arrival_time || series.walking_series?) && shooting_score && estimate1 && estimate2 &&
         (series.estimates == 2 || (estimate3 && estimate4)))
   end
 

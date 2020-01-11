@@ -19,7 +19,7 @@
         - if competitor.no_result_reason
           = competitor.no_result_reason
         - else
-          = competitor.shots_sum
+          = competitor.shooting_score
     :javascript
       $("#shots_form_#{competitor.id}").bind('ajax:error', function() {
         $("#update_error").html('Yhteysvirhe, yritä uudelleen');

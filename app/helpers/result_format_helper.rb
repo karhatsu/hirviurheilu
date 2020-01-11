@@ -23,10 +23,10 @@ module ResultFormatHelper
 
   def shooting_points_print(competitor, shots_total=false)
     return '' if competitor.no_result_reason
-    return '-' if competitor.shots_sum.nil?
+    return '-' if competitor.shooting_score.nil?
     points = competitor.shooting_points.to_s
     if shots_total
-      points << " (#{competitor.shots_sum}"
+      points << " (#{competitor.shooting_score}"
       points << "#{competitor.shooting_overtime_penalty}" if competitor.shooting_overtime_penalty
       points << ')'
     end
@@ -64,10 +64,10 @@ module ResultFormatHelper
   end
 
   def shots_list_print(competitor)
-    return '-' if competitor.shots_sum.nil?
+    return '-' if competitor.shooting_score.nil?
     return competitor.shots_total_input unless competitor.shots_total_input.nil?
     shots = competitor.shots
-    "#{competitor.shots_sum} (#{shots.map {|shot| shot.to_i}.join(', ')})"
+    "#{competitor.shooting_score} (#{shots.map {|shot| shot.to_i}.join(', ')})"
   end
 
   def comparison_time_title_attribute(competitor, unofficials, always_empty=false)
