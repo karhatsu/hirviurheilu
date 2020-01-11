@@ -1,6 +1,10 @@
 module Shots
   extend ActiveSupport::Concern
 
+  def hits
+    shots.select {|shot| shot > 0}.length if shots
+  end
+
   def qualification_round_shots
     split_shots sport.qualification_round, 0
   end

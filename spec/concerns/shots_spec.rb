@@ -4,11 +4,15 @@ describe Shots do
   let(:sport) { double Sport }
 
   context 'when sport has no qualification round' do
-    let(:competitor) { FakeCompetitor.new sport, [10, 9, 8] }
+    let(:competitor) { FakeCompetitor.new sport, [10, 9, 0, 8] }
 
     before do
       allow(sport).to receive(:qualification_round).and_return(false)
       allow(sport).to receive(:final_round).and_return(false)
+    end
+
+    it 'hits is count of non-zeros' do
+      expect(competitor.hits).to eql [10, 9, 8].length
     end
 
     it 'qualification round shots is nil' do
@@ -44,21 +48,34 @@ describe Shots do
     end
 
     context 'and no shots nor shooting score input given' do
+      let(:competitor) { FakeCompetitor.new sport, nil }
+
+      it 'hits is nil' do
+        expect(competitor.hits).to be_nil
+      end
+
       it 'shooting score is nil' do
-        competitor = FakeCompetitor.new sport, nil
         expect(competitor.shooting_score).to be_nil
       end
     end
 
     context 'and shots given' do
       it 'shooting score is sum of all shots' do
-        expect(competitor.shooting_score).to eql 10 + 9 + 8
+        expect(competitor.shooting_score).to eql 10 + 9 + 0 + 8
       end
     end
 
     context 'and shooting score input given' do
-      it 'shooting score is the given input value' do
+      before do
+        competitor.shots = nil
         competitor.shooting_score_input = 94
+      end
+
+      it 'hits is nil' do
+        expect(competitor.hits).to be_nil
+      end
+
+      it 'shooting score is the given input value' do
         expect(competitor.shooting_score).to eql 94
       end
     end
@@ -72,6 +89,10 @@ describe Shots do
 
     context 'and no shots available' do
       let(:competitor) { FakeCompetitor.new sport, [] }
+
+      it 'hits is 0' do
+        expect(competitor.hits).to eql 0
+      end
 
       it 'qualification round shots is an array with an empty array' do
         expect(competitor.qualification_round_shots).to eql [[]]
@@ -298,7 +319,7 @@ describe Shots do
       @shots = shots
     end
 
-    attr_reader :sport, :shots
-    attr_accessor :shooting_score_input
+    attr_reader :sport
+    attr_accessor :shots, :shooting_score_input
   end
 end
