@@ -37,6 +37,20 @@ module Shots
     sum_of_array sub_scores
   end
 
+  def extra_round_shots
+    qualification_round_rules = sport.qualification_round
+    final_round_rules = sport.final_round
+    return nil unless qualification_round_rules && final_round_rules
+    regular_shot_count = sum_of_array(qualification_round_rules) + sum_of_array(final_round_rules)
+    shots[regular_shot_count..-1] || []
+  end
+
+  def extra_round_score
+    extra_shots = extra_round_shots
+    return nil unless extra_shots
+    sum_of_array extra_shots
+  end
+
   def shooting_score
     return shooting_score_input if shooting_score_input
     shots.map(&:to_i).inject(:+) || 0 if shots
