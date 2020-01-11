@@ -5,28 +5,29 @@ class Sport
   ILMALUODIKKO = "ILMALUODIKKO"
 
   def self.by_key(key)
-    if key == RUN
+    case key
+    when RUN
       OpenStruct.new({
           name: 'Hirvenjuoksu',
           start_list?: true,
           batch_list?: false,
           qualification_round: false,
       })
-    elsif key == SKI
+    when SKI
       OpenStruct.new({
           name: 'Hirvenhiihto',
           start_list?: true,
           batch_list?: false,
           qualification_round: false,
       })
-    elsif key == ILMAHIRVI
+    when ILMAHIRVI
       OpenStruct.new({
           name: 'Ilmahirvi',
           start_list?: false,
           batch_list?: true,
           qualification_round: [10],
       })
-    elsif key == ILMALUODIKKO
+    when ILMALUODIKKO
       OpenStruct.new({
            name: 'Ilmaluodikko',
            start_list?: false,
