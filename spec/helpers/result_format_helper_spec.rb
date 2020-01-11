@@ -118,13 +118,13 @@ describe ResultFormatHelper do
     end
 
     it "should return input total if such is given" do
-      competitor = instance_double(Competitor, :shooting_score => 45, :shots_total_input => 45)
+      competitor = instance_double(Competitor, :shooting_score => 45, :shooting_score_input => 45)
       expect(helper.shots_list_print(competitor)).to eq(45)
     end
 
     it 'should return total shots together with comma separated list of individual shots when they are defined' do
       shots = [10, 1, 9, 5, 5, 6, 4, 0]
-      competitor = instance_double(Competitor, shooting_score: 50, shots_total_input: nil, shots: shots)
+      competitor = instance_double(Competitor, shooting_score: 50, shooting_score_input: nil, shots: shots)
       expect(helper.shots_list_print(competitor)).to eq('50 (10, 1, 9, 5, 5, 6, 4, 0)')
     end
   end

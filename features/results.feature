@@ -69,12 +69,12 @@ Feature: Results
       | club | Sports club |
     And the start list has been generated for the series
     And the competitor "James" "Johnson" has the following results:
-      | shots_total_input | 85 |
+      | shooting_score_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 02:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
       | arrival_time | 02:01:00 |
@@ -132,14 +132,14 @@ Feature: Results
       | club | Sports club |
     And the start list has been generated for the series
     And the competitor "James" "Johnson" has the following results:
-      | shots_total_input | 85 |
+      | shooting_score_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | estimate3 | 149 |
       | estimate4 | 181 |
       | arrival_time | 02:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
       | estimate3 | 150 |
@@ -195,7 +195,7 @@ Feature: Results
       | club | Shooting club |
     And the start list has been generated for the series
     And the competitor "James" "Johnson" has the following results:
-      | shots_total_input | 85 |
+      | shooting_score_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
     And the race is finished
@@ -248,7 +248,7 @@ Feature: Results
       | club | Sports club |
     And the start list has been generated for the series
     And the competitor "Tim" "Atkinsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
     And I am on the race page
@@ -296,7 +296,7 @@ Feature: Results
       | last_name | Atkinsson |
     And the start list has been generated for the series
     And the competitor "Tim" "Atkinsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 02:00:00 |
@@ -339,7 +339,7 @@ Feature: Results
       | last_name | Atkinsson |
     And the start list has been generated for the series
     And the competitor "Tim" "Atkinsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | estimate3 | 82 |
@@ -382,7 +382,7 @@ Feature: Results
       | last_name | Atkinsson |
     And the start list has been generated for the series
     And the competitor "Tim" "Atkinsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 02:00:00 |
@@ -426,12 +426,12 @@ Feature: Results
       | last_name | Betkinsson |
     And the start list has been generated for the series
     And the competitor "Tim" "Atkinsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 02:00:00 |
     And the competitor "Tom" "Betkinsson" has the following results:
-      | shots_total_input | 67 |
+      | shooting_score_input | 67 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 02:05:00 |
@@ -463,12 +463,12 @@ Feature: Results
       | last_name | Betkinsson |
     And the start list has been generated for the series
     And the competitor "Tim" "Atkinsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 02:00:00 |
     And the competitor "Tom" "Betkinsson" has the following results:
-      | shots_total_input | 67 |
+      | shooting_score_input | 67 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 02:00:00 |
@@ -503,12 +503,12 @@ Feature: Results
       | last_name | Betkinsson |
     And the start list has been generated for the series
     And the competitor "Tim" "Atkinsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 02:00:00 |
     And the competitor "Tom" "Betkinsson" has the following results:
-      | shots_total_input | 67 |
+      | shooting_score_input | 67 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 02:05:00 |
@@ -548,12 +548,12 @@ Feature: Results
       | unofficial | true |
     And the start list has been generated for the series
     And the competitor "James" "Johnson" has the following results:
-      | shots_total_input | 85 |
+      | shooting_score_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 02:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
       | arrival_time | 02:01:00 |

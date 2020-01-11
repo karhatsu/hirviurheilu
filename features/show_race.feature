@@ -123,12 +123,12 @@ Feature: Show race
       | last_name | Atkinsson |
     And the start list has been generated for the series
     And the competitor "James" "Johnson" has the following results:
-      | shots_total_input | 85 |
+      | shooting_score_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 14:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
       | arrival_time | 14:01:00 |

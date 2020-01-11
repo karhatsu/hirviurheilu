@@ -24,7 +24,7 @@ class Competitor < ApplicationRecord
   validates :last_name, :presence => true
   validates :number,
     :numericality => { :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true }
-  validates :shots_total_input, :allow_nil => true,
+  validates :shooting_score_input, :allow_nil => true,
     :numericality => { :only_integer => true,
       :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
   estimate_validations = {allow_nil: true, numericality: { only_integer: true, greater_than: 0 }}
@@ -62,8 +62,8 @@ class Competitor < ApplicationRecord
 
   def shooting_score
     return @shooting_score if @shooting_score
-    if shots_total_input
-      @shooting_score = shots_total_input
+    if shooting_score_input
+      @shooting_score = shooting_score_input
     elsif shots
       @shooting_score = shots.map(&:to_i).inject(:+)
     end
@@ -267,7 +267,7 @@ class Competitor < ApplicationRecord
   end
 
   def only_one_shot_input_method_used
-    errors.add(:base, :shooting_result_either_sum_or_by_shots) if shots_total_input && shots
+    errors.add(:base, :shooting_result_either_sum_or_by_shots) if shooting_score_input && shots
   end
 
   def shots_array_values
@@ -316,7 +316,7 @@ class Competitor < ApplicationRecord
   end
 
   def set_has_result
-    self.has_result = true if arrival_time || estimate1 || shots_total_input || shots
+    self.has_result = true if arrival_time || estimate1 || shooting_score_input || shots
   end
 
   def reset_age_group

@@ -98,7 +98,7 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
           else
             shots = 71 + 2 * i
             shots = nil if (i == 3 or i == 7) and not old_race
-            comp.shots_total_input = shots
+            comp.shooting_score_input = shots
           end
           comp.estimate1 = correct1 + 6 - i
           comp.estimate2 = correct2 - 8 + 2 * 1

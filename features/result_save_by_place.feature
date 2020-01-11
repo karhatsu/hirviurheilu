@@ -38,7 +38,7 @@ Feature: Save results by result place
     Then the "Toimitsijan sivut" main menu item should be selected
     And the "Ammunta" sub menu item should be selected
     And I should see "Result race" within ".body__on-top-title"
-    When I fill in "99" for "competitor[shots_total_input]"
+    When I fill in "99" for "competitor[shooting_score_input]"
     And I press "Tallenna"
     Then I should see "Tallennettu"
     When I choose "Ajat" from sub menu

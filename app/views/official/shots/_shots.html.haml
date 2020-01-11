@@ -10,7 +10,7 @@
             = form_for([:official, @series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "shots_form_#{competitor.id}", class: 'form form--inline' }) do |f|
               .form__horizontal-fields
                 .card__sub-result.card__sub-result--shoot.form__field.form__field--sm
-                  = f.number_field :shots_total_input, maxlength: 3, class: 'shots-total-input'
+                  = f.number_field :shooting_score_input, maxlength: 3, class: 'shots-total-input'
                 .card__sub-result.card__sub-result--shoot
                   = render partial: 'official/shots/individual_shots', locals: { f: f, competitor: competitor }
                 .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'

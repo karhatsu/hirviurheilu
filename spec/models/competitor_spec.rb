@@ -86,20 +86,20 @@ describe Competitor do
       end
     end
 
-    describe "shots_total_input" do
-      it { is_expected.to allow_value(nil).for(:shots_total_input) }
-      it { is_expected.not_to allow_value(1.1).for(:shots_total_input) }
-      it { is_expected.not_to allow_value(-1).for(:shots_total_input) }
-      it { is_expected.to allow_value(100).for(:shots_total_input) }
-      it { is_expected.not_to allow_value(101).for(:shots_total_input) }
+    describe "shooting_score_input" do
+      it { is_expected.to allow_value(nil).for(:shooting_score_input) }
+      it { is_expected.not_to allow_value(1.1).for(:shooting_score_input) }
+      it { is_expected.not_to allow_value(-1).for(:shooting_score_input) }
+      it { is_expected.to allow_value(100).for(:shooting_score_input) }
+      it { is_expected.not_to allow_value(101).for(:shooting_score_input) }
 
       it "cannot be given if also individual shots have been defined" do
-        comp = build(:competitor, shots_total_input: 50, shots: [8])
+        comp = build(:competitor, shooting_score_input: 50, shots: [8])
         expect(comp).to have(1).errors_on(:base)
       end
 
       it "can be given if individual shots only with nils" do
-        comp = build(:competitor, :shots_total_input => 50)
+        comp = build(:competitor, :shooting_score_input => 50)
         expect(comp).to be_valid
       end
     end
@@ -501,9 +501,9 @@ describe Competitor do
         end
       end
 
-      context 'when shots_total_input is saved' do
+      context 'when shooting_score_input is saved' do
         it 'marks has_result true' do
-          @competitor.shots_total_input = 88
+          @competitor.shooting_score_input = 88
           @competitor.save!
           expect(@competitor.has_result?).to be_truthy
         end
@@ -601,12 +601,12 @@ describe Competitor do
       expect(build(:competitor).shooting_score).to be_nil
     end
 
-    it "should be shots_total_input when it is given" do
-      expect(build(:competitor, :shots_total_input => 55).shooting_score).to eq(55)
+    it "should be shooting_score_input when it is given" do
+      expect(build(:competitor, :shooting_score_input => 55).shooting_score).to eq(55)
     end
 
     it "should be sum of defined individual shots if no input sum" do
-      comp = build(:competitor, shots_total_input: nil, shots: [8, 9])
+      comp = build(:competitor, shooting_score_input: nil, shots: [8, 9])
       expect(comp.shooting_score).to eq(17)
     end
   end
@@ -1237,7 +1237,7 @@ describe Competitor do
           :series => series)
         @competitor.start_time = '11:10'
         @competitor.arrival_time = '11:20'
-        @competitor.shots_total_input = 90
+        @competitor.shooting_score_input = 90
         @competitor.estimate1 = 100
         @competitor.estimate2 = 110
       end
@@ -1284,7 +1284,7 @@ describe Competitor do
 
       context "when shots result is missing" do
         it "should return false" do
-          @competitor.shots_total_input = nil
+          @competitor.shooting_score_input = nil
           expect(@competitor).not_to be_finished
         end
       end

@@ -40,12 +40,12 @@ Feature: Media
     And the start list has been generated for the series
     And the race has series "Empty series"
     And the competitor "James" "Johnson" has the following results:
-      | shots_total_input | 85 |
+      | shooting_score_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 02:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
       | arrival_time | 02:01:00 |
@@ -63,12 +63,12 @@ Feature: Media
       | club | Sports club |
     And the start list has been generated for the series
     And the competitor "Mary" "Hamilton" has the following results:
-      | shots_total_input | 85 |
+      | shooting_score_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 15:00:10 |
     And the competitor "Tina" "Thomsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
       | arrival_time | 15:01:00 |
@@ -109,12 +109,12 @@ Feature: Media
       | club | Club B |
     And the start list has been generated for the series
     And the competitor "James" "Johnson" has the following results:
-      | shots_total_input | 85 |
+      | shooting_score_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 02:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
       | arrival_time | 02:01:00 |
@@ -132,12 +132,12 @@ Feature: Media
       | club | Club D |
     And the start list has been generated for the series
     And the competitor "Mary" "Hamilton" has the following results:
-      | shots_total_input | 85 |
+      | shooting_score_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 15:00:10 |
     And the competitor "Tina" "Thomsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
       | arrival_time | 15:01:00 |

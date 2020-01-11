@@ -78,7 +78,7 @@ Feature: Finish race
       | no_result_reason | DNS |
     And the start list has been generated for the series
     And the competitor "James" "Johnson" has the following results:
-      | shots_total_input | 85 |
+      | shooting_score_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 02:00:10 |

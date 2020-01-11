@@ -1284,7 +1284,7 @@ describe Series do
 
       context "and some competitor has shots total" do
         it "should return true" do
-          @c2.shots_total_input = 99
+          @c2.shooting_score_input = 99
           @c2.save!
           @series.reload
           expect(@series).to have_result_for_some_competitor

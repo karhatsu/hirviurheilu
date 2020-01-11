@@ -16,9 +16,9 @@
       - arrival_time = time_print(f.object.arrival_time, true, '')
       .col-xs-12.col-sm-9= f.text_field :arrival_time, value: arrival_time, placeholder: 'HH:MM:SS'
     .form__field.form__field--sm.row
-      .col-xs-12.col-sm-3= f.label :shots_total_input
+      .col-xs-12.col-sm-3= f.label :shooting_score_input
       .col-xs-12.col-sm-9
-        = f.number_field :shots_total_input, maxlength: 3
+        = f.number_field :shooting_score_input, maxlength: 3
         (#{t '.either_total_or_shots'})
     .form__field.row
       .col-xs-12.col-sm-3

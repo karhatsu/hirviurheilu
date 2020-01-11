@@ -41,27 +41,27 @@ Feature: Team competition results
       | club | Shooting club |
     And the start list has been generated for the series
     And the competitor "James" "Johnson" has the following results:
-      | shots_total_input | 85 |
+      | shooting_score_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 02:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
       | arrival_time | 02:01:00 |
     And the competitor "John" "Stewards" has the following results:
-      | shots_total_input | 88 |
+      | shooting_score_input | 88 |
       | estimate1 | 118 |
       | estimate2 | 125 |
       | arrival_time | 02:02:10 |
     And the competitor "Peter" "Smith" has the following results:
-      | shots_total_input | 94 |
+      | shooting_score_input | 94 |
       | estimate1 | 100 |
       | estimate2 | 131 |
       | arrival_time | 02:03:00 |
     And the competitor "Gilbert" "Worst" has the following results:
-      | shots_total_input | 70 |
+      | shooting_score_input | 70 |
       | estimate1 | 100 |
       | estimate2 | 150 |
       | arrival_time | 02:11:00 |
@@ -139,27 +139,27 @@ Feature: Team competition results
       | team_name | Team 2 |
     And the start list has been generated for the series
     And the competitor "James" "Johnson" has the following results:
-      | shots_total_input | 85 |
+      | shooting_score_input | 85 |
       | estimate1 | 111 |
       | estimate2 | 129 |
       | arrival_time | 02:00:10 |
     And the competitor "Tim" "Atkinsson" has the following results:
-      | shots_total_input | 90 |
+      | shooting_score_input | 90 |
       | estimate1 | 110 |
       | estimate2 | 130 |
       | arrival_time | 02:01:00 |
     And the competitor "John" "Stewards" has the following results:
-      | shots_total_input | 88 |
+      | shooting_score_input | 88 |
       | estimate1 | 118 |
       | estimate2 | 125 |
       | arrival_time | 02:02:10 |
     And the competitor "Peter" "Smith" has the following results:
-      | shots_total_input | 94 |
+      | shooting_score_input | 94 |
       | estimate1 | 100 |
       | estimate2 | 131 |
       | arrival_time | 02:03:00 |
     And the competitor "Gilbert" "Worst" has the following results:
-      | shots_total_input | 70 |
+      | shooting_score_input | 70 |
       | estimate1 | 100 |
       | estimate2 | 150 |
       | arrival_time | 02:11:00 |
@@ -183,4 +183,3 @@ Feature: Team competition results
     Then I should see a team 1 competitor row 2 with values:
       | name | Johnson James |
       | points | 1105 |
-    

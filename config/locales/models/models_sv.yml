@@ -74,12 +74,12 @@ sv:
     shooting_overtime_min: Skottstidens överminuter
     shooting_penalty_distance: Skottsstraff avstånd (m)
     shooting_penalty_seconds: Straffsekonder för skytte
+    shooting_score_input: Skottstotal
     shooting_start_time: Skytte starttid
     shooting_time: Skyttetid
     short_name: Kort namn
     shorter_trip: Kortare löpning
     shots: Skott
-    shots_total_input: Skottstotal
     sport_key: Gren
     start_date: Startdatum
     start_day: Startdag

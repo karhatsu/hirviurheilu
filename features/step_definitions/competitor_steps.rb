@@ -14,7 +14,7 @@ Given /^the series has a competitor "([^"]*)" "([^"]*)" with (\d+)\+(\d+)\+(\d+)
     :start_time => @series.start_time, :arrival_time => @series.start_time + best_time - seconds_lost,
     :estimate1 => 100, :correct_estimate1 => 100,
     :estimate2 => 150, :correct_estimate2 => 150 - (300 - epoints.to_i) / 2,
-    :shots_total_input => 100 - (600 - spoints.to_i) / 6)
+    :shooting_score_input => 100 - (600 - spoints.to_i) / 6)
   @competitor.estimate_points.should == epoints.to_i
   @competitor.shooting_points.should == spoints.to_i
 end

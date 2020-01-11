@@ -5,7 +5,7 @@ describe ShotsQuickSave do
     @race = create(:race)
     series = create(:series, :race => @race)
     create(:competitor, :series => series, :number => 1)
-    @c = create(:competitor, :series => series, :number => 10, :shots_total_input => 50)
+    @c = create(:competitor, :series => series, :number => 10, :shooting_score_input => 50)
     @c2 = create(:competitor, :series => series, :number => 11)
   end
 
@@ -21,7 +21,7 @@ describe ShotsQuickSave do
             it "should save given shots sum for the competitor and return true" do
               expect(@qs.save).to be_truthy
               @c2.reload
-              expect(@c2.shots_total_input).to eq(98)
+              expect(@c2.shooting_score_input).to eq(98)
             end
           end
 
@@ -43,7 +43,7 @@ describe ShotsQuickSave do
 
         context "when competitor has individual shots" do
           before do
-            @c2.shots_total_input = nil
+            @c2.shooting_score_input = nil
             @c2.shots = [10, 5]
             @c2.save!
             @qs = ShotsQuickSave.new(@race.id, '++11,98')
@@ -53,7 +53,7 @@ describe ShotsQuickSave do
             it "should save given shots sum for the competitor and return true" do
               expect(@qs.save).to be_truthy
               @c2.reload
-              expect(@c2.shots_total_input).to eq(98)
+              expect(@c2.shooting_score_input).to eq(98)
               expect(@c2.shots).to be_nil
             end
           end
@@ -85,7 +85,7 @@ describe ShotsQuickSave do
             it "should save given shots for the competitor and return true" do
               expect(@qs.save).to be_truthy
               @c.reload
-              expect(@c.shots_total_input).to be_nil
+              expect(@c.shooting_score_input).to be_nil
               expect(@c.shots.size).to eq(10)
               expect(@c.shooting_score).to eq(10+9+9+8+8+7+6+5+1+0)
             end
@@ -109,7 +109,7 @@ describe ShotsQuickSave do
 
         context "when competitor has individual shots" do
           before do
-            @c.shots_total_input = nil
+            @c.shooting_score_input = nil
             @c.shots = [10]
             @c.save!
             @qs = ShotsQuickSave.new(@race.id, '++10,**98876501')
@@ -119,7 +119,7 @@ describe ShotsQuickSave do
             it "should save given shots for the competitor and return true" do
               expect(@qs.save).to be_truthy
               @c.reload
-              expect(@c.shots_total_input).to be_nil
+              expect(@c.shooting_score_input).to be_nil
               expect(@c.shots.size).to eq(10)
               expect(@c.shooting_score).to eq(10+10+9+8+8+7+6+5+0+1)
             end
@@ -152,7 +152,7 @@ describe ShotsQuickSave do
         it "should not save given shots for the competitor and return false" do
           expect(@qs.save).to be_falsey
           @c.reload
-          expect(@c.shots_total_input).to eq(50)
+          expect(@c.shooting_score_input).to eq(50)
         end
       end
 
@@ -185,7 +185,7 @@ describe ShotsQuickSave do
       it "should not save given shots for the competitor and return false" do
         expect(@qs.save).to be_falsey
         @c.reload
-        expect(@c.shots_total_input).to eq(50)
+        expect(@c.shooting_score_input).to eq(50)
       end
     end
 
@@ -213,7 +213,7 @@ describe ShotsQuickSave do
       it "should not save given shots for the competitor and return false" do
         expect(@qs.save).to be_falsey
         @c.reload
-        expect(@c.shots_total_input).to eq(50)
+        expect(@c.shooting_score_input).to eq(50)
       end
     end
 
@@ -247,7 +247,7 @@ describe ShotsQuickSave do
     before do
       series = create(:series, :race => @race)
       @c = create(:competitor, :series => series, :number => 12,
-        :shots_total_input => 50)
+        :shooting_score_input => 50)
       @qs = ShotsQuickSave.new(@race.id, '12,++++998870')
     end
 
@@ -255,7 +255,7 @@ describe ShotsQuickSave do
       it "should not save given shots for the competitor and return false" do
         expect(@qs.save).to be_falsey
         @c.reload
-        expect(@c.shots_total_input).to eq(50)
+        expect(@c.shooting_score_input).to eq(50)
       end
     end
 
@@ -279,7 +279,7 @@ describe ShotsQuickSave do
       it 'saves result' do
         @qs = ShotsQuickSave.new(@race.id, '11#87')
         expect(@qs.save).to be_truthy
-        expect(@c2.reload.shots_total_input).to eq(87)
+        expect(@c2.reload.shooting_score_input).to eq(87)
       end
     end
 
@@ -288,7 +288,7 @@ describe ShotsQuickSave do
         it 'saves result' do
           @qs = ShotsQuickSave.new(@race.id, '++10#91')
           expect(@qs.save).to be_truthy
-          expect(@c.reload.shots_total_input).to eq(91)
+          expect(@c.reload.shooting_score_input).to eq(91)
         end
       end
 

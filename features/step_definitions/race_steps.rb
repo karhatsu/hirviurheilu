@@ -119,7 +119,7 @@ Given /^I have a complete race "([^"]*)" located in "([^"]*)"$/ do |name, locati
   series.competitors << competitor
   series.generate_start_list! Series::START_LIST_ADDING_ORDER
   competitor.reload
-  competitor.shots_total_input = 85
+  competitor.shooting_score_input = 85
   competitor.estimate1 = 100
   competitor.estimate2 = 150
   competitor.arrival_time = '02:00'

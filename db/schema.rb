@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_08_152706) do
+ActiveRecord::Schema.define(version: 2020_01_11_071717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 2020_01_08_152706) do
     t.integer "number"
     t.time "start_time"
     t.time "arrival_time"
-    t.integer "shots_total_input"
+    t.integer "shooting_score_input"
     t.integer "estimate1"
     t.integer "estimate2"
     t.datetime "created_at"

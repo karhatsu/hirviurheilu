@@ -74,12 +74,12 @@ fi:
     shooting_overtime_min: Ammunta-ajan ylitysminuutit
     shooting_penalty_distance: Ammuntasakkokierroksen pituus (m)
     shooting_penalty_seconds: Ammunnan sakkosekunnit
+    shooting_score_input: Ammunta yhteensä
     shooting_start_time: Ammunnan aloitusaika
     shooting_time: Ammunta-aika
     short_name: Lyhyt nimi
     shorter_trip: Lyhennetty matka
     shots: Laukaukset
-    shots_total_input: Ammunta yhteensä
     sport_key: Laji
     start_date: Alkupvm
     start_day: Aloituspäivä

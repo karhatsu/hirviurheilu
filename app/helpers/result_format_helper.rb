@@ -65,7 +65,7 @@ module ResultFormatHelper
 
   def shots_list_print(competitor)
     return '-' if competitor.shooting_score.nil?
-    return competitor.shots_total_input unless competitor.shots_total_input.nil?
+    return competitor.shooting_score_input unless competitor.shooting_score_input.nil?
     shots = competitor.shots
     "#{competitor.shooting_score} (#{shots.map {|shot| shot.to_i}.join(', ')})"
   end
