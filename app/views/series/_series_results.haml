@@ -49,7 +49,7 @@
         %td{class: time_css, title: comparison_time_title_attribute(comp, unofficials, pdf)}
           = time_points_print(comp, true, unofficials)
       %td{class: est_css}= series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp)
-      %td{class: shots_css}= shooting_points_print(comp, true)
+      %td{class: shots_css}= shooting_points_print(comp, true, true)
       %td.center{class: points_css}
         = points_print(comp, unofficials)
         = national_record_print(comp) if comp.points.to_i >= @max_points.to_i
