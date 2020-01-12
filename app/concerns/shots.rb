@@ -42,11 +42,12 @@ module Shots
   end
 
   def extra_round_shots
+    return nil unless shots
     qualification_round_rules = sport.qualification_round
     final_round_rules = sport.final_round
     return nil unless qualification_round_rules && final_round_rules
     regular_shot_count = sum_of_array(qualification_round_rules) + sum_of_array(final_round_rules)
-    shots[regular_shot_count..-1] || []
+    shots[regular_shot_count..-1]
   end
 
   def extra_round_score
@@ -63,8 +64,9 @@ module Shots
   private
 
   def split_shots(rules, start_index)
-    return nil unless rules
-    part1 = shots[start_index, rules[0]] || []
+    return nil unless rules && shots
+    part1 = shots[start_index, rules[0]]
+    return nil unless part1
     return [part1] if rules.length == 1
     part2 = shots[start_index + rules[0], rules[1]] || []
     [part1, part2]

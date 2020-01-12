@@ -33,8 +33,8 @@ module RelativePoints
 
   def only_shooting_relative_points
     return 0 unless shooting_score
-    relative_points = 10000 * shooting_score + 1000 * hits + 100 * final_round_score
-    relative_points = relative_points + 10 * qualification_round_sub_scores[1].to_i if final_round_shots.length == 0
+    relative_points = 10000 * shooting_score + 1000 * hits + 100 * final_round_score.to_i
+    relative_points = relative_points + 10 * qualification_round_sub_scores[1].to_i if final_round_shots&.length == 0
     relative_points + relative_shooting_points + relative_reverse_shooting_points.to_i
   end
 

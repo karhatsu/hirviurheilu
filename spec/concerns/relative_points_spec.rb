@@ -255,7 +255,7 @@ describe RelativePoints do
       expect(competitor_dns.relative_points).to be > competitor_dq.relative_points
     end
 
-    def build_competitor(shooting_score, hits=5, final_round_score=0, final_round_shots=[], qualification_round_sub_scores=[shooting_score], shots=[])
+    def build_competitor(shooting_score, hits=5, final_round_score=nil, final_round_shots=nil, qualification_round_sub_scores=[shooting_score], shots=[])
       competitor = build :competitor
       allow(competitor).to receive(:sport).and_return(sport)
       allow(competitor).to receive(:shooting_score).and_return(shooting_score)

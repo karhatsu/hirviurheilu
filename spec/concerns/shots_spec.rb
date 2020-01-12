@@ -88,50 +88,50 @@ describe Shots do
     end
 
     context 'and no shots available' do
-      let(:competitor) { FakeCompetitor.new sport, [] }
+      let(:competitor) { FakeCompetitor.new sport, nil }
 
-      it 'hits is 0' do
-        expect(competitor.hits).to eql 0
+      it 'hits is nil' do
+        expect(competitor.hits).to be_nil
       end
 
-      it 'qualification round shots is an array with an empty array' do
-        expect(competitor.qualification_round_shots).to eql [[]]
+      it 'qualification round shots is nil' do
+        expect(competitor.qualification_round_shots).to be_nil
       end
 
-      it 'qualification round sub scores is an array of one 0' do
-        expect(competitor.qualification_round_sub_scores).to eql [0]
+      it 'qualification round sub scores is nil' do
+        expect(competitor.qualification_round_sub_scores).to be_nil
       end
 
-      it 'qualification round score is 0' do
-        expect(competitor.qualification_round_score).to eql 0
+      it 'qualification round score is nil' do
+        expect(competitor.qualification_round_score).to be_nil
       end
 
-      it 'final round shots is an array with an empty array' do
-        expect(competitor.final_round_shots).to eql [[]]
+      it 'final round shots is nil' do
+        expect(competitor.final_round_shots).to be_nil
       end
 
-      it 'final round sub scores is an array of one 0' do
-        expect(competitor.final_round_sub_scores).to eql [0]
+      it 'final round sub scores is nil' do
+        expect(competitor.final_round_sub_scores).to be_nil
       end
 
-      it 'final round score is 0' do
-        expect(competitor.final_round_score).to eql 0
+      it 'final round score is nil' do
+        expect(competitor.final_round_score).to be_nil
       end
 
-      it 'shooting score is 0' do
-        expect(competitor.shooting_score).to eql 0
+      it 'shooting score is nil' do
+        expect(competitor.shooting_score).to be_nil
       end
 
-      it 'extra round shots is an empty array' do
-        expect(competitor.extra_round_shots).to eql []
+      it 'extra round shots is nil' do
+        expect(competitor.extra_round_shots).to be_nil
       end
 
-      it 'extra round score is 0' do
-        expect(competitor.extra_round_score).to eql 0
+      it 'extra round score is nil' do
+        expect(competitor.extra_round_score).to be_nil
       end
     end
 
-    context 'and all qualification round shots not available' do
+    context 'and some qualification round shots available' do
       let(:competitor) { FakeCompetitor.new sport, [10, 9, 4, 3] }
 
       it 'qualification round shots is an array with one shots array having available shots' do
@@ -146,20 +146,20 @@ describe Shots do
         expect(competitor.qualification_round_score).to eql 10 + 9 + 4 + 3
       end
 
-      it 'final round shots is an array with an empty array' do
-        expect(competitor.final_round_shots).to eql [[]]
+      it 'final round shots is nil' do
+        expect(competitor.final_round_shots).to be_nil
       end
 
-      it 'final round sub scores is an array of one 0' do
-        expect(competitor.final_round_sub_scores).to eql [0]
+      it 'final round sub scores is nil' do
+        expect(competitor.final_round_sub_scores).to be_nil
       end
 
-      it 'final round score is 0' do
-        expect(competitor.final_round_score).to eql 0
+      it 'final round score is nil' do
+        expect(competitor.final_round_score).to be_nil
       end
 
-      it 'extra round shots is an empty array' do
-        expect(competitor.extra_round_shots).to eql []
+      it 'extra round shots is nil' do
+        expect(competitor.extra_round_shots).to be_nil
       end
 
       it 'shooting score is sum of shots' do
@@ -241,18 +241,18 @@ describe Shots do
     end
 
     context 'and no shots not available' do
-      let(:competitor) { FakeCompetitor.new sport, [] }
+      let(:competitor) { FakeCompetitor.new sport, nil }
 
-      it 'qualification round returns an array with two empty arrays' do
-        expect(competitor.qualification_round_shots).to eql [[], []]
+      it 'qualification round shots is nil' do
+        expect(competitor.qualification_round_shots).to be_nil
       end
 
-      it 'qualification round sub scores is an array of two zeros' do
-        expect(competitor.qualification_round_sub_scores).to eql [0, 0]
+      it 'qualification round sub scores is nil' do
+        expect(competitor.qualification_round_sub_scores).to be_nil
       end
 
-      it 'qualification round score is 0' do
-        expect(competitor.qualification_round_score).to eql 0
+      it 'qualification round score is nil' do
+        expect(competitor.qualification_round_score).to be_nil
       end
     end
 
