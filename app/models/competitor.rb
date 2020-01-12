@@ -59,11 +59,11 @@ class Competitor < ApplicationRecord
   attr_accessor :club_name, :age_group_name, :old_values
 
   def race
-    series.race
+    series&.race
   end
 
   def sport
-    race.sport
+    race&.sport
   end
 
   def time_in_seconds
@@ -243,7 +243,7 @@ class Competitor < ApplicationRecord
 
   def shots_array_values
     return unless shots
-    errors.add(:shots, :too_many) if shots.length > 10
+    errors.add(:shots, :too_many) if shots.length > 10 && !sport&.only_shooting?
     errors.add(:shots, :invalid_value) if shots.any? { |shot| shot.to_i < 0 || shot.to_i > 10 || shot.to_i.to_s != shot.to_s }
   end
 

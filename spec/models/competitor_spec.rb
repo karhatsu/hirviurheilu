@@ -110,9 +110,20 @@ describe Competitor do
       it { is_expected.not_to allow_value([11, 10]).for('shots') }
       it { is_expected.not_to allow_value([10, 9, 1.1]).for('shots') }
       it { is_expected.to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 0]).for('shots') }
-      it { is_expected.not_to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).for('shots') }
       it { is_expected.to allow_value(['10', '9', '0']).for('shots') }
       it { is_expected.not_to allow_value(['10', '9', '1.1']).for('shots') }
+
+      describe 'when only shooting' do
+        it 'can have unlimited amount of shots' do
+          competitor = build :competitor, shots: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+          expect(competitor).to receive(:sport).and_return(Sport.by_key(Sport::ILMAHIRVI))
+          expect(competitor).to have(0).errors_on(:shots)
+        end
+      end
+
+      describe 'when 3 sports race' do
+        it { is_expected.not_to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).for('shots') }
+      end
     end
 
     describe "estimate1" do
