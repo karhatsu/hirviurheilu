@@ -66,7 +66,7 @@ module Shots
   def split_shots(rules, start_index)
     return nil unless rules && shots
     part1 = shots[start_index, rules[0]]
-    return nil unless part1
+    return nil unless part1 && part1.length > 0
     return [part1] if rules.length == 1
     part2 = shots[start_index + rules[0], rules[1]] || []
     [part1, part2]

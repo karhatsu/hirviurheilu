@@ -168,8 +168,8 @@ describe Shots do
     end
 
     context 'and all qualification round shots available' do
-      context 'but not all final round shots' do
-        let(:competitor) { FakeCompetitor.new sport, [10, 9, 4, 3, 9, 2, 6] }
+      context 'but no any of the final round shots' do
+        let(:competitor) { FakeCompetitor.new sport, [10, 9, 4, 3, 9] }
 
         it 'qualification round shots is an array with one shots array having the correct amount of shots' do
           expect(competitor.qualification_round_shots).to eql [[10, 9, 4, 3, 9]]
@@ -181,6 +181,26 @@ describe Shots do
 
         it 'qualification round score sum of qualification round shots' do
           expect(competitor.qualification_round_score).to eql 10 + 9 + 4 + 3 + 9
+        end
+
+        it 'final round shots is nil' do
+          expect(competitor.final_round_shots).to be_nil
+        end
+
+        it 'final round sub scores is nil' do
+          expect(competitor.final_round_sub_scores).to be_nil
+        end
+
+        it 'final round score is nil' do
+          expect(competitor.final_round_score).to be_nil
+        end
+      end
+
+      context 'and some final round shots too' do
+        let(:competitor) { FakeCompetitor.new sport, [10, 9, 4, 3, 9, 2, 6] }
+
+        it 'qualification round shots is an array with one shots array having the correct amount of shots' do
+          expect(competitor.qualification_round_shots).to eql [[10, 9, 4, 3, 9]]
         end
 
         it 'final round shots is an array with an array containing available final round shots' do
