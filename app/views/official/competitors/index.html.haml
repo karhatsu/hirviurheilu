@@ -21,7 +21,7 @@
         .col-xs-12.col-sm-3
           %label Kilpailun alkamisaika
         .col-xs-12.col-sm-9= time_print @series.race.start_time
-      .form__field.row
+      .form__field.form__field--sm.row
         .col-xs-12.col-sm-3= f.label :start_time
         .col-xs-12.col-sm-9
           = start_days_form_field(f, @series)
