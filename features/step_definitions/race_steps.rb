@@ -2,6 +2,10 @@ Given /^there is a race "([^"]*)"$/ do |name|
   @race = create(:race, :name => name)
 end
 
+Given "there is a {string} race {string}" do |sport_key, name|
+  @race = create :race, sport_key: sport_key, name: name
+end
+
 Given(/^there is a race "(.*?)" that starts in 7 days$/) do |name|
   @race = create(:race, name: name, start_date: 7.days.from_now)
 end
