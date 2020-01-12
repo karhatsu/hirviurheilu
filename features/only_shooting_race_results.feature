@@ -14,7 +14,7 @@ Feature: Only shooting race results
     And I should not see "Tilanne" within "h2"
     And I should see "Sarjaan ei ole lisätty kilpailijoita" in an info message
 
-  Scenario: Show results
+  Scenario: Show results for race with one phase in qualification and final rounds
     Given there is a "ILMAHIRVI" race "My race"
     And the race has series "M"
     And the series has a competitor 1 "Antti" "Ampuja" from "Antin seura" with shots "10,9,8,10,9,5,6,7,3,8,4,9,10,10,10,9,8,7,9,9"
@@ -26,3 +26,23 @@ Feature: Only shooting race results
     Then I should see a card 2 with 2, "Ampuja Antti", "Antin seura" with points 160
     And I should see "Alkukilpailu: 75 (10, 9, 8, 10, 9, 5, 6, 7, 3, 8)" in result card 2 detail row 2
     And I should see "Loppukilpailu: 85 (4, 9, 10, 10, 10, 9, 8, 7, 9, 9)" in result card 2 detail row 3
+
+  Scenario: Show results for race with two phases in qualification and final rounds
+    Given there is a "ILMALUODIKKO" race "My race"
+    And the race has series "M"
+    And the series has a competitor 1 "Antti" "Ampuja" from "Antin seura" with shots "10,9,8,10,9,5,6,7,3,8,4,9,10,10,10,9,8,7,9,9"
+    And the series has a competitor 2 "Kimmo" "Kilpailija" from "Kimmon seura" with shots "9,9,8,10,9,5,6,7,3,8,4,9,10,10,10,9,8,7,10,9"
+    And the series has a competitor 3 "Lasse" "Laukoja" from "Lassen seura" with shots "9,9,8"
+    And the series has a competitor 4 "Timo" "Tähtääjä" from "Timon seura" with shots "10,10,10,10,10,10,10,10,10,10,10"
+    When I go to the results page of the series
+    Then I should see a card 1 with 1, "Kilpailija Kimmo", "Kimmon seura" with points 160
+    And I should see "Alkukilpailu: 45 (9, 9, 8, 10, 9) + 29 (5, 6, 7, 3, 8) = 74" in result card 1 detail row 2
+    And I should see "Loppukilpailu: 43 (4, 9, 10, 10, 10) + 43 (9, 8, 7, 10, 9) = 86" in result card 1 detail row 3
+    Then I should see a card 2 with 2, "Ampuja Antti", "Antin seura" with points 160
+    And I should see "Alkukilpailu: 46 (10, 9, 8, 10, 9) + 29 (5, 6, 7, 3, 8) = 75" in result card 2 detail row 2
+    And I should see "Loppukilpailu: 43 (4, 9, 10, 10, 10) + 42 (9, 8, 7, 9, 9) = 85" in result card 2 detail row 3
+    Then I should see a card 3 with 3, "Tähtääjä Timo", "Timon seura" with points 110
+    And I should see "Alkukilpailu: 50 (10, 10, 10, 10, 10) + 50 (10, 10, 10, 10, 10) = 100" in result card 3 detail row 2
+    And I should see "Loppukilpailu: 10 (10)" in result card 3 detail row 3
+    Then I should see a card 4 with 4, "Laukoja Lasse", "Lassen seura" with points 26
+    And I should see "Alkukilpailu: 26 (9, 9, 8)" in result card 4 detail row 2

@@ -13,7 +13,7 @@ Then ("I should see a card {int} with {int}, {string}, {string} with points {int
 end
 
 Then("I should see {string} in result card {int} detail row {int}") do |text, card_number, row_number|
-  expect(find(:xpath, "//div[@class='result-cards']/div[contains(@class, 'card')][#{card_number}]//div[@class='card__middle-row'][#{row_number}]")).to have_text(text)
+  expect(find(:xpath, "//div[@class='result-cards']/div[contains(@class, 'card')][#{card_number}]//div[@class='card__middle-row'][#{row_number}]")).to have_text(text, exact: true)
 end
 
 Then /^I should see a team (\d+) competitor row (\d+) with values:$/ do |team_order_number,

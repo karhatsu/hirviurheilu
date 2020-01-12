@@ -8,11 +8,21 @@
         .card__middle-row= comp.club.name
         - if comp.shots
           .card__middle-row
-            Alkukilpailu: #{comp.qualification_round_sub_scores[0]}
-            (#{comp.qualification_round_shots.join(', ')})
+            - if comp.qualification_round_sub_scores.length == 2
+              Alkukilpailu: #{comp.qualification_round_sub_scores[0]} (#{comp.qualification_round_shots[0].join(', ')})
+              - if comp.qualification_round_shots[1].length > 0
+                + #{comp.qualification_round_sub_scores[1]} (#{comp.qualification_round_shots[1].join(', ')}) = #{comp.qualification_round_score}
+            - else
+              Alkukilpailu: #{comp.qualification_round_score}
+              (#{comp.qualification_round_shots.join(', ')})
         - if comp.final_round_shots
           .card__middle-row
-            Loppukilpailu: #{comp.final_round_sub_scores[0]}
-            (#{comp.final_round_shots.join(', ')})
+            - if comp.final_round_sub_scores.length == 2
+              Loppukilpailu: #{comp.final_round_sub_scores[0]} (#{comp.final_round_shots[0].join(', ')})
+              - if comp.final_round_shots[1].length > 0
+                + #{comp.final_round_sub_scores[1]} (#{comp.final_round_shots[1].join(', ')}) = #{comp.final_round_score}
+            - else
+              Loppukilpailu: #{comp.final_round_score}
+              (#{comp.final_round_shots.join(', ')})
       .card__main-value= comp.shooting_score
     - prev_rel_points = comp.relative_points
