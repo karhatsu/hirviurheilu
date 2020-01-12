@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe RelativePoints do
   context 'when estimates, time and shooting' do
-    let(:sport) { double Sport, only_shooting: false }
+    let(:sport) { double Sport, only_shooting?: false }
 
     describe "#relative_points" do
       let(:series) { double Series, walking_series?: true }
@@ -178,7 +178,7 @@ describe RelativePoints do
   end
 
   context 'when only shooting' do
-    let(:sport) { double Sport, only_shooting: true }
+    let(:sport) { double Sport, only_shooting?: true }
 
     it 'is 0 when no shots' do
       competitor = build_competitor nil

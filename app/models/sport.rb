@@ -13,7 +13,7 @@ class Sport
           batch_list?: false,
           qualification_round: false,
           final_round: false,
-          only_shooting: false,
+          only_shooting?: false,
       })
     when SKI
       OpenStruct.new({
@@ -22,7 +22,7 @@ class Sport
           batch_list?: false,
           qualification_round: false,
           final_round: false,
-          only_shooting: false,
+          only_shooting?: false,
       })
     when ILMAHIRVI
       OpenStruct.new({
@@ -31,7 +31,7 @@ class Sport
           batch_list?: true,
           qualification_round: [10],
           final_round: [10],
-          only_shooting: true,
+          only_shooting?: true,
       })
     when ILMALUODIKKO
       OpenStruct.new({
@@ -40,7 +40,7 @@ class Sport
            batch_list?: true,
            qualification_round: [5, 5],
            final_round: [5, 5],
-           only_shooting: true,
+           only_shooting?: true,
        })
     else
       raise "Unknown sport key: #{key}"

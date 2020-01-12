@@ -5,7 +5,7 @@ module RelativePoints
     return -1000003 if no_result_reason == Competitor::DQ
     return -1000002 if no_result_reason == Competitor::DNS
     return -1000001 if no_result_reason == Competitor::DNF
-    if sport.only_shooting
+    if sport.only_shooting?
       only_shooting_relative_points
     else
       three_sports_relative_points unofficials, sort_by
