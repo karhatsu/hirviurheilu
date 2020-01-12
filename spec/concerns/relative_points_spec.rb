@@ -240,6 +240,16 @@ describe RelativePoints do
       expect(competitor2.relative_points).to be > competitor1.relative_points
     end
 
+    it 'DQ, DNS, DNF are the last' do
+      competitor = build_competitor 99
+      competitor_dnf = build_competitor_with_no_result_reason 100, Competitor::DNF
+      competitor_dns = build_competitor_with_no_result_reason 101, Competitor::DNS
+      competitor_dq = build_competitor_with_no_result_reason 102, Competitor::DQ
+      expect(competitor.relative_points).to be > competitor_dnf.relative_points
+      expect(competitor_dnf.relative_points).to be > competitor_dns.relative_points
+      expect(competitor_dns.relative_points).to be > competitor_dq.relative_points
+    end
+
     def build_competitor(shooting_score, hits=5, final_round_score=0, final_round_shots=[], qualification_round_sub_scores=[shooting_score], shots=[])
       competitor = build :competitor
       allow(competitor).to receive(:sport).and_return(sport)
@@ -249,6 +259,14 @@ describe RelativePoints do
       allow(competitor).to receive(:final_round_shots).and_return(final_round_shots)
       allow(competitor).to receive(:qualification_round_sub_scores).and_return(qualification_round_sub_scores)
       allow(competitor).to receive(:shots).and_return(shots)
+      competitor
+    end
+
+    def build_competitor_with_no_result_reason(shooting_score, no_result_reason)
+      competitor = build :competitor
+      allow(competitor).to receive(:sport).and_return(sport)
+      allow(competitor).to receive(:shooting_score).and_return(shooting_score)
+      allow(competitor).to receive(:no_result_reason).and_return(no_result_reason)
       competitor
     end
   end
