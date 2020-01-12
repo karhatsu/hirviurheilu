@@ -122,7 +122,7 @@ class Official::CompetitorsController < Official::OfficialController
   def set_shots
     shots = (0..9).map {|i| params["shots#{i}"]}.reject{|s| s.blank?}
     if shots.length > 0
-      @competitor.shots = shots.sort {|a, b| b.to_i <=> a.to_i}
+      @competitor.shots = shots
     else
       @competitor.shots = nil
     end

@@ -9,8 +9,12 @@
 = render layout: 'series/series_status', locals: { series: @series } do
   = render partial: 'series/infos', locals: { series: @series }
   - cache [@series, params[:sort], unofficials, I18n.locale] do
-    .results--desktop= render partial: 'series/series_results', locals: { series: @series }
-    .results--mobile= render partial: 'series/series_results_mobile', locals: { series: @series }
+    - if @series.race.sport.only_shooting?
+      .results--desktop= render partial: 'series/only_shooting_results', locals: { series: @series }
+      .results--mobile= render partial: 'series/only_shooting_results_mobile', locals: { series: @series }
+    - else
+      .results--desktop= render partial: 'series/series_results', locals: { series: @series }
+      .results--mobile= render partial: 'series/series_results_mobile', locals: { series: @series }
   - if @series.has_unofficial_competitors?
     - if unofficials == Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
       = link_to t('competitors.index.show_official_results'), race_series_path(@series.race, @series), class: 'button'

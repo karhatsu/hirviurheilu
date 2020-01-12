@@ -1,10 +1,15 @@
-Given /^the series has a competitor$/ do
+Given "the series has a competitor" do
   @competitor = create(:competitor, :series => @series)
 end
 
-Given /^the series has a competitor "(.*?)" "(.*?)"$/ do |first_name, last_name|
+Given "the series has a competitor {string} {string}" do |first_name, last_name|
   @competitor = create(:competitor, :series => @series, :first_name => first_name,
     :last_name => last_name)
+end
+
+Given("the series has a competitor {int} {string} {string} from {string} with shots {string}") do |number, first_name, last_name, club_name, shots|
+  club = Club.find_or_create_by race: @race, name: club_name
+  @competitor = create :competitor, series: @series, club: club, number: number, first_name: first_name, last_name: last_name, shots: shots.split(',')
 end
 
 Given /^the series has a competitor "([^"]*)" "([^"]*)" with (\d+)\+(\d+)\+(\d+) points$/ do |first_name, last_name, tpoints, epoints, spoints|
@@ -17,18 +22,6 @@ Given /^the series has a competitor "([^"]*)" "([^"]*)" with (\d+)\+(\d+)\+(\d+)
     :shooting_score_input => 100 - (600 - spoints.to_i) / 6)
   @competitor.estimate_points.should == epoints.to_i
   @competitor.shooting_points.should == spoints.to_i
-end
-
-Given /^the series has (\d+) competitors$/ do |amount|
-  amount.to_i.times do
-    create(:competitor, :series => @series)
-  end
-end
-
-# This is against the principles of integration tests but
-# big count slows down the tests too much.
-Given /^the database contains in total (\d+) competitors$/ do |count|
-  Competitor.stub(:count).and_return(count.to_i)
 end
 
 Given /^the series has a competitor with attributes:$/ do |fields|
@@ -67,22 +60,6 @@ Given /^the competitor "([^"]*)" "([^"]*)" has the following results:$/ do |firs
     last_name, fields|
   competitor = Competitor.where(['first_name=? and last_name=?', first_name, last_name]).first
   competitor.attributes = fields.rows_hash
-  competitor.save!
-end
-
-Given /^the shots for the competitor "([^"]*)" "([^"]*)" are (\d+),(\d+),(\d+),(\d+),(\d+),(\d+),(\d+),(\d+),(\d+),(\d+)$/ do |first_name,
-    last_name, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10|
-  competitor = Competitor.where(['first_name=? and last_name=?', first_name, last_name]).first
-  competitor.shot_0 = s1
-  competitor.shot_1 = s2
-  competitor.shot_2 = s3
-  competitor.shot_3 = s4
-  competitor.shot_4 = s5
-  competitor.shot_5 = s6
-  competitor.shot_6 = s7
-  competitor.shot_7 = s8
-  competitor.shot_8 = s9
-  competitor.shot_9 = s10
   competitor.save!
 end
 

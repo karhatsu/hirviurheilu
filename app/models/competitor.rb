@@ -3,6 +3,8 @@ require 'model_value_comparator'
 class Competitor < ApplicationRecord
   include ModelValueComparator
   include StartDateTime
+  include Shots
+  include RelativePoints
 
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish
@@ -57,17 +59,11 @@ class Competitor < ApplicationRecord
   attr_accessor :club_name, :age_group_name, :old_values
 
   def race
-    series.race
+    series&.race
   end
 
-  def shooting_score
-    return @shooting_score if @shooting_score
-    if shooting_score_input
-      @shooting_score = shooting_score_input
-    elsif shots
-      @shooting_score = shots.map(&:to_i).inject(:+)
-    end
-    @shooting_score
+  def sport
+    race&.sport
   end
 
   def time_in_seconds
@@ -163,31 +159,6 @@ class Competitor < ApplicationRecord
     shooting_points.to_i + estimate_points.to_i + time_points(unofficials).to_i
   end
 
-  def relative_points(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=SORT_BY_POINTS)
-    return -1000003 if no_result_reason == DQ
-    return -1000002 if no_result_reason == DNS
-    return -1000001 if no_result_reason == DNF
-    if sort_by == SORT_BY_SHOTS
-      shooting_points.to_i
-    elsif sort_by == SORT_BY_ESTIMATES
-      estimate_points.to_i
-    elsif sort_by == SORT_BY_TIME
-      return -time_in_seconds.to_i if time_in_seconds
-      -1000000
-    else
-      relative_points = 1000000*points(unofficials).to_i + 1000*shooting_points.to_i
-      relative_points = relative_points - time_in_seconds.to_i unless series.walking_series?
-      relative_points = relative_points + relative_shooting_points if series.walking_series?
-      relative_points = relative_points * 10 unless unofficials != Series::UNOFFICIALS_EXCLUDED || unofficial?
-      relative_points
-    end
-  end
-
-  def relative_shooting_points
-    return 0 unless shots
-    shots.inject(0) {|sum, shot| sum = sum + shot * shot; sum}
-  end
-
   def finished?
     no_result_reason ||
       (start_time && (arrival_time || series.walking_series?) && shooting_score && estimate1 && estimate2 &&
@@ -272,7 +243,7 @@ class Competitor < ApplicationRecord
 
   def shots_array_values
     return unless shots
-    errors.add(:shots, :too_many) if shots.length > 10
+    errors.add(:shots, :too_many) if shots.length > 10 && !sport&.only_shooting?
     errors.add(:shots, :invalid_value) if shots.any? { |shot| shot.to_i < 0 || shot.to_i > 10 || shot.to_i.to_s != shot.to_s }
   end
 

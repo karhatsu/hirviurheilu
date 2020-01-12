@@ -4,8 +4,7 @@ Feature: Batch list
   I want to see the batch list
 
   Scenario: No batches defined
-    Given there is a race with attributes:
-      | sport_key | ILMAHIRVI |
+    Given there is a "ILMAHIRVI" race "No batches race"
     And the race has series "M"
     And the series has a competitor "Teppo" "Testinen"
     And I am on the race page
@@ -18,8 +17,7 @@ Feature: Batch list
     And I should see "Kilpailun eräluetteloa ei ole vielä tehty" in an info message
 
   Scenario: Race with batches
-    Given there is a race with attributes:
-      | sport_key | ILMALUODIKKO |
+    Given there is a "ILMALUODIKKO" race "Batches race"
     And the race has a club "Testiseura"
     And the race has a batch 1 with track 1 and time "10:00"
     And the race has a batch 2 with track 2 and time "10:30"

@@ -8,8 +8,12 @@ Then ("I should see a card {int} with {int}, {string}, {string} with points {int
   card_locator = "//div[@class='result-cards']/div[contains(@class, 'card')][#{order_number}]"
   expect(find(:xpath, "#{card_locator}/div[@class='card__number']")).to have_text(number)
   expect(find(:xpath, "#{card_locator}/div[@class='card__middle']/div[@class='card__name']")).to have_text(name)
-  expect(find(:xpath, "#{card_locator}/div[@class='card__middle']/div[@class='card__middle-row']")).to have_text(club)
+  expect(find(:xpath, "#{card_locator}/div[@class='card__middle']/div[@class='card__middle-row'][1]")).to have_text(club)
   expect(find(:xpath, "#{card_locator}/div[@class='card__main-value']")).to have_text(main_value)
+end
+
+Then("I should see {string} in result card {int} detail row {int}") do |text, card_number, row_number|
+  expect(find(:xpath, "//div[@class='result-cards']/div[contains(@class, 'card')][#{card_number}]//div[@class='card__middle-row'][#{row_number}]")).to have_text(text, exact: true)
 end
 
 Then /^I should see a team (\d+) competitor row (\d+) with values:$/ do |team_order_number,
