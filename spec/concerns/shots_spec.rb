@@ -231,8 +231,12 @@ describe Shots do
           expect(competitor.final_round_score).to eql 2 + 6 + 9 + 8 + 10
         end
 
-        it 'extra round shots is an empty array' do
-          expect(competitor.extra_round_shots).to eql []
+        it 'extra round shots is nil' do
+          expect(competitor.extra_round_shots).to be_nil
+        end
+
+        it 'extra round score is nil' do
+          expect(competitor.extra_round_score).to be_nil
         end
       end
 

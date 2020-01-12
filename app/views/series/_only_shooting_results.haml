@@ -24,5 +24,8 @@
             - else
               Loppukilpailu: #{comp.final_round_score}
               (#{comp.final_round_shots.join(', ')})
+        - if comp.extra_round_shots
+          .card__middle-row
+            Uusinta: #{comp.extra_round_score} (#{comp.extra_round_shots.join(', ')})
       .card__main-value= comp.shooting_score
     - prev_rel_points = comp.relative_points

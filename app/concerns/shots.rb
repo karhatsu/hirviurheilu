@@ -47,7 +47,8 @@ module Shots
     final_round_rules = sport.final_round
     return nil unless qualification_round_rules && final_round_rules
     regular_shot_count = sum_of_array(qualification_round_rules) + sum_of_array(final_round_rules)
-    shots[regular_shot_count..-1]
+    extra_shots = shots[regular_shot_count..-1]
+    extra_shots if extra_shots && extra_shots.length > 0 or nil
   end
 
   def extra_round_score
