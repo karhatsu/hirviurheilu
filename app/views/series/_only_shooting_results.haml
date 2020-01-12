@@ -6,5 +6,13 @@
       .card__middle
         .card__name= full_name(comp)
         .card__middle-row= comp.club.name
+        - if comp.shots
+          .card__middle-row
+            Alkukilpailu: #{comp.qualification_round_sub_scores[0]}
+            (#{comp.qualification_round_shots.join(', ')})
+        - if comp.final_round_shots
+          .card__middle-row
+            Loppukilpailu: #{comp.final_round_sub_scores[0]}
+            (#{comp.final_round_shots.join(', ')})
       .card__main-value= comp.shooting_score
     - prev_rel_points = comp.relative_points
