@@ -1,0 +1,31 @@
+.result-cards
+  - prev_rel_points = 1.0/0.0
+  - series.ordered_competitors.each_with_index do |comp, i|
+    .card{class: i % 2 == 0 ? 'card--odd' : ''}
+      .card__number= "#{i + 1}." unless comp.relative_points == prev_rel_points
+      .card__middle
+        .card__name= full_name(comp)
+        .card__middle-row= comp.club.name
+        - if comp.shots
+          .card__middle-row
+            - if comp.qualification_round_sub_scores.length == 2
+              Alkukilpailu: #{comp.qualification_round_sub_scores[0]} (#{comp.qualification_round_shots[0].join(', ')})
+              - if comp.qualification_round_shots[1].length > 0
+                + #{comp.qualification_round_sub_scores[1]} (#{comp.qualification_round_shots[1].join(', ')}) = #{comp.qualification_round_score}
+            - else
+              Alkukilpailu: #{comp.qualification_round_score}
+              (#{comp.qualification_round_shots.join(', ')})
+        - if comp.final_round_shots
+          .card__middle-row
+            - if comp.final_round_sub_scores.length == 2
+              Loppukilpailu: #{comp.final_round_sub_scores[0]} (#{comp.final_round_shots[0].join(', ')})
+              - if comp.final_round_shots[1].length > 0
+                + #{comp.final_round_sub_scores[1]} (#{comp.final_round_shots[1].join(', ')}) = #{comp.final_round_score}
+            - else
+              Loppukilpailu: #{comp.final_round_score}
+              (#{comp.final_round_shots.join(', ')})
+        - if comp.extra_round_shots
+          .card__middle-row
+            Uusinta: #{comp.extra_round_score} (#{comp.extra_round_shots.join(', ')})
+      .card__main-value= comp.shooting_score
+    - prev_rel_points = comp.relative_points
