@@ -180,6 +180,11 @@ describe RelativePoints do
   context 'when only shooting' do
     let(:sport) { double Sport, only_shooting: true }
 
+    it 'is 0 when no shots' do
+      competitor = build_competitor nil
+      expect(competitor.relative_points).to eql 0
+    end
+
     it '1. shooting score' do
       competitor1 = build_competitor 97
       competitor2 = build_competitor 98
