@@ -1,3 +1,5 @@
+- competitors = series.ordered_competitors
+- extra_shots_column = competitors.any? {|competitor| competitor.extra_round_shots}
 %table.results-table
   %tr
     %th &nbsp;
@@ -6,9 +8,11 @@
     %th#table_club_title= club_title(series.race)
     %th Alkukilpailu
     %th Loppukilpailu
+    - if extra_shots_column
+      %th Uusinta
     %th Tulos
   - prev_rel_points = 1.0/0.0
-  - series.ordered_competitors.each_with_index do |comp, i|
+  - competitors.each_with_index do |comp, i|
     - relative_points = comp.relative_points
     %tr{class: i % 2 == 0 ? 'odd' : ''}
       %td= (relative_points == prev_rel_points) ? raw('&nbsp;') : "#{i + 1}."
@@ -33,5 +37,9 @@
           - else
             #{comp.final_round_score}
             (#{comp.final_round_shots.join(', ')})
+      - if extra_shots_column
+        %td
+          - if comp.extra_round_shots
+            #{comp.extra_round_score} (#{comp.extra_round_shots.join(', ')})
       %td.center.total-points= comp.shooting_score
     - prev_rel_points = relative_points
