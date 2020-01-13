@@ -156,6 +156,7 @@ class Competitor < ApplicationRecord
 
   def points(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     return nil if no_result_reason
+    return shooting_score if sport.only_shooting?
     shooting_points.to_i + estimate_points.to_i + time_points(unofficials).to_i
   end
 

@@ -1136,36 +1136,56 @@ describe Competitor do
   end
 
   describe "#points" do
-    before do
-      @unofficials = Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
-      @competitor = build(:competitor)
-      allow(@competitor).to receive(:shooting_points).and_return(100)
-      allow(@competitor).to receive(:estimate_points).and_return(150)
-      allow(@competitor).to receive(:time_points).with(@unofficials).and_return(200)
+    context 'when shooting race' do
+      before do
+        @competitor = build :competitor
+        allow(@competitor).to receive(:sport).and_return(Sport.by_key(Sport::ILMALUODIKKO))
+        allow(@competitor).to receive(:shooting_score).and_return(150)
+      end
+
+      it 'should return nil when no result reason' do
+        @competitor.no_result_reason = 'DNF'
+        expect(@competitor.points(@unofficials)).to be_nil
+      end
+
+      it 'should return the shooting score' do
+        expect(@competitor.points).to eql 150
+      end
     end
 
-    it 'should return nil when no result reason' do
-      @competitor.no_result_reason = 'DNF'
-      expect(@competitor.points(@unofficials)).to be_nil
-    end
+    context 'when 3 sports race' do
+      before do
+        @unofficials = Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
+        @competitor = build(:competitor)
+        allow(@competitor).to receive(:sport).and_return(Sport.by_key(Sport::SKI))
+        allow(@competitor).to receive(:shooting_points).and_return(100)
+        allow(@competitor).to receive(:estimate_points).and_return(150)
+        allow(@competitor).to receive(:time_points).with(@unofficials).and_return(200)
+      end
 
-    it "should consider missing shot points as 0" do
-      expect(@competitor).to receive(:shooting_points).and_return(nil)
-      expect(@competitor.points(@unofficials)).to eq(150 + 200)
-    end
+      it 'should return nil when no result reason' do
+        @competitor.no_result_reason = 'DNF'
+        expect(@competitor.points(@unofficials)).to be_nil
+      end
 
-    it "should consider missing estimate points as 0" do
-      expect(@competitor).to receive(:estimate_points).and_return(nil)
-      expect(@competitor.points(@unofficials)).to eq(100 + 200)
-    end
+      it "should consider missing shot points as 0" do
+        expect(@competitor).to receive(:shooting_points).and_return(nil)
+        expect(@competitor.points(@unofficials)).to eq(150 + 200)
+      end
 
-    it "should consider missing time points as 0" do
-      expect(@competitor).to receive(:time_points).with(@unofficials).and_return(nil)
-      expect(@competitor.points(@unofficials)).to eq(100 + 150)
-    end
+      it "should consider missing estimate points as 0" do
+        expect(@competitor).to receive(:estimate_points).and_return(nil)
+        expect(@competitor.points(@unofficials)).to eq(100 + 200)
+      end
 
-    it "should be sum of sub points when all of them are available" do
-      expect(@competitor.points(@unofficials)).to eq(100 + 150 + 200)
+      it "should consider missing time points as 0" do
+        expect(@competitor).to receive(:time_points).with(@unofficials).and_return(nil)
+        expect(@competitor.points(@unofficials)).to eq(100 + 150)
+      end
+
+      it "should be sum of sub points when all of them are available" do
+        expect(@competitor.points(@unofficials)).to eq(100 + 150 + 200)
+      end
     end
   end
 
