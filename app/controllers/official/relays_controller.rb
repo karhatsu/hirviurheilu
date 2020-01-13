@@ -1,5 +1,5 @@
 class Official::RelaysController < Official::OfficialController
-  before_action :assign_race_by_race_id, :check_assigned_race, :set_relays
+  before_action :assign_race_by_race_id, :check_assigned_race, :require_three_sports_race, :set_relays
   before_action :assign_relay_by_id, :only => [:edit, :update, :destroy]
   before_action :handle_time_parameters, :only => [:create, :update]
   before_action :set_no_result_reason_options, :only => [:edit, :update]

@@ -11,11 +11,13 @@ class Sport
           qualification_round: false,
           final_round: false,
           only_shooting?: false,
+          relays?: true,
       },
       AIR_GUNS: {
           start_list?: false,
           batch_list?: true,
           only_shooting?: true,
+          relays?: false,
       },
   }
 

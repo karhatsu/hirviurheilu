@@ -29,16 +29,21 @@ class Official::OfficialController < ApplicationController
   def check_assigned_relay
     check_race(@relay.race)
   end
-  
+
   def check_cup(cup)
     unless own_cup?(cup)
       flash[:error] = "Et ole cup-kilpailun toimitsija"
       redirect_to official_root_path
     end
   end
-  
+
   def check_assigned_cup
     check_cup(@cup)
+  end
+
+  def require_three_sports_race
+    race = @race || @series.race
+    redirect_to official_race_path(race) if race.sport.only_shooting?
   end
 
   def set_official
@@ -48,7 +53,7 @@ class Official::OfficialController < ApplicationController
   def set_relays
     @is_relays = true
   end
-  
+
   def collect_age_groups(series)
     @age_groups = {}
     series.each do |s|
