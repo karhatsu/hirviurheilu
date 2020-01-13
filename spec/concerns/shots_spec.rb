@@ -238,6 +238,10 @@ describe Shots do
         it 'extra round score is nil' do
           expect(competitor.extra_round_score).to be_nil
         end
+
+        it 'shooting score is sum of shots' do
+          expect(competitor.shooting_score).to eql 10 + 9 + 4 + 3 + 9 + 2 + 6 + 9 + 8 + 10
+        end
       end
 
       context 'and all final round and also extra shots available' do
@@ -253,6 +257,10 @@ describe Shots do
 
         it 'extra round score is sum of extra shots' do
           expect(competitor.extra_round_score).to eql 9 + 8
+        end
+
+        it 'shooting score is sum of qualification and final round shots' do
+          expect(competitor.shooting_score).to eql 10 + 9 + 4 + 3 + 9 + 2 + 6 + 9 + 8 + 10
         end
       end
     end
