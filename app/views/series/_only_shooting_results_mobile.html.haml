@@ -28,7 +28,10 @@
           .card__middle-row
             Uusinta: #{comp.extra_round_score} (#{comp.extra_round_shots.join(', ')})
       .card__main-value
-        = comp.shooting_score
-        - if comp.extra_round_shots
-          + #{comp.extra_round_score}
+        - if comp.no_result_reason
+          = comp.no_result_reason
+        - else
+          = comp.shooting_score
+          - if comp.extra_round_shots
+            + #{comp.extra_round_score}
     - prev_rel_points = comp.relative_points

@@ -41,5 +41,9 @@
         %td
           - if comp.extra_round_shots
             #{comp.extra_round_score} (#{comp.extra_round_shots.join(', ')})
-      %td.center.total-points= comp.shooting_score
+      %td.center.total-points
+        - if comp.no_result_reason
+          = comp.no_result_reason
+        - else
+          = comp.shooting_score
     - prev_rel_points = relative_points
