@@ -4,47 +4,30 @@ class Sport
   ILMAHIRVI = "ILMAHIRVI"
   ILMALUODIKKO = "ILMALUODIKKO"
 
-  def self.by_key(key)
-    case key
-    when RUN
-      OpenStruct.new({
-          name: 'Hirvenjuoksu',
+  BASE_CONFIGS = {
+      SKI_AND_RUN: {
           start_list?: true,
           batch_list?: false,
           qualification_round: false,
           final_round: false,
           only_shooting?: false,
-      })
-    when SKI
-      OpenStruct.new({
-          name: 'Hirvenhiihto',
-          start_list?: true,
-          batch_list?: false,
-          qualification_round: false,
-          final_round: false,
-          only_shooting?: false,
-      })
-    when ILMAHIRVI
-      OpenStruct.new({
-          name: 'Ilmahirvi',
+      },
+      AIR_GUNS: {
           start_list?: false,
           batch_list?: true,
-          qualification_round: [10],
-          final_round: [10],
           only_shooting?: true,
-      })
-    when ILMALUODIKKO
-      OpenStruct.new({
-           name: 'Ilmaluodikko',
-           start_list?: false,
-           batch_list?: true,
-           qualification_round: [5, 5],
-           final_round: [5, 5],
-           only_shooting?: true,
-       })
-    else
-      raise "Unknown sport key: #{key}"
-    end
+      },
+  }
+
+  CONFIGS = {
+      RUN: OpenStruct.new(BASE_CONFIGS[:SKI_AND_RUN].merge({ name: 'Hirvenjuoksu' })),
+      SKI: OpenStruct.new(BASE_CONFIGS[:SKI_AND_RUN].merge({ name: 'Hirvenhiihto' })),
+      ILMAHIRVI: OpenStruct.new(BASE_CONFIGS[:AIR_GUNS].merge({ name: 'Ilmahirvi', qualification_round: [10], final_round: [10] })),
+      ILMALUODIKKO: OpenStruct.new(BASE_CONFIGS[:AIR_GUNS].merge({ name: 'Ilmaluodikko', qualification_round: [5, 5], final_round: [5, 5] })),
+  }
+
+  def self.by_key(key)
+    CONFIGS[key.to_sym] or raise "Unknown sport key: #{key}"
   end
 
   def self.default_sport_key
