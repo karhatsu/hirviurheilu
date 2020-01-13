@@ -1,11 +1,11 @@
 class Official::CsvImportsController < Official::OfficialController
   include CsvImportsHelper
 
-  before_action :assign_race_by_race_id, :check_assigned_race
-  
+  before_action :assign_race_by_race_id, :check_assigned_race, :require_three_sports_race
+
   def new
   end
-  
+
   def create
     import_csv
   end

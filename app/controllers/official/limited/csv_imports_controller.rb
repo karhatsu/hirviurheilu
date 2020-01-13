@@ -1,7 +1,7 @@
 class Official::Limited::CsvImportsController < Official::Limited::LimitedOfficialController
   include CsvImportsHelper
 
-  before_action :assign_race_by_race_id, :check_assigned_race_without_full_rights,
+  before_action :assign_race_by_race_id, :require_three_sports_race, :check_assigned_race_without_full_rights,
                 :assign_race_right, :set_limited_official, :set_limited_official_csv_import
 
   def new

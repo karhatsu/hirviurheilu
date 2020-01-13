@@ -2,6 +2,7 @@ class Official::StartListsController < Official::OfficialController
   before_action :assign_race_by_race_id, :check_assigned_race, :only => :show
   before_action :assign_series_by_series_id, :check_assigned_series, :only => :update
   before_action :handle_time_parameters, :only => :update
+  before_action :require_three_sports_race
 
   def show
     @is_start_list = true

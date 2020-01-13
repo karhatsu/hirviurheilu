@@ -10,16 +10,19 @@
     - if series and !race.series.first.new_record?
       = menu_item t('official_sub_menu.competitors'), official_series_competitors_path(series), @is_competitors, nil, true do
         - series_dropdown_menu(race, 'competitors')
-      = menu_item t('official_sub_menu.start_times'), official_race_start_list_path(race), @is_start_list
+      - if race.sport.start_list?
+        = menu_item t('official_sub_menu.start_times'), official_race_start_list_path(race), @is_start_list
       = menu_item t('official_sub_menu.quick_save'), official_race_quick_saves_path(race), @is_quick_saves
-      = menu_item t('official_sub_menu.times'), official_series_times_path(series), @is_times, nil, true do
-        - series_dropdown_menu(race, 'times')
-      = menu_item t('official_sub_menu.estimates'), official_series_estimates_path(series), @is_estimates, nil, true do
-        - series_dropdown_menu(race, 'estimates')
+      - unless race.sport.only_shooting?
+        = menu_item t('official_sub_menu.times'), official_series_times_path(series), @is_times, nil, true do
+          - series_dropdown_menu(race, 'times')
+        = menu_item t('official_sub_menu.estimates'), official_series_estimates_path(series), @is_estimates, nil, true do
+          - series_dropdown_menu(race, 'estimates')
       = menu_item t('official_sub_menu.shooting'), official_series_shots_path(series), @is_shots, nil, true do
         - series_dropdown_menu(race, 'shots')
-      = menu_item t('official_sub_menu.correct_distances'), official_race_correct_estimates_path(race), @is_correct_estimates
-      = menu_item t('official_sub_menu.csv'), official_race_csv_export_path(race), @is_csv
+      - unless race.sport.only_shooting?
+        = menu_item t('official_sub_menu.correct_distances'), official_race_correct_estimates_path(race), @is_correct_estimates
+        = menu_item t('official_sub_menu.csv'), official_race_csv_export_path(race), @is_csv
       = menu_item t('official_sub_menu.team_competitions'), official_race_team_competitions_path(race), @is_team_competitions
     - if race.sport.relays?
       = menu_item t('official_sub_menu.relays'), official_race_relays_path(race), @is_relays
