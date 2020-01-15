@@ -107,7 +107,6 @@ describe Competitor do
     describe 'shots' do
       it { is_expected.to allow_value(nil).for('shots') }
       it { is_expected.not_to allow_value([10, -1, 0]).for('shots') }
-      it { is_expected.not_to allow_value([11, 10]).for('shots') }
       it { is_expected.not_to allow_value([10, 9, 1.1]).for('shots') }
       it { is_expected.to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 0]).for('shots') }
       it { is_expected.to allow_value(['10', '9', '0']).for('shots') }
@@ -116,13 +115,23 @@ describe Competitor do
       describe 'when only shooting' do
         it 'can have unlimited amount of shots' do
           competitor = build :competitor, shots: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-          expect(competitor).to receive(:sport).and_return(Sport.by_key(Sport::ILMAHIRVI))
+          allow(competitor).to receive(:sport).and_return(Sport.by_key(Sport::ILMAHIRVI))
           expect(competitor).to have(0).errors_on(:shots)
+        end
+
+        it 'max shot value is 11' do
+          competitor = build :competitor, shots: [11, 10]
+          allow(competitor).to receive(:sport).and_return(Sport.by_key(Sport::ILMAHIRVI))
+          expect(competitor).to have(0).errors_on(:shots)
+          competitor.shots = [11, 12]
+          expect(competitor).to have(1).errors_on(:shots)
         end
       end
 
       describe 'when 3 sports race' do
         it { is_expected.not_to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).for('shots') }
+
+        it { is_expected.not_to allow_value([11, 10]).for('shots') }
       end
     end
 
