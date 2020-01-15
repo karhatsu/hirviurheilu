@@ -211,9 +211,9 @@ describe RelativePoints do
 
     context 'when two phase qualification round and no results from final round' do
       it '4. second qualification phase score' do
-        competitor1 = build_competitor 90, 10, 0, [], [50, 40]
-        competitor2 = build_competitor 90, 10, 0, [], [49, 41]
-        competitor3 = build_competitor 90, 10, 0, [], [51, 39]
+        competitor1 = build_competitor 90, 10, 0, nil, [50, 40]
+        competitor2 = build_competitor 90, 10, 0, nil, [49, 41]
+        competitor3 = build_competitor 90, 10, 0, nil, [51, 39]
         expect(competitor2.relative_points).to be > competitor1.relative_points
         expect(competitor1.relative_points).to be > competitor3.relative_points
       end
