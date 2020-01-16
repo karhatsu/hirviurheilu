@@ -145,6 +145,13 @@ describe ResultFormatHelper do
     end
   end
 
+  describe 'shots_print' do
+    it 'converts inner tens to tens with asterisks and separates shots with commas' do
+      shots = [9, 11, 10, 0, 1, 11]
+      expect(helper.shots_print(shots)).to eq '9, 10*, 10, 0, 1, 10*'
+    end
+  end
+
   describe '#time_points_print' do
     let(:unofficials) { Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME }
 

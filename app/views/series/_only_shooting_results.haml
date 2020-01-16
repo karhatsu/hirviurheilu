@@ -22,25 +22,25 @@
       %td
         - if comp.shots
           - if comp.qualification_round_sub_scores.length == 2
-            #{comp.qualification_round_sub_scores[0]} (#{comp.qualification_round_shots[0].join(', ')})
+            #{comp.qualification_round_sub_scores[0]} (#{shots_print comp.qualification_round_shots[0]})
             - if comp.qualification_round_shots[1].length > 0
-              + #{comp.qualification_round_sub_scores[1]} (#{comp.qualification_round_shots[1].join(', ')}) = #{comp.qualification_round_score}
+              + #{comp.qualification_round_sub_scores[1]} (#{shots_print comp.qualification_round_shots[1]}) = #{comp.qualification_round_score}
           - else
             #{comp.qualification_round_score}
-            (#{comp.qualification_round_shots.join(', ')})
+            (#{shots_print comp.qualification_round_shots})
       %td
         - if comp.final_round_shots
           - if comp.final_round_sub_scores.length == 2
-            #{comp.final_round_sub_scores[0]} (#{comp.final_round_shots[0].join(', ')})
+            #{comp.final_round_sub_scores[0]} (#{shots_print comp.final_round_shots[0]})
             - if comp.final_round_shots[1].length > 0
-              + #{comp.final_round_sub_scores[1]} (#{comp.final_round_shots[1].join(', ')}) = #{comp.final_round_score}
+              + #{comp.final_round_sub_scores[1]} (#{shots_print comp.final_round_shots[1]}) = #{comp.final_round_score}
           - else
             #{comp.final_round_score}
-            (#{comp.final_round_shots.join(', ')})
+            (#{shots_print comp.final_round_shots})
       - if extra_shots_column
         %td
           - if comp.extra_round_shots
-            #{comp.extra_round_score} (#{comp.extra_round_shots.join(', ')})
+            #{comp.extra_round_score} (#{shots_print comp.extra_round_shots})
       %td.center.total-points
         - if comp.no_result_reason
           = comp.no_result_reason

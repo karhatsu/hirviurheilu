@@ -71,6 +71,10 @@ module ResultFormatHelper
     "#{competitor.shooting_score} (#{shots.map {|shot| shot.to_i}.join(', ')})"
   end
 
+  def shots_print(shots)
+    shots.map{|shot| shot == 11 ? '10*' : shot}.join(', ')
+  end
+
   def comparison_time_title_attribute(competitor, unofficials, always_empty=false)
     return '' if always_empty
     comparison_time = competitor.comparison_time_in_seconds(unofficials)
