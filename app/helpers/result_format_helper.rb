@@ -64,7 +64,7 @@ module ResultFormatHelper
     raw("(<span class='adjustment' title=\"#{title.join(' ')}\">#{time_from_seconds(total_adjustment, true)}</span>)")
   end
 
-  def shots_list_print(competitor)
+  def competitor_shots_print(competitor)
     return '-' if competitor.shooting_score.nil?
     return competitor.shooting_score_input unless competitor.shooting_score_input.nil?
     shots = competitor.shots

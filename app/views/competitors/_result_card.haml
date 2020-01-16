@@ -26,7 +26,7 @@
     %table.results-table
       %tr
         %td= t :result
-        %td= shots_list_print(@competitor)
+        %td= competitor_shots_print(@competitor)
       - if @competitor.shooting_start_time
         %tr
           %td= t 'attributes.shooting_start_time'
