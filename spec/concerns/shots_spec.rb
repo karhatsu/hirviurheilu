@@ -43,10 +43,6 @@ describe Shots do
       expect(competitor.extra_round_shots).to be_nil
     end
 
-    it 'extra round score is nil' do
-      expect(competitor.extra_round_score).to be_nil
-    end
-
     context 'and no shots nor shooting score input given' do
       let(:competitor) { FakeCompetitor.new sport, nil }
 
@@ -124,10 +120,6 @@ describe Shots do
 
       it 'extra round shots is nil' do
         expect(competitor.extra_round_shots).to be_nil
-      end
-
-      it 'extra round score is nil' do
-        expect(competitor.extra_round_score).to be_nil
       end
     end
 
@@ -235,10 +227,6 @@ describe Shots do
           expect(competitor.extra_round_shots).to be_nil
         end
 
-        it 'extra round score is nil' do
-          expect(competitor.extra_round_score).to be_nil
-        end
-
         it 'shooting score is sum of shots' do
           expect(competitor.shooting_score).to eql 10 + 9 + 4 + 3 + 9 + 2 + 6 + 9 + 8 + 10
         end
@@ -253,10 +241,6 @@ describe Shots do
 
         it 'extra round shots is an array of extra shots' do
           expect(competitor.extra_round_shots).to eql [9, 8]
-        end
-
-        it 'extra round score is sum of extra shots' do
-          expect(competitor.extra_round_score).to eql 9 + 8
         end
 
         it 'shooting score is sum of qualification and final round shots' do
@@ -363,7 +347,6 @@ describe Shots do
       expect(competitor.final_round_sub_scores).to eql [20, 18]
       expect(competitor.final_round_score).to eql 20 + 18
       expect(competitor.shooting_score).to eql 19 + 15 + 20 + 18
-      expect(competitor.extra_round_score).to eql 10 + 10
     end
   end
 

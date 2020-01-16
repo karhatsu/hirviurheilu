@@ -40,7 +40,7 @@
       - if extra_shots_column
         %td
           - if comp.extra_round_shots
-            #{comp.extra_round_score} (#{shots_print comp.extra_round_shots})
+            #{shots_print comp.extra_round_shots}
       %td.center.total-points
         - if comp.no_result_reason
           = comp.no_result_reason

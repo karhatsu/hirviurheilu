@@ -26,12 +26,10 @@
               (#{shots_print comp.final_round_shots})
         - if comp.extra_round_shots
           .card__middle-row
-            Uusinta: #{comp.extra_round_score} (#{shots_print comp.extra_round_shots})
+            Uusinta: #{shots_print comp.extra_round_shots}
       .card__main-value
         - if comp.no_result_reason
           = comp.no_result_reason
         - else
           = comp.shooting_score
-          - if comp.extra_round_shots
-            + #{comp.extra_round_score}
     - prev_rel_points = comp.relative_points

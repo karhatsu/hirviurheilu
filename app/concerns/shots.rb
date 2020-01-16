@@ -51,12 +51,6 @@ module Shots
     extra_shots if extra_shots && extra_shots.length > 0 or nil
   end
 
-  def extra_round_score
-    extra_shots = extra_round_shots
-    return nil unless extra_shots
-    sum_of_array extra_shots, true
-  end
-
   def shooting_score
     return shooting_score_input if shooting_score_input
     return qualification_round_score + final_round_score.to_i if sport.qualification_round && qualification_round_score
