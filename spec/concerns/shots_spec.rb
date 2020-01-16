@@ -343,6 +343,30 @@ describe Shots do
     end
   end
 
+  context 'when shots contain value 11 (inner 10)' do
+    let(:competitor) { FakeCompetitor.new sport, [9, 11, 11, 5, 10, 11, 8, 11, 11, 10] }
+
+    before do
+      allow(sport).to receive(:qualification_round).and_return([2, 2])
+      allow(sport).to receive(:final_round).and_return([2, 2])
+    end
+
+    it 'value 11 is sent as 11 in shot arrays' do
+      expect(competitor.qualification_round_shots).to eql [[9, 11], [11, 5]]
+      expect(competitor.final_round_shots).to eql [[10, 11], [8, 11]]
+      expect(competitor.extra_round_shots).to eql [11, 10]
+    end
+
+    it 'value 11 is calculated as 10 in scores' do
+      expect(competitor.qualification_round_sub_scores).to eql [19, 15]
+      expect(competitor.qualification_round_score).to eql 19 + 15
+      expect(competitor.final_round_sub_scores).to eql [20, 18]
+      expect(competitor.final_round_score).to eql 20 + 18
+      expect(competitor.shooting_score).to eql 19 + 15 + 20 + 18
+      expect(competitor.extra_round_score).to eql 10 + 10
+    end
+  end
+
   class FakeCompetitor
     include Shots
 

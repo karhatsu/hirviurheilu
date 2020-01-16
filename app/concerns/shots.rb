@@ -12,33 +12,33 @@ module Shots
   def qualification_round_sub_scores
     qualification_shots = qualification_round_shots
     return nil unless qualification_shots
-    qualification_shots.map {|shots| sum_of_array shots}
+    qualification_shots.map {|shots| sum_of_array shots, true}
   end
 
   def qualification_round_score
     sub_scores = qualification_round_sub_scores
     return nil unless sub_scores
-    sum_of_array sub_scores
+    sum_of_array sub_scores, true
   end
 
   def final_round_shots
     qualification_round_rules = sport.qualification_round
     final_round_rules = sport.final_round
     return nil unless qualification_round_rules && final_round_rules
-    qualification_round_shot_count = sum_of_array qualification_round_rules
+    qualification_round_shot_count = sum_of_array qualification_round_rules, false
     split_shots final_round_rules, qualification_round_shot_count
   end
 
   def final_round_sub_scores
     final_shots = final_round_shots
     return nil unless final_shots
-    final_shots.map {|shots| sum_of_array shots}
+    final_shots.map {|shots| sum_of_array shots, true}
   end
 
   def final_round_score
     sub_scores = final_round_sub_scores
     return nil unless sub_scores
-    sum_of_array sub_scores
+    sum_of_array sub_scores, true
   end
 
   def extra_round_shots
@@ -46,7 +46,7 @@ module Shots
     qualification_round_rules = sport.qualification_round
     final_round_rules = sport.final_round
     return nil unless qualification_round_rules && final_round_rules
-    regular_shot_count = sum_of_array(qualification_round_rules) + sum_of_array(final_round_rules)
+    regular_shot_count = sum_of_array(qualification_round_rules, false) + sum_of_array(final_round_rules, false)
     extra_shots = shots[regular_shot_count..-1]
     extra_shots if extra_shots && extra_shots.length > 0 or nil
   end
@@ -54,7 +54,7 @@ module Shots
   def extra_round_score
     extra_shots = extra_round_shots
     return nil unless extra_shots
-    sum_of_array extra_shots
+    sum_of_array extra_shots, true
   end
 
   def shooting_score
@@ -74,7 +74,8 @@ module Shots
     [part1, part2]
   end
 
-  def sum_of_array(array)
+  def sum_of_array(array, eleven_as_ten)
+    array = array.map {|value| value == 11 ? 10 : value} if eleven_as_ten
     array&.inject(:+) || 0
   end
 end
