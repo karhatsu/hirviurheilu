@@ -589,7 +589,7 @@ describe Competitor do
         competitor0_1 = create_competitor_with_relative_points 0, 15
         competitor0_2 = create_competitor_with_relative_points 0, 16
         competitors = [competitor0_2, competitor3, competitor1, competitor2, competitor0_1]
-        expect(Competitor.sort_competitors(competitors, @unofficials, @sort_by))
+        expect(Competitor.sort_three_sports_competitors(competitors, @unofficials, @sort_by))
             .to eq([competitor1, competitor2, competitor3, competitor0_1, competitor0_2])
       end
     end
@@ -604,8 +604,7 @@ describe Competitor do
         competitor1 = create_competitor_with_relative_points 100, 30
         competitor2 = create_competitor_with_relative_points 99, 4
         competitors = [competitor1, competitor2]
-        expect(Competitor.sort_competitors(competitors, @unofficials, @sort_by))
-            .to eq([competitor1, competitor2])
+        expect(Competitor.sort_three_sports_competitors(competitors, @unofficials, @sort_by)).to eq([competitor1, competitor2])
       end
     end
 
@@ -614,7 +613,7 @@ describe Competitor do
         competitor1 = build :competitor, number: nil
         competitor2 = build :competitor, number: 5
         competitors = [competitor1, competitor2]
-        expect(Competitor.sort_competitors(competitors)).to eq competitors
+        expect(Competitor.sort_three_sports_competitors(competitors)).to eq competitors
       end
     end
 

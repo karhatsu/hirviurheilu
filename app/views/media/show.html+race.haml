@@ -1,11 +1,12 @@
 = render :partial => 'header'
-- results = []
+- all_results = []
 - clubs = params[:club_id] || []
 - @race.series.each do |series|
   - unless series.competitors.empty?
     - series_results = "#{t(:series)} #{series.name}: "
     - comp_results = []
-    - series.results.each_with_index do |c, i|
+    - results = @race.sport.only_shooting? ? series.shooting_race_results : series.three_sports_results
+    - results.each_with_index do |c, i|
       - max_points = c.points if i == 0
       - next unless i < @competitors_count or clubs.include?(c.club_id.to_s)
       - unless c.no_result_reason
@@ -13,9 +14,9 @@
         - comp_results << "#{i+1}) #{full_name(c)} #{c.club.name} #{c.points}#{' (' + record + ')' unless record.blank? }"
     - series_results << comp_results.join(', ')
     - series_results << '.'
-    - results << series_results
+    - all_results << series_results
 %h3= t '.report'
 .message.message--info= t '.result_info'
-= results.join(' ')
+= all_results.join(' ')
 .buttons.buttons--nav
   = link_to t(:back_to_race_home_page), race_path(@race), class: 'button button--back'

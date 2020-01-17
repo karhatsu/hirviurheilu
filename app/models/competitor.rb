@@ -185,9 +185,20 @@ class Competitor < ApplicationRecord
     start_date_time race, series.start_day, start_time
   end
 
-  def self.sort_competitors(competitors, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=SORT_BY_POINTS)
+  def self.sort_competitors(competitors)
+    return sort_shooting_race_competitors(competitors) if competitors.length && competitors[0].sport.only_shooting?
+    sort_three_sports_competitors competitors
+  end
+
+  def self.sort_three_sports_competitors(competitors, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=SORT_BY_POINTS)
     competitors.sort do |a, b|
       [b.relative_points(unofficials, sort_by), a.number.to_i] <=> [a.relative_points(unofficials, sort_by), b.number.to_i]
+    end
+  end
+
+  def self.sort_shooting_race_competitors(competitors)
+    competitors.sort do |a, b|
+      [b.relative_points, a.number.to_i] <=> [a.relative_points, b.number.to_i]
     end
   end
 

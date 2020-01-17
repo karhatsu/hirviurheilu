@@ -1,7 +1,7 @@
 - unofficials = unofficials_result_rule series.race
 .result-cards
   - prev_rel_points = 1.0/0.0
-  - series.results(unofficials, params[:sort].to_i).each_with_index do |comp, i|
+  - series.three_sports_results(unofficials).each_with_index do |comp, i|
     .card{class: i % 2 == 0 ? 'card--odd' : ''}
       - if i == 0
         - @max_points = comp.points

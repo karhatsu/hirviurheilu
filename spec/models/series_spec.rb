@@ -463,7 +463,7 @@ describe Series do
     end
   end
 
-  describe "#results" do
+  describe "#three_sports_results" do
     it "should call Competitor.sort_competitors with all competitors in the series" do
       unofficials = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
       series = build(:series)
@@ -471,8 +471,8 @@ describe Series do
       allow(series).to receive(:competitors).and_return(competitors)
       expect(competitors).to receive(:includes).with([:club, :age_group, :series]).
         and_return(included)
-      expect(Competitor).to receive(:sort_competitors).with(included, unofficials, Competitor::SORT_BY_POINTS).and_return([1, 2, 3])
-      expect(series.results(unofficials)).to eq([1, 2, 3])
+      expect(Competitor).to receive(:sort_three_sports_competitors).with(included, unofficials, Competitor::SORT_BY_POINTS).and_return([1, 2, 3])
+      expect(series.three_sports_results(unofficials)).to eq([1, 2, 3])
     end
 
     context "when sort parameter given" do
@@ -483,8 +483,8 @@ describe Series do
         allow(series).to receive(:competitors).and_return(competitors)
         expect(competitors).to receive(:includes).with([:club, :age_group, :series]).
           and_return(included)
-        expect(Competitor).to receive(:sort_competitors).with(included, unofficials, Competitor::SORT_BY_TIME).and_return([1, 2, 3])
-        expect(series.results(unofficials, Competitor::SORT_BY_TIME)).to eq([1, 2, 3])
+        expect(Competitor).to receive(:sort_three_sports_competitors).with(included, unofficials, Competitor::SORT_BY_TIME).and_return([1, 2, 3])
+        expect(series.three_sports_results(unofficials, Competitor::SORT_BY_TIME)).to eq([1, 2, 3])
       end
     end
   end

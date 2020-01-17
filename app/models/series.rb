@@ -62,8 +62,12 @@ class Series < ApplicationRecord
     set_estimates
   end
 
-  def results(unofficials=UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=Competitor::SORT_BY_POINTS)
-    Competitor.sort_competitors(competitors.includes([:club, :age_group, :series]), unofficials, sort_by)
+  def three_sports_results(unofficials=UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=Competitor::SORT_BY_POINTS)
+    Competitor.sort_three_sports_competitors competitors.includes([:club, :age_group, :series]), unofficials, sort_by
+  end
+
+  def shooting_race_results
+    Competitor.sort_shooting_race_competitors competitors.includes([:club, :age_group, :series])
   end
 
   def next_start_number
