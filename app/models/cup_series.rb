@@ -15,7 +15,7 @@ class CupSeries < ApplicationRecord
     @cup_competitors ||= pick_competitors_with_same_name_in_all_races
   end
 
-  def ordered_competitors
+  def results
     cup_competitors.sort do |a, b|
       a_points = a.points_array.map {|p| p.to_i}.sort {|p1, p2| p2 <=> p1}
       b_points = b.points_array.map {|p| p.to_i}.sort {|p1, p2| p2 <=> p1}

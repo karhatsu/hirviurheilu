@@ -1,6 +1,6 @@
 - show_series_name = !@cup_series.has_single_series_with_same_name?
 .result-cards
-  - @cup_series.ordered_competitors.each_with_index do |cc, i|
+  - @cup_series.results.each_with_index do |cc, i|
     .card{class: i % 2 == 0 ? 'card--odd' : ''}
       .card__number #{i + 1}.
       .card__middle

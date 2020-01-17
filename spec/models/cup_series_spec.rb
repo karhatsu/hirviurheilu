@@ -166,14 +166,14 @@ describe CupSeries do
     end
   end
 
-  describe "#ordered_competitors" do
+  describe "#results" do
     before do
       @cs = build(:cup_series)
     end
 
     it "should return an empty array when no competitors" do
       allow(@cs).to receive(:cup_competitors).and_return([])
-      expect(@cs.ordered_competitors).to eq([])
+      expect(@cs.results).to eq([])
     end
 
     it 'should return cup competitors ordered by descending partial points, best single race points, best shot points' do
@@ -185,7 +185,7 @@ describe CupSeries do
       cc6 = double(CupCompetitor, points!: 3002, points_array: [1000, 1000, 1002], shots_array: [600, nil, 587])
       cc7 = double(CupCompetitor, points!: 3002, points_array: [1000, 1000, 1002], shots_array: [600, nil, 588])
       allow(@cs).to receive(:cup_competitors).and_return([cc1, cc2, cc3, cc4, cc5, cc6, cc7])
-      expect(@cs.ordered_competitors).to eq([cc2, cc1, cc4, cc7, cc6, cc3, cc5])
+      expect(@cs.results).to eq([cc2, cc1, cc4, cc7, cc6, cc3, cc5])
     end
   end
 end

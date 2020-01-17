@@ -62,7 +62,7 @@ class Series < ApplicationRecord
     set_estimates
   end
 
-  def ordered_competitors(unofficials=UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=Competitor::SORT_BY_POINTS)
+  def results(unofficials=UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=Competitor::SORT_BY_POINTS)
     Competitor.sort_competitors(competitors.includes([:club, :age_group, :series]), unofficials, sort_by)
   end
 
