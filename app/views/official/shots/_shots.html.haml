@@ -4,7 +4,9 @@
     .card
       .card__number= competitor.number
       .card__middle
-        .card__name= full_name competitor
+        .card__name
+          = full_name competitor
+          %span{id: "status_#{competitor.id}"}
         - unless competitor.no_result_reason
           .card__middle-row
             = form_for([:official, @series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "shots_form_#{competitor.id}", class: 'form form--inline' }) do |f|
@@ -14,7 +16,6 @@
                 .card__sub-result.card__sub-result--shoot
                   = render partial: 'official/shots/individual_shots', locals: { f: f, competitor: competitor }
                 .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
-                %div{id: "status_#{competitor.id}"}
       .card__main-value{id: "shots_result_#{competitor.id}"}
         - if competitor.no_result_reason
           = competitor.no_result_reason
