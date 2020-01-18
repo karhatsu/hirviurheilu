@@ -4,7 +4,6 @@ class Competitor < ApplicationRecord
   include ModelValueComparator
   include StartDateTime
   include Shots
-  include RelativePoints
   include CompetitorResults
 
   DNS = 'DNS' # did not start
@@ -200,7 +199,7 @@ class Competitor < ApplicationRecord
 
   def self.sort_shooting_race_competitors(competitors)
     competitors.sort do |a, b|
-      [b.relative_points, a.number.to_i] <=> [a.relative_points, b.number.to_i]
+      [b.shooting_race_results, a.number.to_i] <=> [a.shooting_race_results, b.number.to_i]
     end
   end
 

@@ -575,7 +575,7 @@ describe Competitor do
     end
   end
 
-  describe "#sort_competitors" do
+  describe "#sort_three_sports_competitors" do
     describe 'without unofficial competitors' do
       before do
         @unofficials = Series::UNOFFICIALS_EXCLUDED
@@ -620,6 +620,33 @@ describe Competitor do
     def create_competitor(points, shooting_points, number)
       competitor = build :competitor, number: number
       allow(competitor).to receive(:three_sports_race_results).with(@unofficials, @sort_by).and_return([points, shooting_points])
+      competitor
+    end
+  end
+
+  describe "#sort_shooting_race_competitors" do
+    it 'should sort by result array and number' do
+      competitor1 = create_competitor 100, 48, 30
+      competitor2 = create_competitor 99, 50, 4
+      competitor3 = create_competitor 99, 49, 3
+      competitor0_1 = create_competitor 10, 9, 15
+      competitor0_2 = create_competitor 10, 9, 16
+      competitors = [competitor0_2, competitor3, competitor1, competitor2, competitor0_1]
+      expect(Competitor.sort_shooting_race_competitors(competitors)).to eq([competitor1, competitor2, competitor3, competitor0_1, competitor0_2])
+    end
+
+    describe 'when competitors have no points yet but only some competitors have number' do
+      it 'should consider number as 0' do
+        competitor1 = create_competitor 0, 0, nil
+        competitor2 = create_competitor 0, 0, 5
+        competitors = [competitor1, competitor2]
+        expect(Competitor.sort_shooting_race_competitors(competitors)).to eq competitors
+      end
+    end
+
+    def create_competitor(shooting_score, final_round_score, number)
+      competitor = build :competitor, number: number
+      allow(competitor).to receive(:shooting_race_results).and_return([shooting_score, final_round_score])
       competitor
     end
   end

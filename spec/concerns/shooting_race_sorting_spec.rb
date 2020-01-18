@@ -41,7 +41,7 @@ describe 'shooting race sorting' do
   def test_file(subdir, file_name, sport)
     shot_lines = File.open("spec/concerns/shots/#{subdir}/#{file_name}").readlines
     competitors = shot_lines.each_with_index.map {|line, i| build_competitor line, i, sport }
-    sorted_competitors = competitors.sort {|a, b| b.relative_points(competitors) <=> a.relative_points(competitors) }
+    sorted_competitors = Competitor.sort_shooting_race_competitors competitors
     errors = []
     sorted_competitors.each_with_index do |c, i|
       errors << "Expected #{c.first_name} to have position #{c.number} but had #{i + 1}" if c.number != i + 1

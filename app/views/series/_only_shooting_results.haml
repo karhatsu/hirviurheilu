@@ -11,11 +11,11 @@
     - if extra_shots_column
       %th Uusinta
     %th Tulos
-  - prev_rel_points = 1.0/0.0
+  - prev_competitor_results = 1.0/0.0
   - competitors.each_with_index do |comp, i|
-    - relative_points = comp.relative_points
+    - shooting_race_results = comp.shooting_race_results
     %tr{class: i % 2 == 0 ? 'odd' : ''}
-      %td= (relative_points == prev_rel_points) ? raw('&nbsp;') : "#{i + 1}."
+      %td= (shooting_race_results == prev_competitor_results) ? raw('&nbsp;') : "#{i + 1}."
       %td= full_name(comp)
       %td= comp.number
       %td= comp.club.name
@@ -46,4 +46,4 @@
           = comp.no_result_reason
         - else
           = comp.shooting_score
-    - prev_rel_points = relative_points
+    - prev_competitor_results = shooting_race_results
