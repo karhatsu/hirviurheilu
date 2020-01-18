@@ -1,11 +1,12 @@
 - unofficials = unofficials_result_rule series.race
 .result-cards
-  - prev_rel_points = 1.0/0.0
+  - prev_competitor_results = 1.0/0.0
   - series.three_sports_results(unofficials).each_with_index do |comp, i|
+    - competitor_results = comp.three_sports_race_results(unofficials)
     .card{class: i % 2 == 0 ? 'card--odd' : ''}
       - if i == 0
         - @max_points = comp.points
-      .card__number= "#{i + 1}." unless comp.relative_points == prev_rel_points
+      .card__number= "#{i + 1}." unless competitor_results == prev_competitor_results
       .card__middle
         .card__name
           = full_name(comp)
@@ -32,4 +33,4 @@
         = points_print(comp, unofficials)
         - if comp.points.to_i >= @max_points.to_i
           = national_record_print(comp)
-    - prev_rel_points = comp.relative_points
+    - prev_competitor_results = competitor_results

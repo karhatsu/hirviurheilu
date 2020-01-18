@@ -582,12 +582,12 @@ describe Competitor do
         @sort_by = 'some-sort-order'
       end
 
-      it 'should sort by relative points and number' do
-        competitor1 = create_competitor_with_relative_points 100, 30
-        competitor2 = create_competitor_with_relative_points 99, 4
-        competitor3 = create_competitor_with_relative_points 98, 99
-        competitor0_1 = create_competitor_with_relative_points 0, 15
-        competitor0_2 = create_competitor_with_relative_points 0, 16
+      it 'should sort by result array and number' do
+        competitor1 = create_competitor 100, 48, 30
+        competitor2 = create_competitor 99, 50, 4
+        competitor3 = create_competitor 99, 49, 3
+        competitor0_1 = create_competitor 10, 9, 15
+        competitor0_2 = create_competitor 10, 9, 16
         competitors = [competitor0_2, competitor3, competitor1, competitor2, competitor0_1]
         expect(Competitor.sort_three_sports_competitors(competitors, @unofficials, @sort_by))
             .to eq([competitor1, competitor2, competitor3, competitor0_1, competitor0_2])
@@ -600,9 +600,9 @@ describe Competitor do
         @sort_by = 'another-sort-order'
       end
 
-      it 'should sort by relative points and number' do
-        competitor1 = create_competitor_with_relative_points 100, 30
-        competitor2 = create_competitor_with_relative_points 99, 4
+      it 'should sort by result array and number' do
+        competitor1 = create_competitor 100, 59, 30
+        competitor2 = create_competitor 99, 40, 4
         competitors = [competitor1, competitor2]
         expect(Competitor.sort_three_sports_competitors(competitors, @unofficials, @sort_by)).to eq([competitor1, competitor2])
       end
@@ -617,9 +617,9 @@ describe Competitor do
       end
     end
 
-    def create_competitor_with_relative_points(relative_points, number)
+    def create_competitor(points, shooting_points, number)
       competitor = build :competitor, number: number
-      allow(competitor).to receive(:relative_points).with(@unofficials, @sort_by).and_return(relative_points)
+      allow(competitor).to receive(:three_sports_race_results).with(@unofficials, @sort_by).and_return([points, shooting_points])
       competitor
     end
   end

@@ -5,6 +5,7 @@ class Competitor < ApplicationRecord
   include StartDateTime
   include Shots
   include RelativePoints
+  include CompetitorResults
 
   DNS = 'DNS' # did not start
   DNF = 'DNF' # did not finish
@@ -192,7 +193,8 @@ class Competitor < ApplicationRecord
 
   def self.sort_three_sports_competitors(competitors, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=SORT_BY_POINTS)
     competitors.sort do |a, b|
-      [b.relative_points(unofficials, sort_by), a.number.to_i] <=> [a.relative_points(unofficials, sort_by), b.number.to_i]
+      b.three_sports_race_results(unofficials, sort_by) + [a.number.to_i] <=>
+          a.three_sports_race_results(unofficials, sort_by) + [b.number.to_i]
     end
   end
 

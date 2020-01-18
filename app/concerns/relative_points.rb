@@ -7,29 +7,10 @@ module RelativePoints
     return -1000001 if no_result_reason == Competitor::DNF
     if sport.only_shooting?
       only_shooting_relative_points
-    else
-      three_sports_relative_points unofficials, sort_by
     end
   end
 
   private
-
-  def three_sports_relative_points(unofficials, sort_by)
-    if sort_by == Competitor::SORT_BY_SHOTS
-      shooting_points.to_i
-    elsif sort_by == Competitor::SORT_BY_ESTIMATES
-      estimate_points.to_i
-    elsif sort_by == Competitor::SORT_BY_TIME
-      return -time_in_seconds.to_i if time_in_seconds
-      -1000000
-    else
-      relative_points = 1000000*points(unofficials).to_i + 1000*shooting_points.to_i
-      relative_points = relative_points - time_in_seconds.to_i unless series.walking_series?
-      relative_points = relative_points + relative_shooting_points if series.walking_series?
-      relative_points = relative_points * 10 unless unofficials != Series::UNOFFICIALS_EXCLUDED || unofficial?
-      relative_points
-    end
-  end
 
   def only_shooting_relative_points
     return 0 unless shooting_score
