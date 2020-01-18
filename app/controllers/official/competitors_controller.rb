@@ -53,7 +53,7 @@ class Official::CompetitorsController < Official::OfficialController
   def update
     club_ok = handle_club(@competitor)
     update_params = update_competitor_params
-    set_shots
+    set_shots unless params['shots0'].blank?
     if club_ok && handle_time_parameters && @competitor.update(update_params)
       js_template = params[:start_list] ? 'official/start_lists/update_success' :
         'official/competitors/update_success'
