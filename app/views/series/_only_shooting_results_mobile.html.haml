@@ -2,7 +2,7 @@
   - prev_competitor_results = 1.0/0.0
   - series.shooting_race_results.each_with_index do |comp, i|
     .card{class: i % 2 == 0 ? 'card--odd' : ''}
-      .card__number= "#{i + 1}." unless comp.shooting_race_results == prev_competitor_results
+      .card__number= "#{i + 1}." unless comp.shooting_race_results(series.competitors) == prev_competitor_results
       .card__middle
         .card__name= full_name(comp)
         .card__middle-row= comp.club.name
@@ -32,4 +32,4 @@
           = comp.no_result_reason
         - else
           = comp.shooting_score
-    - prev_competitor_results = comp.shooting_race_results
+    - prev_competitor_results = comp.shooting_race_results series.competitors

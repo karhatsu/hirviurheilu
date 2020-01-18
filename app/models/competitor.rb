@@ -199,7 +199,7 @@ class Competitor < ApplicationRecord
 
   def self.sort_shooting_race_competitors(competitors)
     competitors.sort do |a, b|
-      [b.shooting_race_results, a.number.to_i] <=> [a.shooting_race_results, b.number.to_i]
+      [b.shooting_race_results(competitors), a.number.to_i] <=> [a.shooting_race_results(competitors), b.number.to_i]
     end
   end
 

@@ -124,18 +124,24 @@ describe CompetitorResults do
 
   context '#shooting_race_results' do
     let(:competitor) { build :competitor }
+    let(:competitor2) { build :competitor }
+    let(:competitors) { [competitor2, competitor] }
+
+    before do
+      allow(competitor2).to receive(:extra_round_shots).and_return([8, 10, 7, 6, 5])
+    end
 
     context 'when no result reason' do
       it 'returns array of one time with negative value' do
-        expect(competitor_with_no_result_reason(Competitor::DNF).shooting_race_results).to eql [-10000]
-        expect(competitor_with_no_result_reason(Competitor::DNS).shooting_race_results).to eql [-20000]
-        expect(competitor_with_no_result_reason(Competitor::DQ).shooting_race_results).to eql [-30000]
+        expect(competitor_with_no_result_reason(Competitor::DNF).shooting_race_results(competitors)).to eql [-10000]
+        expect(competitor_with_no_result_reason(Competitor::DNS).shooting_race_results(competitors)).to eql [-20000]
+        expect(competitor_with_no_result_reason(Competitor::DQ).shooting_race_results(competitors)).to eql [-30000]
       end
     end
 
     context 'when no shots yet' do
       it 'returns array of zeros' do
-        expect(competitor.shooting_race_results).to eql [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        expect(competitor.shooting_race_results(competitors)).to eql [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       end
     end
 
@@ -146,6 +152,7 @@ describe CompetitorResults do
       let(:second_qualification_round_sub_score) { 42 }
       let(:qualification_round_sub_scores) { [39, second_qualification_round_sub_score] }
       let(:shots) { [2, 9, 10, 11, 6, 0, 1, 10, 10, 1] }
+      let(:extra_round_shots) { [8, 11] }
 
       before do
         allow(competitor).to receive(:shooting_score).and_return(shooting_score)
@@ -154,25 +161,28 @@ describe CompetitorResults do
         allow(competitor).to receive(:shots).and_return(shots)
       end
 
-      context 'and final round score available' do
+      context 'and final round score and extra round shots available' do
         before do
           allow(competitor).to receive(:final_round_score).and_return(final_round_score)
+          allow(competitor).to receive(:extra_round_shots).and_return(extra_round_shots)
         end
 
-        it 'returns array of shooting score, hits, final round score, 0, count of different shots (11 as 10), and shots in reverse order' do
-          expected = [shooting_score, hits, final_round_score, 0, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
-          expect(competitor.shooting_race_results).to eql expected
+        it 'returns array of shooting score, extra round filled sum, hits, final round score, 0, count of different shots (11 as 10), and shots in reverse order' do
+          extra_round_filled_sum = [8, 11, 12, 12, 12].inject(:+)
+          expected = [shooting_score, extra_round_filled_sum, hits, final_round_score, 0, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
+          expect(competitor.shooting_race_results(competitors)).to eql expected
         end
       end
 
       context 'and no final round score' do
         before do
           allow(competitor).to receive(:final_round_score).and_return(nil)
+          allow(competitor).to receive(:extra_round_shots).and_return(nil)
         end
 
-        it 'returns array of shooting score, hits, 0, second qualification round score, count of different shots (11 as 10), and shots in reverse order' do
-          expected = [shooting_score, hits, 0, second_qualification_round_sub_score, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
-          expect(competitor.shooting_race_results).to eql expected
+        it 'returns array of shooting score, 0, hits, 0, second qualification round score, count of different shots (11 as 10), and shots in reverse order' do
+          expected = [shooting_score, 0, hits, 0, second_qualification_round_sub_score, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
+          expect(competitor.shooting_race_results(competitors)).to eql expected
         end
       end
     end
