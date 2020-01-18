@@ -14,7 +14,7 @@
     margin-right: 4px;
     margin-top: 4px;
 
-    &:hover {
+    &.current, &:hover {
       background: olive;
       color: #fff;
 
