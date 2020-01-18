@@ -52,5 +52,5 @@
       %td{class: shots_css}= shooting_points_print(comp, true, true)
       %td.center{class: points_css}
         = points_print(comp, unofficials)
-        = national_record_print(comp) if comp.points.to_i >= @max_points.to_i
+        = national_record_print(comp) if comp.points.to_i >= @max_points.to_i && params[:sort].blank?
     - prev_rel_points = relative_points
