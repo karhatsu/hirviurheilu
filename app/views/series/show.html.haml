@@ -10,6 +10,9 @@
   = render partial: 'series/infos', locals: { series: @series }
   - cache [@series, params[:sort], unofficials, I18n.locale] do
     - if @series.race.sport.only_shooting?
+      .buttons
+        #show-shots-button.button{onclick: 'showShots()'} Näytä laukaukset
+        #hide-shots-button.button{onclick: 'hideShots()', style: 'display: none'} Piilota laukaukset
       .results--desktop= render partial: 'series/only_shooting_results', locals: { series: @series }
       .results--mobile= render partial: 'series/only_shooting_results_mobile', locals: { series: @series }
     - else
@@ -28,3 +31,14 @@
   = link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race), class: 'button button--back'
   - if @series.race.sport.start_list?
     = link_to t(:start_list), race_series_start_list_path(@series.race, @series), class: 'button'
+:javascript
+  function showShots() {
+    $('.shots').addClass('shots--visible')
+    $('#show-shots-button').hide()
+    $('#hide-shots-button').show()
+  }
+  function hideShots() {
+    $('.shots').removeClass('shots--visible')
+    $('#show-shots-button').show()
+    $('#hide-shots-button').hide()
+  }
