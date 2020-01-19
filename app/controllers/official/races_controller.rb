@@ -71,7 +71,10 @@ class Official::RacesController < Official::OfficialController
   end
 
   def set_sports
-    @sports = [Sport::RUN, Sport::SKI].map{|key| [Sport.by_key(key).name, key]}
+    sport_keys = [Sport::RUN, Sport::SKI]
+    sport_keys << Sport::ILMAHIRVI unless ProductionEnvironment.production?
+    sport_keys << Sport::ILMALUODIKKO unless ProductionEnvironment.production?
+    @sports = sport_keys.map{|key| [Sport.by_key(key).name, key]}
   end
 
   def create_race_params
