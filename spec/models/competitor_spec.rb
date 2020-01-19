@@ -1226,6 +1226,30 @@ describe Competitor do
     end
   end
 
+
+  describe '#team_competition_points' do
+    let(:qualification_round_score) { 87 }
+    let(:points) { 200 }
+    let(:competitor) { build :competitor }
+
+    before do
+      allow(competitor).to receive(:qualification_round_score).and_return(qualification_round_score)
+      allow(competitor).to receive(:points).and_return(points)
+    end
+
+    context 'when shooting race' do
+      it 'returns qualification round score' do
+        expect(competitor.team_competition_points(Sport.by_key Sport::ILMALUODIKKO)).to eql qualification_round_score
+      end
+    end
+
+    context 'when 3 sports race' do
+      it 'returns points' do
+        expect(competitor.team_competition_points(Sport.by_key Sport::RUN)).to eql points
+      end
+    end
+  end
+
   describe "#next_competitor" do
     before do
       @series = create(:series)

@@ -9,6 +9,8 @@ class TeamCompetition < ApplicationRecord
 
   attr_accessor :temp_series_names, :temp_age_groups_names
 
+  delegate :sport, to: :race
+
   def cache_key
     "#{super}-#{race.updated_at.utc.to_s(:usec)}-#{race.series.maximum(:updated_at).try(:utc).try(:to_s, :usec)}"
   end
@@ -71,7 +73,7 @@ class TeamCompetition < ApplicationRecord
     competitor_counter_by_team = Hash.new
     teams = Hash.new
     Competitor.sort_competitors(competitors).each do |competitor|
-      break if competitor.points.nil?
+      break if competitor.team_competition_points(sport).nil?
       base_team_name = resolve_team_name competitor
       next unless base_team_name
       competitor_counter_by_team[base_team_name] ||= 0
@@ -104,7 +106,7 @@ class TeamCompetition < ApplicationRecord
   end
 
   def add_competitor_to_team_hash(team_hash, competitor)
-    competitor_points = competitor.points.to_i
+    competitor_points = competitor.team_competition_points(sport).to_i
     competitor_shooting_points = competitor.shooting_points.to_i
     competitor_time = competitor.time_in_seconds
     team_hash[:competitors] << competitor

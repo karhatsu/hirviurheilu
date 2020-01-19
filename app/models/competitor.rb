@@ -160,6 +160,11 @@ class Competitor < ApplicationRecord
     shooting_points.to_i + estimate_points.to_i + time_points(unofficials).to_i
   end
 
+  def team_competition_points(sport)
+    return qualification_round_score if sport.only_shooting?
+    points
+  end
+
   def finished?
     no_result_reason ||
       (start_time && (arrival_time || series.walking_series?) && shooting_score && estimate1 && estimate2 &&

@@ -41,37 +41,42 @@ describe TeamCompetition do
   end
 
   describe "#results_for_competitors" do
+    let(:sport) { instance_double Sport }
+    let(:race) { build :race }
+    let(:tc) { build :team_competition, race: race, team_competitor_count: 2, multiple_teams: true }
+
     before do
-      @tc = build(:team_competition, team_competitor_count: 2, multiple_teams: true)
+      allow(race).to receive(:sport).and_return(sport)
     end
 
-    context "when the race is not finished" do
-      it "should return array with results even if none of the clubs have enough competitors" do
-        @club = instance_double(Club, display_name: 'Test club')
-        @race = instance_double(Race)
-        @c = instance_double(Competitor, :points => 1100, :club => @club,
-          :shooting_points => 300, :time_in_seconds => 500, :unofficial => false,
-                        :race => @race)
-        allow(@c).to receive(:unofficial?).and_return(false)
-        expect(Competitor).to receive(:sort_competitors).with([@c]).and_return([@c])
-        allow(@race).to receive(:finished?).and_return(false)
-        allow(@tc).to receive(:race).and_return(@race)
-        @tc.results_for_competitors([@c])[0] == 1100
+    context 'when none of the clubs have enough competitors' do
+      let(:club) { instance_double Club, display_name: 'Test club' }
+      let(:competitor) { instance_double Competitor, club: club, shooting_points: 300, time_in_seconds: 500, unofficial: false, race: race }
+
+      before do
+        allow(competitor).to receive(:team_competition_points).with(sport).and_return(1100)
+        allow(competitor).to receive(:unofficial?).and_return(false)
+        expect(Competitor).to receive(:sort_competitors).with([competitor]).and_return([competitor])
       end
-    end
 
-    context "when the race is finished" do
-      it "should return empty array if none of the clubs have enough competitors" do
-        @club = instance_double(Club, display_name: 'Test club')
-        @race = instance_double(Race)
-        @c = instance_double(Competitor, :points => 1100, :club => @club,
-          :shooting_points => 300, :time_in_seconds => 500, :unofficial => false,
-                        :race => @race)
-        allow(@c).to receive(:unofficial?).and_return(false)
-        expect(Competitor).to receive(:sort_competitors).with([@c]).and_return([@c])
-        allow(@race).to receive(:finished?).and_return(true)
-        allow(@tc).to receive(:race).and_return(@race)
-        expect(@tc.results_for_competitors([@c])).to eq([])
+      context "and the race is not finished" do
+        before do
+          allow(race).to receive(:finished?).and_return(false)
+        end
+
+        it "should return array with results" do
+          expect(tc.results_for_competitors([competitor])[0][:best_points]).to eql 1100
+        end
+      end
+
+      context "when the race is finished" do
+        before do
+          allow(race).to receive(:finished?).and_return(true)
+        end
+
+        it "should return empty array" do
+          expect(tc.results_for_competitors([competitor])).to eq([])
+        end
       end
     end
 
@@ -80,7 +85,6 @@ describe TeamCompetition do
         @default_shooting_points = 200
         @default_time_in_seconds = 1000
 
-        @race = instance_double(Race)
         @club_best_total_points = instance_double(Club, display_name: 'Club 1')
         @club_best_single_points = instance_double(Club, display_name: 'Club 2')
         @club_best_single_shots = instance_double(Club, display_name: 'Club 3')
@@ -132,14 +136,14 @@ describe TeamCompetition do
             @club_no_result_c1, @club_no_result_c2,
             @club_unofficial1, @club_unofficial2, @club_small_nil_points]
         @official_competitors = @competitors - [@club_unofficial1, @club_unofficial2]
-        allow(@tc).to receive(:race).and_return(@race)
-        allow(@race).to receive(:finished?).and_return(true)
+        allow(tc).to receive(:race).and_return(race)
+        allow(race).to receive(:finished?).and_return(true)
         expect(Competitor).to receive(:sort_competitors).with(@official_competitors).and_return(@official_competitors)
       end
 
       describe "should return an array of hashes" do
         before do
-          @results = @tc.results_for_competitors(@competitors)
+          @results = tc.results_for_competitors(@competitors)
         end
 
         context "when race is finished" do
@@ -164,10 +168,10 @@ describe TeamCompetition do
               "so that the clubs are ordered: 1. total points " +
               "2. best individual points 3. best individual shot points " +
               "4. fastest individual time" do
-            allow(@tc).to receive(:race).and_return(@race)
-            allow(@race).to receive(:finished?).and_return(false)
+            allow(tc).to receive(:race).and_return(race)
+            allow(race).to receive(:finished?).and_return(false)
             expect(Competitor).to receive(:sort_competitors).with(@official_competitors).and_return(@official_competitors)
-            @results = @tc.results_for_competitors(@competitors)
+            @results = tc.results_for_competitors(@competitors)
             expect(@results.length).to eq(10)
             expect(@results[0][:club]).to eq(@club_best_total_points.display_name)
             expect(@results[1][:club]).to eq(@club_best_single_points.display_name)
@@ -201,17 +205,18 @@ describe TeamCompetition do
       end
 
       def create_competitor(club, points, options={})
-        competitor = instance_double(Competitor, {points: points, club: club, shooting_points: @default_shooting_points,
+        competitor = instance_double(Competitor, {club: club, shooting_points: @default_shooting_points,
                                      time_in_seconds: @default_time_in_seconds,
                                      team_name: nil}.merge(options))
+        allow(competitor).to receive(:team_competition_points).with(sport).and_return(points)
         allow(competitor).to receive(:unofficial?).and_return(options[:unofficial])
         competitor
       end
 
       context 'when 3 competitors / team' do
         before do
-          @tc.team_competitor_count = 3
-          @results = @tc.results_for_competitors(@competitors)
+          tc.team_competitor_count = 3
+          @results = tc.results_for_competitors(@competitors)
         end
 
         it 'chooses teams that have at least 3 competitors' do
@@ -224,8 +229,8 @@ describe TeamCompetition do
 
       context 'when no multiple teams wanted' do
         before do
-          @tc.multiple_teams = false
-          @results = @tc.results_for_competitors(@competitors)
+          tc.multiple_teams = false
+          @results = tc.results_for_competitors(@competitors)
         end
 
         it 'does not create second teams' do
@@ -236,12 +241,12 @@ describe TeamCompetition do
 
       context "when team name is wanted to use" do
         before do
-          @tc.use_team_name = true
+          tc.use_team_name = true
         end
 
         context "but no team names defined" do
           it "should return no results" do
-            expect(@tc.results_for_competitors(@competitors)).to eq([])
+            expect(tc.results_for_competitors(@competitors)).to eq([])
           end
         end
 
@@ -253,7 +258,7 @@ describe TeamCompetition do
             allow(@club_best_single_points_c2).to receive(:team_name).and_return('Team second')
             allow(@club_best_single_shots_c1).to receive(:team_name).and_return('')
             allow(@club_best_single_shots_c2).to receive(:team_name).and_return('')
-            @results = @tc.results_for_competitors(@competitors)
+            @results = tc.results_for_competitors(@competitors)
           end
 
           it "should return results for teams with those competitors" do
