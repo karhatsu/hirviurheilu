@@ -32,10 +32,4 @@ class Sport
   def self.by_key(key)
     CONFIGS[key.to_sym] or raise "Unknown sport key: #{key}"
   end
-
-  def self.default_sport_key
-    month = Time.new.month
-    return RUN if month >= 5 and month <= 10
-    SKI
-  end
 end

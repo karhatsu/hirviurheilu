@@ -13,7 +13,7 @@ class Official::RacesController < Official::OfficialController
     @race.start_interval_seconds = Race::DEFAULT_START_INTERVAL
     @race.batch_size = 0
     @race.batch_interval_seconds = Race::DEFAULT_BATCH_INTERVAL
-    @race.sport_key = Sport.default_sport_key
+    @race.sport_key = params[:sport_key]
     @race.start_order = Race::START_ORDER_NOT_SELECTED
   end
 

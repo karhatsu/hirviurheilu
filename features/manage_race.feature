@@ -10,6 +10,11 @@ Feature: Manage race
     When I follow "Lisää uusi kilpailu"
     Then I should be on the new race page
     And the official main menu item should be selected
+    And I should see "Aloita valitsemalla laji" in an info message
+    When I select "Hirvenhiihto" from "sport_key"
+    And I press "Jatka"
+    Then I should be on the new race page
+    And I should not see "Aloita valitsemalla laji"
     And the "race_start_interval_seconds" field should contain "60"
     When I fill in the following:
       | Kilpailun nimi | Test race |
@@ -31,6 +36,8 @@ Feature: Manage race
     And I have logged in
     And I am on the official index page
     When I follow "Lisää uusi kilpailu"
+    And I select "Hirvenhiihto" from "sport_key"
+    And I press "Jatka"
     Then I should be on the new race page
     When I fill in the following:
       | Kilpailun nimi | Test race |
@@ -59,7 +66,9 @@ Feature: Manage race
     Given I am an official
     And I have logged in
     And I am on the new race page
-    When I fill in the following:
+    When I select "Hirvenjuoksu" from "sport_key"
+    And I press "Jatka"
+    And I fill in the following:
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |
       | Lähtöaikojen väli | 30 |

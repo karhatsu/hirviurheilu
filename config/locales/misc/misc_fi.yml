@@ -34,6 +34,7 @@ fi:
       one: 1 hlö
       other: "%{count} hlöä"
   competitors_per_team: Kilpailijoita / joukkue
+  continue: Jatka
   correct_distance: Oikea etäisyys
   correct_distances: Oikeat etäisyydet
   count_competitors:

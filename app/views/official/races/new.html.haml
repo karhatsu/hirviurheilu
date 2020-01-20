@@ -1,6 +1,9 @@
 - content_for(:title, t('.title'))
 - content_for(:page_title, yield(:title))
 = flash_success
-= render partial: "form", locals: { submit_label: t('.submit') }
+- if @race.sport_key.blank? && params[:sport_key].blank?
+  = render partial: 'sport_selection'
+- else
+  = render partial: 'form', locals: { submit_label: t('.submit') }
 .buttons.buttons--nav
   = link_to t(:back_to_official_home_page), official_root_path, class: 'button button--back'

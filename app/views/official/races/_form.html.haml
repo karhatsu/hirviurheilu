@@ -1,9 +1,10 @@
 = form_for([:official, @race], html: { class: 'form' }) do |f|
   = render partial: 'shared/form_errors', locals: { item: @race }
   %h2= t 'official.races.form.basic_information'
+  = f.hidden_field :sport_key
   .form__field.form__field--md.row
     .col-xs-12.col-sm-3= f.label :sport_key
-    .col-xs-12.col-sm-9= f.select(:sport_key, @sports)
+    .col-xs-12.col-sm-9= @race.sport.name
   .form__field.row
     .col-xs-12.col-sm-3= f.label :name
     .col-xs-12.col-sm-9= f.text_field :name

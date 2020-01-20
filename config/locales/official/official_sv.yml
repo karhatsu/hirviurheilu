@@ -16,6 +16,8 @@ sv:
     races:
       new:
         title: Öka tävling
+        sport_selection_info: Välj grenen först (du kan inte växla den senare)
+        choose_sport: Välj grenen
         add_default_series_automatically: Öka standardklasser automatiskt
         copy_series: Kopiera klasser från tävling
         submit: Öka tävling

@@ -16,6 +16,8 @@ fi:
     races:
       new:
         title: Kilpailun lisäys
+        sport_selection_info: Aloita valitsemalla laji (valintaa ei voi vaihtaa myöhemmin)
+        choose_sport: Valitse laji
         add_default_series_automatically: Lisää oletussarjat automaattisesti
         copy_series: Kopioi sarjat kilpailusta
         submit: Lisää kilpailu

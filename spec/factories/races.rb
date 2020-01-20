@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :race do
     district
-    sport_key { Sport.default_sport_key }
+    sport_key { Sport::SKI }
     name { 'Championships' }
     sequence(:location) { |n| "Tervo#{n}" }
     start_date { '2010-08-14' }

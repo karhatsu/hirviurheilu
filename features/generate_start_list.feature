@@ -153,7 +153,9 @@ Feature: Generate start list
     Given I am an official
     And I have logged in
     And I am on the new race page
-    When I fill in the following:
+    When I select "Hirvenhiihto" from "sport_key"
+    And I press "Jatka"
+    And I fill in the following:
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test location |
     And I select "Test district" from "race_district_id"

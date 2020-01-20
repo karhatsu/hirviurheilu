@@ -7,7 +7,9 @@ Feature: Club level
     Given I am an official
     And I have logged in
     And I am on the new official race page
-    When I fill in the following:
+    And I select "Hirvenhiihto" from "sport_key"
+    And I press "Jatka"
+    And I fill in the following:
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |
     And I select "Test district" from "race_district_id"
@@ -48,6 +50,8 @@ Feature: Club level
     Given I am an official
     And I have logged in
     And I am on the new official race page
+    When I select "Hirvenhiihto" from "sport_key"
+    And I press "Jatka"
     Then I should see "Kilpailijoiden edustustaso"
     When I fill in the following:
       | Kilpailun nimi | Test race |

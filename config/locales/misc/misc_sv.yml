@@ -34,6 +34,7 @@ sv:
       one: 1 person
       other: "%{count} pers."
   competitors_per_team: Tävlar / lag
+  continue: Fotsätt
   correct_distance: Rätt avstånd
   correct_distances: Rätta avstånd
   count_competitors:
