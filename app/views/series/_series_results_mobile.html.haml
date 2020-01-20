@@ -11,11 +11,9 @@
         .card__name
           = full_name(comp)
           - if comp.age_group
-            %span
-              (#{comp.age_group.name})
+            .card__name__extra (#{comp.age_group.name})
           - if comp.unofficial?
-            %span{title: t(:unofficial)}
-              (#{t(:unofficial_short)})
+            .card__name__extra (#{t(:unofficial_short)})
         .card__middle-row= comp.club.name
         - if comp.no_result_reason
           .card__middle-row= t "competitor.#{comp.no_result_reason}"
