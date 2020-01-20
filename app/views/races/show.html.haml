@@ -76,7 +76,8 @@
         = submit_tag t('.download_all_results'), class: 'button button--pdf'
 - unless @race.cups.empty?
   %h2= t 'activerecord.models.cup', :count => 1
-  - @race.cups.each do |cup|
-    = link_to cup.name, cup_path(cup), class: 'button'
+  .buttons
+    - @race.cups.each do |cup|
+      = link_to cup.name, cup_path(cup), class: 'button'
 .buttons.buttons--nav
   = link_to t(:back_to_home_page), root_path, class: 'button button--back'
