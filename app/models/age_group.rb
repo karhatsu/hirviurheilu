@@ -4,9 +4,8 @@ class AgeGroup < ApplicationRecord
 
   before_validation :set_min_competitors_default
 
-  validates :name, :presence => true
-  validates :min_competitors, :numericality => { :only_integer => true,
-    :greater_than_or_equal_to => 0 }
+  validates :name, presence: true
+  validates :min_competitors, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   def competitors_count(unofficials)
     if unofficials == Series::UNOFFICIALS_EXCLUDED

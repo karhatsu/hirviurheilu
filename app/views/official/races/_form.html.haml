@@ -141,7 +141,7 @@
       Jos merkitset 'Lisää oletussarjat automaattisesti'-kentän valituksi,
       kilpailulle luodaan automaattisesti seuraavat sarjat:
       %ul
-        - DefaultSeries.all.each do |df|
+        - DefaultSeries.all(@race.sport).each do |df|
           %li
             - if df.default_age_groups.empty?
               = df.name

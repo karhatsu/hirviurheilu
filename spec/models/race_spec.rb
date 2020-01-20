@@ -443,27 +443,29 @@ describe Race do
   end
 
   describe "#add_default_series" do
+    let(:sport_key) { Sport::SKI }
+    let(:ds1) { DefaultSeries.new('M70', ['M75', 'M80']) }
+    let(:ds2) { DefaultSeries.new('S17') }
+    let(:race) { build :race, sport_key: sport_key }
+
     before do
-      @ds1 = DefaultSeries.new('DS1', ['DAG1', 1], ['DAG2', 2])
-      @ds2 = DefaultSeries.new('DS2')
-      allow(DefaultSeries).to receive(:all).and_return([@ds1, @ds2])
-      @race = build(:race)
+      allow(DefaultSeries).to receive(:all).with(Sport.by_key(sport_key)).and_return([ds1, ds2])
     end
 
     it "should add default series and age groups for the race" do
-      @race.add_default_series
-      expect(@race.series.size).to eq(2)
-      s1 = @race.series.first
-      expect(s1.name).to eq('DS1')
+      race.add_default_series
+      expect(race.series.size).to eq(2)
+      s1 = race.series.first
+      expect(s1.name).to eq('M70')
       expect(s1.age_groups.size).to eq(2)
       ag1 = s1.age_groups.first
-      expect(ag1.name).to eq('DAG1')
-      expect(ag1.min_competitors).to eq(1)
+      expect(ag1.name).to eq('M75')
+      expect(ag1.min_competitors).to eq(2)
       ag2 = s1.age_groups.last
-      expect(ag2.name).to eq('DAG2')
+      expect(ag2.name).to eq('M80')
       expect(ag2.min_competitors).to eq(2)
-      s2 = @race.series.last
-      expect(s2.name).to eq('DS2')
+      s2 = race.series.last
+      expect(s2.name).to eq('S17')
       expect(s2.age_groups.size).to eq(0)
     end
   end

@@ -85,7 +85,7 @@
 
 <%
 series_list = []
-DefaultSeries.all.each do |df|
+DefaultSeries.all(Sport.by_key(Sport::SKI)).each do |df|
   series = df.name
   unless df.default_age_groups.empty?
     series << " (#{(df.default_age_groups.collect &:name).join(', ')})"

@@ -75,11 +75,10 @@ class Race < ApplicationRecord
   end
 
   def add_default_series
-    DefaultSeries.all.each do |ds|
-      s = Series.new(:name => ds.name)
+    DefaultSeries.all(sport).each do |ds|
+      s = Series.new(name: ds.name)
       ds.default_age_groups.each do |dag|
-        s.age_groups << AgeGroup.new(:name => dag.name,
-          :min_competitors => dag.min_competitors)
+        s.age_groups << AgeGroup.new(name: dag.name, min_competitors: dag.min_competitors)
       end
       series << s
     end
