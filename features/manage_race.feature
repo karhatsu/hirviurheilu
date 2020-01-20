@@ -98,6 +98,24 @@ Feature: Manage race
     Then I should be on the race edit page of "Test race"
     And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja yllä olevasta napista." in an info message
 
+  Scenario: Create shooting race
+    Given I am an official
+    And I have logged in
+    And I am on the official index page
+    When I follow "Lisää uusi kilpailu"
+    And I select "Ilmahirvi" from "sport_key"
+    And I press "Jatka"
+    Then I should be on the new race page
+    And I should not see "Lähtöajat"
+    And I should not see "Lähtöerien koko"
+    When I fill in the following:
+      | Kilpailun nimi | Test race |
+      | Paikkakunta | Test town |
+    And I select "Test district" from "race_district_id"
+    And I check "Lisää oletussarjat automaattisesti"
+    And I press "Lisää kilpailu"
+    Then I should be on the official race page of "Test race"
+
   Scenario: Edit race and series
     Given I am an official
     And I have a race "Test race"

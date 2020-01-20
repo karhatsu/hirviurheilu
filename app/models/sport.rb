@@ -30,6 +30,7 @@ class Sport
   }
 
   def self.by_key(key)
-    CONFIGS[key.to_sym] or raise "Unknown sport key: #{key}"
+    return nil unless key
+    CONFIGS[key.to_sym] or raise("Unknown sport key: #{key}")
   end
 end

@@ -94,38 +94,39 @@
     Tähän kenttään kirjoittamasi viesti tulee näkyviin kilpailun etusivulle.
     Voit tiedottaa sen avulla kilpailun tärkeistä asioista kilpailijoille ja kilpailua seuraavalla yleisölle.
 
-  %h2= t 'official.races.form.start_times'
-  .form__field.form__field--sm.row
-    .col-xs-12.col-sm-3= f.label :start_interval_seconds
-    .col-xs-12.col-sm-9
-      = f.number_field :start_interval_seconds, maxlength: 3
-      = t 'official.races.form.seconds'
-  .form__field.row
-    .col-xs-12.col-sm-3
-      .form__help-label
-        = f.label :start_order, t('attributes.start_order')
-        %a.help#start_order_help{href: 'javascript:void(0);'} ?
-    .col-xs-12.col-sm-9
-      = f.radio_button :start_order, Race::START_ORDER_NOT_SELECTED, style: 'display:none;'
-      = f.radio_button :start_order, Race::START_ORDER_BY_SERIES
-      = f.label "start_order_#{Race::START_ORDER_BY_SERIES}", t('official.races.form.competitors_start_order_series'), class: 'form__label--radio'
-      = f.radio_button :start_order, Race::START_ORDER_MIXED
-      = f.label "start_order_#{Race::START_ORDER_MIXED}", t('official.races.form.competitors_start_order_mixed'), class: 'form__label--radio'
+  - if @race.sport.start_list?
+    %h2= t 'official.races.form.start_times'
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-3= f.label :start_interval_seconds
+      .col-xs-12.col-sm-9
+        = f.number_field :start_interval_seconds, maxlength: 3
+        = t 'official.races.form.seconds'
+    .form__field.row
+      .col-xs-12.col-sm-3
+        .form__help-label
+          = f.label :start_order, t('attributes.start_order')
+          %a.help#start_order_help{href: 'javascript:void(0);'} ?
+      .col-xs-12.col-sm-9
+        = f.radio_button :start_order, Race::START_ORDER_NOT_SELECTED, style: 'display:none;'
+        = f.radio_button :start_order, Race::START_ORDER_BY_SERIES
+        = f.label "start_order_#{Race::START_ORDER_BY_SERIES}", t('official.races.form.competitors_start_order_series'), class: 'form__label--radio'
+        = f.radio_button :start_order, Race::START_ORDER_MIXED
+        = f.label "start_order_#{Race::START_ORDER_MIXED}", t('official.races.form.competitors_start_order_mixed'), class: 'form__label--radio'
 
-  .form__field.form__field--sm.batch_size_row.row
-    .col-xs-12.col-sm-3
-      .form__help-label
-        = f.label :batch_size
-        %a.help#batch_size_help{href: 'javascript:void(0);'} ?
-    .col-xs-12.col-sm-9
-      = f.number_field :batch_size, maxlength: 3
-      (0 = #{t 'official.races.form.start_batches_not_in_use'})
+    .form__field.form__field--sm.batch_size_row.row
+      .col-xs-12.col-sm-3
+        .form__help-label
+          = f.label :batch_size
+          %a.help#batch_size_help{href: 'javascript:void(0);'} ?
+      .col-xs-12.col-sm-9
+        = f.number_field :batch_size, maxlength: 3
+        (0 = #{t 'official.races.form.start_batches_not_in_use'})
 
-  .form__field.form__field--sm.batch_size_row.row
-    .col-xs-12.col-sm-3= f.label :batch_interval_seconds
-    .col-xs-12.col-sm-9
-      = f.number_field :batch_interval_seconds, maxlength: 3
-      = t 'official.races.form.seconds'
+    .form__field.form__field--sm.batch_size_row.row
+      .col-xs-12.col-sm-3= f.label :batch_interval_seconds
+      .col-xs-12.col-sm-9
+        = f.number_field :batch_interval_seconds, maxlength: 3
+        = t 'official.races.form.seconds'
 
   - if @race.new_record?
     %h2= t 'activerecord.models.series.other'

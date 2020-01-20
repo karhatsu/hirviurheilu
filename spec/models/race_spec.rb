@@ -26,11 +26,14 @@ describe Race do
     end
 
     describe "start_interval_seconds" do
-      it { is_expected.to validate_numericality_of(:start_interval_seconds) }
-      it { is_expected.not_to allow_value(nil).for(:start_interval_seconds) }
-      it { is_expected.not_to allow_value(23.5).for(:start_interval_seconds) }
-      it { is_expected.not_to allow_value(-1).for(:start_interval_seconds) }
-      it { is_expected.to allow_value(0).for(:start_interval_seconds) }
+      it_should_behave_like 'non-negative integer', :start_interval_seconds
+
+      context 'when shooting race' do
+        it 'allows nil for start_interval_seconds' do
+          race = build :race, sport_key: Sport::ILMAHIRVI, start_interval_seconds: nil
+          expect(race).to have(0).errors_on(:start_interval_seconds)
+        end
+      end
     end
 
     describe "batch_interval_seconds" do
