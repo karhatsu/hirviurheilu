@@ -1,4 +1,4 @@
 .form__horizontal-fields.form__fields--shots
   - 10.times do |i|
     .form__field.form__field--xs.form__field--shot
-      = number_field_tag "shots#{i}", competitor.shots ? competitor.shots[i] : '', maxlength: 2, class: 'shot', id: "shot-#{competitor.id}-#{i}"
+      = number_field_tag 'shots[]', competitor.shots ? competitor.shots[i] : '', maxlength: 2, class: 'shot', id: "shot-#{competitor.id}-#{i}"

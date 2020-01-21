@@ -84,17 +84,7 @@ Feature: Manage competitors
     Then I should not see "0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
     When I go to the official competitors page of the series
     And I follow "Johnson James"
-    And I fill in the following:
-      | shots0 | 10 |
-      | shots1 | 10 |
-      | shots2 | 10 |
-      | shots3 | 10 |
-      | shots4 | 10 |
-      | shots5 | 9 |
-      | shots6 | 9 |
-      | shots7 | 9 |
-      | shots8 | 8 |
-      | shots9 | 0 |
+    And I fill shots "10,10,10,10,10,9,9,9,8,0"
     And I press "Tallenna"
     Then I should be on the official competitors page of the series
     When I go to the results page of the series
@@ -102,9 +92,7 @@ Feature: Manage competitors
     Then I should see "85 (10, 10, 10, 10, 10, 9, 9, 9, 8, 0)"
     When I go to the official competitors page of the series
     And I follow "Johnson James"
-    And I fill in the following:
-      | shots3 | 5 |
-      | shots9 | 7 |
+    And I fill shots "10,10,10,5,10,9,9,9,8,7"
     And I press "Tallenna"
     Then I should be on the official competitors page of the series
     When I go to the results page of the series
