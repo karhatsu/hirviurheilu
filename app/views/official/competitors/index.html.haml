@@ -5,44 +5,45 @@
 - if @series.competitors.empty?
   = highlight_info(t('.no_competitors_in_series'))
 - else
-  - unless @series.has_start_list?
-    = highlight_info(t('.create_start_list_info'))
-  - unless @series.some_competitor_has_arrival_time? || @series.race.start_order == Race::START_ORDER_MIXED
-    - start_list_title = @series.has_start_list? ? t('.create_new_start_list') : t('.create_start_list')
-    %h3= start_list_title
-    = flash_error
-    = flash_success
-    = render :partial => 'shared/form_errors', locals: { item: @series }
-    = form_for([:official, @series], url: official_series_start_list_path, html: { onsubmit: "return warnRerun(#{@series.has_start_list?})", class: 'form' }) do |f|
-      .form__field.form__field--sm.row
-        .col-xs-12.col-sm-3= f.label :first_number
-        .col-xs-12.col-sm-9= f.number_field :first_number
-      .form__field.row
-        .col-xs-12.col-sm-3
-          %label Kilpailun alkamisaika
-        .col-xs-12.col-sm-9= time_print @series.race.start_time
-      .form__field.form__field--sm.row
-        .col-xs-12.col-sm-3= f.label :start_time
-        .col-xs-12.col-sm-9
-          = start_days_form_field(f, @series)
-          %span#series_start_time_row
-            = f.time_select :start_time, :include_seconds => true, :include_blank => true
-            (00:00:00-pohjainen)
-      .form__field.row
-        .col-xs-12.col-sm-3
-          %label Sarjan todellinen lähtöaika
-        .col-xs-12.col-sm-9#real_start_time
-      .form__field.row
-        .col-xs-12.col-sm-3
-          %label #{t "order_method"}:
-        .col-xs-12.col-sm-9
-          = radio_button_tag :order_method, Series::START_LIST_ADDING_ORDER, Series::START_LIST_ADDING_ORDER == @order_method
-          = t "order_method_#{Series::START_LIST_ADDING_ORDER}"
-          = radio_button_tag :order_method, Series::START_LIST_RANDOM, Series::START_LIST_RANDOM == @order_method
-          = t "order_method_#{Series::START_LIST_RANDOM}"
-      .form__buttons
-        = submit_tag start_list_title, class: 'button button--primary'
-    %h3= t('.added_competitors')
+  - if @series.race.sport.start_list?
+    - unless @series.has_start_list?
+      = highlight_info(t('.create_start_list_info'))
+    - unless @series.some_competitor_has_arrival_time? || @series.race.start_order == Race::START_ORDER_MIXED
+      - start_list_title = @series.has_start_list? ? t('.create_new_start_list') : t('.create_start_list')
+      %h3= start_list_title
+      = flash_error
+      = flash_success
+      = render :partial => 'shared/form_errors', locals: { item: @series }
+      = form_for([:official, @series], url: official_series_start_list_path, html: { onsubmit: "return warnRerun(#{@series.has_start_list?})", class: 'form' }) do |f|
+        .form__field.form__field--sm.row
+          .col-xs-12.col-sm-3= f.label :first_number
+          .col-xs-12.col-sm-9= f.number_field :first_number
+        .form__field.row
+          .col-xs-12.col-sm-3
+            %label Kilpailun alkamisaika
+          .col-xs-12.col-sm-9= time_print @series.race.start_time
+        .form__field.form__field--sm.row
+          .col-xs-12.col-sm-3= f.label :start_time
+          .col-xs-12.col-sm-9
+            = start_days_form_field(f, @series)
+            %span#series_start_time_row
+              = f.time_select :start_time, :include_seconds => true, :include_blank => true
+              (00:00:00-pohjainen)
+        .form__field.row
+          .col-xs-12.col-sm-3
+            %label Sarjan todellinen lähtöaika
+          .col-xs-12.col-sm-9#real_start_time
+        .form__field.row
+          .col-xs-12.col-sm-3
+            %label #{t "order_method"}:
+          .col-xs-12.col-sm-9
+            = radio_button_tag :order_method, Series::START_LIST_ADDING_ORDER, Series::START_LIST_ADDING_ORDER == @order_method
+            = t "order_method_#{Series::START_LIST_ADDING_ORDER}"
+            = radio_button_tag :order_method, Series::START_LIST_RANDOM, Series::START_LIST_RANDOM == @order_method
+            = t "order_method_#{Series::START_LIST_RANDOM}"
+        .form__buttons
+          = submit_tag start_list_title, class: 'button button--primary'
+      %h3= t('.added_competitors')
   = render partial: 'official/competitors/list', locals: { series: @series }
 .buttons
   - add_title = @series.competitors.empty? ? t('.add_competitor') : t('.add_new_competitor')
