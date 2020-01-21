@@ -115,6 +115,7 @@ Feature: Manage race
     And I check "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
+    And I should not see "Oikeat etäisyydet"
     When I follow "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja"
     Then I should see "Ilmahirvi"
     But I should not see "Lyhennetty matka"
