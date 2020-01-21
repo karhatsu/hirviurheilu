@@ -23,7 +23,7 @@
     .form__field.row
       .col-xs-12.col-sm-3
         %label= t '.shots'
-      .col-xs-12.col-sm-9= render partial: 'official/shots/individual_shots', locals: { f: f, competitor: @competitor }
+      .col-xs-12.col-sm-9= render partial: 'official/shots/three_sports_race_shots', locals: { f: f, competitor: @competitor }
     .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :estimate1
       .col-xs-12.col-sm-9= f.number_field :estimate1, maxlength: 3
@@ -42,6 +42,8 @@
         .col-xs-12.col-sm-3= f.label :shooting_overtime_min
         .col-xs-12.col-sm-9= f.number_field :shooting_overtime_min
   - elsif !@series.sport.start_list?
+    - qualification_round = @competitor.sport.qualification_round
+    - final_round = @competitor.sport.final_round
     = hidden_field_tag :no_times, true
     .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :number
@@ -49,7 +51,9 @@
     .form__field.row
       .col-xs-12.col-sm-3
         %label= t '.shots'
-      .col-xs-12.col-sm-9= render partial: 'official/shots/individual_shots', locals: { f: f, competitor: @competitor }
+      .col-xs-12.col-sm-9
+        = render partial: 'official/shots/shooting_race_shots', locals: { f: f, competitor: @competitor, round_rules: qualification_round, base: 0 }
+        = render partial: 'official/shots/shooting_race_shots', locals: { f: f, competitor: @competitor, round_rules: final_round, base: qualification_round.inject(:+) }
   - else
     = hidden_field_tag :no_times, true
   .form__field.row

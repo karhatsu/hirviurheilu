@@ -120,7 +120,7 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   def set_shots
-    shots = (0..9).map {|i| params["shots#{i}"]}.reject{|s| s.blank?}
+    shots = (0..19).map {|i| params["shots#{i}"]}.reject{|s| s.blank?}
     if shots.length > 0
       @competitor.shots = shots
     else

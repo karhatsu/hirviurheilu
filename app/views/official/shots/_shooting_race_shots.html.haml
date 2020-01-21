@@ -1,0 +1,6 @@
+.form__horizontal-fields
+  - round_rules.each_with_index do |shots_at_round, i|
+    - shots_at_round.times do |j|
+      - counter = base + (i * shots_at_round) + j
+      .form__field.form__field--xs.form__field--shot{class: j == shots_at_round - 1 ? 'form__field--last-in-group' : ''}
+        = number_field_tag "shots#{counter}", competitor.shots ? competitor.shots[counter] : '', maxlength: 2, class: 'shot', id: "shot-#{competitor.id}-#{counter}"
