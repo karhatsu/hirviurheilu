@@ -131,9 +131,6 @@ sv:
       add_competitor_to_series: Öka tävlare till klassen %{series_name}
       shooting:
         either_total_or_shots: Spara antingen totalresultat eller enskilda skott, inte båda.
-        sum: Summa
-        individual_shots: Enskilda skott
-        result: Resultat
     correct_estimates:
       index:
         start_numbers: Startnummer

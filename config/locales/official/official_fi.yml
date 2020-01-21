@@ -132,9 +132,6 @@ fi:
       add_competitor_to_series: Lisää kilpailija sarjaan %{series_name}
       shooting:
         either_total_or_shots: Syötä joko yhteistulos TAI yksittäiset laukaukset, ei molempia.
-        sum: Summa
-        individual_shots: Yksittäiset laukaukset
-        result: Tulos
     correct_estimates:
       index:
         start_numbers: Lähtönumerot
