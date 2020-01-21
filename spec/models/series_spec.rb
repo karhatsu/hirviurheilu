@@ -925,28 +925,66 @@ describe Series do
   end
 
   describe "#started?" do
-    context "when no start time" do
-      it "should return false" do
-        expect(Series.new).not_to be_started
-      end
+    let(:series) { build :series }
+
+    before do
+      allow(series).to receive(:sport).and_return(sport)
     end
 
-    context "when start time" do
-      before do
-        @series = build(:series, start_time: '10:00')
-      end
+    context 'when three sports race' do
+      let(:sport) { Sport.by_key Sport::SKI }
 
-      context "and start date time before current time" do
-        it "should return true" do
-          allow(@series).to receive(:start_datetime).and_return(Time.now - 1)
-          expect(@series).to be_started
+      context "when no start time" do
+        it "should return false" do
+          expect(series).not_to be_started
         end
       end
 
-      context "and start date time after current time" do
-        it "should return false" do
-          allow(@series).to receive(:start_datetime).and_return(Time.now + 1)
-          expect(@series).not_to be_started
+      context "when start time" do
+        before do
+          series.start_time = '10:00'
+        end
+
+        context "and start date time before current time" do
+          it "should return true" do
+            allow(series).to receive(:start_datetime).and_return(Time.now - 1)
+            expect(series).to be_started
+          end
+        end
+
+        context "and start date time after current time" do
+          it "should return false" do
+            allow(series).to receive(:start_datetime).and_return(Time.now + 1)
+            expect(series).not_to be_started
+          end
+        end
+      end
+    end
+
+    context 'when shooting race' do
+      let(:sport) { Sport.by_key Sport::ILMAHIRVI }
+
+      context 'and race start time is in the future' do
+        before do
+          race = build :race
+          allow(race).to receive(:start_datetime).and_return(1.minute.from_now)
+          series.race = race
+        end
+
+        it 'should return false' do
+          expect(series).not_to be_started
+        end
+      end
+
+      context 'and race start time is not in the future' do
+        before do
+          race = build :race
+          allow(race).to receive(:start_datetime).and_return(1.minute.ago)
+          series.race = race
+        end
+
+        it 'should return true' do
+          expect(series).to be_started
         end
       end
     end

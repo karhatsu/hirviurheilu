@@ -53,6 +53,8 @@ class Series < ApplicationRecord
 
   attr_accessor :last_cup_race
 
+  delegate :sport, to: :race
+
   def cache_key
     "#{super}-#{race.updated_at.utc.to_s(:usec)}"
   end
@@ -168,11 +170,12 @@ class Series < ApplicationRecord
   end
 
   def active?
-    !race.finished and started?
+    !race.finished && started?
   end
 
   def started?
-    start_time and start_datetime < Time.zone.now
+    return race.start_datetime <= Time.zone.now if sport.only_shooting?
+    start_time && start_datetime < Time.zone.now
   end
 
   def start_datetime

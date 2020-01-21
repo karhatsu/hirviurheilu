@@ -303,6 +303,13 @@ describe Race do
     end
   end
 
+  describe '#start_datetime' do
+    it 'returns date and start time as combined' do
+      race = build :race, start_date: '2020-01-19', start_time: '08:30'
+      expect(race.start_datetime.strftime('%d.%m.%Y %H:%M')).to eql '19.01.2020 08:30'
+    end
+  end
+
   describe "#finish" do
     before do
       @race = create(:race)

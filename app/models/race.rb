@@ -144,7 +144,7 @@ class Race < ApplicationRecord
   end
 
   def start_datetime
-    start_date_time self, 1, start_time
+    start_date_time self, 1, Time.parse('00:00')
   end
 
   def set_correct_estimates_for_competitors
