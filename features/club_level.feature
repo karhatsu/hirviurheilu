@@ -28,7 +28,7 @@ Feature: Club level
     And I follow "Seurat" within ".menu--sub"
     Then I should see "Seurat" within "h2"
     When I follow "Yhteenveto"
-    And I follow the first "Lisää ensimmäinen kilpailija" link
+    And I follow the first "Lisää 1. kilpailija" link
     Then I should see "Seura" within "form"
     Given the series "M" contains a competitor with attributes:
       | first_name | Matti |
@@ -72,7 +72,7 @@ Feature: Club level
     And I follow "Piirit" within ".menu--sub"
     Then I should see "Piirit" within "h2"
     When I follow "Yhteenveto"
-    And I follow the first "Lisää ensimmäinen kilpailija" link
+    And I follow the first "Lisää 1. kilpailija" link
     Then I should see "Piiri" within "form"
     Given the series "M" contains a competitor with attributes:
       | first_name | Matti |

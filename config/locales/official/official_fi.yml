@@ -53,7 +53,7 @@ fi:
         single_series: Yksilökilpailut
         no_series_for_race: Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja yllä olevasta napista.
         no_competitors_for_race: Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. Aloita klikkaamalla sarjan nimen alla olevaa nappia.
-        add_series_first_competitor: Lisää ensimmäinen kilpailija
+        add_series_first_competitor: Lisää 1. kilpailija
         manage_race_settings: Hallinnoi kilpailun asetuksia
         remove_race: Poista kilpailu
         edit_race_and_series: Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja
