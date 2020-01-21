@@ -6,7 +6,7 @@
 - if @series.competitors.empty?
   .message.message--info= t 'official.result_place.no_competitors_in_series'
   = link_to t('official.result_place.add_competitor_to_series', series_name: @series.name), new_official_series_competitor_path(@series), class: 'button button--add'
-- elsif !@series.has_start_list?
+- elsif @series.sport.start_list? && !@series.has_start_list?
   = highlight_info(t('official.result_place.no_start_list_for_series'))
   = link_to t('official.result_place.generate_start_times'), official_series_competitors_path(@series), class: 'button'
 - else
