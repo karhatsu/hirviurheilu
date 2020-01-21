@@ -13,6 +13,7 @@
     %th Tulos
   - prev_competitor_results = 1.0/0.0
   - competitors.each_with_index do |comp, i|
+    - next unless i < 3 || params[:club_id].blank? || comp.club_id == params[:club_id].to_i
     - shooting_race_results = comp.shooting_race_results competitors
     %tr{class: i % 2 == 0 ? 'odd' : ''}
       %td= (shooting_race_results == prev_competitor_results) ? raw('&nbsp;') : "#{i + 1}."
