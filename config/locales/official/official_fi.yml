@@ -39,7 +39,9 @@ fi:
         competitors_start_order_mixed: Sarjat sekaisin
         start_batches_not_in_use: lähtöerät eivät käytössä
         you_havent_added_series_yet: Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja yllä olevasta napista.
-        age_groups_with_own_time_points: Ikäryhmät, joille lasketaan omat aikapisteet
+        age_groups_help_title:
+          three_sports_race: Ikäryhmät, joille lasketaan omat aikapisteet
+          shooting_race: Ikäryhmät joukkuekilpailua varten
         add_age_group: Lisää ikäryhmä
         at_least: väh.
         competitors: kilpailijaa

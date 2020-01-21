@@ -115,6 +115,12 @@ Feature: Manage race
     And I check "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
+    When I follow "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja"
+    Then I should see "Ilmahirvi"
+    But I should not see "Lyhennetty matka"
+    And I should not see "Pistelaskenta"
+    And I should not see "Ikäryhmät, joille lasketaan omat aikapisteet"
+    But I should see "Ikäryhmät joukkuekilpailua varten"
 
   Scenario: Edit race and series
     Given I am an official

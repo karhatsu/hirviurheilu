@@ -1,11 +1,14 @@
 .form__horizontal-fields.age-group-sub-form
   .form__field.form__field--md
     = f.label :name
-    #{f.text_field :name}, #{t 'official.races.form.at_least'}
-  .form__field.form__field--sm
-    #{f.number_field :min_competitors} #{t 'official.races.form.competitors'},
-  .form__field
-    = f.check_box :shorter_trip
-    = f.label :shorter_trip
+    #{f.text_field :name}
+    - unless @race.sport.only_shooting?
+      , #{t 'official.races.form.at_least'}
+  - unless @race.sport.only_shooting?
+    .form__field.form__field--sm
+      #{f.number_field :min_competitors} #{t 'official.races.form.competitors'},
+    .form__field
+      = f.check_box :shorter_trip
+      = f.label :shorter_trip
   - if f.object.competitors.empty?
     = remove_child_link t('official.races.form.remove_age_group'), f, 'age-group-sub-form', "", 'button button--danger'
