@@ -17,6 +17,13 @@ describe Api::V1::RacesController, type: :api do
     before do
       competitor
       get "/api/v1/races/#{race.id}"
+    end
+
+    it 'returns 200' do
+      expect_status_code 200
+    end
+
+    it 'returns race data' do
       json = {
           name: race.name,
           location: race.location,
@@ -43,10 +50,6 @@ describe Api::V1::RacesController, type: :api do
           ]
       }
       expect_json(json)
-    end
-
-    it 'returns 200 with race data' do
-      expect_status_code 200
     end
   end
 end
