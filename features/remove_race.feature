@@ -9,7 +9,7 @@ Feature: Remove race
     And the race has series "Test series"
     And I have logged in
     And I am on the official race page of "Test race"
-    When I press "Poista kilpailu"
+    When I follow "Poista kilpailu"
     Then I should be on the official index page
     And I should see "Kilpailu poistettu" in a success message
 

@@ -55,7 +55,7 @@ fi:
         no_competitors_for_race: Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. Aloita klikkaamalla sarjan nimen alla olevaa nappia.
         add_series_first_competitor: Lisää 1. kilpailija
         manage_race_settings: Hallinnoi kilpailun asetuksia
-        remove_race: Poista kilpailu
+        delete_race: Poista kilpailu
         edit_race_and_series: Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja
         add_multiple_competitors: Lisää monta kilpailijaa kerralla
         copy_competitors: Kopioi kilpailijat toisesta kilpailusta

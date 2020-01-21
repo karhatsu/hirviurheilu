@@ -55,7 +55,7 @@ sv:
         no_competitors_for_race: Du har ökat inga tävlar för tävlingen. Klicka en knapp nedenför klassens namn för att öka tävlar.
         add_series_first_competitor: Öka klassens första tävlare
         manage_race_settings: Hantera tävlings sättningar
-        remove_race: Radera tävlingen
+        delete_race: Radera tävlingen
         edit_race_and_series: Redigera tävlingens och klassernas avgifter, öka klasser
         add_multiple_competitors: Tillägg många tävlar
         copy_competitors: Kopiera tävlarna från annan tävling
