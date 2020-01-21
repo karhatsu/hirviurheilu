@@ -3,7 +3,7 @@
 = render partial: "shared/form_errors", locals: { item: @competitor }
 = form_for([:official, @competitor.series, @competitor], html: { class: 'form' }) do |f|
   = render partial: "basic_fields", locals: { f: f }
-  - if @series.has_start_list?
+  - if @series.sport.start_list? && @series.has_start_list?
     .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :number
       .col-xs-12.col-sm-9= f.number_field :number
@@ -41,20 +41,29 @@
       .form__field.form__field--sm.row
         .col-xs-12.col-sm-3= f.label :shooting_overtime_min
         .col-xs-12.col-sm-9= f.number_field :shooting_overtime_min
+  - elsif !@series.sport.start_list?
+    = hidden_field_tag :no_times, true
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-3= f.label :number
+      .col-xs-12.col-sm-9= f.number_field :number
     .form__field.row
       .col-xs-12.col-sm-3
-        %label Tila
-      .col-xs-12.col-sm-9
-        = f.radio_button :no_result_reason, ''
-        Normaali
-        = f.radio_button :no_result_reason, Competitor::DNS
-        = t '.dns'
-        = f.radio_button :no_result_reason, Competitor::DNF
-        = t '.dnf'
-        = f.radio_button :no_result_reason, Competitor::DQ
-        = t '.dq'
+        %label= t '.shots'
+      .col-xs-12.col-sm-9= render partial: 'official/shots/individual_shots', locals: { f: f, competitor: @competitor }
   - else
     = hidden_field_tag :no_times, true
+  .form__field.row
+    .col-xs-12.col-sm-3
+      %label Tila
+    .col-xs-12.col-sm-9
+      = f.radio_button :no_result_reason, ''
+      Normaali
+      = f.radio_button :no_result_reason, Competitor::DNS
+      = t '.dns'
+      = f.radio_button :no_result_reason, Competitor::DNF
+      = t '.dnf'
+      = f.radio_button :no_result_reason, Competitor::DQ
+      = t '.dq'
   .form__buttons
     = submit_tag t(:save), class: 'button button--primary'
 .buttons.buttons--nav
