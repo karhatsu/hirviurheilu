@@ -43,7 +43,7 @@
               \= #{comp.final_round_score}
           - else
             = comp.final_round_score
-            (#{shots_print comp.final_round_shots})
+            %span.shots (#{shots_print comp.final_round_shots})
       - if extra_shots_column
         %td
           - if comp.extra_round_shots
