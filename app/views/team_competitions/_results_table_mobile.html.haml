@@ -10,5 +10,5 @@
             %div
               #{full_name competitor},
               #{competitor.series.name}#{competitor.age_group ? " (#{competitor.age_group.name})" : ''},
-              = competitor.points
+              = competitor.team_competition_points @race.sport
       .card__main-value= team_result[:points]
