@@ -1,6 +1,6 @@
 class Official::QuickSavesController < Official::OfficialController
   include QuickSavesHelper, TimeFormatHelper
-  before_action :assign_race_by_race_id, :check_assigned_race, :set_quick_saves
+  before_action :assign_race_by_race_id, :check_assigned_race, :require_three_sports_race, :set_quick_saves
 
   def index
   end
