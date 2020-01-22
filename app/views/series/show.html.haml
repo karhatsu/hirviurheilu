@@ -10,10 +10,11 @@
   - unless @series.sport.only_shooting?
     = render partial: 'series/infos', locals: { series: @series }
   - cache [@series, params[:sort], unofficials, I18n.locale] do
-    - if @series.race.sport.only_shooting?
+    - if @series.sport.only_shooting?
+      - buttons_hidden = @series.sport.qualification_round.length == 1
       .buttons
-        #show-shots-button.button{onclick: 'showShots()'} Näytä laukaukset
-        #hide-shots-button.button{onclick: 'hideShots()', style: 'display: none'} Piilota laukaukset
+        #show-shots-button.button{onclick: 'showShots()', class: buttons_hidden ? 'results--desktop' : ''} Näytä laukaukset
+        #hide-shots-button.button{onclick: 'hideShots()', class: buttons_hidden ? 'results--desktop' : '', style: 'display: none'} Piilota laukaukset
       .results--desktop= render partial: 'series/only_shooting_results', locals: { series: @series }
       .results--mobile= render partial: 'series/only_shooting_results_mobile', locals: { series: @series }
     - else

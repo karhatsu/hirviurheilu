@@ -21,11 +21,11 @@ Feature: Only shooting race results
     And the series has a competitor 2 "Kimmo" "Kilpailija" from "Kimmon seura" with shots "10,9,8,10,9,5,6,7,3,8,4,9,10,10,10,9,8,6,10,9"
     When I go to the results page of the series
     Then I should see a card 1 with 1, "Kilpailija Kimmo", "Kimmon seura" with points 160
-    And I should see "Alkukilpailu: 75 (10, 9, 8, 10, 9, 5, 6, 7, 3, 8)" in result card 1 detail row 2
-    And I should see "Loppukilpailu: 85 (4, 9, 10, 10, 10, 9, 8, 6, 10, 9)" in result card 1 detail row 3
+    And I should see "75 (10, 9, 8, 10, 9, 5, 6, 7, 3, 8)" in result card 1 detail row 2
+    And I should see "85 (4, 9, 10, 10, 10, 9, 8, 6, 10, 9)" in result card 1 detail row 3
     Then I should see a card 2 with 2, "Ampuja Antti", "Antin seura" with points 160
-    And I should see "Alkukilpailu: 75 (10, 9, 8, 10, 9, 5, 6, 7, 3, 8)" in result card 2 detail row 2
-    And I should see "Loppukilpailu: 85 (4, 9, 10, 10, 10, 9, 8, 7, 9, 9)" in result card 2 detail row 3
+    And I should see "75 (10, 9, 8, 10, 9, 5, 6, 7, 3, 8)" in result card 2 detail row 2
+    And I should see "85 (4, 9, 10, 10, 10, 9, 8, 7, 9, 9)" in result card 2 detail row 3
 
   Scenario: Show results for race with two phases in qualification and final rounds
     Given there is a "ILMALUODIKKO" race "My race"
