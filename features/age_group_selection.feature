@@ -26,6 +26,8 @@ Feature: Age group selection
     And I fill in "Majala" for "Sukunimi"
     And I fill in "Testiseura" for "club_name"
     And I press "Tallenna"
+    Then I should see "Viimeksi lisätyt kilpailijat"
+    And I should see "Majala Matti, Testiseura"
     When I follow "Takaisin sarjan M60 kilpailijaluetteloon"
     Then I should see "M60 - Kilpailijat"
     When I follow "Majala Matti"
