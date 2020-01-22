@@ -77,9 +77,7 @@ class Official::CompetitorsController < Official::OfficialController
   def destroy
     if @competitor.series_id == params[:series_id].to_i
       @competitor.destroy
-      respond_to do |format|
-        format.js { render :destroyed }
-      end
+      redirect_to official_series_competitors_path(@competitor.series_id)
     else
       raise "Competitor does not belong to given series!"
     end
