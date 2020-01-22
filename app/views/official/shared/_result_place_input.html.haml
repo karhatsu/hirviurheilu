@@ -19,5 +19,5 @@
     = link_to t(:back_to_official_race_page), official_race_path(@series.race), class: 'button button--back'
   :javascript
     function start_updating(id) {
-      $("#status_" + id).html('#{image_tag 'spinner.gif'}');
+      $("#status_" + id).removeClass().html('#{image_tag 'spinner.gif'}');
     }

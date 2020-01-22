@@ -46,3 +46,11 @@ function calculate_shots_result(row) {
   }
   row.find('.card__main-value').text(result);
 }
+
+function updateInlineMessage(locator, type, text) {
+  $(locator).removeClass().addClass('message message--inline message--' + type).text(text)
+}
+
+function resetInlineMessage(locator) {
+  $(locator).removeClass().text('')
+}

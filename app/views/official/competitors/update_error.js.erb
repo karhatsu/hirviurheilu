@@ -1,5 +1,4 @@
 <% error_msg = @competitor.errors.full_messages.join(". ") + "." %>
 $("#update_error").html("<%= error_msg %>");
 $("#update_error").show();
-$("#status_<%= @competitor.id %>").html('<span class="message message--error message--inline"><%= t :error %>!</span>')
-$("#status_<%= @competitor.id %>").show()
+updateInlineMessage("#status_<%= @competitor.id %>", 'error', '<%= t :error %>')

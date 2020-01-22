@@ -9,11 +9,10 @@ $("#competitors_table .order").each(function() {
 $row.after("<%= escape_javascript(render partial: 'official/start_lists/competitor_row',
   locals: { c: @competitor, save_button: t(:save), parent: @competitor.series, id: @competitor.id }) %>");
 
-$("#status_new").html("");
-$("#status_<%= @competitor.id %>").html('<span class="message message--success message--inline"><%= t :added %></span>')
-$("#status_<%= @competitor.id %>").show();
+resetInlineMessage('#status_new')
+updateInlineMessage("#status_<%= @competitor.id %>", 'success', '<%= t :added %>')
 setTimeout(function() {
-  $("#status_<%= @competitor.id %>").hide('slow');
+  resetInlineMessage("#status_<%= @competitor.id %>")
 }, 5000);
 
 $('#competitor_new_competitor_first_name').val('');

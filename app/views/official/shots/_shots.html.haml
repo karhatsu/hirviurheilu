@@ -42,7 +42,7 @@
       $("#shots_form_#{competitor.id}").bind('ajax:error', function() {
         $("#update_error").html('Yhteysvirhe, yritä uudelleen');
         $("#update_error").show();
-        $("#status_#{competitor.id}").html("<span class='message message--error message--inline'>#{t :error}!</span>");
+        updateInlineMessage("#status_#{competitor.id}", 'error', '#{t :error}')
       });
 :javascript
   $('.shots-total-input').change(function() {
