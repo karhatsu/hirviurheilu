@@ -1324,92 +1324,154 @@ describe Competitor do
     let(:series) { build :series }
     let(:competitor) { build :competitor, series: series }
 
-    context "when competitor has some 'no result reason'" do
-      it "should return true" do
-        competitor.no_result_reason = Competitor::DNS
-        expect(competitor).to be_finished
-      end
+    before do
+      allow(competitor).to receive(:sport).and_return(sport)
     end
 
-    context "when competitor has no 'no result reason'" do
-      before do
-        # no need to have correct estimate
-        competitor.start_time = '11:10'
-        competitor.arrival_time = '11:20'
-        competitor.shooting_score_input = 90
-        competitor.estimate1 = 100
-        competitor.estimate2 = 110
+    context 'for three sports race' do
+      let(:sport) { Sport.by_key Sport::RUN }
+
+      context "when competitor has some 'no result reason'" do
+        it "should return true" do
+          competitor.no_result_reason = Competitor::DNS
+          expect(competitor).to be_finished
+        end
       end
 
-      context "and competitor has shots and arrival time" do
-        context "and competitor has both estimates" do
+      context "when competitor has no 'no result reason'" do
+        before do
+          # no need to have correct estimate
+          competitor.start_time = '11:10'
+          competitor.arrival_time = '11:20'
+          competitor.shooting_score_input = 90
+          competitor.estimate1 = 100
+          competitor.estimate2 = 110
+        end
+
+        context "and competitor has shots and arrival time" do
+          context "and competitor has both estimates" do
+            it "should return true" do
+              expect(competitor).to be_finished
+            end
+          end
+
+          context "and either estimate is missing" do
+            it "should return false" do
+              competitor.estimate2 = nil
+              expect(competitor).not_to be_finished
+              competitor.estimate1 = nil
+              competitor.estimate2 = 110
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context "and 4 estimates for the series" do
+            before do
+              series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
+            end
+
+            context "and 3rd estimate is missing" do
+              it "should return false" do
+                competitor.estimate3 = nil
+                competitor.estimate4 = 110
+                expect(competitor).not_to be_finished
+              end
+            end
+
+            context "and 4th estimate is missing" do
+              it "should return false" do
+                competitor.estimate3 = 110
+                competitor.estimate4 = nil
+                expect(competitor).not_to be_finished
+              end
+            end
+          end
+        end
+
+        context "and shots result is missing" do
+          it "should return false" do
+            competitor.shooting_score_input = nil
+            expect(competitor).not_to be_finished
+          end
+        end
+
+        context "and time result is missing" do
+          it "should return false" do
+            competitor.arrival_time = nil
+            expect(competitor).not_to be_finished
+          end
+        end
+
+        context "and series does not calculate time points and other results are there" do
           it "should return true" do
+            series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
+            competitor.estimate3 = 110
+            competitor.estimate4 = 100
+            competitor.arrival_time = nil
             expect(competitor).to be_finished
           end
         end
 
-        context "and either estimate is missing" do
-          it "should return false" do
-            competitor.estimate2 = nil
-            expect(competitor).not_to be_finished
-            competitor.estimate1 = nil
-            competitor.estimate2 = 110
-            expect(competitor).not_to be_finished
-          end
-        end
-
-        context "and 4 estimates for the series" do
-          before do
-            series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
-          end
-
-          context "and 3rd estimate is missing" do
-            it "should return false" do
-              competitor.estimate3 = nil
-              competitor.estimate4 = 110
-              expect(competitor).not_to be_finished
-            end
-          end
-
-          context "and 4th estimate is missing" do
-            it "should return false" do
-              competitor.estimate3 = 110
-              competitor.estimate4 = nil
-              expect(competitor).not_to be_finished
-            end
+        context "and series gives 300 time points for all and other results are there" do
+          it "should return true" do
+            series.points_method = Series::POINTS_METHOD_300_TIME_2_ESTIMATES
+            competitor.arrival_time = nil
+            expect(competitor).to be_finished
           end
         end
       end
+    end
 
-      context "and shots result is missing" do
-        it "should return false" do
-          competitor.shooting_score_input = nil
-          expect(competitor).not_to be_finished
-        end
-      end
+    context 'for shooting race' do
+      let(:sport) { Sport.by_key Sport::ILMALUODIKKO }
 
-      context "and time result is missing" do
-        it "should return false" do
-          competitor.arrival_time = nil
-          expect(competitor).not_to be_finished
-        end
-      end
-
-      context "and series does not calculate time points and other results are there" do
-        it "should return true" do
-          series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
-          competitor.estimate3 = 110
-          competitor.estimate4 = 100
-          competitor.arrival_time = nil
+      context 'when competitor has no result reason' do
+        it 'should return true' do
+          competitor.no_result_reason = Competitor::DNS
           expect(competitor).to be_finished
         end
       end
 
-      context "and series gives 300 time points for all and other results are there" do
-        it "should return true" do
-          series.points_method = Series::POINTS_METHOD_300_TIME_2_ESTIMATES
-          competitor.arrival_time = nil
-          expect(competitor).to be_finished
+      context "when competitor has no 'no result reason'" do
+        context 'and has no shots' do
+          it 'should return false' do
+            expect(competitor).not_to be_finished
+          end
+        end
+
+        context 'and it has one qualification round shot missing' do
+          it 'should return false' do
+            competitor.shots = (0..8).map
+            expect(competitor).not_to be_finished
+          end
+        end
+
+        context 'and it has exactly all qualification round shots' do
+          it 'should return true' do
+            competitor.shots = (0..9).map
+            expect(competitor).to be_finished
+          end
+        end
+
+        context 'and it has one final round shot missing' do
+          it 'should return false' do
+            competitor.shots = (0..18).map
+            expect(competitor).not_to be_finished
+          end
+        end
+
+        context 'and it has exactly all final round shots' do
+          it 'should return true' do
+            competitor.shots = (0..19).map
+            expect(competitor).to be_finished
+          end
+        end
+
+        context 'and it has extra round shots' do
+          it 'should return true' do
+            competitor.shots = (0..20).map
+            expect(competitor).to be_finished
+          end
         end
       end
     end

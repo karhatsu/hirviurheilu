@@ -94,7 +94,7 @@ class Race < ApplicationRecord
   end
 
   def finish
-    unless each_competitor_has_correct_estimates?
+    if !sport.only_shooting? && !each_competitor_has_correct_estimates?
       errors.add :base, :correct_estimate_missing
       return false
     end

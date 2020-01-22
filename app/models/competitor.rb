@@ -166,9 +166,13 @@ class Competitor < ApplicationRecord
   end
 
   def finished?
-    no_result_reason ||
+    return true if no_result_reason
+    if sport.only_shooting?
+      shots && (shots.length == 10 || shots.length >= 20)
+    else
       (start_time && (arrival_time || series.walking_series?) && shooting_score && estimate1 && estimate2 &&
         (series.estimates == 2 || (estimate3 && estimate4)))
+    end
   end
 
   def next_competitor
