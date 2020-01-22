@@ -1321,95 +1321,95 @@ describe Competitor do
   end
 
   describe "#finished?" do
+    let(:series) { build :series }
+    let(:competitor) { build :competitor, series: series }
+
     context "when competitor has some 'no result reason'" do
       it "should return true" do
-        c = build(:competitor, :no_result_reason => Competitor::DNS)
-        expect(c).to be_finished
+        competitor.no_result_reason = Competitor::DNS
+        expect(competitor).to be_finished
       end
     end
 
     context "when competitor has no 'no result reason'" do
       before do
         # no need to have correct estimate
-        series = build(:series)
-        @competitor = build(:competitor, :no_result_reason => nil,
-          :series => series)
-        @competitor.start_time = '11:10'
-        @competitor.arrival_time = '11:20'
-        @competitor.shooting_score_input = 90
-        @competitor.estimate1 = 100
-        @competitor.estimate2 = 110
+        competitor.start_time = '11:10'
+        competitor.arrival_time = '11:20'
+        competitor.shooting_score_input = 90
+        competitor.estimate1 = 100
+        competitor.estimate2 = 110
       end
 
-      context "when competitor has shots and arrival time" do
-        context "when competitor has both estimates" do
+      context "and competitor has shots and arrival time" do
+        context "and competitor has both estimates" do
           it "should return true" do
-            expect(@competitor).to be_finished
+            expect(competitor).to be_finished
           end
         end
 
-        context "when either estimate is missing" do
+        context "and either estimate is missing" do
           it "should return false" do
-            @competitor.estimate2 = nil
-            expect(@competitor).not_to be_finished
-            @competitor.estimate1 = nil
-            @competitor.estimate2 = 110
-            expect(@competitor).not_to be_finished
+            competitor.estimate2 = nil
+            expect(competitor).not_to be_finished
+            competitor.estimate1 = nil
+            competitor.estimate2 = 110
+            expect(competitor).not_to be_finished
           end
         end
 
-        context "when 4 estimates for the series" do
+        context "and 4 estimates for the series" do
           before do
-            @competitor.series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
+            series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
           end
 
-          context "when 3rd estimate is missing" do
+          context "and 3rd estimate is missing" do
             it "should return false" do
-              @competitor.estimate3 = nil
-              @competitor.estimate4 = 110
-              expect(@competitor).not_to be_finished
+              competitor.estimate3 = nil
+              competitor.estimate4 = 110
+              expect(competitor).not_to be_finished
             end
           end
 
-          context "when 4th estimate is missing" do
+          context "and 4th estimate is missing" do
             it "should return false" do
-              @competitor.estimate3 = 110
-              @competitor.estimate4 = nil
-              expect(@competitor).not_to be_finished
+              competitor.estimate3 = 110
+              competitor.estimate4 = nil
+              expect(competitor).not_to be_finished
             end
           end
         end
       end
 
-      context "when shots result is missing" do
+      context "and shots result is missing" do
         it "should return false" do
-          @competitor.shooting_score_input = nil
-          expect(@competitor).not_to be_finished
+          competitor.shooting_score_input = nil
+          expect(competitor).not_to be_finished
         end
       end
 
-      context "when time result is missing" do
+      context "and time result is missing" do
         it "should return false" do
-          @competitor.arrival_time = nil
-          expect(@competitor).not_to be_finished
+          competitor.arrival_time = nil
+          expect(competitor).not_to be_finished
         end
       end
 
-      context "when series does not calculate time points and other results are there" do
+      context "and series does not calculate time points and other results are there" do
         it "should return true" do
-          @competitor.series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
-          @competitor.estimate3 = 110
-          @competitor.estimate4 = 100
-          @competitor.arrival_time = nil
-          expect(@competitor).to be_finished
+          series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
+          competitor.estimate3 = 110
+          competitor.estimate4 = 100
+          competitor.arrival_time = nil
+          expect(competitor).to be_finished
         end
       end
 
-      context "when series gives 300 time points for all and other results are there" do
+      context "and series gives 300 time points for all and other results are there" do
         it "should return true" do
-          @competitor.series.points_method = Series::POINTS_METHOD_300_TIME_2_ESTIMATES
-          @competitor.arrival_time = nil
-          expect(@competitor).to be_finished
+          series.points_method = Series::POINTS_METHOD_300_TIME_2_ESTIMATES
+          competitor.arrival_time = nil
+          expect(competitor).to be_finished
         end
       end
     end
