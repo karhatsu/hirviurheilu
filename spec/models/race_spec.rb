@@ -311,55 +311,53 @@ describe Race do
   end
 
   describe "#finish" do
+    let(:race) { create :race }
+    let!(:series) { create :series, race: race }
+    let!(:empty_series) { create :series, race: race, name: 'Empty series, will be deleted' }
+
     before do
-      @race = create(:race)
-      @series = build(:series, :race => @race)
-      @empty_series = build(:series, race: @race, name: 'Empty series, will be deleted')
-      @race.series << @series
-      @race.series << @empty_series
-      allow(@race).to receive(:each_competitor_has_correct_estimates?).and_return(true)
+      allow(race).to receive(:each_competitor_has_correct_estimates?).and_return(true)
     end
 
     context "when competitors missing correct estimates" do
       before do
-        expect(@race).to receive(:each_competitor_has_correct_estimates?).and_return(false)
+        expect(race).to receive(:each_competitor_has_correct_estimates?).and_return(false)
       end
 
       it "should not be possible to finish the race" do
-        confirm_unsuccessfull_finish(@race)
+        confirm_unsuccessfull_finish(race)
       end
     end
 
     context "when competitors not missing correct estimates" do
       context "when competitors missing results" do
         before do
-          @series.competitors << build(:competitor, :series => @series)
+          series.competitors << build(:competitor, series: series)
         end
 
         it "should not be possible to finish the race" do
-          confirm_unsuccessfull_finish(@race)
+          confirm_unsuccessfull_finish(race)
         end
       end
 
       context "when all competitors have results filled" do
         before do
-          @series.competitors << build(:competitor, :series => @series,
-            :no_result_reason => Competitor::DNF)
+          series.competitors << build(:competitor, series: series, no_result_reason: Competitor::DNF)
           # Counter cache is not reliable. Make sure that one is not used.
           conn = ActiveRecord::Base.connection
-          conn.execute("update series set competitors_count=0 where id=#{@series.id}")
-          conn.execute("update series set competitors_count=1 where id=#{@empty_series.id}")
+          conn.execute("update series set competitors_count=0 where id=#{series.id}")
+          conn.execute("update series set competitors_count=1 where id=#{empty_series.id}")
         end
 
         it "should be possible to finish the race" do
-          confirm_successfull_finish(@race)
+          confirm_successfull_finish(race)
         end
 
         it 'should delete the series that have no competitors' do
-          @race.reload.finish
-          expect(@race.reload.series.count).to eq(1)
-          expect(@race.series.first.name).to eq(@series.name)
-          confirm_successfull_finish @race
+          race.reload.finish
+          expect(race.reload.series.count).to eq(1)
+          expect(race.series.first.name).to eq(series.name)
+          confirm_successfull_finish race
         end
       end
     end
