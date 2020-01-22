@@ -1,11 +1,12 @@
-- if defined? mobile
-  .buttons.buttons--mobile
-    - race.relays.each do |relay|
-      - if relay.id == relay_id
-        .button.button--current= relay.name
-      - else
-        = link_to relay.name, yield(relay), class: 'button'
-- else
-  .menu.menu--sub.menu--sub-2
-    - race.relays.each do |relay|
-      = menu_item relay.name, yield(relay), relay.id == relay_id, 18
+- if race.relays.count > 1
+  - if defined? mobile
+    .buttons.buttons--mobile
+      - race.relays.each do |relay|
+        - if relay.id == relay_id
+          .button.button--current= relay.name
+        - else
+          = link_to relay.name, yield(relay), class: 'button'
+  - else
+    .menu.menu--sub.menu--sub-2
+      - race.relays.each do |relay|
+        = menu_item relay.name, yield(relay), relay.id == relay_id, 18

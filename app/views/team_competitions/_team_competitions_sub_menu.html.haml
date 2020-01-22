@@ -1,11 +1,12 @@
-- if defined? mobile
-  .buttons.buttons--mobile
-    - race.team_competitions.each do |tc|
-      - if tc.id == team_competition_id
-        .button.button--current= tc.name
-      - else
-        = link_to tc.name, yield(tc), class: 'button'
-- else
-  .menu.menu--sub.menu--sub-2
-    - race.team_competitions.each do |tc|
-      = menu_item tc.name, yield(tc), tc.id == team_competition_id, 18
+- if race.team_competitions.count > 1
+  - if defined? mobile
+    .buttons.buttons--mobile
+      - race.team_competitions.each do |tc|
+        - if tc.id == team_competition_id
+          .button.button--current= tc.name
+        - else
+          = link_to tc.name, yield(tc), class: 'button'
+  - else
+    .menu.menu--sub.menu--sub-2
+      - race.team_competitions.each do |tc|
+        = menu_item tc.name, yield(tc), tc.id == team_competition_id, 18
