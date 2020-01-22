@@ -172,7 +172,9 @@ sv:
     finish_races:
       new:
         title: Sluta tävlingen
-        info: Man måste sluta tävlingen så att tävlarna se att resulaten är slutliga. Ytterligare tävlingarna ser de riktiga avtstånden efter tävlingen är slut.
+        info:
+          shooting: Man måste sluta tävlingen så att tävlarna se att resulaten är slutliga.
+          three_sports: Man måste sluta tävlingen så att tävlarna se att resulaten är slutliga. Ytterligare tävlingarna ser de riktiga avtstånden efter tävlingen är slut.
         already_finished: Den här tävlingen är redan slutat.
       create:
         race_finished: Tävlingen %{race_name} slutat

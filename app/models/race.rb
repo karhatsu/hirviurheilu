@@ -101,7 +101,7 @@ class Race < ApplicationRecord
     competitors.each do |c|
       unless c.finished?
         name = "#{c.first_name} #{c.last_name}"
-        errors.add :base, :result_missing, :name => name, :series_name => c.series.name
+        errors.add :base, "result_missing_#{sport.only_shooting? ? 'shooting' : 'three_sports'}".to_sym, name: name, series_name: c.series.name
         return false
       end
     end

@@ -1,6 +1,7 @@
 = content_for :title, "#{@race.name} - #{t('.title')}"
 %h2= yield :title
-.message.message--info= t '.info'
+- info = @race.sport.only_shooting? ? 'shooting' : 'three_sports'
+.message.message--info= t ".info.#{info}"
 = render partial: "shared/form_errors", locals: { item: @race }
 - if @race.finished?
   = t '.already_finished'
