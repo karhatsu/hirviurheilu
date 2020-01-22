@@ -13,6 +13,7 @@ class Sport
           only_shooting?: false,
           relays?: true,
           max_shot: 10,
+          inner_ten?: false,
           default_series: [
               ['S13', ['T13', 'P13', 'T11', 'P11', 'T9', 'P9', 'T7', 'P7']],
               ['S15', ['T15', 'P15']],
@@ -62,6 +63,7 @@ class Sport
               qualification_round: [10],
               final_round: [10],
               max_shot: 10,
+              inner_ten?: false,
           }
       )),
       ILMALUODIKKO: OpenStruct.new(BASE_CONFIGS[:AIR_GUNS].merge(
@@ -70,6 +72,7 @@ class Sport
               qualification_round: [5, 5],
               final_round: [5, 5],
               max_shot: 11,
+              inner_ten?: true,
               default_series: [['S13', ['T13', 'P13']]] + BASE_CONFIGS[:AIR_GUNS][:default_series],
           }
       )),

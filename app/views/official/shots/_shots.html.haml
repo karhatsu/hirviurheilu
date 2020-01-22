@@ -6,6 +6,8 @@
 - basic_shots = qualification_round_shots + final_round_shots
 - unless shooting_race
   .message.message--info= t 'official.result_place.shooting.either_total_or_shots'
+- if @series.sport.inner_ten?
+  .message.message--info= t 'official.result_place.shooting.inner_ten_as_eleven'
 .result-cards
   - @series.competitors.each do |competitor|
     .card

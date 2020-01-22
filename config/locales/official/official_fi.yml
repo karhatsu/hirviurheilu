@@ -132,6 +132,7 @@ fi:
       add_competitor_to_series: Lisää kilpailija sarjaan %{series_name}
       shooting:
         either_total_or_shots: Syötä joko yhteistulos TAI yksittäiset laukaukset, ei molempia.
+        inner_ten_as_eleven: Syötä napakymppi lukuna 11
     correct_estimates:
       index:
         start_numbers: Lähtönumerot
