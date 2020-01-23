@@ -28,7 +28,7 @@
       - team_result[:competitors].each_with_index do |competitor, j|
         %tr.competitor_row{id: "team_#{i + 1}_comp_#{j + 1}", class: "club_#{club_id}", style: competitor_style}
           %td &nbsp;
-          %td= link_to_unless pdf, full_name(competitor), series_competitor_path(competitor.series, competitor)
+          %td= link_to_unless pdf || @race.sport.only_shooting?, full_name(competitor), series_competitor_path(competitor.series, competitor)
           %td.center= competitor.team_competition_points @race.sport
           - unless @race.sport.only_shooting?
             %td.center= time_points_print(competitor, true)
