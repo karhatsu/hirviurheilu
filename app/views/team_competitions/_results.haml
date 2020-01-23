@@ -11,8 +11,8 @@
         %th.center= t(:estimating)
         %th.center= t(:shooting)
       %th= t 'activerecord.models.series', count: 1
-  - results.each_with_index do |team_result, i|
-    - club = team_result[:club]
+  - results.each_with_index do |team, i|
+    - club = team.name
     - club_id = club.gsub(/\s+/, '')
     %tr{id: "team_#{i + 1}"}
       %td #{i + 1}.
@@ -21,11 +21,11 @@
           = club
         - else
           %a.club_name_link{href: 'javascript:void(0)', id: club_id}= club
-      %td.center.team_points= team_result[:points]
+      %td.center.team_points= team.total_score
       - unless params[:exclude_competitors]
         %td{colspan: 4} &nbsp;
     - unless params[:exclude_competitors]
-      - team_result[:competitors].each_with_index do |competitor, j|
+      - team.competitors.each_with_index do |competitor, j|
         %tr.competitor_row{id: "team_#{i + 1}_comp_#{j + 1}", class: "club_#{club_id}", style: competitor_style}
           %td &nbsp;
           %td= link_to_unless pdf || @race.sport.only_shooting?, full_name(competitor), series_competitor_path(competitor.series, competitor)

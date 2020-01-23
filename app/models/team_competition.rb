@@ -50,8 +50,7 @@ class TeamCompetition < ApplicationRecord
   def results_for_competitors(competitors)
     official_competitors = competitors.select { |c| !c.unofficial? }
     teams_hash = map_sorted_competitors_by_teams official_competitors
-    team_results_hash = create_team_results_hash teams_hash
-    sorted_teams = sorted_teams_from_team_results_hash(team_results_hash)
+    sorted_teams = sort_teams teams_hash
     remove_teams_without_enough_competitors(sorted_teams) if race.finished?
     sorted_teams
   end
@@ -79,7 +78,7 @@ class TeamCompetition < ApplicationRecord
       competitor_counter_by_team[base_team_name] ||= 0
       team_name = team_name_with_number base_team_name, competitor_counter_by_team[base_team_name]
       next unless team_name
-      teams[team_name] ||= []
+      teams[team_name] ||= Team.new(sport, team_name)
       teams[team_name] << competitor
       competitor_counter_by_team[base_team_name] = competitor_counter_by_team[base_team_name] + 1
     end
@@ -93,38 +92,15 @@ class TeamCompetition < ApplicationRecord
     "#{base_team_name} #{RomanNumerals.to_roman(team_number)}"
   end
 
-  def create_team_results_hash(teams_hash)
-    team_results_hash = Hash.new
-    teams_hash.each do |team_name, competitors|
-      team_hash = { club: team_name, points: 0, best_points: 0, best_shooting_points: 0, fastest_time: 9999999, competitors: [] }
-      competitors.each do |competitor|
-        add_competitor_to_team_hash team_hash, competitor
-      end
-      team_results_hash[team_name] = team_hash
-    end
-    team_results_hash
-  end
-
-  def add_competitor_to_team_hash(team_hash, competitor)
-    competitor_points = competitor.team_competition_points(sport).to_i
-    competitor_shooting_points = competitor.shooting_points.to_i
-    competitor_time = competitor.time_in_seconds
-    team_hash[:competitors] << competitor
-    team_hash[:points] += competitor_points
-    team_hash[:best_points] = competitor_points if competitor_points > team_hash[:best_points]
-    team_hash[:best_shooting_points] = competitor_shooting_points if competitor_shooting_points > team_hash[:best_shooting_points]
-    team_hash[:fastest_time] = competitor_time if competitor_time && competitor_time < team_hash[:fastest_time]
-  end
-
-  def sorted_teams_from_team_results_hash(hash)
+  def sort_teams(hash)
     hash.values.sort do |a, b|
-      [b[:points], b[:best_points], b[:best_shooting_points], a[:fastest_time]] <=>
-        [a[:points], a[:best_points], a[:best_shooting_points], b[:fastest_time]]
+      [b.total_score, b.best_competitor_score, b.best_shooting_score, a.fastest_time] <=>
+        [a.total_score, a.best_competitor_score, a.best_shooting_score, b.fastest_time]
     end
   end
 
   def remove_teams_without_enough_competitors(sorted_teams)
-    sorted_teams.delete_if { |club| club[:competitors].length < team_competitor_count }
+    sorted_teams.delete_if { |team| team.competitors.length < team_competitor_count }
   end
 
   def resolve_team_name(competitor)
