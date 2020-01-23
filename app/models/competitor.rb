@@ -199,6 +199,13 @@ class Competitor < ApplicationRecord
     sort_three_sports_competitors competitors
   end
 
+  def self.sort_team_competitors(sport, competitors)
+    return sort_three_sports_competitors competitors unless sport.only_shooting?
+    competitors.sort do |a, b|
+      b.shooting_race_team_results <=> a.shooting_race_team_results
+    end
+  end
+
   def self.sort_three_sports_competitors(competitors, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=SORT_BY_POINTS)
     competitors.sort do |a, b|
       b.three_sports_race_results(unofficials, sort_by) + [a.number.to_i] <=>

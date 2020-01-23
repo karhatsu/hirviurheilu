@@ -188,6 +188,32 @@ describe CompetitorResults do
     end
   end
 
+  context '#shooting_race_team_results' do
+    let(:competitor) { build :competitor }
+
+    context 'when no result reason' do
+      it 'returns array of one time with negative value' do
+        expect(competitor_with_no_result_reason(Competitor::DNF).shooting_race_team_results).to eql [-10000]
+        expect(competitor_with_no_result_reason(Competitor::DNS).shooting_race_team_results).to eql [-20000]
+        expect(competitor_with_no_result_reason(Competitor::DQ).shooting_race_team_results).to eql [-30000]
+      end
+    end
+
+    context 'without no result reason' do
+      let(:normal_results) { [150, 80, 0, 5] }
+      let(:qualification_round_score) { 78 }
+
+      before do
+        allow(competitor).to receive(:shooting_race_results).with([]).and_return(normal_results)
+        allow(competitor).to receive(:qualification_round_score).and_return(qualification_round_score)
+      end
+
+      it 'returns qualification round score prepended to the normal results' do
+        expect(competitor.shooting_race_team_results).to eql [qualification_round_score] + normal_results
+      end
+    end
+  end
+
   def competitor_with_no_result_reason(no_result_reason)
     build :competitor, no_result_reason: no_result_reason
   end

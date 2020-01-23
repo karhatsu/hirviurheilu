@@ -56,7 +56,7 @@ describe TeamCompetition do
       before do
         allow(competitor).to receive(:team_competition_points).with(sport).and_return(1100)
         allow(competitor).to receive(:unofficial?).and_return(false)
-        expect(Competitor).to receive(:sort_competitors).with([competitor]).and_return([competitor])
+        expect(Competitor).to receive(:sort_team_competitors).with(sport, [competitor]).and_return([competitor])
       end
 
       context "and the race is not finished" do
@@ -138,7 +138,7 @@ describe TeamCompetition do
         @official_competitors = @competitors - [@club_unofficial1, @club_unofficial2]
         allow(tc).to receive(:race).and_return(race)
         allow(race).to receive(:finished?).and_return(true)
-        expect(Competitor).to receive(:sort_competitors).with(@official_competitors).and_return(@official_competitors)
+        expect(Competitor).to receive(:sort_team_competitors).with(sport, @official_competitors).and_return(@official_competitors)
       end
 
       describe "should return an array of hashes" do
@@ -170,7 +170,7 @@ describe TeamCompetition do
               "4. fastest individual time" do
             allow(tc).to receive(:race).and_return(race)
             allow(race).to receive(:finished?).and_return(false)
-            expect(Competitor).to receive(:sort_competitors).with(@official_competitors).and_return(@official_competitors)
+            expect(Competitor).to receive(:sort_team_competitors).with(sport, @official_competitors).and_return(@official_competitors)
             @results = tc.results_for_competitors(@competitors)
             expect(@results.length).to eq(10)
             expect(@results[0][:club]).to eq(@club_best_total_points.display_name)

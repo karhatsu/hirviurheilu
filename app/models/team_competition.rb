@@ -72,7 +72,7 @@ class TeamCompetition < ApplicationRecord
   def map_sorted_competitors_by_teams(competitors)
     competitor_counter_by_team = Hash.new
     teams = Hash.new
-    Competitor.sort_competitors(competitors).each do |competitor|
+    Competitor.sort_team_competitors(sport, competitors).each do |competitor|
       break if competitor.team_competition_points(sport).nil?
       base_team_name = resolve_team_name competitor
       next unless base_team_name
