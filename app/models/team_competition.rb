@@ -93,9 +93,16 @@ class TeamCompetition < ApplicationRecord
   end
 
   def sort_teams(hash)
-    hash.values.sort do |a, b|
-      [b.total_score, b.best_competitor_score, b.best_shooting_score, a.fastest_time] <=>
-        [a.total_score, a.best_competitor_score, a.best_shooting_score, b.fastest_time]
+    if sport.only_shooting?
+      hash.values.sort do |a, b|
+        [b.total_score, b.best_competitor_score, b.hits] + b.shot_counts <=>
+            [a.total_score, a.best_competitor_score, a.hits] + a.shot_counts
+      end
+    else
+      hash.values.sort do |a, b|
+        [b.total_score, b.best_competitor_score, b.best_shooting_score, a.fastest_time] <=>
+          [a.total_score, a.best_competitor_score, a.best_shooting_score, b.fastest_time]
+      end
     end
   end
 

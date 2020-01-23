@@ -41,13 +41,10 @@ describe TeamCompetition do
   end
 
   describe "#results_for_competitors" do
-    let(:sport) { instance_double Sport }
-    let(:race) { build :race }
+    let(:sport_key) { Sport::SKI }
+    let(:sport) { Sport.by_key sport_key }
+    let(:race) { build :race, sport_key: sport_key }
     let(:tc) { build :team_competition, race: race, team_competitor_count: 2, multiple_teams: true }
-
-    before do
-      allow(race).to receive(:sport).and_return(sport)
-    end
 
     context 'when none of the clubs have enough competitors' do
       let(:club) { instance_double Club, display_name: 'Test club' }
@@ -270,6 +267,52 @@ describe TeamCompetition do
             expect(@results[1].name).to eq('Team second')
           end
         end
+      end
+    end
+
+    context 'when shooting race' do
+      let(:sport_key) { Sport::ILMAHIRVI }
+      let(:club1) { build :club, name: 'Best points' }
+      let(:club2) { build :club, name: 'Best competitor points' }
+      let(:club3) { build :club, name: 'Most hits' }
+      let(:club4) { build :club, name: 'More big shots' }
+      let(:club5) { build :club, name: 'Last' }
+
+      before do
+        competitors = []
+
+        competitors << build_shooting_competitor(club1, 91, 9, [8, 8, 9, 9, 7, 7])
+        competitors << build_shooting_competitor(club1, 90, 9, [8, 8, 9, 9, 7, 7])
+
+        competitors << build_shooting_competitor(club2, 90, 9, [8, 8, 9, 9, 7, 7])
+        competitors << build_shooting_competitor(club2, 88, 9, [8, 8, 9, 9, 7, 7])
+
+        competitors << build_shooting_competitor(club3, 89, 9, [8, 8, 9, 9, 7, 7])
+        competitors << build_shooting_competitor(club3, 88, 10, [8, 8, 9, 9, 7, 7])
+
+        competitors << build_shooting_competitor(club4, 89, 9, [8, 10, 9, 9, 7, 8])
+        competitors << build_shooting_competitor(club4, 88, 9, [10, 8, 9, 9, 7, 6])
+
+        competitors << build_shooting_competitor(club5, 89, 9, [9, 8, 10, 9, 7, 7])
+        competitors << build_shooting_competitor(club5, 88, 9, [9, 8, 9, 10, 7, 7])
+
+        @results = tc.results_for_competitors competitors.shuffle
+      end
+
+      it 'sorts teams by 1. total points 2. best competitor points 3. count of hits for the team' do
+        expect(@results[0].name).to eql club1.name
+        expect(@results[1].name).to eql club2.name
+        expect(@results[2].name).to eql club3.name
+        expect(@results[3].name).to eql club4.name
+        expect(@results[4].name).to eql club5.name
+      end
+
+      def build_shooting_competitor(club, qualification_round_score, hits, shots)
+        competitor = build :competitor, club: club
+        allow(competitor).to receive(:qualification_round_score).and_return(qualification_round_score)
+        allow(competitor).to receive(:hits).and_return(hits)
+        allow(competitor).to receive(:shots).and_return(shots)
+        competitor
       end
     end
   end

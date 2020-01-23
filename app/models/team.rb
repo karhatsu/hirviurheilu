@@ -26,4 +26,19 @@ class Team
   def fastest_time
     @competitors.select {|c| c.time_in_seconds}.map {|c| c.time_in_seconds}.min
   end
+
+  def hits
+    @competitors.map {|c| c.hits}.inject(:+)
+  end
+
+  def shot_counts
+    counts = Array.new(10).fill(0)
+    @competitors.each do |c|
+      c.shots.each do |shot|
+        index = 10 - (shot == 11 ? 10 : shot)
+        counts[index] = counts[index] + 1 if shot > 0
+      end
+    end
+    counts
+  end
 end
