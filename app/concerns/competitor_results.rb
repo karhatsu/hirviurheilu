@@ -18,7 +18,7 @@ module CompetitorResults
     results = no_result_reason_results
     return results if results
     max_extra_round_shots = competitors.map {|competitor| competitor.extra_round_shots&.length.to_i }.max || 0
-    results = [shooting_score.to_i, extra_round_filled_sum(max_extra_round_shots), hits.to_i, final_round_score.to_i]
+    results = [shooting_score.to_i] + extra_round_filled_shots(max_extra_round_shots) + [hits.to_i, final_round_score.to_i]
     results << (final_round_score || qualification_round_sub_scores.nil? ? 0 : qualification_round_sub_scores[1].to_i)
     results + shot_counts_desc + (shots || []).reverse
   end
@@ -49,9 +49,9 @@ module CompetitorResults
     shots_counts
   end
 
-  def extra_round_filled_sum(max_extra_round_shots)
-    return 0 unless extra_round_shots && max_extra_round_shots > 0
-    temp_shots = extra_round_shots + Array.new(max_extra_round_shots - extra_round_shots.length, 12) # 12 = max value 11 + 1
-    temp_shots.inject(:+)
+  def extra_round_filled_shots(max_extra_round_shots)
+    return [] if max_extra_round_shots == 0
+    own_shots = (extra_round_shots || [])
+    own_shots + Array.new(max_extra_round_shots - own_shots.length, 0)
   end
 end

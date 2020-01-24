@@ -141,7 +141,7 @@ describe CompetitorResults do
 
     context 'when no shots yet' do
       it 'returns array of zeros' do
-        expect(competitor.shooting_race_results(competitors)).to eql [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        expect(competitor.shooting_race_results(competitors)).to eql [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       end
     end
 
@@ -168,8 +168,8 @@ describe CompetitorResults do
         end
 
         it 'returns array of shooting score, extra round filled sum, hits, final round score, 0, count of different shots (11 as 10), and shots in reverse order' do
-          extra_round_filled_sum = [8, 11, 12, 12, 12].inject(:+)
-          expected = [shooting_score, extra_round_filled_sum, hits, final_round_score, 0, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
+          extra_round_shots_filled = [8, 11, 0, 0, 0]
+          expected = [shooting_score] + extra_round_shots_filled + [hits, final_round_score, 0, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
           expect(competitor.shooting_race_results(competitors)).to eql expected
         end
       end
@@ -180,8 +180,8 @@ describe CompetitorResults do
           allow(competitor).to receive(:extra_round_shots).and_return(nil)
         end
 
-        it 'returns array of shooting score, 0, hits, 0, second qualification round score, count of different shots (11 as 10), and shots in reverse order' do
-          expected = [shooting_score, 0, hits, 0, second_qualification_round_sub_score, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
+        it 'returns array of shooting score, zeros for extra shots, hits, 0, second qualification round score, count of different shots (11 as 10), and shots in reverse order' do
+          expected = [shooting_score, 0, 0, 0, 0, 0, hits, 0, second_qualification_round_sub_score, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
           expect(competitor.shooting_race_results(competitors)).to eql expected
         end
       end
