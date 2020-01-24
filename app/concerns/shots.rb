@@ -2,11 +2,15 @@ module Shots
   extend ActiveSupport::Concern
 
   def hits
-    shots.select {|shot| shot > 0}.length if shots
+    non_zero_shots shots
   end
 
   def qualification_round_shots
     split_shots sport.qualification_round, 0
+  end
+
+  def qualification_round_hits
+    non_zero_shots qualification_round_shots
   end
 
   def qualification_round_sub_scores
@@ -58,6 +62,10 @@ module Shots
   end
 
   private
+
+  def non_zero_shots(shots)
+    shots.flatten.select {|shot| shot > 0}.length if shots
+  end
 
   def split_shots(rules, start_index)
     return nil unless rules && shots

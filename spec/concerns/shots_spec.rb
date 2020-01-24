@@ -15,6 +15,10 @@ describe Shots do
       expect(competitor.hits).to eql [10, 9, 8].length
     end
 
+    it 'qualification_round_hits is nil' do
+      expect(competitor.qualification_round_hits).to be_nil
+    end
+
     it 'qualification round shots is nil' do
       expect(competitor.qualification_round_shots).to be_nil
     end
@@ -90,6 +94,10 @@ describe Shots do
         expect(competitor.hits).to be_nil
       end
 
+      it 'qualification_round_hits is nil' do
+        expect(competitor.qualification_round_hits).to be_nil
+      end
+
       it 'qualification round shots is nil' do
         expect(competitor.qualification_round_shots).to be_nil
       end
@@ -136,6 +144,10 @@ describe Shots do
 
       it 'qualification round score is sum of available shots' do
         expect(competitor.qualification_round_score).to eql 10 + 9 + 4 + 3
+      end
+
+      it 'qualification round hits is number of shots' do
+        expect(competitor.qualification_round_hits).to eql 4
       end
 
       it 'final round shots is nil' do
@@ -189,10 +201,14 @@ describe Shots do
       end
 
       context 'and some final round shots too' do
-        let(:competitor) { FakeCompetitor.new sport, [10, 9, 4, 3, 9, 2, 6] }
+        let(:competitor) { FakeCompetitor.new sport, [10, 9, 0, 3, 9, 2, 6] }
 
         it 'qualification round shots is an array with one shots array having the correct amount of shots' do
-          expect(competitor.qualification_round_shots).to eql [[10, 9, 4, 3, 9]]
+          expect(competitor.qualification_round_shots).to eql [[10, 9, 0, 3, 9]]
+        end
+
+        it 'qualification round hits is number of non-zero qualification round shots' do
+          expect(competitor.qualification_round_hits).to eql 4
         end
 
         it 'final round shots is an array with an array containing available final round shots' do

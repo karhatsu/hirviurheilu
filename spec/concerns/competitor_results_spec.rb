@@ -214,16 +214,23 @@ describe CompetitorResults do
     end
 
     context 'without no result reason' do
-      let(:normal_results) { [150, 80, 0, 5] }
       let(:qualification_round_score) { 78 }
+      let(:qualification_round_hits) { 9 }
+      let(:second_qualification_round_sub_score) { 42 }
+      let(:qualification_round_sub_scores) { [39, second_qualification_round_sub_score] }
+      let(:qualification_round_shots) { [[2, 9, 10, 11, 6], [0, 1, 10, 10, 1]] }
 
       before do
-        allow(competitor).to receive(:shooting_race_results).with([]).and_return(normal_results)
         allow(competitor).to receive(:qualification_round_score).and_return(qualification_round_score)
+        allow(competitor).to receive(:qualification_round_hits).and_return(qualification_round_hits)
+        allow(competitor).to receive(:second_qualification_round_sub_score).and_return(second_qualification_round_sub_score)
+        allow(competitor).to receive(:qualification_round_sub_scores).and_return(qualification_round_sub_scores)
+        allow(competitor).to receive(:qualification_round_shots).and_return(qualification_round_shots)
       end
 
-      it 'returns qualification round score prepended to the normal results' do
-        expect(competitor.shooting_race_team_results).to eql [qualification_round_score] + normal_results
+      it 'returns array of QR score, QR hits, second QR score, count of different QR shots (11 as 10), and QR shots in reverse order' do
+        expected = [qualification_round_score, qualification_round_hits, second_qualification_round_sub_score, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + qualification_round_shots.reverse
+        expect(competitor.shooting_race_team_results).to eql expected
       end
     end
   end

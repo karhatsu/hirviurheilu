@@ -10,7 +10,7 @@ module CompetitorResults
     results = [(unofficials == Series::UNOFFICIALS_EXCLUDED && unofficial? ? 0 : 1)]
     results = results + [points(unofficials), shooting_points.to_i]
     results << -time_in_seconds.to_i unless series.walking_series?
-    results = results + shot_counts_desc if series.walking_series?
+    results = results + shot_counts_desc(shots) if series.walking_series?
     results
   end
 
@@ -20,13 +20,15 @@ module CompetitorResults
     max_extra_round_shots = competitors.map {|competitor| competitor.extra_round_shots&.length.to_i }.max || 0
     results = [shooting_score.to_i] + extra_round_filled_shots(max_extra_round_shots) + [hits.to_i, final_round_score.to_i]
     results << (final_round_score || qualification_round_sub_scores.nil? ? 0 : qualification_round_sub_scores[1].to_i)
-    results + shot_counts_desc + (shots || []).reverse
+    results + shot_counts_desc(shots) + reverse_shots(shots)
   end
 
   def shooting_race_team_results
     results = no_result_reason_results
     return results if results
-    [qualification_round_score.to_i] + shooting_race_results([])
+    results = [qualification_round_score.to_i, qualification_round_hits.to_i]
+    results << (qualification_round_sub_scores.nil? ? 0 : qualification_round_sub_scores[1].to_i)
+    results + shot_counts_desc(qualification_round_shots) + reverse_shots(qualification_round_shots)
   end
 
   private
@@ -37,8 +39,8 @@ module CompetitorResults
     return [-10000] if no_result_reason == Competitor::DNF
   end
 
-  def shot_counts_desc
-    grouped_shots = (shots || []).group_by &:to_i
+  def shot_counts_desc(shots)
+    grouped_shots = (shots || []).flatten.group_by &:to_i
     shots_counts = []
     10.times do |i|
       shot = 10 - i
@@ -55,5 +57,9 @@ module CompetitorResults
     all_extra_shots = own_shots + Array.new(max_extra_round_shots - own_shots.length, 0)
     return all_extra_shots if sport.shots_per_extra_round == 1
     all_extra_shots.each_slice(sport.shots_per_extra_round).to_a.map {|shots| shots.inject(:+)}
+  end
+
+  def reverse_shots(shots)
+    (shots || []).reverse
   end
 end
