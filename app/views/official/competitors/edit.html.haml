@@ -47,7 +47,8 @@
     - final_round = @competitor.sport.final_round
     - final_round_shots = final_round && final_round.inject(:+)
     - basic_shots = qualification_round_shots + final_round_shots
-    - extra_shots_count = @competitor.shots && @competitor.shots.length >= basic_shots ? @competitor.shots.length - basic_shots + 1 : 0
+    - shots_per_extra_round = @series.sport.shots_per_extra_round
+    - extra_shots_count = @competitor.shots && @competitor.shots.length >= basic_shots ? @competitor.shots.length - basic_shots + shots_per_extra_round : 0
     = hidden_field_tag :no_times, true
     .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :number
