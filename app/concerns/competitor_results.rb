@@ -52,6 +52,8 @@ module CompetitorResults
   def extra_round_filled_shots(max_extra_round_shots)
     return [] if max_extra_round_shots == 0
     own_shots = (extra_round_shots || [])
-    own_shots + Array.new(max_extra_round_shots - own_shots.length, 0)
+    all_extra_shots = own_shots + Array.new(max_extra_round_shots - own_shots.length, 0)
+    return all_extra_shots if sport.shots_per_extra_round == 1
+    all_extra_shots.each_slice(sport.shots_per_extra_round).to_a.map {|shots| shots.inject(:+)}
   end
 end

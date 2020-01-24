@@ -126,9 +126,11 @@ describe CompetitorResults do
     let(:competitor) { build :competitor }
     let(:competitor2) { build :competitor }
     let(:competitors) { [competitor2, competitor] }
+    let(:sport) { Sport.by_key Sport::ILMALUODIKKO }
 
     before do
-      allow(competitor2).to receive(:extra_round_shots).and_return([8, 10, 7, 6, 5])
+      allow(competitor).to receive(:sport).and_return(sport)
+      allow(competitor2).to receive(:extra_round_shots).and_return([8, 10, 7, 6, 5, 9])
     end
 
     context 'when no result reason' do
@@ -141,7 +143,7 @@ describe CompetitorResults do
 
     context 'when no shots yet' do
       it 'returns array of zeros' do
-        expect(competitor.shooting_race_results(competitors)).to eql [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        expect(competitor.shooting_race_results(competitors)).to eql [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       end
     end
 
@@ -152,7 +154,7 @@ describe CompetitorResults do
       let(:second_qualification_round_sub_score) { 42 }
       let(:qualification_round_sub_scores) { [39, second_qualification_round_sub_score] }
       let(:shots) { [2, 9, 10, 11, 6, 0, 1, 10, 10, 1] }
-      let(:extra_round_shots) { [8, 11] }
+      let(:extra_round_shots) { [8, 11, 10, 6] }
 
       before do
         allow(competitor).to receive(:shooting_score).and_return(shooting_score)
@@ -167,10 +169,22 @@ describe CompetitorResults do
           allow(competitor).to receive(:extra_round_shots).and_return(extra_round_shots)
         end
 
-        it 'returns array of shooting score, extra round filled sum, hits, final round score, 0, count of different shots (11 as 10), and shots in reverse order' do
-          extra_round_shots_filled = [8, 11, 0, 0, 0]
-          expected = [shooting_score] + extra_round_shots_filled + [hits, final_round_score, 0, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
-          expect(competitor.shooting_race_results(competitors)).to eql expected
+        context 'and 1 shot per extra round' do
+          it 'returns array of shooting score, extra round filled sum, hits, final round score, 0, count of different shots (11 as 10), and shots in reverse order' do
+            extra_round_shots_filled = [8, 11, 10, 6, 0, 0]
+            expected = [shooting_score] + extra_round_shots_filled + [hits, final_round_score, 0, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
+            expect(competitor.shooting_race_results(competitors)).to eql expected
+          end
+        end
+
+        context 'and 2 shots per extra round' do
+          let(:sport) { Sport.by_key Sport::ILMAHIRVI }
+
+          it 'groups extra shots into sums of two' do
+            extra_round_shots_filled = [19, 16, 0]
+            expected = [shooting_score] + extra_round_shots_filled + [hits, final_round_score, 0, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
+            expect(competitor.shooting_race_results(competitors)).to eql expected
+          end
         end
       end
 
@@ -181,7 +195,7 @@ describe CompetitorResults do
         end
 
         it 'returns array of shooting score, zeros for extra shots, hits, 0, second qualification round score, count of different shots (11 as 10), and shots in reverse order' do
-          expected = [shooting_score, 0, 0, 0, 0, 0, hits, 0, second_qualification_round_sub_score, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
+          expected = [shooting_score, 0, 0, 0, 0, 0, 0, hits, 0, second_qualification_round_sub_score, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
           expect(competitor.shooting_race_results(competitors)).to eql expected
         end
       end
