@@ -84,13 +84,11 @@
   syöttää tulospalveluun kilpailun tiedot.</div>
 
 <%
-series_list = []
-DefaultSeries.all(Sport.by_key(Sport::SKI)).each do |df|
-  series = df.name
-  unless df.default_age_groups.empty?
-    series << " (#{(df.default_age_groups.collect &:name).join(', ')})"
-  end
-  series_list << series
+series_list = DefaultSeries.all(Sport.by_key(Sport::SKI)).map do |ds|
+  series_name = ds.name
+  groups = ds.default_age_groups
+  series_name = "#{series_name} (#{(groups.map &:name).join(', ')})" unless groups.empty?
+  series_name
 end
 %>
 <h3>Mitä sarjoja
