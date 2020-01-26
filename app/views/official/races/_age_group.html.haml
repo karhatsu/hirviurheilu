@@ -11,4 +11,4 @@
       = f.check_box :shorter_trip
       = f.label :shorter_trip
   - if f.object.competitors.empty?
-    = remove_child_link t('official.races.form.remove_age_group'), f, 'age-group-sub-form', "", 'button button--danger'
+    = remove_child_link t("official.races.form.remove_age_group.#{@race.sport.only_shooting? ? 'shooting_race' : 'three_sports_race'}"), f, 'age-group-sub-form', "", 'button button--danger'

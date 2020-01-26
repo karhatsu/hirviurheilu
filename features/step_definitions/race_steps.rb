@@ -43,6 +43,11 @@ Given /^I have a race "([^"]*)"$/ do |name|
   @user.race_rights.create!(:race => @race)
 end
 
+Given("I have a {string} race {string}") do |sport_key, name|
+  @race = create :race, sport_key: sport_key, name: name
+  @user.race_rights.create! race: @race
+end
+
 Given /^I have a race with attributes:$/ do |fields|
   @race = create(:race, fields.rows_hash)
   @user.race_rights.create!(:race => @race)

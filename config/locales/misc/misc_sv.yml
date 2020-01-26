@@ -4,6 +4,9 @@ sv:
   add_new: Öka ny
   add_race: Öka tävling
   added: Ökat
+  age_group:
+    three_sports_race: Äldsgrupp
+    shooting_race: Grupp
   all: Alla
   all_announcements: Alla nyheter
   all_competitors: Alla tävlarna

@@ -41,11 +41,15 @@ sv:
         you_havent_added_series_yet: Du har ökat inga klasser till tävlingen. Klicka knappen ovan för att öka klasser.
         age_groups_help_title:
           three_sports_race: Äldsgrupper med egna tidpöang
-          shooting_race: Äldsgrupper för lagtävlingar
-        add_age_group: Öka äldsgrupp
+          shooting_race: Grupper för lagtävlingar
+        add_age_group:
+          three_sports_race: Öka äldsgrupp
+          shooting_race: Öka grupp
         at_least: minst
         competitors: tävlar
-        remove_age_group: Radera äldsgruppen
+        remove_age_group:
+          three_sports_race: Radera äldsgruppen
+          shooting_race: Radera gruppen
         remove_series: Radera klassen
         remove_series_confirm: Är du säker att du vill radera klassen?
         add_series: Öka ny klass till tävlingen
@@ -163,10 +167,21 @@ sv:
       update:
         team_competition_updated: Lagtävlingen uppdaterad
       form:
-        series_age_groups: Klasser och/eller äldsgruppar på den här lagtävlingen
-        choose_info: Välj alla klasser och äldsgruppar som behör till den här lagtävlingen.
-        choose_info_full_series: Om hela klassen behör till lagtävlingen, välj klassen utan äldsgruppar.
-        choose_info_age_groups: Om bara någon äldsgrupp eller -gruppar behör till lagtävlingen (inte hela klassen), välj äldsgruppen (inte klassen).
+        series_age_groups:
+          three_sports_race: Klasser och/eller äldsgruppar på den här lagtävlingen
+          shooting_race: Klasser och/eller gruppar på den här lagtävlingen
+        choose_info:
+          three_sports_race: Välj alla klasser och äldsgruppar som behör till den här lagtävlingen.
+          shooting_race: Välj alla klasser och sgruppar som behör till den här lagtävlingen.
+        choose_info_full_series:
+          three_sports_race: Om hela klassen behör till lagtävlingen, välj klassen utan äldsgruppar.
+          shooting_race: Om hela klassen behör till lagtävlingen, välj klassen utan sgruppar.
+        choose_info_age_groups:
+          three_sports_race: Om bara någon äldsgrupp eller -gruppar behör till lagtävlingen (inte hela klassen), välj äldsgruppen (inte klassen).
+          shooting_race: Om bara någon grupp eller -gruppar behör till lagtävlingen (inte hela klassen), välj gruppen (inte klassen).
+        age_groups_title:
+          three_sports_race: Äldsgruppar
+          shooting_race: Gruppar
       destroy:
         team_competition_removed: Joukkuekilpailu poistettu
     finish_races:

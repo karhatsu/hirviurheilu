@@ -81,7 +81,9 @@ Feature: Manage race
     When I press "Lisää uusi sarja tähän kilpailuun"
     And I fill in "Test series" for "Sarjan nimi"
     And I press "Lisää ikäryhmä"
-    And I fill in "Test age group" for "Nimi"
+    Then I should not see "aliryhm"
+    And I should not see "Aliryhm"
+    When I fill in "Test age group" for "Nimi"
     And I press the first "Tallenna kilpailun ja sarjojen tiedot" button
     Then I should be on the official race page of "Test race"
     And I should see "Test series"
@@ -118,10 +120,11 @@ Feature: Manage race
     And I should not see "Oikeat etäisyydet"
     When I follow "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja"
     Then I should see "Ilmahirvi"
-    But I should not see "Lyhennetty matka"
+    But I should not see "ikäryhm"
+    And I should not see "Ikäryhm"
+    And I should not see "Lyhennetty matka"
     And I should not see "Pistelaskenta"
-    And I should not see "Ikäryhmät, joille lasketaan omat aikapisteet"
-    But I should see "Ikäryhmät joukkuekilpailua varten"
+    But I should see "Aliryhmät joukkuekilpailua varten"
 
   Scenario: Edit race and series
     Given I am an official

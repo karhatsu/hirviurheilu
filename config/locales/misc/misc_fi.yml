@@ -4,6 +4,9 @@ fi:
   add_new: Lisää uusi
   add_race: Lisää kilpailu
   added: Lisätty
+  age_group:
+    three_sports_race: Ikäryhmä
+    shooting_race: Aliryhmä
   all: Kaikki
   all_announcements: Kaikki tiedotteet
   all_competitors: Kaikki kilpailijat
