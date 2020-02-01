@@ -24,9 +24,10 @@ class RacesController < ApplicationController
       format.html
       format.pdf do
         @page_breaks = params[:page_breaks]
-        render :pdf => "#{@race.name} - tulokset", :layout => true,
-          :margin => pdf_margin, :header => pdf_header("#{@race.name} - Tuloskooste"), :footer => pdf_footer,
-          :orientation => 'Landscape', disable_smart_shrinking: true
+        orientation = @race.sport.only_shooting? ? 'Portrait' : 'Landscape'
+        render pdf: "#{@race.name} - tulokset", layout: true,
+               margin: pdf_margin, header: pdf_header("#{@race.name} - Tuloskooste"), footer: pdf_footer,
+               orientation: orientation, disable_smart_shrinking: true
       end
     end
   end
