@@ -46,3 +46,7 @@ a:hover {
 .message--info {
     margin: 8px 0;
 }
+
+.shots {
+  display: none;
+}
