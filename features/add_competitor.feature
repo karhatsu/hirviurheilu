@@ -16,6 +16,7 @@ Feature: Add competitor
     When I follow the first "Lisää 1. kilpailija" link
     Then the "Toimitsijan sivut" main menu item should be selected
     And the "Kilpailijat" sub menu item should be selected
+    And I should not see "Numero"
     When I select "M60" from "Sarja"
     And I select "M70" from "Ikäryhmä"
     And I fill in "Matti" for "Etunimi"
@@ -54,3 +55,19 @@ Feature: Add competitor
     And the "competitor_new_competitor_first_name" text field value should be ""
     And the "competitor_new_competitor_last_name" text field value should be ""
     And the "club_name_new" text field value should be "Testiseura"
+
+  @javascript
+  Scenario: Add shooting competitor
+    Given I am an official
+    And I have a "ILMAHIRVI" race "Ilmakisa"
+    And the race has series "M"
+    And I have logged in
+    And I am on the official race page of "Ilmakisa"
+    When I follow the first "Lisää 1. kilpailija" link
+    And I fill in "Matti" for "Etunimi"
+    And I fill in "Myöhänen" for "Sukunimi"
+    And I fill in "Testiseura" for "club_name"
+    And I fill in "5" for "Numero"
+    And I press "Tallenna"
+    Then I should see "Kilpailija lisätty" in a success message
+    And I should see "Myöhänen Matti, Testiseura (M)"
