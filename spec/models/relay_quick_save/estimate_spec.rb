@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RelayEstimateQuickSave do
+describe RelayQuickSave::Estimate do
   before do
     @race = create(:race)
     @relay = create(:relay, :race => @race, :legs_count => 2)
@@ -9,48 +9,48 @@ describe RelayEstimateQuickSave do
   end
 
   it "should save the estimate when competitor found and valid estimate" do
-    @qs = RelayEstimateQuickSave.new(@relay.id, '5,2,105')
+    @qs = RelayQuickSave::Estimate.new(@relay.id, '5,2,105')
     check_success 105
   end
 
   it "should handle error when invalid estimate" do
-    @qs = RelayEstimateQuickSave.new(@relay.id, '5,2,0')
+    @qs = RelayQuickSave::Estimate.new(@relay.id, '5,2,0')
     check_failure true
   end
 
   it "should handle error when unknown leg number" do
-    @qs = RelayEstimateQuickSave.new(@relay.id, '5,3,105')
+    @qs = RelayQuickSave::Estimate.new(@relay.id, '5,3,105')
     check_failure
   end
 
   it "should handle error when unknown team number" do
-    @qs = RelayEstimateQuickSave.new(@relay.id, '4,2,105')
+    @qs = RelayQuickSave::Estimate.new(@relay.id, '4,2,105')
     check_failure
   end
 
   it "should handle error when invalid string format" do
-    @qs = RelayEstimateQuickSave.new(@relay.id, '5,2.105')
+    @qs = RelayQuickSave::Estimate.new(@relay.id, '5,2.105')
     check_failure
   end
-  
+
   context "when data already stored" do
     before do
       @c.estimate = 99
       @c.save!
     end
-    
+
     it "should handle error when normal input" do
-      @qs = RelayEstimateQuickSave.new(@relay.id, '5,2,100')
+      @qs = RelayQuickSave::Estimate.new(@relay.id, '5,2,100')
       check_failure true, 99
       expect(@qs.error).to eq('Kilpailijalle (Mikko Miettinen, Pohjanmaa) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++joukkue,osuus,tulos.')
     end
-    
+
     it "should override when input starts with ++" do
-      @qs = RelayEstimateQuickSave.new(@relay.id, '++5,2,100')
+      @qs = RelayQuickSave::Estimate.new(@relay.id, '++5,2,100')
       check_success 100
     end
   end
-  
+
   def check_success(estimate)
     saved = @qs.save
     raise @qs.error unless saved

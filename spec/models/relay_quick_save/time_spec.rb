@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RelayTimeQuickSave do
+describe RelayQuickSave::Time do
   before do
     @race = create(:race)
     @relay = create(:relay, :race => @race, :legs_count => 2,
@@ -11,29 +11,29 @@ describe RelayTimeQuickSave do
   end
 
   it "should save the arrival time when competitor found and valid arrival time" do
-    @qs = RelayTimeQuickSave.new(@relay.id, '5,1,112059')
+    @qs = RelayQuickSave::Time.new(@relay.id, '5,1,112059')
     check_success '11:20:59'
   end
 
   it "should handle error when invalid arrival time" do
-    qs = RelayTimeQuickSave.new(@relay.id, '5,1,002059')
+    qs = RelayQuickSave::Time.new(@relay.id, '5,1,002059')
     qs.save
-    @qs = RelayTimeQuickSave.new(@relay.id, '5,2,002058')
+    @qs = RelayQuickSave::Time.new(@relay.id, '5,2,002058')
     check_failure @c2
   end
 
   it "should handle error when unknown leg number" do
-    @qs = RelayTimeQuickSave.new(@relay.id, '5,3,112059')
+    @qs = RelayQuickSave::Time.new(@relay.id, '5,3,112059')
     check_failure
   end
 
   it "should handle error when unknown team number" do
-    @qs = RelayTimeQuickSave.new(@relay.id, '4,1,112059')
+    @qs = RelayQuickSave::Time.new(@relay.id, '4,1,112059')
     check_failure
   end
 
   it "should handle error when invalid string format" do
-    @qs = RelayTimeQuickSave.new(@relay.id, '5,1,112060')
+    @qs = RelayQuickSave::Time.new(@relay.id, '5,1,112060')
     check_failure
   end
 
@@ -42,18 +42,18 @@ describe RelayTimeQuickSave do
       @c.arrival_time = '11:25:12'
       @c.save!
     end
-    
+
     it "should handle error when normal input" do
-      @qs = RelayTimeQuickSave.new(@relay.id, '5,1,112513')
+      @qs = RelayQuickSave::Time.new(@relay.id, '5,1,112513')
       check_failure @c, '11:25:12'
     end
-    
+
     it "should override when input starts with ++" do
-      @qs = RelayTimeQuickSave.new(@relay.id, '++5,1,112513')
+      @qs = RelayQuickSave::Time.new(@relay.id, '++5,1,112513')
       check_success '11:25:13'
     end
   end
-  
+
   def check_success(arrival_time)
     saved = @qs.save
     raise @qs.error unless saved

@@ -1,4 +1,4 @@
-class TimeQuickSave < QuickSave
+class QuickSave::Time < QuickSave::QuickSaveBase
   def initialize(race_id, string)
     super(race_id, string, /^(\+\+|)\d+(\,|#)[0-2][0-9][0-5][0-9][0-5][0-9]$/)
   end

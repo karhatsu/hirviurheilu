@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EstimatesQuickSave do
+describe QuickSave::Estimates do
   before do
     @race = create(:race)
     @series = create(:series, :race => @race)
@@ -14,7 +14,7 @@ describe EstimatesQuickSave do
     describe "successfull save" do
       describe "2 estimates" do
         before do
-          @qs = EstimatesQuickSave.new(@race.id, '11,98,115')
+          @qs = QuickSave::Estimates.new(@race.id, '11,98,115')
         end
 
         describe "#save" do
@@ -46,7 +46,7 @@ describe EstimatesQuickSave do
         before do
           @series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
           @series.save!
-          @qs = EstimatesQuickSave.new(@race.id, '11,98,115,160,144')
+          @qs = QuickSave::Estimates.new(@race.id, '11,98,115,160,144')
         end
 
         describe "#save" do
@@ -79,7 +79,7 @@ describe EstimatesQuickSave do
 
     describe "save fails" do
       before do
-        @qs = EstimatesQuickSave.new(@race.id, '10,0,0')
+        @qs = QuickSave::Estimates.new(@race.id, '10,0,0')
       end
 
       describe "#save" do
@@ -109,7 +109,7 @@ describe EstimatesQuickSave do
 
     describe "trying to save 4 estimates for a competitor of the series with 2 estimates" do
       before do
-        @qs = EstimatesQuickSave.new(@race.id, '++10,111,122,80,90')
+        @qs = QuickSave::Estimates.new(@race.id, '++10,111,122,80,90')
       end
 
       describe "#save" do
@@ -143,7 +143,7 @@ describe EstimatesQuickSave do
       before do
         @series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
         @series.save!
-        @qs = EstimatesQuickSave.new(@race.id, '++10,111,122')
+        @qs = QuickSave::Estimates.new(@race.id, '++10,111,122')
       end
 
       describe "#save" do
@@ -179,7 +179,7 @@ describe EstimatesQuickSave do
       another_race = create(:race)
       series = create(:series, :race => another_race)
       create(:competitor, :series => series, :number => 8)
-      @qs = EstimatesQuickSave.new(@race.id, '8,98,115')
+      @qs = QuickSave::Estimates.new(@race.id, '8,98,115')
     end
 
     describe "#save" do
@@ -208,7 +208,7 @@ describe EstimatesQuickSave do
 
   describe "invalid string format" do
     before do
-      @qs = EstimatesQuickSave.new(@race.id, '8,98,')
+      @qs = QuickSave::Estimates.new(@race.id, '8,98,')
     end
 
     describe "#save" do
@@ -238,7 +238,7 @@ describe EstimatesQuickSave do
     before do
       @c = create(:competitor, :series => @series, :number => 12,
         :estimate1 => 52)
-      @qs = EstimatesQuickSave.new(@race.id, '12,98,102')
+      @qs = QuickSave::Estimates.new(@race.id, '12,98,102')
     end
 
     describe "#save" do
@@ -267,7 +267,7 @@ describe EstimatesQuickSave do
   context 'when # is used instead of ,' do
     context 'and input is valid' do
       it 'saves result' do
-        @qs = EstimatesQuickSave.new(@race.id, '11#156#65')
+        @qs = QuickSave::Estimates.new(@race.id, '11#156#65')
         expect(@qs.save).to be_truthy
         @c2.reload
         expect(@c2.estimate1).to eq(156)

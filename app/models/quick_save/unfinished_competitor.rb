@@ -1,4 +1,4 @@
-class UnfinishedCompetitorQuickSave < QuickSave
+class QuickSave::UnfinishedCompetitor < QuickSave::QuickSaveBase
   def initialize(race_id, string)
     super(race_id, string, /^(\+\+|)\d+(\,|#)dns$|dnf$|dq$|DNS$|DNF$|DQ$/)
   end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RelayAdjustmentQuickSave do
+describe RelayQuickSave::ShootingPenaltiesAdjustment do
   before do
     @race = create(:race)
     @relay = create(:relay, :race => @race, :legs_count => 2)
@@ -9,59 +9,59 @@ describe RelayAdjustmentQuickSave do
   end
 
   it "should save the adjustment when competitor found and valid adjustment" do
-    @qs = RelayAdjustmentQuickSave.new(@relay.id, '15,2,105')
-    check_success 105
+    @qs = RelayQuickSave::ShootingPenaltiesAdjustment.new(@relay.id, '15,2,1')
+    check_success 1
   end
 
   it "should save the adjustment when competitor found and valid negative adjustment" do
-    @qs = RelayAdjustmentQuickSave.new(@relay.id, '15,2,-125')
-    check_success(-125)
+    @qs = RelayQuickSave::ShootingPenaltiesAdjustment.new(@relay.id, '15,2,-2')
+    check_success(-2)
   end
 
   it "should handle error when invalid adjustment" do
-    @qs = RelayAdjustmentQuickSave.new(@relay.id, '15,2,1.1')
+    @qs = RelayQuickSave::ShootingPenaltiesAdjustment.new(@relay.id, '15,2,1.1')
     check_failure
   end
 
   it "should handle error when unknown leg number" do
-    @qs = RelayAdjustmentQuickSave.new(@relay.id, '15,1,105')
+    @qs = RelayQuickSave::ShootingPenaltiesAdjustment.new(@relay.id, '15,1,105')
     check_failure
   end
 
   it "should handle error when unknown team number" do
-    @qs = RelayAdjustmentQuickSave.new(@relay.id, '4,2,105')
+    @qs = RelayQuickSave::ShootingPenaltiesAdjustment.new(@relay.id, '4,2,105')
     check_failure
   end
 
   it "should handle error when invalid string format" do
-    @qs = RelayAdjustmentQuickSave.new(@relay.id, '15,2.105')
+    @qs = RelayQuickSave::ShootingPenaltiesAdjustment.new(@relay.id, '15,2.105')
     check_failure
   end
 
   context "when data already stored" do
     before do
-      @c.adjustment = 9
+      @c.shooting_penalties_adjustment = 2
       @c.save!
     end
-    
+
     it "should handle error when normal input" do
-      @qs = RelayAdjustmentQuickSave.new(@relay.id, '15,2,13')
-      check_failure true, 9
+      @qs = RelayQuickSave::ShootingPenaltiesAdjustment.new(@relay.id, '15,2,13')
+      check_failure true, 2
     end
-    
+
     it "should override when input starts with ++" do
-      @qs = RelayAdjustmentQuickSave.new(@relay.id, '++15,2,13')
-      check_success 13
+      @qs = RelayQuickSave::ShootingPenaltiesAdjustment.new(@relay.id, '++15,2,-3')
+      check_success -3
     end
   end
-  
+
   def check_success(adjustment)
     saved = @qs.save
     raise @qs.error unless saved
     expect(@qs.competitor).to eq(@c)
     expect(@qs.error).to be_nil
     @c.reload
-    expect(@c.adjustment).to eq(adjustment)
+    expect(@c.shooting_penalties_adjustment).to eq(adjustment)
   end
 
   def check_failure(competitor=false, adjustment=nil)
@@ -70,7 +70,7 @@ describe RelayAdjustmentQuickSave do
     expect(@qs.competitor).to eq(@c) if competitor
     expect(@qs.competitor).to be_nil unless competitor
     @c.reload
-    expect(@c.adjustment).to eq(adjustment)
+    expect(@c.shooting_penalties_adjustment).to eq(adjustment)
   end
 end
 

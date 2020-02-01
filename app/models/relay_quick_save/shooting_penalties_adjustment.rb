@@ -1,4 +1,4 @@
-class RelayShootingPenaltiesAdjustmentQuickSave < RelayQuickSave
+class RelayQuickSave::ShootingPenaltiesAdjustment < RelayQuickSave::RelayQuickSaveBase
   def initialize(relay_id, string)
     super(relay_id, string, /^(\+\+)?\d+,\d+,(\+|-|)\d+$/)
   end

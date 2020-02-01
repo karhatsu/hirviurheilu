@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ShotsQuickSave do
+describe QuickSave::Shots do
   before do
     @race = create(:race)
     series = create(:series, :race => @race)
@@ -14,7 +14,7 @@ describe ShotsQuickSave do
       describe "shots sum" do
         context "when competitor has shots total input" do
           before do
-            @qs = ShotsQuickSave.new(@race.id, '11,98')
+            @qs = QuickSave::Shots.new(@race.id, '11,98')
           end
 
           describe "#save" do
@@ -46,7 +46,7 @@ describe ShotsQuickSave do
             @c2.shooting_score_input = nil
             @c2.shots = [10, 5]
             @c2.save!
-            @qs = ShotsQuickSave.new(@race.id, '++11,98')
+            @qs = QuickSave::Shots.new(@race.id, '++11,98')
           end
 
           describe "#save" do
@@ -78,7 +78,7 @@ describe ShotsQuickSave do
       describe "individual shots" do
         context "when competitor has shots total input" do
           before do
-            @qs = ShotsQuickSave.new(@race.id, '++10,+998876510')
+            @qs = QuickSave::Shots.new(@race.id, '++10,+998876510')
           end
 
           describe "#save" do
@@ -112,7 +112,7 @@ describe ShotsQuickSave do
             @c.shooting_score_input = nil
             @c.shots = [10]
             @c.save!
-            @qs = ShotsQuickSave.new(@race.id, '++10,**98876501')
+            @qs = QuickSave::Shots.new(@race.id, '++10,**98876501')
           end
 
           describe "#save" do
@@ -145,7 +145,7 @@ describe ShotsQuickSave do
 
     describe "save fails" do
       before do
-        @qs = ShotsQuickSave.new(@race.id, '10,200') # 200 > 100
+        @qs = QuickSave::Shots.new(@race.id, '10,200') # 200 > 100
       end
 
       describe "#save" do
@@ -178,7 +178,7 @@ describe ShotsQuickSave do
       another_race = create(:race)
       series = create(:series, :race => another_race)
       create(:competitor, :series => series, :number => 8)
-      @qs = ShotsQuickSave.new(@race.id, '8,98')
+      @qs = QuickSave::Shots.new(@race.id, '8,98')
     end
 
     describe "#save" do
@@ -206,7 +206,7 @@ describe ShotsQuickSave do
 
   describe "invalid string format" do
     before do
-      @qs = ShotsQuickSave.new(@race.id, '8,8x')
+      @qs = QuickSave::Shots.new(@race.id, '8,8x')
     end
 
     describe "#save" do
@@ -234,7 +234,7 @@ describe ShotsQuickSave do
 
   context 'when string is nil' do
     before do
-      @qs = ShotsQuickSave.new(@race.id, nil)
+      @qs = QuickSave::Shots.new(@race.id, nil)
     end
 
     it "error should contain invalid format error message" do
@@ -248,7 +248,7 @@ describe ShotsQuickSave do
       series = create(:series, :race => @race)
       @c = create(:competitor, :series => series, :number => 12,
         :shooting_score_input => 50)
-      @qs = ShotsQuickSave.new(@race.id, '12,++++998870')
+      @qs = QuickSave::Shots.new(@race.id, '12,++++998870')
     end
 
     describe "#save" do
@@ -277,7 +277,7 @@ describe ShotsQuickSave do
   context 'when # is used instead of ,' do
     context 'and result is saved first time' do
       it 'saves result' do
-        @qs = ShotsQuickSave.new(@race.id, '11#87')
+        @qs = QuickSave::Shots.new(@race.id, '11#87')
         expect(@qs.save).to be_truthy
         expect(@c2.reload.shooting_score_input).to eq(87)
       end
@@ -286,7 +286,7 @@ describe ShotsQuickSave do
     context 'and result is overridden' do
       context 'and input has ++ in the beginning' do
         it 'saves result' do
-          @qs = ShotsQuickSave.new(@race.id, '++10#91')
+          @qs = QuickSave::Shots.new(@race.id, '++10#91')
           expect(@qs.save).to be_truthy
           expect(@c.reload.shooting_score_input).to eq(91)
         end
@@ -294,7 +294,7 @@ describe ShotsQuickSave do
 
       context 'but input is missing ++ in the beginning' do
         it 'returns error' do
-          @qs = ShotsQuickSave.new(@race.id, '10#91')
+          @qs = QuickSave::Shots.new(@race.id, '10#91')
           @qs.save
           expect(@qs.save).to be_falsey
           expect(@qs.error).to match(/talletettu/)

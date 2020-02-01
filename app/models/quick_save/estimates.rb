@@ -1,4 +1,4 @@
-class EstimatesQuickSave < QuickSave
+class QuickSave::Estimates < QuickSave::QuickSaveBase
   def initialize(race_id, string)
     super(race_id, string, /^(\+\+|)\d+(\,|#)\d+(\,|#)\d+$/, /^(\+\+|)\d+(\,|#)\d+(\,|#)\d+(\,|#)\d+(\,|#)\d+$/)
   end
@@ -31,9 +31,9 @@ class EstimatesQuickSave < QuickSave
   end
 
   def competitor_has_attrs?
-    !@competitor.estimate1.nil? || 
-    !@competitor.estimate2.nil? || 
-    !@competitor.estimate3.nil? || 
+    !@competitor.estimate1.nil? ||
+    !@competitor.estimate2.nil? ||
+    !@competitor.estimate3.nil? ||
     !@competitor.estimate4.nil?
   end
 end

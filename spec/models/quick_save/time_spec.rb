@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TimeQuickSave do
+describe QuickSave::Time do
   before do
     @race = create(:race)
     @series = create(:series, :race => @race, name: 'M45')
@@ -15,7 +15,7 @@ describe TimeQuickSave do
   context "when string format is correct and competitor is found" do
     describe "successfull save" do
       before do
-        @qs = TimeQuickSave.new(@race.id, '11,031259')
+        @qs = QuickSave::Time.new(@race.id, '11,031259')
       end
 
       describe "#save" do
@@ -43,7 +43,7 @@ describe TimeQuickSave do
 
       describe "with overwrite" do
         before do
-          @qs = TimeQuickSave.new(@race.id, '++10,031259')
+          @qs = QuickSave::Time.new(@race.id, '++10,031259')
         end
 
         describe "#save" do
@@ -74,7 +74,7 @@ describe TimeQuickSave do
     describe "save fails" do
       before do
         @c = create(:competitor, :series => @series, :number => 8) # no start time
-        @qs = TimeQuickSave.new(@race.id, '8,031245')
+        @qs = QuickSave::Time.new(@race.id, '8,031245')
       end
 
       describe "#save" do
@@ -108,7 +108,7 @@ describe TimeQuickSave do
       series = create(:series, :race => another_race)
       create(:competitor, :series => series, :number => 8,
         :start_time => '01:00:00')
-      @qs = TimeQuickSave.new(@race.id, '8,031209')
+      @qs = QuickSave::Time.new(@race.id, '8,031209')
     end
 
     describe "#save" do
@@ -134,7 +134,7 @@ describe TimeQuickSave do
 
   describe "invalid string format (1)" do
     before do
-      @qs = TimeQuickSave.new(@race.id, '10,0312451')
+      @qs = QuickSave::Time.new(@race.id, '10,0312451')
     end
 
     describe "#save" do
@@ -162,7 +162,7 @@ describe TimeQuickSave do
 
   describe "invalid string format (2)" do
     before do
-      @qs = TimeQuickSave.new(@race.id, '10,271213')
+      @qs = QuickSave::Time.new(@race.id, '10,271213')
     end
 
     describe "#save" do
@@ -192,7 +192,7 @@ describe TimeQuickSave do
     before do
       @c = create(:competitor, :series => @series, :number => 12,
         :start_time => '01:30:00', :arrival_time => '02:00:00', first_name: 'Mikko', last_name: 'Miettinen')
-      @qs = TimeQuickSave.new(@race.id, '12,031245')
+      @qs = QuickSave::Time.new(@race.id, '12,031245')
     end
 
     describe "#save" do
@@ -221,7 +221,7 @@ describe TimeQuickSave do
   context 'when # is used instead of ,' do
     context 'and input is valid' do
       it 'saves result' do
-        @qs = TimeQuickSave.new(@race.id, '11#014541')
+        @qs = QuickSave::Time.new(@race.id, '11#014541')
         expect(@qs.save).to be_truthy
         expect(@c2.reload.arrival_time.strftime('%H:%M:%S')).to eq('01:45:41')
       end

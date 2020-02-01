@@ -1,4 +1,4 @@
-class RelayTimeQuickSave < RelayQuickSave
+class RelayQuickSave::Time < RelayQuickSave::RelayQuickSaveBase
   def initialize(relay_id, string)
     super(relay_id, string, /^(\+\+)?\d+,\d+,[0-2][0-9][0-5][0-9][0-5][0-9]$/)
   end
@@ -16,7 +16,7 @@ class RelayTimeQuickSave < RelayQuickSave
   def competitor_has_attrs?
     !@competitor.arrival_time.nil?
   end
-  
+
   def set_competitor_attrs
     @competitor.arrival_time = "#{hours}:#{minutes}:#{seconds}"
   end

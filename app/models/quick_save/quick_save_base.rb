@@ -1,4 +1,4 @@
-class QuickSave
+class QuickSave::QuickSaveBase
   attr_reader :competitor, :error
 
   def initialize(race_id, string, *valid_patterns)

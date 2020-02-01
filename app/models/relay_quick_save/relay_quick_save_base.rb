@@ -1,4 +1,4 @@
-class RelayQuickSave
+class RelayQuickSave::RelayQuickSaveBase
   attr_reader :competitor, :error
 
   def initialize(relay_id, string, *valid_patterns)
@@ -75,7 +75,7 @@ class RelayQuickSave
   def set_competitor_attrs
     raise "Must be implemented in the sub class"
   end
-  
+
   def competitor_has_attrs?
     raise "Must be implemented in the sub class"
   end

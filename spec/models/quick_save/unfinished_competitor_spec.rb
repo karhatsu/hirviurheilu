@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UnfinishedCompetitorQuickSave do
+describe QuickSave::UnfinishedCompetitor do
   before do
     @race = create(:race)
     @series = create(:series, :race => @race)
@@ -13,7 +13,7 @@ describe UnfinishedCompetitorQuickSave do
   context "when string format is correct and competitor is found" do
     describe "successfull save" do
       before do
-        @qs = UnfinishedCompetitorQuickSave.new(@race.id, '11,dns')
+        @qs = QuickSave::UnfinishedCompetitor.new(@race.id, '11,dns')
       end
 
       describe "#save" do
@@ -41,7 +41,7 @@ describe UnfinishedCompetitorQuickSave do
 
       describe "with overwrite" do
         before do
-          @qs = UnfinishedCompetitorQuickSave.new(@race.id, '++10,dnf')
+          @qs = QuickSave::UnfinishedCompetitor.new(@race.id, '++10,dnf')
         end
 
         describe "#save" do
@@ -75,7 +75,7 @@ describe UnfinishedCompetitorQuickSave do
       another_race = create(:race)
       series = create(:series, :race => another_race)
       create(:competitor, :series => series, :number => 8)
-      @qs = UnfinishedCompetitorQuickSave.new(@race.id, '8,dns')
+      @qs = QuickSave::UnfinishedCompetitor.new(@race.id, '8,dns')
     end
 
     it "should cause failed save" do
@@ -85,7 +85,7 @@ describe UnfinishedCompetitorQuickSave do
 
   describe "invalid string format (1)" do
     before do
-      @qs = UnfinishedCompetitorQuickSave.new(@race.id, '10,dng')
+      @qs = QuickSave::UnfinishedCompetitor.new(@race.id, '10,dng')
     end
 
     it "should cause failed save" do
@@ -95,7 +95,7 @@ describe UnfinishedCompetitorQuickSave do
 
   describe "invalid string format (2)" do
     before do
-      @qs = UnfinishedCompetitorQuickSave.new(@race.id, '10,dnfdns')
+      @qs = QuickSave::UnfinishedCompetitor.new(@race.id, '10,dnfdns')
     end
 
     it "should cause failed save" do
@@ -107,7 +107,7 @@ describe UnfinishedCompetitorQuickSave do
     before do
       @c = create(:competitor, :series => @series, :number => 12,
         :no_result_reason => Competitor::DQ)
-      @qs = UnfinishedCompetitorQuickSave.new(@race.id, '12,dq')
+      @qs = QuickSave::UnfinishedCompetitor.new(@race.id, '12,dq')
     end
 
     it "should cause failed save" do
@@ -118,7 +118,7 @@ describe UnfinishedCompetitorQuickSave do
   context 'when # is used instead of ,' do
     context 'and input is valid' do
       it 'saves result' do
-        @qs = UnfinishedCompetitorQuickSave.new(@race.id, '11#dq')
+        @qs = QuickSave::UnfinishedCompetitor.new(@race.id, '11#dq')
         expect(@qs.save).to be_truthy
         expect(@c2.reload.no_result_reason).to eq(Competitor::DQ)
       end
