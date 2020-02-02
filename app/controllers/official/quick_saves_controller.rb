@@ -5,15 +5,6 @@ class Official::QuickSavesController < Official::OfficialController
   def index
   end
 
-  def estimates
-  end
-
-  def shots
-  end
-
-  def times
-  end
-
   def save_estimates
     @name = 'estimates'
     do_quick_save(QuickSave::Estimates.new(@race.id, params[:string])) do

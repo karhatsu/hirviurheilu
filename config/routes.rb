@@ -73,9 +73,6 @@ ElkSports::Application.routes.draw do
         put 'correct_estimates' => 'correct_estimates#update', :as => :correct_estimates
         resources :correct_estimates
         resources :race_rights
-        get 'estimates_quick_save' => 'quick_saves#estimates', :as => :estimates_quick_save
-        get 'shots_quick_save' => 'quick_saves#shots', :as => :shots_quick_save
-        get 'times_quick_save' => 'quick_saves#times', :as => :times_quick_save
         post 'estimates_quick_save' => 'quick_saves#save_estimates', :as => :quick_save_estimates
         post 'shots_quick_save' => 'quick_saves#save_shots', :as => :quick_save_shots
         post 'time_quick_save' => 'quick_saves#save_time', :as => :quick_save_time
