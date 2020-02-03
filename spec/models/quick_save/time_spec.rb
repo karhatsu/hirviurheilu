@@ -213,7 +213,7 @@ describe QuickSave::Time do
     describe "#error" do
       it "should contain data already stored message" do
         @qs.save
-        expect(@qs.error).to eq('Kilpailijalle (Mikko Miettinen, M45) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos tai ++numero#tulos.')
+        expect(@qs.error).to eq('Kilpailijalle (Mikko Miettinen, M45) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos.')
       end
     end
   end

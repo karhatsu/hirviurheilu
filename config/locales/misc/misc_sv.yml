@@ -63,7 +63,9 @@ sv:
   euros:
     one: euro
     other: euro
+  extra_round: Uusinta
   feedback: Feedback
+  final_round: Final
   hide_all_competitors: Gömma alla tävlarna
   hide_races_of_cup: Gömma tävlingarna
   leg: Sträcka
@@ -80,6 +82,7 @@ sv:
   order_method_1: Lottas
   password: Lösenord
   points: Poäng
+  qualification_round: Alkukilpailu
   relay_team:
     DNS: Laget startade inte
     DNF: Laget avbröt

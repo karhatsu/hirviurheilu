@@ -1,6 +1,6 @@
 class Official::QuickSavesController < Official::OfficialController
-  include QuickSavesHelper, TimeFormatHelper
-  before_action :assign_race_by_race_id, :check_assigned_race, :require_three_sports_race, :set_quick_saves
+  include QuickSavesHelper, TimeFormatHelper, ResultFormatHelper
+  before_action :assign_race_by_race_id, :check_assigned_race, :set_quick_saves
 
   def index
   end
@@ -29,6 +29,27 @@ class Official::QuickSavesController < Official::OfficialController
     do_quick_save(QuickSave::Time.new(@race.id, params[:string])) do
       @result = t('attributes.arrival_time') + ": #{@competitor.arrival_time.strftime('%H:%M:%S')}, " +
           "#{t(:result_time)}: #{time_from_seconds(@competitor.time_in_seconds)}"
+    end
+  end
+
+  def save_qualification_round_shots
+    @name = 'qualification_round_shots'
+    do_quick_save(QuickSave::QualificationRoundShots.new(@race.id, params[:string])) do
+      @result = t(:qualification_round) + ": #{@competitor.qualification_round_score}"
+    end
+  end
+
+  def save_final_round_shots
+    @name = 'final_round_shots'
+    do_quick_save(QuickSave::FinalRoundShots.new(@race.id, params[:string])) do
+      @result = t(:final_round) + ": #{@competitor.final_round_score}"
+    end
+  end
+
+  def save_extra_round_shots
+    @name = 'extra_round_shots'
+    do_quick_save(QuickSave::ExtraRoundShots.new(@race.id, params[:string])) do
+      @result = t(:extra_round) + ": #{shots_print @competitor.extra_round_shots}"
     end
   end
 

@@ -52,3 +52,22 @@ Feature: Quick result save
     When I fill in "++1#*987654321" for "shots_string"
     And I press "submit_shots"
     Then I should see "Kilpailijan 1. Testinen Tomi (Miehet) tulos tallennettu onnistuneesti (Ammunta: 55)."
+
+  @javascript
+  Scenario: Save shooting race shots
+    Given I am an official
+    And I have a "ILMALUODIKKO" race "Quick race" with competitor "Tomi" "Testinen" in series "M", with number 1
+    And I have logged in
+    And I am on the official quick save page of "Quick race"
+    When I fill in "1,9*+++99989" for "qualification_round_shots_string"
+    And I press "submit_qualification_round_shots"
+    Then I should see "Kilpailijan 1. Testinen Tomi (M) tulos tallennettu onnistuneesti (Alkukilpailu: 93)."
+    When I fill in "1,****++++89" for "final_round_shots_string"
+    And I press "submit_final_round_shots"
+    Then I should see "Kilpailijan 1. Testinen Tomi (M) tulos tallennettu onnistuneesti (Loppukilpailu: 97)."
+    When I fill in "1,9+" for "extra_round_shots_string"
+    And I press "submit_extra_round_shots"
+    Then I should see "Kilpailijan 1. Testinen Tomi (M) tulos tallennettu onnistuneesti (Uusinta: 9, 10)."
+    When I fill in "1,**" for "extra_round_shots_string"
+    And I press "submit_extra_round_shots"
+    Then I should see "Kilpailijan 1. Testinen Tomi (M) tulos tallennettu onnistuneesti (Uusinta: 9, 10, 10*, 10*)."

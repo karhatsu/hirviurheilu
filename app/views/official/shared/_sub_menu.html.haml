@@ -12,8 +12,7 @@
         - series_dropdown_menu(race, 'competitors')
       - if race.sport.start_list?
         = menu_item t('official_sub_menu.start_times'), official_race_start_list_path(race), @is_start_list
-      - unless race.sport.only_shooting?
-        = menu_item t('official_sub_menu.quick_save'), official_race_quick_saves_path(race), @is_quick_saves
+      = menu_item t('official_sub_menu.quick_save'), official_race_quick_saves_path(race), @is_quick_saves
       - unless race.sport.only_shooting?
         = menu_item t('official_sub_menu.times'), official_series_times_path(series), @is_times, nil, true do
           - series_dropdown_menu(race, 'times')

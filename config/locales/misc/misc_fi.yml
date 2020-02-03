@@ -63,7 +63,9 @@ fi:
   euros:
     one: euro
     other: euroa
+  extra_round: Uusinta
   feedback: Palaute
+  final_round: Loppukilpailu
   hide_all_competitors: Piilota kaikki kilpailijat
   hide_races_of_cup: Piilota osakilpailut
   leg: Osuus
@@ -80,6 +82,7 @@ fi:
   order_method_1: Arvotaan
   password: Salasana
   points: Pisteet
+  qualification_round: Alkukilpailu
   relay_team:
     DNS: Joukkue ei osallistunut kilpailuun
     DNF: Joukkue keskeytti kilpailun

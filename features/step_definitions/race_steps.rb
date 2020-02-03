@@ -64,6 +64,13 @@ Given /^I have a race "(.*?)" with competitor "(.*?)" "(.*?)" in series "(.*?)",
   @user.race_rights.create!(:race => @race)
 end
 
+Given("I have a {string} race {string} with competitor {string} {string} in series {string}, with number {int}") do |sport_key, race_name, first_name, last_name, series_name, number|
+  @race = create :race, name: race_name, sport_key: sport_key
+  @series = create :series, race: @race, name: series_name
+  @competitor = create :competitor, series: @series, first_name: first_name, last_name: last_name, number: number
+  @user.race_rights.create! race: @race
+end
+
 Given /^there is a race "([^"]*)" in the past$/ do |name|
   @race = create(:race, :start_date => Date.today - 1, :name => name)
 end
