@@ -1,4 +1,9 @@
 - content_for :title, @cup.name
+- unless @cup.public_message.blank?
+  %h2 Cup-kilpailun järjestäjä tiedottaa
+  .public-message
+    - markdown = Redcarpet::Markdown.new Redcarpet::Render::HTML
+    = raw markdown.render(@cup.public_message)
 %h2= t :results
 - if @cup.cup_series.empty?
   Cup-sarjoja ei ole vielä määritetty

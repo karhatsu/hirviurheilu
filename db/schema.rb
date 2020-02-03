@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_11_111036) do
+ActiveRecord::Schema.define(version: 2020_02_03_184320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,6 +141,7 @@ ActiveRecord::Schema.define(version: 2020_01_11_111036) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "include_always_last_race", default: false, null: false
+    t.text "public_message"
   end
 
   create_table "cups_races", id: :serial, force: :cascade do |t|

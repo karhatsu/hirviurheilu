@@ -5,6 +5,9 @@
     = f.label :name
     = f.text_field :name
   .form__field
+    = f.label :public_message
+    = f.text_area :public_message, cols: 50, rows: 6
+  .form__field
     = f.label :include_always_last_race
     = f.check_box :include_always_last_race
   .form__field.form__field--sm

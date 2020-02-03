@@ -50,11 +50,11 @@ class Official::CupsController < Official::OfficialController
   end
 
   def create_cup_params
-    params.require(:cup).permit(:name, :top_competitions, :include_always_last_race, race_ids: [])
+    params.require(:cup).permit(:name, :top_competitions, :include_always_last_race, :public_message, race_ids: [])
   end
 
   def update_cup_params
-    params.require(:cup).permit(:name, :top_competitions, :include_always_last_race, race_ids: [],
+    params.require(:cup).permit(:name, :top_competitions, :include_always_last_race, :public_message, race_ids: [],
                                 cup_series_attributes: [:id, :name, :series_names, :_destroy])
   end
 end
