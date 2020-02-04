@@ -23,9 +23,13 @@
               - if shooting_race
                 - extra_shots_count = competitor.shots && competitor.shots.length >= basic_shots ? competitor.shots.length - basic_shots + shots_per_extra_round : 0
                 = f.hidden_field :shooting_score_input
+                = t :qualification_round
                 = render partial: 'official/shots/shooting_race_shots', locals: { competitor: competitor, round_rules: qualification_round, base: 0 }
+                = t :final_round
                 = render partial: 'official/shots/shooting_race_shots', locals: { competitor: competitor, round_rules: final_round, base: qualification_round_shots }
-                = render partial: 'official/shots/shooting_race_shots', locals: { competitor: competitor, round_rules: [extra_shots_count], base: basic_shots }
+                - if extra_shots_count > 0
+                  = t :extra_round
+                  = render partial: 'official/shots/shooting_race_shots', locals: { competitor: competitor, round_rules: [extra_shots_count], base: basic_shots }
                 .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
               - else
                 .form__horizontal-fields
