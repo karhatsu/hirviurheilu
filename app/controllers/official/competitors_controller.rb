@@ -53,8 +53,8 @@ class Official::CompetitorsController < Official::OfficialController
   def update
     club_ok = handle_club(@competitor)
     update_params = update_competitor_params
-    set_shots unless params['shots'].blank?
-    if club_ok && handle_time_parameters && @competitor.update(update_params)
+    shots_ok = params['shots'].blank? || set_shots(@competitor, params['shots'])
+    if club_ok && shots_ok && handle_time_parameters && @competitor.update(update_params)
       js_template = params[:start_list] ? 'official/start_lists/update_success' :
         'official/competitors/update_success'
       respond_to do |format|
@@ -115,14 +115,5 @@ class Official::CompetitorsController < Official::OfficialController
     params.require(:competitor).permit(:series_id, :age_group_id, :club_id, :first_name, :last_name, :unofficial,
       :team_name, :number, :start_time, :arrival_time, :shooting_score_input, :estimate1, :estimate2, :estimate3,
       :estimate4, :no_result_reason, :shooting_overtime_min, old_values: [:estimate1, :estimate2, :estimate3, :estimate4])
-  end
-
-  def set_shots
-    shots = params['shots'].reject{|s| s.blank?}
-    if shots.length > 0
-      @competitor.shots = shots
-    else
-      @competitor.shots = nil
-    end
   end
 end

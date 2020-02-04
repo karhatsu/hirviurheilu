@@ -25,4 +25,28 @@ module CompetitorsHelper
     end
     true
   end
+
+  def set_shots(competitor, shots_params)
+    if empty_shots_in_between?(shots_params)
+      competitor.errors.add :base, 'Osa laukauksista on jätetty tyhjiksi. Käytä nollaa ohilaukauksille.'
+      return false
+    end
+    shots = shots_params.reject{|s| s.blank?}
+    if shots.length > 0
+      competitor.shots = shots
+    else
+      competitor.shots = nil
+    end
+    true
+  end
+
+  private
+
+  def empty_shots_in_between?(shots)
+    blanks_in_between = false
+    shots.each_with_index do |shot, i|
+      blanks_in_between ||= i > 0 && !shot.blank? && shots[i - 1].blank?
+    end
+    blanks_in_between
+  end
 end
