@@ -9,7 +9,7 @@ class RacesController < ApplicationController
     search_text = params[:search_text]
     unless district_id.blank?
       where << 'district_id=:district_id'
-      where_params[:district_id] = [district_id]
+      where_params[:district_id] = [district_id.to_i]
     end
     unless search_text.blank?
       where << "(name ILIKE :search_text OR location ILIKE :search_text)"
