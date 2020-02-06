@@ -74,6 +74,7 @@ fi:
     shooting_overtime_min: Ammunta-ajan ylitysminuutit
     shooting_penalty_distance: Ammuntasakkokierroksen pituus (m)
     shooting_penalty_seconds: Ammunnan sakkosekunnit
+    shooting_place_count: Ammuntapaikkojen määrä
     shooting_score_input: Ammunta yhteensä
     shooting_start_time: Ammunnan aloitusaika
     shooting_time: Ammunta-aika

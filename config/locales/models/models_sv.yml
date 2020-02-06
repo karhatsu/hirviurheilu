@@ -74,6 +74,7 @@ sv:
     shooting_overtime_min: Skottstidens överminuter
     shooting_penalty_distance: Skottsstraff avstånd (m)
     shooting_penalty_seconds: Straffsekonder för skytte
+    shooting_place_count: Skottsplatser
     shooting_score_input: Skottstotal
     shooting_start_time: Skytte starttid
     shooting_time: Skyttetid

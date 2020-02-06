@@ -128,6 +128,12 @@
         = f.number_field :batch_interval_seconds, maxlength: 3
         = t 'official.races.form.seconds'
 
+  - if @race.sport.batch_list?
+    %h2= t :batch_list
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-3= f.label :shooting_place_count
+      .col-xs-12.col-sm-9= f.number_field :shooting_place_count, maxlength: 3
+
   - if @race.new_record?
     %h2= t 'activerecord.models.series.other'
     .form__field.row
