@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_03_184320) do
+ActiveRecord::Schema.define(version: 2020_02_06_045121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2020_02_03_184320) do
   create_table "batches", force: :cascade do |t|
     t.bigint "race_id"
     t.integer "number", null: false
-    t.integer "track", null: false
+    t.integer "track"
     t.datetime "time", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

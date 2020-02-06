@@ -3,7 +3,10 @@
   .message.message--info= t('.no_batch_list')
 - else
   - @batches.each do |batch|
-    %h3 #{batch.number}, #{batch.time.strftime('%H:%M')} (#{t('attributes.track')} #{batch.track})
+    %h3
+      #{batch.number}, #{batch.time.strftime('%H:%M')}
+      - if batch.track.to_i > 0
+        (#{t('attributes.track')} #{batch.track})
     %table
       - batch.competitors.each do |competitor|
         %tr
