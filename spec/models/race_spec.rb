@@ -69,6 +69,11 @@ describe Race do
       it { is_expected.not_to allow_value(Race::START_ORDER_MIXED + 1).for(:start_order) }
     end
 
+    describe 'shooting_place_count' do
+      it_should_behave_like 'positive integer', :shooting_place_count
+      it { should allow_value(nil).for(:shooting_place_count) }
+    end
+
     describe "race with same name" do
       before do
         @race = create(:race, :name => 'My race', :start_date => '2010-01-01',

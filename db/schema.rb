@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_06_045121) do
+ActiveRecord::Schema.define(version: 2020_02_06_045625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_045121) do
     t.string "address"
     t.integer "district_id"
     t.string "sport_key"
+    t.integer "shooting_place_count"
     t.index ["sport_id"], name: "index_races_on_sport_id"
   end
 
