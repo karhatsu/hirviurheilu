@@ -72,8 +72,10 @@ class Official::RacesController < Official::OfficialController
 
   def set_sports
     sport_keys = [Sport::RUN, Sport::SKI]
-    sport_keys << Sport::ILMAHIRVI unless ProductionEnvironment.production?
-    sport_keys << Sport::ILMALUODIKKO unless ProductionEnvironment.production?
+    if !ProductionEnvironment.production? || (ENV['ILMA_USERS'] || '').split(',').include?(current_user.email)
+      sport_keys << Sport::ILMAHIRVI
+      sport_keys << Sport::ILMALUODIKKO
+    end
     @sports = sport_keys.map{|key| [Sport.by_key(key).name, key]}
   end
 
