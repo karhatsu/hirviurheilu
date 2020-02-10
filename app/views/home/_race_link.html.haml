@@ -3,4 +3,4 @@
     .card__middle
       .card__name= race.name
       .card__middle-row #{date_interval(race.start_date, race.end_date)}, #{race.location}
-      .card__middle-row= race.sport_name
+      .card__middle-row.card__middle-row--sport-name= race.sport_name
