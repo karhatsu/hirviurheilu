@@ -850,6 +850,17 @@ describe Race do
         expect(@race.next_start_time.strftime('%H:%M:%S')).to eq('04:03:30')
       end
     end
+
+    context 'when start_interval_seconds not defined' do
+      before do
+        @race.update_attribute :start_interval_seconds, nil
+      end
+
+      it 'should return biggest competitor start time' do
+        @series.competitors << build(:competitor, series: @series, start_time: '00:34:11')
+        expect(@race.next_start_time.strftime('%H:%M:%S')).to eq('00:34:11')
+      end
+    end
   end
 
   describe "#all_competitions_finished?" do

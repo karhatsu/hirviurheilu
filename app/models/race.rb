@@ -210,8 +210,7 @@ class Race < ApplicationRecord
   def next_start_time
     max_time = competitors.maximum(:start_time)
     return '00:00:00' unless max_time
-    start_time = max_time + start_interval_seconds
-    start_time
+    max_time + start_interval_seconds.to_i
   end
 
   def all_competitions_finished?
