@@ -1,7 +1,7 @@
 module CompetitorsCopy
   extend ActiveSupport::Concern
 
-  def copy_competitors_from(race, with_start_list)
+  def copy_competitors_from(race, with_start_list, with_numbers = false)
     raise ArgumentError if start_order == Race::START_ORDER_MIXED && !with_start_list
     errors = []
     race.transaction do
@@ -10,7 +10,7 @@ module CompetitorsCopy
         series = ensure_series competitor.series
         age_group = ensure_age_group series, competitor.age_group
         next if competitor_already_exists series, competitor
-        create_competitor club, series, age_group, competitor, with_start_list if validate_competitor errors, competitor
+        create_competitor club, series, age_group, competitor, with_start_list, with_numbers if validate_competitor errors, competitor
       end
       raise ActiveRecord::Rollback unless errors.empty?
     end
@@ -52,13 +52,15 @@ module CompetitorsCopy
     true
   end
 
-  def create_competitor(club, series, age_group, competitor, with_start_list)
+  def create_competitor(club, series, age_group, competitor, with_start_list, with_numbers)
     copied_competitor = Competitor.new club: club, series: series, age_group: age_group,
                        first_name: competitor.first_name, last_name: competitor.last_name
     if with_start_list
       copied_competitor.number = competitor.number
       copied_competitor.start_time = competitor.start_time
       series.update_attribute :has_start_list, true if competitor.number && !series.has_start_list?
+    elsif with_numbers
+      copied_competitor.number = competitor.number
     end
     copied_competitor.save!
   end

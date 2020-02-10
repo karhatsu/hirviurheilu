@@ -209,6 +209,7 @@ fi:
         from_race: Kilpailu josta kilpailijat kopioidaan
         race_with_competitors_count: "%{race}, %{location}, %{dates} (%{competitors} kilpailijaa)"
         with_start_list: Kopioi lähtönumerot ja -ajat
+        with_numbers: Kopioi kilpailijanumerot
         submit_button: Kopioi kilpailijat
         no_races: Sinulla ei ole yhtään kilpailua, josta voisit kopioida kilpailijoita
       create:

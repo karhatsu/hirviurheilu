@@ -18,7 +18,11 @@
         options_from_collection_for_select(@races, :id,
             lambda {|race| t('.race_with_competitors_count', race: race.name, location: race.location, dates: race_date_interval(race, false), competitors: race.competitors.count)},
           params[:source_race_id])
-    - if @race.start_order == Race::START_ORDER_BY_SERIES
+    - if !@race.sport.start_list?
+      .form__field
+        = label_tag :with_numbers, t('.with_numbers')
+        = check_box_tag :with_numbers, true, params[:with_numbers]
+    - elsif @race.start_order == Race::START_ORDER_BY_SERIES
       .form__field
         = label_tag :with_start_list, t('.with_start_list')
         = check_box_tag :with_start_list, true, params[:with_start_list]

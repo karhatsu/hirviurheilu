@@ -208,6 +208,7 @@ sv:
         from_race: Från tävling
         race_with_competitors_count: "%{race}, %{location}, %{dates} (%{competitors} tävlar)"
         with_start_list: Kopiera startnumren och starttiderna
+        with_numbers: Kopiera tävlarnasnumren
         submit_button: Kopiera tävlarna
         no_races: Inga tävlingar
       create:

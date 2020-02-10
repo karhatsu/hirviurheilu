@@ -6,7 +6,7 @@ class Official::CompetitorCopyingsController < Official::OfficialController
 
   def create
     source_race = Race.find params[:source_race_id]
-    errors = @race.copy_competitors_from source_race, params[:with_start_list]
+    errors = @race.copy_competitors_from source_race, params[:with_start_list], params[:with_numbers]
     if errors.empty?
       flash[:success] = t('.competitors_copied', amount: source_race.competitors.count)
       redirect_to official_race_path(@race)
