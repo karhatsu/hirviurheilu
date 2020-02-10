@@ -35,7 +35,7 @@
                     data: { confirm: t('official.races.form.remove_series_confirm') }, class: 'button button--danger'
                 - else
                   = link_to t('activerecord.models.competitor.other'), official_series_competitors_path(s), class: 'button'
-                  - unless s.has_start_list?
+                  - if @race.sport.start_list? && !s.has_start_list?
                     = link_to t('.create_start_list'), official_series_competitors_path(s), class: 'button'
                   - unless finished
                     = link_to t('.input_results'), official_race_quick_saves_path(@race), class: 'button'
