@@ -66,6 +66,7 @@ sv:
         add_competitors_from_csv: Öka tävlar från CSV-fil
         other: Övriga
         download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)
+        download_competitors_by_series: Lataa osallistujat sarjoittain (PDF)
         other_race_formats: Andra tävlingar
         finish_race_submit: Slut tävlingen
         finish_race_text: när du har sparat alla resultaten, så att de riktiga avstånden kan publiseras

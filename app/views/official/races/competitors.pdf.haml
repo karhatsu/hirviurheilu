@@ -1,0 +1,12 @@
+%h1= @race.name
+Yhteensä #{@race.competitors.count} kilpailijaa
+- @all_series.each do |series|
+  %h2
+    = series.name
+    - unless series.competitors.empty?
+      (#{series.competitors.count})
+  - if series.competitors.empty?
+    Ei kilpailijoita
+  - else
+    - series.competitors.sort { |a,b| full_name(a) <=> full_name(b) }.each do |competitor|
+      %div #{full_name competitor}, #{competitor.club.name}

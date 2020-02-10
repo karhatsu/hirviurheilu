@@ -1,5 +1,7 @@
 class Official::RacesController < Official::OfficialController
-  before_action :assign_race_by_id, :check_assigned_race, :except => [:new, :create]
+  before_action :assign_race_by_id, except: [:new, :create, :competitors]
+  before_action :assign_race_by_race_id, only: :competitors
+  before_action :check_assigned_race, except: [:new, :create]
   before_action :create_points_method_options
   before_action :set_sports
 
@@ -57,6 +59,17 @@ class Official::RacesController < Official::OfficialController
       flash[:error] = t('official.races.destroy.cannot_remove_race') + ": #{@race.errors[:base]}"
     end
     redirect_to official_root_path
+  end
+
+  def competitors
+    respond_to do |format|
+      format.pdf do
+        @all_series = @race.series.includes(competitors: [:club])
+        render pdf: "#{@race.name}-kilpailijat-sarjoittain", layout: true, margin: pdf_margin,
+               header: pdf_header("#{@race.name} - Kilpailijat sarjoittain\n"), footer: pdf_footer,
+               disable_smart_shrinking: true
+      end
+    end
   end
 
   private

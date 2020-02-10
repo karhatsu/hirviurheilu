@@ -50,6 +50,7 @@
 - unless @race.competitors.empty?
   %h3.desktop= t '.other'
   = link_to t('.download_competitors_by_clubs'), official_race_clubs_competitors_path(@race, format: :pdf), class: 'button button--pdf'
+  = link_to t('.download_competitors_by_series'), official_race_competitors_path(@race, format: :pdf), class: 'button button--pdf'
 - if @race.sport.relays?
   %h2= t '.other_race_formats'
   .buttons
