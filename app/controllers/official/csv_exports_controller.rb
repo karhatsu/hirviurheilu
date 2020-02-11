@@ -1,5 +1,5 @@
 class Official::CsvExportsController < Official::OfficialController
-  before_action :assign_race_by_race_id, :check_assigned_race, :require_three_sports_race, :set_csv
+  before_action :assign_race_by_race_id, :check_assigned_race, :set_csv
 
   def show
   end

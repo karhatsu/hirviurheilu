@@ -19,16 +19,27 @@ describe CsvExport do
     series1.generate_start_list!(Series::START_LIST_ADDING_ORDER)
     series2.generate_start_list!(Series::START_LIST_ADDING_ORDER)
   end
-  
+
   it "generates csv file with competitors ordered by start time" do
     CsvExport.new(@race).generate_file(GENERATED_FILE)
     verify_files_equal(GENERATED_FILE, 'spec/files/export.csv')
   end
-  
+
+  describe 'when shooting race' do
+    before do
+      @race.update_attribute :sport_key, Sport::ILMALUODIKKO
+    end
+
+    it 'generates csv file without start time' do
+      CsvExport.new(@race).generate_file(GENERATED_FILE)
+      verify_files_equal(GENERATED_FILE, 'spec/files/export_shooting_race.csv')
+    end
+  end
+
   def verify_files_equal(generated, expected)
     expect(calculate_sha1(generated)).to eq(calculate_sha1(expected))
   end
-  
+
   def calculate_sha1(file_name)
     sha1 = Digest::SHA1.new
     File.open(file_name) do |file|

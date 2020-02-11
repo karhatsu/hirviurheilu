@@ -219,7 +219,9 @@ fi:
       show:
         title: Kilpailijoiden vienti CSV-tiedostoon
         no_competitors: Kilpailussa ei ole yhtään kilpailijaa
-        info: Voit ladata tästä kilpailijat CSV-tiedostossa. Tiedosto sisältää kilpailijoiden nimet, sarjat, seurat, lähtönumerot ja lähtöajat.
+        info:
+          shooting_race: Voit ladata tästä kilpailijat CSV-tiedostossa. Tiedosto sisältää kilpailijoiden nimet, sarjat, seurat ja kilpailunumerot.
+          three_sports_race: Voit ladata tästä kilpailijat CSV-tiedostossa. Tiedosto sisältää kilpailijoiden nimet, sarjat, seurat, lähtönumerot ja lähtöajat.
         submit_button: Luo CSV-tiedosto
         import_title: Kilpailijoiden lisäys CSV-tiedostosta
         import_link: Lisää kilpailijoita CSV-tiedostosta

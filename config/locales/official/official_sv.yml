@@ -218,7 +218,9 @@ sv:
       show:
         title: Export tävlarna till CSV-fil
         no_competitors: Inga tävlar på tävlingen
-        info: Här kan du ladda tävlarna som CSV-fil. Filen innehåller tävlarnas namn, klasser, klubber, startnummer och starttider.
+        info:
+          shooting_race: Här kan du ladda tävlarna som CSV-fil. Filen innehåller tävlarnas namn, klasser, klubber och nummer.
+          three_sports_race: Här kan du ladda tävlarna som CSV-fil. Filen innehåller tävlarnas namn, klasser, klubber, startnummer och starttider.
         submit_button: Skapa CSV-fil
         import_title: Import tävlarna från CSV-fil
         import_link: Öka tävlar från CSV-fil
