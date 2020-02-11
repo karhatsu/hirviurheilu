@@ -228,11 +228,13 @@ sv:
         info: Om du har tävlarnas information t.ex. på en Excel-fil, kan du spara den som CSV-format. Därefter kan du ladda alla tävlarna till databasen med blanketten neden.
         info_limited: Om du har tävlarnas information t.ex. på en Excel-fil, kan du spara den som CSV-format. Därefter kan du ladda alla tävlarna till databasen med blanketten neden.
         format_title: Filstruktur
-        format_info_1: CSV-fil måste ha kolumner förnamn, efternamn, klubb och klass eller äldsgrupp.
-        format_info_2: CSV-fil måste ha kolumner förnamn, efternamn, klubb, klass eller äldsgrupp, startnummer och starttid (hh:mm:ss).
+        format_info:
+          shooting_race: CSV-fil måste ha kolumner förnamn, efternamn, klubb och klass eller grupp.
+          three_sports_race_1: CSV-fil måste ha kolumner förnamn, efternamn, klubb och klass eller äldsgrupp.
+          three_sports_race_2: CSV-fil måste ha kolumner förnamn, efternamn, klubb, klass eller äldsgrupp, startnummer och starttid (hh:mm:ss).
         example_of_valid_file: Exempel av lämplig CSV-fil
-        example_row_1_1: Sven,Andersson,Testklubben,M40
-        example_row_1_2: Erika,Eriksson,Exempelklubben,Kvinnor
+        example_row_1_1: Sven,Andersson,Testklubben,M
+        example_row_1_2: Erika,Eriksson,Exempelklubben,T15
         example_row_2_1: Sven,Andersson,Testklubben,M40,1,11:30:00
         example_row_2_2: Erika,Eriksson,Exempelklubben,Kvinnor,2,11:30:30
         upload_file: Ladda fil

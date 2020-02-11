@@ -2,7 +2,11 @@
 %h2= yield :title
 .message.message--info= t '.info'
 %h3= t '.format_title'
-.message.message--info= t ".format_info_#{@race.start_order}"
+.message.message--info
+  - if @race.sport.only_shooting?
+    = t '.format_info.shooting_race'
+  - else
+    = t ".format_info.three_sports_race_#{@race.start_order}"
 %h3= t '.example_of_valid_file'
 %pre.file-example
   = t ".example_row_#{@race.start_order}_1"
