@@ -11,6 +11,8 @@ class CompetitorsController < ApplicationController
   end
 
   def show
+    series = @competitor.series
+    return redirect_to race_series_path(series.race, series) if series.sport.only_shooting?
     respond_to do |format|
       format.html
       format.pdf do
