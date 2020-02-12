@@ -39,7 +39,7 @@
       - elsif @race.sport.batch_list?
         %h3= t '.batch_list_pdf'
         = link_to t('.download_batch_list'), race_batch_list_path(@race, format: :pdf), class: 'button button--pdf'
-  - if @race.finished?
+  - if @race.finished? && !@race.sport.only_shooting?
     %h3= t :correct_distances
     .row
       - @race.correct_estimates.each do |ce|
