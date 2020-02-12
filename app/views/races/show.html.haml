@@ -29,15 +29,16 @@
       - else
         = link_to series.name, race_series_path(@race, series), class: 'button button--primary'
   - unless @race.finished? || @race.competitors.empty?
-    - if @race.sport.start_list?
-      %h3= t '.start_lists_for_all_series_pdf'
-      = form_tag(race_start_lists_path(@race, format: :pdf), method: :get, class: 'form') do
-        .form__horizontal-fields
-          .form__field= select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: "#{t :all} #{clubs_title(@race).downcase}"
-          .form__buttons= submit_tag t('.download_start_times'), class: 'button button--pdf'
-    - elsif @race.sport.batch_list?
-      %h3= t '.batch_list_pdf'
-      = link_to t('.download_batch_list'), race_batch_list_path(@race, format: :pdf), class: 'button button--pdf'
+    .results--desktop
+      - if @race.sport.start_list?
+        %h3= t '.start_lists_for_all_series_pdf'
+        = form_tag(race_start_lists_path(@race, format: :pdf), method: :get, class: 'form') do
+          .form__horizontal-fields
+            .form__field= select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: "#{t :all} #{clubs_title(@race).downcase}"
+            .form__buttons= submit_tag t('.download_start_times'), class: 'button button--pdf'
+      - elsif @race.sport.batch_list?
+        %h3= t '.batch_list_pdf'
+        = link_to t('.download_batch_list'), race_batch_list_path(@race, format: :pdf), class: 'button button--pdf'
   - if @race.finished?
     %h3= t :correct_distances
     .row
@@ -62,18 +63,19 @@
       - link_text = !relay.started? && relay.start_time ? "#{relay.name} (#{relay_start_time_print(relay)})" : relay.name
       = link_to link_text, race_relay_path(@race, relay), class: 'button button--primary'
 - unless @race.start_date > Date.today || @race.series.empty?
-  %h2= t '.all_results_pdf'
-  = form_tag(race_path(@race, format: :pdf), method: :get, class: 'form') do
-    .form__horizontal-fields
-      .form__field
-        = select_tag :club_id,
-          options_from_collection_for_select(@race.clubs, :id, :name),
-          :prompt => "#{t :all} #{clubs_title(@race).downcase}"
-      .form__field
-        = check_box_tag :page_breaks
-        = label_tag :page_breaks, t('.page_breaks')
-      .form__buttons
-        = submit_tag t('.download_all_results'), class: 'button button--pdf'
+  .results--desktop
+    %h2= t '.all_results_pdf'
+    = form_tag(race_path(@race, format: :pdf), method: :get, class: 'form') do
+      .form__horizontal-fields
+        .form__field
+          = select_tag :club_id,
+            options_from_collection_for_select(@race.clubs, :id, :name),
+            :prompt => "#{t :all} #{clubs_title(@race).downcase}"
+        .form__field
+          = check_box_tag :page_breaks
+          = label_tag :page_breaks, t('.page_breaks')
+        .form__buttons
+          = submit_tag t('.download_all_results'), class: 'button button--pdf'
 - unless @race.cups.empty?
   %h2= t 'activerecord.models.cup', :count => 1
   .buttons
