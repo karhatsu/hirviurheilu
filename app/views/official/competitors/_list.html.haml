@@ -1,6 +1,6 @@
 - cache [@series, I18n.locale] do
   .row
-    - series.competitors.includes(:club, :age_group, :series).each do |comp|
+    - series.competitors.includes(:club, :age_group, :series, :batch).each do |comp|
       .col-xs-12.col-sm-6.col-md-4
         %a.card{href: edit_official_series_competitor_path(series.id, comp)}
           - if comp.number
