@@ -933,4 +933,54 @@ describe Race do
       expect(build(:race, start_time: '00:01').start_time_defined?).to be_truthy
     end
   end
+
+  describe '#first_available_batch_number' do
+    let(:race) { create :race, shooting_place_count: 3 }
+
+    context 'when no batch lists' do
+      it 'returns 1' do
+        expect(race.first_available_batch_number).to eql 1
+      end
+    end
+
+    context 'when batch lists' do
+      let(:batch1) { create :batch, race: race, number: 1 }
+      let(:batch3) { create :batch, race: race, number: 3 }
+      let(:series) { create :series, race: race }
+      let!(:competitor_1_3) { create :competitor, series: series, batch: batch1, track_place: 3 }
+      let!(:competitor_3_2) { create :competitor, series: series, batch: batch3, track_place: 2 }
+
+      context 'and the batch with biggest number has no competitors at all' do
+        let!(:batch5) { create :batch, race: race, number: 5 }
+
+        it 'returns the number of the biggest batch' do
+          expect(race.first_available_batch_number).to eql 5
+        end
+      end
+
+      context 'and the batch with biggest number has shooting places available' do
+        it 'returns the number of the biggest batch' do
+          expect(race.first_available_batch_number).to eql 3
+        end
+      end
+
+      context 'and the batch with biggest number has competitor assigned to the last place' do
+        let!(:competitor_3_3) { create :competitor, series: series, batch: batch3, track_place: 3 }
+
+        it 'returns the number of the biggest batch + 1' do
+          expect(race.first_available_batch_number).to eql 4
+        end
+      end
+
+      context 'when shooting_place_count not defined for the race' do
+        before do
+          race.update_attribute :shooting_place_count, nil
+        end
+
+        it 'returns the number of the biggest batch' do
+          expect(race.first_available_batch_number).to eql 3
+        end
+      end
+    end
+  end
 end

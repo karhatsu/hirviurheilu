@@ -235,6 +235,15 @@ class Race < ApplicationRecord
     start_time.strftime '%H:%M:%S'
   end
 
+  def first_available_batch_number
+    max_batch = batches.order('number DESC').first
+    return 1 unless max_batch
+    return max_batch.number unless shooting_place_count
+    max_track_place = competitors.where('batch_id=?', max_batch.id).maximum(:track_place)
+    return max_batch.number + 1 if max_track_place.to_i >= shooting_place_count
+    max_batch.number
+  end
+
   private
   def end_date_not_before_start_date
     if end_date and end_date < start_date
