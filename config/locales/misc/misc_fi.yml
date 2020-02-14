@@ -139,6 +139,7 @@ fi:
   times: Ajat
   total: Yhteensä
   total_points: Yhteispisteet
+  unexpected_error: Odottamaton virhe
   unofficial: Epävirallinen kilpailija
   unofficial_short: epäv.
   update: Päivitä

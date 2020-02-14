@@ -193,6 +193,12 @@ fi:
         name: Kilpailun nimi
     errors:
       models:
+        batch_list:
+          ilmahirvi:
+            no_competitors: Sarjassa ei ole yhtään kilpailijaa
+            no_shooting_place_count: Kilpailulle ei ole määritetty ammuntapaikkojen lukumäärää. Voit tallentaa tiedon kilpailun perustietojen lomakkeella.
+            first_batch_time_conflict: Ensimmäinen erä on jo tallennettu mutta sen aika on eri kuin syöttämäsi aika
+            first_track_place_reserved: Ensimmäisen erän aloituspaikka on jo käytössä
         competitor:
           attributes:
             base:
