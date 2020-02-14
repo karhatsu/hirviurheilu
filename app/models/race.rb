@@ -42,6 +42,7 @@ class Race < ApplicationRecord
   validates :batch_interval_seconds, numericality: {only_integer: true, greater_than: 0}
   validates :club_level, inclusion: { in: [CLUB_LEVEL_SEURA, CLUB_LEVEL_PIIRI] }
   validates :start_order, :inclusion => { in: [START_ORDER_BY_SERIES, START_ORDER_MIXED], message: :have_to_choose }
+  validates :shooting_place_count, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validate :end_date_not_before_start_date
   validate :check_duplicate_name_location_start_date, :on => :create
   validate :check_competitors_on_change_to_mixed_start_order, :on => :update
@@ -232,6 +233,24 @@ class Race < ApplicationRecord
   def short_start_time
     return nil unless start_time_defined?
     start_time.strftime '%H:%M:%S'
+  end
+
+  def first_available_batch_number
+    batch_number, _ = first_available_batch_data
+    batch_number
+  end
+
+  def first_available_track_place
+    _, track_place = first_available_batch_data
+    track_place
+  end
+
+  def first_available_batch_data
+    max_batch = batches.order('number DESC').first
+    return [1, 1] unless max_batch
+    max_track_place = competitors.where('batch_id=?', max_batch.id).maximum(:track_place)
+    return [max_batch.number + 1, 1] if shooting_place_count && max_track_place.to_i >= shooting_place_count
+    [max_batch.number, max_track_place.to_i + 1]
   end
 
   private

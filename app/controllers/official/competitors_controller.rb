@@ -22,6 +22,8 @@ class Official::CompetitorsController < Official::OfficialController
     if @series.has_start_list
       @competitor.number = next_number
       @competitor.start_time = next_start_time
+    elsif @series.sport.batch_list?
+      @competitor.number = next_number
     end
     @series_menu_options = @series.race.series
   end
@@ -114,6 +116,7 @@ class Official::CompetitorsController < Official::OfficialController
   def update_competitor_params
     params.require(:competitor).permit(:series_id, :age_group_id, :club_id, :first_name, :last_name, :unofficial,
       :team_name, :number, :start_time, :arrival_time, :shooting_score_input, :estimate1, :estimate2, :estimate3,
-      :estimate4, :no_result_reason, :shooting_overtime_min, old_values: [:estimate1, :estimate2, :estimate3, :estimate4])
+      :estimate4, :no_result_reason, :shooting_overtime_min, :batch_id, :track_place,
+      old_values: [:estimate1, :estimate2, :estimate3, :estimate4])
   end
 end

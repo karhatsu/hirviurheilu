@@ -139,6 +139,7 @@ sv:
   times: Tider
   total: Totalt
   total_points: Totalpoäng
+  unexpected_error: Odottamaton virhe
   unofficial: Informella tävlare
   unofficial_short: inf.
   update: Uppdatera

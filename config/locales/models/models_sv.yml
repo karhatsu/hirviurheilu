@@ -5,6 +5,7 @@ sv:
     age_group: Åldersgrupp
     age_group_id: Åldersgrupp
     arrival_time: Avkomstid
+    batch_id: Erä
     batch_interval_seconds: Paus mellan startsatser
     batch_size: Startsatsers storlek
     billing_info: Faktureringsinfo
@@ -74,6 +75,7 @@ sv:
     shooting_overtime_min: Skottstidens överminuter
     shooting_penalty_distance: Skottsstraff avstånd (m)
     shooting_penalty_seconds: Straffsekonder för skytte
+    shooting_place_count: Skottsplatser
     shooting_score_input: Skottstotal
     shooting_start_time: Skytte starttid
     shooting_time: Skyttetid
@@ -91,6 +93,7 @@ sv:
     time_points_type: Tidpoängsberäkning
     title: Titel
     track: Bana
+    track_place: Bana
     top_competitions: Tävlingsantal för totalpoäng
     unofficial: Informella tävlare
     use_team_name: Forma lag på grund av Jotos-lag
@@ -192,6 +195,16 @@ sv:
         name: Tävlingens namn
     errors:
       models:
+        batch_list:
+          ilmahirvi:
+            no_competitors: Klassen har inga tävlare
+            invalid_first_batch_number: Ensimmäisen erän numero on virheellinen
+            invalid_first_track_place: Ensimmäinen paikkanumero on virheellinen
+            invalid_first_batch_time: Ensimmäinen erän kellonaika on virheellinen
+            invalid_minutes_between_batches: Erälle varattu aika on virheellinen
+            no_shooting_place_count: Kilpailulle ei ole määritetty ammuntapaikkojen lukumäärää. Voit tallentaa tiedon kilpailun perustietojen lomakkeella.
+            first_batch_time_conflict: Ensimmäinen erä on jo tallennettu mutta sen aika on eri kuin syöttämäsi aika
+            first_track_place_reserved: Ensimmäisen erän aloituspaikka on jo käytössä
         competitor:
           attributes:
             base:

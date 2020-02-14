@@ -5,6 +5,7 @@ fi:
     age_group: Ikäryhmä
     age_group_id: Ikäryhmä
     arrival_time: Saapumisaika
+    batch_id: Erä
     batch_interval_seconds: Tauko lähtöerien välissä
     batch_size: Lähtöerien koko
     billing_info: Laskutustieto
@@ -74,6 +75,7 @@ fi:
     shooting_overtime_min: Ammunta-ajan ylitysminuutit
     shooting_penalty_distance: Ammuntasakkokierroksen pituus (m)
     shooting_penalty_seconds: Ammunnan sakkosekunnit
+    shooting_place_count: Ammuntapaikkojen määrä
     shooting_score_input: Ammunta yhteensä
     shooting_start_time: Ammunnan aloitusaika
     shooting_time: Ammunta-aika
@@ -92,6 +94,7 @@ fi:
     title: Otsikko
     top_competitions: Yhteistulokseen laskettavien kilpailuiden määrä
     track: Rata
+    track_place: Rata
     unofficial: Epävirallinen kilpailija
     use_team_name: Muodosta joukkueet kilpailijoiden jotosjoukkuenimien perusteella
 
@@ -192,6 +195,16 @@ fi:
         name: Kilpailun nimi
     errors:
       models:
+        batch_list:
+          ilmahirvi:
+            no_competitors: Sarjassa ei ole yhtään kilpailijaa
+            invalid_first_batch_number: Ensimmäisen erän numero on virheellinen
+            invalid_first_track_place: Ensimmäinen paikkanumero on virheellinen
+            invalid_first_batch_time: Ensimmäinen erän kellonaika on virheellinen
+            invalid_minutes_between_batches: Erälle varattu aika on virheellinen
+            no_shooting_place_count: Kilpailulle ei ole määritetty ammuntapaikkojen lukumäärää. Voit tallentaa tiedon kilpailun perustietojen lomakkeella.
+            first_batch_time_conflict: Ensimmäinen erä on jo tallennettu mutta sen aika on eri kuin syöttämäsi aika
+            first_track_place_reserved: Ensimmäisen erän aloituspaikka on jo käytössä
         competitor:
           attributes:
             base:

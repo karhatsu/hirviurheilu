@@ -53,6 +53,7 @@
     .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :number
       .col-xs-12.col-sm-9= f.number_field :number
+    = render partial: 'official/competitors/shooting_race_fields', locals: { f: f }
     .form__field.row
       .col-xs-12.col-sm-3
         %label= t '.shots'
