@@ -196,6 +196,10 @@ sv:
         batch_list:
           ilmahirvi:
             no_competitors: Klassen har inga tävlare
+            invalid_first_batch_number: Ensimmäisen erän numero on virheellinen
+            invalid_first_track_place: Ensimmäinen paikkanumero on virheellinen
+            invalid_first_batch_time: Ensimmäinen erän kellonaika on virheellinen
+            invalid_minutes_between_batches: Erälle varattu aika on virheellinen
             no_shooting_place_count: Kilpailulle ei ole määritetty ammuntapaikkojen lukumäärää. Voit tallentaa tiedon kilpailun perustietojen lomakkeella.
             first_batch_time_conflict: Ensimmäinen erä on jo tallennettu mutta sen aika on eri kuin syöttämäsi aika
             first_track_place_reserved: Ensimmäisen erän aloituspaikka on jo käytössä

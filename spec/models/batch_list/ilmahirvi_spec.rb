@@ -32,6 +32,38 @@ describe BatchList::Ilmahirvi do
     end
   end
 
+  context 'when invalid values given as arguments' do
+    let!(:competitor1) { create :competitor, series: series }
+
+    it 'returns error when first_batch_number is 0' do
+      generator.generate 0, 1, first_batch_time, minutes_between_batches
+      expect(generator.errors).to eql ['Ensimmäisen erän numero on virheellinen']
+    end
+
+    it 'returns error when first_track_place is 0' do
+      generator.generate 1, 0, first_batch_time, minutes_between_batches
+      expect(generator.errors).to eql ['Ensimmäinen paikkanumero on virheellinen']
+    end
+
+    it 'returns error when invalid first_batch_time' do
+      generator.generate 1, 1, 'xx:99', minutes_between_batches
+      expect(generator.errors).to eql ['Ensimmäinen erän kellonaika on virheellinen']
+    end
+
+    it 'returns error when minutes_between_batches is 0' do
+      generator.generate 1, 1, first_batch_time, 0
+      expect(generator.errors).to eql ['Erälle varattu aika on virheellinen']
+    end
+
+    it 'returns multiple errors when multiple invalid values' do
+      generator.generate -1, -1, '10:60', 0
+      expect(generator.errors).to eql ['Ensimmäisen erän numero on virheellinen',
+                                       'Ensimmäinen paikkanumero on virheellinen',
+                                       'Ensimmäinen erän kellonaika on virheellinen',
+                                       'Erälle varattu aika on virheellinen']
+    end
+  end
+
   context 'when no batches, 2 tracks per batch, 3 competitors, and assignments started from 1/1' do
     let(:competitor1) { create :competitor, series: series, number: 10 }
     let(:competitor2) { create :competitor, series: series, number: 9 }

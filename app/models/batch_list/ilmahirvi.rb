@@ -7,7 +7,7 @@ class BatchList::Ilmahirvi
   end
 
   def generate(first_batch_number, first_track_place, first_batch_time, minutes_between_batches)
-    return unless validate first_batch_number, first_track_place, first_batch_time
+    return unless validate first_batch_number, first_track_place, first_batch_time, minutes_between_batches
     @series.transaction do
       reserved_places = find_reserved_places
       batch = find_or_create_batch first_batch_number, first_batch_time
@@ -35,10 +35,23 @@ class BatchList::Ilmahirvi
     @series.race
   end
 
-  def validate(first_batch_number, first_track_place, first_batch_time)
+  def validate(first_batch_number, first_track_place, first_batch_time, minutes_between_batches)
+    validate_number first_batch_number, 'invalid_first_batch_number'
+    validate_number first_track_place, 'invalid_first_track_place'
+    validate_time first_batch_time, 'invalid_first_batch_time'
+    validate_number minutes_between_batches, 'invalid_minutes_between_batches'
+    return false unless @errors.empty?
     return false unless validate_shooting_place_count
     return false unless validate_competitors_count
     validate_first_place first_batch_number, first_track_place, first_batch_time
+  end
+
+  def validate_number(number, error_key)
+    @errors << I18n.t(error_key, scope: 'activerecord.errors.models.batch_list.ilmahirvi') unless number > 0
+  end
+
+  def validate_time(time, error_key)
+    @errors << I18n.t(error_key, scope: 'activerecord.errors.models.batch_list.ilmahirvi') unless time =~ /[0-2]?[0-9]:[0-5][0-9]/
   end
 
   def validate_shooting_place_count
