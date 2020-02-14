@@ -22,6 +22,8 @@ class Official::CompetitorsController < Official::OfficialController
     if @series.has_start_list
       @competitor.number = next_number
       @competitor.start_time = next_start_time
+    elsif @series.sport.batch_list?
+      @competitor.number = next_number
     end
     @series_menu_options = @series.race.series
   end
