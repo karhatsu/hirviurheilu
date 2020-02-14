@@ -934,12 +934,16 @@ describe Race do
     end
   end
 
-  describe '#first_available_batch_number' do
+  describe 'batch number suggestions' do
     let(:race) { create :race, shooting_place_count: 3 }
 
     context 'when no batch lists' do
-      it 'returns 1' do
+      it 'first_available_batch_number returns 1' do
         expect(race.first_available_batch_number).to eql 1
+      end
+
+      it 'first_available_track_place returns 1' do
+        expect(race.first_available_track_place).to eql 1
       end
     end
 
@@ -953,22 +957,34 @@ describe Race do
       context 'and the batch with biggest number has no competitors at all' do
         let!(:batch5) { create :batch, race: race, number: 5 }
 
-        it 'returns the number of the biggest batch' do
+        it 'first_available_batch_number returns the number of the biggest batch' do
           expect(race.first_available_batch_number).to eql 5
+        end
+
+        it 'first_available_track_place returns 1' do
+          expect(race.first_available_track_place).to eql 1
         end
       end
 
       context 'and the batch with biggest number has shooting places available' do
-        it 'returns the number of the biggest batch' do
+        it 'first_available_batch_number returns the number of the biggest batch' do
           expect(race.first_available_batch_number).to eql 3
+        end
+
+        it 'first_available_track_place returns biggest track place + 1' do
+          expect(race.first_available_track_place).to eql 3
         end
       end
 
       context 'and the batch with biggest number has competitor assigned to the last place' do
         let!(:competitor_3_3) { create :competitor, series: series, batch: batch3, track_place: 3 }
 
-        it 'returns the number of the biggest batch + 1' do
+        it 'first_available_batch_number returns the number of the biggest batch + 1' do
           expect(race.first_available_batch_number).to eql 4
+        end
+
+        it 'first_available_track_place returns 1' do
+          expect(race.first_available_track_place).to eql 1
         end
       end
 
@@ -977,8 +993,12 @@ describe Race do
           race.update_attribute :shooting_place_count, nil
         end
 
-        it 'returns the number of the biggest batch' do
+        it 'first_available_batch_number returns the number of the biggest batch' do
           expect(race.first_available_batch_number).to eql 3
+        end
+
+        it 'first_available_track_place returns biggest track place + 1' do
+          expect(race.first_available_track_place).to eql 3
         end
       end
     end

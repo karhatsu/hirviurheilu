@@ -13,7 +13,7 @@
       = number_field_tag :first_batch_number, params[:first_batch_number] || @series.race.first_available_batch_number
     .form__field.form__field--sm
       = label_tag :first_track_place, t('.first_track_place')
-      = number_field_tag :first_track_place, params[:first_track_place]
+      = number_field_tag :first_track_place, params[:first_track_place] || @series.race.first_available_track_place
     .form__field.form__field--sm
       = label_tag :first_batch_time, t('.first_batch_time')
       = text_field_tag :first_batch_time, params[:first_batch_time], placeholder: 'HH:MM'
