@@ -29,6 +29,7 @@ fi:
     race: Kilpailu & sarjat
     competitors: Kilpailijat
     start_times: Lähtöajat
+    batch_list_generation: Erien arvonta
     quick_save: Pikasyöttö
     times: Ajat
     estimates: Arviot

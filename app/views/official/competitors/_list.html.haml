@@ -15,6 +15,10 @@
                 = time_print(comp.start_time, true, '&nbsp;')
                 - if series.has_start_list? && comp.race.start_time_defined?
                   (#{time_print comp.start_datetime, true})
+            - elsif comp.batch_id && comp.track_place
+              Erä #{comp.batch.number}, #{t('attributes.track').downcase} #{comp.track_place}
+            - elsif comp.batch_id
+              Erä #{comp.batch.number}
           .card__main-value
             - if comp.no_result_reason
               = comp.no_result_reason
