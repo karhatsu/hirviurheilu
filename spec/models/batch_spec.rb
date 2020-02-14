@@ -15,5 +15,12 @@ RSpec.describe Batch, type: :model do
     it_should_behave_like 'positive integer', :track
     it { should allow_value(nil).for(:track) }
     it { should validate_presence_of(:time) }
+
+    describe 'uniqueness of number' do
+      before do
+        create :batch
+      end
+      it { is_expected.to validate_uniqueness_of(:number).scoped_to(:race_id) }
+    end
   end
 end
