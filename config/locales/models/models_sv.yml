@@ -5,6 +5,7 @@ sv:
     age_group: Åldersgrupp
     age_group_id: Åldersgrupp
     arrival_time: Avkomstid
+    batch_id: Erä
     batch_interval_seconds: Paus mellan startsatser
     batch_size: Startsatsers storlek
     billing_info: Faktureringsinfo
@@ -92,6 +93,7 @@ sv:
     time_points_type: Tidpoängsberäkning
     title: Titel
     track: Bana
+    track_place: Bana
     top_competitions: Tävlingsantal för totalpoäng
     unofficial: Informella tävlare
     use_team_name: Forma lag på grund av Jotos-lag

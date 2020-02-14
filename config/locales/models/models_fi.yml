@@ -5,6 +5,7 @@ fi:
     age_group: Ikäryhmä
     age_group_id: Ikäryhmä
     arrival_time: Saapumisaika
+    batch_id: Erä
     batch_interval_seconds: Tauko lähtöerien välissä
     batch_size: Lähtöerien koko
     billing_info: Laskutustieto
@@ -93,6 +94,7 @@ fi:
     title: Otsikko
     top_competitions: Yhteistulokseen laskettavien kilpailuiden määrä
     track: Rata
+    track_place: Rata
     unofficial: Epävirallinen kilpailija
     use_team_name: Muodosta joukkueet kilpailijoiden jotosjoukkuenimien perusteella
 
