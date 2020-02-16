@@ -43,6 +43,31 @@ describe Team do
     expect(team.shot_counts).to eql [3, 4, 1, 1, 1, 2, 1, 1, 3, 2]
   end
 
+  context 'when one of the competitors does not have shooting score yet' do
+    let(:team2) { Team.new sport, 'Team 2' }
+
+    before do
+      team2 << build_competitor(300, 570, nil, 10, [9, 9, 9, 9, 9, 9, 9, 9, 9, 9])
+      team2 << build_competitor(290, nil, 1500, nil, nil)
+    end
+
+    it 'find best shooting score without crash' do
+      expect(team2.best_shooting_score).to eql 570
+    end
+
+    it 'finds fastest time without crash' do
+      expect(team2.fastest_time).to eql 1500
+    end
+
+    it 'hits is the sum of hits' do
+      expect(team2.hits).to eql 10
+    end
+
+    it 'calculates sum of different shots' do
+      expect(team2.shot_counts).to eql [0, 10, 0, 0, 0, 0, 0, 0, 0, 0]
+    end
+  end
+
   def build_competitor(score, shooting_score, time_in_seconds, hits, shots)
     competitor = build :competitor
     allow(competitor).to receive(:team_competition_points).with(sport).and_return(score)
