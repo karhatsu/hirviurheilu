@@ -264,6 +264,18 @@ describe Shots do
         end
       end
     end
+
+    context 'when qualification and final round shots sums are both 11' do
+      let(:competitor) { FakeCompetitor.new sport, [3, 6, 0, 2, 0, 6, 1, 1, 3, 0] }
+
+      it 'qualification round score is 11 (not 10)' do
+        expect(competitor.qualification_round_score).to eql 11
+      end
+
+      it 'final round score is 11 (not 10)' do
+        expect(competitor.final_round_score).to eql 11
+      end
+    end
   end
 
   context 'when sport has qualification round in two parts and final round in two parts' do
