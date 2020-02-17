@@ -231,6 +231,8 @@ sv:
             shots:
               too_many: För många skott
               invalid_value: innehåller ett fel nummer
+            track_place:
+              too_big: är större än tävlingens skottsplatsers antal
         correct_estimate:
           attributes:
             base:

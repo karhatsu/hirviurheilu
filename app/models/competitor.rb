@@ -49,6 +49,7 @@ class Competitor < ApplicationRecord
   validate :unique_number
   validate :unique_name
   validate :concurrent_changes, :on => :update
+  validate :track_place_fitting
 
   before_save :set_has_result, :reset_age_group, :set_shooting_overtime_min, :convert_string_shots
 
@@ -314,6 +315,11 @@ class Competitor < ApplicationRecord
       msg = 'Tälle kilpailijalle on syötetty samanaikaisesti toinen tulos. Lataa sivu uudestaan ja yritä tallentamista sen jälkeen'
       errors.add(:base, msg)
     end
+  end
+
+  def track_place_fitting
+    shooting_place_count = race&.shooting_place_count
+    errors.add :track_place, :too_big if shooting_place_count && track_place && track_place > shooting_place_count
   end
 
   def set_has_result

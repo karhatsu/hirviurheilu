@@ -231,6 +231,8 @@ fi:
             shots:
               too_many: Liian monta laukausta
               invalid_value: sisältää virheellisen numeron
+            track_place:
+              too_big: on suurempi kuin kilpailun ammuntapaikkojen määrä
         correct_estimate:
           attributes:
             base:

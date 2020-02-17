@@ -17,7 +17,6 @@ describe Competitor do
     it { is_expected.to validate_presence_of(:first_name) }
     it { is_expected.to validate_presence_of(:last_name) }
     it_should_behave_like 'non-negative integer', :shooting_overtime_min
-    it_should_behave_like 'positive integer', :track_place, true
 
     describe "number" do
       it_should_behave_like 'non-negative integer', :number
@@ -305,6 +304,25 @@ describe Competitor do
           :last_name => 'Other last name', :series => c1.series)).to be_valid
         expect(build(:competitor, :first_name => c1.first_name,
           :last_name => c1.last_name, :series => s2)).to be_valid
+      end
+    end
+
+    describe 'track_place' do
+      it_should_behave_like 'positive integer', :track_place, true
+
+      context 'when race has shooting place count' do
+        let(:race) { create :race, shooting_place_count: 30 }
+        let(:series) { create :series, race: race }
+
+        it 'can be the same as the count' do
+          competitor = build :competitor, series: series, track_place: 30
+          expect(competitor).to have(0).errors_on(:track_place)
+        end
+
+        it 'cannot be bigger than the count' do
+          competitor = build :competitor, series: series, track_place: 31
+          expect(competitor).to have(1).errors_on(:track_place)
+        end
       end
     end
   end
