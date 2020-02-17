@@ -16,10 +16,10 @@
       = number_field_tag :first_track_place, params[:first_track_place] || @series.race.first_available_track_place
     .form__field.form__field--sm
       = label_tag :first_batch_time, t('.first_batch_time')
-      = text_field_tag :first_batch_time, params[:first_batch_time], placeholder: 'HH:MM'
+      = text_field_tag :first_batch_time, params[:first_batch_time] || @series.race.suggested_next_batch_time, placeholder: 'HH:MM'
     .form__field.form__field--sm
       = label_tag :minutes_between_batches, t('.minutes_between_batches')
-      = number_field_tag :minutes_between_batches, params[:minutes_between_batches]
+      = number_field_tag :minutes_between_batches, params[:minutes_between_batches] || @series.race.suggested_min_between_batches
     .form__buttons
       = submit_tag t('.generate_batch_lists'), class: 'button button--primary'
 - @series.competitors.where('batch_id IS NOT NULL').includes(:batch, :club).except(:order).order('batches.number, track_place').group_by(&:batch).each do |batch, competitors|

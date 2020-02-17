@@ -245,6 +245,24 @@ class Race < ApplicationRecord
     track_place
   end
 
+  def suggested_min_between_batches
+    last_batches = batches.order('time DESC').limit(2)
+    return nil if last_batches.length < 2
+    (batches[1].time - batches[0].time).to_i / 60
+  end
+
+  def suggested_next_batch_time
+    last_batch = batches.order('time DESC').first
+    return nil unless last_batch
+    next_batch, _ = first_available_batch_data
+    if next_batch == last_batch.number
+      last_batch.time.strftime('%H:%M')
+    else
+      minutes = suggested_min_between_batches
+      last_batch.time.advance(minutes: minutes).strftime('%H:%M') if minutes
+    end
+  end
+
   def first_available_batch_data
     max_batch = batches.order('number DESC').first
     return [1, 1] unless max_batch

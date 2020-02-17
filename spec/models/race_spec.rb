@@ -934,7 +934,7 @@ describe Race do
     end
   end
 
-  describe 'batch number suggestions' do
+  describe 'batch suggestions' do
     let(:race) { create :race, shooting_place_count: 3 }
 
     context 'when no batch lists' do
@@ -945,17 +945,54 @@ describe Race do
       it 'first_available_track_place returns 1' do
         expect(race.first_available_track_place).to eql 1
       end
+
+      it 'suggested minutes is nil' do
+        expect(race.suggested_min_between_batches).to be_nil
+      end
+
+      it 'next batch time is nil' do
+        expect(race.suggested_next_batch_time).to be_nil
+      end
     end
 
-    context 'when batch lists' do
-      let(:batch1) { create :batch, race: race, number: 1 }
-      let(:batch3) { create :batch, race: race, number: 3 }
+    context 'when only one batch' do
+      let(:batch) { create :batch, race: race, number: 1, time: '10:15' }
+      let(:series) { create :series, race: race }
+
+      context 'and the last track place of it is available' do
+        let!(:competitor_1_2) { create :competitor, series: series, batch: batch, track_place: 2 }
+
+        it 'suggested minutes is nil' do
+          expect(race.suggested_min_between_batches).to be_nil
+        end
+
+        it 'suggested batch time is the batch time' do
+          expect(race.suggested_next_batch_time).to eql '10:15'
+        end
+      end
+
+      context 'and the last track place of it is reserved' do
+        let!(:competitor_1_3) { create :competitor, series: series, batch: batch, track_place: 3 }
+
+        it 'suggested minutes is nil' do
+          expect(race.suggested_min_between_batches).to be_nil
+        end
+
+        it 'suggested batch time is nil' do
+          expect(race.suggested_next_batch_time).to be_nil
+        end
+      end
+    end
+
+    context 'when more than one batch' do
+      let(:batch1) { create :batch, race: race, number: 1, time: '10:10' }
+      let(:batch3) { create :batch, race: race, number: 3, time: '10:35' }
       let(:series) { create :series, race: race }
       let!(:competitor_1_3) { create :competitor, series: series, batch: batch1, track_place: 3 }
       let!(:competitor_3_2) { create :competitor, series: series, batch: batch3, track_place: 2 }
 
       context 'and the batch with biggest number has no competitors at all' do
-        let!(:batch5) { create :batch, race: race, number: 5 }
+        let!(:batch5) { create :batch, race: race, number: 5, time: '11:00' }
 
         it 'first_available_batch_number returns the number of the biggest batch' do
           expect(race.first_available_batch_number).to eql 5
@@ -963,6 +1000,14 @@ describe Race do
 
         it 'first_available_track_place returns 1' do
           expect(race.first_available_track_place).to eql 1
+        end
+
+        it 'suggested minutes is the difference of the last two batch times' do
+          expect(race.suggested_min_between_batches).to eql 25
+        end
+
+        it 'next batch time is the last batch time' do
+          expect(race.suggested_next_batch_time).to eql '11:00'
         end
       end
 
@@ -973,6 +1018,14 @@ describe Race do
 
         it 'first_available_track_place returns biggest track place + 1' do
           expect(race.first_available_track_place).to eql 3
+        end
+
+        it 'suggested minutes is the difference of the last two batch times' do
+          expect(race.suggested_min_between_batches).to eql 25
+        end
+
+        it 'next batch time is the last batch time' do
+          expect(race.suggested_next_batch_time).to eql '10:35'
         end
       end
 
@@ -985,6 +1038,14 @@ describe Race do
 
         it 'first_available_track_place returns 1' do
           expect(race.first_available_track_place).to eql 1
+        end
+
+        it 'suggested minutes is the difference of the last two batch times' do
+          expect(race.suggested_min_between_batches).to eql 25
+        end
+
+        it 'next batch time is the last batch time + suggested minutes' do
+          expect(race.suggested_next_batch_time).to eql '11:00'
         end
       end
 
@@ -999,6 +1060,14 @@ describe Race do
 
         it 'first_available_track_place returns biggest track place + 1' do
           expect(race.first_available_track_place).to eql 3
+        end
+
+        it 'suggested minutes is the difference of the last two batch times' do
+          expect(race.suggested_min_between_batches).to eql 25
+        end
+
+        it 'next batch time is the last batch time' do
+          expect(race.suggested_next_batch_time).to eql '10:35'
         end
       end
     end
