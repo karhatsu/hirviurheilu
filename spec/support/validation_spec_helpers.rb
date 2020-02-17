@@ -19,11 +19,16 @@ shared_examples_for 'non-negative integer' do |attribute|
   it { should_not allow_value(1.1).for(attribute) }
 end
 
-shared_examples_for 'positive integer' do |attribute|
+shared_examples_for 'positive integer' do |attribute, allow_nil|
   it { should validate_numericality_of(attribute) }
   it { should_not allow_value(-1).for(attribute) }
   it { should_not allow_value(0).for(attribute) }
   it { should_not allow_value(1.1).for(attribute) }
+  if allow_nil
+    it { should allow_value(nil).for(attribute) }
+  else
+    it { should_not allow_value(nil).for(attribute) }
+  end
 end
 
 shared_examples_for 'integer' do |attribute|

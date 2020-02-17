@@ -17,7 +17,7 @@ describe Competitor do
     it { is_expected.to validate_presence_of(:first_name) }
     it { is_expected.to validate_presence_of(:last_name) }
     it_should_behave_like 'non-negative integer', :shooting_overtime_min
-    it_should_behave_like 'positive integer', :track_place
+    it_should_behave_like 'positive integer', :track_place, true
 
     describe "number" do
       it_should_behave_like 'non-negative integer', :number
@@ -137,69 +137,14 @@ describe Competitor do
       end
     end
 
-    describe "estimate1" do
-      it { is_expected.to allow_value(nil).for(:estimate1) }
-      it { is_expected.not_to allow_value(1.1).for(:estimate1) }
-      it { is_expected.not_to allow_value(-1).for(:estimate1) }
-      it { is_expected.not_to allow_value(0).for(:estimate1) }
-      it { is_expected.to allow_value(1).for(:estimate1) }
-    end
-
-    describe "estimate2" do
-      it { is_expected.to allow_value(nil).for(:estimate2) }
-      it { is_expected.not_to allow_value(1.1).for(:estimate2) }
-      it { is_expected.not_to allow_value(-1).for(:estimate2) }
-      it { is_expected.not_to allow_value(0).for(:estimate2) }
-      it { is_expected.to allow_value(1).for(:estimate2) }
-    end
-
-    describe "estimate3" do
-      it { is_expected.to allow_value(nil).for(:estimate3) }
-      it { is_expected.not_to allow_value(1.1).for(:estimate3) }
-      it { is_expected.not_to allow_value(-1).for(:estimate3) }
-      it { is_expected.not_to allow_value(0).for(:estimate3) }
-      it { is_expected.to allow_value(1).for(:estimate3) }
-    end
-
-    describe "estimate4" do
-      it { is_expected.to allow_value(nil).for(:estimate4) }
-      it { is_expected.not_to allow_value(1.1).for(:estimate4) }
-      it { is_expected.not_to allow_value(-1).for(:estimate4) }
-      it { is_expected.not_to allow_value(0).for(:estimate4) }
-      it { is_expected.to allow_value(1).for(:estimate4) }
-    end
-
-    describe "correct_estimate1" do
-      it { is_expected.to allow_value(nil).for(:correct_estimate1) }
-      it { is_expected.not_to allow_value(1.1).for(:correct_estimate1) }
-      it { is_expected.not_to allow_value(-1).for(:correct_estimate1) }
-      it { is_expected.not_to allow_value(0).for(:correct_estimate1) }
-      it { is_expected.to allow_value(1).for(:correct_estimate1) }
-    end
-
-    describe "correct_estimate2" do
-      it { is_expected.to allow_value(nil).for(:correct_estimate2) }
-      it { is_expected.not_to allow_value(1.1).for(:correct_estimate2) }
-      it { is_expected.not_to allow_value(-1).for(:correct_estimate2) }
-      it { is_expected.not_to allow_value(0).for(:correct_estimate2) }
-      it { is_expected.to allow_value(1).for(:correct_estimate2) }
-    end
-
-    describe "correct_estimate3" do
-      it { is_expected.to allow_value(nil).for(:correct_estimate3) }
-      it { is_expected.not_to allow_value(1.1).for(:correct_estimate3) }
-      it { is_expected.not_to allow_value(-1).for(:correct_estimate3) }
-      it { is_expected.not_to allow_value(0).for(:correct_estimate3) }
-      it { is_expected.to allow_value(1).for(:correct_estimate3) }
-    end
-
-    describe "correct_estimate4" do
-      it { is_expected.to allow_value(nil).for(:correct_estimate4) }
-      it { is_expected.not_to allow_value(1.1).for(:correct_estimate4) }
-      it { is_expected.not_to allow_value(-1).for(:correct_estimate4) }
-      it { is_expected.not_to allow_value(0).for(:correct_estimate4) }
-      it { is_expected.to allow_value(1).for(:correct_estimate4) }
-    end
+    it_should_behave_like 'positive integer', :estimate1, true
+    it_should_behave_like 'positive integer', :estimate2, true
+    it_should_behave_like 'positive integer', :estimate3, true
+    it_should_behave_like 'positive integer', :estimate4, true
+    it_should_behave_like 'positive integer', :correct_estimate1, true
+    it_should_behave_like 'positive integer', :correct_estimate2, true
+    it_should_behave_like 'positive integer', :correct_estimate3, true
+    it_should_behave_like 'positive integer', :correct_estimate4, true
 
     describe 'shooting_start_time' do
       it 'can be nil' do

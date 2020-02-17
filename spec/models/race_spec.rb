@@ -70,8 +70,7 @@ describe Race do
     end
 
     describe 'shooting_place_count' do
-      it_should_behave_like 'positive integer', :shooting_place_count
-      it { should allow_value(nil).for(:shooting_place_count) }
+      it_should_behave_like 'positive integer', :shooting_place_count, true
     end
 
     describe "race with same name" do

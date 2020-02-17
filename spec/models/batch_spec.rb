@@ -10,10 +10,8 @@ RSpec.describe Batch, type: :model do
   end
 
   describe 'validations' do
-    it_should_behave_like 'positive integer', :number
-    it { should_not allow_value(nil).for(:number) }
-    it_should_behave_like 'positive integer', :track
-    it { should allow_value(nil).for(:track) }
+    it_should_behave_like 'positive integer', :number, false
+    it_should_behave_like 'positive integer', :track, true
     it { should validate_presence_of(:time) }
 
     describe 'uniqueness of number' do
