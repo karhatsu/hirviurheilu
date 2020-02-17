@@ -22,5 +22,19 @@
       = number_field_tag :minutes_between_batches, params[:minutes_between_batches]
     .form__buttons
       = submit_tag t('.generate_batch_lists'), class: 'button button--primary'
-%h3= t :all_competitors
-= render partial: 'official/competitors/list', locals: { series: @series }
+- @series.competitors.where('batch_id IS NOT NULL').includes(:batch, :club).except(:order).order('batches.number, track_place').group_by(&:batch).each do |batch, competitors|
+  %h3 #{t('attributes.batch_id')}: #{batch.number} (#{batch.time.strftime('%H:%M')})
+  .row
+    - competitors.each do |competitor|
+      .col-xs-12.col-sm-6.col-md-4
+        %a.card{href: edit_official_series_competitor_path(competitor.series_id, competitor)}
+          - if competitor.track_place
+            .card__number= competitor.track_place
+          .card__middle
+            .card__name
+              = full_name competitor
+              = "(#{competitor.age_group.name})" if competitor.age_group
+            .card__middle-row= competitor.club.name
+          .card__main-value
+            - if competitor.number
+              \##{competitor.number}
