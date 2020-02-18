@@ -12,7 +12,7 @@
         - series_dropdown_menu(race, 'competitors')
       - if race.sport.start_list?
         = menu_item t('official_sub_menu.start_times'), official_race_start_list_path(race), @is_start_list
-      - elsif race.sport.batch_list? && race.sport_key == Sport::ILMAHIRVI
+      - elsif race.sport.batch_list?
         = menu_item t('official_sub_menu.batch_list_generation'), official_series_batch_list_generation_path(series), @is_batch_list_generation
       = menu_item t('official_sub_menu.quick_save'), official_race_quick_saves_path(race), @is_quick_saves
       - unless race.sport.only_shooting?
