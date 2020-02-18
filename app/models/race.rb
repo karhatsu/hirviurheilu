@@ -271,6 +271,11 @@ class Race < ApplicationRecord
     [max_batch.number, max_track_place.to_i + 1]
   end
 
+  def suggested_next_batch_day
+    last_batch = batches.order('time DESC').first
+    last_batch&.day || 1
+  end
+
   private
   def end_date_not_before_start_date
     if end_date and end_date < start_date

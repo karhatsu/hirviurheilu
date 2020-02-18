@@ -120,6 +120,7 @@ sv:
         no_competitors_without_batch_in_series: Klassen har inga tävlare utan skytteplats
         first_batch_number: Ensimmäinen kilpailija arvotaan erään numero
         first_track_place: Ensimmäinen kilpailija sijoitetaan erässä paikalle numero
+        batch_day: Dag
         first_batch_time: Ensimmäisen erän kellonaika
         minutes_between_batches: Erälle varattu aika (min)
         generate_batch_lists: Arvo eräluettelot

@@ -18,6 +18,10 @@
     .form__field.form__field--sm
       = label_tag :first_track_place, t('.first_track_place')
       = number_field_tag :first_track_place, params[:first_track_place] || @series.race.first_available_track_place
+    - if @series.race.days_count > 1
+      .form__field.form__field--md
+        = label_tag :batch_day, t('.batch_day')
+        = batch_days_tag @series.race, params[:batch_day] || @series.race.suggested_next_batch_day
     .form__field.form__field--sm
       = label_tag :first_batch_time, t('.first_batch_time')
       = text_field_tag :first_batch_time, params[:first_batch_time] || @series.race.suggested_next_batch_time, placeholder: 'HH:MM'
@@ -27,7 +31,7 @@
     .form__buttons
       = submit_tag t('.generate_batch_lists'), class: 'button button--primary'
 - @series.competitors.where('batch_id IS NOT NULL').includes(:batch, :club).except(:order).order('batches.number, track_place').group_by(&:batch).each do |batch, competitors|
-  %h3 #{t('attributes.batch_id')}: #{batch.number} (#{batch.time.strftime('%H:%M')})
+  %h3 #{t('attributes.batch_id')}: #{batch.number} (#{batch_time(@series.race, batch)})
   .row
     - competitors.each do |competitor|
       .col-xs-12.col-sm-6.col-md-4

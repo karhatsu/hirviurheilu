@@ -7,7 +7,8 @@ class Official::BatchListGenerationsController < Official::OfficialController
 
   def create
     generator = BatchList.new(@series)
-    generator.generate params[:first_batch_number].to_i, params[:first_track_place].to_i, params[:first_batch_time], params[:minutes_between_batches].to_i
+    generator.generate params[:first_batch_number].to_i, params[:first_track_place].to_i, params[:batch_day].to_i,
+                       params[:first_batch_time], params[:minutes_between_batches].to_i
     if generator.errors.empty?
       flash[:success] = t('.batch_list_generated')
       redirect_to official_series_batch_list_generation_path(@series)
