@@ -42,3 +42,5 @@
           .card__main-value
             - if competitor.number
               \##{competitor.number}
+.buttons.buttons--nav
+  = link_to t(:back_to_official_race_page), official_race_path(@series.race), class: 'button button--back'
