@@ -1,4 +1,4 @@
-class BatchList::Ilmahirvi
+class BatchList
   attr_reader :errors
 
   def initialize(series)

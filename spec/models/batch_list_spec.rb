@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe BatchList::Ilmahirvi do
+describe BatchList do
   let(:another_race) { create :race }
   let!(:another_race_batch) { create :batch, race: another_race, number: 1 }
   let(:race) { create :race, shooting_place_count: 2 }
   let(:series) { create :series, race: race }
-  let(:generator) { BatchList::Ilmahirvi.new series }
+  let(:generator) { BatchList.new series }
   let(:first_batch_time) { '10:00' }
   let(:minutes_between_batches) { 10 }
   let(:second_batch_time) { '10:10' }
@@ -89,7 +89,7 @@ describe BatchList::Ilmahirvi do
       let(:competitor4) { create :competitor, series: series2, number: 100 }
       let(:competitor5) { create :competitor, series: series2, number: 101 }
       let(:competitor6) { create :competitor, series: series2, number: 102 }
-      let(:generator2) { BatchList::Ilmahirvi.new series2 }
+      let(:generator2) { BatchList.new series2 }
 
       before do
         allow(generator2).to receive(:shuffle_competitors).and_return([competitor4, competitor5, competitor6])
