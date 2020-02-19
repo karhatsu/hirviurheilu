@@ -4,8 +4,7 @@ end
 
 Then("I should see batch {int} on track {int} with time {string}") do |number, track, time|
   expect(page.find(:xpath, "(//div[@class='card']//div[@class='card__number'])[#{number}]")).to have_text(number)
-  expect(page.find(:xpath, "(//div[@class='card']//div[@class='card__name'])[#{number}]")).to have_text("Rata #{track}")
-  expect(page.find(:xpath, "(//div[@class='card']//div[@class='card__main-value'])[#{number}]")).to have_text(time)
+  expect(page.find(:xpath, "(//div[@class='card']//div[@class='card__name'])[#{number}]")).to have_text("#{time} (Rata #{track})")
 end
 
 Then("the batch {int} should contain a competitor {string} in row {int}") do |number, competitor, competitor_row|

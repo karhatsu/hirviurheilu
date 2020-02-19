@@ -8,10 +8,11 @@
         .card
           .card__number= batch.number
           .card__middle
-            - if batch.track.to_i > 0
-              .card__name #{t('attributes.track')} #{batch.track}
+            .card__name
+              = batch_time @race, batch
+              - if batch.track.to_i > 0
+                (#{t('attributes.track')} #{batch.track})
             - batch.competitors.each do |competitor|
               .card__middle-row #{competitor.track_place}. #{full_name(competitor)} (#{competitor.number}), #{competitor.club.name} (#{competitor.series.name})
-          .card__main-value= batch_time @race, batch
 .buttons.buttons--nav
   = link_to t(:back_to_race_home_page), race_path(@race), class: 'button button--back'
