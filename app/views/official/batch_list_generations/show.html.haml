@@ -34,7 +34,10 @@
     .form__buttons
       = submit_tag t('.generate_batch_lists'), class: 'button button--primary'
 - @series.competitors.where('batch_id IS NOT NULL').includes(:batch, :club).except(:order).order('batches.number, track_place').group_by(&:batch).each do |batch, competitors|
-  %h3 #{t('attributes.batch_id')}: #{batch.number} (#{batch_time(@series.race, batch)})
+  %h3
+    #{t('attributes.batch_id')}: #{batch.number}, #{batch_time(@series.race, batch)}
+    - if batch.track
+      (#{t('attributes.track')} #{batch.track})
   .row
     - competitors.each do |competitor|
       .col-xs-12.col-sm-6.col-md-4
