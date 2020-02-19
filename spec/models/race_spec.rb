@@ -1092,6 +1092,18 @@ describe Race do
         end
       end
     end
+
+    context 'when concurrent batches' do
+      let(:race2) { create :race }
+      let!(:batch1) { create :batch, race: race2, number: 1, track: 1, time: '10:00' }
+      let!(:batch2) { create :batch, race: race2, number: 2, track: 2, time: '10:00' }
+      let!(:batch3) { create :batch, race: race2, number: 3, track: 1, time: '10:30' }
+      let!(:batch4) { create :batch, race: race2, number: 4, track: 2, time: '10:30' }
+
+      it 'suggested minutes is calculated using the track number 1' do
+        expect(race2.suggested_min_between_batches).to eql 30
+      end
+    end
   end
 
   describe '#suggested_next_batch_day' do

@@ -246,7 +246,7 @@ class Race < ApplicationRecord
   end
 
   def suggested_min_between_batches
-    last_batches = batches.order('day DESC, time DESC').limit(2)
+    last_batches = batches.where('track IS NULL OR track = 1').order('day DESC, time DESC').limit(2)
     return nil if last_batches.length < 2
     return nil if last_batches[0].day != last_batches[1].day
     (last_batches[0].time - last_batches[1].time).to_i / 60
