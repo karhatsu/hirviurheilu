@@ -1071,4 +1071,30 @@ describe Race do
       end
     end
   end
+
+  describe '#suggested_next_batch_day' do
+    let(:race) { create :race, start_date: '2020-02-19', end_date: '2020-02-20' }
+
+    context 'when no batches' do
+      it 'is 1' do
+        expect(race.suggested_next_batch_day).to eql 1
+      end
+    end
+
+    context 'when only batches from the first day' do
+      let!(:batch1) { create :batch, race: race, number: 1, day: 1, time: '15:00' }
+
+      it 'is 1' do
+        expect(race.suggested_next_batch_day).to eql 1
+      end
+
+      context 'and batches also from the second day' do
+        let!(:batch2) { create :batch, race: race, number: 2, day: 2, time: '10:00' }
+
+        it 'is 2' do
+          expect(race.suggested_next_batch_day).to eql 2
+        end
+      end
+    end
+  end
 end

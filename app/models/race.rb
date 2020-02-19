@@ -272,7 +272,7 @@ class Race < ApplicationRecord
   end
 
   def suggested_next_batch_day
-    last_batch = batches.order('time DESC').first
+    last_batch = batches.order('day DESC').first
     last_batch&.day || 1
   end
 
