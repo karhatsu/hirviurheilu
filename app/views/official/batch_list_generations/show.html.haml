@@ -30,7 +30,7 @@
       = number_field_tag :minutes_between_batches, params[:minutes_between_batches] || @series.race.suggested_min_between_batches
     .form__field.form__field--sm
       = label_tag :concurrent_batches, t('.concurrent_batches')
-      = number_field_tag :concurrent_batches, params[:concurrent_batches] || 1
+      = number_field_tag :concurrent_batches, params[:concurrent_batches] || @series.race.suggested_concurrent_batches
     .form__buttons
       = submit_tag t('.generate_batch_lists'), class: 'button button--primary'
 - @series.competitors.where('batch_id IS NOT NULL').includes(:batch, :club).except(:order).order('batches.number, track_place').group_by(&:batch).each do |batch, competitors|
