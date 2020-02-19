@@ -13,6 +13,12 @@
               - if batch.track.to_i > 0
                 (#{t('attributes.track')} #{batch.track})
             - batch.competitors.each do |competitor|
-              .card__middle-row #{competitor.track_place}. #{full_name(competitor)} (#{competitor.number}), #{competitor.club.name} (#{competitor.series.name})
+              .card__middle-row
+                #{competitor.track_place}.
+                - if competitor.number
+                  #{full_name(competitor)} (#{competitor.number}),
+                - else
+                  #{full_name(competitor)},
+                #{competitor.club.name} (#{competitor.series.name})
 .buttons.buttons--nav
   = link_to t(:back_to_race_home_page), race_path(@race), class: 'button button--back'
