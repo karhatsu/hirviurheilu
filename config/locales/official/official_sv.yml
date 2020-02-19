@@ -123,6 +123,7 @@ sv:
         batch_day: Dag
         first_batch_time: Ensimmäisen erän kellonaika
         minutes_between_batches: Erälle varattu aika (min)
+        concurrent_batches: Yhtäaikaisten erien määrä
         generate_batch_lists: Arvo eräluettelot
       create:
         batch_list_generated: Eräluettelot luotu sarjalle onnistuneesti

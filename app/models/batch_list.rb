@@ -6,18 +6,26 @@ class BatchList
     @errors = []
   end
 
-  def generate(first_batch_number, first_track_place, batch_day, first_batch_time, minutes_between_batches)
-    return unless validate first_batch_number, first_track_place, batch_day, first_batch_time, minutes_between_batches
+  def generate(first_batch_number, first_track_place, batch_day, first_batch_time, concurrent_batches, minutes_between_batches)
+    return unless validate first_batch_number, first_track_place, batch_day, first_batch_time, concurrent_batches, minutes_between_batches
     @series.transaction do
       reserved_places = find_reserved_places
-      batch = find_or_create_batch first_batch_number, batch_day, first_batch_time
+      track = concurrent_batches > 1 ? 1 : nil
+      batch = find_or_create_batch first_batch_number, batch_day, first_batch_time, track
       batch_number = batch.number
       competitors = shuffle_competitors @series.competitors.where('batch_id IS NULL AND track_place IS NULL')
       track_place = first_track_place
       competitors.each_with_index do |competitor, i|
         if i > 0 && batch_number != batch.number
-          time = batch.time.advance minutes: minutes_between_batches
-          batch = find_or_create_batch(batch_number, batch_day, time)
+          time = batch.time
+          time = time.advance minutes: minutes_between_batches if concurrent_batches == 1 || batch.track == concurrent_batches
+          if concurrent_batches == 1
+            track = nil
+          else
+            next_track = (batch.track || 1) + 1
+            track = next_track > concurrent_batches ? 1 : next_track
+          end
+          batch = find_or_create_batch(batch_number, batch_day, time, track)
         end
         competitor.batch = batch
         competitor.track_place = track_place
@@ -35,10 +43,11 @@ class BatchList
     @series.race
   end
 
-  def validate(first_batch_number, first_track_place, batch_day, first_batch_time, minutes_between_batches)
+  def validate(first_batch_number, first_track_place, batch_day, first_batch_time, concurrent_batches, minutes_between_batches)
     validate_number first_batch_number, 'invalid_first_batch_number'
     validate_number first_track_place, 'invalid_first_track_place'
     validate_time first_batch_time, 'invalid_first_batch_time'
+    validate_number concurrent_batches, 'invalid_concurrent_batches'
     validate_number minutes_between_batches, 'invalid_minutes_between_batches'
     return false unless @errors.empty?
     return false unless validate_shooting_place_count
@@ -97,8 +106,13 @@ class BatchList
     competitors.shuffle
   end
 
-  def find_or_create_batch(number, day, time)
-    Batch.create_with(day: day, time: time).find_or_create_by!(race: race, number: number)
+  def find_or_create_batch(number, day, time, track)
+    batch = Batch.create_with(day: day, time: time, track: track).find_or_create_by!(race: race, number: number)
+    if batch.track.nil? && track
+      batch.track = track
+      batch.save!
+    end
+    batch
   end
 
   def resolve_next_track_place(reserved_places, prev_batch_number, prev_track_place)
