@@ -1070,6 +1070,28 @@ describe Race do
         end
       end
     end
+
+    context 'when one batch from the second day' do
+      let(:race2) { create :race, start_date: '2020-02-15', end_date: '2020-02-16' }
+      let!(:batch1) { create :batch, race: race2, number: 1, day: 1, time: '16:00' }
+      let!(:batch2) { create :batch, race: race2, number: 2, day: 2, time: '10:00' }
+
+      it 'suggested minutes is nil' do
+        expect(race2.suggested_min_between_batches).to be_nil
+      end
+
+      it 'next batch time suggestion is based on the second day batch' do
+        expect(race2.suggested_next_batch_time).to eql '10:00'
+      end
+
+      context 'and another batch from the second day' do
+        let!(:batch3) { create :batch, race: race2, number: 3, day: 2, time: '10:15' }
+
+        it 'suggested minutes is the difference of the last two second day batch times' do
+          expect(race2.suggested_min_between_batches).to eql 15
+        end
+      end
+    end
   end
 
   describe '#suggested_next_batch_day' do

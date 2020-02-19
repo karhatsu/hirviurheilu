@@ -246,13 +246,14 @@ class Race < ApplicationRecord
   end
 
   def suggested_min_between_batches
-    last_batches = batches.order('time DESC').limit(2)
+    last_batches = batches.order('day DESC, time DESC').limit(2)
     return nil if last_batches.length < 2
-    (batches[1].time - batches[0].time).to_i / 60
+    return nil if last_batches[0].day != last_batches[1].day
+    (last_batches[0].time - last_batches[1].time).to_i / 60
   end
 
   def suggested_next_batch_time
-    last_batch = batches.order('time DESC').first
+    last_batch = batches.order('day DESC, time DESC').first
     return nil unless last_batch
     next_batch, _ = first_available_batch_data
     if next_batch == last_batch.number
