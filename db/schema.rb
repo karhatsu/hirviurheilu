@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_18_070348) do
+ActiveRecord::Schema.define(version: 2020_02_20_174420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,12 +38,6 @@ ActiveRecord::Schema.define(version: 2020_02_18_070348) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "front_page"
-  end
-
-  create_table "base_prices", id: :serial, force: :cascade do |t|
-    t.integer "price", default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "batches", force: :cascade do |t|
@@ -155,13 +149,6 @@ ActiveRecord::Schema.define(version: 2020_02_18_070348) do
     t.string "short_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "prices", id: :serial, force: :cascade do |t|
-    t.integer "min_competitors", default: 0, null: false
-    t.decimal "price", default: "0.0", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "race_rights", id: :serial, force: :cascade do |t|

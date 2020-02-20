@@ -4,8 +4,7 @@ Feature: Localization
   I want to use the system in Swedish
 
   Scenario: Change language, change page, change the language again
-    Given there is a base price 15
-    And I am on the home page
+    Given I am on the home page
     And I follow "På svenska"
     Then I should be on the Swedish home page
     And I should see "Tävlingar"
