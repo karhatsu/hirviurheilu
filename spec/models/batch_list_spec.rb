@@ -3,7 +3,8 @@ require 'spec_helper'
 describe BatchList do
   let(:another_race) { create :race }
   let!(:another_race_batch) { create :batch, race: another_race, number: 1 }
-  let(:race) { create :race, shooting_place_count: 2 }
+  let(:shooting_place_count) { 2 }
+  let(:race) { create :race, shooting_place_count: shooting_place_count }
   let(:series) { create :series, race: race }
   let(:generator) { BatchList.new series }
   let(:first_batch_time) { '10:00' }
@@ -323,6 +324,94 @@ describe BatchList do
         verify_batch 3, second_batch_time, 1, 1
         verify_batch 4, second_batch_time, 1, 2
         verify_competitor competitor3, 2, 1
+      end
+    end
+  end
+
+  describe 'with track place assignment options' do
+    let(:shooting_place_count) { 4 }
+    let(:competitor1) { create :competitor, series: series }
+    let(:competitor2) { create :competitor, series: series }
+    let(:competitor3) { create :competitor, series: series }
+    let(:competitor4) { create :competitor, series: series }
+    let(:competitor5) { create :competitor, series: series }
+    let(:competitor6) { create :competitor, series: series }
+    let(:competitor7) { create :competitor, series: series }
+
+    before do
+      competitors = [competitor1, competitor2, competitor3, competitor4, competitor5, competitor6, competitor7]
+      allow(generator).to receive(:shuffle_competitors).and_return(competitors)
+    end
+
+    context 'when the first track place is skipped' do
+      before do
+        generator.generate 1, 1, first_batch_time, 1, minutes_between_batches, skip_first_track_place: true
+      end
+
+      it 'assigns competitors to track places 2-n' do
+        expect(generator.errors).to eql []
+        verify_competitor competitor1, 1, 2
+        verify_competitor competitor2, 1, 3
+        verify_competitor competitor3, 1, 4
+        verify_competitor competitor4, 2, 2
+        verify_competitor competitor7, 3, 2
+      end
+    end
+
+    context 'when the last track place is skipped' do
+      before do
+        generator.generate 1, 1, first_batch_time, 1, minutes_between_batches, skip_last_track_place: true
+      end
+
+      it 'assigns competitors to track places 1-(n-1)' do
+        expect(generator.errors).to eql []
+        verify_competitor competitor1, 1, 1
+        verify_competitor competitor2, 1, 2
+        verify_competitor competitor3, 1, 3
+        verify_competitor competitor4, 2, 1
+        verify_competitor competitor7, 3, 1
+      end
+    end
+
+    context 'when only odd track places are used' do
+      before do
+        generator.generate 1, 1, first_batch_time, 1, minutes_between_batches, only_track_places: 'odd'
+      end
+
+      it 'assigns competitors to track places 1, 3,...' do
+        expect(generator.errors).to eql []
+        verify_competitor competitor1, 1, 1
+        verify_competitor competitor2, 1, 3
+        verify_competitor competitor3, 2, 1
+        verify_competitor competitor4, 2, 3
+      end
+    end
+
+    context 'when only even track places are used' do
+      before do
+        generator.generate 1, 1, first_batch_time, 1, minutes_between_batches, only_track_places: 'even'
+      end
+
+      it 'assigns competitors to track places 1, 3,...' do
+        expect(generator.errors).to eql []
+        verify_competitor competitor1, 1, 2
+        verify_competitor competitor2, 1, 4
+        verify_competitor competitor3, 2, 2
+        verify_competitor competitor4, 2, 4
+      end
+    end
+
+    context 'when specific track places are excluded' do
+      before do
+        generator.generate 1, 1, first_batch_time, 1, minutes_between_batches, skip_track_places: [2, 3]
+      end
+
+      it 'does not assign competitors to those track places' do
+        expect(generator.errors).to eql []
+        verify_competitor competitor1, 1, 1
+        verify_competitor competitor2, 1, 4
+        verify_competitor competitor3, 2, 1
+        verify_competitor competitor4, 2, 4
       end
     end
   end

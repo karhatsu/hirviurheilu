@@ -13,9 +13,8 @@ class BatchList
       reserved_places = find_reserved_places
       track = concurrent_batches > 1 ? 1 : nil
       batch = find_or_create_batch first_batch_number, batch_day, first_batch_time, track
-      batch_number = batch.number
       competitors = shuffle_competitors @series.competitors.where('batch_id IS NULL AND track_place IS NULL')
-      track_place = first_track_place
+      batch_number, track_place = resolve_next_track_place reserved_places, batch.number, first_track_place - 1, opts
       competitors.each_with_index do |competitor, i|
         if i > 0 && batch_number != batch.number
           time = batch.time
@@ -31,7 +30,7 @@ class BatchList
         competitor.batch = batch
         competitor.track_place = track_place
         competitor.save!
-        batch_number, track_place = resolve_next_track_place reserved_places, batch.number, track_place
+        batch_number, track_place = resolve_next_track_place reserved_places, batch.number, track_place, opts
       end
     end
   rescue => e
@@ -116,7 +115,7 @@ class BatchList
     batch
   end
 
-  def resolve_next_track_place(reserved_places, prev_batch_number, prev_track_place)
+  def resolve_next_track_place(reserved_places, prev_batch_number, prev_track_place, opts)
     if prev_track_place == race.shooting_place_count
       batch_number = prev_batch_number + 1
       track_place = 1
@@ -124,8 +123,14 @@ class BatchList
       batch_number = prev_batch_number
       track_place = prev_track_place + 1
     end
-    if reserved_places[batch_number] && reserved_places[batch_number][track_place]
-      resolve_next_track_place reserved_places, batch_number, track_place
+    try_next_track_place = reserved_places[batch_number] && reserved_places[batch_number][track_place]
+    try_next_track_place ||= opts[:skip_first_track_place] && track_place == 1
+    try_next_track_place ||= opts[:skip_last_track_place] && track_place == race.shooting_place_count
+    try_next_track_place ||= opts[:only_track_places] == 'odd' && track_place % 2 == 0
+    try_next_track_place ||= opts[:only_track_places] == 'even' && track_place % 2 == 1
+    try_next_track_place ||= (opts[:skip_track_places] || []).include? track_place
+    if try_next_track_place
+      resolve_next_track_place reserved_places, batch_number, track_place, opts
     else
       [batch_number, track_place]
     end
