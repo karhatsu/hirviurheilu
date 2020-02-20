@@ -9,6 +9,10 @@ class Official::BatchListGenerationsController < Official::OfficialController
     generator = BatchList.new(@series)
     opts = {}
     opts[:batch_day] = params[:batch_day].to_i unless params[:batch_day].blank?
+    opts[:only_track_places] = params[:only_track_places]
+    opts[:skip_first_track_place] = params[:skip_first_track_place]
+    opts[:skip_last_track_place] = params[:skip_last_track_place]
+    opts[:skip_track_places] = params[:skip_track_places].split(',').map(&:strip).map(&:to_i)
     generator.generate params[:first_batch_number].to_i, params[:first_track_place].to_i, params[:first_batch_time],
                        params[:concurrent_batches].to_i, params[:minutes_between_batches].to_i, opts
     if generator.errors.empty?

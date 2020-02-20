@@ -124,6 +124,13 @@ fi:
         first_batch_time: Ensimmäisen erän kellonaika
         minutes_between_batches: Erälle varattu aika (min)
         concurrent_batches: Yhtäaikaisten erien määrä
+        assign_competitors: Asettele kilpailijat
+        all_track_places: kaikkiin paikkoihin
+        odd_track_places: parittomiin paikkoihin
+        even_track_places: parillisiin paikkoihin
+        skip_first_track_place: Jätä erän ensimmäinen paikka tyhjäksi
+        skip_last_track_place: Jätä erän viimeinen paikka tyhjäksi
+        skip_track_places: Vapaaksi jätettävät ammuntapaikat (pilkulla erotettuina, esim. 4,12,13)
         generate_batch_lists: Arvo eräluettelot
       create:
         batch_list_generated: Eräluettelot luotu sarjalle onnistuneesti
