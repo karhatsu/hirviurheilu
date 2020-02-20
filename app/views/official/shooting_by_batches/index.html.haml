@@ -18,12 +18,6 @@
     - if competitors.empty?
       = t '.no_competitors_in_batch'
     - else
-      - qualification_round = @race.sport.qualification_round
-      - qualification_round_shots = qualification_round && qualification_round.inject(:+) || 0
-      - final_round = @race.sport.final_round
-      - final_round_shots = final_round && final_round.inject(:+) || 0
-      - basic_shots = qualification_round_shots + final_round_shots
-      - shots_per_extra_round = @race.sport.shots_per_extra_round
       .result-cards
         - competitors.each do |competitor|
           .card
@@ -37,15 +31,7 @@
               - unless competitor.no_result_reason
                 .card__middle-row
                   = form_for([:official, competitor.series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "shots_form_#{competitor.id}", class: 'form form--inline' }) do |f|
-                    - extra_shots_count = competitor.shots && competitor.shots.length >= basic_shots ? competitor.shots.length - basic_shots + shots_per_extra_round : 0
-                    = f.hidden_field :shooting_score_input
-                    = t :qualification_round
-                    = render partial: 'official/shots/shooting_race_shots', locals: { competitor: competitor, round_rules: qualification_round, base: 0 }
-                    = t :final_round
-                    = render partial: 'official/shots/shooting_race_shots', locals: { competitor: competitor, round_rules: final_round, base: qualification_round_shots }
-                    - if extra_shots_count > 0
-                      = t :extra_round
-                      = render partial: 'official/shots/shooting_race_shots', locals: { competitor: competitor, round_rules: [extra_shots_count], base: basic_shots }
+                    = render partial: 'official/shots/all_shooting_race_shots', locals: { f: f, sport: @race.sport, competitor: competitor }
                     .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
             .card__main-value{id: "shots_result_#{competitor.id}"}
               - if competitor.no_result_reason

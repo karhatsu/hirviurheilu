@@ -1,7 +1,7 @@
 = content_for(:title, full_name(@competitor))
 %h2= yield :title
 = render partial: "shared/form_errors", locals: { item: @competitor }
-= form_for([:official, @competitor.series, @competitor], html: { class: 'form' }) do |f|
+= form_for([:official, @competitor.series, @competitor], html: { class: 'form form--competitor' }) do |f|
   = render partial: "basic_fields", locals: { f: f }
   - if @series.sport.start_list? && @series.has_start_list?
     .form__field.form__field--sm.row
@@ -58,9 +58,7 @@
       .col-xs-12.col-sm-3
         %label= t '.shots'
       .col-xs-12.col-sm-9
-        = render partial: 'official/shots/shooting_race_shots', locals: { competitor: @competitor, round_rules: qualification_round, base: 0 }
-        = render partial: 'official/shots/shooting_race_shots', locals: { competitor: @competitor, round_rules: final_round, base: qualification_round_shots }
-        = render partial: 'official/shots/shooting_race_shots', locals: { competitor: @competitor, round_rules: [extra_shots_count], base: basic_shots }
+        = render partial: 'official/shots/all_shooting_race_shots', locals: { f: f, sport: @series.sport, competitor: @competitor }
   - else
     = hidden_field_tag :no_times, true
   .form__field.row
