@@ -56,22 +56,22 @@ class BatchList
   end
 
   def validate_number(number, error_key)
-    @errors << I18n.t(error_key, scope: 'activerecord.errors.models.batch_list.ilmahirvi') unless number > 0
+    @errors << I18n.t(error_key, scope: 'activerecord.errors.models.batch_list') unless number > 0
   end
 
   def validate_time(time, error_key)
-    @errors << I18n.t(error_key, scope: 'activerecord.errors.models.batch_list.ilmahirvi') unless time =~ /[0-2]?[0-9]:[0-5][0-9]/
+    @errors << I18n.t(error_key, scope: 'activerecord.errors.models.batch_list') unless time =~ /[0-2]?[0-9]:[0-5][0-9]/
   end
 
   def validate_shooting_place_count
     return true if race.shooting_place_count.to_i > 0
-    @errors << I18n.t('activerecord.errors.models.batch_list.ilmahirvi.no_shooting_place_count')
+    @errors << I18n.t('activerecord.errors.models.batch_list.no_shooting_place_count')
     false
   end
 
   def validate_competitors_count
     return true unless @series.competitors.empty?
-    @errors << I18n.t('activerecord.errors.models.batch_list.ilmahirvi.no_competitors')
+    @errors << I18n.t('activerecord.errors.models.batch_list.no_competitors')
     false
   end
 
@@ -79,16 +79,16 @@ class BatchList
     batch = Batch.where('race_id=? AND number=?', race.id, first_batch_number).first
     return true unless batch
     if batch.day != batch_day
-      @errors << I18n.t('activerecord.errors.models.batch_list.ilmahirvi.first_batch_day_conflict')
+      @errors << I18n.t('activerecord.errors.models.batch_list.first_batch_day_conflict')
       return false
     end
     if batch.time.strftime('%H:%M') != first_batch_time
-      @errors << I18n.t('activerecord.errors.models.batch_list.ilmahirvi.first_batch_time_conflict')
+      @errors << I18n.t('activerecord.errors.models.batch_list.first_batch_time_conflict')
       return false
     end
     competitor = Competitor.where('batch_id=? AND track_place=?', batch.id, first_track_place).first
     return true unless competitor
-    @errors << I18n.t('activerecord.errors.models.batch_list.ilmahirvi.first_track_place_reserved')
+    @errors << I18n.t('activerecord.errors.models.batch_list.first_track_place_reserved')
     false
   end
 
