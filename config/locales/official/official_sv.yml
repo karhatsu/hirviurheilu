@@ -292,3 +292,9 @@ sv:
         already_finished: Stafetten är redan slut
         info: Efter du har sparat alla resultat för stafetten, kan du sluta stafetten med knappen neden. Tjänsten inspekterar automatiskt att inga uppgifter saknas.
         submit_button: Slut stafetten
+    shooting_by_batches:
+      index:
+        title: Ammunta erittäin
+        no_batches: Yhtään erää ei ole vielä määritetty
+        select_batch: Valitse erä
+        no_competitors_in_batch: Erässä ei ole yhtään kilpailijaa

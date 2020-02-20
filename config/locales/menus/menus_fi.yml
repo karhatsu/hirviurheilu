@@ -34,6 +34,8 @@ fi:
     times: Ajat
     estimates: Arviot
     shooting: Ammunta
+    shooting_by_series: Ammunta sarjoittain
+    shooting_by_batches: Ammunta erittäin
     correct_distances: Oikeat etäisyydet
     csv: CSV
     team_competitions: Joukkuek.

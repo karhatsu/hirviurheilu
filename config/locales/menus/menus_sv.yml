@@ -34,6 +34,8 @@ sv:
     times: Tider
     estimates: Bedömning
     shooting: Skytte
+    shooting_by_series: Skytte (klasser)
+    shooting_by_batches: Skytte (skede)
     correct_distances: Riktiga avstånd
     csv: CSV
     team_competitions: Lagtävlingar

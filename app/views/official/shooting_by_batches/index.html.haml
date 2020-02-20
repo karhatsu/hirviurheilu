@@ -1,0 +1,60 @@
+- content_for :title, "#{@race.name} - #{t('.title')}"
+%h2 #{@race.name} - #{t('.title')}
+- if @batches.empty?
+  .message.message--info= t '.no_batches'
+- else
+  = form_tag(official_race_shooting_by_batches_path(@race), method: :get) do
+    .form__horizontal-fields
+      .form__field.form__field--sm
+        = select_tag :batch_id, options_from_collection_for_select(@batches, :id, :number, params[:batch_id]), prompt: t('attributes.batch_id')
+      .form__buttons
+        = submit_tag t('.select_batch'), class: 'button button--primary'
+  - if @batch
+    %h3
+      #{t('attributes.batch_id')}: #{@batch.number}, #{batch_time(@race, @batch)}
+      - if @batch.track
+        (#{t('attributes.track')} #{@batch.track})
+    - competitors = @batch.competitors.includes(:series)
+    - if competitors.empty?
+      = t '.no_competitors_in_batch'
+    - else
+      - qualification_round = @race.sport.qualification_round
+      - qualification_round_shots = qualification_round && qualification_round.inject(:+) || 0
+      - final_round = @race.sport.final_round
+      - final_round_shots = final_round && final_round.inject(:+) || 0
+      - basic_shots = qualification_round_shots + final_round_shots
+      - shots_per_extra_round = @race.sport.shots_per_extra_round
+      .result-cards
+        - competitors.each do |competitor|
+          .card
+            .card__number= competitor.track_place
+            .card__middle
+              .card__name
+                = full_name competitor
+                - if competitor.number
+                  (##{competitor.number})
+                %span{id: "status_#{competitor.id}"}
+              - unless competitor.no_result_reason
+                .card__middle-row
+                  = form_for([:official, competitor.series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "shots_form_#{competitor.id}", class: 'form form--inline' }) do |f|
+                    - extra_shots_count = competitor.shots && competitor.shots.length >= basic_shots ? competitor.shots.length - basic_shots + shots_per_extra_round : 0
+                    = f.hidden_field :shooting_score_input
+                    = t :qualification_round
+                    = render partial: 'official/shots/shooting_race_shots', locals: { competitor: competitor, round_rules: qualification_round, base: 0 }
+                    = t :final_round
+                    = render partial: 'official/shots/shooting_race_shots', locals: { competitor: competitor, round_rules: final_round, base: qualification_round_shots }
+                    - if extra_shots_count > 0
+                      = t :extra_round
+                      = render partial: 'official/shots/shooting_race_shots', locals: { competitor: competitor, round_rules: [extra_shots_count], base: basic_shots }
+                    .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
+            .card__main-value{id: "shots_result_#{competitor.id}"}
+              - if competitor.no_result_reason
+                = competitor.no_result_reason
+              - else
+                = competitor.shooting_score
+      :javascript
+        function start_updating(id) {
+          $("#status_" + id).removeClass().html('#{image_tag 'spinner.gif'}');
+        }
+.buttons.buttons--nav
+  = link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'

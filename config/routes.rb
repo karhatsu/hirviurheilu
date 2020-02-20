@@ -91,6 +91,7 @@ ElkSports::Application.routes.draw do
         resource :start_list
         resource :csv_export
         resource :competitor_copying
+        resources :shooting_by_batches, only: :index
       end
 
       resources :series do

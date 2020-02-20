@@ -293,3 +293,9 @@ fi:
         already_finished: Tämä viesti on jo merkitty päättyneeksi
         info: Kun kaikki viestin tiedot on syötetty, voit alla olevan napin avulla merkitä viestin päättyneeksi. Ohjelma tarkastaa automaattisesti, ettei mitään tietoja puutu.
         submit_button: Merkitse viesti päättyneeksi
+    shooting_by_batches:
+      index:
+        title: Ammunta erittäin
+        no_batches: Yhtään erää ei ole vielä määritetty
+        select_batch: Valitse erä
+        no_competitors_in_batch: Erässä ei ole yhtään kilpailijaa
