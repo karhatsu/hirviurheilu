@@ -2,11 +2,11 @@
 - content_for(:page_title, yield(:title))
 = form_tag(races_path, method: :get, class: 'form') do
   .form__horizontal-fields
-    .form__field= text_field_tag :search_text, params[:search_text], placeholder: 'Kilpailun nimi tai sijainti'
-    .form__field= select_tag :district_id, options_from_collection_for_select(District.all, :id, :name, params[:district_id]), include_blank: 'Kaikki piirit'
+    .form__field= text_field_tag :search_text, params[:search_text], placeholder: t(:race_search_text)
+    .form__field= select_tag :district_id, options_from_collection_for_select(District.all, :id, :name, params[:district_id]), include_blank: t(:all_districts)
     .form__buttons
-      = submit_tag 'Hae', class: 'button button--primary'
-      = link_to 'Tyhjennä', races_path, class: 'button'
+      = submit_tag t(:search), class: 'button button--primary'
+      = link_to t(:reset), races_path, class: 'button'
 - if @races.empty?
   .message.message--info= t :no_races
 - else
