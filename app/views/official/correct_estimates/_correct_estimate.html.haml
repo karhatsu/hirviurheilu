@@ -1,21 +1,21 @@
 .form__horizontal-fields
-  .form__field.form__field--xs
+  .form__field.form__field--sm
     = f.label :min_number, t('official.correct_estimates.index.start_numbers')
     = f.number_field :min_number, maxlength: 4
-  .form__field.form__field--xs
+  .form__field.form__field--sm
     = f.label :max_number, raw('&#8211;')
     = f.number_field :max_number, maxlength: 4
-  .form__field.form__field--xs
+  .form__field.form__field--sm
     = f.label :distance1
     = f.number_field :distance1, maxlength: 3
-  .form__field.form__field--xs
+  .form__field.form__field--sm
     = f.label :distance2
     = f.number_field :distance2, maxlength: 3
   - if @race.estimates_at_most == 4
-    .form__field.form__field--xs
+    .form__field.form__field--sm
       = f.label :distance3
       = f.number_field :distance3, maxlength: 3
-    .form__field.form__field--xs
+    .form__field.form__field--sm
       = f.label :distance4
       = f.number_field :distance4, maxlength: 3
   = remove_child_link t(:remove), f, 'form__horizontal-fields', '', 'button button--danger'

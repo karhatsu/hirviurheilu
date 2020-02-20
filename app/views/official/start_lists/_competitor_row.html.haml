@@ -6,7 +6,7 @@
       - unless c.new_record?
         = hidden_field_tag '_method', :put, id: "method_#{id}"
       = hidden_field_tag :start_list, true, id: "start_list_#{id}"
-      .form__field.form__field--xs
+      .form__field.form__field--sm
         = f.number_field :number, class: order_class
       - start_time = time_print(f.object.start_time, true, '')
       .form__field.form__field--sm{style: 'white-space: nowrap;'}
