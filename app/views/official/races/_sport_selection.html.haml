@@ -1,6 +1,6 @@
 .message.message--info= t 'official.races.new.sport_selection_info'
 = form_tag(new_official_race_path, method: :get, html: { class: 'form' }) do |f|
   .form__field.form__field--md
-    = select_tag :sport_key, (options_for_select@sports), prompt: t('official.races.new.choose_sport')
+    = select_tag :sport_key, (options_for_select @sports), prompt: t('official.races.new.choose_sport')
   .form__buttons
     = submit_tag t(:continue), class: 'button button--primary'

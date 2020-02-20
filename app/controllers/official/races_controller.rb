@@ -89,7 +89,7 @@ class Official::RacesController < Official::OfficialController
       sport_keys << Sport::ILMAHIRVI
       sport_keys << Sport::ILMALUODIKKO
     end
-    @sports = sport_keys.map{|key| [Sport.by_key(key).name, key]}
+    @sports = sport_keys.map{|key| [t("sport_name.#{key}"), key]}
   end
 
   def create_race_params

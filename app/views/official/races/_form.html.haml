@@ -4,7 +4,7 @@
   = f.hidden_field :sport_key
   .form__field.form__field--md.row
     .col-xs-12.col-sm-3= f.label :sport_key
-    .col-xs-12.col-sm-9= @race.sport.name
+    .col-xs-12.col-sm-9= t "sport_name.#{@race.sport_key}"
   .form__field.row
     .col-xs-12.col-sm-3= f.label :name
     .col-xs-12.col-sm-9= f.text_field :name

@@ -112,6 +112,11 @@ sv:
       other: Äldsgruppar %{age_group} har kortare löpning.
   show_all_competitors: Visa alla tävlarna
   show_races_of_cup: Visa tävlingar
+  sport_name:
+    SKI: Älgskidskytte
+    RUN: Älglöpning
+    ILMAHIRVI: Luftgevärsälg
+    ILMALUODIKKO: Luftgevärstjäder
   start_list: Startlista
   team: Lag
   tel: Telefon

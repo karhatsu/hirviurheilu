@@ -112,6 +112,11 @@ fi:
       other: Ikäryhmillä %{age_group} on lyhennetty matka.
   show_all_competitors: Näytä kaikki kilpailijat
   show_races_of_cup: Näytä osakilpailut
+  sport_name:
+    SKI: Hirvenhiihto
+    RUN: Hirvenjuoksu
+    ILMAHIRVI: Ilmahirvi
+    ILMALUODIKKO: Ilmaluodikko
   start_list: Lähtölista
   team: Joukkue
   tel: Puhelin
