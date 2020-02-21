@@ -1,7 +1,7 @@
 - unless @series.race.batches.empty?
   .form__field.form__field--sm.row
     .col-xs-12.col-sm-3= f.label :batch_id
-    .col-xs-12.col-sm-9= f.select :batch_id, options_from_collection_for_select(@series.race.batches, :id, :number, @competitor.batch_id), prompt: ''
+    .col-xs-12.col-sm-9= f.select :batch_id, options_from_collection_for_select(@series.race.batches, :id, :number, @competitor.batch_id), include_blank: true
   .form__field.form__field--sm.row
     .col-xs-12.col-sm-3= f.label :track_place
     .col-xs-12.col-sm-9= f.number_field :track_place
