@@ -1,11 +1,7 @@
 module BatchHelper
-  def batch_days_tag(race, current_value)
-    options = []
+  def batch_days_options(race)
     start_date = race.start_date
-    race.days_count.times do |i|
-      options << [date_print(start_date.to_date + i), i + 1]
-    end
-    select_tag :batch_day, options_for_select(options, current_value)
+    race.days_count.times.map { |i| [date_print(start_date.to_date + i), i + 1] }
   end
 
   def batch_time(race, batch)

@@ -48,6 +48,6 @@ class Official::BatchesController < Official::OfficialController
   end
 
   def batch_params
-    params.require(:batch).permit(:number, :track, :time)
+    params.require(:batch).permit(:number, :track, :day, :time)
   end
 end

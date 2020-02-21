@@ -6,6 +6,10 @@
   .form__field.form__field--sm
     = f.label :track
     = f.number_field :track
+  - if @race.days_count > 1
+    .form__field.form__field--md
+      = f.label :day
+      = f.select :day, options_for_select(batch_days_options(@race), @batch.day)
   .form__field.form__field--sm
     = f.label :time
     = f.time_select :time

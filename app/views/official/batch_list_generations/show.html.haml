@@ -21,7 +21,7 @@
     - if @series.race.days_count > 1
       .form__field.form__field--md
         = label_tag :batch_day, t('.batch_day')
-        = batch_days_tag @series.race, params[:batch_day] || @series.race.suggested_next_batch_day
+        = select_tag :batch_day, options_for_select(batch_days_options(@series.race), params[:batch_day] || @series.race.suggested_next_batch_day)
     .form__field.form__field--sm
       = label_tag :first_batch_time, t('.first_batch_time')
       = text_field_tag :first_batch_time, params[:first_batch_time] || @series.race.suggested_next_batch_time, placeholder: 'HH:MM'
