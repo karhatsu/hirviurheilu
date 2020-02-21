@@ -1,5 +1,6 @@
 fi:
   add: Lisää
+  add_batch: Lisää erä
   add_competitors: Lisää kilpailijoita
   add_new: Lisää uusi
   add_race: Lisää kilpailu
@@ -13,6 +14,7 @@ fi:
   all_districts: Kaikki piirit
   back_to_cup_page: Takaisin cup-kilpailun etusivulle
   back_to_home_page: Takaisin etusivulle
+  back_to_official_batches_page: Takaisin erien sivulle
   back_to_official_home_page: Takaisin toimitsijan etusivulle
   back_to_official_race_page: Takaisin Yhteenveto-sivulle
   back_to_official_relays_page: Takaisin viestien etusivulle

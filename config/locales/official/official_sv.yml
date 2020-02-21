@@ -166,6 +166,18 @@ sv:
       shooting:
         either_total_or_shots: Spara antingen totalresultat eller enskilda skott, inte båda.
         inner_ten_as_eleven: Använd 11 för innertio
+    batches:
+      index:
+        no_batches: Et ole lisännyt vielä yhtään erää
+      create:
+        batch_added: Erä lisätty
+      edit:
+        delete_batch: Poista erä
+        delete_confirmation: Haluatko varmasti poistaa erän?
+      update:
+        batch_updated: Erä päivitetty
+      destroy:
+        batch_deleted: Erä poistettu
     correct_estimates:
       index:
         start_numbers: Startnummer

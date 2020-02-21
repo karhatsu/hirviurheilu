@@ -67,6 +67,7 @@ ElkSports::Application.routes.draw do
       resources :cups
 
       resources :races do
+        resources :batches
         resources :competitors, :only => [:create, :update]
         get 'competitors' => 'races#competitors'
         get 'clubs/competitors' => 'clubs#competitors'

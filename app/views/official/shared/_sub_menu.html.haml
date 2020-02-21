@@ -7,6 +7,8 @@
   .menu.menu--sub.menu--sub-1
     = menu_item t('official_sub_menu.summary'), official_race_path(race), @is_race
     = menu_item t('official_sub_menu.race'), edit_official_race_path(race), @is_race_edit
+    - if race.sport.batch_list?
+      = menu_item t('official_sub_menu.batches'), official_race_batches_path(race), @is_batches
     - if series and !race.series.first.new_record?
       = menu_item t('official_sub_menu.competitors'), official_series_competitors_path(series), @is_competitors, nil, true do
         - series_dropdown_menu(race, 'competitors')

@@ -235,6 +235,11 @@ class Race < ApplicationRecord
     start_time.strftime '%H:%M:%S'
   end
 
+  def next_batch_number
+    biggest_number = batches.maximum('number') || 0
+    biggest_number + 1
+  end
+
   def first_available_batch_number
     batch_number, _ = first_available_batch_data
     batch_number

@@ -90,6 +90,7 @@ sv:
     start_time: Starttid
     team_competitor_count: Tävlarna / lag
     team_name: Jotos-lag
+    time: Tid
     time_points_type: Tidpoängsberäkning
     title: Titel
     track: Bana

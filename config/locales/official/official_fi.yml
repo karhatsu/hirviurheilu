@@ -167,6 +167,18 @@ fi:
       shooting:
         either_total_or_shots: Syötä joko yhteistulos TAI yksittäiset laukaukset, ei molempia.
         inner_ten_as_eleven: Syötä napakymppi lukuna 11
+    batches:
+      index:
+        no_batches: Et ole lisännyt vielä yhtään erää
+      create:
+        batch_added: Erä lisätty
+      edit:
+        delete_batch: Poista erä
+        delete_confirmation: Haluatko varmasti poistaa erän?
+      update:
+        batch_updated: Erä päivitetty
+      destroy:
+        batch_deleted: Erä poistettu
     correct_estimates:
       index:
         start_numbers: Lähtönumerot

@@ -1,0 +1,8 @@
+- content_for :page_title, "#{t 'attributes.batch_id'} #{@batch.number} - #{t :edit}"
+- content_for :title, "#{@race.name} - #{yield :page_title}"
+%h2= yield :page_title
+= render 'form'
+.buttons.buttons--nav
+  = link_to t(:back_to_official_batches_page), official_race_batches_path(@race), class: 'button button--back'
+  - if @batch.competitors.empty?
+    = link_to t('.delete_batch'), official_race_batch_path(@race, @batch), method: :delete, data: { confirm: t('.delete_confirmation') }, class: 'button button--danger'

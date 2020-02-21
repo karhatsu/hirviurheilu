@@ -1,0 +1,13 @@
+= render partial: 'shared/form_errors', locals: { item: @batch }
+= form_for([:official, @race, @batch], html: { class: 'form' }) do |f|
+  .form__field.form__field--sm
+    = f.label :number
+    = f.number_field :number
+  .form__field.form__field--sm
+    = f.label :track
+    = f.number_field :track
+  .form__field.form__field--sm
+    = f.label :time
+    = f.time_select :time
+  .form__buttons
+    = submit_tag t(:save), class: 'button button--primary'

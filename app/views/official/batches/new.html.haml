@@ -1,0 +1,6 @@
+- content_for :page_title, t(:add_batch)
+- content_for :title, "#{@race.name} - #{yield :page_title}"
+%h2= yield :page_title
+= render 'form'
+.buttons.buttons--nav
+  = link_to t(:back_to_official_batches_page), official_race_batches_path(@race), class: 'button button--back'

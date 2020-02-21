@@ -27,6 +27,7 @@ sv:
   official_sub_menu:
     summary: Sammanfattning
     race: Tävling & klasser
+    batches: Erät
     competitors: Tävlar
     start_times: Starttider
     batch_list_generation: Erien arvonta

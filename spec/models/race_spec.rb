@@ -1131,4 +1131,23 @@ describe Race do
       end
     end
   end
+
+  describe '#next_batch_number' do
+    let(:race) { create :race }
+
+    context 'when no batches' do
+      it 'is 1' do
+        expect(race.next_batch_number).to eql 1
+      end
+    end
+
+    context 'when batches' do
+      let!(:batch5) { create :batch, race: race, number: 5 }
+      let!(:batch7) { create :batch, race: race, number: 7 }
+
+      it 'is the biggest number + 1' do
+        expect(race.next_batch_number).to eql 8
+      end
+    end
+  end
 end

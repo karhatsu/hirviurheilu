@@ -90,6 +90,7 @@ fi:
     start_time: Lähtöaika
     team_competitor_count: Kilpailijoita / joukkue
     team_name: Jotosjoukkue
+    time: Aika
     time_points_type: Aikapisteiden laskenta
     title: Otsikko
     top_competitions: Yhteistulokseen laskettavien kilpailuiden määrä

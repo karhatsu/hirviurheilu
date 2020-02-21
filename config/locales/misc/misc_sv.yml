@@ -1,5 +1,6 @@
 sv:
   add: Öka
+  add_batch: Öka skede
   add_competitors: Öka tävlar
   add_new: Öka ny
   add_race: Öka tävling
@@ -13,6 +14,7 @@ sv:
   all_districts: Alla distrikt
   back_to_cup_page: Tillbaka till cup-tävlingens hemsida
   back_to_home_page: Tillbaka till hemsida
+  back_to_official_batches_page: Takaisin erien sivulle
   back_to_official_home_page: Tillbaka till funktionärs hemsida
   back_to_official_race_page: Tillbaka till Sammanfattning-sida
   back_to_official_relays_page: Tillbaka till stafetters hemsida
