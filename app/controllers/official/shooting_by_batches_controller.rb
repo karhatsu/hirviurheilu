@@ -2,7 +2,7 @@ class Official::ShootingByBatchesController < Official::OfficialController
   before_action :assign_race_by_race_id, :check_assigned_race, :set_menu
 
   def index
-    @batches = @race.batches.order(:number)
+    @batches = @race.batches
     @batch = @race.batches.find(params[:batch_id]) unless params[:batch_id].blank?
   end
 

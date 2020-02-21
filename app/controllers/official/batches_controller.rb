@@ -2,7 +2,7 @@ class Official::BatchesController < Official::OfficialController
   before_action :set_menu_batches, :assign_race_by_race_id
 
   def index
-    @batches = @race.batches.includes(competitors: [:club, :series]).order(:number)
+    @batches = @race.batches.includes(competitors: [:club, :series])
   end
 
   def new

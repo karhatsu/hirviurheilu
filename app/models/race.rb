@@ -22,7 +22,7 @@ class Race < ApplicationRecord
   has_many :team_competitions, -> { order :name }, :dependent => :destroy
   has_many :race_rights
   has_many :users, :through => :race_rights
-  has_many :batches
+  has_many :batches, -> { order(:number) }
   has_and_belongs_to_many :cups
 
   accepts_nested_attributes_for :series, :allow_destroy => true
@@ -251,14 +251,14 @@ class Race < ApplicationRecord
   end
 
   def suggested_min_between_batches
-    last_batches = batches.where('track IS NULL OR track = 1').order('day DESC, time DESC').limit(2)
+    last_batches = batches.where('track IS NULL OR track = 1').except(:order).order('day DESC, time DESC').limit(2)
     return nil if last_batches.length < 2
     return nil if last_batches[0].day != last_batches[1].day
     (last_batches[0].time - last_batches[1].time).to_i / 60
   end
 
   def suggested_next_batch_time
-    last_batch = batches.order('day DESC, time DESC, number DESC').first
+    last_batch = batches.except(:order).order('day DESC, time DESC, number DESC').first
     return nil unless last_batch
     next_batch, _ = first_available_batch_data
     if next_batch == last_batch.number
@@ -270,7 +270,7 @@ class Race < ApplicationRecord
   end
 
   def first_available_batch_data
-    max_batch = batches.order('number DESC').first
+    max_batch = batches.except(:order).order('number DESC').first
     return [1, 1] unless max_batch
     max_track_place = competitors.where('batch_id=?', max_batch.id).maximum(:track_place)
     return [max_batch.number + 1, 1] if shooting_place_count && max_track_place.to_i >= shooting_place_count
@@ -278,7 +278,7 @@ class Race < ApplicationRecord
   end
 
   def suggested_next_batch_day
-    last_batch = batches.order('day DESC').first
+    last_batch = batches.except(:order).order('day DESC').first
     last_batch&.day || 1
   end
 
