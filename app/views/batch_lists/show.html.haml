@@ -2,9 +2,13 @@
 - if @batches.length == 0
   .message.message--info= t('.no_batch_list')
 - else
+  - unless @race.series.empty?
+    .form__field.form__field--md
+      = select_tag :series_id, options_from_collection_for_select(@race.series, :id, :name), prompt: t(:all_series), onChange: 'filterSeries()'
   .row
     - @batches.each do |batch|
-      .col-xs-12.col-sm-6.col-md-4
+      - competitors = batch.competitors
+      .col-xs-12.col-sm-6.col-md-4.batch{class: competitors.map {|c| "series_#{c.series_id}"}}
         .card
           .card__number= batch.number
           .card__middle
@@ -12,8 +16,8 @@
               = batch_time @race, batch
               - if batch.track.to_i > 0
                 (#{t('attributes.track')} #{batch.track})
-            - batch.competitors.each do |competitor|
-              .card__middle-row
+            - competitors.each do |competitor|
+              .card__middle-row.competitor_row{class: "series_#{competitor.series_id}"}
                 #{competitor.track_place}.
                 - if competitor.number
                   #{full_name(competitor)} (#{competitor.number}),
@@ -22,3 +26,15 @@
                 #{competitor.club.name} (#{competitor.series.name})
 .buttons.buttons--nav
   = link_to t(:back_to_race_home_page), race_path(@race), class: 'button button--back'
+:javascript
+  function filterSeries() {
+    var seriesId = $('#series_id').val()
+    if (seriesId === '') {
+      $('.batch').show()
+      $('.competitor_row').show()
+    } else {
+      $('.batch').hide()
+      $('.competitor_row').hide()
+      $('.series_' + seriesId).show()
+    }
+  }
