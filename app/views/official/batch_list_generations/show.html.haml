@@ -12,46 +12,46 @@
   .message.message--info= t('.no_competitors_without_batch_in_series')
 - else
   = form_tag(official_series_batch_list_generation_path(@series), class: 'form') do
-    .form__field.form__field--sm
-      = label_tag :first_batch_number, t('.first_batch_number')
-      = number_field_tag :first_batch_number, params[:first_batch_number] || @series.race.first_available_batch_number
-    .form__field.form__field--sm
-      = label_tag :first_track_place, t('.first_track_place')
-      = number_field_tag :first_track_place, params[:first_track_place] || @series.race.first_available_track_place
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-4= label_tag :first_batch_number, t('.first_batch_number')
+      .col-xs-12.col-sm-8= number_field_tag :first_batch_number, params[:first_batch_number] || @series.race.first_available_batch_number
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-4= label_tag :first_track_place, t('.first_track_place')
+      .col-xs-12.col-sm-8= number_field_tag :first_track_place, params[:first_track_place] || @series.race.first_available_track_place
     - if @series.race.days_count > 1
-      .form__field.form__field--md
-        = label_tag :batch_day, t('.batch_day')
-        = select_tag :batch_day, options_for_select(batch_days_options(@series.race), params[:batch_day] || @series.race.suggested_next_batch_day)
-    .form__field.form__field--sm
-      = label_tag :first_batch_time, t('.first_batch_time')
-      = text_field_tag :first_batch_time, params[:first_batch_time] || @series.race.suggested_next_batch_time, placeholder: 'HH:MM'
-    .form__field.form__field--sm
-      = label_tag :minutes_between_batches, t('.minutes_between_batches')
-      = number_field_tag :minutes_between_batches, params[:minutes_between_batches] || @series.race.suggested_min_between_batches
-    .form__field.form__field--sm
-      = label_tag :concurrent_batches, t('.concurrent_batches')
-      = number_field_tag :concurrent_batches, params[:concurrent_batches] || @series.race.suggested_concurrent_batches
-    %label= t '.assign_competitors'
-    .form__field
-      = label_tag :only_track_places, t('.assign_competitors')
-      = radio_button_tag :only_track_places, 'all', !%w(odd even).include?(params[:only_track_places])
-      = t '.all_track_places'
-      = radio_button_tag :only_track_places, 'odd', params[:only_track_places] == 'odd'
-      = t '.odd_track_places'
-      = radio_button_tag :only_track_places, 'even', params[:only_track_places] == 'even'
-      = t '.even_track_places'
-    .form__field
-      = label_tag :skip_first_track_place, t('.skip_first_track_place')
-      = check_box_tag :skip_first_track_place, true, params[:skip_first_track_place]
-    .form__field
-      = label_tag :skip_last_track_place, t('.skip_last_track_place')
-      = check_box_tag :skip_last_track_place, true, params[:skip_last_track_place]
-    .form__field.form__field--md
-      = label_tag :skip_track_places, t('.skip_track_places')
-      = text_field_tag :skip_track_places, params[:skip_track_places]
-    .form__field
-      = label_tag :only_one_batch, t('.only_one_batch')
-      = check_box_tag :only_one_batch, true, params[:only_one_batch]
+      .form__field.form__field--md.row
+        .col-xs-12.col-sm-4= label_tag :batch_day, t('.batch_day')
+        .col-xs-12.col-sm-8= select_tag :batch_day, options_for_select(batch_days_options(@series.race), params[:batch_day] || @series.race.suggested_next_batch_day)
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-4= label_tag :first_batch_time, t('.first_batch_time')
+      .col-xs-12.col-sm-8= text_field_tag :first_batch_time, params[:first_batch_time] || @series.race.suggested_next_batch_time, placeholder: 'HH:MM'
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-4= label_tag :minutes_between_batches, t('.minutes_between_batches')
+      .col-xs-12.col-sm-8= number_field_tag :minutes_between_batches, params[:minutes_between_batches] || @series.race.suggested_min_between_batches
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-4= label_tag :concurrent_batches, t('.concurrent_batches')
+      .col-xs-12.col-sm-8= number_field_tag :concurrent_batches, params[:concurrent_batches] || @series.race.suggested_concurrent_batches
+    .form__field.row
+      .col-xs-12.col-sm-4= label_tag :only_track_places, t('.assign_competitors')
+      .col-xs-12.col-sm-8
+        = radio_button_tag :only_track_places, 'all', !%w(odd even).include?(params[:only_track_places])
+        = t '.all_track_places'
+        = radio_button_tag :only_track_places, 'odd', params[:only_track_places] == 'odd'
+        = t '.odd_track_places'
+        = radio_button_tag :only_track_places, 'even', params[:only_track_places] == 'even'
+        = t '.even_track_places'
+    .form__field.row
+      .col-xs-12.col-sm-4= label_tag :skip_first_track_place, t('.skip_first_track_place')
+      .col-xs-12.col-sm-8= check_box_tag :skip_first_track_place, true, params[:skip_first_track_place]
+    .form__field.row
+      .col-xs-12.col-sm-4= label_tag :skip_last_track_place, t('.skip_last_track_place')
+      .col-xs-12.col-sm-8= check_box_tag :skip_last_track_place, true, params[:skip_last_track_place]
+    .form__field.form__field--md.row
+      .col-xs-12.col-sm-4= label_tag :skip_track_places, t('.skip_track_places')
+      .col-xs-12.col-sm-8= text_field_tag :skip_track_places, params[:skip_track_places]
+    .form__field.row
+      .col-xs-12.col-sm-4= label_tag :only_one_batch, t('.only_one_batch')
+      .col-xs-12.col-sm-8= check_box_tag :only_one_batch, true, params[:only_one_batch]
     .form__buttons
       = submit_tag t('.generate_batch_lists'), class: 'button button--primary'
 - @series.competitors.where('batch_id IS NOT NULL').includes(:batch, :club).except(:order).order('batches.number, track_place').group_by(&:batch).each do |batch, competitors|
