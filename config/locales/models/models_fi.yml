@@ -76,7 +76,7 @@ fi:
     shooting_overtime_min: Ammunta-ajan ylitysminuutit
     shooting_penalty_distance: Ammuntasakkokierroksen pituus (m)
     shooting_penalty_seconds: Ammunnan sakkosekunnit
-    shooting_place_count: Ammuntapaikkojen määrä
+    shooting_place_count: Ammuntapaikkoja / rata
     shooting_score_input: Ammunta yhteensä
     shooting_start_time: Ammunnan aloitusaika
     shooting_time: Ammunta-aika
@@ -96,6 +96,7 @@ fi:
     title: Otsikko
     top_competitions: Yhteistulokseen laskettavien kilpailuiden määrä
     track: Rata
+    track_count: Ratojen määrä
     track_place: Ratapaikka
     unofficial: Epävirallinen kilpailija
     use_team_name: Muodosta joukkueet kilpailijoiden jotosjoukkuenimien perusteella

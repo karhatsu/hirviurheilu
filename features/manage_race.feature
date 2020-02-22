@@ -16,7 +16,7 @@ Feature: Manage race
     Then I should be on the new race page
     And I should not see "Aloita valitsemalla laji"
     And the "race_start_interval_seconds" field should contain "60"
-    And I should not see "Ammuntapaikkojen määrä"
+    And I should not see "Ammuntapaikkoja / rata"
     When I fill in the following:
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |
@@ -114,7 +114,8 @@ Feature: Manage race
     When I fill in the following:
       | Kilpailun nimi | Test race |
       | Paikkakunta | Test town |
-      | Ammuntapaikkojen määrä | 10 |
+      | Ratojen määrä | 2       |
+      | Ammuntapaikkoja / rata | 10 |
     And I select "Test district" from "race_district_id"
     And I check "Lisää oletussarjat automaattisesti"
     And I press "Lisää kilpailu"

@@ -131,6 +131,9 @@
   - if @race.sport.batch_list?
     %h2= t :batch_list
     .form__field.form__field--sm.row
+      .col-xs-12.col-sm-3= f.label :track_count
+      .col-xs-12.col-sm-9= f.number_field :track_count, maxlength: 2
+    .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :shooting_place_count
       .col-xs-12.col-sm-9= f.number_field :shooting_place_count, maxlength: 3
 

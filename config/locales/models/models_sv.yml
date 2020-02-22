@@ -95,6 +95,7 @@ sv:
     time_points_type: Tidpoängsberäkning
     title: Titel
     track: Bana
+    track_count: Antal av banor
     track_place: Bana
     top_competitions: Tävlingsantal för totalpoäng
     unofficial: Informella tävlare
