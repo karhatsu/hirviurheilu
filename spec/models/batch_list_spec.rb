@@ -416,6 +416,26 @@ describe BatchList do
     end
   end
 
+  context 'when only one batch is wanted to generate' do
+    let(:competitor1) { create :competitor, series: series, number: 10 }
+    let(:competitor2) { create :competitor, series: series, number: 9 }
+    let(:competitor3) { create :competitor, series: series, number: 11 }
+
+    before do
+      expect(generator).to receive(:shuffle_competitors).and_return([competitor1, competitor2, competitor3])
+      generator.generate_single_batch 1, 1, first_batch_time
+    end
+
+    it 'creates only one batch' do
+      expect(generator.errors).to eql []
+      expect(race.batches.count).to eql 1
+      verify_batch 1, first_batch_time
+      verify_competitor competitor1, 1, 1
+      verify_competitor competitor2, 1, 2
+      verify_competitor competitor3, nil, nil
+    end
+  end
+
   def verify_batch(number, time, day=1, track=nil)
     batch = Batch.where('race_id=? AND number=?', race.id, number).first
     expect(batch.time.strftime('%H:%M')).to eql time
@@ -430,6 +450,7 @@ describe BatchList do
   def verify_competitor(competitor, batch_number, track_place)
     batch = competitor.reload.batch
     if batch_number
+      expect(batch).not_to be_nil
       expect(batch.number).to eql batch_number
     else
       expect(batch).to be_nil

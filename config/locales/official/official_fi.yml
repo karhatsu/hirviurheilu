@@ -131,9 +131,12 @@ fi:
         skip_first_track_place: Jätä erän ensimmäinen paikka tyhjäksi
         skip_last_track_place: Jätä erän viimeinen paikka tyhjäksi
         skip_track_places: Vapaaksi jätettävät ammuntapaikat (pilkulla erotettuina, esim. 4,12,13)
+        only_one_batch: Arvo vain yksi erä
         generate_batch_lists: Arvo eräluettelot
       create:
-        batch_list_generated: Eräluettelot luotu sarjalle onnistuneesti
+        batch_list_generated:
+          one: Yksi eräluettelo luotu sarjalle onnistuneesti
+          many: Eräluettelot luotu sarjalle onnistuneesti
     quick_saves:
       index:
         title: Tulosten pikasyöttö

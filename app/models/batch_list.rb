@@ -6,35 +6,16 @@ class BatchList
     @errors = []
   end
 
+  def generate_single_batch(batch_number, first_track_place, batch_time, opts = {})
+    batch_day = opts[:batch_day] || 1
+    return unless validate batch_number, first_track_place, batch_day, batch_time, 1, 1
+    generate_batches batch_number, first_track_place, batch_time, 1, 1, true, opts
+  end
+
   def generate(first_batch_number, first_track_place, first_batch_time, concurrent_batches, minutes_between_batches, opts = {})
     batch_day = opts[:batch_day] || 1
     return unless validate first_batch_number, first_track_place, batch_day, first_batch_time, concurrent_batches, minutes_between_batches
-    @series.transaction do
-      reserved_places = find_reserved_places
-      track = concurrent_batches > 1 ? 1 : nil
-      batch = find_or_create_batch first_batch_number, batch_day, first_batch_time, track
-      competitors = shuffle_competitors @series.competitors.where('batch_id IS NULL AND track_place IS NULL')
-      batch_number, track_place = resolve_next_track_place reserved_places, batch.number, first_track_place - 1, opts
-      competitors.each_with_index do |competitor, i|
-        if i > 0 && batch_number != batch.number
-          time = batch.time
-          time = time.advance minutes: minutes_between_batches if concurrent_batches == 1 || batch.track == concurrent_batches
-          if concurrent_batches == 1
-            track = nil
-          else
-            next_track = (batch.track || 1) + 1
-            track = next_track > concurrent_batches ? 1 : next_track
-          end
-          batch = find_or_create_batch(batch_number, batch_day, time, track)
-        end
-        competitor.batch = batch
-        competitor.track_place = track_place
-        competitor.save!
-        batch_number, track_place = resolve_next_track_place reserved_places, batch.number, track_place, opts
-      end
-    end
-  rescue => e
-    @errors << "#{I18n.t(:unexpected_error)}: #{e.message}"
+    generate_batches first_batch_number, first_track_place, first_batch_time, concurrent_batches, minutes_between_batches, false, opts
   end
 
   private
@@ -90,6 +71,37 @@ class BatchList
     return true unless competitor
     @errors << I18n.t('activerecord.errors.models.batch_list.first_track_place_reserved')
     false
+  end
+
+  def generate_batches(first_batch_number, first_track_place, first_batch_time, concurrent_batches, minutes_between_batches, only_one, opts)
+    batch_day = opts[:batch_day] || 1
+    @series.transaction do
+      reserved_places = find_reserved_places
+      track = concurrent_batches > 1 ? 1 : nil
+      batch = find_or_create_batch first_batch_number, batch_day, first_batch_time, track
+      competitors = shuffle_competitors @series.competitors.where('batch_id IS NULL AND track_place IS NULL')
+      batch_number, track_place = resolve_next_track_place reserved_places, batch.number, first_track_place - 1, opts
+      competitors.each_with_index do |competitor, i|
+        if i > 0 && batch_number != batch.number
+          time = batch.time
+          time = time.advance minutes: minutes_between_batches if concurrent_batches == 1 || batch.track == concurrent_batches
+          if concurrent_batches == 1
+            track = nil
+          else
+            next_track = (batch.track || 1) + 1
+            track = next_track > concurrent_batches ? 1 : next_track
+          end
+          batch = find_or_create_batch(batch_number, batch_day, time, track)
+        end
+        competitor.batch = batch
+        competitor.track_place = track_place
+        competitor.save!
+        batch_number, track_place = resolve_next_track_place reserved_places, batch.number, track_place, opts
+        break if only_one && batch_number != batch.number
+      end
+    end
+  rescue => e
+    @errors << "#{I18n.t(:unexpected_error)}: #{e.message}"
   end
 
   def find_reserved_places
