@@ -1,5 +1,5 @@
 class Official::BatchListGenerationsController < Official::OfficialController
-  before_action :assign_series_by_series_id, :set_menu
+  before_action :assign_series_by_series_id, :check_assigned_series, :set_menu
 
   def show
     find_competitors_without_batch

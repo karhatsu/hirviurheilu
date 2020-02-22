@@ -1,5 +1,5 @@
 class Official::BatchesController < Official::OfficialController
-  before_action :set_menu_batches, :assign_race_by_race_id
+  before_action :set_menu_batches, :assign_race_by_race_id, :check_assigned_race
 
   def index
     @batches = @race.batches.includes(competitors: [:club, :series])
