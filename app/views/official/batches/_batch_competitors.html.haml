@@ -1,0 +1,87 @@
+- if @race.shooting_place_count.nil?
+  .message.message--warning
+    Kilpailulle pitää määrittää ammuntapaikkojen määrä ennen kuin voit asetella erään kilpailjoita.
+    = link_to 'Voit tehdä sen kilpailun asetuksista.', edit_official_race_path(@race)
+- elsif @race.competitors.empty?
+  .message.message--info= t 'official.batches.edit.no_competitors'
+- else
+  - competitors = @batch.competitors.includes(:series)
+  .result-cards
+    - @race.shooting_place_count.times.each do |i|
+      - track_place = i + 1
+      .card
+        .card__number= track_place
+        .card__middle
+          - competitor = competitors.find {|c| c.track_place == track_place}
+          .form__horizontal-fields
+            .form__field.form__field--sm
+              = hidden_field_tag :competitor_id, competitor&.id, id: "competitor_id_#{track_place}", class: 'competitor_id'
+              = number_field_tag :competitor_number, competitor&.number, id: "track_place_#{track_place}", onChange: "changeNumber(#{track_place})"
+            %div{id: "competitor_info_#{track_place}", style: 'margin-right: 8px'}
+              - if competitor
+                #{full_name competitor}, (#{competitor.series.name})
+              - else
+                = t 'official.batches.edit.input_competitor_number'
+            %a.button.button--primary{id: "save_button_#{track_place}", onClick: "saveTrackPlace(#{track_place})", style: 'display: none'}
+              = t(:save)
+            .card__middle-row--error{id: "save_error_#{track_place}", style: 'display: none; margin-left: 8px;'}
+:javascript
+  function changeNumber(trackPlace) {
+    var competitorNumber = $('#track_place_' + trackPlace).val()
+    var url = '/official/races/#{@race.id}/competitor_numbers/' + competitorNumber + '.json'
+    $.getJSON(url).done(function (competitor) {
+      var competitorInfo = competitor.last_name + ' ' + competitor.first_name + ' (' + competitor.series_name + ')'
+      updateCompetitorInfo(trackPlace, competitorInfo)
+      $('#competitor_id_' + trackPlace).val(competitor.id)
+      showSaveButton(trackPlace)
+    }).fail(function (error) {
+      if (error.status === 404) {
+        updateCompetitorInfo(trackPlace, '#{t('official.batches.edit.competitor_not_found')}', true)
+      } else {
+        updateCompetitorInfo(trackPlace, '#{t(:unexpected_error)}', true)
+      }
+      hideSaveButton(trackPlace)
+    })
+  }
+
+  function updateCompetitorInfo(trackPlace, text, error) {
+    var locator = '#competitor_info_' + trackPlace
+    $(locator).text(text)
+    if (error) {
+      $(locator).addClass('card__middle-row--error')
+    } else {
+      $(locator).removeClass('card__middle-row--error')
+    }
+  }
+
+  function saveTrackPlace(trackPlace) {
+    var competitorId = parseInt($('#competitor_id_' + trackPlace).val())
+    var saveErrorLocator = '#save_error_' + trackPlace
+    $.ajax({
+      type: 'PUT',
+      url: '/official/races/#{@race.id}/competitors/' + competitorId + '/track_place.json',
+      data: { batch_id: "#{@batch.id}", track_place: trackPlace },
+    }).done(function () {
+      hideSaveButton(trackPlace)
+      $(saveErrorLocator).hide()
+      $('.competitor_id').each(function () {
+        if (parseInt($(this).val()) === competitorId && $(this).attr('id') !== 'competitor_id_' + trackPlace) {
+          var oldTrackPlace = $(this).attr('id').substr('competitor_id_'.length)
+          $(this).val('')
+          $('#track_place_' + oldTrackPlace).val('')
+          updateCompetitorInfo(oldTrackPlace, "#{t('official.batches.edit.input_competitor_number')}")
+        }
+      })
+    }).fail(function (error) {
+      $(saveErrorLocator).text('#{t(:unexpected_error)}')
+      $(saveErrorLocator).show()
+    })
+  }
+
+  function showSaveButton(trackPlace) {
+    $('#save_button_' + trackPlace).show()
+  }
+
+  function hideSaveButton(trackPlace) {
+    $('#save_button_' + trackPlace).hide()
+  }

@@ -175,6 +175,11 @@ fi:
       create:
         batch_added: Erä lisätty. Valitse erä, jos haluat asetella siihen kilpailijoita.
       edit:
+        basic_information: Perustiedot
+        batch_competitors: Kilpailijoiden asetus ratapaikkoihin
+        no_competitors: Et ole tallentanut kilpailuun vielä yhtään kilpailijaa
+        input_competitor_number: Syötä kenttään kilpailijan numero
+        competitor_not_found: Kilpailijaa ei löytynyt
         delete_batch: Poista erä
         delete_confirmation: Haluatko varmasti poistaa erän?
       update:

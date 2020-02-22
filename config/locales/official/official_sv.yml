@@ -174,6 +174,11 @@ sv:
       create:
         batch_added: Erä lisätty. Valitse erä, jos haluat asetella siihen kilpailijoita.
       edit:
+        basic_information: Basinformation
+        batch_competitors: Kilpailijoiden asetus ratapaikkoihin
+        no_competitors: Det finns inga tävlare på tävlingen
+        input_competitor_number: Syötä kenttään kilpailijan numero
+        competitor_not_found: Kan inte hittas tävlare
         delete_batch: Poista erä
         delete_confirmation: Haluatko varmasti poistaa erän?
       update:

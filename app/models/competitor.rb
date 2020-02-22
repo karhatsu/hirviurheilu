@@ -67,6 +67,10 @@ class Competitor < ApplicationRecord
     race&.sport
   end
 
+  def series_name
+    series&.name
+  end
+
   def time_in_seconds
     return nil if start_time.nil? || arrival_time.nil?
     arrival_time.to_i - start_time.to_i

@@ -1,7 +1,10 @@
 - content_for :page_title, "#{t 'attributes.batch_id'} #{@batch.number} - #{t :edit}"
 - content_for :title, "#{@race.name} - #{yield :page_title}"
 %h2= yield :page_title
+%h3= t '.basic_information'
 = render 'form'
+%h3= t '.batch_competitors'
+= render 'batch_competitors'
 .buttons.buttons--nav
   = link_to t(:back_to_official_batches_page), official_race_batches_path(@race), class: 'button button--back'
   - if @batch.competitors.empty?
