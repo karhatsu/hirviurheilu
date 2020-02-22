@@ -1,17 +1,17 @@
 = render partial: 'shared/form_errors', locals: { item: @batch }
 = form_for([:official, @race, @batch], html: { class: 'form' }) do |f|
-  .form__field.form__field--sm
-    = f.label :number
-    = f.number_field :number
-  .form__field.form__field--sm
-    = f.label :track
-    = f.number_field :track
+  .form__field.form__field--sm.row
+    .col-xs-12.col-sm-2= f.label :number
+    .col-xs-12.col-sm-10= f.number_field :number
+  .form__field.form__field--sm.row
+    .col-xs-12.col-sm-2= f.label :track
+    .col-xs-12.col-sm-10= f.number_field :track
   - if @race.days_count > 1
-    .form__field.form__field--md
-      = f.label :day
-      = f.select :day, options_for_select(batch_days_options(@race), @batch.day)
-  .form__field.form__field--sm
-    = f.label :time
-    = f.time_select :time
+    .form__field.form__field--md.row
+      .col-xs-12.col-sm-2= f.label :day
+      .col-xs-12.col-sm-10= f.select :day, options_for_select(batch_days_options(@race), @batch.day)
+  .form__field.form__field--sm.row
+    .col-xs-12.col-sm-2= f.label :time
+    .col-xs-12.col-sm-10= f.time_select :time
   .form__buttons
     = submit_tag t(:save), class: 'button button--primary'
