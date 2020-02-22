@@ -1,8 +1,8 @@
 class Official::CompetitorsController < Official::OfficialController
   include CompetitorsHelper
 
-  before_action :assign_series_by_series_id, :check_assigned_series, except: [:show_by_number, :create, :save_track_place, :reset_track_place]
-  before_action :assign_race_by_race_id, :check_assigned_race, only: [:show_by_number, :create, :save_track_place, :reset_track_place]
+  before_action :assign_series_by_series_id, :check_assigned_series, except: [:show_by_number, :create]
+  before_action :assign_race_by_race_id, :check_assigned_race, only: [:show_by_number, :create]
   before_action :assign_competitor_by_id, only: [ :edit, :update, :destroy ]
   before_action :handle_start_time, :only => :create
   before_action :set_competitors
@@ -85,49 +85,12 @@ class Official::CompetitorsController < Official::OfficialController
     end
   end
 
-  def save_track_place
-    competitor = @race.competitors.find(params[:competitor_id])
-    if competitor
-      competitor.transaction do
-        batch_id = params[:batch_id]
-        track_place = params[:track_place]
-        competitor.batch_id = batch_id
-        competitor.track_place = track_place
-        previous_competitor = @race.competitors.where('batch_id=? AND track_place=?', batch_id, track_place).first
-        if competitor.save
-          if previous_competitor
-            previous_competitor.batch_id = nil
-            previous_competitor.track_place = nil
-            previous_competitor.save!
-          end
-          render json: competitor, only: [:id, :first_name, :last_name], methods: [:series_name]
-        else
-          render status: 400, json: { error: competitor.errors.full_messages.join('. ') }
-        end
-      end
-    else
-      render status: 404, json: nil
-    end
-  end
-
   def destroy
     if @competitor.series_id == params[:series_id].to_i
       @competitor.destroy
       redirect_to official_series_competitors_path(@competitor.series_id)
     else
       raise "Competitor does not belong to given series!"
-    end
-  end
-
-  def reset_track_place
-    competitor = @race.competitors.find(params[:competitor_id])
-    if competitor
-      competitor.batch_id = nil
-      competitor.track_place = nil
-      competitor.save!
-      render status: 204, json: nil
-    else
-      render status: 404, json: nil
     end
   end
 

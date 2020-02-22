@@ -69,8 +69,8 @@ ElkSports::Application.routes.draw do
       resources :races do
         resources :batches
         get 'competitor_numbers/:number' => 'competitors#show_by_number'
-        put 'competitors/:competitor_id/track_place' => 'competitors#save_track_place'
-        delete 'competitors/:competitor_id/track_place' => 'competitors#reset_track_place'
+        put 'competitors/:competitor_id/track_place' => 'competitor_track_places#update'
+        delete 'competitors/:competitor_id/track_place' => 'competitor_track_places#destroy'
         resources :competitors, :only => [:create, :update]
         get 'competitors' => 'races#competitors'
         get 'clubs/competitors' => 'clubs#competitors'
