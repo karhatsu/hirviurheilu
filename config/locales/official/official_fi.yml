@@ -170,8 +170,10 @@ fi:
     batches:
       index:
         no_batches: Et ole lisännyt vielä yhtään erää
+      new:
+        competitors_info: Kun olet lisännyt erän, pääset asettelemaan siihen kilpailijoita
       create:
-        batch_added: Erä lisätty
+        batch_added: Erä lisätty. Valitse erä, jos haluat asetella siihen kilpailijoita.
       edit:
         delete_batch: Poista erä
         delete_confirmation: Haluatko varmasti poistaa erän?
