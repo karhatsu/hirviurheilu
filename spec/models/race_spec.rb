@@ -98,6 +98,8 @@ describe Race do
           :location => 'My town')).not_to be_valid
       end
     end
+
+    it_should_behave_like 'positive integer', :track_count, true
   end
 
   describe "associations" do

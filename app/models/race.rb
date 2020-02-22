@@ -42,6 +42,7 @@ class Race < ApplicationRecord
   validates :batch_interval_seconds, numericality: {only_integer: true, greater_than: 0}
   validates :club_level, inclusion: { in: [CLUB_LEVEL_SEURA, CLUB_LEVEL_PIIRI] }
   validates :start_order, :inclusion => { in: [START_ORDER_BY_SERIES, START_ORDER_MIXED], message: :have_to_choose }
+  validates :track_count, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :shooting_place_count, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validate :end_date_not_before_start_date
   validate :check_duplicate_name_location_start_date, :on => :create
