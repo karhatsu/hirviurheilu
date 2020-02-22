@@ -236,6 +236,10 @@ class Race < ApplicationRecord
     start_time.strftime '%H:%M:%S'
   end
 
+  def concurrent_batches
+    shooting_place_count == 1 ? 1 : track_count
+  end
+
   def competitors_per_batch
     shooting_place_count == 1 ? track_count : shooting_place_count
   end

@@ -935,23 +935,27 @@ describe Race do
     end
   end
 
-  describe '#competitors_per_batch' do
-    context 'when shooting place count is nil' do
-      it 'is nil' do
-        race = build :race, shooting_place_count: nil, track_count: 4
-        expect(race.competitors_per_batch).to be_nil
-      end
-    end
-
+  describe '#competitors_per_batch and #concurrent_batches' do
     context 'when shooting place count is 1' do
-      it 'is track count' do
-        race = build :race, shooting_place_count: 1, track_count: 3
+      let(:race) { build :race, shooting_place_count: 1, track_count: 3 }
+
+      it 'concurrent_batches is 1' do
+        expect(race.concurrent_batches).to eql 1
+      end
+
+      it 'competitors_per_batch is track count' do
         expect(race.competitors_per_batch).to eql 3
       end
     end
 
     context 'when shooting place count is not 1' do
-      it 'is shooting place count' do
+      let(:race) { build :race, shooting_place_count: 2, track_count: 5 }
+
+      it 'concurrent_batches is track count' do
+        expect(race.concurrent_batches).to eql 5
+      end
+
+      it 'competitors_per_batch is shooting place count' do
         race = build :race, shooting_place_count: 2, track_count: 5
         expect(race.competitors_per_batch).to eql 2
       end

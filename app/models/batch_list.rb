@@ -83,19 +83,20 @@ class BatchList
     batch_day = opts[:batch_day] || 1
     @series.transaction do
       reserved_places = find_reserved_places
-      track = race.track_count > 1 ? 1 : nil
+      concurrent_batches = race.concurrent_batches
+      track = concurrent_batches > 1 ? 1 : nil
       batch = find_or_create_batch first_batch_number, batch_day, first_batch_time, track
       competitors = shuffle_competitors @series.competitors.where('batch_id IS NULL AND track_place IS NULL')
       batch_number, track_place = resolve_next_track_place reserved_places, batch.number, first_track_place - 1, opts
       competitors.each_with_index do |competitor, i|
         if i > 0 && batch_number != batch.number
           time = batch.time
-          time = time.advance minutes: minutes_between_batches if race.track_count == 1 || batch.track == race.track_count
-          if race.track_count == 1
+          time = time.advance minutes: minutes_between_batches if concurrent_batches == 1 || batch.track == concurrent_batches
+          if concurrent_batches == 1
             track = nil
           else
             next_track = (batch.track || 1) + 1
-            track = next_track > race.track_count ? 1 : next_track
+            track = next_track > concurrent_batches ? 1 : next_track
           end
           batch = find_or_create_batch(batch_number, batch_day, time, track)
         end
