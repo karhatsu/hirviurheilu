@@ -96,7 +96,7 @@ fi:
     title: Otsikko
     top_competitions: Yhteistulokseen laskettavien kilpailuiden määrä
     track: Rata
-    track_place: Rata
+    track_place: Ratapaikka
     unofficial: Epävirallinen kilpailija
     use_team_name: Muodosta joukkueet kilpailijoiden jotosjoukkuenimien perusteella
 
