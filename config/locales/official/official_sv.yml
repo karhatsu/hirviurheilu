@@ -191,6 +191,7 @@ sv:
         title: Eräluetteloiden tyhjentäminen
         warning: Tämän sivun avulla voit tyhjentää kaikki eräluettelot kilpailijoista. Huom! Tyhjennystä ei voi peruuttaa!
         confirm_text: Vahvista tyhjennys kirjoittamalla tähän kilpailun nimi
+        delete_batches: Poista myös erät
         button: Tyhjennä eräluettelot
       destroy:
         batches_cleared: Eräluettelot tyhjennetty

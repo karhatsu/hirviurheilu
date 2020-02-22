@@ -6,6 +6,9 @@
   .form__field
     = label_tag :confirm_text, t('.confirm_text')
     = text_field_tag :confirm_text, params[:confirm_text]
+  .form__field
+    = label_tag :delete_batches, t('.delete_batches')
+    = check_box_tag :delete_batches, true, params[:delete_batches]
   .form__buttons
     = submit_tag t('.button'), class: 'button button--danger'
 .buttons.buttons--nav
