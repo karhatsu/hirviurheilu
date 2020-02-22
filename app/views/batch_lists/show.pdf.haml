@@ -2,15 +2,20 @@
 - if @batches.length == 0
   .message.message--info= t('.no_batch_list')
 - else
+  - series_id = params[:series_id].to_i
+  - club_id = params[:club_id].to_i
   - @batches.each do |batch|
-    %h3
-      #{batch.number}, #{batch.time.strftime('%H:%M')}
-      - if batch.track.to_i > 0
-        (#{t('attributes.track')} #{batch.track})
-    %table
-      - batch.competitors.each do |competitor|
-        %tr
-          %td= competitor.track_place
-          %td #{full_name competitor} (#{competitor.number})
-          %td= competitor.club.name
-          %td= competitor.series.name
+    - competitors = batch.competitors.select do |competitor|
+      - (series_id == 0 || competitor.series_id == series_id) && (club_id == 0 || competitor.club_id == club_id)
+    - unless competitors.empty?
+      %h3
+        #{batch.number}, #{batch.time.strftime('%H:%M')}
+        - if batch.track.to_i > 0
+          (#{t('attributes.track')} #{batch.track})
+      %table
+        - competitors.each do |competitor|
+          %tr
+            %td= competitor.track_place
+            %td #{full_name competitor} (#{competitor.number})
+            %td= competitor.club.name
+            %td= competitor.series.name
