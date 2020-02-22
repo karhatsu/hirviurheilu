@@ -28,20 +28,25 @@
 :javascript
   function changeNumber(trackPlace) {
     var competitorNumber = $('#track_place_' + trackPlace).val()
-    var url = '/official/races/#{@race.id}/competitor_numbers/' + competitorNumber + '.json'
-    $.getJSON(url).done(function (competitor) {
-      var competitorInfo = competitor.last_name + ' ' + competitor.first_name + ' (' + competitor.series_name + ')'
-      updateCompetitorInfo(trackPlace, competitorInfo)
-      $('#competitor_id_' + trackPlace).val(competitor.id)
+    if (competitorNumber === '') {
+      updateCompetitorInfo(trackPlace, '')
       showSaveButton(trackPlace)
-    }).fail(function (error) {
-      if (error.status === 404) {
-        updateCompetitorInfo(trackPlace, '#{t('official.batches.edit.competitor_not_found')}', true)
-      } else {
-        updateCompetitorInfo(trackPlace, '#{t(:unexpected_error)}', true)
-      }
-      hideSaveButton(trackPlace)
-    })
+    } else {
+      var url = '/official/races/#{@race.id}/competitor_numbers/' + competitorNumber + '.json'
+      $.getJSON(url).done(function (competitor) {
+        var competitorInfo = competitor.last_name + ' ' + competitor.first_name + ' (' + competitor.series_name + ')'
+        updateCompetitorInfo(trackPlace, competitorInfo)
+        $('#competitor_id_' + trackPlace).val(competitor.id)
+        showSaveButton(trackPlace)
+      }).fail(function (error) {
+        if (error.status === 404) {
+          updateCompetitorInfo(trackPlace, '#{t('official.batches.edit.competitor_not_found')}', true)
+        } else {
+          updateCompetitorInfo(trackPlace, '#{t(:unexpected_error)}', true)
+        }
+        hideSaveButton(trackPlace)
+      })
+    }
   }
 
   function updateCompetitorInfo(trackPlace, text, error) {
@@ -54,9 +59,18 @@
     }
   }
 
+  function resetCompetitorInfo(trackPlace) {
+    updateCompetitorInfo(trackPlace, "#{t('official.batches.edit.input_competitor_number')}")
+  }
+
   function saveTrackPlace(trackPlace) {
     var competitorId = parseInt($('#competitor_id_' + trackPlace).val())
+    var competitorNumber = $('#track_place_' + trackPlace).val()
     var saveErrorLocator = '#save_error_' + trackPlace
+    if (competitorNumber === '') {
+      resetTrackPlace(trackPlace, competitorId, saveErrorLocator)
+      return
+    }
     $.ajax({
       type: 'PUT',
       url: '/official/races/#{@race.id}/competitors/' + competitorId + '/track_place.json',
@@ -69,9 +83,23 @@
           var oldTrackPlace = $(this).attr('id').substr('competitor_id_'.length)
           $(this).val('')
           $('#track_place_' + oldTrackPlace).val('')
-          updateCompetitorInfo(oldTrackPlace, "#{t('official.batches.edit.input_competitor_number')}")
+          resetCompetitorInfo(oldTrackPlace)
         }
       })
+    }).fail(function (error) {
+      $(saveErrorLocator).text('#{t(:unexpected_error)}')
+      $(saveErrorLocator).show()
+    })
+  }
+
+  function resetTrackPlace(trackPlace, competitorId, saveErrorLocator) {
+    $.ajax({
+      type: 'DELETE',
+      url: '/official/races/#{@race.id}/competitors/' + competitorId + '/track_place.json',
+    }).done(function () {
+      hideSaveButton(trackPlace)
+      $(saveErrorLocator).hide()
+      resetCompetitorInfo(trackPlace)
     }).fail(function (error) {
       $(saveErrorLocator).text('#{t(:unexpected_error)}')
       $(saveErrorLocator).show()

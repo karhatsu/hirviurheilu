@@ -1,8 +1,8 @@
 class Official::CompetitorsController < Official::OfficialController
   include CompetitorsHelper
 
-  before_action :assign_series_by_series_id, :check_assigned_series, except: [:show_by_number, :create, :save_track_place]
-  before_action :assign_race_by_race_id, :check_assigned_race, only: [:show_by_number, :create, :save_track_place]
+  before_action :assign_series_by_series_id, :check_assigned_series, except: [:show_by_number, :create, :save_track_place, :reset_track_place]
+  before_action :assign_race_by_race_id, :check_assigned_race, only: [:show_by_number, :create, :save_track_place, :reset_track_place]
   before_action :assign_competitor_by_id, only: [ :edit, :update, :destroy ]
   before_action :handle_start_time, :only => :create
   before_action :set_competitors
@@ -116,6 +116,18 @@ class Official::CompetitorsController < Official::OfficialController
       redirect_to official_series_competitors_path(@competitor.series_id)
     else
       raise "Competitor does not belong to given series!"
+    end
+  end
+
+  def reset_track_place
+    competitor = @race.competitors.find(params[:competitor_id])
+    if competitor
+      competitor.batch_id = nil
+      competitor.track_place = nil
+      competitor.save!
+      render status: 204, json: nil
+    else
+      render status: 404, json: nil
     end
   end
 
