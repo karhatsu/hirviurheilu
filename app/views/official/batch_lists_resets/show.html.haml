@@ -1,0 +1,12 @@
+- content_for :title, "#{@race.name} - #{t '.title'}"
+%h2= t '.title'
+.message.message--warning= t '.warning'
+= flash_error
+= form_tag(official_race_batch_lists_reset_path, method: :delete) do
+  .form__field
+    = label_tag :confirm_text, t('.confirm_text')
+    = text_field_tag :confirm_text, params[:confirm_text]
+  .form__buttons
+    = submit_tag t('.button'), class: 'button button--danger'
+.buttons.buttons--nav
+  = link_to t(:back_to_official_batches_page), official_race_batches_path(@race), class: 'button button--back'
