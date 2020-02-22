@@ -3,8 +3,9 @@ require 'spec_helper'
 describe BatchList do
   let(:another_race) { create :race }
   let!(:another_race_batch) { create :batch, race: another_race, number: 1 }
+  let(:track_count) { 1 }
   let(:shooting_place_count) { 2 }
-  let(:race) { create :race, shooting_place_count: shooting_place_count }
+  let(:race) { create :race, track_count: track_count, shooting_place_count: shooting_place_count }
   let(:series) { create :series, race: race }
   let(:generator) { BatchList.new series }
   let(:first_batch_time) { '10:00' }
@@ -13,7 +14,7 @@ describe BatchList do
 
   context 'when no competitors' do
     it 'returns error' do
-      generator.generate 1, 1, first_batch_time, 1, minutes_between_batches
+      generator.generate 1, 1, first_batch_time, minutes_between_batches
       expect(generator.errors).to eql ['Sarjassa ei ole yhtään kilpailijaa']
       expect(race.batches.length).to eql 0
     end
@@ -27,7 +28,7 @@ describe BatchList do
     end
 
     it 'returns error' do
-      generator.generate 1, 1, first_batch_time, 1, minutes_between_batches
+      generator.generate 1, 1, first_batch_time, minutes_between_batches
       expect(generator.errors).to eql ['Kilpailulle ei ole määritetty ammuntapaikkojen lukumäärää. Voit tallentaa tiedon kilpailun perustietojen lomakkeella.']
       expect(race.batches.length).to eql 0
     end
@@ -37,32 +38,27 @@ describe BatchList do
     let!(:competitor1) { create :competitor, series: series }
 
     it 'returns error when first_batch_number is 0' do
-      generator.generate 0, 1, first_batch_time, 1, minutes_between_batches
+      generator.generate 0, 1, first_batch_time, minutes_between_batches
       expect(generator.errors).to eql ['Ensimmäisen erän numero on virheellinen']
     end
 
     it 'returns error when first_track_place is 0' do
-      generator.generate 1, 0, first_batch_time, 1, minutes_between_batches
+      generator.generate 1, 0, first_batch_time, minutes_between_batches
       expect(generator.errors).to eql ['Ensimmäinen paikkanumero on virheellinen']
     end
 
     it 'returns error when invalid first_batch_time' do
-      generator.generate 1, 1, 'xx:99', 1, minutes_between_batches
+      generator.generate 1, 1, 'xx:99', minutes_between_batches
       expect(generator.errors).to eql ['Ensimmäinen erän kellonaika on virheellinen']
     end
 
-    it 'returns error when concurrent_batches is 0' do
-      generator.generate 1, 1, first_batch_time, 0, 1
-      expect(generator.errors).to eql ['Yhtäaikaisten erien määrä on virheellinen']
-    end
-
     it 'returns error when minutes_between_batches is 0' do
-      generator.generate 1, 1, first_batch_time, 1, 0
+      generator.generate 1, 1, first_batch_time, 0
       expect(generator.errors).to eql ['Erälle varattu aika on virheellinen']
     end
 
     it 'returns multiple errors when multiple invalid values' do
-      generator.generate -1, -1, '10:60', 1, 0
+      generator.generate -1, -1, '10:60', 0
       expect(generator.errors).to eql ['Ensimmäisen erän numero on virheellinen',
                                        'Ensimmäinen paikkanumero on virheellinen',
                                        'Ensimmäinen erän kellonaika on virheellinen',
@@ -77,7 +73,7 @@ describe BatchList do
 
     before do
       expect(generator).to receive(:shuffle_competitors).and_return([competitor1, competitor2, competitor3])
-      generator.generate 1, 1, first_batch_time, 1, minutes_between_batches
+      generator.generate 1, 1, first_batch_time, minutes_between_batches
     end
 
     it 'assigns 2 competitors to the first batch and 1 competitor to the second batch' do
@@ -103,7 +99,7 @@ describe BatchList do
 
       context 'when assignment for the next series is started from a place that is already in use' do
         before do
-          generator2.generate 2, 1, second_batch_time, 1, minutes_between_batches
+          generator2.generate 2, 1, second_batch_time, minutes_between_batches
         end
 
         it 'returns error' do
@@ -115,7 +111,7 @@ describe BatchList do
 
       context 'when next series first batch time is tried to change' do
         before do
-          generator2.generate 2, 2, '15:15', 1, minutes_between_batches
+          generator2.generate 2, 2, '15:15', minutes_between_batches
         end
 
         it 'returns error' do
@@ -127,7 +123,7 @@ describe BatchList do
 
       context 'when next series has 3 competitors and first competitor is assigned to place 2/2' do
         before do
-          generator2.generate 2, 2, second_batch_time, 1, minutes_between_batches
+          generator2.generate 2, 2, second_batch_time, minutes_between_batches
         end
 
         it 'assign first competitor to the batch #2 and creates new batch for other two competitors' do
@@ -151,7 +147,7 @@ describe BatchList do
     before do
       race.update_attribute :shooting_place_count, 3
       expect(generator).to receive(:shuffle_competitors).and_return([competitor1, competitor2, competitor3, competitor4])
-      generator.generate 1, 1, first_batch_time, 1, minutes_between_batches
+      generator.generate 1, 1, first_batch_time, minutes_between_batches
     end
 
     it 'assigns 3 competitors to the first batch and 1 competitor to the second batch' do
@@ -180,7 +176,7 @@ describe BatchList do
     before do
       competitors_without_batches = [competitor_1_1, competitor_3_2, competitor_4_1]
       expect(generator).to receive(:shuffle_competitors).with(competitors_without_batches).and_return([competitor_1_1, competitor_3_2, competitor_4_1])
-      generator.generate 1, 1, '13:30', 1, minutes_between_batches
+      generator.generate 1, 1, '13:30', minutes_between_batches
     end
 
     it 'does not set two competitors to the same place and does not change existing allocations' do
@@ -211,7 +207,7 @@ describe BatchList do
 
     context 'and first batch number is for a batch in a different day' do
       before do
-        generator.generate 1, 1, first_batch_time, 1, minutes_between_batches, batch_day: 2
+        generator.generate 1, 1, first_batch_time, minutes_between_batches, batch_day: 2
       end
 
       it 'returns error' do
@@ -222,7 +218,7 @@ describe BatchList do
 
     context 'and first batch number is for the same day and time' do
       before do
-        generator.generate 2, 1, first_batch_time, 1, minutes_between_batches, batch_day: 2
+        generator.generate 2, 1, first_batch_time, minutes_between_batches, batch_day: 2
       end
 
       it 'assigns competitors for the batch' do
@@ -235,7 +231,7 @@ describe BatchList do
 
     context 'and first batch number refers to a new batch' do
       before do
-        generator.generate 3, 1, first_batch_time, 1, minutes_between_batches, batch_day: 2
+        generator.generate 3, 1, first_batch_time, minutes_between_batches, batch_day: 2
       end
 
       it 'creates new batches with given day' do
@@ -247,7 +243,8 @@ describe BatchList do
     end
   end
 
-  describe 'when concurrent batches' do
+  describe 'when multiple tracks' do
+    let(:track_count) { 2 }
     let(:competitor1) { create :competitor, series: series }
     let(:competitor2) { create :competitor, series: series }
     let(:competitor3) { create :competitor, series: series }
@@ -260,7 +257,7 @@ describe BatchList do
       before do
         competitors = [competitor1, competitor2, competitor3, competitor4, competitor5, competitor6, competitor7]
         expect(generator).to receive(:shuffle_competitors).and_return(competitors)
-        generator.generate 1, 1, first_batch_time, 2, minutes_between_batches
+        generator.generate 1, 1, first_batch_time, minutes_between_batches
       end
 
       it 'generates concurrent batches' do
@@ -291,7 +288,7 @@ describe BatchList do
         competitor3.save!
         competitors = [competitor4, competitor5, competitor6, competitor7]
         expect(generator).to receive(:shuffle_competitors).and_return(competitors)
-        generator.generate 2, 2, first_batch_time, 2, minutes_between_batches
+        generator.generate 2, 2, first_batch_time, minutes_between_batches
       end
 
       it 'continues from the last track' do
@@ -313,7 +310,7 @@ describe BatchList do
         competitor1.save!
         competitors = [competitor2, competitor3, competitor4, competitor5, competitor6, competitor7]
         expect(generator).to receive(:shuffle_competitors).and_return(competitors)
-        generator.generate 1, 2, first_batch_time, 2, minutes_between_batches
+        generator.generate 1, 2, first_batch_time, minutes_between_batches
       end
 
       it 'is able to start using track numbers for batches' do
@@ -345,7 +342,7 @@ describe BatchList do
 
     context 'when the first track place is skipped' do
       before do
-        generator.generate 1, 1, first_batch_time, 1, minutes_between_batches, skip_first_track_place: true
+        generator.generate 1, 1, first_batch_time, minutes_between_batches, skip_first_track_place: true
       end
 
       it 'assigns competitors to track places 2-n' do
@@ -360,7 +357,7 @@ describe BatchList do
 
     context 'when the last track place is skipped' do
       before do
-        generator.generate 1, 1, first_batch_time, 1, minutes_between_batches, skip_last_track_place: true
+        generator.generate 1, 1, first_batch_time, minutes_between_batches, skip_last_track_place: true
       end
 
       it 'assigns competitors to track places 1-(n-1)' do
@@ -375,7 +372,7 @@ describe BatchList do
 
     context 'when only odd track places are used' do
       before do
-        generator.generate 1, 1, first_batch_time, 1, minutes_between_batches, only_track_places: 'odd'
+        generator.generate 1, 1, first_batch_time, minutes_between_batches, only_track_places: 'odd'
       end
 
       it 'assigns competitors to track places 1, 3,...' do
@@ -389,7 +386,7 @@ describe BatchList do
 
     context 'when only even track places are used' do
       before do
-        generator.generate 1, 1, first_batch_time, 1, minutes_between_batches, only_track_places: 'even'
+        generator.generate 1, 1, first_batch_time, minutes_between_batches, only_track_places: 'even'
       end
 
       it 'assigns competitors to track places 1, 3,...' do
@@ -403,7 +400,7 @@ describe BatchList do
 
     context 'when specific track places are excluded' do
       before do
-        generator.generate 1, 1, first_batch_time, 1, minutes_between_batches, skip_track_places: [2, 3]
+        generator.generate 1, 1, first_batch_time, minutes_between_batches, skip_track_places: [2, 3]
       end
 
       it 'does not assign competitors to those track places' do

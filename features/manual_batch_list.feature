@@ -41,7 +41,7 @@ Feature: Manual batch list
   @javascript
   Scenario: Assign competitors to a batch
     Given I am an official
-    And I have a shooting race "Shooting race" with shooting place count 3
+    And I have a shooting race "Shooting race" with track count 3 and shooting place count 1
     And the race has series "Women"
     And the series has a competitor 10 "Maija" "Mikkonen" from "Testiseura 10"
     And the race has series "Men"

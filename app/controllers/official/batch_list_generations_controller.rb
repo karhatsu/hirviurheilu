@@ -17,7 +17,7 @@ class Official::BatchListGenerationsController < Official::OfficialController
       generator.generate_single_batch params[:first_batch_number].to_i, params[:first_track_place].to_i, params[:first_batch_time], opts
     else
       generator.generate params[:first_batch_number].to_i, params[:first_track_place].to_i, params[:first_batch_time],
-                         params[:concurrent_batches].to_i, params[:minutes_between_batches].to_i, opts
+                         params[:minutes_between_batches].to_i, opts
     end
     if generator.errors.empty?
       success_key = params[:only_one_batch] ? 'one' : 'many'

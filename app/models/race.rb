@@ -236,6 +236,10 @@ class Race < ApplicationRecord
     start_time.strftime '%H:%M:%S'
   end
 
+  def competitors_per_batch
+    shooting_place_count == 1 ? track_count : shooting_place_count
+  end
+
   def next_batch_number
     biggest_number = batches.maximum('number') || 0
     biggest_number + 1
@@ -281,17 +285,13 @@ class Race < ApplicationRecord
     max_batch = batches.except(:order).order('number DESC').first
     return [1, 1] unless max_batch
     max_track_place = competitors.where('batch_id=?', max_batch.id).maximum(:track_place)
-    return [max_batch.number + 1, 1] if shooting_place_count && max_track_place.to_i >= shooting_place_count
+    return [max_batch.number + 1, 1] if competitors_per_batch && max_track_place.to_i >= competitors_per_batch
     [max_batch.number, max_track_place.to_i + 1]
   end
 
   def suggested_next_batch_day
     last_batch = batches.except(:order).order('day DESC').first
     last_batch&.day || 1
-  end
-
-  def suggested_concurrent_batches
-    batches.maximum(:track) || 1
   end
 
   private

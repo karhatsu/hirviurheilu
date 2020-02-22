@@ -1,13 +1,13 @@
-- if @race.shooting_place_count.nil?
+- if @race.track_count.to_i <= 0 || @race.shooting_place_count.nil?
   .message.message--warning
-    Kilpailulle pitää määrittää ammuntapaikkojen määrä ennen kuin voit asetella erään kilpailjoita.
+    Kilpailulle pitää määrittää ratojen lukumäärä ja ammuntapaikkojen lukumäärä ennen kuin voit asetella erään kilpailijoita.
     = link_to 'Voit tehdä sen kilpailun asetuksista.', edit_official_race_path(@race)
 - elsif @race.competitors.empty?
   .message.message--info= t 'official.batches.edit.no_competitors'
 - else
   - competitors = @batch.competitors.includes(:series)
   .result-cards
-    - @race.shooting_place_count.times.each do |i|
+    - @race.competitors_per_batch.times.each do |i|
       - track_place = i + 1
       .card
         .card__number= track_place

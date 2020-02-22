@@ -322,7 +322,7 @@ class Competitor < ApplicationRecord
   end
 
   def track_place_fitting
-    shooting_place_count = race&.shooting_place_count
+    shooting_place_count = race&.competitors_per_batch
     errors.add :track_place, :too_big if shooting_place_count && track_place && track_place > shooting_place_count
   end
 

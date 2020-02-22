@@ -123,7 +123,6 @@ fi:
         batch_day: Päivä
         first_batch_time: Ensimmäisen erän kellonaika
         minutes_between_batches: Erälle varattu aika (min)
-        concurrent_batches: Yhtäaikaisten erien määrä
         assign_competitors: Asettele kilpailijat
         all_track_places: kaikkiin paikkoihin
         odd_track_places: parittomiin paikkoihin

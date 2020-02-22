@@ -4,10 +4,10 @@
   = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id } do |series| official_series_batch_list_generation_path(series) end
 = flash_error
 = flash_success
-- if @series.race.shooting_place_count.to_i <= 0
+- if @series.race.track_count.to_i <= 0 || @series.race.shooting_place_count.to_i <= 0
   .message.message--error
-    Kilpailulle ei ole määritetty ammuntapaikkojen määrää.
-    = link_to 'Voit tehdä sen kilpailun asetuksista.', edit_official_race_path(@series.race)
+    Kilpailulle pitää määrittää ratojen lukumäärä ja ammuntapaikkojen lukumäärä ennen kuin arpoa eräluettelon.
+    = link_to 'Voit asettaa ne kilpailun asetuksista.', edit_official_race_path(@series.race)
 - elsif @competitors_without_batch.empty?
   .message.message--info= t('.no_competitors_without_batch_in_series')
 - else
@@ -31,9 +31,6 @@
     .form__field.form__field--sm.row.multiple-batches
       .col-xs-12.col-sm-4= label_tag :minutes_between_batches, t('.minutes_between_batches')
       .col-xs-12.col-sm-8= number_field_tag :minutes_between_batches, params[:minutes_between_batches] || @series.race.suggested_min_between_batches
-    .form__field.form__field--sm.row.multiple-batches
-      .col-xs-12.col-sm-4= label_tag :concurrent_batches, t('.concurrent_batches')
-      .col-xs-12.col-sm-8= number_field_tag :concurrent_batches, params[:concurrent_batches] || @series.race.suggested_concurrent_batches
     .form__field.row
       .col-xs-12.col-sm-4= label_tag :only_track_places, t('.assign_competitors')
       .col-xs-12.col-sm-8
