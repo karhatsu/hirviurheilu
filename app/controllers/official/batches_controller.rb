@@ -8,6 +8,7 @@ class Official::BatchesController < Official::OfficialController
   def new
     @batch = @race.batches.build
     @batch.number = @race.next_batch_number
+    @batch.time = @race.next_batch_time || '00:00'
   end
 
   def create

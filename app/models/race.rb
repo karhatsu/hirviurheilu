@@ -240,6 +240,13 @@ class Race < ApplicationRecord
     biggest_number + 1
   end
 
+  def next_batch_time
+    min = suggested_min_between_batches
+    return nil unless min
+    biggest_time = batches.except(:order).order('day DESC, time DESC').first
+    biggest_time.time.advance(minutes: min).strftime('%H:%M')
+  end
+
   def first_available_batch_number
     batch_number, _ = first_available_batch_data
     batch_number

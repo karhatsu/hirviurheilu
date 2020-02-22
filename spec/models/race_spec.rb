@@ -1150,4 +1150,31 @@ describe Race do
       end
     end
   end
+
+  describe '#next_batch_time' do
+    let(:race) { create :race, start_date: '2020-02-20', end_date: '2020-02-21' }
+    let!(:batch1) { create :batch, race: race, number: 20, day: 2, time: '10:00' }
+    let!(:batch2) { create :batch, race: race, number: 10, day: 2, time: '10:20' }
+    let!(:batch3) { create :batch, race: race, number: 15, day: 1, time: '11:00' }
+
+    context 'when cannot suggest minutes between batches' do
+      before do
+        expect(race).to receive(:suggested_min_between_batches).and_return(nil)
+      end
+
+      it 'is nil' do
+        expect(race.next_batch_time).to be_nil
+      end
+    end
+
+    context 'when can suggest minutes between batches' do
+      before do
+        expect(race).to receive(:suggested_min_between_batches).and_return(15)
+      end
+
+      it 'biggest time (taking day into account) added with suggested minutes' do
+        expect(race.next_batch_time).to eql '10:35'
+      end
+    end
+  end
 end
