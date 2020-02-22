@@ -48,6 +48,11 @@ Given("I have a shooting race {string}") do |name|
   @user.race_rights.create! race: @race
 end
 
+Given("I have a shooting race {string} with shooting place count {int}") do |name, shooting_place_count|
+  @race = create :race, sport_key: Sport::ILMAHIRVI, name: name, shooting_place_count: shooting_place_count
+  @user.race_rights.create! race: @race
+end
+
 Given("I have a {string} race {string}") do |sport_key, name|
   @race = create :race, sport_key: sport_key, name: name
   @user.race_rights.create! race: @race

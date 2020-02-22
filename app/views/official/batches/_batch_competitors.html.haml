@@ -22,8 +22,7 @@
                 #{full_name competitor}, (#{competitor.series.name})
               - else
                 = t 'official.batches.edit.input_competitor_number'
-            %a.button.button--primary{id: "save_button_#{track_place}", onClick: "saveTrackPlace(#{track_place})", style: 'display: none'}
-              = t(:save)
+            %a.button.button--primary{id: "save_button_#{track_place}", href: '', onClick: "event.preventDefault(); saveTrackPlace(#{track_place})", style: 'display: none'}= t(:save)
             .card__middle-row--error{id: "save_error_#{track_place}", style: 'display: none; margin-left: 8px;'}
 :javascript
   function changeNumber(trackPlace) {
