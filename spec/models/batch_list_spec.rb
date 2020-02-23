@@ -160,6 +160,31 @@ describe BatchList do
     end
   end
 
+  context 'when ilmahirvi like setup (3 tracks, 1 shooting place per track' do
+    let(:track_count) { 3 }
+    let(:shooting_place_count) { 1 }
+    let(:competitor1) { create :competitor, series: series, number: 10 }
+    let(:competitor2) { create :competitor, series: series, number: 9 }
+    let(:competitor3) { create :competitor, series: series, number: 11 }
+    let(:competitor4) { create :competitor, series: series, number: 7 }
+
+    before do
+      expect(generator).to receive(:shuffle_competitors).and_return([competitor1, competitor2, competitor3, competitor4])
+      generator.generate 1, 1, first_batch_time, minutes_between_batches
+    end
+
+    it 'creates two batches with different times and does not set track numbers for the batches' do
+      expect(generator.errors).to eql []
+      expect(race.batches.length).to eql 2
+      verify_batch 1, first_batch_time
+      verify_batch 2, second_batch_time
+      verify_competitor competitor1, 1, 1
+      verify_competitor competitor2, 1, 2
+      verify_competitor competitor3, 1, 3
+      verify_competitor competitor4, 2, 1
+    end
+  end
+
   context 'when some of the competitors already have a batch place assigned' do
     let(:minutes_between_batches) { 15 }
     let(:batch1) { create :batch, race: race, number: 1, time: '13:30' }
