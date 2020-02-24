@@ -11,6 +11,7 @@ describe BatchList do
   let(:first_batch_time) { '10:00' }
   let(:minutes_between_batches) { 10 }
   let(:second_batch_time) { '10:10' }
+  let(:third_batch_time) { '10:20' }
 
   context 'when no competitors' do
     it 'returns error' do
@@ -256,14 +257,14 @@ describe BatchList do
 
     context 'and first batch number refers to a new batch' do
       before do
-        generator.generate 3, 1, first_batch_time, minutes_between_batches, batch_day: 2
+        generator.generate 3, 1, second_batch_time, minutes_between_batches, batch_day: 2
       end
 
       it 'creates new batches with given day' do
         expect(generator.errors).to eql []
         expect(race.batches.length).to eql 4
-        verify_batch 3, first_batch_time, 2
-        verify_batch 4, second_batch_time, 2
+        verify_batch 3, second_batch_time, 2
+        verify_batch 4, third_batch_time, 2
       end
     end
   end

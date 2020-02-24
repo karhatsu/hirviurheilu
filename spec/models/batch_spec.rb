@@ -34,5 +34,13 @@ RSpec.describe Batch, type: :model do
         expect(@batch).to have(1).errors_on(:day)
       end
     end
+
+    describe 'time' do
+      before do
+        create :batch
+      end
+
+      it { is_expected.to validate_uniqueness_of(:time).scoped_to(:race_id, :track, :day) }
+    end
   end
 end
