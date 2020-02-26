@@ -127,6 +127,7 @@ class Official::CompetitorsController < Official::OfficialController
     params.require(:competitor).permit(:series_id, :age_group_id, :club_id, :first_name, :last_name, :unofficial,
       :team_name, :number, :start_time, :arrival_time, :shooting_score_input, :estimate1, :estimate2, :estimate3,
       :estimate4, :no_result_reason, :shooting_overtime_min, :batch_id, :track_place,
+      :qualification_round_shooting_score_input, :final_round_shooting_score_input,
       old_values: [:estimate1, :estimate2, :estimate3, :estimate4])
   end
 end

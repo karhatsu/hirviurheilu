@@ -100,6 +100,8 @@ sv:
       edit:
         either_total_or_shots: Spara antingen totalresultat eller enskilda skott.
         shots: Enskilda skott
+        qualification_round_shots: Alkukilpailun laukaukset
+        final_round_shots: Loppukilpailun laukaukset
         dns: Startade inte (DNS)
         dnf: Avbröt (DNF)
         dq: Diskad (DQ)

@@ -100,6 +100,8 @@ fi:
       edit:
         either_total_or_shots: Syötä joko yhteistulos tai vain yksittäiset laukaukset.
         shots: Yksittäiset laukaukset
+        qualification_round_shots: Alkukilpailun laukaukset
+        final_round_shots: Loppukilpailun laukaukset
         dns: Ei lähtenyt matkaan (DNS)
         dnf: Keskeytys (DNF)
         dq: Hylätty (DQ)

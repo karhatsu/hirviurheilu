@@ -36,6 +36,8 @@ sv:
     estimate4: Bedömning 4
     estimate_penalty_distance: Bedömningstraff avstånd (m)
     estimate_penalty_seconds: Straffsekonder för bedömning
+    extra_shots: Uusinnan laukaukset
+    final_round_shooting_score_input: Loppukilpailun yhteistulos
     first_name: Förnamn
     first_number: Första tävlingsnummer
     front_page: Visa på frontsida
@@ -65,6 +67,7 @@ sv:
     price: Pris
     public_message: Meddelande på tävlingens hemsida
     published: Publiserad
+    qualification_round_shooting_score_input: Alkukilpailun yhteistulos
     race: Tävling
     races: Tävlingar
     remember_me: Kom ihåg mig

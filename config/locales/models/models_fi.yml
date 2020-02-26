@@ -36,6 +36,8 @@ fi:
     estimate4: Arvio 4
     estimate_penalty_distance: Arviosakkokierroksen pituus (m)
     estimate_penalty_seconds: Arvionnin sakkosekunnit
+    extra_shots: Uusinnan laukaukset
+    final_round_shooting_score_input: Loppukilpailun yhteistulos
     first_name: Etunimi
     first_number: Ensimmäinen kilpailunumero
     front_page: Näytä etusivulla
@@ -65,6 +67,7 @@ fi:
     price: Hinta
     public_message: Viesti kilpailun etusivulle
     published: Julkaistu
+    qualification_round_shooting_score_input: Alkukilpailun yhteistulos
     race: Kilpailu
     races: Kilpailut
     remember_me: Muista minut
