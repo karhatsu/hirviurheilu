@@ -109,15 +109,15 @@ describe QuickSave::QualificationRoundShots do
     end
   end
 
-  describe 'when also final and extra shots already saved' do
+  describe 'when also final shots already saved' do
     before do
-      competitor10.update_attribute :shots, [9,9,9,9,9,9,9,9,9,9,8,8,8,8,8,8,8,8,8,8,10,10]
+      competitor10.update_attribute :shots, [9,9,9,9,9,9,9,9,9,9,8,8,8,8,8,8,8,8,8,8]
       @qs = QuickSave::QualificationRoundShots.new(race.id, '++10,5555555555')
     end
 
     it 'overrides only the qualification shots' do
       result = @qs.save
-      expect_success result, competitor10, [5,5,5,5,5,5,5,5,5,5,8,8,8,8,8,8,8,8,8,8,10,10]
+      expect_success result, competitor10, [5,5,5,5,5,5,5,5,5,5,8,8,8,8,8,8,8,8,8,8]
     end
   end
 
