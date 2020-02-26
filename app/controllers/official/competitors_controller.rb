@@ -64,8 +64,9 @@ class Official::CompetitorsController < Official::OfficialController
   def update
     club_ok = handle_club(@competitor)
     update_params = update_competitor_params
-    shots_ok = params['shots'].blank? || set_shots(@competitor, params['shots'])
-    if club_ok && shots_ok && handle_time_parameters && @competitor.update(update_params)
+    shots_ok = params['shots'].blank? || set_shots(@competitor, :shots, params['shots'])
+    extra_shots_ok = params['extra_shots'].blank? || set_shots(@competitor, :extra_shots, params['extra_shots'])
+    if club_ok && shots_ok && extra_shots_ok && handle_time_parameters && @competitor.update(update_params)
       js_template = params[:start_list] ? 'official/start_lists/update_success' :
         'official/competitors/update_success'
       respond_to do |format|

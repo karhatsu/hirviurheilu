@@ -4,12 +4,12 @@
 - final_round_shots = final_round && final_round.inject(:+) || 0
 - basic_shots = qualification_round_shots + final_round_shots
 - shots_per_extra_round = sport.shots_per_extra_round
-- extra_shots_count = competitor.shots && competitor.shots.length >= basic_shots ? competitor.shots.length - basic_shots + shots_per_extra_round : 0
+- extra_shots_count = competitor.shots.length == basic_shots ? (competitor.extra_shots || []).length + shots_per_extra_round : 0
 = f.hidden_field :shooting_score_input
 = t :qualification_round
-= render partial: 'official/shots/shooting_race_shots', locals: { competitor: competitor, round_rules: qualification_round, base: 0 }
+= render partial: 'official/shots/shooting_race_shots', locals: { competitor: competitor, round_rules: qualification_round, base: 0, column_name: :shots, field_name: 'shots[]' }
 = t :final_round
-= render partial: 'official/shots/shooting_race_shots', locals: { competitor: competitor, round_rules: final_round, base: qualification_round_shots }
+= render partial: 'official/shots/shooting_race_shots', locals: { competitor: competitor, round_rules: final_round, base: qualification_round_shots, column_name: :shots, field_name: 'shots[]' }
 - if extra_shots_count > 0
   = t :extra_round
-  = render partial: 'official/shots/shooting_race_shots', locals: { competitor: competitor, round_rules: [extra_shots_count], base: basic_shots }
+  = render partial: 'official/shots/shooting_race_shots', locals: { competitor: competitor, round_rules: [extra_shots_count], base: 0, column_name: :extra_shots, field_name: 'extra_shots[]' }
