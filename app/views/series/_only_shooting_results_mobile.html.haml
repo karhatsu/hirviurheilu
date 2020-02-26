@@ -30,9 +30,9 @@
                 \= #{comp.final_round_score}
             - else
               #{comp.final_round_score} (#{shots_print comp.final_round_shots})
-        - if comp.extra_round_shots
+        - if comp.extra_shots
           .card__middle-row
-            Uusinta: #{shots_print comp.extra_round_shots}
+            Uusinta: #{shots_print comp.extra_shots}
       .card__main-value
         - if comp.no_result_reason
           = comp.no_result_reason

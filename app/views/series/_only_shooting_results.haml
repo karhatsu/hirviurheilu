@@ -1,5 +1,5 @@
 - competitors = series.shooting_race_results
-- extra_shots_column = competitors.any? {|competitor| competitor.extra_round_shots}
+- extra_shots_column = competitors.any? {|competitor| competitor.extra_shots}
 %table.results-table
   %tr
     %th &nbsp;
@@ -51,6 +51,6 @@
           = comp.shooting_score
       - if extra_shots_column
         %td
-          - if comp.extra_round_shots
-            #{shots_print comp.extra_round_shots}
+          - if comp.extra_shots
+            #{shots_print comp.extra_shots}
     - prev_competitor_results = shooting_race_results

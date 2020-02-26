@@ -17,8 +17,8 @@ module CompetitorResults
   def shooting_race_results(competitors)
     results = no_result_reason_results
     return results if results
-    max_extra_round_shots = competitors.map {|competitor| competitor.extra_round_shots&.length.to_i }.max || 0
-    results = [shooting_score.to_i] + extra_round_filled_shots(max_extra_round_shots) + [hits.to_i, final_round_score.to_i]
+    max_extra_shots = competitors.map {|competitor| competitor.extra_shots&.length.to_i }.max || 0
+    results = [shooting_score.to_i] + extra_round_filled_shots(max_extra_shots) + [hits.to_i, final_round_score.to_i]
     results << (final_round_score || qualification_round_sub_scores.nil? ? 0 : qualification_round_sub_scores[1].to_i)
     results + shot_counts_desc(shots) + reverse_shots(shots)
   end
@@ -51,10 +51,10 @@ module CompetitorResults
     shots_counts
   end
 
-  def extra_round_filled_shots(max_extra_round_shots)
-    return [] if max_extra_round_shots == 0
-    own_shots = (extra_round_shots || [])
-    all_extra_shots = own_shots + Array.new(max_extra_round_shots - own_shots.length, 0)
+  def extra_round_filled_shots(max_extra_shots)
+    return [] if max_extra_shots == 0
+    own_shots = (extra_shots || [])
+    all_extra_shots = own_shots + Array.new(max_extra_shots - own_shots.length, 0)
     return all_extra_shots if sport.shots_per_extra_round == 1
     all_extra_shots.each_slice(sport.shots_per_extra_round).to_a.map {|shots| shots.inject(:+)}
   end
