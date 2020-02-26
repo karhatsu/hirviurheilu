@@ -523,6 +523,22 @@ describe Competitor do
         end
       end
 
+      context 'when qualification_round_shooting_score_input is saved' do
+        it 'marks has_result true' do
+          @competitor.qualification_round_shooting_score_input = 91
+          @competitor.save!
+          expect(@competitor.has_result?).to be_truthy
+        end
+      end
+
+      context 'when final_round_shooting_score_input is saved' do
+        it 'marks has_result true' do
+          @competitor.final_round_shooting_score_input = 97
+          @competitor.save!
+          expect(@competitor.has_result?).to be_truthy
+        end
+      end
+
       context 'when shots are saved' do
         it 'marks has_result true' do
           @competitor.shots = [9]
