@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe 'shooting race sorting' do
+  let(:basic_shots_count) { sport.max_shots_count }
+
   describe 'ilmaluodikko SM 2019' do
     let(:sport) { Sport.by_key Sport::ILMALUODIKKO }
     let(:subdir) { 'ilmaluodikko-sm2019' }
@@ -72,7 +74,10 @@ describe 'shooting race sorting' do
 
   def build_competitor(line, index)
     values = line.split ';'
-    competitor = Competitor.new number: index + 1, first_name: values[0], shots: values[1].split(',').map(&:to_i)
+    all_shots = values[1].split(',').map(&:to_i)
+    shots = all_shots[0...basic_shots_count]
+    extra_shots = all_shots.length > basic_shots_count ? all_shots[basic_shots_count..-1] : nil
+    competitor = Competitor.new number: index + 1, first_name: values[0], shots: shots, extra_shots: extra_shots
     allow(competitor).to receive(:sport).and_return(sport)
     competitor
   end
