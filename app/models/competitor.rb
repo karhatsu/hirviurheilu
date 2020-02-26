@@ -26,7 +26,10 @@ class Competitor < ApplicationRecord
   validates :last_name, :presence => true
   validates :number,
     :numericality => { :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true }
-  validates :shooting_score_input, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+  shooting_score_input_validations = { numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true } }
+  validates :shooting_score_input, shooting_score_input_validations
+  validates :qualification_round_shooting_score_input, shooting_score_input_validations
+  validates :final_round_shooting_score_input, shooting_score_input_validations
   estimate_validations = {allow_nil: true, numericality: { only_integer: true, greater_than: 0 }}
   validates :estimate1, estimate_validations
   validates :estimate2, estimate_validations
@@ -271,7 +274,9 @@ class Competitor < ApplicationRecord
   end
 
   def only_one_shot_input_method_used
-    errors.add(:base, :shooting_result_either_sum_or_by_shots) if shooting_score_input && shots
+    if shots && (shooting_score_input || qualification_round_shooting_score_input || final_round_shooting_score_input)
+      errors.add(:base, :shooting_result_either_sum_or_by_shots)
+    end
   end
 
   def shots_array_values

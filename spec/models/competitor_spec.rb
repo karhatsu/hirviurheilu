@@ -86,6 +86,8 @@ describe Competitor do
     end
 
     it_should_behave_like 'shooting score input', :shooting_score_input
+    it_should_behave_like 'shooting score input', :qualification_round_shooting_score_input
+    it_should_behave_like 'shooting score input', :final_round_shooting_score_input
 
     describe 'shots' do
       it { is_expected.to allow_value(nil).for('shots') }
