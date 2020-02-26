@@ -21,7 +21,9 @@
       %td= comp.number
       %td= comp.club.name
       %td
-        - if comp.shots
+        - if comp.qualification_round_shooting_score_input
+          = comp.qualification_round_shooting_score_input
+        - elsif comp.shots
           - if comp.qualification_round_sub_scores.length == 2
             = comp.qualification_round_sub_scores[0]
             %span.shots (#{shots_print comp.qualification_round_shots[0]})
@@ -33,7 +35,9 @@
             = comp.qualification_round_score
             %span.shots (#{shots_print comp.qualification_round_shots})
       %td
-        - if comp.final_round_shots
+        - if comp.final_round_shooting_score_input
+          = comp.final_round_shooting_score_input
+        - elsif comp.final_round_shots
           - if comp.final_round_sub_scores.length == 2
             = comp.final_round_sub_scores[0]
             %span.shots (#{shots_print comp.final_round_shots[0]})
