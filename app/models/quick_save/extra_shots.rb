@@ -6,8 +6,7 @@ class QuickSave::ExtraShots < QuickSave::QuickSaveBase
   private
 
   def set_competitor_attrs
-    return unless @competitor.shots && @competitor.shots.length >= 20
-    @competitor.shots = @competitor.shots + extra_shots
+    @competitor.extra_shots = (@competitor.extra_shots || []) + extra_shots
   end
 
   def competitor_has_attrs?
@@ -25,7 +24,7 @@ class QuickSave::ExtraShots < QuickSave::QuickSaveBase
   end
 
   def save_competitor
-    if @competitor.shots.nil? || @competitor.shots.length < 20
+    if @competitor.shots.nil? || @competitor.shots.length < @competitor.sport.max_shots_count
       @competitor.errors.add :base, 'Loppukilpailun laukaukset puuttuvat'
       return false
     end

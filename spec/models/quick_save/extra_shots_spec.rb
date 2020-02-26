@@ -12,9 +12,9 @@ describe QuickSave::ExtraShots do
       @qs = QuickSave::ExtraShots.new(race.id, '10,+*')
     end
 
-    it 'saves the shots after the existing final round shots' do
+    it 'saves the extra shots' do
       result = @qs.save
-      expect_success result, competitor10, competitor10_shots + [10, 11]
+      expect_success result, competitor10, [10, 11]
     end
   end
 
@@ -89,24 +89,24 @@ describe QuickSave::ExtraShots do
   end
 
   describe "when some extra shots already stored" do
-    let(:with_extra_shots) { [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 7, 7, 7, 7, 7, 5, 5, 5, 5, 5, 10, 10] }
+    let(:extra_shots) { [10, 10] }
 
     before do
-      competitor10.update_attribute :shots, with_extra_shots
+      competitor10.update_attribute :extra_shots, extra_shots
       @qs = QuickSave::ExtraShots.new(race.id, '10,98')
     end
 
     it 'appends the shots' do
       result = @qs.save
-      expect_success result, competitor10, with_extra_shots + [9, 8]
+      expect_success result, competitor10, extra_shots + [9, 8]
     end
   end
 
-  def expect_success(result, competitor, shots)
+  def expect_success(result, competitor, extra_shots)
     expect(result).to be_truthy
     expect(@qs.competitor).to eq(competitor)
     expect(@qs.error).to be_nil
-    expect(competitor.reload.shots).to eq shots
+    expect(competitor.reload.extra_shots).to eq extra_shots
   end
 
   def expect_failure(result, error_regex, competitor = nil, original_shots = nil)
