@@ -20,6 +20,7 @@ module Shots
   end
 
   def qualification_round_score
+    return qualification_round_shooting_score_input if qualification_round_shooting_score_input
     sub_scores = qualification_round_sub_scores
     return nil unless sub_scores
     sum_of_array sub_scores
@@ -40,6 +41,7 @@ module Shots
   end
 
   def final_round_score
+    return final_round_shooting_score_input if final_round_shooting_score_input
     sub_scores = final_round_sub_scores
     return nil unless sub_scores
     sum_of_array sub_scores
