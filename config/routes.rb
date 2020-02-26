@@ -84,7 +84,7 @@ ElkSports::Application.routes.draw do
         post 'time_quick_save' => 'quick_saves#save_time', :as => :quick_save_time
         post 'qualification_round_shots_quick_save' => 'quick_saves#save_qualification_round_shots', as: :quick_save_qualification_round_shots
         post 'final_round_shots_quick_save' => 'quick_saves#save_final_round_shots', as: :quick_save_final_round_shots
-        post 'extra_round_shots_quick_save' => 'quick_saves#save_extra_round_shots', as: :quick_save_extra_round_shots
+        post 'extra_shots_quick_save' => 'quick_saves#save_extra_shots', as: :quick_save_extra_shots
         post 'no_result_quick_save' => 'quick_saves#save_no_result', :as => :quick_save_no_result
         resources :quick_saves
         resource :finish_race

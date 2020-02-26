@@ -1,4 +1,4 @@
-class QuickSave::ExtraRoundShots < QuickSave::QuickSaveBase
+class QuickSave::ExtraShots < QuickSave::QuickSaveBase
   def initialize(race_id, string)
     super race_id, string, /^(\+\+|)\d+(\,)[\+\*0-9]+$/
   end

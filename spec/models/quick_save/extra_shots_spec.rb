@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe QuickSave::ExtraRoundShots do
+describe QuickSave::ExtraShots do
   let(:race) { create :race, sport_key: Sport::ILMALUODIKKO }
   let(:series) { create :series, race: race }
   let(:competitor10_shots) { [9,9,9,9,8,8,8,8,7,6,10,9,8,7,6,5,4,3,2,1] }
@@ -9,7 +9,7 @@ describe QuickSave::ExtraRoundShots do
 
   context 'when string format is correct and competitor with final round shots is found' do
     before do
-      @qs = QuickSave::ExtraRoundShots.new(race.id, '10,+*')
+      @qs = QuickSave::ExtraShots.new(race.id, '10,+*')
     end
 
     it 'saves the shots after the existing final round shots' do
@@ -20,7 +20,7 @@ describe QuickSave::ExtraRoundShots do
 
   context 'when no shots yet' do
     before do
-      @qs = QuickSave::ExtraRoundShots.new(race.id, '1,+99*876510')
+      @qs = QuickSave::ExtraShots.new(race.id, '1,+99*876510')
     end
 
     it 'does not save anything' do
@@ -34,7 +34,7 @@ describe QuickSave::ExtraRoundShots do
 
     before do
       competitor1.update_attribute :shots, nineteen_shots
-      @qs = QuickSave::ExtraRoundShots.new(race.id, '1,9')
+      @qs = QuickSave::ExtraShots.new(race.id, '1,9')
     end
 
     it 'does not save anything' do
@@ -46,7 +46,7 @@ describe QuickSave::ExtraRoundShots do
   context 'when invalid shot given' do
     before do
       race.update_attribute :sport_key, Sport::ILMAHIRVI
-      @qs = QuickSave::ExtraRoundShots.new(race.id, '10,*')
+      @qs = QuickSave::ExtraShots.new(race.id, '10,*')
     end
 
     it 'does not save anything' do
@@ -57,7 +57,7 @@ describe QuickSave::ExtraRoundShots do
 
   describe "unknown competitor" do
     before do
-      @qs = QuickSave::ExtraRoundShots.new(race.id, '8,9999999999')
+      @qs = QuickSave::ExtraShots.new(race.id, '8,9999999999')
     end
 
     it 'does not save anything' do
@@ -68,7 +68,7 @@ describe QuickSave::ExtraRoundShots do
 
   describe "invalid string format" do
     before do
-      @qs = QuickSave::ExtraRoundShots.new(race.id, '10,9x')
+      @qs = QuickSave::ExtraShots.new(race.id, '10,9x')
     end
 
     it 'does not save the given result' do
@@ -79,7 +79,7 @@ describe QuickSave::ExtraRoundShots do
 
   context 'when string is nil' do
     before do
-      @qs = QuickSave::ExtraRoundShots.new(race.id, nil)
+      @qs = QuickSave::ExtraShots.new(race.id, nil)
     end
 
     it 'does not save anything' do
@@ -93,7 +93,7 @@ describe QuickSave::ExtraRoundShots do
 
     before do
       competitor10.update_attribute :shots, with_extra_shots
-      @qs = QuickSave::ExtraRoundShots.new(race.id, '10,98')
+      @qs = QuickSave::ExtraShots.new(race.id, '10,98')
     end
 
     it 'appends the shots' do

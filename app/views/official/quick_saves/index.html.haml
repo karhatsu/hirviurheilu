@@ -12,8 +12,8 @@
   = render partial: 'result_place', locals: { name: 'final_round_shots',
     instructions: t(".instructions_final_round_shots.#{@race.sport_key}"), path: official_race_quick_save_final_round_shots_path(@race) }
   %h3= t :extra_round
-  = render partial: 'result_place', locals: { name: 'extra_round_shots',
-    instructions: t(".instructions_extra_round_shots.#{@race.sport_key}"), path: official_race_quick_save_extra_round_shots_path(@race) }
+  = render partial: 'result_place', locals: { name: 'extra_shots',
+    instructions: t(".instructions_extra_shots.#{@race.sport_key}"), path: official_race_quick_save_extra_shots_path(@race) }
 - else
   %h3= t :times
   = render :partial => 'result_place', :locals => { :name => 'time',
