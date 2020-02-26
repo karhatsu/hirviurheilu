@@ -113,20 +113,28 @@ describe Competitor do
       it { is_expected.not_to allow_value(['10', '9', '1.1']).for('shots') }
 
       describe 'when only shooting' do
-        it 'can have unlimited amount of shots' do
-          competitor = build :competitor, shots: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+        it 'can have at most 20 shots' do
+          competitor = build :competitor, shots: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
           allow(competitor).to receive(:sport).and_return(Sport.by_key(Sport::ILMAHIRVI))
           expect(competitor).to have(0).errors_on(:shots)
+          competitor.shots << 5
+          expect(competitor).to have(1).errors_on(:shots)
         end
       end
 
       describe 'when 3 sports race' do
-        it { is_expected.not_to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]).for('shots') }
+        it 'can have at most 10 shots' do
+          competitor = build :competitor, shots: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+          allow(competitor).to receive(:sport).and_return(Sport.by_key(Sport::RUN))
+          expect(competitor).to have(0).errors_on(:shots)
+          competitor.shots << 9
+          expect(competitor).to have(1).errors_on(:shots)
+        end
       end
 
       describe 'when special setting for max shot value' do
         it 'max shot value comes from the setting' do
-          sport = double Sport, max_shot: 15, only_shooting?: false
+          sport = double Sport, max_shot: 15, only_shooting?: false, max_shots_count: 10
           competitor = build :competitor, shots: [15, 14]
           allow(competitor).to receive(:sport).and_return(sport)
           expect(competitor).to have(0).errors_on(:shots)
