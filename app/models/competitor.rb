@@ -26,9 +26,7 @@ class Competitor < ApplicationRecord
   validates :last_name, :presence => true
   validates :number,
     :numericality => { :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true }
-  validates :shooting_score_input, :allow_nil => true,
-    :numericality => { :only_integer => true,
-      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
+  validates :shooting_score_input, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
   estimate_validations = {allow_nil: true, numericality: { only_integer: true, greater_than: 0 }}
   validates :estimate1, estimate_validations
   validates :estimate2, estimate_validations

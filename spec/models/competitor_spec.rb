@@ -85,23 +85,7 @@ describe Competitor do
       end
     end
 
-    describe "shooting_score_input" do
-      it { is_expected.to allow_value(nil).for(:shooting_score_input) }
-      it { is_expected.not_to allow_value(1.1).for(:shooting_score_input) }
-      it { is_expected.not_to allow_value(-1).for(:shooting_score_input) }
-      it { is_expected.to allow_value(100).for(:shooting_score_input) }
-      it { is_expected.not_to allow_value(101).for(:shooting_score_input) }
-
-      it "cannot be given if also individual shots have been defined" do
-        comp = build(:competitor, shooting_score_input: 50, shots: [8])
-        expect(comp).to have(1).errors_on(:base)
-      end
-
-      it "can be given if individual shots only with nils" do
-        comp = build(:competitor, :shooting_score_input => 50)
-        expect(comp).to be_valid
-      end
-    end
+    it_should_behave_like 'shooting score input', :shooting_score_input
 
     describe 'shots' do
       it { is_expected.to allow_value(nil).for('shots') }
