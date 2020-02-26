@@ -1,8 +1,8 @@
 - shooting_race = @series.sport.only_shooting?
-- unless shooting_race
-  .message.message--info= t 'official.result_place.shooting.either_total_or_shots'
+- infos = [t('official.result_place.shooting.either_total_or_shots')]
 - if @series.sport.inner_ten?
-  .message.message--info= t 'official.result_place.shooting.inner_ten_as_eleven'
+  - infos << t('official.result_place.shooting.inner_ten_as_eleven')
+.message.message--info #{infos.join('. ')}.
 .result-cards
   - @series.competitors.each do |competitor|
     .card
