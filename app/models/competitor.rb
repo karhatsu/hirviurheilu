@@ -44,6 +44,7 @@ class Competitor < ApplicationRecord
   validate :times_in_correct_order
   validate :only_one_shot_input_method_used
   validate :shots_array_values
+  validate :extra_shots_array_values
   validate :check_no_result_reason
   validate :check_if_series_has_start_list
   validate :unique_number
@@ -51,7 +52,7 @@ class Competitor < ApplicationRecord
   validate :concurrent_changes, :on => :update
   validate :track_place_fitting
 
-  before_save :set_has_result, :reset_age_group, :set_shooting_overtime_min, :convert_string_shots
+  before_save :set_has_result, :reset_age_group, :set_shooting_overtime_min, :convert_string_shots, :convert_string_extra_shots
 
   after_create :set_correct_estimates
   after_save :update_series_start_time_and_number
@@ -278,8 +279,18 @@ class Competitor < ApplicationRecord
   def shots_array_values
     return unless shots
     max_value = sport&.max_shot || 10
-    errors.add(:shots, :too_many) if shots.length > 10 && !sport&.only_shooting?
-    errors.add(:shots, :invalid_value) if shots.any? { |shot| shot.to_i < 0 || shot.to_i > max_value || shot.to_i.to_s != shot.to_s }
+    errors.add(:shots, :too_many) if sport && shots.length > sport.max_shots_count
+    errors.add(:shots, :invalid_value) if shots.any? { |shot| invalid_shot? shot, max_value }
+  end
+
+  def extra_shots_array_values
+    return unless extra_shots
+    max_value = sport&.max_shot || 10
+    errors.add(:extra_shots, :invalid_value) if extra_shots.any? { |shot| invalid_shot? shot, max_value }
+  end
+
+  def invalid_shot?(shot, max_value)
+    shot.to_i < 0 || shot.to_i > max_value || shot.to_i.to_s != shot.to_s
   end
 
   def check_no_result_reason
@@ -360,6 +371,11 @@ class Competitor < ApplicationRecord
   def convert_string_shots
     return unless shots
     self.shots = shots.map {|shot| shot.to_i}
+  end
+
+  def convert_string_extra_shots
+    return unless extra_shots
+    self.extra_shots = extra_shots.map {|shot| shot.to_i}
   end
 
   def update_series_start_time_and_number

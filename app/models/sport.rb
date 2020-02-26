@@ -13,6 +13,7 @@ class Sport
           only_shooting?: false,
           relays?: true,
           max_shot: 10,
+          max_shots_count: 10,
           inner_ten?: false,
           default_series: [
               ['S13', ['T13', 'P13', 'T11', 'P11', 'T9', 'P9', 'T7', 'P7']],
@@ -63,6 +64,7 @@ class Sport
               qualification_round: [10],
               final_round: [10],
               max_shot: 10,
+              max_shots_count: 20,
               inner_ten?: false,
               shots_per_extra_round: 2,
           }
@@ -73,6 +75,7 @@ class Sport
               qualification_round: [5, 5],
               final_round: [5, 5],
               max_shot: 11,
+              max_shots_count: 20,
               inner_ten?: true,
               shots_per_extra_round: 1,
               default_series: [['S13', ['T13', 'P13']]] + BASE_CONFIGS[:AIR_GUNS][:default_series],

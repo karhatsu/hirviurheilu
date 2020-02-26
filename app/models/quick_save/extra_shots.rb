@@ -1,4 +1,4 @@
-class QuickSave::ExtraRoundShots < QuickSave::QuickSaveBase
+class QuickSave::ExtraShots < QuickSave::QuickSaveBase
   def initialize(race_id, string)
     super race_id, string, /^(\+\+|)\d+(\,)[\+\*0-9]+$/
   end
@@ -6,8 +6,7 @@ class QuickSave::ExtraRoundShots < QuickSave::QuickSaveBase
   private
 
   def set_competitor_attrs
-    return unless @competitor.shots && @competitor.shots.length >= 20
-    @competitor.shots = @competitor.shots + extra_shots
+    @competitor.extra_shots = (@competitor.extra_shots || []) + extra_shots
   end
 
   def competitor_has_attrs?
@@ -25,7 +24,7 @@ class QuickSave::ExtraRoundShots < QuickSave::QuickSaveBase
   end
 
   def save_competitor
-    if @competitor.shots.nil? || @competitor.shots.length < 20
+    if @competitor.shots.nil? || @competitor.shots.length < @competitor.sport.max_shots_count
       @competitor.errors.add :base, 'Loppukilpailun laukaukset puuttuvat'
       return false
     end

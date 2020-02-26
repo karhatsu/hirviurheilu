@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_24_174901) do
+ActiveRecord::Schema.define(version: 2020_02_26_052016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 2020_02_24_174901) do
     t.bigint "batch_id"
     t.integer "track_place"
     t.jsonb "shots"
+    t.jsonb "extra_shots"
     t.index ["age_group_id"], name: "index_competitors_on_age_group_id"
     t.index ["batch_id"], name: "index_competitors_on_batch_id"
     t.index ["series_id"], name: "index_competitors_on_series_id"

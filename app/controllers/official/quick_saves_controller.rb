@@ -46,10 +46,10 @@ class Official::QuickSavesController < Official::OfficialController
     end
   end
 
-  def save_extra_round_shots
-    @name = 'extra_round_shots'
-    do_quick_save(QuickSave::ExtraRoundShots.new(@race.id, params[:string])) do
-      @result = t(:extra_round) + ": #{shots_print @competitor.extra_round_shots}"
+  def save_extra_shots
+    @name = 'extra_shots'
+    do_quick_save(QuickSave::ExtraShots.new(@race.id, params[:string])) do
+      @result = t(:extra_round) + ": #{shots_print @competitor.extra_shots}"
     end
   end
 

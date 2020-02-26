@@ -43,10 +43,6 @@ describe Shots do
       expect(competitor.final_round_score).to be_nil
     end
 
-    it 'extra round shots is nil' do
-      expect(competitor.extra_round_shots).to be_nil
-    end
-
     context 'and no shots nor shooting score input given' do
       let(:competitor) { FakeCompetitor.new sport, nil }
 
@@ -125,10 +121,6 @@ describe Shots do
       it 'shooting score is nil' do
         expect(competitor.shooting_score).to be_nil
       end
-
-      it 'extra round shots is nil' do
-        expect(competitor.extra_round_shots).to be_nil
-      end
     end
 
     context 'and some qualification round shots available' do
@@ -160,10 +152,6 @@ describe Shots do
 
       it 'final round score is nil' do
         expect(competitor.final_round_score).to be_nil
-      end
-
-      it 'extra round shots is nil' do
-        expect(competitor.extra_round_shots).to be_nil
       end
 
       it 'shooting score is sum of shots' do
@@ -224,7 +212,7 @@ describe Shots do
         end
       end
 
-      context 'and exactly all final round shots available as well' do
+      context 'and all final round shots available as well' do
         let(:competitor) { FakeCompetitor.new sport, [10, 9, 4, 3, 9, 2, 6, 9, 8, 10] }
 
         it 'final round shots is an array with an array containing final round shots' do
@@ -239,27 +227,7 @@ describe Shots do
           expect(competitor.final_round_score).to eql 2 + 6 + 9 + 8 + 10
         end
 
-        it 'extra round shots is nil' do
-          expect(competitor.extra_round_shots).to be_nil
-        end
-
         it 'shooting score is sum of shots' do
-          expect(competitor.shooting_score).to eql 10 + 9 + 4 + 3 + 9 + 2 + 6 + 9 + 8 + 10
-        end
-      end
-
-      context 'and all final round and also extra shots available' do
-        let(:competitor) { FakeCompetitor.new sport, [10, 9, 4, 3, 9, 2, 6, 9, 8, 10, 9, 8] }
-
-        it 'final round score is sum of final round shots' do
-          expect(competitor.final_round_score).to eql 2 + 6 + 9 + 8 + 10
-        end
-
-        it 'extra round shots is an array of extra shots' do
-          expect(competitor.extra_round_shots).to eql [9, 8]
-        end
-
-        it 'shooting score is sum of qualification and final round shots' do
           expect(competitor.shooting_score).to eql 10 + 9 + 4 + 3 + 9 + 2 + 6 + 9 + 8 + 10
         end
       end
@@ -366,7 +334,6 @@ describe Shots do
     it 'value 11 is sent as 11 in shot arrays' do
       expect(competitor.qualification_round_shots).to eql [[9, 11], [11, 5]]
       expect(competitor.final_round_shots).to eql [[10, 11], [8, 11]]
-      expect(competitor.extra_round_shots).to eql [11, 10]
     end
 
     it 'value 11 is calculated as 10 in scores' do
