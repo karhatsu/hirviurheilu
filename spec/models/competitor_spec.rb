@@ -136,6 +136,27 @@ describe Competitor do
       end
     end
 
+    describe 'extra_shots' do
+      it { is_expected.to allow_value(nil).for('extra_shots') }
+      it { is_expected.not_to allow_value([10, -1, 0]).for('extra_shots') }
+      it { is_expected.not_to allow_value([11, 10]).for('extra_shots') }
+      it { is_expected.not_to allow_value([10, 9, 1.1]).for('extra_shots') }
+      it { is_expected.to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 0]).for('extra_shots') }
+      it { is_expected.to allow_value(['10', '9', '0']).for('extra_shots') }
+      it { is_expected.not_to allow_value(['10', '9', '1.1']).for('extra_shots') }
+
+      describe 'when special setting for max shot value' do
+        it 'max shot value comes from the setting' do
+          sport = double Sport, max_shot: 15, only_shooting?: false
+          competitor = build :competitor, extra_shots: [15, 14]
+          allow(competitor).to receive(:sport).and_return(sport)
+          expect(competitor).to have(0).errors_on(:extra_shots)
+          competitor.extra_shots = [16, 15]
+          expect(competitor).to have(1).errors_on(:extra_shots)
+        end
+      end
+    end
+
     it_should_behave_like 'positive integer', :estimate1, true
     it_should_behave_like 'positive integer', :estimate2, true
     it_should_behave_like 'positive integer', :estimate3, true
@@ -332,6 +353,13 @@ describe Competitor do
       it 'converts string shots into integers' do
         competitor = create :competitor, shots: %w(10 9 8)
         expect(competitor.shots).to eql([10, 9, 8])
+      end
+    end
+
+    describe 'extra_shots' do
+      it 'converts string shots into integers' do
+        competitor = create :competitor, extra_shots: %w(10 9 8)
+        expect(competitor.extra_shots).to eql([10, 9, 8])
       end
     end
 
