@@ -17,12 +17,6 @@ class QuickSave::ExtraShots < QuickSave::QuickSaveBase
     result_string.split('').map { |shot| parse_shot shot }
   end
 
-  def parse_shot(shot)
-    return 11 if shot == '*'
-    return 10 if shot == '+'
-    shot.to_i
-  end
-
   def save_competitor
     if @competitor.shots.nil? || @competitor.shots.length < @competitor.sport.max_shots_count
       @competitor.errors.add :base, 'Loppukilpailun laukaukset puuttuvat'

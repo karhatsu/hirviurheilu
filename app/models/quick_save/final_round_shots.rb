@@ -25,12 +25,6 @@ class QuickSave::FinalRoundShots < QuickSave::QuickSaveBase
     result_string.split('').map { |shot| parse_shot shot }
   end
 
-  def parse_shot(shot)
-    return 11 if shot == '*'
-    return 10 if shot == '+'
-    shot.to_i
-  end
-
   def save_competitor
     if sum_input? && !@competitor.qualification_round_shooting_score_input
       @competitor.errors.add :base, 'Alkukilpailun tulos puuttuu'

@@ -21,10 +21,4 @@ class QuickSave::QualificationRoundShots < QuickSave::QuickSaveBase
   def qualification_shots
     result_string.split('').map { |shot| parse_shot shot }
   end
-
-  def parse_shot(shot)
-    return 11 if shot == '*'
-    return 10 if shot == '+'
-    shot.to_i
-  end
 end
