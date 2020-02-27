@@ -4,9 +4,8 @@ class AddExtraShotsToCompetitors < ActiveRecord::Migration[6.0]
     Race.all.where(sport_key: [Sport::ILMAHIRVI, Sport::ILMALUODIKKO]).each do |race|
       race.competitors.each do |competitor|
         if competitor.shots && competitor.shots.length > 20
-          competitor.extra_shots = competitor.shots[20..-1]
-          competitor.shots = competitor.shots[0...20]
-          competitor.save!
+          competitor.update_column :extra_shots, competitor.shots[20..-1]
+          competitor.update_column :shots, competitor.shots[0...20]
         end
       end
     end
