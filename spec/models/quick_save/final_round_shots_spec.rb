@@ -5,9 +5,10 @@ describe QuickSave::FinalRoundShots do
   let(:series) { create :series, race: race }
   let(:competitor10_shots) { [9,9,9,9,8,8,8,8,7,6] }
   let!(:competitor1) { create :competitor, series: series, number: 1 }
+  let!(:competitor5) { create :competitor, series: series, number: 5, qualification_round_shooting_score_input: 55 }
   let!(:competitor10) { create :competitor, series: series, number: 10, shots: competitor10_shots }
 
-  context 'when string format is correct and competitor with qualification round shots is found' do
+  context 'when string format as shots is correct and competitor with qualification round shots is found' do
     before do
       @qs = QuickSave::FinalRoundShots.new(race.id, '10,+99*876510')
     end
@@ -18,6 +19,17 @@ describe QuickSave::FinalRoundShots do
     end
   end
 
+  context 'when string format as sum is correct and competitor with qualification round input is found' do
+    before do
+      @qs = QuickSave::FinalRoundShots.new(race.id, '5,78')
+    end
+
+    it 'saves the input' do
+      result = @qs.save
+      expect_success result, competitor5, nil, 78
+    end
+  end
+
   context 'when no shots yet' do
     before do
       @qs = QuickSave::FinalRoundShots.new(race.id, '1,+99*876510')
@@ -25,7 +37,7 @@ describe QuickSave::FinalRoundShots do
 
     it 'does not save anything' do
       result = @qs.save
-      expect_failure result, /Alkukilpailun laukaukset puuttuvat/, competitor1
+      expect_failure result, /Alkukilpailun tulos puuttuu/, competitor1
     end
   end
 
@@ -38,7 +50,18 @@ describe QuickSave::FinalRoundShots do
 
     it 'does not save anything' do
       result = @qs.save
-      expect_failure result, /Alkukilpailun laukaukset puuttuvat/, competitor1, nine_shots
+      expect_failure result, /Alkukilpailun tulos puuttuu/, competitor1, nine_shots
+    end
+  end
+
+  context 'when no qualification round input yet and sum is given' do
+    before do
+      @qs = QuickSave::FinalRoundShots.new(race.id, '1,92')
+    end
+
+    it 'does not save anything' do
+      result = @qs.save
+      expect_failure result, /Alkukilpailun tulos puuttuu/, competitor1
     end
   end
 
@@ -68,6 +91,17 @@ describe QuickSave::FinalRoundShots do
   context 'when too many shots given' do
     before do
       @qs = QuickSave::FinalRoundShots.new(race.id, '10,+9988765222')
+    end
+
+    it 'does not save anything' do
+      result = @qs.save
+      expect_failure result, /muoto/
+    end
+  end
+
+  context 'when invalid sum given' do
+    before do
+      @qs = QuickSave::FinalRoundShots.new(race.id, '5,101')
     end
 
     it 'does not save anything' do
@@ -139,19 +173,47 @@ describe QuickSave::FinalRoundShots do
     end
   end
 
-  def expect_success(result, competitor, shots)
+  describe "when sum data already stored" do
+    describe 'and ++ not used in the beginning' do
+      let!(:competitor20) { create :competitor, series: series, number: 20, qualification_round_shooting_score_input: 99, final_round_shooting_score_input: 88 }
+
+      before do
+        @qs = QuickSave::FinalRoundShots.new(race.id, '20,98')
+      end
+
+      it 'does not save the given result' do
+        result = @qs.save
+        expect_failure result, /talletettu/, competitor20, nil, 88
+      end
+    end
+
+    describe 'and ++ used in the beginning' do
+      before do
+        @qs = QuickSave::FinalRoundShots.new(race.id, '++5,98')
+      end
+
+      it 'overrides the existing result' do
+        result = @qs.save
+        expect_success result, competitor5, nil, 98
+      end
+    end
+  end
+
+  def expect_success(result, competitor, shots, shooting_score_input = nil)
     expect(result).to be_truthy
     expect(@qs.competitor).to eq(competitor)
     expect(@qs.error).to be_nil
     expect(competitor.reload.shots).to eq shots
+    expect(competitor.final_round_shooting_score_input).to eq shooting_score_input
   end
 
-  def expect_failure(result, error_regex, competitor = nil, original_shots = nil)
+  def expect_failure(result, error_regex, competitor = nil, original_shots = nil, original_input_sum = nil)
     expect(result).to be_falsey
     expect(@qs.competitor).to eq(competitor)
     expect(@qs.error).to match(error_regex)
     if competitor
       expect(competitor.reload.shots).to eq(original_shots)
+      expect(competitor.final_round_shooting_score_input).to eq(original_input_sum)
     end
   end
 end
