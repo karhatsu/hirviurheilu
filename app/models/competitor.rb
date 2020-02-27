@@ -26,9 +26,10 @@ class Competitor < ApplicationRecord
   validates :last_name, :presence => true
   validates :number,
     :numericality => { :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true }
-  validates :shooting_score_input, :allow_nil => true,
-    :numericality => { :only_integer => true,
-      :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
+  shooting_score_input_validations = { numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true } }
+  validates :shooting_score_input, shooting_score_input_validations
+  validates :qualification_round_shooting_score_input, shooting_score_input_validations
+  validates :final_round_shooting_score_input, shooting_score_input_validations
   estimate_validations = {allow_nil: true, numericality: { only_integer: true, greater_than: 0 }}
   validates :estimate1, estimate_validations
   validates :estimate2, estimate_validations
@@ -174,6 +175,7 @@ class Competitor < ApplicationRecord
   def finished?
     return true if no_result_reason
     if sport.only_shooting?
+      return true if qualification_round_shooting_score_input && final_round_shooting_score_input
       shots && (shots.length == 10 || shots.length >= 20)
     else
       (start_time && (arrival_time || series.walking_series?) && shooting_score && estimate1 && estimate2 &&
@@ -273,7 +275,9 @@ class Competitor < ApplicationRecord
   end
 
   def only_one_shot_input_method_used
-    errors.add(:base, :shooting_result_either_sum_or_by_shots) if shooting_score_input && shots
+    if shots && (shooting_score_input || qualification_round_shooting_score_input || final_round_shooting_score_input)
+      errors.add(:base, :shooting_result_either_sum_or_by_shots)
+    end
   end
 
   def shots_array_values
@@ -338,7 +342,7 @@ class Competitor < ApplicationRecord
   end
 
   def set_has_result
-    self.has_result = true if arrival_time || estimate1 || shooting_score_input || shots
+    self.has_result = true if arrival_time || estimate1 || shooting_score_input || qualification_round_shooting_score_input || final_round_shooting_score_input || shots
   end
 
   def reset_age_group

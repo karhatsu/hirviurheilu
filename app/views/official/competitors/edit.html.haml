@@ -42,23 +42,39 @@
         .col-xs-12.col-sm-3= f.label :shooting_overtime_min
         .col-xs-12.col-sm-9= f.number_field :shooting_overtime_min
   - elsif !@series.sport.start_list?
-    - qualification_round = @competitor.sport.qualification_round
-    - qualification_round_shots = qualification_round && qualification_round.inject(:+)
-    - final_round = @competitor.sport.final_round
-    - final_round_shots = final_round && final_round.inject(:+)
-    - basic_shots = qualification_round_shots + final_round_shots
-    - shots_per_extra_round = @series.sport.shots_per_extra_round
-    - extra_shots_count = @competitor.shots && @competitor.shots.length >= basic_shots ? @competitor.shots.length - basic_shots + shots_per_extra_round : 0
+    - config = shot_fields_config @series.sport, @competitor
+    - extra_shots_count = config[:extra_shots_count]
     = hidden_field_tag :no_times, true
     .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :number
       .col-xs-12.col-sm-9= f.number_field :number
     = render partial: 'official/competitors/shooting_race_fields', locals: { f: f }
-    .form__field.row
-      .col-xs-12.col-sm-3
-        %label= t '.shots'
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-3= f.label :qualification_round_shooting_score_input
       .col-xs-12.col-sm-9
-        = render partial: 'official/shots/all_shooting_race_shots', locals: { f: f, sport: @series.sport, competitor: @competitor }
+        = f.number_field :qualification_round_shooting_score_input, maxlength: 3
+        (#{t '.either_total_or_shots'})
+    .form__field.row
+      .col-xs-12.col-sm-3= label_tag :qualification_round_shots, t('.qualification_round_shots')
+      .col-xs-12.col-sm-9
+        = render partial: 'official/shots/shooting_race_shots',
+            locals: { competitor: @competitor, round_rules: config[:qualification_round], base: 0, column_name: :shots, field_name: 'shots[]' }
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-3= f.label :final_round_shooting_score_input
+      .col-xs-12.col-sm-9
+        = f.number_field :final_round_shooting_score_input, maxlength: 3
+        (#{t '.either_total_or_shots'})
+    .form__field.row
+      .col-xs-12.col-sm-3= label_tag :final_round_shots, t('.final_round_shots')
+      .col-xs-12.col-sm-9
+        = render partial: 'official/shots/shooting_race_shots',
+            locals: { competitor: @competitor, round_rules: config[:final_round], base: config[:qualification_round_shots_count], column_name: :shots, field_name: 'shots[]' }
+    - if extra_shots_count > 0
+      .form__field.row
+        .col-xs-12.col-sm-3= label_tag :extra_shots, t('attributes.extra_shots')
+        .col-xs-12.col-sm-9
+          = render partial: 'official/shots/shooting_race_shots',
+              locals: { competitor: @competitor, round_rules: [extra_shots_count], base: 0, column_name: :extra_shots, field_name: 'extra_shots[]' }
   - else
     = hidden_field_tag :no_times, true
   .form__field.row

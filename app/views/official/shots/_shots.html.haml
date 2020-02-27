@@ -1,8 +1,8 @@
 - shooting_race = @series.sport.only_shooting?
-- unless shooting_race
-  .message.message--info= t 'official.result_place.shooting.either_total_or_shots'
+- infos = [t('official.result_place.shooting.either_total_or_shots')]
 - if @series.sport.inner_ten?
-  .message.message--info= t 'official.result_place.shooting.inner_ten_as_eleven'
+  - infos << t('official.result_place.shooting.inner_ten_as_eleven')
+.message.message--info #{infos.join('. ')}.
 .result-cards
   - @series.competitors.each do |competitor|
     .card
@@ -28,6 +28,8 @@
         - if competitor.no_result_reason
           = competitor.no_result_reason
         - else
+          - if shooting_race
+            #{competitor.qualification_round_score.to_i} + #{competitor.final_round_score.to_i} =
           = competitor.shooting_score
     :javascript
       $("#shots_form_#{competitor.id}").bind('ajax:error', function() {
@@ -37,8 +39,16 @@
       });
 :javascript
   $('.shots-total-input').change(function() {
-    calculate_shots_result($(this).closest('.card'));
+    calculateShotsResult($(this))
   });
   $('.shot').change(function() {
-    calculate_shots_result($(this).closest('.card'));
+    calculateShotsResult($(this))
   });
+  function calculateShotsResult(field) {
+    const $card = field.closest('.card')
+    if (#{shooting_race}) {
+      calculateShootingRaceShotsResult($card, #{@series.sport.inner_ten?})
+    } else {
+      calculateThreeSportsShotsResult($card)
+    }
+  }

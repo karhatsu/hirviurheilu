@@ -92,4 +92,10 @@ class QuickSave::QuickSaveBase
   def set_stored_already_error
     @error = "Kilpailijalle (#{@competitor.first_name} #{@competitor.last_name}, #{@competitor.series.name}) on jo talletettu tieto. Voit ylikirjoittaa vanhan tuloksen syöttämällä ++numero,tulos."
   end
+
+  def parse_shot(shot)
+    return 11 if shot == '*'
+    return 10 if shot == '+'
+    shot.to_i
+  end
 end

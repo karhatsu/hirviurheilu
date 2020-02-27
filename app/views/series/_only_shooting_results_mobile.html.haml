@@ -6,7 +6,11 @@
       .card__middle
         .card__name= full_name(comp)
         .card__middle-row= comp.club.name
-        - if comp.shots
+        - if comp.qualification_round_shooting_score_input
+          = comp.qualification_round_shooting_score_input
+          - if comp.final_round_shooting_score_input
+            + #{comp.final_round_shooting_score_input}
+        - elsif comp.shots
           .card__middle-row
             - if comp.qualification_round_sub_scores.length == 2
               %span.shots Alkukilpailu:

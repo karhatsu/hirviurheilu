@@ -1,16 +1,21 @@
-- qualification_round = sport.qualification_round
-- qualification_round_shots = qualification_round && qualification_round.inject(:+) || 0
-- final_round = sport.final_round
-- final_round_shots = final_round && final_round.inject(:+) || 0
-- basic_shots = qualification_round_shots + final_round_shots
-- shots_per_extra_round = sport.shots_per_extra_round
-- extra_shots_count = competitor.shots.length == basic_shots ? (competitor.extra_shots || []).length + shots_per_extra_round : 0
+- config = shot_fields_config competitor.sport, competitor
+- extra_shots_count = config[:extra_shots_count]
 - partial = 'official/shots/shooting_race_shots'
 = f.hidden_field :shooting_score_input
 = t :qualification_round
-= render partial: partial, locals: { competitor: competitor, round_rules: qualification_round, base: 0, column_name: :shots, field_name: 'shots[]' }
+.form__horizontal-fields
+  .card__sub-result.card__sub-result--shoot.form__field.form__field--sm
+    = f.number_field :qualification_round_shooting_score_input, maxlength: 3, class: 'shots-total-input'
+  .card__sub-result.card__sub-result--shoot
+    = render partial: partial, locals: { competitor: competitor, round_rules: config[:qualification_round], base: 0, column_name: :shots, field_name: 'shots[]' }
 = t :final_round
-= render partial: partial, locals: { competitor: competitor, round_rules: final_round, base: qualification_round_shots, column_name: :shots, field_name: 'shots[]' }
+.form__horizontal-fields
+  .card__sub-result.card__sub-result--shoot.form__field.form__field--sm
+    = f.number_field :final_round_shooting_score_input, maxlength: 3, class: 'shots-total-input'
+  .card__sub-result.card__sub-result--shoot
+    = render partial: partial, locals: { competitor: competitor, round_rules: config[:final_round], base: config[:qualification_round_shots_count], column_name: :shots, field_name: 'shots[]' }
 - if extra_shots_count > 0
   = t :extra_round
-  = render partial: partial, locals: { competitor: competitor, round_rules: [extra_shots_count], base: 0, column_name: :extra_shots, field_name: 'extra_shots[]' }
+  .form__horizontal-fields
+    .card__sub-result.card__sub-result--shoot
+      = render partial: partial, locals: { competitor: competitor, round_rules: [extra_shots_count], base: 0, column_name: :extra_shots, field_name: 'extra_shots[]' }

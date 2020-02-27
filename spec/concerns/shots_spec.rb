@@ -77,6 +77,53 @@ describe Shots do
     end
   end
 
+  context 'when qualification and final round shooting score inputs given' do
+    let(:competitor) { FakeCompetitor.new sport, nil }
+
+    before do
+      allow(sport).to receive(:qualification_round).and_return([10])
+      allow(sport).to receive(:final_round).and_return([10])
+      competitor.qualification_round_shooting_score_input = 91
+      competitor.final_round_shooting_score_input = 88
+    end
+
+    it 'hits is nil' do
+      expect(competitor.hits).to be_nil
+    end
+
+    it 'qualification_round_hits is nil' do
+      expect(competitor.qualification_round_hits).to be_nil
+    end
+
+    it 'qualification round shots is nil' do
+      expect(competitor.qualification_round_shots).to be_nil
+    end
+
+    it 'qualification round sub scores is nil' do
+      expect(competitor.qualification_round_sub_scores).to be_nil
+    end
+
+    it 'qualification round score is given value' do
+      expect(competitor.qualification_round_score).to eql 91
+    end
+
+    it 'final round shots is nil' do
+      expect(competitor.final_round_shots).to be_nil
+    end
+
+    it 'final round sub scores is nil' do
+      expect(competitor.final_round_sub_scores).to be_nil
+    end
+
+    it 'final round score is given value' do
+      expect(competitor.final_round_score).to eql 88
+    end
+
+    it 'shooting score is sum of input values' do
+      expect(competitor.shooting_score).to eql 91 + 88
+    end
+  end
+
   context 'when sport has qualification and final rounds in one part' do
     before do
       allow(sport).to receive(:qualification_round).and_return([5])
@@ -354,6 +401,6 @@ describe Shots do
     end
 
     attr_reader :sport
-    attr_accessor :shots, :shooting_score_input
+    attr_accessor :shots, :shooting_score_input, :qualification_round_shooting_score_input, :final_round_shooting_score_input
   end
 end

@@ -100,6 +100,8 @@ sv:
       edit:
         either_total_or_shots: Spara antingen totalresultat eller enskilda skott.
         shots: Enskilda skott
+        qualification_round_shots: Alkukilpailun laukaukset
+        final_round_shots: Loppukilpailun laukaukset
         dns: Startade inte (DNS)
         dnf: Avbröt (DNF)
         dq: Diskad (DQ)
@@ -149,11 +151,11 @@ sv:
         instructions_estimates_4:  eller om tävlarna har fyra bedömningar, nr,bedömning1,bedömning2,bedömning3,bedömning4, t.ex. 45,95,118,185,134
         instructions_shots: Spara resultat som nr,skytteresultat, t.ex. 45,87 (tävlare 45, skytte totalt 87). Eller med skott så att +-tecken eller *-tecken betyder 10, t.ex. 45,++99877420 (sätt 0 för alla missar).
         instructions_qualification_round_shots:
-          ILMAHIRVI: Syötä alkukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9++870**89.
-          ILMALUODIKKO: Syötä alkukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10, esim. 45,9++870+989.
+          ILMAHIRVI: Syötä alkukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9++870**89. Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, alkukilpailun tulos 94).
+          ILMALUODIKKO: Syötä alkukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10, esim. 45,9++870+989. Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, alkukilpailun tulos 94).
         instructions_final_round_shots:
-          ILMAHIRVI: Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9++870**89.
-          ILMALUODIKKO: Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10, esim. 45,9++870+989.
+          ILMAHIRVI: Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9++870**89. Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, alkukilpailun tulos 94).
+          ILMALUODIKKO: Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10, esim. 45,9++870+989. Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, alkukilpailun tulos 94).
         instructions_extra_shots:
           ILMAHIRVI: Syötä uusintalaukauksia muodossa nro,laukaus1,laukaus2,.. siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9*. Jos syötät laukaukset uudestaan, ne tallentuvat edellisten perään.
           ILMALUODIKKO: Syötä uusintalaukauksia muodossa nro,laukaus1,laukaus2,.. siten että +-merkki on 10, esim. 45,9*. Jos syötät laukaukset uudestaan, ne tallentuvat edellisten perään.
@@ -166,7 +168,7 @@ sv:
       generate_start_times: Skapa starttider och -nummer
       add_competitor_to_series: Öka tävlare till klassen %{series_name}
       shooting:
-        either_total_or_shots: Spara antingen totalresultat eller enskilda skott, inte båda.
+        either_total_or_shots: Spara antingen totalresultat eller enskilda skott, inte båda
         inner_ten_as_eleven: Använd 11 för innertio
     batches:
       index:

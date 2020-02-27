@@ -7,7 +7,11 @@ $("#competitor_old_values_estimate3").val(<%= @competitor.estimate3 %>);
 $("#competitor_old_values_estimate4").val(<%= @competitor.estimate4 %>);
 $("#time_<%= @competitor.id %>").html("<%= @competitor.time_in_seconds ? time_from_seconds(@competitor.time_in_seconds) : '' %>")
 $("#estimate_points_<%= @competitor.id %>").html("<%= @competitor.estimate_points %>")
+<% if @competitor.sport.only_shooting? %>
+$("#shots_result_<%= @competitor.id %>").html("<%= "#{@competitor.qualification_round_score.to_i} + #{@competitor.final_round_score.to_i} = #{@competitor.shooting_score.to_i}" %>")
+<% else %>
 $("#shots_result_<%= @competitor.id %>").html("<%= @competitor.shooting_score %>")
+<% end %>
 setTimeout(function() {
   resetInlineMessage("#status_<%=@competitor.id%>")
 }, 5000);
