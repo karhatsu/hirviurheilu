@@ -63,7 +63,7 @@ def verify_http_status(path)
 end
 
 open_page('/')
-verify_contains "//div[@class='body__on-top-title']", 'Hirviurheilu - Hirvenhiihdon ja hirvenjuoksun tulospalvelu'
+verify_contains "//div[@class='body__on-top-title']", 'Hirviurheilu - Tulospalvelu Metsästäjäliiton urheilulajeille'
 link_to_races = find_link "//div[@class='menu menu--main']/div[2]/a", 'Kilpailut'
 
 open_page(link_to_races)

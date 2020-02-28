@@ -1,7 +1,7 @@
 fi:
   home:
     show:
-      main_title: Hirviurheilu - Hirvenhiihdon ja hirvenjuoksun tulospalvelu
+      main_title: Hirviurheilu - Tulospalvelu Metsästäjäliiton urheilulajeille
       competitions:
         today: Kilpailut tänään
         tomorrow: Kilpailut huomenna

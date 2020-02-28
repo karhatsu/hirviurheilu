@@ -5,7 +5,7 @@ Feature: Main page
 
   Scenario: Load main page
     Given I go to the home page
-    Then the page title should contain "Hirvenhiihdon ja hirvenjuoksun tulospalvelu"
+    Then the page title should contain "Tulospalvelu Metsästäjäliiton urheilulajeille"
     And the "Etusivu" main menu item should be selected
 
   Scenario: Listing races in the main page
