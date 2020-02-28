@@ -18,4 +18,4 @@
   = t :extra_round
   .form__horizontal-fields
     .card__sub-result.card__sub-result--shoot
-      = render partial: partial, locals: { competitor: competitor, round_rules: [extra_shots_count], base: 0, column_name: :extra_shots, field_name: 'extra_shots[]' }
+      #extra-shots= render partial: partial, locals: { competitor: competitor, round_rules: [extra_shots_count], base: 0, column_name: :extra_shots, field_name: 'extra_shots[]' }
