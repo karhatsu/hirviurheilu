@@ -142,6 +142,7 @@ ElkSports::Application.routes.draw do
           resource :arrival_time, only: :update
         end
         put '/competitors/:competitor_number/shots/:shot_number' => 'shots#update'
+        put '/competitors/:competitor_number/extra_shots/:shot_number' => 'extra_shots#update'
       end
     end
   end
