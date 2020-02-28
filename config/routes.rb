@@ -141,6 +141,7 @@ ElkSports::Application.routes.draw do
           resource :shooting_finish_time, only: :update
           resource :arrival_time, only: :update
         end
+        put '/competitors/:competitor_number/shots/:shot_number' => 'shots#update'
       end
     end
   end

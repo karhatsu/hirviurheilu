@@ -239,6 +239,10 @@ class Competitor < ApplicationRecord
     [correct_estimate1, correct_estimate2, correct_estimate3, correct_estimate4].select {|d| !d.blank?}
   end
 
+  def self.invalid_shot?(shot, max_value)
+    shot.to_i < 0 || shot.to_i > max_value || shot.to_i.to_s != shot.to_s
+  end
+
   private
 
   def start_time_max
@@ -284,17 +288,13 @@ class Competitor < ApplicationRecord
     return unless shots
     max_value = sport&.max_shot || 10
     errors.add(:shots, :too_many) if sport && shots.length > sport.max_shots_count
-    errors.add(:shots, :invalid_value) if shots.any? { |shot| invalid_shot? shot, max_value }
+    errors.add(:shots, :invalid_value) if shots.any? { |shot| Competitor.invalid_shot? shot, max_value }
   end
 
   def extra_shots_array_values
     return unless extra_shots
     max_value = sport&.max_shot || 10
-    errors.add(:extra_shots, :invalid_value) if extra_shots.any? { |shot| invalid_shot? shot, max_value }
-  end
-
-  def invalid_shot?(shot, max_value)
-    shot.to_i < 0 || shot.to_i > max_value || shot.to_i.to_s != shot.to_s
+    errors.add(:extra_shots, :invalid_value) if extra_shots.any? { |shot| Competitor.invalid_shot? shot, max_value }
   end
 
   def check_no_result_reason
