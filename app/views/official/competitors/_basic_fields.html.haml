@@ -64,14 +64,16 @@
 
   function reload_number_and_start_time_and_link(series_id) {
     $.getJSON('/series/' + series_id, function(series) {
-      if(series.has_start_list) {
-        $('#competitor_number').val(series.next_start_number);
-        $('#competitor_start_time').val(series.next_start_time.substring(11, 19));
-        $('#number_span').show();
-      } else {
-        $('#competitor_number').val('');
-        $('#competitor_start_time').val('');
-        $('#number_span').hide();
+      if (#{@series.sport.start_list?}) {
+        if(series.has_start_list) {
+          $('#competitor_number').val(series.next_start_number);
+          $('#competitor_start_time').val(series.next_start_time.substring(11, 19));
+          $('#number_span').show();
+        } else {
+          $('#competitor_number').val('');
+          $('#competitor_start_time').val('');
+          $('#number_span').hide();
+        }
       }
       $('#back_to_series').attr('href', '/official/series/' + series_id + '/competitors');
       $('#back_to_series #series_name').text(series.name);
