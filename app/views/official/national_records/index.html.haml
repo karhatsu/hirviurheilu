@@ -1,0 +1,15 @@
+- content_for :title, "#{@race.name} - #{t('.title')}"
+%h2= t '.title'
+.message.message--info
+  = t '.info'
+  %a{href: NATIONAL_RECORD_URL, target: '_blank'}= t '.link_to_national_records'
+- if @race.series.empty?
+  .message.message--warning= t '.no_series'
+- else
+  = form_for([:official, @race], html: { class: 'form' }) do |f|
+    = f.fields_for :series do |series_form|
+      .form__field.form__field--sm.row
+        .col-xs-6.col-sm-2= series_form.label :national_record, series_form.object.name
+        .col-xs-6.col-sm-10= series_form.number_field :national_record
+    .form__buttons
+      = submit_tag t(:save), class: 'button button--primary'

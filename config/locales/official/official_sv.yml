@@ -28,6 +28,8 @@ sv:
       edit:
         title: Tävlingens redigering
         submit: Spara tävlingens och klassernas avgifter
+      update:
+        updated: Tävlingen uppdaterad
       form:
         basic_information: Tävlingens basavgifter
         link_to_race_home_page: Länken till tävlingens hemsida
@@ -65,6 +67,7 @@ sv:
         copy_competitors: Kopiera tävlarna från annan tävling
         add_competitors_from_csv: Öka tävlar från CSV-fil
         other: Övriga
+        national_records: Finska rekord
         download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)
         download_competitors_by_series: Lataa osallistujat sarjoittain (PDF)
         other_race_formats: Andra tävlingar
@@ -332,3 +335,9 @@ sv:
         no_batches: Yhtään erää ei ole vielä määritetty
         select_batch: Valitse erä
         no_competitors_in_batch: Erässä ei ole yhtään kilpailijaa
+    national_records:
+      index:
+        title: Finska record
+        info: På den här sidan du kan spara finska record för alla klasser.
+        link_to_national_records: Jägarförbuns finska record sida.
+        no_series: Det finns inga klasser i tävlingen

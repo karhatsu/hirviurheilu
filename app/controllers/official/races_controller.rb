@@ -46,6 +46,7 @@ class Official::RacesController < Official::OfficialController
 
   def update
     if @race.update(update_race_params)
+      flash[:success] = t '.updated'
       redirect_to official_race_path(@race)
     else
       render :edit

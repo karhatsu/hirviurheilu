@@ -28,6 +28,8 @@ fi:
       edit:
         title: Kilpailun muokkaus
         submit: Tallenna kilpailun ja sarjojen tiedot
+      update:
+        updated: Kilpailun tiedot päivitetty
       form:
         basic_information: Kilpailun perustiedot
         link_to_race_home_page: Linkki kilpailun kotisivuille
@@ -65,6 +67,7 @@ fi:
         copy_competitors: Kopioi kilpailijat toisesta kilpailusta
         add_competitors_from_csv: Lisää kilpailijoita CSV-tiedostosta
         other: Muita toimintoja
+        national_records: Suomen ennätykset
         download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)
         download_competitors_by_series: Lataa osallistujat sarjoittain (PDF)
         other_race_formats: Muut kilpailumuodot
@@ -333,3 +336,9 @@ fi:
         no_batches: Yhtään erää ei ole vielä määritetty
         select_batch: Valitse erä
         no_competitors_in_batch: Erässä ei ole yhtään kilpailijaa
+    national_records:
+      index:
+        title: Suomen ennätykset
+        info: Tällä sivulla voit tallentaa sarjoille voimassa olevat Suomen ennätykset. Mikäli ennätys rikkoontuu, tulossivu näyttää SE-merkkinän.
+        link_to_national_records: Metsästäjäliiton SE-sivu.
+        no_series: Kilpailuun ei ole lisätty yhtään sarjaa
