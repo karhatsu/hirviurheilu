@@ -38,7 +38,7 @@
                 = competitor.no_result_reason
               - else
                 #{competitor.qualification_round_score.to_i} + #{competitor.final_round_score.to_i} =
-                = competitor.shooting_score
+                = competitor.shooting_score.to_i
       :javascript
         function start_updating(id) {
           $("#status_" + id).removeClass().html('#{image_tag 'spinner.gif'}');

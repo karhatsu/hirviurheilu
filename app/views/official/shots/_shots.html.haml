@@ -30,7 +30,7 @@
         - else
           - if shooting_race
             #{competitor.qualification_round_score.to_i} + #{competitor.final_round_score.to_i} =
-          = competitor.shooting_score
+          = competitor.shooting_score.to_i
     :javascript
       $("#shots_form_#{competitor.id}").bind('ajax:error', function() {
         $("#update_error").html('Yhteysvirhe, yritä uudelleen');
