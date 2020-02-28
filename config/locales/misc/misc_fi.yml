@@ -88,6 +88,7 @@ fi:
   password: Salasana
   points: Pisteet
   qualification_round: Alkukilpailu
+  race_id: Kilpailun ID
   race_search_text: Kilpailun nimi tai sijainti
   relay_team:
     DNS: Joukkue ei osallistunut kilpailuun

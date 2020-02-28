@@ -140,6 +140,9 @@
   - unless @race.new_record? || @race.api_secret.blank?
     %h2 API
     .form__field.form__field--md.row
+      .col-xs-12.col-sm-3= t :race_id
+      .col-xs-12.col-sm-9= @race.id
+    .form__field.form__field--md.row
       .col-xs-12.col-sm-3= t 'attributes.api_secret'
       .col-xs-12.col-sm-9
         %a{href: '#', onClick: "event.preventDefault(); $('#api_secret').show(); $(this).hide()"}= t :show

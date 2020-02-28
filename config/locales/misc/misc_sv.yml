@@ -88,6 +88,7 @@ sv:
   password: Lösenord
   points: Poäng
   qualification_round: Alkukilpailu
+  race_id: Tävlingens ID
   race_search_text: Tävlings namn eller ort
   relay_team:
     DNS: Laget startade inte
