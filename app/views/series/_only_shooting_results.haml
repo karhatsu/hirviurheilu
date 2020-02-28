@@ -13,6 +13,7 @@
       %th Uusinta
   - prev_competitor_results = 1.0/0.0
   - competitors.each_with_index do |comp, i|
+    - @max_points = comp.points if i == 0
     - next unless i < 3 || params[:club_id].blank? || comp.club_id == params[:club_id].to_i
     - shooting_race_results = comp.shooting_race_results competitors
     %tr{class: i % 2 == 0 ? 'odd' : ''}
@@ -53,6 +54,7 @@
           = comp.no_result_reason
         - else
           = comp.shooting_score
+          = national_record_print(comp) if comp.points.to_i >= @max_points.to_i
       - if extra_shots_column
         %td
           - if comp.extra_shots

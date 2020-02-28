@@ -1,6 +1,7 @@
 .result-cards
   - prev_competitor_results = 1.0/0.0
   - series.shooting_race_results.each_with_index do |comp, i|
+    - @max_points = comp.points if i == 0
     .card{class: i % 2 == 0 ? 'card--odd' : ''}
       .card__number= "#{i + 1}." unless comp.shooting_race_results(series.competitors) == prev_competitor_results
       .card__middle
@@ -42,4 +43,5 @@
           = comp.no_result_reason
         - else
           = comp.shooting_score
+          = national_record_print(comp) if comp.points.to_i >= @max_points.to_i
     - prev_competitor_results = comp.shooting_race_results series.competitors
