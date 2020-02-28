@@ -1436,9 +1436,9 @@ describe Competitor do
       context "when competitor has no 'no result reason'" do
         context 'and has no shots' do
           context 'and has only qualification round shooting score input' do
-            it 'should return false' do
+            it 'should return true' do
               competitor.qualification_round_shooting_score_input = 87
-              expect(competitor).not_to be_finished
+              expect(competitor).to be_finished
             end
           end
 
