@@ -298,10 +298,10 @@ describe ResultFormatHelper do
       end
 
       context 'when national record reached' do
-        it 'should return SE(sivuaa)' do
+        it 'should return SE (sivuaa)' do
           allow(@competitor).to receive(:national_record_passed?).and_return(false)
           allow(@competitor).to receive(:national_record_reached?).and_return(true)
-          expect(helper.national_record_print(@competitor, true)).to eq('SE(sivuaa)')
+          expect(helper.national_record_print(@competitor, true)).to eq('SE (sivuaa)')
         end
       end
     end
@@ -319,10 +319,10 @@ describe ResultFormatHelper do
       end
 
       context 'when national record reached' do
-        it 'should return SE(sivuaa)?' do
+        it 'should return SE (sivuaa)?' do
           allow(@competitor).to receive(:national_record_passed?).and_return(false)
           allow(@competitor).to receive(:national_record_reached?).and_return(true)
-          expect(helper.national_record_print(@competitor, true)).to eq('SE(sivuaa)?')
+          expect(helper.national_record_print(@competitor, true)).to eq('SE (sivuaa)?')
         end
       end
     end

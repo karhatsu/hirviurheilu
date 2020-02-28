@@ -42,7 +42,7 @@ module ResultFormatHelper
     if competitor.national_record_passed?
       tag = 'SE'
     elsif competitor.national_record_reached?
-      tag = 'SE(sivuaa)'
+      tag = 'SE (sivuaa)'
     else
       return ''
     end
