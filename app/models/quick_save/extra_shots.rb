@@ -18,8 +18,8 @@ class QuickSave::ExtraShots < QuickSave::QuickSaveBase
   end
 
   def save_competitor
-    if @competitor.shots.nil? || @competitor.shots.length < @competitor.sport.max_shots_count
-      @competitor.errors.add :base, 'Loppukilpailun laukaukset puuttuvat'
+    if !@competitor.final_round_shooting_score_input && (@competitor.shots.nil? || @competitor.shots.length < @competitor.sport.max_shots_count)
+      @competitor.errors.add :base, 'Loppukilpailun tulos puuttuu'
       return false
     end
     @competitor.save

@@ -18,6 +18,21 @@ describe QuickSave::ExtraShots do
     end
   end
 
+  context 'when string format is correct and competitor with final round input sum is found' do
+    before do
+      competitor10.shots = nil
+      competitor10.qualification_round_shooting_score_input = 91
+      competitor10.final_round_shooting_score_input = 93
+      competitor10.save!
+      @qs = QuickSave::ExtraShots.new(race.id, '10,+*')
+    end
+
+    it 'saves the extra shots' do
+      result = @qs.save
+      expect_success result, competitor10, [10, 11]
+    end
+  end
+
   context 'when no shots yet' do
     before do
       @qs = QuickSave::ExtraShots.new(race.id, '1,+99*876510')
@@ -25,7 +40,7 @@ describe QuickSave::ExtraShots do
 
     it 'does not save anything' do
       result = @qs.save
-      expect_failure result, /Loppukilpailun laukaukset puuttuvat/, competitor1
+      expect_failure result, /Loppukilpailun tulos puuttuu/, competitor1
     end
   end
 
@@ -39,7 +54,7 @@ describe QuickSave::ExtraShots do
 
     it 'does not save anything' do
       result = @qs.save
-      expect_failure result, /Loppukilpailun laukaukset puuttuvat/, competitor1, nineteen_shots
+      expect_failure result, /Loppukilpailun tulos puuttuu/, competitor1, nineteen_shots
     end
   end
 
