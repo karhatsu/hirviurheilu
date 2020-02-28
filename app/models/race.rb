@@ -48,6 +48,7 @@ class Race < ApplicationRecord
   validate :check_duplicate_name_location_start_date, :on => :create
   validate :check_competitors_on_change_to_mixed_start_order, :on => :update
 
+  before_create :generate_api_secret
   after_update :set_series_start_lists_if_needed
 
   scope :past, lambda { where('end_date<?', Time.zone.today).order('end_date DESC, name') }
@@ -316,6 +317,10 @@ class Race < ApplicationRecord
     if start_order == START_ORDER_MIXED and competitors.where(:start_time => nil).count > 0
       errors.add :base, :start_order_mixed_not_allowed
     end
+  end
+
+  def generate_api_secret
+    self.api_secret ||= SecureRandom.hex
   end
 
   def set_series_start_lists_if_needed

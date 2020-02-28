@@ -122,6 +122,20 @@ describe Race do
     end
   end
 
+  describe 'create' do
+    it 'generates a random api secret' do
+      api_secret1 = create(:race).api_secret
+      api_secret2 = create(:race).api_secret
+      expect(api_secret1).to be_truthy
+      expect(api_secret2).to be_truthy
+      expect(api_secret1).not_to eql api_secret2
+    end
+
+    it 'does not override already given api secret' do
+      expect(create(:race, api_secret: 'very-secret').api_secret).to eql 'very-secret'
+    end
+  end
+
   describe "update" do
     context "when start order changed from mixed to by series" do
       before do
