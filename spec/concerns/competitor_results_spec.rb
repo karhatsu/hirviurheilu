@@ -202,14 +202,14 @@ describe CompetitorResults do
     end
   end
 
-  context '#shooting_race_team_results' do
+  context '#shooting_race_qualification_results' do
     let(:competitor) { build :competitor }
 
     context 'when no result reason' do
       it 'returns array of one time with negative value' do
-        expect(competitor_with_no_result_reason(Competitor::DNF).shooting_race_team_results).to eql [-10000]
-        expect(competitor_with_no_result_reason(Competitor::DNS).shooting_race_team_results).to eql [-20000]
-        expect(competitor_with_no_result_reason(Competitor::DQ).shooting_race_team_results).to eql [-30000]
+        expect(competitor_with_no_result_reason(Competitor::DNF).shooting_race_qualification_results).to eql [-10000]
+        expect(competitor_with_no_result_reason(Competitor::DNS).shooting_race_qualification_results).to eql [-20000]
+        expect(competitor_with_no_result_reason(Competitor::DQ).shooting_race_qualification_results).to eql [-30000]
       end
     end
 
@@ -230,7 +230,7 @@ describe CompetitorResults do
 
       it 'returns array of QR score, QR hits, second QR score, count of different QR shots (11 as 10), and QR shots in reverse order' do
         expected = [qualification_round_score, qualification_round_hits, second_qualification_round_sub_score, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + qualification_round_shots.reverse
-        expect(competitor.shooting_race_team_results).to eql expected
+        expect(competitor.shooting_race_qualification_results).to eql expected
       end
     end
   end

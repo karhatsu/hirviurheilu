@@ -174,6 +174,8 @@ fi:
       shooting:
         either_total_or_shots: Syötä joko yhteistulos TAI yksittäiset laukaukset, ei molempia
         inner_ten_as_eleven: Syötä napakymppi lukuna 11
+        sort_by_default: Järjestä normaalisti
+        sort_by_qualification_round: Järjestä kilpailijat alkukilpailun tulosten mukaan
     batches:
       index:
         no_batches: Et ole lisännyt vielä yhtään erää

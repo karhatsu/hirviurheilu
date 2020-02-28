@@ -3,8 +3,15 @@
 - if @series.sport.inner_ten?
   - infos << t('official.result_place.shooting.inner_ten_as_eleven')
 .message.message--info #{infos.join('. ')}.
+- if @series.sport.qualification_round
+  - if params[:qualification_round]
+    = link_to t('official.result_place.shooting.sort_by_default'), '?', class: 'button'
+  - else
+    = link_to t('official.result_place.shooting.sort_by_qualification_round'), '?qualification_round=true', class: 'button'
 .result-cards
-  - @series.competitors.each do |competitor|
+  - competitors = @series.competitors
+  - competitors = Competitor.sort_by_qualification_round(@series.sport, competitors) if params[:qualification_round]
+  - competitors.each do |competitor|
     .card
       .card__number= competitor.number
       .card__middle

@@ -210,7 +210,14 @@ class Competitor < ApplicationRecord
   def self.sort_team_competitors(sport, competitors)
     return sort_three_sports_competitors competitors unless sport.only_shooting?
     competitors.sort do |a, b|
-      b.shooting_race_team_results <=> a.shooting_race_team_results
+      b.shooting_race_qualification_results <=> a.shooting_race_qualification_results
+    end
+  end
+
+  def self.sort_by_qualification_round(sport, competitors)
+    raise "Sport #{sport.name} does not have qualification round" unless sport.qualification_round
+    competitors.sort do |a, b|
+      b.shooting_race_qualification_results <=> a.shooting_race_qualification_results
     end
   end
 

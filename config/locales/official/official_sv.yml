@@ -173,6 +173,8 @@ sv:
       shooting:
         either_total_or_shots: Spara antingen totalresultat eller enskilda skott, inte båda
         inner_ten_as_eleven: Använd 11 för innertio
+        sort_by_default: Järjestä normaalisti
+        sort_by_qualification_round: Järjestä kilpailijat alkukilpailun tulosten mukaan
     batches:
       index:
         no_batches: Et ole lisännyt vielä yhtään erää

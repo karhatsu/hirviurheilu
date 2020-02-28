@@ -23,7 +23,7 @@ module CompetitorResults
     results + shot_counts_desc(shots) + reverse_shots(shots)
   end
 
-  def shooting_race_team_results
+  def shooting_race_qualification_results
     results = no_result_reason_results
     return results if results
     results = [qualification_round_score.to_i, qualification_round_hits.to_i]
