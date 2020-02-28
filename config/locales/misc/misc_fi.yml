@@ -118,6 +118,7 @@ fi:
     age_groups:
       one: Ikäryhmällä %{age_group} on lyhennetty matka.
       other: Ikäryhmillä %{age_group} on lyhennetty matka.
+  show: Näytä
   show_all_competitors: Näytä kaikki kilpailijat
   show_races_of_cup: Näytä osakilpailut
   sport_name:

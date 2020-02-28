@@ -137,6 +137,14 @@
       .col-xs-12.col-sm-3= f.label :shooting_place_count
       .col-xs-12.col-sm-9= f.number_field :shooting_place_count, maxlength: 3
 
+  - unless @race.new_record? || @race.api_secret.blank?
+    %h2= API
+    .form__field.form__field--md.row
+      .col-xs-12.col-sm-3= t 'attributes.api_secret'
+      .col-xs-12.col-sm-9
+        %a{href: '#', onClick: "event.preventDefault(); $('#api_secret').show(); $(this).hide()"}= t :show
+        %span#api_secret{style: 'display: none'}= @race.api_secret
+
   - if @race.new_record?
     %h2= t 'activerecord.models.series.other'
     .form__field.row

@@ -118,6 +118,7 @@ sv:
     age_groups:
       one: Äldsgrupp %{age_group} har kortare löpning.
       other: Äldsgruppar %{age_group} har kortare löpning.
+  show: Visa
   show_all_competitors: Visa alla tävlarna
   show_races_of_cup: Visa tävlingar
   sport_name:

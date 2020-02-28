@@ -4,6 +4,7 @@ sv:
     address: Adress
     age_group: Åldersgrupp
     age_group_id: Åldersgrupp
+    api_secret: API lösenord
     arrival_time: Avkomstid
     batch_id: Erä
     batch_interval_seconds: Paus mellan startsatser

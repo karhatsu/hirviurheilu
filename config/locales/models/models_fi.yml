@@ -4,6 +4,7 @@ fi:
     address: Osoite
     age_group: Ikäryhmä
     age_group_id: Ikäryhmä
+    api_secret: API:n salausavain
     arrival_time: Saapumisaika
     batch_id: Erä
     batch_interval_seconds: Tauko lähtöerien välissä
