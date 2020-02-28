@@ -12,7 +12,8 @@
 - else
   #update_error.message.message--error{style: 'display: none'}
   %div{style: 'margin-bottom: 16px;'}= render partial: partial_table
-  = render partial: 'official/shared/series_result_input_links', locals: { series_id: @series.id }
+  - unless @series.race.sport.only_shooting?
+    = render partial: 'official/shared/series_result_input_links', locals: { series_id: @series.id }
   = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id, mobile: true } do |series|
     = "/official/series/#{series.id}/#{controller_name}"
   .buttons.buttons--nav
