@@ -1,12 +1,18 @@
 class RacesController < ApplicationController
   before_action :set_races
+  before_action :build_sports_menu_options, only: :index
   before_action :assign_race_by_id, :only => :show
 
   def index
     where = []
     where_params = Hash.new
+    sport_key = params[:sport_key]
     district_id = params[:district_id]
     search_text = params[:search_text]
+    unless sport_key.blank?
+      where << 'sport_key=:sport_key'
+      where_params[:sport_key] = [sport_key]
+    end
     unless district_id.blank?
       where << 'district_id=:district_id'
       where_params[:district_id] = [district_id.to_i]

@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   include HomeHelper
 
-  before_action :set_sports
+  before_action :build_sports_menu_options
 
   def show
     @is_main_page = true
@@ -32,10 +32,5 @@ class HomeController < ApplicationController
     future = future.where(sport_key: params[:sport_key]) unless params[:sport_key].blank?
     future = future.where(district_id: params[:district_id]) unless params[:district_id].blank?
     group_future_races(future)
-  end
-
-  def set_sports
-    sport_keys = [Sport::RUN, Sport::SKI, Sport::ILMAHIRVI, Sport::ILMALUODIKKO]
-    @sports = sport_keys.map{|key| [t("sport_name.#{key}"), key]}
   end
 end

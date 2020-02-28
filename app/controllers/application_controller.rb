@@ -224,4 +224,9 @@ class ApplicationController < ActionController::Base
   def allow_rack_profiler
     Rack::MiniProfiler.authorize_request if current_user && current_user.admin?
   end
+
+  def build_sports_menu_options
+    sport_keys = [Sport::RUN, Sport::SKI, Sport::ILMAHIRVI, Sport::ILMALUODIKKO]
+    @sports = sport_keys.map{|key| [t("sport_name.#{key}"), key]}
+  end
 end
