@@ -138,7 +138,7 @@
       .col-xs-12.col-sm-9= f.number_field :shooting_place_count, maxlength: 3
 
   - unless @race.new_record? || @race.api_secret.blank?
-    %h2= API
+    %h2 API
     .form__field.form__field--md.row
       .col-xs-12.col-sm-3= t 'attributes.api_secret'
       .col-xs-12.col-sm-9
