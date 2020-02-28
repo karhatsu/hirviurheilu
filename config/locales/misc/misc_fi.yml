@@ -13,6 +13,7 @@ fi:
   all_competitors: Kaikki kilpailijat
   all_districts: Kaikki piirit
   all_series: Kaikki sarjat
+  all_sports: Kaikki lajit
   back_to_cup_page: Takaisin cup-kilpailun etusivulle
   back_to_home_page: Takaisin etusivulle
   back_to_official_batches_page: Takaisin erien sivulle
@@ -26,7 +27,7 @@ fi:
   batch_list: Eräluettelo
   captcha: Paljonko on kaksi plus kaksi?
   captcha_info: Tällä tarkastetaan, ettet ole robotti. Oikea vastaus on siis neljä.
-  choose_district: Valitse piiri
+  choose: Valitse
   club: Seura
   clubs: Seurat
   competition: Kilpailu

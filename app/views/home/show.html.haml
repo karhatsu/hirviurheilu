@@ -13,7 +13,7 @@
     %a.link--to-finished-races{href: '#past-races'}
       = t '.latest_ended_competitions'
       %i.material-icons-outlined.md-18 arrow_downward
-  = render partial: 'district_menu'
+  = render partial: 'race_filter_form'
   - unless @today.empty?
     %h2
       %i.material-icons-outlined.md-18 directions_run

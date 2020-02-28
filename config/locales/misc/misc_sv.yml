@@ -13,6 +13,7 @@ sv:
   all_competitors: Alla tävlarna
   all_districts: Alla distrikt
   all_series: Alla klasser
+  all_sports: Alla grener
   back_to_cup_page: Tillbaka till cup-tävlingens hemsida
   back_to_home_page: Tillbaka till hemsida
   back_to_official_batches_page: Takaisin erien sivulle
@@ -26,7 +27,7 @@ sv:
   batch_list: Eräluettelo
   captcha: Hur mycket år två plus två?
   captcha_info: Vi vill kontrollera att du är inte en robot. Den rätta svaren är naturligtvis fyra.
-  choose_district: Välj distrikt
+  choose: Välj
   club: Klubb
   clubs: Klubbar
   competition: Tävling

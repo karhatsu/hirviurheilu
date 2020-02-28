@@ -42,13 +42,13 @@ Feature: Main page
     And there is a future race "Future northern race" for the district
     And I am on the home page
     When I select "Southern District" from "district_id"
-    And I press "Valitse piiri"
+    And I press "Valitse"
     Then I should see "Finished southern race" within "div#past-races"
     And I should see "Ongoing southern race" within "div#races_today"
     But I should not see "Finished northern race" within "div#past-races"
     And I should not see "Future northern race" within "div#past-races"
     When I select "Kaikki piirit" from "district_id"
-    And I press "Valitse piiri"
+    And I press "Valitse"
     Then I should see "Finished southern race" within "div#past-races"
     And I should see "Finished northern race" within "div#past-races"
 
