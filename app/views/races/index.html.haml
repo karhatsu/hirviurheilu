@@ -11,7 +11,7 @@
 - if @races.empty?
   .message.message--info= t :no_races
 - else
-  - cache [Race.cache_key_for_all, I18n.locale, params[:page], params[:search_text], params[:district_id]] do
+  - cache [Race.cache_key_for_all, I18n.locale, params[:page], params[:search_text], params[:district_id], params[:sport_key]] do
     .row= render partial: 'home/race_list', locals: { races: @races }
     .pagination= paginate @races
 .buttons.buttons--nav
