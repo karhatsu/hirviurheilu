@@ -6,8 +6,9 @@ class CsvImport
   START_NUMBER_COLUMN = 4
   START_TIME_COLUMN = 5
 
-  COLUMNS_COUNT_START_ORDER_SERIES = 4
-  COLUMNS_COUNT_START_ORDER_MIXED = 6
+  COLUMNS_COUNT_START_ORDER_SERIES = [4]
+  COLUMNS_COUNT_START_ORDER_MIXED = [6]
+  COLUMNS_COUNT_SHOOTING_RACE = [4, 5]
 
   def initialize(race, file_path, limited_club=nil)
     @race = race
@@ -18,7 +19,7 @@ class CsvImport
     validate_duplicate_data
     strip_duplicate_errors
   end
-  
+
   def save
     if errors.empty?
       @competitors.each do |comp|
@@ -28,11 +29,11 @@ class CsvImport
     end
     false
   end
-  
+
   def errors
     @errors
   end
-  
+
   private
   def read_file(file_path)
     ["r:utf-8", "r:windows-1252:utf-8"].each do |read_encoding|
@@ -54,7 +55,7 @@ class CsvImport
   def resolve_separator(line)
     line.index(';') ? ';' : ','
   end
-  
+
   def validate_data(limited_club)
     @data.each do |row|
       return unless row_structure_correct(row)
@@ -70,9 +71,9 @@ class CsvImport
       end
     end
   end
-  
+
   def row_structure_correct(row)
-    if row.length != expected_column_count
+    unless expected_column_count.include? row.length
       @errors << "Virheellinen rivi tiedostossa: #{original_format(row)}"
       return false
     end
@@ -80,10 +81,11 @@ class CsvImport
   end
 
   def expected_column_count
+    return COLUMNS_COUNT_SHOOTING_RACE if @race.sport.only_shooting?
     return COLUMNS_COUNT_START_ORDER_MIXED if @race.start_order == Race::START_ORDER_MIXED
     COLUMNS_COUNT_START_ORDER_SERIES
   end
-  
+
   def row_missing_data?(row)
     row.each do |col|
       if col.nil? or col.strip == ''
@@ -93,23 +95,25 @@ class CsvImport
     end
     false
   end
-  
+
   def original_format(columns)
     columns.join(',')
   end
-  
+
   def new_competitor(row)
     competitor = Competitor.new(:first_name => row[FIRST_NAME_COLUMN],
       :last_name => row[LAST_NAME_COLUMN])
     competitor.club = find_or_create_club(row[CLUB_COLUMN])
     set_series_or_age_group(competitor, row[SERIES_COLUMN])
-    if @race.start_order == Race::START_ORDER_MIXED
+    if @race.sport.only_shooting?
+      competitor.number = row[START_NUMBER_COLUMN]
+    elsif @race.start_order == Race::START_ORDER_MIXED
       competitor.number = row[START_NUMBER_COLUMN]
       competitor.start_time = row[START_TIME_COLUMN]
     end
     competitor
   end
-  
+
   def set_series_or_age_group(competitor, series_name)
     age_group = @race.age_groups.find_by_name(series_name)
     if age_group
@@ -123,7 +127,7 @@ class CsvImport
       competitor.series = series
     end
   end
-  
+
   def find_or_create_club(club_name)
     club = Club.where(:race_id => @race, :name => club_name).first
     return club if club
@@ -143,7 +147,7 @@ class CsvImport
       @errors << "Tiedosto sisältää saman kilpailijan kahteen kertaan: #{original_format first_duplicate}"
     end
   end
-  
+
   def strip_duplicate_errors
     unique_errors = []
     @errors.each do |error|

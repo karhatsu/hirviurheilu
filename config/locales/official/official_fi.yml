@@ -291,7 +291,7 @@ fi:
         info_limited: Jos sinulla on kilpailijoiden tiedot esim. Excel-taulukossa, voit tallentaa ne sieltä CSV-muotoon (CSV = pilkuilla erotetut sarakkeet). Sen jälkeen voit ladata kaikkien kilpailijoiden tiedot kerralla tietokantaan valitsemalla alla olevaan lomakkeeseen kyseisen CSV-tiedoston.
         format_title: Tiedoston rakenne
         format_info:
-          shooting_race: CSV-tiedostossa täytyy olla sarakkeet etunimi, sukunimi, piiri tai seura ja sarja tai aliryhmä.
+          shooting_race: CSV-tiedostossa täytyy olla sarakkeet etunimi, sukunimi, piiri tai seura, sarja tai aliryhmä sekä halutessasi kilpailijanumero.
           three_sports_race_1: CSV-tiedostossa täytyy olla sarakkeet etunimi, sukunimi, piiri tai seura ja sarja tai ikäryhmä.
           three_sports_race_2: CSV-tiedostossa täytyy olla sarakkeet etunimi, sukunimi, piiri tai seura, sarja tai ikäryhmä, lähtönumero sekä lähtöaika (hh:mm:ss).
         example_of_valid_file: Esimerkki kelvollisesta CSV-tiedostosta

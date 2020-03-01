@@ -253,6 +253,34 @@ describe CsvImport do
     end
   end
 
+  context 'when shooting race' do
+    context 'and competitors imported without numbers' do
+      before do
+        @race.update_attribute :sport_key, Sport::ILMAHIRVI
+        @ci = CsvImport.new@race, test_file_path('import_valid.csv')
+      end
+
+      it 'should accept the file' do
+        expect(@ci.save).to be_truthy
+        expect(@race.competitors.size).to eq(4)
+      end
+    end
+
+    context 'and competitors imported with numbers' do
+      before do
+        @race.update_attribute :sport_key, Sport::ILMAHIRVI
+        @ci = CsvImport.new@race, test_file_path('import_valid_with_numbers.csv')
+      end
+
+      it 'should accept the file' do
+        expect(@ci.errors).to eq []
+        expect(@ci.save).to be_truthy
+        expect(@race.competitors.size).to eq(2)
+        expect(@race.competitors.where('last_name=?', 'Miettinen').first.number).to eql 6
+      end
+    end
+  end
+
   def test_file_path(file_name)
     File.join(Rails.root, 'spec', 'files', file_name)
   end
