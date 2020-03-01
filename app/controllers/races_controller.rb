@@ -4,24 +4,14 @@ class RacesController < ApplicationController
   before_action :assign_race_by_id, :only => :show
 
   def index
-    where = []
-    where_params = Hash.new
     sport_key = params[:sport_key]
     district_id = params[:district_id]
     search_text = params[:search_text]
-    unless sport_key.blank?
-      where << 'sport_key=:sport_key'
-      where_params[:sport_key] = [sport_key]
-    end
-    unless district_id.blank?
-      where << 'district_id=:district_id'
-      where_params[:district_id] = [district_id.to_i]
-    end
-    unless search_text.blank?
-      where << "(name ILIKE :search_text OR location ILIKE :search_text)"
-      where_params[:search_text] = "%#{search_text}%"
-    end
-    @races = Race.where(where.join(' AND '), where_params).order('start_date DESC').page(params[:page])
+    @races = Race.all
+    @races = @races.where(sport_key: sport_key) unless sport_key.blank?
+    @races = @races.where(district_id: district_id) unless district_id.blank?
+    @races = @races.where('name ILIKE ? OR location ILIKE ?', "%#{search_text}%", "%#{search_text}%") unless search_text.blank?
+    @races = @races.page(params[:page])
   end
 
   def show
