@@ -4,7 +4,7 @@
     = menu_item t('race_sub_menu.home_page'), race_path(race), @is_race
     - series = menu_series
     - series = race.series.first unless series
-    - if race.sport.batch_list?
+    - if race.sport.batch_list? && !race.batches.empty?
       = menu_item t('race_sub_menu.batch_list'), race_batch_list_path(race), @is_batch_list
     - if series
       = menu_item t('race_sub_menu.results'), race_series_path(race, series), @is_results, nil, true do

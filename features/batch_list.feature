@@ -9,10 +9,8 @@ Feature: Batch list
     And the series has a competitor "Teppo" "Testinen"
     And I am on the race page
     Then I should not see "Lähtölista"
-    When I choose "Eräluettelo" from sub menu
-    Then I should be on the race batch list page
-    And the "Kilpailut" main menu item should be selected
-    And the "Eräluettelo" sub menu item should be selected
+    And I should not see "Eräluettelo" within ".menu--sub"
+    Then I go to the race batch list page
     And I should see "Eräluettelo" within "h2"
     And I should see "Kilpailun eräluetteloa ei ole tehty" in an info message
 
@@ -45,10 +43,14 @@ Feature: Batch list
       | batch       | 2          |
       | track_place | 5          |
     And I am on the race page
-    Then I should see "Eräluettelo (PDF)"
+    Then I should not see "Lähtölista"
+    And I should see "Eräluettelo (PDF)"
     But I should not see "Kaikkien sarjojen lähtöajat (PDF)"
     When I follow "Eräluettelo" within "#series-links"
-    Then I should see batch 1 on track 1 with time "10:00"
+    Then I should be on the race batch list page
+    And the "Kilpailut" main menu item should be selected
+    And the "Eräluettelo" sub menu item should be selected
+    And I should see batch 1 on track 1 with time "10:00"
     And I should see batch 2 on track 2 with time "10:30"
     And the batch 1 should contain a competitor "10. Testaaja Teppo (5), Testiseura (M)" in row 1
     And the batch 1 should contain a competitor "11. Testaaja Timo (6), Testiseura (M)" in row 2
