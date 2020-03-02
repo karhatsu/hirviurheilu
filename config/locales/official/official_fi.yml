@@ -66,6 +66,8 @@ fi:
         add_multiple_competitors: Lisää monta kilpailijaa kerralla
         copy_competitors: Kopioi kilpailijat toisesta kilpailusta
         add_competitors_from_csv: Lisää kilpailijoita CSV-tiedostosta
+        batches_manually: Erien hallinta manuaalisesti
+        batch_generation: Erien asettelu arpomalla
         other: Muita toimintoja
         national_records: Suomen ennätykset
         download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)

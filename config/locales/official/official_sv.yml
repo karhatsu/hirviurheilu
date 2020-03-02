@@ -66,6 +66,8 @@ sv:
         add_multiple_competitors: Tillägg många tävlar
         copy_competitors: Kopiera tävlarna från annan tävling
         add_competitors_from_csv: Öka tävlar från CSV-fil
+        batches_manually: Erien hallinta manuaalisesti
+        batch_generation: Erien asettelu arpomalla
         other: Övriga
         national_records: Finska rekord
         download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)
