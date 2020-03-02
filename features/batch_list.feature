@@ -14,7 +14,7 @@ Feature: Batch list
     And the "Kilpailut" main menu item should be selected
     And the "Eräluettelo" sub menu item should be selected
     And I should see "Eräluettelo" within "h2"
-    And I should see "Kilpailun eräluetteloa ei ole vielä tehty" in an info message
+    And I should see "Kilpailun eräluetteloa ei ole tehty" in an info message
 
   Scenario: Race with batches
     Given there is a "ILMALUODIKKO" race "Batches race"
