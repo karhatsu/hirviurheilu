@@ -6,6 +6,11 @@ Given "there is a {string} race {string}" do |sport_key, name|
   @race = create :race, sport_key: sport_key, name: name
 end
 
+Given("there is a {string} race {string} at {string} in {string}") do |sport_key, name, start_date, district_name|
+  district = District.find_or_create_by! name: district_name, short_name: district_name[0..1]
+  @race = create :race, sport_key: sport_key, name: name, start_date: start_date, district: district
+end
+
 Given(/^there is a race "(.*?)" that starts in 7 days$/) do |name|
   @race = create(:race, name: name, start_date: 7.days.from_now)
 end
@@ -181,4 +186,11 @@ end
 Then(/^the last race billing info should be "(.*?)"$/) do |billing_info|
   billing_info = nil if billing_info.empty?
   expect(Race.last.billing_info).to eql billing_info
+end
+
+Then("I should see {int} races ordered as {string}") do |race_count, race_names|
+  expect(page.all('.card').length).to eql race_count
+  race_names.split(', ').each_with_index do |race_name, i|
+    expect(page.find(:xpath, "(//a[@class='card'])[#{i + 1}]//div[@class='card__name']").text).to eql race_name
+  end
 end
