@@ -6,6 +6,20 @@ describe Api::V1::AuthenticationChecksController, type: :api do
     let(:race_name) { 'My race' }
     let(:race) { create :race, name: race_name, api_secret: api_secret }
 
+    context 'when race has no API secret' do
+      let(:race2) { create :race }
+
+      before do
+        race2.update_column :api_secret, ''
+      end
+
+      it 'returns 500' do
+        make_request "/api/v1/races/#{race2.id}/authentication_check", ''
+        expect_status_code 500
+        expect_json({ error: 'race has no API secret' })
+      end
+    end
+
     context 'when race not found' do
       it 'returns 404' do
         make_request "/api/v1/races/#{race.id + 10}/authentication_check", api_secret

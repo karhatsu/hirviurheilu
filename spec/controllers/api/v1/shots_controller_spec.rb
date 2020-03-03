@@ -9,6 +9,20 @@ describe Api::V1::ShotsController, type: :api do
     let(:default_value) { 9 }
     let(:body) { { value: default_value } }
 
+    context 'when race has no API secret' do
+      let(:race2) { create :race }
+
+      before do
+        race2.update_column :api_secret, ''
+      end
+
+      it 'returns 500' do
+        make_request "/api/v1/races/#{race2.id}/competitors/#{competitor.number}/shots/1", body
+        expect_status_code 500
+        expect_json({ error: 'race has no API secret' })
+      end
+    end
+
     context 'when race not found' do
       it 'returns 404' do
         make_request "/api/v1/races/#{race.id + 10}/competitors/#{competitor.number}/shots/1", body
