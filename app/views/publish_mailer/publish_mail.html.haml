@@ -1,8 +1,0 @@
-Julkaistu kilpailu: #{@race.name} (#{@race.location})
-%br
-Järjestäjä: #{@race.organizer}
-%br
-Toimitsija: #{@user.first_name} #{@user.last_name}
-%br
-%br
-%a{href: race_url(@locale, @race)}= race_url @locale, @race
