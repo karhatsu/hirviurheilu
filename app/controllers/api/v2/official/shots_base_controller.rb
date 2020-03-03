@@ -1,4 +1,4 @@
-class Api::V1::ShotsBaseController < Api::V1::ApiBaseController
+class Api::V2::Official::ShotsBaseController < Api::V2::Official::OfficialApiBaseController
   private
 
   def validate_shot_value

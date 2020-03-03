@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::V1::ExtraShotsController, type: :api do
+describe Api::V2::Official::ExtraShotsController, type: :api do
   describe 'PUT' do
     let(:api_secret) { 'very-secret-key' }
     let(:race) { create :race, sport_key: Sport::ILMALUODIKKO, api_secret: api_secret }
@@ -11,14 +11,14 @@ describe Api::V1::ExtraShotsController, type: :api do
 
     context 'when race not found' do
       it 'returns 404' do
-        make_request "/api/v1/races/#{race.id + 10}/competitors/#{competitor.number}/extra_shots/1", body
+        make_request "/api/v2/official/races/#{race.id + 10}/competitors/#{competitor.number}/extra_shots/1", body
         expect_error 404, 'race not found'
       end
     end
 
     context 'when race found but wrong api key' do
       it 'returns 401' do
-        make_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/extra_shots/1", body, 'wrong-key'
+        make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots/1", body, 'wrong-key'
         expect_status_code 401
       end
     end
@@ -26,42 +26,42 @@ describe Api::V1::ExtraShotsController, type: :api do
     context 'when race found and correct api key' do
       context 'but shot number is 0' do
         it 'returns 400' do
-          make_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/extra_shots/0", body
+          make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots/0", body
           expect_error 400, 'invalid shot number'
         end
       end
 
       context 'but no shot value given' do
         it 'returns 400' do
-          make_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/extra_shots/1", {}
+          make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots/1", {}
           expect_error 400, 'invalid shot value'
         end
       end
 
       context 'but invalid shot value given' do
         it 'returns 400' do
-          make_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/extra_shots/1", { value: 'foobar' }
+          make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots/1", { value: 'foobar' }
           expect_error 400, 'invalid shot value'
         end
       end
 
       context 'but too big shot value given' do
         it 'returns 400' do
-          make_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/extra_shots/1", { value: race.sport.max_shot + 1 }
+          make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots/1", { value: race.sport.max_shot + 1 }
           expect_error 400, 'invalid shot value'
         end
       end
 
       context 'but competitor not found by the given number' do
         it 'returns 404' do
-          make_request "/api/v1/races/#{race.id}/competitors/#{competitor.number + 1}/extra_shots/1", body
+          make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number + 1}/extra_shots/1", body
           expect_error 404, 'competitor not found'
         end
       end
 
       context 'and first shot sent' do
         before do
-          make_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/extra_shots/1", body
+          make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots/1", body
         end
 
         it 'returns 200 with shots and saves the shot' do
@@ -71,7 +71,7 @@ describe Api::V1::ExtraShotsController, type: :api do
         context 'and second shot sent' do
           let(:second_shot) { race.sport.max_shot }
           before do
-            make_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/extra_shots/2", { value: second_shot }
+            make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots/2", { value: second_shot }
           end
 
           it 'returns 200 with shots and saves the shot' do
@@ -81,7 +81,7 @@ describe Api::V1::ExtraShotsController, type: :api do
           context 'and fourth shot sent before the third one' do
             let(:fourth_shot) { 8 }
             before do
-              make_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/extra_shots/4", { value: fourth_shot }
+              make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots/4", { value: fourth_shot }
             end
 
             it 'returns 200 with shots and saves the 4th shot and 3rd shot as 0' do
@@ -91,7 +91,7 @@ describe Api::V1::ExtraShotsController, type: :api do
             context 'and third shot comes after that' do
               let(:third_shot) { 1 }
               before do
-                make_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/extra_shots/3", { value: third_shot }
+                make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots/3", { value: third_shot }
               end
 
               it 'returns 200 with shots and saves the 3rd but also keeps the 4th shot' do
@@ -103,7 +103,7 @@ describe Api::V1::ExtraShotsController, type: :api do
 
         context 'and the same shot is sent again with different value' do
           before do
-            make_request "/api/v1/races/#{race.id}/competitors/#{competitor.number}/extra_shots/1", { value: 2 }
+            make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots/1", { value: 2 }
           end
 
           it 'overrides the existing value' do
@@ -114,12 +114,12 @@ describe Api::V1::ExtraShotsController, type: :api do
     end
 
     def make_request(path, body, api_secret_header = api_secret)
-      put path, body.to_json, { 'CONTENT_TYPE' => 'application/json', 'HTTP_X_API_SECRET' => api_secret_header }
+      put path, body.to_json, { 'CONTENT_TYPE' => 'application/json', 'HTTP_AUTHORIZATION' => api_secret_header }
     end
 
     def expect_error(status, error_message)
       expect_status_code status
-      expect_json({ error: error_message })
+      expect_json({ errors: [error_message] })
     end
 
     def expect_success(shots)

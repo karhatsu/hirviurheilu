@@ -1,4 +1,4 @@
-class Api::V1::ExtraShotsController < Api::V1::ShotsBaseController
+class Api::V2::Official::ExtraShotsController < Api::V2::Official::ShotsBaseController
   before_action :find_and_validate_race, :validate_shot_value, :validate_shot_number, :find_and_validate_competitor
 
   def update
