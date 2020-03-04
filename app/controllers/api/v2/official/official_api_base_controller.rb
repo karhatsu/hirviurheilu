@@ -1,6 +1,4 @@
-class Api::V2::Official::OfficialApiBaseController < ApplicationController
-  protect_from_forgery with: :null_session, only: Proc.new { |c| c.request.format.json? }
-
+class Api::V2::Official::OfficialApiBaseController < Api::V2::ApiBaseController
   private
 
   def find_and_validate_race

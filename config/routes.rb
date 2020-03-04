@@ -153,6 +153,10 @@ ElkSports::Application.routes.draw do
           put '/competitors/:competitor_number/extra_shots/:shot_number' => 'extra_shots#update'
         end
       end
+
+      namespace :public do
+        resources :races, only: :show
+      end
     end
   end
 
