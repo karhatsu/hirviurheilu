@@ -39,7 +39,7 @@ describe Api::V2::Public::RacesController, type: :api do
                           first_name: competitor.first_name,
                           last_name: competitor.last_name,
                           number: competitor.number,
-                          start_datetime: competitor.start_datetime,
+                          start_date_time: competitor.start_datetime,
                           club: {
                               name: club.name
                           }

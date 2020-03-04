@@ -5,7 +5,8 @@ json.series @race.series do |series|
   json.(series, :name)
 
   json.competitors series.competitors do |competitor|
-    json.(competitor, :first_name, :last_name, :number, :start_datetime)
+    json.(competitor, :first_name, :last_name, :number)
+    json.start_date_time competitor.start_datetime
 
     json.club competitor.club, :name
   end
