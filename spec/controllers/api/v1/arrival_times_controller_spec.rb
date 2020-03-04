@@ -12,5 +12,5 @@ describe Api::V1::ArrivalTimesController, type: :api do
     body
   end
 
-  it_behaves_like 'times API'
+  it_behaves_like 'times v1 API'
 end
