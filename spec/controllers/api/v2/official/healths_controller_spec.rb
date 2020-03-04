@@ -15,8 +15,7 @@ describe Api::V2::Official::HealthsController, type: :api do
 
       it 'returns 500' do
         make_request "/api/v2/official/races/#{race2.id}/health", ''
-        expect_status_code 500
-        expect_json({ errors: ['race has no API secret'] })
+        expect_status_code 401
       end
     end
 

@@ -18,8 +18,7 @@ describe Api::V2::Official::ShotsController, type: :api do
 
       it 'returns 500' do
         make_request "/api/v2/official/races/#{race2.id}/competitors/#{competitor.number}/shots/1", body
-        expect_status_code 500
-        expect_json({ errors: ['race has no API secret' ]})
+        expect_status_code 401
       end
     end
 
