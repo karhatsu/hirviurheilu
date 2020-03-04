@@ -10,7 +10,7 @@ describe Api::V2::Public::RacesController, type: :api do
 
   context 'when race found' do
     let(:club) { create :club }
-    let(:race) { create :race }
+    let(:race) { create :race, start_time: '10:30' }
     let(:series) { create :series, race: race }
     let!(:competitor) { create :competitor, series: series, number: 123, club: club }
 
@@ -28,7 +28,7 @@ describe Api::V2::Public::RacesController, type: :api do
           location: race.location,
           start_date: api_date(race.start_date),
           end_date: api_date(race.end_date),
-          short_start_time: race.short_start_time,
+          start_time: '10:30:00',
           organizer: race.organizer,
           sport_name: 'Hirvenhiihto',
           series: [

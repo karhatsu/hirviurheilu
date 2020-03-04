@@ -1,4 +1,5 @@
-json.(@race, :name, :location, :start_date, :end_date, :organizer, :short_start_time, :sport_name)
+json.(@race, :name, :location, :start_date, :end_date, :organizer, :sport_name)
+json.start_time @race.short_start_time
 
 json.series @race.series do |series|
   json.(series, :name)
