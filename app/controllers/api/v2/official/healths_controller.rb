@@ -1,4 +1,4 @@
-class Api::V1::AuthenticationChecksController < Api::V1::ApiBaseController
+class Api::V2::Official::HealthsController < Api::V2::Official::OfficialApiBaseController
   before_action :find_and_validate_race
 
   def show

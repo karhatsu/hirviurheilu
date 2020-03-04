@@ -18,6 +18,7 @@ gem 'roman-numerals'
 gem 'nokogiri'
 gem 'redcarpet'
 gem 'kaminari'
+gem 'jbuilder'
 
 group :development, :production do
   gem 'pg'

@@ -246,6 +246,11 @@ class Competitor < ApplicationRecord
     [correct_estimate1, correct_estimate2, correct_estimate3, correct_estimate4].select {|d| !d.blank?}
   end
 
+  def short_time(attribute)
+    return nil unless self[attribute]
+    self[attribute].strftime '%H:%M:%S'
+  end
+
   def self.invalid_shot?(shot, max_value)
     shot.to_i < 0 || shot.to_i > max_value || shot.to_i.to_s != shot.to_s
   end

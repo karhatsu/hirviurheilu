@@ -142,9 +142,26 @@ ElkSports::Application.routes.draw do
           resource :shooting_finish_time, only: :update
           resource :arrival_time, only: :update
         end
-        resource :authentication_check, only: :show
-        put '/competitors/:competitor_number/shots/:shot_number' => 'shots#update'
-        put '/competitors/:competitor_number/extra_shots/:shot_number' => 'extra_shots#update'
+      end
+    end
+
+    namespace :v2 do
+      namespace :official do
+        resources :races, only: [:show] do
+          resource :health, only: :show
+          put '/competitors/:competitor_number/start_time' => 'start_times#update'
+          put '/competitors/:competitor_number/shooting_start_time' => 'shooting_start_times#update'
+          put '/competitors/:competitor_number/shooting_finish_time' => 'shooting_finish_times#update'
+          put '/competitors/:competitor_number/arrival_time' => 'arrival_times#update'
+          put '/competitors/:competitor_number/shots/:shot_number' => 'shots#update'
+          put '/competitors/:competitor_number/extra_shots/:shot_number' => 'extra_shots#update'
+        end
+      end
+
+      namespace :public do
+        resources :races, only: :show do
+          resources :times, only: :index
+        end
       end
     end
   end
