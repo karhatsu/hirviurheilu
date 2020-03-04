@@ -150,6 +150,8 @@ ElkSports::Application.routes.draw do
         resources :races, only: [:show] do
           resource :health, only: :show
           put '/competitors/:competitor_number/start_time' => 'start_times#update'
+          put '/competitors/:competitor_number/shooting_start_time' => 'shooting_start_times#update'
+          put '/competitors/:competitor_number/shooting_finish_time' => 'shooting_finish_times#update'
           put '/competitors/:competitor_number/arrival_time' => 'arrival_times#update'
           put '/competitors/:competitor_number/shots/:shot_number' => 'shots#update'
           put '/competitors/:competitor_number/extra_shots/:shot_number' => 'extra_shots#update'
