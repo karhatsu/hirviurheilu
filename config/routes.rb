@@ -155,7 +155,9 @@ ElkSports::Application.routes.draw do
       end
 
       namespace :public do
-        resources :races, only: :show
+        resources :races, only: :show do
+          resources :times, only: :index
+        end
       end
     end
   end
