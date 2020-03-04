@@ -1,0 +1,2 @@
+class QualificationRoundBatch < Batch
+end

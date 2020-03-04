@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-RSpec.describe Batch, type: :model do
+RSpec.describe QualificationRoundBatch, type: :model do
   it 'create' do
-    create :batch
+    create :qualification_round_batch
   end
 
   describe 'associations' do
@@ -16,7 +16,7 @@ RSpec.describe Batch, type: :model do
 
     describe 'uniqueness of number' do
       before do
-        create :batch
+        create :qualification_round_batch
       end
       it { is_expected.to validate_uniqueness_of(:number).scoped_to(:race_id) }
     end
@@ -37,7 +37,7 @@ RSpec.describe Batch, type: :model do
 
     describe 'time' do
       before do
-        create :batch
+        create :qualification_round_batch
       end
 
       it { is_expected.to validate_uniqueness_of(:time).scoped_to(:race_id, :track, :day) }
