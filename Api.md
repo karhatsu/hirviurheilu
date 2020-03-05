@@ -15,6 +15,10 @@ The `race_id` used in the API paths can be found e.g. from the race page URL. Fo
 
 `GET /api/v2/public/races/:race_id`
 
+Example call with [cUrl](https://curl.haxx.se/):
+
+`curl -X GET https://www.hirviurheilu.com/api/v2/public/races/2075`
+
 ### Competitors' times
 
 `GET /api/v2/public/races/:race_id/times`
