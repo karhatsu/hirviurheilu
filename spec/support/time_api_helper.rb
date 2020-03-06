@@ -113,10 +113,12 @@ end
 shared_examples_for 'times v2 API' do
   let(:api_secret) { 'really-secret' }
   let(:race_start_time) { '10:00' }
+  let(:relative_time) { '02:15:20' }
+  let(:real_time) { '12:15:20' }
+  let(:ms_since_midnight) { calculate_ms_since_midnight(12, 15, 20) }
   let(:race) { create :race, api_secret: api_secret, start_time: race_start_time }
   let(:series) { create :series, race: race }
   let(:competitor) { create :competitor, series: series, start_time: '01:00:00', number: 123 }
-  let(:ms_since_midnight) { calculate_ms_since_midnight(10 + 2, 15, 20) } # 02:15:20
   let(:body) {
     {
         ms_since_midnight: ms_since_midnight
@@ -163,8 +165,9 @@ shared_examples_for 'times v2 API' do
           send_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/#{time_field}", body, api_secret
         end
 
-        it 'returns 201' do
-          expect_status_code 201
+        it 'returns 200 with absolute and relative time' do
+          expect_status_code 200
+          expect_json({ real_time: real_time, relative_time: relative_time })
         end
 
         it 'saves start time for the competitor' do

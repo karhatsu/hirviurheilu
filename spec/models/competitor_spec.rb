@@ -1568,4 +1568,23 @@ describe Competitor do
       expect(competitor.start_datetime).to eq('time')
     end
   end
+
+  describe '#real_time' do
+    shared_examples_for 'real time' do |attribute, time, expected_time|
+      it 'should return value of the attribute relative to race start time' do
+        race = create :race, start_time: '13:00'
+        series = create :series, race: race
+        competitor = build :competitor, series: series, start_time: '01:00:00', shooting_start_time: '01:10:00',
+                           shooting_finish_time: '01:15:00', arrival_time: '01:30:00'
+        competitor[attribute] = time
+        competitor.save!
+        expect(competitor.real_time(attribute).strftime('%H:%M:%S')).to eql expected_time
+      end
+    end
+
+    it_should_behave_like 'real time', 'start_time', '01:01:30', '14:01:30'
+    it_should_behave_like 'real time', 'shooting_start_time', '01:09:59', '14:09:59'
+    it_should_behave_like 'real time', 'shooting_finish_time', '01:20:01', '14:20:01'
+    it_should_behave_like 'real time', 'arrival_time', '01:39:30', '14:39:30'
+  end
 end

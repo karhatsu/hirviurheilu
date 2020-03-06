@@ -202,6 +202,10 @@ class Competitor < ApplicationRecord
     start_date_time race, series.start_day, start_time
   end
 
+  def real_time(attribute)
+    start_date_time race, series.start_day, self[attribute]
+  end
+
   def self.sort_competitors(competitors)
     return sort_shooting_race_competitors(competitors) if competitors.length && competitors[0].sport.only_shooting?
     sort_three_sports_competitors competitors

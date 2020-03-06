@@ -61,6 +61,15 @@ The example value means time 12:10:54.
 
 Notice that the time should take into account the race start time. For example if the race has been defined to start at 10:00, you cannot save a time that is before that.
 
+When the request succeeds, it returns 200 with a response body like:
+
+```
+{
+  "real_time": "12:10:54",
+  "relative_time": "02:10:54" // assuming the race starts at 10:00
+}
+```
+
 ### Saving shots
 
 * `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/shots/:shot_number`

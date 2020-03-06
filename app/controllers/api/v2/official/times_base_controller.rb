@@ -6,7 +6,9 @@ class Api::V2::Official::TimesBaseController < Api::V2::Official::OfficialApiBas
     return render status: 400, json: { errors: ['ms_since_midnight missing'] } unless ms_since_midnight
     competitor[time_field] = resolve_competitor_time
     if competitor.save
-      render status: 201, body: nil
+      real_time = competitor.real_time(time_field).strftime('%H:%M:%S')
+      relative_time = competitor[time_field].strftime('%H:%M:%S')
+      render status: 200, json: { real_time: real_time, relative_time: relative_time }
     else
       render status: 400, json: { errors: competitor.errors.full_messages }
     end
