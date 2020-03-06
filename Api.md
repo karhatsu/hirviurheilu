@@ -84,3 +84,9 @@ Both of these require a JSON request body like this:
 ```
 
 The value 11 can be used to indicate inner ten in the Ilmaluodikko races.
+
+When the request succeeds, it returns 200 with a response body containing all the saved shots:
+
+```
+{ "shots": [9, 8, 7, 10] }
+```
