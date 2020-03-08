@@ -14,8 +14,8 @@ class Official::RelaysController < Official::OfficialController
   end
 
   def create
-    @penalty_method = params[:penalty_method]
     @relay = @race.relays.build(create_relay_params)
+    handle_penalty_method
     if @relay.save
       flash[:success] = 'Viesti luotu. Voit nyt lisätä viestiin joukkueita.'
       redirect_to edit_official_race_relay_path(@race, @relay)
@@ -29,11 +29,12 @@ class Official::RelaysController < Official::OfficialController
   end
 
   def update
-    @penalty_method = params[:penalty_method]
+    @relay.attributes = update_relay_params
+    handle_penalty_method
     if @relay.updated_at.to_i != params[:updated_at].to_i
       flash[:error] = 'Joku muu on muokannut viestiä samaan aikaan. Yritä tallennusta uudestaan tai kokeile tulosten tallentamista Pikasyötön avulla.'
       redirect_to edit_official_race_relay_path(@race, @relay)
-    elsif @relay.update(update_relay_params)
+    elsif @relay.save
       flash[:success] = 'Viestin tiedot päivitetty'
       redirect_to edit_official_race_relay_path(@race, @relay)
     else
@@ -62,6 +63,17 @@ class Official::RelaysController < Official::OfficialController
 
   def handle_time_parameters
     handle_time_parameter params[:relay], "start_time"
+  end
+
+  def handle_penalty_method
+    @penalty_method = params[:penalty_method]
+    if @penalty_method == 'run'
+      @relay.estimate_penalty_seconds = nil
+      @relay.shooting_penalty_seconds = nil
+    else
+      @relay.estimate_penalty_distance = nil
+      @relay.shooting_penalty_distance = nil
+    end
   end
 
   def create_relay_params
