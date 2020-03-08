@@ -197,6 +197,18 @@ shared_examples_for 'times v2 API' do
           expect_json({errors: [expected_validation_error]})
         end
       end
+
+      context 'and given time is less than race start time' do
+        before do
+          ms_since_midnight = calculate_ms_since_midnight 9, 59, 59
+          send_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/#{time_field}", { ms_since_midnight: ms_since_midnight }, api_secret
+        end
+
+        it 'returns 400' do
+          expect_status_code 400
+          expect_json({errors: ['ms_since_midnight cannot be before race start']})
+        end
+      end
     end
   end
 

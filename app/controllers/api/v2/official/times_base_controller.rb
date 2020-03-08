@@ -4,6 +4,7 @@ class Api::V2::Official::TimesBaseController < Api::V2::Official::OfficialApiBas
   def update
     return render status: 404, json: { errors: ['competitor not found'] } unless competitor
     return render status: 400, json: { errors: ['ms_since_midnight missing'] } unless ms_since_midnight
+    return render status: 400, json: { errors: ['ms_since_midnight cannot be before race start'] } if ms_before_race_start
     competitor[time_field] = resolve_competitor_time
     if competitor.save
       real_time = competitor.real_time(time_field).strftime('%H:%M:%S')
@@ -18,6 +19,10 @@ class Api::V2::Official::TimesBaseController < Api::V2::Official::OfficialApiBas
 
   def competitor
     @competitor ||= @race.competitors.where(number: params[:competitor_number]).first
+  end
+
+  def ms_before_race_start
+    ms_since_midnight < 1000 * (60 * 60 * @race.start_time.hour + 60 * @race.start_time.min)
   end
 
   def resolve_competitor_time
