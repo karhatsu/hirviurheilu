@@ -65,6 +65,14 @@ describe Api::V2::Official::ShotsController, type: :api do
         end
       end
 
+      context 'when invalid JSON' do
+        it 'returns 400' do
+          put "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/shots/1", '{ "value": foobar }',
+              { 'CONTENT_TYPE' => 'application/json', 'HTTP_AUTHORIZATION' => api_secret }
+          expect_error 400, 'invalid JSON'
+        end
+      end
+
       context 'but too big shot value given' do
         it 'returns 400' do
           make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/shots/1", { value: race.sport.max_shot + 1 }
