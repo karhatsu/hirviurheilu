@@ -2,6 +2,7 @@
 - content_for :page_title, yield(:title)
 %h2 Käyttäjät
 = flash_success
+= flash_error
 %table.results-table
   %tr
     %th Etunimi
@@ -10,6 +11,7 @@
     %th Käyttökerrat
     %th Viim. login
     %th Viim. käyttö
+    %th Poista
   - @users.each do |user|
     %tr
       %td= user.first_name
@@ -18,3 +20,4 @@
       %td.center= user.login_count
       %td= datetime_print(user.last_login_at, true, false, raw('&nbsp;'))
       %td= datetime_print(user.last_request_at, true, false, raw('&nbsp;'))
+      %td= link_to 'Poista', admin_user_path(user), method: :delete, data: { confirm: 'Haluatko varmasti poistaa käyttäjän' }, class: 'button button--danger'
