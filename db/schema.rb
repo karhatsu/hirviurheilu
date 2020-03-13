@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_04_153224) do
+ActiveRecord::Schema.define(version: 2020_03_13_140509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,14 +98,16 @@ ActiveRecord::Schema.define(version: 2020_03_04_153224) do
     t.integer "shot_7"
     t.integer "shot_8"
     t.integer "shot_9"
-    t.bigint "batch_id"
+    t.bigint "qualification_round_batch_id"
     t.integer "track_place"
     t.jsonb "shots"
     t.jsonb "extra_shots"
     t.integer "qualification_round_shooting_score_input"
     t.integer "final_round_shooting_score_input"
+    t.bigint "final_round_batch_id"
     t.index ["age_group_id"], name: "index_competitors_on_age_group_id"
-    t.index ["batch_id"], name: "index_competitors_on_batch_id"
+    t.index ["final_round_batch_id"], name: "index_competitors_on_final_round_batch_id"
+    t.index ["qualification_round_batch_id"], name: "index_competitors_on_qualification_round_batch_id"
     t.index ["series_id"], name: "index_competitors_on_series_id"
   end
 

@@ -20,7 +20,8 @@ class Competitor < ApplicationRecord
   belongs_to :club
   belongs_to :series, counter_cache: true, touch: true
   belongs_to :age_group
-  belongs_to :batch
+  belongs_to :qualification_round_batch
+  belongs_to :final_round_batch
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
