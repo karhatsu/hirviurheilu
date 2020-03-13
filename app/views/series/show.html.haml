@@ -41,9 +41,17 @@
     $('.shots').addClass('shots--visible')
     $('#show-shots-button').hide()
     $('#hide-shots-button').show()
+    history.pushState(null, null, '?shots=true')
   }
   function hideShots() {
     $('.shots').removeClass('shots--visible')
     $('#show-shots-button').show()
     $('#hide-shots-button').hide()
+    history.pushState(null, null, '?')
   }
+  $(document).ready(function() {
+  console.log(window.location)
+    if(window.location.search == '?shots=true') {
+      showShots()
+    }
+  });
