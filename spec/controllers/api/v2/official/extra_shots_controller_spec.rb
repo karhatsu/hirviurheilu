@@ -1,11 +1,12 @@
 require 'spec_helper'
 
 describe Api::V2::Official::ExtraShotsController, type: :api do
-  describe 'PUT' do
-    let(:api_secret) { 'very-secret-key' }
-    let(:race) { create :race, sport_key: Sport::ILMALUODIKKO, api_secret: api_secret }
-    let(:series) { create :series, race: race }
-    let!(:competitor) { create :competitor, series: series, number: 99 }
+  let(:api_secret) { 'very-secret-key' }
+  let(:race) { create :race, sport_key: Sport::ILMALUODIKKO, api_secret: api_secret }
+  let(:series) { create :series, race: race }
+  let!(:competitor) { create :competitor, series: series, number: 99 }
+
+  describe 'PUT (single)' do
     let(:default_value) { 9 }
     let(:body) { { value: default_value } }
 
@@ -112,20 +113,102 @@ describe Api::V2::Official::ExtraShotsController, type: :api do
         end
       end
     end
+  end
 
-    def make_request(path, body, api_secret_header = api_secret)
-      put path, body.to_json, { 'CONTENT_TYPE' => 'application/json', 'HTTP_AUTHORIZATION' => api_secret_header }
+  describe 'PUT (all)' do
+    let(:default_shots) { [10, 9, 7, 8] }
+    let(:body) { { shots: default_shots } }
+
+    context 'when race has no API secret' do
+      let(:race2) { create :race }
+
+      before do
+        race2.update_column :api_secret, ''
+      end
+
+      it 'returns 500' do
+        make_request "/api/v2/official/races/#{race2.id}/competitors/#{competitor.number}/extra_shots", body
+        expect_status_code 401
+      end
     end
 
-    def expect_error(status, error_message)
-      expect_status_code status
-      expect_json({ errors: [error_message] })
+    context 'when race not found' do
+      it 'returns 404' do
+        make_request "/api/v2/official/races/#{race.id + 10}/competitors/#{competitor.number}/extra_shots", body
+        expect_error 404, 'race not found'
+      end
     end
 
-    def expect_success(shots)
-      expect_status_code 200
-      expect_json({ shots: shots })
-      expect(competitor.reload.extra_shots).to eql shots
+    context 'when race found but wrong api key' do
+      it 'returns 401' do
+        make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots", body, 'wrong-key'
+        expect_status_code 401
+      end
     end
+
+    context 'when race found and correct api key' do
+      context 'when invalid JSON' do
+        it 'returns 400' do
+          put "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots", '{ "shots": foobar }',
+              { 'CONTENT_TYPE' => 'application/json', 'HTTP_AUTHORIZATION' => api_secret }
+          expect_error 400, 'invalid JSON'
+        end
+      end
+
+      context 'but no shots given' do
+        it 'returns 400' do
+          make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots", {}
+          expect_error 400, 'shots missing from request body'
+        end
+      end
+
+      context 'but shots is not an array' do
+        it 'returns 400' do
+          make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots", { shots: 'foobar' }
+          expect_error 400, 'invalid shots value'
+        end
+      end
+
+      context 'but invalid shots given' do
+        it 'returns 400' do
+          make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots", { shots: [10, 'hello', 'world'] }
+          expect_error 400, 'Uusinnan laukaukset sisältää virheellisen numeron'
+        end
+      end
+
+      context 'and valid shots sent' do
+        before do
+          make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots", body
+        end
+
+        it 'saves given shots' do
+          expect_success default_shots
+        end
+
+        context 'and another set of valid shots sent' do
+          let(:new_shots) { [9, 9, 9, 8, 10] }
+
+          it 'overrides the existing shots array' do
+            make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/extra_shots", { shots: new_shots }
+            expect_success new_shots
+          end
+        end
+      end
+    end
+  end
+
+  def make_request(path, body, api_secret_header = api_secret)
+    put path, body.to_json, { 'CONTENT_TYPE' => 'application/json', 'HTTP_AUTHORIZATION' => api_secret_header }
+  end
+
+  def expect_error(status, error_message)
+    expect_status_code status
+    expect_json({ errors: [error_message] })
+  end
+
+  def expect_success(shots)
+    expect_status_code 200
+    expect_json({ shots: shots })
+    expect(competitor.reload.extra_shots).to eql shots
   end
 end

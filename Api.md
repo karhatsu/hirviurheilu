@@ -70,7 +70,7 @@ When the request succeeds, it returns 200 with a response body like:
 }
 ```
 
-### Saving shots
+### Saving single shot
 
 * `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/shots/:shot_number`
 * `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/extra_shots/:shot_number`
@@ -90,3 +90,26 @@ When the request succeeds, it returns 200 with a response body containing all th
 ```
 { "shots": [9, 8, 7, 10] }
 ```
+
+### Saving multiple shots
+
+You can also save multiple shots with one request using the following APIs:
+
+* `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/shots`
+* `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/extra_shots`
+
+Both of these require a JSON request body like this:
+
+```
+{ "shots": [10, 8, 8, 9, 10] }
+```
+
+The value 11 can be used to indicate inner ten in the Ilmaluodikko races.
+
+When the request succeeds, it returns 200 with a response body containing all the saved shots:
+
+```
+{ "shots": [10, 8, 8, 9, 10] }
+```
+
+If you call the API twice for the same competitor, the existing shots will be replaced with new ones.
