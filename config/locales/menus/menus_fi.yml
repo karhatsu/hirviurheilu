@@ -14,7 +14,8 @@ fi:
   race_sub_menu:
     home_page: Kilpailun etusivu
     start_lists: Lähtölistat
-    batch_list: Eräluettelo
+    qualification_round_batches: Alkuerät
+    final_round_batches: Loppuerät
     results: Tulokset
     team_competitions: Joukkuekilpailut
     relays: Viestit

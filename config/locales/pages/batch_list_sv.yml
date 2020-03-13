@@ -1,5 +1,10 @@
 sv:
-  batch_lists:
-    show:
-      title: Eräluettelo
+  batches:
+    index:
       no_batch_list: Kilpailun eräluetteloa ei ole tehty
+  qualification_round_batches:
+    index:
+      title: Alkuerien eräluettelo
+  final_round_batches:
+    index:
+      title: Loppuerien eräluettelo

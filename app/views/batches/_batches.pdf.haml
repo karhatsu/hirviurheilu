@@ -1,6 +1,5 @@
-%h2= t '.title'
 - if @batches.length == 0
-  .message.message--info= t('.no_batch_list')
+  .message.message--info= t('batches.index.no_batch_list')
 - else
   - series_id = params[:series_id].to_i
   - club_id = params[:club_id].to_i

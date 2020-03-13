@@ -23,6 +23,8 @@ class Race < ApplicationRecord
   has_many :race_rights
   has_many :users, :through => :race_rights
   has_many :batches, -> { order(:number) }, :dependent => :destroy
+  has_many :qualification_round_batches, -> { order(:number) }, :dependent => :destroy
+  has_many :final_round_batches, -> { order(:number) }, :dependent => :destroy
   has_and_belongs_to_many :cups
 
   accepts_nested_attributes_for :series, :allow_destroy => true

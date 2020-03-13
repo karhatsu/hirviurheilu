@@ -27,7 +27,8 @@ ElkSports::Application.routes.draw do
     end
 
     resources :races do
-      resource :batch_list, only: :show
+      resources :qualification_round_batches, only: :index
+      resources :final_round_batches, only: :index
       resources :series do
         resource :start_list, only: :show
       end
