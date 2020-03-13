@@ -13,4 +13,11 @@ FactoryBot.define do
     track { 1 }
     time { Time.now }
   end
+
+  factory :final_round_batch do
+    race
+    number { 1 }
+    track { 1 }
+    time { Time.now }
+  end
 end
