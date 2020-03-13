@@ -4,6 +4,7 @@
 - if @batches.empty?
   .message.message--info= t '.no_batches'
 - else
+  .message.message--info= t '.edit_to_define_competitors'
   .row
     - @batches.each do |batch|
       .col-xs-12.col-sm-6.col-md-4

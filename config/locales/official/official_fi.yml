@@ -181,11 +181,12 @@ fi:
     batches:
       index:
         no_batches: Et ole lisännyt vielä yhtään erää
+        edit_to_define_competitors: Klikkaa erää, niin pääset asettelemaan siihen kilpailijat
         reset_batch_lists: Eräluetteloiden tyhjentäminen
       new:
         competitors_info: Kun olet lisännyt erän, pääset asettelemaan siihen kilpailijoita
       create:
-        batch_added: Erä lisätty. Valitse erä, jos haluat asetella siihen kilpailijoita.
+        batch_added: Erä lisätty
       edit:
         basic_information: Perustiedot
         batch_competitors: Kilpailijoiden asetus ratapaikkoihin
