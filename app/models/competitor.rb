@@ -41,7 +41,8 @@ class Competitor < ApplicationRecord
   validates :correct_estimate3, estimate_validations
   validates :correct_estimate4, estimate_validations
   validates :shooting_overtime_min, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
-  validates :track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
+  validates :qualification_round_track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
+  validates :final_round_track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validate :start_time_max
   validate :times_in_correct_order
   validate :only_one_shot_input_method_used
@@ -260,6 +261,10 @@ class Competitor < ApplicationRecord
     shot.to_i < 0 || shot.to_i > max_value || shot.to_i.to_s != shot.to_s
   end
 
+  def track_place(batch)
+    batch.is_a?(FinalRoundBatch) ? final_round_track_place : qualification_round_track_place
+  end
+
   private
 
   def start_time_max
@@ -355,7 +360,8 @@ class Competitor < ApplicationRecord
 
   def track_place_fitting
     shooting_place_count = race&.competitors_per_batch
-    errors.add :track_place, :too_big if shooting_place_count && track_place && track_place > shooting_place_count
+    errors.add :qualification_round_track_place, :too_big if shooting_place_count && qualification_round_track_place && qualification_round_track_place > shooting_place_count
+    errors.add :final_round_track_place, :too_big if shooting_place_count && final_round_track_place && final_round_track_place > shooting_place_count
   end
 
   def set_has_result

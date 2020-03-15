@@ -21,7 +21,7 @@
       .result-cards
         - competitors.each do |competitor|
           .card
-            .card__number= competitor.track_place
+            .card__number= competitor.track_place @batch
             .card__middle
               .card__name
                 = full_name competitor

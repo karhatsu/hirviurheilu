@@ -60,8 +60,8 @@
     - competitors.each do |competitor|
       .col-xs-12.col-sm-6.col-md-4
         %a.card{href: edit_official_series_competitor_path(competitor.series_id, competitor)}
-          - if competitor.track_place
-            .card__number= competitor.track_place
+          - if competitor.qualification_round_track_place
+            .card__number= competitor.qualification_round_track_place
           .card__middle
             .card__name
               = full_name competitor

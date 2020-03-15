@@ -17,7 +17,7 @@
                 (#{t('attributes.track')} #{batch.track})
             - competitors.each do |competitor|
               .card__middle-row.competitor_row{class: "series_#{competitor.series_id}"}
-                #{competitor.track_place}.
+                #{competitor[track_place_name]}.
                 - if competitor.number
                   #{full_name(competitor)} (#{competitor.number}),
                 - else

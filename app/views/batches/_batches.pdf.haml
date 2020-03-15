@@ -14,7 +14,7 @@
       %table
         - competitors.each do |competitor|
           %tr
-            %td= competitor.track_place
+            %td= competitor[track_place_name]
             %td #{full_name competitor} (#{competitor.number})
             %td= competitor.club.name
             %td= competitor.series.name

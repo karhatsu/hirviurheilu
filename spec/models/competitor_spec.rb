@@ -322,21 +322,40 @@ describe Competitor do
       end
     end
 
-    describe 'track_place' do
-      it_should_behave_like 'positive integer', :track_place, true
+    describe 'qualification_round_track_place' do
+      it_should_behave_like 'positive integer', :qualification_round_track_place, true
 
       context 'when race has shooting place count' do
         let(:race) { create :race, shooting_place_count: 30 }
         let(:series) { create :series, race: race }
 
         it 'can be the same as the count' do
-          competitor = build :competitor, series: series, track_place: 30
-          expect(competitor).to have(0).errors_on(:track_place)
+          competitor = build :competitor, series: series, qualification_round_track_place: 30
+          expect(competitor).to have(0).errors_on(:qualification_round_track_place)
         end
 
         it 'cannot be bigger than the count' do
-          competitor = build :competitor, series: series, track_place: 31
-          expect(competitor).to have(1).errors_on(:track_place)
+          competitor = build :competitor, series: series, qualification_round_track_place: 31
+          expect(competitor).to have(1).errors_on(:qualification_round_track_place)
+        end
+      end
+    end
+
+    describe 'final_round_track_place' do
+      it_should_behave_like 'positive integer', :final_round_track_place, true
+
+      context 'when race has shooting place count' do
+        let(:race) { create :race, shooting_place_count: 30 }
+        let(:series) { create :series, race: race }
+
+        it 'can be the same as the count' do
+          competitor = build :competitor, series: series, final_round_track_place: 30
+          expect(competitor).to have(0).errors_on(:final_round_track_place)
+        end
+
+        it 'cannot be bigger than the count' do
+          competitor = build :competitor, series: series, final_round_track_place: 31
+          expect(competitor).to have(1).errors_on(:final_round_track_place)
         end
       end
     end

@@ -3,8 +3,11 @@
     .col-xs-12.col-sm-3= f.label :qualification_round_batch_id
     .col-xs-12.col-sm-9= f.select :qualification_round_batch_id, options_from_collection_for_select(@series.race.qualification_round_batches, :id, :number, @competitor.qualification_round_batch_id), include_blank: true
   .form__field.form__field--sm.row
-    .col-xs-12.col-sm-3= f.label :track_place
-    .col-xs-12.col-sm-9= f.number_field :track_place
+    .col-xs-12.col-sm-3= f.label :qualification_round_track_place
+    .col-xs-12.col-sm-9= f.number_field :qualification_round_track_place
   .form__field.form__field--sm.row
     .col-xs-12.col-sm-3= f.label :final_round_batch_id
     .col-xs-12.col-sm-9= f.select :final_round_batch_id, options_from_collection_for_select(@series.race.final_round_batches, :id, :number, @competitor.final_round_batch_id), include_blank: true
+  .form__field.form__field--sm.row
+    .col-xs-12.col-sm-3= f.label :final_round_track_place
+    .col-xs-12.col-sm-9= f.number_field :final_round_track_place

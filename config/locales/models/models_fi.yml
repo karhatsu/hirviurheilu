@@ -40,6 +40,7 @@ fi:
     extra_shots: Uusinnan laukaukset
     final_round_batch_id: Loppuerä
     final_round_shooting_score_input: Loppukilpailun yhteistulos
+    final_round_track_place: Loppuerän ratapaikka
     first_name: Etunimi
     first_number: Ensimmäinen kilpailunumero
     front_page: Näytä etusivulla
@@ -71,6 +72,7 @@ fi:
     published: Julkaistu
     qualification_round_batch_id: Alkuerä
     qualification_round_shooting_score_input: Alkukilpailun yhteistulos
+    qualification_round_track_place: Alkuerän ratapaikka
     race: Kilpailu
     races: Kilpailut
     remember_me: Muista minut
@@ -243,7 +245,9 @@ fi:
               invalid_value: sisältää virheellisen numeron
             extra_shots:
               invalid_value: sisältää virheellisen numeron
-            track_place:
+            qualification_round_track_place:
+              too_big: on suurempi kuin kilpailun ammuntapaikkojen määrä
+            final_round_track_place:
               too_big: on suurempi kuin kilpailun ammuntapaikkojen määrä
         correct_estimate:
           attributes:
