@@ -40,7 +40,7 @@ RSpec.describe FinalRoundBatch, type: :model do
         create :final_round_batch
       end
 
-      it { is_expected.to validate_uniqueness_of(:time).scoped_to(:race_id, :track, :day) }
+      it { is_expected.to validate_uniqueness_of(:time).scoped_to(:race_id, :track, :day, :type) }
     end
   end
 end
