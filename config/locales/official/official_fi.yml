@@ -208,6 +208,7 @@ fi:
         delete_batches: Poista myös erät
         button: Tyhjennä eräluettelot
       destroy:
+        choose_type: Valitse haluatko tyhjentää alku- vai loppukilpailut
         batches_cleared: Eräluettelot tyhjennetty
         confirm_text_was_wrong: Kilpailun nimi ei täsmää, yhtään erää ei tyhjennetty
     correct_estimates:
