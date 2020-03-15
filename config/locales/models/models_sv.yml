@@ -105,6 +105,7 @@ sv:
     track: Bana
     track_count: Antal av banor
     track_place: Bana
+    type: Typ
     top_competitions: Tävlingsantal för totalpoäng
     unofficial: Informella tävlare
     use_team_name: Forma lag på grund av Jotos-lag

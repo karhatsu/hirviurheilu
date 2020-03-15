@@ -180,6 +180,7 @@ fi:
         sort_by_qualification_round: Järjestä kilpailijat alkukilpailun tulosten mukaan
     batches:
       index:
+        title: Erien hallinta
         no_batches: Et ole lisännyt vielä yhtään erää
         edit_to_define_competitors: Klikkaa erää, niin pääset asettelemaan siihen kilpailijat
         reset_batch_lists: Eräluetteloiden tyhjentäminen

@@ -1,31 +1,16 @@
 - content_for :title, "#{@race.name} - #{t 'official_sub_menu.batches'}"
-%h2= t 'official_sub_menu.batches'
+%h2= t '.title'
 = flash_success
-- if @batches.empty?
-  .message.message--info= t '.no_batches'
-- else
-  .message.message--info= t '.edit_to_define_competitors'
-  .row
-    - @batches.each do |batch|
-      .col-xs-12.col-sm-6.col-md-4
-        %a.card{href: edit_official_race_batch_path(@race, batch)}
-          .card__number= batch.number
-          .card__middle
-            .card__name
-              = batch_time @race, batch
-              - if batch.track.to_i > 0
-                (#{t('attributes.track')} #{batch.track})
-            - batch.competitors.each do |competitor|
-              .card__middle-row
-                #{competitor.track_place}.
-                - if competitor.number
-                  #{full_name(competitor)} (##{competitor.number}),
-                - else
-                  #{full_name(competitor)},
-                #{competitor.club.name} (#{competitor.series.name})
+- unless @qualification_round_batches.empty? && @final_round_batches.empty?
+  .message.message--info= t 'official.batches.index.edit_to_define_competitors'
+%h3= t :qualification_round
+= render partial: 'batch_list', locals: { batches: @qualification_round_batches }
+%h3= t :final_round
+= render partial: 'batch_list', locals: { batches: @final_round_batches }
 .buttons
   = link_to t(:add_batch), new_official_race_batch_path(@race), class: 'button button--add'
 .buttons.buttons--nav
   = link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'
-  - unless @batches.empty?
+  - # TODO: final round
+  - unless @qualification_round_batches.empty?
     = link_to t('.reset_batch_lists'), official_race_batch_lists_reset_path(@race), class: 'button'

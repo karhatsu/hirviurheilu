@@ -1,5 +1,12 @@
 = render partial: 'shared/form_errors', locals: { item: @batch }
-= form_for([:official, @race, @batch], html: { class: 'form' }) do |f|
+= form_for([:official, @race, @batch.becomes(Batch)], html: { class: 'form' }) do |f|
+  .form__field.form__field--sm.row
+    .col-xs-12.col-sm-2= f.label :type
+    .col-xs-12.col-sm-10
+      = f.radio_button :type, 'QualificationRoundBatch'
+      = f.label "type_qualificationroundbatch", t(:qualification_round), class: 'form__label--radio'
+      = f.radio_button :type, 'FinalRoundBatch'
+      = f.label "type_finalroundbatch", t(:final_round), class: 'form__label--radio'
   .form__field.form__field--sm.row
     .col-xs-12.col-sm-2= f.label :number
     .col-xs-12.col-sm-10= f.number_field :number

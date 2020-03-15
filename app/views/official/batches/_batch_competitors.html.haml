@@ -12,7 +12,7 @@
       .card
         .card__number= track_place
         .card__middle
-          - competitor = competitors.find {|c| c.track_place == track_place}
+          - competitor = competitors.find {|c| c.track_place(@batch) == track_place}
           .form__horizontal-fields
             .form__field.form__field--sm
               = hidden_field_tag :competitor_id, competitor&.id, id: "competitor_id_#{track_place}", class: 'competitor_id'

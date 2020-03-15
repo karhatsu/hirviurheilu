@@ -1,0 +1,21 @@
+- if batches.empty?
+  .message.message--info= t 'official.batches.index.no_batches'
+- else
+  .row
+    - batches.each do |batch|
+      .col-xs-12.col-sm-6.col-md-4
+        %a.card{href: edit_official_race_batch_path(@race, batch)}
+          .card__number= batch.number
+          .card__middle
+            .card__name
+              = batch_time @race, batch
+              - if batch.track.to_i > 0
+                (#{t('attributes.track')} #{batch.track})
+            - batch.competitors.each do |competitor|
+              .card__middle-row
+                #{competitor.track_place(batch)}.
+                - if competitor.number
+                  #{full_name(competitor)} (##{competitor.number}),
+                - else
+                  #{full_name(competitor)},
+                #{competitor.club.name} (#{competitor.series.name})

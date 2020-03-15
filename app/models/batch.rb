@@ -1,6 +1,7 @@
 class Batch < ApplicationRecord
   belongs_to :race
 
+  validates :type, presence: true
   validates :number, numericality: { greater_than: 0, only_integer: true, allow_nil: false }, uniqueness: { scope: [:race_id, :type] }
   validates :track, numericality: { greater_than: 0, only_integer: true, allow_nil: true }
   validates :time, presence: true, uniqueness: { scope: [:race_id, :track, :day, :type] }

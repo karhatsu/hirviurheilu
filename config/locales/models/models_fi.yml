@@ -106,6 +106,7 @@ fi:
     track: Rata
     track_count: Ratojen määrä
     track_place: Ratapaikka
+    type: Tyyppi
     unofficial: Epävirallinen kilpailija
     use_team_name: Muodosta joukkueet kilpailijoiden jotosjoukkuenimien perusteella
 
