@@ -13,6 +13,6 @@ class Official::ShootingByBatchesController < Official::OfficialController
   end
 
   def batch_name(batch)
-    "#{batch.is_a?(FinalRoundBatch) ? t('attributes.final_round_batch_id') : t('attributes.qualification_round_batch_id')} #{batch.number}"
+    "#{batch.final_round? ? t('attributes.final_round_batch_id') : t('attributes.qualification_round_batch_id')} #{batch.number}"
   end
 end

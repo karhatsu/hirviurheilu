@@ -262,7 +262,7 @@ class Competitor < ApplicationRecord
   end
 
   def track_place(batch)
-    batch.is_a?(FinalRoundBatch) ? final_round_track_place : qualification_round_track_place
+    batch.final_round? ? final_round_track_place : qualification_round_track_place
   end
 
   private
