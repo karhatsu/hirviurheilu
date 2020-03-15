@@ -18,7 +18,7 @@ RSpec.describe QualificationRoundBatch, type: :model do
       before do
         create :qualification_round_batch
       end
-      it { is_expected.to validate_uniqueness_of(:number).scoped_to(:race_id) }
+      it { is_expected.to validate_uniqueness_of(:number).scoped_to(:race_id, :type) }
     end
 
     describe 'day' do
