@@ -1,12 +1,12 @@
 - content_for :title, "#{@race.name} - #{t('.title')}"
 %h2 #{@race.name} - #{t('.title')}
-- if @batches.empty?
+- if @batch_options.empty?
   .message.message--info= t '.no_batches'
 - else
   = form_tag(official_race_shooting_by_batches_path(@race), method: :get) do
     .form__horizontal-fields
-      .form__field.form__field--sm
-        = select_tag :batch_id, options_from_collection_for_select(@batches, :id, :number, params[:batch_id]), prompt: t('attributes.batch_id')
+      .form__field
+        = select_tag :batch_id, options_for_select(@batch_options, params[:batch_id]), prompt: t('attributes.batch_id')
       .form__buttons
         = submit_tag t('.select_batch'), class: 'button button--primary'
   - if @batch
