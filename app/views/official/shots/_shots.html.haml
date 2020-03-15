@@ -22,7 +22,7 @@
           .card__middle-row
             = form_for([:official, @series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "shots_form_#{competitor.id}", class: 'form form--inline' }) do |f|
               - if shooting_race
-                = render partial: 'official/shots/all_shooting_race_shots', locals: { f: f, sport: @series.sport, competitor: competitor }
+                = render partial: 'official/shots/all_shooting_race_shots', locals: { f: f, sport: @series.sport, competitor: competitor, show_qualification_round_shots: true }
                 .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
               - else
                 .form__horizontal-fields
