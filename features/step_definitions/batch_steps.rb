@@ -1,5 +1,9 @@
-Given("the race has a batch {int} with track {int} and time {string}") do |number, track, time|
-  create :batch, race: @race, number: number, track: track, time: time
+Given("the race has a qualification round batch {int} with track {int} and time {string}") do |number, track, time|
+  create :qualification_round_batch, race: @race, number: number, track: track, time: time
+end
+
+Given("the race has a final round batch {int} with track {int} and time {string}") do |number, track, time|
+  create :final_round_batch, race: @race, number: number, track: track, time: time
 end
 
 When("I set competitor number {int} to track place {int}") do |competitor_number, track_place|

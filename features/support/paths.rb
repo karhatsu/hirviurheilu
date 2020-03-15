@@ -88,8 +88,11 @@ module NavigationHelpers
     when /the race page/
       race_path(locale, @race)
 
-    when /the race batch list page/
-      race_batch_list_path(locale, @race)
+    when /the race qualification round batches page/
+      race_qualification_round_batches_path(locale, @race)
+
+    when /the race final round batches page/
+      race_final_round_batches_path(locale, @race)
 
     when /the media page of "(.*)"/
       new_race_medium_path(locale, Race.find_by_name($1))
