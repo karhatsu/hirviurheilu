@@ -95,6 +95,7 @@
     $.ajax({
       type: 'DELETE',
       url: '/official/races/#{@race.id}/competitors/' + competitorId + '/track_place.json',
+      data: { final_round: #{@batch.final_round?} },
     }).done(function () {
       hideSaveButton(trackPlace)
       $(saveErrorLocator).hide()
