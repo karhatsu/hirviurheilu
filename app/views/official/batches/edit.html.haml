@@ -1,4 +1,4 @@
-- content_for :page_title, "#{t 'attributes.batch_id'} #{@batch.number} - #{t :edit}"
+- content_for :page_title, "#{t "attributes.#{@batch.id_name}"} #{@batch.number} - #{t :edit}"
 - content_for :title, "#{@race.name} - #{yield :page_title}"
 %h2= yield :page_title
 %h3= t '.basic_information'

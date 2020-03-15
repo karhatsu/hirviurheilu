@@ -8,4 +8,8 @@ class QualificationRoundBatch < Batch
   def final_round?
     false
   end
+
+  def id_name
+    :qualification_round_batch_id
+  end
 end

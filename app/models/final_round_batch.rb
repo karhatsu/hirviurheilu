@@ -8,4 +8,8 @@ class FinalRoundBatch < Batch
   def final_round?
     true
   end
+
+  def id_name
+    :final_round_batch_id
+  end
 end
