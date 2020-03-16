@@ -5,10 +5,12 @@
   .message.message--info= t 'official.batches.index.edit_to_define_competitors'
 %h3= t :qualification_round
 = render partial: 'batch_list', locals: { batches: @qualification_round_batches }
+.buttons
+  = link_to t(:add_batch), new_official_race_batch_path(@race, type: 'QualificationRoundBatch'), class: 'button button--add'
 %h3= t :final_round
 = render partial: 'batch_list', locals: { batches: @final_round_batches }
 .buttons
-  = link_to t(:add_batch), new_official_race_batch_path(@race), class: 'button button--add'
+  = link_to t(:add_batch), new_official_race_batch_path(@race, type: 'FinalRoundBatch'), class: 'button button--add'
 .buttons.buttons--nav
   = link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'
   - unless @qualification_round_batches.empty? && @final_round_batches.empty?
