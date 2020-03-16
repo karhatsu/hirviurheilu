@@ -120,7 +120,7 @@ class Official::CompetitorsController < Official::OfficialController
 
   def add_competitor_params
     params.require(:competitor).permit(:series_id, :age_group_id, :club_id, :first_name, :last_name, :unofficial,
-      :team_name, :number, :start_time)
+      :team_name, :number, :start_time, :qualification_round_batch_id, :qualification_round_track_place, :final_round_batch_id, :final_round_track_place)
   end
 
   def update_competitor_params
