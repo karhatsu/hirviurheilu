@@ -33,7 +33,7 @@ class Official::BatchListGenerationsController < Official::OfficialController
   private
 
   def find_competitors_without_batch
-    @competitors_without_batch = @series.competitors.where('batch_id IS NULL AND track_place IS NULL')
+    @competitors_without_batch = @series.competitors.where('qualification_round_batch_id IS NULL AND qualification_round_track_place IS NULL') # TODO: final round
   end
 
   def set_menu
