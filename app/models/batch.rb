@@ -8,6 +8,14 @@ class Batch < ApplicationRecord
   validates :day, numericality: { greater_than: 0, only_integer: true, allow_nil: false }
   validate :day_not_too_big
 
+  def qualification_round?
+    type == 'QualificationRoundBatch'
+  end
+
+  def final_round?
+    type == 'FinalRoundBatch'
+  end
+
   private
 
   def day_not_too_big

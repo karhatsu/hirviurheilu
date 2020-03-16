@@ -11,7 +11,7 @@ Feature: Manual batch list
     When I choose "Erät" from sub menu
     Then the official main menu item should be selected
     And the "Erät" sub menu item should be selected
-    When I follow "Lisää erä"
+    When I follow "Lisää alkuerä"
     Then the "Erät" sub menu item should be selected
     And I should see "Lisää erä" within "h2"
     When I fill in "10" for "Numero"
@@ -19,8 +19,7 @@ Feature: Manual batch list
     And I select "11" from "batch_time_4i"
     And I select "30" from "batch_time_5i"
     And I press "Tallenna"
-    Then I should see "Erät" within "h2"
-    And I should see "Erä lisätty" in a success message
+    Then I should see "Erä lisätty" in a success message
     And I should see "10" within ".card__number"
     And I should see "11:30 (Rata 2)" within ".card__name"
     When I follow "11:30 (Rata 2)"
@@ -34,8 +33,7 @@ Feature: Manual batch list
     And I should see "15:25 (Rata 1)" within ".card__name"
     When I follow "15:25 (Rata 1)"
     And I follow "Poista erä"
-    Then I should see "Erät" within "h2"
-    And I should see "Erä poistettu" in a success message
+    Then I should see "Erä poistettu" in a success message
     But I should not see "11:30 (Rata 2)"
 
   @javascript
@@ -46,7 +44,7 @@ Feature: Manual batch list
     And the series has a competitor 10 "Maija" "Mikkonen" from "Testiseura 10"
     And the race has series "Men"
     And the series has a competitor 11 "Tomi" "Turunen" from "Testiseura 11"
-    And the race has a batch 1 with track 1 and time "13:30"
+    And the race has a qualification round batch 1 with track 1 and time "13:30"
     And I have logged in
     And I am on the official race page of "Shooting race"
     When I choose "Erät" from sub menu
