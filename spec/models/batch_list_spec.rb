@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe BatchList do
   let(:another_race) { create :race }
-  let!(:another_race_batch) { create :batch, race: another_race, number: 1 }
+  let!(:another_race_batch) { create :qualification_round_batch, race: another_race, number: 1 }
   let(:track_count) { 1 }
   let(:shooting_place_count) { 2 }
   let(:race) { create :race, track_count: track_count, shooting_place_count: shooting_place_count }
@@ -188,14 +188,14 @@ describe BatchList do
 
   context 'when some of the competitors already have a batch place assigned' do
     let(:minutes_between_batches) { 15 }
-    let(:batch1) { create :batch, race: race, number: 1, time: '13:30' }
-    let(:batch2) { create :batch, race: race, number: 2, time: '13:45' }
-    let(:batch3) { create :batch, race: race, number: 3, time: '14:00' }
+    let(:batch1) { create :qualification_round_batch, race: race, number: 1, time: '13:30' }
+    let(:batch2) { create :qualification_round_batch, race: race, number: 2, time: '13:45' }
+    let(:batch3) { create :qualification_round_batch, race: race, number: 3, time: '14:00' }
     let(:competitor_1_1) { create :competitor, series: series, number: 1 }
-    let!(:competitor_1_2) { create :competitor, series: series, number: 2, batch: batch1, track_place: 2 }
-    let!(:competitor_2_1) { create :competitor, series: series, number: 3, batch: batch2, track_place: 1 }
-    let!(:competitor_2_2) { create :competitor, series: series, number: 4, batch: batch2, track_place: 2 }
-    let!(:competitor_3_1) { create :competitor, series: series, number: 5, batch: batch3, track_place: 1 }
+    let!(:competitor_1_2) { create :competitor, series: series, number: 2, qualification_round_batch: batch1, qualification_round_track_place: 2 }
+    let!(:competitor_2_1) { create :competitor, series: series, number: 3, qualification_round_batch: batch2, qualification_round_track_place: 1 }
+    let!(:competitor_2_2) { create :competitor, series: series, number: 4, qualification_round_batch: batch2, qualification_round_track_place: 2 }
+    let!(:competitor_3_1) { create :competitor, series: series, number: 5, qualification_round_batch: batch3, qualification_round_track_place: 1 }
     let(:competitor_3_2) { create :competitor, series: series, number: 6 }
     let(:competitor_4_1) { create :competitor, series: series, number: 7 }
 
@@ -226,8 +226,8 @@ describe BatchList do
 
     before do
       race.update_attribute :end_date, race.start_date + 1.day
-      create :batch, race: race, day: 1, number: 1, time: first_batch_time
-      create :batch, race: race, day: 2, number: 2, time: first_batch_time, track: nil
+      create :qualification_round_batch, race: race, day: 1, number: 1, time: first_batch_time
+      create :qualification_round_batch, race: race, day: 2, number: 2, time: first_batch_time, track: nil
       allow(generator).to receive(:shuffle_competitors).and_return([competitor1, competitor2, competitor3])
     end
 
@@ -299,18 +299,18 @@ describe BatchList do
     end
 
     context 'and competitors already allocated' do
-      let(:batch1_1) { create :batch, race: race, number: 1, track: 1, time: first_batch_time }
-      let(:batch1_2) { create :batch, race: race, number: 2, track: 2, time: first_batch_time }
+      let(:batch1_1) { create :qualification_round_batch, race: race, number: 1, track: 1, time: first_batch_time }
+      let(:batch1_2) { create :qualification_round_batch, race: race, number: 2, track: 2, time: first_batch_time }
 
       before do
-        competitor1.batch = batch1_1
-        competitor1.track_place = 1
+        competitor1.qualification_round_batch = batch1_1
+        competitor1.qualification_round_track_place = 1
         competitor1.save!
-        competitor2.batch = batch1_1
-        competitor2.track_place = 2
+        competitor2.qualification_round_batch = batch1_1
+        competitor2.qualification_round_track_place = 2
         competitor2.save!
-        competitor3.batch = batch1_2
-        competitor3.track_place = 1
+        competitor3.qualification_round_batch = batch1_2
+        competitor3.qualification_round_track_place = 1
         competitor3.save!
         competitors = [competitor4, competitor5, competitor6, competitor7]
         expect(generator).to receive(:shuffle_competitors).and_return(competitors)
@@ -328,11 +328,11 @@ describe BatchList do
     end
 
     context 'and previous allocation was without concurrent batches' do
-      let(:batch1) { create :batch, race: race, number: 1, track: nil, time: first_batch_time }
+      let(:batch1) { create :qualification_round_batch, race: race, number: 1, track: nil, time: first_batch_time }
 
       before do
-        competitor1.batch = batch1
-        competitor1.track_place = 1
+        competitor1.qualification_round_batch = batch1
+        competitor1.qualification_round_track_place = 1
         competitor1.save!
         competitors = [competitor2, competitor3, competitor4, competitor5, competitor6, competitor7]
         expect(generator).to receive(:shuffle_competitors).and_return(competitors)
@@ -460,7 +460,7 @@ describe BatchList do
   end
 
   def verify_batch(number, time, day=1, track=nil)
-    batch = Batch.where('race_id=? AND number=?', race.id, number).first
+    batch = QualificationRoundBatch.where('race_id=? AND number=?', race.id, number).first
     expect(batch.time.strftime('%H:%M')).to eql time
     expect(batch.day).to eql day
     if track
@@ -471,13 +471,13 @@ describe BatchList do
   end
 
   def verify_competitor(competitor, batch_number, track_place)
-    batch = competitor.reload.batch
+    batch = competitor.reload.qualification_round_batch
     if batch_number
       expect(batch).not_to be_nil
       expect(batch.number).to eql batch_number
     else
       expect(batch).to be_nil
     end
-    expect(competitor.track_place).to eql track_place
+    expect(competitor.qualification_round_track_place).to eql track_place
   end
 end

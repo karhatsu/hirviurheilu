@@ -63,7 +63,7 @@ class BatchList
   end
 
   def validate_first_place(first_batch_number, first_track_place, batch_day, first_batch_time)
-    batch = Batch.where('race_id=? AND number=?', race.id, first_batch_number).first
+    batch = QualificationRoundBatch.where('race_id=? AND number=?', race.id, first_batch_number).first
     return true unless batch
     if batch.day != batch_day
       @errors << I18n.t('activerecord.errors.models.batch_list.first_batch_day_conflict')
@@ -73,7 +73,7 @@ class BatchList
       @errors << I18n.t('activerecord.errors.models.batch_list.first_batch_time_conflict')
       return false
     end
-    competitor = Competitor.where('batch_id=? AND track_place=?', batch.id, first_track_place).first
+    competitor = Competitor.where('qualification_round_batch_id=? AND qualification_round_track_place=?', batch.id, first_track_place).first
     return true unless competitor
     @errors << I18n.t('activerecord.errors.models.batch_list.first_track_place_reserved')
     false
@@ -86,7 +86,7 @@ class BatchList
       concurrent_batches = race.concurrent_batches
       track = concurrent_batches > 1 ? 1 : nil
       batch = find_or_create_batch first_batch_number, batch_day, first_batch_time, track
-      competitors = shuffle_competitors @series.competitors.where('batch_id IS NULL AND track_place IS NULL')
+      competitors = shuffle_competitors @series.competitors.where('qualification_round_batch_id IS NULL AND qualification_round_track_place IS NULL')
       batch_number, track_place = resolve_next_track_place reserved_places, batch.number, first_track_place - 1, opts
       competitors.each_with_index do |competitor, i|
         if i > 0 && batch_number != batch.number
@@ -100,8 +100,8 @@ class BatchList
           end
           batch = find_or_create_batch(batch_number, batch_day, time, track)
         end
-        competitor.batch = batch
-        competitor.track_place = track_place
+        competitor.qualification_round_batch = batch
+        competitor.qualification_round_track_place = track_place
         competitor.save!
         batch_number, track_place = resolve_next_track_place reserved_places, batch.number, track_place, opts
         break if only_one && batch_number != batch.number
@@ -113,10 +113,10 @@ class BatchList
 
   def find_reserved_places
     reserved_places = Hash.new
-    @series.competitors.joins(:batch).where('batch_id IS NOT NULL AND track_place IS NOT NULL').order('batches.number, competitors.track_place').each do |competitor|
-      batch_number = competitor.batch.number
+    @series.competitors.joins(:qualification_round_batch).where('qualification_round_batch_id IS NOT NULL AND qualification_round_track_place IS NOT NULL').order('batches.number, competitors.qualification_round_track_place').each do |competitor|
+      batch_number = competitor.qualification_round_batch.number
       reserved_places[batch_number] ||= Hash.new
-      reserved_places[batch_number][competitor.track_place] = true
+      reserved_places[batch_number][competitor.qualification_round_track_place] = true
     end
     reserved_places
   end
@@ -126,7 +126,7 @@ class BatchList
   end
 
   def find_or_create_batch(number, day, time, track)
-    batch = Batch.create_with(day: day, time: time, track: track).find_or_create_by!(race: race, number: number)
+    batch = QualificationRoundBatch.create_with(day: day, time: time, track: track).find_or_create_by!(race: race, number: number)
     if batch.track.nil? && track
       batch.track = track
       batch.save!
