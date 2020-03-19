@@ -6,13 +6,13 @@ class BatchList
     @errors = []
   end
 
-  def generate_single_batch(batch_number, first_track_place, batch_time, opts = {})
+  def generate_qualification_round_single_batch(batch_number, first_track_place, batch_time, opts = {})
     batch_day = opts[:batch_day] || 1
     return unless validate batch_number, first_track_place, batch_day, batch_time, 1
     generate_batches batch_number, first_track_place, batch_time, 1, true, opts
   end
 
-  def generate(first_batch_number, first_track_place, first_batch_time, minutes_between_batches, opts = {})
+  def generate_qualification_round(first_batch_number, first_track_place, first_batch_time, minutes_between_batches, opts = {})
     batch_day = opts[:batch_day] || 1
     return unless validate first_batch_number, first_track_place, batch_day, first_batch_time, minutes_between_batches
     generate_batches first_batch_number, first_track_place, first_batch_time, minutes_between_batches, false, opts

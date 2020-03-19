@@ -14,9 +14,9 @@ class Official::BatchListGenerationsController < Official::OfficialController
     opts[:skip_last_track_place] = params[:skip_last_track_place]
     opts[:skip_track_places] = params[:skip_track_places].split(',').map(&:strip).map(&:to_i)
     if params[:only_one_batch]
-      generator.generate_single_batch params[:first_batch_number].to_i, params[:first_track_place].to_i, params[:first_batch_time], opts
+      generator.generate_qualification_round_single_batch params[:first_batch_number].to_i, params[:first_track_place].to_i, params[:first_batch_time], opts
     else
-      generator.generate params[:first_batch_number].to_i, params[:first_track_place].to_i, params[:first_batch_time],
+      generator.generate_qualification_round params[:first_batch_number].to_i, params[:first_track_place].to_i, params[:first_batch_time],
                          params[:minutes_between_batches].to_i, opts
     end
     if generator.errors.empty?
