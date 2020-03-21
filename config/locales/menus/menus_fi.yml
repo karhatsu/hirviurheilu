@@ -27,7 +27,7 @@ fi:
     press: Lehdistö
   official_sub_menu:
     summary: Yhteenveto
-    race: Kilpailu & sarjat
+    race: Perustiedot
     batches: Erät
     competitors: Kilpailijat
     start_times: Lähtöajat
