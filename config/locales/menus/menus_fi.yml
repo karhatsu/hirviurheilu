@@ -32,6 +32,7 @@ fi:
     competitors: Kilpailijat
     start_times: Lähtöajat
     qualification_round_batch_list: Alkuerien arvonta
+    final_round_batch_list: Loppuerien asettelu
     quick_save: Pikasyöttö
     times: Ajat
     estimates: Arviot

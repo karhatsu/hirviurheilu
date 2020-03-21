@@ -103,6 +103,7 @@ ElkSports::Application.routes.draw do
 
       resources :series do
         resource :qualification_round_batch_list, only: [:show, :create]
+        resource :final_round_batch_list, only: [:show, :create]
         resources :competitors, :except => :create
         resources :age_groups
         resource :start_list
