@@ -30,10 +30,12 @@ class Admin::RacesController < Admin::AdminController
   def destroy
     @race = Race.find(params[:id])
     if params[:confirm_name] == @race.name
-      if @race.destroy
+      begin
+        @race.destroy!
         flash[:success] = 'Kilpailu poistettu'
         redirect_to admin_races_path
-      else
+      rescue => e
+        flash[:error] = e.record.errors.full_messages.join('. ')
         render :show
       end
     else
