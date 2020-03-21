@@ -31,7 +31,7 @@ fi:
     batches: Erät
     competitors: Kilpailijat
     start_times: Lähtöajat
-    batch_list_generation: Erien arvonta
+    qualification_round_batch_list: Alkuerien arvonta
     quick_save: Pikasyöttö
     times: Ajat
     estimates: Arviot

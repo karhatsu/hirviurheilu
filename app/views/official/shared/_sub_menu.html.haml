@@ -16,7 +16,7 @@
       - if race.sport.start_list?
         = menu_item t('official_sub_menu.start_times'), official_race_start_list_path(race), @is_start_list
       - elsif race.sport.batch_list?
-        = menu_item t('official_sub_menu.batch_list_generation'), official_series_batch_list_generation_path(series), @is_batch_list_generation
+        = menu_item t('official_sub_menu.qualification_round_batch_list'), official_series_qualification_round_batch_list_path(series), @qualification_round_batch_list
       = menu_item t('official_sub_menu.quick_save'), official_race_quick_saves_path(race), @is_quick_saves
       - unless race.sport.only_shooting?
         = menu_item t('official_sub_menu.times'), official_series_times_path(series), @is_times, nil, true do

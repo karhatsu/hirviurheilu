@@ -31,7 +31,7 @@ sv:
     batches: Erät
     competitors: Tävlar
     start_times: Starttider
-    batch_list_generation: Erien arvonta
+    qualification_round_batch_list: Alkuerien arvonta
     quick_save: Resultat
     times: Tider
     estimates: Bedömning

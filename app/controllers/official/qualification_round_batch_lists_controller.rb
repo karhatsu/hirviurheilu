@@ -1,4 +1,4 @@
-class Official::BatchListGenerationsController < Official::OfficialController
+class Official::QualificationRoundBatchListsController < Official::OfficialController
   before_action :assign_series_by_series_id, :check_assigned_series, :set_menu
 
   def show
@@ -22,7 +22,7 @@ class Official::BatchListGenerationsController < Official::OfficialController
     if generator.errors.empty?
       success_key = params[:only_one_batch] ? 'one' : 'many'
       flash[:success] = t(".batch_list_generated.#{success_key}")
-      redirect_to official_series_batch_list_generation_path(@series)
+      redirect_to official_series_qualification_round_batch_list_path(@series)
     else
       flash[:error] = generator.errors.join('. ')
       find_competitors_without_batch
@@ -37,6 +37,6 @@ class Official::BatchListGenerationsController < Official::OfficialController
   end
 
   def set_menu
-    @is_batch_list_generation = true
+    @qualification_round_batch_list = true
   end
 end

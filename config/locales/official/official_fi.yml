@@ -67,7 +67,7 @@ fi:
         copy_competitors: Kopioi kilpailijat toisesta kilpailusta
         add_competitors_from_csv: Lisää kilpailijoita CSV-tiedostosta
         batches_manually: Erien hallinta manuaalisesti
-        batch_generation: Erien asettelu arpomalla
+        qualification_round_batch_list: Alkuerien asettelu arpomalla
         other: Muita toimintoja
         national_records: Suomen ennätykset
         download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)
@@ -121,7 +121,7 @@ fi:
         no_start_list_for_any_series: Yhdellekään sarjalle ei ole luotu vielä lähtölistaa
       update:
         start_list_create_for_series: Lähtölista luotu sarjalle
-    batch_list_generations:
+    qualification_round_batch_lists:
       show:
         title: Eräluetteloiden arvonta
         no_competitors_without_batch_in_series: Sarjassa ei ole yhtään kilpailijaa, jolta puuttuisi ammuntapaikka

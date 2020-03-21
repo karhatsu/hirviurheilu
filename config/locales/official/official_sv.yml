@@ -67,7 +67,7 @@ sv:
         copy_competitors: Kopiera tävlarna från annan tävling
         add_competitors_from_csv: Öka tävlar från CSV-fil
         batches_manually: Erien hallinta manuaalisesti
-        batch_generation: Erien asettelu arpomalla
+        qualification_round_batch_list: Alkuerien asettelu arpomalla
         other: Övriga
         national_records: Finska rekord
         download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)
@@ -121,7 +121,7 @@ sv:
         no_start_list_for_any_series: Ingen klass har startlist ännu
       update:
         start_list_create_for_series: Startlista skapat för klassen
-    batch_list_generations:
+    qualification_round_batch_lists:
       show:
         title: Eräluetteloiden arvonta
         no_competitors_without_batch_in_series: Klassen har inga tävlare utan skytteplats
