@@ -14,7 +14,8 @@ sv:
   race_sub_menu:
     home_page: Tävling hemsida
     start_lists: Startlistor
-    batch_list: Eräluettelo
+    qualification_round_batches: Alkuerät
+    final_round_batches: Loppuerät
     results: Resultat
     team_competitions: Lagtävlingar
     relays: Stafetter
@@ -26,11 +27,12 @@ sv:
     press: Press
   official_sub_menu:
     summary: Sammanfattning
-    race: Tävling & klasser
+    race: Basinformation
     batches: Erät
     competitors: Tävlar
     start_times: Starttider
-    batch_list_generation: Erien arvonta
+    qualification_round_batch_list: Alkuerien arvonta
+    final_round_batch_list: Loppuerien asettelu
     quick_save: Resultat
     times: Tider
     estimates: Bedömning

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_26_071436) do
+ActiveRecord::Schema.define(version: 2020_03_15_065519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2020_02_26_071436) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "day", default: 1, null: false
+    t.string "type", null: false
     t.index ["race_id"], name: "index_batches_on_race_id"
   end
 
@@ -97,14 +98,17 @@ ActiveRecord::Schema.define(version: 2020_02_26_071436) do
     t.integer "shot_7"
     t.integer "shot_8"
     t.integer "shot_9"
-    t.bigint "batch_id"
-    t.integer "track_place"
+    t.bigint "qualification_round_batch_id"
+    t.integer "qualification_round_track_place"
     t.jsonb "shots"
     t.jsonb "extra_shots"
     t.integer "qualification_round_shooting_score_input"
     t.integer "final_round_shooting_score_input"
+    t.bigint "final_round_batch_id"
+    t.integer "final_round_track_place"
     t.index ["age_group_id"], name: "index_competitors_on_age_group_id"
-    t.index ["batch_id"], name: "index_competitors_on_batch_id"
+    t.index ["final_round_batch_id"], name: "index_competitors_on_final_round_batch_id"
+    t.index ["qualification_round_batch_id"], name: "index_competitors_on_qualification_round_batch_id"
     t.index ["series_id"], name: "index_competitors_on_series_id"
   end
 

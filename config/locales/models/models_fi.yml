@@ -38,7 +38,9 @@ fi:
     estimate_penalty_distance: Arviosakkokierroksen pituus (m)
     estimate_penalty_seconds: Arvionnin sakkosekunnit
     extra_shots: Uusinnan laukaukset
+    final_round_batch_id: Loppuerä
     final_round_shooting_score_input: Loppukilpailun yhteistulos
+    final_round_track_place: Loppuerän ratapaikka
     first_name: Etunimi
     first_number: Ensimmäinen kilpailunumero
     front_page: Näytä etusivulla
@@ -68,7 +70,9 @@ fi:
     price: Hinta
     public_message: Viesti kilpailun etusivulle
     published: Julkaistu
+    qualification_round_batch_id: Alkuerä
     qualification_round_shooting_score_input: Alkukilpailun yhteistulos
+    qualification_round_track_place: Alkuerän ratapaikka
     race: Kilpailu
     races: Kilpailut
     remember_me: Muista minut
@@ -102,6 +106,7 @@ fi:
     track: Rata
     track_count: Ratojen määrä
     track_place: Ratapaikka
+    type: Tyyppi
     unofficial: Epävirallinen kilpailija
     use_team_name: Muodosta joukkueet kilpailijoiden jotosjoukkuenimien perusteella
 
@@ -208,6 +213,7 @@ fi:
           invalid_first_track_place: Ensimmäinen paikkanumero on virheellinen
           invalid_first_batch_time: Ensimmäinen erän kellonaika on virheellinen
           invalid_minutes_between_batches: Erälle varattu aika on virheellinen
+          invalid_competitors_count: Loppukilpailun kilpailijoiden lukumäärä on virheellinen
           no_track_count: Kilpailulle ei ole määritetty ratojen lukumäärää. Voit tallentaa tiedon kilpailun perustietojen lomakkeella.
           no_shooting_place_count: Kilpailulle ei ole määritetty ammuntapaikkojen lukumäärää. Voit tallentaa tiedon kilpailun perustietojen lomakkeella.
           first_batch_day_conflict: Ensimmäinen erä on jo tallennettu mutta sen päivä on eri kuin syöttämäsi päivä
@@ -241,7 +247,9 @@ fi:
               invalid_value: sisältää virheellisen numeron
             extra_shots:
               invalid_value: sisältää virheellisen numeron
-            track_place:
+            qualification_round_track_place:
+              too_big: on suurempi kuin kilpailun ammuntapaikkojen määrä
+            final_round_track_place:
               too_big: on suurempi kuin kilpailun ammuntapaikkojen määrä
         correct_estimate:
           attributes:

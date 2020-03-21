@@ -135,7 +135,7 @@ Feature: Manage race
     And the race has series "Test series"
     And I have logged in
     When I go to the official race page of "Test race"
-    And I follow "Kilpailu & sarjat"
+    And I follow "Perustiedot"
     And I fill in "New name for race" for "Kilpailun nimi"
     And I fill in "New race location" for "Paikkakunta"
     And I fill in "New name for series" for "Sarjan nimi"

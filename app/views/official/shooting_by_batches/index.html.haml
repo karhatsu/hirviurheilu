@@ -1,17 +1,17 @@
 - content_for :title, "#{@race.name} - #{t('.title')}"
 %h2 #{@race.name} - #{t('.title')}
-- if @batches.empty?
+- if @batch_options.empty?
   .message.message--info= t '.no_batches'
 - else
   = form_tag(official_race_shooting_by_batches_path(@race), method: :get) do
     .form__horizontal-fields
-      .form__field.form__field--sm
-        = select_tag :batch_id, options_from_collection_for_select(@batches, :id, :number, params[:batch_id]), prompt: t('attributes.batch_id')
+      .form__field
+        = select_tag :batch_id, options_for_select(@batch_options, params[:batch_id]), prompt: t('attributes.batch_id')
       .form__buttons
         = submit_tag t('.select_batch'), class: 'button button--primary'
   - if @batch
     %h3
-      #{t('attributes.batch_id')}: #{@batch.number}, #{batch_time(@race, @batch)}
+      #{@batch.final_round? ? t('attributes.final_round_batch_id') : t('attributes.qualification_round_batch_id')}: #{@batch.number}, #{batch_time(@race, @batch)}
       - if @batch.track
         (#{t('attributes.track')} #{@batch.track})
     - competitors = @batch.competitors.includes(:series)
@@ -21,7 +21,7 @@
       .result-cards
         - competitors.each do |competitor|
           .card
-            .card__number= competitor.track_place
+            .card__number= competitor.track_place @batch
             .card__middle
               .card__name
                 = full_name competitor
@@ -31,7 +31,7 @@
               - unless competitor.no_result_reason
                 .card__middle-row
                   = form_for([:official, competitor.series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "shots_form_#{competitor.id}", class: 'form form--inline' }) do |f|
-                    = render partial: 'official/shots/all_shooting_race_shots', locals: { f: f, sport: @race.sport, competitor: competitor }
+                    = render partial: 'official/shots/all_shooting_race_shots', locals: { f: f, sport: @race.sport, competitor: competitor, show_qualification_round_shots: @batch.qualification_round? }
                     .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
             .card__main-value{id: "shots_result_#{competitor.id}"}
               - if competitor.no_result_reason

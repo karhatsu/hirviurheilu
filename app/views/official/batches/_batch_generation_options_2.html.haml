@@ -1,0 +1,21 @@
+.form__field.form__field--sm.row.multiple-batches
+  .col-xs-12.col-sm-4= label_tag :minutes_between_batches, t('official.batch_lists.show.minutes_between_batches')
+  .col-xs-12.col-sm-8= number_field_tag :minutes_between_batches, params[:minutes_between_batches] || @series.race.suggested_min_between_batches(final_round)
+.form__field.row
+  .col-xs-12.col-sm-4= label_tag :only_track_places, t('official.batch_lists.show.assign_competitors')
+  .col-xs-12.col-sm-8
+    = radio_button_tag :only_track_places, 'all', !%w(odd even).include?(params[:only_track_places])
+    = t 'official.batch_lists.show.all_track_places'
+    = radio_button_tag :only_track_places, 'odd', params[:only_track_places] == 'odd'
+    = t 'official.batch_lists.show.odd_track_places'
+    = radio_button_tag :only_track_places, 'even', params[:only_track_places] == 'even'
+    = t 'official.batch_lists.show.even_track_places'
+.form__field.row
+  .col-xs-12.col-sm-4= label_tag :skip_first_track_place, t('official.batch_lists.show.skip_first_track_place')
+  .col-xs-12.col-sm-8= check_box_tag :skip_first_track_place, true, params[:skip_first_track_place]
+.form__field.row
+  .col-xs-12.col-sm-4= label_tag :skip_last_track_place, t('official.batch_lists.show.skip_last_track_place')
+  .col-xs-12.col-sm-8= check_box_tag :skip_last_track_place, true, params[:skip_last_track_place]
+.form__field.form__field--md.row
+  .col-xs-12.col-sm-4= label_tag :skip_track_places, t('official.batch_lists.show.skip_track_places')
+  .col-xs-12.col-sm-8= text_field_tag :skip_track_places, params[:skip_track_places]

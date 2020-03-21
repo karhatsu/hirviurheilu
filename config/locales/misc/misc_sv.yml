@@ -2,7 +2,9 @@ sv:
   add: Öka
   add_batch: Öka skede
   add_competitors: Öka tävlar
+  add_final_round_batch: Lisää loppuerä
   add_new: Öka ny
+  add_qualification_round_batch: Lisää alkuerä
   add_race: Öka tävling
   added: Ökat
   age_group:
@@ -72,6 +74,7 @@ sv:
   extra_round: Uusinta
   feedback: Feedback
   final_round: Final
+  final_round_batch_list: Loppuerät
   hide_all_competitors: Gömma alla tävlarna
   hide_races_of_cup: Gömma tävlingarna
   leg: Sträcka
@@ -89,6 +92,7 @@ sv:
   password: Lösenord
   points: Poäng
   qualification_round: Alkukilpailu
+  qualification_round_batch_list: Alkuerät
   race_id: Tävlingens ID
   race_search_text: Tävlings namn eller ort
   relay_team:

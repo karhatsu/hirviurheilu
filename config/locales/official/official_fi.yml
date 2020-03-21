@@ -67,7 +67,8 @@ fi:
         copy_competitors: Kopioi kilpailijat toisesta kilpailusta
         add_competitors_from_csv: Lisää kilpailijoita CSV-tiedostosta
         batches_manually: Erien hallinta manuaalisesti
-        batch_generation: Erien asettelu arpomalla
+        qualification_round_batch_list: Alkuerien asettelu arpomalla
+        final_round_batch_list: Loppukilpailun erien asettelu
         other: Muita toimintoja
         national_records: Suomen ennätykset
         download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)
@@ -121,10 +122,8 @@ fi:
         no_start_list_for_any_series: Yhdellekään sarjalle ei ole luotu vielä lähtölistaa
       update:
         start_list_create_for_series: Lähtölista luotu sarjalle
-    batch_list_generations:
+    batch_lists:
       show:
-        title: Eräluetteloiden arvonta
-        no_competitors_without_batch_in_series: Sarjassa ei ole yhtään kilpailijaa, jolta puuttuisi ammuntapaikka
         first_batch_number: Ensimmäinen kilpailija arvotaan erään numero
         first_track_place: Ensimmäinen kilpailija sijoitetaan erässä paikalle numero
         batch_day: Päivä
@@ -138,11 +137,24 @@ fi:
         skip_last_track_place: Jätä erän viimeinen paikka tyhjäksi
         skip_track_places: Vapaaksi jätettävät ammuntapaikat (pilkulla erotettuina, esim. 4,12,13)
         only_one_batch: Arvo vain yksi erä
-        generate_batch_lists: Arvo eräluettelot
+    qualification_round_batch_lists:
+      show:
+        title: Alkuerien arvonta
+        no_competitors_without_batch_in_series: Sarjassa ei ole yhtään kilpailijaa, jolta puuttuisi alkukilpailun ammuntapaikka
+        button: Arvo eräluettelot
       create:
         batch_list_generated:
-          one: Yksi eräluettelo luotu sarjalle onnistuneesti
-          many: Eräluettelot luotu sarjalle onnistuneesti
+          one: Yksi alkukilpailun eräluettelo luotu sarjalle onnistuneesti
+          many: Alkukilpailun eräluettelot luotu sarjalle onnistuneesti
+    final_round_batch_lists:
+      show:
+        title: Loppuerien asettelu
+        no_competitors_without_batch_in_series: Sarjassa ei ole yhtään kilpailijaa, jolta puuttuisi loppukilpailun ammuntapaikka
+        competitors_count: Loppukilpailun kilpailijoiden lukumäärä
+        best_as_last: Sijoita paras kilpailija erän viimeiseksi
+        button: Arvo eräluettelot
+      create:
+        batch_list_generated: Loppukilpailun eräluettelot luotu sarjalle onnistuneesti
     quick_saves:
       index:
         title: Tulosten pikasyöttö
@@ -180,6 +192,7 @@ fi:
         sort_by_qualification_round: Järjestä kilpailijat alkukilpailun tulosten mukaan
     batches:
       index:
+        title: Erien hallinta
         no_batches: Et ole lisännyt vielä yhtään erää
         edit_to_define_competitors: Klikkaa erää, niin pääset asettelemaan siihen kilpailijat
         reset_batch_lists: Eräluetteloiden tyhjentäminen
@@ -207,6 +220,7 @@ fi:
         delete_batches: Poista myös erät
         button: Tyhjennä eräluettelot
       destroy:
+        choose_type: Valitse haluatko tyhjentää alku- vai loppukilpailut
         batches_cleared: Eräluettelot tyhjennetty
         confirm_text_was_wrong: Kilpailun nimi ei täsmää, yhtään erää ei tyhjennetty
     correct_estimates:

@@ -1,4 +1,4 @@
-- content_for :page_title, "#{t 'attributes.batch_id'} #{@batch.number} - #{t :edit}"
+- content_for :page_title, "#{t "attributes.#{@batch.id_name}"} #{@batch.number} - #{t :edit}"
 - content_for :title, "#{@race.name} - #{yield :page_title}"
 %h2= yield :page_title
 %h3= t '.basic_information'
@@ -9,7 +9,8 @@
   = link_to t(:back_to_official_batches_page), official_race_batches_path(@race), class: 'button button--back'
   - if @batch.competitors.empty?
     = link_to t('.delete_batch'), official_race_batch_path(@race, @batch), method: :delete, data: { confirm: t('.delete_confirmation') }, class: 'button button--danger'
-  - @race.batches.each do |batch|
+  - relation = @batch.final_round? ? :final_round_batches : :qualification_round_batches
+  - @race.send(relation).each do |batch|
     - if batch.id == @batch.id
       .button.button--current= batch.number
     - else

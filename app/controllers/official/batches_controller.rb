@@ -2,13 +2,19 @@ class Official::BatchesController < Official::OfficialController
   before_action :set_menu_batches, :assign_race_by_race_id, :check_assigned_race
 
   def index
-    @batches = @race.batches.includes(competitors: [:club, :series])
+    @qualification_round_batches = @race.qualification_round_batches.includes(competitors: [:club, :series])
+    @final_round_batches = @race.final_round_batches.includes(competitors: [:club, :series])
   end
 
   def new
     @batch = @race.batches.build
-    @batch.number = @race.next_batch_number
-    @batch.time = @race.next_batch_time || '00:00'
+    @batch.type = params[:type]
+    if @batch.type
+      @batch.number = @race.next_batch_number(@batch.final_round?)
+      @batch.time = @race.next_batch_time(@batch.final_round?) || '00:00'
+    else
+      @batch.time = '00:00'
+    end
   end
 
   def create
@@ -49,6 +55,6 @@ class Official::BatchesController < Official::OfficialController
   end
 
   def batch_params
-    params.require(:batch).permit(:number, :track, :day, :time)
+    params.require(:batch).permit(:type, :number, :track, :day, :time)
   end
 end

@@ -4,6 +4,11 @@
 = flash_error
 = form_tag(official_race_batch_lists_reset_path, method: :delete) do
   .form__field
+    = radio_button_tag :type, 'QualificationRoundBatch', params[:type] == 'QualificationRoundBatch'
+    = label_tag "type_qualificationroundbatch", t(:qualification_round), class: 'form__label--radio'
+    = radio_button_tag :type, 'FinalRoundBatch', params[:type] == 'FinalRoundBatch'
+    = label_tag "type_finalroundbatch", t(:final_round), class: 'form__label--radio'
+  .form__field
     = label_tag :confirm_text, t('.confirm_text')
     = text_field_tag :confirm_text, params[:confirm_text]
   .form__field

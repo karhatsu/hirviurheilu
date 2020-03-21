@@ -20,8 +20,10 @@
   - if infos.length > 0
     .message.message--info= infos.join(' ')
   .buttons#series-links
-    - if @race.sport.batch_list? && !@race.batches.empty?
-      = link_to t(:batch_list), race_batch_list_path(@race), class: 'button'
+    - if @race.sport.batch_list? && !@race.qualification_round_batches.empty?
+      = link_to t(:qualification_round_batch_list), race_qualification_round_batches_path(@race), class: 'button'
+    - if @race.sport.batch_list? && !@race.final_round_batches.empty?
+      = link_to t(:final_round_batch_list), race_final_round_batches_path(@race), class: 'button'
     - @race.series.each do |series|
       - if !series.started? && @race.sport.start_list?
         - link_text = series.start_time ? "#{series.name} (#{time_print(series.start_datetime)})" : series.name
@@ -36,13 +38,10 @@
           .form__horizontal-fields
             .form__field= select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: "#{t :all} #{clubs_title(@race).downcase}"
             .form__buttons= submit_tag t('.download_start_times'), class: 'button button--pdf'
-      - elsif @race.sport.batch_list?
-        %h3= t '.batch_list_pdf'
-        = form_tag(race_batch_list_path(@race, format: :pdf), method: :get, class: 'form') do
-          .form__horizontal-fields
-            .form__field= select_tag :series_id, options_from_collection_for_select(@race.series, :id, :name), prompt: t(:all_series)
-            .form__field= select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: "#{t :all} #{clubs_title(@race).downcase}"
-            .form__buttons= submit_tag t('.download_batch_list'), class: 'button button--pdf'
+      - if @race.sport.batch_list? && !@race.qualification_round_batches.empty?
+        = render partial: 'batch_list_pdf_form', locals: { path: race_qualification_round_batches_path(@race, format: :pdf), title: t(:qualification_round_batch_list) }
+      - if @race.sport.batch_list? && !@race.final_round_batches.empty?
+        = render partial: 'batch_list_pdf_form', locals: { path: race_final_round_batches_path(@race, format: :pdf), title: t(:final_round_batch_list) }
   - if @race.finished? && !@race.sport.only_shooting?
     %h3= t :correct_distances
     .row

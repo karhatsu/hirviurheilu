@@ -1,6 +1,6 @@
 - cache [@series, I18n.locale] do
   .row
-    - series.competitors.includes(:club, :age_group, :series, :batch).each do |comp|
+    - series.competitors.includes(:club, :age_group, :series, :qualification_round_batch).each do |comp|
       .col-xs-12.col-sm-6.col-md-4
         %a.card{href: edit_official_series_competitor_path(series.id, comp)}
           - if comp.number
@@ -15,10 +15,14 @@
                 = time_print(comp.start_time, true, '&nbsp;')
                 - if series.has_start_list? && comp.race.start_time_defined?
                   (#{time_print comp.start_datetime, true})
-            - elsif comp.batch_id && comp.track_place
-              Erä #{comp.batch.number}, #{t('attributes.track_place').downcase} #{comp.track_place}
-            - elsif comp.batch_id
-              Erä #{comp.batch.number}
+            - if comp.qualification_round_batch_id && comp.qualification_round_track_place
+              .card__middle-row #{t('attributes.qualification_round_batch_id')} #{comp.qualification_round_batch.number}, #{t('attributes.track_place').downcase} #{comp.qualification_round_track_place}
+            - elsif comp.qualification_round_batch_id
+              .card__middle-row #{t('attributes.qualification_round_batch_id')} #{comp.qualification_round_batch.number}
+            - if comp.final_round_batch_id && comp.final_round_track_place
+              .card__middle-row #{t('attributes.final_round_batch_id')} #{comp.final_round_batch.number}, #{t('attributes.track_place').downcase} #{comp.final_round_track_place}
+            - elsif comp.final_round_batch_id
+              .card__middle-row #{t('attributes.final_round_batch_id')} #{comp.final_round_batch.number}
           .card__main-value
             - if comp.no_result_reason
               = comp.no_result_reason

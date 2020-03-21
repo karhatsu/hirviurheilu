@@ -1,6 +1,5 @@
-%h2= t '.title'
 - if @batches.length == 0
-  .message.message--info= t('.no_batch_list')
+  .message.message--info= t('batches.index.no_batch_list')
 - else
   - series_id = params[:series_id].to_i
   - club_id = params[:club_id].to_i
@@ -15,7 +14,7 @@
       %table
         - competitors.each do |competitor|
           %tr
-            %td= competitor.track_place
+            %td= competitor[track_place_name]
             %td #{full_name competitor} (#{competitor.number})
             %td= competitor.club.name
             %td= competitor.series.name

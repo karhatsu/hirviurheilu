@@ -15,7 +15,7 @@ Feature: Official only adding competitors
     And the "Toimitsijan sivut" main menu item should be selected
     And the "Kilpailijat" sub menu item should be selected
     And I should not see "Yhteenveto"
-    And I should not see "Kilpailu & sarjat"
+    And I should not see "Perustiedot"
     And I should not see "Lähtöajat"
     And I should not see "Pikasyöttö"
     And I should not see "Ajat"
