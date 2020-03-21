@@ -213,6 +213,7 @@ fi:
           invalid_first_track_place: Ensimmäinen paikkanumero on virheellinen
           invalid_first_batch_time: Ensimmäinen erän kellonaika on virheellinen
           invalid_minutes_between_batches: Erälle varattu aika on virheellinen
+          invalid_competitors_count: Loppukilpailun kilpailijoiden lukumäärä on virheellinen
           no_track_count: Kilpailulle ei ole määritetty ratojen lukumäärää. Voit tallentaa tiedon kilpailun perustietojen lomakkeella.
           no_shooting_place_count: Kilpailulle ei ole määritetty ammuntapaikkojen lukumäärää. Voit tallentaa tiedon kilpailun perustietojen lomakkeella.
           first_batch_day_conflict: Ensimmäinen erä on jo tallennettu mutta sen päivä on eri kuin syöttämäsi päivä
