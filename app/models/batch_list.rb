@@ -23,7 +23,7 @@ class BatchList
   def generate_final_round(first_batch_number, first_track_place, first_batch_time, minutes_between_batches, competitors_count, opts = {})
     batch_day = opts[:batch_day] || 1
     return unless validate true, first_batch_number, first_track_place, batch_day, first_batch_time, minutes_between_batches, competitors_count
-    competitors = Competitor.sort_by_qualification_round(@series.sport, @series.competitors).first(competitors_count).select {|c| c.final_round_batch_id.nil? && c.final_round_track_place.nil? }
+    competitors = competitors_for_final_round(competitors_count).select {|c| c.final_round_batch_id.nil? && c.final_round_track_place.nil? }
     generate_batches true, competitors, first_batch_number, first_track_place, first_batch_time, minutes_between_batches, false, opts
   end
 
@@ -95,6 +95,12 @@ class BatchList
     return true unless competitor
     @errors << I18n.t('activerecord.errors.models.batch_list.first_track_place_reserved')
     false
+  end
+
+  def competitors_for_final_round(competitors_count)
+    competitors = Competitor.sort_by_qualification_round(@series.sport, @series.competitors)
+    required_score = competitors[competitors_count - 1]&.qualification_round_score || 0
+    competitors.select {|c| c.qualification_round_score >= required_score}
   end
 
   def generate_batches(final_round, competitors, first_batch_number, first_track_place, first_batch_time, minutes_between_batches, only_one, opts)

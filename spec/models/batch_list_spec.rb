@@ -598,6 +598,32 @@ describe BatchList do
     end
   end
 
+  context 'when competitors having same score for qualification round' do
+    let(:competitor1) { competitor_for_final_round series, 95 }
+    let(:competitor2) { competitor_for_final_round series, 94 }
+    let(:competitor3) { competitor_for_final_round series, 93 }
+    let(:competitor4) { competitor_for_final_round series, 93 }
+    let(:competitor5) { competitor_for_final_round series, 93 }
+    let(:competitor6) { competitor_for_final_round series, 92 }
+    let(:all_competitors) { [competitor1, competitor2, competitor3, competitor4, competitor5, competitor6] }
+    let(:competitors_count) { 3 }
+
+    before do
+      expect(Competitor).to receive(:sort_by_qualification_round).and_return(all_competitors)
+      generator.generate_final_round 1, 1, first_batch_time, minutes_between_batches, competitors_count
+    end
+
+    it 'takes competitor count amount of competitors to final and all the final having the equal score' do
+      expect(generator.errors).to eql []
+      verify_competitor competitor1, 1, 1, true
+      verify_competitor competitor2, 1, 2, true
+      verify_competitor competitor3, 2, 1, true
+      verify_competitor competitor4, 2, 2, true
+      verify_competitor competitor5, 3, 1, true
+      verify_competitor competitor6, nil, nil, true
+    end
+  end
+
   context 'when only one batch is wanted to generate' do
     let(:competitor1) { create :competitor, series: series, number: 10 }
     let(:competitor2) { create :competitor, series: series, number: 9 }
