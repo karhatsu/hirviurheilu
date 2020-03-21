@@ -24,6 +24,7 @@ class BatchList
     batch_day = opts[:batch_day] || 1
     return unless validate true, first_batch_number, first_track_place, batch_day, first_batch_time, minutes_between_batches, competitors_count
     competitors = competitors_for_final_round(competitors_count).select {|c| c.final_round_batch_id.nil? && c.final_round_track_place.nil? }
+    competitors = competitors.reverse if opts[:best_as_last]
     generate_batches true, competitors, first_batch_number, first_track_place, first_batch_time, minutes_between_batches, false, opts
   end
 

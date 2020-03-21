@@ -624,6 +624,28 @@ describe BatchList do
     end
   end
 
+  context 'when best competitor is assigned to the last track place' do
+    let(:competitor1) { competitor_for_final_round series, 95 }
+    let(:competitor2) { competitor_for_final_round series, 94 }
+    let(:competitor3) { competitor_for_final_round series, 93 }
+    let(:competitor4) { competitor_for_final_round series, 93 }
+    let(:all_competitors) { [competitor1, competitor2, competitor3, competitor4] }
+    let(:competitors_count) { 3 }
+
+    before do
+      expect(Competitor).to receive(:sort_by_qualification_round).and_return(all_competitors)
+      generator.generate_final_round 1, 1, first_batch_time, minutes_between_batches, competitors_count, best_as_last: true
+    end
+
+    it 'assigns the worst competitor to the first place' do
+      expect(generator.errors).to eql []
+      verify_competitor competitor4, 1, 1, true
+      verify_competitor competitor3, 1, 2, true
+      verify_competitor competitor2, 2, 1, true
+      verify_competitor competitor1, 2, 2, true
+    end
+  end
+
   context 'when only one batch is wanted to generate' do
     let(:competitor1) { create :competitor, series: series, number: 10 }
     let(:competitor2) { create :competitor, series: series, number: 9 }
