@@ -14,7 +14,7 @@
   = form_tag(official_series_final_round_batch_list_path(@series), class: 'form') do
     .form__field.form__field--sm.row.multiple-batches
       .col-xs-12.col-sm-4= label_tag :competitors_count, t('.competitors_count')
-      .col-xs-12.col-sm-8= number_field_tag :competitors_count, params[:competitors_count]
+      .col-xs-12.col-sm-8= number_field_tag :competitors_count, params[:competitors_count] || @series.sport.final_round_competitors_count
     .form__field.row
       .col-xs-12.col-sm-4= label_tag :best_as_last, t('.best_as_last')
       .col-xs-12.col-sm-8= check_box_tag :best_as_last, true, params[:best_as_last]

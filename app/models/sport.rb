@@ -48,6 +48,7 @@ class Sport
               ['N50'],
               ['N65'],
           ],
+          final_round_competitors_count: 10,
       },
   }
 
