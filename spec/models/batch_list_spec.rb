@@ -605,7 +605,8 @@ describe BatchList do
     let(:competitor4) { competitor_for_final_round series, 93 }
     let(:competitor5) { competitor_for_final_round series, 93 }
     let(:competitor6) { competitor_for_final_round series, 92 }
-    let(:all_competitors) { [competitor1, competitor2, competitor3, competitor4, competitor5, competitor6] }
+    let(:competitor7) { competitor_for_final_round series, nil }
+    let(:all_competitors) { [competitor1, competitor2, competitor3, competitor4, competitor5, competitor6, competitor7] }
     let(:competitors_count) { 3 }
 
     before do
@@ -621,6 +622,7 @@ describe BatchList do
       verify_competitor competitor4, 2, 2, true
       verify_competitor competitor5, 3, 1, true
       verify_competitor competitor6, nil, nil, true
+      verify_competitor competitor7, nil, nil, true
     end
   end
 
