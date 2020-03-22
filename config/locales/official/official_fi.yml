@@ -152,7 +152,7 @@ fi:
         no_competitors_without_batch_in_series: Sarjassa ei ole yhtään kilpailijaa, jolta puuttuisi loppukilpailun ammuntapaikka
         competitors_count: Loppukilpailun kilpailijoiden lukumäärä
         best_as_last: Sijoita paras kilpailija erän viimeiseksi
-        button: Arvo eräluettelot
+        button: Tee eräluettelot
       create:
         batch_list_generated: Loppukilpailun eräluettelot luotu sarjalle onnistuneesti
     quick_saves:
