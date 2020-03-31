@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 ruby '2.7.1'
 
-gem 'rails', '6.0.1'
+gem 'rails', '6.0.2.2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-themes'
@@ -47,7 +47,7 @@ group :test do
   gem 'rspec-rails'
   gem 'rspec-collection_matchers'
   gem 'rspec-json_expectations'
-  gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
+  gem 'shoulda-matchers'
   gem 'fuubar'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'
