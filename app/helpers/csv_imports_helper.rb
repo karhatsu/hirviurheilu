@@ -3,6 +3,9 @@ module CsvImportsHelper
     if params[:file].blank?
       flash[:error] = 'Valitse tiedosto'
       render :new
+    elsif !params[:file].original_filename.end_with? '.csv'
+      flash[:error] = 'Tiedostopääte pitää olla .csv'
+      render :new
     else
       begin
         import = create_csv_import
