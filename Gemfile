@@ -19,6 +19,7 @@ gem 'nokogiri'
 gem 'redcarpet'
 gem 'kaminari'
 gem 'jbuilder'
+gem 'scrypt'
 
 group :development, :production do
   gem 'pg'
