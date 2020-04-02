@@ -132,6 +132,7 @@ fi:
     RUN: Hirvenjuoksu
     ILMAHIRVI: Ilmahirvi
     ILMALUODIKKO: Ilmaluodikko
+    METSASTYSLUODIKKO: Metsästysluodikko
   start_list: Lähtölista
   team: Joukkue
   tel: Puhelin

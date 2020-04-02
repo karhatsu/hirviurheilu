@@ -3,6 +3,7 @@ class Sport
   RUN = "RUN"
   ILMAHIRVI = "ILMAHIRVI"
   ILMALUODIKKO = "ILMALUODIKKO"
+  METSASTYSLUODIKKO = "METSASTYSLUODIKKO"
 
   BASE_CONFIGS = {
       SKI_AND_RUN: {
@@ -30,7 +31,7 @@ class Sport
               ['N65', ['N70', 'N75', 'N80', 'N85', 'N90']],
           ],
       },
-      AIR_GUNS: {
+      SHOOTING_ONLY: {
           start_list?: false,
           batch_list?: true,
           only_shooting?: true,
@@ -48,6 +49,9 @@ class Sport
               ['N50'],
               ['N65'],
           ],
+          max_shot: 10,
+          max_shots_count: 20,
+          inner_ten?: false,
           final_round_competitors_count: 10,
       },
   }
@@ -59,18 +63,15 @@ class Sport
       SKI: OpenStruct.new(BASE_CONFIGS[:SKI_AND_RUN].merge(
           { name: 'Hirvenhiihto' }
       )),
-      ILMAHIRVI: OpenStruct.new(BASE_CONFIGS[:AIR_GUNS].merge(
+      ILMAHIRVI: OpenStruct.new(BASE_CONFIGS[:SHOOTING_ONLY].merge(
           {
               name: 'Ilmahirvi',
               qualification_round: [10],
               final_round: [10],
-              max_shot: 10,
-              max_shots_count: 20,
-              inner_ten?: false,
               shots_per_extra_round: 2,
           }
       )),
-      ILMALUODIKKO: OpenStruct.new(BASE_CONFIGS[:AIR_GUNS].merge(
+      ILMALUODIKKO: OpenStruct.new(BASE_CONFIGS[:SHOOTING_ONLY].merge(
           {
               name: 'Ilmaluodikko',
               qualification_round: [5, 5],
@@ -79,9 +80,17 @@ class Sport
               max_shots_count: 20,
               inner_ten?: true,
               shots_per_extra_round: 1,
-              default_series: [['S13', ['T13', 'P13']]] + BASE_CONFIGS[:AIR_GUNS][:default_series],
+              default_series: [['S13', ['T13', 'P13']]] + BASE_CONFIGS[:SHOOTING_ONLY][:default_series],
           }
       )),
+      METSASTYSLUODIKKO: OpenStruct.new(BASE_CONFIGS[:SHOOTING_ONLY].merge(
+          {
+              name: 'Metsästysluodikko',
+              qualification_round: [5, 5],
+              final_round: [5, 5],
+              shots_per_extra_round: 1,
+          }
+      ))
   }
 
   def self.by_key(key)
