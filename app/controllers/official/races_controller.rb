@@ -87,6 +87,7 @@ class Official::RacesController < Official::OfficialController
   def set_sports
     sport_keys = [Sport::RUN, Sport::SKI, Sport::ILMAHIRVI, Sport::ILMALUODIKKO]
     if !ProductionEnvironment.production?
+      sport_keys << Sport::METSASTYSHIRVI
       sport_keys << Sport::METSASTYSLUODIKKO
     end
     @sports = sport_keys.map{|key| [t("sport_name.#{key}"), key]}

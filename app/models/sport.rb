@@ -3,6 +3,7 @@ class Sport
   RUN = "RUN"
   ILMAHIRVI = "ILMAHIRVI"
   ILMALUODIKKO = "ILMALUODIKKO"
+  METSASTYSHIRVI = "METSASTYSHIRVI"
   METSASTYSLUODIKKO = "METSASTYSLUODIKKO"
 
   BASE_CONFIGS = {
@@ -81,6 +82,14 @@ class Sport
               inner_ten?: true,
               shots_per_extra_round: 1,
               default_series: [['S13', ['T13', 'P13']]] + BASE_CONFIGS[:SHOOTING_ONLY][:default_series],
+          }
+      )),
+      METSASTYSHIRVI: OpenStruct.new(BASE_CONFIGS[:SHOOTING_ONLY].merge(
+          {
+              name: 'Metsästyshirvi',
+              qualification_round: [4, 6],
+              final_round: [10],
+              shots_per_extra_round: 2,
           }
       )),
       METSASTYSLUODIKKO: OpenStruct.new(BASE_CONFIGS[:SHOOTING_ONLY].merge(
