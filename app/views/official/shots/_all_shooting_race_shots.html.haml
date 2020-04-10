@@ -1,6 +1,7 @@
 - config = shot_fields_config competitor.sport, competitor
 - extra_shots_count = config[:extra_shots_count]
 - partial = 'official/shots/shooting_race_shots'
+- hidden_partial = 'official/shots/shooting_race_hidden_shots'
 = f.hidden_field :shooting_score_input
 - if show_qualification_round_shots
   = t :qualification_round
@@ -9,6 +10,8 @@
       = f.number_field :qualification_round_shooting_score_input, maxlength: 3, class: 'shots-total-input'
     .card__sub-result.card__sub-result--shoot
       = render partial: partial, locals: { competitor: competitor, round_rules: config[:qualification_round], base: 0, column_name: :shots, field_name: 'shots[]' }
+- else
+  = render partial: hidden_partial, locals: { competitor: competitor, round_rules: config[:qualification_round], base: 0, column_name: :shots, field_name: 'shots[]' }
 = t :final_round
 .form__horizontal-fields
   .card__sub-result.card__sub-result--shoot.form__field.form__field--sm

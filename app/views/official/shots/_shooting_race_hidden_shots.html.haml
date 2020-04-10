@@ -1,0 +1,4 @@
+- round_rules.each_with_index do |shots_at_round, i|
+  - shots_at_round.times do |j|
+    - counter = base + (i == 0 ? j : (i * round_rules[i - 1].to_i) + j)
+    = hidden_field_tag field_name, competitor[column_name] ? competitor[column_name][counter] : ''
