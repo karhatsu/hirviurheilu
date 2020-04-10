@@ -31,7 +31,7 @@
               - unless competitor.no_result_reason
                 .card__middle-row
                   = form_for([:official, competitor.series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "shots_form_#{competitor.id}", class: 'form form--inline' }) do |f|
-                    = render partial: 'official/shots/all_shooting_race_shots', locals: { f: f, sport: @race.sport, competitor: competitor, show_qualification_round_shots: @batch.qualification_round? }
+                    = render partial: 'official/shots/all_shooting_race_shots', locals: { f: f, sport: @race.sport, competitor: competitor, show_qualification_round_shots: @batch.qualification_round?, show_final_round_shots: @batch.final_round? }
                     .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
             .card__main-value{id: "shots_result_#{competitor.id}"}
               - if competitor.no_result_reason
