@@ -22,7 +22,7 @@
     .col-xs-12.col-sm-9= f.time_select :start_time, value: @race.start_time
   .form__field.form__field--md.row
     .col-xs-12.col-sm-3= f.label :days_count
-    .col-xs-12.col-sm-9= f.select :days_count, [[t(:days, count: 1), 1], [t(:days, count: 2), 2]]
+    .col-xs-12.col-sm-9= f.select :days_count, 4.times.map {|i| [t(:days, count: i + 1), i + 1]}
   .form__field.row
     .col-xs-12.col-sm-3
       %label= t 'official.races.form.competitor_organisation'
