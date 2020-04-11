@@ -9,8 +9,8 @@ Feature: Batch list
     And the series has a competitor "Teppo" "Testinen"
     And I am on the race page
     Then I should not see "Lähtölista"
-    And I should not see "Alkuerät" within ".menu--sub"
-    And I should not see "Loppuerät" within ".menu--sub"
+    And I should not see "Alkukilpailun eräluettelot" within ".menu--sub"
+    And I should not see "Loppukilpailun eräluettelot" within ".menu--sub"
     Then I go to the race qualification round batches page
     And I should see "Alkuerien eräluettelo" within "h2"
     And I should see "Kilpailun eräluetteloa ei ole tehty" in an info message
@@ -57,19 +57,19 @@ Feature: Batch list
     Then I should not see "Lähtölista"
     And I should see "Alkuerät (PDF)"
     But I should not see "Kaikkien sarjojen lähtöajat (PDF)"
-    When I follow "Alkuerät" within "#series-links"
+    When I follow "Alkukilpailun eräluettelot" within "#series-links"
     Then I should be on the race qualification round batches page
     And the "Kilpailut" main menu item should be selected
-    And the "Alkuerät" sub menu item should be selected
+    And the "Alkukilpailun eräluettelot" sub menu item should be selected
     And I should see batch 1 on track 1 with time "10:00"
     And I should see batch 2 on track 2 with time "10:30"
     And the batch 1 should contain a competitor "10. Testaaja Teppo (5), Testiseura (M)" in row 1
     And the batch 1 should contain a competitor "11. Testaaja Timo (6), Testiseura (M)" in row 2
     And the batch 2 should contain a competitor "5. Testinen Tyyne (7), Testiseura (N)" in row 1
-    When I choose "Loppuerät" from sub menu
+    When I choose "Loppukilpailun eräluettelot" from sub menu
     Then I should be on the race final round batches page
     And the "Kilpailut" main menu item should be selected
-    And the "Loppuerät" sub menu item should be selected
+    And the "Loppukilpailun eräluettelot" sub menu item should be selected
     And I should see batch 1 on track 1 with time "11:00"
     And the batch 1 should contain a competitor "3. Testinen Tyyne (7), Testiseura (N)" in row 1
     And the batch 1 should contain a competitor "4. Testaaja Timo (6), Testiseura (M)" in row 2
