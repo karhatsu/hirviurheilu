@@ -41,7 +41,6 @@ function calculateThreeSportsShotsResult(card) {
 }
 
 function calculateShootingRaceShotsResult(card, elevenAsTen) {
-  let result = 0
   let error = false
   const qualificationTotal = card.find('.shots-total-input:eq(0)').val()
   const finalTotal = card.find('.shots-total-input:eq(1)').val()
@@ -57,15 +56,46 @@ function calculateShootingRaceShotsResult(card, elevenAsTen) {
     q = errorAndSumQ[1]
     f = errorAndSumF[1]
   }
-  if (q >= 0 && q <= 100 && f >= 0 && f <= 100) {
-    result = q + ' + ' + f + ' = ' + (q + f)
+  card.find('.card__main-value').text(formatResult(error, q, f));
+}
+
+function calculateShootingRaceShotsResultForQ(card, elevenAsTen) {
+  let error = false
+  const qualificationTotal = card.find('.shots-total-input:eq(0)').val()
+  const finalTotal = card.find('.shots-total-input:eq(1)').val()
+  const f = parseInt(finalTotal) || 0
+  let q
+  if (qualificationTotal !== '') {
+    q = parseInt(qualificationTotal)
   } else {
-    error = true
+    const errorAndSumQ = sumOfShots(card, elevenAsTen, 0, 10)
+    error = errorAndSumQ[0]
+    q = errorAndSumQ[1]
   }
-  if(error) {
-    result = '?';
+  card.find('.card__main-value').text(formatResult(error, q, f));
+}
+
+function calculateShootingRaceShotsResultForF(card, elevenAsTen) {
+  let error = false
+  const qualificationTotal = card.find('.shots-total-input:eq(0)').val()
+  const finalTotal = card.find('.shots-total-input:eq(1)').val()
+  const q = parseInt(qualificationTotal)
+  let f
+  if (finalTotal !== '') {
+    f = parseInt(finalTotal) || 0
+  } else {
+    const errorAndSumF = sumOfShots(card, elevenAsTen, 10, 20)
+    error = errorAndSumF[0]
+    f = errorAndSumF[1]
   }
-  card.find('.card__main-value').text(result);
+  card.find('.card__main-value').text(formatResult(error, q, f));
+}
+
+function formatResult(error, q, f) {
+  if (!error && q >= 0 && q <= 100 && f >= 0 && f <= 100) {
+    return q + ' + ' + f + ' = ' + (q + f)
+  }
+  return '?'
 }
 
 function sumOfShots(card, elevenAsTen, firstIndex, lastIndex) {

@@ -11,6 +11,7 @@
     .card__sub-result.card__sub-result--shoot
       = render partial: partial, locals: { competitor: competitor, round_rules: config[:qualification_round], base: 0, column_name: :shots, field_name: 'shots[]' }
 - else
+  = hidden_field_tag :q_total, competitor.qualification_round_score.to_i, class: 'shots-total-input'
   = render partial: hidden_partial, locals: { competitor: competitor, round_rules: config[:qualification_round], base: 0, column_name: :shots, field_name: 'shots[]' }
 - if show_final_round_shots
   = t :final_round
@@ -25,4 +26,5 @@
       .card__sub-result.card__sub-result--shoot
         %div{id: "extra_shots_#{competitor.id}"}= render partial: partial, locals: { competitor: competitor, round_rules: [extra_shots_count], base: 0, column_name: :extra_shots, field_name: 'extra_shots[]' }
 - else
+  = hidden_field_tag :f_total, competitor.final_round_score.to_i, class: 'shots-total-input'
   = render partial: hidden_partial, locals: { competitor: competitor, round_rules: config[:final_round], base: config[:qualification_round_shots_count], column_name: :shots, field_name: 'shots[]' }
