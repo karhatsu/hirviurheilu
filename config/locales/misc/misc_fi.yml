@@ -27,6 +27,7 @@ fi:
   back_to_race_home_page: Takaisin kilpailun etusivulle
   back_to_series_results: Takaisin sarjan %{series_name} tuloksiin
   batch_list: Eräluettelo
+  batch_lists: Eräluettelot
   captcha: Paljonko on kaksi plus kaksi?
   captcha_info: Tällä tarkastetaan, ettet ole robotti. Oikea vastaus on siis neljä.
   choose: Valitse

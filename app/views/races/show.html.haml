@@ -7,8 +7,15 @@
   .public-message
     - markdown = Redcarpet::Markdown.new Redcarpet::Render::HTML
     = raw markdown.render(@race.public_message)
+- unless @race.batches.empty?
+  %h2= t :batch_lists
+  .buttons#batch-links
+    - if @race.sport.batch_list? && !@race.qualification_round_batches.empty?
+      = link_to t('race_sub_menu.qualification_round_batches'), race_qualification_round_batches_path(@race), class: 'button button--primary'
+    - if @race.sport.batch_list? && !@race.final_round_batches.empty?
+      = link_to t('race_sub_menu.final_round_batches'), race_final_round_batches_path(@race), class: 'button button--primary'
 - unless @race.series.empty? && !@race.relays.empty?
-  %h2= t '.single_competitor_competitions'
+  %h2= @race.sport.only_shooting? ? t(:results) : t('.single_competitor_competitions')
   - infos = []
   - if @race.series.empty? && @race.relays.empty?
     - infos << "#{t('.no_series_for_race')}."
@@ -20,10 +27,6 @@
   - if infos.length > 0
     .message.message--info= infos.join(' ')
   .buttons#series-links
-    - if @race.sport.batch_list? && !@race.qualification_round_batches.empty?
-      = link_to t('race_sub_menu.qualification_round_batches'), race_qualification_round_batches_path(@race), class: 'button'
-    - if @race.sport.batch_list? && !@race.final_round_batches.empty?
-      = link_to t('race_sub_menu.final_round_batches'), race_final_round_batches_path(@race), class: 'button'
     - @race.series.each do |series|
       - if !series.started? && @race.sport.start_list?
         - link_text = series.start_time ? "#{series.name} (#{time_print(series.start_datetime)})" : series.name

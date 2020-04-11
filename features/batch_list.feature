@@ -57,7 +57,7 @@ Feature: Batch list
     Then I should not see "Lähtölista"
     And I should see "Alkuerät (PDF)"
     But I should not see "Kaikkien sarjojen lähtöajat (PDF)"
-    When I follow "Alkukilpailun eräluettelot" within "#series-links"
+    When I follow "Alkukilpailun eräluettelot" within "#batch-links"
     Then I should be on the race qualification round batches page
     And the "Kilpailut" main menu item should be selected
     And the "Alkukilpailun eräluettelot" sub menu item should be selected
