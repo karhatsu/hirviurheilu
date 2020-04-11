@@ -11,8 +11,6 @@ if($current_row.attr('id') != $row.attr('id')) {
   $current_row.insertAfter($row);
 }
 
-$("#update_error").hide();
-$("#update_error").html("");
 updateInlineMessage("#status_<%= @competitor.id %>", 'success', '<%= t :saved %>')
 setTimeout(function() {
   resetInlineMessage("#status_<%=@competitor.id%>")

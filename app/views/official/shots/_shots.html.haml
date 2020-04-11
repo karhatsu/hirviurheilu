@@ -40,9 +40,7 @@
           = competitor.shooting_score.to_i
     :javascript
       $("#shots_form_#{competitor.id}").bind('ajax:error', function() {
-        $("#update_error").html('Yhteysvirhe, yritä uudelleen');
-        $("#update_error").show();
-        updateInlineMessage("#status_#{competitor.id}", 'error', '#{t :error}')
+        updateInlineMessage("#status_#{competitor.id}", 'error', 'Yhteysvirhe, yritä uudelleen')
       });
 :javascript
   $('.shots-total-input').change(function() {

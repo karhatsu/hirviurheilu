@@ -4,7 +4,6 @@
 - if @all_series.length == 0
   .message.message--info= t '.no_start_list_for_any_series'
 - else
-  #update_error.message.message--error{style: 'display: none'}
   #competitors_table
     = render partial: 'competitor_row', locals: { c: @new_competitor, save_button: t(:add_new), id: 'new', parent: @race }
     %hr#ruler

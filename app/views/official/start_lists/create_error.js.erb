@@ -1,3 +1,1 @@
-updateInlineMessage('#status_new', 'error', '<%= t :error %>')
-$('div#update_error').text("<%= @competitor.errors.full_messages.join(". ") + "." %>");
-$('div#update_error').show();
+updateInlineMessage('#status_new', 'error', '<%= t :error %>: <%= @competitor.errors.full_messages.join(". ") + "." %>')
