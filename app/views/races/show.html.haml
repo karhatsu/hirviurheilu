@@ -21,9 +21,9 @@
     .message.message--info= infos.join(' ')
   .buttons#series-links
     - if @race.sport.batch_list? && !@race.qualification_round_batches.empty?
-      = link_to t(:qualification_round_batch_list), race_qualification_round_batches_path(@race), class: 'button'
+      = link_to t('race_sub_menu.qualification_round_batches'), race_qualification_round_batches_path(@race), class: 'button'
     - if @race.sport.batch_list? && !@race.final_round_batches.empty?
-      = link_to t(:final_round_batch_list), race_final_round_batches_path(@race), class: 'button'
+      = link_to t('race_sub_menu.final_round_batches'), race_final_round_batches_path(@race), class: 'button'
     - @race.series.each do |series|
       - if !series.started? && @race.sport.start_list?
         - link_text = series.start_time ? "#{series.name} (#{time_print(series.start_datetime)})" : series.name

@@ -14,8 +14,8 @@ sv:
   race_sub_menu:
     home_page: Tävling hemsida
     start_lists: Startlistor
-    qualification_round_batches: Alkuerät
-    final_round_batches: Loppuerät
+    qualification_round_batches: Alkukilpailun eräluettelot
+    final_round_batches: Loppukilpailun eräluettelot
     results: Resultat
     team_competitions: Lagtävlingar
     relays: Stafetter
