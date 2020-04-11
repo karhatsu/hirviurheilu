@@ -6,9 +6,9 @@ class CsvImport
   START_NUMBER_COLUMN = 4
   START_TIME_COLUMN = 5
 
-  COLUMNS_COUNT_START_ORDER_SERIES = [4]
-  COLUMNS_COUNT_START_ORDER_MIXED = [6]
-  COLUMNS_COUNT_SHOOTING_RACE = [4, 5]
+  COLUMNS_COUNT_START_ORDER_SERIES = 4
+  COLUMNS_COUNT_START_ORDER_MIXED = 6
+  COLUMNS_COUNT_SHOOTING_RACE = 4
 
   def initialize(race, file_path, limited_club=nil)
     @race = race
@@ -57,10 +57,13 @@ class CsvImport
   end
 
   def validate_data(limited_club)
+    reserved_numbers = @race.competitors.map(&:number) if @race.sport.only_shooting?
+    prev_number = 0
     @data.each do |row|
       return unless row_structure_correct(row)
       unless row_missing_data?(row)
-        competitor = new_competitor(row)
+        competitor = new_competitor row, prev_number, reserved_numbers
+        prev_number = competitor.number
         if limited_club && competitor.club.name != limited_club
           @errors << "Sinulla on oikeus lisätä kilpailijoita vain \"#{limited_club}\"-piiriin"
         elsif competitor.valid?
@@ -73,7 +76,7 @@ class CsvImport
   end
 
   def row_structure_correct(row)
-    unless expected_column_count.include? row.length
+    unless expected_column_count == row.length
       @errors << "Virheellinen rivi tiedostossa: #{original_format(row)}"
       return false
     end
@@ -100,13 +103,13 @@ class CsvImport
     columns.join(',')
   end
 
-  def new_competitor(row)
-    competitor = Competitor.new(:first_name => row[FIRST_NAME_COLUMN],
-      :last_name => row[LAST_NAME_COLUMN])
+  def new_competitor(row, prev_number, reserved_numbers)
+    competitor = Competitor.new(first_name: row[FIRST_NAME_COLUMN], last_name: row[LAST_NAME_COLUMN])
     competitor.club = find_or_create_club(row[CLUB_COLUMN])
     set_series_or_age_group(competitor, row[SERIES_COLUMN])
     if @race.sport.only_shooting?
-      competitor.number = row[START_NUMBER_COLUMN]
+      number = find_available_number prev_number, reserved_numbers
+      competitor.number = number
     elsif @race.start_order == Race::START_ORDER_MIXED
       competitor.number = row[START_NUMBER_COLUMN]
       competitor.start_time = row[START_TIME_COLUMN]
@@ -126,6 +129,12 @@ class CsvImport
       end
       competitor.series = series
     end
+  end
+
+  def find_available_number(prev_number, reserved_numbers)
+    number = prev_number + 1
+    return number unless reserved_numbers.include? number
+    find_available_number number, reserved_numbers
   end
 
   def find_or_create_club(club_name)

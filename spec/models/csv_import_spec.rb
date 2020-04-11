@@ -17,12 +17,12 @@ describe CsvImport do
   end
 
   before do
-    @race = create(:race)
-    series = build(:series, :race => @race, :name => 'N')
-    @race.series << series
-    series.age_groups << build(:age_group, :series => series, :name => 'N50')
-    @race.series << build(:series, :race => @race, :name => 'M40')
-    @race.clubs << build(:club, :race => @race, :name => 'PS')
+    @race = create :race
+    @series = build :series, race: @race, name: 'N'
+    @race.series << @series
+    @series.age_groups << build(:age_group, series: @series, name: 'N50')
+    @race.series << build(:series, race: @race, name: 'M40')
+    @race.clubs << build(:club, race: @race, name: 'PS')
   end
 
   context "when not correct amount of columns in each row" do
@@ -55,6 +55,7 @@ describe CsvImport do
             expect(c.last_name).to eq('Räsänen')
             expect(c.series.name).to eq('M40')
             expect(c.club.name).to eq('SS')
+            expect(c.number).to be_nil
             c = competitors[1]
             expect(c.first_name).to eq('Minna')
             expect(c.last_name).to eq('Miettinen')
@@ -254,30 +255,20 @@ describe CsvImport do
   end
 
   context 'when shooting race' do
-    context 'and competitors imported without numbers' do
-      before do
-        @race.update_attribute :sport_key, Sport::ILMAHIRVI
-        @ci = CsvImport.new@race, test_file_path('import_valid.csv')
-      end
-
-      it 'should accept the file' do
-        expect(@ci.save).to be_truthy
-        expect(@race.competitors.size).to eq(4)
-      end
+    before do
+      create :competitor, series: @series, number: 1
+      create :competitor, series: @series, number: 4
+      @race.update_attribute :sport_key, Sport::ILMAHIRVI
+      @ci = CsvImport.new@race, test_file_path('import_valid.csv')
     end
 
-    context 'and competitors imported with numbers' do
-      before do
-        @race.update_attribute :sport_key, Sport::ILMAHIRVI
-        @ci = CsvImport.new@race, test_file_path('import_valid_with_numbers.csv')
-      end
-
-      it 'should accept the file' do
-        expect(@ci.errors).to eq []
-        expect(@ci.save).to be_truthy
-        expect(@race.competitors.size).to eq(2)
-        expect(@race.competitors.where('last_name=?', 'Miettinen').first.number).to eql 6
-      end
+    it 'adds automatically numbers for competitors' do
+      expect(@ci.save).to be_truthy
+      expect(@race.reload.competitors.size).to eq(2 + 4)
+      expect(@race.competitors.find_by_number(2).first_name).to eql 'Heikki'
+      expect(@race.competitors.find_by_number(3).first_name).to eql 'Minna'
+      expect(@race.competitors.find_by_number(5).first_name).to eql 'Maija'
+      expect(@race.competitors.find_by_number(6).first_name).to eql 'Minna'
     end
   end
 
