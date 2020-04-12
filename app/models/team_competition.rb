@@ -78,7 +78,7 @@ class TeamCompetition < ApplicationRecord
       competitor_counter_by_team[base_team_name] ||= 0
       team_name = team_name_with_number base_team_name, competitor_counter_by_team[base_team_name]
       next unless team_name
-      teams[team_name] ||= Team.new(sport, team_name)
+      teams[team_name] ||= Team.new(self, team_name)
       teams[team_name] << competitor
       competitor_counter_by_team[base_team_name] = competitor_counter_by_team[base_team_name] + 1
     end

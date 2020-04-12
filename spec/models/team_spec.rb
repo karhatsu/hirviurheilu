@@ -2,13 +2,20 @@ require 'spec_helper'
 
 describe Team do
   let(:sport) { instance_double Sport }
+  let(:race) { instance_double Race }
+  let(:national_record) { nil }
+  let(:team_competition) { instance_double TeamCompetition, race: race, sport: sport, national_record: national_record }
   let(:name) { 'The club' }
-  let(:team) { Team.new sport, name }
+  let(:team) { Team.new team_competition, name }
 
   before do
     team << build_competitor(1000, 97, nil, 10, [10, 9, 5, 6, 4, 11])
     team << build_competitor(900, 98, 1201, 8, [1, 10, 5, 2, 2, 3, 8])
     team << build_competitor(800, 96, 1199, 9, [9, 9, 9, 7, 0, 1, 2])
+  end
+
+  it 'provides race' do
+    expect(team.race).to eql race
   end
 
   it 'provides team name' do
@@ -44,7 +51,7 @@ describe Team do
   end
 
   context 'when one of the competitors does not have shooting score yet' do
-    let(:team2) { Team.new sport, 'Team 2' }
+    let(:team2) { Team.new team_competition, 'Team 2' }
 
     before do
       team2 << build_competitor(300, 570, nil, 10, [9, 9, 9, 9, 9, 9, 9, 9, 9, 9])
@@ -65,6 +72,40 @@ describe Team do
 
     it 'calculates sum of different shots' do
       expect(team2.shot_counts).to eql [0, 10, 0, 0, 0, 0, 0, 0, 0, 0]
+    end
+  end
+
+  context 'when no national record defined' do
+    it 'national record is not reached nor passed' do
+      expect(team.national_record_passed?).to be_falsey
+      expect(team.national_record_reached?).to be_falsey
+    end
+  end
+
+  context 'when national record is higher than total score' do
+    let(:national_record) { 2701 }
+
+    it 'national record is not reached nor passed' do
+      expect(team.national_record_passed?).to be_falsey
+      expect(team.national_record_reached?).to be_falsey
+    end
+  end
+
+  context 'when national record is same as total score' do
+    let(:national_record) { 2700 }
+
+    it 'national record is reached but not passed' do
+      expect(team.national_record_passed?).to be_falsey
+      expect(team.national_record_reached?).to be_truthy
+    end
+  end
+
+  context 'when national record is higher than total score' do
+    let(:national_record) { 2699 }
+
+    it 'national record is not reached but is passed' do
+      expect(team.national_record_passed?).to be_truthy
+      expect(team.national_record_reached?).to be_falsey
     end
   end
 

@@ -63,6 +63,8 @@ class Competitor < ApplicationRecord
 
   attr_accessor :club_name, :age_group_name, :old_values
 
+  delegate :race, to: :series
+
   def race
     series&.race
   end

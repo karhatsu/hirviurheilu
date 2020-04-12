@@ -280,9 +280,7 @@ describe ResultFormatHelper do
     before do
       @competitor = instance_double(Competitor)
       @race = instance_double(Race)
-      series = instance_double(Series)
-      allow(@competitor).to receive(:series).and_return(series)
-      allow(series).to receive(:race).and_return(@race)
+      allow(@competitor).to receive(:race).and_return(@race)
     end
 
     context 'when race finished' do

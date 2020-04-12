@@ -1,10 +1,15 @@
 class Team
   attr_reader :name, :competitors
 
-  def initialize(sport, name)
-    @sport = sport
+  def initialize(team_competition, name)
+    @team_competition = team_competition
+    @sport = team_competition.sport
     @name = name
     @competitors = []
+  end
+
+  def race
+    @team_competition.race
   end
 
   def <<(competitor)
@@ -40,5 +45,13 @@ class Team
       end
     end
     counts
+  end
+
+  def national_record_reached?
+    @team_competition.national_record && total_score.to_i == @team_competition.national_record.to_i
+  end
+
+  def national_record_passed?
+    @team_competition.national_record && total_score.to_i > @team_competition.national_record.to_i
   end
 end
