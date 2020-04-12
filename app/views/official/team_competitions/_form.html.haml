@@ -25,6 +25,9 @@
     %br
     %br
     Voit asettaa kilpailijalle joukkueen nimen muokkaamalla kilpailijan perustietoja.
+  .form__field.form__field--sm
+    = f.label :national_record
+    = f.number_field :national_record
   %h3= t "official.team_competitions.form.series_age_groups.#{text_key}"
   .message.message--info
     = t "official.team_competitions.form.choose_info.#{text_key}"
