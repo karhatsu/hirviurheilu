@@ -8,6 +8,8 @@ Feature: Limited CSV import
     And the race has series "N"
     And the series has an age group "N50"
     And the race has series "M40"
+    And the race has series "S17"
+    And the series has an age group "P17"
     And the race has a club "SS"
     And the race has a club "PS"
     And I have logged in
@@ -22,7 +24,7 @@ Feature: Limited CSV import
     And I press "Lataa kilpailijat tietokantaan"
     Then I should see "Kilpailijat ladattu tietokantaan" in a success message
     And I should be on the limited official competitors page for "Limited race"
-    And I should see "Lisätyt kilpailijat (4)"
+    And I should see "Lisätyt kilpailijat (5)"
     And I should see "Hämäläinen Minna"
 
   Scenario: Official with limited rights to one club imports competitors

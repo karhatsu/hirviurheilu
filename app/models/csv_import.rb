@@ -124,8 +124,10 @@ class CsvImport
       competitor.series = age_group.series
     else
       series = @race.series.find_by_name(series_name)
-      unless series
+      if !series
         @errors << "Tuntematon sarja/ikäryhmä: '#{series_name}'"
+      elsif series.competitors_only_to_age_groups?
+        @errors << "Kilpailijalle pitää määrittää ikäryhmä: #{competitor.first_name} #{competitor.last_name} (#{series_name})"
       end
       competitor.series = series
     end

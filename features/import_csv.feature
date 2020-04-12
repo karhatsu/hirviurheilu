@@ -9,6 +9,8 @@ Feature: Import competitors with CSV file
     And the race has series "N"
     And the series has an age group "N50"
     And the race has series "M40"
+    And the race has series "S17"
+    And the series has an age group "P17"
     And I have logged in
     And I am on the official race page of "CSV race"
     When I follow "Lisää kilpailijoita CSV-tiedostosta"

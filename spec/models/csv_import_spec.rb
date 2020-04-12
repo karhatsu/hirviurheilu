@@ -18,11 +18,12 @@ describe CsvImport do
 
   before do
     @race = create :race
-    @series = build :series, race: @race, name: 'N'
-    @race.series << @series
-    @series.age_groups << build(:age_group, series: @series, name: 'N50')
-    @race.series << build(:series, race: @race, name: 'M40')
-    @race.clubs << build(:club, race: @race, name: 'PS')
+    @series = create :series, race: @race, name: 'N'
+    create :age_group, series: @series, name: 'N50'
+    @youth_series = create :series, race: @race, name: 'S17'
+    create :age_group, series: @youth_series, name: 'P17'
+    create :series, race: @race, name: 'M40'
+    create :club, race: @race, name: 'PS'
   end
 
   context "when not correct amount of columns in each row" do
@@ -48,32 +49,12 @@ describe CsvImport do
           it "should save the defined competitors and new clubs to the database and return true" do
             expect(@ci.save).to be_truthy
             @race.reload
-            expect(@race.competitors.size).to eq(4)
+            expect(@race.competitors.size).to eq(5)
             competitors = @race.competitors.except(:order).order('id')
-            c = competitors[0]
-            expect(c.first_name).to eq('Heikki')
-            expect(c.last_name).to eq('Räsänen')
-            expect(c.series.name).to eq('M40')
-            expect(c.club.name).to eq('SS')
-            expect(c.number).to be_nil
-            c = competitors[1]
-            expect(c.first_name).to eq('Minna')
-            expect(c.last_name).to eq('Miettinen')
-            expect(c.series.name).to eq('N')
-            expect(c.age_group).to be_nil
-            expect(c.club.name).to eq('PS')
-            c = competitors[2]
-            expect(c.first_name).to eq('Maija')
-            expect(c.last_name).to eq('Hämäläinen')
-            expect(c.series.name).to eq('N')
-            expect(c.age_group.name).to eq('N50')
-            expect(c.club.name).to eq('SS')
-            c = competitors[3]
-            expect(c.first_name).to eq('Minna')
-            expect(c.last_name).to eq('Hämäläinen')
-            expect(c.series.name).to eq('N')
-            expect(c.age_group.name).to eq('N50')
-            expect(c.club.name).to eq('SS')
+            expect_competitor competitors[0], 'Heikki', 'Räsänen', 'SS', 'M40'
+            expect_competitor competitors[1], 'Minna', 'Miettinen', 'PS', 'N'
+            expect_competitor competitors[2], 'Maija', 'Hämäläinen', 'SS', 'N', 'N50'
+            expect_competitor competitors[3], 'Minna', 'Hämäläinen', 'SS', 'N', 'N50'
             expect(@race.clubs.size).to eq(2)
           end
         end
@@ -93,21 +74,10 @@ describe CsvImport do
             expect(@ci.save).to be_truthy
             @race.reload
             expect(@race.competitors.size).to eq(3)
-            c = @race.competitors.order('id')[0]
-            expect(c.first_name).to eq('Timo')
-            expect(c.last_name).to eq('Malinen')
-            expect(c.series.name).to eq('M40')
-            expect(c.club.name).to eq('Ampumaseura')
-            c = @race.competitors.order('id')[1]
-            expect(c.first_name).to eq('Toni')
-            expect(c.last_name).to eq('Miettinen')
-            expect(c.series.name).to eq('M40')
-            expect(c.club.name).to eq('Kuikan Erä')
-            c = @race.competitors.order('id')[2]
-            expect(c.first_name).to eq('Teppo')
-            expect(c.last_name).to eq('Ylönen')
-            expect(c.series.name).to eq('M40')
-            expect(c.club.name).to eq('Sum Um')
+            competitors = @race.competitors.order('id')
+            expect_competitor competitors[0], 'Timo', 'Malinen', 'Ampumaseura', 'M40'
+            expect_competitor competitors[1], 'Toni', 'Miettinen', 'Kuikan Erä', 'M40'
+            expect_competitor competitors[2], 'Teppo', 'Ylönen', 'Sum Um', 'M40'
           end
         end
 
@@ -150,7 +120,7 @@ describe CsvImport do
 
       it_should_behave_like 'failed import', 1
 
-      it "the error message should contain the errorneous row" do
+      it "the error message should contain the erroneous row" do
         expect(@ci.errors[0]).to eq("Riviltä puuttuu tietoja: Minna,Miettinen,,N")
       end
     end
@@ -162,12 +132,12 @@ describe CsvImport do
 
       it_should_behave_like 'failed import', 1
 
-      it "the error message should contain the errorneous row" do
+      it "the error message should contain the erroneous row" do
         expect(@ci.errors[0]).to eq("Riviltä puuttuu tietoja: Minna,  ,PS,N")
       end
     end
 
-    context "when the file contains two errorneous rows" do
+    context "when the file contains two erroneous rows" do
       before do
         @ci = CsvImport.new(@race, test_file_path('import_with_multiple_errors.csv'))
       end
@@ -184,6 +154,18 @@ describe CsvImport do
 
       it "#errors should contain one error about duplicate competitors" do
         expect(@ci.errors.first).to eq('Tiedosto sisältää saman kilpailijan kahteen kertaan: Heikki,Räsänen,SS,M40')
+      end
+    end
+
+    context 'when youth series without age group' do
+      before do
+        @ci = CsvImport.new @race, test_file_path('import_without_youth_age_group.csv')
+      end
+
+      it_should_behave_like 'failed import', 1
+
+      it "#errors should contain an error about missing age group" do
+        expect(@ci.errors.first).to eq('Kilpailijalle pitää määrittää ikäryhmä: Topi Turunen (S17)')
       end
     end
   end
@@ -264,15 +246,28 @@ describe CsvImport do
 
     it 'adds automatically numbers for competitors' do
       expect(@ci.save).to be_truthy
-      expect(@race.reload.competitors.size).to eq(2 + 4)
+      expect(@race.reload.competitors.size).to eq(2 + 5)
       expect(@race.competitors.find_by_number(2).first_name).to eql 'Heikki'
       expect(@race.competitors.find_by_number(3).first_name).to eql 'Minna'
       expect(@race.competitors.find_by_number(5).first_name).to eql 'Maija'
       expect(@race.competitors.find_by_number(6).first_name).to eql 'Minna'
+      expect(@race.competitors.find_by_number(7).first_name).to eql 'Topi'
     end
   end
 
   def test_file_path(file_name)
     File.join(Rails.root, 'spec', 'files', file_name)
+  end
+
+  def expect_competitor(competitor, first_name, last_name, club_name, series_name, age_group_name = nil)
+    expect(competitor.first_name).to eq first_name
+    expect(competitor.last_name).to eq last_name
+    expect(competitor.club.name).to eq club_name
+    expect(competitor.series.name).to eq series_name
+    if age_group_name
+      expect(competitor.age_group.name).to eq age_group_name
+    else
+      expect(competitor.age_group).to be_nil
+    end
   end
 end
