@@ -88,7 +88,7 @@ class Sport
           {
               name: 'Metsästyshirvi',
               qualification_round: [4, 6],
-              final_round: [5, 5],
+              final_round: [10],
               shots_per_extra_round: 2,
           }
       )),
