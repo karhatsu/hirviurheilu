@@ -76,7 +76,7 @@ class Sport
           {
               name: 'Ilmaluodikko',
               qualification_round: [5, 5],
-              final_round: [5, 5],
+              final_round: [10],
               max_shot: 11,
               max_shots_count: 20,
               inner_ten?: true,
@@ -96,7 +96,7 @@ class Sport
           {
               name: 'Metsästysluodikko',
               qualification_round: [5, 5],
-              final_round: [5, 5],
+              final_round: [10],
               shots_per_extra_round: 1,
           }
       ))

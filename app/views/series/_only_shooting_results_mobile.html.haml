@@ -13,8 +13,8 @@
             + #{comp.final_round_shooting_score_input}
         - elsif comp.shots
           .card__middle-row
+            %span.shots Alkukilpailu:
             - if comp.qualification_round_sub_scores.length == 2
-              %span.shots Alkukilpailu:
               = comp.qualification_round_sub_scores[0]
               %span.shots (#{shots_print comp.qualification_round_shots[0]})
               - if comp.qualification_round_shots[1].length > 0
@@ -25,8 +25,8 @@
               #{comp.qualification_round_score} (#{shots_print comp.qualification_round_shots})
         - if comp.final_round_shots
           .card__middle-row
+            %span.shots Loppukilpailu:
             - if comp.final_round_sub_scores.length == 2
-              %span.shots Loppukilpailu:
               = comp.final_round_sub_scores[0]
               %span.shots (#{shots_print comp.final_round_shots[0]})
               - if comp.final_round_shots[1].length > 0
