@@ -4,8 +4,8 @@ class TeamCompetition < ApplicationRecord
   has_and_belongs_to_many :age_groups, :join_table => 'team_competition_age_groups'
 
   validates :name, :presence => true
-  validates :team_competitor_count, :numericality => { :only_integer => true,
-    :greater_than => 1 }
+  validates :team_competitor_count, numericality: { only_integer: true, greater_than: 1 }
+  validates :national_record, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
 
   attr_accessor :temp_series_names, :temp_age_groups_names
 

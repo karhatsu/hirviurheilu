@@ -14,14 +14,11 @@ describe TeamCompetition do
   describe "validations" do
     it { is_expected.to validate_presence_of(:name) }
 
-    describe "team_competitor_count" do
-      it { is_expected.to validate_numericality_of(:team_competitor_count) }
-      it { is_expected.not_to allow_value(nil).for(:team_competitor_count) }
-      it { is_expected.not_to allow_value(0).for(:team_competitor_count) }
-      it { is_expected.not_to allow_value(1).for(:team_competitor_count) }
-      it { is_expected.to allow_value(2).for(:team_competitor_count) }
-      it { is_expected.not_to allow_value(2.1).for(:team_competitor_count) }
-    end
+    it_should_behave_like 'positive integer', :team_competitor_count, false
+    it { is_expected.not_to allow_value(1).for(:team_competitor_count) }
+    it { is_expected.to allow_value(2).for(:team_competitor_count) }
+
+    it_should_behave_like 'positive integer', :national_record, true
   end
 
   describe '#cache_key' do
