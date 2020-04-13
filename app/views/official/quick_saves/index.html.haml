@@ -5,15 +5,16 @@
   - unless @race.series.empty?
     = link_to t('official.competitors.index.add_competitor'), new_official_series_competitor_path(@race.series.first), class: 'button button--add'
 - elsif @race.sport.only_shooting?
+  - instructions_key = @race.sport_key == Sport::ILMALUODIKKO ? 'ilmaluodikko' : 'other'
   %h3= t :qualification_round
   = render partial: 'result_place', locals: { name: 'qualification_round_shots',
-    instructions: t(".instructions_qualification_round_shots.#{@race.sport_key}"), path: official_race_quick_save_qualification_round_shots_path(@race) }
+    instructions: t(".instructions_qualification_round_shots.#{instructions_key}"), path: official_race_quick_save_qualification_round_shots_path(@race) }
   %h3= t :final_round
   = render partial: 'result_place', locals: { name: 'final_round_shots',
-    instructions: t(".instructions_final_round_shots.#{@race.sport_key}"), path: official_race_quick_save_final_round_shots_path(@race) }
+    instructions: t(".instructions_final_round_shots.#{instructions_key}"), path: official_race_quick_save_final_round_shots_path(@race) }
   %h3= t :extra_round
   = render partial: 'result_place', locals: { name: 'extra_shots',
-    instructions: t(".instructions_extra_shots.#{@race.sport_key}"), path: official_race_quick_save_extra_shots_path(@race) }
+    instructions: t(".instructions_extra_shots.#{instructions_key}"), path: official_race_quick_save_extra_shots_path(@race) }
 - else
   %h3= t :times
   = render :partial => 'result_place', :locals => { :name => 'time',
