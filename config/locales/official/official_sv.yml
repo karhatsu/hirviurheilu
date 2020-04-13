@@ -171,8 +171,8 @@ sv:
           ilmaluodikko: Syötä alkukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9++870**89. Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, alkukilpailun tulos 94).
           other: Syötä alkukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10, esim. 45,9++870+989. Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, alkukilpailun tulos 94).
         instructions_final_round_shots:
-          ilmaluodikko: Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9++870**89. Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, alkukilpailun tulos 94).
-          other: Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10, esim. 45,9++870+989. Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, alkukilpailun tulos 94).
+          ilmaluodikko: Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9+*87 (5 laukausta) tai 45,9+*870**89 (10 laukausta). Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, loppukilpailun tulos 94).
+          other: Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10, esim. 45,9++87 (5 laukausta) tai 45,9++870+989 (10 laukausta). Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, loppukilpailun tulos 94).
         instructions_extra_shots:
           ilmaluodikko: Syötä uusintalaukauksia muodossa nro,laukaus1,laukaus2,.. siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9*. Jos syötät laukaukset uudestaan, ne tallentuvat edellisten perään.
           other: Syötä uusintalaukauksia muodossa nro,laukaus1,laukaus2,.. siten että +-merkki on 10, esim. 45,9+. Jos syötät laukaukset uudestaan, ne tallentuvat edellisten perään.
