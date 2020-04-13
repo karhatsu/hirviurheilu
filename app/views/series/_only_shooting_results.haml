@@ -34,7 +34,7 @@
               \= #{comp.qualification_round_score}
           - else
             = comp.qualification_round_score
-            %span.shots (#{shots_print comp.qualification_round_shots})
+            %span.shots (#{shots_print comp.qualification_round_shots[0]})
       %td
         - if comp.final_round_shooting_score_input
           = comp.final_round_shooting_score_input
@@ -48,7 +48,7 @@
               \= #{comp.final_round_score}
           - else
             = comp.final_round_score
-            %span.shots (#{shots_print comp.final_round_shots})
+            %span.shots (#{shots_print comp.final_round_shots[0]})
       %td.center.total-points
         - if comp.no_result_reason
           = comp.no_result_reason

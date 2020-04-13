@@ -22,7 +22,7 @@
                 %span.shots (#{shots_print comp.qualification_round_shots[1]})
                 \= #{comp.qualification_round_score}
             - else
-              #{comp.qualification_round_score} (#{shots_print comp.qualification_round_shots})
+              #{comp.qualification_round_score} (#{shots_print comp.qualification_round_shots[0]})
         - if comp.final_round_shots
           .card__middle-row
             %span.shots Loppukilpailu:
@@ -34,7 +34,7 @@
                 %span.shots (#{shots_print comp.final_round_shots[1]})
                 \= #{comp.final_round_score}
             - else
-              #{comp.final_round_score} (#{shots_print comp.final_round_shots})
+              #{comp.final_round_score} (#{shots_print comp.final_round_shots[0]})
         - if comp.extra_shots
           .card__middle-row
             Uusinta: #{shots_print comp.extra_shots}
