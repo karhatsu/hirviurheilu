@@ -8,7 +8,7 @@ describe QuickSave::FinalRoundShots do
   let!(:competitor5) { create :competitor, series: series, number: 5, qualification_round_shooting_score_input: 55 }
   let!(:competitor10) { create :competitor, series: series, number: 10, shots: competitor10_shots }
 
-  context 'when string format as shots is correct and competitor with qualification round shots is found' do
+  context 'when string format as 10 shots is correct and competitor with qualification round shots is found' do
     before do
       @qs = QuickSave::FinalRoundShots.new(race.id, '10,+99*876510')
     end
@@ -16,6 +16,17 @@ describe QuickSave::FinalRoundShots do
     it 'saves the shots after the existing qualification round shots' do
       result = @qs.save
       expect_success result, competitor10, competitor10_shots + [10, 9, 9, 11, 8, 7, 6, 5, 1, 0]
+    end
+  end
+
+  context 'when string format as 5 shots is correct and competitor with qualification round shots is found' do
+    before do
+      @qs = QuickSave::FinalRoundShots.new(race.id, '10,+9*01')
+    end
+
+    it 'saves the shots after the existing qualification round shots' do
+      result = @qs.save
+      expect_success result, competitor10, competitor10_shots + [10, 9, 11, 0, 1]
     end
   end
 

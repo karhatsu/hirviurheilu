@@ -1,6 +1,6 @@
 class QuickSave::FinalRoundShots < QuickSave::QuickSaveBase
   def initialize(race_id, string)
-    super race_id, string, /^(\+\+|)\d+(\,)[0-9][0-9]?0?$/, /^(\+\+|)\d+(\,)[\+\*0-9]{10}$/
+    super race_id, string, /^(\+\+|)\d+(\,)[0-9][0-9]?0?$/, /^(\+\+|)\d+(\,)[\+\*0-9]{5}$/, /^(\+\+|)\d+(\,)[\+\*0-9]{10}$/
   end
 
   private
@@ -37,6 +37,6 @@ class QuickSave::FinalRoundShots < QuickSave::QuickSaveBase
   end
 
   def sum_input?
-    @string.length < 12
+    @string.length < 7
   end
 end
