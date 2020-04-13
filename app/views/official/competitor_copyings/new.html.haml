@@ -20,8 +20,10 @@
           params[:source_race_id])
     - if !@race.sport.start_list?
       .form__field
-        = label_tag :with_numbers, t('.with_numbers')
-        = check_box_tag :with_numbers, true, params[:with_numbers]
+        = radio_button_tag :with_numbers, true, params[:with_numbers]
+        = label_tag "with_numbers_true", t('.with_numbers'), class: 'form__label--radio'
+        = radio_button_tag :with_numbers, false, !params[:with_numbers]
+        = label_tag "with_numbers_false", t('.generate_numbers'), class: 'form__label--radio'
     - elsif @race.start_order == Race::START_ORDER_BY_SERIES
       .form__field
         = label_tag :with_start_list, t('.with_start_list')

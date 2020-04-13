@@ -6,7 +6,7 @@ class Official::CompetitorCopyingsController < Official::OfficialController
 
   def create
     source_race = Race.find params[:source_race_id]
-    opts = { with_start_list: params[:with_start_list], with_numbers: params[:with_numbers] }
+    opts = { with_start_list: params[:with_start_list], with_numbers: params[:with_numbers] == 'true' }
     errors = @race.copy_competitors_from source_race, opts
     if errors.empty?
       flash[:success] = t('.competitors_copied', amount: source_race.competitors.count)

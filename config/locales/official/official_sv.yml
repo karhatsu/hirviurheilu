@@ -286,6 +286,7 @@ sv:
         race_with_competitors_count: "%{race}, %{location}, %{dates} (%{competitors} tävlar)"
         with_start_list: Kopiera startnumren och starttiderna
         with_numbers: Kopiera tävlarnasnumren
+        generate_numbers: Sätt tävlarna nya nummer
         submit_button: Kopiera tävlarna
         no_races: Inga tävlingar
       create:
