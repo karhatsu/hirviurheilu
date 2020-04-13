@@ -283,6 +283,12 @@ fi:
     competitor_copyings:
       new:
         title: Kopioi kilpailijat toisesta kilpailusta
+        instructions_1:
+          three_sports_race: Valitsemastasi kilpailusta kopioidaan kilpailijat siten, että kohdekilpailuun heille tulee sama nimi, seura, ikäryhmä, sarja, lähtönumero ja lähtöaika.
+          shooting_race: Valitsemastasi kilpailusta kopioidaan kilpailijat siten, että kohdekilpailuun heille tulee sama nimi, seura, sarja ja mahdollinen aliryhmä.
+        instructions_2:
+          three_sports_race: Mikäli olet jo lisännyt kohdekilpailuun kilpailijoita, heillä ei saa olla samoja lähtönumeroita kuin lähdekilpailun kilpailijoilla, paitsi jos kyseisellä numerolla oleva kilpailija on saman niminen molemmissa kilpailuissa.
+          shooting_race: Voit valita kopioidaanko myös kilpailijoiden numerot vai luoko ohjelma kilpailijoille uudet numerot.
         from_race: Kilpailu josta kilpailijat kopioidaan
         race_with_competitors_count: "%{race}, %{location}, %{dates} (%{competitors} kilpailijaa)"
         with_start_list: Kopioi lähtönumerot ja -ajat

@@ -3,13 +3,12 @@
 - if @races.empty?
   .message.message--warning= t('.no_races')
 - else
+  - text_key = @race.sport.only_shooting? ? 'shooting_race' : 'three_sports_race'
   .message.message--info
-    Valitsemastasi kilpailusta kopioidaan kilpailijat siten, että kohdekilpailuun heille tulee sama nimi, seura,
-    ikäryhmä, sarja, lähtönumero ja lähtöaika.
+    = t ".instructions_1.#{text_key}"
     %br
     %br
-    Mikäli olet jo lisännyt kohdekilpailuun kilpailijoita, heillä ei saa olla samoja lähtönumeroita kuin lähdekilpailun
-    kilpailijoilla, paitsi jos kyseisellä numerolla oleva kilpailija on samanniminen molemmissa kilpailuissa.
+    = t ".instructions_2.#{text_key}"
   = flash_error
   = form_tag official_race_competitor_copying_path(@race), class: 'form' do
     .form__field
