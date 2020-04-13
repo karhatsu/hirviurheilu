@@ -1,0 +1,298 @@
+- content_for :title, 'Kysymyksiä ja vastauksia'
+- content_for :page_title, yield(:title)
+
+%h2 Yleistä Hirviurheilu-palvelusta
+.cards
+  .card
+    .card__middle
+      .card__name Mikä on Hirviurheilu?
+      .card__middle-row Hirviurheilu on helppokäyttöinen, internet-pohjainen tulospalvelu metsästäjäliiton urheilulajeihin.
+  .card
+    .card__middle
+      .card__name Mitä lajeja Hirviurheilu tukee?
+      .card__middle-row
+        %ul
+          %li Hirvenhiihto ja hirvenhiihtely
+          %li Hirvenjuoksu ja hirvikävely
+          %li Ilmahirvi ja ilmaluodikko
+          %li Metsästyshirvi ja metsästysluodikko
+          %li Metsästyshaulikko ja metsästystrap (tulossa myöhemmin)
+          %li Pohjoismainen metsästysammunta ja eurooppalainen metsästysammunta (tulossa myöhemmin)
+  .card
+    .card__middle
+      .card__name Mitä kilpailumuotoja palvelu tukee?
+      .card__middle-row
+        %ul
+          %li Normaali yksilökilpailu
+          %li Joukkuekilpailu
+          %li Viesti (hirvenhiihto ja hirvenjuoksu)
+          %li Cup
+  .card
+    .card__middle
+      .card__name Mitä voin tehdä, jos palveluun tarvittaisiin mielestäni ehdottomasti uusi ominaisuus?
+      .card__middle-row= link_to "Ota rohkeasti yhteyttä ja kerro ideasi!", new_feedback_path
+
+%h2 Palvelun hyödyt
+.cards
+  .card
+    .card__middle
+      .card__name Mitä hyötyä palvelusta on kilpailun järjestäjille?
+      .card__middle-row
+        %ul
+          %li Tulospalvelun järjestäminen onnistuu palvelun kautta vaivattomasti. Palvelun käyttöönotto on erittäin nopeaa ja sen käyttäminen helppoa.
+          %li Palvelu tarjoaa luotettavan tavan tulosten laskemiseen.
+          %li
+            Järjestäjien ei tarvitse huolehtia lähtölistojen tai eräluetteloiden ja tulosten julkaisemisesta,
+            koska ne ovat kaikkien saatavilla internetissä ilman ylimääräisiä toimenpiteitä.
+          %li
+            Palvelu on hyvin joustava. Kilpailun järjestäjä voi esimerkiksi syöttää juuri ne sarjat, jotka kilpailussa tullaan järjestämään.
+            Mitään tiettyjä sarjoja ei tarvitse käyttää.
+          %li Järjestäjät voivat ladata tulosraportin myös lehdistölle sopivassa muodossa.
+          %li Kaikki palveluun tehtävät uudet ominaisuudet ovat automaattisesti järjestäjien käytössä ilman erillistä päivitystä.
+  .card
+    .card__middle
+      .card__name Mitä hyötyä palvelusta on kilpailijoille?
+      .card__middle-row
+        %ul
+          %li Ennakkoon ilmoittautuneilla kilpailijoilla on mahdollisuus katsoa lähtölistat tai eräluettelot etukäteen internetistä.
+          %li Kilpailijat näkevät tulokset reaaliaikaisina internetin kautta välittömästi heti, kun toimitsijat syöttävät ne järjestelmään.
+          %li
+            Tulokset ovat näkyvillä mahdollisimman yksityiskohtaisesti, joten kilpailijat
+            voivat helposti varmistaa, että tulokset on syötetty ja laskettu oikein.
+
+%h2 Käyttö &ndash; kaikki lajit
+.results-cards
+  .card
+    .card__middle
+      .card__name Kuinka palvelun käyttöönotto tapahtuu?
+      .card__middle-row
+        Hirviurheilu-palvelun käyttöönotto on erittäin helppoa:
+        = link_to "Rekisteröidy palveluun", register_path
+        ja pääset syöttämään tulospalveluun ensimmäisen kilpailusi tiedot.
+  .card
+    .card__middle
+      .card__name Mitä sarjoja tulospalvelussa käytetään?
+      .card__middle-row
+        Voit itse päättää täysin, mitä sarjoja kilpailuusi syötät.
+        Kilpailun luomisen nopeuttamiseksi tarjolla on myös valmiit oletussarjat, jotka perustuvat lajikohtaisesti
+        Metsästäjäliiton määrittämiin sarjajakoihin. Näiden käyttäminen ei ole kuitenkaan pakollista,
+        ja vaikka niitä käyttäisitkin, voit tehdä oletussarjoihin mitä tahansa muutoksia.
+  .card
+    .card__middle
+      .card__name Mitä asioita pitää tehdä ennen kilpailua?
+      .card__middle-row
+        Ennen kilpailua sinun täytyy lisätä tulospalveluun kilpailun
+        perustiedot kuten sen nimi, ajankohta ja paikkakunta sekä sarjojen nimet.
+        Tämän jälkeen voit lisätä sarjoihin ilmoittautuneita kilpailijoita.
+  .card
+    .card__middle
+      .card__name Voiko useampi toimitsija käyttää järjestelmää yhtä aikaa?
+      .card__middle-row Kyllä voi. Kilpailun perustaja voi kutsua muita henkilöitä toimitsijaksi samaan kilpailuun.
+  .card
+    .card__middle
+      .card__name Onko mahdollista kokeilla palvelun käyttämistä jossain?
+      .card__middle-row
+        Osoitteessa
+        %a{href: TEST_URL, target: '_blank'}= TEST_URL
+        voit harjoitella toimitsijana toimimista. Testipalvelua ei ole tarkoitettu käytettäväksi oikeiden kilpailuiden tuloslaskentaan.
+      .card__middle-row
+        Huom! Testipalvelu
+        (#{TEST_URL})
+        ja varsinainen palvelu
+        (#{PRODUCTION_URL})
+        käyttävät eri tietokantoja, joten toiseen palveluun luodut käyttäjätunnukset eivät ole käytössä toisessa.
+        Voit kuitenkin halutessasi käyttää molemmissa samoja kirjautumistietoja (sähköposti ja salasana).
+
+%h2 Käyttö &ndash; liikuntalajit (hirvenhiihto, hirvenjuoksu, hirvenhiihtely, hirvikävely)
+.results-cards
+  .card
+    .card__middle
+      .card__name Kuinka lähtölistat luodaan?
+      .card__middle-row
+        Kilpailua lisätessäsi voit valita kahdesta vaihtoehdosta sinulle sopivamman:
+        %ul
+          %li Lähtölistojen luonti sarjoittain
+          %li Lähtöaikojen määrittäminen suoraan kilpailijoille
+      .card__middle-row
+        Ensimmäinen vaihtoehto on kätevä erityisesti silloin, kun kilpailijat ilmoittautuvat
+        etukäteen ja lähtölistat voidaan näin ollen luoda valmiiksi ennen kilpailua.
+        Lähtölistojen luonti on helppoa. Kun olet lisännyt kilpailijat, mene toimitsijan sivuilla
+        Kilpailijat-sivulle. Sivulla sinun pitää kertoa, mikä on sarjan
+        lähtöaika ja ensimmäinen kilpailunumero. Lisäksi voit päättää, noudattaako
+        kilpailijoiden lähtöjärjestys heidän lisäämisjärjestystä vai arvotaanko se.
+        Näiden asetusten jälkeen saat luotua yhden sarjan lähtölistan automaattisesti.
+      .card__middle-row
+        Toinen vaihtoehto sopii paremmin kilpailuihin, joissa kilpailijat lisätään järjestelmään
+        vasta kisapaikalla, jolloin heidän ilmoittautumisjärjestyksensä on samalla heidän
+        lähtöjärjestyksensä sarjoista välittämättä. Tässä vaihtoehdossa sinun täytyy määrittää
+        kilpailijan lähtönumero ja -aika samalla, kun syötät kilpailijan muut tiedot.
+        Lähtölista syntyy näin samalla, kun syötät kilpailijoita.
+      .card__middle-row
+        Huom! Riippumatta siitä kumman tavan valitset voit määrittää yksittäiselle kilpailijalle
+        minkä tahansa lähtöajan ja -numeron. Eli vaikka kilpailijat lähtisivätkin sarjoittain,
+        järjestelmään pystyy aina lisäämään jälki-ilmoittautuneita lähtölistan loppupäähän.
+  .card
+    .card__middle
+      .card__name Voiko kilpailijoita lisätä vielä sen jälkeen, kun lähtölista on jo luotu?
+      .card__middle-row
+        Kyllä voi. Vaikka osa kilpailijoista olisi jo tullut
+        maaliin ja heille olisi jopa syötetty tuloksia, voit edelleen lisätä uusia
+        kilpailijoita. Kun lisäät kilpailijoita lähtölistan luonnin jälkeen,
+        sinun täytyy vain itse määrittää heille lähtöaika sekä kilpailunumero.
+        Palvelu tosin ehdottaa automaattisesti sopivaa aikaa sekä numeroa.
+  .card
+    .card__middle
+      .card__name Miten tulosten syöttäminen tapahtuu kilpailun aikana?
+      .card__middle-row
+        Tulosten syöttämiseen on kolme vaihtoehtoa. Voit itse päättää,
+        mitä vaihtoehtoa haluat käyttää tulosten syöttämiseen.
+        %ol
+          %li
+            Pikasyöttö: Ns. pikasyötössä voit syöttää yhden kilpailijan aika-,
+            arviointi- tai ammuntatiedon kirjoittamalla kilpailijan numeron ja
+            tuloksen. Esimerkiksi kilpailijan 13 arviot 118 ja 87 metriä
+            syötetään muodossa 13,118,87. Pikasyöttö on kaikista nopein tapa syöttää
+            tuloksia.
+          %li
+            Sarja- ja tulospaikkakohtainen syöttö: Tässä näkymässä voit syöttää
+            yhden sarjan esimerkiksi kaikki ammuntatulokset kerralla. Samanlaiset
+            näkymät löytyvät siis myös saapumisajoille ja arvioille. Tämä
+            vaihtoehto sopii hyvin tilanteeseen, jossa yhden toimitsijan vastuulla
+            on yksi tulospaikka. Lisäksi se antaa hyvän kokonaiskuvan sarjojen
+            tilanteesta.
+          %li
+            Kilpailijakohtainen lomake: Jos kilpailijan tiedot avaa sen jälkeen,
+            kun lähtölista on luotu, hänelle voi syöttää samassa näkymässä kaikki tulostiedot kerralla.
+  .card
+    .card__middle
+      .card__name Pitääkö ammuntatulokset syöttää summana vai yksittäisinä laukauksina?
+      .card__middle-row Saat päättää tämän itse. Molemmat vaihtoehdot ovat mahdollisia.
+  .card
+    .card__middle
+      .card__name Kuinka sarjojen oikeat arviointimatkat määritetään?
+      .card__middle-row
+        Oikeat arviointimatkat määritetään kilpailunumeroiden perusteella.
+        Voit esimerkiksi määrittää, että numeroiden 1-50 oikeat matkat ovat 100 ja 120 metriä
+        ja että numeroilla 51-100 matkat ovat 95 ja 125 metriä.
+  .card
+    .card__middle
+      .card__name Mitä asioita täytyy tehdä kilpailun jälkeen?
+      .card__middle-row
+        Kun olet syöttänyt kaikille kilpailijoille tulokset sekä määrittänyt kilpailulle oikeat arviointimatkat,
+        muista merkitä vielä kilpailu päättyneeksi Yhteenveto-sivulta. Tämä vaikuttaa mm. siihen,
+        että tarkat arviointitiedot julkaistaan kilpailijoille. Niin kauan kuin kilpailu on kesken,
+        kilpailijat eivät näe arviointitietojen osalta muuta kuin pisteet.
+
+%h2 Käyttö &ndash; ammuntalajit
+.results-cards
+  .card
+    .card__middle
+      .card__name Kuinka eräluettelot luodaan?
+      .card__middle-row
+        Eräluetteloiden tekeminen alkaa sillä, että kilpailun perustiedoissa määritetään ratojen määrä sekä
+        ammuntapaikkojen määrä / rata. Näitä tietoja käytetään sekä alkukilpailun että loppukilpailun
+        eräluetteloiden tekemiseen.
+      .card__middle-row
+        Alkukilpailun eräluettelot on helpointa tehdä arpomalla ne sarjakohtaisesti sen jälkeen,
+        kun sarjan kilpailijat on syötetty. Voit määrittää hyvin joustavasti, miten kilpailijat sijoitetaan eriin,
+        esimerkiksi joka toiselle paikalla tai jättämällä tiettyjä paikkoja tyhjiksi.
+      .card__middle-row
+        Loppukilpailun eräluettelot voi luoda samaan tyyliin kuin alkukilpailuissa. Oleellinen ero on siinä,
+        että toimitsija määrittää sarjakohtaisesti, kuinka monta kilpailijaa loppukilpailuun pääsee ja ohjelma
+        poimii kilpailijat automaattisesti.
+      .card__middle-row
+        Eräluetteloita pystyy myös luomaan ja muokkaamaan yksittäin ilman automaattista sijoittelua.
+        Erien hallinta -sivulta voi sekä määrittää erien tiedot että asetella niihin kilpailijat.
+  .card
+    .card__middle
+      .card__name Miten tulosten syöttäminen tapahtuu kilpailun aikana?
+      .card__middle-row
+        Tulosten syöttämiseen on peräti neljä vaihtoehtoa. Voit itse päättää,
+        mitä vaihtoehtoa haluat käyttää tulosten syöttämiseen.
+        %ol
+          %li
+            Pikasyöttö: Ns. pikasyötössä voit syöttää yhden kilpailijan ammuntatuloksen kirjoittamalla kilpailijan numeron ja
+            tuloksen. Tallennus tapahtuu erikseen alku- ja loppukilpailulle.
+          %li
+            Ammunta sarjoittain: Tässä näkymässä näet yhden sarjan kaikki kilpailijat kerralla ja voit tallentaa heille
+            ammuntatuloksen joko summana tai laukauksittain.
+          %li
+            Ammunta erittäin: Tämä näkymä on samanlainen kuin ammunta sarjoittain mutta se listaa kilpailijat erittäin.
+          %li
+            Kilpailijakohtainen lomake: Tuloksen voi syöttää myös kilpailijan lomakkeella.
+            Tämä sopii lähinnä yksittäisen kilpailijan tietojen päivittämiseen.
+  .card
+    .card__middle
+      .card__name Miten uusintalaukaukset tallennetaan?
+      .card__middle-row Voit käyttää uusintalaukausten tallentamiseen samoja menetelmiä kuin alku- ja loppukilpailuillekin.
+  .card
+    .card__middle
+      .card__name Pitääkö ammuntatulokset syöttää summana vai yksittäisinä laukauksina?
+      .card__middle-row Saat päättää tämän itse. Molemmat vaihtoehdot ovat mahdollisia.
+  .card
+    .card__middle
+      .card__name Mitä asioita täytyy tehdä kilpailun jälkeen?
+      .card__middle-row
+        Kun olet syöttänyt kaikille kilpailijoille tulokset, merkitse vielä kilpailu päättyneeksi Yhteenveto-sivulta.
+        Ohjelma tarkastaa, ettei keneltäkään kilpailijalta esimerkiksi puutu laukauksia ja poistaa tuloksista
+        teksti, joka kertoo kilpailun olevan kesken.
+
+%h2 Cup-kilpailut
+.cards
+  .card
+    .card__middle
+      .card__name Kuinka cup-kilpailuita luodaan?
+      .card__middle-row
+        Cup-kilpailuiden luominen on erittäin helppoa. Mene Toimitsijan etusivulle ja lisää sieltä uusi cup-kilpailu.
+        Sinun tarvitsee vain kertoa cup-kilpailun nimi ja valita, mistä (osa)kilpailuista cup koostuu.
+        Osakilpailut tarkoittavat tässä yhteydessä aivan normaaleja Hirviurheilun kilpailuita,
+        joiden tulokset olet palveluun syöttänyt tai tulet syöttämään.
+  .card
+    .card__middle
+      .card__name Kuinka cup-sarjat määritetään?
+      .card__middle-row
+        Kun lisäät cup-kilpailun ja valitset siihen osakilpailut, järjestelmä luo automaattisesti ensimmäisen
+        osakilpailun perusteella cup-sarjat käyttäen kyseisen osakilpailun sarjojen nimiä. Jos nämä sarjat ovat myös
+        cup-sarjat, sinun ei tarvitse tehdä mitään.
+      .card__middle-row
+        Voit kuitenkin halutessasi määrittää eri cup-sarjat muokkaamalla cup-kilpailun asetuksia.
+        Cup-sarja voi koostua yhdestä tai useammasta osakilpailuiden sarjasta. Esimerkiksi:
+        %ul
+          %li
+            Cup-sarja 'M', jonka tulokset lasketaan suoraan osakilpailuissa olevan sarjan 'M' perusteella.
+            (Cup-kilpailuiden oletussarjat toimivat tällä periaatteella.)
+          %li
+            Cup-sarja 'Miehet', jonka tulokset lasketaan osakilpailuissa olevien sarjojen 'M', 'M60' ja 'M70' perusteella.
+  .card
+    .card__middle
+      .card__name Kuinka cup-kilpailuiden tuloslaskenta toimii?
+      .card__middle-row
+        Cup-kilpailussa lasketaan tulokset niille sarjoille, jotka olet määrittänyt kuuluvan cup-kilpailun sarjoihin
+        (ks. edellä). Eri osakilpailuiden kilpailijat yhdistetään yhdeksi henkilöksi kilpailijan nimen perusteella.
+        Jos siis osakilpailuissa esiintyy kilpailija "Timo Testinen", palvelu tunnistaa hänet yhdeksi henkilöksi
+        ja osaa laskea hänelle cup-yhteispisteet.
+      .card__middle-row
+        Cup-yhteispisteet ovat summa osakilpailuiden tuloksista. Voit kuitenkin halutessasi määrittää
+        cup-kilpailun asetuksiin esimerkiksi, että kolmesta osakilpailusta yhteispisteisiin lasketaan
+        vain kaksi parasta tulosta.
+
+%h2 Tulosten julkaisu
+.cards
+  .card
+    .card__middle
+      .card__name Miten tulokset saadaan julkaistua kilpailijoiden nähtäville?
+      .card__middle-row
+        Sinun ei tarvitse tehdä mitään erillistoimenpiteitä. Tulospalvelu on täysin reaaliaikainen,
+        joten kaikki tulokset ovat näkyvissä koko ajan.
+  .card
+    .card__middle
+      .card__name Saako tulokset, lähtöluettelon tai eräluettelon paperille?
+      .card__middle-row
+        Tulostaminen onnistuu parhaiten siten, että lataat tuloksen, lähtöluettelon tai eräluettelon PDF-tiedostona,
+        jonka voit sitten tulostaa paperille.
+  .card
+    .card__middle
+      .card__name Voiko palvelusta tulostaa tuloslistat lehdistölle sopivassa muodossa?
+      .card__middle-row
+        Kyllä voi. Kilpailun sivuilta löytyy Lehdistö-sivu, josta saat yksinkertaisten tulosluettelon haluamallesi
+        määrälle kilpailijoita / sarja.
