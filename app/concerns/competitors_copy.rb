@@ -4,13 +4,18 @@ module CompetitorsCopy
   def copy_competitors_from(race, opts = {})
     raise ArgumentError if start_order == Race::START_ORDER_MIXED && !opts[:with_start_list]
     errors = []
+    prev_number = 0
+    reserved_numbers = competitors.map(&:number) if sport.only_shooting? && !opts[:with_numbers]
     race.transaction do
       race.competitors.each do |competitor|
         club = ensure_club competitor.club
         series = ensure_series competitor.series
         age_group = ensure_age_group series, competitor.age_group
         next if competitor_already_exists series, competitor
-        create_competitor club, series, age_group, competitor, opts if validate_competitor errors, competitor
+        if validate_competitor errors, competitor, opts
+          copied_competitor = create_competitor club, series, age_group, competitor, prev_number, reserved_numbers, opts
+          prev_number = copied_competitor.number
+        end
       end
       raise ActiveRecord::Rollback unless errors.empty?
     end
@@ -40,8 +45,8 @@ module CompetitorsCopy
     Competitor.exists? series: series, first_name: competitor.first_name, last_name: competitor.last_name
   end
 
-  def validate_competitor(errors, competitor)
-    if competitor.number && competitors.find_by_number(competitor.number)
+  def validate_competitor(errors, competitor, opts)
+    if (opts[:with_start_list] || opts[:with_numbers]) && competitor.number && competitors.find_by_number(competitor.number)
       errors << "Kilpailijanumero #{competitor.number} on jo käytössä tässä kilpailussa."
       return false
     end
@@ -52,7 +57,7 @@ module CompetitorsCopy
     true
   end
 
-  def create_competitor(club, series, age_group, competitor, opts)
+  def create_competitor(club, series, age_group, competitor, prev_number, reserved_numbers, opts)
     copied_competitor = Competitor.new club: club, series: series, age_group: age_group,
                        first_name: competitor.first_name, last_name: competitor.last_name
     if opts[:with_start_list]
@@ -61,7 +66,16 @@ module CompetitorsCopy
       series.update_attribute :has_start_list, true if competitor.number && !series.has_start_list?
     elsif opts[:with_numbers]
       copied_competitor.number = competitor.number
+    elsif sport.only_shooting?
+      copied_competitor.number = find_available_number prev_number, reserved_numbers
     end
     copied_competitor.save!
+    copied_competitor
+  end
+
+  def find_available_number(prev_number, reserved_numbers)
+    number = prev_number + 1
+    return number unless reserved_numbers.include? number
+    find_available_number number, reserved_numbers
   end
 end

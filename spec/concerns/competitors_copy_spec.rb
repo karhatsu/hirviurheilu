@@ -181,12 +181,17 @@ describe CompetitorsCopy do
 
       context 'and numbers are not wanted to be copied' do
         before do
-          target_race.copy_competitors_from source_race, with_numbers: false
+          create :competitor, series: target_series, number: 1, last_name: 'Skip'
+          create :competitor, series: target_series, number: 3, last_name: 'Skip'
         end
 
-        it 'copies competitors without numbers and start times' do
-          competitors = target_race.reload.competitors
-          expect_competitors_without_start_times competitors, 3
+        it 'copies competitors and assigns available numbers for them' do
+          errors = target_race.reload.copy_competitors_from source_race, with_numbers: false
+          expect(errors).to be_empty
+          competitors = target_race.reload.competitors.where("last_name != 'Skip'").order(:number)
+          expect(competitors[0].number).to eql 2
+          expect(competitors[1].number).to eql 4
+          expect(competitors[2].number).to eql 5
         end
       end
 
