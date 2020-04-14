@@ -10,14 +10,15 @@
     - if series and !race.series.first.new_record?
       = menu_item t('official_sub_menu.competitors'), official_series_competitors_path(series), @is_competitors, nil, true do
         - series_dropdown_menu(race, 'competitors')
-    - if race.sport.batch_list?
-      = menu_item t('official_sub_menu.batches'), official_race_batches_path(race), @is_batches
     - if series and !race.series.first.new_record?
       - if race.sport.start_list?
         = menu_item t('official_sub_menu.start_times'), official_race_start_list_path(race), @is_start_list
       - elsif race.sport.batch_list?
         = menu_item t('official_sub_menu.qualification_round_batch_list'), official_series_qualification_round_batch_list_path(series), @qualification_round_batch_list
         = menu_item t('official_sub_menu.final_round_batch_list'), official_series_final_round_batch_list_path(series), @final_round_batch_list
+    - if race.sport.batch_list?
+      = menu_item t('official_sub_menu.batches'), official_race_batches_path(race), @is_batches
+    - if series and !race.series.first.new_record?
       = menu_item t('official_sub_menu.quick_save'), official_race_quick_saves_path(race), @is_quick_saves
       - unless race.sport.only_shooting?
         = menu_item t('official_sub_menu.times'), official_series_times_path(series), @is_times, nil, true do

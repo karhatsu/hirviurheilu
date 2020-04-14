@@ -31,8 +31,8 @@ sv:
     batches: Erät
     competitors: Tävlar
     start_times: Starttider
-    qualification_round_batch_list: Alkuerien arvonta
-    final_round_batch_list: Loppuerien asettelu
+    qualification_round_batch_list: Alkukilpailu
+    final_round_batch_list: Loppukilpailu
     quick_save: Resultat
     times: Tider
     estimates: Bedömning
