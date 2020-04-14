@@ -68,8 +68,12 @@ link_to_races = find_link "//div[@class='menu menu--main']/div[2]/a", 'Kilpailut
 
 open_page(link_to_races)
 verify_contains "//div[@class='body__on-top-title']", 'Hirviurheilu - Kilpailut'
-link_to_last_page = find_link "//span[@class='last']/a"
-open_page(link_to_last_page)
+
+unless @url =~ /testi.hirviurheilu/
+  link_to_last_page = find_link "//span[@class='last']/a"
+  open_page(link_to_last_page)
+end
+
 link_to_race = find_link "(//div[@class='body__yield']//a[@class='card'])[last()]"
 
 open_page(link_to_race)
