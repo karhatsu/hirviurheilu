@@ -12,10 +12,10 @@ Feature: Batch list
     And I should not see "Alkukilpailun eräluettelot" within ".menu--sub"
     And I should not see "Loppukilpailun eräluettelot" within ".menu--sub"
     Then I go to the race qualification round batches page
-    And I should see "Alkuerien eräluettelo" within "h2"
+    And I should see "Alkukilpailun eräluettelo" within "h2"
     And I should see "Kilpailun eräluetteloa ei ole tehty" in an info message
     Then I go to the race final round batches page
-    And I should see "Loppuerien eräluettelo" within "h2"
+    And I should see "Loppukilpailun eräluettelo" within "h2"
     And I should see "Kilpailun eräluetteloa ei ole tehty" in an info message
 
   Scenario: Race with batches
@@ -55,7 +55,7 @@ Feature: Batch list
       | final_round_track_place | 3 |
     And I am on the race page
     Then I should not see "Lähtölista"
-    And I should see "Alkuerät (PDF)"
+    And I should see "Alkukilpailun eräluettelot (PDF)"
     But I should not see "Kaikkien sarjojen lähtöajat (PDF)"
     When I follow "Alkukilpailun eräluettelot" within "#batch-links"
     Then I should be on the race qualification round batches page

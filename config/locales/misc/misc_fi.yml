@@ -2,9 +2,9 @@ fi:
   add: Lisää
   add_batch: Lisää erä
   add_competitors: Lisää kilpailijoita
-  add_final_round_batch: Lisää loppuerä
+  add_final_round_batch: Lisää erä loppukilpailuun
   add_new: Lisää uusi
-  add_qualification_round_batch: Lisää alkuerä
+  add_qualification_round_batch: Lisää erä alkukilpailuun
   add_race: Lisää kilpailu
   added: Lisätty
   age_group:
@@ -75,7 +75,7 @@ fi:
   extra_round: Uusinta
   feedback: Palaute
   final_round: Loppukilpailu
-  final_round_batch_list: Loppuerät
+  final_round_batch_lists: Loppukilpailu eräluettelot
   hide_all_competitors: Piilota kaikki kilpailijat
   hide_races_of_cup: Piilota osakilpailut
   leg: Osuus
@@ -93,7 +93,7 @@ fi:
   password: Salasana
   points: Pisteet
   qualification_round: Alkukilpailu
-  qualification_round_batch_list: Alkuerät
+  qualification_round_batch_lists: Alkukilpailun eräluettelot
   race_id: Kilpailun ID
   race_search_text: Kilpailun nimi tai sijainti
   relay_team:

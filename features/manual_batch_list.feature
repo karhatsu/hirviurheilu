@@ -11,7 +11,7 @@ Feature: Manual batch list
     When I choose "Erät" from sub menu
     Then the official main menu item should be selected
     And the "Erät" sub menu item should be selected
-    When I follow "Lisää alkuerä"
+    When I follow "Lisää erä alkukilpailuun"
     Then the "Erät" sub menu item should be selected
     And I should see "Lisää erä" within "h2"
     When I fill in "10" for "Numero"

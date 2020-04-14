@@ -42,9 +42,9 @@
             .form__field= select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: "#{t :all} #{clubs_title(@race).downcase}"
             .form__buttons= submit_tag t('.download_start_times'), class: 'button button--pdf'
       - if @race.sport.batch_list? && !@race.qualification_round_batches.empty?
-        = render partial: 'batch_list_pdf_form', locals: { path: race_qualification_round_batches_path(@race, format: :pdf), title: t(:qualification_round_batch_list) }
+        = render partial: 'batch_list_pdf_form', locals: { path: race_qualification_round_batches_path(@race, format: :pdf), title: t(:qualification_round_batch_lists) }
       - if @race.sport.batch_list? && !@race.final_round_batches.empty?
-        = render partial: 'batch_list_pdf_form', locals: { path: race_final_round_batches_path(@race, format: :pdf), title: t(:final_round_batch_list) }
+        = render partial: 'batch_list_pdf_form', locals: { path: race_final_round_batches_path(@race, format: :pdf), title: t(:final_round_batch_lists) }
   - if @race.finished? && !@race.sport.only_shooting?
     %h3= t :correct_distances
     .row

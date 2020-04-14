@@ -38,9 +38,9 @@ fi:
     estimate_penalty_distance: Arviosakkokierroksen pituus (m)
     estimate_penalty_seconds: Arvionnin sakkosekunnit
     extra_shots: Uusinnan laukaukset
-    final_round_batch_id: Loppuerä
+    final_round_batch_id: Loppukilpailun erä
     final_round_shooting_score_input: Loppukilpailun yhteistulos
-    final_round_track_place: Loppuerän ratapaikka
+    final_round_track_place: Loppukilpailun ratapaikka
     first_name: Etunimi
     first_number: Ensimmäinen kilpailunumero
     front_page: Näytä etusivulla
@@ -70,9 +70,9 @@ fi:
     price: Hinta
     public_message: Viesti kilpailun etusivulle
     published: Julkaistu
-    qualification_round_batch_id: Alkuerä
+    qualification_round_batch_id: Alkukilpailun erä
     qualification_round_shooting_score_input: Alkukilpailun yhteistulos
-    qualification_round_track_place: Alkuerän ratapaikka
+    qualification_round_track_place: Alkukilpailun ratapaikka
     race: Kilpailu
     races: Kilpailut
     remember_me: Muista minut
