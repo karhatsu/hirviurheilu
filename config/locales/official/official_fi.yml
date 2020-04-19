@@ -57,6 +57,7 @@ fi:
         add_series: Lisää uusi sarja tähän kilpailuun
       show:
         single_series: Yksilökilpailut
+        finish_race: Kilpailun päättäminen
         no_series_for_race: Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja yllä olevasta napista.
         no_competitors_for_race: Et ole syöttänyt sarjoihin vielä yhtään kilpailijaa. Aloita klikkaamalla sarjan nimen alla olevaa nappia.
         add_series_first_competitor: Lisää 1. kilpailija
@@ -74,7 +75,6 @@ fi:
         download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)
         download_competitors_by_series: Lataa osallistujat sarjoittain (PDF)
         other_race_formats: Muut kilpailumuodot
-        finish_race_submit: Merkitse yksilökilpailut päättyneeksi
         finish_race_text: kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista.
         create_start_list: Tee lähtölista
         input_results: Tulosten syöttö
@@ -278,6 +278,12 @@ fi:
           shooting: Kilpailu pitää merkitä päättyneeksi, jotta kilpailijat näkevät, että kaikkien tulokset on merkitty eikä tulosluettelo tule enää muuttumaan.
           three_sports: Kilpailu pitää merkitä päättyneeksi, jotta kilpailijat näkevät, että kaikkien tulokset on merkitty eikä tulosluettelo tule enää muuttumaan. Lisäksi kilpailijoille näytetään oikeat arviointimatkat vasta sitten, kun kilpailu on päättynyt.
         already_finished: Tämä kilpailu on jo merkitty päättyneeksi.
+        DNS: Ei osallistunut kilpailuun (DNS)
+        DNF: Keskeytti (DNF)
+        DQ: Hylättiin (DQ)
+        DELETE: Poistetaan
+        COMPLETE: Olen täydentänyt puuttuvan tuloksen
+        button: Merkitse yksilökilpailut päättyneeksi
       create:
         race_finished: Kilpailu %{race_name} on merkitty päättyneeksi
     competitor_copyings:

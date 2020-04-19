@@ -133,9 +133,6 @@ race_end_dates = [nil, '2010-08-29', nil, nil, nil, '2011-01-07', nil]
       :min_number => 1, :max_number => nil,
       :distance1 => correct1, :distance2 => correct2)
     race.set_correct_estimates_for_competitors
-
-    unless race.finish
-      raise race.errors.on(:base)
-    end
+    race.finish!
   end
 end

@@ -260,9 +260,8 @@ fi:
         race:
           attributes:
             base:
-              correct_estimate_missing: Osalta kilpailijoista puuttuu oikea arviomatka.
-              result_missing_shooting: Ainakin yhdeltä kilpailijalta (%{name}, %{series_name}) puuttuu tulos. Jos kilpailija ei osallistunut tai keskeytti, merkitse tieto tuloslomakkeen 'Ei tulosta' kohtaan.
-              result_missing_three_sports: Ainakin yhdeltä kilpailijalta (%{name}, %{series_name}) puuttuu tulos. Jos kilpailija ei ole lähtenyt matkaan tai on keskeyttänyt, merkitse tieto tuloslomakkeen 'Ei tulosta' kohtaan.
+              correct_estimate_missing: Osalta kilpailijoista puuttuu oikea arviomatka
+              results_missing: Kaikilla kilpailjoilla ei ole tulosta
               already_race_with_same_name_location_date: Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä
               start_order_mixed_not_allowed: Et voi asettaa kilpailijoiden lähtöjärjestystä tilaan 'Sarjat sekaisin', koska olet lisännyt kilpailijoita, joilla ei ole lähtöaikaa. Käy luomassa lähtölistat nille sarjoille, joihin olet jo lisännyt kilpailijoita, ja palaa sen jälkeen muuttamaan tämä asetus.
             end_date:
