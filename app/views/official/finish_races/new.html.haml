@@ -1,11 +1,30 @@
 = content_for :title, "#{@race.name} - #{t('.title')}"
-%h2= yield :title
+%h2= t('.title')
 - if @race.finished?
   = t '.already_finished'
 - else
-  - info = @race.sport.only_shooting? ? 'shooting' : 'three_sports'
-  .message.message--info= t ".info.#{info}"
+  - if !flash[:error] && @competitors_without_result.empty?
+    - info = @race.sport.only_shooting? ? 'shooting' : 'three_sports'
+    .message.message--info= t ".info.#{info}"
   = flash_error
-  = link_to t('.button'), official_race_finish_race_path(@race), method: :post, class: 'button button--primary'
+  = form_tag official_race_finish_race_path(@race), method: :post do
+    - unless @competitors_without_result.empty?
+      - @competitors_without_result.each do |competitor|
+        = hidden_field_tag 'competitor_ids[]', competitor.id
+      .row
+        - @competitors_without_result.each do |competitor|
+          .col-xs-12.col-sm-6.col-md-4
+            .card
+              .card__number= competitor.number
+              .card__middle
+                .card__name #{full_name competitor} (#{competitor.series.name})
+                - FinishCompetition::ACTIONS.each do |solution|
+                  .card__middle-row
+                    - field_name = "competitor_#{competitor.id}"
+                    - checked = params[field_name] == solution || (params[field_name].blank? && solution == FinishCompetition::ACTION_COMPLETE)
+                    = radio_button_tag field_name, solution, checked
+                    = label_tag field_name, t(".#{solution}")
+    .buttons
+      = submit_tag t('.button'), class: 'button button--primary'
 .buttons.buttons--nav
   = link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'

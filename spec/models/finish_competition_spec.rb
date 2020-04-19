@@ -23,12 +23,37 @@ describe FinishCompetition do
     end
 
     context "when competitors not missing correct estimates" do
-      context "when competitors missing results" do
-        let!(:competitor1) { create :competitor, series: series }
-        let!(:competitor2) { create :competitor, series: series }
+      context "and competitors missing results" do
+        let(:competitor1) { create :competitor, series: series }
+        let(:competitor2) { create :competitor, series: series }
+        let(:competitor3) { create :competitor, series: series }
+        let(:competitor4) { create :competitor, series: series }
 
-        it "should not be possible to finish the race" do
-          confirm_unsuccessfull_finish race, 'Kaikilla kilpailjoilla ei ole tulosta', [competitor1, competitor2]
+        context 'and no competitor actions' do
+          it "should not be possible to finish the race" do
+            competitors_without_result = [competitor1, competitor2, competitor3, competitor4]
+            confirm_unsuccessfull_finish race, 'Kaikilla kilpailjoilla ei ole tulosta', competitors_without_result
+          end
+        end
+
+        context 'and competitor actions for competitors without result' do
+          it 'does the actions and finishes the race' do
+            actions = [
+                { competitor_id: competitor1.id, action: FinishCompetition::ACTION_DNS },
+                { competitor_id: competitor2.id, action: FinishCompetition::ACTION_DNF },
+                { competitor_id: competitor3.id, action: FinishCompetition::ACTION_DQ },
+                { competitor_id: competitor4.id, action: FinishCompetition::ACTION_DELETE },
+            ]
+            finish_competition = FinishCompetition.new race, actions
+            expect(finish_competition.can_finish?).to be_truthy
+            expect(finish_competition.error).to be_nil
+            finish_competition.finish
+            expect(race).to be_finished
+            expect(competitor1.reload.no_result_reason).to eql Competitor::DNS
+            expect(competitor2.reload.no_result_reason).to eql Competitor::DNF
+            expect(competitor3.reload.no_result_reason).to eql Competitor::DQ
+            expect(Competitor.where(id: competitor4.id).count).to eql 0
+          end
         end
       end
 
@@ -64,6 +89,8 @@ describe FinishCompetition do
     end
 
     context 'when all competitors have enough shots and they have no result reason' do
+      let!(:competitor1) { create :competitor, series: series, shots: 20.times.map {|_| 10} }
+
       it 'should be possible to finish the race' do
         confirm_successfull_finish race
       end

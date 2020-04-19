@@ -278,6 +278,11 @@ fi:
           shooting: Kilpailu pitää merkitä päättyneeksi, jotta kilpailijat näkevät, että kaikkien tulokset on merkitty eikä tulosluettelo tule enää muuttumaan.
           three_sports: Kilpailu pitää merkitä päättyneeksi, jotta kilpailijat näkevät, että kaikkien tulokset on merkitty eikä tulosluettelo tule enää muuttumaan. Lisäksi kilpailijoille näytetään oikeat arviointimatkat vasta sitten, kun kilpailu on päättynyt.
         already_finished: Tämä kilpailu on jo merkitty päättyneeksi.
+        DNS: Ei osallistunut kilpailuun (DNS)
+        DNF: Keskeytti (DNF)
+        DQ: Hylättiin (DQ)
+        DELETE: Poistetaan
+        COMPLETE: Olen täydentänyt puuttuvan tuloksen
         button: Merkitse yksilökilpailut päättyneeksi
       create:
         race_finished: Kilpailu %{race_name} on merkitty päättyneeksi

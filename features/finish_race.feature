@@ -35,7 +35,7 @@ Feature: Finish race
     When I go to the official race page of "Test race"
     And I follow "Kilpailun päättäminen"
     Then I should see "Kilpailu pitää merkitä päättyneeksi, jotta kilpailijat näkevät, että kaikkien tulokset on merkitty " in an info message
-    When I follow "Merkitse yksilökilpailut päättyneeksi"
+    When I press "Merkitse yksilökilpailut päättyneeksi"
     Then I should see "Osalta kilpailijoista puuttuu oikea arviomatka" in an error message
 
   Scenario: Competitors are missing results
@@ -57,8 +57,13 @@ Feature: Finish race
     And I have logged in
     When I go to the official race page of "Test race"
     And I follow "Kilpailun päättäminen"
-    And I follow "Merkitse yksilökilpailut päättyneeksi"
+    And I press "Merkitse yksilökilpailut päättyneeksi"
     Then I should see "Kaikilla kilpailjoilla ei ole tulosta" in an error message
+    When I choose "DNF" for the competitor on finish race
+    And I press "Merkitse yksilökilpailut päättyneeksi"
+    Then I should see "Kilpailu Test race on merkitty päättyneeksi" in a success message
+    When I follow the first "Kilpailijat" link
+    Then I should see "DNF"
 
   Scenario: Finish race successfully
     Given I am an official "Timo Toimitsija" with email "timo@test.com"
@@ -89,7 +94,7 @@ Feature: Finish race
     And I have logged in
     When I go to the official race page of "Test race"
     And I follow "Kilpailun päättäminen"
-    And I follow "Merkitse yksilökilpailut päättyneeksi"
+    And I press "Merkitse yksilökilpailut päättyneeksi"
     Then I should be on the official race page of "Test race"
     And I should see "Kilpailu Test race on merkitty päättyneeksi" in a success message
     And I should see "Test series"

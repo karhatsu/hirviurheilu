@@ -277,6 +277,11 @@ sv:
           shooting: Man måste sluta tävlingen så att tävlarna se att resulaten är slutliga.
           three_sports: Man måste sluta tävlingen så att tävlarna se att resulaten är slutliga. Ytterligare tävlingarna ser de riktiga avtstånden efter tävlingen är slut.
         already_finished: Den här tävlingen är redan slutat.
+        DNS: Startade inte (DNS)
+        DNF: Avbröt (DNF)
+        DQ: Diskad (DQ)
+        DELETE: Raderas
+        COMPLETE: Jag har sparat resultatet
         button: Sluta tävlingen
       create:
         race_finished: Tävlingen %{race_name} slutat
