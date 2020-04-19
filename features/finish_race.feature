@@ -55,7 +55,7 @@ Feature: Finish race
     And I have logged in
     When I go to the official race page of "Test race"
     And I follow "Merkitse yksilökilpailut päättyneeksi"
-    Then I should see "Ainakin yhdeltä kilpailijalta (James Johnson, Test series) puuttuu tulos." in an error message
+    Then I should see "Kilpailijalta James Johnson (Test series) puuttuu tulos" in an error message
 
   Scenario: Finish race successfully
     Given I am an official "Timo Toimitsija" with email "timo@test.com"

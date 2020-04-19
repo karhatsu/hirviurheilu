@@ -2,7 +2,7 @@
 %h2= yield :title
 - info = @race.sport.only_shooting? ? 'shooting' : 'three_sports'
 .message.message--info= t ".info.#{info}"
-= render partial: "shared/form_errors", locals: { item: @race }
+= flash_error
 - if @race.finished?
   = t '.already_finished'
 - else

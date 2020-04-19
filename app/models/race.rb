@@ -98,17 +98,6 @@ class Race < ApplicationRecord
     end
   end
 
-  def finish
-    finish_competition = FinishCompetition.new self
-    if finish_competition.can_finish?
-      finish_competition.finish
-      true
-    else
-      finish_competition.errors.each {|error| errors.add :base, error}
-      false
-    end
-  end
-
   def finish!
     finish_competition = FinishCompetition.new self
     finish_competition.finish
