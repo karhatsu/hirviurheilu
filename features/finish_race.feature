@@ -33,7 +33,9 @@ Feature: Finish race
     And the series has a competitor
     And I have logged in
     When I go to the official race page of "Test race"
-    And I follow "Merkitse yksilökilpailut päättyneeksi"
+    And I follow "Kilpailun päättäminen"
+    Then I should see "Kilpailu pitää merkitä päättyneeksi, jotta kilpailijat näkevät, että kaikkien tulokset on merkitty " in an info message
+    When I follow "Merkitse yksilökilpailut päättyneeksi"
     Then I should see "Osalta kilpailijoista puuttuu oikea arviomatka" in an error message
 
   Scenario: Competitors are missing results
@@ -54,6 +56,7 @@ Feature: Finish race
     And the start list has been generated for the series
     And I have logged in
     When I go to the official race page of "Test race"
+    And I follow "Kilpailun päättäminen"
     And I follow "Merkitse yksilökilpailut päättyneeksi"
     Then I should see "Kaikilla kilpailjoilla ei ole tulosta" in an error message
 
@@ -85,6 +88,7 @@ Feature: Finish race
     And the race has series "Empty series to be deleted automatically"
     And I have logged in
     When I go to the official race page of "Test race"
+    And I follow "Kilpailun päättäminen"
     And I follow "Merkitse yksilökilpailut päättyneeksi"
     Then I should be on the official race page of "Test race"
     And I should see "Kilpailu Test race on merkitty päättyneeksi" in a success message

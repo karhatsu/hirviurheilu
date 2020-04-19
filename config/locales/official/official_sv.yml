@@ -57,6 +57,7 @@ sv:
         add_series: Öka ny klass till tävlingen
       show:
         single_series: Standardtävling
+        finish_race: Sluta tävlingen
         no_series_for_race: Du har ökat inga klasser för tävlingen. Klicka knappen nedenför för att öka klasser.
         no_competitors_for_race: Du har ökat inga tävlar för tävlingen. Klicka en knapp nedenför klassens namn för att öka tävlar.
         add_series_first_competitor: Öka klassens första tävlare
@@ -74,7 +75,6 @@ sv:
         download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)
         download_competitors_by_series: Lataa osallistujat sarjoittain (PDF)
         other_race_formats: Andra tävlingar
-        finish_race_submit: Slut tävlingen
         finish_race_text: när du har sparat alla resultaten, så att de riktiga avstånden kan publiseras
         create_start_list: Gör startlista
         input_results: Spara resultat
@@ -277,6 +277,7 @@ sv:
           shooting: Man måste sluta tävlingen så att tävlarna se att resulaten är slutliga.
           three_sports: Man måste sluta tävlingen så att tävlarna se att resulaten är slutliga. Ytterligare tävlingarna ser de riktiga avtstånden efter tävlingen är slut.
         already_finished: Den här tävlingen är redan slutat.
+        button: Sluta tävlingen
       create:
         race_finished: Tävlingen %{race_name} slutat
     competitor_copyings:

@@ -6,6 +6,6 @@
 - if @race.finished?
   = t '.already_finished'
 - else
-  = render partial: "official/finish_races/form", locals: { race: @race }
+  = link_to t('.button'), official_race_finish_race_path(@race), method: :post, class: 'button button--primary'
 .buttons.buttons--nav
   = link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'
