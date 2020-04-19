@@ -12,7 +12,7 @@ class Official::FinishRacesController < Official::OfficialController
       flash[:success] = t('official.finish_races.create.race_finished', :race_name => @race.name)
       redirect_to official_race_path(@race)
     else
-      flash[:error] = finish_competition.errors.join('. ')
+      flash[:error] = finish_competition.error
       render :new
     end
   end

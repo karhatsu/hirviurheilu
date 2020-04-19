@@ -1,18 +1,19 @@
 class FinishCompetition
-  attr_reader :errors
+  attr_reader :error, :competitors_without_result
 
   def initialize(race)
     @race = race
-    @errors = []
+    @error = nil
+    @competitors_without_result = []
     validate
   end
 
   def can_finish?
-    @errors.empty?
+    !error
   end
 
   def finish
-    raise @errors.join('. ') unless can_finish?
+    raise error unless can_finish?
     @race.finished = true
     @race.save!
     @race.series.each do |s|
@@ -24,16 +25,13 @@ class FinishCompetition
 
   def validate
     if !only_shooting? && !@race.each_competitor_has_correct_estimates?
-      errors << I18n.t('activerecord.errors.models.race.attributes.base.correct_estimate_missing')
+      @error = I18n.t('activerecord.errors.models.race.attributes.base.correct_estimate_missing')
       return
     end
-    @race.competitors.each do |c|
-      unless c.finished?
-        name = "#{c.first_name} #{c.last_name}"
-        text_key = "activerecord.errors.models.race.attributes.base.result_missing_#{only_shooting? ? 'shooting' : 'three_sports'}"
-        errors << I18n.t(text_key, name: name, series_name: c.series.name)
-      end
+    @race.competitors.each do |competitor|
+      competitors_without_result << competitor unless competitor.finished?
     end
+    @error = I18n.t('activerecord.errors.models.race.attributes.base.results_missing') unless competitors_without_result.empty?
   end
 
   def only_shooting?

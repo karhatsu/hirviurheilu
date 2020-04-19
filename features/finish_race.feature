@@ -34,7 +34,7 @@ Feature: Finish race
     And I have logged in
     When I go to the official race page of "Test race"
     And I follow "Merkitse yksilökilpailut päättyneeksi"
-    Then I should see "Osalta kilpailijoista puuttuu oikea arviomatka." in an error message
+    Then I should see "Osalta kilpailijoista puuttuu oikea arviomatka" in an error message
 
   Scenario: Competitors are missing results
     Given I am an official
@@ -55,7 +55,7 @@ Feature: Finish race
     And I have logged in
     When I go to the official race page of "Test race"
     And I follow "Merkitse yksilökilpailut päättyneeksi"
-    Then I should see "Kilpailijalta James Johnson (Test series) puuttuu tulos" in an error message
+    Then I should see "Kaikilla kilpailjoilla ei ole tulosta" in an error message
 
   Scenario: Finish race successfully
     Given I am an official "Timo Toimitsija" with email "timo@test.com"

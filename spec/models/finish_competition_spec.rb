@@ -18,18 +18,17 @@ describe FinishCompetition do
       end
 
       it "should not be possible to finish the race" do
-        confirm_unsuccessfull_finish(race)
+        confirm_unsuccessfull_finish race, 'Osalta kilpailijoista puuttuu oikea arviomatka', []
       end
     end
 
     context "when competitors not missing correct estimates" do
       context "when competitors missing results" do
-        before do
-          series.competitors << build(:competitor, series: series)
-        end
+        let!(:competitor1) { create :competitor, series: series }
+        let!(:competitor2) { create :competitor, series: series }
 
         it "should not be possible to finish the race" do
-          confirm_unsuccessfull_finish(race)
+          confirm_unsuccessfull_finish race, 'Kaikilla kilpailjoilla ei ole tulosta', [competitor1, competitor2]
         end
       end
 
@@ -71,12 +70,10 @@ describe FinishCompetition do
     end
 
     context 'when competitors missing results' do
-      before do
-        series.competitors << build(:competitor, series: series, shots: [10])
-      end
+      let!(:competitor1) { create :competitor, series: series, shots: [10] }
 
       it "should not be possible to finish the race" do
-        confirm_unsuccessfull_finish(race)
+        confirm_unsuccessfull_finish race, 'Kaikilla kilpailjoilla ei ole tulosta', [competitor1]
       end
     end
   end
@@ -85,16 +82,17 @@ describe FinishCompetition do
     race.reload
     finish_competition = FinishCompetition.new race
     expect(finish_competition.can_finish?).to be_truthy
-    expect(finish_competition.errors.size).to eq(0)
+    expect(finish_competition.error).to be_nil
     finish_competition.finish
     expect(race).to be_finished
   end
 
-  def confirm_unsuccessfull_finish(race)
+  def confirm_unsuccessfull_finish(race, error, competitors_without_result)
     race.reload
     finish_competition = FinishCompetition.new race
     expect(finish_competition.can_finish?).to be_falsey
-    expect(finish_competition.errors.size).to eq(1)
+    expect(finish_competition.error).to eq error
+    expect(finish_competition.competitors_without_result).to eql competitors_without_result
     expect { finish_competition.finish }.to raise_error(RuntimeError)
   end
 end
