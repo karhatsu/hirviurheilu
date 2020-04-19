@@ -99,27 +99,19 @@ class Race < ApplicationRecord
   end
 
   def finish
-    if !sport.only_shooting? && !each_competitor_has_correct_estimates?
-      errors.add :base, :correct_estimate_missing
-      return false
+    finish_competition = FinishCompetition.new self
+    if finish_competition.can_finish?
+      finish_competition.finish
+      true
+    else
+      finish_competition.errors.each {|error| errors.add :base, error}
+      false
     end
-    competitors.each do |c|
-      unless c.finished?
-        name = "#{c.first_name} #{c.last_name}"
-        errors.add :base, "result_missing_#{sport.only_shooting? ? 'shooting' : 'three_sports'}".to_sym, name: name, series_name: c.series.name
-        return false
-      end
-    end
-    self.finished = true
-    save!
-    series.each do |s|
-      s.destroy if s.competitors.count == 0
-    end
-    true
   end
 
   def finish!
-    finish || raise(errors.full_messages.to_s)
+    finish_competition = FinishCompetition.new self
+    finish_competition.finish
   end
 
   def days_count

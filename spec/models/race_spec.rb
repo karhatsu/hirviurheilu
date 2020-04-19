@@ -397,6 +397,10 @@ describe Race do
         it 'should be possible to finish the race' do
           confirm_successfull_finish race
         end
+
+        it 'bang method returns true' do
+          expect(race.finish!).to be_truthy
+        end
       end
 
       context 'when competitors missing results' do
@@ -406,6 +410,10 @@ describe Race do
 
         it "should not be possible to finish the race" do
           confirm_unsuccessfull_finish(race)
+        end
+
+        it 'bang method raise error' do
+          expect { race.finish! }.to raise_error(RuntimeError)
         end
       end
     end
@@ -422,22 +430,6 @@ describe Race do
       expect(race.finish).to be_falsey
       expect(race.errors.size).to eq(1)
       expect(race).not_to be_finished
-    end
-  end
-
-  describe "#finish!" do
-    before do
-      @race = build(:race)
-    end
-
-    it "should return true when finishing the race succeeds" do
-      expect(@race).to receive(:finish).and_return(true)
-      expect(@race.finish!).to be_truthy
-    end
-
-    it "raise exception if finishing the race fails" do
-      expect(@race).to receive(:finish).and_return(false)
-      expect { @race.finish! }.to raise_error(RuntimeError)
     end
   end
 
