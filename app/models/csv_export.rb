@@ -25,8 +25,11 @@ class CsvExport
   end
 
   def row(competitor)
-    columns = [competitor.first_name, competitor.last_name, competitor.club.name, series(competitor), competitor.number]
-    columns << start_time(competitor) unless @shooting_race
+    columns = [competitor.first_name, competitor.last_name, competitor.club.name, series(competitor)]
+    unless @shooting_race
+      columns << competitor.number
+      columns << start_time(competitor)
+    end
     columns
   end
 
