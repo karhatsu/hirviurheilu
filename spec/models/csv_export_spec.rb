@@ -14,7 +14,7 @@ describe CsvExport do
     series3 = create(:series, :name => 'M60', :race => @race)
     create(:competitor, :series => series1, :first_name => 'Mika', :last_name => 'Heikkinen', :club => club1)
     create(:competitor, :series => series2, :first_name => 'Maija', :last_name => 'Miettinen', :club => club2, :age_group => age_group2)
-    create(:competitor, :series => series2, :first_name => 'Auli', :last_name => 'Ahtola', :club => club1, :age_group => age_group2, :team_name => 'Yotos team')
+    create(:competitor, :series => series2, :first_name => 'Auli', :last_name => 'Ahtola', :club => club1, :age_group => age_group2)
     create(:competitor, :series => series3, :first_name => 'Petteri', :last_name => 'Pehtola', :club => club1, :number => nil)
     series1.generate_start_list!(Series::START_LIST_ADDING_ORDER)
     series2.generate_start_list!(Series::START_LIST_ADDING_ORDER)
