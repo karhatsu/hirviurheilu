@@ -6,6 +6,7 @@
   - if !flash[:error] && @competitors_without_result.empty?
     - info = @race.sport.only_shooting? ? 'shooting' : 'three_sports'
     .message.message--info= t ".info.#{info}"
+  = flash_success
   = flash_error
   = form_tag official_race_finish_race_path(@race), method: :post do
     - unless @competitors_without_result.empty?
@@ -24,7 +25,11 @@
                     - checked = params[field_name] == solution || (params[field_name].blank? && solution == FinishCompetition::ACTION_COMPLETE)
                     = radio_button_tag field_name, solution, checked
                     = label_tag field_name, t(".#{solution}")
-    .buttons
+    - unless @unfinished_series.empty?
+      .form__field.form__field--md
+        = label_tag :series_id, t('.series_id')
+        = select_tag :series_id, options_from_collection_for_select(@unfinished_series, :id, :name, params[:series_id]), prompt: t('.whole_race')
+    .form__buttons
       = submit_tag t('.button'), class: 'button button--primary'
 .buttons.buttons--nav
   = link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'

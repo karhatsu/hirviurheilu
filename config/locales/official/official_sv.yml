@@ -283,9 +283,12 @@ sv:
         DQ: Diskad (DQ)
         DELETE: Raderas
         COMPLETE: Jag har sparat resultatet
+        series_id: Klassen eller hela tävlingen
+        whole_race: Hela tävlingen
         button: Sluta tävlingen
       create:
         race_finished: Tävlingen %{race_name} slutat
+        series_finished: Klassen %{series_name} slutat
     competitor_copyings:
       new:
         title: Kopiera tävlarna från annan tävling
