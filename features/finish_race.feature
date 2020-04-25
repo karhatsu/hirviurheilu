@@ -108,3 +108,25 @@ Feature: Finish race
     And I should see "Toimitsija: Timo Toimitsija (timo@test.com)" in the email body
     When I click the first link in the email
     Then I should be on the race page of "Test race"
+
+  Scenario: Finish single series
+    Given I am an official
+    And I have a "ILMAHIRVI" race "Ilmakisa"
+    And the race has series "Series 1"
+    And the series has a competitor with shots "9,9,9,9,9,9,9,9,9,9"
+    And the race has series "Series 2"
+    And the series has a competitor with shots "9,9,9,9,9,9,9,9,9,9"
+    And I have logged in
+    And I am on the official race page of "Ilmakisa"
+    When I follow the first "Päätä sarja" link
+    And I select "Series 2" from "Päätettävä sarja"
+    And I press "Merkitse yksilökilpailut päättyneeksi"
+    Then I should see "Sarja Series 2 on merkitty päättyneeksi" in a success message
+    And series "Series 2" should be finished
+    But series "Series 1" should not be finished
+    And the race should not be finished
+    When I select "Koko kilpailu" from "Päätettävä sarja"
+    And I press "Merkitse yksilökilpailut päättyneeksi"
+    Then I should be on the official race page of "Ilmakisa"
+    And I should see "Kilpailu Ilmakisa on merkitty päättyneeksi" in a success message
+    And series "Series 1" should be finished

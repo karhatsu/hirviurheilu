@@ -12,6 +12,10 @@ Given "the series has a competitor {string} {string}" do |first_name, last_name|
     :last_name => last_name)
 end
 
+Given("the series has a competitor with shots {string}") do |shots|
+  @competitor = create :competitor, series: @series, shots: shots.split(',')
+end
+
 Given("the series has a competitor {int} {string} {string} from {string} with shots {string}") do |number, first_name, last_name, club_name, shots|
   club = Club.find_or_create_by race: @race, name: club_name
   @competitor = create :competitor, series: @series, club: club, number: number, first_name: first_name, last_name: last_name, shots: shots.split(',')
