@@ -21,7 +21,7 @@
     .row
       - @race.series.includes(:competitors => [:series]).each do |s|
         - competitor_count = s.competitors.count
-        - finished = competitor_count > 0 && s.has_start_list? && s.finished_competitors_count == competitor_count && s.each_competitor_has_correct_estimates?
+        - finished = s.finished? || (competitor_count > 0 && s.has_start_list? && s.finished_competitors_count == competitor_count && s.each_competitor_has_correct_estimates?)
         .col-xs-12.col-sm-6.col-md-4
           .card
             .card__middle
