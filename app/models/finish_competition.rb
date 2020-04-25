@@ -29,6 +29,10 @@ class FinishCompetition
     @competition.save!
     if @competition.is_a? Race
       delete_series_without_competitors @competition
+      @competition.series.where('finished=?', false).each do |series|
+        series.finished = true
+        series.save!
+      end
     else
       race = @competition.race
       if race.all_series_finished?

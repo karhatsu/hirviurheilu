@@ -90,9 +90,16 @@ describe FinishCompetition do
 
     context 'when all competitors have enough shots and they have no result reason' do
       let!(:competitor1) { create :competitor, series: series, shots: 20.times.map {|_| 10} }
+      let!(:competitor2) { create :competitor, series: series, shots: 10.times.map {|_| 10} }
 
       it 'should be possible to finish the race' do
         confirm_successfull_finish race
+      end
+
+      it 'finishes also the series' do
+        finish_competition = FinishCompetition.new race
+        finish_competition.finish
+        expect(series.reload.finished).to be_truthy
       end
     end
 
