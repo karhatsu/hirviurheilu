@@ -1070,35 +1070,6 @@ describe Series do
     end
   end
 
-  describe "#ready?" do
-    before do
-      @series = build(:series, :has_start_list => true)
-      allow(@series).to receive(:each_competitor_finished?).and_return(true)
-    end
-
-    context "when start list not generated" do
-      it "should return false" do
-        @series.has_start_list = false
-        expect(@series).not_to be_ready
-      end
-    end
-
-    context "when start list generated" do
-      context "when some competitor has no result" do
-        it "should return false" do
-          expect(@series).to receive(:each_competitor_finished?).and_return(false)
-          expect(@series).not_to be_ready
-        end
-      end
-
-      context "when each competitor has a result" do
-        it "should return true" do
-          expect(@series).to be_ready
-        end
-      end
-    end
-  end
-
   describe "#each_competitor_has_correct_estimates?" do
     before do
       @series = create(:series)
