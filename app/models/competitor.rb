@@ -151,6 +151,7 @@ class Competitor < ApplicationRecord
   end
 
   def has_correct_estimates?
+    return true if series.sport.only_shooting?
     return false if correct_estimate1.nil? || correct_estimate2.nil?
     return false if series.estimates == 4 && (correct_estimate3.nil? || correct_estimate4.nil?)
     true
