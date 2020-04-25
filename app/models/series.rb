@@ -163,14 +163,8 @@ class Series < ApplicationRecord
     count
   end
 
-  def ready?
-    return false unless has_start_list?
-    return false unless each_competitor_finished?
-    true
-  end
-
   def active?
-    !race.finished && started?
+    !finished? && !race.finished? && started?
   end
 
   def started?

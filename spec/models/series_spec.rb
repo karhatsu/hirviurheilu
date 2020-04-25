@@ -897,6 +897,13 @@ describe Series do
       @race = build(:race)
     end
 
+    context "when series finished" do
+      it "should return false" do
+        series = Series.new(race: @race, finished: true)
+        expect(series).not_to be_active
+      end
+    end
+
     context "when race finished" do
       it "should return false" do
         allow(@race).to receive(:finished?).and_return(true)
@@ -905,7 +912,7 @@ describe Series do
       end
     end
 
-    context "when race not finished" do
+    context "when series and race not finished" do
       before do
         allow(@race).to receive(:finished?).and_return(false)
       end
@@ -1067,35 +1074,6 @@ describe Series do
 
     it "should return count of competitors who have finished" do
       expect(@series.finished_competitors_count).to eq(2)
-    end
-  end
-
-  describe "#ready?" do
-    before do
-      @series = build(:series, :has_start_list => true)
-      allow(@series).to receive(:each_competitor_finished?).and_return(true)
-    end
-
-    context "when start list not generated" do
-      it "should return false" do
-        @series.has_start_list = false
-        expect(@series).not_to be_ready
-      end
-    end
-
-    context "when start list generated" do
-      context "when some competitor has no result" do
-        it "should return false" do
-          expect(@series).to receive(:each_competitor_finished?).and_return(false)
-          expect(@series).not_to be_ready
-        end
-      end
-
-      context "when each competitor has a result" do
-        it "should return true" do
-          expect(@series).to be_ready
-        end
-      end
     end
   end
 

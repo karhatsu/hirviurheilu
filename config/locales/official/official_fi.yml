@@ -78,6 +78,7 @@ fi:
         finish_race_text: kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista.
         create_start_list: Tee lähtölista
         input_results: Tulosten syöttö
+        finish_series: Päätä sarja
         correct_estimates: Oikeat etäisyydet
         publish_race_to_internet: Julkaise kilpailu internetissä
       destroy:
@@ -275,7 +276,7 @@ fi:
       new:
         title: Kilpailun päättäminen
         info:
-          shooting: Kilpailu pitää merkitä päättyneeksi, jotta kilpailijat näkevät, että kaikkien tulokset on merkitty eikä tulosluettelo tule enää muuttumaan.
+          shooting: Kilpailu pitää merkitä päättyneeksi, jotta kilpailijat näkevät, että kaikkien tulokset on merkitty eikä tulosluettelo tule enää muuttumaan. Voit päättää kilpailun kokonaan tai sarja kerrallaan.
           three_sports: Kilpailu pitää merkitä päättyneeksi, jotta kilpailijat näkevät, että kaikkien tulokset on merkitty eikä tulosluettelo tule enää muuttumaan. Lisäksi kilpailijoille näytetään oikeat arviointimatkat vasta sitten, kun kilpailu on päättynyt.
         already_finished: Tämä kilpailu on jo merkitty päättyneeksi.
         DNS: Ei osallistunut kilpailuun (DNS)
@@ -283,9 +284,12 @@ fi:
         DQ: Hylättiin (DQ)
         DELETE: Poistetaan
         COMPLETE: Olen täydentänyt puuttuvan tuloksen
+        series_id: Päätettävä sarja
+        whole_race: Koko kilpailu
         button: Merkitse yksilökilpailut päättyneeksi
       create:
         race_finished: Kilpailu %{race_name} on merkitty päättyneeksi
+        series_finished: Sarja %{series_name} on merkitty päättyneeksi
     competitor_copyings:
       new:
         title: Kopioi kilpailijat toisesta kilpailusta

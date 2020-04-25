@@ -90,9 +90,16 @@ describe FinishCompetition do
 
     context 'when all competitors have enough shots and they have no result reason' do
       let!(:competitor1) { create :competitor, series: series, shots: 20.times.map {|_| 10} }
+      let!(:competitor2) { create :competitor, series: series, shots: 10.times.map {|_| 10} }
 
       it 'should be possible to finish the race' do
         confirm_successfull_finish race
+      end
+
+      it 'finishes also the series' do
+        finish_competition = FinishCompetition.new race
+        finish_competition.finish
+        expect(series.reload.finished).to be_truthy
       end
     end
 
@@ -105,18 +112,80 @@ describe FinishCompetition do
     end
   end
 
-  def confirm_successfull_finish(race)
-    race.reload
-    finish_competition = FinishCompetition.new race
+  context 'for three sports series' do
+    let(:sport_key) { Sport::SKI }
+
+    it 'raises error on init' do
+      expect{ FinishCompetition.new(series) }.to raise_error(RuntimeError)
+    end
+  end
+
+  context 'for shooting race series' do
+    let(:sport_key) { Sport::ILMALUODIKKO }
+
+    before do
+      expect(race).not_to receive(:each_competitor_has_correct_estimates?)
+    end
+
+    context 'when all competitors have enough shots and they have no result reason' do
+      let!(:competitor1) { create :competitor, series: series, shots: 20.times.map {|_| 10} }
+
+      context 'and no other unfinished series with competitors' do
+        let(:series2) { create :series, race: race, finished: true }
+        let!(:competitor2) { create :competitor, series: series2, shots: 10.times.map {|_| 10} }
+        let!(:series3) { create :series, race: race }
+
+        it 'should be possible to finish the series' do
+          confirm_successfull_finish series
+        end
+
+        it 'marks also the race finished and deletes series without competitors' do
+          finish_competition = FinishCompetition.new series
+          finish_competition.finish
+          expect(race.reload).to be_finished
+          expect(Series.where(id: series3.id).count).to eql 0
+        end
+      end
+
+      context 'and other unfinished series in the race' do
+        let(:series2) { create :series, race: race, finished: false }
+        let!(:competitor2) { create :competitor, series: series2 }
+        let!(:series3) { create :series, race: race }
+
+        it 'should be possible to finish the series' do
+          confirm_successfull_finish series
+        end
+
+        it 'does not mark race as finished and does not delete other series' do
+          finish_competition = FinishCompetition.new series
+          finish_competition.finish
+          expect(race.reload).not_to be_finished
+          expect(Series.where(id: series3.id).count).to eql 1
+        end
+      end
+    end
+
+    context 'when competitors missing results' do
+      let!(:competitor1) { create :competitor, series: series, shots: [10] }
+
+      it "should not be possible to finish the series" do
+        confirm_unsuccessfull_finish series, 'Kaikilla kilpailjoilla ei ole tulosta', [competitor1]
+      end
+    end
+  end
+
+  def confirm_successfull_finish(competition)
+    competition.reload
+    finish_competition = FinishCompetition.new competition
     expect(finish_competition.can_finish?).to be_truthy
     expect(finish_competition.error).to be_nil
     finish_competition.finish
-    expect(race).to be_finished
+    expect(competition).to be_finished
   end
 
-  def confirm_unsuccessfull_finish(race, error, competitors_without_result)
-    race.reload
-    finish_competition = FinishCompetition.new race
+  def confirm_unsuccessfull_finish(competition, error, competitors_without_result)
+    competition.reload
+    finish_competition = FinishCompetition.new competition
     expect(finish_competition.can_finish?).to be_falsey
     expect(finish_competition.error).to eq error
     expect(finish_competition.competitors_without_result).to eql competitors_without_result

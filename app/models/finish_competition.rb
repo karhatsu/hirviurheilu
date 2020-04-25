@@ -9,8 +9,9 @@ class FinishCompetition
 
   attr_reader :error, :competitors_without_result
 
-  def initialize(race, competitor_actions = [])
-    @race = race
+  def initialize(competition, competitor_actions = [])
+    raise "Finish series available only for shooting races" if competition.is_a?(Series) && !competition.sport.only_shooting?
+    @competition = competition
     @competitor_actions = competitor_actions
     @error = nil
     @competitors_without_result = []
@@ -24,21 +25,32 @@ class FinishCompetition
   def finish
     raise error unless can_finish?
     do_competitor_actions
-    @race.finished = true
-    @race.save!
-    @race.series.each do |s|
-      s.destroy if s.competitors.count == 0
+    @competition.finished = true
+    @competition.save!
+    if @competition.is_a? Race
+      delete_series_without_competitors @competition
+      @competition.series.where('finished=?', false).each do |series|
+        series.finished = true
+        series.save!
+      end
+    else
+      race = @competition.race
+      if race.all_series_finished?
+        race.finished = true
+        race.save!
+        delete_series_without_competitors race
+      end
     end
   end
 
   private
 
   def validate(competitor_actions)
-    if !only_shooting? && !@race.each_competitor_has_correct_estimates?
+    if !only_shooting? && !@competition.each_competitor_has_correct_estimates?
       @error = I18n.t('activerecord.errors.models.race.attributes.base.correct_estimate_missing')
       return
     end
-    @race.competitors.each do |competitor|
+    @competition.competitors.each do |competitor|
       competitors_without_result << competitor unless competitor.finished? || action_for_competitor?(competitor_actions, competitor.id)
     end
     @error = I18n.t('activerecord.errors.models.race.attributes.base.results_missing') unless competitors_without_result.empty?
@@ -53,14 +65,20 @@ class FinishCompetition
       competitor_id = competitor_action[:competitor_id]
       action = competitor_action[:action]
       if action == ACTION_DELETE
-        @race.competitors.find(competitor_id).destroy
+        @competition.competitors.find(competitor_id).destroy
       else
-        @race.competitors.find(competitor_id).update_attribute :no_result_reason, action
+        @competition.competitors.find(competitor_id).update_attribute :no_result_reason, action
       end
     end
   end
 
+  def delete_series_without_competitors(race)
+    race.series.each do |s|
+      s.destroy if s.competitors.count == 0
+    end
+  end
+
   def only_shooting?
-    @race.sport.only_shooting?
+    @competition.sport.only_shooting?
   end
 end
