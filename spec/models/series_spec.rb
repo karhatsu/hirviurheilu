@@ -897,6 +897,13 @@ describe Series do
       @race = build(:race)
     end
 
+    context "when series finished" do
+      it "should return false" do
+        series = Series.new(race: @race, finished: true)
+        expect(series).not_to be_active
+      end
+    end
+
     context "when race finished" do
       it "should return false" do
         allow(@race).to receive(:finished?).and_return(true)
@@ -905,7 +912,7 @@ describe Series do
       end
     end
 
-    context "when race not finished" do
+    context "when series and race not finished" do
       before do
         allow(@race).to receive(:finished?).and_return(false)
       end

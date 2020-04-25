@@ -164,7 +164,7 @@ class Series < ApplicationRecord
   end
 
   def active?
-    !race.finished && started?
+    !finished? && !race.finished? && started?
   end
 
   def started?
