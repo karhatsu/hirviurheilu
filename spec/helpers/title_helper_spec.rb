@@ -8,7 +8,7 @@ describe TitleHelper do
       @competitors = double(Array)
       allow(@competitors).to receive(:empty?).and_return(false)
       @race = instance_double(Race, :finished? => false)
-      @series = instance_double(Series, :race => @race, :competitors => @competitors, :started? => true)
+      @series = instance_double(Series, race: @race, competitors: @competitors, started?: true, finished?: false)
     end
 
     it "should return '(Ei kilpailijoita)' when no competitors" do
@@ -19,6 +19,11 @@ describe TitleHelper do
     it "should return '(Sarja ei ole vielä alkanut)' when the series has not started yet" do
       expect(@series).to receive(:started?).and_return(false)
       expect(series_result_title(@series)).to eq('(Sarja ei ole vielä alkanut)')
+    end
+
+    it "should return 'Tulokset' when competitors and the series is finished" do
+      expect(@series).to receive(:finished?).and_return(true)
+      expect(series_result_title(@series)).to eq('Tulokset')
     end
 
     it "should return 'Tulokset' when competitors and the race is finished" do
