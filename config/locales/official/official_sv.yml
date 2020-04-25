@@ -78,6 +78,7 @@ sv:
         finish_race_text: när du har sparat alla resultaten, så att de riktiga avstånden kan publiseras
         create_start_list: Gör startlista
         input_results: Spara resultat
+        finish_series: Sluta klassen
         correct_estimates: Riktiga avstånd
         publish_race_to_internet: Publisera tävlingen till internet
       destroy:

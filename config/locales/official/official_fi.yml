@@ -78,6 +78,7 @@ fi:
         finish_race_text: kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista.
         create_start_list: Tee lähtölista
         input_results: Tulosten syöttö
+        finish_series: Päätä sarja
         correct_estimates: Oikeat etäisyydet
         publish_race_to_internet: Julkaise kilpailu internetissä
       destroy:
