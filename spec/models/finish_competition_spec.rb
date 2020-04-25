@@ -123,8 +123,38 @@ describe FinishCompetition do
     context 'when all competitors have enough shots and they have no result reason' do
       let!(:competitor1) { create :competitor, series: series, shots: 20.times.map {|_| 10} }
 
-      it 'should be possible to finish the series' do
-        confirm_successfull_finish series
+      context 'and no other unfinished series with competitors' do
+        let(:series2) { create :series, race: race, finished: true }
+        let!(:competitor2) { create :competitor, series: series2, shots: 10.times.map {|_| 10} }
+        let!(:series3) { create :series, race: race }
+
+        it 'should be possible to finish the series' do
+          confirm_successfull_finish series
+        end
+
+        it 'marks also the race finished and deletes series without competitors' do
+          finish_competition = FinishCompetition.new series
+          finish_competition.finish
+          expect(race.reload).to be_finished
+          expect(Series.where(id: series3.id).count).to eql 0
+        end
+      end
+
+      context 'and other unfinished series in the race' do
+        let(:series2) { create :series, race: race, finished: false }
+        let!(:competitor2) { create :competitor, series: series2 }
+        let!(:series3) { create :series, race: race }
+
+        it 'should be possible to finish the series' do
+          confirm_successfull_finish series
+        end
+
+        it 'does not mark race as finished and does not delete other series' do
+          finish_competition = FinishCompetition.new series
+          finish_competition.finish
+          expect(race.reload).not_to be_finished
+          expect(Series.where(id: series3.id).count).to eql 1
+        end
       end
     end
 

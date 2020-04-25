@@ -28,8 +28,13 @@ class FinishCompetition
     @competition.finished = true
     @competition.save!
     if @competition.is_a? Race
-      @competition.series.each do |s|
-        s.destroy if s.competitors.count == 0
+      delete_series_without_competitors @competition
+    else
+      race = @competition.race
+      if race.all_series_finished?
+        race.finished = true
+        race.save!
+        delete_series_without_competitors race
       end
     end
   end
@@ -60,6 +65,12 @@ class FinishCompetition
       else
         @competition.competitors.find(competitor_id).update_attribute :no_result_reason, action
       end
+    end
+  end
+
+  def delete_series_without_competitors(race)
+    race.series.each do |s|
+      s.destroy if s.competitors.count == 0
     end
   end
 
