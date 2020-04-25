@@ -4,7 +4,7 @@ class Official::IndexController < Official::OfficialController
       @today = Race.today.order('start_date ASC')
       @future = Race.future
       @past = Race.past.order('start_date DESC')
-      @cups = Cup.all
+      @cups = Cup.all.order('created_at DESC')
     else
       @today = current_user.races.today
       @future = current_user.races.future
