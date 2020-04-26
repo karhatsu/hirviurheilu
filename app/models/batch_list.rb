@@ -7,15 +7,13 @@ class BatchList
   end
 
   def generate_qualification_round(first_batch_number, first_track_place, first_batch_time, minutes_between_batches, opts = {})
-    batch_day = opts[:batch_day] || 1
-    return unless validate false, first_batch_number, first_track_place, batch_day, first_batch_time, minutes_between_batches, nil, opts[:first_batch_track_number]
+    return unless validate false, first_batch_number, first_track_place, first_batch_time, minutes_between_batches, nil, opts
     competitors = shuffle_competitors @series.competitors.where('qualification_round_batch_id IS NULL AND qualification_round_track_place IS NULL')
     generate_batches false, competitors, first_batch_number, first_track_place, first_batch_time, minutes_between_batches, false, opts
   end
 
   def generate_final_round(first_batch_number, first_track_place, first_batch_time, minutes_between_batches, competitors_count, opts = {})
-    batch_day = opts[:batch_day] || 1
-    return unless validate true, first_batch_number, first_track_place, batch_day, first_batch_time, minutes_between_batches, competitors_count, opts[:first_batch_track_number]
+    return unless validate true, first_batch_number, first_track_place, first_batch_time, minutes_between_batches, competitors_count, opts
     competitors = competitors_for_final_round(competitors_count).select {|c| c.final_round_batch_id.nil? && c.final_round_track_place.nil? }
     competitors = competitors.reverse if opts[:best_as_last]
     generate_batches true, competitors, first_batch_number, first_track_place, first_batch_time, minutes_between_batches, false, opts
@@ -27,14 +25,21 @@ class BatchList
     @series.race
   end
 
-  def validate(final_round, first_batch_number, first_track_place, batch_day, first_batch_time, minutes_between_batches, competitors_count, first_batch_track_number)
+  def validate(final_round, first_batch_number, first_track_place, first_batch_time, minutes_between_batches, competitors_count, opts)
+    batch_day = opts[:batch_day] || 1
+    first_batch_track_number = opts[:first_batch_track_number]
+    include_tracks = opts[:include_tracks]
     validate_number first_batch_number, 'invalid_first_batch_number'
     validate_number first_track_place, 'invalid_first_track_place'
     validate_time first_batch_time, 'invalid_first_batch_time'
     validate_number minutes_between_batches, 'invalid_minutes_between_batches'
     validate_number competitors_count, 'invalid_competitors_count' if competitors_count
-    validate_number first_batch_track_number, 'invalid_first_batch_track_number' if race.concurrent_batches > 1
+    if race.concurrent_batches > 1
+      validate_number first_batch_track_number, 'invalid_first_batch_track_number'
+      validate_included_tracks include_tracks
+    end
     return false unless @errors.empty?
+    return false unless validate_first_track_number first_batch_track_number, include_tracks if race.concurrent_batches > 1
     return false unless validate_track_count
     return false unless validate_shooting_place_count
     return false unless validate_competitors_count
@@ -48,6 +53,16 @@ class BatchList
 
   def validate_time(time, error_key)
     @errors << I18n.t(error_key, scope: 'activerecord.errors.models.batch_list') unless time =~ /[0-2]?[0-9]:[0-5][0-9]/
+  end
+
+  def validate_included_tracks(include_tracks)
+    @errors << I18n.t('activerecord.errors.models.batch_list.invalid_included_tracks') if include_tracks.nil? || include_tracks.empty?
+  end
+
+  def validate_first_track_number(first_batch_track_number, include_tracks)
+    return true if include_tracks.include? first_batch_track_number
+    @errors << I18n.t('activerecord.errors.models.batch_list.included_tracks_mismatch')
+    false
   end
 
   def validate_track_count
@@ -125,8 +140,7 @@ class BatchList
           if concurrent_batches == 1
             track = nil
           else
-            next_track = (batch.track || 1) + 1
-            track = next_track > concurrent_batches ? 1 : next_track
+            track = resolve_next_track batch.track, concurrent_batches, opts[:include_tracks]
           end
           batch = find_or_create_batch(final_round, batch_number, batch_day, time, track)
         end
@@ -200,5 +214,12 @@ class BatchList
     else
       [batch_number, track_place]
     end
+  end
+
+  def resolve_next_track(current_track, concurrent_batches, include_tracks)
+    next_track = (current_track || 1) + 1
+    track = next_track > concurrent_batches ? 1 : next_track
+    return track if include_tracks.include? track
+    resolve_next_track track, concurrent_batches, include_tracks
   end
 end

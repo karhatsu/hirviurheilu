@@ -440,8 +440,22 @@ describe BatchList do
 
     context 'and first track number is not given' do
       it 'returns error' do
-        generator.generate_qualification_round 1, 1, first_batch_time, minutes_between_batches
+        generator.generate_qualification_round 1, 1, first_batch_time, minutes_between_batches, include_tracks: [1, 2]
         expect(generator.errors).to eql ['Ensimmäisen erän ratanumero on virheellinen']
+      end
+    end
+
+    context 'and included tracks are missing' do
+      it 'returns error' do
+        generator.generate_qualification_round 1, 1, first_batch_time, minutes_between_batches, first_batch_track_number: 1
+        expect(generator.errors).to eql ['Yhtään rataa ei ole määritetty käytettäväksi']
+      end
+    end
+
+    context 'and first track number is in conflict with included tracks' do
+      it 'returns error' do
+        generator.generate_qualification_round 1, 1, first_batch_time, minutes_between_batches, first_batch_track_number: 2, include_tracks: [1]
+        expect(generator.errors).to eql ['Ensimmäisen erän ratanumero ei ole yksikään käytettävistä radoista']
       end
     end
 
@@ -449,7 +463,7 @@ describe BatchList do
       let!(:batch) { create :qualification_round_batch, race: race, number: 1, track: 1, time: first_batch_time }
 
       it 'returns error' do
-        generator.generate_qualification_round 2, 1, first_batch_time, minutes_between_batches, first_batch_track_number: 1
+        generator.generate_qualification_round 2, 1, first_batch_time, minutes_between_batches, first_batch_track_number: 1, include_tracks: [1, 2]
         expect(generator.errors).to eql ['Ensimmäisen erän ratapaikka annetulle ajalle on varattu']
       end
     end
@@ -458,7 +472,7 @@ describe BatchList do
       before do
         competitors = [competitor1, competitor2, competitor3, competitor4, competitor5, competitor6, competitor7]
         expect(generator).to receive(:shuffle_competitors).and_return(competitors)
-        generator.generate_qualification_round 1, 1, first_batch_time, minutes_between_batches, first_batch_track_number: 1
+        generator.generate_qualification_round 1, 1, first_batch_time, minutes_between_batches, first_batch_track_number: 1, include_tracks: [1, 2]
       end
 
       it 'generates concurrent batches' do
@@ -479,7 +493,7 @@ describe BatchList do
           competitor7.save!
           QualificationRoundBatch.find_by_number(4).destroy
           expect(generator).to receive(:shuffle_competitors).and_return([competitor7])
-          generator.generate_qualification_round 4, 1, second_batch_time, minutes_between_batches, first_batch_track_number: 2
+          generator.generate_qualification_round 4, 1, second_batch_time, minutes_between_batches, first_batch_track_number: 2, include_tracks: [1, 2]
         end
 
         it 'is able to start the next batch from the given track' do
@@ -506,7 +520,7 @@ describe BatchList do
         competitor3.save!
         competitors = [competitor4, competitor5, competitor6, competitor7]
         expect(generator).to receive(:shuffle_competitors).and_return(competitors)
-        generator.generate_qualification_round 2, 2, first_batch_time, minutes_between_batches, first_batch_track_number: 2
+        generator.generate_qualification_round 2, 2, first_batch_time, minutes_between_batches, first_batch_track_number: 2, include_tracks: [1, 2]
       end
 
       it 'continues from the last track' do
@@ -528,7 +542,7 @@ describe BatchList do
         competitor1.save!
         competitors = [competitor2, competitor3, competitor4, competitor5, competitor6, competitor7]
         expect(generator).to receive(:shuffle_competitors).and_return(competitors)
-        generator.generate_qualification_round 1, 2, first_batch_time, minutes_between_batches, first_batch_track_number: 1
+        generator.generate_qualification_round 1, 2, first_batch_time, minutes_between_batches, first_batch_track_number: 1, include_tracks: [1, 2]
       end
 
       it 'is able to start using track numbers for batches' do
@@ -539,6 +553,27 @@ describe BatchList do
         verify_qualification_round_batch 3, second_batch_time, 1, 1
         verify_qualification_round_batch 4, second_batch_time, 1, 2
         verify_competitor competitor3, 2, 1
+      end
+    end
+
+    context 'and only certain tracks are used' do
+      let(:track_count) { 3 }
+
+      before do
+        competitors = [competitor1, competitor2, competitor3, competitor4, competitor5, competitor6, competitor7]
+        expect(generator).to receive(:shuffle_competitors).and_return(competitors)
+        generator.generate_qualification_round 1, 1, first_batch_time, minutes_between_batches, first_batch_track_number: 1, include_tracks: [1, 3]
+      end
+
+      it 'generates batches only to the given tracks' do
+        expect(generator.errors).to eql []
+        expect(race.qualification_round_batches.length).to eql 4
+        verify_qualification_round_batch 1, first_batch_time, 1, 1
+        verify_qualification_round_batch 2, first_batch_time, 1, 3
+        verify_qualification_round_batch 3, second_batch_time, 1, 1
+        verify_qualification_round_batch 4, second_batch_time, 1, 3
+        verify_competitor competitor1, 1, 1
+        verify_competitor competitor7, 4, 1
       end
     end
   end

@@ -64,7 +64,7 @@ $inputHeight: 16px;
     margin-top: $inputHeight / 2;
   }
 
-  .form__label--radio {
+  .form__label--checkbox, .form__label--radio {
     display: inline;
   }
 }
