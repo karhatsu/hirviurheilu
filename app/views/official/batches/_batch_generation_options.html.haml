@@ -1,4 +1,17 @@
-.form__field.form__field--sm.row.multiple-batches
+.form__field.form__field--sm.row
+  .col-xs-12.col-sm-4= label_tag :first_batch_number, t('official.batch_lists.show.first_batch_number')
+  .col-xs-12.col-sm-8= number_field_tag :first_batch_number, params[:first_batch_number] || @series.race.first_available_batch_number(final_round)
+.form__field.form__field--sm.row
+  .col-xs-12.col-sm-4= label_tag :first_track_place, t('official.batch_lists.show.first_track_place')
+  .col-xs-12.col-sm-8= number_field_tag :first_track_place, params[:first_track_place] || @series.race.first_available_track_place(final_round)
+- if @series.race.days_count > 1
+  .form__field.form__field--md.row
+    .col-xs-12.col-sm-4= label_tag :batch_day, t('official.batch_lists.show.batch_day')
+    .col-xs-12.col-sm-8= select_tag :batch_day, options_for_select(batch_days_options(@series.race), params[:batch_day] || @series.race.suggested_next_batch_day(final_round))
+.form__field.form__field--sm.row
+  .col-xs-12.col-sm-4= label_tag :first_batch_time, t('official.batch_lists.show.first_batch_time')
+  .col-xs-12.col-sm-8= text_field_tag :first_batch_time, params[:first_batch_time] || @series.race.suggested_next_batch_time(final_round), placeholder: 'HH:MM'
+.form__field.form__field--sm.row
   .col-xs-12.col-sm-4= label_tag :minutes_between_batches, t('official.batch_lists.show.minutes_between_batches')
   .col-xs-12.col-sm-8= number_field_tag :minutes_between_batches, params[:minutes_between_batches] || @series.race.suggested_min_between_batches(final_round)
 .form__field.row

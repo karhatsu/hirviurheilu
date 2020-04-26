@@ -12,11 +12,7 @@
   .message.message--info= t('.no_competitors_without_batch_in_series')
 - else
   = form_tag(official_series_qualification_round_batch_list_path(@series), class: 'form') do
-    = render partial: 'official/batches/batch_generation_options_1', locals: { final_round: false }
-    .form__field.row
-      .col-xs-12.col-sm-4= label_tag :only_one_batch, t('official.batch_lists.show.only_one_batch')
-      .col-xs-12.col-sm-8= check_box_tag :only_one_batch, true, params[:only_one_batch], onChange: 'onlyOneBatchChanged()'
-    = render partial: 'official/batches/batch_generation_options_2', locals: { final_round: false }
+    = render partial: 'official/batches/batch_generation_options', locals: { final_round: false }
     .form__buttons
       = submit_tag t('.button'), class: 'button button--primary'
 - @series.competitors.where('qualification_round_batch_id IS NOT NULL').includes(:qualification_round_batch, :club).except(:order).order('batches.number, qualification_round_track_place').group_by(&:qualification_round_batch).each do |batch, competitors|
@@ -40,14 +36,3 @@
               \##{competitor.number}
 .buttons.buttons--nav
   = link_to t(:back_to_official_race_page), official_race_path(@series.race), class: 'button button--back'
-:javascript
-  function onlyOneBatchChanged() {
-    if ($('#only_one_batch:checked').length) {
-      $('.multiple-batches').hide()
-    } else {
-      $('.multiple-batches').show()
-    }
-  }
-  $(document).ready(function () {
-    onlyOneBatchChanged()
-  })

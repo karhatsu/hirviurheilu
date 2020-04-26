@@ -6,13 +6,6 @@ class BatchList
     @errors = []
   end
 
-  def generate_qualification_round_single_batch(batch_number, first_track_place, batch_time, opts = {})
-    batch_day = opts[:batch_day] || 1
-    return unless validate false, batch_number, first_track_place, batch_day, batch_time, 1
-    competitors = shuffle_competitors @series.competitors.where('qualification_round_batch_id IS NULL AND qualification_round_track_place IS NULL')
-    generate_batches false, competitors, batch_number, first_track_place, batch_time, 1, true, opts
-  end
-
   def generate_qualification_round(first_batch_number, first_track_place, first_batch_time, minutes_between_batches, opts = {})
     batch_day = opts[:batch_day] || 1
     return unless validate false, first_batch_number, first_track_place, batch_day, first_batch_time, minutes_between_batches

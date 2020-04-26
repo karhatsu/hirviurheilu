@@ -648,26 +648,6 @@ describe BatchList do
     end
   end
 
-  context 'when only one batch is wanted to generate' do
-    let(:competitor1) { create :competitor, series: series, number: 10 }
-    let(:competitor2) { create :competitor, series: series, number: 9 }
-    let(:competitor3) { create :competitor, series: series, number: 11 }
-
-    before do
-      expect(generator).to receive(:shuffle_competitors).and_return([competitor1, competitor2, competitor3])
-      generator.generate_qualification_round_single_batch 1, 1, first_batch_time
-    end
-
-    it 'creates only one batch' do
-      expect(generator.errors).to eql []
-      expect(race.qualification_round_batches.count).to eql 1
-      verify_qualification_round_batch 1, first_batch_time
-      verify_competitor competitor1, 1, 1
-      verify_competitor competitor2, 1, 2
-      verify_competitor competitor3, nil, nil
-    end
-  end
-
   def competitor_for_final_round(series, qualification_round_score, batch=nil, track_place=nil)
     competitor = create :competitor, series: series, final_round_batch: batch, final_round_track_place: track_place
     allow(competitor).to receive(:qualification_round_score).and_return(qualification_round_score)

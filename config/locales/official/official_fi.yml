@@ -137,16 +137,13 @@ fi:
         skip_first_track_place: Jätä erän ensimmäinen paikka tyhjäksi
         skip_last_track_place: Jätä erän viimeinen paikka tyhjäksi
         skip_track_places: Vapaaksi jätettävät ammuntapaikat (pilkulla erotettuina, esim. 4,12,13)
-        only_one_batch: Arvo vain yksi erä
     qualification_round_batch_lists:
       show:
         title: Alkukilpailun erien arvonta
         no_competitors_without_batch_in_series: Sarjassa ei ole yhtään kilpailijaa, jolta puuttuisi alkukilpailun ammuntapaikka
         button: Arvo eräluettelot
       create:
-        batch_list_generated:
-          one: Yksi alkukilpailun eräluettelo luotu sarjalle onnistuneesti
-          many: Alkukilpailun eräluettelot luotu sarjalle onnistuneesti
+        batch_list_generated: Alkukilpailun eräluettelot luotu sarjalle onnistuneesti
     final_round_batch_lists:
       show:
         title: Loppukilpailun erien asettelu

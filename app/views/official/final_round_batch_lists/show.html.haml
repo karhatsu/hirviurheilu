@@ -12,14 +12,13 @@
   .message.message--info= t('.no_competitors_without_batch_in_series')
 - else
   = form_tag(official_series_final_round_batch_list_path(@series), class: 'form') do
-    .form__field.form__field--sm.row.multiple-batches
+    .form__field.form__field--sm.row
       .col-xs-12.col-sm-4= label_tag :competitors_count, t('.competitors_count')
       .col-xs-12.col-sm-8= number_field_tag :competitors_count, params[:competitors_count] || @series.sport.final_round_competitors_count
     .form__field.row
       .col-xs-12.col-sm-4= label_tag :best_as_last, t('.best_as_last')
       .col-xs-12.col-sm-8= check_box_tag :best_as_last, true, params[:best_as_last]
-    = render partial: 'official/batches/batch_generation_options_1', locals: { final_round: true }
-    = render partial: 'official/batches/batch_generation_options_2', locals: { final_round: true }
+    = render partial: 'official/batches/batch_generation_options', locals: { final_round: true }
     .form__buttons
       = submit_tag t('.button'), class: 'button button--primary'
 - @series.competitors.where('final_round_batch_id IS NOT NULL').includes(:final_round_batch, :club).except(:order).order('batches.number, final_round_track_place').group_by(&:final_round_batch).each do |batch, competitors|
