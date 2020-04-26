@@ -8,14 +8,14 @@ class BatchList
 
   def generate_qualification_round(first_batch_number, first_track_place, first_batch_time, minutes_between_batches, opts = {})
     batch_day = opts[:batch_day] || 1
-    return unless validate false, first_batch_number, first_track_place, batch_day, first_batch_time, minutes_between_batches
+    return unless validate false, first_batch_number, first_track_place, batch_day, first_batch_time, minutes_between_batches, nil, opts[:first_batch_track_number]
     competitors = shuffle_competitors @series.competitors.where('qualification_round_batch_id IS NULL AND qualification_round_track_place IS NULL')
     generate_batches false, competitors, first_batch_number, first_track_place, first_batch_time, minutes_between_batches, false, opts
   end
 
   def generate_final_round(first_batch_number, first_track_place, first_batch_time, minutes_between_batches, competitors_count, opts = {})
     batch_day = opts[:batch_day] || 1
-    return unless validate true, first_batch_number, first_track_place, batch_day, first_batch_time, minutes_between_batches, competitors_count
+    return unless validate true, first_batch_number, first_track_place, batch_day, first_batch_time, minutes_between_batches, competitors_count, opts[:first_batch_track_number]
     competitors = competitors_for_final_round(competitors_count).select {|c| c.final_round_batch_id.nil? && c.final_round_track_place.nil? }
     competitors = competitors.reverse if opts[:best_as_last]
     generate_batches true, competitors, first_batch_number, first_track_place, first_batch_time, minutes_between_batches, false, opts
@@ -27,21 +27,23 @@ class BatchList
     @series.race
   end
 
-  def validate(final_round, first_batch_number, first_track_place, batch_day, first_batch_time, minutes_between_batches, competitors_count = nil)
+  def validate(final_round, first_batch_number, first_track_place, batch_day, first_batch_time, minutes_between_batches, competitors_count, first_batch_track_number)
     validate_number first_batch_number, 'invalid_first_batch_number'
     validate_number first_track_place, 'invalid_first_track_place'
     validate_time first_batch_time, 'invalid_first_batch_time'
     validate_number minutes_between_batches, 'invalid_minutes_between_batches'
     validate_number competitors_count, 'invalid_competitors_count' if competitors_count
+    validate_number first_batch_track_number, 'invalid_first_batch_track_number' if race.concurrent_batches > 1
     return false unless @errors.empty?
     return false unless validate_track_count
     return false unless validate_shooting_place_count
     return false unless validate_competitors_count
+    return false unless validate_free_track_time final_round, first_batch_number, first_batch_track_number, first_batch_time if race.concurrent_batches > 1
     validate_first_place final_round, first_batch_number, first_track_place, batch_day, first_batch_time
   end
 
   def validate_number(number, error_key)
-    @errors << I18n.t(error_key, scope: 'activerecord.errors.models.batch_list') unless number > 0
+    @errors << I18n.t(error_key, scope: 'activerecord.errors.models.batch_list') unless number && number > 0
   end
 
   def validate_time(time, error_key)
@@ -91,6 +93,17 @@ class BatchList
     false
   end
 
+  def validate_free_track_time(final_round, first_batch_number, first_batch_track_number, first_batch_time)
+    if final_round
+      exists = FinalRoundBatch.where('race_id=? AND number!=? AND track=? AND time=?', race.id, first_batch_number, first_batch_track_number, first_batch_time).exists?
+    else
+      exists = QualificationRoundBatch.where('race_id=? AND number!=? AND track=? AND time=?', race.id, first_batch_number, first_batch_track_number, first_batch_time).exists?
+    end
+    return true unless exists
+    @errors << I18n.t('activerecord.errors.models.batch_list.first_batch_track_conflict')
+    false
+  end
+
   def competitors_for_final_round(competitors_count)
     competitors = Competitor.sort_by_qualification_round(@series.sport, @series.competitors)
     required_score = competitors[competitors_count - 1]&.qualification_round_score || 0
@@ -102,7 +115,7 @@ class BatchList
     @series.transaction do
       reserved_places = find_reserved_places final_round
       concurrent_batches = race.concurrent_batches
-      track = concurrent_batches > 1 ? 1 : nil
+      track = resolve_first_track concurrent_batches, opts
       batch = find_or_create_batch final_round, first_batch_number, batch_day, first_batch_time, track
       batch_number, track_place = resolve_next_track_place reserved_places, batch.number, first_track_place - 1, opts
       competitors.each_with_index do |competitor, i|
@@ -145,6 +158,10 @@ class BatchList
       reserved_places[batch_number][track_place] = true
     end
     reserved_places
+  end
+
+  def resolve_first_track(concurrent_batches, opts)
+    opts[:first_batch_track_number] || 1 if concurrent_batches > 1
   end
 
   def shuffle_competitors(competitors)

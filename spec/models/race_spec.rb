@@ -866,7 +866,7 @@ describe Race do
   end
 
   describe 'batch suggestions' do
-    let(:race) { create :race, shooting_place_count: 3 }
+    let(:race) { create :race, shooting_place_count: 3, track_count: 1 }
 
     context 'when no batch lists' do
       it 'first_available_batch_number returns 1' do
@@ -875,6 +875,10 @@ describe Race do
 
       it 'first_available_track_place returns 1' do
         expect(race.first_available_track_place(false)).to eql 1
+      end
+
+      it 'suggested next track number returns 1' do
+        expect(race.suggested_next_track_number(false)).to eql 1
       end
 
       it 'suggested minutes is nil' do
@@ -887,7 +891,7 @@ describe Race do
     end
 
     context 'when only one qualification round batch' do
-      let!(:batch) { create :qualification_round_batch, race: race, number: 1, time: '10:15' }
+      let!(:batch) { create :qualification_round_batch, race: race, number: 1, track: 1, time: '10:15' }
       let(:series) { create :series, race: race }
 
       it 'final round suggestions return default values' do
@@ -899,6 +903,10 @@ describe Race do
 
       context 'and the last track place of it is available' do
         let!(:competitor_1_2) { create :competitor, series: series, qualification_round_batch: batch, qualification_round_track_place: 2 }
+
+        it 'suggested next track number returns 1' do
+          expect(race.suggested_next_track_number(false)).to eql 1
+        end
 
         it 'suggested minutes is nil' do
           expect(race.suggested_min_between_batches(false)).to be_nil
@@ -912,6 +920,10 @@ describe Race do
       context 'and the last track place of it is reserved' do
         let!(:competitor_1_3) { create :competitor, series: series, qualification_round_batch: batch, qualification_round_track_place: 3 }
 
+        it 'suggested next track number returns 1 (as only 1 track)' do
+          expect(race.suggested_next_track_number(false)).to eql 1
+        end
+
         it 'suggested minutes is nil' do
           expect(race.suggested_min_between_batches(false)).to be_nil
         end
@@ -923,8 +935,8 @@ describe Race do
     end
 
     context 'when more than one qualification round batch' do
-      let(:batch1) { create :qualification_round_batch, race: race, number: 1, time: '10:10' }
-      let(:batch3) { create :qualification_round_batch, race: race, number: 3, time: '10:35' }
+      let(:batch1) { create :qualification_round_batch, race: race, number: 1, track: 1, time: '10:10' }
+      let(:batch3) { create :qualification_round_batch, race: race, number: 3, track: 1, time: '10:35' }
       let(:series) { create :series, race: race }
       let!(:competitor_1_3) { create :competitor, series: series, qualification_round_batch: batch1, qualification_round_track_place: 3 }
       let!(:competitor_3_2) { create :competitor, series: series, qualification_round_batch: batch3, qualification_round_track_place: 2 }
@@ -1068,6 +1080,41 @@ describe Race do
 
       it 'suggested minutes is calculated using the track number 1' do
         expect(race2.suggested_min_between_batches(false)).to eql 30
+      end
+    end
+
+    context 'when latest batch is full' do
+      let(:track_count) { 4 }
+      let(:race2) { create :race, track_count: track_count, shooting_place_count: 2 }
+      let(:series2) { create :series, race: race2 }
+      let!(:batch1) { create :final_round_batch, race: race2, number: 7, track: 1, time: '10:00' }
+      let!(:batch2) { create :final_round_batch, race: race2, number: 8, track: 1, time: '10:15' }
+      let(:batch_last) { create :final_round_batch, race: race2, number: 10, track: last_batch_track, time: '10:30' }
+      let!(:competitor1) { create :competitor, series: series2, final_round_batch: batch_last, final_round_track_place: 1 }
+      let!(:competitor2) { create :competitor, series: series2, final_round_batch: batch_last, final_round_track_place: 2 }
+
+      context 'and is not on the biggest track' do
+        let(:last_batch_track) { track_count - 1 }
+
+        it 'suggested next track number is the batch track + 1' do
+          expect(race2.suggested_next_track_number(true)).to eql track_count
+        end
+
+        it 'suggested next batch time is the same as the last batch time' do
+          expect(race2.suggested_next_batch_time(true)).to eql '10:30'
+        end
+      end
+
+      context 'and is on the biggest track' do
+        let(:last_batch_track) { track_count }
+
+        it 'suggested next track number is 1' do
+          expect(race2.suggested_next_track_number(true)).to eql 1
+        end
+
+        it 'suggested next batch time is incremented from the last batch time' do
+          expect(race2.suggested_next_batch_time(true)).to eql '10:45'
+        end
       end
     end
   end

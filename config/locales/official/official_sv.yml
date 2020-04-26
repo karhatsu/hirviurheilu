@@ -127,6 +127,7 @@ sv:
       show:
         first_batch_number: Ensimmäinen kilpailija arvotaan erään numero
         first_track_place: Ensimmäinen kilpailija sijoitetaan erässä paikalle numero
+        first_batch_track_number: Ensimmäisen erän ratanumero
         batch_day: Päivä
         first_batch_time: Ensimmäisen erän kellonaika
         minutes_between_batches: Erälle varattu aika (min)

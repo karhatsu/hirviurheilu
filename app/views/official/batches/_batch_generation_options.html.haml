@@ -4,6 +4,10 @@
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-4= label_tag :first_track_place, t('official.batch_lists.show.first_track_place')
   .col-xs-12.col-sm-8= number_field_tag :first_track_place, params[:first_track_place] || @series.race.first_available_track_place(final_round)
+- if @series.race.concurrent_batches > 1
+  .form__field.form__field--sm.row
+    .col-xs-12.col-sm-4= label_tag :first_batch_track_number, t('official.batch_lists.show.first_batch_track_number')
+    .col-xs-12.col-sm-8= number_field_tag :first_batch_track_number, params[:first_batch_track_number] || @series.race.suggested_next_track_number(final_round)
 - if @series.race.days_count > 1
   .form__field.form__field--md.row
     .col-xs-12.col-sm-4= label_tag :batch_day, t('official.batch_lists.show.batch_day')

@@ -287,7 +287,7 @@ describe BatchList do
     end
   end
 
-  context 'when ilmahirvi like setup (3 tracks, 1 shooting place per track' do
+  context 'when ilmahirvi like setup (3 tracks, 1 shooting place per track so no concurrent batches)' do
     let(:track_count) { 3 }
     let(:shooting_place_count) { 1 }
     let(:competitor1) { create :competitor, series: series, number: 10 }
@@ -430,7 +430,7 @@ describe BatchList do
 
   describe 'when multiple tracks' do
     let(:track_count) { 2 }
-    let(:competitor1) { create :competitor, series: series }
+    let!(:competitor1) { create :competitor, series: series }
     let(:competitor2) { create :competitor, series: series }
     let(:competitor3) { create :competitor, series: series }
     let(:competitor4) { create :competitor, series: series }
@@ -438,11 +438,27 @@ describe BatchList do
     let(:competitor6) { create :competitor, series: series }
     let(:competitor7) { create :competitor, series: series }
 
+    context 'and first track number is not given' do
+      it 'returns error' do
+        generator.generate_qualification_round 1, 1, first_batch_time, minutes_between_batches
+        expect(generator.errors).to eql ['Ensimmäisen erän ratanumero on virheellinen']
+      end
+    end
+
+    context 'and the given arguments would create two batches on the same track at the same time' do
+      let!(:batch) { create :qualification_round_batch, race: race, number: 1, track: 1, time: first_batch_time }
+
+      it 'returns error' do
+        generator.generate_qualification_round 2, 1, first_batch_time, minutes_between_batches, first_batch_track_number: 1
+        expect(generator.errors).to eql ['Ensimmäisen erän ratapaikka annetulle ajalle on varattu']
+      end
+    end
+
     context 'and no previous batches' do
       before do
         competitors = [competitor1, competitor2, competitor3, competitor4, competitor5, competitor6, competitor7]
         expect(generator).to receive(:shuffle_competitors).and_return(competitors)
-        generator.generate_qualification_round 1, 1, first_batch_time, minutes_between_batches
+        generator.generate_qualification_round 1, 1, first_batch_time, minutes_between_batches, first_batch_track_number: 1
       end
 
       it 'generates concurrent batches' do
@@ -454,6 +470,23 @@ describe BatchList do
         verify_qualification_round_batch 4, second_batch_time, 1, 2
         verify_competitor competitor1, 1, 1
         verify_competitor competitor7, 4, 1
+      end
+
+      context 'and last batch was on track 1 and became full' do
+        before do
+          competitor7.qualification_round_batch_id = nil
+          competitor7.qualification_round_track_place = nil
+          competitor7.save!
+          QualificationRoundBatch.find_by_number(4).destroy
+          expect(generator).to receive(:shuffle_competitors).and_return([competitor7])
+          generator.generate_qualification_round 4, 1, second_batch_time, minutes_between_batches, first_batch_track_number: 2
+        end
+
+        it 'is able to start the next batch from the given track' do
+          expect(generator.errors).to eql []
+          verify_qualification_round_batch 4, second_batch_time, 1, 2
+          verify_competitor competitor7, 4, 1
+        end
       end
     end
 
@@ -473,7 +506,7 @@ describe BatchList do
         competitor3.save!
         competitors = [competitor4, competitor5, competitor6, competitor7]
         expect(generator).to receive(:shuffle_competitors).and_return(competitors)
-        generator.generate_qualification_round 2, 2, first_batch_time, minutes_between_batches
+        generator.generate_qualification_round 2, 2, first_batch_time, minutes_between_batches, first_batch_track_number: 2
       end
 
       it 'continues from the last track' do
@@ -495,7 +528,7 @@ describe BatchList do
         competitor1.save!
         competitors = [competitor2, competitor3, competitor4, competitor5, competitor6, competitor7]
         expect(generator).to receive(:shuffle_competitors).and_return(competitors)
-        generator.generate_qualification_round 1, 2, first_batch_time, minutes_between_batches
+        generator.generate_qualification_round 1, 2, first_batch_time, minutes_between_batches, first_batch_track_number: 1
       end
 
       it 'is able to start using track numbers for batches' do
