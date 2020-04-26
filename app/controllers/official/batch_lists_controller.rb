@@ -4,7 +4,7 @@ class Official::BatchListsController < Official::OfficialController
   def build_opts
     opts = {}
     opts[:first_batch_track_number] = params[:first_batch_track_number].to_i unless params[:first_batch_track_number].blank?
-    opts[:include_tracks] = params[:include_tracks]
+    opts[:include_tracks] = params[:include_tracks]&.map {|i| i.to_i}
     opts[:batch_day] = params[:batch_day].to_i unless params[:batch_day].blank?
     opts[:only_track_places] = params[:only_track_places]
     opts[:skip_first_track_place] = params[:skip_first_track_place]
