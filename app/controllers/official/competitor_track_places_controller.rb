@@ -32,8 +32,8 @@ class Official::CompetitorTrackPlacesController < Official::OfficialController
   def destroy
     competitor = @race.competitors.find(params[:competitor_id])
     if competitor
-      batch_id_field = params[:final_round] ? :final_round_batch_id : :qualification_round_batch_id
-      track_place_field = params[:final_round] ? :final_round_track_place : :qualification_round_track_place
+      batch_id_field = params[:final_round] == 'true' ? :final_round_batch_id : :qualification_round_batch_id
+      track_place_field = params[:final_round] == 'true' ? :final_round_track_place : :qualification_round_track_place
       competitor[batch_id_field] = nil
       competitor[track_place_field] = nil
       competitor.save!
