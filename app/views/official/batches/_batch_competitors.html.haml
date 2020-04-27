@@ -16,6 +16,7 @@
           .form__horizontal-fields
             .form__field.form__field--sm
               = hidden_field_tag :competitor_id, competitor&.id, id: "competitor_id_#{track_place}", class: 'competitor_id'
+              = hidden_field_tag :old_competitor_number, competitor&.number, id: "track_place_#{track_place}_old"
               = number_field_tag :competitor_number, competitor&.number, id: "track_place_#{track_place}", onChange: "changeNumber(#{track_place})"
             %div{id: "competitor_info_#{track_place}", style: 'margin-right: 8px'}
               - if competitor
@@ -27,9 +28,13 @@
 :javascript
   function changeNumber(trackPlace) {
     var competitorNumber = $('#track_place_' + trackPlace).val()
-    if (competitorNumber === '') {
+    var competitorNumberOld = $('#track_place_' + trackPlace + '_old').val()
+    if (competitorNumber === '' && competitorNumberOld !== '') {
       updateCompetitorInfo(trackPlace, '')
       showSaveButton(trackPlace, '#{t :delete}', true)
+    } else if (competitorNumber === '') {
+      resetCompetitorInfo(trackPlace)
+      hideSaveButton(trackPlace)
     } else {
       var url = '/official/races/#{@race.id}/competitor_numbers/' + competitorNumber + '.json'
       $.getJSON(url).done(function (competitor) {
