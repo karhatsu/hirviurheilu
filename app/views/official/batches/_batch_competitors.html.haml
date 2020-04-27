@@ -19,7 +19,7 @@
               = number_field_tag :competitor_number, competitor&.number, id: "track_place_#{track_place}", onChange: "changeNumber(#{track_place})"
             %div{id: "competitor_info_#{track_place}", style: 'margin-right: 8px'}
               - if competitor
-                #{full_name competitor}, (#{competitor.series.name})
+                #{full_name competitor} (#{competitor.series.name})
               - else
                 = t 'official.batches.edit.input_competitor_number'
             %a.button.button--primary{id: "save_button_#{track_place}", href: '', onClick: "event.preventDefault(); saveTrackPlace(#{track_place})", style: 'display: none'}= t(:save)
