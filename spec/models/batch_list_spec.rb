@@ -12,6 +12,7 @@ describe BatchList do
   let(:minutes_between_batches) { 10 }
   let(:second_batch_time) { '10:10' }
   let(:third_batch_time) { '10:20' }
+  let(:fourth_batch_time) { '10:30' }
   let(:competitors_count) { 2 }
 
   context 'when no competitors' do
@@ -556,7 +557,7 @@ describe BatchList do
       end
     end
 
-    context 'and only certain tracks are used' do
+    context 'and only two tracks of three are used' do
       let(:track_count) { 3 }
 
       before do
@@ -572,6 +573,25 @@ describe BatchList do
         verify_qualification_round_batch 2, first_batch_time, 1, 3
         verify_qualification_round_batch 3, second_batch_time, 1, 1
         verify_qualification_round_batch 4, second_batch_time, 1, 3
+        verify_competitor competitor1, 1, 1
+        verify_competitor competitor7, 4, 1
+      end
+    end
+
+    context 'and only one track is used' do
+      before do
+        competitors = [competitor1, competitor2, competitor3, competitor4, competitor5, competitor6, competitor7]
+        expect(generator).to receive(:shuffle_competitors).and_return(competitors)
+        generator.generate_qualification_round 1, 1, first_batch_time, minutes_between_batches, first_batch_track_number: 1, include_tracks: [1]
+      end
+
+      it 'generates batches only to the given tracks' do
+        expect(generator.errors).to eql []
+        expect(race.qualification_round_batches.length).to eql 4
+        verify_qualification_round_batch 1, first_batch_time, 1, 1
+        verify_qualification_round_batch 2, second_batch_time, 1, 1
+        verify_qualification_round_batch 3, third_batch_time, 1, 1
+        verify_qualification_round_batch 4, fourth_batch_time, 1, 1
         verify_competitor competitor1, 1, 1
         verify_competitor competitor7, 4, 1
       end

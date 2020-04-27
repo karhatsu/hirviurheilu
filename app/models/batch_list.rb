@@ -136,7 +136,9 @@ class BatchList
       competitors.each_with_index do |competitor, i|
         if i > 0 && batch_number != batch.number
           time = batch.time
-          time = time.advance minutes: minutes_between_batches if concurrent_batches == 1 || batch.track == concurrent_batches
+          if concurrent_batches == 1 || batch.track == concurrent_batches || opts[:include_tracks]&.length == 1
+            time = time.advance minutes: minutes_between_batches
+          end
           if concurrent_batches == 1
             track = nil
           else
