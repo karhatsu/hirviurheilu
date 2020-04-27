@@ -14,7 +14,7 @@ end
 def open_page(path='')
   full_path = @url + path
   puts "Opening page #{full_path}"
-  @page = Nokogiri::HTML(open(full_path))
+  @page = Nokogiri::HTML(URI.open(full_path))
 end
 
 def find_xpath(xpath)
