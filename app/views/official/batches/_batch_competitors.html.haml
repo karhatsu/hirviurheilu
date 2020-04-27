@@ -29,14 +29,14 @@
     var competitorNumber = $('#track_place_' + trackPlace).val()
     if (competitorNumber === '') {
       updateCompetitorInfo(trackPlace, '')
-      showSaveButton(trackPlace)
+      showSaveButton(trackPlace, '#{t :delete}', true)
     } else {
       var url = '/official/races/#{@race.id}/competitor_numbers/' + competitorNumber + '.json'
       $.getJSON(url).done(function (competitor) {
         var competitorInfo = competitor.last_name + ' ' + competitor.first_name + ' (' + competitor.series_name + ')'
         updateCompetitorInfo(trackPlace, competitorInfo)
         $('#competitor_id_' + trackPlace).val(competitor.id)
-        showSaveButton(trackPlace)
+        showSaveButton(trackPlace, '#{t :save}', false)
       }).fail(function (error) {
         if (error.status === 404) {
           updateCompetitorInfo(trackPlace, '#{t('official.batches.edit.competitor_not_found')}', true)
@@ -106,8 +106,15 @@
     })
   }
 
-  function showSaveButton(trackPlace) {
-    $('#save_button_' + trackPlace).show()
+  function showSaveButton(trackPlace, text, del) {
+    var button = $('#save_button_' + trackPlace)
+    if (del) {
+      button.addClass('button--danger')
+    } else {
+      button.removeClass('button--danger')
+    }
+    button.html(text)
+    button.show()
   }
 
   function hideSaveButton(trackPlace) {

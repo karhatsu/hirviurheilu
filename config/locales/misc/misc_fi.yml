@@ -55,6 +55,7 @@ fi:
   days:
     one: 1 päivä
     other: "%{count} päivää"
+  delete: Poista
   district: Piiri
   districts: Piirit
   download_results_pdf: Lataa tulokset PDF-tiedostona

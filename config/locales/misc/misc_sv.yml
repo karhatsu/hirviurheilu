@@ -55,6 +55,7 @@ sv:
   days:
     one: 1 dag
     other: "%{count} dagar"
+  delete: Radera
   district: Trakt
   districts: Trakter
   download_results_pdf: Ladda resultaten som PDF-fil
