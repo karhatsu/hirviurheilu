@@ -43,7 +43,7 @@ class BatchList
     return false unless validate_track_count
     return false unless validate_shooting_place_count
     return false unless validate_competitors_count
-    return false unless validate_free_track_time final_round, first_batch_number, first_batch_track_number, first_batch_time if race.concurrent_batches > 1
+    return false unless validate_free_track_time final_round, first_batch_number, first_batch_track_number, batch_day, first_batch_time if race.concurrent_batches > 1
     validate_first_place final_round, first_batch_number, first_track_place, batch_day, first_batch_time
   end
 
@@ -108,11 +108,12 @@ class BatchList
     false
   end
 
-  def validate_free_track_time(final_round, first_batch_number, first_batch_track_number, first_batch_time)
+  def validate_free_track_time(final_round, first_batch_number, first_batch_track_number, batch_day, first_batch_time)
+    where = 'race_id=? AND number!=? AND track=? AND day=? AND time=?'
     if final_round
-      exists = FinalRoundBatch.where('race_id=? AND number!=? AND track=? AND time=?', race.id, first_batch_number, first_batch_track_number, first_batch_time).exists?
+      exists = FinalRoundBatch.where(where, race.id, first_batch_number, first_batch_track_number, batch_day, first_batch_time).exists?
     else
-      exists = QualificationRoundBatch.where('race_id=? AND number!=? AND track=? AND time=?', race.id, first_batch_number, first_batch_track_number, first_batch_time).exists?
+      exists = QualificationRoundBatch.where(where, race.id, first_batch_number, first_batch_track_number, batch_day, first_batch_time).exists?
     end
     return true unless exists
     @errors << I18n.t('activerecord.errors.models.batch_list.first_batch_track_conflict')

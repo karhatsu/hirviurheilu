@@ -5,7 +5,7 @@ describe BatchList do
   let!(:another_race_batch) { create :qualification_round_batch, race: another_race, number: 1 }
   let(:track_count) { 1 }
   let(:shooting_place_count) { 2 }
-  let(:race) { create :race, sport_key: Sport::ILMAHIRVI, track_count: track_count, shooting_place_count: shooting_place_count }
+  let(:race) { create :race, sport_key: Sport::ILMAHIRVI, track_count: track_count, shooting_place_count: shooting_place_count, days_count: 2 }
   let(:series) { create :series, race: race }
   let(:generator) { BatchList.new series }
   let(:first_batch_time) { '10:00' }
@@ -558,6 +558,7 @@ describe BatchList do
     end
 
     context 'and only two tracks of three are used' do
+      let!(:batch_another_day) { create :qualification_round_batch, race: race, number: 10, track: 1, time: first_batch_time, day: 2 }
       let(:track_count) { 3 }
 
       before do
@@ -568,7 +569,7 @@ describe BatchList do
 
       it 'generates batches only to the given tracks' do
         expect(generator.errors).to eql []
-        expect(race.qualification_round_batches.length).to eql 4
+        expect(race.qualification_round_batches.length).to eql 4 + 1 # 1: the second day batch
         verify_qualification_round_batch 1, first_batch_time, 1, 1
         verify_qualification_round_batch 2, first_batch_time, 1, 3
         verify_qualification_round_batch 3, second_batch_time, 1, 1
