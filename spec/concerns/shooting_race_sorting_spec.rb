@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'shooting race sorting' do
-  let(:basic_shots_count) { sport.max_shots_count }
+  let(:basic_shots_count) { sport.shot_count }
 
   describe 'ilmaluodikko SM 2019' do
     let(:sport) { Sport.by_key Sport::ILMALUODIKKO }

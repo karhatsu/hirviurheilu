@@ -20,7 +20,7 @@ class Sport
           shooting?: false,
           relays?: true,
           max_shot: 10,
-          max_shots_count: 10,
+          shot_count: 10,
           inner_ten?: false,
           default_series: [
               ['S13', ['T13', 'P13', 'T11', 'P11', 'T9', 'P9', 'T7', 'P7']],
@@ -56,7 +56,7 @@ class Sport
               ['N65'],
           ],
           max_shot: 10,
-          max_shots_count: 20,
+          shot_count: 20,
           inner_ten?: false,
           final_round_competitors_count: 10,
       }
@@ -69,7 +69,7 @@ class Sport
           final_round: [25],
           final_round_shot_count: 25,
           max_shot: 1,
-          max_shots_count: 50,
+          shot_count: 50,
           shots_per_extra_round: 1,
       }
   )
@@ -99,7 +99,7 @@ class Sport
               final_round: [10],
               final_round_shot_count: 10,
               max_shot: 11,
-              max_shots_count: 20,
+              shot_count: 20,
               inner_ten?: true,
               shots_per_extra_round: 1,
               default_series: [['S13', ['T13', 'P13']]] + BASE_CONFIGS[:SHOOTING][:default_series],

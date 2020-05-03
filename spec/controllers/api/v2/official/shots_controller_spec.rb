@@ -47,7 +47,7 @@ describe Api::V2::Official::ShotsController, type: :api do
 
       context 'but shot number is too big' do
         it 'returns 400' do
-          make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/shots/#{race.sport.max_shots_count + 1}", body
+          make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/shots/#{race.sport.shot_count + 1}", body
           expect_error 400, 'invalid shot number'
         end
       end

@@ -24,6 +24,6 @@ class Api::V2::Official::ShotsController < Api::V2::Official::ShotsBaseControlle
 
   def validate_shot_number
     @shot_number = params[:shot_number].to_i
-    return_error 400, 'invalid shot number' if @shot_number == 0 || @shot_number > @race.sport.max_shots_count
+    return_error 400, 'invalid shot number' if @shot_number == 0 || @shot_number > @race.sport.shot_count
   end
 end

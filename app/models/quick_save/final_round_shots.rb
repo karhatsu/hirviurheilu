@@ -19,7 +19,7 @@ class QuickSave::FinalRoundShots < QuickSave::QuickSaveBase
 
   def competitor_has_attrs?
     return @competitor.final_round_shooting_score_input if sum_input?
-    @competitor.shots && @competitor.shots.length == @race.sport.max_shots_count
+    @competitor.shots && @competitor.shots.length == @race.sport.shot_count
   end
 
   def final_shots

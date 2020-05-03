@@ -125,7 +125,7 @@ describe Competitor do
 
       describe 'when special setting for max shot value' do
         it 'max shot value comes from the setting' do
-          sport = double Sport, max_shot: 15, shooting?: false, max_shots_count: 10
+          sport = double Sport, max_shot: 15, shooting?: false, shot_count: 10
           competitor = build :competitor, shots: [15, 14]
           allow(competitor).to receive(:sport).and_return(sport)
           expect(competitor).to have(0).errors_on(:shots)
