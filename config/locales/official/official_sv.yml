@@ -169,12 +169,15 @@ sv:
         instructions_shots: Spara resultat som nr,skytteresultat, t.ex. 45,87 (tävlare 45, skytte totalt 87). Eller med skott så att +-tecken eller *-tecken betyder 10, t.ex. 45,++99877420 (sätt 0 för alla missar).
         instructions_qualification_round_shots:
           ilmaluodikko: Syötä alkukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9++870**89. Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, alkukilpailun tulos 94).
+          shotgun: "Syötä alkukilpailun tulos muodossa nro,laukaus1,lakaus2,..., esim. 45,101110011... Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,23 (kilpailija 45, alkukilpailun tulos: 23 osumaa)."
           other: Syötä alkukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10, esim. 45,9++870+989. Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, alkukilpailun tulos 94).
         instructions_final_round_shots:
           ilmaluodikko: Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9+*87 (5 laukausta) tai 45,9+*870**89 (10 laukausta). Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, loppukilpailun tulos 94).
+          shotgun: "Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,..., esim. 45,101110011... Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,24 (kilpailija 45, loppukilpailun tulos: 24 osumaa)."
           other: Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10, esim. 45,9++87 (5 laukausta) tai 45,9++870+989 (10 laukausta). Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, loppukilpailun tulos 94).
         instructions_extra_shots:
           ilmaluodikko: Syötä uusintalaukauksia muodossa nro,laukaus1,laukaus2,.. siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9*. Jos syötät laukaukset uudestaan, ne tallentuvat edellisten perään.
+          shotgun: Syötä uusintalaukauksia muodossa nro,laukaus1,lakaus2,..., esim. 45,110. Jos syötät laukaukset uudestaan, ne tallentuvat edellisten perään.
           other: Syötä uusintalaukauksia muodossa nro,laukaus1,laukaus2,.. siten että +-merkki on 10, esim. 45,9+. Jos syötät laukaukset uudestaan, ne tallentuvat edellisten perään.
         instructions_dns_dnf_dq: Om tävlare startade inte, spara resultaten som nr,dns t.ex. 45,dns (tävlare 45, DNS = did not start). Om tävlare avbröt, spara resultaten som nr,dnf t.ex. 45,dnf (tävlare 45, DNF = did not finish). Om tävlare disqualified, spara resultaten som nr,dq t.ex. 45,dq (tävlare 45, DQ = diskad).
         latest_savings: Senaste sparat

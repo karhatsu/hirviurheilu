@@ -170,12 +170,15 @@ fi:
         instructions_shots: "Syötä tulos muodossa nro,ammuntatulos, esim. 45,87 (kilpailija 45, ammunta yhteensä 87) tai vaihtoehtoisesti laukausten kanssa siten että +-merkki tai *-merkki on 10, esim. 45,++99877420 (merkitse ohilaukauksille nollat). Voit myös korvata pilkun #-merkillä, esim 45#99 tai 45#**99877420."
         instructions_qualification_round_shots:
           ilmaluodikko: Syötä alkukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9++870**89. Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, alkukilpailun tulos 94).
+          shotgun: "Syötä alkukilpailun tulos muodossa nro,laukaus1,lakaus2,..., esim. 45,101110011... Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,23 (kilpailija 45, alkukilpailun tulos: 23 osumaa)."
           other: Syötä alkukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10, esim. 45,9++870+989. Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, alkukilpailun tulos 94).
         instructions_final_round_shots:
           ilmaluodikko: Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9+*87 (5 laukausta) tai 45,9+*870**89 (10 laukausta). Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, loppukilpailun tulos 94).
+          shotgun: "Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,..., esim. 45,101110011... Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,24 (kilpailija 45, loppukilpailun tulos: 24 osumaa)."
           other: Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10, esim. 45,9++87 (5 laukausta) tai 45,9++870+989 (10 laukausta). Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, loppukilpailun tulos 94).
         instructions_extra_shots:
           ilmaluodikko: Syötä uusintalaukauksia muodossa nro,laukaus1,laukaus2,.. siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9*. Jos syötät laukaukset uudestaan, ne tallentuvat edellisten perään.
+          shotgun: Syötä uusintalaukauksia muodossa nro,laukaus1,lakaus2,..., esim. 45,110. Jos syötät laukaukset uudestaan, ne tallentuvat edellisten perään.
           other: Syötä uusintalaukauksia muodossa nro,laukaus1,laukaus2,.. siten että +-merkki on 10, esim. 45,9+. Jos syötät laukaukset uudestaan, ne tallentuvat edellisten perään.
         instructions_dns_dnf_dq: "Jos kilpailija ei lähtenyt matkaan, syötä tieto muodossa nro,dns esim. 45,dns (kilpailija 45, DNS = did not start). Jos kilpailija keskeytti, syötä tieto muodossa nro,dnf esim. 45,dnf (kilpailija 45, DNF = did not finish). Jos kilpailija hylättiin, syötä tieto muodossa nro,dq esim. 45,dq (kilpailija 45, DQ = disqualified). Voit myös korvata pilkun #-merkillä, esim 45#dnf."
         latest_savings: Viimeisimmät tallennukset

@@ -5,7 +5,7 @@
   - unless @race.series.empty?
     = link_to t('official.competitors.index.add_competitor'), new_official_series_competitor_path(@race.series.first), class: 'button button--add'
 - elsif @race.sport.shooting?
-  - instructions_key = @race.sport_key == Sport::ILMALUODIKKO ? 'ilmaluodikko' : 'other'
+  - instructions_key = @race.sport_key == Sport::ILMALUODIKKO ? 'ilmaluodikko' : ([Sport::METSASTYSHAULIKKO, Sport::METSASTYSTRAP].include?(@race.sport_key) ? 'shotgun' : 'other')
   %h3= t :qualification_round
   = render partial: 'result_place', locals: { name: 'qualification_round_shots',
     instructions: t(".instructions_qualification_round_shots.#{instructions_key}"), path: official_race_quick_save_qualification_round_shots_path(@race) }
