@@ -136,6 +136,8 @@ fi:
     ILMALUODIKKO: Ilmaluodikko
     METSASTYSHIRVI: Metsästyshirvi
     METSASTYSLUODIKKO: Metsästysluodikko
+    METSASTYSHAULIKKO: Metsästyshaulikko
+    METSASTYSTRAP: Metsästystrap
   start_list: Lähtölista
   team: Joukkue
   tel: Puhelin

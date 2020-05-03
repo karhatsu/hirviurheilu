@@ -226,7 +226,6 @@ class ApplicationController < ActionController::Base
   end
 
   def build_sports_menu_options
-    sport_keys = [Sport::RUN, Sport::SKI, Sport::ILMAHIRVI, Sport::ILMALUODIKKO, Sport::METSASTYSHIRVI, Sport::METSASTYSLUODIKKO]
-    @sports = sport_keys.map{|key| [t("sport_name.#{key}"), key]}
+    @sports = Sport::ALL_KEYS.map{|key| [t("sport_name.#{key}"), key]}
   end
 end
