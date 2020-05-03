@@ -85,9 +85,11 @@ describe Competitor do
       end
     end
 
-    it_should_behave_like 'shooting score input', :shooting_score_input
-    it_should_behave_like 'shooting score input', :qualification_round_shooting_score_input
-    it_should_behave_like 'shooting score input', :final_round_shooting_score_input
+    it_should_behave_like 'shooting score input', :shooting_score_input, Sport::SKI, 100
+    it_should_behave_like 'shooting score input', :qualification_round_shooting_score_input, Sport::ILMAHIRVI, 100
+    it_should_behave_like 'shooting score input', :qualification_round_shooting_score_input, Sport::METSASTYSHAULIKKO, 25
+    it_should_behave_like 'shooting score input', :final_round_shooting_score_input, Sport::METSASTYSLUODIKKO, 100
+    it_should_behave_like 'shooting score input', :final_round_shooting_score_input, Sport::METSASTYSTRAP, 25
 
     describe 'shots' do
       it { is_expected.to allow_value(nil).for('shots') }
@@ -549,6 +551,7 @@ describe Competitor do
 
       context 'when qualification_round_shooting_score_input is saved' do
         it 'marks has_result true' do
+          allow(@competitor).to receive(:sport).and_return(Sport.by_key(Sport::ILMAHIRVI))
           @competitor.qualification_round_shooting_score_input = 91
           @competitor.save!
           expect(@competitor.has_result?).to be_truthy
@@ -557,6 +560,7 @@ describe Competitor do
 
       context 'when final_round_shooting_score_input is saved' do
         it 'marks has_result true' do
+          allow(@competitor).to receive(:sport).and_return(Sport.by_key(Sport::METSASTYSLUODIKKO))
           @competitor.final_round_shooting_score_input = 97
           @competitor.save!
           expect(@competitor.has_result?).to be_truthy

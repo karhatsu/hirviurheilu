@@ -58,6 +58,8 @@ class Sport
           best_shot_value: 10,
           shot_count: 20,
           inner_ten?: false,
+          qualification_round_max_score: 100,
+          final_round_max_score: 100,
           final_round_competitors_count: 10,
       }
   }
@@ -66,8 +68,10 @@ class Sport
       {
           qualification_round: [25],
           qualification_round_shot_count: 25,
+          qualification_round_max_score: 25,
           final_round: [25],
           final_round_shot_count: 25,
+          final_round_max_score: 25,
           best_shot_value: 1,
           shot_count: 50,
           shots_per_extra_round: 1,

@@ -27,8 +27,8 @@ class Competitor < ApplicationRecord
   validates :last_name, :presence => true
   validates :number,
     :numericality => { :only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true }
-  shooting_score_input_validations = { numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true } }
-  validates :shooting_score_input, shooting_score_input_validations
+  validates :shooting_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true }
+  shooting_score_input_validations = { numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true } }
   validates :qualification_round_shooting_score_input, shooting_score_input_validations
   validates :final_round_shooting_score_input, shooting_score_input_validations
   estimate_validations = {allow_nil: true, numericality: { only_integer: true, greater_than: 0 }}
@@ -46,6 +46,8 @@ class Competitor < ApplicationRecord
   validate :start_time_max
   validate :times_in_correct_order
   validate :only_one_shot_input_method_used
+  validate :qualification_round_shooting_score_input_max_value
+  validate :final_round_shooting_score_input_max_value
   validate :shots_array_values
   validate :extra_shots_array_values
   validate :check_no_result_reason
@@ -306,6 +308,20 @@ class Competitor < ApplicationRecord
   def only_one_shot_input_method_used
     if shots && (shooting_score_input || qualification_round_shooting_score_input || final_round_shooting_score_input)
       errors.add(:base, :shooting_result_either_sum_or_by_shots)
+    end
+  end
+
+  def qualification_round_shooting_score_input_max_value
+    return unless sport && qualification_round_shooting_score_input
+    if qualification_round_shooting_score_input > sport.qualification_round_max_score
+      errors.add :qualification_round_shooting_score_input, :less_than_or_equal_to, count: sport.qualification_round_max_score
+    end
+  end
+
+  def final_round_shooting_score_input_max_value
+    return unless sport && final_round_shooting_score_input
+    if final_round_shooting_score_input > sport.final_round_max_score
+      errors.add :final_round_shooting_score_input, :less_than_or_equal_to, count: sport.final_round_max_score
     end
   end
 
