@@ -76,7 +76,7 @@ describe Api::V2::Official::ShotsController, type: :api do
 
       context 'but too big shot value given' do
         it 'returns 400' do
-          make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/shots/1", { value: race.sport.max_shot + 1 }
+          make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/shots/1", { value: race.sport.best_shot_value + 1 }
           expect_error 400, 'invalid shot value'
         end
       end
@@ -98,7 +98,7 @@ describe Api::V2::Official::ShotsController, type: :api do
         end
 
         context 'and second shot sent' do
-          let(:second_shot) { race.sport.max_shot }
+          let(:second_shot) { race.sport.best_shot_value }
           before do
             make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/shots/2", { value: second_shot }
           end

@@ -311,14 +311,14 @@ class Competitor < ApplicationRecord
 
   def shots_array_values
     return unless shots
-    max_value = sport&.max_shot || 10
+    max_value = sport&.best_shot_value || 10
     errors.add(:shots, :too_many) if sport && shots.length > sport.shot_count
     errors.add(:shots, :invalid_value) if shots.any? { |shot| Competitor.invalid_shot? shot, max_value }
   end
 
   def extra_shots_array_values
     return unless extra_shots
-    max_value = sport&.max_shot || 10
+    max_value = sport&.best_shot_value || 10
     errors.add(:extra_shots, :invalid_value) if extra_shots.any? { |shot| Competitor.invalid_shot? shot, max_value }
   end
 

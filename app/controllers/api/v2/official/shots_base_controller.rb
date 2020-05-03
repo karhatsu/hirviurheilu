@@ -3,7 +3,7 @@ class Api::V2::Official::ShotsBaseController < Api::V2::Official::OfficialApiBas
 
   def validate_shot_value
     @shot_value = params[:value]
-    return_error 400, 'invalid shot value' if Competitor.invalid_shot? @shot_value, @race.sport.max_shot
+    return_error 400, 'invalid shot value' if Competitor.invalid_shot? @shot_value, @race.sport.best_shot_value
   end
 
   def find_and_validate_competitor
