@@ -19,7 +19,7 @@
     .card__sub-result.card__sub-result--shoot.form__field.form__field--sm
       = f.number_field :final_round_shooting_score_input, maxlength: 3, class: 'shots-total-input'
     .card__sub-result.card__sub-result--shoot
-      = render partial: partial, locals: { competitor: competitor, round_rules: config[:final_round], base: config[:qualification_round_shots_count], column_name: :shots, field_name: 'shots[]' }
+      = render partial: partial, locals: { competitor: competitor, round_rules: config[:final_round], base: config[:qualification_round_shot_count], column_name: :shots, field_name: 'shots[]' }
   - if extra_shots_count > 0
     = t :extra_round
     .form__horizontal-fields
@@ -27,4 +27,4 @@
         %div{id: "extra_shots_#{competitor.id}"}= render partial: partial, locals: { competitor: competitor, round_rules: [extra_shots_count], base: 0, column_name: :extra_shots, field_name: 'extra_shots[]' }
 - else
   = hidden_field_tag :f_total, competitor.final_round_score.to_i, class: 'shots-total-input'
-  = render partial: hidden_partial, locals: { competitor: competitor, round_rules: config[:final_round], base: config[:qualification_round_shots_count], column_name: :shots, field_name: 'shots[]' }
+  = render partial: hidden_partial, locals: { competitor: competitor, round_rules: config[:final_round], base: config[:qualification_round_shot_count], column_name: :shots, field_name: 'shots[]' }

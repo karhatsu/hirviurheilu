@@ -30,8 +30,7 @@ module Shots
     qualification_round_rules = sport.qualification_round
     final_round_rules = sport.final_round
     return nil unless qualification_round_rules && final_round_rules
-    qualification_round_shot_count = sum_of_array qualification_round_rules
-    split_shots final_round_rules, qualification_round_shot_count
+    split_shots final_round_rules, sport.qualification_round_shot_count
   end
 
   def final_round_sub_scores

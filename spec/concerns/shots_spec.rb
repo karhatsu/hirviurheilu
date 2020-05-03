@@ -82,6 +82,7 @@ describe Shots do
 
     before do
       allow(sport).to receive(:qualification_round).and_return([10])
+      allow(sport).to receive(:qualification_round_shot_count).and_return(10)
       allow(sport).to receive(:final_round).and_return([10])
       competitor.qualification_round_shooting_score_input = 91
       competitor.final_round_shooting_score_input = 88
@@ -127,6 +128,7 @@ describe Shots do
   context 'when sport has qualification and final rounds in one part' do
     before do
       allow(sport).to receive(:qualification_round).and_return([5])
+      allow(sport).to receive(:qualification_round_shot_count).and_return(5)
       allow(sport).to receive(:final_round).and_return([5])
     end
 
@@ -296,6 +298,7 @@ describe Shots do
   context 'when sport has qualification round in two parts and final round in two parts' do
     before do
       allow(sport).to receive(:qualification_round).and_return([4, 6])
+      allow(sport).to receive(:qualification_round_shot_count).and_return(10)
       allow(sport).to receive(:final_round).and_return([3, 2])
     end
 
@@ -375,6 +378,7 @@ describe Shots do
 
     before do
       allow(sport).to receive(:qualification_round).and_return([2, 2])
+      allow(sport).to receive(:qualification_round_shot_count).and_return(4)
       allow(sport).to receive(:final_round).and_return([2, 2])
     end
 
