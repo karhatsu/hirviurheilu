@@ -67,6 +67,7 @@ class Sport
           qualification_round: [25],
           qualification_round_shot_count: 25,
           final_round: [25],
+          final_round_shot_count: 25,
           max_shot: 1,
           max_shots_count: 50,
           shots_per_extra_round: 1,
@@ -86,6 +87,7 @@ class Sport
               qualification_round: [10],
               qualification_round_shot_count: 10,
               final_round: [10],
+              final_round_shot_count: 10,
               shots_per_extra_round: 2,
           }
       )),
@@ -95,6 +97,7 @@ class Sport
               qualification_round: [5, 5],
               qualification_round_shot_count: 10,
               final_round: [10],
+              final_round_shot_count: 10,
               max_shot: 11,
               max_shots_count: 20,
               inner_ten?: true,
@@ -108,6 +111,7 @@ class Sport
               qualification_round: [4, 6],
               qualification_round_shot_count: 10,
               final_round: [10],
+              final_round_shot_count: 10,
               shots_per_extra_round: 2,
           }
       )),
@@ -117,6 +121,7 @@ class Sport
               qualification_round: [5, 5],
               qualification_round_shot_count: 10,
               final_round: [10],
+              final_round_shot_count: 10,
               shots_per_extra_round: 1,
           }
       )),
