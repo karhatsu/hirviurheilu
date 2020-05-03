@@ -183,7 +183,7 @@ class Competitor < ApplicationRecord
     return true if no_result_reason
     if sport.shooting?
       return true if qualification_round_shooting_score_input
-      shots && (shots.length == 10 || shots.length >= 20)
+      shots && (shots.length == sport.qualification_round_shot_count || shots.length == sport.shot_count)
     else
       (start_time && (arrival_time || series.walking_series?) && shooting_score && estimate1 && estimate2 &&
         (series.estimates == 2 || (estimate3 && estimate4)))

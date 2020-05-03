@@ -1489,35 +1489,95 @@ describe Competitor do
         context 'and has shots' do
           context 'and it has one qualification round shot missing' do
             it 'should return false' do
-              competitor.shots = (0..8).map
+              competitor.shots = 9.times.map
               expect(competitor).not_to be_finished
             end
           end
 
           context 'and it has exactly all qualification round shots' do
             it 'should return true' do
-              competitor.shots = (0..9).map
+              competitor.shots = 10.times.map
               expect(competitor).to be_finished
             end
           end
 
           context 'and it has one final round shot missing' do
             it 'should return false' do
-              competitor.shots = (0..18).map
+              competitor.shots = 19.times.map
               expect(competitor).not_to be_finished
             end
           end
 
           context 'and it has exactly all final round shots' do
             it 'should return true' do
-              competitor.shots = (0..19).map
+              competitor.shots = 20.times.map
+              expect(competitor).to be_finished
+            end
+          end
+        end
+      end
+    end
+
+    context 'for shotgun race' do
+      let(:sport) { Sport.by_key Sport::METSASTYSTRAP }
+
+      context 'when competitor has no result reason' do
+        it 'should return true' do
+          competitor.no_result_reason = Competitor::DNS
+          expect(competitor).to be_finished
+        end
+      end
+
+      context "when competitor has no 'no result reason'" do
+        context 'and has no shots' do
+          context 'and has only qualification round shooting score input' do
+            it 'should return true' do
+              competitor.qualification_round_shooting_score_input = 23
               expect(competitor).to be_finished
             end
           end
 
-          context 'and it has extra round shots' do
+          context 'and has only final round shooting score input' do
+            it 'should return false' do
+              competitor.final_round_shooting_score_input = 21
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and has both shooting score inputs' do
             it 'should return true' do
-              competitor.shots = (0..20).map
+              competitor.qualification_round_shooting_score_input = 24
+              competitor.final_round_shooting_score_input = 25
+              expect(competitor).to be_finished
+            end
+          end
+        end
+
+        context 'and has shots' do
+          context 'and it has one qualification round shot missing' do
+            it 'should return false' do
+              competitor.shots = 24.times.map
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and it has exactly all qualification round shots' do
+            it 'should return true' do
+              competitor.shots = 25.times.map
+              expect(competitor).to be_finished
+            end
+          end
+
+          context 'and it has one final round shot missing' do
+            it 'should return false' do
+              competitor.shots = 49.times.map
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and it has exactly all final round shots' do
+            it 'should return true' do
+              competitor.shots = 50.times.map
               expect(competitor).to be_finished
             end
           end
