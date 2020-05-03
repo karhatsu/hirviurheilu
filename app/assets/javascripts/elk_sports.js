@@ -30,7 +30,7 @@ function calculateThreeSportsShotsResult(card) {
       error = true;
     }
   } else {
-    const errorAndSum = sumOfShots(card, false, 0, 10)
+    const errorAndSum = sumOfShots(card, 10, 0, 10)
     error = errorAndSum[0]
     result = errorAndSum[1]
   }
@@ -40,7 +40,7 @@ function calculateThreeSportsShotsResult(card) {
   card.find('.card__main-value').text(result);
 }
 
-function calculateShootingRaceShotsResult(card, elevenAsTen) {
+function calculateShootingRaceShotsResult(card, bestShotValue, roundMaxScore, qualificationRoundShotCount, totalShotCount) {
   let error = false
   const qualificationTotal = card.find('.shots-total-input:eq(0)').val()
   const finalTotal = card.find('.shots-total-input:eq(1)').val()
@@ -50,16 +50,16 @@ function calculateShootingRaceShotsResult(card, elevenAsTen) {
     q = parseInt(qualificationTotal)
     f = parseInt(finalTotal) || 0
   } else {
-    const errorAndSumQ = sumOfShots(card, elevenAsTen, 0, 10)
-    const errorAndSumF = sumOfShots(card, elevenAsTen, 10, 20)
+    const errorAndSumQ = sumOfShots(card, bestShotValue, 0, qualificationRoundShotCount)
+    const errorAndSumF = sumOfShots(card, bestShotValue, qualificationRoundShotCount, totalShotCount)
     error = errorAndSumQ[0] || errorAndSumF[0]
     q = errorAndSumQ[1]
     f = errorAndSumF[1]
   }
-  card.find('.card__main-value').text(formatResult(error, q, f));
+  card.find('.card__main-value').text(formatResult(error, q, f, roundMaxScore));
 }
 
-function calculateShootingRaceShotsResultForQ(card, elevenAsTen) {
+function calculateShootingRaceShotsResultForQ(card, bestShotValue, roundMaxScore, qualificationRoundShotCount) {
   let error = false
   const qualificationTotal = card.find('.shots-total-input:eq(0)').val()
   const finalTotal = card.find('.shots-total-input:eq(1)').val()
@@ -68,14 +68,14 @@ function calculateShootingRaceShotsResultForQ(card, elevenAsTen) {
   if (qualificationTotal !== '') {
     q = parseInt(qualificationTotal)
   } else {
-    const errorAndSumQ = sumOfShots(card, elevenAsTen, 0, 10)
+    const errorAndSumQ = sumOfShots(card, bestShotValue, 0, qualificationRoundShotCount)
     error = errorAndSumQ[0]
     q = errorAndSumQ[1]
   }
-  card.find('.card__main-value').text(formatResult(error, q, f));
+  card.find('.card__main-value').text(formatResult(error, q, f, roundMaxScore));
 }
 
-function calculateShootingRaceShotsResultForF(card, elevenAsTen) {
+function calculateShootingRaceShotsResultForF(card, bestShotValue, roundMaxScore, qualificationRoundShotCount, totalShotCount) {
   let error = false
   const qualificationTotal = card.find('.shots-total-input:eq(0)').val()
   const finalTotal = card.find('.shots-total-input:eq(1)').val()
@@ -84,28 +84,27 @@ function calculateShootingRaceShotsResultForF(card, elevenAsTen) {
   if (finalTotal !== '') {
     f = parseInt(finalTotal) || 0
   } else {
-    const errorAndSumF = sumOfShots(card, elevenAsTen, 10, 20)
+    const errorAndSumF = sumOfShots(card, bestShotValue, qualificationRoundShotCount, totalShotCount)
     error = errorAndSumF[0]
     f = errorAndSumF[1]
   }
-  card.find('.card__main-value').text(formatResult(error, q, f));
+  card.find('.card__main-value').text(formatResult(error, q, f, roundMaxScore));
 }
 
-function formatResult(error, q, f) {
-  if (!error && q >= 0 && q <= 100 && f >= 0 && f <= 100) {
+function formatResult(error, q, f, roundMaxScore) {
+  if (!error && q >= 0 && q <= roundMaxScore && f >= 0 && f <= roundMaxScore) {
     return q + ' + ' + f + ' = ' + (q + f)
   }
   return '?'
 }
 
-function sumOfShots(card, elevenAsTen, firstIndex, lastIndex) {
-  const maxValue = elevenAsTen ? 11 : 10
+function sumOfShots(card, bestShotValue, firstIndex, lastIndex) {
   let error = false
   let sum = 0
   card.find('.shot').slice(firstIndex, lastIndex).each(function() {
     if($(this).val() !== '') {
       const shot = parseInt($(this).val())
-      if(shot >= 0 && shot <= maxValue) {
+      if(shot >= 0 && shot <= bestShotValue) {
         sum += shot === 11 ? 10 : shot
       } else {
         error = true

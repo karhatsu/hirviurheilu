@@ -56,9 +56,11 @@
     const $card = field.closest('.card')
     if (#{@race.sport.shooting?}) {
       if (#{!!@batch&.qualification_round?}) {
-        calculateShootingRaceShotsResultForQ($card, #{@race.sport.inner_ten?})
+        calculateShootingRaceShotsResultForQ($card, #{@race.sport.best_shot_value}, #{@race.sport.qualification_round_max_score},
+          #{@race.sport.qualification_round_shot_count})
       } else {
-        calculateShootingRaceShotsResultForF($card, #{@race.sport.inner_ten?})
+        calculateShootingRaceShotsResultForF($card, #{@race.sport.best_shot_value}, #{@race.sport.qualification_round_max_score},
+          #{@race.sport.qualification_round_shot_count}, #{@race.sport.shot_count})
       }
     } else {
       calculateThreeSportsShotsResult($card)
