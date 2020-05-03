@@ -98,15 +98,20 @@ describe Competitor do
       it { is_expected.to allow_value(['10', '9', '0']).for('shots') }
       it { is_expected.not_to allow_value(['10', '9', '1.1']).for('shots') }
 
-      describe 'when only shooting' do
-        it 'can have at most 20 shots' do
-          competitor = build :competitor, shots: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-          allow(competitor).to receive(:sport).and_return(Sport.by_key(Sport::ILMAHIRVI))
+      shared_examples_for 'shooting sport shots' do |sport_key, valid_shots_count|
+        it "#{sport_key} can have at most #{valid_shots_count} shots" do
+          shots = valid_shots_count.times.map {|i| 1}
+          competitor = build :competitor, shots: shots
+          allow(competitor).to receive(:sport).and_return(Sport.by_key(sport_key))
           expect(competitor).to have(0).errors_on(:shots)
-          competitor.shots << 5
+          competitor.shots << 1
           expect(competitor).to have(1).errors_on(:shots)
         end
       end
+
+      it_should_behave_like 'shooting sport shots', Sport::METSASTYSLUODIKKO, 20
+      it_should_behave_like 'shooting sport shots', Sport::ILMAHIRVI, 20
+      it_should_behave_like 'shooting sport shots', Sport::METSASTYSTRAP, 50
 
       describe 'when 3 sports race' do
         it 'can have at most 10 shots' do
