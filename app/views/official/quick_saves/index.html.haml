@@ -4,7 +4,7 @@
   .message.message--info= t '.no_competitors'
   - unless @race.series.empty?
     = link_to t('official.competitors.index.add_competitor'), new_official_series_competitor_path(@race.series.first), class: 'button button--add'
-- elsif @race.sport.only_shooting?
+- elsif @race.sport.shooting?
   - instructions_key = @race.sport_key == Sport::ILMALUODIKKO ? 'ilmaluodikko' : 'other'
   %h3= t :qualification_round
   = render partial: 'result_place', locals: { name: 'qualification_round_shots',

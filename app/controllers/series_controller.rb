@@ -11,7 +11,7 @@ class SeriesController < ApplicationController
         render :json => @series.to_json(:methods => [:next_start_number, :next_start_time])
       }
       format.pdf {
-        orientation = @series.sport.only_shooting? ? 'Portrait' : 'Landscape'
+        orientation = @series.sport.shooting? ? 'Portrait' : 'Landscape'
         render pdf: "#{@series.name}-tulokset", layout: true, margin: pdf_margin,
                header: pdf_header("#{@series.race.name} - #{@series.name}\n"), footer: pdf_footer,
                orientation: orientation, disable_smart_shrinking: true

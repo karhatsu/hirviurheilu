@@ -209,7 +209,7 @@ class Race < ApplicationRecord
   end
 
   def all_series_finished?
-    raise "Only applicable for shooting races" unless sport.only_shooting?
+    raise "Only applicable for shooting races" unless sport.shooting?
     return true unless series.where('finished=?', false).exists?
     !competitors.where('series.finished=?', false).exists?
   end

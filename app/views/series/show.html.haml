@@ -7,10 +7,10 @@
   = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id } do |series|
     = race_series_path(series.race, series)
 = render layout: 'series/series_status', locals: { series: @series } do
-  - unless @series.sport.only_shooting?
+  - unless @series.sport.shooting?
     = render partial: 'series/infos', locals: { series: @series }
   - cache [@series, params[:sort], unofficials, I18n.locale] do
-    - if @series.sport.only_shooting?
+    - if @series.sport.shooting?
       - competitors = @series.shooting_race_results
       - show_shots_buttons = competitors.any? {|competitor| competitor.shots}
       - if show_shots_buttons

@@ -10,7 +10,7 @@ class FinishCompetition
   attr_reader :error, :competitors_without_result
 
   def initialize(competition, competitor_actions = [])
-    raise "Finish series available only for shooting races" if competition.is_a?(Series) && !competition.sport.only_shooting?
+    raise "Finish series available only for shooting races" if competition.is_a?(Series) && !competition.sport.shooting?
     @competition = competition
     @competitor_actions = competitor_actions
     @error = nil
@@ -46,7 +46,7 @@ class FinishCompetition
   private
 
   def validate(competitor_actions)
-    if !only_shooting? && !@competition.each_competitor_has_correct_estimates?
+    if !@competition.sport.shooting? && !@competition.each_competitor_has_correct_estimates?
       @error = I18n.t('activerecord.errors.models.race.attributes.base.correct_estimate_missing')
       return
     end
@@ -76,9 +76,5 @@ class FinishCompetition
     race.series.each do |s|
       s.destroy if s.competitors.count == 0
     end
-  end
-
-  def only_shooting?
-    @competition.sport.only_shooting?
   end
 end

@@ -12,7 +12,7 @@ class Sport
           batch_list?: false,
           qualification_round: false,
           final_round: false,
-          only_shooting?: false,
+          shooting?: false,
           relays?: true,
           max_shot: 10,
           max_shots_count: 10,
@@ -32,10 +32,10 @@ class Sport
               ['N65', ['N70', 'N75', 'N80', 'N85', 'N90']],
           ],
       },
-      SHOOTING_ONLY: {
+      SHOOTING: {
           start_list?: false,
           batch_list?: true,
-          only_shooting?: true,
+          shooting?: true,
           relays?: false,
           default_series: [
               ['S15', ['T15', 'P15']],
@@ -64,7 +64,7 @@ class Sport
       SKI: OpenStruct.new(BASE_CONFIGS[:SKI_AND_RUN].merge(
           { name: 'Hirvenhiihto' }
       )),
-      ILMAHIRVI: OpenStruct.new(BASE_CONFIGS[:SHOOTING_ONLY].merge(
+      ILMAHIRVI: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
           {
               name: 'Ilmahirvi',
               qualification_round: [10],
@@ -72,7 +72,7 @@ class Sport
               shots_per_extra_round: 2,
           }
       )),
-      ILMALUODIKKO: OpenStruct.new(BASE_CONFIGS[:SHOOTING_ONLY].merge(
+      ILMALUODIKKO: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
           {
               name: 'Ilmaluodikko',
               qualification_round: [5, 5],
@@ -81,10 +81,10 @@ class Sport
               max_shots_count: 20,
               inner_ten?: true,
               shots_per_extra_round: 1,
-              default_series: [['S13', ['T13', 'P13']]] + BASE_CONFIGS[:SHOOTING_ONLY][:default_series],
+              default_series: [['S13', ['T13', 'P13']]] + BASE_CONFIGS[:SHOOTING][:default_series],
           }
       )),
-      METSASTYSHIRVI: OpenStruct.new(BASE_CONFIGS[:SHOOTING_ONLY].merge(
+      METSASTYSHIRVI: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
           {
               name: 'Metsästyshirvi',
               qualification_round: [4, 6],
@@ -92,7 +92,7 @@ class Sport
               shots_per_extra_round: 2,
           }
       )),
-      METSASTYSLUODIKKO: OpenStruct.new(BASE_CONFIGS[:SHOOTING_ONLY].merge(
+      METSASTYSLUODIKKO: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
           {
               name: 'Metsästysluodikko',
               qualification_round: [5, 5],

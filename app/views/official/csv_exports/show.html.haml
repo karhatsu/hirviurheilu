@@ -3,7 +3,7 @@
 - if @race.competitors.empty?
   .message.message--info= t '.no_competitors'
 - else
-  .message.message--info= t ".info.#{@race.sport.only_shooting? ? 'shooting_race' : 'three_sports_race'}"
+  .message.message--info= t ".info.#{@race.sport.shooting? ? 'shooting_race' : 'three_sports_race'}"
   = form_tag(official_race_csv_export_path(@race), class: 'form') do |f|
     = submit_tag t('.submit_button'), class: 'button button--primary'
 %h2= t '.import_title'

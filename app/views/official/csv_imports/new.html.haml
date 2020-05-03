@@ -3,7 +3,7 @@
 .message.message--info= t '.info'
 %h3= t '.format_title'
 .message.message--info
-  - if @race.sport.only_shooting?
+  - if @race.sport.shooting?
     = t '.format_info.shooting_race'
   - else
     = t ".format_info.three_sports_race_#{@race.start_order}"

@@ -54,7 +54,7 @@
   });
   function calculateShotsResult(field) {
     const $card = field.closest('.card')
-    if (#{@race.sport.only_shooting?}) {
+    if (#{@race.sport.shooting?}) {
       if (#{!!@batch&.qualification_round?}) {
         calculateShootingRaceShotsResultForQ($card, #{@race.sport.inner_ten?})
       } else {

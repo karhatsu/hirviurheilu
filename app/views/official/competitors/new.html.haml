@@ -4,7 +4,7 @@
 = render partial: "shared/form_errors", locals: { item: @competitor }
 = form_for([:official, @competitor.series.race, @competitor], remote: true, html: { class: 'form' }) do |f|
   = render partial: "basic_fields", locals: { f: f }
-  - if @series.sport.only_shooting?
+  - if @series.sport.shooting?
     .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :number
       .col-xs-12.col-sm-9= f.number_field :number

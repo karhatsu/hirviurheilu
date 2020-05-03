@@ -30,7 +30,7 @@ class Official::FinishRacesController < Official::OfficialController
   private
 
   def unfinished_series
-    @race.sport.only_shooting? ? @race.series.where('finished=? and competitors_count>0', false) : []
+    @race.sport.shooting? ? @race.series.where('finished=? and competitors_count>0', false) : []
   end
 
   def build_competitor_actions

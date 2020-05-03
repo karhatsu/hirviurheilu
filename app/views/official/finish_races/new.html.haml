@@ -4,7 +4,7 @@
   = t '.already_finished'
 - else
   - if !flash[:error] && @competitors_without_result.empty?
-    - info = @race.sport.only_shooting? ? 'shooting' : 'three_sports'
+    - info = @race.sport.shooting? ? 'shooting' : 'three_sports'
     .message.message--info= t ".info.#{info}"
   = flash_success
   = flash_error

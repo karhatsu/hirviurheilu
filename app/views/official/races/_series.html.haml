@@ -3,10 +3,10 @@
   = render partial: 'official/series/form_basic_fields', locals: { f: f, race: @race }
   .form__sub-form-2
     %h3
-      = t "official.races.form.age_groups_help_title.#{@race.sport.only_shooting? ? 'shooting_race' : 'three_sports_race'}"
+      = t "official.races.form.age_groups_help_title.#{@race.sport.shooting? ? 'shooting_race' : 'three_sports_race'}"
       %a.help.age_groups_help#age_groups_help ?
     #age_groups_help_dialog.dialog{style: 'display: none;'}
-      - if @race.sport.only_shooting?
+      - if @race.sport.shooting?
         Jos kilpailuun kuuluu joukkuekilpailu, voit tarvittaessa erotella kilpailijoita ryhmiin sarjan sisällä,
         esim. jakamalla S17-sarjan kilpailijat P17- ja T17-ryhmiin.
       - else
@@ -23,6 +23,6 @@
           vähimmäismääräksi 0.
     = f.fields_for :age_groups do |age_group_form|
       = render partial: "age_group", locals: { f: age_group_form }
-    = add_child_link t("official.races.form.add_age_group.#{@race.sport.only_shooting? ? 'shooting_race' : 'three_sports_race'}"), f, :age_groups, nil, 'button button--add button--below-sub-form'
+    = add_child_link t("official.races.form.add_age_group.#{@race.sport.shooting? ? 'shooting_race' : 'three_sports_race'}"), f, :age_groups, nil, 'button button--add button--below-sub-form'
   - if f.object.competitors.empty?
     = remove_child_link t('official.races.form.remove_series'), f, 'series-sub-form', "", 'button button--danger'

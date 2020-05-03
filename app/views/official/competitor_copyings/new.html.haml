@@ -3,7 +3,7 @@
 - if @races.empty?
   .message.message--warning= t('.no_races')
 - else
-  - text_key = @race.sport.only_shooting? ? 'shooting_race' : 'three_sports_race'
+  - text_key = @race.sport.shooting? ? 'shooting_race' : 'three_sports_race'
   .message.message--info
     = t ".instructions_1.#{text_key}"
     %br

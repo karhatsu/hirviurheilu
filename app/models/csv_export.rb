@@ -3,7 +3,7 @@ require 'csv'
 class CsvExport
   def initialize(race)
     @race = race
-    @shooting_race = race.sport.only_shooting?
+    @shooting_race = race.sport.shooting?
   end
 
   def generate_file(file_name)

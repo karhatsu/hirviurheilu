@@ -195,7 +195,7 @@
   var start_order_help_title = 'Kilpailijoiden lähtöjärjestys';
   var batch_size_help_title = 'Lähtöerät';
   var default_series_help_title = 'Lisää oletussarjat automaattisesti';
-  var age_groups_help_title = '#{@race.sport.only_shooting? ? 'Aliryhmät' : 'Ikäryhmät'}';
+  var age_groups_help_title = '#{@race.sport.shooting? ? 'Aliryhmät' : 'Ikäryhmät'}';
 
   function showOrHideBatchSizes() {
     if($("#race_start_order_" + #{Race::START_ORDER_BY_SERIES} + ":checked").length) {

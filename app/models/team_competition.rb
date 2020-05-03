@@ -93,7 +93,7 @@ class TeamCompetition < ApplicationRecord
   end
 
   def sort_teams(hash)
-    if sport.only_shooting?
+    if sport.shooting?
       hash.values.sort do |a, b|
         [b.total_score, b.best_competitor_score, b.hits] + b.shot_counts <=>
             [a.total_score, a.best_competitor_score, a.hits] + a.shot_counts

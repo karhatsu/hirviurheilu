@@ -168,7 +168,7 @@ class Series < ApplicationRecord
   end
 
   def started?
-    return race.start_datetime <= Time.zone.now if sport.only_shooting?
+    return race.start_datetime <= Time.zone.now if sport.shooting?
     start_time && start_datetime < Time.zone.now
   end
 

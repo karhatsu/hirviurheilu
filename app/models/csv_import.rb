@@ -57,7 +57,7 @@ class CsvImport
   end
 
   def validate_data(limited_club)
-    reserved_numbers = @race.competitors.map(&:number) if @race.sport.only_shooting?
+    reserved_numbers = @race.competitors.map(&:number) if @race.sport.shooting?
     prev_number = 0
     @data.each do |row|
       return unless row_structure_correct(row)
@@ -84,7 +84,7 @@ class CsvImport
   end
 
   def expected_column_count
-    return COLUMNS_COUNT_SHOOTING_RACE if @race.sport.only_shooting?
+    return COLUMNS_COUNT_SHOOTING_RACE if @race.sport.shooting?
     return COLUMNS_COUNT_START_ORDER_MIXED if @race.start_order == Race::START_ORDER_MIXED
     COLUMNS_COUNT_START_ORDER_SERIES
   end
@@ -107,7 +107,7 @@ class CsvImport
     competitor = Competitor.new(first_name: row[FIRST_NAME_COLUMN], last_name: row[LAST_NAME_COLUMN])
     competitor.club = find_or_create_club(row[CLUB_COLUMN])
     set_series_or_age_group(competitor, row[SERIES_COLUMN])
-    if @race.sport.only_shooting?
+    if @race.sport.shooting?
       number = find_available_number prev_number, reserved_numbers
       competitor.number = number
     elsif @race.start_order == Race::START_ORDER_MIXED

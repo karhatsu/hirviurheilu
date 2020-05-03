@@ -1,11 +1,11 @@
 .form__horizontal-fields
   .form__field
     = f.text_field :name, placeholder: t('activerecord.attributes.series.name')
-  - unless @race.sport.only_shooting?
+  - unless @race.sport.shooting?
     .form__field
       = f.check_box :shorter_trip
       = f.label :shorter_trip
-- unless @race.sport.only_shooting?
+- unless @race.sport.shooting?
   .form__horizontal-fields
     .form__field
       = f.label :points_method

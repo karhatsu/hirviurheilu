@@ -3,7 +3,7 @@
 .message.message--info= t 'official.csv_imports.new.info_limited'
 %h3= t 'official.csv_imports.new.format_title'
 .message.message--info
-  - if @race.sport.only_shooting?
+  - if @race.sport.shooting?
     = t 'official.csv_imports.new.format_info.shooting_race'
   - else
     = t "official.csv_imports.new.format_info.three_sports_race_#{@race.start_order}"

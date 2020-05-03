@@ -1,4 +1,4 @@
-- text_key = @race.sport.only_shooting? ? 'shooting_race' : 'three_sports_race'
+- text_key = @race.sport.shooting? ? 'shooting_race' : 'three_sports_race'
 = flash_success
 = render :partial => 'shared/form_errors', :locals => { :item => @tc }
 = form_for([:official, @race, @tc], :html => { :class => 'team_competition_form' }) do |f|

@@ -151,7 +151,7 @@ class Competitor < ApplicationRecord
   end
 
   def has_correct_estimates?
-    return true if series.sport.only_shooting?
+    return true if series.sport.shooting?
     return false if correct_estimate1.nil? || correct_estimate2.nil?
     return false if series.estimates == 4 && (correct_estimate3.nil? || correct_estimate4.nil?)
     true
@@ -168,18 +168,18 @@ class Competitor < ApplicationRecord
 
   def points(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     return nil if no_result_reason
-    return shooting_score if sport.only_shooting?
+    return shooting_score if sport.shooting?
     shooting_points.to_i + estimate_points.to_i + time_points(unofficials).to_i
   end
 
   def team_competition_points(sport)
-    return qualification_round_score if sport.only_shooting?
+    return qualification_round_score if sport.shooting?
     points
   end
 
   def finished?
     return true if no_result_reason
-    if sport.only_shooting?
+    if sport.shooting?
       return true if qualification_round_shooting_score_input
       shots && (shots.length == 10 || shots.length >= 20)
     else
@@ -212,12 +212,12 @@ class Competitor < ApplicationRecord
   end
 
   def self.sort_competitors(competitors)
-    return sort_shooting_race_competitors(competitors) if competitors.length && competitors[0].sport.only_shooting?
+    return sort_shooting_race_competitors(competitors) if competitors.length && competitors[0].sport.shooting?
     sort_three_sports_competitors competitors
   end
 
   def self.sort_team_competitors(sport, competitors)
-    return sort_three_sports_competitors competitors unless sport.only_shooting?
+    return sort_three_sports_competitors competitors unless sport.shooting?
     competitors.sort do |a, b|
       b.shooting_race_qualification_results <=> a.shooting_race_qualification_results
     end

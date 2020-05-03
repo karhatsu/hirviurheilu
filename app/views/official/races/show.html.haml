@@ -7,7 +7,7 @@
   - unless @race.finished? || @race.start_date > Time.zone.today || @race.competitors.empty?
     = link_to t('.finish_race'), new_official_race_finish_race_path(@race), class: 'button button--primary'
   = link_to t('.edit_race_and_series'), edit_official_race_path(@race), class: 'button button--edit'
-  - unless @race.sport.only_shooting?
+  - unless @race.sport.shooting?
     = link_to t('.correct_estimates'), official_race_correct_estimates_path(@race), class: 'button'
   - if @race.can_destroy?
     = link_to t('.delete_race'), official_race_path(@race), method: :delete, class: 'button button--danger'
@@ -39,7 +39,7 @@
                     = link_to t('.create_start_list'), official_series_competitors_path(s), class: 'button'
                   - unless finished
                     = link_to t('.input_results'), official_race_quick_saves_path(@race), class: 'button'
-                    - if @race.sport.only_shooting?
+                    - if @race.sport.shooting?
                       = link_to t('.finish_series'), new_official_race_finish_race_path(@race, series_id: s.id), class: 'button'
             - if finished
               .card__main-value

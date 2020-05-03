@@ -15,7 +15,7 @@
     - if @race.sport.batch_list? && !@race.final_round_batches.empty?
       = link_to t('race_sub_menu.final_round_batches'), race_final_round_batches_path(@race), class: 'button button--primary'
 - unless @race.series.empty? && !@race.relays.empty?
-  %h2= @race.sport.only_shooting? ? t(:results) : t('.single_competitor_competitions')
+  %h2= @race.sport.shooting? ? t(:results) : t('.single_competitor_competitions')
   - infos = []
   - if @race.series.empty? && @race.relays.empty?
     - infos << "#{t('.no_series_for_race')}."
@@ -45,7 +45,7 @@
         = render partial: 'batch_list_pdf_form', locals: { path: race_qualification_round_batches_path(@race, format: :pdf), title: t(:qualification_round_batch_lists) }
       - if @race.sport.batch_list? && !@race.final_round_batches.empty?
         = render partial: 'batch_list_pdf_form', locals: { path: race_final_round_batches_path(@race, format: :pdf), title: t(:final_round_batch_lists) }
-  - if @race.finished? && !@race.sport.only_shooting?
+  - if @race.finished? && !@race.sport.shooting?
     %h3= t :correct_distances
     .row
       - @race.correct_estimates.each do |ce|

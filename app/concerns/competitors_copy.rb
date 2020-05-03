@@ -5,7 +5,7 @@ module CompetitorsCopy
     raise ArgumentError if start_order == Race::START_ORDER_MIXED && !opts[:with_start_list]
     errors = []
     prev_number = 0
-    reserved_numbers = competitors.map(&:number) if sport.only_shooting? && !opts[:with_numbers]
+    reserved_numbers = competitors.map(&:number) if sport.shooting? && !opts[:with_numbers]
     race.transaction do
       race.competitors.each do |competitor|
         club = ensure_club competitor.club
@@ -66,7 +66,7 @@ module CompetitorsCopy
       series.update_attribute :has_start_list, true if competitor.number && !series.has_start_list?
     elsif opts[:with_numbers]
       copied_competitor.number = competitor.number
-    elsif sport.only_shooting?
+    elsif sport.shooting?
       copied_competitor.number = find_available_number prev_number, reserved_numbers
     end
     copied_competitor.save!

@@ -43,7 +43,7 @@ class Official::OfficialController < ApplicationController
 
   def require_three_sports_race
     race = @race || @series.race
-    redirect_to official_race_path(race) if race.sport.only_shooting?
+    redirect_to official_race_path(race) if race.sport.shooting?
   end
 
   def set_official
