@@ -41,7 +41,7 @@ class Official::QuickSavesController < Official::OfficialController
 
   def save_final_round_shots
     @name = 'final_round_shots'
-    do_quick_save(QuickSave::FinalRoundShots.new(@race.id, params[:string])) do
+    do_quick_save(QuickSave::FinalRoundShots.new(@race.id, params[:string], @race.sport.final_round_shot_count)) do
       @result = t(:final_round) + ": #{@competitor.final_round_score}"
     end
   end

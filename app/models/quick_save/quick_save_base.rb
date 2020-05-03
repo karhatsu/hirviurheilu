@@ -60,9 +60,9 @@ class QuickSave::QuickSaveBase
   end
 
   def find_competitor
-    race = Race.find(@race_id)
-    return nil unless race
-    @competitor = race.competitors.where(:number => number).first
+    @race = Race.find(@race_id)
+    return nil unless @race
+    @competitor = @race.competitors.where(:number => number).first
   end
 
   def save_competitor

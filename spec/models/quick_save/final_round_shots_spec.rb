@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe QuickSave::FinalRoundShots do
+  let(:shot_count) { 10 }
   let(:race) { create :race, sport_key: Sport::ILMALUODIKKO }
   let(:series) { create :series, race: race }
   let(:competitor10_shots) { [9,9,9,9,8,8,8,8,7,6] }
@@ -10,7 +11,7 @@ describe QuickSave::FinalRoundShots do
 
   context 'when string format as 10 shots is correct and competitor with qualification round shots is found' do
     before do
-      @qs = QuickSave::FinalRoundShots.new(race.id, '10,+99*876510')
+      @qs = QuickSave::FinalRoundShots.new(race.id, '10,+99*876510', shot_count)
     end
 
     it 'saves the shots after the existing qualification round shots' do
@@ -21,7 +22,7 @@ describe QuickSave::FinalRoundShots do
 
   context 'when string format as 5 shots is correct and competitor with qualification round shots is found' do
     before do
-      @qs = QuickSave::FinalRoundShots.new(race.id, '10,+9*01')
+      @qs = QuickSave::FinalRoundShots.new(race.id, '10,+9*01', shot_count)
     end
 
     it 'saves the shots after the existing qualification round shots' do
@@ -32,7 +33,7 @@ describe QuickSave::FinalRoundShots do
 
   context 'when string format as sum is correct and competitor with qualification round input is found' do
     before do
-      @qs = QuickSave::FinalRoundShots.new(race.id, '5,78')
+      @qs = QuickSave::FinalRoundShots.new(race.id, '5,78', shot_count)
     end
 
     it 'saves the input' do
@@ -41,9 +42,25 @@ describe QuickSave::FinalRoundShots do
     end
   end
 
+  context 'when string format as shots is correct and shotgun shots are saved' do
+    let(:race2) { create :race, sport_key: Sport::METSASTYSTRAP }
+    let(:series2) { create :series, race: race2 }
+    let(:competitor2_shots) { 25.times.map {|i| 1} }
+    let!(:competitor2) { create :competitor, series: series2, number: 2, shots: competitor2_shots }
+
+    before do
+      @qs = QuickSave::FinalRoundShots.new(race2.id, '2,0000000000111111111101010', 25)
+    end
+
+    it 'saves the shots after the existing qualification round shots' do
+      result = @qs.save
+      expect_success result, competitor2, competitor2_shots + [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0]
+    end
+  end
+
   context 'when no shots yet' do
     before do
-      @qs = QuickSave::FinalRoundShots.new(race.id, '1,+99*876510')
+      @qs = QuickSave::FinalRoundShots.new(race.id, '1,+99*876510', shot_count)
     end
 
     it 'does not save anything' do
@@ -56,7 +73,7 @@ describe QuickSave::FinalRoundShots do
     let(:nine_shots) { [1, 2, 3, 4, 5, 6, 7, 8, 9] }
     before do
       competitor1.update_attribute :shots, nine_shots
-      @qs = QuickSave::FinalRoundShots.new(race.id, '1,+99*876510')
+      @qs = QuickSave::FinalRoundShots.new(race.id, '1,+99*876510', shot_count)
     end
 
     it 'does not save anything' do
@@ -67,7 +84,7 @@ describe QuickSave::FinalRoundShots do
 
   context 'when no qualification round input yet and sum is given' do
     before do
-      @qs = QuickSave::FinalRoundShots.new(race.id, '1,92')
+      @qs = QuickSave::FinalRoundShots.new(race.id, '1,92', shot_count)
     end
 
     it 'does not save anything' do
@@ -79,7 +96,7 @@ describe QuickSave::FinalRoundShots do
   context 'when invalid shot given' do
     before do
       race.update_attribute :sport_key, Sport::ILMAHIRVI
-      @qs = QuickSave::FinalRoundShots.new(race.id, '10,+99*876510')
+      @qs = QuickSave::FinalRoundShots.new(race.id, '10,+99*876510', shot_count)
     end
 
     it 'does not save anything' do
@@ -90,7 +107,7 @@ describe QuickSave::FinalRoundShots do
 
   context 'when too few shots given' do
     before do
-      @qs = QuickSave::FinalRoundShots.new(race.id, '10,+99887651')
+      @qs = QuickSave::FinalRoundShots.new(race.id, '10,+99887651', shot_count)
     end
 
     it 'does not save anything' do
@@ -101,7 +118,7 @@ describe QuickSave::FinalRoundShots do
 
   context 'when too many shots given' do
     before do
-      @qs = QuickSave::FinalRoundShots.new(race.id, '10,+9988765222')
+      @qs = QuickSave::FinalRoundShots.new(race.id, '10,+9988765222', shot_count)
     end
 
     it 'does not save anything' do
@@ -112,7 +129,7 @@ describe QuickSave::FinalRoundShots do
 
   context 'when invalid sum given' do
     before do
-      @qs = QuickSave::FinalRoundShots.new(race.id, '5,101')
+      @qs = QuickSave::FinalRoundShots.new(race.id, '5,101', shot_count)
     end
 
     it 'does not save anything' do
@@ -123,7 +140,7 @@ describe QuickSave::FinalRoundShots do
 
   describe "unknown competitor" do
     before do
-      @qs = QuickSave::FinalRoundShots.new(race.id, '8,9999999999')
+      @qs = QuickSave::FinalRoundShots.new(race.id, '8,9999999999', shot_count)
     end
 
     it 'does not save anything' do
@@ -134,7 +151,7 @@ describe QuickSave::FinalRoundShots do
 
   describe "invalid string format" do
     before do
-      @qs = QuickSave::FinalRoundShots.new(race.id, '10,999999x999')
+      @qs = QuickSave::FinalRoundShots.new(race.id, '10,999999x999', shot_count)
     end
 
     it 'does not save the given result' do
@@ -145,7 +162,7 @@ describe QuickSave::FinalRoundShots do
 
   context 'when string is nil' do
     before do
-      @qs = QuickSave::FinalRoundShots.new(race.id, nil)
+      @qs = QuickSave::FinalRoundShots.new(race.id, nil, shot_count)
     end
 
     it 'does not save anything' do
@@ -163,7 +180,7 @@ describe QuickSave::FinalRoundShots do
 
     describe 'and ++ not used in the beginning' do
       before do
-        @qs = QuickSave::FinalRoundShots.new(race.id, '10,++++998870')
+        @qs = QuickSave::FinalRoundShots.new(race.id, '10,++++998870', shot_count)
       end
 
       it 'does not save the given shots' do
@@ -174,7 +191,7 @@ describe QuickSave::FinalRoundShots do
 
     describe 'and ++ used in the beginning' do
       before do
-        @qs = QuickSave::FinalRoundShots.new(race.id, '++10,++++998870')
+        @qs = QuickSave::FinalRoundShots.new(race.id, '++10,++++998870', shot_count)
       end
 
       it 'overrides the existing final shots' do
@@ -189,7 +206,7 @@ describe QuickSave::FinalRoundShots do
       let!(:competitor20) { create :competitor, series: series, number: 20, qualification_round_shooting_score_input: 99, final_round_shooting_score_input: 88 }
 
       before do
-        @qs = QuickSave::FinalRoundShots.new(race.id, '20,98')
+        @qs = QuickSave::FinalRoundShots.new(race.id, '20,98', shot_count)
       end
 
       it 'does not save the given result' do
@@ -200,7 +217,7 @@ describe QuickSave::FinalRoundShots do
 
     describe 'and ++ used in the beginning' do
       before do
-        @qs = QuickSave::FinalRoundShots.new(race.id, '++5,98')
+        @qs = QuickSave::FinalRoundShots.new(race.id, '++5,98', shot_count)
       end
 
       it 'overrides the existing result' do

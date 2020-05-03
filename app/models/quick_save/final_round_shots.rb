@@ -1,6 +1,7 @@
 class QuickSave::FinalRoundShots < QuickSave::QuickSaveBase
-  def initialize(race_id, string)
-    super race_id, string, /^(\+\+|)\d+(\,)[0-9][0-9]?0?$/, /^(\+\+|)\d+(\,)[\+\*0-9]{5}$/, /^(\+\+|)\d+(\,)[\+\*0-9]{10}$/
+  def initialize(race_id, string, shot_count)
+    super race_id, string, /^(\+\+|)\d+(\,)[0-9][0-9]?0?$/, /^(\+\+|)\d+(\,)[\+\*0-9]{5}$/, /^(\+\+|)\d+(\,)[\+\*0-9]{#{shot_count}}$/
+    @shot_count = shot_count
   end
 
   private
@@ -10,15 +11,15 @@ class QuickSave::FinalRoundShots < QuickSave::QuickSaveBase
       @competitor.shots = nil
       @competitor.final_round_shooting_score_input = result_string
     else
-      return unless @competitor.shots && @competitor.shots.length >= 10
-      qualification_shots = @competitor.shots[0..9]
+      return unless @competitor.shots && @competitor.shots.length >= @race.sport.qualification_round_shot_count
+      qualification_shots = @competitor.shots[0...@race.sport.qualification_round_shot_count]
       @competitor.shots = qualification_shots + final_shots
     end
   end
 
   def competitor_has_attrs?
     return @competitor.final_round_shooting_score_input if sum_input?
-    @competitor.shots && @competitor.shots.length == 20
+    @competitor.shots && @competitor.shots.length == @race.sport.max_shots_count
   end
 
   def final_shots
