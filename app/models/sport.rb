@@ -5,6 +5,8 @@ class Sport
   ILMALUODIKKO = "ILMALUODIKKO"
   METSASTYSHIRVI = "METSASTYSHIRVI"
   METSASTYSLUODIKKO = "METSASTYSLUODIKKO"
+  METSASTYSHAULIKKO = "METSASTYSHAULIKKO"
+  METSASTYSTRAP = "METSASTYSTRAP"
 
   BASE_CONFIGS = {
       SKI_AND_RUN: {
@@ -54,8 +56,18 @@ class Sport
           max_shots_count: 20,
           inner_ten?: false,
           final_round_competitors_count: 10,
-      },
+      }
   }
+
+  SHOTGUN_CONFIG = BASE_CONFIGS[:SHOOTING].merge(
+      {
+          qualification_round: [25],
+          final_round: [25],
+          max_shot: 1,
+          max_shots_count: 50,
+          shots_per_extra_round: 1,
+      }
+  )
 
   CONFIGS = {
       RUN: OpenStruct.new(BASE_CONFIGS[:SKI_AND_RUN].merge(
@@ -98,6 +110,16 @@ class Sport
               qualification_round: [5, 5],
               final_round: [10],
               shots_per_extra_round: 1,
+          }
+      )),
+      METSASTYSHAULIKKO: OpenStruct.new(SHOTGUN_CONFIG.merge(
+          {
+              name: 'Metsästyshaulukko',
+          }
+      )),
+      METSASTYSTRAP: OpenStruct.new(SHOTGUN_CONFIG.merge(
+          {
+              name: 'Metsästystrap',
           }
       ))
   }

@@ -25,6 +25,11 @@ describe Sport do
       expect(Sport.by_key('ILMALUODIKKO').qualification_round).to eql [5, 5]
       expect(Sport.by_key('ILMALUODIKKO').max_shot).to eql 11
     end
+
+    it 'METSASTYSHAULIKKO' do
+      expect(Sport.by_key('METSASTYSHAULIKKO').name).to eq('Metsästyshaulukko')
+      expect(Sport.by_key('METSASTYSHAULIKKO').qualification_round).to eql [25]
+      expect(Sport.by_key('METSASTYSHAULIKKO').max_shot).to eql 1
+    end
   end
 end
-
