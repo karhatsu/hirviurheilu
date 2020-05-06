@@ -21,8 +21,8 @@
     - infos << "#{t('.no_series_for_race')}."
   - if @race.start_date > Time.zone.today
     - infos << "#{t '.competition_begins'} #{distance_of_time_in_words(Time.zone.today, @race.start_date)}."
-  - if @race.start_time_defined? && !@race.finished?
-    - time_text =  Time.now > @race.start_datetime ? 'alkoi' : 'alkaa'
+  - if @race.start_time_defined? && !@race.finished? && Date.today <= @race.start_date
+    - time_text = Time.now > @race.start_datetime ? 'alkoi' : 'alkaa'
     - infos << "Kilpailu #{time_text} #{time_print @race.start_time}."
   - if infos.length > 0
     .message.message--info= infos.join(' ')
