@@ -271,27 +271,27 @@ describe Race do
 
   describe "past/today/future" do
     before do
-      @past1 = create(:race, start_date: Date.today - 10, end_date: nil, name: 'B')
-      @past2 = create(:race, start_date: Date.today - 2, end_date: Date.today - 1)
-      @past3 = create(:race, start_date: Date.today - 10, end_date: nil, name: 'A')
-      @current1 = create(:race, start_date: Date.today - 1, end_date: Date.today + 0)
-      @current2 = create(:race, start_date: Date.today, end_date: nil)
-      @current3 = create(:race, start_date: Date.today, end_date: Date.today + 1)
-      @future1 = create(:race, start_date: Date.today + 2, end_date: Date.today + 3, name: 'B')
-      @future2 = create(:race, start_date: Date.today + 1, end_date: nil)
-      @future3 = create(:race, start_date: Date.today + 2, end_date: Date.today + 3, name: 'A')
+      @past1 = create :race, start_date: Date.today - 10, end_date: nil, name: 'Past B'
+      @past2 = create :race, start_date: Date.today - 2, end_date: Date.today - 1, name: 'Past oldest'
+      @past3 = create :race, start_date: Date.today - 10, end_date: nil, name: 'Past A'
+      @current1 = create :race, start_date: Date.today - 1, end_date: Date.today + 0, name: 'C1'
+      @current2 = create :race, start_date: Date.today, end_date: nil, name: 'C2'
+      @current3 = create :race, start_date: Date.today, end_date: Date.today + 1, name: 'C3'
+      @future1 = create :race, start_date: Date.today + 2, end_date: Date.today + 3, name: 'Future B'
+      @future2 = create :race, start_date: Date.today + 1, end_date: nil, name: 'Future first'
+      @future3 = create :race, start_date: Date.today + 2, end_date: Date.today + 3, name: 'Future A'
     end
 
     it "#past should return past races" do
-      expect(Race.past).to eq([@past2, @past3, @past1])
+      expect(Race.past.map(&:name)).to eq([@past2, @past3, @past1].map(&:name))
     end
 
     it "#today should return races starting or ending today" do
-      expect(Race.today).to eq([@current1, @current2, @current3])
+      expect(Race.today.map(&:name)).to eq([@current1, @current2, @current3].map(&:name))
     end
 
     it "#future should return future races" do
-      expect(Race.future).to eq([@future2, @future3, @future1])
+      expect(Race.future.map(&:name)).to eq([@future2, @future3, @future1].map(&:name))
     end
 
     describe "no date caching" do
