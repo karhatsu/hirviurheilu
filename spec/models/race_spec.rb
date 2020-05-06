@@ -277,6 +277,7 @@ describe Race do
       @current1 = create :race, start_date: Date.today - 1, end_date: Date.today + 0, name: 'C1'
       @current2 = create :race, start_date: Date.today, end_date: nil, name: 'C2'
       @current3 = create :race, start_date: Date.today, end_date: Date.today + 1, name: 'C3'
+      @current4 = create :race, start_date: Date.today - 1, end_date: Date.today + 1, name: 'C4'
       @future1 = create :race, start_date: Date.today + 2, end_date: Date.today + 3, name: 'Future B'
       @future2 = create :race, start_date: Date.today + 1, end_date: nil, name: 'Future first'
       @future3 = create :race, start_date: Date.today + 2, end_date: Date.today + 3, name: 'Future A'
@@ -286,8 +287,8 @@ describe Race do
       expect(Race.past.map(&:name)).to eq([@past2, @past3, @past1].map(&:name))
     end
 
-    it "#today should return races starting or ending today" do
-      expect(Race.today.map(&:name)).to eq([@current1, @current2, @current3].map(&:name))
+    it "#today should return races starting or ending today and ongoing multi-day races" do
+      expect(Race.today.map(&:name)).to eq([@current1, @current4, @current2, @current3].map(&:name))
     end
 
     it "#future should return future races" do
