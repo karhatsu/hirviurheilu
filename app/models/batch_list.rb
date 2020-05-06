@@ -137,13 +137,9 @@ class BatchList
       competitors.each_with_index do |competitor, i|
         if i > 0 && batch_number != batch.number
           time = batch.time
-          if concurrent_batches == 1 || batch.track == concurrent_batches || opts[:include_tracks]&.length == 1
+          track = concurrent_batches == 1 ? nil : resolve_next_track(batch.track, concurrent_batches, opts[:include_tracks])
+          if first_track? track, opts[:include_tracks]
             time = time.advance minutes: minutes_between_batches
-          end
-          if concurrent_batches == 1
-            track = nil
-          else
-            track = resolve_next_track batch.track, concurrent_batches, opts[:include_tracks]
           end
           batch = find_or_create_batch(final_round, batch_number, batch_day, time, track)
         end
@@ -224,5 +220,9 @@ class BatchList
     track = next_track > concurrent_batches ? 1 : next_track
     return track if include_tracks.include? track
     resolve_next_track track, concurrent_batches, include_tracks
+  end
+
+  def first_track?(track, include_tracks)
+    track.nil? || track == include_tracks[0]
   end
 end
