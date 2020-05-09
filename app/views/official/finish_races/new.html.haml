@@ -24,7 +24,10 @@
                     - field_name = "competitor_#{competitor.id}"
                     - checked = params[field_name] == solution || (params[field_name].blank? && solution == FinishCompetition::ACTION_COMPLETE)
                     = radio_button_tag field_name, solution, checked
-                    = label_tag field_name, t(".#{solution}")
+                    - if solution == FinishCompetition::ACTION_COMPLETE
+                      = link_to t(".#{solution}"), edit_official_series_competitor_path(competitor.series_id, competitor.id), target: '_blank'
+                    - else
+                      = label_tag field_name, t(".#{solution}")
     - unless @unfinished_series.empty?
       .form__field.form__field--md
         = label_tag :series_id, t('.series_id')
