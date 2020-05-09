@@ -124,10 +124,16 @@ function resetInlineMessage(locator) {
 
 $(document).ready(function () {
   $(document).on('click', '.binary-shot__option', function () {
-    const value = $(this).hasClass('binary-shot__option--1') ? 1 : 0
-    const otherValue = value === 1 ? 0 : 1
-    $(this).addClass('binary-shot__option--selected')
-    $(this).parent().find('.binary-shot__option--' + otherValue).removeClass('binary-shot__option--selected')
-    $(this).parent().find('input').val(value).trigger('change')
+    const alreadySelected = $(this).hasClass('binary-shot__option--selected')
+    if (alreadySelected) {
+      $(this).removeClass('binary-shot__option--selected')
+      $(this).parent().find('input').val('').trigger('change')
+    } else {
+      const value = $(this).hasClass('binary-shot__option--1') ? 1 : 0
+      const otherValue = value === 1 ? 0 : 1
+      $(this).addClass('binary-shot__option--selected')
+      $(this).parent().find('.binary-shot__option--' + otherValue).removeClass('binary-shot__option--selected')
+      $(this).parent().find('input').val(value).trigger('change')
+    }
   })
 })
