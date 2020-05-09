@@ -93,6 +93,10 @@
   #public_message_help_dialog.dialog{style: 'display:none;'}
     Tähän kenttään kirjoittamasi viesti tulee näkyviin kilpailun etusivulle.
     Voit tiedottaa sen avulla kilpailun tärkeistä asioista kilpailijoille ja kilpailua seuraavalla yleisölle.
+    %p
+      Voit muotoilla tekstiä tai lisätä linkkejä
+      = link_to 'markdown-tekniikan', 'https://www.markdownguide.org/cheat-sheet/', target: '_blank'
+      avulla.
 
   - if @race.sport.start_list?
     %h2= t 'official.races.form.start_times'
