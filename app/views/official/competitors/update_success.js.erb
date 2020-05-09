@@ -11,7 +11,7 @@ if ($('#extra_shots_<%= @competitor.id %>').length) {
   <% config = shot_fields_config @competitor.sport, @competitor %>
   <% extra_shots_count = config[:extra_shots_count] %>
   $('#extra_shots_<%= @competitor.id %>').html("<%= escape_javascript(render partial: 'official/shots/shooting_race_shots',
-    locals: { competitor: @competitor, round_rules: [extra_shots_count], base: 0, column_name: :extra_shots, field_name: 'extra_shots[]' }) %>")
+    locals: { competitor: @competitor, round_rules: [extra_shots_count], base: 0, column_name: :extra_shots, field_name: 'extra_shots[]', best_shot_value: config[:best_shot_value] }) %>")
 }
 <% else %>
 $("#shots_result_<%= @competitor.id %>").html("<%= @competitor.shooting_score %>")

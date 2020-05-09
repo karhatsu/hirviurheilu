@@ -121,3 +121,13 @@ function updateInlineMessage(locator, type, text) {
 function resetInlineMessage(locator) {
   $(locator).removeClass().text('')
 }
+
+$(document).ready(function () {
+  $(document).on('click', '.binary-shot__option', function () {
+    const value = $(this).hasClass('binary-shot__option--1') ? 1 : 0
+    const otherValue = value === 1 ? 0 : 1
+    $(this).addClass('binary-shot__option--selected')
+    $(this).parent().find('.binary-shot__option--' + otherValue).removeClass('binary-shot__option--selected')
+    $(this).parent().find('input').val(value).trigger('change')
+  })
+})
