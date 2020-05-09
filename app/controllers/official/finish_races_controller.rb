@@ -21,7 +21,7 @@ class Official::FinishRacesController < Official::OfficialController
       end
     else
       flash[:error] = finish_competition.error
-      @competitors_without_result = finish_competition.competitors_without_result
+      @competitors_without_result = finish_competition.competitors_without_result.sort {|a, b| a.number <=> b.number}
       @unfinished_series = unfinished_series
       render :new
     end
