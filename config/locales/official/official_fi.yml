@@ -272,6 +272,7 @@ fi:
         age_groups_title:
           three_sports_race: Ikäryhmät
           shooting_race: Aliryhmät
+        extra_round_info: Voit tallentaa uusintalaukaukset pilkulla erotettuina (esim. 1,1,0)
       destroy:
         team_competition_removed: Joukkuekilpailu poistettu
     finish_races:

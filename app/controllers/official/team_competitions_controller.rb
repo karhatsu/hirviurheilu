@@ -23,7 +23,9 @@ class Official::TeamCompetitionsController < Official::OfficialController
   end
 
   def update
-    if @tc.update(team_competition_params)
+    @tc.attributes = team_competition_params
+    set_extra_shots
+    if @tc.save
       @tc.series.delete_all if params[:team_competition][:series_ids].blank?
       @tc.age_groups.delete_all if params[:team_competition][:age_group_ids].blank?
       flash[:success] = t('official.team_competitions.update.team_competition_updated')
@@ -47,5 +49,17 @@ class Official::TeamCompetitionsController < Official::OfficialController
   def team_competition_params
     params.require(:team_competition).permit(:name, :team_competitor_count, :multiple_teams, :use_team_name,
                                              :national_record, series_ids: [], age_group_ids: [])
+  end
+
+  def set_extra_shots
+    return if params[:extra_shots_club_id].blank?
+    club_ids = params[:extra_shots_club_id].map(&:to_i)
+    @tc.extra_shots = []
+    club_ids.each_with_index do |club_id, i|
+      if club_id > 0
+        shots = params[:extra_shots][i].split(',').map(&:strip).map(&:to_i)
+        @tc.extra_shots << { club_id: club_id, shots: shots }
+      end
+    end
   end
 end

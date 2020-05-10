@@ -1,0 +1,5 @@
+.form__horizontal-fields
+  .form__field.form__field--md
+    = select_tag 'extra_shots_club_id[]', options_from_collection_for_select(@race.clubs, :id, :name, extra['club_id']), prompt: t(:club)
+  .form__field.form__field--md
+    = text_field_tag 'extra_shots[]', extra['shots'].join(',')

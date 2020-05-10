@@ -271,6 +271,7 @@ sv:
         age_groups_title:
           three_sports_race: Äldsgruppar
           shooting_race: Gruppar
+        extra_round_info: Voit tallentaa uusintalaukaukset pilkulla erotettuina (esim. 1,1,0)
       destroy:
         team_competition_removed: Joukkuekilpailu poistettu
     finish_races:
