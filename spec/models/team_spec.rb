@@ -26,6 +26,10 @@ describe Team do
     expect(team.name).to eql name
   end
 
+  it 'provides club_id' do
+    expect(team.club_id).to eql club_id
+  end
+
   it 'provides competitors' do
     expect(team.competitors.length).to eql 3
   end
