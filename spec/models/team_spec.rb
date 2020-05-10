@@ -4,11 +4,15 @@ describe Team do
   let(:sport) { instance_double Sport }
   let(:race) { instance_double Race }
   let(:national_record) { nil }
-  let(:team_competition) { instance_double TeamCompetition, race: race, sport: sport, national_record: national_record }
+  let(:extra_shots) { nil }
+  let(:team_competition) { instance_double TeamCompetition, race: race, sport: sport, national_record: national_record, extra_shots: extra_shots }
   let(:name) { 'The club' }
-  let(:team) { Team.new team_competition, name }
+  let(:max_extra_shots) { 0 }
+  let(:club_id) { 10 }
+  let(:team) { Team.new team_competition, name, club_id }
 
   before do
+    allow(team_competition).to receive(:max_extra_shots).and_return(max_extra_shots)
     team << build_competitor(1000, 97, nil, 10, [10, 9, 5, 6, 4, 11])
     team << build_competitor(900, 98, 1201, 8, [1, 10, 5, 2, 2, 3, 8])
     team << build_competitor(800, 96, 1199, 9, [9, 9, 9, 7, 0, 1, 2])
@@ -51,7 +55,7 @@ describe Team do
   end
 
   context 'when one of the competitors does not have shooting score yet' do
-    let(:team2) { Team.new team_competition, 'Team 2' }
+    let(:team2) { Team.new team_competition, 'Team 2', club_id }
 
     before do
       team2 << build_competitor(300, 570, nil, 10, [9, 9, 9, 9, 9, 9, 9, 9, 9, 9])
@@ -106,6 +110,40 @@ describe Team do
     it 'national record is not reached but is passed' do
       expect(team.national_record_passed?).to be_truthy
       expect(team.national_record_reached?).to be_falsey
+    end
+  end
+
+  context 'when no extra shots in use' do
+    it 'returns empty extra shots' do
+      expect(team.extra_shots).to eql []
+    end
+  end
+
+  context 'when extra shots used' do
+    let(:max_extra_shots) { 3 }
+
+    context 'and the team has them all' do
+      let(:extra_shots) { [{ "club_id" => club_id + 1, "shots" => [1] }, { "club_id" => club_id, "shots" => [1, 0, 1] }] }
+
+      it 'returns them as such' do
+        expect(team.extra_shots).to eql [1, 0, 1]
+      end
+    end
+
+    context 'and the team is missing some of them' do
+      let(:extra_shots) { [{ "club_id" => club_id, "shots" => [1] }, { "club_id" => club_id + 1, "shots" => [1, 0, 1] }] }
+
+      it 'returns them filled with zeros to max extra shots' do
+        expect(team.extra_shots).to eql [1, 0, 0]
+      end
+    end
+
+    context 'but the team does not have them' do
+      let(:extra_shots) { [{ "club_id" => club_id - 1, "shots" => [1] }, { "club_id" => club_id + 1, "shots" => [1, 0, 1] }] }
+
+      it 'returns as many zeros as max extra shots' do
+        expect(team.extra_shots).to eql [0, 0, 0]
+      end
     end
   end
 

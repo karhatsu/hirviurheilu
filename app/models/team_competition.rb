@@ -55,6 +55,10 @@ class TeamCompetition < ApplicationRecord
     sorted_teams
   end
 
+  def max_extra_shots
+    extra_shots ? extra_shots.map {|x| x['shots'].length}.max : 0
+  end
+
   private
   def find_competitors
     competitors = []
@@ -78,7 +82,7 @@ class TeamCompetition < ApplicationRecord
       competitor_counter_by_team[base_team_name] ||= 0
       team_name = team_name_with_number base_team_name, competitor_counter_by_team[base_team_name]
       next unless team_name
-      teams[team_name] ||= Team.new(self, team_name)
+      teams[team_name] ||= Team.new(self, team_name, competitor.club_id)
       teams[team_name] << competitor
       competitor_counter_by_team[base_team_name] = competitor_counter_by_team[base_team_name] + 1
     end
@@ -95,8 +99,8 @@ class TeamCompetition < ApplicationRecord
   def sort_teams(hash)
     if sport.shooting?
       hash.values.sort do |a, b|
-        [b.total_score, b.best_competitor_score, b.hits] + b.shot_counts <=>
-            [a.total_score, a.best_competitor_score, a.hits] + a.shot_counts
+        [b.total_score] + b.extra_shots + [b.best_competitor_score, b.hits] + b.shot_counts <=>
+            [a.total_score] + a.extra_shots + [a.best_competitor_score, a.hits] + a.shot_counts
       end
     else
       hash.values.sort do |a, b|

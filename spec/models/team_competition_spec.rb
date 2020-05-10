@@ -45,7 +45,8 @@ describe TeamCompetition do
 
     context 'when none of the clubs have enough competitors' do
       let(:club) { instance_double Club, display_name: 'Test club' }
-      let(:competitor) { instance_double Competitor, club: club, shooting_score: 100, time_in_seconds: 500, unofficial: false, race: race }
+      let(:club_id) { 5 }
+      let(:competitor) { instance_double Competitor, club: club, shooting_score: 100, time_in_seconds: 500, unofficial: false, race: race, club_id: club_id }
 
       before do
         allow(competitor).to receive(:team_competition_points).with(sport).and_return(1100)
@@ -79,14 +80,14 @@ describe TeamCompetition do
         @default_shooting_score = 90
         @default_time_in_seconds = 1000
 
-        @club_best_total_points = instance_double(Club, display_name: 'Club 1')
-        @club_best_single_points = instance_double(Club, display_name: 'Club 2')
-        @club_best_single_shots = instance_double(Club, display_name: 'Club 3')
-        @club_best_single_time = instance_double(Club, display_name: 'Club 4')
-        @club_worst = instance_double(Club, display_name: 'Club 5')
-        @club_small = instance_double(Club, display_name: 'Club small')
-        @club_unofficial = instance_double(Club, display_name: 'Club unofficial')
-        @club_no_result = instance_double(Club, display_name: 'Club no results yet')
+        @club_best_total_points = instance_double(Club, display_name: 'Club 1', id: 1)
+        @club_best_single_points = instance_double(Club, display_name: 'Club 2', id: 2)
+        @club_best_single_shots = instance_double(Club, display_name: 'Club 3', id: 3)
+        @club_best_single_time = instance_double(Club, display_name: 'Club 4', id: 4)
+        @club_worst = instance_double(Club, display_name: 'Club 5', id: 5)
+        @club_small = instance_double(Club, display_name: 'Club small', id: 6)
+        @club_unofficial = instance_double(Club, display_name: 'Club unofficial', id: 7)
+        @club_no_result = instance_double(Club, display_name: 'Club no results yet', id: 8)
 
         @best_points_1 = 1100
         @best_points_2 = 1000
@@ -200,7 +201,7 @@ describe TeamCompetition do
 
       def create_competitor(club, points, options={})
         competitor = instance_double(Competitor, {club: club, shooting_score: @default_shooting_score,
-                                     time_in_seconds: @default_time_in_seconds,
+                                     time_in_seconds: @default_time_in_seconds, club_id: club.id,
                                      team_name: nil}.merge(options))
         allow(competitor).to receive(:team_competition_points).with(sport).and_return(points)
         allow(competitor).to receive(:unofficial?).and_return(options[:unofficial])
@@ -269,15 +270,14 @@ describe TeamCompetition do
 
     context 'when shooting race' do
       let(:sport_key) { Sport::ILMAHIRVI }
-      let(:club1) { build :club, name: 'Best points' }
-      let(:club2) { build :club, name: 'Best competitor points' }
-      let(:club3) { build :club, name: 'Most hits' }
-      let(:club4) { build :club, name: 'More big shots' }
-      let(:club5) { build :club, name: 'Last' }
+      let(:club1) { build :club, id: 1, name: 'Best points' }
+      let(:club2) { build :club, id: 2, name: 'Best competitor points' }
+      let(:club3) { build :club, id: 3, name: 'Most hits' }
+      let(:club4) { build :club, id: 4, name: 'More big shots' }
+      let(:club5) { build :club, id: 5, name: 'Last' }
+      let(:competitors) { [] }
 
       before do
-        competitors = []
-
         competitors << build_shooting_competitor(club1, 91, 9, [8, 8, 9, 9, 7, 7])
         competitors << build_shooting_competitor(club1, 90, 9, [8, 8, 9, 9, 7, 7])
 
@@ -297,11 +297,23 @@ describe TeamCompetition do
       end
 
       it 'sorts teams by 1. total points 2. best competitor points 3. count of hits for the team' do
-        expect(@results[0].name).to eql club1.name
-        expect(@results[1].name).to eql club2.name
-        expect(@results[2].name).to eql club3.name
-        expect(@results[3].name).to eql club4.name
-        expect(@results[4].name).to eql club5.name
+        expect([0, 1, 2, 3, 4].map{|i| @results[i].name}).to eql [club1, club2, club3, club4, club5].map(&:name)
+      end
+
+      context 'and shotgun race with extra shots' do
+        before do
+          tc.extra_shots = []
+          tc.extra_shots << { "club_id" => club1.id, "shots" => [0] } # should ignore this
+          tc.extra_shots << { "club_id" => club2.id, "shots" => [1] } # should ignore this
+          tc.extra_shots << { "club_id" => club3.id, "shots" => [0, 1, 0] }
+          tc.extra_shots << { "club_id" => club4.id, "shots" => [0, 1, 1] }
+          tc.extra_shots << { "club_id" => club5.id, "shots" => [1] }
+          @results = tc.results_for_competitors competitors
+        end
+
+        it 'sorts teams with equal points using extra shots' do
+          expect([0, 1, 2, 3, 4].map{|i| @results[i].name}).to eql [club1, club2, club5, club4, club3].map(&:name)
+        end
       end
 
       def build_shooting_competitor(club, qualification_round_score, hits, shots)
@@ -309,6 +321,7 @@ describe TeamCompetition do
         allow(competitor).to receive(:qualification_round_score).and_return(qualification_round_score)
         allow(competitor).to receive(:hits).and_return(hits)
         allow(competitor).to receive(:shots).and_return(shots)
+        allow(competitor).to receive(:club_id).and_return(club.id)
         competitor
       end
     end

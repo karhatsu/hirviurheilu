@@ -1,10 +1,11 @@
 class Team
   attr_reader :name, :competitors
 
-  def initialize(team_competition, name)
+  def initialize(team_competition, name, club_id)
     @team_competition = team_competition
     @sport = team_competition.sport
     @name = name
+    @club_id = club_id
     @competitors = []
   end
 
@@ -45,6 +46,13 @@ class Team
       end
     end
     counts
+  end
+
+  def extra_shots
+    return [] if @team_competition.max_extra_shots == 0
+    own = @team_competition.extra_shots.find {|x| x['club_id'] == @club_id}
+    own_shots = own ? own['shots'] : []
+    own_shots + Array.new(@team_competition.max_extra_shots - own_shots.length, 0)
   end
 
   def national_record_reached?
