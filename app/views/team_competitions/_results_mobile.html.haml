@@ -5,8 +5,8 @@
       .card__number #{i + 1}.
       .card__middle
         .card__name= club_name
-        - if @tc.extra_shots
-          - team_extra_shots = @tc.extra_shots.find {|x| x['club_id'] == team.club_id}
+        - if team_competition.extra_shots
+          - team_extra_shots = team_competition.extra_shots.find {|x| x['club_id'] == team.club_id}
           - if team_extra_shots
             .card__middle-row
               #{t :extra_round}:

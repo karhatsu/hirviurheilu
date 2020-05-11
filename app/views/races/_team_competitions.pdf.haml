@@ -6,5 +6,5 @@
       .page-break
     %h2= tc.name
     - cache [tc, I18n.locale] do
-      = render :partial => 'team_competitions/results', :locals => { :results => tc.results }
+      = render partial: 'team_competitions/results', locals: { results: tc.results, team_competition: tc }
     %hr

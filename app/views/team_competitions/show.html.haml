@@ -14,8 +14,8 @@
     .buttons
       %a#show_all_competitors.button{href: "javascript:void(0)"}= t :show_all_competitors
       %a#hide_all_competitors.button{href: "javascript:void(0)", style: 'display:none;'}= t :hide_all_competitors
-    .results--desktop= render partial: 'results', locals: { results: results }
-    .results--mobile= render partial: 'results_mobile', locals: { results: results }
+    .results--desktop= render partial: 'results', locals: { results: results, team_competition: @tc }
+    .results--mobile= render partial: 'results_mobile', locals: { results: results, team_competition: @tc }
   - unless results.empty?
     .buttons
       = link_to t(:download_results_pdf_without_competitors), race_team_competition_path(@race, @tc, exclude_competitors: true, format: 'pdf'), class: 'button button--pdf'

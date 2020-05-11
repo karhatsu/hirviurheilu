@@ -5,7 +5,7 @@
     %th &nbsp;
     %th= t(:team)
     %th= @race.sport.shooting? ? t(:result) : t(:points)
-    - if @tc.max_extra_shots > 0
+    - if team_competition.max_extra_shots > 0
       %th.center= t :extra_round
     - unless params[:exclude_competitors]
       - unless @race.sport.shooting?
@@ -26,8 +26,8 @@
       %td.center.team_points
         = team.total_score
         = national_record_print(team) if i == 0
-      - if @tc.max_extra_shots > 0
-        - team_extra_shots = @tc.extra_shots.find {|x| x['club_id'] == team.club_id}
+      - if team_competition.max_extra_shots > 0
+        - team_extra_shots = team_competition.extra_shots.find {|x| x['club_id'] == team.club_id}
         - if team_extra_shots
           %td= team_extra_shots['shots'].join(', ')
         - else

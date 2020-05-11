@@ -6,4 +6,4 @@
   - if results.empty?
     .message.message--info Joukkuekilpailun tuloksia ei voida vielä laskea
   - else
-    = render :partial => 'results', :locals => { :results => results }
+    = render partial: 'results', locals: { results: results, team_competition: @tc }
