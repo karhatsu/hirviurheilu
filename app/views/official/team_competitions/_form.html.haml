@@ -55,8 +55,9 @@
     %h3= t :extra_round
     .message.message--info= t 'official.team_competitions.form.extra_round_info'
     #extra-round
-      - @tc.extra_shots.each do |extra|
-        = render partial: 'club_extra_shots', locals: { extra: extra }
+      - if @tc.extra_shots
+        - @tc.extra_shots.each do |extra|
+          = render partial: 'club_extra_shots', locals: { extra: extra }
     .form__buttons
       = link_to t(:add), '#', class: 'button button--add', id: 'add-extra'
   .form__buttons
