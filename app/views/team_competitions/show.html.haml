@@ -26,14 +26,14 @@
     = link_to "#{t(:back_to_page)} #{@race.name}", race_path(@race), class: 'button button--back'
 :javascript
   function showAllCompetitors() {
-    $('.card__middle-row').show();
+    $('.competitors').show();
     $('.competitor_row').show();
     $('#show_all_competitors').hide();
     $('#hide_all_competitors').show();
     window.location.hash = 'competitors'
   }
   function hideAllCompetitors() {
-    $('.card__middle-row').hide();
+    $('.competitors').hide();
     $('.competitor_row').hide();
     $('#show_all_competitors').show();
     $('#hide_all_competitors').hide();

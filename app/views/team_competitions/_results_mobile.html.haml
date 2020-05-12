@@ -11,7 +11,7 @@
             .card__middle-row
               #{t :extra_round}:
               = team_extra_shots['shots'].join(', ')
-        .card__middle-row{style: 'display: none'}
+        .card__middle-row.competitors{style: 'display: none'}
           - team.competitors.each do |competitor|
             %div
               #{full_name competitor},
