@@ -27,7 +27,7 @@ describe Sport do
     end
 
     it 'METSASTYSHAULIKKO' do
-      expect(Sport.by_key('METSASTYSHAULIKKO').name).to eq('Metsästyshaulukko')
+      expect(Sport.by_key('METSASTYSHAULIKKO').name).to eq('Metsästyshaulikko')
       expect(Sport.by_key('METSASTYSHAULIKKO').qualification_round).to eql [25]
       expect(Sport.by_key('METSASTYSHAULIKKO').best_shot_value).to eql 1
     end

@@ -131,7 +131,7 @@ class Sport
       )),
       METSASTYSHAULIKKO: OpenStruct.new(SHOTGUN_CONFIG.merge(
           {
-              name: 'Metsästyshaulukko',
+              name: 'Metsästyshaulikko',
           }
       )),
       METSASTYSTRAP: OpenStruct.new(SHOTGUN_CONFIG.merge(
