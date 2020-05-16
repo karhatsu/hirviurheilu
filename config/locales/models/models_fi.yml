@@ -284,3 +284,7 @@ fi:
               cannot_generate_start_times_already_arrival_times: Lähtöaikoja ei voi generoida, sillä osalla kilpailijoista on jo saapumisaika
             start_time:
               too_big: on liian iso (lähtöajat alkavat lukemasta 00:00:00)
+        team_competition:
+          attributes:
+            extra_shots:
+              invalid_shots: sisältää virheellisiä laukauksia

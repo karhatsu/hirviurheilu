@@ -284,3 +284,7 @@ sv:
               cannot_generate_start_times_already_arrival_times: Kan inte skapa starttider, eftersom några tävlar redan har avkomstid
             start_time:
               too_big: är för stor (starttider börjar av 00:00:00)
+        team_competition:
+          attributes:
+            extra_shots:
+              invalid_shots: innehåller feliga skott

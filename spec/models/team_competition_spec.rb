@@ -19,6 +19,31 @@ describe TeamCompetition do
     it { is_expected.to allow_value(2).for(:team_competitor_count) }
 
     it_should_behave_like 'positive integer', :national_record, true
+
+    describe 'extra_shots' do
+      it 'should accept nil for shots' do
+        expect(build :team_competition, extra_shots: [{ "shots1" => nil, "shots2" => nil }]).to be_valid
+      end
+
+      it 'should accept empty array for shots' do
+        expect(build :team_competition, extra_shots: [{ "shots1" => [], "shots2" => [] }]).to be_valid
+      end
+
+      it 'should accept array with zeros and ones for shots' do
+        extra_shots = [{ "shots1" => [1, 0], "shots2" => [0, 1, 1] }, { "shots1" => [0], "shots2" => [1] }]
+        expect(build :team_competition, extra_shots: extra_shots).to be_valid
+      end
+
+      it 'should not accept array with something else than zeros and ones for shots 1' do
+        extra_shots = [{ "shots1" => [1], "shots2" => [0] }, { "shots1" => [11], "shots2" => [0] }]
+        expect(build :team_competition, extra_shots: extra_shots).to have(1).errors_on(:extra_shots)
+      end
+
+      it 'should not accept array with something else than zeros and ones for shots 2' do
+        extra_shots = [{ "shots1" => [1], "shots2" => [0] }, { "shots1" => [1], "shots2" => [1, 0, 2] }]
+        expect(build :team_competition, extra_shots: extra_shots).to have(1).errors_on(:extra_shots)
+      end
+    end
   end
 
   describe '#cache_key' do

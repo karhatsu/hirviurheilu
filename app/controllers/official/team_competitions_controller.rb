@@ -59,7 +59,7 @@ class Official::TeamCompetitionsController < Official::OfficialController
       if club_id > 0
         shots1 = convert_shots params[:extra_shots1][i]
         shots2 = convert_shots params[:extra_shots2][i]
-        @tc.extra_shots << { club_id: club_id, shots1: shots1, shots2: shots2 }
+        @tc.extra_shots << { "club_id" => club_id, "shots1" => shots1, "shots2" => shots2 }
       end
     end
   end

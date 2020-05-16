@@ -6,6 +6,7 @@ class TeamCompetition < ApplicationRecord
   validates :name, :presence => true
   validates :team_competitor_count, numericality: { only_integer: true, greater_than: 1 }
   validates :national_record, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
+  validate :extra_shots_values
 
   attr_accessor :temp_series_names, :temp_age_groups_names
 
@@ -61,6 +62,18 @@ class TeamCompetition < ApplicationRecord
   end
 
   private
+
+  def extra_shots_values
+    return unless extra_shots
+    extra_shots.each do |x|
+      errors.add(:extra_shots, :invalid_shots) and break unless valid_shots(x['shots1']) && valid_shots(x['shots2'])
+    end
+  end
+
+  def valid_shots(shots)
+    shots.nil? || shots.all? {|shot| shot == 0 || shot == 1}
+  end
+
   def find_competitors
     competitors = []
     includes = [:series, :club, :age_group]
