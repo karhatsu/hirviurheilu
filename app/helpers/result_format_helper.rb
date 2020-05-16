@@ -108,4 +108,11 @@ module ResultFormatHelper
     return "#{time_from_seconds competitor.time_in_seconds(true)} (#{leg_time})" if relay.penalty_seconds?
     leg_time
   end
+
+  def team_extra_shots(team)
+    best_shots = team.raw_extra_shots.join(', ')
+    seconds_shots = team.raw_extra_shots true
+    return "#{best_shots} (#{seconds_shots.join(', ')})" if seconds_shots.length > 0
+    best_shots
+  end
 end

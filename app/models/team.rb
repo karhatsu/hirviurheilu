@@ -55,11 +55,13 @@ class Team
     fill_shots own["shots#{best_shooter(own)}"]
   end
 
-  def raw_extra_shots
+  def raw_extra_shots(worse=false)
     return [] if @team_competition.max_extra_shots == 0
     own = @team_competition.extra_shots.find {|x| x['club_id'] == @club_id}
     return [] unless own
-    own["shots#{best_shooter(own)}"]
+    shooter = best_shooter(own)
+    shooter = shooter == 1 ? 2 : 1 if worse
+    own["shots#{shooter}"]
   end
 
   def national_record_reached?

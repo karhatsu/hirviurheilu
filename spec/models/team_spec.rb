@@ -177,6 +177,10 @@ describe Team do
         it 'raw extra shots is shots of best' do
           expect(team.raw_extra_shots).to eql [1, 0]
         end
+
+        it 'raw extra shots can be returned for worse competitor as well' do
+          expect(team.raw_extra_shots(true)).to eql [1]
+        end
       end
 
       context 'and both have the same amount of shots' do

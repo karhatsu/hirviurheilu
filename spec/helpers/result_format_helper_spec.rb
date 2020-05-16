@@ -404,4 +404,25 @@ describe ResultFormatHelper do
       end
     end
   end
+
+  describe '#team_extra_shots' do
+    let(:team) { double Team }
+    before do
+      allow(team).to receive(:raw_extra_shots).and_return([1, 0, 1])
+    end
+
+    context 'when no worse shots' do
+      it 'returns only best shots' do
+        allow(team).to receive(:raw_extra_shots).with(true).and_return([])
+        expect(team_extra_shots(team)).to eql '1, 0, 1'
+      end
+    end
+
+    context 'when worse shots' do
+      it 'returns best shots and worse shots in brackets' do
+        allow(team).to receive(:raw_extra_shots).with(true).and_return([0, 1])
+        expect(team_extra_shots(team)).to eql '1, 0, 1 (0, 1)'
+      end
+    end
+  end
 end
