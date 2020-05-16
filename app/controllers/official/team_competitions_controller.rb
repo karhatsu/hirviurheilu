@@ -57,9 +57,14 @@ class Official::TeamCompetitionsController < Official::OfficialController
     @tc.extra_shots = []
     club_ids.each_with_index do |club_id, i|
       if club_id > 0
-        shots = params[:extra_shots][i].split(',').map(&:strip).map(&:to_i)
-        @tc.extra_shots << { club_id: club_id, shots: shots }
+        shots1 = convert_shots params[:extra_shots1][i]
+        shots2 = convert_shots params[:extra_shots2][i]
+        @tc.extra_shots << { club_id: club_id, shots1: shots1, shots2: shots2 }
       end
     end
+  end
+
+  def convert_shots(shots_field)
+    shots_field.split(',').map(&:strip).map(&:to_i)
   end
 end

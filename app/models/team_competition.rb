@@ -56,7 +56,8 @@ class TeamCompetition < ApplicationRecord
   end
 
   def max_extra_shots
-    extra_shots ? extra_shots.map {|x| x['shots'].length}.max : 0
+    return 0 unless extra_shots
+    extra_shots.map {|x| [x['shots1']&.length, x['shots2']&.length].map(&:to_i)}.flatten.max
   end
 
   private

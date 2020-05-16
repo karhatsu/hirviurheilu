@@ -303,11 +303,11 @@ describe TeamCompetition do
       context 'and shotgun race with extra shots' do
         before do
           tc.extra_shots = []
-          tc.extra_shots << { "club_id" => club1.id, "shots" => [0] } # should ignore this
-          tc.extra_shots << { "club_id" => club2.id, "shots" => [1] } # should ignore this
-          tc.extra_shots << { "club_id" => club3.id, "shots" => [0, 1, 0] }
-          tc.extra_shots << { "club_id" => club4.id, "shots" => [0, 1, 1] }
-          tc.extra_shots << { "club_id" => club5.id, "shots" => [1] }
+          tc.extra_shots << { "club_id" => club1.id, "shots1" => [0] } # should ignore this
+          tc.extra_shots << { "club_id" => club2.id, "shots2" => [1] } # should ignore this
+          tc.extra_shots << { "club_id" => club3.id, "shots1" => [0], "shots2" => [0, 1, 0] }
+          tc.extra_shots << { "club_id" => club4.id, "shots1" => [0, 0], "shots2" => [0, 1, 1] }
+          tc.extra_shots << { "club_id" => club5.id, "shots1" => [1], "shots2" => [0] }
           @results = tc.results_for_competitors competitors
         end
 

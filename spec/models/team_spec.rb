@@ -121,32 +121,75 @@ describe Team do
     it 'returns empty extra shots' do
       expect(team.extra_shots).to eql []
     end
+
+    it 'raw extra shots is empty array' do
+      expect(team.raw_extra_shots).to eql []
+    end
   end
 
   context 'when extra shots used' do
     let(:max_extra_shots) { 3 }
 
     context 'and the team has them all' do
-      let(:extra_shots) { [{ "club_id" => club_id + 1, "shots" => [1] }, { "club_id" => club_id, "shots" => [1, 0, 1] }] }
+      let(:extra_shots) { [{ "club_id" => club_id + 1, "shots1" => [1] }, { "club_id" => club_id, "shots1" => [1, 0, 1], "shots2" => [] }] }
 
       it 'returns them as such' do
         expect(team.extra_shots).to eql [1, 0, 1]
       end
+
+      it 'raw extra shots is same as shots' do
+        expect(team.raw_extra_shots).to eql [1, 0, 1]
+      end
     end
 
     context 'and the team is missing some of them' do
-      let(:extra_shots) { [{ "club_id" => club_id, "shots" => [1] }, { "club_id" => club_id + 1, "shots" => [1, 0, 1] }] }
+      let(:extra_shots) { [{ "club_id" => club_id, "shots1" => [], "shots2" => [1] }, { "club_id" => club_id + 1, "shots1" => [1, 0, 1] }] }
 
       it 'returns them filled with zeros to max extra shots' do
         expect(team.extra_shots).to eql [1, 0, 0]
       end
+
+      it 'raw extra shots is original shots' do
+        expect(team.raw_extra_shots).to eql [1]
+      end
     end
 
     context 'but the team does not have them' do
-      let(:extra_shots) { [{ "club_id" => club_id - 1, "shots" => [1] }, { "club_id" => club_id + 1, "shots" => [1, 0, 1] }] }
+      let(:extra_shots) { [{ "club_id" => club_id - 1, "shots1" => [1] }, { "club_id" => club_id + 1, "shots1" => [1, 0, 1] }] }
 
       it 'returns as many zeros as max extra shots' do
         expect(team.extra_shots).to eql [0, 0, 0]
+      end
+
+      it 'raw extra shots is empty array' do
+        expect(team.raw_extra_shots).to eql []
+      end
+    end
+
+    context 'and shots of both shooters saved' do
+      context 'and the other has less shots' do
+        let(:extra_shots) { [{ "club_id" => club_id, "shots1" => [1], "shots2" => [1, 0] }] }
+
+        it 'returns the one with most shots' do
+          expect(team.extra_shots).to eql [1, 0, 0]
+        end
+
+        it 'raw extra shots is shots of best' do
+          expect(team.raw_extra_shots).to eql [1, 0]
+        end
+      end
+
+      context 'and both have the same amount of shots' do
+        let(:max_extra_shots) { 4 }
+        let(:extra_shots) { [{ "club_id" => club_id, "shots1" => [1, 0, 1, 1], "shots2" => [1, 0, 1, 0] }] }
+
+        it 'returns the one with best result' do
+          expect(team.extra_shots).to eql [1, 0, 1, 1]
+        end
+
+        it 'raw extra shots is shots of best' do
+          expect(team.raw_extra_shots).to eql [1, 0, 1, 1]
+        end
       end
     end
   end

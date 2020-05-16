@@ -27,9 +27,8 @@
         = team.total_score
         = national_record_print(team) if i == 0
       - if team_competition.max_extra_shots > 0
-        - team_extra_shots = team_competition.extra_shots.find {|x| x['club_id'] == team.club_id}
-        - if team_extra_shots
-          %td= team_extra_shots['shots'].join(', ')
+        - if team.raw_extra_shots
+          %td= team.raw_extra_shots.join(', ')
         - else
           %td &nbsp;
       - unless params[:exclude_competitors]

@@ -271,7 +271,9 @@ sv:
         age_groups_title:
           three_sports_race: Äldsgruppar
           shooting_race: Gruppar
-        extra_round_info: Voit tallentaa uusintalaukaukset pilkulla erotettuina (esim. 1,1,0)
+        extra_round_info: Voit tallentaa kahden eri laukojan uusintalaukaukset pilkulla erotettuina (esim. 1,1,0)
+        extra_round_placeholder1: "Skytt 1, t.ex: 1,0"
+        extra_round_placeholder2: "Skytt 2, t.ex: 1,1,1"
       destroy:
         team_competition_removed: Joukkuekilpailu poistettu
     finish_races:

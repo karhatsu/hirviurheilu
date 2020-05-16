@@ -65,7 +65,7 @@
 :javascript
   $('#add-extra').click(function (event) {
     event.preventDefault()
-    $('#extra-round').append("#{escape_javascript(render partial: 'club_extra_shots', locals: { extra: { "shots" => [] } })}")
+    $('#extra-round').append("#{escape_javascript(render partial: 'club_extra_shots', locals: { extra: { "shots1" => [], "shots2" => [] } })}")
   })
   var use_team_name_help_title = 'Joukkueiden muodostaminen';
 = render :partial => 'shared/help_dialog_opener'

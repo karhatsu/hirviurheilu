@@ -51,8 +51,15 @@ class Team
   def extra_shots
     return [] if @team_competition.max_extra_shots == 0
     own = @team_competition.extra_shots.find {|x| x['club_id'] == @club_id}
-    own_shots = own ? own['shots'] : []
-    own_shots + Array.new(@team_competition.max_extra_shots - own_shots.length, 0)
+    return fill_shots [] unless own
+    fill_shots own["shots#{best_shooter(own)}"]
+  end
+
+  def raw_extra_shots
+    return [] if @team_competition.max_extra_shots == 0
+    own = @team_competition.extra_shots.find {|x| x['club_id'] == @club_id}
+    return [] unless own
+    own["shots#{best_shooter(own)}"]
   end
 
   def national_record_reached?
@@ -61,5 +68,23 @@ class Team
 
   def national_record_passed?
     @team_competition.national_record && total_score.to_i > @team_competition.national_record.to_i
+  end
+
+  private
+
+  def calculate_shots_sum(shots)
+    return 0 unless shots
+    shots.inject(:+)
+  end
+
+  def best_shooter(own_extra_shots)
+    shots1_sum = calculate_shots_sum own_extra_shots['shots1']
+    shots2_sum = calculate_shots_sum own_extra_shots['shots2']
+    return own_extra_shots['shots2']&.length.to_i > own_extra_shots['shots1']&.length.to_i ? 2 : 1 if shots1_sum == shots2_sum
+    shots2_sum.to_i > shots1_sum.to_i ? 2 : 1
+  end
+
+  def fill_shots(own_shots)
+    own_shots + Array.new(@team_competition.max_extra_shots - own_shots.length, 0)
   end
 end
