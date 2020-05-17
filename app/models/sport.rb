@@ -7,9 +7,10 @@ class Sport
   METSASTYSLUODIKKO = "METSASTYSLUODIKKO"
   METSASTYSHAULIKKO = "METSASTYSHAULIKKO"
   METSASTYSTRAP = "METSASTYSTRAP"
+  NORDIC = "NORDIC"
 
   ALL_KEYS = [Sport::RUN, Sport::SKI, Sport::ILMAHIRVI, Sport::ILMALUODIKKO, Sport::METSASTYSHIRVI,
-              Sport::METSASTYSLUODIKKO, Sport::METSASTYSHAULIKKO, Sport::METSASTYSTRAP]
+              Sport::METSASTYSLUODIKKO, Sport::METSASTYSHAULIKKO, Sport::METSASTYSTRAP, Sport::NORDIC]
 
   BASE_CONFIGS = {
       SKI_AND_RUN: {
@@ -138,7 +139,12 @@ class Sport
           {
               name: 'Metsästystrap',
           }
-      ))
+      )),
+      NORDIC: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
+          {
+              name: 'Pohjoismainen metsästysammunta',
+          }
+      )),
   }
 
   def self.by_key(key)
