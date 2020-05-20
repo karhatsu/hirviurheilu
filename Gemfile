@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 ruby '2.7.1'
 
-gem 'rails', '6.0.3'
+gem 'rails', '6.0.3.1'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-themes'
