@@ -384,12 +384,22 @@ describe Competitor do
     end
 
     describe 'nordic results' do
+      shared_examples_for 'only single score method' do |score_input_attribute, shots_attribute|
+        it 'score input cannot be used when also shots given' do
+          competitor = build :competitor, shots: [1]
+          competitor.send("#{shots_attribute}=", [1])
+          competitor.send("#{score_input_attribute}=", 25)
+          expect(competitor).to have(1).errors_on(:base)
+        end
+      end
+
       describe 'trap_shots' do
         it_should_behave_like 'shotgun shots', :nordic_trap_shots
       end
 
       describe 'trap_score_input' do
         it_should_behave_like 'non-negative integer', :nordic_trap_score_input, true, max_value: 25
+        it_should_behave_like 'only single score method', :nordic_trap_score_input, :nordic_trap_shots
       end
 
       describe 'shotgun_shots' do
@@ -398,6 +408,7 @@ describe Competitor do
 
       describe 'shotgun_score_input' do
         it_should_behave_like 'non-negative integer', :nordic_shotgun_score_input, true, max_value: 25
+        it_should_behave_like 'only single score method', :nordic_shotgun_score_input, :nordic_shotgun_shots
       end
 
       describe 'rifle_moving_shots' do
@@ -406,6 +417,7 @@ describe Competitor do
 
       describe 'rifle_moving_score_input' do
         it_should_behave_like 'non-negative integer', :nordic_rifle_moving_score_input, true, max_value: 100
+        it_should_behave_like 'only single score method', :nordic_rifle_moving_score_input, :nordic_rifle_moving_shots
       end
 
       describe 'rifle_standing_shots' do
@@ -414,6 +426,7 @@ describe Competitor do
 
       describe 'rifle_standing_score_input' do
         it_should_behave_like 'non-negative integer', :nordic_rifle_standing_score_input, true, max_value: 100
+        it_should_behave_like 'only single score method', :nordic_rifle_standing_score_input, :nordic_rifle_standing_shots
       end
     end
   end

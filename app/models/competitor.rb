@@ -50,6 +50,7 @@ class Competitor < ApplicationRecord
   validate :start_time_max
   validate :times_in_correct_order
   validate :only_one_shot_input_method_used
+  validate :only_one_shot_input_method_used_nordic
   validate :qualification_round_shooting_score_input_max_value
   validate :final_round_shooting_score_input_max_value
   validate :shots_array_values
@@ -319,6 +320,13 @@ class Competitor < ApplicationRecord
   def only_one_shot_input_method_used
     if shots && (shooting_score_input || qualification_round_shooting_score_input || final_round_shooting_score_input)
       errors.add(:base, :shooting_result_either_sum_or_by_shots)
+    end
+  end
+
+  def only_one_shot_input_method_used_nordic
+    if (nordic_trap_shots && nordic_trap_score_input) || (nordic_shotgun_shots && nordic_shotgun_score_input) ||
+        (nordic_rifle_moving_shots && nordic_rifle_moving_score_input) || (nordic_rifle_standing_shots && nordic_rifle_standing_score_input)
+      errors.add :base, :shooting_result_either_sum_or_by_shots
     end
   end
 
