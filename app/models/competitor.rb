@@ -64,6 +64,9 @@ class Competitor < ApplicationRecord
   after_update :update_series_competitors_counter_cache
 
   attr_accessor :club_name, :age_group_name, :old_values
+  store_accessor :nordic_results, :trap_shots, :trap_score_input, :shotgun_shots,
+                 :shotgun_score_input, :rifle_moving_shots, :rifle_moving_score_input,
+                 :rifle_standing_shots, :rifle_standing_score_input, prefix: 'nordic'
 
   delegate :race, to: :series
 
