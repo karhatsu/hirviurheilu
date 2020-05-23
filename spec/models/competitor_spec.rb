@@ -366,6 +366,24 @@ describe Competitor do
         end
       end
     end
+
+    describe 'nordic results' do
+      describe 'trap_score_input' do
+        it_should_behave_like 'non-negative integer', :nordic_trap_score_input, true, max_value: 25
+      end
+
+      describe 'shotgun_score_input' do
+        it_should_behave_like 'non-negative integer', :nordic_shotgun_score_input, true, max_value: 25
+      end
+
+      describe 'rifle_moving_score_input' do
+        it_should_behave_like 'non-negative integer', :nordic_rifle_moving_score_input, true, max_value: 100
+      end
+
+      describe 'rifle_standing_score_input' do
+        it_should_behave_like 'non-negative integer', :nordic_rifle_standing_score_input, true, max_value: 100
+      end
+    end
   end
 
   describe 'callbacks' do

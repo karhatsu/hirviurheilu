@@ -43,6 +43,10 @@ class Competitor < ApplicationRecord
   validates :shooting_overtime_min, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
   validates :qualification_round_track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :final_round_track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
+  validates :nordic_trap_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_nil: true }
+  validates :nordic_shotgun_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_nil: true }
+  validates :nordic_rifle_moving_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true }
+  validates :nordic_rifle_standing_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true }
   validate :start_time_max
   validate :times_in_correct_order
   validate :only_one_shot_input_method_used
