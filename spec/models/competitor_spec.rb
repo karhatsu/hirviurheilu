@@ -91,14 +91,30 @@ describe Competitor do
     it_should_behave_like 'shooting score input', :final_round_shooting_score_input, Sport::METSASTYSLUODIKKO, 100
     it_should_behave_like 'shooting score input', :final_round_shooting_score_input, Sport::METSASTYSTRAP, 25
 
+    shared_examples_for 'max ten 0-10 shots' do |attribute|
+      it { is_expected.to allow_value(nil).for(attribute) }
+      it { is_expected.not_to allow_value([10, -1, 0]).for(attribute) }
+      it { is_expected.not_to allow_value([11, 10]).for(attribute) }
+      it { is_expected.not_to allow_value([10, 9, 1.1]).for(attribute) }
+      it { is_expected.to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 0]).for(attribute) }
+      it { is_expected.to allow_value(['10', '9', '0']).for(attribute) }
+      it { is_expected.not_to allow_value(['10', '9', '1.1']).for(attribute) }
+    end
+
+    shared_examples_for 'shotgun shots' do |attribute|
+      it { is_expected.to allow_value(nil).for(attribute) }
+      it { is_expected.not_to allow_value([-1, 0, 1]).for(attribute) }
+      it { is_expected.not_to allow_value([1, 2]).for(attribute) }
+      it { is_expected.not_to allow_value([1, 0, 0.1]).for(attribute) }
+      it { is_expected.to allow_value([1, 0, 1, 1, 0]).for(attribute) }
+      it { is_expected.to allow_value(['1', '0', '1']).for(attribute) }
+      it { is_expected.not_to allow_value(['0', '1', '0.9']).for(attribute) }
+      it { is_expected.to allow_value(25.times.map{1}).for(attribute) }
+      it { is_expected.not_to allow_value(26.times.map{1}).for(attribute) }
+    end
+
     describe 'shots' do
-      it { is_expected.to allow_value(nil).for('shots') }
-      it { is_expected.not_to allow_value([10, -1, 0]).for('shots') }
-      it { is_expected.not_to allow_value([11, 10]).for('shots') }
-      it { is_expected.not_to allow_value([10, 9, 1.1]).for('shots') }
-      it { is_expected.to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 0]).for('shots') }
-      it { is_expected.to allow_value(['10', '9', '0']).for('shots') }
-      it { is_expected.not_to allow_value(['10', '9', '1.1']).for('shots') }
+      it_should_behave_like 'max ten 0-10 shots', :shots
 
       shared_examples_for 'shooting sport shots' do |sport_key, valid_shots_count|
         it "#{sport_key} can have at most #{valid_shots_count} shots" do
@@ -368,16 +384,32 @@ describe Competitor do
     end
 
     describe 'nordic results' do
+      describe 'trap_shots' do
+        it_should_behave_like 'shotgun shots', :nordic_trap_shots
+      end
+
       describe 'trap_score_input' do
         it_should_behave_like 'non-negative integer', :nordic_trap_score_input, true, max_value: 25
+      end
+
+      describe 'shotgun_shots' do
+        it_should_behave_like 'shotgun shots', :nordic_shotgun_shots
       end
 
       describe 'shotgun_score_input' do
         it_should_behave_like 'non-negative integer', :nordic_shotgun_score_input, true, max_value: 25
       end
 
+      describe 'rifle_moving_shots' do
+        it_should_behave_like 'max ten 0-10 shots', :nordic_rifle_moving_shots
+      end
+
       describe 'rifle_moving_score_input' do
         it_should_behave_like 'non-negative integer', :nordic_rifle_moving_score_input, true, max_value: 100
+      end
+
+      describe 'rifle_standing_shots' do
+        it_should_behave_like 'max ten 0-10 shots', :nordic_rifle_standing_shots
       end
 
       describe 'rifle_standing_score_input' do

@@ -54,6 +54,10 @@ class Competitor < ApplicationRecord
   validate :final_round_shooting_score_input_max_value
   validate :shots_array_values
   validate :extra_shots_array_values
+  validate :nordic_trap_shot_values
+  validate :nordic_shotgun_shot_values
+  validate :nordic_rifle_moving_shot_values
+  validate :nordic_rifle_standing_shot_values
   validate :check_no_result_reason
   validate :check_if_series_has_start_list
   validate :unique_number
@@ -343,6 +347,29 @@ class Competitor < ApplicationRecord
     return unless extra_shots
     max_value = sport&.best_shot_value || 10
     errors.add(:extra_shots, :invalid_value) if extra_shots.any? { |shot| Competitor.invalid_shot? shot, max_value }
+  end
+
+  def nordic_trap_shot_values
+    validate_nordic_shots :nordic_trap_shots, 25, 1
+  end
+
+  def nordic_shotgun_shot_values
+    validate_nordic_shots :nordic_shotgun_shots, 25, 1
+  end
+
+  def nordic_rifle_moving_shot_values
+    validate_nordic_shots :nordic_rifle_moving_shots, 10, 10
+  end
+
+  def nordic_rifle_standing_shot_values
+    validate_nordic_shots :nordic_rifle_standing_shots, 10, 10
+  end
+
+  def validate_nordic_shots(attribute, max_count, max_value)
+    shots = send attribute
+    return unless shots
+    errors.add(attribute, :too_many) if shots.length > max_count
+    errors.add(attribute, :invalid_value) if shots.any? { |shot| Competitor.invalid_shot? shot, max_value }
   end
 
   def check_no_result_reason
