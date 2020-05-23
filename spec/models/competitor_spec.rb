@@ -16,10 +16,10 @@ describe Competitor do
   describe "validation" do
     it { is_expected.to validate_presence_of(:first_name) }
     it { is_expected.to validate_presence_of(:last_name) }
-    it_should_behave_like 'non-negative integer', :shooting_overtime_min
+    it_should_behave_like 'non-negative integer', :shooting_overtime_min, true
 
     describe "number" do
-      it_should_behave_like 'non-negative integer', :number
+      it_should_behave_like 'non-negative integer', :number, true
       it { is_expected.to allow_value(nil).for(:number) }
 
       describe "uniqueness" do

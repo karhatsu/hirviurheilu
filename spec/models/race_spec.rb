@@ -26,7 +26,7 @@ describe Race do
     end
 
     describe "start_interval_seconds" do
-      it_should_behave_like 'non-negative integer', :start_interval_seconds
+      it_should_behave_like 'non-negative integer', :start_interval_seconds, false
 
       context 'when shooting race' do
         it 'allows nil for start_interval_seconds' do
