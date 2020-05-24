@@ -274,8 +274,10 @@ class Competitor < ApplicationRecord
     self[attribute].strftime '%H:%M:%S'
   end
 
-  def self.invalid_shot?(shot, max_value)
-    shot.to_i < 0 || shot.to_i > max_value || shot.to_i.to_s != shot.to_s
+  def self.invalid_shot?(shot, max_value, min_value = nil)
+    return true if shot.to_i < 0 || shot.to_i > max_value || shot.to_i.to_s != shot.to_s
+    return true if min_value && shot.to_i < min_value && shot.to_i != 0
+    false
   end
 
   def track_place(batch)
@@ -370,14 +372,14 @@ class Competitor < ApplicationRecord
   end
 
   def nordic_rifle_standing_shot_values
-    validate_nordic_shots :nordic_rifle_standing_shots, 10, 10
+    validate_nordic_shots :nordic_rifle_standing_shots, 10, 10, 8
   end
 
-  def validate_nordic_shots(attribute, max_count, max_value)
+  def validate_nordic_shots(attribute, max_count, max_value, min_value = nil)
     shots = send attribute
     return unless shots
     errors.add(attribute, :too_many) if shots.length > max_count
-    errors.add(attribute, :invalid_value) if shots.any? { |shot| Competitor.invalid_shot? shot, max_value }
+    errors.add(attribute, :invalid_value) if shots.any? { |shot| Competitor.invalid_shot? shot, max_value, min_value }
   end
 
   def check_no_result_reason

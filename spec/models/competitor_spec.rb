@@ -421,7 +421,16 @@ describe Competitor do
       end
 
       describe 'rifle_standing_shots' do
-        it_should_behave_like 'max ten 0-10 shots', :nordic_rifle_standing_shots
+        it { is_expected.to allow_value(nil).for(:nordic_rifle_standing_shots) }
+        it { is_expected.not_to allow_value([10, -1, 0]).for(:nordic_rifle_standing_shots) }
+        it { is_expected.not_to allow_value([11, 10]).for(:nordic_rifle_standing_shots) }
+        it { is_expected.not_to allow_value([10, 9, 1.1]).for(:nordic_rifle_standing_shots) }
+        it { is_expected.to allow_value([10, 9, 8, 0, 10, 9, 8, 0, 10, 9]).for(:nordic_rifle_standing_shots) }
+        (1..7).each do |n|
+          it { is_expected.not_to allow_value([n]).for(:nordic_rifle_standing_shots) }
+        end
+        it { is_expected.to allow_value(['10', '9', '0']).for(:nordic_rifle_standing_shots) }
+        it { is_expected.not_to allow_value(['10', '9', '6']).for(:nordic_rifle_standing_shots) }
       end
 
       describe 'rifle_standing_score_input' do
