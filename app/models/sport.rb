@@ -143,6 +143,7 @@ class Sport
       NORDIC: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
           {
               name: 'Pohjoismainen metsästysammunta',
+              default_series: [['S20'], ['M'], ['N'], ['S60']],
           }
       )),
   }
