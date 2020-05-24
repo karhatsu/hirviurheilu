@@ -113,6 +113,28 @@ describe Competitor do
       it { is_expected.not_to allow_value(26.times.map{1}).for(attribute) }
     end
 
+    shared_examples_for 'ten target extra shots' do |attribute|
+      it { is_expected.to allow_value(nil).for(attribute) }
+      it { is_expected.not_to allow_value([10, -1, 0]).for(attribute) }
+      it { is_expected.not_to allow_value([11, 10]).for(attribute) }
+      it { is_expected.not_to allow_value([10, 9, 1.1]).for(attribute) }
+      it { is_expected.to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 0]).for(attribute) }
+      it { is_expected.to allow_value(['10', '9', '0']).for(attribute) }
+      it { is_expected.not_to allow_value(['10', '9', '1.1']).for(attribute) }
+      it { is_expected.to allow_value(11.times.map{1}).for(attribute) }
+    end
+
+    shared_examples_for 'shotgun extra shots' do |attribute|
+      it { is_expected.to allow_value(nil).for(attribute) }
+      it { is_expected.not_to allow_value([-1, 0, 1]).for(attribute) }
+      it { is_expected.not_to allow_value([1, 2]).for(attribute) }
+      it { is_expected.not_to allow_value([1, 0, 0.1]).for(attribute) }
+      it { is_expected.to allow_value([1, 0, 1, 1, 0]).for(attribute) }
+      it { is_expected.to allow_value(['1', '0', '1']).for(attribute) }
+      it { is_expected.not_to allow_value(['0', '1', '0.9']).for(attribute) }
+      it { is_expected.to allow_value(26.times.map{1}).for(attribute) }
+    end
+
     describe 'shots' do
       it_should_behave_like 'max ten 0-10 shots', :shots
 
@@ -154,13 +176,7 @@ describe Competitor do
     end
 
     describe 'extra_shots' do
-      it { is_expected.to allow_value(nil).for('extra_shots') }
-      it { is_expected.not_to allow_value([10, -1, 0]).for('extra_shots') }
-      it { is_expected.not_to allow_value([11, 10]).for('extra_shots') }
-      it { is_expected.not_to allow_value([10, 9, 1.1]).for('extra_shots') }
-      it { is_expected.to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 0]).for('extra_shots') }
-      it { is_expected.to allow_value(['10', '9', '0']).for('extra_shots') }
-      it { is_expected.not_to allow_value(['10', '9', '1.1']).for('extra_shots') }
+      it_should_behave_like 'ten target extra shots', :extra_shots
 
       describe 'when special setting for max shot value' do
         it 'max shot value comes from the setting' do
@@ -402,6 +418,10 @@ describe Competitor do
         it_should_behave_like 'only single score method', :nordic_trap_score_input, :nordic_trap_shots
       end
 
+      describe 'trap_extra_shots' do
+        it_should_behave_like 'shotgun extra shots', :nordic_trap_extra_shots
+      end
+
       describe 'shotgun_shots' do
         it_should_behave_like 'shotgun shots', :nordic_shotgun_shots
       end
@@ -411,6 +431,10 @@ describe Competitor do
         it_should_behave_like 'only single score method', :nordic_shotgun_score_input, :nordic_shotgun_shots
       end
 
+      describe 'shotgun_extra_shots' do
+        it_should_behave_like 'shotgun extra shots', :nordic_shotgun_extra_shots
+      end
+
       describe 'rifle_moving_shots' do
         it_should_behave_like 'max ten 0-10 shots', :nordic_rifle_moving_shots
       end
@@ -418,6 +442,10 @@ describe Competitor do
       describe 'rifle_moving_score_input' do
         it_should_behave_like 'non-negative integer', :nordic_rifle_moving_score_input, true, max_value: 100
         it_should_behave_like 'only single score method', :nordic_rifle_moving_score_input, :nordic_rifle_moving_shots
+      end
+
+      describe 'rifle_moving_extra_shots' do
+        it_should_behave_like 'ten target extra shots', :nordic_rifle_moving_extra_shots
       end
 
       describe 'rifle_standing_shots' do
@@ -436,6 +464,19 @@ describe Competitor do
       describe 'rifle_standing_score_input' do
         it_should_behave_like 'non-negative integer', :nordic_rifle_standing_score_input, true, max_value: 100
         it_should_behave_like 'only single score method', :nordic_rifle_standing_score_input, :nordic_rifle_standing_shots
+      end
+
+      describe 'rifle_standing_extra_shots' do
+        it { is_expected.to allow_value(nil).for(:nordic_rifle_standing_extra_shots) }
+        it { is_expected.not_to allow_value([10, -1, 0]).for(:nordic_rifle_standing_extra_shots) }
+        it { is_expected.not_to allow_value([11, 10]).for(:nordic_rifle_standing_extra_shots) }
+        it { is_expected.not_to allow_value([10, 9, 1.1]).for(:nordic_rifle_standing_extra_shots) }
+        it { is_expected.to allow_value([10, 9, 8, 0, 10, 9, 8, 0, 10, 9]).for(:nordic_rifle_standing_extra_shots) }
+        (1..7).each do |n|
+          it { is_expected.not_to allow_value([n]).for(:nordic_rifle_standing_extra_shots) }
+        end
+        it { is_expected.to allow_value(['10', '9', '0']).for(:nordic_rifle_standing_extra_shots) }
+        it { is_expected.not_to allow_value(['10', '9', '6']).for(:nordic_rifle_standing_extra_shots) }
       end
     end
   end
