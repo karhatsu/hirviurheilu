@@ -415,6 +415,10 @@ describe Shots do
       it 'standind rifle score is 0' do
         expect(competitor.nordic_rifle_standing_score).to eql 0
       end
+
+      it 'nordic score is 0' do
+        expect(competitor.nordic_score).to eql 0
+      end
     end
 
     context 'when score inputs given' do
@@ -440,6 +444,10 @@ describe Shots do
       it 'standind rifle score is given input' do
         expect(competitor.nordic_rifle_standing_score).to eql 97
       end
+
+      it 'nordic score is 4 x trap and shotgun + rifle scores' do
+        expect(competitor.nordic_score).to eql 4 * 23 + 4 * 20 + 89 + 97
+      end
     end
 
     context 'when shots given' do
@@ -464,6 +472,10 @@ describe Shots do
 
       it 'standind rifle score is given input' do
         expect(competitor.nordic_rifle_standing_score).to eql 38
+      end
+
+      it 'nordic score is 4 x trap and shotgun + rifle scores' do
+        expect(competitor.nordic_score).to eql 4 * 4 + 4 * 6 + 37 + 38
       end
     end
   end
