@@ -52,6 +52,22 @@ module Shots
     shots.map(&:to_i).inject(:+) || 0 if shots
   end
 
+  def nordic_trap_score
+    nordic_score nordic_trap_score_input, nordic_trap_shots
+  end
+
+  def nordic_shotgun_score
+    nordic_score nordic_shotgun_score_input, nordic_shotgun_shots
+  end
+
+  def nordic_rifle_moving_score
+    nordic_score nordic_rifle_moving_score_input, nordic_rifle_moving_shots
+  end
+
+  def nordic_rifle_standing_score
+    nordic_score nordic_rifle_standing_score_input, nordic_rifle_standing_shots
+  end
+
   private
 
   def non_zero_shots(shots)
@@ -70,5 +86,10 @@ module Shots
   def sum_of_array(array, eleven_as_ten = false)
     array = array.map {|value| value == 11 ? 10 : value} if eleven_as_ten
     array&.inject(:+) || 0
+  end
+
+  def nordic_score(score_input, shots)
+    return score_input if score_input
+    sum_of_array shots
   end
 end
