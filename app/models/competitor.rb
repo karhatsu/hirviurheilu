@@ -47,6 +47,7 @@ class Competitor < ApplicationRecord
   validates :nordic_shotgun_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_nil: true }
   validates :nordic_rifle_moving_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true }
   validates :nordic_rifle_standing_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true }
+  validates :nordic_extra_score, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 200, allow_nil: true }
   validate :start_time_max
   validate :times_in_correct_order
   validate :only_one_shot_input_method_used
@@ -82,6 +83,7 @@ class Competitor < ApplicationRecord
                  :shotgun_shots, :shotgun_score_input, :shotgun_extra_shots,
                  :rifle_moving_shots, :rifle_moving_score_input, :rifle_moving_extra_shots,
                  :rifle_standing_shots, :rifle_standing_score_input, :rifle_standing_extra_shots,
+                 :extra_score,
                  prefix: 'nordic'
 
   delegate :race, to: :series

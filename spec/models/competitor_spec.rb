@@ -478,6 +478,10 @@ describe Competitor do
         it { is_expected.to allow_value(['10', '9', '0']).for(:nordic_rifle_standing_extra_shots) }
         it { is_expected.not_to allow_value(['10', '9', '6']).for(:nordic_rifle_standing_extra_shots) }
       end
+
+      describe 'extra_score' do
+        it_should_behave_like 'non-negative integer', :nordic_extra_score, true, max_value: 200
+      end
     end
   end
 
