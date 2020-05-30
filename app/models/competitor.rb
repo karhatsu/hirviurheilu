@@ -299,6 +299,10 @@ class Competitor < ApplicationRecord
     batch.final_round? ? final_round_track_place : qualification_round_track_place
   end
 
+  def has_shots?
+    shots || nordic_trap_shots || nordic_shotgun_shots || nordic_rifle_moving_shots || nordic_rifle_standing_shots
+  end
+
   private
 
   def start_time_max

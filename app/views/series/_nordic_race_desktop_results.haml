@@ -26,10 +26,22 @@
       %td= full_name(comp)
       %td= comp.number
       %td= comp.club.name
-      %td= comp.nordic_trap_score || '-'
-      %td= comp.nordic_shotgun_score || '-'
-      %td= comp.nordic_rifle_moving_score || '-'
-      %td= comp.nordic_rifle_standing_score || '-'
+      %td
+        = comp.nordic_trap_score || '-'
+        - if comp.nordic_trap_shots
+          %span.shots (#{shots_print comp.nordic_trap_shots})
+      %td
+        = comp.nordic_shotgun_score || '-'
+        - if comp.nordic_shotgun_shots
+          %span.shots (#{shots_print comp.nordic_shotgun_shots})
+      %td
+        = comp.nordic_rifle_moving_score || '-'
+        - if comp.nordic_rifle_moving_shots
+          %span.shots (#{shots_print comp.nordic_rifle_moving_shots})
+      %td
+        = comp.nordic_rifle_standing_score || '-'
+        - if comp.nordic_rifle_standing_shots
+          %span.shots (#{shots_print comp.nordic_rifle_standing_shots})
       %td.center.total-points
         - if comp.no_result_reason
           = comp.no_result_reason

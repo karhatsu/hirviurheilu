@@ -11,16 +11,11 @@
     = render partial: 'series/three_sport_race_infos', locals: { series: @series }
   - cache [@series, params[:sort], unofficials, I18n.locale] do
     - if @series.sport.nordic?
+      = render partial: 'series/shots_buttons', locals: { series: @series, buttons_hidden: false }
       .results--desktop= render partial: 'series/nordic_race_desktop_results', locals: { series: @series }
       .results--mobile= render partial: 'series/nordic_race_mobile_results', locals: { series: @series }
     - elsif @series.sport.shooting?
-      - competitors = @series.shooting_race_results
-      - show_shots_buttons = competitors.any? {|competitor| competitor.shots}
-      - if show_shots_buttons
-        - buttons_hidden = @series.sport.qualification_round.length == 1
-        .buttons
-          #show-shots-button.button{onclick: 'showShots()', class: buttons_hidden ? 'results--desktop' : ''} Näytä laukaukset
-          #hide-shots-button.button{onclick: 'hideShots()', class: buttons_hidden ? 'results--desktop' : '', style: 'display: none'} Piilota laukaukset
+      = render partial: 'series/shots_buttons', locals: { series: @series, buttons_hidden: @series.sport.qualification_round.length == 1 }
       .results--desktop= render partial: 'series/shooting_race_desktop_results', locals: { series: @series }
       .results--mobile= render partial: 'series/shooting_race_mobile_results', locals: { series: @series }
     - else

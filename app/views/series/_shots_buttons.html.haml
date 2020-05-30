@@ -1,0 +1,4 @@
+- if series.competitors.any? {|competitor| competitor.has_shots?}
+  .buttons
+    #show-shots-button.button{onclick: 'showShots()', class: buttons_hidden ? 'results--desktop' : ''} Näytä laukaukset
+    #hide-shots-button.button{onclick: 'hideShots()', class: buttons_hidden ? 'results--desktop' : '', style: 'display: none'} Piilota laukaukset

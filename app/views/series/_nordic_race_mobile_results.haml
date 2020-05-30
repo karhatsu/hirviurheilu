@@ -14,10 +14,22 @@
           .card__middle-row
             Uusinta: #{comp.nordic_extra_score}
         .card__middle-row
-          Trap: #{comp.nordic_trap_score.to_i},
-          Haulikko 2: #{comp.nordic_shotgun_score.to_i},
-          Liikkuva hirvi: #{comp.nordic_rifle_moving_score.to_i},
-          Seisova hirvi: #{comp.nordic_rifle_standing_score.to_i}
+          %span.card__sub-result.card__sub-result--shoot
+            Trap: #{comp.nordic_trap_score.to_i}
+            - if comp.nordic_trap_shots
+              %span.shots (#{shots_print comp.nordic_trap_shots})
+          %span.card__sub-result.card__sub-result--shoot
+            Haulikko 2: #{comp.nordic_shotgun_score.to_i}
+            - if comp.nordic_shotgun_shots
+              %span.shots (#{shots_print comp.nordic_shotgun_shots})
+          %span.card__sub-result.card__sub-result--shoot
+            Liikkuva hirvi: #{comp.nordic_rifle_moving_score.to_i}
+            - if comp.nordic_rifle_moving_shots
+              %span.shots (#{shots_print comp.nordic_rifle_moving_shots})
+          %span.card__sub-result.card__sub-result--shoot
+            Seisova hirvi: #{comp.nordic_rifle_standing_score.to_i}
+            - if comp.nordic_rifle_standing_shots
+              %span.shots (#{shots_print comp.nordic_rifle_standing_shots})
       .card__main-value
         - if comp.no_result_reason
           = comp.no_result_reason
