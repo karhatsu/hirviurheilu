@@ -69,7 +69,8 @@ module Shots
   end
 
   def nordic_score
-    4 * (nordic_trap_score + nordic_shotgun_score) + nordic_rifle_moving_score + nordic_rifle_standing_score
+    return nil unless nordic_trap_score || nordic_shotgun_score || nordic_rifle_moving_score || nordic_rifle_standing_score
+    4 * (nordic_trap_score.to_i + nordic_shotgun_score.to_i) + nordic_rifle_moving_score.to_i + nordic_rifle_standing_score.to_i
   end
 
   private
@@ -94,6 +95,6 @@ module Shots
 
   def resolve_nordic_score(score_input, shots)
     return score_input if score_input
-    sum_of_array shots
+    return sum_of_array shots if shots
   end
 end

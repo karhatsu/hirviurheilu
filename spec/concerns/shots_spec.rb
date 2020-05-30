@@ -400,24 +400,34 @@ describe Shots do
     let(:competitor) { Competitor.new }
 
     context 'when no values' do
-      it 'trap score is 0' do
-        expect(competitor.nordic_trap_score).to eql 0
+      it 'trap score is nil' do
+        expect(competitor.nordic_trap_score).to be_nil
       end
 
-      it 'shotgun score is 0' do
-        expect(competitor.nordic_shotgun_score).to eql 0
+      it 'shotgun score is nil' do
+        expect(competitor.nordic_shotgun_score).to be_nil
       end
 
-      it 'moving rifle score is 0' do
-        expect(competitor.nordic_rifle_moving_score).to eql 0
+      it 'moving rifle score is nil' do
+        expect(competitor.nordic_rifle_moving_score).to be_nil
       end
 
-      it 'standind rifle score is 0' do
-        expect(competitor.nordic_rifle_standing_score).to eql 0
+      it 'standind rifle score is nil' do
+        expect(competitor.nordic_rifle_standing_score).to be_nil
       end
 
-      it 'nordic score is 0' do
-        expect(competitor.nordic_score).to eql 0
+      it 'nordic score is nil' do
+        expect(competitor.nordic_score).to be_nil
+      end
+    end
+
+    context 'when some scores defined' do
+      before do
+        competitor.nordic_rifle_moving_score_input = 89
+      end
+
+      it 'nordic score assumes 0 for others' do
+        expect(competitor.nordic_score).to eql 89
       end
     end
 
