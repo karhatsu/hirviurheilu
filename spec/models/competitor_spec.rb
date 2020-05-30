@@ -797,6 +797,27 @@ describe Competitor do
     end
   end
 
+  describe '#sort_nordic_competitors' do
+    it 'should sort by total score, extra score and number' do
+      competitor1 = create_competitor 399, nil, 50
+      competitor2 = create_competitor 398, 191, 5
+      competitor3 = create_competitor 398, 190, 4
+      competitor4 = create_competitor 397, nil, 10
+      competitor5 = create_competitor nil, nil, nil
+      competitor6 = create_competitor nil, nil, 2
+      competitor_dnf = create_competitor 400, 200, 1, Competitor::DNF
+      competitors = [competitor1, competitor2, competitor3, competitor4, competitor5, competitor6, competitor_dnf]
+      expect(Competitor.sort_nordic_competitors(competitors.shuffle)).to eql competitors
+    end
+
+    def create_competitor(nordic_score, extra_score, number, no_result_reason = nil)
+      competitor = build :competitor, number: number, no_result_reason: no_result_reason
+      competitor.nordic_extra_score = extra_score
+      allow(competitor).to receive(:nordic_score).and_return(nordic_score)
+      competitor
+    end
+  end
+
   describe "#shooting_score" do
     it "should return nil when total input is nil and no shots" do
       expect(build(:competitor).shooting_score).to be_nil
