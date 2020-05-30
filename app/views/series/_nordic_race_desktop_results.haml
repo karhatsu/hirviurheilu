@@ -1,0 +1,55 @@
+- competitors = series.nordic_race_results
+- extra_shots_column = competitors.any? {|competitor| competitor.nordic_extra_score}
+%table.results-table
+  %tr
+    %th &nbsp;
+    %th= t 'attributes.name'
+    %th= t 'number_short'
+    %th#table_club_title= club_title(series.race)
+    %th Trap
+    %th Haulikko 2
+    %th Hirvi
+    %th Kauris
+    %th Tulos
+    - if extra_shots_column
+      %th Uusinta
+  - prev_results = 1.0/0.0
+  - rank = 0
+  - competitors.each_with_index do |comp, i|
+    - @max_points = comp.points if rank == 1
+    - next unless i < 3 || params[:club_id].blank? || comp.club_id == params[:club_id].to_i
+    - results = comp.nordic_total_results
+    - if results != prev_results
+      - rank = rank + 1
+    %tr{class: i % 2 == 0 ? 'odd' : ''}
+      %td= (results == prev_results) ? raw('&nbsp;') : "#{rank}."
+      %td= full_name(comp)
+      %td= comp.number
+      %td= comp.club.name
+      %td
+        = comp.nordic_trap_score || '-'
+        - if comp.nordic_trap_shots
+          %span.shots (#{shots_print comp.nordic_trap_shots})
+      %td
+        = comp.nordic_shotgun_score || '-'
+        - if comp.nordic_shotgun_shots
+          %span.shots (#{shots_print comp.nordic_shotgun_shots})
+      %td
+        = comp.nordic_rifle_moving_score || '-'
+        - if comp.nordic_rifle_moving_shots
+          %span.shots (#{shots_print comp.nordic_rifle_moving_shots})
+      %td
+        = comp.nordic_rifle_standing_score || '-'
+        - if comp.nordic_rifle_standing_shots
+          %span.shots (#{shots_print comp.nordic_rifle_standing_shots})
+      %td.center.total-points
+        - if comp.no_result_reason
+          = comp.no_result_reason
+        - else
+          = comp.nordic_score || '-'
+          = national_record_print(comp) if comp.nordic_score.to_i >= @max_points.to_i
+      - if extra_shots_column
+        %td
+          - if comp.nordic_extra_score
+            = comp.nordic_extra_score
+    - prev_results = results

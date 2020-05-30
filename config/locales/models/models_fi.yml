@@ -61,6 +61,14 @@ fi:
     multiple_teams: Laske pisteet 2-joukkueille
     name: Nimi
     national_record: Suomen ennätys
+    nordic_trap_shots: Trapin laukaukset
+    nordic_trap_score_input: Trapin tulos
+    nordic_shotgun_shots: Haulikon laukaukset
+    nordic_shotgun_score_input: Haulikon tulos
+    nordic_rifle_moving_shots: Liikkuvan hirvikuvion laukaukset
+    nordic_rifle_moving_score_input: Liikkuvan hirvikuvion tulos
+    nordic_rifle_standing_shots: Seisovan hirvikuvion laukaukset
+    nordic_rifle_standing_score_input: Seisovan hirvikuvion tulos
     number: Numero
     organizer: Järjestäjä (esim. seura)
     organizer_phone: Puhelin
@@ -250,6 +258,12 @@ fi:
               too_many: Liian monta laukausta
               invalid_value: sisältää virheellisen numeron
             extra_shots:
+              invalid_value: sisältää virheellisen numeron
+            nordic_rifle_moving_shots:
+              too_many: Liian monta laukausta
+              invalid_value: sisältää virheellisen numeron
+            nordic_rifle_standing_shots:
+              too_many: Liian monta laukausta
               invalid_value: sisältää virheellisen numeron
             qualification_round_track_place:
               too_big: on suurempi kuin kilpailun ammuntapaikkojen määrä

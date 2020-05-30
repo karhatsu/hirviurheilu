@@ -7,9 +7,10 @@ class Sport
   METSASTYSLUODIKKO = "METSASTYSLUODIKKO"
   METSASTYSHAULIKKO = "METSASTYSHAULIKKO"
   METSASTYSTRAP = "METSASTYSTRAP"
+  NORDIC = "NORDIC"
 
   ALL_KEYS = [Sport::RUN, Sport::SKI, Sport::ILMAHIRVI, Sport::ILMALUODIKKO, Sport::METSASTYSHIRVI,
-              Sport::METSASTYSLUODIKKO, Sport::METSASTYSHAULIKKO, Sport::METSASTYSTRAP]
+              Sport::METSASTYSLUODIKKO, Sport::METSASTYSHAULIKKO, Sport::METSASTYSTRAP, Sport::NORDIC]
 
   BASE_CONFIGS = {
       SKI_AND_RUN: {
@@ -36,6 +37,7 @@ class Sport
               ['N50', ['N55', 'N60']],
               ['N65', ['N70', 'N75', 'N80', 'N85', 'N90']],
           ],
+          nordic?: false,
       },
       SHOOTING: {
           start_list?: false,
@@ -61,6 +63,7 @@ class Sport
           qualification_round_max_score: 100,
           final_round_max_score: 100,
           final_round_competitors_count: 10,
+          nordic?: false,
       }
   }
 
@@ -138,7 +141,14 @@ class Sport
           {
               name: 'Metsästystrap',
           }
-      ))
+      )),
+      NORDIC: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
+          {
+              name: 'Pohjoismainen metsästysammunta',
+              nordic?: true,
+              default_series: [['S20'], ['M'], ['N'], ['S60']],
+          }
+      )),
   }
 
   def self.by_key(key)

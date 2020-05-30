@@ -12,8 +12,8 @@ describe CorrectEstimate do
   describe "validations" do
     #it { should validate_presence_of(:race) }
 
-    it_should_behave_like 'non-negative integer', :min_number
-    it_should_behave_like 'non-negative integer', :max_number
+    it_should_behave_like 'non-negative integer', :min_number, false
+    it_should_behave_like 'non-negative integer', :max_number, true
 
     describe "distance1" do
       it { is_expected.to validate_numericality_of(:distance1) }

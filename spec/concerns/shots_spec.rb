@@ -396,6 +396,100 @@ describe Shots do
     end
   end
 
+  describe 'nordic' do
+    let(:competitor) { Competitor.new }
+
+    context 'when no values' do
+      it 'trap score is nil' do
+        expect(competitor.nordic_trap_score).to be_nil
+      end
+
+      it 'shotgun score is nil' do
+        expect(competitor.nordic_shotgun_score).to be_nil
+      end
+
+      it 'moving rifle score is nil' do
+        expect(competitor.nordic_rifle_moving_score).to be_nil
+      end
+
+      it 'standind rifle score is nil' do
+        expect(competitor.nordic_rifle_standing_score).to be_nil
+      end
+
+      it 'nordic score is nil' do
+        expect(competitor.nordic_score).to be_nil
+      end
+    end
+
+    context 'when some scores defined' do
+      before do
+        competitor.nordic_rifle_moving_score_input = 89
+      end
+
+      it 'nordic score assumes 0 for others' do
+        expect(competitor.nordic_score).to eql 89
+      end
+    end
+
+    context 'when score inputs given' do
+      before do
+        competitor.nordic_trap_score_input = 23
+        competitor.nordic_shotgun_score_input = 20
+        competitor.nordic_rifle_moving_score_input = 89
+        competitor.nordic_rifle_standing_score_input = 97
+      end
+
+      it 'trap score is given input' do
+        expect(competitor.nordic_trap_score).to eql 23
+      end
+
+      it 'shotgun score is given input' do
+        expect(competitor.nordic_shotgun_score).to eql 20
+      end
+
+      it 'moving rifle score is given input' do
+        expect(competitor.nordic_rifle_moving_score).to eql 89
+      end
+
+      it 'standind rifle score is given input' do
+        expect(competitor.nordic_rifle_standing_score).to eql 97
+      end
+
+      it 'nordic score is 4 x trap and shotgun + rifle scores' do
+        expect(competitor.nordic_score).to eql 4 * 23 + 4 * 20 + 89 + 97
+      end
+    end
+
+    context 'when shots given' do
+      before do
+        competitor.nordic_trap_shots = [1, 1, 0, 1, 0, 1]
+        competitor.nordic_shotgun_shots = [0, 1, 1, 1, 1, 1, 1, 0]
+        competitor.nordic_rifle_moving_shots = [10, 9, 8, 10]
+        competitor.nordic_rifle_standing_shots = [10, 10, 10, 8]
+      end
+
+      it 'trap score is given input' do
+        expect(competitor.nordic_trap_score).to eql 4
+      end
+
+      it 'shotgun score is given input' do
+        expect(competitor.nordic_shotgun_score).to eql 6
+      end
+
+      it 'moving rifle score is given input' do
+        expect(competitor.nordic_rifle_moving_score).to eql 37
+      end
+
+      it 'standind rifle score is given input' do
+        expect(competitor.nordic_rifle_standing_score).to eql 38
+      end
+
+      it 'nordic score is 4 x trap and shotgun + rifle scores' do
+        expect(competitor.nordic_score).to eql 4 * 4 + 4 * 6 + 37 + 38
+      end
+    end
+  end
+
   class FakeCompetitor
     include Shots
 

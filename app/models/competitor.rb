@@ -43,13 +43,27 @@ class Competitor < ApplicationRecord
   validates :shooting_overtime_min, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
   validates :qualification_round_track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :final_round_track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
+  validates :nordic_trap_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_nil: true }
+  validates :nordic_shotgun_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_nil: true }
+  validates :nordic_rifle_moving_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true }
+  validates :nordic_rifle_standing_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true }
+  validates :nordic_extra_score, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 200, allow_nil: true }
   validate :start_time_max
   validate :times_in_correct_order
   validate :only_one_shot_input_method_used
+  validate :only_one_shot_input_method_used_nordic
   validate :qualification_round_shooting_score_input_max_value
   validate :final_round_shooting_score_input_max_value
   validate :shots_array_values
   validate :extra_shots_array_values
+  validate :nordic_trap_shot_values
+  validate :nordic_trap_extra_shot_values
+  validate :nordic_shotgun_shot_values
+  validate :nordic_shotgun_extra_shot_values
+  validate :nordic_rifle_moving_shot_values
+  validate :nordic_rifle_moving_extra_shot_values
+  validate :nordic_rifle_standing_shot_values
+  validate :nordic_rifle_standing_extra_shot_values
   validate :check_no_result_reason
   validate :check_if_series_has_start_list
   validate :unique_number
@@ -64,6 +78,13 @@ class Competitor < ApplicationRecord
   after_update :update_series_competitors_counter_cache
 
   attr_accessor :club_name, :age_group_name, :old_values
+  store_accessor :nordic_results,
+                 :trap_shots, :trap_score_input, :trap_extra_shots,
+                 :shotgun_shots, :shotgun_score_input, :shotgun_extra_shots,
+                 :rifle_moving_shots, :rifle_moving_score_input, :rifle_moving_extra_shots,
+                 :rifle_standing_shots, :rifle_standing_score_input, :rifle_standing_extra_shots,
+                 :extra_score,
+                 prefix: 'nordic'
 
   delegate :race, to: :series
 
@@ -245,6 +266,12 @@ class Competitor < ApplicationRecord
     end
   end
 
+  def self.sort_nordic_competitors(competitors)
+    competitors.sort do |a, b|
+      [b.nordic_total_results, + a.number.to_i] <=> [a.nordic_total_results, b.number.to_i]
+    end
+  end
+
   def national_record_reached?
     series.national_record && points.to_i == series.national_record.to_i
   end
@@ -262,12 +289,18 @@ class Competitor < ApplicationRecord
     self[attribute].strftime '%H:%M:%S'
   end
 
-  def self.invalid_shot?(shot, max_value)
-    shot.to_i < 0 || shot.to_i > max_value || shot.to_i.to_s != shot.to_s
+  def self.invalid_shot?(shot, max_value, min_value = nil)
+    return true if shot.to_i < 0 || shot.to_i > max_value || shot.to_i.to_s != shot.to_s
+    return true if min_value && shot.to_i < min_value && shot.to_i != 0
+    false
   end
 
   def track_place(batch)
     batch.final_round? ? final_round_track_place : qualification_round_track_place
+  end
+
+  def has_shots?
+    shots || nordic_trap_shots || nordic_shotgun_shots || nordic_rifle_moving_shots || nordic_rifle_standing_shots
   end
 
   private
@@ -311,6 +344,13 @@ class Competitor < ApplicationRecord
     end
   end
 
+  def only_one_shot_input_method_used_nordic
+    if (nordic_trap_shots && nordic_trap_score_input) || (nordic_shotgun_shots && nordic_shotgun_score_input) ||
+        (nordic_rifle_moving_shots && nordic_rifle_moving_score_input) || (nordic_rifle_standing_shots && nordic_rifle_standing_score_input)
+      errors.add :base, :shooting_result_either_sum_or_by_shots
+    end
+  end
+
   def qualification_round_shooting_score_input_max_value
     return unless sport && qualification_round_shooting_score_input
     if qualification_round_shooting_score_input > sport.qualification_round_max_score
@@ -336,6 +376,51 @@ class Competitor < ApplicationRecord
     return unless extra_shots
     max_value = sport&.best_shot_value || 10
     errors.add(:extra_shots, :invalid_value) if extra_shots.any? { |shot| Competitor.invalid_shot? shot, max_value }
+  end
+
+  def nordic_trap_shot_values
+    validate_nordic_shots :nordic_trap_shots, 25, 1
+  end
+
+  def nordic_trap_extra_shot_values
+    validate_nordic_extra_shots :nordic_trap_extra_shots, 1
+  end
+
+  def nordic_shotgun_shot_values
+    validate_nordic_shots :nordic_shotgun_shots, 25, 1
+  end
+
+  def nordic_shotgun_extra_shot_values
+    validate_nordic_extra_shots :nordic_shotgun_extra_shots, 1
+  end
+
+  def nordic_rifle_moving_shot_values
+    validate_nordic_shots :nordic_rifle_moving_shots, 10, 10
+  end
+
+  def nordic_rifle_moving_extra_shot_values
+    validate_nordic_extra_shots :nordic_rifle_moving_extra_shots, 10
+  end
+
+  def nordic_rifle_standing_shot_values
+    validate_nordic_shots :nordic_rifle_standing_shots, 10, 10, 8
+  end
+
+  def nordic_rifle_standing_extra_shot_values
+    validate_nordic_extra_shots :nordic_rifle_standing_extra_shots, 10, 8
+  end
+
+  def validate_nordic_shots(attribute, max_count, max_value, min_value = nil)
+    shots = send attribute
+    return unless shots
+    errors.add(attribute, :too_many) if shots.length > max_count
+    errors.add(attribute, :invalid_value) if shots.any? { |shot| Competitor.invalid_shot? shot, max_value, min_value }
+  end
+
+  def validate_nordic_extra_shots(attribute, max_value, min_value = nil)
+    shots = send attribute
+    return unless shots
+    errors.add(attribute, :invalid_value) if shots.any? { |shot| Competitor.invalid_shot? shot, max_value, min_value }
   end
 
   def check_no_result_reason

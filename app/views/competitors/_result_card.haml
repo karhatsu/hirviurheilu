@@ -1,7 +1,7 @@
 - if @competitor.no_result_reason
   .message.message--warning= t "competitor.#{@competitor.no_result_reason}"
 - else
-  = render :partial => 'series/infos', :locals => { :series => @competitor.series,
+  = render :partial => 'series/three_sport_race_infos', :locals => { :series => @competitor.series,
     :show_race_unfinished => false }
 
   #points

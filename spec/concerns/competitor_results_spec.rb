@@ -7,7 +7,7 @@ describe CompetitorResults do
     let(:competitor) { build :competitor, series: series }
 
     context 'when no result reason' do
-      it 'returns array of one time with negative value' do
+      it 'returns array of one item with negative value' do
         expect(competitor_with_no_result_reason(Competitor::DNF).three_sports_race_results).to eql [-10000]
         expect(competitor_with_no_result_reason(Competitor::DNS).three_sports_race_results).to eql [-20000]
         expect(competitor_with_no_result_reason(Competitor::DQ).three_sports_race_results).to eql [-30000]
@@ -134,7 +134,7 @@ describe CompetitorResults do
     end
 
     context 'when no result reason' do
-      it 'returns array of one time with negative value' do
+      it 'returns array of one item with negative value' do
         expect(competitor_with_no_result_reason(Competitor::DNF).shooting_race_results(competitors)).to eql [-10000]
         expect(competitor_with_no_result_reason(Competitor::DNS).shooting_race_results(competitors)).to eql [-20000]
         expect(competitor_with_no_result_reason(Competitor::DQ).shooting_race_results(competitors)).to eql [-30000]
@@ -206,7 +206,7 @@ describe CompetitorResults do
     let(:competitor) { build :competitor }
 
     context 'when no result reason' do
-      it 'returns array of one time with negative value' do
+      it 'returns array of one item with negative value' do
         expect(competitor_with_no_result_reason(Competitor::DNF).shooting_race_qualification_results).to eql [-10000]
         expect(competitor_with_no_result_reason(Competitor::DNS).shooting_race_qualification_results).to eql [-20000]
         expect(competitor_with_no_result_reason(Competitor::DQ).shooting_race_qualification_results).to eql [-30000]
@@ -231,6 +231,42 @@ describe CompetitorResults do
       it 'returns array of QR score, QR hits, second QR score, count of different QR shots (11 as 10), and QR shots in reverse order' do
         expected = [qualification_round_score, qualification_round_hits, second_qualification_round_sub_score, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + qualification_round_shots.reverse
         expect(competitor.shooting_race_qualification_results).to eql expected
+      end
+    end
+  end
+
+  context '#nordic_total_results' do
+    context 'when no result reason' do
+      it 'returns array of one item with negative value' do
+        expect(competitor_with_no_result_reason(Competitor::DNF).nordic_total_results).to eql [-10000]
+        expect(competitor_with_no_result_reason(Competitor::DNS).nordic_total_results).to eql [-20000]
+        expect(competitor_with_no_result_reason(Competitor::DQ).nordic_total_results).to eql [-30000]
+      end
+    end
+
+    context 'without no result reason' do
+      let(:competitor) { build :competitor }
+
+      context 'and without results' do
+        before do
+          allow(competitor).to receive(:nordic_score).and_return(nil)
+          allow(competitor).to receive(:nordic_extra_score).and_return(nil)
+        end
+
+        it 'returns array of two zeros' do
+          expect(competitor.nordic_total_results).to eql [0, 0]
+        end
+      end
+
+      context 'and with results' do
+        before do
+          allow(competitor).to receive(:nordic_score).and_return(350)
+          allow(competitor).to receive(:nordic_extra_score).and_return(195)
+        end
+
+        it 'returns array of nordic score and extra score' do
+          expect(competitor.nordic_total_results).to eql [350, 195]
+        end
       end
     end
   end

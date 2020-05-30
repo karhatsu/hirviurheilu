@@ -50,7 +50,7 @@ describe Series do
       end
     end
 
-    it_should_behave_like 'non-negative integer', :first_number
+    it_should_behave_like 'non-negative integer', :first_number, true
 
     describe "national_record" do
       it { is_expected.to validate_numericality_of(:national_record) }

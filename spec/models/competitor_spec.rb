@@ -16,10 +16,10 @@ describe Competitor do
   describe "validation" do
     it { is_expected.to validate_presence_of(:first_name) }
     it { is_expected.to validate_presence_of(:last_name) }
-    it_should_behave_like 'non-negative integer', :shooting_overtime_min
+    it_should_behave_like 'non-negative integer', :shooting_overtime_min, true
 
     describe "number" do
-      it_should_behave_like 'non-negative integer', :number
+      it_should_behave_like 'non-negative integer', :number, true
       it { is_expected.to allow_value(nil).for(:number) }
 
       describe "uniqueness" do
@@ -91,14 +91,52 @@ describe Competitor do
     it_should_behave_like 'shooting score input', :final_round_shooting_score_input, Sport::METSASTYSLUODIKKO, 100
     it_should_behave_like 'shooting score input', :final_round_shooting_score_input, Sport::METSASTYSTRAP, 25
 
+    shared_examples_for 'max ten 0-10 shots' do |attribute|
+      it { is_expected.to allow_value(nil).for(attribute) }
+      it { is_expected.not_to allow_value([10, -1, 0]).for(attribute) }
+      it { is_expected.not_to allow_value([11, 10]).for(attribute) }
+      it { is_expected.not_to allow_value([10, 9, 1.1]).for(attribute) }
+      it { is_expected.to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 0]).for(attribute) }
+      it { is_expected.to allow_value(['10', '9', '0']).for(attribute) }
+      it { is_expected.not_to allow_value(['10', '9', '1.1']).for(attribute) }
+    end
+
+    shared_examples_for 'shotgun shots' do |attribute|
+      it { is_expected.to allow_value(nil).for(attribute) }
+      it { is_expected.not_to allow_value([-1, 0, 1]).for(attribute) }
+      it { is_expected.not_to allow_value([1, 2]).for(attribute) }
+      it { is_expected.not_to allow_value([1, 0, 0.1]).for(attribute) }
+      it { is_expected.to allow_value([1, 0, 1, 1, 0]).for(attribute) }
+      it { is_expected.to allow_value(['1', '0', '1']).for(attribute) }
+      it { is_expected.not_to allow_value(['0', '1', '0.9']).for(attribute) }
+      it { is_expected.to allow_value(25.times.map{1}).for(attribute) }
+      it { is_expected.not_to allow_value(26.times.map{1}).for(attribute) }
+    end
+
+    shared_examples_for 'ten target extra shots' do |attribute|
+      it { is_expected.to allow_value(nil).for(attribute) }
+      it { is_expected.not_to allow_value([10, -1, 0]).for(attribute) }
+      it { is_expected.not_to allow_value([11, 10]).for(attribute) }
+      it { is_expected.not_to allow_value([10, 9, 1.1]).for(attribute) }
+      it { is_expected.to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 0]).for(attribute) }
+      it { is_expected.to allow_value(['10', '9', '0']).for(attribute) }
+      it { is_expected.not_to allow_value(['10', '9', '1.1']).for(attribute) }
+      it { is_expected.to allow_value(11.times.map{1}).for(attribute) }
+    end
+
+    shared_examples_for 'shotgun extra shots' do |attribute|
+      it { is_expected.to allow_value(nil).for(attribute) }
+      it { is_expected.not_to allow_value([-1, 0, 1]).for(attribute) }
+      it { is_expected.not_to allow_value([1, 2]).for(attribute) }
+      it { is_expected.not_to allow_value([1, 0, 0.1]).for(attribute) }
+      it { is_expected.to allow_value([1, 0, 1, 1, 0]).for(attribute) }
+      it { is_expected.to allow_value(['1', '0', '1']).for(attribute) }
+      it { is_expected.not_to allow_value(['0', '1', '0.9']).for(attribute) }
+      it { is_expected.to allow_value(26.times.map{1}).for(attribute) }
+    end
+
     describe 'shots' do
-      it { is_expected.to allow_value(nil).for('shots') }
-      it { is_expected.not_to allow_value([10, -1, 0]).for('shots') }
-      it { is_expected.not_to allow_value([11, 10]).for('shots') }
-      it { is_expected.not_to allow_value([10, 9, 1.1]).for('shots') }
-      it { is_expected.to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 0]).for('shots') }
-      it { is_expected.to allow_value(['10', '9', '0']).for('shots') }
-      it { is_expected.not_to allow_value(['10', '9', '1.1']).for('shots') }
+      it_should_behave_like 'max ten 0-10 shots', :shots
 
       shared_examples_for 'shooting sport shots' do |sport_key, valid_shots_count|
         it "#{sport_key} can have at most #{valid_shots_count} shots" do
@@ -138,13 +176,7 @@ describe Competitor do
     end
 
     describe 'extra_shots' do
-      it { is_expected.to allow_value(nil).for('extra_shots') }
-      it { is_expected.not_to allow_value([10, -1, 0]).for('extra_shots') }
-      it { is_expected.not_to allow_value([11, 10]).for('extra_shots') }
-      it { is_expected.not_to allow_value([10, 9, 1.1]).for('extra_shots') }
-      it { is_expected.to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 0]).for('extra_shots') }
-      it { is_expected.to allow_value(['10', '9', '0']).for('extra_shots') }
-      it { is_expected.not_to allow_value(['10', '9', '1.1']).for('extra_shots') }
+      it_should_behave_like 'ten target extra shots', :extra_shots
 
       describe 'when special setting for max shot value' do
         it 'max shot value comes from the setting' do
@@ -364,6 +396,91 @@ describe Competitor do
           competitor = build :competitor, series: series, final_round_track_place: 31
           expect(competitor).to have(1).errors_on(:final_round_track_place)
         end
+      end
+    end
+
+    describe 'nordic results' do
+      shared_examples_for 'only single score method' do |score_input_attribute, shots_attribute|
+        it 'score input cannot be used when also shots given' do
+          competitor = build :competitor, shots: [1]
+          competitor.send("#{shots_attribute}=", [1])
+          competitor.send("#{score_input_attribute}=", 25)
+          expect(competitor).to have(1).errors_on(:base)
+        end
+      end
+
+      describe 'trap_shots' do
+        it_should_behave_like 'shotgun shots', :nordic_trap_shots
+      end
+
+      describe 'trap_score_input' do
+        it_should_behave_like 'non-negative integer', :nordic_trap_score_input, true, max_value: 25
+        it_should_behave_like 'only single score method', :nordic_trap_score_input, :nordic_trap_shots
+      end
+
+      describe 'trap_extra_shots' do
+        it_should_behave_like 'shotgun extra shots', :nordic_trap_extra_shots
+      end
+
+      describe 'shotgun_shots' do
+        it_should_behave_like 'shotgun shots', :nordic_shotgun_shots
+      end
+
+      describe 'shotgun_score_input' do
+        it_should_behave_like 'non-negative integer', :nordic_shotgun_score_input, true, max_value: 25
+        it_should_behave_like 'only single score method', :nordic_shotgun_score_input, :nordic_shotgun_shots
+      end
+
+      describe 'shotgun_extra_shots' do
+        it_should_behave_like 'shotgun extra shots', :nordic_shotgun_extra_shots
+      end
+
+      describe 'rifle_moving_shots' do
+        it_should_behave_like 'max ten 0-10 shots', :nordic_rifle_moving_shots
+      end
+
+      describe 'rifle_moving_score_input' do
+        it_should_behave_like 'non-negative integer', :nordic_rifle_moving_score_input, true, max_value: 100
+        it_should_behave_like 'only single score method', :nordic_rifle_moving_score_input, :nordic_rifle_moving_shots
+      end
+
+      describe 'rifle_moving_extra_shots' do
+        it_should_behave_like 'ten target extra shots', :nordic_rifle_moving_extra_shots
+      end
+
+      describe 'rifle_standing_shots' do
+        it { is_expected.to allow_value(nil).for(:nordic_rifle_standing_shots) }
+        it { is_expected.not_to allow_value([10, -1, 0]).for(:nordic_rifle_standing_shots) }
+        it { is_expected.not_to allow_value([11, 10]).for(:nordic_rifle_standing_shots) }
+        it { is_expected.not_to allow_value([10, 9, 1.1]).for(:nordic_rifle_standing_shots) }
+        it { is_expected.to allow_value([10, 9, 8, 0, 10, 9, 8, 0, 10, 9]).for(:nordic_rifle_standing_shots) }
+        (1..7).each do |n|
+          it { is_expected.not_to allow_value([n]).for(:nordic_rifle_standing_shots) }
+        end
+        it { is_expected.to allow_value(['10', '9', '0']).for(:nordic_rifle_standing_shots) }
+        it { is_expected.not_to allow_value(['10', '9', '6']).for(:nordic_rifle_standing_shots) }
+      end
+
+      describe 'rifle_standing_score_input' do
+        it_should_behave_like 'non-negative integer', :nordic_rifle_standing_score_input, true, max_value: 100
+        it_should_behave_like 'only single score method', :nordic_rifle_standing_score_input, :nordic_rifle_standing_shots
+      end
+
+      describe 'rifle_standing_extra_shots' do
+        it { is_expected.to allow_value(nil).for(:nordic_rifle_standing_extra_shots) }
+        it { is_expected.not_to allow_value([10, -1, 0]).for(:nordic_rifle_standing_extra_shots) }
+        it { is_expected.not_to allow_value([11, 10]).for(:nordic_rifle_standing_extra_shots) }
+        it { is_expected.not_to allow_value([10, 9, 1.1]).for(:nordic_rifle_standing_extra_shots) }
+        it { is_expected.to allow_value([10, 9, 8, 0, 10, 9, 8, 0, 10, 9]).for(:nordic_rifle_standing_extra_shots) }
+        (1..7).each do |n|
+          it { is_expected.not_to allow_value([n]).for(:nordic_rifle_standing_extra_shots) }
+        end
+        it { is_expected.to allow_value(['10', '9', '0']).for(:nordic_rifle_standing_extra_shots) }
+        it { is_expected.not_to allow_value(['10', '9', '6']).for(:nordic_rifle_standing_extra_shots) }
+      end
+
+      describe 'extra_score' do
+        it_should_behave_like 'non-negative integer', :nordic_extra_score, true, max_value: 200
       end
     end
   end
@@ -676,6 +793,27 @@ describe Competitor do
     def create_competitor(shooting_score, final_round_score, number)
       competitor = build :competitor, number: number
       allow(competitor).to receive(:shooting_race_results).and_return([shooting_score, final_round_score])
+      competitor
+    end
+  end
+
+  describe '#sort_nordic_competitors' do
+    it 'should sort by total score, extra score and number' do
+      competitor1 = create_competitor 399, nil, 50
+      competitor2 = create_competitor 398, 191, 5
+      competitor3 = create_competitor 398, 190, 4
+      competitor4 = create_competitor 397, nil, 10
+      competitor5 = create_competitor nil, nil, nil
+      competitor6 = create_competitor nil, nil, 2
+      competitor_dnf = create_competitor 400, 200, 1, Competitor::DNF
+      competitors = [competitor1, competitor2, competitor3, competitor4, competitor5, competitor6, competitor_dnf]
+      expect(Competitor.sort_nordic_competitors(competitors.shuffle)).to eql competitors
+    end
+
+    def create_competitor(nordic_score, extra_score, number, no_result_reason = nil)
+      competitor = build :competitor, number: number, no_result_reason: no_result_reason
+      competitor.nordic_extra_score = extra_score
+      allow(competitor).to receive(:nordic_score).and_return(nordic_score)
       competitor
     end
   end

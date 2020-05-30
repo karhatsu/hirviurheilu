@@ -31,6 +31,12 @@ module CompetitorResults
     results + shot_counts_desc(qualification_round_shots) + reverse_shots(qualification_round_shots)
   end
 
+  def nordic_total_results
+    results = no_result_reason_results
+    return results if results
+    [nordic_score.to_i, nordic_extra_score.to_i]
+  end
+
   private
 
   def no_result_reason_results

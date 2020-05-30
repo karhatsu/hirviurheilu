@@ -1,0 +1,39 @@
+.result-cards
+  - prev_results = 1.0/0.0
+  - rank = 0
+  - series.nordic_race_results.each_with_index do |comp, i|
+    - @max_points = comp.points if i == 0
+    - if comp.nordic_results != prev_results
+      - rank = rank + 1
+    .card{class: i % 2 == 0 ? 'card--odd' : ''}
+      .card__number= "#{rank}." unless comp.nordic_results == prev_results
+      .card__middle
+        .card__name= full_name(comp)
+        .card__middle-row= comp.club.name
+        - if comp.nordic_extra_score
+          .card__middle-row
+            Uusinta: #{comp.nordic_extra_score}
+        .card__middle-row
+          %span.card__sub-result.card__sub-result--shoot
+            Trap: #{comp.nordic_trap_score.to_i}
+            - if comp.nordic_trap_shots
+              %span.shots (#{shots_print comp.nordic_trap_shots})
+          %span.card__sub-result.card__sub-result--shoot
+            Haulikko 2: #{comp.nordic_shotgun_score.to_i}
+            - if comp.nordic_shotgun_shots
+              %span.shots (#{shots_print comp.nordic_shotgun_shots})
+          %span.card__sub-result.card__sub-result--shoot
+            Hirvi: #{comp.nordic_rifle_moving_score.to_i}
+            - if comp.nordic_rifle_moving_shots
+              %span.shots (#{shots_print comp.nordic_rifle_moving_shots})
+          %span.card__sub-result.card__sub-result--shoot
+            Kauris: #{comp.nordic_rifle_standing_score.to_i}
+            - if comp.nordic_rifle_standing_shots
+              %span.shots (#{shots_print comp.nordic_rifle_standing_shots})
+      .card__main-value
+        - if comp.no_result_reason
+          = comp.no_result_reason
+        - else
+          = comp.nordic_score
+          = national_record_print(comp) if comp.nordic_score.to_i >= @max_points.to_i
+    - prev_results = comp.nordic_results
