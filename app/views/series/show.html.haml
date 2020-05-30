@@ -8,7 +8,7 @@
     = race_series_path(series.race, series)
 = render layout: 'series/series_status', locals: { series: @series } do
   - unless @series.sport.shooting?
-    = render partial: 'series/infos', locals: { series: @series }
+    = render partial: 'series/three_sport_race_infos', locals: { series: @series }
   - cache [@series, params[:sort], unofficials, I18n.locale] do
     - if @series.sport.shooting?
       - competitors = @series.shooting_race_results

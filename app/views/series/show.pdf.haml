@@ -6,5 +6,5 @@
   - if @series.race.sport.shooting?
     = render :partial => 'series/shooting_race_desktop_results', locals: { series: @series }
   - else
-    = render :partial => 'series/infos', :locals => { :series => @series }
+    = render :partial => 'series/three_sport_race_infos', :locals => { :series => @series }
     = render :partial => 'series/three_sports_race_desktop_results', locals: { series: @series }
