@@ -3,7 +3,9 @@
 = @series.race.location, = race_date_interval(@series.race, false)
 %h2 #{@series.name} - #{series_result_title(@series, unofficials)}
 - cache [@series, unofficials, I18n.locale] do
-  - if @series.race.sport.shooting?
+  - if @series.sport.nordic?
+    = render partial: 'series/nordic_race_desktop_results', locals: { series: @series }
+  - elsif @series.sport.shooting?
     = render :partial => 'series/shooting_race_desktop_results', locals: { series: @series }
   - else
     = render :partial => 'series/three_sport_race_infos', :locals => { :series => @series }
