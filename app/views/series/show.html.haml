@@ -10,7 +10,10 @@
   - unless @series.sport.shooting?
     = render partial: 'series/three_sport_race_infos', locals: { series: @series }
   - cache [@series, params[:sort], unofficials, I18n.locale] do
-    - if @series.sport.shooting?
+    - if @series.sport.nordic?
+      .results--desktop= render partial: 'series/nordic_race_desktop_results', locals: { series: @series }
+      .results--mobile= render partial: 'series/nordic_race_mobile_results', locals: { series: @series }
+    - elsif @series.sport.shooting?
       - competitors = @series.shooting_race_results
       - show_shots_buttons = competitors.any? {|competitor| competitor.shots}
       - if show_shots_buttons
