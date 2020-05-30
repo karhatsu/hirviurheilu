@@ -4,7 +4,7 @@
 %h2 #{@series.name} - #{series_result_title(@series, unofficials)}
 - cache [@series, unofficials, I18n.locale] do
   - if @series.race.sport.shooting?
-    = render :partial => 'series/only_shooting_results', locals: { series: @series }
+    = render :partial => 'series/shooting_race_desktop_results', locals: { series: @series }
   - else
     = render :partial => 'series/infos', :locals => { :series => @series }
-    = render :partial => 'series/series_results', locals: { series: @series }
+    = render :partial => 'series/three_sports_race_desktop_results', locals: { series: @series }
