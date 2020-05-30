@@ -23,11 +23,11 @@
             - if comp.nordic_shotgun_shots
               %span.shots (#{shots_print comp.nordic_shotgun_shots})
           %span.card__sub-result.card__sub-result--shoot
-            Liikkuva hirvi: #{comp.nordic_rifle_moving_score.to_i}
+            Hirvi: #{comp.nordic_rifle_moving_score.to_i}
             - if comp.nordic_rifle_moving_shots
               %span.shots (#{shots_print comp.nordic_rifle_moving_shots})
           %span.card__sub-result.card__sub-result--shoot
-            Seisova hirvi: #{comp.nordic_rifle_standing_score.to_i}
+            Kauris: #{comp.nordic_rifle_standing_score.to_i}
             - if comp.nordic_rifle_standing_shots
               %span.shots (#{shots_print comp.nordic_rifle_standing_shots})
       .card__main-value
