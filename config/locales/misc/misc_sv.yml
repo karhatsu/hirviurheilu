@@ -78,6 +78,7 @@ sv:
   final_round: Final
   final_round_batch_lists: Loppukilpailu eräluettelot
   hide_all_competitors: Gömma alla tävlarna
+  hide_shots: Gömma skott
   hide_races_of_cup: Gömma tävlingarna
   leg: Sträcka
   leg_time: Sträckatid
@@ -128,6 +129,7 @@ sv:
       other: Äldsgruppar %{age_group} har kortare löpning.
   show: Visa
   show_all_competitors: Visa alla tävlarna
+  show_shots: Visa skott
   show_races_of_cup: Visa tävlingar
   sport_name:
     SKI: Älgskidskytte

@@ -78,6 +78,7 @@ fi:
   final_round: Loppukilpailu
   final_round_batch_lists: Loppukilpailu eräluettelot
   hide_all_competitors: Piilota kaikki kilpailijat
+  hide_shots: Piilota laukaukset
   hide_races_of_cup: Piilota osakilpailut
   leg: Osuus
   leg_time: Osuusaika
@@ -128,6 +129,7 @@ fi:
       other: Ikäryhmillä %{age_group} on lyhennetty matka.
   show: Näytä
   show_all_competitors: Näytä kaikki kilpailijat
+  show_shots: Näytä laukaukset
   show_races_of_cup: Näytä osakilpailut
   sport_name:
     SKI: Hirvenhiihto
