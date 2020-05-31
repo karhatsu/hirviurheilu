@@ -191,11 +191,13 @@ class Competitor < ApplicationRecord
 
   def points(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     return nil if no_result_reason
+    return nordic_score if sport.nordic?
     return shooting_score if sport.shooting?
     shooting_points.to_i + estimate_points.to_i + time_points(unofficials).to_i
   end
 
   def team_competition_points(sport)
+    return nordic_score if sport.nordic?
     return qualification_round_score if sport.shooting?
     points
   end
@@ -240,6 +242,7 @@ class Competitor < ApplicationRecord
   end
 
   def self.sort_team_competitors(sport, competitors)
+    return sort_nordic_competitors competitors if sport.nordic?
     return sort_three_sports_competitors competitors unless sport.shooting?
     competitors.sort do |a, b|
       b.shooting_race_qualification_results <=> a.shooting_race_qualification_results
