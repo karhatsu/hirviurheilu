@@ -1414,11 +1414,19 @@ describe Competitor do
   describe '#team_competition_points' do
     let(:qualification_round_score) { 87 }
     let(:points) { 200 }
+    let(:nordic_score) { 319 }
     let(:competitor) { build :competitor }
 
     before do
       allow(competitor).to receive(:qualification_round_score).and_return(qualification_round_score)
       allow(competitor).to receive(:points).and_return(points)
+      allow(competitor).to receive(:nordic_score).and_return(nordic_score)
+    end
+
+    context 'when nordic race' do
+      it 'returns nordic score' do
+        expect(competitor.team_competition_points(Sport.by_key Sport::NORDIC)).to eql nordic_score
+      end
     end
 
     context 'when shooting race' do

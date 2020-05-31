@@ -197,6 +197,7 @@ class Competitor < ApplicationRecord
   end
 
   def team_competition_points(sport)
+    return nordic_score if sport.nordic?
     return qualification_round_score if sport.shooting?
     points
   end
@@ -241,6 +242,7 @@ class Competitor < ApplicationRecord
   end
 
   def self.sort_team_competitors(sport, competitors)
+    return sort_nordic_competitors competitors if sport.nordic?
     return sort_three_sports_competitors competitors unless sport.shooting?
     competitors.sort do |a, b|
       b.shooting_race_qualification_results <=> a.shooting_race_qualification_results

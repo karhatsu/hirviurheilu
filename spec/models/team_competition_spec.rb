@@ -350,6 +350,38 @@ describe TeamCompetition do
         competitor
       end
     end
+
+    context 'when nordic race' do
+      let(:sport_key) { Sport::NORDIC }
+      let(:club1) { build :club, id: 1, name: 'Best points' }
+      let(:club2) { build :club, id: 2, name: 'Best competitor points' }
+      let(:club3) { build :club, id: 3, name: 'Last' }
+      let(:competitors) { [] }
+
+      before do
+        competitors << build_nordic_competitor(club1, 350)
+        competitors << build_nordic_competitor(club1, 360)
+
+        competitors << build_nordic_competitor(club2, 370)
+        competitors << build_nordic_competitor(club2, 339)
+
+        competitors << build_nordic_competitor(club3, 369)
+        competitors << build_nordic_competitor(club3, 340)
+
+        @results = tc.results_for_competitors competitors.shuffle
+      end
+
+      it 'sorts teams by 1. total points 2. best competitor points' do
+        expect([0, 1, 2].map{|i| @results[i].name}).to eql [club1, club2, club3].map(&:name)
+      end
+
+      def build_nordic_competitor(club, nordic_score)
+        competitor = build :competitor, club: club
+        allow(competitor).to receive(:nordic_score).and_return(nordic_score)
+        allow(competitor).to receive(:club_id).and_return(club.id)
+        competitor
+      end
+    end
   end
 
   describe "#results" do
