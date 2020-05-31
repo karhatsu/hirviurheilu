@@ -1340,6 +1340,23 @@ describe Competitor do
   end
 
   describe "#points" do
+    context 'when nordic race' do
+      before do
+        @competitor = build :competitor
+        allow(@competitor).to receive(:sport).and_return(Sport.by_key(Sport::NORDIC))
+        allow(@competitor).to receive(:nordic_score).and_return(334)
+      end
+
+      it 'should return nil when no result reason' do
+        @competitor.no_result_reason = 'DNF'
+        expect(@competitor.points).to be_nil
+      end
+
+      it 'should return the shooting score' do
+        expect(@competitor.points).to eql 334
+      end
+    end
+
     context 'when shooting race' do
       before do
         @competitor = build :competitor
@@ -1349,7 +1366,7 @@ describe Competitor do
 
       it 'should return nil when no result reason' do
         @competitor.no_result_reason = 'DNF'
-        expect(@competitor.points(@unofficials)).to be_nil
+        expect(@competitor.points).to be_nil
       end
 
       it 'should return the shooting score' do

@@ -64,6 +64,12 @@ class Series < ApplicationRecord
     set_estimates
   end
 
+  def results
+    return nordic_race_results if sport.nordic?
+    return shooting_race_results if sport.shooting?
+    three_sports_results
+  end
+
   def three_sports_results(unofficials=UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=Competitor::SORT_BY_POINTS)
     Competitor.sort_three_sports_competitors competitors.includes([:club, :age_group, :series]), unofficials, sort_by
   end
