@@ -139,6 +139,11 @@ fi:
     METSASTYSHAULIKKO: Metsästyshaulikko
     METSASTYSTRAP: Metsästystrap
     NORDIC: Pohjoismainen metsästysammunta
+    nordic_sub:
+      trap: Trap
+      shotgun: Compak
+      rifle_moving: Hirvi
+      rifle_standing: Kauris
   start_list: Lähtölista
   team: Joukkue
   tel: Puhelin

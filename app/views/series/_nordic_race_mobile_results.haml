@@ -12,22 +12,22 @@
         .card__middle-row= comp.club.name
         - if comp.nordic_extra_score
           .card__middle-row
-            Uusinta: #{comp.nordic_extra_score}
+            #{t :extra_round}: #{comp.nordic_extra_score}
         .card__middle-row
           %span.card__sub-result.card__sub-result--shoot
-            Trap: #{comp.nordic_trap_score.to_i}
+            #{t 'sport_name.nordic_sub.trap'}: #{comp.nordic_trap_score.to_i}
             - if comp.nordic_trap_shots
               %span.shots (#{shots_print comp.nordic_trap_shots})
           %span.card__sub-result.card__sub-result--shoot
-            Haulikko 2: #{comp.nordic_shotgun_score.to_i}
+            #{t 'sport_name.nordic_sub.shotgun'}: #{comp.nordic_shotgun_score.to_i}
             - if comp.nordic_shotgun_shots
               %span.shots (#{shots_print comp.nordic_shotgun_shots})
           %span.card__sub-result.card__sub-result--shoot
-            Hirvi: #{comp.nordic_rifle_moving_score.to_i}
+            #{t 'sport_name.nordic_sub.rifle_moving'}: #{comp.nordic_rifle_moving_score.to_i}
             - if comp.nordic_rifle_moving_shots
               %span.shots (#{shots_print comp.nordic_rifle_moving_shots})
           %span.card__sub-result.card__sub-result--shoot
-            Kauris: #{comp.nordic_rifle_standing_score.to_i}
+            #{t 'sport_name.nordic_sub.rifle_standing'}: #{comp.nordic_rifle_standing_score.to_i}
             - if comp.nordic_rifle_standing_shots
               %span.shots (#{shots_print comp.nordic_rifle_standing_shots})
       .card__main-value

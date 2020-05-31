@@ -6,13 +6,13 @@
     %th= t 'attributes.name'
     %th= t 'number_short'
     %th#table_club_title= club_title(series.race)
-    %th Trap
-    %th Haulikko 2
-    %th Hirvi
-    %th Kauris
-    %th Tulos
+    %th= t 'sport_name.nordic_sub.trap'
+    %th= t 'sport_name.nordic_sub.shotgun'
+    %th= t 'sport_name.nordic_sub.rifle_moving'
+    %th= t 'sport_name.nordic_sub.rifle_standing'
+    %th= t :result
     - if extra_shots_column
-      %th Uusinta
+      %th= t :extra_round
   - prev_results = 1.0/0.0
   - rank = 0
   - competitors.each_with_index do |comp, i|

@@ -73,7 +73,7 @@ sv:
   euros:
     one: euro
     other: euro
-  extra_round: Uusinta
+  extra_round: Omskjutning
   feedback: Feedback
   final_round: Final
   final_round_batch_lists: Loppukilpailu eräluettelot
@@ -139,6 +139,11 @@ sv:
     METSASTYSHAULIKKO: Jaktskytte
     METSASTYSTRAP: Jägartrap
     NORDIC: Nordiskt jaktskytte
+    nordic_sub:
+      trap: Jägartrap
+      shotgun: Compak
+      rifle_moving: Älg
+      rifle_standing: Rådjur
   start_list: Startlista
   team: Lag
   tel: Telefon
