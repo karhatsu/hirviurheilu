@@ -7,6 +7,11 @@
     - if series
       = menu_item t('race_sub_menu.results'), race_series_path(race, series), @is_results, nil, true do
         - series_dropdown_menu(race, 'results')
+      - if race.sport.nordic?
+        = menu_item t('sport_name.nordic_sub.trap'), race_trap_path(race), @sub_sport == :trap
+        = menu_item t('sport_name.nordic_sub.shotgun'), race_shotgun_path(race), @sub_sport == :shotgun, nil
+        = menu_item t('sport_name.nordic_sub.rifle_moving'), race_rifle_moving_path(race), @sub_sport == :rifle_moving
+        = menu_item t('sport_name.nordic_sub.rifle_standing'), race_rifle_standing_path(race), @sub_sport == :rifle_standing
     - if race.sport.batch_list? && !race.qualification_round_batches.empty?
       = menu_item t('race_sub_menu.qualification_round_batches'), race_qualification_round_batches_path(race), @is_qualification_round_batches
     - if race.sport.batch_list? && !race.final_round_batches.empty?

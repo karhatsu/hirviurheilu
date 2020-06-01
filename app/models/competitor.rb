@@ -269,9 +269,15 @@ class Competitor < ApplicationRecord
     end
   end
 
-  def self.sort_nordic_competitors(competitors)
-    competitors.sort do |a, b|
-      [b.nordic_total_results, + a.number.to_i] <=> [a.nordic_total_results, b.number.to_i]
+  def self.sort_nordic_competitors(competitors, sub_sport = nil)
+    if sub_sport
+      competitors.sort do |a, b|
+        [b.nordic_sub_results(sub_sport), + a.number.to_i] <=> [a.nordic_sub_results(sub_sport), b.number.to_i]
+      end
+    else
+      competitors.sort do |a, b|
+        [b.nordic_total_results, + a.number.to_i] <=> [a.nordic_total_results, b.number.to_i]
+      end
     end
   end
 

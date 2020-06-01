@@ -27,6 +27,10 @@ ElkSports::Application.routes.draw do
     end
 
     resources :races do
+      get 'trap', to: 'nordic_races#trap', as: :trap
+      get 'shotgun', to: 'nordic_races#shotgun', as: :shotgun
+      get 'rifle_moving', to: 'nordic_races#rifle_moving', as: :rifle_moving
+      get 'rifle_standing', to: 'nordic_races#rifle_standing', as: :rifle_standing
       resources :qualification_round_batches, only: :index
       resources :final_round_batches, only: :index
       resources :series do

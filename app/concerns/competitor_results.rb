@@ -37,6 +37,23 @@ module CompetitorResults
     [nordic_score.to_i, nordic_extra_score.to_i]
   end
 
+  def nordic_sub_results(sub_sport)
+    results = no_result_reason_results
+    return results if results
+    case sub_sport
+    when :trap
+      nordic_sub_results_array nordic_trap_score, nordic_trap_extra_shots
+    when :shotgun
+      nordic_sub_results_array nordic_shotgun_score, nordic_shotgun_extra_shots
+    when :rifle_moving
+      nordic_sub_results_array nordic_rifle_moving_score, nordic_rifle_moving_extra_shots, 2
+    when :rifle_standing
+      nordic_sub_results_array nordic_rifle_standing_score, nordic_rifle_standing_extra_shots, 2
+    else
+      raise "Unknown nordic sport: #{sub_sport}"
+    end
+  end
+
   private
 
   def no_result_reason_results
@@ -61,8 +78,17 @@ module CompetitorResults
     return [] if max_extra_shots == 0
     own_shots = (extra_shots || [])
     all_extra_shots = own_shots + Array.new(max_extra_shots - own_shots.length, 0)
-    return all_extra_shots if sport.shots_per_extra_round == 1
-    all_extra_shots.each_slice(sport.shots_per_extra_round).to_a.map {|shots| shots.inject(:+)}
+    group_and_sum_shots_array all_extra_shots, sport.shots_per_extra_round
+  end
+
+  def nordic_sub_results_array(score, extra_shots, extra_shots_count = 1)
+    return [score.to_i] + group_and_sum_shots_array(extra_shots, extra_shots_count) if extra_shots
+    [score.to_i]
+  end
+
+  def group_and_sum_shots_array(shots, shots_count)
+    return shots if shots_count == 1
+    shots.each_slice(shots_count).to_a.map {|shots| shots.inject(:+)}
   end
 
   def reverse_shots(shots)

@@ -1,0 +1,6 @@
+- content_for(:title, "#{@race.name} - #{t("sport_name.nordic_sub.#{@sub_sport}")}")
+%h2= t "sport_name.nordic_sub.#{@sub_sport}"
+- cache [@race, @sub_sport, I18n.locale] do
+  .results--desktop= render partial: 'races/nordic_race_desktop_sub_results', locals: { race: @race, sub_sport: @sub_sport }
+.buttons.buttons--nav
+  = link_to "#{t(:back_to_page)} #{@race.name}", race_path(@race), class: 'button button--back'

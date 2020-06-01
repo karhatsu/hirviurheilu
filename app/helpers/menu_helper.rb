@@ -64,6 +64,14 @@ module MenuHelper
         link = race_series_path(locale_for_path, race, series)
       elsif type == 'start_list'
         link = race_series_start_list_path(locale_for_path, race, series)
+      elsif type == 'trap'
+        link = race_trap_path(locale_for_path, race)
+      elsif type == 'shotgun'
+        link = race_shotgun_path(locale_for_path, race)
+      elsif type == 'rifle_moving'
+        link = race_rifle_moving_path(locale_for_path, race)
+      elsif type == 'rifle_standing'
+        link = race_rifle_standing_path(locale_for_path, race)
       elsif type == 'competitors'
         link = official_series_competitors_path(locale_for_path, series)
       elsif type == 'times'

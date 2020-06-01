@@ -235,6 +235,10 @@ class Race < ApplicationRecord
     shooting_place_count == 1 ? track_count : shooting_place_count
   end
 
+  def nordic_sub_results(sub_sport)
+    Competitor.sort_nordic_competitors competitors.includes([:club, :age_group, :series]), sub_sport
+  end
+
   private
   def end_date_not_before_start_date
     if end_date and end_date < start_date

@@ -271,6 +271,56 @@ describe CompetitorResults do
     end
   end
 
+  context '#nordic_sub_results' do
+    context 'when no result reason' do
+      it 'returns array of one item with negative value' do
+        expect(competitor_with_no_result_reason(Competitor::DNF).nordic_sub_results(:trap)).to eql [-10000]
+        expect(competitor_with_no_result_reason(Competitor::DNS).nordic_sub_results(:shotgun)).to eql [-20000]
+        expect(competitor_with_no_result_reason(Competitor::DQ).nordic_sub_results(:rifle_moving)).to eql [-30000]
+      end
+    end
+
+    context 'without no result reason' do
+      let(:competitor) { build :competitor }
+
+      context 'and without results' do
+        it 'returns array of zero' do
+          expect(competitor.nordic_sub_results(:trap)).to eql [0]
+          expect(competitor.nordic_sub_results(:shotgun)).to eql [0]
+          expect(competitor.nordic_sub_results(:rifle_moving)).to eql [0]
+          expect(competitor.nordic_sub_results(:rifle_standing)).to eql [0]
+        end
+      end
+
+      context 'and with results' do
+        before do
+          competitor.nordic_trap_score_input = 23
+          competitor.nordic_trap_extra_shots = [1, 1, 0]
+          competitor.nordic_shotgun_score_input = 20
+          competitor.nordic_shotgun_extra_shots = [0, 1, 1, 0]
+          competitor.nordic_rifle_moving_score_input = 97
+          competitor.nordic_rifle_moving_extra_shots = [10, 9, 8, 9]
+          competitor.nordic_rifle_standing_score_input = 100
+          competitor.nordic_rifle_standing_extra_shots = [10, 10, 8, 10, 9, 10]
+        end
+
+        context 'shotgun sports' do
+          it 'returns array of score and extra shots' do
+            expect(competitor.nordic_sub_results(:trap)).to eql [23, 1, 1, 0]
+            expect(competitor.nordic_sub_results(:shotgun)).to eql [20, 0, 1, 1, 0]
+          end
+        end
+
+        context 'rifle sports' do
+          it 'returns array of score and extra shots in sums of two shots' do
+            expect(competitor.nordic_sub_results(:rifle_moving)).to eql [97, 19, 17]
+            expect(competitor.nordic_sub_results(:rifle_standing)).to eql [100, 20, 18, 19]
+          end
+        end
+      end
+    end
+  end
+
   def competitor_with_no_result_reason(no_result_reason)
     build :competitor, no_result_reason: no_result_reason
   end
