@@ -2,5 +2,7 @@
 #{@race.location}, #{race_date_interval(@race, false)}
 %hr
 = render 'single_competitor_competitions'
+- if @race.sport.nordic?
+  = render 'all_nordic_sub_sports'
 = render 'team_competitions'
 = render 'relays'
