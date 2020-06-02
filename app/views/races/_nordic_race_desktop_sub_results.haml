@@ -1,5 +1,5 @@
-- competitors = race.nordic_sub_results @sub_sport
-- extra_shots_column = competitors.any? {|competitor| competitor.send("nordic_#{@sub_sport}_extra_shots")}
+- competitors = race.nordic_sub_results sub_sport
+- extra_shots_column = competitors.any? {|competitor| competitor.send("nordic_#{sub_sport}_extra_shots")}
 %table.results-table
   %tr
     %th &nbsp;
@@ -16,7 +16,7 @@
   - competitors.each_with_index do |comp, i|
     - @max_points = comp.points if rank == 1
     - next unless i < 3 || params[:club_id].blank? || comp.club_id == params[:club_id].to_i
-    - results = comp.nordic_sub_results @sub_sport
+    - results = comp.nordic_sub_results sub_sport
     - if results != prev_results
       - rank = rank + 1
     %tr{class: i % 2 == 0 ? 'odd' : ''}
@@ -25,16 +25,16 @@
       %td= comp.number
       %td= comp.series.name
       %td= comp.club.name
-      - shots = comp.send("nordic_#{@sub_sport}_shots")
-      %td.shots= shots ? shots_print(comp.send("nordic_#{@sub_sport}_shots")) : ''
+      - shots = comp.send("nordic_#{sub_sport}_shots")
+      %td.shots= shots ? shots_print(comp.send("nordic_#{sub_sport}_shots")) : ''
       %td.center.total-points
         - if comp.no_result_reason
           = comp.no_result_reason
         - else
-          = comp.send("nordic_#{@sub_sport}_score") || '-'
+          = comp.send("nordic_#{sub_sport}_score") || '-'
       - if extra_shots_column
         %td
-          - extra_shots = comp.send("nordic_#{@sub_sport}_extra_shots")
+          - extra_shots = comp.send("nordic_#{sub_sport}_extra_shots")
           - if extra_shots
             = shots_print extra_shots
     - prev_results = results
