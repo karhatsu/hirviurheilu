@@ -7,6 +7,7 @@
     %th= t 'number_short'
     %th= t :series
     %th#table_club_title= club_title(race)
+    %th.shots= t :shots
     %th= t :result
     - if extra_shots_column
       %th= t :extra_round
@@ -24,15 +25,13 @@
       %td= comp.number
       %td= comp.series.name
       %td= comp.club.name
+      - shots = comp.send("nordic_#{@sub_sport}_shots")
+      %td.shots= shots ? shots_print(comp.send("nordic_#{@sub_sport}_shots")) : ''
       %td.center.total-points
         - if comp.no_result_reason
           = comp.no_result_reason
         - else
-          - score = comp.send("nordic_#{@sub_sport}_score")
-          - shots = comp.send("nordic_#{@sub_sport}_shots")
-          = score || '-'
-          - if shots
-            %span.shots (#{shots_print shots})
+          = comp.send("nordic_#{@sub_sport}_score") || '-'
       - if extra_shots_column
         %td
           - extra_shots = comp.send("nordic_#{@sub_sport}_extra_shots")

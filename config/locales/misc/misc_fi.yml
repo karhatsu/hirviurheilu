@@ -127,6 +127,7 @@ fi:
     age_groups:
       one: Ikäryhmällä %{age_group} on lyhennetty matka.
       other: Ikäryhmillä %{age_group} on lyhennetty matka.
+  shots: Laukaukset
   show: Näytä
   show_all_competitors: Näytä kaikki kilpailijat
   show_shots: Näytä laukaukset

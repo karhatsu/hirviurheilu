@@ -127,6 +127,7 @@ sv:
     age_groups:
       one: Äldsgrupp %{age_group} har kortare löpning.
       other: Äldsgruppar %{age_group} har kortare löpning.
+  shots: Skott
   show: Visa
   show_all_competitors: Visa alla tävlarna
   show_shots: Visa skott

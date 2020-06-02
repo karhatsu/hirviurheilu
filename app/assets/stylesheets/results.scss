@@ -38,6 +38,10 @@
   }
 }
 
+th.shots--visible, td.shots--visible {
+  display: table-cell;
+}
+
 .team_name, .team_points {
   font-weight: bold;
 }
