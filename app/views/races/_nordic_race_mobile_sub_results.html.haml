@@ -1,12 +1,9 @@
 .result-cards
   - prev_results = 1.0/0.0
-  - rank = 0
   - race.nordic_sub_results(sub_sport).each_with_index do |comp, i|
     - @max_points = comp.points if i == 0
-    - if comp.nordic_sub_results(sub_sport) != prev_results
-      - rank = rank + 1
     .card{class: i % 2 == 0 ? 'card--odd' : ''}
-      .card__number= "#{rank}." unless comp.nordic_sub_results(sub_sport) == prev_results
+      .card__number= "#{i + 1}." unless comp.nordic_sub_results(sub_sport) == prev_results
       .card__middle
         .card__name= full_name(comp)
         .card__middle-row= comp.club.name
