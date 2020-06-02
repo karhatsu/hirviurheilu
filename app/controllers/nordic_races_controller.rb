@@ -3,21 +3,36 @@ class NordicRacesController < ApplicationController
 
   def trap
     @sub_sport = :trap
-    render :show
+    render_page
   end
 
   def shotgun
     @sub_sport = :shotgun
-    render :show
+    render_page
   end
 
   def rifle_moving
     @sub_sport = :rifle_moving
-    render :show
+    render_page
   end
 
   def rifle_standing
     @sub_sport = :rifle_standing
-    render :show
+    render_page
+  end
+
+  private
+
+  def render_page
+    respond_to do |format|
+      format.html {
+        render :show
+      }
+      format.pdf {
+        render template: 'nordic_races/show', pdf: "#{@race.name}-#{@sub_sport}-tulokset", layout: true, margin: pdf_margin,
+               header: pdf_header("#{@race.name} - #{I18n.t("sport_name.nordic_sub.#{@sub_sport}")}\n"), footer: pdf_footer,
+               orientation: 'Portrait', disable_smart_shrinking: true
+      }
+    end
   end
 end

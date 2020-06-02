@@ -1,0 +1,3 @@
+%h2= t "sport_name.nordic_sub.#{@sub_sport}"
+- cache [@race, @sub_sport, I18n.locale] do
+  = render partial: 'races/nordic_race_desktop_sub_results', locals: { race: @race, sub_sport: @sub_sport }
