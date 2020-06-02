@@ -312,6 +312,10 @@ class Competitor < ApplicationRecord
     shots || nordic_trap_shots || nordic_shotgun_shots || nordic_rifle_moving_shots || nordic_rifle_standing_shots
   end
 
+  def has_nordic_sub_sport_shots?(sub_sport)
+    send "nordic_#{sub_sport}_shots"
+  end
+
   private
 
   def start_time_max
