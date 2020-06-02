@@ -33,6 +33,10 @@
         = link_to link_text, race_series_start_list_path(@race, series), class: 'button'
       - else
         = link_to series.name, race_series_path(@race, series), class: 'button button--primary'
+  - if @race.sport.nordic?
+    .buttons
+      - [:trap, :shotgun, :rifle_moving, :rifle_standing].map do |sub_sport|
+        = link_to t("sport_name.nordic_sub.#{sub_sport}"), "/races/#{@race.id}/#{sub_sport}", class: 'button button--primary'
   - unless @race.finished? || @race.competitors.empty?
     .results--desktop
       - if @race.sport.start_list?
