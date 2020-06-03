@@ -411,6 +411,11 @@ describe Competitor do
 
       describe 'trap_shots' do
         it_should_behave_like 'shotgun shots', :nordic_trap_shots
+
+        it 'can be saved together with blank score input' do
+          competitor = build :competitor, nordic_trap_shots: %w(1, 0, 1, 1), nordic_trap_score_input: ''
+          expect(competitor).to have(0).errors_on(:base)
+        end
       end
 
       describe 'trap_score_input' do
@@ -424,6 +429,11 @@ describe Competitor do
 
       describe 'shotgun_shots' do
         it_should_behave_like 'shotgun shots', :nordic_shotgun_shots
+
+        it 'can be saved together with blank score input' do
+          competitor = build :competitor, nordic_shotgun_shots: %w(1, 0, 1, 1), nordic_shotgun_score_input: ''
+          expect(competitor).to have(0).errors_on(:base)
+        end
       end
 
       describe 'shotgun_score_input' do
@@ -437,6 +447,11 @@ describe Competitor do
 
       describe 'rifle_moving_shots' do
         it_should_behave_like 'max ten 0-10 shots', :nordic_rifle_moving_shots
+
+        it 'can be saved together with blank score input' do
+          competitor = build :competitor, nordic_rifle_moving_shots: %w(10, 9), nordic_rifle_moving_score_input: ''
+          expect(competitor).to have(0).errors_on(:base)
+        end
       end
 
       describe 'rifle_moving_score_input' do
@@ -459,6 +474,11 @@ describe Competitor do
         end
         it { is_expected.to allow_value(['10', '9', '0']).for(:nordic_rifle_standing_shots) }
         it { is_expected.not_to allow_value(['10', '9', '6']).for(:nordic_rifle_standing_shots) }
+
+        it 'can be saved together with blank score input' do
+          competitor = build :competitor, nordic_rifle_standing_shots: %w(9 10 8), nordic_rifle_standing_score_input: ''
+          expect(competitor).to have(0).errors_on(:base)
+        end
       end
 
       describe 'rifle_standing_score_input' do
@@ -497,6 +517,59 @@ describe Competitor do
       it 'converts string shots into integers' do
         competitor = create :competitor, extra_shots: %w(10 9 8)
         expect(competitor.extra_shots).to eql([10, 9, 8])
+      end
+    end
+
+    describe 'nordic' do
+      shared_examples_for 'nordic field conversion' do |sub_sport|
+        describe sub_sport do
+          it 'converts shots strings to integer' do
+            raw_shots = sub_sport == 'rifle_standing' ? %w(8 9 10) : %w(1 0 1)
+            int_shots = sub_sport == 'rifle_standing' ? [8, 9, 10] : [1, 0, 1]
+            competitor = build :competitor
+            competitor.send "nordic_#{sub_sport}_shots=", raw_shots
+            competitor.save
+            expect(competitor.send("nordic_#{sub_sport}_shots")).to eql int_shots
+          end
+
+          it 'converts score input string to integer' do
+            competitor = build :competitor
+            competitor.send "nordic_#{sub_sport}_score_input=", '21'
+            competitor.save
+            expect(competitor.send("nordic_#{sub_sport}_score_input")).to eql 21
+          end
+
+          it 'converts score input empty string to nil' do
+            competitor = build :competitor
+            competitor.send "nordic_#{sub_sport}_score_input=", ''
+            competitor.save
+            expect(competitor.send("nordic_#{sub_sport}_score_input")).to be_nil
+          end
+
+          it 'converts extra shots strings to integer' do
+            raw_shots = sub_sport == 'rifle_standing' ? %w(8 9 10) : %w(1 0)
+            int_shots = sub_sport == 'rifle_standing' ? [8, 9, 10] : [1, 0]
+            competitor = build :competitor
+            competitor.send "nordic_#{sub_sport}_extra_shots=", raw_shots
+            competitor.save
+            expect(competitor.send("nordic_#{sub_sport}_extra_shots")).to eql int_shots
+          end
+        end
+      end
+
+      it_should_behave_like 'nordic field conversion', 'trap'
+      it_should_behave_like 'nordic field conversion', 'shotgun'
+      it_should_behave_like 'nordic field conversion', 'rifle_moving'
+      it_should_behave_like 'nordic field conversion', 'rifle_standing'
+
+      it 'converts extra score string to integer' do
+        competitor = create :competitor, nordic_extra_score: '191'
+        expect(competitor.nordic_extra_score).to eql 191
+      end
+
+      it 'converts extra score empty string to nil' do
+        competitor = create :competitor, nordic_extra_score: ''
+        expect(competitor.nordic_extra_score).to be_nil
       end
     end
 

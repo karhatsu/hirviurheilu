@@ -45,11 +45,11 @@ class Competitor < ApplicationRecord
   validates :shooting_overtime_min, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
   validates :qualification_round_track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :final_round_track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
-  validates :nordic_trap_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_nil: true }
-  validates :nordic_shotgun_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_nil: true }
-  validates :nordic_rifle_moving_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true }
-  validates :nordic_rifle_standing_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true }
-  validates :nordic_extra_score, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 200, allow_nil: true }
+  validates :nordic_trap_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_blank: true }
+  validates :nordic_shotgun_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_blank: true }
+  validates :nordic_rifle_moving_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
+  validates :nordic_rifle_standing_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
+  validates :nordic_extra_score, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 200, allow_blank: true }
   validate :start_time_max
   validate :times_in_correct_order
   validate :only_one_shot_input_method_used
@@ -73,7 +73,8 @@ class Competitor < ApplicationRecord
   validate :concurrent_changes, :on => :update
   validate :track_place_fitting
 
-  before_save :set_has_result, :reset_age_group, :set_shooting_overtime_min, :convert_string_shots, :convert_string_extra_shots
+  before_save :set_has_result, :reset_age_group, :set_shooting_overtime_min, :convert_string_shots,
+              :convert_string_extra_shots, :convert_nordic_results
 
   after_create :set_correct_estimates
   after_save :update_series_start_time_and_number
@@ -363,8 +364,10 @@ class Competitor < ApplicationRecord
   end
 
   def only_one_shot_input_method_used_nordic
-    if (nordic_trap_shots && nordic_trap_score_input) || (nordic_shotgun_shots && nordic_shotgun_score_input) ||
-        (nordic_rifle_moving_shots && nordic_rifle_moving_score_input) || (nordic_rifle_standing_shots && nordic_rifle_standing_score_input)
+    if (nordic_trap_shots && !nordic_trap_score_input.blank?) ||
+        (nordic_shotgun_shots && !nordic_shotgun_score_input.blank?) ||
+        (nordic_rifle_moving_shots && !nordic_rifle_moving_score_input.blank?) ||
+        (nordic_rifle_standing_shots && !nordic_rifle_standing_score_input.blank?)
       errors.add :base, :shooting_result_either_sum_or_by_shots
     end
   end
@@ -525,6 +528,31 @@ class Competitor < ApplicationRecord
   def convert_string_extra_shots
     return unless extra_shots
     self.extra_shots = extra_shots.map {|shot| shot.to_i}
+  end
+
+  def convert_nordic_results
+    convert_nordic_sub_results :trap
+    convert_nordic_sub_results :shotgun
+    convert_nordic_sub_results :rifle_moving
+    convert_nordic_sub_results :rifle_standing
+
+    self.nordic_extra_score = nil if nordic_extra_score.blank?
+    self.nordic_extra_score = nordic_extra_score.to_i if nordic_extra_score
+  end
+
+  def convert_nordic_sub_results(sub_sport)
+    shots = send "nordic_#{sub_sport}_shots"
+    send "nordic_#{sub_sport}_shots=", shots.map {|shot| shot.to_i} if shots
+
+    extra_shots = send "nordic_#{sub_sport}_extra_shots"
+    send "nordic_#{sub_sport}_extra_shots=", extra_shots.map {|shot| shot.to_i} if extra_shots
+
+    score_input = send "nordic_#{sub_sport}_score_input"
+    if score_input.blank?
+      send "nordic_#{sub_sport}_score_input=", nil
+    elsif score_input
+      send "nordic_#{sub_sport}_score_input=", score_input.to_i
+    end
   end
 
   def update_series_start_time_and_number
