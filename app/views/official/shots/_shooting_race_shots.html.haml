@@ -3,7 +3,7 @@
     - shots_at_round.times do |j|
       - counter = base + (i == 0 ? j : (i * round_rules[i - 1].to_i) + j)
       .form__field.form__field--xs.form__field--shot{class: j == shots_at_round - 1 ? 'form__field--last-in-group' : ''}
-        - value = competitor[column_name] ? competitor[column_name][counter] : nil
+        - value = competitor.send(column_name) ? competitor.send(column_name)[counter] : nil
         - if best_shot_value == 1
           .binary-shot
             = hidden_field_tag field_name, value || '', class: 'shot'

@@ -61,14 +61,14 @@ sv:
     multiple_teams: Räkna poänger för andra lag
     name: Namn
     national_record: Nationellt rekord
-    nordic_trap_shots: Trapin laukaukset
-    nordic_trap_score_input: Trapin tulos
-    nordic_shotgun_shots: Haulikon laukaukset
-    nordic_shotgun_score_input: Haulikon tulos
-    nordic_rifle_moving_shots: Liikkuvan hirvikuvion laukaukset
-    nordic_rifle_moving_score_input: Liikkuvan hirvikuvion tulos
-    nordic_rifle_standing_shots: Seisovan hirvikuvion laukaukset
-    nordic_rifle_standing_score_input: Seisovan hirvikuvion tulos
+    nordic_trap_shots: Jägartrap skott
+    nordic_trap_score_input: Jägartrap resultat
+    nordic_shotgun_shots: Compak skott
+    nordic_shotgun_score_input: Compak resultat
+    nordic_rifle_moving_shots: Älg skott
+    nordic_rifle_moving_score_input: Älg resultat
+    nordic_rifle_standing_shots: Rådjur skott
+    nordic_rifle_standing_score_input: Rådjur resultat
     number: Nummer
     organizer: Organizatör (t.ex. klubb)
     organizer_phone: Telefon

@@ -27,15 +27,16 @@ module CompetitorsHelper
   end
 
   def set_shots(competitor, shots_column, shots_params)
+    return true if shots_params.blank?
     if empty_shots_in_between?(shots_params)
       competitor.errors.add :base, 'Osa laukauksista on jätetty tyhjiksi. Käytä nollaa ohilaukauksille.'
       return false
     end
     shots = shots_params.reject{|s| s.blank?}
     if shots.length > 0
-      competitor[shots_column] = shots
+      competitor.send "#{shots_column}=", shots
     else
-      competitor[shots_column] = nil
+      competitor.send "#{shots_column}=", nil
     end
     true
   end

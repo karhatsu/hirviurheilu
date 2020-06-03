@@ -41,7 +41,7 @@
       .form__field.form__field--sm.row
         .col-xs-12.col-sm-3= f.label :shooting_overtime_min
         .col-xs-12.col-sm-9= f.number_field :shooting_overtime_min
-  - elsif !@series.sport.start_list?
+  - elsif !@series.sport.start_list? && !@series.sport.nordic?
     - config = shot_fields_config @series.sport, @competitor
     - extra_shots_count = config[:extra_shots_count]
     - best_shot_value = config[:best_shot_value]
@@ -76,6 +76,51 @@
         .col-xs-12.col-sm-9
           = render partial: 'official/shots/shooting_race_shots',
               locals: { competitor: @competitor, round_rules: [extra_shots_count], base: 0, column_name: :extra_shots, field_name: 'extra_shots[]', best_shot_value: best_shot_value }
+  - elsif @series.sport.nordic?
+    = hidden_field_tag :no_times, true
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-3= f.label :number
+      .col-xs-12.col-sm-9= f.number_field :number
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-3= f.label :nordic_trap_score_input
+      .col-xs-12.col-sm-9
+        = f.number_field :nordic_trap_score_input, maxlength: 2
+        (#{t '.either_total_or_shots'})
+    .form__field.row
+      .col-xs-12.col-sm-3= label_tag :nordic_trap_shots, t('attributes.nordic_trap_shots')
+      .col-xs-12.col-sm-9
+        = render partial: 'official/shots/shooting_race_shots',
+            locals: { competitor: @competitor, round_rules: [25], base: 0, column_name: :nordic_trap_shots, field_name: 'nordic_trap_shots[]', best_shot_value: 1 }
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-3= f.label :nordic_shotgun_score_input
+      .col-xs-12.col-sm-9
+        = f.number_field :nordic_shotgun_score_input, maxlength: 2
+        (#{t '.either_total_or_shots'})
+    .form__field.row
+      .col-xs-12.col-sm-3= label_tag :nordic_shotgun_shots, t('attributes.nordic_shotgun_shots')
+      .col-xs-12.col-sm-9
+        = render partial: 'official/shots/shooting_race_shots',
+            locals: { competitor: @competitor, round_rules: [25], base: 0, column_name: :nordic_shotgun_shots, field_name: 'nordic_shotgun_shots[]', best_shot_value: 1 }
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-3= f.label :nordic_rifle_moving_score_input
+      .col-xs-12.col-sm-9
+        = f.number_field :nordic_rifle_moving_score_input, maxlength: 2
+        (#{t '.either_total_or_shots'})
+    .form__field.row
+      .col-xs-12.col-sm-3= label_tag :nordic_rifle_moving_shots, t('attributes.nordic_rifle_moving_shots')
+      .col-xs-12.col-sm-9
+        = render partial: 'official/shots/shooting_race_shots',
+            locals: { competitor: @competitor, round_rules: [10], base: 0, column_name: :nordic_rifle_moving_shots, field_name: 'nordic_rifle_moving_shots[]', best_shot_value: 10 }
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-3= f.label :nordic_rifle_standing_score_input
+      .col-xs-12.col-sm-9
+        = f.number_field :nordic_rifle_standing_score_input, maxlength: 2
+        (#{t '.either_total_or_shots'})
+    .form__field.row
+      .col-xs-12.col-sm-3= label_tag :nordic_rifle_standing_shots, t('attributes.nordic_rifle_standing_shots')
+      .col-xs-12.col-sm-9
+        = render partial: 'official/shots/shooting_race_shots',
+            locals: { competitor: @competitor, round_rules: [10], base: 0, column_name: :nordic_rifle_standing_shots, field_name: 'nordic_rifle_standing_shots[]', best_shot_value: 10 }
   - else
     = hidden_field_tag :no_times, true
   .form__field.row

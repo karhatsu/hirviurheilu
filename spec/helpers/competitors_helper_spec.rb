@@ -6,6 +6,15 @@ describe CompetitorsHelper do
     let(:original_shots) { [10, 8, 9] }
     let(:competitor) { build :competitor, shots: original_shots }
 
+    context 'when no shots' do
+      it 'does not change anything but returns true' do
+        ret = helper.set_shots competitor, shots_column, nil
+        expect(competitor.shots).to eql original_shots
+        expect(competitor).to have(0).errors
+        expect(ret).to be_truthy
+      end
+    end
+
     context 'when all shots are blank' do
       it 'sets shots to nil and returns true' do
         ret = helper.set_shots competitor, shots_column, ['', '', '']
@@ -55,6 +64,22 @@ describe CompetitorsHelper do
       it 'sets shots to extra_shots' do
         ret = helper.set_shots competitor, :extra_shots, %w(10 10 5)
         expect(competitor.extra_shots).to eql %w(10 10 5)
+        expect(competitor).to have(0).errors
+        expect(ret).to be_truthy
+      end
+    end
+
+    context 'when json shots field used' do
+      it 'is able to set new shots' do
+        ret = helper.set_shots competitor, 'nordic_trap_shots', ['8', '7', '10', '', '']
+        expect(competitor.nordic_trap_shots).to eql %w(8 7 10)
+        expect(competitor).to have(0).errors
+        expect(ret).to be_truthy
+      end
+
+      it 'is able to reset shots' do
+        ret = helper.set_shots competitor, 'nordic_trap_shots', ['', '', '']
+        expect(competitor.nordic_trap_shots).to be_nil
         expect(competitor).to have(0).errors
         expect(ret).to be_truthy
       end

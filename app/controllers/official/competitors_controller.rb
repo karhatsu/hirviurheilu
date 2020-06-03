@@ -64,9 +64,8 @@ class Official::CompetitorsController < Official::OfficialController
   def update
     club_ok = handle_club(@competitor)
     update_params = update_competitor_params
-    shots_ok = params['shots'].blank? || set_shots(@competitor, :shots, params['shots'])
-    extra_shots_ok = params['extra_shots'].blank? || set_shots(@competitor, :extra_shots, params['extra_shots'])
-    if club_ok && shots_ok && extra_shots_ok && handle_time_parameters && @competitor.update(update_params)
+    shots_ok = Competitor::ALL_SHOTS_FIELDS.map { |shots_name| set_shots @competitor, shots_name, params[shots_name] }.all?
+    if club_ok && shots_ok && handle_time_parameters && @competitor.update(update_params)
       js_template = params[:start_list] ? 'official/start_lists/update_success' :
         'official/competitors/update_success'
       respond_to do |format|
@@ -129,6 +128,7 @@ class Official::CompetitorsController < Official::OfficialController
       :estimate4, :no_result_reason, :shooting_overtime_min,
       :qualification_round_batch_id, :qualification_round_track_place, :final_round_batch_id, :final_round_track_place,
       :qualification_round_shooting_score_input, :final_round_shooting_score_input,
+      :nordic_trap_score_input, :nordic_shotgun_score_input, :nordic_rifle_moving_score_input, :nordic_rifle_standing_score_input,
       old_values: [:estimate1, :estimate2, :estimate3, :estimate4])
   end
 end
