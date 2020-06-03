@@ -1747,6 +1747,105 @@ describe Competitor do
         end
       end
     end
+
+    context 'for nordic race' do
+      let(:sport) { Sport.by_key Sport::NORDIC }
+
+      context 'when competitor has no result reason' do
+        it 'should return true' do
+          competitor.no_result_reason = Competitor::DNS
+          expect(competitor).to be_finished
+        end
+      end
+
+      context "when competitor has no 'no result reason'" do
+        context 'and has no shots' do
+          before do
+            competitor.nordic_trap_score_input = 24
+            competitor.nordic_shotgun_score_input = 25
+            competitor.nordic_rifle_moving_score_input = 91
+            competitor.nordic_rifle_standing_score_input = 80
+          end
+
+          context 'and has all score inputs' do
+            it 'should return true' do
+              expect(competitor).to be_finished
+            end
+          end
+
+          context 'and is missing trap score input' do
+            it 'should return false' do
+              competitor.nordic_trap_score_input = nil
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and is missing shotgun score input' do
+            it 'should return false' do
+              competitor.nordic_shotgun_score_input = nil
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and is missing rifle moving score input' do
+            it 'should return false' do
+              competitor.nordic_rifle_moving_score_input = nil
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and is missing rifle standing score input' do
+            it 'should return false' do
+              competitor.nordic_rifle_standing_score_input = nil
+              expect(competitor).not_to be_finished
+            end
+          end
+        end
+
+        context 'and has shots' do
+          before do
+            competitor.nordic_trap_shots = 25.times.map {1}
+            competitor.nordic_shotgun_shots = 25.times.map {1}
+            competitor.nordic_rifle_moving_shots = 10.times.map {9}
+            competitor.nordic_rifle_standing_shots = 10.times.map {8}
+          end
+
+          context 'and it has all necessary shots' do
+            it 'should return true' do
+              expect(competitor).to be_finished
+            end
+          end
+
+          context 'and it has one trap shot missing' do
+            it 'should return false' do
+              competitor.nordic_trap_shots = 24.times.map {1}
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and it has one shotgun shot missing' do
+            it 'should return false' do
+              competitor.nordic_shotgun_shots = 24.times.map {1}
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and it has one rifle moving shot missing' do
+            it 'should return false' do
+              competitor.nordic_rifle_moving_shots = 9.times.map {10}
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and it has one rifle standing shot missing' do
+            it 'should return false' do
+              competitor.nordic_rifle_standing_shots = 9.times.map {9}
+              expect(competitor).not_to be_finished
+            end
+          end
+        end
+      end
+    end
   end
 
   describe "#comparison_time_in_seconds" do

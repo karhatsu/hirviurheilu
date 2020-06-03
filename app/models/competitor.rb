@@ -204,7 +204,10 @@ class Competitor < ApplicationRecord
 
   def finished?
     return true if no_result_reason
-    if sport.shooting?
+    if sport.nordic?
+      has_nordic_sub_result(:trap, 25) && has_nordic_sub_result(:shotgun, 25) &&
+          has_nordic_sub_result(:rifle_moving, 10) && has_nordic_sub_result(:rifle_standing, 10)
+    elsif sport.shooting?
       return true if qualification_round_shooting_score_input
       shots && (shots.length == sport.qualification_round_shot_count || shots.length == sport.shot_count)
     else
@@ -577,5 +580,11 @@ class Competitor < ApplicationRecord
 
   def race_year
     race.start_date.year
+  end
+
+  def has_nordic_sub_result(sub_sport, required_shot_count)
+    return true if send("nordic_#{sub_sport}_score_input")
+    shots = send("nordic_#{sub_sport}_shots")
+    shots && shots.length == required_shot_count
   end
 end
