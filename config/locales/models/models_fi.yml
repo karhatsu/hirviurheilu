@@ -61,12 +61,16 @@ fi:
     multiple_teams: Laske pisteet 2-joukkueille
     name: Nimi
     national_record: Suomen ennätys
+    nordic_trap_extra_shots: Trapin uusintalaukaukset
     nordic_trap_shots: Trapin laukaukset
     nordic_trap_score_input: Trapin tulos
+    nordic_shotgun_extra_shots: Compakin uusintalaukaukset
     nordic_shotgun_shots: Compakin laukaukset
     nordic_shotgun_score_input: Compakin tulos
+    nordic_rifle_moving_extra_shots: Liikkuvan hirven uusintalaukaukset
     nordic_rifle_moving_shots: Liikkuvan hirven laukaukset
     nordic_rifle_moving_score_input: Liikkuvan hirven tulos
+    nordic_rifle_standing_extra_shots: Seisovan kauriin uusintalaukaukset
     nordic_rifle_standing_shots: Seisovan kauriin laukaukset
     nordic_rifle_standing_score_input: Seisovan kauriin tulos
     number: Numero

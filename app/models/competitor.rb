@@ -17,7 +17,7 @@ class Competitor < ApplicationRecord
 
   MAX_START_TIME = Time.utc 2000, 1, 1, 6, 59, 59
 
-  ALL_SHOTS_FIELDS = %w[shots extra_shots nordic_trap_shots nordic_shotgun_shots nordic_rifle_moving_shots nordic_rifle_standing_shots]
+  ALL_SHOTS_FIELDS = %w[shots extra_shots nordic_trap_shots nordic_shotgun_shots nordic_rifle_moving_shots nordic_rifle_standing_shots nordic_trap_extra_shots nordic_shotgun_extra_shots nordic_rifle_moving_extra_shots nordic_rifle_standing_extra_shots]
 
   belongs_to :club
   belongs_to :series, counter_cache: true, touch: true

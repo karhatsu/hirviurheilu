@@ -12,4 +12,14 @@ module ShotFieldsHelper
     config[:best_shot_value] = sport.best_shot_value
     config
   end
+
+  def nordic_extra_shots_field_count(sub_sport, shots_count)
+    score_input = @competitor.send("nordic_#{sub_sport}_score_input")
+    shots = @competitor.send("nordic_#{sub_sport}_shots")
+    if score_input || (shots && shots.length == shots_count)
+      extra_shots = @competitor.send("nordic_#{sub_sport}_extra_shots")
+      return (extra_shots || []).length + 1
+    end
+    0
+  end
 end
