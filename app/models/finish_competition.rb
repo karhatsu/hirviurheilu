@@ -66,7 +66,7 @@ class FinishCompetition
       action = competitor_action[:action]
       if action == ACTION_DELETE
         @competition.competitors.find(competitor_id).destroy
-      else
+      elsif action != ACTION_COMPLETE
         @competition.competitors.find(competitor_id).update_attribute :no_result_reason, action
       end
     end

@@ -78,6 +78,19 @@ describe FinishCompetition do
           confirm_successfull_finish race
         end
       end
+
+      context 'when one competitor was missing result but it was filled in another browser tab' do
+        let(:competitor) { create :competitor, series: series, estimate1: 100, estimate2: 150, shooting_score_input: 99,
+                                  start_time: '00:00:00', arrival_time: '00:10:00' }
+
+        it 'does not anything to the no result reason field' do
+          actions = [{ competitor_id: competitor.id, action: FinishCompetition::ACTION_COMPLETE }]
+          finish_competition = FinishCompetition.new race, actions
+          finish_competition.finish
+          expect(race).to be_finished
+          expect(competitor.reload.no_result_reason).to be_nil
+        end
+      end
     end
   end
 
