@@ -6,4 +6,10 @@ class Official::NordicRaceShotsController < Official::OfficialController
     @is_trap = true
     render :index
   end
+
+  def shotgun
+    @sub_sport = :shotgun
+    @is_shotgun = true
+    render :index
+  end
 end

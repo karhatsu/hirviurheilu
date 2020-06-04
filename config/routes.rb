@@ -113,6 +113,7 @@ ElkSports::Application.routes.draw do
         resource :start_list
         resources :shots
         get 'trap', to: 'nordic_race_shots#trap', as: :trap
+        get 'shotgun', to: 'nordic_race_shots#shotgun', as: :shotgun
         resources :estimates
         resources :times
       end

@@ -35,6 +35,8 @@
     - elsif series && !race.series.first.new_record? && race.sport.nordic?
       = menu_item t('sport_name.nordic_sub.trap'), official_series_trap_path(series), @is_trap, nil, true do
         - series_dropdown_menu(race, 'trap_shots')
+      = menu_item t('sport_name.nordic_sub.shotgun'), official_series_shotgun_path(series), @is_shotgun, nil, true do
+        - series_dropdown_menu(race, 'shotgun_shots')
     - if series && !race.series.first.new_record?
       = menu_item t('official_sub_menu.csv'), official_race_csv_export_path(race), @is_csv
       = menu_item t('official_sub_menu.team_competitions'), official_race_team_competitions_path(race), @is_team_competitions
