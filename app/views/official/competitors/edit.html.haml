@@ -91,7 +91,7 @@
       .col-xs-12.col-sm-9
         = render partial: 'official/shots/shooting_race_shots',
             locals: { competitor: @competitor, round_rules: [25], base: 0, column_name: :nordic_trap_shots, field_name: 'nordic_trap_shots[]', best_shot_value: 1 }
-    - trap_extra_shots_count = nordic_extra_shots_field_count :trap, 25
+    - trap_extra_shots_count = nordic_extra_shots_field_count @competitor, :trap, 25
     - if trap_extra_shots_count > 0
       .form__field.row
         .col-xs-12.col-sm-3= label_tag :extra_shots, t('attributes.nordic_trap_extra_shots')
@@ -108,7 +108,7 @@
       .col-xs-12.col-sm-9
         = render partial: 'official/shots/shooting_race_shots',
             locals: { competitor: @competitor, round_rules: [25], base: 0, column_name: :nordic_shotgun_shots, field_name: 'nordic_shotgun_shots[]', best_shot_value: 1 }
-    - shotgun_extra_shots_count = nordic_extra_shots_field_count :shotgun, 25
+    - shotgun_extra_shots_count = nordic_extra_shots_field_count @competitor, :shotgun, 25
     - if shotgun_extra_shots_count > 0
       .form__field.row
         .col-xs-12.col-sm-3= label_tag :extra_shots, t('attributes.nordic_shotgun_extra_shots')
@@ -125,7 +125,7 @@
       .col-xs-12.col-sm-9
         = render partial: 'official/shots/shooting_race_shots',
             locals: { competitor: @competitor, round_rules: [10], base: 0, column_name: :nordic_rifle_moving_shots, field_name: 'nordic_rifle_moving_shots[]', best_shot_value: 10 }
-    - rifle_moving_extra_shots_count = nordic_extra_shots_field_count :rifle_moving, 10
+    - rifle_moving_extra_shots_count = nordic_extra_shots_field_count @competitor, :rifle_moving, 10
     - if rifle_moving_extra_shots_count > 0
       .form__field.row
         .col-xs-12.col-sm-3= label_tag :extra_shots, t('attributes.nordic_rifle_moving_extra_shots')
@@ -142,7 +142,7 @@
       .col-xs-12.col-sm-9
         = render partial: 'official/shots/shooting_race_shots',
             locals: { competitor: @competitor, round_rules: [10], base: 0, column_name: :nordic_rifle_standing_shots, field_name: 'nordic_rifle_standing_shots[]', best_shot_value: 10 }
-    - rifle_standing_extra_shots_count = nordic_extra_shots_field_count :rifle_standing, 10
+    - rifle_standing_extra_shots_count = nordic_extra_shots_field_count @competitor, :rifle_standing, 10
     - if rifle_standing_extra_shots_count > 0
       .form__field.row
         .col-xs-12.col-sm-3= label_tag :extra_shots, t('attributes.nordic_rifle_standing_extra_shots')

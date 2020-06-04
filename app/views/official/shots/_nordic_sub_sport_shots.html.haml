@@ -1,0 +1,19 @@
+- round_rules = [25]
+- name = "nordic_#{sub_sport}_shots"
+- extra_name = "nordic_#{sub_sport}_extra_shots"
+- best_shot_value = 1
+- extra_shots_count = nordic_extra_shots_field_count competitor, @sub_sport, 25
+- partial = 'official/shots/shooting_race_shots'
+= hidden_field_tag :sub_sport, sub_sport
+.form__horizontal-fields
+  .card__sub-result.card__sub-result--shoot.form__field.form__field--sm
+    = f.number_field "nordic_#{sub_sport}_score_input", maxlength: 3, class: 'shots-total-input'
+.form__horizontal-fields
+  .card__sub-result.card__sub-result--shoot
+    = render partial: partial, locals: { competitor: competitor, round_rules: round_rules, base: 0, column_name: name, field_name: "#{name}[]", best_shot_value: best_shot_value }
+- if extra_shots_count > 0
+  = t :extra_round
+  .form__horizontal-fields
+    .form__horizontal-fields
+      .card__sub-result.card__sub-result--shoot
+        %div{id: "extra_shots_#{competitor.id}"}= render partial: partial, locals: { competitor: competitor, round_rules: [extra_shots_count], base: 0, column_name: extra_name, field_name: "#{extra_name}[]", best_shot_value: best_shot_value }

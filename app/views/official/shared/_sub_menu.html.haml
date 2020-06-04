@@ -32,6 +32,9 @@
         = menu_item t('official_sub_menu.shooting_by_batches'), official_race_shooting_by_batches_path(race), @is_shots_by_batches
       - unless race.sport.shooting?
         = menu_item t('official_sub_menu.correct_distances'), official_race_correct_estimates_path(race), @is_correct_estimates
+    - elsif series && !race.series.first.new_record? && race.sport.nordic?
+      = menu_item t('sport_name.nordic_sub.trap'), official_series_trap_path(series), @is_trap, nil, true do
+        - series_dropdown_menu(race, 'trap_shots')
     - if series && !race.series.first.new_record?
       = menu_item t('official_sub_menu.csv'), official_race_csv_export_path(race), @is_csv
       = menu_item t('official_sub_menu.team_competitions'), official_race_team_competitions_path(race), @is_team_competitions

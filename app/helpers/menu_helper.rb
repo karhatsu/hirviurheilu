@@ -80,6 +80,8 @@ module MenuHelper
         link = official_series_estimates_path(locale_for_path, series)
       elsif type == 'shots'
         link = official_series_shots_path(locale_for_path, series)
+      elsif type == 'trap_shots'
+        link = official_series_trap_path(locale_for_path, series)
       end
       menu << "<div class='dropdown-menu__item'>#{link_to series.name, link}</div>"
     end

@@ -1,0 +1,37 @@
+- sport_name = t("sport_name.nordic_sub.#{@sub_sport}")
+= content_for(:title, "#{@series.race.name} - #{@series.name} - #{sport_name}")
+%h2 #{@series.name} - #{sport_name}
+- content_for :sub_sub_menu do
+  = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id } do |series|
+    = "/official/series/#{series.id}/#{@sub_sport}"
+- if @series.competitors.empty?
+  .message.message--info= t 'official.result_place.no_competitors_in_series'
+  = link_to t('official.result_place.add_competitor_to_series', series_name: @series.name), new_official_series_competitor_path(@series), class: 'button button--add'
+- else
+  .message.message--info= t('official.result_place.shooting.either_total_or_shots')
+  .result-cards
+    - @series.competitors.each do |competitor|
+      .card
+        .card__number= competitor.number
+        .card__middle
+          .card__name
+            = full_name competitor
+            %span{id: "status_#{competitor.id}"}
+          - unless competitor.no_result_reason
+            .card__middle-row
+              = form_for([:official, @series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "shots_form_#{competitor.id}", class: 'form form--inline' }) do |f|
+                = render partial: 'official/shots/nordic_sub_sport_shots', locals: { f: f, competitor: competitor, sub_sport: @sub_sport }
+                .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
+        .card__main-value{id: "shots_result_#{competitor.id}"}
+          - if competitor.no_result_reason
+            = competitor.no_result_reason
+          - else
+            = competitor.send("nordic_#{@sub_sport}_score").to_i
+= render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id, mobile: true } do |series|
+  = "/official/series/#{series.id}/#{@sub_sport}"
+.buttons.buttons--nav
+  = link_to t(:back_to_official_race_page), official_race_path(@series.race), class: 'button button--back'
+:javascript
+  function start_updating(id) {
+    $("#status_" + id).removeClass().html('#{image_tag 'spinner.gif'}');
+  }

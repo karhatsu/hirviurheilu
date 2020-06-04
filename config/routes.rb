@@ -112,6 +112,7 @@ ElkSports::Application.routes.draw do
         resources :age_groups
         resource :start_list
         resources :shots
+        get 'trap', to: 'nordic_race_shots#trap', as: :trap
         resources :estimates
         resources :times
       end

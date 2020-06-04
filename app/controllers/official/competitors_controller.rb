@@ -65,6 +65,7 @@ class Official::CompetitorsController < Official::OfficialController
     club_ok = handle_club(@competitor)
     update_params = update_competitor_params
     shots_ok = Competitor::ALL_SHOTS_FIELDS.map { |shots_name| set_shots @competitor, shots_name, params[shots_name] }.all?
+    @sub_sport = params[:sub_sport]
     if club_ok && shots_ok && handle_time_parameters && @competitor.update(update_params)
       js_template = params[:start_list] ? 'official/start_lists/update_success' :
         'official/competitors/update_success'
