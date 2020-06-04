@@ -114,6 +114,8 @@ ElkSports::Application.routes.draw do
         resources :shots
         get 'trap', to: 'nordic_race_shots#trap', as: :trap
         get 'shotgun', to: 'nordic_race_shots#shotgun', as: :shotgun
+        get 'rifle_moving', to: 'nordic_race_shots#rifle_moving', as: :rifle_moving
+        get 'rifle_standing', to: 'nordic_race_shots#rifle_standing', as: :rifle_standing
         resources :estimates
         resources :times
       end

@@ -84,6 +84,10 @@ module MenuHelper
         link = official_series_trap_path(locale_for_path, series)
       elsif type == 'shotgun_shots'
         link = official_series_shotgun_path(locale_for_path, series)
+      elsif type == 'rifle_moving_shots'
+        link = official_series_rifle_moving_path(locale_for_path, series)
+      elsif type == 'rifle_standing_shots'
+        link = official_series_rifle_standing_path(locale_for_path, series)
       end
       menu << "<div class='dropdown-menu__item'>#{link_to series.name, link}</div>"
     end

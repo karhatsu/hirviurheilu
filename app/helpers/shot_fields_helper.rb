@@ -18,7 +18,8 @@ module ShotFieldsHelper
     shots = competitor.send("nordic_#{sub_sport}_shots")
     if score_input || (shots && shots.length == shots_count)
       extra_shots = competitor.send("nordic_#{sub_sport}_extra_shots")
-      return (extra_shots || []).length + 1
+      config = NordicSubSport.by_key sub_sport
+      return (extra_shots || []).length + config.shots_per_extra_round
     end
     0
   end

@@ -8,10 +8,11 @@ $("#estimate_points_<%= @competitor.id %>").html("<%= @competitor.estimate_point
 <% if @competitor.sport.nordic? %>
 $("#shots_result_<%= @competitor.id %>").html("<%= @competitor.send("nordic_#{@sub_sport}_score").to_i %>")
 if ($('#extra_shots_<%= @competitor.id %>').length) {
-  <% extra_shots_count = nordic_extra_shots_field_count @competitor, @sub_sport, 25 %>
+  <% config = NordicSubSport.by_key @sub_sport %>
+  <% extra_shots_count = nordic_extra_shots_field_count @competitor, @sub_sport, config.shot_count %>
   <% extra_name = "nordic_#{@sub_sport}_extra_shots" %>
   $('#extra_shots_<%= @competitor.id %>').html("<%= escape_javascript(render partial: 'official/shots/shooting_race_shots',
-    locals: { competitor: @competitor, round_rules: [extra_shots_count], base: 0, column_name: extra_name, field_name: "#{extra_name}[]", best_shot_value: 1 }) %>")
+    locals: { competitor: @competitor, round_rules: [extra_shots_count], base: 0, column_name: extra_name, field_name: "#{extra_name}[]", best_shot_value: config.best_shot_value }) %>")
 }
 <% elsif @competitor.sport.shooting? %>
 $("#shots_result_<%= @competitor.id %>").html("<%= "#{@competitor.qualification_round_score.to_i} + #{@competitor.final_round_score.to_i} = #{@competitor.shooting_score.to_i}" %>")

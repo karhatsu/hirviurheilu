@@ -12,4 +12,16 @@ class Official::NordicRaceShotsController < Official::OfficialController
     @is_shotgun = true
     render :index
   end
+
+  def rifle_moving
+    @sub_sport = :rifle_moving
+    @is_rifle_moving = true
+    render :index
+  end
+
+  def rifle_standing
+    @sub_sport = :rifle_standing
+    @is_rifle_standing = true
+    render :index
+  end
 end
