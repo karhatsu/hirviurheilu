@@ -50,3 +50,20 @@ a:hover {
 .shots {
   display: none;
 }
+
+.empty-results-table {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  width: 100%;
+}
+
+.empty-results-table__cell {
+  display: inline-block;
+  border: 1px solid #000;
+  width: 32px;
+  height: 32px;
+  margin: 0 16px 0 0;
+}

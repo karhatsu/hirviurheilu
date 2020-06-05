@@ -74,6 +74,7 @@ ElkSports::Application.routes.draw do
       resources :races do
         resources :batches
         resource :batch_lists_reset, only: [:show, :destroy]
+        resources :qualification_round_batch_lists, only: :index
         get 'competitor_numbers/:number' => 'competitors#show_by_number'
         put 'competitors/:competitor_id/track_place' => 'competitor_track_places#update'
         delete 'competitors/:competitor_id/track_place' => 'competitor_track_places#destroy'

@@ -1,5 +1,17 @@
 class Official::QualificationRoundBatchListsController < Official::BatchListsController
-  before_action :assign_series_by_series_id, :check_assigned_series, :set_menu
+  before_action :assign_race_by_race_id, :check_assigned_race, only: :index
+  before_action :assign_series_by_series_id, :check_assigned_series, :set_menu, only: [:show, :create]
+
+  def index
+    respond_to do |format|
+      @batches = @race.qualification_round_batches.includes(competitors: [:club, :series])
+      format.pdf do
+        render pdf: "#{@race.name}-alkukilpailu", layout: true,
+               margin: pdf_margin, header: pdf_header("#{t :batch_list} - #{@race.name}"),
+               footer: pdf_footer, disable_smart_shrinking: true
+      end
+    end
+  end
 
   def show
     find_competitors_without_batch

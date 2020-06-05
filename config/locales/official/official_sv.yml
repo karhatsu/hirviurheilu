@@ -69,6 +69,7 @@ sv:
         add_competitors_from_csv: Öka tävlar från CSV-fil
         batches_manually: Erien hallinta manuaalisesti
         qualification_round_batch_list: Alkukilpailun erien asettelu arpomalla
+        qualification_round_batch_list_pdf: Alkukilpailun erien PDF
         final_round_batch_list: Loppukilpailun erien asettelu
         other: Övriga
         national_records: Finska rekord
