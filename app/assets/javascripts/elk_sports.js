@@ -91,6 +91,33 @@ function calculateShootingRaceShotsResultForF(card, bestShotValue, roundMaxScore
   card.find('.card__main-value').text(formatResult(error, q, f, roundMaxScore));
 }
 
+function calculateNordicRaceShotsResult(card, bestShotValue, shotCount) {
+  let result = 0;
+  let error = false;
+  const total = card.find('.shots-total-input').val();
+  const maxScore = shotCount * bestShotValue
+  if(total !== '') {
+    result = parseInt(total, 10);
+    if(result >= 0 && result <= maxScore) {
+      card.find('.shot').slice(0, shotCount).each(function() {
+        if($(this).val() !== '') {
+          error = true;
+        }
+      });
+    } else {
+      error = true;
+    }
+  } else {
+    const errorAndSum = sumOfShots(card, bestShotValue, 0, shotCount)
+    error = errorAndSum[0]
+    result = errorAndSum[1]
+  }
+  if(error) {
+    result = '?';
+  }
+  card.find('.card__main-value').text(result);
+}
+
 function formatResult(error, q, f, roundMaxScore) {
   if (!error && q >= 0 && q <= roundMaxScore && f >= 0 && f <= roundMaxScore) {
     return q + ' + ' + f + ' = ' + (q + f)

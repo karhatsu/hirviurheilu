@@ -35,3 +35,13 @@
   function start_updating(id) {
     $("#status_" + id).removeClass().html('#{image_tag 'spinner.gif'}');
   }
+  $('.shots-total-input').change(function() {
+    calculateShotsResult($(this))
+  });
+  $('.shot').change(function() {
+    calculateShotsResult($(this))
+  });
+  function calculateShotsResult(field) {
+    const $card = field.closest('.card')
+    calculateNordicRaceShotsResult($card, #{NordicSubSport.by_key(@sub_sport).best_shot_value}, #{NordicSubSport.by_key(@sub_sport).shot_count})
+  }
