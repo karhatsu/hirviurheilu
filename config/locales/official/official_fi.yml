@@ -71,6 +71,7 @@ fi:
         qualification_round_batch_list: Alkukilpailun erien asettelu arpomalla
         qualification_round_batch_list_pdf: Alkukilpailun erien PDF
         final_round_batch_list: Loppukilpailun erien asettelu
+        batch_list_template_pdf: Yhden erän tyhjä PDF
         other: Muita toimintoja
         national_records: Suomen ennätykset
         download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)

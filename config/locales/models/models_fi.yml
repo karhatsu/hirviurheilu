@@ -127,6 +127,9 @@ fi:
       age_group:
         one: Ikäryhmä
         other: Ikäryhmät
+      batch:
+        one: Erä
+        other: Erät
       club:
         one: Piiri/seura
         other: Piirit/seurat

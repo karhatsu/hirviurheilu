@@ -1,0 +1,7 @@
+- shot_count = @race.sport.qualification_round_shot_count
+%h2 #{t 'activerecord.models.batch.one'}:
+- @race.competitors_per_batch.times.each do
+  %h3 #{t 'activerecord.models.competitor.one'}:
+  .empty-results-table
+    - shot_count.times do
+      .empty-results-table__cell

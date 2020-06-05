@@ -127,6 +127,9 @@ sv:
       age_group:
         one: Äldsgrupp
         other: Äldsgruppar
+      batch:
+        one: Erä
+        other: Erät
       club:
         one: Klubb
         other: Klubbar
