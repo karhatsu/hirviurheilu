@@ -5,8 +5,8 @@
     %th &nbsp;
     %th= t 'attributes.name'
     %th= t 'number_short'
-    %th= t :series
     %th#table_club_title= club_title(race)
+    %th= t :series
     %th.shots= t :shots
     %th= t :result
     - if extra_shots_column
@@ -20,8 +20,8 @@
       %td= (results == prev_results) ? raw('&nbsp;') : "#{i + 1}."
       %td= full_name(comp)
       %td= comp.number
-      %td= comp.series.name
       %td= comp.club.name
+      %td= comp.series.name
       - shots = comp.send("nordic_#{sub_sport}_shots")
       %td.shots= shots ? shots_print(comp.send("nordic_#{sub_sport}_shots")) : ''
       %td.center.total-points
