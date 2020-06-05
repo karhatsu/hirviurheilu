@@ -115,6 +115,7 @@ fi:
   save: Tallenna
   saved: Tallennettu
   search: Etsi
+  select_all_shots: Valitse kaikki
   send: Lähetä
   send_feedback: Lähetä palautetta
   series: Sarja

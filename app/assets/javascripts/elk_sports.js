@@ -136,4 +136,10 @@ $(document).ready(function () {
       $(this).parent().find('input').val(value).trigger('change')
     }
   })
+  $(document).on('click', '.button--select-all-shots', function () {
+    $(this).parent().find('.binary-shot__option--0').removeClass('binary-shot__option--selected')
+    $(this).parent().find('.binary-shot__option--1').addClass('binary-shot__option--selected')
+    $(this).parent().find('input').val(1)
+    $(this).parent().find('input').trigger('change')
+  })
 })
