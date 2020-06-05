@@ -158,14 +158,32 @@ describe CsvImport do
     end
 
     context 'when youth series without age group' do
-      before do
-        @ci = CsvImport.new @race, test_file_path('import_without_youth_age_group.csv')
+      context 'and the series has age groups' do
+        before do
+          @ci = CsvImport.new @race, test_file_path('import_without_youth_age_group.csv')
+        end
+
+        it_should_behave_like 'failed import', 1
+
+        it "#errors should contain an error about missing age group" do
+          expect(@ci.errors.first).to eq('Kilpailijalle pitää määrittää ikäryhmä: Topi Turunen (S17)')
+        end
       end
 
-      it_should_behave_like 'failed import', 1
+      context 'but the series does not have age groups' do
+        before do
+          @youth_series.age_groups.destroy_all
+          @ci = CsvImport.new @race, test_file_path('import_without_youth_age_group.csv')
+        end
 
-      it "#errors should contain an error about missing age group" do
-        expect(@ci.errors.first).to eq('Kilpailijalle pitää määrittää ikäryhmä: Topi Turunen (S17)')
+        it 'saving should work' do
+          expect(@ci.save).to be_truthy
+          expect(@ci.errors).to eq []
+          expect(@race.reload.competitors.size).to eq 1
+          competitor = @race.competitors.first
+          expect_competitor competitor, 'Topi', 'Turunen', 'PS', 'S17'
+          expect(competitor.age_group).to be_nil
+        end
       end
     end
   end
