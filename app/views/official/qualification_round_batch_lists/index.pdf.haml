@@ -9,7 +9,8 @@
     - if batch.track.to_i > 0
       (#{t('attributes.track')} #{batch.track})
   - batch.competitors.each do |competitor|
-    %h3 #{full_name competitor}, #{competitor.club.name}, #{competitor.series.name}
+    - number = competitor.number ? " (##{competitor.number})" : ''
+    %h3 #{full_name competitor}#{number}, #{competitor.club.name}, #{competitor.series.name}
     .empty-results-table
       - shot_count.times do
         .empty-results-table__cell
