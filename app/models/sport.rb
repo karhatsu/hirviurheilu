@@ -147,7 +147,6 @@ class Sport
               name: 'Pohjoismainen metsästysammunta',
               nordic?: true,
               default_series: [['S20'], ['M'], ['N'], ['S60']],
-              batch_list?: false,
           }
       )),
   }

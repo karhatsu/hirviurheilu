@@ -1,5 +1,6 @@
-- content_for :title, "#{@series.race.name} - #{@series.name} - #{t('.title')}"
-%h2 #{@series.name} - #{t('.title')}
+- page_title = @series.sport.nordic? ? t('.title.nordic') : t('.title.other')
+- content_for :title, "#{@series.race.name} - #{@series.name} - #{page_title}"
+%h2 #{@series.name} - #{page_title}
 - content_for :sub_sub_menu do
   = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id } do |series| official_series_qualification_round_batch_list_path(series) end
 = flash_error
@@ -9,8 +10,10 @@
     Kilpailulle pitää määrittää ratojen lukumäärä ja ammuntapaikkojen lukumäärä ennen kuin arpoa eräluettelon.
     = link_to 'Voit asettaa ne kilpailun asetuksista.', edit_official_race_path(@series.race)
 - elsif @competitors_without_batch.empty?
-  .message.message--info= t('.no_competitors_without_batch_in_series')
+  - info = @series.sport.nordic? ? t('.no_competitors_without_batch_in_series.nordic') : t('.no_competitors_without_batch_in_series.other')
+  .message.message--info= info
 - else
+  .message.message--info= t('.nordic_info')
   = form_tag(official_series_qualification_round_batch_list_path(@series), class: 'form') do
     = render partial: 'official/batches/batch_generation_options', locals: { final_round: false }
     .form__buttons

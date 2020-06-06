@@ -4,7 +4,9 @@ fi:
       no_batch_list: Kilpailun eräluetteloa ei ole tehty
   qualification_round_batches:
     index:
-      title: Alkukilpailun eräluettelo
+      title:
+        nordic: Eräluettelo
+        other: Alkukilpailun eräluettelo
   final_round_batches:
     index:
       title: Loppukilpailun eräluettelo

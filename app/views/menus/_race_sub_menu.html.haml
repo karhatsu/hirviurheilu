@@ -13,7 +13,8 @@
         = menu_item t('sport_name.nordic_sub.rifle_moving'), race_rifle_moving_path(race), @sub_sport == :rifle_moving
         = menu_item t('sport_name.nordic_sub.rifle_standing'), race_rifle_standing_path(race), @sub_sport == :rifle_standing
     - if race.sport.batch_list? && !race.qualification_round_batches.empty?
-      = menu_item t('race_sub_menu.qualification_round_batches'), race_qualification_round_batches_path(race), @is_qualification_round_batches
+      - text = @race.sport.nordic? ? t('race_sub_menu.batches') : t('race_sub_menu.qualification_round_batches')
+      = menu_item text, race_qualification_round_batches_path(race), @is_qualification_round_batches
     - if race.sport.batch_list? && !race.final_round_batches.empty?
       = menu_item t('race_sub_menu.final_round_batches'), race_final_round_batches_path(race), @is_final_round_batches
     - if series
