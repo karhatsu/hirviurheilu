@@ -55,7 +55,7 @@ module BatchListSuggestions
   private
 
   def first_available_batch_data(final_round)
-    max_batch = find_batches(final_round).except(:order).order('number DESC').first
+    max_batch = find_batches(final_round).except(:order).order('day DESC, time DESC, number DESC').first
     return [1, 1, 1] unless max_batch
     max_track_place = competitors.where('qualification_round_batch_id=?', max_batch.id).maximum(:qualification_round_track_place) unless final_round
     max_track_place = competitors.where('final_round_batch_id=?', max_batch.id).maximum(:final_round_track_place) if final_round
