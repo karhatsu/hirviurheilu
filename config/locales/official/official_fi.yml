@@ -69,7 +69,7 @@ fi:
         add_competitors_from_csv: Lisää kilpailijoita CSV-tiedostosta
         batches_manually: Erien hallinta manuaalisesti
         qualification_round_batch_list: Alkukilpailun erien asettelu arpomalla
-        qualification_round_batch_list_pdf: Alkukilpailun erien PDF
+        qualification_round_batch_list_pdf: Alkukilpailun erien ampumapöytäkirjat (PDF)
         final_round_batch_list: Loppukilpailun erien asettelu
         batch_list_template_pdf: Yhden erän tyhjä PDF
         other: Muita toimintoja
