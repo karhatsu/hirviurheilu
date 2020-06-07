@@ -143,6 +143,7 @@ sv:
     METSASTYSHAULIKKO: Jaktskytte
     METSASTYSTRAP: Jägartrap
     NORDIC: Nordiskt jaktskytte
+    EUROPEAN: Europeiskt jaktskytte
     nordic_sub:
       trap: Jägartrap
       shotgun: Compak

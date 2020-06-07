@@ -143,6 +143,7 @@ fi:
     METSASTYSHAULIKKO: Metsästyshaulikko
     METSASTYSTRAP: Metsästystrap
     NORDIC: Pohjoismainen metsästysammunta
+    EUROPEAN: Eurooppalainen metsästysammunta
     nordic_sub:
       trap: Trap
       shotgun: Compak
