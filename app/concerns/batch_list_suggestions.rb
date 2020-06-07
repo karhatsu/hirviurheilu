@@ -39,7 +39,7 @@ module BatchListSuggestions
     last_batch = find_batches(final_round).except(:order).order('day DESC, time DESC, number DESC').first
     return nil unless last_batch
     next_batch, _, track = first_available_batch_data final_round
-    if next_batch == last_batch.number || track > 1
+    if next_batch == last_batch.number || track.to_i > 1
       last_batch.time.strftime('%H:%M')
     else
       minutes = suggested_min_between_batches final_round
@@ -60,6 +60,7 @@ module BatchListSuggestions
     max_track_place = competitors.where('qualification_round_batch_id=?', max_batch.id).maximum(:qualification_round_track_place) unless final_round
     max_track_place = competitors.where('final_round_batch_id=?', max_batch.id).maximum(:final_round_track_place) if final_round
     if competitors_per_batch && max_track_place.to_i >= competitors_per_batch
+      return [max_batch.number + 1, 1, nil] unless max_batch.track
       track = max_batch.track + 1 > track_count ? 1 : max_batch.track + 1
       return [max_batch.number + 1, 1, track]
     end

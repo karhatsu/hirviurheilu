@@ -253,6 +253,20 @@ describe BatchListSuggestions do
         end
       end
     end
+
+    context 'when latest batch is full and no track numbers are used' do
+      let(:track_count) { 1 }
+      let(:race2) { create :race, track_count: track_count, shooting_place_count: 2 }
+      let(:series2) { create :series, race: race2 }
+      let(:batch1) { create :qualification_round_batch, race: race2, number: 1, track: nil, time: '10:00' }
+      let!(:competitor1) { create :competitor, series: series2, qualification_round_batch: batch1, qualification_round_track_place: 1 }
+      let!(:competitor2) { create :competitor, series: series2, qualification_round_batch: batch1, qualification_round_track_place: 2 }
+
+      it 'suggestions do not crash' do
+        expect(race2.suggested_next_track_number(false)).to be_nil
+        expect(race2.suggested_next_batch_time(false)).to be_nil
+      end
+    end
   end
 
   describe '#suggested_next_batch_day' do
