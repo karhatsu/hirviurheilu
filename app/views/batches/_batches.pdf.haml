@@ -8,7 +8,7 @@
       - (series_id == 0 || competitor.series_id == series_id) && (club_id == 0 || competitor.club_id == club_id)
     - unless competitors.empty?
       %h3
-        #{batch.number}, #{batch.time.strftime('%H:%M')}
+        #{batch.number}, #{batch_time @race, batch}
         - if batch.track.to_i > 0
           (#{t('attributes.track')} #{batch.track})
       %table
