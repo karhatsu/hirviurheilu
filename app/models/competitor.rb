@@ -88,6 +88,11 @@ class Competitor < ApplicationRecord
                  :rifle_standing_shots, :rifle_standing_score_input, :rifle_standing_extra_shots,
                  :extra_score,
                  prefix: 'nordic'
+  store_accessor :european_results,
+                 :rifle1_shots, :rifle1_score_input, :rifle2_shots, :rifle2_score_input,
+                 :rifle3_shots, :rifle3_score_input, :rifle4_shots, :rifle4_score_input, :rifle_extra_shots,
+                 :trap_shots, :trap_score_input, :compak_shots, :compak_score_input, :extra_scores,
+                 prefix: 'european'
 
   delegate :race, to: :series
 
