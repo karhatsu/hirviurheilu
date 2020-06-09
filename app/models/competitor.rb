@@ -320,10 +320,12 @@ class Competitor < ApplicationRecord
     self[attribute].strftime '%H:%M:%S'
   end
 
-  def self.invalid_shot?(shot, max_value, min_value = nil)
-    return true if shot.to_i < 0 || shot.to_i > max_value || shot.to_i.to_s != shot.to_s
-    return true if min_value && shot.to_i < min_value && shot.to_i != 0
-    false
+  def self.invalid_shot?(shot, max_value)
+    shot.to_i < 0 || shot.to_i > max_value || shot.to_i.to_s != shot.to_s
+  end
+
+  def self.invalid_rifle_shot?(shot, allowed_values)
+    !allowed_values.include?(shot.to_i) || shot.to_i.to_s != shot.to_s
   end
 
   def track_place(batch)
@@ -451,21 +453,22 @@ class Competitor < ApplicationRecord
   end
 
   def nordic_rifle_standing_shot_values
-    validate_shots :nordic_rifle_standing_shots, 10, 10, 8
+    validate_rifle_shots :nordic_rifle_standing_shots, [0, 8, 9, 10], 10
   end
 
   def nordic_rifle_standing_extra_shot_values
-    validate_extra_shots :nordic_rifle_standing_extra_shots, 10, 8
+    validate_rifle_shots :nordic_rifle_standing_extra_shots, [0, 8, 9, 10]
   end
 
   def european_rifle_shot_values
-    [1, 2, 3, 4].each do |n|
-      validate_shots "european_rifle#{n}_shots", 5, 10
-    end
+    validate_rifle_shots :european_rifle1_shots, [0, 1, 3, 8, 9, 10], 5
+    validate_rifle_shots :european_rifle2_shots, [0, 1, 3, 8, 9, 10], 5
+    validate_rifle_shots :european_rifle3_shots, [0, 1, 3, 8, 9, 10], 5
+    validate_rifle_shots :european_rifle4_shots, [0, 5, 8, 9, 10], 5
   end
 
   def european_rifle_extra_shot_values
-    validate_extra_shots :european_rifle_extra_shots, 10
+    validate_rifle_shots :european_rifle_extra_shots, [0, 5, 8, 9, 10]
   end
 
   def european_trap_shot_values
@@ -476,17 +479,24 @@ class Competitor < ApplicationRecord
     validate_shots :european_compak_shots, 25, 1
   end
 
-  def validate_shots(attribute, max_count, max_value, min_value = nil)
+  def validate_shots(attribute, max_count, max_value)
     shots = send attribute
     return unless shots
     errors.add(attribute, :too_many) if shots.length > max_count
-    errors.add(attribute, :invalid_value) if shots.any? { |shot| Competitor.invalid_shot? shot, max_value, min_value }
+    errors.add(attribute, :invalid_value) if shots.any? { |shot| Competitor.invalid_shot? shot, max_value }
   end
 
-  def validate_extra_shots(attribute, max_value, min_value = nil)
+  def validate_extra_shots(attribute, max_value)
     shots = send attribute
     return unless shots
-    errors.add(attribute, :invalid_value) if shots.any? { |shot| Competitor.invalid_shot? shot, max_value, min_value }
+    errors.add(attribute, :invalid_value) if shots.any? { |shot| Competitor.invalid_shot? shot, max_value }
+  end
+
+  def validate_rifle_shots(attribute, allowed_values, max_count = nil)
+    shots = send attribute
+    return unless shots
+    errors.add(attribute, :too_many) if max_count && shots.length > max_count
+    errors.add(attribute, :invalid_value) if shots.any? { |shot| Competitor.invalid_rifle_shot? shot, allowed_values }
   end
 
   def check_no_result_reason

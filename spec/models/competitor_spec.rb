@@ -91,27 +91,24 @@ describe Competitor do
     it_should_behave_like 'shooting score input', :final_round_shooting_score_input, Sport::METSASTYSLUODIKKO, 100
     it_should_behave_like 'shooting score input', :final_round_shooting_score_input, Sport::METSASTYSTRAP, 25
 
-    shared_examples_for 'shots' do |attribute, min_value = 1, max_count = nil|
+    shared_examples_for 'shots' do |attribute, allowed_values, max_count = nil|
       it { is_expected.to allow_value(nil).for(attribute) }
-      it { is_expected.not_to allow_value([10, -1, 0]).for(attribute) }
-      it { is_expected.not_to allow_value([11, 10]).for(attribute) }
+      it { is_expected.not_to allow_value([allowed_values.min - 1]).for(attribute) }
+      it { is_expected.not_to allow_value([allowed_values.max + 1]).for(attribute) }
       it { is_expected.not_to allow_value([10, 9.9]).for(attribute) }
-      it { is_expected.to allow_value(['10', '9', '0']).for(attribute) }
       it { is_expected.not_to allow_value(['10', '9.1']).for(attribute) }
       if max_count
         it { is_expected.to allow_value(max_count.times.map {10}).for(attribute) }
         it { is_expected.not_to allow_value((max_count + 1).times.map {10}).for(attribute) }
       end
-      if min_value > 1
-        (1...min_value).each do |n|
-          describe "#{n} not allowed" do
-            it { is_expected.not_to allow_value([n]).for(attribute) }
-          end
+      ((0..10).to_a - allowed_values).each do |n|
+        describe "#{n} not allowed" do
+          it { is_expected.not_to allow_value([n]).for(attribute) }
         end
       end
-      (min_value..10).each do |n|
+      allowed_values.each do |n|
         describe "#{n} allowed" do
-          it { is_expected.to allow_value([n]).for(attribute) }
+          it { is_expected.to allow_value([n, n, n]).for(attribute) }
         end
       end
     end
@@ -140,7 +137,7 @@ describe Competitor do
     end
 
     describe 'shots' do
-      it_should_behave_like 'shots', :shots
+      it_should_behave_like 'shots', :shots, (0..10).to_a
 
       shared_examples_for 'shooting sport shots' do |sport_key, valid_shots_count|
         it "#{sport_key} can have at most #{valid_shots_count} shots" do
@@ -180,7 +177,7 @@ describe Competitor do
     end
 
     describe 'extra_shots' do
-      it_should_behave_like 'shots', :extra_shots
+      it_should_behave_like 'shots', :extra_shots, (0..10).to_a
 
       describe 'when special setting for max shot value' do
         it 'max shot value comes from the setting' do
@@ -450,7 +447,7 @@ describe Competitor do
       end
 
       describe 'rifle_moving_shots' do
-        it_should_behave_like 'shots', :nordic_rifle_moving_shots, 1, 10
+        it_should_behave_like 'shots', :nordic_rifle_moving_shots, (0..10).to_a, 10
 
         it 'can be saved together with blank score input' do
           competitor = build :competitor, nordic_rifle_moving_shots: %w(10, 9), nordic_rifle_moving_score_input: ''
@@ -464,11 +461,11 @@ describe Competitor do
       end
 
       describe 'rifle_moving_extra_shots' do
-        it_should_behave_like 'shots', :nordic_rifle_moving_extra_shots, 1
+        it_should_behave_like 'shots', :nordic_rifle_moving_extra_shots, (0..10).to_a
       end
 
       describe 'rifle_standing_shots' do
-        it_should_behave_like 'shots', :nordic_rifle_standing_shots, 8, 10
+        it_should_behave_like 'shots', :nordic_rifle_standing_shots, [0, 8, 9, 10], 10
 
         it 'can be saved together with blank score input' do
           competitor = build :competitor, nordic_rifle_standing_shots: %w(9 10 8), nordic_rifle_standing_score_input: ''
@@ -482,7 +479,7 @@ describe Competitor do
       end
 
       describe 'rifle_standing_extra_shots' do
-        it_should_behave_like 'shots', :nordic_rifle_standing_extra_shots, 8
+        it_should_behave_like 'shots', :nordic_rifle_standing_extra_shots, [0, 8, 9, 10]
       end
 
       describe 'extra_score' do
@@ -491,18 +488,18 @@ describe Competitor do
     end
 
     describe 'european results' do
-      shared_examples_for 'european rifle' do |n|
-        it_should_behave_like 'shots', "european_rifle#{n}_shots", 1, 5
+      shared_examples_for 'european rifle' do |n, allowed_shots|
+        it_should_behave_like 'shots', "european_rifle#{n}_shots", allowed_shots, 5
         it_should_behave_like 'non-negative integer', "european_rifle#{n}_score_input", true, max_value: 50
         it_should_behave_like 'only single score method', "european_rifle#{n}_score_input", "european_rifle#{n}_shots"
       end
 
-      it_should_behave_like 'european rifle', 1
-      it_should_behave_like 'european rifle', 2
-      it_should_behave_like 'european rifle', 3
-      it_should_behave_like 'european rifle', 4
+      it_should_behave_like 'european rifle', 1, [0, 1, 3, 8, 9, 10]
+      it_should_behave_like 'european rifle', 2, [0, 1, 3, 8, 9, 10]
+      it_should_behave_like 'european rifle', 3, [0, 1, 3, 8, 9, 10]
+      it_should_behave_like 'european rifle', 4, [0, 5, 8, 9, 10]
 
-      it_should_behave_like 'shots', :european_rifle_extra_shots, 1
+      it_should_behave_like 'shots', :european_rifle_extra_shots, [0, 5, 8, 9, 10]
 
       describe 'trap_shots' do
         it_should_behave_like 'shotgun shots', :european_trap_shots
