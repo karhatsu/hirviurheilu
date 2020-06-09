@@ -492,6 +492,7 @@ describe Competitor do
 
     describe 'european results' do
       shared_examples_for 'european rifle' do |n|
+        it_should_behave_like 'shots', "european_rifle#{n}_shots", 1, 5
         it_should_behave_like 'non-negative integer', "european_rifle#{n}_score_input", true, max_value: 50
         it_should_behave_like 'only single score method', "european_rifle#{n}_score_input", "european_rifle#{n}_shots"
       end
@@ -501,7 +502,7 @@ describe Competitor do
       it_should_behave_like 'european rifle', 3
       it_should_behave_like 'european rifle', 4
 
-      # TODO: rifle_extra_shots
+      it_should_behave_like 'shots', :european_rifle_extra_shots, 1
 
       describe 'trap_shots' do
         it_should_behave_like 'shotgun shots', :european_trap_shots

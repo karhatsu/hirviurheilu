@@ -73,6 +73,8 @@ class Competitor < ApplicationRecord
   validate :nordic_rifle_moving_extra_shot_values
   validate :nordic_rifle_standing_shot_values
   validate :nordic_rifle_standing_extra_shot_values
+  validate :european_rifle_shot_values
+  validate :european_rifle_extra_shot_values
   validate :european_trap_shot_values
   validate :european_compak_shot_values
   validate :check_no_result_reason
@@ -429,7 +431,7 @@ class Competitor < ApplicationRecord
   end
 
   def nordic_trap_extra_shot_values
-    validate_nordic_extra_shots :nordic_trap_extra_shots, 1
+    validate_extra_shots :nordic_trap_extra_shots, 1
   end
 
   def nordic_shotgun_shot_values
@@ -437,7 +439,7 @@ class Competitor < ApplicationRecord
   end
 
   def nordic_shotgun_extra_shot_values
-    validate_nordic_extra_shots :nordic_shotgun_extra_shots, 1
+    validate_extra_shots :nordic_shotgun_extra_shots, 1
   end
 
   def nordic_rifle_moving_shot_values
@@ -445,7 +447,7 @@ class Competitor < ApplicationRecord
   end
 
   def nordic_rifle_moving_extra_shot_values
-    validate_nordic_extra_shots :nordic_rifle_moving_extra_shots, 10
+    validate_extra_shots :nordic_rifle_moving_extra_shots, 10
   end
 
   def nordic_rifle_standing_shot_values
@@ -453,7 +455,17 @@ class Competitor < ApplicationRecord
   end
 
   def nordic_rifle_standing_extra_shot_values
-    validate_nordic_extra_shots :nordic_rifle_standing_extra_shots, 10, 8
+    validate_extra_shots :nordic_rifle_standing_extra_shots, 10, 8
+  end
+
+  def european_rifle_shot_values
+    [1, 2, 3, 4].each do |n|
+      validate_shots "european_rifle#{n}_shots", 5, 10
+    end
+  end
+
+  def european_rifle_extra_shot_values
+    validate_extra_shots :european_rifle_extra_shots, 10
   end
 
   def european_trap_shot_values
@@ -471,7 +483,7 @@ class Competitor < ApplicationRecord
     errors.add(attribute, :invalid_value) if shots.any? { |shot| Competitor.invalid_shot? shot, max_value, min_value }
   end
 
-  def validate_nordic_extra_shots(attribute, max_value, min_value = nil)
+  def validate_extra_shots(attribute, max_value, min_value = nil)
     shots = send attribute
     return unless shots
     errors.add(attribute, :invalid_value) if shots.any? { |shot| Competitor.invalid_shot? shot, max_value, min_value }
