@@ -85,7 +85,7 @@ class Competitor < ApplicationRecord
   validate :track_place_fitting
 
   before_save :set_has_result, :reset_age_group, :set_shooting_overtime_min, :convert_string_shots,
-              :convert_string_extra_shots, :convert_nordic_results
+              :convert_string_extra_shots, :convert_nordic_results, :convert_european_results
 
   after_create :set_correct_estimates
   after_save :update_series_start_time_and_number
@@ -576,27 +576,40 @@ class Competitor < ApplicationRecord
   end
 
   def convert_nordic_results
-    convert_nordic_sub_results :trap
-    convert_nordic_sub_results :shotgun
-    convert_nordic_sub_results :rifle_moving
-    convert_nordic_sub_results :rifle_standing
+    convert_sub_results :nordic, :trap, true
+    convert_sub_results :nordic, :shotgun, true
+    convert_sub_results :nordic, :rifle_moving, true
+    convert_sub_results :nordic, :rifle_standing, true
 
     self.nordic_extra_score = nil if nordic_extra_score.blank?
     self.nordic_extra_score = nordic_extra_score.to_i if nordic_extra_score
   end
 
-  def convert_nordic_sub_results(sub_sport)
-    shots = send "nordic_#{sub_sport}_shots"
-    send "nordic_#{sub_sport}_shots=", shots.map {|shot| shot.to_i} if shots
+  def convert_european_results
+    convert_sub_results :european, :trap, false
+    convert_sub_results :european, :compak, false
+    convert_sub_results :european, :rifle1, false
+    convert_sub_results :european, :rifle2, false
+    convert_sub_results :european, :rifle3, false
+    convert_sub_results :european, :rifle4, false
 
-    extra_shots = send "nordic_#{sub_sport}_extra_shots"
-    send "nordic_#{sub_sport}_extra_shots=", extra_shots.map {|shot| shot.to_i} if extra_shots
+    self.european_rifle_extra_shots = european_rifle_extra_shots.map {|shot| shot.to_i} if european_rifle_extra_shots
+  end
 
-    score_input = send "nordic_#{sub_sport}_score_input"
+  def convert_sub_results(sport, sub_sport, has_extra_shots)
+    shots = send "#{sport}_#{sub_sport}_shots"
+    send "#{sport}_#{sub_sport}_shots=", shots.map {|shot| shot.to_i} if shots
+
+    if has_extra_shots
+      extra_shots = send "#{sport}_#{sub_sport}_extra_shots"
+      send "#{sport}_#{sub_sport}_extra_shots=", extra_shots.map {|shot| shot.to_i} if extra_shots
+    end
+
+    score_input = send "#{sport}_#{sub_sport}_score_input"
     if score_input.blank?
-      send "nordic_#{sub_sport}_score_input=", nil
+      send "#{sport}_#{sub_sport}_score_input=", nil
     elsif score_input
-      send "nordic_#{sub_sport}_score_input=", score_input.to_i
+      send "#{sport}_#{sub_sport}_score_input=", score_input.to_i
     end
   end
 

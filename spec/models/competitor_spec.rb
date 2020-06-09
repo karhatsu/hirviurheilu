@@ -549,47 +549,49 @@ describe Competitor do
       end
     end
 
-    describe 'nordic' do
-      shared_examples_for 'nordic field conversion' do |sub_sport|
-        describe sub_sport do
-          it 'converts shots strings to integer' do
-            raw_shots = sub_sport == 'rifle_standing' ? %w(8 9 10) : %w(1 0 1)
-            int_shots = sub_sport == 'rifle_standing' ? [8, 9, 10] : [1, 0, 1]
-            competitor = build :competitor
-            competitor.send "nordic_#{sub_sport}_shots=", raw_shots
-            competitor.save
-            expect(competitor.send("nordic_#{sub_sport}_shots")).to eql int_shots
-          end
+    shared_examples_for 'json field conversion' do |sport, sub_sport, shotgun, extra_shots|
+      describe sub_sport do
+        it 'converts shots strings to integer' do
+          raw_shots = shotgun ? %w(1 0) : %w(8 9 10)
+          int_shots = shotgun ? [1, 0] : [8, 9, 10]
+          competitor = build :competitor
+          competitor.send "#{sport}_#{sub_sport}_shots=", raw_shots
+          competitor.save
+          expect(competitor.send("#{sport}_#{sub_sport}_shots")).to eql int_shots
+        end
 
-          it 'converts score input string to integer' do
-            competitor = build :competitor
-            competitor.send "nordic_#{sub_sport}_score_input=", '21'
-            competitor.save
-            expect(competitor.send("nordic_#{sub_sport}_score_input")).to eql 21
-          end
+        it 'converts score input string to integer' do
+          competitor = build :competitor
+          competitor.send "#{sport}_#{sub_sport}_score_input=", '21'
+          competitor.save
+          expect(competitor.send("#{sport}_#{sub_sport}_score_input")).to eql 21
+        end
 
-          it 'converts score input empty string to nil' do
-            competitor = build :competitor
-            competitor.send "nordic_#{sub_sport}_score_input=", ''
-            competitor.save
-            expect(competitor.send("nordic_#{sub_sport}_score_input")).to be_nil
-          end
+        it 'converts score input empty string to nil' do
+          competitor = build :competitor
+          competitor.send "#{sport}_#{sub_sport}_score_input=", ''
+          competitor.save
+          expect(competitor.send("#{sport}_#{sub_sport}_score_input")).to be_nil
+        end
 
+        if extra_shots
           it 'converts extra shots strings to integer' do
-            raw_shots = sub_sport == 'rifle_standing' ? %w(8 9 10) : %w(1 0)
-            int_shots = sub_sport == 'rifle_standing' ? [8, 9, 10] : [1, 0]
+            raw_shots = shotgun ? %w(1 0) : %w(8 9 10)
+            int_shots = shotgun ? [1, 0] : [8, 9, 10]
             competitor = build :competitor
-            competitor.send "nordic_#{sub_sport}_extra_shots=", raw_shots
+            competitor.send "#{sport}_#{sub_sport}_extra_shots=", raw_shots
             competitor.save
-            expect(competitor.send("nordic_#{sub_sport}_extra_shots")).to eql int_shots
+            expect(competitor.send("#{sport}_#{sub_sport}_extra_shots")).to eql int_shots
           end
         end
       end
+    end
 
-      it_should_behave_like 'nordic field conversion', 'trap'
-      it_should_behave_like 'nordic field conversion', 'shotgun'
-      it_should_behave_like 'nordic field conversion', 'rifle_moving'
-      it_should_behave_like 'nordic field conversion', 'rifle_standing'
+    describe 'nordic' do
+      it_should_behave_like 'json field conversion', 'nordic', 'trap', true, true
+      it_should_behave_like 'json field conversion', 'nordic', 'shotgun', true, true
+      it_should_behave_like 'json field conversion', 'nordic', 'rifle_moving', false, true
+      it_should_behave_like 'json field conversion', 'nordic', 'rifle_standing', false, true
 
       it 'converts extra score string to integer' do
         competitor = create :competitor, nordic_extra_score: '191'
@@ -599,6 +601,21 @@ describe Competitor do
       it 'converts extra score empty string to nil' do
         competitor = create :competitor, nordic_extra_score: ''
         expect(competitor.nordic_extra_score).to be_nil
+      end
+    end
+
+    describe 'european' do
+      it_should_behave_like 'json field conversion', 'european', 'trap', true, false
+      it_should_behave_like 'json field conversion', 'european', 'compak', true, false
+      [1, 2, 3, 4].each do |n|
+        it_should_behave_like 'json field conversion', 'european', "rifle#{n}", false, false
+      end
+
+      it 'converts rifle extra shots strings to integer' do
+        competitor = build :competitor
+        competitor.european_rifle_extra_shots = %w(8 9 10)
+        competitor.save
+        expect(competitor.european_rifle_extra_shots).to eql [8, 9, 10]
       end
     end
 
