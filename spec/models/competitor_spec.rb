@@ -91,14 +91,29 @@ describe Competitor do
     it_should_behave_like 'shooting score input', :final_round_shooting_score_input, Sport::METSASTYSLUODIKKO, 100
     it_should_behave_like 'shooting score input', :final_round_shooting_score_input, Sport::METSASTYSTRAP, 25
 
-    shared_examples_for 'max ten 0-10 shots' do |attribute|
+    shared_examples_for 'shots' do |attribute, min_value = 1, max_count = nil|
       it { is_expected.to allow_value(nil).for(attribute) }
       it { is_expected.not_to allow_value([10, -1, 0]).for(attribute) }
       it { is_expected.not_to allow_value([11, 10]).for(attribute) }
-      it { is_expected.not_to allow_value([10, 9, 1.1]).for(attribute) }
-      it { is_expected.to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 0]).for(attribute) }
+      it { is_expected.not_to allow_value([10, 9.9]).for(attribute) }
       it { is_expected.to allow_value(['10', '9', '0']).for(attribute) }
-      it { is_expected.not_to allow_value(['10', '9', '1.1']).for(attribute) }
+      it { is_expected.not_to allow_value(['10', '9.1']).for(attribute) }
+      if max_count
+        it { is_expected.to allow_value(max_count.times.map {10}).for(attribute) }
+        it { is_expected.not_to allow_value((max_count + 1).times.map {10}).for(attribute) }
+      end
+      if min_value > 1
+        (1...min_value).each do |n|
+          describe "#{n} not allowed" do
+            it { is_expected.not_to allow_value([n]).for(attribute) }
+          end
+        end
+      end
+      (min_value..10).each do |n|
+        describe "#{n} allowed" do
+          it { is_expected.to allow_value([n]).for(attribute) }
+        end
+      end
     end
 
     shared_examples_for 'shotgun shots' do |attribute|
@@ -113,17 +128,6 @@ describe Competitor do
       it { is_expected.not_to allow_value(26.times.map{1}).for(attribute) }
     end
 
-    shared_examples_for 'ten target extra shots' do |attribute|
-      it { is_expected.to allow_value(nil).for(attribute) }
-      it { is_expected.not_to allow_value([10, -1, 0]).for(attribute) }
-      it { is_expected.not_to allow_value([11, 10]).for(attribute) }
-      it { is_expected.not_to allow_value([10, 9, 1.1]).for(attribute) }
-      it { is_expected.to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 0]).for(attribute) }
-      it { is_expected.to allow_value(['10', '9', '0']).for(attribute) }
-      it { is_expected.not_to allow_value(['10', '9', '1.1']).for(attribute) }
-      it { is_expected.to allow_value(11.times.map{1}).for(attribute) }
-    end
-
     shared_examples_for 'shotgun extra shots' do |attribute|
       it { is_expected.to allow_value(nil).for(attribute) }
       it { is_expected.not_to allow_value([-1, 0, 1]).for(attribute) }
@@ -136,7 +140,7 @@ describe Competitor do
     end
 
     describe 'shots' do
-      it_should_behave_like 'max ten 0-10 shots', :shots
+      it_should_behave_like 'shots', :shots
 
       shared_examples_for 'shooting sport shots' do |sport_key, valid_shots_count|
         it "#{sport_key} can have at most #{valid_shots_count} shots" do
@@ -176,7 +180,7 @@ describe Competitor do
     end
 
     describe 'extra_shots' do
-      it_should_behave_like 'ten target extra shots', :extra_shots
+      it_should_behave_like 'shots', :extra_shots
 
       describe 'when special setting for max shot value' do
         it 'max shot value comes from the setting' do
@@ -446,7 +450,7 @@ describe Competitor do
       end
 
       describe 'rifle_moving_shots' do
-        it_should_behave_like 'max ten 0-10 shots', :nordic_rifle_moving_shots
+        it_should_behave_like 'shots', :nordic_rifle_moving_shots, 1, 10
 
         it 'can be saved together with blank score input' do
           competitor = build :competitor, nordic_rifle_moving_shots: %w(10, 9), nordic_rifle_moving_score_input: ''
@@ -460,20 +464,11 @@ describe Competitor do
       end
 
       describe 'rifle_moving_extra_shots' do
-        it_should_behave_like 'ten target extra shots', :nordic_rifle_moving_extra_shots
+        it_should_behave_like 'shots', :nordic_rifle_moving_extra_shots, 1
       end
 
       describe 'rifle_standing_shots' do
-        it { is_expected.to allow_value(nil).for(:nordic_rifle_standing_shots) }
-        it { is_expected.not_to allow_value([10, -1, 0]).for(:nordic_rifle_standing_shots) }
-        it { is_expected.not_to allow_value([11, 10]).for(:nordic_rifle_standing_shots) }
-        it { is_expected.not_to allow_value([10, 9, 1.1]).for(:nordic_rifle_standing_shots) }
-        it { is_expected.to allow_value([10, 9, 8, 0, 10, 9, 8, 0, 10, 9]).for(:nordic_rifle_standing_shots) }
-        (1..7).each do |n|
-          it { is_expected.not_to allow_value([n]).for(:nordic_rifle_standing_shots) }
-        end
-        it { is_expected.to allow_value(['10', '9', '0']).for(:nordic_rifle_standing_shots) }
-        it { is_expected.not_to allow_value(['10', '9', '6']).for(:nordic_rifle_standing_shots) }
+        it_should_behave_like 'shots', :nordic_rifle_standing_shots, 8, 10
 
         it 'can be saved together with blank score input' do
           competitor = build :competitor, nordic_rifle_standing_shots: %w(9 10 8), nordic_rifle_standing_score_input: ''
@@ -487,16 +482,7 @@ describe Competitor do
       end
 
       describe 'rifle_standing_extra_shots' do
-        it { is_expected.to allow_value(nil).for(:nordic_rifle_standing_extra_shots) }
-        it { is_expected.not_to allow_value([10, -1, 0]).for(:nordic_rifle_standing_extra_shots) }
-        it { is_expected.not_to allow_value([11, 10]).for(:nordic_rifle_standing_extra_shots) }
-        it { is_expected.not_to allow_value([10, 9, 1.1]).for(:nordic_rifle_standing_extra_shots) }
-        it { is_expected.to allow_value([10, 9, 8, 0, 10, 9, 8, 0, 10, 9]).for(:nordic_rifle_standing_extra_shots) }
-        (1..7).each do |n|
-          it { is_expected.not_to allow_value([n]).for(:nordic_rifle_standing_extra_shots) }
-        end
-        it { is_expected.to allow_value(['10', '9', '0']).for(:nordic_rifle_standing_extra_shots) }
-        it { is_expected.not_to allow_value(['10', '9', '6']).for(:nordic_rifle_standing_extra_shots) }
+        it_should_behave_like 'shots', :nordic_rifle_standing_extra_shots, 8
       end
 
       describe 'extra_score' do
