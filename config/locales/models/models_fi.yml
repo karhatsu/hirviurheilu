@@ -37,6 +37,19 @@ fi:
     estimate4: Arvio 4
     estimate_penalty_distance: Arviosakkokierroksen pituus (m)
     estimate_penalty_seconds: Arvionnin sakkosekunnit
+    european_trap_shots: Trapin laukaukset
+    european_trap_score_input: Trapin tulos
+    european_compak_shots: Compakin laukaukset
+    european_compak_score_input: Compakin tulos
+    european_rifle_extra_shots: Luodikon uusintalaukaukset
+    european_rifle1_shots: Metsäkauriin laukaukset
+    european_rifle1_score_input: Metsäkauriin tulos
+    european_rifle2_shots: Ketun laukaukset
+    european_rifle2_score_input: Ketun tulos
+    european_rifle3_shots: Gemssin laukaukset
+    european_rifle3_score_input: Gemssin tulos
+    european_rifle4_shots: Villisian laukaukset
+    european_rifle4_score_input: Villisian tulos
     extra_shots: Uusinnan laukaukset
     final_round_batch_id: Loppukilpailun erä
     final_round_shooting_score_input: Loppukilpailun yhteistulos

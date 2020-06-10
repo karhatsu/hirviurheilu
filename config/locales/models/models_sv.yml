@@ -37,7 +37,20 @@ sv:
     estimate4: Bedömning 4
     estimate_penalty_distance: Bedömningstraff avstånd (m)
     estimate_penalty_seconds: Straffsekonder för bedömning
-    extra_shots: Uusinnan laukaukset
+    european_trap_shots: Jägartrap skott
+    european_trap_score_input: Jägartrap resultat
+    european_compak_shots: Compak skott
+    european_compak_score_input: Compak resultat
+    european_rifle_extra_shots: Kulskytte omskjutning
+    european_rifle1_shots: Rådjur skott
+    european_rifle1_score_input: Rådjur resultat
+    european_rifle2_shots: Räv skott
+    european_rifle2_score_input: Räv resultat
+    european_rifle3_shots: Gems skott
+    european_rifle3_score_input: Gems resultat
+    european_rifle4_shots: Vildsvin skott
+    european_rifle4_score_input: Vildsvin resultat
+    extra_shots: Omskjutning
     final_round_batch_id: Loppukilpailun erä
     final_round_shooting_score_input: Loppukilpailun yhteistulos
     final_round_track_place: Loppukilpailun ratapaikka

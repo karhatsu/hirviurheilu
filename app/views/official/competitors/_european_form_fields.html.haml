@@ -1,0 +1,41 @@
+= hidden_field_tag :no_times, true
+.form__field.form__field--sm.row
+  .col-xs-12.col-sm-3= f.label :number
+  .col-xs-12.col-sm-9= f.number_field :number
+.form__field.form__field--sm.row
+  .col-xs-12.col-sm-3= f.label :european_trap_score_input
+  .col-xs-12.col-sm-9
+    = f.number_field :european_trap_score_input, maxlength: 2
+    (#{t 'official.competitors.edit.either_total_or_shots'})
+.form__field.row
+  .col-xs-12.col-sm-3= label_tag :european_trap_shots, t('attributes.european_trap_shots')
+  .col-xs-12.col-sm-9
+    = render partial: 'official/shots/shooting_race_shots',
+        locals: { competitor: @competitor, round_rules: [25], base: 0, column_name: :european_trap_shots, field_name: 'european_trap_shots[]', best_shot_value: 1 }
+.form__field.form__field--sm.row
+  .col-xs-12.col-sm-3= f.label :european_compak_score_input
+  .col-xs-12.col-sm-9
+    = f.number_field :european_compak_score_input, maxlength: 2
+    (#{t 'official.competitors.edit.either_total_or_shots'})
+.form__field.row
+  .col-xs-12.col-sm-3= label_tag :european_compak_shots, t('attributes.european_compak_shots')
+  .col-xs-12.col-sm-9
+    = render partial: 'official/shots/shooting_race_shots',
+        locals: { competitor: @competitor, round_rules: [25], base: 0, column_name: :european_compak_shots, field_name: 'european_compak_shots[]', best_shot_value: 1 }
+- [1, 2, 3, 4].each do |n|
+  .form__field.form__field--sm.row
+    .col-xs-12.col-sm-3= f.label "european_rifle#{n}_score_input".to_sym
+    .col-xs-12.col-sm-9
+      = f.number_field "european_rifle#{n}_score_input".to_sym, maxlength: 2
+      (#{t 'official.competitors.edit.either_total_or_shots'})
+  .form__field.row
+    .col-xs-12.col-sm-3= label_tag "european_rifle#{n}_shots".to_sym, t("attributes.european_rifle#{n}_shots")
+    .col-xs-12.col-sm-9
+      = render partial: 'official/shots/shooting_race_shots',
+          locals: { competitor: @competitor, round_rules: [5], base: 0, column_name: "european_rifle#{n}_shots".to_sym, field_name: "european_rifle#{n}_shots[]", best_shot_value: 10 }
+- extra_shots_count = (@competitor.european_rifle_extra_shots || []).length + 5
+.form__field.row
+  .col-xs-12.col-sm-3= label_tag :european_rifle_extra_shots, t('attributes.european_rifle_extra_shots')
+  .col-xs-12.col-sm-9
+    = render partial: 'official/shots/shooting_race_shots',
+        locals: { competitor: @competitor, round_rules: [extra_shots_count], base: 0, column_name: :european_rifle_extra_shots, field_name: 'european_rifle_extra_shots[]', best_shot_value: 10 }

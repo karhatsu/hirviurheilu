@@ -5,6 +5,8 @@
   = render partial: "basic_fields", locals: { f: f }
   - if @series.sport.nordic?
     = render partial: 'nordic_form_fields', locals: { f: f }
+  - elsif @series.sport.european?
+    = render partial: 'european_form_fields', locals: { f: f }
   - elsif @series.sport.shooting?
     = render partial: 'shooting_race_form_fields', locals: { f: f }
   - elsif @series.sport.start_list? && @series.has_start_list?
