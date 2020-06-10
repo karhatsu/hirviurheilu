@@ -8,7 +8,7 @@ class EuropeanRiflesController < ApplicationController
       format.pdf {
         render pdf: "#{@series.race.name}-#{@series.name}-luodikko-tulokset", layout: true, margin: pdf_margin,
                header: pdf_header("#{@series.race.name} - #{@series.name} - #{I18n.t('sport_name.european_sub.rifle')}\n"),
-               footer: pdf_footer, orientation: 'Portrait', disable_smart_shrinking: true
+               footer: pdf_footer, orientation: 'Landscape', disable_smart_shrinking: true
       }
     end
   end
