@@ -66,6 +66,7 @@ class Series < ApplicationRecord
 
   def results
     return nordic_race_results if sport.nordic?
+    return european_race_results if sport.european?
     return shooting_race_results if sport.shooting?
     three_sports_results
   end

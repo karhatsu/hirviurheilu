@@ -1482,8 +1482,25 @@ describe Competitor do
         expect(@competitor.points).to be_nil
       end
 
-      it 'should return the shooting score' do
+      it 'should return the nordic score' do
         expect(@competitor.points).to eql 334
+      end
+    end
+
+    context 'when european race' do
+      before do
+        @competitor = build :competitor
+        allow(@competitor).to receive(:sport).and_return(Sport.by_key(Sport::EUROPEAN))
+        allow(@competitor).to receive(:european_score).and_return(250)
+      end
+
+      it 'should return nil when no result reason' do
+        @competitor.no_result_reason = 'DNF'
+        expect(@competitor.points).to be_nil
+      end
+
+      it 'should return the european score' do
+        expect(@competitor.points).to eql 250
       end
     end
 
