@@ -56,6 +56,7 @@ class Competitor < ApplicationRecord
   validates :european_rifle4_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
   validates :european_trap_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_blank: true }
   validates :european_compak_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_blank: true }
+  validates :european_extra_score, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_blank: true }
   validate :start_time_max
   validate :times_in_correct_order
   validate :only_one_shot_input_method_used
@@ -102,7 +103,7 @@ class Competitor < ApplicationRecord
   store_accessor :european_results,
                  :rifle1_shots, :rifle1_score_input, :rifle2_shots, :rifle2_score_input,
                  :rifle3_shots, :rifle3_score_input, :rifle4_shots, :rifle4_score_input, :rifle_extra_shots,
-                 :trap_shots, :trap_score_input, :compak_shots, :compak_score_input, :extra_scores,
+                 :trap_shots, :trap_score_input, :compak_shots, :compak_score_input, :extra_score,
                  prefix: 'european'
 
   delegate :race, to: :series
@@ -604,6 +605,8 @@ class Competitor < ApplicationRecord
     convert_sub_results :european, :rifle4, false
 
     self.european_rifle_extra_shots = european_rifle_extra_shots.map {|shot| shot.to_i} if european_rifle_extra_shots
+    self.european_extra_score = nil if european_extra_score.blank?
+    self.european_extra_score = european_extra_score.to_i if european_extra_score
   end
 
   def convert_sub_results(sport, sub_sport, has_extra_shots)

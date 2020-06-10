@@ -528,6 +528,10 @@ describe Competitor do
         it_should_behave_like 'non-negative integer', :european_compak_score_input, true, max_value: 25
         it_should_behave_like 'only single score method', :european_compak_score_input, :european_compak_shots
       end
+
+      describe 'extra_score' do
+        it_should_behave_like 'non-negative integer', :nordic_extra_score, true
+      end
     end
   end
 
@@ -613,6 +617,16 @@ describe Competitor do
         competitor.european_rifle_extra_shots = %w(8 9 10)
         competitor.save
         expect(competitor.european_rifle_extra_shots).to eql [8, 9, 10]
+      end
+
+      it 'converts extra score string to integer' do
+        competitor = create :competitor, european_extra_score: '191'
+        expect(competitor.european_extra_score).to eql 191
+      end
+
+      it 'converts extra score empty string to nil' do
+        competitor = create :competitor, european_extra_score: ''
+        expect(competitor.european_extra_score).to be_nil
       end
     end
 
