@@ -40,6 +40,8 @@
                   - unless finished
                     - if @race.sport.nordic?
                       = link_to t('.input_results'), official_series_trap_path(s), class: 'button'
+                    - elsif @race.sport.european?
+                      = link_to t('.input_results'), official_race_trap_path(@race), class: 'button'
                     - else
                       = link_to t('.input_results'), official_race_quick_saves_path(@race), class: 'button'
                     - if @race.sport.shooting?
