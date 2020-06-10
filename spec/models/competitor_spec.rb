@@ -91,14 +91,26 @@ describe Competitor do
     it_should_behave_like 'shooting score input', :final_round_shooting_score_input, Sport::METSASTYSLUODIKKO, 100
     it_should_behave_like 'shooting score input', :final_round_shooting_score_input, Sport::METSASTYSTRAP, 25
 
-    shared_examples_for 'max ten 0-10 shots' do |attribute|
+    shared_examples_for 'shots' do |attribute, allowed_values, max_count = nil|
       it { is_expected.to allow_value(nil).for(attribute) }
-      it { is_expected.not_to allow_value([10, -1, 0]).for(attribute) }
-      it { is_expected.not_to allow_value([11, 10]).for(attribute) }
-      it { is_expected.not_to allow_value([10, 9, 1.1]).for(attribute) }
-      it { is_expected.to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 0]).for(attribute) }
-      it { is_expected.to allow_value(['10', '9', '0']).for(attribute) }
-      it { is_expected.not_to allow_value(['10', '9', '1.1']).for(attribute) }
+      it { is_expected.not_to allow_value([allowed_values.min - 1]).for(attribute) }
+      it { is_expected.not_to allow_value([allowed_values.max + 1]).for(attribute) }
+      it { is_expected.not_to allow_value([10, 9.9]).for(attribute) }
+      it { is_expected.not_to allow_value(['10', '9.1']).for(attribute) }
+      if max_count
+        it { is_expected.to allow_value(max_count.times.map {10}).for(attribute) }
+        it { is_expected.not_to allow_value((max_count + 1).times.map {10}).for(attribute) }
+      end
+      ((0..10).to_a - allowed_values).each do |n|
+        describe "#{n} not allowed" do
+          it { is_expected.not_to allow_value([n]).for(attribute) }
+        end
+      end
+      allowed_values.each do |n|
+        describe "#{n} allowed" do
+          it { is_expected.to allow_value([n, n, n]).for(attribute) }
+        end
+      end
     end
 
     shared_examples_for 'shotgun shots' do |attribute|
@@ -113,17 +125,6 @@ describe Competitor do
       it { is_expected.not_to allow_value(26.times.map{1}).for(attribute) }
     end
 
-    shared_examples_for 'ten target extra shots' do |attribute|
-      it { is_expected.to allow_value(nil).for(attribute) }
-      it { is_expected.not_to allow_value([10, -1, 0]).for(attribute) }
-      it { is_expected.not_to allow_value([11, 10]).for(attribute) }
-      it { is_expected.not_to allow_value([10, 9, 1.1]).for(attribute) }
-      it { is_expected.to allow_value([10, 9, 8, 7, 6, 5, 4, 3, 2, 0]).for(attribute) }
-      it { is_expected.to allow_value(['10', '9', '0']).for(attribute) }
-      it { is_expected.not_to allow_value(['10', '9', '1.1']).for(attribute) }
-      it { is_expected.to allow_value(11.times.map{1}).for(attribute) }
-    end
-
     shared_examples_for 'shotgun extra shots' do |attribute|
       it { is_expected.to allow_value(nil).for(attribute) }
       it { is_expected.not_to allow_value([-1, 0, 1]).for(attribute) }
@@ -136,7 +137,7 @@ describe Competitor do
     end
 
     describe 'shots' do
-      it_should_behave_like 'max ten 0-10 shots', :shots
+      it_should_behave_like 'shots', :shots, (0..10).to_a
 
       shared_examples_for 'shooting sport shots' do |sport_key, valid_shots_count|
         it "#{sport_key} can have at most #{valid_shots_count} shots" do
@@ -176,7 +177,7 @@ describe Competitor do
     end
 
     describe 'extra_shots' do
-      it_should_behave_like 'ten target extra shots', :extra_shots
+      it_should_behave_like 'shots', :extra_shots, (0..10).to_a
 
       describe 'when special setting for max shot value' do
         it 'max shot value comes from the setting' do
@@ -399,16 +400,16 @@ describe Competitor do
       end
     end
 
-    describe 'nordic results' do
-      shared_examples_for 'only single score method' do |score_input_attribute, shots_attribute|
-        it 'score input cannot be used when also shots given' do
-          competitor = build :competitor, shots: [1]
-          competitor.send("#{shots_attribute}=", [1])
-          competitor.send("#{score_input_attribute}=", 25)
-          expect(competitor).to have(1).errors_on(:base)
-        end
+    shared_examples_for 'only single score method' do |score_input_attribute, shots_attribute|
+      it 'score input cannot be used when also shots given' do
+        competitor = build :competitor, shots: [1]
+        competitor.send("#{shots_attribute}=", [1])
+        competitor.send("#{score_input_attribute}=", 25)
+        expect(competitor).to have(1).errors_on(:base)
       end
+    end
 
+    describe 'nordic results' do
       describe 'trap_shots' do
         it_should_behave_like 'shotgun shots', :nordic_trap_shots
 
@@ -446,7 +447,7 @@ describe Competitor do
       end
 
       describe 'rifle_moving_shots' do
-        it_should_behave_like 'max ten 0-10 shots', :nordic_rifle_moving_shots
+        it_should_behave_like 'shots', :nordic_rifle_moving_shots, (0..10).to_a, 10
 
         it 'can be saved together with blank score input' do
           competitor = build :competitor, nordic_rifle_moving_shots: %w(10, 9), nordic_rifle_moving_score_input: ''
@@ -460,20 +461,11 @@ describe Competitor do
       end
 
       describe 'rifle_moving_extra_shots' do
-        it_should_behave_like 'ten target extra shots', :nordic_rifle_moving_extra_shots
+        it_should_behave_like 'shots', :nordic_rifle_moving_extra_shots, (0..10).to_a
       end
 
       describe 'rifle_standing_shots' do
-        it { is_expected.to allow_value(nil).for(:nordic_rifle_standing_shots) }
-        it { is_expected.not_to allow_value([10, -1, 0]).for(:nordic_rifle_standing_shots) }
-        it { is_expected.not_to allow_value([11, 10]).for(:nordic_rifle_standing_shots) }
-        it { is_expected.not_to allow_value([10, 9, 1.1]).for(:nordic_rifle_standing_shots) }
-        it { is_expected.to allow_value([10, 9, 8, 0, 10, 9, 8, 0, 10, 9]).for(:nordic_rifle_standing_shots) }
-        (1..7).each do |n|
-          it { is_expected.not_to allow_value([n]).for(:nordic_rifle_standing_shots) }
-        end
-        it { is_expected.to allow_value(['10', '9', '0']).for(:nordic_rifle_standing_shots) }
-        it { is_expected.not_to allow_value(['10', '9', '6']).for(:nordic_rifle_standing_shots) }
+        it_should_behave_like 'shots', :nordic_rifle_standing_shots, [0, 8, 9, 10], 10
 
         it 'can be saved together with blank score input' do
           competitor = build :competitor, nordic_rifle_standing_shots: %w(9 10 8), nordic_rifle_standing_score_input: ''
@@ -487,20 +479,58 @@ describe Competitor do
       end
 
       describe 'rifle_standing_extra_shots' do
-        it { is_expected.to allow_value(nil).for(:nordic_rifle_standing_extra_shots) }
-        it { is_expected.not_to allow_value([10, -1, 0]).for(:nordic_rifle_standing_extra_shots) }
-        it { is_expected.not_to allow_value([11, 10]).for(:nordic_rifle_standing_extra_shots) }
-        it { is_expected.not_to allow_value([10, 9, 1.1]).for(:nordic_rifle_standing_extra_shots) }
-        it { is_expected.to allow_value([10, 9, 8, 0, 10, 9, 8, 0, 10, 9]).for(:nordic_rifle_standing_extra_shots) }
-        (1..7).each do |n|
-          it { is_expected.not_to allow_value([n]).for(:nordic_rifle_standing_extra_shots) }
-        end
-        it { is_expected.to allow_value(['10', '9', '0']).for(:nordic_rifle_standing_extra_shots) }
-        it { is_expected.not_to allow_value(['10', '9', '6']).for(:nordic_rifle_standing_extra_shots) }
+        it_should_behave_like 'shots', :nordic_rifle_standing_extra_shots, [0, 8, 9, 10]
       end
 
       describe 'extra_score' do
         it_should_behave_like 'non-negative integer', :nordic_extra_score, true, max_value: 200
+      end
+    end
+
+    describe 'european results' do
+      shared_examples_for 'european rifle' do |n, allowed_shots|
+        it_should_behave_like 'shots', "european_rifle#{n}_shots", allowed_shots, 5
+        it_should_behave_like 'non-negative integer', "european_rifle#{n}_score_input", true, max_value: 50
+        it_should_behave_like 'only single score method', "european_rifle#{n}_score_input", "european_rifle#{n}_shots"
+      end
+
+      it_should_behave_like 'european rifle', 1, [0, 1, 3, 8, 9, 10]
+      it_should_behave_like 'european rifle', 2, [0, 1, 3, 8, 9, 10]
+      it_should_behave_like 'european rifle', 3, [0, 1, 3, 8, 9, 10]
+      it_should_behave_like 'european rifle', 4, [0, 5, 8, 9, 10]
+
+      it_should_behave_like 'shots', :european_rifle_extra_shots, [0, 5, 8, 9, 10]
+
+      describe 'trap_shots' do
+        it_should_behave_like 'shotgun shots', :european_trap_shots
+
+        it 'can be saved together with blank score input' do
+          competitor = build :competitor, european_trap_shots: %w(1, 0, 1, 1), european_trap_score_input: ''
+          expect(competitor).to have(0).errors_on(:base)
+        end
+      end
+
+      describe 'trap_score_input' do
+        it_should_behave_like 'non-negative integer', :european_trap_score_input, true, max_value: 25
+        it_should_behave_like 'only single score method', :european_trap_score_input, :european_trap_shots
+      end
+
+      describe 'compak_shots' do
+        it_should_behave_like 'shotgun shots', :european_compak_shots
+
+        it 'can be saved together with blank score input' do
+          competitor = build :competitor, european_compak_shots: %w(1, 0, 1, 1), european_compak_score_input: ''
+          expect(competitor).to have(0).errors_on(:base)
+        end
+      end
+
+      describe 'compak_score_input' do
+        it_should_behave_like 'non-negative integer', :european_compak_score_input, true, max_value: 25
+        it_should_behave_like 'only single score method', :european_compak_score_input, :european_compak_shots
+      end
+
+      describe 'extra_score' do
+        it_should_behave_like 'non-negative integer', :nordic_extra_score, true
       end
     end
   end
@@ -520,47 +550,49 @@ describe Competitor do
       end
     end
 
-    describe 'nordic' do
-      shared_examples_for 'nordic field conversion' do |sub_sport|
-        describe sub_sport do
-          it 'converts shots strings to integer' do
-            raw_shots = sub_sport == 'rifle_standing' ? %w(8 9 10) : %w(1 0 1)
-            int_shots = sub_sport == 'rifle_standing' ? [8, 9, 10] : [1, 0, 1]
-            competitor = build :competitor
-            competitor.send "nordic_#{sub_sport}_shots=", raw_shots
-            competitor.save
-            expect(competitor.send("nordic_#{sub_sport}_shots")).to eql int_shots
-          end
+    shared_examples_for 'json field conversion' do |sport, sub_sport, shotgun, extra_shots|
+      describe sub_sport do
+        it 'converts shots strings to integer' do
+          raw_shots = shotgun ? %w(1 0) : %w(8 9 10)
+          int_shots = shotgun ? [1, 0] : [8, 9, 10]
+          competitor = build :competitor
+          competitor.send "#{sport}_#{sub_sport}_shots=", raw_shots
+          competitor.save
+          expect(competitor.send("#{sport}_#{sub_sport}_shots")).to eql int_shots
+        end
 
-          it 'converts score input string to integer' do
-            competitor = build :competitor
-            competitor.send "nordic_#{sub_sport}_score_input=", '21'
-            competitor.save
-            expect(competitor.send("nordic_#{sub_sport}_score_input")).to eql 21
-          end
+        it 'converts score input string to integer' do
+          competitor = build :competitor
+          competitor.send "#{sport}_#{sub_sport}_score_input=", '21'
+          competitor.save
+          expect(competitor.send("#{sport}_#{sub_sport}_score_input")).to eql 21
+        end
 
-          it 'converts score input empty string to nil' do
-            competitor = build :competitor
-            competitor.send "nordic_#{sub_sport}_score_input=", ''
-            competitor.save
-            expect(competitor.send("nordic_#{sub_sport}_score_input")).to be_nil
-          end
+        it 'converts score input empty string to nil' do
+          competitor = build :competitor
+          competitor.send "#{sport}_#{sub_sport}_score_input=", ''
+          competitor.save
+          expect(competitor.send("#{sport}_#{sub_sport}_score_input")).to be_nil
+        end
 
+        if extra_shots
           it 'converts extra shots strings to integer' do
-            raw_shots = sub_sport == 'rifle_standing' ? %w(8 9 10) : %w(1 0)
-            int_shots = sub_sport == 'rifle_standing' ? [8, 9, 10] : [1, 0]
+            raw_shots = shotgun ? %w(1 0) : %w(8 9 10)
+            int_shots = shotgun ? [1, 0] : [8, 9, 10]
             competitor = build :competitor
-            competitor.send "nordic_#{sub_sport}_extra_shots=", raw_shots
+            competitor.send "#{sport}_#{sub_sport}_extra_shots=", raw_shots
             competitor.save
-            expect(competitor.send("nordic_#{sub_sport}_extra_shots")).to eql int_shots
+            expect(competitor.send("#{sport}_#{sub_sport}_extra_shots")).to eql int_shots
           end
         end
       end
+    end
 
-      it_should_behave_like 'nordic field conversion', 'trap'
-      it_should_behave_like 'nordic field conversion', 'shotgun'
-      it_should_behave_like 'nordic field conversion', 'rifle_moving'
-      it_should_behave_like 'nordic field conversion', 'rifle_standing'
+    describe 'nordic' do
+      it_should_behave_like 'json field conversion', 'nordic', 'trap', true, true
+      it_should_behave_like 'json field conversion', 'nordic', 'shotgun', true, true
+      it_should_behave_like 'json field conversion', 'nordic', 'rifle_moving', false, true
+      it_should_behave_like 'json field conversion', 'nordic', 'rifle_standing', false, true
 
       it 'converts extra score string to integer' do
         competitor = create :competitor, nordic_extra_score: '191'
@@ -570,6 +602,31 @@ describe Competitor do
       it 'converts extra score empty string to nil' do
         competitor = create :competitor, nordic_extra_score: ''
         expect(competitor.nordic_extra_score).to be_nil
+      end
+    end
+
+    describe 'european' do
+      it_should_behave_like 'json field conversion', 'european', 'trap', true, false
+      it_should_behave_like 'json field conversion', 'european', 'compak', true, false
+      [1, 2, 3, 4].each do |n|
+        it_should_behave_like 'json field conversion', 'european', "rifle#{n}", false, false
+      end
+
+      it 'converts rifle extra shots strings to integer' do
+        competitor = build :competitor
+        competitor.european_rifle_extra_shots = %w(8 9 10)
+        competitor.save
+        expect(competitor.european_rifle_extra_shots).to eql [8, 9, 10]
+      end
+
+      it 'converts extra score string to integer' do
+        competitor = create :competitor, european_extra_score: '191'
+        expect(competitor.european_extra_score).to eql 191
+      end
+
+      it 'converts extra score empty string to nil' do
+        competitor = create :competitor, european_extra_score: ''
+        expect(competitor.european_extra_score).to be_nil
       end
     end
 

@@ -8,9 +8,10 @@ class Sport
   METSASTYSHAULIKKO = "METSASTYSHAULIKKO"
   METSASTYSTRAP = "METSASTYSTRAP"
   NORDIC = "NORDIC"
+  EUROPEAN = "EUROPEAN"
 
   ALL_KEYS = [Sport::RUN, Sport::SKI, Sport::ILMAHIRVI, Sport::ILMALUODIKKO, Sport::METSASTYSHIRVI,
-              Sport::METSASTYSLUODIKKO, Sport::METSASTYSHAULIKKO, Sport::METSASTYSTRAP, Sport::NORDIC]
+              Sport::METSASTYSLUODIKKO, Sport::METSASTYSHAULIKKO, Sport::METSASTYSTRAP, Sport::NORDIC, Sport::EUROPEAN]
 
   BASE_CONFIGS = {
       SKI_AND_RUN: {
@@ -38,6 +39,7 @@ class Sport
               ['N65', ['N70', 'N75', 'N80', 'N85', 'N90']],
           ],
           nordic?: false,
+          european?: false,
       },
       SHOOTING: {
           start_list?: false,
@@ -64,6 +66,7 @@ class Sport
           final_round_max_score: 100,
           final_round_competitors_count: 10,
           nordic?: false,
+          european?: false,
       }
   }
 
@@ -147,6 +150,13 @@ class Sport
               name: 'Pohjoismainen metsästysammunta',
               nordic?: true,
               default_series: [['S20'], ['M'], ['N'], ['S60']],
+          }
+      )),
+      EUROPEAN: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
+          {
+              name: 'Eurooppalainen metsästysammunta',
+              european?: true,
+              default_series: [['S20'], ['M'], ['N'], ['S55']],
           }
       )),
   }

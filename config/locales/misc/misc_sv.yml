@@ -143,11 +143,20 @@ sv:
     METSASTYSHAULIKKO: Jaktskytte
     METSASTYSTRAP: Jägartrap
     NORDIC: Nordiskt jaktskytte
+    EUROPEAN: Europeiskt jaktskytte
     nordic_sub:
       trap: Jägartrap
       shotgun: Compak
       rifle_moving: Älg
       rifle_standing: Rådjur
+    european_sub:
+      trap: Trap
+      compak: Compak
+      rifle: Kulskytte
+      rifle1: Rådjur
+      rifle2: Räv
+      rifle3: Gems
+      rifle4: Vildsvin
   start_list: Startlista
   team: Lag
   tel: Telefon

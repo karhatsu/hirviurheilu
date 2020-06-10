@@ -1,0 +1,7 @@
+- @race.series.each_with_index do |series, index|
+  - if index > 0 && @page_breaks
+    .page-break
+  %h3 #{t 'sport_name.european_sub.rifle'} - #{series.name}
+  - cache [series, params[:club_id], I18n.locale] do
+    = render partial: 'european_rifles/desktop_sub_results', locals: { series: series }
+  %hr

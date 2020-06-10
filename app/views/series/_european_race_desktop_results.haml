@@ -1,0 +1,62 @@
+- competitors = series.european_race_results
+- extra_shots_column = competitors.any? {|competitor| competitor.european_extra_score}
+%table.results-table
+  %tr
+    %th &nbsp;
+    %th= t 'attributes.name'
+    %th= t 'number_short'
+    %th#table_club_title= club_title(series.race)
+    %th= t 'sport_name.european_sub.trap'
+    %th= t 'sport_name.european_sub.compak'
+    %th= t 'sport_name.european_sub.rifle1'
+    %th= t 'sport_name.european_sub.rifle2'
+    %th= t 'sport_name.european_sub.rifle3'
+    %th= t 'sport_name.european_sub.rifle4'
+    %th= t :result
+    - if extra_shots_column
+      %th= t :extra_round
+  - prev_results = 1.0/0.0
+  - competitors.each_with_index do |comp, i|
+    - @max_points = comp.points if i == 0
+    - next unless i < 3 || params[:club_id].blank? || comp.club_id == params[:club_id].to_i
+    - results = comp.european_total_results
+    %tr{class: i % 2 == 0 ? 'odd' : ''}
+      %td= (results == prev_results) ? raw('&nbsp;') : "#{i + 1}."
+      %td= full_name(comp)
+      %td= comp.number
+      %td= comp.club.name
+      %td
+        = comp.european_trap_score || '-'
+        - if comp.european_trap_shots
+          %span.shots (#{shots_print comp.european_trap_shots})
+      %td
+        = comp.european_compak_score || '-'
+        - if comp.european_compak_shots
+          %span.shots (#{shots_print comp.european_compak_shots})
+      %td
+        = comp.european_rifle1_score || '-'
+        - if comp.european_rifle1_shots
+          %span.shots (#{shots_print comp.european_rifle1_shots})
+      %td
+        = comp.european_rifle2_score || '-'
+        - if comp.european_rifle2_shots
+          %span.shots (#{shots_print comp.european_rifle2_shots})
+      %td
+        = comp.european_rifle3_score || '-'
+        - if comp.european_rifle3_shots
+          %span.shots (#{shots_print comp.european_rifle3_shots})
+      %td
+        = comp.european_rifle4_score || '-'
+        - if comp.european_rifle4_shots
+          %span.shots (#{shots_print comp.european_rifle4_shots})
+      %td.center.total-points
+        - if comp.no_result_reason
+          = comp.no_result_reason
+        - else
+          = comp.european_score || '-'
+          = national_record_print(comp) if comp.european_score.to_i >= @max_points.to_i
+      - if extra_shots_column
+        %td
+          - if comp.european_extra_score
+            = comp.european_extra_score
+    - prev_results = results

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_06_081543) do
+ActiveRecord::Schema.define(version: 2020_06_07_095514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 2020_06_06_081543) do
     t.bigint "final_round_batch_id"
     t.integer "final_round_track_place"
     t.jsonb "nordic_results"
+    t.jsonb "european_results"
     t.index ["age_group_id"], name: "index_competitors_on_age_group_id"
     t.index ["final_round_batch_id"], name: "index_competitors_on_final_round_batch_id"
     t.index ["qualification_round_batch_id"], name: "index_competitors_on_qualification_round_batch_id"

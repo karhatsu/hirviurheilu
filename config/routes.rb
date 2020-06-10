@@ -34,6 +34,7 @@ ElkSports::Application.routes.draw do
       resources :qualification_round_batches, only: :index
       resources :final_round_batches, only: :index
       resources :series do
+        get 'rifle', to: 'european_rifles#index', as: :rifle
         resource :start_list, only: :show
       end
       resources :start_lists, only: :index
