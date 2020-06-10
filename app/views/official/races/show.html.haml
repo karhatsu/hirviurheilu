@@ -57,7 +57,7 @@
   .buttons
     = link_to t('.batches_manually'), official_race_batches_path(@race), class: 'button'
     - unless @race.series.empty?
-      - if @race.sport.nordic?
+      - if @race.sport.one_batch_list?
         = link_to t('.batch_list_generation'), official_series_qualification_round_batch_list_path(@race.series.first), class: 'button'
       - else
         = link_to t('.qualification_round_batch_list'), official_series_qualification_round_batch_list_path(@race.series.first), class: 'button'

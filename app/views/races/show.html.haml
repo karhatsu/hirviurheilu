@@ -11,7 +11,7 @@
   %h2= t :batch_lists
   .buttons#batch-links
     - if @race.sport.batch_list? && !@race.qualification_round_batches.empty?
-      - text = @race.sport.nordic? ? t('race_sub_menu.batches') : t('race_sub_menu.qualification_round_batches')
+      - text = @race.sport.one_batch_list? ? t('race_sub_menu.batches') : t('race_sub_menu.qualification_round_batches')
       = link_to text, race_qualification_round_batches_path(@race), class: 'button button--primary'
     - if @race.sport.batch_list? && !@race.final_round_batches.empty?
       = link_to t('race_sub_menu.final_round_batches'), race_final_round_batches_path(@race), class: 'button button--primary'
@@ -51,7 +51,7 @@
             .form__field= select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: "#{t :all} #{clubs_title(@race).downcase}"
             .form__buttons= submit_tag t('.download_start_times'), class: 'button button--pdf'
       - if @race.sport.batch_list? && !@race.qualification_round_batches.empty?
-        - title = @race.sport.nordic? ? t(:batch_lists) : t(:qualification_round_batch_lists)
+        - title = @race.sport.one_batch_list? ? t(:batch_lists) : t(:qualification_round_batch_lists)
         = render partial: 'batch_list_pdf_form', locals: { path: race_qualification_round_batches_path(@race, format: :pdf), title: title }
       - if @race.sport.batch_list? && !@race.final_round_batches.empty?
         = render partial: 'batch_list_pdf_form', locals: { path: race_final_round_batches_path(@race, format: :pdf), title: t(:final_round_batch_lists) }

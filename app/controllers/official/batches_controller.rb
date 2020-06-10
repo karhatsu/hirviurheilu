@@ -19,7 +19,7 @@ class Official::BatchesController < Official::OfficialController
 
   def create
     @batch = @race.batches.build batch_params
-    @batch.type = 'QualificationRoundBatch' if @race.sport.nordic?
+    @batch.type = 'QualificationRoundBatch' if @race.sport.one_batch_list?
     if @batch.save
       flash[:success] = t '.batch_added'
       redirect_to official_race_batches_path(@race)

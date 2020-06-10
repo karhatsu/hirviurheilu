@@ -145,10 +145,10 @@ fi:
     qualification_round_batch_lists:
       show:
         title:
-          nordic: Erien arvonta
+          one_batch_list: Erien arvonta
           other: Alkukilpailun erien arvonta
         no_competitors_without_batch_in_series:
-          nordic: Sarjassa ei ole yhtään kilpailijaa, jolta puuttuisi erä
+          one_batch_list: Sarjassa ei ole yhtään kilpailijaa, jolta puuttuisi erä
           other: Sarjassa ei ole yhtään kilpailijaa, jolta puuttuisi alkukilpailun ammuntapaikka
         nordic_info: Tällä työkalulla voit arpoa trapin suoritusajat. Arvonnan jälkeen voit käydä asettamassa muiden osalajien ajat Erät-sivulla.
         button: Arvo eräluettelot

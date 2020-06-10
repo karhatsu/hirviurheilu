@@ -3,7 +3,7 @@
 = flash_success
 - unless @qualification_round_batches.empty? && @final_round_batches.empty?
   .message.message--info= t 'official.batches.index.edit_to_define_competitors'
-- if @race.sport.nordic?
+- if @race.sport.one_batch_list?
   = render partial: 'batch_list', locals: { batches: @qualification_round_batches }
   .buttons
     = link_to t(:add_batch), new_official_race_batch_path(@race, type: 'QualificationRoundBatch'), class: 'button button--add'

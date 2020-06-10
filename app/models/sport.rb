@@ -17,6 +17,7 @@ class Sport
       SKI_AND_RUN: {
           start_list?: true,
           batch_list?: false,
+          one_batch_list?: false,
           qualification_round: false,
           final_round: false,
           shooting?: false,
@@ -44,6 +45,7 @@ class Sport
       SHOOTING: {
           start_list?: false,
           batch_list?: true,
+          one_batch_list?: false,
           shooting?: true,
           relays?: false,
           default_series: [
@@ -150,6 +152,7 @@ class Sport
               name: 'Pohjoismainen metsästysammunta',
               nordic?: true,
               default_series: [['S20'], ['M'], ['N'], ['S60']],
+              one_batch_list?: true,
           }
       )),
       EUROPEAN: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
@@ -157,6 +160,7 @@ class Sport
               name: 'Eurooppalainen metsästysammunta',
               european?: true,
               default_series: [['S20'], ['M'], ['N'], ['S55']],
+              one_batch_list?: true,
           }
       )),
   }

@@ -1,6 +1,6 @@
 = render partial: 'shared/form_errors', locals: { item: @batch }
 = form_for([:official, @race, @batch.becomes(Batch)], html: { class: 'form' }) do |f|
-  - unless @race.sport.nordic?
+  - unless @race.sport.one_batch_list?
     .form__field.form__field--sm.row
       .col-xs-12.col-sm-2= f.label :type
       .col-xs-12.col-sm-10
@@ -19,7 +19,7 @@
       .col-xs-12.col-sm-2= f.label :day
       .col-xs-12.col-sm-10= f.select :day, options_for_select(batch_days_options(@race), @batch.day)
   .form__field.form__field--sm.row
-    - time_label = @race.sport.nordic? ? "#{t 'attributes.time'} (#{t('sport_name.nordic_sub.trap').downcase})" : t('attributes.time')
+    - time_label = @race.sport.one_batch_list? ? "#{t 'attributes.time'} (#{t('sport_name.nordic_sub.trap').downcase})" : t('attributes.time')
     .col-xs-12.col-sm-2= f.label :time, time_label
     .col-xs-12.col-sm-10= f.time_select :time
   - if @race.sport.nordic?
@@ -32,5 +32,12 @@
     .form__field.form__field--sm.row
       .col-xs-12.col-sm-2= f.label :time4, "#{t 'attributes.time'} (#{t('sport_name.nordic_sub.rifle_standing').downcase})"
       .col-xs-12.col-sm-10= f.time_select :time4, include_blank: true
+  - elsif @race.sport.european?
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-2= f.label :time2, "#{t 'attributes.time'} (#{t('sport_name.european_sub.compak').downcase})"
+      .col-xs-12.col-sm-10= f.time_select :time2, include_blank: true
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-2= f.label :time3, "#{t 'attributes.time'} (#{t('sport_name.european_sub.rifle').downcase})"
+      .col-xs-12.col-sm-10= f.time_select :time3, include_blank: true
   .form__buttons
     = submit_tag t(:save), class: 'button button--primary'

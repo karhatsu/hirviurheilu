@@ -5,7 +5,7 @@ fi:
   qualification_round_batches:
     index:
       title:
-        nordic: Eräluettelo
+        one_batch_list: Eräluettelo
         other: Alkukilpailun eräluettelo
   final_round_batches:
     index:

@@ -16,7 +16,7 @@
         = menu_item t('sport_name.european_sub.rifle'), race_series_rifle_path(race, series), @rifle, nil, true do
           - series_dropdown_menu(race, 'rifle')
     - if race.sport.batch_list? && !race.qualification_round_batches.empty?
-      - text = race.sport.nordic? ? t('race_sub_menu.batches') : t('race_sub_menu.qualification_round_batches')
+      - text = race.sport.one_batch_list? ? t('race_sub_menu.batches') : t('race_sub_menu.qualification_round_batches')
       = menu_item text, race_qualification_round_batches_path(race), @is_qualification_round_batches
     - if race.sport.batch_list? && !race.final_round_batches.empty?
       = menu_item t('race_sub_menu.final_round_batches'), race_final_round_batches_path(race), @is_final_round_batches

@@ -13,7 +13,7 @@
     - if series && !race.series.first.new_record?
       - if race.sport.start_list?
         = menu_item t('official_sub_menu.start_times'), official_race_start_list_path(race), @is_start_list
-      - elsif race.sport.nordic? || race.sport.european?
+      - elsif race.sport.one_batch_list?
         = menu_item t('official_sub_menu.batch_list_generation'), official_series_qualification_round_batch_list_path(series), @qualification_round_batch_list
       - elsif race.sport.batch_list?
         = menu_item t('official_sub_menu.qualification_round_batch_list'), official_series_qualification_round_batch_list_path(series), @qualification_round_batch_list

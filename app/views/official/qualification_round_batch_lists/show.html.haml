@@ -1,4 +1,4 @@
-- page_title = @series.sport.nordic? ? t('.title.nordic') : t('.title.other')
+- page_title = @series.sport.one_batch_list? ? t('.title.one_batch_list') : t('.title.other')
 - content_for :title, "#{@series.race.name} - #{@series.name} - #{page_title}"
 %h2 #{@series.name} - #{page_title}
 - content_for :sub_sub_menu do
@@ -10,7 +10,7 @@
     Kilpailulle pitää määrittää ratojen lukumäärä ja ammuntapaikkojen lukumäärä ennen kuin arpoa eräluettelon.
     = link_to 'Voit asettaa ne kilpailun asetuksista.', edit_official_race_path(@series.race)
 - elsif @competitors_without_batch.empty?
-  - info = @series.sport.nordic? ? t('.no_competitors_without_batch_in_series.nordic') : t('.no_competitors_without_batch_in_series.other')
+  - info = @series.sport.one_batch_list? ? t('.no_competitors_without_batch_in_series.one_batch_list') : t('.no_competitors_without_batch_in_series.other')
   .message.message--info= info
 - else
   .message.message--info= t('.nordic_info')
