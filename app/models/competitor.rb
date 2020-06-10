@@ -306,13 +306,13 @@ class Competitor < ApplicationRecord
 
   def self.sort_european_rifle_competitors(competitors)
     competitors.sort do |a, b|
-      [b.european_rifle_results] + a.number.to_i <=> [a.european_rifle_results] + b.number.to_i
+      [b.european_rifle_results, a.number.to_i] <=> [a.european_rifle_results, b.number.to_i]
     end
   end
 
   def self.sort_european_competitors(competitors)
     competitors.sort do |a, b|
-      [b.european_total_results] + a.number.to_i <=> [a.european_total_results] + b.number.to_i
+      [b.european_total_results, a.number.to_i] <=> [a.european_total_results, b.number.to_i]
     end
   end
 
