@@ -18,7 +18,7 @@
   - competitors.each_with_index do |comp, i|
     - @max_points = comp.points if i == 0
     - next unless i < 3 || params[:club_id].blank? || comp.club_id == params[:club_id].to_i
-    - results = comp.european_rifle_score
+    - results = comp.european_rifle_results
     %tr{class: i % 2 == 0 ? 'odd' : ''}
       %td= (results == prev_results) ? raw('&nbsp;') : "#{i + 1}."
       %td= full_name(comp)
