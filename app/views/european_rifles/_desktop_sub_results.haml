@@ -6,7 +6,6 @@
     %th= t 'attributes.name'
     %th= t 'number_short'
     %th#table_club_title= club_title(series.race)
-    %th= t :series
     %th= t 'sport_name.european_sub.rifle1'
     %th= t 'sport_name.european_sub.rifle2'
     %th= t 'sport_name.european_sub.rifle3'
@@ -24,7 +23,6 @@
       %td= full_name(comp)
       %td= comp.number
       %td= comp.club.name
-      %td= comp.series.name
       %td
         = comp.european_rifle1_score || '-'
         - if comp.european_rifle1_shots
