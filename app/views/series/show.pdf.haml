@@ -5,6 +5,8 @@
 - cache [@series, unofficials, I18n.locale] do
   - if @series.sport.nordic?
     = render partial: 'series/nordic_race_desktop_results', locals: { series: @series }
+  - elsif @series.sport.european?
+    = render partial: 'series/european_race_desktop_results', locals: { series: @series }
   - elsif @series.sport.shooting?
     = render :partial => 'series/shooting_race_desktop_results', locals: { series: @series }
   - else
