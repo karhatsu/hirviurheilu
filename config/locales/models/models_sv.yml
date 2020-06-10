@@ -285,6 +285,18 @@ sv:
             nordic_rifle_standing_shots:
               too_many: För många skott
               invalid_value: innehåller ett fel nummer
+            european_rifle1_shots:
+              too_many: För många skott
+              invalid_value: innehåller ett fel nummer
+            european_rifle2_shots:
+              too_many: För många skott
+              invalid_value: innehåller ett fel nummer
+            european_rifle3_shots:
+              too_many: För många skott
+              invalid_value: innehåller ett fel nummer
+            european_rifle4_shots:
+              too_many: För många skott
+              invalid_value: innehåller ett fel nummer
             qualification_round_track_place:
               too_big: är större än tävlingens skottsplatsers antal
             final_round_track_place:

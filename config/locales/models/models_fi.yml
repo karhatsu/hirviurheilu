@@ -285,6 +285,18 @@ fi:
             nordic_rifle_standing_shots:
               too_many: Liian monta laukausta
               invalid_value: sisältää virheellisen numeron
+            european_rifle1_shots:
+              too_many: Liian monta laukausta
+              invalid_value: sisältää virheellisen numeron
+            european_rifle2_shots:
+              too_many: Liian monta laukausta
+              invalid_value: sisältää virheellisen numeron
+            european_rifle3_shots:
+              too_many: Liian monta laukausta
+              invalid_value: sisältää virheellisen numeron
+            european_rifle4_shots:
+              too_many: Liian monta laukausta
+              invalid_value: sisältää virheellisen numeron
             qualification_round_track_place:
               too_big: on suurempi kuin kilpailun ammuntapaikkojen määrä
             final_round_track_place:
