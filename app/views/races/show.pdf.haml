@@ -4,5 +4,7 @@
 = render 'single_competitor_competitions'
 - if @race.sport.nordic?
   = render 'all_nordic_sub_sports'
+- elsif @race.sport.european?
+  = render 'all_european_rifle_results'
 = render 'team_competitions'
 = render 'relays'
