@@ -1993,6 +1993,153 @@ describe Competitor do
         end
       end
     end
+
+    context 'for european race' do
+      let(:sport) { Sport.by_key Sport::EUROPEAN }
+
+      context 'when competitor has no result reason' do
+        it 'should return true' do
+          competitor.no_result_reason = Competitor::DNS
+          expect(competitor).to be_finished
+        end
+      end
+
+      context "when competitor has no 'no result reason'" do
+        context 'and has no shots' do
+          before do
+            competitor.european_trap_score_input = 24
+            competitor.european_compak_score_input = 25
+            competitor.european_rifle1_score_input = 91
+            competitor.european_rifle2_score_input = 82
+            competitor.european_rifle3_score_input = 80
+            competitor.european_rifle4_score_input = 81
+          end
+
+          context 'and has all score inputs' do
+            it 'should return true' do
+              expect(competitor).to be_finished
+            end
+          end
+
+          context 'and is missing trap and compak score inputs' do
+            it 'should return true' do
+              competitor.european_trap_score_input = nil
+              competitor.european_compak_score_input = nil
+              expect(competitor).to be_finished
+            end
+          end
+
+          context 'and is missing trap score input' do
+            it 'should return false' do
+              competitor.european_trap_score_input = nil
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and is missing compak score input' do
+            it 'should return false' do
+              competitor.european_compak_score_input = nil
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and is missing rifle 1 score input' do
+            it 'should return false' do
+              competitor.european_rifle1_score_input = nil
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and is missing rifle 2 score input' do
+            it 'should return false' do
+              competitor.european_rifle2_score_input = nil
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and is missing rifle 3 score input' do
+            it 'should return false' do
+              competitor.european_rifle3_score_input = nil
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and is missing rifle 4 score input' do
+            it 'should return false' do
+              competitor.european_rifle4_score_input = nil
+              expect(competitor).not_to be_finished
+            end
+          end
+        end
+
+        context 'and has shots' do
+          before do
+            competitor.european_trap_shots = 25.times.map {1}
+            competitor.european_compak_shots = 25.times.map {1}
+            competitor.european_rifle1_shots = 5.times.map {9}
+            competitor.european_rifle2_shots = 5.times.map {8}
+            competitor.european_rifle3_shots = 5.times.map {8}
+            competitor.european_rifle4_shots = 5.times.map {10}
+          end
+
+          context 'and it has all necessary shots' do
+            it 'should return true' do
+              expect(competitor).to be_finished
+            end
+          end
+
+          context 'and it has one trap shot missing' do
+            it 'should return false' do
+              competitor.european_trap_shots = 24.times.map {1}
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and it has no trap nor compak shots at all' do
+            it 'should return true' do
+              competitor.european_trap_shots = nil
+              competitor.european_compak_shots = nil
+              expect(competitor).to be_finished
+            end
+          end
+
+          context 'and it has one compak shot missing' do
+            it 'should return false' do
+              competitor.european_compak_shots = 24.times.map {1}
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and it has one rifle 1 shot missing' do
+            it 'should return false' do
+              competitor.european_rifle1_shots = 4.times.map {10}
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and it has one rifle 2 shot missing' do
+            it 'should return false' do
+              competitor.european_rifle2_shots = 4.times.map {10}
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and it has one rifle 3 shot missing' do
+            it 'should return false' do
+              competitor.european_rifle3_shots = 4.times.map {10}
+              expect(competitor).not_to be_finished
+            end
+          end
+
+          context 'and it has one rifle 4 shot missing' do
+            it 'should return false' do
+              competitor.european_rifle4_shots = 4.times.map {10}
+              expect(competitor).not_to be_finished
+            end
+          end
+        end
+      end
+    end
   end
 
   describe "#comparison_time_in_seconds" do

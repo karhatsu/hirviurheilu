@@ -228,6 +228,8 @@ class Competitor < ApplicationRecord
     if sport.nordic?
       has_nordic_sub_result(:trap, 25) && has_nordic_sub_result(:shotgun, 25) &&
           has_nordic_sub_result(:rifle_moving, 10) && has_nordic_sub_result(:rifle_standing, 10)
+    elsif sport.european?
+      has_european_shotgun_results? && has_european_rifle_results?
     elsif sport.shooting?
       return true if qualification_round_shooting_score_input
       shots && (shots.length == sport.qualification_round_shot_count || shots.length == sport.shot_count)
@@ -705,6 +707,21 @@ class Competitor < ApplicationRecord
   def has_nordic_sub_result(sub_sport, required_shot_count)
     return true if send("nordic_#{sub_sport}_score_input")
     shots = send("nordic_#{sub_sport}_shots")
+    shots && shots.length == required_shot_count
+  end
+
+  def has_european_shotgun_results?
+    return true if !european_trap_score_input && !european_compak_score_input && !european_trap_shots && !european_compak_shots
+    has_european_sub_result?(:trap, 25) && has_european_sub_result?(:compak, 25)
+  end
+
+  def has_european_rifle_results?
+    [1, 2, 3, 4].map {|n| send(:has_european_sub_result?, "rifle#{n}", 5)}.all?
+  end
+
+  def has_european_sub_result?(sub_sport, required_shot_count)
+    return true if send("european_#{sub_sport}_score_input")
+    shots = send("european_#{sub_sport}_shots")
     shots && shots.length == required_shot_count
   end
 end
