@@ -6,10 +6,12 @@
 - else
   .message.message--info= t('official.result_place.shooting.either_total_or_shots')
   .form__field.form__field--md
-    = select_tag :series_id, options_from_collection_for_select(@race.series, :id, :name, params[:series_id]), prompt: t(:all_series), onChange: 'filterSeries()'
+    = select_tag :series_id, options_from_collection_for_select(@race.series, :id, :name, params[:series_id]), prompt: t(:all_series), onChange: 'filter()'
+    - unless @race.batches.empty?
+      = select_tag :batch_id, options_from_collection_for_select(@race.batches, :id, :number, params[:batch_id]), prompt: t(:all_batches), onChange: 'filter()'
   .result-cards
     - @race.competitors.except(:order).order(:number, :last_name, :first_name).each do |competitor|
-      .card{class: "series_#{competitor.series_id}"}
+      .card{class: "series_#{competitor.series_id} batch_#{competitor.qualification_round_batch_id}"}
         .card__number= competitor.number
         .card__middle
           .card__name
@@ -41,12 +43,19 @@
     const $card = field.closest('.card')
     calculateInternationalRaceShotsResult($card, #{EuropeanSubSport.by_key(@sub_sport).best_shot_value}, #{EuropeanSubSport.by_key(@sub_sport).shot_count})
   }
-  function filterSeries() {
+  function filter() {
     var seriesId = $('#series_id').val()
-    if (seriesId === '') {
+    var batchId = $('#batch_id').val()
+    if (seriesId === '' && batchId === '') {
       $('.card').show()
     } else {
       $('.card').hide()
-      $('.series_' + seriesId).show()
+      if (seriesId !== '' && batchId !== '') {
+        $('.series_' + seriesId + '.batch_' + batchId).show()
+      } else if (seriesId !== '') {
+          $('.series_' + seriesId).show()
+      } else if (batchId !== '') {
+        $('.batch_' + batchId).show()
+      }
     }
   }

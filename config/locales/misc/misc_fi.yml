@@ -12,6 +12,7 @@ fi:
     shooting_race: Aliryhmä
   all: Kaikki
   all_announcements: Kaikki tiedotteet
+  all_batches: Kaikki erät
   all_competitors: Kaikki kilpailijat
   all_districts: Kaikki piirit
   all_series: Kaikki sarjat
