@@ -14,6 +14,10 @@
       = render partial: 'series/shots_buttons', locals: { series: @series, buttons_hidden: false }
       .results--desktop= render partial: 'series/nordic_race_desktop_results', locals: { series: @series }
       .results--mobile= render partial: 'series/nordic_race_mobile_results', locals: { series: @series }
+    - elsif @series.sport.european?
+      = render partial: 'series/shots_buttons', locals: { series: @series, buttons_hidden: false }
+      .results--desktop= render partial: 'series/european_race_desktop_results', locals: { series: @series }
+      .results--mobile= render partial: 'series/european_race_mobile_results', locals: { series: @series }
     - elsif @series.sport.shooting?
       = render partial: 'series/shots_buttons', locals: { series: @series, buttons_hidden: @series.sport.qualification_round.length == 1 }
       .results--desktop= render partial: 'series/shooting_race_desktop_results', locals: { series: @series }

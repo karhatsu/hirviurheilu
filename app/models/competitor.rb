@@ -346,7 +346,9 @@ class Competitor < ApplicationRecord
   end
 
   def has_shots?
-    shots || nordic_trap_shots || nordic_shotgun_shots || nordic_rifle_moving_shots || nordic_rifle_standing_shots
+    shots || nordic_trap_shots || nordic_shotgun_shots || nordic_rifle_moving_shots || nordic_rifle_standing_shots ||
+        european_trap_shots || european_compak_shots || european_rifle1_shots || european_rifle2_shots ||
+        european_rifle3_shots || european_rifle4_shots
   end
 
   def has_nordic_sub_sport_shots?(sub_sport)

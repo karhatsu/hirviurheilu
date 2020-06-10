@@ -149,6 +149,13 @@ fi:
       shotgun: Compak
       rifle_moving: Hirvi
       rifle_standing: Kauris
+    european_sub:
+      trap: Trap
+      compak: Compak
+      rifle1: Metsäkauris
+      rifle2: Kettu
+      rifle3: Gemssi
+      rifle4: Villisika
   start_list: Lähtölista
   team: Joukkue
   tel: Puhelin
