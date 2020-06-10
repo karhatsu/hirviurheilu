@@ -82,6 +82,14 @@ class Series < ApplicationRecord
     Competitor.sort_nordic_competitors competitors.includes([:club, :age_group, :series])
   end
 
+  def european_rifle_results
+    Competitor.sort_european_rifle_competitors competitors.includes([:club, :age_group, :series])
+  end
+
+  def european_race_results
+    Competitor.sort_european_competitors competitors.includes([:club, :age_group, :series])
+  end
+
   def next_start_number
     race.next_start_number
   end

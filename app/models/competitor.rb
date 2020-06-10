@@ -304,6 +304,18 @@ class Competitor < ApplicationRecord
     end
   end
 
+  def self.sort_european_rifle_competitors(competitors)
+    competitors.sort do |a, b|
+      [b.european_rifle_results] + a.number.to_i <=> [a.european_rifle_results] + b.number.to_i
+    end
+  end
+
+  def self.sort_european_competitors(competitors)
+    competitors.sort do |a, b|
+      [b.european_total_results] + a.number.to_i <=> [a.european_total_results] + b.number.to_i
+    end
+  end
+
   def national_record_reached?
     series.national_record && points.to_i == series.national_record.to_i
   end
