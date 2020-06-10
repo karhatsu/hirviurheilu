@@ -91,7 +91,7 @@ function calculateShootingRaceShotsResultForF(card, bestShotValue, roundMaxScore
   card.find('.card__main-value').text(formatResult(error, q, f, roundMaxScore));
 }
 
-function calculateNordicRaceShotsResult(card, bestShotValue, shotCount) {
+function calculateInternationalRaceShotsResult(card, bestShotValue, shotCount) {
   let result = 0;
   let error = false;
   const total = card.find('.shots-total-input').val();
