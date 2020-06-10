@@ -5,13 +5,15 @@
   .message.message--info= t 'official.result_place.no_competitors_in_series'
 - else
   .message.message--info= t('official.result_place.shooting.either_total_or_shots')
+  .form__field.form__field--md
+    = select_tag :series_id, options_from_collection_for_select(@race.series, :id, :name, params[:series_id]), prompt: t(:all_series), onChange: 'filterSeries()'
   .result-cards
-    - @race.competitors.each do |competitor|
-      .card
+    - @race.competitors.except(:order).order(:number, :last_name, :first_name).each do |competitor|
+      .card{class: "series_#{competitor.series_id}"}
         .card__number= competitor.number
         .card__middle
           .card__name
-            = full_name competitor
+            #{full_name competitor} (#{competitor.series.name})
             %span{id: "status_#{competitor.id}"}
           - unless competitor.no_result_reason
             .card__middle-row
@@ -38,4 +40,13 @@
   function calculateShotsResult(field) {
     const $card = field.closest('.card')
     calculateInternationalRaceShotsResult($card, #{EuropeanSubSport.by_key(@sub_sport).best_shot_value}, #{EuropeanSubSport.by_key(@sub_sport).shot_count})
+  }
+  function filterSeries() {
+    var seriesId = $('#series_id').val()
+    if (seriesId === '') {
+      $('.card').show()
+    } else {
+      $('.card').hide()
+      $('.series_' + seriesId).show()
+    }
   }
