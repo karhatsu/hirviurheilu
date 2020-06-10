@@ -1,5 +1,8 @@
 - content_for(:title, "#{@series.race.name} - #{@series.name} - #{t('sport_name.european_sub.rifle')}")
 %h2 #{t 'sport_name.european_sub.rifle'} - #{@series.name}
+- content_for :sub_sub_menu do
+  = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id } do |series|
+    = race_series_rifle_path(series.race, series)
 - cache [@series, I18n.locale] do
   - if @series.competitors.any? {|competitor| competitor.has_european_rifle_shots?}
     .buttons
@@ -9,6 +12,8 @@
   .results--mobile= render partial: 'european_rifles/mobile_sub_results', locals: { series: @series }
 .buttons
   = link_to t(:download_results_pdf), race_series_rifle_path(@series.race, @series, format: :pdf), class: 'button button--pdf'
+= render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id, mobile: true } do |series|
+  = race_series_rifle_path(series.race, series)
 .buttons.buttons--nav
   = link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race), class: 'button button--back'
 :javascript
