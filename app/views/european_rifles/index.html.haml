@@ -1,0 +1,31 @@
+- content_for(:title, "#{@series.race.name} - #{@series.name} - #{t('sport_name.european_sub.rifle')}")
+%h2 #{t 'sport_name.european_sub.rifle'} - #{@series.name}
+- cache [@series, I18n.locale] do
+  - if @series.competitors.any? {|competitor| competitor.has_european_rifle_shots?}
+    .buttons
+      #show-shots-button.button{onclick: 'showShots()'}= t :show_shots
+      #hide-shots-button.button{onclick: 'hideShots()', style: 'display: none'}= t :hide_shots
+  .results--desktop= render partial: 'european_rifles/desktop_sub_results', locals: { series: @series }
+  .results--mobile= render partial: 'european_rifles/mobile_sub_results', locals: { series: @series }
+.buttons
+  = link_to t(:download_results_pdf), race_series_rifle_path(@series.race, @series, format: :pdf), class: 'button button--pdf'
+.buttons.buttons--nav
+  = link_to "#{t(:back_to_page)} #{@series.race.name}", race_path(@series.race), class: 'button button--back'
+:javascript
+  function showShots() {
+    $('.shots').addClass('shots--visible')
+    $('#show-shots-button').hide()
+    $('#hide-shots-button').show()
+    history.pushState(null, null, '?shots=true')
+  }
+  function hideShots() {
+    $('.shots').removeClass('shots--visible')
+    $('#show-shots-button').show()
+    $('#hide-shots-button').hide()
+    history.pushState(null, null, '?')
+  }
+  $(document).ready(function() {
+    if(window.location.search === '?shots=true') {
+      showShots()
+    }
+  });

@@ -355,6 +355,10 @@ class Competitor < ApplicationRecord
     send "nordic_#{sub_sport}_shots"
   end
 
+  def has_european_rifle_shots?
+    european_rifle1_shots || european_rifle2_shots || european_rifle3_shots || european_rifle4_shots
+  end
+
   private
 
   def start_time_max

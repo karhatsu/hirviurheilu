@@ -38,6 +38,10 @@
     .buttons
       - [:trap, :shotgun, :rifle_moving, :rifle_standing].map do |sub_sport|
         = link_to t("sport_name.nordic_sub.#{sub_sport}"), "/races/#{@race.id}/#{sub_sport}", class: 'button button--primary'
+  - elsif @race.sport.european?
+    .buttons
+      - @race.series.each do |series|
+        = link_to "#{t('sport_name.european_sub.rifle')} #{series.name}", race_series_rifle_path(@race, series), class: 'button button--primary'
   - unless @race.finished? || @race.competitors.empty?
     .results--desktop
       - if @race.sport.start_list?

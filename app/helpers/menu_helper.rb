@@ -72,6 +72,8 @@ module MenuHelper
         link = race_rifle_moving_path(locale_for_path, race)
       elsif type == 'rifle_standing'
         link = race_rifle_standing_path(locale_for_path, race)
+      elsif type == 'rifle'
+        link = race_series_rifle_path(locale_for_path, race, series)
       elsif type == 'competitors'
         link = official_series_competitors_path(locale_for_path, series)
       elsif type == 'times'
