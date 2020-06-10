@@ -321,6 +321,83 @@ describe CompetitorResults do
     end
   end
 
+  describe 'european results' do
+    context 'when no result reason' do
+      it 'rifle returns array of one item with negative value' do
+        expect(competitor_with_no_result_reason(Competitor::DNF).european_rifle_results).to eql [-10000]
+        expect(competitor_with_no_result_reason(Competitor::DNS).european_rifle_results).to eql [-20000]
+        expect(competitor_with_no_result_reason(Competitor::DQ).european_rifle_results).to eql [-30000]
+      end
+
+      it 'total returns array of one item with negative value' do
+        expect(competitor_with_no_result_reason(Competitor::DNF).european_total_results).to eql [-10000]
+        expect(competitor_with_no_result_reason(Competitor::DNS).european_total_results).to eql [-20000]
+        expect(competitor_with_no_result_reason(Competitor::DQ).european_total_results).to eql [-30000]
+      end
+    end
+
+    context 'without no result reason' do
+      let(:competitor) { build :competitor }
+
+      context 'and without results' do
+        it 'return array of zeros' do
+          expect(competitor.european_rifle_results).to eql [0, 0, 0, 0, 0, 0]
+          expect(competitor.european_total_results).to eql [0, 0, 0, 0, 0, 0, 0, 0]
+        end
+      end
+
+      context 'and with results' do
+        context 'when shots not used' do
+          before do
+            competitor.european_trap_score_input = 25
+            competitor.european_compak_score_input = 25
+            competitor.european_rifle1_score_input = 40
+            competitor.european_rifle2_score_input = 45
+            competitor.european_rifle3_score_input = 50
+            competitor.european_rifle4_score_input = 48
+            competitor.european_rifle_extra_shots = [10, 9, 8]
+            competitor.european_extra_score = 199
+          end
+
+          it 'rifle returns array of total rifle score, single scores in reverse order, 0, and extra shots' do
+            expect(competitor.european_rifle_results).to eql [rifle_score, 48, 50, 45, 40, 0, 10, 9, 8]
+          end
+
+          it 'total returns array of total score, rifle score, single rifle scores in reverse order, 0, and extra score' do
+            expect(competitor.european_total_results).to eql [100 + 100 + rifle_score, rifle_score, 48, 50, 45, 40, 0, 199]
+          end
+
+          def rifle_score
+            40 + 45 + 50 + 48
+          end
+        end
+
+        context 'when shots used' do
+          before do
+            competitor.european_trap_score_input = 25
+            competitor.european_compak_score_input = 24
+            competitor.european_rifle1_shots = [10, 10, 10, 10, 10]
+            competitor.european_rifle2_shots = [10, 9, 9, 9, 9]
+            competitor.european_rifle3_shots = [9, 8, 10]
+            competitor.european_rifle4_shots = [10, 10]
+          end
+
+          it 'rifle returns sum of tens after the rifle sub sport scores' do
+            expect(competitor.european_rifle_results).to eql [rifle_score, 20, 27, 46, 50, 9]
+          end
+
+          it 'total returns sum of tens after the rifle sub sport scores' do
+            expect(competitor.european_total_results).to eql [100 + 96 + rifle_score, rifle_score, 20, 27, 46, 50, 9, 0]
+          end
+
+          def rifle_score
+            50 + 46 + 27 + 20
+          end
+        end
+      end
+    end
+  end
+
   def competitor_with_no_result_reason(no_result_reason)
     build :competitor, no_result_reason: no_result_reason
   end
