@@ -108,10 +108,7 @@ ElkSports::Application.routes.draw do
         resources :shooting_by_batches, only: :index
         get 'trap', to: 'european_race_shots#trap', as: :trap
         get 'compak', to: 'european_race_shots#compak', as: :compak
-        get 'rifle1', to: 'european_race_shots#rifle1', as: :rifle1
-        get 'rifle2', to: 'european_race_shots#rifle2', as: :rifle2
-        get 'rifle3', to: 'european_race_shots#rifle3', as: :rifle3
-        get 'rifle4', to: 'european_race_shots#rifle4', as: :rifle4
+        get 'rifle', to: 'european_race_shots#rifle', as: :rifle
       end
 
       resources :series do

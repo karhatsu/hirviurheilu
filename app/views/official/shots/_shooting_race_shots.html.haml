@@ -10,6 +10,6 @@
             .binary-shot__option.binary-shot__option--0{class: value == 0 ? 'binary-shot__option--selected' : ''}= j + 1
             .binary-shot__option.binary-shot__option--1{class: value == 1 ? 'binary-shot__option--selected' : ''}= j + 1
         - else
-          = number_field_tag field_name, value || '', maxlength: 2, class: 'shot', id: "shot-#{competitor.id}-#{counter}"
+          = number_field_tag field_name, value || '', maxlength: 2, class: 'shot', id: "#{column_name}-shot-#{competitor.id}-#{counter}"
   - if best_shot_value == 1 && !field_name.match(/extra/)
     .button.button--select-all-shots= t :select_all_shots

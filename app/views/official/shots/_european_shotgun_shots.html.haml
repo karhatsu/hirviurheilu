@@ -1,11 +1,8 @@
-- config = EuropeanSubSport.by_key @sub_sport
-- round_rules = [config.shot_count]
 - name = "european_#{sub_sport}_shots"
-- best_shot_value = config.best_shot_value
 - partial = 'official/shots/shooting_race_shots'
 = hidden_field_tag :sub_sport, sub_sport
 .form__horizontal-fields
   .card__sub-result.card__sub-result--shoot.form__field.form__field--sm
     = f.number_field "european_#{sub_sport}_score_input", maxlength: 3, class: 'shots-total-input'
   .card__sub-result.card__sub-result--shoot
-    = render partial: partial, locals: { competitor: competitor, round_rules: round_rules, base: 0, column_name: name, field_name: "#{name}[]", best_shot_value: best_shot_value }
+    = render partial: partial, locals: { competitor: competitor, round_rules: [25], base: 0, column_name: name, field_name: "#{name}[]", best_shot_value: 1 }

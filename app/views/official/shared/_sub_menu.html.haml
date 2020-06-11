@@ -46,10 +46,7 @@
     - elsif series && !race.series.first.new_record? && race.sport.european?
       = menu_item t('sport_name.european_sub.trap'), official_race_trap_path(race), @is_trap
       = menu_item t('sport_name.european_sub.compak'), official_race_compak_path(race), @is_compak
-      = menu_item t('sport_name.european_sub.rifle1'), official_race_rifle1_path(race), @is_rifle1
-      = menu_item t('sport_name.european_sub.rifle2'), official_race_rifle2_path(race), @is_rifle2
-      = menu_item t('sport_name.european_sub.rifle3'), official_race_rifle3_path(race), @is_rifle3
-      = menu_item t('sport_name.european_sub.rifle4'), official_race_rifle4_path(race), @is_rifle4
+      = menu_item t('sport_name.european_sub.rifle'), official_race_rifle_path(race), @is_rifle
     - if series && !race.series.first.new_record?
       = menu_item t('official_sub_menu.csv'), official_race_csv_export_path(race), @is_csv
       = menu_item t('official_sub_menu.team_competitions'), official_race_team_competitions_path(race), @is_team_competitions

@@ -20,11 +20,16 @@
           - unless competitor.no_result_reason
             .card__middle-row
               = form_for([:official, competitor.series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "shots_form_#{competitor.id}", class: 'form form--inline' }) do |f|
-                = render partial: 'official/shots/european_sub_sport_shots', locals: { f: f, competitor: competitor, sub_sport: @sub_sport }
+                - if @sub_sport == :rifle
+                  = render partial: 'official/shots/european_rifle_shots', locals: { f: f, competitor: competitor }
+                - else
+                  = render partial: 'official/shots/european_sub_sport_shots', locals: { f: f, competitor: competitor, sub_sport: @sub_sport }
                 .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
         .card__main-value{id: "shots_result_#{competitor.id}"}
           - if competitor.no_result_reason
             = competitor.no_result_reason
+          - elsif @sub_sport == :rifle
+            = competitor.european_rifle_score.to_i
           - else
             = competitor.send("european_#{@sub_sport}_score").to_i
 .buttons.buttons--nav
@@ -41,7 +46,11 @@
   });
   function calculateShotsResult(field) {
     const $card = field.closest('.card')
-    calculateInternationalRaceShotsResult($card, #{EuropeanSubSport.by_key(@sub_sport).best_shot_value}, #{EuropeanSubSport.by_key(@sub_sport).shot_count})
+    if (#{@sub_sport == :rifle}) {
+      calculateEuropeanRifleShotsResult($card)
+    } else {
+      calculateInternationalRaceShotsResult($card, 1, 25)
+    }
   }
   function filter() {
     var seriesId = $('#series_id').val()

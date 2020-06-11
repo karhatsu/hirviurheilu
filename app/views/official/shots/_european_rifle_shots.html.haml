@@ -1,0 +1,10 @@
+= hidden_field_tag :sub_sport, :rifle, id: "sub_sport-#{competitor.id}"
+- partial = 'official/shots/shooting_race_shots'
+- [1, 2, 3, 4].each do |n|
+  = t "sport_name.european_sub.rifle#{n}"
+  .form__horizontal-fields
+    .card__sub-result.card__sub-result--shoot.form__field.form__field--sm
+      = f.number_field "european_rifle#{n}_score_input", maxlength: 3, class: 'shots-total-input'
+    .card__sub-result.card__sub-result--shoot
+      - name = "european_rifle#{n}_shots"
+      = render partial: partial, locals: { competitor: competitor, round_rules: [5], base: 0, column_name: name, field_name: "#{name}[]", best_shot_value: 10 }

@@ -14,6 +14,8 @@ if ($('#extra_shots_<%= @competitor.id %>').length) {
   $('#extra_shots_<%= @competitor.id %>').html("<%= escape_javascript(render partial: 'official/shots/shooting_race_shots',
     locals: { competitor: @competitor, round_rules: [extra_shots_count], base: 0, column_name: extra_name, field_name: "#{extra_name}[]", best_shot_value: config.best_shot_value }) %>")
 }
+<% elsif @competitor.sport.european? && @sub_sport == :rifle %>
+$("#shots_result_<%= @competitor.id %>").html("<%= @competitor.european_rifle_score.to_i %>")
 <% elsif @competitor.sport.european? %>
 $("#shots_result_<%= @competitor.id %>").html("<%= @competitor.send("european_#{@sub_sport}_score").to_i %>")
 <% elsif @competitor.sport.shooting? %>
