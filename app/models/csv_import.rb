@@ -43,7 +43,7 @@ class CsvImport
           separator = resolve_separator line
           columns = line.gsub(/\r\n?/, '').gsub(/\n?/, '').split(separator)
           break if columns.length == 0
-          data << columns
+          data << columns.map {|column| column.strip}
         end
         return data
       rescue ArgumentError

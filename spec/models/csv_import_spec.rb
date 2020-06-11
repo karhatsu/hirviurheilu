@@ -60,7 +60,7 @@ describe CsvImport do
         end
 
         it "#errors should be empty" do
-          expect(@ci.errors.size).to eq(0)
+          expect(@ci.errors).to eq([])
         end
       end
 
@@ -82,7 +82,7 @@ describe CsvImport do
         end
 
         it "#errors should be empty" do
-          expect(@ci.errors.size).to eq(0)
+          expect(@ci.errors).to eq([])
         end
       end
     end
@@ -133,7 +133,7 @@ describe CsvImport do
       it_should_behave_like 'failed import', 1
 
       it "the error message should contain the erroneous row" do
-        expect(@ci.errors[0]).to eq("Riviltä puuttuu tietoja: Minna,  ,PS,N")
+        expect(@ci.errors[0]).to eq("Riviltä puuttuu tietoja: Minna,,PS,N")
       end
     end
 
@@ -229,7 +229,7 @@ describe CsvImport do
       end
 
       it "#errors should be empty" do
-        expect(@ci.errors.size).to eq(0)
+        expect(@ci.errors).to eq([])
       end
     end
   end
