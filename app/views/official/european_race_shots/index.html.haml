@@ -23,7 +23,7 @@
                 - if @sub_sport == :rifle
                   = render partial: 'official/shots/european_rifle_shots', locals: { f: f, competitor: competitor }
                 - else
-                  = render partial: 'official/shots/european_sub_sport_shots', locals: { f: f, competitor: competitor, sub_sport: @sub_sport }
+                  = render partial: 'official/shots/european_shotgun_shots', locals: { f: f, competitor: competitor, sub_sport: @sub_sport }
                 .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
         .card__main-value{id: "shots_result_#{competitor.id}"}
           - if competitor.no_result_reason
