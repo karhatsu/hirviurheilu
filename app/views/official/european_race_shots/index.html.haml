@@ -24,7 +24,10 @@
                   = render partial: 'official/shots/european_rifle_shots', locals: { f: f, competitor: competitor }
                 - else
                   = render partial: 'official/shots/european_shotgun_shots', locals: { f: f, competitor: competitor, sub_sport: @sub_sport }
-                .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
+                .form__buttons
+                  = submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
+                  - if @sub_sport == :rifle
+                    .button.button--select-all-tens= t :select_all_tens
         .card__main-value{id: "shots_result_#{competitor.id}"}
           - if competitor.no_result_reason
             = competitor.no_result_reason

@@ -200,4 +200,9 @@ $(document).ready(function () {
     $(this).parent().find('input').val(1)
     $(this).parent().find('input').trigger('change')
   })
+  $(document).on('click', '.button--select-all-tens', function () {
+    $(this).closest('.card__middle-row').find('.shot').val(10)
+    $(this).closest('.card__middle-row').find('.shots-total-input').val('')
+    $(this).closest('.card__middle-row').find('input').trigger('change')
+  })
 })
