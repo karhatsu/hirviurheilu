@@ -489,11 +489,11 @@ class Competitor < ApplicationRecord
     validate_rifle_shots :european_rifle1_shots, [0, 1, 3, 8, 9, 10], 5
     validate_rifle_shots :european_rifle2_shots, [0, 1, 3, 8, 9, 10], 5
     validate_rifle_shots :european_rifle3_shots, [0, 1, 3, 8, 9, 10], 5
-    validate_rifle_shots :european_rifle4_shots, [0, 5, 8, 9, 10], 5
+    validate_rifle_shots :european_rifle4_shots, [0, 3, 5, 8, 9, 10], 5
   end
 
   def european_rifle_extra_shot_values
-    validate_rifle_shots :european_rifle_extra_shots, [0, 5, 8, 9, 10]
+    validate_rifle_shots :european_rifle_extra_shots, [0, 3, 5, 8, 9, 10]
   end
 
   def european_trap_shot_values

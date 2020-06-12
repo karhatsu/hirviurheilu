@@ -497,9 +497,9 @@ describe Competitor do
       it_should_behave_like 'european rifle', 1, [0, 1, 3, 8, 9, 10]
       it_should_behave_like 'european rifle', 2, [0, 1, 3, 8, 9, 10]
       it_should_behave_like 'european rifle', 3, [0, 1, 3, 8, 9, 10]
-      it_should_behave_like 'european rifle', 4, [0, 5, 8, 9, 10]
+      it_should_behave_like 'european rifle', 4, [0, 3, 5, 8, 9, 10]
 
-      it_should_behave_like 'shots', :european_rifle_extra_shots, [0, 5, 8, 9, 10]
+      it_should_behave_like 'shots', :european_rifle_extra_shots, [0, 3, 5, 8, 9, 10]
 
       describe 'trap_shots' do
         it_should_behave_like 'shotgun shots', :european_trap_shots
