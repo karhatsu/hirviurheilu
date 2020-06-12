@@ -6,7 +6,7 @@
         - value = competitor.send(column_name) ? competitor.send(column_name)[counter] : nil
         - if best_shot_value == 1
           .binary-shot
-            = hidden_field_tag field_name, value || '', class: 'shot'
+            = hidden_field_tag field_name, value || '', class: 'shot', id: "#{column_name}-shot-#{competitor.id}-#{counter}"
             .binary-shot__option.binary-shot__option--0{class: value == 0 ? 'binary-shot__option--selected' : ''}= j + 1
             .binary-shot__option.binary-shot__option--1{class: value == 1 ? 'binary-shot__option--selected' : ''}= j + 1
         - else

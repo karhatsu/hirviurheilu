@@ -1,6 +1,6 @@
 - name = "european_#{sub_sport}_shots"
 - partial = 'official/shots/shooting_race_shots'
-= hidden_field_tag :sub_sport, sub_sport
+= hidden_field_tag :sub_sport, sub_sport, id: "#{sub_sport}-#{competitor.id}"
 .form__horizontal-fields
   .card__sub-result.card__sub-result--shoot.form__field.form__field--sm
     = f.number_field "european_#{sub_sport}_score_input", maxlength: 3, class: 'shots-total-input'
