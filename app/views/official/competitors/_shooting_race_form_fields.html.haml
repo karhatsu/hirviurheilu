@@ -10,9 +10,9 @@
   .col-xs-12.col-sm-3= f.label :qualification_round_shooting_score_input
   .col-xs-12.col-sm-9
     = f.number_field :qualification_round_shooting_score_input, maxlength: 3
-    (#{t '.either_total_or_shots'})
+    (#{t 'official.competitors.edit.either_total_or_shots'})
 .form__field.row
-  .col-xs-12.col-sm-3= label_tag :qualification_round_shots, t('.qualification_round_shots')
+  .col-xs-12.col-sm-3= label_tag :qualification_round_shots, t('official.competitors.edit.qualification_round_shots')
   .col-xs-12.col-sm-9
     = render partial: 'official/shots/shooting_race_shots',
         locals: { competitor: @competitor, round_rules: config[:qualification_round], base: 0, column_name: :shots, field_name: 'shots[]', best_shot_value: best_shot_value }
@@ -20,9 +20,9 @@
   .col-xs-12.col-sm-3= f.label :final_round_shooting_score_input
   .col-xs-12.col-sm-9
     = f.number_field :final_round_shooting_score_input, maxlength: 3
-    (#{t '.either_total_or_shots'})
+    (#{t 'official.competitors.edit.either_total_or_shots'})
 .form__field.row
-  .col-xs-12.col-sm-3= label_tag :final_round_shots, t('.final_round_shots')
+  .col-xs-12.col-sm-3= label_tag :final_round_shots, t('official.competitors.edit.final_round_shots')
   .col-xs-12.col-sm-9
     = render partial: 'official/shots/shooting_race_shots',
         locals: { competitor: @competitor, round_rules: config[:final_round], base: config[:qualification_round_shot_count], column_name: :shots, field_name: 'shots[]', best_shot_value: best_shot_value }

@@ -13,10 +13,10 @@
   .col-xs-12.col-sm-3= f.label :shooting_score_input
   .col-xs-12.col-sm-9
     = f.number_field :shooting_score_input, maxlength: 3
-    (#{t '.either_total_or_shots'})
+    (#{t 'official.competitors.edit.either_total_or_shots'})
 .form__field.row
   .col-xs-12.col-sm-3
-    %label= t '.shots'
+    %label= t 'official.competitors.edit.shots'
   .col-xs-12.col-sm-9= render partial: 'official/shots/three_sports_race_shots', locals: { competitor: @competitor }
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :estimate1
