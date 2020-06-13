@@ -1,14 +1,18 @@
 - content_for(:title, "#{@race.name} - #{t("sport_name.nordic_sub.#{@sub_sport}")}")
 %h2= t "sport_name.nordic_sub.#{@sub_sport}"
 - cache [@race, @sub_sport, I18n.locale] do
-  - if @race.competitors.any? {|competitor| competitor.has_nordic_sub_sport_shots? @sub_sport}
+  - competitors = @race.competitors
+  - if competitors.empty?
+    .message.message--info= t :no_competitors_for_series
+  - else
+    - if competitors.any? {|competitor| competitor.has_nordic_sub_sport_shots? @sub_sport}
+      .buttons
+        #show-shots-button.button{onclick: 'showShots()'}= t :show_shots
+        #hide-shots-button.button{onclick: 'hideShots()', style: 'display: none'}= t :hide_shots
+    .results--desktop= render partial: 'races/nordic_race_desktop_sub_results', locals: { race: @race, sub_sport: @sub_sport }
+    .results--mobile= render partial: 'races/nordic_race_mobile_sub_results', locals: { race: @race, sub_sport: @sub_sport }
     .buttons
-      #show-shots-button.button{onclick: 'showShots()'}= t :show_shots
-      #hide-shots-button.button{onclick: 'hideShots()', style: 'display: none'}= t :hide_shots
-  .results--desktop= render partial: 'races/nordic_race_desktop_sub_results', locals: { race: @race, sub_sport: @sub_sport }
-  .results--mobile= render partial: 'races/nordic_race_mobile_sub_results', locals: { race: @race, sub_sport: @sub_sport }
-.buttons
-  = link_to t(:download_results_pdf), "/races/#{@race.id}/#{@sub_sport}.pdf", class: 'button button--pdf'
+      = link_to t(:download_results_pdf), "/races/#{@race.id}/#{@sub_sport}.pdf", class: 'button button--pdf'
 .buttons.buttons--mobile
   - [:trap, :shotgun, :rifle_moving, :rifle_standing].map do |sub_sport|
     - if sub_sport == @sub_sport
