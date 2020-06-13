@@ -106,7 +106,8 @@ class Competitor < ApplicationRecord
   store_accessor :european_results,
                  :rifle1_shots, :rifle1_score_input, :rifle2_shots, :rifle2_score_input,
                  :rifle3_shots, :rifle3_score_input, :rifle4_shots, :rifle4_score_input, :rifle_extra_shots,
-                 :trap_shots, :trap_score_input, :compak_shots, :compak_score_input, :extra_score,
+                 :trap_shots, :trap_score_input, :compak_shots, :compak_score_input,
+                 :extra_score, :only_rifle,
                  prefix: 'european'
 
   delegate :race, to: :series
@@ -317,7 +318,7 @@ class Competitor < ApplicationRecord
   end
 
   def self.sort_european_competitors(competitors)
-    competitors.sort do |a, b|
+    competitors.select{|comp| !comp.european_only_rifle}.sort do |a, b|
       [b.european_total_results, a.number.to_i] <=> [a.european_total_results, b.number.to_i]
     end
   end
@@ -714,7 +715,7 @@ class Competitor < ApplicationRecord
   end
 
   def has_european_shotgun_results?
-    return true if !european_trap_score_input && !european_compak_score_input && !european_trap_shots && !european_compak_shots
+    return true if european_only_rifle
     has_european_sub_result?(:trap, 25) && has_european_sub_result?(:compak, 25)
   end
 

@@ -2021,25 +2021,47 @@ describe Competitor do
             end
           end
 
-          context 'and is missing trap and compak score inputs' do
-            it 'should return true' do
-              competitor.european_trap_score_input = nil
-              competitor.european_compak_score_input = nil
-              expect(competitor).to be_finished
-            end
-          end
-
           context 'and is missing trap score input' do
-            it 'should return false' do
+            before do
               competitor.european_trap_score_input = nil
-              expect(competitor).not_to be_finished
+            end
+
+            context 'and takes part only to rifle race' do
+              before do
+                competitor.european_only_rifle = true
+              end
+
+              it 'should return true' do
+                expect(competitor).to be_finished
+              end
+            end
+
+            context 'and takes part also to the full race' do
+              it 'should return false' do
+                expect(competitor).not_to be_finished
+              end
             end
           end
 
           context 'and is missing compak score input' do
-            it 'should return false' do
+            before do
               competitor.european_compak_score_input = nil
-              expect(competitor).not_to be_finished
+            end
+
+            context 'and takes part only to rifle race' do
+              before do
+                competitor.european_only_rifle = true
+              end
+
+              it 'should return true' do
+                expect(competitor).to be_finished
+              end
+            end
+
+            context 'and takes part also to the full race' do
+              it 'should return false' do
+                expect(competitor).not_to be_finished
+              end
             end
           end
 
@@ -2095,18 +2117,47 @@ describe Competitor do
             end
           end
 
-          context 'and it has no trap nor compak shots at all' do
-            it 'should return true' do
-              competitor.european_trap_shots = nil
-              competitor.european_compak_shots = nil
-              expect(competitor).to be_finished
+          context 'and is missing one trap shot' do
+            before do
+              competitor.european_compak_shots = 24.times.map {1}
+            end
+
+            context 'and takes part only to rifle race' do
+              before do
+                competitor.european_only_rifle = true
+              end
+
+              it 'should return true' do
+                expect(competitor).to be_finished
+              end
+            end
+
+            context 'and takes part also to the full race' do
+              it 'should return false' do
+                expect(competitor).not_to be_finished
+              end
             end
           end
 
-          context 'and it has one compak shot missing' do
-            it 'should return false' do
+          context 'and is missing one compak shot' do
+            before do
               competitor.european_compak_shots = 24.times.map {1}
-              expect(competitor).not_to be_finished
+            end
+
+            context 'and takes part only to rifle race' do
+              before do
+                competitor.european_only_rifle = true
+              end
+
+              it 'should return true' do
+                expect(competitor).to be_finished
+              end
+            end
+
+            context 'and takes part also to the full race' do
+              it 'should return false' do
+                expect(competitor).not_to be_finished
+              end
             end
           end
 
