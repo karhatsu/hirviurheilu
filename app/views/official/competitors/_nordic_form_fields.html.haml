@@ -70,3 +70,6 @@
     .col-xs-12.col-sm-9
       = render partial: 'official/shots/shooting_race_shots',
           locals: { competitor: @competitor, round_rules: [rifle_standing_extra_shots_count], base: 0, column_name: :nordic_rifle_standing_extra_shots, field_name: 'nordic_rifle_standing_extra_shots[]', best_shot_value: 10 }
+.form__field.form__field--sm.row
+  .col-xs-12.col-sm-3= f.label :nordic_extra_score
+  .col-xs-12.col-sm-9= f.number_field :nordic_extra_score, maxlength: 3

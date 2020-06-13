@@ -130,6 +130,7 @@ class Official::CompetitorsController < Official::OfficialController
       :qualification_round_batch_id, :qualification_round_track_place, :final_round_batch_id, :final_round_track_place,
       :qualification_round_shooting_score_input, :final_round_shooting_score_input,
       :nordic_trap_score_input, :nordic_shotgun_score_input, :nordic_rifle_moving_score_input, :nordic_rifle_standing_score_input,
+      :nordic_extra_score,
       :european_trap_score_input, :european_compak_score_input,
       :european_rifle1_score_input, :european_rifle2_score_input, :european_rifle3_score_input, :european_rifle4_score_input,
       old_values: [:estimate1, :estimate2, :estimate3, :estimate4])

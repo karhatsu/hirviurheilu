@@ -74,6 +74,7 @@ fi:
     multiple_teams: Laske pisteet 2-joukkueille
     name: Nimi
     national_record: Suomen ennätys
+    nordic_extra_score: Uusinnan yhteistulos
     nordic_trap_extra_shots: Trapin uusintalaukaukset
     nordic_trap_shots: Trapin laukaukset
     nordic_trap_score_input: Trapin tulos
