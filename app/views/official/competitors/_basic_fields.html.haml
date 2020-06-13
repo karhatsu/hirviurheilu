@@ -37,8 +37,8 @@
   = render :partial => 'official/shared/team_name_help_dialog'
 - if @series.sport.european?
   .form__field.row
-    .col-xs-12.col-sm-3= f.label :european_only_rifle
-    .col-xs-12.col-sm-9= f.check_box :european_only_rifle
+    .col-xs-12.col-sm-3= f.label :only_rifle
+    .col-xs-12.col-sm-9= f.check_box :only_rifle
 - if f.object.new_record? && !@series.sport.shooting?
   - number_style = 'display:none;'
   - if f.object.series.has_start_list?

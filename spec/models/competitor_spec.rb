@@ -2028,7 +2028,7 @@ describe Competitor do
 
             context 'and takes part only to rifle race' do
               before do
-                competitor.european_only_rifle = true
+                competitor.only_rifle = true
               end
 
               it 'should return true' do
@@ -2050,7 +2050,7 @@ describe Competitor do
 
             context 'and takes part only to rifle race' do
               before do
-                competitor.european_only_rifle = true
+                competitor.only_rifle = true
               end
 
               it 'should return true' do
@@ -2124,7 +2124,7 @@ describe Competitor do
 
             context 'and takes part only to rifle race' do
               before do
-                competitor.european_only_rifle = true
+                competitor.only_rifle = true
               end
 
               it 'should return true' do
@@ -2146,7 +2146,7 @@ describe Competitor do
 
             context 'and takes part only to rifle race' do
               before do
-                competitor.european_only_rifle = true
+                competitor.only_rifle = true
               end
 
               it 'should return true' do

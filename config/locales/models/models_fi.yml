@@ -41,7 +41,6 @@ fi:
     european_trap_score_input: Trapin tulos
     european_compak_shots: Compakin laukaukset
     european_compak_score_input: Compakin tulos
-    european_only_rifle: Osallistuu vain luodikkoon
     european_rifle_extra_shots: Luodikon uusintalaukaukset
     european_rifle1_shots: Metsäkauriin laukaukset
     european_rifle1_score_input: Metsäkauriin tulos
@@ -89,6 +88,7 @@ fi:
     nordic_rifle_standing_shots: Seisovan kauriin laukaukset
     nordic_rifle_standing_score_input: Seisovan kauriin tulos
     number: Numero
+    only_rifle: Osallistuu vain luodikkoon
     organizer: Järjestäjä (esim. seura)
     organizer_phone: Puhelin
     password: Salasana
