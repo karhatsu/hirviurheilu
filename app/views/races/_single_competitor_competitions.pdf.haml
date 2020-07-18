@@ -5,12 +5,12 @@
   %h3= series.name
   - cache [series, params[:club_id], I18n.locale] do
     - if @race.sport.nordic?
-      = render partial: 'series/nordic_race_desktop_results', locals: { series: series }
+      = render partial: 'results/nordic_race_desktop', locals: { series: series }
     - elsif @race.sport.european?
-      = render partial: 'series/european_race_desktop_results', locals: { series: series }
+      = render partial: 'results/european_race_desktop', locals: { series: series }
     - elsif @race.sport.shooting?
-      = render partial: 'series/shooting_race_desktop_results', locals: { series: series }
+      = render partial: 'results/shooting_race_desktop', locals: { series: series }
     - else
       = render :partial => 'series/three_sport_race_infos', :locals => { :series => series }
-      = render partial: 'series/three_sports_race_desktop_results', locals: { series: series }
+      = render partial: 'results/three_sports_race_desktop', locals: { series: series }
   %hr

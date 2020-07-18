@@ -12,19 +12,19 @@
   - cache [@series, params[:sort], unofficials, I18n.locale] do
     - if @series.sport.nordic?
       = render partial: 'series/shots_buttons', locals: { series: @series, buttons_hidden: false }
-      .results--desktop= render partial: 'series/nordic_race_desktop_results', locals: { series: @series }
-      .results--mobile= render partial: 'series/nordic_race_mobile_results', locals: { series: @series }
+      .results--desktop= render partial: 'results/nordic_race_desktop', locals: { series: @series }
+      .results--mobile= render partial: 'results/nordic_race_mobile', locals: { series: @series }
     - elsif @series.sport.european?
       = render partial: 'series/shots_buttons', locals: { series: @series, buttons_hidden: false }
-      .results--desktop= render partial: 'series/european_race_desktop_results', locals: { series: @series }
-      .results--mobile= render partial: 'series/european_race_mobile_results', locals: { series: @series }
+      .results--desktop= render partial: 'results/european_race_desktop', locals: { series: @series }
+      .results--mobile= render partial: 'results/european_race_mobile', locals: { series: @series }
     - elsif @series.sport.shooting?
       = render partial: 'series/shots_buttons', locals: { series: @series, buttons_hidden: @series.sport.qualification_round.length == 1 }
-      .results--desktop= render partial: 'series/shooting_race_desktop_results', locals: { series: @series }
-      .results--mobile= render partial: 'series/shooting_race_mobile_results', locals: { series: @series }
+      .results--desktop= render partial: 'results/shooting_race_desktop', locals: { series: @series }
+      .results--mobile= render partial: 'results/shooting_race_mobile', locals: { series: @series }
     - else
-      .results--desktop= render partial: 'series/three_sports_race_desktop_results', locals: { series: @series }
-      .results--mobile= render partial: 'series/three_sports_race_mobile_results', locals: { series: @series }
+      .results--desktop= render partial: 'results/three_sports_race_desktop', locals: { series: @series }
+      .results--mobile= render partial: 'results/three_sports_race_mobile', locals: { series: @series }
   .buttons
     - if @series.has_unofficial_competitors?
       - if unofficials == Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
