@@ -7,7 +7,7 @@
       .card__middle
         .card__name= full_name(comp)
         .card__middle-row= comp.club.name
-        - if comp.qualification_round_shooting_score_input || comp.qualification_round_sub_scores.length == 1
+        - if comp.qualification_round_shooting_score_input || comp.sport.qualification_round.length == 1
           -# we can put the + sign in between of qualification and final rounds
           .card__middle-row
             = comp.qualification_round_score
@@ -17,7 +17,7 @@
               + #{comp.final_round_score}
               - if comp.final_round_shots
                 %span.shots (#{shots_print comp.final_round_shots[0]})
-        - else
+        - elsif comp.shots
           -# we need to put the + sign in between of the qualification round parts, and have final round in a separate row
           .card__middle-row
             = comp.qualification_round_sub_scores[0]
