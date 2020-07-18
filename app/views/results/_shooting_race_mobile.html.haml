@@ -7,26 +7,29 @@
       .card__middle
         .card__name= full_name(comp)
         .card__middle-row= comp.club.name
-        - if comp.qualification_round_shooting_score_input
-          = comp.qualification_round_shooting_score_input
-          - if comp.final_round_shooting_score_input
-            + #{comp.final_round_shooting_score_input}
-        - elsif comp.shots
+        - if comp.qualification_round_shooting_score_input || comp.qualification_round_sub_scores.length == 1
+          -# we can put the + sign in between of qualification and final rounds
           .card__middle-row
-            %span.shots Alkukilpailu:
-            - if comp.qualification_round_sub_scores.length == 2
-              = comp.qualification_round_sub_scores[0]
+            = comp.qualification_round_score
+            - if comp.shots
               %span.shots (#{shots_print comp.qualification_round_shots[0]})
-              - if comp.qualification_round_shots[1].length > 0
-                + #{comp.qualification_round_sub_scores[1]}
-                %span.shots (#{shots_print comp.qualification_round_shots[1]})
-                \= #{comp.qualification_round_score}
-            - else
-              #{comp.qualification_round_score} (#{shots_print comp.qualification_round_shots[0]})
-        - if comp.final_round_shots
+            - if comp.final_round_score
+              + #{comp.final_round_score}
+              - if comp.final_round_shots
+                %span.shots (#{shots_print comp.final_round_shots[0]})
+        - else
+          -# we need to put the + sign in between of the qualification round parts, and have final round in a separate row
           .card__middle-row
-            %span.shots Loppukilpailu:
-            #{comp.final_round_score} (#{shots_print comp.final_round_shots[0]})
+            = comp.qualification_round_sub_scores[0]
+            %span.shots (#{shots_print comp.qualification_round_shots[0]})
+            - if comp.qualification_round_shots[1].length > 0
+              + #{comp.qualification_round_sub_scores[1]}
+              %span.shots (#{shots_print comp.qualification_round_shots[1]})
+              \= #{comp.qualification_round_score}
+          - if comp.final_round_shots
+            .card__middle-row
+              #{comp.final_round_score}
+              %span.shots (#{shots_print comp.final_round_shots[0]})
         - if comp.extra_shots
           .card__middle-row
             Uusinta: #{shots_print comp.extra_shots}

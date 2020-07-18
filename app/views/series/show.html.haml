@@ -11,15 +11,15 @@
     = render partial: 'series/three_sport_race_infos', locals: { series: @series }
   - cache [@series, params[:sort], unofficials, I18n.locale] do
     - if @series.sport.nordic?
-      = render partial: 'series/shots_buttons', locals: { series: @series, buttons_hidden: false }
+      = render partial: 'series/shots_buttons', locals: { series: @series }
       .results--desktop= render partial: 'results/nordic_race_desktop', locals: { series: @series }
       .results--mobile= render partial: 'results/nordic_race_mobile', locals: { series: @series }
     - elsif @series.sport.european?
-      = render partial: 'series/shots_buttons', locals: { series: @series, buttons_hidden: false }
+      = render partial: 'series/shots_buttons', locals: { series: @series }
       .results--desktop= render partial: 'results/european_race_desktop', locals: { series: @series }
       .results--mobile= render partial: 'results/european_race_mobile', locals: { series: @series }
     - elsif @series.sport.shooting?
-      = render partial: 'series/shots_buttons', locals: { series: @series, buttons_hidden: @series.sport.qualification_round.length == 1 }
+      = render partial: 'series/shots_buttons', locals: { series: @series }
       .results--desktop= render partial: 'results/shooting_race_desktop', locals: { series: @series }
       .results--mobile= render partial: 'results/shooting_race_mobile', locals: { series: @series }
     - else
