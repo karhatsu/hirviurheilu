@@ -293,6 +293,28 @@ describe TeamCompetition do
       end
     end
 
+    context 'when two run race teams with equal points but other having time and other one not' do
+      let(:club1) { build :club, name: 'Club 1' }
+      let(:club2) { build :club, name: 'Club 2' }
+      let(:c1a) { build :competitor, club: club1 }
+      let(:c1b) { build :competitor, club: club1 }
+      let(:c2a) { build :competitor, club: club2 }
+      let(:c2b) { build :competitor, club: club2 }
+      let(:competitors) { [c1a, c1b, c2a, c2b] }
+
+      before do
+        c1a.shooting_score_input = 90
+        c1a.start_time = '00:00:00'
+        c1a.arrival_time = '00:10:00'
+        c2a.shooting_score_input = 90
+        expect(Competitor).to receive(:sort_team_competitors).with(sport, competitors).and_return(competitors)
+      end
+
+      it 'should not crash' do
+        expect(tc.results_for_competitors(competitors).map(&:name)).to eql ['Club 1', 'Club 2']
+      end
+    end
+
     context 'when shooting race' do
       let(:sport_key) { Sport::ILMAHIRVI }
       let(:club1) { build :club, id: 1, name: 'Best points' }

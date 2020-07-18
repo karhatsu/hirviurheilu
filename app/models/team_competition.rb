@@ -122,8 +122,8 @@ class TeamCompetition < ApplicationRecord
       end
     else
       hash.values.sort do |a, b|
-        [b.total_score, b.best_competitor_score, b.best_shooting_score, a.fastest_time] <=>
-          [a.total_score, a.best_competitor_score, a.best_shooting_score, b.fastest_time]
+        [b.total_score, b.best_competitor_score, b.best_shooting_score, a.fastest_time || 9999999] <=>
+          [a.total_score, a.best_competitor_score, a.best_shooting_score, b.fastest_time || 9999999]
       end
     end
   end
