@@ -1,4 +1,4 @@
-Feature: Only shooting race results
+Feature: Shooting race results
   In order to see how I did
   As a competitor in a race with only shooting
   I want to see the race results
