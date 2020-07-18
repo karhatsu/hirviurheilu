@@ -6,8 +6,7 @@
         .card__name
           = full_name(comp)
           - if comp.age_group
-            %span
-              (#{comp.age_group.name})
+            .card__name__extra (#{comp.age_group.name})
         .card__middle-row
           = comp.club.name
           - unless comp.team_name.blank?
