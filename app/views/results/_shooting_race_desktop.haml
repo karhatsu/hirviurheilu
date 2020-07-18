@@ -39,16 +39,8 @@
         - if comp.final_round_shooting_score_input
           = comp.final_round_shooting_score_input
         - elsif comp.final_round_shots
-          - if comp.final_round_sub_scores.length == 2
-            = comp.final_round_sub_scores[0]
-            %span.shots (#{shots_print comp.final_round_shots[0]})
-            - if comp.final_round_shots[1].length > 0
-              + #{comp.final_round_sub_scores[1]}
-              %span.shots (#{shots_print comp.final_round_shots[1]})
-              \= #{comp.final_round_score}
-          - else
-            = comp.final_round_score
-            %span.shots (#{shots_print comp.final_round_shots[0]})
+          = comp.final_round_score
+          %span.shots (#{shots_print comp.final_round_shots[0]})
       %td.center.total-points
         - if comp.no_result_reason
           = comp.no_result_reason
