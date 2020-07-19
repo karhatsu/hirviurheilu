@@ -3,7 +3,7 @@
 - content_for :sub_sub_menu do
   = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id } do |series|
     = race_series_rifle_path(series.race, series)
-= render layout: 'series/series_status', locals: { series: @series } do
+= render layout: 'series/series_status', locals: { series: @series, competitors: @series.competitors } do
   - cache [@series, I18n.locale] do
     - if @series.competitors.any? {|competitor| competitor.has_european_rifle_shots?}
       .buttons

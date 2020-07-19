@@ -2,10 +2,11 @@ module TitleHelper
   def series_result_title(series, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     suffix = ''
     suffix = " - #{t(:all_competitors)}" if unofficials == Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
-    return "(#{t('competitors.index.no_competitors')})" if series.competitors.empty?
+    competitors = series.sport.european? ? series.competitors.where('only_rifle=?', false) : series.competitors
+    return "(#{t('competitors.index.no_competitors')})" if competitors.empty?
     return "(#{t('competitors.index.series_has_not_started_yet')})" unless series.started?
     return "#{t(:results)}#{suffix}" if series.finished? || series.race.finished?
-    return "#{t('competitors.index.standing')} (#{t('competitors.index.updated')}: #{datetime_print(series.competitors.maximum(:updated_at), true, true, '-', true)})#{suffix}"
+    return "#{t('competitors.index.standing')} (#{t('competitors.index.updated')}: #{datetime_print(competitors.maximum(:updated_at), true, true, '-', true)})#{suffix}"
   end
 
   def relay_result_title(relay)

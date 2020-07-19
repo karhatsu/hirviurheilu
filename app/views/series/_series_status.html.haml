@@ -1,4 +1,4 @@
-- if series.competitors.empty?
+- if competitors.empty?
   .message.message--info= t :no_competitors_for_series
 - elsif !series.has_start_list? && series.race.sport.start_list?
   .message.message--info= t :no_start_list

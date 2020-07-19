@@ -9,10 +9,18 @@ describe TitleHelper do
       allow(@competitors).to receive(:empty?).and_return(false)
       @race = instance_double(Race, :finished? => false)
       @series = instance_double(Series, race: @race, competitors: @competitors, started?: true, finished?: false)
+      sport = Sport.by_key Sport::ILMAHIRVI
+      allow(@series).to receive(:sport).and_return(sport)
     end
 
     it "should return '(Ei kilpailijoita)' when no competitors" do
       expect(@competitors).to receive(:empty?).and_return(true)
+      expect(series_result_title(@series)).to eq('(Ei kilpailijoita)')
+    end
+
+    it "should return '(Ei kilpailijoita)' when european has only rifle competitors" do
+      allow(@series).to receive(:sport).and_return(Sport.by_key Sport::EUROPEAN)
+      expect(@competitors).to receive(:where).with('only_rifle=?', false).and_return([])
       expect(series_result_title(@series)).to eq('(Ei kilpailijoita)')
     end
 

@@ -1,12 +1,14 @@
 - unofficials = unofficials_result_rule @series.race
-- content_for(:title, "#{@series.race.name} - #{@series.name} - #{series_result_title(@series, unofficials)}")
+- series_title = series_result_title @series, unofficials
+- content_for(:title, "#{@series.race.name} - #{@series.name} - #{series_title}")
 - if @series.active? && Date.today <= @series.race.end_date
   = render :partial => 'shared/refresh_counter', locals: {competition: @series}
-%h2 #{@series.name} - #{series_result_title(@series, unofficials)}
+%h2 #{@series.name} - #{series_title}
 - content_for :sub_sub_menu do
   = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id } do |series|
     = race_series_path(series.race, series)
-= render layout: 'series/series_status', locals: { series: @series } do
+- competitors = @series.sport.european? ? @series.competitors.where('only_rifle=?', false) : @series.competitors
+= render layout: 'series/series_status', locals: { series: @series, competitors: competitors } do
   - unless @series.sport.shooting?
     = render partial: 'series/three_sport_race_infos', locals: { series: @series }
   - cache [@series, params[:sort], unofficials, I18n.locale] do
