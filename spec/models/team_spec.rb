@@ -58,6 +58,20 @@ describe Team do
     expect(team.shot_counts).to eql [3, 4, 1, 1, 1, 2, 1, 1, 3, 2]
   end
 
+  context 'when european race team' do
+    let(:european_team) { Team.new team_competition, name, club_id }
+    let(:competitor1) { build :competitor }
+
+    before do
+      allow(competitor1).to receive(:european_total_results).and_return([400, 200, 100, 90])
+      european_team << competitor1
+    end
+
+    it 'provides results array for european' do
+      expect(european_team.european_total_results).to eql [400, 200, 100, 90]
+    end
+  end
+
   context 'when one of the competitors does not have shooting score yet' do
     let(:team2) { Team.new team_competition, 'Team 2', club_id }
 

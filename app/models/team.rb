@@ -48,6 +48,10 @@ class Team
     counts
   end
 
+  def european_total_results
+    @competitors[0].european_total_results
+  end
+
   def extra_shots
     return [] if @team_competition.max_extra_shots == 0
     own = @team_competition.extra_shots.find {|x| x['club_id'] == @club_id}

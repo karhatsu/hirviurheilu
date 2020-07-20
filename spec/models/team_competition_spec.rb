@@ -404,6 +404,43 @@ describe TeamCompetition do
         competitor
       end
     end
+
+    context 'when european race' do
+      let(:sport_key) { Sport::EUROPEAN }
+      let(:club1) { build :club, id: 1, name: 'Best points' }
+      let(:club2) { build :club, id: 2, name: 'Best competitor points' }
+      let(:club3) { build :club, id: 3, name: 'Better rifle points' }
+      let(:club4) { build :club, id: 4, name: 'Last' }
+      let(:competitors) { [] }
+
+      before do
+        competitors << build_european_competitor(club1, 380, [380, 190, 40, 40])
+        competitors << build_european_competitor(club1, 380, [380, 190, 40, 40])
+
+        competitors << build_european_competitor(club2, 378, [378, 190, 40, 40])
+        competitors << build_european_competitor(club2, 381, [381, 190, 40, 40])
+
+        competitors << build_european_competitor(club3, 379, [379, 200, 50, 50])
+        competitors << build_european_competitor(club3, 380, [380, 195, 50, 49])
+
+        competitors << build_european_competitor(club4, 380, [380, 195, 50, 48])
+        competitors << build_european_competitor(club4, 379, [379, 199, 50, 50])
+
+        @results = tc.results_for_competitors competitors.shuffle
+      end
+
+      it 'sorts teams by 1. total points 2. best competitor points 3. best rifle points (etc)' do
+        expect([0, 1, 2, 3].map{|i| @results[i].name}).to eql [club1, club2, club3, club4].map(&:name)
+      end
+
+      def build_european_competitor(club, european_score, results_array)
+        competitor = build :competitor, club: club
+        allow(competitor).to receive(:european_score).and_return(european_score)
+        allow(competitor).to receive(:european_total_results).and_return(results_array)
+        allow(competitor).to receive(:club_id).and_return(club.id)
+        competitor
+      end
+    end
   end
 
   describe "#results" do

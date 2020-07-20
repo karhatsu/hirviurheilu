@@ -115,6 +115,10 @@ class TeamCompetition < ApplicationRecord
       hash.values.sort do |a, b|
         [b.total_score, b.best_competitor_score] <=> [a.total_score, a.best_competitor_score]
       end
+    elsif sport.european?
+      hash.values.sort do |a, b|
+        [b.total_score] + b.european_total_results <=> [a.total_score] + a.european_total_results
+      end
     elsif sport.shooting?
       hash.values.sort do |a, b|
         [b.total_score] + b.extra_shots + [b.best_competitor_score, b.hits] + b.shot_counts <=>
