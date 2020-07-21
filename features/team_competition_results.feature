@@ -69,9 +69,9 @@ Feature: Team competition results
     And the team competition contains the series "Men 50 years"
     And the race is finished
     And I am on the race page of "My test race"
-    When I follow "Joukkuekilpailu"
+    When I choose "Joukkuekilpailu" from sub menu
     Then the "Kilpailut" main menu item should be selected
-    And the "Joukkuekilpailut" sub menu item should be selected
+    And the "Joukkuekilpailu" sub menu item should be selected
     And I should see "Teams - Tulokset" within "h2"
     And I should see "1." within "tr#team_1"
     And I should see "Sports club" within "tr#team_1"
@@ -167,7 +167,7 @@ Feature: Team competition results
     And the team competition contains the series "Men 50 years"
     And the race is finished
     And I am on the race page of "My test race"
-    When I follow "Joukkuekilpailu"
+    When I choose "Joukkuekilpailu" from sub menu
     Then I should see "Teams - Tulokset" within "h2"
     And I should see "1." within "tr#team_1"
     And I should see "Team 1" within "tr#team_1"

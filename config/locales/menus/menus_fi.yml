@@ -18,8 +18,12 @@ fi:
     qualification_round_batches: Alkukilpailun eräluettelot
     final_round_batches: Loppukilpailun eräluettelot
     results: Tulokset
-    team_competitions: Joukkuekilpailut
-    relays: Viestit
+    team_competitions:
+      one: Joukkuekilpailu
+      other: Joukkuekilpailut
+    relays:
+      one: Viesti
+      other: Viestit
     result_rotation: Tuloskehä
     press: Lehdistö
   cup_sub_menu:

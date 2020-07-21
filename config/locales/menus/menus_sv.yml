@@ -18,8 +18,12 @@ sv:
     qualification_round_batches: Alkukilpailun eräluettelot
     final_round_batches: Loppukilpailun eräluettelot
     results: Resultat
-    team_competitions: Lagtävlingar
-    relays: Stafetter
+    team_competitions:
+      one: Lagtävlingen
+      other: Lagtävlingar
+    relays:
+      one: Stafett
+      other: Stafetter
     result_rotation: Resultatskrets
     press: Press
   cup_sub_menu:

@@ -13,7 +13,7 @@ Feature: Relay results
     And the race has a relay "Women's relay"
     When I go to the relay results page of "Women's relay"
     Then the "Kilpailut" main menu item should be selected
-    And the "Viestit" sub menu item should be selected
+    And the "Viesti" sub menu item should be selected
     And I should see "Women's relay - (Ei joukkueita)" within "h2"
     And I should see "Viestiin ei ole vielä merkitty joukkueita" in an info message
 
