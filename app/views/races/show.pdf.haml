@@ -7,4 +7,6 @@
 - elsif @race.sport.european?
   = render 'all_european_rifle_results'
 = render 'team_competitions'
+- if @race.sport.european?
+  = render 'rifle_team_competitions'
 = render 'relays'

@@ -1,10 +1,10 @@
 - if @race.team_competitions.count > 0
   .page-break
-  %h2= t 'activerecord.models.team_competition', :count => @race.team_competitions.count
+  %h2 Luodikon joukkuekilpailut
   - @race.team_competitions.each_with_index do |tc, index|
     - if index > 0 && @page_breaks
       .page-break
     %h2= tc.name
     - cache [tc, I18n.locale] do
-      = render partial: 'team_competitions/results', locals: { results: tc.results, team_competition: tc, rifle: false }
+      = render partial: 'team_competitions/results', locals: { results: tc.rifle_results, team_competition: tc, rifle: true }
     %hr

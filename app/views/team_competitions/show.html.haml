@@ -13,8 +13,8 @@
     .buttons
       %a#show_all_competitors.button{href: "javascript:void(0)"}= t :show_all_competitors
       %a#hide_all_competitors.button{href: "javascript:void(0)", style: 'display:none;'}= t :hide_all_competitors
-    .results--desktop= render partial: 'results', locals: { results: @results, team_competition: @tc }
-    .results--mobile= render partial: 'results_mobile', locals: { results: @results, team_competition: @tc }
+    .results--desktop= render partial: 'results', locals: { results: @results, team_competition: @tc, rifle: @rifle_team }
+    .results--mobile= render partial: 'results_mobile', locals: { results: @results, team_competition: @tc, rifle: @rifle_team }
   - unless @results.empty?
     .buttons
       - if @rifle_team
