@@ -72,6 +72,14 @@
     .buttons
       - @race.team_competitions.each do |tc|
         = link_to tc.name, race_team_competition_path(@race, tc), class: 'button button--primary'
+  - if @race.sport.european?
+    %h2 Luodikon joukkuekilpailu
+    - if @race.team_competitions.count == 1
+      = link_to t('activerecord.models.team_competition.one'), race_rifle_team_competition_path(@race, @race.team_competitions.first), class: 'button button--primary'
+    - else
+      .buttons
+        - @race.team_competitions.each do |tc|
+          = link_to tc.name, race_rifle_team_competition_path(@race, tc), class: 'button button--primary'
 - unless @race.relays.empty?
   %h2= t 'activerecord.models.relay', :count => @race.relays.count
   .buttons
