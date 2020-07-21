@@ -21,6 +21,7 @@ sv:
     team_competitions:
       one: Lagtävlingen
       other: Lagtävlingar
+    rifle_team_competitions: Kulskytte lag
     relays:
       one: Stafett
       other: Stafetter

@@ -1,11 +1,12 @@
 class Team
   attr_reader :name, :club_id, :competitors
 
-  def initialize(team_competition, name, club_id)
+  def initialize(team_competition, name, club_id, rifle=false)
     @team_competition = team_competition
     @sport = team_competition.sport
     @name = name
     @club_id = club_id
+    @rifle = rifle
     @competitors = []
   end
 
@@ -18,11 +19,11 @@ class Team
   end
 
   def total_score
-    @competitors.map {|c| c.team_competition_points(@sport)}.inject(:+)
+    @competitors.map {|c| c.team_competition_points(@sport, @rifle)}.inject(:+)
   end
 
   def best_competitor_score
-    @competitors[0].team_competition_points @sport
+    @competitors[0].team_competition_points @sport, @rifle
   end
 
   def best_shooting_score
@@ -38,18 +39,20 @@ class Team
   end
 
   def shot_counts
-    counts = Array.new(10).fill(0)
-    @competitors.each do |c|
-      (c.shots || []).each do |shot|
-        index = 10 - (shot == 11 ? 10 : shot)
-        counts[index] = counts[index] + 1 if shot > 0
-      end
+    if @rifle
+      shots_arrays = @competitors.map {|c| c.european_rifle_shots}
+    else
+      shots_arrays = @competitors.map {|c| c.shots}
     end
-    counts
+    calculate_shot_counts shots_arrays
   end
 
   def european_total_results
     @competitors[0].european_total_results
+  end
+
+  def european_rifle_results
+    @competitors[0].european_rifle_results
   end
 
   def extra_shots
@@ -92,5 +95,16 @@ class Team
 
   def fill_shots(own_shots)
     own_shots + Array.new(@team_competition.max_extra_shots - own_shots.length, 0)
+  end
+
+  def calculate_shot_counts(shots_arrays)
+    counts = Array.new(10).fill(0)
+    shots_arrays.each do |shots|
+      (shots || []).each do |shot|
+        index = 10 - (shot == 11 ? 10 : shot)
+        counts[index] = counts[index] + 1 if shot > 0
+      end
+    end
+    counts
   end
 end

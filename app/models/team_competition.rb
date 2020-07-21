@@ -48,10 +48,15 @@ class TeamCompetition < ApplicationRecord
     results_for_competitors competitors
   end
 
-  def results_for_competitors(competitors)
+  def rifle_results
+    raise "Cannot calculate rifle results for #{sport.name}" unless sport.european?
+    results_for_competitors find_competitors, true
+  end
+
+  def results_for_competitors(competitors, rifle=false)
     official_competitors = competitors.select { |c| !c.unofficial? }
-    teams_hash = map_sorted_competitors_by_teams official_competitors
-    sorted_teams = sort_teams teams_hash
+    teams_hash = map_sorted_competitors_by_teams official_competitors, rifle
+    sorted_teams = sort_teams teams_hash, rifle
     remove_teams_without_enough_competitors(sorted_teams) if race.finished?
     sorted_teams
   end
@@ -86,17 +91,17 @@ class TeamCompetition < ApplicationRecord
     competitors.sort {|a, b| a.id <=> b.id} # sorting for the unit test
   end
 
-  def map_sorted_competitors_by_teams(competitors)
+  def map_sorted_competitors_by_teams(competitors, rifle)
     competitor_counter_by_team = Hash.new
     teams = Hash.new
-    Competitor.sort_team_competitors(sport, competitors).each do |competitor|
-      break if competitor.team_competition_points(sport).nil?
+    Competitor.sort_team_competitors(sport, competitors, rifle).each do |competitor|
+      break if competitor.team_competition_points(sport, rifle).nil?
       base_team_name = resolve_team_name competitor
       next unless base_team_name
       competitor_counter_by_team[base_team_name] ||= 0
       team_name = team_name_with_number base_team_name, competitor_counter_by_team[base_team_name]
       next unless team_name
-      teams[team_name] ||= Team.new(self, team_name, competitor.club_id)
+      teams[team_name] ||= Team.new(self, team_name, competitor.club_id, rifle)
       teams[team_name] << competitor
       competitor_counter_by_team[base_team_name] = competitor_counter_by_team[base_team_name] + 1
     end
@@ -110,8 +115,13 @@ class TeamCompetition < ApplicationRecord
     "#{base_team_name} #{RomanNumerals.to_roman(team_number)}"
   end
 
-  def sort_teams(hash)
-    if sport.nordic?
+  def sort_teams(hash, rifle)
+    if rifle
+      hash.values.sort do |a, b|
+        [b.total_score] + b.european_rifle_results + [b.hits] + b.shot_counts <=>
+            [a.total_score] + a.european_rifle_results + [a.hits] + a.shot_counts
+      end
+    elsif sport.nordic?
       hash.values.sort do |a, b|
         [b.total_score, b.best_competitor_score] <=> [a.total_score, a.best_competitor_score]
       end

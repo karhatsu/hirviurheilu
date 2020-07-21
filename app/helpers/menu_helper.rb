@@ -107,11 +107,12 @@ module MenuHelper
     raw(menu)
   end
 
-  def team_competitions_dropdown_menu(race)
+  def team_competitions_dropdown_menu(race, rifle=false)
     return '' if race.team_competitions.count <= 1
     menu = '<div class="dropdown-menu">'
     race.team_competitions.each do |tc|
-      menu << "<div class='dropdown-menu__item'>#{link_to tc.name, race_team_competition_path(locale_for_path, race, tc)}</div>"
+      path = rifle ? race_rifle_team_competition_path(locale_for_path, race, tc) : race_team_competition_path(locale_for_path, race, tc)
+      menu << "<div class='dropdown-menu__item'>#{link_to tc.name, path}</div>"
     end
     menu << '</div>'
     raw(menu)

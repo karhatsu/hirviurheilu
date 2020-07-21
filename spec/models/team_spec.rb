@@ -72,6 +72,31 @@ describe Team do
     end
   end
 
+  context 'when european rifle' do
+    let(:rifle_team) { Team.new team_competition, name, club_id, true }
+
+    before do
+      rifle_team << build_rifle_competitor(200, [200, 50, 50, 50, 50], [10, 9], [1, 2], [4, 5], [8, 8])
+      rifle_team << build_rifle_competitor(190, [190, 45, 45, 50, 50], [8, 9], [10, 10], [4, 6], [7, 7])
+    end
+
+    it 'total score is total rifle score' do
+      expect(rifle_team.total_score).to eql 390
+    end
+
+    it 'best competitor score is best rifle score' do
+      expect(rifle_team.best_competitor_score).to eql 200
+    end
+
+    it 'provides rifle results array' do
+      expect(rifle_team.european_rifle_results).to eql [200, 50, 50, 50, 50]
+    end
+
+    it 'calculates shot counts from rifle shots' do
+      expect(rifle_team.shot_counts).to eql [3, 2, 3, 2, 1, 1, 2, 0, 1, 1]
+    end
+  end
+
   context 'when one of the competitors does not have shooting score yet' do
     let(:team2) { Team.new team_competition, 'Team 2', club_id }
 
@@ -214,11 +239,22 @@ describe Team do
 
   def build_competitor(score, shooting_score, time_in_seconds, hits, shots)
     competitor = build :competitor
-    allow(competitor).to receive(:team_competition_points).with(sport).and_return(score)
+    allow(competitor).to receive(:team_competition_points).with(sport, false).and_return(score)
     allow(competitor).to receive(:shooting_score).and_return(shooting_score)
     allow(competitor).to receive(:time_in_seconds).and_return(time_in_seconds)
     allow(competitor).to receive(:hits).and_return(hits)
     allow(competitor).to receive(:shots).and_return(shots)
+    competitor
+  end
+
+  def build_rifle_competitor(score, european_rifle_results, rifle1_shots, rifle2_shots, rifle3_shots, rifle4_shots)
+    competitor = build :competitor
+    allow(competitor).to receive(:team_competition_points).with(sport, true).and_return(score)
+    allow(competitor).to receive(:european_rifle_results).and_return(european_rifle_results)
+    allow(competitor).to receive(:european_rifle1_shots).and_return(rifle1_shots)
+    allow(competitor).to receive(:european_rifle2_shots).and_return(rifle2_shots)
+    allow(competitor).to receive(:european_rifle3_shots).and_return(rifle3_shots)
+    allow(competitor).to receive(:european_rifle4_shots).and_return(rifle4_shots)
     competitor
   end
 end

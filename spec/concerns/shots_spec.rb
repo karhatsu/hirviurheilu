@@ -564,6 +564,10 @@ describe Shots do
       it 'european score is 4 x trap and compak + rifle scores' do
         expect(competitor.european_score).to eql 4 * 25 + 4 * 21 + 49 + 50 + 40 + 38
       end
+
+      it 'returns empty all rifle shots array' do
+        expect(competitor.european_rifle_shots).to eql []
+      end
     end
 
     context 'when shots given' do
@@ -597,6 +601,10 @@ describe Shots do
 
       it 'european score is 4 x trap and compak + rifle scores' do
         expect(competitor.european_score).to eql 4 * 3 + 4 * 5 + 38 + 28 + 14 + 50
+      end
+
+      it 'returns all rifle shots in one array' do
+        expect(competitor.european_rifle_shots).to eql [10, 9, 9, 10, 0, 10, 8, 10, 9, 5, 10, 10, 10, 10, 10]
       end
     end
   end

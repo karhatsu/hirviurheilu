@@ -74,9 +74,9 @@ describe TeamCompetition do
       let(:competitor) { instance_double Competitor, club: club, shooting_score: 100, time_in_seconds: 500, unofficial: false, race: race, club_id: club_id }
 
       before do
-        allow(competitor).to receive(:team_competition_points).with(sport).and_return(1100)
+        allow(competitor).to receive(:team_competition_points).with(sport, false).and_return(1100)
         allow(competitor).to receive(:unofficial?).and_return(false)
-        expect(Competitor).to receive(:sort_team_competitors).with(sport, [competitor]).and_return([competitor])
+        expect(Competitor).to receive(:sort_team_competitors).with(sport, [competitor], false).and_return([competitor])
       end
 
       context "and the race is not finished" do
@@ -158,7 +158,7 @@ describe TeamCompetition do
         @official_competitors = @competitors - [@club_unofficial1, @club_unofficial2]
         allow(tc).to receive(:race).and_return(race)
         allow(race).to receive(:finished?).and_return(true)
-        expect(Competitor).to receive(:sort_team_competitors).with(sport, @official_competitors).and_return(@official_competitors)
+        expect(Competitor).to receive(:sort_team_competitors).with(sport, @official_competitors, false).and_return(@official_competitors)
       end
 
       describe "should return an array of hashes" do
@@ -190,7 +190,7 @@ describe TeamCompetition do
               "4. fastest individual time" do
             allow(tc).to receive(:race).and_return(race)
             allow(race).to receive(:finished?).and_return(false)
-            expect(Competitor).to receive(:sort_team_competitors).with(sport, @official_competitors).and_return(@official_competitors)
+            expect(Competitor).to receive(:sort_team_competitors).with(sport, @official_competitors, false).and_return(@official_competitors)
             @results = tc.results_for_competitors(@competitors)
             expect(@results.length).to eq(10)
             expect(@results[0].name).to eq(@club_best_total_points.display_name)
@@ -228,7 +228,7 @@ describe TeamCompetition do
         competitor = instance_double(Competitor, {club: club, shooting_score: @default_shooting_score,
                                      time_in_seconds: @default_time_in_seconds, club_id: club.id,
                                      team_name: nil}.merge(options))
-        allow(competitor).to receive(:team_competition_points).with(sport).and_return(points)
+        allow(competitor).to receive(:team_competition_points).with(sport, false).and_return(points)
         allow(competitor).to receive(:unofficial?).and_return(options[:unofficial])
         competitor
       end
@@ -307,7 +307,7 @@ describe TeamCompetition do
         c1a.start_time = '00:00:00'
         c1a.arrival_time = '00:10:00'
         c2a.shooting_score_input = 90
-        expect(Competitor).to receive(:sort_team_competitors).with(sport, competitors).and_return(competitors)
+        expect(Competitor).to receive(:sort_team_competitors).with(sport, competitors, false).and_return(competitors)
       end
 
       it 'should not crash' do
@@ -437,6 +437,56 @@ describe TeamCompetition do
         competitor = build :competitor, club: club
         allow(competitor).to receive(:european_score).and_return(european_score)
         allow(competitor).to receive(:european_total_results).and_return(results_array)
+        allow(competitor).to receive(:club_id).and_return(club.id)
+        competitor
+      end
+    end
+
+    describe 'rifle results' do
+      let(:sport_key) { Sport::EUROPEAN }
+      let(:club1) { build :club, id: 1, name: 'Best total score' }
+      let(:club2) { build :club, id: 2, name: 'Best competitor rifle score' }
+      let(:club3) { build :club, id: 3, name: 'Best competitor secondary rifle score' }
+      let(:club4) { build :club, id: 4, name: 'Most hits for team' }
+      let(:club5) { build :club, id: 5, name: 'Most tens, nines for team' }
+      let(:club6) { build :club, id: 6, name: 'Last' }
+      let(:competitors) { [] }
+
+      before do
+        competitors << build_european_rifle_competitor(club1, 180, [180, 40, 40], 18, [10, 9, 8, 7, 6])
+        competitors << build_european_rifle_competitor(club1, 180, [180, 40, 40], 18, [10, 9, 8, 7, 6])
+
+        competitors << build_european_rifle_competitor(club2, 178, [178, 40, 40], 18, [10, 9, 8, 7, 6])
+        competitors << build_european_rifle_competitor(club2, 181, [181, 40, 40], 18, [10, 9, 8, 7, 6])
+
+        competitors << build_european_rifle_competitor(club3, 178, [178, 40, 40], 18, [10, 9, 8, 7, 6])
+        competitors << build_european_rifle_competitor(club3, 180, [180, 40, 42], 18, [10, 9, 8, 7, 6])
+
+        competitors << build_european_rifle_competitor(club4, 178, [178, 40, 40], 19, [10, 9, 8, 7, 6])
+        competitors << build_european_rifle_competitor(club4, 180, [180, 40, 41], 18, [10, 9, 8, 7, 6])
+
+        competitors << build_european_rifle_competitor(club5, 178, [178, 40, 40], 18, [10, 9, 8, 7, 7])
+        competitors << build_european_rifle_competitor(club5, 180, [180, 40, 41], 18, [10, 9, 8, 7, 6])
+
+        competitors << build_european_rifle_competitor(club6, 178, [178, 40, 40], 18, [10, 9, 8, 7, 6])
+        competitors << build_european_rifle_competitor(club6, 180, [180, 40, 41], 18, [10, 9, 8, 7, 6])
+
+        @results = tc.results_for_competitors competitors.shuffle, true
+      end
+
+      it 'should sort teams by 1. total rifle points 2. best competitor rifle points etc 3. team hits 4. team tens etc' do
+        expect([0, 1, 2, 3, 4, 5].map{|i| @results[i].name}).to eql [club1, club2, club3, club4, club5, club6].map(&:name)
+      end
+
+      def build_european_rifle_competitor(club, european_rifle_score, results_array, hits, shots)
+        competitor = build :competitor, club: club
+        allow(competitor).to receive(:european_rifle_score).and_return(european_rifle_score)
+        allow(competitor).to receive(:european_rifle_results).and_return(results_array)
+        allow(competitor).to receive(:hits).and_return(hits)
+        allow(competitor).to receive(:european_rifle1_shots).and_return(shots)
+        allow(competitor).to receive(:european_rifle2_shots).and_return(shots)
+        allow(competitor).to receive(:european_rifle3_shots).and_return(shots)
+        allow(competitor).to receive(:european_rifle4_shots).and_return(shots)
         allow(competitor).to receive(:club_id).and_return(club.id)
         competitor
       end

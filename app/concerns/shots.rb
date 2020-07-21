@@ -107,6 +107,10 @@ module Shots
     4 * (european_trap_score.to_i + european_compak_score.to_i) + european_rifle_score.to_i
   end
 
+  def european_rifle_shots
+    (european_rifle1_shots || []) + (european_rifle2_shots || []) + (european_rifle3_shots || []) + (european_rifle4_shots || [])
+  end
+
   private
 
   def non_zero_shots(shots)

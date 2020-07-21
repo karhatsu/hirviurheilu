@@ -221,7 +221,8 @@ class Competitor < ApplicationRecord
     shooting_points.to_i + estimate_points.to_i + time_points(unofficials).to_i
   end
 
-  def team_competition_points(sport)
+  def team_competition_points(sport, rifle=false)
+    return european_rifle_score if rifle
     return nordic_score if sport.nordic?
     return european_score if sport.european?
     return qualification_round_score if sport.shooting?
@@ -272,7 +273,8 @@ class Competitor < ApplicationRecord
     sort_three_sports_competitors competitors
   end
 
-  def self.sort_team_competitors(sport, competitors)
+  def self.sort_team_competitors(sport, competitors, rifle=false)
+    return sort_european_rifle_competitors competitors if rifle
     return sort_nordic_competitors competitors if sport.nordic?
     return sort_european_competitors competitors if sport.european?
     return sort_three_sports_competitors competitors unless sport.shooting?

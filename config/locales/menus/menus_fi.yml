@@ -21,6 +21,7 @@ fi:
     team_competitions:
       one: Joukkuekilpailu
       other: Joukkuekilpailut
+    rifle_team_competitions: Luodikon joukkue
     relays:
       one: Viesti
       other: Viestit

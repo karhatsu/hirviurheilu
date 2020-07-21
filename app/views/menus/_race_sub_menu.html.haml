@@ -27,6 +27,9 @@
       - if race.has_team_competition?
         = menu_item t('race_sub_menu.team_competitions', count: race.team_competitions.count), race_team_competition_path(race, race.team_competitions.first), @is_team_results, nil, true do
           - team_competitions_dropdown_menu(race)
+        - if race.sport.european?
+          = menu_item t('race_sub_menu.rifle_team_competitions'), race_rifle_team_competition_path(race, race.team_competitions.first), @rifle_team, nil, true do
+            - team_competitions_dropdown_menu(race, true)
     - unless race.relays.empty?
       = menu_item t('race_sub_menu.relays', count: race.relays.count), race_relay_path(race, race.relays.first), @is_relays, nil, true do
         - relays_dropdown_menu(race)
