@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_13_120203) do
+ActiveRecord::Schema.define(version: 2020_07_21_173551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(version: 2020_06_13_120203) do
     t.integer "final_round_track_place"
     t.jsonb "nordic_results"
     t.jsonb "european_results"
-    t.boolean "only_rifle"
+    t.boolean "only_rifle", default: false, null: false
     t.index ["age_group_id"], name: "index_competitors_on_age_group_id"
     t.index ["final_round_batch_id"], name: "index_competitors_on_final_round_batch_id"
     t.index ["qualification_round_batch_id"], name: "index_competitors_on_qualification_round_batch_id"
