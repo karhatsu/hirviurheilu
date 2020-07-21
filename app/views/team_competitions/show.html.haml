@@ -1,7 +1,7 @@
 - content_for :title, "#{@race.name} - #{t('activerecord.models.team_competition', :count => 2)} - #{@tc.name}"
 - if @tc.started? && !@race.finished? && Date.today <= @race.end_date
   = render :partial => 'shared/refresh_counter', locals: {competition: @tc}
-%h2 #{@tc.name} - #{t :results}
+%h2 #{@tc.name} - #{@rifle_team ? 'Luodikon tulokset' : t(:results)}
 - if @tc.race.team_competitions.count > 1
   - content_for :sub_sub_menu do
     = render layout: 'team_competitions_sub_menu', locals: { race: @tc.race, team_competition_id: @tc.id } do |tc|
