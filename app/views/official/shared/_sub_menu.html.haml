@@ -44,9 +44,9 @@
       = menu_item t('sport_name.nordic_sub.rifle_standing'), official_series_rifle_standing_path(series), @is_rifle_standing, nil, true do
         - series_dropdown_menu(race, 'rifle_standing_shots')
     - elsif series && !race.series.first.new_record? && race.sport.european?
-      = menu_item t('sport_name.european_sub.trap'), official_race_trap_path(race), @is_trap
-      = menu_item t('sport_name.european_sub.compak'), official_race_compak_path(race), @is_compak
-      = menu_item t('sport_name.european_sub.rifle'), official_race_rifle_path(race), @is_rifle
+      = menu_item t('sport_name.european_sub.trap'), official_race_european_trap_path(race), @is_trap
+      = menu_item t('sport_name.european_sub.compak'), official_race_european_compak_path(race), @is_compak
+      = menu_item t('sport_name.european_sub.rifle'), official_race_european_rifle_path(race), @is_rifle
     - if series && !race.series.first.new_record?
       = menu_item t('official_sub_menu.csv'), official_race_csv_export_path(race), @is_csv
       = menu_item t('official_sub_menu.team_competitions'), official_race_team_competitions_path(race), @is_team_competitions

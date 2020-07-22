@@ -107,9 +107,9 @@ ElkSports::Application.routes.draw do
         resource :csv_export
         resource :competitor_copying
         resources :shooting_by_batches, only: :index
-        get 'trap', to: 'european_race_shots#trap', as: :trap
-        get 'compak', to: 'european_race_shots#compak', as: :compak
-        get 'rifle', to: 'european_race_shots#rifle', as: :rifle
+        get 'european_trap', to: 'european_race_shots#trap', as: :european_trap
+        get 'european_compak', to: 'european_race_shots#compak', as: :european_compak
+        get 'european_rifle', to: 'european_race_shots#rifle', as: :european_rifle
       end
 
       resources :series do
