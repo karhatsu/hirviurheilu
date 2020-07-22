@@ -107,6 +107,10 @@ ElkSports::Application.routes.draw do
         resource :csv_export
         resource :competitor_copying
         resources :shooting_by_batches, only: :index
+        get 'nordic_trap', to: 'nordic_race_shots#trap', as: :nordic_trap
+        get 'nordic_shotgun', to: 'nordic_race_shots#shotgun', as: :nordic_shotgun
+        get 'nordic_rifle_moving', to: 'nordic_race_shots#rifle_moving', as: :nordic_rifle_moving
+        get 'nordic_rifle_standing', to: 'nordic_race_shots#rifle_standing', as: :nordic_rifle_standing
         get 'european_trap', to: 'european_race_shots#trap', as: :european_trap
         get 'european_compak', to: 'european_race_shots#compak', as: :european_compak
         get 'european_rifle', to: 'european_race_shots#rifle', as: :european_rifle
@@ -119,10 +123,6 @@ ElkSports::Application.routes.draw do
         resources :age_groups
         resource :start_list
         resources :shots
-        get 'trap', to: 'nordic_race_shots#trap', as: :trap
-        get 'shotgun', to: 'nordic_race_shots#shotgun', as: :shotgun
-        get 'rifle_moving', to: 'nordic_race_shots#rifle_moving', as: :rifle_moving
-        get 'rifle_standing', to: 'nordic_race_shots#rifle_standing', as: :rifle_standing
         resources :estimates
         resources :times
       end

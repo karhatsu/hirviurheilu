@@ -1,5 +1,5 @@
 class Official::NordicRaceShotsController < Official::OfficialController
-  before_action :assign_series_by_series_id, :check_assigned_series
+  before_action :assign_race_by_race_id, :check_assigned_race
 
   def trap
     @sub_sport = :trap

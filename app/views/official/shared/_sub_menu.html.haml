@@ -35,14 +35,10 @@
       - unless race.sport.shooting?
         = menu_item t('official_sub_menu.correct_distances'), official_race_correct_estimates_path(race), @is_correct_estimates
     - elsif series && !race.series.first.new_record? && race.sport.nordic?
-      = menu_item t('sport_name.nordic_sub.trap'), official_series_trap_path(series), @is_trap, nil, true do
-        - series_dropdown_menu(race, 'trap_shots')
-      = menu_item t('sport_name.nordic_sub.shotgun'), official_series_shotgun_path(series), @is_shotgun, nil, true do
-        - series_dropdown_menu(race, 'shotgun_shots')
-      = menu_item t('sport_name.nordic_sub.rifle_moving'), official_series_rifle_moving_path(series), @is_rifle_moving, nil, true do
-        - series_dropdown_menu(race, 'rifle_moving_shots')
-      = menu_item t('sport_name.nordic_sub.rifle_standing'), official_series_rifle_standing_path(series), @is_rifle_standing, nil, true do
-        - series_dropdown_menu(race, 'rifle_standing_shots')
+      = menu_item t('sport_name.nordic_sub.trap'), official_race_nordic_trap_path(race), @is_trap
+      = menu_item t('sport_name.nordic_sub.shotgun'), official_race_nordic_shotgun_path(race), @is_shotgun
+      = menu_item t('sport_name.nordic_sub.rifle_moving'), official_race_nordic_rifle_moving_path(race), @is_rifle_moving
+      = menu_item t('sport_name.nordic_sub.rifle_standing'), official_race_nordic_rifle_standing_path(race), @is_rifle_standing
     - elsif series && !race.series.first.new_record? && race.sport.european?
       = menu_item t('sport_name.european_sub.trap'), official_race_european_trap_path(race), @is_trap
       = menu_item t('sport_name.european_sub.compak'), official_race_european_compak_path(race), @is_compak

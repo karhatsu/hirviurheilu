@@ -1,25 +1,25 @@
 - sport_name = t("sport_name.nordic_sub.#{@sub_sport}")
-= content_for(:title, "#{@series.race.name} - #{@series.name} - #{sport_name}")
-%h2 #{@series.name} - #{sport_name}
-- content_for :sub_sub_menu do
-  = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id } do |series|
-    = "/official/series/#{series.id}/#{@sub_sport}"
-- if @series.competitors.empty?
+= content_for(:title, "#{@race.name} - #{sport_name}")
+%h2= sport_name
+- if @race.competitors.empty?
   .message.message--info= t 'official.result_place.no_competitors_in_series'
-  = link_to t('official.result_place.add_competitor_to_series', series_name: @series.name), new_official_series_competitor_path(@series), class: 'button button--add'
 - else
   .message.message--info= t('official.result_place.shooting.either_total_or_shots')
+  .form__field.form__field--md
+    = select_tag :series_id, options_from_collection_for_select(@race.series, :id, :name, params[:series_id]), prompt: t(:all_series), onChange: 'filter()'
+    - unless @race.batches.empty?
+      = select_tag :batch_id, options_from_collection_for_select(@race.batches, :id, :number, params[:batch_id]), prompt: t(:all_batches), onChange: 'filter()'
   .result-cards
-    - @series.competitors.each do |competitor|
-      .card
+    - @race.competitors.except(:order).order(:number, :last_name, :first_name).each do |competitor|
+      .card{class: "series_#{competitor.series_id} batch_#{competitor.qualification_round_batch_id}"}
         .card__number= competitor.number
         .card__middle
           .card__name
-            = full_name competitor
+            #{full_name competitor} (#{competitor.series.name})
             %span{id: "status_#{competitor.id}"}
           - unless competitor.no_result_reason
             .card__middle-row
-              = form_for([:official, @series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "shots_form_#{competitor.id}", class: 'form form--inline' }) do |f|
+              = form_for([:official, competitor.series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "shots_form_#{competitor.id}", class: 'form form--inline' }) do |f|
                 = render partial: 'official/shots/nordic_sub_sport_shots', locals: { f: f, competitor: competitor, sub_sport: @sub_sport }
                 .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
         .card__main-value{id: "shots_result_#{competitor.id}"}
@@ -27,10 +27,8 @@
             = competitor.no_result_reason
           - else
             = competitor.send("nordic_#{@sub_sport}_score").to_i
-= render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id, mobile: true } do |series|
-  = "/official/series/#{series.id}/#{@sub_sport}"
 .buttons.buttons--nav
-  = link_to t(:back_to_official_race_page), official_race_path(@series.race), class: 'button button--back'
+  = link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'
 :javascript
   function start_updating(id) {
     $("#status_" + id).removeClass().html('#{image_tag 'spinner.gif'}');
@@ -44,4 +42,20 @@
   function calculateShotsResult(field) {
     const $card = field.closest('.card')
     calculateInternationalRaceShotsResult($card, #{NordicSubSport.by_key(@sub_sport).best_shot_value}, #{NordicSubSport.by_key(@sub_sport).shot_count})
+  }
+  function filter() {
+    var seriesId = $('#series_id').val()
+    var batchId = $('#batch_id').val()
+    if (seriesId === '' && batchId === '') {
+      $('.card').show()
+    } else {
+      $('.card').hide()
+      if (seriesId !== '' && batchId !== '') {
+        $('.series_' + seriesId + '.batch_' + batchId).show()
+      } else if (seriesId !== '') {
+          $('.series_' + seriesId).show()
+      } else if (batchId !== '') {
+        $('.batch_' + batchId).show()
+      }
+    }
   }
