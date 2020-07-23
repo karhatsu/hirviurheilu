@@ -2,6 +2,6 @@
   .form__field.form__field--md
     = select_tag 'extra_shots_club_id[]', options_from_collection_for_select(@race.clubs, :id, :name, extra['club_id']), prompt: t(:club)
   .form__field.form__field--md
-    = text_field_tag 'extra_shots1[]', extra['shots1'].join(','), placeholder: t('official.team_competitions.form.extra_round_placeholder1')
+    = text_field_tag 'extra_shots1[]', extra['shots1'].join(','), placeholder: t('official.team_competitions.form.extra_round_placeholder1.shotgun')
   .form__field.form__field--md
-    = text_field_tag 'extra_shots2[]', extra['shots2'].join(','), placeholder: t('official.team_competitions.form.extra_round_placeholder2')
+    = text_field_tag 'extra_shots2[]', extra['shots2'].join(','), placeholder: t('official.team_competitions.form.extra_round_placeholder2.shotgun')

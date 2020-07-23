@@ -7,6 +7,8 @@
         .card__name= club_name
         - if team.raw_extra_shots.length > 0
           .card__middle-row #{t :extra_round}: #{team_extra_shots team}
+        - elsif team.raw_extra_score.length > 0
+          .card__middle-row #{t :extra_round}: #{team.raw_extra_score.join(', ')}
         .card__middle-row.competitors{style: 'display: none'}
           - team.competitors.each do |competitor|
             %div

@@ -24,7 +24,8 @@ class Official::TeamCompetitionsController < Official::OfficialController
 
   def update
     @tc.attributes = team_competition_params
-    set_extra_shots
+    set_shotgun_extra_shots
+    set_nordic_extra_scores
     if @tc.save
       @tc.series.delete_all if params[:team_competition][:series_ids].blank?
       @tc.age_groups.delete_all if params[:team_competition][:age_group_ids].blank?
@@ -51,7 +52,7 @@ class Official::TeamCompetitionsController < Official::OfficialController
                                              :national_record, series_ids: [], age_group_ids: [])
   end
 
-  def set_extra_shots
+  def set_shotgun_extra_shots
     return if params[:extra_shots_club_id].blank?
     club_ids = params[:extra_shots_club_id].map(&:to_i)
     @tc.extra_shots = []
@@ -60,6 +61,19 @@ class Official::TeamCompetitionsController < Official::OfficialController
         shots1 = convert_shots params[:extra_shots1][i]
         shots2 = convert_shots params[:extra_shots2][i]
         @tc.extra_shots << { "club_id" => club_id, "shots1" => shots1, "shots2" => shots2 }
+      end
+    end
+  end
+
+  def set_nordic_extra_scores
+    return if params[:extra_scores_club_id].blank?
+    club_ids = params[:extra_scores_club_id].map(&:to_i)
+    @tc.extra_shots = []
+    club_ids.each_with_index do |club_id, i|
+      if club_id > 0
+        score1 = params[:extra_score1][i].to_i
+        score2 = params[:extra_score2][i].to_i
+        @tc.extra_shots << { "club_id" => club_id, "score1" => score1, "score2" => score2 }
       end
     end
   end

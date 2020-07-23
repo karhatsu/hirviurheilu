@@ -5,14 +5,14 @@
     %th &nbsp;
     %th= t(:team)
     %th= @race.sport.shooting? ? t(:result) : t(:points)
-    - if team_competition.max_extra_shots > 0
+    - if team_competition.has_extra_score?
       %th.center= t :extra_round
     - unless params[:exclude_competitors]
       - unless @race.sport.shooting?
         %th.center= time_title(@race)
         %th.center= t(:estimating)
         %th.center= t(:shooting)
-      %th= t 'activerecord.models.series', count: 1
+      %th.competitor_row{style: 'display: none'}= t 'activerecord.models.series', count: 1
   - results.each_with_index do |team, i|
     - club = team.name
     - club_id = club.gsub(/\s+/, '')
@@ -26,9 +26,11 @@
       %td.center.team_points
         = team.total_score
         = national_record_print(team) if i == 0
-      - if team_competition.max_extra_shots > 0
+      - if team_competition.has_extra_score?
         - if team.raw_extra_shots.length > 0
           %td= team_extra_shots team
+        - elsif team.raw_extra_score.length > 0
+          %td= team.raw_extra_score.join(', ')
         - else
           %td &nbsp;
       - unless params[:exclude_competitors]
@@ -43,6 +45,8 @@
             %td.center= time_points_print(competitor, true)
             %td.center= @race.finished ? estimate_points_and_diffs(competitor) : estimate_points(competitor)
             %td.center= shooting_points_print(competitor, true)
+          - if team_competition.has_extra_score?
+            %td &nbsp;
           %td
             = competitor.series.name
             = competitor.age_group ? "(#{competitor.age_group.name})" : ''

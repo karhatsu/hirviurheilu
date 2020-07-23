@@ -279,9 +279,15 @@ sv:
         age_groups_title:
           three_sports_race: Äldsgruppar
           shooting_race: Gruppar
-        extra_round_info: Voit tallentaa kahden eri laukojan uusintalaukaukset pilkulla erotettuina (esim. 1,1,0)
-        extra_round_placeholder1: "Skytt 1, t.ex: 1,0"
-        extra_round_placeholder2: "Skytt 2, t.ex: 1,1,1"
+        extra_round_info:
+          nordic: Voit tallentaa hirven uusintatuloksen ensimmäiseen kenttään ja trapin toiseen (esim. 98 ja 24)
+          shotgun: Voit tallentaa kahden eri laukojan uusintalaukaukset pilkulla erotettuina (esim. 1,1,0)
+        extra_round_placeholder1:
+          nordic: "Älg resultat, t.ex 98"
+          shotgun: "Skytt 1, t.ex: 1,0"
+        extra_round_placeholder2:
+          nordic: "Jägartrap resultat, t.ex 24"
+          shotgun: "Skytt 2, t.ex: 1,1,1"
       destroy:
         team_competition_removed: Joukkuekilpailu poistettu
     finish_races:

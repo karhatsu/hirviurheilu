@@ -71,6 +71,20 @@ class Team
     own["shots#{shooter}"]
   end
 
+  def extra_score
+    return 0 unless @team_competition.extra_shots
+    own = @team_competition.extra_shots.find {|x| x['club_id'] == @club_id}
+    return 0 unless own
+    own["score1"].to_i + 4 * own["score2"].to_i
+  end
+
+  def raw_extra_score
+    return [] unless @team_competition.extra_shots
+    own = @team_competition.extra_shots.find {|x| x['club_id'] == @club_id}
+    return [] unless own
+    [own["score1"].to_i, own["score2"].to_i]
+  end
+
   def national_record_reached?
     @team_competition.national_record && total_score.to_i == @team_competition.national_record.to_i
   end

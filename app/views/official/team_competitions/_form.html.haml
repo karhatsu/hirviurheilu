@@ -51,21 +51,34 @@
             = label_tag do
               = check_box_tag 'team_competition[age_group_ids][]', age_group.id, current_age_group_ids.include?(age_group.id)
               = age_group.name
-  - if !@tc.new_record? && @race.sport.best_shot_value == 1
+  - if !@tc.new_record? && @race.sport.nordic?
     %h3= t :extra_round
-    .message.message--info= t 'official.team_competitions.form.extra_round_info'
-    #extra-round
+    .message.message--info= t 'official.team_competitions.form.extra_round_info.nordic'
+    #nordic-extra-round
+      - if @tc.extra_shots
+        - @tc.extra_shots.each do |extra|
+          = render partial: 'club_extra_scores', locals: { extra: extra }
+    .form__buttons
+      = link_to t(:add), '#', class: 'button button--add', id: 'add-nordic-extra'
+  - elsif !@tc.new_record? && @race.sport.best_shot_value == 1
+    %h3= t :extra_round
+    .message.message--info= t 'official.team_competitions.form.extra_round_info.shotgun'
+    #shotgun-extra-round
       - if @tc.extra_shots
         - @tc.extra_shots.each do |extra|
           = render partial: 'club_extra_shots', locals: { extra: extra }
     .form__buttons
-      = link_to t(:add), '#', class: 'button button--add', id: 'add-extra'
+      = link_to t(:add), '#', class: 'button button--add', id: 'add-shotgun-extra'
   .form__buttons
     = submit_tag t(:save), class: 'button button--primary'
 :javascript
-  $('#add-extra').click(function (event) {
+  $('#add-shotgun-extra').click(function (event) {
     event.preventDefault()
-    $('#extra-round').append("#{escape_javascript(render partial: 'club_extra_shots', locals: { extra: { "shots1" => [], "shots2" => [] } })}")
+    $('#shotgun-extra-round').append("#{escape_javascript(render partial: 'club_extra_shots', locals: { extra: { "shots1" => [], "shots2" => [] } })}")
+  })
+  $('#add-nordic-extra').click(function (event) {
+    event.preventDefault()
+    $('#nordic-extra-round').append("#{escape_javascript(render partial: 'club_extra_scores', locals: { extra: { "score1" => '', "score1" => '' } })}")
   })
   var use_team_name_help_title = 'Joukkueiden muodostaminen';
 = render :partial => 'shared/help_dialog_opener'

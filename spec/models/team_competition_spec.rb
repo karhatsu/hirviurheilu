@@ -376,25 +376,30 @@ describe TeamCompetition do
     context 'when nordic race' do
       let(:sport_key) { Sport::NORDIC }
       let(:club1) { build :club, id: 1, name: 'Best points' }
-      let(:club2) { build :club, id: 2, name: 'Best competitor points' }
-      let(:club3) { build :club, id: 3, name: 'Last' }
+      let(:club2) { build :club, id: 2, name: 'Best extra score' }
+      let(:club3) { build :club, id: 3, name: 'Best competitor points' }
+      let(:club4) { build :club, id: 4, name: 'Last' }
       let(:competitors) { [] }
 
       before do
         competitors << build_nordic_competitor(club1, 350)
         competitors << build_nordic_competitor(club1, 360)
 
-        competitors << build_nordic_competitor(club2, 370)
-        competitors << build_nordic_competitor(club2, 339)
+        competitors << build_nordic_competitor(club2, 349)
+        competitors << build_nordic_competitor(club2, 361)
 
-        competitors << build_nordic_competitor(club3, 369)
-        competitors << build_nordic_competitor(club3, 340)
+        competitors << build_nordic_competitor(club3, 370)
+        competitors << build_nordic_competitor(club3, 339)
 
+        competitors << build_nordic_competitor(club4, 369)
+        competitors << build_nordic_competitor(club4, 340)
+
+        tc.extra_shots = [{"club_id" => club1.id, "score1" => 100, "score2" => 25}, {"club_id" => club2.id, "score1" => 99, "score2" => 25}]
         @results = tc.results_for_competitors competitors.shuffle
       end
 
       it 'sorts teams by 1. total points 2. best competitor points' do
-        expect([0, 1, 2].map{|i| @results[i].name}).to eql [club1, club2, club3].map(&:name)
+        expect([0, 1, 2, 3].map{|i| @results[i].name}).to eql [club1, club2, club3, club4].map(&:name)
       end
 
       def build_nordic_competitor(club, nordic_score)
@@ -641,6 +646,62 @@ describe TeamCompetition do
           allow(s2).to receive(:started?).and_return(true)
           expect(@tc).to be_started
         end
+      end
+    end
+  end
+
+  describe 'extra shots helpers' do
+    let(:tc) { build :team_competition }
+
+    context 'when extra_shots is nil' do
+      it 'has_extra_score? returns false' do
+        expect(tc.has_extra_score?).to be_falsey
+      end
+
+      it 'max_extra_shots returns 0' do
+        expect(tc.max_extra_shots).to eql 0
+      end
+    end
+
+    context 'when extra_shots contains empty array' do
+      before do
+        tc.extra_shots = []
+      end
+
+      it 'has_extra_score? returns false' do
+        expect(tc.has_extra_score?).to be_falsey
+      end
+
+      it 'max_extra_shots returns 0' do
+        expect(tc.max_extra_shots).to eql 0
+      end
+    end
+
+    context 'when extra_shots contain shots' do
+      before do
+        tc.extra_shots = [{"shots1" => [1, 0]}, {"shots1" => [1, 1], "shots2" => [0, 1, 1, 1]}]
+      end
+
+      it 'has_extra_score? returns true' do
+        expect(tc.has_extra_score?).to be_truthy
+      end
+
+      it 'max_extra_shots returns the biggest amount of shots' do
+        expect(tc.max_extra_shots).to eql 4
+      end
+    end
+
+    context 'when extra_shots contain scores (nordic)' do
+      before do
+        tc.extra_shots = [{"score1" => 98}]
+      end
+
+      it 'has_extra_score? returns true' do
+        expect(tc.has_extra_score?).to be_truthy
+      end
+
+      it 'max_extra_shots returns 0' do
+        expect(tc.max_extra_shots).to eql 0
       end
     end
   end

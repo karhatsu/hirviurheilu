@@ -164,6 +164,14 @@ describe Team do
     it 'raw extra shots is empty array' do
       expect(team.raw_extra_shots).to eql []
     end
+
+    it 'returns 0 for extra score' do
+      expect(team.extra_score).to eql 0
+    end
+
+    it 'returns empty array for raw extra score' do
+      expect(team.raw_extra_score).to eql []
+    end
   end
 
   context 'when extra shots used' do
@@ -233,6 +241,32 @@ describe Team do
         it 'raw extra shots is shots of best' do
           expect(team.raw_extra_shots).to eql [1, 0, 1, 1]
         end
+      end
+    end
+  end
+
+  context 'when extra score saved to shots' do
+    context 'and the club has them' do
+      let(:extra_shots) { [{ "club_id" => club_id + 1, "score1" => 99, "score2" => 23 }, { "club_id" => club_id, "score1" => 98, "score2" => 24 }] }
+
+      it 'extra score is the first score + 4 times the seconds score' do
+        expect(team.extra_score).to eql 98 + 4 * 24
+      end
+
+      it 'raw extra score is array with extra scores' do
+        expect(team.raw_extra_score).to eql [98, 24]
+      end
+    end
+
+    context 'but the club does not have them' do
+      let(:extra_shots) { [{ "club_id" => club_id + 1, "score1" => 99, "score2" => 23 }] }
+
+      it 'extra score is 0' do
+        expect(team.extra_score).to eql 0
+      end
+
+      it 'raw extra score is empty array' do
+        expect(team.raw_extra_score).to eql []
       end
     end
   end

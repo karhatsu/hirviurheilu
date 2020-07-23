@@ -61,9 +61,13 @@ class TeamCompetition < ApplicationRecord
     sorted_teams
   end
 
+  def has_extra_score?
+    max_extra_shots > 0 || (extra_shots && extra_shots.length > 0)
+  end
+
   def max_extra_shots
     return 0 unless extra_shots
-    extra_shots.map {|x| [x['shots1']&.length, x['shots2']&.length].map(&:to_i)}.flatten.max
+    extra_shots.map {|x| [x['shots1']&.length, x['shots2']&.length].map(&:to_i)}.flatten.max || 0
   end
 
   private
@@ -123,7 +127,7 @@ class TeamCompetition < ApplicationRecord
       end
     elsif sport.nordic?
       hash.values.sort do |a, b|
-        [b.total_score, b.best_competitor_score] <=> [a.total_score, a.best_competitor_score]
+        [b.total_score, b.extra_score, b.best_competitor_score] <=> [a.total_score, a.extra_score, a.best_competitor_score]
       end
     elsif sport.european?
       hash.values.sort do |a, b|

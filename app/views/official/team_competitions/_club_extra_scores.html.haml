@@ -1,0 +1,7 @@
+.form__horizontal-fields
+  .form__field.form__field--md
+    = select_tag 'extra_scores_club_id[]', options_from_collection_for_select(@race.clubs, :id, :name, extra['club_id']), prompt: t(:club)
+  .form__field.form__field--md
+    = number_field_tag 'extra_score1[]', extra['score1'], placeholder: t('official.team_competitions.form.extra_round_placeholder1.nordic')
+  .form__field.form__field--md
+    = number_field_tag 'extra_score2[]', extra['score2'], placeholder: t('official.team_competitions.form.extra_round_placeholder2.nordic')
