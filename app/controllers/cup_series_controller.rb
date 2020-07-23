@@ -4,20 +4,25 @@ class CupSeriesController < ApplicationController
   def show
     @is_cup = true
     @is_cup_series = true
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render :pdf => "#{@cup_series.name}-tulokset", :layout => true, :margin => pdf_margin,
-          :header => pdf_header("#{@cup.name} - #{@cup_series.name}\n"), :footer => pdf_footer,
-          :orientation => 'Landscape', disable_smart_shrinking: true
-      end
-    end
+    render_show
   end
 
   private
+
   def assign_cup
     @id = params[:cup_id]
     @cup = Cup.where(id: @id).includes([:cup_series, races: [series: [competitors: [:age_group, :club, :series]]]]).first
     render 'errors/cup_not_found' unless @cup
+  end
+
+  def render_show
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "#{@cup_series.name}-tulokset", :layout => true, :margin => pdf_margin,
+               :header => pdf_header("#{@cup.name} - #{@cup_series.name}\n"), :footer => pdf_footer,
+               :orientation => 'Landscape', disable_smart_shrinking: true
+      end
+    end
   end
 end

@@ -110,11 +110,12 @@ module MenuHelper
     raw(menu)
   end
 
-  def cup_series_dropdown_menu(cup)
+  def cup_series_dropdown_menu(cup, rifle=false)
     return '' if cup.cup_series.length <= 1
     menu = '<div class="dropdown-menu">'
     cup.cup_series.each do |cs|
-      menu << "<div class='dropdown-menu__item'>#{link_to cs.name, cup_cup_series_path(locale_for_path, cup, cs)}</div>"
+      path = rifle ? cup_rifle_cup_series_path(locale_for_path, cup, cs) : cup_cup_series_path(locale_for_path, cup, cs)
+      menu << "<div class='dropdown-menu__item'>#{link_to cs.name, path}</div>"
     end
     menu << '</div>'
     raw(menu)

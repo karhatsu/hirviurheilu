@@ -25,6 +25,10 @@ class CupSeries < ApplicationRecord
     end
   end
 
+  def european_rifle_results
+    cup_competitors.sort { |a, b| b.european_rifle_results <=> a.european_rifle_results }
+  end
+
   private
   def pick_series_with_given_name
     series = []

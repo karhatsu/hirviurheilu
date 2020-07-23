@@ -188,4 +188,20 @@ describe CupSeries do
       expect(@cs.results).to eq([cc2, cc1, cc4, cc7, cc6, cc3, cc5])
     end
   end
+
+  describe '#european_rifle_results' do
+    let(:cs) { build :cup_series }
+    let(:cc1) { double CupCompetitor, european_rifle_results: [] }
+    let(:cc2) { double CupCompetitor, european_rifle_results: [400, 120] }
+    let(:cc3) { double CupCompetitor, european_rifle_results: [400, 119] }
+    let(:competitors) { [cc1, cc2, cc3] }
+
+    before do
+      allow(cs).to receive(:cup_competitors).and_return competitors
+    end
+
+    it 'sorts competitors by european_rifle_results arrays' do
+      expect(cs.european_rifle_results).to eql [cc2, cc3, cc1]
+    end
+  end
 end

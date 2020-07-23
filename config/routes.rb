@@ -23,6 +23,7 @@ ElkSports::Application.routes.draw do
 
     resources :cups do
       resources :cup_series
+      resources :rifle_cup_series
       resource :medium
     end
 

@@ -1,6 +1,6 @@
 - is_pdf = defined?(pdf)
 - show_series_name = !cup_series.has_single_series_with_same_name?
-- competitors = cup_series.results
+- competitors = @is_rifle_cup_series ? cup_series.european_rifle_results : cup_series.results
 - if competitors.empty?
   .message.message--info Tähän sarjaan ei ole lisätty kilpailijoita
 - else
@@ -26,7 +26,15 @@
           - c = cc.competitor_for_race(race)
           %td.center
             - if c
-              = link_to_unless is_pdf, points_print(c), series_competitor_path(c.series, c)
+              - if c.no_result_reason
+                = no_result_reason_print c.no_result_reason
+              - elsif @is_rifle_cup_series
+                = link_to_unless is_pdf, c.european_rifle_score || '-', series_competitor_path(c.series, c)
+              - else
+                = link_to_unless is_pdf, points_print(c), series_competitor_path(c.series, c)
             - else
               \-
-        %td.center.total-points= cup_points_print(cc)
+        - if @is_rifle_cup_series
+          %td.center.total-points= cc.european_rifle_score
+        - else
+          %td.center.total-points= cup_points_print(cc)

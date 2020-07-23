@@ -1,6 +1,7 @@
 - show_series_name = !@cup_series.has_single_series_with_same_name?
 .result-cards
-  - @cup_series.results.each_with_index do |cc, i|
+  - results = @is_rifle_cup_series ? @cup_series.european_rifle_results : @cup_series.results
+  - results.each_with_index do |cc, i|
     .card{class: i % 2 == 0 ? 'card--odd' : ''}
       .card__number #{i + 1}.
       .card__middle
@@ -14,5 +15,14 @@
             - if c
               %div
                 = race.name
-                = points_print(c)
-      .card__main-value= cup_points_print(cc)
+                - if c.no_result_reason
+                  = no_result_reason_print c.no_result_reason
+                - elsif @is_rifle_cup_series
+                  = c.european_rifle_score || '-'
+                - else
+                  = points_print(c)
+      .card__main-value
+        - if @is_rifle_cup_series
+          = cc.european_rifle_score
+        - else
+          = cup_points_print(cc)

@@ -219,6 +219,58 @@ describe CupCompetitor do
     end
   end
 
+  describe '#european_rifle_score' do
+    let(:c1) { build :competitor, first_name: 'First', last_name: 'Last' }
+    let(:c2) { build :competitor, first_name: 'First', last_name: 'Last' }
+    let(:cc) { CupCompetitor.new nil, c1 }
+
+    before do
+      cc << c2
+      allow(c1).to receive(:european_rifle_score).and_return(150)
+      allow(c2).to receive(:european_rifle_score).and_return(200)
+    end
+
+    it 'is sum of european rifle scores' do
+      expect(cc.european_rifle_score).to eql 150 + 200
+    end
+
+    context 'when nil score from some race' do
+      before do
+        allow(c2).to receive(:european_rifle_score).and_return(nil)
+      end
+
+      it 'handles nil as 0' do
+        expect(cc.european_rifle_score).to eql 150
+      end
+    end
+  end
+
+  describe '#european_rifle_results' do
+    let(:c1) { build :competitor, first_name: 'First', last_name: 'Last' }
+    let(:c2) { build :competitor, first_name: 'First', last_name: 'Last' }
+    let(:cc) { CupCompetitor.new nil, c1 }
+
+    before do
+      cc << c2
+      allow(c1).to receive(:european_rifle_results).and_return([200, 50, 45, 25])
+      allow(c2).to receive(:european_rifle_results).and_return([190, 40, 50, 50])
+    end
+
+    it 'is sum of results' do
+      expect(cc.european_rifle_results).to eql [390, 90, 95, 75]
+    end
+
+    context 'when european_rifle_results returns an array of DNS' do
+      before do
+        allow(c2).to receive(:european_rifle_results).and_return([-20000])
+      end
+
+      it 'ignores the array' do
+        expect(cc.european_rifle_results).to eql [200, 50, 45, 25]
+      end
+    end
+  end
+
   describe "#competitor_for_race" do
     before do
       allow(@competitor).to receive(:race).and_return(instance_double(Race))

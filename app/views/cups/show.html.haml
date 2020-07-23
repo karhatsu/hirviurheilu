@@ -11,6 +11,11 @@
   .buttons
     - @cup.cup_series.each do |cs|
       = link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs), class: 'button button--primary'
+- if @cup.has_rifle? && !@cup.cup_series.empty?
+  %h2 Luodikon tulokset
+  .buttons
+    - @cup.cup_series.each do |cs|
+      = link_to long_cup_series_name(cs), cup_rifle_cup_series_path(@cup, cs), class: 'button button--primary'
 %h2= t '.points_rule_title'
 = render partial: 'points_rule', locals: {cup: @cup}
 %h2= t '.sub_competitions'

@@ -8,9 +8,11 @@
 .cup_results.results--desktop= render partial: 'cup_series_results', locals: {cup_series: @cup_series}
 .results--mobile= render partial: 'cup_series_results_mobile', locals: {cup_series: @cup_series}
 = render partial: 'menus/cup_series_sub_menu', locals: { mobile: true }
+.buttons
+  - path = @is_rifle_cup_series ? cup_rifle_cup_series_path(@cup, @cup_series, format: :pdf) : cup_cup_series_path(@cup, @cup_series, format: :pdf)
+  = link_to t(:download_results_pdf), path, class: 'button button--pdf'
 .buttons.buttons--nav
   = link_to t(:back_to_cup_page), cup_path(@cup), class: 'button button--back'
-  = link_to t(:download_results_pdf), cup_cup_series_path(@cup, @cup_series, format: :pdf), class: 'button button--pdf'
 :javascript
   function showRaces() {
     $('.card__middle-row').show();

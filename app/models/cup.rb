@@ -27,6 +27,10 @@ class Cup < ApplicationRecord
     end
   end
 
+  def has_rifle?
+    races.all? { |race| race.sport.european? }
+  end
+
   def self.cup_races(cups)
     cup_races = []
     cups.each { |cup| cup.races.each { |race| cup_races << race } }

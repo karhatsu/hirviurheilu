@@ -53,6 +53,21 @@ class CupCompetitor
     @shots_array ||= @competitors.map { |c| c.shooting_points }
   end
 
+  def european_rifle_score
+    @competitors.map { |c| c.european_rifle_score.to_i }.inject(:+)
+  end
+
+  def european_rifle_results
+    results = []
+    @competitors.each do |competitor|
+      competitor.european_rifle_results.each_with_index do |value, i|
+        break if value < 0
+        results[i] = results[i].to_i + value
+      end
+    end
+    results
+  end
+
   def self.name(competitor)
     "#{competitor.last_name.strip} #{competitor.first_name.strip}".downcase
   end

@@ -1,0 +1,3 @@
+%h1= @cup.name
+%h2= "#{@cup_series.name} - Luodikon tulokset"
+= render partial: 'cup_series_results', locals: { cup_series: @cup_series, pdf: true }

@@ -30,6 +30,7 @@ fi:
   cup_sub_menu:
     home_page: Cup-kilpailun etusivu
     results: Tulokset
+    rifle: Luodikko
     press: Lehdistö
   official_sub_menu:
     summary: Yhteenveto
