@@ -78,7 +78,7 @@
   })
   $('#add-nordic-extra').click(function (event) {
     event.preventDefault()
-    $('#nordic-extra-round').append("#{escape_javascript(render partial: 'club_extra_scores', locals: { extra: { "score1" => '', "score1" => '' } })}")
+    $('#nordic-extra-round').append("#{escape_javascript(render partial: 'club_extra_scores', locals: { extra: { "score1" => '', "score2" => '' } })}")
   })
   var use_team_name_help_title = 'Joukkueiden muodostaminen';
 = render :partial => 'shared/help_dialog_opener'
