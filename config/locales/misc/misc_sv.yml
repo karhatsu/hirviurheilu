@@ -36,7 +36,7 @@ sv:
   clubs: Klubbar
   competition: Tävling
   competitions: Tävlingar
-  competition_info: "Information av tävlingar: hur många tävlingar, hur många tävlar?"
+  competition_unfinished: Tävlingen ofärdig
   competition_unfinished_detailed_estimates_later: Tävlingen ofärdig. Precis avståndsdata publiseras, när tävlingen har slutat.
   competitor:
     DNS: Tävlaren startade inte

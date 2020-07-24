@@ -10,7 +10,7 @@
 - competitors = @series.sport.european? ? @series.competitors.where('only_rifle=?', false) : @series.competitors
 = render layout: 'series/series_status', locals: { series: @series, competitors: competitors } do
   - unless @series.sport.shooting?
-    = render partial: 'series/three_sport_race_infos', locals: { series: @series }
+    = render partial: 'series/three_sport_race_infos', locals: { series: @series, show_race_status: true }
   - cache [@series, params[:sort], unofficials, I18n.locale] do
     - if @series.sport.nordic?
       = render partial: 'series/shots_buttons', locals: { series: @series }

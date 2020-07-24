@@ -43,7 +43,7 @@
           %td.center= competitor.team_competition_points @race.sport, rifle
           - unless @race.sport.shooting?
             %td.center= time_points_print(competitor, true)
-            %td.center= @race.finished ? estimate_points_and_diffs(competitor) : estimate_points(competitor)
+            %td.center= estimate_points_print @race, competitor
             %td.center= shooting_points_print(competitor, true)
           - if team_competition.has_extra_score?
             %td &nbsp;

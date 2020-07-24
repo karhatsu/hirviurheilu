@@ -88,42 +88,55 @@ describe EstimatesHelper do
     end
   end
 
-  describe '#estimate_points' do
-    it 'should print empty string if no result reason defined' do
-      expect_estimate_points 189, Competitor::DNS, ''
+  describe '#estimate_points_print' do
+    let(:no_result_reason) { nil }
+    let(:estimate_points) { 290 }
+    let(:show_correct_distances?) { true }
+    let(:fake_meters) { '12m' }
+    let(:race) { build :race }
+    let(:competitor) { build :competitor }
+
+    before do
+      allow(race).to receive(:show_correct_distances?).and_return(show_correct_distances?)
+      allow(competitor).to receive(:no_result_reason).and_return(no_result_reason)
+      allow(competitor).to receive(:estimate_points).and_return(estimate_points)
+      allow(helper).to receive(:estimate_diffs).with(competitor).and_return(fake_meters)
     end
 
-    it 'should return dash if no estimate points' do
-      expect_estimate_points nil, nil, '-'
+    context 'when no result reason' do
+      let(:no_result_reason) { Competitor::DNF }
+
+      it 'should return empty string' do
+        expect_points_print''
+      end
     end
 
-    it 'should return points otherwise' do
-      expect_estimate_points 189, nil, 189
+    context 'when no estimate points available' do
+      let(:estimate_points) { nil }
+
+      it 'should return dash' do
+        expect_points_print '-'
+      end
     end
 
-    def expect_estimate_points(points, no_result_reason, expected_points)
-      competitor = instance_double Competitor, estimate_points: points, no_result_reason: no_result_reason
-      expect(helper.estimate_points(competitor)).to eq(expected_points)
-    end
-  end
+    context 'when estimate points available' do
+      context 'when correct distances cannot be revealed' do
+        let(:show_correct_distances?) { false }
 
-  describe '#estimate_points_and_diffs' do
-    it 'should print empty string if no result reason defined' do
-      expect_estimate_points_and_diffs 150, Competitor::DNF, '1m', ''
-    end
+        it 'should return only points' do
+          expect_points_print estimate_points
+        end
+      end
 
-    it 'should return dash if no estimate points' do
-      expect_estimate_points_and_diffs nil, nil, '6m', '-'
-    end
-
-    it 'should return points and diffs when points available' do
-      expect_estimate_points_and_diffs 199, nil, '6m', '199 (6m)'
+      context 'when correct distances can be revealed' do
+        it 'should return points and meters' do
+          expect_points_print "#{estimate_points} (#{fake_meters})"
+        end
+      end
     end
 
-    def expect_estimate_points_and_diffs(points, no_result_reason, meters, expected)
-      competitor = instance_double Competitor, estimate_points: points, no_result_reason: no_result_reason
-      allow(helper).to receive(:estimate_diffs).with(competitor).and_return(meters)
-      expect(helper.estimate_points_and_diffs(competitor)).to eq(expected)
+    def expect_points_print(expected)
+      expect(helper.estimate_points_print(race, competitor)).to eq(expected)
     end
   end
 
@@ -136,9 +149,9 @@ describe EstimatesHelper do
       expect { helper.correct_estimate(nil, 5, '') }.to raise_error(RuntimeError)
     end
 
-    context 'race not finished' do
+    context 'when correct estimates cannot be revealed' do
       before do
-        race = instance_double(Race, :finished => false)
+        race = instance_double(Race, show_correct_distances?: false)
         series = instance_double(Series, :race => race)
         @competitor = instance_double(Competitor, :series => series,
                                       :correct_estimate1 => 100, :correct_estimate2 => 150)
@@ -150,10 +163,10 @@ describe EstimatesHelper do
       specify { expect(helper.correct_estimate(@competitor, 4, '-')).to eq('-') }
     end
 
-    context 'race finished' do
+    context 'when correct estimates can be revealed' do
       context 'estimates available' do
         before do
-          race = instance_double(Race, :finished => true)
+          race = instance_double(Race, show_correct_distances?: true)
           series = instance_double(Series, :race => race)
           @competitor = instance_double(Competitor, :series => series,
                                         :correct_estimate1 => 100, :correct_estimate2 => 150,
@@ -168,7 +181,7 @@ describe EstimatesHelper do
 
       context 'estimates not available' do
         before do
-          race = instance_double(Race, :finished => true)
+          race = instance_double(Race, show_correct_distances?: true)
           series = instance_double(Series, :race => race)
           @competitor = instance_double(Competitor, :series => series,
                                         :correct_estimate1 => nil, :correct_estimate2 => nil,

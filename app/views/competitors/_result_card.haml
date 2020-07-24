@@ -1,8 +1,7 @@
 - if @competitor.no_result_reason
   .message.message--warning= t "competitor.#{@competitor.no_result_reason}"
 - else
-  = render :partial => 'series/three_sport_race_infos', :locals => { :series => @competitor.series,
-    :show_race_unfinished => false }
+  = render partial: 'series/three_sport_race_infos', locals: { series: @competitor.series, show_race_status: false }
 
   #points
     %h3= t :points
@@ -49,7 +48,7 @@
 
   #estimates
     %h3= t :estimating
-    - if @competitor.series.race.finished
+    - if @competitor.series.race.show_correct_distances?
       %table.results-table
         %tr
           %td= t :estimated_distances

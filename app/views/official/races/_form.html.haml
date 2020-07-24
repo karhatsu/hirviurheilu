@@ -31,6 +31,13 @@
       = f.label "club_level_#{Race::CLUB_LEVEL_SEURA}", t(:club), class: 'form__label--radio'
       = f.radio_button :club_level, Race::CLUB_LEVEL_PIIRI
       = f.label "club_level_#{Race::CLUB_LEVEL_PIIRI}", t(:district), class: 'form__label--radio'
+  - if @race.sport.start_list?
+    .form__field.row
+      .col-xs-12.col-sm-3
+        .form__help-label
+          = f.label :reveal_distances
+          %a.help#reveal_distances_help{href: 'javascript:void(0);'} ?
+      .col-xs-12.col-sm-9= f.check_box :reveal_distances
   %h2= t 'official.races.form.organizer_information'
   .form__field.row
     .col-xs-12.col-sm-3= f.label :organizer
@@ -56,6 +63,19 @@
         = f.label :public_message
         %a.help#public_message_help{href: 'javascript:void(0);'} ?
     .col-xs-12.col-sm-9= f.text_area :public_message, cols: 50, rows: 6
+
+  - if @race.sport.start_list?
+    #reveal_distances_help_dialog.dialog{style: 'display:none;'}
+      %h3 Kun asetus ei ole valittuna
+      Normaalisti oikeat etäisyydet paljastetaan vasta, kun kilpailu on merkitty päättyneeksi.
+      Tällä tavoin voidaan helposti varmistaa, etteivät kilpailijat saa tietää niitä ennen kuin
+      ovat suorittaneet matkansa. Arviopisteet näytetään kuitenkin heti, kun kilpailijalle on
+      tiedossa sekä arviot että hänen lähtönumeronsa oikeat etäisyydet.
+      %h3 Kun asetus on valittuna
+      Jos tämä asetus laitetaan päälle, kilpailijan kohdalla näytetään oikeat etäisyydet heti,
+      kun ne ovat tiedossa. Tätä vaihtoehtoa voidaan käyttää esim. monipäiväisissä kilpailuissa,
+      joissa joka päivälle on eri arviomatkat. Toimitsijan vastuulla on tällöin tallentaa oikeat
+      etäisyydet vasta silloin, kun kaikki päivän kilpailijat ovat tulleet maaliin.
 
   #home_page_help_dialog.dialog{style: 'display:none;'}
     Jos kilpailusta on tarjolla lisätietoa esimerkiksi piirin tai seuran
@@ -193,6 +213,7 @@
     = submit_tag submit_label, class: 'button button--primary'
 
 :javascript
+  var reveal_distances_help_title = 'Paljasta oikeat etäisyydet heti';
   var home_page_help_title = 'Linkki kilpailun sivuille';
   var address_help_title = 'Kilpailupaikan osoite';
   var public_message_help_title = '#{t 'attributes.public_message'}';

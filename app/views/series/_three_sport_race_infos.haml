@@ -1,6 +1,6 @@
-- show_estimate_info = defined?(show_race_unfinished) ? show_race_unfinished : true
-- if show_estimate_info and series.active?
-  .message.message--info= t :competition_unfinished_detailed_estimates_later
+- if show_race_status && series.active?
+  - key = series.race.show_correct_distances? ? :competition_unfinished : :competition_unfinished_detailed_estimates_later
+  .message.message--info= t key
 - walking_info = special_series_info(series)
 - if walking_info
   .message.message--info= walking_info

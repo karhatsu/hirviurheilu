@@ -101,7 +101,7 @@ class Official::RacesController < Official::OfficialController
 
   def accepted_create_params
     [ :sport_key, :name, :district_id, :location, 'start_date(1i)', 'start_date(2i)', 'start_date(3i)',
-      'start_time(1i)', 'start_time(2i)', 'start_time(3i)', 'start_time(4i)', 'start_time(5i)',
+      'start_time(1i)', 'start_time(2i)', 'start_time(3i)', 'start_time(4i)', 'start_time(5i)', :reveal_distances,
       :days_count, :club_level, :organizer, :home_page, :organizer_phone, :address, :shooting_place_count, :track_count,
       :start_interval_seconds, :start_order, :batch_size, :batch_interval_seconds, :billing_info, :public_message ]
   end

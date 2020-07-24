@@ -21,7 +21,7 @@
           .card__middle-row
             - results = []
             - if comp.estimate_points
-              - results << "<span class='card__sub-result card__sub-result--estimate'>#{(series.race.finished ? estimate_points_and_diffs(comp) : estimate_points(comp))}</span>"
+              - results << "<span class='card__sub-result card__sub-result--estimate'>#{estimate_points_print series.race, comp}</span>"
             - if comp.arrival_time && series.time_points?
               - results << "<span class='card__sub-result card__sub-result--time'>#{comp.time_points(unofficials)} (#{time_from_seconds(comp.time_in_seconds)})</span>"
             - if comp.shooting_score

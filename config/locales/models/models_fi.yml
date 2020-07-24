@@ -103,6 +103,7 @@ fi:
     race: Kilpailu
     races: Kilpailut
     remember_me: Muista minut
+    reveal_distances: Näytä oikeat etäisyydet heti
     roles: Roolit
     series: Sarja
     series_id: Sarja

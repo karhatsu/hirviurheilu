@@ -30,21 +30,16 @@ module EstimatesHelper
     "#{diff > 0 ? '+' : ''}#{diff}m"
   end
 
-  def estimate_points_and_diffs(competitor)
+  def estimate_points_print(race, competitor)
     return '' if competitor.no_result_reason
     return '-' if competitor.estimate_points.nil?
-    "#{competitor.estimate_points} (#{estimate_diffs(competitor)})"
-  end
-
-  def estimate_points(competitor)
-    return '' if competitor.no_result_reason
-    return '-' if competitor.estimate_points.nil?
+    return "#{competitor.estimate_points} (#{estimate_diffs competitor})" if race.show_correct_distances?
     competitor.estimate_points
   end
 
   def correct_estimate(competitor, i, not_available_str)
     raise "Unknown index for correct estimate: #{i}" if i < 1 or i > 4
-    return not_available_str unless competitor.series.race.finished
+    return not_available_str unless competitor.series.race.show_correct_distances?
     if i == 1
       correct = competitor.correct_estimate1
     elsif i == 2

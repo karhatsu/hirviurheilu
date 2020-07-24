@@ -134,6 +134,10 @@ class Race < ApplicationRecord
     start_date_time self, 1, Time.parse('00:00')
   end
 
+  def show_correct_distances?
+    finished? || reveal_distances?
+  end
+
   def set_correct_estimates_for_competitors
     reload
     return if correct_estimates.empty?
