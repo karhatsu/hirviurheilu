@@ -37,8 +37,8 @@ class Series < ApplicationRecord
   validates :first_number, numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 0 }
   validates :start_day, :numericality => { :only_integer => true,
     :allow_nil => true, :greater_than => 0 }
-  validates :national_record, :numericality => { :only_integer => true,
-    :allow_nil => true, :greater_than => 0 }
+  validates :national_record, numericality: { only_integer: true, allow_nil: true, greater_than: 0, less_than_or_equal_to: 1200 }
+  validates :rifle_national_record, numericality: { only_integer: true, allow_nil: true, greater_than: 0, less_than_or_equal_to: 200 }
   validates :points_method, inclusion: {in: [POINTS_METHOD_TIME_2_ESTIMATES,
                                              POINTS_METHOD_TIME_4_ESTIMATES,
                                              POINTS_METHOD_NO_TIME_2_ESTIMATES,

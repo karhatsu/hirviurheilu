@@ -51,15 +51,8 @@ describe Series do
     end
 
     it_should_behave_like 'non-negative integer', :first_number, true
-
-    describe "national_record" do
-      it { is_expected.to validate_numericality_of(:national_record) }
-      it { is_expected.to allow_value(nil).for(:national_record) }
-      it { is_expected.not_to allow_value(23.5).for(:national_record) }
-      it { is_expected.not_to allow_value(0).for(:national_record) }
-      it { is_expected.to allow_value(1).for(:national_record) }
-      it { is_expected.not_to allow_value(-51).for(:national_record) }
-    end
+    it_should_behave_like 'positive integer', :national_record, true, { max_value: 1200 }
+    it_should_behave_like 'positive integer', :rifle_national_record, true, { max_value: 200 }
   end
 
   describe 'callbacks' do

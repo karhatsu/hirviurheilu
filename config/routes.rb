@@ -96,6 +96,7 @@ ElkSports::Application.routes.draw do
         post 'final_round_shots_quick_save' => 'quick_saves#save_final_round_shots', as: :quick_save_final_round_shots
         post 'extra_shots_quick_save' => 'quick_saves#save_extra_shots', as: :quick_save_extra_shots
         post 'no_result_quick_save' => 'quick_saves#save_no_result', :as => :quick_save_no_result
+        patch 'national_records' => 'national_records#update_all', as: :update_national_records
         resources :national_records, only: :index
         resources :quick_saves
         resource :finish_race

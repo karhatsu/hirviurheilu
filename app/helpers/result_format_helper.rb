@@ -51,6 +51,19 @@ module ResultFormatHelper
     raw("<span class='explanation'><a href=\"#{NATIONAL_RECORD_URL}\">#{tag}</a></span>")
   end
 
+  def rifle_national_record_print(competitor, raw=false)
+    if competitor.rifle_national_record_passed?
+      tag = 'SE'
+    elsif competitor.rifle_national_record_reached?
+      tag = 'SE (sivuaa)'
+    else
+      return ''
+    end
+    tag << '?' unless competitor.race.finished?
+    return tag if raw
+    raw("<span class='explanation'><a href=\"#{NATIONAL_RECORD_URL}\">#{tag}</a></span>")
+  end
+
   def relay_time_adjustment_print(source)
     adjustment = source.adjustment.to_i
     estimate_adjustment = source.estimate_adjustment.to_i

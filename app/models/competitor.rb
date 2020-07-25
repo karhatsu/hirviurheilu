@@ -335,6 +335,14 @@ class Competitor < ApplicationRecord
     series.national_record && points.to_i > series.national_record.to_i
   end
 
+  def rifle_national_record_reached?
+    series.rifle_national_record && european_rifle_score.to_i == series.rifle_national_record.to_i
+  end
+
+  def rifle_national_record_passed?
+    series.rifle_national_record && european_rifle_score.to_i > series.rifle_national_record.to_i
+  end
+
   def correct_distances
     [correct_estimate1, correct_estimate2, correct_estimate3, correct_estimate4].select {|d| !d.blank?}
   end

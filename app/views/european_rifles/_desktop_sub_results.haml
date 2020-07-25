@@ -15,7 +15,7 @@
       %th= t :extra_round
   - prev_results = 1.0/0.0
   - competitors.each_with_index do |comp, i|
-    - @max_points = comp.points if i == 0
+    - @max_points = comp.european_rifle_score if i == 0
     - next unless i < 3 || params[:club_id].blank? || comp.club_id == params[:club_id].to_i
     - results = comp.european_rifle_results
     %tr{class: i % 2 == 0 ? 'odd' : ''}
@@ -44,6 +44,7 @@
           = comp.no_result_reason
         - else
           = comp.european_rifle_score || '-'
+          = rifle_national_record_print comp if comp.european_rifle_score.to_i >= @max_points.to_i
       - if extra_shots_column
         %td
           - extra_shots = comp.european_rifle_extra_shots
