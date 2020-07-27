@@ -39,7 +39,7 @@
                     = link_to t('.create_start_list'), official_series_competitors_path(s), class: 'button'
                   - unless finished
                     - if @race.sport.nordic?
-                      = link_to t('.input_results'), official_series_trap_path(s), class: 'button'
+                      = link_to t('.input_results'), official_race_nordic_trap_path(@race), class: 'button'
                     - elsif @race.sport.european?
                       = link_to t('.input_results'), official_race_european_trap_path(@race), class: 'button'
                     - else
