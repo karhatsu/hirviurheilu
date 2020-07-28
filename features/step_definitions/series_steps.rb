@@ -1,4 +1,4 @@
-Given /^the race has series "([^*]*)"$/ do |name|
+Given "the race has series {string}" do |name|
   @series = create(:series, :race => @race, :name => name)
 end
 

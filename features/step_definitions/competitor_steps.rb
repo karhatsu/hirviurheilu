@@ -33,6 +33,12 @@ Given /^the series has a competitor "([^"]*)" "([^"]*)" with (\d+)\+(\d+)\+(\d+)
   @competitor.shooting_points.should == spoints.to_i
 end
 
+Given('the series has a competitor {string} {string} with nordic results {int}, {int}, {int}, {int}') do |first_name, last_name, trap_score, shotgun_score, rifle_moving_score, rifle_standing_score|
+  @competitor = create :competitor, series: @series, first_name: first_name, last_name: last_name,
+                       nordic_trap_score_input: trap_score, nordic_shotgun_score_input: shotgun_score,
+                       nordic_rifle_moving_score_input: rifle_moving_score, nordic_rifle_standing_score_input: rifle_standing_score
+end
+
 Given /^the series has a competitor with attributes:$/ do |fields|
   hash = fields.rows_hash
   if hash[:club]

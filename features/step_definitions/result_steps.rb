@@ -4,7 +4,13 @@ Then /^I should see a result row (\d+) with values:$/ do |order_number, values|
   end
 end
 
-Then ("I should see a card {int} with {int}, {string}, {string} with points {int}") do |order_number, number, name, club, main_value|
+Then('I should see a card {int} for {string} with total score {int}') do |order_number, name, total_score|
+  card_locator = "//div[@class='result-cards']/div[contains(@class, 'card')][#{order_number}]"
+  expect(find(:xpath, "#{card_locator}/div[@class='card__middle']/div[@class='card__name']")).to have_text(name)
+  expect(find(:xpath, "#{card_locator}/div[@class='card__main-value']")).to have_text(total_score)
+end
+
+Then("I should see a card {int} with {int}, {string}, {string} with points {int}") do |order_number, number, name, club, main_value|
   card_locator = "//div[@class='result-cards']/div[contains(@class, 'card')][#{order_number}]"
   expect(find(:xpath, "#{card_locator}/div[@class='card__number']")).to have_text(number)
   expect(find(:xpath, "#{card_locator}/div[@class='card__middle']/div[@class='card__name']")).to have_text(name)
