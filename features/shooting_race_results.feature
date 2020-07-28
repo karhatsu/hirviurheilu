@@ -44,3 +44,15 @@ Feature: Shooting race results
     And I should see "10 (10)" in result card 3 detail row 3
     Then I should see a card 4 with 4, "Laukoja Lasse", "Lassen seura" with points 26
     And I should see "26 (9, 9, 8)" in result card 4 detail row 2
+
+  Scenario: Show results for shotgun race
+    Given there is a "METSASTYSHAULIKKO" race "Metsästyshaulikko test race"
+    And the race has series "N"
+    And the series has a competitor 1 "Anna" "Ampuja" from "Annan seura" with shots "1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0"
+    And the series has a competitor 2 "Kaija" "Kilpailija" from "Kaijan seura" with shots "1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0"
+    And I am on the race page of "Metsästyshaulikko test race"
+    When I follow "N"
+    Then I should see a card 1 with 1, "Kilpailija Kaija", "Kaijan seura" with points 22
+    And I should see "22 (1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0)" in result card 1 detail row 2
+    And I should see a card 2 with 2, "Ampuja Anna", "Annan seura" with points 22
+    And I should see "22 (1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0)" in result card 2 detail row 2
