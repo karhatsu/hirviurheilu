@@ -275,6 +275,31 @@ Feature: Results
       | estimates | - |
       | time | - |
 
+  Scenario: See the results of an unfinished race when correct distances are revealed
+    Given there is a race with attributes:
+      | name | My test race |
+      | start_date | 2020-07-15 |
+      | location | Test city |
+      | start_order | 2 |
+      | reveal_distances | true |
+    And the race has series "Men"
+    And the race has correct estimates with attributes:
+      | min_number | 1 |
+      | distance1 | 100 |
+      | distance2 | 150 |
+    And the series has a competitor with attributes:
+      | first_name | Kimmo |
+      | last_name | Kilpailija |
+      | number | 1 |
+      | start_time | 00:00:00 |
+      | estimate1 | 90 |
+      | estimate2 | 158 |
+    And I am on the race page
+    When I choose "Tulokset" from sub menu
+    Then I should see "Kilpailu on kesken"
+    But I should not see "Tarkemmat arviointitiedot julkaistaan"
+    And I should see "264 (-10m/+8m)" in result card 1 detail row 2
+
   Scenario: See the results of an individual competitor
     Given there is a race with attributes:
       | sport_key | RUN |
