@@ -6,11 +6,15 @@ Feature: European results
   Scenario: Show european race results
     Given there is a "EUROPEAN" race "European test race"
     And the race has series "M"
-    And the series has a competitor "Pekka" "Pohjola" with european results 25, 20, 49, 50, 40, 38
-    And the series has a competitor "Pertti" "Pohjonen" with european results 24, 22, 42, 44, 49, 50
+    And the series has a competitor "Pekka" "Pohjola" from "Team A" with european results 25, 20, 49, 50, 40, 38
+    And the series has a competitor "Pertti" "Pohjonen" from "Team B" with european results 24, 22, 42, 44, 49, 50
     And the race has series "N"
-    And the series has a competitor "Päivi" "Pohjoinen" with european results 23, 25, 48, 46, 41, 44
+    And the series has a competitor "Päivi" "Pohjoinen" from "Team A" with european results 23, 25, 48, 46, 41, 44
+    And the series has a competitor "Pinja" "Pohja" from "Team B" with european results 20, 19, 40, 40, 40, 40
+    And the race has a team competition "Teams" with 2 competitors / team
     And I am on the race page of "European test race"
+    And the team competition contains the series "M"
+    And the team competition contains the series "N"
     When I follow "Tulokset"
     Then I should see a card 1 for "Pohjonen Pertti" with total score 369
     And I should see "Trap: 24 Compak: 22 Metsäkauris: 42 Kettu: 44 Gemssi: 49 Villisika: 50" in result card 1 detail row 2
@@ -24,3 +28,9 @@ Feature: European results
     When I choose "Kilpailun etusivu" from sub menu
     And I follow "Luodikko N"
     Then I should see a card 1 for "Pohjoinen Päivi" with total score 179
+    When I choose "Joukkuekilpailu" from sub menu
+    Then I should see a card 1 for "Team A" with total score 728
+    Then I should see a card 2 for "Team B" with total score 685
+    When I choose "Luodikon joukkue" from sub menu
+    Then I should see a card 1 for "Team A" with total score 356
+    Then I should see a card 2 for "Team B" with total score 345

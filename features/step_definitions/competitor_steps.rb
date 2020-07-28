@@ -39,8 +39,9 @@ Given('the series has a competitor {string} {string} with nordic results {int}, 
                        nordic_rifle_moving_score_input: rifle_moving_score, nordic_rifle_standing_score_input: rifle_standing_score
 end
 
-Given('the series has a competitor {string} {string} with european results {int}, {int}, {int}, {int}, {int}, {int}') do |first_name, last_name, trap_score, compak_score, rifle1_score, rifle2_score, rifle3_score, rifle4_score|
-  @competitor = create :competitor, series: @series, first_name: first_name, last_name: last_name,
+Given('the series has a competitor {string} {string} from {string} with european results {int}, {int}, {int}, {int}, {int}, {int}') do |first_name, last_name, club_name, trap_score, compak_score, rifle1_score, rifle2_score, rifle3_score, rifle4_score|
+  @club = Club.find_or_create_by! name: club_name, race: @race
+  @competitor = create :competitor, series: @series, club: @club, first_name: first_name, last_name: last_name,
                        european_trap_score_input: trap_score, european_compak_score_input: compak_score,
                        european_rifle1_score_input: rifle1_score, european_rifle2_score_input: rifle2_score,
                        european_rifle3_score_input: rifle3_score, european_rifle4_score_input: rifle4_score
