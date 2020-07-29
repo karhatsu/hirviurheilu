@@ -168,3 +168,24 @@ Feature: Manage competitors
     And I press "Tallenna"
     Then I should be on the official competitors page of series "M60"
     And I should see "Eurooppalainen Erkki"
+
+  Scenario: Update nordic race competitor
+    Given I am an official
+    And I have a "NORDIC" race "Nordic test race"
+    And the race has series "S20"
+    And the series has a competitor "Nipa" "Nordic"
+    And I have logged in
+    And I am on the official race page of "Nordic test race"
+    And I choose "Kilpailijat" from sub menu
+    And I follow "Nordic Nipa"
+    When I fill in "Niemelä" for "Sukunimi"
+    And I fill in "26" for "Trapin tulos"
+    And I fill in "25" for "Compakin tulos"
+    And I fill in "99" for "Liikkuvan hirven tulos"
+    And I fill in "90" for "Seisovan kauriin tulos"
+    And I press "Tallenna"
+    Then I should see "Trapin tulos täytyy olla pienempi tai yhtä suuri kuin 25" in a error message
+    And I fill in "25" for "Trapin tulos"
+    And I press "Tallenna"
+    Then I should be on the official competitors page of series "S20"
+    And I should see "Niemelä Nipa"
