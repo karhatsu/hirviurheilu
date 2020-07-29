@@ -58,7 +58,7 @@ Feature: Manage competitors
     And I fill in "100" for "Arvio 2"
     And I press "Tallenna"
     Then I should be on the official competitors page of series "Series B"
-    And I should see "done" within ".card__main-value"
+    And the card 1 main value should be "done"
     When I follow "Ford Peter"
     Then the "competitor_arrival_time" text field value should be "00:23:45"
 
@@ -127,3 +127,21 @@ Feature: Manage competitors
     And I should see "00:10:30"
     And I should see "567"
     And I should see "New club"
+
+  Scenario: Update shooting race competitor
+    Given I am an official
+    And I have a "METSASTYSHIRVI" race "Hirvi test race"
+    And the race has series "N60"
+    And the series has a competitor "Heidi" "Hirvi"
+    And I have logged in
+    And I am on the official race page of "Hirvi test race"
+    And I choose "Kilpailijat" from sub menu
+    And I follow "Hirvi Heidi"
+    When I fill in "Hirvelä" for "Sukunimi"
+    And I fill in "97" for "Alkukilpailun yhteistulos"
+    And I fill in "99" for "Loppukilpailun yhteistulos"
+    And I press "Tallenna"
+    Then I should be on the official competitors page of series "N60"
+    And I should see "Hirvelä Heidi"
+    When I choose "Ammunta sarjoittain" from sub menu
+    Then the card 1 main value should be "97 + 99 = 196"
