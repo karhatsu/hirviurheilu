@@ -168,6 +168,8 @@ Feature: Manage competitors
     And I press "Tallenna"
     Then I should be on the official competitors page of series "M60"
     And I should see "Eurooppalainen Erkki"
+    When I choose "Luodikko" from sub menu
+    Then the card 1 main value should be "188"
 
   Scenario: Update nordic race competitor
     Given I am an official
@@ -189,3 +191,5 @@ Feature: Manage competitors
     And I press "Tallenna"
     Then I should be on the official competitors page of series "S20"
     And I should see "Niemelä Nipa"
+    When I choose "Trap" from sub menu
+    Then the card 1 main value should be "25"
