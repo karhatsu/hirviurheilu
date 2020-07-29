@@ -6,10 +6,14 @@ Feature: Nordic results
   Scenario: Show nordic race results
     Given there is a "NORDIC" race "Nordic test race"
     And the race has series "M"
-    And the series has a competitor "Pekka" "Pohjola" with nordic results 24, 20, 99, 100
-    And the series has a competitor "Pertti" "Pohjonen" with nordic results 25, 21, 90, 92
+    And the series has a competitor "Pekka" "Pohjola" from "Team A" with nordic results 24, 20, 99, 100
+    And the series has a competitor "Pertti" "Pohjonen" from "Team B" with nordic results 25, 21, 90, 92
     And the race has series "N"
-    And the series has a competitor "Päivi" "Pohjoinen" with nordic results 21, 25, 100, 96
+    And the series has a competitor "Päivi" "Pohjoinen" from "Team B" with nordic results 21, 25, 100, 96
+    And the series has a competitor "Pinja" "Pohja" from "Team A" with nordic results 20, 19, 89, 91
+    And the race has a team competition "Nordic teams" with 2 competitors / team
+    And the team competition contains the series "M"
+    And the team competition contains the series "N"
     And I am on the race page of "Nordic test race"
     When I follow "Tulokset"
     Then I should see a card 1 for "Pohjola Pekka" with total score 375
@@ -32,3 +36,6 @@ Feature: Nordic results
     And I should see a card 1 for "Pohjola Pekka" with total score 100
     Then I should see a card 2 for "Pohjoinen Päivi" with total score 96
     And I should see a card 3 for "Pohjonen Pertti" with total score 92
+    When I choose "Joukkuekilpailu" from sub menu
+    Then I should see a card 1 for "Team B" with total score 746
+    Then I should see a card 2 for "Team A" with total score 711
