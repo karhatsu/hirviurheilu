@@ -146,6 +146,25 @@ Feature: Manage competitors
     When I choose "Ammunta sarjoittain" from sub menu
     Then the card 1 main value should be "97 + 99 = 196"
 
+  @javascript
+  Scenario: Update shotgun race competitor
+    Given I am an official
+    And I have a "METSASTYSTRAP" race "Trap test race"
+    And the race has series "M"
+    And the series has a competitor "Timo" "Trap"
+    And I have logged in
+    And I am on the official race page of "Trap test race"
+    And I choose "Kilpailijat" from sub menu
+    And I follow "Trap Timo"
+    When I fill in "Teppo" for "Etunimi"
+    And I select qualification round shotgun shots from 2 to 23
+    And I select final round shotgun shots from 1 to 21
+    When I press "Tallenna"
+    Then I should be on the official competitors page of series "M"
+    And I should see "Trap Teppo"
+    When I choose "Ammunta sarjoittain" from sub menu
+    Then the card 1 main value should be "22 + 21 = 43"
+
   Scenario: Update european race competitor
     Given I am an official
     And I have a "EUROPEAN" race "European test race"
