@@ -145,3 +145,26 @@ Feature: Manage competitors
     And I should see "Hirvelä Heidi"
     When I choose "Ammunta sarjoittain" from sub menu
     Then the card 1 main value should be "97 + 99 = 196"
+
+  Scenario: Update european race competitor
+    Given I am an official
+    And I have a "EUROPEAN" race "European test race"
+    And the race has series "M60"
+    And the series has a competitor "Eetu" "Eurooppalainen"
+    And I have logged in
+    And I am on the official race page of "European test race"
+    And I choose "Kilpailijat" from sub menu
+    And I follow "Eurooppalainen Eetu"
+    When I fill in "Erkki" for "Etunimi"
+    And I fill in "24" for "Trapin tulos"
+    And I fill in "25" for "Compakin tulos"
+    And I fill in "51" for "Metsäkauriin tulos"
+    And I fill in "48" for "Ketun tulos"
+    And I fill in "40" for "Gemssin tulos"
+    And I fill in "50" for "Villisian tulos"
+    And I press "Tallenna"
+    Then I should see "Metsäkauriin tulos täytyy olla pienempi tai yhtä suuri kuin 50" in a error message
+    And I fill in "50" for "Metsäkauriin tulos"
+    And I press "Tallenna"
+    Then I should be on the official competitors page of series "M60"
+    And I should see "Eurooppalainen Erkki"
