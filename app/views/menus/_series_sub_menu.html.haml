@@ -4,8 +4,8 @@
       - if series == @series
         .button.button--current= series.name
       - else
-        = link_to series.name, yield(series), class: 'button'
+        = link_to series.name, yield(series).strip, class: 'button'
 - else
   .menu.menu--sub.menu--sub-2
     - race.series.each do |series|
-      = menu_item series.name, yield(series), series.id == series_id, 18
+      = menu_item series.name, yield(series).strip, series.id == series_id, 18

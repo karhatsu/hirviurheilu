@@ -5,8 +5,8 @@
         - if relay.id == relay_id
           .button.button--current= relay.name
         - else
-          = link_to relay.name, yield(relay), class: 'button'
+          = link_to relay.name, yield(relay).strip, class: 'button'
   - else
     .menu.menu--sub.menu--sub-2
       - race.relays.each do |relay|
-        = menu_item relay.name, yield(relay), relay.id == relay_id, 18
+        = menu_item relay.name, yield(relay).strip, relay.id == relay_id, 18
