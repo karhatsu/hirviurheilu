@@ -90,3 +90,23 @@ Feature: Save results by result place
     Then I should see "Tallennettu" in a success message
     When I choose "Ammunta sarjoittain" from sub menu
     Then the card 1 main value should be "81 + 92 = 173"
+
+  @javascript
+  Scenario: Save shotgun race shots
+    Given I am an official
+    And I have a "METSASTYSHAULIKKO" race "Shotgun test race"
+    And the race has series "M70"
+    And the series has a competitor
+    And I have logged in
+    And I am on the official race page of "Shotgun test race"
+    When I choose "Ammunta sarjoittain" from sub menu
+    And I select qualification round shotgun shots from 1 to 23
+    Then the card 1 main value should be "23 + 0 = 23"
+    When I press "Tallenna"
+    Then I should see "Tallennettu" in a success message
+    And I select final round shotgun shots from 3 to 24
+    Then the card 1 main value should be "23 + 22 = 45"
+    When I press "Tallenna"
+    Then I should see "Tallennettu" in a success message
+    When I choose "Ammunta sarjoittain" from sub menu
+    Then the card 1 main value should be "23 + 22 = 45"
