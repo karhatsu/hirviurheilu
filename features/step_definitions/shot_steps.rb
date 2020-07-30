@@ -4,6 +4,18 @@ When("I fill shots {string}") do |shots_string|
   end
 end
 
+When("I fill qualification round shots {string}") do |shots_string|
+  shots_string.split(',').each_with_index do |shot, i|
+    fill_in "shots-shot-#{@competitor.id}-#{i}", with: shot
+  end
+end
+
+When("I fill final round shots {string}") do |shots_string|
+  shots_string.split(',').each_with_index do |shot, i|
+    fill_in "shots-shot-#{@competitor.id}-#{10 + i}", with: shot
+  end
+end
+
 When('I select qualification round shotgun shots from {int} to {int}') do |from, to|
   (1...from).each do |i|
     page.find(:xpath, "(//div[contains(@class, 'binary-shot__option--0')])[#{i}]").click

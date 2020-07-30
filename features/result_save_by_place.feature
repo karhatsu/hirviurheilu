@@ -68,3 +68,25 @@ Feature: Save results by result place
     Then I should not see "Tallennettu"
     But I should see "Virhe"
     And I should see "Tälle kilpailijalle on syötetty samanaikaisesti toinen tulos. Lataa sivu uudestaan ja yritä tallentamista sen jälkeen."
+
+  @javascript
+  Scenario: Save shooting race shots
+    Given I am an official
+    And I have a "ILMALUODIKKO" race "Air test race"
+    And the race has series "M70"
+    And the series has a competitor "Iivari" "Ilma"
+    And I have logged in
+    And I am on the official race page of "Air test race"
+    When I choose "Ammunta sarjoittain" from sub menu
+    And I fill qualification round shots "9,10,10,10,,9,9,9,8,0"
+    And I press "Tallenna"
+    Then I should see "Virhe: Osa laukauksista on jätetty tyhjiksi, käytä nollaa ohilaukauksille." in an error message
+    When I fill qualification round shots "9,10,10,10,7,9,9,9,8,0"
+    Then the card 1 main value should be "81 + 0 = 81"
+    And I press "Tallenna"
+    Then I should see "Tallennettu" in a success message
+    When I fill final round shots "9,9,10,10,10,8,8,8,10,10"
+    When I press "Tallenna"
+    Then I should see "Tallennettu" in a success message
+    When I choose "Ammunta sarjoittain" from sub menu
+    Then the card 1 main value should be "81 + 92 = 173"
