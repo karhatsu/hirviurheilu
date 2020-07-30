@@ -4,6 +4,10 @@ Then /^I should see a result row (\d+) with values:$/ do |order_number, values|
   end
 end
 
+Then('I should see {int} as total score in the results table for row {int}') do |total_score, row|
+  expect(find(:xpath, "//table[@class='results-table']/tbody/tr[#{1 + row}]//td[contains(@class, 'total-points')]")).to have_text(total_score)
+end
+
 Then('I should see a card {int} for {string} with total score {int}') do |order_number, name, total_score|
   card_locator = "//div[@class='result-cards']/div[contains(@class, 'card')][#{order_number}]"
   expect(find(:xpath, "#{card_locator}/div[@class='card__middle']/div[@class='card__name']")).to have_text(name)

@@ -16,6 +16,18 @@ When("I fill final round shots {string}") do |shots_string|
   end
 end
 
+When("I fill nordic rifle moving shots {string}") do |shots_string|
+  shots_string.split(',').each_with_index do |shot, i|
+    fill_in "nordic_rifle_moving_shots-shot-#{@competitor.id}-#{i}", with: shot
+  end
+end
+
+When("I fill nordic rifle standing shots {string}") do |shots_string|
+  shots_string.split(',').each_with_index do |shot, i|
+    fill_in "nordic_rifle_standing_shots-shot-#{@competitor.id}-#{i}", with: shot
+  end
+end
+
 When('I select qualification round shotgun shots from {int} to {int}') do |from, to|
   (1...from).each do |i|
     page.find(:xpath, "(//div[contains(@class, 'binary-shot__option--0')])[#{i}]").click
