@@ -140,3 +140,31 @@ Feature: Save results by result place
     When I press "Tallenna"
     And I go to the results page of the series
     Then I should see 261 as total score in the results table for row 1
+
+  @javascript
+  Scenario: Save european race shots
+    Given I am an official
+    And I have a "EUROPEAN" race "European test race"
+    And the race has series "M"
+    And the series has a competitor
+    And I have logged in
+    And I am on the official race page of "European test race"
+    When I choose "Trap" from sub menu
+    And I select qualification round shotgun shots from 1 to 25
+    Then the card 1 main value should be "25"
+    When I press "Tallenna"
+    Then I should see "Tallennettu" in a success message
+    When I choose "Compak" from sub menu
+    And I select qualification round shotgun shots from 2 to 24
+    Then the card 1 main value should be "23"
+    When I press "Tallenna"
+    Then I should see "Tallennettu" in a success message
+    When I choose "Luodikko" from sub menu
+    And I fill european rifle shots "9,9,8,8,9", "10,10,10,10,10", "9,10,9,9,10" and "10,9,8,8,0"
+    Then the card 1 main value should be "175"
+    When I press "Tallenna"
+    Then I should see "Tallennettu" in a success message
+    When I go to the results page of the series
+    Then I should see 367 as total score in the results table for row 1
+    When I choose "Luodikko" from sub menu
+    Then I should see 175 as total score in the results table for row 1

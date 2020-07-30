@@ -28,6 +28,21 @@ When("I fill nordic rifle standing shots {string}") do |shots_string|
   end
 end
 
+When("I fill european rifle shots {string}, {string}, {string} and {string}") do |shots_string1, shots_string2, shots_string3, shots_string4|
+  shots_string1.split(',').each_with_index do |shot, i|
+    fill_in "european_rifle1_shots-shot-#{@competitor.id}-#{i}", with: shot
+  end
+  shots_string2.split(',').each_with_index do |shot, i|
+    fill_in "european_rifle2_shots-shot-#{@competitor.id}-#{i}", with: shot
+  end
+  shots_string3.split(',').each_with_index do |shot, i|
+    fill_in "european_rifle3_shots-shot-#{@competitor.id}-#{i}", with: shot
+  end
+  shots_string4.split(',').each_with_index do |shot, i|
+    fill_in "european_rifle4_shots-shot-#{@competitor.id}-#{i}", with: shot
+  end
+end
+
 When('I select qualification round shotgun shots from {int} to {int}') do |from, to|
   (1...from).each do |i|
     page.find(:xpath, "(//div[contains(@class, 'binary-shot__option--0')])[#{i}]").click
