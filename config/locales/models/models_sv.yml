@@ -6,7 +6,7 @@ sv:
     age_group_id: Åldersgrupp
     api_secret: API lösenord
     arrival_time: Avkomstid
-    batch_id: Erä
+    batch_id: Heat
     batch_interval_seconds: Paus mellan startsatser
     batch_size: Startsatsers storlek
     billing_info: Faktureringsinfo
@@ -21,9 +21,9 @@ sv:
     current_login_ip: Nyk. IP
     day: Dag
     days_count: Längd
-    default_age_group: Oletusikäryhmä
-    default_age_groups: Oletusikäryhmät
-    default_series: Oletussarja
+    default_age_group: Standardäldsgrupp
+    default_age_groups: Standardäldsgruppar
+    default_series: Standardklass
     distance1: Avstånd 1
     distance2: Avstånd 2
     distance3: Avstånd 3
@@ -51,9 +51,9 @@ sv:
     european_rifle4_shots: Vildsvin skott
     european_rifle4_score_input: Vildsvin resultat
     extra_shots: Omskjutning
-    final_round_batch_id: Loppukilpailun erä
-    final_round_shooting_score_input: Loppukilpailun yhteistulos
-    final_round_track_place: Loppukilpailun ratapaikka
+    final_round_batch_id: Finalens heat
+    final_round_shooting_score_input: Finalens resultat
+    final_round_track_place: Finalens plats
     first_name: Förnamn
     first_number: Första tävlingsnummer
     front_page: Visa på frontsida
@@ -97,9 +97,9 @@ sv:
     price: Pris
     public_message: Meddelande på tävlingens hemsida
     published: Publiserad
-    qualification_round_batch_id: Alkukilpailun erä
-    qualification_round_shooting_score_input: Alkukilpailun yhteistulos
-    qualification_round_track_place: Alkukilpailun ratapaikka
+    qualification_round_batch_id: Grundtävlingens heat
+    qualification_round_shooting_score_input: Grundtävlingens resultat
+    qualification_round_track_place: Grundtävlingens plats
     race: Tävling
     races: Tävlingar
     remember_me: Kom ihåg mig
@@ -145,8 +145,8 @@ sv:
         one: Äldsgrupp
         other: Äldsgruppar
       batch:
-        one: Erä
-        other: Erät
+        one: Heat
+        other: Heat
       club:
         one: Klubb
         other: Klubbar
@@ -163,8 +163,8 @@ sv:
         one: Cup-klass
         other: Cup-klasser
       default_age_group:
-        one: Oletusikäryhmä
-        other: Oletusikäryhmät
+        one: Standardäldsgrupp
+        other: Standardäldsgruppar
       default_series:
         one: Oletussarja
         other: Oletussarjat

@@ -13,10 +13,10 @@ sv:
   forgotten_password: Glömt lösenord?
   race_sub_menu:
     home_page: Tävling hemsida
-    start_lists: Startlistor
-    batches: Eräluettelot
-    qualification_round_batches: Alkukilpailun eräluettelot
-    final_round_batches: Loppukilpailun eräluettelot
+    start_lists: Startlista
+    batches: Heatlista
+    qualification_round_batches: Grundtävlingens heatlista
+    final_round_batches: Finalens heatlista
     results: Resultat
     team_competitions:
       one: Lagtävlingen
@@ -38,9 +38,9 @@ sv:
     batches: Erät
     competitors: Tävlar
     start_times: Starttider
-    batch_list_generation: Erien arvonta
-    qualification_round_batch_list: Alkukilpailu
-    final_round_batch_list: Loppukilpailu
+    batch_list_generation: Heatlotteri
+    qualification_round_batch_list: Grundtävling
+    final_round_batch_list: Final
     quick_save: Resultat
     times: Tider
     estimates: Bedömning

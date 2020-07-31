@@ -2,9 +2,9 @@ sv:
   add: Öka
   add_batch: Öka skede
   add_competitors: Öka tävlar
-  add_final_round_batch: Lisää erä loppukilpailuun
+  add_final_round_batch: Öka finalens heat
   add_new: Öka ny
-  add_qualification_round_batch: Lisää erä alkukilpailuun
+  add_qualification_round_batch: Öka grundtävlingens heat
   add_race: Öka tävling
   added: Ökat
   age_group:
@@ -12,7 +12,7 @@ sv:
     shooting_race: Grupp
   all: Alla
   all_announcements: Alla nyheter
-  all_batches: Kaikki erät
+  all_batches: Alla heat
   all_competitors: Alla tävlarna
   all_districts: Alla distrikt
   all_series: Alla klasser
@@ -77,7 +77,7 @@ sv:
   extra_round: Omskjutning
   feedback: Feedback
   final_round: Final
-  final_round_batch_lists: Loppukilpailu eräluettelot
+  final_round_batch_lists: Finalens heatlista
   hide_all_competitors: Gömma alla tävlarna
   hide_shots: Gömma skott
   hide_races_of_cup: Gömma tävlingarna
@@ -95,8 +95,8 @@ sv:
   order_method_1: Lottas
   password: Lösenord
   points: Poäng
-  qualification_round: Alkukilpailu
-  qualification_round_batch_lists: Alkukilpailun eräluettelot
+  qualification_round: Grundtävling
+  qualification_round_batch_lists: Grundtävlingens heatlista
   race_id: Tävlingens ID
   race_search_text: Tävlings namn eller ort
   relay_team:
@@ -186,7 +186,7 @@ sv:
   times: Tider
   total: Totalt
   total_points: Totalpoäng
-  unexpected_error: Odottamaton virhe
+  unexpected_error: Oväntad fel
   unofficial: Informella tävlare
   unofficial_short: inf.
   update: Uppdatera

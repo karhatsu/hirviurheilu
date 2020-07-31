@@ -68,8 +68,8 @@ sv:
         copy_competitors: Kopiera tävlarna från annan tävling
         add_competitors_from_csv: Öka tävlar från CSV-fil
         batches_manually: Erien hallinta manuaalisesti
-        batch_list_generation: Erien arvonta
-        qualification_round_batch_list: Alkukilpailun erien asettelu arpomalla
+        batch_list_generation: Heatlotteri
+        qualification_round_batch_list: Grundtävlingens heatlotteri
         qualification_round_batch_list_pdf: Alkukilpailun erien ampumapöytäkirjat (PDF)
         final_round_batch_list: Loppukilpailun erien asettelu
         batch_list_template_pdf: Yhden erän tyhjä PDF
@@ -110,8 +110,8 @@ sv:
       edit:
         either_total_or_shots: Spara antingen totalresultat eller enskilda skott.
         shots: Enskilda skott
-        qualification_round_shots: Alkukilpailun laukaukset
-        final_round_shots: Loppukilpailun laukaukset
+        qualification_round_shots: Grundtävlingens skott
+        final_round_shots: Finalens skott
         dns: Startade inte (DNS)
         dnf: Avbröt (DNF)
         dq: Diskad (DQ)
@@ -145,13 +145,13 @@ sv:
     qualification_round_batch_lists:
       show:
         title:
-          one_batch_list: Erien arvonta
-          other: Alkukilpailun erien arvonta
+          one_batch_list: Heatlotteri
+          other: Grundtävlingens heatlotteri
         no_competitors_without_batch_in_series:
-          one_batch_list: Sarjassa ei ole yhtään kilpailijaa, jolta puuttuisi erä
+          one_batch_list: Alla tävlarna har heat på den här klassen
           other: Sarjassa ei ole yhtään kilpailijaa, jolta puuttuisi alkukilpailun ammuntapaikka
         nordic_info: Tällä työkalulla voit arpoa trapin suoritusajat. Arvonnan jälkeen voit käydä asettamassa muiden osalajien ajat Erät-sivulla.
-        button: Arvo eräluettelot
+        button: Lotta heatlista
       create:
         batch_list_generated: Alkukilpailun eräluettelot luotu sarjalle onnistuneesti
     final_round_batch_lists:
