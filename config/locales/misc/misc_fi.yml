@@ -36,6 +36,8 @@ fi:
   clubs: Seurat
   competition: Kilpailu
   competitions: Kilpailut
+  competition_starts: Kilpailu alkaa %{time}
+  competition_started: Kilpailu alkoi %{time}
   competition_unfinished: Kilpailu on kesken
   competition_unfinished_detailed_estimates_later: Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan, kun kilpailu on päättynyt.
   competitor:
@@ -113,6 +115,10 @@ fi:
   result_time: Aika
   result: Tulos
   results: Tulokset
+  rifle_results: Luodikon tulokset
+  rifle_team_competition:
+    one: Luodikon joukkuekilpailu
+    other: Luodikon joukkuekilpailut
   save: Tallenna
   saved: Tallennettu
   search: Etsi

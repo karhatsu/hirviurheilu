@@ -1,6 +1,6 @@
 - content_for :title, @cup.name
 - unless @cup.public_message.blank?
-  %h2 Cup-kilpailun järjestäjä tiedottaa
+  %h2= t '.organizer_message'
   .public-message
     - markdown = Redcarpet::Markdown.new Redcarpet::Render::HTML
     = raw markdown.render(@cup.public_message)
@@ -12,7 +12,7 @@
     - @cup.cup_series.each do |cs|
       = link_to long_cup_series_name(cs), cup_cup_series_path(@cup, cs), class: 'button button--primary'
 - if @cup.has_rifle? && !@cup.cup_series.empty?
-  %h2 Luodikon tulokset
+  %h2= t :rifle_results
   .buttons
     - @cup.cup_series.each do |cs|
       = link_to long_cup_series_name(cs), cup_rifle_cup_series_path(@cup, cs), class: 'button button--primary'

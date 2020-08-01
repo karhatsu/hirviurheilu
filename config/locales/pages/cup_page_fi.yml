@@ -1,9 +1,9 @@
 fi:
   cups:
     show:
+      organizer_message: Cup-kilpailun järjestäjä tiedottaa
       points_rule_title: Pistelaskenta
       points_rule:
         basic: Yhteispisteet lasketaan %{best_competitions_count} parhaan tuloksen perusteella.
         include_always_last_race: Yhteispisteet lasketaan viimeisen kilpailun sekä muista kilpailuista %{best_competitions_count} parhaan tuloksen perusteella.
       sub_competitions: Osakilpailut
-      

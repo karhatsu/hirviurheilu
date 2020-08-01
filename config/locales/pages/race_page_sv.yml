@@ -2,6 +2,7 @@ sv:
   races:
     show:
       organizer_info: Tävlingens organizatör
+      organizer_message: Tävlingens organizatör informerar
       race_home_page: Tävlingens hemsidor
       single_competitor_competitions: Normaltävlingar
       no_series_for_race: Tävlingen saknas klasser för tillfället
@@ -9,7 +10,7 @@ sv:
       correct_distances: Rätta avstånd
       start_lists_for_all_series_pdf: Starttider för alla klasser (PDF)
       download_start_times: Ladda starttider
-      download_batch_list: Lataa eräluettelo
+      download_batch_list: Ladda heatlista
       competitor_numbers: Nummer
       teams: Lag
       all_results_pdf: Alla resultat (PDF)

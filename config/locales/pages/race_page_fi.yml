@@ -2,6 +2,7 @@ fi:
   races:
     show:
       organizer_info: Kilpailun järjestäjä
+      organizer_message: Kilpailun järjestäjä tiedottaa
       race_home_page: Kilpailun kotisivut
       single_competitor_competitions: Yksilökilpailut
       no_series_for_race: Kilpailuun ei ole vielä lisätty sarjoja

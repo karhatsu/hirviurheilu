@@ -1,6 +1,6 @@
 - if @race.team_competitions.count > 0
   .page-break
-  %h2 Luodikon joukkuekilpailut
+  %h2= t 'rifle_team_competition.other'
   - @race.team_competitions.each_with_index do |tc, index|
     - if index > 0 && @page_breaks
       .page-break
