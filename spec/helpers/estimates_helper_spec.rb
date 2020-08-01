@@ -93,8 +93,8 @@ describe EstimatesHelper do
     let(:estimate_points) { 290 }
     let(:show_correct_distances?) { true }
     let(:fake_meters) { '12m' }
-    let(:race) { build :race }
-    let(:competitor) { build :competitor }
+    let(:race) { instance_double Race }
+    let(:competitor) { instance_double Competitor }
 
     before do
       allow(race).to receive(:show_correct_distances?).and_return(show_correct_distances?)
