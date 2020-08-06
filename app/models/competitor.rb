@@ -583,7 +583,9 @@ class Competitor < ApplicationRecord
   end
 
   def set_has_result
-    self.has_result = true if arrival_time || estimate1 || shooting_score_input || qualification_round_shooting_score_input || final_round_shooting_score_input || shots
+    self.has_result = true if arrival_time || estimate1 || shooting_score_input ||
+        qualification_round_shooting_score_input || final_round_shooting_score_input || shots ||
+        nordic_score || european_score
   end
 
   def reset_age_group

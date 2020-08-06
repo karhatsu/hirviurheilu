@@ -821,6 +821,24 @@ describe Competitor do
           expect(@competitor.has_result?).to be_truthy
         end
       end
+
+      context 'when any nordic result is saved' do
+        it 'marks has_result true' do
+          allow(@competitor).to receive(:sport).and_return(Sport.by_key(Sport::NORDIC))
+          @competitor.nordic_trap_score_input = 21
+          @competitor.save!
+          expect(@competitor.has_result?).to be_truthy
+        end
+      end
+
+      context 'when any european result is saved' do
+        it 'marks has_result true' do
+          allow(@competitor).to receive(:sport).and_return(Sport.by_key(Sport::EUROPEAN))
+          @competitor.european_rifle3_shots = [10]
+          @competitor.save!
+          expect(@competitor.has_result?).to be_truthy
+        end
+      end
     end
   end
 
