@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_06_055816) do
+ActiveRecord::Schema.define(version: 2020_08_13_044512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -289,14 +289,6 @@ ActiveRecord::Schema.define(version: 2020_08_06_055816) do
     t.boolean "finished", default: false, null: false
     t.integer "rifle_national_record"
     t.index ["race_id"], name: "index_series_on_race_id"
-  end
-
-  create_table "shots", id: :serial, force: :cascade do |t|
-    t.integer "competitor_id", null: false
-    t.integer "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["competitor_id"], name: "index_shots_on_competitor_id"
   end
 
   create_table "sports", id: :serial, force: :cascade do |t|
