@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_13_044512) do
+ActiveRecord::Schema.define(version: 2020_08_13_044857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,16 +91,6 @@ ActiveRecord::Schema.define(version: 2020_08_13_044512) do
     t.integer "shooting_overtime_min"
     t.time "shooting_start_time"
     t.time "shooting_finish_time"
-    t.integer "shot_0"
-    t.integer "shot_1"
-    t.integer "shot_2"
-    t.integer "shot_3"
-    t.integer "shot_4"
-    t.integer "shot_5"
-    t.integer "shot_6"
-    t.integer "shot_7"
-    t.integer "shot_8"
-    t.integer "shot_9"
     t.bigint "qualification_round_batch_id"
     t.integer "qualification_round_track_place"
     t.jsonb "shots"
