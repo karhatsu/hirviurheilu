@@ -33,12 +33,12 @@ Feature: Feedback
     And there exists an official "Petteri Pesonen" with email "petteri@test.com"
     And there is a race with attributes:
       | name       | Hyvä kisa  |
-      | start_date | 2020-08-01 |
+      | start_date | 2030-08-01 |
       | location   | Kisakylä   |
     And "other@test.com" is an official for the race
     And "petteri@test.com" is the primary official for the race
     And I am on the new feedback page
-    When I select "Hyvä kisa (01.08.2020, Kisakylä)" from "Palautteen kohde"
+    When I select "Hyvä kisa (01.08.2030, Kisakylä)" from "Palautteen kohde"
     And I fill in "Kilpailijan tiedot väärin, voitko korjata?" for "Palaute"
     And I fill in "Yksi kilpailija" for "Nimi"
     And I fill in "Neljä" for "captcha"
@@ -46,7 +46,7 @@ Feature: Feedback
     Then "petteri@test.com" should receive an email with subject "Hirviurheilu - palaute"
     When I open the email
     Then I should see "Kilpailijan tiedot väärin, voitko korjata?" in the email body
-    And I should see "Kilpailu: Hyvä kisa (01.08.2020, Kisakylä)" in the email body
+    And I should see "Kilpailu: Hyvä kisa (01.08.2030, Kisakylä)" in the email body
     And I should see "Nimi: Yksi kilpailija" in the email body
 
   Scenario: Send feedback without email address
