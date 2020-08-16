@@ -35,7 +35,7 @@ sv:
   official_sub_menu:
     summary: Sammanfattning
     race: Basinformation
-    batches: Erät
+    batches: Heat
     competitors: Tävlar
     start_times: Starttider
     batch_list_generation: Heatlotteri
@@ -46,7 +46,7 @@ sv:
     estimates: Bedömning
     shooting: Skytte
     shooting_by_series: Skytte (klasser)
-    shooting_by_batches: Skytte (skede)
+    shooting_by_batches: Skytte (heat)
     correct_distances: Riktiga avstånd
     csv: CSV
     team_competitions: Lagtävlingar

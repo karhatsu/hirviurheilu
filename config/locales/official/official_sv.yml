@@ -70,13 +70,13 @@ sv:
         batches_manually: Erien hallinta manuaalisesti
         batch_list_generation: Heatlotteri
         qualification_round_batch_list: Grundtävlingens heatlotteri
-        qualification_round_batch_list_pdf: Alkukilpailun erien ampumapöytäkirjat (PDF)
-        final_round_batch_list: Loppukilpailun erien asettelu
-        batch_list_template_pdf: Yhden erän tyhjä PDF
+        qualification_round_batch_list_pdf: Grundtävlingens heat skytteprotokoll (PDF)
+        final_round_batch_list: Finalens heatlista
+        batch_list_template_pdf: Tom PDF för ett heat
         other: Övriga
         national_records: Finska rekord
-        download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)
-        download_competitors_by_series: Lataa osallistujat sarjoittain (PDF)
+        download_competitors_by_clubs: Ladda tävlarna som klubbar (PDF)
+        download_competitors_by_series: Ladda tävlarna som klasser (PDF)
         other_race_formats: Andra tävlingar
         finish_race_text: när du har sparat alla resultaten, så att de riktiga avstånden kan publiseras
         create_start_list: Gör startlista
@@ -128,20 +128,20 @@ sv:
         start_list_create_for_series: Startlista skapat för klassen
     batch_lists:
       show:
-        first_batch_number: Ensimmäinen kilpailija arvotaan erään numero
-        first_track_place: Ensimmäinen kilpailija sijoitetaan erässä paikalle numero
-        first_batch_track_number: Ensimmäisen erän ratanumero
-        include_tracks: Käytä ratoja
-        batch_day: Päivä
-        first_batch_time: Ensimmäisen erän kellonaika
-        minutes_between_batches: Erälle varattu aika (min)
-        assign_competitors: Asettele kilpailijat
-        all_track_places: kaikkiin paikkoihin
-        odd_track_places: parittomiin paikkoihin
-        even_track_places: parillisiin paikkoihin
-        skip_first_track_place: Jätä erän ensimmäinen paikka tyhjäksi
-        skip_last_track_place: Jätä erän viimeinen paikka tyhjäksi
-        skip_track_places: Vapaaksi jätettävät ammuntapaikat (pilkulla erotettuina, esim. 4,12,13)
+        first_batch_number: Den första tävlarens heatnummer
+        first_track_place: Den första tävlarens plats
+        first_batch_track_number: Det första heatets bana
+        include_tracks: Använd banor
+        batch_day: Dag
+        first_batch_time: Det första heatets starttid
+        minutes_between_batches: Tid reserverad för ett heat (min)
+        assign_competitors: Placera tävlarna till
+        all_track_places: alla platser
+        odd_track_places: udda platser
+        even_track_places: jämn platser
+        skip_first_track_place: Lämna den första platsen tom
+        skip_last_track_place: Lämna den sista platse tom
+        skip_track_places: Tomma platser (t.ex. 4,12,13)
     qualification_round_batch_lists:
       show:
         title:
@@ -149,20 +149,20 @@ sv:
           other: Grundtävlingens heatlotteri
         no_competitors_without_batch_in_series:
           one_batch_list: Alla tävlarna har heat på den här klassen
-          other: Sarjassa ei ole yhtään kilpailijaa, jolta puuttuisi alkukilpailun ammuntapaikka
-        nordic_info: Tällä työkalulla voit arpoa trapin suoritusajat. Arvonnan jälkeen voit käydä asettamassa muiden osalajien ajat Erät-sivulla.
+          other: Alla tävlarna har plats i grundtävlingen på den här klassen
+        nordic_info: Här kan du lotta tider för trap. Efter lotteri du kan sätta tider för andra grener på Heat-sidan.
         button: Lotta heatlista
       create:
-        batch_list_generated: Alkukilpailun eräluettelot luotu sarjalle onnistuneesti
+        batch_list_generated: Grundtävlingens heatlista färdig för klassen
     final_round_batch_lists:
       show:
-        title: Loppukilpailun erien asettelu
-        no_competitors_without_batch_in_series: Sarjassa ei ole yhtään kilpailijaa, jolta puuttuisi loppukilpailun ammuntapaikka
-        competitors_count: Loppukilpailun kilpailijoiden lukumäärä
-        best_as_last: Sijoita paras kilpailija erän viimeiseksi
-        button: Tee eräluettelot
+        title: Finalens heatlista
+        no_competitors_without_batch_in_series: Alla tävlarna har plats i finalen på den här klassen
+        competitors_count: Antal av tävlarna i finalen
+        best_as_last: Lägga den bästa tävlaren till sista i heat
+        button: Göra heatlista
       create:
-        batch_list_generated: Loppukilpailun eräluettelot luotu sarjalle onnistuneesti
+        batch_list_generated: Finalens heatlista är färding för klassen
     quick_saves:
       index:
         title: Spara resultat
@@ -176,17 +176,17 @@ sv:
         instructions_estimates_4:  eller om tävlarna har fyra bedömningar, nr,bedömning1,bedömning2,bedömning3,bedömning4, t.ex. 45,95,118,185,134
         instructions_shots: Spara resultat som nr,skytteresultat, t.ex. 45,87 (tävlare 45, skytte totalt 87). Eller med skott så att +-tecken eller *-tecken betyder 10, t.ex. 45,++99877420 (sätt 0 för alla missar).
         instructions_qualification_round_shots:
-          ilmaluodikko: Syötä alkukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9++870**89. Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, alkukilpailun tulos 94).
-          shotgun: "Syötä alkukilpailun tulos muodossa nro,laukaus1,lakaus2,..., esim. 45,101110011... Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,23 (kilpailija 45, alkukilpailun tulos: 23 osumaa)."
-          other: Syötä alkukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10, esim. 45,9++870+989. Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, alkukilpailun tulos 94).
+          ilmaluodikko: Spara grundtävlingens resultat som nr,skott1,skott2,... så att +-tecken betyder 10 och *-tecken betyder fullträff, t.ex. 45,9++870**89. Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlare 45, grundtävligens resultat 94).
+          shotgun: "Spara grundtävlingens resultat som nr,skott1,skott2,..., t.ex. 45,101110011... Du kan också spara totalresultatet som nr,resultat, t.ex. 45,23 (tävlare 45, grundtävligens resultat: 23 träffar)."
+          other: Spara grundtävlingens resultat som nr,skott1,skott2,... så att +-tecken betyder 10, t.ex. 45,9++870+989. Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlare 45, grundtävligens resultat 94).
         instructions_final_round_shots:
-          ilmaluodikko: Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9+*87 (5 laukausta) tai 45,9+*870**89 (10 laukausta). Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, loppukilpailun tulos 94).
-          shotgun: "Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,..., esim. 45,101110011... Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,24 (kilpailija 45, loppukilpailun tulos: 24 osumaa)."
-          other: Syötä loppukilpailun tulos muodossa nro,laukaus1,lakaus2,... siten että +-merkki on 10, esim. 45,9++87 (5 laukausta) tai 45,9++870+989 (10 laukausta). Voit myös syöttää suoraan kokonaistuloksen muodossa nro,tulos, esim. 45,94 (kilpailija 45, loppukilpailun tulos 94).
+          ilmaluodikko: Spara finalens resultat som nr,skott1,skott2,... så att +-tecken betyder 10 och *-tecken betyder fullträff, t.ex. 45,9+*87 (5 skott) eller 45,9+*870**89 (10 skott). Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlare 45, finalens resultat 94).
+          shotgun: "Spara finalens resultat som nr,skott1,skott2,..., t.ex. 45,101110011... Du kan också spara totalresultatet som nr,resultat, t.ex. 45,24 (tävlare 45, finalens resultat: 24 träffar)."
+          other: Spara finalens resultat som nr,skott1,skott2,... så att +-tecken betyder 10, t.ex. 45,9++87 (5 skott) eller 45,9++870+989 (10 skott). Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlare 45, finalens resultat 94).
         instructions_extra_shots:
-          ilmaluodikko: Syötä uusintalaukauksia muodossa nro,laukaus1,laukaus2,.. siten että +-merkki on 10 ja *-merkki on napakymppi, esim. 45,9*. Jos syötät laukaukset uudestaan, ne tallentuvat edellisten perään.
-          shotgun: Syötä uusintalaukauksia muodossa nro,laukaus1,lakaus2,..., esim. 45,110. Jos syötät laukaukset uudestaan, ne tallentuvat edellisten perään.
-          other: Syötä uusintalaukauksia muodossa nro,laukaus1,laukaus2,.. siten että +-merkki on 10, esim. 45,9+. Jos syötät laukaukset uudestaan, ne tallentuvat edellisten perään.
+          ilmaluodikko: Spara omskjutning som nr,skott1,skott2,.. så att +-tecken betyder 10 och *-tecken betyder fullträff, t.ex. 45,9*. Om du sparar mer skott, de sparas efter förra skott.
+          shotgun: Spara omskjutning som nr,skott1,skott2,..., t.ex. 45,110. Om du sparar mer skott, de sparas efter förra skott.
+          other: Spara omskjutning som nr,skott1,skott2,.. så att +-tecken betyder 10, t.ex. 45,9+. Om du sparar mer skott, de sparas efter förra skott.
         instructions_dns_dnf_dq: Om tävlare startade inte, spara resultaten som nr,dns t.ex. 45,dns (tävlare 45, DNS = did not start). Om tävlare avbröt, spara resultaten som nr,dnf t.ex. 45,dnf (tävlare 45, DNF = did not finish). Om tävlare disqualified, spara resultaten som nr,dq t.ex. 45,dq (tävlare 45, DQ = diskad).
         latest_savings: Senaste sparat
         result_message: Tävlaren %{competitor_number} %{competitor_name}. (%{series_name}) resultat sparat (%{result}).
@@ -198,41 +198,41 @@ sv:
       shooting:
         either_total_or_shots: Spara antingen totalresultat eller enskilda skott, inte båda
         inner_ten_as_eleven: Använd 11 för innertio
-        sort_by_default: Järjestä normaalisti
-        sort_by_qualification_round: Järjestä kilpailijat alkukilpailun tulosten mukaan
+        sort_by_default: Ordna normalt
+        sort_by_qualification_round: Ordna tävlarana på grund av grundtävlingens resultat
     batches:
       index:
-        title: Erien hallinta
-        no_batches: Et ole lisännyt vielä yhtään erää
-        edit_to_define_competitors: Klikkaa erää, niin pääset asettelemaan siihen kilpailijat
-        reset_batch_lists: Eräluetteloiden tyhjentäminen
+        title: Heat
+        no_batches: Du har ökat inga heat
+        edit_to_define_competitors: Klicka heat för att placera tävlar på det
+        reset_batch_lists: Tömma heatlistan
       new:
-        competitors_info: Kun olet lisännyt erän, pääset asettelemaan siihen kilpailijoita
+        competitors_info: Efter du har ökat ett heat, du kan placera tävlar på det
       create:
-        batch_added: Erä lisätty
+        batch_added: Heat ökat
       edit:
         basic_information: Basinformation
-        batch_competitors: Kilpailijoiden asetus ratapaikkoihin
+        batch_competitors: Placering av tävlar
         no_competitors: Det finns inga tävlare på tävlingen
-        input_competitor_number: Syötä kenttään kilpailijan numero
+        input_competitor_number: Spara tävlares nummer
         competitor_not_found: Kan inte hittas tävlare
-        delete_batch: Poista erä
-        delete_confirmation: Haluatko varmasti poistaa erän?
+        delete_batch: Radera heat
+        delete_confirmation: Är du säker att du vill radera heatet?
       update:
-        batch_updated: Erä päivitetty
+        batch_updated: Heatet uppdaterad
       destroy:
-        batch_deleted: Erä poistettu
+        batch_deleted: Heatet raderad
     batch_lists_resets:
       show:
-        title: Eräluetteloiden tyhjentäminen
-        warning: Tämän sivun avulla voit tyhjentää kaikki eräluettelot kilpailijoista. Huom! Tyhjennystä ei voi peruuttaa!
-        confirm_text: Vahvista tyhjennys kirjoittamalla tähän kilpailun nimi
-        delete_batches: Poista myös erät
-        button: Tyhjennä eräluettelot
+        title: Tömma heatlista
+        warning: Här kan du tömma alla heaten från tävlarna. Obs! Du kan inte bakkas tömningen!
+        confirm_text: Bekräfta tömning så att du skriver tävlingens namn här
+        delete_batches: Radera också heaten
+        button: Tömma heatlista
       destroy:
-        choose_type: Valitse haluatko tyhjentää alku- vai loppukilpailut
-        batches_cleared: Eräluettelot tyhjennetty
-        confirm_text_was_wrong: Kilpailun nimi ei täsmää, yhtään erää ei tyhjennetty
+        choose_type: Välj om du vill tömma grundtävlingens eller finalens heat
+        batches_cleared: Heatlista tömmat
+        confirm_text_was_wrong: Fel tävlingens namn, inga heat tömmat
     correct_estimates:
       index:
         start_numbers: Startnummer
@@ -280,8 +280,8 @@ sv:
           three_sports_race: Äldsgruppar
           shooting_race: Gruppar
         extra_round_info:
-          nordic: Voit tallentaa hirven uusintatuloksen ensimmäiseen kenttään ja trapin toiseen (esim. 98 ja 24)
-          shotgun: Voit tallentaa kahden eri laukojan uusintalaukaukset pilkulla erotettuina (esim. 1,1,0)
+          nordic: Du kan spara älgs omskjutning till första fältet och traps omskjutning till den andra (t.ex. 98 och 24)
+          shotgun: Du kan spara två skyttars omskjutning (t.ex. 1,1,0)
         extra_round_placeholder1:
           nordic: "Älg resultat, t.ex 98"
           shotgun: "Skytt 1, t.ex: 1,0"
@@ -289,7 +289,7 @@ sv:
           nordic: "Jägartrap resultat, t.ex 24"
           shotgun: "Skytt 2, t.ex: 1,1,1"
       destroy:
-        team_competition_removed: Joukkuekilpailu poistettu
+        team_competition_removed: Lagtävlingen raderad
     finish_races:
       new:
         title: Sluta tävlingen
@@ -312,11 +312,11 @@ sv:
       new:
         title: Kopiera tävlarna från annan tävling
         instructions_1:
-          three_sports_race: Valitsemastasi kilpailusta kopioidaan kilpailijat siten, että kohdekilpailuun heille tulee sama nimi, seura, ikäryhmä, sarja, lähtönumero ja lähtöaika.
-          shooting_race: Valitsemastasi kilpailusta kopioidaan kilpailijat siten, että kohdekilpailuun heille tulee sama nimi, seura, sarja ja mahdollinen aliryhmä.
+          three_sports_race: Tävlarna kopieras så att de ska ha samma namn, klubb, äldsgrupp, klass, startnummer och starttid.
+          shooting_race: Tävlarna kopieras så att de ska ha samma namn, klubb, klass och möjlig grupp.
         instructions_2:
-          three_sports_race: Mikäli olet jo lisännyt kohdekilpailuun kilpailijoita, heillä ei saa olla samoja lähtönumeroita kuin lähdekilpailun kilpailijoilla, paitsi jos kyseisellä numerolla oleva kilpailija on saman niminen molemmissa kilpailuissa.
-          shooting_race: Voit valita kopioidaanko myös kilpailijoiden numerot vai luoko ohjelma kilpailijoille uudet numerot.
+          three_sports_race: Om du har redan ökat tävlar, de kan inte ha samma startnummer som på tävlingen du kopiera från, utom om sådana nummer har samma tävlarna i båda tävlingen.
+          shooting_race: Du kan välja om du vill kopiera också tävlarnas nummer eller programmet skapas nya nummer för tävlarna.
         from_race: Från tävling
         race_with_competitors_count: "%{race}, %{location}, %{dates} (%{competitors} tävlar)"
         with_start_list: Kopiera startnumren och starttiderna
@@ -386,10 +386,10 @@ sv:
         submit_button: Slut stafetten
     shooting_by_batches:
       index:
-        title: Ammunta erittäin
-        no_batches: Yhtään erää ei ole vielä määritetty
-        select_batch: Valitse erä
-        no_competitors_in_batch: Erässä ei ole yhtään kilpailijaa
+        title: Skytte (heat)
+        no_batches: Det finns inga heat
+        select_batch: Välj heat
+        no_competitors_in_batch: Heatet har inga tävlar
     national_records:
       index:
         title: Finska record

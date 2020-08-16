@@ -166,8 +166,8 @@ sv:
         one: Standardäldsgrupp
         other: Standardäldsgruppar
       default_series:
-        one: Oletussarja
-        other: Oletussarjat
+        one: Standardklass
+        other: Standardklasser
       district:
         one: Distrikt
         other: Distrikt
@@ -241,20 +241,20 @@ sv:
       models:
         batch_list:
           no_competitors: Klassen har inga tävlare
-          invalid_first_batch_number: Ensimmäisen erän numero on virheellinen
-          invalid_first_track_place: Ensimmäinen paikkanumero on virheellinen
-          invalid_first_batch_time: Ensimmäinen erän kellonaika on virheellinen
-          invalid_minutes_between_batches: Erälle varattu aika on virheellinen
-          invalid_competitors_count: Loppukilpailun kilpailijoiden lukumäärä on virheellinen
-          invalid_first_batch_track_number: Ensimmäisen erän ratanumero on virheellinen
-          invalid_included_tracks: Yhtään rataa ei ole määritetty käytettäväksi
-          included_tracks_mismatch: Ensimmäisen erän ratanumero ei ole yksikään käytettävistä radoista
-          no_track_count: Kilpailulle ei ole määritetty ratojen lukumäärää. Voit tallentaa tiedon kilpailun perustietojen lomakkeella.
-          no_shooting_place_count: Kilpailulle ei ole määritetty ammuntapaikkojen lukumäärää. Voit tallentaa tiedon kilpailun perustietojen lomakkeella.
-          first_batch_day_conflict: Ensimmäinen erä on jo tallennettu mutta sen päivä on eri kuin syöttämäsi päivä
-          first_batch_time_conflict: Ensimmäinen erä on jo tallennettu mutta sen aika on eri kuin syöttämäsi aika
-          first_track_place_reserved: Ensimmäisen erän aloituspaikka on jo käytössä
-          first_batch_track_conflict: Ensimmäisen erän ratapaikka annetulle ajalle on varattu
+          invalid_first_batch_number: Den första tävlarens heatnummer har fel format
+          invalid_first_track_place: Den första tävlarens plats har fel format
+          invalid_first_batch_time: Det första heatets starttid har fel format
+          invalid_minutes_between_batches: Tid reserverad för ett heat har fel format
+          invalid_competitors_count: Antal av tävlarna i finalen har fel format
+          invalid_first_batch_track_number: Det första heatets bana har fel format
+          invalid_included_tracks: Alla banor inaktiverad
+          included_tracks_mismatch: Den första tävlarens heatnummer är inaktiverad
+          no_track_count: Tävlingen saknas antal av banor
+          no_shooting_place_count: Tävlingen saknas antal av skottsplatser
+          first_batch_day_conflict: Det första heatet existeras men heatets dag är annan som dagen du gav
+          first_batch_time_conflict: Det första heatet existeras men heatets starttid är annan som tiden du gav
+          first_track_place_reserved: Den första tävlarens plats är upptagen
+          first_batch_track_conflict: Det första heatets plats är upptagen
         competitor:
           attributes:
             base:
