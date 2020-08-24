@@ -239,8 +239,6 @@ GEM
     puma (4.3.5)
       nio4r (~> 2.0)
     rack (2.2.3)
-    rack-mini-profiler (2.0.2)
-      rack (>= 1.2.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.0.3.2)
@@ -389,7 +387,6 @@ DEPENDENCIES
   nokogiri
   pg
   puma
-  rack-mini-profiler
   rails (= 6.0.3.2)
   rails-controller-testing
   redcarpet
