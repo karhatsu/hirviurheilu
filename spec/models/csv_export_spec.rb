@@ -12,10 +12,12 @@ describe CsvExport do
     series2 = create(:series, :name => 'N50', :race => @race, :first_number => 25, :start_time => '02:05:25')
     age_group2 = create(:age_group, :series => series2, :name => 'N60')
     series3 = create(:series, :name => 'M60', :race => @race)
-    create(:competitor, :series => series1, :first_name => 'Mika', :last_name => 'Heikkinen', :club => club1)
-    create(:competitor, :series => series2, :first_name => 'Maija', :last_name => 'Miettinen', :club => club2, :age_group => age_group2)
-    create(:competitor, :series => series2, :first_name => 'Auli', :last_name => 'Ahtola', :club => club1, :age_group => age_group2)
-    create(:competitor, :series => series3, :first_name => 'Petteri', :last_name => 'Pehtola', :club => club1, :number => nil)
+    batch1 = create :qualification_round_batch, race: @race, number: 5
+    batch2 = create :qualification_round_batch, race: @race, number: 12
+    create :competitor, series: series1, first_name: 'Mika', last_name: 'Heikkinen', club: club1, qualification_round_batch: batch1, qualification_round_track_place: 1
+    create :competitor, series: series2, first_name: 'Maija', last_name: 'Miettinen', club: club2, age_group: age_group2
+    create :competitor, series: series2, first_name: 'Auli', last_name: 'Ahtola', club: club1, age_group: age_group2, qualification_round_batch: batch1, qualification_round_track_place: 2
+    create :competitor, series: series3, first_name: 'Petteri', last_name: 'Pehtola', club: club1, number: nil, qualification_round_batch: batch2, qualification_round_track_place: 4
     series1.generate_start_list!(Series::START_LIST_ADDING_ORDER)
     series2.generate_start_list!(Series::START_LIST_ADDING_ORDER)
   end
@@ -33,6 +35,17 @@ describe CsvExport do
     it 'generates csv file without start time' do
       CsvExport.new(@race).generate_file(GENERATED_FILE)
       verify_files_equal(GENERATED_FILE, 'spec/files/export_shooting_race.csv')
+    end
+  end
+
+  describe 'when (shooting race and) all data included' do
+    before do
+      @race.update_attribute :sport_key, Sport::METSASTYSHAULIKKO
+    end
+
+    it 'generates csv file without start time' do
+      CsvExport.new(@race, true).generate_file(GENERATED_FILE)
+      verify_files_equal(GENERATED_FILE, 'spec/files/export_shooting_race_all_data.csv')
     end
   end
 

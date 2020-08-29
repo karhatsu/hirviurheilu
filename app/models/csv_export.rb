@@ -1,9 +1,10 @@
 require 'csv'
 
 class CsvExport
-  def initialize(race)
+  def initialize(race, all_data = false)
     @race = race
     @shooting_race = race.sport.shooting?
+    @all_data = all_data
   end
 
   def generate_file(file_name)
@@ -26,7 +27,11 @@ class CsvExport
 
   def row(competitor)
     columns = [competitor.first_name, competitor.last_name, competitor.club.name, series(competitor)]
-    unless @shooting_race
+    if @all_data
+      columns << competitor.number
+      columns << competitor.qualification_round_batch&.number
+      columns << competitor.qualification_round_track_place
+    elsif !@shooting_race
       columns << competitor.number
       columns << start_time(competitor)
     end

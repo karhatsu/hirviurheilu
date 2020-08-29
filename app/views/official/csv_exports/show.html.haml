@@ -5,7 +5,13 @@
 - else
   .message.message--info= t ".info.#{@race.sport.shooting? ? 'shooting_race' : 'three_sports_race'}"
   = form_tag(official_race_csv_export_path(@race), class: 'form') do |f|
-    = submit_tag t('.submit_button'), class: 'button button--primary'
+    - if @race.sport.shooting?
+      .form__horizontal-fields
+        .form__field
+          = check_box_tag :all_data
+          = label_tag :all_data, t('.all_data')
+    .form__buttons
+      = submit_tag t('.submit_button'), class: 'button button--primary'
 %h2= t '.import_title'
 = link_to t('.import_link'), new_official_race_csv_import_path(@race), class: 'button'
 .buttons.buttons--nav
