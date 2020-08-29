@@ -10,12 +10,14 @@
     - unless @race.batches.empty?
       = select_tag :batch_id, options_from_collection_for_select(@race.batches, :id, :number, params[:batch_id]), prompt: t(:all_batches), onChange: 'filter()'
   .result-cards
-    - @race.competitors.except(:order).order(:number, :last_name, :first_name).each do |competitor|
+    - @race.competitors.except(:order).order(:qualification_round_track_place, :number, :last_name, :first_name).each do |competitor|
       .card{class: "series_#{competitor.series_id} batch_#{competitor.qualification_round_batch_id}"}
-        .card__number= competitor.number
+        .card__number= "##{competitor.number}"
         .card__middle
           .card__name
             #{full_name competitor} (#{competitor.series.name})
+            - if competitor.qualification_round_track_place
+              %span.track_place{style: 'display: none;'}= ", #{t('attributes.track_place').downcase} #{competitor.qualification_round_track_place}"
             %span{id: "status_#{competitor.id}"}
           - unless competitor.no_result_reason
             .card__middle-row
@@ -48,14 +50,18 @@
     var batchId = $('#batch_id').val()
     if (seriesId === '' && batchId === '') {
       $('.card').show()
+      $('.track_place').hide()
     } else {
       $('.card').hide()
       if (seriesId !== '' && batchId !== '') {
         $('.series_' + seriesId + '.batch_' + batchId).show()
+        $('.track_place').show()
       } else if (seriesId !== '') {
-          $('.series_' + seriesId).show()
+        $('.series_' + seriesId).show()
+        $('.track_place').hide()
       } else if (batchId !== '') {
         $('.batch_' + batchId).show()
+        $('.track_place').show()
       }
     }
   }
