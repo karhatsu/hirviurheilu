@@ -3,10 +3,14 @@
 - content_for :sub_sub_menu do
   = render partial: 'menus/cup_series_sub_menu'
 .message.message--info= render partial: 'cups/points_rule', locals: {cup: @cup}
-%a#show_cup_races.button{href: "javascript:void(0)"}= t :show_races_of_cup
-%a#hide_cup_races.button{href: "javascript:void(0)", style: "display:none"}= t :hide_races_of_cup
-.cup_results.results--desktop= render partial: 'cup_series_results', locals: {cup_series: @cup_series}
-.results--mobile= render partial: 'cup_series_results_mobile', locals: {cup_series: @cup_series}
+- force_mobile = @cup.races.count > 7
+%a#show_cup_races.button{class: force_mobile ? 'button--force-mobile' : '', href: "javascript:void(0)"}= t :show_races_of_cup
+%a#hide_cup_races.button{class: force_mobile ? 'button--force-mobile' : '', href: "javascript:void(0)", style: "display:none"}= t :hide_races_of_cup
+- if force_mobile
+  .results--desktop.results--mobile= render partial: 'cup_series_results_mobile', locals: {cup_series: @cup_series}
+- else
+  .cup_results.results--desktop= render partial: 'cup_series_results', locals: {cup_series: @cup_series}
+  .results--mobile= render partial: 'cup_series_results_mobile', locals: {cup_series: @cup_series}
 = render partial: 'menus/cup_series_sub_menu', locals: { mobile: true }
 .buttons
   - path = @is_rifle_cup_series ? cup_rifle_cup_series_path(@cup, @cup_series, format: :pdf) : cup_cup_series_path(@cup, @cup_series, format: :pdf)

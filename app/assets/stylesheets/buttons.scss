@@ -120,5 +120,9 @@
 
   #show_cup_races, #hide_cup_races {
     display: none;
+
+    &.button--force-mobile {
+      display: inline-block;
+    }
   }
 }
