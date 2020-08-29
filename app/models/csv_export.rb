@@ -20,7 +20,7 @@ class CsvExport
   end
 
   def create_csv(csv)
-    @race.competitors.except(:order).order(:start_time).each do |competitor|
+    @race.competitors.includes(:series, :club, :qualification_round_batch).except(:order).order(:start_time).each do |competitor|
       csv << row(competitor)
     end
   end
