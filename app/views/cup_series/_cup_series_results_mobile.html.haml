@@ -10,17 +10,18 @@
           - if show_series_name
             (#{cc.series_name})
         .card__middle-row{style: 'display: none'}
-          - @cup.races.each do |race|
-            - c = cc.competitor_for_race(race)
-            - if c
-              %div
-                = race.name
-                - if c.no_result_reason
-                  = no_result_reason_print c.no_result_reason
-                - elsif @is_rifle_cup_series
-                  = c.european_rifle_score || '-'
-                - else
-                  = points_print(c)
+          .row
+            - @cup.races.each do |race|
+              - c = cc.competitor_for_race(race)
+              - if c
+                .col-xs-12.col-sm-6.col-md-4
+                  = race.name
+                  - if c.no_result_reason
+                    = no_result_reason_print c.no_result_reason
+                  - elsif @is_rifle_cup_series
+                    = c.european_rifle_score || '-'
+                  - else
+                    = points_print(c)
       .card__main-value
         - if @is_rifle_cup_series
           = cc.european_rifle_score
