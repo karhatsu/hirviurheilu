@@ -223,6 +223,9 @@ fi:
         batch_updated: Erä päivitetty
       destroy:
         batch_deleted: Erä poistettu
+    batch_list_templates:
+      show:
+        competitors_per_batch_missing: Kilpailun erätiedot ovat puutteelliset, aseta ne kilpailun perustietojen lomakkeelta
     batch_lists_resets:
       show:
         title: Eräluetteloiden tyhjentäminen

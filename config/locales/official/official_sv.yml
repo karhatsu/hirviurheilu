@@ -222,6 +222,9 @@ sv:
         batch_updated: Heatet uppdaterad
       destroy:
         batch_deleted: Heatet raderad
+    batch_list_templates:
+      show:
+        competitors_per_batch_missing: Tävlingen saknas heatinformation
     batch_lists_resets:
       show:
         title: Tömma heatlista
