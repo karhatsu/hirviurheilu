@@ -71,6 +71,7 @@ sv:
         batch_list_generation: Heatlotteri
         qualification_round_batch_list: Grundtävlingens heatlotteri
         qualification_round_batch_list_pdf: Grundtävlingens heat skytteprotokoll (PDF)
+        final_round_batch_list_pdf: Finalens heat skytteprotokoll (PDF)
         final_round_batch_list: Finalens heatlista
         batch_list_template_pdf: Tom PDF för ett heat
         other: Övriga
