@@ -6,7 +6,7 @@
 = flash_success
 - if @series.race.track_count.to_i <= 0 || @series.race.shooting_place_count.to_i <= 0
   .message.message--error
-    Kilpailulle pitää määrittää ratojen lukumäärä ja ammuntapaikkojen lukumäärä ennen kuin arpoa eräluettelon.
+    Kilpailulle pitää määrittää ratojen lukumäärä ja ammuntapaikkojen lukumäärä ennen kuin voi arpoa eräluettelon.
     = link_to 'Voit asettaa ne kilpailun asetuksista.', edit_official_race_path(@series.race)
 - elsif @competitors_without_batch.empty?
   .message.message--info= t('.no_competitors_without_batch_in_series')
