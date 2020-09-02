@@ -1,10 +1,7 @@
-- if @race.competitors_per_batch
-  - shot_count = @race.sport.qualification_round_shot_count
-  %h2 #{t 'activerecord.models.batch.one'}:
-  - @race.competitors_per_batch.times.each do
-    %h3 #{t 'activerecord.models.competitor.one'}:
-    .empty-results-table
-      - shot_count.times do
-        .empty-results-table__cell
-- else
-  = t '.competitors_per_batch_missing'
+- shot_count = @race.sport.qualification_round_shot_count
+%h2 #{t 'activerecord.models.batch.one'}:
+- @race.competitors_per_batch.times.each do
+  %h3 #{t 'activerecord.models.competitor.one'}:
+  .empty-results-table
+    - shot_count.times do
+      .empty-results-table__cell

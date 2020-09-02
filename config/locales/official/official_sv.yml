@@ -402,3 +402,5 @@ sv:
         no_series: Det finns inga klasser i tävlingen
       update_all:
         updated: Nationellt record updaterad
+    pdf_error:
+      title: Kan inte göra PDF-fil

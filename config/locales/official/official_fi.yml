@@ -403,3 +403,5 @@ fi:
         no_series: Kilpailuun ei ole lisätty yhtään sarjaa
       update_all:
         updated: Suomen ennätykset päivitetty
+    pdf_error:
+      title: PDF-tiedostoa ei voi luoda

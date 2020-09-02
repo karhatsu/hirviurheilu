@@ -1,5 +1,5 @@
 class Official::QualificationRoundBatchListsController < Official::BatchListsController
-  before_action :assign_race_by_race_id, :check_assigned_race, only: :index
+  before_action :assign_race_by_race_id, :check_assigned_race, :check_batch_count, only: :index
   before_action :assign_series_by_series_id, :check_assigned_series, :set_menu, only: [:show, :create]
 
   def index
@@ -33,6 +33,13 @@ class Official::QualificationRoundBatchListsController < Official::BatchListsCon
   end
 
   private
+
+  def check_batch_count
+    if @race.qualification_round_batches.empty?
+      @error = t 'official.batches.index.no_batches'
+      render 'official/shared/pdf_error'
+    end
+  end
 
   def find_competitors_without_batch
     @competitors_without_batch = @series.competitors.where('qualification_round_batch_id IS NULL AND qualification_round_track_place IS NULL')
