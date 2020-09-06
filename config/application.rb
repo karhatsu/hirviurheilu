@@ -10,7 +10,7 @@ end
 
 ADMIN_EMAIL = ["com", ".", "karhatsu", "@", "henri"].reverse.join('')
 
-TEST_URL = 'http://testi.hirviurheilu.com'
+TEST_URL = 'https://testi.hirviurheilu.com'
 PRODUCTION_URL = 'https://www.hirviurheilu.com'
 
 TEST_ENV = ENV['TEST_ENV'] == 'true'

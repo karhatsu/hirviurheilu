@@ -4,7 +4,7 @@ Hirviurheilu API is a JSON REST API.
 
 ## Environments
 
-* test: [http://testi.hirviurheilu.com](http://testi.hirviurheilu.com)
+* test: [https://testi.hirviurheilu.com](https://testi.hirviurheilu.com)
 * production: [https://www.hirviurheilu.com](https://www.hirviurheilu.com)
 
 ## Public API
