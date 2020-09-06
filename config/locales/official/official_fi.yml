@@ -73,6 +73,9 @@ fi:
         nordic_shotgun_batch_list_pdf: Compak PDF
         nordic_rifle_moving_batch_list_pdf: Hirvi PDF
         nordic_rifle_standing_batch_list_pdf: Kauris PDF
+        european_trap_batch_list_pdf: Trap PDF
+        european_compak_batch_list_pdf: Compak PDF
+        european_rifle_batch_list_pdf: Luodikko PDF
         qualification_round_batch_list: Alkukilpailun erien asettelu arpomalla
         qualification_round_batch_list_pdf: Alkukilpailun erien ampumapöytäkirjat (PDF)
         final_round_batch_list_pdf: Loppukilpailun erien ampumapöytäkirjat (PDF)

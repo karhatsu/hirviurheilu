@@ -73,6 +73,9 @@ sv:
         nordic_shotgun_batch_list_pdf: Compak PDF
         nordic_rifle_moving_batch_list_pdf: Älg PDF
         nordic_rifle_standing_batch_list_pdf: Rådjur PDF
+        european_trap_batch_list_pdf: Trap PDF
+        european_compak_batch_list_pdf: Compak PDF
+        european_rifle_batch_list_pdf: Kulskytte PDF
         qualification_round_batch_list: Grundtävlingens heatlotteri
         qualification_round_batch_list_pdf: Grundtävlingens heat skytteprotokoll (PDF)
         final_round_batch_list_pdf: Finalens heat skytteprotokoll (PDF)

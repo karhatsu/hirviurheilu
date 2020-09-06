@@ -66,6 +66,10 @@
           = link_to t('.nordic_shotgun_batch_list_pdf'), official_race_nordic_batch_lists_shotgun_path(@race, format: :pdf), class: 'button button--pdf'
           = link_to t('.nordic_rifle_moving_batch_list_pdf'), official_race_nordic_batch_lists_rifle_moving_path(@race, format: :pdf), class: 'button button--pdf'
           = link_to t('.nordic_rifle_standing_batch_list_pdf'), official_race_nordic_batch_lists_rifle_standing_path(@race, format: :pdf), class: 'button button--pdf'
+        - elsif @race.sport.european?
+          = link_to t('.european_trap_batch_list_pdf'), official_race_european_batch_lists_trap_path(@race, format: :pdf), class: 'button button--pdf'
+          = link_to t('.european_compak_batch_list_pdf'), official_race_european_batch_lists_compak_path(@race, format: :pdf), class: 'button button--pdf'
+          = link_to t('.european_rifle_batch_list_pdf'), official_race_european_batch_lists_rifle_path(@race, format: :pdf), class: 'button button--pdf'
       - else
         = link_to t('.qualification_round_batch_list'), official_series_qualification_round_batch_list_path(@race.series.first), class: 'button'
         = link_to t('.qualification_round_batch_list_pdf'), official_race_qualification_round_batch_lists_path(@race, format: :pdf), class: 'button button--pdf'

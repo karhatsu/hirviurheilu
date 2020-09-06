@@ -1,0 +1,26 @@
+- @batches.each_with_index do |batch, index|
+  - if index > 0
+    .page-break
+  %h2
+    = batch.number
+    - if batch[@time]
+      \/
+      #{batch[@time].strftime('%H:%M')}
+    - if batch.track.to_i > 0
+      (#{t('attributes.track')} #{batch.track})
+  - batch.competitors.each do |competitor|
+    - track_place = competitor.qualification_round_track_place ? "#{competitor.qualification_round_track_place}. " : ''
+    - number = competitor.number ? " (##{competitor.number})" : ''
+    %h3 #{track_place}#{full_name competitor}#{number}, #{competitor.club.name}, #{competitor.series.name}
+    - if @sub_sport == :rifle
+      - 4.times do |i|
+        .empty-results-table
+          - 5.times do
+            .empty-results-table__cell
+          .empty-results-table__cell.empty-results-table__cell--total
+          .empty-results-table__title= t "sport_name.european_sub.rifle#{i + 1}"
+    - else
+      .empty-results-table
+        - 25.times do
+          .empty-results-table__cell
+        .empty-results-table__cell.empty-results-table__cell--total

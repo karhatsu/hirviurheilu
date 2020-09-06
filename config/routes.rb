@@ -83,6 +83,9 @@ Hirviurheilu::Application.routes.draw do
         get 'nordic_batch_lists_shotgun', to: 'nordic_batch_lists#shotgun'
         get 'nordic_batch_lists_rifle_moving', to: 'nordic_batch_lists#rifle_moving'
         get 'nordic_batch_lists_rifle_standing', to: 'nordic_batch_lists#rifle_standing'
+        get 'european_batch_lists_trap', to: 'european_batch_lists#trap'
+        get 'european_batch_lists_compak', to: 'european_batch_lists#compak'
+        get 'european_batch_lists_rifle', to: 'european_batch_lists#rifle'
         resource :batch_list_template, only: :show
         get 'competitor_numbers/:number' => 'competitors#show_by_number'
         put 'competitors/:competitor_id/track_place' => 'competitor_track_places#update'
