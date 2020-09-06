@@ -1,4 +1,4 @@
-ElkSports::Application.configure do
+Hirviurheilu::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
   # The test environment is used exclusively to run your application's
@@ -25,7 +25,7 @@ ElkSports::Application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
-  
+
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
@@ -40,7 +40,7 @@ ElkSports::Application.configure do
   config.assets.allow_debugging = true
 
   config.i18n.locale = :fi
-  
+
   config.log_level = :warn
 
   config.eager_load = false

@@ -22,7 +22,7 @@ VAT = 24
 
 OSX_PLATFORM = (RUBY_PLATFORM =~ /darwin/)
 
-module ElkSports
+module Hirviurheilu
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

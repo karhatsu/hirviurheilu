@@ -1,0 +1,2 @@
+namespace :hirviurheilu do
+end

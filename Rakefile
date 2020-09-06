@@ -4,4 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-ElkSports::Application.load_tasks
+Hirviurheilu::Application.load_tasks

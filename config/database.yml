@@ -1,20 +1,17 @@
 development:
   adapter: postgresql
-  database: <%= ENV['ELK_SPORTS_DATABASE_NAME'] || 'elk_sports' %>
+  database: hirviurheilu
   encoding: unicode
   pool: 5
 
 test: &test
   adapter: postgresql
-  database: elk_sports_test
+  database: hirviurheilu_test
   encoding: unicode
   pool: 5
 
 production:
   adapter: postgresql
-  database: elk_sports
-  username: elk_sports
-  password: elk_sports
   encoding: unicode
   pool: 5
 
