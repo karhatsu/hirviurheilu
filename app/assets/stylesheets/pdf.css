@@ -75,10 +75,3 @@ a:hover {
 .empty-results-table__cell--total {
   width: 82px;
 }
-
-.empty-results-table__title {
-  display: inline-block;
-  height: 32px;
-  line-height: 32px;
-  vertical-align: top;
-}

@@ -13,12 +13,15 @@
     - number = competitor.number ? " (##{competitor.number})" : ''
     %h3 #{track_place}#{full_name competitor}#{number}, #{competitor.club.name}, #{competitor.series.name}
     - if @sub_sport == :rifle
-      - 4.times do |i|
+      - 2.times do |i|
         .empty-results-table
           - 5.times do
             .empty-results-table__cell
-          .empty-results-table__cell.empty-results-table__cell--total
-          .empty-results-table__title= t "sport_name.european_sub.rifle#{i + 1}"
+          .empty-results-table__cell.empty-results-table__cell--space
+          - 4.times do
+            .empty-results-table__cell
+          - if i == 1
+            .empty-results-table__cell.empty-results-table__cell--total
     - else
       .empty-results-table
         - 25.times do
