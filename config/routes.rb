@@ -79,6 +79,10 @@ Hirviurheilu::Application.routes.draw do
         resource :batch_lists_reset, only: [:show, :destroy]
         resources :qualification_round_batch_lists, only: :index
         resources :final_round_batch_lists, only: :index
+        get 'nordic_batch_lists_trap', to: 'nordic_batch_lists#trap'
+        get 'nordic_batch_lists_shotgun', to: 'nordic_batch_lists#shotgun'
+        get 'nordic_batch_lists_rifle_moving', to: 'nordic_batch_lists#rifle_moving'
+        get 'nordic_batch_lists_rifle_standing', to: 'nordic_batch_lists#rifle_standing'
         resource :batch_list_template, only: :show
         get 'competitor_numbers/:number' => 'competitors#show_by_number'
         put 'competitors/:competitor_id/track_place' => 'competitor_track_places#update'

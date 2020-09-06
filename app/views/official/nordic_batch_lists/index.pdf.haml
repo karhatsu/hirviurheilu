@@ -1,0 +1,19 @@
+- shot_count = NordicSubSport.by_key(@sub_sport).shot_count
+- @batches.each_with_index do |batch, index|
+  - if index > 0
+    .page-break
+  %h2
+    = batch.number
+    - if batch[@time]
+      \/
+      #{batch[@time].strftime('%H:%M')}
+    - if batch.track.to_i > 0
+      (#{t('attributes.track')} #{batch.track})
+  - batch.competitors.each do |competitor|
+    - track_place = competitor.qualification_round_track_place ? "#{competitor.qualification_round_track_place}. " : ''
+    - number = competitor.number ? " (##{competitor.number})" : ''
+    %h3 #{track_place}#{full_name competitor}#{number}, #{competitor.club.name}, #{competitor.series.name}
+    .empty-results-table
+      - shot_count.times do |i|
+        .empty-results-table__cell{class: @sub_sport == :rifle_standing && (i == 5 || i == 8) ? 'empty-results-table__cell--space' : ''}
+      .empty-results-table__cell.empty-results-table__cell--total

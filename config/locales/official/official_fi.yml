@@ -69,6 +69,10 @@ fi:
         add_competitors_from_csv: Lisää kilpailijoita CSV-tiedostosta
         batches_manually: Erien hallinta manuaalisesti
         batch_list_generation: Erien arvonta
+        nordic_trap_batch_list_pdf: Trap PDF
+        nordic_shotgun_batch_list_pdf: Compak PDF
+        nordic_rifle_moving_batch_list_pdf: Hirvi PDF
+        nordic_rifle_standing_batch_list_pdf: Kauris PDF
         qualification_round_batch_list: Alkukilpailun erien asettelu arpomalla
         qualification_round_batch_list_pdf: Alkukilpailun erien ampumapöytäkirjat (PDF)
         final_round_batch_list_pdf: Loppukilpailun erien ampumapöytäkirjat (PDF)

@@ -69,6 +69,10 @@ sv:
         add_competitors_from_csv: Öka tävlar från CSV-fil
         batches_manually: Erien hallinta manuaalisesti
         batch_list_generation: Heatlotteri
+        nordic_trap_batch_list_pdf: Trap PDF
+        nordic_shotgun_batch_list_pdf: Compak PDF
+        nordic_rifle_moving_batch_list_pdf: Älg PDF
+        nordic_rifle_standing_batch_list_pdf: Rådjur PDF
         qualification_round_batch_list: Grundtävlingens heatlotteri
         qualification_round_batch_list_pdf: Grundtävlingens heat skytteprotokoll (PDF)
         final_round_batch_list_pdf: Finalens heat skytteprotokoll (PDF)

@@ -68,6 +68,10 @@ a:hover {
   margin: 0 12px 0 0;
 }
 
+.empty-results-table__cell--space {
+  margin-left: 12px;
+}
+
 .empty-results-table__cell--total {
   width: 82px;
 }
