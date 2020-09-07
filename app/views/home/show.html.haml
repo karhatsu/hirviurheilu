@@ -25,7 +25,7 @@
       %h2
         %i.material-icons-outlined.md-18 today
         = t '.upcoming_competitions'
-      = t '.no_upcoming_competitions'
+      .message.message--info= t '.no_upcoming_competitions'
     - else
       - @future.each do |key, races|
         %h2
