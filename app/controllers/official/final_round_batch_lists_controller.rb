@@ -1,6 +1,6 @@
 class Official::FinalRoundBatchListsController < Official::BatchListsController
   before_action :assign_race_by_race_id, :check_assigned_race, :check_batch_count, only: :index
-  before_action :assign_series_by_series_id, :check_assigned_series, :set_menu, only: :show
+  before_action :assign_series_by_series_id, :check_assigned_series, :set_menu, only: [:show, :create]
 
   def index
     respond_to do |format|
