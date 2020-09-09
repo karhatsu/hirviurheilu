@@ -4,6 +4,8 @@
 - if competitors.empty?
   .message.message--info Tähän sarjaan ei ole lisätty kilpailijoita
 - else
+  - race_count = @cup.races.count
+  - top_competitions = @cup.top_competitions
   %table.results-table
     %thead
       %tr
@@ -15,6 +17,7 @@
           %th= race.name
         %th= t :total_points
     - competitors.each_with_index do |cc, i|
+      - emphasize_limit = min_points_to_emphasize race_count, top_competitions, cc.competitors, @is_rifle_cup_series
       %tr{id: "comp_#{i+1}", class: i % 2 == 0 ? 'odd' : ''}
         %td #{i + 1}.
         %td
@@ -28,10 +31,10 @@
             - if c
               - if c.no_result_reason
                 = no_result_reason_print c.no_result_reason
-              - elsif @is_rifle_cup_series
-                = link_to_unless is_pdf, c.european_rifle_score || '-', series_competitor_path(c.series, c)
               - else
-                = link_to_unless is_pdf, points_print(c), series_competitor_path(c.series, c)
+                - points = @is_rifle_cup_series ? (c.european_rifle_score || '-') : points_print(c)
+                %span{class: emphasize_limit && points.to_i >= emphasize_limit ? 'cup-points__emphasize' : ''}
+                  = link_to_unless is_pdf, points, series_competitor_path(c.series, c)
             - else
               \-
         - if @is_rifle_cup_series
