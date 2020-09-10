@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
     :result_rotation_tc_cookie_name, :result_rotation_selected_competitions_cookie_name
   before_action :test_error_email
   before_action :set_locale
-  before_action :clear_old_data_from_staging
   before_action :assign_races_for_main_menu
 
   private
@@ -208,12 +207,6 @@ class ApplicationController < ActionController::Base
 
   def set_is_info
     @is_info = true
-  end
-
-  def clear_old_data_from_staging
-    if ProductionEnvironment.staging?
-      ActiveRecord::Base.connection.execute('delete from user_sessions where updated_at < now()::date - 2')
-    end
   end
 
   def assign_races_for_main_menu

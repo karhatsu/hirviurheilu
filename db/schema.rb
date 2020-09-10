@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_13_044857) do
+ActiveRecord::Schema.define(version: 2020_09_10_091918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -311,15 +311,6 @@ ActiveRecord::Schema.define(version: 2020_08_13_044857) do
     t.integer "national_record"
     t.jsonb "extra_shots"
     t.index ["race_id"], name: "index_team_competitions_on_race_id"
-  end
-
-  create_table "user_sessions", id: :serial, force: :cascade do |t|
-    t.string "session_id", limit: 255
-    t.text "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["session_id"], name: "index_user_sessions_on_session_id"
-    t.index ["updated_at"], name: "index_user_sessions_on_updated_at"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
