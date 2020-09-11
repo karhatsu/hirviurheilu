@@ -9,6 +9,7 @@
     - if batch.track.to_i > 0
       (#{t('attributes.track')} #{batch.track})
   - batch.competitors.each do |competitor|
+    - next unless @sub_sport == :rifle || !competitor.only_rifle?
     - track_place = competitor.qualification_round_track_place ? "#{competitor.qualification_round_track_place}. " : ''
     - number = competitor.number ? " (##{competitor.number})" : ''
     %h3 #{track_place}#{full_name competitor}#{number}, #{competitor.club.name}, #{competitor.series.name}
