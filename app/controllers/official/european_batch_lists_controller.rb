@@ -26,8 +26,9 @@ class Official::EuropeanBatchListsController < Official::OfficialController
     respond_to do |format|
       format.pdf do
         header = "#{t :batch_list} - #{@race.name} - #{t "sport_name.european_sub.#{@sub_sport}"}"
+        orientation = @sub_sport == :rifle ? 'Landscape' : 'Portrait'
         render pdf: "#{@race.name}-eraluettelo", layout: true, template: 'official/european_batch_lists/index',
-               margin: pdf_margin, header: pdf_header(header),
+               orientation: orientation, margin: pdf_margin, header: pdf_header(header),
                footer: pdf_footer, disable_smart_shrinking: true
       end
     end
