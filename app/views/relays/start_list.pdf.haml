@@ -8,9 +8,9 @@
     - @relay.legs_count.times do |i|
       - leg = i + 1
       %h3 #{t :leg} #{leg}
-      %table{style: 'margin-bottom: 10px'}
+      %table
         - @relay.relay_teams.each do |team|
           %tr
             %td{style: 'text-align: right'} #{team.number}.
             %td{style: 'padding-left: 10px'}= team.name
-            %td{style: 'padding-left: 10px'}= full_name team.competitor(leg)
+            %td{style: 'padding-left: 10px; white-space: nowrap;'}= full_name team.competitor(leg)
