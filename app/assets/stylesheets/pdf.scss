@@ -108,3 +108,17 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
     }
   }
 }
+
+.row {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  width: 100%;
+
+  .col-xs-4, .col-sm-3, .col-md-2 {
+    display: inline-block;
+    margin-right: 8px;
+  }
+}
