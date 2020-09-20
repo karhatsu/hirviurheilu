@@ -58,20 +58,20 @@ a:hover {
   flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
   width: 100%;
-}
 
-.empty-results-table__cell {
-  display: inline-block;
-  border: 1px solid #000;
-  width: 32px;
-  height: 32px;
-  margin: 0 12px 0 0;
-}
+  &__cell {
+    display: inline-block;
+    border: 1px solid #000;
+    width: 32px;
+    height: 32px;
+    margin: 0 12px 0 0;
 
-.empty-results-table__cell--space {
-  margin-left: 12px;
-}
+    &--space {
+      margin-left: 12px;
+    }
 
-.empty-results-table__cell--total {
-  width: 82px;
+    &--total {
+      width: 82px;
+    }
+  }
 }

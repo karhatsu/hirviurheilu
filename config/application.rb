@@ -63,7 +63,7 @@ module Hirviurheilu
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.1'
 
-    config.assets.precompile += ['pdf.css', 'mobile.js', 'social.js']
+    config.assets.precompile += %w[pdf.scss mobile.js social.js]
 
     config.assets.initialize_on_precompile = false
 
