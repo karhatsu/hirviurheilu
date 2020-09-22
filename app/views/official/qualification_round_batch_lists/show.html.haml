@@ -13,7 +13,8 @@
   - info = @series.sport.one_batch_list? ? t('.no_competitors_without_batch_in_series.one_batch_list') : t('.no_competitors_without_batch_in_series.other')
   .message.message--info= info
 - else
-  .message.message--info= t('.nordic_info')
+  - if @series.sport.one_batch_list?
+    .message.message--info= t('.one_batch_list_info')
   = form_tag(official_series_qualification_round_batch_list_path(@series), class: 'form') do
     = render partial: 'official/batches/batch_generation_options', locals: { final_round: false }
     .form__buttons

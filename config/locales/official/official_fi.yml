@@ -158,7 +158,7 @@ fi:
         no_competitors_without_batch_in_series:
           one_batch_list: Sarjassa ei ole yhtään kilpailijaa, jolta puuttuisi erä
           other: Sarjassa ei ole yhtään kilpailijaa, jolta puuttuisi alkukilpailun ammuntapaikka
-        nordic_info: Tällä työkalulla voit arpoa trapin suoritusajat. Arvonnan jälkeen voit käydä asettamassa muiden osalajien ajat Erät-sivulla.
+        one_batch_list_info: Tällä työkalulla voit arpoa trapin suoritusajat. Arvonnan jälkeen voit käydä asettamassa muiden osalajien ajat Erät-sivulla.
         button: Arvo eräluettelot
       create:
         batch_list_generated: Alkukilpailun eräluettelot luotu sarjalle onnistuneesti
