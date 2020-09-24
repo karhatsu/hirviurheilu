@@ -25,8 +25,8 @@ Then("the batch {int} should contain a competitor {string} in row {int}") do |nu
   expect(page.find(:xpath, "(//div[@class='card'])[#{number}]//div[contains(@class, 'card__middle-row')][#{competitor_row}]")).to have_text(competitor)
 end
 
-Then('the batch {int} should contain competitor {string} in the track place {int}') do |batch_number, competitor, track_place|
-  card_path = "(//div[@class='row'][#{batch_number}]//a[@class='card'])[#{track_place}]"
+Then('the batch {int} card {int} should contain competitor {string} in the track place {int}') do |batch_number, card_number, competitor, track_place|
+  card_path = "(//div[@class='row'][#{batch_number}]//a[@class='card'])[#{card_number}]"
   expect(page.find(:xpath, "#{card_path}/div[@class='card__number']")).to have_text(track_place)
   expect(page.find(:xpath, "#{card_path}/div[@class='card__middle']/div[@class='card__name']")).to have_text(competitor)
 end

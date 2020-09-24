@@ -33,6 +33,10 @@ Given /^the series has a competitor "([^"]*)" "([^"]*)" with (\d+)\+(\d+)\+(\d+)
   @competitor.shooting_points.should == spoints.to_i
 end
 
+Given('the series has a competitor {string} {string} with qualification round result {int}') do |first_name, last_name, qualification_round_score|
+  @competitor = create :competitor, series: @series, first_name: first_name, last_name: last_name, qualification_round_shooting_score_input: qualification_round_score
+end
+
 Given('the series has a competitor {string} {string} from {string} with nordic results {int}, {int}, {int}, {int}') do |first_name, last_name, club_name, trap_score, shotgun_score, rifle_moving_score, rifle_standing_score|
   @club = Club.find_or_create_by! name: club_name, race: @race
   @competitor = create :competitor, series: @series, club: @club, first_name: first_name, last_name: last_name,
