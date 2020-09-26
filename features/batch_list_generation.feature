@@ -96,3 +96,51 @@ Feature: Batch list generation
     And the batch 2 card 3 should contain competitor "Jannela Janne" in the track place 4
     And I should see "Erä: 3, 13:15 (Rata 1)"
     And the batch 3 card 1 should contain competitor "Heikkilä Heikki" in the track place 2
+
+  Scenario: Generate batch lists for nordic race
+    Given I am an official
+    And I have logged in
+    And I have a race with attributes:
+      | name | Test race |
+      | sport_key | NORDIC |
+      | track_count | 2        |
+      | shooting_place_count | 10 |
+    And the race has series "M"
+    And the series has a competitor "Antti" "Anttila"
+    And the series has a competitor "Heikki" "Heikkilä"
+    And the series has a competitor "Iivo" "Iivonen"
+    And the series has a competitor "Janne" "Jannela"
+    And the series has a competitor "Matti" "Mattila"
+    And the series has a competitor "Timo" "Testinen"
+    And the series has a competitor "Pekka" "Pekkanen"
+    And I am on the official race page of "Test race"
+    When I choose "Erien arvonta" from sub menu
+    Then the official main menu item should be selected
+    And the "Erien arvonta" sub menu item should be selected
+    And I should see "Tällä työkalulla voit arpoa trapin suoritusajat"
+    Given batch list generation sorts competitors by last name
+    When I fill in "12:50" for "Ensimmäisen erän kellonaika"
+    And I fill in "15" for "Erälle varattu aika (min)"
+    And I choose "only_track_places_odd"
+    And I fill in "1,7" for "Vapaaksi jätettävät ammuntapaikat (pilkulla erotettuina, esim. 4,12,13)"
+    And I press "Arvo eräluettelot"
+    And I should see "Erä: 1, Trap: 12:50 (Rata 1)"
+    And the batch 1 card 1 should contain competitor "Anttila Antti" in the track place 3
+    And the batch 1 card 2 should contain competitor "Heikkilä Heikki" in the track place 5
+    And the batch 1 card 3 should contain competitor "Iivonen Iivo" in the track place 9
+    And I should see "Erä: 2, Trap: 12:50 (Rata 2)"
+    And the batch 2 card 1 should contain competitor "Jannela Janne" in the track place 3
+    And the batch 2 card 2 should contain competitor "Mattila Matti" in the track place 5
+    And the batch 2 card 3 should contain competitor "Pekkanen Pekka" in the track place 9
+    And I should see "Erä: 3, Trap: 13:05 (Rata 1)"
+    And the batch 3 card 1 should contain competitor "Testinen Timo" in the track place 3
+    When I choose "Erät" from sub menu
+    And I click the card 1
+    And I select "10" from "batch_time2_4i"
+    And I select "20" from "batch_time2_5i"
+    And I select "15" from "batch_time3_4i"
+    And I select "00" from "batch_time3_5i"
+    And I select "17" from "batch_time4_4i"
+    And I select "45" from "batch_time4_5i"
+    And I press "Tallenna"
+    And I should see "Trap: 12:50 - Compak: 10:20 - Hirvi: 15:00 - Kauris: 17:45 (Rata 1)"
