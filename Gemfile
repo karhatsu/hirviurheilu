@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-ruby '2.7.1'
+ruby '2.7.2'
 
 gem 'rails', '6.0.3.3'
 gem 'jquery-rails'
@@ -57,7 +57,6 @@ end
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'therubyracer'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-commands-cucumber'

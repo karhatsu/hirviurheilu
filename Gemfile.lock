@@ -199,7 +199,6 @@ GEM
     kgio (2.11.3)
     launchy (2.5.0)
       addressable (~> 2.7)
-    libv8 (3.16.14.19)
     loofah (2.7.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -219,7 +218,7 @@ GEM
     multi_test (0.1.2)
     multi_xml (0.6.0)
     newrelic_rpm (6.12.0.367)
-    nio4r (2.5.3)
+    nio4r (2.5.4)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     pg (1.2.3)
@@ -229,7 +228,7 @@ GEM
       thor
       thread_safe
     public_suffix (4.0.5)
-    puma (4.3.5)
+    puma (5.0.2)
       nio4r (~> 2.0)
     rack (2.2.3)
     rack-test (1.1.0)
@@ -267,7 +266,6 @@ GEM
     raindrops (0.19.1)
     rake (13.0.1)
     redcarpet (3.5.0)
-    ref (2.0.0)
     regexp_parser (1.7.1)
     request_store (1.5.0)
       rack (>= 1.4)
@@ -327,9 +325,6 @@ GEM
     sys-uname (1.2.1)
       ffi (>= 1.0.0)
     temple (0.8.2)
-    therubyracer (0.12.3)
-      libv8 (~> 3.16.14.15)
-      ref
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -393,7 +388,6 @@ DEPENDENCIES
   spring
   spring-commands-cucumber
   spring-commands-rspec
-  therubyracer
   uglifier
   unicorn
   wicked_pdf
@@ -401,7 +395,7 @@ DEPENDENCIES
   wkhtmltopdf-heroku
 
 RUBY VERSION
-   ruby 2.7.1p83
+   ruby 2.7.2p137
 
 BUNDLED WITH
    2.1.4
