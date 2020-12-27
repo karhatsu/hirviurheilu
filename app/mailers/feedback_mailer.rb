@@ -1,6 +1,5 @@
 class FeedbackMailer < ApplicationMailer
-  add_template_helper ApplicationHelper
-  add_template_helper TimeFormatHelper
+  helper :time_format
 
   def feedback_mail(comment, name, email, tel, current_user)
     @comment = comment
