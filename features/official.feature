@@ -20,6 +20,12 @@ Feature: Official
       | Salasana | testpassword |
       | Salasana uudestaan | testpassword |
     And I press "Rekisteröidy"
+    Then I should see "Tarkastuskysymys meni väärin."
+    When I fill in the following:
+      | Salasana | testpassword |
+      | Salasana uudestaan | testpassword |
+      | captcha            | neljä        |
+    And I press "Rekisteröidy"
     Then I should see "Käyttäjätili luotu."
     When I follow "Toimitsijan sivut"
     Then I should be on the official index page

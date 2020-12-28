@@ -10,6 +10,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(new_user_params)
+    @captcha = params[:captcha].strip
+    unless @captcha && %w[neljä fyra].include?(@captcha.downcase)
+      flash[:error] = t(:wrong_captcha)
+      return render :new
+    end
     if @user.save
       @user.add_official_rights
       NewUserMailer.new_user(@user).deliver_now

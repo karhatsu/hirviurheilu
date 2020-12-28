@@ -4,8 +4,13 @@
 = render 'shared/staging_env_info'
 - if PRODUCTION_ENV
   .message.message--important= raw t('.practise_info', :test_url => TEST_URL)
+= flash_error
 = form_for @user, url: account_path, html: { class: 'form' } do |f|
   = render partial: "form", object: f
+  .form__field
+    = label_tag :captcha, t(:captcha)
+    = text_field_tag :captcha, @captcha
+    .form__field__info= t(:captcha_info)
   .form__buttons
     = f.submit t('.submit'), class: 'button button--primary'
 .buttons.buttons--nav
