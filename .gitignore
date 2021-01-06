@@ -4,10 +4,10 @@ STABLE_COMMIT_RSPEC
 .idea
 .project
 capybara-*
-bin/*
 db/*.sqlite3*
 log/*.log
 nbproject
+node_modules/
 public/javascripts/all.js
 public/stylesheets/all.css
 spec/files/generated.csv
