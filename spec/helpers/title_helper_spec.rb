@@ -185,25 +185,24 @@ describe TitleHelper do
       allow(ProductionEnvironment).to receive(:production?).and_return(true)
       expect(helper.title_prefix).to eq('')
     end
+  end
 
-    describe '#competitor_title' do
-      describe 'without age group' do
-        it 'contains race, series and competitor full name' do
-          race = create :race, name: 'Good race'
-          series = create :series, race: race, name: 'Fast series'
-          competitor = create :competitor, series: series, first_name: 'Gary', last_name: 'Robertson'
-          expect(helper.competitor_title(competitor)).to eq('Good race - Fast series - Robertson Gary')
-        end
+  describe '#competitor_title' do
+    let(:race) { create :race, name: 'Good race' }
+    let(:series) { create :series, race: race, name: 'Fast series' }
+
+    describe 'without age group' do
+      it 'contains race, series and competitor full name' do
+        competitor = create :competitor, series: series, first_name: 'Gary', last_name: 'Robertson', number: 100
+        expect(helper.competitor_title(competitor)).to eq('Good race - Fast series - Robertson Gary')
       end
+    end
 
-      describe 'with age group' do
-        it 'contains race, series and competitor full name appended with age group name' do
-          race = create :race, name: 'Good race'
-          series = create :series, race: race, name: 'Fast series'
-          age_group = create :age_group, series: series, name: 'Slower'
-          competitor = create :competitor, series: series, first_name: 'Gary', last_name: 'Robertson', age_group: age_group
-          expect(helper.competitor_title(competitor)).to eq('Good race - Fast series - Robertson Gary (Slower)')
-        end
+    describe 'with age group' do
+      it 'contains race, series and competitor full name appended with age group name' do
+        age_group = create :age_group, series: series, name: 'Slower'
+        competitor = create :competitor, series: series, first_name: 'Gary', last_name: 'Robertson', age_group: age_group, number: 101
+        expect(helper.competitor_title(competitor)).to eq('Good race - Fast series - Robertson Gary (Slower)')
       end
     end
   end
