@@ -37,7 +37,7 @@ Hirviurheilu::Application.configure do
   end
 
   # Use a different cache store in production
-  config.cache_store = :dalli_store, (ENV['MEMCACHIER_SERVERS'] || '').split(','),
+  config.cache_store = :mem_cache_store, (ENV['MEMCACHIER_SERVERS'] || '').split(','),
       {:username => ENV['MEMCACHIER_USERNAME'],
        :password => ENV['MEMCACHIER_PASSWORD'],
        failover: true,
