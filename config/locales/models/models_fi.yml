@@ -9,7 +9,6 @@ fi:
     batch_id: Erä
     batch_interval_seconds: Tauko lähtöerien välissä
     batch_size: Lähtöerien koko
-    billing_info: Laskutustieto
     cancelled: Peruttu
     club: Seura/piiri
     club_name: Seura

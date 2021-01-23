@@ -183,11 +183,6 @@ Then /^the race should be completely removed from the database$/ do
   RelayCompetitor.exists?(@relay_competitor.id).should be_falsey
 end
 
-Then(/^the last race billing info should be "(.*?)"$/) do |billing_info|
-  billing_info = nil if billing_info.empty?
-  expect(Race.last.billing_info).to eql billing_info
-end
-
 Then("I should see {int} races ordered as {string}") do |race_count, race_names|
   expect(page.all('.card').length).to eql race_count
   race_names.split(', ').each_with_index do |race_name, i|
