@@ -4,8 +4,6 @@
     %th Pvm
     %th Sijainti
     %th Toimitsijat
-    %th Laskutus
-    %th &nbsp;
     %th &nbsp;
   - races.each_with_index do |race, i|
     %tr{id: "race_row_#{race.id}", class: i % 2 == 0 ? 'odd' : ''}
@@ -15,8 +13,6 @@
         = "(#{race.days_count})" if race.days_count > 1
       %td= truncate(race.location, length: 30)
       %td= truncate(race.users.collect { |user| full_name(user) }.join(', '), length: 50)
-      %td= race.billing_info
-      %td= link_to 'Muokkaa', edit_admin_race_path(race, no_billing: params[:no_billing])
       %td= link_to 'Poista', admin_race_path(race)
 :javascript
   $(document).ready(function () {
