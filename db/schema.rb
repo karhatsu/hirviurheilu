@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_23_150036) do
+ActiveRecord::Schema.define(version: 2021_01_23_153930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -164,7 +164,6 @@ ActiveRecord::Schema.define(version: 2021_01_23_150036) do
   end
 
   create_table "races", id: :serial, force: :cascade do |t|
-    t.integer "sport_id"
     t.string "name", limit: 255, null: false
     t.string "location", limit: 255, null: false
     t.date "start_date", null: false
@@ -194,7 +193,6 @@ ActiveRecord::Schema.define(version: 2021_01_23_150036) do
     t.integer "track_count"
     t.boolean "reveal_distances", default: false, null: false
     t.boolean "cancelled", default: false, null: false
-    t.index ["sport_id"], name: "index_races_on_sport_id"
   end
 
   create_table "relay_competitors", id: :serial, force: :cascade do |t|
@@ -280,13 +278,6 @@ ActiveRecord::Schema.define(version: 2021_01_23_150036) do
     t.boolean "finished", default: false, null: false
     t.integer "rifle_national_record"
     t.index ["race_id"], name: "index_series_on_race_id"
-  end
-
-  create_table "sports", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255, null: false
-    t.string "key", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "team_competition_age_groups", id: false, force: :cascade do |t|
