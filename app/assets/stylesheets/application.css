@@ -9,6 +9,7 @@
  *= require pagination
  *= require public-message
  *= require titles
+ *= require badges
 
  *= require dialogs
  *= require facebook

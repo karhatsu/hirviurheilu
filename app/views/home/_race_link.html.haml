@@ -1,6 +1,9 @@
 .col-xs-12.col-sm-6.col-md-4
   %a.card{href: race_path(race)}
     .card__middle
-      .card__name= race.name
+      .card__name
+        = race.name
+        - if race.cancelled
+          .badge.badge--cancelled= t 'attributes.cancelled'
       .card__middle-row #{date_interval(race.start_date, race.end_date)}, #{race.location}
       .card__middle-row.card__middle-row--sport-name= t "sport_name.#{race.sport_key}"
