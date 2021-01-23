@@ -9,7 +9,10 @@
     .col-xs-12.col-sm-6.col-md-4
       %a.card{href: official_race_path(competition)}
         .card__middle
-          .card__name= competition.name
+          .card__name
+            = competition.name
+            - if competition.cancelled?
+              .badge.badge--cancelled= t 'attributes.cancelled'
           .card__middle-row
             #{race_date_interval(competition, false)}, #{competition.location}
           - if warn_unfinished && !competition.finished?
