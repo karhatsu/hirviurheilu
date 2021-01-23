@@ -1,6 +1,6 @@
 = content_for(:title, @race.name)
 - unless @race.home_page.blank? and @race.organizer.blank? and @race.organizer_phone.blank?
-  %h2= t '.organizer_info'
+  %h2{class: @race.cancelled? ? 'cancelled-race-first-header' : ''}= t '.organizer_info'
   = organizer_info_with_possible_link(@race)
 - unless @race.public_message.blank?
   %h2= t '.organizer_message'

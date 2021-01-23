@@ -1,5 +1,5 @@
 - race = menu_race
-- if race
+- if race && !race.cancelled?
   .menu.menu--sub.menu--sub-1
     = menu_item t('race_sub_menu.home_page'), race_path(race), @is_race
     - series = menu_series
