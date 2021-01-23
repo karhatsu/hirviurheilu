@@ -10,6 +10,7 @@ sv:
     batch_interval_seconds: Paus mellan startsatser
     batch_size: Startsatsers storlek
     billing_info: Faktureringsinfo
+    cancelled: Inställd
     club: Klubb
     club_name: Klubb
     content: Innehål
