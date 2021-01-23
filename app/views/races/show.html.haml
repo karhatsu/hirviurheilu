@@ -7,106 +7,110 @@
   .public-message
     - markdown = Redcarpet::Markdown.new Redcarpet::Render::HTML
     = raw markdown.render(@race.public_message)
-- unless @race.batches.empty?
-  %h2= t :batch_lists
-  .buttons#batch-links
-    - if @race.sport.batch_list? && !@race.qualification_round_batches.empty?
-      - text = @race.sport.one_batch_list? ? t('race_sub_menu.batches') : t('race_sub_menu.qualification_round_batches')
-      = link_to text, race_qualification_round_batches_path(@race), class: 'button button--primary'
-    - if @race.sport.batch_list? && !@race.final_round_batches.empty?
-      = link_to t('race_sub_menu.final_round_batches'), race_final_round_batches_path(@race), class: 'button button--primary'
-- unless @race.series.empty? && !@race.relays.empty?
-  %h2= @race.sport.shooting? ? t(:results) : t('.single_competitor_competitions')
-  - infos = []
-  - if @race.series.empty? && @race.relays.empty?
-    - infos << t('.no_series_for_race')
-  - if @race.start_date > Time.zone.today
-    - infos << "#{t '.competition_begins'} #{distance_of_time_in_words(Time.zone.today, @race.start_date)}"
-  - if @race.start_time_defined? && !@race.finished? && Date.today <= @race.start_date
-    - time = time_print @race.start_time
-    - if Time.now > @race.start_datetime
-      - infos << t(:competition_started, time: time)
-    - else
-      - infos << t(:competition_starts, time: time)
-  - if infos.length > 0
-    .message.message--info= infos.join('. ')
-  .buttons#series-links
-    - @race.series.each do |series|
-      - if !series.started? && @race.sport.start_list?
-        - link_text = series.start_time ? "#{series.name} (#{time_print(series.start_datetime)})" : series.name
-        = link_to link_text, race_series_start_list_path(@race, series), class: 'button'
-      - else
-        = link_to series.name, race_series_path(@race, series), class: 'button button--primary'
-  - if @race.sport.nordic?
-    .buttons
-      - [:trap, :shotgun, :rifle_moving, :rifle_standing].map do |sub_sport|
-        = link_to t("sport_name.nordic_sub.#{sub_sport}"), "/races/#{@race.id}/#{sub_sport}", class: 'button button--primary'
-  - elsif @race.sport.european?
-    .buttons
-      - @race.series.each do |series|
-        = link_to "#{t('sport_name.european_sub.rifle')} #{series.name}", race_series_rifle_path(@race, series), class: 'button button--primary'
-  - unless @race.finished? || @race.competitors.empty?
-    .results--desktop
-      - if @race.sport.start_list?
-        %h3= t '.start_lists_for_all_series_pdf'
-        = form_tag(race_start_lists_path(@race, format: :pdf), method: :get, class: 'form') do
-          .form__horizontal-fields
-            .form__field= select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: "#{t :all} #{clubs_title(@race).downcase}"
-            .form__buttons= submit_tag t('.download_start_times'), class: 'button button--pdf'
+- if @race.cancelled?
+  %h2= t :race_is_cancelled_title
+  .message.message--error= t :race_is_cancelled_message
+- else
+  - unless @race.batches.empty?
+    %h2= t :batch_lists
+    .buttons#batch-links
       - if @race.sport.batch_list? && !@race.qualification_round_batches.empty?
-        - title = @race.sport.one_batch_list? ? t(:batch_lists) : t(:qualification_round_batch_lists)
-        = render partial: 'batch_list_pdf_form', locals: { path: race_qualification_round_batches_path(@race, format: :pdf), title: title }
+        - text = @race.sport.one_batch_list? ? t('race_sub_menu.batches') : t('race_sub_menu.qualification_round_batches')
+        = link_to text, race_qualification_round_batches_path(@race), class: 'button button--primary'
       - if @race.sport.batch_list? && !@race.final_round_batches.empty?
-        = render partial: 'batch_list_pdf_form', locals: { path: race_final_round_batches_path(@race, format: :pdf), title: t(:final_round_batch_lists) }
-  - if @race.finished? && !@race.sport.shooting?
-    %h3= t :correct_distances
-    .row
-      - @race.correct_estimates.each do |ce|
-        .col-xs-6.col-sm-4.col-md-3
-          .card
-            .card__middle
-              .card__name= correct_estimate_range ce
-              .card__middle-row= ce.distances.map{|d| "#{d} m"}.join(', ')
-- if @race.has_team_competition?
-  %h2= t 'activerecord.models.team_competition', :count => @race.team_competitions.count
-  - if @race.team_competitions.count == 1
-    = link_to t('activerecord.models.team_competition.one'), race_team_competition_path(@race, @race.team_competitions.first), class: 'button button--primary'
-  - else
-    .buttons
-      - @race.team_competitions.each do |tc|
-        = link_to tc.name, race_team_competition_path(@race, tc), class: 'button button--primary'
-  - if @race.sport.european?
-    %h2= t 'rifle_team_competition.one'
+        = link_to t('race_sub_menu.final_round_batches'), race_final_round_batches_path(@race), class: 'button button--primary'
+  - unless @race.series.empty? && !@race.relays.empty?
+    %h2= @race.sport.shooting? ? t(:results) : t('.single_competitor_competitions')
+    - infos = []
+    - if @race.series.empty? && @race.relays.empty?
+      - infos << t('.no_series_for_race')
+    - if @race.start_date > Time.zone.today
+      - infos << "#{t '.competition_begins'} #{distance_of_time_in_words(Time.zone.today, @race.start_date)}"
+    - if @race.start_time_defined? && !@race.finished? && Date.today <= @race.start_date
+      - time = time_print @race.start_time
+      - if Time.now > @race.start_datetime
+        - infos << t(:competition_started, time: time)
+      - else
+        - infos << t(:competition_starts, time: time)
+    - if infos.length > 0
+      .message.message--info= infos.join('. ')
+    .buttons#series-links
+      - @race.series.each do |series|
+        - if !series.started? && @race.sport.start_list?
+          - link_text = series.start_time ? "#{series.name} (#{time_print(series.start_datetime)})" : series.name
+          = link_to link_text, race_series_start_list_path(@race, series), class: 'button'
+        - else
+          = link_to series.name, race_series_path(@race, series), class: 'button button--primary'
+    - if @race.sport.nordic?
+      .buttons
+        - [:trap, :shotgun, :rifle_moving, :rifle_standing].map do |sub_sport|
+          = link_to t("sport_name.nordic_sub.#{sub_sport}"), "/races/#{@race.id}/#{sub_sport}", class: 'button button--primary'
+    - elsif @race.sport.european?
+      .buttons
+        - @race.series.each do |series|
+          = link_to "#{t('sport_name.european_sub.rifle')} #{series.name}", race_series_rifle_path(@race, series), class: 'button button--primary'
+    - unless @race.finished? || @race.competitors.empty?
+      .results--desktop
+        - if @race.sport.start_list?
+          %h3= t '.start_lists_for_all_series_pdf'
+          = form_tag(race_start_lists_path(@race, format: :pdf), method: :get, class: 'form') do
+            .form__horizontal-fields
+              .form__field= select_tag :club_id, options_from_collection_for_select(@race.clubs, :id, :name), prompt: "#{t :all} #{clubs_title(@race).downcase}"
+              .form__buttons= submit_tag t('.download_start_times'), class: 'button button--pdf'
+        - if @race.sport.batch_list? && !@race.qualification_round_batches.empty?
+          - title = @race.sport.one_batch_list? ? t(:batch_lists) : t(:qualification_round_batch_lists)
+          = render partial: 'batch_list_pdf_form', locals: { path: race_qualification_round_batches_path(@race, format: :pdf), title: title }
+        - if @race.sport.batch_list? && !@race.final_round_batches.empty?
+          = render partial: 'batch_list_pdf_form', locals: { path: race_final_round_batches_path(@race, format: :pdf), title: t(:final_round_batch_lists) }
+    - if @race.finished? && !@race.sport.shooting?
+      %h3= t :correct_distances
+      .row
+        - @race.correct_estimates.each do |ce|
+          .col-xs-6.col-sm-4.col-md-3
+            .card
+              .card__middle
+                .card__name= correct_estimate_range ce
+                .card__middle-row= ce.distances.map{|d| "#{d} m"}.join(', ')
+  - if @race.has_team_competition?
+    %h2= t 'activerecord.models.team_competition', :count => @race.team_competitions.count
     - if @race.team_competitions.count == 1
-      = link_to t('activerecord.models.team_competition.one'), race_rifle_team_competition_path(@race, @race.team_competitions.first), class: 'button button--primary'
+      = link_to t('activerecord.models.team_competition.one'), race_team_competition_path(@race, @race.team_competitions.first), class: 'button button--primary'
     - else
       .buttons
         - @race.team_competitions.each do |tc|
-          = link_to tc.name, race_rifle_team_competition_path(@race, tc), class: 'button button--primary'
-- unless @race.relays.empty?
-  %h2= t 'activerecord.models.relay', :count => @race.relays.count
-  .buttons
-    - @race.relays.each do |relay|
-      - link_text = !relay.started? && relay.start_time ? "#{relay.name} (#{relay_start_time_print(relay)})" : relay.name
-      = link_to link_text, race_relay_path(@race, relay), class: 'button button--primary'
-- unless @race.start_date > Date.today || @race.series.empty?
-  .results--desktop
-    %h2= t '.all_results_pdf'
-    = form_tag(race_path(@race, format: :pdf), method: :get, class: 'form') do
-      .form__horizontal-fields
-        .form__field
-          = select_tag :club_id,
-            options_from_collection_for_select(@race.clubs, :id, :name),
-            :prompt => "#{t :all} #{clubs_title(@race).downcase}"
-        .form__field
-          = check_box_tag :page_breaks
-          = label_tag :page_breaks, t('.page_breaks')
-        .form__buttons
-          = submit_tag t('.download_all_results'), class: 'button button--pdf'
-- unless @race.cups.empty?
-  %h2= t 'activerecord.models.cup', :count => 1
-  .buttons
-    - @race.cups.each do |cup|
-      = link_to cup.name, cup_path(cup), class: 'button'
+          = link_to tc.name, race_team_competition_path(@race, tc), class: 'button button--primary'
+    - if @race.sport.european?
+      %h2= t 'rifle_team_competition.one'
+      - if @race.team_competitions.count == 1
+        = link_to t('activerecord.models.team_competition.one'), race_rifle_team_competition_path(@race, @race.team_competitions.first), class: 'button button--primary'
+      - else
+        .buttons
+          - @race.team_competitions.each do |tc|
+            = link_to tc.name, race_rifle_team_competition_path(@race, tc), class: 'button button--primary'
+  - unless @race.relays.empty?
+    %h2= t 'activerecord.models.relay', :count => @race.relays.count
+    .buttons
+      - @race.relays.each do |relay|
+        - link_text = !relay.started? && relay.start_time ? "#{relay.name} (#{relay_start_time_print(relay)})" : relay.name
+        = link_to link_text, race_relay_path(@race, relay), class: 'button button--primary'
+  - unless @race.start_date > Date.today || @race.series.empty?
+    .results--desktop
+      %h2= t '.all_results_pdf'
+      = form_tag(race_path(@race, format: :pdf), method: :get, class: 'form') do
+        .form__horizontal-fields
+          .form__field
+            = select_tag :club_id,
+              options_from_collection_for_select(@race.clubs, :id, :name),
+              :prompt => "#{t :all} #{clubs_title(@race).downcase}"
+          .form__field
+            = check_box_tag :page_breaks
+            = label_tag :page_breaks, t('.page_breaks')
+          .form__buttons
+            = submit_tag t('.download_all_results'), class: 'button button--pdf'
+  - unless @race.cups.empty?
+    %h2= t 'activerecord.models.cup', :count => 1
+    .buttons
+      - @race.cups.each do |cup|
+        = link_to cup.name, cup_path(cup), class: 'button'
 .buttons.buttons--nav
   = link_to t(:back_to_home_page), root_path, class: 'button button--back'

@@ -100,6 +100,8 @@ fi:
   qualification_round: Alkukilpailu
   qualification_round_batch_lists: Alkukilpailun eräluettelot
   race_id: Kilpailun ID
+  race_is_cancelled_title: Kilpailu peruttu
+  race_is_cancelled_message: Valitettavasti kilpailu on peruttu
   race_search_text: Kilpailun nimi tai sijainti
   relay_team:
     DNS: Joukkue ei osallistunut kilpailuun

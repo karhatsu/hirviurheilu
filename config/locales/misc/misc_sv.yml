@@ -100,6 +100,8 @@ sv:
   qualification_round: Grundtävling
   qualification_round_batch_lists: Grundtävlingens heatlista
   race_id: Tävlingens ID
+  race_is_cancelled_title: Tävlingen inställd
+  race_is_cancelled_message: Tyvärr tävlingen är inställd
   race_search_text: Tävlings namn eller ort
   relay_team:
     DNS: Laget startade inte
