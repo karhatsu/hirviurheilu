@@ -40,7 +40,7 @@ class FeedbacksController < ApplicationController
     @email = params[:email]
     @tel = params[:tel]
     @race_id = params[:race_id]
-    @captcha = params[:captcha].strip
+    @captcha = params[:captcha]&.strip
   end
 
   def validate_feedback?

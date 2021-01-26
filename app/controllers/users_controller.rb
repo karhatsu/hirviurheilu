@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(new_user_params)
-    @captcha = params[:captcha].strip
+    @captcha = params[:captcha]&.strip
     unless @captcha && %w[neljä fyra].include?(@captcha.downcase)
       flash[:error] = t(:wrong_captcha)
       return render :new
