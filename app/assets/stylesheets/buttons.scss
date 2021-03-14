@@ -70,7 +70,7 @@
     cursor: default;
   }
 
-  &--add::before, &--back::before, &--danger::before, &--edit::before, &--pdf::before {
+  &--add::before, &--back::before, &--danger::before, &--edit::before, &--pdf::before, &--down::before {
     font-family: 'Material Icons';
     font-size: 9px;
     margin-right: 2px;
@@ -94,6 +94,10 @@
 
   &--pdf::before {
     content: 'print';
+  }
+
+  &--down::before {
+    content: 'arrow_downward';
   }
 
   &--below-sub-form {

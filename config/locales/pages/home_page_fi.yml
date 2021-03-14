@@ -4,6 +4,7 @@ fi:
       main_title: Hirviurheilu - Tulospalvelu Metsästäjäliiton urheilulajeille
       competitions:
         today: Kilpailut tänään
+        yesterday: Eilen päättyneet kilpailut
         tomorrow: Kilpailut huomenna
         day_after_tomorrow: Kilpailut ylihuomenna
         this_week: Kilpailut tällä viikolla
@@ -16,6 +17,7 @@ fi:
       upcoming_competitions: Tulevat kilpailut
       no_competitions_today: Ei kilpailuita tänään
       no_upcoming_competitions: Tällä hetkellä ei tiedossa tulevia kilpailuita
+      previously_ended_competitions: Aiemmin päättyneet kilpailut
       latest_ended_competitions: Viimeksi päättyneet kilpailut
       all_competitions: Kaikki kilpailut
       announcements: Viimeisimmät tiedotteet

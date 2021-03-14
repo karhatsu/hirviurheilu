@@ -6,6 +6,7 @@ class HomeController < ApplicationController
   def show
     @is_main_page = true
     @today = competitions_today
+    @yesterday = competitions_yesterday
     @past = past_competitions
     @future = future_competitions
     @announcements = Announcement.active.front_page
@@ -18,6 +19,13 @@ class HomeController < ApplicationController
     today = today.where(sport_key: params[:sport_key]) unless params[:sport_key].blank?
     today = today.where(district_id: params[:district_id]) unless params[:district_id].blank?
     today
+  end
+
+  def competitions_yesterday
+    yesterday = Race.yesterday
+    yesterday = yesterday.where(sport_key: params[:sport_key]) unless params[:sport_key].blank?
+    yesterday = yesterday.where(district_id: params[:district_id]) unless params[:district_id].blank?
+    yesterday
   end
 
   def past_competitions

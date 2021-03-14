@@ -9,10 +9,6 @@
   - if new_announcements
     = render partial: 'announcements', locals: { header_class: 'emphasize' }
     %h2.emphasize= t :competitions
-  - unless @past.empty?
-    %a.link--to-finished-races{href: '#past-races'}
-      = t '.latest_ended_competitions'
-      %i.material-icons-outlined.md-18 arrow_downward
   = render partial: 'race_filter_form'
   - unless @today.empty?
     %h2
@@ -20,6 +16,14 @@
       = t '.competitions.today'
     .row#races_today
       = render partial: 'race_list', locals: { races: @today }
+  - unless @yesterday.empty?
+    %h2
+      %i.material-icons-outlined.md-18 check_circle
+      = t '.competitions.yesterday'
+    .row#races_yesterday
+      = render partial: 'race_list', locals: { races: @yesterday }
+      .extra_card.col-xs-12.col-sm-6.col-md-4.col-lg-3
+        %a.button.button--down{href: '#past-races'}= t '.previously_ended_competitions'
   #future_races
     - if @future.empty?
       %h2
@@ -37,7 +41,8 @@
     #past-races
       %h2
         %i.material-icons-outlined.md-18 check_circle
-        = t '.latest_ended_competitions'
+        - ended_title_key = @yesterday.empty? ? '.latest_ended_competitions' : '.previously_ended_competitions'
+        = t ended_title_key
       .row
         = render partial: 'race_list', locals: { races: @past, max: 11 }
   - unless new_announcements

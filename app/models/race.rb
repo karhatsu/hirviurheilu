@@ -54,7 +54,8 @@ class Race < ApplicationRecord
   before_create :generate_api_secret
   after_update :set_series_start_lists_if_needed
 
-  scope :past, lambda { where('end_date<?', Time.zone.today).order('end_date DESC, name') }
+  scope :yesterday, lambda { where('end_date=?', Time.zone.today - 1).order('name') }
+  scope :past, lambda { where('end_date<?', Time.zone.today - 1).order('end_date DESC, name') }
   scope :today, lambda { where('start_date<=? AND end_date>=?', Time.zone.today, Time.zone.today).order('start_date, name') }
   scope :future, lambda { where('start_date>?', Time.zone.today).order('start_date, name') }
 
