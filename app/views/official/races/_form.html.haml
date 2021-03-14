@@ -14,9 +14,10 @@
   .form__field.row
     .col-xs-12.col-sm-3= f.label :location
     .col-xs-12.col-sm-9= f.text_field :location
+  - start_year = [Date.today.year - 1, @race.start_date.year].min
   .form__field.form__field--date.row
     .col-xs-12.col-sm-3= f.label :start_date
-    .col-xs-12.col-sm-9= f.date_select :start_date, start_year: Date.today.year - 1, end_year: Date.today.year + 1
+    .col-xs-12.col-sm-9= f.date_select :start_date, start_year: start_year, end_year: Date.today.year + 1
   .form__field.form__field--sm.row
     .col-xs-12.col-sm-3= f.label :start_time
     .col-xs-12.col-sm-9= f.time_select :start_time, value: @race.start_time
