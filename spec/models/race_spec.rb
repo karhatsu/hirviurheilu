@@ -527,6 +527,8 @@ describe Race do
       @race = create(:race)
       @series2 = create(:series, race: @race)
       @series4 = create(:series, race: @race, points_method: Series::POINTS_METHOD_NO_TIME_4_ESTIMATES)
+      @s2_updated_at = @series2.updated_at.to_s
+      @s4_updated_at = @series4.updated_at.to_s
       create(:correct_estimate, min_number: 1, max_number: 5, distance1: 100, distance2: 200, distance3: 80, distance4: 90, race: @race)
       create(:correct_estimate, min_number: 10, max_number: nil, distance1: 50, distance2: 150, race: @race)
       @c1 = create(:competitor, series: @series2, number: 1, correct_estimate1: 1, correct_estimate2: 2)
@@ -538,6 +540,7 @@ describe Race do
       @c150 = create(:competitor, series: @series2, number: 150)
       @cnil = create(:competitor, series: @series2, number: nil, correct_estimate1: 50, correct_estimate2: 60)
       @race.reload
+      sleep 1 # because of the cache touch test
       @race.set_correct_estimates_for_competitors
       [@c1, @c4, @c5, @c6, @c9, @c10, @c150, @cnil].each {|r| r.reload }
     end
@@ -562,6 +565,11 @@ describe Race do
       expect_no_correct_estimates_3_and_4 @c10
       expect_no_correct_estimates_3_and_4 @c150
       expect_no_correct_estimates_3_and_4 @cnil
+    end
+
+    it 'should update cache for all series' do
+      expect(@series2.reload.updated_at.to_s).not_to eq @s2_updated_at
+      expect(@series4.reload.updated_at.to_s).not_to eq @s4_updated_at
     end
 
     def expect_correct_estimate(competitor, ce1, ce2, ce3=nil, ce4=nil)

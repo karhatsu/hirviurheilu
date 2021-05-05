@@ -160,6 +160,7 @@ class Race < ApplicationRecord
 
     reset_cols = { correct_estimate1: nil, correct_estimate2: nil, correct_estimate3: nil, correct_estimate4: nil }
     competitors.where('competitors.id NOT IN (?) and number IS NOT NULL', competitor_ids).except(:order).update_all(reset_cols)
+    series.each(&:touch)
   end
 
   def each_competitor_has_correct_estimates?
