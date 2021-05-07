@@ -1,2 +1,3 @@
 %h2= @race.sport.one_batch_list? ? t('.title.one_batch_list') : t('.title.other')
-= render partial: 'batches/batches', locals: { track_place_name: :qualification_round_track_place }
+- pdf_url = race_qualification_round_batches_path(@race, format: :pdf)
+= render partial: 'batches/batches', locals: { track_place_name: :qualification_round_track_place, pdf_url: pdf_url }

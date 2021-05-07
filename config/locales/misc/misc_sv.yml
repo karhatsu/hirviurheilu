@@ -61,6 +61,7 @@ sv:
   delete: Radera
   district: Trakt
   districts: Trakter
+  download_batch_list_pdf: Ladda heatlista som PDF-fil
   download_results_pdf: Ladda resultaten som PDF-fil
   download_results_pdf_with_competitors: Ladda PDF (med tävlarna)
   download_results_pdf_without_competitors: Ladda PDF (utan tävlarna)
