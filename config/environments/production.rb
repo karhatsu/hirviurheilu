@@ -80,8 +80,11 @@ Hirviurheilu::Application.configure do
 
   config.force_ssl = true
 
-  Rails.application.config.middleware.use ExceptionNotification::Rack, email: {
+  Rails.application.config.middleware.use ExceptionNotification::Rack, {
+    ignore_exceptions: ['ActionDispatch::Http::MimeNegotiation::InvalidType'] + ExceptionNotifier.ignored_exceptions,
+    email: {
       sender_address: 'errors@hirviurheilu.com',
       exception_recipients: ADMIN_EMAIL
+    }
   }
 end
