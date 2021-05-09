@@ -23,6 +23,10 @@ Example call with [cUrl](https://curl.haxx.se/):
 
 `GET /api/v2/public/races/:race_id/times`
 
+### Competitor
+
+`GET /api/v2/public/races/:race_id/competitors/:competitor_number`
+
 ## Official API
 
 ### Headers
