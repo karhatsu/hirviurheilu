@@ -60,10 +60,6 @@ describe FinishCompetition do
       context "when all competitors have results filled" do
         before do
           series.competitors << build(:competitor, series: series, no_result_reason: Competitor::DNF)
-          # Counter cache is not reliable. Make sure that one is not used.
-          conn = ActiveRecord::Base.connection
-          conn.execute("update series set competitors_count=0 where id=#{series.id}")
-          conn.execute("update series set competitors_count=1 where id=#{empty_series.id}")
         end
 
         it "should be possible to finish the race" do

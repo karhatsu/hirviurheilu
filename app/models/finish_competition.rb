@@ -74,7 +74,7 @@ class FinishCompetition
 
   def delete_series_without_competitors(race)
     race.series.each do |s|
-      s.destroy if s.competitors.count == 0
+      s.destroy if s.competitors.size == 0
     end
   end
 end

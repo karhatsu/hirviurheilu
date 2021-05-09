@@ -296,7 +296,7 @@ describe ResultRotationHelper do
               competitors = double(Array)
               expect(helper).to receive(:menu_series).and_return(series)
               expect(series).to receive(:competitors).and_return(competitors)
-              expect(competitors).to receive(:count).and_return(helper.refresh_counter_min_seconds - 1)
+              expect(competitors).to receive(:size).and_return(helper.refresh_counter_min_seconds - 1)
               expect(helper.refresh_counter_seconds).to eq(helper.refresh_counter_min_seconds)
             end
           end
@@ -308,7 +308,7 @@ describe ResultRotationHelper do
               competitors = double(Array)
               expect(helper).to receive(:menu_series).and_return(series)
               expect(series).to receive(:competitors).and_return(competitors)
-              expect(competitors).to receive(:count).and_return(helper.refresh_counter_min_seconds)
+              expect(competitors).to receive(:size).and_return(helper.refresh_counter_min_seconds)
               expect(helper.refresh_counter_seconds).to eq(helper.refresh_counter_min_seconds)
             end
           end

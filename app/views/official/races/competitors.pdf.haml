@@ -3,8 +3,8 @@ Yhteensä #{@race.competitors.count} kilpailijaa
 - @all_series.each do |series|
   %h2
     = series.name
-    - unless series.competitors.empty?
-      (#{series.competitors.count})
+    - if series.competitors.size > 0
+      (#{series.competitors.size})
   - if series.competitors.empty?
     Ei kilpailijoita
   - else

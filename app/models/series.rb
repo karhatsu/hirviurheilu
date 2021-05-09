@@ -300,7 +300,7 @@ class Series < ApplicationRecord
       ok = false
     end
     if first_number
-      max_number = first_number + competitors.count - 1
+      max_number = first_number + competitors.size - 1
       unless race.competitors.where(['series_id<>? and number>=? and number<=?',
           id, first_number, max_number]).empty?
         errors.add :base, :cannot_generate_numbers_no_free_numbers,

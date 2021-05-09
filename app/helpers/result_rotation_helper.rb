@@ -55,7 +55,7 @@ module ResultRotationHelper
     return refresh_counter_default_seconds unless refresh_counter_auto_scroll
     series = menu_series
     return refresh_counter_default_seconds unless series
-    [refresh_counter_min_seconds, series.competitors.count].max
+    [refresh_counter_min_seconds, series.competitors.size].max
   end
 
   def result_rotation_cookie
