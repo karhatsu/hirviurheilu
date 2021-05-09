@@ -56,7 +56,7 @@ module MenuHelper
   end
 
   def series_dropdown_menu(race, type)
-    return '' if race.series.count <= 1
+    return '' if race.series.size <= 1
     menu = '<div class="dropdown-menu">'
     race.series.each do |series|
       next if series.new_record?
