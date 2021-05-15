@@ -240,6 +240,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
+    rack-proxy (0.6.5)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.1.3.2)
@@ -316,6 +318,7 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    semantic_range (3.0.0)
     sexp_processor (4.15.2)
     shoulda-matchers (4.5.1)
       activesupport (>= 4.2.0)
@@ -344,6 +347,11 @@ GEM
     unicorn (6.0.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
+    webpacker (5.3.0)
+      activesupport (>= 5.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -399,6 +407,7 @@ DEPENDENCIES
   spring-commands-rspec
   uglifier
   unicorn
+  webpacker (~> 5.0)
   wicked_pdf
   wkhtmltopdf-binary-edge
   wkhtmltopdf-heroku
