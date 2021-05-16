@@ -189,6 +189,9 @@ Hirviurheilu::Application.routes.draw do
 
       namespace :public do
         resources :races, only: :show do
+          resources :series, only: [] do
+            resource :start_list, only: :show
+          end
           resources :times, only: :index
           get '/competitors/:competitor_number', to: 'competitors#show'
         end

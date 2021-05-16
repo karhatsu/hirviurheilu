@@ -1,10 +1,11 @@
 import React from 'react'
-import StartList from './public/start_list'
+import { BrowserRouter, Route } from 'react-router-dom'
+import StartList from './public/StartList'
 
 export default function App() {
   return (
-    <div className="App">
-      <StartList />
-    </div>
+    <BrowserRouter>
+      <Route path="/races/:raceId/series/:seriesId/start_list" component={StartList} />
+    </BrowserRouter>
   )
 }
