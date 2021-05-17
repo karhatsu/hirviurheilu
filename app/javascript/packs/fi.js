@@ -1,0 +1,16 @@
+window.translations = {
+  backToPage: 'Takaisin sivulle {{pageName}}',
+  club: 'Seura',
+  competitor: 'Kilpailija',
+  district: 'Piiri',
+  downloadStartListPdf: 'Lataa lähtölista PDF-tiedostona',
+  jotosTeam: 'Jotosjoukkue',
+  noCompetitorsOrStartTimes: 'Tähän sarjaan ei ole merkitty kilpailijoita tai heille ei ole määritetty vielä lähtöaikoja.',
+  numberShort: 'Nro',
+  results: 'Tulokset',
+  seriesStartTime: 'Sarjan lähtöaika',
+  startList: 'Lähtölista',
+  startTime: 'Lähtöaika',
+  unofficialCompetitor: 'Epävirallinen kilpailija',
+  unofficialShort: 'epäv.',
+}

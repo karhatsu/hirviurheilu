@@ -1,0 +1,16 @@
+window.translations = {
+  backToPage: 'Tillbaka till sida {{pageName}}',
+  club: 'Klubb',
+  competitor: 'Tävlare',
+  district: 'Trakt',
+  downloadStartListPdf: 'Ladda startlista som PDF-fil',
+  jotosTeam: 'Jotos-lag',
+  noCompetitorsOrStartTimes: 'Denna klassen här inga tävlar eller dom har inga starttider ännu.',
+  numberShort: 'Nr',
+  results: 'Resultat',
+  seriesStartTime: 'Klassens starttid',
+  startList: 'Startlista',
+  startTime: 'Starttid',
+  unofficialCompetitor: 'Informella tävlare',
+  unofficialShort: 'inf.',
+}

@@ -5,7 +5,7 @@ import StartList from './public/StartList'
 export default function App() {
   return (
     <BrowserRouter>
-      <Route path="/races/:raceId/series/:seriesId/start_list" component={StartList} />
+      <Route path="/:lang?/races/:raceId/series/:seriesId/start_list" component={StartList} />
     </BrowserRouter>
   )
 }

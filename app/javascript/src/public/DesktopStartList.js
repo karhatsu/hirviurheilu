@@ -1,9 +1,12 @@
 import React from 'react'
 import { raceEnums } from '../util/enums'
+import useTranslation from '../util/useTranslation'
 
 export default function DesktopStartList({ competitors, race }) {
+  const { t } = useTranslation()
+
   const clubLevel = () => {
-    return race.clubLevel === raceEnums.clubLevel.district ? 'Piiri' : 'Seura'
+    return race.clubLevel === raceEnums.clubLevel.district ? t('district') : t('club')
   }
 
   const showTeamName = !!competitors.find(c => c.teamName)
@@ -12,11 +15,11 @@ export default function DesktopStartList({ competitors, race }) {
       <table className="results-table">
         <thead>
         <tr>
-          <th>Nro</th>
-          <th>Kilpailija</th>
+          <th>{t('numberShort')}</th>
+          <th>{t('competitor')}</th>
           <th>{clubLevel()}</th>
-          <th>Lähtöaika</th>
-          {showTeamName && <th>Jotosjoukkue</th>}
+          <th>{t('startTime')}</th>
+          {showTeamName && <th>{t('jotosTeam')}</th>}
         </tr>
         </thead>
         <tbody>
@@ -31,7 +34,7 @@ export default function DesktopStartList({ competitors, race }) {
               <td>
                 {lastName} {firstName}
                 {ageGroup && ` (${ageGroup.name})`}
-                {unofficial && <span className="unofficial" title="Epävirallinen kilpailija">epäv.</span>}
+                {unofficial && <span className="unofficial" title={t('unofficialCompetitor')}>{t('unofficialShort')}</span>}
               </td>
               <td>{club.name}</td>
               <td>{time}</td>
