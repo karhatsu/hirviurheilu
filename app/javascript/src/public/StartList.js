@@ -6,6 +6,7 @@ import DesktopStartList from './DesktopStartList'
 import MobileStartList from './MobileStartList'
 import SeriesMobileSubMenu from './SeriesMobileSubMenu'
 import useTranslation from '../util/useTranslation'
+import Spinner from '../spinner/Spinner'
 
 export default function StartList() {
   const { raceId, seriesId } = useParams()
@@ -28,7 +29,7 @@ export default function StartList() {
   const buildSeriesLink = useCallback(id => `/races/${raceId}/series/${id}/start_list`, [raceId])
 
   if (error) return <div className="message message--error">{error}</div>
-  if (!(race && series) && !error) return null
+  if (!(race && series) && !error) return <Spinner />
 
   const { competitors, id, name, started, startTime } = series
   return (

@@ -10,6 +10,7 @@
  *= require public-message
  *= require titles
  *= require badges
+ *= require spinner
 
  *= require dialogs
  *= require facebook
