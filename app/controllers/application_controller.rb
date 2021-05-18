@@ -216,4 +216,8 @@ class ApplicationController < ActionController::Base
   def build_sports_menu_options
     @sports = Sport::ALL_KEYS.map{|key| [t("sport_name.#{key}"), key]}
   end
+
+  def use_react
+    @react_app = true
+  end
 end

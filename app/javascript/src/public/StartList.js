@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import format from 'date-fns/format'
 import { get } from '../util/apiClient'
@@ -7,6 +7,7 @@ import MobileStartList from './MobileStartList'
 import SeriesMobileSubMenu from './SeriesMobileSubMenu'
 import useTranslation from '../util/useTranslation'
 import Spinner from '../spinner/Spinner'
+import { buildSeriesStartListLink } from '../util/routeUtil'
 
 export default function StartList() {
   const { raceId, seriesId } = useParams()
@@ -25,8 +26,6 @@ export default function StartList() {
       setSeries(data)
     })
   }, [raceId, seriesId])
-
-  const buildSeriesLink = useCallback(id => `/races/${raceId}/series/${id}/start_list`, [raceId])
 
   if (error) return <div className="message message--error">{error}</div>
   if (!(race && series) && !error) return <Spinner />
@@ -50,7 +49,7 @@ export default function StartList() {
         </>
       )}
       {!competitors.length && <div className="message message--info">{t('noCompetitorsOrStartTimes')}</div>}
-      <SeriesMobileSubMenu allSeries={race.series} buildSeriesLink={buildSeriesLink} currentSeriesId={id} />
+      <SeriesMobileSubMenu allSeries={race.series} buildSeriesLink={buildSeriesStartListLink()} currentSeriesId={id} />
       <div className="buttons buttons--nav">
         <a href={`/races/${raceId}`} className="button button--back">{t('backToPage', { pageName: race.name })}</a>
         <a href={`/races/${raceId}/series/${seriesId}`} className="button">{t('results')}</a>

@@ -1,4 +1,1 @@
 = content_for(:title, "#{@series.race.name} - #{@series.name} - #{t(:start_list)}")
-- content_for :sub_sub_menu do
-  = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id } do |series|
-    = race_series_start_list_path(series.race, series)

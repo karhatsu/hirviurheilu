@@ -6,16 +6,16 @@
     = image_tag '/logo-128.png', class: 'header__logo header__logo--right'
     %a.header__menu.material-icons-outlined.md-24{onclick: 'event.preventDefault(); toggleMainMenu();', href: '#'} menu
   = render partial: 'menus/menu'
-  .body{itemscope: true, itemtype: menu_race ? 'http://schema.org/SportsEvent' : ''}
-    .body__on-top-title= render partial: 'shared/page_title'
-    .body__content
-      = render 'menus/second_level_menu'
-      = yield :sub_sub_menu
-      .body__yield
-        .body__under-top-title= render partial: 'shared/page_title'
-        = render partial: 'shared/facebook_share'
-        = yield
-        #react-app
+  %div{id: @react_app ? 'react-app' : '', facebook_url: facebook_url}
+    .body{itemscope: true, itemtype: menu_race ? 'http://schema.org/SportsEvent' : ''}
+      .body__on-top-title= render partial: 'shared/page_title'
+      .body__content
+        = render 'menus/second_level_menu'
+        = yield :sub_sub_menu
+        .body__yield
+          .body__under-top-title= render partial: 'shared/page_title'
+          = render partial: 'shared/facebook_share'
+          = yield
   .footer
     = render partial: 'shared/footer'
 :javascript

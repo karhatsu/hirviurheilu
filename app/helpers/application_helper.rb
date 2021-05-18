@@ -72,8 +72,16 @@ module ApplicationHelper
     I18n.locale
   end
 
+  def facebook_url
+    return nil unless facebook_env?
+    return PRODUCTION_URL if Rails.env.development?
+    path = request.path
+    return request.original_url if path == '/' || path.match(/^\/races\//) || path.match(/^\/announcements/) || path.match(/^\/cups/)
+    nil
+  end
+
   def facebook_env?
-    ['development', 'production'].include?(Rails.env)
+    %w[development production].include?(Rails.env)
   end
 
   def organizer_info_with_possible_link(race)
