@@ -7,7 +7,7 @@ import {
   buildRelayLink,
   buildSeriesResultsLink,
   buildSeriesStartListLink,
-  buildTeamCompetitionsLink
+  buildTeamCompetitionsLink,
 } from '../util/routeUtil'
 
 export default function DesktopSecondLevelMenu() {

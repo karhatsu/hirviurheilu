@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import DesktopMenuItem from './DesktopMenuItem'
 
 export default function SeriesDesktopSubMenu({ race, buildSeriesLink, currentSeriesId }) {
