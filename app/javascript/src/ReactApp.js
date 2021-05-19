@@ -8,7 +8,7 @@ import FacebookShare from './public/FacebookShare'
 import StartList from './public/StartList'
 import { buildSeriesStartListLink } from './util/routeUtil'
 
-function App() {
+function ReactApp() {
   const { raceId, seriesId } = useParams()
   const { race } = useRace()
   return (
@@ -29,12 +29,12 @@ function App() {
   )
 }
 
-const AppContainer = () => {
+const ReactAppContainer = () => {
   return (
     <RaceProvider>
-      <App />
+      <ReactApp />
     </RaceProvider>
   )
 }
 
-export default AppContainer
+export default ReactAppContainer
