@@ -8,6 +8,7 @@ import SeriesMobileSubMenu from './SeriesMobileSubMenu'
 import useTranslation from '../util/useTranslation'
 import Spinner from '../spinner/Spinner'
 import { buildSeriesStartListLink } from '../util/routeUtil'
+import useTitle from '../util/useTitle'
 
 export default function StartList() {
   const { raceId, seriesId } = useParams()
@@ -15,6 +16,7 @@ export default function StartList() {
   const [race, setRace] = useState()
   const [series, setSeries] = useState()
   const { t } = useTranslation()
+  useTitle(race && series && `${race.name} - ${series.name} - ${t('startList')}`)
 
   useEffect(() => {
     get(`/api/v2/public/races/${raceId}?no_competitors=true`, (err, data) => {

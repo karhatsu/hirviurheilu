@@ -21,7 +21,7 @@ class StartListsController < ApplicationController
     use_react
     @is_start_list = true
     respond_to do |format|
-      format.html
+      format.html { render layout: true, html: '' }
       format.pdf do
         render :pdf => "#{@series.name}-lahtolista", :layout => true,
           :margin => pdf_margin, :header => pdf_header("#{t :start_list} - #{@series.name}"),
