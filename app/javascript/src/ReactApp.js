@@ -2,10 +2,10 @@ import React from 'react'
 import { Route, useParams } from 'react-router-dom'
 import { RaceProvider, useRace } from './util/useRace'
 import PageTitle from './PageTitle'
-import DesktopSecondLevelMenu from './public/DesktopSecondLevelMenu'
-import SeriesDesktopSubMenu from './public/SeriesDesktopSubMenu'
+import DesktopSecondLevelMenu from './public/menu/DesktopSecondLevelMenu'
+import SeriesDesktopSubMenu from './public/menu/SeriesDesktopSubMenu'
 import FacebookShare from './public/FacebookShare'
-import StartList from './public/StartList'
+import StartList from './public/start-list/StartList'
 import { buildSeriesStartListLink } from './util/routeUtil'
 
 function ReactApp() {

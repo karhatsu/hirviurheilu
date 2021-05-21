@@ -1,6 +1,6 @@
 import React from 'react'
-import { raceEnums } from '../util/enums'
-import useTranslation from '../util/useTranslation'
+import { raceEnums } from '../../util/enums'
+import useTranslation from '../../util/useTranslation'
 
 export default function DesktopStartList({ competitors, race }) {
   const { t } = useTranslation()

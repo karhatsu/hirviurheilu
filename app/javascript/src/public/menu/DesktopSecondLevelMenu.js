@@ -1,14 +1,14 @@
 import React from 'react'
-import { useRace } from '../util/useRace'
+import { useRace } from '../../util/useRace'
 import DesktopMenuItem from './DesktopMenuItem'
-import useTranslation from '../util/useTranslation'
+import useTranslation from '../../util/useTranslation'
 import { useParams } from 'react-router-dom'
 import {
   buildRelayLink,
   buildSeriesResultsLink,
   buildSeriesStartListLink,
   buildTeamCompetitionsLink,
-} from '../util/routeUtil'
+} from '../../util/routeUtil'
 
 export default function DesktopSecondLevelMenu() {
   const { seriesId: urlSeriesId } = useParams()

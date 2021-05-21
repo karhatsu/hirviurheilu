@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import format from 'date-fns/format'
-import { get } from '../util/apiClient'
+import { get } from '../../util/apiClient'
 import DesktopStartList from './DesktopStartList'
 import MobileStartList from './MobileStartList'
-import SeriesMobileSubMenu from './SeriesMobileSubMenu'
-import useTranslation from '../util/useTranslation'
-import Spinner from '../spinner/Spinner'
-import { buildSeriesStartListLink } from '../util/routeUtil'
-import useTitle from '../util/useTitle'
+import SeriesMobileSubMenu from '../menu/SeriesMobileSubMenu'
+import useTranslation from '../../util/useTranslation'
+import Spinner from '../../spinner/Spinner'
+import { buildSeriesStartListLink } from '../../util/routeUtil'
+import useTitle from '../../util/useTitle'
 
 export default function StartList() {
   const { raceId, seriesId } = useParams()
