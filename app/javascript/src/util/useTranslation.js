@@ -5,7 +5,7 @@ const useTranslation = () => {
     let text = window.translations[key]
     if (!params) return text
     Object.keys(params).forEach(paramKey => {
-      text = text.replace(`{{${paramKey}}`, params[paramKey])
+      text = text.replace(`{{${paramKey}}}`, params[paramKey])
     })
     return text
   }, [])

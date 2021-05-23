@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, useParams } from 'react-router-dom'
+import { Route, Switch, useParams } from 'react-router-dom'
 import { RaceProvider, useRace } from './util/useRace'
 import PageTitle from './PageTitle'
 import DesktopSecondLevelMenu from './public/menu/DesktopSecondLevelMenu'
@@ -7,6 +7,7 @@ import SeriesDesktopSubMenu from './public/menu/SeriesDesktopSubMenu'
 import FacebookShare from './public/FacebookShare'
 import StartList from './public/start-list/StartList'
 import { buildSeriesStartListLink } from './util/routeUtil'
+import RacePage from './race-page/RacePage'
 
 function ReactApp() {
   const { raceId, seriesId } = useParams()
@@ -22,7 +23,10 @@ function ReactApp() {
         <div className="body__yield">
           <div className="body__under-top-title"><PageTitle /></div>
           <FacebookShare />
-          <Route path="/:lang?/races/:raceId/series/:seriesId/start_list" component={StartList} />
+          <Switch exact>
+            <Route path="/:lang?/races/:raceId/series/:seriesId/start_list" component={StartList} />
+            <Route path="/:lang?/races/:raceId" component={RacePage} />
+          </Switch>
         </div>
       </div>
     </div>
