@@ -18,6 +18,7 @@ Feature: Batch list
     And I should see "Loppukilpailun eräluettelo" within "h2"
     And I should see "Kilpailun eräluetteloa ei ole tehty" in an info message
 
+  @javascript
   Scenario: Race with batches
     Given there is a "ILMALUODIKKO" race "Batches race"
     And the race has a club "Testiseura"

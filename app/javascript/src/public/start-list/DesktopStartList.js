@@ -17,7 +17,7 @@ export default function DesktopStartList({ competitors, race }) {
         <tr>
           <th>{t('numberShort')}</th>
           <th>{t('competitor')}</th>
-          <th>{clubLevel()}</th>
+          <th id="table_club_title">{clubLevel()}</th>
           <th>{t('startTime')}</th>
           {showTeamName && <th>{t('jotosTeam')}</th>}
         </tr>
@@ -39,7 +39,7 @@ export default function DesktopStartList({ competitors, race }) {
             ? `${relativeStartTime} (${realStartTime})`
             : relativeStartTime
           return (
-            <tr key={competitor.id} className={i % 2 === 0 ? 'odd' : ''}>
+            <tr key={competitor.id} className={i % 2 === 0 ? 'odd' : ''} id={`comp_${i + 1}`}>
               <td>{number}</td>
               <td>
                 {lastName} {firstName}

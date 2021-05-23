@@ -3,6 +3,7 @@ Feature: Show race
   As a user
   I want to see race details
 
+  @javascript
   Scenario: No competitors
     Given there is a race with attributes:
       | name | My test race |
@@ -25,6 +26,7 @@ Feature: Show race
     And I should see "Men 50 years (13:30)"
     But I should not see "Kaikkien sarjojen lähtöajat (PDF)"
 
+  @javascript
   Scenario: Competitors but no start list, nor race start time
     Given there is a race with attributes:
       | name | My test race |
@@ -41,11 +43,13 @@ Feature: Show race
     Then I should see "Kaikkien sarjojen lähtöajat (PDF)"
     But I should not see "Kilpailu alkaa"
 
+  @javascript
   Scenario: Race starts in 7 days
     Given there is a race "Future race" that starts in 7 days
     And I go to the race page of "Future race"
     Then I should see "Kilpailun alkuun on aikaa 7 päivää"
 
+  @javascript
   Scenario: Start list exists
     Given there is a race with attributes:
       | name | My test race |
@@ -68,6 +72,7 @@ Feature: Show race
     When I choose "Tulokset" from sub menu
     Then I should be on the results page of the series
 
+  @javascript
   Scenario: Don't show start time column when competitor order is mixed between series
     Given there is a race with attributes:
       | name | My test race |
@@ -86,12 +91,14 @@ Feature: Show race
     And I should not see "00:45"
     And I should not see "01:30"
 
+  @javascript
   Scenario: Don't show correct estimates when race has not finished
     Given there is a race with attributes:
       | name | My test race |
     When I go to the race page
     Then I should not see "Oikeat etäisyydet"
 
+  @javascript
   Scenario: Don't show race start time or all series start list PDF link when race has finished
     Given there is a race with attributes:
       | name | My test race |
@@ -138,6 +145,7 @@ Feature: Show race
     But I should not see "Kilpailu alkoi"
     But I should not see "Kaikkien sarjojen lähtöajat (PDF)"
 
+  @javascript
   Scenario: Show link to cup results when the race belongs to a cup
     Given there is a cup "Test cup"
     And there is a race "Test race"
