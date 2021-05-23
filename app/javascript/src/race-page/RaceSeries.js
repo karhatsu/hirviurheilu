@@ -36,7 +36,7 @@ export default function RaceSeries({ race }) {
   return (
     <>
       <h2>{t(sport.shooting ? 'results' : 'personalCompetitions')}</h2>
-      {infos.length > 0 && <div className="message message--info">{infos.join('. ')}</div>}
+      {infos.length > 0 && <div className="message message--info">{infos.join('. ')}.</div>}
       <div className="buttons" id="series-links">
         {series.map(s => {
           const { id, name, started, startTime } = s
