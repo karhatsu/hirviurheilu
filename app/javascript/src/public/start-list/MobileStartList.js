@@ -4,7 +4,17 @@ export default function MobileStartList({ competitors }) {
   return (
     <div className="results--mobile result-cards">
       {competitors.map((competitor, i) => {
-        const { ageGroup, club, id, firstName, lastName, number, relativeStartTime, realStartTime, teamName } = competitor
+        const {
+          ageGroup,
+          club,
+          id,
+          firstName,
+          lastName,
+          number,
+          relativeStartTime,
+          realStartTime,
+          teamName,
+        } = competitor
         return (
           <div key={id} className={`card${i % 2 === 0 ? ' card--odd' : ''}`}>
             <div className="card__number">{number}</div>

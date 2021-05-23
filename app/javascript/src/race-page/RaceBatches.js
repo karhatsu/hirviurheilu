@@ -15,7 +15,9 @@ export default function RaceBatches({ race }) {
           <a href={buildQualificationRoundBatchesLink(race.id)} className="button button--primary">{qrText}</a>
         )}
         {finalRoundBatches.length > 0 && (
-          <a href={buildFinalRoundBatchesLink(race.id)} className="button button--primary">{t('finalRoundBatchLists')}</a>
+          <a href={buildFinalRoundBatchesLink(race.id)} className="button button--primary">
+            {t('finalRoundBatchLists')}
+          </a>
         )}
       </div>
     </>

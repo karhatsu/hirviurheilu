@@ -66,7 +66,11 @@ export default function RaceSeries({ race }) {
           {series.map(s => {
             const { id, name } = s
             const linkText = `${t('rifle')} ${name}`
-            return <a key={id} href={buildSeriesRifleResultsLink(race.id, id)} className="button button--primary">{linkText}</a>
+            return (
+              <a key={id} href={buildSeriesRifleResultsLink(race.id, id)} className="button button--primary">
+                {linkText}
+              </a>
+            )
           })}
         </div>
       )}
@@ -95,7 +99,11 @@ export default function RaceSeries({ race }) {
             />
           )}
           {race.finalRoundBatches.length > 0 && (
-            <BatchListPdfForm path={buildFinalRoundBatchesLink(race.id)} race={race} title={t('finalRoundBatchLists')} />
+            <BatchListPdfForm
+              path={buildFinalRoundBatchesLink(race.id)}
+              race={race}
+              title={t('finalRoundBatchLists')}
+            />
           )}
         </div>
       )}

@@ -19,6 +19,7 @@ module.exports = {
   ],
   rules: {
     'comma-dangle': ['error', 'always-multiline'],
+    'max-len': ['error', { code: 120 }],
     'node/no-callback-literal': 0,
     'react/prop-types': 0,
     'space-before-function-paren': ['error', 'never'],

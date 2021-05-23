@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 window.translations = {
   allClubs: 'Alla klubber',
   allDistricts: 'Alla trakten',

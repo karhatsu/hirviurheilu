@@ -12,13 +12,14 @@ export default function RaceOrganizer({ race }) {
   if (!homePage && !organizer && !organizerPhone) return null
 
   const homePageText = organizer || t('raceHomePage')
+  const googleUrl = address && `https://www.google.fi/maps/place/${encodeURIComponent(address)}`
   return (
     <>
       <h2 className={cancelled ? 'cancelled-race-first-header' : ''}>{t('raceOrganizer')}</h2>
       <div className="race-organizer">
         {homePage && <a href={urlWithProtocol(homePage)} target="_blank" rel="noreferrer">{homePageText}</a>}
         {!homePage && organizer && <span>{organizer}</span>}
-        {address && <a href={`https://www.google.fi/maps/place/${encodeURIComponent(address)}`} target="_blank" rel="noreferrer">{address}</a>}
+        {address && <a href={googleUrl} target="_blank" rel="noreferrer">{address}</a>}
         {organizerPhone && <span>{organizerPhone}</span>}
       </div>
     </>

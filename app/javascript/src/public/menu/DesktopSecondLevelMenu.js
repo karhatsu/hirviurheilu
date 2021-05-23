@@ -76,7 +76,9 @@ export default function DesktopSecondLevelMenu() {
               text={t('startList')}
               routeMatch="/:lang?/races/:raceId/series/:seriesId/start_list"
               reactLink={true}
-              dropdownItems={race.series.map(s => ({ text: s.name, path: buildSeriesStartListLink(race.id, s.id), reaactLink: true }))}
+              dropdownItems={race.series.map(s => {
+                return { text: s.name, path: buildSeriesStartListLink(race.id, s.id), reactLink: true }
+              })}
             />
           )}
         </>
@@ -85,14 +87,18 @@ export default function DesktopSecondLevelMenu() {
         <DesktopMenuItem
           path={buildTeamCompetitionsLink(race.id, race.teamCompetitions[0].id)}
           text={t('teamCompetitions')}
-          dropdownItems={race.teamCompetitions.map(tc => ({ text: tc.name, path: buildTeamCompetitionsLink(race.id, tc.id) }))}
+          dropdownItems={race.teamCompetitions.map(tc => {
+            return { text: tc.name, path: buildTeamCompetitionsLink(race.id, tc.id) }
+          })}
         />
       )}
       {race.sport.european && race.teamCompetitions.length > 0 && (
         <DesktopMenuItem
           path={buildRifleTeamCompetitionsLink(race.id, race.teamCompetitions[0].id)}
           text={t('rifleTeamCompetitions')}
-          dropdownItems={race.teamCompetitions.map(tc => ({ text: tc.name, path: buildRifleTeamCompetitionsLink(race.id, tc.id) }))}
+          dropdownItems={race.teamCompetitions.map(tc => {
+            return { text: tc.name, path: buildRifleTeamCompetitionsLink(race.id, tc.id) }
+          })}
         />
       )}
       {race.relays.length > 0 && (

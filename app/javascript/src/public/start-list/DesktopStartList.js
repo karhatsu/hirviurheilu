@@ -24,7 +24,17 @@ export default function DesktopStartList({ competitors, race }) {
         </thead>
         <tbody>
         {competitors.map((competitor, i) => {
-          const { ageGroup, club, firstName, lastName, number, relativeStartTime, realStartTime, unofficial, teamName } = competitor
+          const {
+            ageGroup,
+            club,
+            firstName,
+            lastName,
+            number,
+            relativeStartTime,
+            realStartTime,
+            unofficial,
+            teamName,
+          } = competitor
           const time = realStartTime && realStartTime !== relativeStartTime
             ? `${relativeStartTime} (${realStartTime})`
             : relativeStartTime
@@ -34,7 +44,9 @@ export default function DesktopStartList({ competitors, race }) {
               <td>
                 {lastName} {firstName}
                 {ageGroup && ` (${ageGroup.name})`}
-                {unofficial && <span className="unofficial" title={t('unofficialCompetitor')}>{t('unofficialShort')}</span>}
+                {unofficial && (
+                  <span className="unofficial" title={t('unofficialCompetitor')}>{t('unofficialShort')}</span>
+                )}
               </td>
               <td>{club.name}</td>
               <td>{time}</td>
