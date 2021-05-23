@@ -6,7 +6,7 @@ import DesktopSecondLevelMenu from './public/menu/DesktopSecondLevelMenu'
 import SeriesDesktopSubMenu from './public/menu/SeriesDesktopSubMenu'
 import FacebookShare from './public/FacebookShare'
 import StartList from './public/start-list/StartList'
-import { buildSeriesStartListLink } from './util/routeUtil'
+import { buildSeriesStartListPath } from './util/routeUtil'
 import RacePage from './race-page/RacePage'
 
 function ReactApp() {
@@ -18,7 +18,7 @@ function ReactApp() {
       <div className="body__content">
         <DesktopSecondLevelMenu />
         <Route path="/:lang?/races/:raceId/series/:seriesId/start_list">
-          <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesLink={buildSeriesStartListLink} />
+          <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesLink={buildSeriesStartListPath} />
         </Route>
         <div className="body__yield">
           <div className="body__under-top-title"><PageTitle /></div>

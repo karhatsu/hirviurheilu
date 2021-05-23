@@ -1,6 +1,6 @@
 import React from 'react'
 import useTranslation from '../util/useTranslation'
-import { buildRelayLink } from '../util/routeUtil'
+import { buildRelayPath } from '../util/routeUtil'
 import format from 'date-fns/format'
 import parseISO from 'date-fns/parseISO'
 
@@ -16,7 +16,7 @@ export default function RaceRelays({ race }) {
           const { id, name, started, startTime } = relay
           const linkText = !started && startTime ? `${name} (${format(parseISO(startTime), 'HH:mm')})` : name
           const className = !started && startTime ? 'button' : 'button button--primary'
-          return <a key={id} href={buildRelayLink(race.id, id)} className={className}>{linkText}</a>
+          return <a key={id} href={buildRelayPath(race.id, id)} className={className}>{linkText}</a>
         })}
       </div>
     </>

@@ -8,12 +8,12 @@ import parse from 'date-fns/parse'
 import parseISO from 'date-fns/parseISO'
 import useTranslation from '../util/useTranslation'
 import {
-  buildFinalRoundBatchesLink,
-  buildNordicResultsLink,
-  buildQualificationRoundBatchesLink,
-  buildSeriesResultsLink,
-  buildSeriesRifleResultsLink,
-  buildSeriesStartListLink,
+  buildFinalRoundBatchesPath,
+  buildNordicResultsPath,
+  buildQualificationRoundBatchesPath,
+  buildSeriesResultsPath,
+  buildSeriesRifleResultsPath,
+  buildSeriesStartListPath,
 } from '../util/routeUtil'
 import ClubSelect from './ClubSelect'
 import BatchListPdfForm from './BatchListPdfForm'
@@ -42,9 +42,9 @@ export default function RaceSeries({ race }) {
           const { id, name, started, startTime } = s
           if (!started && sport.startList) {
             const linkText = startTime ? `${name} (${format(parseISO(startTime), 'HH:mm')})` : name
-            return <Link key={id} to={buildSeriesStartListLink(race.id, id)} className="button">{linkText}</Link>
+            return <Link key={id} to={buildSeriesStartListPath(race.id, id)} className="button">{linkText}</Link>
           } else {
-            return <a key={id} href={buildSeriesResultsLink(race.id, id)} className="button button--primary">{name}</a>
+            return <a key={id} href={buildSeriesResultsPath(race.id, id)} className="button button--primary">{name}</a>
           }
         })}
       </div>
@@ -54,7 +54,7 @@ export default function RaceSeries({ race }) {
             return (
               <a
                 key={subSport}
-                href={buildNordicResultsLink(race.id, subSport)}
+                href={buildNordicResultsPath(race.id, subSport)}
                 className="button button--primary"
               >{t(`nordic_${subSport}`)}</a>
             )
@@ -67,7 +67,7 @@ export default function RaceSeries({ race }) {
             const { id, name } = s
             const linkText = `${t('rifle')} ${name}`
             return (
-              <a key={id} href={buildSeriesRifleResultsLink(race.id, id)} className="button button--primary">
+              <a key={id} href={buildSeriesRifleResultsPath(race.id, id)} className="button button--primary">
                 {linkText}
               </a>
             )
@@ -93,14 +93,14 @@ export default function RaceSeries({ race }) {
           )}
           {race.qualificationRoundBatches.length > 0 && (
             <BatchListPdfForm
-              path={buildQualificationRoundBatchesLink(race.id)}
+              path={buildQualificationRoundBatchesPath(race.id)}
               race={race}
               title={t(sport.oneBatchList ? 'batchLists' : 'qualificationRoundBatchLists')}
             />
           )}
           {race.finalRoundBatches.length > 0 && (
             <BatchListPdfForm
-              path={buildFinalRoundBatchesLink(race.id)}
+              path={buildFinalRoundBatchesPath(race.id)}
               race={race}
               title={t('finalRoundBatchLists')}
             />

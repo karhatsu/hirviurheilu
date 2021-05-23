@@ -1,21 +1,21 @@
-export const buildRaceLink = raceId => `/races/${raceId}`
+export const buildRacePath = raceId => `/races/${raceId}`
 
-export const buildSeriesStartListLink = (raceId, seriesId) => `/races/${raceId}/series/${seriesId}/start_list`
+export const buildSeriesStartListPath = (raceId, seriesId) => `/races/${raceId}/series/${seriesId}/start_list`
 
-export const buildSeriesResultsLink = (raceId, seriesId) => `/races/${raceId}/series/${seriesId}`
+export const buildSeriesResultsPath = (raceId, seriesId) => `/races/${raceId}/series/${seriesId}`
 
-export const buildSeriesRifleResultsLink = (raceId, seriesId) => `/races/${raceId}/series/${seriesId}/rifle`
+export const buildSeriesRifleResultsPath = (raceId, seriesId) => `/races/${raceId}/series/${seriesId}/rifle`
 
-export const buildNordicResultsLink = (raceId, subSport) => `/races/${raceId}/${subSport}`
+export const buildNordicResultsPath = (raceId, subSport) => `/races/${raceId}/${subSport}`
 
-export const buildTeamCompetitionsLink = (raceId, id) => `/races/${raceId}/team_competitions/${id}`
+export const buildTeamCompetitionsPath = (raceId, id) => `/races/${raceId}/team_competitions/${id}`
 
-export const buildRifleTeamCompetitionsLink = (raceId, id) => `/races/${raceId}/rifle_team_competitions/${id}`
+export const buildRifleTeamCompetitionsPath = (raceId, id) => `/races/${raceId}/rifle_team_competitions/${id}`
 
-export const buildRelayLink = (raceId, relayId) => `/races/${raceId}/relays/${relayId}`
+export const buildRelayPath = (raceId, relayId) => `/races/${raceId}/relays/${relayId}`
 
-export const buildQualificationRoundBatchesLink = raceId => `/races/${raceId}/qualification_round_batches`
+export const buildQualificationRoundBatchesPath = raceId => `/races/${raceId}/qualification_round_batches`
 
-export const buildFinalRoundBatchesLink = raceId => `/races/${raceId}/final_round_batches`
+export const buildFinalRoundBatchesPath = raceId => `/races/${raceId}/final_round_batches`
 
-export const buildCupLink = cupId => `/cups/${cupId}`
+export const buildCupPath = cupId => `/cups/${cupId}`

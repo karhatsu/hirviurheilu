@@ -7,7 +7,7 @@ import MobileStartList from './MobileStartList'
 import SeriesMobileSubMenu from '../menu/SeriesMobileSubMenu'
 import useTranslation from '../../util/useTranslation'
 import Spinner from '../../spinner/Spinner'
-import { buildRaceLink, buildSeriesResultsLink, buildSeriesStartListLink } from '../../util/routeUtil'
+import { buildRacePath, buildSeriesResultsPath, buildSeriesStartListPath } from '../../util/routeUtil'
 import useTitle from '../../util/useTitle'
 
 export default function StartList() {
@@ -51,12 +51,12 @@ export default function StartList() {
         </>
       )}
       {!competitors.length && <div className="message message--info">{t('noCompetitorsOrStartTimes')}</div>}
-      <SeriesMobileSubMenu allSeries={race.series} buildSeriesLink={buildSeriesStartListLink()} currentSeriesId={id} />
+      <SeriesMobileSubMenu allSeries={race.series} buildSeriesLink={buildSeriesStartListPath()} currentSeriesId={id} />
       <div className="buttons buttons--nav">
-        <Link to={buildRaceLink(race.id)} className="button button--back">
+        <Link to={buildRacePath(race.id)} className="button button--back">
           {t('backToPage', { pageName: race.name })}
         </Link>
-        <a href={buildSeriesResultsLink(race.id, series.id)} className="button">{t('results')}</a>
+        <a href={buildSeriesResultsPath(race.id, series.id)} className="button">{t('results')}</a>
       </div>
     </>
   )

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import useTranslation from '../util/useTranslation'
-import { buildRifleTeamCompetitionsLink, buildTeamCompetitionsLink } from '../util/routeUtil'
+import { buildRifleTeamCompetitionsPath, buildTeamCompetitionsPath } from '../util/routeUtil'
 
 export default function RaceTeamCompetitions({ race }) {
   const { t } = useTranslation()
@@ -18,13 +18,13 @@ export default function RaceTeamCompetitions({ race }) {
     <>
       <h2>{t('teamCompetitions')}</h2>
       <div className="buttons">
-        {teamCompetitions.map(tc => buildLink(tc, buildTeamCompetitionsLink))}
+        {teamCompetitions.map(tc => buildLink(tc, buildTeamCompetitionsPath))}
       </div>
       {sport.european && (
         <>
           <h2>{t('rifleTeamCompetitions')}</h2>
           <div className="buttons">
-            {teamCompetitions.map(tc => buildLink(tc, buildRifleTeamCompetitionsLink))}
+            {teamCompetitions.map(tc => buildLink(tc, buildRifleTeamCompetitionsPath))}
           </div>
         </>
       )}
