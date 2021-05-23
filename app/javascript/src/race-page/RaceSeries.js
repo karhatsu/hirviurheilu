@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import format from 'date-fns/format'
 import isAfter from 'date-fns/isAfter'
 import isBefore from 'date-fns/isBefore'
-import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import parse from 'date-fns/parse'
 import parseISO from 'date-fns/parseISO'
 import useTranslation from '../util/useTranslation'
@@ -27,7 +26,7 @@ export default function RaceSeries({ race }) {
     infos.push(t('raceWithoutSeries'))
   }
   if (isAfter(parseISO(startDate), new Date())) {
-    infos.push(t('raceBeginsIn', { distanceInTime: formatDistanceToNow(new Date(startDate)) }))
+    infos.push(t('raceBeginsIn', { distanceInTime: race.startDateDistanceInWords }))
   }
   if (startTime && !finished && isBefore(new Date(), new Date(startDate))) {
     const key = isAfter(new Date(), parseISO(startDate)) ? 'raceStarted' : 'raceStarts'
