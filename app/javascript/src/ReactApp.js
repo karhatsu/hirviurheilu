@@ -18,7 +18,7 @@ function ReactApp() {
       <div className="body__content">
         <DesktopSecondLevelMenu />
         <Route path="/:lang?/races/:raceId/series/:seriesId/start_list">
-          <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesLink={buildSeriesStartListPath} />
+          <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesPath={buildSeriesStartListPath} />
         </Route>
         <div className="body__yield">
           <div className="body__under-top-title"><PageTitle /></div>

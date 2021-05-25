@@ -48,7 +48,7 @@ export default function StartListPage() {
         </>
       )}
       {!competitors.length && <div className="message message--info">{t('noCompetitorsOrStartTimes')}</div>}
-      <SeriesMobileSubMenu allSeries={race.series} buildSeriesLink={buildSeriesStartListPath()} currentSeriesId={id} />
+      <SeriesMobileSubMenu allSeries={race.series} buildSeriesPath={buildSeriesStartListPath()} currentSeriesId={id} />
       <div className="buttons buttons--nav">
         <Link to={buildRacePath(race.id)} className="button button--back">
           {t('backToPage', { pageName: race.name })}
