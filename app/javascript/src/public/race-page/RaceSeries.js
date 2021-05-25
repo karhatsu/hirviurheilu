@@ -5,7 +5,7 @@ import isAfter from 'date-fns/isAfter'
 import isBefore from 'date-fns/isBefore'
 import parse from 'date-fns/parse'
 import parseISO from 'date-fns/parseISO'
-import useTranslation from '../util/useTranslation'
+import useTranslation from '../../util/useTranslation'
 import {
   buildFinalRoundBatchesPath,
   buildNordicResultsPath,
@@ -13,7 +13,7 @@ import {
   buildSeriesResultsPath,
   buildSeriesRifleResultsPath,
   buildSeriesStartListPath,
-} from '../util/routeUtil'
+} from '../../util/routeUtil'
 import ClubSelect from './ClubSelect'
 import BatchListPdfForm from './BatchListPdfForm'
 

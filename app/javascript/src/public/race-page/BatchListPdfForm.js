@@ -1,7 +1,7 @@
 import React from 'react'
 import ClubSelect from './ClubSelect'
 import SeriesSelect from './SeriesSelect'
-import useTranslation from '../util/useTranslation'
+import useTranslation from '../../util/useTranslation'
 
 export default function BatchListPdfForm({ path, race, title }) {
   const { t } = useTranslation()

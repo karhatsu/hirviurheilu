@@ -7,7 +7,7 @@ import SeriesDesktopSubMenu from './public/menu/SeriesDesktopSubMenu'
 import FacebookShare from './public/FacebookShare'
 import StartListPage from './public/start-list/StartListPage'
 import { buildSeriesStartListPath } from './util/routeUtil'
-import RacePage from './race-page/RacePage'
+import RacePage from './public/race-page/RacePage'
 
 function ReactApp() {
   const { raceId, seriesId } = useParams()

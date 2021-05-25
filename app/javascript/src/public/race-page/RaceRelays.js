@@ -1,6 +1,6 @@
 import React from 'react'
-import useTranslation from '../util/useTranslation'
-import { buildRelayPath } from '../util/routeUtil'
+import useTranslation from '../../util/useTranslation'
+import { buildRelayPath } from '../../util/routeUtil'
 import format from 'date-fns/format'
 import parseISO from 'date-fns/parseISO'
 

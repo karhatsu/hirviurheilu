@@ -1,6 +1,6 @@
 import React from 'react'
-import useTranslation from '../util/useTranslation'
-import { buildFinalRoundBatchesPath, buildQualificationRoundBatchesPath } from '../util/routeUtil'
+import useTranslation from '../../util/useTranslation'
+import { buildFinalRoundBatchesPath, buildQualificationRoundBatchesPath } from '../../util/routeUtil'
 
 export default function RaceBatches({ race }) {
   const { t } = useTranslation()

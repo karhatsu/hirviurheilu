@@ -1,5 +1,5 @@
 import React from 'react'
-import useTranslation from '../util/useTranslation'
+import useTranslation from '../../util/useTranslation'
 
 const buildRange = ce => {
   if (ce.minNumber === ce.maxNumber) return ce.minNumber

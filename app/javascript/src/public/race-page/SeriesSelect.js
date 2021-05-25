@@ -1,5 +1,5 @@
 import React from 'react'
-import useTranslation from '../util/useTranslation'
+import useTranslation from '../../util/useTranslation'
 
 export default function SeriesSelect({ series }) {
   const { t } = useTranslation()

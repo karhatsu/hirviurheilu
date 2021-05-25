@@ -1,7 +1,7 @@
 import React from 'react'
 import isAfter from 'date-fns/isAfter'
 import parseISO from 'date-fns/parseISO'
-import useTranslation from '../util/useTranslation'
+import useTranslation from '../../util/useTranslation'
 import ClubSelect from './ClubSelect'
 
 export default function RaceResultsPdf({ race }) {

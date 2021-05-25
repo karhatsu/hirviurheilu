@@ -1,6 +1,6 @@
 import React from 'react'
-import useTranslation from '../util/useTranslation'
-import { buildCupPath } from '../util/routeUtil'
+import useTranslation from '../../util/useTranslation'
+import { buildCupPath } from '../../util/routeUtil'
 
 export default function RaceCups({ race }) {
   const { t } = useTranslation()

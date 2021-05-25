@@ -1,5 +1,5 @@
 import React from 'react'
-import useTranslation from '../util/useTranslation'
+import useTranslation from '../../util/useTranslation'
 
 const urlWithProtocol = url => {
   return url.indexOf('http') === 0 ? url : `http://${url}`

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
-import useTranslation from '../util/useTranslation'
-import { buildRifleTeamCompetitionsPath, buildTeamCompetitionsPath } from '../util/routeUtil'
+import useTranslation from '../../util/useTranslation'
+import { buildRifleTeamCompetitionsPath, buildTeamCompetitionsPath } from '../../util/routeUtil'
 
 export default function RaceTeamCompetitions({ race }) {
   const { t } = useTranslation()

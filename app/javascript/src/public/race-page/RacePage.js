@@ -1,10 +1,10 @@
 import React from 'react'
-import useTitle from '../util/useTitle'
-import { useRace } from '../util/useRace'
+import useTitle from '../../util/useTitle'
+import { useRace } from '../../util/useRace'
 import RaceOrganizer from './RaceOrganizer'
-import Spinner from '../spinner/Spinner'
+import Spinner from '../../spinner/Spinner'
 import RacePublicMessage from './RacePublicMessage'
-import useTranslation from '../util/useTranslation'
+import useTranslation from '../../util/useTranslation'
 import RaceBatches from './RaceBatches'
 import RaceSeries from './RaceSeries'
 import RaceCups from './RaceCups'
@@ -44,7 +44,7 @@ export default function RacePage() {
         </>
       )}
       <div className="buttons buttons--nav">
-        <a href="/" className="button button--back">{t('backToHomePage')}</a>
+        <a href="/app/assets/config" className="button button--back">{t('backToHomePage')}</a>
       </div>
     </>
   )
