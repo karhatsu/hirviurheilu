@@ -1,10 +1,8 @@
 import React from 'react'
-import { Link, useRouteMatch } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-export default function DesktopMenuItem({ path, text, reactLink, routeMatch, selected, dropdownItems }) {
-  const isSelected = selected || useRouteMatch({ path: routeMatch, strict: true })
-
-  const renderLink = (path, text) => {
+export default function DesktopMenuItem({ path, text, reactLink, selected, dropdownItems }) {
+  const renderLink = (path, text, isSelected) => {
     const className = isSelected ? 'selected' : ''
     if (reactLink) {
       return <Link className={className} to={path}>{text}</Link>
@@ -15,7 +13,7 @@ export default function DesktopMenuItem({ path, text, reactLink, routeMatch, sel
 
   return (
     <div className="menu__item">
-      {renderLink(path, text)}
+      {renderLink(path, text, selected)}
       {dropdownItems && dropdownItems.length > 1 && (
         <div className="dropdown-menu">
           {dropdownItems.map(dropdownItem => {

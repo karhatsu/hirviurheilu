@@ -10,14 +10,16 @@ import Spinner from '../../spinner/Spinner'
 import { buildRacePath, buildSeriesResultsPath, buildSeriesStartListPath } from '../../util/routeUtil'
 import useTitle from '../../util/useTitle'
 import { useRace } from '../../util/useRace'
+import { pages } from '../menu/DesktopSecondLevelMenu'
 
-export default function StartListPage() {
+export default function StartListPage({ setSelectedPage }) {
   const { raceId, seriesId } = useParams()
   const [error, setError] = useState()
   const [series, setSeries] = useState()
   const { race } = useRace()
   const { t } = useTranslation()
   useTitle(race && series && `${race.name} - ${series.name} - ${t('startList')}`)
+  useEffect(() => setSelectedPage(pages.startList), [setSelectedPage])
 
   useEffect(() => {
     get(`/api/v2/public/races/${raceId}/series/${seriesId}/start_list`, (err, data) => {

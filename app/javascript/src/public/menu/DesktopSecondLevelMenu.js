@@ -2,7 +2,7 @@ import React from 'react'
 import { useRace } from '../../util/useRace'
 import DesktopMenuItem from './DesktopMenuItem'
 import useTranslation from '../../util/useTranslation'
-import { useParams, useRouteMatch } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import {
   buildFinalRoundBatchesPath,
   buildNordicResultsPath,
@@ -16,9 +16,13 @@ import {
   buildTeamCompetitionsPath,
 } from '../../util/routeUtil'
 
-export default function DesktopSecondLevelMenu() {
+export const pages = {
+  raceHome: 0,
+  startList: 1,
+}
+
+export default function DesktopSecondLevelMenu({ selectedPage }) {
   const { seriesId: urlSeriesId } = useParams()
-  const isHomePage = useRouteMatch({ path: '/:lang?/races/:raceId', strict: true }) && !urlSeriesId
   const { t } = useTranslation()
   const { race } = useRace()
   if (!race || race.cancelled) return null
@@ -29,7 +33,7 @@ export default function DesktopSecondLevelMenu() {
         path={buildRacePath(race.id)}
         text={t('raceMenuHome')}
         reactLink={true}
-        selected={isHomePage}
+        selected={selectedPage === pages.raceHome}
       />
       {seriesId && (
         <>
@@ -74,7 +78,7 @@ export default function DesktopSecondLevelMenu() {
             <DesktopMenuItem
               path={buildSeriesStartListPath(race.id, seriesId)}
               text={t('startLists')}
-              routeMatch="/:lang?/races/:raceId/series/:seriesId/start_list"
+              selected={selectedPage === pages.startList}
               reactLink={true}
               dropdownItems={race.series.map(s => {
                 return { text: s.name, path: buildSeriesStartListPath(race.id, s.id), reactLink: true }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Route, Switch, useParams } from 'react-router-dom'
 import { RaceProvider, useRace } from './util/useRace'
 import PageTitle from './PageTitle'
@@ -10,13 +10,14 @@ import { buildSeriesStartListPath } from './util/routeUtil'
 import RacePage from './public/race-page/RacePage'
 
 function ReactApp() {
+  const [selectedPage, setSelectedPage] = useState(undefined)
   const { raceId, seriesId } = useParams()
   const { race } = useRace()
   return (
     <div className="body" itemScope itemType={raceId ? 'http://schema.org/SportsEvent' : ''}>
       <div className="body__on-top-title"><PageTitle /></div>
       <div className="body__content">
-        <DesktopSecondLevelMenu />
+        <DesktopSecondLevelMenu selectedPage={selectedPage} />
         <Route path="/:lang?/races/:raceId/series/:seriesId/start_list">
           <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesPath={buildSeriesStartListPath} />
         </Route>
@@ -24,8 +25,11 @@ function ReactApp() {
           <div className="body__under-top-title"><PageTitle /></div>
           <FacebookShare />
           <Switch exact>
-            <Route path="/:lang?/races/:raceId/series/:seriesId/start_list" component={StartListPage} />
-            <Route path="/:lang?/races/:raceId" component={RacePage} />
+            <Route
+              path="/:lang?/races/:raceId/series/:seriesId/start_list"
+              render={() => <StartListPage setSelectedPage={setSelectedPage} />}
+            />
+            <Route path="/:lang?/races/:raceId" render={() => <RacePage setSelectedPage={setSelectedPage} />} />
           </Switch>
         </div>
       </div>

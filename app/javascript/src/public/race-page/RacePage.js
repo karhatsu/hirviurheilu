@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import useTitle from '../../util/useTitle'
 import { useRace } from '../../util/useRace'
 import RaceOrganizer from './RaceOrganizer'
@@ -12,11 +12,13 @@ import RaceCorrectDistances from './RaceCorrectDistances'
 import RaceResultsPdf from './RaceResultsPdf'
 import RaceRelays from './RaceRelays'
 import RaceTeamCompetitions from './RaceTeamCompetitions'
+import { pages } from '../menu/DesktopSecondLevelMenu'
 
-export default function RacePage() {
+export default function RacePage({ setSelectedPage }) {
   const { t } = useTranslation()
   const { race, error } = useRace()
   useTitle(race?.name)
+  useEffect(() => setSelectedPage(pages.raceHome), [setSelectedPage])
 
   if (error) return <div className="message message--error">{error}</div>
   if (!race && !error) return <Spinner />
