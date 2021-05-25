@@ -9,20 +9,17 @@ import useTranslation from '../../util/useTranslation'
 import Spinner from '../../spinner/Spinner'
 import { buildRacePath, buildSeriesResultsPath, buildSeriesStartListPath } from '../../util/routeUtil'
 import useTitle from '../../util/useTitle'
+import { useRace } from '../../util/useRace'
 
 export default function StartListPage() {
   const { raceId, seriesId } = useParams()
   const [error, setError] = useState()
-  const [race, setRace] = useState()
   const [series, setSeries] = useState()
+  const { race } = useRace()
   const { t } = useTranslation()
   useTitle(race && series && `${race.name} - ${series.name} - ${t('startList')}`)
 
   useEffect(() => {
-    get(`/api/v2/public/races/${raceId}?no_competitors=true`, (err, data) => {
-      if (err) return setError(err)
-      setRace(data)
-    })
     get(`/api/v2/public/races/${raceId}/series/${seriesId}/start_list`, (err, data) => {
       if (err) return setError(err)
       setSeries(data)
