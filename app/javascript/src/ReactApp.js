@@ -5,7 +5,7 @@ import PageTitle from './PageTitle'
 import DesktopSecondLevelMenu from './public/menu/DesktopSecondLevelMenu'
 import SeriesDesktopSubMenu from './public/menu/SeriesDesktopSubMenu'
 import FacebookShare from './public/FacebookShare'
-import StartList from './public/start-list/StartList'
+import StartListPage from './public/start-list/StartListPage'
 import { buildSeriesStartListPath } from './util/routeUtil'
 import RacePage from './race-page/RacePage'
 
@@ -24,7 +24,7 @@ function ReactApp() {
           <div className="body__under-top-title"><PageTitle /></div>
           <FacebookShare />
           <Switch exact>
-            <Route path="/:lang?/races/:raceId/series/:seriesId/start_list" component={StartList} />
+            <Route path="/:lang?/races/:raceId/series/:seriesId/start_list" component={StartListPage} />
             <Route path="/:lang?/races/:raceId" component={RacePage} />
           </Switch>
         </div>

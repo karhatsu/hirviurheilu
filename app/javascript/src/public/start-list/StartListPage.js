@@ -10,7 +10,7 @@ import Spinner from '../../spinner/Spinner'
 import { buildRacePath, buildSeriesResultsPath, buildSeriesStartListPath } from '../../util/routeUtil'
 import useTitle from '../../util/useTitle'
 
-export default function StartList() {
+export default function StartListPage() {
   const { raceId, seriesId } = useParams()
   const [error, setError] = useState()
   const [race, setRace] = useState()
