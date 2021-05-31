@@ -1,8 +1,10 @@
 json.key_format! camelize: :lower if request.headers['X-Camel-Case']
-json.(@race, :id, :name, :location, :start_time, :start_date, :end_date, :address, :home_page, :organizer, :organizer_phone, :sport_name, :club_level, :finished, :cancelled, :public_message)
+json.(@race, :id, :name, :location, :start_time, :start_date, :end_date, :address, :home_page, :organizer, :organizer_phone, :sport_name, :club_level, :finished, :cancelled, :public_message, :sport_key)
 json.start_time @race.short_start_time
 json.start_date_distance_in_words distance_of_time_in_words(Time.zone.today, @race.start_date)
 json.all_competitions_finished @race.all_competitions_finished?
+json.show_correct_distances @race.show_correct_distances?
+json.unofficials_configurable @race.start_date.year < 2018
 
 json.sport do
   json.batch_list @race.sport.batch_list?

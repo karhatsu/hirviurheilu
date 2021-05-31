@@ -6,8 +6,9 @@ import DesktopSecondLevelMenu from './public/menu/DesktopSecondLevelMenu'
 import SeriesDesktopSubMenu from './public/menu/SeriesDesktopSubMenu'
 import FacebookShare from './public/FacebookShare'
 import StartListPage from './public/start-list/StartListPage'
-import { buildSeriesStartListPath } from './util/routeUtil'
+import { buildSeriesResultsPath, buildSeriesStartListPath } from './util/routeUtil'
 import RacePage from './public/race-page/RacePage'
+import SeriesResultsPage from './public/series-results/SeriesResultsPage'
 
 function ReactApp() {
   const [selectedPage, setSelectedPage] = useState(undefined)
@@ -18,9 +19,14 @@ function ReactApp() {
       <div className="body__on-top-title"><PageTitle /></div>
       <div className="body__content">
         <DesktopSecondLevelMenu selectedPage={selectedPage} />
-        <Route path="/:lang?/races/:raceId/series/:seriesId/start_list">
-          <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesPath={buildSeriesStartListPath} />
-        </Route>
+        <Switch>
+          <Route path="/:lang?/races/:raceId/series/:seriesId/start_list">
+            <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesPath={buildSeriesStartListPath} />
+          </Route>
+          <Route path="/:lang?/races/:raceId/series/:seriesId">
+            <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesPath={buildSeriesResultsPath} />
+          </Route>
+        </Switch>
         <div className="body__yield">
           <div className="body__under-top-title"><PageTitle /></div>
           <FacebookShare />
@@ -28,6 +34,10 @@ function ReactApp() {
             <Route
               path="/:lang?/races/:raceId/series/:seriesId/start_list"
               render={() => <StartListPage setSelectedPage={setSelectedPage} />}
+            />
+            <Route
+              path="/:lang?/races/:raceId/series/:seriesId"
+              render={() => <SeriesResultsPage setSelectedPage={setSelectedPage} />}
             />
             <Route path="/:lang?/races/:raceId" render={() => <RacePage setSelectedPage={setSelectedPage} />} />
           </Switch>

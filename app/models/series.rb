@@ -72,7 +72,16 @@ class Series < ApplicationRecord
   end
 
   def three_sports_results(unofficials=UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=Competitor::SORT_BY_POINTS)
-    Competitor.sort_three_sports_competitors competitors.includes([:club, :age_group, :series]), unofficials, sort_by
+    comps = Competitor.sort_three_sports_competitors competitors.includes([:club, :age_group, :series]), unofficials, sort_by
+    prev_competitor_results = nil
+    prev_competitor_position = 0
+    comps.each_with_index do |comp, i|
+      competitor_results = comp.three_sports_race_results(unofficials)
+      comp.position = competitor_results == prev_competitor_results ? prev_competitor_position : i + 1
+      prev_competitor_results = competitor_results
+      prev_competitor_position = comp.position
+    end
+    comps
   end
 
   def shooting_race_results

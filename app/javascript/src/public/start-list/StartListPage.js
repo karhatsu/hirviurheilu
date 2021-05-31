@@ -55,7 +55,7 @@ export default function StartListPage({ setSelectedPage }) {
         <Link to={buildRacePath(race.id)} className="button button--back">
           {t('backToPage', { pageName: race.name })}
         </Link>
-        <a href={buildSeriesResultsPath(race.id, series.id)} className="button">{t('results')}</a>
+        <Link to={buildSeriesResultsPath(race.id, series.id)} className="button">{t('results')}</Link>
       </div>
     </>
   )

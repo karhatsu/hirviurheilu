@@ -18,7 +18,8 @@ import {
 
 export const pages = {
   raceHome: 0,
-  startList: 1,
+  results: 1,
+  startList: 2,
 }
 
 export default function DesktopSecondLevelMenu({ selectedPage }) {
@@ -40,7 +41,11 @@ export default function DesktopSecondLevelMenu({ selectedPage }) {
           <DesktopMenuItem
             path={buildSeriesResultsPath(race.id, seriesId)}
             text={t('results')}
-            dropdownItems={race.series.map(s => ({ text: s.name, path: buildSeriesResultsPath(race.id, s.id) }))}
+            selected={selectedPage === pages.results}
+            reactLink={true}
+            dropdownItems={race.series.map(s => {
+              return { text: s.name, path: buildSeriesResultsPath(race.id, s.id), reactLink: true }
+            })}
           />
           {race.sport.nordic && (
             <>

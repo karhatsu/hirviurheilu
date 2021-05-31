@@ -95,7 +95,7 @@ class Competitor < ApplicationRecord
   after_save :update_series_start_time_and_number
   after_update :update_series_competitors_counter_cache
 
-  attr_accessor :club_name, :age_group_name, :old_values
+  attr_accessor :club_name, :age_group_name, :old_values, :position
   store_accessor :nordic_results,
                  :trap_shots, :trap_score_input, :trap_extra_shots,
                  :shotgun_shots, :shotgun_score_input, :shotgun_extra_shots,
@@ -341,6 +341,10 @@ class Competitor < ApplicationRecord
 
   def rifle_national_record_passed?
     series.rifle_national_record && european_rifle_score.to_i > series.rifle_national_record.to_i
+  end
+
+  def estimates
+    [estimate1, estimate2, estimate3, estimate4].select {|d| !d.blank?}
   end
 
   def correct_distances

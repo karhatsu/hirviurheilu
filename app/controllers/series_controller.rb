@@ -4,6 +4,7 @@ class SeriesController < ApplicationController
 
   def show
     @is_results = true
+    use_react unless params[:old]
     respond_to do |format|
       format.html
       format.json {

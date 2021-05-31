@@ -43,7 +43,8 @@ export default function RaceSeries({ race }) {
             const linkText = startTime ? `${name} (${format(parseISO(startTime), 'HH:mm')})` : name
             return <Link key={id} to={buildSeriesStartListPath(race.id, id)} className="button">{linkText}</Link>
           } else {
-            return <a key={id} href={buildSeriesResultsPath(race.id, id)} className="button button--primary">{name}</a>
+            const to = buildSeriesResultsPath(race.id, id)
+            return <Link key={id} to={to} className="button button--primary">{name}</Link>
           }
         })}
       </div>

@@ -189,7 +189,7 @@ Hirviurheilu::Application.routes.draw do
 
       namespace :public do
         resources :races, only: :show do
-          resources :series, only: [] do
+          resources :series, only: [:show] do
             resource :start_list, only: :show
           end
           resources :times, only: :index

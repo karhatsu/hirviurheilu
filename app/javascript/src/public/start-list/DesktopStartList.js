@@ -1,6 +1,7 @@
 import React from 'react'
 import { raceEnums } from '../../util/enums'
 import useTranslation from '../../util/useTranslation'
+import UnofficialLabel from '../series-results/UnofficialLabel'
 
 export default function DesktopStartList({ competitors, race }) {
   const { t } = useTranslation()
@@ -44,9 +45,7 @@ export default function DesktopStartList({ competitors, race }) {
               <td>
                 {lastName} {firstName}
                 {ageGroup && ` (${ageGroup.name})`}
-                {unofficial && (
-                  <span className="unofficial" title={t('unofficialCompetitor')}>{t('unofficialShort')}</span>
-                )}
+                <UnofficialLabel unofficial={unofficial} />
               </td>
               <td>{club.name}</td>
               <td>{time}</td>
