@@ -45,6 +45,21 @@ describe QuickSave::QualificationRoundShots do
     end
   end
 
+  context 'when string format as shots total is correct and pienoishirvi shots are saved' do
+    let(:race2) { create :race, sport_key: Sport::PIENOISHIRVI }
+    let(:series2) { create :series, race: race2 }
+    let!(:competitor2) { create :competitor, series: series2, number: 2 }
+    let(:shot_count) { 20 }
+    before do
+      @qs = QuickSave::QualificationRoundShots.new(race2.id, '2,157', 20)
+    end
+
+    it 'saves the shooting score input' do
+      result = @qs.save
+      expect_success result, competitor2, nil, 157
+    end
+  end
+
   context 'when invalid shot given' do
     before do
       race.update_attribute :sport_key, Sport::ILMAHIRVI
@@ -104,7 +119,7 @@ describe QuickSave::QualificationRoundShots do
   context 'when invalid sum given' do
     before do
       race.update_attribute :sport_key, Sport::ILMAHIRVI
-      @qs = QuickSave::QualificationRoundShots.new(race.id, '1,101', shot_count)
+      @qs = QuickSave::QualificationRoundShots.new(race.id, '1,1010', shot_count)
     end
 
     it 'does not save anything' do
