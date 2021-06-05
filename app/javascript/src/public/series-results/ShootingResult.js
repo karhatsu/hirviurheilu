@@ -3,5 +3,5 @@ import { ShowShotsContext } from './ResultsWithShots'
 
 export default function ShootingResult({ score, shots }) {
   const showShots = useContext(ShowShotsContext)
-  return showShots ? `${score} (${shots.join(', ')})` : score
+  return showShots && shots ? `${score} (${shots.join(', ')})` : score
 }

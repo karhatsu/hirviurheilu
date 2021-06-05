@@ -94,7 +94,10 @@ class Series < ApplicationRecord
   end
 
   def european_race_results
-    Competitor.sort_european_competitors competitors.includes([:club, :age_group, :series])
+    sorted_competitors = Competitor.sort_european_competitors competitors.includes([:club, :series])
+    add_position_for_competitors sorted_competitors do |competitor|
+      competitor.european_total_results
+    end
   end
 
   def next_start_number

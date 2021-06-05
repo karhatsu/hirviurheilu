@@ -18,6 +18,8 @@ import ThreeSportMobileResults from './ThreeSportMobileResults'
 import NordicDesktopResults from './NordicDesktopResults'
 import ResultsWithShots from './ResultsWithShots'
 import NordicMobileResults from './NordicMobileResults'
+import EuropeanDesktopResults from './EuropeanDesktopResults'
+import EuropeanMobileResults from './EuropeanMobileResults'
 
 export default function SeriesResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -67,6 +69,8 @@ export default function SeriesResultsPage({ setSelectedPage }) {
         <ResultsWithShots series={series}>
           {race.sport.nordic && <NordicDesktopResults race={race} series={series} />}
           {race.sport.nordic && <NordicMobileResults race={race} series={series} />}
+          {race.sport.european && <EuropeanDesktopResults race={race} series={series} />}
+          {race.sport.european && <EuropeanMobileResults race={race} series={series} />}
           {race.sport.threeSports && <ThreeSportDesktopResults race={race} series={series} />}
           {race.sport.threeSports && <ThreeSportMobileResults race={race} series={series} />}
         </ResultsWithShots>
