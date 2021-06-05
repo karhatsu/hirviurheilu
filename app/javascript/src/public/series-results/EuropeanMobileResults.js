@@ -44,26 +44,22 @@ export default function EuropeanMobileResults({ race, series }) {
               <div className="card__middle-row">{club.name}</div>
               {europeanExtraScore && <div className="card__middle-row">{t('extraRound')}: {europeanExtraScore}</div>}
               <div className="card__middle-row">
-                <MobileSubResult type="shoot">
-                  {t('european_trap')}: <ShootingResult score={europeanTrapScore} shots={europeanTrapShots} />
+                <MobileSubResult type="shoot" titleKey="european_trap">
+                  <ShootingResult score={europeanTrapScore} shots={europeanTrapShots} />
                 </MobileSubResult>
-                <MobileSubResult type="shoot">
-                  {t('european_compak')}: <ShootingResult score={europeanCompakScore} shots={europeanCompakShots} />
+                <MobileSubResult type="shoot" titleKey="european_compak">
+                  <ShootingResult score={europeanCompakScore} shots={europeanCompakShots} />
                 </MobileSubResult>
-                <MobileSubResult type="shoot">
-                  {t('european_rifle1')}:{' '}
+                <MobileSubResult type="shoot" titleKey="european_rifle1">
                   <ShootingResult score={europeanRifle1Score} shots={europeanRifle1Shots} />
                 </MobileSubResult>
-                <MobileSubResult type="shoot">
-                  {t('european_rifle2')}:{' '}
+                <MobileSubResult type="shoot" titleKey="european_rifle2">
                   <ShootingResult score={europeanRifle2Score} shots={europeanRifle2Shots} />
                 </MobileSubResult>
-                <MobileSubResult type="shoot">
-                  {t('european_rifle3')}:{' '}
+                <MobileSubResult type="shoot" titleKey="european_rifle3">
                   <ShootingResult score={europeanRifle3Score} shots={europeanRifle3Shots} />
                 </MobileSubResult>
-                <MobileSubResult type="shoot">
-                  {t('european_rifle4')}:{' '}
+                <MobileSubResult type="shoot" titleKey="european_rifle4">
                   <ShootingResult score={europeanRifle4Score} shots={europeanRifle4Shots} />
                 </MobileSubResult>
               </div>
