@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react'
 import useTranslation from '../../util/useTranslation'
-import { raceEnums } from '../../util/enums'
 import UnofficialLabel from './UnofficialLabel'
 import Points from './Points'
 import TimePoints from './TimePoints'
@@ -8,6 +7,7 @@ import EstimatePoints from './EstimatePoints'
 import ShootingPoints from './ShootingPoints'
 import NationalRecord from './NationalRecord'
 import useCompetitorSorting from './useCompetitorSorting'
+import { resolveClubTitle } from '../../util/clubUtil'
 
 export default function ThreeSportDesktopResults({ race, series }) {
   const { t } = useTranslation()
@@ -34,7 +34,7 @@ export default function ThreeSportDesktopResults({ race, series }) {
             <th>&nbsp;</th>
             <th>{t('name')}</th>
             <th>{t('numberShort')}</th>
-            <th id="table_club_title">{t(clubLevel === raceEnums.clubLevel.club ? 'club' : 'district')}</th>
+            <th id="table_club_title">{resolveClubTitle(t, clubLevel)}</th>
             {timePoints && <th className="center">{createTitle(`timeTitle_${sportKey}`, sortMethods.time)}</th>}
             <th className="center">{createTitle('estimating', sortMethods.estimates)}</th>
             <th className="center">{createTitle('shooting', sortMethods.shooting)}</th>

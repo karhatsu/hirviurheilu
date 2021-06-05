@@ -72,16 +72,10 @@ class Series < ApplicationRecord
   end
 
   def three_sports_results(unofficials=UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=Competitor::SORT_BY_POINTS)
-    comps = Competitor.sort_three_sports_competitors competitors.includes([:club, :age_group, :series]), unofficials, sort_by
-    prev_competitor_results = nil
-    prev_competitor_position = 0
-    comps.each_with_index do |comp, i|
-      competitor_results = comp.three_sports_race_results(unofficials)
-      comp.position = competitor_results == prev_competitor_results ? prev_competitor_position : i + 1
-      prev_competitor_results = competitor_results
-      prev_competitor_position = comp.position
+    sorted_competitors = Competitor.sort_three_sports_competitors competitors.includes([:club, :age_group, :series]), unofficials, sort_by
+    add_position_for_competitors sorted_competitors do |competitor|
+      competitor.three_sports_race_results unofficials
     end
-    comps
   end
 
   def shooting_race_results
@@ -89,7 +83,10 @@ class Series < ApplicationRecord
   end
 
   def nordic_race_results
-    Competitor.sort_nordic_competitors competitors.includes([:club, :age_group, :series])
+    sorted_competitors = Competitor.sort_nordic_competitors competitors.includes([:club, :series])
+    add_position_for_competitors sorted_competitors do |competitor|
+      competitor.nordic_total_results
+    end
   end
 
   def european_rifle_results
@@ -366,5 +363,17 @@ class Series < ApplicationRecord
 
   def batch_too_small?(competitor, last_batch_start, last_batch_size, batch_size)
     competitor.number >= last_batch_start && last_batch_size <= batch_size*2/3
+  end
+
+  def add_position_for_competitors(competitors, &block)
+    prev_competitor_results = nil
+    prev_competitor_position = 0
+    competitors.each_with_index do |comp, i|
+      competitor_results = block.call comp
+      comp.position = competitor_results == prev_competitor_results ? prev_competitor_position : i + 1
+      prev_competitor_results = competitor_results
+      prev_competitor_position = comp.position
+    end
+    competitors
   end
 end

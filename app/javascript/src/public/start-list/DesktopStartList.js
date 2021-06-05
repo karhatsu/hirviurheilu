@@ -1,14 +1,10 @@
 import React from 'react'
-import { raceEnums } from '../../util/enums'
 import useTranslation from '../../util/useTranslation'
 import UnofficialLabel from '../series-results/UnofficialLabel'
+import { resolveClubTitle } from '../../util/clubUtil'
 
 export default function DesktopStartList({ competitors, race }) {
   const { t } = useTranslation()
-
-  const clubLevel = () => {
-    return race.clubLevel === raceEnums.clubLevel.district ? t('district') : t('club')
-  }
 
   const showTeamName = !!competitors.find(c => c.teamName)
   return (
@@ -18,7 +14,7 @@ export default function DesktopStartList({ competitors, race }) {
         <tr>
           <th>{t('numberShort')}</th>
           <th>{t('competitor')}</th>
-          <th id="table_club_title">{clubLevel()}</th>
+          <th id="table_club_title">{resolveClubTitle(t, race.clubLevel)}</th>
           <th>{t('startTime')}</th>
           {showTeamName && <th>{t('jotosTeam')}</th>}
         </tr>

@@ -13,6 +13,7 @@ json.sport do
   json.one_batch_list @race.sport.one_batch_list?
   json.shooting @race.sport.shooting?
   json.start_list @race.sport.start_list?
+  json.three_sports !@race.sport.shooting?
 end
 
 json.series @race.series do |series|

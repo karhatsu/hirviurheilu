@@ -15,6 +15,9 @@ import SeriesStatus from './SeriesStatus'
 import ThreeSportRaceInfo from './ThreeSportRaceInfo'
 import ThreeSportDesktopResults from './ThreeSportDesktopResults'
 import ThreeSportMobileResults from './ThreeSportMobileResults'
+import NordicDesktopResults from './NordicDesktopResults'
+import ResultsWithShots from './ResultsWithShots'
+import NordicMobileResults from './NordicMobileResults'
 
 export default function SeriesResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -61,8 +64,12 @@ export default function SeriesResultsPage({ setSelectedPage }) {
       <h2>{title}</h2>
       <SeriesStatus race={race} series={series}>
         {!race.sport.shooting && <ThreeSportRaceInfo race={race} series={series} />}
-        <ThreeSportDesktopResults race={race} series={series} />
-        <ThreeSportMobileResults race={race} series={series} />
+        <ResultsWithShots series={series}>
+          {race.sport.nordic && <NordicDesktopResults race={race} series={series} />}
+          {race.sport.nordic && <NordicMobileResults race={race} series={series} />}
+          {race.sport.threeSports && <ThreeSportDesktopResults race={race} series={series} />}
+          {race.sport.threeSports && <ThreeSportMobileResults race={race} series={series} />}
+        </ResultsWithShots>
         <div className="buttons">
           {hasUnofficialCompetitors && (
             <span className="button" onClick={toggleAllCompetitors}>
