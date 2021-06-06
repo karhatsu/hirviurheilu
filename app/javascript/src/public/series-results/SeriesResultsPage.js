@@ -69,16 +69,18 @@ export default function SeriesResultsPage({ setSelectedPage }) {
       <h2>{title}</h2>
       <SeriesStatus race={race} series={series}>
         {!shooting && <ThreeSportRaceInfo race={race} series={series} />}
-        <ResultsWithShots series={series}>
-          {nordic && <NordicDesktopResults race={race} series={series} />}
-          {nordic && <NordicMobileResults race={race} series={series} />}
-          {european && <EuropeanDesktopResults race={race} series={series} />}
-          {european && <EuropeanMobileResults race={race} series={series} />}
-          {shootingSimple && <ShootingDesktopResults race={race} series={series} />}
-          {shootingSimple && <ShootingMobileResults race={race} series={series} />}
-          {threeSports && <ThreeSportDesktopResults race={race} series={series} />}
-          {threeSports && <ThreeSportMobileResults race={race} series={series} />}
-        </ResultsWithShots>
+        {shooting && (
+          <ResultsWithShots series={series}>
+            {nordic && <NordicDesktopResults race={race} series={series} />}
+            {nordic && <NordicMobileResults race={race} series={series} />}
+            {european && <EuropeanDesktopResults race={race} series={series} />}
+            {european && <EuropeanMobileResults race={race} series={series} />}
+            {shootingSimple && <ShootingDesktopResults race={race} series={series} />}
+            {shootingSimple && <ShootingMobileResults race={race} series={series} />}
+          </ResultsWithShots>
+        )}
+        {!shooting && <ThreeSportDesktopResults race={race} series={series} />}
+        {!shooting && <ThreeSportMobileResults race={race} series={series} />}
         <div className="buttons">
           {hasUnofficialCompetitors && (
             <span className="button" onClick={toggleAllCompetitors}>
