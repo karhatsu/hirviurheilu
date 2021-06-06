@@ -13,6 +13,8 @@ if @series.race.sport.nordic?
   competitors = @series.nordic_race_results
 elsif @series.race.sport.european?
   competitors = @series.european_race_results
+elsif @series.race.sport.shooting?
+  competitors = @series.shooting_race_results
 else
   competitors = @series.three_sports_results(unofficials_result_rule(@series.race))
 end
@@ -22,6 +24,8 @@ json.competitors competitors.each do |competitor|
     json.(competitor, :nordic_trap_score, :nordic_trap_shots, :nordic_shotgun_score, :nordic_shotgun_shots, :nordic_rifle_moving_score, :nordic_rifle_moving_shots, :nordic_rifle_standing_score, :nordic_rifle_standing_shots, :nordic_score, :nordic_extra_score)
   elsif @series.race.sport.european?
     json.(competitor, :only_rifle, :european_trap_score, :european_trap_shots, :european_compak_score, :european_compak_shots, :european_rifle1_score, :european_rifle1_shots, :european_rifle2_score, :european_rifle2_shots, :european_rifle3_score, :european_rifle3_shots, :european_rifle4_score, :european_rifle4_shots, :european_score, :european_extra_score)
+  elsif @series.race.sport.shooting?
+    json.(competitor, :shots, :qualification_round_sub_scores, :qualification_round_shots, :qualification_round_score, :final_round_shots, :final_round_score, :shooting_score, :extra_shots)
   else
     json.(competitor, :arrival_time, :shooting_overtime_penalty, :time_in_seconds, :time_points, :estimate_points, :shooting_score, :shooting_points)
   end

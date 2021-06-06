@@ -20,6 +20,8 @@ import ResultsWithShots from './ResultsWithShots'
 import NordicMobileResults from './NordicMobileResults'
 import EuropeanDesktopResults from './EuropeanDesktopResults'
 import EuropeanMobileResults from './EuropeanMobileResults'
+import ShootingDesktopResults from './ShootingDesktopResults'
+import ShootingMobileResults from './ShootingMobileResults'
 
 export default function SeriesResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -61,18 +63,21 @@ export default function SeriesResultsPage({ setSelectedPage }) {
   if (!race || !series || (series && series.id !== parseInt(seriesId))) return <Spinner />
 
   const hasUnofficialCompetitors = race.unofficialsConfigurable && !!series.competitors.find(c => c.unofficial)
+  const { european, nordic, shooting, shootingSimple, threeSports } = race.sport
   return (
     <>
       <h2>{title}</h2>
       <SeriesStatus race={race} series={series}>
-        {!race.sport.shooting && <ThreeSportRaceInfo race={race} series={series} />}
+        {!shooting && <ThreeSportRaceInfo race={race} series={series} />}
         <ResultsWithShots series={series}>
-          {race.sport.nordic && <NordicDesktopResults race={race} series={series} />}
-          {race.sport.nordic && <NordicMobileResults race={race} series={series} />}
-          {race.sport.european && <EuropeanDesktopResults race={race} series={series} />}
-          {race.sport.european && <EuropeanMobileResults race={race} series={series} />}
-          {race.sport.threeSports && <ThreeSportDesktopResults race={race} series={series} />}
-          {race.sport.threeSports && <ThreeSportMobileResults race={race} series={series} />}
+          {nordic && <NordicDesktopResults race={race} series={series} />}
+          {nordic && <NordicMobileResults race={race} series={series} />}
+          {european && <EuropeanDesktopResults race={race} series={series} />}
+          {european && <EuropeanMobileResults race={race} series={series} />}
+          {shootingSimple && <ShootingDesktopResults race={race} series={series} />}
+          {shootingSimple && <ShootingMobileResults race={race} series={series} />}
+          {threeSports && <ThreeSportDesktopResults race={race} series={series} />}
+          {threeSports && <ThreeSportMobileResults race={race} series={series} />}
         </ResultsWithShots>
         <div className="buttons">
           {hasUnofficialCompetitors && (

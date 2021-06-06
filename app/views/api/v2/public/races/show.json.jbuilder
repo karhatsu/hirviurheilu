@@ -12,6 +12,7 @@ json.sport do
   json.nordic @race.sport.nordic?
   json.one_batch_list @race.sport.one_batch_list?
   json.shooting @race.sport.shooting?
+  json.shooting_simple @race.sport.shooting? && !@race.sport.european? && !@race.sport.nordic?
   json.start_list @race.sport.start_list?
   json.three_sports !@race.sport.shooting?
 end

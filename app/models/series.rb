@@ -79,7 +79,10 @@ class Series < ApplicationRecord
   end
 
   def shooting_race_results
-    Competitor.sort_shooting_race_competitors competitors.includes([:club, :age_group, :series])
+    sorted_competitors = Competitor.sort_shooting_race_competitors competitors.includes([:club, :series])
+    add_position_for_competitors sorted_competitors do |competitor|
+      competitor.shooting_race_results sorted_competitors
+    end
   end
 
   def nordic_race_results
