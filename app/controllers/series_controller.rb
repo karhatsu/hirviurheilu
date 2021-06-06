@@ -4,9 +4,9 @@ class SeriesController < ApplicationController
 
   def show
     @is_results = true
-    use_react unless params[:old]
+    use_react
     respond_to do |format|
-      format.html
+      format.html { render layout: true, html: '' }
       format.json {
         assign_series_by_id
         render :json => @series.to_json(:methods => [:next_start_number, :next_start_time])
