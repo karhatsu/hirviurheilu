@@ -3,6 +3,7 @@ import useTranslation from '../../util/useTranslation'
 import MobileSubResult from './MobileSubResult'
 import ShootingResult from './ShootingResult'
 import NationalRecord from './NationalRecord'
+import TotalScore from './TotalScore'
 
 export default function EuropeanMobileResults({ race, series }) {
   const { t } = useTranslation()
@@ -35,7 +36,6 @@ export default function EuropeanMobileResults({ race, series }) {
         } = competitor
         const orderNo = position === prevCompetitorPosition ? '' : `${position}.`
         prevCompetitorPosition = position
-        const result = noResultReason ? t(`competitor_${noResultReason}`) : europeanScore
         return (
           <div key={id} className={`card ${i % 2 === 0 ? 'card--odd' : ''}`}>
             <div className="card__number">{orderNo}</div>
@@ -65,7 +65,7 @@ export default function EuropeanMobileResults({ race, series }) {
               </div>
             </div>
             <div className="card__main-value">
-              {result}
+              <TotalScore noResultReason={noResultReason} totalScore={europeanScore} />
               <NationalRecord race={race} series={series} competitor={competitor} />
             </div>
           </div>

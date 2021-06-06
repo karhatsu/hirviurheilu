@@ -3,6 +3,7 @@ import useTranslation from '../../util/useTranslation'
 import ShootingResult from './ShootingResult'
 import { resolveClubTitle } from '../../util/clubUtil'
 import NationalRecord from './NationalRecord'
+import TotalScore from './TotalScore'
 
 export default function EuropeanDesktopResults({ race, series }) {
   const { t } = useTranslation()
@@ -55,7 +56,6 @@ export default function EuropeanDesktopResults({ race, series }) {
             } = competitor
             const orderNo = position === prevCompetitorPosition ? '' : `${position}.`
             prevCompetitorPosition = position
-            const result = noResultReason ? t(`competitor_${noResultReason}`) : europeanScore
             return (
               <tr key={id} className={i % 2 === 0 ? 'odd' : ''}>
                 <td>{orderNo}</td>
@@ -69,7 +69,7 @@ export default function EuropeanDesktopResults({ race, series }) {
                 <td><ShootingResult score={europeanRifle3Score} shots={europeanRifle3Shots} /></td>
                 <td><ShootingResult score={europeanRifle4Score} shots={europeanRifle4Shots} /></td>
                 <td className="center total-points">
-                  {result || '-'}
+                  <TotalScore noResultReason={noResultReason} totalScore={europeanScore} />
                   <NationalRecord race={race} series={series} competitor={competitor} />
                 </td>
                 {extraShots && <td>{europeanExtraScore}</td>}

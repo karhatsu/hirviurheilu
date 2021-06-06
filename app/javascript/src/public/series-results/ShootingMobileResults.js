@@ -2,6 +2,7 @@ import React from 'react'
 import NationalRecord from './NationalRecord'
 import useTranslation from '../../util/useTranslation'
 import ShootingRaceMobileShootingResult from './ShootingRaceMobileShootingResult'
+import TotalScore from './TotalScore'
 
 export default function ShootingMobileResults({ race, series }) {
   const { t } = useTranslation()
@@ -22,7 +23,6 @@ export default function ShootingMobileResults({ race, series }) {
         } = competitor
         const orderNo = position === prevCompetitorPosition ? '' : `${position}.`
         prevCompetitorPosition = position
-        const result = noResultReason || shootingScore
         return (
           <div key={id} className={`card ${i % 2 === 0 ? 'card--odd' : ''}`}>
             <div className="card__number">{orderNo}</div>
@@ -39,7 +39,7 @@ export default function ShootingMobileResults({ race, series }) {
               )}
             </div>
             <div className="card__main-value">
-              {result}
+              <TotalScore noResultReason={noResultReason} totalScore={shootingScore} />
               <NationalRecord race={race} series={series} competitor={competitor} />
             </div>
           </div>

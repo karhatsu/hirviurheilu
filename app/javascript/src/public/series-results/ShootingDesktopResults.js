@@ -4,6 +4,7 @@ import { resolveClubTitle } from '../../util/clubUtil'
 import NationalRecord from './NationalRecord'
 import ShootingResult from './ShootingResult'
 import QualificationRoundDesktopShootingResult from './QualificationRoundDesktopShootingResult'
+import TotalScore from './TotalScore'
 
 export default function ShootingDesktopResults({ race, series }) {
   const { t } = useTranslation()
@@ -42,7 +43,6 @@ export default function ShootingDesktopResults({ race, series }) {
             } = competitor
             const orderNo = position === prevCompetitorPosition ? '' : `${position}.`
             prevCompetitorPosition = position
-            const result = noResultReason || shootingScore
             return (
               <tr key={id} className={i % 2 === 0 ? 'odd' : ''}>
                 <td>{orderNo}</td>
@@ -52,7 +52,7 @@ export default function ShootingDesktopResults({ race, series }) {
                 <td><QualificationRoundDesktopShootingResult competitor={competitor} /></td>
                 <td><ShootingResult score={finalRoundScore} shots={finalRoundShots && finalRoundShots[0]} /></td>
                 <td className="center total-points">
-                  {result}
+                  <TotalScore noResultReason={noResultReason} totalScore={shootingScore} />
                   <NationalRecord race={race} series={series} competitor={competitor} />
                 </td>
                 {showExtraShots && <td>{extraShots ? extraShots.join(', ') : ''}</td>}
