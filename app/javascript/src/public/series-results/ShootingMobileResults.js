@@ -29,9 +29,7 @@ export default function ShootingMobileResults({ race, series }) {
             <div className="card__middle">
               <div className="card__name">{lastName} {firstName}</div>
               <div className="card__middle-row">{club.name}</div>
-              <div className="card__middle-row">
-                <ShootingRaceMobileShootingResult competitor={competitor} />
-              </div>
+              <ShootingRaceMobileShootingResult competitor={competitor} />
               {extraShots && (
                 <div className="card__middle-row">
                   {t('extraRound')}: {extraShots.join(', ')}

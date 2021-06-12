@@ -10,3 +10,7 @@ When('I force mobile UI') do
   page.execute_script("$('.results--desktop').hide()")
   page.execute_script("$('.results--mobile').show()")
 end
+
+When('I wait for the results') do
+  page.has_no_css? '.spinner'
+end

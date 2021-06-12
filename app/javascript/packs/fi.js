@@ -11,6 +11,7 @@ window.translations = {
   backToPage: 'Takaisin sivulle {{pageName}}',
   batchLists: 'Eräluettelot',
   club: 'Seura',
+  comparisonTime: 'Vertailuaika',
   competitor: 'Kilpailija',
   competitor_DNS: 'Kilpailija ei osallistunut kilpailuun',
   competitor_DNF: 'Kilpailija keskeytti kilpailun',

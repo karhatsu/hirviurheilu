@@ -63,7 +63,7 @@ export default function SeriesResultsPage({ setSelectedPage }) {
   if (!race || !series || (series && series.id !== parseInt(seriesId))) return <Spinner />
 
   const hasUnofficialCompetitors = race.unofficialsConfigurable && !!series.competitors.find(c => c.unofficial)
-  const { european, nordic, shooting, shootingSimple, threeSports } = race.sport
+  const { european, nordic, shooting, shootingSimple } = race.sport
   return (
     <>
       <h2>{title}</h2>
@@ -83,7 +83,7 @@ export default function SeriesResultsPage({ setSelectedPage }) {
         {!shooting && <ThreeSportMobileResults race={race} series={series} />}
         <div className="buttons">
           {hasUnofficialCompetitors && (
-            <span className="button" onClick={toggleAllCompetitors}>
+            <span className="button" onClick={toggleAllCompetitors} id="all_competitors_button">
               {t(allCompetitors ? 'showOfficialResults' : 'showUnofficialResults')}
             </span>
           )}

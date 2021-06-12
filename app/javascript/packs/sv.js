@@ -11,6 +11,7 @@ window.translations = {
   backToPage: 'Tillbaka till sida {{pageName}}',
   batchLists: 'Heatlista',
   club: 'Klubb',
+  comparisonTime: 'Jämförelsetid',
   competitor: 'Tävlare',
   competitor_DNS: 'Tävlaren startade inte',
   competitor_DNF: 'Tävlaren avbröt',

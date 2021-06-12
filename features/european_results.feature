@@ -17,11 +17,12 @@ Feature: European results
     And the team competition contains the series "M"
     And the team competition contains the series "N"
     When I follow "Tulokset"
+    And I wait for the results
     And I force mobile UI
     Then I should see a card 1 for "Pohjonen Pertti" with total score 369
-    And I should see "Trap: 24 Compak: 22 Metsäkauris: 42 Kettu: 44 Gemssi: 49 Villisika: 50" in result card 1 detail row 2
+    And I should see "Trap: 24Compak: 22Metsäkauris: 42Kettu: 44Gemssi: 49Villisika: 50" in result card 1 detail row 2
     And I should see a card 2 for "Pohjola Pekka" with total score 357
-    And I should see "Trap: 25 Compak: 20 Metsäkauris: 49 Kettu: 50 Gemssi: 40 Villisika: 38" in result card 2 detail row 2
+    And I should see "Trap: 25Compak: 20Metsäkauris: 49Kettu: 50Gemssi: 40Villisika: 38" in result card 2 detail row 2
     When I follow "Luodikko"
     And I force mobile UI
     Then I should see a card 1 for "Pohjonen Pertti" with total score 185

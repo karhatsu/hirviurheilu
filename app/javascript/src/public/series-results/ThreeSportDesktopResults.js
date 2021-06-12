@@ -8,6 +8,7 @@ import ShootingPoints from './ShootingPoints'
 import NationalRecord from './NationalRecord'
 import useCompetitorSorting from './useCompetitorSorting'
 import { resolveClubTitle } from '../../util/clubUtil'
+import { timeFromSeconds } from '../../util/timeUtil'
 
 export default function ThreeSportDesktopResults({ race, series }) {
   const { t } = useTranslation()
@@ -43,7 +44,17 @@ export default function ThreeSportDesktopResults({ race, series }) {
         </thead>
         <tbody>
           {competitors.map((competitor, i) => {
-            const { ageGroup, club, firstName, id, lastName, number, position, unofficial } = competitor
+            const {
+              ageGroup,
+              club,
+              comparisonTimeInSeconds,
+              firstName,
+              id,
+              lastName,
+              number,
+              position,
+              unofficial,
+            } = competitor
             let name = `${lastName} ${firstName}`
             if (ageGroup) {
               name = `${name} (${ageGroup.name})`
@@ -58,7 +69,11 @@ export default function ThreeSportDesktopResults({ race, series }) {
                 <td>{name} <UnofficialLabel unofficial={unofficial} /></td>
                 <td>{number}</td>
                 <td>{club.name}</td>
-                {timePoints && <td><TimePoints competitor={competitor} series={series} /></td>}
+                {timePoints && (
+                  <td title={`${t('comparisonTime')}: ${timeFromSeconds(comparisonTimeInSeconds)}`}>
+                    <TimePoints competitor={competitor} series={series} />
+                  </td>
+                )}
                 <td><EstimatePoints competitor={competitor} series={series} race={race} /></td>
                 <td><ShootingPoints competitor={competitor} /></td>
                 <td className="center total-points">

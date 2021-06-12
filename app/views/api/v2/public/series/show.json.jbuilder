@@ -4,6 +4,8 @@ json.active @series.active?
 json.started @series.started?
 json.start_time @series.start_datetime
 json.time_points @series.time_points?
+unofficials_rule = unofficials_result_rule(@series.race)
+json.unofficials_result_rule unofficials_rule
 
 json.age_groups @series.age_groups do |age_group|
   json.(age_group, :id, :name, :shorter_trip)
@@ -16,10 +18,11 @@ elsif @series.race.sport.european?
 elsif @series.race.sport.shooting?
   competitors = @series.shooting_race_results
 else
-  competitors = @series.three_sports_results(unofficials_result_rule(@series.race))
+  competitors = @series.three_sports_results(unofficials_rule)
 end
 json.competitors competitors.each do |competitor|
-  json.(competitor, :id, :position, :first_name, :last_name, :number, :no_result_reason, :unofficial, :points, :shots, :updated_at)
+  json.(competitor, :id, :position, :first_name, :last_name, :number, :no_result_reason, :unofficial, :shots, :updated_at)
+  json.points competitor.points(unofficials_rule)
   if @series.race.sport.nordic?
     json.(competitor, :nordic_trap_score, :nordic_trap_shots, :nordic_shotgun_score, :nordic_shotgun_shots, :nordic_rifle_moving_score, :nordic_rifle_moving_shots, :nordic_rifle_standing_score, :nordic_rifle_standing_shots, :nordic_score, :nordic_extra_score)
   elsif @series.race.sport.european?
@@ -27,7 +30,9 @@ json.competitors competitors.each do |competitor|
   elsif @series.race.sport.shooting?
     json.(competitor, :shots, :qualification_round_sub_scores, :qualification_round_shots, :qualification_round_score, :final_round_shots, :final_round_score, :shooting_score, :extra_shots)
   else
-    json.(competitor, :arrival_time, :shooting_overtime_penalty, :time_in_seconds, :time_points, :estimate_points, :shooting_score, :shooting_points)
+    json.(competitor, :arrival_time, :shooting_overtime_penalty, :time_in_seconds, :estimate_points, :shooting_score, :shooting_points)
+    json.time_points competitor.time_points(unofficials_rule)
+    json.comparison_time_in_seconds competitor.comparison_time_in_seconds(unofficials_rule)
   end
   json.has_shots competitor.has_shots?
   if @series.race.show_correct_distances?

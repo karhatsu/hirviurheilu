@@ -139,6 +139,7 @@ Feature: Save results by result place
     Then the card 1 main value should be "80"
     When I press "Tallenna"
     And I go to the results page of the series
+    And I wait for the results
     Then I should see 261 as total score in the results table for row 1
 
   @javascript
@@ -165,6 +166,7 @@ Feature: Save results by result place
     When I press "Tallenna"
     Then I should see "Tallennettu" in a success message
     When I go to the results page of the series
+    And I wait for the results
     Then I should see 367 as total score in the results table for row 1
     When I choose "Luodikko" from sub menu
-    Then I should see 175 as total score in the results table for row 1
+    Then I should see 175 as total score in the results table for row 2

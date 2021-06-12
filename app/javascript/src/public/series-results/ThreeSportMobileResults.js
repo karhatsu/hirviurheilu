@@ -45,7 +45,7 @@ export default function ThreeSportMobileResults({ race, series }) {
                 {noResultReason && <div className="card__middle-row">{t(`competitor_${noResultReason}`)}</div>}
                 {!noResultReason && points && (
                   <div className="card__middle-row">
-                    {estimatePoints !== 'undefined' && (
+                    {typeof estimatePoints !== 'undefined' && (
                       <MobileSubResult type="estimate">
                         <EstimatePoints race={race} series={series} competitor={competitor} />
                       </MobileSubResult>
@@ -55,7 +55,7 @@ export default function ThreeSportMobileResults({ race, series }) {
                         <TimePoints series={series} competitor={competitor} />
                       </MobileSubResult>
                     )}
-                    {shootingScore !== 'undefined' && (
+                    {typeof shootingScore !== 'undefined' && (
                       <MobileSubResult type="shoot"><ShootingPoints competitor={competitor} /></MobileSubResult>
                     )}
                   </div>

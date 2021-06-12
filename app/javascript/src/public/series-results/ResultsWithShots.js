@@ -12,7 +12,9 @@ export default function ResultsWithShots({ children, series }) {
     <ShowShotsContext.Provider value={showShots}>
       {showShotsButton && (
         <div className="buttons">
-          <div className="button" onClick={toggleShots}>{t(showShots ? 'hideShots' : 'showShots')}</div>
+          <div id="shots_button" className="button" onClick={toggleShots}>
+            {t(showShots ? 'hideShots' : 'showShots')}
+          </div>
         </div>
       )}
       {children}

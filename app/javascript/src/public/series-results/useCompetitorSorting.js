@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 const sortMethods = { points: 0, time: 1, estimates: 2, shooting: 3 }
 
@@ -7,6 +7,10 @@ const compareNoResultReason = (a, b) => (a.noResultReason || '').localeCompare((
 const useCompetitorSorting = series => {
   const [competitors, setCompetitors] = useState(series.competitors)
   const [sortMethod, setSortMethod] = useState(sortMethods.points)
+
+  useEffect(() => {
+    setCompetitors(series.competitors)
+  }, [series.unofficialsResultRule])
 
   const sortByTime = useCallback(() => {
     return competitors.sort((a, b) => {
