@@ -14,6 +14,7 @@ import RaceRelays from './RaceRelays'
 import RaceTeamCompetitions from './RaceTeamCompetitions'
 import { pages } from '../menu/DesktopSecondLevelMenu'
 import Button from '../../common/Button'
+import Message from '../../common/Message'
 
 export default function RacePage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -21,7 +22,7 @@ export default function RacePage({ setSelectedPage }) {
   useTitle(race?.name)
   useEffect(() => setSelectedPage(pages.raceHome), [setSelectedPage])
 
-  if (error) return <div className="message message--error">{error}</div>
+  if (error) return <Message type="error">{error}</Message>
   if (!race && !error) return <Spinner />
 
   const { cancelled } = race
@@ -32,7 +33,7 @@ export default function RacePage({ setSelectedPage }) {
       {cancelled && (
         <>
           <h2>{t('raceCancelledTitle')}</h2>
-          <div className="message message--error">{t('raceCancelledMessage')}</div>
+          <Message type="error">{t('raceCancelledMessage')}</Message>
         </>
       )}
       {!cancelled && (

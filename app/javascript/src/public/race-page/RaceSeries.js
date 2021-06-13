@@ -16,6 +16,7 @@ import {
 import ClubSelect from './ClubSelect'
 import BatchListPdfForm from './BatchListPdfForm'
 import Button from '../../common/Button'
+import Message from '../../common/Message'
 
 export default function RaceSeries({ race }) {
   const { t } = useTranslation()
@@ -35,7 +36,7 @@ export default function RaceSeries({ race }) {
   return (
     <>
       <h2>{t(sport.shooting ? 'results' : 'personalCompetitions')}</h2>
-      {infos.length > 0 && <div className="message message--info">{infos.join('. ')}.</div>}
+      {infos.length > 0 && <Message type="info">{infos.join('. ')}.</Message>}
       <div className="buttons" id="series-links">
         {series.map(s => {
           const { id, name, started, startTime } = s

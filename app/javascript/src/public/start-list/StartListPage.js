@@ -12,6 +12,7 @@ import useTitle from '../../util/useTitle'
 import { useRace } from '../../util/useRace'
 import { pages } from '../menu/DesktopSecondLevelMenu'
 import Button from '../../common/Button'
+import Message from '../../common/Message'
 
 export default function StartListPage({ setSelectedPage }) {
   const { raceId, seriesId } = useParams()
@@ -29,7 +30,7 @@ export default function StartListPage({ setSelectedPage }) {
     })
   }, [raceId, seriesId])
 
-  if (error) return <div className="message message--error">{error}</div>
+  if (error) return <Message type="error">{error}</Message>
   if (!(race && series) && !error) return <Spinner />
 
   const { competitors, id, name, started, startTime } = series
@@ -37,9 +38,7 @@ export default function StartListPage({ setSelectedPage }) {
     <>
       <h2>{name} - {t('startList')}</h2>
       {startTime && !started && (
-        <div className="message message--info">
-          {t('seriesStartTime')}: {format(new Date(startTime), 'dd.MM.yyyy hh:mm')}
-        </div>
+        <Message type="info">{t('seriesStartTime')}: {format(new Date(startTime), 'dd.MM.yyyy hh:mm')}</Message>
       )}
       {competitors.length > 0 && (
         <>
@@ -50,7 +49,7 @@ export default function StartListPage({ setSelectedPage }) {
           </Button>
         </>
       )}
-      {!competitors.length && <div className="message message--info">{t('noCompetitorsOrStartTimes')}</div>}
+      {!competitors.length && <Message type="info">{t('noCompetitorsOrStartTimes')}</Message>}
       <SeriesMobileSubMenu race={race} buildSeriesPath={buildSeriesStartListPath} currentSeriesId={id} />
       <div className="buttons buttons--nav">
         <Button to={buildRacePath(race.id)} type="back">

@@ -23,6 +23,7 @@ import EuropeanMobileResults from './EuropeanMobileResults'
 import ShootingDesktopResults from './ShootingDesktopResults'
 import ShootingMobileResults from './ShootingMobileResults'
 import Button from '../../common/Button'
+import Message from '../../common/Message'
 
 export default function SeriesResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -60,7 +61,7 @@ export default function SeriesResultsPage({ setSelectedPage }) {
 
   const toggleAllCompetitors = useCallback(() => setAllCompetitors(ac => !ac), [])
 
-  if (error) return <div className="message message--error">{error}</div>
+  if (error) return <Message type="error">{error}</Message>
   if (!race || !series || (series && series.id !== parseInt(seriesId))) return <Spinner />
 
   const hasUnofficialCompetitors = race.unofficialsConfigurable && !!series.competitors.find(c => c.unofficial)

@@ -1,5 +1,6 @@
 import React from 'react'
 import useTranslation from '../../util/useTranslation'
+import Message from '../../common/Message'
 
 export default function ThreeSportRaceInfo({ race, series }) {
   const { t } = useTranslation()
@@ -13,15 +14,15 @@ export default function ThreeSportRaceInfo({ race, series }) {
   return (
     <>
       {active && (
-        <div className="message message--info">
+        <Message type="info">
           {t(showCorrectDistances ? 'raceUnfinished' : 'raceUnfinishedDistancesLater')}
-        </div>
+        </Message>
       )}
       {pointsMethod !== 0 && (
-        <div className="message message--info">{t(`seriesPointsMethod${pointsMethod}_${sportKey}`)}</div>
+        <Message type="info">{t(`seriesPointsMethod${pointsMethod}_${sportKey}`)}</Message>
       )}
-      {shorterTrip && <div className="message message--info">{t('seriesShorterTrip')}</div>}
-      {ageGroupsShorterTrip.length > 0 && <div className="message message--info">{ageGroupsText()}</div>}
+      {shorterTrip && <Message type="info">{t('seriesShorterTrip')}</Message>}
+      {ageGroupsShorterTrip.length > 0 && <Message type="info">{ageGroupsText()}</Message>}
     </>
   )
 }
