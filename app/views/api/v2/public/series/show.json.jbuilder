@@ -4,13 +4,12 @@ json.active @series.active?
 json.started @series.started?
 json.start_time @series.start_datetime
 json.time_points @series.time_points?
-unofficials_rule = unofficials_result_rule(@series.race)
-json.unofficials_result_rule unofficials_rule
 
 json.age_groups @series.age_groups do |age_group|
   json.(age_group, :id, :name, :shorter_trip)
 end
 
+unofficials_rule = unofficials_result_rule(@series.race)
 if @series.race.sport.nordic?
   competitors = @series.nordic_race_results
 elsif @series.race.sport.european?

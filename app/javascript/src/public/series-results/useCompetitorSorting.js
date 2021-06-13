@@ -4,13 +4,13 @@ const sortMethods = { points: 0, time: 1, estimates: 2, shooting: 3 }
 
 const compareNoResultReason = (a, b) => (a.noResultReason || '').localeCompare((b.noResultReason || ''))
 
-const useCompetitorSorting = series => {
+const useCompetitorSorting = (series, setAllCompetitors) => {
   const [competitors, setCompetitors] = useState(series.competitors)
   const [sortMethod, setSortMethod] = useState(sortMethods.points)
 
   useEffect(() => {
     setCompetitors(series.competitors)
-  }, [series.unofficialsResultRule])
+  }, [series.competitors])
 
   const sortByTime = useCallback(() => {
     return competitors.sort((a, b) => {
@@ -44,11 +44,12 @@ const useCompetitorSorting = series => {
 
   const sort = useCallback(bySortMethod => {
     setSortMethod(bySortMethod)
+    setAllCompetitors(false)
     if (bySortMethod === sortMethods.time) setCompetitors(sortByTime())
     if (bySortMethod === sortMethods.estimates) setCompetitors(sortByEstimates())
     if (bySortMethod === sortMethods.shooting) setCompetitors(sortByShooting())
     if (bySortMethod === sortMethods.points) setCompetitors(sortByPoints())
-  }, [sortByTime, sortByEstimates, sortByShooting, sortByPoints])
+  }, [setAllCompetitors, sortByTime, sortByEstimates, sortByShooting, sortByPoints])
   return { competitors, sortMethod, sortMethods, sort }
 }
 

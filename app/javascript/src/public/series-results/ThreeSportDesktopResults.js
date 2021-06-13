@@ -10,9 +10,9 @@ import { resolveClubTitle } from '../../util/clubUtil'
 import { timeFromSeconds } from '../../util/timeUtil'
 import DesktopResultsRows from './DesktopResultsRows'
 
-export default function ThreeSportDesktopResults({ race, series }) {
+export default function ThreeSportDesktopResults({ race, series, setAllCompetitors }) {
   const { t } = useTranslation()
-  const { competitors, sortMethod, sortMethods, sort } = useCompetitorSorting(series)
+  const { competitors, sortMethod, sortMethods, sort } = useCompetitorSorting(series, setAllCompetitors)
 
   const { clubLevel, sportKey } = race
   const { timePoints } = series

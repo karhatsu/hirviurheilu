@@ -79,7 +79,7 @@ export default function SeriesResultsPage({ setSelectedPage }) {
             {shootingSimple && <ShootingMobileResults race={race} series={series} />}
           </ResultsWithShots>
         )}
-        {!shooting && <ThreeSportDesktopResults race={race} series={series} />}
+        {!shooting && <ThreeSportDesktopResults race={race} series={series} setAllCompetitors={setAllCompetitors} />}
         {!shooting && <ThreeSportMobileResults race={race} series={series} />}
         <div className="buttons">
           {hasUnofficialCompetitors && (
