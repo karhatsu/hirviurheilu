@@ -4,20 +4,18 @@ import MobileSubResult from './MobileSubResult'
 import ShootingResult from './ShootingResult'
 import NationalRecord from './NationalRecord'
 import TotalScore from './TotalScore'
+import MobileResultCards from './MobileResultCards'
 
 export default function NordicMobileResults({ race, series }) {
   const { t } = useTranslation()
   const { competitors } = series
-  let prevCompetitorPosition = 0
   return (
-    <div className="results--mobile result-cards">
-      {competitors.map((competitor, i) => {
+    <MobileResultCards competitors={competitors}>
+      {competitor => {
         const {
           club,
           firstName,
-          id,
           lastName,
-          position,
           nordicExtraScore,
           nordicScore,
           nordicRifleMovingScore,
@@ -30,11 +28,8 @@ export default function NordicMobileResults({ race, series }) {
           nordicTrapShots,
           noResultReason,
         } = competitor
-        const orderNo = position === prevCompetitorPosition ? '' : `${position}.`
-        prevCompetitorPosition = position
         return (
-          <div key={id} className={`card ${i % 2 === 0 ? 'card--odd' : ''}`}>
-            <div className="card__number">{orderNo}</div>
+          <>
             <div className="card__middle">
               <div className="card__name">{lastName} {firstName}</div>
               <div className="card__middle-row">{club.name}</div>
@@ -58,9 +53,9 @@ export default function NordicMobileResults({ race, series }) {
               <TotalScore noResultReason={noResultReason} totalScore={nordicScore} />
               <NationalRecord race={race} series={series} competitor={competitor} />
             </div>
-          </div>
+          </>
         )
-      })}
-    </div>
+      }}
+    </MobileResultCards>
   )
 }
