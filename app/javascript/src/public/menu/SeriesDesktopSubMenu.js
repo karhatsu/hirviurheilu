@@ -2,7 +2,7 @@ import React from 'react'
 import DesktopMenuItem from './DesktopMenuItem'
 
 export default function SeriesDesktopSubMenu({ race, buildSeriesPath, currentSeriesId }) {
-  if (!race || !race.series.length) return null
+  if (!race || race.series.length < 2) return null
   return (
     <div className="menu menu--sub menu--sub-2">
       {race.series.map(series => {
