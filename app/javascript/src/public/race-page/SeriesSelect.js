@@ -5,7 +5,7 @@ export default function SeriesSelect({ series }) {
   const { t } = useTranslation()
   return (
     <select name="series_id">
-      <option>{t('allSeries') }</option>
+      <option value={''}>{t('allSeries') }</option>
       {series.map(s => {
         return <option key={s.id} value={s.id}>{s.name}</option>
       })}
