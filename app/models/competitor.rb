@@ -10,11 +10,6 @@ class Competitor < ApplicationRecord
   DNF = 'DNF' # did not finish
   DQ = 'DQ' # disqualified
 
-  SORT_BY_POINTS = 0
-  SORT_BY_TIME = 1
-  SORT_BY_SHOTS = 2
-  SORT_BY_ESTIMATES = 3
-
   MAX_START_TIME = Time.utc 2000, 1, 1, 6, 59, 59
 
   ALL_SHOTS_FIELDS = %w[shots extra_shots nordic_trap_shots nordic_shotgun_shots nordic_rifle_moving_shots
@@ -290,10 +285,9 @@ class Competitor < ApplicationRecord
     end
   end
 
-  def self.sort_three_sports_competitors(competitors, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=SORT_BY_POINTS)
+  def self.sort_three_sports_competitors(competitors, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     competitors.sort do |a, b|
-      b.three_sports_race_results(unofficials, sort_by) + [a.number.to_i] <=>
-          a.three_sports_race_results(unofficials, sort_by) + [b.number.to_i]
+      b.three_sports_race_results(unofficials) + [a.number.to_i] <=> a.three_sports_race_results(unofficials) + [b.number.to_i]
     end
   end
 

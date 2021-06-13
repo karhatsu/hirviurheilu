@@ -88,23 +88,6 @@ module ResultFormatHelper
     shots.map{|shot| shot == 11 ? '10*' : shot}.join(', ')
   end
 
-  def comparison_time_title_attribute(competitor, unofficials, always_empty=false)
-    return '' if always_empty
-    comparison_time = competitor.comparison_time_in_seconds(unofficials)
-    return '' unless comparison_time
-    "Vertailuaika: #{time_from_seconds(comparison_time, false)}"
-  end
-
-  def comparison_and_own_time_title_attribute(competitor)
-    time_in_seconds = competitor.time_in_seconds
-    return '' unless time_in_seconds
-    title = " title='Aika: #{time_from_seconds(time_in_seconds)}"
-    comparison_time_in_seconds = competitor.comparison_time_in_seconds
-    title << ". Vertailuaika: #{time_from_seconds(comparison_time_in_seconds)}." if comparison_time_in_seconds
-    title << "'"
-    raw title
-  end
-
   def special_series_info(series)
     return nil if series.points_method == Series::POINTS_METHOD_TIME_2_ESTIMATES
     t("points_method_#{series.points_method}.#{series.race.sport_key}")

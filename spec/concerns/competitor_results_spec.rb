@@ -28,24 +28,6 @@ describe CompetitorResults do
           expect(competitor.three_sports_race_results(unofficials)).to eql [1, 0, 0, 0]
         end
       end
-
-      context 'and sort by shots' do
-        it 'returns array of zero' do
-          expect(competitor.three_sports_race_results(unofficials, Competitor::SORT_BY_SHOTS)).to eql [0]
-        end
-      end
-
-      context 'and sort by estimates' do
-        it 'returns array of zero' do
-          expect(competitor.three_sports_race_results(unofficials, Competitor::SORT_BY_ESTIMATES)).to eql [0]
-        end
-      end
-
-      context 'and sort by time' do
-        it 'returns array of zero' do
-          expect(competitor.three_sports_race_results(unofficials, Competitor::SORT_BY_TIME)).to eql [0]
-        end
-      end
     end
 
     context 'when results' do
@@ -99,24 +81,6 @@ describe CompetitorResults do
           it 'returns without official flag' do
             expect(competitor.three_sports_race_results(unofficials)).to eql [0, points, shooting_points, -time_in_seconds]
           end
-        end
-      end
-
-      context 'and sort by shots' do
-        it 'returns array with shooting points' do
-          expect(competitor.three_sports_race_results(unofficials, Competitor::SORT_BY_SHOTS)).to eql [shooting_points]
-        end
-      end
-
-      context 'and sort by estimates' do
-        it 'returns array with estimate points' do
-          expect(competitor.three_sports_race_results(unofficials, Competitor::SORT_BY_ESTIMATES)).to eql [estimate_points]
-        end
-      end
-
-      context 'and sort by time' do
-        it 'returns array with negative time' do
-          expect(competitor.three_sports_race_results(unofficials, Competitor::SORT_BY_TIME)).to eql [-time_in_seconds]
         end
       end
     end

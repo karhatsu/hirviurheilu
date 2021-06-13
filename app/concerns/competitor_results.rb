@@ -1,12 +1,9 @@
 module CompetitorResults
   extend ActiveSupport::Concern
 
-  def three_sports_race_results(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=Competitor::SORT_BY_POINTS)
+  def three_sports_race_results(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     results = no_result_reason_results
     return results if results
-    return [shooting_points.to_i] if sort_by == Competitor::SORT_BY_SHOTS
-    return [estimate_points.to_i] if sort_by == Competitor::SORT_BY_ESTIMATES
-    return [-time_in_seconds.to_i] if sort_by == Competitor::SORT_BY_TIME
     results = [(unofficials == Series::UNOFFICIALS_EXCLUDED && unofficial? ? 0 : 1)]
     results = results + [points(unofficials), shooting_points.to_i]
     results << -time_in_seconds.to_i unless series.walking_series?

@@ -71,8 +71,8 @@ class Series < ApplicationRecord
     three_sports_results
   end
 
-  def three_sports_results(unofficials=UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=Competitor::SORT_BY_POINTS)
-    sorted_competitors = Competitor.sort_three_sports_competitors competitors.includes([:club, :age_group, :series]), unofficials, sort_by
+  def three_sports_results(unofficials=UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
+    sorted_competitors = Competitor.sort_three_sports_competitors competitors.includes([:club, :age_group, :series]), unofficials
     add_position_for_competitors sorted_competitors do |competitor|
       competitor.three_sports_race_results unofficials
     end

@@ -873,7 +873,6 @@ describe Competitor do
     describe 'without unofficial competitors' do
       before do
         @unofficials = Series::UNOFFICIALS_EXCLUDED
-        @sort_by = 'some-sort-order'
       end
 
       it 'should sort by result array and number' do
@@ -883,7 +882,7 @@ describe Competitor do
         competitor0_1 = create_competitor 10, 9, 15
         competitor0_2 = create_competitor 10, 9, 16
         competitors = [competitor0_2, competitor3, competitor1, competitor2, competitor0_1]
-        expect(Competitor.sort_three_sports_competitors(competitors, @unofficials, @sort_by))
+        expect(Competitor.sort_three_sports_competitors(competitors, @unofficials))
             .to eq([competitor1, competitor2, competitor3, competitor0_1, competitor0_2])
       end
     end
@@ -891,14 +890,13 @@ describe Competitor do
     describe 'with unofficial competitors' do
       before do
         @unofficials = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
-        @sort_by = 'another-sort-order'
       end
 
       it 'should sort by result array and number' do
         competitor1 = create_competitor 100, 59, 30
         competitor2 = create_competitor 99, 40, 4
         competitors = [competitor1, competitor2]
-        expect(Competitor.sort_three_sports_competitors(competitors, @unofficials, @sort_by)).to eq([competitor1, competitor2])
+        expect(Competitor.sort_three_sports_competitors(competitors, @unofficials)).to eq([competitor1, competitor2])
       end
     end
 
@@ -913,7 +911,7 @@ describe Competitor do
 
     def create_competitor(points, shooting_points, number)
       competitor = build :competitor, number: number
-      allow(competitor).to receive(:three_sports_race_results).with(@unofficials, @sort_by).and_return([points, shooting_points])
+      allow(competitor).to receive(:three_sports_race_results).with(@unofficials).and_return([points, shooting_points])
       competitor
     end
   end

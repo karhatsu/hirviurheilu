@@ -1,5 +1,4 @@
 - unofficials = unofficials_result_rule series.race
-- pdf = params[:format] == 'pdf'
 %table.results-table
   %tr
     %th &nbsp;
@@ -7,50 +6,29 @@
     %th= t 'number_short'
     %th#table_club_title= club_title(series.race)
     - if series.time_points?
-      %th.center
-        = link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_TIME),
-          time_title(series.race), race_series_path(series.race, series, :sort => Competitor::SORT_BY_TIME))
-    %th.center
-      = link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_ESTIMATES),
-        t(:estimating), race_series_path(series.race, series, :sort => Competitor::SORT_BY_ESTIMATES))
-    %th.center
-      = link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_SHOTS),
-        t(:shooting), race_series_path(series.race, series, :sort => Competitor::SORT_BY_SHOTS))
-    %th
-      = link_to_unless((pdf or params[:sort].to_i == Competitor::SORT_BY_POINTS),
-        t(:points), race_series_path(series.race, series))
-  - time_css = params[:sort].to_i == Competitor::SORT_BY_TIME ? 'total-points' : ''
-  - est_css = params[:sort].to_i == Competitor::SORT_BY_ESTIMATES ? 'total-points' : ''
-  - shots_css = params[:sort].to_i == Competitor::SORT_BY_SHOTS ? 'total-points' : ''
-  - points_css = params[:sort].blank? ? ' total-points' : ''
+      %th.center= time_title(series.race)
+    %th.center= t(:estimating)
+    %th.center= t(:shooting)
+    %th= t(:points)
   - prev_competitor_results = 1.0/0.0
-  - series.three_sports_results(unofficials, params[:sort].to_i).each_with_index do |comp, i|
+  - series.three_sports_results(unofficials).each_with_index do |comp, i|
     - next unless i < 3 or params[:club_id].blank? or comp.club_id == params[:club_id].to_i
-    - competitor_results = comp.three_sports_race_results(unofficials, params[:sort].to_i)
+    - competitor_results = comp.three_sports_race_results(unofficials)
     %tr{id: "comp_#{i+1}", class: i % 2 == 0 ? 'odd' : ''}
       - @max_points = comp.points if i == 0
       %td
         = competitor_results == prev_competitor_results ? raw('&nbsp;') : "#{i + 1}."
       %td
-        - if pdf
-          = full_name(comp)
-          = "(#{comp.age_group.name})" if comp.age_group
-          = "(#{t(:unofficial_short)})" if comp.unofficial?
-        - else
-          = link_to full_name(comp), series_competitor_path(@series.id, comp)
-          = "(#{comp.age_group.name})" if comp.age_group
-          - if comp.unofficial?
-            (
-            %span.unofficial{title: t(:unofficial)}>= t(:unofficial_short)
-            )
+        = full_name(comp)
+        = "(#{comp.age_group.name})" if comp.age_group
+        = "(#{t(:unofficial_short)})" if comp.unofficial?
       %td= comp.number ? comp.number : ''
       %td= comp.club.name
       - if series.time_points?
-        %td{class: time_css, title: comparison_time_title_attribute(comp, unofficials, pdf)}
-          = time_points_print(comp, true, unofficials)
-      %td{class: est_css}= estimate_points_print series.race, comp
-      %td{class: shots_css}= shooting_points_print(comp, true, true)
-      %td.center{class: points_css}
+        %td= time_points_print(comp, true, unofficials)
+      %td= estimate_points_print series.race, comp
+      %td= shooting_points_print(comp, true, true)
+      %td.center{class: 'total-points'}
         = points_print(comp, unofficials)
-        = national_record_print(comp) if comp.points.to_i >= @max_points.to_i && params[:sort].blank?
+        = national_record_print(comp) if comp.points.to_i >= @max_points.to_i
     - prev_competitor_results = competitor_results
