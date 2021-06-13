@@ -55,7 +55,7 @@ export default function SeriesResultsPage({ setSelectedPage }) {
         setSeries(data)
       })
     }
-  }, [race, seriesId, allCompetitors])
+  }, [race, seriesId, queryParams])
 
   const toggleAllCompetitors = useCallback(() => setAllCompetitors(ac => !ac), [])
 

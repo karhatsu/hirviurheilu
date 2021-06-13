@@ -5,14 +5,15 @@ import { buildRifleTeamCompetitionsPath, buildTeamCompetitionsPath } from '../..
 export default function RaceTeamCompetitions({ race }) {
   const { t } = useTranslation()
   const { sport, teamCompetitions } = race
-  if (!teamCompetitions.length) return null
 
   const oneTeamCompetition = teamCompetitions.length === 1
   const buildLink = useCallback((tc, buildPath) => {
     const { id, name } = tc
     const linkText = oneTeamCompetition ? t('teamCompetition') : name
     return <a key={id} href={buildPath(race.id, id)} className="button button--primary">{linkText}</a>
-  }, [oneTeamCompetition])
+  }, [oneTeamCompetition, race.id, t])
+
+  if (!teamCompetitions.length) return null
 
   return (
     <>

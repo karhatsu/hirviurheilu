@@ -48,7 +48,7 @@ const useCompetitorSorting = series => {
     if (bySortMethod === sortMethods.estimates) setCompetitors(sortByEstimates())
     if (bySortMethod === sortMethods.shooting) setCompetitors(sortByShooting())
     if (bySortMethod === sortMethods.points) setCompetitors(sortByPoints())
-  }, [])
+  }, [sortByTime, sortByEstimates, sortByShooting, sortByPoints])
   return { competitors, sortMethod, sortMethods, sort }
 }
 
