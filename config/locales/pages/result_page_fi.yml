@@ -1,0 +1,7 @@
+fi:
+  competitors:
+    index:
+      no_competitors: Ei kilpailijoita
+      series_has_not_started_yet: Sarja ei ole vielä alkanut
+      standing: Tilanne
+      updated: päivitetty
