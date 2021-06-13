@@ -4,12 +4,12 @@ import ShootingResult from './ShootingResult'
 import { resolveClubTitle } from '../../util/clubUtil'
 import NationalRecord from './NationalRecord'
 import TotalScore from './TotalScore'
+import DesktopResultsRows from './DesktopResultsRows'
 
 export default function EuropeanDesktopResults({ race, series }) {
   const { t } = useTranslation()
   const { competitors } = series
   const extraShots = !!competitors.find(c => c.nordicExtraScore)
-  let prevCompetitorPosition = 0
   return (
     <div className="results--desktop">
       <table className="results-table">
@@ -29,10 +29,9 @@ export default function EuropeanDesktopResults({ race, series }) {
             {extraShots && <th>{t('extraRound')}</th>}
           </tr>
         </thead>
-        <tbody>
-          {competitors.map((competitor, i) => {
+        <DesktopResultsRows competitors={competitors}>
+          {competitor => {
             const {
-              club,
               europeanExtraScore,
               europeanScore,
               europeanRifle1Score,
@@ -47,21 +46,10 @@ export default function EuropeanDesktopResults({ race, series }) {
               europeanCompakShots,
               europeanTrapScore,
               europeanTrapShots,
-              firstName,
-              id,
-              lastName,
-              position,
               noResultReason,
-              number,
             } = competitor
-            const orderNo = position === prevCompetitorPosition ? '' : `${position}.`
-            prevCompetitorPosition = position
             return (
-              <tr key={id} className={i % 2 === 0 ? 'odd' : ''}>
-                <td>{orderNo}</td>
-                <td>{lastName} {firstName}</td>
-                <td>{number}</td>
-                <td>{club.name}</td>
+              <>
                 <td><ShootingResult score={europeanTrapScore} shots={europeanTrapShots} /></td>
                 <td><ShootingResult score={europeanCompakScore} shots={europeanCompakShots} /></td>
                 <td><ShootingResult score={europeanRifle1Score} shots={europeanRifle1Shots} /></td>
@@ -73,10 +61,10 @@ export default function EuropeanDesktopResults({ race, series }) {
                   <NationalRecord race={race} series={series} competitor={competitor} />
                 </td>
                 {extraShots && <td>{europeanExtraScore}</td>}
-              </tr>
+              </>
             )
-          })}
-        </tbody>
+          }}
+        </DesktopResultsRows>
       </table>
     </div>
   )

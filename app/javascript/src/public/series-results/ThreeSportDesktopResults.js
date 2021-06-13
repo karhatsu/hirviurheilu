@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react'
 import useTranslation from '../../util/useTranslation'
-import UnofficialLabel from './UnofficialLabel'
 import Points from './Points'
 import TimePoints from './TimePoints'
 import EstimatePoints from './EstimatePoints'
@@ -9,6 +8,7 @@ import NationalRecord from './NationalRecord'
 import useCompetitorSorting from './useCompetitorSorting'
 import { resolveClubTitle } from '../../util/clubUtil'
 import { timeFromSeconds } from '../../util/timeUtil'
+import DesktopResultsRows from './DesktopResultsRows'
 
 export default function ThreeSportDesktopResults({ race, series }) {
   const { t } = useTranslation()
@@ -26,7 +26,6 @@ export default function ThreeSportDesktopResults({ race, series }) {
     return <a href="#" onClick={onClick}>{t(textKey)}</a>
   }, [sortMethod, sort, t])
 
-  let prevCompetitorPosition = 0
   return (
     <div className="results--desktop">
       <table className="results-table">
@@ -42,33 +41,11 @@ export default function ThreeSportDesktopResults({ race, series }) {
             <th className="total-points">{createTitle('points', sortMethods.points)}</th>
           </tr>
         </thead>
-        <tbody>
-          {competitors.map((competitor, i) => {
-            const {
-              ageGroup,
-              club,
-              comparisonTimeInSeconds,
-              firstName,
-              id,
-              lastName,
-              number,
-              position,
-              unofficial,
-            } = competitor
-            let name = `${lastName} ${firstName}`
-            if (ageGroup) {
-              name = `${name} (${ageGroup.name})`
-            }
-            const orderNo = sortMethod !== sortMethods.points
-              ? `${i + 1}.`
-              : position === prevCompetitorPosition ? '' : `${position}.`
-            prevCompetitorPosition = position
+        <DesktopResultsRows competitors={competitors} sortMethod={sortMethod}>
+          {competitor => {
+            const { comparisonTimeInSeconds } = competitor
             return (
-              <tr key={id} className={i % 2 === 0 ? 'odd' : ''} id={`comp_${i + 1}`}>
-                <td>{orderNo}</td>
-                <td>{name} <UnofficialLabel unofficial={unofficial} /></td>
-                <td>{number}</td>
-                <td>{club.name}</td>
+              <>
                 {timePoints && (
                   <td title={`${t('comparisonTime')}: ${timeFromSeconds(comparisonTimeInSeconds)}`}>
                     <TimePoints competitor={competitor} series={series} />
@@ -78,12 +55,12 @@ export default function ThreeSportDesktopResults({ race, series }) {
                 <td><ShootingPoints competitor={competitor} /></td>
                 <td className="center total-points">
                   <Points competitor={competitor}/>
-                  {i === 0 && <NationalRecord race={race} series={series} competitor={competitor} />}
+                  <NationalRecord race={race} series={series} competitor={competitor} />
                 </td>
-              </tr>
+              </>
             )
-          })}
-        </tbody>
+          }}
+        </DesktopResultsRows>
       </table>
     </div>
   )

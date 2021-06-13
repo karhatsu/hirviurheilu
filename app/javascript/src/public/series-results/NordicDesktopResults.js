@@ -4,12 +4,12 @@ import ShootingResult from './ShootingResult'
 import { resolveClubTitle } from '../../util/clubUtil'
 import NationalRecord from './NationalRecord'
 import TotalScore from './TotalScore'
+import DesktopResultsRows from './DesktopResultsRows'
 
 export default function NordicDesktopResults({ race, series }) {
   const { t } = useTranslation()
   const { competitors } = series
   const extraShots = !!competitors.find(c => c.nordicExtraScore)
-  let prevCompetitorPosition = 0
   return (
     <div className="results--desktop">
       <table className="results-table">
@@ -27,14 +27,9 @@ export default function NordicDesktopResults({ race, series }) {
             {extraShots && <th>{t('extraRound')}</th>}
           </tr>
         </thead>
-        <tbody>
-          {competitors.map((competitor, i) => {
+        <DesktopResultsRows competitors={competitors}>
+          {competitor => {
             const {
-              club,
-              firstName,
-              id,
-              lastName,
-              position,
               nordicExtraScore,
               nordicScore,
               nordicRifleMovingScore,
@@ -46,16 +41,9 @@ export default function NordicDesktopResults({ race, series }) {
               nordicTrapScore,
               nordicTrapShots,
               noResultReason,
-              number,
             } = competitor
-            const orderNo = position === prevCompetitorPosition ? '' : `${position}.`
-            prevCompetitorPosition = position
             return (
-              <tr key={id} className={i % 2 === 0 ? 'odd' : ''}>
-                <td>{orderNo}</td>
-                <td>{lastName} {firstName}</td>
-                <td>{number}</td>
-                <td>{club.name}</td>
+              <>
                 <td><ShootingResult score={nordicTrapScore} shots={nordicTrapShots} /></td>
                 <td><ShootingResult score={nordicShotgunScore} shots={nordicShotgunShots} /></td>
                 <td><ShootingResult score={nordicRifleMovingScore} shots={nordicRifleMovingShots} /></td>
@@ -65,10 +53,10 @@ export default function NordicDesktopResults({ race, series }) {
                   <NationalRecord race={race} series={series} competitor={competitor} />
                 </td>
                 {extraShots && <td>{nordicExtraScore}</td>}
-              </tr>
+              </>
             )
-          })}
-        </tbody>
+          }}
+        </DesktopResultsRows>
       </table>
     </div>
   )

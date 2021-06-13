@@ -5,12 +5,12 @@ import NationalRecord from './NationalRecord'
 import ShootingResult from './ShootingResult'
 import QualificationRoundDesktopShootingResult from './QualificationRoundDesktopShootingResult'
 import TotalScore from './TotalScore'
+import DesktopResultsRows from './DesktopResultsRows'
 
 export default function ShootingDesktopResults({ race, series }) {
   const { t } = useTranslation()
   const { competitors } = series
   const showExtraShots = !!competitors.find(c => c.extraShots)
-  let prevCompetitorPosition = 0
   return (
     <div className="results--desktop">
       <table className="results-table">
@@ -26,29 +26,11 @@ export default function ShootingDesktopResults({ race, series }) {
             {showExtraShots && <th>{t('extraRound')}</th>}
           </tr>
         </thead>
-        <tbody>
-          {competitors.map((competitor, i) => {
-            const {
-              club,
-              extraShots,
-              finalRoundScore,
-              finalRoundShots,
-              firstName,
-              id,
-              lastName,
-              number,
-              noResultReason,
-              position,
-              shootingScore,
-            } = competitor
-            const orderNo = position === prevCompetitorPosition ? '' : `${position}.`
-            prevCompetitorPosition = position
+        <DesktopResultsRows competitors={competitors}>
+          {competitor => {
+            const { extraShots, finalRoundScore, finalRoundShots, noResultReason, shootingScore } = competitor
             return (
-              <tr key={id} className={i % 2 === 0 ? 'odd' : ''}>
-                <td>{orderNo}</td>
-                <td>{lastName} {firstName}</td>
-                <td>{number}</td>
-                <td>{club.name}</td>
+              <>
                 <td><QualificationRoundDesktopShootingResult competitor={competitor} /></td>
                 <td><ShootingResult score={finalRoundScore} shots={finalRoundShots && finalRoundShots[0]} /></td>
                 <td className="center total-points">
@@ -56,10 +38,10 @@ export default function ShootingDesktopResults({ race, series }) {
                   <NationalRecord race={race} series={series} competitor={competitor} />
                 </td>
                 {showExtraShots && <td>{extraShots ? extraShots.join(', ') : ''}</td>}
-              </tr>
+              </>
             )
-          })}
-        </tbody>
+          }}
+        </DesktopResultsRows>
       </table>
     </div>
   )
