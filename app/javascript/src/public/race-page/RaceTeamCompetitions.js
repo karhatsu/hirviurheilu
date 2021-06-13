@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 import useTranslation from '../../util/useTranslation'
 import { buildRifleTeamCompetitionsPath, buildTeamCompetitionsPath } from '../../util/routeUtil'
+import Button from '../../common/Button'
 
 export default function RaceTeamCompetitions({ race }) {
   const { t } = useTranslation()
@@ -10,7 +11,7 @@ export default function RaceTeamCompetitions({ race }) {
   const buildLink = useCallback((tc, buildPath) => {
     const { id, name } = tc
     const linkText = oneTeamCompetition ? t('teamCompetition') : name
-    return <a key={id} href={buildPath(race.id, id)} className="button button--primary">{linkText}</a>
+    return <Button key={id} href={buildPath(race.id, id)} type="primary">{linkText}</Button>
   }, [oneTeamCompetition, race.id, t])
 
   if (!teamCompetitions.length) return null

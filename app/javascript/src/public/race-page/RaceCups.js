@@ -1,6 +1,7 @@
 import React from 'react'
 import useTranslation from '../../util/useTranslation'
 import { buildCupPath } from '../../util/routeUtil'
+import Button from '../../common/Button'
 
 export default function RaceCups({ race }) {
   const { t } = useTranslation()
@@ -12,7 +13,7 @@ export default function RaceCups({ race }) {
       <div className="buttons">
         {cups.map(cup => {
           const { id, name } = cup
-          return <a key={id} href={buildCupPath(id)} className="button">{name}</a>
+          return <Button key={id} href={buildCupPath(id)}>{name}</Button>
         })}
       </div>
     </>

@@ -2,6 +2,7 @@ import React from 'react'
 import ClubSelect from './ClubSelect'
 import SeriesSelect from './SeriesSelect'
 import useTranslation from '../../util/useTranslation'
+import Button from '../../common/Button'
 
 export default function BatchListPdfForm({ path, race, title }) {
   const { t } = useTranslation()
@@ -18,7 +19,7 @@ export default function BatchListPdfForm({ path, race, title }) {
             <ClubSelect clubLevel={clubLevel} clubs={clubs} />
           </div>
           <div className="form__buttons">
-            <input type="submit" value={t('downloadBatchList')} className="button button--pdf" />
+            <Button submit={true} type="pdf">{t('downloadBatchList')}</Button>
           </div>
         </div>
       </form>

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import format from 'date-fns/format'
 import isAfter from 'date-fns/isAfter'
 import isBefore from 'date-fns/isBefore'
@@ -16,6 +15,7 @@ import {
 } from '../../util/routeUtil'
 import ClubSelect from './ClubSelect'
 import BatchListPdfForm from './BatchListPdfForm'
+import Button from '../../common/Button'
 
 export default function RaceSeries({ race }) {
   const { t } = useTranslation()
@@ -41,10 +41,10 @@ export default function RaceSeries({ race }) {
           const { id, name, started, startTime } = s
           if (!started && sport.startList) {
             const linkText = startTime ? `${name} (${format(parseISO(startTime), 'HH:mm')})` : name
-            return <Link key={id} to={buildSeriesStartListPath(race.id, id)} className="button">{linkText}</Link>
+            return <Button key={id} to={buildSeriesStartListPath(race.id, id)}>{linkText}</Button>
           } else {
             const to = buildSeriesResultsPath(race.id, id)
-            return <Link key={id} to={to} className="button button--primary">{name}</Link>
+            return <Button key={id} to={to} type="primary">{name}</Button>
           }
         })}
       </div>
@@ -52,11 +52,9 @@ export default function RaceSeries({ race }) {
         <div className="buttons">
           {['trap', 'shotgun', 'rifle_standing', 'rifle_moving'].map(subSport => {
             return (
-              <a
-                key={subSport}
-                href={buildNordicResultsPath(race.id, subSport)}
-                className="button button--primary"
-              >{t(`nordic_${subSport}`)}</a>
+              <Button key={subSport} href={buildNordicResultsPath(race.id, subSport)} type="primary">
+                {t(`nordic_${subSport}`)}
+              </Button>
             )
           })}
         </div>
@@ -66,11 +64,7 @@ export default function RaceSeries({ race }) {
           {series.map(s => {
             const { id, name } = s
             const linkText = `${t('rifle')} ${name}`
-            return (
-              <a key={id} href={buildSeriesRifleResultsPath(race.id, id)} className="button button--primary">
-                {linkText}
-              </a>
-            )
+            return <Button key={id} href={buildSeriesRifleResultsPath(race.id, id)} type="primary">{linkText}</Button>
           })}
         </div>
       )}
@@ -85,7 +79,7 @@ export default function RaceSeries({ race }) {
                     <ClubSelect clubLevel={clubLevel} clubs={clubs} />
                   </div>
                   <div className="form__buttons">
-                    <input type="submit" className="button button--pdf" value={t('downloadStartTimes')} />
+                    <Button submit={true} type="pdf">{t('downloadStartTimes')}</Button>
                   </div>
                 </div>
               </form>

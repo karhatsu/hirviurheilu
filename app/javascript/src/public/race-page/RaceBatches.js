@@ -1,6 +1,7 @@
 import React from 'react'
 import useTranslation from '../../util/useTranslation'
 import { buildFinalRoundBatchesPath, buildQualificationRoundBatchesPath } from '../../util/routeUtil'
+import Button from '../../common/Button'
 
 export default function RaceBatches({ race }) {
   const { t } = useTranslation()
@@ -12,12 +13,10 @@ export default function RaceBatches({ race }) {
       <h2>{t('batchLists')}</h2>
       <div className="buttons" id="batch-links">
         {qualificationRoundBatches.length > 0 && (
-          <a href={buildQualificationRoundBatchesPath(race.id)} className="button button--primary">{qrText}</a>
+          <Button href={buildQualificationRoundBatchesPath(race.id)} type="primary">{qrText}</Button>
         )}
         {finalRoundBatches.length > 0 && (
-          <a href={buildFinalRoundBatchesPath(race.id)} className="button button--primary">
-            {t('finalRoundBatchLists')}
-          </a>
+          <Button href={buildFinalRoundBatchesPath(race.id)} type="primary">{t('finalRoundBatchLists')}</Button>
         )}
       </div>
     </>

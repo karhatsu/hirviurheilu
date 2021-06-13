@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import format from 'date-fns/format'
 import { get } from '../../util/apiClient'
 import DesktopStartList from './DesktopStartList'
@@ -11,6 +11,7 @@ import { buildRacePath, buildSeriesResultsPath, buildSeriesStartListPath } from 
 import useTitle from '../../util/useTitle'
 import { useRace } from '../../util/useRace'
 import { pages } from '../menu/DesktopSecondLevelMenu'
+import Button from '../../common/Button'
 
 export default function StartListPage({ setSelectedPage }) {
   const { raceId, seriesId } = useParams()
@@ -44,18 +45,18 @@ export default function StartListPage({ setSelectedPage }) {
         <>
           <DesktopStartList competitors={competitors} race={race} />
           <MobileStartList competitors={competitors} race={race} />
-          <a href={`/races/${raceId}/series/${seriesId}/start_list.pdf`} className="button button--pdf">
+          <Button href={`/races/${raceId}/series/${seriesId}/start_list.pdf`} type="pdf">
             {t('downloadStartListPdf')}
-          </a>
+          </Button>
         </>
       )}
       {!competitors.length && <div className="message message--info">{t('noCompetitorsOrStartTimes')}</div>}
       <SeriesMobileSubMenu race={race} buildSeriesPath={buildSeriesStartListPath} currentSeriesId={id} />
       <div className="buttons buttons--nav">
-        <Link to={buildRacePath(race.id)} className="button button--back">
+        <Button to={buildRacePath(race.id)} type="back">
           {t('backToPage', { pageName: race.name })}
-        </Link>
-        <Link to={buildSeriesResultsPath(race.id, series.id)} className="button">{t('results')}</Link>
+        </Button>
+        <Button to={buildSeriesResultsPath(race.id, series.id)}>{t('results')}</Button>
       </div>
     </>
   )

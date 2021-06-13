@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Button from '../../common/Button'
 
 export default function SeriesMobileSubMenu({ race, buildSeriesPath, currentSeriesId }) {
   if (!race || !race.series.length) return null
@@ -8,9 +8,9 @@ export default function SeriesMobileSubMenu({ race, buildSeriesPath, currentSeri
       {race.series.map(series => {
         const { id, name } = series
         if (currentSeriesId === id) {
-          return <div key={id} className="button button--current">{name}</div>
+          return <Button key={id} type="current">{name}</Button>
         }
-        return <Link key={id} className="button" to={buildSeriesPath(race.id, id)}>{name}</Link>
+        return <Button key={id} to={buildSeriesPath(race.id, id)}>{name}</Button>
       })}
     </div>
   )

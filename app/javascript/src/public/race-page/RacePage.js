@@ -13,6 +13,7 @@ import RaceResultsPdf from './RaceResultsPdf'
 import RaceRelays from './RaceRelays'
 import RaceTeamCompetitions from './RaceTeamCompetitions'
 import { pages } from '../menu/DesktopSecondLevelMenu'
+import Button from '../../common/Button'
 
 export default function RacePage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -46,7 +47,7 @@ export default function RacePage({ setSelectedPage }) {
         </>
       )}
       <div className="buttons buttons--nav">
-        <a href="/app/assets/config" className="button button--back">{t('backToHomePage')}</a>
+        <Button href="/app/assets/config" type="back">{t('backToHomePage')}</Button>
       </div>
     </>
   )

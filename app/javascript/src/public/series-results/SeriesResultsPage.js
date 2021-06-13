@@ -4,7 +4,7 @@ import max from 'date-fns/max'
 import parseISO from 'date-fns/parseISO'
 import { useRace } from '../../util/useRace'
 import useTitle from '../../util/useTitle'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { get } from '../../util/apiClient'
 import Spinner from '../../common/Spinner'
 import { pages } from '../menu/DesktopSecondLevelMenu'
@@ -22,6 +22,7 @@ import EuropeanDesktopResults from './EuropeanDesktopResults'
 import EuropeanMobileResults from './EuropeanMobileResults'
 import ShootingDesktopResults from './ShootingDesktopResults'
 import ShootingMobileResults from './ShootingMobileResults'
+import Button from '../../common/Button'
 
 export default function SeriesResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -83,22 +84,20 @@ export default function SeriesResultsPage({ setSelectedPage }) {
         {!shooting && <ThreeSportMobileResults race={race} series={series} />}
         <div className="buttons">
           {hasUnofficialCompetitors && (
-            <span className="button" onClick={toggleAllCompetitors} id="all_competitors_button">
+            <Button onClick={toggleAllCompetitors} id="all_competitors_button">
               {t(allCompetitors ? 'showOfficialResults' : 'showUnofficialResults')}
-            </span>
+            </Button>
           )}
-          <a href={`${buildSeriesResultsPath(race.id, series.id)}.pdf${queryParams}`} className="button button--pdf">
+          <Button href={`${buildSeriesResultsPath(race.id, series.id)}.pdf${queryParams}`} type="pdf">
             {t('downloadResultsPdf')}
-          </a>
+          </Button>
         </div>
       </SeriesStatus>
       <SeriesMobileSubMenu race={race} currentSeriesId={series.id} buildSeriesPath={buildSeriesResultsPath} />
       <div className="buttons buttons--nav">
-        <Link to={buildRacePath(race.id)} className="button button--back">
-          {t('backToPage', { pageName: race.name })}
-        </Link>
+        <Button to={buildRacePath(race.id)} type="back">{t('backToPage', { pageName: race.name })}</Button>
         {race.sport.startList && (
-          <Link to={buildSeriesStartListPath(race.id, series.id)} className="button">{t('startList')}</Link>
+          <Button to={buildSeriesStartListPath(race.id, series.id)}>{t('startList')}</Button>
         )}
       </div>
     </>

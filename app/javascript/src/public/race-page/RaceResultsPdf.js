@@ -3,6 +3,7 @@ import isAfter from 'date-fns/isAfter'
 import parseISO from 'date-fns/parseISO'
 import useTranslation from '../../util/useTranslation'
 import ClubSelect from './ClubSelect'
+import Button from '../../common/Button'
 
 export default function RaceResultsPdf({ race }) {
   const { t } = useTranslation()
@@ -21,7 +22,7 @@ export default function RaceResultsPdf({ race }) {
             <label htmlFor="page_breaks">{t('pdfPageBreaks')}</label>
           </div>
           <div className="form__buttons">
-            <input type="submit" value={t('downloadAllResults')} className="button button--pdf" />
+            <Button submit={true} type="pdf">{t('downloadAllResults')}</Button>
           </div>
         </div>
       </form>
