@@ -1,8 +1,10 @@
 import React from 'react'
 import Button from '../../common/Button'
+import useLayout from '../../util/useLayout'
 
 export default function SeriesMobileSubMenu({ race, buildSeriesPath, currentSeriesId }) {
-  if (!race || !race.series.length) return null
+  const { mobile } = useLayout()
+  if (!mobile || !race || !race.series.length) return null
   return (
     <div className="buttons buttons--mobile">
       {race.series.map(series => {

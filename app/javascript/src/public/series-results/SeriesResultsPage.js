@@ -24,6 +24,7 @@ import ShootingDesktopResults from './ShootingDesktopResults'
 import ShootingMobileResults from './ShootingMobileResults'
 import Button from '../../common/Button'
 import Message from '../../common/Message'
+import useLayout from '../../util/useLayout'
 
 export default function SeriesResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -32,6 +33,7 @@ export default function SeriesResultsPage({ setSelectedPage }) {
   const [series, setSeries] = useState()
   const [allCompetitors, setAllCompetitors] = useState(false)
   const { race } = useRace()
+  const { mobile } = useLayout()
 
   const titleSuffix = useMemo(() => {
     if (!series || !race) return
@@ -73,16 +75,18 @@ export default function SeriesResultsPage({ setSelectedPage }) {
         {!shooting && <ThreeSportRaceInfo race={race} series={series} />}
         {shooting && (
           <ResultsWithShots series={series}>
-            {nordic && <NordicDesktopResults race={race} series={series} />}
-            {nordic && <NordicMobileResults race={race} series={series} />}
-            {european && <EuropeanDesktopResults race={race} series={series} />}
-            {european && <EuropeanMobileResults race={race} series={series} />}
-            {shootingSimple && <ShootingDesktopResults race={race} series={series} />}
-            {shootingSimple && <ShootingMobileResults race={race} series={series} />}
+            {nordic && !mobile && <NordicDesktopResults race={race} series={series} />}
+            {nordic && mobile && <NordicMobileResults race={race} series={series} />}
+            {european && !mobile && <EuropeanDesktopResults race={race} series={series} />}
+            {european && mobile && <EuropeanMobileResults race={race} series={series} />}
+            {shootingSimple && !mobile && <ShootingDesktopResults race={race} series={series} />}
+            {shootingSimple && mobile && <ShootingMobileResults race={race} series={series} />}
           </ResultsWithShots>
         )}
-        {!shooting && <ThreeSportDesktopResults race={race} series={series} setAllCompetitors={setAllCompetitors} />}
-        {!shooting && <ThreeSportMobileResults race={race} series={series} />}
+        {!shooting && !mobile && (
+          <ThreeSportDesktopResults race={race} series={series} setAllCompetitors={setAllCompetitors} />
+        )}
+        {!shooting && mobile && <ThreeSportMobileResults race={race} series={series} />}
         <div className="buttons">
           {hasUnofficialCompetitors && (
             <Button onClick={toggleAllCompetitors} id="all_competitors_button">

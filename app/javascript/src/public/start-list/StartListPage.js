@@ -13,6 +13,7 @@ import { useRace } from '../../util/useRace'
 import { pages } from '../menu/DesktopSecondLevelMenu'
 import Button from '../../common/Button'
 import Message from '../../common/Message'
+import useLayout from '../../util/useLayout'
 
 export default function StartListPage({ setSelectedPage }) {
   const { raceId, seriesId } = useParams()
@@ -20,6 +21,7 @@ export default function StartListPage({ setSelectedPage }) {
   const [series, setSeries] = useState()
   const { race } = useRace()
   const { t } = useTranslation()
+  const { mobile } = useLayout()
   useTitle(race && series && `${race.name} - ${series.name} - ${t('startList')}`)
   useEffect(() => setSelectedPage(pages.startList), [setSelectedPage])
 
@@ -42,8 +44,8 @@ export default function StartListPage({ setSelectedPage }) {
       )}
       {competitors.length > 0 && (
         <>
-          <DesktopStartList competitors={competitors} race={race} />
-          <MobileStartList competitors={competitors} race={race} />
+          {!mobile && <DesktopStartList competitors={competitors} race={race} />}
+          {mobile && <MobileStartList competitors={competitors} race={race} />}
           <Button href={`/races/${raceId}/series/${seriesId}/start_list.pdf`} type="pdf">
             {t('downloadStartListPdf')}
           </Button>

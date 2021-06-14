@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Route, Switch, useParams } from 'react-router-dom'
 import { RaceProvider, useRace } from './util/useRace'
+import { LayoutProvider } from './util/useLayout'
 import PageTitle from './PageTitle'
 import DesktopSecondLevelMenu from './public/menu/DesktopSecondLevelMenu'
 import SeriesDesktopSubMenu from './public/menu/SeriesDesktopSubMenu'
@@ -49,9 +50,11 @@ function ReactApp() {
 
 const ReactAppContainer = () => {
   return (
-    <RaceProvider>
-      <ReactApp />
-    </RaceProvider>
+    <LayoutProvider>
+      <RaceProvider>
+        <ReactApp />
+      </RaceProvider>
+    </LayoutProvider>
   )
 }
 
