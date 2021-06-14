@@ -10,6 +10,7 @@ import StartListPage from './public/start-list/StartListPage'
 import { buildSeriesResultsPath, buildSeriesStartListPath } from './util/routeUtil'
 import RacePage from './public/race-page/RacePage'
 import SeriesResultsPage from './public/series-results/SeriesResultsPage'
+import NordicSubSportResultsPage from './public/nordic/NordicSubSportResultsPage'
 
 function ReactApp() {
   const [selectedPage, setSelectedPage] = useState(undefined)
@@ -39,6 +40,10 @@ function ReactApp() {
             <Route
               path="/:lang?/races/:raceId/series/:seriesId"
               render={() => <SeriesResultsPage setSelectedPage={setSelectedPage} />}
+            />
+            <Route
+              path="/:lang?/races/:raceId/:subSport"
+              render={() => <NordicSubSportResultsPage setSelectedPage={setSelectedPage} />}
             />
             <Route path="/:lang?/races/:raceId" render={() => <RacePage setSelectedPage={setSelectedPage} />} />
           </Switch>

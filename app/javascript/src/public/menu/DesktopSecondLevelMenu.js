@@ -20,6 +20,12 @@ export const pages = {
   raceHome: 0,
   results: 1,
   startList: 2,
+  nordic: {
+    trap: 3,
+    shotgun: 4,
+    rifle_standing: 5,
+    rifle_moving: 6,
+  },
 }
 
 export default function DesktopSecondLevelMenu({ selectedPage }) {
@@ -49,12 +55,14 @@ export default function DesktopSecondLevelMenu({ selectedPage }) {
           />
           {race.sport.nordic && (
             <>
-              {['trap', 'shotgun', 'rifle_standing', 'rifle_moving'].map(subSport => {
+              {['trap', 'shotgun', 'rifle_moving', 'rifle_standing'].map(subSport => {
                 return (
                   <DesktopMenuItem
                     key={subSport}
                     path={buildNordicResultsPath(race.id, subSport)}
                     text={t(`nordic_${subSport}`)}
+                    selected={selectedPage === pages.nordic[subSport]}
+                    reactLink={true}
                   />
                 )
               })}

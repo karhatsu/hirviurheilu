@@ -53,7 +53,7 @@ export default function RaceSeries({ race }) {
         <div className="buttons">
           {['trap', 'shotgun', 'rifle_standing', 'rifle_moving'].map(subSport => {
             return (
-              <Button key={subSport} href={buildNordicResultsPath(race.id, subSport)} type="primary">
+              <Button key={subSport} to={buildNordicResultsPath(race.id, subSport)} type="primary">
                 {t(`nordic_${subSport}`)}
               </Button>
             )

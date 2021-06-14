@@ -4,6 +4,7 @@ class Series < ApplicationRecord
   include TimeHelper
   include StartDateTime
   include ComparisonTime
+  include CompetitorPosition
 
   TIME_POINTS_TYPE_NORMAL = 0
   TIME_POINTS_TYPE_NONE = 1
@@ -369,17 +370,5 @@ class Series < ApplicationRecord
 
   def batch_too_small?(competitor, last_batch_start, last_batch_size, batch_size)
     competitor.number >= last_batch_start && last_batch_size <= batch_size*2/3
-  end
-
-  def add_position_for_competitors(competitors, &block)
-    prev_competitor_results = nil
-    prev_competitor_position = 0
-    competitors.each_with_index do |comp, i|
-      competitor_results = block.call comp
-      comp.position = competitor_results == prev_competitor_results ? prev_competitor_position : i + 1
-      prev_competitor_results = competitor_results
-      prev_competitor_position = comp.position
-    end
-    competitors
   end
 end

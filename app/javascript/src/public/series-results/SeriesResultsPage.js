@@ -74,7 +74,7 @@ export default function SeriesResultsPage({ setSelectedPage }) {
       <SeriesStatus race={race} series={series}>
         {!shooting && <ThreeSportRaceInfo race={race} series={series} />}
         {shooting && (
-          <ResultsWithShots series={series}>
+          <ResultsWithShots competitors={series.competitors}>
             {nordic && !mobile && <NordicDesktopResults race={race} series={series} />}
             {nordic && mobile && <NordicMobileResults race={race} series={series} />}
             {european && !mobile && <EuropeanDesktopResults race={race} series={series} />}

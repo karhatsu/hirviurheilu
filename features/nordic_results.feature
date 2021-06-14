@@ -24,21 +24,25 @@ Feature: Nordic results
     And I should see a card 2 for "Pohjonen Pertti" with total score 366
     And I should see "Trap: 25Compak: 21Hirvi: 90Kauris: 92" in result card 2 detail row 2
     When I follow "Trap"
+    And I wait for the results
     And I force mobile UI
     Then I should see a card 1 for "Pohjonen Pertti" with total score 25
     And I should see a card 2 for "Pohjola Pekka" with total score 24
     And I should see a card 3 for "Pohjoinen Päivi" with total score 21
     When I choose "Compak" from sub menu
+    And I wait for the results
     And I force mobile UI
     And I should see a card 1 for "Pohjoinen Päivi" with total score 25
     Then I should see a card 2 for "Pohjonen Pertti" with total score 21
     And I should see a card 3 for "Pohjola Pekka" with total score 20
     When I choose "Hirvi" from sub menu
+    And I wait for the results
     And I force mobile UI
     And I should see a card 1 for "Pohjoinen Päivi" with total score 100
     Then I should see a card 2 for "Pohjola Pekka" with total score 99
     And I should see a card 3 for "Pohjonen Pertti" with total score 90
     When I choose "Kauris" from sub menu
+    And I wait for the results
     And I force mobile UI
     And I should see a card 1 for "Pohjola Pekka" with total score 100
     Then I should see a card 2 for "Pohjoinen Päivi" with total score 96
