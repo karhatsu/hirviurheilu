@@ -9,7 +9,7 @@ import DesktopResultsRows from './DesktopResultsRows'
 export default function EuropeanDesktopResults({ race, series }) {
   const { t } = useTranslation()
   const { competitors } = series
-  const extraShots = !!competitors.find(c => c.nordicExtraScore)
+  const extraShots = !!competitors.find(c => c.europeanExtraScore)
   return (
     <div className="results--desktop">
       <table className="results-table">
