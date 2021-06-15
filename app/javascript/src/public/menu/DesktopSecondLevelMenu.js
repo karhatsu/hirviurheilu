@@ -26,6 +26,7 @@ export const pages = {
     rifle_standing: 5,
     rifle_moving: 6,
   },
+  europeanRifle: 7,
 }
 
 export default function DesktopSecondLevelMenu({ selectedPage }) {
@@ -72,7 +73,11 @@ export default function DesktopSecondLevelMenu({ selectedPage }) {
             <DesktopMenuItem
               path={buildSeriesRifleResultsPath(race.id, seriesId)}
               text={t('rifle')}
-              dropdownItems={race.series.map(s => ({ text: s.name, path: buildSeriesRifleResultsPath(race.id, s.id) }))}
+              selected={selectedPage === pages.europeanRifle}
+              reactLink={true}
+              dropdownItems={race.series.map(s => (
+                { text: s.name, path: buildSeriesRifleResultsPath(race.id, s.id), reactLink: true }),
+              )}
             />
           )}
           {race.sport.batchList && race.qualificationRoundBatches.length > 0 && (

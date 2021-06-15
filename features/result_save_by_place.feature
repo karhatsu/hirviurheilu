@@ -169,4 +169,5 @@ Feature: Save results by result place
     And I wait for the results
     Then I should see 367 as total score in the results table for row 1
     When I choose "Luodikko" from sub menu
-    Then I should see 175 as total score in the results table for row 2
+    And I wait for the results
+    Then I should see 175 as total score in the results table for row 1

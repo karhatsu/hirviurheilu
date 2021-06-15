@@ -24,13 +24,15 @@ Feature: European results
     And I should see a card 2 for "Pohjola Pekka" with total score 357
     And I should see "Trap: 25Compak: 20Metsäkauris: 49Kettu: 50Gemssi: 40Villisika: 38" in result card 2 detail row 2
     When I follow "Luodikko"
+    And I wait for the results
     And I force mobile UI
     Then I should see a card 1 for "Pohjonen Pertti" with total score 185
-    And I should see "Metsäkauris: 42 Kettu: 44 Gemssi: 49 Villisika: 50" in result card 1 detail row 2
-    And I should see "Metsäkauris: 49 Kettu: 50 Gemssi: 40 Villisika: 38" in result card 2 detail row 2
+    And I should see "Metsäkauris: 42Kettu: 44Gemssi: 49Villisika: 50" in result card 1 detail row 2
+    And I should see "Metsäkauris: 49Kettu: 50Gemssi: 40Villisika: 38" in result card 2 detail row 2
     And I should see a card 2 for "Pohjola Pekka" with total score 177
     When I choose "Kilpailun etusivu" from sub menu
     And I follow "Luodikko N"
+    And I wait for the results
     And I force mobile UI
     Then I should see a card 1 for "Pohjoinen Päivi" with total score 179
     When I choose "Joukkuekilpailu" from sub menu

@@ -3,8 +3,9 @@ class EuropeanRiflesController < ApplicationController
 
   def index
     @rifle = true
+    use_react
     respond_to do |format|
-      format.html
+      format.html { render layout: true, html: '' }
       format.pdf {
         render pdf: "#{@series.race.name}-#{@series.name}-luodikko-tulokset", layout: true, margin: pdf_margin,
                header: pdf_header("#{@series.race.name} - #{@series.name} - #{I18n.t('sport_name.european_sub.rifle')}\n"),

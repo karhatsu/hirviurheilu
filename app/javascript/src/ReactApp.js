@@ -7,10 +7,11 @@ import DesktopSecondLevelMenu from './public/menu/DesktopSecondLevelMenu'
 import SeriesDesktopSubMenu from './public/menu/SeriesDesktopSubMenu'
 import FacebookShare from './public/FacebookShare'
 import StartListPage from './public/start-list/StartListPage'
-import { buildSeriesResultsPath, buildSeriesStartListPath } from './util/routeUtil'
+import { buildSeriesResultsPath, buildSeriesRifleResultsPath, buildSeriesStartListPath } from './util/routeUtil'
 import RacePage from './public/race-page/RacePage'
 import SeriesResultsPage from './public/series-results/SeriesResultsPage'
 import NordicSubSportResultsPage from './public/nordic/NordicSubSportResultsPage'
+import EuropeanRifleResultsPage from './public/european/EuropeanRifleResultsPage'
 
 function ReactApp() {
   const [selectedPage, setSelectedPage] = useState(undefined)
@@ -25,6 +26,13 @@ function ReactApp() {
           <Route path="/:lang?/races/:raceId/series/:seriesId/start_list">
             <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesPath={buildSeriesStartListPath} />
           </Route>
+          <Route path="/:lang?/races/:raceId/series/:seriesId/rifle">
+            <SeriesDesktopSubMenu
+              race={race}
+              currentSeriesId={seriesId}
+              buildSeriesPath={buildSeriesRifleResultsPath}
+            />
+          </Route>
           <Route path="/:lang?/races/:raceId/series/:seriesId">
             <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesPath={buildSeriesResultsPath} />
           </Route>
@@ -36,6 +44,10 @@ function ReactApp() {
             <Route
               path="/:lang?/races/:raceId/series/:seriesId/start_list"
               render={() => <StartListPage setSelectedPage={setSelectedPage} />}
+            />
+            <Route
+              path="/:lang?/races/:raceId/series/:seriesId/rifle"
+              render={() => <EuropeanRifleResultsPage setSelectedPage={setSelectedPage} />}
             />
             <Route
               path="/:lang?/races/:raceId/series/:seriesId"

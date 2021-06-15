@@ -191,6 +191,7 @@ Hirviurheilu::Application.routes.draw do
         resources :races, only: :show do
           resources :series, only: [:show] do
             resource :start_list, only: :show
+            get 'rifle', to: 'european_rifles#show'
           end
           resources :times, only: :index
           get 'trap', to: 'nordic_races#trap'

@@ -65,7 +65,7 @@ export default function RaceSeries({ race }) {
           {series.map(s => {
             const { id, name } = s
             const linkText = `${t('rifle')} ${name}`
-            return <Button key={id} href={buildSeriesRifleResultsPath(race.id, id)} type="primary">{linkText}</Button>
+            return <Button key={id} to={buildSeriesRifleResultsPath(race.id, id)} type="primary">{linkText}</Button>
           })}
         </div>
       )}
