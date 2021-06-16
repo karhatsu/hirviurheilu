@@ -8,12 +8,13 @@ class Sport
   METSASTYSHAULIKKO = "METSASTYSHAULIKKO"
   METSASTYSTRAP = "METSASTYSTRAP"
   PIENOISHIRVI = "PIENOISHIRVI"
+  PIENOISLUODIKKO = "PIENOISLUODIKKO"
   NORDIC = "NORDIC"
   EUROPEAN = "EUROPEAN"
 
   ALL_KEYS = [Sport::RUN, Sport::SKI, Sport::ILMAHIRVI, Sport::ILMALUODIKKO, Sport::METSASTYSHIRVI,
               Sport::METSASTYSLUODIKKO, Sport::METSASTYSHAULIKKO, Sport::METSASTYSTRAP, Sport::PIENOISHIRVI,
-              Sport::NORDIC, Sport::EUROPEAN]
+              Sport::PIENOISLUODIKKO, Sport::NORDIC, Sport::EUROPEAN]
 
   BASE_CONFIGS = {
       SKI_AND_RUN: {
@@ -152,6 +153,18 @@ class Sport
       PIENOISHIRVI: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
         {
           name: 'Pienoishirvi',
+          qualification_round: [20],
+          qualification_round_shot_count: 20,
+          qualification_round_max_score: 200,
+          final_round: [10],
+          final_round_shot_count: 10,
+          shot_count: 30,
+          shots_per_extra_round: 2,
+        }
+      )),
+      PIENOISLUODIKKO: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
+        {
+          name: 'Pienoisluodikko',
           qualification_round: [20],
           qualification_round_shot_count: 20,
           qualification_round_max_score: 200,
