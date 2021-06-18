@@ -20,9 +20,17 @@ Feature: Nordic results
     And I wait for the results
     And I force mobile UI
     Then I should see a card 1 for "Pohjola Pekka" with total score 375
-    And I should see "Trap: 24Compak: 20Hirvi: 99Kauris: 100" in result card 1 detail row 2
+    And I should see the following sub results in result card 1 detail row 2:
+      | shoot | Trap: 24 |
+      | shoot | Compak: 20 |
+      | shoot | Hirvi: 99 |
+      | shoot | Kauris: 100 |
     And I should see a card 2 for "Pohjonen Pertti" with total score 366
-    And I should see "Trap: 25Compak: 21Hirvi: 90Kauris: 92" in result card 2 detail row 2
+    And I should see the following sub results in result card 2 detail row 2:
+      | shoot | Trap: 25 |
+      | shoot | Compak: 21 |
+      | shoot | Hirvi: 90 |
+      | shoot | Kauris: 92 |
     When I follow "Trap"
     And I wait for the results
     And I force mobile UI

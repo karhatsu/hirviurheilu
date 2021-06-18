@@ -42,6 +42,13 @@ Then("I should see {string} in result card {int} detail row {int}") do |text, ca
   expect(find(:xpath, "//div[contains(@class, 'result-cards')]/div[contains(@class, 'card')][#{card_number}]//div[@class='card__middle-row'][#{row_number}]")).to have_text(text, exact: true)
 end
 
+Then('I should see the following sub results in result card {int} detail row {int}:') do |card_number, row_number, sub_results|
+  parent = "//div[contains(@class, 'result-cards')]/div[contains(@class, 'card')][#{card_number}]//div[@class='card__middle-row'][#{row_number}]"
+  sub_results.raw.each_with_index do |sub_result, i|
+    expect(find(:xpath, "#{parent}/span[contains(@class, 'card__sub-result--#{sub_result[0]}')][#{i + 1}]")).to have_text(sub_result[1])
+  end
+end
+
 Then("I should see {string} in result card {int} detail row {int} {string} result") do |text, card_number, row_number, result_type|
   expect(find(:xpath, "//div[contains(@class, 'result-cards')]/div[contains(@class, 'card')][#{card_number}]//div[@class='card__middle-row'][#{row_number}]/span[contains(@class, 'card__sub-result--#{result_type}')]")).to have_text(text, exact: true)
 end
