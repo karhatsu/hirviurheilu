@@ -1,5 +1,8 @@
 json.key_format! camelize: :lower if request.headers['X-Camel-Case']
 json.(@series, :id, :name, :competitors_count, :has_start_list, :points_method, :shorter_trip, :estimates, :finished, :national_record)
+if @series.race.sport.european?
+  json.competitors_count @series.competitors.where('only_rifle=?', false).count
+end
 json.active @series.active?
 json.started @series.started?
 json.start_time @series.start_datetime
