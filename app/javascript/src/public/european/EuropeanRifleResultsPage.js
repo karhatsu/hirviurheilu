@@ -4,8 +4,6 @@ import useLayout from '../../util/useLayout'
 import useTitle from '../../util/useTitle'
 import useTranslation from '../../util/useTranslation'
 import { useParams } from 'react-router-dom'
-import Message from '../../common/Message'
-import Spinner from '../../common/Spinner'
 import SeriesStatus from '../series-results/SeriesStatus'
 import ResultsWithShots from '../series-results/ResultsWithShots'
 import EuropeanRifleDesktopResults from './EuropeanRifleDesktopResults'
@@ -14,6 +12,7 @@ import { buildRacePath, buildSeriesRifleResultsPath } from '../../util/routeUtil
 import EuropeanRifleMobileResults from './EuropeanRifleMobileResults'
 import SeriesMobileSubMenu from '../menu/SeriesMobileSubMenu'
 import useRaceData from '../../util/useRaceData'
+import IncompletePage from '../../common/IncompletePage'
 
 export default function EuropeanRifleResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -25,8 +24,9 @@ export default function EuropeanRifleResultsPage({ setSelectedPage }) {
   useTitle(race && series && `${race.name} - ${series.name} - ${t('rifle')}`)
   useEffect(() => setSelectedPage(pages.europeanRifle), [setSelectedPage])
 
-  if (error) return <Message type="error">{error}</Message>
-  if (fetching) return <Spinner />
+  if (fetching || error) {
+    return <IncompletePage fetching={fetching} error={error} title={t('rifle')} />
+  }
 
   return (
     <>

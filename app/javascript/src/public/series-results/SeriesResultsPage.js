@@ -4,7 +4,6 @@ import max from 'date-fns/max'
 import parseISO from 'date-fns/parseISO'
 import useTitle from '../../util/useTitle'
 import { useParams } from 'react-router-dom'
-import Spinner from '../../common/Spinner'
 import { pages } from '../menu/DesktopSecondLevelMenu'
 import useTranslation from '../../util/useTranslation'
 import { buildRacePath, buildSeriesResultsPath, buildSeriesStartListPath } from '../../util/routeUtil'
@@ -21,9 +20,9 @@ import EuropeanMobileResults from './EuropeanMobileResults'
 import ShootingDesktopResults from './ShootingDesktopResults'
 import ShootingMobileResults from './ShootingMobileResults'
 import Button from '../../common/Button'
-import Message from '../../common/Message'
 import useLayout from '../../util/useLayout'
 import useRaceData from '../../util/useRaceData'
+import IncompletePage from '../../common/IncompletePage'
 
 export default function SeriesResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -53,8 +52,9 @@ export default function SeriesResultsPage({ setSelectedPage }) {
 
   const toggleAllCompetitors = useCallback(() => setAllCompetitors(ac => !ac), [])
 
-  if (error) return <Message type="error">{error}</Message>
-  if (fetching) return <Spinner />
+  if (fetching || error) {
+    return <IncompletePage fetching={fetching} error={error} title={title} />
+  }
 
   const hasUnofficialCompetitors = race.unofficialsConfigurable && !!series.competitors.find(c => c.unofficial)
   const { european, nordic, shooting, shootingSimple } = race.sport

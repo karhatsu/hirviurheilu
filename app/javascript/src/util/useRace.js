@@ -20,6 +20,6 @@ export const RaceProvider = ({ children }) => {
     }
   }, [raceId])
 
-  const value = { race, error }
+  const value = { fetching: !error && !race, race, error }
   return <RaceContext.Provider value={value}>{children}</RaceContext.Provider>
 }

@@ -5,7 +5,6 @@ import DesktopStartList from './DesktopStartList'
 import MobileStartList from './MobileStartList'
 import SeriesMobileSubMenu from '../menu/SeriesMobileSubMenu'
 import useTranslation from '../../util/useTranslation'
-import Spinner from '../../common/Spinner'
 import { buildRacePath, buildSeriesResultsPath, buildSeriesStartListPath } from '../../util/routeUtil'
 import useTitle from '../../util/useTitle'
 import { pages } from '../menu/DesktopSecondLevelMenu'
@@ -13,6 +12,7 @@ import Button from '../../common/Button'
 import Message from '../../common/Message'
 import useLayout from '../../util/useLayout'
 import useRaceData from '../../util/useRaceData'
+import IncompletePage from '../../common/IncompletePage'
 
 export default function StartListPage({ setSelectedPage }) {
   const { raceId, seriesId } = useParams()
@@ -23,8 +23,9 @@ export default function StartListPage({ setSelectedPage }) {
   useTitle(race && series && `${race.name} - ${series.name} - ${t('startList')}`)
   useEffect(() => setSelectedPage(pages.startList), [setSelectedPage])
 
-  if (error) return <Message type="error">{error}</Message>
-  if (fetching) return <Spinner />
+  if (fetching || error) {
+    return <IncompletePage fetching={fetching} error={error} title={t('startList')} />
+  }
 
   const { competitors, id, name, started, startTime } = series
   return (

@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import useTitle from '../../util/useTitle'
 import { useRace } from '../../util/useRace'
 import RaceOrganizer from './RaceOrganizer'
-import Spinner from '../../common/Spinner'
 import RacePublicMessage from './RacePublicMessage'
 import useTranslation from '../../util/useTranslation'
 import RaceBatches from './RaceBatches'
@@ -15,15 +14,17 @@ import RaceTeamCompetitions from './RaceTeamCompetitions'
 import { pages } from '../menu/DesktopSecondLevelMenu'
 import Button from '../../common/Button'
 import Message from '../../common/Message'
+import IncompletePage from '../../common/IncompletePage'
 
 export default function RacePage({ setSelectedPage }) {
   const { t } = useTranslation()
-  const { race, error } = useRace()
+  const { fetching, race, error } = useRace()
   useTitle(race?.name)
   useEffect(() => setSelectedPage(pages.raceHome), [setSelectedPage])
 
-  if (error) return <Message type="error">{error}</Message>
-  if (!race && !error) return <Spinner />
+  if (fetching || error) {
+    return <IncompletePage fetching={fetching} error={error} />
+  }
 
   const { cancelled } = race
   return (
