@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { pages } from '../menu/DesktopSecondLevelMenu'
 import useTranslation from '../../util/useTranslation'
-import { useRace } from '../../util/useRace'
 import useTitle from '../../util/useTitle'
 import ResultsWithShots from '../series-results/ResultsWithShots'
-import { get } from '../../util/apiClient'
 import Message from '../../common/Message'
 import Spinner from '../../common/Spinner'
 import useLayout from '../../util/useLayout'
@@ -14,14 +12,14 @@ import Button from '../../common/Button'
 import { buildNordicResultsPath, buildRacePath } from '../../util/routeUtil'
 import NordicSubSportMobileResults from './NordicSubSportMobileResults'
 import NordicSubSportMobileSubMenu from './NordicSubSportMobileSubMenu'
+import useRaceData from '../../util/useRaceData'
 
 export default function NordicSubSportResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
   const { subSport } = useParams()
-  const { race } = useRace()
-  const [error, setError] = useState()
-  const [results, setResults] = useState()
   const { mobile } = useLayout()
+  const buildApiPath = useCallback(raceId => `/api/v2/public/races/${raceId}/${subSport}`, [subSport])
+  const { error, fetching, race, raceData: results } = useRaceData(buildApiPath)
 
   const title = t(`nordic_${subSport}`)
   useTitle(race && `${race.name} - ${title}`)
@@ -29,21 +27,11 @@ export default function NordicSubSportResultsPage({ setSelectedPage }) {
     setSelectedPage(pages.nordic[subSport])
   }, [setSelectedPage, subSport])
 
-  useEffect(() => {
-    if (race) {
-      const path = `/api/v2/public/races/${race.id}/${subSport}`
-      get(path, (err, data) => {
-        if (err) return setError(err)
-        setResults(data)
-      })
-    }
-  }, [race, subSport])
-
   const content = () => {
-    if (error) {
-      return <Message type="error">{error}</Message>
-    } else if (!race || !results || (results && results.subSport !== subSport)) {
+    if (fetching) {
       return <Spinner />
+    } else if (error) {
+      return <Message type="error">{error}</Message>
     } else {
       return (
         <ResultsWithShots competitors={results.competitors}>

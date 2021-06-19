@@ -2,10 +2,8 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import format from 'date-fns/format'
 import max from 'date-fns/max'
 import parseISO from 'date-fns/parseISO'
-import { useRace } from '../../util/useRace'
 import useTitle from '../../util/useTitle'
 import { useParams } from 'react-router-dom'
-import { get } from '../../util/apiClient'
 import Spinner from '../../common/Spinner'
 import { pages } from '../menu/DesktopSecondLevelMenu'
 import useTranslation from '../../util/useTranslation'
@@ -25,15 +23,18 @@ import ShootingMobileResults from './ShootingMobileResults'
 import Button from '../../common/Button'
 import Message from '../../common/Message'
 import useLayout from '../../util/useLayout'
+import useRaceData from '../../util/useRaceData'
 
 export default function SeriesResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
   const { seriesId } = useParams()
-  const [error, setError] = useState()
-  const [series, setSeries] = useState()
   const [allCompetitors, setAllCompetitors] = useState(false)
-  const { race } = useRace()
   const { mobile } = useLayout()
+  const queryParams = allCompetitors ? '?all_competitors=true' : ''
+  const buildApiPath = useCallback(raceId => {
+    return `/api/v2/public/races/${raceId}/series/${seriesId}${queryParams}`
+  }, [seriesId, queryParams])
+  const { error, fetching, race, raceData: series } = useRaceData(buildApiPath)
 
   const titleSuffix = useMemo(() => {
     if (!series || !race) return
@@ -50,21 +51,10 @@ export default function SeriesResultsPage({ setSelectedPage }) {
   useTitle(race && `${race.name} - ${title}`)
   useEffect(() => setSelectedPage(pages.results), [setSelectedPage])
 
-  const queryParams = allCompetitors ? '?all_competitors=true' : ''
-  useEffect(() => {
-    if (race) {
-      const path = `/api/v2/public/races/${race.id}/series/${seriesId}${queryParams}`
-      get(path, (err, data) => {
-        if (err) return setError(err)
-        setSeries(data)
-      })
-    }
-  }, [race, seriesId, queryParams])
-
   const toggleAllCompetitors = useCallback(() => setAllCompetitors(ac => !ac), [])
 
   if (error) return <Message type="error">{error}</Message>
-  if (!race || !series || (series && series.id !== parseInt(seriesId))) return <Spinner />
+  if (fetching) return <Spinner />
 
   const hasUnofficialCompetitors = race.unofficialsConfigurable && !!series.competitors.find(c => c.unofficial)
   const { european, nordic, shooting, shootingSimple } = race.sport

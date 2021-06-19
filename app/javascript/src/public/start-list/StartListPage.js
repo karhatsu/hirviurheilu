@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import format from 'date-fns/format'
-import { get } from '../../util/apiClient'
 import DesktopStartList from './DesktopStartList'
 import MobileStartList from './MobileStartList'
 import SeriesMobileSubMenu from '../menu/SeriesMobileSubMenu'
@@ -9,31 +8,23 @@ import useTranslation from '../../util/useTranslation'
 import Spinner from '../../common/Spinner'
 import { buildRacePath, buildSeriesResultsPath, buildSeriesStartListPath } from '../../util/routeUtil'
 import useTitle from '../../util/useTitle'
-import { useRace } from '../../util/useRace'
 import { pages } from '../menu/DesktopSecondLevelMenu'
 import Button from '../../common/Button'
 import Message from '../../common/Message'
 import useLayout from '../../util/useLayout'
+import useRaceData from '../../util/useRaceData'
 
 export default function StartListPage({ setSelectedPage }) {
   const { raceId, seriesId } = useParams()
-  const [error, setError] = useState()
-  const [series, setSeries] = useState()
-  const { race } = useRace()
   const { t } = useTranslation()
   const { mobile } = useLayout()
+  const buildApiPath = useCallback(raceId => `/api/v2/public/races/${raceId}/series/${seriesId}/start_list`, [seriesId])
+  const { error, fetching, race, raceData: series } = useRaceData(buildApiPath)
   useTitle(race && series && `${race.name} - ${series.name} - ${t('startList')}`)
   useEffect(() => setSelectedPage(pages.startList), [setSelectedPage])
 
-  useEffect(() => {
-    get(`/api/v2/public/races/${raceId}/series/${seriesId}/start_list`, (err, data) => {
-      if (err) return setError(err)
-      setSeries(data)
-    })
-  }, [raceId, seriesId])
-
   if (error) return <Message type="error">{error}</Message>
-  if (!(race && series) && !error) return <Spinner />
+  if (fetching) return <Spinner />
 
   const { competitors, id, name, started, startTime } = series
   return (
