@@ -14,6 +14,12 @@ When "I click official competitors button" do
   element.click
 end
 
+When "I click show competitors button" do
+  element = find :css, '#toggle_competitors'
+  expect(element.text).to eql 'Näytä kilpailijat'
+  element.click
+end
+
 Then /^I should see a result row (\d+) with values:$/ do |order_number, values|
   values.rows_hash.values.each do |cell|
     step %{I should see "#{cell}" within "tr#comp_#{order_number}"}

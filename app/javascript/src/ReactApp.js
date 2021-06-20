@@ -12,10 +12,12 @@ import RacePage from './public/race-page/RacePage'
 import SeriesResultsPage from './public/series-results/SeriesResultsPage'
 import NordicSubSportResultsPage from './public/nordic/NordicSubSportResultsPage'
 import EuropeanRifleResultsPage from './public/european/EuropeanRifleResultsPage'
+import TeamCompetitionResultsPage from './public/team-competition/TeamCompetitionResultsPage'
+import TeamCompetitionDesktopSubMenu from './public/team-competition/TeamCompetitionDesktopSubMenu'
 
 function ReactApp() {
   const [selectedPage, setSelectedPage] = useState(undefined)
-  const { raceId, seriesId } = useParams()
+  const { raceId, seriesId, teamCompetitionId } = useParams()
   const { race } = useRace()
   return (
     <div className="body" itemScope itemType={raceId ? 'http://schema.org/SportsEvent' : ''}>
@@ -36,11 +38,18 @@ function ReactApp() {
           <Route path="/:lang?/races/:raceId/series/:seriesId">
             <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesPath={buildSeriesResultsPath} />
           </Route>
+          <Route path="/:lang?/races/:raceId/team_competitions/:teamCompetitionId">
+            <TeamCompetitionDesktopSubMenu race={race} currentTeamCompetitionId={teamCompetitionId} />
+          </Route>
         </Switch>
         <div className="body__yield">
           <div className="body__under-top-title"><PageTitle /></div>
           <FacebookShare />
           <Switch exact>
+            <Route
+              path="/:lang?/races/:raceId/team_competitions/:teamCompetitionId"
+              render={() => <TeamCompetitionResultsPage setSelectedPage={setSelectedPage} />}
+            />
             <Route
               path="/:lang?/races/:raceId/series/:seriesId/start_list"
               render={() => <StartListPage setSelectedPage={setSelectedPage} />}

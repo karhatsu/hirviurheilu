@@ -11,8 +11,9 @@ class TeamCompetitionsController < ApplicationController
   private
 
   def render_page
+    use_react
     respond_to do |format|
-      format.html
+      format.html { render layout: true, html: '' }
       format.pdf do
         render :pdf => "joukkuekilpailu-#{@tc.name}-tulokset", :layout => true,
                :margin => pdf_margin, :header => pdf_header("#{t 'activerecord.models.team_competition.one'} - #{@tc.name}"),

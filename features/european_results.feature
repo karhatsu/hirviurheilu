@@ -56,6 +56,7 @@ Feature: European results
     And I force mobile UI
     Then I should see a card 1 for "Pohjoinen Päivi" with total score 179
     When I choose "Joukkuekilpailu" from sub menu
+    And I wait for the results
     And I force mobile UI
     Then I should see a card 1 for "Team A" with total score 728
     Then I should see a card 2 for "Team B" with total score 685
