@@ -73,6 +73,7 @@ window.translations = {
   results: 'Resultat',
   resultsInProgress: 'Resultat updaterad {{time}}',
   rifle: 'Kulskytte',
+  rifleResults: 'Kulskyttes resultat',
   rifleTeamCompetition: 'Kulskyttes lagtävling',
   rifleTeamCompetitions: 'Kulskyttes lagtävlingar',
   series: 'Klass',

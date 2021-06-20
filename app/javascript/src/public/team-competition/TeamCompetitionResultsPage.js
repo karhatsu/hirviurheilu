@@ -12,17 +12,19 @@ import Button from '../../common/Button'
 import { buildRacePath, buildTeamCompetitionsPath } from '../../util/routeUtil'
 import TeamCompetitionsMobileResults from './TeamCompetitionsMobileResults'
 
-export default function TeamCompetitionResultsPage({ setSelectedPage }) {
+export default function TeamCompetitionResultsPage({ setSelectedPage, rifle }) {
   const { t } = useTranslation()
   const [showCompetitors, setShowCompetitors] = useState(false)
   const { teamCompetitionId } = useParams()
   const { mobile } = useLayout()
   const toggleCompetitors = useCallback(() => setShowCompetitors(show => !show), [])
   const buildApiPath = useCallback(raceId => {
-    return `/api/v2/public/races/${raceId}/team_competitions/${teamCompetitionId}`
-  }, [teamCompetitionId])
+    return `/api/v2/public/races/${raceId}/${rifle ? 'rifle_' : ''}team_competitions/${teamCompetitionId}`
+  }, [teamCompetitionId, rifle])
   const { fetching, error, race, raceData: teamCompetition } = useRaceData(buildApiPath)
-  useEffect(() => setSelectedPage(pages.teamCompetitions), [setSelectedPage])
+  useEffect(() => {
+    setSelectedPage(rifle ? pages.rifleTeamCompetitions : pages.teamCompetitions)
+  }, [setSelectedPage, rifle])
   useTitle(race && teamCompetition && `${race.name} - ${t('teamCompetitions')} - ${teamCompetition.name}`)
 
   if (fetching || error) {
@@ -32,7 +34,7 @@ export default function TeamCompetitionResultsPage({ setSelectedPage }) {
   const pdfPath = `${buildTeamCompetitionsPath(race.id, teamCompetition.id)}.pdf`
   return (
     <>
-      <h2>{teamCompetition.name} - {t('results')}</h2>
+      <h2>{teamCompetition.name} - {t(rifle ? 'rifleResults' : 'results')}</h2>
       {!teamCompetition.teams.length && <Message type="info">{t('teamCompetitionResultsNotAvailable')}</Message>}
       {teamCompetition.teams.length > 0 && (
         <>

@@ -61,6 +61,7 @@ Feature: European results
     Then I should see a card 1 for "Team A" with total score 728
     Then I should see a card 2 for "Team B" with total score 685
     When I choose "Luodikon joukkue" from sub menu
+    And I wait for the results
     And I force mobile UI
     Then I should see a card 1 for "Team A" with total score 356
     Then I should see a card 2 for "Team B" with total score 345

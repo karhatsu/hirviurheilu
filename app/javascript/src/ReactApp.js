@@ -38,6 +38,9 @@ function ReactApp() {
           <Route path="/:lang?/races/:raceId/series/:seriesId">
             <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesPath={buildSeriesResultsPath} />
           </Route>
+          <Route path="/:lang?/races/:raceId/rifle_team_competitions/:teamCompetitionId">
+            <TeamCompetitionDesktopSubMenu race={race} currentTeamCompetitionId={teamCompetitionId} rifle={true} />
+          </Route>
           <Route path="/:lang?/races/:raceId/team_competitions/:teamCompetitionId">
             <TeamCompetitionDesktopSubMenu race={race} currentTeamCompetitionId={teamCompetitionId} />
           </Route>
@@ -46,6 +49,10 @@ function ReactApp() {
           <div className="body__under-top-title"><PageTitle /></div>
           <FacebookShare />
           <Switch exact>
+            <Route
+              path="/:lang?/races/:raceId/rifle_team_competitions/:teamCompetitionId"
+              render={() => <TeamCompetitionResultsPage setSelectedPage={setSelectedPage} rifle={true} />}
+            />
             <Route
               path="/:lang?/races/:raceId/team_competitions/:teamCompetitionId"
               render={() => <TeamCompetitionResultsPage setSelectedPage={setSelectedPage} />}

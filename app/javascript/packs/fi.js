@@ -73,6 +73,7 @@ window.translations = {
   results: 'Tulokset',
   resultsInProgress: 'Tulokset päivitetty {{time}}',
   rifle: 'Luodikko',
+  rifleResults: 'Luodikon tulokset',
   rifleTeamCompetition: 'Luodikon joukkuekilpailu',
   rifleTeamCompetitions: 'Luodikon joukkuekilpailut',
   series: 'Sarja',

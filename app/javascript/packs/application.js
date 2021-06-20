@@ -6,6 +6,7 @@ import ReactApp from '../src/ReactApp'
 const reactPaths = [
   '/:lang?/races/:raceId/series/:seriesId/start_list',
   '/:lang?/races/:raceId/series/:seriesId',
+  '/:lang?/races/:raceId/rifle_team_competitions/:teamCompetitionId',
   '/:lang?/races/:raceId/team_competitions/:teamCompetitionId',
   '/:lang?/races/:raceId',
 ]
