@@ -6,7 +6,7 @@
   - content_for :sub_sub_menu do
     = render layout: 'team_competitions_sub_menu', locals: { race: @tc.race, team_competition_id: @tc.id } do |tc|
       = race_team_competition_path(tc.race, tc)
-- cache [@tc, I18n.locale] do
+- cache [@tc, @rifle_team, I18n.locale] do
   - if @results.empty?
     .message.message--info= t '.cannot_calculate_results'
   - else
