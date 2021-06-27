@@ -14,10 +14,12 @@ import NordicSubSportResultsPage from './public/nordic/NordicSubSportResultsPage
 import EuropeanRifleResultsPage from './public/european/EuropeanRifleResultsPage'
 import TeamCompetitionResultsPage from './public/team-competition/TeamCompetitionResultsPage'
 import TeamCompetitionDesktopSubMenu from './public/team-competition/TeamCompetitionDesktopSubMenu'
+import RelayDesktopSubMenu from './public/relay/RelayDesktopSubMenu'
+import RelayResultsPage from './public/relay/RelayResultsPage'
 
 function ReactApp() {
   const [selectedPage, setSelectedPage] = useState(undefined)
-  const { raceId, seriesId, teamCompetitionId } = useParams()
+  const { raceId, relayId, seriesId, teamCompetitionId } = useParams()
   const { race } = useRace()
   return (
     <div className="body" itemScope itemType={raceId ? 'http://schema.org/SportsEvent' : ''}>
@@ -44,6 +46,9 @@ function ReactApp() {
           <Route path="/:lang?/races/:raceId/team_competitions/:teamCompetitionId">
             <TeamCompetitionDesktopSubMenu race={race} currentTeamCompetitionId={teamCompetitionId} />
           </Route>
+          <Route path="/:lang?/races/:raceId/relays/:relaysId">
+            <RelayDesktopSubMenu race={race} currentRelayId={relayId} />
+          </Route>
         </Switch>
         <div className="body__yield">
           <div className="body__under-top-title"><PageTitle /></div>
@@ -68,6 +73,10 @@ function ReactApp() {
             <Route
               path="/:lang?/races/:raceId/series/:seriesId"
               render={() => <SeriesResultsPage setSelectedPage={setSelectedPage} />}
+            />
+            <Route
+              path="/:lang?/races/:raceId/relays/:relayId"
+              render={() => <RelayResultsPage setSelectedPage={setSelectedPage} />}
             />
             <Route
               path="/:lang?/races/:raceId/:subSport"

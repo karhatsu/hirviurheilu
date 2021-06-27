@@ -1,10 +1,9 @@
 import React from 'react'
-import useTranslation from '../../util/useTranslation'
+import NoResultReason from '../NoResultReason'
 
 export default function TotalScore({ noResultReason, totalScore }) {
-  const { t } = useTranslation()
   if (noResultReason) {
-    return <span className="explanation" title={t(`competitor_${noResultReason}`)}>{noResultReason}</span>
+    return <NoResultReason noResultReason={noResultReason} type="competitor" />
   }
   return totalScore
 }

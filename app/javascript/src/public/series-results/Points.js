@@ -1,11 +1,10 @@
 import React from 'react'
-import useTranslation from '../../util/useTranslation'
+import NoResultReason from '../NoResultReason'
 
 export default function Points({ competitor }) {
-  const { t } = useTranslation()
   const { finished, hasCorrectEstimates, noResultReason, points } = competitor
   if (noResultReason) {
-    return <span className="explanation" title={t(`competitor_${noResultReason}`)}>{noResultReason}</span>
+    return <NoResultReason noResultReason={noResultReason} type="competitor" />
   } else if (!points) {
     return '-'
   } else {

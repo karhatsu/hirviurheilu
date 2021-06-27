@@ -14,6 +14,10 @@ export const buildRifleTeamCompetitionsPath = (raceId, id) => `/races/${raceId}/
 
 export const buildRelayPath = (raceId, relayId) => `/races/${raceId}/relays/${relayId}`
 
+export const buildRelayStartListPath = (raceId, relayId) => `/races/${raceId}/relays/${relayId}/start_list.pdf`
+
+export const buildRelayLegPath = (relayId, leg) => `/relays/${relayId}/legs/${leg}`
+
 export const buildQualificationRoundBatchesPath = raceId => `/races/${raceId}/qualification_round_batches`
 
 export const buildFinalRoundBatchesPath = raceId => `/races/${raceId}/final_round_batches`

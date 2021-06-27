@@ -17,7 +17,7 @@ export default function RaceRelays({ race }) {
           const { id, name, started, startTime } = relay
           const linkText = !started && startTime ? `${name} (${format(parseISO(startTime), 'HH:mm')})` : name
           const type = (started || !startTime) && 'primary'
-          return <Button key={id} href={buildRelayPath(race.id, id)} type={type}>{linkText}</Button>
+          return <Button key={id} to={buildRelayPath(race.id, id)} type={type}>{linkText}</Button>
         })}
       </div>
     </>

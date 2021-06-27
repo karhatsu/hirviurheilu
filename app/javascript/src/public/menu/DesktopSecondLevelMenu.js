@@ -29,6 +29,7 @@ export const pages = {
   europeanRifle: 7,
   teamCompetitions: 8,
   rifleTeamCompetitions: 9,
+  relays: 10,
 }
 
 export default function DesktopSecondLevelMenu({ selectedPage }) {
@@ -133,6 +134,8 @@ export default function DesktopSecondLevelMenu({ selectedPage }) {
         <DesktopMenuItem
           path={buildRelayPath(race.id, race.relays[0].id)}
           text={t(race.relays.length > 1 ? 'relays' : 'relay')}
+          selected={selectedPage === pages.relays}
+          reactLink={true}
           dropdownItems={race.relays.map(r => ({ text: r.name, path: buildRelayPath(race.id, r.id) }))}
         />
       )}
