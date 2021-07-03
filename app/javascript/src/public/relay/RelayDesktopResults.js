@@ -61,7 +61,6 @@ export default function RelayDesktopResults({ race, relay, teams }) {
                       <td className="center">({leg})</td>
                       <td className="center">
                         <RelayTime
-                          noResultReason={noResultReason}
                           timeInSeconds={competitor.cumulativeTime}
                           timeWithPenalties={competitor.cumulativeTimeWithPenalties}
                         />
@@ -73,7 +72,6 @@ export default function RelayDesktopResults({ race, relay, teams }) {
                       </td>
                       <td className="center">
                         <RelayTime
-                          noResultReason={noResultReason}
                           timeInSeconds={competitor.timeInSeconds}
                           timeWithPenalties={competitor.timeWithPenalties}
                         />
