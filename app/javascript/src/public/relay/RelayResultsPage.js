@@ -16,6 +16,7 @@ import RelayMobileResults from './RelayMobileResults'
 import RelayLegDesktopResults from './RelayLegDesktopResults'
 import RelayLegMobileResults from './RelayLegMobileResults'
 import useRelaySorting from './useRelaySorting'
+import useTitle from '../../util/useTitle'
 
 export default function RelayResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -38,6 +39,7 @@ export default function RelayResultsPage({ setSelectedPage }) {
     const maxTime = max(relay.teams.map(team => team.competitors.map(c => parseISO(c.updatedAt))).flat())
     return t('resultsInProgress', { time: format(maxTime, 'dd.MM.yyyy HH:mm') })
   }, [t, relay, leg])
+  useTitle(race && relay && `${race.name} - ${t('relays')} - ${relay.name} - ${titleSuffix}`)
 
   if (fetching || error) {
     return <IncompletePage fetching={fetching} error={error} title={t('relay')} />
