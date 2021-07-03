@@ -56,6 +56,7 @@ Feature: Nordic results
     Then I should see a card 2 for "Pohjoinen Päivi" with total score 96
     And I should see a card 3 for "Pohjonen Pertti" with total score 92
     When I choose "Joukkuekilpailu" from sub menu
+    And I wait for the results
     And I force mobile UI
     Then I should see a card 1 for "Team B" with total score 746
     Then I should see a card 2 for "Team A" with total score 711
