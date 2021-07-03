@@ -1,2 +1,2 @@
 %h2= @race.sport.one_batch_list? ? t('.title.one_batch_list') : t('.title.other')
-= render partial: 'batches/batches', locals: { track_place_name: :qualification_round_track_place }
+= render partial: 'batches/batches', locals: { final_round: false, track_place_name: :qualification_round_track_place }
