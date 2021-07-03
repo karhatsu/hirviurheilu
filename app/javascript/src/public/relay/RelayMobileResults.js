@@ -38,7 +38,7 @@ export default function RelayMobileResults({ relay, teams }) {
         const shootingAdjustmentText = shootingAdjustment
           ? `Ammuntakorjaus ${timeFromSeconds(shootingAdjustment, true)}`
           : undefined
-        const adjustmentText = adjustment ? `Aikakorjaus ${timeFromSeconds(adjustment, true)}` : undefined
+        const adjustmentText = adjustment ? `(Aikakorjaus ${timeFromSeconds(adjustment, true)})` : undefined
 
         return (
           <div key={id} className={className}>
