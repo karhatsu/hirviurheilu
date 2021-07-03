@@ -16,6 +16,7 @@ import TeamCompetitionResultsPage from './public/team-competition/TeamCompetitio
 import TeamCompetitionDesktopSubMenu from './public/team-competition/TeamCompetitionDesktopSubMenu'
 import RelayDesktopSubMenu from './public/relay/RelayDesktopSubMenu'
 import RelayResultsPage from './public/relay/RelayResultsPage'
+import RaceMediaPage from './public/media/RaceMediaPage'
 
 function ReactApp() {
   const [selectedPage, setSelectedPage] = useState(undefined)
@@ -77,6 +78,10 @@ function ReactApp() {
             <Route
               path={['/:lang?/races/:raceId/relays/:relayId/legs/:leg', '/:lang?/races/:raceId/relays/:relayId']}
               render={() => <RelayResultsPage setSelectedPage={setSelectedPage} />}
+            />
+            <Route
+              path="/:lang?/races/:raceId/medium/new"
+              render={() => <RaceMediaPage setSelectedPage={setSelectedPage} />}
             />
             <Route
               path="/:lang?/races/:raceId/:subSport"

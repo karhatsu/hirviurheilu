@@ -30,6 +30,7 @@ export const pages = {
   teamCompetitions: 8,
   rifleTeamCompetitions: 9,
   relays: 10,
+  media: 11,
 }
 
 export default function DesktopSecondLevelMenu({ selectedPage }) {
@@ -142,7 +143,12 @@ export default function DesktopSecondLevelMenu({ selectedPage }) {
       {!race.allCompetitionsFinished && (
         <DesktopMenuItem path={`/races/${race.id}/result_rotation`} text={t('resultRotation')} />
       )}
-      <DesktopMenuItem path={`/races/${race.id}/medium/new`} text={t('press')} />
+      <DesktopMenuItem
+        path={`/races/${race.id}/medium/new`}
+        text={t('press')}
+        selected={selectedPage === pages.media}
+        reactLink={true}
+      />
     </div>
   )
 }

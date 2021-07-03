@@ -198,6 +198,7 @@ Hirviurheilu::Application.routes.draw do
           resources :team_competitions, only: [:show]
           resources :relays, only: [:show]
           resources :times, only: :index
+          resource :press, only: :show
           get 'trap', to: 'nordic_races#trap'
           get 'shotgun', to: 'nordic_races#shotgun'
           get 'rifle_moving', to: 'nordic_races#rifle_moving'

@@ -2,6 +2,10 @@ class MediaController < ApplicationController
   before_action :assign_competition, :set_media_menu, :set_competitors_count
 
   def new
+    unless params[:cup_id]
+      use_react
+      render layout: true, html: ''
+    end
   end
 
   def create
@@ -9,13 +13,11 @@ class MediaController < ApplicationController
       flash[:error] = t('media.show.invalid_competitor_count')
       render :new
     else
-      redirect_to race_medium_path(@race, competitors_count: @competitors_count, club_id: params[:club_id]) if params[:race_id]
       redirect_to cup_medium_path(@cup, competitors_count: @competitors_count, show_race_points: params[:show_race_points]) if params[:cup_id]
     end
   end
 
   def show
-    @race = Race.where(id: params[:race_id]).includes(series: [competitors: [:age_group, :club]]).first if params[:race_id]
     @cup = Cup.where(id: params[:cup_id]).includes([:cup_series, races: [series: [competitors: [:age_group, :club, :series]]]]).first if params[:cup_id]
   end
 
