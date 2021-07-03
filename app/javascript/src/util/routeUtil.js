@@ -16,7 +16,7 @@ export const buildRelayPath = (raceId, relayId) => `/races/${raceId}/relays/${re
 
 export const buildRelayStartListPath = (raceId, relayId) => `/races/${raceId}/relays/${relayId}/start_list.pdf`
 
-export const buildRelayLegPath = (relayId, leg) => `/relays/${relayId}/legs/${leg}`
+export const buildRelayLegPath = (raceId, relayId, leg) => `/races/${raceId}/relays/${relayId}/legs/${leg}`
 
 export const buildQualificationRoundBatchesPath = raceId => `/races/${raceId}/qualification_round_batches`
 

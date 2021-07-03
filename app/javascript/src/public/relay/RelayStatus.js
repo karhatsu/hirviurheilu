@@ -5,7 +5,7 @@ import useTranslation from '../../util/useTranslation'
 import RelayCorrectDistances from './RelayCorrectDistances'
 import LegButtons from './LegButtons'
 
-export default function RelayStatus({ race, relay, children }) {
+export default function RelayStatus({ race, relay, leg, children }) {
   const { t } = useTranslation()
   const { estimatePenaltySeconds, finished, penaltySeconds, shootingPenaltySeconds, started, startTime, teams } = relay
   if (!teams.length) {
@@ -25,7 +25,7 @@ export default function RelayStatus({ race, relay, children }) {
       )}
       <RelayCorrectDistances relay={relay} />
       {finished && <h3>{t('results')}</h3>}
-      <LegButtons relay={relay} />
+      <LegButtons relay={relay} currentLeg={leg} />
       {children}
     </>
   )

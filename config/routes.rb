@@ -43,6 +43,7 @@ Hirviurheilu::Application.routes.draw do
       resources :rifle_team_competitions, only: :show
       resources :relays do
         get 'start_list' => 'relays#start_list'
+        resources :legs, only: :show
       end
       resource :result_rotation
       resource :medium

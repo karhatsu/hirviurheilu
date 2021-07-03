@@ -5,7 +5,7 @@ import RelayTime from './RelayTime'
 import RelayTimeAdjustment from './RelayTimeAdjustment'
 import Button from '../../common/Button'
 
-export default function RelayDesktopResults({ race, relay }) {
+export default function RelayDesktopResults({ race, relay, teams }) {
   const { t } = useTranslation()
   const [showCompetitors, setShowCompetitors] = useState(false)
   const toggleCompetitors = useCallback(() => setShowCompetitors(show => !show), [])
@@ -27,7 +27,7 @@ export default function RelayDesktopResults({ race, relay }) {
           </tr>
         </thead>
         <tbody>
-          {relay.teams.map((team, i) => {
+          {teams.map((team, i) => {
             const { estimatePenaltiesSum, id, name, noResultReason, number, shootPenaltiesSum } = team
             return (
               <React.Fragment key={id}>

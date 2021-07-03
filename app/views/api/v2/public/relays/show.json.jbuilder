@@ -16,8 +16,13 @@ json.teams @relay.results.each do |team|
     json.(competitor, :leg, :first_name, :last_name, :time_in_seconds, :estimate, :estimate_penalties, :misses, :adjustment, :estimate_adjustment, :shooting_adjustment, :updated_at)
     json.cumulative_time team.time_in_seconds(competitor.leg)
     if @relay.penalty_seconds?
+      json.estimate_penalties competitor.estimate_penalty_seconds
+      json.shooting_penalty_seconds competitor.shooting_penalty_seconds
       json.time_with_penalties competitor.time_in_seconds(true)
       json.cumulative_time_with_penalties team.time_in_seconds(competitor.leg, true)
     end
   end
+end
+json.leg_results @relay.legs_count.times do |i|
+  json.team_ids @relay.leg_results(i + 1).map(&:id)
 end

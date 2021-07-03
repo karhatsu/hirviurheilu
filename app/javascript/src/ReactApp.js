@@ -75,7 +75,7 @@ function ReactApp() {
               render={() => <SeriesResultsPage setSelectedPage={setSelectedPage} />}
             />
             <Route
-              path="/:lang?/races/:raceId/relays/:relayId"
+              path={['/:lang?/races/:raceId/relays/:relayId/legs/:leg', '/:lang?/races/:raceId/relays/:relayId']}
               render={() => <RelayResultsPage setSelectedPage={setSelectedPage} />}
             />
             <Route
