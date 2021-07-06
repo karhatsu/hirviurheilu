@@ -15,17 +15,17 @@
     %h3 #{track_place}#{full_name competitor}#{number}, #{competitor.club.name}, #{competitor.series.name}
     .empty-results-table
       - if @sub_sport == :rifle_standing
-        .empty-results-table__cell
-        .empty-results-table__cell
-        .empty-results-table__cell
-        .empty-results-table__cell
-        .empty-results-table__cell.empty-results-table__cell--space
-        .empty-results-table__cell
-        .empty-results-table__cell
-        .empty-results-table__cell.empty-results-table__cell--space
-        .empty-results-table__cell
-        .empty-results-table__cell.empty-results-table__cell--space
+        .empty-results-table__cell 1
+        .empty-results-table__cell 2
+        .empty-results-table__cell 3
+        .empty-results-table__cell 4
+        .empty-results-table__cell.empty-results-table__cell--space 5
+        .empty-results-table__cell 6
+        .empty-results-table__cell 7
+        .empty-results-table__cell.empty-results-table__cell--space 8
+        .empty-results-table__cell 9
+        .empty-results-table__cell.empty-results-table__cell--space 10
       - else
-        - shot_count.times do
-          .empty-results-table__cell
-      .empty-results-table__cell.empty-results-table__cell--total
+        - shot_count.times do |i|
+          .empty-results-table__cell= i + 1
+      .empty-results-table__cell.empty-results-table__cell--total Yht

@@ -87,7 +87,9 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
     border: $emptyCellBorderWidth solid #000;
     width: $emptyCellWidth;
     height: $emptyCellWidth;
-    margin: 0 $emptyCellMargin 0 0;
+    margin: 0 $emptyCellMargin 2px 0;
+    color: #666;
+    font-size: 12px;
 
     &--space {
       margin-right: $emptyCellGroupingMargin;

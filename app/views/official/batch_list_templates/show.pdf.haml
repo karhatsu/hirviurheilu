@@ -3,5 +3,6 @@
 - @race.competitors_per_batch.times.each do
   %h3 #{t 'activerecord.models.competitor.one'}:
   .empty-results-table
-    - shot_count.times do
-      .empty-results-table__cell
+    - shot_count.times do |i|
+      .empty-results-table__cell= i + 1
+    .empty-results-table__cell.empty-results-table__cell--total Yht
