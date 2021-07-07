@@ -122,3 +122,22 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
     margin-right: 8px;
   }
 }
+
+.competitor-number-page {
+  font-size: 32px;
+  text-align: center;
+  padding-top: 128px;
+
+  &__number {
+    font-size: 256px;
+    margin-top: 64px;
+  }
+
+  &__name {
+    font-size: 48px;
+  }
+
+  &__name, &__club, &__series, &__batch {
+    margin-top: 32px;
+  }
+}
