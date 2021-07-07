@@ -26,7 +26,4 @@
           .empty-results-table__cell.empty-results-table__cell--space 5
         .empty-results-table__cell.empty-results-table__cell--total Yht
     - else
-      .empty-results-table
-        - 25.times do |i|
-          .empty-results-table__cell= i + 1
-        .empty-results-table__cell.empty-results-table__cell--total Yht
+      = render partial: 'official/batch_list_templates/empty_results_table', locals: { shot_count: 25 }

@@ -2,7 +2,4 @@
 %h2 #{t 'activerecord.models.batch.one'}:
 - @race.competitors_per_batch.times.each do
   %h3.empty-results-competitor-header #{t 'activerecord.models.competitor.one'}:
-  .empty-results-table
-    - shot_count.times do |i|
-      .empty-results-table__cell= i + 1
-    .empty-results-table__cell.empty-results-table__cell--total Yht
+  = render partial: 'official/batch_list_templates/empty_results_table', locals: { shot_count: shot_count }

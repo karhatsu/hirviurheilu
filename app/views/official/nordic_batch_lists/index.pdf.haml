@@ -13,8 +13,8 @@
     - track_place = competitor.qualification_round_track_place ? "#{competitor.qualification_round_track_place}. " : ''
     - number = competitor.number ? " (##{competitor.number})" : ''
     %h3.empty-results-competitor-header #{track_place}#{full_name competitor}#{number}, #{competitor.club.name}, #{competitor.series.name}
-    .empty-results-table
-      - if @sub_sport == :rifle_standing
+    - if @sub_sport == :rifle_standing
+      .empty-results-table
         .empty-results-table__cell 1
         .empty-results-table__cell 2
         .empty-results-table__cell 3
@@ -25,7 +25,6 @@
         .empty-results-table__cell.empty-results-table__cell--space 8
         .empty-results-table__cell 9
         .empty-results-table__cell.empty-results-table__cell--space 10
-      - else
-        - shot_count.times do |i|
-          .empty-results-table__cell= i + 1
-      .empty-results-table__cell.empty-results-table__cell--total Yht
+        .empty-results-table__cell.empty-results-table__cell--total Yht
+    - else
+      = render partial: 'official/batch_list_templates/empty_results_table', locals: { shot_count: shot_count }
