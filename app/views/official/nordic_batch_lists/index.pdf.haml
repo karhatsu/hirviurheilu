@@ -12,7 +12,7 @@
   - batch.competitors.each do |competitor|
     - track_place = competitor.qualification_round_track_place ? "#{competitor.qualification_round_track_place}. " : ''
     - number = competitor.number ? " (##{competitor.number})" : ''
-    %h3 #{track_place}#{full_name competitor}#{number}, #{competitor.club.name}, #{competitor.series.name}
+    %h3.empty-results-competitor-header #{track_place}#{full_name competitor}#{number}, #{competitor.club.name}, #{competitor.series.name}
     .empty-results-table
       - if @sub_sport == :rifle_standing
         .empty-results-table__cell 1
