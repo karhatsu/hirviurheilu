@@ -28,7 +28,14 @@ export default function ShootingDesktopResults({ race, series }) {
         </thead>
         <DesktopResultsRows competitors={competitors}>
           {competitor => {
-            const { extraShots, finalRoundScore, finalRoundShots, noResultReason, shootingScore } = competitor
+            const {
+              extraScore,
+              extraShots,
+              finalRoundScore,
+              finalRoundShots,
+              noResultReason,
+              shootingScore,
+            } = competitor
             return (
               <>
                 <td><QualificationRoundDesktopShootingResult competitor={competitor} /></td>
@@ -37,7 +44,7 @@ export default function ShootingDesktopResults({ race, series }) {
                   <TotalScore noResultReason={noResultReason} totalScore={shootingScore} />
                   <NationalRecord race={race} series={series} competitor={competitor} />
                 </td>
-                {showExtraShots && <td>{extraShots ? extraShots.join(', ') : ''}</td>}
+                {showExtraShots && <td>{extraShots && <ShootingResult score={extraScore} shots={extraShots} />}</td>}
               </>
             )
           }}

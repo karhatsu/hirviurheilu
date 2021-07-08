@@ -30,7 +30,7 @@ json.competitors competitors.each do |competitor|
   elsif @series.race.sport.european?
     json.(competitor, :only_rifle, :european_trap_score, :european_trap_shots, :european_compak_score, :european_compak_shots, :european_rifle1_score, :european_rifle1_shots, :european_rifle2_score, :european_rifle2_shots, :european_rifle3_score, :european_rifle3_shots, :european_rifle4_score, :european_rifle4_shots, :european_score, :european_extra_score)
   elsif @series.race.sport.shooting?
-    json.(competitor, :shots, :qualification_round_sub_scores, :qualification_round_shots, :qualification_round_score, :final_round_shots, :final_round_score, :shooting_score, :extra_shots)
+    json.(competitor, :shots, :qualification_round_sub_scores, :qualification_round_shots, :qualification_round_score, :final_round_shots, :final_round_score, :shooting_score, :extra_score, :extra_shots)
   else
     json.(competitor, :arrival_time, :shooting_overtime_penalty, :time_in_seconds, :estimate_points, :shooting_score, :shooting_points)
     json.time_points competitor.time_points(unofficials_rule)

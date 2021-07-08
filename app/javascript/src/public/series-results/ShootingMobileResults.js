@@ -4,6 +4,7 @@ import useTranslation from '../../util/useTranslation'
 import ShootingRaceMobileShootingResult from './ShootingRaceMobileShootingResult'
 import TotalScore from './TotalScore'
 import MobileResultCards from './MobileResultCards'
+import ShootingResult from './ShootingResult'
 
 export default function ShootingMobileResults({ race, series }) {
   const { t } = useTranslation()
@@ -13,6 +14,7 @@ export default function ShootingMobileResults({ race, series }) {
       {competitor => {
         const {
           club,
+          extraScore,
           extraShots,
           firstName,
           lastName,
@@ -27,7 +29,7 @@ export default function ShootingMobileResults({ race, series }) {
               <ShootingRaceMobileShootingResult competitor={competitor} />
               {extraShots && (
                 <div className="card__middle-row">
-                  {t('extraRound')}: {extraShots.join(', ')}
+                  {t('extraRound')}: <ShootingResult score={extraScore} shots={extraShots} />
                 </div>
               )}
             </div>
