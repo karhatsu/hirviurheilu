@@ -50,5 +50,6 @@
       - if extra_shots_column
         %td
           - if comp.extra_shots
-            #{shots_print comp.extra_shots}
+            = comp.extra_score
+            %span.shots (#{shots_print comp.extra_shots})
     - prev_competitor_results = shooting_race_results

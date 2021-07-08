@@ -396,6 +396,22 @@ describe Shots do
     end
   end
 
+  describe 'extra shots' do
+    let(:competitor) { FakeCompetitor.new sport, [10, 10, 10, 10, 10] }
+    context 'when no extra shots' do
+      it 'extra score is nil' do
+        expect(competitor.extra_score).to be_nil
+      end
+    end
+
+    context 'when extra shots' do
+      it 'extra score is sum of shots' do
+        competitor.extra_shots = [10, 9]
+        expect(competitor.extra_score).to eql 19
+      end
+    end
+  end
+
   describe 'nordic' do
     let(:competitor) { Competitor.new }
 
@@ -618,6 +634,6 @@ describe Shots do
     end
 
     attr_reader :sport
-    attr_accessor :shots, :shooting_score_input, :qualification_round_shooting_score_input, :final_round_shooting_score_input
+    attr_accessor :shots, :shooting_score_input, :qualification_round_shooting_score_input, :final_round_shooting_score_input, :extra_shots
   end
 end

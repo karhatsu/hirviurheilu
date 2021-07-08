@@ -32,7 +32,8 @@
               %span.shots (#{shots_print comp.final_round_shots[0]})
         - if comp.extra_shots
           .card__middle-row
-            Uusinta: #{shots_print comp.extra_shots}
+            #{t(:extra_round)}: #{comp.extra_score}
+            %span.shots (#{shots_print comp.extra_shots})
       .card__main-value
         - if comp.no_result_reason
           = comp.no_result_reason

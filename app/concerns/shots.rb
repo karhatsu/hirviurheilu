@@ -46,6 +46,10 @@ module Shots
     sum_of_array sub_scores
   end
 
+  def extra_score
+    extra_shots&.inject(:+)
+  end
+
   def shooting_score
     return shooting_score_input if shooting_score_input
     return qualification_round_score + final_round_score.to_i if sport.qualification_round && qualification_round_score
