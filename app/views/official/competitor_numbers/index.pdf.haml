@@ -1,0 +1,14 @@
+- @competitors.each_with_index do |competitor, i|
+  - if competitor.number.to_i > 0
+    .competitor-number-page
+      - if @race.sport.shooting?
+        .competitor-number-page__sport= @race.sport.name
+      .competitor-number-page__number= competitor.number
+      .competitor-number-page__name= full_name competitor
+      .competitor-number-page__club= competitor.club.name
+      .competitor-number-page__series= competitor.series.name
+      - if competitor.qualification_round_track_place && competitor.qualification_round_batch
+        .competitor-number-page__batch
+          #{competitor.qualification_round_batch.number} / #{competitor.qualification_round_track_place}
+    - if i < @race.competitors.count - 1
+      .page-break

@@ -8,8 +8,5 @@
   - batch.competitors.each do |competitor|
     - track_place = competitor.qualification_round_track_place ? "#{competitor.qualification_round_track_place}. " : ''
     - number = competitor.number ? " (##{competitor.number})" : ''
-    %h3 #{track_place}#{full_name competitor}#{number}, #{competitor.club.name}, #{competitor.series.name}
-    .empty-results-table
-      - shot_count.times do
-        .empty-results-table__cell
-      .empty-results-table__cell.empty-results-table__cell--total
+    %h3.empty-results-competitor-header #{track_place}#{full_name competitor}#{number}, #{competitor.club.name}, #{competitor.series.name}
+    = render partial: 'official/batch_list_templates/empty_results_table', locals: { shot_count: shot_count }

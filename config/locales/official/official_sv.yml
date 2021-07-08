@@ -85,6 +85,7 @@ sv:
         national_records: Finska rekord
         download_competitors_by_clubs: Ladda tävlarna som klubbar (PDF)
         download_competitors_by_series: Ladda tävlarna som klasser (PDF)
+        download_numbers_pdf: Ladda nummerlappar (PDF)
         other_race_formats: Andra tävlingar
         finish_race_text: när du har sparat alla resultaten, så att de riktiga avstånden kan publiseras
         create_start_list: Gör startlista

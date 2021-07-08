@@ -19,14 +19,11 @@
           .empty-results-rifle-titles__title= t "sport_name.european_sub.rifle#{i + 1}"
       .empty-results-table.empty-results-table--rifle
         - 4.times do
-          .empty-results-table__cell
-          .empty-results-table__cell
-          .empty-results-table__cell
-          .empty-results-table__cell
-          .empty-results-table__cell.empty-results-table__cell--space
-        .empty-results-table__cell.empty-results-table__cell--total
+          .empty-results-table__cell 1
+          .empty-results-table__cell 2
+          .empty-results-table__cell 3
+          .empty-results-table__cell 4
+          .empty-results-table__cell.empty-results-table__cell--space 5
+        .empty-results-table__cell.empty-results-table__cell--total Yht
     - else
-      .empty-results-table
-        - 25.times do
-          .empty-results-table__cell
-        .empty-results-table__cell.empty-results-table__cell--total
+      = render partial: 'official/batch_list_templates/empty_results_table', locals: { shot_count: 25 }

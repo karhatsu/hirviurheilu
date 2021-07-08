@@ -16,6 +16,10 @@ h2 {
 h3 {
   margin: 12px 0 8px;
   font-size: 18px;
+
+  &.empty-results-competitor-header {
+    margin-top: 16px;
+  }
 }
 
 th {
@@ -87,7 +91,9 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
     border: $emptyCellBorderWidth solid #000;
     width: $emptyCellWidth;
     height: $emptyCellWidth;
-    margin: 0 $emptyCellMargin 0 0;
+    margin: 0 $emptyCellMargin 2px 0;
+    color: #666;
+    font-size: 12px;
 
     &--space {
       margin-right: $emptyCellGroupingMargin;
@@ -120,5 +126,24 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
   .col-xs-4, .col-sm-3, .col-md-2 {
     display: inline-block;
     margin-right: 8px;
+  }
+}
+
+.competitor-number-page {
+  font-size: 32px;
+  text-align: center;
+  padding-top: 128px;
+
+  &__number {
+    font-size: 256px;
+    margin-top: 64px;
+  }
+
+  &__name {
+    font-size: 48px;
+  }
+
+  &__name, &__club, &__series, &__batch {
+    margin-top: 32px;
   }
 }

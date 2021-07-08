@@ -7,7 +7,7 @@ class Official::QualificationRoundBatchListsController < Official::BatchListsCon
       @batches = @race.qualification_round_batches.includes(competitors: [:club, :series])
       format.pdf do
         render pdf: "#{@race.name}-alkukilpailu", layout: true,
-               margin: pdf_margin, header: pdf_header("#{t :batch_list} - #{@race.name}"),
+               margin: pdf_margin, header: pdf_header("#{t :result_sheet_pdf_title} - #{@race.name}"),
                footer: pdf_footer, disable_smart_shrinking: true
       end
     end

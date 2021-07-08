@@ -18,3 +18,5 @@
             %td #{full_name competitor} (#{competitor.number})
             %td= competitor.club.name
             %td= competitor.series.name
+            - if final_round
+              %td= competitor.qualification_round_score || ''

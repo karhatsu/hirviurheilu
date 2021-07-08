@@ -115,6 +115,7 @@ fi:
   refresh_counter_continue: Ota automaattinen lataus takaisin käyttöön.
   remove: Poista
   reset: Tyhjennä
+  result_sheet_pdf_title: Ampumapöytäkirja
   result_time: Aika
   result: Tulos
   results: Tulokset
@@ -154,6 +155,7 @@ fi:
     METSASTYSHAULIKKO: Metsästyshaulikko
     METSASTYSTRAP: Metsästystrap
     PIENOISHIRVI: Pienoishirvi
+    PIENOISLUODIKKO: Pienoisluodikko
     NORDIC: Pohjoismainen metsästysammunta
     EUROPEAN: Eurooppalainen metsästysammunta
     nordic_sub:

@@ -57,6 +57,9 @@ sv:
     first_name: Förnamn
     first_number: Första tävlingsnummer
     front_page: Visa på frontsida
+    hide_batches: Gömma heatlista
+    hide_final_round_batches: Gömma finalens heatlista
+    hide_qualification_round_batches: Gömma grundtävlingens heatlista
     include_always_last_race: Innehål den sista tävlingen alltid till resulten
     key: Nyckel
     last_name: Efternamn

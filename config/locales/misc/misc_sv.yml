@@ -115,6 +115,7 @@ sv:
   refresh_counter_continue: Ta automatisk uppdatering tillbaka i bruk.
   remove: Radera
   reset: Radera
+  result_sheet_pdf_title: Heatlista
   result_time: Tid
   result: Resultat
   results: Resultat
@@ -154,6 +155,7 @@ sv:
     METSASTYSHAULIKKO: Jaktskytte
     METSASTYSTRAP: Jägartrap
     PIENOISHIRVI: Pienoishirvi
+    PIENOISLUODIKKO: Pienoisluodikko
     NORDIC: Nordiskt jaktskytte
     EUROPEAN: Europeiskt jaktskytte
     nordic_sub:

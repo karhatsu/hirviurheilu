@@ -105,6 +105,6 @@ class Official::RacesController < Official::OfficialController
       'start_time(1i)', 'start_time(2i)', 'start_time(3i)', 'start_time(4i)', 'start_time(5i)', :reveal_distances,
       :days_count, :club_level, :organizer, :home_page, :organizer_phone, :address, :shooting_place_count, :track_count,
       :start_interval_seconds, :start_order, :batch_size, :batch_interval_seconds, :public_message,
-      :cancelled ]
+      :cancelled, :hide_qualification_round_batches, :hide_final_round_batches ]
   end
 end

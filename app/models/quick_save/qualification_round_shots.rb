@@ -1,6 +1,6 @@
 class QuickSave::QualificationRoundShots < QuickSave::QuickSaveBase
   def initialize(race_id, string, shot_count)
-    super race_id, string, /^(\+\+|)\d+(\,)[0-9][0-9]?0?$/, /^(\+\+|)\d+(\,)[\+\*0-9]{#{shot_count}}$/
+    super race_id, string, /^(\+\+|)\d+(\,)[0-9]{1,3}$/, /^(\+\+|)\d+(\,)[\+\*0-9]{#{shot_count}}$/
   end
 
   private
