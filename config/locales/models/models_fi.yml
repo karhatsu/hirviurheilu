@@ -57,6 +57,9 @@ fi:
     first_name: Etunimi
     first_number: Ensimmäinen kilpailunumero
     front_page: Näytä etusivulla
+    hide_batches: Piilota eräluettelot
+    hide_final_round_batches: Piilota loppukilpailun eräluettelot
+    hide_qualification_round_batches: Piilota alkukilpailun eräluettelot
     include_always_last_race: Laske viimeinen kilpailu aina mukaan tuloksiin
     key: Avain
     last_name: Sukunimi

@@ -165,6 +165,14 @@
     .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :shooting_place_count
       .col-xs-12.col-sm-9= f.number_field :shooting_place_count, maxlength: 3
+    .form__field.form__field--sm.row
+      - label = @race.sport.one_batch_list? ? t('attributes.hide_batches') : nil
+      .col-xs-12.col-sm-3= f.label :hide_qualification_round_batches, label
+      .col-xs-12.col-sm-9= f.check_box :hide_qualification_round_batches
+    - unless @race.sport.one_batch_list?
+      .form__field.form__field--sm.row
+        .col-xs-12.col-sm-3= f.label :hide_final_round_batches
+        .col-xs-12.col-sm-9= f.check_box :hide_final_round_batches
 
   - unless @race.new_record? || @race.api_secret.blank?
     %h2 API

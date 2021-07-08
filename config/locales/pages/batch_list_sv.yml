@@ -4,9 +4,12 @@ sv:
       no_batch_list: Heatlista är inte färdig
   qualification_round_batches:
     index:
+      hidden: Grundtävlingens heatlista är inte ännu publiserats
+      hidden_one_batch_list: Heatlista är inte ännu publiserats
       title:
         one_batch_list: Heatlista
         other: Grundtävlingens heatlista
   final_round_batches:
     index:
+      hidden: Finalens heatlista är inte ännu publiserats
       title: Finalens heatlista

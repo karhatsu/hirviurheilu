@@ -23,9 +23,6 @@
                 - else
                   #{full_name(competitor)},
                 #{competitor.club.name} (#{competitor.series.name})
-.buttons.buttons--nav
-  = link_to t(:back_to_race_home_page), race_path(@race), class: 'button button--back'
-  = link_to t(:download_batch_list_pdf), pdf_url, class: 'button button--pdf'
 :javascript
   function filterSeries() {
     var seriesId = $('#series_id').val()

@@ -1,3 +1,9 @@
 %h2= t '.title'
 - pdf_url = race_final_round_batches_path(@race, format: :pdf)
-= render partial: 'batches/batches', locals: { track_place_name: :final_round_track_place, pdf_url: pdf_url }
+- if @race.hide_final_round_batches
+  .message.message--info= t('.hidden')
+- else
+  = render partial: 'batches/batches', locals: { track_place_name: :final_round_track_place, pdf_url: pdf_url }
+.buttons.buttons--nav
+  = link_to t(:back_to_race_home_page), race_path(@race), class: 'button button--back'
+  = link_to t(:download_batch_list_pdf), pdf_url, class: 'button button--pdf'
