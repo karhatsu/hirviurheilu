@@ -1,6 +1,9 @@
 import React from 'react'
-import spinner from './spinner.gif'
 
 export default function Spinner() {
-  return <img className="spinner" src={spinner} alt="Spinner" />
+  return (
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="spinner">
+      <circle cx="50" cy="50" r="45"/>
+    </svg>
+  )
 }
