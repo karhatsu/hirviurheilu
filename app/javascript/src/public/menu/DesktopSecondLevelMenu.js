@@ -151,12 +151,14 @@ export default function DesktopSecondLevelMenu({ selectedPage }) {
       {!race.allCompetitionsFinished && (
         <DesktopMenuItem path={`/races/${race.id}/result_rotation`} text={t('resultRotation')} />
       )}
-      <DesktopMenuItem
-        path={`/races/${race.id}/medium/new`}
-        text={t('press')}
-        selected={selectedPage === pages.media}
-        reactLink={true}
-      />
+      {race.series.length > 0 && (
+        <DesktopMenuItem
+          path={`/races/${race.id}/medium/new`}
+          text={t('press')}
+          selected={selectedPage === pages.media}
+          reactLink={true}
+        />
+      )}
     </div>
   )
 }

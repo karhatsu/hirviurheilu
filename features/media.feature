@@ -6,6 +6,7 @@ Feature: Media
   @javascript
   Scenario: Race not finished yet
     Given there is a race "Test race"
+    And the race has series "M"
     When I go to the race page of "Test race"
     And I follow "Lehdistö"
     Then the page title should contain "Test race"
