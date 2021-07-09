@@ -46,7 +46,7 @@ export default function SeriesResultsPage({ setSelectedPage }) {
     return `${t('resultsInProgress', { time: format(maxTime, 'dd.MM.yyyy HH:mm') })}`
   }, [allCompetitors, race, t, series])
 
-  const title = series && `${series.name} - ${titleSuffix}`
+  const title = series ? `${series.name} - ${titleSuffix}` : t('results')
   useTitle(race && `${race.name} - ${title}`)
   useEffect(() => setSelectedPage(pages.results), [setSelectedPage])
 
