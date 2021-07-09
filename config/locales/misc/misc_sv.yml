@@ -108,11 +108,6 @@ sv:
     DNS: Laget startade inte
     DNF: Laget avbröt
     DQ: Laget diskad
-  refresh_counter_new_page_pre: Ny resultatssida uppdateras automatiskt om
-  refresh_counter_new_page_post: sekunder
-  refresh_counter_pause: Pausa
-  refresh_counter_paused: Automatisk uppdatering om ny resultatssida pausats.
-  refresh_counter_continue: Ta automatisk uppdatering tillbaka i bruk.
   remove: Radera
   reset: Radera
   result_sheet_pdf_title: Heatlista

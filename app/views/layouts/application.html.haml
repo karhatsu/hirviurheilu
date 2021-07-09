@@ -17,6 +17,5 @@
     = render :partial => 'shared/google_analytics'
     = render 'shared/facebook_meta'
     = render 'shared/icons'
-    - if Rails.env.production? && !result_rotation_cookie
-      = render 'shared/adsense'
+    = render 'shared/adsense'
   = render :partial => 'shared/body'

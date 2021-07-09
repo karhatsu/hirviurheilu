@@ -148,9 +148,6 @@ export default function DesktopSecondLevelMenu({ selectedPage }) {
           dropdownItems={race.relays.map(r => ({ text: r.name, path: buildRelayPath(race.id, r.id) }))}
         />
       )}
-      {!race.allCompetitionsFinished && (
-        <DesktopMenuItem path={`/races/${race.id}/result_rotation`} text={t('resultRotation')} />
-      )}
       {race.series.length > 0 && (
         <DesktopMenuItem
           path={`/races/${race.id}/medium/new`}

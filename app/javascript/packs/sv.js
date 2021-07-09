@@ -92,7 +92,6 @@ window.translations = {
   relayWithoutStartTime: 'Stafetten har inte ännu starttid',
   relayWithoutTeams: 'Inga lagen tillsatt för stafetten ännu',
   result: 'Resultat',
-  resultRotation: 'Resultatskrets',
   results: 'Resultat',
   resultsInProgress: 'Resultat updaterad {{time}}',
   rifle: 'Kulskytte',

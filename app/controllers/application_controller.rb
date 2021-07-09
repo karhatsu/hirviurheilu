@@ -2,9 +2,7 @@ class ApplicationController < ActionController::Base
   include AssignModel
 
   protect_from_forgery
-  helper_method :current_user_session, :current_user, :official_rights,
-    :own_race?, :result_rotation_cookie_name, :result_rotation_scroll_cookie_name,
-    :result_rotation_tc_cookie_name, :result_rotation_selected_competitions_cookie_name
+  helper_method :current_user_session, :current_user, :official_rights, :own_race?
   before_action :test_error_email
   before_action :set_locale
   before_action :assign_races_for_main_menu
@@ -108,22 +106,6 @@ class ApplicationController < ActionController::Base
 
   def set_races
     @is_races = true
-  end
-
-  def result_rotation_cookie_name
-    'seriescount'
-  end
-
-  def result_rotation_scroll_cookie_name
-    'result_rotation_scroll'
-  end
-
-  def result_rotation_tc_cookie_name
-    'result_rotation_tc'
-  end
-
-  def result_rotation_selected_competitions_cookie_name
-    'result_rotation_competitions'
   end
 
   def pdf_header(title)

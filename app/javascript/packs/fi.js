@@ -92,7 +92,6 @@ window.translations = {
   relayWithoutStartTime: 'Viestin lähtöaikaa ei ole vielä päätetty',
   relayWithoutTeams: 'Viestiin ei ole vielä lisätty joukkueita',
   result: 'Tulos',
-  resultRotation: 'Tuloskehä',
   results: 'Tulokset',
   resultsInProgress: 'Tulokset päivitetty {{time}}',
   rifle: 'Luodikko',

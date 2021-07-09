@@ -17,7 +17,6 @@
 
  *= require announcements
  *= require csv
- *= require result-rotation
  *= require race-organizer
 
  *= require incomplete-page
