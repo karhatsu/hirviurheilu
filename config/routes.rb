@@ -200,6 +200,8 @@ Hirviurheilu::Application.routes.draw do
           resources :relays, only: [:show]
           resources :times, only: :index
           resource :press, only: :show
+          resources :qualification_round_batches, only: :index
+          resources :final_round_batches, only: :index
           get 'trap', to: 'nordic_races#trap'
           get 'shotgun', to: 'nordic_races#shotgun'
           get 'rifle_moving', to: 'nordic_races#rifle_moving'

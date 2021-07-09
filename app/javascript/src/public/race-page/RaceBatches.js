@@ -7,16 +7,16 @@ export default function RaceBatches({ race }) {
   const { t } = useTranslation()
   const { qualificationRoundBatches, finalRoundBatches, sport } = race
   if (!qualificationRoundBatches.length && !finalRoundBatches.length) return null
-  const qrText = sport.oneBatchList ? t('batchLists') : t('qualificationRoundBatchLists')
+  const qrText = sport.oneBatchList ? t('batchList') : t('qualificationRoundBatchList')
   return (
     <>
-      <h2>{t('batchLists')}</h2>
+      <h2>{t('batchList')}</h2>
       <div className="buttons" id="batch-links">
         {qualificationRoundBatches.length > 0 && (
-          <Button href={buildQualificationRoundBatchesPath(race.id)} type="primary">{qrText}</Button>
+          <Button to={buildQualificationRoundBatchesPath(race.id)} type="primary">{qrText}</Button>
         )}
         {finalRoundBatches.length > 0 && (
-          <Button href={buildFinalRoundBatchesPath(race.id)} type="primary">{t('finalRoundBatchLists')}</Button>
+          <Button to={buildFinalRoundBatchesPath(race.id)} type="primary">{t('finalRoundBatchList')}</Button>
         )}
       </div>
     </>

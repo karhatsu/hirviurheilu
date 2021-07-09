@@ -4,6 +4,8 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import ReactApp from '../src/ReactApp'
 
 const reactPaths = [
+  '/:lang?/races/:raceId/qualification_round_batches',
+  '/:lang?/races/:raceId/final_round_batches',
   '/:lang?/races/:raceId/series/:seriesId/start_list',
   '/:lang?/races/:raceId/series/:seriesId',
   '/:lang?/races/:raceId/medium/new',

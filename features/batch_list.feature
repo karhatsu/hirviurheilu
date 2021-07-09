@@ -3,14 +3,15 @@ Feature: Batch list
   As a competitor
   I want to see the batch list
 
+  @javascript
   Scenario: No batches defined
     Given there is a "ILMAHIRVI" race "No batches race"
     And the race has series "M"
     And the series has a competitor "Teppo" "Testinen"
     And I am on the race page
     Then I should not see "Lähtölista"
-    And I should not see "Alkukilpailun eräluettelot" within ".menu--sub"
-    And I should not see "Loppukilpailun eräluettelot" within ".menu--sub"
+    And I should not see "Alkukilpailun eräluettelo" within ".menu--sub"
+    And I should not see "Loppukilpailun eräluettelo" within ".menu--sub"
     Then I go to the race qualification round batches page
     And I should see "Alkukilpailun eräluettelo" within "h2"
     And I should see "Kilpailun eräluetteloa ei ole tehty" in an info message
@@ -56,21 +57,21 @@ Feature: Batch list
       | final_round_track_place | 3 |
     And I am on the race page
     Then I should not see "Lähtölista"
-    And I should see "Alkukilpailun eräluettelot (PDF)"
+    And I should see "Alkukilpailun eräluettelo (PDF)"
     But I should not see "Kaikkien sarjojen lähtöajat (PDF)"
-    When I follow "Alkukilpailun eräluettelot" within "#batch-links"
+    When I follow "Alkukilpailun eräluettelo" within "#batch-links"
     Then I should be on the race qualification round batches page
     And the "Kilpailut" main menu item should be selected
-    And the "Alkukilpailun eräluettelot" sub menu item should be selected
+    And the "Alkukilpailun eräluettelo" sub menu item should be selected
     And I should see batch 1 on track 1 with time "10:00"
     And I should see batch 2 on track 2 with time "10:30"
     And the batch 1 should contain a competitor "10. Testaaja Teppo (5), Testiseura (M)" in row 1
     And the batch 1 should contain a competitor "11. Testaaja Timo (6), Testiseura (M)" in row 2
     And the batch 2 should contain a competitor "5. Testinen Tyyne (7), Testiseura (N)" in row 1
-    When I choose "Loppukilpailun eräluettelot" from sub menu
+    When I choose "Loppukilpailun eräluettelo" from sub menu
     Then I should be on the race final round batches page
     And the "Kilpailut" main menu item should be selected
-    And the "Loppukilpailun eräluettelot" sub menu item should be selected
+    And the "Loppukilpailun eräluettelo" sub menu item should be selected
     And I should see batch 1 on track 1 with time "11:00"
     And the batch 1 should contain a competitor "3. Testinen Tyyne (7), Testiseura (N)" in row 1
     And the batch 1 should contain a competitor "4. Testaaja Timo (6), Testiseura (M)" in row 2

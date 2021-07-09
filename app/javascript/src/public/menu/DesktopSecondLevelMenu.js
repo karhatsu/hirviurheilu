@@ -31,6 +31,10 @@ export const pages = {
   rifleTeamCompetitions: 9,
   relays: 10,
   media: 11,
+  batches: {
+    qualificationRound: 12,
+    finalRound: 13,
+  },
 }
 
 export default function DesktopSecondLevelMenu({ selectedPage }) {
@@ -87,13 +91,17 @@ export default function DesktopSecondLevelMenu({ selectedPage }) {
           {race.sport.batchList && race.qualificationRoundBatches.length > 0 && (
             <DesktopMenuItem
               path={buildQualificationRoundBatchesPath(race.id)}
-              text={t(race.sport.oneBatchList ? 'batchLists' : 'qualificationRoundBatchLists')}
+              text={t(race.sport.oneBatchList ? 'batchList' : 'qualificationRoundBatchList')}
+              selected={selectedPage === pages.batches.qualificationRound}
+              reactLink={true}
             />
           )}
           {race.sport.batchList && race.finalRoundBatches.length > 0 && (
             <DesktopMenuItem
               path={buildFinalRoundBatchesPath(race.id)}
-              text={t('finalRoundBatchLists')}
+              text={t('finalRoundBatchList')}
+              selected={selectedPage === pages.batches.finalRound}
+              reactLink={true}
             />
           )}
           {race.sport.startList && (

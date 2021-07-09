@@ -90,14 +90,14 @@ export default function RaceSeries({ race }) {
             <BatchListPdfForm
               path={buildQualificationRoundBatchesPath(race.id)}
               race={race}
-              title={t(sport.oneBatchList ? 'batchLists' : 'qualificationRoundBatchLists')}
+              title={t(sport.oneBatchList ? 'batchList' : 'qualificationRoundBatchList')}
             />
           )}
           {race.finalRoundBatches.length > 0 && (
             <BatchListPdfForm
               path={buildFinalRoundBatchesPath(race.id)}
               race={race}
-              title={t('finalRoundBatchLists')}
+              title={t('finalRoundBatchList')}
             />
           )}
         </div>

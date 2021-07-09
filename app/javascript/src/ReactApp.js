@@ -17,6 +17,8 @@ import TeamCompetitionDesktopSubMenu from './public/team-competition/TeamCompeti
 import RelayDesktopSubMenu from './public/relay/RelayDesktopSubMenu'
 import RelayResultsPage from './public/relay/RelayResultsPage'
 import RaceMediaPage from './public/media/RaceMediaPage'
+import QualificationRoundBatches from './public/batches/QualificationRoundBatches'
+import FinalRoundBatches from './public/batches/FinalRoundBatches'
 
 function ReactApp() {
   const [selectedPage, setSelectedPage] = useState(undefined)
@@ -62,6 +64,14 @@ function ReactApp() {
             <Route
               path="/:lang?/races/:raceId/team_competitions/:teamCompetitionId"
               render={() => <TeamCompetitionResultsPage setSelectedPage={setSelectedPage} />}
+            />
+            <Route
+              path="/:lang?/races/:raceId/qualification_round_batches"
+              render={() => <QualificationRoundBatches setSelectedPage={setSelectedPage} />}
+            />
+            <Route
+              path="/:lang?/races/:raceId/final_round_batches"
+              render={() => <FinalRoundBatches setSelectedPage={setSelectedPage} />}
             />
             <Route
               path="/:lang?/races/:raceId/series/:seriesId/start_list"
