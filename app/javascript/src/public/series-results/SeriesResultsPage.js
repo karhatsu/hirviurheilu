@@ -54,10 +54,17 @@ export default function SeriesResultsPage({ setSelectedPage }) {
 
   useEffect(() => {
     const channelName = { channel: 'SeriesChannel', series_id: seriesId }
+    let timeout
     const channel = consumer.subscriptions.create(channelName, {
-      received: () => setDataVersion(v => v + 1),
+      received: () => {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
+          setDataVersion(v => v + 1)
+        }, 5000 * Math.random())
+      },
     })
     return () => {
+      clearTimeout(timeout)
       consumer.subscriptions.remove(channel)
     }
   }, [seriesId])
