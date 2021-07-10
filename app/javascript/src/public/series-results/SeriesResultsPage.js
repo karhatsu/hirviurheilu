@@ -23,7 +23,7 @@ import Button from '../../common/Button'
 import useLayout from '../../util/useLayout'
 import useRaceData from '../../util/useRaceData'
 import IncompletePage from '../../common/IncompletePage'
-import consumer from '../../../channels/consumer'
+import useDataReloading from '../../util/useDataReloading'
 
 export default function SeriesResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -51,20 +51,7 @@ export default function SeriesResultsPage({ setSelectedPage }) {
   useTitle(race && `${race.name} - ${title}`)
   useEffect(() => setSelectedPage(pages.results), [setSelectedPage])
 
-  useEffect(() => {
-    const channelName = { channel: 'SeriesChannel', series_id: seriesId }
-    let timeout
-    const channel = consumer.subscriptions.create(channelName, {
-      received: () => {
-        clearTimeout(timeout)
-        timeout = setTimeout(() => reloadDataRef.current(), 5000 * Math.random())
-      },
-    })
-    return () => {
-      clearTimeout(timeout)
-      consumer.subscriptions.remove(channel)
-    }
-  }, [seriesId])
+  useDataReloading('SeriesChannel', 'series_id', seriesId, reloadDataRef)
 
   const toggleAllCompetitors = useCallback(() => setAllCompetitors(ac => !ac), [])
 
