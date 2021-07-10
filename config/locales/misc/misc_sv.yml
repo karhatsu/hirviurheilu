@@ -140,6 +140,7 @@ sv:
   show_all_competitors: Visa alla tävlarna
   show_shots: Visa skott
   show_races_of_cup: Visa tävlingar
+  single_competitor_competitions: Normaltävlingar
   sport_name:
     SKI: Älgskidskytte
     RUN: Älglöpning

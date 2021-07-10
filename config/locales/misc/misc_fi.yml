@@ -140,6 +140,7 @@ fi:
   show_all_competitors: Näytä kaikki kilpailijat
   show_shots: Näytä laukaukset
   show_races_of_cup: Näytä osakilpailut
+  single_competitor_competitions: Yksilökilpailut
   sport_name:
     SKI: Hirvenhiihto
     RUN: Hirvenjuoksu
