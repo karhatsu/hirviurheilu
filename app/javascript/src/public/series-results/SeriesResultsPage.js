@@ -23,17 +23,19 @@ import Button from '../../common/Button'
 import useLayout from '../../util/useLayout'
 import useRaceData from '../../util/useRaceData'
 import IncompletePage from '../../common/IncompletePage'
+import consumer from '../../../channels/consumer'
 
 export default function SeriesResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
   const { seriesId } = useParams()
+  const [dataVersion, setDataVersion] = useState(0)
   const [allCompetitors, setAllCompetitors] = useState(false)
   const { mobile } = useLayout()
   const queryParams = allCompetitors ? '?all_competitors=true' : ''
   const buildApiPath = useCallback(raceId => {
     return `/api/v2/public/races/${raceId}/series/${seriesId}${queryParams}`
   }, [seriesId, queryParams])
-  const { error, fetching, race, raceData: series } = useRaceData(buildApiPath)
+  const { error, fetching, race, raceData: series } = useRaceData(buildApiPath, dataVersion)
 
   const titleSuffix = useMemo(() => {
     if (!series || !race) return
@@ -49,6 +51,16 @@ export default function SeriesResultsPage({ setSelectedPage }) {
   const title = series ? `${series.name} - ${titleSuffix}` : t('results')
   useTitle(race && `${race.name} - ${title}`)
   useEffect(() => setSelectedPage(pages.results), [setSelectedPage])
+
+  useEffect(() => {
+    const channelName = { channel: 'SeriesChannel', series_id: seriesId }
+    const channel = consumer.subscriptions.create(channelName, {
+      received: () => setDataVersion(v => v + 1),
+    })
+    return () => {
+      consumer.subscriptions.remove(channel)
+    }
+  }, [seriesId])
 
   const toggleAllCompetitors = useCallback(() => setAllCompetitors(ac => !ac), [])
 
