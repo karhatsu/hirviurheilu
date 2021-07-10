@@ -32,7 +32,7 @@ export default function StartListPage({ setSelectedPage }) {
     <>
       <h2>{name} - {t('startList')}</h2>
       {startTime && !started && (
-        <Message type="info">{t('seriesStartTime')}: {format(new Date(startTime), 'dd.MM.yyyy hh:mm')}</Message>
+        <Message type="info">{t('seriesStartTime')}: {format(new Date(startTime), 'dd.MM.yyyy HH:mm')}</Message>
       )}
       {competitors.length > 0 && (
         <>
