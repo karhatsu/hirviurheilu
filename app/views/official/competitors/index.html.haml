@@ -7,7 +7,7 @@
 - else
   - if @series.race.sport.start_list?
     - unless @series.has_start_list?
-      = highlight_info(t('.create_start_list_info'))
+      .message.message--info= t('.create_start_list_info')
     - unless @series.some_competitor_has_arrival_time? || @series.race.start_order == Race::START_ORDER_MIXED
       - start_list_title = @series.has_start_list? ? t('.create_new_start_list') : t('.create_start_list')
       %h3= start_list_title
