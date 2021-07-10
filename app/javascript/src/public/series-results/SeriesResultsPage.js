@@ -28,14 +28,13 @@ import consumer from '../../../channels/consumer'
 export default function SeriesResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
   const { seriesId } = useParams()
-  const [dataVersion, setDataVersion] = useState(0)
   const [allCompetitors, setAllCompetitors] = useState(false)
   const { mobile } = useLayout()
   const queryParams = allCompetitors ? '?all_competitors=true' : ''
   const buildApiPath = useCallback(raceId => {
     return `/api/v2/public/races/${raceId}/series/${seriesId}${queryParams}`
   }, [seriesId, queryParams])
-  const { error, fetching, race, raceData: series } = useRaceData(buildApiPath, dataVersion)
+  const { error, fetching, race, raceData: series, reloadDataRef } = useRaceData(buildApiPath)
 
   const titleSuffix = useMemo(() => {
     if (!series || !race) return
@@ -58,9 +57,7 @@ export default function SeriesResultsPage({ setSelectedPage }) {
     const channel = consumer.subscriptions.create(channelName, {
       received: () => {
         clearTimeout(timeout)
-        timeout = setTimeout(() => {
-          setDataVersion(v => v + 1)
-        }, 5000 * Math.random())
+        timeout = setTimeout(() => reloadDataRef.current(), 5000 * Math.random())
       },
     })
     return () => {
