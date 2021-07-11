@@ -49,7 +49,7 @@ class Series < ApplicationRecord
   validate :start_day_not_bigger_than_race_days_count
 
   before_create :set_has_start_list
-  after_update :publish_update
+  after_touch :publish_update
   after_destroy :touch_race
 
   attr_accessor :last_cup_race
