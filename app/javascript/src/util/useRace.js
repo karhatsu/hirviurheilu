@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { get } from './apiClient'
+import useDataReloading from './useDataReloading'
 
 const RaceContext = React.createContext({})
 
@@ -10,15 +11,26 @@ export const RaceProvider = ({ children }) => {
   const { raceId } = useParams()
   const [race, setRace] = useState()
   const [error, setError] = useState()
+  const fetchRaceRef = useRef()
+
+  const fetchRace = useCallback(() => {
+    get(`/api/v2/public/races/${raceId}?no_competitors=true`, (err, data) => {
+      if (err) return setError(err)
+      setRace(data)
+    })
+  }, [raceId])
+
+  useEffect(() => {
+    fetchRaceRef.current = fetchRace
+  }, [fetchRace])
 
   useEffect(() => {
     if (raceId) {
-      get(`/api/v2/public/races/${raceId}?no_competitors=true`, (err, data) => {
-        if (err) return setError(err)
-        setRace(data)
-      })
+      fetchRaceRef.current()
     }
   }, [raceId])
+
+  useDataReloading('RaceChannel', 'race_id', raceId, fetchRaceRef)
 
   const value = { fetching: !error && !race, race, error }
   return <RaceContext.Provider value={value}>{children}</RaceContext.Provider>

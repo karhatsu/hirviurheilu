@@ -33,6 +33,7 @@ class FinishCompetition
         series.finished = true
         series.save!
       end
+      RaceChannel.broadcast_to @competition, {}
     else
       race = @competition.race
       if race.all_series_finished?
