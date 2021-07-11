@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import useTranslation from '../../util/useTranslation'
 import ShootingResult from './ShootingResult'
 import { resolveClubTitle } from '../../util/clubUtil'
 import NationalRecord from './NationalRecord'
 import TotalScore from './TotalScore'
 import DesktopResultsRows from './DesktopResultsRows'
+import { ShowShotsContext } from './ResultsWithShots'
 
 export default function NordicDesktopResults({ race, series }) {
   const { t } = useTranslation()
+  const showShots = useContext(ShowShotsContext)
   const { competitors } = series
   const extraShots = !!competitors.find(c => c.nordicExtraScore)
+  const resultClassName = showShots ? '' : 'center'
   return (
     <div className="results--desktop">
       <table className="results-table">
@@ -44,10 +47,18 @@ export default function NordicDesktopResults({ race, series }) {
             } = competitor
             return (
               <>
-                <td><ShootingResult score={nordicTrapScore} shots={nordicTrapShots} /></td>
-                <td><ShootingResult score={nordicShotgunScore} shots={nordicShotgunShots} /></td>
-                <td><ShootingResult score={nordicRifleMovingScore} shots={nordicRifleMovingShots} /></td>
-                <td><ShootingResult score={nordicRifleStandingScore} shots={nordicRifleStandingShots} /></td>
+                <td className={resultClassName}>
+                  <ShootingResult score={nordicTrapScore} shots={nordicTrapShots} />
+                </td>
+                <td className={resultClassName}>
+                  <ShootingResult score={nordicShotgunScore} shots={nordicShotgunShots} />
+                </td>
+                <td className={resultClassName}>
+                  <ShootingResult score={nordicRifleMovingScore} shots={nordicRifleMovingShots} />
+                </td>
+                <td className={resultClassName}>
+                  <ShootingResult score={nordicRifleStandingScore} shots={nordicRifleStandingShots} />
+                </td>
                 <td className="center total-points">
                   <TotalScore noResultReason={noResultReason} totalScore={nordicScore} />
                   <NationalRecord race={race} series={series} competitor={competitor} />

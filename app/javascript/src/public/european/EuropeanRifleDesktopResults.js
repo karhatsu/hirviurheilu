@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { resolveClubTitle } from '../../util/clubUtil'
 import useTranslation from '../../util/useTranslation'
 import DesktopResultsRows from '../series-results/DesktopResultsRows'
 import ShootingResult from '../series-results/ShootingResult'
 import TotalScore from '../series-results/TotalScore'
 import EuropeanRifleNationalRecord from './EuropeanRifleNationalRecord'
+import { ShowShotsContext } from '../series-results/ResultsWithShots'
 
 export default function EuropeanRifleDesktopResults({ race, series }) {
   const { t } = useTranslation()
+  const showShots = useContext(ShowShotsContext)
   const { competitors } = series
   const extraShots = !!competitors.find(c => c.europeanRifleExtraShots)
+  const resultClassName = showShots ? '' : 'center'
   return (
     <div className="results--desktop">
       <table className="results-table">
@@ -44,10 +47,18 @@ export default function EuropeanRifleDesktopResults({ race, series }) {
             } = competitor
             return (
               <>
-                <td><ShootingResult score={europeanRifle1Score} shots={europeanRifle1Shots} /></td>
-                <td><ShootingResult score={europeanRifle2Score} shots={europeanRifle2Shots} /></td>
-                <td><ShootingResult score={europeanRifle3Score} shots={europeanRifle3Shots} /></td>
-                <td><ShootingResult score={europeanRifle4Score} shots={europeanRifle4Shots} /></td>
+                <td className={resultClassName}>
+                  <ShootingResult score={europeanRifle1Score} shots={europeanRifle1Shots} />
+                </td>
+                <td className={resultClassName}>
+                  <ShootingResult score={europeanRifle2Score} shots={europeanRifle2Shots} />
+                </td>
+                <td className={resultClassName}>
+                  <ShootingResult score={europeanRifle3Score} shots={europeanRifle3Shots} />
+                </td>
+                <td className={resultClassName}>
+                  <ShootingResult score={europeanRifle4Score} shots={europeanRifle4Shots} />
+                </td>
                 <td className="center total-points">
                   <TotalScore noResultReason={noResultReason} totalScore={europeanRifleScore} />
                   <EuropeanRifleNationalRecord race={race} series={series} competitor={competitor} />
