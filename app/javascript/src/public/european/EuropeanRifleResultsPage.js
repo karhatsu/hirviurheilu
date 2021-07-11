@@ -13,16 +13,19 @@ import EuropeanRifleMobileResults from './EuropeanRifleMobileResults'
 import SeriesMobileSubMenu from '../menu/SeriesMobileSubMenu'
 import useRaceData from '../../util/useRaceData'
 import IncompletePage from '../../common/IncompletePage'
+import useDataReloading from '../../util/useDataReloading'
 
 export default function EuropeanRifleResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
   const { seriesId } = useParams()
   const { mobile } = useLayout()
   const buildApiPath = useCallback(raceId => `/api/v2/public/races/${raceId}/series/${seriesId}/rifle`, [seriesId])
-  const { error, fetching, race, raceData: series } = useRaceData(buildApiPath)
+  const { error, fetching, race, raceData: series, reloadDataRef } = useRaceData(buildApiPath)
 
   useTitle(race && series && `${race.name} - ${series.name} - ${t('rifle')}`)
   useEffect(() => setSelectedPage(pages.europeanRifle), [setSelectedPage])
+
+  useDataReloading('SeriesChannel', 'series_id', seriesId, reloadDataRef)
 
   if (fetching || error) {
     return <IncompletePage fetching={fetching} error={error} title={t('rifle')} />
