@@ -106,6 +106,7 @@ class Relay < ApplicationRecord
     end
     self.finished = true
     save!
+    publish_update
     return true
   end
 
