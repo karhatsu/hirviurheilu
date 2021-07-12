@@ -17,6 +17,7 @@ import RelayLegDesktopResults from './RelayLegDesktopResults'
 import RelayLegMobileResults from './RelayLegMobileResults'
 import useRelaySorting from './useRelaySorting'
 import useTitle from '../../util/useTitle'
+import useDataReloading from '../../util/useDataReloading'
 
 export default function RelayResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -26,9 +27,11 @@ export default function RelayResultsPage({ setSelectedPage }) {
   const buildApiPath = useCallback(raceId => {
     return `/api/v2/public/races/${raceId}/relays/${relayId}`
   }, [relayId])
-  const { fetching, error, race, raceData: relay } = useRaceData(buildApiPath)
+  const { fetching, error, race, raceData: relay, reloadDataRef } = useRaceData(buildApiPath)
   useEffect(() => setSelectedPage(pages.relays), [setSelectedPage])
   const { teams } = useRelaySorting(relay, leg)
+
+  useDataReloading('RelayChannel', 'relay_id', relayId, reloadDataRef)
 
   const titleSuffix = useMemo(() => {
     if (!relay) return ''
