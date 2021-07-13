@@ -130,7 +130,7 @@ sv:
     start_order: Tävlarnas startordning
     start_time: Starttid
     team_competitor_count: Tävlarna / lag
-    team_name: Jotos-lag
+    team_name: Lag
     time: Tid
     time_points_type: Tidpoängsberäkning
     title: Titel
@@ -140,7 +140,7 @@ sv:
     type: Typ
     top_competitions: Tävlingsantal för totalpoäng
     unofficial: Informella tävlare
-    use_team_name: Forma lag på grund av Jotos-lag
+    use_team_name: Forma lag på grund av tävlarnas lagnamn
 
   activerecord:
     models:

@@ -43,7 +43,7 @@ Feature: Start list
       | name | Atkinsson Tim |
       | club | Sports club |
       | time | 03:00:30 (13:00:30) |
-    But I should not see "Jotosjoukkue"
+    But I should not see "Joukkue"
 
   Scenario: Don't show real start time when race start time is 00:00
     Given there is a race with attributes:
@@ -81,7 +81,7 @@ Feature: Start list
     And I am on the race page
     When I follow "Lähtölista"
     Then I should be on the start list page of the series
-    And I should see "Jotosjoukkue"
+    And I should see "Joukkue"
     And I should see a start list row 1 with values:
       | name | Johnson James |
       | team_name | Special team |

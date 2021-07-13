@@ -130,7 +130,7 @@ fi:
     start_order: Kilpailijoiden lähtöjärjestys
     start_time: Lähtöaika
     team_competitor_count: Kilpailijoita / joukkue
-    team_name: Jotosjoukkue
+    team_name: Joukkue
     time: Aika
     time_points_type: Aikapisteiden laskenta
     title: Otsikko
@@ -140,7 +140,7 @@ fi:
     track_place: Ratapaikka
     type: Tyyppi
     unofficial: Epävirallinen kilpailija
-    use_team_name: Muodosta joukkueet kilpailijoiden jotosjoukkuenimien perusteella
+    use_team_name: Muodosta joukkueet kilpailijoiden joukkuenimien perusteella
 
   activerecord:
     models:
