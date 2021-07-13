@@ -210,7 +210,7 @@ class ApplicationController < ActionController::Base
   end
 
   def assign_races_for_main_menu
-    @main_menu_races = Race.where('start_date>?', 7.days.ago).order('start_date desc')
+    @main_menu_races = Race.where('start_date>? and end_date<?', 3.days.ago, 3.days.from_now).order('start_date desc')
   end
 
   def build_sports_menu_options

@@ -11,8 +11,8 @@ Given("there is a {string} race {string} at {string} in {string}") do |sport_key
   @race = create :race, sport_key: sport_key, name: name, start_date: start_date, district: district
 end
 
-Given(/^there is a race "(.*?)" that starts in 7 days$/) do |name|
-  @race = create(:race, name: name, start_date: 7.days.from_now)
+Given("there is a race {string} that starts in {int} days") do |name, days|
+  @race = create :race, name: name, start_date: days.days.from_now
 end
 
 Given /^there is a race with attributes:$/ do |fields|

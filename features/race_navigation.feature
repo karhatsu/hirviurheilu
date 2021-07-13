@@ -5,9 +5,9 @@ Feature: Race navigation
 
   Scenario: Change race
     Given there is a race "Today's race" today
-    And there is a race "Next week's race" that starts in 7 days
-    And there is a race "Not too old race" that was 6 days ago
-    And there is a race "Too old race" that was 7 days ago
+    And there is a race "Next week's race" that starts in 2 days
+    And there is a race "Not too old race" that was 2 days ago
+    And there is a race "Too old race" that was 3 days ago
     And I am on the race page of "Today's race"
     Then the races main menu item should contain "Next week's race"
     And the races main menu item should contain "Today's race"
