@@ -29,6 +29,7 @@ class Official::TeamCompetitionsController < Official::OfficialController
     if @tc.save
       @tc.series.delete_all if params[:team_competition][:series_ids].blank?
       @tc.age_groups.delete_all if params[:team_competition][:age_group_ids].blank?
+      @tc.touch unless @tc.changed?
       flash[:success] = t('official.team_competitions.update.team_competition_updated')
       redirect_to official_race_team_competitions_path(@race)
     else
