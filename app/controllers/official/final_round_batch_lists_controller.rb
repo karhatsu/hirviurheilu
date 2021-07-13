@@ -5,10 +5,11 @@ class Official::FinalRoundBatchListsController < Official::BatchListsController
   def index
     respond_to do |format|
       @batches = @race.final_round_batches.includes(competitors: [:club, :series])
+      orientation = @race.sport_key == Sport::METSASTYSTRAP || @race.sport_key == Sport::METSASTYSHAULIKKO ? 'Landscape' : 'Portrait'
       format.pdf do
         render pdf: "#{@race.name}-loppukilpailu", layout: true,
                margin: pdf_margin, header: pdf_header("#{t :result_sheet_pdf_title} - #{@race.name}"),
-               footer: pdf_footer, disable_smart_shrinking: true
+               footer: pdf_footer, disable_smart_shrinking: true, orientation: orientation
       end
     end
   end

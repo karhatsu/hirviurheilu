@@ -1,4 +1,17 @@
-.empty-results-table
+- if @race.sport_key == Sport::METSASTYSTRAP
+  .empty-results-table.empty-results-table--shotgun
+    - 5.times do |i|
+      - 4.times do |j|
+        .empty-results-table__cell= i * 5 + j + 1
+      .empty-results-table__cell.empty-results-table__cell--space= i * 5 + 5
+    .empty-results-table__cell.empty-results-table__cell--total Yht
+- elsif @race.sport_key == Sport::METSASTYSHAULIKKO
+  .empty-results-table.empty-results-table--shotgun
+    - shot_count.times do |i|
+      .empty-results-table__cell= i + 1
+    .empty-results-table__cell.empty-results-table__cell--total Yht
+- else
+  .empty-results-table
   - shot_count.times do |i|
     .empty-results-table__cell= i + 1
   .empty-results-table__cell.empty-results-table__cell--total Yht

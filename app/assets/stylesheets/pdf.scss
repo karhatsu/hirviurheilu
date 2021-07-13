@@ -103,6 +103,26 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
       width: 82px;
     }
   }
+
+  &--shotgun {
+    font-size: 10px;
+
+    .empty-results-table__cell {
+      margin-right: 2px;
+      width: 24px;
+      height: 24px;
+    }
+
+    .empty-results-table__cell--space {
+      margin-right: 16px;
+      width: 24px;
+      height: 24px;
+    }
+
+    .empty-results-table__cell--total {
+      width: 64px;
+    }
+  }
 }
 
 .empty-results-table--rifle {
