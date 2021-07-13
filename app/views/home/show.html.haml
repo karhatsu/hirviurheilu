@@ -23,7 +23,7 @@
     .row#races_yesterday
       = render partial: 'race_list', locals: { races: @yesterday }
       .extra_card.col-xs-12.col-sm-6.col-md-4.col-lg-3
-        %a.button.button--down{href: '#past-races'}= t '.previously_ended_competitions'
+        %span.button.button--down{onclick: 'smoothScroll()'}= t '.previously_ended_competitions'
   #future_races
     - if @future.empty?
       %h2
@@ -48,3 +48,7 @@
   - unless new_announcements
     = render partial: 'announcements', locals: { header_class: '' }
   = render :partial => 'shared/facebook_like_box'
+:javascript
+  function smoothScroll() {
+    document.querySelector('#past-races').scrollIntoView({ behavior: 'smooth' })
+  }
