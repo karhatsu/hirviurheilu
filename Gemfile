@@ -29,6 +29,7 @@ group :production do
   gem 'newrelic_rpm'
   gem 'exception_notification'
   gem 'wkhtmltopdf-heroku'
+  gem 'redis'
 end
 
 group :development do
