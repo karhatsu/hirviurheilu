@@ -49,7 +49,6 @@ window.translations = {
   finish: 'Maali',
   hideCompetitors: 'Piilota kilpailijat',
   hideShots: 'Piilota laukaukset',
-  jotosTeam: 'Jotosjoukkue',
   leg: 'Osuus',
   legNumber: 'Osuus {{leg}}',
   legTime: 'Osuusaika',

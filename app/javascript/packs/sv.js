@@ -49,7 +49,6 @@ window.translations = {
   finish: 'Mål',
   hideCompetitors: 'Gömma tävlarna',
   hideShots: 'Gömma skott',
-  jotosTeam: 'Jotos-lag',
   leg: 'Sträcka',
   legNumber: 'Sträcka {{leg}}',
   legTime: 'Sträckatid',

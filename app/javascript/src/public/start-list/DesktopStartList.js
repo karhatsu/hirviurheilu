@@ -16,7 +16,7 @@ export default function DesktopStartList({ competitors, race }) {
           <th>{t('competitor')}</th>
           <th id="table_club_title">{resolveClubTitle(t, race.clubLevel)}</th>
           <th>{t('startTime')}</th>
-          {showTeamName && <th>{t('jotosTeam')}</th>}
+          {showTeamName && <th>{t('team')}</th>}
         </tr>
         </thead>
         <tbody>
