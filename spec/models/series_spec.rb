@@ -461,24 +461,16 @@ describe Series do
       unofficials = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
       series = build(:series)
       competitors, included = ['a', 'b', 'c'], ['d', 'e']
+      sorted_competitors = [instance_double(Competitor), instance_double(Competitor), instance_double(Competitor)]
       allow(series).to receive(:competitors).and_return(competitors)
-      expect(competitors).to receive(:includes).with([:club, :age_group, :series]).
-        and_return(included)
-      expect(Competitor).to receive(:sort_three_sports_competitors).with(included, unofficials, Competitor::SORT_BY_POINTS).and_return([1, 2, 3])
-      expect(series.three_sports_results(unofficials)).to eq([1, 2, 3])
-    end
-
-    context "when sort parameter given" do
-      it "should call Competitor.sort_competitors with given sort parameter" do
-        unofficials = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
-        series = build(:series)
-        competitors, included = ['a', 'b', 'c'], ['d', 'e']
-        allow(series).to receive(:competitors).and_return(competitors)
-        expect(competitors).to receive(:includes).with([:club, :age_group, :series]).
-          and_return(included)
-        expect(Competitor).to receive(:sort_three_sports_competitors).with(included, unofficials, Competitor::SORT_BY_TIME).and_return([1, 2, 3])
-        expect(series.three_sports_results(unofficials, Competitor::SORT_BY_TIME)).to eq([1, 2, 3])
+      expect(competitors).to receive(:includes).with([:club, :age_group, :series]).and_return(included)
+      expect(Competitor).to receive(:sort_three_sports_competitors).with(included, unofficials).and_return(sorted_competitors)
+      sorted_competitors.each_with_index do |c, i|
+        expect(c).to receive(:three_sports_race_results).with(unofficials).and_return([i])
+        expect(c).to receive(:position=).with(i + 1)
+        expect(c).to receive(:position).and_return(i + 1)
       end
+      expect(series.three_sports_results(unofficials)).to eq(sorted_competitors)
     end
   end
 

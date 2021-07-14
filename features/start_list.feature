@@ -3,6 +3,7 @@ Feature: Start list
   As a competitor
   I want to see the series start list
 
+  @javascript
   Scenario: Go to see the start list
     Given there is a race with attributes:
       | name | My test race |
@@ -45,6 +46,7 @@ Feature: Start list
       | time | 03:00:30 (13:00:30) |
     But I should not see "Joukkue"
 
+  @javascript
   Scenario: Don't show real start time when race start time is 00:00
     Given there is a race with attributes:
       | name | My test race |
@@ -63,6 +65,7 @@ Feature: Start list
     And I should see "03:00:00"
     But I should not see "(03:00:00)"
 
+  @javascript
   Scenario: Start list for competitors having team name
     Given there is a race with attributes:
       | name | My test race |

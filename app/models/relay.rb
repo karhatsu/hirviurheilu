@@ -25,6 +25,8 @@ class Relay < ApplicationRecord
   accepts_nested_attributes_for :relay_teams, :allow_destroy => true
   accepts_nested_attributes_for :relay_correct_estimates
 
+  after_touch :publish_update
+
   def correct_estimate(leg)
     ce = relay_correct_estimates[leg - 1] # faster solution but not reliable
     return ce.distance if ce and ce.leg == leg
@@ -104,6 +106,7 @@ class Relay < ApplicationRecord
     end
     self.finished = true
     save!
+    publish_update
     return true
   end
 
@@ -143,5 +146,9 @@ class Relay < ApplicationRecord
     if race and start_day > race.days_count
       errors.add(:start_day, "ei voi olla suurempi kuin kilpailupäivien määrä")
     end
+  end
+
+  def publish_update
+    RelayChannel.broadcast_to self, {}
   end
 end

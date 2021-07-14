@@ -108,11 +108,6 @@ fi:
     DNS: Joukkue ei osallistunut kilpailuun
     DNF: Joukkue keskeytti kilpailun
     DQ: Joukkue hylättiin
-  refresh_counter_new_page_pre: Uusi tulossivu ladataan automaattisesti
-  refresh_counter_new_page_post: sekunnin kuluttua
-  refresh_counter_pause: Pysäytä laskenta.
-  refresh_counter_paused: Uuden tulossivun automaattinen lataus pysäytetty.
-  refresh_counter_continue: Ota automaattinen lataus takaisin käyttöön.
   remove: Poista
   reset: Tyhjennä
   result_sheet_pdf_title: Ampumapöytäkirja
@@ -145,6 +140,7 @@ fi:
   show_all_competitors: Näytä kaikki kilpailijat
   show_shots: Näytä laukaukset
   show_races_of_cup: Näytä osakilpailut
+  single_competitor_competitions: Yksilökilpailut
   sport_name:
     SKI: Hirvenhiihto
     RUN: Hirvenjuoksu

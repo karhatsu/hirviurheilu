@@ -35,6 +35,7 @@ class Official::RelaysController < Official::OfficialController
       flash[:error] = 'Joku muu on muokannut viestiä samaan aikaan. Yritä tallennusta uudestaan tai kokeile tulosten tallentamista Pikasyötön avulla.'
       redirect_to edit_official_race_relay_path(@race, @relay)
     elsif @relay.save
+      @relay.touch unless @relay.changed?
       flash[:success] = 'Viestin tiedot päivitetty'
       redirect_to edit_official_race_relay_path(@race, @relay)
     else

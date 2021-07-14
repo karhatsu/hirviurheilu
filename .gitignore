@@ -12,3 +12,10 @@ public/javascripts/all.js
 public/stylesheets/all.css
 spec/files/generated.csv
 tmp/**/*
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

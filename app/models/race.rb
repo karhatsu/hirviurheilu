@@ -2,6 +2,7 @@ class Race < ApplicationRecord
   include BatchListSuggestions
   include CompetitorsCopy
   include StartDateTime
+  include CompetitorPosition
 
   DEFAULT_START_INTERVAL = 60
   DEFAULT_BATCH_INTERVAL = 180
@@ -242,7 +243,10 @@ class Race < ApplicationRecord
   end
 
   def nordic_sub_results(sub_sport)
-    Competitor.sort_nordic_competitors competitors.includes([:club, :age_group, :series]), sub_sport
+    sorted_competitors = Competitor.sort_nordic_competitors competitors.includes([:club, :age_group, :series]), sub_sport
+    add_position_for_competitors sorted_competitors do |competitor|
+      competitor.nordic_sub_results sub_sport
+    end
   end
 
   private

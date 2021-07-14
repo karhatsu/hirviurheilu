@@ -10,14 +10,16 @@
  *= require public-message
  *= require titles
  *= require badges
+ *= require spinner
 
  *= require dialogs
  *= require facebook
 
  *= require announcements
  *= require csv
- *= require result-rotation
+ *= require race-organizer
 
+ *= require incomplete-page
  *= require header
  *= require menu
  *= require body

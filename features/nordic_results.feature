@@ -3,6 +3,7 @@ Feature: Nordic results
   As a competitor
   I want to see the nordic race results
 
+  @javascript
   Scenario: Show nordic race results
     Given there is a "NORDIC" race "Nordic test race"
     And the race has series "M"
@@ -16,26 +17,46 @@ Feature: Nordic results
     And the team competition contains the series "N"
     And I am on the race page of "Nordic test race"
     When I follow "Tulokset"
+    And I wait for the results
+    And I force mobile UI
     Then I should see a card 1 for "Pohjola Pekka" with total score 375
-    And I should see "Trap: 24 Compak: 20 Hirvi: 99 Kauris: 100" in result card 1 detail row 2
+    And I should see the following sub results in result card 1 detail row 2:
+      | shoot | Trap: 24 |
+      | shoot | Compak: 20 |
+      | shoot | Hirvi: 99 |
+      | shoot | Kauris: 100 |
     And I should see a card 2 for "Pohjonen Pertti" with total score 366
-    And I should see "Trap: 25 Compak: 21 Hirvi: 90 Kauris: 92" in result card 2 detail row 2
+    And I should see the following sub results in result card 2 detail row 2:
+      | shoot | Trap: 25 |
+      | shoot | Compak: 21 |
+      | shoot | Hirvi: 90 |
+      | shoot | Kauris: 92 |
     When I follow "Trap"
+    And I wait for the results
+    And I force mobile UI
     Then I should see a card 1 for "Pohjonen Pertti" with total score 25
     And I should see a card 2 for "Pohjola Pekka" with total score 24
     And I should see a card 3 for "Pohjoinen Päivi" with total score 21
     When I choose "Compak" from sub menu
+    And I wait for the results
+    And I force mobile UI
     And I should see a card 1 for "Pohjoinen Päivi" with total score 25
     Then I should see a card 2 for "Pohjonen Pertti" with total score 21
     And I should see a card 3 for "Pohjola Pekka" with total score 20
     When I choose "Hirvi" from sub menu
+    And I wait for the results
+    And I force mobile UI
     And I should see a card 1 for "Pohjoinen Päivi" with total score 100
     Then I should see a card 2 for "Pohjola Pekka" with total score 99
     And I should see a card 3 for "Pohjonen Pertti" with total score 90
     When I choose "Kauris" from sub menu
+    And I wait for the results
+    And I force mobile UI
     And I should see a card 1 for "Pohjola Pekka" with total score 100
     Then I should see a card 2 for "Pohjoinen Päivi" with total score 96
     And I should see a card 3 for "Pohjonen Pertti" with total score 92
     When I choose "Joukkuekilpailu" from sub menu
+    And I wait for the results
+    And I force mobile UI
     Then I should see a card 1 for "Team B" with total score 746
     Then I should see a card 2 for "Team A" with total score 711

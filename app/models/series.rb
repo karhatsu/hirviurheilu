@@ -4,6 +4,7 @@ class Series < ApplicationRecord
   include TimeHelper
   include StartDateTime
   include ComparisonTime
+  include CompetitorPosition
 
   TIME_POINTS_TYPE_NORMAL = 0
   TIME_POINTS_TYPE_NONE = 1
@@ -48,7 +49,7 @@ class Series < ApplicationRecord
   validate :start_day_not_bigger_than_race_days_count
 
   before_create :set_has_start_list
-
+  after_touch :publish_update
   after_destroy :touch_race
 
   attr_accessor :last_cup_race
@@ -71,24 +72,39 @@ class Series < ApplicationRecord
     three_sports_results
   end
 
-  def three_sports_results(unofficials=UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME, sort_by=Competitor::SORT_BY_POINTS)
-    Competitor.sort_three_sports_competitors competitors.includes([:club, :age_group, :series]), unofficials, sort_by
+  def three_sports_results(unofficials=UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
+    sorted_competitors = Competitor.sort_three_sports_competitors competitors.includes([:club, :age_group, :series]), unofficials
+    add_position_for_competitors sorted_competitors do |competitor|
+      competitor.three_sports_race_results unofficials
+    end
   end
 
   def shooting_race_results
-    Competitor.sort_shooting_race_competitors competitors.includes([:club, :age_group, :series])
+    sorted_competitors = Competitor.sort_shooting_race_competitors competitors.includes([:club, :series])
+    add_position_for_competitors sorted_competitors do |competitor|
+      competitor.shooting_race_results sorted_competitors
+    end
   end
 
   def nordic_race_results
-    Competitor.sort_nordic_competitors competitors.includes([:club, :age_group, :series])
+    sorted_competitors = Competitor.sort_nordic_competitors competitors.includes([:club, :series])
+    add_position_for_competitors sorted_competitors do |competitor|
+      competitor.nordic_total_results
+    end
   end
 
   def european_rifle_results
-    Competitor.sort_european_rifle_competitors competitors.includes([:club, :age_group, :series])
+    sorted_competitors = Competitor.sort_european_rifle_competitors competitors.includes([:club, :age_group, :series])
+    add_position_for_competitors sorted_competitors do |competitor|
+      competitor.european_rifle_results
+    end
   end
 
   def european_race_results
-    Competitor.sort_european_competitors competitors.includes([:club, :age_group, :series])
+    sorted_competitors = Competitor.sort_european_competitors competitors.includes([:club, :series])
+    add_position_for_competitors sorted_competitors do |competitor|
+      competitor.european_total_results
+    end
   end
 
   def next_start_number
@@ -273,6 +289,10 @@ class Series < ApplicationRecord
     return unless race
     self.has_start_list ||= (race.start_order.to_i == Race::START_ORDER_MIXED)
     true
+  end
+
+  def publish_update
+    SeriesChannel.broadcast_to self, {}
   end
 
   def touch_race

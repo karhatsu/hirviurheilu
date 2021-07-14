@@ -1,0 +1,5 @@
+.race-organizer {
+  * ~ *::before {
+    content: ', ';
+  }
+}

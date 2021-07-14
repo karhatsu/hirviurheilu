@@ -25,7 +25,6 @@ fi:
     relays:
       one: Viesti
       other: Viestit
-    result_rotation: Tuloskehä
     press: Lehdistö
   cup_sub_menu:
     home_page: Cup-kilpailun etusivu

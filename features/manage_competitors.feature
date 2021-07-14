@@ -62,6 +62,7 @@ Feature: Manage competitors
     When I follow "Ford Peter"
     Then the "competitor_arrival_time" text field value should be "00:23:45"
 
+  @javascript
   Scenario: Updating competitor without shots, adding shots, updating shots
     Given I am an official
     And I have a race "Test race"
@@ -80,7 +81,7 @@ Feature: Manage competitors
     And I press "Tallenna"
     Then I should be on the official competitors page of the series
     When I go to the results page of the series
-    And I follow "Johnson James"
+    And I wait for the results
     Then I should not see "0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
     When I go to the official competitors page of the series
     And I follow "Johnson James"
@@ -88,16 +89,16 @@ Feature: Manage competitors
     And I press "Tallenna"
     Then I should be on the official competitors page of the series
     When I go to the results page of the series
-    And I follow "Johnson James"
-    Then I should see "85 (10, 10, 10, 10, 10, 9, 9, 9, 8, 0)"
+    And I wait for the results
+    Then I should see "85 / 10, 10, 10, 10, 10, 9, 9, 9, 8, 0)"
     When I go to the official competitors page of the series
     And I follow "Johnson James"
     And I fill shots "10,10,10,5,10,9,9,9,8,7"
     And I press "Tallenna"
     Then I should be on the official competitors page of the series
     When I go to the results page of the series
-    And I follow "Johnson James"
-    Then I should see "87 (10, 10, 10, 5, 10, 9, 9, 9, 8, 7)"
+    And I wait for the results
+    Then I should see "87 / 10, 10, 10, 5, 10, 9, 9, 9, 8, 7)"
 
   @javascript
   Scenario: Update competitor in start list page

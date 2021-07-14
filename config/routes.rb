@@ -43,8 +43,8 @@ Hirviurheilu::Application.routes.draw do
       resources :rifle_team_competitions, only: :show
       resources :relays do
         get 'start_list' => 'relays#start_list'
+        resources :legs, only: :show
       end
-      resource :result_rotation
       resource :medium
     end
 
@@ -190,7 +190,21 @@ Hirviurheilu::Application.routes.draw do
 
       namespace :public do
         resources :races, only: :show do
+          resources :series, only: [:show] do
+            resource :start_list, only: :show
+            get 'rifle', to: 'european_rifles#show'
+          end
+          resources :rifle_team_competitions, only: [:show]
+          resources :team_competitions, only: [:show]
+          resources :relays, only: [:show]
           resources :times, only: :index
+          resource :press, only: :show
+          resources :qualification_round_batches, only: :index
+          resources :final_round_batches, only: :index
+          get 'trap', to: 'nordic_races#trap'
+          get 'shotgun', to: 'nordic_races#shotgun'
+          get 'rifle_moving', to: 'nordic_races#rifle_moving'
+          get 'rifle_standing', to: 'nordic_races#rifle_standing'
           get '/competitors/:competitor_number', to: 'competitors#show'
         end
       end

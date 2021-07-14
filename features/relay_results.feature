@@ -3,29 +3,33 @@ Feature: Relay results
   As a user
   I want to see the relay results
 
+  @javascript
   Scenario: No relays for the race
     Given there is a race "Relay race"
     And I am on the race page of "Relay race"
     Then I should not see "Viestit"
 
+  @javascript
   Scenario: No teams for a relay
     Given there is a race "Relay race"
     And the race has a relay "Women's relay"
     When I go to the relay results page of "Women's relay"
     Then the "Kilpailut" main menu item should be selected
     And the "Viesti" sub menu item should be selected
-    And I should see "Women's relay - (Ei joukkueita)" within "h2"
-    And I should see "Viestiin ei ole vielä merkitty joukkueita" in an info message
+    And I should see "Women's relay - Ei joukkueita" within "h2"
+    And I should see "Viestiin ei ole vielä lisätty joukkueita" in an info message
 
+  @javascript
   Scenario: The relay has teams but no start time defined
     Given there is a race "Relay race"
     And the race has a relay "Women's relay"
     When I go to the relay results page of "Women's relay"
     And the relay has a team "Relay team"
     When I go to the relay results page of "Women's relay"
-    Then I should see "Women's relay - (Viesti ei ole vielä alkanut)" within "h2"
+    Then I should see "Women's relay - Viesti ei ole vielä alkanut" within "h2"
     And I should see "Viestin lähtöaikaa ei ole vielä päätetty" in an info message
 
+  @javascript
   Scenario: The relay has not started yet
     Given there is a race "My race" in the future
     And the race has a relay with attributes:
@@ -43,11 +47,11 @@ Feature: Relay results
       | leg | 2 |
     And the relay has a team "Relay team"
     When I go to the relay results page of "Women's relay"
-    Then I should see "Women's relay - (Viesti ei ole vielä alkanut)" within "h2"
+    Then I should see "Women's relay - Viesti ei ole vielä alkanut" within "h2"
     And I should see "Viestin lähtöaika" in an info message
-    And I should see "Viestin alkuun on aikaa" in an info message
     And I should see "Ladies team"
 
+  @javascript
   Scenario: Relay results
     Given there is a race with attributes:
       | name | Relay race |
@@ -131,10 +135,10 @@ Feature: Relay results
     When I follow "Relay race"
     Then I should see "Viestit"
     And I should see "Men's relay"
-    When I choose "Men's relay" from sub menu
+    When I follow "Men's relay"
     Then I should be on the relay results page of "Men's relay"
     And the "Viestit" sub menu item should be selected
-    And I should see "Men's relay - Tilanne" within "h2"
+    And I should see "Men's relay - Tulokset päivitetty" within "h2"
     And I should see "Kilpailu on kesken. Tarkemmat arviointitiedot julkaistaan, kun kilpailu on päättynyt." in an info message
     But I should not see "Oikeat etäisyydet"
     And I should see "1." within "tr#team_1"
@@ -174,11 +178,10 @@ Feature: Relay results
     And I should see "35:12" within "tr#team_3"
     When I follow "Maali"
     Then I should be on the relay results page of "Men's relay"
-    When I choose "Women's relay" from sub menu
-    Then I should be on the relay results page of "Women's relay"
     When I follow "Takaisin sivulle Relay race"
     Then I should be on the race page of "Relay race"
 
+  @javascript
   Scenario: Relay with penalty seconds
     Given there is a race with attributes:
       | name | Relay race |

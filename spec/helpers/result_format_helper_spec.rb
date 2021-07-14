@@ -219,63 +219,6 @@ describe ResultFormatHelper do
     end
   end
 
-  describe '#comparison_time_title_attribute' do
-    let(:unofficials) { Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME }
-    before do
-      @competitor = instance_double(Competitor)
-      allow(@competitor).to receive(:comparison_time_in_seconds).and_return(1545)
-    end
-
-    it 'should return empty string when empty always wanted' do
-      expect(helper.comparison_time_title_attribute(@competitor, unofficials, true)).to eq('')
-    end
-
-    it 'should return empty string when no comparison time available' do
-      allow(@competitor).to receive(:comparison_time_in_seconds).and_return(nil)
-      expect(helper.comparison_time_title_attribute(@competitor, unofficials, false)).to eq('')
-    end
-
-    it 'should title and comparison time when empty not wanted' do
-      expect(helper.comparison_time_title_attribute(@competitor, unofficials, false)).to eq('Vertailuaika: 25:45')
-    end
-
-    it 'should use unofficials parameter when getting the comparison time' do
-      allow(@competitor).to receive(:comparison_time_in_seconds).with(unofficials).and_return(1550)
-      expect(helper.comparison_time_title_attribute(@competitor, unofficials, false)).to eq('Vertailuaika: 25:50')
-    end
-  end
-
-  describe '#comparison_and_own_time_title_attribute' do
-    context 'when no time for competitor' do
-      it 'should return empty string' do
-        competitor = instance_double(Competitor)
-        allow(competitor).to receive(:time_in_seconds).and_return(nil)
-        expect(helper.comparison_and_own_time_title_attribute(competitor)).to eq('')
-      end
-    end
-
-    context 'when no comparison time for competitor' do
-      it 'should return space and title attribute with time title and time' do
-        competitor = instance_double(Competitor)
-        expect(competitor).to receive(:time_in_seconds).and_return(123)
-        expect(competitor).to receive(:comparison_time_in_seconds).and_return(nil)
-        expect(helper).to receive(:time_from_seconds).with(123).and_return('1:23')
-        expect(helper.comparison_and_own_time_title_attribute(competitor)).to eq(" title='Aika: 1:23'")
-      end
-    end
-
-    context 'when own and comparison time available' do
-      it 'should return space and title attribute with time title, time, comparison time title and comparison time' do
-        competitor = instance_double(Competitor)
-        expect(competitor).to receive(:time_in_seconds).and_return(123)
-        expect(competitor).to receive(:comparison_time_in_seconds).and_return(456)
-        expect(helper).to receive(:time_from_seconds).with(123).and_return('1:23')
-        expect(helper).to receive(:time_from_seconds).with(456).and_return('4:56')
-        expect(helper.comparison_and_own_time_title_attribute(competitor)).to eq(" title='Aika: 1:23. Vertailuaika: 4:56.'")
-      end
-    end
-  end
-
   describe '#national_record_print' do
     before do
       @competitor = instance_double(Competitor)

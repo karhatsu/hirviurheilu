@@ -79,7 +79,7 @@ Feature: Team competition results
     And I should see "2." within "tr#team_2"
     And I should see "Shooting club" within "tr#team_2"
     And I should see "2206" within "tr#team_2"
-    When I follow "Sports club"
+    When I click show competitors button
     Then I should see a team 1 competitor row 1 with values:
       | name | Smith Peter |
       | series | Men 50 years |
@@ -87,8 +87,7 @@ Feature: Team competition results
       | shooting | 564 (94) |
       | estimates | 278 (-10m/+1m) |
       | time | 300 (1:00:00) |
-    When I follow "Shooting club"
-    Then I should see a team 1 competitor row 2 with values:
+    And I should see a team 1 competitor row 2 with values:
       | name | Atkinsson Tim |
       | series | Men 50 years |
       | points | 1140 |
@@ -175,11 +174,10 @@ Feature: Team competition results
     And I should see "2." within "tr#team_2"
     And I should see "Team 2" within "tr#team_2"
     And I should see "2243" within "tr#team_2"
-    When I follow "Team 1"
+    When I click show competitors button
     Then I should see a team 1 competitor row 1 with values:
       | name | Atkinsson Tim |
       | points | 1140 |
-    When I follow "Team 2"
-    Then I should see a team 1 competitor row 2 with values:
+    And I should see a team 1 competitor row 2 with values:
       | name | Johnson James |
       | points | 1105 |

@@ -18,9 +18,10 @@ class StartListsController < ApplicationController
 
   def show
     return redirect_to(race_series_start_list_path(@series.race, @series), status: 301) if params[:race_id].blank?
+    use_react
     @is_start_list = true
     respond_to do |format|
-      format.html
+      format.html { render layout: true, html: '' }
       format.pdf do
         render :pdf => "#{@series.name}-lahtolista", :layout => true,
           :margin => pdf_margin, :header => pdf_header("#{t :start_list} - #{@series.name}"),

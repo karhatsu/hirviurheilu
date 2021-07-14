@@ -3,6 +3,7 @@ Feature: Club level
   As a newbie official
   I want to clearly know what to write for the club field
 
+  @javascript
   Scenario: Show "Seura" as default club title
     Given I am an official
     And I have logged in
@@ -40,12 +41,13 @@ Feature: Club level
     And I select "00" from "series_start_time_6i"
     And I press "Luo lähtölista sarjalle"
     And I follow "Kilpailut"
-    And I choose "Test race" from main menu
+    And I follow "Test race"
     And I follow "Lähtölista"
     Then I should see "Seura" within "th#table_club_title"
     When I choose "Tulokset" from sub menu
     Then I should see "Seura" within "th#table_club_title"
 
+  @javascript
   Scenario: Show "Piiri" as club title when that level is selected
     Given I am an official
     And I have logged in
@@ -84,7 +86,7 @@ Feature: Club level
     And I select "00" from "series_start_time_6i"
     And I press "Luo lähtölista sarjalle"
     And I follow "Kilpailut"
-    And I choose "Test race" from main menu
+    And I follow "Test race"
     And I follow "Lähtölista"
     Then I should see "Piiri" within "th#table_club_title"
     When I choose "Tulokset" from sub menu

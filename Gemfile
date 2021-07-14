@@ -18,6 +18,7 @@ gem 'redcarpet'
 gem 'kaminari'
 gem 'jbuilder'
 gem 'scrypt'
+gem 'webpacker', '~> 5.0'
 
 group :development, :production do
   gem 'pg'

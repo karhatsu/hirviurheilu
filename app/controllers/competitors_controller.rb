@@ -12,15 +12,7 @@ class CompetitorsController < ApplicationController
 
   def show
     series = @competitor.series
-    return redirect_to race_series_path(series.race, series) if series.sport.shooting?
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render :pdf => "#{@competitor.last_name}_#{@competitor.first_name}-tuloskortti",
-          :layout => true, :margin => pdf_margin, :header => pdf_header(nil), :footer => pdf_footer,
-               disable_smart_shrinking: true
-      end
-    end
+    redirect_to race_series_path(series.race, series), status: 301
   end
 
   private

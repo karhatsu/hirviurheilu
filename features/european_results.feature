@@ -3,6 +3,7 @@ Feature: European results
   As a competitor
   I want to see the european race results
 
+  @javascript
   Scenario: Show european race results
     Given there is a "EUROPEAN" race "European test race"
     And the race has series "M"
@@ -16,21 +17,51 @@ Feature: European results
     And the team competition contains the series "M"
     And the team competition contains the series "N"
     When I follow "Tulokset"
+    And I wait for the results
+    And I force mobile UI
     Then I should see a card 1 for "Pohjonen Pertti" with total score 369
-    And I should see "Trap: 24 Compak: 22 Metsäkauris: 42 Kettu: 44 Gemssi: 49 Villisika: 50" in result card 1 detail row 2
+    And I should see the following sub results in result card 1 detail row 2:
+      | shoot | Trap: 24 |
+      | shoot | Compak: 22 |
+      | shoot | Metsäkauris: 42 |
+      | shoot | Kettu: 44 |
+      | shoot | Gemssi: 49 |
+      | shoot | Villisika: 50 |
     And I should see a card 2 for "Pohjola Pekka" with total score 357
-    And I should see "Trap: 25 Compak: 20 Metsäkauris: 49 Kettu: 50 Gemssi: 40 Villisika: 38" in result card 2 detail row 2
+    And I should see the following sub results in result card 2 detail row 2:
+      | shoot | Trap: 25 |
+      | shoot | Compak: 20 |
+      | shoot | Metsäkauris: 49 |
+      | shoot | Kettu: 50 |
+      | shoot | Gemssi: 40 |
+      | shoot | Villisika: 38 |
     When I follow "Luodikko"
+    And I wait for the results
+    And I force mobile UI
     Then I should see a card 1 for "Pohjonen Pertti" with total score 185
-    And I should see "Metsäkauris: 42 Kettu: 44 Gemssi: 49 Villisika: 50" in result card 1 detail row 2
-    And I should see "Metsäkauris: 49 Kettu: 50 Gemssi: 40 Villisika: 38" in result card 2 detail row 2
+    And I should see the following sub results in result card 1 detail row 2:
+      | shoot | Metsäkauris: 42 |
+      | shoot | Kettu: 44 |
+      | shoot | Gemssi: 49 |
+      | shoot | Villisika: 50 |
+    And I should see the following sub results in result card 2 detail row 2:
+      | shoot | Metsäkauris: 49 |
+      | shoot | Kettu: 50 |
+      | shoot | Gemssi: 40 |
+      | shoot | Villisika: 38 |
     And I should see a card 2 for "Pohjola Pekka" with total score 177
     When I choose "Kilpailun etusivu" from sub menu
     And I follow "Luodikko N"
+    And I wait for the results
+    And I force mobile UI
     Then I should see a card 1 for "Pohjoinen Päivi" with total score 179
     When I choose "Joukkuekilpailu" from sub menu
+    And I wait for the results
+    And I force mobile UI
     Then I should see a card 1 for "Team A" with total score 728
     Then I should see a card 2 for "Team B" with total score 685
     When I choose "Luodikon joukkue" from sub menu
+    And I wait for the results
+    And I force mobile UI
     Then I should see a card 1 for "Team A" with total score 356
     Then I should see a card 2 for "Team B" with total score 345

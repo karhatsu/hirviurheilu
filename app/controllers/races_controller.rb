@@ -16,8 +16,9 @@ class RacesController < ApplicationController
 
   def show
     @is_race = true
+    use_react
     respond_to do |format|
-      format.html
+      format.html { render layout: true, html: '' }
       format.pdf do
         @page_breaks = params[:page_breaks]
         orientation = @race.sport.shooting? && !@race.sport.european? ? 'Portrait' : 'Landscape'

@@ -8,6 +8,8 @@
     %link{href: 'https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css', rel: 'stylesheet', type: 'text/css'}
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
+    = javascript_pack_tag I18n.locale
+    = javascript_pack_tag 'application'
     - if facebook_env?
       = javascript_include_tag 'social'
     = csrf_meta_tag
@@ -15,6 +17,5 @@
     = render :partial => 'shared/google_analytics'
     = render 'shared/facebook_meta'
     = render 'shared/icons'
-    - if Rails.env.production? && !result_rotation_cookie
-      = render 'shared/adsense'
+    = render 'shared/adsense'
   = render :partial => 'shared/body'
