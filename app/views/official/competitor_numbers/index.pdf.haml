@@ -1,3 +1,4 @@
+- total_count = @race.competitors.count
 - @competitors.each_with_index do |competitor, i|
   - if competitor.number.to_i > 0
     .competitor-number-page
@@ -10,5 +11,5 @@
       - if competitor.qualification_round_track_place && competitor.qualification_round_batch
         .competitor-number-page__batch
           #{competitor.qualification_round_batch.number} / #{competitor.qualification_round_track_place}
-    - if i < @race.competitors.count - 1
+    - if i < total_count - 1
       .page-break
