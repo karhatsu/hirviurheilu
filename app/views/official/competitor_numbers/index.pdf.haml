@@ -11,5 +11,6 @@
       - if competitor.qualification_round_track_place && competitor.qualification_round_batch
         .competitor-number-page__batch
           #{competitor.qualification_round_batch.number} / #{competitor.qualification_round_track_place}
+    -#.logo= image_tag 'https://www.karhatsu.com/hirviurheilu/SM-logo.png'
     - if i < total_count - 1
       .page-break
