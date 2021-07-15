@@ -117,3 +117,29 @@ When the request succeeds, it returns 200 with a response body containing all th
 ```
 
 If you call the API twice for the same competitor, the existing shots will be replaced with new ones.
+
+### Saving relay arrival times
+
+* `PUT /api/v2/official/races/:race_id/relays/:relay_id/relay_teams/:team_number/legs/:leg_number/arrival_times`
+
+You can find the `relay_id` from the relay's result page URL. The `team_number` is the public number of the team. The `leg_number` starts from 1.
+
+The JSON request body is like this:
+
+```
+{ "ms_since_midnight": 43854000 }
+```
+
+The example value means time 12:10:54.
+
+`1000 * (60*60*12 + 60*10 + 54) = 43854000`
+
+Notice that the time should take into account the relay start time. For example if the relay has been defined to start at 10:00, you cannot save a time that is before that.
+
+When the request succeeds, it returns 200 with a response body like:
+
+```
+{
+  "relative_time": "02:10:54" // assuming the relay starts at 10:00
+}
+```

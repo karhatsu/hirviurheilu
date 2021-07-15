@@ -177,6 +177,9 @@ Hirviurheilu::Application.routes.draw do
       namespace :official do
         resources :races, only: [:show] do
           resource :health, only: :show
+          resources :relays, only: [] do
+            put '/relay_teams/:team_number/legs/:leg/arrival_time' => 'relay_arrival_times#update'
+          end
           put '/competitors/:competitor_number/start_time' => 'start_times#update'
           put '/competitors/:competitor_number/shooting_start_time' => 'shooting_start_times#update'
           put '/competitors/:competitor_number/shooting_finish_time' => 'shooting_finish_times#update'
