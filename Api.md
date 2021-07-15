@@ -120,7 +120,7 @@ If you call the API twice for the same competitor, the existing shots will be re
 
 ### Saving relay arrival times
 
-* `PUT /api/v2/official/races/:race_id/relays/:relay_id/relay_teams/:team_number/legs/:leg_number/arrival_times`
+* `PUT /api/v2/official/races/:race_id/relays/:relay_id/relay_teams/:team_number/legs/:leg_number/arrival_time`
 
 You can find the `relay_id` from the relay's result page URL. The `team_number` is the public number of the team. The `leg_number` starts from 1.
 
