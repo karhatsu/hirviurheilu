@@ -21,7 +21,10 @@ export const RaceProvider = ({ children }) => {
   }, [raceId])
 
   useEffect(() => {
-    fetchRaceRef.current = fetchRace
+    fetchRaceRef.current = () => {
+      setRace(undefined)
+      fetchRace()
+    }
   }, [fetchRace])
 
   useEffect(() => {

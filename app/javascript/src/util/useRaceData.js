@@ -27,14 +27,15 @@ const useRaceData = buildApiPath => {
 
   useEffect(() => {
     if (race) {
-      setFetching(true)
       reloadData()
+    } else {
+      setFetching(true)
     }
   }, [race, reloadData])
 
   return {
     error,
-    fetching,
+    fetching: fetching || !race,
     race,
     raceData,
     reloadDataRef,
