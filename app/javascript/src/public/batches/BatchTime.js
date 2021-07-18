@@ -8,7 +8,7 @@ const subTime = (t, sport, subSport, time) => {
 export default function BatchTime({ race, batch }) {
   const { t } = useTranslation()
   const { nordic, european } = race.sport
-  const { time, time2, time3, time4 } = batch
+  const { date, time, time2, time3, time4 } = batch
   if (nordic) {
     return [
       subTime(t, 'nordic', 'trap', time),
@@ -22,6 +22,8 @@ export default function BatchTime({ race, batch }) {
       subTime(t, 'european', 'compak', time2),
       subTime(t, 'european', 'rifle', time3),
     ].filter(t => t).join(' - ')
+  } else if (race.daysCount > 1) {
+    return `${date} ${time}`
   }
   return time
 }

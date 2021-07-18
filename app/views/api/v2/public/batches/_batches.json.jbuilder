@@ -1,5 +1,6 @@
 json.batches batches.each do |batch|
   json.(batch, :number, :track)
+  json.date @race.start_date.advance(days: batch.day - 1).strftime('%d.%m.%Y')
   json.time batch.time.strftime('%H:%M')
   json.time2 batch.time2.strftime('%H:%M') if batch.time2
   json.time3 batch.time3.strftime('%H:%M') if batch.time3
