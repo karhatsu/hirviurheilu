@@ -5,8 +5,11 @@ class Api::V2::Official::ShotsController < Api::V2::Official::ShotsBaseControlle
   def update
     shots = build_shots @competitor.shots
     @competitor.shots = shots
-    @competitor.save!
-    render status: 200, json: { shots: shots }
+    if @competitor.save
+      render status: 200, json: { shots: shots }
+    else
+      render status: 400, json: { errors: @competitor.errors.full_messages }
+    end
   end
 
   def update_all

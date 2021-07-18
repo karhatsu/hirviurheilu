@@ -88,6 +88,17 @@ describe Api::V2::Official::ShotsController, type: :api do
         end
       end
 
+      context 'but shots total input saved for the competitor' do
+        before do
+          competitor.update_attribute :shooting_score_input, 90
+          make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/shots/1", body
+        end
+
+        it 'return 400' do
+          expect_error 400, 'Ammuntatulokset voi syöttää vain summana tai yksittäisinä laukauksina'
+        end
+      end
+
       context 'and first shot sent' do
         before do
           make_request "/api/v2/official/races/#{race.id}/competitors/#{competitor.number}/shots/1", body
