@@ -26,10 +26,9 @@ const useRaceData = buildApiPath => {
   }, [reloadData])
 
   useEffect(() => {
+    setFetching(true) // either race was reloaded or e.g. series (buildApiPath) changed
     if (race) {
       reloadData()
-    } else {
-      setFetching(true)
     }
   }, [race, reloadData])
 
