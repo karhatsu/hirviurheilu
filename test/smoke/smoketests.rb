@@ -77,10 +77,10 @@ end
 link_to_race = find_link "(//div[@class='body__yield']//a[@class='card'])[last()]"
 
 open_page(link_to_race)
-link_to_results = find_link "//div[@id='series-links']//a[@class='button button--primary'][1]"
+#link_to_results = find_link "//div[@id='series-links']//a[@class='button button--primary'][1]"
 
-open_page(link_to_results)
-link_to_pdf = find_link "//div[@class='buttons']//a[@class='button button--pdf']", 'Lataa tulokset PDF-tiedostona'
-verify_http_status link_to_pdf
+#open_page(link_to_results)
+#link_to_pdf = find_link "//div[@class='buttons']//a[@class='button button--pdf']", 'Lataa tulokset PDF-tiedostona'
+#verify_http_status link_to_pdf
 
 puts "--- ALL SMOKE TESTS PASSED FOR #{@url} ---"
