@@ -13,6 +13,7 @@ const reactPaths = [
   '/:lang?/races/:raceId/team_competitions/:teamCompetitionId',
   '/:lang?/races/:raceId/relays/:relayId',
   '/:lang?/races/:raceId',
+  '/:lang?/cups/:cupId',
 ]
 
 document.addEventListener('DOMContentLoaded', () => {

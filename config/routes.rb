@@ -210,6 +210,7 @@ Hirviurheilu::Application.routes.draw do
           get 'rifle_standing', to: 'nordic_races#rifle_standing'
           get '/competitors/:competitor_number', to: 'competitors#show'
         end
+        resources :cups, only: :show
       end
     end
   end

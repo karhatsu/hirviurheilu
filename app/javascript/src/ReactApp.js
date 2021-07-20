@@ -19,6 +19,8 @@ import RelayResultsPage from './public/relay/RelayResultsPage'
 import RaceMediaPage from './public/media/RaceMediaPage'
 import QualificationRoundBatches from './public/batches/QualificationRoundBatches'
 import FinalRoundBatches from './public/batches/FinalRoundBatches'
+import CupPage from './public/cup/CupPage'
+import { CupProvider } from './util/useCup'
 
 function ReactApp() {
   const [selectedPage, setSelectedPage] = useState(undefined)
@@ -98,6 +100,7 @@ function ReactApp() {
               render={() => <NordicSubSportResultsPage setSelectedPage={setSelectedPage} />}
             />
             <Route path="/:lang?/races/:raceId" render={() => <RacePage setSelectedPage={setSelectedPage} />} />
+            <Route path="/:lang?/cups/:cupId" render={() => <CupPage setSelectedPage={setSelectedPage} />} />
           </Switch>
         </div>
       </div>
@@ -109,7 +112,9 @@ const ReactAppContainer = () => {
   return (
     <LayoutProvider>
       <RaceProvider>
-        <ReactApp />
+        <CupProvider>
+          <ReactApp />
+        </CupProvider>
       </RaceProvider>
     </LayoutProvider>
   )

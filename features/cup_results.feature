@@ -3,6 +3,7 @@ Feature: Cup results
   As a competitor
   I want to see the cup results
 
+  @javascript
   Scenario: Show main page for cup results
     Given there is a cup "Test cup" with 2 top competitions
     And the cup has a series "Men"
@@ -38,6 +39,7 @@ Feature: Cup results
     When I follow "Another cup race"
     Then I should be on the race page of "Another cup race"
 
+  @javascript
   Scenario: Show results for a cup series
     Given there is a cup "Test cup" with 2 top competitions
     And the cup has a series "Men"
@@ -88,6 +90,7 @@ Feature: Cup results
     And I should see "1190" within "tr#comp_2"
     And I should see "2384" within "tr#comp_2"
 
+  @javascript
   Scenario: Show results for a cup series with the last race as mandatory
     Given there is a cup "Test cup" with 1 top competitions and last race as mandatory
     And the cup has a series "Men"
@@ -138,6 +141,7 @@ Feature: Cup results
     And I should see "970" within "tr#comp_2"
     And I should see "2164" within "tr#comp_2"
 
+  @javascript
   Scenario: Show results for a cup series containing two series
     Given there is a cup "Test cup" with 2 top competitions
     And the cup has a series "Men" with series names "M,M60"
