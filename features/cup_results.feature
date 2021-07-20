@@ -2,7 +2,7 @@ Feature: Cup results
   In order to know what was my total position in a cup competition
   As a competitor
   I want to see the cup results
-  
+
   Scenario: Show main page for cup results
     Given there is a cup "Test cup" with 2 top competitions
     And the cup has a series "Men"
@@ -34,9 +34,10 @@ Feature: Cup results
     And I should see "Men"
     And I should see "Women"
     But I should not see "Special series"
+    And I should see "Tuloskooste (PDF)"
     When I follow "Another cup race"
     Then I should be on the race page of "Another cup race"
-    
+
   Scenario: Show results for a cup series
     Given there is a cup "Test cup" with 2 top competitions
     And the cup has a series "Men"
@@ -192,4 +193,3 @@ Feature: Cup results
     And I should see "1194" within "tr#comp_3"
     And I should see "1188" within "tr#comp_3"
     And I should see "2382" within "tr#comp_3"
-    
