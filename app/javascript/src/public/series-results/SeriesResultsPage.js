@@ -24,6 +24,7 @@ import useLayout from '../../util/useLayout'
 import useRaceData from '../../util/useRaceData'
 import IncompletePage from '../../common/IncompletePage'
 import useDataReloading from '../../util/useDataReloading'
+import { useResultRotation } from '../result-rotation/useResultRotation'
 
 export default function SeriesResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -55,6 +56,8 @@ export default function SeriesResultsPage({ setSelectedPage }) {
 
   const toggleAllCompetitors = useCallback(() => setAllCompetitors(ac => !ac), [])
 
+  const { started: resultRotationStarted, remainingSeconds } = useResultRotation()
+
   if (fetching || error) {
     return <IncompletePage fetching={fetching} error={error} title={title} />
   }
@@ -63,7 +66,10 @@ export default function SeriesResultsPage({ setSelectedPage }) {
   const { european, nordic, shooting, shootingSimple } = race.sport
   return (
     <>
-      <h2>{title}</h2>
+      <h2>
+        {title}
+        {resultRotationStarted && remainingSeconds && ` (${remainingSeconds})`}
+      </h2>
       <SeriesStatus race={race} series={series}>
         {!shooting && <ThreeSportRaceInfo race={race} series={series} />}
         {shooting && (

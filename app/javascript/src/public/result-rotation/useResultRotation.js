@@ -15,6 +15,7 @@ export const ResultRotationProvider = ({ children }) => {
   const [seconds, setSeconds] = useState(15)
   const [seriesIds, setSeriesIds] = useState([])
   const [started, setStarted] = useState(false)
+  const [remainingSeconds, setRemainingSeconds] = useState(undefined)
   const { race } = useRace()
 
   const changeSeriesId = useCallback(id => event => {
@@ -43,19 +44,38 @@ export const ResultRotationProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    let timeout
+    let timeout, interval
     if (started && seriesId) {
       const index = seriesIds.indexOf(parseInt(seriesId))
       if (index !== -1) {
         const nextIndex = (index + 1) % seriesIds.length
+        setRemainingSeconds(seconds)
+        interval = setInterval(() => {
+          setRemainingSeconds(secs => Math.max(0, secs - 1))
+        }, 1000)
         timeout = setTimeout(() => {
           history.push(buildSeriesResultsPath(race.id, seriesIds[nextIndex]))
         }, seconds * 1000)
+      } else {
+        setRemainingSeconds(undefined)
       }
     }
-    return () => clearTimeout(timeout)
+    return () => {
+      clearTimeout(timeout)
+      clearInterval(interval)
+    }
   }, [race?.id, started, seconds, seriesIds, seriesId, history])
 
-  const value = { changeSeconds, changeSeriesId, seconds, minSeconds, seriesIds, start, started, stop }
+  const value = {
+    changeSeconds,
+    changeSeriesId,
+    seconds,
+    minSeconds,
+    seriesIds,
+    start,
+    started,
+    stop,
+    remainingSeconds,
+  }
   return <ResultRotationContext.Provider value={value}>{children}</ResultRotationContext.Provider>
 }
