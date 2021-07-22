@@ -6,7 +6,7 @@
     - if batch.track.to_i > 0
       (#{t('attributes.track')} #{batch.track})
   - batch.competitors.each do |competitor|
-    - track_place = competitor.qualification_round_track_place ? "#{competitor.qualification_round_track_place}. " : ''
+    - track_place = competitor.send(track_place_name) ? "#{competitor.send(track_place_name)}. " : ''
     - number = competitor.number ? " (##{competitor.number})" : ''
     .no-break
       %h3.empty-results-competitor-header #{track_place}#{full_name competitor}#{number}, #{competitor.club.name}, #{competitor.series.name}
