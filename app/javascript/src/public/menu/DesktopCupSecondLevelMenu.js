@@ -1,6 +1,11 @@
 import React from 'react'
 import DesktopMenuItem from './DesktopMenuItem'
-import { buildCupMediaPath, buildCupPath, buildCupSeriesPath, buildRifleCupSeriesPath } from '../../util/routeUtil'
+import {
+  buildCupMediaPath,
+  buildCupPath,
+  buildCupSeriesPath,
+  buildRifleCupSeriesPath,
+} from '../../util/routeUtil'
 import { pages } from './DesktopSecondLevelMenu'
 import useTranslation from '../../util/useTranslation'
 
@@ -20,11 +25,21 @@ export default function DesktopCupSecondLevelMenu({ cup, selectedPage }) {
           <DesktopMenuItem
             path={buildCupSeriesPath(cup.id, cupSeriesId)}
             text={t('results')}
+            selected={selectedPage === pages.cup.results}
+            reactLink={true}
+            dropdownItems={cup.cupSeries.map(cs => {
+              return { text: cs.name, path: buildCupSeriesPath(cup.id, cs.id), reactLink: true }
+            })}
           />
           {cup.hasRifle && (
             <DesktopMenuItem
               path={buildRifleCupSeriesPath(cup.id, cupSeriesId)}
               text={t('rifle')}
+              selected={selectedPage === pages.cup.rifleResults}
+              reactLink={true}
+              dropdownItems={cup.cupSeries.map(cs => {
+                return { text: cs.name, path: buildRifleCupSeriesPath(cup.id, cs.id), reactLink: true }
+              })}
             />
           )}
           <DesktopMenuItem

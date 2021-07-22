@@ -74,7 +74,7 @@ Feature: Cup results
     And I follow "Men"
     Then the "Kilpailut" main menu item should be selected
     And the "Tulokset" sub menu item should be selected
-    And I should see "Yhteispisteet lasketaan 2 parhaan tuloksen perusteella." in an info message
+    And I should see "Yhteispisteet lasketaan 2 parhaan tuloksen perusteella" in an info message
     And I should see "Men - Tulokset" within "h2"
     And I should see "Cup race 1" within "thead"
     And I should see "Another" within "thead"
@@ -125,7 +125,7 @@ Feature: Cup results
     And I follow "Men"
     Then the "Kilpailut" main menu item should be selected
     And the "Tulokset" sub menu item should be selected
-    And I should see "Yhteispisteet lasketaan viimeisen kilpailun sekä muista kilpailuista 1 parhaan tuloksen perusteella." in an info message
+    And I should see "Yhteispisteet lasketaan viimeisen kilpailun sekä muista kilpailuista 1 parhaan tuloksen perusteella" in an info message
     And I should see "Men - Tulokset" within "h2"
     And I should see "Cup race 1" within "thead"
     And I should see "Another" within "thead"

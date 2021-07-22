@@ -305,4 +305,92 @@ describe CupCompetitor do
     series = instance_double Series, last_cup_race: last_cup_race
     instance_double Competitor, first_name: first_name, last_name: last_name, series: series
   end
+
+  describe '#min_points_to_emphasize' do
+    let(:cup_competitors) { [] }
+    let(:cup_series) { build :cup_series }
+    let(:competitor) { build :competitor }
+    let(:cup_competitor) { CupCompetitor.new cup_series, competitor }
+
+    context 'when race count is less than top competitions count' do
+      before do
+        cup_competitors << build_cup_competitor(500)
+        allow(cup_competitor).to receive(:competitors).and_return(cup_competitors)
+      end
+
+      it 'returns nil' do
+        expect(cup_competitor.min_points_to_emphasize(1, 2)).to be_nil
+      end
+    end
+
+    context 'when race count equals top competitions count' do
+      before do
+        cup_competitors << build_cup_competitor(500)
+        cup_competitors << build_cup_competitor(501)
+        allow(cup_competitor).to receive(:competitors).and_return(cup_competitors)
+      end
+
+      it 'returns nil' do
+        expect(cup_competitor.min_points_to_emphasize(2, 2)).to be_nil
+      end
+    end
+
+    context 'when race count is bigger than top competitions count' do
+      let(:race_count) { 3 }
+      let(:top_competitions) { 2 }
+
+      context 'but not enough competitor results compared to min competitions' do
+        before do
+          cup_competitors << build_cup_competitor(500)
+          cup_competitors << build_cup_competitor(nil)
+          allow(cup_competitor).to receive(:competitors).and_return(cup_competitors)
+        end
+
+        it 'returns nil' do
+          expect(cup_competitor.min_points_to_emphasize(race_count, top_competitions)).to be_nil
+        end
+      end
+
+      context 'when enough cup competitor results compared to min competitions' do
+        before do
+          cup_competitors << build_cup_competitor(449)
+          cup_competitors << build_cup_competitor(500)
+          cup_competitors << build_cup_competitor(450)
+          allow(cup_competitor).to receive(:competitors).and_return(cup_competitors)
+        end
+
+        it 'returns the smallest points that are counted to the total result' do
+          expect(cup_competitor.min_points_to_emphasize(race_count, top_competitions)).to eql 450
+        end
+      end
+
+      context 'when rifle' do
+        let(:race_count) { 4 }
+        let(:top_competitions) { 3 }
+
+        before do
+          cup_competitors << build_cup_competitor(261, true)
+          cup_competitors << build_cup_competitor(259, true)
+          cup_competitors << build_cup_competitor(258, true)
+          cup_competitors << build_cup_competitor(nil, true)
+          cup_competitors << build_cup_competitor(260, true)
+          allow(cup_competitor).to receive(:competitors).and_return(cup_competitors)
+        end
+
+        it 'does the selection using rifle score' do
+          expect(cup_competitor.min_points_to_emphasize(race_count, top_competitions, true)).to eql 259
+        end
+      end
+    end
+
+    def build_cup_competitor(points, rifle = false)
+      competitor = double CupCompetitor
+      if rifle
+        allow(competitor).to receive(:european_rifle_score).and_return(points)
+      else
+        allow(competitor).to receive(:points).and_return(points)
+      end
+      competitor
+    end
+  end
 end

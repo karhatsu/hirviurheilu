@@ -16,8 +16,9 @@ class CupSeriesController < ApplicationController
   end
 
   def render_show
+    use_react
     respond_to do |format|
-      format.html
+      format.html { render layout: true, html: '' }
       format.pdf do
         render :pdf => "#{@cup_series.name}-tulokset", :layout => true, :margin => pdf_margin,
                :header => pdf_header("#{@cup.name} - #{@cup_series.name}\n"), :footer => pdf_footer,

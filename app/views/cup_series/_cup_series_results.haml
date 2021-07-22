@@ -17,7 +17,7 @@
           %th= race.name
         %th= t :total_points
     - competitors.each_with_index do |cc, i|
-      - emphasize_limit = min_points_to_emphasize race_count, top_competitions, cc.competitors, @is_rifle_cup_series
+      - emphasize_limit = cc.min_points_to_emphasize race_count, top_competitions, @is_rifle_cup_series
       %tr{id: "comp_#{i+1}", class: i % 2 == 0 ? 'odd' : ''}
         %td #{i + 1}.
         %td

@@ -26,6 +26,8 @@ export const pages = {
   },
   cup: {
     home: 14,
+    results: 15,
+    rifleResults: 16,
   },
 }
 

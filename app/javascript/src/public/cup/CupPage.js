@@ -31,7 +31,7 @@ export default function CupPage({ setSelectedPage }) {
         <div className="buttons">
           {cupSeries.map(cs => {
             return (
-              <Button key={cs.id} href={buildCupSeriesPath(cup.id, cs.id)} type="primary">
+              <Button key={cs.id} to={buildCupSeriesPath(cup.id, cs.id)} type="primary">
                 <CupSeriesName cupSeries={cs} />
               </Button>
             )
@@ -44,7 +44,7 @@ export default function CupPage({ setSelectedPage }) {
           <div className="buttons">
             {cupSeries.map(cs => {
               return (
-                <Button key={cs.id} href={buildRifleCupSeriesPath(cup.id, cs.id)} type="primary">
+                <Button key={cs.id} to={buildRifleCupSeriesPath(cup.id, cs.id)} type="primary">
                   <CupSeriesName cupSeries={cs} />
                 </Button>
               )
