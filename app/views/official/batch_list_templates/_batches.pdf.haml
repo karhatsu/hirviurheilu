@@ -8,6 +8,7 @@
   - batch.competitors.each do |competitor|
     - track_place = competitor.send(track_place_name) ? "#{competitor.send(track_place_name)}. " : ''
     - number = competitor.number ? " (##{competitor.number})" : ''
+    - result = track_place_name == :final_round_track_place && competitor.qualification_round_score ? " (#{competitor.qualification_round_score})" : ''
     .no-break
-      %h3.empty-results-competitor-header #{track_place}#{full_name competitor}#{number}, #{competitor.club.name}, #{competitor.series.name}
+      %h3.empty-results-competitor-header #{track_place}#{full_name competitor}#{number}, #{competitor.club.name}, #{competitor.series.name}#{result}
       = render partial: 'official/batch_list_templates/empty_results_table', locals: { shot_count: shot_count }
