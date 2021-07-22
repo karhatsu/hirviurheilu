@@ -19,6 +19,8 @@ import RelayResultsPage from './public/relay/RelayResultsPage'
 import RaceMediaPage from './public/media/RaceMediaPage'
 import QualificationRoundBatches from './public/batches/QualificationRoundBatches'
 import FinalRoundBatches from './public/batches/FinalRoundBatches'
+import ResultRotationPage from './public/result-rotation/ResultRotationPage'
+import { ResultRotationProvider } from './public/result-rotation/useResultRotation'
 
 function ReactApp() {
   const [selectedPage, setSelectedPage] = useState(undefined)
@@ -74,6 +76,10 @@ function ReactApp() {
               render={() => <FinalRoundBatches setSelectedPage={setSelectedPage} />}
             />
             <Route
+              path="/:lang?/races/:raceId/result_rotation"
+              render={() => <ResultRotationPage setSelectedPage={setSelectedPage} />}
+            />
+            <Route
               path="/:lang?/races/:raceId/series/:seriesId/start_list"
               render={() => <StartListPage setSelectedPage={setSelectedPage} />}
             />
@@ -109,7 +115,9 @@ const ReactAppContainer = () => {
   return (
     <LayoutProvider>
       <RaceProvider>
-        <ReactApp />
+        <ResultRotationProvider>
+          <ReactApp />
+        </ResultRotationProvider>
       </RaceProvider>
     </LayoutProvider>
   )

@@ -2,8 +2,8 @@ import React from 'react'
 import classnames from 'classnames-minimal'
 import { Link } from 'react-router-dom'
 
-export default function Button({ children, id, href, onClick, submit, to, type }) {
-  const className = classnames({ button: true, [`button--${type}`]: !!type })
+export default function Button({ children, id, href, onClick, submit, to, type, disabled }) {
+  const className = classnames({ button: true, [`button--${type}`]: !!type, 'button--disabled': disabled })
   if (href) {
     return <a href={href} className={className} id={id}>{children}</a>
   } else if (to) {

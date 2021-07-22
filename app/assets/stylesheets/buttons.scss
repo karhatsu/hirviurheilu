@@ -103,6 +103,12 @@
   &--below-sub-form {
     margin-top: 8px;
   }
+
+  &--disabled {
+    background: #999;
+    color: #fff;
+    pointer-events: none;
+  }
 }
 
 #show_all_relay_competitors, #hide_all_relay_competitors {

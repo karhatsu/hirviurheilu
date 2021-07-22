@@ -15,6 +15,7 @@ import {
   buildSeriesStartListPath,
   buildTeamCompetitionsPath,
 } from '../../util/routeUtil'
+import { useResultRotation } from '../result-rotation/useResultRotation'
 
 export const pages = {
   raceHome: 0,
@@ -35,12 +36,14 @@ export const pages = {
     qualificationRound: 12,
     finalRound: 13,
   },
+  resultRotation: 14,
 }
 
 export default function DesktopSecondLevelMenu({ selectedPage }) {
   const { seriesId: urlSeriesId } = useParams()
   const { t } = useTranslation()
   const { race } = useRace()
+  const { started: resultRotationStarted } = useResultRotation()
   if (!race || race.cancelled) return null
   const seriesId = urlSeriesId || (race.series.length > 0 && race.series[0].id)
   return (
@@ -146,6 +149,14 @@ export default function DesktopSecondLevelMenu({ selectedPage }) {
           selected={selectedPage === pages.relays}
           reactLink={true}
           dropdownItems={race.relays.map(r => ({ text: r.name, path: buildRelayPath(race.id, r.id) }))}
+        />
+      )}
+      {race.series.length > 0 && (
+        <DesktopMenuItem
+          path={`/races/${race.id}/result_rotation`}
+          text={t('resultRotation')}
+          selected={selectedPage === pages.resultRotation || resultRotationStarted}
+          reactLink={true}
         />
       )}
       {race.series.length > 0 && (
