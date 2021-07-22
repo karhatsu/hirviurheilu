@@ -54,8 +54,8 @@ export const ResultRotationProvider = ({ children }) => {
       }
     }
     return () => clearTimeout(timeout)
-  }, [race?.id, started, seconds, minSeconds, seriesIds, seriesId, history])
+  }, [race?.id, started, seconds, seriesIds, seriesId, history])
 
-  const value = { changeSeconds, changeSeriesId, seconds, seriesIds, start, started, stop }
+  const value = { changeSeconds, changeSeriesId, seconds, minSeconds, seriesIds, start, started, stop }
   return <ResultRotationContext.Provider value={value}>{children}</ResultRotationContext.Provider>
 }
