@@ -9,6 +9,8 @@ import TimePoints from './TimePoints'
 import ShootingPoints from './ShootingPoints'
 import MobileResultCards from './MobileResultCards'
 
+const is = value => value != null && typeof value !== 'undefined'
+
 export default function ThreeSportMobileResults({ race, series }) {
   const { t } = useTranslation()
   const { competitors, timePoints } = series
@@ -23,10 +25,10 @@ export default function ThreeSportMobileResults({ race, series }) {
           firstName,
           lastName,
           noResultReason,
-          points,
           shootingScore,
           unofficial,
         } = competitor
+        const hasResult = is(estimatePoints) || (is(arrivalTime) && timePoints) || is(shootingScore)
         return (
           <>
             <div className="card__middle">
@@ -37,19 +39,19 @@ export default function ThreeSportMobileResults({ race, series }) {
               </div>
               <div className="card__middle-row">{club.name}</div>
               {noResultReason && <div className="card__middle-row">{t(`competitor_${noResultReason}`)}</div>}
-              {!noResultReason && points && (
+              {!noResultReason && hasResult && (
                 <div className="card__middle-row">
-                  {typeof estimatePoints !== 'undefined' && (
+                  {is(estimatePoints) && (
                     <MobileSubResult type="estimate">
                       <EstimatePoints race={race} series={series} competitor={competitor} />
                     </MobileSubResult>
                   )}
-                  {arrivalTime && timePoints && (
+                  {is(arrivalTime) && timePoints && (
                     <MobileSubResult type="time">
                       <TimePoints series={series} competitor={competitor} />
                     </MobileSubResult>
                   )}
-                  {typeof shootingScore !== 'undefined' && (
+                  {is(shootingScore) && (
                     <MobileSubResult type="shoot"><ShootingPoints competitor={competitor} /></MobileSubResult>
                   )}
                 </div>
