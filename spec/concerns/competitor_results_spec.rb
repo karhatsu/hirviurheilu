@@ -193,7 +193,7 @@ describe CompetitorResults do
       end
 
       it 'returns array of QR score, QR hits, second QR score, count of different QR shots (11 as 10), and QR shots in reverse order' do
-        expected = [qualification_round_score, qualification_round_hits, second_qualification_round_sub_score, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + qualification_round_shots.reverse
+        expected = [qualification_round_score, qualification_round_hits, second_qualification_round_sub_score, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + [1, 10, 10, 1, 0, 6, 11, 10, 9, 2]
         expect(competitor.shooting_race_qualification_results).to eql expected
       end
     end
