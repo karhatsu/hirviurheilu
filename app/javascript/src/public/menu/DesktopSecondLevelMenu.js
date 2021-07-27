@@ -28,6 +28,7 @@ export const pages = {
     home: 14,
     results: 15,
     rifleResults: 16,
+    media: 17,
   },
 }
 

@@ -45,6 +45,8 @@ export default function DesktopCupSecondLevelMenu({ cup, selectedPage }) {
           <DesktopMenuItem
             path={buildCupMediaPath(cup.id)}
             text={t('press')}
+            selected={selectedPage === pages.cup.media}
+            reactLink={true}
           />
         </>
       )}

@@ -23,6 +23,7 @@ import CupPage from './public/cup/CupPage'
 import { CupProvider, useCup } from './util/useCup'
 import CupSeriesPage from './public/cup/CupSeriesPage'
 import CupDesktopSubMenu from './public/cup/CupDesktopSubMenu'
+import CupMediaPage from './public/cup/CupMediaPage'
 
 const cupSeriesPaths = [
   '/:lang?/cups/:cupId/cup_series/:cupSeriesId',
@@ -111,6 +112,10 @@ function ReactApp() {
               render={() => <NordicSubSportResultsPage setSelectedPage={setSelectedPage} />}
             />
             <Route path="/:lang?/races/:raceId" render={() => <RacePage setSelectedPage={setSelectedPage} />} />
+            <Route
+              path="/:lang?/cups/:cupId/medium/new"
+              render={() => <CupMediaPage setSelectedPage={setSelectedPage} />}
+            />
             <Route path={cupSeriesPaths} render={() => <CupSeriesPage setSelectedPage={setSelectedPage} />} />
             <Route path="/:lang?/cups/:cupId" render={() => <CupPage setSelectedPage={setSelectedPage} />} />
           </Switch>
