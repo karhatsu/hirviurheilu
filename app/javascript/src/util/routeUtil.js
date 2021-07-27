@@ -23,3 +23,9 @@ export const buildQualificationRoundBatchesPath = raceId => `/races/${raceId}/qu
 export const buildFinalRoundBatchesPath = raceId => `/races/${raceId}/final_round_batches`
 
 export const buildCupPath = cupId => `/cups/${cupId}`
+
+export const buildCupSeriesPath = (cupId, cupSeriesId) => `/cups/${cupId}/cup_series/${cupSeriesId}`
+
+export const buildRifleCupSeriesPath = (cupId, cupSeriesId) => `/cups/${cupId}/rifle_cup_series/${cupSeriesId}`
+
+export const buildCupMediaPath = cupId => `/cups/${cupId}/medium/new`

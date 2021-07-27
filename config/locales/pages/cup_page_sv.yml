@@ -1,12 +1,6 @@
 sv:
   cups:
     show:
-      organizer_message: Cup-tävlingens organizatör informerar
-      points_rule_title: Poängsberäkning
       points_rule:
         basic: Totalpoäng beräknas på grund av %{best_competitions_count} bäst resultat.
         include_always_last_race: Totalpoäng beräknas på grund av den sista tävlingen och de andra tävlingarnas %{best_competitions_count} bäst resultat.
-      sub_competitions: Deltävlingar
-      all_results_pdf: Alla resultat (PDF)
-      page_breaks: Sidbytningar mellan klasserna
-      download_all_results: Ladda alla resultat

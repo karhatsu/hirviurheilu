@@ -4,8 +4,9 @@ class CupsController < ApplicationController
   def show
     @is_cup = true
     @is_cup_main = true
+    use_react
     respond_to do |format|
-      format.html
+      format.html { render layout: true, html: '' }
       format.pdf do
         @page_breaks = params[:page_breaks]
         render :pdf => "#{@cup.name} - tulokset", :layout => true,

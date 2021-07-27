@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { useResultRotation } from './result-rotation/useResultRotation'
 
 const isValidPath = path => {
-  return path === '/' || path.match(/^\/races\//) || path.match(/^\/rannouncements\//) || path.match(/^\/rcups\//)
+  return path === '/' || path.match(/^\/races\//) || path.match(/^\/announcements\//) || path.match(/^\/cups\//)
 }
 
 export default function FacebookShare() {

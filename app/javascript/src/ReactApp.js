@@ -21,11 +21,22 @@ import QualificationRoundBatches from './public/batches/QualificationRoundBatche
 import FinalRoundBatches from './public/batches/FinalRoundBatches'
 import ResultRotationPage from './public/result-rotation/ResultRotationPage'
 import { ResultRotationProvider } from './public/result-rotation/useResultRotation'
+import CupPage from './public/cup/CupPage'
+import { CupProvider, useCup } from './util/useCup'
+import CupSeriesPage from './public/cup/CupSeriesPage'
+import CupDesktopSubMenu from './public/cup/CupDesktopSubMenu'
+import CupMediaPage from './public/cup/CupMediaPage'
+
+const cupSeriesPaths = [
+  '/:lang?/cups/:cupId/cup_series/:cupSeriesId',
+  '/:lang?/cups/:cupId/rifle_cup_series/:rifleCupSeriesId',
+]
 
 function ReactApp() {
   const [selectedPage, setSelectedPage] = useState(undefined)
-  const { raceId, relayId, seriesId, teamCompetitionId } = useParams()
+  const { raceId, relayId, seriesId, teamCompetitionId, cupSeriesId, rifleCupSeriesId } = useParams()
   const { race } = useRace()
+  const { cup } = useCup()
   return (
     <div className="body" itemScope itemType={raceId ? 'http://schema.org/SportsEvent' : ''}>
       <div className="body__on-top-title"><PageTitle /></div>
@@ -53,6 +64,9 @@ function ReactApp() {
           </Route>
           <Route path="/:lang?/races/:raceId/relays/:relaysId">
             <RelayDesktopSubMenu race={race} currentRelayId={relayId} />
+          </Route>
+          <Route path={cupSeriesPaths}>
+            <CupDesktopSubMenu cup={cup} currentCupSeriesId={cupSeriesId} currentRifleCupSeriesId={rifleCupSeriesId} />
           </Route>
         </Switch>
         <div className="body__yield">
@@ -104,6 +118,12 @@ function ReactApp() {
               render={() => <NordicSubSportResultsPage setSelectedPage={setSelectedPage} />}
             />
             <Route path="/:lang?/races/:raceId" render={() => <RacePage setSelectedPage={setSelectedPage} />} />
+            <Route
+              path="/:lang?/cups/:cupId/medium/new"
+              render={() => <CupMediaPage setSelectedPage={setSelectedPage} />}
+            />
+            <Route path={cupSeriesPaths} render={() => <CupSeriesPage setSelectedPage={setSelectedPage} />} />
+            <Route path="/:lang?/cups/:cupId" render={() => <CupPage setSelectedPage={setSelectedPage} />} />
           </Switch>
         </div>
       </div>
@@ -115,9 +135,11 @@ const ReactAppContainer = () => {
   return (
     <LayoutProvider>
       <RaceProvider>
-        <ResultRotationProvider>
-          <ReactApp />
-        </ResultRotationProvider>
+        <CupProvider>
+          <ResultRotationProvider>
+            <ReactApp />
+          </ResultRotationProvider>
+        </CupProvider>
       </RaceProvider>
     </LayoutProvider>
   )

@@ -72,6 +72,13 @@ class CupCompetitor
     "#{competitor.last_name.strip} #{competitor.first_name.strip}".downcase
   end
 
+  def min_points_to_emphasize(race_count, top_competitions, is_rifle = false)
+    return nil unless race_count > top_competitions
+    points = competitors.map { |cc| is_rifle ? cc.european_rifle_score : cc.points }
+    sorted_points = points.filter {|p| !p.nil?}.sort {|a, b| b <=> a}
+    sorted_points[top_competitions - 1]
+  end
+
   private
   def name(competitor)
     CupCompetitor.name(competitor)

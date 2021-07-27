@@ -13,6 +13,10 @@ const reactPaths = [
   '/:lang?/races/:raceId/team_competitions/:teamCompetitionId',
   '/:lang?/races/:raceId/relays/:relayId',
   '/:lang?/races/:raceId',
+  '/:lang?/cups/:cupId/medium/new',
+  '/:lang?/cups/:cupId/cup_series/:cupSeriesId',
+  '/:lang?/cups/:cupId/rifle_cup_series/:rifleCupSeriesId',
+  '/:lang?/cups/:cupId',
 ]
 
 document.addEventListener('DOMContentLoaded', () => {

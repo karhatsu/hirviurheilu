@@ -211,6 +211,10 @@ Hirviurheilu::Application.routes.draw do
           get 'rifle_standing', to: 'nordic_races#rifle_standing'
           get '/competitors/:competitor_number', to: 'competitors#show'
         end
+        resources :cups, only: :show do
+          resources :cup_series, only: :show
+          resources :rifle_cup_series, only: :show
+        end
       end
     end
   end

@@ -2,10 +2,8 @@ class MediaController < ApplicationController
   before_action :assign_competition, :set_media_menu, :set_competitors_count
 
   def new
-    unless params[:cup_id]
-      use_react
-      render layout: true, html: ''
-    end
+    use_react
+    render layout: true, html: ''
   end
 
   def create

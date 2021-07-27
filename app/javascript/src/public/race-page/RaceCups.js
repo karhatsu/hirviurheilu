@@ -13,7 +13,7 @@ export default function RaceCups({ race }) {
       <div className="buttons">
         {cups.map(cup => {
           const { id, name } = cup
-          return <Button key={id} href={buildCupPath(id)}>{name}</Button>
+          return <Button key={id} to={buildCupPath(id)}>{name}</Button>
         })}
       </div>
     </>
