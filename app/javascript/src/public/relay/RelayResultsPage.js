@@ -18,6 +18,7 @@ import RelayLegMobileResults from './RelayLegMobileResults'
 import useRelaySorting from './useRelaySorting'
 import useTitle from '../../util/useTitle'
 import useDataReloading from '../../util/useDataReloading'
+import MobileSubMenu from '../menu/MobileSubMenu'
 
 export default function RelayResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -69,18 +70,7 @@ export default function RelayResultsPage({ setSelectedPage }) {
           </div>
         )}
       </RelayStatus>
-      {mobile && race.relays.length > 0 && (
-        <div className="buttons buttons--mobile">
-          {race.relays.map(relay => {
-            const { id, name } = relay
-            if (id === parseInt(relayId)) {
-              return <Button key={id} type="current">{name}</Button>
-            } else {
-              return <Button key={id} to={buildRelayPath(race.id, id)}>{name}</Button>
-            }
-          })}
-        </div>
-      )}
+      <MobileSubMenu items={race.relays} currentId={relayId} parentId={race.id} buildPath={buildRelayPath} />
       <div className="buttons buttons--nav">
         <Button to={buildRacePath(race.id)} type="back">{t('backToPage', { pageName: race.name })}</Button>
       </div>

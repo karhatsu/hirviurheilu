@@ -11,6 +11,7 @@ import TeamCompetitionsDesktopResults from './TeamCompetitionsDesktopResults'
 import Button from '../../common/Button'
 import { buildRacePath, buildTeamCompetitionsPath } from '../../util/routeUtil'
 import TeamCompetitionsMobileResults from './TeamCompetitionsMobileResults'
+import MobileSubMenu from '../menu/MobileSubMenu'
 
 export default function TeamCompetitionResultsPage({ setSelectedPage, rifle }) {
   const { t } = useTranslation()
@@ -67,18 +68,12 @@ export default function TeamCompetitionResultsPage({ setSelectedPage, rifle }) {
           </div>
         </>
       )}
-      {race.teamCompetitions.length > 0 && (
-        <div className="buttons buttons--mobile">
-          {race.teamCompetitions.map(tc => {
-            const { id, name } = tc
-            if (id === parseInt(teamCompetitionId)) {
-              return <Button key={id} type="current">{name}</Button>
-            } else {
-              return <Button key={id} to={buildTeamCompetitionsPath(race.id, id)}>{name}</Button>
-            }
-          })}
-        </div>
-      )}
+      <MobileSubMenu
+        items={race.teamCompetitions}
+        currentId={teamCompetitionId}
+        parentId={race.id}
+        buildPath={buildTeamCompetitionsPath}
+      />
       <div className="buttons buttons--nav">
         <Button to={buildRacePath(race.id)} type="back">{t('backToPage', { pageName: race.name })}</Button>
       </div>

@@ -13,6 +13,7 @@ import CupMobileResults from './CupMobileResults'
 import useLayout from '../../util/useLayout'
 import Button from '../../common/Button'
 import { buildCupPath, buildCupSeriesPath, buildRifleCupSeriesPath } from '../../util/routeUtil'
+import MobileSubMenu from '../menu/MobileSubMenu'
 
 export default function CupSeriesPage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -52,18 +53,12 @@ export default function CupSeriesPage({ setSelectedPage }) {
           </div>
         </>
       )}
-      {mobile && (
-        <div className="buttons buttons--mobile">
-          {cup.cupSeries.map(cs => {
-            const { id, name } = cs
-            if (id === parseInt(rifleCupSeriesId || cupSeriesId)) {
-              return <Button key={id} type="primary">{name}</Button>
-            }
-            const path = rifleCupSeriesId ? buildRifleCupSeriesPath(cup.id, id) : buildCupSeriesPath(cup.id, id)
-            return <Button key={id} to={path}>{name}</Button>
-          })}
-        </div>
-      )}
+      <MobileSubMenu
+        items={cup.cupSeries}
+        currentId={rifleCupSeriesId || cupSeriesId}
+        buildPath={rifleCupSeriesId ? buildRifleCupSeriesPath : buildCupSeriesPath}
+        parentId={cup.id}
+      />
       <div className="buttons buttons--nav">
         <Button to={buildCupPath(cup.id)} type="back">{t('backToCupHomePage')}</Button>
       </div>
