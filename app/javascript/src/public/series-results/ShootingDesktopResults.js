@@ -39,6 +39,15 @@ export default function ShootingDesktopResults({ race, series }) {
               noResultReason,
               shootingScore,
             } = competitor
+            if (noResultReason) {
+              return (
+                <>
+                  <td colSpan={2} />
+                  <td className="center total-points"><TotalScore noResultReason={noResultReason} /></td>
+                  {showExtraShots && <td />}
+                </>
+              )
+            }
             return (
               <>
                 <td className={resultClassName}>

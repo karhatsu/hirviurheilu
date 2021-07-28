@@ -45,6 +45,15 @@ export default function NordicDesktopResults({ race, series }) {
               nordicTrapShots,
               noResultReason,
             } = competitor
+            if (noResultReason) {
+              return (
+                <>
+                  <td colSpan={4} />
+                  <td className="center total-points"><TotalScore noResultReason={noResultReason} /></td>
+                  {extraShots && <td />}
+                </>
+              )
+            }
             return (
               <>
                 <td className={resultClassName}>

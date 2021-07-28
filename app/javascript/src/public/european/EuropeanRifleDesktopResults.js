@@ -45,6 +45,15 @@ export default function EuropeanRifleDesktopResults({ race, series }) {
               europeanRifle4Shots,
               noResultReason,
             } = competitor
+            if (noResultReason) {
+              return (
+                <>
+                  <td colSpan={4} />
+                  <td className="center total-points"><TotalScore noResultReason={noResultReason} /></td>
+                  {extraShots && <td />}
+                </>
+              )
+            }
             return (
               <>
                 <td className={resultClassName}>
