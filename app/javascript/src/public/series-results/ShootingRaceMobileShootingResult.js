@@ -1,14 +1,20 @@
 import React from 'react'
 import ShootingResult from './ShootingResult'
+import useTranslation from '../../util/useTranslation'
 
 export default function ShootingRaceMobileShootingResult({ competitor }) {
+  const { t } = useTranslation()
   const {
     qualificationRoundScore,
     qualificationRoundShots,
     qualificationRoundSubScores,
     finalRoundScore,
     finalRoundShots,
+    noResultReason,
   } = competitor
+  if (noResultReason) {
+    return <div className="card__middle-row">{t(`competitor_${noResultReason}`)}</div>
+  }
   if (qualificationRoundShots && qualificationRoundSubScores.length === 2) {
     return (
       <>

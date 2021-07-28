@@ -33,21 +33,26 @@ export default function NordicMobileResults({ race, series }) {
             <div className="card__middle">
               <div className="card__name">{lastName} {firstName}</div>
               <div className="card__middle-row">{club.name}</div>
-              {nordicExtraScore && <div className="card__middle-row">{t('extraRound')}: {nordicExtraScore}</div>}
-              <div className="card__middle-row">
-                <MobileSubResult type="shoot" titleKey="nordic_trap">
-                  <ShootingResult score={nordicTrapScore} shots={nordicTrapShots} />
-                </MobileSubResult>
-                <MobileSubResult type="shoot" titleKey="nordic_shotgun">
-                  <ShootingResult score={nordicShotgunScore} shots={nordicShotgunShots} />
-                </MobileSubResult>
-                <MobileSubResult type="shoot" titleKey="nordic_rifle_moving">
-                  <ShootingResult score={nordicRifleMovingScore} shots={nordicRifleMovingShots} />
-                </MobileSubResult>
-                <MobileSubResult type="shoot" titleKey="nordic_rifle_standing">
-                  <ShootingResult score={nordicRifleStandingScore} shots={nordicRifleStandingShots} />
-                </MobileSubResult>
-              </div>
+              {noResultReason && <div className="card__middle-row">{t(`competitor_${noResultReason}`)}</div>}
+              {!noResultReason && (
+                <>
+                  {nordicExtraScore && <div className="card__middle-row">{t('extraRound')}: {nordicExtraScore}</div>}
+                  <div className="card__middle-row">
+                    <MobileSubResult type="shoot" titleKey="nordic_trap">
+                      <ShootingResult score={nordicTrapScore} shots={nordicTrapShots} />
+                    </MobileSubResult>
+                    <MobileSubResult type="shoot" titleKey="nordic_shotgun">
+                      <ShootingResult score={nordicShotgunScore} shots={nordicShotgunShots} />
+                    </MobileSubResult>
+                    <MobileSubResult type="shoot" titleKey="nordic_rifle_moving">
+                      <ShootingResult score={nordicRifleMovingScore} shots={nordicRifleMovingShots} />
+                    </MobileSubResult>
+                    <MobileSubResult type="shoot" titleKey="nordic_rifle_standing">
+                      <ShootingResult score={nordicRifleStandingScore} shots={nordicRifleStandingShots} />
+                    </MobileSubResult>
+                  </div>
+                </>
+              )}
             </div>
             <div className="card__main-value">
               <TotalScore noResultReason={noResultReason} totalScore={nordicScore} />
