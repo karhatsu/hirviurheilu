@@ -37,7 +37,7 @@ json.cache! [@series, request.headers['X-Camel-Case']] do
       json.time_points competitor.time_points(unofficials_rule)
       json.comparison_time_in_seconds competitor.comparison_time_in_seconds(unofficials_rule)
     end
-    json.has_shots competitor.has_shots?
+    json.has_shots !!competitor.has_shots?
     if @series.race.show_correct_distances?
       json.estimates competitor.estimates
       json.correct_distances competitor.correct_distances
