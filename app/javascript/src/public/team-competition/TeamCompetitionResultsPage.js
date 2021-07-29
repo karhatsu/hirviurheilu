@@ -16,7 +16,7 @@ import MobileSubMenu from '../menu/MobileSubMenu'
 export default function TeamCompetitionResultsPage({ setSelectedPage, rifle }) {
   const { t } = useTranslation()
   const [showCompetitors, setShowCompetitors] = useState(false)
-  const { teamCompetitionId } = useParams()
+  const teamCompetitionId = parseInt(useParams().teamCompetitionId)
   const { mobile } = useLayout()
   const toggleCompetitors = useCallback(() => setShowCompetitors(show => !show), [])
   const buildApiPath = useCallback(raceId => {
@@ -26,16 +26,21 @@ export default function TeamCompetitionResultsPage({ setSelectedPage, rifle }) {
   useEffect(() => {
     setSelectedPage(rifle ? pages.rifleTeamCompetitions : pages.teamCompetitions)
   }, [setSelectedPage, rifle])
-  useTitle(race && teamCompetition && `${race.name} - ${t('teamCompetitions')} - ${teamCompetition.name}`)
+
+  const titleTeamCompetition = (teamCompetition?.id === teamCompetitionId && teamCompetition) ||
+    (race && race.teamCompetitions.find(tc => tc.id === teamCompetitionId))
+  const titleSuffix = t(rifle ? 'rifleResults' : 'results')
+  const title = titleTeamCompetition ? `${titleTeamCompetition.name} - ${titleSuffix}` : titleSuffix
+  useTitle(race && titleTeamCompetition && `${race.name} - ${t('teamCompetitions')} - ${title}`)
 
   if (fetching || error) {
-    return <IncompletePage fetching={fetching} error={error} title={t('teamCompetition')} />
+    return <IncompletePage fetching={fetching} error={error} title={title} />
   }
 
   const pdfPath = `${buildTeamCompetitionsPath(race.id, teamCompetition.id)}.pdf`
   return (
     <>
-      <h2>{teamCompetition.name} - {t(rifle ? 'rifleResults' : 'results')}</h2>
+      <h2>{title}</h2>
       {!teamCompetition.teams.length && <Message type="info">{t('teamCompetitionResultsNotAvailable')}</Message>}
       {teamCompetition.teams.length > 0 && (
         <>

@@ -22,7 +22,8 @@ import MobileSubMenu from '../menu/MobileSubMenu'
 
 export default function RelayResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
-  const { relayId, leg: legParam } = useParams()
+  const { relayId: relayIdStr, leg: legParam } = useParams()
+  const relayId = parseInt(relayIdStr)
   const leg = legParam ? parseInt(legParam) : undefined
   const { mobile } = useLayout()
   const buildApiPath = useCallback(raceId => {
@@ -34,25 +35,29 @@ export default function RelayResultsPage({ setSelectedPage }) {
 
   useDataReloading('RelayChannel', 'relay_id', relayId, reloadDataRef)
 
+  const titleRelay = (relay?.id === relayId && relay) || (race && race.relays.find(r => r.id === relayId))
   const titleSuffix = useMemo(() => {
-    if (!relay) return ''
+    if (!titleRelay) return
     if (leg) return t('legNumber', { leg })
-    if (!relay.teams.length) return t('noTeams')
-    if (!relay.started) return t('relayNotStarted')
-    if (relay.finished) return t('results')
-    const maxTime = max(relay.teams.map(team => team.competitors.map(c => parseISO(c.updatedAt))).flat())
+    if (!titleRelay.teams) return t('results')
+    if (!titleRelay.teams.length) return t('noTeams')
+    if (!titleRelay.started) return t('relayNotStarted')
+    if (titleRelay.finished) return t('results')
+    const maxTime = max(titleRelay.teams.map(team => team.competitors.map(c => parseISO(c.updatedAt))).flat())
     return t('resultsInProgress', { time: format(maxTime, 'dd.MM.yyyy HH:mm') })
-  }, [t, relay, leg])
-  useTitle(race && relay && `${race.name} - ${t('relays')} - ${relay.name} - ${titleSuffix}`)
+  }, [t, titleRelay, leg])
+
+  const title = titleRelay ? `${titleRelay.name} - ${titleSuffix}` : t('relay')
+  useTitle(race && titleRelay && `${race.name} - ${t('relays')} - ${title}`)
 
   if (fetching || error) {
-    return <IncompletePage fetching={fetching} error={error} title={t('relay')} />
+    return <IncompletePage fetching={fetching} error={error} title={title} />
   }
 
   const pdfPath = `${buildRelayPath(race.id, relayId)}.pdf`
   return (
     <>
-      <h2>{relay.name} - {titleSuffix}</h2>
+      <h2>{title}</h2>
       <RelayStatus race={race} relay={relay} leg={leg}>
         {!mobile && !leg && <RelayDesktopResults race={race} relay={relay} teams={teams} />}
         {mobile && !leg && <RelayMobileResults relay={relay} teams={teams} />}

@@ -15,22 +15,26 @@ import useRaceData from '../../util/useRaceData'
 import IncompletePage from '../../common/IncompletePage'
 
 export default function StartListPage({ setSelectedPage }) {
-  const { raceId, seriesId } = useParams()
+  const { raceId, seriesId: seriesIdStr } = useParams()
+  const seriesId = parseInt(seriesIdStr)
   const { t } = useTranslation()
   const { mobile } = useLayout()
   const buildApiPath = useCallback(raceId => `/api/v2/public/races/${raceId}/series/${seriesId}/start_list`, [seriesId])
   const { error, fetching, race, raceData: series } = useRaceData(buildApiPath)
-  useTitle(race && series && `${race.name} - ${series.name} - ${t('startList')}`)
+
+  const titleSeries = (series?.id === seriesId && series) || (race && race.series.find(s => s.id === seriesId))
+  const title = titleSeries ? `${titleSeries.name} - ${t('startList')}` : t('startList')
+  useTitle(race && titleSeries && `${race.name} - ${title}`)
   useEffect(() => setSelectedPage(pages.startList), [setSelectedPage])
 
   if (fetching || error) {
-    return <IncompletePage fetching={fetching} error={error} title={t('startList')} />
+    return <IncompletePage fetching={fetching} error={error} title={title} />
   }
 
-  const { competitors, id, name, started, startTime } = series
+  const { competitors, id, started, startTime } = series
   return (
     <>
-      <h2>{name} - {t('startList')}</h2>
+      <h2>{title}</h2>
       {startTime && !started && (
         <Message type="info">{t('seriesStartTime')}: {format(new Date(startTime), 'dd.MM.yyyy HH:mm')}</Message>
       )}

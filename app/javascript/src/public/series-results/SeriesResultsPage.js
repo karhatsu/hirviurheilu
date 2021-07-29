@@ -28,7 +28,7 @@ import { useResultRotation } from '../result-rotation/useResultRotation'
 
 export default function SeriesResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
-  const { seriesId } = useParams()
+  const seriesId = parseInt(useParams().seriesId)
   const [allCompetitors, setAllCompetitors] = useState(false)
   const { mobile } = useLayout()
   const queryParams = allCompetitors ? '?all_competitors=true' : ''
@@ -37,18 +37,20 @@ export default function SeriesResultsPage({ setSelectedPage }) {
   }, [seriesId, queryParams])
   const { error, fetching, race, raceData: series, reloadDataRef } = useRaceData(buildApiPath)
 
+  const titleSeries = (series?.id === seriesId && series) || (race && race.series.find(s => s.id === seriesId))
   const titleSuffix = useMemo(() => {
-    if (!series || !race) return
-    const competitors = series.competitors.filter(c => !c.onlyRifle)
+    if (!titleSeries || !race) return
+    if (!titleSeries.competitors) return t('results')
+    const competitors = titleSeries.competitors.filter(c => !c.onlyRifle)
     if (!competitors.length) return t('noCompetitors')
-    if (!series.started) return t('seriesNotStarted')
+    if (!titleSeries.started) return t('seriesNotStarted')
     const suffix = allCompetitors ? ` - ${t('allCompetitors')}` : ''
-    if (series.finished || race.finished) return `${t('results')}${suffix}`
-    const maxTime = max(series.competitors.map(c => parseISO(c.updatedAt)))
+    if (titleSeries.finished || race.finished) return `${t('results')}${suffix}`
+    const maxTime = max(titleSeries.competitors.map(c => parseISO(c.updatedAt)))
     return `${t('resultsInProgress', { time: format(maxTime, 'dd.MM.yyyy HH:mm') })}`
-  }, [allCompetitors, race, t, series])
+  }, [allCompetitors, race, t, titleSeries])
 
-  const title = series ? `${series.name} - ${titleSuffix}` : t('results')
+  const title = titleSeries ? `${titleSeries.name} - ${titleSuffix}` : t('results')
   useTitle(race && `${race.name} - ${title}`)
   useEffect(() => setSelectedPage(pages.results), [setSelectedPage])
 
