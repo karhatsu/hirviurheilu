@@ -2,7 +2,7 @@ Feature: Admin adds users
   In order to make it easy to start using Hirviurheilu
   As an admin
   I want to add new users
-  
+
   Scenario: Admin adds new user
     Given I am an admin
     And I have logged in
@@ -31,8 +31,6 @@ Feature: Admin adds users
     When I fill in "mikko@test.com" for "Sähköposti"
     And I fill in "mikkosala" for "Salasana"
     And I press "Kirjaudu"
-    Then I should see "Kirjautuminen onnistui"
-    And I should be on the root page
+    Then I should be on the root page
     When I follow "Toimitsijan sivut"
     Then I should be on the official index page
-    

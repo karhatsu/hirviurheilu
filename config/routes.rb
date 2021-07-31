@@ -193,6 +193,7 @@ Hirviurheilu::Application.routes.draw do
       end
 
       namespace :public do
+        get 'home', to: 'home#index'
         resources :races, only: :show do
           resources :series, only: [:show] do
             resource :start_list, only: :show

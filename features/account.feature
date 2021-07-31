@@ -50,5 +50,4 @@ Feature: Account
     And I fill in "test@test.com" for "Sähköposti"
     And I fill in "new-password" for "Salasana"
     And I press "Kirjaudu"
-    Then I should see "Kirjautuminen onnistui" in a success message
-    And I should see "Omat tiedot"
+    Then I should see "Omat tiedot"

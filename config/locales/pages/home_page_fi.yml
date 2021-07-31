@@ -15,9 +15,4 @@ fi:
         past: Päättyneet kilpailut
         cup: Cup-kilpailut
       upcoming_competitions: Tulevat kilpailut
-      no_competitions_today: Ei kilpailuita tänään
-      no_upcoming_competitions: Tällä hetkellä ei tiedossa tulevia kilpailuita
-      previously_ended_competitions: Aiemmin päättyneet kilpailut
-      latest_ended_competitions: Viimeksi päättyneet kilpailut
       all_competitions: Kaikki kilpailut
-      announcements: Viimeisimmät tiedotteet

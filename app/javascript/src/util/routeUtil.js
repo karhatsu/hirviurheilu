@@ -29,3 +29,5 @@ export const buildCupSeriesPath = (cupId, cupSeriesId) => `/cups/${cupId}/cup_se
 export const buildRifleCupSeriesPath = (cupId, cupSeriesId) => `/cups/${cupId}/rifle_cup_series/${cupSeriesId}`
 
 export const buildCupMediaPath = cupId => `/cups/${cupId}/medium/new`
+
+export const buildAnnouncementPath = id => `/announcements/${id}`

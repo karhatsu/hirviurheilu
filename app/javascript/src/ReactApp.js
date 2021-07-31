@@ -26,6 +26,7 @@ import { CupProvider, useCup } from './util/useCup'
 import CupSeriesPage from './public/cup/CupSeriesPage'
 import CupDesktopSubMenu from './public/cup/CupDesktopSubMenu'
 import CupMediaPage from './public/cup/CupMediaPage'
+import HomePage from './public/home/HomePage'
 
 const cupSeriesPaths = [
   '/:lang?/cups/:cupId/cup_series/:cupSeriesId',
@@ -124,6 +125,7 @@ function ReactApp() {
             />
             <Route path={cupSeriesPaths} render={() => <CupSeriesPage setSelectedPage={setSelectedPage} />} />
             <Route path="/:lang?/cups/:cupId" render={() => <CupPage setSelectedPage={setSelectedPage} />} />
+            <Route path="/:lang?" component={HomePage} />
           </Switch>
         </div>
       </div>

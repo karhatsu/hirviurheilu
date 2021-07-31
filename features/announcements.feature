@@ -3,6 +3,7 @@ Feature: Announcements
   I want to read announcements
   so that I know what's happening in Hirviurheilu
 
+  @javascript
   Scenario: Announcement added by admin can be seen in the home page
     Given I am an admin
     And I have logged in
@@ -24,7 +25,8 @@ Feature: Announcements
     When I follow "Etusivu"
     Then I should see "Tiedotteet"
     And I should see "Good news"
-    
+
+  @javascript
   Scenario: Show only active front page announcements on front page
     Given there is an active announcement "Active announcement"
     And there is an active front page announcement "Active front page announcement"
@@ -41,7 +43,7 @@ Feature: Announcements
     And I should see "Active front page announcement"
     But I should not see "Non-active announcement"
     But I should not see "Non-active front page announcement"
-    
+
   Scenario: Edit announcement
     Given there is an active announcement "Test announcement"
     And I am an admin
@@ -53,7 +55,7 @@ Feature: Announcements
     Then I should be on the admin announcements page
     And I should see "Tiedote päivitetty" in a success message
     And I should see "New title" within "#all_news"
-    
+
   @javascript
   Scenario: Open announcement, allow html
     Given there is an active front page announcement with title "Test announcement" and content "<b>Good news!</b>"
