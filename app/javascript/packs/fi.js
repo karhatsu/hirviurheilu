@@ -143,7 +143,7 @@ window.translations = {
   team_DQ: 'Joukkue hylättiin',
   teamCompetition: 'Joukkuekilpailu',
   teamCompetitions: 'Joukkuekilpailut',
-  teamCompetitionResultsNotAvailable: 'Joukkuekilpailun tuloksia ei voida vielä laseka',
+  teamCompetitionResultsNotAvailable: 'Joukkuekilpailun tuloksia ei voida vielä laskea',
   timeTitle_RUN: 'Juoksu',
   timeTitle_SKI: 'Hiihto',
   totalPoints: 'Yhteispisteet',
