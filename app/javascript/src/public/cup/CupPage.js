@@ -66,7 +66,7 @@ export default function CupPage({ setSelectedPage }) {
       )}
       <CupResultsPdf cup={cup} />
       <div className="buttons buttons--nav">
-        <Button href="/" type="back">{t('backToHomePage')}</Button>
+        <Button to="/" type="back">{t('backToHomePage')}</Button>
       </div>
     </>
   )
