@@ -69,7 +69,7 @@ export default function RelayLegMobileResults({ relay, teams, leg }) {
             </div>
             <div className="card__main-value">
               <RelayTime timeInSeconds={cumulativeTimeWithPenalties || cumulativeTime} />
-              {leg > 1 && (
+              {leg > 1 && (timeWithPenalties || timeInSeconds) && (
                 <div>
                   (<RelayTime timeInSeconds={timeWithPenalties || timeInSeconds} />)
                 </div>
