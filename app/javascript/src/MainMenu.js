@@ -4,16 +4,14 @@ import classnames from 'classnames-minimal'
 import DesktopMenuItem from './public/menu/DesktopMenuItem'
 import useTranslation from './util/useTranslation'
 import { useRace } from './util/useRace'
+import useAppData from './util/useAppData'
 
 export default function MainMenu({ closeMenu, mainMenuOpen }) {
   const { t } = useTranslation()
   const { pathname } = useLocation()
   const { raceId } = useParams()
   const { race } = useRace()
-  const appElement = document.getElementById('react-app')
-  const locale = appElement?.getAttribute('data-locale')
-  const userId = appElement?.getAttribute('data-user')
-  const admin = appElement?.getAttribute('data-admin') !== null
+  const { admin, locale, userId } = useAppData()
   const className = classnames({ menu: true, 'menu--main': true, 'menu--visible': mainMenuOpen })
   const officialDropDown = raceId && race && userId && (race.userIds.includes(userId) || admin)
     ? [{ text: race.name, path: `/official/races/${race.id}` }]

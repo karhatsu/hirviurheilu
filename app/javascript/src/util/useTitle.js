@@ -1,14 +1,13 @@
 import { useEffect } from 'react'
+import useAppData from './useAppData'
 
 const useTitle = title => {
+  const { titlePrefix } = useAppData()
   useEffect(() => {
     if (title) {
-      const appElement = document.getElementById('react-app')
-      if (!appElement) return null
-      const titlePrefix = appElement.getAttribute('title_prefix')
       document.title = `${titlePrefix}${title}`
     }
-  }, [title])
+  }, [title, titlePrefix])
 }
 
 export default useTitle

@@ -1,9 +1,8 @@
 import React from 'react'
+import useAppData from '../../util/useAppData'
 
 export default function FacebookLikeBox() {
-  const appElement = document.getElementById('react-app')
-  if (!appElement) return null
-  const environment = appElement.getAttribute('data-env')
+  const { environment } = useAppData()
   if (!['production', 'development'].includes(environment)) return null
   return (
     <div className="fb-like-box-container">
