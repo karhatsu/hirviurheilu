@@ -6,11 +6,8 @@ class AnnouncementsController < ApplicationController
   end
 
   def show
-    @announcement = Announcement.find(params[:id])
-    respond_to do |format|
-      format.html
-      format.json { render :json => @announcement }
-    end
+    use_react
+    render layout: true, html: ''
   end
 
   private

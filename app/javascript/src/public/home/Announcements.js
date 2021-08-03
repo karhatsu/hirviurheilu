@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import format from 'date-fns/format'
 import useTranslation from '../../util/useTranslation'
 import { buildAnnouncementPath } from '../../util/routeUtil'
@@ -18,12 +19,12 @@ export default function Announcements({ announcements, emphasizeTitle }) {
           const date = format(new Date(published), 'dd.MM.yyyy')
           return (
             <div key={id} className="col-xs-12 col-sm-6 col-md-4">
-              <a href={buildAnnouncementPath(id)} className="card">
+              <Link to={buildAnnouncementPath(id)} className="card">
                 <div className="card__middle">
                   <div className="card__name">{title}</div>
                   <div className="card__middle-row">{date}</div>
                 </div>
-              </a>
+              </Link>
             </div>
           )
         })}

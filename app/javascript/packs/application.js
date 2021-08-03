@@ -17,6 +17,7 @@ const reactPaths = [
   '/:lang?/cups/:cupId/cup_series/:cupSeriesId',
   '/:lang?/cups/:cupId/rifle_cup_series/:rifleCupSeriesId',
   '/:lang?/cups/:cupId',
+  '/:lang?/announcements/:announcementId',
   '/:lang?',
 ]
 

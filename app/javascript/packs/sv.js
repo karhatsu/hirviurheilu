@@ -12,6 +12,7 @@ window.translations = {
   allSports: 'Alla grener',
   alsoCompetitorsFromClubs: 'Dessutom alla tävlarna från klubben (tryck ctrl om du vill välja många)',
   alsoCompetitorsFromDistricts: 'Dessutom alla tävlarna från trakten (tryck ctrl om du vill välja många)',
+  announcements: 'Nyheter',
   appTitle: 'Hirviurheilu - Resultatservice för Jägarförbunds sportgrener',
   backToCupHomePage: 'Tillbaka till cup-tävlingens hemsida',
   backToHomePage: 'Tillbaka till hemsida',

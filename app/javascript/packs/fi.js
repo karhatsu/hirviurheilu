@@ -12,6 +12,7 @@ window.translations = {
   allSports: 'Kaikki lajit',
   alsoCompetitorsFromClubs: 'Lisäksi kaikki kilpailijat seurasta (paina ctrl, jos haluat valita useita)',
   alsoCompetitorsFromDistricts: 'Lisäksi kaikki kilpailijat piiristä (paina ctrl, jos haluat valita useita)',
+  announcements: 'Tiedotteet',
   appTitle: 'Hirviurheilu - Tulospalvelu Metsästäjäliiton urheilulajeille',
   backToCupHomePage: 'Takaisin cup-kilpailun etusivulle',
   backToHomePage: 'Takaisin etusivulle',
