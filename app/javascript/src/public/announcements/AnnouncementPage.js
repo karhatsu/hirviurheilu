@@ -5,7 +5,7 @@ import IncompletePage from '../../common/IncompletePage'
 import useTranslation from '../../util/useTranslation'
 import useTitle from '../../util/useTitle'
 import Button from '../../common/Button'
-import format from 'date-fns/format'
+import Announcement from './Announcement'
 
 export default function AnnouncementPage() {
   const { t } = useTranslation()
@@ -22,18 +22,15 @@ export default function AnnouncementPage() {
   }, [announcementId])
 
   if (error || !announcement) {
-    return <IncompletePage fetching={!error && !announcement} error={error} title={t('announcements')} />
+    return <IncompletePage fetching={!error && !announcement} error={error} />
   }
 
-  const { title, published, content } = announcement
   return (
     <>
-      <h2>{title}</h2>
-      <h3>{format(new Date(published), 'dd.MM.yyyy')}</h3>
-      <div dangerouslySetInnerHTML={{ __html: content }}/>
+      <Announcement announcement={announcement} />
       <div className="buttons buttons--nav">
         <Button to="/" type="back">{t('backToHomePage')}</Button>
-        <Button href="/announcements">{t('allAnnouncements')}</Button>
+        <Button to="/announcements">{t('allAnnouncements')}</Button>
       </div>
     </>
   )

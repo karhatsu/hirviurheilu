@@ -39,7 +39,7 @@ Feature: Announcements
     But I should not see "Non-active front page announcement"
     When I follow "Kaikki tiedotteet"
     Then I should see "Active announcement"
-    And the "Tiedotteet" main menu item should be selected
+    # And the "Tiedotteet" main menu item should be selected
     And I should see "Active front page announcement"
     But I should not see "Non-active announcement"
     But I should not see "Non-active front page announcement"

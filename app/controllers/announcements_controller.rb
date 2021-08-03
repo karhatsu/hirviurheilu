@@ -2,7 +2,8 @@ class AnnouncementsController < ApplicationController
   before_action :set_announcements_menu
 
   def index
-    @announcements = Announcement.active
+    use_react
+    render layout: true, html: ''
   end
 
   def show

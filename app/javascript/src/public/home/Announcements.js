@@ -29,7 +29,7 @@ export default function Announcements({ announcements, emphasizeTitle }) {
           )
         })}
         <div className="extra_card col-xs-12 col-sm-6 col-md-4">
-          <Button href="/announcements">{t('allAnnouncements')}</Button>
+          <Button to="/announcements">{t('allAnnouncements')}</Button>
         </div>
       </div>
     </>

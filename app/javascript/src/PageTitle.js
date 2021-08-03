@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { useCup } from './util/useCup'
 import { useRace } from './util/useRace'
 import DateInterval from './util/DateInterval'
@@ -7,10 +7,11 @@ import useTranslation from './util/useTranslation'
 
 export default function PageTitle() {
   const { t } = useTranslation()
+  const { pathname } = useLocation()
   const { announcementId } = useParams()
   const { race } = useRace()
   const { cup } = useCup()
-  if (announcementId) {
+  if (announcementId || pathname === '/announcements') {
     return <span className="race-title">{t('announcements')}</span>
   }
   if (!race && !cup) return t('appTitle')
