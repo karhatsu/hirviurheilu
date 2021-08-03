@@ -5,6 +5,7 @@ json.start_date_distance_in_words distance_of_time_in_words(Time.zone.today, @ra
 json.all_competitions_finished @race.all_competitions_finished?
 json.show_correct_distances @race.show_correct_distances?
 json.unofficials_configurable @race.start_date.year < 2018
+json.user_ids @race.users.map(&:id)
 
 json.sport do
   json.batch_list @race.sport.batch_list?

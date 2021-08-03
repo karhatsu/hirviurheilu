@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 window.translations = {
+  account: 'Omat tiedot',
   ageGroupShorterTrip: 'Ikäryhmällä {{ageGroups}} on lyhennetty matka',
   ageGroupsShorterTrip: 'Ikäryhmillä {{ageGroups}} on lyhennetty matka',
   allAnnouncements: 'Kaikki tiedotteet',
@@ -63,6 +64,7 @@ window.translations = {
   hideCompetitors: 'Piilota kilpailijat',
   hideCupCompetitions: 'Piilota osakilpailut',
   hideShots: 'Piilota laukaukset',
+  homePage: 'Etusivu',
   latestAnnouncements: 'Uusimmat tiedotteet',
   leg: 'Osuus',
   legNumber: 'Osuus {{leg}}',
@@ -77,6 +79,7 @@ window.translations = {
   nordic_trap: 'Trap',
   noTeams: 'Ei joukkueita',
   numberShort: 'Nro',
+  officialHomePage: 'Toimitsijan sivut',
   pdfPageBreaks: 'Sivunvaihdot sarjojen väliin',
   personalCompetitions: 'Yksilökilpailut',
   points: 'Pisteet',
@@ -130,6 +133,7 @@ window.translations = {
   rifleTeamCompetition: 'Luodikon joukkuekilpailu',
   rifleTeamCompetitions: 'Luodikon joukkuekilpailut',
   secondsPerPage: 'Sekuntia / sivu',
+  sendFeedback: 'Lähetä palautetta',
   series: 'Sarja',
   seriesPlural: 'Sarjat',
   seriesShorterTrip: 'Sarjalla on lyhennetty matka',
@@ -168,6 +172,7 @@ window.translations = {
   startList: 'Lähtölista',
   startLists: 'Lähtölistat',
   startTime: 'Lähtöaika',
+  startUsage: 'Aloita käyttö',
   team: 'Joukkue',
   team_DNS: 'Joukkue ei osallistunut kilpailuun',
   team_DNF: 'Joukkue keskeytti kilpailun',

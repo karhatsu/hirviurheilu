@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 window.translations = {
+  account: 'Egna uppgifter',
   ageGroupShorterTrip: 'Äldsgrupp {{ageGroups}} har kortare löpning',
   ageGroupsShorterTrip: 'Äldsgruppar {{ageGroups}} har kortare löpning',
   allAnnouncements: 'Alla nyheter',
@@ -63,6 +64,7 @@ window.translations = {
   hideCompetitors: 'Gömma tävlarna',
   hideCupCompetitions: 'Gömma deltävlingar',
   hideShots: 'Gömma skott',
+  homePage: 'Hemsida',
   latestAnnouncements: 'Senaste nyheter',
   leg: 'Sträcka',
   legNumber: 'Sträcka {{leg}}',
@@ -77,6 +79,7 @@ window.translations = {
   nordic_trap: 'Trap',
   noTeams: 'Inga lag',
   numberShort: 'Nr',
+  officialHomePage: 'Funktionärs sidor',
   pdfPageBreaks: 'Sidbytningar mellan klasserna',
   personalCompetitions: 'Normaltävlingar',
   points: 'Poäng',
@@ -130,6 +133,7 @@ window.translations = {
   rifleTeamCompetition: 'Kulskyttes lagtävling',
   rifleTeamCompetitions: 'Kulskyttes lagtävlingar',
   secondsPerPage: 'Sekunder / sida',
+  sendFeedback: 'Skicka feedback',
   series: 'Klass',
   seriesPlural: 'Klasser',
   seriesShorterTrip: 'Klassen har kortare löpning',
@@ -168,6 +172,7 @@ window.translations = {
   startList: 'Startlista',
   startLists: 'Startlista',
   startTime: 'Starttid',
+  startUsage: 'Börja',
   team: 'Lag',
   team_DNS: 'Laget startade inte',
   team_DNF: 'Laget avbröt',

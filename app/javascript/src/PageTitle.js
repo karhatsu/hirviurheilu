@@ -8,14 +8,13 @@ import useTranslation from './util/useTranslation'
 export default function PageTitle() {
   const { t } = useTranslation()
   const { pathname } = useLocation()
-  const { announcementId } = useParams()
+  const { announcementId, cupId, raceId } = useParams()
   const { race } = useRace()
   const { cup } = useCup()
-  if (announcementId || pathname === '/announcements') {
-    return <span className="race-title">{t('announcements')}</span>
-  }
-  if (!race && !cup) return t('appTitle')
-  const { name, location, startDate, endDate } = race || cup
+  if (announcementId || pathname === '/announcements') return t('announcements')
+  const competition = (cupId && cup) || (raceId && race)
+  if (!competition) return t('appTitle')
+  const { name, location, startDate, endDate } = competition
   return (
     <span className="race-title">
       <span className="race-title__name" itemProp="name">

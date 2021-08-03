@@ -1,12 +1,11 @@
 %body
-  = render partial: 'shared/facebook_init'
-  .header
-    = image_tag '/logo-128.png', class: 'header__logo'
-    = link_to 'Hirviurheilu', root_path, class: 'header__title'
-    = image_tag '/logo-128.png', class: 'header__logo header__logo--right'
-    %a.header__menu.material-icons-outlined.md-24{onclick: 'event.preventDefault(); toggleMainMenu();', href: '#'} menu
-  = render partial: 'menus/menu'
-  %div{id: @react_app ? 'react-app' : '', 'data-env': Rails.env, title_prefix: title_prefix}
+  %div{id: @react_app ? 'react-app' : '', 'data-env': Rails.env, title_prefix: title_prefix, 'data-user': current_user&.id, 'data-admin': current_user&.admin?, 'data-locale': I18n.locale}
+    .header
+      = image_tag '/logo-128.png', class: 'header__logo'
+      = link_to 'Hirviurheilu', root_path, class: 'header__title'
+      = image_tag '/logo-128.png', class: 'header__logo header__logo--right'
+      %a.header__menu.material-icons-outlined.md-24{onclick: 'event.preventDefault(); toggleMainMenu();', href: '#'} menu
+    = render partial: 'menus/menu'
     .body{itemscope: true, itemtype: menu_race ? 'http://schema.org/SportsEvent' : ''}
       .body__on-top-title= render partial: 'shared/page_title'
       .body__content
@@ -16,8 +15,8 @@
           .body__under-top-title= render partial: 'shared/page_title'
           = render partial: 'shared/facebook_share'
           = yield
-  .footer
-    = render partial: 'shared/footer'
+    .footer
+      = render partial: 'shared/footer'
 :javascript
   function toggleMainMenu() {
     const $mainMenu = $('.menu--main')
