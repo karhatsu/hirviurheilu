@@ -8,8 +8,7 @@ Feature: Localization
     Given I am on the home page
     And I follow "På svenska"
     Then I should be on the Swedish home page
-    And I should see "Tävlingar"
-    When I follow "Tävlingar"
+    When I follow "Sök tävling"
     Then I should see "Hirviurheilu - Tävlingar" within ".body__on-top-title"
     When I follow "Suomeksi"
     Then I should see "Hirviurheilu - Kilpailut" within ".body__on-top-title"

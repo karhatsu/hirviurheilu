@@ -19,9 +19,8 @@ Feature: Navigation between official and result sections
       | start_date | 2011-01-09 |
       | end_date | 2011-01-10 |
     And I am on the home page
-    When I follow "Kilpailut" within "div.menu"
+    When I follow "Etsi kilpailu" within "div.menu"
     Then I should be on the races page
-    And the "Kilpailut" main menu item should be selected
     And the page title should contain "Hirviurheilu - Kilpailut"
     And I should see "Run race"
     And I should see "18.08.2010, Running place"

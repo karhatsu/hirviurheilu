@@ -138,6 +138,7 @@ window.translations = {
   rifleTeamCompetition: 'Kulskyttes lagtävling',
   rifleTeamCompetitions: 'Kulskyttes lagtävlingar',
   search: 'Sök',
+  searchRace: 'Sök tävling',
   secondsPerPage: 'Sekunder / sida',
   sendFeedback: 'Skicka feedback',
   series: 'Klass',

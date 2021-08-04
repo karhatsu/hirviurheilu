@@ -61,7 +61,6 @@ Feature: Batch list
     But I should not see "Kaikkien sarjojen lähtöajat (PDF)"
     When I follow "Alkukilpailun eräluettelo" within "#batch-links"
     Then I should be on the race qualification round batches page
-    And the "Kilpailut" main menu item should be selected
     And the "Alkukilpailun eräluettelo" sub menu item should be selected
     And I should see batch 1 on track 1 with time "10:00"
     And I should see batch 2 on track 2 with time "10:30"
@@ -70,7 +69,6 @@ Feature: Batch list
     And the batch 2 should contain a competitor "5. Testinen Tyyne (7), Testiseura (N)" in row 1
     When I choose "Loppukilpailun eräluettelo" from sub menu
     Then I should be on the race final round batches page
-    And the "Kilpailut" main menu item should be selected
     And the "Loppukilpailun eräluettelo" sub menu item should be selected
     And I should see batch 1 on track 1 with time "11:00"
     And the batch 1 should contain a competitor "3. Testinen Tyyne (7), Testiseura (N)" in row 1

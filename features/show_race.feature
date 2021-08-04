@@ -16,8 +16,7 @@ Feature: Show race
       | name | Men 50 years |
       | start_time | 03:30 |
     When I go to the race page
-    Then the "Kilpailut" main menu item should be selected
-    And the "Kilpailun etusivu" sub menu item should be selected
+    Then the "Kilpailun etusivu" sub menu item should be selected
     And the page title should contain "My test race"
     And the page title should contain "Test city, 01.01.2029 - 02.01.2029"
     And I should see "Tiedote kilpailijoille ja kotikatsojille" within ".public-message"

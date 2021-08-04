@@ -32,9 +32,9 @@ export default function MainMenu({ closeMenu, mainMenuOpen }) {
       />
       <DesktopMenuItem
         path="/races"
-        text={t('races')}
+        text={t('searchRace')}
         reactLink={true}
-        selected={matchPath('/races') || matchPath('/cups')}
+        selected={pathname === '/races' || pathname === '/sv/races'}
         onClick={closeMenu}
       />
       <DesktopMenuItem

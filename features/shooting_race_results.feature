@@ -8,8 +8,7 @@ Feature: Shooting race results
     Given there is a "ILMAHIRVI" race "My race"
     And the race has series "No competitors series"
     When I go to the results page of the series
-    Then the "Kilpailut" main menu item should be selected
-    And the "Tulokset" sub menu item should be selected
+    Then the "Tulokset" sub menu item should be selected
     And I should see "No competitors series - Ei kilpailijoita" within "h2"
     But I should not see "Tulokset" within "h2"
     And I should not see "Tilanne" within "h2"

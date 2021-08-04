@@ -138,6 +138,7 @@ window.translations = {
   rifleTeamCompetition: 'Luodikon joukkuekilpailu',
   rifleTeamCompetitions: 'Luodikon joukkuekilpailut',
   search: 'Etsi',
+  searchRace: 'Etsi kilpailu',
   secondsPerPage: 'Sekuntia / sivu',
   sendFeedback: 'Lähetä palautetta',
   series: 'Sarja',

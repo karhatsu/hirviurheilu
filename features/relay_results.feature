@@ -14,8 +14,7 @@ Feature: Relay results
     Given there is a race "Relay race"
     And the race has a relay "Women's relay"
     When I go to the relay results page of "Women's relay"
-    Then the "Kilpailut" main menu item should be selected
-    And the "Viesti" sub menu item should be selected
+    Then the "Viesti" sub menu item should be selected
     And I should see "Women's relay - Ei joukkueita" within "h2"
     And I should see "Viestiin ei ole vielä lisätty joukkueita" in an info message
 
@@ -161,8 +160,7 @@ Feature: Relay results
     And I should see "Osuus 2"
     And I should see "88 m"
     When I follow "Osuus 2"
-    Then the "Kilpailut" main menu item should be selected
-    And the "Viestit" sub menu item should be selected
+    Then the "Viestit" sub menu item should be selected
     And I should see "Men's relay - Osuus 2" within "h2"
     And I should see "1." within "tr#team_1"
     And I should see "Green team" within "tr#team_1"

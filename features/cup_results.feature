@@ -26,8 +26,7 @@ Feature: Cup results
     And the race belongs to the cup
     And there is a race "Non-cup race"
     When I go to the cup page
-    Then the "Kilpailut" main menu item should be selected
-    And the "Cup-kilpailun etusivu" sub menu item should be selected
+    Then the "Cup-kilpailun etusivu" sub menu item should be selected
     And the page title should contain "Test cup"
     And I should see "Cup race 1"
     And I should see "Another cup race"
@@ -72,8 +71,7 @@ Feature: Cup results
     And the race belongs to the cup
     When I go to the cup page
     And I follow "Men"
-    Then the "Kilpailut" main menu item should be selected
-    And the "Tulokset" sub menu item should be selected
+    Then the "Tulokset" sub menu item should be selected
     And I should see "Yhteispisteet lasketaan 2 parhaan tuloksen perusteella" in an info message
     And I should see "Men - Tulokset" within "h2"
     And I should see "Cup race 1" within "thead"
@@ -123,8 +121,7 @@ Feature: Cup results
     And the race belongs to the cup
     When I go to the cup page
     And I follow "Men"
-    Then the "Kilpailut" main menu item should be selected
-    And the "Tulokset" sub menu item should be selected
+    Then the "Tulokset" sub menu item should be selected
     And I should see "Yhteispisteet lasketaan viimeisen kilpailun sekä muista kilpailuista 1 parhaan tuloksen perusteella" in an info message
     And I should see "Men - Tulokset" within "h2"
     And I should see "Cup race 1" within "thead"
@@ -177,8 +174,7 @@ Feature: Cup results
     And the race belongs to the cup
     When I go to the cup page
     And I follow "Men"
-    Then the "Kilpailut" main menu item should be selected
-    And the "Tulokset" sub menu item should be selected
+    Then the "Tulokset" sub menu item should be selected
     And I should see "Men (M, M60) - Tulokset" within "h2"
     And I should see "Cup race 1" within "thead"
     And I should see "Another" within "thead"
