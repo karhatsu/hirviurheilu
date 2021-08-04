@@ -3,6 +3,7 @@ Feature: Navigation between official and result sections
   As an official
   I want to navigate easily and fast between official and result sections
 
+  @javascript
   Scenario: Click races tab in main page
     Given there is a race with attributes:
       | name | Run race |

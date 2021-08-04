@@ -3,6 +3,7 @@ Feature: Search races
   As a user
   I want to search races
 
+  @javascript
   Scenario: Search races
     Given there is a "ILMAHIRVI" race "Race A" at "2020-04-01" in "Uusimaa"
     And there is a "RUN" race "Race B" at "2020-04-02" in "Uusimaa"
@@ -12,13 +13,13 @@ Feature: Search races
     And I am on the races page
     Then I should see 5 races ordered as "Race E, Race D, Race B, Race A, Race C"
     When I select "Ilmahirvi" from "sport_key"
-    And I press "Etsi"
+    And I click the search button
     Then I should see 3 races ordered as "Race E, Race D, Race A"
     When I select "Kainuu" from "district_id"
-    And I press "Etsi"
+    And I click the search button
     Then I should see 2 races ordered as "Race E, Race D"
     When I fill in "D" for "search_text"
-    And I press "Etsi"
+    And I click the search button
     Then I should see 1 races ordered as "Race D"
-    When I follow "Tyhjennä"
+    When I click the reset button
     Then I should see 5 races ordered as "Race E, Race D, Race B, Race A, Race C"

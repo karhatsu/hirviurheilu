@@ -28,7 +28,9 @@ export default function MainMenu({ closeMenu, mainMenuOpen }) {
       <DesktopMenuItem
         path="/races"
         text={t('races')}
+        reactLink={true}
         selected={pathname.indexOf('/races') === 0 || pathname.indexOf('/cups') === 0}
+        onClick={closeMenu}
       />
       <DesktopMenuItem
         path="/official"

@@ -195,10 +195,6 @@ class ApplicationController < ActionController::Base
     @main_menu_races = Race.where('start_date>? and end_date<?', 3.days.ago, 3.days.from_now).order('start_date desc')
   end
 
-  def build_sports_menu_options
-    @sports = Sport::ALL_KEYS.map{|key| [t("sport_name.#{key}"), key]}
-  end
-
   def use_react
     @react_app = true
   end

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import isAfter from 'date-fns/isAfter'
 import parseISO from 'date-fns/parseISO'
 import subWeeks from 'date-fns/subWeeks'
-import { get } from '../../util/apiClient'
+import { buildQueryParams, get } from '../../util/apiClient'
 import IncompletePage from '../../common/IncompletePage'
 import Races from './Races'
 import Announcements from './Announcements'
@@ -30,7 +30,7 @@ export default function HomePage() {
   }, [])
 
   const search = useCallback(() => {
-    const path = `/api/v2/public/home?${Object.keys(searchParams).map(key => `${key}=${searchParams[key]}`).join('&')}`
+    const path = `/api/v2/public/home?${buildQueryParams(searchParams)}`
     get(path, (err, data) => {
       if (err) setError(err)
       else setData(data)
@@ -44,7 +44,7 @@ export default function HomePage() {
     return <IncompletePage error={error} fetching={!error} />
   }
 
-  const { announcements, districts, today, yesterday, future, past } = data
+  const { announcements, today, yesterday, future, past } = data
   const hasRecentAnnouncements = announcements.find(a => isAfter(parseISO(a.published), subWeeks(new Date(), 2)))
   const pastTitleKey = yesterday.length ? 'races_previously' : 'races_latest'
   return (
@@ -58,7 +58,6 @@ export default function HomePage() {
       <SearchForm
         sportKey={searchParams.sport_key}
         setSportKey={setSearchValue('sport_key')}
-        districts={districts}
         districtId={searchParams.district_id}
         setDistrictId={setSearchValue('district_id')}
         searching={searching}
@@ -73,7 +72,7 @@ export default function HomePage() {
         })}
       </div>
       <Races races={past} titleKey={pastTitleKey} icon="check_circle" sectionId="past-races">
-        <Button href="/races">{t('allRaces')}</Button>
+        <Button to="/races">{t('allRaces')}</Button>
       </Races>
       {!hasRecentAnnouncements && <Announcements announcements={announcements} />}
       <FacebookLikeBox />

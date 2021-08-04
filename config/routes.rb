@@ -195,7 +195,8 @@ Hirviurheilu::Application.routes.draw do
       namespace :public do
         get 'home', to: 'home#index'
         resources :announcements, only: [:index, :show]
-        resources :races, only: :show do
+        resources :districts, only: :index
+        resources :races, only: [:index, :show] do
           resources :series, only: [:show] do
             resource :start_list, only: :show
             get 'rifle', to: 'european_rifles#show'

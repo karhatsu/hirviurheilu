@@ -3,6 +3,7 @@ Feature: Localization
   As a Swedish user
   I want to use the system in Swedish
 
+  @javascript
   Scenario: Change language, change page, change the language again
     Given I am on the home page
     And I follow "På svenska"

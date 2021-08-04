@@ -25,3 +25,7 @@ export function handleApiResponse(response, callback) {
 export function handleApiConnectionError(callback) {
   callback(['Yhteysvirhe, yritä uudestaan'])
 }
+
+export function buildQueryParams(object) {
+  return Object.keys(object).map(key => `${key}=${object[key]}`).join('&')
+}

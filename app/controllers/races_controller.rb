@@ -1,17 +1,10 @@
 class RacesController < ApplicationController
   before_action :set_races
-  before_action :build_sports_menu_options, only: :index
   before_action :assign_race_by_id, :only => :show
 
   def index
-    sport_key = params[:sport_key]
-    district_id = params[:district_id]
-    search_text = params[:search_text]
-    @races = Race.all.order('start_date DESC')
-    @races = @races.where(sport_key: sport_key) unless sport_key.blank?
-    @races = @races.where(district_id: district_id) unless district_id.blank?
-    @races = @races.where('name ILIKE ? OR location ILIKE ?', "%#{search_text}%", "%#{search_text}%") unless search_text.blank?
-    @races = @races.page(params[:page])
+    use_react
+    render layout: true, html: ''
   end
 
   def show

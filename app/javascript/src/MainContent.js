@@ -19,6 +19,7 @@ import CupPage from './public/cup/CupPage'
 import AnnouncementPage from './public/announcements/AnnouncementPage'
 import AnnouncementsPage from './public/announcements/AnnouncementsPage'
 import HomePage from './public/home/HomePage'
+import RacesPage from './public/races/RacesPage'
 
 export default function MainContent({ cupSeriesPaths, setSelectedPage }) {
   return (
@@ -71,6 +72,7 @@ export default function MainContent({ cupSeriesPaths, setSelectedPage }) {
           render={() => <NordicSubSportResultsPage setSelectedPage={setSelectedPage} />}
         />
         <Route path="/:lang?/races/:raceId" render={() => <RacePage setSelectedPage={setSelectedPage} />} />
+        <Route path="/:lang?/races" component={RacesPage} />
         <Route
           path="/:lang?/cups/:cupId/medium/new"
           render={() => <CupMediaPage setSelectedPage={setSelectedPage} />}

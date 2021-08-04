@@ -12,6 +12,7 @@ export default function PageTitle() {
   const { race } = useRace()
   const { cup } = useCup()
   if (announcementId || pathname === '/announcements') return t('announcements')
+  if (pathname === '/races' || pathname === '/sv/races') return `Hirviurheilu - ${t('races')}`
   const competition = (cupId && cup) || (raceId && race)
   if (!competition) return t('appTitle')
   const { name, location, startDate, endDate } = competition

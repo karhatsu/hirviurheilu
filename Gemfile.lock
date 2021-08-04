@@ -195,18 +195,6 @@ GEM
       railties (>= 3.2.16)
     jquery-ui-themes (0.0.12)
       httparty
-    kaminari (1.2.1)
-      activesupport (>= 4.1.0)
-      kaminari-actionview (= 1.2.1)
-      kaminari-activerecord (= 1.2.1)
-      kaminari-core (= 1.2.1)
-    kaminari-actionview (1.2.1)
-      actionview
-      kaminari-core (= 1.2.1)
-    kaminari-activerecord (1.2.1)
-      activerecord
-      kaminari-core (= 1.2.1)
-    kaminari-core (1.2.1)
     kgio (2.11.4)
     launchy (2.5.0)
       addressable (~> 2.7)
@@ -382,7 +370,6 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   jquery-ui-themes
-  kaminari
   launchy
   minitest
   newrelic_rpm
