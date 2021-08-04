@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import classnames from 'classnames-minimal'
 import DesktopMenuItem from './public/menu/DesktopMenuItem'
@@ -12,6 +12,11 @@ export default function MainMenu({ closeMenu, mainMenuOpen }) {
   const { raceId } = useParams()
   const { race } = useRace()
   const { admin, locale, userId } = useAppData()
+
+  const matchPath = useCallback(path => {
+    return pathname.indexOf(path) === 0 || pathname.indexOf(`/sv${path}`) === 0
+  }, [pathname])
+
   const className = classnames({ menu: true, 'menu--main': true, 'menu--visible': mainMenuOpen })
   const officialDropDown = raceId && race && userId && (race.userIds.includes(userId) || admin)
     ? [{ text: race.name, path: `/official/races/${race.id}` }]
@@ -21,7 +26,7 @@ export default function MainMenu({ closeMenu, mainMenuOpen }) {
       <DesktopMenuItem
         path="/"
         text={t('homePage')}
-        selected={pathname === '/'}
+        selected={pathname === '/' || pathname === '/sv'}
         reactLink={true}
         onClick={closeMenu}
       />
@@ -29,7 +34,7 @@ export default function MainMenu({ closeMenu, mainMenuOpen }) {
         path="/races"
         text={t('races')}
         reactLink={true}
-        selected={pathname.indexOf('/races') === 0 || pathname.indexOf('/cups') === 0}
+        selected={matchPath('/races') || matchPath('/cups')}
         onClick={closeMenu}
       />
       <DesktopMenuItem
@@ -41,7 +46,7 @@ export default function MainMenu({ closeMenu, mainMenuOpen }) {
       <DesktopMenuItem
         path="/announcements"
         text={t('announcements')}
-        selected={pathname.indexOf('/announcements') === 0}
+        selected={matchPath('/announcements')}
         reactLink={true}
         onClick={closeMenu}
       />
