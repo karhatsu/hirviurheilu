@@ -2,6 +2,11 @@ When(/^I choose "(.*?)" from main menu$/) do |menu_item|
   find('.menu--main').click_link(menu_item)
 end
 
+When('I choose {string} from main menu {string} dropdown') do |dropdown_item, menu_item|
+  find('.menu__item a', text: menu_item).hover
+  find('.menu--main .dropdown-menu__item').click_link(dropdown_item)
+end
+
 When(/^I choose "(.*?)" from sub menu$/) do |menu_item|
   find('.menu--sub-1').click_link(menu_item)
 end

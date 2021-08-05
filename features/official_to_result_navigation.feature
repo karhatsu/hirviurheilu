@@ -31,21 +31,22 @@ Feature: Navigation between official and result sections
     When I follow "Ski race"
     Then I should be on the race page of "Ski race"
 
+  @javascript
   Scenario: Quick navigation between result pages and official pages
     Given I am an official
     And I have a race "My race"
     And the race has series "My series"
     And I have logged in
     And I am on the race page
-    When I choose "My race" from main menu
+    When I choose "My race" from main menu "Toimitsijan sivut" dropdown
     Then I should be on the official race page of "My race"
     When I follow "Kilpailijat"
     Then I should be on the official competitors page of the series
-    When I choose "My race" from main menu
+    And I choose "My race" from main menu "Etsi kilpailu" dropdown
     Then I should be on the race page
     When I follow "Tulokset"
     Then I should be on the results page of the series
-    When I choose "My race" from main menu
+    And I choose "My race" from main menu "Toimitsijan sivut" dropdown
     Then I should be on the official race page of "My race"
 
   Scenario: No quick navigation when not logged in
