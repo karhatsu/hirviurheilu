@@ -6,7 +6,7 @@ const useAppData = () => {
   const locale = appElement.getAttribute('data-locale')
   const titlePrefix = appElement.getAttribute('data-title-prefix')
   const userId = appElement.getAttribute('data-user')
-  return { admin, environment, locale, titlePrefix, userId }
+  return { admin, environment, locale, titlePrefix, userId: userId && parseInt(userId) }
 }
 
 export default useAppData
