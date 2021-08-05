@@ -24,3 +24,5 @@
     .form__field__info= t(:captcha_info)
   .form__buttons
     = submit_tag t(:send), class: 'button button--primary'
+.buttons.buttons--nav
+  = link_to t(:back_to_home_page), root_path, class: 'button button--back'
