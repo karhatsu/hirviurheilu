@@ -8,11 +8,10 @@ export default function RaceTeamCompetitions({ race }) {
   const { sport, teamCompetitions } = race
 
   const oneTeamCompetition = teamCompetitions.length === 1
-  const buildLink = useCallback((tc, buildPath, useReact) => {
+  const buildLink = useCallback((tc, buildPath) => {
     const { id, name } = tc
     const linkText = oneTeamCompetition ? t('teamCompetition') : name
-    const pathProps = { [useReact ? 'to' : 'href']: buildPath(race.id, id) }
-    return <Button key={id} type="primary" {...pathProps}>{linkText}</Button>
+    return <Button key={id} type="primary" to={buildPath(race.id, id)}>{linkText}</Button>
   }, [oneTeamCompetition, race.id, t])
 
   if (!teamCompetitions.length) return null
@@ -21,7 +20,7 @@ export default function RaceTeamCompetitions({ race }) {
     <>
       <h2>{t('teamCompetitions')}</h2>
       <div className="buttons">
-        {teamCompetitions.map(tc => buildLink(tc, buildTeamCompetitionsPath, true))}
+        {teamCompetitions.map(tc => buildLink(tc, buildTeamCompetitionsPath))}
       </div>
       {sport.european && (
         <>
