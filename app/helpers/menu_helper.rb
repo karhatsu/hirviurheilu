@@ -27,6 +27,19 @@ module MenuHelper
     end
   end
 
+  def main_menu_item(title, link, icon, selected, do_block=false, &block)
+    item = '<div class="menu__item">'
+    link_with_icon = "<i class='material-icons-outlined md-18'>#{icon}</i> #{title}"
+    if selected
+      item << link_to(link, class: 'selected') {raw link_with_icon}
+    else
+      item << link_to(link) {raw link_with_icon}
+    end
+    item << block.call if do_block and block
+    item << '</div>'
+    raw(item)
+  end
+
   def menu_item(title, link, selected, truncate_length=nil, do_block=false, &block)
     a_title = (truncate_length ? title : nil)
     title = truncate(title, :length => truncate_length) if truncate_length

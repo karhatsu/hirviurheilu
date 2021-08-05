@@ -1,21 +1,17 @@
 .menu.menu--main
-  = menu_item t('main_menu.home_page'), root_path, @is_main_page
-  = menu_item t('main_menu.competitions'), races_path, (@is_races or @is_cup), nil, ((!@is_races && menu_race) || @main_menu_races) do
-    - if @is_official && !@is_races && menu_race
-      - dropdown_menu_single(link_to(menu_race.name, race_path(menu_race)))
-    - else
-      - races_dropdown_menu @main_menu_races
-  = menu_item t('main_menu.official'), official_root_path, @is_official, nil, (!@is_official and menu_race and own_race?(menu_race)) do
-    - dropdown_menu_single(link_to(menu_race.name, official_race_path(menu_race)))
-  = menu_item t('main_menu.announcements'), announcements_path, @is_announcements
-  = menu_item t('main_menu.info'), info_path, @is_info
+  = main_menu_item t('main_menu.home_page'), root_path, 'home', @is_main_page
+  = main_menu_item t('main_menu.competitions'), races_path, 'search', @is_races || @is_cup, @is_official && menu_race do
+    - dropdown_menu_single(link_to(menu_race.name, race_path(menu_race)))
+  = main_menu_item t('main_menu.official'), official_root_path, 'build', @is_official
+  = main_menu_item t('main_menu.announcements'), announcements_path, 'article', @is_announcements
+  = main_menu_item t('main_menu.info'), info_path, 'info', @is_info
   - if current_user
-    = menu_item t('main_menu.personal'), account_path, @is_account
+    = main_menu_item t('main_menu.personal'), account_path, 'person', @is_account
     - if current_user.admin?
-      = menu_item "Admin", admin_root_path, @is_admin
+      = main_menu_item "Admin", admin_root_path, 'architecture', @is_admin
   - else
-    = menu_item t('main_menu.start'), register_path, @is_start
+    = main_menu_item t('main_menu.start'), register_path, 'login', @is_start
   - if I18n.locale == :sv
-    = menu_item "Suomeksi", '?new_locale=fi', false
+    = main_menu_item "Suomeksi", '?new_locale=fi', 'language', false
   - else
-    = menu_item "På svenska", '?new_locale=sv', false
+    = main_menu_item "På svenska", '?new_locale=sv', 'language', false

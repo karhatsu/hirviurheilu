@@ -49,6 +49,11 @@
     position: relative;
     white-space: nowrap;
 
+    .material-icons-outlined {
+      color: #fff;
+      margin-right: 8px;
+    }
+
     a {
       color: white;
       display: block;
@@ -58,6 +63,10 @@
       &:hover {
         color: olive;
         background-color: white;
+
+        .material-icons-outlined {
+          color: olive;
+        }
       }
     }
   }
@@ -93,12 +102,14 @@
     border-bottom: 1px solid #fff;
 
     a {
-      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      padding: 12px 16px 12px 12px;
     }
   }
 
   .dropdown-menu {
-    top: 30px;
+    top: 34px;
 
     a {
       overflow: hidden;
@@ -146,8 +157,12 @@
     .menu__item {
       border-bottom: none;
 
+      .material-icons-outlined {
+        margin-right: 4px;
+      }
+
       a {
-        padding: 8px 16px;
+        padding: 8px 16px 8px 12px;
       }
     }
   }
@@ -155,6 +170,10 @@
   .menu .menu__item a.selected {
     color: olive;
     background-color: white;
+
+    .material-icons-outlined {
+      color: olive;
+    }
   }
 
   .menu--sub {

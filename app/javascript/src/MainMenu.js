@@ -33,6 +33,7 @@ export default function MainMenu({ closeMenu, mainMenuOpen }) {
   return (
     <div className={className}>
       <DesktopMenuItem
+        icon="home"
         path={buildRootPath()}
         text={t('homePage')}
         selected={pathname === '/' || pathname === '/sv'}
@@ -40,6 +41,7 @@ export default function MainMenu({ closeMenu, mainMenuOpen }) {
         onClick={closeMenu}
       />
       <DesktopMenuItem
+        icon="search"
         path={buildRacesPath()}
         text={t('searchRace')}
         reactLink={true}
@@ -47,24 +49,26 @@ export default function MainMenu({ closeMenu, mainMenuOpen }) {
         onClick={closeMenu}
       />
       <DesktopMenuItem
+        icon="build"
         path={buildOfficialPath()}
         text={t('officialHomePage')}
         dropdownItems={officialDropDown}
         dropdownMinCount={1}
       />
       <DesktopMenuItem
+        icon="article"
         path={buildAnnouncementsPath()}
         text={t('announcements')}
         selected={matchPath('/announcements')}
         reactLink={true}
         onClick={closeMenu}
       />
-      <DesktopMenuItem path={buildInfoPath()} text="Info" />
-      {!userId && <DesktopMenuItem path={buildRegisterPath()} text={t('startUsage')} />}
-      {!!userId && <DesktopMenuItem path={buildAccountPath()} text={t('account')} />}
-      {admin && <DesktopMenuItem path="/admin" text="Admin" />}
-      {locale === 'fi' && <DesktopMenuItem path="?new_locale=sv" text="På svenska" />}
-      {locale === 'sv' && <DesktopMenuItem path="?new_locale=fi" text="Suomeksi" />}
+      <DesktopMenuItem icon="info" path={buildInfoPath()} text="Info" />
+      {!userId && <DesktopMenuItem icon="login" path={buildRegisterPath()} text={t('startUsage')} />}
+      {!!userId && <DesktopMenuItem icon="person" path={buildAccountPath()} text={t('account')} />}
+      {admin && <DesktopMenuItem icon="architecture" path="/admin" text="Admin" />}
+      {locale === 'fi' && <DesktopMenuItem icon="language" path="?new_locale=sv" text="På svenska" />}
+      {locale === 'sv' && <DesktopMenuItem icon="language" path="?new_locale=fi" text="Suomeksi" />}
     </div>
   )
 }
