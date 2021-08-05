@@ -3,9 +3,9 @@ import DesktopMenuItem from './DesktopMenuItem'
 import {
   buildFinalRoundBatchesPath,
   buildNordicResultsPath,
-  buildQualificationRoundBatchesPath,
+  buildQualificationRoundBatchesPath, buildRaceMediaPath,
   buildRacePath,
-  buildRelayPath,
+  buildRelayPath, buildResultRotationPath,
   buildRifleTeamCompetitionsPath,
   buildSeriesResultsPath,
   buildSeriesRifleResultsPath,
@@ -129,7 +129,7 @@ export default function DesktopRaceSecondLevelMenu({ race, selectedPage }) {
       )}
       {race.series.length > 0 && (
         <DesktopMenuItem
-          path={`/races/${race.id}/result_rotation`}
+          path={buildResultRotationPath(race.id)}
           text={t('resultRotation')}
           selected={selectedPage === pages.resultRotation || resultRotationStarted}
           reactLink={true}
@@ -137,7 +137,7 @@ export default function DesktopRaceSecondLevelMenu({ race, selectedPage }) {
       )}
       {race.series.length > 0 && (
         <DesktopMenuItem
-          path={`/races/${race.id}/medium/new`}
+          path={buildRaceMediaPath(race.id)}
           text={t('press')}
           selected={selectedPage === pages.media}
           reactLink={true}

@@ -5,6 +5,7 @@ import { get } from '../../util/apiClient'
 import IncompletePage from '../../common/IncompletePage'
 import Announcement from './Announcement'
 import Button from '../../common/Button'
+import { buildRootPath } from '../../util/routeUtil'
 
 export default function AnnouncementsPage() {
   const { t } = useTranslation()
@@ -27,7 +28,7 @@ export default function AnnouncementsPage() {
     <>
       {announcements.map(a => <Announcement announcement={a} key={a.id} />)}
       <div className="buttons buttons--nav">
-        <Button to="/" type="back">{t('backToHomePage')}</Button>
+        <Button to={buildRootPath()} type="back">{t('backToHomePage')}</Button>
       </div>
     </>
   )

@@ -5,6 +5,15 @@ import DesktopMenuItem from './public/menu/DesktopMenuItem'
 import useTranslation from './util/useTranslation'
 import { useRace } from './util/useRace'
 import useAppData from './util/useAppData'
+import {
+  buildAccountPath,
+  buildAnnouncementsPath,
+  buildInfoPath,
+  buildOfficialPath,
+  buildRacesPath,
+  buildRegisterPath,
+  buildRootPath,
+} from './util/routeUtil'
 
 export default function MainMenu({ closeMenu, mainMenuOpen }) {
   const { t } = useTranslation()
@@ -24,35 +33,35 @@ export default function MainMenu({ closeMenu, mainMenuOpen }) {
   return (
     <div className={className}>
       <DesktopMenuItem
-        path="/"
+        path={buildRootPath()}
         text={t('homePage')}
         selected={pathname === '/' || pathname === '/sv'}
         reactLink={true}
         onClick={closeMenu}
       />
       <DesktopMenuItem
-        path="/races"
+        path={buildRacesPath()}
         text={t('searchRace')}
         reactLink={true}
         selected={pathname === '/races' || pathname === '/sv/races'}
         onClick={closeMenu}
       />
       <DesktopMenuItem
-        path="/official"
+        path={buildOfficialPath()}
         text={t('officialHomePage')}
         dropdownItems={officialDropDown}
         dropdownMinCount={1}
       />
       <DesktopMenuItem
-        path="/announcements"
+        path={buildAnnouncementsPath()}
         text={t('announcements')}
         selected={matchPath('/announcements')}
         reactLink={true}
         onClick={closeMenu}
       />
-      <DesktopMenuItem path="/info" text="Info" />
-      {!userId && <DesktopMenuItem path="/register" text={t('startUsage')} />}
-      {!!userId && <DesktopMenuItem path="/account" text={t('account')} />}
+      <DesktopMenuItem path={buildInfoPath()} text="Info" />
+      {!userId && <DesktopMenuItem path={buildRegisterPath()} text={t('startUsage')} />}
+      {!!userId && <DesktopMenuItem path={buildAccountPath()} text={t('account')} />}
       {admin && <DesktopMenuItem path="/admin" text="Admin" />}
       {locale === 'fi' && <DesktopMenuItem path="?new_locale=sv" text="På svenska" />}
       {locale === 'sv' && <DesktopMenuItem path="?new_locale=fi" text="Suomeksi" />}

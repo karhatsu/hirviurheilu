@@ -6,6 +6,7 @@ import useTranslation from '../../util/useTranslation'
 import useTitle from '../../util/useTitle'
 import Button from '../../common/Button'
 import Announcement from './Announcement'
+import { buildAnnouncementsPath, buildRootPath } from '../../util/routeUtil'
 
 export default function AnnouncementPage() {
   const { t } = useTranslation()
@@ -29,8 +30,8 @@ export default function AnnouncementPage() {
     <>
       <Announcement announcement={announcement} />
       <div className="buttons buttons--nav">
-        <Button to="/" type="back">{t('backToHomePage')}</Button>
-        <Button to="/announcements">{t('allAnnouncements')}</Button>
+        <Button to={buildRootPath()} type="back">{t('backToHomePage')}</Button>
+        <Button to={buildAnnouncementsPath()}>{t('allAnnouncements')}</Button>
       </div>
     </>
   )

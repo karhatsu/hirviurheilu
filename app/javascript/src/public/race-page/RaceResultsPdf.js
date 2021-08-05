@@ -4,6 +4,7 @@ import parseISO from 'date-fns/parseISO'
 import useTranslation from '../../util/useTranslation'
 import ClubSelect from './ClubSelect'
 import Button from '../../common/Button'
+import { buildRacePath } from '../../util/routeUtil'
 
 export default function RaceResultsPdf({ race }) {
   const { t } = useTranslation()
@@ -12,7 +13,7 @@ export default function RaceResultsPdf({ race }) {
   return (
     <>
       <h2>{t('raceResultsPdf')}</h2>
-      <form action={`/races/${race.id}.pdf`} method="GET" className="form">
+      <form action={`${buildRacePath(race.id)}.pdf`} method="GET" className="form">
         <div className="form__horizontal-fields">
           <div className="form__field">
             <ClubSelect clubLevel={clubLevel} clubs={clubs} />

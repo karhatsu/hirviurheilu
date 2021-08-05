@@ -15,6 +15,7 @@ import { pages } from '../menu/DesktopSecondLevelMenu'
 import Button from '../../common/Button'
 import Message from '../../common/Message'
 import IncompletePage from '../../common/IncompletePage'
+import { buildRootPath } from '../../util/routeUtil'
 
 export default function RacePage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -49,7 +50,7 @@ export default function RacePage({ setSelectedPage }) {
         </>
       )}
       <div className="buttons buttons--nav">
-        <Button to="/" type="back">{t('backToHomePage')}</Button>
+        <Button to={buildRootPath()} type="back">{t('backToHomePage')}</Button>
       </div>
     </>
   )

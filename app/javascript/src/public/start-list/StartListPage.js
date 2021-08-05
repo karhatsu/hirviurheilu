@@ -42,7 +42,7 @@ export default function StartListPage({ setSelectedPage }) {
         <>
           {!mobile && <DesktopStartList competitors={competitors} race={race} />}
           {mobile && <MobileStartList competitors={competitors} race={race} />}
-          <Button href={`/races/${raceId}/series/${seriesId}/start_list.pdf`} type="pdf">
+          <Button href={`${buildSeriesStartListPath(raceId, seriesId)}.pdf`} type="pdf">
             {t('downloadStartListPdf')}
           </Button>
         </>

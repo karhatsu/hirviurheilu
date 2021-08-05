@@ -8,7 +8,7 @@ import useTranslation from '../../util/useTranslation'
 import {
   buildFinalRoundBatchesPath,
   buildNordicResultsPath,
-  buildQualificationRoundBatchesPath,
+  buildQualificationRoundBatchesPath, buildRaceStartListsPdfPath,
   buildSeriesResultsPath,
   buildSeriesRifleResultsPath,
   buildSeriesStartListPath,
@@ -74,7 +74,7 @@ export default function RaceSeries({ race }) {
           {sport.startList && (
             <>
               <h3>{t('allSeriesStartTimesPdf')}</h3>
-              <form action={`/races/${race.id}/start_lists.pdf`} method="GET" className="form">
+              <form action={buildRaceStartListsPdfPath(race.id)} method="GET" className="form">
                 <div className="form__horizontal-fields">
                   <div className="form__field">
                     <ClubSelect clubLevel={clubLevel} clubs={clubs} />

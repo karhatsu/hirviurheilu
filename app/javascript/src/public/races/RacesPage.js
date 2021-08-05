@@ -8,6 +8,7 @@ import Races from '../home/Races'
 import SearchForm from './SearchForm'
 import Spinner from '../../common/Spinner'
 import Button from '../../common/Button'
+import { buildRootPath } from '../../util/routeUtil'
 
 export default function RacesPage() {
   const { t } = useTranslation()
@@ -47,7 +48,7 @@ export default function RacesPage() {
         </>
       )}
       <div className="buttons buttons--nav">
-        <Button to="/" type="back">{t('backToHomePage')}</Button>
+        <Button to={buildRootPath()} type="back">{t('backToHomePage')}</Button>
       </div>
     </div>
   )

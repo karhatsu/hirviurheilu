@@ -10,6 +10,7 @@ import FacebookLikeBox from './FacebookLikeBox'
 import Button from '../../common/Button'
 import useTranslation from '../../util/useTranslation'
 import SearchForm from './SearchForm'
+import { buildRacesPath } from '../../util/routeUtil'
 
 export default function HomePage() {
   const { t } = useTranslation()
@@ -72,7 +73,7 @@ export default function HomePage() {
         })}
       </div>
       <Races races={past} titleKey={pastTitleKey} icon="check_circle" sectionId="past-races">
-        <Button to="/races">{t('allRaces')}</Button>
+        <Button to={buildRacesPath()}>{t('allRaces')}</Button>
       </Races>
       {!hasRecentAnnouncements && <Announcements announcements={announcements} />}
       <FacebookLikeBox />

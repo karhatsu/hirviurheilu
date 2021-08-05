@@ -5,7 +5,7 @@ import IncompletePage from '../../common/IncompletePage'
 import CupPublicMessage from './CupPublicMessage'
 import useTranslation from '../../util/useTranslation'
 import Button from '../../common/Button'
-import { buildCupSeriesPath, buildRacePath, buildRifleCupSeriesPath } from '../../util/routeUtil'
+import { buildCupSeriesPath, buildRacePath, buildRifleCupSeriesPath, buildRootPath } from '../../util/routeUtil'
 import CupSeriesName from './CupSeriesName'
 import CupResultsPdf from './CupResultsPdf'
 import useTitle from '../../util/useTitle'
@@ -66,7 +66,7 @@ export default function CupPage({ setSelectedPage }) {
       )}
       <CupResultsPdf cup={cup} />
       <div className="buttons buttons--nav">
-        <Button to="/" type="back">{t('backToHomePage')}</Button>
+        <Button to={buildRootPath()} type="back">{t('backToHomePage')}</Button>
       </div>
     </>
   )

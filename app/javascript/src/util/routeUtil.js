@@ -1,33 +1,63 @@
-export const buildRacePath = raceId => `/races/${raceId}`
+const withLocale = path => {
+  const appElement = document.getElementById('react-app')
+  const locale = appElement.getAttribute('data-locale')
+  if (path === '/' && locale === 'sv') return '/sv'
+  return locale === 'sv' ? `/sv${path}` : path
+}
 
-export const buildSeriesStartListPath = (raceId, seriesId) => `/races/${raceId}/series/${seriesId}/start_list`
+/* eslint-disable max-len */
+export const buildRootPath = () => withLocale('/')
 
-export const buildSeriesResultsPath = (raceId, seriesId) => `/races/${raceId}/series/${seriesId}`
+export const buildRacesPath = () => withLocale('/races')
 
-export const buildSeriesRifleResultsPath = (raceId, seriesId) => `/races/${raceId}/series/${seriesId}/rifle`
+export const buildRacePath = raceId => withLocale(`/races/${raceId}`)
 
-export const buildNordicResultsPath = (raceId, subSport) => `/races/${raceId}/${subSport}`
+export const buildRaceStartListsPdfPath = raceId => withLocale(`/races/${raceId}/start_lists.pdf`)
 
-export const buildTeamCompetitionsPath = (raceId, id) => `/races/${raceId}/team_competitions/${id}`
+export const buildSeriesStartListPath = (raceId, seriesId) => withLocale(`/races/${raceId}/series/${seriesId}/start_list`)
 
-export const buildRifleTeamCompetitionsPath = (raceId, id) => `/races/${raceId}/rifle_team_competitions/${id}`
+export const buildSeriesResultsPath = (raceId, seriesId) => withLocale(`/races/${raceId}/series/${seriesId}`)
 
-export const buildRelayPath = (raceId, relayId) => `/races/${raceId}/relays/${relayId}`
+export const buildSeriesRifleResultsPath = (raceId, seriesId) => withLocale(`/races/${raceId}/series/${seriesId}/rifle`)
 
-export const buildRelayStartListPath = (raceId, relayId) => `/races/${raceId}/relays/${relayId}/start_list.pdf`
+export const buildNordicResultsPath = (raceId, subSport) => withLocale(`/races/${raceId}/${subSport}`)
 
-export const buildRelayLegPath = (raceId, relayId, leg) => `/races/${raceId}/relays/${relayId}/legs/${leg}`
+export const buildTeamCompetitionsPath = (raceId, id) => withLocale(`/races/${raceId}/team_competitions/${id}`)
 
-export const buildQualificationRoundBatchesPath = raceId => `/races/${raceId}/qualification_round_batches`
+export const buildRifleTeamCompetitionsPath = (raceId, id) => withLocale(`/races/${raceId}/rifle_team_competitions/${id}`)
 
-export const buildFinalRoundBatchesPath = raceId => `/races/${raceId}/final_round_batches`
+export const buildRelayPath = (raceId, relayId) => withLocale(`/races/${raceId}/relays/${relayId}`)
 
-export const buildCupPath = cupId => `/cups/${cupId}`
+export const buildRelayStartListPath = (raceId, relayId) => withLocale(`/races/${raceId}/relays/${relayId}/start_list.pdf`)
 
-export const buildCupSeriesPath = (cupId, cupSeriesId) => `/cups/${cupId}/cup_series/${cupSeriesId}`
+export const buildRelayLegPath = (raceId, relayId, leg) => withLocale(`/races/${raceId}/relays/${relayId}/legs/${leg}`)
 
-export const buildRifleCupSeriesPath = (cupId, cupSeriesId) => `/cups/${cupId}/rifle_cup_series/${cupSeriesId}`
+export const buildQualificationRoundBatchesPath = raceId => withLocale(`/races/${raceId}/qualification_round_batches`)
 
-export const buildCupMediaPath = cupId => `/cups/${cupId}/medium/new`
+export const buildFinalRoundBatchesPath = raceId => withLocale(`/races/${raceId}/final_round_batches`)
 
-export const buildAnnouncementPath = id => `/announcements/${id}`
+export const buildResultRotationPath = raceId => withLocale(`/races/${raceId}/result_rotation`)
+
+export const buildRaceMediaPath = raceId => withLocale(`/races/${raceId}/medium/new`)
+
+export const buildCupPath = cupId => withLocale(`/cups/${cupId}`)
+
+export const buildCupSeriesPath = (cupId, cupSeriesId) => withLocale(`/cups/${cupId}/cup_series/${cupSeriesId}`)
+
+export const buildRifleCupSeriesPath = (cupId, cupSeriesId) => withLocale(`/cups/${cupId}/rifle_cup_series/${cupSeriesId}`)
+
+export const buildCupMediaPath = cupId => withLocale(`/cups/${cupId}/medium/new`)
+
+export const buildAnnouncementsPath = () => withLocale('/announcements')
+
+export const buildAnnouncementPath = id => withLocale(`/announcements/${id}`)
+
+export const buildRegisterPath = () => withLocale('/register')
+
+export const buildAccountPath = () => withLocale('/account')
+
+export const buildFeedbackPath = () => withLocale('/feedbacks/new')
+
+export const buildInfoPath = () => withLocale('/info')
+
+export const buildOfficialPath = () => withLocale('/official')

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import format from 'date-fns/format'
 import useTranslation from '../../util/useTranslation'
-import { buildAnnouncementPath } from '../../util/routeUtil'
+import { buildAnnouncementPath, buildAnnouncementsPath } from '../../util/routeUtil'
 import Button from '../../common/Button'
 
 export default function Announcements({ announcements, emphasizeTitle }) {
@@ -29,7 +29,7 @@ export default function Announcements({ announcements, emphasizeTitle }) {
           )
         })}
         <div className="extra_card col-xs-12 col-sm-6 col-md-4">
-          <Button to="/announcements">{t('allAnnouncements')}</Button>
+          <Button to={buildAnnouncementsPath()}>{t('allAnnouncements')}</Button>
         </div>
       </div>
     </>
