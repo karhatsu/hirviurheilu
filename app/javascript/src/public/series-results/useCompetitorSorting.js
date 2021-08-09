@@ -4,6 +4,8 @@ const sortMethods = { points: 0, time: 1, estimates: 2, shooting: 3 }
 
 const compareNoResultReason = (a, b) => (a.noResultReason || '').localeCompare((b.noResultReason || ''))
 
+const noTime = 9999999
+
 const useCompetitorSorting = (series, setAllCompetitors) => {
   const [competitors, setCompetitors] = useState(series.competitors)
   const [sortMethod, setSortMethod] = useState(sortMethods.points)
@@ -16,7 +18,7 @@ const useCompetitorSorting = (series, setAllCompetitors) => {
     return competitors.sort((a, b) => {
       const noResultReason = compareNoResultReason(a, b)
       if (noResultReason) return noResultReason
-      return a.timeInSeconds - b.timeInSeconds
+      return (a.timeInSeconds || noTime) - (b.timeInSeconds || noTime)
     })
   }, [competitors])
 
