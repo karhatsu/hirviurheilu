@@ -1,4 +1,12 @@
 module TitleHelper
+  def main_title
+    return "#{@series.race.name} - #{@series.name}" if @series
+    return "#{@relay.race.name} - #{@relay.name}" if @relay
+    return @cup.name if @cup
+    return @race.name if @race
+    t('home.show.main_title')
+  end
+
   def series_result_title(series, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     suffix = ''
     suffix = " - #{t(:all_competitors)}" if unofficials == Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
