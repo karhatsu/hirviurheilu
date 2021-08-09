@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import format from 'date-fns/format'
 import max from 'date-fns/max'
 import parseISO from 'date-fns/parseISO'
 import useTitle from '../../util/useTitle'
@@ -25,6 +24,7 @@ import useRaceData from '../../util/useRaceData'
 import IncompletePage from '../../common/IncompletePage'
 import useDataReloading from '../../util/useDataReloading'
 import { useResultRotation } from '../result-rotation/useResultRotation'
+import { formatTodaysTime } from '../../util/timeUtil'
 
 export default function SeriesResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -47,7 +47,7 @@ export default function SeriesResultsPage({ setSelectedPage }) {
     const suffix = allCompetitors ? ` - ${t('allCompetitors')}` : ''
     if (titleSeries.finished || race.finished) return `${t('results')}${suffix}`
     const maxTime = max(titleSeries.competitors.map(c => parseISO(c.updatedAt)))
-    return `${t('resultsInProgress', { time: format(maxTime, 'dd.MM.yyyy HH:mm') })}`
+    return `${t('resultsInProgress', { time: formatTodaysTime(maxTime) })}`
   }, [allCompetitors, race, t, titleSeries])
 
   const title = titleSeries ? `${titleSeries.name} - ${titleSuffix}` : t('results')

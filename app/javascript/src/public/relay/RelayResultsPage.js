@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
-import format from 'date-fns/format'
 import max from 'date-fns/max'
 import parseISO from 'date-fns/parseISO'
 import { pages } from '../menu/DesktopSecondLevelMenu'
@@ -19,6 +18,7 @@ import useRelaySorting from './useRelaySorting'
 import useTitle from '../../util/useTitle'
 import useDataReloading from '../../util/useDataReloading'
 import MobileSubMenu from '../menu/MobileSubMenu'
+import { formatTodaysTime } from '../../util/timeUtil'
 
 export default function RelayResultsPage({ setSelectedPage }) {
   const { t } = useTranslation()
@@ -44,7 +44,7 @@ export default function RelayResultsPage({ setSelectedPage }) {
     if (!titleRelay.started) return t('relayNotStarted')
     if (titleRelay.finished) return t('results')
     const maxTime = max(titleRelay.teams.map(team => team.competitors.map(c => parseISO(c.updatedAt))).flat())
-    return t('resultsInProgress', { time: format(maxTime, 'dd.MM.yyyy HH:mm') })
+    return t('resultsInProgress', { time: formatTodaysTime(maxTime) })
   }, [t, titleRelay, leg])
 
   const title = titleRelay ? `${titleRelay.name} - ${titleSuffix}` : t('relay')

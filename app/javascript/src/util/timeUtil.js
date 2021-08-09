@@ -1,3 +1,6 @@
+import format from 'date-fns/format'
+import isToday from 'date-fns/isToday'
+
 export const timeFromSeconds = (seconds, signed) => {
   const absSeconds = Math.abs(seconds)
   let sign = ''
@@ -12,4 +15,9 @@ export const timeFromSeconds = (seconds, signed) => {
   const pad = n => n < 10 ? `0${n}` : n
   if (h >= 1) return `${sign}${h}:${pad(min)}:${pad(sec)}`
   return `${sign}${pad(min)}:${pad(sec)}`
+}
+
+export const formatTodaysTime = time => {
+  const dateFormat = isToday(time) ? 'HH:mm' : 'dd.MM.yyyy HH:mm'
+  return format(time, dateFormat)
 }

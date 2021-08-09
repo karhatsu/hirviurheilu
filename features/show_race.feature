@@ -22,7 +22,7 @@ Feature: Show race
     And I should see "Tiedote kilpailijoille ja kotikatsojille" within ".public-message"
     And I should see "Kilpailun alkuun on aikaa" in an info message
     And I should see "Kilpailu alkaa 10:00" in an info message
-    And I should see "Men 50 years (13:30)"
+    And I should see "Men 50 years (01.01.2029 13:30)"
     But I should not see "Kaikkien sarjojen lähtöajat (PDF)"
 
   @javascript

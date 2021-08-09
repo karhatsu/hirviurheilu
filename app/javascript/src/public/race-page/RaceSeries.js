@@ -17,6 +17,7 @@ import ClubSelect from './ClubSelect'
 import BatchListPdfForm from './BatchListPdfForm'
 import Button from '../../common/Button'
 import Message from '../../common/Message'
+import { formatTodaysTime } from '../../util/timeUtil'
 
 export default function RaceSeries({ race }) {
   const { t } = useTranslation()
@@ -41,7 +42,7 @@ export default function RaceSeries({ race }) {
         {series.map(s => {
           const { id, name, started, startTime } = s
           if (!started && sport.startList) {
-            const linkText = startTime ? `${name} (${format(parseISO(startTime), 'HH:mm')})` : name
+            const linkText = startTime ? `${name} (${formatTodaysTime(parseISO(startTime))})` : name
             return <Button key={id} to={buildSeriesStartListPath(race.id, id)}>{linkText}</Button>
           } else {
             const to = buildSeriesResultsPath(race.id, id)
