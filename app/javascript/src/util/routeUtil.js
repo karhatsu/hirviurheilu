@@ -60,4 +60,15 @@ export const buildFeedbackPath = () => withLocale('/feedbacks/new')
 
 export const buildInfoPath = () => withLocale('/info')
 
+export const buildAnswersPath = () => withLocale('/answers')
+
+export const buildPricesPath = () => withLocale('/prices')
+
 export const buildOfficialPath = () => withLocale('/official')
+
+export const matchPath = (currentPath, path, exact) => {
+  if (exact) {
+    return currentPath === path || currentPath === `/sv${path}`
+  }
+  return currentPath.indexOf(path) === 0 || currentPath.indexOf(`/sv${path}`) === 0
+}

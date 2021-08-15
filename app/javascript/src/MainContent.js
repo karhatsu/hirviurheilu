@@ -20,6 +20,7 @@ import AnnouncementPage from './public/announcements/AnnouncementPage'
 import AnnouncementsPage from './public/announcements/AnnouncementsPage'
 import HomePage from './public/home/HomePage'
 import RacesPage from './public/races/RacesPage'
+import InfoPage from './public/info/InfoPage'
 
 export default function MainContent({ cupSeriesPaths, setSelectedPage }) {
   return (
@@ -81,6 +82,7 @@ export default function MainContent({ cupSeriesPaths, setSelectedPage }) {
         <Route path="/:lang?/cups/:cupId" render={() => <CupPage setSelectedPage={setSelectedPage} />} />
         <Route path="/:lang?/announcements/:announcementId" component={AnnouncementPage} />
         <Route path="/:lang?/announcements" component={AnnouncementsPage} />
+        <Route path="/:lang?/info" render={() => <InfoPage setSelectedPage={setSelectedPage} />} />
         <Route path="/:lang?" component={HomePage} />
       </Switch>
     </div>

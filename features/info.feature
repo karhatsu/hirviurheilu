@@ -3,6 +3,7 @@ Feature: Info page
   As a potential user
   I want to read information from the Info page
 
+  @javascript
   Scenario: Info page
     Given I am on the home page
     And I follow "Info"
@@ -12,11 +13,13 @@ Feature: Info page
     When I follow "Lähetä palautetta" within ".body__content"
     Then I should be on the send feedback page
 
+  @javascript
   Scenario: Unauthenticated user goes to info page
     Given I am on the info page
     When I follow "Aloita palvelun käyttö"
     Then I should be on the register page
 
+  @javascript
   Scenario: Authenticated user goes to info page
     Given I am an official
     And I have logged in

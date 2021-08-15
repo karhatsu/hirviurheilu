@@ -3,7 +3,9 @@ import { useRace } from '../../util/useRace'
 import DesktopRaceSecondLevelMenu from './DesktopRaceSecondLevelMenu'
 import { useCup } from '../../util/useCup'
 import DesktopCupSecondLevelMenu from './DesktopCupSecondLevelMenu'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
+import DesktopInfoSecondLevelMenu from './DesktopInfoSecondLevelMenu'
+import { matchPath } from '../../util/routeUtil'
 
 export const pages = {
   raceHome: 0,
@@ -31,12 +33,17 @@ export const pages = {
     rifleResults: 17,
     media: 18,
   },
+  info: {
+    main: 19,
+  },
 }
 
 export default function DesktopSecondLevelMenu({ selectedPage }) {
   const { cupId, raceId } = useParams()
   const { race } = useRace()
   const { cup } = useCup()
+  const { pathname } = useLocation()
+  if (matchPath(pathname, '/info')) return <DesktopInfoSecondLevelMenu selectedPage={selectedPage} />
   if (cupId && cup) return <DesktopCupSecondLevelMenu cup={cup} selectedPage={selectedPage} />
   if (raceId && race && !race.cancelled) return <DesktopRaceSecondLevelMenu race={race} selectedPage={selectedPage} />
   return null

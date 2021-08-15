@@ -4,15 +4,17 @@ import { useCup } from './util/useCup'
 import { useRace } from './util/useRace'
 import DateInterval from './util/DateInterval'
 import useTranslation from './util/useTranslation'
+import { matchPath } from './util/routeUtil'
 
 export default function PageTitle() {
   const { t } = useTranslation()
   const { pathname } = useLocation()
-  const { announcementId, cupId, raceId } = useParams()
+  const { cupId, raceId } = useParams()
   const { race } = useRace()
   const { cup } = useCup()
-  if (announcementId || pathname === '/announcements') return t('announcements')
-  if (pathname === '/races' || pathname === '/sv/races') return `Hirviurheilu - ${t('races')}`
+  if (matchPath(pathname, '/announcements')) return t('announcements')
+  if (matchPath(pathname, '/info')) return t('info')
+  if (matchPath(pathname, '/races', true)) return `Hirviurheilu - ${t('races')}`
   const competition = (cupId && cup) || (raceId && race)
   if (!competition) return t('appTitle')
   const { name, location, startDate, endDate } = competition
