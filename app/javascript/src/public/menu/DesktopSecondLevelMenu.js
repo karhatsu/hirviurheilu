@@ -35,6 +35,7 @@ export const pages = {
   },
   info: {
     main: 19,
+    prices: 20,
   },
 }
 
@@ -43,7 +44,9 @@ export default function DesktopSecondLevelMenu({ selectedPage }) {
   const { race } = useRace()
   const { cup } = useCup()
   const { pathname } = useLocation()
-  if (matchPath(pathname, '/info')) return <DesktopInfoSecondLevelMenu selectedPage={selectedPage} />
+  if (matchPath(pathname, '/info') || matchPath(pathname, '/prices')) {
+    return <DesktopInfoSecondLevelMenu selectedPage={selectedPage} />
+  }
   if (cupId && cup) return <DesktopCupSecondLevelMenu cup={cup} selectedPage={selectedPage} />
   if (raceId && race && !race.cancelled) return <DesktopRaceSecondLevelMenu race={race} selectedPage={selectedPage} />
   return null

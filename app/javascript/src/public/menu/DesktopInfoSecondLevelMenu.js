@@ -15,7 +15,12 @@ export default function DesktopInfoSecondLevelMenu({ selectedPage }) {
         reactLink={true}
       />
       <DesktopMenuItem path={buildAnswersPath()} text={t('answersTitle')} />
-      <DesktopMenuItem path={buildPricesPath()} text={t('prices')} />
+      <DesktopMenuItem
+        path={buildPricesPath()}
+        text={t('prices')}
+        selected={selectedPage === pages.info.prices}
+        reactLink={true}
+      />
       <DesktopMenuItem path={buildFeedbackPath()} text={t('sendFeedback')} />
     </div>
   )

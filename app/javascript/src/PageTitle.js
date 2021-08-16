@@ -14,6 +14,7 @@ export default function PageTitle() {
   const { cup } = useCup()
   if (matchPath(pathname, '/announcements')) return t('announcements')
   if (matchPath(pathname, '/info')) return t('info')
+  if (matchPath(pathname, '/prices')) return t('prices')
   if (matchPath(pathname, '/races', true)) return `Hirviurheilu - ${t('races')}`
   const competition = (cupId && cup) || (raceId && race)
   if (!competition) return t('appTitle')
