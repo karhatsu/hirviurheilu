@@ -89,6 +89,7 @@ window.translations = {
   pressInfoUnfinishedRace: 'Tältä sivulta voit ladata lehdistöraportin, kun kilpailu on päättynyt',
   pressReportInstructions: 'Maalaa alla oleva tulosraportti ja kopioi se esimerkiksi sähköpostiisi tai vaikkapa tekstinkäsittelyohjelmaan jatkokäsittelyä varten',
   prices: 'Hinnat',
+  qAndA: 'Kysymyksiä ja vastauksia',
   qualificationRound: 'Alkukilpailu',
   qualificationRoundBatchList: 'Alkukilpailun eräluettelo',
   raceBeginsIn: 'Kilpailun alkuun on aikaa {{distanceInTime}}',

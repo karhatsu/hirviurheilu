@@ -8,6 +8,8 @@ class InfosController < ApplicationController
   end
 
   def answers
+    use_react
     @is_answers = true
+    render layout: true, html: ''
   end
 end

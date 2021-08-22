@@ -13,6 +13,7 @@ export default function PageTitle() {
   const { race } = useRace()
   const { cup } = useCup()
   if (matchPath(pathname, '/announcements')) return t('announcements')
+  if (matchPath(pathname, '/answers')) return t('qAndA')
   if (matchPath(pathname, '/info')) return t('info')
   if (matchPath(pathname, '/prices')) return t('prices')
   if (matchPath(pathname, '/races', true)) return `Hirviurheilu - ${t('races')}`

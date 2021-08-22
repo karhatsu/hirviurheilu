@@ -89,6 +89,7 @@ window.translations = {
   pressInfoUnfinishedRace: 'På den här sidan kan du hämta pressraporten, när tävlingen har slutats',
   pressReportInstructions: 'Dun kan kopiera resultraporten nedenför och bifoga den till exempel till din epost',
   prices: 'Priser',
+  qAndA: 'Kysymyksiä ja vastauksia',
   qualificationRound: 'Grundtävling',
   qualificationRoundBatchList: 'Grundtävlingens heatlista',
   raceBeginsIn: 'Tävlingen börjar om {{distanceInTime}}',
