@@ -162,18 +162,6 @@ Hirviurheilu::Application.routes.draw do
   end
 
   namespace :api, defaults: {format: 'json'} do
-    namespace :v1 do
-      resources :races, only: [:show] do
-        resources :times, only: :index
-        resources :competitors, only: [] do
-          resource :start_time, only: :update
-          resource :shooting_start_time, only: :update
-          resource :shooting_finish_time, only: :update
-          resource :arrival_time, only: :update
-        end
-      end
-    end
-
     namespace :v2 do
       namespace :official do
         resources :races, only: [:show] do
