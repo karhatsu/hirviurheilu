@@ -21,3 +21,9 @@ export const formatTodaysTime = time => {
   const dateFormat = isToday(time) ? 'HH:mm' : 'dd.MM.yyyy HH:mm'
   return format(time, dateFormat)
 }
+
+export const formatDateInterval = (startDate, endDate) => {
+  const start = format(new Date(startDate), 'dd.MM.yyyy')
+  const end = endDate && startDate !== endDate && format(new Date(endDate), 'dd.MM.yyyy')
+  return end ? `${start} - ${end}` : start
+}

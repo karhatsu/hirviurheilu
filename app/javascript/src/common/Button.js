@@ -9,7 +9,7 @@ export default function Button({ children, id, href, onClick, submit, to, type, 
   } else if (to) {
     return <Link to={to} className={className} id={id}>{children}</Link>
   } else if (submit) {
-    return <input type="submit" className={className} id={id} value={children} />
+    return <input type="submit" className={className} id={id} value={children} disabled={disabled} />
   } else {
     return <div onClick={onClick} className={className} id={id}>{children}</div>
   }

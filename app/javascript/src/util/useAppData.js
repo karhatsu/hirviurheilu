@@ -5,8 +5,20 @@ const useAppData = () => {
   const environment = appElement.getAttribute('data-env')
   const locale = appElement.getAttribute('data-locale')
   const titlePrefix = appElement.getAttribute('data-title-prefix')
-  const userId = appElement.getAttribute('data-user')
-  return { admin, environment, locale, titlePrefix, userId: userId && parseInt(userId) }
+  const userId = appElement.getAttribute('data-user-id')
+  const userEmail = appElement.getAttribute('data-user-email')
+  const userFirstName = appElement.getAttribute('data-user-first-name')
+  const userLastName = appElement.getAttribute('data-user-last-name')
+  return {
+    admin,
+    environment,
+    locale,
+    titlePrefix,
+    userId: userId && parseInt(userId),
+    userEmail,
+    userFirstName,
+    userLastName,
+  }
 }
 
 export default useAppData

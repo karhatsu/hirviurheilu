@@ -8,6 +8,16 @@ export function get(path, callback) {
   }).catch(() => handleApiConnectionError(callback))
 }
 
+export function post(path, body, callback) {
+  fetch(path, {
+    method: 'POST',
+    headers: { 'X-Camel-Case': 'true', 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  }).then(response => {
+    handleApiResponse(response, callback)
+  }).catch(() => handleApiConnectionError(callback))
+}
+
 export function handleApiResponse(response, callback) {
   if (response.status === 201 || response.status === 204) {
     callback()

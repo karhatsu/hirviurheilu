@@ -16,7 +16,7 @@ Hirviurheilu::Application.routes.draw do
     resources :announcements
     resource :info
     get 'answers' => 'infos#answers', :as => :answers
-    resources :feedbacks
+    resources :feedbacks, only: :new
 
     resources :prices
     get 'offers/new', to: redirect('/prices')
@@ -214,10 +214,12 @@ Hirviurheilu::Application.routes.draw do
           get 'rifle_standing', to: 'nordic_races#rifle_standing'
           get '/competitors/:competitor_number', to: 'competitors#show'
         end
+        resources :recent_races, only: :index
         resources :cups, only: :show do
           resources :cup_series, only: :show
           resources :rifle_cup_series, only: :show
         end
+        resources :feedbacks, only: :create
       end
     end
   end

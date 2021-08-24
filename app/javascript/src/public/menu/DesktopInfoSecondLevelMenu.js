@@ -26,7 +26,12 @@ export default function DesktopInfoSecondLevelMenu({ selectedPage }) {
         selected={selectedPage === pages.info.prices}
         reactLink={true}
       />
-      <DesktopMenuItem path={buildFeedbackPath()} text={t('sendFeedback')} />
+      <DesktopMenuItem
+        path={buildFeedbackPath()}
+        text={t('sendFeedback')}
+        selected={selectedPage === pages.info.feedback}
+        reactLink={true}
+      />
     </div>
   )
 }

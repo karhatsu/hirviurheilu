@@ -64,7 +64,7 @@ export default function MainMenu({ closeMenu, mainMenuOpen }) {
         icon="info"
         path={buildInfoPath()}
         text="Info"
-        selected={matchPath(pathname, '/info') || matchPath(pathname, '/prices') || matchPath(pathname, '/answers')}
+        selected={['/info', '/prices', '/answers', '/feedbacks'].find(path => matchPath(pathname, path))}
         reactLink={true}
         onClick={closeMenu}
       />
