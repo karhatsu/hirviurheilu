@@ -2,4 +2,4 @@
 
 ## Palvelu on käytettävissä osoitteessa
 
-[http://www.hirviurheilu.com]
+[https://www.hirviurheilu.com](https://www.hirviurheilu.com)
