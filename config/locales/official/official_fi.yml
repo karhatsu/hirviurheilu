@@ -69,23 +69,15 @@ fi:
         add_competitors_from_csv: Lisää kilpailijoita CSV-tiedostosta
         batches_manually: Erien hallinta manuaalisesti
         batch_list_generation: Erien arvonta
-        nordic_trap_batch_list_pdf: Trap PDF
-        nordic_shotgun_batch_list_pdf: Compak PDF
-        nordic_rifle_moving_batch_list_pdf: Hirvi PDF
-        nordic_rifle_standing_batch_list_pdf: Kauris PDF
-        european_trap_batch_list_pdf: Trap PDF
-        european_compak_batch_list_pdf: Compak PDF
-        european_rifle_batch_list_pdf: Luodikko PDF
         qualification_round_batch_list: Alkukilpailun erien asettelu arpomalla
-        qualification_round_batch_list_pdf: Alkukilpailun erien ampumapöytäkirjat (PDF)
-        final_round_batch_list_pdf: Loppukilpailun erien ampumapöytäkirjat (PDF)
         final_round_batch_list: Loppukilpailun erien asettelu
-        batch_list_template_pdf: Yhden erän tyhjä PDF
+        printing_batch_lists_and_numbers: Ampumapöytäkirjat ja numerolaput
+        printing_numbers: Numerolaput
         other: Muita toimintoja
         national_records: Suomen ennätykset
-        download_competitors_by_clubs: Lataa osallistujat piireittäin/seuroittain (PDF)
+        download_competitors_by_clubs: Lataa osallistujat seuroittain (PDF)
+        download_competitors_by_districts: Lataa osallistujat piireittäin (PDF)
         download_competitors_by_series: Lataa osallistujat sarjoittain (PDF)
-        download_numbers_pdf: Lataa numerolaput (PDF)
         other_race_formats: Muut kilpailumuodot
         finish_race_text: kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista.
         create_start_list: Tee lähtölista
@@ -414,3 +406,19 @@ fi:
         updated: Suomen ennätykset päivitetty
     pdf_error:
       title: PDF-tiedostoa ei voi luoda
+    printings:
+      show:
+        title: Tulostus
+        nordic_trap_batch_list_pdf: Trap PDF
+        nordic_shotgun_batch_list_pdf: Compak PDF
+        nordic_rifle_moving_batch_list_pdf: Hirvi PDF
+        nordic_rifle_standing_batch_list_pdf: Kauris PDF
+        european_trap_batch_list_pdf: Trap PDF
+        european_compak_batch_list_pdf: Compak PDF
+        european_rifle_batch_list_pdf: Luodikko PDF
+        qualification_round_batch_list_pdf: Alkukilpailun erien ampumapöytäkirjat (PDF)
+        final_round_batch_list_pdf: Loppukilpailun erien ampumapöytäkirjat (PDF)
+        batch_list_template_pdf: Yhden erän tyhjä PDF
+        numbers: Numerolaput
+        numbers_no_competitors: Voit ladata tästä numerolaput, kun olet syöttänyt kilpailijoiden tiedot
+        download_numbers_pdf: Lataa numerolaput (PDF)

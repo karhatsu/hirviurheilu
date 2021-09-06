@@ -126,6 +126,7 @@ Hirviurheilu::Application.routes.draw do
         get 'european_trap', to: 'european_race_shots#trap', as: :european_trap
         get 'european_compak', to: 'european_race_shots#compak', as: :european_compak
         get 'european_rifle', to: 'european_race_shots#rifle', as: :european_rifle
+        resource :printing, only: :show
       end
 
       resources :series do

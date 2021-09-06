@@ -61,28 +61,20 @@
     - unless @race.series.empty?
       - if @race.sport.one_batch_list?
         = link_to t('.batch_list_generation'), official_series_qualification_round_batch_list_path(@race.series.first), class: 'button'
-        - if @race.sport.nordic?
-          = link_to t('.nordic_trap_batch_list_pdf'), official_race_nordic_batch_lists_trap_path(@race, format: :pdf), class: 'button button--pdf'
-          = link_to t('.nordic_shotgun_batch_list_pdf'), official_race_nordic_batch_lists_shotgun_path(@race, format: :pdf), class: 'button button--pdf'
-          = link_to t('.nordic_rifle_moving_batch_list_pdf'), official_race_nordic_batch_lists_rifle_moving_path(@race, format: :pdf), class: 'button button--pdf'
-          = link_to t('.nordic_rifle_standing_batch_list_pdf'), official_race_nordic_batch_lists_rifle_standing_path(@race, format: :pdf), class: 'button button--pdf'
-        - elsif @race.sport.european?
-          = link_to t('.european_trap_batch_list_pdf'), official_race_european_batch_lists_trap_path(@race, format: :pdf), class: 'button button--pdf'
-          = link_to t('.european_compak_batch_list_pdf'), official_race_european_batch_lists_compak_path(@race, format: :pdf), class: 'button button--pdf'
-          = link_to t('.european_rifle_batch_list_pdf'), official_race_european_batch_lists_rifle_path(@race, format: :pdf), class: 'button button--pdf'
       - else
         = link_to t('.qualification_round_batch_list'), official_series_qualification_round_batch_list_path(@race.series.first), class: 'button'
-        = link_to t('.qualification_round_batch_list_pdf'), official_race_qualification_round_batch_lists_path(@race, format: :pdf), class: 'button button--pdf'
         = link_to t('.final_round_batch_list'), official_series_final_round_batch_list_path(@race.series.first), class: 'button'
-        = link_to t('.final_round_batch_list_pdf'), official_race_final_round_batch_lists_path(@race, format: :pdf), class: 'button button--pdf'
-        = link_to t('.batch_list_template_pdf'), official_race_batch_list_template_path(@race, format: :pdf), class: 'button button--pdf'
+%h3 Tulostus (PDF)
+.buttons
+  - key = @race.sport.batch_list? ? '.printing_batch_lists_and_numbers' : '.printing_numbers'
+  = link_to t(key), official_race_printing_path(@race), class: 'button'
+  - unless @race.competitors.empty?
+    - club_key = @race.club_level == Race::CLUB_LEVEL_SEURA ? '.download_competitors_by_clubs' : '.download_competitors_by_districts'
+    = link_to t(club_key), official_race_clubs_competitors_path(@race, format: :pdf), class: 'button button--pdf'
+    = link_to t('.download_competitors_by_series'), official_race_competitors_path(@race, format: :pdf), class: 'button button--pdf'
 %h3.desktop= t '.other'
 .buttons
   = link_to t('.national_records'), official_race_national_records_path(@race), class: 'button'
-  - unless @race.competitors.empty?
-    = link_to t('.download_competitors_by_clubs'), official_race_clubs_competitors_path(@race, format: :pdf), class: 'button button--pdf'
-    = link_to t('.download_competitors_by_series'), official_race_competitors_path(@race, format: :pdf), class: 'button button--pdf'
-    = link_to t('.download_numbers_pdf'), official_race_competitor_numbers_path(@race, format: :pdf), class: 'button button--pdf'
 - if @race.sport.relays?
   %h2= t '.other_race_formats'
   .buttons

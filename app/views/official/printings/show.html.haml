@@ -1,0 +1,25 @@
+- content_for :title, t('.title')
+%h2= yield :title
+- if @race.sport.batch_list?
+  %h3= t(:batch_lists)
+  - if @race.sport.one_batch_list?
+    - if @race.sport.nordic?
+      = link_to t('.nordic_trap_batch_list_pdf'), official_race_nordic_batch_lists_trap_path(@race, format: :pdf), class: 'button button--pdf'
+      = link_to t('.nordic_shotgun_batch_list_pdf'), official_race_nordic_batch_lists_shotgun_path(@race, format: :pdf), class: 'button button--pdf'
+      = link_to t('.nordic_rifle_moving_batch_list_pdf'), official_race_nordic_batch_lists_rifle_moving_path(@race, format: :pdf), class: 'button button--pdf'
+      = link_to t('.nordic_rifle_standing_batch_list_pdf'), official_race_nordic_batch_lists_rifle_standing_path(@race, format: :pdf), class: 'button button--pdf'
+    - elsif @race.sport.european?
+      = link_to t('.european_trap_batch_list_pdf'), official_race_european_batch_lists_trap_path(@race, format: :pdf), class: 'button button--pdf'
+      = link_to t('.european_compak_batch_list_pdf'), official_race_european_batch_lists_compak_path(@race, format: :pdf), class: 'button button--pdf'
+      = link_to t('.european_rifle_batch_list_pdf'), official_race_european_batch_lists_rifle_path(@race, format: :pdf), class: 'button button--pdf'
+  - else
+    = link_to t('.qualification_round_batch_list_pdf'), official_race_qualification_round_batch_lists_path(@race, format: :pdf), class: 'button button--pdf'
+    = link_to t('.final_round_batch_list_pdf'), official_race_final_round_batch_lists_path(@race, format: :pdf), class: 'button button--pdf'
+    = link_to t('.batch_list_template_pdf'), official_race_batch_list_template_path(@race, format: :pdf), class: 'button button--pdf'
+%h3= t('.numbers')
+- if @race.competitors.empty?
+  .message.message--info= t '.numbers_no_competitors'
+- else
+  = link_to t('.download_numbers_pdf'), official_race_competitor_numbers_path(@race, format: :pdf), class: 'button button--pdf'
+.buttons.buttons--nav
+  = link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'

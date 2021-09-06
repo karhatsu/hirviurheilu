@@ -69,23 +69,15 @@ sv:
         add_competitors_from_csv: Öka tävlar från CSV-fil
         batches_manually: Erien hallinta manuaalisesti
         batch_list_generation: Heatlotteri
-        nordic_trap_batch_list_pdf: Trap PDF
-        nordic_shotgun_batch_list_pdf: Compak PDF
-        nordic_rifle_moving_batch_list_pdf: Älg PDF
-        nordic_rifle_standing_batch_list_pdf: Rådjur PDF
-        european_trap_batch_list_pdf: Trap PDF
-        european_compak_batch_list_pdf: Compak PDF
-        european_rifle_batch_list_pdf: Kulskytte PDF
         qualification_round_batch_list: Grundtävlingens heatlotteri
-        qualification_round_batch_list_pdf: Grundtävlingens heat skytteprotokoll (PDF)
-        final_round_batch_list_pdf: Finalens heat skytteprotokoll (PDF)
         final_round_batch_list: Finalens heatlista
-        batch_list_template_pdf: Tom PDF för ett heat
+        printing_batch_lists_and_numbers: Skytteprotokoll och nummer
+        printing_numbers: Nummer
         other: Övriga
         national_records: Finska rekord
         download_competitors_by_clubs: Ladda tävlarna som klubbar (PDF)
+        download_competitors_by_districts: Ladda tävlarna som distrikt (PDF)
         download_competitors_by_series: Ladda tävlarna som klasser (PDF)
-        download_numbers_pdf: Ladda nummerlappar (PDF)
         other_race_formats: Andra tävlingar
         finish_race_text: när du har sparat alla resultaten, så att de riktiga avstånden kan publiseras
         create_start_list: Gör startlista
@@ -413,3 +405,19 @@ sv:
         updated: Nationellt record updaterad
     pdf_error:
       title: Kan inte göra PDF-fil
+    printings:
+      show:
+        title: Skriva ut
+        nordic_trap_batch_list_pdf: Trap PDF
+        nordic_shotgun_batch_list_pdf: Compak PDF
+        nordic_rifle_moving_batch_list_pdf: Älg PDF
+        nordic_rifle_standing_batch_list_pdf: Rådjur PDF
+        european_trap_batch_list_pdf: Trap PDF
+        european_compak_batch_list_pdf: Compak PDF
+        european_rifle_batch_list_pdf: Kulskytte PDF
+        qualification_round_batch_list_pdf: Grundtävlingens heat skytteprotokoll (PDF)
+        final_round_batch_list_pdf: Finalens heat skytteprotokoll (PDF)
+        batch_list_template_pdf: Tom PDF för ett heat
+        numbers: Nummer
+        numbers_no_competitors: Voit ladata tästä numerolaput, kun olet syöttänyt kilpailijoiden tiedot
+        download_numbers_pdf: Ladda nummerlappar (PDF)
