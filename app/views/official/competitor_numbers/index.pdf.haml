@@ -1,6 +1,24 @@
-- total_count = @race.competitors.count
-- @competitors.each_with_index do |competitor, i|
-  - if competitor.number.to_i > 0
+- if @a5
+  - page_count = (@competitors.length / 2.0).ceil
+  - @competitors.each_slice(2).each_with_index do |cc, i|
+    .competitor-number-double-page
+      - cc.each do |competitor|
+        .competitor-number-page
+          .competitor-number-page__sport= @race.sport.shooting? ? @race.sport.name : raw('&nbsp;')
+          .competitor-number-page__name= full_name competitor
+          .competitor-number-page__number= competitor.number
+          .competitor-number-page__club= competitor.club.name
+          .competitor-number-page__series= competitor.series.name
+          .competitor-number-page__batch
+            - if competitor.qualification_round_track_place && competitor.qualification_round_batch
+              #{competitor.qualification_round_batch.number} / #{competitor.qualification_round_track_place}
+            - else
+              = raw('&nbsp;')
+    - if i < page_count - 1
+      .page-break
+- else
+  - page_count = @competitors.length
+  - @competitors.each_with_index do |competitor, i|
     .competitor-number-page
       - if @race.sport.shooting?
         .competitor-number-page__sport= @race.sport.name
@@ -12,5 +30,5 @@
         .competitor-number-page__batch
           #{competitor.qualification_round_batch.number} / #{competitor.qualification_round_track_place}
     -#.logo= image_tag 'https://www.karhatsu.com/hirviurheilu/SM-logo.png'
-    - if i < total_count - 1
+    - if i < page_count - 1
       .page-break

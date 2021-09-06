@@ -183,3 +183,35 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
     margin-top: 16px;
   }
 }
+
+.competitor-number-double-page {
+  .competitor-number-page {
+    font-size: 32px;
+    text-align: center;
+
+    &:first-child {
+      border-bottom: 1px dashed #999;
+      padding: 0 0 32px;
+    }
+
+    &:last-child {
+      padding: 32px 0 0;
+    }
+
+    &__number {
+      font-size: 300px;
+      line-height: 300px;
+      margin-top: 0;
+    }
+
+    &__sport, &__name, &__club, &__series, &__batch {
+      font-size: 16px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    &__name {
+      font-size: 24px;
+    }
+  }
+}
