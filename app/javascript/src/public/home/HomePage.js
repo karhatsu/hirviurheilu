@@ -11,6 +11,7 @@ import Button from '../../common/Button'
 import useTranslation from '../../util/useTranslation'
 import SearchForm from './SearchForm'
 import { buildRacesPath } from '../../util/routeUtil'
+import useTitle from '../../util/useTitle'
 
 export default function HomePage() {
   const { t } = useTranslation()
@@ -18,6 +19,7 @@ export default function HomePage() {
   const [data, setData] = useState()
   const [searchParams, setSearchParams] = useState({})
   const [searching, setSearching] = useState(false)
+  useTitle(t('appTitle'))
 
   const toPastRaces = useCallback(() => {
     document.querySelector('#past-races').scrollIntoView({ behavior: 'smooth' })
