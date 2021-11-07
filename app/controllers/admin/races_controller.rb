@@ -1,15 +1,24 @@
 class Admin::RacesController < Admin::AdminController
+  protect_from_forgery with: :null_session, only: Proc.new { |c| c.request.format.json? }
+
   before_action :set_admin_races
 
   def index
-    @past_races = Race.where('start_date<?', Date.today)
-    @future_races = Race.where('start_date>=?', Date.today)
-    @past_races = @past_races.includes(:users).order('start_date desc')
-    @future_races = @future_races.includes(:users).order('start_date desc')
+    @past_races = Race.where('start_date<?', Date.today).includes(:users).order('start_date desc')
+    @future_races = Race.where('start_date>=?', Date.today).includes(:users).order('start_date desc')
   end
 
   def show
     @race = Race.find(params[:id])
+  end
+
+  def update
+    race = Race.find(params[:id])
+    if race.update(params.require(:race).permit(:level))
+      render status: 204, body: nil
+    else
+      render status: 500, body: 'ERROR'
+    end
   end
 
   def destroy

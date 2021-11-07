@@ -1,0 +1,35 @@
+.levels-selection {
+  display: flex;
+  min-width: 150px;
+  justify-content: space-between;
+
+  &__level {
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 2px;
+    color: white;
+
+    &_0 {
+      background-color: cornflowerblue;
+    }
+
+    &_1 {
+      background-color: darkseagreen;
+    }
+
+    &_2 {
+      background-color: yellow;
+      color: black;
+    }
+
+    &_3 {
+      background-color: indianred;
+    }
+
+    &--selected, &:hover {
+      font-weight: bold;
+      border: 2px solid black;
+      padding: 2px 4px;
+    }
+  }
+}
