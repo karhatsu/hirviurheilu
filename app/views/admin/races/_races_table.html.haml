@@ -3,17 +3,15 @@
     %th Nimi
     %th Pvm
     %th Sijainti
-    %th Toimitsijat
     %th &nbsp;
     %th &nbsp;
   - races.each_with_index do |race, i|
     %tr{id: "race_row_#{race.id}", class: i % 2 == 0 ? 'odd' : ''}
-      %td= link_to truncate(race.name, length: 30), race_path(race), target: '_blank'
+      %td= link_to race.name, race_path(race), target: '_blank'
       %td
         = date_print(race.start_date)
         = "(#{race.days_count})" if race.days_count > 1
-      %td= truncate(race.location, length: 30)
-      %td= truncate(race.users.collect { |user| full_name(user) }.join(', '), length: 50)
+      %td= race.location
       %td.levels-selection{id: "level_#{race.id}"}
         - Race::ALL_LEVELS.each do |level|
           - class_names = ["levels-selection__level_#{level}", race.level == level ? 'levels-selection__level--selected' : '']

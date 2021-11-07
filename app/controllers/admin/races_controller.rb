@@ -4,8 +4,8 @@ class Admin::RacesController < Admin::AdminController
   before_action :set_admin_races
 
   def index
-    @past_races = Race.where('start_date<?', Date.today).includes(:users).order('start_date desc')
-    @future_races = Race.where('start_date>=?', Date.today).includes(:users).order('start_date desc')
+    @past_races = Race.where('start_date<?', Date.today).order('start_date desc')
+    @future_races = Race.where('start_date>=?', Date.today).order('start_date desc')
   end
 
   def show
