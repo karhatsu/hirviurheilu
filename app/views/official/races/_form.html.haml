@@ -5,6 +5,9 @@
   .form__field.form__field--md.row
     .col-xs-12.col-sm-3= f.label :sport_key
     .col-xs-12.col-sm-9= t "sport_name.#{@race.sport_key}"
+  .form__field.form__field--md.row
+    .col-xs-12.col-sm-3= f.label :level
+    .col-xs-12.col-sm-9= f.select :level, Race::ALL_LEVELS.reverse.map {|level| [t("levels.#{level}"), level]}, include_blank: t(:choose)
   .form__field.row
     .col-xs-12.col-sm-3= f.label :name
     .col-xs-12.col-sm-9= f.text_field :name

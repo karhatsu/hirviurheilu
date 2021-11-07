@@ -73,6 +73,16 @@ describe Race do
       it_should_behave_like 'positive integer', :shooting_place_count, true
     end
 
+    describe 'level' do
+      it { is_expected.not_to allow_value('').for(:level) }
+      it { is_expected.not_to allow_value(Race::LEVEL_OTHER - 1).for(:level) }
+      it { is_expected.to allow_value(Race::LEVEL_OTHER).for(:level) }
+      it { is_expected.to allow_value(Race::LEVEL_DISTRICT).for(:level) }
+      it { is_expected.to allow_value(Race::LEVEL_AREA).for(:level) }
+      it { is_expected.to allow_value(Race::LEVEL_NATIONAL).for(:level) }
+      it { is_expected.not_to allow_value(Race::LEVEL_NATIONAL + 1).for(:level) }
+    end
+
     describe "race with same name" do
       before do
         @race = create(:race, :name => 'My race', :start_date => '2010-01-01',

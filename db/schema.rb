@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_08_130705) do
+ActiveRecord::Schema.define(version: 2021_11_07_105542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(version: 2021_07_08_130705) do
     t.boolean "cancelled", default: false, null: false
     t.boolean "hide_qualification_round_batches"
     t.boolean "hide_final_round_batches"
+    t.integer "level", default: 0, null: false
   end
 
   create_table "relay_competitors", id: :serial, force: :cascade do |t|

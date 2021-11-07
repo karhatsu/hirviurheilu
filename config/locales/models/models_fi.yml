@@ -68,6 +68,7 @@ fi:
     last_request_at: Viim. käyt.
     leg_distance: Osuuden pituus (m)
     legs_count: Osuuksien määrä
+    level: Taso
     location: Paikkakunta
     long_name: Pitkä nimi
     max_number: Suurin numero

@@ -87,6 +87,11 @@ sv:
   leg: Sträcka
   leg_time: Sträckatid
   leg_time_short: Sträcka
+  levels:
+    "0": Andra
+    "1": Distrikt
+    "2": Region
+    "3": FM
   login_required: Du måste logga in för att se sidan
   no_competitors_for_series: Inga tävlar i klassen
   no_start_list: Klassens startlist har inte ännu publiserats

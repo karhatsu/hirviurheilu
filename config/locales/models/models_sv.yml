@@ -68,6 +68,7 @@ sv:
     last_request_at: Senaste användad
     leg_distance: Sträck avstånd (m)
     legs_count: Sträckor
+    level: Nivå
     location: Ort
     long_name: Långt namn
     max_number: Storaste nummer

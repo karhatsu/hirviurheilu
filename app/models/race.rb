@@ -14,6 +14,12 @@ class Race < ApplicationRecord
   START_ORDER_BY_SERIES = 1
   START_ORDER_MIXED = 2
 
+  LEVEL_OTHER = 0
+  LEVEL_DISTRICT = 1
+  LEVEL_AREA = 2
+  LEVEL_NATIONAL = 3
+  ALL_LEVELS = [LEVEL_OTHER, LEVEL_DISTRICT, LEVEL_AREA, LEVEL_NATIONAL]
+
   belongs_to :district
   has_many :series, -> { order(:name) }, :dependent => :destroy
   has_many :age_groups, :through => :series
@@ -48,6 +54,7 @@ class Race < ApplicationRecord
   validates :start_order, :inclusion => { in: [START_ORDER_BY_SERIES, START_ORDER_MIXED], message: :have_to_choose }
   validates :track_count, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :shooting_place_count, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
+  validates :level, inclusion: { in: [LEVEL_OTHER, LEVEL_DISTRICT, LEVEL_AREA, LEVEL_NATIONAL] }
   validate :end_date_not_before_start_date
   validate :check_duplicate_name_location_start_date, :on => :create
   validate :check_competitors_on_change_to_mixed_start_order, :on => :update
