@@ -34,6 +34,7 @@ export default function SearchForm({ onSearch }) {
             onChange={setSearchValue('search_text')}
             onKeyPress={e => e.key === 'Enter' && submit()}
             placeholder={t('raceSearchPlaceholder')}
+            style={{ width: '18em' }}
           />
         </div>
         <div className="form__field">
@@ -50,6 +51,12 @@ export default function SearchForm({ onSearch }) {
             </select>
           </div>
         )}
+        <div className="form__field">
+          <select value={searchParams.level} onChange={setSearchValue('level')} id="level">
+            <option value="">{t('allLevels')}</option>
+            {[3, 2, 1, 0].map(level => <option value={level} key={level}>{t(`level_${level}`)}</option>)}
+          </select>
+        </div>
         <div className="form__buttons">
           <Button type="primary" onClick={submit} id="search">{t('search')}</Button>
           <Button onClick={reset} id="reset">{t('reset')}</Button>

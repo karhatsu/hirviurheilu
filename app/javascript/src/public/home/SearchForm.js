@@ -4,7 +4,7 @@ import Spinner from '../../common/Spinner'
 import { sportKeys } from '../../util/sportUtil'
 import useDistricts from '../../util/useDistricts'
 
-export default function SearchForm({ sportKey, setSportKey, districtId, setDistrictId, searching }) {
+export default function SearchForm({ sportKey, setSportKey, districtId, setDistrictId, searching, level, setLevel }) {
   const { t } = useTranslation()
   const { districts } = useDistricts()
   return (
@@ -23,6 +23,12 @@ export default function SearchForm({ sportKey, setSportKey, districtId, setDistr
           </select>
         </div>
       )}
+      <div className="form__field">
+        <select value={level} onChange={e => setLevel(e.target.value)} id="level">
+          <option value="">{t('allLevels')}</option>
+          {[3, 2, 1, 0].map(level => <option value={level} key={level}>{t(`level_${level}`)}</option>)}
+        </select>
+      </div>
       {searching && (
         <div className="form__field"><Spinner /></div>
       )}

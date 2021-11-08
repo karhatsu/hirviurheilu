@@ -63,6 +63,8 @@ export default function HomePage() {
         setSportKey={setSearchValue('sport_key')}
         districtId={searchParams.district_id}
         setDistrictId={setSearchValue('district_id')}
+        level={searchParams.level}
+        setLevel={setSearchValue('level')}
         searching={searching}
       />
       <Races races={today} titleKey="races_today" icon="directions_run" sectionId="races_today" />
