@@ -92,6 +92,11 @@ sv:
     "1": Distrikt
     "2": Region
     "3": FM
+  levels_long:
+    "0": Andra
+    "1": Distrikt mästerskap
+    "2": Regional mästerskap
+    "3": Finska mästerskap
   login_required: Du måste logga in för att se sidan
   no_competitors_for_series: Inga tävlar i klassen
   no_start_list: Klassens startlist har inte ännu publiserats
