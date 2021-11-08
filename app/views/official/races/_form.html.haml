@@ -24,7 +24,7 @@
   .form__field.form__field--md.row
     .col-xs-12.col-sm-3= f.label :days_count
     .col-xs-12.col-sm-9= f.select :days_count, 7.times.map {|i| [t(:days, count: i + 1), i + 1]}
-  .form__field.form__field--md.row
+  .form__field.form__field--lg.row
     .col-xs-12.col-sm-3= f.label :level
     .col-xs-12.col-sm-9= f.select :level, Race::ALL_LEVELS.reverse.map {|level| [t("levels_long.#{level}"), level]}, prompt: true
   .form__field.row

@@ -103,6 +103,12 @@ $inputHeight: 16px;
   }
 }
 
+.form__field--lg {
+  input, select {
+    width: 256px;
+  }
+}
+
 .form__field--date {
   select {
     width: 128px;
