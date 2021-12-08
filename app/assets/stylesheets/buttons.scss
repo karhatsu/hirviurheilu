@@ -93,10 +93,6 @@ input[type = 'submit'] {
     content: 'create';
   }
 
-  &--pdf {
-    display: none;
-  }
-
   &--pdf::before {
     content: 'print';
   }
@@ -123,10 +119,6 @@ input[type = 'submit'] {
 @media only screen and (min-width: 48em) {
   .buttons--mobile {
     display: none;
-  }
-
-  .button--pdf {
-    display: inline-block;
   }
 
   #show_all_relay_competitors, #hide_all_relay_competitors {
