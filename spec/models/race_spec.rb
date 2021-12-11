@@ -83,6 +83,12 @@ describe Race do
       it { is_expected.not_to allow_value(Race::LEVEL_NATIONAL + 1).for(:level) }
     end
 
+    describe 'pending_official_email' do
+      it { is_expected.to allow_value('valid@email.com').for(:pending_official_email)}
+      it { is_expected.not_to allow_value('invalid.email').for(:pending_official_email)}
+      it { is_expected.to allow_value(nil).for(:pending_official_email)}
+    end
+
     describe "race with same name" do
       before do
         @race = create(:race, :name => 'My race', :start_date => '2010-01-01',

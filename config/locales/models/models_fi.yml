@@ -97,6 +97,7 @@ fi:
     organizer_phone: Puhelin
     password: Salasana
     password_confirmation: Salasana uudestaan
+    pending_official_email: Toimitsijan sähköposti
     points_method: Pistelaskenta
     price: Hinta
     public_message: Viesti kilpailun etusivulle

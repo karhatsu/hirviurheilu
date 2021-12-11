@@ -55,6 +55,7 @@ class Race < ApplicationRecord
   validates :track_count, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :shooting_place_count, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :level, inclusion: { in: [LEVEL_OTHER, LEVEL_DISTRICT, LEVEL_AREA, LEVEL_NATIONAL], message: :invalid }
+  validates :pending_official_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
   validate :end_date_not_before_start_date
   validate :check_duplicate_name_location_start_date, :on => :create
   validate :check_competitors_on_change_to_mixed_start_order, :on => :update
