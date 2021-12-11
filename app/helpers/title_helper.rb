@@ -1,9 +1,9 @@
 module TitleHelper
   def main_title
     return "#{@series.race.name} - #{@series.name}" if @series
-    return "#{@relay.race.name} - #{@relay.name}" if @relay
-    return @cup.name if @cup
-    return @race.name if @race
+    return "#{@relay.race.name} - #{@relay.name}" if @relay && !@relay.new_record?
+    return @cup.name if @cup && !@cup.new_record?
+    return @race.name if @race && !@race.new_record?
     t('home.show.main_title')
   end
 
