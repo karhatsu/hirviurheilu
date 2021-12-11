@@ -6,6 +6,10 @@ Given "there is a {string} race {string}" do |sport_key, name|
   @race = create :race, sport_key: sport_key, name: name
 end
 
+Given('there is a race {string} with pending official email {string}') do |name, pending_official_email|
+  @race = create :race, name: name, pending_official_email: pending_official_email
+end
+
 Given("there is a {string} race {string} at {string} in {string}") do |sport_key, name, start_date, district_name|
   district = District.find_or_create_by! name: district_name, short_name: district_name[0..1]
   @race = create :race, sport_key: sport_key, name: name, start_date: start_date, district: district

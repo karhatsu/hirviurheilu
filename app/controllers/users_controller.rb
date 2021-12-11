@@ -17,6 +17,11 @@ class UsersController < ApplicationController
     end
     if @user.save
       @user.add_official_rights
+      Race.where('pending_official_email=?', @user.email).each do |race|
+        race.users << @user
+        race.pending_official_email = nil
+        race.save
+      end
       NewUserMailer.new_user(@user).deliver_now
       flash[:success] = t('users.create.account_created')
       redirect_back_or_default account_url
