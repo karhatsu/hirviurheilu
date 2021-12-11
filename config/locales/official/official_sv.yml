@@ -9,6 +9,7 @@ sv:
         cup_competitions: Cup-tävlingar
         new_competition: Ny tävling
         add_new_race: Öka en tävling
+        add_multiple_races: Öka många tävlingar
         add_new_cup: Öka en cup-tävling
         no_races_yet:
           short: Du har ännu inga tävlingar.
@@ -88,6 +89,14 @@ sv:
       destroy:
         race_removed: Tävlingen raderat
         cannot_remove_race: Kan inte radera tävlingen
+    multiple_races:
+      new:
+        title: Öka många tävlingar
+        instructions_title: Anvisningar
+        download_example_file: Ladda exempelfil
+        upload_csv_title: Ladda CSV-fil
+        csv_file: CSV-fil
+        submit_button: Spara tävlingar
     competitors:
       index:
         title: Tävlar

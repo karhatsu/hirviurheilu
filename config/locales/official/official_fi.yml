@@ -9,6 +9,7 @@ fi:
         cup_competitions: Cup-kilpailut
         new_competition: Uusi kilpailu
         add_new_race: Lisää uusi kilpailu
+        add_multiple_races: Lisää monta kilpailua
         add_new_cup: Lisää uusi cup-kilpailu
         no_races_yet:
           short: Sinulla ei ole vielä yhtään kilpailua.
@@ -88,6 +89,14 @@ fi:
       destroy:
         race_removed: Kilpailu poistettu
         cannot_remove_race: Kilpailua ei voi poistaa
+    multiple_races:
+      new:
+        title: Usean kilpailun lisäys
+        instructions_title: Ohjeet
+        download_example_file: Lataa esimerkkitiedosto
+        upload_csv_title: Lataa CSV-tiedosto
+        csv_file: CSV-tiedosto
+        submit_button: Tallenna kilpailut palveluun
     competitors:
       index:
         title: Kilpailijat
