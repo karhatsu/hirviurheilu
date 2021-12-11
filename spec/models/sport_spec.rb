@@ -32,4 +32,10 @@ describe Sport do
       expect(Sport.by_key('METSASTYSHAULIKKO').best_shot_value).to eql 1
     end
   end
+
+  it 'find key by name' do
+    expect(Sport.key_by_name('Hirvenhiihto')).to eq Sport::SKI
+    expect(Sport.key_by_name('Metsästyshaulikko')).to eq Sport::METSASTYSHAULIKKO
+    expect(Sport.key_by_name('foo')).to be_nil
+  end
 end

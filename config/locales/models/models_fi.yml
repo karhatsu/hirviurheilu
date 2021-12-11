@@ -322,8 +322,12 @@ fi:
               results_missing: Kaikilla kilpailjoilla ei ole tulosta
               already_race_with_same_name_location_date: Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä
               start_order_mixed_not_allowed: Et voi asettaa kilpailijoiden lähtöjärjestystä tilaan 'Sarjat sekaisin', koska olet lisännyt kilpailijoita, joilla ei ole lähtöaikaa. Käy luomassa lähtölistat nille sarjoille, joihin olet jo lisännyt kilpailijoita, ja palaa sen jälkeen muuttamaan tämä asetus.
+            district:
+              invalid: on virheellinen
             end_date:
               must_not_be_before_start_date: ei voi olla ennen alkupäivää
+            level:
+              invalid: on virheellinen
             start_order:
               have_to_choose: täytyy valita
         series:
