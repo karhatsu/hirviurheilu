@@ -74,9 +74,9 @@ module ApplicationHelper
 
   def facebook_url
     return nil unless facebook_env?
-    return PRODUCTION_URL if Rails.env.development?
+    url = Rails.env.development? ? PRODUCTION_URL : request.original_url
     path = request.path
-    return request.original_url if path == '/' || path.match(/^\/races\//) || path.match(/^\/announcements/) || path.match(/^\/cups/)
+    return url if path == '/' || path.match(/^\/races\//) || path.match(/^\/announcements/) || path.match(/^\/cups/)
     nil
   end
 
