@@ -49,12 +49,16 @@ class CsvMultipleImport
                       level: row[6],
                       district: District.find_by_short_name(row[7]),
                       start_interval_seconds: 60
-      race.email = row[8]
+      email = row[8]
+      user = User.find_by_email email
+      race.user = user if user
+      race.pending_official_email = email unless user
       if race.valid? && sport_key
         races << race
       else
         errors = race.errors.full_messages
         errors.unshift('Laji on virheellinen') unless sport_key
+        errors << 'Toimitsijan sähköposti on pakollinen' if !race.user && race.pending_official_email.blank?
         @errors << { row: index + 1, errors: errors }
       end
     end
@@ -65,7 +69,7 @@ class CsvMultipleImport
     races.each do |race|
       race.save!
       race.users << @user
-      race.users << User.find_by_email(race.email) unless race.email == @user.email
+      race.users << race.user if race.user && race.user.id != @user.id
     end
   end
 end

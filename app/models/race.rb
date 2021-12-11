@@ -69,6 +69,7 @@ class Race < ApplicationRecord
   scope :future, lambda { where('start_date>?', Time.zone.today).order('start_date, name') }
 
   attr_accessor :email, :password # for publishing
+  attr_accessor :user # multiple races import
 
   def race
     self

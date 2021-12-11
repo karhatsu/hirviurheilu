@@ -19,7 +19,7 @@ describe CsvMultipleImport do
     end
 
     it 'adds the races' do
-      expect(Race.count).to eql 2
+      expect(Race.count).to eql 3
       race = Race.first
       expect(race.sport_key).to eql Sport::METSASTYSLUODIKKO
       expect(race.name).to eql 'Metsästysluodikon pm-kisat'
@@ -32,12 +32,18 @@ describe CsvMultipleImport do
     end
 
     it 'assigns the races to the user and to the official mentioned in the file' do
-      race = Race.first
+      race = Race.find_by_name 'Metsästysluodikon pm-kisat'
       expect(race.users.count).to eql 2
     end
 
     it 'does not assigns the race to the same user twice' do
-      race = Race.last
+      race = Race.find_by_name 'Testiseuran mestaruuskisat'
+      expect(race.users.count).to eql 1
+    end
+
+    it 'sets official pending email when unknown email' do
+      race = Race.find_by_name 'Ilmahirven seurakilpailut'
+      expect(race.pending_official_email).to eql 'uusi@toimitsija.com'
       expect(race.users.count).to eql 1
     end
 
@@ -47,10 +53,11 @@ describe CsvMultipleImport do
       end
 
       it 'returns errors and does not add duplicate races' do
-        expect(Race.count).to eql 2
+        expect(Race.count).to eql 3
         expected_errors = [
           { row: 2, errors: ['Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä'] },
           { row: 3, errors: ['Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä'] },
+          { row: 4, errors: ['Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä'] },
         ]
         expect(@import.errors).to eql expected_errors
       end
@@ -65,8 +72,8 @@ describe CsvMultipleImport do
     it 'returns errors and does not add any races' do
       expect(Race.count).to eql 0
       expected_errors = [
-        { row: 3, errors: ['Piiri on virheellinen', 'Alkupvm on pakollinen', 'Taso on virheellinen'] },
-        { row: 4, errors: ['Laji on virheellinen', 'Paikkakunta on pakollinen'] },
+        { row: 3, errors: ['Piiri on virheellinen', 'Alkupvm on pakollinen', 'Taso on virheellinen', 'Toimitsijan sähköposti on pakollinen'] },
+        { row: 4, errors: ['Laji on virheellinen', 'Paikkakunta on pakollinen', 'Toimitsijan sähköposti on kelvoton'] },
       ]
       expect(@import.errors).to eql expected_errors
     end
