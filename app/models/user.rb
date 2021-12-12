@@ -10,7 +10,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :cups, :join_table => :cup_officials
 
   validates :email,
-            format: { with: /@/, message: "should look like an email address." },
+            format: { with: URI::MailTo::EMAIL_REGEXP, message: :invalid },
             length: { maximum: 100 },
             uniqueness: { case_sensitive: false, if: :will_save_change_to_email? }
   validates :email, uniqueness: { case_sensitive: false }
