@@ -29,5 +29,13 @@
             = link_to 'Peruuta kutsu', official_race_race_right_path(@race, rr),
               data: { confirm: "Haluatko varmasti poistaa käyttäjän toimitsijaoikeudet tähän kilpailuun?" },
               method: :delete, class: 'button button--danger'
+- if @race.pending_official_email
+  %h2 Odottaa rekisteröitymistä
+  .row
+    .col-xs-12.col-sm-6
+      .card
+        .card__middle
+          .card__name= @race.pending_official_email
+          .card__middle-row Täydet oikeudet
 .buttons.buttons--nav
   = link_to 'Takaisin Yhteenveto-sivulle', official_race_path(@race), class: 'button button--back'

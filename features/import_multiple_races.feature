@@ -37,3 +37,12 @@ Feature: Import multiple races with CSV file
     And I attach the import test file "import_multiple_races.csv" to "CSV-tiedosto"
     And I press "Tallenna kilpailut palveluun"
     Then I should see "Rivi 2: Järjestelmästä löytyy jo kilpailu, jolla on sama laji, nimi, sijainti ja päivämäärä" in an error message
+    When I choose "Toimitsijan sivut" from main menu
+    And I follow "Ilmahirven seurakilpailut"
+    And I choose "Toimitsijat" from sub menu
+    Then I should see "Odottaa rekisteröitymistä"
+    And I should see "uusi@toimitsija.com"
+    When I choose "Toimitsijan sivut" from main menu
+    And I follow "Metsästysluodikon pm-kisat"
+    And I choose "Toimitsijat" from sub menu
+    Then I should not see "Odottaa rekisteröitymistä"
