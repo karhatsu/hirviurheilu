@@ -25,6 +25,14 @@ Feature: Import multiple races with CSV file
     And I should see "Kilpailut tallennettu palveluun" in a success message
     And I should see "Metsästysluodikon pm-kisat"
     And I should see "Testiseuran mestaruuskisat"
+    And "toimitsija.1@testi.com" should receive an email with subject "Hirviurheilu - Sinulle on lisätty kilpailuja"
+    And "uusi@toimitsija.com" should receive an email with subject "Hirviurheilu - Sinulle on lisätty kilpailuja"
+    When "toimitsija.1@testi.com" opens the email
+    Then I should see "Metsästysluodikon pm-kisat" in the email body
+    And I should see "Löydät kilpailut Hirviurheilusta Toimitsijan sivuilta." in the email body
+    When "uusi@toimitsija.com" opens the email
+    Then I should see "Ilmahirven seurakilpailut" in the email body
+    And I should see "Rekisteröidy Hirviurheiluun, niin pääset hallinnoimaan kilpailuja." in the email body
     When I follow "Lisää monta kilpailua"
     And I attach the import test file "import_multiple_races.csv" to "CSV-tiedosto"
     And I press "Tallenna kilpailut palveluun"

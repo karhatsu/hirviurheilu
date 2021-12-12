@@ -1,11 +1,13 @@
 class CsvMultipleImport
   include CsvReader
 
-  attr_accessor :errors
+  attr_reader :errors, :existing_users, :new_emails
 
   def initialize(user, file_path)
     @user = user
     @errors = []
+    @existing_users = {}
+    @new_emails = {}
     data = get_data file_path
     return unless @errors.empty?
     races = validate_races data
@@ -69,7 +71,18 @@ class CsvMultipleImport
     races.each do |race|
       race.save!
       race.users << @user
-      race.users << race.user if race.user && race.user.id != @user.id
+      assign_official race
+    end
+  end
+
+  def assign_official(race)
+    if race.user && race.user.id != @user.id
+      race.users << race.user
+      @existing_users[race.user] ||= []
+      @existing_users[race.user] << race
+    elsif race.pending_official_email
+      @new_emails[race.pending_official_email] ||= []
+      @new_emails[race.pending_official_email] << race
     end
   end
 end

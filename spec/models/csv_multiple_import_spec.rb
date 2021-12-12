@@ -47,6 +47,11 @@ describe CsvMultipleImport do
       expect(race.users.count).to eql 1
     end
 
+    it 'provides access to officials and races assigned to them' do
+      expect(@import.existing_users).to eql({ race_official => [Race.find_by_name('Metsästysluodikon pm-kisat')] })
+      expect(@import.new_emails).to eql({ 'uusi@toimitsija.com' => [Race.find_by_name('Ilmahirven seurakilpailut')] })
+    end
+
     context 'and same file is imported again' do
       before do
         @import = CsvMultipleImport.new user, test_file_path('import_multiple_races.csv')
