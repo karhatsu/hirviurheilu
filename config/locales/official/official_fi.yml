@@ -19,7 +19,7 @@ fi:
         title: Kilpailun lisäys
         sport_selection_info: Aloita valitsemalla laji (valintaa ei voi vaihtaa myöhemmin)
         choose_sport: Valitse laji
-        add_default_series_automatically: Lisää oletussarjat automaattisesti
+        add_default_series_automatically: Lisää oletussarjat
         copy_series: Kopioi sarjat kilpailusta
         submit: Lisää kilpailu
       create:
@@ -41,7 +41,6 @@ fi:
         competitors_start_order_series: Pääsääntöisesti sarjoittain
         competitors_start_order_mixed: Sarjat sekaisin
         start_batches_not_in_use: lähtöerät eivät käytössä
-        you_havent_added_series_yet: Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja yllä olevasta napista.
         age_groups_help_title:
           three_sports_race: Ikäryhmät, joille lasketaan omat aikapisteet
           shooting_race: Aliryhmät joukkuekilpailua varten

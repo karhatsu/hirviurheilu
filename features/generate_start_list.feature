@@ -162,7 +162,7 @@ Feature: Generate start list
     And I press "Lisää kilpailu"
     Then I should see "Kilpailijoiden lähtöjärjestys" in an error message
     When I choose "Sarjat sekaisin"
-    And I check "Lisää oletussarjat automaattisesti"
+    And I check "Lisää oletussarjat"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
     When I follow "Kilpailijat"

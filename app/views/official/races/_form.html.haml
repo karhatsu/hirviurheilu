@@ -190,41 +190,17 @@
 
   - if @race.new_record?
     %h2= t 'activerecord.models.series.other'
-    .form__field.row
-      .col-xs-12.col-sm-3
-        .form__help-label
-          = label_tag :add_default_series, t('official.races.new.add_default_series_automatically')
-          %a.help#default_series_help{href: 'javascript:void(0);'} ?
-      .col-xs-12.col-sm-9= check_box_tag :add_default_series, '1', params[:add_default_series]
-
-    #default_series_help_dialog.dialog{style: 'display:none;'}
-      Jos merkitset 'Lisää oletussarjat automaattisesti'-kentän valituksi,
-      kilpailulle luodaan automaattisesti seuraavat sarjat:
-      %ul
-        - DefaultSeries.all(@race.sport).each do |df|
-          %li
-            - if df.default_age_groups.empty?
-              = df.name
-            - else
-              #{df.name} (#{(df.default_age_groups.collect &:name).join(', ')})
-      Voit kilpailun lisäämisen jälkeen tarvittaessa poistaa tarpeettomat sarjat
-      ja lisätä uusia.
-      %p Mikäli et valitse tätä vaihtoehtoa, pääset lisäämään haluamasi sarjat heti kilpailun jälkeen.
-
-    - unless current_user.races.empty?
-      .form__field.row
-        .col-xs-12.col-sm-3= label_tag :add_default_series, t('official.races.new.copy_series')
-        .col-xs-12.col-sm-9= select_tag :copy_series, options_from_collection_for_select(current_user.races, :id, lambda {|r| "#{r.name}, #{r.location}, #{race_date_interval(r, false)}"}, params[:copy_series]), prompt: '- Ei kopiointia -'
-
+    = render partial: 'series_helper_fields'
   - else
-    .form__buttons
-      = submit_tag submit_label, class: 'button button--primary'
+    - unless @race.series.empty?
+      .form__buttons
+        = submit_tag submit_label, class: 'button button--primary'
     %h2= t 'activerecord.models.series.other'
     = f.fields_for :series do |series_form|
       = render partial: 'series', locals: { f: series_form }
     - if @race.series.empty?
-      = highlight_info(t 'official.races.form.you_havent_added_series_yet')
-    = add_child_link t('official.races.form.add_series'), f, :series, nil, 'button button--add'
+      = render partial: 'series_helper_fields'
+    = add_child_link t('official.races.form.add_series'), f, :series, 'add_series_button', 'button button--add'
   .form__buttons
     = submit_tag submit_label, class: 'button button--primary'
 
@@ -251,17 +227,26 @@
 
   $('#add_default_series').change(setSeriesMethodEnabling)
   $('#copy_series').change(setSeriesMethodEnabling)
+  $('#add_series_button').click(setSeriesMethodEnabling)
+  $('form').on('click', '.remove_series_button', setSeriesMethodEnabling)
 
   function setSeriesMethodEnabling() {
     var defaultSeries = $('#add_default_series')[0].checked
     var copySeries = !!$('#copy_series').val()
+    var series = $('.series-sub-form:visible').length
     if (defaultSeries) {
       $('#copy_series').attr('disabled', true)
+      $('#add_series_button').addClass('button--disabled')
     } else if (copySeries) {
       $('#add_default_series').attr('disabled', true)
+      $('#add_series_button').addClass('button--disabled')
+    } else if (series) {
+      $('#add_default_series').attr('disabled', true)
+      $('#copy_series').attr('disabled', true)
     } else {
       $('#copy_series').removeAttr('disabled')
       $('#add_default_series').removeAttr('disabled')
+      $('#add_series_button').removeClass('button--disabled')
     }
   }
 = render :partial => 'shared/help_dialog_opener'
