@@ -1,0 +1,15 @@
+Hei,
+%br
+%br
+#{full_name(@by_user, true)} on lisännyt Hirviurheiluun nämä kilpailut ja antanut sinulle niihin toimitsijaoikeudet:
+%br
+%br
+- @races.sort {|a, b| a.start_date <=> b.start_date}.each do |race|
+  \- #{race.name} (#{race_date_interval(race, false)}, #{race.location})
+  %br
+%br
+%a{href: register_url} Rekisteröidy Hirviurheiluun, niin pääset hallinnoimaan kilpailuja.
+%br
+%br
+(Tämä viesti on lähetetty sähköpostiosoitteeseen #{@email}. Mikäli sinun ei mielestäsi pitänyt saada tätä sähköpostia, otathan ystävällisesti yhteyttä Hirviurheilun tukeen alla olevan linkin kautta.)
+= render partial: 'shared/customer_email_footer'
