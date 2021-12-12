@@ -15,7 +15,7 @@ Feature: Club level
       | Paikkakunta | Test town |
     And I select "Test district" from "race_district_id"
     And I choose "Pääsääntöisesti sarjoittain"
-    And I check "Lisää oletussarjat automaattisesti"
+    And I check "Lisää oletussarjat"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
     When I follow "Seurat" within ".menu--sub"
@@ -60,7 +60,7 @@ Feature: Club level
       | Paikkakunta | Test town |
     And I select "Test district" from "race_district_id"
     And I choose "Pääsääntöisesti sarjoittain"
-    And I check "Lisää oletussarjat automaattisesti"
+    And I check "Lisää oletussarjat"
     And I choose "Piiri"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"

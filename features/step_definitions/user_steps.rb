@@ -12,6 +12,12 @@ Given /^there is an official "([^"]*)" "([^"]*)"$/ do |first_name, last_name|
   user.add_official_rights
 end
 
+Given /^there is an official with email "([^"]*)"$/ do |email|
+  user = build :user, email: email
+  user.save_without_session_maintenance
+  user.add_official_rights
+end
+
 Given /^there is an official with email "([^"]*)" and password "([^"]*)"$/ do |email, password|
   user = build(:user, :email => email, :password => password)
   user.save_without_session_maintenance

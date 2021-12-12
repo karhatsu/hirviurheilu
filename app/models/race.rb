@@ -43,7 +43,7 @@ class Race < ApplicationRecord
 
   before_validation :set_end_date, :set_club_level
 
-  validates :district, presence: true
+  validates :district, presence: { message: :invalid }
   validates :name, :presence => true
   validates :location, :presence => true
   validates :start_date, :presence => true
@@ -54,7 +54,8 @@ class Race < ApplicationRecord
   validates :start_order, :inclusion => { in: [START_ORDER_BY_SERIES, START_ORDER_MIXED], message: :have_to_choose }
   validates :track_count, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :shooting_place_count, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
-  validates :level, inclusion: { in: [LEVEL_OTHER, LEVEL_DISTRICT, LEVEL_AREA, LEVEL_NATIONAL] }
+  validates :level, inclusion: { in: [LEVEL_OTHER, LEVEL_DISTRICT, LEVEL_AREA, LEVEL_NATIONAL], message: :invalid }
+  validates :pending_official_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
   validate :end_date_not_before_start_date
   validate :check_duplicate_name_location_start_date, :on => :create
   validate :check_competitors_on_change_to_mixed_start_order, :on => :update
@@ -68,6 +69,7 @@ class Race < ApplicationRecord
   scope :future, lambda { where('start_date>?', Time.zone.today).order('start_date, name') }
 
   attr_accessor :email, :password # for publishing
+  attr_accessor :user # multiple races import
 
   def race
     self

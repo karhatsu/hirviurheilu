@@ -1,4 +1,6 @@
 class CsvImport
+  include CsvReader
+
   FIRST_NAME_COLUMN = 0
   LAST_NAME_COLUMN = 1
   CLUB_COLUMN = 2
@@ -14,7 +16,7 @@ class CsvImport
     @race = race
     @competitors = []
     @errors = []
-    @data = read_file(file_path)
+    @data = read_csv_file file_path
     validate_data limited_club
     validate_duplicate_data
     strip_duplicate_errors
@@ -35,26 +37,6 @@ class CsvImport
   end
 
   private
-  def read_file(file_path)
-    ["r:utf-8", "r:windows-1252:utf-8"].each do |read_encoding|
-      data = []
-      begin
-        File.open(file_path, read_encoding).each_line do |line|
-          separator = resolve_separator line
-          columns = line.gsub(/\r\n?/, '').gsub(/\n?/, '').split(separator)
-          break if columns.length == 0
-          data << columns.map {|column| column.strip}
-        end
-        return data
-      rescue ArgumentError
-      end
-    end
-    raise UnknownCSVEncodingException.new
-  end
-
-  def resolve_separator(line)
-    line.index(';') ? ';' : ','
-  end
 
   def validate_data(limited_club)
     reserved_numbers = @race.competitors.map(&:number) if @race.sport.shooting?

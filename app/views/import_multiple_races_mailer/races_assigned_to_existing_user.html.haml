@@ -1,0 +1,12 @@
+Hei #{full_name(@to_user, true)},
+%br
+%br
+#{full_name(@by_user, true)} on lisännyt Hirviurheiluun nämä kilpailut ja antanut sinulle niihin toimitsijaoikeudet:
+%br
+%br
+- @races.sort {|a, b| a.start_date <=> b.start_date}.each do |race|
+  \- #{race.name} (#{race_date_interval(race, false)}, #{race.location})
+  %br
+%br
+%a{href: official_root_url} Löydät kilpailut Hirviurheilusta Toimitsijan sivuilta.
+= render partial: 'shared/customer_email_footer'

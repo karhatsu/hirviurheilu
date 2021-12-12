@@ -1,0 +1,35 @@
+- content_for(:title, t('.title'))
+- content_for(:page_title, yield(:title))
+%h2= t '.instructions_title'
+.message.message--info
+  Tällä sivulla voit tallentaa palveluun useamman kilpailun kerralla.
+  %ol
+    %li Lataa alla olevasta napista esimerkkitiedosto ja avaa se esim. Excelissä
+    %li Syötä kilpailuiden tiedot riviltä 2 alkaen (säilytä otsikkorivi)
+    %li Tallenna tiedosto CSV-muotoon
+    %li Lataa CSV-tiedosto tämän sivun kautta palveluun
+  Lisäohjeita tiedoston sisältöön
+  %ul
+    %Li Laji pitää olla jokin seuraavista: #{Sport::ALL_KEYS.map{|key| t("sport_name.#{key}")}.join(', ')}
+    %li Osoite ja järjestävän seuran nimi eivät ole pakollisia mutta suositeltavia
+    %li Taso ilmoitetaan numerolla: 3 = SM, 2 = Aluemestaruus, 1 = Piirinmestaruus, 0 = Muu kilpailu
+    %li Piiri pitää olla virallisessa kahden kirjaimen muodossa, esim. PS tai LA
+    %li Toimitsijan sähköposti on pakollinen mutta kyseisellä sähköpostiosoitteella ei tarvitse löytyä valmiiksi Hirviurheilu-tunnusta
+.buttons
+  %a.button{href: '/monta-kilpailua.csv'}= t('.download_example_file')
+%h2= t '.upload_csv_title'
+= flash_error
+- if @errors
+  .message.message--error.message--with-bullets
+    Kilpailuiden tallennus epäonnistui, tarkasta virheet:
+    %ul
+      - @errors.each do |error|
+        %li #{error[:row] > 0 ? "Rivi #{error[:row]}: " : ''} #{error[:errors].join(', ')}
+= form_tag(official_multiple_races_path, multipart: true, class: 'form') do
+  .form__field
+    = label_tag :file, t('.csv_file')
+    = file_field_tag :file
+  .form__buttons
+    = submit_tag t('.submit_button'), class: 'button button--primary'
+.buttons.buttons--nav
+  = link_to t(:back_to_official_home_page), official_root_path, class: 'button button--back'

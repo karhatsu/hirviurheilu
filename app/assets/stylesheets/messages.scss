@@ -26,6 +26,15 @@
     }
   }
 
+  &--error.message--with-bullets {
+    ul {
+      margin-top: 4px;
+      list-style-type: disc;
+      list-style-position: inside;
+      padding-left: 12px;
+    }
+  }
+
   &--warning {
     background: linear-gradient(to right, rgba(253, 106, 7, 1), rgba(253, 106, 7, 0.7));
     border-color: #FF7F00;

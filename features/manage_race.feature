@@ -46,7 +46,7 @@ Feature: Manage race
       | Lähtöaikojen väli | 30 |
     And I select "Test district" from "race_district_id"
     And I choose "Pääsääntöisesti sarjoittain"
-    And I check "Lisää oletussarjat automaattisesti"
+    And I check "Lisää oletussarjat"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
     And the official main menu item should be selected
@@ -75,10 +75,9 @@ Feature: Manage race
       | Lähtöaikojen väli | 30 |
     And I select "Test district" from "race_district_id"
     And I choose "Pääsääntöisesti sarjoittain"
-    And I uncheck "Lisää oletussarjat automaattisesti"
+    And I uncheck "Lisää oletussarjat"
     And I press "Lisää kilpailu"
     Then I should be on the race edit page of "Test race"
-    And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja yllä olevasta napista." in an info message
     When I press "Lisää uusi sarja tähän kilpailuun"
     And I fill in "Test series" for "Sarjan nimi"
     And I press "Lisää ikäryhmä"
@@ -89,7 +88,8 @@ Feature: Manage race
     Then I should be on the official race page of "Test race"
     And I should see "Test series"
 
-  Scenario: Race has no series
+  @javascript
+  Scenario: Add default series for a race without series
     Given I am an official
     And I have a race "Test race"
     And I have logged in
@@ -98,8 +98,11 @@ Feature: Manage race
     Then I should be on the official race page of "Test race"
     And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja yllä olevasta napista." in an info message
     When I follow "Muokkaa kilpailun ja sarjojen asetuksia, lisää sarjoja"
-    Then I should be on the race edit page of "Test race"
-    And I should see "Et ole vielä lisännyt kilpailuun yhtään sarjaa. Lisää sarjoja yllä olevasta napista." in an info message
+    And I check "Lisää oletussarjat"
+    And I press "Tallenna kilpailun ja sarjojen tiedot"
+    Then I should be on the official race page of "Test race"
+    And I should see "M60"
+    And I should see "N50"
 
   Scenario: Create shooting race
     Given I am an official
@@ -117,7 +120,7 @@ Feature: Manage race
       | Ratojen määrä | 2       |
       | Ammuntapaikkoja / rata | 10 |
     And I select "Test district" from "race_district_id"
-    And I check "Lisää oletussarjat automaattisesti"
+    And I check "Lisää oletussarjat"
     And I press "Lisää kilpailu"
     Then I should be on the official race page of "Test race"
     And I should not see "Oikeat etäisyydet"

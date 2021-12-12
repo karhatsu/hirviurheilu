@@ -37,6 +37,25 @@ Feature: Official
     And I should see "Sukunimi: Tester" in the email body
     And I should see "Sähköposti: tim@tester.com" in the email body
 
+  Scenario: User registers with email that has pending races
+    Given there is a race "Test race 1" with pending official email "pending@test.com"
+    And there is a race "Test race 2" with pending official email "pending@test.com"
+    And I am on the registration page
+    When I fill in the following:
+      | Etunimi | Tim |
+      | Sukunimi | Tester |
+      | Seura | Club |
+      | Sähköposti | pending@test.com |
+      | Salasana | testpassword |
+      | Salasana uudestaan | testpassword |
+      | captcha            | neljä        |
+    And I press "Rekisteröidy"
+    Then I should see "Käyttäjätili luotu."
+    When I follow "Toimitsijan sivut"
+    Then I should be on the official index page
+    And I should see "Test race 1"
+    And I should see "Test race 2"
+
   Scenario: Previously registered official goes to the registration page
     Given I am on the registration page
     When I follow "Kirjaudu sisään"

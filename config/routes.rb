@@ -75,6 +75,8 @@ Hirviurheilu::Application.routes.draw do
 
       resources :cups
 
+      resources :multiple_races, only: [:new, :create]
+
       resources :races do
         resources :batches
         resource :batch_lists_reset, only: [:show, :destroy]

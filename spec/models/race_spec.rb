@@ -8,7 +8,6 @@ describe Race do
   end
 
   describe "validation" do
-    it { is_expected.to validate_presence_of(:district) }
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:location) }
     it { is_expected.to validate_presence_of(:start_date) }
@@ -81,6 +80,12 @@ describe Race do
       it { is_expected.to allow_value(Race::LEVEL_AREA).for(:level) }
       it { is_expected.to allow_value(Race::LEVEL_NATIONAL).for(:level) }
       it { is_expected.not_to allow_value(Race::LEVEL_NATIONAL + 1).for(:level) }
+    end
+
+    describe 'pending_official_email' do
+      it { is_expected.to allow_value('valid@email.com').for(:pending_official_email)}
+      it { is_expected.not_to allow_value('invalid.email').for(:pending_official_email)}
+      it { is_expected.to allow_value(nil).for(:pending_official_email)}
     end
 
     describe "race with same name" do

@@ -47,6 +47,11 @@ class Official::RacesController < Official::OfficialController
 
   def update
     if @race.update(update_race_params)
+      if params[:add_default_series]
+        @race.add_default_series
+      elsif !params[:copy_series].blank?
+        @race.copy_series_from Race.find(params[:copy_series])
+      end
       flash[:success] = t '.updated'
       redirect_to official_race_path(@race)
     else

@@ -5,6 +5,7 @@
 - if @today.length == 0 && @future.length == 0 && @past.length == 0
   = highlight_info(t('.no_races_yet.long'))
   = link_to t('.add_new_race'), new_official_race_path, class: 'button button--add'
+  = link_to t('.add_multiple_races'), new_official_multiple_race_path, class: 'button button--add'
 - else
   - unless @today.empty?
     %h2
@@ -15,6 +16,7 @@
     %i.material-icons-outlined.md-18 today
     = t 'home.show.upcoming_competitions'
   = link_to t('.add_new_race'), new_official_race_path, class: 'button button--add'
+  = link_to t('.add_multiple_races'), new_official_multiple_race_path, class: 'button button--add'
   .row= render partial: 'race_list', locals: { competitions: @future }
   %h2
     %i.material-icons-outlined.md-18 dynamic_feed

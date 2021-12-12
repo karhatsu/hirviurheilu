@@ -196,4 +196,8 @@ class Sport
     return nil unless key
     CONFIGS[key.to_sym] or raise("Unknown sport key: #{key}")
   end
+
+  def self.key_by_name(name)
+    CONFIGS.keys.find {|key| CONFIGS[key][:name] == name}&.to_s
+  end
 end
