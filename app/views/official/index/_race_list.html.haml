@@ -15,5 +15,6 @@
               .badge.badge--cancelled= t 'attributes.cancelled'
           .card__middle-row
             #{race_date_interval(competition, false)}, #{competition.location}
+            .card__middle-row.card__middle-row--sport-name= t("sport_name.#{competition.sport_key}")
           - if warn_unfinished && !competition.finished? && !competition.cancelled?
             .card__middle-row.card__middle-row--error Kilpailua ei ole päätetty!
