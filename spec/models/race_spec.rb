@@ -90,27 +90,27 @@ describe Race do
 
     describe "race with same name" do
       before do
-        @race = create(:race, :name => 'My race', :start_date => '2010-01-01',
-          :location => 'My town')
+        @race = create :race, name: 'My race', start_date: '2010-01-01', location: 'My town', sport_key: Sport::SKI
       end
 
-      it "should allow if same location, different start date" do
-        expect(build(:race, :name => 'My race', :start_date => '2011-01-01',
-          :location => 'My town')).to be_valid
+      it "should allow if same location and sport but different start date" do
+        expect(build(:race, name: 'My race', start_date: '2011-01-01', location: 'My town', sport_key: Sport::SKI)).to be_valid
       end
 
-      it "should allow if different location, same start date" do
-        expect(build(:race, :name => 'My race', :start_date => '2010-01-01',
-          :location => 'Different town')).to be_valid
+      it "should allow if same start date and sport but different location" do
+        expect(build(:race, name: 'My race', start_date: '2010-01-01', location: 'Different town', sport_key: Sport::SKI)).to be_valid
+      end
+
+      it "should allow if same start date and location but different sport" do
+        expect(build(:race, name: 'My race', start_date: '2010-01-01', location: 'My town', sport_key: Sport::ILMAHIRVI)).to be_valid
       end
 
       it "should allow updating the existing race" do
         expect(@race).to be_valid
       end
 
-      it "should prevent if same location, same start date" do
-        expect(build(:race, :name => 'My race', :start_date => '2010-01-01',
-          :location => 'My town')).not_to be_valid
+      it "should prevent if same location, start date and sport" do
+        expect(build(:race, name: 'My race', start_date: '2010-01-01', location: 'My town', sport_key: Sport::SKI)).not_to be_valid
       end
     end
 

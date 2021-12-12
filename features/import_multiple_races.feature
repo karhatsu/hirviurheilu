@@ -36,4 +36,4 @@ Feature: Import multiple races with CSV file
     When I follow "Lisää monta kilpailua"
     And I attach the import test file "import_multiple_races.csv" to "CSV-tiedosto"
     And I press "Tallenna kilpailut palveluun"
-    Then I should see "Rivi 2: Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä" in an error message
+    Then I should see "Rivi 2: Järjestelmästä löytyy jo kilpailu, jolla on sama laji, nimi, sijainti ja päivämäärä" in an error message

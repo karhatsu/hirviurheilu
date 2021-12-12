@@ -57,7 +57,7 @@ class Race < ApplicationRecord
   validates :level, inclusion: { in: [LEVEL_OTHER, LEVEL_DISTRICT, LEVEL_AREA, LEVEL_NATIONAL], message: :invalid }
   validates :pending_official_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
   validate :end_date_not_before_start_date
-  validate :check_duplicate_name_location_start_date, :on => :create
+  validate :check_duplicate_race, on: :create
   validate :check_competitors_on_change_to_mixed_start_order, :on => :update
 
   before_create :generate_api_secret
@@ -265,10 +265,10 @@ class Race < ApplicationRecord
     end
   end
 
-  def check_duplicate_name_location_start_date
-    if name and location and start_date and
-        Race.exists?(:name => name, :location => location, :start_date => start_date)
-      errors.add :base, :already_race_with_same_name_location_date
+  def check_duplicate_race
+    if name && location && start_date && sport_key &&
+        Race.exists?(name: name, location: location, start_date: start_date, sport_key: sport_key)
+      errors.add :base, :duplicate_race
     end
   end
 

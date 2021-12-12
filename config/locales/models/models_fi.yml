@@ -321,7 +321,7 @@ fi:
             base:
               correct_estimate_missing: Osalta kilpailijoista puuttuu oikea arviomatka
               results_missing: Kaikilla kilpailjoilla ei ole tulosta
-              already_race_with_same_name_location_date: Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä
+              duplicate_race: Järjestelmästä löytyy jo kilpailu, jolla on sama laji, nimi, sijainti ja päivämäärä
               start_order_mixed_not_allowed: Et voi asettaa kilpailijoiden lähtöjärjestystä tilaan 'Sarjat sekaisin', koska olet lisännyt kilpailijoita, joilla ei ole lähtöaikaa. Käy luomassa lähtölistat nille sarjoille, joihin olet jo lisännyt kilpailijoita, ja palaa sen jälkeen muuttamaan tämä asetus.
             district:
               invalid: on virheellinen

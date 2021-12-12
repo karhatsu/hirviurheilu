@@ -61,9 +61,9 @@ describe CsvMultipleImport do
       it 'returns errors and does not add duplicate races' do
         expect(Race.count).to eql 3
         expected_errors = [
-          { row: 2, errors: ['Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä'] },
-          { row: 3, errors: ['Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä'] },
-          { row: 4, errors: ['Järjestelmästä löytyy jo kilpailu, jolla on sama nimi, sijainti ja päivämäärä'] },
+          { row: 2, errors: ['Järjestelmästä löytyy jo kilpailu, jolla on sama laji, nimi, sijainti ja päivämäärä'] },
+          { row: 3, errors: ['Järjestelmästä löytyy jo kilpailu, jolla on sama laji, nimi, sijainti ja päivämäärä'] },
+          { row: 4, errors: ['Järjestelmästä löytyy jo kilpailu, jolla on sama laji, nimi, sijainti ja päivämäärä'] },
         ]
         expect(@import.errors).to eql expected_errors
       end

@@ -321,7 +321,7 @@ sv:
             base:
               correct_estimate_missing: Några tävlar saknas riktiga avtsånd
               results_missing: Några tävlare saknas resultat
-              already_race_with_same_name_location_date: Det redan finns en tävling med samma namn, ort och datum
+              duplicate_race: Det redan finns en tävling med samma gren, namn, ort och datum
               start_order_mixed_not_allowed: Du kan inte välja 'Klasser blandad' startordning eftersom du har ökat tävlar som inte har en starttid. Skapa startlistor för klasser med tävlar och kom tillbaka hit och välja 'Klasser blandad'.
             district:
               invalid: är fel
