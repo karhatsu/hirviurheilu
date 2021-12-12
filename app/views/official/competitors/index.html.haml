@@ -3,7 +3,7 @@
 - content_for :sub_sub_menu do
   = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id } do |series| official_series_competitors_path(series) end
 - if @series.competitors.empty?
-  = highlight_info(t('.no_competitors_in_series'))
+  .message.message--info= t('.no_competitors_in_series')
 - else
   - if @series.race.sport.start_list?
     - unless @series.has_start_list?

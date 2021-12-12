@@ -13,9 +13,9 @@
     = link_to t('.delete_race'), official_race_path(@race), method: :delete, class: 'button button--danger'
 %h3= t 'activerecord.models.series.other'
 - if @race.series.empty?
-  = highlight_info(t('.no_series_for_race'))
+  .message.message--info= t('.no_series_for_race')
 - elsif @race.competitors.empty?
-  = highlight_info(t('.no_competitors_for_race'))
+  .message.message--info= t('.no_competitors_for_race')
 - unless @race.series.empty?
   - cache [@race.cache_key_for_all_series, I18n.locale] do
     .row

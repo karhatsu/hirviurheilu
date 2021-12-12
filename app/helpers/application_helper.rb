@@ -8,22 +8,6 @@ module ApplicationHelper
     raw("<div class='message message--error'>#{flash[:error]}</div>") if flash[:error]
   end
 
-  def highlight_info(content)
-    timestamp = Time.now.to_f.to_s.gsub!('.', '')
-    html = %{
-      <div class="message message--info" id="highlight_#{timestamp}">#{content}</div>
-      <script type="text/javascript">
-        $(document).ready(function() {
-          setTimeout(function() {$("#highlight_#{timestamp}").addClass('message--flash')}, 500);
-          setTimeout(function() {$("#highlight_#{timestamp}").removeClass('message--flash')}, 1000);
-          setTimeout(function() {$("#highlight_#{timestamp}").addClass('message--flash')}, 1500);
-          setTimeout(function() {$("#highlight_#{timestamp}").removeClass('message--flash')}, 2000);
-        });
-      </script>
-    }
-    raw(html)
-  end
-
   def full_name(competitor, first_name_first=false)
     if first_name_first
       "#{competitor.first_name} #{competitor.last_name}"

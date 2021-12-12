@@ -21,7 +21,7 @@
   = link_to t(:logout), logout_path, method: :delete, class: 'button button--danger'
 %h2= t '.own_races'
 - if @user.races.empty?
-  = highlight_info(t('.no_own_races'))
+  .message.message--info= t('.no_own_races')
 - else
   .row
     - @user.races.each do |race|
