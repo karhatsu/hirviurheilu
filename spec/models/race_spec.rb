@@ -8,7 +8,6 @@ describe Race do
   end
 
   describe "validation" do
-    it { is_expected.to validate_presence_of(:district) }
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:location) }
     it { is_expected.to validate_presence_of(:start_date) }
