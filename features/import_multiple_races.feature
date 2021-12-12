@@ -22,7 +22,7 @@ Feature: Import multiple races with CSV file
     When I attach the import test file "import_multiple_races.csv" to "CSV-tiedosto"
     And I press "Tallenna kilpailut palveluun"
     Then I should be on the official index page
-    And I should see "Kilpailut tallennettu palveluun" in a success message
+    And I should see "Kilpailut (3) tallennettu palveluun" in a success message
     And I should see "Metsästysluodikon pm-kisat"
     And I should see "Testiseuran mestaruuskisat"
     And "toimitsija.1@testi.com" should receive an email with subject "Hirviurheilu - Sinulle on lisätty kilpailuja"

@@ -14,7 +14,7 @@ class Official::MultipleRacesController < Official::OfficialController
       import = CsvMultipleImport.new current_user, params[:file].tempfile.path
       if import.errors.empty?
         send_emails import
-        flash[:success] = 'Kilpailut tallennettu palveluun'
+        flash[:success] = "Kilpailut (#{import.race_count}) tallennettu palveluun"
         redirect_to official_root_path
       else
         @errors = import.errors

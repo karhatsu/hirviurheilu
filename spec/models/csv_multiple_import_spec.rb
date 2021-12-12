@@ -16,6 +16,7 @@ describe CsvMultipleImport do
 
     it 'succeeds' do
       expect(@import.errors).to eql []
+      expect(@import.race_count).to eql 3
     end
 
     it 'adds the races' do

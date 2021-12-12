@@ -1,7 +1,7 @@
 class CsvMultipleImport
   include CsvReader
 
-  attr_reader :errors, :existing_users, :new_emails
+  attr_reader :errors, :existing_users, :new_emails, :race_count
 
   def initialize(user, file_path)
     @user = user
@@ -12,6 +12,7 @@ class CsvMultipleImport
     return unless @errors.empty?
     races = validate_races data
     return unless @errors.empty?
+    @race_count = races.length
     Race.transaction do
       insert_races races
     rescue => e
