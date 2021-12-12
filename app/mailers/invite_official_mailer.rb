@@ -8,7 +8,7 @@ class InviteOfficialMailer < ApplicationMailer
     @invitee = invitee
     @locale = set_locale
     mail :to => invitee.email, :from => NOREPLY_ADDRESS,
-      :subject => "Kutsu kilpailun #{race.name} toimitsijaksi"
+      :subject => "Hirviurheilu - kutsu kilpailun #{race.name} toimitsijaksi"
   end
 
   def invite_only_competitor_adding(race, inviter, invitee)
@@ -17,6 +17,6 @@ class InviteOfficialMailer < ApplicationMailer
     @invitee = invitee
     @locale = set_locale
     mail :to => invitee.email, :from => NOREPLY_ADDRESS,
-      :subject => "Kilpailun #{race.name} kilpailijoiden lisäyspyyntö"
+      :subject => "Hirviurheilu - kilpailun #{race.name} kilpailijoiden lisäyspyyntö"
   end
 end

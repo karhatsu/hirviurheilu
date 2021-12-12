@@ -25,8 +25,8 @@ Feature: Import multiple races with CSV file
     And I should see "Kilpailut (3) tallennettu palveluun" in a success message
     And I should see "Metsästysluodikon pm-kisat"
     And I should see "Testiseuran mestaruuskisat"
-    And "toimitsija.1@testi.com" should receive an email with subject "Hirviurheilu - Sinulle on lisätty kilpailuja"
-    And "uusi@toimitsija.com" should receive an email with subject "Hirviurheilu - Sinulle on lisätty kilpailuja"
+    And "toimitsija.1@testi.com" should receive an email with subject "Hirviurheilu - sinulle on lisätty kilpailuja"
+    And "uusi@toimitsija.com" should receive an email with subject "Hirviurheilu - sinulle on lisätty kilpailuja"
     When "toimitsija.1@testi.com" opens the email
     Then I should see "Metsästysluodikon pm-kisat" in the email body
     And I should see "Löydät kilpailut Hirviurheilusta Toimitsijan sivuilta." in the email body

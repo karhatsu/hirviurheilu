@@ -24,7 +24,7 @@ Feature: Official invitation
     Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi" in a success message
     And current officials card 1 should contain "Official Another" with full rights
     And current officials card 2 should contain "Thomas Tim" with full rights
-    And "another@official.com" should receive an email with subject "Kutsu kilpailun Test race toimitsijaksi"
+    And "another@official.com" should receive an email with subject "Hirviurheilu - kutsu kilpailun Test race toimitsijaksi"
     When I logout
     And "another@official.com" opens the email
     Then I should see "Hei Another Official" in the email body
@@ -75,7 +75,7 @@ Feature: Official invitation
     And I press "Lähetä kutsu"
     Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi rajoitetuin oikeuksin" in a success message
     And current officials card 1 should contain "Official Another" with limited rights to all clubs
-    And "another@official.com" should receive an email with subject "Kilpailun Test race kilpailijoiden lisäyspyyntö"
+    And "another@official.com" should receive an email with subject "Hirviurheilu - kilpailun Test race kilpailijoiden lisäyspyyntö"
     When I logout
     And "another@official.com" opens the email
     Then I should see "Hei Another Official" in the email body

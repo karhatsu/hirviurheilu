@@ -19,7 +19,7 @@ Feature: Admin adds users
     And I press "Lisää käyttäjä"
     Then I should be on the admin users page
     And I should see "Käyttäjä lisätty" in a success message
-    And "mikko@test.com" should receive an email with subject "Tunnukset Hirviurheilu-palveluun"
+    And "mikko@test.com" should receive an email with subject "Hirviurheilu - tunnukset Hirviurheilu-palveluun"
     When I logout
     And "mikko@test.com" opens the email
     Then I should see "Hei Mikko Mäkelä" in the email body

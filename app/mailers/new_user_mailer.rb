@@ -10,6 +10,6 @@ class NewUserMailer < ApplicationMailer
   def from_admin(user)
     @user = user
     mail :to => user.email, :from => NOREPLY_ADDRESS,
-      :subject => "Tunnukset Hirviurheilu-palveluun"
+      :subject => "Hirviurheilu - tunnukset Hirviurheilu-palveluun"
   end
 end
