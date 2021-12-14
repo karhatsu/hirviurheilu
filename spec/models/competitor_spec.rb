@@ -1383,46 +1383,80 @@ describe Competitor do
       end
     end
 
-    context "when the competitor has worse time which is rounded down to 10 secs" do
-      it "should be 300 when the rounded time is the same as the best time rounded" do
-        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 6)
-        expect(@competitor.time_points(@unofficials)).to eq(300)
-      end
-
-      it "should be 299 when the rounded time is 10 seconds worse than the best time" do
-        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 7)
-        expect(@competitor.time_points(@unofficials)).to eq(299)
-      end
-
-      it "should be 299 when the rounded time is still 10 seconds worse" do
-        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 16)
-        expect(@competitor.time_points(@unofficials)).to eq(299)
-      end
-
-      it "should be 298 when the rounded time is 20 seconds worse" do
-        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 17)
-        expect(@competitor.time_points(@unofficials)).to eq(298)
-      end
-
-      context 'when the rounded time is over 5 minutes worse' do
+    context "when the competitor has worse time than the best time" do
+      context 'and the race is before 2022' do
         before do
-          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 6 * 60 - 2)
+          race = build :race, start_date: '2021-12-31'
+          allow(@competitor).to receive(:race).and_return(race)
         end
 
-        context 'and the race was before 2017' do
-          it 'should be 300 - 1 point for every 10 seconds' do
-            race = build :race, start_date: '2016-12-31'
-            allow(@competitor).to receive(:race).and_return(race)
-            expect(@competitor.time_points(@unofficials)).to eq(300 - 6 * 6)
-          end
+        it "should be 300 when the rounded time is the same as the best time rounded" do
+          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 6)
+          expect(@competitor.time_points(@unofficials)).to eq(300)
         end
 
-        context 'and the race is 2017 or later' do
-          it 'should be 300 - 1 point for every 10 seconds for the first 5 min, then -1 point for every 20 second' do
-            race = build :race, start_date: '2017-01-01'
-            allow(@competitor).to receive(:race).and_return(race)
-            expect(@competitor.time_points(@unofficials)).to eq(300 - 5 * 6 - 3)
-          end
+        it "should be 299 when the rounded time is 10 seconds worse than the best time" do
+          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 7)
+          expect(@competitor.time_points(@unofficials)).to eq(299)
+        end
+
+        it "should be 299 when the rounded time is still 10 seconds worse" do
+          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 16)
+          expect(@competitor.time_points(@unofficials)).to eq(299)
+        end
+
+        it "should be 298 when the rounded time is 20 seconds worse" do
+          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 17)
+          expect(@competitor.time_points(@unofficials)).to eq(298)
+        end
+      end
+
+      context 'and the race is 2022 or after' do
+        before do
+          race = build :race, start_date: '2022-01-01'
+          allow(@competitor).to receive(:race).and_return(race)
+        end
+
+        it "should be 300 when the time is 1 second slower than the best time" do
+          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 1)
+          expect(@competitor.time_points(@unofficials)).to eq(300)
+        end
+
+        it "should be 300 when the is 9 seconds worse than the best time" do
+          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 9)
+          expect(@competitor.time_points(@unofficials)).to eq(300)
+        end
+
+        it "should be 299 when the rounded time is 10 seconds worse" do
+          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 10)
+          expect(@competitor.time_points(@unofficials)).to eq(299)
+        end
+
+        it "should be 299 when the rounded time is 19 seconds worse" do
+          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 19)
+          expect(@competitor.time_points(@unofficials)).to eq(299)
+        end
+      end
+    end
+
+    context 'when the rounded time is over 5 minutes worse' do
+      before do
+        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 6 * 60 - 2)
+      end
+
+      context 'and the race was before 2017' do
+        it 'should be 300 - 1 point for every 10 seconds' do
+          race = build :race, start_date: '2016-12-31'
+          allow(@competitor).to receive(:race).and_return(race)
+          expect(@competitor.time_points(@unofficials)).to eq(300 - 6 * 6)
+        end
+      end
+
+      context 'and the race is 2017 or later' do
+        it 'should be 300 - 1 point for every 10 seconds for the first 5 min, then -1 point for every 20 second' do
+          race = build :race, start_date: '2017-01-01'
+          allow(@competitor).to receive(:race).and_return(race)
+          expect(@competitor.time_points(@unofficials)).to eq(300 - 5 * 6 - 3)
         end
       end
     end

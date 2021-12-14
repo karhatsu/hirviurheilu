@@ -712,6 +712,7 @@ class Competitor < ApplicationRecord
   end
 
   def round_seconds(seconds)
+    return seconds.to_i if race.year >= 2022
     # round down to closest 10 seconds, e.g. 34:49 => 34:40
     seconds.to_i / 10 * 10
   end
