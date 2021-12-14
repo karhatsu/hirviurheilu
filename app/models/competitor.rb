@@ -701,7 +701,7 @@ class Competitor < ApplicationRecord
 
   def calculate_time_points(own_time, best_time)
     seconds_diff = round_seconds(own_time) - round_seconds(best_time)
-    if seconds_diff <= 5 * 60 || race_year < 2017
+    if seconds_diff <= 5 * 60 || race.year < 2017
       points = 300 - seconds_diff / 10
     else
       # 0-5 min: -1 point / every 10 seconds, 5- min: -1 point / every 20 seconds
@@ -714,10 +714,6 @@ class Competitor < ApplicationRecord
   def round_seconds(seconds)
     # round down to closest 10 seconds, e.g. 34:49 => 34:40
     seconds.to_i / 10 * 10
-  end
-
-  def race_year
-    race.start_date.year
   end
 
   def has_nordic_sub_result(sub_sport, required_shot_count)
