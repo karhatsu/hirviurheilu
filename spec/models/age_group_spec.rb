@@ -29,10 +29,13 @@ describe AgeGroup do
       end
     end
   end
-  
+
   describe "#competitors_count" do
+    let(:start_date) { '2021-12-31' }
+
     before do
-      series = create :series
+      @race = create :race, start_date: start_date
+      series = create :series, race: @race
       @age_group = create :age_group, series: series
       create :competitor, series: series, age_group: @age_group # 1
       create :competitor, series: series, age_group: @age_group # 2
@@ -45,17 +48,27 @@ describe AgeGroup do
       create :competitor, series: series, age_group: @age_group, unofficial: true # (7)
       @age_group.reload
     end
-    
+
     context "when all competitors" do
       it "should count all competitors for the age group that started" do
         expect(@age_group.competitors_count(Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME)).to eq(7)
         expect(@age_group.competitors_count(Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)).to eq(7)
       end
     end
-    
+
     context "when unofficial competitors are excluded" do
       it "should count all official competitors for the age group that started" do
         expect(@age_group.competitors_count(Series::UNOFFICIALS_EXCLUDED)).to eq(6)
+      end
+    end
+
+    context 'when race is 2022 or later' do
+      let(:start_date) { '2022-01-01' }
+
+      it 'should not count competitors without result' do
+        expect(@age_group.competitors_count(Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME)).to eq(3)
+        expect(@age_group.competitors_count(Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)).to eq(3)
+        expect(@age_group.competitors_count(Series::UNOFFICIALS_EXCLUDED)).to eq(2)
       end
     end
   end
