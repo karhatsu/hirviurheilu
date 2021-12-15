@@ -31,7 +31,7 @@ Feature: Club level
     When I follow "Yhteenveto"
     And I follow the first "Lisää 1. kilpailija" link
     Then I should see "Seura" within "form"
-    Given the series "M" contains a competitor with attributes:
+    Given the series "M50" contains a competitor with attributes:
       | first_name | Matti |
       | last_name | Meikäläinen |
       | club | Testiklubi |
@@ -76,7 +76,7 @@ Feature: Club level
     When I follow "Yhteenveto"
     And I follow the first "Lisää 1. kilpailija" link
     Then I should see "Piiri" within "form"
-    Given the series "M" contains a competitor with attributes:
+    Given the series "M50" contains a competitor with attributes:
       | first_name | Matti |
       | last_name | Meikäläinen |
       | club | Testiklubi |

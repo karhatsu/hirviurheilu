@@ -28,7 +28,7 @@ class Sport
           best_shot_value: 10,
           shot_count: 10,
           inner_ten?: false,
-          default_series: [
+          default_series: ProductionEnvironment.production? ? [
               ['S13', ['T13', 'P13', 'T11', 'P11', 'T9', 'P9', 'T7', 'P7']],
               ['S15', ['T15', 'P15']],
               ['S17', ['T17', 'P17']],
@@ -41,6 +41,18 @@ class Sport
               ['N', ['N40']],
               ['N50', ['N55', 'N60']],
               ['N65', ['N70', 'N75', 'N80', 'N85', 'N90']],
+          ] : [
+            ['S13', ['T13', 'P13', 'T11', 'P11', 'T9', 'P9', 'T7', 'P7']],
+            ['S16', ['T16', 'P16']],
+            ['S20', ['T20', 'P20']],
+            ['Y', ['Y40']],
+            ['M50'],
+            ['M60', ['M65']],
+            ['M70', ['M75']],
+            ['M80', ['M85', 'M90']],
+            ['N', ['N40']],
+            ['N50', ['N55', 'N60']],
+            ['N65', ['N70', 'N75', 'N80', 'N85', 'N90']],
           ],
           nordic?: false,
           european?: false,
@@ -51,7 +63,7 @@ class Sport
           one_batch_list?: false,
           shooting?: true,
           relays?: false,
-          default_series: [
+          default_series: ProductionEnvironment.production? ? [
               ['S15', ['T15', 'P15']],
               ['S17', ['T17', 'P17']],
               ['S20', ['T20', 'P20']],
@@ -63,6 +75,17 @@ class Sport
               ['N'],
               ['N50'],
               ['N65'],
+          ] : [
+            ['S16', ['T16', 'P16']],
+            ['S20', ['T20', 'P20']],
+            ['Y'],
+            ['M50'],
+            ['M60'],
+            ['M70'],
+            ['M80'],
+            ['N'],
+            ['N50'],
+            ['N65'],
           ],
           best_shot_value: 10,
           shot_count: 20,
@@ -138,6 +161,7 @@ class Sport
               final_round: [10],
               final_round_shot_count: 10,
               shots_per_extra_round: 1,
+              default_series: (ProductionEnvironment.production? ? [] : [['S13', ['T13', 'P13']]]) + BASE_CONFIGS[:SHOOTING][:default_series],
           }
       )),
       METSASTYSHAULIKKO: OpenStruct.new(SHOTGUN_CONFIG.merge(
@@ -178,7 +202,7 @@ class Sport
           {
               name: 'Pohjoismainen metsästysammunta',
               nordic?: true,
-              default_series: [['S20'], ['M'], ['N'], ['S60']],
+              default_series: ProductionEnvironment.production? ? [['S20'], ['M'], ['N'], ['S60']] : [['S20'], ['M'], ['N'], ['S60'], ['S70']],
               one_batch_list?: true,
           }
       )),

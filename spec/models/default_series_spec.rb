@@ -39,11 +39,11 @@ describe DefaultSeries do
     context 'when ilmahirvi' do
       let(:sport) { Sport.by_key Sport::ILMAHIRVI }
 
-      it "should have S15 with P15/T15 as first series" do
+      it "should have S16 with P16/T16 as first series" do
         ds = DefaultSeries.all(sport).first
-        expect(ds.name).to eq('S15')
-        expect(ds.default_age_groups[0].name).to eq('T15')
-        expect(ds.default_age_groups[1].name).to eq('P15')
+        expect(ds.name).to eq('S16')
+        expect(ds.default_age_groups[0].name).to eq('T16')
+        expect(ds.default_age_groups[1].name).to eq('P16')
       end
 
       it "should have N65 without age groups as last series" do
