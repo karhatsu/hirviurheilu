@@ -310,7 +310,7 @@ class Sport
     @key == EUROPEAN
   end
 
-  def self.by_key(key, race=nil)
+  def self.by_key(key, race)
     Sport.new key, race
   end
 

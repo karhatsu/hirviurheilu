@@ -917,14 +917,11 @@ describe Series do
   end
 
   describe "#started?" do
-    let(:series) { build :series }
-
-    before do
-      allow(series).to receive(:sport).and_return(sport)
-    end
+    let(:race) { build :race, sport_key: sport_key }
+    let(:series) { build :series, race: race }
 
     context 'when three sports race' do
-      let(:sport) { Sport.by_key Sport::SKI }
+      let(:sport_key) { Sport::SKI }
 
       context "when no start time" do
         it "should return false" do
@@ -954,11 +951,10 @@ describe Series do
     end
 
     context 'when shooting race' do
-      let(:sport) { Sport.by_key Sport::ILMAHIRVI }
+      let(:sport_key) { Sport::ILMAHIRVI }
 
       context 'and race start time is in the future' do
         before do
-          race = build :race
           allow(race).to receive(:start_datetime).and_return(1.minute.from_now)
           series.race = race
         end
@@ -970,7 +966,6 @@ describe Series do
 
       context 'and race start time is not in the future' do
         before do
-          race = build :race
           allow(race).to receive(:start_datetime).and_return(1.minute.ago)
           series.race = race
         end

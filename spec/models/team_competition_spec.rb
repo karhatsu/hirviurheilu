@@ -64,8 +64,8 @@ describe TeamCompetition do
 
   describe "#results_for_competitors" do
     let(:sport_key) { Sport::SKI }
-    let(:sport) { Sport.by_key sport_key }
     let(:race) { build :race, sport_key: sport_key }
+    let(:sport) { race.sport }
     let(:tc) { build :team_competition, race: race, team_competitor_count: 2, multiple_teams: true }
 
     context 'when none of the clubs have enough competitors' do

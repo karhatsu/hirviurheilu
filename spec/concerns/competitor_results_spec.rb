@@ -90,10 +90,11 @@ describe CompetitorResults do
     let(:competitor) { build :competitor }
     let(:competitor2) { build :competitor }
     let(:competitors) { [competitor2, competitor] }
-    let(:sport) { Sport.by_key Sport::ILMALUODIKKO }
+    let(:sport_key) { Sport::ILMALUODIKKO }
+    let(:race) { build :race, sport_key: sport_key }
 
     before do
-      allow(competitor).to receive(:sport).and_return(sport)
+      allow(competitor).to receive(:sport).and_return(race.sport)
       allow(competitor2).to receive(:extra_shots).and_return([8, 10, 7, 6, 5, 9])
     end
 
@@ -142,7 +143,7 @@ describe CompetitorResults do
         end
 
         context 'and 2 shots per extra round' do
-          let(:sport) { Sport.by_key Sport::ILMAHIRVI }
+          let(:sport_key) { Sport::ILMAHIRVI }
 
           it 'groups extra shots into sums of two' do
             extra_shots_filled = [19, 16, 0]

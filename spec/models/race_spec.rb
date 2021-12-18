@@ -413,7 +413,7 @@ describe Race do
     let(:race) { build :race, sport_key: sport_key }
 
     before do
-      allow(DefaultSeries).to receive(:all).with(Sport.by_key(sport_key)).and_return([ds1, ds2])
+      allow(DefaultSeries).to receive(:all).with(race.sport).and_return([ds1, ds2])
     end
 
     it "should add default series and age groups for the race" do

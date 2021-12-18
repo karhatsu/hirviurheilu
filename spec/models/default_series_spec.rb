@@ -17,8 +17,9 @@ describe DefaultSeries do
   end
 
   describe ".all" do
+    let(:sport) { build(:race, sport_key: sport_key).sport }
     context 'when three sports race' do
-      let(:sport) { Sport.by_key Sport::SKI }
+      let(:sport_key) { Sport::SKI }
 
       it "should have S13 with T13,0/P13,0 as first series" do
         ds = DefaultSeries.all(sport).first
@@ -37,7 +38,7 @@ describe DefaultSeries do
     end
 
     context 'when ilmahirvi' do
-      let(:sport) { Sport.by_key Sport::ILMAHIRVI }
+      let(:sport_key) { Sport::ILMAHIRVI }
 
       it "should have S16 with P16/T16 as first series" do
         ds = DefaultSeries.all(sport).first
@@ -54,7 +55,7 @@ describe DefaultSeries do
     end
 
     context 'when ilmaluodikko' do
-      let(:sport) { Sport.by_key Sport::ILMALUODIKKO }
+      let(:sport_key) { Sport::ILMALUODIKKO }
 
       it "should have S13 with P13/T13 as first series" do
         ds = DefaultSeries.all(sport).first

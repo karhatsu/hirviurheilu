@@ -1,17 +1,18 @@
 require 'spec_helper'
 
 describe Sport do
+  let(:race) { build :race }
   describe "find by key" do
     it 'RUN' do
-      expect(Sport.by_key('RUN').name).to eq('Hirvenjuoksu')
-      expect(Sport.by_key('RUN').qualification_round).to be_falsey
-      expect(Sport.by_key('RUN').best_shot_value).to eql 10
+      expect(Sport.by_key('RUN', race).name).to eq('Hirvenjuoksu')
+      expect(Sport.by_key('RUN', race).qualification_round).to be_falsey
+      expect(Sport.by_key('RUN', race).best_shot_value).to eql 10
     end
 
     it 'SKI' do
-      expect(Sport.by_key('SKI').name).to eq('Hirvenhiihto')
-      expect(Sport.by_key('SKI').qualification_round).to be_falsey
-      expect(Sport.by_key('SKI').best_shot_value).to eql 10
+      expect(Sport.by_key('SKI', race).name).to eq('Hirvenhiihto')
+      expect(Sport.by_key('SKI', race).qualification_round).to be_falsey
+      expect(Sport.by_key('SKI', race).best_shot_value).to eql 10
     end
 
     describe 'ILMAHIRVI' do
@@ -51,15 +52,15 @@ describe Sport do
     end
 
     it 'ILMALUODIKKO' do
-      expect(Sport.by_key('ILMALUODIKKO').name).to eq('Ilmaluodikko')
-      expect(Sport.by_key('ILMALUODIKKO').qualification_round).to eql [5, 5]
-      expect(Sport.by_key('ILMALUODIKKO').best_shot_value).to eql 11
+      expect(Sport.by_key('ILMALUODIKKO', race).name).to eq('Ilmaluodikko')
+      expect(Sport.by_key('ILMALUODIKKO', race).qualification_round).to eql [5, 5]
+      expect(Sport.by_key('ILMALUODIKKO', race).best_shot_value).to eql 11
     end
 
     it 'METSASTYSHAULIKKO' do
-      expect(Sport.by_key('METSASTYSHAULIKKO').name).to eq('Metsästyshaulikko')
-      expect(Sport.by_key('METSASTYSHAULIKKO').qualification_round).to eql [25]
-      expect(Sport.by_key('METSASTYSHAULIKKO').best_shot_value).to eql 1
+      expect(Sport.by_key('METSASTYSHAULIKKO', race).name).to eq('Metsästyshaulikko')
+      expect(Sport.by_key('METSASTYSHAULIKKO', race).qualification_round).to eql [25]
+      expect(Sport.by_key('METSASTYSHAULIKKO', race).best_shot_value).to eql 1
     end
   end
 

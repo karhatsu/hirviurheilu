@@ -157,8 +157,9 @@ describe Competitor do
 
       describe 'when 3 sports race' do
         it 'can have at most 10 shots' do
+          race = build :race, sport_key: Sport::RUN
           competitor = build :competitor, shots: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-          allow(competitor).to receive(:sport).and_return(Sport.by_key(Sport::RUN))
+          allow(competitor).to receive(:sport).and_return(race.sport)
           expect(competitor).to have(0).errors_on(:shots)
           competitor.shots << 9
           expect(competitor).to have(1).errors_on(:shots)
@@ -827,7 +828,8 @@ describe Competitor do
 
       context 'when any nordic result is saved' do
         it 'marks has_result true' do
-          allow(@competitor).to receive(:sport).and_return(Sport.by_key(Sport::NORDIC))
+          race = build :race, sport_key: Sport::NORDIC
+          allow(@competitor).to receive(:sport).and_return(race.sport)
           @competitor.nordic_trap_score_input = 21
           @competitor.save!
           expect(@competitor.has_result?).to be_truthy
@@ -836,7 +838,8 @@ describe Competitor do
 
       context 'when any european result is saved' do
         it 'marks has_result true' do
-          allow(@competitor).to receive(:sport).and_return(Sport.by_key(Sport::EUROPEAN))
+          race = build :race, sport_key: Sport::EUROPEAN
+          allow(@competitor).to receive(:sport).and_return(race.sport)
           @competitor.european_rifle3_shots = [10]
           @competitor.save!
           expect(@competitor.has_result?).to be_truthy
@@ -1525,8 +1528,9 @@ describe Competitor do
   describe "#points" do
     context 'when nordic race' do
       before do
+        race = build :race, sport_key: Sport::NORDIC
         @competitor = build :competitor
-        allow(@competitor).to receive(:sport).and_return(Sport.by_key(Sport::NORDIC))
+        allow(@competitor).to receive(:sport).and_return(race.sport)
         allow(@competitor).to receive(:nordic_score).and_return(334)
       end
 
@@ -1542,8 +1546,9 @@ describe Competitor do
 
     context 'when european race' do
       before do
+        race = build :race, sport_key: Sport::EUROPEAN
         @competitor = build :competitor
-        allow(@competitor).to receive(:sport).and_return(Sport.by_key(Sport::EUROPEAN))
+        allow(@competitor).to receive(:sport).and_return(race.sport)
         allow(@competitor).to receive(:european_score).and_return(250)
       end
 
@@ -1559,8 +1564,9 @@ describe Competitor do
 
     context 'when shooting race' do
       before do
+        race = build :race, sport_key: Sport::ILMALUODIKKO
         @competitor = build :competitor
-        allow(@competitor).to receive(:sport).and_return(Sport.by_key(Sport::ILMALUODIKKO))
+        allow(@competitor).to receive(:sport).and_return(race.sport)
         allow(@competitor).to receive(:shooting_score).and_return(150)
       end
 
@@ -1577,8 +1583,9 @@ describe Competitor do
     context 'when 3 sports race' do
       before do
         @unofficials = Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
+        race = build :race, sport_key: Sport::SKI
         @competitor = build(:competitor)
-        allow(@competitor).to receive(:sport).and_return(Sport.by_key(Sport::SKI))
+        allow(@competitor).to receive(:sport).and_return(race.sport)
         allow(@competitor).to receive(:shooting_points).and_return(100)
         allow(@competitor).to receive(:estimate_points).and_return(150)
         allow(@competitor).to receive(:time_points).with(@unofficials).and_return(200)
@@ -1612,6 +1619,7 @@ describe Competitor do
 
 
   describe '#team_competition_points' do
+    let(:race) { build :race, sport_key: sport_key }
     let(:qualification_round_score) { 87 }
     let(:points) { 200 }
     let(:nordic_score) { 319 }
@@ -1624,20 +1632,23 @@ describe Competitor do
     end
 
     context 'when nordic race' do
+      let(:sport_key) { Sport::NORDIC }
       it 'returns nordic score' do
-        expect(competitor.team_competition_points(Sport.by_key Sport::NORDIC)).to eql nordic_score
+        expect(competitor.team_competition_points(race.sport)).to eql nordic_score
       end
     end
 
     context 'when shooting race' do
+      let(:sport_key) { Sport::ILMALUODIKKO }
       it 'returns qualification round score' do
-        expect(competitor.team_competition_points(Sport.by_key Sport::ILMALUODIKKO)).to eql qualification_round_score
+        expect(competitor.team_competition_points(race.sport)).to eql qualification_round_score
       end
     end
 
     context 'when 3 sports race' do
+      let(:sport_key) { Sport::RUN }
       it 'returns points' do
-        expect(competitor.team_competition_points(Sport.by_key Sport::RUN)).to eql points
+        expect(competitor.team_competition_points(race.sport)).to eql points
       end
     end
   end
@@ -1713,15 +1724,12 @@ describe Competitor do
   end
 
   describe "#finished?" do
-    let(:series) { build :series }
+    let(:race) { build :race, sport_key: sport_key }
+    let(:series) { build :series, race: race }
     let(:competitor) { build :competitor, series: series }
 
-    before do
-      allow(competitor).to receive(:sport).and_return(sport)
-    end
-
     context 'for three sports race' do
-      let(:sport) { Sport.by_key Sport::RUN }
+      let(:sport_key) { Sport::RUN }
 
       context "when competitor has some 'no result reason'" do
         it "should return true" do
@@ -1815,7 +1823,7 @@ describe Competitor do
     end
 
     context 'for shooting race' do
-      let(:sport) { Sport.by_key Sport::ILMALUODIKKO }
+      let(:sport_key) { Sport::ILMALUODIKKO }
 
       context 'when competitor has no result reason' do
         it 'should return true' do
@@ -1882,7 +1890,7 @@ describe Competitor do
     end
 
     context 'for shotgun race' do
-      let(:sport) { Sport.by_key Sport::METSASTYSTRAP }
+      let(:sport_key) { Sport::METSASTYSTRAP }
 
       context 'when competitor has no result reason' do
         it 'should return true' do
@@ -1949,7 +1957,7 @@ describe Competitor do
     end
 
     context 'for nordic race' do
-      let(:sport) { Sport.by_key Sport::NORDIC }
+      let(:sport_key) { Sport::NORDIC }
 
       context 'when competitor has no result reason' do
         it 'should return true' do
@@ -2048,7 +2056,7 @@ describe Competitor do
     end
 
     context 'for european race' do
-      let(:sport) { Sport.by_key Sport::EUROPEAN }
+      let(:sport_key) { Sport::EUROPEAN }
 
       context 'when competitor has no result reason' do
         it 'should return true' do
