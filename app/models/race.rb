@@ -47,7 +47,7 @@ class Race < ApplicationRecord
   validates :name, :presence => true
   validates :location, :presence => true
   validates :start_date, :presence => true
-  validates :start_interval_seconds, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, unless: -> { sport && !sport.start_list? }
+  validates :start_interval_seconds, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, unless: -> { sport_key && !sport.start_list? }
   validates :batch_size, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :batch_interval_seconds, numericality: {only_integer: true, greater_than: 0}
   validates :club_level, inclusion: { in: [CLUB_LEVEL_SEURA, CLUB_LEVEL_PIIRI] }

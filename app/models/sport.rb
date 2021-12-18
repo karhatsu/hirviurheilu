@@ -27,7 +27,6 @@ class Sport
           relays?: true,
           best_shot_value: 10,
           shot_count: 10,
-          inner_ten?: false,
           default_series: ProductionEnvironment.production? ? [
               ['S13', ['T13', 'P13', 'T11', 'P11', 'T9', 'P9', 'T7', 'P7']],
               ['S15', ['T15', 'P15']],
@@ -54,8 +53,6 @@ class Sport
             ['N50', ['N55', 'N60']],
             ['N65', ['N70', 'N75', 'N80', 'N85', 'N90']],
           ],
-          nordic?: false,
-          european?: false,
       },
       SHOOTING: {
           start_list?: false,
@@ -89,12 +86,9 @@ class Sport
           ],
           best_shot_value: 10,
           shot_count: 20,
-          inner_ten?: false,
           qualification_round_max_score: 100,
           final_round_max_score: 100,
           final_round_competitors_count: 10,
-          nordic?: false,
-          european?: false,
       }
   }
 
@@ -113,13 +107,13 @@ class Sport
   )
 
   CONFIGS = {
-      RUN: OpenStruct.new(BASE_CONFIGS[:SKI_AND_RUN].merge(
+      RUN: BASE_CONFIGS[:SKI_AND_RUN].merge(
           { name: 'Hirvenjuoksu' }
-      )),
-      SKI: OpenStruct.new(BASE_CONFIGS[:SKI_AND_RUN].merge(
+      ),
+      SKI: BASE_CONFIGS[:SKI_AND_RUN].merge(
           { name: 'Hirvenhiihto' }
-      )),
-      ILMAHIRVI: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
+      ),
+      ILMAHIRVI: BASE_CONFIGS[:SHOOTING].merge(
           {
               name: 'Ilmahirvi',
               qualification_round: [10],
@@ -128,8 +122,8 @@ class Sport
               final_round_shot_count: 10,
               shots_per_extra_round: 2,
           }
-      )),
-      ILMALUODIKKO: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
+      ),
+      ILMALUODIKKO: BASE_CONFIGS[:SHOOTING].merge(
           {
               name: 'Ilmaluodikko',
               qualification_round: [5, 5],
@@ -138,12 +132,11 @@ class Sport
               final_round_shot_count: 10,
               best_shot_value: 11,
               shot_count: 20,
-              inner_ten?: true,
               shots_per_extra_round: 1,
               default_series: [['S13', ['T13', 'P13']]] + BASE_CONFIGS[:SHOOTING][:default_series],
           }
-      )),
-      METSASTYSHIRVI: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
+      ),
+      METSASTYSHIRVI: BASE_CONFIGS[:SHOOTING].merge(
           {
               name: 'Metsästyshirvi',
               qualification_round: [4, 6],
@@ -152,8 +145,8 @@ class Sport
               final_round_shot_count: 10,
               shots_per_extra_round: 2,
           }
-      )),
-      METSASTYSLUODIKKO: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
+      ),
+      METSASTYSLUODIKKO: BASE_CONFIGS[:SHOOTING].merge(
           {
               name: 'Metsästysluodikko',
               qualification_round: [5, 5],
@@ -163,18 +156,18 @@ class Sport
               shots_per_extra_round: 1,
               default_series: (ProductionEnvironment.production? ? [] : [['S13', ['T13', 'P13']]]) + BASE_CONFIGS[:SHOOTING][:default_series],
           }
-      )),
-      METSASTYSHAULIKKO: OpenStruct.new(SHOTGUN_CONFIG.merge(
+      ),
+      METSASTYSHAULIKKO: SHOTGUN_CONFIG.merge(
           {
               name: 'Metsästyshaulikko',
           }
-      )),
-      METSASTYSTRAP: OpenStruct.new(SHOTGUN_CONFIG.merge(
+      ),
+      METSASTYSTRAP: SHOTGUN_CONFIG.merge(
           {
               name: 'Metsästystrap',
           }
-      )),
-      PIENOISHIRVI: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
+      ),
+      PIENOISHIRVI: BASE_CONFIGS[:SHOOTING].merge(
         {
           name: 'Pienoishirvi',
           qualification_round: [20],
@@ -185,8 +178,8 @@ class Sport
           shot_count: 30,
           shots_per_extra_round: 2,
         }
-      )),
-      PIENOISLUODIKKO: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
+      ),
+      PIENOISLUODIKKO: BASE_CONFIGS[:SHOOTING].merge(
         {
           name: 'Pienoisluodikko',
           qualification_round: [20],
@@ -197,28 +190,124 @@ class Sport
           shot_count: 30,
           shots_per_extra_round: 2,
         }
-      )),
-      NORDIC: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
+      ),
+      NORDIC: BASE_CONFIGS[:SHOOTING].merge(
           {
               name: 'Pohjoismainen metsästysammunta',
-              nordic?: true,
               default_series: ProductionEnvironment.production? ? [['S20'], ['M'], ['N'], ['S60']] : [['S20'], ['M'], ['N'], ['S60'], ['S70']],
               one_batch_list?: true,
           }
-      )),
-      EUROPEAN: OpenStruct.new(BASE_CONFIGS[:SHOOTING].merge(
+      ),
+      EUROPEAN: BASE_CONFIGS[:SHOOTING].merge(
           {
               name: 'Eurooppalainen metsästysammunta',
-              european?: true,
               default_series: [['S20'], ['M'], ['N'], ['S55']],
               one_batch_list?: true,
           }
-      )),
+      ),
   }
 
+  attr_reader :key
+
+  def initialize(key)
+    @config = CONFIGS[key.to_sym] or raise("Unknown sport key: #{key}")
+    @key = key
+  end
+
+  def ==(other)
+    other.key == @key
+  end
+
+  def to_s
+    "Sport <#{@key}>"
+  end
+
+  def inspect
+    to_s
+  end
+
+  def name
+    @config[:name]
+  end
+
+  def shooting?
+    @config[:shooting?]
+  end
+
+  def relays?
+    @config[:relays?]
+  end
+
+  def start_list?
+    @config[:start_list?]
+  end
+
+  def batch_list?
+    @config[:batch_list?]
+  end
+
+  def one_batch_list?
+    @config[:one_batch_list?]
+  end
+
+  def best_shot_value
+    @config[:best_shot_value]
+  end
+
+  def shot_count
+    @config[:shot_count]
+  end
+
+  def inner_ten?
+    @key == ILMALUODIKKO
+  end
+
+  def qualification_round
+    @config[:qualification_round]
+  end
+
+  def qualification_round_shot_count
+    @config[:qualification_round_shot_count]
+  end
+
+  def qualification_round_max_score
+    @config[:qualification_round_max_score]
+  end
+
+  def final_round
+    @config[:final_round]
+  end
+
+  def final_round_shot_count
+    @config[:final_round_shot_count]
+  end
+
+  def final_round_max_score
+    @config[:final_round_max_score]
+  end
+
+  def final_round_competitors_count
+    @config[:final_round_competitors_count]
+  end
+
+  def shots_per_extra_round
+    @config[:shots_per_extra_round]
+  end
+
+  def default_series
+    @config[:default_series]
+  end
+
+  def nordic?
+    @key == NORDIC
+  end
+
+  def european?
+    @key == EUROPEAN
+  end
+
   def self.by_key(key)
-    return nil unless key
-    CONFIGS[key.to_sym] or raise("Unknown sport key: #{key}")
+    Sport.new key
   end
 
   def self.key_by_name(name)
