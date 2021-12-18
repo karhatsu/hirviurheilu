@@ -18,13 +18,8 @@ class Sport
 
   BASE_CONFIGS = {
       SKI_AND_RUN: {
-          start_list?: true,
-          batch_list?: false,
-          one_batch_list?: false,
           qualification_round: false,
           final_round: false,
-          shooting?: false,
-          relays?: true,
           best_shot_value: 10,
           shot_count: 10,
           default_series: ProductionEnvironment.production? ? [
@@ -55,11 +50,6 @@ class Sport
           ],
       },
       SHOOTING: {
-          start_list?: false,
-          batch_list?: true,
-          one_batch_list?: false,
-          shooting?: true,
-          relays?: false,
           default_series: ProductionEnvironment.production? ? [
               ['S15', ['T15', 'P15']],
               ['S17', ['T17', 'P17']],
@@ -194,14 +184,12 @@ class Sport
           {
               name: 'Pohjoismainen metsästysammunta',
               default_series: ProductionEnvironment.production? ? [['S20'], ['M'], ['N'], ['S60']] : [['S20'], ['M'], ['N'], ['S60'], ['S70']],
-              one_batch_list?: true,
           }
       ),
       EUROPEAN: BASE_CONFIGS[:SHOOTING].merge(
           {
               name: 'Eurooppalainen metsästysammunta',
               default_series: [['S20'], ['M'], ['N'], ['S55']],
-              one_batch_list?: true,
           }
       ),
   }
@@ -230,24 +218,28 @@ class Sport
     @config[:name]
   end
 
+  def three_sports?
+    @key == SKI || @key == RUN
+  end
+
   def shooting?
-    @config[:shooting?]
+    !three_sports?
   end
 
   def relays?
-    @config[:relays?]
+    three_sports?
   end
 
   def start_list?
-    @config[:start_list?]
+    three_sports?
   end
 
   def batch_list?
-    @config[:batch_list?]
+    !three_sports?
   end
 
   def one_batch_list?
-    @config[:one_batch_list?]
+    @key == NORDIC || @key == EUROPEAN
   end
 
   def best_shot_value
