@@ -4,7 +4,8 @@ describe 'shooting race sorting' do
   let(:basic_shots_count) { sport.shot_count }
 
   describe 'ilmaluodikko SM 2019' do
-    let(:sport) { Sport.by_key Sport::ILMALUODIKKO }
+    let(:race) { build :race, sport_key: Sport::ILMALUODIKKO, start_date: '2019-07-01' }
+    let(:sport) { race.sport }
     let(:subdir) { 'ilmaluodikko-sm2019' }
 
     it 'M' do
@@ -41,7 +42,8 @@ describe 'shooting race sorting' do
   end
 
   describe 'ilmahirvi 2013' do
-    let(:sport) { Sport.by_key Sport::ILMAHIRVI }
+    let(:race) { build :race, sport_key: Sport::ILMAHIRVI, start_date: '2013-07-01' }
+    let(:sport) { race.sport }
     let(:subdir) { 'ilmahirvi-sm2013' }
 
     it 'M' do

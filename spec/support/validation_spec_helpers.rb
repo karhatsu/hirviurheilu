@@ -59,8 +59,9 @@ shared_examples_for 'shooting score input' do |attribute, sport_key, max_value|
   it { is_expected.not_to allow_value(-1).for(attribute) }
 
   it "cannot be bigger than #{max_value} for #{sport_key}" do
+    race = build :race, sport_key: sport_key
     competitor = build :competitor
-    allow(competitor).to receive(:sport).and_return(Sport.by_key(sport_key))
+    allow(competitor).to receive(:sport).and_return(race.sport)
     competitor[attribute] = max_value
     expect(competitor).to have(0).errors_on(attribute)
     competitor[attribute] = max_value + 1
@@ -68,8 +69,9 @@ shared_examples_for 'shooting score input' do |attribute, sport_key, max_value|
   end
 
   it 'cannot be given if also individual shots have been defined' do
+    race = build :race, sport_key: sport_key
     competitor = build :competitor, shots: [1]
-    allow(competitor).to receive(:sport).and_return(Sport.by_key(sport_key))
+    allow(competitor).to receive(:sport).and_return(race.sport)
     competitor[attribute] = 25
     expect(competitor).to have(1).errors_on(:base)
   end

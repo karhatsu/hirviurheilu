@@ -116,7 +116,6 @@ class Sport
       ILMAHIRVI: BASE_CONFIGS[:SHOOTING].merge(
           {
               name: 'Ilmahirvi',
-              qualification_round: [10],
               qualification_round_shot_count: 10,
               final_round: [10],
               final_round_shot_count: 10,
@@ -209,9 +208,10 @@ class Sport
 
   attr_reader :key
 
-  def initialize(key)
+  def initialize(key, race)
     @config = CONFIGS[key.to_sym] or raise("Unknown sport key: #{key}")
     @key = key
+    @race = race
   end
 
   def ==(other)
@@ -255,6 +255,7 @@ class Sport
   end
 
   def shot_count
+    return qualification_round_shot_count + final_round_shot_count if @key == ILMAHIRVI
     @config[:shot_count]
   end
 
@@ -263,14 +264,17 @@ class Sport
   end
 
   def qualification_round
+    return @race.year < 2022 ? [10] : [20] if @key == ILMAHIRVI
     @config[:qualification_round]
   end
 
   def qualification_round_shot_count
+    return @race.year < 2022 ? 10 : 20 if @key == ILMAHIRVI
     @config[:qualification_round_shot_count]
   end
 
   def qualification_round_max_score
+    return @race.year < 2022 ? 100 : 200 if @key == ILMAHIRVI
     @config[:qualification_round_max_score]
   end
 
@@ -306,8 +310,8 @@ class Sport
     @key == EUROPEAN
   end
 
-  def self.by_key(key)
-    Sport.new key
+  def self.by_key(key, race=nil)
+    Sport.new key, race
   end
 
   def self.key_by_name(name)

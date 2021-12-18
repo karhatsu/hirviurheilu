@@ -76,7 +76,7 @@ class Race < ApplicationRecord
   end
 
   def sport
-    Sport.by_key sport_key
+    Sport.by_key sport_key, self
   end
 
   def sport_name

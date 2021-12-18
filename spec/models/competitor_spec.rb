@@ -142,8 +142,9 @@ describe Competitor do
       shared_examples_for 'shooting sport shots' do |sport_key, valid_shots_count|
         it "#{sport_key} can have at most #{valid_shots_count} shots" do
           shots = valid_shots_count.times.map {|i| 1}
+          race = build :race, sport_key: sport_key
           competitor = build :competitor, shots: shots
-          allow(competitor).to receive(:sport).and_return(Sport.by_key(sport_key))
+          allow(competitor).to receive(:sport).and_return(race.sport)
           expect(competitor).to have(0).errors_on(:shots)
           competitor.shots << 1
           expect(competitor).to have(1).errors_on(:shots)
@@ -798,7 +799,8 @@ describe Competitor do
 
       context 'when qualification_round_shooting_score_input is saved' do
         it 'marks has_result true' do
-          allow(@competitor).to receive(:sport).and_return(Sport.by_key(Sport::ILMAHIRVI))
+          race = build :race, sport_key: Sport::ILMAHIRVI
+          allow(@competitor).to receive(:sport).and_return(race.sport)
           @competitor.qualification_round_shooting_score_input = 91
           @competitor.save!
           expect(@competitor.has_result?).to be_truthy
@@ -807,7 +809,8 @@ describe Competitor do
 
       context 'when final_round_shooting_score_input is saved' do
         it 'marks has_result true' do
-          allow(@competitor).to receive(:sport).and_return(Sport.by_key(Sport::METSASTYSLUODIKKO))
+          race = build :race, sport_key: Sport::METSASTYSLUODIKKO
+          allow(@competitor).to receive(:sport).and_return(race.sport)
           @competitor.final_round_shooting_score_input = 97
           @competitor.save!
           expect(@competitor.has_result?).to be_truthy
