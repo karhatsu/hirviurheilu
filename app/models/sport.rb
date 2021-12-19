@@ -247,7 +247,7 @@ class Sport
   end
 
   def shot_count
-    return qualification_round_shot_count + final_round_shot_count if @key == ILMAHIRVI
+    return qualification_round_shot_count + final_round_shot_count if @key == ILMAHIRVI || @key == ILMALUODIKKO
     @config[:shot_count]
   end
 
@@ -257,16 +257,17 @@ class Sport
 
   def qualification_round
     return @race.year < 2022 ? [10] : [20] if @key == ILMAHIRVI
+    return @race.year < 2022 ? [5, 5] : [5, 5, 5, 5] if @key == ILMALUODIKKO
     @config[:qualification_round]
   end
 
   def qualification_round_shot_count
-    return @race.year < 2022 ? 10 : 20 if @key == ILMAHIRVI
+    return @race.year < 2022 ? 10 : 20 if @key == ILMAHIRVI || @key == ILMALUODIKKO
     @config[:qualification_round_shot_count]
   end
 
   def qualification_round_max_score
-    return @race.year < 2022 ? 100 : 200 if @key == ILMAHIRVI
+    return @race.year < 2022 ? 100 : 200 if @key == ILMAHIRVI || @key == ILMALUODIKKO
     @config[:qualification_round_max_score]
   end
 

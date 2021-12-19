@@ -373,6 +373,48 @@ describe Shots do
     end
   end
 
+  context 'when sport has qualification round in four parts' do
+    before do
+      allow(sport).to receive(:qualification_round).and_return([5, 5, 5, 5])
+      allow(sport).to receive(:qualification_round_shot_count).and_return(20)
+      allow(sport).to receive(:final_round).and_return([10])
+    end
+
+    context 'and all qualification round shots not available' do
+      let(:competitor) { FakeCompetitor.new sport, [9, 9, 8, 8, 7, 7, 10] }
+
+      it 'qualification round returns an array with shots correctly split into slots' do
+        expect(competitor.qualification_round_shots).to eql [[9, 9, 8, 8, 7], [7, 10], [], []]
+      end
+
+      it 'qualification round sub scores are the sum of existing shots and zeros when no shots' do
+        expect(competitor.qualification_round_sub_scores).to eql [9 + 9 + 8 + 8 + 7, 7 + 10, 0, 0]
+      end
+
+      it 'qualification round score is sum of available shots' do
+        expect(competitor.qualification_round_score).to eql 9 + 9 + 8 + 8 + 7 + 7 + 10
+      end
+    end
+
+    context 'and all qualification round shots available' do
+      context 'but not all final round shots' do
+        let(:competitor) { FakeCompetitor.new sport, [9, 9, 9, 9, 9, 8, 8, 8, 8, 8, 7, 7, 7, 7, 7, 10, 10, 10, 10, 10] }
+
+        it 'qualification round returns an array including arrays' do
+          expect(competitor.qualification_round_shots).to eql [[9, 9, 9, 9, 9], [8, 8, 8, 8, 8], [7, 7, 7, 7, 7], [10, 10, 10, 10, 10]]
+        end
+
+        it 'qualification round sub scores are the sum of shots' do
+          expect(competitor.qualification_round_sub_scores).to eql [5 * 9, 5 * 8, 5 * 7, 5 * 10]
+        end
+
+        it 'qualification round score sum of qualification round shots' do
+          expect(competitor.qualification_round_score).to eql 5 * 9 + 5 * 8 + 5 * 7 + 5 * 10
+        end
+      end
+    end
+  end
+
   context 'when shots contain value 11 (inner 10)' do
     let(:competitor) { FakeCompetitor.new sport, [9, 11, 11, 5, 10, 11, 8, 11, 11, 10] }
 

@@ -22,6 +22,7 @@ describe Sport do
       it 'returns common values' do
         expect(sport.name).to eq('Ilmahirvi')
         expect(sport.best_shot_value).to eql 10
+        expect(sport.inner_ten?).to eql false
       end
 
       context 'when race before 2022' do
@@ -51,10 +52,40 @@ describe Sport do
       end
     end
 
-    it 'ILMALUODIKKO' do
-      expect(Sport.by_key('ILMALUODIKKO', race).name).to eq('Ilmaluodikko')
-      expect(Sport.by_key('ILMALUODIKKO', race).qualification_round).to eql [5, 5]
-      expect(Sport.by_key('ILMALUODIKKO', race).best_shot_value).to eql 11
+    describe 'ILMALUODIKKO' do
+      let(:sport) { Sport.by_key('ILMALUODIKKO', race) }
+
+      it 'returns common values' do
+        expect(sport.name).to eq('Ilmaluodikko')
+        expect(sport.best_shot_value).to eql 11
+        expect(sport.inner_ten?).to eql true
+      end
+
+      context 'when race before 2022' do
+        let(:race) { build :race, start_date: '2021-12-31' }
+
+        it 'has 5+5 shots in qualification round' do
+          expect(sport.qualification_round).to eql [5, 5]
+          expect(sport.qualification_round_shot_count).to eql 10
+          expect(sport.qualification_round_max_score).to eql 100
+          expect(sport.final_round).to eql [10]
+          expect(sport.final_round_shot_count).to eql 10
+          expect(sport.shot_count).to eql 20
+        end
+      end
+
+      context 'when race 2022 or after' do
+        let(:race) { build :race, start_date: '2022-01-01' }
+
+        it 'has 5+5+5+5 shots in qualification round' do
+          expect(sport.qualification_round).to eql [5, 5, 5, 5]
+          expect(sport.qualification_round_shot_count).to eql 20
+          expect(sport.qualification_round_max_score).to eql 200
+          expect(sport.final_round).to eql [10]
+          expect(sport.final_round_shot_count).to eql 10
+          expect(sport.shot_count).to eql 30
+        end
+      end
     end
 
     it 'METSASTYSHAULIKKO' do

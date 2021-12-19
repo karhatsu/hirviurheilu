@@ -123,11 +123,14 @@ module Shots
 
   def split_shots(rules, start_index)
     return nil unless rules && shots
-    part1 = shots[start_index, rules[0]]
-    return nil unless part1 && part1.length > 0
-    return [part1] if rules.length == 1
-    part2 = shots[start_index + rules[0], rules[1]] || []
-    [part1, part2]
+    parts = Array.new(rules.length)
+    shot_i = 0
+    rules.each_with_index do |rule, i|
+      parts[i] = shots[start_index + shot_i, rule] || []
+      shot_i = shot_i + rule
+    end
+    return nil unless parts[0].length > 0
+    parts
   end
 
   def sum_of_array(array, eleven_as_ten = false)
