@@ -194,6 +194,8 @@ class Sport
       ),
   }
 
+  RULES_2022_CHANGE_DATE = Date.parse '2021-12-27' # first races with new 2022 rules already this day
+
   attr_reader :key
 
   def initialize(key, race)
@@ -256,18 +258,18 @@ class Sport
   end
 
   def qualification_round
-    return @race.year < 2022 ? [10] : [20] if @key == ILMAHIRVI
-    return @race.year < 2022 ? [5, 5] : [5, 5, 5, 5] if @key == ILMALUODIKKO
+    return @race.start_date < RULES_2022_CHANGE_DATE ? [10] : [20] if @key == ILMAHIRVI
+    return @race.start_date < RULES_2022_CHANGE_DATE ? [5, 5] : [5, 5, 5, 5] if @key == ILMALUODIKKO
     @config[:qualification_round]
   end
 
   def qualification_round_shot_count
-    return @race.year < 2022 ? 10 : 20 if @key == ILMAHIRVI || @key == ILMALUODIKKO
+    return @race.start_date < RULES_2022_CHANGE_DATE ? 10 : 20 if @key == ILMAHIRVI || @key == ILMALUODIKKO
     @config[:qualification_round_shot_count]
   end
 
   def qualification_round_max_score
-    return @race.year < 2022 ? 100 : 200 if @key == ILMAHIRVI || @key == ILMALUODIKKO
+    return @race.start_date < RULES_2022_CHANGE_DATE ? 100 : 200 if @key == ILMAHIRVI || @key == ILMALUODIKKO
     @config[:qualification_round_max_score]
   end
 
@@ -310,4 +312,8 @@ class Sport
   def self.key_by_name(name)
     CONFIGS.keys.find {|key| CONFIGS[key][:name] == name}&.to_s
   end
+
+  private
+
+
 end

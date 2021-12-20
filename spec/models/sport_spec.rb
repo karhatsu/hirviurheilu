@@ -26,7 +26,7 @@ describe Sport do
       end
 
       context 'when race before 2022' do
-        let(:race) { build :race, start_date: '2021-12-31' }
+        let(:race) { build :race, start_date: '2021-12-26' }
 
         it 'has 10 shots in qualification round' do
           expect(sport.qualification_round).to eql [10]
@@ -39,7 +39,7 @@ describe Sport do
       end
 
       context 'when race 2022 or after' do
-        let(:race) { build :race, start_date: '2022-01-01' }
+        let(:race) { build :race, start_date: '2021-12-27' }
 
         it 'has 20 shots in qualification round' do
           expect(sport.qualification_round).to eql [20]
@@ -62,7 +62,7 @@ describe Sport do
       end
 
       context 'when race before 2022' do
-        let(:race) { build :race, start_date: '2021-12-31' }
+        let(:race) { build :race, start_date: '2021-12-26' }
 
         it 'has 5+5 shots in qualification round' do
           expect(sport.qualification_round).to eql [5, 5]
@@ -75,7 +75,7 @@ describe Sport do
       end
 
       context 'when race 2022 or after' do
-        let(:race) { build :race, start_date: '2022-01-01' }
+        let(:race) { build :race, start_date: '2021-12-27' }
 
         it 'has 5+5+5+5 shots in qualification round' do
           expect(sport.qualification_round).to eql [5, 5, 5, 5]

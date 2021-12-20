@@ -35,7 +35,7 @@ Feature: Shooting race results
   Scenario: Show ilmaluodikko results for 2021
     Given there is a race with attributes:
       | sport_key | ILMALUODIKKO |
-      | start_date | 2021-12-31  |
+      | start_date | 2021-12-26  |
     And the race has series "M"
     And the series has a competitor 1 "Antti" "Ampuja" from "Antin seura" with shots "10,9,8,10,9,5,6,7,3,8,4,9,10,10,10,9,8,7,9,9"
     And the series has a competitor 2 "Kimmo" "Kilpailija" from "Kimmon seura" with shots "9,9,8,10,9,5,6,7,3,8,4,9,10,10,10,9,8,7,10,9"
@@ -68,7 +68,7 @@ Feature: Shooting race results
   Scenario: Show ilmaluodikko results for 2022
     Given there is a race with attributes:
       | sport_key | ILMALUODIKKO |
-      | start_date | 2022-01-01  |
+      | start_date | 2021-12-27  |
     And the race has series "M"
     And the series has a competitor 1 "Antti" "Ampuja" from "Antin seura" with shots "9,9,9,9,9,8,8,8,8,8,10,9,8,10,9,5,6,7,3,8,4,9,10,10,10,9,8,7,9,9"
     And the series has a competitor 2 "Kimmo" "Kilpailija" from "Kimmon seura" with shots "9,9,9,9,9,8,8,8,8,8,9,9,8,10,9,5,6,7,3,8,4,9,10,10,10,9,8,7,10,9"
