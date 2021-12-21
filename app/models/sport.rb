@@ -22,20 +22,7 @@ class Sport
           final_round: false,
           best_shot_value: 10,
           shot_count: 10,
-          default_series: ProductionEnvironment.production? ? [
-              ['S13', ['T13', 'P13', 'T11', 'P11', 'T9', 'P9', 'T7', 'P7']],
-              ['S15', ['T15', 'P15']],
-              ['S17', ['T17', 'P17']],
-              ['S20', ['T20', 'P20']],
-              ['M', ['M40']],
-              ['M50'],
-              ['M60', ['M65']],
-              ['M70', ['M75']],
-              ['M80', ['M85', 'M90']],
-              ['N', ['N40']],
-              ['N50', ['N55', 'N60']],
-              ['N65', ['N70', 'N75', 'N80', 'N85', 'N90']],
-          ] : [
+          default_series: [
             ['S13', ['T13', 'P13', 'T11', 'P11', 'T9', 'P9', 'T7', 'P7']],
             ['S16', ['T16', 'P16']],
             ['S20', ['T20', 'P20']],
@@ -50,19 +37,7 @@ class Sport
           ],
       },
       SHOOTING: {
-          default_series: ProductionEnvironment.production? ? [
-              ['S15', ['T15', 'P15']],
-              ['S17', ['T17', 'P17']],
-              ['S20', ['T20', 'P20']],
-              ['M'],
-              ['M50'],
-              ['M60'],
-              ['M70'],
-              ['M80'],
-              ['N'],
-              ['N50'],
-              ['N65'],
-          ] : [
+          default_series: [
             ['S16', ['T16', 'P16']],
             ['S20', ['T20', 'P20']],
             ['Y'],
@@ -143,7 +118,7 @@ class Sport
               final_round: [10],
               final_round_shot_count: 10,
               shots_per_extra_round: 1,
-              default_series: (ProductionEnvironment.production? ? [] : [['S13', ['T13', 'P13']]]) + BASE_CONFIGS[:SHOOTING][:default_series],
+              default_series: [['S13', ['T13', 'P13']]] + BASE_CONFIGS[:SHOOTING][:default_series],
           }
       ),
       METSASTYSHAULIKKO: SHOTGUN_CONFIG.merge(
@@ -178,13 +153,13 @@ class Sport
           final_round_shot_count: 10,
           shot_count: 30,
           shots_per_extra_round: 2,
-          default_series: (ProductionEnvironment.production? ? [] : [['S13', ['T13', 'P13']]]) + BASE_CONFIGS[:SHOOTING][:default_series],
+          default_series: [['S13', ['T13', 'P13']]] + BASE_CONFIGS[:SHOOTING][:default_series],
         }
       ),
       NORDIC: BASE_CONFIGS[:SHOOTING].merge(
           {
               name: 'Pohjoismainen metsästysammunta',
-              default_series: ProductionEnvironment.production? ? [['S20'], ['M'], ['N'], ['S60']] : [['S20'], ['M'], ['N'], ['S60'], ['S70']],
+              default_series: [['S20'], ['M'], ['N'], ['S60'], ['S70']],
           }
       ),
       EUROPEAN: BASE_CONFIGS[:SHOOTING].merge(

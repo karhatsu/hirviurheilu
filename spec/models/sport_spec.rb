@@ -93,6 +93,12 @@ describe Sport do
       expect(Sport.by_key('METSASTYSHAULIKKO', race).qualification_round).to eql [25]
       expect(Sport.by_key('METSASTYSHAULIKKO', race).best_shot_value).to eql 1
     end
+
+    it 'NORDIC' do
+      sport = Sport.by_key('NORDIC', race)
+      expect(sport.name).to eq 'Pohjoismainen metsästysammunta'
+      expect(sport.default_series).to eq [['S20'], ['M'], ['N'], ['S60'], ['S70']]
+    end
   end
 
   it 'find key by name' do
