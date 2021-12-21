@@ -9,7 +9,6 @@ const useAppData = () => {
   const userEmail = appElement.getAttribute('data-user-email')
   const userFirstName = appElement.getAttribute('data-user-first-name')
   const userLastName = appElement.getAttribute('data-user-last-name')
-  const staging = appElement.getAttribute('data-staging')
   return {
     admin,
     environment,
@@ -19,7 +18,6 @@ const useAppData = () => {
     userEmail,
     userFirstName,
     userLastName,
-    staging,
   }
 }
 
