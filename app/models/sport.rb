@@ -178,6 +178,7 @@ class Sport
           final_round_shot_count: 10,
           shot_count: 30,
           shots_per_extra_round: 2,
+          default_series: (ProductionEnvironment.production? ? [] : [['S13', ['T13', 'P13']]]) + BASE_CONFIGS[:SHOOTING][:default_series],
         }
       ),
       NORDIC: BASE_CONFIGS[:SHOOTING].merge(
