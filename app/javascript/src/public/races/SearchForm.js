@@ -4,7 +4,7 @@ import Button from '../../common/Button'
 import { sportKeys } from '../../util/sportUtil'
 import useDistricts from '../../util/useDistricts'
 
-const emptySearchParams = { search_text: '', sport_key: '', district_id: '' }
+const emptySearchParams = { search_text: '', sport_key: '', district_id: '', time: '' }
 
 export default function SearchForm({ onSearch }) {
   const { t } = useTranslation()
@@ -55,6 +55,13 @@ export default function SearchForm({ onSearch }) {
           <select value={searchParams.level} onChange={setSearchValue('level')} id="level">
             <option value="">{t('allLevels')}</option>
             {[3, 2, 1, 0].map(level => <option value={level} key={level}>{t(`level_${level}`)}</option>)}
+          </select>
+        </div>
+        <div className="form__field">
+          <select value={searchParams.time} onChange={setSearchValue('time')} id="time">
+            <option value="">{t('noTimeLimit')}</option>
+            <option value="future">{t('races_future')}</option>
+            <option value="past">{t('races_past')}</option>
           </select>
         </div>
         <div className="form__buttons">

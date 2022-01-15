@@ -94,6 +94,7 @@ window.translations = {
   nordic_shotgun: 'Compak',
   nordic_trap: 'Trap',
   noTeams: 'Ei joukkueita',
+  noTimeLimit: 'Tulevat ja päättyneet',
   numberShort: 'Nro',
   officialHomePage: 'Toimitsijan sivut',
   pdfPageBreaks: 'Sivunvaihdot sarjojen väliin',

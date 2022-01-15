@@ -94,6 +94,7 @@ window.translations = {
   nordic_shotgun: 'Compak',
   nordic_trap: 'Trap',
   noTeams: 'Inga lag',
+  noTimeLimit: 'Nästa och slutade',
   numberShort: 'Nr',
   officialHomePage: 'Funktionärs sidor',
   pdfPageBreaks: 'Sidbytningar mellan klasserna',
