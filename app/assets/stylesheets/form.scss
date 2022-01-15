@@ -151,7 +151,7 @@ textarea {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  margin-top: 16px;
+  margin-top: 8px;
 
   .form__field {
     display: flex;
@@ -159,10 +159,6 @@ textarea {
     align-items: center;
     margin-top: 6px;
     margin-right: 16px;
-
-    @media only screen and (min-width: 48em) {
-      margin-top: 0;
-    }
 
     &--shot {
       margin-right: 6px;
@@ -182,16 +178,8 @@ textarea {
   }
 
   .form__buttons {
-    margin-top: 0;
-    margin-right: 16px;
-  }
-
-  .button {
     margin-top: 6px;
-
-    @media only screen and (min-width: 48em) {
-      margin-top: 0;
-    }
+    margin-right: 16px;
   }
 }
 
