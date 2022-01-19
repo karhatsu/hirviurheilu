@@ -5,7 +5,7 @@ class Api::V2::Public::RacesController < Api::V2::ApiBaseController
       @today = add_conditions Race.today.includes(:district)
       @past = add_conditions Race.past.includes(:district)
     else
-      @races = add_conditions Race.all.includes(:district)
+      @races = add_conditions Race.all.includes(:district).order('start_date desc, end_date desc')
     end
   end
 
