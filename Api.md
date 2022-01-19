@@ -9,9 +9,25 @@ Hirviurheilu API is a JSON REST API.
 
 ## Public API
 
-The `race_id` used in the API paths can be found e.g. from the race page URL. For example [https://www.hirviurheilu.com/races/2075](https://www.hirviurheilu.com/races/2075) has the `race_id` 2075.
+### Races
+
+`GET /api/v2/public/races`
+
+You can limit the query with the following query parameters:
+
+* `search_text` - searches from race name and location
+* `level` - level id 0 (other), 1 (district), 2 (area), or 3 (national)
+* `sport_key` - examples: `SKI`, `RUN`, `ILMAHIRVI`, `METSASTYSLUODIKKO`, `NORDIC`, `EUROPEAN`
+* `since` - date like `2021-01-01`
+* `until` - date like `2021-12-31`
+
+Example:
+
+`GET /api/v2/public/races?sport_key=SKI&since=2022-01-01&until=2022-03-31&level=1`
 
 ### Race and competitors with start time
+
+The `race_id` used in the API paths can be found e.g. from the race page URL. For example [https://www.hirviurheilu.com/races/2075](https://www.hirviurheilu.com/races/2075) has the `race_id` 2075.
 
 `GET /api/v2/public/races/:race_id`
 
