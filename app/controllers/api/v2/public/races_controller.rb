@@ -1,8 +1,12 @@
 class Api::V2::Public::RacesController < Api::V2::ApiBaseController
   def index
-    @future = add_conditions Race.future
-    @today = add_conditions Race.today
-    @past = add_conditions Race.past
+    if params[:grouped]
+      @future = add_conditions Race.future
+      @today = add_conditions Race.today
+      @past = add_conditions Race.past
+    else
+      @races = Race.all
+    end
   end
 
   def show

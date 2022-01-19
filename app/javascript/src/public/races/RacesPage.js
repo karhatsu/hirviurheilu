@@ -20,7 +20,8 @@ export default function RacesPage() {
 
   const search = useCallback(searchParams => {
     setFetching(true)
-    const path = `/api/v2/public/races?${buildQueryParams(searchParams)}`
+    const query = { ...searchParams, grouped: true }
+    const path = `/api/v2/public/races?${buildQueryParams(query)}`
     get(path, (err, data) => {
       if (err) setError(err)
       else setData(data)
