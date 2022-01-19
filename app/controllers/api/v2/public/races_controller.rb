@@ -1,11 +1,11 @@
 class Api::V2::Public::RacesController < Api::V2::ApiBaseController
   def index
     if params[:grouped]
-      @future = add_conditions Race.future
-      @today = add_conditions Race.today
-      @past = add_conditions Race.past
+      @future = add_conditions Race.future.includes(:district)
+      @today = add_conditions Race.today.includes(:district)
+      @past = add_conditions Race.past.includes(:district)
     else
-      @races = Race.all
+      @races = Race.all.includes(:district)
     end
   end
 
