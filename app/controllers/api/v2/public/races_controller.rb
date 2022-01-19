@@ -5,7 +5,7 @@ class Api::V2::Public::RacesController < Api::V2::ApiBaseController
       @today = add_conditions Race.today.includes(:district)
       @past = add_conditions Race.past.includes(:district)
     else
-      @races = Race.all.includes(:district)
+      @races = add_conditions Race.all.includes(:district)
     end
   end
 
@@ -22,12 +22,16 @@ class Api::V2::Public::RacesController < Api::V2::ApiBaseController
     level = params[:level]
     search_text = params[:search_text]
     time = params[:time]
+    since = params[:since]
+    until_ = params[:until]
     races = races.where(sport_key: sport_key) unless sport_key.blank?
     races = races.where(district_id: district_id) unless district_id.blank?
     races = races.where(level: level) unless level.blank?
     races = races.where('name ILIKE ? OR location ILIKE ?', "%#{search_text}%", "%#{search_text}%") unless search_text.blank?
     races = races.where('end_date < ?', Date.today) if time == 'past'
     races = races.where('start_date >= ?', Date.today) if time == 'future'
+    races = races.where('start_date >= ?', since) unless since.blank?
+    races = races.where('end_date < ?', until_) unless until_.blank?
     races.limit(50)
   end
 end
