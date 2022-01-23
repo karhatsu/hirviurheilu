@@ -12,4 +12,9 @@ class InfosController < ApplicationController
     @is_answers = true
     render layout: true, html: ''
   end
+
+  def sports_info
+    use_react
+    render layout: true, html: ''
+  end
 end

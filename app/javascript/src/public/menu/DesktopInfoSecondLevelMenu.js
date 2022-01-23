@@ -1,6 +1,12 @@
 import React from 'react'
 import DesktopMenuItem from './DesktopMenuItem'
-import { buildAnswersPath, buildFeedbackPath, buildInfoPath, buildPricesPath } from '../../util/routeUtil'
+import {
+  buildAnswersPath,
+  buildFeedbackPath,
+  buildInfoPath,
+  buildPricesPath,
+  buildSportsInfoPath,
+} from '../../util/routeUtil'
 import useTranslation from '../../util/useTranslation'
 import { pages } from './DesktopSecondLevelMenu'
 
@@ -30,6 +36,12 @@ export default function DesktopInfoSecondLevelMenu({ selectedPage }) {
         path={buildFeedbackPath()}
         text={t('sendFeedback')}
         selected={selectedPage === pages.info.feedback}
+        reactLink={true}
+      />
+      <DesktopMenuItem
+        path={buildSportsInfoPath()}
+        text={t('sportsInfo')}
+        selected={selectedPage === pages.info.sportsInfo}
         reactLink={true}
       />
     </div>

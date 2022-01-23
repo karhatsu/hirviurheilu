@@ -196,6 +196,7 @@ window.translations = {
   sport_PIENOISLUODIKKO: 'Pienoisluodikko',
   sport_RUN: 'Hirvenjuoksu',
   sport_SKI: 'Hirvenhiihto',
+  sportsInfo: 'Tietoa lajeista',
   startList: 'Lähtölista',
   startLists: 'Lähtölistat',
   startTime: 'Lähtöaika',

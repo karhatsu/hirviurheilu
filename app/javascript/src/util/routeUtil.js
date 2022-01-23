@@ -64,6 +64,8 @@ export const buildAnswersPath = () => withLocale('/answers')
 
 export const buildPricesPath = () => withLocale('/prices')
 
+export const buildSportsInfoPath = () => withLocale('/sports_info')
+
 export const buildOfficialPath = () => withLocale('/official')
 
 export const matchPath = (currentPath, path, exact) => {

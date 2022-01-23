@@ -196,6 +196,7 @@ window.translations = {
   sport_PIENOISLUODIKKO: 'Pienoisluodikko',
   sport_SKI: 'Älgskidskytte',
   sport_RUN: 'Älglöpning',
+  sportsInfo: 'Information av grener',
   startList: 'Startlista',
   startLists: 'Startlista',
   startTime: 'Starttid',

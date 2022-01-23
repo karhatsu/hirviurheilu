@@ -16,6 +16,7 @@ Hirviurheilu::Application.routes.draw do
     resources :announcements
     resource :info
     get 'answers' => 'infos#answers', :as => :answers
+    get 'sports_info' => 'infos#sports_info'
     resources :feedbacks, only: :new
 
     resources :prices

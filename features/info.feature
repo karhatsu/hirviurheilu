@@ -12,6 +12,9 @@ Feature: Info page
     And the page title should contain "Tietoa Hirviurheilusta"
     When I follow "Lähetä palautetta" within ".body__content"
     Then I should be on the send feedback page
+    When I follow "Tietoa lajeista"
+    Then the "Tietoa lajeista" sub menu item should be selected
+    And I should see "Lisätietoa Hirviurheilun lajeista Suomen Metsästäjäliiton sivuilta"
 
   @javascript
   Scenario: Unauthenticated user goes to info page
@@ -25,5 +28,3 @@ Feature: Info page
     And I have logged in
     And I am on the info page
     Then I should not see "Aloita palvelun käyttö"
-    When I follow "Palvelu on käytössäsi"
-    Then I should be on the official index page

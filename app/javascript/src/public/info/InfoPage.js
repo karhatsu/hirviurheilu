@@ -4,9 +4,9 @@ import Button from '../../common/Button'
 import {
   buildAnswersPath,
   buildFeedbackPath,
-  buildOfficialPath,
   buildRegisterPath,
   buildRootPath,
+  buildSportsInfoPath,
 } from '../../util/routeUtil'
 import useTranslation from '../../util/useTranslation'
 import useAppData from '../../util/useAppData'
@@ -43,18 +43,8 @@ export default function InfoPage({ setSelectedPage }) {
             </div>
           </a>
         </div>
-        <div className="col-xs-12 col-sm-6">
-          {!!userId && (
-            <a href={buildOfficialPath()} className="card">
-              <div className="card__middle">
-                <div className="card__name">Palvelu on käytössäsi</div>
-                <div className="card__middle-row">
-                  Olet kirjautunut sisään. Siirry toimitsijan etusivulle hallinnoimaan kilpailujasi.
-                </div>
-              </div>
-            </a>
-          )}
-          {!userId && (
+        {!userId && (
+          <div className="col-xs-12 col-sm-6">
             <a href={buildRegisterPath()} className="card">
               <div className="card__middle">
                 <div className="card__name">Aloita palvelun käyttö</div>
@@ -63,14 +53,24 @@ export default function InfoPage({ setSelectedPage }) {
                 </div>
               </div>
             </a>
-          )}
-        </div>
+          </div>
+        )}
         <div className="col-xs-12 col-sm-6">
           <a href={buildFeedbackPath()} className="card">
             <div className="card__middle">
               <div className="card__name">{t('sendFeedback')}</div>
               <div className="card__middle-row">
                 Jäikö jokin asia epäselväksi? Haluatko ehdottaa jotain uutta ominaisuutta? Ota yhteyttä!
+              </div>
+            </div>
+          </a>
+        </div>
+        <div className="col-xs-12 col-sm-6">
+          <a href={buildSportsInfoPath()} className="card">
+            <div className="card__middle">
+              <div className="card__name">Tietoa lajeista</div>
+              <div className="card__middle-row">
+                Tietoa lajeista ja niiden säännöistä
               </div>
             </div>
           </a>

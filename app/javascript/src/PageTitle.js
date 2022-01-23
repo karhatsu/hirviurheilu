@@ -17,6 +17,7 @@ export default function PageTitle() {
   if (matchPath(pathname, '/info')) return t('info')
   if (matchPath(pathname, '/prices')) return t('prices')
   if (matchPath(pathname, '/feedbacks')) return t('sendFeedback')
+  if (matchPath(pathname, '/sports_info')) return t('sportsInfo')
   if (matchPath(pathname, '/races', true)) return `Hirviurheilu - ${t('races')}`
   const competition = (cupId && cup) || (raceId && race)
   if (!competition) return t('appTitle')
