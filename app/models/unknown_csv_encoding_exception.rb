@@ -1,2 +1,2 @@
-class UnknownCSVEncodingException < Exception
+class UnknownCsvEncodingException < Exception
 end

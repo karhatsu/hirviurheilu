@@ -27,7 +27,7 @@ class CsvMultipleImport
   def get_data(file_path)
     begin
       read_csv_file file_path
-    rescue UnknownCSVEncodingException => e
+    rescue UnknownCsvEncodingException => e
       @errors = [{ row: 0, errors: ['Tiedoston merkistökoodausta ei pystytty tunnistamaan, ole hyvä ja lähetä asiasta palautetta'] }]
     rescue
       @errors = [{ row: 0, errors: ['Tiedosto on virheellinen'] }]

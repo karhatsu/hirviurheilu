@@ -17,7 +17,7 @@ module CsvImportsHelper
           flash[:error] += import.errors.join('<br/>')
           render :new
         end
-      rescue UnknownCSVEncodingException
+      rescue UnknownCsvEncodingException
         flash[:error] = 'Tiedoston merkistökoodausta ei pystytty tunnistamaan. '
         flash[:error] += "Ole hyvä ja <a href='#{new_feedback_path}'>lähetä ongelmasta palautetta</a>."
         render :new

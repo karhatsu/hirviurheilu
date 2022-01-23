@@ -17,7 +17,7 @@ module CsvReader
       rescue ArgumentError
       end
     end
-    raise UnknownCSVEncodingException.new
+    raise UnknownCsvEncodingException.new
   end
 
   def resolve_separator(line)
