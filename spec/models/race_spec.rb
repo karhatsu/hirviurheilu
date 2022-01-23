@@ -252,7 +252,7 @@ describe Race do
       end
 
       it 'contains timestamp of the latest updated race' do
-        timestamp = @race1.updated_at.utc.to_s(:nsec)
+        timestamp = @race1.updated_at.utc.to_formatted_s(:nsec)
         expect(Race.cache_key_for_all).to eq("races/all-#{timestamp}")
       end
     end
@@ -262,7 +262,7 @@ describe Race do
     context 'when no series' do
       it 'is races/<id>-<timestamp>-allseries-' do
         race = create :race
-        timestamp = race.updated_at.utc.to_s(:nsec)
+        timestamp = race.updated_at.utc.to_formatted_s(:nsec)
         expect(race.cache_key_for_all_series).to eq("races/#{race.id}-#{timestamp}-allseries-")
       end
     end
@@ -277,8 +277,8 @@ describe Race do
       end
 
       it 'contains timestamp of the latest updated series' do
-        race_timestamp = @race.updated_at.utc.to_s(:nsec)
-        series_timestamp = @series1.updated_at.utc.to_s(:nsec)
+        race_timestamp = @race.updated_at.utc.to_formatted_s(:nsec)
+        series_timestamp = @series1.updated_at.utc.to_formatted_s(:nsec)
         expect(@race.cache_key_for_all_series).to eq("races/#{@race.id}-#{race_timestamp}-allseries-#{series_timestamp}")
       end
     end

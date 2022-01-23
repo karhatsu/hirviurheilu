@@ -57,7 +57,7 @@ class Series < ApplicationRecord
   delegate :sport, to: :race
 
   def cache_key
-    "#{super}-#{race.updated_at.utc.to_s(:usec)}"
+    "#{super}-#{race.updated_at.utc.to_formatted_s(:usec)}"
   end
 
   def points_method=(points_method)
