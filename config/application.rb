@@ -75,5 +75,7 @@ module Hirviurheilu
     config.generators do |g|
       g.test_framework :rspec
     end
+
+    config.active_support.cache_format_version = 7.0
   end
 end
