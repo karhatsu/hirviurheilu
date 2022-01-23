@@ -3,7 +3,7 @@ import max from 'date-fns/max'
 import parseISO from 'date-fns/parseISO'
 import useTitle from '../../util/useTitle'
 import { useParams } from 'react-router-dom'
-import { pages } from '../menu/DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import useTranslation from '../../util/useTranslation'
 import { buildRacePath, buildSeriesResultsPath, buildSeriesStartListPath } from '../../util/routeUtil'
 import SeriesMobileSubMenu from '../menu/SeriesMobileSubMenu'
@@ -26,8 +26,9 @@ import useDataReloading from '../../util/useDataReloading'
 import { useResultRotation } from '../result-rotation/useResultRotation'
 import { formatTodaysTime } from '../../util/timeUtil'
 
-export default function SeriesResultsPage({ setSelectedPage }) {
+export default function SeriesResultsPage() {
   const { t } = useTranslation()
+  const { setSelectedPage } = useMenu(pages.results)
   const seriesId = parseInt(useParams().seriesId)
   const [allCompetitors, setAllCompetitors] = useState(false)
   const { mobile } = useLayout()

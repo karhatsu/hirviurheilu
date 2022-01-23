@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
-import { pages } from '../menu/DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import useLayout from '../../util/useLayout'
 import useTitle from '../../util/useTitle'
 import useTranslation from '../../util/useTranslation'
@@ -15,8 +15,9 @@ import useRaceData from '../../util/useRaceData'
 import IncompletePage from '../../common/IncompletePage'
 import useDataReloading from '../../util/useDataReloading'
 
-export default function EuropeanRifleResultsPage({ setSelectedPage }) {
+export default function EuropeanRifleResultsPage() {
   const { t } = useTranslation()
+  const { setSelectedPage } = useMenu()
   const { seriesId } = useParams()
   const { mobile } = useLayout()
   const buildApiPath = useCallback(raceId => `/api/v2/public/races/${raceId}/series/${seriesId}/rifle`, [seriesId])

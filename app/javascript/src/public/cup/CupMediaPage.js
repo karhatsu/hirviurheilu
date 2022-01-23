@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { pages } from '../menu/DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import useTranslation from '../../util/useTranslation'
 import { get } from '../../util/apiClient'
 import Message from '../../common/Message'
@@ -8,8 +8,9 @@ import { buildCupPath } from '../../util/routeUtil'
 import IncompletePage from '../../common/IncompletePage'
 import { useParams } from 'react-router-dom'
 
-export default function CupMediaPage({ setSelectedPage }) {
+export default function CupMediaPage() {
   const { t } = useTranslation()
+  const { setSelectedPage } = useMenu()
   const { cupId } = useParams()
   const [fetching, setFetching] = useState(true)
   const [error, setError] = useState(undefined)

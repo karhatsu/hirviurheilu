@@ -11,14 +11,15 @@ import RaceCorrectDistances from './RaceCorrectDistances'
 import RaceResultsPdf from './RaceResultsPdf'
 import RaceRelays from './RaceRelays'
 import RaceTeamCompetitions from './RaceTeamCompetitions'
-import { pages } from '../menu/DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import Button from '../../common/Button'
 import Message from '../../common/Message'
 import IncompletePage from '../../common/IncompletePage'
 import { buildRootPath } from '../../util/routeUtil'
 
-export default function RacePage({ setSelectedPage }) {
+export default function RacePage() {
   const { t } = useTranslation()
+  const { setSelectedPage } = useMenu(pages.raceHome)
   const { fetching, race, error } = useRace()
   useTitle(race?.name)
   useEffect(() => setSelectedPage(pages.raceHome), [setSelectedPage])

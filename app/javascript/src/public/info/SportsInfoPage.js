@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect } from 'react'
-import { pages } from '../menu/DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import Button from '../../common/Button'
 
-export default function SportsInfoPage({ setSelectedPage }) {
+export default function SportsInfoPage() {
+  const { setSelectedPage } = useMenu()
   useEffect(() => {
     setSelectedPage(pages.info.sportsInfo)
   }, [setSelectedPage])

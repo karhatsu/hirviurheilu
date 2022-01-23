@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { pages } from '../menu/DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import useTranslation from '../../util/useTranslation'
 import Message from '../../common/Message'
 import { useRace } from '../../util/useRace'
@@ -12,8 +12,9 @@ import { get } from '../../util/apiClient'
 
 const { clubLevel } = raceEnums
 
-export default function RaceMediaPage({ setSelectedPage }) {
+export default function RaceMediaPage() {
   const { t } = useTranslation()
+  const { setSelectedPage } = useMenu()
   const [competitorsCount, setCompetitorsCount] = useState(3)
   const [clubIds, setClubIds] = useState([])
   const [report, setReport] = useState(undefined)

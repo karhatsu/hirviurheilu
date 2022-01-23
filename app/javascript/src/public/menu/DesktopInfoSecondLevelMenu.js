@@ -8,10 +8,11 @@ import {
   buildSportsInfoPath,
 } from '../../util/routeUtil'
 import useTranslation from '../../util/useTranslation'
-import { pages } from './DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 
-export default function DesktopInfoSecondLevelMenu({ selectedPage }) {
+export default function DesktopInfoSecondLevelMenu() {
   const { t } = useTranslation()
+  const { selectedPage } = useMenu()
   return (
     <div className="menu menu--sub menu--sub-1">
       <DesktopMenuItem

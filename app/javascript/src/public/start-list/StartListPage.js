@@ -7,14 +7,15 @@ import SeriesMobileSubMenu from '../menu/SeriesMobileSubMenu'
 import useTranslation from '../../util/useTranslation'
 import { buildRacePath, buildSeriesResultsPath, buildSeriesStartListPath } from '../../util/routeUtil'
 import useTitle from '../../util/useTitle'
-import { pages } from '../menu/DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import Button from '../../common/Button'
 import Message from '../../common/Message'
 import useLayout from '../../util/useLayout'
 import useRaceData from '../../util/useRaceData'
 import IncompletePage from '../../common/IncompletePage'
 
-export default function StartListPage({ setSelectedPage }) {
+export default function StartListPage() {
+  const { setSelectedPage } = useMenu()
   const { raceId, seriesId: seriesIdStr } = useParams()
   const seriesId = parseInt(seriesIdStr)
   const { t } = useTranslation()

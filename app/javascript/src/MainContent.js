@@ -26,7 +26,7 @@ import QAndAPage from './public/info/QAndAPage'
 import FeedbackPage from './public/feedback/FeedbackPage'
 import SportsInfoPage from './public/info/SportsInfoPage'
 
-export default function MainContent({ cupSeriesPaths, setSelectedPage }) {
+export default function MainContent({ cupSeriesPaths }) {
   return (
     <div className="body__yield">
       <div className="body__under-top-title"><PageTitle /></div>
@@ -34,63 +34,63 @@ export default function MainContent({ cupSeriesPaths, setSelectedPage }) {
       <Switch exact>
         <Route
           path="/:lang?/races/:raceId/rifle_team_competitions/:teamCompetitionId"
-          render={() => <TeamCompetitionResultsPage setSelectedPage={setSelectedPage} rifle={true} />}
+          render={() => <TeamCompetitionResultsPage rifle={true} />}
         />
         <Route
           path="/:lang?/races/:raceId/team_competitions/:teamCompetitionId"
-          render={() => <TeamCompetitionResultsPage setSelectedPage={setSelectedPage} />}
+          render={() => <TeamCompetitionResultsPage />}
         />
         <Route
           path="/:lang?/races/:raceId/qualification_round_batches"
-          render={() => <QualificationRoundBatches setSelectedPage={setSelectedPage} />}
+          render={() => <QualificationRoundBatches />}
         />
         <Route
           path="/:lang?/races/:raceId/final_round_batches"
-          render={() => <FinalRoundBatches setSelectedPage={setSelectedPage} />}
+          render={() => <FinalRoundBatches />}
         />
         <Route
           path="/:lang?/races/:raceId/result_rotation"
-          render={() => <ResultRotationPage setSelectedPage={setSelectedPage} />}
+          render={() => <ResultRotationPage />}
         />
         <Route
           path="/:lang?/races/:raceId/series/:seriesId/start_list"
-          render={() => <StartListPage setSelectedPage={setSelectedPage} />}
+          render={() => <StartListPage />}
         />
         <Route
           path="/:lang?/races/:raceId/series/:seriesId/rifle"
-          render={() => <EuropeanRifleResultsPage setSelectedPage={setSelectedPage} />}
+          render={() => <EuropeanRifleResultsPage />}
         />
         <Route
           path="/:lang?/races/:raceId/series/:seriesId"
-          render={() => <SeriesResultsPage setSelectedPage={setSelectedPage} />}
+          render={() => <SeriesResultsPage />}
         />
         <Route
           path={['/:lang?/races/:raceId/relays/:relayId/legs/:leg', '/:lang?/races/:raceId/relays/:relayId']}
-          render={() => <RelayResultsPage setSelectedPage={setSelectedPage} />}
+          render={() => <RelayResultsPage />}
         />
         <Route
           path="/:lang?/races/:raceId/medium/new"
-          render={() => <RaceMediaPage setSelectedPage={setSelectedPage} />}
+          render={() => <RaceMediaPage />}
         />
         <Route
           path="/:lang?/races/:raceId/:subSport"
-          render={() => <NordicSubSportResultsPage setSelectedPage={setSelectedPage} />}
+          render={() => <NordicSubSportResultsPage />}
         />
-        <Route path="/:lang?/races/:raceId" render={() => <RacePage setSelectedPage={setSelectedPage} />} />
+        <Route path="/:lang?/races/:raceId" render={() => <RacePage />} />
         <Route path="/:lang?/races" component={RacesPage} />
         <Route
           path="/:lang?/cups/:cupId/medium/new"
-          render={() => <CupMediaPage setSelectedPage={setSelectedPage} />}
+          render={() => <CupMediaPage />}
         />
-        <Route path={cupSeriesPaths} render={() => <CupSeriesPage setSelectedPage={setSelectedPage} />} />
-        <Route path="/:lang?/cups/:cupId" render={() => <CupPage setSelectedPage={setSelectedPage} />} />
+        <Route path={cupSeriesPaths} render={() => <CupSeriesPage />} />
+        <Route path="/:lang?/cups/:cupId" render={() => <CupPage />} />
         <Route path="/:lang?/announcements/:announcementId" component={AnnouncementPage} />
         <Route path="/:lang?/announcements" component={AnnouncementsPage} />
-        <Route path="/:lang?/info" render={() => <InfoPage setSelectedPage={setSelectedPage} />} />
-        <Route path="/:lang?/prices" render={() => <PricesPage setSelectedPage={setSelectedPage} />} />
-        <Route path="/:lang?/answers" render={() => <QAndAPage setSelectedPage={setSelectedPage} />} />
-        <Route path="/:lang?/sports_info" render={() => <SportsInfoPage setSelectedPage={setSelectedPage} />} />
-        <Route path="/:lang?/feedbacks/new" render={() => <FeedbackPage setSelectedPage={setSelectedPage} />} />
+        <Route path="/:lang?/info" render={() => <InfoPage />} />
+        <Route path="/:lang?/prices" render={() => <PricesPage />} />
+        <Route path="/:lang?/answers" render={() => <QAndAPage />} />
+        <Route path="/:lang?/sports_info" render={() => <SportsInfoPage />} />
+        <Route path="/:lang?/feedbacks/new" render={() => <FeedbackPage />} />
         <Route path="/:lang?" component={HomePage} />
       </Switch>
     </div>

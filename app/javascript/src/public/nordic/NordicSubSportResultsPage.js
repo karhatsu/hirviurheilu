@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { pages } from '../menu/DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import useTranslation from '../../util/useTranslation'
 import useTitle from '../../util/useTitle'
 import ResultsWithShots from '../series-results/ResultsWithShots'
@@ -13,8 +13,9 @@ import NordicSubSportMobileSubMenu from './NordicSubSportMobileSubMenu'
 import useRaceData from '../../util/useRaceData'
 import IncompletePage from '../../common/IncompletePage'
 
-export default function NordicSubSportResultsPage({ setSelectedPage }) {
+export default function NordicSubSportResultsPage() {
   const { t } = useTranslation()
+  const { setSelectedPage } = useMenu()
   const { subSport } = useParams()
   const { mobile } = useLayout()
   const buildApiPath = useCallback(raceId => `/api/v2/public/races/${raceId}/${subSport}`, [subSport])

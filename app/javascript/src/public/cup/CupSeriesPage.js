@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { pages } from '../menu/DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import useCupSeries from './useCupSeries'
 import IncompletePage from '../../common/IncompletePage'
 import useTranslation from '../../util/useTranslation'
@@ -15,8 +15,9 @@ import Button from '../../common/Button'
 import { buildCupPath, buildCupSeriesPath, buildRifleCupSeriesPath } from '../../util/routeUtil'
 import MobileSubMenu from '../menu/MobileSubMenu'
 
-export default function CupSeriesPage({ setSelectedPage }) {
+export default function CupSeriesPage() {
   const { t } = useTranslation()
+  const { setSelectedPage } = useMenu()
   const { cupSeriesId: csId, rifleCupSeriesId: rCsId } = useParams()
   const cupSeriesId = csId && parseInt(csId)
   const rifleCupSeriesId = rCsId && parseInt(rCsId)

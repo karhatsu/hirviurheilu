@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { pages } from '../menu/DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import { useCup } from '../../util/useCup'
 import IncompletePage from '../../common/IncompletePage'
 import CupPublicMessage from './CupPublicMessage'
@@ -10,8 +10,9 @@ import CupSeriesName from './CupSeriesName'
 import CupResultsPdf from './CupResultsPdf'
 import useTitle from '../../util/useTitle'
 
-export default function CupPage({ setSelectedPage }) {
+export default function CupPage() {
   const { t } = useTranslation()
+  const { setSelectedPage } = useMenu()
   const { fetching, cup, error } = useCup()
   useEffect(() => setSelectedPage(pages.cup.home), [setSelectedPage])
   useTitle(cup && cup.name)

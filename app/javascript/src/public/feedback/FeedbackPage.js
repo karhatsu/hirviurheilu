@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { pages } from '../menu/DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import useTranslation from '../../util/useTranslation'
 import useTitle from '../../util/useTitle'
 import Message from '../../common/Message'
@@ -10,8 +10,9 @@ import { formatDateInterval } from '../../util/timeUtil'
 import ThankYouView from './ThankYouView'
 import useAppData from '../../util/useAppData'
 
-export default function FeedbackPage({ setSelectedPage }) {
+export default function FeedbackPage() {
   const { t } = useTranslation()
+  const { setSelectedPage } = useMenu()
   const { userEmail, userFirstName, userLastName } = useAppData()
   const [form, setForm] = useState({ email: userEmail, name: userFirstName && `${userFirstName} ${userLastName}` })
   const [races, setRaces] = useState([])

@@ -6,11 +6,12 @@ import {
   buildCupSeriesPath,
   buildRifleCupSeriesPath,
 } from '../../util/routeUtil'
-import { pages } from './DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import useTranslation from '../../util/useTranslation'
 
-export default function DesktopCupSecondLevelMenu({ cup, selectedPage }) {
+export default function DesktopCupSecondLevelMenu({ cup }) {
   const { t } = useTranslation()
+  const { selectedPage } = useMenu()
   const cupSeriesId = cup.cupSeries.length > 0 && cup.cupSeries[0].id
   return (
     <div className="menu menu--sub menu--sub-1">

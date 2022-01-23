@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { pages } from '../menu/DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import { useRace } from '../../util/useRace'
 import IncompletePage from '../../common/IncompletePage'
 import useTranslation from '../../util/useTranslation'
@@ -8,8 +8,9 @@ import ResultRotationForm from './ResultRotationForm'
 import Button from '../../common/Button'
 import { buildRacePath } from '../../util/routeUtil'
 
-export default function ResultRotationPage({ setSelectedPage }) {
+export default function ResultRotationPage() {
   const { t } = useTranslation()
+  const { setSelectedPage } = useMenu()
   const { fetching, race, error } = useRace()
   useEffect(() => setSelectedPage(pages.resultRotation), [setSelectedPage])
 

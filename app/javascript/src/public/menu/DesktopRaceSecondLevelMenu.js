@@ -12,13 +12,14 @@ import {
   buildSeriesStartListPath,
   buildTeamCompetitionsPath,
 } from '../../util/routeUtil'
-import { pages } from './DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import { useParams } from 'react-router-dom'
 import useTranslation from '../../util/useTranslation'
 import { useResultRotation } from '../result-rotation/useResultRotation'
 
-export default function DesktopRaceSecondLevelMenu({ race, selectedPage }) {
+export default function DesktopRaceSecondLevelMenu({ race }) {
   const { t } = useTranslation()
+  const { selectedPage } = useMenu()
   const { seriesId: urlSeriesId } = useParams()
   const { started: resultRotationStarted } = useResultRotation()
   const seriesId = urlSeriesId || (race.series.length > 0 && race.series[0].id)

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
 import max from 'date-fns/max'
 import parseISO from 'date-fns/parseISO'
-import { pages } from '../menu/DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import useTranslation from '../../util/useTranslation'
 import { useParams } from 'react-router-dom'
 import useLayout from '../../util/useLayout'
@@ -20,8 +20,9 @@ import useDataReloading from '../../util/useDataReloading'
 import MobileSubMenu from '../menu/MobileSubMenu'
 import { formatTodaysTime } from '../../util/timeUtil'
 
-export default function RelayResultsPage({ setSelectedPage }) {
+export default function RelayResultsPage() {
   const { t } = useTranslation()
+  const { setSelectedPage } = useMenu()
   const { relayId: relayIdStr, leg: legParam } = useParams()
   const relayId = parseInt(relayIdStr)
   const leg = legParam ? parseInt(legParam) : undefined

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { pages } from '../menu/DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import Button from '../../common/Button'
 import {
   buildAnswersPath,
@@ -12,8 +12,9 @@ import useTranslation from '../../util/useTranslation'
 import useAppData from '../../util/useAppData'
 import useTitle from '../../util/useTitle'
 
-export default function InfoPage({ setSelectedPage }) {
+export default function InfoPage() {
   const { t } = useTranslation()
+  const { setSelectedPage } = useMenu()
   const { userId } = useAppData()
 
   useTitle(t('info'))

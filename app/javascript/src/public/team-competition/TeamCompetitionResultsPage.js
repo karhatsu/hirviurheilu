@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { pages } from '../menu/DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import useRaceData from '../../util/useRaceData'
 import { useParams } from 'react-router-dom'
 import IncompletePage from '../../common/IncompletePage'
@@ -13,8 +13,9 @@ import { buildRacePath, buildTeamCompetitionsPath } from '../../util/routeUtil'
 import TeamCompetitionsMobileResults from './TeamCompetitionsMobileResults'
 import MobileSubMenu from '../menu/MobileSubMenu'
 
-export default function TeamCompetitionResultsPage({ setSelectedPage, rifle }) {
+export default function TeamCompetitionResultsPage({ rifle }) {
   const { t } = useTranslation()
+  const { setSelectedPage } = useMenu(rifle ? pages.rifleTeamCompetitions : pages.teamCompetitions)
   const [showCompetitors, setShowCompetitors] = useState(false)
   const teamCompetitionId = parseInt(useParams().teamCompetitionId)
   const { mobile } = useLayout()

@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
-import { pages } from '../menu/DesktopSecondLevelMenu'
+import useMenu, { pages } from '../../util/useMenu'
 import useTitle from '../../util/useTitle'
 import useTranslation from '../../util/useTranslation'
 import Message from '../../common/Message'
 import Button from '../../common/Button'
 import { buildFeedbackPath, buildRootPath } from '../../util/routeUtil'
 
-export default function PricesPage({ setSelectedPage }) {
+export default function PricesPage() {
   const { t } = useTranslation()
+  const { setSelectedPage } = useMenu()
   useTitle(t('prices'))
   useEffect(() => setSelectedPage(pages.info.prices), [setSelectedPage])
   return (
