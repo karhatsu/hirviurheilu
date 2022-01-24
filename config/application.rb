@@ -45,6 +45,8 @@ module Hirviurheilu
 
     config.active_record.time_zone_aware_types = [:datetime]
 
+    config.active_record.legacy_connection_handling = false
+
     config.i18n.enforce_available_locales = true
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
