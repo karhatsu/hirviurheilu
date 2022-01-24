@@ -17,7 +17,7 @@ gem 'nokogiri'
 gem 'redcarpet'
 gem 'jbuilder'
 gem 'scrypt'
-gem 'webpacker', '~> 5.0'
+gem 'jsbundling-rails'
 
 group :development, :production do
   gem 'pg'

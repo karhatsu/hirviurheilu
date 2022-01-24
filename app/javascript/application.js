@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route } from 'react-router-dom'
-import ReactApp from '../src/ReactApp'
+import ReactApp from './src/ReactApp'
 
 const reactPaths = [
   '/:lang?/races/:raceId/qualification_round_batches',
