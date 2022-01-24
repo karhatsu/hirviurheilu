@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '3.0.3'
 
-gem 'rails', '6.1.4.4'
+gem 'rails', '7.0.1'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-themes'
@@ -17,7 +17,7 @@ gem 'nokogiri'
 gem 'redcarpet'
 gem 'jbuilder'
 gem 'scrypt'
-gem 'webpacker', '~> 5.0'
+gem 'jsbundling-rails'
 
 group :development, :production do
   gem 'pg'
@@ -40,7 +40,8 @@ group :test do
   gem 'puma'
   gem 'minitest'
   gem 'capybara'
-  gem 'cucumber-rails', :require => false
+  # Remove git when 2.4.1
+  gem 'cucumber-rails', '2.4.0', git: 'https://github.com/cucumber/cucumber-rails.git'
   gem 'database_cleaner'
   gem 'email_spec'
   gem "factory_bot_rails", :require => false
@@ -58,8 +59,5 @@ end
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'spring'
-  gem 'spring-commands-rspec'
-  gem 'spring-commands-cucumber'
   gem 'wkhtmltopdf-binary-edge'
 end

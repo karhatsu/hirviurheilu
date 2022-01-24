@@ -29,7 +29,8 @@ module Hirviurheilu
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    # config.autoload_paths += %W(#{config.root}/extras)
+    config.autoload_paths << "#{config.root}/test/mailers/previews"
+    config.eager_load_paths << "#{config.root}/test/mailers/previews"
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -43,6 +44,8 @@ module Hirviurheilu
     config.time_zone = 'Helsinki'
 
     config.active_record.time_zone_aware_types = [:datetime]
+
+    config.active_record.legacy_connection_handling = false
 
     config.i18n.enforce_available_locales = true
 
@@ -63,7 +66,7 @@ module Hirviurheilu
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.1'
 
-    config.assets.precompile += %w[pdf.scss mobile.js social.js]
+    config.assets.precompile += %w[pdf.scss legacy.js social.js]
 
     config.assets.initialize_on_precompile = false
 
@@ -74,5 +77,7 @@ module Hirviurheilu
     config.generators do |g|
       g.test_framework :rspec
     end
+
+    config.active_support.cache_format_version = 7.0
   end
 end

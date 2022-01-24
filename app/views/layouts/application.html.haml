@@ -7,9 +7,9 @@
     %link{href: 'https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined', rel: 'stylesheet'}
     %link{href: 'https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css', rel: 'stylesheet', type: 'text/css'}
     = stylesheet_link_tag 'application'
-    = javascript_include_tag 'application'
-    = javascript_pack_tag I18n.locale
-    = javascript_pack_tag 'application'
+    = javascript_include_tag 'legacy'
+    = javascript_include_tag I18n.locale
+    = javascript_include_tag 'application', defer: true
     - if facebook_env?
       = javascript_include_tag 'social'
     = csrf_meta_tag

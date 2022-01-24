@@ -309,7 +309,7 @@ class Race < ApplicationRecord
   end
 
   def self.cache_timestamp(updated_at)
-    updated_at.try(:utc).try(:to_s, :nsec)
+    updated_at.try(:utc).try(:to_formatted_s, :nsec)
   end
 
   def find_batches(final_round)

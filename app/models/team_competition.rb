@@ -13,7 +13,7 @@ class TeamCompetition < ApplicationRecord
   delegate :sport, to: :race
 
   def cache_key
-    "#{super}-#{race.updated_at.utc.to_s(:usec)}-#{race.series.maximum(:updated_at).try(:utc).try(:to_s, :usec)}"
+    "#{super}-#{race.updated_at.utc.to_formatted_s(:usec)}-#{race.series.maximum(:updated_at).try(:utc).try(:to_formatted_s, :usec)}"
   end
 
   def series_names
