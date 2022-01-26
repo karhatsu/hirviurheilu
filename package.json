@@ -4,9 +4,7 @@
     "build": "esbuild app/javascript/*.* --bundle --loader:.js=jsx --sourcemap --outdir=app/assets/builds"
   },
   "dependencies": {
-    "@babel/preset-react": "^7.16.7",
     "@rails/actioncable": "^7.0.1",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "classnames-minimal": "^1.0.1",
     "date-fns": "^2.28.0",
     "esbuild": "^0.14.13",
