@@ -52,7 +52,7 @@ export default function SeriesResultsPage() {
   }, [allCompetitors, race, t, titleSeries])
 
   const title = titleSeries ? `${titleSeries.name} - ${titleSuffix}` : t('results')
-  useTitle(race && `${race.name} - ${title}`)
+  useTitle(race && titleSeries && [titleSeries.name, race.name, t(`sport_${race.sportKey}`)])
   useEffect(() => setSelectedPage(pages.results), [setSelectedPage])
 
   useDataReloading('SeriesChannel', 'series_id', seriesId, reloadDataRef)

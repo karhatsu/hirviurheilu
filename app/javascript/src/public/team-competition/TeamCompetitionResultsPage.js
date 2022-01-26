@@ -32,7 +32,8 @@ export default function TeamCompetitionResultsPage({ rifle }) {
     (race && race.teamCompetitions.find(tc => tc.id === teamCompetitionId))
   const titleSuffix = t(rifle ? 'rifleResults' : 'results')
   const title = titleTeamCompetition ? `${titleTeamCompetition.name} - ${titleSuffix}` : titleSuffix
-  useTitle(race && titleTeamCompetition && `${race.name} - ${t('teamCompetitions')} - ${title}`)
+  useTitle(race && titleTeamCompetition &&
+    [titleTeamCompetition.name, t('teamCompetitions'), race.name, t(`sport_${race.sportKey}`)])
 
   if (fetching || error) {
     return <IncompletePage fetching={fetching} error={error} title={title} />

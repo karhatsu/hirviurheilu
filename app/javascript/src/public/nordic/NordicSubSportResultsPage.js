@@ -22,7 +22,7 @@ export default function NordicSubSportResultsPage() {
   const { error, fetching, race, raceData: results } = useRaceData(buildApiPath)
 
   const title = t(`nordic_${subSport}`)
-  useTitle(race && `${race.name} - ${title}`)
+  useTitle(race && [title, race.name, t(`sport_${race.sportKey}`)])
   useEffect(() => {
     setSelectedPage(pages.nordic[subSport])
   }, [setSelectedPage, subSport])

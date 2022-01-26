@@ -1,9 +1,10 @@
 module TitleHelper
   def main_title
-    return "#{@series.race.name} - #{@series.name}" if @series
-    return "#{@relay.race.name} - #{@relay.name}" if @relay && !@relay.new_record?
-    return @cup.name if @cup && !@cup.new_record?
-    return @race.name if @race && !@race.new_record?
+    return [@series.name, @series.race.name, t("sport_name.#{@series.race.sport_key}"), 'Hirviurheilu'].join(' - ') if @series
+    return [@relay.name, t('race_sub_menu.relays.other'), @relay.race.name, t("sport_name.#{@relay.race.sport_key}"), 'Hirviurheilu'].join(' - ') if @relay && !@relay.new_record?
+    return [@tc.name, t('race_sub_menu.team_competitions.other'), @tc.race.name, t("sport_name.#{@tc.race.sport_key}"), 'Hirviurheilu'].join(' - ') if @tc && !@tc.new_record?
+    return [@cup.name, 'Hirviurheilu'].join(' - ') if @cup && !@cup.new_record?
+    return [@race.name, t("sport_name.#{@race.sport_key}"), 'Hirviurheilu'].join(' - ') if @race && !@race.new_record?
     t('home.show.main_title')
   end
 

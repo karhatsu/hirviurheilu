@@ -25,7 +25,7 @@ export default function StartListPage() {
 
   const titleSeries = (series?.id === seriesId && series) || (race && race.series.find(s => s.id === seriesId))
   const title = titleSeries ? `${titleSeries.name} - ${t('startList')}` : t('startList')
-  useTitle(race && titleSeries && `${race.name} - ${title}`)
+  useTitle(race && titleSeries && [t('startList'), titleSeries.name, race.name, t(`sport_${race.sportKey}`)])
   useEffect(() => setSelectedPage(pages.startList), [setSelectedPage])
 
   if (fetching || error) {

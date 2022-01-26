@@ -31,7 +31,7 @@ export default function CupSeriesPage() {
   const titleCupSeries = (cupSeries?.id === cupSeriesId && cupSeries) ||
     (cup && cup.cupSeries.find(cs => cs.id === cupSeriesId || cs.id === rifleCupSeriesId))
   const title = cup && titleCupSeries ? `${titleCupSeries.name} - ${t('results')}` : t('results')
-  useTitle(cup && `${cup.name} - ${title}`)
+  useTitle(cup && [title, cup.name])
 
   if (fetching || cupFetching || error || cupError) {
     return <IncompletePage fetching={fetching || cupFetching} error={error || cupError} title={title} />

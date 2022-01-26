@@ -49,7 +49,7 @@ export default function RelayResultsPage() {
   }, [t, titleRelay, leg])
 
   const title = titleRelay ? `${titleRelay.name} - ${titleSuffix}` : t('relay')
-  useTitle(race && titleRelay && `${race.name} - ${t('relays')} - ${title}`)
+  useTitle(race && titleRelay && [titleRelay.name, t('relays'), race.name, t(`sport_${race.sportKey}`)])
 
   if (fetching || error) {
     return <IncompletePage fetching={fetching} error={error} title={title} />

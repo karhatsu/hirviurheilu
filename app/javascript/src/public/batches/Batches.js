@@ -18,7 +18,7 @@ export default function Batches({ buildApiPath, buildPdfPath, hideAttribute, tra
     setSeriesId(id && parseInt(id))
   }, [])
   const title = !race || race.sport.oneBatchList ? t('batchList') : t(titleKey)
-  useTitle(race && `${race.name} - ${title}`)
+  useTitle(race && [title, race.name, t(`sport_${race.sportKey}`)])
   if (fetching || error) {
     return <IncompletePage fetching={fetching} error={error} title={title} />
   }

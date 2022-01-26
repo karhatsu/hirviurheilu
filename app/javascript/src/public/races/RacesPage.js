@@ -16,7 +16,7 @@ export default function RacesPage() {
   const [data, setData] = useState(undefined)
   const [error, setError] = useState(undefined)
 
-  useTitle(`Hirviurheilu - ${t('races')}`)
+  useTitle(t('races'))
 
   const search = useCallback(searchParams => {
     setFetching(true)

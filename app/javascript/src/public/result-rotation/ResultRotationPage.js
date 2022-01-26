@@ -7,11 +7,13 @@ import { useResultRotation } from './useResultRotation'
 import ResultRotationForm from './ResultRotationForm'
 import Button from '../../common/Button'
 import { buildRacePath } from '../../util/routeUtil'
+import useTitle from '../../util/useTitle'
 
 export default function ResultRotationPage() {
   const { t } = useTranslation()
   const { setSelectedPage } = useMenu()
   const { fetching, race, error } = useRace()
+  useTitle(race && [t('resultRotation'), race.name, t(`sport_${race.sportKey}`)])
   useEffect(() => setSelectedPage(pages.resultRotation), [setSelectedPage])
 
   const { started, stop } = useResultRotation()

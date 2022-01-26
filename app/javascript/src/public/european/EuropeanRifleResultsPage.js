@@ -23,7 +23,7 @@ export default function EuropeanRifleResultsPage() {
   const buildApiPath = useCallback(raceId => `/api/v2/public/races/${raceId}/series/${seriesId}/rifle`, [seriesId])
   const { error, fetching, race, raceData: series, reloadDataRef } = useRaceData(buildApiPath)
 
-  useTitle(race && series && `${race.name} - ${series.name} - ${t('rifle')}`)
+  useTitle(race && series && [t('rifle'), series.name, race.name, t(`sport_${race.sportKey}`)])
   useEffect(() => setSelectedPage(pages.europeanRifle), [setSelectedPage])
 
   useDataReloading('SeriesChannel', 'series_id', seriesId, reloadDataRef)

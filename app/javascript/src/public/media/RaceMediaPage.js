@@ -9,6 +9,7 @@ import ClubSelect from '../race-page/ClubSelect'
 import Button from '../../common/Button'
 import { buildRacePath } from '../../util/routeUtil'
 import { get } from '../../util/apiClient'
+import useTitle from '../../util/useTitle'
 
 const { clubLevel } = raceEnums
 
@@ -20,6 +21,7 @@ export default function RaceMediaPage() {
   const [report, setReport] = useState(undefined)
   const [error, setError] = useState(undefined)
   const { fetching, race, error: raceError } = useRace()
+  useTitle(race && [t('press'), race.name, t(`sport_${race.sportKey}`)])
   useEffect(() => setSelectedPage(pages.media), [setSelectedPage])
 
   const onClubChange = useCallback(event => {

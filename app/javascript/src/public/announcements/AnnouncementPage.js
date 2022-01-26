@@ -13,7 +13,7 @@ export default function AnnouncementPage() {
   const { announcementId } = useParams()
   const [announcement, setAnnouncement] = useState()
   const [error, setError] = useState()
-  useTitle(announcement && announcement.title)
+  useTitle(announcement && [announcement.title, t('announcements')])
 
   useEffect(() => {
     get(`/api/v2/public/announcements/${announcementId}`, (err, data) => {
