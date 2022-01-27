@@ -41,7 +41,7 @@ group :test do
   gem 'minitest'
   gem 'capybara'
   # Remove git when 2.4.1
-  gem 'cucumber-rails', '2.4.0', git: 'https://github.com/cucumber/cucumber-rails.git'
+  gem 'cucumber-rails', '2.4.0', git: 'https://github.com/cucumber/cucumber-rails.git', require: false
   gem 'database_cleaner'
   gem 'email_spec'
   gem "factory_bot_rails", :require => false
