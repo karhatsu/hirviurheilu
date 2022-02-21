@@ -10,4 +10,4 @@ Feature: Smoke
     When I follow "Etsi kilpailu"
     Then the page title should contain "Hirviurheilu - Kilpailut"
     When I click the card 1
-    Then I should see "Yksilökilpailut"
+    Then I should see "Kilpailun etusivu"
