@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import IncompletePage from '../../common/IncompletePage'
+import React, { useCallback, useState } from 'react'
 import useTitle from '../../util/useTitle'
 import useTranslation from '../../util/useTranslation'
 import { buildQueryParams, get } from '../../util/apiClient'
@@ -29,18 +28,13 @@ export default function RacesPage() {
     })
   }, [])
 
-  useEffect(() => search({}), [search])
-
-  if (error || !data) {
-    return <IncompletePage error={error} fetching={fetching} />
-  }
-
-  const hasRaces = data.future.length || data.today.length || data.past.length
+  const hasRaces = data && (data.future.length || data.today.length || data.past.length)
   return (
     <div>
-      <SearchForm onSearch={search} />
+      <SearchForm search={search} />
       {fetching && <Spinner />}
-      {!fetching && (
+      {!fetching && error && <Message type="error">{error}</Message>}
+      {!fetching && data && (
         <>
           {!hasRaces && <Message type="info">{t('racesNotFound')}</Message>}
           <Races races={data.today} icon="today" titleKey="races_today" />

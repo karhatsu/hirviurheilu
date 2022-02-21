@@ -13,13 +13,11 @@ Feature: Search races
     And I am on the races page
     Then I should see 5 races ordered as "Race E, Race D, Race B, Race A, Race C"
     When I select "Ilmahirvi" from "sport_key"
-    And I click the search button
     Then I should see 3 races ordered as "Race E, Race D, Race A"
     When I select "Kainuu" from "district_id"
-    And I click the search button
     Then I should see 2 races ordered as "Race E, Race D"
     When I fill in "D" for "search_text"
-    And I click the search button
+    And I wait for 1 seconds
     Then I should see 1 races ordered as "Race D"
     When I click the reset button
     Then I should see 5 races ordered as "Race E, Race D, Race B, Race A, Race C"

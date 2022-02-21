@@ -172,10 +172,6 @@ When(/^I choose to delete the race "(.*?)"$/) do |race_name|
   end
 end
 
-When('I click the search button') do
-  page.find(:css, '#search').click
-end
-
 When('I click the reset button') do
   page.find(:css, '#reset').click
 end

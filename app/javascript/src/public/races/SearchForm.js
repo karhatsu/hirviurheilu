@@ -1,14 +1,32 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 import useTranslation from '../../util/useTranslation'
 import Button from '../../common/Button'
 import { sportKeys } from '../../util/sportUtil'
 import useDistricts from '../../util/useDistricts'
 
-const emptySearchParams = { search_text: '', sport_key: '', district_id: '', time: '' }
+const emptySearchParams = { search_text: '', sport_key: '', district_id: '', time: '', level: '' }
 
-export default function SearchForm({ onSearch }) {
+const buildDefaultSearchParams = urlSearchParams => {
+  const params = { ...emptySearchParams }
+  Object.keys(emptySearchParams).forEach(key => {
+    params[key] = urlSearchParams.get(key) || ''
+  })
+  return params
+}
+
+const buildURLSearchParams = searchParams => {
+  return '?' + Object.keys(searchParams)
+    .filter(key => searchParams[key])
+    .map(key => `${key}=${encodeURIComponent(searchParams[key])}`)
+    .join('&')
+}
+
+export default function SearchForm({ search }) {
   const { t } = useTranslation()
-  const [searchParams, setSearchParams] = useState(emptySearchParams)
+  const history = useHistory()
+  const urlSearchParams = new URLSearchParams(useLocation().search)
+  const [searchParams, setSearchParams] = useState(buildDefaultSearchParams(urlSearchParams))
   const { districts } = useDistricts()
 
   const setSearchValue = useCallback(key => event => {
@@ -17,11 +35,12 @@ export default function SearchForm({ onSearch }) {
     })
   }, [])
 
-  const submit = useCallback(() => onSearch(searchParams), [onSearch, searchParams])
-  const reset = useCallback(() => {
-    setSearchParams(emptySearchParams)
-    onSearch({})
-  }, [onSearch])
+  const reset = useCallback(() => setSearchParams(emptySearchParams), [])
+
+  useEffect(() => {
+    history.push(buildURLSearchParams(searchParams))
+    search(searchParams)
+  }, [history, search, searchParams])
 
   return (
     <div className="form">
@@ -32,7 +51,6 @@ export default function SearchForm({ onSearch }) {
             id="search_text"
             value={searchParams.search_text}
             onChange={setSearchValue('search_text')}
-            onKeyPress={e => e.key === 'Enter' && submit()}
             placeholder={t('raceSearchPlaceholder')}
             style={{ width: '18em' }}
           />
@@ -65,7 +83,6 @@ export default function SearchForm({ onSearch }) {
           </select>
         </div>
         <div className="form__buttons">
-          <Button type="primary" onClick={submit} id="search">{t('search')}</Button>
           <Button onClick={reset} id="reset">{t('reset')}</Button>
         </div>
       </div>
