@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
+import debounce from 'lodash.debounce'
 import useTranslation from '../../util/useTranslation'
 import Button from '../../common/Button'
 import { sportKeys } from '../../util/sportUtil'
@@ -22,12 +23,29 @@ const buildURLSearchParams = searchParams => {
     .join('&')
 }
 
+function useDebounce(callback, delay) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  return useCallback(debounce((...args) => callback(...args), delay), [delay])
+}
+
 export default function SearchForm({ search }) {
   const { t } = useTranslation()
   const history = useHistory()
   const urlSearchParams = new URLSearchParams(useLocation().search)
-  const [searchParams, setSearchParams] = useState(buildDefaultSearchParams(urlSearchParams))
+  const defaultSearchParams = buildDefaultSearchParams(urlSearchParams)
+  const [searchText, setSearchText] = useState(defaultSearchParams.search_text || '')
+  const [searchParams, setSearchParams] = useState(defaultSearchParams)
   const { districts } = useDistricts()
+
+  const debouncedTextSearch = useDebounce(value => {
+    setSearchParams(params => ({ ...params, search_text: value }))
+  }, 300)
+
+  const onSearchTextChange = useCallback(event => {
+    const { value } = event.target
+    setSearchText(value)
+    debouncedTextSearch(value)
+  }, [debouncedTextSearch])
 
   const setSearchValue = useCallback(key => event => {
     setSearchParams(params => {
@@ -49,8 +67,8 @@ export default function SearchForm({ search }) {
           <input
             type="text"
             id="search_text"
-            value={searchParams.search_text}
-            onChange={setSearchValue('search_text')}
+            value={searchText}
+            onChange={onSearchTextChange}
             placeholder={t('raceSearchPlaceholder')}
             style={{ width: '18em' }}
           />
