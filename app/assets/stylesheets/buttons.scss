@@ -75,7 +75,7 @@ input[type = 'submit'] {
     cursor: default;
   }
 
-  &--add::before, &--back::before, &--danger::before, &--edit::before, &--pdf::before, &--down::before {
+  &--add::before, &--back::before, &--call::before, &--danger::before, &--down::before, &--edit::before, &--open::before, &--pdf::before, &--place::before {
     font-family: 'Material Icons';
     font-size: 9px;
     margin-right: 2px;
@@ -89,8 +89,16 @@ input[type = 'submit'] {
     content: 'chevron_left';
   }
 
+  &--call::before {
+    content: 'call';
+  }
+
   &--edit::before {
     content: 'create';
+  }
+
+  &--open::before {
+    content: 'open_in_new';
   }
 
   &--pdf::before {
@@ -99,6 +107,10 @@ input[type = 'submit'] {
 
   &--down::before {
     content: 'arrow_downward';
+  }
+
+  &--place::before {
+    content: 'place';
   }
 
   &--below-sub-form {

@@ -86,6 +86,7 @@ window.translations = {
   level_2: 'Regional',
   level_3: 'FM',
   name: 'Namn',
+  navigate: 'Visa i Google Maps',
   noCompetitors: 'Inga tävlar',
   noCompetitorsOrStartTimes: 'Denna klassen här inga tävlar eller dom har inga starttider ännu.',
   noCupSeries: 'Cup-sarjoja ei ole vielä määritetty',

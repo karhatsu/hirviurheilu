@@ -86,6 +86,7 @@ window.translations = {
   level_2: 'Alue',
   level_3: 'SM',
   name: 'Nimi',
+  navigate: 'Sijainti kartalla',
   noCompetitors: 'Ei kilpailijoita',
   noCompetitorsOrStartTimes: 'Tähän sarjaan ei ole lisätty kilpailijoita tai heille ei ole määritetty vielä lähtöaikoja.',
   noCupSeries: 'Cup-sarjoja ei ole vielä määritetty',

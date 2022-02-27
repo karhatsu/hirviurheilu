@@ -1,5 +1,3 @@
 .race-organizer {
-  * ~ *::before {
-    content: ', ';
-  }
+  margin: 8px 0;
 }
