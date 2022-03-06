@@ -79,5 +79,9 @@ module Hirviurheilu
     end
 
     config.active_support.cache_format_version = 7.0
+
+    config.action_dispatch.default_headers = {
+      'X-Frame-Options' => 'ALLOWALL'
+    }
   end
 end

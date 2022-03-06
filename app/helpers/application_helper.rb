@@ -89,4 +89,8 @@ module ApplicationHelper
   def races_drop_down_array(races)
     races.map { |race| ["#{race.name} (#{race_date_interval(race, false)}, #{race.location})", race.id] }
   end
+
+  def no_nav?
+    params[:nonav] == '1'
+  end
 end

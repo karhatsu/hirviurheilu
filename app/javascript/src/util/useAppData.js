@@ -4,6 +4,7 @@ const useAppData = () => {
   const admin = appElement.getAttribute('data-admin') !== null
   const environment = appElement.getAttribute('data-env')
   const locale = appElement.getAttribute('data-locale')
+  const noNav = appElement.getAttribute('data-no-nav') === 'true'
   const titlePrefix = appElement.getAttribute('data-title-prefix')
   const userId = appElement.getAttribute('data-user-id')
   const userEmail = appElement.getAttribute('data-user-email')
@@ -13,6 +14,7 @@ const useAppData = () => {
     admin,
     environment,
     locale,
+    noNav,
     titlePrefix,
     userId: userId && parseInt(userId),
     userEmail,

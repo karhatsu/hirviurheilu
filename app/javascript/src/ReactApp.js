@@ -12,6 +12,7 @@ import MainContent from './MainContent'
 import Header from './Header'
 import MainMenu from './MainMenu'
 import Footer from './Footer'
+import useAppData from './util/useAppData'
 
 const cupSeriesPaths = [
   '/:lang?/cups/:cupId/cup_series/:cupSeriesId',
@@ -20,22 +21,23 @@ const cupSeriesPaths = [
 
 function ReactApp() {
   const [mainMenuOpen, setMainMenuOpen] = useState(false)
+  const { noNav } = useAppData()
   const { raceId } = useParams()
   const toggleMainMenu = useCallback(() => setMainMenuOpen(open => !open), [])
   const closeMainMenu = useCallback(() => setMainMenuOpen(false), [])
   return (
     <div>
-      <Header toggleMainMenu={toggleMainMenu} />
-      <MainMenu closeMenu={closeMainMenu} mainMenuOpen={mainMenuOpen} />
+      {!noNav && <Header toggleMainMenu={toggleMainMenu} />}
+      {!noNav && <MainMenu closeMenu={closeMainMenu} mainMenuOpen={mainMenuOpen} />}
       <div className="body" itemScope itemType={raceId ? 'http://schema.org/SportsEvent' : ''}>
         <div className="body__on-top-title"><PageTitle /></div>
         <div className="body__content">
-          <DesktopSecondLevelMenu />
-          <DesktopSubMenu cupSeriesPaths={cupSeriesPaths} />
+          {!noNav && <DesktopSecondLevelMenu />}
+          {!noNav && <DesktopSubMenu cupSeriesPaths={cupSeriesPaths} />}
           <MainContent cupSeriesPaths={cupSeriesPaths} />
         </div>
       </div>
-      <Footer />
+      {!noNav && <Footer />}
     </div>
   )
 }

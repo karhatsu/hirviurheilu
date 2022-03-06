@@ -19,4 +19,7 @@
     = render 'shared/icons'
     - if ProductionEnvironment.production?
       = render 'shared/adsense'
+    - if no_nav?
+      :css
+        .buttons--nav, .button--pdf { display: none; }
   = render :partial => 'shared/body'
