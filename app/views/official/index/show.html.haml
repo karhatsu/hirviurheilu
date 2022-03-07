@@ -12,6 +12,11 @@
       %i.material-icons-outlined.md-18 directions_run
       = t 'home.show.competitions.today'
     .row= render partial: 'race_list', locals: { competitions: @today }
+  - unless @yesterday.empty?
+    %h2
+      %i.material-icons-outlined.md-18 check_circle
+      = t 'home.show.competitions.yesterday'
+    .row= render partial: 'race_list', locals: { competitions: @yesterday }
   %h2
     %i.material-icons-outlined.md-18 today
     = t 'home.show.upcoming_competitions'
