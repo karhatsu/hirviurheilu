@@ -1,6 +1,6 @@
 json.cache! [@race, request.headers['X-Camel-Case']] do
   json.key_format! camelize: :lower if request.headers['X-Camel-Case']
-  json.series @race.series.each do |series|
+  json.series @race.series.filter{|s| s.finished? || @race.finished?}.each do |series|
     if series.competitors_count > 0
       json.(series, :name)
       json.competitors series.results.each do |competitor|

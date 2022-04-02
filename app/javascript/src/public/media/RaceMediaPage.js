@@ -28,8 +28,9 @@ export default function RaceMediaPage() {
     setClubIds([...event.target.selectedOptions].map(o => parseInt(o.value)))
   }, [])
 
+  const showForm = race && (race.finished || race.series.findIndex(s => s.finished) !== -1)
   useEffect(() => {
-    if (race && race.finished) {
+    if (race && showForm) {
       get(`/api/v2/public/races/${race.id}/press`, (err, data) => {
         if (err) {
           setError(true)
@@ -39,7 +40,7 @@ export default function RaceMediaPage() {
         }
       })
     }
-  }, [race])
+  }, [race, showForm])
 
   if (fetching || raceError) {
     return <IncompletePage fetching={fetching} error={raceError} title={t('press')} />
@@ -49,8 +50,8 @@ export default function RaceMediaPage() {
   return (
     <>
       <h2>{t('press')}</h2>
-      {!race.finished && <Message type="info">{t('pressInfoUnfinishedRace')}</Message>}
-      {race.finished && (
+      {!showForm && <Message type="info">{t('pressInfoUnfinishedRace')}</Message>}
+      {showForm && (
         <div className="form">
           <div className="form__field form__field--sm">
             <label htmlFor="competitor_count">{t('competitorsPerSeries')}</label>

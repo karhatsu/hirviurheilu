@@ -18,7 +18,7 @@ json.sport do
 end
 
 json.series @race.series do |series|
-  json.(series, :id, :name, :competitors_count)
+  json.(series, :id, :name, :competitors_count, :finished)
   json.started series.started?
   json.start_time series.start_datetime
 
