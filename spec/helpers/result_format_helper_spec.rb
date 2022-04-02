@@ -223,7 +223,9 @@ describe ResultFormatHelper do
     before do
       @competitor = instance_double(Competitor)
       @race = instance_double(Race)
+      @series = instance_double(Series)
       allow(@competitor).to receive(:race).and_return(@race)
+      allow(@competitor).to receive(:series).and_return(@series)
     end
 
     context 'when race finished' do
@@ -250,6 +252,7 @@ describe ResultFormatHelper do
     context 'when race not finished' do
       before do
         allow(@race).to receive(:finished?).and_return(false)
+        allow(@series).to receive(:finished?).and_return(false)
       end
 
       context 'when national record passed' do
@@ -264,6 +267,19 @@ describe ResultFormatHelper do
           allow(@competitor).to receive(:national_record_passed?).and_return(false)
           allow(@competitor).to receive(:national_record_reached?).and_return(true)
           expect(helper.national_record_print(@competitor, true)).to eq('SE (sivuaa)?')
+        end
+      end
+
+      context 'but series finished' do
+        before do
+          allow(@series).to receive(:finished?).and_return(true)
+        end
+
+        context 'when national record passed' do
+          it 'should return SE' do
+            allow(@competitor).to receive(:national_record_passed?).and_return(true)
+            expect(helper.national_record_print(@competitor, true)).to eq('SE')
+          end
         end
       end
     end

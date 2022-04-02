@@ -46,7 +46,7 @@ module ResultFormatHelper
     else
       return ''
     end
-    tag << '?' unless competitor.race.finished?
+    tag << '?' unless competitor.race.finished? || competitor.series.finished?
     return tag if raw
     raw("<span class='explanation'><a href=\"#{NATIONAL_RECORD_URL}\">#{tag}</a></span>")
   end
