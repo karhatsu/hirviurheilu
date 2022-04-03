@@ -40,6 +40,8 @@ class FinishCompetition
         race.finished = true
         race.save!
         delete_series_without_competitors race
+      else
+        race.touch
       end
     end
   end

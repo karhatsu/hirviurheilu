@@ -133,6 +133,7 @@ describe FinishCompetition do
     let(:sport_key) { Sport::ILMALUODIKKO }
 
     before do
+      @old_race_cache_key = race.cache_key
       expect(race).not_to receive(:each_competitor_has_correct_estimates?)
     end
 
@@ -170,6 +171,12 @@ describe FinishCompetition do
           finish_competition.finish
           expect(race.reload).not_to be_finished
           expect(Series.where(id: series3.id).count).to eql 1
+        end
+
+        it 'updates the race level cache key' do
+          finish_competition = FinishCompetition.new series
+          finish_competition.finish
+          expect(race.reload.cache_key).not_to eql @old_race_cache_key
         end
       end
     end
