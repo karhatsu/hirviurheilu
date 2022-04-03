@@ -1,16 +1,3 @@
-GIT
-  remote: https://github.com/cucumber/cucumber-rails.git
-  revision: 9d8f2e687d155a7da37e00d53504880b1b2ef9a8
-  specs:
-    cucumber-rails (2.4.0)
-      capybara (>= 2.18, < 4)
-      cucumber (>= 3.2, < 8)
-      mime-types (~> 3.3)
-      nokogiri (~> 1.10)
-      railties (>= 5.0, < 8)
-      rexml (~> 3.0)
-      webrick (~> 1.7)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -139,6 +126,14 @@ GEM
     cucumber-html-formatter (17.0.0)
       cucumber-messages (~> 17.1, >= 17.1.0)
     cucumber-messages (17.1.1)
+    cucumber-rails (2.5.0)
+      capybara (>= 2.18, < 4)
+      cucumber (>= 3.2, < 8)
+      mime-types (~> 3.3)
+      nokogiri (~> 1.10)
+      railties (>= 5.0, < 8)
+      rexml (~> 3.0)
+      webrick (~> 1.7)
     cucumber-tag-expressions (4.1.0)
     cucumber-wire (6.2.1)
       cucumber-core (~> 10.1, >= 10.1.0)
@@ -163,7 +158,7 @@ GEM
       actionmailer (>= 5.2, < 8)
       activesupport (>= 5.2, < 8)
     execjs (2.8.1)
-    factory_bot (6.2.0)
+    factory_bot (6.2.1)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
@@ -248,7 +243,7 @@ GEM
     nokogiri (1.13.3)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    pg (1.3.3)
+    pg (1.3.5)
     public_suffix (4.0.6)
     puma (5.6.4)
       nio4r (~> 2.0)
@@ -303,10 +298,10 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.11.0)
     rspec-json_expectations (2.2.0)
-    rspec-mocks (3.11.0)
+    rspec-mocks (3.11.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.11.0)
-    rspec-rails (5.1.0)
+    rspec-rails (5.1.1)
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       railties (>= 5.2)
@@ -316,7 +311,7 @@ GEM
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
     ruby-progressbar (1.11.0)
-    ruby_parser (3.18.1)
+    ruby_parser (3.19.0)
       sexp_processor (~> 4.16)
     rubyzip (2.3.2)
     sassc (2.4.0)
@@ -336,7 +331,7 @@ GEM
     sexp_processor (4.16.0)
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
-    sprockets (4.0.2)
+    sprockets (4.0.3)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.4.2)
@@ -378,7 +373,7 @@ DEPENDENCIES
   binding_of_caller
   capybara
   coffee-rails
-  cucumber-rails (= 2.4.0)!
+  cucumber-rails
   dalli
   database_cleaner
   email_spec
