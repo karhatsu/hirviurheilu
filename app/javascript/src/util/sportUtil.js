@@ -12,3 +12,6 @@ export const sportKeys = [
   'NORDIC',
   'EUROPEAN',
 ]
+
+export const nationalRecordUrl =
+  'https://metsastajaliitto.fi/metsastajalle/kilpailutoiminta/kilpailut-ja-tulokset/sm-ennatykset'

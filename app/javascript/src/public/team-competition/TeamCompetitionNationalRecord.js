@@ -1,6 +1,5 @@
 import React from 'react'
-
-const nationalRecordUrl = 'https://smlkilpailut.fi/fi/info/tuloksia/suomen-ennatykset'
+import { nationalRecordUrl } from '../../util/sportUtil'
 
 export default function TeamCompetitionNationalRecord({ race, teamCompetition, team, i }) {
   const { totalScore } = team
