@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Route } from 'react-router-dom'
 import ReactApp from './src/ReactApp'
 
@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </Route>
       </BrowserRouter>
     )
-    ReactDOM.render(App, appElement)
+    const root = createRoot(appElement)
+    root.render(App)
   }
 })
