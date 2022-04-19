@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { StrictMode, useCallback, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { RaceProvider } from './util/useRace'
 import { LayoutProvider } from './util/useLayout'
@@ -44,17 +44,19 @@ function ReactApp() {
 
 const ReactAppContainer = () => {
   return (
-    <LayoutProvider>
-      <MenuProvider>
-        <RaceProvider>
-          <CupProvider>
-            <ResultRotationProvider>
-              <ReactApp />
-            </ResultRotationProvider>
-          </CupProvider>
-        </RaceProvider>
-      </MenuProvider>
-    </LayoutProvider>
+    <StrictMode>
+      <LayoutProvider>
+        <MenuProvider>
+          <RaceProvider>
+            <CupProvider>
+              <ResultRotationProvider>
+                <ReactApp />
+              </ResultRotationProvider>
+            </CupProvider>
+          </RaceProvider>
+        </MenuProvider>
+      </LayoutProvider>
+    </StrictMode>
   )
 }
 
