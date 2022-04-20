@@ -7,6 +7,7 @@ import PageTitle from './PageTitle'
 import DesktopSecondLevelMenu from './public/menu/DesktopSecondLevelMenu'
 import { ResultRotationProvider } from './public/result-rotation/useResultRotation'
 import { CupProvider } from './util/useCup'
+import { HomePageProvider } from './public/home/useHomePage'
 import DesktopSubMenu from './DesktopSubMenu'
 import MainContent from './MainContent'
 import Header from './Header'
@@ -47,13 +48,15 @@ const ReactAppContainer = () => {
     <StrictMode>
       <LayoutProvider>
         <MenuProvider>
-          <RaceProvider>
-            <CupProvider>
-              <ResultRotationProvider>
-                <ReactApp />
-              </ResultRotationProvider>
-            </CupProvider>
-          </RaceProvider>
+          <HomePageProvider>
+            <RaceProvider>
+              <CupProvider>
+                <ResultRotationProvider>
+                  <ReactApp />
+                </ResultRotationProvider>
+              </CupProvider>
+            </RaceProvider>
+          </HomePageProvider>
         </MenuProvider>
       </LayoutProvider>
     </StrictMode>

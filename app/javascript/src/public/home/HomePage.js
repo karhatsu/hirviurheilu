@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import isAfter from 'date-fns/isAfter'
 import parseISO from 'date-fns/parseISO'
 import subWeeks from 'date-fns/subWeeks'
-import { buildQueryParams, get } from '../../util/apiClient'
 import IncompletePage from '../../common/IncompletePage'
 import Races from './Races'
 import Announcements from './Announcements'
@@ -12,34 +11,16 @@ import useTranslation from '../../util/useTranslation'
 import SearchForm from './SearchForm'
 import { buildRacesPath } from '../../util/routeUtil'
 import useTitle from '../../util/useTitle'
+import useHomePage from './useHomePage'
 
 export default function HomePage() {
   const { t } = useTranslation()
-  const [error, setError] = useState()
-  const [data, setData] = useState()
-  const [searchParams, setSearchParams] = useState({})
-  const [searching, setSearching] = useState(false)
+  const { data, error, searchParams, setSearchValue, search, searching } = useHomePage()
   useTitle(t('appTitle'))
 
   const toPastRaces = useCallback(() => {
     document.querySelector('#past-races').scrollIntoView({ behavior: 'smooth' })
   }, [])
-
-  const setSearchValue = useCallback(key => value => {
-    setSearching(true)
-    setSearchParams(params => {
-      return { ...params, [key]: value }
-    })
-  }, [])
-
-  const search = useCallback(() => {
-    const path = `/api/v2/public/home?${buildQueryParams(searchParams)}`
-    get(path, (err, data) => {
-      if (err) setError(err)
-      else setData(data)
-      setSearching(false)
-    })
-  }, [searchParams])
 
   useEffect(() => search(), [search])
 
