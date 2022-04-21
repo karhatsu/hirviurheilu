@@ -5,6 +5,7 @@ import useTranslation from '../../util/useTranslation'
 import Button from '../../common/Button'
 import { sportKeys } from '../../util/sportUtil'
 import useDistricts from '../../util/useDistricts'
+import useRacesPage from './useRacesPage'
 
 const emptySearchParams = { search_text: '', sport_key: '', district_id: '', time: '', level: '' }
 
@@ -28,13 +29,14 @@ function useDebounce(callback, delay) {
   return useCallback(debounce((...args) => callback(...args), delay), [delay])
 }
 
-export default function SearchForm({ search }) {
+export default function SearchForm() {
   const { t } = useTranslation()
   const history = useHistory()
   const urlSearchParams = new URLSearchParams(useLocation().search)
   const defaultSearchParams = buildDefaultSearchParams(urlSearchParams)
   const [searchText, setSearchText] = useState(defaultSearchParams.search_text || '')
   const [searchParams, setSearchParams] = useState(defaultSearchParams)
+  const { search } = useRacesPage()
   const { districts } = useDistricts()
 
   const debouncedTextSearch = useDebounce(value => {

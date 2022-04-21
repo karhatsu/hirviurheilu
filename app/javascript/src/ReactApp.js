@@ -14,6 +14,7 @@ import Header from './Header'
 import MainMenu from './MainMenu'
 import Footer from './Footer'
 import useAppData from './util/useAppData'
+import { RacesPageProvider } from './public/races/useRacesPage'
 
 const cupSeriesPaths = [
   '/:lang?/cups/:cupId/cup_series/:cupSeriesId',
@@ -49,13 +50,15 @@ const ReactAppContainer = () => {
       <LayoutProvider>
         <MenuProvider>
           <HomePageProvider>
-            <RaceProvider>
-              <CupProvider>
-                <ResultRotationProvider>
-                  <ReactApp />
-                </ResultRotationProvider>
-              </CupProvider>
-            </RaceProvider>
+            <RacesPageProvider>
+              <RaceProvider>
+                <CupProvider>
+                  <ResultRotationProvider>
+                    <ReactApp />
+                  </ResultRotationProvider>
+                </CupProvider>
+              </RaceProvider>
+            </RacesPageProvider>
           </HomePageProvider>
         </MenuProvider>
       </LayoutProvider>

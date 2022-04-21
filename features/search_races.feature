@@ -20,4 +20,5 @@ Feature: Search races
     And I wait for 1 seconds
     Then I should see 1 races ordered as "Race D"
     When I click the reset button
+    And I wait for 1 seconds
     Then I should see 5 races ordered as "Race E, Race D, Race B, Race A, Race C"
