@@ -30,7 +30,7 @@ export default function NordicSubSportDesktopResults({ race, competitors }) {
             return (
               <>
                 <td>{series.name}</td>
-                {showShots && <td>{nordicShots.join(', ')}</td>}
+                {showShots && <td>{nordicShots?.join(', ')}</td>}
                 <td className="center total-points">
                   <TotalScore totalScore={nordicScore} noResultReason={noResultReason} />
                 </td>

@@ -20,7 +20,7 @@ export default function NordicSubSportMobileResults({ race, competitors }) {
               {nordicExtraShots && (
                 <div className="card__middle-row">{t('extraRound')}: {nordicExtraShots.join(', ')}</div>
               )}
-              {showShots && (
+              {showShots && nordicShots && (
                 <div className="card__middle-row">
                   <MobileSubResult type="shoot">{nordicShots.join(', ')}</MobileSubResult>
                 </div>
