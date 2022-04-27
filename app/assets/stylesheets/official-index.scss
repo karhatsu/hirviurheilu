@@ -1,0 +1,11 @@
+.official-index {
+  &__show-all {
+    color: olive;
+    cursor: pointer;
+    margin-top: 8px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
