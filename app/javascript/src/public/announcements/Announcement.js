@@ -4,9 +4,9 @@ import format from 'date-fns/format'
 export default function Announcement({ announcement }) {
   const { title, published, content } = announcement
   return (
-    <>
+    <div className="announcement">
       <h2>{format(new Date(published), 'dd.MM.yyyy')} - {title}</h2>
       <div dangerouslySetInnerHTML={{ __html: content }}/>
-    </>
+    </div>
   )
 }
