@@ -1,0 +1,5 @@
+- cups.each do |cup|
+  .col-xs-12.col-sm-6.col-md-4
+    %a.card{href: official_cup_path(cup)}
+      .card__middle
+        .card__name= cup.name

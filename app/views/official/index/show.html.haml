@@ -11,25 +11,25 @@
     %h2
       %i.material-icons-outlined.md-18 directions_run
       = t 'home.show.competitions.today'
-    .row= render partial: 'race_list', locals: { competitions: @today }
+    .row= render partial: 'race_list', locals: { races: @today }
   - unless @yesterday.empty?
     %h2
       %i.material-icons-outlined.md-18 check_circle
       = t 'home.show.competitions.yesterday'
-    .row= render partial: 'race_list', locals: { competitions: @yesterday }
+    .row= render partial: 'race_list', locals: { races: @yesterday }
   %h2
     %i.material-icons-outlined.md-18 today
     = t 'home.show.upcoming_competitions'
   = link_to t('.add_new_race'), new_official_race_path, class: 'button button--add'
   = link_to t('.add_multiple_races'), new_official_multiple_race_path, class: 'button button--add'
-  .row= render partial: 'race_list', locals: { competitions: @future }
+  .row= render partial: 'race_list', locals: { races: @future }
   %h2
     %i.material-icons-outlined.md-18 dynamic_feed
     = t 'home.show.competitions.cup'
   = link_to t('.add_new_cup'), new_official_cup_path, class: 'button button--add'
-  .row= render partial: 'race_list', locals: { competitions: @cups }
+  .row= render partial: 'cup_list', locals: { cups: @cups }
   - unless @past.empty?
     %h2
       %i.material-icons-outlined.md-18 check_circle
       = t 'home.show.competitions.past'
-    .row= render partial: 'race_list', locals: { competitions: @past, warn_unfinished: true }
+    .row= render partial: 'race_list', locals: { races: @past, warn_unfinished: true }

@@ -1,20 +1,14 @@
 - warn_unfinished = (defined?(warn_unfinished) ? warn_unfinished : false)
-- competitions.each do |competition|
-  - if competition.is_a?(Cup)
-    .col-xs-12.col-sm-6.col-md-4
-      %a.card{href: official_cup_path(competition)}
-        .card__middle
-          .card__name= competition.name
-  - else
-    .col-xs-12.col-sm-6.col-md-4
-      %a.card{href: official_race_path(competition)}
-        .card__middle
-          .card__name
-            = competition.name
-            - if competition.cancelled?
-              .badge.badge--cancelled= t 'attributes.cancelled'
-          .card__middle-row
-            #{race_date_interval(competition, false)}, #{competition.location}
-            .card__middle-row.card__middle-row--sport-name= t("sport_name.#{competition.sport_key}")
-          - if warn_unfinished && !competition.finished? && !competition.cancelled?
-            .card__middle-row.card__middle-row--error Kilpailua ei ole päätetty!
+- races.each do |race|
+  .col-xs-12.col-sm-6.col-md-4
+    %a.card{href: official_race_path(race)}
+      .card__middle
+        .card__name
+          = race.name
+          - if race.cancelled?
+            .badge.badge--cancelled= t 'attributes.cancelled'
+        .card__middle-row
+          #{race_date_interval(race, false)}, #{race.location}
+          .card__middle-row.card__middle-row--sport-name= t("sport_name.#{race.sport_key}")
+        - if warn_unfinished && !race.finished? && !race.cancelled?
+          .card__middle-row.card__middle-row--error Kilpailua ei ole päätetty!
