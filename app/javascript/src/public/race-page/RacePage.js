@@ -21,7 +21,7 @@ export default function RacePage() {
   const { t } = useTranslation()
   const { setSelectedPage } = useMenu(pages.raceHome)
   const { fetching, race, error } = useRace()
-  useTitle(race && [race.name, t(`sport_${race.sportKey}`)])
+  useTitle(race && [race.name, t(`sport_${race.sportKey}`)], race)
   useEffect(() => setSelectedPage(pages.raceHome), [setSelectedPage])
 
   if (fetching || error) {

@@ -93,4 +93,34 @@ module ApplicationHelper
   def no_nav?
     params[:nonav] == '1'
   end
+
+  def event_json(race)
+    JSON.generate({
+      "@context" => 'https://schema.org',
+      "@type" => 'Event',
+      name: race.name,
+      startDate: race.start_date,
+      endDate: race.end_date,
+      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      eventStatus: race.cancelled ? 'https://schema.org/EventCancelled' : 'https://schema.org/EventScheduled',
+      location: {
+        "@type" => 'Place',
+        name: race.location,
+        address: {
+          "@type" => 'PostalAddress',
+          streetAddress: race.address,
+          addressCountry: 'FI',
+        },
+      },
+      image: [
+        'https://www.hirviurheilu.com/logo-1024.png'
+      ],
+      description: t("sport_name.#{race.sport_key}"),
+      organizer: {
+        "@type" => 'Organization',
+        name: race.organizer,
+        url: race.home_page,
+      }
+    })
+  end
 end
