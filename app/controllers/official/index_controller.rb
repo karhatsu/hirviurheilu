@@ -11,7 +11,7 @@ class Official::IndexController < Official::OfficialController
       @yesterday = current_user.races.yesterday
       @future = current_user.races.future
       @past = current_user.races.past
-      @cups = current_user.cups
+      @cups = current_user.cups.order('created_at DESC')
     end
   end
 end
