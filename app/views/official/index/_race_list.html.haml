@@ -1,6 +1,7 @@
 - warn_unfinished = (defined?(warn_unfinished) ? warn_unfinished : false)
+- limit_id = defined?(id) && races.length > 12 ? id : nil
 - races.each_with_index do |race, index|
-  .col-xs-12.col-sm-6.col-md-4{class: defined?(id) && id, style: defined?(id) && index >= 6 ? 'display: none' : ''}
+  .col-xs-12.col-sm-6.col-md-4{class: limit_id, style: limit_id && index >= 6 ? 'display: none' : ''}
     %a.card{href: official_race_path(race)}
       .card__middle
         .card__name

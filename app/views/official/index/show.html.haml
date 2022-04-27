@@ -23,19 +23,19 @@
   = link_to t('.add_new_race'), new_official_race_path, class: 'button button--add'
   = link_to t('.add_multiple_races'), new_official_multiple_race_path, class: 'button button--add'
   .row= render partial: 'race_list', locals: { races: @future, id: 'future' }
-  .official-index__show-all{onclick: "showCompetitions(this, 'future')"}= t :show_all
+  = render partial: 'show_all', locals: { id: 'future', competitions: @future, limit: 12 }
   %h2
     %i.material-icons-outlined.md-18 dynamic_feed
     = t 'home.show.competitions.cup'
   = link_to t('.add_new_cup'), new_official_cup_path, class: 'button button--add'
   .row= render partial: 'cup_list', locals: { cups: @cups }
-  .official-index__show-all{onclick: "showCompetitions(this, 'cup')"}= t :show_all
+  = render partial: 'show_all', locals: { id: 'cup', competitions: @cups, limit: 9 }
   - unless @past.empty?
     %h2
       %i.material-icons-outlined.md-18 check_circle
       = t 'home.show.competitions.past'
     .row= render partial: 'race_list', locals: { races: @past, id: 'finished', warn_unfinished: true }
-    .official-index__show-all{onclick: "showCompetitions(this, 'finished')"}= t :show_all
+    = render partial: 'show_all', locals: { id: 'finished', competitions: @past, limit: 12 }
 :javascript
   function showCompetitions(link, id) {
     $('.' + id).show()

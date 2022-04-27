@@ -1,5 +1,6 @@
+- limit = cups.length > 9
 - cups.each_with_index do |cup, index|
-  .col-xs-12.col-sm-6.col-md-4.cup{style: index >= 3 ? 'display: none' : ''}
+  .col-xs-12.col-sm-6.col-md-4.cup{style: limit && index >= 3 ? 'display: none' : ''}
     %a.card{href: official_cup_path(cup)}
       .card__middle
         .card__name= cup.name
