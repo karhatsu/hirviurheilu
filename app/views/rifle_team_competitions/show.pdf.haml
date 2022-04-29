@@ -5,4 +5,4 @@
   - if @results.empty?
     .message.message--info Joukkuekilpailun tuloksia ei voida vielä laskea
   - else
-    = render partial: 'results', locals: { results: @results, team_competition: @tc, rifle: true }
+    = render partial: 'team_competitions/results', locals: { results: @results, team_competition: @tc, rifle: true }
