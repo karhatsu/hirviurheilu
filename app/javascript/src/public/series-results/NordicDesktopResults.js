@@ -24,8 +24,8 @@ export default function NordicDesktopResults({ race, series }) {
             <th>{resolveClubTitle(t, race.clubLevel)}</th>
             <th>{t('nordic_trap')}</th>
             <th>{t('nordic_shotgun')}</th>
-            <th>{t('nordic_rifle_standing')}</th>
             <th>{t('nordic_rifle_moving')}</th>
+            <th>{t('nordic_rifle_standing')}</th>
             <th>{t('result')}</th>
             {extraShots && <th>{t('extraRound')}</th>}
           </tr>
