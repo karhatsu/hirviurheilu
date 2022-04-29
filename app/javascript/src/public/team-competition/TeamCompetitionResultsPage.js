@@ -9,7 +9,7 @@ import Message from '../../common/Message'
 import useLayout from '../../util/useLayout'
 import TeamCompetitionsDesktopResults from './TeamCompetitionsDesktopResults'
 import Button from '../../common/Button'
-import { buildRacePath, buildTeamCompetitionsPath } from '../../util/routeUtil'
+import { buildRacePath, buildRifleTeamCompetitionsPath, buildTeamCompetitionsPath } from '../../util/routeUtil'
 import TeamCompetitionsMobileResults from './TeamCompetitionsMobileResults'
 import MobileSubMenu from '../menu/MobileSubMenu'
 
@@ -39,7 +39,9 @@ export default function TeamCompetitionResultsPage({ rifle }) {
     return <IncompletePage fetching={fetching} error={error} title={title} />
   }
 
-  const pdfPath = `${buildTeamCompetitionsPath(race.id, teamCompetition.id)}.pdf`
+  const pdfPath = rifle
+    ? `${buildRifleTeamCompetitionsPath(race.id, teamCompetition.id)}.pdf`
+    : `${buildTeamCompetitionsPath(race.id, teamCompetition.id)}.pdf`
   return (
     <>
       <h2>{title}</h2>
