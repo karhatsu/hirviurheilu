@@ -8,9 +8,9 @@ class CsvImport
   START_NUMBER_COLUMN = 4
   START_TIME_COLUMN = 5
 
-  COLUMNS_COUNT_START_ORDER_SERIES = 4
-  COLUMNS_COUNT_START_ORDER_MIXED = 6
-  COLUMNS_COUNT_SHOOTING_RACE = 4
+  COLUMNS_COUNTS_START_ORDER_SERIES = [4]
+  COLUMNS_COUNTS_START_ORDER_MIXED = [6]
+  COLUMNS_COUNTS_SHOOTING_RACE = [4, 5]
 
   def initialize(race, file_path, limited_club=nil)
     @race = race
@@ -58,7 +58,7 @@ class CsvImport
   end
 
   def row_structure_correct(row)
-    unless expected_column_count == row.length
+    unless expected_column_count.include? row.length
       @errors << "Virheellinen rivi tiedostossa: #{original_format(row)}"
       return false
     end
@@ -66,9 +66,9 @@ class CsvImport
   end
 
   def expected_column_count
-    return COLUMNS_COUNT_SHOOTING_RACE if @race.sport.shooting?
-    return COLUMNS_COUNT_START_ORDER_MIXED if @race.start_order == Race::START_ORDER_MIXED
-    COLUMNS_COUNT_START_ORDER_SERIES
+    return COLUMNS_COUNTS_SHOOTING_RACE if @race.sport.shooting?
+    return COLUMNS_COUNTS_START_ORDER_MIXED if @race.start_order == Race::START_ORDER_MIXED
+    COLUMNS_COUNTS_START_ORDER_SERIES
   end
 
   def row_missing_data?(row)
@@ -90,7 +90,7 @@ class CsvImport
     competitor.club = find_or_create_club(row[CLUB_COLUMN])
     set_series_or_age_group(competitor, row[SERIES_COLUMN])
     if @race.sport.shooting?
-      number = find_available_number prev_number, reserved_numbers
+      number = row[START_NUMBER_COLUMN] || find_available_number(prev_number, reserved_numbers)
       competitor.number = number
     elsif @race.start_order == Race::START_ORDER_MIXED
       competitor.number = row[START_NUMBER_COLUMN]

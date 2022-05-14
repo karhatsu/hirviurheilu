@@ -259,17 +259,38 @@ describe CsvImport do
       create :competitor, series: @series, number: 1
       create :competitor, series: @series, number: 4
       @race.update_attribute :sport_key, Sport::ILMAHIRVI
-      @ci = CsvImport.new@race, test_file_path('import_valid.csv')
     end
 
-    it 'adds automatically numbers for competitors' do
-      expect(@ci.save).to be_truthy
-      expect(@race.reload.competitors.size).to eq(2 + 5)
-      expect(@race.competitors.find_by_number(2).first_name).to eql 'Heikki'
-      expect(@race.competitors.find_by_number(3).first_name).to eql 'Minna'
-      expect(@race.competitors.find_by_number(5).first_name).to eql 'Maija'
-      expect(@race.competitors.find_by_number(6).first_name).to eql 'Minna'
-      expect(@race.competitors.find_by_number(7).first_name).to eql 'Topi'
+    context 'and file does not contain numbers' do
+      before do
+        @ci = CsvImport.new@race, test_file_path('import_valid.csv')
+      end
+
+      it 'adds automatically numbers for competitors' do
+        expect(@ci.save).to be_truthy
+        expect(@race.reload.competitors.size).to eq(2 + 5)
+        expect(@race.competitors.find_by_number(2).first_name).to eql 'Heikki'
+        expect(@race.competitors.find_by_number(3).first_name).to eql 'Minna'
+        expect(@race.competitors.find_by_number(5).first_name).to eql 'Maija'
+        expect(@race.competitors.find_by_number(6).first_name).to eql 'Minna'
+        expect(@race.competitors.find_by_number(7).first_name).to eql 'Topi'
+      end
+    end
+
+    context 'and file contains numbers' do
+      before do
+        @ci = CsvImport.new@race, test_file_path('import_valid_with_numbers.csv')
+      end
+
+      it 'set the numbers for competitors from the csv file' do
+        expect(@ci.save).to be_truthy
+        expect(@race.reload.competitors.size).to eq(2 + 5)
+        expect(@race.competitors.find_by_number(2).first_name).to eql 'Maija'
+        expect(@race.competitors.find_by_number(3).first_name).to eql 'Minna'
+        expect(@race.competitors.find_by_number(5).first_name).to eql 'Heikki'
+        expect(@race.competitors.find_by_number(6).first_name).to eql 'Topi'
+        expect(@race.competitors.find_by_number(7).first_name).to eql 'Minna'
+      end
     end
   end
 
