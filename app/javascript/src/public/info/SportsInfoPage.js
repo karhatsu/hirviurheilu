@@ -13,7 +13,7 @@ export default function SportsInfoPage() {
 
   const buildButton = useCallback((path, text) => {
     const href = `https://metsastajaliitto.fi/metsastajalle/kilpailutoiminta/${path}`
-    return <Button href={href} blank={true}>{text}</Button>
+    return <Button href={href} blank={true} type="open">{text}</Button>
   }, [])
   return (
     <div>
