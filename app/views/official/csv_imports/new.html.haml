@@ -12,6 +12,12 @@
   = t ".example_row_#{@race.start_order}_1"
   %br
   = t ".example_row_#{@race.start_order}_2"
+- if @race.sport.shooting?
+  = t '.or'
+  %pre.file-example
+    = t ".example_row_#{@race.start_order}_3"
+    %br
+    = t ".example_row_#{@race.start_order}_4"
 %h3= t '.upload_file'
 = flash_error
 = form_tag(official_race_csv_imports_path(@race), multipart: true, class: 'form') do

@@ -363,8 +363,11 @@ fi:
         example_of_valid_file: Esimerkki kelvollisesta CSV-tiedostosta
         example_row_1_1: Matti,Meikäläinen,Testikylän ampumaseura,M
         example_row_1_2: Minna,Miettinen,Esimerkkilän hiihtäjät,T17
+        example_row_1_3: Matti,Meikäläinen,Testikylän ampumaseura,M,1
+        example_row_1_4: Minna,Miettinen,Esimerkkilän hiihtäjät,T17,2
         example_row_2_1: Matti,Meikäläinen,Testikylän ampumaseura,M40,1,11:30:00
         example_row_2_2: Minna,Miettinen,Esimerkkilän hiihtäjät,N,2,11:30:30
+        or: tai
         upload_file: Tiedoston lataus
         csv_file: CSV-tiedosto
         submit_button: Lataa kilpailijat tietokantaan

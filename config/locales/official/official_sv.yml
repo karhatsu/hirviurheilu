@@ -362,8 +362,11 @@ sv:
         example_of_valid_file: Exempel av lämplig CSV-fil
         example_row_1_1: Sven,Andersson,Testklubben,M
         example_row_1_2: Erika,Eriksson,Exempelklubben,T15
+        example_row_1_3: Sven,Andersson,Testklubben,M,1
+        example_row_1_4: Erika,Eriksson,Exempelklubben,T15,2
         example_row_2_1: Sven,Andersson,Testklubben,M40,1,11:30:00
         example_row_2_2: Erika,Eriksson,Exempelklubben,Kvinnor,2,11:30:30
+        or: eller
         upload_file: Ladda fil
         csv_file: CSV-fil
         submit_button: Ladda tävlar till databasen
