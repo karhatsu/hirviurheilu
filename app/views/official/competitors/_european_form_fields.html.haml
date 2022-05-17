@@ -39,3 +39,6 @@
   .col-xs-12.col-sm-9
     = render partial: 'official/shots/shooting_race_shots',
         locals: { competitor: @competitor, round_rules: [extra_shots_count], base: 0, column_name: :european_rifle_extra_shots, field_name: 'european_rifle_extra_shots[]', best_shot_value: 10 }
+.form__field.form__field--sm.row
+  .col-xs-12.col-sm-3= f.label :european_extra_score
+  .col-xs-12.col-sm-9= f.number_field :european_extra_score, maxlength: 3

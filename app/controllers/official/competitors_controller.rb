@@ -134,6 +134,6 @@ class Official::CompetitorsController < Official::OfficialController
       :nordic_extra_score, :only_rifle,
       :european_trap_score_input, :european_compak_score_input,
       :european_rifle1_score_input, :european_rifle2_score_input, :european_rifle3_score_input, :european_rifle4_score_input,
-      old_values: [:estimate1, :estimate2, :estimate3, :estimate4])
+      :european_extra_score, old_values: [:estimate1, :estimate2, :estimate3, :estimate4])
   end
 end
