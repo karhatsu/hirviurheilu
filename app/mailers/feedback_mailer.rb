@@ -17,8 +17,8 @@ class FeedbackMailer < ApplicationMailer
     @name = name
     @email = email
     @tel = tel
-    mail to: race.race_rights.where(primary: true).first.user.email, bcc: ADMIN_EMAIL, from: from_address(email),
-         subject: 'Hirviurheilu - palaute'
+    official = race.race_rights.where(primary: true).first&.user || race.race_rights.first.user
+    mail to: official.email, bcc: ADMIN_EMAIL, from: from_address(email), subject: 'Hirviurheilu - palaute'
   end
 
   private

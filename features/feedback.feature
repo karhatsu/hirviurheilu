@@ -54,6 +54,23 @@ Feature: Feedback
     And I should see "Nimi: Yksi kilpailija" in the email body
 
   @javascript
+  Scenario: Send feedback for the race official when the race has no primary official
+    Given there exists an official "Secondary Official" with email "secondary@test.com"
+    And there is a race with attributes:
+      | name       | Good race  |
+      | start_date | 2030-08-01 |
+      | location   | Location   |
+    And "secondary@test.com" is an official for the race
+    And I am on the new feedback page
+    When I select "Good race (01.08.2030, Location)" from "Palautteen kohde"
+    And I fill in "Kilpailijan tiedot väärin, voitko korjata?" for "Palaute"
+    And I fill in "Yksi kilpailija" for "Nimi"
+    And I fill in "Neljä" for "captcha"
+    And I press "Lähetä"
+    Then I should see "Kiitos palautteesta"
+    And "secondary@test.com" should receive an email with subject "Hirviurheilu - palaute"
+
+  @javascript
   Scenario: Send feedback without email address
     Given I am on the new feedback page
     When I fill in the following:
