@@ -41,9 +41,9 @@ class CsvImport
   def validate_data(limited_club)
     reserved_numbers = @race.competitors.map(&:number) if @race.sport.shooting?
     prev_number = 0
-    @data.each do |row|
-      return unless row_structure_correct(row)
-      unless row_missing_data?(row)
+    @data.each_with_index do |row, index|
+      return unless row_structure_correct?(row, index + 1)
+      unless row_missing_data?(row, index + 1)
         competitor = new_competitor row, prev_number, reserved_numbers
         prev_number = competitor.number
         if limited_club && competitor.club.name != limited_club
@@ -57,9 +57,9 @@ class CsvImport
     end
   end
 
-  def row_structure_correct(row)
+  def row_structure_correct?(row, number)
     unless expected_column_count.include? row.length
-      @errors << "Virheellinen rivi tiedostossa: #{original_format(row)}"
+      @errors << "Rivi #{number} on virheellinen: #{original_format(row)}"
       return false
     end
     true
@@ -71,10 +71,10 @@ class CsvImport
     COLUMNS_COUNTS_START_ORDER_SERIES
   end
 
-  def row_missing_data?(row)
+  def row_missing_data?(row, number)
     row.each do |col|
       if col.nil? or col.strip == ''
-        @errors << "Riviltä puuttuu tietoja: #{original_format(row)}"
+        @errors << "Riviltä #{number} puuttuu tietoja: #{original_format(row)}"
         return true
       end
     end

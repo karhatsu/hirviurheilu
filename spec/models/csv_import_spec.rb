@@ -34,7 +34,7 @@ describe CsvImport do
     it_should_behave_like 'failed import', 1
 
     it "#errors should contain a message about invalid file format" do
-      expect(@ci.errors[0]).to eq('Virheellinen rivi tiedostossa: Matti,Miettinen,SS,M40,additional column')
+      expect(@ci.errors[0]).to eq('Rivi 2 on virheellinen: Matti,Miettinen,SS,M40,additional column')
     end
   end
 
@@ -121,7 +121,7 @@ describe CsvImport do
       it_should_behave_like 'failed import', 1
 
       it "the error message should contain the erroneous row" do
-        expect(@ci.errors[0]).to eq("Riviltä puuttuu tietoja: Minna,Miettinen,,N")
+        expect(@ci.errors[0]).to eq("Riviltä 2 puuttuu tietoja: Minna,Miettinen,,N")
       end
     end
 
@@ -133,7 +133,7 @@ describe CsvImport do
       it_should_behave_like 'failed import', 1
 
       it "the error message should contain the erroneous row" do
-        expect(@ci.errors[0]).to eq("Riviltä puuttuu tietoja: Minna,,PS,N")
+        expect(@ci.errors[0]).to eq("Riviltä 2 puuttuu tietoja: Minna,,PS,N")
       end
     end
 
