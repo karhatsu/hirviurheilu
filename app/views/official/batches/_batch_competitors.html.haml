@@ -84,6 +84,7 @@
       $(saveErrorLocator).hide()
       $('#batch_type_qualificationroundbatch').attr('disabled', true)
       $('#batch_type_finalroundbatch').attr('disabled', true)
+      $('#delete_batch_button').hide()
       $('.competitor_id').each(function () {
         if (parseInt($(this).val()) === competitorId && $(this).attr('id') !== 'competitor_id_' + trackPlace) {
           var oldTrackPlace = $(this).attr('id').substr('competitor_id_'.length)
