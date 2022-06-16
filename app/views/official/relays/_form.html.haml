@@ -10,7 +10,7 @@
     .col-xs-12.col-sm-3= f.label :legs_count
     .col-xs-12.col-sm-9
       - if @relay.new_record?
-        = f.number_field :legs_count
+        = f.number_field :legs_count, min: 2
       - else
         = @relay.legs_count
   .form__field.form__field--sm.row
@@ -21,7 +21,7 @@
       (arvioitu kellonaika)
   .form__field.form__field--md.row
     .col-xs-12.col-sm-3= f.label :leg_distance
-    .col-xs-12.col-sm-9= f.number_field :leg_distance
+    .col-xs-12.col-sm-9= f.number_field :leg_distance, min: 1
   .form__field.row
     .col-xs-12.col-sm-3
       %label Sakkojen suorittaminen
@@ -33,17 +33,17 @@
   .penalty_run{style: 'display: none'}
     .form__field.form__field--md.row
       .col-xs-12.col-sm-3= f.label :estimate_penalty_distance
-      .col-xs-12.col-sm-9= f.number_field :estimate_penalty_distance
+      .col-xs-12.col-sm-9= f.number_field :estimate_penalty_distance, min: 1
     .form__field.form__field--md.row
       .col-xs-12.col-sm-3= f.label :shooting_penalty_distance
-      .col-xs-12.col-sm-9= f.number_field :shooting_penalty_distance
+      .col-xs-12.col-sm-9= f.number_field :shooting_penalty_distance, min: 1
   .penalty_seconds{style: 'display: none'}
     .form__field.form__field--md.row
       .col-xs-12.col-sm-3= f.label :estimate_penalty_seconds
-      .col-xs-12.col-sm-9= f.number_field :estimate_penalty_seconds
+      .col-xs-12.col-sm-9= f.number_field :estimate_penalty_seconds, min: 1
     .form__field.form__field--md.row
       .col-xs-12.col-sm-3= f.label :shooting_penalty_seconds
-      .col-xs-12.col-sm-9= f.number_field :shooting_penalty_seconds
+      .col-xs-12.col-sm-9= f.number_field :shooting_penalty_seconds, min: 1
   - unless @relay.new_record?
     %h2= t :correct_distances
     = render partial: 'all_correct_estimates', locals: { f: f }

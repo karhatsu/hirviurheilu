@@ -6,7 +6,7 @@
       , #{t 'official.races.form.at_least'}
   - unless @race.sport.shooting?
     .form__field.form__field--sm
-      #{f.number_field :min_competitors} #{t 'official.races.form.competitors'},
+      #{f.number_field :min_competitors, min: 0} #{t 'official.races.form.competitors'},
     .form__field
       = f.check_box :shorter_trip
       = f.label :shorter_trip

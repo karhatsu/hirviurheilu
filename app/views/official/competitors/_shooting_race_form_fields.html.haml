@@ -4,12 +4,12 @@
 = hidden_field_tag :no_times, true
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :number
-  .col-xs-12.col-sm-9= f.number_field :number
+  .col-xs-12.col-sm-9= f.number_field :number, min: 1
 = render partial: 'official/competitors/shooting_race_fields', locals: { f: f }
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :qualification_round_shooting_score_input
   .col-xs-12.col-sm-9
-    = f.number_field :qualification_round_shooting_score_input, maxlength: 3
+    = f.number_field :qualification_round_shooting_score_input, maxlength: 3, min: 0
     (#{t 'official.competitors.edit.either_total_or_shots'})
 .form__field.row
   .col-xs-12.col-sm-3= label_tag :qualification_round_shots, t('official.competitors.edit.qualification_round_shots')
@@ -19,7 +19,7 @@
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :final_round_shooting_score_input
   .col-xs-12.col-sm-9
-    = f.number_field :final_round_shooting_score_input, maxlength: 3
+    = f.number_field :final_round_shooting_score_input, maxlength: 3, min: 0
     (#{t 'official.competitors.edit.either_total_or_shots'})
 .form__field.row
   .col-xs-12.col-sm-3= label_tag :final_round_shots, t('official.competitors.edit.final_round_shots')

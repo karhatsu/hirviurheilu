@@ -3,4 +3,4 @@
   = f.hidden_field :leg
   #{f.object.leg}.
 .form__field.form__field--sm
-  #{f.number_field :distance}m
+  #{f.number_field :distance, min: 50, max: 200}m

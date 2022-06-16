@@ -17,7 +17,7 @@
       = form_for([:official, @series], url: official_series_start_list_path, html: { onsubmit: "return warnRerun(#{@series.has_start_list?})", class: 'form' }) do |f|
         .form__field.form__field--sm.row
           .col-xs-12.col-sm-3= f.label :first_number
-          .col-xs-12.col-sm-9= f.number_field :first_number
+          .col-xs-12.col-sm-9= f.number_field :first_number, min: 1
         .form__field.row
           .col-xs-12.col-sm-3
             %label Kilpailun alkamisaika

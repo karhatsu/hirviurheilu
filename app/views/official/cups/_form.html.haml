@@ -14,7 +14,7 @@
     .form__help-label
       = f.label :top_competitions
       %a.help#top_competitions_help{href: 'javascript:void(0);'} ?
-    = f.number_field :top_competitions, max_length: 1
+    = f.number_field :top_competitions, min: 1, max: 9
     #top_competitions_help_dialog.dialog{style: 'display:none;'}
       %h3
         Kun

@@ -9,10 +9,10 @@
   - unless f.object.new_record?
     .form__field.form__field--sm
       = f.label :misses
-      = f.number_field :misses
+      = f.number_field :misses, min: 0, max: 5
     .form__field.form__field--sm
       = f.label :estimate
-      #{f.number_field :estimate}m
+      #{f.number_field :estimate, min: 0}m
     .form__field.form__field--md
       = f.label :arrival_time
       = time_print(f.object.arrival_time, true, '-')

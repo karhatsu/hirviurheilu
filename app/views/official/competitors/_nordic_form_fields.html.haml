@@ -1,11 +1,11 @@
 = hidden_field_tag :no_times, true
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :number
-  .col-xs-12.col-sm-9= f.number_field :number
+  .col-xs-12.col-sm-9= f.number_field :number, min: 1
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :nordic_trap_score_input
   .col-xs-12.col-sm-9
-    = f.number_field :nordic_trap_score_input, maxlength: 2
+    = f.number_field :nordic_trap_score_input, min: 0, max: 25
     (#{t 'official.competitors.edit.either_total_or_shots'})
 .form__field.row
   .col-xs-12.col-sm-3= label_tag :nordic_trap_shots, t('attributes.nordic_trap_shots')
@@ -22,7 +22,7 @@
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :nordic_shotgun_score_input
   .col-xs-12.col-sm-9
-    = f.number_field :nordic_shotgun_score_input, maxlength: 2
+    = f.number_field :nordic_shotgun_score_input, min: 0, max: 25
     (#{t 'official.competitors.edit.either_total_or_shots'})
 .form__field.row
   .col-xs-12.col-sm-3= label_tag :nordic_shotgun_shots, t('attributes.nordic_shotgun_shots')
@@ -39,7 +39,7 @@
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :nordic_rifle_moving_score_input
   .col-xs-12.col-sm-9
-    = f.number_field :nordic_rifle_moving_score_input, maxlength: 2
+    = f.number_field :nordic_rifle_moving_score_input, min: 0, max: 100
     (#{t 'official.competitors.edit.either_total_or_shots'})
 .form__field.row
   .col-xs-12.col-sm-3= label_tag :nordic_rifle_moving_shots, t('attributes.nordic_rifle_moving_shots')
@@ -56,7 +56,7 @@
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :nordic_rifle_standing_score_input
   .col-xs-12.col-sm-9
-    = f.number_field :nordic_rifle_standing_score_input, maxlength: 2
+    = f.number_field :nordic_rifle_standing_score_input, min: 0, max: 100
     (#{t 'official.competitors.edit.either_total_or_shots'})
 .form__field.row
   .col-xs-12.col-sm-3= label_tag :nordic_rifle_standing_shots, t('attributes.nordic_rifle_standing_shots')
@@ -72,4 +72,4 @@
           locals: { competitor: @competitor, round_rules: [rifle_standing_extra_shots_count], base: 0, column_name: :nordic_rifle_standing_extra_shots, field_name: 'nordic_rifle_standing_extra_shots[]', best_shot_value: 10 }
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :nordic_extra_score
-  .col-xs-12.col-sm-9= f.number_field :nordic_extra_score, maxlength: 3
+  .col-xs-12.col-sm-9= f.number_field :nordic_extra_score, min: 0, max: 200

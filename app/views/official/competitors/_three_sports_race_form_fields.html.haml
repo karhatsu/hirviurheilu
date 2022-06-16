@@ -1,6 +1,6 @@
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :number
-  .col-xs-12.col-sm-9= f.number_field :number
+  .col-xs-12.col-sm-9= f.number_field :number, min: 1
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :start_time
   - start_time = time_print(f.object.start_time, true, '')
@@ -12,7 +12,7 @@
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :shooting_score_input
   .col-xs-12.col-sm-9
-    = f.number_field :shooting_score_input, maxlength: 3
+    = f.number_field :shooting_score_input, min: 0, max: 100
     (#{t 'official.competitors.edit.either_total_or_shots'})
 .form__field.row
   .col-xs-12.col-sm-3
@@ -20,17 +20,17 @@
   .col-xs-12.col-sm-9= render partial: 'official/shots/three_sports_race_shots', locals: { competitor: @competitor }
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :estimate1
-  .col-xs-12.col-sm-9= f.number_field :estimate1, maxlength: 3
+  .col-xs-12.col-sm-9= f.number_field :estimate1, maxlength: 3, min: 0
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :estimate2
-  .col-xs-12.col-sm-9= f.number_field :estimate2, maxlength: 3
+  .col-xs-12.col-sm-9= f.number_field :estimate2, maxlength: 3, min: 0
 - if @competitor.series.estimates == 4
   .form__field.form__field--sm.row
     .col-xs-12.col-sm-3= f.label :estimate3
-    .col-xs-12.col-sm-9= f.number_field :estimate3, maxlength: 3
+    .col-xs-12.col-sm-9= f.number_field :estimate3, maxlength: 3, min: 0
   .form__field.form__field--sm.row
     .col-xs-12.col-sm-3= f.label :estimate4
-    .col-xs-12.col-sm-9= f.number_field :estimate4, maxlength: 3
+    .col-xs-12.col-sm-9= f.number_field :estimate4, maxlength: 3, min: 0
 - if @competitor.series.walking_series?
   .form__field.form__field--sm.row
     .col-xs-12.col-sm-3= f.label :shooting_overtime_min

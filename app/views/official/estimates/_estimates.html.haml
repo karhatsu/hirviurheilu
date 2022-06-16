@@ -20,17 +20,17 @@
                 .form__horizontal-fields
                   .form__field-prefix #1
                   .form__field.form__field--sm
-                    = f.number_field :estimate1, maxlength: 3
+                    = f.number_field :estimate1, maxlength: 3, min: 1
                   .form__field-prefix #2
                   .form__field.form__field--sm
-                    = f.number_field :estimate2, maxlength: 3
+                    = f.number_field :estimate2, maxlength: 3, min: 1
                   - if four_estimates
                     .form__field-prefix #3
                     .form__field.form__field--sm
-                      = f.number_field :estimate3, maxlength: 3
+                      = f.number_field :estimate3, maxlength: 3, min: 1
                     .form__field-prefix #4
                     .form__field.form__field--sm
-                      = f.number_field :estimate4, maxlength: 3
+                      = f.number_field :estimate4, maxlength: 3, min: 1
                   .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
         .card__main-value{id: "estimate_points_#{competitor.id}"}
           - if competitor.no_result_reason

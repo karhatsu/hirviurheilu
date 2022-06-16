@@ -17,7 +17,7 @@
             .form__field.form__field--sm
               = hidden_field_tag :competitor_id, competitor&.id, id: "competitor_id_#{track_place}", class: 'competitor_id'
               = hidden_field_tag :old_competitor_number, competitor&.number, id: "track_place_#{track_place}_old"
-              = number_field_tag :competitor_number, competitor&.number, id: "track_place_#{track_place}", onChange: "changeNumber(#{track_place})"
+              = number_field_tag :competitor_number, competitor&.number, id: "track_place_#{track_place}", onChange: "changeNumber(#{track_place})", min: 1
             %div{id: "competitor_info_#{track_place}", style: 'margin-right: 8px'}
               - if competitor
                 #{full_name competitor} (#{competitor.series.name})

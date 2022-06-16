@@ -1,13 +1,13 @@
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-4= label_tag :first_batch_number, t('official.batch_lists.show.first_batch_number')
-  .col-xs-12.col-sm-8= number_field_tag :first_batch_number, params[:first_batch_number] || @series.race.first_available_batch_number(final_round)
+  .col-xs-12.col-sm-8= number_field_tag :first_batch_number, params[:first_batch_number] || @series.race.first_available_batch_number(final_round), min: 1
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-4= label_tag :first_track_place, t('official.batch_lists.show.first_track_place')
-  .col-xs-12.col-sm-8= number_field_tag :first_track_place, params[:first_track_place] || @series.race.first_available_track_place(final_round)
+  .col-xs-12.col-sm-8= number_field_tag :first_track_place, params[:first_track_place] || @series.race.first_available_track_place(final_round), min: 1
 - if @series.race.concurrent_batches > 1
   .form__field.form__field--sm.row
     .col-xs-12.col-sm-4= label_tag :first_batch_track_number, t('official.batch_lists.show.first_batch_track_number')
-    .col-xs-12.col-sm-8= number_field_tag :first_batch_track_number, params[:first_batch_track_number] || @series.race.suggested_next_track_number(final_round)
+    .col-xs-12.col-sm-8= number_field_tag :first_batch_track_number, params[:first_batch_track_number] || @series.race.suggested_next_track_number(final_round), min: 1
   .form__field.row
     .col-xs-12.col-sm-4
       %label= t('official.batch_lists.show.include_tracks')
@@ -26,7 +26,7 @@
   .col-xs-12.col-sm-8= text_field_tag :first_batch_time, params[:first_batch_time] || @series.race.suggested_next_batch_time(final_round), placeholder: 'HH:MM'
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-4= label_tag :minutes_between_batches, t('official.batch_lists.show.minutes_between_batches')
-  .col-xs-12.col-sm-8= number_field_tag :minutes_between_batches, params[:minutes_between_batches] || @series.race.suggested_min_between_batches(final_round)
+  .col-xs-12.col-sm-8= number_field_tag :minutes_between_batches, params[:minutes_between_batches] || @series.race.suggested_min_between_batches(final_round), min: 1
 .form__field.row
   .col-xs-12.col-sm-4= label_tag :only_track_places, t('official.batch_lists.show.assign_competitors')
   .col-xs-12.col-sm-8

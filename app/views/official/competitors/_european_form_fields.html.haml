@@ -1,11 +1,11 @@
 = hidden_field_tag :no_times, true
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :number
-  .col-xs-12.col-sm-9= f.number_field :number
+  .col-xs-12.col-sm-9= f.number_field :number, min: 1
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :european_trap_score_input
   .col-xs-12.col-sm-9
-    = f.number_field :european_trap_score_input, maxlength: 2
+    = f.number_field :european_trap_score_input, min: 0, max: 25
     (#{t 'official.competitors.edit.either_total_or_shots'})
 .form__field.row
   .col-xs-12.col-sm-3= label_tag :european_trap_shots, t('attributes.european_trap_shots')
@@ -15,7 +15,7 @@
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :european_compak_score_input
   .col-xs-12.col-sm-9
-    = f.number_field :european_compak_score_input, maxlength: 2
+    = f.number_field :european_compak_score_input, min: 0, max: 25
     (#{t 'official.competitors.edit.either_total_or_shots'})
 .form__field.row
   .col-xs-12.col-sm-3= label_tag :european_compak_shots, t('attributes.european_compak_shots')
@@ -26,7 +26,7 @@
   .form__field.form__field--sm.row
     .col-xs-12.col-sm-3= f.label "european_rifle#{n}_score_input".to_sym
     .col-xs-12.col-sm-9
-      = f.number_field "european_rifle#{n}_score_input".to_sym, maxlength: 2
+      = f.number_field "european_rifle#{n}_score_input".to_sym, min: 0, max: 50
       (#{t 'official.competitors.edit.either_total_or_shots'})
   .form__field.row
     .col-xs-12.col-sm-3= label_tag "european_rifle#{n}_shots".to_sym, t("attributes.european_rifle#{n}_shots")
@@ -41,4 +41,4 @@
         locals: { competitor: @competitor, round_rules: [extra_shots_count], base: 0, column_name: :european_rifle_extra_shots, field_name: 'european_rifle_extra_shots[]', best_shot_value: 10 }
 .form__field.form__field--sm.row
   .col-xs-12.col-sm-3= f.label :european_extra_score
-  .col-xs-12.col-sm-9= f.number_field :european_extra_score, maxlength: 3
+  .col-xs-12.col-sm-9= f.number_field :european_extra_score, maxlength: 3, min: 0

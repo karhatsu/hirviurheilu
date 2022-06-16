@@ -8,7 +8,7 @@
 = hidden_field_tag :sub_sport, sub_sport
 .form__horizontal-fields
   .card__sub-result.card__sub-result--shoot.form__field.form__field--sm
-    = f.number_field "nordic_#{sub_sport}_score_input", maxlength: 3, class: 'shots-total-input'
+    = f.number_field "nordic_#{sub_sport}_score_input", min: 0, max: 100, class: 'shots-total-input'
   .card__sub-result.card__sub-result--shoot
     = render partial: partial, locals: { competitor: competitor, round_rules: round_rules, base: 0, column_name: name, field_name: "#{name}[]", best_shot_value: best_shot_value }
 - if extra_shots_count > 0
