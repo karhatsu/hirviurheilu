@@ -1,4 +1,4 @@
-Kilpailun nimi: #{@race.name}
+Kilpailun nimi: #{@race.name} (#{race_url @locale, @race})
 Laji: #{@race.sport.name}
 Aika: #{race_date_interval(@race, false)}
 Paikkakunta: #{@race.location}
