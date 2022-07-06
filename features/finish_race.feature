@@ -106,8 +106,6 @@ Feature: Finish race
     And I should see "Kilpailijoiden määrä: 2" in the email body
     And I should see "Maaliin tulleiden kilpailijoiden määrä: 1" in the email body
     And I should see "Toimitsija: Timo Toimitsija (timo@test.com)" in the email body
-    When I click the first link in the email
-    Then I should be on the race page of "Test race"
 
   Scenario: Finish single series
     Given I am an official
