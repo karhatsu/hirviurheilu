@@ -34,6 +34,8 @@ export default function RaceSeries({ race }) {
     const key = isAfter(new Date(), parseISO(startDate)) ? 'raceStarted' : 'raceStarts'
     infos.push(t(key, { time: format(parse(startTime, 'HH:mm:ss', new Date()), 'HH:mm') }))
   }
+  const qrHidden = race.hideQualificationRoundBatches
+  const frHidden = race.hideFinalRoundBatches
   return (
     <>
       <h2>{t(sport.shooting ? 'results' : 'personalCompetitions')}</h2>
@@ -87,14 +89,14 @@ export default function RaceSeries({ race }) {
               </form>
             </>
           )}
-          {race.qualificationRoundBatches.length > 0 && (
+          {!qrHidden && race.qualificationRoundBatches.length > 0 && (
             <BatchListPdfForm
               path={buildQualificationRoundBatchesPath(race.id)}
               race={race}
               title={t(sport.oneBatchList ? 'batchList' : 'qualificationRoundBatchList')}
             />
           )}
-          {race.finalRoundBatches.length > 0 && (
+          {!frHidden && race.finalRoundBatches.length > 0 && (
             <BatchListPdfForm
               path={buildFinalRoundBatchesPath(race.id)}
               race={race}
