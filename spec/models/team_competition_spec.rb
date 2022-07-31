@@ -363,11 +363,11 @@ describe TeamCompetition do
         end
       end
 
-      def build_shooting_competitor(club, qualification_round_score, hits, shots)
+      def build_shooting_competitor(club, qualification_round_score, qualification_round_hits, qualification_round_shots)
         competitor = build :competitor, club: club
         allow(competitor).to receive(:qualification_round_score).and_return(qualification_round_score)
-        allow(competitor).to receive(:hits).and_return(hits)
-        allow(competitor).to receive(:shots).and_return(shots)
+        allow(competitor).to receive(:qualification_round_hits).and_return(qualification_round_hits)
+        allow(competitor).to receive(:qualification_round_shots).and_return([qualification_round_shots])
         allow(competitor).to receive(:club_id).and_return(club.id)
         competitor
       end

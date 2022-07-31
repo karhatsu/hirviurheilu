@@ -35,12 +35,18 @@ class Team
   end
 
   def hits
-    @competitors.map {|c| c.hits.to_i}.inject(:+)
+    if @rifle
+      @competitors.map {|c| c.hits.to_i}.inject(:+)
+    else
+      @competitors.map {|c| c.qualification_round_hits.to_i}.inject(:+)
+    end
   end
 
   def shot_counts
     if @rifle
       shots_arrays = @competitors.map {|c| c.european_rifle_shots}
+    elsif @sport.qualification_round
+      shots_arrays = @competitors.map {|c| c.qualification_round_shots&.flatten}
     else
       shots_arrays = @competitors.map {|c| c.shots}
     end

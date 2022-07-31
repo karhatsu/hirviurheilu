@@ -12,6 +12,7 @@ describe Team do
   let(:team) { Team.new team_competition, name, club_id }
 
   before do
+    allow(sport).to receive(:qualification_round).and_return([10, 5])
     allow(team_competition).to receive(:max_extra_shots).and_return(max_extra_shots)
     team << build_competitor(1000, 97, nil, 10, [10, 9, 5, 6, 4, 11])
     team << build_competitor(900, 98, 1201, 8, [1, 10, 5, 2, 2, 3, 8])
@@ -50,7 +51,7 @@ describe Team do
     expect(team.fastest_time).to eql 1199
   end
 
-  it 'hits is the sum of hits' do
+  it 'hits is the sum of qualification round hits' do
     expect(team.hits).to eql 27
   end
 
@@ -63,12 +64,18 @@ describe Team do
     let(:competitor1) { build :competitor }
 
     before do
+      allow(sport).to receive(:qualification_round).and_return(nil)
       allow(competitor1).to receive(:european_total_results).and_return([400, 200, 100, 90])
+      allow(competitor1).to receive(:shots).and_return([10, 8, 9, 9, 7])
       european_team << competitor1
     end
 
     it 'provides results array for european' do
       expect(european_team.european_total_results).to eql [400, 200, 100, 90]
+    end
+
+    it 'calculates sum of different shots using all shots' do
+      expect(european_team.shot_counts).to eql [1, 2, 1, 1, 0, 0, 0, 0, 0, 0]
     end
   end
 
@@ -271,13 +278,13 @@ describe Team do
     end
   end
 
-  def build_competitor(score, shooting_score, time_in_seconds, hits, shots)
+  def build_competitor(score, shooting_score, time_in_seconds, qualification_round_hits, qualification_round_shots)
     competitor = build :competitor
     allow(competitor).to receive(:team_competition_points).with(sport, false).and_return(score)
     allow(competitor).to receive(:shooting_score).and_return(shooting_score)
     allow(competitor).to receive(:time_in_seconds).and_return(time_in_seconds)
-    allow(competitor).to receive(:hits).and_return(hits)
-    allow(competitor).to receive(:shots).and_return(shots)
+    allow(competitor).to receive(:qualification_round_hits).and_return(qualification_round_hits)
+    allow(competitor).to receive(:qualification_round_shots).and_return(qualification_round_shots)
     competitor
   end
 
