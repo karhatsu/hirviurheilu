@@ -292,7 +292,7 @@ class Series < ApplicationRecord
   end
 
   def publish_update
-    SeriesChannel.broadcast_to self, {}
+    #SeriesChannel.broadcast_to self, {}
   end
 
   def touch_race
