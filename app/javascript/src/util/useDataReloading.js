@@ -5,7 +5,6 @@ let timeout
 
 const useDataReloading = (websocketChannel, webSocketParamName, webSocketParamValue, reloadDataRef) => {
   useEffect(() => {
-    console.log(websocketChannel, webSocketParamName, webSocketParamValue, reloadDataRef)
     const channelName = { channel: websocketChannel, [webSocketParamName]: webSocketParamValue }
     const channel = consumer.subscriptions.create(channelName, {
       received: () => {
