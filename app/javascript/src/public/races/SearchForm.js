@@ -92,7 +92,7 @@ export default function SearchForm() {
         <div className="form__field">
           <select value={searchParams.level} onChange={setSearchValue('level')} id="level">
             <option value="">{t('allLevels')}</option>
-            {[3, 2, 1, 0].map(level => <option value={level} key={level}>{t(`level_${level}`)}</option>)}
+            {[4, 3, 2, 1, 0].map(level => <option value={level} key={level}>{t(`level_${level}`)}</option>)}
           </select>
         </div>
         <div className="form__field">

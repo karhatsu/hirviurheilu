@@ -79,7 +79,8 @@ describe Race do
       it { is_expected.to allow_value(Race::LEVEL_DISTRICT).for(:level) }
       it { is_expected.to allow_value(Race::LEVEL_AREA).for(:level) }
       it { is_expected.to allow_value(Race::LEVEL_NATIONAL).for(:level) }
-      it { is_expected.not_to allow_value(Race::LEVEL_NATIONAL + 1).for(:level) }
+      it { is_expected.to allow_value(Race::LEVEL_INTERNATIONAL).for(:level) }
+      it { is_expected.not_to allow_value(Race::LEVEL_INTERNATIONAL + 1).for(:level) }
     end
 
     describe 'pending_official_email' do

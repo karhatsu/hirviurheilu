@@ -26,7 +26,7 @@ export default function SearchForm({ sportKey, setSportKey, districtId, setDistr
       <div className="form__field">
         <select value={level} onChange={e => setLevel(e.target.value)} id="level">
           <option value="">{t('allLevels')}</option>
-          {[3, 2, 1, 0].map(level => <option value={level} key={level}>{t(`level_${level}`)}</option>)}
+          {[4, 3, 2, 1, 0].map(level => <option value={level} key={level}>{t(`level_${level}`)}</option>)}
         </select>
       </div>
       {searching && (

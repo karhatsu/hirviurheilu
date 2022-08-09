@@ -16,7 +16,7 @@ Hirviurheilu API is a JSON REST API.
 You can limit the query with the following query parameters:
 
 * `search_text` - searches from race name and location
-* `level` - level id 0 (other), 1 (district), 2 (area), or 3 (national)
+* `level` - level id 0 (other), 1 (district), 2 (area), 3 (national), or 4 (international)
 * `sport_key` - examples: `SKI`, `RUN`, `ILMAHIRVI`, `METSASTYSLUODIKKO`, `NORDIC`, `EUROPEAN`
 * `since` - date like `2021-01-01`
 * `until` - date like `2021-12-31`

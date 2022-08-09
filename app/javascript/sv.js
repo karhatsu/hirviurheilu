@@ -85,6 +85,7 @@ window.translations = {
   level_1: 'Distrikt',
   level_2: 'Regional',
   level_3: 'FM',
+  level_4: 'Internationell',
   name: 'Namn',
   navigate: 'Visa i Google Maps',
   noCompetitors: 'Inga tävlar',
