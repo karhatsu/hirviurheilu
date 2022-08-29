@@ -99,7 +99,6 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.10)
-    connection_pool (2.2.5)
     crass (1.0.6)
     cucumber (7.1.0)
       builder (~> 3.2, >= 3.2.4)
@@ -285,10 +284,7 @@ GEM
     raindrops (0.20.0)
     rake (13.0.6)
     redcarpet (3.5.1)
-    redis (5.0.1)
-      redis-client (~> 0.7)
-    redis-client (0.7.1)
-      connection_pool
+    redis (4.8.0)
     regexp_parser (2.5.0)
     request_store (1.5.1)
       rack (>= 1.4)
@@ -401,7 +397,7 @@ DEPENDENCIES
   rails (= 7.0.3.1)
   rails-controller-testing
   redcarpet
-  redis
+  redis (= 4.8.0)
   roman-numerals
   rspec-collection_matchers
   rspec-json_expectations
