@@ -8,8 +8,8 @@
         = image_tag '/logo-128.png', class: 'header__logo'
         = link_to 'Hirviurheilu', root_path, class: 'header__title'
         = image_tag '/logo-128.png', class: 'header__logo header__logo--right'
-    - unless no_nav?
-      %a.header__menu.material-icons-outlined.md-24{onclick: 'event.preventDefault(); toggleMainMenu();', href: '#'} menu
+        - unless no_nav?
+          %a.header__menu.material-icons-outlined.md-24{onclick: 'event.preventDefault(); toggleMainMenu();', href: '#'} menu
       = render partial: 'menus/menu'
     .body{itemscope: true, itemtype: menu_race ? 'http://schema.org/SportsEvent' : ''}
       .body__on-top-title= render partial: 'shared/page_title'
