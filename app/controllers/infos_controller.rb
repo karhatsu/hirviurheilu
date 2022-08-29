@@ -4,7 +4,10 @@ class InfosController < ApplicationController
   def show
     use_react
     @is_info_main = true
-    render layout: true, html: ''
+    respond_to do |format|
+      format.html { render layout: true, html: '' }
+      format.json { render status: 404, body: nil }
+    end
   end
 
   def answers
