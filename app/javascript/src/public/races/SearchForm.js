@@ -25,7 +25,7 @@ const buildURLSearchParams = searchParams => {
 }
 
 function useDebounce(callback, delay) {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps, n/no-callback-literal
   return useCallback(debounce((...args) => callback(...args), delay), [delay])
 }
 

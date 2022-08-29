@@ -24,16 +24,16 @@ export function handleApiResponse(response, callback) {
   } else if (response.ok) {
     response.json().then(data => {
       callback(null, data)
-    }).catch(() => callback([unexpectedErrorMsg]))
+    }).catch(() => callback([unexpectedErrorMsg])) // eslint-disable-line n/no-callback-literal
   } else {
     response.json().then(({ errors }) => {
       callback(errors)
-    }).catch(() => callback([unexpectedErrorMsg]))
+    }).catch(() => callback([unexpectedErrorMsg])) // eslint-disable-line n/no-callback-literal
   }
 }
 
 export function handleApiConnectionError(callback) {
-  callback(['Yhteysvirhe, yritä uudestaan'])
+  callback(['Yhteysvirhe, yritä uudestaan']) // eslint-disable-line n/no-callback-literal
 }
 
 export function buildQueryParams(object) {
