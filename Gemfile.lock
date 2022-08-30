@@ -361,7 +361,7 @@ GEM
     wicked_pdf (2.6.3)
       activesupport
     wkhtmltopdf-binary-edge (0.12.6.0)
-    wkhtmltopdf-heroku (2.12.6.0)
+    wkhtmltopdf-heroku (2.12.6.1.pre.jammy)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.0)
@@ -410,7 +410,7 @@ DEPENDENCIES
   unicorn
   wicked_pdf
   wkhtmltopdf-binary-edge
-  wkhtmltopdf-heroku
+  wkhtmltopdf-heroku (= 2.12.6.1.pre.jammy)
 
 RUBY VERSION
    ruby 3.1.2p20
