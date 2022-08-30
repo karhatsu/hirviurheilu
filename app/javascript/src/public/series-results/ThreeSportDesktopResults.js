@@ -12,7 +12,7 @@ import DesktopResultsRows from './DesktopResultsRows'
 
 export default function ThreeSportDesktopResults({ race, series, setAllCompetitors }) {
   const { t } = useTranslation()
-  const { competitors, sortMethod, sortMethods, sort } = useCompetitorSorting(series, setAllCompetitors)
+  const { competitors, sortMethod, sortMethods, setSortMethod } = useCompetitorSorting(series, setAllCompetitors)
 
   const { clubLevel, sportKey } = race
   const { timePoints } = series
@@ -21,10 +21,10 @@ export default function ThreeSportDesktopResults({ race, series, setAllCompetito
     if (sortMethod === titleSortMethod) return t(textKey)
     const onClick = e => {
       e.preventDefault()
-      sort(titleSortMethod)
+      setSortMethod(titleSortMethod)
     }
     return <a href="#" onClick={onClick}>{t(textKey)}</a>
-  }, [sortMethod, sort, t])
+  }, [sortMethod, setSortMethod, t])
 
   return (
     <div className="results--desktop">
