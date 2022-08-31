@@ -1,6 +1,6 @@
 require 'csv'
 
-class CsvExport
+class RaceCsvExport
   def initialize(race, all_data = false)
     @race = race
     @shooting_race = race.sport.shooting?

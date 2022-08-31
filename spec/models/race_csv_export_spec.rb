@@ -3,7 +3,7 @@ require 'digest'
 
 GENERATED_FILE = 'spec/files/generated.csv'
 
-describe CsvExport do
+describe RaceCsvExport do
   before do
     @race = create(:race)
     club1 = create(:club, :name => 'Keski-Maan piiri')
@@ -23,7 +23,7 @@ describe CsvExport do
   end
 
   it "generates csv file with competitors ordered by start time" do
-    CsvExport.new(@race).generate_file(GENERATED_FILE)
+    RaceCsvExport.new(@race).generate_file(GENERATED_FILE)
     verify_files_equal(GENERATED_FILE, 'spec/files/export.csv')
   end
 
@@ -33,7 +33,7 @@ describe CsvExport do
     end
 
     it 'generates csv file without start time' do
-      CsvExport.new(@race).generate_file(GENERATED_FILE)
+      RaceCsvExport.new(@race).generate_file(GENERATED_FILE)
       verify_files_equal(GENERATED_FILE, 'spec/files/export_shooting_race.csv')
     end
   end
@@ -44,7 +44,7 @@ describe CsvExport do
     end
 
     it 'generates csv file without start time' do
-      CsvExport.new(@race, true).generate_file(GENERATED_FILE)
+      RaceCsvExport.new(@race, true).generate_file(GENERATED_FILE)
       verify_files_equal(GENERATED_FILE, 'spec/files/export_shooting_race_all_data.csv')
     end
   end

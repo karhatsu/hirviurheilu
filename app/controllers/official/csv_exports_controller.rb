@@ -5,7 +5,7 @@ class Official::CsvExportsController < Official::OfficialController
   end
 
   def create
-    send_data(CsvExport.new(@race, params[:all_data]).data, type: 'text/csv', filename: 'kilpailijat.csv')
+    send_data(RaceCsvExport.new(@race, params[:all_data]).data, type: 'text/csv', filename: 'kilpailijat.csv')
   end
 
   private
