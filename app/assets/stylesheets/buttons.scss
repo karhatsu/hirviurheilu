@@ -39,7 +39,8 @@ input[type = 'submit'] {
   box-shadow: 3px 3px 3px #ccc;
   color: olive;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   line-height: 14px;
   padding: 6px 12px;
 
@@ -77,8 +78,8 @@ input[type = 'submit'] {
 
   &--add::before, &--back::before, &--call::before, &--csv::before, &--danger::before, &--down::before, &--edit::before, &--open::before, &--pdf::before, &--place::before {
     font-family: 'Material Icons';
-    font-size: 10px;
-    margin-right: 2px;
+    font-size: 14px;
+    margin-right: 6px;
   }
 
   &--add::before {
