@@ -43,12 +43,16 @@ h3 {
   display: block;
 }
 
-.race-title__location {
+.race-title__sport {
   font-size: 16px;
 
   &::before {
     content: '(';
   }
+}
+
+.race-title__location {
+  font-size: 16px;
 }
 
 .race-title__dates {

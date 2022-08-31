@@ -18,7 +18,7 @@ Feature: Show race
     When I go to the race page
     Then the "Kilpailun etusivu" sub menu item should be selected
     And the page title should contain "My test race"
-    And the page title should contain "Test city, 01.01.2029 - 02.01.2029"
+    And the page title should contain "Hirvenhiihto, Test city, 01.01.2029 - 02.01.2029"
     And I should see "Tiedote kilpailijoille ja kotikatsojille" within ".public-message"
     And I should see "Kilpailun alkuun on aikaa" in an info message
     And I should see "Kilpailu alkaa 10:00" in an info message
