@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CsvImport do
+describe RaceCsvImport do
 
   shared_examples_for 'failed import' do |error_count|
     it "#save should return false" do
@@ -28,7 +28,7 @@ describe CsvImport do
 
   context "when not correct amount of columns in each row" do
     before do
-      @ci = CsvImport.new(@race, test_file_path('import_with_invalid_structure.csv'))
+      @ci = RaceCsvImport.new(@race, test_file_path('import_with_invalid_structure.csv'))
     end
 
     it_should_behave_like 'failed import', 1
@@ -42,7 +42,7 @@ describe CsvImport do
     context "when all series and age groups exist" do
       context "and file encoding is UTF-8" do
         before do
-          @ci = CsvImport.new(@race, test_file_path('import_valid.csv'))
+          @ci = RaceCsvImport.new(@race, test_file_path('import_valid.csv'))
         end
 
         describe "#save" do
@@ -66,7 +66,7 @@ describe CsvImport do
 
       context "and file encoding is Windows-1252" do
         before do
-          @ci = CsvImport.new(@race, test_file_path('import_valid_windows-1252.csv'))
+          @ci = RaceCsvImport.new(@race, test_file_path('import_valid_windows-1252.csv'))
         end
 
         describe "#save" do
@@ -90,7 +90,7 @@ describe CsvImport do
     context "when an unknown series" do
       before do
         @race.series.find_by_name('M40').destroy
-        @ci = CsvImport.new(@race, test_file_path('import_valid.csv'))
+        @ci = RaceCsvImport.new(@race, test_file_path('import_valid.csv'))
       end
 
       it_should_behave_like 'failed import', 1
@@ -103,7 +103,7 @@ describe CsvImport do
     context "when the same unknown series or age group for two competitors" do
       before do
         @race.age_groups.find_by_name('N50').destroy
-        @ci = CsvImport.new(@race, test_file_path('import_valid.csv'))
+        @ci = RaceCsvImport.new(@race, test_file_path('import_valid.csv'))
       end
 
       it_should_behave_like 'failed import', 1
@@ -115,7 +115,7 @@ describe CsvImport do
 
     context "when empty column in the file" do
       before do
-        @ci = CsvImport.new(@race, test_file_path('import_with_empty_column.csv'))
+        @ci = RaceCsvImport.new(@race, test_file_path('import_with_empty_column.csv'))
       end
 
       it_should_behave_like 'failed import', 1
@@ -127,7 +127,7 @@ describe CsvImport do
 
     context "when some column contains only spaces" do
       before do
-        @ci = CsvImport.new(@race, test_file_path('import_with_spaces_in_column.csv'))
+        @ci = RaceCsvImport.new(@race, test_file_path('import_with_spaces_in_column.csv'))
       end
 
       it_should_behave_like 'failed import', 1
@@ -139,7 +139,7 @@ describe CsvImport do
 
     context "when the file contains two erroneous rows" do
       before do
-        @ci = CsvImport.new(@race, test_file_path('import_with_multiple_errors.csv'))
+        @ci = RaceCsvImport.new(@race, test_file_path('import_with_multiple_errors.csv'))
       end
 
       it_should_behave_like 'failed import', 2
@@ -147,7 +147,7 @@ describe CsvImport do
 
     context 'when the file contains duplicate competitors' do
       before do
-        @ci = CsvImport.new(@race, test_file_path('import_with_duplicate_competitors.csv'))
+        @ci = RaceCsvImport.new(@race, test_file_path('import_with_duplicate_competitors.csv'))
       end
 
       it_should_behave_like 'failed import', 1
@@ -160,7 +160,7 @@ describe CsvImport do
     context 'when youth series without age group' do
       context 'and the series has age groups' do
         before do
-          @ci = CsvImport.new @race, test_file_path('import_without_youth_age_group.csv')
+          @ci = RaceCsvImport.new @race, test_file_path('import_without_youth_age_group.csv')
         end
 
         it_should_behave_like 'failed import', 1
@@ -173,7 +173,7 @@ describe CsvImport do
       context 'but the series does not have age groups' do
         before do
           @youth_series.age_groups.destroy_all
-          @ci = CsvImport.new @race, test_file_path('import_without_youth_age_group.csv')
+          @ci = RaceCsvImport.new @race, test_file_path('import_without_youth_age_group.csv')
         end
 
         it 'saving should work' do
@@ -195,12 +195,12 @@ describe CsvImport do
     end
 
     it "should reject file that would be valid for start order by series" do
-      @ci = CsvImport.new(@race, test_file_path('import_valid.csv'))
+      @ci = RaceCsvImport.new(@race, test_file_path('import_valid.csv'))
       expect(@ci.errors.size).to eq(1)
     end
 
     it "should accept file with start number and order" do
-      @ci = CsvImport.new(@race, test_file_path('import_valid_mixed_start_order.csv'))
+      @ci = RaceCsvImport.new(@race, test_file_path('import_valid_mixed_start_order.csv'))
       expect(@ci.save).to be_truthy
       expect(@race.competitors.size).to eq(2)
       expect(@race.series.first.competitors.first.number).to eq(5)
@@ -213,7 +213,7 @@ describe CsvImport do
 
     context 'and the csv file contains a different club' do
       before do
-        @ci = CsvImport.new(@race, test_file_path('import_valid.csv'), limited_club)
+        @ci = RaceCsvImport.new(@race, test_file_path('import_valid.csv'), limited_club)
       end
 
       it_should_behave_like 'failed import', 1
@@ -225,7 +225,7 @@ describe CsvImport do
 
     context 'and the csv file contains only the allowed club' do
       before do
-        @ci = CsvImport.new(@race, test_file_path('import_valid_limited_club.csv'), limited_club)
+        @ci = RaceCsvImport.new(@race, test_file_path('import_valid_limited_club.csv'), limited_club)
       end
 
       it "#errors should be empty" do
@@ -236,7 +236,7 @@ describe CsvImport do
 
   context 'when semicolon is used as column separator' do
     before do
-      @ci = CsvImport.new@race, test_file_path('import_valid_semicolon.csv')
+      @ci = RaceCsvImport.new @race, test_file_path('import_valid_semicolon.csv')
     end
 
     it 'should accept valid file' do
@@ -246,7 +246,7 @@ describe CsvImport do
 
   context 'when the end the file contains empty rows' do
     before do
-      @ci = CsvImport.new@race, test_file_path('import_valid_with_empty_rows.csv')
+      @ci = RaceCsvImport.new @race, test_file_path('import_valid_with_empty_rows.csv')
     end
 
     it 'should accept valid file' do
@@ -263,7 +263,7 @@ describe CsvImport do
 
     context 'and file does not contain numbers' do
       before do
-        @ci = CsvImport.new@race, test_file_path('import_valid.csv')
+        @ci = RaceCsvImport.new @race, test_file_path('import_valid.csv')
       end
 
       it 'adds automatically numbers for competitors' do
@@ -279,7 +279,7 @@ describe CsvImport do
 
     context 'and file contains numbers' do
       before do
-        @ci = CsvImport.new@race, test_file_path('import_valid_with_numbers.csv')
+        @ci = RaceCsvImport.new @race, test_file_path('import_valid_with_numbers.csv')
       end
 
       it 'set the numbers for competitors from the csv file' do

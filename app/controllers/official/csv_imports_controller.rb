@@ -13,7 +13,7 @@ class Official::CsvImportsController < Official::OfficialController
   private
 
   def create_csv_import
-    CsvImport.new @race, params[:file].tempfile.path
+    RaceCsvImport.new @race, params[:file].tempfile.path
   end
 
   def redirect_path_after_csv_import

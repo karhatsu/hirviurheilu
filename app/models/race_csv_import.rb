@@ -1,4 +1,4 @@
-class CsvImport
+class RaceCsvImport
   include CsvReader
 
   FIRST_NAME_COLUMN = 0
