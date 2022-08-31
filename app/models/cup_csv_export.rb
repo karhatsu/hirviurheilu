@@ -46,6 +46,6 @@ class CupCsvExport
         row << ''
       end
     end
-    row << (@rifle ? cup_competitor.european_rifle_score : cup_competitor.points)
+    row << (@rifle ? cup_competitor.european_rifle_score : cup_competitor.points!)
   end
 end
