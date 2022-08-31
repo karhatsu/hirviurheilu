@@ -24,6 +24,10 @@ class CupSeriesController < ApplicationController
                :header => pdf_header("#{@cup.name} - #{@cup_series.name}\n"), :footer => pdf_footer,
                :orientation => 'Landscape', disable_smart_shrinking: true
       end
+      format.csv do
+        file_name = "#{@cup.name.strip}_#{@cup_series.name.strip}"
+        send_data(CupCsvExport.new(@cup_series).data, type: 'text/csv', filename: "#{file_name.parameterize}.csv")
+      end
     end
   end
 end

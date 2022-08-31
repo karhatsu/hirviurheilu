@@ -47,6 +47,7 @@ window.translations = {
   downloadBatchListPdf: 'Lataa eräluettelo PDF-tiedostona',
   downloadPressReport: 'Lataa lehdistöraportti',
   downloadRelayCompetitorsPdf: 'Lataa osallistujaluettelo PDF-tiedostona',
+  downloadResultsCsv: 'Lataa tulokset CSV-tiedostona',
   downloadResultsPdf: 'Lataa tulokset PDF-tiedostona',
   downloadResultsPdfWithCompetitors: 'Lataa tulos-PDF (kilpailijoiden kanssa)',
   downloadResultsPdfWithoutCompetitors: 'Lataa tulos-PDF (ilman kilpailijoita)',

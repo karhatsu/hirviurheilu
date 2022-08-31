@@ -47,6 +47,7 @@ window.translations = {
   downloadBatchListPdf: 'Ladda heatlista som PDF-fil',
   downloadPressReport: 'Ladda pressraporten',
   downloadRelayCompetitorsPdf: 'Ladda startlistan som PDF-fil',
+  downloadResultsCsv: 'Ladda resultaten som CSV-fil',
   downloadResultsPdf: 'Ladda resultaten som PDF-fil',
   downloadResultsPdfWithCompetitors: 'Ladda PDF (med tävlarna)',
   downloadResultsPdfWithoutCompetitors: 'Ladda PDF (utan tävlarna)',

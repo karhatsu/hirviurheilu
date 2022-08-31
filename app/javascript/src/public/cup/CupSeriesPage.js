@@ -57,6 +57,9 @@ export default function CupSeriesPage() {
             <Button href={`${buildCupSeriesPath(cup.id, cupSeries.id)}.pdf`} type="pdf">
               {t('downloadResultsPdf')}
             </Button>
+            <Button href={`${buildCupSeriesPath(cup.id, cupSeries.id)}.csv`} type="csv">
+              {t('downloadResultsCsv')}
+            </Button>
           </div>
         </>
       )}
