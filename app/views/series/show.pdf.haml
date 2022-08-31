@@ -1,6 +1,6 @@
 - unofficials = unofficials_result_rule @series.race
 %h1= @series.race.name
-= @series.race.location, = race_date_interval(@series.race, false)
+#{t "sport_name.#{@series.race.sport_key}"}, #{@series.race.location}, #{race_date_interval(@series.race, false)}
 %h2 #{@series.name} - #{series_result_title(@series, unofficials)}
 - cache [@series, unofficials, I18n.locale] do
   - if @series.sport.nordic?

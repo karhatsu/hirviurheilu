@@ -1,5 +1,5 @@
 %h1= @race.name
-#{@race.location}, #{race_date_interval(@race, false)}
+#{t "sport_name.#{@race.sport_key}"}, #{@race.location}, #{race_date_interval(@race, false)}
 %hr
 = render 'single_competitor_competitions'
 - if @race.sport.nordic?
