@@ -192,8 +192,8 @@ Then /^the race should be completely removed from the database$/ do
 end
 
 Then("I should see {int} races ordered as {string}") do |race_count, race_names|
-  expect(page.all('.card').length).to eql race_count
   race_names.split(', ').each_with_index do |race_name, i|
     expect(page.find(:xpath, "(//a[@class='card'])[#{i + 1}]//div[@class='card__name']").text).to eql race_name
   end
+  expect(page.all('.card').length).to eql race_count
 end
