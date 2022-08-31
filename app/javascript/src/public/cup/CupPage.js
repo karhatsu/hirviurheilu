@@ -9,6 +9,7 @@ import { buildCupSeriesPath, buildRacePath, buildRifleCupSeriesPath, buildRootPa
 import CupSeriesName from './CupSeriesName'
 import CupResultsPdf from './CupResultsPdf'
 import useTitle from '../../util/useTitle'
+import { formatDateInterval } from '../../util/timeUtil'
 
 export default function CupPage() {
   const { t } = useTranslation()
@@ -60,7 +61,8 @@ export default function CupPage() {
           <h2>{t('cupCompetitions')}</h2>
           <div className="buttons">
             {races.map(race => {
-              return <Button key={race.id} to={buildRacePath(race.id)}>{race.name}</Button>
+              const { id, name, startDate, endDate } = race
+              return <Button key={id} to={buildRacePath(id)}>{name} ({formatDateInterval(startDate, endDate)})</Button>
             })}
           </div>
         </>
