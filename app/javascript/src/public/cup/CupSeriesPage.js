@@ -40,6 +40,9 @@ export default function CupSeriesPage() {
   const { cupCompetitors } = cupSeries
   const ruleKey = cup.includeAlwaysLastRace ? 'cupPointsRuleWithLast' : 'cupPointsRule'
   const mobileResults = mobile || cup.races.length > 7
+  const filePath = rifleCupSeriesId
+    ? buildRifleCupSeriesPath(cup.id, rifleCupSeriesId)
+    : buildCupSeriesPath(cup.id, cupSeries.id)
   return (
     <>
       <h2><CupSeriesName cupSeries={titleCupSeries} /> - {t('results')}</h2>
@@ -54,12 +57,8 @@ export default function CupSeriesPage() {
             </div>
           )}
           <div className="buttons">
-            <Button href={`${buildCupSeriesPath(cup.id, cupSeries.id)}.pdf`} type="pdf">
-              {t('downloadResultsPdf')}
-            </Button>
-            <Button href={`${buildCupSeriesPath(cup.id, cupSeries.id)}.csv`} type="csv">
-              {t('downloadResultsCsv')}
-            </Button>
+            <Button href={`${filePath}.pdf`} type="pdf">{t('downloadResultsPdf')}</Button>
+            <Button href={`${filePath}.csv`} type="csv">{t('downloadResultsCsv')}</Button>
           </div>
         </>
       )}

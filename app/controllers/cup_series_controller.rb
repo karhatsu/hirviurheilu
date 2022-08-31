@@ -25,8 +25,8 @@ class CupSeriesController < ApplicationController
                :orientation => 'Landscape', disable_smart_shrinking: true
       end
       format.csv do
-        file_name = "#{@cup.name.strip}_#{@cup_series.name.strip}"
-        send_data(CupCsvExport.new(@cup_series).data, type: 'text/csv', filename: "#{file_name.parameterize}.csv")
+        file_name = "#{@cup.name.strip}_#{@cup_series.name.strip}#{@is_rifle_cup_series ? "_#{t('sport_name.european_sub.rifle')}" : ''}"
+        send_data(CupCsvExport.new(@cup_series, @is_rifle_cup_series).data, type: 'text/csv', filename: "#{file_name.parameterize}.csv")
       end
     end
   end
