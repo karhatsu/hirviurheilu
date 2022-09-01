@@ -1,0 +1,10 @@
+%table.results-table
+  %thead
+    %tr
+      %th Vuosi
+      %th= value_title
+  %tbody
+    - values.each_with_index do |data, i|
+      %tr{class: i % 2 == 0 ? 'odd' : ''}
+        %td= data['year'].to_i
+        %td= data['count']

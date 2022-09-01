@@ -63,6 +63,7 @@ Hirviurheilu::Application.routes.draw do
       resources :announcements
       resources :races
       resources :users
+      resources :stats, only: :index
       root :to => "index#show"
     end
 

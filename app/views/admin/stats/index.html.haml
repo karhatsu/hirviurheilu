@@ -1,0 +1,20 @@
+- content_for(:title, 'Admin - Tilastot')
+- content_for :page_title, yield(:title)
+%h2 Tilastot
+= form_tag admin_stats_path, method: :get do
+  .form__field
+    = label_tag :sport_key, 'Rajaa lajeittain'
+    = select_tag :sport_key, options_for_select(Sport::ALL_KEYS.map{|key| [t("sport_name.#{key}"), key]}, params[:sport_key]), multiple: true, style: 'height: 220px'
+  .form__buttons
+    = submit_tag t(:search), class: 'button button--primary'
+    = link_to 'Kaikki lajit', admin_stats_path, class: 'button'
+.row
+  .col-sm-3
+    %h3 Kilpailuja
+    = render partial: 'table', locals: { values: @races_by_year, value_title: 'Kilpailuja' }
+  .col-sm-3
+    %h3 Kilpailusuorituksia
+    = render partial: 'table', locals: { values: @competitors, value_title: 'Suorituksia' }
+  .col-sm-3
+    %h3 Henkilöitä
+    = render partial: 'table', locals: { values: @people, value_title: 'Henkilöitä' }
