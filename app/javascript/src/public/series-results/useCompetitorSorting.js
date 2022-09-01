@@ -28,18 +28,17 @@ const sortByPoints = competitors => [...competitors].sort((a, b) => {
   return a.position - b.position
 })
 
-const useCompetitorSorting = (series, setAllCompetitors) => {
+const useCompetitorSorting = (series) => {
   const [competitors, setCompetitors] = useState(series.competitors)
   const [sortMethod, setSortMethod] = useState(sortMethods.points)
   const competitorsRef = useRef(competitors)
 
   const sort = useCallback(bySortMethod => {
-    setAllCompetitors(false)
     if (bySortMethod === sortMethods.time) setCompetitors(sortByTime(competitorsRef.current))
     if (bySortMethod === sortMethods.estimates) setCompetitors(sortByEstimates(competitorsRef.current))
     if (bySortMethod === sortMethods.shooting) setCompetitors(sortByShooting(competitorsRef.current))
     if (bySortMethod === sortMethods.points) setCompetitors(sortByPoints(competitorsRef.current))
-  }, [setAllCompetitors, competitorsRef])
+  }, [competitorsRef])
 
   useEffect(() => {
     competitorsRef.current = competitors
