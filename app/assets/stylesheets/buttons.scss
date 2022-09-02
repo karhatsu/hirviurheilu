@@ -76,7 +76,7 @@ input[type = 'submit'] {
     cursor: default;
   }
 
-  &--add::before, &--back::before, &--call::before, &--csv::before, &--danger::before, &--down::before, &--edit::before, &--open::before, &--pdf::before, &--place::before {
+  &--add::before, &--add_competitor::before, &--add_multiple::before, &--back::before, &--call::before, &--copy::before, &--competitors::before, &--csv::before, &--danger::before, &--done::before, &--down::before, &--edit::before, &--open::before, &--pdf::before, &--place::before {
     font-family: 'Material Icons';
     font-size: 14px;
     margin-right: 6px;
@@ -84,6 +84,14 @@ input[type = 'submit'] {
 
   &--add::before {
     content: 'add';
+  }
+
+  &--add_competitor::before {
+    content: 'person_add';
+  }
+
+  &--add_multiple::before {
+    content: 'group_add';
   }
 
   &--back::before {
@@ -94,8 +102,24 @@ input[type = 'submit'] {
     content: 'call';
   }
 
+  &--copy::before {
+    content: 'content_copy';
+  }
+
+  &--competitors::before {
+    content: 'people';
+  }
+
   &--csv::before {
     content: 'download';
+  }
+
+  &--done::before {
+    content: 'done';
+  }
+
+  &--down::before {
+    content: 'arrow_downward';
   }
 
   &--edit::before {
@@ -108,10 +132,6 @@ input[type = 'submit'] {
 
   &--pdf::before {
     content: 'print';
-  }
-
-  &--down::before {
-    content: 'arrow_downward';
   }
 
   &--place::before {
