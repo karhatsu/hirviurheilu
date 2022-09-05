@@ -117,12 +117,30 @@ describe CompetitorsCopy do
           source_competitor1.update_attribute :start_time, nil
           source_competitor2.update_attribute :start_time, nil
           source_competitor3.update_attribute :start_time, nil
-          target_race.copy_competitors_from source_race, with_start_list: true
         end
 
-        it 'copies competitors without start times' do
-          competitors = target_race.reload.competitors
-          expect_competitors_without_start_times competitors, 3
+        context 'and target series do not have them either' do
+          before do
+            target_race.copy_competitors_from source_race, with_start_list: true
+          end
+
+          it 'copies competitors without start times' do
+            competitors = target_race.reload.competitors
+            expect_competitors_without_start_times competitors, 3
+          end
+        end
+
+        context 'but target series already have them' do
+          before do
+            target_series.update_attribute :has_start_list, true
+          end
+
+          it 'returns error' do
+            errors = target_race.copy_competitors_from source_race
+            expect(errors.length).to eql 1
+            error = 'Kohdekilpailussa on sarjoja, joiden lähtöajat on jo luotu mutta valitusta kilpailusta lähtöajat puuttuvat.'
+            expect(errors[0]).to eql error
+          end
         end
       end
 

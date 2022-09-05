@@ -544,7 +544,7 @@ class Competitor < ApplicationRecord
   end
 
   def check_if_series_has_start_list
-    if series && series.has_start_list?
+    if series&.has_start_list?
       errors.add(:number, :required_when_start_list_created) unless number
       errors.add(:start_time, :required_when_start_list_created) unless start_time
     end

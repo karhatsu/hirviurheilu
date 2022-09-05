@@ -12,14 +12,14 @@ module CompetitorsCopy
         series = ensure_series competitor.series
         age_group = ensure_age_group series, competitor.age_group
         next if competitor_already_exists series, competitor
-        if validate_competitor errors, competitor, opts
+        if validate_competitor errors, competitor, series, opts
           copied_competitor = create_competitor club, series, age_group, competitor, prev_number, reserved_numbers, opts
           prev_number = copied_competitor.number
         end
       end
       raise ActiveRecord::Rollback unless errors.empty?
     end
-    errors
+    errors.uniq
   end
 
   private
@@ -45,13 +45,17 @@ module CompetitorsCopy
     Competitor.exists? series: series, first_name: competitor.first_name, last_name: competitor.last_name
   end
 
-  def validate_competitor(errors, competitor, opts)
+  def validate_competitor(errors, competitor, series, opts)
     if (opts[:with_start_list] || opts[:with_numbers]) && competitor.number && competitors.find_by_number(competitor.number)
       errors << "Kilpailijanumero #{competitor.number} on jo käytössä tässä kilpailussa."
       return false
     end
     if start_order == Race::START_ORDER_MIXED && !competitor.start_time
       errors << 'Kohdekilpailu vaatii, että kilpailijoilla on lähtöajat mutta valitusta kilpailusta lähtöajat puuttuvat.'
+      return false
+    end
+    if start_order == Race::START_ORDER_BY_SERIES && series.has_start_list? && !competitor.start_time
+      errors << 'Kohdekilpailussa on sarjoja, joiden lähtöajat on jo luotu mutta valitusta kilpailusta lähtöajat puuttuvat.'
       return false
     end
     true
