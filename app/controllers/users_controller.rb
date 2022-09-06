@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    return render status: 404, body: nil if request.headers['content-type'] == 'application/json'
+    return render status: 404, body: nil if %w[application/json application/json;].include?(request.headers['content-type'])
     @user = User.new(new_user_params)
     @captcha = params[:captcha]&.strip
     unless @captcha && %w[neljä fyra].include?(@captcha.downcase)

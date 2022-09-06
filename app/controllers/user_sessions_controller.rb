@@ -8,7 +8,7 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    return render status: 404, body: nil if request.headers['content-type'] == 'application/json'
+    return render status: 404, body: nil if %w[application/json application/json;].include?(request.headers['content-type'])
     @user_session = UserSession.new(session_params.to_h)
     if @user_session.save
       flash[:success] = t('user_sessions.create.login_succeeded')
