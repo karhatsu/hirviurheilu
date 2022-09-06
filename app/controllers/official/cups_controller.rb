@@ -1,5 +1,7 @@
 class Official::CupsController < Official::OfficialController
-  before_action :assign_cup_by_id, :check_assigned_cup, :except => [:new, :create]
+  before_action :assign_cup_by_id, :check_assigned_cup, except: [:new, :create]
+  before_action :assign_races_for_new, only: [:new, :create]
+  before_action :assign_races_for_edit, only: [:edit, :update]
 
   def new
     @cup = current_user.cups.build
@@ -22,6 +24,9 @@ class Official::CupsController < Official::OfficialController
   def show
   end
 
+  def edit
+  end
+
   def update
     @cup.attributes = update_cup_params
     if @cup.valid? and enough_races?
@@ -40,6 +45,17 @@ class Official::CupsController < Official::OfficialController
   end
 
   private
+
+  def assign_races_for_new
+    @races = current_user.races.where('start_date>=?', 1.year.ago)
+  end
+
+  def assign_races_for_edit
+    @races = (current_user.races.where('start_date>=?', 1.year.ago) + @cup.races)
+               .uniq {|r| r.id}
+               .sort {|a, b| b.start_date <=> a.start_date}
+  end
+
   def enough_races?
     params[:cup][:race_ids] ||= []
     params[:cup][:race_ids].length >= @cup.top_competitions.to_i
