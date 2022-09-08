@@ -85,7 +85,7 @@ module ResultFormatHelper
   end
 
   def shots_print(shots)
-    shots.map{|shot| shot == 11 ? '10*' : shot}.join(', ')
+    shots.map{|shot| shot == 11 ? '10⊙' : shot}.join(', ')
   end
 
   def special_series_info(series)

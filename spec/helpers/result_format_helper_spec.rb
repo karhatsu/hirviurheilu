@@ -146,9 +146,9 @@ describe ResultFormatHelper do
   end
 
   describe 'shots_print' do
-    it 'converts inner tens to tens with asterisks and separates shots with commas' do
+    it 'converts inner tens to tens with circled dot and separates shots with commas' do
       shots = [9, 11, 10, 0, 1, 11]
-      expect(helper.shots_print(shots)).to eq '9, 10*, 10, 0, 1, 10*'
+      expect(helper.shots_print(shots)).to eq '9, 10⊙, 10, 0, 1, 10⊙'
     end
   end
 

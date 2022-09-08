@@ -70,4 +70,4 @@ Feature: Quick result save
     Then I should see "Kilpailijan 1. Testinen Tomi (M) tulos tallennettu onnistuneesti (Uusinta: 9, 10)."
     When I fill in "1,**" for "extra_shots_string"
     And I press "submit_extra_shots"
-    Then I should see "Kilpailijan 1. Testinen Tomi (M) tulos tallennettu onnistuneesti (Uusinta: 9, 10, 10*, 10*)."
+    Then I should see "Kilpailijan 1. Testinen Tomi (M) tulos tallennettu onnistuneesti (Uusinta: 9, 10, 10⊙, 10⊙)."
