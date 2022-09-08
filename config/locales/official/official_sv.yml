@@ -115,7 +115,7 @@ sv:
         new_club_hint_0: Ny klubb
         new_club_hint_1: Ny klubb
         latest_added_competitors: Senaste ökade tävlarna
-        back_to_series_competitors_list: Tillbaka till klassens <span id='series_name'>%{series_name}</span> tävlarlist
+        back_to_series_competitors_list_html: Tillbaka till klassens <span id='series_name'>%{series_name}</span> tävlarlist
       edit:
         either_total_or_shots: Spara antingen totalresultat eller enskilda skott.
         shots: Enskilda skott

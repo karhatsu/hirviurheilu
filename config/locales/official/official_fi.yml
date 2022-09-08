@@ -115,7 +115,7 @@ fi:
         new_club_hint_0: Uusi seura
         new_club_hint_1: Uusi piiri
         latest_added_competitors: Viimeksi lisätyt kilpailijat
-        back_to_series_competitors_list: Takaisin sarjan <span id='series_name'>%{series_name}</span> kilpailijaluetteloon
+        back_to_series_competitors_list_html: Takaisin sarjan <span id='series_name'>%{series_name}</span> kilpailijaluetteloon
       edit:
         either_total_or_shots: Syötä joko yhteistulos tai vain yksittäiset laukaukset.
         shots: Yksittäiset laukaukset

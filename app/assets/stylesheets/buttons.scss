@@ -29,6 +29,10 @@ input[type = 'submit'] {
     &:last-child {
       margin-right: 0;
     }
+
+    #series_name {
+      margin: 0 4px;
+    }
   }
 }
 
