@@ -23,7 +23,7 @@ class Admin::RacesController < Admin::AdminController
 
   def destroy
     @race = Race.find(params[:id])
-    if params[:confirm_name] == @race.name
+    if params[:confirm_name] == @race.name.strip
       begin
         @race.destroy!
         flash[:success] = 'Kilpailu poistettu'
