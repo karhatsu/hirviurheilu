@@ -263,6 +263,10 @@ class Race < ApplicationRecord
     start_date.year
   end
 
+  def unfinished?
+    !finished? && !cancelled? && series.size > 0
+  end
+
   private
   def end_date_not_before_start_date
     if end_date and end_date < start_date

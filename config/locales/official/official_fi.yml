@@ -14,6 +14,11 @@ fi:
         no_races_yet:
           short: Sinulla ei ole vielä yhtään kilpailua.
           long: Sinulla ei ole vielä yhtään kilpailua. Aloita luomalla kilpailu alla olevasta linkistä.
+        unfinished_races_count:
+          one: Sinulla on 1 kilpailu, joita ei ole päätetty. Voit päättää kilpailun sen etusivulta.
+          other: Sinulla on %{count} kilpailua, joita ei ole päätetty. Voit päättää kilpailun sen etusivulta.
+        unfinished_races_instructions: Jos kilpailu on peruttu, voit merkitä sen perutuksi kilpailun perustiedoista.
+        unfinished_race: Kilpailua ei ole päätetty!
     races:
       new:
         title: Kilpailun lisäys

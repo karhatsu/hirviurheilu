@@ -14,6 +14,11 @@ sv:
         no_races_yet:
           short: Du har ännu inga tävlingar.
           long: Du har ännu inga tävlingar. Klicka länken nedenför för att öka en tävling.
+        unfinished_races_count:
+          one: Du har en tävling som är inte ännu slutat
+          other: Du har %{count} tävlingar som är inte ännu slutat
+        unfinished_races_instructions: ""
+        unfinished_race: Tävlingen är inte slutat!
     races:
       new:
         title: Öka tävling

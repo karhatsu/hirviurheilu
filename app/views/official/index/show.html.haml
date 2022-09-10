@@ -34,6 +34,11 @@
     %h2
       %i.material-icons-outlined.md-18 check_circle
       = t 'home.show.competitions.past'
+    - unfinished_races = @past.select {|r| r.unfinished?}
+    - if unfinished_races.size > 0
+      .message.message--warning
+        = t '.unfinished_races_count', count: unfinished_races.size
+        = t '.unfinished_races_instructions'
     .row= render partial: 'race_list', locals: { races: @past, id: 'finished', warn_unfinished: true }
     = render partial: 'show_all', locals: { id: 'finished', competitions: @past, limit: 12 }
 :javascript
