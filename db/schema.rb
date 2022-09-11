@@ -10,22 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_11_113828) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_09_11_123002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "activation_keys", id: :serial, force: :cascade do |t|
     t.string "comment", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "age_groups", id: :serial, force: :cascade do |t|
     t.integer "series_id", null: false
     t.string "name", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "min_competitors", default: 0, null: false
     t.boolean "shorter_trip", default: false, null: false
   end
@@ -35,8 +34,8 @@ ActiveRecord::Schema.define(version: 2021_12_11_113828) do
     t.string "title", limit: 255, null: false
     t.text "content", null: false
     t.boolean "active", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "front_page"
   end
 
@@ -45,8 +44,8 @@ ActiveRecord::Schema.define(version: 2021_12_11_113828) do
     t.integer "number", null: false
     t.integer "track"
     t.time "time", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "day", default: 1, null: false
     t.string "type", null: false
     t.time "time2"
@@ -57,8 +56,8 @@ ActiveRecord::Schema.define(version: 2021_12_11_113828) do
 
   create_table "clubs", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "race_id", null: false
     t.string "long_name", limit: 255
     t.index ["race_id"], name: "index_clubs_on_race_id"
@@ -75,8 +74,8 @@ ActiveRecord::Schema.define(version: 2021_12_11_113828) do
     t.integer "shooting_score_input"
     t.integer "estimate1"
     t.integer "estimate2"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "no_result_reason", limit: 255
     t.integer "age_group_id"
     t.integer "correct_estimate1"
@@ -114,8 +113,8 @@ ActiveRecord::Schema.define(version: 2021_12_11_113828) do
     t.integer "max_number"
     t.integer "distance1", null: false
     t.integer "distance2", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "distance3"
     t.integer "distance4"
   end
@@ -129,15 +128,15 @@ ActiveRecord::Schema.define(version: 2021_12_11_113828) do
     t.integer "cup_id"
     t.string "name", limit: 255, null: false
     t.string "series_names", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "cups", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255, null: false
     t.integer "top_competitions", default: 2, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "include_always_last_race", default: false, null: false
     t.text "public_message"
   end
@@ -150,8 +149,8 @@ ActiveRecord::Schema.define(version: 2021_12_11_113828) do
   create_table "districts", force: :cascade do |t|
     t.string "name", null: false
     t.string "short_name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "race_rights", id: :serial, force: :cascade do |t|
@@ -168,8 +167,8 @@ ActiveRecord::Schema.define(version: 2021_12_11_113828) do
     t.string "location", limit: 255, null: false
     t.date "start_date", null: false
     t.date "end_date", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "start_interval_seconds"
     t.boolean "finished", default: false, null: false
     t.integer "series_count", default: 0, null: false
@@ -208,8 +207,8 @@ ActiveRecord::Schema.define(version: 2021_12_11_113828) do
     t.time "arrival_time"
     t.integer "misses"
     t.integer "estimate"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "adjustment"
     t.integer "estimate_penalties_adjustment"
     t.integer "shooting_penalties_adjustment"
@@ -219,8 +218,8 @@ ActiveRecord::Schema.define(version: 2021_12_11_113828) do
   create_table "relay_correct_estimates", id: :serial, force: :cascade do |t|
     t.integer "relay_id", null: false
     t.integer "distance"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "leg", null: false
     t.index ["relay_id"], name: "index_relay_correct_estimates_on_relay_id"
   end
@@ -229,8 +228,8 @@ ActiveRecord::Schema.define(version: 2021_12_11_113828) do
     t.integer "relay_id", null: false
     t.string "name", limit: 255, null: false
     t.integer "number", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "no_result_reason", limit: 255
     t.index ["relay_id"], name: "index_relay_teams_on_relay_id"
   end
@@ -241,8 +240,8 @@ ActiveRecord::Schema.define(version: 2021_12_11_113828) do
     t.time "start_time"
     t.string "name", limit: 255, null: false
     t.integer "legs_count", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "finished", default: false, null: false
     t.integer "leg_distance"
     t.integer "estimate_penalty_distance"
@@ -260,15 +259,15 @@ ActiveRecord::Schema.define(version: 2021_12_11_113828) do
 
   create_table "roles", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "series", id: :serial, force: :cascade do |t|
     t.integer "race_id", null: false
     t.string "name", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.time "start_time"
     t.integer "first_number"
     t.boolean "has_start_list", default: false, null: false
@@ -300,8 +299,8 @@ ActiveRecord::Schema.define(version: 2021_12_11_113828) do
     t.integer "race_id", null: false
     t.string "name", limit: 255, null: false
     t.integer "team_competitor_count", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "use_team_name", default: false, null: false
     t.boolean "multiple_teams", default: false, null: false
     t.integer "national_record"
@@ -320,13 +319,13 @@ ActiveRecord::Schema.define(version: 2021_12_11_113828) do
     t.string "perishable_token", limit: 255, null: false
     t.integer "login_count", default: 0, null: false
     t.integer "failed_login_count", default: 0, null: false
-    t.datetime "last_request_at"
-    t.datetime "current_login_at"
-    t.datetime "last_login_at"
+    t.datetime "last_request_at", precision: nil
+    t.datetime "current_login_at", precision: nil
+    t.datetime "last_login_at", precision: nil
     t.string "current_login_ip", limit: 255
     t.string "last_login_ip", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "reset_hash", limit: 255
     t.string "activation_key", limit: 255
     t.text "invoicing_info"
