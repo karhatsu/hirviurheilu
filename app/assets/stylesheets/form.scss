@@ -95,6 +95,10 @@ $inputHeight: 16px;
   input, select {
     width: 64px;
   }
+
+  select.day_field {
+    width: 128px;
+  }
 }
 
 .form__field--md {

@@ -51,6 +51,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_11_123002) do
     t.time "time2"
     t.time "time3"
     t.time "time4"
+    t.integer "day2", default: 1, null: false
+    t.integer "day3", default: 1, null: false
+    t.integer "day4", default: 1, null: false
     t.index ["race_id"], name: "index_batches_on_race_id"
   end
 
