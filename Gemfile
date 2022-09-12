@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '3.1.2'
 
-gem 'rails', '7.0.3.1'
+gem 'rails', '7.0.4'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-themes'
@@ -28,7 +28,7 @@ group :production do
   gem 'newrelic_rpm'
   gem 'exception_notification'
   gem 'wkhtmltopdf-heroku', '2.12.6.1.pre.jammy'
-  gem 'redis', '4.8.0'
+  gem 'redis'
 end
 
 group :development do
