@@ -1,0 +1,12 @@
+Hei #{full_name(@official, true)},#{"\r\n"}
+
+Sinulla on Hirviurheilussa kilpailu, jota et ole merkinnyt vielä päättyneeksi:
+#{@race.name} (#{race_date_interval(@race, false)}, #{@race.location}).#{"\r\n"}
+
+Voit merkitä kilpailun päättyneeksi toimitsijan sivuilta:
+#{new_official_race_finish_race_url(@locale, @race)}#{"\r\n"}
+
+Kilpailu kannattaa normaalisti merkitä päättyneeksi heti sen jälkeen, kun tulokset on syötetty. Näin ohjelma tarkastaa, että jokaiselle kilpailijalle löytyy tulos.#{"\r\n"}
+
+= render partial: 'shared/customer_email_footer'
+

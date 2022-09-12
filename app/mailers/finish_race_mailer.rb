@@ -7,4 +7,11 @@ class FinishRaceMailer < ApplicationMailer
     @race = race
     mail to: ADMIN_EMAIL, from: NOREPLY_ADDRESS, subject: "Hirviurheilu - kilpailu päättynyt (#{ProductionEnvironment.name})"
   end
+
+  def unfinished_race(race, official)
+    set_locale
+    @race = race
+    @official = official
+    mail to: official.email, from: NOREPLY_ADDRESS, subject: "Hirviurheilu kilpailua ei ole päätetty"
+  end
 end
