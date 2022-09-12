@@ -5,6 +5,9 @@ end
 Given "there is a {string} race {string}" do |sport_key, name|
   @race = create :race, sport_key: sport_key, name: name
 end
+Given('there is a nordic race {string} with series level sub sport results') do |name|
+  @race = create :race, sport_key: Sport::NORDIC, name: name, nordic_sub_results_for_series: true
+end
 
 Given('there is a race {string} with pending official email {string}') do |name, pending_official_email|
   @race = create :race, name: name, pending_official_email: pending_official_email

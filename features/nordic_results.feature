@@ -60,3 +60,25 @@ Feature: Nordic results
     And I force mobile UI
     Then I should see a card 1 for "Team B" with total score 746
     Then I should see a card 2 for "Team A" with total score 711
+
+  @javascript
+  Scenario: Show nordic race sub sport results for series
+    Given there is a nordic race "Nordic test race" with series level sub sport results
+    And the race has series "M"
+    And the series has a competitor "Pekka" "Pohjola" from "Team A" with nordic results 24, 20, 99, 100
+    And the series has a competitor "Pertti" "Pohjonen" from "Team B" with nordic results 25, 21, 90, 92
+    And the race has series "N"
+    And the series has a competitor "Päivi" "Pohjoinen" from "Team B" with nordic results 21, 25, 100, 96
+    And the series has a competitor "Pinja" "Pohja" from "Team A" with nordic results 20, 19, 89, 91
+    And I am on the race page of "Nordic test race"
+    When I follow "Trap"
+    Then I should see "M - Trap" within "h2"
+    And I wait for the results
+    And I force mobile UI
+    Then I should see a card 1 for "Pohjonen Pertti" with total score 25
+    And I should see a card 2 for "Pohjola Pekka" with total score 24
+    When I follow "N" within ".menu--sub-1"
+    And I wait for the results
+    And I force mobile UI
+    Then I should see a card 1 for "Pohjoinen Päivi" with total score 21
+    And I should see a card 2 for "Pohja Pinja" with total score 20
