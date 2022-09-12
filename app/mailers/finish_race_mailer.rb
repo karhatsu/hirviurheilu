@@ -12,6 +12,6 @@ class FinishRaceMailer < ApplicationMailer
     set_locale
     @race = race
     @official = official
-    mail to: official.email, from: NOREPLY_ADDRESS, subject: "Hirviurheilu kilpailua ei ole päätetty"
+    mail to: official.email, from: NOREPLY_ADDRESS, subject: "Hirviurheilu - kilpailua ei ole päätetty"
   end
 end
