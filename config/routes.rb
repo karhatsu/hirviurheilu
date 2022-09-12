@@ -37,6 +37,10 @@ Hirviurheilu::Application.routes.draw do
       resources :final_round_batches, only: :index
       resources :series do
         get 'rifle', to: 'european_rifles#index', as: :rifle
+        get 'trap', to: 'nordic_races#trap'
+        get 'shotgun', to: 'nordic_races#shotgun'
+        get 'rifle_moving', to: 'nordic_races#rifle_moving'
+        get 'rifle_standing', to: 'nordic_races#rifle_standing'
         resource :start_list, only: :show
       end
       resources :start_lists, only: :index
@@ -193,6 +197,10 @@ Hirviurheilu::Application.routes.draw do
           resources :series, only: [:show] do
             resource :start_list, only: :show
             get 'rifle', to: 'european_rifles#show'
+            get 'trap', to: 'nordic_races#trap'
+            get 'shotgun', to: 'nordic_races#shotgun'
+            get 'rifle_moving', to: 'nordic_races#rifle_moving'
+            get 'rifle_standing', to: 'nordic_races#rifle_standing'
           end
           resources :rifle_team_competitions, only: [:show]
           resources :team_competitions, only: [:show]

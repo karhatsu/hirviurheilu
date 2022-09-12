@@ -23,6 +23,7 @@ class Api::V2::Public::NordicRacesController < Api::V2::ApiBaseController
 
   def render_api_response
     @race = Race.where(id: params[:race_id]).first
+    @series = @race.series.where(id: params[:series_id]).first if params[:series_id]
     render status: 404, body: nil unless @race
   end
 end

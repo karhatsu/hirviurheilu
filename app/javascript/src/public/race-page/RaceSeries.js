@@ -8,7 +8,9 @@ import useTranslation from '../../util/useTranslation'
 import {
   buildFinalRoundBatchesPath,
   buildNordicResultsPath,
-  buildQualificationRoundBatchesPath, buildRaceStartListsPdfPath,
+  buildNordicSeriesResultsPath,
+  buildQualificationRoundBatchesPath,
+  buildRaceStartListsPdfPath,
   buildSeriesResultsPath,
   buildSeriesRifleResultsPath,
   buildSeriesStartListPath,
@@ -19,9 +21,11 @@ import Button from '../../common/Button'
 import Message from '../../common/Message'
 import { formatTodaysTime } from '../../util/timeUtil'
 
+const nordicSubSports = ['trap', 'shotgun', 'rifle_standing', 'rifle_moving']
+
 export default function RaceSeries({ race }) {
   const { t } = useTranslation()
-  const { clubLevel, clubs, finished, series, sport, startDate, startTime, relays } = race
+  const { clubLevel, clubs, finished, nordicSubResultsForSeries, series, sport, startDate, startTime, relays } = race
   if (!series.length && relays.length) return null
   const infos = []
   if (!series.length && !relays.length) {
@@ -52,9 +56,9 @@ export default function RaceSeries({ race }) {
           }
         })}
       </div>
-      {sport.nordic && (
+      {sport.nordic && !nordicSubResultsForSeries && (
         <div className="buttons">
-          {['trap', 'shotgun', 'rifle_standing', 'rifle_moving'].map(subSport => {
+          {nordicSubSports.map(subSport => {
             return (
               <Button key={subSport} to={buildNordicResultsPath(race.id, subSport)} type="primary">
                 {t(`nordic_${subSport}`)}
@@ -63,6 +67,18 @@ export default function RaceSeries({ race }) {
           })}
         </div>
       )}
+      {sport.nordic && nordicSubResultsForSeries && nordicSubSports.map(subSport => (
+        <React.Fragment key={subSport}>
+          <h2>{t(`nordic_${subSport}`)}</h2>
+          <div className="buttons">
+            {series.map(s => (
+              <Button key={s.id} to={buildNordicSeriesResultsPath(race.id, s.id, subSport)} type="primary">
+                {s.name}
+              </Button>
+            ))}
+          </div>
+        </React.Fragment>
+      ))}
       {sport.european && (
         <div className="buttons">
           {series.map(s => {

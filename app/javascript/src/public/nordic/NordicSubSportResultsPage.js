@@ -17,11 +17,17 @@ export default function NordicSubSportResultsPage() {
   const { t } = useTranslation()
   const { setSelectedPage } = useMenu()
   const { subSport } = useParams()
+  const seriesId = parseInt(useParams().seriesId)
   const { mobile } = useLayout()
-  const buildApiPath = useCallback(raceId => `/api/v2/public/races/${raceId}/${subSport}`, [subSport])
+  const buildApiPath = useCallback(raceId => {
+    return seriesId
+      ? `/api/v2/public/races/${raceId}/series/${seriesId}/${subSport}`
+      : `/api/v2/public/races/${raceId}/${subSport}`
+  }, [seriesId, subSport])
   const { error, fetching, race, raceData: results } = useRaceData(buildApiPath)
 
-  const title = t(`nordic_${subSport}`)
+  const titleSeries = race && seriesId && race.series.find(s => s.id === seriesId)
+  const title = (titleSeries ? `${titleSeries.name} - ` : '') + t(`nordic_${subSport}`)
   useTitle(race && [title, race.name, t(`sport_${race.sportKey}`)])
   useEffect(() => {
     setSelectedPage(pages.nordic[subSport])
