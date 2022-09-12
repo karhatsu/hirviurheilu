@@ -7,7 +7,7 @@ import ResultsWithShots from '../series-results/ResultsWithShots'
 import useLayout from '../../util/useLayout'
 import NordicSubSportDesktopResults from './NordicSubSportDesktopResults'
 import Button from '../../common/Button'
-import { buildNordicResultsPath, buildRacePath } from '../../util/routeUtil'
+import { buildNordicResultsPath, buildNordicSeriesResultsPath, buildRacePath } from '../../util/routeUtil'
 import NordicSubSportMobileResults from './NordicSubSportMobileResults'
 import NordicSubSportMobileSubMenu from './NordicSubSportMobileSubMenu'
 import useRaceData from '../../util/useRaceData'
@@ -37,6 +37,9 @@ export default function NordicSubSportResultsPage() {
     return <IncompletePage fetching={fetching} error={error} title={title} />
   }
 
+  const pdfPath = seriesId
+    ? buildNordicSeriesResultsPath(race.id, seriesId, subSport)
+    : buildNordicResultsPath(race.id, subSport)
   return (
     <>
       <h2>{title}</h2>
@@ -45,7 +48,7 @@ export default function NordicSubSportResultsPage() {
         {mobile && <NordicSubSportMobileResults race={race} competitors={results.competitors} />}
         {mobile && <NordicSubSportMobileSubMenu race={race} currentSubSport={subSport} />}
         <div className="buttons">
-          <Button href={`${buildNordicResultsPath(race.id, subSport)}.pdf`} type="pdf">
+          <Button href={`${pdfPath}.pdf`} type="pdf">
             {t('downloadResultsPdf')}
           </Button>
         </div>

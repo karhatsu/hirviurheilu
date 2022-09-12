@@ -28,6 +28,7 @@ class NordicRacesController < ApplicationController
     respond_to do |format|
       format.html { render layout: true, html: '' }
       format.pdf {
+        @series = @race.series.where(id: params[:series_id]).first if params[:series_id]
         render template: 'nordic_races/show', pdf: "#{@race.name}-#{@sub_sport}-tulokset", layout: true, margin: pdf_margin,
                header: pdf_header("#{@race.name} - #{I18n.t("sport_name.nordic_sub.#{@sub_sport}")}\n"), footer: pdf_footer,
                orientation: 'Portrait', disable_smart_shrinking: true
