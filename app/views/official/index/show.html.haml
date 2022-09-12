@@ -16,7 +16,7 @@
     %h2
       %i.material-icons-outlined.md-18 check_circle
       = t 'home.show.competitions.yesterday'
-    .row= render partial: 'race_list', locals: { races: @yesterday }
+    .row= render partial: 'race_list', locals: { races: @yesterday, warn_unfinished: true }
   %h2
     %i.material-icons-outlined.md-18 today
     = t 'home.show.upcoming_competitions'
