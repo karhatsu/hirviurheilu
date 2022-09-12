@@ -4,10 +4,10 @@
     "build": "esbuild app/javascript/*.* --bundle --loader:.js=jsx --sourcemap --outdir=app/assets/builds"
   },
   "dependencies": {
-    "@rails/actioncable": "^7.0.3",
+    "@rails/actioncable": "^7.0.4",
     "classnames-minimal": "^1.0.1",
     "date-fns": "^2.29.2",
-    "esbuild": "^0.15.5",
+    "esbuild": "^0.15.7",
     "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -20,7 +20,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.5",
     "eslint-plugin-promise": "^6.0.1",
-    "eslint-plugin-react": "^7.31.1",
+    "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^4.6.0"
   },
   "engines": {
