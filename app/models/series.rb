@@ -107,6 +107,14 @@ class Series < ApplicationRecord
     end
   end
 
+  def nordic_sub_results(sub_sport)
+    raise "Nordic sub results are available only in race level" unless race.nordic_sub_results_for_series?
+    sorted_competitors = Competitor.sort_nordic_competitors competitors.includes([:club, :age_group, :series]), sub_sport
+    add_position_for_competitors sorted_competitors do |competitor|
+      competitor.nordic_sub_results sub_sport
+    end
+  end
+
   def next_start_number
     race.next_start_number
   end

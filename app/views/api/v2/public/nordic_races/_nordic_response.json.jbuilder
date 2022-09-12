@@ -1,6 +1,7 @@
 json.key_format! camelize: :lower if request.headers['X-Camel-Case']
 json.sub_sport @sub_sport
-json.competitors @race.nordic_sub_results(@sub_sport) do |competitor|
+results = params[:series_id] ? @series.nordic_sub_results(@sub_sport) : @race.nordic_sub_results(@sub_sport)
+json.competitors results do |competitor|
   json.(competitor, :id, :position, :first_name, :last_name, :number, :no_result_reason)
   shots = competitor.send("nordic_#{@sub_sport}_shots")
   json.has_shots !shots.nil?

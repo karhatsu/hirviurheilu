@@ -2,7 +2,7 @@ import React from 'react'
 import DesktopMenuItem from './DesktopMenuItem'
 import {
   buildFinalRoundBatchesPath,
-  buildNordicResultsPath,
+  buildNordicResultsPath, buildNordicSeriesResultsPath,
   buildQualificationRoundBatchesPath, buildRaceMediaPath,
   buildRacePath,
   buildRelayPath, buildResultRotationPath,
@@ -42,7 +42,7 @@ export default function DesktopRaceSecondLevelMenu({ race }) {
               return { text: s.name, path: buildSeriesResultsPath(race.id, s.id), reactLink: true }
             })}
           />
-          {race.sport.nordic && (
+          {race.sport.nordic && !race.nordicSubResultsForSeries && (
             <>
               {['trap', 'shotgun', 'rifle_moving', 'rifle_standing'].map(subSport => {
                 return (
@@ -52,6 +52,28 @@ export default function DesktopRaceSecondLevelMenu({ race }) {
                     text={t(`nordic_${subSport}`)}
                     selected={selectedPage === pages.nordic[subSport]}
                     reactLink={true}
+                  />
+                )
+              })}
+            </>
+          )}
+          {race.sport.nordic && race.nordicSubResultsForSeries && (
+            <>
+              {['trap', 'shotgun', 'rifle_moving', 'rifle_standing'].map(subSport => {
+                return (
+                  <DesktopMenuItem
+                    key={subSport}
+                    path={buildNordicSeriesResultsPath(race.id, seriesId, subSport)}
+                    text={t(`nordic_${subSport}`)}
+                    selected={selectedPage === pages.nordic[subSport]}
+                    reactLink={true}
+                    dropdownItems={race.series.map(s => {
+                      return {
+                        text: s.name,
+                        path: buildNordicSeriesResultsPath(race.id, s.id, subSport),
+                        reactLink: true,
+                      }
+                    })}
                   />
                 )
               })}

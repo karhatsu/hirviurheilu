@@ -5,6 +5,10 @@
   .form__field.form__field--md.row
     .col-xs-12.col-sm-3= f.label :sport_key
     .col-xs-12.col-sm-9= t "sport_name.#{@race.sport_key}"
+  - if @race.sport.nordic?
+    .form__field.row
+      .col-xs-12.col-sm-3= f.label :nordic_sub_results_for_series
+      .col-xs-12.col-sm-9= f.check_box :nordic_sub_results_for_series
   .form__field.row
     .col-xs-12.col-sm-3= f.label :name
     .col-xs-12.col-sm-9= f.text_field :name

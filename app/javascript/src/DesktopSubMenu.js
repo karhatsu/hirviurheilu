@@ -1,7 +1,12 @@
 import React from 'react'
 import { Route, Switch, useParams } from 'react-router-dom'
 import SeriesDesktopSubMenu from './public/menu/SeriesDesktopSubMenu'
-import { buildSeriesResultsPath, buildSeriesRifleResultsPath, buildSeriesStartListPath } from './util/routeUtil'
+import {
+  buildNordicSeriesResultsPath,
+  buildSeriesResultsPath,
+  buildSeriesRifleResultsPath,
+  buildSeriesStartListPath,
+} from './util/routeUtil'
 import TeamCompetitionDesktopSubMenu from './public/team-competition/TeamCompetitionDesktopSubMenu'
 import RelayDesktopSubMenu from './public/relay/RelayDesktopSubMenu'
 import CupDesktopSubMenu from './public/cup/CupDesktopSubMenu'
@@ -23,6 +28,9 @@ export default function DesktopSubMenu({ cupSeriesPaths }) {
           currentSeriesId={seriesId}
           buildSeriesPath={buildSeriesRifleResultsPath}
         />
+      </Route>
+      <Route path="/:lang?/races/:raceId/series/:seriesId/:subSport">
+        <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesPath={buildNordicSeriesResultsPath} />
       </Route>
       <Route path="/:lang?/races/:raceId/series/:seriesId">
         <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesPath={buildSeriesResultsPath} />

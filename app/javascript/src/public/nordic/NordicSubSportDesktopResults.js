@@ -9,6 +9,7 @@ export default function NordicSubSportDesktopResults({ race, competitors }) {
   const { t } = useTranslation()
   const showShots = useContext(ShowShotsContext)
   const extraShots = !!competitors.find(c => c.nordicExtraShots)
+  const { nordicSubResultsForSeries } = race
   return (
     <div className="results--desktop">
       <table className="results-table">
@@ -18,7 +19,7 @@ export default function NordicSubSportDesktopResults({ race, competitors }) {
             <th>{t('name')}</th>
             <th>{t('numberShort')}</th>
             <th>{resolveClubTitle(t, race.clubLevel)}</th>
-            <th>{t('series')}</th>
+            {!nordicSubResultsForSeries && <th>{t('series')}</th>}
             {showShots && <th>{t('shots')}</th>}
             <th>{t('result')}</th>
             {extraShots && <th>{t('extraRound')}</th>}
@@ -29,7 +30,7 @@ export default function NordicSubSportDesktopResults({ race, competitors }) {
             const { nordicExtraShots, nordicScore, nordicShots, noResultReason, series } = competitor
             return (
               <>
-                <td>{series.name}</td>
+                {!nordicSubResultsForSeries && <td>{series.name}</td>}
                 {showShots && <td>{nordicShots?.join(', ')}</td>}
                 <td className="center total-points">
                   <TotalScore totalScore={nordicScore} noResultReason={noResultReason} />

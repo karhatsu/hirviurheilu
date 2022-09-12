@@ -22,6 +22,8 @@ export const buildSeriesRifleResultsPath = (raceId, seriesId) => withLocale(`/ra
 
 export const buildNordicResultsPath = (raceId, subSport) => withLocale(`/races/${raceId}/${subSport}`)
 
+export const buildNordicSeriesResultsPath = (raceId, seriesId, subSport) => withLocale(`/races/${raceId}/series/${seriesId}/${subSport}`)
+
 export const buildTeamCompetitionsPath = (raceId, id) => withLocale(`/races/${raceId}/team_competitions/${id}`)
 
 export const buildRifleTeamCompetitionsPath = (raceId, id) => withLocale(`/races/${raceId}/rifle_team_competitions/${id}`)

@@ -24,6 +24,7 @@ class NordicRacesController < ApplicationController
   private
 
   def render_page
+    return unless verify_series
     use_react
     respond_to do |format|
       format.html { render layout: true, html: '' }
@@ -33,5 +34,18 @@ class NordicRacesController < ApplicationController
                orientation: 'Portrait', disable_smart_shrinking: true
       }
     end
+  end
+
+  def verify_series
+    if @race.nordic_sub_results_for_series? && !params[:series_id]
+      redirect_to "/races/#{@race.id}/series/#{@race.series.first.id}/#{@sub_sport}"
+      return false
+    elsif !@race.nordic_sub_results_for_series? && params[:series_id]
+      redirect_to "/races/#{@race.id}/#{@sub_sport}"
+      return false
+    elsif @race.nordic_sub_results_for_series? && params[:series_id]
+      @series = @race.series.where(id: params[:series_id]).first
+    end
+    true
   end
 end

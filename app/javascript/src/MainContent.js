@@ -61,6 +61,10 @@ export default function MainContent({ cupSeriesPaths }) {
           render={() => <EuropeanRifleResultsPage />}
         />
         <Route
+          path="/:lang?/races/:raceId/series/:seriesId/:subSport"
+          render={() => <NordicSubSportResultsPage />}
+        />
+        <Route
           path="/:lang?/races/:raceId/series/:seriesId"
           render={() => <SeriesResultsPage />}
         />
