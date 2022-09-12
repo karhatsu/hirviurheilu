@@ -18,7 +18,7 @@ export default function FacebookShare() {
   const url = `https://www.hirviurheilu.com${pathname}`
   return (
     <div className="fb-share-container">
-      <div className="fb-share-button" data-href={url} datatype="button_count" />
+      <div className="fb-share-button" data-href={url} data-layout="button_count" />
     </div>
   )
 }
