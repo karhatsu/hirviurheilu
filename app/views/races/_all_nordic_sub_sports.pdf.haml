@@ -2,4 +2,9 @@
   - if @page_breaks
     .page-break
   %h3= t "sport_name.nordic_sub.#{sub_sport}"
-  = render partial: 'races/nordic_race_desktop_sub_results', locals: { race: @race, sub_sport: sub_sport }
+  - if @race.nordic_sub_results_for_series?
+    - @race.series.each do |series|
+      %h4= series.name
+      = render partial: 'races/nordic_race_desktop_sub_results', locals: { race: @race, series: series, sub_sport: sub_sport }
+  - else
+    = render partial: 'races/nordic_race_desktop_sub_results', locals: { race: @race, series: nil, sub_sport: sub_sport }
