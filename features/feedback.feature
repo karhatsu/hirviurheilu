@@ -116,6 +116,4 @@ Feature: Feedback
     And I should see "Sähköposti: " in the email body
     And I should see "Puhelin: " in the email body
     And I should see "Ympäristö: test" in the email body
-    And I should see "Tina" in the email body
-    And I should see "Tester" in the email body
-    And I should see "test@domain.com" in the email body
+    And I should see the current user id in the email body
