@@ -5,6 +5,7 @@
 .message.message--info
   - if @race.sport.shooting?
     = t '.format_info.shooting_race'
+    = t '.format_info.shooting_race_number'
   - else
     = t ".format_info.three_sports_race_#{@race.start_order}"
 %h3= t '.example_of_valid_file'
