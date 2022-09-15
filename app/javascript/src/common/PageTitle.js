@@ -1,10 +1,10 @@
 import React from 'react'
 import { useLocation, useParams } from 'react-router-dom'
-import { useCup } from './util/useCup'
-import { useRace } from './util/useRace'
-import DateInterval from './util/DateInterval'
-import useTranslation from './util/useTranslation'
-import { matchPath } from './util/routeUtil'
+import { useCup } from '../util/useCup'
+import { useRace } from '../util/useRace'
+import DateInterval from '../util/DateInterval'
+import useTranslation from '../util/useTranslation'
+import { matchPath } from '../util/routeUtil'
 
 export default function PageTitle() {
   const { t } = useTranslation()

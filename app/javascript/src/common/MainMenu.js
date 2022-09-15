@@ -1,10 +1,10 @@
 import React from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import classnames from 'classnames-minimal'
-import DesktopMenuItem from './public/menu/DesktopMenuItem'
-import useTranslation from './util/useTranslation'
-import { useRace } from './util/useRace'
-import useAppData from './util/useAppData'
+import DesktopMenuItem from '../public/menu/DesktopMenuItem'
+import useTranslation from '../util/useTranslation'
+import { useRace } from '../util/useRace'
+import useAppData from '../util/useAppData'
 import {
   buildAccountPath,
   buildAnnouncementsPath,
@@ -14,7 +14,7 @@ import {
   buildRegisterPath,
   buildRootPath,
   matchPath,
-} from './util/routeUtil'
+} from '../util/routeUtil'
 
 export default function MainMenu({ closeMenu, mainMenuOpen }) {
   const { t } = useTranslation()

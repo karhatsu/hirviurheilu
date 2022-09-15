@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { buildRootPath } from './util/routeUtil'
+import { buildRootPath } from '../util/routeUtil'
 
 const logo = '/logo-128.png'
 
