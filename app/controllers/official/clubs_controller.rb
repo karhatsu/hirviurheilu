@@ -3,7 +3,10 @@ class Official::ClubsController < Official::OfficialController
 
   def index
     respond_to do |format|
-      format.html { render :index }
+      format.html do
+        use_react true
+        render :index
+      end
       format.json { render :json => @race.clubs.to_json }
     end
   end

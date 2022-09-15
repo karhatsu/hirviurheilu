@@ -1,7 +1,7 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Route } from 'react-router-dom'
-import ReactApp from './src/ReactApp'
+import PublicReactApp from './src/PublicReactApp'
 
 const reactPaths = [
   '/:lang?/races/:raceId/qualification_round_batches',
@@ -22,12 +22,12 @@ const reactPaths = [
 ]
 
 document.addEventListener('DOMContentLoaded', () => {
-  const appElement = document.getElementById('react-app')
+  const appElement = document.getElementById('public-react-app')
   if (appElement) {
     const App = (
       <BrowserRouter>
         <Route path={reactPaths}>
-          <ReactApp />
+          <PublicReactApp />
         </Route>
       </BrowserRouter>
     )

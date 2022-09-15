@@ -21,7 +21,7 @@ const cupSeriesPaths = [
   '/:lang?/cups/:cupId/rifle_cup_series/:rifleCupSeriesId',
 ]
 
-function ReactApp() {
+function PublicReactApp() {
   const [mainMenuOpen, setMainMenuOpen] = useState(false)
   const { noNav } = useAppData()
   const { raceId } = useParams()
@@ -44,7 +44,7 @@ function ReactApp() {
   )
 }
 
-const ReactAppContainer = () => {
+const PublicReactAppContainer = () => {
   return (
     <StrictMode>
       <LayoutProvider>
@@ -54,7 +54,7 @@ const ReactAppContainer = () => {
               <RaceProvider>
                 <CupProvider>
                   <ResultRotationProvider>
-                    <ReactApp />
+                    <PublicReactApp />
                   </ResultRotationProvider>
                 </CupProvider>
               </RaceProvider>
@@ -66,4 +66,4 @@ const ReactAppContainer = () => {
   )
 }
 
-export default ReactAppContainer
+export default PublicReactAppContainer

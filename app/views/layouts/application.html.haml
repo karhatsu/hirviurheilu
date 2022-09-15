@@ -9,7 +9,10 @@
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'legacy'
     = javascript_include_tag I18n.locale
-    = javascript_include_tag 'application', defer: true
+    - if @react_app == 'official-react-app'
+      = javascript_include_tag 'official-application', defer: true
+    - elsif @react_app == 'public-react-app'
+      = javascript_include_tag 'public-application', defer: true
     - if facebook_env?
       = javascript_include_tag 'social'
     = csrf_meta_tag

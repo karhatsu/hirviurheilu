@@ -1,5 +1,5 @@
 const withLocale = path => {
-  const appElement = document.getElementById('react-app')
+  const appElement = document.getElementsByClassName('react-app')[0]
   const locale = appElement.getAttribute('data-locale')
   if (path === '/' && locale === 'sv') return '/sv'
   return locale === 'sv' ? `/sv${path}` : path
