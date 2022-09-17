@@ -70,6 +70,46 @@ export const buildSportsInfoPath = () => withLocale('/sports_info')
 
 export const buildOfficialPath = () => withLocale('/official')
 
+export const buildOfficialRacePath = raceId => withLocale(`/official/races/${raceId}`)
+
+export const buildOfficialRaceEditPath = raceId => withLocale(`/official/races/${raceId}/edit`)
+
+export const buildOfficialRaceCompetitorsPath = seriesId => withLocale(`/official/series/${seriesId}/competitors`)
+
+export const buildOfficialRaceStartListPath = seriesId => withLocale(`/official/races/${seriesId}/start_list`)
+
+export const buildOfficialRaceQualificationRoundBatchListPath = seriesId => withLocale(`/official/series/${seriesId}/qualification_round_batch_list`)
+
+export const buildOfficialRaceFinalRoundBatchListPath = seriesId => withLocale(`/official/series/${seriesId}/final_round_batch_list`)
+
+export const buildOfficialRaceBatchesPath = raceId => withLocale(`/official/races/${raceId}/batches`)
+
+export const buildOfficialRaceQuickSavesPath = raceId => withLocale(`/official/races/${raceId}/quick_saves`)
+
+export const buildOfficialSeriesTimesPath = seriesId => withLocale(`/official/series/${seriesId}/times`)
+
+export const buildOfficialSeriesEstimatesPath = seriesId => withLocale(`/official/series/${seriesId}/estimates`)
+
+export const buildOfficialSeriesShotsPath = seriesId => withLocale(`/official/series/${seriesId}/shots`)
+
+export const buildOfficialRaceShootingByBatchesPath = raceId => withLocale(`/official/races/${raceId}/shooting_by_batches`)
+
+export const buildOfficialRaceNordicPath = (raceId, subSport) => withLocale(`/official/races/${raceId}/nordic_${subSport}`)
+
+export const buildOfficialRaceEuropeanPath = (raceId, subSport) => withLocale(`/official/races/${raceId}/european_${subSport}`)
+
+export const buildOfficialRaceCorrectDistancesPath = raceId => withLocale(`/official/races/${raceId}/correct_estimates`)
+
+export const buildOfficialRaceCsvPath = raceId => withLocale(`/official/races/${raceId}/csv_export`)
+
+export const buildOfficialRaceTeamCompetitionsPath = raceId => withLocale(`/official/races/${raceId}/team_competitions`)
+
+export const buildOfficialRaceRelaysPath = raceId => withLocale(`/official/races/${raceId}/relays`)
+
+export const buildOfficialRaceClubsPath = raceId => withLocale(`/official/races/${raceId}/clubs`)
+
+export const buildOfficialRaceOfficialsPath = raceId => withLocale(`/official/races/${raceId}/race_rights`)
+
 export const matchPath = (currentPath, path, exact) => {
   if (exact) {
     return currentPath === path || currentPath === `/sv${path}`

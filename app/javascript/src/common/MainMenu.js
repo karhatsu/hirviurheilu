@@ -16,7 +16,7 @@ import {
   matchPath,
 } from '../util/routeUtil'
 
-export default function MainMenu({ closeMenu, mainMenuOpen }) {
+export default function MainMenu({ closeMenu, mainMenuOpen, official }) {
   const { t } = useTranslation()
   const { pathname } = useLocation()
   const { raceId } = useParams()
@@ -49,6 +49,7 @@ export default function MainMenu({ closeMenu, mainMenuOpen }) {
         icon="build"
         path={buildOfficialPath()}
         text={t('officialHomePage')}
+        selected={official}
         dropdownItems={officialDropDown}
         dropdownMinCount={1}
       />
