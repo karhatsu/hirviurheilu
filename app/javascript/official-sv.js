@@ -1,0 +1,23 @@
+/* eslint-disable max-len */
+window.officialTranslations = {
+  backToOfficialRacePage: 'Tillbaka till Sammanfattning-sida',
+  officialRaceMenuHome: 'Sammanfattning',
+  officialRaceMenuEdit: 'Basinformation',
+  officialRaceMenuCompetitors: 'Tävlar',
+  officialRaceMenuStartList: 'Starttider',
+  officialRaceMenuBatchListGeneration: 'Heatlotteri',
+  officialRaceMenuQualificationRoundBatchList: 'Grundtävling',
+  officialRaceMenuFinalRoundBatchList: 'Final',
+  officialRaceMenuBatches: 'Heat',
+  officialRaceMenuQuickSave: 'Resultat',
+  officialRaceMenuTimes: 'Tider',
+  officialRaceMenuEstimates: 'Bedömning',
+  officialRaceMenuShooting: 'Skytte',
+  officialRaceMenuShootingBySeries: 'Skytte (klasser)',
+  officialRaceMenuShootingByBatches: 'Skytte (heat)',
+  officialRaceMenuCorrectDistances: 'Riktiga avstånd',
+  officialRaceMenuCsv: 'CSV',
+  officialRaceMenuTeamCompetitions: 'Lagtävlingar',
+  officialRaceMenuRelays: 'Stafetter',
+  officialRaceMenuOfficials: 'Funktionärer',
+}

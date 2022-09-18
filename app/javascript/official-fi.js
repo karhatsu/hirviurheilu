@@ -1,0 +1,23 @@
+/* eslint-disable max-len */
+window.officialTranslations = {
+  backToOfficialRacePage: 'Takaisin Yhteenveto-sivulle',
+  officialRaceMenuHome: 'Yhteenveto',
+  officialRaceMenuEdit: 'Perustiedot',
+  officialRaceMenuCompetitors: 'Kilpailijat',
+  officialRaceMenuStartList: 'Lähtöajat',
+  officialRaceMenuBatchListGeneration: 'Erien arvonta',
+  officialRaceMenuQualificationRoundBatchList: 'Alkukilpailu',
+  officialRaceMenuFinalRoundBatchList: 'Loppukilpailu',
+  officialRaceMenuBatches: 'Erät',
+  officialRaceMenuQuickSave: 'Pikasyöttö',
+  officialRaceMenuTimes: 'Ajat',
+  officialRaceMenuEstimates: 'Arviot',
+  officialRaceMenuShooting: 'Ammunta',
+  officialRaceMenuShootingBySeries: 'Ammunta sarjoittain',
+  officialRaceMenuShootingByBatches: 'Ammunta erittäin',
+  officialRaceMenuCorrectDistances: 'Oikeat etäisyydet',
+  officialRaceMenuCsv: 'CSV',
+  officialRaceMenuTeamCompetitions: 'Joukkuek.',
+  officialRaceMenuRelays: 'Viestit',
+  officialRaceMenuOfficials: 'Toimitsijat',
+}
