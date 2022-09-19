@@ -5,9 +5,9 @@ class Official::ClubsController < Official::OfficialController
     respond_to do |format|
       format.html do
         use_react true
-        render :index
+        render layout: true, html: ''
       end
-      format.json { render :json => @race.clubs.to_json }
+      format.json
     end
   end
 

@@ -1,6 +1,9 @@
 /* eslint-disable max-len */
 window.officialTranslations = {
+  add: 'Lisää',
   backToOfficialRacePage: 'Takaisin Yhteenveto-sivulle',
+  clubsPageInfo: 'Tällä sivulla voit lisätä kilpailuun osallistuvien kilpailijoiden seuroja/piirejä sekä korjata niiden nimiä ja poistaa ylimääräisiä. Huom! Voit lisätä seuroja/piirejä myös samalla, kun lisäät kilpailijoita.',
+  clubsPageCompetitorsCount: '{{count}} kilpailijaa',
   officialRaceMenuHome: 'Yhteenveto',
   officialRaceMenuEdit: 'Perustiedot',
   officialRaceMenuCompetitors: 'Kilpailijat',

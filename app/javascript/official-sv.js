@@ -1,6 +1,9 @@
 /* eslint-disable max-len */
 window.officialTranslations = {
+  add: 'Öka',
   backToOfficialRacePage: 'Tillbaka till Sammanfattning-sida',
+  clubsPageInfo: 'På den här sidan kan du öka klubbar och radera önodiga. Obs! Du kan öka klubbar också när du ökar tävlar.',
+  clubsPageCompetitorsCount: '{{count}} tävlar',
   officialRaceMenuHome: 'Sammanfattning',
   officialRaceMenuEdit: 'Basinformation',
   officialRaceMenuCompetitors: 'Tävlar',
