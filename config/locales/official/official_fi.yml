@@ -260,9 +260,6 @@ fi:
         no_competitors_info: Et ole lisännyt kilpailuun vielä yhtään kilpailijaa. Kun lisäät kilpailijoita, tähän ilmestyy kilpailijakohtaiset oikeat etäisyydet.
         start_list_required_info: Tallennetut oikeat etäisyydet näkyvät alla niille kilpailijoille, joille on määritetty lähtöaika.
         undefined: Ei määritetty
-    clubs:
-      index:
-        long_name_info: Käytetään joukkuekilpailuissa, jos syötetty
     team_competitions:
       all_team_competitions: Kaikki joukkuekilpailut
       index:

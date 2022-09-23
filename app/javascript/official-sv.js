@@ -2,8 +2,11 @@
 window.officialTranslations = {
   add: 'Öka',
   backToOfficialRacePage: 'Tillbaka till Sammanfattning-sida',
+  cancel: 'Avbryt',
   clubsPageInfo: 'På den här sidan kan du öka klubbar och radera önodiga. Obs! Du kan öka klubbar också när du ökar tävlar.',
   clubsPageCompetitorsCount: '{{count}} tävlar',
+  clubsLongNameInfo: 'Användas i lagtävlingar om sätt',
+  longName: 'Langt namn',
   officialRaceMenuHome: 'Sammanfattning',
   officialRaceMenuEdit: 'Basinformation',
   officialRaceMenuCompetitors: 'Tävlar',
@@ -23,4 +26,5 @@ window.officialTranslations = {
   officialRaceMenuTeamCompetitions: 'Lagtävlingar',
   officialRaceMenuRelays: 'Stafetter',
   officialRaceMenuOfficials: 'Funktionärer',
+  save: 'Spara',
 }

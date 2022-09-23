@@ -1,6 +1,4 @@
 class Api::V2::ApiBaseController < ApplicationController
-  protect_from_forgery with: :null_session, only: Proc.new { |c| c.request.format.json? }
-
   def process_action(*args)
     super
   rescue ActionDispatch::Http::Parameters::ParseError => exception

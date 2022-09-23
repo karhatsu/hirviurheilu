@@ -259,9 +259,6 @@ sv:
         no_competitors_info: Du har inte ökat tävlar. När du ökar tävlar, här kan du se riktiga avtånd för all tävlarna.
         start_list_required_info: Tävlarna måste ha starttider så att dem kan ha riktiga avstånd som ses i den här tabellen.
         undefined: "-"
-    clubs:
-      index:
-        long_name_info: Användas i lagtävlingar om sätt
     team_competitions:
       all_team_competitions: Alla lagtävlingar
       index:

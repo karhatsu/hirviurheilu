@@ -11,16 +11,10 @@ class Official::ClubsController < Official::OfficialController
     end
   end
 
-  def new
-    @club = @race.clubs.build
-  end
-
   def create
     @club = @race.clubs.build(club_params)
-    if @club.save
-      redirect_to official_race_clubs_path(@race)
-    else
-      render :new
+    unless @club.save
+      render status: 400, json: { errors: @club.errors.full_messages }
     end
   end
 

@@ -2,8 +2,11 @@
 window.officialTranslations = {
   add: 'Lisää',
   backToOfficialRacePage: 'Takaisin Yhteenveto-sivulle',
+  cancel: 'Peruuta',
   clubsPageInfo: 'Tällä sivulla voit lisätä kilpailuun osallistuvien kilpailijoiden seuroja/piirejä sekä korjata niiden nimiä ja poistaa ylimääräisiä. Huom! Voit lisätä seuroja/piirejä myös samalla, kun lisäät kilpailijoita.',
   clubsPageCompetitorsCount: '{{count}} kilpailijaa',
+  clubsLongNameInfo: 'Käytetään joukkuekilpailuissa, jos syötetty',
+  longName: 'Pitkä nimi',
   officialRaceMenuHome: 'Yhteenveto',
   officialRaceMenuEdit: 'Perustiedot',
   officialRaceMenuCompetitors: 'Kilpailijat',
@@ -23,4 +26,5 @@ window.officialTranslations = {
   officialRaceMenuTeamCompetitions: 'Joukkuek.',
   officialRaceMenuRelays: 'Viestit',
   officialRaceMenuOfficials: 'Toimitsijat',
+  save: 'Tallenna',
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Button from '../../common/Button'
 import { buildOfficialRacePath } from '../../util/routeUtil'
 import useTranslation from '../../util/useTranslation'
@@ -6,12 +6,15 @@ import { useRace } from '../../util/useRace'
 import { resolveClubsTitle, resolveClubTitle } from '../../util/clubUtil'
 import IncompletePage from '../../common/IncompletePage'
 import { raceEnums } from '../../util/enums'
-import { get } from '../../util/apiClient'
+import { get, post } from '../../util/apiClient'
+import ClubForm from './ClubForm'
 
 const ClubsPage = () => {
   const { t } = useTranslation()
   const [clubs, setClubs] = useState(undefined)
   const [clubsError, setClubsError] = useState()
+  const [formErrors, setFormErrors] = useState()
+  const [adding, setAdding] = useState(false)
   const { fetching, error, race } = useRace()
 
   useEffect(() => {
@@ -23,12 +26,37 @@ const ClubsPage = () => {
     }
   }, [race])
 
+  const onCreate = useCallback(data => {
+    post(`/official/races/${race.id}/clubs.json`, { club: data }, (errors, response) => {
+      if (errors) {
+        setFormErrors(errors)
+      } else {
+        setClubs(clubs => [...clubs, response].sort((a, b) => a.name - b.name))
+        setAdding(false)
+      }
+    })
+  }, [race])
+
   if (!race || !clubs) {
     return (
       <IncompletePage
         fetching={fetching}
         error={error || clubsError}
         title={resolveClubsTitle(t, raceEnums.clubLevel.club)}
+      />
+    )
+  }
+
+  if (adding) {
+    const title = `${t('add')} ${resolveClubTitle(t, race.clubLevel).toLowerCase()}`
+    const initialData = { name: '', longName: '' }
+    return (
+      <ClubForm
+        errors={formErrors}
+        initialData={initialData}
+        onCancel={() => setAdding(false)}
+        onSave={onCreate}
+        title={title}
       />
     )
   }
@@ -57,7 +85,9 @@ const ClubsPage = () => {
         ))}
       </div>
       <div className="buttons">
-        <Button to="/" type="add">{t('add')} {resolveClubTitle(t, race.clubLevel).toLowerCase()}</Button>
+        <Button type="add" onClick={() => setAdding(true)}>
+          {t('add')} {resolveClubTitle(t, race.clubLevel).toLowerCase()}
+        </Button>
       </div>
       <div className="buttons buttons--nav">
         <Button to={buildOfficialRacePath(race.id)} type="back">{t('backToOfficialRacePage')}</Button>
