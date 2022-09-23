@@ -18,17 +18,11 @@ class Official::ClubsController < Official::OfficialController
     end
   end
 
-  def edit
-    @club = Club.find(params[:id])
-  end
-
   def update
     @club = Club.find(params[:id])
     @club.update(club_params)
-    if @club.save
-      redirect_to official_race_clubs_path(@race)
-    else
-      render :edit
+    unless @club.save
+      render status: 400, json: { errors: @club.errors.full_messages }
     end
   end
 

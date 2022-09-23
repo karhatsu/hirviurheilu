@@ -6,8 +6,10 @@ import { useRace } from '../../util/useRace'
 import { resolveClubsTitle, resolveClubTitle } from '../../util/clubUtil'
 import IncompletePage from '../../common/IncompletePage'
 import { raceEnums } from '../../util/enums'
-import { get, post } from '../../util/apiClient'
+import { get, post, put } from '../../util/apiClient'
 import ClubForm from './ClubForm'
+
+const clubsSorter = (a, b) => a.name.localeCompare(b.name)
 
 const ClubsPage = () => {
   const { t } = useTranslation()
@@ -15,6 +17,7 @@ const ClubsPage = () => {
   const [clubsError, setClubsError] = useState()
   const [formErrors, setFormErrors] = useState()
   const [adding, setAdding] = useState(false)
+  const [editing, setEditing] = useState()
   const { fetching, error, race } = useRace()
 
   useEffect(() => {
@@ -31,8 +34,25 @@ const ClubsPage = () => {
       if (errors) {
         setFormErrors(errors)
       } else {
-        setClubs(clubs => [...clubs, response].sort((a, b) => a.name - b.name))
+        setClubs(clubs => [...clubs, response].sort(clubsSorter))
         setAdding(false)
+      }
+    })
+  }, [race])
+
+  const onUpdate = useCallback(data => {
+    const club = { name: data.name, longName: data.longName }
+    put(`/official/races/${race.id}/clubs/${data.id}.json`, { club }, (errors, response) => {
+      if (errors) {
+        setFormErrors(errors)
+      } else {
+        setClubs(clubs => {
+          const index = clubs.findIndex(c => c.id === data.id)
+          const newClubs = [...clubs]
+          newClubs[index] = { ...response }
+          return newClubs.sort(clubsSorter)
+        })
+        setEditing(undefined)
       }
     })
   }, [race])
@@ -61,6 +81,19 @@ const ClubsPage = () => {
     )
   }
 
+  if (editing) {
+    const title = `${editing.name} - ${t('edit')}`
+    return (
+      <ClubForm
+        errors={formErrors}
+        initialData={editing}
+        onCancel={() => setEditing(undefined)}
+        onSave={onUpdate}
+        title={title}
+      />
+    )
+  }
+
   return (
     <div>
       <h2>{resolveClubsTitle(t, race.clubLevel)}</h2>
@@ -77,7 +110,7 @@ const ClubsPage = () => {
                 </div>
               </div>
               <div className="card__buttons">
-                <Button to="/" type="edit">Muokkaa</Button>
+                <Button type="edit" onClick={() => setEditing(club)}>Muokkaa</Button>
                 {club.canBeRemoved && <Button to="/" type="danger">Poista</Button>}
               </div>
             </div>

@@ -22,7 +22,7 @@ const ClubForm = ({ title, initialData, errors, onSave, onCancel }) => {
         </div>
         <div className="form__field">
           <label htmlFor="longName">{t('longName')}</label>
-          <input id="longName" type="text" value={data.longName} onChange={onChange('longName')} />
+          <input id="longName" type="text" value={data.longName || ''} onChange={onChange('longName')} />
           <div className="form__field__info">{t('clubsLongNameInfo')}</div>
         </div>
         <div className="form__buttons">

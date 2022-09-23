@@ -6,6 +6,7 @@ window.officialTranslations = {
   clubsPageInfo: 'Tällä sivulla voit lisätä kilpailuun osallistuvien kilpailijoiden seuroja/piirejä sekä korjata niiden nimiä ja poistaa ylimääräisiä. Huom! Voit lisätä seuroja/piirejä myös samalla, kun lisäät kilpailijoita.',
   clubsPageCompetitorsCount: '{{count}} kilpailijaa',
   clubsLongNameInfo: 'Käytetään joukkuekilpailuissa, jos syötetty',
+  edit: 'Muokkaa',
   longName: 'Pitkä nimi',
   officialRaceMenuHome: 'Yhteenveto',
   officialRaceMenuEdit: 'Perustiedot',

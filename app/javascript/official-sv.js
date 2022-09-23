@@ -6,6 +6,7 @@ window.officialTranslations = {
   clubsPageInfo: 'På den här sidan kan du öka klubbar och radera önodiga. Obs! Du kan öka klubbar också när du ökar tävlar.',
   clubsPageCompetitorsCount: '{{count}} tävlar',
   clubsLongNameInfo: 'Användas i lagtävlingar om sätt',
+  edit: 'Redigera',
   longName: 'Langt namn',
   officialRaceMenuHome: 'Sammanfattning',
   officialRaceMenuEdit: 'Basinformation',
