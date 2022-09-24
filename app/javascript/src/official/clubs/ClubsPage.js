@@ -6,8 +6,9 @@ import { useRace } from '../../util/useRace'
 import { resolveClubsTitle, resolveClubTitle } from '../../util/clubUtil'
 import IncompletePage from '../../common/IncompletePage'
 import { raceEnums } from '../../util/enums'
-import { get, post, put } from '../../util/apiClient'
+import { del, get, post, put } from '../../util/apiClient'
 import ClubForm from './ClubForm'
+import Message from '../../common/Message'
 
 const clubsSorter = (a, b) => a.name.localeCompare(b.name)
 
@@ -15,6 +16,7 @@ const ClubsPage = () => {
   const { t } = useTranslation()
   const [clubs, setClubs] = useState(undefined)
   const [clubsError, setClubsError] = useState()
+  const [deleteError, setDeleteError] = useState()
   const [formErrors, setFormErrors] = useState()
   const [adding, setAdding] = useState(false)
   const [editing, setEditing] = useState()
@@ -53,6 +55,21 @@ const ClubsPage = () => {
           return newClubs.sort(clubsSorter)
         })
         setEditing(undefined)
+      }
+    })
+  }, [race])
+
+  const onDelete = useCallback(id => {
+    del(`/official/races/${race.id}/clubs/${id}`, errors => {
+      if (errors) {
+        setDeleteError(errors[0])
+      } else {
+        setClubs(clubs => {
+          const index = clubs.findIndex(c => c.id === id)
+          const newClubs = [...clubs]
+          newClubs.splice(index, 1)
+          return newClubs
+        })
       }
     })
   }, [race])
@@ -98,6 +115,7 @@ const ClubsPage = () => {
     <div>
       <h2>{resolveClubsTitle(t, race.clubLevel)}</h2>
       <div className="message message--info">{t('clubsPageInfo')}</div>
+      {deleteError && <Message type="error">{deleteError}</Message>}
       <div className="row">
         {clubs.map(club => (
           <div key={club.id} className="col-xs-12 col-sm-6 col-md-4">
@@ -111,7 +129,7 @@ const ClubsPage = () => {
               </div>
               <div className="card__buttons">
                 <Button type="edit" onClick={() => setEditing(club)}>Muokkaa</Button>
-                {club.canBeRemoved && <Button to="/" type="danger">Poista</Button>}
+                {club.canBeRemoved && <Button type="danger" onClick={() => onDelete(club.id)}>Poista</Button>}
               </div>
             </div>
           </div>

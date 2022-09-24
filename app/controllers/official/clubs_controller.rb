@@ -28,9 +28,11 @@ class Official::ClubsController < Official::OfficialController
 
   def destroy
     @club = Club.find(params[:id])
-    @club.destroy
-    @clubs_count = @race.clubs.count
-    redirect_to official_race_clubs_path(@race)
+    if @club.destroy
+      render status: 201, body: nil
+    else
+      render status: 400, json: { errors: @club.errors.full_messages }
+    end
   end
 
   def competitors
