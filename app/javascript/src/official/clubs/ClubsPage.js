@@ -113,7 +113,7 @@ const ClubsPage = () => {
 
   return (
     <div>
-      <h2>{resolveClubsTitle(t, race.clubLevel)}</h2>
+      <h2 id="clubs_title">{resolveClubsTitle(t, race.clubLevel)}</h2>
       <div className="message message--info">{t('clubsPageInfo')}</div>
       {deleteError && <Message type="error">{deleteError}</Message>}
       <div className="row">
@@ -136,7 +136,7 @@ const ClubsPage = () => {
         ))}
       </div>
       <div className="buttons">
-        <Button type="add" onClick={() => setAdding(true)}>
+        <Button type="add" onClick={() => setAdding(true)} id="add_button">
           {t('add')} {resolveClubTitle(t, race.clubLevel).toLowerCase()}
         </Button>
       </div>

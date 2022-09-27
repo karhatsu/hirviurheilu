@@ -3,6 +3,7 @@ Feature: Clubs
   As an official
   I need to manage clubs
 
+  @javascript
   Scenario: Show clubs
     Given I am an official
     And I have a race "Test race"
@@ -23,14 +24,14 @@ Feature: Clubs
     And I have a race "Test race"
     And I have logged in
     And I am on the official clubs page for "Test race"
-    When I follow "Lisää seura"
+    When I click button "Lisää seura" with id "add_button"
     And I fill in "New club" for "Nimi"
     And I press "Tallenna"
     Then I should see "New club"
-    When I follow "Muokkaa"
+    When I click the first "edit" button "Muokkaa"
     And I fill in "Renamed club" for "Nimi"
     And I press "Tallenna"
     Then I should see "Renamed club"
     But I should not see "New club"
-    When I follow "Poista"
+    When I click the first "danger" button "Poista"
     Then I should not see "Renamed club"
