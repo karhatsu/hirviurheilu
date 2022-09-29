@@ -3,43 +3,36 @@ class Official::ClubsController < Official::OfficialController
 
   def index
     respond_to do |format|
-      format.html { render :index }
-      format.json { render :json => @race.clubs.to_json }
+      format.html do
+        use_react true
+        render layout: true, html: ''
+      end
+      format.json
     end
-  end
-
-  def new
-    @club = @race.clubs.build
   end
 
   def create
     @club = @race.clubs.build(club_params)
-    if @club.save
-      redirect_to official_race_clubs_path(@race)
-    else
-      render :new
+    unless @club.save
+      render status: 400, json: { errors: @club.errors.full_messages }
     end
-  end
-
-  def edit
-    @club = Club.find(params[:id])
   end
 
   def update
     @club = Club.find(params[:id])
     @club.update(club_params)
-    if @club.save
-      redirect_to official_race_clubs_path(@race)
-    else
-      render :edit
+    unless @club.save
+      render status: 400, json: { errors: @club.errors.full_messages }
     end
   end
 
   def destroy
     @club = Club.find(params[:id])
-    @club.destroy
-    @clubs_count = @race.clubs.count
-    redirect_to official_race_clubs_path(@race)
+    if @club.destroy
+      render status: 201, body: nil
+    else
+      render status: 400, json: { errors: @club.errors.full_messages }
+    end
   end
 
   def competitors

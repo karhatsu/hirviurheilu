@@ -1,17 +1,17 @@
 import React from 'react'
 import { Route, Switch, useParams } from 'react-router-dom'
-import SeriesDesktopSubMenu from './public/menu/SeriesDesktopSubMenu'
+import SeriesDesktopSubMenu from './menu/SeriesDesktopSubMenu'
 import {
   buildNordicSeriesResultsPath,
   buildSeriesResultsPath,
   buildSeriesRifleResultsPath,
   buildSeriesStartListPath,
-} from './util/routeUtil'
-import TeamCompetitionDesktopSubMenu from './public/team-competition/TeamCompetitionDesktopSubMenu'
-import RelayDesktopSubMenu from './public/relay/RelayDesktopSubMenu'
-import CupDesktopSubMenu from './public/cup/CupDesktopSubMenu'
-import { useRace } from './util/useRace'
-import { useCup } from './util/useCup'
+} from '../util/routeUtil'
+import TeamCompetitionDesktopSubMenu from './team-competition/TeamCompetitionDesktopSubMenu'
+import RelayDesktopSubMenu from './relay/RelayDesktopSubMenu'
+import CupDesktopSubMenu from './cup/CupDesktopSubMenu'
+import { useRace } from '../util/useRace'
+import { useCup } from '../util/useCup'
 
 export default function DesktopSubMenu({ cupSeriesPaths }) {
   const { relayId, seriesId, teamCompetitionId, cupSeriesId, rifleCupSeriesId } = useParams()

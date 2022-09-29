@@ -23,7 +23,7 @@ Feature: Club level
     And I should see "Seurat" within "h2#clubs_title"
     And I should see "seuroja" in an info message
     And I should see "Lisää seura"
-    When I follow "Lisää seura"
+    When I click button "Lisää seura" with id "add_button"
     And I fill in "Testi" for "Nimi"
     And I press "Tallenna"
     And I follow "Seurat" within ".menu--sub"
@@ -68,7 +68,7 @@ Feature: Club level
     Then the "Piirit" sub menu item should be selected
     And I should see "Piirit" within "h2#clubs_title"
     And I should see "piirejä" in an info message
-    When I follow "Lisää piiri"
+    When I click button "Lisää piiri" with id "add_button"
     And I fill in "Testi" for "Nimi"
     And I press "Tallenna"
     And I follow "Piirit" within ".menu--sub"

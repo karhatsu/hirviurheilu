@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import getYear from 'date-fns/getYear'
-import useTranslation from './util/useTranslation'
-import { buildFeedbackPath } from './util/routeUtil'
+import useTranslation from '../util/useTranslation'
+import { buildFeedbackPath } from '../util/routeUtil'
 
 export default function Footer() {
   const { t } = useTranslation()

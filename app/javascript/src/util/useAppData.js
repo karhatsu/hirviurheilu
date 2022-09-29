@@ -1,5 +1,5 @@
 const useAppData = () => {
-  const appElement = document.getElementById('react-app')
+  const appElement = document.getElementsByClassName('react-app')[0]
   if (!appElement) return {}
   const admin = appElement.getAttribute('data-admin') !== null
   const environment = appElement.getAttribute('data-env')

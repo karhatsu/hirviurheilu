@@ -1,27 +1,27 @@
 import React, { StrictMode, useCallback, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { RaceProvider } from './util/useRace'
-import { LayoutProvider } from './util/useLayout'
-import { MenuProvider } from './util/useMenu'
-import PageTitle from './PageTitle'
-import DesktopSecondLevelMenu from './public/menu/DesktopSecondLevelMenu'
-import { ResultRotationProvider } from './public/result-rotation/useResultRotation'
-import { CupProvider } from './util/useCup'
-import { HomePageProvider } from './public/home/useHomePage'
+import { RaceProvider } from '../util/useRace'
+import { LayoutProvider } from '../util/useLayout'
+import { MenuProvider } from '../util/useMenu'
+import PageTitle from '../common/PageTitle'
+import DesktopSecondLevelMenu from './menu/DesktopSecondLevelMenu'
+import { ResultRotationProvider } from './result-rotation/useResultRotation'
+import { CupProvider } from '../util/useCup'
+import { HomePageProvider } from './home/useHomePage'
 import DesktopSubMenu from './DesktopSubMenu'
 import MainContent from './MainContent'
-import Header from './Header'
-import MainMenu from './MainMenu'
-import Footer from './Footer'
-import useAppData from './util/useAppData'
-import { RacesPageProvider } from './public/races/useRacesPage'
+import Header from '../common/Header'
+import MainMenu from '../common/MainMenu'
+import Footer from '../common/Footer'
+import useAppData from '../util/useAppData'
+import { RacesPageProvider } from './races/useRacesPage'
 
 const cupSeriesPaths = [
   '/:lang?/cups/:cupId/cup_series/:cupSeriesId',
   '/:lang?/cups/:cupId/rifle_cup_series/:rifleCupSeriesId',
 ]
 
-function ReactApp() {
+function PublicReactApp() {
   const [mainMenuOpen, setMainMenuOpen] = useState(false)
   const { noNav } = useAppData()
   const { raceId } = useParams()
@@ -44,7 +44,7 @@ function ReactApp() {
   )
 }
 
-const ReactAppContainer = () => {
+const PublicReactAppContainer = () => {
   return (
     <StrictMode>
       <LayoutProvider>
@@ -54,7 +54,7 @@ const ReactAppContainer = () => {
               <RaceProvider>
                 <CupProvider>
                   <ResultRotationProvider>
-                    <ReactApp />
+                    <PublicReactApp />
                   </ResultRotationProvider>
                 </CupProvider>
               </RaceProvider>
@@ -66,4 +66,4 @@ const ReactAppContainer = () => {
   )
 }
 
-export default ReactAppContainer
+export default PublicReactAppContainer

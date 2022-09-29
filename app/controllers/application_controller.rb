@@ -1,11 +1,14 @@
 class ApplicationController < ActionController::Base
   include AssignModel
 
-  protect_from_forgery
+  protect_from_forgery with: :null_session, only: Proc.new { |c| c.request.format.json? }
+
   helper_method :current_user_session, :current_user, :official_rights, :own_race?
+
   before_action :test_error_email
   before_action :set_locale
   before_action :assign_races_for_main_menu
+  before_action :underscore_params!
 
   private
   def set_locale
@@ -195,7 +198,11 @@ class ApplicationController < ActionController::Base
     @main_menu_races = Race.where('start_date>? and end_date<?', 3.days.ago, 3.days.from_now).order('start_date desc')
   end
 
-  def use_react
-    @react_app = true
+  def use_react(official=false)
+    @react_app = official ? 'official-react-app' : 'public-react-app'
+  end
+
+  def underscore_params!
+    params.deep_transform_keys!(&:underscore) if request.headers['X-Camel-Case']
   end
 end
