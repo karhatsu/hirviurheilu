@@ -139,7 +139,7 @@ GEM
     cucumber-wire (6.2.1)
       cucumber-core (~> 10.1, >= 10.1.0)
       cucumber-cucumber-expressions (~> 14.0, >= 14.0.0)
-    dalli (3.2.2)
+    dalli (3.2.3)
     database_cleaner (2.0.1)
       database_cleaner-active_record (~> 2.0.0)
     database_cleaner-active_record (2.0.1)
