@@ -1,6 +1,8 @@
 sv:
   authlogic:
     error_messages:
+      login_blank: är obligatorisk
+      login_not_found: är fel
       email_invalid: har fel format
       password_blank: får ej vara tom
       password_invalid: har fel format

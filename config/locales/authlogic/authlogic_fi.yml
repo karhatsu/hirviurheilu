@@ -1,6 +1,8 @@
 fi:
   authlogic:
     error_messages:
+      login_blank: on pakollinen
+      login_not_found: on virheellinen
       email_invalid: pitää olla oikeanmuotoinen
       password_blank: ei voi olla tyhjä
       password_invalid: ei ole kelvollinen
