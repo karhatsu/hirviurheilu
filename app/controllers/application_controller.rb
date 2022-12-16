@@ -129,7 +129,13 @@ class ApplicationController < ActionController::Base
   end
 
   def test_error_email
-    raise 'Testing error email' if params[:test_error_email] == 'true'
+    begin
+      raise 'Testing error email' if params[:test_error_email] == 'true'
+    rescue ActionDispatch::Http::Parameters::ParseError
+      # Catch invalid spam requests to /account and /user_session (application/json with malformed content)
+      return render status: 400, json: { errors: ['invalid JSON'] } if request.content_type == 'application/json'
+      render status: 400, body: nil
+    end
   end
 
   # f.time_text_field / f.time_select creates hidden date fields and visible text fields.

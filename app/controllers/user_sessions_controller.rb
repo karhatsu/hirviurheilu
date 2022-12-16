@@ -8,7 +8,6 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    return render status: 415, body: nil unless request.headers['content-type'] == 'application/x-www-form-urlencoded'
     @user_session = UserSession.new(session_params.to_h)
     if @user_session.save
       flash[:success] = t('user_sessions.create.login_succeeded')

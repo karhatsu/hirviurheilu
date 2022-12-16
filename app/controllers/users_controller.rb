@@ -9,7 +9,6 @@ class UsersController < ApplicationController
   end
 
   def create
-    return render status: 415, body: nil unless request.headers['content-type'] == 'application/x-www-form-urlencoded'
     @user = User.new(new_user_params)
     @captcha = params[:captcha]&.strip
     unless @captcha && %w[neljä fyra].include?(@captcha.downcase)
