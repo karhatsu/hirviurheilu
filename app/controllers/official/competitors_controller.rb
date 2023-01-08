@@ -43,7 +43,7 @@ class Official::CompetitorsController < Official::OfficialController
     @competitor = @series.competitors.build(add_competitor_params)
     club_ok = handle_club(@competitor)
     start_list_page = params[:start_list]
-    if club_ok and @competitor.save
+    if club_ok && @competitor.save
       start_list_condition = 'series.has_start_list = true'
       @all_series = @race.series.where(start_list_condition)
       collect_age_groups(@all_series)

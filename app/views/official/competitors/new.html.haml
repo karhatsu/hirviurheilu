@@ -11,6 +11,10 @@
     = render partial: 'official/competitors/shooting_race_fields', locals: { f: f }
   .form__buttons
     = submit_tag t(:save), onclick: 'show_spinner()', class: 'button button--primary'
+    - if Date.today >= @series.race.start_date
+      = submit_tag t('.save_and_show_competitor'), onclick: 'show_spinner()', class: 'button button--primary', name: :show_competitor
+      - unless @series.sport.nordic? || @series.sport.european?
+        = submit_tag t('.save_and_to_quick_save'), onclick: 'show_spinner()', class: 'button button--primary', name: :to_quick_save
   = image_tag 'spinner.gif', style: 'display:none;', id: 'spinner'
 #latest_competitors{style: 'display: none;'}
   %hr

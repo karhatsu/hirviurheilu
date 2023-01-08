@@ -119,6 +119,8 @@ sv:
         club_selection_prompt_1: Välj klubb eller öka ny
         new_club_hint_0: Ny klubb
         new_club_hint_1: Ny klubb
+        save_and_show_competitor: Spara och visa tävlaren
+        save_and_to_quick_save: Spara och gå till resultatsidan
         latest_added_competitors: Senaste ökade tävlarna
         back_to_series_competitors_list_html: Tillbaka till klassens <span id='series_name'>%{series_name}</span> tävlarlist
       edit:

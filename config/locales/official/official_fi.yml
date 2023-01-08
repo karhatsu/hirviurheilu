@@ -119,6 +119,8 @@ fi:
         club_selection_prompt_1: Valitse piiri tai lisää uusi
         new_club_hint_0: Uusi seura
         new_club_hint_1: Uusi piiri
+        save_and_show_competitor: Tallenna ja näytä kilpailija
+        save_and_to_quick_save: Tallenna ja siirry tulosten pikasyöttöön
         latest_added_competitors: Viimeksi lisätyt kilpailijat
         back_to_series_competitors_list_html: Takaisin sarjan <span id='series_name'>%{series_name}</span> kilpailijaluetteloon
       edit:

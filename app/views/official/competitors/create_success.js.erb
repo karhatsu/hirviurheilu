@@ -1,3 +1,9 @@
+<% if params[:show_competitor] %>
+  window.location.href = '<%= edit_official_series_competitor_path(@series, @competitor) %>'
+<% elsif params[:to_quick_save] %>
+  window.location.href = '<%= official_race_quick_saves_path(@series.race) %>'
+<% else %>
+
 $('#spinner').hide();
 $('.message--error').hide();
 
@@ -40,3 +46,5 @@ $('.message--success').show('fast');
 setTimeout(function() {
   $('.message--success').hide('slow');
 }, 3000);
+
+<% end %>
