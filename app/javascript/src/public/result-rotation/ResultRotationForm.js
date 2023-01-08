@@ -3,6 +3,7 @@ import Button from '../../common/Button'
 import { useResultRotation } from './useResultRotation'
 import useTranslation from '../../util/useTranslation'
 import Message from '../../common/Message'
+import { competitorsCountLabel } from '../../util/competitorUtil'
 
 export default function ResultRotationForm({ race }) {
   const { t } = useTranslation()
@@ -14,7 +15,7 @@ export default function ResultRotationForm({ race }) {
       <Message type="info">{t('resultRotationInfo', { seconds: messageSeconds })}</Message>
       <h3>{t('seriesPlural')}</h3>
       {race.series.map(series => {
-        const { id, name } = series
+        const { id, name, competitorsCount } = series
         return (
           <div key={id} className="form__horizontal-fields">
             <div className="form__field">
@@ -24,7 +25,7 @@ export default function ResultRotationForm({ race }) {
                 checked={seriesIds.includes(id)}
                 onChange={changeSeriesId(id)}
               />
-              <label htmlFor={`series_${id}`}>{name}</label>
+              <label htmlFor={`series_${id}`}>{name} ({competitorsCountLabel(t, competitorsCount)})</label>
             </div>
           </div>
         )

@@ -33,6 +33,8 @@ window.translations = {
   competitor_DNS: 'Tävlaren startade inte',
   competitor_DNF: 'Tävlaren avbröt',
   competitor_DQ: 'Tävlaren diskad',
+  competitorsCountMany: '{{count}} tävlar',
+  competitorsCountOne: '1 tävlare',
   competitorsPerSeries: 'Tävlarna / klass',
   correctDistances: 'Rätta avstånd',
   cupCompetitions: 'Deltävlingar',

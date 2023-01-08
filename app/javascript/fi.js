@@ -33,6 +33,8 @@ window.translations = {
   competitor_DNS: 'Kilpailija ei osallistunut kilpailuun',
   competitor_DNF: 'Kilpailija keskeytti kilpailun',
   competitor_DQ: 'Kilpailija hylättiin',
+  competitorsCountMany: '{{count}} kilpailijaa',
+  competitorsCountOne: '1 kilpailija',
   competitorsPerSeries: 'Kilpailijoiden määrä / sarja',
   correctDistances: 'Oikeat etäisyydet',
   cupCompetitions: 'Osakilpailut',
