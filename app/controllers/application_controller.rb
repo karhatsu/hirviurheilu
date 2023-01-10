@@ -133,7 +133,7 @@ class ApplicationController < ActionController::Base
       raise 'Testing error email' if params[:test_error_email] == 'true'
     rescue ActionDispatch::Http::Parameters::ParseError
       # Catch invalid spam requests to /account and /user_session (application/json with malformed content)
-      return render status: 400, json: { errors: ['invalid JSON'] } if request.content_type == 'application/json'
+      return render status: 400, json: { errors: ['invalid JSON'] } if request.media_type == 'application/json'
       render status: 400, body: nil
     end
   end
