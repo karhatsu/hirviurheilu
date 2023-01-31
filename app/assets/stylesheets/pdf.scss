@@ -172,6 +172,7 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
 
   &__number {
     font-size: 256px;
+    line-height: 256px;
     margin-top: 64px;
   }
 
@@ -199,8 +200,6 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
     }
 
     &__number {
-      font-size: 300px;
-      line-height: 300px;
       margin-top: 0;
     }
 
