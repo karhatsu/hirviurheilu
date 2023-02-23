@@ -2,9 +2,13 @@
   %thead
     %tr
       %th Vuosi
+      - if params[:districts]
+        %th Piiri
       %th= value_title
   %tbody
     - values.each_with_index do |data, i|
       %tr{class: i % 2 == 0 ? 'odd' : ''}
         %td= data['year'].to_i
+        - if params[:districts]
+          %td= data['short_name']
         %td= data['count']

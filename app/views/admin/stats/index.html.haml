@@ -5,6 +5,9 @@
   .form__field
     = label_tag :sport_key, 'Rajaa lajeittain'
     = select_tag :sport_key, options_for_select(Sport::ALL_KEYS.map{|key| [t("sport_name.#{key}"), key]}, params[:sport_key]), multiple: true, style: 'height: 220px'
+  .form__field
+    = label_tag :districts, 'Näytä järjestävät piirit'
+    = check_box_tag :districts, true, params[:districts]
   .form__buttons
     = submit_tag t(:search), class: 'button button--primary'
     = link_to 'Kaikki lajit', admin_stats_path, class: 'button'
