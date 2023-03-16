@@ -80,6 +80,7 @@ sv:
         printing_numbers: Nummer
         other: Övriga
         national_records: Finska rekord
+        megalink_import: Megalink-resultat
         download_competitors_by_clubs: Ladda tävlarna som klubbar (PDF)
         download_competitors_by_districts: Ladda tävlarna som distrikt (PDF)
         download_competitors_by_series: Ladda tävlarna som klasser (PDF)
@@ -179,6 +180,10 @@ sv:
         button: Göra heatlista
       create:
         batch_list_generated: Finalens heatlista är färding för klassen
+    qualification_round_batch_results:
+      batch_not_found: Heat finns inte
+      competitor_not_found: Platsen %{track_place} har inte tävlare
+      competitor_save_error: Platsen %{track_place} fel
     quick_saves:
       index:
         title: Spara resultat

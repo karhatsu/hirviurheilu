@@ -25,6 +25,7 @@ import {
 import { useRace } from '../../util/useRace'
 import useTranslation from '../../util/useTranslation'
 import { resolveClubsTitle } from '../../util/clubUtil'
+import useOfficialMenu from './useOfficialMenu'
 
 const labels = {
   main: 'officialRaceMenuHome',
@@ -174,7 +175,7 @@ const resolveMenuItems = race => {
   else return threeSportsKeys
 }
 
-const buildMenuItem = (key, t, race, series) => {
+const buildMenuItem = (selectedPage, key, t, race, series) => {
   if ((useSeries[key] || requireSeries[key]) && !series) return
   const text = key === 'clubs' ? resolveClubsTitle(t, race.clubLevel) : t(labels[key])
   return (
@@ -182,7 +183,7 @@ const buildMenuItem = (key, t, race, series) => {
       key={key}
       path={paths[key](useSeries[key] ? series.id : race.id)}
       text={text}
-      selected={key === 'clubs'}
+      selected={key === selectedPage}
       dropdownItems={useSeries[key] && race.series.map(s => {
         return { text: s.name, path: paths[key](s.id) }
       })}
@@ -193,11 +194,12 @@ const buildMenuItem = (key, t, race, series) => {
 const DesktopRaceSecondLevelMenu = () => {
   const { t } = useTranslation()
   const { race } = useRace()
+  const { selectedPage } = useOfficialMenu()
   if (!race) return null
   const series = race.series[0]
   return (
     <div className="menu menu--sub menu--sub-1">
-      {resolveMenuItems(race).map(key => buildMenuItem(key, t, race, series))}
+      {resolveMenuItems(race).map(key => buildMenuItem(selectedPage, key, t, race, series))}
     </div>
   )
 }

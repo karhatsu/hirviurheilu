@@ -88,6 +88,7 @@ Hirviurheilu::Application.routes.draw do
         resource :batch_lists_reset, only: [:show, :destroy]
         resources :qualification_round_batch_lists, only: :index
         resources :final_round_batch_lists, only: :index
+        post 'qualification_round_batch_results/:number' => 'qualification_round_batch_results#create'
         resources :competitor_numbers, only: :index
         get 'nordic_batch_lists_trap', to: 'nordic_batch_lists#trap'
         get 'nordic_batch_lists_shotgun', to: 'nordic_batch_lists#shotgun'
@@ -116,6 +117,7 @@ Hirviurheilu::Application.routes.draw do
         post 'no_result_quick_save' => 'quick_saves#save_no_result', :as => :quick_save_no_result
         patch 'national_records' => 'national_records#update_all', as: :update_national_records
         resources :national_records, only: :index
+        resources :megalink_imports, only: :index
         resources :quick_saves
         resource :finish_race
         get 'export/success' => 'exports#success'
