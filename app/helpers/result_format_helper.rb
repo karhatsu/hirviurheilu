@@ -38,15 +38,17 @@ module ResultFormatHelper
     raw("<span class='explanation' title='#{t(scope + '.' + no_result_reason)}'>#{no_result_reason}</span>")
   end
 
-  def national_record_print(competitor, raw=false)
-    if competitor.national_record_passed?
+  def national_record_print(competitor_or_team, raw=false)
+    if competitor_or_team.national_record_passed?
       tag = 'SE'
-    elsif competitor.national_record_reached?
+    elsif competitor_or_team.national_record_reached?
       tag = 'SE (sivuaa)'
     else
       return ''
     end
-    tag << '?' unless competitor.race.finished? || competitor.series.finished?
+    unless competitor_or_team.race.finished? || (competitor_or_team.respond_to?(:series) && competitor_or_team.series.finished?)
+      tag << '?'
+    end
     return tag if raw
     raw("<span class='explanation'><a href=\"#{NATIONAL_RECORD_URL}\">#{tag}</a></span>")
   end

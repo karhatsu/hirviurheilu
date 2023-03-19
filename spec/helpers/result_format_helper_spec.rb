@@ -260,6 +260,17 @@ describe ResultFormatHelper do
           allow(@competitor).to receive(:national_record_passed?).and_return(true)
           expect(helper.national_record_print(@competitor, true)).to eq('SE?')
         end
+
+        context 'and team competition' do
+          it 'should return SE?' do
+            tc = instance_double TeamCompetition
+            allow(tc).to receive(:race).and_return(@race)
+            allow(tc).to receive(:sport)
+            team = Team.new tc, 'Team', 1
+            allow(team).to receive(:national_record_passed?).and_return(true)
+            expect(helper.national_record_print(team, true)).to eq('SE?')
+          end
+        end
       end
 
       context 'when national record reached' do
