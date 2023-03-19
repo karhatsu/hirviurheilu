@@ -5,7 +5,7 @@ export default function NationalRecord({ race, series, competitor }) {
   const { points, position } = competitor
   const { nationalRecord } = series
   if (!points || !nationalRecord || points < nationalRecord || position > 1) return null
-  const text = `SE${points === nationalRecord ? ' (sivuaa)' : ''}${race.finished || series.finished ? '' : '?'}`
+  const text = `${points === nationalRecord ? '=' : ''}SE${race.finished || series.finished ? '' : '?'}`
   return (
     <span className="explanation">
       {' '}<a href={nationalRecordUrl} target="_blank" rel="noreferrer">{text}</a>

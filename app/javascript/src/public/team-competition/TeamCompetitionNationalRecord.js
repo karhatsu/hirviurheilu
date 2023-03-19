@@ -5,7 +5,7 @@ export default function TeamCompetitionNationalRecord({ race, teamCompetition, t
   const { totalScore } = team
   const { nationalRecord } = teamCompetition
   if (!totalScore || !nationalRecord || totalScore < nationalRecord || i > 0) return null
-  const text = `SE${totalScore === nationalRecord ? ' (sivuaa)' : ''}${race.finished ? '' : '?'}`
+  const text = `${totalScore === nationalRecord ? '=' : ''}SE${race.finished ? '' : '?'}`
   return (
     <span className="explanation">
       {' '}<a href={nationalRecordUrl} target="_blank" rel="noreferrer">{text}</a>

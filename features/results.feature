@@ -334,7 +334,7 @@ Feature: Results
       | estimate2 | 129 |
       | arrival_time | 02:05:00 |
     And I am on the results page of the series
-    And I should see "1136 SE (sivuaa)"
+    And I should see "1136 =SE"
 
   @javascript
   Scenario: See the results with national record mention of an individual competitor in an unfinished race
@@ -414,7 +414,7 @@ Feature: Results
       | arrival_time | 02:05:00 |
     And I am on the results page of the series
     And I should see "1136 SE"
-    But I should not see "1136 SE sivuaa"
+    But I should not see "1136 =SE"
     But I should not see "1136 SE?"
     But I should not see "974 SE"
     But I should not see "SE?"

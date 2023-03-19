@@ -77,7 +77,7 @@ export default function RaceMediaPage() {
               .map((competitor, i) => {
                 const { club, firstName, lastName, points, nationalRecordPassed, nationalRecordReached } = competitor
                 if (i < competitorsCount || clubIds.includes(competitor.clubId)) {
-                  const record = nationalRecordPassed ? ' (SE)' : (nationalRecordReached ? ' (SE sivuaa)' : '')
+                  const record = nationalRecordPassed ? ' (SE)' : (nationalRecordReached ? ' (=SE)' : '')
                   return `${i + 1}) ${lastName} ${firstName} ${club.name} ${points}${record}`
                 }
                 return undefined

@@ -42,7 +42,7 @@ module ResultFormatHelper
     if competitor_or_team.national_record_passed?
       tag = 'SE'
     elsif competitor_or_team.national_record_reached?
-      tag = 'SE (sivuaa)'
+      tag = '=SE'
     else
       return ''
     end
@@ -57,7 +57,7 @@ module ResultFormatHelper
     if competitor.rifle_national_record_passed?
       tag = 'SE'
     elsif competitor.rifle_national_record_reached?
-      tag = 'SE (sivuaa)'
+      tag = '=SE'
     else
       return ''
     end
