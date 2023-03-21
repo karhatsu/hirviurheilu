@@ -12,4 +12,14 @@ class QualificationRoundBatch < Batch
   def id_name
     :qualification_round_batch_id
   end
+
+  private
+
+  def find_competitor_by_track_place(place)
+    competitors.where(qualification_round_track_place: place).first
+  end
+
+  def set_competitor_shots(competitor, shots, _)
+    competitor.shots = shots
+  end
 end

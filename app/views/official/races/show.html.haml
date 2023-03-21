@@ -75,6 +75,8 @@
 %h3.desktop= t '.other'
 .buttons
   = link_to t('.national_records'), official_race_national_records_path(@race), class: 'button'
+  - if @race.sport_key == Sport::ILMALUODIKKO
+    = link_to t('.megalink_import'), official_race_megalink_imports_path(@race), class: 'button'
 - if @race.sport.relays?
   %h2= t '.other_race_formats'
   .buttons

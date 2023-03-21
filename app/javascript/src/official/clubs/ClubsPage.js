@@ -10,6 +10,7 @@ import { del, get, post, put } from '../../util/apiClient'
 import ClubForm from './ClubForm'
 import Message from '../../common/Message'
 import { competitorsCountLabel } from '../../util/competitorUtil'
+import useOfficialMenu from '../menu/useOfficialMenu'
 
 const clubsSorter = (a, b) => a.name.localeCompare(b.name)
 
@@ -22,6 +23,9 @@ const ClubsPage = () => {
   const [adding, setAdding] = useState(false)
   const [editing, setEditing] = useState()
   const { fetching, error, race } = useRace()
+  const { setSelectedPage } = useOfficialMenu()
+
+  useEffect(() => setSelectedPage('clubs'), [setSelectedPage])
 
   useEffect(() => {
     if (race) {
@@ -140,7 +144,7 @@ const ClubsPage = () => {
         </Button>
       </div>
       <div className="buttons buttons--nav">
-        <Button to={buildOfficialRacePath(race.id)} type="back">{t('backToOfficialRacePage')}</Button>
+        <Button href={buildOfficialRacePath(race.id)} type="back">{t('backToOfficialRacePage')}</Button>
       </div>
     </div>
   )

@@ -80,6 +80,7 @@ fi:
         printing_numbers: Numerolaput
         other: Muita toimintoja
         national_records: Suomen ennätykset
+        megalink_import: Megalink-tulokset
         download_competitors_by_clubs: Lataa osallistujat seuroittain (PDF)
         download_competitors_by_districts: Lataa osallistujat piireittäin (PDF)
         download_competitors_by_series: Lataa osallistujat sarjoittain (PDF)
@@ -179,6 +180,11 @@ fi:
         button: Tee eräluettelot
       create:
         batch_list_generated: Loppukilpailun eräluettelot luotu sarjalle onnistuneesti
+    batch_results:
+      batch_not_found: Erää ei löytynyt
+      competitor_not_found: Paikalla %{track_place} ei ole kilpailijaa
+      competitor_save_error: Paikan %{track_place} kilpailijan tietojen tallennus epäonnistui
+      no_qualification_round_shots: Paikan %{track_place} kilpailijalla ei ole alkukilpailun laukauksia
     quick_saves:
       index:
         title: Tulosten pikasyöttö
