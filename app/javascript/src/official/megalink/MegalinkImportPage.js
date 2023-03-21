@@ -6,6 +6,7 @@ import { useRace } from '../../util/useRace'
 import IncompletePage from '../../common/IncompletePage'
 import FormErrors from '../../common/form/FormErrors'
 import Message from '../../common/Message'
+import { buildOfficialRacePath } from '../../util/routeUtil'
 
 const pickShots = series => {
   const shots = []
@@ -108,6 +109,9 @@ const MegalinkImportPage = () => {
           <Button type="primary" submit disabled={!round || !isValidJson(file)}>{t('save')}</Button>
         </div>
       </form>
+      <div className="buttons buttons--nav">
+        <Button href={buildOfficialRacePath(race.id)} type="back">{t('backToOfficialRacePage')}</Button>
+      </div>
     </div>
   )
 }
