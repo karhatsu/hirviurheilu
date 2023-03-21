@@ -144,7 +144,7 @@ const ClubsPage = () => {
         </Button>
       </div>
       <div className="buttons buttons--nav">
-        <Button to={buildOfficialRacePath(race.id)} type="back">{t('backToOfficialRacePage')}</Button>
+        <Button href={buildOfficialRacePath(race.id)} type="back">{t('backToOfficialRacePage')}</Button>
       </div>
     </div>
   )
