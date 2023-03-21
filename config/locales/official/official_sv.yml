@@ -180,10 +180,11 @@ sv:
         button: Göra heatlista
       create:
         batch_list_generated: Finalens heatlista är färding för klassen
-    qualification_round_batch_results:
+    batch_results:
       batch_not_found: Heat finns inte
       competitor_not_found: Platsen %{track_place} har inte tävlare
       competitor_save_error: Platsen %{track_place} fel
+      no_qualification_round_shots: Platsens %{track_place} tävlare har inte resultat for grundtävlingen
     quick_saves:
       index:
         title: Spara resultat

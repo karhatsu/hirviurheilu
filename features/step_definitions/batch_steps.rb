@@ -10,11 +10,17 @@ Given('batch list generation sorts competitors by last name') do
   allow_any_instance_of(BatchList).to receive(:shuffle_competitors).and_return(@series.competitors.except(:order).order(:last_name))
 end
 
-Given('the race has a qualification round batch {int} with competitors assigned to track places {int}-{int}') do |batch_number, min_place, max_place|
+Given('the race has a qualification and final round batch {int} with competitors assigned to track places {int}-{int}') do |batch_number, min_place, max_place|
   @series = @race.series.first || create(:series, race: @race)
-  @batch = create :qualification_round_batch, race: @race, number: batch_number
+  qr_batch = create :qualification_round_batch, race: @race, number: batch_number
+  final_batch = create :final_round_batch, race: @race, number: batch_number
   (min_place..max_place).each do |track_place|
-    create :competitor, series: @series, qualification_round_batch_id: @batch.id, qualification_round_track_place: track_place
+    create :competitor,
+           series: @series,
+           qualification_round_batch_id: qr_batch.id,
+           qualification_round_track_place: track_place,
+           final_round_batch_id: final_batch.id,
+           final_round_track_place: track_place
   end
 end
 
@@ -42,5 +48,11 @@ end
 Then('the competitor in qualification round batch {int} on place {int} should have shots {string}') do |batch, place, shots|
   batch = @race.qualification_round_batches.where(number: batch).first
   competitor = @race.competitors.where(qualification_round_batch: batch, qualification_round_track_place: place).first
+  expect(competitor.shots).to eq shots.split(', ').map(&:to_i)
+end
+
+Then('the competitor in final round batch {int} on place {int} should have shots {string}') do |batch, place, shots|
+  batch = @race.final_round_batches.where(number: batch).first
+  competitor = @race.competitors.where(final_round_batch: batch, final_round_track_place: place).first
   expect(competitor.shots).to eq shots.split(', ').map(&:to_i)
 end

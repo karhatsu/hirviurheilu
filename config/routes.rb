@@ -89,6 +89,7 @@ Hirviurheilu::Application.routes.draw do
         resources :qualification_round_batch_lists, only: :index
         resources :final_round_batch_lists, only: :index
         post 'qualification_round_batch_results/:number' => 'qualification_round_batch_results#create'
+        post 'final_round_batch_results/:number' => 'final_round_batch_results#create'
         resources :competitor_numbers, only: :index
         get 'nordic_batch_lists_trap', to: 'nordic_batch_lists#trap'
         get 'nordic_batch_lists_shotgun', to: 'nordic_batch_lists#shotgun'

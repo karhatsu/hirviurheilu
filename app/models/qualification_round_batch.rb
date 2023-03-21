@@ -13,23 +13,13 @@ class QualificationRoundBatch < Batch
     :qualification_round_batch_id
   end
 
-  def save_results(results)
-    errors = []
-    transaction do
-      results.each do |result|
-        place = result[:place]
-        competitor = competitors.where(qualification_round_track_place: place).first
-        if competitor
-          competitor.shots = result[:shots]
-          unless competitor.save
-            errors << "#{I18n.t('official.qualification_round_batch_results.competitor_save_error', track_place: place)}: #{competitor.errors.full_messages.join('. ')}"
-          end
-        else
-          errors << I18n.t('official.qualification_round_batch_results.competitor_not_found', track_place: place)
-        end
-      end
-      raise ActiveRecord::Rollback unless errors.empty?
-    end
-    errors
+  private
+
+  def find_competitor_by_track_place(place)
+    competitors.where(qualification_round_track_place: place).first
+  end
+
+  def set_competitor_shots(competitor, shots, _)
+    competitor.shots = shots
   end
 end
