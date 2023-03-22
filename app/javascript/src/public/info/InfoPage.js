@@ -12,6 +12,8 @@ import useTranslation from '../../util/useTranslation'
 import useAppData from '../../util/useAppData'
 import useTitle from '../../util/useTitle'
 
+const trainingUrl = 'https://metsastajaliitto.fi/metsastajalle/kilpailutoiminta/hirviurheilu'
+
 export default function InfoPage() {
   const { t } = useTranslation()
   const { setSelectedPage } = useMenu()
@@ -21,8 +23,19 @@ export default function InfoPage() {
   useEffect(() => setSelectedPage(pages.info.main), [setSelectedPage])
 
   return (
-    <div>
+    <div style={{ marginTop: 16 }}>
       <div className="row">
+        <div className="col-xs-12 col-sm-6">
+          <a href={trainingUrl} target="_balnk" className="card">
+            <div className="card__middle">
+              <div className="card__name">Hirviurheilu-koulutus</div>
+              <div className="card__middle-row">
+                Suomen Metsästäjäliitto järjesti kattavan koulutuksen Hirviurheilun käytöstä maaliskuussa 2023.
+                Voit joko katsoa videolta koulutuksen kokonaisuudessaan tai tutustua siinä käytetyn materiaalin.
+              </div>
+            </div>
+          </a>
+        </div>
         <div className="col-xs-12 col-sm-6">
           <a href={buildAnswersPath()} className="card">
             <div className="card__middle">
