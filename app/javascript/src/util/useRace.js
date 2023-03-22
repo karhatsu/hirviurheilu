@@ -21,8 +21,8 @@ export const RaceProvider = ({ children }) => {
   }, [raceId])
 
   useEffect(() => {
-    fetchRaceRef.current = () => {
-      setRace(undefined)
+    fetchRaceRef.current = reload => {
+      if (!reload) setRace(undefined)
       fetchRace()
     }
   }, [fetchRace])
@@ -33,8 +33,12 @@ export const RaceProvider = ({ children }) => {
     }
   }, [raceId])
 
+  const reload = useCallback(() => {
+    fetchRaceRef.current(true)
+  }, [])
+
   useDataReloading('RaceChannel', 'race_id', raceId, fetchRaceRef)
 
-  const value = { fetching: !error && !race, race, error }
+  const value = { fetching: !error && !race, race, error, reload }
   return <RaceContext.Provider value={value}>{children}</RaceContext.Provider>
 }
