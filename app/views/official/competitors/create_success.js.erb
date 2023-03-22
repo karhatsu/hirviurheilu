@@ -23,9 +23,9 @@ $('#competitor_number').val(<%= @competitor.race.next_start_number %>);
 var clubPrompt = $('#club_id').find('option').first().text();
 $('#club_id').children().remove();
 $('#club_id').append("<option>" + clubPrompt + "</option>");
-$.getJSON('/official/races/' + <%= @competitor.race.id %> + '/clubs', function(clubs) {
-  for (var i = 0; i < clubs.length; i++) {
-    $('#club_id').append("<option value='" + clubs[i].id + "'>" + clubs[i].name + "</option>");
+$.getJSON('/official/races/' + <%= @competitor.race.id %> + '/clubs', function(data) {
+  for (var i = 0; i < data.clubs.length; i++) {
+    $('#club_id').append("<option value='" + data.clubs[i].id + "'>" + data.clubs[i].name + "</option>");
   }
 });
 $('#club_id').show();
