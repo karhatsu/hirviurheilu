@@ -1,10 +1,10 @@
 .form__horizontal-fields
   .form__field.form__field--sm
     = f.label :min_number, t('official.correct_estimates.index.start_numbers')
-    = f.number_field :min_number, maxlength: 4, min: 1
+    = f.number_field :min_number, maxlength: 4, min: 0
   .form__field.form__field--sm
     = f.label :max_number, raw('&#8211;')
-    = f.number_field :max_number, maxlength: 4, min: 1
+    = f.number_field :max_number, maxlength: 4, min: 0
   .form__field.form__field--sm
     = f.label :distance1
     = f.number_field :distance1, min: 50, max: 200
