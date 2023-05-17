@@ -22,7 +22,7 @@ Feature: Feedback
     Then I should see "Kiitos palautteesta"
     And the admin should receive an email
     When I open the email
-    Then I should see the email delivered from "pekka@palaute.com"
+    Then I should see the email delivered from "noreply@hirviurheilu.com"
     And I should see "Hirviurheilu - palaute" in the email subject
     And I should see "Hyvä järjestelmä!" in the email body
     And I should see "Nimi: Pekka Miettinen" in the email body

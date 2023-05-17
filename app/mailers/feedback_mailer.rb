@@ -7,7 +7,7 @@ class FeedbackMailer < ApplicationMailer
     @name = name
     @email = email
     @tel = tel
-    mail :to => ADMIN_EMAIL, :from => from_address(email), :subject => 'Hirviurheilu - palaute'
+    mail to: ADMIN_EMAIL, from: NOREPLY_ADDRESS, reply_to: reply_to(email), subject: 'Hirviurheilu - palaute'
   end
 
   def race_feedback_mail(race, comment, name, email, tel, current_user)
@@ -18,12 +18,12 @@ class FeedbackMailer < ApplicationMailer
     @email = email
     @tel = tel
     official = race.race_rights.where(primary: true).first&.user || race.race_rights.first.user
-    mail to: official.email, bcc: ADMIN_EMAIL, from: from_address(email), subject: 'Hirviurheilu - palaute'
+    mail to: official.email, bcc: ADMIN_EMAIL, from: NOREPLY_ADDRESS, reply_to: reply_to(email), subject: 'Hirviurheilu - palaute'
   end
 
   private
 
-  def from_address(email)
-    email.blank? ? NOREPLY_ADDRESS : email
+  def reply_to(email)
+    email.blank? ? nil : email
   end
 end
