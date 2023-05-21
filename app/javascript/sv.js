@@ -114,7 +114,6 @@ window.translations = {
   qAndA: 'Kysymyksiä ja vastauksia',
   qualificationRound: 'Grundtävling',
   qualificationRoundBatchList: 'Grundtävlingens heatlista',
-  raceBeginsIn: 'Tävlingen börjar om {{distanceInTime}}',
   raceCancelledMessage: 'Tyvärr tävlingen är inställd',
   raceCancelledTitle: 'Tävlingen inställd',
   raceHomePage: 'Tävlingens hemsidor',

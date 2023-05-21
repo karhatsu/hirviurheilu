@@ -20,7 +20,6 @@ Feature: Show race
     And the page title should contain "My test race"
     And the page title should contain "Hirvenhiihto, Test city, 01.01.2029 - 02.01.2029"
     And I should see "Tiedote kilpailijoille ja kotikatsojille" within ".public-message"
-    And I should see "Kilpailun alkuun on aikaa" in an info message
     And I should see "Kilpailu alkaa 10:00" in an info message
     And I should see "Men 50 years (01.01.2029 13:30)"
     But I should not see "Kaikkien sarjojen lähtöajat (PDF)"
@@ -41,12 +40,6 @@ Feature: Show race
     When I go to the race page
     Then I should see "Kaikkien sarjojen lähtöajat (PDF)"
     But I should not see "Kilpailu alkaa"
-
-  @javascript
-  Scenario: Race starts in 7 days
-    Given there is a race "Future race" that starts in 7 days
-    And I go to the race page of "Future race"
-    Then I should see "Kilpailun alkuun on aikaa 7 päivää"
 
   @javascript
   Scenario: Start list exists

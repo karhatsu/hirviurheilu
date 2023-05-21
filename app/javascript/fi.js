@@ -114,7 +114,6 @@ window.translations = {
   qAndA: 'Kysymyksiä ja vastauksia',
   qualificationRound: 'Alkukilpailu',
   qualificationRoundBatchList: 'Alkukilpailun eräluettelo',
-  raceBeginsIn: 'Kilpailun alkuun on aikaa {{distanceInTime}}',
   raceCancelledMessage: 'Valitettavasti kilpailu on peruttu',
   raceCancelledTitle: 'Kilpailu peruttu',
   raceHomePage: 'Kilpailun kotisivut',

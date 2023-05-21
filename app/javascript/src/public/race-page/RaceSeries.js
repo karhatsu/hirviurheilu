@@ -1,7 +1,6 @@
 import React from 'react'
 import format from 'date-fns/format'
 import isAfter from 'date-fns/isAfter'
-import isBefore from 'date-fns/isBefore'
 import parse from 'date-fns/parse'
 import parseISO from 'date-fns/parseISO'
 import useTranslation from '../../util/useTranslation'
@@ -25,17 +24,24 @@ const nordicSubSports = ['trap', 'shotgun', 'rifle_standing', 'rifle_moving']
 
 export default function RaceSeries({ race }) {
   const { t } = useTranslation()
-  const { clubLevel, clubs, finished, nordicSubResultsForSeries, series, sport, startDate, startTime, relays } = race
+  const {
+    clubLevel,
+    clubs,
+    finished,
+    nordicSubResultsForSeries,
+    series,
+    sport,
+    startDateTime,
+    startTime,
+    relays,
+  } = race
   if (!series.length && relays.length) return null
   const infos = []
   if (!series.length && !relays.length) {
     infos.push(t('raceWithoutSeries'))
   }
-  if (isAfter(parseISO(startDate), new Date())) {
-    infos.push(t('raceBeginsIn', { distanceInTime: race.startDateDistanceInWords }))
-  }
-  if (startTime && !finished && isBefore(new Date(), new Date(startDate))) {
-    const key = isAfter(new Date(), parseISO(startDate)) ? 'raceStarted' : 'raceStarts'
+  if (startTime && !finished) {
+    const key = isAfter(new Date(), new Date(startDateTime)) ? 'raceStarted' : 'raceStarts'
     infos.push(t(key, { time: format(parse(startTime, 'HH:mm:ss', new Date()), 'HH:mm') }))
   }
   const qrHidden = race.hideQualificationRoundBatches
