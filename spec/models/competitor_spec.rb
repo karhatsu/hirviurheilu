@@ -1505,6 +1505,32 @@ describe Competitor do
       end
     end
 
+    context 'when the competitor is the second best unofficial competitor and has better time than best official competitor' do
+      let(:unofficial) { true }
+      let(:unofficial2) { true }
+      let(:diff_to_competitor2) { 10 }
+
+      before do
+        create :competitor, series: series, age_group: age_group, start_time: start_time, arrival_time: '01:10:00'
+      end
+
+      context 'and race is 2022' do
+        let(:race_start_date) { '2022-12-31' }
+
+        it 'should be points compared to the best official competitor time' do
+          expect(competitor.time_points).to eq(300)
+        end
+      end
+
+      context 'and race is 2023' do
+        let(:race_start_date) { '2023-01-01' }
+
+        it 'should be points compared to the best unofficial competitor time' do
+          expect(competitor.time_points).to eq(299)
+        end
+      end
+    end
+
     context 'when the time is really big' do
       let(:diff_to_competitor2) { 100000 }
 

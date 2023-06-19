@@ -125,6 +125,7 @@ class Competitor < ApplicationRecord
   end
 
   def comparison_time_in_seconds(unofficials_rule=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
+    unofficials_rule = unofficial? && race.year >= 2023 ? Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME : unofficials_rule
     comparison_time = series.comparison_time_in_seconds(age_group, unofficials_rule)
     if comparison_time.nil? && unofficial? && [Series::UNOFFICIALS_EXCLUDED, Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME].include?(unofficials_rule)
       comparison_time = series.comparison_time_in_seconds(age_group, Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME)
