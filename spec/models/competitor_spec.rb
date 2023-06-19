@@ -1342,185 +1342,220 @@ describe Competitor do
   end
 
   describe "#time_points" do
-    before do
-      @unofficials = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
-      @series = build(:series)
-      @age_group = build :age_group, series: @series
-      @competitor = build(:competitor, series: @series, age_group: @age_group)
-      @best_time_seconds = 3603.0 # rounded: 3600
-      allow(@series).to receive(:comparison_time_in_seconds).with(@age_group, @unofficials).and_return(@best_time_seconds)
+    let(:race_start_date) { '2022-01-01' }
+    let(:race) { create :race, start_date: race_start_date }
+    let(:points_method) { Series::TIME_POINTS_TYPE_NORMAL }
+    let(:series) { create :series, race: race, points_method: points_method }
+    let(:age_group) { create :age_group, series: series }
+    let(:start_time) { '00:00:00' }
+    let(:arrival_time2) { '01:00:03' }
+    let(:diff_to_competitor2) { 0 }
+    let(:arrival_time) { (Time.parse(arrival_time2) + diff_to_competitor2).strftime('%H:%M:%S') }
+    let(:no_result_reason) { nil }
+    let(:unofficial) { false }
+    let(:unofficial2) { false }
+    let(:competitor) { create :competitor, series: series, age_group: age_group, start_time: start_time, arrival_time: arrival_time, no_result_reason: no_result_reason, unofficial: unofficial }
+    let!(:competitor2) { create :competitor, series: series, age_group: age_group, start_time: start_time, arrival_time: arrival_time2, unofficial: unofficial2 }
+
+    context 'when time cannot be calculated yet' do
+      let(:arrival_time) { nil }
+
+      it "should be nil" do
+        expect(competitor.time_points).to be_nil
+      end
     end
 
-    it "should be nil when time cannot be calculated yet" do
-      expect(@competitor).to receive(:time_in_seconds).and_return(nil)
-      expect(@competitor.time_points(@unofficials)).to eq(nil)
+    context 'when competitor has time but there is no valid best time' do
+      # the competitor has time but also no result reason and no other competitor has time
+      let(:arrival_time) { '01:00:00' }
+      let(:arrival_time2) { nil }
+      let(:no_result_reason) { Competitor::DQ }
+
+      it "should be nil" do
+        expect(competitor.time_points).to be_nil
+      end
     end
 
-    it "should be nil when competitor has time but best time cannot be calculated" do
-      # this happens if competitor has time but did not finish (no_result_reason=DNF)
-      # and no-one else has result either
-      expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds)
-      expect(@series).to receive(:comparison_time_in_seconds).with(@age_group, @unofficials).and_return(nil)
-      expect(@competitor.time_points(@unofficials)).to eq(nil)
-    end
+    context 'when only unofficial competitors' do
+      let(:unofficial) { true }
+      let(:unofficial2) { true }
+      let(:diff_to_competitor2) { 10 }
 
-    context 'when only unofficial competitors in the series' do
-      before do
-        @competitor.unofficial = true
-        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 10)
-        expect(@series).to receive(:comparison_time_in_seconds).with(@age_group, Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME).and_return(@best_time_seconds)
+      context 'and unofficial competitors are handled in the modern way' do
+        it 'should find the comparison time for all competitors and calculate time points based on that' do
+          expect(competitor.time_points(Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)).to eq(299)
+        end
       end
 
-      it 'should find the comparison time for all competitors and calculate time points based on that' do
-        expect(@series).to receive(:comparison_time_in_seconds).with(@age_group, Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME).and_return(nil)
-        expect(@competitor.time_points(Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)).to eq(299)
-      end
-
-      it 'should find the comparison time for all competitors and calculate time points based on that' do
-        expect(@series).to receive(:comparison_time_in_seconds).with(@age_group, Series::UNOFFICIALS_EXCLUDED).and_return(nil)
-        expect(@competitor.time_points(Series::UNOFFICIALS_EXCLUDED)).to eq(299)
+      context 'and unofficial competitors are excluded in the results (before 2017)' do
+        it 'should find the comparison time for all competitors and calculate time points based on that' do
+          expect(competitor.time_points(Series::UNOFFICIALS_EXCLUDED)).to eq(299)
+        end
       end
     end
 
     context "when the competitor has the best time" do
+      let(:diff_to_competitor2) { -60 }
+
       it "should be 300" do
-        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds)
-        expect(@competitor.time_points(@unofficials)).to eq(300)
+        expect(competitor.time_points).to eq(300)
       end
     end
 
     context "when the competitor has worse time than the best time" do
       context 'and the race is before 2022' do
-        before do
-          race = build :race, start_date: '2021-12-31'
-          allow(@competitor).to receive(:race).and_return(race)
+        let(:race_start_date) { '2021-12-31' }
+
+        context 'when the rounded time (to closest 10 seconds down) is the same as the best time rounded' do
+          let(:diff_to_competitor2) { 6 } # 3 + 6 = 9 => 00
+
+          it 'should be 300'  do
+            expect(competitor.time_points).to eq(300)
+          end
         end
 
-        it "should be 300 when the rounded time is the same as the best time rounded" do
-          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 6)
-          expect(@competitor.time_points(@unofficials)).to eq(300)
+        context 'when the rounded time is 10 seconds worse than the best time' do
+          let(:diff_to_competitor2) { 7 } # 3 + 7 = 10 => 10
+
+          it 'should be 299'  do
+            expect(competitor.time_points).to eq(299)
+          end
         end
 
-        it "should be 299 when the rounded time is 10 seconds worse than the best time" do
-          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 7)
-          expect(@competitor.time_points(@unofficials)).to eq(299)
+        context 'when the rounded time is still 10 seconds worse' do
+          let(:diff_to_competitor2) { 16 } # 3 + 16 = 19 => 10
+
+          it 'should be 299'  do
+            expect(competitor.time_points).to eq(299)
+          end
         end
 
-        it "should be 299 when the rounded time is still 10 seconds worse" do
-          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 16)
-          expect(@competitor.time_points(@unofficials)).to eq(299)
-        end
+        context 'when the rounded time is 20 seconds worse' do
+          let(:diff_to_competitor2) { 17 } # 3 + 17 = 20 => 20
 
-        it "should be 298 when the rounded time is 20 seconds worse" do
-          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 17)
-          expect(@competitor.time_points(@unofficials)).to eq(298)
+          it 'should be 298'  do
+            expect(competitor.time_points).to eq(298)
+          end
         end
       end
 
       context 'and the race is 2022 or after' do
-        before do
-          race = build :race, start_date: '2022-01-01'
-          allow(@competitor).to receive(:race).and_return(race)
+        let(:race_start_date) { '2022-01-01' }
+
+        context 'when the time is 1 second slower than the best time' do
+          let(:diff_to_competitor2) { 1 }
+
+          it 'should be 300'  do
+            expect(competitor.time_points).to eq(300)
+          end
         end
 
-        it "should be 300 when the time is 1 second slower than the best time" do
-          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 1)
-          expect(@competitor.time_points(@unofficials)).to eq(300)
+        context 'when the is 9 seconds worse than the best time' do
+          let(:diff_to_competitor2) { 9 }
+
+          it 'should be 300'  do
+            expect(competitor.time_points).to eq(300)
+          end
         end
 
-        it "should be 300 when the is 9 seconds worse than the best time" do
-          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 9)
-          expect(@competitor.time_points(@unofficials)).to eq(300)
+        context 'when the is 10 seconds worse than the best time' do
+          let(:diff_to_competitor2) { 10 }
+
+          it 'should be 299'  do
+            expect(competitor.time_points).to eq(299)
+          end
         end
 
-        it "should be 299 when the rounded time is 10 seconds worse" do
-          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 10)
-          expect(@competitor.time_points(@unofficials)).to eq(299)
-        end
+        context 'when the is 19 seconds worse than the best time' do
+          let(:diff_to_competitor2) { 19 }
 
-        it "should be 299 when the rounded time is 19 seconds worse" do
-          expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 19)
-          expect(@competitor.time_points(@unofficials)).to eq(299)
+          it 'should be 299'  do
+            expect(competitor.time_points).to eq(299)
+          end
         end
       end
     end
 
     context 'when the rounded time is over 5 minutes worse' do
-      before do
-        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 6 * 60 - 2)
-      end
+      let(:diff_to_competitor2) { 6 * 60 - 2 }
 
       context 'and the race was before 2017' do
+        let(:race_start_date) { '2016-12-31' }
+
         it 'should be 300 - 1 point for every 10 seconds' do
-          race = build :race, start_date: '2016-12-31'
-          allow(@competitor).to receive(:race).and_return(race)
-          expect(@competitor.time_points(@unofficials)).to eq(300 - 6 * 6)
+          expect(competitor.time_points).to eq(300 - 6 * 6)
         end
       end
 
       context 'and the race is 2017 or later' do
+        let(:race_start_date) { '2017-01-01' }
+
         it 'should be 300 - 1 point for every 10 seconds for the first 5 min, then -1 point for every 20 second' do
-          race = build :race, start_date: '2017-01-01'
-          allow(@competitor).to receive(:race).and_return(race)
-          expect(@competitor.time_points(@unofficials)).to eq(300 - 5 * 6 - 3)
+          expect(competitor.time_points).to eq(300 - 5 * 6 - 3)
         end
       end
     end
 
     context "when the competitor is an unofficial competitor and has better time than official best time" do
+      let(:unofficial) { true }
+      let(:diff_to_competitor2) { -60 }
+
       it "should be 300" do
-        @competitor.unofficial = true
-        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds - 60)
-        expect(@competitor.time_points(@unofficials)).to eq(300)
+        expect(competitor.time_points).to eq(300)
       end
     end
 
-    it "should never be negative" do
-      expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 100000)
-      expect(@competitor.time_points(@unofficials)).to eq(0)
+    context 'when the time is really big' do
+      let(:diff_to_competitor2) { 100000 }
+
+      it 'should still never be negative' do
+        expect(competitor.time_points).to eq(0)
+      end
     end
 
     context "when no time points (4 estimates)" do
+      let(:points_method) { Series::POINTS_METHOD_NO_TIME_4_ESTIMATES }
+
       it "should be nil" do
-        @competitor.series.points_method = Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
-        allow(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds)
-        expect(@competitor.time_points(@unofficials)).to be_nil
+        expect(competitor.time_points).to be_nil
       end
     end
 
     context "when no time points (2 estimates)" do
+      let(:points_method) { Series::POINTS_METHOD_NO_TIME_2_ESTIMATES }
+
       it "should be nil" do
-        @competitor.series.points_method = Series::POINTS_METHOD_NO_TIME_2_ESTIMATES
-        allow(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds)
-        expect(@competitor.time_points(@unofficials)).to be_nil
+        expect(competitor.time_points).to be_nil
       end
     end
 
     context "when 300 time points for all competitors in the series" do
+      let(:points_method) { Series::POINTS_METHOD_300_TIME_2_ESTIMATES }
+
       it "should be 300" do
-        @competitor.series.points_method = Series::POINTS_METHOD_300_TIME_2_ESTIMATES
-        allow(@competitor).to receive(:time_in_seconds).and_return(nil)
-        expect(@competitor.time_points(@unofficials)).to eq(300)
+        expect(competitor.time_points).to eq(300)
       end
     end
 
-    context "no result" do
-      before do
-        @competitor = build(:competitor, series: @series, age_group: @age_group, no_result_reason: Competitor::DQ)
-        @best_time_seconds = 3603.0
-        allow(@series).to receive(:comparison_time_in_seconds).with(@age_group, @unofficials).and_return(@best_time_seconds)
+    context "when no result" do
+      let(:no_result_reason) {  Competitor::DQ }
+
+      context 'when the competitor has not the best time' do
+        let(:diff_to_competitor2) { 20 }
+
+        it 'should be like normally' do
+          expect(competitor.time_points).to eq(298)
+        end
       end
 
-      it "should be like normally when the competitor has not the best time" do
-        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds + 20)
-        expect(@competitor.time_points(@unofficials)).to eq(298)
-      end
-
-      it "should be nil when competitor's time is better than the best time" do
+      context "when competitor's time is better than the best time" do
         # note: when no result, the time really can be better than the best time
         # since such a competitor's time cannot be the best time
-        expect(@competitor).to receive(:time_in_seconds).and_return(@best_time_seconds - 1)
-        expect(@competitor.time_points(@unofficials)).to be_nil
+        let(:diff_to_competitor2) { -1 }
+
+        it 'should be nil' do
+          expect(competitor.time_points).to be_nil
+        end
       end
     end
   end
