@@ -2,45 +2,45 @@ require 'spec_helper'
 
 describe ResultFormatHelper do
   describe '#points_print' do
-    let(:unofficials) { Series::UNOFFICIALS_EXCLUDED }
+    let(:unofficials_rule) { Series::UNOFFICIALS_EXCLUDED }
 
     it 'should print no result reason if it is defined' do
       competitor = instance_double(Competitor, :no_result_reason => Competitor::DNS)
-      allow(competitor).to receive(:points).with(unofficials).and_return(145)
-      expect(helper.points_print(competitor, unofficials)).
+      allow(competitor).to receive(:points).with(unofficials_rule).and_return(145)
+      expect(helper.points_print(competitor, unofficials_rule)).
           to eq("<span class='explanation' title='Kilpailija ei osallistunut kilpailuun'>DNS</span>")
     end
 
     it 'should print points if competitor finished and has correct estimates' do
       competitor = instance_double(Competitor, :no_result_reason => nil,
                                    :series => nil)
-      expect(competitor).to receive(:points).with(unofficials).and_return(145)
+      expect(competitor).to receive(:points).with(unofficials_rule).and_return(145)
       expect(competitor).to receive(:finished?).and_return(true)
       expect(competitor).to receive(:has_correct_estimates?).and_return(true)
-      expect(helper.points_print(competitor, unofficials)).to eq('145')
+      expect(helper.points_print(competitor, unofficials_rule)).to eq('145')
     end
 
     it 'should print points in brackets if competitor not finished' do
       competitor = instance_double(Competitor, :no_result_reason => nil)
-      expect(competitor).to receive(:points).with(unofficials).and_return(100)
+      expect(competitor).to receive(:points).with(unofficials_rule).and_return(100)
       expect(competitor).to receive(:finished?).and_return(false)
-      expect(helper.points_print(competitor, unofficials)).to eq('(100)')
+      expect(helper.points_print(competitor, unofficials_rule)).to eq('(100)')
     end
 
     it 'should print points in brackets if competitor has no correct estimates yet' do
       competitor = instance_double(Competitor, :no_result_reason => nil)
-      expect(competitor).to receive(:points).with(unofficials).and_return(100)
+      expect(competitor).to receive(:points).with(unofficials_rule).and_return(100)
       expect(competitor).to receive(:finished?).and_return(true)
       expect(competitor).to receive(:has_correct_estimates?).and_return(false)
-      expect(helper.points_print(competitor, unofficials)).to eq('(100)')
+      expect(helper.points_print(competitor, unofficials_rule)).to eq('(100)')
     end
 
     it 'should print - if no points at all' do
       competitor = instance_double(Competitor, :no_result_reason => nil,
                                    :series => nil)
-      expect(competitor).to receive(:points).with(unofficials).and_return(nil)
+      expect(competitor).to receive(:points).with(unofficials_rule).and_return(nil)
       expect(competitor).to receive(:finished?).and_return(false)
-      expect(helper.points_print(competitor, unofficials)).to eq('-')
+      expect(helper.points_print(competitor, unofficials_rule)).to eq('-')
     end
   end
 
@@ -153,7 +153,7 @@ describe ResultFormatHelper do
   end
 
   describe '#time_points_print' do
-    let(:unofficials) { Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME }
+    let(:unofficials_rule) { Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME }
 
     before do
       @series = instance_double(Series, :points_method => Series::POINTS_METHOD_TIME_2_ESTIMATES)
@@ -186,17 +186,17 @@ describe ResultFormatHelper do
       it 'should return time points and time in brackets' do
         competitor = instance_double(Competitor, :series => @series,
                                      :time_in_seconds => 2680, :no_result_reason => nil)
-        expect(competitor).to receive(:time_points).with(unofficials).and_return(270)
+        expect(competitor).to receive(:time_points).with(unofficials_rule).and_return(270)
         expect(helper).to receive(:time_from_seconds).with(2680).and_return('45:23')
-        expect(helper.time_points_print(competitor, true, unofficials)).to eq('270 (45:23)')
+        expect(helper.time_points_print(competitor, true, unofficials_rule)).to eq('270 (45:23)')
       end
 
       it 'should wrap with best time span when full points' do
         competitor = instance_double(Competitor, :series => @series,
                                      :time_in_seconds => 2680, :no_result_reason => nil)
-        expect(competitor).to receive(:time_points).with(unofficials).and_return(300)
+        expect(competitor).to receive(:time_points).with(unofficials_rule).and_return(300)
         expect(helper).to receive(:time_from_seconds).with(2680).and_return('45:23')
-        expect(helper.time_points_print(competitor, true, unofficials)).
+        expect(helper.time_points_print(competitor, true, unofficials_rule)).
             to eq("<span class='series-best-time'>300 (45:23)</span>")
       end
     end
@@ -205,15 +205,15 @@ describe ResultFormatHelper do
       it 'should return time points' do
         competitor = instance_double(Competitor, :series => @series,
                                      :time_in_seconds => 2680, :no_result_reason => nil)
-        expect(competitor).to receive(:time_points).with(unofficials).and_return(270)
-        expect(helper.time_points_print(competitor, false, unofficials)).to eq('270')
+        expect(competitor).to receive(:time_points).with(unofficials_rule).and_return(270)
+        expect(helper.time_points_print(competitor, false, unofficials_rule)).to eq('270')
       end
 
       it 'should wrap with best time span when full points' do
         competitor = instance_double(Competitor, :series => @series,
                                      :time_in_seconds => 2680, :no_result_reason => nil)
-        expect(competitor).to receive(:time_points).with(unofficials).and_return(300)
-        expect(helper.time_points_print(competitor, false, unofficials)).
+        expect(competitor).to receive(:time_points).with(unofficials_rule).and_return(300)
+        expect(helper.time_points_print(competitor, false, unofficials_rule)).
             to eq("<span class='series-best-time'>300</span>")
       end
     end

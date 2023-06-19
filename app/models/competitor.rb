@@ -124,9 +124,9 @@ class Competitor < ApplicationRecord
     arrival_time.to_i - start_time.to_i
   end
 
-  def comparison_time_in_seconds(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
-    comparison_time = series.comparison_time_in_seconds(age_group, unofficials)
-    if comparison_time.nil? && unofficial? && [Series::UNOFFICIALS_EXCLUDED, Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME].include?(unofficials)
+  def comparison_time_in_seconds(unofficials_rule=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
+    comparison_time = series.comparison_time_in_seconds(age_group, unofficials_rule)
+    if comparison_time.nil? && unofficial? && [Series::UNOFFICIALS_EXCLUDED, Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME].include?(unofficials_rule)
       comparison_time = series.comparison_time_in_seconds(age_group, Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME)
     end
     comparison_time
@@ -199,21 +199,21 @@ class Competitor < ApplicationRecord
     true
   end
 
-  def time_points(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
+  def time_points(unofficials_rule=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     return nil if series.points_method == Series::POINTS_METHOD_NO_TIME_2_ESTIMATES || series.points_method == Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
     return 300 if series.points_method == Series::POINTS_METHOD_300_TIME_2_ESTIMATES
     own_time = time_in_seconds or return nil
-    best_time = comparison_time_in_seconds(unofficials) or return nil
+    best_time = comparison_time_in_seconds(unofficials_rule) or return nil
     return resolve_time_points_for_invalid_own_time if own_time < best_time
     calculate_time_points own_time, best_time
   end
 
-  def points(unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
+  def points(unofficials_rule=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     return nil if no_result_reason
     return nordic_score if sport.nordic?
     return european_score if sport.european?
     return shooting_score if sport.shooting?
-    shooting_points.to_i + estimate_points.to_i + time_points(unofficials).to_i
+    shooting_points.to_i + estimate_points.to_i + time_points(unofficials_rule).to_i
   end
 
   def team_competition_points(sport, rifle=false)
@@ -285,9 +285,9 @@ class Competitor < ApplicationRecord
     end
   end
 
-  def self.sort_three_sports_competitors(competitors, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
+  def self.sort_three_sports_competitors(competitors, unofficials_rule=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     competitors.sort do |a, b|
-      b.three_sports_race_results(unofficials) + [a.number.to_i] <=> a.three_sports_race_results(unofficials) + [b.number.to_i]
+      b.three_sports_race_results(unofficials_rule) + [a.number.to_i] <=> a.three_sports_race_results(unofficials_rule) + [b.number.to_i]
     end
   end
 

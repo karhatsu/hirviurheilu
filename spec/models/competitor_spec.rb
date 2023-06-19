@@ -878,7 +878,7 @@ describe Competitor do
   describe "#sort_three_sports_competitors" do
     describe 'without unofficial competitors' do
       before do
-        @unofficials = Series::UNOFFICIALS_EXCLUDED
+        @unofficials_rule = Series::UNOFFICIALS_EXCLUDED
       end
 
       it 'should sort by result array and number' do
@@ -888,21 +888,21 @@ describe Competitor do
         competitor0_1 = create_competitor 10, 9, 15
         competitor0_2 = create_competitor 10, 9, 16
         competitors = [competitor0_2, competitor3, competitor1, competitor2, competitor0_1]
-        expect(Competitor.sort_three_sports_competitors(competitors, @unofficials))
+        expect(Competitor.sort_three_sports_competitors(competitors, @unofficials_rule))
             .to eq([competitor1, competitor2, competitor3, competitor0_1, competitor0_2])
       end
     end
 
     describe 'with unofficial competitors' do
       before do
-        @unofficials = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
+        @unofficials_rule = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
       end
 
       it 'should sort by result array and number' do
         competitor1 = create_competitor 100, 59, 30
         competitor2 = create_competitor 99, 40, 4
         competitors = [competitor1, competitor2]
-        expect(Competitor.sort_three_sports_competitors(competitors, @unofficials)).to eq([competitor1, competitor2])
+        expect(Competitor.sort_three_sports_competitors(competitors, @unofficials_rule)).to eq([competitor1, competitor2])
       end
     end
 
@@ -917,7 +917,7 @@ describe Competitor do
 
     def create_competitor(points, shooting_points, number)
       competitor = build :competitor, number: number
-      allow(competitor).to receive(:three_sports_race_results).with(@unofficials).and_return([points, shooting_points])
+      allow(competitor).to receive(:three_sports_race_results).with(@unofficials_rule).and_return([points, shooting_points])
       competitor
     end
   end
@@ -1617,37 +1617,37 @@ describe Competitor do
 
     context 'when 3 sports race' do
       before do
-        @unofficials = Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
+        @unofficials_rule = Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
         race = build :race, sport_key: Sport::SKI
         @competitor = build(:competitor)
         allow(@competitor).to receive(:sport).and_return(race.sport)
         allow(@competitor).to receive(:shooting_points).and_return(100)
         allow(@competitor).to receive(:estimate_points).and_return(150)
-        allow(@competitor).to receive(:time_points).with(@unofficials).and_return(200)
+        allow(@competitor).to receive(:time_points).with(@unofficials_rule).and_return(200)
       end
 
       it 'should return nil when no result reason' do
         @competitor.no_result_reason = 'DNF'
-        expect(@competitor.points(@unofficials)).to be_nil
+        expect(@competitor.points(@unofficials_rule)).to be_nil
       end
 
       it "should consider missing shot points as 0" do
         expect(@competitor).to receive(:shooting_points).and_return(nil)
-        expect(@competitor.points(@unofficials)).to eq(150 + 200)
+        expect(@competitor.points(@unofficials_rule)).to eq(150 + 200)
       end
 
       it "should consider missing estimate points as 0" do
         expect(@competitor).to receive(:estimate_points).and_return(nil)
-        expect(@competitor.points(@unofficials)).to eq(100 + 200)
+        expect(@competitor.points(@unofficials_rule)).to eq(100 + 200)
       end
 
       it "should consider missing time points as 0" do
-        expect(@competitor).to receive(:time_points).with(@unofficials).and_return(nil)
-        expect(@competitor.points(@unofficials)).to eq(100 + 150)
+        expect(@competitor).to receive(:time_points).with(@unofficials_rule).and_return(nil)
+        expect(@competitor.points(@unofficials_rule)).to eq(100 + 150)
       end
 
       it "should be sum of sub points when all of them are available" do
-        expect(@competitor.points(@unofficials)).to eq(100 + 150 + 200)
+        expect(@competitor.points(@unofficials_rule)).to eq(100 + 150 + 200)
       end
     end
   end
@@ -2290,13 +2290,13 @@ describe Competitor do
   end
 
   describe "#comparison_time_in_seconds" do
-    it "should delegate call to series with own age group and unofficials as parameters" do
-      unofficials = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
+    it "should delegate call to series with own age group and unofficials_rule as parameters" do
+      unofficials_rule = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
       series = build :series
       age_group = build :age_group
       competitor = build(:competitor, :series => series, :age_group => age_group)
-      expect(series).to receive(:comparison_time_in_seconds).with(age_group, unofficials).and_return(12345)
-      expect(competitor.comparison_time_in_seconds(unofficials)).to eq(12345)
+      expect(series).to receive(:comparison_time_in_seconds).with(age_group, unofficials_rule).and_return(12345)
+      expect(competitor.comparison_time_in_seconds(unofficials_rule)).to eq(12345)
     end
   end
 

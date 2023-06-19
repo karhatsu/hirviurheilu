@@ -1,8 +1,8 @@
-- unofficials = unofficials_result_rule series.race
+- unofficials_rule = unofficials_result_rule series.race
 .result-cards
   - prev_competitor_results = 1.0/0.0
-  - series.three_sports_results(unofficials).each_with_index do |comp, i|
-    - competitor_results = comp.three_sports_race_results(unofficials)
+  - series.three_sports_results(unofficials_rule).each_with_index do |comp, i|
+    - competitor_results = comp.three_sports_race_results(unofficials_rule)
     .card{class: i % 2 == 0 ? 'card--odd' : ''}
       - if i == 0
         - @max_points = comp.points
@@ -23,12 +23,12 @@
             - if comp.estimate_points
               - results << "<span class='card__sub-result card__sub-result--estimate'>#{estimate_points_print series.race, comp}</span>"
             - if comp.arrival_time && series.time_points?
-              - results << "<span class='card__sub-result card__sub-result--time'>#{comp.time_points(unofficials)} (#{time_from_seconds(comp.time_in_seconds)})</span>"
+              - results << "<span class='card__sub-result card__sub-result--time'>#{comp.time_points(unofficials_rule)} (#{time_from_seconds(comp.time_in_seconds)})</span>"
             - if comp.shooting_score
               - results << "<span class='card__sub-result card__sub-result--shoot'>#{shooting_points_print(comp, true, true)}</span>"
             = raw results.join(' ')
       %div.card__main-value
-        = points_print(comp, unofficials)
+        = points_print(comp, unofficials_rule)
         - if comp.points.to_i >= @max_points.to_i
           = national_record_print(comp)
     - prev_competitor_results = competitor_results

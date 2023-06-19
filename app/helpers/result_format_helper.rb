@@ -1,19 +1,19 @@
 module ResultFormatHelper
-  def points_print(competitor, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
+  def points_print(competitor, unofficials_rule=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     if competitor.no_result_reason
       return no_result_reason_print(competitor.no_result_reason)
     end
-    points = competitor.points(unofficials)
+    points = competitor.points(unofficials_rule)
     return points.to_s if competitor.finished? && competitor.has_correct_estimates?
     return "(#{points})" if points
     '-'
   end
 
-  def time_points_print(competitor, with_time=false, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
+  def time_points_print(competitor, with_time=false, unofficials_rule=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     return '' if competitor.no_result_reason
     return 300 if competitor.series.points_method == Series::POINTS_METHOD_300_TIME_2_ESTIMATES
     return '-' if competitor.time_in_seconds.nil?
-    points = competitor.time_points(unofficials)
+    points = competitor.time_points(unofficials_rule)
     html = (points == 300 ? "<span class='series-best-time'>" : '')
     html << points.to_s
     html << " (#{time_from_seconds(competitor.time_in_seconds)})" if with_time

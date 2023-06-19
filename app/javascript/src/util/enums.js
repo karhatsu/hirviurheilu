@@ -13,9 +13,4 @@ export const seriesEnums = {
     time300Points2Estimates: 3,
     noTime2Estimates: 4,
   },
-  unofficials: {
-    excluded: 1,
-    includedWithBestTime: 2,
-    includedWithoutBestTime: 3,
-  },
 }

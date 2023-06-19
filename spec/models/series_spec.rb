@@ -155,15 +155,15 @@ describe Series do
             :start_time => '01:00:03', :arrival_time => '01:01:04') # 61 s
         end
 
-        it "should return the fastest time for official, finished competitors when unofficials included but without best time" do
+        it "should return the fastest time for official, finished competitors when unofficials_rule included but without best time" do
           expect(@series.send(:best_time_in_seconds, [nil], Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)).to eq(61)
         end
 
-        it "should return the fastest time for official, finished competitors when unofficials excluded" do
+        it "should return the fastest time for official, finished competitors when unofficials_rule excluded" do
           expect(@series.send(:best_time_in_seconds, [nil], Series::UNOFFICIALS_EXCLUDED)).to eq(61)
         end
 
-        it "should return the fastest time of all finished competitors unofficials included with best time" do
+        it "should return the fastest time of all finished competitors unofficials_rule included with best time" do
           expect(@series.send(:best_time_in_seconds, [nil], Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME)).to eq(60)
         end
       end
@@ -219,15 +219,15 @@ describe Series do
             :start_time => '01:00:03', :arrival_time => '01:01:04', :age_group => @age_group_M75) # 61 s
         end
 
-        it "should return the fastest time for official, finished competitors when unofficials included but without best time" do
+        it "should return the fastest time for official, finished competitors when unofficials_rule included but without best time" do
           expect(@series.send(:best_time_in_seconds, @age_groups, Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)).to eq(61)
         end
 
-        it "should return the fastest time for official, finished competitors when unofficials excluded" do
+        it "should return the fastest time for official, finished competitors when unofficials_rule excluded" do
           expect(@series.send(:best_time_in_seconds, @age_groups, Series::UNOFFICIALS_EXCLUDED)).to eq(61)
         end
 
-        it "should return the fastest time of all finished competitors when unofficials included with best time" do
+        it "should return the fastest time of all finished competitors when unofficials_rule included with best time" do
           expect(@series.send(:best_time_in_seconds, @age_groups, Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME)).to eq(60)
         end
       end
@@ -267,29 +267,29 @@ describe Series do
   describe "#comparison_time_in_seconds" do
     before do
       @series = build(:series)
-      @unofficials = Series::UNOFFICIALS_EXCLUDED
+      @unofficials_rule = Series::UNOFFICIALS_EXCLUDED
     end
 
     it "should get age group comparison groups and call best_time_in_seconds with that" do
       age_group = instance_double(AgeGroup)
       hash = double(Hash)
       age_group_array = double(Array)
-      expect(@series).to receive(:age_groups_for_comparison_time).with(@unofficials).and_return(hash)
+      expect(@series).to receive(:age_groups_for_comparison_time).with(@unofficials_rule).and_return(hash)
       expect(hash).to receive(:[]).with(age_group).and_return(age_group_array)
-      expect(@series).to receive(:best_time_in_seconds).with(age_group_array, @unofficials).and_return(9998)
-      expect(@series.comparison_time_in_seconds(age_group, @unofficials)).to eq(9998)
+      expect(@series).to receive(:best_time_in_seconds).with(age_group_array, @unofficials_rule).and_return(9998)
+      expect(@series.comparison_time_in_seconds(age_group, @unofficials_rule)).to eq(9998)
     end
   end
 
   describe "#age_groups_for_comparison_time" do
     before do
       @series = build(:series, :name => 'M70')
-      @unofficials = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
+      @unofficials_rule = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
     end
 
     context "when no age groups" do
       it "should return an empty hash" do
-        groups = @series.send(:age_groups_for_comparison_time, @unofficials)
+        groups = @series.send(:age_groups_for_comparison_time, @unofficials_rule)
         expect(groups).to eq({})
       end
     end
@@ -304,13 +304,13 @@ describe Series do
       context "and all age groups have enough competitors" do
         before do
           expect_ordered_age_groups(@series, [@age_group_M75, @age_group_M80, @age_group_M85])
-          allow(@age_group_M75).to receive(:competitors_count).with(@unofficials).and_return(3)
-          allow(@age_group_M80).to receive(:competitors_count).with(@unofficials).and_return(4)
-          allow(@age_group_M85).to receive(:competitors_count).with(@unofficials).and_return(3)
+          allow(@age_group_M75).to receive(:competitors_count).with(@unofficials_rule).and_return(3)
+          allow(@age_group_M80).to receive(:competitors_count).with(@unofficials_rule).and_return(4)
+          allow(@age_group_M85).to receive(:competitors_count).with(@unofficials_rule).and_return(3)
         end
 
         it "should return all age groups as keys and self with older age groups as values" do
-          groups = @series.send(:age_groups_for_comparison_time, @unofficials)
+          groups = @series.send(:age_groups_for_comparison_time, @unofficials_rule)
           expect(groups.length).to eq(3+1) # see the next test
           expect(groups[@age_group_M75]).to eq([@age_group_M85, @age_group_M80, @age_group_M75])
           expect(groups[@age_group_M80]).to eq([@age_group_M85, @age_group_M80])
@@ -318,7 +318,7 @@ describe Series do
         end
 
         it "should have nil referring to main series in the hash with all groups + nil (self) as values" do
-          groups = @series.send(:age_groups_for_comparison_time, @unofficials)
+          groups = @series.send(:age_groups_for_comparison_time, @unofficials_rule)
           expect(groups[nil]).to eq([@age_group_M85, @age_group_M80, @age_group_M75, nil])
         end
       end
@@ -326,13 +326,13 @@ describe Series do
       context "and the first+second youngest age groups have together enough competitors" do
         before do
           expect_ordered_age_groups(@series, [@age_group_M75, @age_group_M80, @age_group_M85])
-          allow(@age_group_M75).to receive(:competitors_count).with(@unofficials).and_return(1)
-          allow(@age_group_M80).to receive(:competitors_count).with(@unofficials).and_return(2)
-          allow(@age_group_M85).to receive(:competitors_count).with(@unofficials).and_return(3)
+          allow(@age_group_M75).to receive(:competitors_count).with(@unofficials_rule).and_return(1)
+          allow(@age_group_M80).to receive(:competitors_count).with(@unofficials_rule).and_return(2)
+          allow(@age_group_M85).to receive(:competitors_count).with(@unofficials_rule).and_return(3)
         end
 
         it "should return a hash where the youngest age groups have all age groups" do
-          groups = @series.send(:age_groups_for_comparison_time, @unofficials)
+          groups = @series.send(:age_groups_for_comparison_time, @unofficials_rule)
           expect(groups.length).to eq(4)
           expect(groups[@age_group_M75]).to eq([@age_group_M85, @age_group_M80, @age_group_M75])
           expect(groups[@age_group_M80]).to eq([@age_group_M85, @age_group_M80, @age_group_M75])
@@ -340,7 +340,7 @@ describe Series do
         end
 
         it "should have nil referring to main series in the hash with all groups + nil (self) as values" do
-          groups = @series.send(:age_groups_for_comparison_time, @unofficials)
+          groups = @series.send(:age_groups_for_comparison_time, @unofficials_rule)
           expect(groups[nil]).to eq([@age_group_M85, @age_group_M80, @age_group_M75, nil])
         end
       end
@@ -353,14 +353,14 @@ describe Series do
           @age_group_M89 = instance_double(AgeGroup, :id => @age_group_M89, :name => 'M89', :min_competitors => 3)
           @age_groups = [@age_group_M75, @age_group_M80, @age_group_M85, @age_group_M86, @age_group_M87, @age_group_M88, @age_group_M89]
           @age_groups.each do |age_group|
-            allow(age_group).to receive(:competitors_count).with(@unofficials).and_return(1)
+            allow(age_group).to receive(:competitors_count).with(@unofficials_rule).and_return(1)
             allow(age_group).to receive(:shorter_trip).and_return(false)
           end
           expect_ordered_age_groups(@series, @age_groups)
         end
 
         it "should return correct hash" do
-          groups = @series.send(:age_groups_for_comparison_time, @unofficials)
+          groups = @series.send(:age_groups_for_comparison_time, @unofficials_rule)
           expect(groups.length).to eq(8)
           all_age_groups = (@age_groups.reverse << nil)
           expect(groups[nil]).to eq(all_age_groups)
@@ -380,7 +380,7 @@ describe Series do
           end
 
           it "should not mix those age groups with the other ones having a longer trip" do
-            groups = @series.send(:age_groups_for_comparison_time, @unofficials)
+            groups = @series.send(:age_groups_for_comparison_time, @unofficials_rule)
             expect(groups.length).to eq(8)
             all_groups_with_longer_trip = [@age_group_M87, @age_group_M86, @age_group_M85, @age_group_M80, @age_group_M75, nil]
             expect(groups[nil]).to eq(all_groups_with_longer_trip)
@@ -410,7 +410,7 @@ describe Series do
       end
 
       it "should return all age groups as keys and self with younger same gender age groups as values" do
-        groups = @series.send(:age_groups_for_comparison_time, @unofficials)
+        groups = @series.send(:age_groups_for_comparison_time, @unofficials_rule)
         expect(groups.length).to eq(6)
         expect(groups[@age_group_T13]).to eq([@age_group_T13, @age_group_T11, @age_group_T9])
         expect(groups[@age_group_T11]).to eq([@age_group_T11, @age_group_T9])
@@ -435,7 +435,7 @@ describe Series do
       end
 
       it 'uses the age group first name as splitting the age groups into groups' do
-        groups = @series.send(:age_groups_for_comparison_time, @unofficials)
+        groups = @series.send(:age_groups_for_comparison_time, @unofficials_rule)
         expect(groups.length).to eq(7)
         expect(groups[nil]).to eq([@age_group_S20, @age_group_N80, @age_group_N75, @age_group_N70,
                                    @age_group_M80, @age_group_M70, nil])
@@ -458,19 +458,19 @@ describe Series do
 
   describe "#three_sports_results" do
     it "should call Competitor.sort_competitors with all competitors in the series" do
-      unofficials = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
+      unofficials_rule = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
       series = build(:series)
       competitors, included = ['a', 'b', 'c'], ['d', 'e']
       sorted_competitors = [instance_double(Competitor), instance_double(Competitor), instance_double(Competitor)]
       allow(series).to receive(:competitors).and_return(competitors)
       expect(competitors).to receive(:includes).with([:club, :age_group, :series]).and_return(included)
-      expect(Competitor).to receive(:sort_three_sports_competitors).with(included, unofficials).and_return(sorted_competitors)
+      expect(Competitor).to receive(:sort_three_sports_competitors).with(included, unofficials_rule).and_return(sorted_competitors)
       sorted_competitors.each_with_index do |c, i|
-        expect(c).to receive(:three_sports_race_results).with(unofficials).and_return([i])
+        expect(c).to receive(:three_sports_race_results).with(unofficials_rule).and_return([i])
         expect(c).to receive(:position=).with(i + 1)
         expect(c).to receive(:position).and_return(i + 1)
       end
-      expect(series.three_sports_results(unofficials)).to eq(sorted_competitors)
+      expect(series.three_sports_results(unofficials_rule)).to eq(sorted_competitors)
     end
   end
 

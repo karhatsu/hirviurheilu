@@ -8,9 +8,9 @@ module TitleHelper
     t('home.show.main_title')
   end
 
-  def series_result_title(series, unofficials=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
+  def series_result_title(series, unofficials_rule=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     suffix = ''
-    suffix = " - #{t(:all_competitors)}" if unofficials == Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
+    suffix = " - #{t(:all_competitors)}" if unofficials_rule == Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
     competitors = series.sport.european? ? series.competitors.where('only_rifle=?', false) : series.competitors
     return "(#{t('competitors.index.no_competitors')})" if competitors.empty?
     return "(#{t('competitors.index.series_has_not_started_yet')})" unless series.started?

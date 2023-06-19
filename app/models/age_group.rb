@@ -9,10 +9,10 @@ class AgeGroup < ApplicationRecord
 
   delegate :race, to: :series
 
-  def competitors_count(unofficials)
+  def competitors_count(unofficials_rule)
     where = race.year < 2022 ? 'no_result_reason<>:dns OR no_result_reason IS NULL' : 'no_result_reason IS NULL'
     values = race.year < 2022 ? { dns: Competitor::DNS } : {}
-    if unofficials == Series::UNOFFICIALS_EXCLUDED
+    if unofficials_rule == Series::UNOFFICIALS_EXCLUDED
       @competitors_count ||= competitors.where(unofficial: false).where(where, values).size
     else
       @competitors_count_all ||= competitors.where(where, values).size
