@@ -1,6 +1,7 @@
 class Cup < ApplicationRecord
   has_and_belongs_to_many :races, -> { order :start_date, :name }
   has_many :cup_series, -> { order :name }
+  has_many :cup_team_competitions, -> { order :name }
 
   validates :name, :presence => true
   validates :top_competitions, :numericality => { :greater_than_or_equal_to => 1, :only_integer => true }
@@ -24,6 +25,13 @@ class Cup < ApplicationRecord
     return unless has_races?
     races.first.series.each do |series|
       CupSeries.create!(:cup => self, :name => series.name)
+    end
+  end
+
+  def create_default_cup_team_competitions
+    raise "Cannot create cup team competitions when already has some" unless cup_team_competitions.empty?
+    races.first&.team_competitions&.each do |tc|
+      CupTeamCompetition.create! cup: self, name: tc.name
     end
   end
 
