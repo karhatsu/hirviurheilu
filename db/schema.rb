@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_12_081547) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_29_051718) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -133,6 +133,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_081547) do
     t.string "series_names", limit: 255
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+  end
+
+  create_table "cup_team_competitions", force: :cascade do |t|
+    t.bigint "cup_id"
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cup_id"], name: "index_cup_team_competitions_on_cup_id"
   end
 
   create_table "cups", id: :serial, force: :cascade do |t|
@@ -338,4 +346,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_081547) do
   end
 
   add_foreign_key "batches", "races"
+  add_foreign_key "cup_team_competitions", "cups"
 end
