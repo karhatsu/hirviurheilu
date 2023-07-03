@@ -7,6 +7,7 @@ class Cup < ApplicationRecord
   validates :top_competitions, :numericality => { :greater_than_or_equal_to => 1, :only_integer => true }
 
   accepts_nested_attributes_for :cup_series, :allow_destroy => true
+  accepts_nested_attributes_for :cup_team_competitions, :allow_destroy => true
 
   def start_date
     races.first.start_date if has_races?

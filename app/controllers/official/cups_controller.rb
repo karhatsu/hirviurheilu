@@ -9,9 +9,10 @@ class Official::CupsController < Official::OfficialController
 
   def create
     @cup = current_user.cups.build(create_cup_params)
-    if @cup.valid? and enough_races?
+    if @cup.valid? && enough_races?
       @cup.save!
       @cup.create_default_cup_series
+      @cup.create_default_cup_team_competitions if params[:team_competitions]
       current_user.cups << @cup
       flash[:success] = 'Cup-kilpailu lisätty'
       redirect_to official_cup_path(@cup)
@@ -71,6 +72,7 @@ class Official::CupsController < Official::OfficialController
 
   def update_cup_params
     params.require(:cup).permit(:name, :top_competitions, :include_always_last_race, :public_message, race_ids: [],
-                                cup_series_attributes: [:id, :name, :series_names, :_destroy])
+                                cup_series_attributes: [:id, :name, :series_names, :_destroy],
+                                cup_team_competitions_attributes: [:id, :name, :_destroy])
   end
 end
