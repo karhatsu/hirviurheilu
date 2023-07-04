@@ -1,5 +1,5 @@
 class Team
-  attr_reader :name, :club_id, :competitors
+  attr_reader :name, :club_id, :competitors, :team_competition
 
   def initialize(team_competition, name, club_id, rifle=false)
     @team_competition = team_competition
