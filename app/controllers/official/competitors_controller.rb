@@ -41,6 +41,7 @@ class Official::CompetitorsController < Official::OfficialController
   def create
     assign_series(params[:competitor][:series_id])
     @competitor = @series.competitors.build(add_competitor_params)
+    @competitor.number = @series.race.next_start_number if @series.sport.batch_list? && @competitor.number.blank?
     club_ok = handle_club(@competitor)
     start_list_page = params[:start_list]
     if club_ok && @competitor.save

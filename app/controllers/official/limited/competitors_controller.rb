@@ -4,7 +4,7 @@ class Official::Limited::CompetitorsController < Official::Limited::LimitedOffic
   before_action :assign_race_by_race_id, :check_assigned_race_without_full_rights,
     :assign_race_right, :assign_current_competitors, :set_limited_official, :set_limited_official_add_competitor
   before_action :assign_competitor, :only => [:edit, :update, :destroy]
-  
+
   def index
     redirect_to new_official_limited_race_competitor_path(@race)
   end
@@ -16,9 +16,10 @@ class Official::Limited::CompetitorsController < Official::Limited::LimitedOffic
     @competitor = series.competitors.build
     @competitor.age_group_id = params[:age_group_id]
   end
-  
+
   def create
     @competitor = @race.competitors.build(competitor_params)
+    @competitor.number = @race.next_start_number if @race.sport.batch_list?
     club_ok = true
     if @race_right.new_clubs?
       club_ok = handle_club(@competitor)
@@ -33,10 +34,10 @@ class Official::Limited::CompetitorsController < Official::Limited::LimitedOffic
       render :new
     end
   end
-  
+
   def edit
   end
-  
+
   def update
     if @competitor.update(competitor_params)
       flash[:success] = 'Kilpailija päivitetty'
@@ -45,13 +46,13 @@ class Official::Limited::CompetitorsController < Official::Limited::LimitedOffic
       render :edit
     end
   end
-  
+
   def destroy
     @competitor.destroy
     flash[:success] = 'Kilpailija poistettu'
     redirect_to new_official_limited_race_competitor_path(@race)
   end
-  
+
   private
   def set_limited_official_add_competitor
     @limited_add_competitor = true
@@ -64,7 +65,7 @@ class Official::Limited::CompetitorsController < Official::Limited::LimitedOffic
       @competitors = @race.competitors
     end
   end
-  
+
   def assign_competitor
     conditions = { :id => params[:id] }
     conditions[:club_id] = @race_right.club.id if @race_right.club
