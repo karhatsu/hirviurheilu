@@ -24,6 +24,7 @@ Hirviurheilu::Application.routes.draw do
 
     resources :cups do
       resources :cup_series
+      resources :cup_team_competitions, only: :show
       resources :rifle_cup_series
       resource :medium
     end
@@ -222,6 +223,7 @@ Hirviurheilu::Application.routes.draw do
         resources :cups, only: :show do
           resources :cup_series, only: :show
           resources :rifle_cup_series, only: :show
+          resources :cup_team_competitions, only: :show
         end
         resources :feedbacks, only: :create
       end

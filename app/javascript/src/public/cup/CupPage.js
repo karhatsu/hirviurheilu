@@ -5,7 +5,13 @@ import IncompletePage from '../../common/IncompletePage'
 import CupPublicMessage from './CupPublicMessage'
 import useTranslation from '../../util/useTranslation'
 import Button from '../../common/Button'
-import { buildCupSeriesPath, buildRacePath, buildRifleCupSeriesPath, buildRootPath } from '../../util/routeUtil'
+import {
+  buildCupSeriesPath,
+  buildCupTeamCompetitionsPath,
+  buildRacePath,
+  buildRifleCupSeriesPath,
+  buildRootPath,
+} from '../../util/routeUtil'
 import CupSeriesName from './CupSeriesName'
 import CupResultsPdf from './CupResultsPdf'
 import useTitle from '../../util/useTitle'
@@ -22,7 +28,7 @@ export default function CupPage() {
     return <IncompletePage fetching={fetching} error={error} />
   }
 
-  const { cupSeries, hasRifle, includeAlwaysLastRace, topCompetitions, races } = cup
+  const { cupSeries, cupTeamCompetitions, hasRifle, includeAlwaysLastRace, topCompetitions, races } = cup
   const ruleKey = includeAlwaysLastRace ? 'cupPointsRuleWithLast' : 'cupPointsRule'
   return (
     <>
@@ -39,6 +45,16 @@ export default function CupPage() {
             )
           })}
         </div>
+      )}
+      {cupTeamCompetitions.length > 0 && (
+        <>
+          <h2>{t('teamCompetitions')}</h2>
+          {cupTeamCompetitions.map(tc => (
+            <Button key={tc.id} to={buildCupTeamCompetitionsPath(cup.id, tc.id)} type="primary">
+              {tc.name}
+            </Button>
+          ))}
+        </>
       )}
       {hasRifle && cupSeries.length > 0 && (
         <>

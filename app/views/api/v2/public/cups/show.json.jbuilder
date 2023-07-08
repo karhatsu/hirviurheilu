@@ -12,3 +12,6 @@ json.cup_series @cup.cup_series do |cup_series|
     end
   end
 end
+json.cup_team_competitions @cup.cup_team_competitions do |ctc|
+  json.(ctc, :id, :name)
+end

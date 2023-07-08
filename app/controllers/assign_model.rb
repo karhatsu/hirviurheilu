@@ -105,4 +105,13 @@ module AssignModel
       render 'errors/cup_series_not_found', status: 404
     end
   end
+
+  def assign_cup_team_competition_by_id
+    @id = params[:id]
+    begin
+      @cup_series = @cup.cup_team_competitions.find(@id)
+    rescue ActiveRecord::RecordNotFound
+      render 'errors/cup_team_competition_not_found', status: 404
+    end
+  end
 end

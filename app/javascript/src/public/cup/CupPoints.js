@@ -7,12 +7,13 @@ import { buildSeriesResultsPath } from '../../util/routeUtil'
 export default function CupPoints({ raceId, competitor, cupCompetitor }) {
   if (!competitor) return '-'
   const { minPointsToEmphasize } = cupCompetitor
-  const { noResultReason, points, seriesId } = competitor
+  const { noResultReason, points, totalScore, seriesId } = competitor
   if (noResultReason) return <NoResultReason noResultReason={noResultReason} type="competitor" />
-  const className = classnames({ 'cup-points__emphasize': minPointsToEmphasize && points >= minPointsToEmphasize })
+  const score = points || totalScore // points for individuals, totalScore for teams
+  const className = classnames({ 'cup-points__emphasize': minPointsToEmphasize && score >= minPointsToEmphasize })
   return (
     <Link to={buildSeriesResultsPath(raceId, seriesId)} className={className}>
-      {points}
+      {score}
     </Link>
   )
 }
