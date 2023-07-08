@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Button from '../../common/Button'
 import { buildCupPath, buildCupTeamCompetitionsPath } from '../../util/routeUtil'
 import useTranslation from '../../util/useTranslation'
@@ -12,14 +12,17 @@ import Message from '../../common/Message'
 import useLayout from '../../util/useLayout'
 import CupTeamCompetitionDesktopResults from './CupTeamCompetitionDesktopResults'
 import CupTeamCompetitionMobileResults from './CupTeamCompetitionMobileResults'
+import useMenu, { pages } from '../../util/useMenu'
 
 const CupTeamCompetitionPage = () => {
   const { t } = useTranslation()
+  const { setSelectedPage } = useMenu()
   const { cupTeamCompetitionId: ctcId } = useParams()
   const cupTeamCompetitionId = ctcId && parseInt(ctcId)
   const { cup, fetching: cupFetching, error: cupError } = useCup()
   const { fetching, error, cupTeamCompetition } = useCupTeamCompetition()
   const { mobile } = useLayout()
+  useEffect(() => setSelectedPage(pages.cup.teamCompetitions), [setSelectedPage])
 
   const titleCupTeamCompetition = (cupTeamCompetition?.id === cupTeamCompetitionId && cupTeamCompetition) ||
     (cup?.cupTeamCompetitions.find(ctc => ctc.id === cupTeamCompetitionId))

@@ -26,6 +26,7 @@ export const pages = {
     home: 15,
     results: 16,
     rifleResults: 17,
+    teamCompetitions: 24,
     media: 18,
   },
   info: {
