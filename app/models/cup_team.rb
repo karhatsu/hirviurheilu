@@ -7,7 +7,7 @@ class CupTeam
   end
 
   def <<(team)
-    raise "Team name (#{team.name}) should be #{name}" unless team.name == name
+    raise "Team name (#{team.name}) should be #{name}" unless team.name.strip.downcase == name.strip.downcase
     @teams << team
   end
 
