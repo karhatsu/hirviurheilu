@@ -314,7 +314,7 @@ describe CupCompetitor do
 
     context 'when race count is less than top competitions count' do
       before do
-        cup_competitors << build_cup_competitor(500)
+        cup_competitors << build_competitor(500)
         allow(cup_competitor).to receive(:competitors).and_return(cup_competitors)
       end
 
@@ -325,8 +325,8 @@ describe CupCompetitor do
 
     context 'when race count equals top competitions count' do
       before do
-        cup_competitors << build_cup_competitor(500)
-        cup_competitors << build_cup_competitor(501)
+        cup_competitors << build_competitor(500)
+        cup_competitors << build_competitor(501)
         allow(cup_competitor).to receive(:competitors).and_return(cup_competitors)
       end
 
@@ -341,8 +341,8 @@ describe CupCompetitor do
 
       context 'but not enough competitor results compared to min competitions' do
         before do
-          cup_competitors << build_cup_competitor(500)
-          cup_competitors << build_cup_competitor(nil)
+          cup_competitors << build_competitor(500)
+          cup_competitors << build_competitor(nil)
           allow(cup_competitor).to receive(:competitors).and_return(cup_competitors)
         end
 
@@ -353,9 +353,9 @@ describe CupCompetitor do
 
       context 'when enough cup competitor results compared to min competitions' do
         before do
-          cup_competitors << build_cup_competitor(449)
-          cup_competitors << build_cup_competitor(500)
-          cup_competitors << build_cup_competitor(450)
+          cup_competitors << build_competitor(449)
+          cup_competitors << build_competitor(500)
+          cup_competitors << build_competitor(450)
           allow(cup_competitor).to receive(:competitors).and_return(cup_competitors)
         end
 
@@ -369,11 +369,11 @@ describe CupCompetitor do
         let(:top_competitions) { 3 }
 
         before do
-          cup_competitors << build_cup_competitor(261, true)
-          cup_competitors << build_cup_competitor(259, true)
-          cup_competitors << build_cup_competitor(258, true)
-          cup_competitors << build_cup_competitor(nil, true)
-          cup_competitors << build_cup_competitor(260, true)
+          cup_competitors << build_competitor(261, true)
+          cup_competitors << build_competitor(259, true)
+          cup_competitors << build_competitor(258, true)
+          cup_competitors << build_competitor(nil, true)
+          cup_competitors << build_competitor(260, true)
           allow(cup_competitor).to receive(:competitors).and_return(cup_competitors)
         end
 
@@ -383,8 +383,8 @@ describe CupCompetitor do
       end
     end
 
-    def build_cup_competitor(points, rifle = false)
-      competitor = double CupCompetitor
+    def build_competitor(points, rifle = false)
+      competitor = double Competitor
       if rifle
         allow(competitor).to receive(:european_rifle_score).and_return(points)
       else

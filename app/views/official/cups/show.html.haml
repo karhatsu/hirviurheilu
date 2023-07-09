@@ -14,6 +14,12 @@
   .form__field
     %label Cup-sarjat
     = @cup.cup_series.collect { |cs| long_cup_series_name(cs) }.join(', ')
+  .form__field
+    %label Cup-joukkuekilpailut
+    - if @cup.cup_team_competitions.empty?
+      \-
+    - else
+      = @cup.cup_team_competitions.collect { |ctc| ctc.name }.join(', ')
 .buttons
   = link_to 'Muokkaa cup-kilpailun asetuksia', edit_official_cup_path(@cup), class: 'button button--edit'
   = link_to 'Poista cup-kilpailu', official_cup_path(@cup), method: :delete, data: {confirm: 'Haluatko varmasti poistaa cup-kilpailun?'}, class: 'button button--danger'

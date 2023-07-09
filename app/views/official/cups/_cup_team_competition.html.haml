@@ -1,0 +1,6 @@
+.form__horizontal-fields
+  .form__field.form__field--md
+    = f.label :name
+    = f.text_field :name
+  .form__buttons
+    = remove_child_link 'Poista cup-joukkuekilpailu', f, 'form__horizontal-fields', nil, 'button button--danger'

@@ -33,6 +33,10 @@
         vaikuttaa muihin paitsi viimeiseen kilpailuun. Toisin sanoen, jos cup sisältää esim. 4 kilpailua
         ja tämä luku on 2, valitaan 2 parasta tulosta 3 ensimmäisestä kilpailusta.
         Kokonaispisteisiin lasketaan automaattisesti mukaan myös viimeinen kilpailu.
+  - if @cup.new_record?
+    .form__field
+      = label_tag :team_competitions, 'Laske tulokset myös joukkuekilpailuille'
+      = check_box_tag :team_competitions, params[:team_competitions]
   %h2 Osakilpailut
   - @races.each_with_index do |race, i|
     .form__horizontal-fields
@@ -53,6 +57,11 @@
       = render partial: "cup_series", locals: { f: cs_form }
     .form__buttons
       = add_child_link "Lisää uusi cup-sarja", f, :cup_series, nil, 'button button--add'
+    %h2 Cup-joukkuekilpailut
+    = f.fields_for :cup_team_competitions do |ctc_form|
+      = render partial: "cup_team_competition", locals: { f: ctc_form }
+    .form__buttons
+      = add_child_link "Lisää uusi cup-joukkuekilpailu", f, :cup_team_competitions, nil, 'button button--add'
   .form__buttons
     = submit_tag submit_label, class: 'button button--primary'
 :javascript

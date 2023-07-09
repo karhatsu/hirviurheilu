@@ -8,7 +8,7 @@ class TeamCompetition < ApplicationRecord
   validates :national_record, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validate :extra_shots_values
 
-  attr_accessor :temp_series_names, :temp_age_groups_names
+  attr_accessor :temp_series_names, :temp_age_groups_names, :last_cup_race
 
   delegate :sport, to: :race
 

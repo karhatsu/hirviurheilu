@@ -153,6 +153,49 @@ describe Cup do
     end
   end
 
+  describe "#create_default_cup_team_competitions" do
+    context "when no races" do
+      it "should do nothing" do
+        cup = create(:cup)
+        cup.create_default_cup_team_competitions
+      end
+    end
+
+    context "when races" do
+      before do
+        race1 = instance_double(Race)
+        tc1_1 = instance_double(TeamCompetition, name: 'Women')
+        tc1_2 = instance_double(TeamCompetition, name: 'Men')
+        allow(race1).to receive(:team_competitions).and_return([tc1_1, tc1_2])
+        race2 = instance_double(Race)
+        tc2_1 = instance_double(TeamCompetition, name: 'Men')
+        tc2_2 = instance_double(TeamCompetition, name: 'Youngsters')
+        allow(race2).to receive(:team_competitions).and_return([tc2_1, tc2_2])
+        races = [race1, race2]
+        @cup = create(:cup)
+        allow(@cup).to receive(:races).and_return(races)
+      end
+
+      it "should create cup team competitions based on team competitions names in the first race" do
+        expect(@cup.cup_team_competitions).to be_empty
+        @cup.create_default_cup_team_competitions
+        @cup.reload
+        cup_team_competitions = @cup.cup_team_competitions
+        expect(cup_team_competitions.length).to eq(2)
+        expect(cup_team_competitions[0].name).to eq('Men')
+        expect(cup_team_competitions[1].name).to eq('Women')
+      end
+    end
+
+    context "when already has cup team competitions" do
+      it "should raise an exception" do
+        cup = build(:cup)
+        allow(cup).to receive(:cup_team_competitions).and_return([instance_double(CupTeamCompetition)])
+        expect { cup.create_default_cup_team_competitions }.to raise_error(RuntimeError)
+      end
+    end
+  end
+
   describe ".cup_races" do
     it "should return an empty array when nothing given" do
       expect(Cup.cup_races([])).to eq([])

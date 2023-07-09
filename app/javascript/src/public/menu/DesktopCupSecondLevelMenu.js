@@ -3,7 +3,7 @@ import DesktopMenuItem from './DesktopMenuItem'
 import {
   buildCupMediaPath,
   buildCupPath,
-  buildCupSeriesPath,
+  buildCupSeriesPath, buildCupTeamCompetitionsPath,
   buildRifleCupSeriesPath,
 } from '../../util/routeUtil'
 import useMenu, { pages } from '../../util/useMenu'
@@ -13,6 +13,7 @@ export default function DesktopCupSecondLevelMenu({ cup }) {
   const { t } = useTranslation()
   const { selectedPage } = useMenu()
   const cupSeriesId = cup.cupSeries.length > 0 && cup.cupSeries[0].id
+  const cupTeamCompetitionId = cup.cupTeamCompetitions.length > 0 && cup.cupTeamCompetitions[0].id
   return (
     <div className="menu menu--sub menu--sub-1">
       <DesktopMenuItem
@@ -43,13 +44,26 @@ export default function DesktopCupSecondLevelMenu({ cup }) {
               })}
             />
           )}
-          <DesktopMenuItem
-            path={buildCupMediaPath(cup.id)}
-            text={t('press')}
-            selected={selectedPage === pages.cup.media}
-            reactLink={true}
-          />
         </>
+      )}
+      {cupTeamCompetitionId && (
+        <DesktopMenuItem
+          path={buildCupTeamCompetitionsPath(cup.id, cupTeamCompetitionId)}
+          text={t('teamCompetitions')}
+          selected={selectedPage === pages.cup.teamCompetitions}
+          reactLink={true}
+          dropdownItems={cup.cupTeamCompetitions.map(ctc => {
+            return { text: ctc.name, path: buildCupTeamCompetitionsPath(cup.id, ctc.id), reactLink: true }
+          })}
+        />
+      )}
+      {cupSeriesId && (
+        <DesktopMenuItem
+          path={buildCupMediaPath(cup.id)}
+          text={t('press')}
+          selected={selectedPage === pages.cup.media}
+          reactLink={true}
+        />
       )}
     </div>
   )

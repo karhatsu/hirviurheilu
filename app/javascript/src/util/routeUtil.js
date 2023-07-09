@@ -48,6 +48,8 @@ export const buildCupSeriesPath = (cupId, cupSeriesId) => withLocale(`/cups/${cu
 
 export const buildRifleCupSeriesPath = (cupId, cupSeriesId) => withLocale(`/cups/${cupId}/rifle_cup_series/${cupSeriesId}`)
 
+export const buildCupTeamCompetitionsPath = (cupId, cupTeamCompetitionId) => withLocale(`/cups/${cupId}/cup_team_competitions/${cupTeamCompetitionId}`)
+
 export const buildCupMediaPath = cupId => withLocale(`/cups/${cupId}/medium/new`)
 
 export const buildAnnouncementsPath = () => withLocale('/announcements')

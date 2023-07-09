@@ -25,6 +25,7 @@ import PricesPage from './info/PricesPage'
 import QAndAPage from './info/QAndAPage'
 import FeedbackPage from './feedback/FeedbackPage'
 import SportsInfoPage from './info/SportsInfoPage'
+import CupTeamCompetitionPage from './cup/CupTeamCompetitionPage'
 
 export default function MainContent({ cupSeriesPaths }) {
   return (
@@ -87,6 +88,10 @@ export default function MainContent({ cupSeriesPaths }) {
           render={() => <CupMediaPage />}
         />
         <Route path={cupSeriesPaths} render={() => <CupSeriesPage />} />
+        <Route
+          path="/:lang?/cups/:cupId/cup_team_competitions/:cupTeamCompetitionId"
+          component={CupTeamCompetitionPage}
+        />
         <Route path="/:lang?/cups/:cupId" render={() => <CupPage />} />
         <Route path="/:lang?/announcements/:announcementId" component={AnnouncementPage} />
         <Route path="/:lang?/announcements" component={AnnouncementsPage} />

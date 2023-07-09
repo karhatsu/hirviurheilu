@@ -4,7 +4,7 @@ import classnames from 'classnames-minimal'
 import NoResultReason from '../NoResultReason'
 import { buildSeriesResultsPath } from '../../util/routeUtil'
 
-export default function CupPoints({ raceId, competitor, cupCompetitor }) {
+export default function CupRacePoints({ raceId, competitor, cupCompetitor }) {
   if (!competitor) return '-'
   const { minPointsToEmphasize } = cupCompetitor
   const { noResultReason, points, seriesId } = competitor
