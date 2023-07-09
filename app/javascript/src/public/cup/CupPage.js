@@ -49,11 +49,13 @@ export default function CupPage() {
       {cupTeamCompetitions.length > 0 && (
         <>
           <h2>{t('teamCompetitions')}</h2>
-          {cupTeamCompetitions.map(tc => (
-            <Button key={tc.id} to={buildCupTeamCompetitionsPath(cup.id, tc.id)} type="primary">
-              {tc.name}
-            </Button>
-          ))}
+          <div className="buttons">
+            {cupTeamCompetitions.map(tc => (
+              <Button key={tc.id} to={buildCupTeamCompetitionsPath(cup.id, tc.id)} type="primary">
+                {tc.name}
+              </Button>
+            ))}
+          </div>
         </>
       )}
       {hasRifle && cupSeries.length > 0 && (
