@@ -10,11 +10,12 @@ import {
 import TeamCompetitionDesktopSubMenu from './team-competition/TeamCompetitionDesktopSubMenu'
 import RelayDesktopSubMenu from './relay/RelayDesktopSubMenu'
 import CupDesktopSubMenu from './cup/CupDesktopSubMenu'
+import CupTeamCompetitionsDesktopSubMenu from './cup/CupTeamCompetitionsDesktopSubMenu'
 import { useRace } from '../util/useRace'
 import { useCup } from '../util/useCup'
 
 export default function DesktopSubMenu({ cupSeriesPaths }) {
-  const { relayId, seriesId, teamCompetitionId, cupSeriesId, rifleCupSeriesId } = useParams()
+  const { relayId, seriesId, teamCompetitionId, cupSeriesId, cupTeamCompetitionId, rifleCupSeriesId } = useParams()
   const { race } = useRace()
   const { cup } = useCup()
   return (
@@ -46,6 +47,9 @@ export default function DesktopSubMenu({ cupSeriesPaths }) {
       </Route>
       <Route path={cupSeriesPaths}>
         <CupDesktopSubMenu cup={cup} currentCupSeriesId={cupSeriesId} currentRifleCupSeriesId={rifleCupSeriesId} />
+      </Route>
+      <Route path="/:lang?/cups/:cupId/cup_team_competitions/:cupTeamCompetitionId">
+        <CupTeamCompetitionsDesktopSubMenu cup={cup} currentCupTeamCompetitionId={cupTeamCompetitionId} />
       </Route>
     </Switch>
   )
