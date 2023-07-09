@@ -21,13 +21,15 @@ class CupTeamCompetition < ApplicationRecord
 
   def pick_team_competitions_with_given_name
     team_competitions = []
-    cup_races = cup.races.order(:start_date)
+    cup_races = cup.races.includes(team_competitions: [series: [:race, competitors: [:club, :age_group, :series]]]).order(:start_date)
     race_count = cup_races.count
     cup_races.each_with_index do |race, i|
       last_cup_race = cup.include_always_last_race? && i + 1 == race_count
-      race.team_competitions.where(name: name).each do |tc|
-        tc.last_cup_race = last_cup_race
-        team_competitions << tc
+      race.team_competitions.each do |tc|
+        if tc.name == name
+          tc.last_cup_race = last_cup_race
+          team_competitions << tc
+        end
       end
     end
     team_competitions

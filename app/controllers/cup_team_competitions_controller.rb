@@ -12,7 +12,6 @@ class CupTeamCompetitionsController < ApplicationController
 
   def assign_cup
     @id = params[:cup_id]
-    # TODO, tarvitaanko näitä kaikkia?
     @cup = Cup.where(id: @id).first #includes([:cup_series, races: [series: [competitors: [:age_group, :club, :series]]]]).first
     render 'errors/cup_not_found' unless @cup
   end
