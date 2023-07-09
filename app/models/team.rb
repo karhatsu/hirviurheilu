@@ -10,6 +10,10 @@ class Team
     @competitors = []
   end
 
+  def team_competition_id
+    @team_competition.id
+  end
+
   def race
     @team_competition.race
   end

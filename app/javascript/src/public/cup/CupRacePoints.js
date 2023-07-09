@@ -4,16 +4,15 @@ import classnames from 'classnames-minimal'
 import NoResultReason from '../NoResultReason'
 import { buildSeriesResultsPath } from '../../util/routeUtil'
 
-export default function CupPoints({ raceId, competitor, cupCompetitor }) {
+export default function CupRacePoints({ raceId, competitor, cupCompetitor }) {
   if (!competitor) return '-'
   const { minPointsToEmphasize } = cupCompetitor
-  const { noResultReason, points, totalScore, seriesId } = competitor
+  const { noResultReason, points, seriesId } = competitor
   if (noResultReason) return <NoResultReason noResultReason={noResultReason} type="competitor" />
-  const score = points || totalScore // points for individuals, totalScore for teams
-  const className = classnames({ 'cup-points__emphasize': minPointsToEmphasize && score >= minPointsToEmphasize })
+  const className = classnames({ 'cup-points__emphasize': minPointsToEmphasize && points >= minPointsToEmphasize })
   return (
     <Link to={buildSeriesResultsPath(raceId, seriesId)} className={className}>
-      {score}
+      {points}
     </Link>
   )
 }

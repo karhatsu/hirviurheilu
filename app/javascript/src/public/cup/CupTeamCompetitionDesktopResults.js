@@ -1,6 +1,6 @@
 import React from 'react'
 import useTranslation from '../../util/useTranslation'
-import CupPoints from './CupPoints'
+import CupTeamCompetitionPoints from './CupTeamCompetitionPoints'
 
 const CupTeamCompetitionDesktopResults = ({ cup, cupTeamCompetition }) => {
   const { t } = useTranslation()
@@ -29,7 +29,7 @@ const CupTeamCompetitionDesktopResults = ({ cup, cupTeamCompetition }) => {
                 const { id, team, name } = race
                 return (
                   <td key={name} className="center">
-                    <CupPoints raceId={id} competitor={team} cupCompetitor={cupTeam} />
+                    <CupTeamCompetitionPoints raceId={id} team={team} cupTeam={cupTeam} />
                   </td>
                 )
               })}

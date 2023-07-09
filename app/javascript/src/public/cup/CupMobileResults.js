@@ -3,7 +3,7 @@ import classnames from 'classnames-minimal'
 import Button from '../../common/Button'
 import useTranslation from '../../util/useTranslation'
 import CupTotalPoints from './CupTotalPoints'
-import CupPoints from './CupPoints'
+import CupRacePoints from './CupRacePoints'
 
 export default function CupMobileResults({ cupSeries }) {
   const { t } = useTranslation()
@@ -33,7 +33,7 @@ export default function CupMobileResults({ cupSeries }) {
                           return (
                             <div key={id} className="col-xs-12 col-sm-6 col-md-4">
                               {race.name}{' '}
-                              <CupPoints raceId={id} competitor={competitor} cupCompetitor={cupCompetitor} />
+                              <CupRacePoints raceId={id} competitor={competitor} cupCompetitor={cupCompetitor} />
                             </div>
                           )
                         }

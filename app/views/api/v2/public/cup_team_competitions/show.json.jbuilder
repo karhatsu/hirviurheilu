@@ -11,7 +11,7 @@ json.cup_teams @cup_team_competition.results do |cup_team|
     team = cup_team.team_for_race race
     if team
       json.team do
-        json.(team, :name, :total_score)
+        json.(team, :name, :total_score, :team_competition_id)
       end
     end
   end

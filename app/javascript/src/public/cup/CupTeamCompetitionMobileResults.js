@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import classnames from 'classnames-minimal'
 import useTranslation from '../../util/useTranslation'
 import Button from '../../common/Button'
-import CupPoints from './CupPoints'
+import CupTeamCompetitionPoints from './CupTeamCompetitionPoints'
 import CupTotalPoints from './CupTotalPoints'
 
 const CupTeamCompetitionMobileResults = ({ cupTeamCompetition }) => {
@@ -32,7 +32,7 @@ const CupTeamCompetitionMobileResults = ({ cupTeamCompetition }) => {
                           return (
                             <div key={id} className="col-xs-12 col-sm-6 col-md-4">
                               {race.name}{' '}
-                              <CupPoints raceId={id} competitor={team} cupCompetitor={cupTeam} />
+                              <CupTeamCompetitionPoints raceId={id} team={team} cupTeam={cupTeam} />
                             </div>
                           )
                         }
