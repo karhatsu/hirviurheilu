@@ -82,6 +82,7 @@ describe CupCompetitor do
         @cc << @competitor2
         @cc << @competitor3
         allow(@cup).to receive(:top_competitions).and_return(3)
+        allow(@cup).to receive(:use_qualification_round_result?).and_return(false)
       end
 
       context 'when no points available in any of the competitions' do
@@ -170,6 +171,19 @@ describe CupCompetitor do
           end
         end
       end
+
+      context 'when qualification round result is used' do
+        before do
+          allow(@cup).to receive(:use_qualification_round_result?).and_return(true)
+          allow(@competitor).to receive(:qualification_round_score).and_return(500)
+          allow(@competitor2).to receive(:qualification_round_score).and_return(600)
+          allow(@competitor3).to receive(:qualification_round_score).and_return(700)
+        end
+
+        it '#points should be sum of qualification round scores' do
+          expect(@cc.points).to eq(500 + 600 + 700)
+        end
+      end
     end
 
     context 'when the last race is always included to the results' do
@@ -184,6 +198,7 @@ describe CupCompetitor do
         @cc << @competitor4
         allow(@cup).to receive(:top_competitions).and_return(2)
         allow(@cup).to receive(:include_always_last_race?).and_return(true)
+        allow(@cup).to receive(:use_qualification_round_result?).and_return(false)
         allow(@competitor).to receive(:points).and_return(1000)
         allow(@competitor2).to receive(:points).and_return(2000)
         allow(@competitor3).to receive(:points).and_return(3000)
@@ -307,10 +322,17 @@ describe CupCompetitor do
   end
 
   describe '#min_points_to_emphasize' do
+    let(:use_qualification_round_result) { false }
     let(:cup_competitors) { [] }
     let(:cup_series) { build :cup_series }
+    let(:cup) { build :cup }
     let(:competitor) { build :competitor }
     let(:cup_competitor) { CupCompetitor.new cup_series, competitor }
+
+    before do
+      allow(cup).to receive(:use_qualification_round_result?).and_return(use_qualification_round_result)
+      allow(cup_series).to receive(:cup).and_return(cup)
+    end
 
     context 'when race count is less than top competitions count' do
       before do
@@ -364,6 +386,20 @@ describe CupCompetitor do
         end
       end
 
+      context 'when qualification round result used' do
+        let(:use_qualification_round_result) { true }
+        before do
+          cup_competitors << build_competitor(200, false, true)
+          cup_competitors << build_competitor(201, false, true)
+          cup_competitors << build_competitor(202, false, true)
+          allow(cup_competitor).to receive(:competitors).and_return(cup_competitors)
+        end
+
+        it 'returns the smallest points that are counted to the total result' do
+          expect(cup_competitor.min_points_to_emphasize(race_count, top_competitions)).to eql 201
+        end
+      end
+
       context 'when rifle' do
         let(:race_count) { 4 }
         let(:top_competitions) { 3 }
@@ -383,10 +419,12 @@ describe CupCompetitor do
       end
     end
 
-    def build_competitor(points, rifle = false)
+    def build_competitor(points, rifle = false, qr = false)
       competitor = double Competitor
       if rifle
         allow(competitor).to receive(:european_rifle_score).and_return(points)
+      elsif qr
+        allow(competitor).to receive(:qualification_round_score).and_return(points)
       else
         allow(competitor).to receive(:points).and_return(points)
       end

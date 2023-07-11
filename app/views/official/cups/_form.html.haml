@@ -33,6 +33,9 @@
         vaikuttaa muihin paitsi viimeiseen kilpailuun. Toisin sanoen, jos cup sisältää esim. 4 kilpailua
         ja tämä luku on 2, valitaan 2 parasta tulosta 3 ensimmäisestä kilpailusta.
         Kokonaispisteisiin lasketaan automaattisesti mukaan myös viimeinen kilpailu.
+  .form__field
+    = f.label :use_qualification_round_result, 'Käytä alkukilpailun tulosta (vain ammuntalajit)'
+    = f.check_box :use_qualification_round_result
   - if @cup.new_record?
     .form__field
       = label_tag :team_competitions, 'Laske tulokset myös joukkuekilpailuille'

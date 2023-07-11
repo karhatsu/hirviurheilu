@@ -76,7 +76,7 @@ class CupCompetitor
 
   def min_points_to_emphasize(race_count, top_competitions, is_rifle = false)
     return nil unless race_count > top_competitions
-    points = competitors.map { |cc| is_rifle ? cc.european_rifle_score : cc.points }
+    points = competitors.map { |c| competitor_points c, is_rifle }
     sorted_points = points.filter {|p| !p.nil?}.sort {|a, b| b <=> a}
     sorted_points[top_competitions - 1]
   end
@@ -87,10 +87,29 @@ class CupCompetitor
   end
 
   def points_with_last_race_info_array
-    @points_array_with_last_race_info ||= @competitors.map { |c| {points: c.points, last_cup_race: c.series.last_cup_race} }
+    @points_array_with_last_race_info ||= @competitors.map { |c|
+      {
+        points: competitor_points(c),
+        last_cup_race: c.series.last_cup_race
+      }
+    }
   end
 
   def top_competitions
     @cup_series.cup.top_competitions
+  end
+
+  def competitor_points(competitor, is_rifle=false)
+    if use_qualification_round_result?
+      competitor.qualification_round_score
+    elsif is_rifle
+      competitor.european_rifle_score
+    else
+      competitor.points
+    end
+  end
+
+  def use_qualification_round_result?
+    @cup_series.cup.use_qualification_round_result?
   end
 end

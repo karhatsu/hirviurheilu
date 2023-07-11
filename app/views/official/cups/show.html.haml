@@ -9,6 +9,9 @@
     %label #{t 'attributes.top_competitions'}:
     = @cup.top_competitions
   .form__field
+    %label Kilpailijan pisteet
+    = @cup.use_qualification_round_result? ? 'Alkukilpailu' : 'Kokonaistulos'
+  .form__field
     %label Osakilpailut
     = raw(@cup.races.collect { |race| link_to race.name, official_race_path(race) }.join(', '))
   .form__field
