@@ -221,4 +221,5 @@ window.translations = {
   track: 'Bana',
   unofficialCompetitor: 'Informella tävlare',
   unofficialShort: 'inf.',
+  useQualificationRoundResult: 'Poäng räknas ut från resultaten från den grundtävlingarna',
 }

@@ -28,7 +28,15 @@ export default function CupPage() {
     return <IncompletePage fetching={fetching} error={error} />
   }
 
-  const { cupSeries, cupTeamCompetitions, hasRifle, includeAlwaysLastRace, topCompetitions, races } = cup
+  const {
+    cupSeries,
+    cupTeamCompetitions,
+    hasRifle,
+    includeAlwaysLastRace,
+    topCompetitions,
+    useQualificationRoundResult,
+    races,
+  } = cup
   const ruleKey = includeAlwaysLastRace ? 'cupPointsRuleWithLast' : 'cupPointsRule'
   return (
     <>
@@ -74,6 +82,7 @@ export default function CupPage() {
       )}
       <h2>{t('cupPointsRuleTitle')}</h2>
       <div>{t(ruleKey, { bestCompetitionsCount: topCompetitions })}</div>
+      {useQualificationRoundResult && <div style={{ marginTop: 8 }}>{t('useQualificationRoundResult')}</div>}
       {races.length > 0 && (
         <>
           <h2>{t('cupCompetitions')}</h2>

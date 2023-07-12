@@ -221,4 +221,5 @@ window.translations = {
   track: 'Rata',
   unofficialCompetitor: 'Epävirallinen kilpailija',
   unofficialShort: 'epäv.',
+  useQualificationRoundResult: 'Pisteet lasketaan alkukilpailun tuloksista',
 }
