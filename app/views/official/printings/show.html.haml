@@ -21,11 +21,17 @@
   .message.message--info= t '.numbers_no_competitors'
 - else
   = form_tag official_race_competitor_numbers_path(@race, format: :pdf), method: :get, class: 'form' do
-    %div
+    .form_field
       = radio_button_tag :size, 'a4', true
       = label_tag "size_a4", '1 / A4', class: 'form__label--radio'
       = radio_button_tag :size, 'a5', false
       = label_tag "size_a5", '2 / A4', class: 'form__label--radio'
+    .form_field
+      = label_tag :print_sport, 'Tulosta laji'
+      = check_box_tag :print_sport, true, true
+    .form_field
+      = label_tag :print_batch_data, 'Tulosta erätiedot'
+      = check_box_tag :print_batch_data, true, true
     .form__buttons
       = submit_tag t('.download_numbers_pdf'), class: 'button button--pdf'
 .buttons.buttons--nav

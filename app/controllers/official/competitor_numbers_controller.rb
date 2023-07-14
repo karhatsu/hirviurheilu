@@ -6,7 +6,7 @@ class Official::CompetitorNumbersController < Official::OfficialController
       format.pdf do
         @competitors = @race.competitors.where('number > 0').except(:order).order(:number).includes(:club, :series, :qualification_round_batch)
         @a5 = params[:size] == 'a5'
-        header = @a5 ? nil : pdf_header(@race.name)
+        header = @a5 ? nil : pdf_header(params[:print_sport] ? @race.name : '')
         footer = @a5 ? nil : pdf_footer
         render pdf: "#{@race.name}-numerot", layout: true, margin: pdf_margin, header: header, footer: footer, disable_smart_shrinking: true
       end
