@@ -18,10 +18,16 @@ class QuickSave::ExtraShots < QuickSave::QuickSaveBase
   end
 
   def save_competitor
-    if !@competitor.final_round_shooting_score_input && (@competitor.shots.nil? || @competitor.shots.length < @competitor.sport.shot_count)
+    if @competitor.qualification_round_shooting_score_input
+      @competitor.save
+    elsif @competitor.shots.nil? || @competitor.shots.length < @competitor.sport.qualification_round_shot_count
+      @competitor.errors.add :base, 'Alkukilpailun tulos puuttuu'
+      return false
+    elsif @competitor.shots.length > @competitor.sport.qualification_round_shot_count && @competitor.shots.length < @competitor.sport.shot_count
       @competitor.errors.add :base, 'Loppukilpailun tulos puuttuu'
       return false
+    else
+      @competitor.save
     end
-    @competitor.save
   end
 end
