@@ -3,58 +3,103 @@ require 'spec_helper'
 describe QuickSave::ExtraShots do
   let(:race) { create :race, sport_key: Sport::ILMALUODIKKO }
   let(:series) { create :series, race: race }
-  let(:competitor10_shots) { [9,9,9,9,8,8,8,8,7,6,10,9,8,7,6,5,4,3,2,1] }
-  let!(:competitor1) { create :competitor, series: series, number: 1 }
-  let!(:competitor10) { create :competitor, series: series, number: 10, shots: competitor10_shots }
+  let(:all_20_shots) { [9, 9, 9, 9, 8, 8, 8, 8, 7, 6, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1] }
+  let(:competitor_shots) { all_20_shots }
+  let!(:competitor) { create :competitor, series: series, number: 10, shots: competitor_shots }
 
-  context 'when string format is correct and competitor with final round shots is found' do
+  context 'when competitor with final round shots is found' do
+    let(:competitor_shots) { all_20_shots }
+
     before do
       @qs = QuickSave::ExtraShots.new(race.id, '10,+*')
     end
 
     it 'saves the extra shots' do
       result = @qs.save
-      expect_success result, competitor10, [10, 11]
+      expect_success result, competitor, [10, 11]
     end
   end
 
-  context 'when string format is correct and competitor with final round input sum is found' do
+  context 'when competitor with qualification round input sum is found' do
     before do
-      competitor10.shots = nil
-      competitor10.qualification_round_shooting_score_input = 91
-      competitor10.final_round_shooting_score_input = 93
-      competitor10.save!
+      competitor.shots = nil
+      competitor.qualification_round_shooting_score_input = 91
+      competitor.save!
       @qs = QuickSave::ExtraShots.new(race.id, '10,+*')
     end
 
     it 'saves the extra shots' do
       result = @qs.save
-      expect_success result, competitor10, [10, 11]
+      expect_success result, competitor, [10, 11]
+    end
+  end
+
+  context 'when competitor with final round input sum is found' do
+    before do
+      competitor.shots = nil
+      competitor.qualification_round_shooting_score_input = 91
+      competitor.final_round_shooting_score_input = 93
+      competitor.save!
+      @qs = QuickSave::ExtraShots.new(race.id, '10,+*')
+    end
+
+    it 'saves the extra shots' do
+      result = @qs.save
+      expect_success result, competitor, [10, 11]
     end
   end
 
   context 'when no shots yet' do
+    let(:competitor_shots) { nil }
     before do
-      @qs = QuickSave::ExtraShots.new(race.id, '1,+99*876510')
+      @qs = QuickSave::ExtraShots.new(race.id, '10,+99*876510')
     end
 
     it 'does not save anything' do
       result = @qs.save
-      expect_failure result, /Loppukilpailun tulos puuttuu/, competitor1
+      expect_failure result, /Alkukilpailun tulos puuttuu/, competitor
+    end
+  end
+
+  context 'when not all qualification round shots yet' do
+    let(:nine_shots) { [1, 2, 3, 4, 5, 6, 7, 8, 9] }
+    let(:competitor_shots) { nine_shots }
+
+    before do
+      @qs = QuickSave::ExtraShots.new(race.id, '10,9')
+    end
+
+    it 'does not save anything' do
+      result = @qs.save
+      expect_failure result, /Alkukilpailun tulos puuttuu/, competitor, nine_shots
+    end
+  end
+
+  context 'when all qualification round shots and no final round shots' do
+    let(:ten_shots) { [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
+    let(:competitor_shots) { ten_shots }
+
+    before do
+      @qs = QuickSave::ExtraShots.new(race.id, '10,9')
+    end
+
+    it 'saves the extra shots' do
+      result = @qs.save
+      expect_success result, competitor, [9]
     end
   end
 
   context 'when not all final round shots yet' do
     let(:nineteen_shots) { [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9] }
+    let(:competitor_shots) { nineteen_shots }
 
     before do
-      competitor1.update_attribute :shots, nineteen_shots
-      @qs = QuickSave::ExtraShots.new(race.id, '1,9')
+      @qs = QuickSave::ExtraShots.new(race.id, '10,9')
     end
 
     it 'does not save anything' do
       result = @qs.save
-      expect_failure result, /Loppukilpailun tulos puuttuu/, competitor1, nineteen_shots
+      expect_failure result, /Loppukilpailun tulos puuttuu/, competitor, nineteen_shots
     end
   end
 
@@ -66,7 +111,7 @@ describe QuickSave::ExtraShots do
 
     it 'does not save anything' do
       result = @qs.save
-      expect_failure result, /virheellisen numeron/, competitor10, competitor10_shots
+      expect_failure result, /virheellisen numeron/, competitor, competitor_shots
     end
   end
 
@@ -107,13 +152,13 @@ describe QuickSave::ExtraShots do
     let(:extra_shots) { [10, 10] }
 
     before do
-      competitor10.update_attribute :extra_shots, extra_shots
+      competitor.update_attribute :extra_shots, extra_shots
       @qs = QuickSave::ExtraShots.new(race.id, '10,98')
     end
 
     it 'appends the shots' do
       result = @qs.save
-      expect_success result, competitor10, extra_shots + [9, 8]
+      expect_success result, competitor, extra_shots + [9, 8]
     end
   end
 
