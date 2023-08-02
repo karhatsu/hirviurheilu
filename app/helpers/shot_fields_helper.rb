@@ -6,7 +6,7 @@ module ShotFieldsHelper
     config[:qualification_round_shot_count] = sport.qualification_round_shot_count
     config[:final_round] = sport.final_round
     config[:extra_shots_count] = 0
-    if competitor.final_round_shooting_score_input || (competitor.shots && competitor.shots.length == sport.shot_count)
+    if competitor.qualification_round_shooting_score_input || [sport.qualification_round_shot_count, sport.shot_count].include?(competitor.shots&.length)
       config[:extra_shots_count] = (competitor.extra_shots || []).length + shots_per_extra_round
     end
     config[:best_shot_value] = sport.best_shot_value
