@@ -24,7 +24,7 @@ json.cache! [@series, @series.started?, request.headers['X-Camel-Case']] do
     competitors = @series.three_sports_results(unofficials_rule)
   end
   json.competitors competitors.each do |competitor|
-    json.(competitor, :id, :position, :first_name, :last_name, :number, :no_result_reason, :unofficial, :shots, :updated_at)
+    json.(competitor, :id, :position, :first_name, :last_name, :number, :no_result_reason, :unofficial, :shots, :updated_at, :shooting_time_seconds)
     json.points competitor.points(unofficials_rule)
     if @series.race.sport.nordic?
       json.(competitor, :nordic_trap_score, :nordic_trap_shots, :nordic_shotgun_score, :nordic_shotgun_shots, :nordic_rifle_moving_score, :nordic_rifle_moving_shots, :nordic_rifle_standing_score, :nordic_rifle_standing_shots, :nordic_score, :nordic_extra_score)

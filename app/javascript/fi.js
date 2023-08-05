@@ -184,6 +184,7 @@ window.translations = {
   seriesStartTime: 'Sarjan lähtöaika',
   shooting: 'Ammunta',
   shootingPenalties: 'Ammuntasakot',
+  shootingTime: 'Ammunta-aika',
   shots: 'Laukaukset',
   showCompetitors: 'Näytä kilpailijat',
   showCupCompetitions: 'Näytä osakilpailut',

@@ -184,6 +184,7 @@ window.translations = {
   seriesStartTime: 'Klassens starttid',
   shooting: 'Skytte',
   shootingPenalties: 'Skyttefinar',
+  shootingTime: 'Skyttetid',
   shots: 'Skott',
   showCompetitors: 'Visa tävlarna',
   showCupCompetitions: 'Visa deltävlingar',

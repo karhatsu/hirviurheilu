@@ -8,6 +8,7 @@ import EstimatePoints from './EstimatePoints'
 import TimePoints from './TimePoints'
 import ShootingPoints from './ShootingPoints'
 import MobileResultCards from './MobileResultCards'
+import { timeFromSeconds } from '../../util/timeUtil'
 
 const is = value => value != null && typeof value !== 'undefined'
 
@@ -26,6 +27,7 @@ export default function ThreeSportMobileResults({ race, series }) {
           lastName,
           noResultReason,
           shootingScore,
+          shootingTimeSeconds,
           unofficial,
         } = competitor
         const hasResult = is(estimatePoints) || (is(arrivalTime) && timePoints) || is(shootingScore)
@@ -54,6 +56,7 @@ export default function ThreeSportMobileResults({ race, series }) {
                   {is(shootingScore) && (
                     <MobileSubResult type="shoot"><ShootingPoints competitor={competitor} /></MobileSubResult>
                   )}
+                  {is(shootingTimeSeconds) && timeFromSeconds(shootingTimeSeconds)}
                 </div>
               )}
             </div>

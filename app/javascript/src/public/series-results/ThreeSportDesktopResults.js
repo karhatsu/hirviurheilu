@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import useTranslation from '../../util/useTranslation'
 import Points from './Points'
 import TimePoints from './TimePoints'
@@ -26,6 +26,8 @@ export default function ThreeSportDesktopResults({ race, series }) {
     return <a href="#" onClick={onClick}>{t(textKey)}</a>
   }, [sortMethod, setSortMethod, t])
 
+  const showShootingTime = useMemo(() => competitors?.findIndex(c => c.shootingTimeSeconds) !== -1, [competitors])
+
   return (
     <div className="results--desktop">
       <table className="results-table">
@@ -38,12 +40,13 @@ export default function ThreeSportDesktopResults({ race, series }) {
             {timePoints && <th className="center">{createTitle(`timeTitle_${sportKey}`, sortMethods.time)}</th>}
             <th className="center">{createTitle('estimating', sortMethods.estimates)}</th>
             <th className="center">{createTitle('shooting', sortMethods.shooting)}</th>
+            {showShootingTime && <th>{t('shootingTime')}</th>}
             <th className="total-points">{createTitle('points', sortMethods.points)}</th>
           </tr>
         </thead>
         <DesktopResultsRows competitors={competitors} sortMethod={sortMethod}>
           {competitor => {
-            const { comparisonTimeInSeconds } = competitor
+            const { comparisonTimeInSeconds, shootingTimeSeconds } = competitor
             return (
               <>
                 {timePoints && (
@@ -53,6 +56,7 @@ export default function ThreeSportDesktopResults({ race, series }) {
                 )}
                 <td><EstimatePoints competitor={competitor} series={series} race={race} /></td>
                 <td><ShootingPoints competitor={competitor} /></td>
+                {showShootingTime && <td>{timeFromSeconds(shootingTimeSeconds)}</td>}
                 <td className="center total-points">
                   <Points competitor={competitor}/>
                   <NationalRecord race={race} series={series} competitor={competitor} />
