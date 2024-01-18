@@ -64,6 +64,7 @@ class Official::CompetitorsController < Official::OfficialController
 
   def update
     club_ok = handle_club(@competitor)
+    @competitor.old_values = params[:old_values]
     update_params = update_competitor_params
     shots_ok = Competitor::ALL_SHOTS_FIELDS.map { |shots_name| set_shots @competitor, shots_name, params[shots_name] }.all?
     @sub_sport = params[:sub_sport]
@@ -135,6 +136,6 @@ class Official::CompetitorsController < Official::OfficialController
       :nordic_extra_score, :only_rifle,
       :european_trap_score_input, :european_compak_score_input,
       :european_rifle1_score_input, :european_rifle2_score_input, :european_rifle3_score_input, :european_rifle4_score_input,
-      :european_extra_score, old_values: [:estimate1, :estimate2, :estimate3, :estimate4])
+      :european_extra_score)
   end
 end
