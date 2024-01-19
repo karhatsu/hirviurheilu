@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-yarn lint
+npm run lint
 if [ "$(cat STABLE_COMMIT)" != "$(git rev-list --max-count=1 HEAD)" ]
 then
   echo "Running all tests..."

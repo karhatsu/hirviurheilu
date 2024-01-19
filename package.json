@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "lint": "yarn eslint app/javascript",
+    "lint": "eslint app/javascript",
     "build": "esbuild app/javascript/*.* --bundle --loader:.js=jsx --sourcemap --outdir=app/assets/builds"
   },
   "dependencies": {
