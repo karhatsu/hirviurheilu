@@ -3,6 +3,7 @@ Feature: Official invitation
   As an official
   I want to invite other officials to work with my race
 
+  @javascript
   Scenario: Invite official that exists in the database
     Given there is an official "Another" "Official" with email "another@official.com" and password "pword123"
     And I am an official "Tim Thomas" with email "tim@official.com"
@@ -19,10 +20,10 @@ Feature: Official invitation
     And the official main menu item should be selected
     And the "Toimitsijat" sub menu item should be selected
     And current officials card 1 should contain "Thomas Tim" with full rights
-    When I fill in "Another@Official.COM" for "Sähköposti"
+    When I click button "Lisää toimitsija" with id "add_button"
+    And I fill in "Another@Official.COM" for "Sähköposti"
     And I press "Lähetä kutsu"
-    Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi" in a success message
-    And current officials card 1 should contain "Official Another" with full rights
+    Then current officials card 1 should contain "Official Another" with full rights
     And current officials card 2 should contain "Thomas Tim" with full rights
     And "another@official.com" should receive an email with subject "Hirviurheilu - kutsu kilpailun Test race toimitsijaksi"
     When I logout
@@ -38,26 +39,31 @@ Feature: Official invitation
     And I press "Kirjaudu"
     Then I should be on the official race page of "Test race"
 
+  @javascript
   Scenario: Try to invite official that does not exist in the database
     Given I am an official "Tim Thomas" with email "tim@official.com"
     And I have a race "Test race"
     And I have logged in
     And I am on the race edit page of "Test race"
     When I follow "Toimitsijat"
+    And I click button "Lisää toimitsija" with id "add_button"
     When I fill in "another@official.com" for "Sähköposti"
     And I press "Lähetä kutsu"
     Then I should see "Tietokannasta ei löytynyt syöttämääsi sähköpostiosoitetta" in an error message
 
+  @javascript
   Scenario: Try to invite an official that already is an official for this race
     Given I am an official "Tim Thomas" with email "tim@official.com"
     And I have a race "Test race"
     And I have logged in
     And I am on the race edit page of "Test race"
     When I follow "Toimitsijat"
-    When I fill in "tim@official.com" for "Sähköposti"
+    When I click button "Lisää toimitsija" with id "add_button"
+    And I fill in "tim@official.com" for "Sähköposti"
     And I press "Lähetä kutsu"
     Then I should see "Henkilö on jo tämän kilpailun toimitsija" in an error message
 
+  @javascript
   Scenario: Invite official with only rights to add competitors
     Given there is an official "Another" "Official" with email "another@official.com" and password "pword123"
     And I am an official "Tim Thomas" with email "tim@official.com"
@@ -70,11 +76,11 @@ Feature: Official invitation
     And I have logged in
     And I am on the race edit page of "Test race"
     When I follow "Toimitsijat"
-    When I fill in "another@official.com" for "Sähköposti"
+    When I click button "Lisää toimitsija" with id "add_button"
+    And I fill in "another@official.com" for "Sähköposti"
     And I check "Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita"
     And I press "Lähetä kutsu"
-    Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi rajoitetuin oikeuksin" in a success message
-    And current officials card 1 should contain "Official Another" with limited rights to all clubs
+    Then current officials card 1 should contain "Official Another" with limited rights to all clubs
     And "another@official.com" should receive an email with subject "Hirviurheilu - kilpailun Test race kilpailijoiden lisäyspyyntö"
     When I logout
     And "another@official.com" opens the email
@@ -98,12 +104,12 @@ Feature: Official invitation
     And the race has a club "Club 2"
     And I have logged in
     And I am on the invite officials page for "Test race"
-    When I check "Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita"
+    When I click button "Lisää toimitsija" with id "add_button"
+    And I check "Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita"
     And I fill in "another@official.com" for "Sähköposti"
     And I select "Club 2" from "Salli kilpailijoiden lisäys vain tiettyyn piiriin/seuraan"
     And I press "Lähetä kutsu"
-    Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi rajoitetuin oikeuksin" in a success message
-    And current officials card 1 should contain "Official Another" with limited rights to club "Club 2"
+    Then current officials card 1 should contain "Official Another" with limited rights to club "Club 2"
 
   @javascript
   Scenario: If no clubs, official sees explicitly that club limitation cannot be used
@@ -112,7 +118,8 @@ Feature: Official invitation
     And I have a race "Test race"
     And I have logged in
     And I am on the invite officials page for "Test race"
-    When I check "Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita"
+    When I click button "Lisää toimitsija" with id "add_button"
+    And I check "Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita"
     Then I should see "(Käyttöä ei voi rajata, koska yhtään piiriä/seuraa ei ole lisätty.)"
     When I follow "yhtään piiriä/seuraa ei ole lisätty"
     Then the "Seurat" sub menu item should be selected
@@ -125,13 +132,14 @@ Feature: Official invitation
     And I have a race "Test race"
     And I have logged in
     And I am on the invite officials page for "Test race"
-    When I check "Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita"
+    When I click button "Lisää toimitsija" with id "add_button"
+    And I check "Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita"
     And I fill in "another@official.com" for "Sähköposti"
     And I check "Salli uusien piirien/seurojen lisäys"
     And I press "Lähetä kutsu"
-    Then I should see "Toimitsija Another Official lisätty kilpailun Test race toimitsijaksi rajoitetuin oikeuksin" in a success message
-    And current officials card 1 should contain "Official Another" with limited rights to club "Lisäys sallittu"
+    Then current officials card 1 should contain "Official Another" with limited rights to club "Lisäys sallittu"
 
+  @javascript
   Scenario: Official cannot delete herself from the race
     Given I am an official
     And I have a race "Test race"
@@ -139,6 +147,7 @@ Feature: Official invitation
     And I am on the invite officials page for "Test race"
     Then I should not see "Peruuta kutsu"
 
+  @javascript
   Scenario: Primary official cannot be deleted from the race
     Given I am an official
     And I have a race "Test race"
@@ -148,6 +157,7 @@ Feature: Official invitation
     And I am on the invite officials page for "Test race"
     Then I should not see "Peruuta kutsu"
 
+  @javascript
   Scenario: Official can cancel sent invitation
     Given there is an official "Another" "Official"
     And I am an official
@@ -156,7 +166,6 @@ Feature: Official invitation
     And I have logged in
     And I am on the invite officials page for "Test race"
     Then current officials card 1 should contain "Official Another" with full rights
-    When I follow "Peruuta kutsu"
+    When I click button "Peruuta kutsu" with id "delete_button_0" and accept confirmation
     Then I should be on the invite officials page for "Test race"
-    And I should see "Another Official ei ole enää kilpailun toimitsija" in a success message
     And the current officials table should not contain "Another Official"

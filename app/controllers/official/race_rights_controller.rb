@@ -2,52 +2,46 @@ class Official::RaceRightsController < Official::OfficialController
   before_action :assign_race_by_race_id, :check_assigned_race, :set_race_rights
 
   def index
-    @race_right = RaceRight.new
-  end
-
-  def create
-    @race_right = @race.race_rights.build(race_rights_params)
-    user = User.where('lower(email)=?', params[:email].downcase).first
-    if user
-      if user.races.include?(@race)
-        flash[:error] = "Henkilö on jo tämän kilpailun toimitsija"
-        render :index
-      else
-        @race_right.user = user
-        @race_right.save!
-        send_invitation_mail @race_right
-        set_invitation_success_message @race_right
-        redirect_to official_race_race_rights_path(@race)
+    @race_rights = @race.race_rights
+    respond_to do |format|
+      format.html do
+        use_react true
+        render layout: true, html: ''
       end
-    else
-      flash[:error] = "Tietokannasta ei löytynyt syöttämääsi sähköpostiosoitetta"
-      render :index
+      format.json
     end
   end
 
-  def edit
-    @race_right = @race.race_rights.find(params[:id])
+  def create
+    @race_right = @race.race_rights.build race_rights_params
+    user = User.where('lower(email)=?', params[:email].downcase).first
+    if !user
+      render status: 400, json: { errors: ['Tietokannasta ei löytynyt syöttämääsi sähköpostiosoitetta'] }
+    elsif user.races.include? @race
+      render status: 400, json: { errors: ['Henkilö on jo tämän kilpailun toimitsija'] }
+    else
+      @race_right.user = user
+      @race_right.save!
+      send_invitation_mail @race_right
+    end
   end
 
   def update
-    @race_right = @race.race_rights.find(params[:id])
+    @race_right = @race.race_rights.find params[:id]
     @race_right.update(race_rights_params)
-    redirect_to official_race_race_rights_path(@race)
   end
-  
+
   def destroy
-    race_right = @race.race_rights.find(params[:id])
+    race_right = @race.race_rights.find params[:id]
     race_right.destroy
-    user = race_right.user
-    flash[:success] = "#{user.first_name} #{user.last_name} ei ole enää kilpailun toimitsija"
-    redirect_to official_race_race_rights_path(@race)
+    render status: 201, body: nil
   end
 
   private
   def set_race_rights
     @is_race_rights = true
   end
-  
+
   def send_invitation_mail(race_right)
     user = race_right.user
     if race_right.only_add_competitors
@@ -55,14 +49,6 @@ class Official::RaceRightsController < Official::OfficialController
     else
       InviteOfficialMailer.invite(@race, current_user, user).deliver_now
     end
-  end
-  
-  def set_invitation_success_message(race_right)
-    user = race_right.user
-    message = "Toimitsija #{user.first_name} #{user.
-      last_name} lisätty kilpailun #{@race.name} toimitsijaksi"
-    message += " rajoitetuin oikeuksin" if race_right.only_add_competitors
-    flash[:success] = message
   end
 
   def race_rights_params

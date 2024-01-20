@@ -14,7 +14,7 @@ export const RaceProvider = ({ children }) => {
   const fetchRaceRef = useRef()
 
   const fetchRace = useCallback(() => {
-    get(`/api/v2/public/races/${raceId}?no_competitors=true`, (err, data) => {
+    get(`/api/v2/official/races/${raceId}?no_competitors=true`, (err, data) => {
       if (err) return setError(err)
       setRace(data)
     })

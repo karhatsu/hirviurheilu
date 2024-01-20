@@ -6,6 +6,9 @@ json.all_competitions_finished @race.all_competitions_finished?
 json.show_correct_distances @race.show_correct_distances?
 json.unofficials_configurable @race.year < 2018
 json.user_ids @race.users.map(&:id)
+if @official
+  json.pending_official_email @race.pending_official_email
+end
 
 json.sport do
   json.batch_list @race.sport.batch_list?

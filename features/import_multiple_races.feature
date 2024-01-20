@@ -3,6 +3,7 @@ Feature: Import multiple races with CSV file
   As a district official
   I want to import an CSV file that contains the data for the races
 
+  @javascript
   Scenario: Try to import invalid file, import valid file and try to import valid file again
     Given there is a district "Pohjois-Savo" with short name "PS"
     And there is an official with email "toimitsija.1@testi.com"

@@ -63,6 +63,14 @@ When('I click button {string} with id {string}') do |label, id|
   button.click
 end
 
+When('I click button {string} with id {string} and accept confirmation') do |label, id|
+  accept_confirm do
+    button = find(:xpath, "//div[contains(@class, 'button') and @id='#{id}']")
+    expect(button.text).to eql label
+    button.click
+  end
+end
+
 When('I click the first {string} button {string}') do |type, label|
   button = first(:xpath, "//div[contains(@class, 'button button--#{type}')]")
   expect(button.text).to eql label

@@ -86,6 +86,8 @@ const paths = {
   officials: buildOfficialRaceOfficialsPath,
 }
 
+const reactPages = ['clubs', 'officials']
+
 const useSeries = {
   competitors: true,
   batchListGeneration: true,
@@ -183,6 +185,7 @@ const buildMenuItem = (selectedPage, key, t, race, series) => {
       key={key}
       path={paths[key](useSeries[key] ? series.id : race.id)}
       text={text}
+      reactLink={reactPages.includes(key)}
       selected={key === selectedPage}
       dropdownItems={useSeries[key] && race.series.map(s => {
         return { text: s.name, path: paths[key](s.id) }

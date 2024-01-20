@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import PageTitle from '../common/PageTitle'
 import ClubsPage from './clubs/ClubsPage'
 import MegalinkImportPage from './megalink/MegalinkImportPage'
+import OfficialsPage from './officials/OfficialsPage'
 
 const OfficialMainContent = () => {
   return (
@@ -11,6 +12,7 @@ const OfficialMainContent = () => {
       <Switch exact>
         <Route path="/:lang?/official/races/:raceId/clubs" component={ClubsPage} />
         <Route path="/:lang?/official/races/:raceId/megalink_imports" component={MegalinkImportPage} />
+        <Route path="/:lang?/official/races/:raceId/race_rights" component={OfficialsPage} />
       </Switch>
     </div>
   )
