@@ -205,7 +205,6 @@ GEM
       httparty
     jsbundling-rails (1.2.2)
       railties (>= 6.0.0)
-    kgio (2.11.4)
     launchy (2.5.2)
       addressable (~> 2.8)
     loofah (2.22.0)
@@ -286,7 +285,6 @@ GEM
       rake (>= 12.2)
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
-    raindrops (0.20.1)
     rake (13.1.0)
     rdoc (6.6.2)
       psych (>= 4.0.0)
@@ -360,9 +358,6 @@ GEM
       concurrent-ruby (~> 1.0)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
-    unicorn (6.1.0)
-      kgio (~> 2.6)
-      raindrops (~> 0.7)
     webrick (1.8.1)
     websocket (1.2.10)
     websocket-driver (0.7.6)
@@ -417,7 +412,6 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers
   uglifier
-  unicorn
   wicked_pdf
   wkhtmltopdf-binary-edge
   wkhtmltopdf-heroku (= 2.12.6.1.pre.jammy)

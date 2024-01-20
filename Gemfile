@@ -18,10 +18,10 @@ gem 'redcarpet'
 gem 'jbuilder'
 gem 'scrypt'
 gem 'jsbundling-rails'
+gem 'puma'
 
 group :development, :production do
   gem 'pg'
-  gem 'unicorn'
 end
 
 group :production do
@@ -37,7 +37,6 @@ group :development do
 end
 
 group :test do
-  gem 'puma'
   gem 'minitest'
   gem 'capybara'
   gem 'cucumber-rails', require: false
