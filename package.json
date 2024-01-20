@@ -1,7 +1,8 @@
 {
   "scripts": {
     "lint": "eslint app/javascript",
-    "build": "esbuild app/javascript/*.* --bundle --loader:.js=jsx --sourcemap --outdir=app/assets/builds"
+    "dev": "node esbuild-dev.js",
+    "build": "node esbuild.js"
   },
   "dependencies": {
     "@rails/actioncable": "^7.1.3",
