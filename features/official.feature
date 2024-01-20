@@ -45,7 +45,7 @@ Feature: Official
       | Etunimi | Tim |
       | Sukunimi | Tester |
       | Seura | Club |
-      | Sähköposti | pending@test.com |
+      | Sähköposti | Pending@test.com |
       | Salasana | testpassword |
       | Salasana uudestaan | testpassword |
       | captcha            | neljä        |

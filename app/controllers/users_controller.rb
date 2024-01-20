@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     end
     if @user.save
       @user.add_official_rights
-      Race.where('pending_official_email=?', @user.email).each do |race|
+      Race.where('UPPER(pending_official_email)=?', @user.email.upcase).each do |race|
         race.users << @user
         race.pending_official_email = nil
         race.save
