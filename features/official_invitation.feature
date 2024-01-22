@@ -169,3 +169,38 @@ Feature: Official invitation
     When I click button "Peruuta kutsu" with id "delete_button_0" and accept confirmation
     Then I should be on the invite officials page for "Test race"
     And the current officials table should not contain "Another Official"
+
+  @javascript
+  Scenario: Invite multiple officials at once
+    Given there exists an official "Teppo" "Miettinen" with email "teppo@testi.com"
+    And there exists an official "Tiina" "Turunen" with email "tiine@testi.com"
+    And I am an official "Antti Toimitsija" with email "antti@test.com"
+    And I have a race "Testikisa"
+    And I have logged in
+    And I am on the invite officials page for "Testikisa"
+    Then current officials card 1 should contain "Toimitsija Antti" with full rights
+    When I click button "Lisää monta toimitsijaa" with id "add_multiple_button"
+    And I fill multiple official invitation textarea with "tiine@testi.com" and "teppo@testi.com,Testiseura"
+    And I press "Lähetä kutsut"
+    # order is wrong for some reason, not alphabetical
+    Then current officials card 1 should contain "Miettinen Teppo" with limited rights to club "Testiseura"
+    And current officials card 2 should contain "Turunen Tiina" with full rights
+    Then current officials card 3 should contain "Toimitsija Antti" with full rights
+    And "tiine@testi.com" should receive an email with subject "Hirviurheilu - kutsu kilpailun Testikisa toimitsijaksi"
+    And "teppo@testi.com" should have 1 email
+    When I follow "Seurat"
+    Then I should see "Testiseura"
+
+  @javascript
+  Scenario: Try to invite officials that have not registered
+    Given I am an official
+    And I have a race "Testikisa"
+    And I have logged in
+    And I am on the invite officials page for "Testikisa"
+    When I click button "Lisää monta toimitsijaa" with id "add_multiple_button"
+    And I fill multiple official invitation textarea with "tiine@testi.com" and "teppo@testi.com,Testiseura"
+    And I press "Lähetä kutsut"
+    Then I should see "tiine@testi.com ei ole rekisteröitynyt Hirviurheiluun" in an error message
+    And I should see "teppo@testi.com ei ole rekisteröitynyt Hirviurheiluun" in an error message
+    When I follow "Toimitsijat"
+    Then I should not see "tiina@test.com"

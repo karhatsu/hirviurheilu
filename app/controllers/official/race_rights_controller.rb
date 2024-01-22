@@ -26,6 +26,41 @@ class Official::RaceRightsController < Official::OfficialController
     end
   end
 
+  def multiple
+    @race_rights = []
+    @errors = []
+    params[:officials].each do |official|
+      email = official[:email].strip
+      user = find_user email
+      @errors << "#{email} ei ole rekisteröitynyt Hirviurheiluun" unless user
+    end
+    return unless @errors.empty?
+
+    RaceRight.transaction do
+      params[:officials].each do |official|
+        email = official[:email].strip
+        user = find_user email
+        unless user.races.include? @race
+          race_right = @race.race_rights.build
+          race_right.user = user
+          club = find_or_create_club official[:club]&.strip
+          if club
+            race_right.club = club
+            race_right.only_add_competitors = true
+          end
+          race_right.save!
+          @race_rights << race_right
+        end
+      end
+      @race_rights.each do |race_right|
+        send_invitation_mail race_right
+      end
+    rescue => e
+      @errors << "Odottamaton virhe: #{e.message}"
+      @race_rights = []
+    end
+  end
+
   def update
     @race_right = @race.race_rights.find params[:id]
     @race_right.update(race_rights_params)
@@ -53,5 +88,16 @@ class Official::RaceRightsController < Official::OfficialController
 
   def race_rights_params
     params.require(:race_right).permit(:only_add_competitors, :club_id, :new_clubs)
+  end
+
+  def find_user(email)
+    User.where('LOWER(email)=?', email.downcase).first
+  end
+
+  def find_or_create_club(club_name)
+    return nil unless club_name
+    club = @race.clubs.where('lower(name)=?', club_name.downcase).first
+    club = @race.clubs.create name: club_name unless club
+    club
   end
 end

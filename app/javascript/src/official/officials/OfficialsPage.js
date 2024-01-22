@@ -10,15 +10,22 @@ import Button from '../../common/Button'
 import OfficialForm from './OfficialForm'
 import FormErrors from '../../common/form/FormErrors'
 import OfficialsList from './OfficialsList'
+import AddManyOfficialsForm from './AddManyOfficialsForm'
 
 const officialsSorter = (a, b) => a.lastName.toUpperCase().localeCompare(b.lastName.toUpperCase())
+
+const pageStates = {
+  list: 0,
+  add: 1,
+  addMultiple: 2,
+  // edit: <official object>,
+}
 
 const OfficialsPage = () => {
   const { t } = useTranslation()
   const [officials, setOfficials] = useState()
   const [officialsError, setOfficialsError] = useState()
-  const [adding, setAdding] = useState(false)
-  const [editOfficial, setEditOfficial] = useState()
+  const [pageState, setPageState] = useState(pageStates.list)
   const [formErrors, setFormErrors] = useState()
   const { fetching, error, race } = useRace()
   const { setSelectedPage } = useOfficialMenu()
@@ -34,6 +41,8 @@ const OfficialsPage = () => {
     }
   }, [race])
 
+  const resetPageState = useCallback(() => setPageState(pageStates.list), [])
+
   const addRights = useCallback(data => {
     const raceRight = { onlyAddCompetitors: data.onlyAddCompetitors, newClubs: data.newClubs, clubId: data.clubId }
     const body = { email: data.email, raceRight }
@@ -46,10 +55,18 @@ const OfficialsPage = () => {
           return newOfficials.sort(officialsSorter)
         })
         setFormErrors(undefined)
-        setAdding(false)
+        resetPageState()
       }
     })
-  }, [race])
+  }, [race, resetPageState])
+
+  const onAddedMany = useCallback(newOfficials => {
+    setOfficials(oldOfficials => {
+      const officials = [...oldOfficials, ...newOfficials]
+      return officials.sort(officialsSorter)
+    })
+    resetPageState()
+  }, [resetPageState])
 
   const updateRights = useCallback(data => {
     const raceRight = { onlyAddCompetitors: data.onlyAddCompetitors, newClubs: data.newClubs, clubId: data.clubId }
@@ -65,10 +82,10 @@ const OfficialsPage = () => {
           return newOfficials.sort(officialsSorter)
         })
         setFormErrors(undefined)
-        setEditOfficial(undefined)
+        resetPageState()
       }
     })
-  }, [race])
+  }, [race, resetPageState])
 
   const deleteRights = useCallback(id => {
     if (confirm('Haluatko varmasti poistaa käyttäjän toimitsijaoikeudet tähän kilpailuun?')) {
@@ -91,7 +108,7 @@ const OfficialsPage = () => {
     return <IncompletePage fetching={fetching} error={error || officialsError} title="Toimitsijat" />
   }
 
-  if (adding) {
+  if (pageState === pageStates.add) {
     return (
       <div>
         <h2>Kutsu toinen henkilö tämän kilpailun toimitsijaksi</h2>
@@ -100,22 +117,26 @@ const OfficialsPage = () => {
         <OfficialForm
           buttonLabel="Lähetä kutsu"
           onSave={addRights}
-          onCancel={() => setAdding(false)}
+          onCancel={resetPageState}
         />
       </div>
     )
   }
 
-  if (editOfficial) {
+  if (pageState === pageStates.addMultiple) {
+    return <AddManyOfficialsForm raceId={race.id} onCancel={resetPageState} onSaved={onAddedMany} />
+  }
+
+  if (pageState !== pageStates.list) {
     return (
       <div>
         <h2>Muokkaa toimitsijan oikeuksia</h2>
         <FormErrors errors={formErrors} />
         <OfficialForm
           buttonLabel="Päivitä"
-          official={editOfficial}
+          official={pageState}
           onSave={updateRights}
-          onCancel={() => setEditOfficial(undefined)}
+          onCancel={resetPageState}
         />
       </div>
     )
@@ -125,10 +146,15 @@ const OfficialsPage = () => {
     <div>
       <h2>Kutsu toinen henkilö tämän kilpailun toimitsijaksi</h2>
       <Message type="info">Henkilön täytyy olla rekisteröitynyt palveluun omalla sähköpostiosoitteellaan.</Message>
-      <Button id="add_button" onClick={() => setAdding(true)} type="add">Lisää toimitsija</Button>
+      <div className="buttons">
+        <Button id="add_button" onClick={() => setPageState(pageStates.add)} type="add">Lisää toimitsija</Button>
+        <Button id="add_multiple_button" onClick={() => setPageState(pageStates.addMultiple)} type="add">
+          Lisää monta toimitsijaa
+        </Button>
+      </div>
       <h2>Kilpailun toimitsijat</h2>
       <div id="current_officials" className="row">
-        <OfficialsList race={race} officials={officials} onEdit={setEditOfficial} onDelete={deleteRights} />
+        <OfficialsList race={race} officials={officials} onEdit={setPageState} onDelete={deleteRights} />
       </div>
       {race.pendingOfficialEmail && (
         <>

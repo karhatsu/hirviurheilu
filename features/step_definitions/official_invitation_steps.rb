@@ -3,6 +3,10 @@ Given /^I have invited "(.*?)" "(.*?)" to the race$/ do |first_name, last_name|
   RaceRight.create!(:user => official, :race => @race)
 end
 
+When('I fill multiple official invitation textarea with {string} and {string}') do |line1, line2|
+  fill_in('Sähköpostit ja mahdolliset piirit/seurat', with: "#{line1}\n#{line2}")
+end
+
 Then /^current officials card (\d+) should contain "(.*?)" with full rights$/ do |row, name|
   expect_name_with_rights row, name, 'Täydet oikeudet'
 end

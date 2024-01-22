@@ -109,6 +109,7 @@ Hirviurheilu::Application.routes.draw do
         resources :clubs
         put 'correct_estimates' => 'correct_estimates#update', :as => :correct_estimates
         resources :correct_estimates
+        post 'race_rights/multiple' => 'race_rights#multiple'
         resources :race_rights
         post 'estimates_quick_save' => 'quick_saves#save_estimates', :as => :quick_save_estimates
         post 'shots_quick_save' => 'quick_saves#save_shots', :as => :quick_save_shots
