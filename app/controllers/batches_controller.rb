@@ -7,7 +7,7 @@ class BatchesController < ApplicationController
       format.html { render layout: true, html: '' }
       format.pdf do
         render pdf: "#{@race.name}-eraluettelo", layout: true,
-               margin: pdf_margin, header: pdf_header("#{t :batch_list} - #{@race.name}"),
+               margin: pdf_margin, header: pdf_header("#{t :batch_list} - #{@race.name} - #{I18n.t("sport_name.#{@race.sport_key}")}"),
                footer: pdf_footer, disable_smart_shrinking: true
       end
     end
