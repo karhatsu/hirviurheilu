@@ -417,7 +417,7 @@ DEPENDENCIES
   wkhtmltopdf-heroku (= 2.12.6.1.pre.jammy)
 
 RUBY VERSION
-   ruby 3.3.0p0
+   ruby 3.3.1p55
 
 BUNDLED WITH
-   2.5.4
+   2.5.10
