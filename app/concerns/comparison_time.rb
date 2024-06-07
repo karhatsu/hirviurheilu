@@ -51,6 +51,7 @@ module ComparisonTime
     hash = {}
     build_children_series_hash hash, age_groups, 'P'
     build_children_series_hash hash, age_groups, 'T'
+    build_children_series_hash hash, age_groups, 'S'
     hash
   end
 

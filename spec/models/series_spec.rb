@@ -405,19 +405,24 @@ describe Series do
         @age_group_P11 = instance_double(AgeGroup, :name => 'P11', :min_competitors => 1)
         @age_group_T9 = instance_double(AgeGroup, :name => 'T9', :min_competitors => 1)
         @age_group_P9 = instance_double(AgeGroup, :name => 'P9', :min_competitors => 1)
-        expect_ordered_age_groups(@series, [@age_group_T9, @age_group_P9,
-                                            @age_group_T13, @age_group_P13, @age_group_T11, @age_group_P11])
+        @age_group_S12 = instance_double(AgeGroup, :name => 'S12', :min_competitors => 1)
+        @age_group_S17 = instance_double(AgeGroup, :name => 'S17', :min_competitors => 1)
+        expect_ordered_age_groups(@series, [
+          @age_group_T9, @age_group_P9, @age_group_S17, @age_group_T13, @age_group_P13, @age_group_S12, @age_group_T11, @age_group_P11
+        ])
       end
 
       it "should return all age groups as keys and self with younger same gender age groups as values" do
         groups = @series.send(:age_groups_for_comparison_time, @unofficials_rule)
-        expect(groups.length).to eq(6)
+        expect(groups.length).to eq(8)
         expect(groups[@age_group_T13]).to eq([@age_group_T13, @age_group_T11, @age_group_T9])
         expect(groups[@age_group_T11]).to eq([@age_group_T11, @age_group_T9])
         expect(groups[@age_group_T9]).to eq([@age_group_T9])
         expect(groups[@age_group_P13]).to eq([@age_group_P13, @age_group_P11, @age_group_P9])
         expect(groups[@age_group_P11]).to eq([@age_group_P11, @age_group_P9])
         expect(groups[@age_group_P9]).to eq([@age_group_P9])
+        expect(groups[@age_group_S17]).to eq([@age_group_S17, @age_group_S12])
+        expect(groups[@age_group_S12]).to eq([@age_group_S12])
       end
     end
 
