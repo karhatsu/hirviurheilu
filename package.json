@@ -7,22 +7,22 @@
   "dependencies": {
     "@rails/actioncable": "^7.1.3",
     "classnames-minimal": "^1.0.1",
-    "date-fns": "^3.2.0",
-    "esbuild": "^0.19.11",
+    "date-fns": "^3.6.0",
+    "esbuild": "^0.21.5",
     "lodash.debounce": "^4.0.8",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-markdown": "^9.0.1",
     "react-router-dom": "^5.3.4"
   },
   "devDependencies": {
-    "eslint": "8.56.0",
+    "eslint": "8.57.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-n": "^16.6.2",
-    "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0"
+    "eslint-plugin-n": "^17.9.0",
+    "eslint-plugin-promise": "^6.2.0",
+    "eslint-plugin-react": "^7.34.2",
+    "eslint-plugin-react-hooks": "^4.6.2"
   },
   "engines": {
     "node": "20"
