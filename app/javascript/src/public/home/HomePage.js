@@ -5,7 +5,6 @@ import subWeeks from 'date-fns/subWeeks'
 import IncompletePage from '../../common/IncompletePage'
 import Races from './Races'
 import Announcements from './Announcements'
-import FacebookLikeBox from './FacebookLikeBox'
 import Button from '../../common/Button'
 import useTranslation from '../../util/useTranslation'
 import SearchForm from './SearchForm'
@@ -61,7 +60,6 @@ export default function HomePage() {
         <Button to={buildRacesPath()}>{t('allRaces')}</Button>
       </Races>
       {!hasRecentAnnouncements && <Announcements announcements={announcements} />}
-      <FacebookLikeBox />
     </>
   )
 }
