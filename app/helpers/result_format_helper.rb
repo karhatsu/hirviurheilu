@@ -27,7 +27,7 @@ module ResultFormatHelper
     points = competitor.shooting_points.to_s
     if shots_total
       points << " (#{competitor.shooting_score}"
-      points << "#{competitor.shooting_overtime_penalty}" if competitor.shooting_overtime_penalty
+      points << "-#{competitor.shooting_overtime_penalty}" if competitor.shooting_overtime_penalty
       points << " / #{competitor.shots.join(', ')}" if individual_shots && competitor.shots
       points << ')'
     end

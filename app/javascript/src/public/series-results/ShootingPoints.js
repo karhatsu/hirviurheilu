@@ -3,5 +3,5 @@ export default function ShootingPoints({ competitor }) {
   if (noResultReason) return ''
   if (!shootingScore) return '-'
   if (!shots) return `${shootingPoints} (${shootingScore})`
-  return `${shootingPoints} (${shootingScore}${shootingOvertimePenalty || ''} / ${shots.join(', ')})`
+  return `${shootingPoints} (${shootingScore}${-shootingOvertimePenalty || ''} / ${shots.join(', ')})`
 }

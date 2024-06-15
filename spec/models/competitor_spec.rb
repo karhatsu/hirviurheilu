@@ -1019,11 +1019,11 @@ describe Competitor do
 
     context 'when overtime minutes is positive number' do
       context 'and walking series' do
-        it 'is 3 times overtime minutes as negative' do
+        it 'is 3 times overtime minutes' do
           series = build :series
           allow(series).to receive(:walking_series?).and_return(true)
           competitor = build :competitor, shooting_overtime_min: 4, series: series
-          expect(competitor.shooting_overtime_penalty).to eql -12
+          expect(competitor.shooting_overtime_penalty).to eql 12
         end
       end
 

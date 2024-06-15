@@ -135,12 +135,12 @@ class Competitor < ApplicationRecord
 
   def shooting_points
     sum = shooting_score or return nil
-    6 * (sum + shooting_overtime_penalty.to_i)
+    6 * (sum - shooting_overtime_penalty.to_i)
   end
 
   def shooting_overtime_penalty
     return nil unless series.walking_series?
-    -3 * shooting_overtime_min if shooting_overtime_min.to_i > 0
+    3 * shooting_overtime_min if shooting_overtime_min.to_i > 0
   end
 
   def shooting_time_seconds
