@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_11_051844) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_15_060457) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -104,6 +104,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_051844) do
     t.jsonb "nordic_results"
     t.jsonb "european_results"
     t.boolean "only_rifle", default: false, null: false
+    t.integer "shooting_rules_penalty"
     t.index ["age_group_id"], name: "index_competitors_on_age_group_id"
     t.index ["final_round_batch_id"], name: "index_competitors_on_final_round_batch_id"
     t.index ["qualification_round_batch_id"], name: "index_competitors_on_qualification_round_batch_id"
