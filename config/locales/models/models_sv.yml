@@ -121,6 +121,7 @@ sv:
     shooting_penalty_distance: Skottsstraff avstånd (m)
     shooting_penalty_seconds: Straffsekonder för skytte
     shooting_place_count: Skottsplatser
+    shooting_rules_penalty: Straff för brott mot skjutregler
     shooting_score_input: Skottstotal
     shooting_start_time: Skytte starttid
     shooting_time: Skyttetid
