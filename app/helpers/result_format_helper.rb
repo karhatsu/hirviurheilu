@@ -26,6 +26,7 @@ module ResultFormatHelper
     return '-' if competitor.shooting_score.nil?
     points = "#{competitor.shooting_points.to_s} (#{competitor.shooting_score}"
     points << "-#{competitor.shooting_overtime_penalty}" if competitor.shooting_overtime_penalty
+    points << "-#{competitor.shooting_rules_penalty}" if competitor.shooting_rules_penalty
     points << " / #{competitor.shots.join(', ')}" if individual_shots && competitor.shots
     points << ')'
     points
