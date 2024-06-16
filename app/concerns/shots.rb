@@ -50,10 +50,11 @@ module Shots
     extra_shots&.inject(:+)
   end
 
-  def shooting_score
-    return shooting_score_input if shooting_score_input
-    return qualification_round_score + final_round_score.to_i if sport.qualification_round && qualification_round_score
-    shots.map(&:to_i).inject(:+) || 0 if shots
+  def shooting_score(with_penalty=false)
+    penalty = with_penalty ? shooting_rules_penalty.to_i : 0
+    return shooting_score_input - penalty if shooting_score_input
+    return qualification_round_score + final_round_score.to_i - penalty if sport.qualification_round && qualification_round_score
+    shots.map(&:to_i).inject(:+) - penalty || 0 if shots
   end
 
   def nordic_trap_score

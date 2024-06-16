@@ -135,7 +135,7 @@ class Competitor < ApplicationRecord
   end
 
   def shooting_points
-    sum = shooting_score or return nil
+    sum = shooting_score(true) or return nil
     6 * (sum - shooting_overtime_penalty.to_i)
   end
 
@@ -214,7 +214,7 @@ class Competitor < ApplicationRecord
     return nil if no_result_reason
     return nordic_score if sport.nordic?
     return european_score if sport.european?
-    return shooting_score if sport.shooting?
+    return shooting_score(true) if sport.shooting?
     shooting_points.to_i + estimate_points.to_i + time_points(unofficials_rule).to_i
   end
 

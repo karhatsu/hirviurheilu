@@ -122,7 +122,7 @@ describe CompetitorResults do
       let(:extra_shots) { [8, 11, 10, 6] }
 
       before do
-        allow(competitor).to receive(:shooting_score).and_return(shooting_score)
+        allow(competitor).to receive(:shooting_score).with(true).and_return(shooting_score)
         allow(competitor).to receive(:hits).and_return(hits)
         allow(competitor).to receive(:qualification_round_sub_scores).and_return(qualification_round_sub_scores)
         allow(competitor).to receive(:shots).and_return(shots)

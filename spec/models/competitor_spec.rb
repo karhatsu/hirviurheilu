@@ -993,16 +993,16 @@ describe Competitor do
       expect(competitor.shooting_points).to be_nil
     end
 
-    it "should be 6 times shooting_score" do
+    it "should be 6 times shooting_score (that includes possible rules penalty)" do
       competitor = build(:competitor)
-      expect(competitor).to receive(:shooting_score).and_return(50)
+      expect(competitor).to receive(:shooting_score).with(true).and_return(50)
       expect(competitor.shooting_points).to eq(300)
     end
 
     it 'should subtract 3 points from every overtime minute' do
       series = build :series, points_method: Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
       competitor = build(:competitor, series: series, shooting_overtime_min: 2)
-      expect(competitor).to receive(:shooting_score).and_return(90)
+      expect(competitor).to receive(:shooting_score).with(true).and_return(90)
       expect(competitor.shooting_points).to eq(6 * (90-2*3))
     end
   end
@@ -1629,7 +1629,7 @@ describe Competitor do
         race = build :race, sport_key: Sport::ILMALUODIKKO
         @competitor = build :competitor
         allow(@competitor).to receive(:sport).and_return(race.sport)
-        allow(@competitor).to receive(:shooting_score).and_return(150)
+        allow(@competitor).to receive(:shooting_score).with(true).and_return(150)
       end
 
       it 'should return nil when no result reason' do
