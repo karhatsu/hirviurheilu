@@ -21,16 +21,13 @@ module ResultFormatHelper
     raw(html)
   end
 
-  def shooting_points_print(competitor, shots_total=false, individual_shots=false)
+  def shooting_points_print(competitor, individual_shots=false)
     return '' if competitor.no_result_reason
     return '-' if competitor.shooting_score.nil?
-    points = competitor.shooting_points.to_s
-    if shots_total
-      points << " (#{competitor.shooting_score}"
-      points << "-#{competitor.shooting_overtime_penalty}" if competitor.shooting_overtime_penalty
-      points << " / #{competitor.shots.join(', ')}" if individual_shots && competitor.shots
-      points << ')'
-    end
+    points = "#{competitor.shooting_points.to_s} (#{competitor.shooting_score}"
+    points << "-#{competitor.shooting_overtime_penalty}" if competitor.shooting_overtime_penalty
+    points << " / #{competitor.shots.join(', ')}" if individual_shots && competitor.shots
+    points << ')'
     points
   end
 

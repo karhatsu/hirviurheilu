@@ -44,7 +44,7 @@
           - unless @race.sport.shooting?
             %td.center= time_points_print(competitor, true)
             %td.center= estimate_points_print @race, competitor
-            %td.center= shooting_points_print(competitor, true)
+            %td.center= shooting_points_print competitor
           - if team_competition.has_extra_score?
             %td &nbsp;
           %td
