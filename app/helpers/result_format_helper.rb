@@ -32,6 +32,11 @@ module ResultFormatHelper
     points
   end
 
+  def shooting_score_print(competitor)
+    return competitor.shooting_score true unless competitor.shooting_rules_penalty
+    "#{competitor.shooting_score true} (#{competitor.shooting_score}-#{competitor.shooting_rules_penalty})"
+  end
+
   def no_result_reason_print(no_result_reason, scope='competitor')
     raw("<span class='explanation' title='#{t(scope + '.' + no_result_reason)}'>#{no_result_reason}</span>")
   end
