@@ -19,7 +19,7 @@ export default function ShootingMobileResults({ race, series }) {
           firstName,
           lastName,
           noResultReason,
-          shootingScore,
+          totalScore,
         } = competitor
         return (
           <>
@@ -34,7 +34,7 @@ export default function ShootingMobileResults({ race, series }) {
               )}
             </div>
             <div className="card__main-value">
-              <TotalScore noResultReason={noResultReason} totalScore={shootingScore} />
+              <TotalScore noResultReason={noResultReason} totalScore={totalScore} />
               <NationalRecord race={race} series={series} competitor={competitor} />
             </div>
           </>

@@ -74,6 +74,7 @@ Feature: Shooting race results
     And the series has a competitor 2 "Kimmo" "Kilpailija" from "Kimmon seura" with shots "9,9,9,9,9,8,8,8,8,8,9,9,8,10,9,5,6,7,3,8,4,9,10,10,10,9,8,7,10,9"
     And the series has a competitor 3 "Lasse" "Laukoja" from "Lassen seura" with shots "9,9,8"
     And the series has a competitor 4 "Timo" "Tähtääjä" from "Timon seura" with shots "10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10"
+    And the competitor has shooting rules penalty of 3
     When I go to the results page of the series
     And I wait for the results
     And I force mobile UI
@@ -83,9 +84,10 @@ Feature: Shooting race results
     And I should see a card 2 with 2, "Ampuja Antti", "Antin seura" with points 245
     And I should see "45 + 40 + 46 + 29 = 160" in result card 2 detail row 2
     And I should see "85" in result card 2 detail row 3
-    And I should see a card 3 with 3, "Tähtääjä Timo", "Timon seura" with points 210
+    And I should see a card 3 with 3, "Tähtääjä Timo", "Timon seura" with points 207
     And I should see "50 + 50 + 50 + 50 = 200" in result card 3 detail row 2
     And I should see "10" in result card 3 detail row 3
+    And I should see "-3" in result card 3 detail row 4
     And I should see a card 4 with 4, "Laukoja Lasse", "Lassen seura" with points 26
     And I should see "26" in result card 4 detail row 2
     When I show the shots
@@ -95,6 +97,7 @@ Feature: Shooting race results
     And I should see "85 (4, 9, 10, 10, 10, 9, 8, 7, 9, 9)" in result card 2 detail row 3
     And I should see "50 (10, 10, 10, 10, 10) + 50 (10, 10, 10, 10, 10) + 50 (10, 10, 10, 10, 10) + 50 (10, 10, 10, 10, 10) = 200" in result card 3 detail row 2
     And I should see "10 (10)" in result card 3 detail row 3
+    And I should see "-3" in result card 3 detail row 4
     And I should see "26 (9, 9, 8)" in result card 4 detail row 2
 
   @javascript
@@ -102,13 +105,15 @@ Feature: Shooting race results
     Given there is a "METSASTYSHAULIKKO" race "Metsästyshaulikko test race"
     And the race has series "N"
     And the series has a competitor 1 "Anna" "Ampuja" from "Annan seura" with shots "1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0"
+    And the competitor has shooting rules penalty of 2
     And the series has a competitor 2 "Kaija" "Kilpailija" from "Kaijan seura" with shots "1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0"
+    And the competitor has shooting rules penalty of 2
     And I am on the race page of "Metsästyshaulikko test race"
     When I follow "N"
     And I wait for the results
     And I force mobile UI
     And I show the shots
-    Then I should see a card 1 with 1, "Kilpailija Kaija", "Kaijan seura" with points 22
-    And I should see "22 (1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0)" in result card 1 detail row 2
-    And I should see a card 2 with 2, "Ampuja Anna", "Annan seura" with points 22
-    And I should see "22 (1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0)" in result card 2 detail row 2
+    Then I should see a card 1 with 1, "Kilpailija Kaija", "Kaijan seura" with points 20
+    And I should see "22 (1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0) - 2" in result card 1 detail row 2
+    And I should see a card 2 with 2, "Ampuja Anna", "Annan seura" with points 20
+    And I should see "22 (1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0) - 2" in result card 2 detail row 2

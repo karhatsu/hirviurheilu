@@ -1,9 +1,10 @@
 import React from 'react'
 import NoResultReason from '../NoResultReason'
 
-export default function TotalScore({ noResultReason, totalScore }) {
+export default function TotalScore({ noResultReason, totalScore, penalty }) {
   if (noResultReason) {
     return <NoResultReason noResultReason={noResultReason} type="competitor" />
   }
-  return totalScore
+  if (!penalty) return totalScore
+  return <>{totalScore} <span style={{ whiteSpace: 'nowrap' }}>({totalScore + penalty}-{penalty})</span></>
 }

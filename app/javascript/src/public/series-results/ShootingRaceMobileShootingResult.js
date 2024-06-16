@@ -12,6 +12,7 @@ export default function ShootingRaceMobileShootingResult({ competitor }) {
     finalRoundScore,
     finalRoundShots,
     noResultReason,
+    shootingRulesPenalty,
   } = competitor
   if (noResultReason) {
     return <div className="card__middle-row">{t(`competitor_${noResultReason}`)}</div>
@@ -27,6 +28,7 @@ export default function ShootingRaceMobileShootingResult({ competitor }) {
             <ShootingResult score={finalRoundScore} shots={finalRoundShots[0]} />
           </div>
         )}
+        {shootingRulesPenalty && <div className="card__middle-row">-{shootingRulesPenalty}</div>}
       </>
     )
   }
@@ -38,6 +40,7 @@ export default function ShootingRaceMobileShootingResult({ competitor }) {
           {' + '}<ShootingResult score={finalRoundScore} shots={finalRoundShots && finalRoundShots[0]} />
         </>
       )}
+      {shootingRulesPenalty && ` - ${shootingRulesPenalty}`}
     </div>
   )
 }

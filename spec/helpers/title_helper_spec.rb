@@ -150,20 +150,6 @@ describe TitleHelper do
     end
   end
 
-  describe '#shots_total_title' do
-    it 'should return empty string when no shots sum for competitor' do
-      competitor = instance_double(Competitor)
-      expect(competitor).to receive(:shooting_score).and_return(nil)
-      expect(helper.shots_total_title(competitor)).to eq('')
-    end
-
-    it 'should return space and title attribute with title and shots sum when sum available' do
-      competitor = instance_double(Competitor)
-      expect(competitor).to receive(:shooting_score).and_return(89)
-      expect(helper.shots_total_title(competitor)).to eq(" title='Ammuntatulos: 89'")
-    end
-  end
-
   describe '#title_prefix' do
     it "should be '(Dev) ' when development environment" do
       allow(Rails).to receive(:env).and_return('development')
@@ -185,26 +171,6 @@ describe TitleHelper do
       allow(Rails).to receive(:env).and_return('production')
       allow(ProductionEnvironment).to receive(:production?).and_return(true)
       expect(helper.title_prefix).to eq('')
-    end
-  end
-
-  describe '#competitor_title' do
-    let(:race) { create :race, name: 'Good race' }
-    let(:series) { create :series, race: race, name: 'Fast series' }
-
-    describe 'without age group' do
-      it 'contains race, series and competitor full name' do
-        competitor = create :competitor, series: series, first_name: 'Gary', last_name: 'Robertson', number: 100
-        expect(helper.competitor_title(competitor)).to eq('Good race - Fast series - Robertson Gary')
-      end
-    end
-
-    describe 'with age group' do
-      it 'contains race, series and competitor full name appended with age group name' do
-        age_group = create :age_group, series: series, name: 'Slower'
-        competitor = create :competitor, series: series, first_name: 'Gary', last_name: 'Robertson', age_group: age_group, number: 101
-        expect(helper.competitor_title(competitor)).to eq('Good race - Fast series - Robertson Gary (Slower)')
-      end
     end
   end
 end

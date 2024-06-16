@@ -17,6 +17,7 @@ describe Competitor do
     it { is_expected.to validate_presence_of(:first_name) }
     it { is_expected.to validate_presence_of(:last_name) }
     it_should_behave_like 'non-negative integer', :shooting_overtime_min, true
+    it_should_behave_like 'non-negative integer', :shooting_rules_penalty, true
 
     describe "number" do
       it_should_behave_like 'non-negative integer', :number, true
@@ -965,7 +966,7 @@ describe Competitor do
     def create_competitor(nordic_score, extra_score, number, no_result_reason = nil)
       competitor = build :competitor, number: number, no_result_reason: no_result_reason
       competitor.nordic_extra_score = extra_score
-      allow(competitor).to receive(:nordic_score).and_return(nordic_score)
+      allow(competitor).to receive(:nordic_score).with(true).and_return(nordic_score)
       competitor
     end
   end
@@ -992,16 +993,16 @@ describe Competitor do
       expect(competitor.shooting_points).to be_nil
     end
 
-    it "should be 6 times shooting_score" do
+    it "should be 6 times shooting_score (that includes possible rules penalty)" do
       competitor = build(:competitor)
-      expect(competitor).to receive(:shooting_score).and_return(50)
+      expect(competitor).to receive(:shooting_score).with(true).and_return(50)
       expect(competitor.shooting_points).to eq(300)
     end
 
     it 'should subtract 3 points from every overtime minute' do
       series = build :series, points_method: Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
       competitor = build(:competitor, series: series, shooting_overtime_min: 2)
-      expect(competitor).to receive(:shooting_score).and_return(90)
+      expect(competitor).to receive(:shooting_score).with(true).and_return(90)
       expect(competitor.shooting_points).to eq(6 * (90-2*3))
     end
   end
@@ -1019,11 +1020,11 @@ describe Competitor do
 
     context 'when overtime minutes is positive number' do
       context 'and walking series' do
-        it 'is 3 times overtime minutes as negative' do
+        it 'is 3 times overtime minutes' do
           series = build :series
           allow(series).to receive(:walking_series?).and_return(true)
           competitor = build :competitor, shooting_overtime_min: 4, series: series
-          expect(competitor.shooting_overtime_penalty).to eql -12
+          expect(competitor.shooting_overtime_penalty).to eql 12
         end
       end
 
@@ -1592,7 +1593,7 @@ describe Competitor do
         race = build :race, sport_key: Sport::NORDIC
         @competitor = build :competitor
         allow(@competitor).to receive(:sport).and_return(race.sport)
-        allow(@competitor).to receive(:nordic_score).and_return(334)
+        allow(@competitor).to receive(:nordic_score).with(true).and_return(334)
       end
 
       it 'should return nil when no result reason' do
@@ -1610,7 +1611,7 @@ describe Competitor do
         race = build :race, sport_key: Sport::EUROPEAN
         @competitor = build :competitor
         allow(@competitor).to receive(:sport).and_return(race.sport)
-        allow(@competitor).to receive(:european_score).and_return(250)
+        allow(@competitor).to receive(:european_score).with(true).and_return(250)
       end
 
       it 'should return nil when no result reason' do
@@ -1628,7 +1629,7 @@ describe Competitor do
         race = build :race, sport_key: Sport::ILMALUODIKKO
         @competitor = build :competitor
         allow(@competitor).to receive(:sport).and_return(race.sport)
-        allow(@competitor).to receive(:shooting_score).and_return(150)
+        allow(@competitor).to receive(:shooting_score).with(true).and_return(150)
       end
 
       it 'should return nil when no result reason' do
@@ -1684,18 +1685,33 @@ describe Competitor do
     let(:qualification_round_score) { 87 }
     let(:points) { 200 }
     let(:nordic_score) { 319 }
+    let(:european_score) { 350 }
+    let(:european_rifle_score) { 250 }
     let(:competitor) { build :competitor }
 
     before do
       allow(competitor).to receive(:qualification_round_score).and_return(qualification_round_score)
       allow(competitor).to receive(:points).and_return(points)
-      allow(competitor).to receive(:nordic_score).and_return(nordic_score)
+      allow(competitor).to receive(:nordic_score).with(true).and_return(nordic_score)
+      allow(competitor).to receive(:european_score).with(true).and_return(european_score)
+      allow(competitor).to receive(:european_rifle_score).and_return(european_rifle_score)
     end
 
     context 'when nordic race' do
       let(:sport_key) { Sport::NORDIC }
       it 'returns nordic score' do
         expect(competitor.team_competition_points(race.sport)).to eql nordic_score
+      end
+    end
+
+    context 'when european race' do
+      let(:sport_key) { Sport::EUROPEAN }
+      it 'returns european score' do
+        expect(competitor.team_competition_points(race.sport)).to eql european_score
+      end
+
+      it 'returns european rifle score when asked' do
+        expect(competitor.team_competition_points(race.sport, true)).to eql european_rifle_score
       end
     end
 

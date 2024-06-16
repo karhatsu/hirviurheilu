@@ -27,7 +27,7 @@
       - if series.time_points?
         %td= time_points_print(comp, true, unofficials_rule)
       %td= estimate_points_print series.race, comp
-      %td= shooting_points_print(comp, true, true)
+      %td= shooting_points_print comp, true
       %td.center{class: 'total-points'}
         = points_print(comp, unofficials_rule)
         = national_record_print(comp) if comp.points.to_i >= @max_points.to_i

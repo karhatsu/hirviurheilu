@@ -84,23 +84,23 @@ describe ResultFormatHelper do
       end
     end
 
-    context 'when no total shots wanted' do
-      it 'should return shot points' do
-        competitor = stub_competitor 480, 80
-        expect(helper.shooting_points_print(competitor)).to eq('480')
-      end
-    end
-
-    context 'when total shots wanted' do
+    context 'when no individual shots wanted' do
       it 'should return shot points and sum in brackets' do
         competitor = stub_competitor 480, 80
-        expect(helper.shooting_points_print(competitor, true)).to eq('480 (80)')
+        expect(helper.shooting_points_print(competitor)).to eq('480 (80)')
       end
 
       context 'and overtime penalty' do
         it 'should return penalty in brackets after shots sum' do
-          competitor = stub_competitor 480, 80, nil, -9, [9, 8]
-          expect(helper.shooting_points_print(competitor, true)).to eq('480 (80-9)')
+          competitor = stub_competitor 480, 80, nil, 9, [9, 8]
+          expect(helper.shooting_points_print(competitor)).to eq('480 (80-9)')
+        end
+      end
+
+      context 'and rules penalty' do
+        it 'should return penalty in brackets after shots sum' do
+          competitor = stub_competitor 480, 80, nil, nil, [9, 8], 5
+          expect(helper.shooting_points_print(competitor)).to eq('480 (80-5)')
         end
       end
     end
@@ -109,39 +109,23 @@ describe ResultFormatHelper do
       context 'but no shots available' do
         it 'should return shot points and sum in brackets' do
           competitor = stub_competitor 480, 80
-          expect(helper.shooting_points_print(competitor, true, true)).to eq('480 (80)')
+          expect(helper.shooting_points_print(competitor, true)).to eq('480 (80)')
         end
       end
 
       context 'and shots available' do
         it 'should return shot points and sum and shots in brackets' do
-          competitor = stub_competitor 480, 80, nil, -6, [10, 9, 9, 8, 5, 10]
-          expect(helper.shooting_points_print(competitor, true, true)).to eq('480 (80-6 / 10, 9, 9, 8, 5, 10)')
+          competitor = stub_competitor 480, 80, nil, 6, [10, 9, 9, 8, 5, 10], 10
+          expect(helper.shooting_points_print(competitor, true)).to eq('480 (80-6-10 / 10, 9, 9, 8, 5, 10)')
         end
       end
     end
 
-    def stub_competitor(shooting_points, shooting_score, no_result_reason=nil, shooting_overtime_penalty=nil, shots=nil)
-      instance_double Competitor, shooting_points: shooting_points, shooting_score: shooting_score, no_result_reason: no_result_reason,
+    def stub_competitor(shooting_points, shooting_score, no_result_reason=nil, shooting_overtime_penalty=nil, shots=nil, shooting_rules_penalty=nil)
+      competitor = instance_double Competitor, shooting_points: shooting_points, shooting_score: shooting_score, no_result_reason: no_result_reason,
                       shooting_overtime_penalty: shooting_overtime_penalty, shots: shots
-    end
-  end
-
-  describe '#competitor_shots_print' do
-    it 'should return dash when no shots sum' do
-      competitor = instance_double(Competitor, :shooting_score => nil)
-      expect(helper.competitor_shots_print(competitor)).to eq('-')
-    end
-
-    it "should return input total if such is given" do
-      competitor = instance_double(Competitor, :shooting_score => 45, :shooting_score_input => 45)
-      expect(helper.competitor_shots_print(competitor)).to eq(45)
-    end
-
-    it 'should return total shots together with comma separated list of individual shots when they are defined' do
-      shots = [10, 1, 9, 5, 5, 6, 4, 0]
-      competitor = instance_double(Competitor, shooting_score: 50, shooting_score_input: nil, shots: shots)
-      expect(helper.competitor_shots_print(competitor)).to eq('50 (10, 1, 9, 5, 5, 6, 4, 0)')
+      allow(competitor).to receive(:shooting_rules_penalty).and_return(shooting_rules_penalty)
+      competitor
     end
   end
 

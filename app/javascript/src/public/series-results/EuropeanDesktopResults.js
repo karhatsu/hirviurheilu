@@ -36,7 +36,6 @@ export default function EuropeanDesktopResults({ race, series }) {
           {competitor => {
             const {
               europeanExtraScore,
-              europeanScore,
               europeanRifle1Score,
               europeanRifle1Shots,
               europeanRifle2Score,
@@ -50,6 +49,8 @@ export default function EuropeanDesktopResults({ race, series }) {
               europeanTrapScore,
               europeanTrapShots,
               noResultReason,
+              shootingRulesPenalty,
+              totalScore,
             } = competitor
             if (noResultReason) {
               return (
@@ -81,7 +82,7 @@ export default function EuropeanDesktopResults({ race, series }) {
                   <ShootingResult score={europeanRifle4Score} shots={europeanRifle4Shots} />
                 </td>
                 <td className="center total-points">
-                  <TotalScore noResultReason={noResultReason} totalScore={europeanScore} />
+                  <TotalScore noResultReason={noResultReason} totalScore={totalScore} penalty={shootingRulesPenalty} />
                   <NationalRecord race={race} series={series} competitor={competitor} />
                 </td>
                 {extraShots && <td>{europeanExtraScore}</td>}

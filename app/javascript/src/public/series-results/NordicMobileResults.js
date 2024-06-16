@@ -17,7 +17,6 @@ export default function NordicMobileResults({ race, series }) {
           firstName,
           lastName,
           nordicExtraScore,
-          nordicScore,
           nordicRifleMovingScore,
           nordicRifleMovingShots,
           nordicRifleStandingScore,
@@ -27,6 +26,8 @@ export default function NordicMobileResults({ race, series }) {
           nordicTrapScore,
           nordicTrapShots,
           noResultReason,
+          shootingRulesPenalty,
+          totalScore,
         } = competitor
         return (
           <>
@@ -55,7 +56,7 @@ export default function NordicMobileResults({ race, series }) {
               )}
             </div>
             <div className="card__main-value">
-              <TotalScore noResultReason={noResultReason} totalScore={nordicScore} />
+              <TotalScore noResultReason={noResultReason} totalScore={totalScore} penalty={shootingRulesPenalty} />
               <NationalRecord race={race} series={series} competitor={competitor} />
             </div>
           </>

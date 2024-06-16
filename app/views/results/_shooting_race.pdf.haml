@@ -45,7 +45,7 @@
         - if comp.no_result_reason
           = comp.no_result_reason
         - else
-          = comp.shooting_score
+          = shooting_score_print comp
           = national_record_print(comp) if comp.points.to_i >= @max_points.to_i
       - if extra_shots_column
         %td

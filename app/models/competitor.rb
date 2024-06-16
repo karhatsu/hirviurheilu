@@ -41,6 +41,7 @@ class Competitor < ApplicationRecord
   validates :correct_estimate3, estimate_validations
   validates :correct_estimate4, estimate_validations
   validates :shooting_overtime_min, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
+  validates :shooting_rules_penalty, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
   validates :qualification_round_track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :final_round_track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :nordic_trap_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_blank: true }
@@ -134,13 +135,13 @@ class Competitor < ApplicationRecord
   end
 
   def shooting_points
-    sum = shooting_score or return nil
-    6 * (sum + shooting_overtime_penalty.to_i)
+    sum = shooting_score(true) or return nil
+    6 * (sum - shooting_overtime_penalty.to_i)
   end
 
   def shooting_overtime_penalty
     return nil unless series.walking_series?
-    -3 * shooting_overtime_min if shooting_overtime_min.to_i > 0
+    3 * shooting_overtime_min if shooting_overtime_min.to_i > 0
   end
 
   def shooting_time_seconds
@@ -211,16 +212,16 @@ class Competitor < ApplicationRecord
 
   def points(unofficials_rule=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     return nil if no_result_reason
-    return nordic_score if sport.nordic?
-    return european_score if sport.european?
-    return shooting_score if sport.shooting?
+    return nordic_score(true) if sport.nordic?
+    return european_score(true) if sport.european?
+    return shooting_score(true) if sport.shooting?
     shooting_points.to_i + estimate_points.to_i + time_points(unofficials_rule).to_i
   end
 
   def team_competition_points(sport, rifle=false)
     return european_rifle_score if rifle
-    return nordic_score if sport.nordic?
-    return european_score if sport.european?
+    return nordic_score(true) if sport.nordic?
+    return european_score(true) if sport.european?
     return qualification_round_score if sport.shooting?
     points
   end

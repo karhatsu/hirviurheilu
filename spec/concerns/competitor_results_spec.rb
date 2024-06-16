@@ -122,7 +122,7 @@ describe CompetitorResults do
       let(:extra_shots) { [8, 11, 10, 6] }
 
       before do
-        allow(competitor).to receive(:shooting_score).and_return(shooting_score)
+        allow(competitor).to receive(:shooting_score).with(true).and_return(shooting_score)
         allow(competitor).to receive(:hits).and_return(hits)
         allow(competitor).to receive(:qualification_round_sub_scores).and_return(qualification_round_sub_scores)
         allow(competitor).to receive(:shots).and_return(shots)
@@ -229,7 +229,7 @@ describe CompetitorResults do
 
       context 'and without results' do
         before do
-          allow(competitor).to receive(:nordic_score).and_return(nil)
+          allow(competitor).to receive(:nordic_score).with(true).and_return(nil)
           allow(competitor).to receive(:nordic_extra_score).and_return(nil)
         end
 
@@ -240,7 +240,7 @@ describe CompetitorResults do
 
       context 'and with results' do
         before do
-          allow(competitor).to receive(:nordic_score).and_return(350)
+          allow(competitor).to receive(:nordic_score).with(true).and_return(350)
           allow(competitor).to receive(:nordic_extra_score).and_return(195)
         end
 
@@ -337,6 +337,7 @@ describe CompetitorResults do
             competitor.european_rifle4_score_input = 48
             competitor.european_rifle_extra_shots = [10, 9, 8]
             competitor.european_extra_score = 199
+            competitor.shooting_rules_penalty = 4
           end
 
           it 'rifle returns array of total rifle score, single scores in reverse order, 0, and extra shots' do
@@ -344,7 +345,7 @@ describe CompetitorResults do
           end
 
           it 'total returns array of total score, rifle score, single rifle scores in reverse order, 0, and extra score' do
-            expect(competitor.european_total_results).to eql [100 + 100 + rifle_score, rifle_score, 48, 50, 45, 40, 0, 199]
+            expect(competitor.european_total_results).to eql [100 + 100 + rifle_score - 4, rifle_score, 48, 50, 45, 40, 0, 199]
           end
 
           def rifle_score

@@ -21,17 +21,27 @@ module ResultFormatHelper
     raw(html)
   end
 
-  def shooting_points_print(competitor, shots_total=false, individual_shots=false)
+  def shooting_points_print(competitor, individual_shots=false)
     return '' if competitor.no_result_reason
     return '-' if competitor.shooting_score.nil?
-    points = competitor.shooting_points.to_s
-    if shots_total
-      points << " (#{competitor.shooting_score}"
-      points << "#{competitor.shooting_overtime_penalty}" if competitor.shooting_overtime_penalty
-      points << " / #{competitor.shots.join(', ')}" if individual_shots && competitor.shots
-      points << ')'
-    end
+    points = "#{competitor.shooting_points.to_s} (#{competitor.shooting_score}"
+    points << "-#{competitor.shooting_overtime_penalty}" if competitor.shooting_overtime_penalty
+    points << "-#{competitor.shooting_rules_penalty}" if competitor.shooting_rules_penalty
+    points << " / #{competitor.shots.join(', ')}" if individual_shots && competitor.shots
+    points << ')'
     points
+  end
+
+  def shooting_score_print(competitor)
+    score_print competitor.shooting_score(true), competitor.shooting_score, competitor.shooting_rules_penalty
+  end
+
+  def nordic_score_print(competitor)
+    score_print competitor.nordic_score(true), competitor.nordic_score, competitor.shooting_rules_penalty
+  end
+
+  def european_score_print(competitor)
+    score_print competitor.european_score(true), competitor.european_score, competitor.shooting_rules_penalty
   end
 
   def no_result_reason_print(no_result_reason, scope='competitor')
@@ -79,13 +89,6 @@ module ResultFormatHelper
     raw("(<span class='adjustment' title=\"#{title.join(' ')}\">#{time_from_seconds(total_adjustment, true)}</span>)")
   end
 
-  def competitor_shots_print(competitor)
-    return '-' if competitor.shooting_score.nil?
-    return competitor.shooting_score_input unless competitor.shooting_score_input.nil?
-    shots = competitor.shots
-    "#{competitor.shooting_score} (#{shots.map {|shot| shot.to_i}.join(', ')})"
-  end
-
   def shots_print(shots)
     shots.map{|shot| shot == 11 ? '10⊙' : shot}.join(', ')
   end
@@ -112,5 +115,13 @@ module ResultFormatHelper
     seconds_shots = team.raw_extra_shots true
     return "#{best_shots} (#{seconds_shots.join(', ')})" if seconds_shots.length > 0
     best_shots
+  end
+
+  private
+
+  def score_print(total_score, shooting_score, penalty)
+    return '-' unless total_score
+    return total_score unless penalty
+    "#{total_score} (#{shooting_score}-#{penalty})"
   end
 end
