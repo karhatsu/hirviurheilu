@@ -42,12 +42,6 @@ module TitleHelper
     raise "Unknown club level: #{race.club_level}"
   end
 
-  def shots_total_title(competitor)
-    shooting_score = competitor.shooting_score
-    return '' unless shooting_score
-    raw " title='Ammuntatulos: #{shooting_score}'"
-  end
-
   def title_prefix
     env = Rails.env
     if env == 'production'
@@ -57,11 +51,4 @@ module TitleHelper
     return '(Dev) ' if env == 'development'
     '(Testi) '
   end
-
-  def competitor_title(competitor)
-    title = "#{competitor.race.name} - #{competitor.series.name} - #{full_name(competitor)}"
-    title << " (#{competitor.age_group.name})" if competitor.age_group
-    title
-  end
-
 end

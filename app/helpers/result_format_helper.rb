@@ -79,13 +79,6 @@ module ResultFormatHelper
     raw("(<span class='adjustment' title=\"#{title.join(' ')}\">#{time_from_seconds(total_adjustment, true)}</span>)")
   end
 
-  def competitor_shots_print(competitor)
-    return '-' if competitor.shooting_score.nil?
-    return competitor.shooting_score_input unless competitor.shooting_score_input.nil?
-    shots = competitor.shots
-    "#{competitor.shooting_score} (#{shots.map {|shot| shot.to_i}.join(', ')})"
-  end
-
   def shots_print(shots)
     shots.map{|shot| shot == 11 ? '10⊙' : shot}.join(', ')
   end
