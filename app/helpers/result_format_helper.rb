@@ -33,8 +33,11 @@ module ResultFormatHelper
   end
 
   def shooting_score_print(competitor)
-    return competitor.shooting_score true unless competitor.shooting_rules_penalty
-    "#{competitor.shooting_score true} (#{competitor.shooting_score}-#{competitor.shooting_rules_penalty})"
+    score_print competitor.shooting_score(true), competitor.shooting_score, competitor.shooting_rules_penalty
+  end
+
+  def nordic_score_print(competitor)
+    score_print competitor.nordic_score(true), competitor.nordic_score, competitor.shooting_rules_penalty
   end
 
   def no_result_reason_print(no_result_reason, scope='competitor')
@@ -108,5 +111,13 @@ module ResultFormatHelper
     seconds_shots = team.raw_extra_shots true
     return "#{best_shots} (#{seconds_shots.join(', ')})" if seconds_shots.length > 0
     best_shots
+  end
+
+  private
+
+  def score_print(total_score, shooting_score, penalty)
+    return '-' unless total_score
+    return total_score unless penalty
+    "#{total_score} (#{shooting_score}-#{penalty})"
   end
 end
