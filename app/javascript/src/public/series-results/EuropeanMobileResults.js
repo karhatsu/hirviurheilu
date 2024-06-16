@@ -15,7 +15,6 @@ export default function EuropeanMobileResults({ race, series }) {
         const {
           club,
           europeanExtraScore,
-          europeanScore,
           europeanRifle1Score,
           europeanRifle1Shots,
           europeanRifle2Score,
@@ -31,6 +30,8 @@ export default function EuropeanMobileResults({ race, series }) {
           firstName,
           lastName,
           noResultReason,
+          shootingRulesPenalty,
+          totalScore,
         } = competitor
         return (
           <>
@@ -67,7 +68,7 @@ export default function EuropeanMobileResults({ race, series }) {
               )}
             </div>
             <div className="card__main-value">
-              <TotalScore noResultReason={noResultReason} totalScore={europeanScore} />
+              <TotalScore noResultReason={noResultReason} totalScore={totalScore} penalty={shootingRulesPenalty} />
               <NationalRecord race={race} series={series} competitor={competitor} />
             </div>
           </>

@@ -5,5 +5,6 @@ export default function TotalScore({ noResultReason, totalScore, penalty }) {
   if (noResultReason) {
     return <NoResultReason noResultReason={noResultReason} type="competitor" />
   }
-  return penalty ? `${totalScore} (${totalScore + penalty}-${penalty})` : totalScore
+  if (!penalty) return totalScore
+  return <>{totalScore} <span style={{ whiteSpace: 'nowrap' }}>({totalScore + penalty}-{penalty})</span></>
 }
