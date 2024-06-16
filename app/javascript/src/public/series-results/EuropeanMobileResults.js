@@ -64,11 +64,14 @@ export default function EuropeanMobileResults({ race, series }) {
                       <ShootingResult score={europeanRifle4Score} shots={europeanRifle4Shots} />
                     </MobileSubResult>
                   </div>
+                  {shootingRulesPenalty && (
+                    <div className="card__middle-row">{t('shootingRulesPenalty')}: -{shootingRulesPenalty}</div>
+                  )}
                 </>
               )}
             </div>
             <div className="card__main-value">
-              <TotalScore noResultReason={noResultReason} totalScore={totalScore} penalty={shootingRulesPenalty} />
+              <TotalScore noResultReason={noResultReason} totalScore={totalScore} />
               <NationalRecord race={race} series={series} competitor={competitor} />
             </div>
           </>

@@ -52,11 +52,14 @@ export default function NordicMobileResults({ race, series }) {
                       <ShootingResult score={nordicRifleStandingScore} shots={nordicRifleStandingShots} />
                     </MobileSubResult>
                   </div>
+                  {shootingRulesPenalty && (
+                    <div className="card__middle-row">{t('shootingRulesPenalty')}: -{shootingRulesPenalty}</div>
+                  )}
                 </>
               )}
             </div>
             <div className="card__main-value">
-              <TotalScore noResultReason={noResultReason} totalScore={totalScore} penalty={shootingRulesPenalty} />
+              <TotalScore noResultReason={noResultReason} totalScore={totalScore} />
               <NationalRecord race={race} series={series} competitor={competitor} />
             </div>
           </>

@@ -9,6 +9,7 @@ Feature: European results
     And the race has series "M"
     And the series has a competitor "Pekka" "Pohjola" from "Team A" with european results 25, 20, 49, 50, 40, 38
     And the series has a competitor "Pertti" "Pohjonen" from "Team B" with european results 24, 22, 42, 44, 49, 50
+    And the competitor has shooting rules penalty of 4
     And the race has series "N"
     And the series has a competitor "Päivi" "Pohjoinen" from "Team A" with european results 23, 25, 48, 46, 41, 44
     And the series has a competitor "Pinja" "Pohja" from "Team B" with european results 20, 19, 40, 40, 40, 40
@@ -19,7 +20,7 @@ Feature: European results
     When I follow "Tulokset"
     And I wait for the results
     And I force mobile UI
-    Then I should see a card 1 for "Pohjonen Pertti" with total score 369
+    Then I should see a card 1 for "Pohjonen Pertti" with total score 365
     And I should see the following sub results in result card 1 detail row 2:
       | shoot | Trap: 24 |
       | shoot | Compak: 22 |
@@ -27,6 +28,7 @@ Feature: European results
       | shoot | Kettu: 44 |
       | shoot | Gemssi: 49 |
       | shoot | Villisika: 50 |
+    And I should see "Rangaistus ammuntasääntöjen rikkomisesta: -4" in result card 1 detail row 3
     And I should see a card 2 for "Pohjola Pekka" with total score 357
     And I should see the following sub results in result card 2 detail row 2:
       | shoot | Trap: 25 |
@@ -59,7 +61,7 @@ Feature: European results
     And I wait for the results
     And I force mobile UI
     Then I should see a card 1 for "Team A" with total score 728
-    Then I should see a card 2 for "Team B" with total score 685
+    Then I should see a card 2 for "Team B" with total score 681
     When I choose "Luodikon joukkue" from sub menu
     And I wait for the results
     And I force mobile UI

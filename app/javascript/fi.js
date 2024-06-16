@@ -184,6 +184,7 @@ window.translations = {
   seriesStartTime: 'Sarjan lähtöaika',
   shooting: 'Ammunta',
   shootingPenalties: 'Ammuntasakot',
+  shootingRulesPenalty: 'Rangaistus ammuntasääntöjen rikkomisesta',
   shootingTime: 'Ammunta-aika',
   shots: 'Laukaukset',
   showCompetitors: 'Näytä kilpailijat',
