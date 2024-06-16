@@ -34,7 +34,6 @@ export default function NordicDesktopResults({ race, series }) {
           {competitor => {
             const {
               nordicExtraScore,
-              nordicScore,
               nordicRifleMovingScore,
               nordicRifleMovingShots,
               nordicRifleStandingScore,
@@ -44,6 +43,8 @@ export default function NordicDesktopResults({ race, series }) {
               nordicTrapScore,
               nordicTrapShots,
               noResultReason,
+              shootingRulesPenalty,
+              totalScore,
             } = competitor
             if (noResultReason) {
               return (
@@ -69,7 +70,7 @@ export default function NordicDesktopResults({ race, series }) {
                   <ShootingResult score={nordicRifleStandingScore} shots={nordicRifleStandingShots} />
                 </td>
                 <td className="center total-points">
-                  <TotalScore noResultReason={noResultReason} totalScore={nordicScore} />
+                  <TotalScore noResultReason={noResultReason} totalScore={totalScore} penalty={shootingRulesPenalty} />
                   <NationalRecord race={race} series={series} competitor={competitor} />
                 </td>
                 {extraShots && <td>{nordicExtraScore}</td>}

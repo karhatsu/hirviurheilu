@@ -28,6 +28,7 @@ json.cache! [@series, @series.started?, request.headers['X-Camel-Case']] do
     json.points competitor.points(unofficials_rule)
     if @series.race.sport.nordic?
       json.(competitor, :nordic_trap_score, :nordic_trap_shots, :nordic_shotgun_score, :nordic_shotgun_shots, :nordic_rifle_moving_score, :nordic_rifle_moving_shots, :nordic_rifle_standing_score, :nordic_rifle_standing_shots, :nordic_score, :nordic_extra_score)
+      json.total_score competitor.nordic_score(true)
     elsif @series.race.sport.european?
       json.(competitor, :only_rifle, :european_trap_score, :european_trap_shots, :european_compak_score, :european_compak_shots, :european_rifle1_score, :european_rifle1_shots, :european_rifle2_score, :european_rifle2_shots, :european_rifle3_score, :european_rifle3_shots, :european_rifle4_score, :european_rifle4_shots, :european_score, :european_extra_score)
     elsif @series.race.sport.shooting?
