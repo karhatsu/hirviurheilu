@@ -31,7 +31,7 @@ module CompetitorResults
   def nordic_total_results
     results = no_result_reason_results
     return results if results
-    [nordic_score.to_i, nordic_extra_score.to_i]
+    [nordic_score(true).to_i, nordic_extra_score.to_i]
   end
 
   def nordic_sub_results(sub_sport)

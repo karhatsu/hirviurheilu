@@ -516,6 +516,7 @@ describe Shots do
         competitor.nordic_shotgun_score_input = 20
         competitor.nordic_rifle_moving_score_input = 89
         competitor.nordic_rifle_standing_score_input = 97
+        competitor.shooting_rules_penalty = shooting_rules_penalty
       end
 
       it 'trap score is given input' do
@@ -534,8 +535,9 @@ describe Shots do
         expect(competitor.nordic_rifle_standing_score).to eql 97
       end
 
-      it 'nordic score is 4 x trap and shotgun + rifle scores' do
+      it 'nordic score is 4 x trap and shotgun + rifle scores - rules penalty' do
         expect(competitor.nordic_score).to eql 4 * 23 + 4 * 20 + 89 + 97
+        expect(competitor.nordic_score(true)).to eql 4 * 23 + 4 * 20 + 89 + 97 - shooting_rules_penalty
       end
     end
 

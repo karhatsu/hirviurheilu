@@ -229,7 +229,7 @@ describe CompetitorResults do
 
       context 'and without results' do
         before do
-          allow(competitor).to receive(:nordic_score).and_return(nil)
+          allow(competitor).to receive(:nordic_score).with(true).and_return(nil)
           allow(competitor).to receive(:nordic_extra_score).and_return(nil)
         end
 
@@ -240,7 +240,7 @@ describe CompetitorResults do
 
       context 'and with results' do
         before do
-          allow(competitor).to receive(:nordic_score).and_return(350)
+          allow(competitor).to receive(:nordic_score).with(true).and_return(350)
           allow(competitor).to receive(:nordic_extra_score).and_return(195)
         end
 

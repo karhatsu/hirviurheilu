@@ -73,9 +73,10 @@ module Shots
     resolve_sub_score nordic_rifle_standing_score_input, nordic_rifle_standing_shots
   end
 
-  def nordic_score
+  def nordic_score(with_penalty=false)
     return nil unless nordic_trap_score || nordic_shotgun_score || nordic_rifle_moving_score || nordic_rifle_standing_score
-    4 * (nordic_trap_score.to_i + nordic_shotgun_score.to_i) + nordic_rifle_moving_score.to_i + nordic_rifle_standing_score.to_i
+    penalty = with_penalty ? shooting_rules_penalty.to_i : 0
+    4 * (nordic_trap_score.to_i + nordic_shotgun_score.to_i) + nordic_rifle_moving_score.to_i + nordic_rifle_standing_score.to_i - penalty
   end
 
   def european_trap_score

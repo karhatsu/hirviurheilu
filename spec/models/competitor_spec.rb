@@ -966,7 +966,7 @@ describe Competitor do
     def create_competitor(nordic_score, extra_score, number, no_result_reason = nil)
       competitor = build :competitor, number: number, no_result_reason: no_result_reason
       competitor.nordic_extra_score = extra_score
-      allow(competitor).to receive(:nordic_score).and_return(nordic_score)
+      allow(competitor).to receive(:nordic_score).with(true).and_return(nordic_score)
       competitor
     end
   end
@@ -1593,7 +1593,7 @@ describe Competitor do
         race = build :race, sport_key: Sport::NORDIC
         @competitor = build :competitor
         allow(@competitor).to receive(:sport).and_return(race.sport)
-        allow(@competitor).to receive(:nordic_score).and_return(334)
+        allow(@competitor).to receive(:nordic_score).with(true).and_return(334)
       end
 
       it 'should return nil when no result reason' do
@@ -1690,7 +1690,7 @@ describe Competitor do
     before do
       allow(competitor).to receive(:qualification_round_score).and_return(qualification_round_score)
       allow(competitor).to receive(:points).and_return(points)
-      allow(competitor).to receive(:nordic_score).and_return(nordic_score)
+      allow(competitor).to receive(:nordic_score).with(true).and_return(nordic_score)
     end
 
     context 'when nordic race' do
