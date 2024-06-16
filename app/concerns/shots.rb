@@ -108,9 +108,10 @@ module Shots
     european_rifle1_score.to_i + european_rifle2_score.to_i + european_rifle3_score.to_i + european_rifle4_score.to_i
   end
 
-  def european_score
+  def european_score(with_penalty=false)
     return nil unless european_trap_score || european_compak_score || european_rifle_score
-    4 * (european_trap_score.to_i + european_compak_score.to_i) + european_rifle_score.to_i
+    penalty = with_penalty ? shooting_rules_penalty.to_i : 0
+    4 * (european_trap_score.to_i + european_compak_score.to_i) + european_rifle_score.to_i - penalty
   end
 
   def european_rifle_shots

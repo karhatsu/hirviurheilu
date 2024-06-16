@@ -213,7 +213,7 @@ class Competitor < ApplicationRecord
   def points(unofficials_rule=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     return nil if no_result_reason
     return nordic_score(true) if sport.nordic?
-    return european_score if sport.european?
+    return european_score(true) if sport.european?
     return shooting_score(true) if sport.shooting?
     shooting_points.to_i + estimate_points.to_i + time_points(unofficials_rule).to_i
   end
@@ -221,7 +221,7 @@ class Competitor < ApplicationRecord
   def team_competition_points(sport, rifle=false)
     return european_rifle_score if rifle
     return nordic_score(true) if sport.nordic?
-    return european_score if sport.european?
+    return european_score(true) if sport.european?
     return qualification_round_score if sport.shooting?
     points
   end

@@ -337,6 +337,7 @@ describe CompetitorResults do
             competitor.european_rifle4_score_input = 48
             competitor.european_rifle_extra_shots = [10, 9, 8]
             competitor.european_extra_score = 199
+            competitor.shooting_rules_penalty = 4
           end
 
           it 'rifle returns array of total rifle score, single scores in reverse order, 0, and extra shots' do
@@ -344,7 +345,7 @@ describe CompetitorResults do
           end
 
           it 'total returns array of total score, rifle score, single rifle scores in reverse order, 0, and extra score' do
-            expect(competitor.european_total_results).to eql [100 + 100 + rifle_score, rifle_score, 48, 50, 45, 40, 0, 199]
+            expect(competitor.european_total_results).to eql [100 + 100 + rifle_score - 4, rifle_score, 48, 50, 45, 40, 0, 199]
           end
 
           def rifle_score

@@ -54,7 +54,7 @@ module CompetitorResults
   def european_total_results
     results = no_result_reason_results
     return results if results
-    [european_score.to_i, european_rifle_score.to_i, european_rifle4_score.to_i, european_rifle3_score.to_i,
+    [european_score(true).to_i, european_rifle_score.to_i, european_rifle4_score.to_i, european_rifle3_score.to_i,
      european_rifle2_score.to_i, european_rifle1_score.to_i, sum_of_european_rifle_tens, european_extra_score.to_i]
   end
 

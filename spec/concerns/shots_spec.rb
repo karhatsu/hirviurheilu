@@ -602,6 +602,7 @@ describe Shots do
     context 'when some scores defined' do
       before do
         competitor.european_rifle2_score_input = 43
+        competitor.shooting_rules_penalty = shooting_rules_penalty
       end
 
       it 'european rifle score assumes 0 for others' do
@@ -610,6 +611,7 @@ describe Shots do
 
       it 'european score assumes 0 for others' do
         expect(competitor.european_score).to eql 43
+        expect(competitor.european_score(true)).to eql 43 - shooting_rules_penalty
       end
     end
 

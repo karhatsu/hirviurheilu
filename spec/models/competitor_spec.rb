@@ -1611,7 +1611,7 @@ describe Competitor do
         race = build :race, sport_key: Sport::EUROPEAN
         @competitor = build :competitor
         allow(@competitor).to receive(:sport).and_return(race.sport)
-        allow(@competitor).to receive(:european_score).and_return(250)
+        allow(@competitor).to receive(:european_score).with(true).and_return(250)
       end
 
       it 'should return nil when no result reason' do
@@ -1685,18 +1685,33 @@ describe Competitor do
     let(:qualification_round_score) { 87 }
     let(:points) { 200 }
     let(:nordic_score) { 319 }
+    let(:european_score) { 350 }
+    let(:european_rifle_score) { 250 }
     let(:competitor) { build :competitor }
 
     before do
       allow(competitor).to receive(:qualification_round_score).and_return(qualification_round_score)
       allow(competitor).to receive(:points).and_return(points)
       allow(competitor).to receive(:nordic_score).with(true).and_return(nordic_score)
+      allow(competitor).to receive(:european_score).with(true).and_return(european_score)
+      allow(competitor).to receive(:european_rifle_score).and_return(european_rifle_score)
     end
 
     context 'when nordic race' do
       let(:sport_key) { Sport::NORDIC }
       it 'returns nordic score' do
         expect(competitor.team_competition_points(race.sport)).to eql nordic_score
+      end
+    end
+
+    context 'when european race' do
+      let(:sport_key) { Sport::EUROPEAN }
+      it 'returns european score' do
+        expect(competitor.team_competition_points(race.sport)).to eql european_score
+      end
+
+      it 'returns european rifle score when asked' do
+        expect(competitor.team_competition_points(race.sport, true)).to eql european_rifle_score
       end
     end
 
