@@ -40,6 +40,10 @@ module ResultFormatHelper
     score_print competitor.nordic_score(true), competitor.nordic_score, competitor.shooting_rules_penalty
   end
 
+  def european_score_print(competitor)
+    score_print competitor.european_score(true), competitor.european_score, competitor.shooting_rules_penalty
+  end
+
   def no_result_reason_print(no_result_reason, scope='competitor')
     raw("<span class='explanation' title='#{t(scope + '.' + no_result_reason)}'>#{no_result_reason}</span>")
   end
