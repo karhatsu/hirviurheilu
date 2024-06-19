@@ -54,9 +54,9 @@ export default function CupMediaPage() {
       {cup.cupSeries.map(cupSeries => {
         const competitors = cupSeries.cupCompetitors
           .map((competitor, i) => {
-            const { clubName, firstName, lastName, points } = competitor
-            if (i < competitorsCount && points) {
-              return `${i + 1}) ${lastName} ${firstName} ${clubName} ${points}`
+            const { clubName, firstName, lastName, score } = competitor
+            if (i < competitorsCount && score) {
+              return `${i + 1}) ${lastName} ${firstName} ${clubName} ${score}`
             }
             return undefined
           })

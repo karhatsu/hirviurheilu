@@ -224,11 +224,11 @@ describe TeamCompetition do
         end
       end
 
-      def create_competitor(club, points, options={})
+      def create_competitor(club, score, options={})
         competitor = instance_double(Competitor, {club: club, shooting_score: @default_shooting_score,
                                      time_in_seconds: @default_time_in_seconds, club_id: club.id,
                                      team_name: nil}.merge(options))
-        allow(competitor).to receive(:team_competition_score).with(sport, false).and_return(points)
+        allow(competitor).to receive(:team_competition_score).with(sport, false).and_return(score)
         allow(competitor).to receive(:unofficial?).and_return(options[:unofficial])
         competitor
       end

@@ -17,7 +17,7 @@
           %th= race.name
         %th= t :total_points
     - competitors.each_with_index do |cc, i|
-      - emphasize_limit = cc.min_points_to_emphasize race_count, top_competitions, @is_rifle_cup_series
+      - emphasize_limit = cc.min_score_to_emphasize race_count, top_competitions, @is_rifle_cup_series
       %tr{id: "comp_#{i+1}", class: i % 2 == 0 ? 'odd' : ''}
         %td #{i + 1}.
         %td
@@ -32,12 +32,12 @@
               - if c.no_result_reason
                 = no_result_reason_print c.no_result_reason
               - else
-                - points = @is_rifle_cup_series ? (c.european_rifle_score || '-') : points_print(c)
-                %span{class: emphasize_limit && points.to_i >= emphasize_limit ? 'cup-points__emphasize' : ''}
-                  = link_to_unless is_pdf, points, series_competitor_path(c.series, c)
+                - score = @is_rifle_cup_series ? (c.european_rifle_score || '-') : points_print(c)
+                %span{class: emphasize_limit && score.to_i >= emphasize_limit ? 'cup-points__emphasize' : ''}
+                  = link_to_unless is_pdf, score, series_competitor_path(c.series, c)
             - else
               \-
         - if @is_rifle_cup_series
           %td.center.total-points= cc.european_rifle_score
         - else
-          %td.center.total-points= cup_points_print(cc)
+          %td.center.total-points= cup_score_print(cc)

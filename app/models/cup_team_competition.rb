@@ -13,7 +13,7 @@ class CupTeamCompetition < ApplicationRecord
 
   def results
     cup_teams.sort do |a, b|
-      b.points!.to_i <=> a.points!.to_i
+      b.score!.to_i <=> a.score!.to_i
     end
   end
 

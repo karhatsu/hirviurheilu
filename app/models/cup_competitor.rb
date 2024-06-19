@@ -1,5 +1,5 @@
 class CupCompetitor
-  include CupPoints
+  include CupScore
 
   def initialize(cup_series, competitor)
     @cup_series = cup_series
@@ -39,16 +39,16 @@ class CupCompetitor
     @competitors.select { |c| c.race == race }.first
   end
 
-  def points
-    total_points @cup_series.cup.top_competitions, @cup_series.cup.include_always_last_race?
+  def score
+    total_score @cup_series.cup.top_competitions, @cup_series.cup.include_always_last_race?
   end
 
-  def points!
-    total_points 1, false
+  def score!
+    total_score 1, false
   end
 
-  def points_array
-    @points_array ||= points_with_last_race_info_array.map {|item| item[:points]}
+  def score_array
+    @score_array ||= score_with_last_race_info_array.map {|item| item[:score]}
   end
 
   def shots_array
@@ -74,11 +74,11 @@ class CupCompetitor
     "#{competitor.last_name.strip} #{competitor.first_name.strip}".downcase
   end
 
-  def min_points_to_emphasize(race_count, top_competitions, is_rifle = false)
+  def min_score_to_emphasize(race_count, top_competitions, is_rifle = false)
     return nil unless race_count > top_competitions
-    points = competitors.map { |c| competitor_points c, is_rifle }
-    sorted_points = points.filter {|p| !p.nil?}.sort {|a, b| b <=> a}
-    sorted_points[top_competitions - 1]
+    scores = competitors.map { |c| competitor_score c, is_rifle }
+    sorted_scores = scores.filter {|p| !p.nil?}.sort {|a, b| b <=> a}
+    sorted_scores[top_competitions - 1]
   end
 
   private
@@ -86,10 +86,10 @@ class CupCompetitor
     CupCompetitor.name(competitor)
   end
 
-  def points_with_last_race_info_array
-    @points_array_with_last_race_info ||= @competitors.map { |c|
+  def score_with_last_race_info_array
+    @score_array_with_last_race_info ||= @competitors.map { |c|
       {
-        points: competitor_points(c),
+        score: competitor_score(c),
         last_cup_race: c.series.last_cup_race
       }
     }
@@ -99,7 +99,7 @@ class CupCompetitor
     @cup_series.cup.top_competitions
   end
 
-  def competitor_points(competitor, is_rifle=false)
+  def competitor_score(competitor, is_rifle=false)
     if use_qualification_round_result?
       competitor.qualification_round_score
     elsif is_rifle

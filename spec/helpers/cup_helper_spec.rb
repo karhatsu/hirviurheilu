@@ -1,25 +1,25 @@
 require 'spec_helper'
 
 describe CupHelper do
-  describe '#cup_points_print' do
+  describe '#cup_score_print' do
     it 'should print points in case they are available' do
       competitor = double(CupCompetitor)
-      expect(competitor).to receive(:points).and_return(2000)
-      expect(helper.cup_points_print(competitor)).to eq('2000')
+      expect(competitor).to receive(:score).and_return(2000)
+      expect(helper.cup_score_print(competitor)).to eq('2000')
     end
 
     it 'should print points in brackets if only partial points are available' do
       competitor = double(CupCompetitor)
-      expect(competitor).to receive(:points).and_return(nil)
-      expect(competitor).to receive(:points!).and_return(1000)
-      expect(helper.cup_points_print(competitor)).to eq('(1000)')
+      expect(competitor).to receive(:score).and_return(nil)
+      expect(competitor).to receive(:score!).and_return(1000)
+      expect(helper.cup_score_print(competitor)).to eq('(1000)')
     end
 
     it "should print '-' if no points at all" do
       competitor = double(CupCompetitor)
-      expect(competitor).to receive(:points).and_return(nil)
-      expect(competitor).to receive(:points!).and_return(nil)
-      expect(helper.cup_points_print(competitor)).to eq('-')
+      expect(competitor).to receive(:score).and_return(nil)
+      expect(competitor).to receive(:score!).and_return(nil)
+      expect(helper.cup_score_print(competitor)).to eq('-')
     end
   end
 

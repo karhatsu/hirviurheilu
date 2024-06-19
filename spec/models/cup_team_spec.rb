@@ -51,7 +51,7 @@ describe CupTeam do
     end
   end
 
-  describe 'points calculation' do
+  describe 'score calculation' do
     context 'when the last race is not necessarily included to the results' do
       before do
         @team2 = valid_team
@@ -61,23 +61,23 @@ describe CupTeam do
         allow(@cup).to receive(:top_competitions).and_return(3)
       end
 
-      context 'when no points available in any of the competitions' do
+      context 'when no score available in any of the competitions' do
         before do
           allow(@team).to receive(:total_score).and_return(nil)
           allow(@team2).to receive(:total_score).and_return(nil)
           allow(@team3).to receive(:total_score).and_return(nil)
         end
 
-        it '#points should be nil' do
-          expect(@ct.points).to be_nil
+        it '#score should be nil' do
+          expect(@ct.score).to be_nil
         end
 
-        it '#points! should be nil' do
-          expect(@ct.points!).to be_nil
+        it '#score! should be nil' do
+          expect(@ct.score!).to be_nil
         end
       end
 
-      context 'when points available only in some of the competitions' do
+      context 'when score available only in some of the competitions' do
         context 'but in less than top competitions' do
           before do
             allow(@team).to receive(:total_score).and_return(3000)
@@ -85,12 +85,12 @@ describe CupTeam do
             allow(@team3).to receive(:total_score).and_return(4100)
           end
 
-          it '#points should be nil' do
-            expect(@ct.points).to be_nil
+          it '#score should be nil' do
+            expect(@ct.score).to be_nil
           end
 
-          it '#points! should be sum of those that have points' do
-            expect(@ct.points!).to eq(3000 + 0 + 4100)
+          it '#score! should be sum of those that have score' do
+            expect(@ct.score!).to eq(3000 + 0 + 4100)
           end
         end
 
@@ -102,17 +102,17 @@ describe CupTeam do
             allow(@cup).to receive(:top_competitions).and_return(2)
           end
 
-          it '#points should be sum of those that have points' do
-            expect(@ct.points).to eq(3000 + 0 + 4100)
+          it '#score should be sum of those that have score' do
+            expect(@ct.score).to eq(3000 + 0 + 4100)
           end
 
-          it '#points! should be sum of those that have points' do
-            expect(@ct.points!).to eq(3000 + 0 + 4100)
+          it '#score! should be sum of those that have score' do
+            expect(@ct.score!).to eq(3000 + 0 + 4100)
           end
         end
       end
 
-      context 'when points available in all the competitions' do
+      context 'when score available in all the competitions' do
         before do
           allow(@team).to receive(:total_score).and_return(3000)
           allow(@team2).to receive(:total_score).and_return(4000)
@@ -124,12 +124,12 @@ describe CupTeam do
             allow(@cup).to receive(:top_competitions).and_return(3)
           end
 
-          it '#points should be sum of points in individual competitions' do
-            expect(@ct.points).to eq(3000 + 4000 + 5000)
+          it '#score should be sum of scores in individual competitions' do
+            expect(@ct.score).to eq(3000 + 4000 + 5000)
           end
 
-          it '#points! should be sum of points in individual competitions when all competitions matter' do
-            expect(@ct.points!).to eq(3000 + 4000 + 5000)
+          it '#score! should be sum of scores in individual competitions when all competitions matter' do
+            expect(@ct.score!).to eq(3000 + 4000 + 5000)
           end
         end
 
@@ -138,12 +138,12 @@ describe CupTeam do
             allow(@cup).to receive(:top_competitions).and_return(2)
           end
 
-          it '#points should be sum of top two points in individual competitions' do
-            expect(@ct.points).to eq(4000 + 5000)
+          it '#score should be sum of top two scores in individual competitions' do
+            expect(@ct.score).to eq(4000 + 5000)
           end
 
-          it '#points! should be sum of top two points in individual competitions when top two of them matter' do
-            expect(@ct.points!).to eq(4000 + 5000)
+          it '#score! should be sum of top two scores in individual competitions when top two of them matter' do
+            expect(@ct.score!).to eq(4000 + 5000)
           end
         end
       end
@@ -166,31 +166,31 @@ describe CupTeam do
         allow(@team3).to receive(:total_score).and_return(3000)
       end
 
-      context 'and points not available for the last race' do
+      context 'and score not available for the last race' do
         before do
           allow(@team4).to receive(:total_score).and_return(nil)
         end
 
-        it '#points returns nil' do
-          expect(@ct.points).to be_nil
+        it '#score returns nil' do
+          expect(@ct.score).to be_nil
         end
 
-        it '#points! returns sum of points in top competitions' do
-          expect(@ct.points!).to eq(2000+3000)
+        it '#score! returns sum of scores in top competitions' do
+          expect(@ct.score!).to eq(2000+3000)
         end
       end
 
-      context 'and points available for the last race' do
+      context 'and score available for the last race' do
         before do
           allow(@team4).to receive(:total_score).and_return(500)
         end
 
-        it '#points return the points of last race and sum of points in top competitions' do
-          expect(@ct.points).to eq(500+2000+3000)
+        it '#score return the score of last race and sum of scores in top competitions' do
+          expect(@ct.score).to eq(500+2000+3000)
         end
 
-        it '#points! return the points of last race and sum of points in top competitions' do
-          expect(@ct.points).to eq(500+2000+3000)
+        it '#score! return the score of last race and sum of scores in top competitions' do
+          expect(@ct.score).to eq(500+2000+3000)
         end
       end
     end
@@ -232,7 +232,7 @@ describe CupTeam do
     Team.new team_competition, name, club_id
   end
 
-  describe '#min_points_to_emphasize' do
+  describe '#min_score_to_emphasize' do
     let(:team_name) { 'Team name' }
     let(:cup_team_competition) { build :cup_team_competition }
     let(:team_competition) { build :team_competition }
@@ -241,7 +241,7 @@ describe CupTeam do
 
     context 'when race count is less than top competitions count' do
       it 'returns nil' do
-        expect(cup_team.min_points_to_emphasize(1, 2)).to be_nil
+        expect(cup_team.min_score_to_emphasize(1, 2)).to be_nil
       end
     end
 
@@ -251,7 +251,7 @@ describe CupTeam do
       end
 
       it 'returns nil' do
-        expect(cup_team.min_points_to_emphasize(2, 2)).to be_nil
+        expect(cup_team.min_score_to_emphasize(2, 2)).to be_nil
       end
     end
 
@@ -265,7 +265,7 @@ describe CupTeam do
         end
 
         it 'returns nil' do
-          expect(cup_team.min_points_to_emphasize(race_count, top_competitions)).to be_nil
+          expect(cup_team.min_score_to_emphasize(race_count, top_competitions)).to be_nil
         end
       end
 
@@ -275,8 +275,8 @@ describe CupTeam do
           cup_team << build_team(450)
         end
 
-        it 'returns the smallest points that are counted to the total result' do
-          expect(cup_team.min_points_to_emphasize(race_count, top_competitions)).to eql 450
+        it 'returns the smallest score that are counted to the total result' do
+          expect(cup_team.min_score_to_emphasize(race_count, top_competitions)).to eql 450
         end
       end
     end

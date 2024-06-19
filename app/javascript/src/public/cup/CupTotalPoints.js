@@ -1,6 +1,6 @@
 export default function CupTotalPoints({ cupCompetitor }) {
-  const { points, partialPoints } = cupCompetitor
-  if (points) return points
-  if (partialPoints) return `(${partialPoints})`
+  const { score, partialScore } = cupCompetitor
+  if (score) return score
+  if (partialScore) return `(${partialScore})`
   return '-'
 }

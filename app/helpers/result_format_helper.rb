@@ -3,9 +3,9 @@ module ResultFormatHelper
     if competitor.no_result_reason
       return no_result_reason_print(competitor.no_result_reason)
     end
-    points = competitor.total_score unofficials_rule
-    return points.to_s if competitor.finished? && competitor.has_correct_estimates?
-    return "(#{points})" if points
+    score = competitor.total_score unofficials_rule
+    return score.to_s if competitor.finished? && competitor.has_correct_estimates?
+    return "(#{score})" if score
     '-'
   end
 
