@@ -99,7 +99,7 @@ class TeamCompetition < ApplicationRecord
     competitor_counter_by_team = Hash.new
     teams = Hash.new
     Competitor.sort_team_competitors(sport, competitors, rifle).each do |competitor|
-      break if competitor.team_competition_points(sport, rifle).nil?
+      break if competitor.team_competition_score(sport, rifle).nil?
       base_team_name = resolve_team_name competitor
       next unless base_team_name
       competitor_counter_by_team[base_team_name] ||= 0

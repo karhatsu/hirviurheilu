@@ -280,7 +280,7 @@ describe Team do
 
   def build_competitor(score, shooting_score, time_in_seconds, qualification_round_hits, qualification_round_shots)
     competitor = build :competitor
-    allow(competitor).to receive(:team_competition_points).with(sport, false).and_return(score)
+    allow(competitor).to receive(:team_competition_score).with(sport, false).and_return(score)
     allow(competitor).to receive(:shooting_score).and_return(shooting_score)
     allow(competitor).to receive(:time_in_seconds).and_return(time_in_seconds)
     allow(competitor).to receive(:qualification_round_hits).and_return(qualification_round_hits)
@@ -290,7 +290,7 @@ describe Team do
 
   def build_rifle_competitor(score, european_rifle_results, rifle1_shots, rifle2_shots, rifle3_shots, rifle4_shots)
     competitor = build :competitor
-    allow(competitor).to receive(:team_competition_points).with(sport, true).and_return(score)
+    allow(competitor).to receive(:team_competition_score).with(sport, true).and_return(score)
     allow(competitor).to receive(:european_rifle_results).and_return(european_rifle_results)
     allow(competitor).to receive(:european_rifle1_shots).and_return(rifle1_shots)
     allow(competitor).to receive(:european_rifle2_shots).and_return(rifle2_shots)

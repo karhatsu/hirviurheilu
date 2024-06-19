@@ -26,9 +26,9 @@ export default function TeamCompetitionsMobileResults({ race, teamCompetition, s
               {showCompetitors && (
                 <div className="card__middle-row">
                   {competitors.map(competitor => {
-                    const { ageGroup, firstName, id, lastName, series, teamCompetitionPoints } = competitor
+                    const { ageGroup, firstName, id, lastName, series, teamCompetitionScore } = competitor
                     const seriesTitle = ageGroup ? `${series.name} (${ageGroup.name})` : series.name
-                    return <div key={id}>{lastName} {firstName}, {seriesTitle}, {teamCompetitionPoints}</div>
+                    return <div key={id}>{lastName} {firstName}, {seriesTitle}, {teamCompetitionScore}</div>
                   })}
                 </div>
               )}

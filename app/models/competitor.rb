@@ -231,7 +231,7 @@ class Competitor < ApplicationRecord
     total_score unofficials_rule
   end
 
-  def team_competition_points(sport, rifle=false)
+  def team_competition_score(sport, rifle=false)
     return european_rifle_score if rifle
     return total_score if sport.nordic? || sport.european? || !sport.shooting?
     qualification_round_score # sport.shooting?

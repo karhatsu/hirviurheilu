@@ -1713,7 +1713,7 @@ describe Competitor do
   end
 
 
-  describe '#team_competition_points' do
+  describe '#team_competition_score' do
     let(:race) { build :race, sport_key: sport_key }
     let(:qualification_round_score) { 87 }
     let(:total_score) { 200 }
@@ -1729,32 +1729,32 @@ describe Competitor do
     context 'when nordic race' do
       let(:sport_key) { Sport::NORDIC }
       it 'returns total score' do
-        expect(competitor.team_competition_points(race.sport)).to eql total_score
+        expect(competitor.team_competition_score(race.sport)).to eql total_score
       end
     end
 
     context 'when european race' do
       let(:sport_key) { Sport::EUROPEAN }
       it 'returns total score' do
-        expect(competitor.team_competition_points(race.sport)).to eql total_score
+        expect(competitor.team_competition_score(race.sport)).to eql total_score
       end
 
       it 'returns european rifle score when asked' do
-        expect(competitor.team_competition_points(race.sport, true)).to eql european_rifle_score
+        expect(competitor.team_competition_score(race.sport, true)).to eql european_rifle_score
       end
     end
 
     context 'when shooting race' do
       let(:sport_key) { Sport::ILMALUODIKKO }
       it 'returns qualification round score' do
-        expect(competitor.team_competition_points(race.sport)).to eql qualification_round_score
+        expect(competitor.team_competition_score(race.sport)).to eql qualification_round_score
       end
     end
 
     context 'when 3 sports race' do
       let(:sport_key) { Sport::RUN }
       it 'returns total score' do
-        expect(competitor.team_competition_points(race.sport)).to eql total_score
+        expect(competitor.team_competition_score(race.sport)).to eql total_score
       end
     end
   end

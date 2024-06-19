@@ -46,13 +46,13 @@ export default function TeamCompetitionsDesktopResults({ race, teamCompetition, 
                 {showCompetitors && <td/>}
               </tr>
               {showCompetitors && (competitors.map((competitor, j) => {
-                const { ageGroup, firstName, id, lastName, series, teamCompetitionPoints } = competitor
+                const { ageGroup, firstName, id, lastName, series, teamCompetitionScore } = competitor
                 const seriesTitle = ageGroup ? `${series.name} (${ageGroup.name})` : series.name
                 return (
                   <tr key={id} id={`team_${i + 1}_comp_${j + 1}`}>
                     <td/>
                     <td>{lastName} {firstName}</td>
-                    <td className="center">{teamCompetitionPoints}</td>
+                    <td className="center">{teamCompetitionScore}</td>
                     {hasExtraScore && <td/>}
                     {!race.sport.shooting && (
                       <>
