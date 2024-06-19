@@ -54,7 +54,7 @@
           = comp.no_result_reason
         - else
           = european_score_print comp
-          = national_record_print(comp) if comp.european_score.to_i >= @max_points.to_i
+          = national_record_print(comp) if comp.total_score.to_i >= @max_points.to_i
       - if extra_shots_column
         %td
           - if comp.european_extra_score

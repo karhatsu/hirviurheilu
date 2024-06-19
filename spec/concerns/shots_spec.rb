@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Shots do
   let(:sport) { double Sport }
-  let(:shooting_rules_penalty) { 2 }
 
   context 'when sport has no qualification round' do
     let(:competitor) { FakeCompetitor.new sport, [10, 9, 0, 8] }
@@ -57,18 +56,8 @@ describe Shots do
     end
 
     context 'and shots given' do
-      context 'without rules penalty' do
-        it 'shooting score is sum of all shots' do
-          expect(competitor.shooting_score).to eql 10 + 9 + 0 + 8
-        end
-      end
-
-      context 'with rules penalty' do
-        it 'shooting score is sum of all shots - rules penalty' do
-          competitor.shooting_rules_penalty = shooting_rules_penalty
-          expect(competitor.shooting_score).to eql 10 + 9 + 0 + 8
-          expect(competitor.shooting_score(true)).to eql 10 + 9 + 0 + 8 - shooting_rules_penalty
-        end
+      it 'shooting score is sum of all shots' do
+        expect(competitor.shooting_score).to eql 10 + 9 + 0 + 8
       end
     end
 
@@ -85,14 +74,6 @@ describe Shots do
       it 'shooting score is the given input value' do
         expect(competitor.shooting_score).to eql 94
       end
-
-      context 'with rules penalty' do
-        it 'shooting score is the given input value - rules penalty' do
-          competitor.shooting_rules_penalty = shooting_rules_penalty
-          expect(competitor.shooting_score).to eql 94
-          expect(competitor.shooting_score(true)).to eql 94 - shooting_rules_penalty
-        end
-      end
     end
   end
 
@@ -105,7 +86,6 @@ describe Shots do
       allow(sport).to receive(:final_round).and_return([10])
       competitor.qualification_round_shooting_score_input = 91
       competitor.final_round_shooting_score_input = 88
-      competitor.shooting_rules_penalty = shooting_rules_penalty
     end
 
     it 'hits is nil' do
@@ -140,9 +120,8 @@ describe Shots do
       expect(competitor.final_round_score).to eql 88
     end
 
-    it 'shooting score is sum of input values - rules penalty' do
+    it 'shooting score is sum of input values' do
       expect(competitor.shooting_score).to eql 91 + 88
-      expect(competitor.shooting_score(true)).to eql 91 + 88 - shooting_rules_penalty
     end
   end
 
@@ -516,7 +495,6 @@ describe Shots do
         competitor.nordic_shotgun_score_input = 20
         competitor.nordic_rifle_moving_score_input = 89
         competitor.nordic_rifle_standing_score_input = 97
-        competitor.shooting_rules_penalty = shooting_rules_penalty
       end
 
       it 'trap score is given input' do
@@ -535,9 +513,8 @@ describe Shots do
         expect(competitor.nordic_rifle_standing_score).to eql 97
       end
 
-      it 'nordic score is 4 x trap and shotgun + rifle scores - rules penalty' do
+      it 'nordic score is 4 x trap and shotgun + rifle scores' do
         expect(competitor.nordic_score).to eql 4 * 23 + 4 * 20 + 89 + 97
-        expect(competitor.nordic_score(true)).to eql 4 * 23 + 4 * 20 + 89 + 97 - shooting_rules_penalty
       end
     end
 
@@ -602,7 +579,6 @@ describe Shots do
     context 'when some scores defined' do
       before do
         competitor.european_rifle2_score_input = 43
-        competitor.shooting_rules_penalty = shooting_rules_penalty
       end
 
       it 'european rifle score assumes 0 for others' do
@@ -611,7 +587,6 @@ describe Shots do
 
       it 'european score assumes 0 for others' do
         expect(competitor.european_score).to eql 43
-        expect(competitor.european_score(true)).to eql 43 - shooting_rules_penalty
       end
     end
 
@@ -701,6 +676,6 @@ describe Shots do
     end
 
     attr_reader :sport
-    attr_accessor :shots, :shooting_score_input, :qualification_round_shooting_score_input, :final_round_shooting_score_input, :extra_shots, :shooting_rules_penalty
+    attr_accessor :shots, :shooting_score_input, :qualification_round_shooting_score_input, :final_round_shooting_score_input, :extra_shots
   end
 end

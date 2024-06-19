@@ -15,7 +15,7 @@ module CompetitorResults
     results = no_result_reason_results
     return results if results
     max_extra_shots = competitors.map {|competitor| competitor.extra_shots&.length.to_i }.max || 0
-    results = [shooting_score(true).to_i] + extra_round_filled_shots(max_extra_shots) + [hits.to_i, final_round_score.to_i]
+    results = [total_score.to_i] + extra_round_filled_shots(max_extra_shots) + [hits.to_i, final_round_score.to_i]
     results << (final_round_score || qualification_round_sub_scores.nil? ? 0 : qualification_round_sub_scores[1].to_i)
     results + shot_counts_desc(shots) + reverse_shots(shots)
   end
@@ -31,7 +31,7 @@ module CompetitorResults
   def nordic_total_results
     results = no_result_reason_results
     return results if results
-    [nordic_score(true).to_i, nordic_extra_score.to_i]
+    [total_score.to_i, nordic_extra_score.to_i]
   end
 
   def nordic_sub_results(sub_sport)
@@ -54,7 +54,7 @@ module CompetitorResults
   def european_total_results
     results = no_result_reason_results
     return results if results
-    [european_score(true).to_i, european_rifle_score.to_i, european_rifle4_score.to_i, european_rifle3_score.to_i,
+    [total_score.to_i, european_rifle_score.to_i, european_rifle4_score.to_i, european_rifle3_score.to_i,
      european_rifle2_score.to_i, european_rifle1_score.to_i, sum_of_european_rifle_tens, european_extra_score.to_i]
   end
 

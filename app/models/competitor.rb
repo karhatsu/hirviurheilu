@@ -135,8 +135,8 @@ class Competitor < ApplicationRecord
   end
 
   def shooting_points
-    sum = shooting_score(true) or return nil
-    6 * (sum - shooting_overtime_penalty.to_i)
+    score = shooting_score or return nil
+    6 * (score - shooting_overtime_penalty.to_i - shooting_rules_penalty.to_i)
   end
 
   def shooting_overtime_penalty
@@ -210,20 +210,31 @@ class Competitor < ApplicationRecord
     calculate_time_points own_time, best_time
   end
 
-  def points(unofficials_rule=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
+  def total_score(unofficials_rule=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
     return nil if no_result_reason
-    return nordic_score(true) if sport.nordic?
-    return european_score(true) if sport.european?
-    return shooting_score(true) if sport.shooting?
-    shooting_points.to_i + estimate_points.to_i + time_points(unofficials_rule).to_i
+    if sport.nordic?
+      score = nordic_score or return nil
+      score - shooting_rules_penalty.to_i
+    elsif sport.european?
+      score = european_score or return nil
+      score - shooting_rules_penalty.to_i
+    elsif sport.shooting?
+      score = shooting_score or return nil
+      score - shooting_rules_penalty.to_i
+    else
+      shooting_points.to_i + estimate_points.to_i + time_points(unofficials_rule).to_i
+    end
+  end
+
+  # TODO: remove
+  def points(unofficials_rule=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
+    total_score unofficials_rule
   end
 
   def team_competition_points(sport, rifle=false)
     return european_rifle_score if rifle
-    return nordic_score(true) if sport.nordic?
-    return european_score(true) if sport.european?
-    return qualification_round_score if sport.shooting?
-    points
+    return total_score if sport.nordic? || sport.european? || !sport.shooting?
+    qualification_round_score # sport.shooting?
   end
 
   def finished?

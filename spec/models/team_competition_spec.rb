@@ -438,9 +438,9 @@ describe TeamCompetition do
         expect([0, 1, 2, 3].map{|i| @results[i].name}).to eql [club1, club2, club3, club4].map(&:name)
       end
 
-      def build_european_competitor(club, european_score, results_array)
+      def build_european_competitor(club, total_score, results_array)
         competitor = build :competitor, club: club
-        allow(competitor).to receive(:european_score).and_return(european_score)
+        allow(competitor).to receive(:total_score).and_return(total_score)
         allow(competitor).to receive(:european_total_results).and_return(results_array)
         allow(competitor).to receive(:club_id).and_return(club.id)
         competitor

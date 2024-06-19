@@ -50,11 +50,10 @@ module Shots
     extra_shots&.inject(:+)
   end
 
-  def shooting_score(with_penalty=false)
-    penalty = with_penalty ? shooting_rules_penalty.to_i : 0
-    return shooting_score_input - penalty if shooting_score_input
-    return qualification_round_score + final_round_score.to_i - penalty if sport.qualification_round && qualification_round_score
-    shots.map(&:to_i).inject(:+) - penalty || 0 if shots
+  def shooting_score
+    return shooting_score_input if shooting_score_input
+    return qualification_round_score + final_round_score.to_i if sport.qualification_round && qualification_round_score
+    shots.map(&:to_i).inject(:+) || 0 if shots
   end
 
   def nordic_trap_score
@@ -73,10 +72,9 @@ module Shots
     resolve_sub_score nordic_rifle_standing_score_input, nordic_rifle_standing_shots
   end
 
-  def nordic_score(with_penalty=false)
+  def nordic_score
     return nil unless nordic_trap_score || nordic_shotgun_score || nordic_rifle_moving_score || nordic_rifle_standing_score
-    penalty = with_penalty ? shooting_rules_penalty.to_i : 0
-    4 * (nordic_trap_score.to_i + nordic_shotgun_score.to_i) + nordic_rifle_moving_score.to_i + nordic_rifle_standing_score.to_i - penalty
+    4 * (nordic_trap_score.to_i + nordic_shotgun_score.to_i) + nordic_rifle_moving_score.to_i + nordic_rifle_standing_score.to_i
   end
 
   def european_trap_score
@@ -108,10 +106,9 @@ module Shots
     european_rifle1_score.to_i + european_rifle2_score.to_i + european_rifle3_score.to_i + european_rifle4_score.to_i
   end
 
-  def european_score(with_penalty=false)
+  def european_score
     return nil unless european_trap_score || european_compak_score || european_rifle_score
-    penalty = with_penalty ? shooting_rules_penalty.to_i : 0
-    4 * (european_trap_score.to_i + european_compak_score.to_i) + european_rifle_score.to_i - penalty
+    4 * (european_trap_score.to_i + european_compak_score.to_i) + european_rifle_score.to_i
   end
 
   def european_rifle_shots
