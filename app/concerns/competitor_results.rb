@@ -5,7 +5,7 @@ module CompetitorResults
     results = no_result_reason_results
     return results if results
     results = [(unofficials_rule == Series::UNOFFICIALS_EXCLUDED && unofficial? ? 0 : 1)]
-    results = results + [points(unofficials_rule), shooting_points.to_i]
+    results = results + [total_score(unofficials_rule), shooting_points.to_i]
     results << -time_in_seconds.to_i unless series.walking_series?
     results = results + shot_counts_desc(shots) if series.walking_series?
     results

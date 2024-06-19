@@ -19,7 +19,7 @@ json.cup_competitors cup_competitors do |cup_competitor|
         elsif @rifle
           json.points competitor.european_rifle_score
         else
-          json.points competitor.points
+          json.points competitor.total_score
         end
       end
     end

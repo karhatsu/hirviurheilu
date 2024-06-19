@@ -31,14 +31,14 @@ describe CompetitorResults do
     end
 
     context 'when results' do
-      let(:points) { 1110 }
+      let(:total_score) { 1110 }
       let(:shooting_points) { 594 }
       let(:time_in_seconds) { 630 }
       let(:estimate_points) { 255 }
       let(:shots) { [10, 9, 10, 8, 1, 5, 5, 5, 10, 1] }
 
       before do
-        allow(competitor).to receive(:points).with(unofficials_rule).and_return(points)
+        allow(competitor).to receive(:total_score).with(unofficials_rule).and_return(total_score)
         allow(competitor).to receive(:shooting_points).and_return(shooting_points)
         allow(competitor).to receive(:time_in_seconds).and_return(time_in_seconds)
         allow(competitor).to receive(:estimate_points).and_return(estimate_points)
@@ -54,13 +54,13 @@ describe CompetitorResults do
 
         it 'returns array of official flag, points, shooting points, count of different shots, and flag for official competitor' do
           shot_counts_desc = [3, 1, 1, 0, 0, 3, 0, 0, 0, 2]
-          expect(competitor.three_sports_race_results(unofficials_rule)).to eql [1, points, shooting_points] + shot_counts_desc
+          expect(competitor.three_sports_race_results(unofficials_rule)).to eql [1, total_score, shooting_points] + shot_counts_desc
         end
       end
 
       context 'for running series' do
         it 'returns array of official flag, points, shooting points, negative time in seconds, and flag for official competitor' do
-          expect(competitor.three_sports_race_results(unofficials_rule)).to eql [1, points, shooting_points, -time_in_seconds]
+          expect(competitor.three_sports_race_results(unofficials_rule)).to eql [1, total_score, shooting_points, -time_in_seconds]
         end
       end
 
@@ -69,7 +69,7 @@ describe CompetitorResults do
 
         context 'and official competitor' do
           it 'returns with official flag' do
-            expect(competitor.three_sports_race_results(unofficials_rule)).to eql [1, points, shooting_points, -time_in_seconds]
+            expect(competitor.three_sports_race_results(unofficials_rule)).to eql [1, total_score, shooting_points, -time_in_seconds]
           end
         end
 
@@ -79,7 +79,7 @@ describe CompetitorResults do
           end
 
           it 'returns without official flag' do
-            expect(competitor.three_sports_race_results(unofficials_rule)).to eql [0, points, shooting_points, -time_in_seconds]
+            expect(competitor.three_sports_race_results(unofficials_rule)).to eql [0, total_score, shooting_points, -time_in_seconds]
           end
         end
       end

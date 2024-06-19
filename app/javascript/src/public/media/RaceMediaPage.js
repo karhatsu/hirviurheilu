@@ -75,10 +75,17 @@ export default function RaceMediaPage() {
           {report.series.map(series => {
             const competitors = series.competitors
               .map((competitor, i) => {
-                const { club, firstName, lastName, points, nationalRecordPassed, nationalRecordReached } = competitor
+                const {
+                  club,
+                  firstName,
+                  lastName,
+                  totalScore,
+                  nationalRecordPassed,
+                  nationalRecordReached,
+                } = competitor
                 if (i < competitorsCount || clubIds.includes(competitor.clubId)) {
                   const record = nationalRecordPassed ? ' (SE)' : (nationalRecordReached ? ' (=SE)' : '')
-                  return `${i + 1}) ${lastName} ${firstName} ${club.name} ${points}${record}`
+                  return `${i + 1}) ${lastName} ${firstName} ${club.name} ${totalScore}${record}`
                 }
                 return undefined
               })

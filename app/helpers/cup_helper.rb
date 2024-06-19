@@ -1,6 +1,6 @@
 module CupHelper
   def cup_points_print(competitor)
-    points = competitor.points
+    points = competitor.total_score
     return points.to_s unless points.nil?
     partial_points = competitor.points!
     return "(#{partial_points})" unless partial_points.nil?

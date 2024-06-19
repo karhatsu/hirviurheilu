@@ -916,9 +916,9 @@ describe Competitor do
       end
     end
 
-    def create_competitor(points, shooting_points, number)
+    def create_competitor(total_score, shooting_points, number)
       competitor = build :competitor, number: number
-      allow(competitor).to receive(:three_sports_race_results).with(@unofficials_rule).and_return([points, shooting_points])
+      allow(competitor).to receive(:three_sports_race_results).with(@unofficials_rule).and_return([total_score, shooting_points])
       competitor
     end
   end

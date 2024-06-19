@@ -105,7 +105,7 @@ class CupCompetitor
     elsif is_rifle
       competitor.european_rifle_score
     else
-      competitor.points
+      competitor.total_score
     end
   end
 

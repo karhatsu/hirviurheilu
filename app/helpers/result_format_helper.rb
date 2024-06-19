@@ -3,7 +3,7 @@ module ResultFormatHelper
     if competitor.no_result_reason
       return no_result_reason_print(competitor.no_result_reason)
     end
-    points = competitor.points(unofficials_rule)
+    points = competitor.total_score unofficials_rule
     return points.to_s if competitor.finished? && competitor.has_correct_estimates?
     return "(#{points})" if points
     '-'

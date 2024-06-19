@@ -6,15 +6,14 @@ describe ResultFormatHelper do
 
     it 'should print no result reason if it is defined' do
       competitor = instance_double(Competitor, :no_result_reason => Competitor::DNS)
-      allow(competitor).to receive(:points).with(unofficials_rule).and_return(145)
+      allow(competitor).to receive(:total_score).with(unofficials_rule).and_return(145)
       expect(helper.points_print(competitor, unofficials_rule)).
           to eq("<span class='explanation' title='Kilpailija ei osallistunut kilpailuun'>DNS</span>")
     end
 
     it 'should print points if competitor finished and has correct estimates' do
-      competitor = instance_double(Competitor, :no_result_reason => nil,
-                                   :series => nil)
-      expect(competitor).to receive(:points).with(unofficials_rule).and_return(145)
+      competitor = instance_double(Competitor, :no_result_reason => nil, :series => nil)
+      expect(competitor).to receive(:total_score).with(unofficials_rule).and_return(145)
       expect(competitor).to receive(:finished?).and_return(true)
       expect(competitor).to receive(:has_correct_estimates?).and_return(true)
       expect(helper.points_print(competitor, unofficials_rule)).to eq('145')
@@ -22,23 +21,22 @@ describe ResultFormatHelper do
 
     it 'should print points in brackets if competitor not finished' do
       competitor = instance_double(Competitor, :no_result_reason => nil)
-      expect(competitor).to receive(:points).with(unofficials_rule).and_return(100)
+      expect(competitor).to receive(:total_score).with(unofficials_rule).and_return(100)
       expect(competitor).to receive(:finished?).and_return(false)
       expect(helper.points_print(competitor, unofficials_rule)).to eq('(100)')
     end
 
     it 'should print points in brackets if competitor has no correct estimates yet' do
       competitor = instance_double(Competitor, :no_result_reason => nil)
-      expect(competitor).to receive(:points).with(unofficials_rule).and_return(100)
+      expect(competitor).to receive(:total_score).with(unofficials_rule).and_return(100)
       expect(competitor).to receive(:finished?).and_return(true)
       expect(competitor).to receive(:has_correct_estimates?).and_return(false)
       expect(helper.points_print(competitor, unofficials_rule)).to eq('(100)')
     end
 
     it 'should print - if no points at all' do
-      competitor = instance_double(Competitor, :no_result_reason => nil,
-                                   :series => nil)
-      expect(competitor).to receive(:points).with(unofficials_rule).and_return(nil)
+      competitor = instance_double(Competitor, :no_result_reason => nil, :series => nil)
+      expect(competitor).to receive(:total_score).with(unofficials_rule).and_return(nil)
       expect(competitor).to receive(:finished?).and_return(false)
       expect(helper.points_print(competitor, unofficials_rule)).to eq('-')
     end

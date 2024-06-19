@@ -5,7 +5,7 @@ json.cache! [@race, request.headers['X-Camel-Case']] do
       json.(series, :name)
       json.competitors series.results.each do |competitor|
         unless competitor.no_result_reason
-          json.(competitor, :first_name, :last_name, :points, :club_id)
+          json.(competitor, :first_name, :last_name, :total_score, :club_id)
           json.national_record_passed competitor.position === 1 && competitor.national_record_passed?
           json.national_record_reached competitor.position === 1 && competitor.national_record_reached?
           json.club competitor.club, :name

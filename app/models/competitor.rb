@@ -226,11 +226,6 @@ class Competitor < ApplicationRecord
     end
   end
 
-  # TODO: remove
-  def points(unofficials_rule=Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME)
-    total_score unofficials_rule
-  end
-
   def team_competition_score(sport, rifle=false)
     return european_rifle_score if rifle
     return total_score if sport.nordic? || sport.european? || !sport.shooting?
@@ -335,11 +330,11 @@ class Competitor < ApplicationRecord
   end
 
   def national_record_reached?
-    series.national_record && points.to_i == series.national_record.to_i
+    series.national_record && total_score.to_i == series.national_record.to_i
   end
 
   def national_record_passed?
-    series.national_record && points.to_i > series.national_record.to_i
+    series.national_record && total_score.to_i > series.national_record.to_i
   end
 
   def rifle_national_record_reached?

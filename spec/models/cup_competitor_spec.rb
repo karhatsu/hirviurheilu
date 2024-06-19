@@ -87,9 +87,9 @@ describe CupCompetitor do
 
       context 'when no points available in any of the competitions' do
         before do
-          allow(@competitor).to receive(:points).and_return(nil)
-          allow(@competitor2).to receive(:points).and_return(nil)
-          allow(@competitor3).to receive(:points).and_return(nil)
+          allow(@competitor).to receive(:total_score).and_return(nil)
+          allow(@competitor2).to receive(:total_score).and_return(nil)
+          allow(@competitor3).to receive(:total_score).and_return(nil)
         end
 
         it '#points should be nil' do
@@ -104,9 +104,9 @@ describe CupCompetitor do
       context 'when points available only in some of the competitions' do
         context 'but in less than top competitions' do
           before do
-            allow(@competitor).to receive(:points).and_return(1000)
-            allow(@competitor2).to receive(:points).and_return(nil)
-            allow(@competitor3).to receive(:points).and_return(1100)
+            allow(@competitor).to receive(:total_score).and_return(1000)
+            allow(@competitor2).to receive(:total_score).and_return(nil)
+            allow(@competitor3).to receive(:total_score).and_return(1100)
           end
 
           it '#points should be nil' do
@@ -120,9 +120,9 @@ describe CupCompetitor do
 
         context 'and in at least top competitions' do
           before do
-            allow(@competitor).to receive(:points).and_return(1000)
-            allow(@competitor2).to receive(:points).and_return(nil)
-            allow(@competitor3).to receive(:points).and_return(1100)
+            allow(@competitor).to receive(:total_score).and_return(1000)
+            allow(@competitor2).to receive(:total_score).and_return(nil)
+            allow(@competitor3).to receive(:total_score).and_return(1100)
             allow(@cup).to receive(:top_competitions).and_return(2)
           end
 
@@ -138,9 +138,9 @@ describe CupCompetitor do
 
       context 'when points available in all the competitions' do
         before do
-          allow(@competitor).to receive(:points).and_return(1000)
-          allow(@competitor2).to receive(:points).and_return(2000)
-          allow(@competitor3).to receive(:points).and_return(3000)
+          allow(@competitor).to receive(:total_score).and_return(1000)
+          allow(@competitor2).to receive(:total_score).and_return(2000)
+          allow(@competitor3).to receive(:total_score).and_return(3000)
         end
 
         context 'and when all competitions matter' do
@@ -199,14 +199,14 @@ describe CupCompetitor do
         allow(@cup).to receive(:top_competitions).and_return(2)
         allow(@cup).to receive(:include_always_last_race?).and_return(true)
         allow(@cup).to receive(:use_qualification_round_result?).and_return(false)
-        allow(@competitor).to receive(:points).and_return(1000)
-        allow(@competitor2).to receive(:points).and_return(2000)
-        allow(@competitor3).to receive(:points).and_return(3000)
+        allow(@competitor).to receive(:total_score).and_return(1000)
+        allow(@competitor2).to receive(:total_score).and_return(2000)
+        allow(@competitor3).to receive(:total_score).and_return(3000)
       end
 
       context 'and points not available for the last race' do
         before do
-          allow(@competitor4).to receive(:points).and_return(nil)
+          allow(@competitor4).to receive(:total_score).and_return(nil)
         end
 
         it '#points returns nil' do
@@ -220,7 +220,7 @@ describe CupCompetitor do
 
       context 'and points available for the last race' do
         before do
-          allow(@competitor4).to receive(:points).and_return(500)
+          allow(@competitor4).to receive(:total_score).and_return(500)
         end
 
         it '#points return the points of last race and sum of points in top competitions' do
@@ -419,14 +419,14 @@ describe CupCompetitor do
       end
     end
 
-    def build_competitor(points, rifle = false, qr = false)
+    def build_competitor(score, rifle = false, qr = false)
       competitor = double Competitor
       if rifle
-        allow(competitor).to receive(:european_rifle_score).and_return(points)
+        allow(competitor).to receive(:european_rifle_score).and_return(score)
       elsif qr
-        allow(competitor).to receive(:qualification_round_score).and_return(points)
+        allow(competitor).to receive(:qualification_round_score).and_return(score)
       else
-        allow(competitor).to receive(:points).and_return(points)
+        allow(competitor).to receive(:total_score).and_return(score)
       end
       competitor
     end

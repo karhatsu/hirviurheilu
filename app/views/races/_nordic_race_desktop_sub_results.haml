@@ -14,7 +14,7 @@
       %th= t :extra_round
   - prev_results = 1.0/0.0
   - competitors.each_with_index do |comp, i|
-    - @max_points = comp.points if i == 0
+    - @max_points = comp.total_score if i == 0
     - next unless i < 3 || params[:club_id].blank? || comp.club_id == params[:club_id].to_i
     - results = comp.nordic_sub_results sub_sport
     %tr{class: i % 2 == 0 ? 'odd' : ''}
