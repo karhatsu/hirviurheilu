@@ -23,11 +23,11 @@ class Team
   end
 
   def total_score
-    @competitors.map {|c| c.team_competition_points(@sport, @rifle)}.inject(:+)
+    @competitors.map {|c| c.team_competition_score(@sport, @rifle)}.inject(:+)
   end
 
   def best_competitor_score
-    @competitors[0].team_competition_points @sport, @rifle
+    @competitors[0].team_competition_score @sport, @rifle
   end
 
   def best_shooting_score

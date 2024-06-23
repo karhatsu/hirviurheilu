@@ -3,9 +3,9 @@ module ResultFormatHelper
     if competitor.no_result_reason
       return no_result_reason_print(competitor.no_result_reason)
     end
-    points = competitor.points(unofficials_rule)
-    return points.to_s if competitor.finished? && competitor.has_correct_estimates?
-    return "(#{points})" if points
+    score = competitor.total_score unofficials_rule
+    return score.to_s if competitor.finished? && competitor.has_correct_estimates?
+    return "(#{score})" if score
     '-'
   end
 
@@ -33,15 +33,15 @@ module ResultFormatHelper
   end
 
   def shooting_score_print(competitor)
-    score_print competitor.shooting_score(true), competitor.shooting_score, competitor.shooting_rules_penalty
+    score_print competitor.total_score, competitor.shooting_score, competitor.shooting_rules_penalty
   end
 
   def nordic_score_print(competitor)
-    score_print competitor.nordic_score(true), competitor.nordic_score, competitor.shooting_rules_penalty
+    score_print competitor.total_score, competitor.nordic_score, competitor.shooting_rules_penalty
   end
 
   def european_score_print(competitor)
-    score_print competitor.european_score(true), competitor.european_score, competitor.shooting_rules_penalty
+    score_print competitor.total_score, competitor.european_score, competitor.shooting_rules_penalty
   end
 
   def no_result_reason_print(no_result_reason, scope='competitor')

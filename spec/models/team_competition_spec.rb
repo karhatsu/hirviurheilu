@@ -74,7 +74,7 @@ describe TeamCompetition do
       let(:competitor) { instance_double Competitor, club: club, shooting_score: 100, time_in_seconds: 500, unofficial: false, race: race, club_id: club_id }
 
       before do
-        allow(competitor).to receive(:team_competition_points).with(sport, false).and_return(1100)
+        allow(competitor).to receive(:team_competition_score).with(sport, false).and_return(1100)
         allow(competitor).to receive(:unofficial?).and_return(false)
         expect(Competitor).to receive(:sort_team_competitors).with(sport, [competitor], false).and_return([competitor])
       end
@@ -224,11 +224,11 @@ describe TeamCompetition do
         end
       end
 
-      def create_competitor(club, points, options={})
+      def create_competitor(club, score, options={})
         competitor = instance_double(Competitor, {club: club, shooting_score: @default_shooting_score,
                                      time_in_seconds: @default_time_in_seconds, club_id: club.id,
                                      team_name: nil}.merge(options))
-        allow(competitor).to receive(:team_competition_points).with(sport, false).and_return(points)
+        allow(competitor).to receive(:team_competition_score).with(sport, false).and_return(score)
         allow(competitor).to receive(:unofficial?).and_return(options[:unofficial])
         competitor
       end
@@ -438,9 +438,9 @@ describe TeamCompetition do
         expect([0, 1, 2, 3].map{|i| @results[i].name}).to eql [club1, club2, club3, club4].map(&:name)
       end
 
-      def build_european_competitor(club, european_score, results_array)
+      def build_european_competitor(club, total_score, results_array)
         competitor = build :competitor, club: club
-        allow(competitor).to receive(:european_score).and_return(european_score)
+        allow(competitor).to receive(:total_score).and_return(total_score)
         allow(competitor).to receive(:european_total_results).and_return(results_array)
         allow(competitor).to receive(:club_id).and_return(club.id)
         competitor

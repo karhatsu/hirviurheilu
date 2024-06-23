@@ -25,16 +25,13 @@ json.cache! [@series, @series.started?, request.headers['X-Camel-Case']] do
   end
   json.competitors competitors.each do |competitor|
     json.(competitor, :id, :position, :first_name, :last_name, :number, :no_result_reason, :unofficial, :shots, :updated_at, :shooting_time_seconds, :shooting_rules_penalty)
-    json.points competitor.points(unofficials_rule)
+    json.total_score competitor.total_score(unofficials_rule)
     if @series.race.sport.nordic?
-      json.(competitor, :nordic_trap_score, :nordic_trap_shots, :nordic_shotgun_score, :nordic_shotgun_shots, :nordic_rifle_moving_score, :nordic_rifle_moving_shots, :nordic_rifle_standing_score, :nordic_rifle_standing_shots, :nordic_score, :nordic_extra_score)
-      json.total_score competitor.nordic_score(true)
+      json.(competitor, :nordic_trap_score, :nordic_trap_shots, :nordic_shotgun_score, :nordic_shotgun_shots, :nordic_rifle_moving_score, :nordic_rifle_moving_shots, :nordic_rifle_standing_score, :nordic_rifle_standing_shots, :nordic_score, :total_score, :nordic_extra_score)
     elsif @series.race.sport.european?
-      json.(competitor, :only_rifle, :european_trap_score, :european_trap_shots, :european_compak_score, :european_compak_shots, :european_rifle1_score, :european_rifle1_shots, :european_rifle2_score, :european_rifle2_shots, :european_rifle3_score, :european_rifle3_shots, :european_rifle4_score, :european_rifle4_shots, :european_score, :european_extra_score)
-      json.total_score competitor.european_score(true)
+      json.(competitor, :only_rifle, :european_trap_score, :european_trap_shots, :european_compak_score, :european_compak_shots, :european_rifle1_score, :european_rifle1_shots, :european_rifle2_score, :european_rifle2_shots, :european_rifle3_score, :european_rifle3_shots, :european_rifle4_score, :european_rifle4_shots, :european_score, :total_score, :european_extra_score)
     elsif @series.race.sport.shooting?
-      json.(competitor, :shots, :qualification_round_sub_scores, :qualification_round_shots, :qualification_round_score, :final_round_shots, :final_round_score, :shooting_score, :extra_score, :extra_shots)
-      json.total_score competitor.shooting_score(true)
+      json.(competitor, :shots, :qualification_round_sub_scores, :qualification_round_shots, :qualification_round_score, :final_round_shots, :final_round_score, :shooting_score, :total_score, :extra_score, :extra_shots)
     else
       json.(competitor, :arrival_time, :shooting_overtime_penalty, :time_in_seconds, :estimate_points, :shooting_score, :shooting_points)
       json.time_points competitor.time_points(unofficials_rule)

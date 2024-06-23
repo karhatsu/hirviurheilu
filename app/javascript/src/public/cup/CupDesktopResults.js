@@ -21,7 +21,7 @@ export default function CupDesktopResults({ cup, cupSeries }) {
         </thead>
         <tbody>
         {cupCompetitors.map((cupCompetitor, i) => {
-          const { firstName, lastName, seriesNames, points, partialPoints } = cupCompetitor
+          const { firstName, lastName, seriesNames, score, partialScore } = cupCompetitor
           const name = `${lastName} ${firstName}`
           return (
             <tr key={name} id={`comp_${i + 1}`} className={i % 2 === 0 ? 'odd' : ''}>
@@ -36,7 +36,7 @@ export default function CupDesktopResults({ cup, cupSeries }) {
                   </td>
                 )
               })}
-              <td className="center total-points">{points || (partialPoints && `(${partialPoints})`)}</td>
+              <td className="center total-points">{score || (partialScore && `(${partialScore})`)}</td>
             </tr>
           )
         })}

@@ -176,14 +176,14 @@ describe CupSeries do
       expect(@cs.results).to eq([])
     end
 
-    it 'should return cup competitors ordered by descending partial points, best single race points, best shot points' do
-      cc1 = double(CupCompetitor, points!: 3004, points_array: [1000, 1001, 1003], shots_array: [600, 594, 588])
-      cc2 = double(CupCompetitor, points!: 3004, points_array: [1004, 1000, 1000], shots_array: [600, 594, 588])
-      cc3 = double(CupCompetitor, points!: 3000, points_array: [nil, nil, 3000], shots_array: [600, 594, 588])
-      cc4 = double(CupCompetitor, points!: 3002, points_array: [999, 1001, 1002], shots_array: [600, 594, 588])
-      cc5 = double(CupCompetitor, points!: nil, points_array: [nil, nil, nil], shots_array: [600, 594, 588])
-      cc6 = double(CupCompetitor, points!: 3002, points_array: [1000, 1000, 1002], shots_array: [600, nil, 587])
-      cc7 = double(CupCompetitor, points!: 3002, points_array: [1000, 1000, 1002], shots_array: [600, nil, 588])
+    it 'should return cup competitors ordered by descending partial score, best single race score, best shooting score' do
+      cc1 = double(CupCompetitor, score!: 3004, score_array: [1000, 1001, 1003], shots_array: [600, 594, 588])
+      cc2 = double(CupCompetitor, score!: 3004, score_array: [1004, 1000, 1000], shots_array: [600, 594, 588])
+      cc3 = double(CupCompetitor, score!: 3000, score_array: [nil, nil, 3000], shots_array: [600, 594, 588])
+      cc4 = double(CupCompetitor, score!: 3002, score_array: [999, 1001, 1002], shots_array: [600, 594, 588])
+      cc5 = double(CupCompetitor, score!: nil, score_array: [nil, nil, nil], shots_array: [600, 594, 588])
+      cc6 = double(CupCompetitor, score!: 3002, score_array: [1000, 1000, 1002], shots_array: [600, nil, 587])
+      cc7 = double(CupCompetitor, score!: 3002, score_array: [1000, 1000, 1002], shots_array: [600, nil, 588])
       allow(@cs).to receive(:cup_competitors).and_return([cc1, cc2, cc3, cc4, cc5, cc6, cc7])
       expect(@cs.results).to eq([cc2, cc1, cc4, cc7, cc6, cc3, cc5])
     end

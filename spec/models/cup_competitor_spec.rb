@@ -74,7 +74,7 @@ describe CupCompetitor do
     end
   end
 
-  describe 'points calculation' do
+  describe 'score calculation' do
     context 'when the last race is not necessarily included to the results' do
       before do
         @competitor2 = valid_competitor
@@ -85,62 +85,62 @@ describe CupCompetitor do
         allow(@cup).to receive(:use_qualification_round_result?).and_return(false)
       end
 
-      context 'when no points available in any of the competitions' do
+      context 'when no score available in any of the competitions' do
         before do
-          allow(@competitor).to receive(:points).and_return(nil)
-          allow(@competitor2).to receive(:points).and_return(nil)
-          allow(@competitor3).to receive(:points).and_return(nil)
+          allow(@competitor).to receive(:total_score).and_return(nil)
+          allow(@competitor2).to receive(:total_score).and_return(nil)
+          allow(@competitor3).to receive(:total_score).and_return(nil)
         end
 
-        it '#points should be nil' do
-          expect(@cc.points).to be_nil
+        it '#score should be nil' do
+          expect(@cc.score).to be_nil
         end
 
-        it '#points! should be nil' do
-          expect(@cc.points!).to be_nil
+        it '#score! should be nil' do
+          expect(@cc.score!).to be_nil
         end
       end
 
-      context 'when points available only in some of the competitions' do
+      context 'when score available only in some of the competitions' do
         context 'but in less than top competitions' do
           before do
-            allow(@competitor).to receive(:points).and_return(1000)
-            allow(@competitor2).to receive(:points).and_return(nil)
-            allow(@competitor3).to receive(:points).and_return(1100)
+            allow(@competitor).to receive(:total_score).and_return(1000)
+            allow(@competitor2).to receive(:total_score).and_return(nil)
+            allow(@competitor3).to receive(:total_score).and_return(1100)
           end
 
-          it '#points should be nil' do
-            expect(@cc.points).to be_nil
+          it '#score should be nil' do
+            expect(@cc.score).to be_nil
           end
 
-          it '#points! should be sum of those that have points' do
-            expect(@cc.points!).to eq(1000 + 0 + 1100)
+          it '#score! should be sum of those that have score' do
+            expect(@cc.score!).to eq(1000 + 0 + 1100)
           end
         end
 
         context 'and in at least top competitions' do
           before do
-            allow(@competitor).to receive(:points).and_return(1000)
-            allow(@competitor2).to receive(:points).and_return(nil)
-            allow(@competitor3).to receive(:points).and_return(1100)
+            allow(@competitor).to receive(:total_score).and_return(1000)
+            allow(@competitor2).to receive(:total_score).and_return(nil)
+            allow(@competitor3).to receive(:total_score).and_return(1100)
             allow(@cup).to receive(:top_competitions).and_return(2)
           end
 
-          it '#points should be sum of those that have points' do
-            expect(@cc.points).to eq(1000 + 0 + 1100)
+          it '#score should be sum of those that have score' do
+            expect(@cc.score).to eq(1000 + 0 + 1100)
           end
 
-          it '#points! should be sum of those that have points' do
-            expect(@cc.points!).to eq(1000 + 0 + 1100)
+          it '#score! should be sum of those that have score' do
+            expect(@cc.score!).to eq(1000 + 0 + 1100)
           end
         end
       end
 
-      context 'when points available in all the competitions' do
+      context 'when score available in all the competitions' do
         before do
-          allow(@competitor).to receive(:points).and_return(1000)
-          allow(@competitor2).to receive(:points).and_return(2000)
-          allow(@competitor3).to receive(:points).and_return(3000)
+          allow(@competitor).to receive(:total_score).and_return(1000)
+          allow(@competitor2).to receive(:total_score).and_return(2000)
+          allow(@competitor3).to receive(:total_score).and_return(3000)
         end
 
         context 'and when all competitions matter' do
@@ -148,12 +148,12 @@ describe CupCompetitor do
             allow(@cup).to receive(:top_competitions).and_return(3)
           end
 
-          it '#points should be sum of points in individual competitions' do
-            expect(@cc.points).to eq(1000 + 2000 + 3000)
+          it '#score should be sum of scores in individual competitions' do
+            expect(@cc.score).to eq(1000 + 2000 + 3000)
           end
 
-          it '#points! should be sum of points in individual competitions when all competitions matter' do
-            expect(@cc.points!).to eq(1000 + 2000 + 3000)
+          it '#score! should be sum of scores in individual competitions when all competitions matter' do
+            expect(@cc.score!).to eq(1000 + 2000 + 3000)
           end
         end
 
@@ -162,12 +162,12 @@ describe CupCompetitor do
             allow(@cup).to receive(:top_competitions).and_return(2)
           end
 
-          it '#points should be sum of top two points in individual competitions' do
-            expect(@cc.points).to eq(2000 + 3000)
+          it '#score should be sum of top two scores in individual competitions' do
+            expect(@cc.score).to eq(2000 + 3000)
           end
 
-          it '#points! should be sum of top two points in individual competitions when top two of them matter' do
-            expect(@cc.points!).to eq(2000 + 3000)
+          it '#score! should be sum of top two scores in individual competitions when top two of them matter' do
+            expect(@cc.score!).to eq(2000 + 3000)
           end
         end
       end
@@ -180,8 +180,8 @@ describe CupCompetitor do
           allow(@competitor3).to receive(:qualification_round_score).and_return(700)
         end
 
-        it '#points should be sum of qualification round scores' do
-          expect(@cc.points).to eq(500 + 600 + 700)
+        it '#score should be sum of qualification round scores' do
+          expect(@cc.score).to eq(500 + 600 + 700)
         end
       end
     end
@@ -199,36 +199,36 @@ describe CupCompetitor do
         allow(@cup).to receive(:top_competitions).and_return(2)
         allow(@cup).to receive(:include_always_last_race?).and_return(true)
         allow(@cup).to receive(:use_qualification_round_result?).and_return(false)
-        allow(@competitor).to receive(:points).and_return(1000)
-        allow(@competitor2).to receive(:points).and_return(2000)
-        allow(@competitor3).to receive(:points).and_return(3000)
+        allow(@competitor).to receive(:total_score).and_return(1000)
+        allow(@competitor2).to receive(:total_score).and_return(2000)
+        allow(@competitor3).to receive(:total_score).and_return(3000)
       end
 
-      context 'and points not available for the last race' do
+      context 'and score not available for the last race' do
         before do
-          allow(@competitor4).to receive(:points).and_return(nil)
+          allow(@competitor4).to receive(:total_score).and_return(nil)
         end
 
-        it '#points returns nil' do
-          expect(@cc.points).to be_nil
+        it '#score returns nil' do
+          expect(@cc.score).to be_nil
         end
 
-        it '#points! returns sum of points in top competitions' do
-          expect(@cc.points!).to eq(2000+3000)
+        it '#score! returns sum of scores in top competitions' do
+          expect(@cc.score!).to eq(2000+3000)
         end
       end
 
-      context 'and points available for the last race' do
+      context 'and score available for the last race' do
         before do
-          allow(@competitor4).to receive(:points).and_return(500)
+          allow(@competitor4).to receive(:total_score).and_return(500)
         end
 
-        it '#points return the points of last race and sum of points in top competitions' do
-          expect(@cc.points).to eq(500+2000+3000)
+        it '#score return the scores of last race and sum of score in top competitions' do
+          expect(@cc.score).to eq(500+2000+3000)
         end
 
-        it '#points! return the points of last race and sum of points in top competitions' do
-          expect(@cc.points).to eq(500+2000+3000)
+        it '#score! return the scores of last race and sum of score in top competitions' do
+          expect(@cc.score).to eq(500+2000+3000)
         end
       end
     end
@@ -321,7 +321,7 @@ describe CupCompetitor do
     instance_double Competitor, first_name: first_name, last_name: last_name, series: series
   end
 
-  describe '#min_points_to_emphasize' do
+  describe '#min_score_to_emphasize' do
     let(:use_qualification_round_result) { false }
     let(:cup_competitors) { [] }
     let(:cup_series) { build :cup_series }
@@ -341,7 +341,7 @@ describe CupCompetitor do
       end
 
       it 'returns nil' do
-        expect(cup_competitor.min_points_to_emphasize(1, 2)).to be_nil
+        expect(cup_competitor.min_score_to_emphasize(1, 2)).to be_nil
       end
     end
 
@@ -353,7 +353,7 @@ describe CupCompetitor do
       end
 
       it 'returns nil' do
-        expect(cup_competitor.min_points_to_emphasize(2, 2)).to be_nil
+        expect(cup_competitor.min_score_to_emphasize(2, 2)).to be_nil
       end
     end
 
@@ -369,7 +369,7 @@ describe CupCompetitor do
         end
 
         it 'returns nil' do
-          expect(cup_competitor.min_points_to_emphasize(race_count, top_competitions)).to be_nil
+          expect(cup_competitor.min_score_to_emphasize(race_count, top_competitions)).to be_nil
         end
       end
 
@@ -381,8 +381,8 @@ describe CupCompetitor do
           allow(cup_competitor).to receive(:competitors).and_return(cup_competitors)
         end
 
-        it 'returns the smallest points that are counted to the total result' do
-          expect(cup_competitor.min_points_to_emphasize(race_count, top_competitions)).to eql 450
+        it 'returns the smallest score that are counted to the total result' do
+          expect(cup_competitor.min_score_to_emphasize(race_count, top_competitions)).to eql 450
         end
       end
 
@@ -395,8 +395,8 @@ describe CupCompetitor do
           allow(cup_competitor).to receive(:competitors).and_return(cup_competitors)
         end
 
-        it 'returns the smallest points that are counted to the total result' do
-          expect(cup_competitor.min_points_to_emphasize(race_count, top_competitions)).to eql 201
+        it 'returns the smallest score that are counted to the total result' do
+          expect(cup_competitor.min_score_to_emphasize(race_count, top_competitions)).to eql 201
         end
       end
 
@@ -414,19 +414,19 @@ describe CupCompetitor do
         end
 
         it 'does the selection using rifle score' do
-          expect(cup_competitor.min_points_to_emphasize(race_count, top_competitions, true)).to eql 259
+          expect(cup_competitor.min_score_to_emphasize(race_count, top_competitions, true)).to eql 259
         end
       end
     end
 
-    def build_competitor(points, rifle = false, qr = false)
+    def build_competitor(score, rifle = false, qr = false)
       competitor = double Competitor
       if rifle
-        allow(competitor).to receive(:european_rifle_score).and_return(points)
+        allow(competitor).to receive(:european_rifle_score).and_return(score)
       elsif qr
-        allow(competitor).to receive(:qualification_round_score).and_return(points)
+        allow(competitor).to receive(:qualification_round_score).and_return(score)
       else
-        allow(competitor).to receive(:points).and_return(points)
+        allow(competitor).to receive(:total_score).and_return(score)
       end
       competitor
     end

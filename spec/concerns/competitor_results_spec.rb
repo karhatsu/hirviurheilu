@@ -31,14 +31,14 @@ describe CompetitorResults do
     end
 
     context 'when results' do
-      let(:points) { 1110 }
+      let(:total_score) { 1110 }
       let(:shooting_points) { 594 }
       let(:time_in_seconds) { 630 }
       let(:estimate_points) { 255 }
       let(:shots) { [10, 9, 10, 8, 1, 5, 5, 5, 10, 1] }
 
       before do
-        allow(competitor).to receive(:points).with(unofficials_rule).and_return(points)
+        allow(competitor).to receive(:total_score).with(unofficials_rule).and_return(total_score)
         allow(competitor).to receive(:shooting_points).and_return(shooting_points)
         allow(competitor).to receive(:time_in_seconds).and_return(time_in_seconds)
         allow(competitor).to receive(:estimate_points).and_return(estimate_points)
@@ -54,13 +54,13 @@ describe CompetitorResults do
 
         it 'returns array of official flag, points, shooting points, count of different shots, and flag for official competitor' do
           shot_counts_desc = [3, 1, 1, 0, 0, 3, 0, 0, 0, 2]
-          expect(competitor.three_sports_race_results(unofficials_rule)).to eql [1, points, shooting_points] + shot_counts_desc
+          expect(competitor.three_sports_race_results(unofficials_rule)).to eql [1, total_score, shooting_points] + shot_counts_desc
         end
       end
 
       context 'for running series' do
         it 'returns array of official flag, points, shooting points, negative time in seconds, and flag for official competitor' do
-          expect(competitor.three_sports_race_results(unofficials_rule)).to eql [1, points, shooting_points, -time_in_seconds]
+          expect(competitor.three_sports_race_results(unofficials_rule)).to eql [1, total_score, shooting_points, -time_in_seconds]
         end
       end
 
@@ -69,7 +69,7 @@ describe CompetitorResults do
 
         context 'and official competitor' do
           it 'returns with official flag' do
-            expect(competitor.three_sports_race_results(unofficials_rule)).to eql [1, points, shooting_points, -time_in_seconds]
+            expect(competitor.three_sports_race_results(unofficials_rule)).to eql [1, total_score, shooting_points, -time_in_seconds]
           end
         end
 
@@ -79,7 +79,7 @@ describe CompetitorResults do
           end
 
           it 'returns without official flag' do
-            expect(competitor.three_sports_race_results(unofficials_rule)).to eql [0, points, shooting_points, -time_in_seconds]
+            expect(competitor.three_sports_race_results(unofficials_rule)).to eql [0, total_score, shooting_points, -time_in_seconds]
           end
         end
       end
@@ -113,7 +113,7 @@ describe CompetitorResults do
     end
 
     context 'when shots' do
-      let(:shooting_score) { 185 }
+      let(:total_score) { 185 }
       let(:hits) { 19 }
       let(:final_round_score) { 97 }
       let(:second_qualification_round_sub_score) { 42 }
@@ -122,7 +122,7 @@ describe CompetitorResults do
       let(:extra_shots) { [8, 11, 10, 6] }
 
       before do
-        allow(competitor).to receive(:shooting_score).with(true).and_return(shooting_score)
+        allow(competitor).to receive(:total_score).and_return(total_score)
         allow(competitor).to receive(:hits).and_return(hits)
         allow(competitor).to receive(:qualification_round_sub_scores).and_return(qualification_round_sub_scores)
         allow(competitor).to receive(:shots).and_return(shots)
@@ -135,9 +135,9 @@ describe CompetitorResults do
         end
 
         context 'and 1 shot per extra round' do
-          it 'returns array of shooting score, extra round filled sum, hits, final round score, 0, count of different shots (11 as 10), and shots in reverse order' do
+          it 'returns array of total score, extra round filled sum, hits, final round score, 0, count of different shots (11 as 10), and shots in reverse order' do
             extra_shots_filled = [8, 11, 10, 6, 0, 0]
-            expected = [shooting_score] + extra_shots_filled + [hits, final_round_score, 0, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
+            expected = [total_score] + extra_shots_filled + [hits, final_round_score, 0, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
             expect(competitor.shooting_race_results(competitors)).to eql expected
           end
         end
@@ -147,7 +147,7 @@ describe CompetitorResults do
 
           it 'groups extra shots into sums of two' do
             extra_shots_filled = [19, 16, 0]
-            expected = [shooting_score] + extra_shots_filled + [hits, final_round_score, 0, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
+            expected = [total_score] + extra_shots_filled + [hits, final_round_score, 0, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
             expect(competitor.shooting_race_results(competitors)).to eql expected
           end
         end
@@ -159,8 +159,8 @@ describe CompetitorResults do
           allow(competitor).to receive(:extra_shots).and_return(nil)
         end
 
-        it 'returns array of shooting score, zeros for extra shots, hits, 0, second qualification round score, count of different shots (11 as 10), and shots in reverse order' do
-          expected = [shooting_score, 0, 0, 0, 0, 0, 0, hits, 0, second_qualification_round_sub_score, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
+        it 'returns array of total score, zeros for extra shots, hits, 0, second qualification round score, count of different shots (11 as 10), and shots in reverse order' do
+          expected = [total_score, 0, 0, 0, 0, 0, 0, hits, 0, second_qualification_round_sub_score, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
           expect(competitor.shooting_race_results(competitors)).to eql expected
         end
       end
@@ -229,7 +229,7 @@ describe CompetitorResults do
 
       context 'and without results' do
         before do
-          allow(competitor).to receive(:nordic_score).with(true).and_return(nil)
+          allow(competitor).to receive(:total_score).and_return(nil)
           allow(competitor).to receive(:nordic_extra_score).and_return(nil)
         end
 
@@ -240,7 +240,7 @@ describe CompetitorResults do
 
       context 'and with results' do
         before do
-          allow(competitor).to receive(:nordic_score).with(true).and_return(350)
+          allow(competitor).to receive(:total_score).and_return(350)
           allow(competitor).to receive(:nordic_extra_score).and_return(195)
         end
 
@@ -317,7 +317,9 @@ describe CompetitorResults do
     end
 
     context 'without no result reason' do
-      let(:competitor) { build :competitor }
+      let(:race) { build :race, sport_key: Sport::EUROPEAN }
+      let(:series) { build :series, race: race }
+      let(:competitor) { build :competitor, series: series }
 
       context 'and without results' do
         it 'return array of zeros' do

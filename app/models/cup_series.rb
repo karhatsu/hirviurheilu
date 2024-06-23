@@ -17,11 +17,11 @@ class CupSeries < ApplicationRecord
 
   def results
     cup_competitors.sort do |a, b|
-      a_points = a.points_array.map {|p| p.to_i}.sort {|p1, p2| p2 <=> p1}
-      b_points = b.points_array.map {|p| p.to_i}.sort {|p1, p2| p2 <=> p1}
+      a_scores = a.score_array.map {|p| p.to_i}.sort {|p1, p2| p2 <=> p1}
+      b_scores = b.score_array.map {|p| p.to_i}.sort {|p1, p2| p2 <=> p1}
       a_shooting_points = a.shots_array.map {|p| p.to_i}.sort {|p1, p2| p2 <=> p1}
       b_shooting_points = b.shots_array.map {|p| p.to_i}.sort {|p1, p2| p2 <=> p1}
-      [b.points!.to_i, b_points, b_shooting_points] <=> [a.points!.to_i, a_points, a_shooting_points]
+      [b.score!.to_i, b_scores, b_shooting_points] <=> [a.score!.to_i, a_scores, a_shooting_points]
     end
   end
 

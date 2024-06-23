@@ -20,7 +20,7 @@ const CupTeamCompetitionDesktopResults = ({ cup, cupTeamCompetition }) => {
         </thead>
         <tbody>
         {cupTeams.map((cupTeam, i) => {
-          const { name, points, partialPoints } = cupTeam
+          const { name, score, partialScore } = cupTeam
           return (
             <tr key={name} id={`comp_${i + 1}`} className={i % 2 === 0 ? 'odd' : ''}>
               <td>{i + 1}.</td>
@@ -33,7 +33,7 @@ const CupTeamCompetitionDesktopResults = ({ cup, cupTeamCompetition }) => {
                   </td>
                 )
               })}
-              <td className="center total-points">{points || (partialPoints && `(${partialPoints})`)}</td>
+              <td className="center total-points">{score || (partialScore && `(${partialScore})`)}</td>
             </tr>
           )
         })}

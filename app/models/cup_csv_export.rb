@@ -41,11 +41,11 @@ class CupCsvExport
       if competitor&.no_result_reason
         row << competitor.no_result_reason
       elsif competitor
-        row << (@rifle ? competitor.european_rifle_score : competitor.points)
+        row << (@rifle ? competitor.european_rifle_score : competitor.total_score)
       else
         row << ''
       end
     end
-    row << (@rifle ? cup_competitor.european_rifle_score : cup_competitor.points!)
+    row << (@rifle ? cup_competitor.european_rifle_score : cup_competitor.score!)
   end
 end

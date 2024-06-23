@@ -916,9 +916,9 @@ describe Competitor do
       end
     end
 
-    def create_competitor(points, shooting_points, number)
+    def create_competitor(total_score, shooting_points, number)
       competitor = build :competitor, number: number
-      allow(competitor).to receive(:three_sports_race_results).with(@unofficials_rule).and_return([points, shooting_points])
+      allow(competitor).to receive(:three_sports_race_results).with(@unofficials_rule).and_return([total_score, shooting_points])
       competitor
     end
   end
@@ -963,10 +963,10 @@ describe Competitor do
       expect(Competitor.sort_nordic_competitors(competitors.shuffle)).to eql competitors
     end
 
-    def create_competitor(nordic_score, extra_score, number, no_result_reason = nil)
+    def create_competitor(total_score, extra_score, number, no_result_reason = nil)
       competitor = build :competitor, number: number, no_result_reason: no_result_reason
       competitor.nordic_extra_score = extra_score
-      allow(competitor).to receive(:nordic_score).with(true).and_return(nordic_score)
+      allow(competitor).to receive(:total_score).and_return(total_score)
       competitor
     end
   end
@@ -993,17 +993,23 @@ describe Competitor do
       expect(competitor.shooting_points).to be_nil
     end
 
-    it "should be 6 times shooting_score (that includes possible rules penalty)" do
+    it "should be 6 times shooting_score" do
       competitor = build(:competitor)
-      expect(competitor).to receive(:shooting_score).with(true).and_return(50)
+      expect(competitor).to receive(:shooting_score).and_return(50)
       expect(competitor.shooting_points).to eq(300)
     end
 
     it 'should subtract 3 points from every overtime minute' do
       series = build :series, points_method: Series::POINTS_METHOD_NO_TIME_4_ESTIMATES
       competitor = build(:competitor, series: series, shooting_overtime_min: 2)
-      expect(competitor).to receive(:shooting_score).with(true).and_return(90)
+      expect(competitor).to receive(:shooting_score).and_return(90)
       expect(competitor.shooting_points).to eq(6 * (90-2*3))
+    end
+
+    it 'should subtract the shooting rules penalties' do
+      competitor = build :competitor, shooting_rules_penalty: 10
+      expect(competitor).to receive(:shooting_score).and_return(50)
+      expect(competitor.shooting_points).to eq(6 * (50 - 10))
     end
   end
 
@@ -1587,58 +1593,86 @@ describe Competitor do
     end
   end
 
-  describe "#points" do
+  describe "#total_score" do
+    let(:competitor) { build :competitor }
     context 'when nordic race' do
       before do
         race = build :race, sport_key: Sport::NORDIC
-        @competitor = build :competitor
-        allow(@competitor).to receive(:sport).and_return(race.sport)
-        allow(@competitor).to receive(:nordic_score).with(true).and_return(334)
+        allow(competitor).to receive(:sport).and_return(race.sport)
+        allow(competitor).to receive(:nordic_score).and_return(334)
       end
 
       it 'should return nil when no result reason' do
-        @competitor.no_result_reason = 'DNF'
-        expect(@competitor.points).to be_nil
+        competitor.no_result_reason = 'DNF'
+        expect(competitor.total_score).to be_nil
+      end
+
+      it 'should return nil when nordic score is nil' do
+        allow(competitor).to receive(:nordic_score).and_return(nil)
+        expect(competitor.total_score).to be_nil
       end
 
       it 'should return the nordic score' do
-        expect(@competitor.points).to eql 334
+        expect(competitor.total_score).to eql 334
+      end
+
+      it 'should subtract shooting rules penalties' do
+        competitor.shooting_rules_penalty = 8
+        expect(competitor.total_score).to eql 334 - 8
       end
     end
 
     context 'when european race' do
       before do
         race = build :race, sport_key: Sport::EUROPEAN
-        @competitor = build :competitor
-        allow(@competitor).to receive(:sport).and_return(race.sport)
-        allow(@competitor).to receive(:european_score).with(true).and_return(250)
+        allow(competitor).to receive(:sport).and_return(race.sport)
+        allow(competitor).to receive(:european_score).and_return(250)
       end
 
       it 'should return nil when no result reason' do
-        @competitor.no_result_reason = 'DNF'
-        expect(@competitor.points).to be_nil
+        competitor.no_result_reason = 'DNF'
+        expect(competitor.total_score).to be_nil
+      end
+
+      it 'should return nil when european score is nil' do
+        allow(competitor).to receive(:european_score).and_return(nil)
+        expect(competitor.total_score).to be_nil
       end
 
       it 'should return the european score' do
-        expect(@competitor.points).to eql 250
+        expect(competitor.total_score).to eql 250
+      end
+
+      it 'should subtract shooting rules penalties' do
+        competitor.shooting_rules_penalty = 4
+        expect(competitor.total_score).to eql 250 - 4
       end
     end
 
     context 'when shooting race' do
       before do
         race = build :race, sport_key: Sport::ILMALUODIKKO
-        @competitor = build :competitor
-        allow(@competitor).to receive(:sport).and_return(race.sport)
-        allow(@competitor).to receive(:shooting_score).with(true).and_return(150)
+        allow(competitor).to receive(:sport).and_return(race.sport)
+        allow(competitor).to receive(:shooting_score).and_return(150)
       end
 
       it 'should return nil when no result reason' do
-        @competitor.no_result_reason = 'DNF'
-        expect(@competitor.points).to be_nil
+        competitor.no_result_reason = 'DNF'
+        expect(competitor.total_score).to be_nil
+      end
+
+      it 'should return nil when shooting score is nil' do
+        allow(competitor).to receive(:shooting_score).and_return(nil)
+        expect(competitor.total_score).to be_nil
       end
 
       it 'should return the shooting score' do
-        expect(@competitor.points).to eql 150
+        expect(competitor.total_score).to eql 150
+      end
+
+      it 'should subtract shooting rules penalties' do
+        competitor.shooting_rules_penalty = 10
+        expect(competitor.total_score).to eql 150 - 10
       end
     end
 
@@ -1646,86 +1680,81 @@ describe Competitor do
       before do
         @unofficials_rule = Series::UNOFFICIALS_INCLUDED_WITH_BEST_TIME
         race = build :race, sport_key: Sport::SKI
-        @competitor = build(:competitor)
-        allow(@competitor).to receive(:sport).and_return(race.sport)
-        allow(@competitor).to receive(:shooting_points).and_return(100)
-        allow(@competitor).to receive(:estimate_points).and_return(150)
-        allow(@competitor).to receive(:time_points).with(@unofficials_rule).and_return(200)
+        allow(competitor).to receive(:sport).and_return(race.sport)
+        allow(competitor).to receive(:shooting_points).and_return(100)
+        allow(competitor).to receive(:estimate_points).and_return(150)
+        allow(competitor).to receive(:time_points).with(@unofficials_rule).and_return(200)
       end
 
       it 'should return nil when no result reason' do
-        @competitor.no_result_reason = 'DNF'
-        expect(@competitor.points(@unofficials_rule)).to be_nil
+        competitor.no_result_reason = 'DNF'
+        expect(competitor.total_score(@unofficials_rule)).to be_nil
       end
 
       it "should consider missing shot points as 0" do
-        expect(@competitor).to receive(:shooting_points).and_return(nil)
-        expect(@competitor.points(@unofficials_rule)).to eq(150 + 200)
+        expect(competitor).to receive(:shooting_points).and_return(nil)
+        expect(competitor.total_score(@unofficials_rule)).to eq(150 + 200)
       end
 
       it "should consider missing estimate points as 0" do
-        expect(@competitor).to receive(:estimate_points).and_return(nil)
-        expect(@competitor.points(@unofficials_rule)).to eq(100 + 200)
+        expect(competitor).to receive(:estimate_points).and_return(nil)
+        expect(competitor.total_score(@unofficials_rule)).to eq(100 + 200)
       end
 
       it "should consider missing time points as 0" do
-        expect(@competitor).to receive(:time_points).with(@unofficials_rule).and_return(nil)
-        expect(@competitor.points(@unofficials_rule)).to eq(100 + 150)
+        expect(competitor).to receive(:time_points).with(@unofficials_rule).and_return(nil)
+        expect(competitor.total_score(@unofficials_rule)).to eq(100 + 150)
       end
 
       it "should be sum of sub points when all of them are available" do
-        expect(@competitor.points(@unofficials_rule)).to eq(100 + 150 + 200)
+        expect(competitor.total_score(@unofficials_rule)).to eq(100 + 150 + 200)
       end
     end
   end
 
 
-  describe '#team_competition_points' do
+  describe '#team_competition_score' do
     let(:race) { build :race, sport_key: sport_key }
     let(:qualification_round_score) { 87 }
-    let(:points) { 200 }
-    let(:nordic_score) { 319 }
-    let(:european_score) { 350 }
+    let(:total_score) { 200 }
     let(:european_rifle_score) { 250 }
     let(:competitor) { build :competitor }
 
     before do
       allow(competitor).to receive(:qualification_round_score).and_return(qualification_round_score)
-      allow(competitor).to receive(:points).and_return(points)
-      allow(competitor).to receive(:nordic_score).with(true).and_return(nordic_score)
-      allow(competitor).to receive(:european_score).with(true).and_return(european_score)
+      allow(competitor).to receive(:total_score).and_return(total_score)
       allow(competitor).to receive(:european_rifle_score).and_return(european_rifle_score)
     end
 
     context 'when nordic race' do
       let(:sport_key) { Sport::NORDIC }
-      it 'returns nordic score' do
-        expect(competitor.team_competition_points(race.sport)).to eql nordic_score
+      it 'returns total score' do
+        expect(competitor.team_competition_score(race.sport)).to eql total_score
       end
     end
 
     context 'when european race' do
       let(:sport_key) { Sport::EUROPEAN }
-      it 'returns european score' do
-        expect(competitor.team_competition_points(race.sport)).to eql european_score
+      it 'returns total score' do
+        expect(competitor.team_competition_score(race.sport)).to eql total_score
       end
 
       it 'returns european rifle score when asked' do
-        expect(competitor.team_competition_points(race.sport, true)).to eql european_rifle_score
+        expect(competitor.team_competition_score(race.sport, true)).to eql european_rifle_score
       end
     end
 
     context 'when shooting race' do
       let(:sport_key) { Sport::ILMALUODIKKO }
       it 'returns qualification round score' do
-        expect(competitor.team_competition_points(race.sport)).to eql qualification_round_score
+        expect(competitor.team_competition_score(race.sport)).to eql qualification_round_score
       end
     end
 
     context 'when 3 sports race' do
       let(:sport_key) { Sport::RUN }
-      it 'returns points' do
-        expect(competitor.team_competition_points(race.sport)).to eql points
+      it 'returns total score' do
+        expect(competitor.team_competition_score(race.sport)).to eql total_score
       end
     end
   end

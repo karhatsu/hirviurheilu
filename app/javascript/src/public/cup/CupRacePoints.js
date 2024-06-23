@@ -6,13 +6,13 @@ import { buildSeriesResultsPath } from '../../util/routeUtil'
 
 export default function CupRacePoints({ raceId, competitor, cupCompetitor }) {
   if (!competitor) return '-'
-  const { minPointsToEmphasize } = cupCompetitor
-  const { noResultReason, points, seriesId } = competitor
+  const { minScoreToEmphasize } = cupCompetitor
+  const { noResultReason, score, seriesId } = competitor
   if (noResultReason) return <NoResultReason noResultReason={noResultReason} type="competitor" />
-  const className = classnames({ 'cup-points__emphasize': minPointsToEmphasize && points >= minPointsToEmphasize })
+  const className = classnames({ 'cup-points__emphasize': minScoreToEmphasize && score >= minScoreToEmphasize })
   return (
     <Link to={buildSeriesResultsPath(raceId, seriesId)} className={className}>
-      {points}
+      {score}
     </Link>
   )
 }

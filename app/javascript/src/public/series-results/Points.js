@@ -2,12 +2,12 @@ import React from 'react'
 import NoResultReason from '../NoResultReason'
 
 export default function Points({ competitor }) {
-  const { finished, hasCorrectEstimates, noResultReason, points } = competitor
+  const { finished, hasCorrectEstimates, noResultReason, totalScore } = competitor
   if (noResultReason) {
     return <NoResultReason noResultReason={noResultReason} type="competitor" />
-  } else if (!points) {
+  } else if (!totalScore) {
     return '-'
   } else {
-    return finished && hasCorrectEstimates ? points : `(${points})`
+    return finished && hasCorrectEstimates ? totalScore : `(${totalScore})`
   }
 }

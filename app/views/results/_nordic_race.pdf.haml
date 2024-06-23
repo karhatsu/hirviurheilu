@@ -15,7 +15,7 @@
       %th= t :extra_round
   - prev_results = 1.0/0.0
   - competitors.each_with_index do |comp, i|
-    - @max_points = comp.points if i == 0
+    - @max_score = comp.total_score if i == 0
     - next unless i < 3 || params[:club_id].blank? || comp.club_id == params[:club_id].to_i
     - results = comp.nordic_total_results
     %tr{class: i % 2 == 0 ? 'odd' : ''}
@@ -44,7 +44,7 @@
           = comp.no_result_reason
         - else
           = nordic_score_print comp
-          = national_record_print(comp) if comp.nordic_score.to_i >= @max_points.to_i
+          = national_record_print(comp) if comp.total_score.to_i >= @max_score.to_i
       - if extra_shots_column
         %td
           - if comp.nordic_extra_score
