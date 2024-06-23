@@ -123,7 +123,7 @@ class BatchList
   def competitors_for_final_round(competitors_count)
     competitors = Competitor.sort_by_qualification_round(@series.sport, @series.competitors)
     required_score = competitors[competitors_count - 1]&.qualification_round_total_score || 0
-    competitors.select {|c| c.qualification_round_total_score.to_i >= required_score}
+    competitors.select {|c| c.qualification_round_total_score.to_i >= required_score && !c.no_result_reason}
   end
 
   def generate_batches(final_round, competitors, first_batch_number, first_track_place, first_batch_time, minutes_between_batches, only_one, opts)

@@ -262,6 +262,18 @@ describe BatchList do
             verify_competitor competitor7, 3, 2, true
           end
         end
+
+        context 'when there are not enough competitors with result' do
+          before do
+            competitor7.no_result_reason = Competitor::DQ
+            generator2.generate_final_round 2, 2, second_batch_time, minutes_between_batches, 4
+          end
+
+          it 'does not pick competitors with no result reason' do
+            expect(generator2.errors).to eql []
+            verify_competitor competitor7, nil, nil, true
+          end
+        end
       end
     end
   end
