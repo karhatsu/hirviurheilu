@@ -71,6 +71,7 @@ Feature: Shooting race results
       | start_date | 2021-12-27  |
     And the race has series "M"
     And the series has a competitor 1 "Antti" "Ampuja" from "Antin seura" with shots "9,9,9,9,9,8,8,8,8,8,10,9,8,10,9,5,6,7,3,8,4,9,10,10,10,9,8,7,9,9"
+    And the competitor has QR shooting rules penalty of 2
     And the series has a competitor 2 "Kimmo" "Kilpailija" from "Kimmon seura" with shots "9,9,9,9,9,8,8,8,8,8,9,9,8,10,9,5,6,7,3,8,4,9,10,10,10,9,8,7,10,9"
     And the series has a competitor 3 "Lasse" "Laukoja" from "Lassen seura" with shots "9,9,8"
     And the series has a competitor 4 "Timo" "Tähtääjä" from "Timon seura" with shots "10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10"
@@ -81,23 +82,21 @@ Feature: Shooting race results
     Then I should see a card 1 with 1, "Kilpailija Kimmo", "Kimmon seura" with points 245
     And I should see "45 + 40 + 45 + 29 = 159" in result card 1 detail row 2
     And I should see "86" in result card 1 detail row 3
-    And I should see a card 2 with 2, "Ampuja Antti", "Antin seura" with points 245
-    And I should see "45 + 40 + 46 + 29 = 160" in result card 2 detail row 2
+    And I should see a card 2 with 2, "Ampuja Antti", "Antin seura" with points 243
+    And I should see "45 + 40 + 46 + 29 - 2 = 158" in result card 2 detail row 2
     And I should see "85" in result card 2 detail row 3
     And I should see a card 3 with 3, "Tähtääjä Timo", "Timon seura" with points 207
     And I should see "50 + 50 + 50 + 50 = 200" in result card 3 detail row 2
-    And I should see "10" in result card 3 detail row 3
-    And I should see "-3" in result card 3 detail row 4
+    And I should see "10 - 3 = 7" in result card 3 detail row 3
     And I should see a card 4 with 4, "Laukoja Lasse", "Lassen seura" with points 26
     And I should see "26" in result card 4 detail row 2
     When I show the shots
     Then I should see "45 (9, 9, 9, 9, 9) + 40 (8, 8, 8, 8, 8) + 45 (9, 9, 8, 10, 9) + 29 (5, 6, 7, 3, 8) = 159" in result card 1 detail row 2
     And I should see "86 (4, 9, 10, 10, 10, 9, 8, 7, 10, 9)" in result card 1 detail row 3
-    And I should see "45 (9, 9, 9, 9, 9) + 40 (8, 8, 8, 8, 8) + 46 (10, 9, 8, 10, 9) + 29 (5, 6, 7, 3, 8) = 160" in result card 2 detail row 2
+    And I should see "45 (9, 9, 9, 9, 9) + 40 (8, 8, 8, 8, 8) + 46 (10, 9, 8, 10, 9) + 29 (5, 6, 7, 3, 8) - 2 = 158" in result card 2 detail row 2
     And I should see "85 (4, 9, 10, 10, 10, 9, 8, 7, 9, 9)" in result card 2 detail row 3
     And I should see "50 (10, 10, 10, 10, 10) + 50 (10, 10, 10, 10, 10) + 50 (10, 10, 10, 10, 10) + 50 (10, 10, 10, 10, 10) = 200" in result card 3 detail row 2
-    And I should see "10 (10)" in result card 3 detail row 3
-    And I should see "-3" in result card 3 detail row 4
+    And I should see "10 (10) - 3 = 7" in result card 3 detail row 3
     And I should see "26 (9, 9, 8)" in result card 4 detail row 2
 
   @javascript
