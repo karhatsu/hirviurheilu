@@ -15,7 +15,7 @@ json.cup_competitors cup_competitors do |cup_competitor|
       json.competitor do
         json.(competitor, :id, :no_result_reason, :series_id)
         if @cup.use_qualification_round_result
-          json.score competitor.qualification_round_score
+          json.score competitor.qualification_round_total_score
         elsif @rifle
           json.score competitor.european_rifle_score
         else
