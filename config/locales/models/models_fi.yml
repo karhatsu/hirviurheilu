@@ -122,6 +122,8 @@ fi:
     shooting_penalty_seconds: Ammunnan sakkosekunnit
     shooting_place_count: Ammuntapaikkoja / rata
     shooting_rules_penalty: Rangaistus ammuntasääntöjen rikkomisesta
+    shooting_rules_penalty_final: Rangaistus ammuntasääntöjen rikkomisesta loppukilpailussa
+    shooting_rules_penalty_qr: Rangaistus ammuntasääntöjen rikkomisesta alkukilpailussa
     shooting_score_input: Ammunta yhteensä
     shooting_start_time: Ammunnan aloitusaika
     shooting_time: Ammunta-aika
