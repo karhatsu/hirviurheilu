@@ -101,7 +101,7 @@ class CupCompetitor
 
   def competitor_score(competitor, is_rifle=false)
     if use_qualification_round_result?
-      competitor.qualification_round_score
+      competitor.qualification_round_total_score
     elsif is_rifle
       competitor.european_rifle_score
     else

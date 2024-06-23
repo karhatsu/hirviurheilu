@@ -180,7 +180,7 @@ describe CompetitorResults do
 
     context 'when no shots' do
       before do
-        allow(competitor).to receive(:qualification_round_score).and_return(nil)
+        allow(competitor).to receive(:qualification_round_total_score).and_return(nil)
         allow(competitor).to receive(:qualification_round_hits).and_return(nil)
         allow(competitor).to receive(:qualification_round_sub_scores).and_return(nil)
         allow(competitor).to receive(:qualification_round_shots).and_return(nil)
@@ -192,7 +192,7 @@ describe CompetitorResults do
     end
 
     context 'without no result reason' do
-      let(:qualification_round_score) { 78 }
+      let(:qualification_round_total_score) { 78 }
       let(:qualification_round_hits) { 9 }
       let(:qr_sub_score_1) { 40 }
       let(:qr_sub_score_2) { 40 }
@@ -202,14 +202,14 @@ describe CompetitorResults do
       let(:qualification_round_shots) { [[2, 9, 10, 11, 6], [0, 1, 10, 10, 1]] } # these should match with sub scores but doesn't matter here
 
       before do
-        allow(competitor).to receive(:qualification_round_score).and_return(qualification_round_score)
+        allow(competitor).to receive(:qualification_round_total_score).and_return(qualification_round_total_score)
         allow(competitor).to receive(:qualification_round_hits).and_return(qualification_round_hits)
         allow(competitor).to receive(:qualification_round_sub_scores).and_return(qualification_round_sub_scores)
         allow(competitor).to receive(:qualification_round_shots).and_return(qualification_round_shots)
       end
 
       it 'returns array of QR score, QR hits, QR subs score starting from the last, count of different QR shots (11 as 10), and QR shots in reverse order' do
-        expected = [qualification_round_score, qualification_round_hits, qr_sub_score_4, qr_sub_score_3, qr_sub_score_2, qr_sub_score_1, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + [1, 10, 10, 1, 0, 6, 11, 10, 9, 2]
+        expected = [qualification_round_total_score, qualification_round_hits, qr_sub_score_4, qr_sub_score_3, qr_sub_score_2, qr_sub_score_1, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + [1, 10, 10, 1, 0, 6, 11, 10, 9, 2]
         expect(competitor.shooting_race_qualification_results).to eql expected
       end
     end

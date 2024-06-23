@@ -1672,8 +1672,9 @@ describe Competitor do
       end
 
       it 'should subtract shooting rules penalties' do
+        competitor.shooting_rules_penalty_qr = 7
         competitor.shooting_rules_penalty = 10
-        expect(competitor.total_score).to eql 150 - 10
+        expect(competitor.total_score).to eql 150 - 7 - 10
       end
     end
 
@@ -1713,16 +1714,17 @@ describe Competitor do
     end
   end
 
-
   describe '#team_competition_score' do
     let(:race) { build :race, sport_key: sport_key }
     let(:qualification_round_score) { 87 }
+    let(:shooting_rules_penalty_qr) { 4 }
     let(:total_score) { 200 }
     let(:european_rifle_score) { 250 }
     let(:competitor) { build :competitor }
 
     before do
       allow(competitor).to receive(:qualification_round_score).and_return(qualification_round_score)
+      allow(competitor).to receive(:shooting_rules_penalty_qr).and_return(nil)
       allow(competitor).to receive(:total_score).and_return(total_score)
       allow(competitor).to receive(:european_rifle_score).and_return(european_rifle_score)
     end
@@ -1747,8 +1749,14 @@ describe Competitor do
 
     context 'when shooting race' do
       let(:sport_key) { Sport::ILMALUODIKKO }
+
       it 'returns qualification round score' do
         expect(competitor.team_competition_score(race.sport)).to eql qualification_round_score
+      end
+
+      it 'subtracts qualification round shooting rules penalty' do
+        allow(competitor).to receive(:shooting_rules_penalty_qr).and_return(shooting_rules_penalty_qr)
+        expect(competitor.team_competition_score(race.sport)).to eql qualification_round_score - shooting_rules_penalty_qr
       end
     end
 

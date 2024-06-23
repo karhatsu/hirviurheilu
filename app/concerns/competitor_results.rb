@@ -23,7 +23,7 @@ module CompetitorResults
   def shooting_race_qualification_results
     results = no_result_reason_results
     return results if results
-    results = [qualification_round_score.to_i, qualification_round_hits.to_i]
+    results = [qualification_round_total_score.to_i, qualification_round_hits.to_i]
     results += qualification_round_sub_scores.nil? ? [] : qualification_round_sub_scores.reverse
     results + shot_counts_desc(qualification_round_shots) + reverse_shots(qualification_round_shots&.flatten)
   end

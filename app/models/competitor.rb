@@ -221,16 +221,26 @@ class Competitor < ApplicationRecord
       score - shooting_rules_penalty.to_i
     elsif sport.shooting?
       score = shooting_score or return nil
-      score - shooting_rules_penalty.to_i
+      score - shooting_rules_penalty_qr.to_i - shooting_rules_penalty.to_i
     else
       shooting_points.to_i + estimate_points.to_i + time_points(unofficials_rule).to_i
     end
   end
 
+  def qualification_round_total_score
+    score = qualification_round_score or return nil
+    score - shooting_rules_penalty_qr.to_i
+  end
+
+  def final_round_total_score
+    score = final_round_score or return nil
+    score - shooting_rules_penalty.to_i
+  end
+
   def team_competition_score(sport, rifle=false)
     return european_rifle_score if rifle
-    return total_score if sport.nordic? || sport.european? || !sport.shooting?
-    qualification_round_score # sport.shooting?
+    return total_score if sport.nordic? || sport.european? || sport.three_sports?
+    qualification_round_total_score # sport.shooting?
   end
 
   def finished?
