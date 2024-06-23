@@ -42,6 +42,7 @@ class Competitor < ApplicationRecord
   validates :correct_estimate4, estimate_validations
   validates :shooting_overtime_min, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
   validates :shooting_rules_penalty, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
+  validates :shooting_rules_penalty_qr, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
   validates :qualification_round_track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :final_round_track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :nordic_trap_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_blank: true }
@@ -220,16 +221,26 @@ class Competitor < ApplicationRecord
       score - shooting_rules_penalty.to_i
     elsif sport.shooting?
       score = shooting_score or return nil
-      score - shooting_rules_penalty.to_i
+      score - shooting_rules_penalty_qr.to_i - shooting_rules_penalty.to_i
     else
       shooting_points.to_i + estimate_points.to_i + time_points(unofficials_rule).to_i
     end
   end
 
+  def qualification_round_total_score
+    score = qualification_round_score or return nil
+    score - shooting_rules_penalty_qr.to_i
+  end
+
+  def final_round_total_score
+    score = final_round_score or return nil
+    score - shooting_rules_penalty.to_i
+  end
+
   def team_competition_score(sport, rifle=false)
     return european_rifle_score if rifle
-    return total_score if sport.nordic? || sport.european? || !sport.shooting?
-    qualification_round_score # sport.shooting?
+    return total_score if sport.nordic? || sport.european? || sport.three_sports?
+    qualification_round_total_score # sport.shooting?
   end
 
   def finished?

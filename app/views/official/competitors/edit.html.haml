@@ -13,8 +13,12 @@
     = render partial: 'three_sports_race_form_fields', locals: { f: f }
   - else
     = hidden_field_tag :no_times, true
+  - if @series.sport.qualification_round
+    .form__field.form__field--sm.row
+      .col-xs-12.col-sm-3= f.label :shooting_rules_penalty_qr
+      .col-xs-12.col-sm-9= f.number_field :shooting_rules_penalty_qr
   .form__field.form__field--sm.row
-    .col-xs-12.col-sm-3= f.label :shooting_rules_penalty
+    .col-xs-12.col-sm-3= f.label :shooting_rules_penalty, @series.sport.qualification_round ? t('attributes.shooting_rules_penalty_final') : t('attributes.shooting_rules_penalty')
     .col-xs-12.col-sm-9= f.number_field :shooting_rules_penalty
   .form__field.row
     .col-xs-12.col-sm-3

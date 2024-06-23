@@ -36,6 +36,7 @@ export default function ShootingDesktopResults({ race, series }) {
               extraShots,
               finalRoundScore,
               finalRoundShots,
+              finalRoundTotalScore,
               noResultReason,
               shootingRulesPenalty,
               totalScore,
@@ -56,9 +57,10 @@ export default function ShootingDesktopResults({ race, series }) {
                 </td>
                 <td className={resultClassName}>
                   <ShootingResult score={finalRoundScore} shots={finalRoundShots && finalRoundShots[0]} />
+                  {shootingRulesPenalty && ` - ${shootingRulesPenalty} = ${finalRoundTotalScore}`}
                 </td>
                 <td className="center total-points">
-                  <TotalScore noResultReason={noResultReason} totalScore={totalScore} penalty={shootingRulesPenalty} />
+                  <TotalScore noResultReason={noResultReason} totalScore={totalScore} />
                   <NationalRecord race={race} series={series} competitor={competitor} />
                 </td>
                 {showExtraShots && (

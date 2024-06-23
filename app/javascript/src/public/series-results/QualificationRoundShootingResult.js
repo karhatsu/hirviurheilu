@@ -2,7 +2,12 @@ import React from 'react'
 import ShootingResult from './ShootingResult'
 
 export default function QualificationRoundShootingResult({ competitor }) {
-  const { qualificationRoundShots, qualificationRoundSubScores, qualificationRoundScore } = competitor
+  const {
+    qualificationRoundShots,
+    qualificationRoundSubScores,
+    qualificationRoundTotalScore,
+    shootingRulesPenaltyQr,
+  } = competitor
   if (!qualificationRoundShots) return null
   return (
     <>
@@ -18,9 +23,10 @@ export default function QualificationRoundShootingResult({ competitor }) {
         }
         return null
       })}
+      {shootingRulesPenaltyQr && ` - ${shootingRulesPenaltyQr}`}
       {qualificationRoundSubScores.length >= 2 && qualificationRoundShots[1].length > 0 && (
         <>
-          {' = '}{qualificationRoundScore}
+          {' = '}{qualificationRoundTotalScore}
         </>
       )}
     </>

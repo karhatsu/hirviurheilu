@@ -781,9 +781,9 @@ describe BatchList do
     end
   end
 
-  def competitor_for_final_round(series, qualification_round_score, batch=nil, track_place=nil)
+  def competitor_for_final_round(series, qualification_round_total_score, batch=nil, track_place=nil)
     competitor = create :competitor, series: series, final_round_batch: batch, final_round_track_place: track_place
-    allow(competitor).to receive(:qualification_round_score).and_return(qualification_round_score)
+    allow(competitor).to receive(:qualification_round_total_score).and_return(qualification_round_total_score)
     competitor
   end
 

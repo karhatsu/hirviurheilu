@@ -122,6 +122,8 @@ sv:
     shooting_penalty_seconds: Straffsekonder för skytte
     shooting_place_count: Skottsplatser
     shooting_rules_penalty: Straff för brott mot skjutregler
+    shooting_rules_penalty_final: Straff för brott mot skjutregler i finalen
+    shooting_rules_penalty_qr: Straff för brott mot skjutregler i grundtävlingen
     shooting_score_input: Skottstotal
     shooting_start_time: Skytte starttid
     shooting_time: Skyttetid

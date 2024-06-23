@@ -175,12 +175,12 @@ describe CupCompetitor do
       context 'when qualification round result is used' do
         before do
           allow(@cup).to receive(:use_qualification_round_result?).and_return(true)
-          allow(@competitor).to receive(:qualification_round_score).and_return(500)
-          allow(@competitor2).to receive(:qualification_round_score).and_return(600)
-          allow(@competitor3).to receive(:qualification_round_score).and_return(700)
+          allow(@competitor).to receive(:qualification_round_total_score).and_return(500)
+          allow(@competitor2).to receive(:qualification_round_total_score).and_return(600)
+          allow(@competitor3).to receive(:qualification_round_total_score).and_return(700)
         end
 
-        it '#score should be sum of qualification round scores' do
+        it '#score should be sum of qualification round total scores' do
           expect(@cc.score).to eq(500 + 600 + 700)
         end
       end
@@ -424,7 +424,7 @@ describe CupCompetitor do
       if rifle
         allow(competitor).to receive(:european_rifle_score).and_return(score)
       elsif qr
-        allow(competitor).to receive(:qualification_round_score).and_return(score)
+        allow(competitor).to receive(:qualification_round_total_score).and_return(score)
       else
         allow(competitor).to receive(:total_score).and_return(score)
       end

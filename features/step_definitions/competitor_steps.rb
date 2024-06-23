@@ -96,6 +96,10 @@ Given /^the competitor "([^"]*)" "([^"]*)" has the following results:$/ do |firs
   competitor.save!
 end
 
+Given('the competitor has QR shooting rules penalty of {int}') do |penalty|
+  @competitor.update_attribute :shooting_rules_penalty_qr, penalty
+end
+
 Given('the competitor has shooting rules penalty of {int}') do |penalty|
   @competitor.update_attribute :shooting_rules_penalty, penalty
 end

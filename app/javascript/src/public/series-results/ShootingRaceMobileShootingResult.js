@@ -11,8 +11,10 @@ export default function ShootingRaceMobileShootingResult({ competitor }) {
     qualificationRoundSubScores,
     finalRoundScore,
     finalRoundShots,
+    finalRoundTotalScore,
     noResultReason,
     shootingRulesPenalty,
+    shootingRulesPenaltyQr,
   } = competitor
   if (noResultReason) {
     return <div className="card__middle-row">{t(`competitor_${noResultReason}`)}</div>
@@ -26,15 +28,16 @@ export default function ShootingRaceMobileShootingResult({ competitor }) {
         {finalRoundShots && finalRoundShots[0].length > 0 && (
           <div className="card__middle-row">
             <ShootingResult score={finalRoundScore} shots={finalRoundShots[0]} />
+            {shootingRulesPenalty && ` - ${shootingRulesPenalty} = ${finalRoundTotalScore}`}
           </div>
         )}
-        {shootingRulesPenalty && <div className="card__middle-row">-{shootingRulesPenalty}</div>}
       </>
     )
   }
   return (
     <div className="card__middle-row">
       <ShootingResult score={qualificationRoundScore} shots={qualificationRoundShots && qualificationRoundShots[0]} />
+      {shootingRulesPenaltyQr && ` - ${shootingRulesPenaltyQr}`}
       {(finalRoundScore !== null) && (
         <>
           {' + '}<ShootingResult score={finalRoundScore} shots={finalRoundShots && finalRoundShots[0]} />
