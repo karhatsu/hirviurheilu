@@ -18,6 +18,7 @@ describe Competitor do
     it { is_expected.to validate_presence_of(:last_name) }
     it_should_behave_like 'non-negative integer', :shooting_overtime_min, true
     it_should_behave_like 'non-negative integer', :shooting_rules_penalty, true
+    it_should_behave_like 'non-negative integer', :shooting_rules_penalty_qr, true
 
     describe "number" do
       it_should_behave_like 'non-negative integer', :number, true
