@@ -8,7 +8,7 @@ class Official::QualificationRoundBatchListsController < Official::BatchListsCon
       orientation = @race.sport_key == Sport::METSASTYSTRAP || @race.sport_key == Sport::METSASTYSHAULIKKO ? 'Landscape' : 'Portrait'
       format.pdf do
         render pdf: "#{@race.name}-alkukilpailu", layout: true,
-               margin: pdf_margin, header: pdf_header("#{t :result_sheet_pdf_title} - #{@race.name}"),
+               margin: pdf_margin, header: pdf_header("#{t :result_sheet_pdf_title} - #{@race.name} - #{I18n.t("sport_name.#{@race.sport_key}")}"),
                footer: pdf_footer, disable_smart_shrinking: true, orientation: orientation
       end
     end
