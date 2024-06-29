@@ -29,6 +29,3 @@ if ($('#extra_shots_<%= @competitor.id %>').length) {
 <% else %>
 $("#shots_result_<%= @competitor.id %>").html("<%= @competitor.shooting_score %>")
 <% end %>
-setTimeout(function() {
-  resetInlineMessage("#status_<%=@competitor.id%>")
-}, 5000);

@@ -6,15 +6,15 @@
         .card__middle
           .card__name
             = full_name competitor
-            %span{id: "status_#{competitor.id}"}
+            %span.status{id: "status_#{competitor.id}"}
           - unless competitor.no_result_reason
             .card__middle-row
               = form_for([:official, @series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "times_form_#{competitor.id}", class: 'form form--inline' }) do |f|
                 .form__horizontal-fields
                   .form__field.form__field--sm
-                    = f.text_field :start_time, value: time_print(f.object.start_time, true, '')
+                    = f.text_field :start_time, value: time_print(f.object.start_time, true, ''), class: 'time_field'
                   .card__sub-result.card__sub-result--time.form__field.form__field--sm
-                    = f.text_field :arrival_time, value: time_print(f.object.arrival_time, true, ''), placeholder: 'HH:MM:SS'
+                    = f.text_field :arrival_time, value: time_print(f.object.arrival_time, true, ''), placeholder: 'HH:MM:SS', class: 'time_field'
                   .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
         .card__main-value{id: "time_#{competitor.id}"}
           - if competitor.no_result_reason
@@ -24,4 +24,7 @@
     :javascript
       $("#times_form_#{competitor.id}").bind('ajax:error', function() {
         updateInlineMessage("#status_#{competitor.id}", 'error', 'Yhteysvirhe, yritä uudelleen')
+      });
+      $('.time_field').change(function() {
+        findAndResetInlineMessage($(this))
       });

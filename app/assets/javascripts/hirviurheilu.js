@@ -180,8 +180,12 @@ function resetInlineMessage(locator) {
   $(locator).removeClass().text('')
 }
 
-$(document).ready(function () {
-  $(document).on('click', '.binary-shot__option', function () {
+function findAndResetInlineMessage(inputFieldLocator) {
+  resetInlineMessage($(inputFieldLocator).closest('.card').find('.message'))
+}
+
+$(document).ready(function() {
+  $(document).on('click', '.binary-shot__option', function() {
     const alreadySelected = $(this).hasClass('binary-shot__option--selected')
     if (alreadySelected) {
       $(this).removeClass('binary-shot__option--selected')

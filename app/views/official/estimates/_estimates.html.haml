@@ -7,7 +7,7 @@
         .card__middle
           .card__name
             = full_name competitor
-            %span{id: "status_#{competitor.id}"}
+            %span.status{id: "status_#{competitor.id}"}
           - unless competitor.no_result_reason
             .card__middle-row
               = form_for([:official, @series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "estimates_form_#{competitor.id}", class: 'form form--inline' }) do |f|
@@ -20,17 +20,17 @@
                 .form__horizontal-fields
                   .form__field-prefix #1
                   .form__field.form__field--sm
-                    = f.number_field :estimate1, maxlength: 3, min: 1
+                    = f.number_field :estimate1, maxlength: 3, min: 1, class: 'estimate_field'
                   .form__field-prefix #2
                   .form__field.form__field--sm
-                    = f.number_field :estimate2, maxlength: 3, min: 1
+                    = f.number_field :estimate2, maxlength: 3, min: 1, class: 'estimate_field'
                   - if four_estimates
                     .form__field-prefix #3
                     .form__field.form__field--sm
-                      = f.number_field :estimate3, maxlength: 3, min: 1
+                      = f.number_field :estimate3, maxlength: 3, min: 1, class: 'estimate_field'
                     .form__field-prefix #4
                     .form__field.form__field--sm
-                      = f.number_field :estimate4, maxlength: 3, min: 1
+                      = f.number_field :estimate4, maxlength: 3, min: 1, class: 'estimate_field'
                   .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
         .card__main-value{id: "estimate_points_#{competitor.id}"}
           - if competitor.no_result_reason
@@ -40,4 +40,7 @@
     :javascript
       $("#estimates_form_#{competitor.id}").bind('ajax:error', function() {
         updateInlineMessage("#status_#{competitor.id}", 'error', 'Yhteysvirhe, yritä uudelleen')
+      });
+      $('.estimate_field').change(function() {
+        findAndResetInlineMessage($(this))
       });

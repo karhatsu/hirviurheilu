@@ -27,7 +27,7 @@
                 = full_name competitor
                 - if competitor.number
                   (##{competitor.number})
-                %span{id: "status_#{competitor.id}"}
+                %span.status{id: "status_#{competitor.id}"}
               - unless competitor.no_result_reason
                 .card__middle-row
                   = form_for([:official, competitor.series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "shots_form_#{competitor.id}", class: 'form form--inline' }) do |f|
@@ -48,9 +48,11 @@
 :javascript
   $('.shots-total-input').change(function() {
     calculateShotsResult($(this))
+    findAndResetInlineMessage($(this))
   });
   $('.shot').change(function() {
     calculateShotsResult($(this))
+    findAndResetInlineMessage($(this))
   });
   function calculateShotsResult(field) {
     const $card = field.closest('.card')

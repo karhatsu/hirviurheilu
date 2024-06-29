@@ -18,7 +18,7 @@
             #{full_name competitor} (#{competitor.series.name})
             - if competitor.qualification_round_track_place
               %span.track_place{style: 'display: none;'}= ", #{t('attributes.track_place').downcase} #{competitor.qualification_round_track_place}"
-            %span{id: "status_#{competitor.id}"}
+            %span.status{id: "status_#{competitor.id}"}
           - unless competitor.no_result_reason
             .card__middle-row
               = form_for([:official, competitor.series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "shots_form_#{competitor.id}", class: 'form form--inline' }) do |f|
@@ -45,9 +45,11 @@
   }
   $('.shots-total-input').change(function() {
     calculateShotsResult($(this))
+    findAndResetInlineMessage($(this))
   });
   $('.shot').change(function() {
     calculateShotsResult($(this))
+    findAndResetInlineMessage($(this))
   });
   function calculateShotsResult(field) {
     const $card = field.closest('.card')
