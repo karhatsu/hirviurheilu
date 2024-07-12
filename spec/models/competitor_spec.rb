@@ -124,7 +124,9 @@ describe Competitor do
       it { is_expected.to allow_value(['1', '0', '1']).for(attribute) }
       it { is_expected.not_to allow_value(['0', '1', '0.9']).for(attribute) }
       it { is_expected.to allow_value(25.times.map{1}).for(attribute) }
-      it { is_expected.not_to allow_value(26.times.map{1}).for(attribute) }
+      if attribute != :european_shotgun_extra_shots
+        it { is_expected.not_to allow_value(26.times.map{1}).for(attribute) }
+      end
     end
 
     shared_examples_for 'shotgun extra shots' do |attribute|
@@ -507,6 +509,7 @@ describe Competitor do
 
       describe 'trap_shots' do
         it_should_behave_like 'shotgun shots', :european_trap_shots
+        it_should_behave_like 'shotgun shots', :european_shotgun_extra_shots
 
         it 'can be saved together with blank score input' do
           competitor = build :competitor, european_trap_shots: %w(1, 0, 1, 1), european_trap_score_input: ''
@@ -621,6 +624,13 @@ describe Competitor do
         competitor.european_rifle_extra_shots = %w(8 9 10)
         competitor.save
         expect(competitor.european_rifle_extra_shots).to eql [8, 9, 10]
+      end
+
+      it 'converts shotgun extra shots strings to integer' do
+        competitor = build :competitor
+        competitor.european_shotgun_extra_shots = %w(1 0 1)
+        competitor.save
+        expect(competitor.european_shotgun_extra_shots).to eql [1, 0, 1]
       end
 
       it 'converts extra score string to integer' do
