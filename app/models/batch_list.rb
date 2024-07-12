@@ -52,7 +52,7 @@ class BatchList
   end
 
   def validate_time(time, error_key)
-    @errors << I18n.t(error_key, scope: 'activerecord.errors.models.batch_list') unless time =~ /[0-2]?[0-9]:[0-5][0-9]/
+    @errors << I18n.t(error_key, scope: 'activerecord.errors.models.batch_list') unless time =~ /^[0-2]?[0-9]:[0-5][0-9]$/
   end
 
   def validate_included_tracks(include_tracks)

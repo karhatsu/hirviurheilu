@@ -62,8 +62,13 @@ describe BatchList do
       expect(generator.errors).to eql ['Ensimmäinen paikkanumero on virheellinen']
     end
 
-    it 'returns error when invalid first_batch_time' do
+    it 'returns error when invalid first_batch_time (1)' do
       generator.generate_qualification_round 1, 1, 'xx:99', minutes_between_batches
+      expect(generator.errors).to eql ['Ensimmäinen erän kellonaika on virheellinen']
+    end
+
+    it 'returns error when invalid first_batch_time (2)' do
+      generator.generate_qualification_round 1, 1, '12:345', minutes_between_batches
       expect(generator.errors).to eql ['Ensimmäinen erän kellonaika on virheellinen']
     end
 
