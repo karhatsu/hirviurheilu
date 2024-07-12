@@ -26,6 +26,7 @@ import QAndAPage from './info/QAndAPage'
 import FeedbackPage from './feedback/FeedbackPage'
 import SportsInfoPage from './info/SportsInfoPage'
 import CupTeamCompetitionPage from './cup/CupTeamCompetitionPage'
+import EuropeanShotgunResultsPage from './european/EuropeanShotgunResultsPage'
 
 export default function MainContent({ cupSeriesPaths }) {
   return (
@@ -60,6 +61,10 @@ export default function MainContent({ cupSeriesPaths }) {
         <Route
           path="/:lang?/races/:raceId/series/:seriesId/rifle"
           render={() => <EuropeanRifleResultsPage />}
+        />
+        <Route
+          path="/:lang?/races/:raceId/series/:seriesId/shotguns"
+          render={() => <EuropeanShotgunResultsPage />}
         />
         <Route
           path="/:lang?/races/:raceId/series/:seriesId/:subSport"

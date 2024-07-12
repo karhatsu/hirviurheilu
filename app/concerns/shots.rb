@@ -85,6 +85,11 @@ module Shots
     resolve_sub_score european_compak_score_input, european_compak_shots
   end
 
+  def european_shotgun_score
+    return nil unless european_trap_score || european_compak_score
+    4 * (european_trap_score.to_i + european_compak_score.to_i)
+  end
+
   def european_rifle1_score
     resolve_sub_score european_rifle1_score_input, european_rifle1_shots
   end

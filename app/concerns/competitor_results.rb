@@ -67,6 +67,14 @@ module CompetitorResults
     results
   end
 
+  def european_shotgun_results
+    results = no_result_reason_results
+    return results if results
+    results = [european_shotgun_score.to_i]
+    results = results + european_shotgun_extra_shots if european_shotgun_extra_shots
+    results
+  end
+
   private
 
   def no_result_reason_results

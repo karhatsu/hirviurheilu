@@ -36,6 +36,7 @@ export const pages = {
     feedback: 22,
     sportsInfo: 23,
   },
+  europeanShotgun: 24,
 }
 
 const useMenu = () => {

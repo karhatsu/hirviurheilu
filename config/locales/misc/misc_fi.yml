@@ -175,6 +175,7 @@ fi:
     european_sub:
       trap: Trap
       compak: Compak
+      shotgun: Haulikko
       rifle: Luodikko
       rifle1: Metsäkauris
       rifle2: Kettu

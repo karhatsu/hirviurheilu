@@ -51,6 +51,7 @@ fi:
     european_rifle3_score_input: Gemssin tulos
     european_rifle4_shots: Villisian laukaukset
     european_rifle4_score_input: Villisian tulos
+    european_shotgun_extra_shots: Haulikon uusintalaukaukset
     extra_shots: Uusinnan laukaukset
     final_round_batch_id: Loppukilpailun erä
     final_round_shooting_score_input: Loppukilpailun yhteistulos

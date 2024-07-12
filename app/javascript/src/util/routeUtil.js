@@ -20,6 +20,8 @@ export const buildSeriesResultsPath = (raceId, seriesId) => withLocale(`/races/$
 
 export const buildSeriesRifleResultsPath = (raceId, seriesId) => withLocale(`/races/${raceId}/series/${seriesId}/rifle`)
 
+export const buildSeriesShotgunsResultsPath = (raceId, seriesId) => withLocale(`/races/${raceId}/series/${seriesId}/shotguns`)
+
 export const buildNordicResultsPath = (raceId, subSport) => withLocale(`/races/${raceId}/${subSport}`)
 
 export const buildNordicSeriesResultsPath = (raceId, seriesId, subSport) => withLocale(`/races/${raceId}/series/${seriesId}/${subSport}`)

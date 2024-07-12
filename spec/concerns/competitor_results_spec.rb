@@ -309,6 +309,12 @@ describe CompetitorResults do
         expect(competitor_with_no_result_reason(Competitor::DQ).european_rifle_results).to eql [-30000]
       end
 
+      it 'shotgun returns array of one item with negative value' do
+        expect(competitor_with_no_result_reason(Competitor::DNF).european_shotgun_results).to eql [-10000]
+        expect(competitor_with_no_result_reason(Competitor::DNS).european_shotgun_results).to eql [-20000]
+        expect(competitor_with_no_result_reason(Competitor::DQ).european_shotgun_results).to eql [-30000]
+      end
+
       it 'total returns array of one item with negative value' do
         expect(competitor_with_no_result_reason(Competitor::DNF).european_total_results).to eql [-10000]
         expect(competitor_with_no_result_reason(Competitor::DNS).european_total_results).to eql [-20000]
@@ -324,6 +330,7 @@ describe CompetitorResults do
       context 'and without results' do
         it 'return array of zeros' do
           expect(competitor.european_rifle_results).to eql [0, 0, 0, 0, 0, 0]
+          expect(competitor.european_shotgun_results).to eql [0]
           expect(competitor.european_total_results).to eql [0, 0, 0, 0, 0, 0, 0, 0]
         end
       end
@@ -338,12 +345,17 @@ describe CompetitorResults do
             competitor.european_rifle3_score_input = 50
             competitor.european_rifle4_score_input = 48
             competitor.european_rifle_extra_shots = [10, 9, 8]
+            competitor.european_shotgun_extra_shots = [1, 0, 1]
             competitor.european_extra_score = 199
             competitor.shooting_rules_penalty = 4
           end
 
           it 'rifle returns array of total rifle score, single scores in reverse order, 0, and extra shots' do
             expect(competitor.european_rifle_results).to eql [rifle_score, 48, 50, 45, 40, 0, 10, 9, 8]
+          end
+
+          it 'shotgun returns array of total shotgun score and extra shots' do
+            expect(competitor.european_shotgun_results).to eql [4 * (25 + 25), 1, 0, 1]
           end
 
           it 'total returns array of total score, rifle score, single rifle scores in reverse order, 0, and extra score' do
