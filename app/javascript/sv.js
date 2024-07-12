@@ -66,6 +66,7 @@ window.translations = {
   european_rifle2: 'Räv',
   european_rifle3: 'Gems',
   european_rifle4: 'Vildsvin',
+  european_shotgun: 'Trap och compak',
   european_trap: 'Trap',
   extraRound: 'Omskjutning',
   feedback: 'Feedback',

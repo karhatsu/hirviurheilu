@@ -403,6 +403,10 @@ class Competitor < ApplicationRecord
     european_rifle1_shots || european_rifle2_shots || european_rifle3_shots || european_rifle4_shots
   end
 
+  def has_european_shotgun_shots?
+    european_trap_shots || european_compak_shots
+  end
+
   private
 
   def start_time_max

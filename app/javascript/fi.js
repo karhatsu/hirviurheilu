@@ -66,6 +66,7 @@ window.translations = {
   european_rifle2: 'Kettu',
   european_rifle3: 'Gemssi',
   european_rifle4: 'Villisika',
+  european_shotgun: 'Haulikko',
   european_trap: 'Trap',
   extraRound: 'Uusinta',
   feedback: 'Palaute',

@@ -5,6 +5,7 @@ import {
   buildNordicSeriesResultsPath,
   buildSeriesResultsPath,
   buildSeriesRifleResultsPath,
+  buildSeriesShotgunsResultsPath,
   buildSeriesStartListPath,
 } from '../util/routeUtil'
 import TeamCompetitionDesktopSubMenu from './team-competition/TeamCompetitionDesktopSubMenu'
@@ -28,6 +29,13 @@ export default function DesktopSubMenu({ cupSeriesPaths }) {
           race={race}
           currentSeriesId={seriesId}
           buildSeriesPath={buildSeriesRifleResultsPath}
+        />
+      </Route>
+      <Route path="/:lang?/races/:raceId/series/:seriesId/shotguns">
+        <SeriesDesktopSubMenu
+          race={race}
+          currentSeriesId={seriesId}
+          buildSeriesPath={buildSeriesShotgunsResultsPath}
         />
       </Route>
       <Route path="/:lang?/races/:raceId/series/:seriesId/:subSport">

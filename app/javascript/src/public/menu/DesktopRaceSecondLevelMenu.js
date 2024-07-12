@@ -9,6 +9,7 @@ import {
   buildRifleTeamCompetitionsPath,
   buildSeriesResultsPath,
   buildSeriesRifleResultsPath,
+  buildSeriesShotgunsResultsPath,
   buildSeriesStartListPath,
   buildTeamCompetitionsPath,
 } from '../../util/routeUtil'
@@ -80,15 +81,26 @@ export default function DesktopRaceSecondLevelMenu({ race }) {
             </>
           )}
           {race.sport.european && (
-            <DesktopMenuItem
-              path={buildSeriesRifleResultsPath(race.id, seriesId)}
-              text={t('rifle')}
-              selected={selectedPage === pages.europeanRifle}
-              reactLink={true}
-              dropdownItems={race.series.map(s => (
-                { text: s.name, path: buildSeriesRifleResultsPath(race.id, s.id), reactLink: true }),
-              )}
-            />
+            <>
+              <DesktopMenuItem
+                path={buildSeriesRifleResultsPath(race.id, seriesId)}
+                text={t('rifle')}
+                selected={selectedPage === pages.europeanRifle}
+                reactLink={true}
+                dropdownItems={race.series.map(s => (
+                  { text: s.name, path: buildSeriesRifleResultsPath(race.id, s.id), reactLink: true }),
+                )}
+              />
+              <DesktopMenuItem
+                path={buildSeriesShotgunsResultsPath(race.id, seriesId)}
+                text={t('european_shotgun')}
+                selected={selectedPage === pages.europeanShotgun}
+                reactLink={true}
+                dropdownItems={race.series.map(s => (
+                  { text: s.name, path: buildSeriesShotgunsResultsPath(race.id, s.id), reactLink: true }),
+                )}
+              />
+            </>
           )}
           {race.sport.batchList && race.qualificationRoundBatches.length > 0 && (
             <DesktopMenuItem
