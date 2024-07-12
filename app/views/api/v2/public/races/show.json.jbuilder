@@ -1,5 +1,5 @@
 json.key_format! camelize: :lower if request.headers['X-Camel-Case']
-json.(@race, :id, :name, :location, :start_date, :end_date, :address, :home_page, :organizer, :organizer_phone, :sport_name, :club_level, :finished, :cancelled, :public_message, :sport_key, :hide_qualification_round_batches, :hide_final_round_batches, :days_count, :nordic_sub_results_for_series)
+json.(@race, :id, :name, :location, :start_date, :end_date, :address, :home_page, :organizer, :organizer_phone, :sport_name, :club_level, :finished, :cancelled, :public_message, :sport_key, :hide_qualification_round_batches, :hide_final_round_batches, :days_count, :nordic_sub_results_for_series, :show_european_shotgun_results)
 json.start_date_time @race.start_datetime
 json.start_time @race.short_start_time
 json.all_competitions_finished @race.all_competitions_finished?

@@ -91,15 +91,17 @@ export default function DesktopRaceSecondLevelMenu({ race }) {
                   { text: s.name, path: buildSeriesRifleResultsPath(race.id, s.id), reactLink: true }),
                 )}
               />
-              <DesktopMenuItem
-                path={buildSeriesShotgunsResultsPath(race.id, seriesId)}
-                text={t('european_shotgun')}
-                selected={selectedPage === pages.europeanShotgun}
-                reactLink={true}
-                dropdownItems={race.series.map(s => (
-                  { text: s.name, path: buildSeriesShotgunsResultsPath(race.id, s.id), reactLink: true }),
-                )}
-              />
+              {race.showEuropeanShotgunResults && (
+                <DesktopMenuItem
+                  path={buildSeriesShotgunsResultsPath(race.id, seriesId)}
+                  text={t('european_shotgun')}
+                  selected={selectedPage === pages.europeanShotgun}
+                  reactLink={true}
+                  dropdownItems={race.series.map(s => (
+                    { text: s.name, path: buildSeriesShotgunsResultsPath(race.id, s.id), reactLink: true }),
+                  )}
+                />
+              )}
             </>
           )}
           {race.sport.batchList && race.qualificationRoundBatches.length > 0 && (

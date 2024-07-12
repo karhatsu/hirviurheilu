@@ -5,7 +5,10 @@ Feature: European results
 
   @javascript
   Scenario: Show european race results
-    Given there is a "EUROPEAN" race "European test race"
+    Given there is a race with attributes:
+      | sport_key | EUROPEAN |
+      | name      | European test race |
+      | show_european_shotgun_results | true |
     And the race has series "M"
     And the series has a competitor "Pekka" "Pohjola" from "Team A" with european results 25, 20, 49, 50, 40, 38
     And the series has a competitor "Pertti" "Pohjonen" from "Team B" with european results 24, 22, 42, 44, 49, 50

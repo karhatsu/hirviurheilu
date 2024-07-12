@@ -37,6 +37,7 @@ export default function RaceSeries({ race }) {
     finished,
     nordicSubResultsForSeries,
     series,
+    showEuropeanShotgunResults,
     sport,
     startDateTime,
     startTime,
@@ -101,15 +102,19 @@ export default function RaceSeries({ race }) {
               return <Button key={id} to={buildSeriesRifleResultsPath(race.id, id)} type="primary">{name}</Button>
             })}
           </div>
-          <h3>{t('european_shotgun')}</h3>
-          <div className="buttons" id="european_shotgun_buttons">
-            {series.map(s => {
-              const { id, name } = s
-              return (
-                <Button key={id} to={buildSeriesShotgunsResultsPath(race.id, id)} type="primary">{name}</Button>
-              )
-            })}
-          </div>
+          {showEuropeanShotgunResults && (
+            <>
+              <h3>{t('european_shotgun')}</h3>
+              <div className="buttons" id="european_shotgun_buttons">
+                {series.map(s => {
+                  const { id, name } = s
+                  return (
+                    <Button key={id} to={buildSeriesShotgunsResultsPath(race.id, id)} type="primary">{name}</Button>
+                  )
+                })}
+              </div>
+            </>
+          )}
         </>
       )}
       {!finished && series.find(s => s.competitorsCount > 0) && (

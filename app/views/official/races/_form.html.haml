@@ -46,6 +46,10 @@
           = f.label :reveal_distances
           %a.help#reveal_distances_help{href: 'javascript:void(0);'} ?
       .col-xs-12.col-sm-9= f.check_box :reveal_distances
+  - if @race.sport.european?
+    .form__field.row
+      .col-xs-12.col-sm-3= f.label :show_european_shotgun_results
+      .col-xs-12.col-sm-9= f.check_box :show_european_shotgun_results
   - unless @race.new_record?
     .form__field.row
       .col-xs-12.col-sm-3= f.label :cancelled

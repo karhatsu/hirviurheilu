@@ -131,6 +131,7 @@ fi:
     short_name: Lyhyt nimi
     shorter_trip: Lyhennetty matka
     shots: Laukaukset
+    show_european_shotgun_results: Näytä haulikon tulokset
     sport_key: Laji
     start_date: Alkupvm
     start_day: Aloituspäivä
