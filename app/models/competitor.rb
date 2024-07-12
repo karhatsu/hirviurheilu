@@ -336,6 +336,12 @@ class Competitor < ApplicationRecord
     end
   end
 
+  def self.sort_european_shotgun_competitors(competitors)
+    competitors.sort do |a, b|
+      [b.european_shotgun_results, a.number.to_i] <=> [a.european_shotgun_results, b.number.to_i]
+    end
+  end
+
   def self.sort_european_competitors(competitors)
     competitors.select{|comp| !comp.only_rifle?}.sort do |a, b|
       [b.european_total_results, a.number.to_i] <=> [a.european_total_results, b.number.to_i]
