@@ -12,6 +12,7 @@ import {
   buildRaceStartListsPdfPath,
   buildSeriesResultsPath,
   buildSeriesRifleResultsPath,
+  buildSeriesShotgunsResultsPath,
   buildSeriesStartListPath,
 } from '../../util/routeUtil'
 import ClubSelect from './ClubSelect'
@@ -98,6 +99,15 @@ export default function RaceSeries({ race }) {
             {series.map(s => {
               const { id, name } = s
               return <Button key={id} to={buildSeriesRifleResultsPath(race.id, id)} type="primary">{name}</Button>
+            })}
+          </div>
+          <h3>{t('european_shotgun')}</h3>
+          <div className="buttons">
+            {series.map(s => {
+              const { id, name } = s
+              return (
+                <Button key={id} to={buildSeriesShotgunsResultsPath(race.id, id)} type="primary">{name}</Button>
+              )
             })}
           </div>
         </>
