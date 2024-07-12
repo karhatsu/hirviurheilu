@@ -221,6 +221,7 @@ window.translations = {
   timeTitle_RUN: 'Juoksu',
   timeTitle_SKI: 'Hiihto',
   totalPoints: 'Yhteispisteet',
+  totalResults: 'Yhteistulokset',
   track: 'Rata',
   unofficialCompetitor: 'Epävirallinen kilpailija',
   unofficialShort: 'epäv.',

@@ -221,6 +221,7 @@ window.translations = {
   timeTitle_RUN: 'Löpning',
   timeTitle_SKI: 'Skidning',
   totalPoints: 'Totalpoäng',
+  totalResults: 'Resultat',
   track: 'Bana',
   unofficialCompetitor: 'Informella tävlare',
   unofficialShort: 'inf.',

@@ -22,6 +22,12 @@ import { formatTodaysTime } from '../../util/timeUtil'
 
 const nordicSubSports = ['trap', 'shotgun', 'rifle_standing', 'rifle_moving']
 
+const resultsKey = sport => {
+  if (sport.european) return 'totalResults'
+  if (sport.shooting) return 'results'
+  return 'personalCompetitions'
+}
+
 export default function RaceSeries({ race }) {
   const { t } = useTranslation()
   const {
@@ -48,7 +54,7 @@ export default function RaceSeries({ race }) {
   const frHidden = race.hideFinalRoundBatches
   return (
     <>
-      <h2>{t(sport.shooting ? 'results' : 'personalCompetitions')}</h2>
+      <h2>{t(resultsKey(sport))}</h2>
       {infos.length > 0 && <Message type="info">{infos.join('. ')}.</Message>}
       <div className="buttons" id="series-links">
         {series.map(s => {
@@ -86,13 +92,15 @@ export default function RaceSeries({ race }) {
         </React.Fragment>
       ))}
       {sport.european && (
-        <div className="buttons">
-          {series.map(s => {
-            const { id, name } = s
-            const linkText = `${t('rifle')} ${name}`
-            return <Button key={id} to={buildSeriesRifleResultsPath(race.id, id)} type="primary">{linkText}</Button>
-          })}
-        </div>
+        <>
+          <h3>{t('european_rifle')}</h3>
+          <div className="buttons">
+            {series.map(s => {
+              const { id, name } = s
+              return <Button key={id} to={buildSeriesRifleResultsPath(race.id, id)} type="primary">{name}</Button>
+            })}
+          </div>
+        </>
       )}
       {!finished && series.find(s => s.competitorsCount > 0) && (
         <div className="results--desktop">
