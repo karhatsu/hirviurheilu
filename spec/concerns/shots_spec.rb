@@ -560,6 +560,10 @@ describe Shots do
         expect(competitor.european_compak_score).to be_nil
       end
 
+      it 'european shotgun score is nil' do
+        expect(competitor.european_shotgun_score).to be_nil
+      end
+
       it 'rifle scores are nil' do
         expect(competitor.european_rifle1_score).to be_nil
         expect(competitor.european_rifle2_score).to be_nil
@@ -568,7 +572,7 @@ describe Shots do
       end
 
       it 'european rifle score is nil' do
-        expect(competitor.european_score).to be_nil
+        expect(competitor.european_rifle_score).to be_nil
       end
 
       it 'european score is nil' do
@@ -576,7 +580,7 @@ describe Shots do
       end
     end
 
-    context 'when some scores defined' do
+    context 'when some rifle scores defined' do
       before do
         competitor.european_rifle2_score_input = 43
       end
@@ -587,6 +591,34 @@ describe Shots do
 
       it 'european score assumes 0 for others' do
         expect(competitor.european_score).to eql 43
+      end
+    end
+
+    context 'when trap score defined' do
+      before do
+        competitor.european_trap_score_input = 22
+      end
+
+      it 'european shotgun score assumes 0 for compak' do
+        expect(competitor.european_shotgun_score).to eql 4 * 22
+      end
+
+      it 'european score assumes 0 for others' do
+        expect(competitor.european_score).to eql 4 * 22
+      end
+    end
+
+    context 'when compak score defined' do
+      before do
+        competitor.european_compak_score_input = 19
+      end
+
+      it 'european shotgun score assumes 0 for trap' do
+        expect(competitor.european_shotgun_score).to eql 4 * 19
+      end
+
+      it 'european score assumes 0 for others' do
+        expect(competitor.european_score).to eql 4 * 19
       end
     end
 
@@ -606,6 +638,10 @@ describe Shots do
 
       it 'compak score is given input' do
         expect(competitor.european_compak_score).to eql 21
+      end
+
+      it 'european shotgun score is 4 x sum of trap and compak' do
+        expect(competitor.european_shotgun_score).to eql 4 * 25 + 4 * 21
       end
 
       it 'rifle scores are their given inputs' do
