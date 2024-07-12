@@ -188,6 +188,7 @@ window.translations = {
   shootingRulesPenalty: 'Straff för brott mot skjutregler',
   shootingTime: 'Skyttetid',
   shots: 'Skott',
+  showAll: 'Visa alla',
   showCompetitors: 'Visa tävlarna',
   showCupCompetitions: 'Visa deltävlingar',
   showOfficialResults: 'Visa formella resultaten',

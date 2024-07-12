@@ -188,6 +188,7 @@ window.translations = {
   shootingRulesPenalty: 'Rangaistus ammuntasääntöjen rikkomisesta',
   shootingTime: 'Ammunta-aika',
   shots: 'Laukaukset',
+  showAll: 'Näytä kaikki',
   showCompetitors: 'Näytä kilpailijat',
   showCupCompetitions: 'Näytä osakilpailut',
   showOfficialResults: 'Näytä viralliset tulokset',

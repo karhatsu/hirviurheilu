@@ -53,7 +53,7 @@ export default function HomePage() {
       </Races>
       <div id="future_races">
         {future.map(({ key, races }) => {
-          return <Races key={key} races={races} titleKey={`races_${key}`} icon="today" />
+          return <Races key={key} races={races} titleKey={`races_${key}`} icon="today" limit={true} />
         })}
       </div>
       <Races races={past} titleKey={pastTitleKey} icon="check_circle" sectionId="past-races">
