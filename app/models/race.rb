@@ -64,10 +64,10 @@ class Race < ApplicationRecord
   before_create :generate_api_secret
   after_update :set_series_start_lists_if_needed
 
-  scope :yesterday, lambda { where('end_date=?', Time.zone.today - 1).order('name') }
-  scope :past, lambda { where('end_date<?', Time.zone.today - 1).order('end_date DESC, name') }
-  scope :today, lambda { where('start_date<=? AND end_date>=?', Time.zone.today, Time.zone.today).order('start_date, name') }
-  scope :future, lambda { where('start_date>?', Time.zone.today).order('start_date, name') }
+  scope :yesterday, lambda { where('end_date=?', Time.zone.today - 1).order('level DESC, name') }
+  scope :past, lambda { where('end_date<?', Time.zone.today - 1).order('end_date DESC, level DESC, name') }
+  scope :today, lambda { where('start_date<=? AND end_date>=?', Time.zone.today, Time.zone.today).order('start_date, level DESC, name') }
+  scope :future, lambda { where('start_date>?', Time.zone.today).order('start_date, level DESC, name') }
 
   attr_accessor :email, :password # for publishing
   attr_accessor :user # multiple races import
