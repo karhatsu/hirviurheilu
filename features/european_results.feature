@@ -52,11 +52,26 @@ Feature: European results
       | shoot | Gemssi: 40 |
       | shoot | Villisika: 38 |
     And I should see a card 2 for "Pohjola Pekka" with total score 177
+    When I follow "Haulikko"
+    And I wait for the results
+    And I force mobile UI
+    Then I should see a card 1 for "Pohjonen Pertti" with total score 184
+    And I should see the following sub results in result card 1 detail row 2:
+      | shoot | Trap: 24 |
+      | shoot | Compak: 22 |
+    And I should see the following sub results in result card 2 detail row 2:
+      | shoot | Trap: 25 |
+      | shoot | Compak: 20 |
     When I choose "Kilpailun etusivu" from sub menu
-    And I follow "Luodikko N"
+    And I follow "N" within "#european_rifle_buttons"
     And I wait for the results
     And I force mobile UI
     Then I should see a card 1 for "Pohjoinen Päivi" with total score 179
+    When I choose "Kilpailun etusivu" from sub menu
+    And I follow "N" within "#european_shotgun_buttons"
+    And I wait for the results
+    And I force mobile UI
+    Then I should see a card 1 for "Pohjoinen Päivi" with total score 192
     When I choose "Joukkuekilpailu" from sub menu
     And I wait for the results
     And I force mobile UI
