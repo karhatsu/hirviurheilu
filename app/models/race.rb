@@ -254,9 +254,23 @@ class Race < ApplicationRecord
 
   def nordic_sub_results(sub_sport)
     raise "Nordic sub results are available only in series level" if nordic_sub_results_for_series?
-    sorted_competitors = Competitor.sort_nordic_competitors competitors.includes([:club, :age_group, :series]), sub_sport
+    sorted_competitors = Competitor.sort_nordic_competitors competitors.includes([:club, :series]), sub_sport
     add_position_for_competitors sorted_competitors do |competitor|
       competitor.nordic_sub_results sub_sport
+    end
+  end
+
+  def european_rifle_results
+    sorted_competitors = Competitor.sort_european_rifle_competitors competitors.includes([:club, :series])
+    add_position_for_competitors sorted_competitors do |competitor|
+      competitor.european_rifle_results
+    end
+  end
+
+  def european_shotgun_results
+    sorted_competitors = Competitor.sort_european_shotgun_competitors competitors.includes([:club, :series])
+    add_position_for_competitors sorted_competitors do |competitor|
+      competitor.european_shotgun_results
     end
   end
 

@@ -5,9 +5,8 @@ import MobileSubResult from '../series-results/MobileSubResult'
 import ShootingResult from '../series-results/ShootingResult'
 import TotalScore from '../series-results/TotalScore'
 
-export default function EuropeanShotgunMobileResults({ race, series }) {
+export default function EuropeanShotgunMobileResults({ competitors }) {
   const { t } = useTranslation()
-  const { competitors } = series
   return (
     <MobileResultCards competitors={competitors}>
       {competitor => {

@@ -1,3 +1,3 @@
 %h2= t 'sport_name.european_sub.shotgun'
-- cache [@series, @sub_sport, I18n.locale] do
-  = render partial: 'result_table', locals: { series: @series }
+- cache [@race, @series, @sub_sport, I18n.locale] do
+  = render partial: 'result_table', locals: { competitors: @competitors }

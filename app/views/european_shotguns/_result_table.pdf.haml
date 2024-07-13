@@ -1,11 +1,10 @@
-- competitors = series.european_shotgun_results
 - extra_shots_column = competitors.any? {|competitor| competitor.european_shotgun_extra_shots}
 %table.results-table
   %tr
     %th &nbsp;
     %th= t 'attributes.name'
     %th= t 'number_short'
-    %th#table_club_title= club_title(series.race)
+    %th#table_club_title= club_title(@race)
     %th= t 'sport_name.european_sub.trap'
     %th= t 'sport_name.european_sub.compak'
     %th= t :result

@@ -6,9 +6,8 @@ import ShootingResult from '../series-results/ShootingResult'
 import TotalScore from '../series-results/TotalScore'
 import EuropeanRifleNationalRecord from './EuropeanRifleNationalRecord'
 
-export default function EuropeanRifleMobileResults({ race, series }) {
+export default function EuropeanRifleMobileResults({ race, series, competitors }) {
   const { t } = useTranslation()
-  const { competitors } = series
   return (
     <MobileResultCards competitors={competitors}>
       {competitor => {
@@ -58,7 +57,7 @@ export default function EuropeanRifleMobileResults({ race, series }) {
             </div>
             <div className="card__main-value">
               <TotalScore noResultReason={noResultReason} totalScore={europeanRifleScore} />
-              <EuropeanRifleNationalRecord race={race} series={series} competitor={competitor} />
+              {series && <EuropeanRifleNationalRecord race={race} series={series} competitor={competitor} />}
             </div>
           </>
         )

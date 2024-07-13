@@ -15,7 +15,7 @@ import useRaceData from '../../util/useRaceData'
 import IncompletePage from '../../common/IncompletePage'
 import useDataReloading from '../../util/useDataReloading'
 
-export default function EuropeanRifleResultsPage() {
+export default function EuropeanRifleSeriesResultsPage() {
   const { t } = useTranslation()
   const { setSelectedPage } = useMenu()
   const { seriesId } = useParams()
@@ -37,8 +37,8 @@ export default function EuropeanRifleResultsPage() {
       <h2>{t('rifle')} - {series.name}</h2>
       <SeriesStatus race={race} series={series}>
         <ResultsWithShots competitors={series.competitors}>
-          {!mobile && <EuropeanRifleDesktopResults race={race} series={series} />}
-          {mobile && <EuropeanRifleMobileResults race={race} series={series} />}
+          {!mobile && <EuropeanRifleDesktopResults race={race} series={series} competitors={series.competitors} />}
+          {mobile && <EuropeanRifleMobileResults race={race} series={series} competitors={series.competitors} />}
           <div className="buttons">
             <Button href={`${buildSeriesRifleResultsPath(race.id, series.id)}.pdf`} type="pdf">
               {t('downloadResultsPdf')}

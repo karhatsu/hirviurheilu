@@ -7,7 +7,7 @@ import QualificationRoundBatches from './batches/QualificationRoundBatches'
 import FinalRoundBatches from './batches/FinalRoundBatches'
 import ResultRotationPage from './result-rotation/ResultRotationPage'
 import StartListPage from './start-list/StartListPage'
-import EuropeanRifleResultsPage from './european/EuropeanRifleResultsPage'
+import EuropeanRifleSeriesResultsPage from './european/EuropeanRifleSeriesResultsPage'
 import SeriesResultsPage from './series-results/SeriesResultsPage'
 import RelayResultsPage from './relay/RelayResultsPage'
 import RaceMediaPage from './media/RaceMediaPage'
@@ -26,7 +26,9 @@ import QAndAPage from './info/QAndAPage'
 import FeedbackPage from './feedback/FeedbackPage'
 import SportsInfoPage from './info/SportsInfoPage'
 import CupTeamCompetitionPage from './cup/CupTeamCompetitionPage'
-import EuropeanShotgunResultsPage from './european/EuropeanShotgunResultsPage'
+import EuropeanShotgunSeriesResultsPage from './european/EuropeanShotgunSeriesResultsPage'
+import EuropeanShotgunRaceResultsPage from './european/EuropeanShotgunRaceResultsPage'
+import EuropeanRifleRaceResultsPage from './european/EuropeanRifleRaceResultsPage'
 
 export default function MainContent({ cupSeriesPaths }) {
   return (
@@ -60,11 +62,11 @@ export default function MainContent({ cupSeriesPaths }) {
         />
         <Route
           path="/:lang?/races/:raceId/series/:seriesId/rifle"
-          render={() => <EuropeanRifleResultsPage />}
+          render={() => <EuropeanRifleSeriesResultsPage />}
         />
         <Route
           path="/:lang?/races/:raceId/series/:seriesId/shotguns"
-          render={() => <EuropeanShotgunResultsPage />}
+          render={() => <EuropeanShotgunSeriesResultsPage />}
         />
         <Route
           path="/:lang?/races/:raceId/series/:seriesId/:subSport"
@@ -82,6 +84,8 @@ export default function MainContent({ cupSeriesPaths }) {
           path="/:lang?/races/:raceId/medium/new"
           render={() => <RaceMediaPage />}
         />
+        <Route path="/:lang?/races/:raceId/rifle" render={() => <EuropeanRifleRaceResultsPage />} />
+        <Route path="/:lang?/races/:raceId/shotguns" render={() => <EuropeanShotgunRaceResultsPage />} />
         <Route
           path="/:lang?/races/:raceId/:subSport"
           render={() => <NordicSubSportResultsPage />}

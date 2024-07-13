@@ -3,6 +3,13 @@ export const raceEnums = {
     club: 0,
     district: 1,
   },
+  level: {
+    other: 0,
+    district: 1,
+    area: 2,
+    national: 3,
+    international: 4,
+  },
 }
 
 export const seriesEnums = {

@@ -6,10 +6,9 @@ import ShootingResult from '../series-results/ShootingResult'
 import TotalScore from '../series-results/TotalScore'
 import { ShowShotsContext } from '../series-results/ResultsWithShots'
 
-export default function EuropeanShotgunDesktopResults({ race, series }) {
+export default function EuropeanShotgunDesktopResults({ race, competitors }) {
   const { t } = useTranslation()
   const showShots = useContext(ShowShotsContext)
-  const { competitors } = series
   const extraShots = !!competitors.find(c => c.europeanShotgunExtraShots)
   const resultClassName = showShots ? '' : 'center'
   return (

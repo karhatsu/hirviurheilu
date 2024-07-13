@@ -7,10 +7,9 @@ import TotalScore from '../series-results/TotalScore'
 import EuropeanRifleNationalRecord from './EuropeanRifleNationalRecord'
 import { ShowShotsContext } from '../series-results/ResultsWithShots'
 
-export default function EuropeanRifleDesktopResults({ race, series }) {
+export default function EuropeanRifleDesktopResults({ race, series, competitors }) {
   const { t } = useTranslation()
   const showShots = useContext(ShowShotsContext)
-  const { competitors } = series
   const extraShots = !!competitors.find(c => c.europeanRifleExtraShots)
   const resultClassName = showShots ? '' : 'center'
   return (
@@ -70,7 +69,7 @@ export default function EuropeanRifleDesktopResults({ race, series }) {
                 </td>
                 <td className="center total-points">
                   <TotalScore noResultReason={noResultReason} totalScore={europeanRifleScore} />
-                  <EuropeanRifleNationalRecord race={race} series={series} competitor={competitor} />
+                  {series && <EuropeanRifleNationalRecord race={race} series={series} competitor={competitor} />}
                 </td>
                 {extraShots && <td>{europeanRifleExtraShots?.join(', ')}</td>}
               </>

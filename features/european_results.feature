@@ -4,10 +4,10 @@ Feature: European results
   I want to see the european race results
 
   @javascript
-  Scenario: Show european race results
+  Scenario: Show european race results for national race
     Given there is a race with attributes:
       | sport_key | EUROPEAN |
-      | name      | European test race |
+      | name      | National test race |
       | show_european_shotgun_results | true |
     And the race has series "M"
     And the series has a competitor "Pekka" "Pohjola" from "Team A" with european results 25, 20, 49, 50, 40, 38
@@ -17,7 +17,7 @@ Feature: European results
     And the series has a competitor "Päivi" "Pohjoinen" from "Team A" with european results 23, 25, 48, 46, 41, 44
     And the series has a competitor "Pinja" "Pohja" from "Team B" with european results 20, 19, 40, 40, 40, 40
     And the race has a team competition "Teams" with 2 competitors / team
-    And I am on the race page of "European test race"
+    And I am on the race page of "National test race"
     And the team competition contains the series "M"
     And the team competition contains the series "N"
     When I follow "Tulokset"
@@ -85,3 +85,37 @@ Feature: European results
     And I force mobile UI
     Then I should see a card 1 for "Team A" with total score 356
     Then I should see a card 2 for "Team B" with total score 345
+
+  @javascript
+  Scenario: Show european race results for international race
+    Given there is a race with attributes:
+      | sport_key | EUROPEAN |
+      | name      | International test race |
+      | level     | 4                       |
+      | show_european_shotgun_results | true |
+    And the race has series "M"
+    And the series has a competitor "Pekka" "Pohjola" from "Team A" with european results 25, 20, 49, 50, 40, 38
+    And the series has a competitor "Pertti" "Pohjonen" from "Team B" with european results 24, 22, 42, 44, 49, 50
+    And the race has series "N"
+    And the series has a competitor "Päivi" "Pohjoinen" from "Team A" with european results 23, 25, 48, 46, 41, 44
+    And the series has a competitor "Pinja" "Pohja" from "Team B" with european results 20, 19, 40, 40, 40, 40
+    And I am on the race page of "International test race"
+    When I follow the first "Tulokset" link
+    And I wait for the results
+    And I force mobile UI
+    Then I should see a card 1 for "Pohjonen Pertti" with total score 369
+    And I should see a card 2 for "Pohjola Pekka" with total score 357
+    When I follow "Luodikko"
+    And I wait for the results
+    And I force mobile UI
+    Then I should see a card 1 for "Pohjonen Pertti" with total score 185
+    And I should see a card 2 for "Pohjoinen Päivi" with total score 179
+    And I should see a card 3 for "Pohjola Pekka" with total score 177
+    And I should see a card 4 for "Pohja Pinja" with total score 160
+    When I follow "Haulikko"
+    And I wait for the results
+    And I force mobile UI
+    Then I should see a card 1 for "Pohjoinen Päivi" with total score 192
+    And I should see a card 2 for "Pohjonen Pertti" with total score 184
+    And I should see a card 3 for "Pohjola Pekka" with total score 180
+    And I should see a card 4 for "Pohja Pinja" with total score 156

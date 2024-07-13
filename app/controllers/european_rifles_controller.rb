@@ -1,5 +1,5 @@
 class EuropeanRiflesController < ApplicationController
-  before_action :assign_series_by_series_id, :set_races
+  before_action :set_races
 
   def index
     @rifle = true
@@ -7,8 +7,12 @@ class EuropeanRiflesController < ApplicationController
     respond_to do |format|
       format.html { render layout: true, html: '' }
       format.pdf {
-        render pdf: "#{@series.race.name}-#{@series.name}-luodikko-tulokset", layout: true, margin: pdf_margin,
-               header: pdf_header("#{@series.race.name} - #{@series.name} - #{I18n.t('sport_name.european_sub.rifle')}\n"),
+        assign_race_with_optional_series
+        file_name = @series ? "#{@series.race.name}-#{@series.name}-luodikko-tulokset" : "#{@race.name}-luodikko-tulokset"
+        title = @series ? "#{@series.race.name} - #{@series.name} - #{I18n.t('sport_name.european_sub.rifle')}" : "#{@race.name} - #{I18n.t('sport_name.european_sub.rifle')}"
+        @competitors = @series ? @series.european_rifle_results : @race.european_rifle_results
+        render pdf: file_name, layout: true, margin: pdf_margin,
+               header: pdf_header(title),
                footer: pdf_footer, orientation: 'Landscape', disable_smart_shrinking: true
       }
     end

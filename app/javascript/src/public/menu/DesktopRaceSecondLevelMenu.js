@@ -4,7 +4,7 @@ import {
   buildFinalRoundBatchesPath,
   buildNordicResultsPath, buildNordicSeriesResultsPath,
   buildQualificationRoundBatchesPath, buildRaceMediaPath,
-  buildRacePath,
+  buildRacePath, buildRaceRifleResultsPath, buildRaceShotgunsResultsPath,
   buildRelayPath, buildResultRotationPath,
   buildRifleTeamCompetitionsPath,
   buildSeriesResultsPath,
@@ -17,6 +17,7 @@ import useMenu, { pages } from '../../util/useMenu'
 import { useParams } from 'react-router-dom'
 import useTranslation from '../../util/useTranslation'
 import { useResultRotation } from '../result-rotation/useResultRotation'
+import { raceEnums } from '../../util/enums'
 
 export default function DesktopRaceSecondLevelMenu({ race }) {
   const { t } = useTranslation()
@@ -24,6 +25,7 @@ export default function DesktopRaceSecondLevelMenu({ race }) {
   const { seriesId: urlSeriesId } = useParams()
   const { started: resultRotationStarted } = useResultRotation()
   const seriesId = urlSeriesId || (race.series.length > 0 && race.series[0].id)
+  const international = race.level === raceEnums.level.international
   return (
     <div className="menu menu--sub menu--sub-1">
       <DesktopMenuItem
@@ -83,21 +85,25 @@ export default function DesktopRaceSecondLevelMenu({ race }) {
           {race.sport.european && (
             <>
               <DesktopMenuItem
-                path={buildSeriesRifleResultsPath(race.id, seriesId)}
+                path={international
+                  ? buildRaceRifleResultsPath(race.id)
+                  : buildSeriesRifleResultsPath(race.id, seriesId)}
                 text={t('rifle')}
                 selected={selectedPage === pages.europeanRifle}
                 reactLink={true}
-                dropdownItems={race.series.map(s => (
+                dropdownItems={!international && race.series.map(s => (
                   { text: s.name, path: buildSeriesRifleResultsPath(race.id, s.id), reactLink: true }),
                 )}
               />
               {race.showEuropeanShotgunResults && (
                 <DesktopMenuItem
-                  path={buildSeriesShotgunsResultsPath(race.id, seriesId)}
+                  path={international
+                    ? buildRaceShotgunsResultsPath(race.id)
+                    : buildSeriesShotgunsResultsPath(race.id, seriesId)}
                   text={t('european_shotgun')}
                   selected={selectedPage === pages.europeanShotgun}
                   reactLink={true}
-                  dropdownItems={race.series.map(s => (
+                  dropdownItems={!international && race.series.map(s => (
                     { text: s.name, path: buildSeriesShotgunsResultsPath(race.id, s.id), reactLink: true }),
                   )}
                 />

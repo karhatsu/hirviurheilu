@@ -9,6 +9,8 @@ import {
   buildNordicResultsPath,
   buildNordicSeriesResultsPath,
   buildQualificationRoundBatchesPath,
+  buildRaceRifleResultsPath,
+  buildRaceShotgunsResultsPath,
   buildRaceStartListsPdfPath,
   buildSeriesResultsPath,
   buildSeriesRifleResultsPath,
@@ -20,6 +22,7 @@ import BatchListPdfForm from './BatchListPdfForm'
 import Button from '../../common/Button'
 import Message from '../../common/Message'
 import { formatTodaysTime } from '../../util/timeUtil'
+import { raceEnums } from '../../util/enums'
 
 const nordicSubSports = ['trap', 'shotgun', 'rifle_standing', 'rifle_moving']
 
@@ -35,6 +38,7 @@ export default function RaceSeries({ race }) {
     clubLevel,
     clubs,
     finished,
+    level,
     nordicSubResultsForSeries,
     series,
     showEuropeanShotgunResults,
@@ -96,23 +100,33 @@ export default function RaceSeries({ race }) {
       {sport.european && (
         <>
           <h3>{t('european_rifle')}</h3>
-          <div className="buttons" id="european_rifle_buttons">
-            {series.map(s => {
-              const { id, name } = s
-              return <Button key={id} to={buildSeriesRifleResultsPath(race.id, id)} type="primary">{name}</Button>
-            })}
-          </div>
+          {level === raceEnums.level.international && (
+            <Button to={buildRaceRifleResultsPath(race.id)} type="primary">{t('results')}</Button>
+          )}
+          {level !== raceEnums.level.international && (
+            <div className="buttons" id="european_rifle_buttons">
+              {series.map(s => {
+                const { id, name } = s
+                return <Button key={id} to={buildSeriesRifleResultsPath(race.id, id)} type="primary">{name}</Button>
+              })}
+            </div>
+          )}
           {showEuropeanShotgunResults && (
             <>
               <h3>{t('european_shotgun')}</h3>
-              <div className="buttons" id="european_shotgun_buttons">
-                {series.map(s => {
-                  const { id, name } = s
-                  return (
-                    <Button key={id} to={buildSeriesShotgunsResultsPath(race.id, id)} type="primary">{name}</Button>
-                  )
-                })}
-              </div>
+              {level === raceEnums.level.international && (
+                <Button to={buildRaceShotgunsResultsPath(race.id)} type="primary">{t('results')}</Button>
+              )}
+              {level !== raceEnums.level.international && (
+                <div className="buttons" id="european_shotgun_buttons">
+                  {series.map(s => {
+                    const { id, name } = s
+                    return (
+                      <Button key={id} to={buildSeriesShotgunsResultsPath(race.id, id)} type="primary">{name}</Button>
+                    )
+                  })}
+                </div>
+              )}
             </>
           )}
         </>

@@ -15,7 +15,7 @@ import useRaceData from '../../util/useRaceData'
 import IncompletePage from '../../common/IncompletePage'
 import useDataReloading from '../../util/useDataReloading'
 
-export default function EuropeanShotgunResultsPage() {
+export default function EuropeanShotgunSeriesResultsPage() {
   const { t } = useTranslation()
   const { setSelectedPage } = useMenu()
   const { seriesId } = useParams()
@@ -37,8 +37,8 @@ export default function EuropeanShotgunResultsPage() {
       <h2>{t('european_shotgun')} - {series.name}</h2>
       <SeriesStatus race={race} series={series}>
         <ResultsWithShots competitors={series.competitors}>
-          {!mobile && <EuropeanShotgunDesktopResults race={race} series={series} />}
-          {mobile && <EuropeanShotgunMobileResults race={race} series={series} />}
+          {!mobile && <EuropeanShotgunDesktopResults race={race} competitors={series.competitors} />}
+          {mobile && <EuropeanShotgunMobileResults competitors={series.competitors} />}
           <div className="buttons">
             <Button href={`${buildSeriesShotgunsResultsPath(race.id, series.id)}.pdf`} type="pdf">
               {t('downloadResultsPdf')}

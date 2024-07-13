@@ -16,6 +16,11 @@ module AssignModel
     end
   end
 
+  def assign_race_with_optional_series
+    @series = assign_series params[:series_id] if params[:series_id]
+    @race = assign_race params[:race_id]
+  end
+
   def assign_race_by_id
     assign_race params[:id]
   end

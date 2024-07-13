@@ -1,6 +1,6 @@
 class Api::V2::Public::EuropeanShotgunsController < Api::V2::ApiBaseController
+  before_action :assign_race_with_optional_series
+
   def show
-    @series = Series.where(id: params[:series_id]).first
-    render status: 404, body: nil unless @series
   end
 end

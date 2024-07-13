@@ -1,7 +1,15 @@
-- @race.series.each_with_index do |series, index|
-  - if index > 0 && @page_breaks
+- if @race.level == Race::LEVEL_INTERNATIONAL
+  - if @page_breaks
     .page-break
-  %h3 #{t 'sport_name.european_sub.rifle'} - #{series.name}
-  - cache [series, params[:club_id], I18n.locale] do
-    = render partial: 'european_rifles/result_table', locals: { series: series }
-  %hr
+  %h3= t 'sport_name.european_sub.rifle'
+  - cache [@race, params[:club_id], I18n.locale] do
+    = render partial: 'european_rifles/result_table', locals: { competitors: @race.european_rifle_results }
+    %hr
+- else
+  - @race.series.each do |series|
+    - if @page_breaks
+      .page-break
+    %h3 #{t 'sport_name.european_sub.rifle'} - #{series.name}
+    - cache [series, params[:club_id], I18n.locale] do
+      = render partial: 'european_rifles/result_table', locals: { competitors: series.european_rifle_results }
+    %hr
