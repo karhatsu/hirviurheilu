@@ -4,6 +4,8 @@ const esbuildConfig = {
   entryPoints: [
     'app/javascript/fi.js',
     'app/javascript/sv.js',
+    'app/javascript/official-fi.js',
+    'app/javascript/official-sv.js',
     'app/javascript/public-application.js',
     'app/javascript/official-application.js',
   ],
