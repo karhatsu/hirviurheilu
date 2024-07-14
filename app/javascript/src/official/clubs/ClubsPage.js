@@ -9,7 +9,7 @@ import { raceEnums } from '../../util/enums'
 import { del, get, post, put } from '../../util/apiClient'
 import ClubForm from './ClubForm'
 import Message from '../../common/Message'
-import { competitorsCountLabel } from '../../util/competitorUtil'
+import { competitorsCountLabel, officialsCountLabel } from '../../util/competitorUtil'
 import useOfficialMenu from '../menu/useOfficialMenu'
 
 const clubsSorter = (a, b) => a.name.localeCompare(b.name)
@@ -129,6 +129,9 @@ const ClubsPage = () => {
                 <div className="card__name">{club.name}</div>
                 {club.longName && <div className="card__middle-row">{club.longName}</div>}
                 <div className="card__middle-row">{competitorsCountLabel(t, club.competitorsCount)}</div>
+                {club.officialsCount > 0 && (
+                  <div className="card__middle-row">{officialsCountLabel(t, club.officialsCount)}</div>
+                )}
               </div>
               <div className="card__buttons">
                 <Button type="edit" onClick={() => setEditing(club)}>Muokkaa</Button>

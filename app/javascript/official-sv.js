@@ -31,5 +31,7 @@ window.officialTranslations = {
   officialRaceMenuTeamCompetitions: 'Lagtävlingar',
   officialRaceMenuRelays: 'Stafetter',
   officialRaceMenuOfficials: 'Funktionärer',
+  officialsCountMany: '{{count}} funktionärer',
+  officialsCountOne: '1 funktionär',
   save: 'Spara',
 }

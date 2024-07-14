@@ -31,5 +31,7 @@ window.officialTranslations = {
   officialRaceMenuTeamCompetitions: 'Joukkuek.',
   officialRaceMenuRelays: 'Viestit',
   officialRaceMenuOfficials: 'Toimitsijat',
+  officialsCountMany: '{{count}} toimitsijaa',
+  officialsCountOne: '1 toimitsija',
   save: 'Tallenna',
 }
