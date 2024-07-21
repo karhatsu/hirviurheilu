@@ -282,6 +282,10 @@ class Race < ApplicationRecord
     !finished? && !cancelled? && series.size > 0
   end
 
+  def european_multiplier
+    double_competition ? 2 : 1
+  end
+
   private
   def end_date_not_before_start_date
     if end_date and end_date < start_date
