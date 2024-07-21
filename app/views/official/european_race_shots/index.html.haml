@@ -10,6 +10,7 @@
     - unless @race.batches.empty?
       = select_tag :batch_id, options_from_collection_for_select(@race.batches, :id, :number, params[:batch_id]), prompt: t(:all_batches), onChange: 'filter()'
   .result-cards
+    - multiplier = @race.european_multiplier
     - @race.competitors.except(:order).order(:qualification_round_track_place, :number, :last_name, :first_name).each do |competitor|
       .card{class: "series_#{competitor.series_id} batch_#{competitor.qualification_round_batch_id}"}
         .card__number= "##{competitor.number}"
@@ -23,9 +24,9 @@
             .card__middle-row
               = form_for([:official, competitor.series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "shots_form_#{competitor.id}", class: 'form form--inline' }) do |f|
                 - if @sub_sport == :rifle
-                  = render partial: 'official/shots/european_rifle_shots', locals: { f: f, competitor: competitor }
+                  = render partial: 'official/shots/european_rifle_shots', locals: { f: f, competitor: competitor, multiplier: multiplier }
                 - else
-                  = render partial: 'official/shots/european_shotgun_shots', locals: { f: f, competitor: competitor, sub_sport: @sub_sport }
+                  = render partial: 'official/shots/european_shotgun_shots', locals: { f: f, competitor: competitor, sub_sport: @sub_sport, multiplier: multiplier }
                 .form__buttons
                   = submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
                   - if @sub_sport == :rifle

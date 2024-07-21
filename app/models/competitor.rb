@@ -407,6 +407,10 @@ class Competitor < ApplicationRecord
     european_trap_shots || european_compak_shots
   end
 
+  def european_multiplier
+    race&.european_multiplier || 1
+  end
+
   private
 
   def start_time_max
@@ -549,10 +553,6 @@ class Competitor < ApplicationRecord
 
   def european_shotgun_extra_shot_values
     validate_extra_shots :european_shotgun_extra_shots, 1
-  end
-
-  def european_multiplier
-    race&.european_multiplier || 1
   end
 
   def validate_shots(attribute, max_count, max_value)
