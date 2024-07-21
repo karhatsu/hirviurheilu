@@ -119,3 +119,30 @@ Feature: European results
     And I should see a card 2 for "Pohjonen Pertti" with total score 184
     And I should see a card 3 for "Pohjola Pekka" with total score 180
     And I should see a card 4 for "Pohja Pinja" with total score 156
+
+  @javascript
+  Scenario: Show european race results for double race
+    Given there is a race with attributes:
+      | sport_key | EUROPEAN |
+      | name      | Double test race |
+      | level     | 4                       |
+      | show_european_shotgun_results | true |
+    And the race has series "M"
+    And the series has a competitor "Pekka" "Pohjola" from "Team A" with european results 50, 40, 88, 100, 80, 96
+    And the series has a competitor "Pertti" "Pohjonen" from "Team B" with european results 48, 50, 92, 90, 100, 98
+    And I am on the race page of "Double test race"
+    When I follow the first "Tulokset" link
+    And I wait for the results
+    And I force mobile UI
+    Then I should see a card 1 for "Pohjonen Pertti" with total score 772
+    And I should see a card 2 for "Pohjola Pekka" with total score 724
+    When I follow "Luodikko"
+    And I wait for the results
+    And I force mobile UI
+    Then I should see a card 1 for "Pohjonen Pertti" with total score 380
+    And I should see a card 2 for "Pohjola Pekka" with total score 364
+    When I follow "Haulikko"
+    And I wait for the results
+    And I force mobile UI
+    And I should see a card 1 for "Pohjonen Pertti" with total score 392
+    And I should see a card 2 for "Pohjola Pekka" with total score 360
