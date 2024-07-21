@@ -1,4 +1,4 @@
-json.cache! [@race, @series, request.headers['X-Camel-Case']] do
+json.cache! [@series || rand, request.headers['X-Camel-Case']] do
   json.key_format! camelize: :lower if request.headers['X-Camel-Case']
   json.(@series, :id, :name, :competitors_count) if @series
   results = @series ? @series.european_shotgun_results : @race.european_shotgun_results
