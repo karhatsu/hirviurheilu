@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_12_143729) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_21_065544) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -212,6 +212,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_143729) do
     t.string "pending_official_email"
     t.boolean "nordic_sub_results_for_series"
     t.boolean "show_european_shotgun_results", default: false, null: false
+    t.boolean "double_competition", default: false, null: false
   end
 
   create_table "relay_competitors", id: :serial, force: :cascade do |t|

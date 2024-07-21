@@ -50,6 +50,9 @@
     .form__field.row
       .col-xs-12.col-sm-3= f.label :show_european_shotgun_results
       .col-xs-12.col-sm-9= f.check_box :show_european_shotgun_results
+    .form__field.row
+      .col-xs-12.col-sm-3= f.label :double_competition
+      .col-xs-12.col-sm-9= f.check_box :double_competition
   - unless @race.new_record?
     .form__field.row
       .col-xs-12.col-sm-3= f.label :cancelled

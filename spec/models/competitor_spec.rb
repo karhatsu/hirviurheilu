@@ -496,7 +496,7 @@ describe Competitor do
     describe 'european results' do
       shared_examples_for 'european rifle' do |n, allowed_shots|
         it_should_behave_like 'shots', "european_rifle#{n}_shots", allowed_shots, 5
-        it_should_behave_like 'non-negative integer', "european_rifle#{n}_score_input", true, max_value: 50
+        it_should_behave_like 'non-negative integer', "european_rifle#{n}_score_input", true, max_value: 100
         it_should_behave_like 'only single score method', "european_rifle#{n}_score_input", "european_rifle#{n}_shots"
       end
 
@@ -518,7 +518,7 @@ describe Competitor do
       end
 
       describe 'trap_score_input' do
-        it_should_behave_like 'non-negative integer', :european_trap_score_input, true, max_value: 25
+        it_should_behave_like 'non-negative integer', :european_trap_score_input, true, max_value: 50
         it_should_behave_like 'only single score method', :european_trap_score_input, :european_trap_shots
       end
 
@@ -532,7 +532,7 @@ describe Competitor do
       end
 
       describe 'compak_score_input' do
-        it_should_behave_like 'non-negative integer', :european_compak_score_input, true, max_value: 25
+        it_should_behave_like 'non-negative integer', :european_compak_score_input, true, max_value: 50
         it_should_behave_like 'only single score method', :european_compak_score_input, :european_compak_shots
       end
 

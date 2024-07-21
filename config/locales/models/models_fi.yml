@@ -28,6 +28,7 @@ fi:
     distance2: Etäisyys 2
     distance3: Etäisyys 3
     distance4: Etäisyys 4
+    double_competition: Tuplakilpailu  (800 p)
     email: Sähköposti
     end_date: Loppupvm
     estimate: Arvio
