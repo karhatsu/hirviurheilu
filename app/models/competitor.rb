@@ -766,11 +766,12 @@ class Competitor < ApplicationRecord
 
   def has_european_shotgun_results?
     return true if only_rifle?
-    has_european_sub_result?(:trap, 25) && has_european_sub_result?(:compak, 25)
+    required_shot_count = european_multiplier * 25
+    has_european_sub_result?(:trap, required_shot_count) && has_european_sub_result?(:compak, required_shot_count)
   end
 
   def has_european_rifle_results?
-    [1, 2, 3, 4].map {|n| send(:has_european_sub_result?, "rifle#{n}", 5)}.all?
+    [1, 2, 3, 4].map {|n| send(:has_european_sub_result?, "rifle#{n}", european_multiplier * 5)}.all?
   end
 
   def has_european_sub_result?(sub_sport, required_shot_count)
