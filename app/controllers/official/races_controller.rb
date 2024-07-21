@@ -111,6 +111,6 @@ class Official::RacesController < Official::OfficialController
       :days_count, :club_level, :organizer, :home_page, :organizer_phone, :address, :shooting_place_count, :track_count,
       :start_interval_seconds, :start_order, :batch_size, :batch_interval_seconds, :public_message,
       :cancelled, :hide_qualification_round_batches, :hide_final_round_batches, :level, :nordic_sub_results_for_series,
-      :show_european_shotgun_results ]
+      :show_european_shotgun_results, :double_competition ]
   end
 end
