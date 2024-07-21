@@ -105,7 +105,7 @@ export default function QAndAContent() {
         </div>
       </div>
       <h2>Käyttö – kaikki lajit</h2>
-      <div className="results-cards">
+      <div className="cards">
         <div className="card">
           <div className="card__middle">
             <div className="card__name">Kuinka palvelun käyttöönotto tapahtuu?</div>
@@ -163,7 +163,7 @@ export default function QAndAContent() {
         </div>
       </div>
       <h2>Käyttö – liikuntalajit (hirvenhiihto, hirvenjuoksu, hirvenhiihtely, hirvikävely)</h2>
-      <div className="results-cards">
+      <div className="cards">
         <div className="card">
           <div className="card__middle">
             <div className="card__name">Kuinka lähtölistat luodaan?</div>
@@ -268,7 +268,7 @@ export default function QAndAContent() {
         </div>
       </div>
       <h2>Käyttö – ammuntalajit</h2>
-      <div className="results-cards">
+      <div className="cards">
         <div className="card">
           <div className="card__middle">
             <div className="card__name">Kuinka eräluettelot luodaan?</div>

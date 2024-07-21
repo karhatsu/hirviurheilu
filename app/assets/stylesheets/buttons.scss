@@ -1,12 +1,13 @@
 input[type = 'submit'] {
   font-family: 'Muli', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
+  padding: 10px 16px;
 }
 
 .buttons {
   display: flex;
-  flex-direction: row;
   flex-flow: wrap;
+  margin-top: 8px;
 
   &--mobile {
     margin-top: 16px;
@@ -15,7 +16,7 @@ input[type = 'submit'] {
   &--nav {
     margin-top: 16px;
     border-top: 1px #7a7a7a dotted;
-    padding-top: 6px;
+    padding-top: 8px;
   }
 
   .button {
@@ -44,9 +45,10 @@ input[type = 'submit'] {
   color: olive;
   cursor: pointer;
   display: inline-flex;
+  font-size: 14px;
   align-items: center;
   line-height: 14px;
-  padding: 6px 12px;
+  padding: 10px 16px;
 
   &:hover {
     background: linear-gradient(to right, rgba(29, 99, 153, 0.9), rgba(29, 99, 153, 0.7));
@@ -82,7 +84,7 @@ input[type = 'submit'] {
 
   &--add::before, &--add_competitor::before, &--add_multiple::before, &--back::before, &--call::before, &--copy::before, &--competitors::before, &--csv::before, &--danger::before, &--done::before, &--down::before, &--edit::before, &--open::before, &--pdf::before, &--place::before {
     font-family: 'Material Icons';
-    font-size: 14px;
+    font-size: 16px;
     margin-right: 6px;
   }
 

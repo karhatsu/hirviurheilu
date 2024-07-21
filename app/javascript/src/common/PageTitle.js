@@ -23,25 +23,27 @@ export default function PageTitle() {
   if (!competition) return t('appTitle')
   const { name, location, startDate, endDate, sportKey } = competition
   return (
-    <span className="race-title">
-      <span className="race-title__name" itemProp="name">
+    <div className="race-title">
+      <div className="race-title__name" itemProp="name">
         {name}{' '}
-      </span>
-      {sportKey && (
-        <span className="race-title__sport">
-          {t(`sport_${sportKey}`)},{' '}
-        </span>
-      )}
-      {location && (
-        <span className="race-title__location" itemProp="location" itemType="http://schema.org/Place">
-          {location},{' '}
-        </span>
-      )}
-      {startDate && (
-        <span className="race-title__dates">
-          <DateInterval startDate={startDate} endDate={endDate} withTimeTag={true} />
-        </span>
-      )}
-    </span>
+      </div>
+      <div>
+        {sportKey && (
+          <span className="race-title__sport">
+            {t(`sport_${sportKey}`)},{' '}
+          </span>
+        )}
+        {location && (
+          <span className="race-title__location" itemProp="location" itemType="http://schema.org/Place">
+            {location},{' '}
+          </span>
+        )}
+        {startDate && (
+          <span className="race-title__dates">
+            <DateInterval startDate={startDate} endDate={endDate} withTimeTag={true} />
+          </span>
+        )}
+      </div>
+    </div>
   )
 }

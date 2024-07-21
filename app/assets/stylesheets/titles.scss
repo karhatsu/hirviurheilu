@@ -1,11 +1,6 @@
-h1 {
-  font-size: 20px;
-  margin: 16px 0;
-}
-
 h2 {
-  font-size: 18px;
-  margin: 24px 0 8px;
+  font-size: 22px;
+  margin: 24px 0 12px;
   display: flex;
   align-items: center;
 
@@ -23,7 +18,7 @@ h2 {
 }
 
 h3 {
-  font-size: 16px;
+  font-size: 20px;
   margin: 16px 0 8px;
 
   &.desktop {
@@ -39,27 +34,13 @@ h3 {
   margin-top: 24px;
 }
 
-.race-title__name {
-  display: block;
-}
+.race-title {
+  font-size: 20px;
 
-.race-title__sport {
-  font-size: 16px;
-
-  &::before {
-    content: '(';
-  }
-}
-
-.race-title__location {
-  font-size: 16px;
-}
-
-.race-title__dates {
-  font-size: 16px;
-
-  &::after {
-    content: ')';
+  &__name {
+    display: block;
+    font-size: 26px;
+    margin-bottom: 4px;
   }
 }
 

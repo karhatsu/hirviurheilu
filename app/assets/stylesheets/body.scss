@@ -2,20 +2,20 @@ body {
   background-color: rgb(162, 160, 86);
   background: linear-gradient(to right, rgba(128, 128, 0, 0.4), rgba(128, 128, 0, 0.6), rgba(128, 128, 0, 0.4), rgba(128, 128, 0, 0.7));
   font-family: 'Muli', sans-serif;
-  font-size: 12px;
+  font-size: 16px;
   margin: 0;
   padding: 0;
 }
 
 .body {
   padding: 16px;
-  max-width: 1024px;
+  max-width: 1400px;
   margin: 0 auto;
 
   &__on-top-title {
     color: #fff;
     display: none;
-    font-size: 24px;
+    font-size: 26px;
     padding-left: 28px;
     margin-bottom: 8px;
     background-image: url('/logo-128.png');
@@ -27,7 +27,7 @@ body {
 
   &__under-top-title {
     display: block;
-    font-size: 20px;
+    font-size: 26px;
     font-weight: 600;
     margin: 4px 0 16px 0;
     width: calc(100% - 80px);
