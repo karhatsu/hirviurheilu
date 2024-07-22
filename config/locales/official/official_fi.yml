@@ -418,7 +418,7 @@ fi:
     national_records:
       index:
         title: Suomen ennätykset
-        info: Tällä sivulla voit tallentaa sarjoille voimassa olevat Suomen ennätykset. Mikäli ennätys rikkoontuu, tulossivu näyttää SE-merkkinän.
+        info: Tällä sivulla voit tallentaa sarjoille voimassa olevat Suomen ennätykset. Mikäli ennätys rikkoontuu, tulossivu näyttää SE-merkinnän.
         link_to_national_records: Metsästäjäliiton SE-sivu.
         no_series: Kilpailuun ei ole lisätty yhtään sarjaa
       update_all:
