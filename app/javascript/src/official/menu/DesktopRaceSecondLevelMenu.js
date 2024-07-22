@@ -194,14 +194,14 @@ const buildMenuItem = (selectedPage, key, t, race, series) => {
   )
 }
 
-const DesktopRaceSecondLevelMenu = () => {
+const DesktopRaceSecondLevelMenu = ({ visible }) => {
   const { t } = useTranslation()
   const { race } = useRace()
   const { selectedPage } = useOfficialMenu()
   if (!race) return null
   const series = race.series[0]
   return (
-    <div className="menu menu--sub menu--sub-1">
+    <div className={`menu menu--sub menu--sub-1 ${visible ? 'menu--visible' : ''}`}>
       {resolveMenuItems(race).map(key => buildMenuItem(selectedPage, key, t, race, series))}
     </div>
   )

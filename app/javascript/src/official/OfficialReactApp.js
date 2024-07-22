@@ -13,6 +13,13 @@ const OfficialReactApp = () => {
   const [mainMenuOpen, setMainMenuOpen] = useState(false)
   const toggleMainMenu = useCallback(() => setMainMenuOpen(open => !open), [])
   const closeMainMenu = useCallback(() => setMainMenuOpen(false), [])
+
+  const [subMenuOpen, setSubMenuOpen] = useState(false)
+  const toggleSubMenu = useCallback(e => {
+    e.preventDefault()
+    setSubMenuOpen(open => !open)
+  }, [])
+
   return (
     <div>
       <Header toggleMainMenu={toggleMainMenu} />
@@ -20,11 +27,14 @@ const OfficialReactApp = () => {
       <div className="body">
         <div className="body__on-top-title"><PageTitle /></div>
         <div className="body__content">
-          <DesktopRaceSecondLevelMenu />
-          <OfficialMainContent />
+          <div className="menu-indicator">
+            <a className="material-icons-outlined md-24" href="/" onClick={toggleSubMenu}>menu</a>
+          </div>
+          <DesktopRaceSecondLevelMenu visible={subMenuOpen} />
+          <OfficialMainContent/>
         </div>
       </div>
-      <Footer />
+      <Footer/>
     </div>
   )
 }
