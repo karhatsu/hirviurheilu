@@ -84,8 +84,7 @@ input[type = 'submit'] {
 
   &--add::before, &--add_competitor::before, &--add_multiple::before, &--back::before, &--call::before, &--copy::before, &--competitors::before, &--csv::before, &--danger::before, &--done::before, &--down::before, &--edit::before, &--open::before, &--pdf::before, &--place::before {
     font-family: 'Material Icons';
-    font-size: 16px;
-    margin-right: 6px;
+    margin-right: 4px;
   }
 
   &--add::before {
