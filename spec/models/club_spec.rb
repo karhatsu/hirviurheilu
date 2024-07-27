@@ -34,12 +34,20 @@ describe Club do
     end
   end
 
+  describe 'callbacks' do
+    it 'trims name fields' do
+      club = create :club, name: 'Club name ', long_name: ' Long club name  '
+      expect(club.name).to eql 'Club name'
+      expect(club.long_name).to eql 'Long club name'
+    end
+  end
+
   describe "associations" do
     it { is_expected.to belong_to(:race) }
     it { is_expected.to have_many(:competitors) }
     it { is_expected.to have_many(:race_rights) }
   end
-  
+
   describe "#can_be_removed?" do
     context "when club has no competitors" do
       context "and no-one has official rights for this club only" do
@@ -47,7 +55,7 @@ describe Club do
           expect(Club.new.can_be_removed?).to be_truthy
         end
       end
-      
+
       context "but someone has official rights for this club only" do
         before do
           race = create(:race)
@@ -56,7 +64,7 @@ describe Club do
           RaceRight.create(:race => race, :user => user, :only_add_competitors => true, :club => @club)
           @club.reload
         end
-        
+
         it "should return false" do
           expect(@club.can_be_removed?).to be_falsey
         end
@@ -81,7 +89,7 @@ describe Club do
     before do
       @club = create(:club)
     end
-    
+
     context "when can be done" do
       it "should remove the club" do
         expect(@club).to receive(:can_be_removed?).and_return(true)

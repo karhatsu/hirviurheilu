@@ -58,7 +58,7 @@ describe Official::CompetitorsController, type: :controller do
         end
 
         it "should find the existing club and set it for the competitor" do
-          post :create, params: {series_id: @series.id, club_name: 'Existing club'}
+          post :create, params: {series_id: @series.id, club_name: 'Existing club '}
           expect(assigns(:club)).to eq(@club)
         end
       end

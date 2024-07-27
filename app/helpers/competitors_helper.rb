@@ -1,9 +1,9 @@
 module CompetitorsHelper
   def handle_club(competitor)
-    club_id_given = (params[:club_id] and params[:club_id].to_i != 0)
+    club_id_given = params[:club_id] && params[:club_id].to_i != 0
     competitor.club_id = params[:club_id] if club_id_given
-    unless club_id_given or params[:club_name].blank?
-      new_name = params[:club_name]
+    unless club_id_given || params[:club_name].blank?
+      new_name = params[:club_name].strip
       existing_club = competitor.series.race.clubs.find_by_name(new_name)
       if existing_club
         competitor.club = existing_club
@@ -13,7 +13,7 @@ module CompetitorsHelper
     end
     # Cucumber hack
     if Rails.env.test?
-      if competitor.club.nil? and competitor.club_id.nil? and params[:club]
+      if competitor.club.nil? && competitor.club_id.nil? && params[:club]
         competitor.club_id = params[:club]
       end
     end
