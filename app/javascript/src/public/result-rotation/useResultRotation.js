@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { buildSeriesResultsPath } from '../../util/routeUtil'
+import { buildSeriesResultsPath, buildTeamCompetitionsPath } from '../../util/routeUtil'
 import { useRace } from '../../util/useRace'
 
 const ResultRotationContext = React.createContext({})
@@ -11,15 +11,16 @@ const minSeconds = 5
 
 export const ResultRotationProvider = ({ children }) => {
   const history = useHistory()
-  const { seriesId } = useParams()
+  const { seriesId, teamCompetitionId } = useParams()
   const [seconds, setSeconds] = useState(15)
   const [seriesIds, setSeriesIds] = useState([])
+  const [teamCompetitionIds, setTeamCompetitionIds] = useState([])
   const [started, setStarted] = useState(false)
   const [remainingSeconds, setRemainingSeconds] = useState(undefined)
   const { race } = useRace()
 
-  const changeSeriesId = useCallback(id => event => {
-    setSeriesIds(ids => {
+  const changeId = useCallback((setter, id) => event => {
+    setter(ids => {
       if (event.target.checked) {
         return [...ids, id]
       } else {
@@ -31,30 +32,52 @@ export const ResultRotationProvider = ({ children }) => {
     })
   }, [])
 
+  const changeSeriesId = useCallback(id => changeId(setSeriesIds, id), [changeId])
+  const changeTeamCompetitionId = useCallback(id => changeId(setTeamCompetitionIds, id), [changeId])
+
   const changeSeconds = useCallback(event => setSeconds(parseInt(event.target.value) || ''), [])
 
   const start = useCallback(() => {
     setStarted(true)
-    history.push(buildSeriesResultsPath(race.id, seriesIds[0]))
-  }, [race, seriesIds, history])
+    const path = seriesIds.length
+      ? buildSeriesResultsPath(race.id, seriesIds[0])
+      : buildTeamCompetitionsPath(race.id, teamCompetitionIds[0])
+    history.push(path)
+  }, [race, seriesIds, teamCompetitionIds, history])
 
   const stop = useCallback(() => {
     setSeriesIds([])
+    setTeamCompetitionIds([])
     setStarted(false)
   }, [])
 
+  const resolveNextPath = useCallback(() => {
+    const seriesIndex = seriesId ? seriesIds.indexOf(parseInt(seriesId)) : -1
+    const tcIndex = teamCompetitionId ? teamCompetitionIds.indexOf(parseInt(teamCompetitionId)) : -1
+    if (seriesIndex !== -1 && seriesIndex === seriesIds.length - 1 && teamCompetitionIds.length) {
+      return buildTeamCompetitionsPath(race.id, teamCompetitionIds[0])
+    } else if (tcIndex !== -1 && tcIndex === teamCompetitionIds.length - 1 && seriesIds.length) {
+      return buildSeriesResultsPath(race.id, seriesIds[0])
+    } else if (seriesIndex !== -1) {
+      const nextIndex = (seriesIndex + 1) % seriesIds.length
+      return buildSeriesResultsPath(race.id, seriesIds[nextIndex])
+    } else if (tcIndex !== -1) {
+      const nextIndex = (tcIndex + 1) % teamCompetitionIds.length
+      return buildTeamCompetitionsPath(race.id, teamCompetitionIds[nextIndex])
+    }
+  }, [race?.id, seriesIds, seriesId, teamCompetitionIds, teamCompetitionId])
+
   useEffect(() => {
     let timeout, interval
-    if (started && seriesId) {
-      const index = seriesIds.indexOf(parseInt(seriesId))
-      if (index !== -1) {
-        const nextIndex = (index + 1) % seriesIds.length
+    if (started) {
+      const nextPath = resolveNextPath()
+      if (nextPath) {
         setRemainingSeconds(seconds)
         interval = setInterval(() => {
           setRemainingSeconds(secs => Math.max(0, secs - 1))
         }, 1000)
         timeout = setTimeout(() => {
-          history.push(buildSeriesResultsPath(race.id, seriesIds[nextIndex]))
+          history.push(nextPath)
         }, seconds * 1000)
       } else {
         setRemainingSeconds(undefined)
@@ -64,11 +87,12 @@ export const ResultRotationProvider = ({ children }) => {
       clearTimeout(timeout)
       clearInterval(interval)
     }
-  }, [race?.id, started, seconds, seriesIds, seriesId, history])
+  }, [resolveNextPath, started, seconds, history])
 
   const value = {
     changeSeconds,
     changeSeriesId,
+    changeTeamCompetitionId,
     seconds,
     minSeconds,
     seriesIds,
@@ -76,6 +100,7 @@ export const ResultRotationProvider = ({ children }) => {
     started,
     stop,
     remainingSeconds,
+    teamCompetitionIds,
   }
   return <ResultRotationContext.Provider value={value}>{children}</ResultRotationContext.Provider>
 }

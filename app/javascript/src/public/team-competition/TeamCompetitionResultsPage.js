@@ -12,6 +12,7 @@ import Button from '../../common/Button'
 import { buildRacePath, buildRifleTeamCompetitionsPath, buildTeamCompetitionsPath } from '../../util/routeUtil'
 import TeamCompetitionsMobileResults from './TeamCompetitionsMobileResults'
 import MobileSubMenu from '../menu/MobileSubMenu'
+import { useResultRotation } from '../result-rotation/useResultRotation'
 
 export default function TeamCompetitionResultsPage({ rifle }) {
   const { t } = useTranslation()
@@ -35,6 +36,8 @@ export default function TeamCompetitionResultsPage({ rifle }) {
   useTitle(race && titleTeamCompetition &&
     [titleTeamCompetition.name, t('teamCompetitions'), race.name, t(`sport_${race.sportKey}`)])
 
+  const { started: resultRotationStarted, remainingSeconds } = useResultRotation()
+
   if (fetching || error) {
     return <IncompletePage fetching={fetching} error={error} title={title} />
   }
@@ -44,7 +47,10 @@ export default function TeamCompetitionResultsPage({ rifle }) {
     : `${buildTeamCompetitionsPath(race.id, teamCompetition.id)}.pdf`
   return (
     <>
-      <h2>{title}</h2>
+      <h2>
+        {title}
+        {resultRotationStarted && remainingSeconds && ` (${remainingSeconds})`}
+      </h2>
       {!teamCompetition.teams.length && <Message type="info">{t('teamCompetitionResultsNotAvailable')}</Message>}
       {teamCompetition.teams.length > 0 && (
         <>
