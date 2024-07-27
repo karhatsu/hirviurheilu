@@ -8,7 +8,7 @@ Feature: Announcements
     Given I am an admin
     And I have logged in
     And I am on the admin index page
-    When I follow "Tiedotteet" within "#announcements"
+    When I follow "Tiedotteet" within ".buttons"
     Then I should be on the admin announcements page
     And the "Admin" main menu item should be selected
     And the "Tiedotteet" sub menu item should be selected
