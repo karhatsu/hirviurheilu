@@ -11,9 +11,9 @@ class User < ApplicationRecord
 
   validates :email,
             format: { with: URI::MailTo::EMAIL_REGEXP, message: :invalid },
-            length: { maximum: 100 },
-            uniqueness: { case_sensitive: false, if: :will_save_change_to_email? }
-  validates :email, uniqueness: { case_sensitive: false }
+            length: { maximum: 100 }
+            #uniqueness: { case_sensitive: false, if: :will_save_change_to_email? }
+  #validates :email, uniqueness: { case_sensitive: false }
   validates :password, confirmation: true, length: { minimum: 8, if: :require_password? }
   validates :first_name, :presence => true
   validates :last_name, :presence => true
