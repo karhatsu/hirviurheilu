@@ -4,7 +4,7 @@ class Official::CompetitorNumbersController < Official::OfficialController
   def index
     respond_to do |format|
       format.pdf do
-        @competitors = @race.competitors.where('number > 0').except(:order).order(:number).includes(:club, :series, :qualification_round_batch)
+        @competitors = @race.competitors.where('number > 0').except(:order).order(:number).includes(:club, :series, :qualification_round_heat)
         @a5 = params[:size] == 'a5'
         header = @a5 ? nil : pdf_header(params[:print_sport] ? @race.name : '')
         footer = @a5 ? nil : pdf_footer

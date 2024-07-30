@@ -180,7 +180,7 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
     font-size: 48px;
   }
 
-  &__name, &__club, &__series, &__batch {
+  &__name, &__club, &__series, &__heat {
     margin-top: 16px;
   }
 }
@@ -203,7 +203,7 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
       margin-top: 0;
     }
 
-    &__sport, &__name, &__club, &__series, &__batch {
+    &__sport, &__name, &__club, &__series, &__heat {
       font-size: 16px;
       margin-top: 8px;
       margin-bottom: 8px;

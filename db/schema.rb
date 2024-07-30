@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_21_065544) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_30_190059) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,24 +37,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_065544) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "front_page"
-  end
-
-  create_table "batches", force: :cascade do |t|
-    t.bigint "race_id"
-    t.integer "number", null: false
-    t.integer "track"
-    t.time "time", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "day", default: 1, null: false
-    t.string "type", null: false
-    t.time "time2"
-    t.time "time3"
-    t.time "time4"
-    t.integer "day2", default: 1, null: false
-    t.integer "day3", default: 1, null: false
-    t.integer "day4", default: 1, null: false
-    t.index ["race_id"], name: "index_batches_on_race_id"
   end
 
   create_table "clubs", id: :serial, force: :cascade do |t|
@@ -93,13 +75,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_065544) do
     t.integer "shooting_overtime_min"
     t.time "shooting_start_time"
     t.time "shooting_finish_time"
-    t.bigint "qualification_round_batch_id"
+    t.bigint "qualification_round_heat_id"
     t.integer "qualification_round_track_place"
     t.jsonb "shots"
     t.jsonb "extra_shots"
     t.integer "qualification_round_shooting_score_input"
     t.integer "final_round_shooting_score_input"
-    t.bigint "final_round_batch_id"
+    t.bigint "final_round_heat_id"
     t.integer "final_round_track_place"
     t.jsonb "nordic_results"
     t.jsonb "european_results"
@@ -107,8 +89,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_065544) do
     t.integer "shooting_rules_penalty"
     t.integer "shooting_rules_penalty_qr"
     t.index ["age_group_id"], name: "index_competitors_on_age_group_id"
-    t.index ["final_round_batch_id"], name: "index_competitors_on_final_round_batch_id"
-    t.index ["qualification_round_batch_id"], name: "index_competitors_on_qualification_round_batch_id"
+    t.index ["final_round_heat_id"], name: "index_competitors_on_final_round_heat_id"
+    t.index ["qualification_round_heat_id"], name: "index_competitors_on_qualification_round_heat_id"
     t.index ["series_id"], name: "index_competitors_on_series_id"
   end
 
@@ -167,6 +149,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_065544) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
+  create_table "heats", force: :cascade do |t|
+    t.bigint "race_id"
+    t.integer "number", null: false
+    t.integer "track"
+    t.time "time", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "day", default: 1, null: false
+    t.string "type", null: false
+    t.time "time2"
+    t.time "time3"
+    t.time "time4"
+    t.integer "day2", default: 1, null: false
+    t.integer "day3", default: 1, null: false
+    t.integer "day4", default: 1, null: false
+    t.index ["race_id"], name: "index_heats_on_race_id"
+  end
+
   create_table "race_rights", id: :serial, force: :cascade do |t|
     t.integer "race_id", null: false
     t.integer "user_id", null: false
@@ -187,8 +187,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_065544) do
     t.boolean "finished", default: false, null: false
     t.integer "series_count", default: 0, null: false
     t.string "home_page", limit: 255
-    t.integer "batch_size", default: 0, null: false
-    t.integer "batch_interval_seconds", default: 180, null: false
+    t.integer "heat_size", default: 0, null: false
+    t.integer "heat_interval_seconds", default: 180, null: false
     t.integer "club_level", default: 0, null: false
     t.integer "start_order", default: 1, null: false
     t.text "video_source"
@@ -206,8 +206,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_065544) do
     t.integer "track_count"
     t.boolean "reveal_distances", default: false, null: false
     t.boolean "cancelled", default: false, null: false
-    t.boolean "hide_qualification_round_batches"
-    t.boolean "hide_final_round_batches"
+    t.boolean "hide_qualification_round_heats"
+    t.boolean "hide_final_round_heats"
     t.integer "level", default: 0, null: false
     t.string "pending_official_email"
     t.boolean "nordic_sub_results_for_series"
@@ -350,6 +350,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_065544) do
     t.index ["email"], name: "index_users_on_email"
   end
 
-  add_foreign_key "batches", "races"
   add_foreign_key "cup_team_competitions", "cups"
+  add_foreign_key "heats", "races"
 end

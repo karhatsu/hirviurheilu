@@ -4,7 +4,7 @@ import { useRace } from '../../util/useRace'
 import RaceOrganizer from './RaceOrganizer'
 import RacePublicMessage from './RacePublicMessage'
 import useTranslation from '../../util/useTranslation'
-import RaceBatches from './RaceBatches'
+import RaceHeats from './RaceHeats'
 import RaceSeries from './RaceSeries'
 import RaceCups from './RaceCups'
 import RaceCorrectDistances from './RaceCorrectDistances'
@@ -63,7 +63,7 @@ export default function RacePage() {
       )}
       {!cancelled && (
         <>
-          <RaceBatches race={race} />
+          <RaceHeats race={race} />
           <RaceSeries race={race} />
           <RaceCorrectDistances race={race} />
           <RaceTeamCompetitions race={race} />

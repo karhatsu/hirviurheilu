@@ -727,7 +727,7 @@ describe Series do
     end
 
     describe "generation succeeds" do
-      context "without batches" do
+      context "without heats" do
         it "should generate start times based on time interval and numbers and return true" do
           expect(@series.generate_start_times).to be_truthy
           expect(@series).to be_valid
@@ -740,11 +740,11 @@ describe Series do
         end
       end
 
-      context "with batches" do
+      context "with heats" do
         before do
           @race = create(:race, :start_date => '2010-08-15',
-            :start_interval_seconds => 30, :batch_interval_seconds => 180,
-            :batch_size => 3)
+            :start_interval_seconds => 30, :heat_interval_seconds => 180,
+            :heat_size => 3)
           @series = create(:series, :race => @race,
             :first_number => 1, :start_time => '2010-08-15 01:00:15')
           @c1 = create(:competitor, :series => @series, :number => 1)
@@ -757,8 +757,8 @@ describe Series do
           @c8 = create(:competitor, :series => @series, :number => 8)
         end
 
-        describe "when batch generation succeeds" do
-          it "should generate start times based on batch size, batch interval and time interval and numbers and return true" do
+        describe "when heat generation succeeds" do
+          it "should generate start times based on heat size, heat interval and time interval and numbers and return true" do
             expect(@series.generate_start_times).to be_truthy
             expect(@series).to be_valid
             @c1.reload
@@ -775,9 +775,9 @@ describe Series do
             expect(@c6.start_time.strftime('%H:%M:%S')).to eq('01:05:15')
           end
         end
-        context "when last batch is short" do
-          describe "when last batch tail attachment succeeds" do
-            it "should generate start times based on batch size, batch interval and time interval and numbers and return true" do
+        context "when last heat is short" do
+          describe "when last heat tail attachment succeeds" do
+            it "should generate start times based on heat size, heat interval and time interval and numbers and return true" do
               expect(@series.generate_start_times).to be_truthy
               expect(@series).to be_valid
               @c7.reload
@@ -787,8 +787,8 @@ describe Series do
             end
           end
         end
-        context "when there's only one short batch" do
-          describe "when last batch tail attachment succeeds" do
+        context "when there's only one short heat" do
+          describe "when last heat tail attachment succeeds" do
             before do
               @c3.destroy
               @c4.destroy
@@ -799,7 +799,7 @@ describe Series do
               expect(@series.generate_start_times).to be_truthy
               expect(@series).to be_valid
             end
-            it "should generate start times based on batch size, batch interval and time interval and numbers and return true" do
+            it "should generate start times based on heat size, heat interval and time interval and numbers and return true" do
               expect(@series.generate_start_times).to be_truthy
               expect(@series).to be_valid
               @c1.reload

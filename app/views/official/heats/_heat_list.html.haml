@@ -1,0 +1,21 @@
+- if heats.empty?
+  .message.message--info= t 'official.heats.index.no_heats'
+- else
+  .row
+    - heats.each do |heat|
+      .col-xs-12.col-sm-6.col-md-4
+        %a.card{href: edit_official_race_heat_path(@race, heat)}
+          .card__number= heat.number
+          .card__middle
+            .card__name
+              = heat_time @race, heat
+              - if heat.track.to_i > 0
+                (#{t('attributes.track')} #{heat.track})
+            - heat.competitors.each do |competitor|
+              .card__middle-row
+                #{competitor.track_place(heat)}.
+                - if competitor.number
+                  #{full_name(competitor)} (##{competitor.number}),
+                - else
+                  #{full_name(competitor)},
+                #{competitor.club.name} (#{competitor.series.name})

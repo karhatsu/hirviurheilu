@@ -1,0 +1,22 @@
+- content_for :title, "#{@race.name} - #{t 'official_sub_menu.heats'}"
+%h2= t '.title'
+= flash_success
+- unless @qualification_round_heats.empty? && @final_round_heats.empty?
+  .message.message--info= t 'official.heats.index.edit_to_define_competitors'
+- if @race.sport.one_heat_list?
+  = render partial: 'heat_list', locals: { heats: @qualification_round_heats }
+  .buttons
+    = link_to t(:add_heat), new_official_race_heat_path(@race, type: 'QualificationRoundHeat'), class: 'button button--add'
+- else
+  %h3= t :qualification_round
+  = render partial: 'heat_list', locals: { heats: @qualification_round_heats }
+  .buttons
+    = link_to t(:add_qualification_round_heat), new_official_race_heat_path(@race, type: 'QualificationRoundHeat'), class: 'button button--add'
+  %h3= t :final_round
+  = render partial: 'heat_list', locals: { heats: @final_round_heats }
+  .buttons
+    = link_to t(:add_final_round_heat), new_official_race_heat_path(@race, type: 'FinalRoundHeat'), class: 'button button--add'
+.buttons.buttons--nav
+  = link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'
+  - unless @qualification_round_heats.empty? && @final_round_heats.empty?
+    = link_to t('.reset_heat_lists'), official_race_heat_list_reset_path(@race), class: 'button'

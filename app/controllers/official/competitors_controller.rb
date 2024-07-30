@@ -31,7 +31,7 @@ class Official::CompetitorsController < Official::OfficialController
     if @series.has_start_list
       @competitor.number = next_number
       @competitor.start_time = next_start_time
-    elsif @series.sport.batch_list?
+    elsif @series.sport.heat_list?
       @competitor.number = next_number
     end
     @series_menu_options = @series.race.series
@@ -41,7 +41,7 @@ class Official::CompetitorsController < Official::OfficialController
   def create
     assign_series(params[:competitor][:series_id])
     @competitor = @series.competitors.build(add_competitor_params)
-    @competitor.number = @series.race.next_start_number if @series.sport.batch_list? && @competitor.number.blank?
+    @competitor.number = @series.race.next_start_number if @series.sport.heat_list? && @competitor.number.blank?
     club_ok = handle_club(@competitor)
     start_list_page = params[:start_list]
     if club_ok && @competitor.save
@@ -122,15 +122,15 @@ class Official::CompetitorsController < Official::OfficialController
 
   def add_competitor_params
     params.require(:competitor).permit(:series_id, :age_group_id, :club_id, :first_name, :last_name, :unofficial,
-      :team_name, :number, :start_time, :only_rifle, :qualification_round_batch_id, :qualification_round_track_place,
-      :final_round_batch_id, :final_round_track_place)
+      :team_name, :number, :start_time, :only_rifle, :qualification_round_heat_id, :qualification_round_track_place,
+      :final_round_heat_id, :final_round_track_place)
   end
 
   def update_competitor_params
     params.require(:competitor).permit(:series_id, :age_group_id, :club_id, :first_name, :last_name, :unofficial,
       :team_name, :number, :start_time, :arrival_time, :shooting_score_input, :estimate1, :estimate2, :estimate3,
       :estimate4, :no_result_reason, :shooting_overtime_min, :shooting_rules_penalty, :shooting_rules_penalty_qr,
-      :qualification_round_batch_id, :qualification_round_track_place, :final_round_batch_id, :final_round_track_place,
+      :qualification_round_heat_id, :qualification_round_track_place, :final_round_heat_id, :final_round_track_place,
       :qualification_round_shooting_score_input, :final_round_shooting_score_input,
       :nordic_trap_score_input, :nordic_shotgun_score_input, :nordic_rifle_moving_score_input, :nordic_rifle_standing_score_input,
       :nordic_extra_score, :only_rifle,

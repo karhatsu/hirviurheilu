@@ -4,18 +4,18 @@ class Official::CompetitorTrackPlacesController < Official::OfficialController
   def update
     competitor = @race.competitors.find(params[:competitor_id])
     if competitor
-      batch = @race.batches.find params[:batch_id]
-      batch_id_field = batch.final_round? ? :final_round_batch_id : :qualification_round_batch_id
-      track_place_field = batch.final_round? ? :final_round_track_place : :qualification_round_track_place
+      heat = @race.heats.find params[:heat_id]
+      heat_id_field = heat.final_round? ? :final_round_heat_id : :qualification_round_heat_id
+      track_place_field = heat.final_round? ? :final_round_track_place : :qualification_round_track_place
       competitor.transaction do
-        batch_id = params[:batch_id]
+        heat_id = params[:heat_id]
         track_place = params[:track_place]
-        competitor[batch_id_field] = batch_id
+        competitor[heat_id_field] = heat_id
         competitor[track_place_field] = track_place
-        previous_competitor = @race.competitors.where("#{batch_id_field}=? AND #{track_place_field}=?", batch_id, track_place).first
+        previous_competitor = @race.competitors.where("#{heat_id_field}=? AND #{track_place_field}=?", heat_id, track_place).first
         if competitor.save
           if previous_competitor
-            previous_competitor[batch_id_field] = nil
+            previous_competitor[heat_id_field] = nil
             previous_competitor[track_place_field] = nil
             previous_competitor.save!
           end
@@ -32,9 +32,9 @@ class Official::CompetitorTrackPlacesController < Official::OfficialController
   def destroy
     competitor = @race.competitors.find(params[:competitor_id])
     if competitor
-      batch_id_field = params[:final_round] == 'true' ? :final_round_batch_id : :qualification_round_batch_id
+      heat_id_field = params[:final_round] == 'true' ? :final_round_heat_id : :qualification_round_heat_id
       track_place_field = params[:final_round] == 'true' ? :final_round_track_place : :qualification_round_track_place
-      competitor[batch_id_field] = nil
+      competitor[heat_id_field] = nil
       competitor[track_place_field] = nil
       competitor.save!
       render status: 204, json: nil

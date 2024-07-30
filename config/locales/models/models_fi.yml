@@ -6,9 +6,6 @@ fi:
     age_group_id: Ikäryhmä
     api_secret: API:n salausavain
     arrival_time: Saapumisaika
-    batch_id: Erä
-    batch_interval_seconds: Tauko lähtöerien välissä
-    batch_size: Lähtöerien koko
     cancelled: Peruttu
     club: Seura/piiri
     club_name: Seura
@@ -54,15 +51,18 @@ fi:
     european_rifle4_score_input: Villisian tulos
     european_shotgun_extra_shots: Haulikon uusintalaukaukset
     extra_shots: Uusinnan laukaukset
-    final_round_batch_id: Loppukilpailun erä
+    final_round_heat_id: Loppukilpailun erä
     final_round_shooting_score_input: Loppukilpailun yhteistulos
     final_round_track_place: Loppukilpailun ratapaikka
     first_name: Etunimi
     first_number: Ensimmäinen kilpailunumero
     front_page: Näytä etusivulla
-    hide_batches: Piilota eräluettelot
-    hide_final_round_batches: Piilota loppukilpailun eräluettelot
-    hide_qualification_round_batches: Piilota alkukilpailun eräluettelot
+    heat_id: Erä
+    heat_interval_seconds: Tauko lähtöerien välissä
+    heat_size: Lähtöerien koko
+    hide_heats: Piilota eräluettelot
+    hide_final_round_heats: Piilota loppukilpailun eräluettelot
+    hide_qualification_round_heats: Piilota alkukilpailun eräluettelot
     include_always_last_race: Laske viimeinen kilpailu aina mukaan tuloksiin
     key: Avain
     last_name: Sukunimi
@@ -106,7 +106,7 @@ fi:
     price: Hinta
     public_message: Viesti kilpailun etusivulle
     published: Julkaistu
-    qualification_round_batch_id: Alkukilpailun erä
+    qualification_round_heat_id: Alkukilpailun erä
     qualification_round_shooting_score_input: Alkukilpailun yhteistulos
     qualification_round_track_place: Alkukilpailun ratapaikka
     race: Kilpailu
@@ -157,7 +157,7 @@ fi:
       age_group:
         one: Ikäryhmä
         other: Ikäryhmät
-      batch:
+      heat:
         one: Erä
         other: Erät
       club:
@@ -252,22 +252,22 @@ fi:
         name: Kilpailun nimi
     errors:
       models:
-        batch_list:
+        heat:
           no_competitors: Sarjassa ei ole yhtään kilpailijaa
-          invalid_first_batch_number: Ensimmäisen erän numero on virheellinen
+          invalid_first_heat_number: Ensimmäisen erän numero on virheellinen
           invalid_first_track_place: Ensimmäinen paikkanumero on virheellinen
-          invalid_first_batch_time: Ensimmäinen erän kellonaika on virheellinen
-          invalid_minutes_between_batches: Erälle varattu aika on virheellinen
+          invalid_first_heat_time: Ensimmäinen erän kellonaika on virheellinen
+          invalid_minutes_between_heats: Erälle varattu aika on virheellinen
           invalid_competitors_count: Loppukilpailun kilpailijoiden lukumäärä on virheellinen
-          invalid_first_batch_track_number: Ensimmäisen erän ratanumero on virheellinen
+          invalid_first_heat_track_number: Ensimmäisen erän ratanumero on virheellinen
           invalid_included_tracks: Yhtään rataa ei ole määritetty käytettäväksi
           included_tracks_mismatch: Ensimmäisen erän ratanumero ei ole yksikään käytettävistä radoista
           no_track_count: Kilpailulle ei ole määritetty ratojen lukumäärää. Voit tallentaa tiedon kilpailun perustietojen lomakkeella.
           no_shooting_place_count: Kilpailulle ei ole määritetty ammuntapaikkojen lukumäärää. Voit tallentaa tiedon kilpailun perustietojen lomakkeella.
-          first_batch_day_conflict: Ensimmäinen erä on jo tallennettu mutta sen päivä on eri kuin syöttämäsi päivä
-          first_batch_time_conflict: Ensimmäinen erä on jo tallennettu mutta sen aika on eri kuin syöttämäsi aika
+          first_heat_day_conflict: Ensimmäinen erä on jo tallennettu mutta sen päivä on eri kuin syöttämäsi päivä
+          first_heat_time_conflict: Ensimmäinen erä on jo tallennettu mutta sen aika on eri kuin syöttämäsi aika
           first_track_place_reserved: Ensimmäisen erän aloituspaikka on jo käytössä
-          first_batch_track_conflict: Ensimmäisen erän ratapaikka annetulle ajalle on varattu
+          first_heat_track_conflict: Ensimmäisen erän ratapaikka annetulle ajalle on varattu
         competitor:
           attributes:
             base:

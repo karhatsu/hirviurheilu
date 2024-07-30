@@ -1,21 +1,21 @@
 - content_for :title, t('.title')
 %h2= yield :title
-- if @race.sport.batch_list?
-  %h3= t(:batch_lists)
-  - if @race.sport.one_batch_list?
+- if @race.sport.heat_list?
+  %h3= t(:heat_lists)
+  - if @race.sport.one_heat_list?
     - if @race.sport.nordic?
-      = link_to t('.nordic_trap_batch_list_pdf'), official_race_nordic_batch_lists_trap_path(@race, format: :pdf), class: 'button button--pdf'
-      = link_to t('.nordic_shotgun_batch_list_pdf'), official_race_nordic_batch_lists_shotgun_path(@race, format: :pdf), class: 'button button--pdf'
-      = link_to t('.nordic_rifle_moving_batch_list_pdf'), official_race_nordic_batch_lists_rifle_moving_path(@race, format: :pdf), class: 'button button--pdf'
-      = link_to t('.nordic_rifle_standing_batch_list_pdf'), official_race_nordic_batch_lists_rifle_standing_path(@race, format: :pdf), class: 'button button--pdf'
+      = link_to t('.nordic_trap_heat_list_pdf'), official_race_nordic_heat_lists_trap_path(@race, format: :pdf), class: 'button button--pdf'
+      = link_to t('.nordic_shotgun_heat_list_pdf'), official_race_nordic_heat_lists_shotgun_path(@race, format: :pdf), class: 'button button--pdf'
+      = link_to t('.nordic_rifle_moving_heat_list_pdf'), official_race_nordic_heat_lists_rifle_moving_path(@race, format: :pdf), class: 'button button--pdf'
+      = link_to t('.nordic_rifle_standing_heat_list_pdf'), official_race_nordic_heat_lists_rifle_standing_path(@race, format: :pdf), class: 'button button--pdf'
     - elsif @race.sport.european?
-      = link_to t('.european_trap_batch_list_pdf'), official_race_european_batch_lists_trap_path(@race, format: :pdf), class: 'button button--pdf'
-      = link_to t('.european_compak_batch_list_pdf'), official_race_european_batch_lists_compak_path(@race, format: :pdf), class: 'button button--pdf'
-      = link_to t('.european_rifle_batch_list_pdf'), official_race_european_batch_lists_rifle_path(@race, format: :pdf), class: 'button button--pdf'
+      = link_to t('.european_trap_heat_list_pdf'), official_race_european_heat_lists_trap_path(@race, format: :pdf), class: 'button button--pdf'
+      = link_to t('.european_compak_heat_list_pdf'), official_race_european_heat_lists_compak_path(@race, format: :pdf), class: 'button button--pdf'
+      = link_to t('.european_rifle_heat_list_pdf'), official_race_european_heat_lists_rifle_path(@race, format: :pdf), class: 'button button--pdf'
   - else
-    = link_to t('.qualification_round_batch_list_pdf'), official_race_qualification_round_batch_lists_path(@race, format: :pdf), class: 'button button--pdf'
-    = link_to t('.final_round_batch_list_pdf'), official_race_final_round_batch_lists_path(@race, format: :pdf), class: 'button button--pdf'
-    = link_to t('.batch_list_template_pdf'), official_race_batch_list_template_path(@race, format: :pdf), class: 'button button--pdf'
+    = link_to t('.qualification_round_heat_list_pdf'), official_race_qualification_round_heat_lists_path(@race, format: :pdf), class: 'button button--pdf'
+    = link_to t('.final_round_heat_list_pdf'), official_race_final_round_heat_lists_path(@race, format: :pdf), class: 'button button--pdf'
+    = link_to t('.heat_list_template_pdf'), official_race_heat_list_template_path(@race, format: :pdf), class: 'button button--pdf'
 %h3= t('.numbers')
 - if @race.competitors.empty?
   .message.message--info= t '.numbers_no_competitors'
@@ -30,8 +30,8 @@
       = label_tag :print_sport, 'Tulosta laji'
       = check_box_tag :print_sport, true, true
     .form_field
-      = label_tag :print_batch_data, 'Tulosta erätiedot'
-      = check_box_tag :print_batch_data, true, true
+      = label_tag :print_heat_data, 'Tulosta erätiedot'
+      = check_box_tag :print_heat_data, true, true
     .form__buttons
       = submit_tag t('.download_numbers_pdf'), class: 'button button--pdf'
 .buttons.buttons--nav

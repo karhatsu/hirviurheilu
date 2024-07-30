@@ -40,9 +40,9 @@ export const buildRelayStartListPath = (raceId, relayId) => withLocale(`/races/$
 
 export const buildRelayLegPath = (raceId, relayId, leg) => withLocale(`/races/${raceId}/relays/${relayId}/legs/${leg}`)
 
-export const buildQualificationRoundBatchesPath = raceId => withLocale(`/races/${raceId}/qualification_round_batches`)
+export const buildQualificationRoundHeatsPath = raceId => withLocale(`/races/${raceId}/qualification_round_heats`)
 
-export const buildFinalRoundBatchesPath = raceId => withLocale(`/races/${raceId}/final_round_batches`)
+export const buildFinalRoundHeatsPath = raceId => withLocale(`/races/${raceId}/final_round_heats`)
 
 export const buildResultRotationPath = raceId => withLocale(`/races/${raceId}/result_rotation`)
 
@@ -86,11 +86,11 @@ export const buildOfficialRaceCompetitorsPath = seriesId => withLocale(`/officia
 
 export const buildOfficialRaceStartListPath = seriesId => withLocale(`/official/races/${seriesId}/start_list`)
 
-export const buildOfficialRaceQualificationRoundBatchListPath = seriesId => withLocale(`/official/series/${seriesId}/qualification_round_batch_list`)
+export const buildOfficialRaceQualificationRoundHeatListPath = seriesId => withLocale(`/official/series/${seriesId}/qualification_round_heat_list`)
 
-export const buildOfficialRaceFinalRoundBatchListPath = seriesId => withLocale(`/official/series/${seriesId}/final_round_batch_list`)
+export const buildOfficialRaceFinalRoundHeatListPath = seriesId => withLocale(`/official/series/${seriesId}/final_round_heat_list`)
 
-export const buildOfficialRaceBatchesPath = raceId => withLocale(`/official/races/${raceId}/batches`)
+export const buildOfficialRaceHeatsPath = raceId => withLocale(`/official/races/${raceId}/heats`)
 
 export const buildOfficialRaceQuickSavesPath = raceId => withLocale(`/official/races/${raceId}/quick_saves`)
 
@@ -100,7 +100,7 @@ export const buildOfficialSeriesEstimatesPath = seriesId => withLocale(`/officia
 
 export const buildOfficialSeriesShotsPath = seriesId => withLocale(`/official/series/${seriesId}/shots`)
 
-export const buildOfficialRaceShootingByBatchesPath = raceId => withLocale(`/official/races/${raceId}/shooting_by_batches`)
+export const buildOfficialRaceShootingByHeatsPath = raceId => withLocale(`/official/races/${raceId}/shooting_by_heats`)
 
 export const buildOfficialRaceNordicPath = (raceId, subSport) => withLocale(`/official/races/${raceId}/nordic_${subSport}`)
 

@@ -14,9 +14,9 @@ sv:
   race_sub_menu:
     home_page: Tävling hemsida
     start_lists: Startlista
-    batches: Heatlista
-    qualification_round_batches: Grundtävlingens heatlista
-    final_round_batches: Finalens heatlista
+    heats: Heatlista
+    qualification_round_heats: Grundtävlingens heatlista
+    final_round_heats: Finalens heatlista
     results: Resultat
     team_competitions:
       one: Lagtävlingen
@@ -34,18 +34,18 @@ sv:
   official_sub_menu:
     summary: Sammanfattning
     race: Basinformation
-    batches: Heat
+    heats: Heat
     competitors: Tävlar
     start_times: Starttider
-    batch_list_generation: Heatlotteri
-    qualification_round_batch_list: Grundtävling
-    final_round_batch_list: Final
+    heat_list_generation: Heatlotteri
+    qualification_round_heat_list: Grundtävling
+    final_round_heat_list: Final
     quick_save: Resultat
     times: Tider
     estimates: Bedömning
     shooting: Skytte
     shooting_by_series: Skytte (klasser)
-    shooting_by_batches: Skytte (heat)
+    shooting_by_heats: Skytte (heat)
     correct_distances: Riktiga avstånd
     csv: CSV
     team_competitions: Lagtävlingar

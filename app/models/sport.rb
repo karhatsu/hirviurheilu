@@ -212,11 +212,11 @@ class Sport
     three_sports?
   end
 
-  def batch_list?
+  def heat_list?
     !three_sports?
   end
 
-  def one_batch_list?
+  def one_heat_list?
     @key == NORDIC || @key == EUROPEAN
   end
 

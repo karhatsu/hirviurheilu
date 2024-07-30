@@ -35,19 +35,19 @@ describe Race do
       end
     end
 
-    describe "batch_interval_seconds" do
-      it { is_expected.to validate_numericality_of(:batch_interval_seconds) }
-      it { is_expected.not_to allow_value(nil).for(:batch_interval_seconds) }
-      it { is_expected.not_to allow_value(23.5).for(:batch_interval_seconds) }
-      it { is_expected.not_to allow_value(0).for(:batch_interval_seconds) }
+    describe "heat_interval_seconds" do
+      it { is_expected.to validate_numericality_of(:heat_interval_seconds) }
+      it { is_expected.not_to allow_value(nil).for(:heat_interval_seconds) }
+      it { is_expected.not_to allow_value(23.5).for(:heat_interval_seconds) }
+      it { is_expected.not_to allow_value(0).for(:heat_interval_seconds) }
     end
 
-    describe "batch_size" do
-      it { is_expected.to validate_numericality_of(:batch_size) }
-      it { is_expected.not_to allow_value(nil).for(:batch_size) }
-      it { is_expected.not_to allow_value(23.5).for(:batch_size) }
-      it { is_expected.not_to allow_value(-1).for(:batch_size) }
-      it { is_expected.to allow_value(0).for(:batch_size) }
+    describe "heat_size" do
+      it { is_expected.to validate_numericality_of(:heat_size) }
+      it { is_expected.not_to allow_value(nil).for(:heat_size) }
+      it { is_expected.not_to allow_value(23.5).for(:heat_size) }
+      it { is_expected.not_to allow_value(-1).for(:heat_size) }
+      it { is_expected.to allow_value(0).for(:heat_size) }
     end
 
     describe "club_level" do
@@ -439,8 +439,8 @@ describe Race do
     specify { expect(Race::DEFAULT_START_INTERVAL).to eq(60) }
   end
 
-  describe "DEFAULT_BATCH_INTERVAL" do
-    specify { expect(Race::DEFAULT_BATCH_INTERVAL).to eq(180) }
+  describe "DEFAULT_HEAT_INTERVAL" do
+    specify { expect(Race::DEFAULT_HEAT_INTERVAL).to eq(180) }
   end
 
   describe "#days_count" do
@@ -869,29 +869,29 @@ describe Race do
     end
   end
 
-  describe '#competitors_per_batch and #concurrent_batches' do
+  describe '#competitors_per_heat and #concurrent_heats' do
     context 'when shooting place count is 1' do
       let(:race) { build :race, shooting_place_count: 1, track_count: 3 }
 
-      it 'concurrent_batches is 1' do
-        expect(race.concurrent_batches).to eql 1
+      it 'concurrent_heats is 1' do
+        expect(race.concurrent_heats).to eql 1
       end
 
-      it 'competitors_per_batch is track count' do
-        expect(race.competitors_per_batch).to eql 3
+      it 'competitors_per_heat is track count' do
+        expect(race.competitors_per_heat).to eql 3
       end
     end
 
     context 'when shooting place count is not 1' do
       let(:race) { build :race, shooting_place_count: 2, track_count: 5 }
 
-      it 'concurrent_batches is track count' do
-        expect(race.concurrent_batches).to eql 5
+      it 'concurrent_heats is track count' do
+        expect(race.concurrent_heats).to eql 5
       end
 
-      it 'competitors_per_batch is shooting place count' do
+      it 'competitors_per_heat is shooting place count' do
         race = build :race, shooting_place_count: 2, track_count: 5
-        expect(race.competitors_per_batch).to eql 2
+        expect(race.competitors_per_heat).to eql 2
       end
     end
   end

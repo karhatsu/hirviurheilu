@@ -36,8 +36,8 @@ Hirviurheilu::Application.routes.draw do
       get 'shotgun', to: 'nordic_races#shotgun', as: :shotgun
       get 'rifle_moving', to: 'nordic_races#rifle_moving', as: :rifle_moving
       get 'rifle_standing', to: 'nordic_races#rifle_standing', as: :rifle_standing
-      resources :qualification_round_batches, only: :index
-      resources :final_round_batches, only: :index
+      resources :qualification_round_heats, only: :index
+      resources :final_round_heats, only: :index
       resources :series do
         get 'rifle', to: 'european_rifles#index', as: :rifle
         get 'shotguns', to: 'european_shotguns#index'
@@ -88,21 +88,21 @@ Hirviurheilu::Application.routes.draw do
       resources :multiple_races, only: [:new, :create]
 
       resources :races do
-        resources :batches
-        resource :batch_lists_reset, only: [:show, :destroy]
-        resources :qualification_round_batch_lists, only: :index
-        resources :final_round_batch_lists, only: :index
-        post 'qualification_round_batch_results/:number' => 'qualification_round_batch_results#create'
-        post 'final_round_batch_results/:number' => 'final_round_batch_results#create'
+        resources :heats
+        resource :heat_list_reset, only: [:show, :destroy]
+        resources :qualification_round_heat_lists, only: :index
+        resources :final_round_heat_lists, only: :index
+        post 'qualification_round_heat_results/:number' => 'qualification_round_heat_results#create'
+        post 'final_round_heat_results/:number' => 'final_round_heat_results#create'
         resources :competitor_numbers, only: :index
-        get 'nordic_batch_lists_trap', to: 'nordic_batch_lists#trap'
-        get 'nordic_batch_lists_shotgun', to: 'nordic_batch_lists#shotgun'
-        get 'nordic_batch_lists_rifle_moving', to: 'nordic_batch_lists#rifle_moving'
-        get 'nordic_batch_lists_rifle_standing', to: 'nordic_batch_lists#rifle_standing'
-        get 'european_batch_lists_trap', to: 'european_batch_lists#trap'
-        get 'european_batch_lists_compak', to: 'european_batch_lists#compak'
-        get 'european_batch_lists_rifle', to: 'european_batch_lists#rifle'
-        resource :batch_list_template, only: :show
+        get 'nordic_heat_lists_trap', to: 'nordic_heat_lists#trap'
+        get 'nordic_heat_lists_shotgun', to: 'nordic_heat_lists#shotgun'
+        get 'nordic_heat_lists_rifle_moving', to: 'nordic_heat_lists#rifle_moving'
+        get 'nordic_heat_lists_rifle_standing', to: 'nordic_heat_lists#rifle_standing'
+        get 'european_heat_lists_trap', to: 'european_heat_lists#trap'
+        get 'european_heat_lists_compak', to: 'european_heat_lists#compak'
+        get 'european_heat_lists_rifle', to: 'european_heat_lists#rifle'
+        resource :heat_list_template, only: :show
         get 'competitor_numbers/:number' => 'competitors#show_by_number'
         put 'competitors/:competitor_id/track_place' => 'competitor_track_places#update'
         delete 'competitors/:competitor_id/track_place' => 'competitor_track_places#destroy'
@@ -134,7 +134,7 @@ Hirviurheilu::Application.routes.draw do
         resource :start_list
         resource :csv_export
         resource :competitor_copying
-        resources :shooting_by_batches, only: :index
+        resources :shooting_by_heats, only: :index
         get 'nordic_trap', to: 'nordic_race_shots#trap', as: :nordic_trap
         get 'nordic_shotgun', to: 'nordic_race_shots#shotgun', as: :nordic_shotgun
         get 'nordic_rifle_moving', to: 'nordic_race_shots#rifle_moving', as: :nordic_rifle_moving
@@ -146,8 +146,8 @@ Hirviurheilu::Application.routes.draw do
       end
 
       resources :series do
-        resource :qualification_round_batch_list, only: [:show, :create]
-        resource :final_round_batch_list, only: [:show, :create]
+        resource :qualification_round_heat_list, only: [:show, :create]
+        resource :final_round_heat_list, only: [:show, :create]
         resources :competitors, :except => :create
         resources :age_groups
         resource :start_list
@@ -216,8 +216,8 @@ Hirviurheilu::Application.routes.draw do
           resources :relays, only: [:show]
           resources :times, only: :index
           resource :press, only: :show
-          resources :qualification_round_batches, only: :index
-          resources :final_round_batches, only: :index
+          resources :qualification_round_heats, only: :index
+          resources :final_round_heats, only: :index
           get 'rifle', to: 'european_rifles#show'
           get 'shotguns', to: 'european_shotguns#show'
           get 'trap', to: 'nordic_races#trap'

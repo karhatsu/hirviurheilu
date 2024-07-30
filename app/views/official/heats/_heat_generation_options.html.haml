@@ -1,0 +1,47 @@
+.form__field.form__field--sm.row
+  .col-xs-12.col-sm-4= label_tag :first_heat_number, t('official.heat_lists.show.first_heat_number')
+  .col-xs-12.col-sm-8= number_field_tag :first_heat_number, params[:first_heat_number] || @series.race.first_available_heat_number(final_round), min: 1
+.form__field.form__field--sm.row
+  .col-xs-12.col-sm-4= label_tag :first_track_place, t('official.heat_lists.show.first_track_place')
+  .col-xs-12.col-sm-8= number_field_tag :first_track_place, params[:first_track_place] || @series.race.first_available_track_place(final_round), min: 1
+- if @series.race.concurrent_heats > 1
+  .form__field.form__field--sm.row
+    .col-xs-12.col-sm-4= label_tag :first_heat_track_number, t('official.heat_lists.show.first_heat_track_number')
+    .col-xs-12.col-sm-8= number_field_tag :first_heat_track_number, params[:first_heat_track_number] || @series.race.suggested_next_track_number(final_round), min: 1
+  .form__field.row
+    .col-xs-12.col-sm-4
+      %label= t('official.heat_lists.show.include_tracks')
+    .col-xs-12.col-sm-8
+      - @series.race.concurrent_heats.times do |i|
+        - track = i + 1
+        - checked = params[:include_tracks].nil? ? true : params[:include_tracks].include?(track.to_s)
+        = check_box_tag 'include_tracks[]', track, checked, id: "include_tracks_#{track}"
+        = label_tag "include_tracks_#{track}", track, class: 'form__label--checkbox'
+- if @series.race.days_count > 1
+  .form__field.form__field--md.row
+    .col-xs-12.col-sm-4= label_tag :heat_day, t('official.heat_lists.show.heat_day')
+    .col-xs-12.col-sm-8= select_tag :heat_day, options_for_select(heat_days_options(@series.race), params[:heat_day] || @series.race.suggested_next_heat_day(final_round))
+.form__field.form__field--sm.row
+  .col-xs-12.col-sm-4= label_tag :first_heat_time, t('official.heat_lists.show.first_heat_time')
+  .col-xs-12.col-sm-8= text_field_tag :first_heat_time, params[:first_heat_time] || @series.race.suggested_next_heat_time(final_round), placeholder: 'HH:MM', maxlength: 6
+.form__field.form__field--sm.row
+  .col-xs-12.col-sm-4= label_tag :minutes_between_heats, t('official.heat_lists.show.minutes_between_heats')
+  .col-xs-12.col-sm-8= number_field_tag :minutes_between_heats, params[:minutes_between_heats] || @series.race.suggested_min_between_heats(final_round), min: 1
+.form__field.row
+  .col-xs-12.col-sm-4= label_tag :only_track_places, t('official.heat_lists.show.assign_competitors')
+  .col-xs-12.col-sm-8
+    = radio_button_tag :only_track_places, 'all', !%w(odd even).include?(params[:only_track_places])
+    = t 'official.heat_lists.show.all_track_places'
+    = radio_button_tag :only_track_places, 'odd', params[:only_track_places] == 'odd'
+    = t 'official.heat_lists.show.odd_track_places'
+    = radio_button_tag :only_track_places, 'even', params[:only_track_places] == 'even'
+    = t 'official.heat_lists.show.even_track_places'
+.form__field.row
+  .col-xs-12.col-sm-4= label_tag :skip_first_track_place, t('official.heat_lists.show.skip_first_track_place')
+  .col-xs-12.col-sm-8= check_box_tag :skip_first_track_place, true, params[:skip_first_track_place]
+.form__field.row
+  .col-xs-12.col-sm-4= label_tag :skip_last_track_place, t('official.heat_lists.show.skip_last_track_place')
+  .col-xs-12.col-sm-8= check_box_tag :skip_last_track_place, true, params[:skip_last_track_place]
+.form__field.form__field--md.row
+  .col-xs-12.col-sm-4= label_tag :skip_track_places, t('official.heat_lists.show.skip_track_places')
+  .col-xs-12.col-sm-8= text_field_tag :skip_track_places, params[:skip_track_places]

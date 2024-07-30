@@ -1,0 +1,22 @@
+- if @heats.length == 0
+  .message.message--info= t('heats.index.no_heat_list')
+- else
+  - series_id = params[:series_id].to_i
+  - club_id = params[:club_id].to_i
+  - @heats.each do |heat|
+    - competitors = heat.competitors.select do |competitor|
+      - (series_id == 0 || competitor.series_id == series_id) && (club_id == 0 || competitor.club_id == club_id)
+    - unless competitors.empty?
+      %h3
+        #{heat.number}, #{heat_time @race, heat}
+        - if heat.track.to_i > 0
+          (#{t('attributes.track')} #{heat.track})
+      %table
+        - competitors.each do |competitor|
+          %tr
+            %td= competitor[track_place_name]
+            %td #{full_name competitor} (#{competitor.number})
+            %td= competitor.club.name
+            %td= competitor.series.name
+            - if final_round
+              %td= competitor.qualification_round_total_score || ''

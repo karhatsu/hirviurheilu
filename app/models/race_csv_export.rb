@@ -20,7 +20,7 @@ class RaceCsvExport
   end
 
   def create_csv(csv)
-    @race.competitors.includes(:series, :club, :qualification_round_batch).except(:order).order(:start_time).each do |competitor|
+    @race.competitors.includes(:series, :club, :qualification_round_heat).except(:order).order(:start_time).each do |competitor|
       csv << row(competitor)
     end
   end
@@ -29,7 +29,7 @@ class RaceCsvExport
     columns = [competitor.first_name, competitor.last_name, competitor.club.name, series(competitor)]
     if @all_data
       columns << competitor.number
-      columns << competitor.qualification_round_batch&.number
+      columns << competitor.qualification_round_heat&.number
       columns << competitor.qualification_round_track_place
     elsif !@shooting_race
       columns << competitor.number

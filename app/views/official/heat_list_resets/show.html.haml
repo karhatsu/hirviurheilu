@@ -1,0 +1,20 @@
+- content_for :title, "#{@race.name} - #{t '.title'}"
+%h2= t '.title'
+.message.message--warning= t '.warning'
+= flash_error
+= form_tag(official_race_heat_list_reset_path, method: :delete) do
+  .form__field
+    = radio_button_tag :type, 'QualificationRoundHeat', params[:type] == 'QualificationRoundHeat'
+    = label_tag "type_qualificationroundheat", t(:qualification_round), class: 'form__label--radio'
+    = radio_button_tag :type, 'FinalRoundHeat', params[:type] == 'FinalRoundHeat'
+    = label_tag "type_finalroundheat", t(:final_round), class: 'form__label--radio'
+  .form__field
+    = label_tag :confirm_text, t('.confirm_text')
+    = text_field_tag :confirm_text, params[:confirm_text]
+  .form__field
+    = label_tag :delete_heats, t('.delete_heats')
+    = check_box_tag :delete_heats, true, params[:delete_heats]
+  .form__buttons
+    = submit_tag t('.button'), class: 'button button--danger'
+.buttons.buttons--nav
+  = link_to t(:back_to_official_heats_page), official_race_heats_path(@race), class: 'button button--back'

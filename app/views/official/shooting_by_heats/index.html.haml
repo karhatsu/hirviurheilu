@@ -1,0 +1,70 @@
+- content_for :title, "#{@race.name} - #{t('.title')}"
+%h2 #{@race.name} - #{t('.title')}
+- if @heat_options.empty?
+  .message.message--info= t '.no_heats'
+- else
+  = form_tag(official_race_shooting_by_heats_path(@race), method: :get) do
+    .form__horizontal-fields
+      .form__field
+        = select_tag :heat_id, options_for_select(@heat_options, params[:heat_id]), prompt: t('attributes.heat_id')
+      .form__buttons
+        = submit_tag t('.select_heat'), class: 'button button--primary'
+  - if @heat
+    %h3
+      #{@heat.final_round? ? t('attributes.final_round_heat_id') : t('attributes.qualification_round_heat_id')}: #{@heat.number}, #{heat_time(@race, @heat)}
+      - if @heat.track
+        (#{t('attributes.track')} #{@heat.track})
+    - competitors = @heat.competitors.includes(:series)
+    - if competitors.empty?
+      = t '.no_competitors_in_heat'
+    - else
+      .result-cards
+        - competitors.each do |competitor|
+          .card
+            .card__number= competitor.track_place @heat
+            .card__middle
+              .card__name
+                = full_name competitor
+                - if competitor.number
+                  (##{competitor.number})
+                %span.status{id: "status_#{competitor.id}"}
+              - unless competitor.no_result_reason
+                .card__middle-row
+                  = form_for([:official, competitor.series, competitor], remote: true, namespace: "c_#{competitor.id}", html: { id: "shots_form_#{competitor.id}", class: 'form form--inline' }) do |f|
+                    = render partial: 'official/shots/all_shooting_race_shots', locals: { f: f, sport: @race.sport, competitor: competitor, show_qualification_round_shots: @heat.qualification_round?, show_final_round_shots: @heat.final_round? }
+                    .form__buttons= submit_tag t(:save), onclick: "start_updating(#{competitor.id})", class: 'button button--primary'
+            .card__main-value{id: "shots_result_#{competitor.id}"}
+              - if competitor.no_result_reason
+                = competitor.no_result_reason
+              - else
+                #{competitor.qualification_round_score.to_i} + #{competitor.final_round_score.to_i} =
+                = competitor.shooting_score.to_i
+      :javascript
+        function start_updating(id) {
+          $("#status_" + id).removeClass().html('#{image_tag 'spinner.gif'}');
+        }
+.buttons.buttons--nav
+  = link_to t(:back_to_official_race_page), official_race_path(@race), class: 'button button--back'
+:javascript
+  $('.shots-total-input').change(function() {
+    calculateShotsResult($(this))
+    findAndResetInlineMessage($(this))
+  });
+  $('.shot').change(function() {
+    calculateShotsResult($(this))
+    findAndResetInlineMessage($(this))
+  });
+  function calculateShotsResult(field) {
+    const $card = field.closest('.card')
+    if (#{@race.sport.shooting?}) {
+      if (#{!!@heat&.qualification_round?}) {
+        calculateShootingRaceShotsResultForQ($card, #{@race.sport.best_shot_value}, #{@race.sport.qualification_round_max_score},
+          #{@race.sport.qualification_round_shot_count})
+      } else {
+        calculateShootingRaceShotsResultForF($card, #{@race.sport.best_shot_value}, #{@race.sport.qualification_round_max_score},
+          #{@race.sport.qualification_round_shot_count}, #{@race.sport.shot_count})
+      }
+    } else {
+      calculateThreeSportsShotsResult($card)
+    }
+  }

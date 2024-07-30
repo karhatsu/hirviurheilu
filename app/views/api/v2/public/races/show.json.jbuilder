@@ -1,5 +1,5 @@
 json.key_format! camelize: :lower if request.headers['X-Camel-Case']
-json.(@race, :id, :name, :location, :start_date, :end_date, :address, :home_page, :organizer, :organizer_phone, :sport_name, :club_level, :finished, :cancelled, :public_message, :sport_key, :hide_qualification_round_batches, :hide_final_round_batches, :days_count, :nordic_sub_results_for_series, :show_european_shotgun_results, :level)
+json.(@race, :id, :name, :location, :start_date, :end_date, :address, :home_page, :organizer, :organizer_phone, :sport_name, :club_level, :finished, :cancelled, :public_message, :sport_key, :hide_qualification_round_heats, :hide_final_round_heats, :days_count, :nordic_sub_results_for_series, :show_european_shotgun_results, :level)
 json.start_date_time @race.start_datetime
 json.start_time @race.short_start_time
 json.all_competitions_finished @race.all_competitions_finished?
@@ -11,10 +11,10 @@ if @official
 end
 
 json.sport do
-  json.batch_list @race.sport.batch_list?
+  json.heat_list @race.sport.heat_list?
   json.european @race.sport.european?
   json.nordic @race.sport.nordic?
-  json.one_batch_list @race.sport.one_batch_list?
+  json.one_heat_list @race.sport.one_heat_list?
   json.shooting @race.sport.shooting?
   json.shooting_simple @race.sport.shooting? && !@race.sport.european? && !@race.sport.nordic?
   json.start_list @race.sport.start_list?
@@ -49,12 +49,12 @@ json.relays @race.relays do |relay|
   json.start_time relay.start_datetime
 end
 
-json.qualification_round_batches @race.qualification_round_batches do |batch|
-  json.(batch, :id)
+json.qualification_round_heats @race.qualification_round_heats do |heat|
+  json.(heat, :id)
 end
 
-json.final_round_batches @race.final_round_batches do |batch|
-  json.(batch, :id)
+json.final_round_heats @race.final_round_heats do |heat|
+  json.(heat, :id)
 end
 
 json.cups @race.cups do |cup|

@@ -19,7 +19,7 @@ class Official::Limited::CompetitorsController < Official::Limited::LimitedOffic
 
   def create
     @competitor = @race.competitors.build(competitor_params)
-    @competitor.number = @race.next_start_number if @race.sport.batch_list?
+    @competitor.number = @race.next_start_number if @race.sport.heat_list?
     club_ok = true
     if @race_right.new_clubs?
       club_ok = handle_club(@competitor)

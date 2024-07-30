@@ -21,8 +21,8 @@ class Competitor < ApplicationRecord
   belongs_to :club
   belongs_to :series, counter_cache: true, touch: true
   belongs_to :age_group
-  belongs_to :qualification_round_batch
-  belongs_to :final_round_batch
+  belongs_to :qualification_round_heat
+  belongs_to :final_round_heat
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
@@ -385,8 +385,8 @@ class Competitor < ApplicationRecord
     !allowed_values.include?(shot.to_i) || shot.to_i.to_s != shot.to_s
   end
 
-  def track_place(batch)
-    batch.final_round? ? final_round_track_place : qualification_round_track_place
+  def track_place(heat)
+    heat.final_round? ? final_round_track_place : qualification_round_track_place
   end
 
   def has_shots?
@@ -615,7 +615,7 @@ class Competitor < ApplicationRecord
   end
 
   def track_place_fitting
-    shooting_place_count = race&.competitors_per_batch
+    shooting_place_count = race&.competitors_per_heat
     errors.add :qualification_round_track_place, :too_big if shooting_place_count && qualification_round_track_place && qualification_round_track_place > shooting_place_count
     errors.add :final_round_track_place, :too_big if shooting_place_count && final_round_track_place && final_round_track_place > shooting_place_count
   end

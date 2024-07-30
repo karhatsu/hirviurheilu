@@ -7,11 +7,11 @@
   .message.message--info= t('official.result_place.shooting.either_total_or_shots')
   .form__field.form__field--md
     = select_tag :series_id, options_from_collection_for_select(@race.series, :id, :name, params[:series_id]), prompt: t(:all_series), onChange: 'filter()'
-    - unless @race.batches.empty?
-      = select_tag :batch_id, options_from_collection_for_select(@race.batches, :id, :number, params[:batch_id]), prompt: t(:all_batches), onChange: 'filter()'
+    - unless @race.heats.empty?
+      = select_tag :heat_id, options_from_collection_for_select(@race.heats, :id, :number, params[:heat_id]), prompt: t(:all_heats), onChange: 'filter()'
   .result-cards
     - @race.competitors.except(:order).order(:qualification_round_track_place, :number, :last_name, :first_name).each do |competitor|
-      .card{class: "series_#{competitor.series_id} batch_#{competitor.qualification_round_batch_id}"}
+      .card{class: "series_#{competitor.series_id} heat_#{competitor.qualification_round_heat_id}"}
         .card__number= "##{competitor.number}"
         .card__middle
           .card__name
@@ -49,20 +49,20 @@
   }
   function filter() {
     var seriesId = $('#series_id').val()
-    var batchId = $('#batch_id').val()
-    if (seriesId === '' && batchId === '') {
+    var heatId = $('#heat_id').val()
+    if (seriesId === '' && heatId === '') {
       $('.card').show()
       $('.track_place').hide()
     } else {
       $('.card').hide()
-      if (seriesId !== '' && batchId !== '') {
-        $('.series_' + seriesId + '.batch_' + batchId).show()
+      if (seriesId !== '' && heatId !== '') {
+        $('.series_' + seriesId + '.heat_' + heatId).show()
         $('.track_place').show()
       } else if (seriesId !== '') {
         $('.series_' + seriesId).show()
         $('.track_place').hide()
-      } else if (batchId !== '') {
-        $('.batch_' + batchId).show()
+      } else if (heatId !== '') {
+        $('.heat_' + heatId).show()
         $('.track_place').show()
       }
     }

@@ -5,10 +5,10 @@ import parse from 'date-fns/parse'
 import parseISO from 'date-fns/parseISO'
 import useTranslation from '../../util/useTranslation'
 import {
-  buildFinalRoundBatchesPath,
+  buildFinalRoundHeatsPath,
   buildNordicResultsPath,
   buildNordicSeriesResultsPath,
-  buildQualificationRoundBatchesPath,
+  buildQualificationRoundHeatsPath,
   buildRaceRifleResultsPath,
   buildRaceShotgunsResultsPath,
   buildRaceStartListsPdfPath,
@@ -18,7 +18,7 @@ import {
   buildSeriesStartListPath,
 } from '../../util/routeUtil'
 import ClubSelect from './ClubSelect'
-import BatchListPdfForm from './BatchListPdfForm'
+import HeatListPdfForm from './HeatListPdfForm'
 import Button from '../../common/Button'
 import Message from '../../common/Message'
 import { formatTodaysTime } from '../../util/timeUtil'
@@ -56,8 +56,8 @@ export default function RaceSeries({ race }) {
     const key = isAfter(new Date(), new Date(startDateTime)) ? 'raceStarted' : 'raceStarts'
     infos.push(t(key, { time: format(parse(startTime, 'HH:mm:ss', new Date()), 'HH:mm') }))
   }
-  const qrHidden = race.hideQualificationRoundBatches
-  const frHidden = race.hideFinalRoundBatches
+  const qrHidden = race.hideQualificationRoundHeats
+  const frHidden = race.hideFinalRoundHeats
   return (
     <>
       <h2>{t(resultsKey(sport))}</h2>
@@ -148,18 +148,18 @@ export default function RaceSeries({ race }) {
               </form>
             </>
           )}
-          {!qrHidden && race.qualificationRoundBatches.length > 0 && (
-            <BatchListPdfForm
-              path={buildQualificationRoundBatchesPath(race.id)}
+          {!qrHidden && race.qualificationRoundHeats.length > 0 && (
+            <HeatListPdfForm
+              path={buildQualificationRoundHeatsPath(race.id)}
               race={race}
-              title={t(sport.oneBatchList ? 'batchList' : 'qualificationRoundBatchList')}
+              title={t(sport.oneHeatList ? 'heatList' : 'qualificationRoundHeatList')}
             />
           )}
-          {!frHidden && race.finalRoundBatches.length > 0 && (
-            <BatchListPdfForm
-              path={buildFinalRoundBatchesPath(race.id)}
+          {!frHidden && race.finalRoundHeats.length > 0 && (
+            <HeatListPdfForm
+              path={buildFinalRoundHeatsPath(race.id)}
               race={race}
-              title={t('finalRoundBatchList')}
+              title={t('finalRoundHeatList')}
             />
           )}
         </div>

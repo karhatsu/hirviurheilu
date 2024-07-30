@@ -14,8 +14,8 @@ class Official::RacesController < Official::OfficialController
     @race.start_date = Date.today
     @race.start_time = '00:00'
     @race.start_interval_seconds = Race::DEFAULT_START_INTERVAL
-    @race.batch_size = 0
-    @race.batch_interval_seconds = Race::DEFAULT_BATCH_INTERVAL
+    @race.heat_size = 0
+    @race.heat_interval_seconds = Race::DEFAULT_HEAT_INTERVAL
     @race.sport_key = params[:sport_key]
     @race.start_order = Race::START_ORDER_NOT_SELECTED
   end
@@ -109,8 +109,8 @@ class Official::RacesController < Official::OfficialController
     [ :sport_key, :name, :district_id, :location, 'start_date(1i)', 'start_date(2i)', 'start_date(3i)',
       'start_time(1i)', 'start_time(2i)', 'start_time(3i)', 'start_time(4i)', 'start_time(5i)', :reveal_distances,
       :days_count, :club_level, :organizer, :home_page, :organizer_phone, :address, :shooting_place_count, :track_count,
-      :start_interval_seconds, :start_order, :batch_size, :batch_interval_seconds, :public_message,
-      :cancelled, :hide_qualification_round_batches, :hide_final_round_batches, :level, :nordic_sub_results_for_series,
+      :start_interval_seconds, :start_order, :heat_size, :heat_interval_seconds, :public_message,
+      :cancelled, :hide_qualification_round_heats, :hide_final_round_heats, :level, :nordic_sub_results_for_series,
       :show_european_shotgun_results, :double_competition ]
   end
 end

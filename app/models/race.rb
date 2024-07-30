@@ -1,11 +1,11 @@
 class Race < ApplicationRecord
-  include BatchListSuggestions
+  include HeatListSuggestions
   include CompetitorsCopy
   include StartDateTime
   include CompetitorPosition
 
   DEFAULT_START_INTERVAL = 60
-  DEFAULT_BATCH_INTERVAL = 180
+  DEFAULT_HEAT_INTERVAL = 180
 
   CLUB_LEVEL_SEURA = 0
   CLUB_LEVEL_PIIRI = 1
@@ -31,9 +31,9 @@ class Race < ApplicationRecord
   has_many :team_competitions, -> { order :name }, :dependent => :destroy
   has_many :race_rights
   has_many :users, :through => :race_rights
-  has_many :batches, -> { order(:number) }, :dependent => :destroy
-  has_many :qualification_round_batches, -> { order(:number) }, :dependent => :destroy
-  has_many :final_round_batches, -> { order(:number) }, :dependent => :destroy
+  has_many :heats, -> { order(:number) }, :dependent => :destroy
+  has_many :qualification_round_heats, -> { order(:number) }, :dependent => :destroy
+  has_many :final_round_heats, -> { order(:number) }, :dependent => :destroy
   has_and_belongs_to_many :cups
 
   accepts_nested_attributes_for :series, :allow_destroy => true
@@ -49,8 +49,8 @@ class Race < ApplicationRecord
   validates :location, :presence => true
   validates :start_date, :presence => true
   validates :start_interval_seconds, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, unless: -> { sport_key && !sport.start_list? }
-  validates :batch_size, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :batch_interval_seconds, numericality: {only_integer: true, greater_than: 0}
+  validates :heat_size, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :heat_interval_seconds, numericality: {only_integer: true, greater_than: 0}
   validates :club_level, inclusion: { in: [CLUB_LEVEL_SEURA, CLUB_LEVEL_PIIRI] }
   validates :start_order, :inclusion => { in: [START_ORDER_BY_SERIES, START_ORDER_MIXED], message: :have_to_choose }
   validates :track_count, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
@@ -244,11 +244,11 @@ class Race < ApplicationRecord
     start_time.strftime '%H:%M:%S'
   end
 
-  def concurrent_batches
+  def concurrent_heats
     shooting_place_count == 1 ? 1 : track_count
   end
 
-  def competitors_per_batch
+  def competitors_per_heat
     shooting_place_count == 1 ? track_count : shooting_place_count
   end
 
@@ -336,7 +336,7 @@ class Race < ApplicationRecord
     updated_at.try(:utc).try(:to_formatted_s, :nsec)
   end
 
-  def find_batches(final_round)
-    final_round ? final_round_batches : qualification_round_batches
+  def find_heats(final_round)
+    final_round ? final_round_heats : qualification_round_heats
   end
 end

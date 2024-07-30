@@ -17,7 +17,7 @@ export const pages = {
   rifleTeamCompetitions: 9,
   relays: 10,
   media: 11,
-  batches: {
+  heats: {
     qualificationRound: 12,
     finalRound: 13,
   },

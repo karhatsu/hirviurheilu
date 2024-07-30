@@ -59,15 +59,15 @@ Given /^the series has a competitor with attributes:$/ do |fields|
     hash[:club_id] = club.id
     hash.delete "club" # workaround for ruby 1.9
   end
-  if hash[:qualification_round_batch]
-    batch = QualificationRoundBatch.where(race: @race.id, number: hash[:qualification_round_batch]).first
-    hash[:qualification_round_batch_id] = batch.id
-    hash.delete "qualification_round_batch"
+  if hash[:qualification_round_heat]
+    heat = QualificationRoundHeat.where(race: @race.id, number: hash[:qualification_round_heat]).first
+    hash[:qualification_round_heat_id] = heat.id
+    hash.delete "qualification_round_heat"
   end
-  if hash[:final_round_batch]
-    batch = FinalRoundBatch.where(race: @race.id, number: hash[:final_round_batch]).first
-    hash[:final_round_batch_id] = batch.id
-    hash.delete "final_round_batch"
+  if hash[:final_round_heat]
+    heat = FinalRoundHeat.where(race: @race.id, number: hash[:final_round_heat]).first
+    hash[:final_round_heat_id] = heat.id
+    hash.delete "final_round_heat"
   end
   @competitor = create(:competitor, {:series => @series}.merge(hash))
 end

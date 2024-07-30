@@ -13,13 +13,13 @@
     - if series && !race.series.first.new_record?
       - if race.sport.start_list?
         = menu_item t('official_sub_menu.start_times'), official_race_start_list_path(race), @is_start_list
-      - elsif race.sport.one_batch_list?
-        = menu_item t('official_sub_menu.batch_list_generation'), official_series_qualification_round_batch_list_path(series), @qualification_round_batch_list
-      - elsif race.sport.batch_list?
-        = menu_item t('official_sub_menu.qualification_round_batch_list'), official_series_qualification_round_batch_list_path(series), @qualification_round_batch_list
-        = menu_item t('official_sub_menu.final_round_batch_list'), official_series_final_round_batch_list_path(series), @final_round_batch_list
-    - if race.sport.batch_list?
-      = menu_item t('official_sub_menu.batches'), official_race_batches_path(race), @is_batches
+      - elsif race.sport.one_heat_list?
+        = menu_item t('official_sub_menu.heat_list_generation'), official_series_qualification_round_heat_list_path(series), @qualification_round_heat_list
+      - elsif race.sport.heat_list?
+        = menu_item t('official_sub_menu.qualification_round_heat_list'), official_series_qualification_round_heat_list_path(series), @qualification_round_heat_list
+        = menu_item t('official_sub_menu.final_round_heat_list'), official_series_final_round_heat_list_path(series), @final_round_heat_list
+    - if race.sport.heat_list?
+      = menu_item t('official_sub_menu.heats'), official_race_heats_path(race), @is_heats
     - if series && !race.series.first.new_record? && !race.sport.nordic? && !race.sport.european?
       = menu_item t('official_sub_menu.quick_save'), official_race_quick_saves_path(race), @is_quick_saves
       - unless race.sport.shooting?
@@ -31,7 +31,7 @@
       = menu_item t("official_sub_menu.#{shooting_by_series_key}"), official_series_shots_path(series), @is_shots, nil, true do
         - series_dropdown_menu(race, 'shots')
       - if race.sport.shooting?
-        = menu_item t('official_sub_menu.shooting_by_batches'), official_race_shooting_by_batches_path(race), @is_shots_by_batches
+        = menu_item t('official_sub_menu.shooting_by_heats'), official_race_shooting_by_heats_path(race), @is_shooting_by_heats
       - unless race.sport.shooting?
         = menu_item t('official_sub_menu.correct_distances'), official_race_correct_estimates_path(race), @is_correct_estimates
     - elsif series && !race.series.first.new_record? && race.sport.nordic?

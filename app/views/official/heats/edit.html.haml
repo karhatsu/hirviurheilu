@@ -1,0 +1,17 @@
+- content_for :page_title, "#{t "attributes.#{@heat.id_name}"} #{@heat.number} - #{t :edit}"
+- content_for :title, "#{@race.name} - #{yield :page_title}"
+%h2= yield :page_title
+%h3= t '.basic_information'
+= render 'form'
+%h3= t '.heat_competitors'
+= render 'heat_competitors'
+.buttons.buttons--nav
+  = link_to t(:back_to_official_heats_page), official_race_heats_path(@race), class: 'button button--back'
+  - if @heat.competitors.empty?
+    = link_to t('.delete_heat'), official_race_heat_path(@race, @heat), method: :delete, data: { confirm: t('.delete_confirmation') }, id: 'delete_heat_button', class: 'button button--danger'
+  - relation = @heat.final_round? ? :final_round_heats : :qualification_round_heats
+  - @race.send(relation).each do |heat|
+    - if heat.id == @heat.id
+      .button.button--current= heat.number
+    - else
+      = link_to heat.number, edit_official_race_heat_path(@race, heat), class: 'button'

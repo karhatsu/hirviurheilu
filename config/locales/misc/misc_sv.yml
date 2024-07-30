@@ -1,10 +1,10 @@
 sv:
   add: Öka
-  add_batch: Öka heat
+  add_heat: Öka heat
   add_competitors: Öka tävlar
-  add_final_round_batch: Öka finalens heat
+  add_final_round_heat: Öka finalens heat
   add_new: Öka ny
-  add_qualification_round_batch: Öka grundtävlingens heat
+  add_qualification_round_heat: Öka grundtävlingens heat
   add_race: Öka tävling
   added: Ökat
   age_group:
@@ -12,14 +12,14 @@ sv:
     shooting_race: Grupp
   all: Alla
   all_announcements: Alla nyheter
-  all_batches: Alla heat
+  all_heats: Alla heat
   all_competitors: Alla tävlarna
   all_districts: Alla distrikt
   all_series: Alla klasser
   all_sports: Alla grener
   back_to_cup_page: Tillbaka till cup-tävlingens hemsida
   back_to_home_page: Tillbaka till hemsida
-  back_to_official_batches_page: Takaisin erien sivulle
+  back_to_official_heats_page: Takaisin erien sivulle
   back_to_official_home_page: Tillbaka till funktionärs hemsida
   back_to_official_race_page: Tillbaka till Sammanfattning-sida
   back_to_official_relays_page: Tillbaka till stafetters hemsida
@@ -27,8 +27,6 @@ sv:
   back_to_page: Tillbaka till sida
   back_to_race_home_page: Tillbaka till tävlingens hemsida
   back_to_series_results: Tillbaka till klassens %{series_name} resultat
-  batch_list: Heatlista
-  batch_lists: Heatlista
   captcha: Hur mycket år två plus två?
   captcha_info: Vi vill kontrollera att du är inte en robot. Den rätta svaren är naturligtvis fyra.
   choose: Välj
@@ -61,7 +59,7 @@ sv:
   delete: Radera
   district: Trakt
   districts: Trakter
-  download_batch_list_pdf: Ladda heatlista som PDF-fil
+  download_heat_list_pdf: Ladda heatlista som PDF-fil
   download_results_pdf: Ladda resultaten som PDF-fil
   download_results_pdf_with_competitors: Ladda PDF (med tävlarna)
   download_results_pdf_without_competitors: Ladda PDF (utan tävlarna)
@@ -80,7 +78,9 @@ sv:
   extra_round: Omskjutning
   feedback: Feedback
   final_round: Final
-  final_round_batch_lists: Finalens heatlista
+  final_round_heat_lists: Finalens heatlista
+  heat_list: Heatlista
+  heat_lists: Heatlista
   hide_all_competitors: Gömma alla tävlarna
   hide_shots: Gömma skott
   hide_races_of_cup: Gömma tävlingarna
@@ -111,7 +111,7 @@ sv:
   password: Lösenord
   points: Poäng
   qualification_round: Grundtävling
-  qualification_round_batch_lists: Grundtävlingens heatlista
+  qualification_round_heat_lists: Grundtävlingens heatlista
   race_id: Tävlingens ID
   race_is_cancelled_title: Tävlingen inställd
   race_is_cancelled_message: Tyvärr tävlingen är inställd

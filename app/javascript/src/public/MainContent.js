@@ -3,8 +3,8 @@ import PageTitle from '../common/PageTitle'
 import FacebookShare from './FacebookShare'
 import { Route, Switch } from 'react-router-dom'
 import TeamCompetitionResultsPage from './team-competition/TeamCompetitionResultsPage'
-import QualificationRoundBatches from './batches/QualificationRoundBatches'
-import FinalRoundBatches from './batches/FinalRoundBatches'
+import QualificationRoundHeats from './heats/QualificationRoundHeats'
+import FinalRoundHeats from './heats/FinalRoundHeats'
 import ResultRotationPage from './result-rotation/ResultRotationPage'
 import StartListPage from './start-list/StartListPage'
 import EuropeanRifleSeriesResultsPage from './european/EuropeanRifleSeriesResultsPage'
@@ -45,12 +45,12 @@ export default function MainContent({ cupSeriesPaths }) {
           render={() => <TeamCompetitionResultsPage />}
         />
         <Route
-          path="/:lang?/races/:raceId/qualification_round_batches"
-          render={() => <QualificationRoundBatches />}
+          path="/:lang?/races/:raceId/qualification_round_heats"
+          render={() => <QualificationRoundHeats />}
         />
         <Route
-          path="/:lang?/races/:raceId/final_round_batches"
-          render={() => <FinalRoundBatches />}
+          path="/:lang?/races/:raceId/final_round_heats"
+          render={() => <FinalRoundHeats />}
         />
         <Route
           path="/:lang?/races/:raceId/result_rotation"

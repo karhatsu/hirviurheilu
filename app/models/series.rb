@@ -173,18 +173,18 @@ class Series < ApplicationRecord
     return false unless can_generate_start_times?
 
     last_number = competitors.last.number
-    batch_size = race.batch_size
-    batch_interval = race.batch_interval_seconds - race.start_interval_seconds
-    # calculate where last (possibly partial) batch starts
-    if batch_size > 0
-      last_batch_size = (last_number - first_number + 1) % batch_size
-      last_batch_start = first_number +
-        ((last_number - first_number + 1) / batch_size).to_i * batch_size
+    heat_size = race.heat_size
+    heat_interval = race.heat_interval_seconds - race.start_interval_seconds
+    # calculate where last (possibly partial) heat starts
+    if heat_size > 0
+      last_heat_size = (last_number - first_number + 1) % heat_size
+      last_heat_start = first_number +
+        ((last_number - first_number + 1) / heat_size).to_i * heat_size
     end
-    batch_size = 0 if last_batch_start == first_number
+    heat_size = 0 if last_heat_start == first_number
 
-    set_start_times_for_competitors(competitors, batch_size,
-      last_batch_start, last_batch_size, batch_interval)
+    set_start_times_for_competitors(competitors, heat_size,
+      last_heat_start, last_heat_size, heat_interval)
     true
   end
 
@@ -367,30 +367,27 @@ class Series < ApplicationRecord
     ok
   end
 
-  def set_start_times_for_competitors(competitors, batch_size,
-      last_batch_start, last_batch_size, batch_interval)
+  def set_start_times_for_competitors(competitors, heat_size, last_heat_start, last_heat_size, heat_interval)
     interval = race.start_interval_seconds
     competitors.each do |comp|
-      time_diff = time_diff_to_series_start_time(comp, interval,
-        batch_size, last_batch_start, last_batch_size, batch_interval)
+      time_diff = time_diff_to_series_start_time(comp, interval, heat_size, last_heat_start, last_heat_size, heat_interval)
       comp.update_column(:start_time, start_time + time_diff)
     end
   end
 
-  def time_diff_to_series_start_time(competitor, interval, batch_size,
-      last_batch_start, last_batch_size, batch_interval)
+  def time_diff_to_series_start_time(competitor, interval, heat_size, last_heat_start, last_heat_size, heat_interval)
     comp_num_diff = (competitor.number - first_number)
     time_diff = comp_num_diff * interval
-    if batch_size > 0
-      time_diff += (comp_num_diff / batch_size).to_i * batch_interval
-      if batch_too_small?(competitor, last_batch_start, last_batch_size, batch_size)
-        time_diff -= batch_interval # attach to previous batch
+    if heat_size > 0
+      time_diff += (comp_num_diff / heat_size).to_i * heat_interval
+      if heat_too_small? competitor, last_heat_start, last_heat_size, heat_size
+        time_diff -= heat_interval # attach to previous heat
       end
     end
     time_diff
   end
 
-  def batch_too_small?(competitor, last_batch_start, last_batch_size, batch_size)
-    competitor.number >= last_batch_start && last_batch_size <= batch_size*2/3
+  def heat_too_small?(competitor, last_heat_start, last_heat_size, heat_size)
+    competitor.number >= last_heat_start && last_heat_size <= heat_size*2/3
   end
 end

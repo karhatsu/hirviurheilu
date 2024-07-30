@@ -6,9 +6,6 @@ sv:
     age_group_id: Åldersgrupp
     api_secret: API lösenord
     arrival_time: Avkomstid
-    batch_id: Heat
-    batch_interval_seconds: Paus mellan startsatser
-    batch_size: Startsatsers storlek
     cancelled: Inställd
     club: Klubb
     club_name: Klubb
@@ -54,15 +51,18 @@ sv:
     european_rifle4_score_input: Vildsvin resultat
     european_shotgun_extra_shots: Compak och trap omskjutning
     extra_shots: Omskjutning
-    final_round_batch_id: Finalens heat
+    final_round_heat_id: Finalens heat
     final_round_shooting_score_input: Finalens resultat
     final_round_track_place: Finalens plats
     first_name: Förnamn
     first_number: Första tävlingsnummer
     front_page: Visa på frontsida
-    hide_batches: Gömma heatlista
-    hide_final_round_batches: Gömma finalens heatlista
-    hide_qualification_round_batches: Gömma grundtävlingens heatlista
+    heat_id: Heat
+    heat_interval_seconds: Paus mellan startsatser
+    heat_size: Startsatsers storlek
+    hide_heats: Gömma heatlista
+    hide_final_round_heats: Gömma finalens heatlista
+    hide_qualification_round_heats: Gömma grundtävlingens heatlista
     include_always_last_race: Innehål den sista tävlingen alltid till resulten
     key: Nyckel
     last_name: Efternamn
@@ -106,7 +106,7 @@ sv:
     price: Pris
     public_message: Meddelande på tävlingens hemsida
     published: Publiserad
-    qualification_round_batch_id: Grundtävlingens heat
+    qualification_round_heat_id: Grundtävlingens heat
     qualification_round_shooting_score_input: Grundtävlingens resultat
     qualification_round_track_place: Grundtävlingens plats
     race: Tävling
@@ -157,7 +157,7 @@ sv:
       age_group:
         one: Äldsgrupp
         other: Äldsgruppar
-      batch:
+      heat:
         one: Heat
         other: Heat
       club:
@@ -252,22 +252,22 @@ sv:
         name: Tävlingens namn
     errors:
       models:
-        batch_list:
+        heat:
           no_competitors: Klassen har inga tävlare
-          invalid_first_batch_number: Den första tävlarens heatnummer har fel format
+          invalid_first_heat_number: Den första tävlarens heatnummer har fel format
           invalid_first_track_place: Den första tävlarens plats har fel format
-          invalid_first_batch_time: Det första heatets starttid har fel format
-          invalid_minutes_between_batches: Tid reserverad för ett heat har fel format
+          invalid_first_heat_time: Det första heatets starttid har fel format
+          invalid_minutes_between_heats: Tid reserverad för ett heat har fel format
           invalid_competitors_count: Antal av tävlarna i finalen har fel format
-          invalid_first_batch_track_number: Det första heatets bana har fel format
+          invalid_first_heat_track_number: Det första heatets bana har fel format
           invalid_included_tracks: Alla banor inaktiverad
           included_tracks_mismatch: Den första tävlarens heatnummer är inaktiverad
           no_track_count: Tävlingen saknas antal av banor
           no_shooting_place_count: Tävlingen saknas antal av skottsplatser
-          first_batch_day_conflict: Det första heatet existeras men heatets dag är annan som dagen du gav
-          first_batch_time_conflict: Det första heatet existeras men heatets starttid är annan som tiden du gav
+          first_heat_day_conflict: Det första heatet existeras men heatets dag är annan som dagen du gav
+          first_heat_time_conflict: Det första heatet existeras men heatets starttid är annan som tiden du gav
           first_track_place_reserved: Den första tävlarens plats är upptagen
-          first_batch_track_conflict: Det första heatets plats är upptagen
+          first_heat_track_conflict: Det första heatets plats är upptagen
         competitor:
           attributes:
             base:

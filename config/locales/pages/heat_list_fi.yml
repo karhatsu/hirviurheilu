@@ -1,0 +1,15 @@
+fi:
+  heats:
+    index:
+      no_heat_list: Kilpailun eräluetteloa ei ole tehty
+  qualification_round_heats:
+    index:
+      hidden: Alkukilpailun eräluetteloa ei ole vielä julkaistu
+      hidden_one_heat_list: Eräluetteloa ei ole vielä julkaistu
+      title:
+        one_heat_list: Eräluettelo
+        other: Alkukilpailun eräluettelo
+  final_round_heats:
+    index:
+      hidden: Loppukilpailun eräluetteloa ei ole vielä julkaistu
+      title: Loppukilpailun eräluettelo

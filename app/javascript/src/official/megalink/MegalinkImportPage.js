@@ -31,7 +31,7 @@ const readResults = json => {
   return results
 }
 
-const readBatchNumber = json => json.Event[0].Relay[0].Rel
+const readHeatNumber = json => json.Event[0].Relay[0].Rel
 
 const rounds = { qualification: 'qr', final: 'final' }
 
@@ -60,17 +60,17 @@ const MegalinkImportPage = () => {
     event.preventDefault()
     setErrors([])
     setSuccess(false)
-    let batchNumber
+    let heatNumber
     let results
     try {
-      batchNumber = readBatchNumber(json)
+      heatNumber = readHeatNumber(json)
       results = readResults(json)
     } catch (err) {
       setErrors([t('megaLinkImportContentsError')])
       return
     }
-    const path = round === rounds.final ? 'final_round_batch_results' : 'qualification_round_batch_results'
-    post(`/official/races/${race.id}/${path}/${batchNumber}`, { results }, errors => {
+    const path = round === rounds.final ? 'final_round_heat_results' : 'qualification_round_heat_results'
+    post(`/official/races/${race.id}/${path}/${heatNumber}`, { results }, errors => {
       if (errors) {
         setErrors(errors)
       } else {

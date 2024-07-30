@@ -101,7 +101,7 @@
     omilla sivuilla, voit laittaa tähän linkin kyseiselle sivulle.
     Voit myös jättää kentän tyhjäksi.
 
-  #batch_size_help_dialog.dialog{style: 'display:none;'}
+  #heat_size_help_dialog.dialog{style: 'display:none;'}
     Lähtöerien avulla voit luoda taukoa kilpailijoiden välille.
     Voit esimerkiksi määrittää lähtöerän kooksi 20 kilpailijaa,
     jonka jälkeen tulee lähtöajoissa tauko. Nämä asetukset otetaan huomioon,
@@ -156,23 +156,23 @@
         = f.radio_button :start_order, Race::START_ORDER_MIXED
         = f.label "start_order_#{Race::START_ORDER_MIXED}", t('official.races.form.competitors_start_order_mixed'), class: 'form__label--radio'
 
-    .form__field.form__field--sm.batch_size_row.row
+    .form__field.form__field--sm.heat_size_row.row
       .col-xs-12.col-sm-3
         .form__help-label
-          = f.label :batch_size
-          %a.help#batch_size_help{href: 'javascript:void(0);'} ?
+          = f.label :heat_size
+          %a.help#heat_size_help{href: 'javascript:void(0);'} ?
       .col-xs-12.col-sm-9
-        = f.number_field :batch_size, maxlength: 3, min: 0
-        (0 = #{t 'official.races.form.start_batches_not_in_use'})
+        = f.number_field :heat_size, maxlength: 3, min: 0
+        (0 = #{t 'official.races.form.start_heats_not_in_use'})
 
-    .form__field.form__field--sm.batch_size_row.row
-      .col-xs-12.col-sm-3= f.label :batch_interval_seconds
+    .form__field.form__field--sm.heat_size_row.row
+      .col-xs-12.col-sm-3= f.label :heat_interval_seconds
       .col-xs-12.col-sm-9
-        = f.number_field :batch_interval_seconds, maxlength: 3, min: 1
+        = f.number_field :heat_interval_seconds, maxlength: 3, min: 1
         = t 'official.races.form.seconds'
 
-  - if @race.sport.batch_list?
-    %h2= t :batch_list
+  - if @race.sport.heat_list?
+    %h2= t :heat_list
     .form__field.form__field--sm.row
       .col-xs-12.col-sm-3= f.label :track_count
       .col-xs-12.col-sm-9= f.number_field :track_count, maxlength: 2, min: 1
@@ -180,13 +180,13 @@
       .col-xs-12.col-sm-3= f.label :shooting_place_count
       .col-xs-12.col-sm-9= f.number_field :shooting_place_count, maxlength: 3, min: 1
     .form__field.form__field--sm.row
-      - label = @race.sport.one_batch_list? ? t('attributes.hide_batches') : nil
-      .col-xs-12.col-sm-3= f.label :hide_qualification_round_batches, label
-      .col-xs-12.col-sm-9= f.check_box :hide_qualification_round_batches
-    - unless @race.sport.one_batch_list?
+      - label = @race.sport.one_heat_list? ? t('attributes.hide_heats') : nil
+      .col-xs-12.col-sm-3= f.label :hide_qualification_round_heats, label
+      .col-xs-12.col-sm-9= f.check_box :hide_qualification_round_heats
+    - unless @race.sport.one_heat_list?
       .form__field.form__field--sm.row
-        .col-xs-12.col-sm-3= f.label :hide_final_round_batches
-        .col-xs-12.col-sm-9= f.check_box :hide_final_round_batches
+        .col-xs-12.col-sm-3= f.label :hide_final_round_heats
+        .col-xs-12.col-sm-9= f.check_box :hide_final_round_heats
 
   - unless @race.new_record? || @race.api_secret.blank?
     %h2 API
@@ -221,20 +221,20 @@
   var address_help_title = 'Kilpailupaikan osoite';
   var public_message_help_title = '#{t 'attributes.public_message'}';
   var start_order_help_title = 'Kilpailijoiden lähtöjärjestys';
-  var batch_size_help_title = 'Lähtöerät';
+  var heat_size_help_title = 'Lähtöerät';
   var default_series_help_title = 'Lisää oletussarjat automaattisesti';
   var age_groups_help_title = '#{@race.sport.shooting? ? 'Aliryhmät' : 'Ikäryhmät'}';
 
-  function showOrHideBatchSizes() {
+  function showOrHideHeatSizes() {
     if($("#race_start_order_" + #{Race::START_ORDER_BY_SERIES} + ":checked").length) {
-      $(".batch_size_row").show();
+      $(".heat_size_row").show();
     } else {
-      $(".batch_size_row").hide();
+      $(".heat_size_row").hide();
     }
   }
-  $(document).ready(showOrHideBatchSizes);
-  $("#race_start_order_" + #{Race::START_ORDER_BY_SERIES}).click(showOrHideBatchSizes);
-  $("#race_start_order_" + #{Race::START_ORDER_MIXED}).click(showOrHideBatchSizes);
+  $(document).ready(showOrHideHeatSizes);
+  $("#race_start_order_" + #{Race::START_ORDER_BY_SERIES}).click(showOrHideHeatSizes);
+  $("#race_start_order_" + #{Race::START_ORDER_MIXED}).click(showOrHideHeatSizes);
 
   $('#add_default_series').change(setSeriesMethodEnabling)
   $('#copy_series').change(setSeriesMethodEnabling)

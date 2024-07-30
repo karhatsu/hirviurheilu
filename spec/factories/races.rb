@@ -7,8 +7,8 @@ FactoryBot.define do
     start_date { '2010-08-14' }
     start_interval_seconds { 60 }
     start_order { Race::START_ORDER_BY_SERIES }
-    batch_size { 0 }
-    batch_interval_seconds { 180 }
+    heat_size { 0 }
+    heat_interval_seconds { 180 }
     start_time { '00:00:00' }
   end
 end

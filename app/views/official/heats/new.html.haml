@@ -1,0 +1,7 @@
+- content_for :page_title, t(:add_heat)
+- content_for :title, "#{@race.name} - #{yield :page_title}"
+%h2= yield :page_title
+.message.message--info= t '.competitors_info'
+= render 'form'
+.buttons.buttons--nav
+  = link_to t(:back_to_official_heats_page), official_race_heats_path(@race), class: 'button button--back'

@@ -54,19 +54,19 @@
   = link_to t('.copy_competitors'), new_official_race_competitor_copying_path(@race), class: 'button button--copy'
   - unless @race.series.empty?
     = link_to t('.add_competitors_from_csv'), new_official_race_csv_import_path(@race), class: 'button button--add_multiple'
-- if @race.sport.batch_list?
-  %h3= t :batch_list
+- if @race.sport.heat_list?
+  %h3= t :heat_list
   .buttons
-    = link_to t('.batches_manually'), official_race_batches_path(@race), class: 'button'
+    = link_to t('.heats_manually'), official_race_heats_path(@race), class: 'button'
     - unless @race.series.empty?
-      - if @race.sport.one_batch_list?
-        = link_to t('.batch_list_generation'), official_series_qualification_round_batch_list_path(@race.series.first), class: 'button'
+      - if @race.sport.one_heat_list?
+        = link_to t('.heat_list_generation'), official_series_qualification_round_heat_list_path(@race.series.first), class: 'button'
       - else
-        = link_to t('.qualification_round_batch_list'), official_series_qualification_round_batch_list_path(@race.series.first), class: 'button'
-        = link_to t('.final_round_batch_list'), official_series_final_round_batch_list_path(@race.series.first), class: 'button'
+        = link_to t('.qualification_round_heat_list'), official_series_qualification_round_heat_list_path(@race.series.first), class: 'button'
+        = link_to t('.final_round_heat_list'), official_series_final_round_heat_list_path(@race.series.first), class: 'button'
 %h3 Tulostus (PDF)
 .buttons
-  - key = @race.sport.batch_list? ? '.printing_batch_lists_and_numbers' : '.printing_numbers'
+  - key = @race.sport.heat_list? ? '.printing_heat_lists_and_numbers' : '.printing_numbers'
   = link_to t(key), official_race_printing_path(@race), class: 'button button--pdf'
   - unless @race.competitors.empty?
     - club_key = @race.club_level == Race::CLUB_LEVEL_SEURA ? '.download_competitors_by_clubs' : '.download_competitors_by_districts'

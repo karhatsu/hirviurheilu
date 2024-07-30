@@ -14,9 +14,9 @@ fi:
   race_sub_menu:
     home_page: Kilpailun etusivu
     start_lists: Lähtölistat
-    batches: Eräluettelot
-    qualification_round_batches: Alkukilpailun eräluettelot
-    final_round_batches: Loppukilpailun eräluettelot
+    heats: Eräluettelot
+    qualification_round_heats: Alkukilpailun eräluettelot
+    final_round_heats: Loppukilpailun eräluettelot
     results: Tulokset
     team_competitions:
       one: Joukkuekilpailu
@@ -34,18 +34,18 @@ fi:
   official_sub_menu:
     summary: Yhteenveto
     race: Perustiedot
-    batches: Erät
+    heats: Erät
     competitors: Kilpailijat
     start_times: Lähtöajat
-    batch_list_generation: Erien arvonta
-    qualification_round_batch_list: Alkukilpailu
-    final_round_batch_list: Loppukilpailu
+    heat_list_generation: Erien arvonta
+    qualification_round_heat_list: Alkukilpailu
+    final_round_heat_list: Loppukilpailu
     quick_save: Pikasyöttö
     times: Ajat
     estimates: Arviot
     shooting: Ammunta
     shooting_by_series: Ammunta sarjoittain
-    shooting_by_batches: Ammunta erittäin
+    shooting_by_heats: Ammunta erittäin
     correct_distances: Oikeat etäisyydet
     csv: CSV
     team_competitions: Joukkuek.

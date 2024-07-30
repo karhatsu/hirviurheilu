@@ -1,9 +1,9 @@
 import React from 'react'
 import DesktopMenuItem from './DesktopMenuItem'
 import {
-  buildFinalRoundBatchesPath,
+  buildFinalRoundHeatsPath,
   buildNordicResultsPath, buildNordicSeriesResultsPath,
-  buildQualificationRoundBatchesPath, buildRaceMediaPath,
+  buildQualificationRoundHeatsPath, buildRaceMediaPath,
   buildRacePath, buildRaceRifleResultsPath, buildRaceShotgunsResultsPath,
   buildRelayPath, buildResultRotationPath,
   buildRifleTeamCompetitionsPath,
@@ -110,19 +110,19 @@ export default function DesktopRaceSecondLevelMenu({ race }) {
               )}
             </>
           )}
-          {race.sport.batchList && race.qualificationRoundBatches.length > 0 && (
+          {race.sport.heatList && race.qualificationRoundHeats.length > 0 && (
             <DesktopMenuItem
-              path={buildQualificationRoundBatchesPath(race.id)}
-              text={t(race.sport.oneBatchList ? 'batchList' : 'qualificationRoundBatchList')}
-              selected={selectedPage === pages.batches.qualificationRound}
+              path={buildQualificationRoundHeatsPath(race.id)}
+              text={t(race.sport.oneHeatList ? 'heatList' : 'qualificationRoundHeatList')}
+              selected={selectedPage === pages.heats.qualificationRound}
               reactLink={true}
             />
           )}
-          {race.sport.batchList && race.finalRoundBatches.length > 0 && (
+          {race.sport.heatList && race.finalRoundHeats.length > 0 && (
             <DesktopMenuItem
-              path={buildFinalRoundBatchesPath(race.id)}
-              text={t('finalRoundBatchList')}
-              selected={selectedPage === pages.batches.finalRound}
+              path={buildFinalRoundHeatsPath(race.id)}
+              text={t('finalRoundHeatList')}
+              selected={selectedPage === pages.heats.finalRound}
               reactLink={true}
             />
           )}
