@@ -47,7 +47,7 @@ Feature: Save results by result place
     When the race is finished
     And I go to the results page of the series
     Then I should see "300 (25:41)"
-    And I should see "296 (+1m/-1m)"
+    And I should see "296 (+1m / -1m)"
     And I should see "594 (99)"
 
   @javascript

@@ -84,14 +84,14 @@ Feature: Team competition results
       | series | Men 50 years |
       | points | 1142 |
       | shooting | 564 (94) |
-      | estimates | 278 (-10m/+1m) |
+      | estimates | 278 (-10m / +1m) |
       | time | 300 (1:00:00) |
     And I should see a team 1 competitor row 2 with values:
       | name | Atkinsson Tim |
       | series | Men 50 years |
       | points | 1140 |
       | shooting | 540 (90) |
-      | estimates | 300 (0m/0m) |
+      | estimates | 300 (0m / 0m) |
       | time | 300 (1:00:00) |
 
   @javascript

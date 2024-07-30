@@ -89,7 +89,7 @@ Feature: Results
       | club | Sports club |
       | points | 1140 |
       | shooting | 540 (90) |
-      | estimates | 300 (0m/0m) |
+      | estimates | 300 (0m / 0m) |
       | time | 300 (1:00:00) |
     And I should see a result row 2 with values:
       | name | Johnson James |
@@ -97,7 +97,7 @@ Feature: Results
       | club | Shooting club |
       | points | 1105 |
       | shooting | 510 (85) |
-      | estimates | 296 (+1m/-1m) |
+      | estimates | 296 (+1m / -1m) |
       | time | 299 (1:00:10) |
 
   @javascript
@@ -158,14 +158,14 @@ Feature: Results
       | club | Sports club |
       | points | 1140 |
       | shooting | 540 (90) |
-      | estimates | 600 (0m/0m/0m/0m) |
+      | estimates | 600 (0m / 0m / 0m / 0m) |
     And I should see a result row 2 with values:
       | name | Johnson James |
       | number | 50 |
       | club | Shooting club |
       | points | 1102 |
       | shooting | 510 (85) |
-      | estimates | 592 (+1m/-1m/-1m/+1m) |
+      | estimates | 592 (+1m / -1m / -1m / +1m) |
     But I should not see "Juoksu"
     But I should not see "Hiihto"
     But I should not see "300 (1:00:00)"
@@ -212,7 +212,7 @@ Feature: Results
       | club | Shooting club |
       | points | 1106 |
       | shooting | 510 (85) |
-      | estimates | 296 (+1m/-1m) |
+      | estimates | 296 (+1m / -1m) |
       | time | 300 |
 
   @javascript
@@ -296,7 +296,7 @@ Feature: Results
     And I force mobile UI
     Then I should see "Kilpailu on kesken"
     But I should not see "Tarkemmat arviointitiedot julkaistaan"
-    And I should see "264 (-10m/+8m)" in result card 1 detail row 2 "estimate" result
+    And I should see "264 (-10m / +8m)" in result card 1 detail row 2 "estimate" result
 
   @javascript
   Scenario: See the results with national record reached mention of an individual competitor in an unfinished race
@@ -470,7 +470,7 @@ Feature: Results
       | club | Shooting club |
       | points | 1106 |
       | shooting | 510 (85) |
-      | estimates | 296 (+1m/-1m) |
+      | estimates | 296 (+1m / -1m) |
       | time | 300 (1:00:10) |
     And I should see a result row 2 with values:
       | name | Atkinsson Tim epäv. |
@@ -478,7 +478,7 @@ Feature: Results
       | club | Sports club |
       | points | 1140 |
       | shooting | 540 (90) |
-      | estimates | 300 (0m/0m) |
+      | estimates | 300 (0m / 0m) |
       | time | 300 (1:00:00) |
     When I click all competitors button
     And I wait for the results
@@ -489,7 +489,7 @@ Feature: Results
       | club | Sports club |
       | points | 1140 |
       | shooting | 540 (90) |
-      | estimates | 300 (0m/0m) |
+      | estimates | 300 (0m / 0m) |
       | time | 300 (1:00:00) |
     And I should see a result row 2 with values:
       | name | Johnson James |
@@ -497,7 +497,7 @@ Feature: Results
       | club | Shooting club |
       | points | 1105 |
       | shooting | 510 (85) |
-      | estimates | 296 (+1m/-1m) |
+      | estimates | 296 (+1m / -1m) |
       | time | 299 (1:00:10) |
     When I click official competitors button
     Then I should see "Men 50 years - Tulokset" within "h2"
