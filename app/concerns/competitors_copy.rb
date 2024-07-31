@@ -25,7 +25,7 @@ module CompetitorsCopy
   private
 
   def ensure_club(source_club)
-    Club.find_or_create_by! race: self, name: source_club.name do |club|
+    Club.find_or_create_by! race: self, name: source_club.name.strip do |club|
       club.race = self
     end
   end

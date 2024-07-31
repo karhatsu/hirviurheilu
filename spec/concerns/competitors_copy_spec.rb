@@ -25,6 +25,7 @@ describe CompetitorsCopy do
   describe '#copy_competitors_from' do
     context 'when data is valid' do
       it 'copies all competitors' do
+        source_club2.update_column :name, source_club2.name + ' '
         target_race.copy_competitors_from source_race, with_start_list: true
         competitors = target_race.reload.competitors
         expect(competitors.count).to eql 3
@@ -239,7 +240,7 @@ describe CompetitorsCopy do
       expect(competitor.series.name).to eql source_competitor.series.name
       expect(competitor.age_group.name).to eql source_competitor.age_group.name if source_competitor.age_group
       expect(competitor.age_group).to be_nil unless source_competitor.age_group
-      expect(competitor.club.name).to eql source_competitor.club.name
+      expect(competitor.club.name).to eql source_competitor.club.name.strip
       expect(competitor.number).to eql source_competitor.number
       if source_competitor.start_time
         expect(competitor.start_time.strftime('%H:%M:%S')).to eql source_competitor.start_time.strftime('%H:%M:%S')
