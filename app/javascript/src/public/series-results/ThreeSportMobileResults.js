@@ -36,9 +36,9 @@ export default function ThreeSportMobileResults({ race, series }) {
             <div className="card__middle">
               <div className="card__name">
                 {lastName} {firstName}
-                {ageGroup && <div className="card__name__extra"> ({ageGroup.name})</div>}
                 {unofficial && <div className="card__name__extra"><UnofficialLabel unofficial={unofficial}/></div>}
               </div>
+              {ageGroup && <div className="card__middle-row">{ageGroup.name}</div>}
               <div className="card__middle-row">{club.name}</div>
               {noResultReason && <div className="card__middle-row">{t(`competitor_${noResultReason}`)}</div>}
               {!noResultReason && hasResult && (
