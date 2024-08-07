@@ -118,19 +118,18 @@ function calculateInternationalRaceShotsResult(card, bestShotValue, shotCount) {
   card.find('.card__main-value').text(result);
 }
 
-function calculateEuropeanRifleShotsResult(card) {
+function calculateEuropeanShotsResult(card, fieldCount, bestShotValue, shotCount) {
   let result = 0
   let error = false
-  const shotCount = 5
   const maxScore = shotCount * 10
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < fieldCount; i++) {
     const total = card.find('.shots-total-input')[i].value
     if (total !== '') {
       const subResult = parseInt(total)
       if (subResult >= 0 && subResult <= maxScore) {
         result += subResult
         card.find('.shot').slice(i * shotCount, (i + 1) * shotCount).each(function() {
-          if($(this).val() !== '') {
+          if ($(this).val() !== '') {
             error = true
           }
         })
@@ -138,15 +137,15 @@ function calculateEuropeanRifleShotsResult(card) {
         error = true
       }
     } else {
-      const errorAndSum = sumOfShots(card, 10, i * shotCount, (i + 1) * shotCount)
+      const errorAndSum = sumOfShots(card, bestShotValue, i * shotCount, (i + 1) * shotCount)
       error = error || errorAndSum[0]
       result += errorAndSum[1]
     }
   }
   if (error) {
-    result = '?';
+    result = '?'
   }
-  card.find('.card__main-value').text(result);
+  card.find('.card__main-value').text(result)
 }
 
 function formatResult(error, q, f, roundMaxScore) {
