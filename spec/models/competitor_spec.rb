@@ -494,25 +494,31 @@ describe Competitor do
     end
 
     describe 'european results' do
-      shared_examples_for 'european rifle' do |n, allowed_shots|
-        it_should_behave_like 'shots', "european_rifle#{n}_shots", allowed_shots, 5
-        it_should_behave_like 'non-negative integer', "european_rifle#{n}_score_input", true, max_value: 50
-        it_should_behave_like 'only single score method', "european_rifle#{n}_score_input", "european_rifle#{n}_shots"
+      shared_examples_for 'european rifle' do |n, m, allowed_shots|
+        it_should_behave_like 'shots', "european_rifle#{n}_shots#{m}", allowed_shots, 5
+        it_should_behave_like 'non-negative integer', "european_rifle#{n}_score_input#{m}", true, max_value: 50
+        it_should_behave_like 'only single score method', "european_rifle#{n}_score_input#{m}", "european_rifle#{n}_shots#{m}"
       end
 
-      it_should_behave_like 'european rifle', 1, [0, 1, 3, 8, 9, 10]
-      it_should_behave_like 'european rifle', 2, [0, 1, 3, 8, 9, 10]
-      it_should_behave_like 'european rifle', 3, [0, 1, 3, 8, 9, 10]
-      it_should_behave_like 'european rifle', 4, [0, 3, 5, 8, 9, 10]
+      it_should_behave_like 'european rifle', 1, '', [0, 1, 3, 8, 9, 10]
+      it_should_behave_like 'european rifle', 2, '', [0, 1, 3, 8, 9, 10]
+      it_should_behave_like 'european rifle', 3, '', [0, 1, 3, 8, 9, 10]
+      it_should_behave_like 'european rifle', 4, '', [0, 3, 5, 8, 9, 10]
+      it_should_behave_like 'european rifle', 1, 2, [0, 1, 3, 8, 9, 10]
+      it_should_behave_like 'european rifle', 2, 2, [0, 1, 3, 8, 9, 10]
+      it_should_behave_like 'european rifle', 3, 2, [0, 1, 3, 8, 9, 10]
+      it_should_behave_like 'european rifle', 4, 2, [0, 3, 5, 8, 9, 10]
 
       it_should_behave_like 'shots', :european_rifle_extra_shots, [0, 3, 5, 8, 9, 10]
 
       describe 'trap_shots' do
         it_should_behave_like 'shotgun shots', :european_trap_shots
+        it_should_behave_like 'shotgun shots', :european_trap_shots2
         it_should_behave_like 'shotgun shots', :european_shotgun_extra_shots
 
         it 'can be saved together with blank score input' do
-          competitor = build :competitor, european_trap_shots: %w(1, 0, 1, 1), european_trap_score_input: ''
+          competitor = build :competitor, european_trap_shots: %w(1, 0, 1, 1), european_trap_score_input: '',
+                             european_trap_shots2: %w(1, 0, 1, 1), european_trap_score_input2: ''
           expect(competitor).to have(0).errors_on(:base)
         end
       end
@@ -520,13 +526,17 @@ describe Competitor do
       describe 'trap_score_input' do
         it_should_behave_like 'non-negative integer', :european_trap_score_input, true, max_value: 25
         it_should_behave_like 'only single score method', :european_trap_score_input, :european_trap_shots
+        it_should_behave_like 'non-negative integer', :european_trap_score_input2, true, max_value: 25
+        it_should_behave_like 'only single score method', :european_trap_score_input2, :european_trap_shots2
       end
 
       describe 'compak_shots' do
         it_should_behave_like 'shotgun shots', :european_compak_shots
+        it_should_behave_like 'shotgun shots', :european_compak_shots2
 
         it 'can be saved together with blank score input' do
-          competitor = build :competitor, european_compak_shots: %w(1, 0, 1, 1), european_compak_score_input: ''
+          competitor = build :competitor, european_compak_shots: %w(1, 0, 1, 1), european_compak_score_input: '',
+                             european_compak_shots2: %w(1, 0, 1, 1), european_compak_score_input2: ''
           expect(competitor).to have(0).errors_on(:base)
         end
       end
@@ -534,6 +544,8 @@ describe Competitor do
       describe 'compak_score_input' do
         it_should_behave_like 'non-negative integer', :european_compak_score_input, true, max_value: 25
         it_should_behave_like 'only single score method', :european_compak_score_input, :european_compak_shots
+        it_should_behave_like 'non-negative integer', :european_compak_score_input2, true, max_value: 25
+        it_should_behave_like 'only single score method', :european_compak_score_input2, :european_compak_shots2
       end
 
       describe 'extra_score' do
