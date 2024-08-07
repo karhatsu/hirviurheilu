@@ -51,12 +51,12 @@ class Competitor < ApplicationRecord
   validates :nordic_rifle_moving_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
   validates :nordic_rifle_standing_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
   validates :nordic_extra_score, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 200, allow_blank: true }
-  validates :european_rifle1_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
-  validates :european_rifle2_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
-  validates :european_rifle3_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
-  validates :european_rifle4_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
-  validates :european_trap_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
-  validates :european_compak_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
+  validates :european_rifle1_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
+  validates :european_rifle2_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
+  validates :european_rifle3_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
+  validates :european_rifle4_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
+  validates :european_trap_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_blank: true }
+  validates :european_compak_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_blank: true }
   validates :european_extra_score, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_blank: true }
   validate :start_time_max
   validate :times_in_correct_order
@@ -532,11 +532,10 @@ class Competitor < ApplicationRecord
   end
 
   def european_rifle_shot_values
-    max_count = european_multiplier * 5
-    validate_rifle_shots :european_rifle1_shots, [0, 1, 3, 8, 9, 10], max_count
-    validate_rifle_shots :european_rifle2_shots, [0, 1, 3, 8, 9, 10], max_count
-    validate_rifle_shots :european_rifle3_shots, [0, 1, 3, 8, 9, 10], max_count
-    validate_rifle_shots :european_rifle4_shots, [0, 3, 5, 8, 9, 10], max_count
+    validate_rifle_shots :european_rifle1_shots, [0, 1, 3, 8, 9, 10], 5
+    validate_rifle_shots :european_rifle2_shots, [0, 1, 3, 8, 9, 10], 5
+    validate_rifle_shots :european_rifle3_shots, [0, 1, 3, 8, 9, 10], 5
+    validate_rifle_shots :european_rifle4_shots, [0, 3, 5, 8, 9, 10], 5
   end
 
   def european_rifle_extra_shot_values
@@ -544,11 +543,11 @@ class Competitor < ApplicationRecord
   end
 
   def european_trap_shot_values
-    validate_shots :european_trap_shots, european_multiplier * 25, 1
+    validate_shots :european_trap_shots, 25, 1
   end
 
   def european_compak_shot_values
-    validate_shots :european_compak_shots, european_multiplier * 25, 1
+    validate_shots :european_compak_shots, 25, 1
   end
 
   def european_shotgun_extra_shot_values
