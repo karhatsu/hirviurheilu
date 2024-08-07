@@ -1,43 +1,43 @@
 function insert_fields(link, method, content) {
-  var new_id = new Date().getTime();
-  var regexp = new RegExp("new_" + method, "g")
-  jQuery(link).before(content.replace(regexp, new_id));
+  const new_id = new Date().getTime()
+  const regexp = new RegExp('new_' + method, 'g')
+  jQuery(link).before(content.replace(regexp, new_id))
 }
 
 function remove_fields(link, hide_class, removal_question) {
-  if (removal_question == "" || confirm(removal_question)) {
-    var hidden_field = jQuery(link).prev("input[type=hidden]").val("1");
+  if (removal_question == '' || confirm(removal_question)) {
+    const hidden_field = jQuery(link).prev('input[type=hidden]').val('1')
     if (hidden_field) {
-      hidden_field.value = '1';
+      hidden_field.value = '1'
     }
-    jQuery(link).closest("." + hide_class).hide();
+    jQuery(link).closest('.' + hide_class).hide()
   }
 }
 
 function calculateThreeSportsShotsResult(card) {
-  let result = 0;
-  let error = false;
-  const total = card.find('.shots-total-input').val();
-  if(total !== '') {
-    result = parseInt(total, 10);
-    if(result >= 0 && result <= 100) {
+  let result = 0
+  let error = false
+  const total = card.find('.shots-total-input').val()
+  if (total !== '') {
+    result = parseInt(total, 10)
+    if (result >= 0 && result <= 100) {
       card.find('.shot').each(function() {
-        if($(this).val() !== '') {
-          error = true;
+        if ($(this).val() !== '') {
+          error = true
         }
-      });
+      })
     } else {
-      error = true;
+      error = true
     }
   } else {
     const errorAndSum = sumOfShots(card, 10, 0, 10)
     error = errorAndSum[0]
     result = errorAndSum[1]
   }
-  if(error) {
-    result = '?';
+  if (error) {
+    result = '?'
   }
-  card.find('.card__main-value').text(result);
+  card.find('.card__main-value').text(result)
 }
 
 function calculateShootingRaceShotsResult(card, bestShotValue, roundMaxScore, qualificationRoundShotCount, totalShotCount) {
@@ -56,7 +56,7 @@ function calculateShootingRaceShotsResult(card, bestShotValue, roundMaxScore, qu
     q = errorAndSumQ[1]
     f = errorAndSumF[1]
   }
-  card.find('.card__main-value').text(formatResult(error, q, f, roundMaxScore));
+  card.find('.card__main-value').text(formatResult(error, q, f, roundMaxScore))
 }
 
 function calculateShootingRaceShotsResultForQ(card, bestShotValue, roundMaxScore, qualificationRoundShotCount) {
@@ -72,7 +72,7 @@ function calculateShootingRaceShotsResultForQ(card, bestShotValue, roundMaxScore
     error = errorAndSumQ[0]
     q = errorAndSumQ[1]
   }
-  card.find('.card__main-value').text(formatResult(error, q, f, roundMaxScore));
+  card.find('.card__main-value').text(formatResult(error, q, f, roundMaxScore))
 }
 
 function calculateShootingRaceShotsResultForF(card, bestShotValue, roundMaxScore, qualificationRoundShotCount, totalShotCount) {
@@ -88,34 +88,34 @@ function calculateShootingRaceShotsResultForF(card, bestShotValue, roundMaxScore
     error = errorAndSumF[0]
     f = errorAndSumF[1]
   }
-  card.find('.card__main-value').text(formatResult(error, q, f, roundMaxScore));
+  card.find('.card__main-value').text(formatResult(error, q, f, roundMaxScore))
 }
 
 function calculateInternationalRaceShotsResult(card, bestShotValue, shotCount) {
-  let result = 0;
-  let error = false;
-  const total = card.find('.shots-total-input').val();
+  let result = 0
+  let error = false
+  const total = card.find('.shots-total-input').val()
   const maxScore = shotCount * bestShotValue
-  if(total !== '') {
-    result = parseInt(total, 10);
-    if(result >= 0 && result <= maxScore) {
+  if (total !== '') {
+    result = parseInt(total, 10)
+    if (result >= 0 && result <= maxScore) {
       card.find('.shot').slice(0, shotCount).each(function() {
-        if($(this).val() !== '') {
-          error = true;
+        if ($(this).val() !== '') {
+          error = true
         }
-      });
+      })
     } else {
-      error = true;
+      error = true
     }
   } else {
     const errorAndSum = sumOfShots(card, bestShotValue, 0, shotCount)
     error = errorAndSum[0]
     result = errorAndSum[1]
   }
-  if(error) {
-    result = '?';
+  if (error) {
+    result = '?'
   }
-  card.find('.card__main-value').text(result);
+  card.find('.card__main-value').text(result)
 }
 
 function calculateEuropeanShotsResult(card, fieldCount, bestShotValue, shotCount) {
@@ -159,9 +159,9 @@ function sumOfShots(card, bestShotValue, firstIndex, lastIndex) {
   let error = false
   let sum = 0
   card.find('.shot').slice(firstIndex, lastIndex).each(function() {
-    if($(this).val() !== '') {
+    if ($(this).val() !== '') {
       const shot = parseInt($(this).val())
-      if(shot >= 0 && shot <= bestShotValue) {
+      if (shot >= 0 && shot <= bestShotValue) {
         sum += shot === 11 ? 10 : shot
       } else {
         error = true
@@ -197,13 +197,13 @@ $(document).ready(function() {
       $(this).parent().find('input').val(value).trigger('change')
     }
   })
-  $(document).on('click', '.button--select-all-shots', function () {
+  $(document).on('click', '.button--select-all-shots', function() {
     $(this).parent().find('.binary-shot__option--0').removeClass('binary-shot__option--selected')
     $(this).parent().find('.binary-shot__option--1').addClass('binary-shot__option--selected')
     $(this).parent().find('input').val(1)
     $(this).parent().find('input').trigger('change')
   })
-  $(document).on('click', '.button--select-all-tens', function () {
+  $(document).on('click', '.button--select-all-tens', function() {
     $(this).closest('.card__middle-row').find('.shot').val(10)
     $(this).closest('.card__middle-row').find('.shots-total-input').val('')
     $(this).closest('.card__middle-row').find('input').trigger('change')
