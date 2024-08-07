@@ -799,17 +799,18 @@ class Competitor < ApplicationRecord
 
   def has_european_shotgun_results?
     return true if only_rifle?
-    required_shot_count = european_multiplier * 25
-    has_european_sub_result?(:trap, required_shot_count) && has_european_sub_result?(:compak, required_shot_count)
+    has_european_sub_result?(:trap, 25) && has_european_sub_result?(:compak, 25) &&
+      (!race.double_competition || (has_european_sub_result?(:trap, 25, 2) && has_european_sub_result?(:compak, 25, 2)))
   end
 
   def has_european_rifle_results?
-    [1, 2, 3, 4].map {|n| send(:has_european_sub_result?, "rifle#{n}", european_multiplier * 5)}.all?
-  end
+    [1, 2, 3, 4].map {|n| has_european_sub_result?("rifle#{n}", 5)}.all? &&
+      (!race.double_competition || [1, 2, 3, 4].map {|n| has_european_sub_result?("rifle#{n}", 5, 2)}.all?)
+    end
 
-  def has_european_sub_result?(sub_sport, required_shot_count)
-    return true if send("european_#{sub_sport}_score_input")
-    shots = send("european_#{sub_sport}_shots")
+  def has_european_sub_result?(sub_sport, required_shot_count, n='')
+    return true if send("european_#{sub_sport}_score_input#{n}")
+    shots = send("european_#{sub_sport}_shots#{n}")
     shots && shots.length == required_shot_count
   end
 end

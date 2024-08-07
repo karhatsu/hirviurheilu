@@ -1865,7 +1865,8 @@ describe Competitor do
   end
 
   describe "#finished?" do
-    let(:race) { build :race, sport_key: sport_key }
+    let(:double_competition) { false }
+    let(:race) { build :race, sport_key: sport_key, double_competition: double_competition }
     let(:series) { build :series, race: race }
     let(:competitor) { build :competitor, series: series }
 
@@ -2390,6 +2391,53 @@ describe Competitor do
               expect(competitor).not_to be_finished
             end
           end
+        end
+      end
+    end
+
+    context 'for european double competition' do
+      let(:sport_key) { Sport::EUROPEAN }
+      let(:double_competition) { true }
+
+      before do
+        competitor.european_trap_score_input = 24
+        competitor.european_compak_score_input = 25
+        competitor.european_rifle1_score_input = 40
+        competitor.european_rifle2_score_input = 42
+        competitor.european_rifle3_score_input = 50
+        competitor.european_rifle4_score_input = 40
+        competitor.european_trap_score_input2 = 20
+        competitor.european_compak_score_input2 = 21
+        competitor.european_rifle1_score_input2 = 48
+        competitor.european_rifle2_score_input2 = 50
+        competitor.european_rifle3_score_input2 = 50
+        competitor.european_rifle4_score_input2 = 38
+      end
+
+      context 'when competitor has value for all sub sports' do
+        it 'should return true' do
+          expect(competitor).to be_finished
+        end
+      end
+
+      context 'when competitor is missing some second rifle score' do
+        it 'should return false' do
+          competitor.european_rifle3_score_input2 = nil
+          expect(competitor).not_to be_finished
+        end
+      end
+
+      context 'when competitor is missing second trap score' do
+        it 'should return false' do
+          competitor.european_trap_score_input2 = nil
+          expect(competitor).not_to be_finished
+        end
+      end
+
+      context 'when competitor is missing second compak score' do
+        it 'should return false' do
+          competitor.european_compak_score_input2 = nil
+          expect(competitor).not_to be_finished
         end
       end
     end
