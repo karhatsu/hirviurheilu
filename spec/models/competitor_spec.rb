@@ -569,22 +569,26 @@ describe Competitor do
       end
     end
 
-    shared_examples_for 'json field conversion' do |sport, sub_sport, shotgun, extra_shots|
+    shared_examples_for 'json field conversion' do |sport, sub_sport, shotgun, extra_shots, second=false|
       describe sub_sport do
         it 'converts shots strings to integer' do
           raw_shots = shotgun ? %w(1 0) : %w(8 9 10)
           int_shots = shotgun ? [1, 0] : [8, 9, 10]
           competitor = build :competitor
           competitor.send "#{sport}_#{sub_sport}_shots=", raw_shots
+          competitor.send "#{sport}_#{sub_sport}_shots2=", raw_shots if second
           competitor.save
           expect(competitor.send("#{sport}_#{sub_sport}_shots")).to eql int_shots
+          expect(competitor.send("#{sport}_#{sub_sport}_shots2")).to eql int_shots if second
         end
 
         it 'converts score input string to integer' do
           competitor = build :competitor
           competitor.send "#{sport}_#{sub_sport}_score_input=", '21'
+          competitor.send "#{sport}_#{sub_sport}_score_input2=", '25' if second
           competitor.save
           expect(competitor.send("#{sport}_#{sub_sport}_score_input")).to eql 21
+          expect(competitor.send("#{sport}_#{sub_sport}_score_input2")).to eql 25 if second
         end
 
         it 'converts score input empty string to nil' do
@@ -625,10 +629,10 @@ describe Competitor do
     end
 
     describe 'european' do
-      it_should_behave_like 'json field conversion', 'european', 'trap', true, false
-      it_should_behave_like 'json field conversion', 'european', 'compak', true, false
+      it_should_behave_like 'json field conversion', 'european', 'trap', true, false, true
+      it_should_behave_like 'json field conversion', 'european', 'compak', true, false, true
       [1, 2, 3, 4].each do |n|
-        it_should_behave_like 'json field conversion', 'european', "rifle#{n}", false, false
+        it_should_behave_like 'json field conversion', 'european', "rifle#{n}", false, false, true
       end
 
       it 'converts rifle extra shots strings to integer' do
