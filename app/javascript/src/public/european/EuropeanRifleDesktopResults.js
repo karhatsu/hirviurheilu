@@ -42,6 +42,14 @@ export default function EuropeanRifleDesktopResults({ race, series, competitors 
               europeanRifle3Shots,
               europeanRifle4Score,
               europeanRifle4Shots,
+              europeanRifle1Score2,
+              europeanRifle1Shots2,
+              europeanRifle2Score2,
+              europeanRifle2Shots2,
+              europeanRifle3Score2,
+              europeanRifle3Shots2,
+              europeanRifle4Score2,
+              europeanRifle4Shots2,
               noResultReason,
             } = competitor
             if (noResultReason) {
@@ -56,20 +64,40 @@ export default function EuropeanRifleDesktopResults({ race, series, competitors 
             return (
               <>
                 <td className={resultClassName}>
-                  <ShootingResult score={europeanRifle1Score} shots={europeanRifle1Shots} />
+                  <ShootingResult
+                    score={europeanRifle1Score}
+                    shots={europeanRifle1Shots}
+                    score2={europeanRifle1Score2}
+                    shots2={europeanRifle1Shots2}
+                  />
                 </td>
                 <td className={resultClassName}>
-                  <ShootingResult score={europeanRifle2Score} shots={europeanRifle2Shots} />
+                  <ShootingResult
+                    score={europeanRifle2Score}
+                    shots={europeanRifle2Shots}
+                    score2={europeanRifle2Score2}
+                    shots2={europeanRifle2Shots2}
+                  />
                 </td>
                 <td className={resultClassName}>
-                  <ShootingResult score={europeanRifle3Score} shots={europeanRifle3Shots} />
+                  <ShootingResult
+                    score={europeanRifle3Score}
+                    shots={europeanRifle3Shots}
+                    score2={europeanRifle3Score2}
+                    shots2={europeanRifle3Shots2}
+                  />
                 </td>
                 <td className={resultClassName}>
-                  <ShootingResult score={europeanRifle4Score} shots={europeanRifle4Shots} />
+                  <ShootingResult
+                    score={europeanRifle4Score}
+                    shots={europeanRifle4Shots}
+                    score2={europeanRifle4Score2}
+                    shots2={europeanRifle4Shots2}
+                  />
                 </td>
                 <td className="center total-points">
-                  <TotalScore noResultReason={noResultReason} totalScore={europeanRifleScore} />
-                  {series && <EuropeanRifleNationalRecord race={race} series={series} competitor={competitor} />}
+                  <TotalScore noResultReason={noResultReason} totalScore={europeanRifleScore}/>
+                  {series && <EuropeanRifleNationalRecord race={race} series={series} competitor={competitor}/>}
                 </td>
                 {extraShots && <td>{europeanRifleExtraShots?.join(', ')}</td>}
               </>

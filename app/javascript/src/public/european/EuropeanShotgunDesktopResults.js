@@ -35,6 +35,10 @@ export default function EuropeanShotgunDesktopResults({ race, competitors }) {
               europeanTrapShots,
               europeanCompakScore,
               europeanCompakShots,
+              europeanCompakScore2,
+              europeanCompakShots2,
+              europeanTrapScore2,
+              europeanTrapShots2,
               noResultReason,
             } = competitor
             if (noResultReason) {
@@ -49,13 +53,26 @@ export default function EuropeanShotgunDesktopResults({ race, competitors }) {
             return (
               <>
                 <td className={resultClassName}>
-                  <ShootingResult score={europeanTrapScore} shots={europeanTrapShots} />
+                  <ShootingResult
+                    score={europeanTrapScore}
+                    shots={europeanTrapShots}
+                    score2={europeanTrapScore2}
+                    shots2={europeanTrapShots2}
+                  />
                 </td>
                 <td className={resultClassName}>
-                  <ShootingResult score={europeanCompakScore} shots={europeanCompakShots} />
+                  <ShootingResult
+                    score={europeanCompakScore}
+                    shots={europeanCompakShots}
+                    score2={europeanCompakScore2}
+                    shots2={europeanCompakShots2}
+                  />
                 </td>
                 <td className="center total-points">
-                  <TotalScore noResultReason={noResultReason} totalScore={europeanShotgunScore} />
+                  <TotalScore
+                    noResultReason={noResultReason}
+                    totalScore={europeanShotgunScore}
+                  />
                 </td>
                 {extraShots && <td>{europeanShotgunExtraShots?.join(', ')}</td>}
               </>
