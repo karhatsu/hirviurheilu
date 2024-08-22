@@ -36,19 +36,31 @@ fi:
     estimate_penalty_distance: Arviosakkokierroksen pituus (m)
     estimate_penalty_seconds: Arvionnin sakkosekunnit
     european_trap_shots: Trapin laukaukset
+    european_trap_shots2: Trapin laukaukset (2)
     european_trap_score_input: Trapin tulos
+    european_trap_score_input2: Trapin tulos (2)
     european_compak_shots: Compakin laukaukset
+    european_compak_shots2: Compakin laukaukset (2)
     european_compak_score_input: Compakin tulos
+    european_compak_score_input2: Compakin tulos (2)
     european_extra_score: Yhdistelmäkilpailun uusinnan yhteistulos
     european_rifle_extra_shots: Luodikon uusintalaukaukset
     european_rifle1_shots: Metsäkauriin laukaukset
+    european_rifle1_shots2: Metsäkauriin laukaukset (2)
     european_rifle1_score_input: Metsäkauriin tulos
+    european_rifle1_score_input2: Metsäkauriin tulos (2)
     european_rifle2_shots: Ketun laukaukset
+    european_rifle2_shots2: Ketun laukaukset (2)
     european_rifle2_score_input: Ketun tulos
+    european_rifle2_score_input2: Ketun tulos (2)
     european_rifle3_shots: Gemssin laukaukset
+    european_rifle3_shots2: Gemssin laukaukset (2)
     european_rifle3_score_input: Gemssin tulos
+    european_rifle3_score_input2: Gemssin tulos (2)
     european_rifle4_shots: Villisian laukaukset
+    european_rifle4_shots2: Villisian laukaukset (2)
     european_rifle4_score_input: Villisian tulos
+    european_rifle4_score_input2: Villisian tulos (2)
     european_shotgun_extra_shots: Haulikon uusintalaukaukset
     extra_shots: Uusinnan laukaukset
     final_round_heat_id: Loppukilpailun erä

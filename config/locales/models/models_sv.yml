@@ -36,19 +36,31 @@ sv:
     estimate_penalty_distance: Bedömningstraff avstånd (m)
     estimate_penalty_seconds: Straffsekonder för bedömning
     european_trap_shots: Jägartrap skott
+    european_trap_shots2: Jägartrap skott (2)
     european_trap_score_input: Jägartrap resultat
+    european_trap_score_input2: Jägartrap resultat (2)
     european_compak_shots: Compak skott
+    european_compak_shots2: Compak skott (2)
     european_compak_score_input: Compak resultat
+    european_compak_score_input2: Compak resultat (2)
     european_extra_score: Kombinationstävlingens omskjutningsresultat
     european_rifle_extra_shots: Kulskytte omskjutning
     european_rifle1_shots: Rådjur skott
+    european_rifle1_shots2: Rådjur skott (2)
     european_rifle1_score_input: Rådjur resultat
+    european_rifle1_score_input2: Rådjur resultat (2)
     european_rifle2_shots: Räv skott
+    european_rifle2_shots2: Räv skott (2)
     european_rifle2_score_input: Räv resultat
+    european_rifle2_score_input2: Räv resultat (2)
     european_rifle3_shots: Gems skott
+    european_rifle3_shots2: Gems skott (2)
     european_rifle3_score_input: Gems resultat
+    european_rifle3_score_input2: Gems resultat (2)
     european_rifle4_shots: Vildsvin skott
+    european_rifle4_shots2: Vildsvin skott (2)
     european_rifle4_score_input: Vildsvin resultat
+    european_rifle4_score_input2: Vildsvin resultat (2)
     european_shotgun_extra_shots: Compak och trap omskjutning
     extra_shots: Omskjutning
     final_round_heat_id: Finalens heat
