@@ -22,22 +22,10 @@
       %td= full_name(comp)
       %td= comp.number
       %td= comp.club.name
-      %td
-        = comp.european_rifle1_score || '-'
-        - if comp.european_rifle1_shots
-          %span.shots (#{shots_print comp.european_rifle1_shots})
-      %td
-        = comp.european_rifle2_score || '-'
-        - if comp.european_rifle2_shots
-          %span.shots (#{shots_print comp.european_rifle2_shots})
-      %td
-        = comp.european_rifle3_score || '-'
-        - if comp.european_rifle3_shots
-          %span.shots (#{shots_print comp.european_rifle3_shots})
-      %td
-        = comp.european_rifle4_score || '-'
-        - if comp.european_rifle4_shots
-          %span.shots (#{shots_print comp.european_rifle4_shots})
+      = render partial: 'results/european_result_cell', locals: { competitor: comp, field: 'rifle1' }
+      = render partial: 'results/european_result_cell', locals: { competitor: comp, field: 'rifle2' }
+      = render partial: 'results/european_result_cell', locals: { competitor: comp, field: 'rifle3' }
+      = render partial: 'results/european_result_cell', locals: { competitor: comp, field: 'rifle4' }
       %td.center.total-points
         - if comp.no_result_reason
           = comp.no_result_reason

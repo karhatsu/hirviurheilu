@@ -1,0 +1,6 @@
+%td
+  = competitor.send("european_#{field}_score") || '-'
+  - score2 = competitor.send("european_#{field}_score2")
+  - if score2
+    +
+    = score2
