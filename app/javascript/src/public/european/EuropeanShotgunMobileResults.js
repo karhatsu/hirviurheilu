@@ -18,6 +18,10 @@ export default function EuropeanShotgunMobileResults({ competitors }) {
           europeanTrapShots,
           europeanCompakScore,
           europeanCompakShots,
+          europeanCompakScore2,
+          europeanCompakShots2,
+          europeanTrapScore2,
+          europeanTrapShots2,
           firstName,
           lastName,
           noResultReason,
@@ -35,10 +39,20 @@ export default function EuropeanShotgunMobileResults({ competitors }) {
                   )}
                   <div className="card__middle-row">
                     <MobileSubResult type="shoot" titleKey="european_trap">
-                      <ShootingResult score={europeanTrapScore} shots={europeanTrapShots} />
+                      <ShootingResult
+                        score={europeanTrapScore}
+                        shots={europeanTrapShots}
+                        score2={europeanTrapScore2}
+                        shots2={europeanTrapShots2}
+                      />
                     </MobileSubResult>
                     <MobileSubResult type="shoot" titleKey="european_compak">
-                      <ShootingResult score={europeanCompakScore} shots={europeanCompakShots} />
+                      <ShootingResult
+                        score={europeanCompakScore}
+                        shots={europeanCompakShots}
+                        score2={europeanCompakScore2}
+                        shots2={europeanCompakShots2}
+                      />
                     </MobileSubResult>
                   </div>
                 </>
