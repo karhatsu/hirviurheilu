@@ -54,25 +54,26 @@ module CompetitorResults
   def european_total_results
     results = no_result_reason_results
     return results if results
-    [total_score.to_i, european_rifle_score.to_i, european_rifle4_score.to_i, european_rifle3_score.to_i,
-     european_rifle2_score.to_i, european_rifle1_score.to_i, sum_of_european_rifle_tens, european_extra_score.to_i]
+    [total_score.to_i, european_extra_score.to_i, european_rifle_score.to_i, european_rifle4_score.to_i,
+     european_rifle3_score.to_i, european_rifle2_score.to_i, european_rifle1_score.to_i, sum_of_european_rifle_tens]
   end
 
   def european_rifle_results
-    results = no_result_reason_results
-    return results if results
-    results = [european_rifle_score.to_i, european_rifle4_score.to_i, european_rifle3_score.to_i,
-               european_rifle2_score.to_i, european_rifle1_score.to_i, sum_of_european_rifle_tens]
-    results = results + european_rifle_extra_shots if european_rifle_extra_shots
-    results
+    no_result = no_result_reason_results
+    return no_result if no_result
+    [european_rifle_score.to_i, european_rifle_extra_score.to_i,
+     european_rifle4_score2.to_i, european_rifle4_score.to_i,
+     european_rifle3_score2.to_i, european_rifle3_score.to_i,
+     european_rifle2_score2.to_i, european_rifle2_score.to_i,
+     european_rifle1_score2.to_i, european_rifle1_score.to_i,
+     sum_of_european_rifle_tens]
   end
 
   def european_shotgun_results
-    results = no_result_reason_results
-    return results if results
-    results = [european_shotgun_score.to_i]
-    results = results + european_shotgun_extra_shots if european_shotgun_extra_shots
-    results
+    no_result = no_result_reason_results
+    return no_result if no_result
+    [european_shotgun_score.to_i, european_shotgun_extra_score.to_i,
+     european_compak_score2.to_i, european_trap_score2.to_i, european_compak_score.to_i, european_trap_score.to_i]
   end
 
   private

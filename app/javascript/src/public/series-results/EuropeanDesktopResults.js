@@ -48,6 +48,18 @@ export default function EuropeanDesktopResults({ race, series }) {
               europeanCompakShots,
               europeanTrapScore,
               europeanTrapShots,
+              europeanRifle1Score2,
+              europeanRifle1Shots2,
+              europeanRifle2Score2,
+              europeanRifle2Shots2,
+              europeanRifle3Score2,
+              europeanRifle3Shots2,
+              europeanRifle4Score2,
+              europeanRifle4Shots2,
+              europeanCompakScore2,
+              europeanCompakShots2,
+              europeanTrapScore2,
+              europeanTrapShots2,
               noResultReason,
               shootingRulesPenalty,
               totalScore,
@@ -64,22 +76,52 @@ export default function EuropeanDesktopResults({ race, series }) {
             return (
               <>
                 <td className={resultClassName}>
-                  <ShootingResult score={europeanTrapScore} shots={europeanTrapShots} />
+                  <ShootingResult
+                    score={europeanTrapScore}
+                    shots={europeanTrapShots}
+                    score2={europeanTrapScore2}
+                    shots2={europeanTrapShots2}
+                  />
                 </td>
                 <td className={resultClassName}>
-                  <ShootingResult score={europeanCompakScore} shots={europeanCompakShots} />
+                  <ShootingResult
+                    score={europeanCompakScore}
+                    shots={europeanCompakShots}
+                    score2={europeanCompakScore2}
+                    shots2={europeanCompakShots2}
+                  />
                 </td>
                 <td className={resultClassName}>
-                  <ShootingResult score={europeanRifle1Score} shots={europeanRifle1Shots} />
+                  <ShootingResult
+                    score={europeanRifle1Score}
+                    shots={europeanRifle1Shots}
+                    score2={europeanRifle1Score2}
+                    shots2={europeanRifle1Shots2}
+                  />
                 </td>
                 <td className={resultClassName}>
-                  <ShootingResult score={europeanRifle2Score} shots={europeanRifle2Shots} />
+                  <ShootingResult
+                    score={europeanRifle2Score}
+                    shots={europeanRifle2Shots}
+                    score2={europeanRifle2Score2}
+                    shots2={europeanRifle2Shots2}
+                  />
                 </td>
                 <td className={resultClassName}>
-                  <ShootingResult score={europeanRifle3Score} shots={europeanRifle3Shots} />
+                  <ShootingResult
+                    score={europeanRifle3Score}
+                    shots={europeanRifle3Shots}
+                    score2={europeanRifle3Score2}
+                    shots2={europeanRifle3Shots2}
+                  />
                 </td>
                 <td className={resultClassName}>
-                  <ShootingResult score={europeanRifle4Score} shots={europeanRifle4Shots} />
+                  <ShootingResult
+                    score={europeanRifle4Score}
+                    shots={europeanRifle4Shots}
+                    score2={europeanRifle4Score2}
+                    shots2={europeanRifle4Shots2}
+                  />
                 </td>
                 <td className="center total-points">
                   <TotalScore noResultReason={noResultReason} totalScore={totalScore} penalty={shootingRulesPenalty} />

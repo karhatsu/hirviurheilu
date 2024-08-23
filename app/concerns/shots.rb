@@ -81,43 +81,76 @@ module Shots
     resolve_sub_score european_trap_score_input, european_trap_shots
   end
 
+  def european_trap_score2
+    resolve_sub_score european_trap_score_input2, european_trap_shots2
+  end
+
   def european_compak_score
     resolve_sub_score european_compak_score_input, european_compak_shots
   end
 
+  def european_compak_score2
+    resolve_sub_score european_compak_score_input2, european_compak_shots2
+  end
+
   def european_shotgun_score
     return nil unless european_trap_score || european_compak_score
-    4 * (european_trap_score.to_i + european_compak_score.to_i)
+    4 * (european_trap_score.to_i + european_compak_score.to_i + european_trap_score2.to_i + european_compak_score2.to_i)
   end
 
   def european_rifle1_score
     resolve_sub_score european_rifle1_score_input, european_rifle1_shots
   end
 
+  def european_rifle1_score2
+    resolve_sub_score european_rifle1_score_input2, european_rifle1_shots2
+  end
+
   def european_rifle2_score
     resolve_sub_score european_rifle2_score_input, european_rifle2_shots
+  end
+
+  def european_rifle2_score2
+    resolve_sub_score european_rifle2_score_input2, european_rifle2_shots2
   end
 
   def european_rifle3_score
     resolve_sub_score european_rifle3_score_input, european_rifle3_shots
   end
 
+  def european_rifle3_score2
+    resolve_sub_score european_rifle3_score_input2, european_rifle3_shots2
+  end
+
   def european_rifle4_score
     resolve_sub_score european_rifle4_score_input, european_rifle4_shots
   end
 
+  def european_rifle4_score2
+    resolve_sub_score european_rifle4_score_input2, european_rifle4_shots2
+  end
+
+  def european_rifle_extra_score
+    sum_of_array european_rifle_extra_shots if european_rifle_extra_shots
+  end
+
   def european_rifle_score
     return nil unless european_rifle1_score || european_rifle2_score || european_rifle3_score || european_rifle4_score
-    european_rifle1_score.to_i + european_rifle2_score.to_i + european_rifle3_score.to_i + european_rifle4_score.to_i
+    european_rifle1_score.to_i + european_rifle2_score.to_i + european_rifle3_score.to_i + european_rifle4_score.to_i +
+      european_rifle1_score2.to_i + european_rifle2_score2.to_i + european_rifle3_score2.to_i + european_rifle4_score2.to_i
   end
 
   def european_score
-    return nil unless european_trap_score || european_compak_score || european_rifle_score
-    4 * (european_trap_score.to_i + european_compak_score.to_i) + european_rifle_score.to_i
+    return nil unless european_shotgun_score || european_rifle_score
+    european_shotgun_score.to_i + european_rifle_score.to_i
   end
 
   def european_rifle_shots
     (european_rifle1_shots || []) + (european_rifle2_shots || []) + (european_rifle3_shots || []) + (european_rifle4_shots || [])
+  end
+
+  def european_rifle_shots2
+    (european_rifle1_shots2 || []) + (european_rifle2_shots2 || []) + (european_rifle3_shots2 || []) + (european_rifle4_shots2 || [])
   end
 
   private
@@ -145,6 +178,6 @@ module Shots
 
   def resolve_sub_score(score_input, shots)
     return score_input if score_input
-    return sum_of_array shots if shots
+    sum_of_array shots if shots
   end
 end

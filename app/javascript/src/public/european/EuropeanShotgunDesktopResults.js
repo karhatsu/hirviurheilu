@@ -9,7 +9,7 @@ import { ShowShotsContext } from '../series-results/ResultsWithShots'
 export default function EuropeanShotgunDesktopResults({ race, competitors }) {
   const { t } = useTranslation()
   const showShots = useContext(ShowShotsContext)
-  const extraShots = !!competitors.find(c => c.europeanShotgunExtraShots)
+  const extraScore = !!competitors.find(c => c.europeanShotgunExtraScore)
   const resultClassName = showShots ? '' : 'center'
   return (
     <div className="results--desktop">
@@ -23,18 +23,22 @@ export default function EuropeanShotgunDesktopResults({ race, competitors }) {
           <th>{t('european_trap')}</th>
           <th>{t('european_compak')}</th>
           <th>{t('result')}</th>
-          {extraShots && <th>{t('extraRound')}</th>}
+          {extraScore && <th>{t('extraRound')}</th>}
         </tr>
         </thead>
         <DesktopResultsRows competitors={competitors}>
           {competitor => {
             const {
-              europeanShotgunExtraShots,
+              europeanShotgunExtraScore,
               europeanShotgunScore,
               europeanTrapScore,
               europeanTrapShots,
               europeanCompakScore,
               europeanCompakShots,
+              europeanCompakScore2,
+              europeanCompakShots2,
+              europeanTrapScore2,
+              europeanTrapShots2,
               noResultReason,
             } = competitor
             if (noResultReason) {
@@ -42,22 +46,35 @@ export default function EuropeanShotgunDesktopResults({ race, competitors }) {
                 <>
                   <td colSpan={2} />
                   <td className="center total-points"><TotalScore noResultReason={noResultReason} /></td>
-                  {extraShots && <td />}
+                  {extraScore && <td />}
                 </>
               )
             }
             return (
               <>
                 <td className={resultClassName}>
-                  <ShootingResult score={europeanTrapScore} shots={europeanTrapShots} />
+                  <ShootingResult
+                    score={europeanTrapScore}
+                    shots={europeanTrapShots}
+                    score2={europeanTrapScore2}
+                    shots2={europeanTrapShots2}
+                  />
                 </td>
                 <td className={resultClassName}>
-                  <ShootingResult score={europeanCompakScore} shots={europeanCompakShots} />
+                  <ShootingResult
+                    score={europeanCompakScore}
+                    shots={europeanCompakShots}
+                    score2={europeanCompakScore2}
+                    shots2={europeanCompakShots2}
+                  />
                 </td>
                 <td className="center total-points">
-                  <TotalScore noResultReason={noResultReason} totalScore={europeanShotgunScore} />
+                  <TotalScore
+                    noResultReason={noResultReason}
+                    totalScore={europeanShotgunScore}
+                  />
                 </td>
-                {extraShots && <td>{europeanShotgunExtraShots?.join(', ')}</td>}
+                {extraScore && <td>{europeanShotgunExtraScore}</td>}
               </>
             )
           }}

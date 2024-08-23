@@ -1,9 +1,15 @@
 - name = "european_#{sub_sport}_shots"
 - partial = 'official/shots/shooting_race_shotgun_shots'
-- round_rules = multiplier == 2 ? [25, 25] : [25]
 = hidden_field_tag :sub_sport, sub_sport, id: "#{sub_sport}-#{competitor.id}"
 .form__horizontal-fields
   .card__sub-result.card__sub-result--shoot.form__field.form__field--sm
-    = f.number_field "european_#{sub_sport}_score_input", min: 0, max: multiplier * 25, class: 'shots-total-input'
+    = f.number_field "european_#{sub_sport}_score_input", min: 0, max: 25, class: 'shots-total-input'
   .card__sub-result.card__sub-result--shoot
-    = render partial: partial, locals: { competitor: competitor, round_rules: round_rules, base: 0, column_name: name, field_name: "#{name}[]", best_shot_value: 1 }
+    = render partial: partial, locals: { competitor: competitor, round_rules: [25], base: 0, column_name: name, field_name: "#{name}[]", best_shot_value: 1 }
+- if double_competition
+  - name = "european_#{sub_sport}_shots2"
+  .form__horizontal-fields
+    .card__sub-result.card__sub-result--shoot.form__field.form__field--sm
+      = f.number_field "european_#{sub_sport}_score_input2", min: 0, max: 25, class: 'shots-total-input'
+    .card__sub-result.card__sub-result--shoot
+      = render partial: partial, locals: { competitor: competitor, round_rules: [25], base: 0, column_name: name, field_name: "#{name}[]", best_shot_value: 1 }

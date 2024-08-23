@@ -14,9 +14,9 @@ class Competitor < ApplicationRecord
 
   ALL_SHOTS_FIELDS = %w[shots extra_shots nordic_trap_shots nordic_shotgun_shots nordic_rifle_moving_shots
     nordic_rifle_standing_shots nordic_trap_extra_shots nordic_shotgun_extra_shots nordic_rifle_moving_extra_shots
-    nordic_rifle_standing_extra_shots european_trap_shots european_compak_shots european_rifle1_shots
-    european_rifle2_shots  european_rifle3_shots european_rifle4_shots european_rifle_extra_shots
-    european_shotgun_extra_shots]
+    nordic_rifle_standing_extra_shots european_trap_shots european_trap_shots2 european_compak_shots
+    european_compak_shots2 european_rifle1_shots european_rifle1_shots2 european_rifle2_shots european_rifle2_shots2
+    european_rifle3_shots european_rifle3_shots2 european_rifle4_shots european_rifle4_shots2 european_rifle_extra_shots]
 
   belongs_to :club
   belongs_to :series, counter_cache: true, touch: true
@@ -51,12 +51,19 @@ class Competitor < ApplicationRecord
   validates :nordic_rifle_moving_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
   validates :nordic_rifle_standing_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
   validates :nordic_extra_score, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 200, allow_blank: true }
-  validates :european_rifle1_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
-  validates :european_rifle2_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
-  validates :european_rifle3_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
-  validates :european_rifle4_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
-  validates :european_trap_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
-  validates :european_compak_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
+  validates :european_rifle1_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
+  validates :european_rifle2_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
+  validates :european_rifle3_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
+  validates :european_rifle4_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
+  validates :european_trap_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_blank: true }
+  validates :european_compak_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_blank: true }
+  validates :european_rifle1_score_input2, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
+  validates :european_rifle2_score_input2, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
+  validates :european_rifle3_score_input2, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
+  validates :european_rifle4_score_input2, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50, allow_blank: true }
+  validates :european_trap_score_input2, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_blank: true }
+  validates :european_compak_score_input2, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_blank: true }
+  validates :european_shotgun_extra_score, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_blank: true }
   validates :european_extra_score, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_blank: true }
   validate :start_time_max
   validate :times_in_correct_order
@@ -79,7 +86,6 @@ class Competitor < ApplicationRecord
   validate :european_rifle_extra_shot_values
   validate :european_trap_shot_values
   validate :european_compak_shot_values
-  validate :european_shotgun_extra_shot_values
   validate :check_no_result_reason
   validate :check_if_series_has_start_list
   validate :unique_number
@@ -104,9 +110,12 @@ class Competitor < ApplicationRecord
                  prefix: 'nordic'
   store_accessor :european_results,
                  :rifle1_shots, :rifle1_score_input, :rifle2_shots, :rifle2_score_input,
-                 :rifle3_shots, :rifle3_score_input, :rifle4_shots, :rifle4_score_input, :rifle_extra_shots,
-                 :trap_shots, :trap_score_input, :compak_shots, :compak_score_input, :shotgun_extra_shots,
-                 :extra_score,
+                 :rifle3_shots, :rifle3_score_input, :rifle4_shots, :rifle4_score_input,
+                 :trap_shots, :trap_score_input, :compak_shots, :compak_score_input,
+                 :rifle1_shots2, :rifle1_score_input2, :rifle2_shots2, :rifle2_score_input2,
+                 :rifle3_shots2, :rifle3_score_input2, :rifle4_shots2, :rifle4_score_input2,
+                 :trap_shots2, :trap_score_input2, :compak_shots2, :compak_score_input2,
+                 :rifle_extra_shots, :shotgun_extra_score, :extra_score,
                  prefix: 'european'
 
   delegate :race, to: :series
@@ -467,7 +476,13 @@ class Competitor < ApplicationRecord
         (european_rifle3_shots && !european_rifle3_score_input.blank?) ||
         (european_rifle4_shots && !european_rifle4_score_input.blank?) ||
         (european_trap_shots && !european_trap_score_input.blank?) ||
-        (european_compak_shots && !european_compak_score_input.blank?)
+        (european_compak_shots && !european_compak_score_input.blank?) ||
+        (european_rifle1_shots2 && !european_rifle1_score_input2.blank?) ||
+        (european_rifle2_shots2 && !european_rifle2_score_input2.blank?) ||
+        (european_rifle3_shots2 && !european_rifle3_score_input2.blank?) ||
+        (european_rifle4_shots2 && !european_rifle4_score_input2.blank?) ||
+        (european_trap_shots2 && !european_trap_score_input2.blank?) ||
+        (european_compak_shots2 && !european_compak_score_input2.blank?)
       errors.add :base, :shooting_result_either_sum_or_by_shots
     end
   end
@@ -532,11 +547,14 @@ class Competitor < ApplicationRecord
   end
 
   def european_rifle_shot_values
-    max_count = european_multiplier * 5
-    validate_rifle_shots :european_rifle1_shots, [0, 1, 3, 8, 9, 10], max_count
-    validate_rifle_shots :european_rifle2_shots, [0, 1, 3, 8, 9, 10], max_count
-    validate_rifle_shots :european_rifle3_shots, [0, 1, 3, 8, 9, 10], max_count
-    validate_rifle_shots :european_rifle4_shots, [0, 3, 5, 8, 9, 10], max_count
+    validate_rifle_shots :european_rifle1_shots, [0, 1, 3, 8, 9, 10], 5
+    validate_rifle_shots :european_rifle2_shots, [0, 1, 3, 8, 9, 10], 5
+    validate_rifle_shots :european_rifle3_shots, [0, 1, 3, 8, 9, 10], 5
+    validate_rifle_shots :european_rifle4_shots, [0, 3, 5, 8, 9, 10], 5
+    validate_rifle_shots :european_rifle1_shots2, [0, 1, 3, 8, 9, 10], 5
+    validate_rifle_shots :european_rifle2_shots2, [0, 1, 3, 8, 9, 10], 5
+    validate_rifle_shots :european_rifle3_shots2, [0, 1, 3, 8, 9, 10], 5
+    validate_rifle_shots :european_rifle4_shots2, [0, 3, 5, 8, 9, 10], 5
   end
 
   def european_rifle_extra_shot_values
@@ -544,15 +562,13 @@ class Competitor < ApplicationRecord
   end
 
   def european_trap_shot_values
-    validate_shots :european_trap_shots, european_multiplier * 25, 1
+    validate_shots :european_trap_shots, 25, 1
+    validate_shots :european_trap_shots2, 25, 1
   end
 
   def european_compak_shot_values
-    validate_shots :european_compak_shots, european_multiplier * 25, 1
-  end
-
-  def european_shotgun_extra_shot_values
-    validate_extra_shots :european_shotgun_extra_shots, 1
+    validate_shots :european_compak_shots, 25, 1
+    validate_shots :european_compak_shots2, 25, 1
   end
 
   def validate_shots(attribute, max_count, max_value)
@@ -664,32 +680,37 @@ class Competitor < ApplicationRecord
   end
 
   def convert_nordic_results
-    convert_sub_results :nordic, :trap, true
-    convert_sub_results :nordic, :shotgun, true
-    convert_sub_results :nordic, :rifle_moving, true
-    convert_sub_results :nordic, :rifle_standing, true
+    convert_sub_results :nordic, :trap, true, false
+    convert_sub_results :nordic, :shotgun, true, false
+    convert_sub_results :nordic, :rifle_moving, true, false
+    convert_sub_results :nordic, :rifle_standing, true, false
 
     self.nordic_extra_score = nil if nordic_extra_score.blank?
     self.nordic_extra_score = nordic_extra_score.to_i if nordic_extra_score
   end
 
   def convert_european_results
-    convert_sub_results :european, :trap, false
-    convert_sub_results :european, :compak, false
-    convert_sub_results :european, :rifle1, false
-    convert_sub_results :european, :rifle2, false
-    convert_sub_results :european, :rifle3, false
-    convert_sub_results :european, :rifle4, false
+    convert_sub_results :european, :trap, false, true
+    convert_sub_results :european, :compak, false, true
+    convert_sub_results :european, :rifle1, false, true
+    convert_sub_results :european, :rifle2, false, true
+    convert_sub_results :european, :rifle3, false, true
+    convert_sub_results :european, :rifle4, false, true
 
     self.european_rifle_extra_shots = european_rifle_extra_shots.map {|shot| shot.to_i} if european_rifle_extra_shots
-    self.european_shotgun_extra_shots = european_shotgun_extra_shots.map {|shot| shot.to_i} if european_shotgun_extra_shots
+    self.european_shotgun_extra_score = nil if european_shotgun_extra_score.blank?
+    self.european_shotgun_extra_score = european_shotgun_extra_score.to_i if european_shotgun_extra_score
     self.european_extra_score = nil if european_extra_score.blank?
     self.european_extra_score = european_extra_score.to_i if european_extra_score
   end
 
-  def convert_sub_results(sport, sub_sport, has_extra_shots)
+  def convert_sub_results(sport, sub_sport, has_extra_shots, has_second)
     shots = send "#{sport}_#{sub_sport}_shots"
     send "#{sport}_#{sub_sport}_shots=", shots.map {|shot| shot.to_i} if shots
+    if has_second
+      shots2 = send "#{sport}_#{sub_sport}_shots2"
+      send "#{sport}_#{sub_sport}_shots2=", shots2.map {|shot| shot.to_i} if shots2
+    end
 
     if has_extra_shots
       extra_shots = send "#{sport}_#{sub_sport}_extra_shots"
@@ -701,6 +722,15 @@ class Competitor < ApplicationRecord
       send "#{sport}_#{sub_sport}_score_input=", nil
     elsif score_input
       send "#{sport}_#{sub_sport}_score_input=", score_input.to_i
+    end
+
+    if has_second
+      score_input2 = send "#{sport}_#{sub_sport}_score_input2"
+      if score_input2.blank?
+        send "#{sport}_#{sub_sport}_score_input2=", nil
+      elsif score_input2
+        send "#{sport}_#{sub_sport}_score_input2=", score_input2.to_i
+      end
     end
   end
 
@@ -766,17 +796,18 @@ class Competitor < ApplicationRecord
 
   def has_european_shotgun_results?
     return true if only_rifle?
-    required_shot_count = european_multiplier * 25
-    has_european_sub_result?(:trap, required_shot_count) && has_european_sub_result?(:compak, required_shot_count)
+    has_european_sub_result?(:trap, 25) && has_european_sub_result?(:compak, 25) &&
+      (!race.double_competition || (has_european_sub_result?(:trap, 25, 2) && has_european_sub_result?(:compak, 25, 2)))
   end
 
   def has_european_rifle_results?
-    [1, 2, 3, 4].map {|n| send(:has_european_sub_result?, "rifle#{n}", european_multiplier * 5)}.all?
-  end
+    [1, 2, 3, 4].map {|n| has_european_sub_result?("rifle#{n}", 5)}.all? &&
+      (!race.double_competition || [1, 2, 3, 4].map {|n| has_european_sub_result?("rifle#{n}", 5, 2)}.all?)
+    end
 
-  def has_european_sub_result?(sub_sport, required_shot_count)
-    return true if send("european_#{sub_sport}_score_input")
-    shots = send("european_#{sub_sport}_shots")
+  def has_european_sub_result?(sub_sport, required_shot_count, n='')
+    return true if send("european_#{sub_sport}_score_input#{n}")
+    shots = send("european_#{sub_sport}_shots#{n}")
     shots && shots.length == required_shot_count
   end
 end

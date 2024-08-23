@@ -52,6 +52,18 @@ Given('the series has a competitor {string} {string} from {string} with european
                        european_rifle3_score_input: rifle3_score, european_rifle4_score_input: rifle4_score
 end
 
+Given('the series has a competitor {string} {string} from {string} with european double results {int}+{int}, {int}+{int}, {int}+{int}, {int}+{int}, {int}+{int}, {int}+{int}') do |first_name, last_name, club_name, trap1, trap2, compak1, compak2, rifle1_1, rifle1_2, rifle2_1, rifle2_2, rifle3_1, rifle3_2, rifle4_1, rifle4_2|
+  @club = Club.find_or_create_by! name: club_name, race: @race
+  @competitor = create :competitor, series: @series, club: @club, first_name: first_name, last_name: last_name,
+                       european_trap_score_input: trap1, european_trap_score_input2: trap2,
+                       european_compak_score_input: compak1, european_compak_score_input2: compak2,
+                       european_rifle1_score_input: rifle1_1, european_rifle1_score_input2: rifle1_2,
+                       european_rifle2_score_input: rifle2_1, european_rifle2_score_input2: rifle2_2,
+                       european_rifle3_score_input: rifle3_1, european_rifle3_score_input2: rifle3_2,
+                       european_rifle4_score_input: rifle4_1, european_rifle4_score_input2: rifle4_2
+end
+
+
 Given /^the series has a competitor with attributes:$/ do |fields|
   hash = fields.rows_hash
   if hash[:club]

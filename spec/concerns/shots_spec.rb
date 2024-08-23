@@ -554,10 +554,12 @@ describe Shots do
     context 'when no values' do
       it 'trap score is nil' do
         expect(competitor.european_trap_score).to be_nil
+        expect(competitor.european_trap_score2).to be_nil
       end
 
       it 'compak score is nil' do
         expect(competitor.european_compak_score).to be_nil
+        expect(competitor.european_compak_score2).to be_nil
       end
 
       it 'european shotgun score is nil' do
@@ -569,6 +571,11 @@ describe Shots do
         expect(competitor.european_rifle2_score).to be_nil
         expect(competitor.european_rifle3_score).to be_nil
         expect(competitor.european_rifle4_score).to be_nil
+        expect(competitor.european_rifle1_score2).to be_nil
+        expect(competitor.european_rifle2_score2).to be_nil
+        expect(competitor.european_rifle3_score2).to be_nil
+        expect(competitor.european_rifle4_score2).to be_nil
+        expect(competitor.european_rifle_extra_score).to be_nil
       end
 
       it 'european rifle score is nil' do
@@ -630,18 +637,26 @@ describe Shots do
         competitor.european_rifle2_score_input = 50
         competitor.european_rifle3_score_input = 40
         competitor.european_rifle4_score_input = 38
+        competitor.european_trap_score_input2 = 20
+        competitor.european_compak_score_input2 = 24
+        competitor.european_rifle1_score_input2 = 40
+        competitor.european_rifle2_score_input2 = 41
+        competitor.european_rifle3_score_input2 = 42
+        competitor.european_rifle4_score_input2 = 43
       end
 
       it 'trap score is given input' do
         expect(competitor.european_trap_score).to eql 25
+        expect(competitor.european_trap_score2).to eql 20
       end
 
       it 'compak score is given input' do
         expect(competitor.european_compak_score).to eql 21
+        expect(competitor.european_compak_score2).to eql 24
       end
 
       it 'european shotgun score is 4 x sum of trap and compak' do
-        expect(competitor.european_shotgun_score).to eql 4 * 25 + 4 * 21
+        expect(competitor.european_shotgun_score).to eql 4 * (25 + 21 + 20 + 24)
       end
 
       it 'rifle scores are their given inputs' do
@@ -649,14 +664,18 @@ describe Shots do
         expect(competitor.european_rifle2_score).to eql 50
         expect(competitor.european_rifle3_score).to eql 40
         expect(competitor.european_rifle4_score).to eql 38
+        expect(competitor.european_rifle1_score2).to eql 40
+        expect(competitor.european_rifle2_score2).to eql 41
+        expect(competitor.european_rifle3_score2).to eql 42
+        expect(competitor.european_rifle4_score2).to eql 43
       end
 
       it 'european rifle score is sum of rifle scores' do
-        expect(competitor.european_rifle_score).to eql 49 + 50 + 40 + 38
+        expect(competitor.european_rifle_score).to eql 49 + 50 + 40 + 38 + 40 + 41 + 42 + 43
       end
 
       it 'european score is 4 x trap and compak + rifle scores' do
-        expect(competitor.european_score).to eql 4 * 25 + 4 * 21 + 49 + 50 + 40 + 38
+        expect(competitor.european_score).to eql 4 * 25 + 4 * 21 + 49 + 50 + 40 + 38 + 4 * 20 + 4 * 24 + 40 + 41 + 42 + 43
       end
 
       it 'returns empty all rifle shots array' do
@@ -672,14 +691,23 @@ describe Shots do
         competitor.european_rifle2_shots = [10, 8, 10]
         competitor.european_rifle3_shots = [9, 5]
         competitor.european_rifle4_shots = [10, 10, 10, 10, 10]
+        competitor.european_trap_shots2 = [0, 1, 0]
+        competitor.european_compak_shots2 = [1, 0, 1, 1, 0]
+        competitor.european_rifle1_shots2 = [9, 9, 10, 0]
+        competitor.european_rifle2_shots2 = [5, 10, 8, 10]
+        competitor.european_rifle3_shots2 = [9, 5, 10]
+        competitor.european_rifle4_shots2 = [10, 10, 10, 10, 9]
+        competitor.european_rifle_extra_shots = [8, 9, 10, 10, 10]
       end
 
       it 'trap score is sum of shots' do
         expect(competitor.european_trap_score).to eql 3
+        expect(competitor.european_trap_score2).to eql 1
       end
 
       it 'compak score is sum of shots' do
         expect(competitor.european_compak_score).to eql 5
+        expect(competitor.european_compak_score2).to eql 3
       end
 
       it 'rifle scores are sums of shots' do
@@ -687,18 +715,27 @@ describe Shots do
         expect(competitor.european_rifle2_score).to eql 28
         expect(competitor.european_rifle3_score).to eql 14
         expect(competitor.european_rifle4_score).to eql 50
+        expect(competitor.european_rifle1_score2).to eql 28
+        expect(competitor.european_rifle2_score2).to eql 33
+        expect(competitor.european_rifle3_score2).to eql 24
+        expect(competitor.european_rifle4_score2).to eql 49
+      end
+
+      it 'european rifle extra score is sum of extra shots' do
+        expect(competitor.european_rifle_extra_score).to eql 8 + 9 + 10 + 10 + 10
       end
 
       it 'european rifle score is sum of rifle scores' do
-        expect(competitor.european_rifle_score).to eql 38 + 28 + 14 + 50
+        expect(competitor.european_rifle_score).to eql 38 + 28 + 14 + 50 + 28 + 33 + 24 + 49
       end
 
       it 'european score is 4 x trap and compak + rifle scores' do
-        expect(competitor.european_score).to eql 4 * 3 + 4 * 5 + 38 + 28 + 14 + 50
+        expect(competitor.european_score).to eql 4 * 3 + 4 * 5 + 38 + 28 + 14 + 50 + 4 * 1 + 4 * 3 + 28 + 33 + 24 + 49
       end
 
       it 'returns all rifle shots in one array' do
         expect(competitor.european_rifle_shots).to eql [10, 9, 9, 10, 0, 10, 8, 10, 9, 5, 10, 10, 10, 10, 10]
+        expect(competitor.european_rifle_shots2).to eql [9, 9, 10, 0, 5, 10, 8, 10, 9, 5, 10, 10, 10, 10, 10, 9]
       end
     end
   end

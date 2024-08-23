@@ -12,12 +12,16 @@ export default function EuropeanShotgunMobileResults({ competitors }) {
       {competitor => {
         const {
           club,
-          europeanShotgunExtraShots,
+          europeanShotgunExtraScore,
           europeanShotgunScore,
           europeanTrapScore,
           europeanTrapShots,
           europeanCompakScore,
           europeanCompakShots,
+          europeanCompakScore2,
+          europeanCompakShots2,
+          europeanTrapScore2,
+          europeanTrapShots2,
           firstName,
           lastName,
           noResultReason,
@@ -30,15 +34,25 @@ export default function EuropeanShotgunMobileResults({ competitors }) {
               {noResultReason && <div className="card__middle-row">{t(`competitor_${noResultReason}`)}</div>}
               {!noResultReason && (
                 <>
-                  {europeanShotgunExtraShots && (
-                    <div className="card__middle-row">{t('extraRound')}: {europeanShotgunExtraShots.join(', ')}</div>
+                  {europeanShotgunExtraScore && (
+                    <div className="card__middle-row">{t('extraRound')}: {europeanShotgunExtraScore}</div>
                   )}
                   <div className="card__middle-row">
                     <MobileSubResult type="shoot" titleKey="european_trap">
-                      <ShootingResult score={europeanTrapScore} shots={europeanTrapShots} />
+                      <ShootingResult
+                        score={europeanTrapScore}
+                        shots={europeanTrapShots}
+                        score2={europeanTrapScore2}
+                        shots2={europeanTrapShots2}
+                      />
                     </MobileSubResult>
                     <MobileSubResult type="shoot" titleKey="european_compak">
-                      <ShootingResult score={europeanCompakScore} shots={europeanCompakShots} />
+                      <ShootingResult
+                        score={europeanCompakScore}
+                        shots={europeanCompakShots}
+                        score2={europeanCompakScore2}
+                        shots2={europeanCompakShots2}
+                      />
                     </MobileSubResult>
                   </div>
                 </>

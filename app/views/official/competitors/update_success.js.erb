@@ -17,7 +17,7 @@ if ($('#extra_shots_<%= @competitor.id %>').length) {
 <% elsif @competitor.sport.european? && @sub_sport == :rifle %>
 $("#shots_result_<%= @competitor.id %>").html("<%= @competitor.european_rifle_score.to_i %>")
 <% elsif @competitor.sport.european? %>
-$("#shots_result_<%= @competitor.id %>").html("<%= @competitor.send("european_#{@sub_sport}_score").to_i %>")
+$("#shots_result_<%= @competitor.id %>").html("<%= @competitor.send("european_#{@sub_sport}_score").to_i + @competitor.send("european_#{@sub_sport}_score2").to_i %>")
 <% elsif @competitor.sport.shooting? %>
 $("#shots_result_<%= @competitor.id %>").html("<%= "#{@competitor.qualification_round_score.to_i} + #{@competitor.final_round_score.to_i} = #{@competitor.shooting_score.to_i}" %>")
 if ($('#extra_shots_<%= @competitor.id %>').length) {
