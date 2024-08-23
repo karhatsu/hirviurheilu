@@ -9,7 +9,7 @@ import { ShowShotsContext } from '../series-results/ResultsWithShots'
 export default function EuropeanShotgunDesktopResults({ race, competitors }) {
   const { t } = useTranslation()
   const showShots = useContext(ShowShotsContext)
-  const extraShots = !!competitors.find(c => c.europeanShotgunExtraShots)
+  const extraScore = !!competitors.find(c => c.europeanShotgunExtraScore)
   const resultClassName = showShots ? '' : 'center'
   return (
     <div className="results--desktop">
@@ -23,13 +23,13 @@ export default function EuropeanShotgunDesktopResults({ race, competitors }) {
           <th>{t('european_trap')}</th>
           <th>{t('european_compak')}</th>
           <th>{t('result')}</th>
-          {extraShots && <th>{t('extraRound')}</th>}
+          {extraScore && <th>{t('extraRound')}</th>}
         </tr>
         </thead>
         <DesktopResultsRows competitors={competitors}>
           {competitor => {
             const {
-              europeanShotgunExtraShots,
+              europeanShotgunExtraScore,
               europeanShotgunScore,
               europeanTrapScore,
               europeanTrapShots,
@@ -46,7 +46,7 @@ export default function EuropeanShotgunDesktopResults({ race, competitors }) {
                 <>
                   <td colSpan={2} />
                   <td className="center total-points"><TotalScore noResultReason={noResultReason} /></td>
-                  {extraShots && <td />}
+                  {extraScore && <td />}
                 </>
               )
             }
@@ -74,7 +74,7 @@ export default function EuropeanShotgunDesktopResults({ race, competitors }) {
                     totalScore={europeanShotgunScore}
                   />
                 </td>
-                {extraShots && <td>{europeanShotgunExtraShots?.join(', ')}</td>}
+                {extraScore && <td>{europeanShotgunExtraScore}</td>}
               </>
             )
           }}

@@ -1,4 +1,4 @@
-- extra_shots_column = competitors.any? {|competitor| competitor.european_shotgun_extra_shots}
+- extra_score_column = competitors.any? {|competitor| competitor.european_shotgun_extra_score}
 %table.results-table
   %tr
     %th &nbsp;
@@ -8,7 +8,7 @@
     %th= t 'sport_name.european_sub.trap'
     %th= t 'sport_name.european_sub.compak'
     %th= t :result
-    - if extra_shots_column
+    - if extra_score_column
       %th= t :extra_round
   - prev_results = 1.0/0.0
   - competitors.each_with_index do |comp, i|
@@ -27,9 +27,6 @@
           = comp.no_result_reason
         - else
           = comp.european_shotgun_score || '-'
-      - if extra_shots_column
-        %td
-          - extra_shots = comp.european_shotgun_extra_shots
-          - if extra_shots
-            = shots_print extra_shots
+      - if extra_score_column
+        %td= comp.european_shotgun_extra_score
     - prev_results = results

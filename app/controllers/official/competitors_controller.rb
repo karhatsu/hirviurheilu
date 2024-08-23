@@ -146,6 +146,7 @@ class Official::CompetitorsController < Official::OfficialController
       :european_rifle3_score_input2,
       :european_rifle4_score_input,
       :european_rifle4_score_input2,
+      :european_shotgun_extra_score,
       :european_trap_score_input,
       :european_trap_score_input2,
       :final_round_heat_id,

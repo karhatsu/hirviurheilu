@@ -124,9 +124,7 @@ describe Competitor do
       it { is_expected.to allow_value(['1', '0', '1']).for(attribute) }
       it { is_expected.not_to allow_value(['0', '1', '0.9']).for(attribute) }
       it { is_expected.to allow_value(25.times.map{1}).for(attribute) }
-      if attribute != :european_shotgun_extra_shots
-        it { is_expected.not_to allow_value(26.times.map{1}).for(attribute) }
-      end
+      it { is_expected.not_to allow_value(26.times.map{1}).for(attribute) }
     end
 
     shared_examples_for 'shotgun extra shots' do |attribute|
@@ -514,7 +512,6 @@ describe Competitor do
       describe 'trap_shots' do
         it_should_behave_like 'shotgun shots', :european_trap_shots
         it_should_behave_like 'shotgun shots', :european_trap_shots2
-        it_should_behave_like 'shotgun shots', :european_shotgun_extra_shots
 
         it 'can be saved together with blank score input' do
           competitor = build :competitor, european_trap_shots: %w(1, 0, 1, 1), european_trap_score_input: '',
@@ -549,7 +546,8 @@ describe Competitor do
       end
 
       describe 'extra_score' do
-        it_should_behave_like 'non-negative integer', :nordic_extra_score, true
+        it_should_behave_like 'non-negative integer', :european_shotgun_extra_score, true
+        it_should_behave_like 'non-negative integer', :european_extra_score, true
       end
     end
   end
@@ -642,11 +640,9 @@ describe Competitor do
         expect(competitor.european_rifle_extra_shots).to eql [8, 9, 10]
       end
 
-      it 'converts shotgun extra shots strings to integer' do
-        competitor = build :competitor
-        competitor.european_shotgun_extra_shots = %w(1 0 1)
-        competitor.save
-        expect(competitor.european_shotgun_extra_shots).to eql [1, 0, 1]
+      it 'converts shotgun extra score to integer' do
+        competitor = create :competitor, european_shotgun_extra_score: '24'
+        expect(competitor.european_shotgun_extra_score).to eql 24
       end
 
       it 'converts extra score string to integer' do

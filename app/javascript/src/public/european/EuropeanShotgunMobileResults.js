@@ -12,7 +12,7 @@ export default function EuropeanShotgunMobileResults({ competitors }) {
       {competitor => {
         const {
           club,
-          europeanShotgunExtraShots,
+          europeanShotgunExtraScore,
           europeanShotgunScore,
           europeanTrapScore,
           europeanTrapShots,
@@ -34,8 +34,8 @@ export default function EuropeanShotgunMobileResults({ competitors }) {
               {noResultReason && <div className="card__middle-row">{t(`competitor_${noResultReason}`)}</div>}
               {!noResultReason && (
                 <>
-                  {europeanShotgunExtraShots && (
-                    <div className="card__middle-row">{t('extraRound')}: {europeanShotgunExtraShots.join(', ')}</div>
+                  {europeanShotgunExtraScore && (
+                    <div className="card__middle-row">{t('extraRound')}: {europeanShotgunExtraScore}</div>
                   )}
                   <div className="card__middle-row">
                     <MobileSubResult type="shoot" titleKey="european_trap">
