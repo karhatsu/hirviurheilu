@@ -360,8 +360,8 @@ describe CompetitorResults do
             expect(competitor.european_shotgun_results).to eql [shotgun_score, 1, 0, 1, 22, 24, 23, 25]
           end
 
-          it 'total returns array of total score, rifle score, single rifle scores in reverse order, 0, and extra score' do
-            expect(competitor.european_total_results).to eql [shotgun_score + rifle_score - 4, rifle_score, 48, 50, 45, 40, 0, 199]
+          it 'total returns array of total score, extra score, rifle score, single rifle scores in reverse order, and 0 (count of tens)' do
+            expect(competitor.european_total_results).to eql [shotgun_score + rifle_score - 4, 199, rifle_score, 48, 50, 45, 40, 0]
           end
 
           def shotgun_score
@@ -388,7 +388,7 @@ describe CompetitorResults do
           end
 
           it 'total returns sum of tens after the rifle sub sport scores' do
-            expect(competitor.european_total_results).to eql [100 + 96 + rifle_score, rifle_score, 20, 27, 46, 50, 9, 0]
+            expect(competitor.european_total_results).to eql [100 + 96 + rifle_score, 0, rifle_score, 20, 27, 46, 50, 9]
           end
 
           def rifle_score
