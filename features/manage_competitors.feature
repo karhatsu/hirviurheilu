@@ -178,12 +178,12 @@ Feature: Manage competitors
     When I fill in "Erkki" for "Etunimi"
     And I fill in "24" for "Trapin tulos"
     And I fill in "25" for "Compakin tulos"
-    And I fill in "101" for "Metsäkauriin tulos"
+    And I fill in "51" for "Metsäkauriin tulos"
     And I fill in "48" for "Ketun tulos"
     And I fill in "40" for "Gemssin tulos"
     And I fill in "50" for "Villisian tulos"
     And I press "Tallenna"
-    Then I should see "Metsäkauriin tulos täytyy olla pienempi tai yhtä suuri kuin 100" in a error message
+    Then I should see "Metsäkauriin tulos täytyy olla pienempi tai yhtä suuri kuin 50" in a error message
     And I fill in "50" for "Metsäkauriin tulos"
     And I press "Tallenna"
     Then I should be on the official competitors page of series "M60"
