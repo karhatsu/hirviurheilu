@@ -128,13 +128,20 @@ Feature: European results
       | level     | 4                       |
       | show_european_shotgun_results | true |
     And the race has series "M"
-    And the series has a competitor "Pekka" "Pohjola" from "Team A" with european results 50, 40, 88, 100, 80, 96
-    And the series has a competitor "Pertti" "Pohjonen" from "Team B" with european results 48, 50, 92, 90, 100, 98
+    And the series has a competitor "Pekka" "Pohjola" from "Team A" with european double results 25+25, 20+20, 48+40, 50+50, 50+30, 50+46
+    And the series has a competitor "Pertti" "Pohjonen" from "Team B" with european double results 25+23, 25+25, 42+50, 46+44, 50+50, 48+50
     And I am on the race page of "Double test race"
     When I follow the first "Tulokset" link
     And I wait for the results
     And I force mobile UI
     Then I should see a card 1 for "Pohjonen Pertti" with total score 772
+    And I should see the following sub results in result card 1 detail row 2:
+      | shoot | Trap: 25 + 23 |
+      | shoot | Compak: 25 + 25 |
+      | shoot | Metsäkauris: 42 + 50 |
+      | shoot | Kettu: 46 + 44 |
+      | shoot | Gemssi: 50 + 50 |
+      | shoot | Villisika: 48 + 50 |
     And I should see a card 2 for "Pohjola Pekka" with total score 724
     When I follow "Luodikko"
     And I wait for the results
