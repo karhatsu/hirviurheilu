@@ -62,7 +62,10 @@ module CompetitorResults
     no_result = no_result_reason_results
     return no_result if no_result
     [european_rifle_score.to_i, european_rifle_extra_score.to_i,
-     european_rifle4_score.to_i, european_rifle3_score.to_i, european_rifle2_score.to_i, european_rifle1_score.to_i,
+     european_rifle4_score2.to_i, european_rifle4_score.to_i,
+     european_rifle3_score2.to_i, european_rifle3_score.to_i,
+     european_rifle2_score2.to_i, european_rifle2_score.to_i,
+     european_rifle1_score2.to_i, european_rifle1_score.to_i,
      sum_of_european_rifle_tens]
   end
 
