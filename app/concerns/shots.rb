@@ -130,6 +130,10 @@ module Shots
     resolve_sub_score european_rifle4_score_input2, european_rifle4_shots2
   end
 
+  def european_rifle_extra_score
+    sum_of_array european_rifle_extra_shots if european_rifle_extra_shots
+  end
+
   def european_rifle_score
     return nil unless european_rifle1_score || european_rifle2_score || european_rifle3_score || european_rifle4_score
     european_rifle1_score.to_i + european_rifle2_score.to_i + european_rifle3_score.to_i + european_rifle4_score.to_i +

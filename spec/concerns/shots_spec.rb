@@ -575,6 +575,7 @@ describe Shots do
         expect(competitor.european_rifle2_score2).to be_nil
         expect(competitor.european_rifle3_score2).to be_nil
         expect(competitor.european_rifle4_score2).to be_nil
+        expect(competitor.european_rifle_extra_score).to be_nil
       end
 
       it 'european rifle score is nil' do
@@ -696,6 +697,7 @@ describe Shots do
         competitor.european_rifle2_shots2 = [5, 10, 8, 10]
         competitor.european_rifle3_shots2 = [9, 5, 10]
         competitor.european_rifle4_shots2 = [10, 10, 10, 10, 9]
+        competitor.european_rifle_extra_shots = [8, 9, 10, 10, 10]
       end
 
       it 'trap score is sum of shots' do
@@ -717,6 +719,10 @@ describe Shots do
         expect(competitor.european_rifle2_score2).to eql 33
         expect(competitor.european_rifle3_score2).to eql 24
         expect(competitor.european_rifle4_score2).to eql 49
+      end
+
+      it 'european rifle extra score is sum of extra shots' do
+        expect(competitor.european_rifle_extra_score).to eql 8 + 9 + 10 + 10 + 10
       end
 
       it 'european rifle score is sum of rifle scores' do

@@ -13,6 +13,7 @@ export default function EuropeanRifleMobileResults({ race, series, competitors }
       {competitor => {
         const {
           club,
+          europeanRifleExtraScore,
           europeanRifleExtraShots,
           europeanRifleScore,
           europeanRifle1Score,
@@ -44,7 +45,11 @@ export default function EuropeanRifleMobileResults({ race, series, competitors }
               {!noResultReason && (
                 <>
                   {europeanRifleExtraShots && (
-                    <div className="card__middle-row">{t('extraRound')}: {europeanRifleExtraShots.join(', ')}</div>
+                    <div className="card__middle-row">
+                      <MobileSubResult type="shoot" titleKey="extraRound">
+                        <ShootingResult score={europeanRifleExtraScore} shots={europeanRifleExtraShots} />
+                      </MobileSubResult>
+                    </div>
                   )}
                   <div className="card__middle-row">
                     <MobileSubResult type="shoot" titleKey="european_rifle1">

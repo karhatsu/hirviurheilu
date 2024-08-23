@@ -32,6 +32,7 @@ export default function EuropeanRifleDesktopResults({ race, series, competitors 
         <DesktopResultsRows competitors={competitors}>
           {competitor => {
             const {
+              europeanRifleExtraScore,
               europeanRifleExtraShots,
               europeanRifleScore,
               europeanRifle1Score,
@@ -99,7 +100,11 @@ export default function EuropeanRifleDesktopResults({ race, series, competitors 
                   <TotalScore noResultReason={noResultReason} totalScore={europeanRifleScore}/>
                   {series && <EuropeanRifleNationalRecord race={race} series={series} competitor={competitor}/>}
                 </td>
-                {extraShots && <td>{europeanRifleExtraShots?.join(', ')}</td>}
+                {extraShots && (
+                  <td>
+                    <ShootingResult score={europeanRifleExtraScore} shots={europeanRifleExtraShots} />
+                  </td>
+                )}
               </>
             )
           }}
