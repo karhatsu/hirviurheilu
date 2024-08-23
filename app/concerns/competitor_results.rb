@@ -68,11 +68,10 @@ module CompetitorResults
   end
 
   def european_shotgun_results
-    results = no_result_reason_results
-    return results if results
-    results = [european_shotgun_score.to_i]
-    results = results + european_shotgun_extra_shots if european_shotgun_extra_shots
-    results
+    no_result = no_result_reason_results
+    return no_result if no_result
+    [european_shotgun_score.to_i, european_shotgun_extra_shots || [0],
+     european_compak_score2.to_i, european_trap_score2.to_i, european_compak_score.to_i, european_trap_score.to_i].flatten
   end
 
   private

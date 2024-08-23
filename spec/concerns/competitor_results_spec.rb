@@ -330,7 +330,7 @@ describe CompetitorResults do
       context 'and without results' do
         it 'return array of zeros' do
           expect(competitor.european_rifle_results).to eql [0, 0, 0, 0, 0, 0]
-          expect(competitor.european_shotgun_results).to eql [0]
+          expect(competitor.european_shotgun_results).to eql [0, 0, 0, 0, 0, 0] # total, dummy extra, compak2, trap2, compak, trap
           expect(competitor.european_total_results).to eql [0, 0, 0, 0, 0, 0, 0, 0]
         end
       end
@@ -339,7 +339,9 @@ describe CompetitorResults do
         context 'when shots not used' do
           before do
             competitor.european_trap_score_input = 25
-            competitor.european_compak_score_input = 25
+            competitor.european_trap_score_input2 = 24
+            competitor.european_compak_score_input = 23
+            competitor.european_compak_score_input2 = 22
             competitor.european_rifle1_score_input = 40
             competitor.european_rifle2_score_input = 45
             competitor.european_rifle3_score_input = 50
@@ -354,12 +356,16 @@ describe CompetitorResults do
             expect(competitor.european_rifle_results).to eql [rifle_score, 48, 50, 45, 40, 0, 10, 9, 8]
           end
 
-          it 'shotgun returns array of total shotgun score and extra shots' do
-            expect(competitor.european_shotgun_results).to eql [4 * (25 + 25), 1, 0, 1]
+          it 'shotgun returns array of total shotgun score, extra shots, compak2, trap2, compak1, and trap1' do
+            expect(competitor.european_shotgun_results).to eql [shotgun_score, 1, 0, 1, 22, 24, 23, 25]
           end
 
           it 'total returns array of total score, rifle score, single rifle scores in reverse order, 0, and extra score' do
-            expect(competitor.european_total_results).to eql [100 + 100 + rifle_score - 4, rifle_score, 48, 50, 45, 40, 0, 199]
+            expect(competitor.european_total_results).to eql [shotgun_score + rifle_score - 4, rifle_score, 48, 50, 45, 40, 0, 199]
+          end
+
+          def shotgun_score
+            4 * (25 + 24 + 23 + 22)
           end
 
           def rifle_score
