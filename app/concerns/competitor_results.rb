@@ -54,8 +54,7 @@ module CompetitorResults
   def european_total_results
     results = no_result_reason_results
     return results if results
-    [total_score.to_i, european_extra_score.to_i, european_rifle_score.to_i, european_rifle4_score.to_i,
-     european_rifle3_score.to_i, european_rifle2_score.to_i, european_rifle1_score.to_i, sum_of_european_rifle_tens]
+    [total_score.to_i, european_extra_score.to_i, european_rifle4_score2.to_i, european_rifle4_score.to_i, european_compak_score2.to_i]
   end
 
   def european_rifle_results
@@ -65,8 +64,7 @@ module CompetitorResults
      european_rifle4_score2.to_i, european_rifle4_score.to_i,
      european_rifle3_score2.to_i, european_rifle3_score.to_i,
      european_rifle2_score2.to_i, european_rifle2_score.to_i,
-     european_rifle1_score2.to_i, european_rifle1_score.to_i,
-     sum_of_european_rifle_tens]
+     european_rifle1_score2.to_i, european_rifle1_score.to_i]
   end
 
   def european_shotgun_results
@@ -115,11 +113,6 @@ module CompetitorResults
 
   def reverse_shots(shots)
     (shots || []).reverse
-  end
-
-  def sum_of_european_rifle_tens
-    sum_of_tens(european_rifle1_shots) + sum_of_tens(european_rifle2_shots) + sum_of_tens(european_rifle3_shots) +
-        sum_of_tens(european_rifle4_shots)
   end
 
   def sum_of_tens(shots)
