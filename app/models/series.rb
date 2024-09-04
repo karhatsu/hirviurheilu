@@ -95,21 +95,21 @@ class Series < ApplicationRecord
 
   def european_rifle_results
     sorted_competitors = Competitor.sort_european_rifle_competitors competitors.includes([:club, :series])
-    add_position_for_competitors sorted_competitors do |competitor|
+    add_position_for_competitors(sorted_competitors, true) do |competitor|
       competitor.european_rifle_results
     end
   end
 
   def european_shotgun_results
     sorted_competitors = Competitor.sort_european_shotgun_competitors competitors.includes([:club, :series])
-    add_position_for_competitors sorted_competitors do |competitor|
+    add_position_for_competitors(sorted_competitors, true) do |competitor|
       competitor.european_shotgun_results
     end
   end
 
   def european_race_results
     sorted_competitors = Competitor.sort_european_competitors competitors.includes([:club, :series])
-    add_position_for_competitors sorted_competitors do |competitor|
+    add_position_for_competitors(sorted_competitors, true) do |competitor|
       competitor.european_total_results
     end
   end

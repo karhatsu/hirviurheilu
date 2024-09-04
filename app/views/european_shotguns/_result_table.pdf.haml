@@ -10,13 +10,12 @@
     %th= t :result
     - if extra_score_column
       %th= t :extra_round
-  - prev_results = 1.0/0.0
+  - prev_position = 0
   - competitors.each_with_index do |comp, i|
     - @max_score = comp.european_shotgun_score if i == 0
     - next unless i < 3 || params[:club_id].blank? || comp.club_id == params[:club_id].to_i
-    - results = comp.european_shotgun_results
     %tr{class: i % 2 == 0 ? 'odd' : ''}
-      %td= (results == prev_results) ? raw('&nbsp;') : "#{i + 1}."
+      %td= (comp.position == prev_position) ? raw('&nbsp;') : "#{i + 1}."
       %td= full_name(comp)
       %td= comp.number
       %td= comp.club.name
@@ -29,4 +28,4 @@
           = comp.european_shotgun_score || '-'
       - if extra_score_column
         %td= comp.european_shotgun_extra_score
-    - prev_results = results
+    - prev_position = comp.position

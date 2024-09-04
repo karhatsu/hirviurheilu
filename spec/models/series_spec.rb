@@ -461,27 +461,84 @@ describe Series do
     end
   end
 
-  describe "#three_sports_results" do
-    it "should call Competitor.sort_competitors with all competitors in the series and add position for each" do
-      unofficials_rule = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
-      series = build(:series)
-      competitors, included = ['a', 'b', 'c'], ['d', 'e']
-      sorted_competitors = 5.times.map { instance_double(Competitor) }
-      results = [[300, 100], [299, 101], [299, 101], [299, 99], [298, 150]]
-      allow(series).to receive(:competitors).and_return(competitors)
-      expect(competitors).to receive(:includes).with([:club, :age_group, :series]).and_return(included)
-      expect(Competitor).to receive(:sort_three_sports_competitors).with(included, unofficials_rule).and_return(sorted_competitors)
-      sorted_competitors.each_with_index do |c, i|
-        expect(c).to receive(:three_sports_race_results).with(unofficials_rule).and_return(results[i])
-        if i == 2
-          expect(c).to receive(:position=).with(2)
-          expect(c).to receive(:position).and_return(2)
-        else
-          expect(c).to receive(:position=).with(i + 1)
-          expect(c).to receive(:position).and_return(i + 1)
+  describe 'results' do
+    describe "#three_sports_results" do
+      it "should call Competitor.sort_competitors with all competitors in the series and add position for each" do
+        unofficials_rule = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
+        series = build(:series)
+        competitors, included = ['a', 'b', 'c'], ['d', 'e']
+        sorted_competitors = 5.times.map { instance_double(Competitor) }
+        results = [[300, 100], [299, 101], [299, 101], [299, 99], [298, 150]]
+        allow(series).to receive(:competitors).and_return(competitors)
+        expect(competitors).to receive(:includes).with([:club, :age_group, :series]).and_return(included)
+        expect(Competitor).to receive(:sort_three_sports_competitors).with(included, unofficials_rule).and_return(sorted_competitors)
+        sorted_competitors.each_with_index do |c, i|
+          allow(c).to receive(:three_sports_race_results).with(unofficials_rule).and_return(results[i])
+          if i == 2
+            expect(c).to receive(:position=).with(2)
+            expect(c).to receive(:position).and_return(2)
+          else
+            expect(c).to receive(:position=).with(i + 1)
+            expect(c).to receive(:position).and_return(i + 1)
+          end
+        end
+        expect(series.three_sports_results(unofficials_rule)).to eq(sorted_competitors)
+      end
+    end
+
+    describe '#european_race_results' do
+      let(:series) { build :series }
+      let(:all_competitors) { ['list of all competitors in the series'] }
+      let(:competitors_with_includes) { ['same as above but with included club and series'] }
+      let(:sorted_competitors) { 6.times.map { build :competitor } }
+
+      before do
+        expect(series).to receive(:competitors).and_return(all_competitors)
+        expect(all_competitors).to receive(:includes).with([:club, :series]).and_return(competitors_with_includes)
+        expect(Competitor).to receive(:sort_european_competitors).with(competitors_with_includes).and_return(sorted_competitors)
+        sorted_competitors.each_with_index do |competitor, i|
+          allow(competitor).to receive(:european_total_results).and_return(results[i])
         end
       end
-      expect(series.three_sports_results(unofficials_rule)).to eq(sorted_competitors)
+
+      context 'when only two competitors' do
+        let(:sorted_competitors) { 2.times.map { build :competitor } }
+        let(:results) { [[0, 0], [0, 0]] }
+
+        it 'does not crash with the medal place check' do
+          expect(series.european_race_results).to eql sorted_competitors
+          expect(sorted_competitors[0].position).to eql 1
+          expect(sorted_competitors[1].position).to eql 1
+        end
+      end
+
+      context 'when 4th and 5th competitors have equal total result' do
+        let(:results) { [[400, 0, 200], [399, 10, 190], [399, 9, 191], [398, 0, 200], [398, 0, 199], [397, 0, 200]] }
+
+        it 'assigns same rank for them' do
+          expect(series.european_race_results).to eql sorted_competitors
+          expect(sorted_competitors[0].position).to eql 1
+          expect(sorted_competitors[1].position).to eql 2
+          expect(sorted_competitors[2].position).to eql 3
+          expect(sorted_competitors[3].position).to eql 4
+          expect(sorted_competitors[4].position).to eql 4
+          expect(sorted_competitors[5].position).to eql 6
+        end
+      end
+
+      context 'when 4th competitor has the same total result as the 3rd' do
+        let(:results) { [[400, 0, 200], [399, 10, 190], [399, 9, 191], [399, 8, 200], [398, 0, 199], [397, 0, 200]] }
+
+        it 'assigns own rank for the 4th place' do
+          expect(series.european_race_results).to eql sorted_competitors
+          expect(sorted_competitors[0].position).to eql 1
+          expect(sorted_competitors[1].position).to eql 2
+          expect(sorted_competitors[2].position).to eql 3
+          expect(sorted_competitors[3].position).to eql 4
+          expect(sorted_competitors[4].position).to eql 5
+          expect(sorted_competitors[5].position).to eql 6
+        end
+      end
     end
   end
 
