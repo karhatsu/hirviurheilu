@@ -462,18 +462,24 @@ describe Series do
   end
 
   describe "#three_sports_results" do
-    it "should call Competitor.sort_competitors with all competitors in the series" do
+    it "should call Competitor.sort_competitors with all competitors in the series and add position for each" do
       unofficials_rule = Series::UNOFFICIALS_INCLUDED_WITHOUT_BEST_TIME
       series = build(:series)
       competitors, included = ['a', 'b', 'c'], ['d', 'e']
-      sorted_competitors = [instance_double(Competitor), instance_double(Competitor), instance_double(Competitor)]
+      sorted_competitors = 5.times.map { instance_double(Competitor) }
+      results = [[300, 100], [299, 101], [299, 101], [299, 99], [298, 150]]
       allow(series).to receive(:competitors).and_return(competitors)
       expect(competitors).to receive(:includes).with([:club, :age_group, :series]).and_return(included)
       expect(Competitor).to receive(:sort_three_sports_competitors).with(included, unofficials_rule).and_return(sorted_competitors)
       sorted_competitors.each_with_index do |c, i|
-        expect(c).to receive(:three_sports_race_results).with(unofficials_rule).and_return([i])
-        expect(c).to receive(:position=).with(i + 1)
-        expect(c).to receive(:position).and_return(i + 1)
+        expect(c).to receive(:three_sports_race_results).with(unofficials_rule).and_return(results[i])
+        if i == 2
+          expect(c).to receive(:position=).with(2)
+          expect(c).to receive(:position).and_return(2)
+        else
+          expect(c).to receive(:position=).with(i + 1)
+          expect(c).to receive(:position).and_return(i + 1)
+        end
       end
       expect(series.three_sports_results(unofficials_rule)).to eq(sorted_competitors)
     end
