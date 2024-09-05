@@ -39,17 +39,11 @@ class Team
   end
 
   def hits
-    if @rifle
-      @competitors.map {|c| c.hits.to_i}.inject(:+)
-    else
-      @competitors.map {|c| c.qualification_round_hits.to_i}.inject(:+)
-    end
+    @competitors.map {|c| c.qualification_round_hits.to_i}.inject(:+)
   end
 
   def shot_counts
-    if @rifle
-      shots_arrays = @competitors.map {|c| c.european_rifle_shots}
-    elsif @sport.qualification_round
+    if @sport.qualification_round
       shots_arrays = @competitors.map {|c| c.qualification_round_shots&.flatten}
     else
       shots_arrays = @competitors.map {|c| c.shots}
@@ -57,12 +51,25 @@ class Team
     calculate_shot_counts shots_arrays
   end
 
-  def european_total_results
-    @competitors[0].european_total_results
+  def european_secondary_results
+    [
+      @competitors.map {|c| c.european_rifle4_score2.to_i }.inject(:+),
+      @competitors.map {|c| c.european_rifle4_score.to_i }.inject(:+),
+      @competitors.map {|c| c.european_compak_score2.to_i }.inject(:+)
+    ]
   end
 
-  def european_rifle_results
-    @competitors[0].european_rifle_results
+  def european_rifle_secondary_results
+    [
+      @competitors.map {|c| c.european_rifle4_score2.to_i }.inject(:+),
+      @competitors.map {|c| c.european_rifle4_score.to_i }.inject(:+),
+      @competitors.map {|c| c.european_rifle3_score2.to_i }.inject(:+),
+      @competitors.map {|c| c.european_rifle3_score.to_i }.inject(:+),
+      @competitors.map {|c| c.european_rifle2_score2.to_i }.inject(:+),
+      @competitors.map {|c| c.european_rifle2_score.to_i }.inject(:+),
+      @competitors.map {|c| c.european_rifle1_score2.to_i }.inject(:+),
+      @competitors.map {|c| c.european_rifle1_score.to_i }.inject(:+)
+    ]
   end
 
   def extra_shots

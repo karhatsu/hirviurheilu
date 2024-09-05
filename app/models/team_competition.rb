@@ -122,8 +122,7 @@ class TeamCompetition < ApplicationRecord
   def sort_teams(hash, rifle)
     if rifle
       hash.values.sort do |a, b|
-        [b.total_score] + b.european_rifle_results + [b.hits] + b.shot_counts <=>
-            [a.total_score] + a.european_rifle_results + [a.hits] + a.shot_counts
+        [b.total_score] + b.european_rifle_secondary_results <=> [a.total_score] + a.european_rifle_secondary_results
       end
     elsif sport.nordic?
       hash.values.sort do |a, b|
@@ -131,7 +130,7 @@ class TeamCompetition < ApplicationRecord
       end
     elsif sport.european?
       hash.values.sort do |a, b|
-        [b.total_score] + b.european_total_results <=> [a.total_score] + a.european_total_results
+        [b.total_score] + b.european_secondary_results <=> [a.total_score] + a.european_secondary_results
       end
     elsif sport.shooting?
       hash.values.sort do |a, b|

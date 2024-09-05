@@ -62,20 +62,20 @@ describe Team do
   context 'when european race team' do
     let(:european_team) { Team.new team_competition, name, club_id }
     let(:competitor1) { build :competitor }
+    let(:competitor2) { build :competitor }
 
     before do
       allow(sport).to receive(:qualification_round).and_return(nil)
-      allow(competitor1).to receive(:european_total_results).and_return([400, 200, 100, 90])
-      allow(competitor1).to receive(:shots).and_return([10, 8, 9, 9, 7])
-      european_team << competitor1
+      european_team << build_european_competitor(400, [50, 50, 25])
+      european_team << build_european_competitor(392, [49, 48, 24])
     end
 
-    it 'provides results array for european' do
-      expect(european_team.european_total_results).to eql [400, 200, 100, 90]
+    it 'total score is sum of competitor scores' do
+      expect(european_team.total_score).to eql 400 + 392
     end
 
-    it 'calculates sum of different shots using all shots' do
-      expect(european_team.shot_counts).to eql [1, 2, 1, 1, 0, 0, 0, 0, 0, 0]
+    it 'secondary results is a sum of competitors results in rifle4_2, rifle4_1, and compak2' do
+      expect(european_team.european_secondary_results).to eql [99, 98, 49]
     end
   end
 
@@ -83,24 +83,16 @@ describe Team do
     let(:rifle_team) { Team.new team_competition, name, club_id, true }
 
     before do
-      rifle_team << build_rifle_competitor(200, [200, 50, 50, 50, 50], [10, 9], [1, 2], [4, 5], [8, 8])
-      rifle_team << build_rifle_competitor(190, [190, 45, 45, 50, 50], [8, 9], [10, 10], [4, 6], [7, 7])
+      rifle_team << build_european_rifle_competitor(400, 8.times.map {50})
+      rifle_team << build_european_rifle_competitor(364, [49, 48, 47, 46, 45, 44, 43, 42])
     end
 
-    it 'total score is total rifle score' do
-      expect(rifle_team.total_score).to eql 390
+    it 'total score is sum of competitor rifle scores' do
+      expect(rifle_team.total_score).to eql 400 + 364
     end
 
-    it 'best competitor score is best rifle score' do
-      expect(rifle_team.best_competitor_score).to eql 200
-    end
-
-    it 'provides rifle results array' do
-      expect(rifle_team.european_rifle_results).to eql [200, 50, 50, 50, 50]
-    end
-
-    it 'calculates shot counts from rifle shots' do
-      expect(rifle_team.shot_counts).to eql [3, 2, 3, 2, 1, 1, 2, 0, 1, 1]
+    it 'secondary results is a sum of competitors results in rifle4_2, rifle4_1, rifle3_2,...' do
+      expect(rifle_team.european_rifle_secondary_results).to eql [99, 98, 97, 96, 95, 94, 93, 92]
     end
   end
 
@@ -288,14 +280,28 @@ describe Team do
     competitor
   end
 
-  def build_rifle_competitor(score, european_rifle_results, rifle1_shots, rifle2_shots, rifle3_shots, rifle4_shots)
+  def build_european_competitor(score, scores)
+    expect(scores.length).to eql 3
+    competitor = build :competitor
+    allow(competitor).to receive(:team_competition_score).with(sport, false).and_return(score)
+    allow(competitor).to receive(:european_rifle4_score2).and_return(scores[0])
+    allow(competitor).to receive(:european_rifle4_score).and_return(scores[1])
+    allow(competitor).to receive(:european_compak_score2).and_return(scores[2])
+    competitor
+  end
+
+  def build_european_rifle_competitor(score, rifle_scores)
+    expect(rifle_scores.length).to eql 8
     competitor = build :competitor
     allow(competitor).to receive(:team_competition_score).with(sport, true).and_return(score)
-    allow(competitor).to receive(:european_rifle_results).and_return(european_rifle_results)
-    allow(competitor).to receive(:european_rifle1_shots).and_return(rifle1_shots)
-    allow(competitor).to receive(:european_rifle2_shots).and_return(rifle2_shots)
-    allow(competitor).to receive(:european_rifle3_shots).and_return(rifle3_shots)
-    allow(competitor).to receive(:european_rifle4_shots).and_return(rifle4_shots)
+    allow(competitor).to receive(:european_rifle4_score2).and_return(rifle_scores[0])
+    allow(competitor).to receive(:european_rifle4_score).and_return(rifle_scores[1])
+    allow(competitor).to receive(:european_rifle3_score2).and_return(rifle_scores[2])
+    allow(competitor).to receive(:european_rifle3_score).and_return(rifle_scores[3])
+    allow(competitor).to receive(:european_rifle2_score2).and_return(rifle_scores[4])
+    allow(competitor).to receive(:european_rifle2_score).and_return(rifle_scores[5])
+    allow(competitor).to receive(:european_rifle1_score2).and_return(rifle_scores[6])
+    allow(competitor).to receive(:european_rifle1_score).and_return(rifle_scores[7])
     competitor
   end
 end

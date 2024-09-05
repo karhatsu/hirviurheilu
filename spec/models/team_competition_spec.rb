@@ -412,36 +412,43 @@ describe TeamCompetition do
 
     context 'when european race' do
       let(:sport_key) { Sport::EUROPEAN }
-      let(:club1) { build :club, id: 1, name: 'Best points' }
-      let(:club2) { build :club, id: 2, name: 'Best competitor points' }
-      let(:club3) { build :club, id: 3, name: 'Better rifle points' }
-      let(:club4) { build :club, id: 4, name: 'Last' }
+      let(:club1) { build :club, id: 1, name: 'Best total score' }
+      let(:club2) { build :club, id: 2, name: 'Best rifle 4/2 total score' }
+      let(:club3) { build :club, id: 3, name: 'Best rifle 4/1 total score' }
+      let(:club4) { build :club, id: 4, name: 'Best compak 2 total score' }
+      let(:club5) { build :club, id: 4, name: 'Worst' }
       let(:competitors) { [] }
 
       before do
-        competitors << build_european_competitor(club1, 380, [380, 190, 40, 40])
-        competitors << build_european_competitor(club1, 380, [380, 190, 40, 40])
+        competitors << build_european_competitor(club1, 200, [50, 50, 25])
+        competitors << build_european_competitor(club1, 200, [50, 50, 25])
 
-        competitors << build_european_competitor(club2, 378, [378, 190, 40, 40])
-        competitors << build_european_competitor(club2, 381, [381, 190, 40, 40])
+        competitors << build_european_competitor(club2, 200, [50, 50, 25])
+        competitors << build_european_competitor(club2, 196, [50, 50, 24])
 
-        competitors << build_european_competitor(club3, 379, [379, 200, 50, 50])
-        competitors << build_european_competitor(club3, 380, [380, 195, 50, 49])
+        competitors << build_european_competitor(club3, 200, [50, 50, 25])
+        competitors << build_european_competitor(club3, 196, [50, 46, 25])
 
-        competitors << build_european_competitor(club4, 380, [380, 195, 50, 48])
-        competitors << build_european_competitor(club4, 379, [379, 199, 50, 50])
+        competitors << build_european_competitor(club4, 200, [50, 50, 25])
+        competitors << build_european_competitor(club4, 196, [46, 50, 25])
+
+        competitors << build_european_competitor(club5, 200, [50, 50, 25])
+        competitors << build_european_competitor(club5, 192, [50, 50, 23])
 
         @results = tc.results_for_competitors competitors.shuffle
       end
 
-      it 'sorts teams by 1. total points 2. best competitor points 3. best rifle points (etc)' do
-        expect([0, 1, 2, 3].map{|i| @results[i].name}).to eql [club1, club2, club3, club4].map(&:name)
+      it 'sorts teams by 1. total points 2. total rifle 4/2 3. total rifle 4/1 4. total compak 2' do
+        expect([0, 1, 2, 3, 4].map{|i| @results[i].name}).to eql [club1, club2, club3, club4, club5].map(&:name)
       end
 
-      def build_european_competitor(club, total_score, results_array)
+      def build_european_competitor(club, total_score, sub_scores)
+        expect(sub_scores.length).to eql 3
         competitor = build :competitor, club: club
         allow(competitor).to receive(:total_score).and_return(total_score)
-        allow(competitor).to receive(:european_total_results).and_return(results_array)
+        allow(competitor).to receive(:european_rifle4_score2).and_return(sub_scores[0])
+        allow(competitor).to receive(:european_rifle4_score).and_return(sub_scores[1])
+        allow(competitor).to receive(:european_compak_score2).and_return(sub_scores[2])
         allow(competitor).to receive(:club_id).and_return(club.id)
         competitor
       end
@@ -450,48 +457,42 @@ describe TeamCompetition do
     describe 'rifle results' do
       let(:sport_key) { Sport::EUROPEAN }
       let(:club1) { build :club, id: 1, name: 'Best total score' }
-      let(:club2) { build :club, id: 2, name: 'Best competitor rifle score' }
-      let(:club3) { build :club, id: 3, name: 'Best competitor secondary rifle score' }
-      let(:club4) { build :club, id: 4, name: 'Most hits for team' }
-      let(:club5) { build :club, id: 5, name: 'Most tens, nines for team' }
-      let(:club6) { build :club, id: 6, name: 'Last' }
+      let(:club2) { build :club, id: 2, name: 'Best rifle 4/2 total score' }
+      let(:club3) { build :club, id: 3, name: 'Best rifle 4/1 total score' }
+      let(:club4) { build :club, id: 4, name: 'Best rifle 3/2 total score' }
+      let(:club5) { build :club, id: 5, name: 'Best rifle 3/1 total score' } # etc...
       let(:competitors) { [] }
 
       before do
-        competitors << build_european_rifle_competitor(club1, 180, [180, 40, 40], 18, [10, 9, 8, 7, 6])
-        competitors << build_european_rifle_competitor(club1, 180, [180, 40, 40], 18, [10, 9, 8, 7, 6])
+        competitors << build_european_rifle_competitor(club1, 180, [45, 45, 45, 45])
+        competitors << build_european_rifle_competitor(club1, 180, [45, 45, 45, 45])
 
-        competitors << build_european_rifle_competitor(club2, 178, [178, 40, 40], 18, [10, 9, 8, 7, 6])
-        competitors << build_european_rifle_competitor(club2, 181, [181, 40, 40], 18, [10, 9, 8, 7, 6])
+        competitors << build_european_rifle_competitor(club2, 180, [45, 45, 45, 45])
+        competitors << build_european_rifle_competitor(club2, 179, [45, 45, 45, 44])
 
-        competitors << build_european_rifle_competitor(club3, 178, [178, 40, 40], 18, [10, 9, 8, 7, 6])
-        competitors << build_european_rifle_competitor(club3, 180, [180, 40, 42], 18, [10, 9, 8, 7, 6])
+        competitors << build_european_rifle_competitor(club3, 180, [45, 45, 45, 45])
+        competitors << build_european_rifle_competitor(club3, 179, [45, 45, 44, 45])
 
-        competitors << build_european_rifle_competitor(club4, 178, [178, 40, 40], 19, [10, 9, 8, 7, 6])
-        competitors << build_european_rifle_competitor(club4, 180, [180, 40, 41], 18, [10, 9, 8, 7, 6])
+        competitors << build_european_rifle_competitor(club4, 180, [45, 45, 45, 45])
+        competitors << build_european_rifle_competitor(club4, 179, [45, 44, 45, 45])
 
-        competitors << build_european_rifle_competitor(club5, 178, [178, 40, 40], 18, [10, 9, 8, 7, 7])
-        competitors << build_european_rifle_competitor(club5, 180, [180, 40, 41], 18, [10, 9, 8, 7, 6])
-
-        competitors << build_european_rifle_competitor(club6, 178, [178, 40, 40], 18, [10, 9, 8, 7, 6])
-        competitors << build_european_rifle_competitor(club6, 180, [180, 40, 41], 18, [10, 9, 8, 7, 6])
+        competitors << build_european_rifle_competitor(club5, 180, [45, 45, 45, 45])
+        competitors << build_european_rifle_competitor(club5, 179, [44, 45, 45, 45])
 
         @results = tc.results_for_competitors competitors.shuffle, true
       end
 
       it 'should sort teams by 1. total rifle points 2. best competitor rifle points etc 3. team hits 4. team tens etc' do
-        expect([0, 1, 2, 3, 4, 5].map{|i| @results[i].name}).to eql [club1, club2, club3, club4, club5, club6].map(&:name)
+        expect([0, 1, 2, 3, 4].map{|i| @results[i].name}).to eql [club1, club2, club3, club4, club5].map(&:name)
       end
 
-      def build_european_rifle_competitor(club, european_rifle_score, results_array, hits, shots)
+      def build_european_rifle_competitor(club, european_rifle_score, rifle_scores)
         competitor = build :competitor, club: club
         allow(competitor).to receive(:european_rifle_score).and_return(european_rifle_score)
-        allow(competitor).to receive(:european_rifle_results).and_return(results_array)
-        allow(competitor).to receive(:hits).and_return(hits)
-        allow(competitor).to receive(:european_rifle1_shots).and_return(shots)
-        allow(competitor).to receive(:european_rifle2_shots).and_return(shots)
-        allow(competitor).to receive(:european_rifle3_shots).and_return(shots)
-        allow(competitor).to receive(:european_rifle4_shots).and_return(shots)
+        allow(competitor).to receive(:european_rifle4_score2).and_return(rifle_scores[0])
+        allow(competitor).to receive(:european_rifle4_score).and_return(rifle_scores[1])
+        allow(competitor).to receive(:european_rifle3_score2).and_return(rifle_scores[2])
+        allow(competitor).to receive(:european_rifle3_score).and_return(rifle_scores[3])
         allow(competitor).to receive(:club_id).and_return(club.id)
         competitor
       end
