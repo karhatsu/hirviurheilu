@@ -1,4 +1,6 @@
 class TeamCompetition < ApplicationRecord
+  include CompetitorPosition
+
   belongs_to :race
   has_and_belongs_to_many :series, :join_table => 'team_competition_series'
   has_and_belongs_to_many :age_groups, :join_table => 'team_competition_age_groups'
@@ -45,12 +47,18 @@ class TeamCompetition < ApplicationRecord
 
   def results
     competitors = find_competitors
-    results_for_competitors competitors
+    sorted_teams = results_for_competitors competitors
+    add_position_for_competitors(sorted_teams, sport.european?) do |team|
+      team_results team, false
+    end
   end
 
   def rifle_results
     raise "Cannot calculate rifle results for #{sport.name}" unless sport.european?
-    results_for_competitors find_competitors, true
+    sorted_teams = results_for_competitors find_competitors, true
+    add_position_for_competitors(sorted_teams, true) do |team|
+      team_results team, true
+    end
   end
 
   def results_for_competitors(competitors, rifle=false)
@@ -120,28 +128,22 @@ class TeamCompetition < ApplicationRecord
   end
 
   def sort_teams(hash, rifle)
+    hash.values.sort do |a, b|
+      team_results(b, rifle) <=> team_results(a, rifle)
+    end
+  end
+
+  def team_results(team, rifle)
     if rifle
-      hash.values.sort do |a, b|
-        [b.total_score] + b.european_rifle_secondary_results <=> [a.total_score] + a.european_rifle_secondary_results
-      end
+      [team.total_score] + team.european_rifle_secondary_results
     elsif sport.nordic?
-      hash.values.sort do |a, b|
-        [b.total_score, b.extra_score, b.best_competitor_score] <=> [a.total_score, a.extra_score, a.best_competitor_score]
-      end
+      [team.total_score, team.extra_score, team.best_competitor_score]
     elsif sport.european?
-      hash.values.sort do |a, b|
-        [b.total_score] + b.european_secondary_results <=> [a.total_score] + a.european_secondary_results
-      end
+      [team.total_score] + team.european_secondary_results
     elsif sport.shooting?
-      hash.values.sort do |a, b|
-        [b.total_score] + b.extra_shots + [b.best_competitor_score, b.hits] + b.shot_counts <=>
-            [a.total_score] + a.extra_shots + [a.best_competitor_score, a.hits] + a.shot_counts
-      end
+      [team.total_score] + team.extra_shots + [team.best_competitor_score, team.hits] + team.shot_counts
     else
-      hash.values.sort do |a, b|
-        [b.total_score, b.best_competitor_score, b.best_shooting_score, a.fastest_time || 9999999] <=>
-          [a.total_score, a.best_competitor_score, a.best_shooting_score, b.fastest_time || 9999999]
-      end
+      [team.total_score, team.best_competitor_score, team.best_shooting_score, -(team.fastest_time || 9999999)]
     end
   end
 

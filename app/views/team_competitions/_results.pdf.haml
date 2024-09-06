@@ -13,11 +13,12 @@
         %th.center= t(:estimating)
         %th.center= t(:shooting)
       %th.competitor_row{style: 'display: none'}= t 'activerecord.models.series', count: 1
+  - prev_position = 0
   - results.each_with_index do |team, i|
     - club = team.name
     - club_id = club.gsub(/\s+/, '')
     %tr{id: "team_#{i + 1}"}
-      %td #{i + 1}.
+      %td= (team.position == prev_position) ? raw('&nbsp;') : "#{i + 1}."
       %td.team_name
         - if pdf
           = club
@@ -50,3 +51,4 @@
           %td
             = competitor.series.name
             = competitor.age_group ? "(#{competitor.age_group.name})" : ''
+    - prev_position = team.position

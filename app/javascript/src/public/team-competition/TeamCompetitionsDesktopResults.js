@@ -11,6 +11,7 @@ import TeamCompetitionNationalRecord from './TeamCompetitionNationalRecord'
 export default function TeamCompetitionsDesktopResults({ race, teamCompetition, showCompetitors }) {
   const { t } = useTranslation()
   const { hasExtraScore, teams } = teamCompetition
+  let prevCompetitorPosition = 0
   return (
     <div className="results--desktop">
       <table className="results-table">
@@ -32,11 +33,13 @@ export default function TeamCompetitionsDesktopResults({ race, teamCompetition, 
         </thead>
         <tbody>
         {teams.map((team, i) => {
-          const { competitors, name, totalScore } = team
+          const { competitors, name, position, totalScore } = team
+          const orderNo = position === prevCompetitorPosition ? '' : `${position}.`
+          prevCompetitorPosition = position
           return (
             <React.Fragment key={name}>
               <tr id={`team_${i + 1}`}>
-                <td>{i + 1}.</td>
+                <td>{orderNo}</td>
                 <td className="team_name">{name}</td>
                 <td className="center team_points">
                   {totalScore}

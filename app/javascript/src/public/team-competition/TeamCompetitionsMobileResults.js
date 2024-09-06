@@ -7,14 +7,17 @@ import useTranslation from '../../util/useTranslation'
 export default function TeamCompetitionsMobileResults({ race, teamCompetition, showCompetitors }) {
   const { t } = useTranslation()
   const { hasExtraScore, teams } = teamCompetition
+  let prevCompetitorPosition = 0
   return (
     <div className="results--mobile result-cards">
       {teams.map((team, i) => {
-        const { competitors, name, totalScore } = team
+        const { competitors, name, position, totalScore } = team
+        const orderNo = position === prevCompetitorPosition ? '' : `${position}.`
+        prevCompetitorPosition = position
         const className = classnames({ card: true, 'card--odd': i % 2 === 0 })
         return (
           <div className={className} key={name}>
-            <div className="card__number">{i + 1}.</div>
+            <div className="card__number">{orderNo}</div>
             <div className="card__middle">
               <div className="card__name">{name}</div>
               {hasExtraScore && team.hasExtraScore && (

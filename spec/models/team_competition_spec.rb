@@ -543,10 +543,21 @@ describe TeamCompetition do
 
     it "should call #results_for_competitors with all unique competitors from " +
       "series and age groups as parameters, and return the result" do
+      teams = [
+        Team.new(@tc, 'Team 1', 1),
+        Team.new(@tc, 'Team 2', 2),
+        Team.new(@tc, 'Team 3', 2)
+      ]
+      teams[0] << build(:competitor, shooting_score_input: 100)
+      teams[1] << build(:competitor, shooting_score_input: 99)
+      teams[2] << build(:competitor, shooting_score_input: 99)
       expect(@tc).to receive(:results_for_competitors).
         with([@s_c1, @s_c2, @s_c3, @s_c4, @s_ag_c, @ag_c1, @ag_c2, @ag_c3, @ag_c4]).
-        and_return("results")
-      expect(@tc.results).to eq("results")
+        and_return(teams)
+      expect(@tc.results).to eq(teams)
+      expect(teams[0].position).to eql 1
+      expect(teams[1].position).to eql 2
+      expect(teams[2].position).to eql 2
     end
   end
 

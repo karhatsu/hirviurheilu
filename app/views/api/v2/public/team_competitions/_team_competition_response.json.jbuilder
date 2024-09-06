@@ -3,7 +3,7 @@ json.(@tc, :id, :name, :extra_shots, :national_record)
 json.has_extra_score @tc.has_extra_score?
 teams = rifle ? @tc.rifle_results : @tc.results
 json.teams teams do |team|
-  json.(team, :name, :total_score)
+  json.(team, :name, :total_score, :position)
   json.has_extra_score team.raw_extra_shots.length > 0 || team.raw_extra_score.length > 0
   json.extra_shots team.raw_extra_shots
   json.worse_extra_shots team.raw_extra_shots(true)
