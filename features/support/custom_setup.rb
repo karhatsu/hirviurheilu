@@ -3,7 +3,7 @@ require 'cucumber/rspec/doubles'
 require 'factory_bot_rails'
 World(FactoryBot::Syntax::Methods)
 
-Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.javascript_driver = :selenium_headless
 
 def setup_database
   Role.ensure_default_roles_exist
