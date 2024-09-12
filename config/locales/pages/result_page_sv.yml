@@ -1,7 +1,7 @@
 sv:
   competitors:
     index:
-      no_competitors: Inga tävlar
-      series_has_not_started_yet: Klassen har inte ännu börjat
+      no_competitors: Inga tävlande
+      series_has_not_started_yet: Klassen har inte börjat ännu
       standing: Poängsumma
-      updated: updaterad
+      updated: uppdaterad

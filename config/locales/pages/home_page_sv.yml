@@ -1,7 +1,7 @@
 sv:
   home:
     show:
-      main_title: Hirviurheilu - Resultatservice för Jägarförbunds sportgrener
+      main_title: Hirviurheilu - Resultatservice för Jägarförbundets sportgrener
       competitions:
         today: Tävlingar i dag
         yesterday: Tävlingar i går
@@ -14,5 +14,5 @@ sv:
         later: Tävlingar senare
         past: Slutade tävlingar
         cup: Cup-tävlingar
-      upcoming_competitions: Nästä tävlingar
+      upcoming_competitions: Nästa tävlingar
       all_competitions: Alla tävlingar

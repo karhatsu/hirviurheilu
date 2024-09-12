@@ -9,5 +9,4 @@ sv:
     create:
       login_succeeded: Du har loggat in
     destroy:
-      logout_succeeded: Du har loggat ut av tjänsten
-      
+      logout_succeeded: Du har loggat ut från tjänsten

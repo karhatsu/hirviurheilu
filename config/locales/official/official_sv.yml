@@ -1,129 +1,129 @@
 sv:
   official:
-    add_competitors_from_csv_file: Öka tävlar från CSV-fil
-    estimate_count: Bedömningsavstånd antal
+    add_competitors_from_csv_file: Lägg till tävlande från CSV-fil
+    estimate_count: Bedömningsavståndsantal
     index:
       show:
         title: Funktionärs hemsida
         competitions: Tävlingar
         cup_competitions: Cup-tävlingar
         new_competition: Ny tävling
-        add_new_race: Öka en tävling
-        add_multiple_races: Öka många tävlingar
-        add_new_cup: Öka en cup-tävling
+        add_new_race: Lägg till en tävling
+        add_multiple_races: Lägg till många tävlingar
+        add_new_cup: Lägg till en cup-tävling
         no_races_yet:
           short: Du har ännu inga tävlingar.
-          long: Du har ännu inga tävlingar. Klicka länken nedenför för att öka en tävling.
+          long: Du har ännu inga tävlingar. Klicka på länken nedan för att lägga till en tävling.
         unfinished_races_count:
-          one: Du har en tävling som är inte ännu slutat
-          other: Du har %{count} tävlingar som är inte ännu slutat
+          one: Du har en tävling som ännu inte är avslutade
+          other: Du har %{count} tävlingar som ännu inte är avslutade
         unfinished_races_instructions: ""
-        unfinished_race: Tävlingen är inte slutat!
+        unfinished_race: Tävlingen är inte avslutad!
     races:
       new:
-        title: Öka tävling
-        sport_selection_info: Välj grenen först (du kan inte växla den senare)
+        title: Lägg till tävling
+        sport_selection_info: Välj grenen först (du kan inte ändra den senare)
         choose_sport: Välj grenen
-        add_default_series_automatically: Öka standardklasser
+        add_default_series_automatically: Lägg till standardklasser
         copy_series: Kopiera klasser från tävling
-        submit: Öka tävling
+        submit: Lägg till tävling
       create:
-        race_added: Tävling ökat
-        add_competitors_info: Du kan nu öka tävlar.
-        add_series_info: Du kan nu öka klasser. Klicka knappen under.
+        race_added: Tävling tillagt
+        add_competitors_info: Du kan nu lägga till tävlande.
+        add_series_info: Du kan nu lägga till klasser. Klicka knappen under.
       edit:
-        title: Tävlingens redigering
+        title: Redigera tävlingen
         submit: Spara tävlingens och klassernas avgifter
       update:
         updated: Tävlingen uppdaterad
       form:
-        basic_information: Tävlingens basavgifter
+        basic_information: Grundläggande tävlingsavgifter
         link_to_race_home_page: Länken till tävlingens hemsida
-        competitor_organisation: Tävlarnas hörar till
-        organizer_information: Organizatörinformation
+        competitor_organisation: Tävlandes representationsnivå
+        organizer_information: Arrangörsinformation
         seconds: sekunder
         start_times: Starttider
         competitors_start_order_series: Klass efter klass
         competitors_start_order_mixed: Klasser blandad
         start_heats_not_in_use: inga startsatser
         age_groups_help_title:
-          three_sports_race: Äldsgrupper med egna tidpöang
+          three_sports_race: Åldersgrupper med egna tidpöang
           shooting_race: Grupper för lagtävlingar
         add_age_group:
-          three_sports_race: Öka äldsgrupp
-          shooting_race: Öka grupp
+          three_sports_race: Lägg till åldersgrupp
+          shooting_race: Lägg till grupp
         at_least: minst
-        competitors: tävlar
+        competitors: tävlande
         remove_age_group:
-          three_sports_race: Radera äldsgruppen
+          three_sports_race: Radera åldersgruppen
           shooting_race: Radera gruppen
         remove_series: Radera klassen
         remove_series_confirm: Är du säker att du vill radera klassen?
-        add_series: Öka ny klass till tävlingen
+        add_series: Lägg till ny klass till tävlingen
       show:
         single_series: Standardtävling
-        finish_race: Sluta tävlingen
-        no_series_for_race: Du har ökat inga klasser för tävlingen. Klicka knappen nedenför för att öka klasser.
-        no_competitors_for_race: Du har ökat inga tävlar för tävlingen. Klicka en knapp nedenför klassens namn för att öka tävlar.
-        add_series_first_competitor: Öka klassens första tävlare
+        finish_race: Avsluta tävlingen
+        no_series_for_race: Du har tillagt inga klasser för tävlingen. Klicka knappen nedanför för att lägga till klasser.
+        no_competitors_for_race: Du har tillagt inga tävlande för tävlingen. Klicka en knapp nedanför klassens namn för att lägga till tävlande.
+        add_series_first_competitor: Lägg till klassens första tävlande
         manage_race_settings: Hantera tävlings sättningar
         delete_race: Radera tävlingen
-        edit_race_and_series: Redigera tävlingens och klassernas avgifter, öka klasser
-        add_multiple_competitors: Tillägg många tävlar
-        copy_competitors: Kopiera tävlarna från annan tävling
-        add_competitors_from_csv: Öka tävlar från CSV-fil
+        edit_race_and_series: Redigera tävlingens och klassernas avgifter, lägg till klasser
+        add_multiple_competitors: Tillägg många tävlande
+        copy_competitors: Kopiera tävlande från en annan tävling
+        add_competitors_from_csv: Lägg till tävlande från CSV-fil
         heats_manually: Erien hallinta manuaalisesti
-        heat_list_generation: Heatlotteri
-        qualification_round_heat_list: Grundtävlingens heatlotteri
+        heat_list_generation: Lottning av heat
+        qualification_round_heat_list: Grundtävlingens lottning av heat
         final_round_heat_list: Finalens heatlista
         printing_heat_lists_and_numbers: Skytteprotokoll och nummer
         printing_numbers: Nummer
         other: Övriga
         national_records: Finska rekord
         megalink_import: Megalink-resultat
-        download_competitors_by_clubs: Ladda tävlarna som klubbar (PDF)
-        download_competitors_by_districts: Ladda tävlarna som distrikt (PDF)
-        download_competitors_by_series: Ladda tävlarna som klasser (PDF)
+        download_competitors_by_clubs: Ladda ner tävlande som klubbar (PDF)
+        download_competitors_by_districts: Ladda ner tävlande som distrikt (PDF)
+        download_competitors_by_series: Ladda ner tävlande som klasser (PDF)
         other_race_formats: Andra tävlingar
-        finish_race_text: när du har sparat alla resultaten, så att de riktiga avstånden kan publiseras
+        finish_race_text: när du har sparat alla resultaten, så att de riktiga avstånden kan publiceras
         create_start_list: Gör startlista
         input_results: Spara resultat
         finish_series: Sluta klassen
         correct_estimates: Riktiga avstånd
-        publish_race_to_internet: Publisera tävlingen till internet
+        publish_race_to_internet: Publicera tävlingen till internet
       destroy:
         race_removed: Tävlingen raderat
         cannot_remove_race: Kan inte radera tävlingen
     multiple_races:
       new:
-        title: Öka många tävlingar
+        title: Lägg till många tävlingar
         instructions_title: Anvisningar
-        download_example_file: Ladda exempelfil
-        upload_csv_title: Ladda CSV-fil
+        download_example_file: Ladda ner exempelfil
+        upload_csv_title: Ladda ner CSV-fil
         csv_file: CSV-fil
         submit_button: Spara tävlingar
     competitors:
       index:
-        title: Tävlar
-        no_competitors_in_series: Du har sparat inga tävlar för den här klassen.
-        add_competitor: Öka tävlare
-        add_new_competitor: Öka ny tävlare
-        create_start_list_info: När du har sparat alla tävlar för klassen, skapa dem starttider och -nummer med formuläret neden. (Du kan öka mera tävlar även efter du has skapat startlistan.)
+        title: Tävlande
+        no_competitors_in_series: Du har inte sparat några tävlande för den här klassen.
+        add_competitor: Lägg till tävlande
+        add_new_competitor: Lägg till ny tävlande
+        create_start_list_info: När du har sparat alla tävlande för klassen, skapa starttider och -nummer med formuläret nedan. (Du kan även lägga till fler tävlande efter att du har skapat startlistan.
         create_start_list: Skapa en startlista för klassen
         create_new_start_list: Skapa en ny startlista för klassen
         result_saved: Resultat sparat
-        competitor_removed: Tävlaren raderat
-        added_competitors: Tävlar
+        competitor_removed: Tävlande raderat
+        added_competitors: Tävlande
       new:
-        title: Ny tävlare
-        club_selection_prompt_0: Välj klubb eller öka ny
-        club_selection_prompt_1: Välj klubb eller öka ny
+        title: Ny tävlande
+        club_selection_prompt_0: Välj klubb eller lägg till en ny
+        club_selection_prompt_1: Välj klubb eller lägg till en ny
         new_club_hint_0: Ny klubb
         new_club_hint_1: Ny klubb
-        save_and_show_competitor: Spara och visa tävlaren
+        save_and_show_competitor: Spara och visa tävlande
         save_and_to_quick_save: Spara och gå till resultatsidan
-        latest_added_competitors: Senaste ökade tävlarna
-        back_to_series_competitors_list_html: Tillbaka till klassens <span id='series_name'>%{series_name}</span> tävlarlist
+        latest_added_competitors: Senaste ökade tävlande
+        back_to_series_competitors_list_html: Tillbaka till klassens <span id='series_name'>%{series_name}</span> tävlandelist
       edit:
         either_total_or_shots: Spara antingen totalresultat eller enskilda skott.
         shots: Enskilda skott
@@ -132,112 +132,112 @@ sv:
         dns: Startade inte (DNS)
         dnf: Avbröt (DNF)
         dq: Diskad (DQ)
-        save_and_previous_competitor: Spara och öppna förra tävlare
-        save_and_next_competitor: Spara och öppna nästa tävlare
-        back_to_series_competitor_list: Tillbaka till klassens %{series_name} tävlarelista
-        delete_competitor: Radera tävlaren
-        remove_confirmation: Är du säker att du vill radera tävlaren?
+        save_and_previous_competitor: Spara och öppna förra tävlande
+        save_and_next_competitor: Spara och öppna nästa tävlande
+        back_to_series_competitor_list: Tillbaka till klassens %{series_name} tävlandelista
+        delete_competitor: Radera tävlande
+        remove_confirmation: Är du säker att du vill radera tävlande?
     start_lists:
       show:
-        title: Starttider för all tävlarna
+        title: Starttider för all tävlande
         no_start_list_for_any_series: Ingen klass har startlist ännu
       update:
         start_list_create_for_series: Startlista skapat för klassen
     heat_lists:
       show:
-        first_heat_number: Den första tävlarens heatnummer
-        first_track_place: Den första tävlarens plats
+        first_heat_number: Den första tävlandes heatnummer
+        first_track_place: Den första tävlandes plats
         first_heat_track_number: Det första heatets bana
         include_tracks: Använd banor
         heat_day: Dag
         first_heat_time: Det första heatets starttid
         minutes_between_heats: Tid reserverad för ett heat (min)
-        assign_competitors: Placera tävlarna till
+        assign_competitors: Placera tävlande till
         all_track_places: alla platser
         odd_track_places: udda platser
         even_track_places: jämn platser
         skip_first_track_place: Lämna den första platsen tom
-        skip_last_track_place: Lämna den sista platse tom
+        skip_last_track_place: Lämna den sista platsen tom
         skip_track_places: Tomma platser (t.ex. 4,12,13)
     qualification_round_heat_lists:
       show:
         title:
-          one_heat_list: Heatlotteri
-          other: Grundtävlingens heatlotteri
+          one_heat_list: Lottning av heat
+          other: Grundtävlingens lottning av heat
         no_competitors_without_heat_in_series:
-          one_heat_list: Alla tävlarna har heat på den här klassen
-          other: Alla tävlarna har plats i grundtävlingen på den här klassen
-        one_heat_list_info: Här kan du lotta tider för trap. Efter lotteri du kan sätta tider för andra grener på Heat-sidan.
+          one_heat_list: Alla tävlande har heat på den här klassen
+          other: Alla tävlande har plats i grundtävlingen på den här klassen
+        one_heat_list_info: Här kan du lotta tider för trap. Efter lottning du kan sätta tider för andra grener på Heat-sidan.
         button: Lotta heatlista
       create:
-        heat_list_generated: Grundtävlingens heatlista färdig för klassen
+        heat_list_generated: Grundtävlingens heatlista är färdig för klassen
     final_round_heat_lists:
       show:
         title: Finalens heatlista
-        no_competitors_without_heat_in_series: Alla tävlarna har plats i finalen på den här klassen
-        competitors_count: Antal av tävlarna i finalen
-        best_as_last: Lägga den bästa tävlaren till sista i heat
+        no_competitors_without_heat_in_series: Alla tävlande har plats i finalen på den här klassen
+        competitors_count: Antal av tävlande i finalen
+        best_as_last: Lägga den bästa tävlande till sista i heat
         button: Göra heatlista
       create:
         heat_list_generated: Finalens heatlista är färding för klassen
     heat_results:
       heat_not_found: Heat finns inte
-      competitor_not_found: Platsen %{track_place} har inte tävlare
+      competitor_not_found: Platsen %{track_place} har inte tävlande
       competitor_save_error: Platsen %{track_place} fel
-      no_qualification_round_shots: Platsens %{track_place} tävlare har inte resultat for grundtävlingen
+      no_qualification_round_shots: Platsens %{track_place} tävlande har inte resultat for grundtävlingen
     quick_saves:
       index:
         title: Spara resultat
         title_shots: Spara skottsresultat
         title_estimates: Spara bedömningar
         title_time: Spara avkomstider
-        no_competitors: Inga tävlar i tävlingen
+        no_competitors: Inga tävlande i tävlingen
         dns_dnf_dq: Startade inte / avbröt / disqualified
-        instructions_time: Spara resultat som nr,hhmmss, t.ex. 45,020728 (tävlare 45, avkomstid 02:07:28).
-        instructions_estimates: Spara resultat som nr,bedömning1,bedömning2, t.ex. 45,95,118 (tävlare 45, bedömningar 95 och 118 meter)
-        instructions_estimates_4:  eller om tävlarna har fyra bedömningar, nr,bedömning1,bedömning2,bedömning3,bedömning4, t.ex. 45,95,118,185,134
-        instructions_shots: Spara resultat som nr,skytteresultat, t.ex. 45,87 (tävlare 45, skytte totalt 87). Eller med skott så att +-tecken eller *-tecken betyder 10, t.ex. 45,++99877420 (sätt 0 för alla missar).
+        instructions_time: Spara resultat som nr,hhmmss, t.ex. 45,020728 (tävlande 45, avkomstid 02:07:28).
+        instructions_estimates: Spara resultat som nr,bedömning1,bedömning2, t.ex. 45,95,118 (tävlande 45, bedömningar 95 och 118 meter)
+        instructions_estimates_4:  eller om tävlande har fyra bedömningar, nr,bedömning1,bedömning2,bedömning3,bedömning4, t.ex. 45,95,118,185,134
+        instructions_shots: Spara resultat som nr,skytteresultat, t.ex. 45,87 (tävlande 45, skytte totalt 87). Eller med skott så att +-tecken eller *-tecken betyder 10, t.ex. 45,++99877420 (sätt 0 för alla missar).
         instructions_qualification_round_shots:
-          ilmaluodikko: Spara grundtävlingens resultat som nr,skott1,skott2,... så att +-tecken betyder 10 och *-tecken betyder fullträff, t.ex. 45,9++870**89. Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlare 45, grundtävligens resultat 94).
-          shotgun: "Spara grundtävlingens resultat som nr,skott1,skott2,..., t.ex. 45,101110011... Du kan också spara totalresultatet som nr,resultat, t.ex. 45,23 (tävlare 45, grundtävligens resultat: 23 träffar)."
-          other: Spara grundtävlingens resultat som nr,skott1,skott2,... så att +-tecken betyder 10, t.ex. 45,9++870+989. Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlare 45, grundtävligens resultat 94).
+          ilmaluodikko: Spara grundtävlingens resultat som nr,skott1,skott2,... så att +-tecken betyder 10 och *-tecken betyder fullträff, t.ex. 45,9++870**89. Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlande 45, grundtävligens resultat 94).
+          shotgun: "Spara grundtävlingens resultat som nr,skott1,skott2,..., t.ex. 45,101110011... Du kan också spara totalresultatet som nr,resultat, t.ex. 45,23 (tävlande 45, grundtävligens resultat: 23 träffar)."
+          other: Spara grundtävlingens resultat som nr,skott1,skott2,... så att +-tecken betyder 10, t.ex. 45,9++870+989. Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlande 45, grundtävligens resultat 94).
         instructions_final_round_shots:
-          ilmaluodikko: Spara finalens resultat som nr,skott1,skott2,... så att +-tecken betyder 10 och *-tecken betyder fullträff, t.ex. 45,9+*87 (5 skott) eller 45,9+*870**89 (10 skott). Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlare 45, finalens resultat 94).
-          shotgun: "Spara finalens resultat som nr,skott1,skott2,..., t.ex. 45,101110011... Du kan också spara totalresultatet som nr,resultat, t.ex. 45,24 (tävlare 45, finalens resultat: 24 träffar)."
-          other: Spara finalens resultat som nr,skott1,skott2,... så att +-tecken betyder 10, t.ex. 45,9++87 (5 skott) eller 45,9++870+989 (10 skott). Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlare 45, finalens resultat 94).
+          ilmaluodikko: Spara finalens resultat som nr,skott1,skott2,... så att +-tecken betyder 10 och *-tecken betyder fullträff, t.ex. 45,9+*87 (5 skott) eller 45,9+*870**89 (10 skott). Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlande 45, finalens resultat 94).
+          shotgun: "Spara finalens resultat som nr,skott1,skott2,..., t.ex. 45,101110011... Du kan också spara totalresultatet som nr,resultat, t.ex. 45,24 (tävlande 45, finalens resultat: 24 träffar)."
+          other: Spara finalens resultat som nr,skott1,skott2,... så att +-tecken betyder 10, t.ex. 45,9++87 (5 skott) eller 45,9++870+989 (10 skott). Du kan också spara totalresultatet som nr,resultat, t.ex. 45,94 (tävlande 45, finalens resultat 94).
         instructions_extra_shots:
           ilmaluodikko: Spara omskjutning som nr,skott1,skott2,.. så att +-tecken betyder 10 och *-tecken betyder fullträff, t.ex. 45,9*. Om du sparar mer skott, de sparas efter förra skott.
           shotgun: Spara omskjutning som nr,skott1,skott2,..., t.ex. 45,110. Om du sparar mer skott, de sparas efter förra skott.
           other: Spara omskjutning som nr,skott1,skott2,.. så att +-tecken betyder 10, t.ex. 45,9+. Om du sparar mer skott, de sparas efter förra skott.
-        instructions_dns_dnf_dq: Om tävlare startade inte, spara resultaten som nr,dns t.ex. 45,dns (tävlare 45, DNS = did not start). Om tävlare avbröt, spara resultaten som nr,dnf t.ex. 45,dnf (tävlare 45, DNF = did not finish). Om tävlare disqualified, spara resultaten som nr,dq t.ex. 45,dq (tävlare 45, DQ = diskad).
+        instructions_dns_dnf_dq: Om tävlande startade inte, spara resultaten som nr,dns t.ex. 45,dns (tävlande 45, DNS = did not start). Om tävlande avbröt, spara resultaten som nr,dnf t.ex. 45,dnf (tävlande 45, DNF = did not finish). Om tävlande disqualified, spara resultaten som nr,dq t.ex. 45,dq (tävlande 45, DQ = diskad).
         latest_savings: Senaste sparat
-        result_message: Tävlaren %{competitor_number} %{competitor_name}. (%{series_name}) resultat sparat (%{result}).
+        result_message: Tävlande %{competitor_number} %{competitor_name}. (%{series_name}) resultat sparat (%{result}).
     result_place:
-      no_competitors_in_series: Du har sparat inga tävlar för den här klassen.
+      no_competitors_in_series: Du har sparat inga tävlande för den här klassen.
       no_start_list_for_series: Den här klassen har inte ännu startlista. Du kan spara resultat efter startlistan har skapats.
       generate_start_times: Skapa starttider och -nummer
-      add_competitor_to_series: Öka tävlare till klassen %{series_name}
+      add_competitor_to_series: Lägg till tävlande till klassen %{series_name}
       shooting:
         either_total_or_shots: Spara antingen totalresultat eller enskilda skott, inte båda
         inner_ten_as_eleven: Använd 11 för innertio
         sort_by_default: Ordna normalt
-        sort_by_qualification_round: Ordna tävlarana på grund av grundtävlingens resultat
+        sort_by_qualification_round: Ordna tävlandeana på grund av grundtävlingens resultat
     heats:
       index:
         title: Heat
-        no_heats: Du har ökat inga heat
-        edit_to_define_competitors: Klicka heat för att placera tävlar på det
+        no_heats: Du har tillagt inga heat
+        edit_to_define_competitors: Klicka heat för att placera tävlande på det
         reset_heat_lists: Tömma heatlistan
       new:
-        competitors_info: Efter du har ökat ett heat, du kan placera tävlar på det
+        competitors_info: Efter du har tillagt ett heat, du kan placera tävlande på det
       create:
-        heat_added: Heat ökat
+        heat_added: Heat tillagt
       edit:
         basic_information: Basinformation
-        heat_competitors: Placering av tävlar
-        no_competitors: Det finns inga tävlare på tävlingen
-        input_competitor_number: Spara tävlares nummer
-        competitor_not_found: Kan inte hittas tävlare
+        heat_competitors: Placering av tävlande
+        no_competitors: Det finns inga tävlande på tävlingen
+        input_competitor_number: Spara tävlandes nummer
+        competitor_not_found: Kan inte hittas tävlande
         delete_heat: Radera heat
         delete_confirmation: Är du säker att du vill radera heatet?
       update:
@@ -250,29 +250,29 @@ sv:
     heat_list_resets:
       show:
         title: Tömma heatlista
-        warning: Här kan du tömma alla heaten från tävlarna. Obs! Du kan inte bakkas tömningen!
+        warning: Här kan du tömma alla heaten från tävlande. Obs! Du kan inte bakkas tömningen!
         confirm_text: Bekräfta tömning så att du skriver tävlingens namn här
         delete_heats: Radera också heaten
         button: Tömma heatlista
       destroy:
         choose_type: Välj om du vill tömma grundtävlingens eller finalens heat
-        heats_cleared: Heatlista tömmat
+        heats_cleared: Heatlistan tömmat
         confirm_text_was_wrong: Fel tävlingens namn, inga heat tömmat
     correct_estimates:
       index:
         start_numbers: Startnummer
-        add_new_range: Öka nytt startnummergap
-        submit_button: Spara riktiga avstånd och sätt dem för tävlarna
-        defined_correct_estimates: Riktiga avstånd sätt för tävlarna
-        no_competitors_info: Du har inte ökat tävlar. När du ökar tävlar, här kan du se riktiga avtånd för all tävlarna.
-        start_list_required_info: Tävlarna måste ha starttider så att dem kan ha riktiga avstånd som ses i den här tabellen.
+        add_new_range: Lägg till nytt startnummergap
+        submit_button: Spara riktiga avstånd och sätt dem för tävlande
+        defined_correct_estimates: Riktiga avstånd sätt för tävlande
+        no_competitors_info: Du har inte tillagt tävlande. När du ökar tävlande, här kan du se riktiga avtånd för all tävlande.
+        start_list_required_info: Tävlande måste ha starttider så att dem kan ha riktiga avstånd som ses i den här tabellen.
         undefined: "-"
     team_competitions:
       all_team_competitions: Alla lagtävlingar
       index:
         title: Lagtävlingar
-        competitors_per_team: "%{competitors} tävlar / lag"
-        add_team_competition: Öka lagtävling
+        competitors_per_team: "%{competitors} tävlande / lag"
+        add_team_competition: Lägg till lagtävling
         remove_team_competition_confirm: Är du säker att du vill radera den här lagtävlingen?
       new:
         title: Ny lagtävling
@@ -284,19 +284,19 @@ sv:
         team_competition_updated: Lagtävlingen uppdaterad
       form:
         series_age_groups:
-          three_sports_race: Klasser och/eller äldsgruppar på den här lagtävlingen
+          three_sports_race: Klasser och/eller åldersgrupper på den här lagtävlingen
           shooting_race: Klasser och/eller gruppar på den här lagtävlingen
         choose_info:
-          three_sports_race: Välj alla klasser och äldsgruppar som behör till den här lagtävlingen.
-          shooting_race: Välj alla klasser och sgruppar som behör till den här lagtävlingen.
+          three_sports_race: Välj alla klasser och åldersgrupper som gäller för den här lagtävlingen.
+          shooting_race: Välj alla klasser och sgruppar som gäller för den här lagtävlingen.
         choose_info_full_series:
-          three_sports_race: Om hela klassen behör till lagtävlingen, välj klassen utan äldsgruppar.
+          three_sports_race: Om hela klassen behör till lagtävlingen, välj klassen utan åldersgrupper.
           shooting_race: Om hela klassen behör till lagtävlingen, välj klassen utan sgruppar.
         choose_info_age_groups:
-          three_sports_race: Om bara någon äldsgrupp eller -gruppar behör till lagtävlingen (inte hela klassen), välj äldsgruppen (inte klassen).
+          three_sports_race: Om bara någon åldersgrupp eller -gruppar behör till lagtävlingen (inte hela klassen), välj åldersgruppen (inte klassen).
           shooting_race: Om bara någon grupp eller -gruppar behör till lagtävlingen (inte hela klassen), välj gruppen (inte klassen).
         age_groups_title:
-          three_sports_race: Äldsgruppar
+          three_sports_race: Åldersgrupper
           shooting_race: Gruppar
         extra_round_info:
           nordic: Du kan spara älgs omskjutning till första fältet och traps omskjutning till den andra (t.ex. 98 och 24)
@@ -311,11 +311,11 @@ sv:
         team_competition_removed: Lagtävlingen raderad
     finish_races:
       new:
-        title: Sluta tävlingen
+        title: Avsluta tävlingen
         info:
-          shooting: Man måste sluta tävlingen så att tävlarna se att resulaten är slutliga.
-          three_sports: Man måste sluta tävlingen så att tävlarna se att resulaten är slutliga. Ytterligare tävlingarna ser de riktiga avtstånden efter tävlingen är slut.
-        already_finished: Den här tävlingen är redan slutat.
+          shooting: Man måste sluta tävlingen så att tävlande se att resulaten är slutliga.
+          three_sports: Man måste sluta tävlingen så att tävlande se att resulaten är slutliga. Ytterligare tävlingarna ser de riktiga avtstånden efter tävlingen är slut.
+        already_finished: Den här tävlingen är redan avslutad.
         DNS: Startade inte (DNS)
         DNF: Avbröt (DNF)
         DQ: Diskad (DQ)
@@ -323,50 +323,50 @@ sv:
         COMPLETE: Jag har sparat resultatet
         series_id: Klassen eller hela tävlingen
         whole_race: Hela tävlingen
-        button: Sluta tävlingen
+        button: Avsluta tävlingen
       create:
-        race_finished: Tävlingen %{race_name} slutat
-        series_finished: Klassen %{series_name} slutat
+        race_finished: Tävlingen %{race_name} avslutad
+        series_finished: Klassen %{series_name} avslutad
     competitor_copyings:
       new:
-        title: Kopiera tävlarna från annan tävling
+        title: Kopiera tävlande från annan tävling
         instructions_1:
-          three_sports_race: Tävlarna kopieras så att de ska ha samma namn, klubb, äldsgrupp, klass, startnummer och starttid.
-          shooting_race: Tävlarna kopieras så att de ska ha samma namn, klubb, klass och möjlig grupp.
+          three_sports_race: Tävlande kopieras så att de ska ha samma namn, klubb, åldersgrupp, klass, startnummer och starttid.
+          shooting_race: Tävlande kopieras så att de ska ha samma namn, klubb, klass och möjlig grupp.
         instructions_2:
-          three_sports_race: Om du har redan ökat tävlar, de kan inte ha samma startnummer som på tävlingen du kopiera från, utom om sådana nummer har samma tävlarna i båda tävlingen.
-          shooting_race: Du kan välja om du vill kopiera också tävlarnas nummer eller programmet skapas nya nummer för tävlarna.
+          three_sports_race: Om du har redan tillagt tävlande, de kan inte ha samma startnummer som på tävlingen du kopiera från, utom om sådana nummer har samma tävlande i båda tävlingen.
+          shooting_race: Du kan välja om du vill kopiera också tävlandes nummer eller programmet skapas nya nummer för tävlande.
         from_race: Från tävling
-        race_with_competitors_count: "%{race}, %{location}, %{dates} (%{competitors} tävlar)"
+        race_with_competitors_count: "%{race}, %{location}, %{dates} (%{competitors} tävlande)"
         with_start_list: Kopiera startnumren och starttiderna
-        with_numbers: Kopiera tävlarnasnumren
-        generate_numbers: Sätt tävlarna nya nummer
-        submit_button: Kopiera tävlarna
+        with_numbers: Kopiera tävlandesnumren
+        generate_numbers: Sätt tävlande nya nummer
+        submit_button: Kopiera tävlande
         no_races: Inga tävlingar
       create:
-        competitors_copied: Tävlarna (%{amount}) kopierad
+        competitors_copied: Tävlande (%{amount}) kopierad
     csv_exports:
       show:
-        title: Export tävlarna till CSV-fil
-        no_competitors: Inga tävlar på tävlingen
+        title: Export tävlande till CSV-fil
+        no_competitors: Inga tävlande på tävlingen
         info:
-          shooting_race: Här kan du ladda tävlarna som CSV-fil. Filen innehåller varje tävlares namn, klass och klubb. Om du vill, du kan också innehålla tävlarnas nummer och heatinformation.
-          three_sports_race: Här kan du ladda tävlarna som CSV-fil. Filen innehåller varje tävlares namn, klass, klubb, startnummer och starttid.
-        all_data: Innehåll tävlares nummer, heat och plats
+          shooting_race: Här kan du ladda ner tävlande som CSV-fil. Filen innehåller varje tävlandes namn, klass och klubb. Om du vill, du kan också innehålla tävlandes nummer och heatinformation.
+          three_sports_race: Här kan du ladda ner tävlande som CSV-fil. Filen innehåller varje tävlandes namn, klass, klubb, startnummer och starttid.
+        all_data: Innehåll tävlandes nummer, heat och plats
         submit_button: Skapa CSV-fil
-        import_title: Import tävlarna från CSV-fil
-        import_link: Öka tävlar från CSV-fil
+        import_title: Import tävlande från CSV-fil
+        import_link: Lägg till tävlande från CSV-fil
     csv_imports:
       new:
-        title: Öka tävlar från CSV-fil
-        info: Om du har tävlarnas information t.ex. på en Excel-fil, kan du spara den som CSV-format. Därefter kan du ladda alla tävlarna till databasen med blanketten neden.
-        info_limited: Om du har tävlarnas information t.ex. på en Excel-fil, kan du spara den som CSV-format. Därefter kan du ladda alla tävlarna till databasen med blanketten neden.
+        title: Lägg till tävlande från CSV-fil
+        info: Om du har tävlandes information t.ex. på en Excel-fil, kan du spara den som CSV-format. Därefter kan du ladda upp alla tävlande till databasen med blanketten neden.
+        info_limited: Om du har tävlandes information t.ex. på en Excel-fil, kan du spara den som CSV-format. Därefter kan du ladda upp alla tävlande till databasen med blanketten neden.
         format_title: Filstruktur
         format_info:
-          shooting_race: CSV-fil måste ha kolumner förnamn, efternamn, klubb och klass eller grupp.
-          shooting_race_number: Dessutom filen kan ha tävlarens nummer men om det saknas, Hirviurheilu ökar numren för tävlarna automatiskt.
-          three_sports_race_1: CSV-fil måste ha kolumner förnamn, efternamn, klubb och klass eller äldsgrupp.
-          three_sports_race_2: CSV-fil måste ha kolumner förnamn, efternamn, klubb, klass eller äldsgrupp, startnummer och starttid (hh:mm:ss).
+          shooting_race: CSV-fil måste ha kolumner för förnamn, efternamn, klubb och klass eller grupp.
+          shooting_race_number: Dessutom filen kan ha tävlandes nummer men om det saknas, Hirviurheilu ökar numren för tävlande automatiskt.
+          three_sports_race_1: CSV-fil måste ha kolumner förnamn, efternamn, klubb och klass eller åldersgrupp.
+          three_sports_race_2: CSV-fil måste ha kolumner förnamn, efternamn, klubb, klass eller åldersgrupp, startnummer och starttid (hh:mm:ss).
         example_of_valid_file: Exempel av lämplig CSV-fil
         example_row_1_1: Sven,Andersson,Testklubben,M
         example_row_1_2: Erika,Eriksson,Exempelklubben,T15
@@ -375,9 +375,9 @@ sv:
         example_row_2_1: Sven,Andersson,Testklubben,M40,1,11:30:00
         example_row_2_2: Erika,Eriksson,Exempelklubben,Kvinnor,2,11:30:30
         or: eller
-        upload_file: Ladda fil
+        upload_file: Ladda upp fil
         csv_file: CSV-fil
-        submit_button: Ladda tävlar till databasen
+        submit_button: Ladda upp tävlande till databasen
     relays:
       sub_menu:
         main: Basavgifter och lag
@@ -385,11 +385,11 @@ sv:
         finish: Slut stafetten
       index:
         title: Stafetter
-        add_relay: Öka stafett
+        add_relay: Lägg till stafett
         teams:
           one: "%{count} lag"
           other: "%{count} lag"
-        add_new_team: Öka ny stafett
+        add_new_team: Lägg till ny stafett
       new:
         title: Ny stafett
         leg_count_warning: Obs! Du kan inte växla sträckavtal efter du har skapat stafetten.
@@ -399,8 +399,8 @@ sv:
         remove_relay_confirm: Är du säker att du vill radera den här stafetten?
       form:
         teams: Lag
-        no_teams_info: Du har ökat ännu inga lag till stafetten.
-        add_new_team: Öka nytt lag till stafetten
+        no_teams_info: Du har tillagt ännu inga lag till stafetten.
+        add_new_team: Lägg till nytt lag till stafetten
         delete_team: Radera laget
     finish_relays:
       new:
@@ -413,12 +413,12 @@ sv:
         title: Skytte (heat)
         no_heats: Det finns inga heat
         select_heat: Välj heat
-        no_competitors_in_heat: Heatet har inga tävlar
+        no_competitors_in_heat: Heatet har inga tävlande
     national_records:
       index:
         title: Finska record
         info: På den här sidan du kan spara finska record för alla klasser.
-        link_to_national_records: Jägarförbunds finska record sida.
+        link_to_national_records: Jägarförbundets finska record sida.
         no_series: Det finns inga klasser i tävlingen
       update_all:
         updated: Nationellt record updaterad
@@ -439,4 +439,4 @@ sv:
         heat_list_template_pdf: Tom PDF för ett heat
         numbers: Nummer
         numbers_no_competitors: Voit ladata tästä numerolaput, kun olet syöttänyt kilpailijoiden tiedot
-        download_numbers_pdf: Ladda nummerlappar (PDF)
+        download_numbers_pdf: Ladda ner nummerlappar (PDF)

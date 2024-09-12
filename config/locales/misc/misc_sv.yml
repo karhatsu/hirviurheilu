@@ -1,34 +1,34 @@
 sv:
-  add: Öka
-  add_heat: Öka heat
-  add_competitors: Öka tävlar
-  add_final_round_heat: Öka finalens heat
-  add_new: Öka ny
-  add_qualification_round_heat: Öka grundtävlingens heat
-  add_race: Öka tävling
-  added: Ökat
+  add: Lägg till
+  add_heat: Lägg till heat
+  add_competitors: Lägg till tävlande
+  add_final_round_heat: Lägg till finalens heat
+  add_new: Lägg till ny
+  add_qualification_round_heat: Lägg till grundtävlingens heat
+  add_race: Lägg till tävling
+  added: Tillagt
   age_group:
-    three_sports_race: Äldsgrupp
+    three_sports_race: Åldersgrupp
     shooting_race: Grupp
   all: Alla
   all_announcements: Alla nyheter
   all_heats: Alla heat
-  all_competitors: Alla tävlarna
+  all_competitors: Alla tävlande
   all_districts: Alla distrikt
   all_series: Alla klasser
   all_sports: Alla grener
-  back_to_cup_page: Tillbaka till cup-tävlingens hemsida
-  back_to_home_page: Tillbaka till hemsida
-  back_to_official_heats_page: Takaisin erien sivulle
-  back_to_official_home_page: Tillbaka till funktionärs hemsida
-  back_to_official_race_page: Tillbaka till Sammanfattning-sida
-  back_to_official_relays_page: Tillbaka till stafetters hemsida
-  back_to_official_team_competitions_page: Tillbaka till lagtävlingars hemsida
-  back_to_page: Tillbaka till sida
+  back_to_cup_page: Tillbaka till cuptävlingens hemsida
+  back_to_home_page: Tillbaka till hemsidan
+  back_to_official_heats_page: Tillbaka till heatens sida
+  back_to_official_home_page: Tillbaka till funktionärens hemsida
+  back_to_official_race_page: Tillbaka till sammanfattningnssidan
+  back_to_official_relays_page: Tillbaka till stafetternas sida
+  back_to_official_team_competitions_page: Tillbaka till lagtävlingarnas sida
+  back_to_page: Tillbaka till sidan
   back_to_race_home_page: Tillbaka till tävlingens hemsida
   back_to_series_results: Tillbaka till klassens %{series_name} resultat
-  captcha: Hur mycket år två plus två?
-  captcha_info: Vi vill kontrollera att du är inte en robot. Den rätta svaren är naturligtvis fyra.
+  captcha: Hur mycket är två plus två?
+  captcha_info: Vi vill kontrollera att du är inte en robot. Det rätta svaret är naturligtvis fyra.
   choose: Välj
   club: Klubb
   clubs: Klubbar
@@ -37,38 +37,38 @@ sv:
   competition_starts: Tävlingen börjar %{time}
   competition_started: Tävlingen började %{time}
   competition_unfinished: Tävlingen ofärdig
-  competition_unfinished_detailed_estimates_later: Tävlingen ofärdig. Precis avståndsdata publiseras, när tävlingen har slutat.
+  competition_unfinished_detailed_estimates_later: Tävlingen ofärdig. Precis avståndsdata publiceras, när tävlingen är avslutad.
   competitor:
-    DNS: Tävlaren startade inte
-    DNF: Tävlaren avbröt
-    DQ: Tävlaren diskad
+    DNS: Tävlande startade inte
+    DNF: Tävlande bröt loppet
+    DQ: Tävlande blev diskad
   competitors:
     people_short:
       one: 1 person
       other: "%{count} pers."
-  competitors_per_team: Tävlar / lag
+  competitors_per_team: Tävlande / lag
   continue: Fotsätt
-  correct_distance: Rätt avstånd
-  correct_distances: Rätta avstånd
+  correct_distance: Korrekt avstånd
+  correct_distances: Korrekt avstånd
   count_competitors:
-    one: 1 tävlare
-    other: "%{count} tävlar"
+    one: 1 tävlande
+    other: "%{count} tävlande"
   days:
     one: 1 dag
     other: "%{count} dagar"
   delete: Radera
   district: Trakt
   districts: Trakter
-  download_heat_list_pdf: Ladda heatlista som PDF-fil
-  download_results_pdf: Ladda resultaten som PDF-fil
-  download_results_pdf_with_competitors: Ladda PDF (med tävlarna)
-  download_results_pdf_without_competitors: Ladda PDF (utan tävlarna)
-  download_start_list_pdf: Ladda startlista som PDF-fil
+  download_heat_list_pdf: Ladda ner heatlista som PDF-fil
+  download_results_pdf: Ladda ner resultaten som PDF-fil
+  download_results_pdf_with_competitors: Ladda ner PDF (med tävlande)
+  download_results_pdf_without_competitors: Ladda ner PDF (utan tävlande)
+  download_start_list_pdf: Ladda ner startlista som PDF-fil
   edit: Redigera
   error: Fel
   estimate: Bedömning
   estimates: Bedömningar
-  estimate_count_4: Tävlarna bedömner 4 gånger i den här klassen.
+  estimate_count_4: Tävlande bedömner 4 gånger i den här klassen.
   estimated_distances: Bedömnade avstånd
   estimating: Bedömning
   estimation_errors: Bedömningsfel
@@ -81,9 +81,9 @@ sv:
   final_round_heat_lists: Finalens heatlista
   heat_list: Heatlista
   heat_lists: Heatlista
-  hide_all_competitors: Gömma alla tävlarna
-  hide_shots: Gömma skott
-  hide_races_of_cup: Gömma tävlingarna
+  hide_all_competitors: Dölj alla tävlande
+  hide_shots: Dölj skott
+  hide_races_of_cup: Dölj tävlingarna
   leg: Sträcka
   leg_time: Sträckatid
   leg_time_short: Sträcka
@@ -100,13 +100,13 @@ sv:
     "3": Finska mästerskap
     "4": Internationell
   login_required: Du måste logga in för att se sidan
-  no_competitors_for_series: Inga tävlar i klassen
-  no_start_list: Klassens startlist har inte ännu publiserats
+  no_competitors_for_series: Inga tävlande i klassen
+  no_start_list: Klassens startlist har inte ännu publicerats
   no_races: Inga tävlingar
   normal: Normal
   number_short: Nr
-  order_method: Tävlarnas ordning
-  order_method_0: Som ökat
+  order_method: Tävlandes ordning
+  order_method_0: Som tillagt
   order_method_1: Lottas
   password: Lösenord
   points: Poäng
@@ -118,8 +118,8 @@ sv:
   race_search_text: Tävlings namn eller ort
   relay_team:
     DNS: Laget startade inte
-    DNF: Laget avbröt
-    DQ: Laget diskad
+    DNF: Laget bröt loppet
+    DQ: Laget blev diskad
   remove: Radera
   reset: Radera
   result_sheet_pdf_title: Heatlista
@@ -143,14 +143,14 @@ sv:
   service_provided_by: Tjänsten erbjudes
   shooting: Skytte
   shorter_trip_notice:
-    series: Klassen har kortare löpning.
+    series: Klassen har kortare sträcka.
     age_groups:
-      one: Äldsgrupp %{age_group} har kortare löpning.
-      other: Äldsgruppar %{age_group} har kortare löpning.
+      one: Åldersgrupp %{age_group} har kortare sträcka.
+      other: Åldersgrupper %{age_group} har kortare sträcka.
   shots: Skott
   show: Visa
   show_all: Visa alla
-  show_all_competitors: Visa alla tävlarna
+  show_all_competitors: Visa alla tävlande
   show_shots: Visa skott
   show_races_of_cup: Visa tävlingar
   single_competitor_competitions: Normaltävlingar
@@ -198,9 +198,9 @@ sv:
     SKI: 4 bedömningar, inga tidpoäng
     RUN: 4 bedömningar, inga tidpoäng
   points_method_3:
-    both: 2 bedömningar, alla tävlarna får 300 tidpoäng
-    SKI: 2 bedömningar, alla tävlarna får 300 tidpoäng
-    RUN: 2 bedömningar, alla tävlarna får 300 tidpoäng
+    both: 2 bedömningar, alla tävlande får 300 tidpoäng
+    SKI: 2 bedömningar, alla tävlande får 300 tidpoäng
+    RUN: 2 bedömningar, alla tävlande får 300 tidpoäng
   points_method_4:
     both: 2 bedömningar, inga tidpoäng
     SKI: 2 bedömningar, inga tidpoäng
@@ -209,8 +209,8 @@ sv:
   total: Totalt
   total_points: Totalpoäng
   unexpected_error: Oväntad fel
-  unofficial: Informella tävlare
+  unofficial: Informella tävlande
   unofficial_short: inf.
   update: Uppdatera
   wrong_captcha: Kontrollfrågan var fel.
-  you_can_still_add: Du kan öka ännu mer
+  you_can_still_add: Du kan lägg till ännu mer

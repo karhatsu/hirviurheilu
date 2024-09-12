@@ -4,18 +4,18 @@ sv:
       no_teams: Inga lag
       relay_has_not_started_yet: Stafetten har inte ännu börjat
       penalty_seconds_info:
-        RUN: "Sakkoja ei juosta vaan ne lisätään aikaan. Arviointi: %{estimate_penalty_seconds} s/sakko. Ammunta: %{shooting_penalty_seconds} s/sakko."
-        SKI: "Sakkoja ei hiihdetä vaan ne lisätään aikaan. Arviointi: %{estimate_penalty_seconds} s/sakko. Ammunta: %{shooting_penalty_seconds} s/sakko."
+        RUN: "Straffar löps inte, utan de läggs till i tiden. Bedömning: %{estimate_penalty_seconds} s/straff. Skytte: %{shooting_penalty_seconds} s/straff."
+        SKI: "Straffar åks inte, utan de läggs till i tiden. Bedömning: %{estimate_penalty_seconds} s/straff. Skytte: %{shooting_penalty_seconds} s/straff."
       standing: Poängsumma
-      updated: updaterad
-      relay_has_no_teams: Inga lagen tillsatt för stafetten ännu
-      relay_has_no_start_time: Stafetten har inte ännu starttid
+      updated: uppdaterad
+      relay_has_no_teams: Inga lag tillsatta för stafetten ännu
+      relay_has_no_start_time: Stafetten har inte ännu någon starttid
       relay_start_time: Stafettens starttid
       relay_starts: Stafetten börjar om
-      estimate_penalties: Bedömningsfinar
-      shooting_penalties: Skyttefinar
+      estimate_penalties: Bedömningsstraff
+      shooting_penalties: Skyttestraff
       estimate_penalties_short: B
       shooting_penalties_short: S
       finish: Mål
       legs_title: Mellantider
-      download_start_list_pdf: Ladda startlistan som PDF-fil
+      download_start_list_pdf: Ladda ner startlistan som PDF-fil

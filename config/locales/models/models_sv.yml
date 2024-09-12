@@ -4,22 +4,22 @@ sv:
     address: Adress
     age_group: Åldersgrupp
     age_group_id: Åldersgrupp
-    api_secret: API lösenord
-    arrival_time: Avkomstid
+    api_secret: API-nyckel
+    arrival_time: Ankomstid
     cancelled: Inställd
     club: Klubb
     club_name: Klubb
     content: Innehål
-    correct_estimate1: Rätt avstånd 1
-    correct_estimate2: Rätt avstånd 2
-    correct_estimate3: Rätt avstånd 3
-    correct_estimate4: Rätt avstånd 4
+    correct_estimate1: Korrekt avstånd 1
+    correct_estimate2: Korrekt avstånd 2
+    correct_estimate3: Korrekt avstånd 3
+    correct_estimate4: Korrekt avstånd 4
     current_login_at: Nyk. kirj.
     current_login_ip: Nyk. IP
     day: Dag
     days_count: Längd
-    default_age_group: Standardäldsgrupp
-    default_age_groups: Standardäldsgruppar
+    default_age_group: Standardåldersgrupp
+    default_age_groups: Standardåldersgrupper
     default_series: Standardklass
     distance1: Avstånd 1
     distance2: Avstånd 2
@@ -64,7 +64,7 @@ sv:
     european_shotgun_extra_score: Compak och trap omskjutning
     extra_shots: Omskjutning
     final_round_heat_id: Finalens heat
-    final_round_shooting_score_input: Finalens resultat
+    final_round_shooting_score_input: Finalens skyttresultat
     final_round_track_place: Finalens plats
     first_name: Förnamn
     first_number: Första tävlingsnummer
@@ -72,9 +72,9 @@ sv:
     heat_id: Heat
     heat_interval_seconds: Paus mellan startsatser
     heat_size: Startsatsers storlek
-    hide_heats: Gömma heatlista
-    hide_final_round_heats: Gömma finalens heatlista
-    hide_qualification_round_heats: Gömma grundtävlingens heatlista
+    hide_heats: Dölj heatlista
+    hide_final_round_heats: Dölj finalens heatlista
+    hide_qualification_round_heats: Dölj grundtävlingens heatlista
     include_always_last_race: Innehål den sista tävlingen alltid till resulten
     key: Nyckel
     last_name: Efternamn
@@ -100,7 +100,7 @@ sv:
     nordic_shotgun_extra_shots: Compak omskjutning
     nordic_shotgun_shots: Compak skott
     nordic_shotgun_score_input: Compak resultat
-    nordic_sub_results_for_series: Osalajien tulokset sarjoittain
+    nordic_sub_results_for_series: Delgrensresultat per klass
     nordic_rifle_moving_extra_shots: Älg omskjutning
     nordic_rifle_moving_shots: Älg skott
     nordic_rifle_moving_score_input: Älg resultat
@@ -117,7 +117,7 @@ sv:
     points_method: Poängmetod
     price: Pris
     public_message: Meddelande på tävlingens hemsida
-    published: Publiserad
+    published: Publicerad
     qualification_round_heat_id: Grundtävlingens heat
     qualification_round_shooting_score_input: Grundtävlingens resultat
     qualification_round_track_place: Grundtävlingens plats
@@ -142,16 +142,16 @@ sv:
     shooting_start_time: Skytte starttid
     shooting_time: Skyttetid
     short_name: Kort namn
-    shorter_trip: Kortare löpning
+    shorter_trip: Kortare sträcka
     shots: Skott
     show_european_shotgun_results: Visa resultaten för trap och compak
     sport_key: Gren
     start_date: Startdatum
     start_day: Startdag
     start_interval_seconds: Gap mellan starttider
-    start_order: Tävlarnas startordning
+    start_order: Tävlandes startordning
     start_time: Starttid
-    team_competitor_count: Tävlarna / lag
+    team_competitor_count: Tävlande / lag
     team_name: Lag
     time: Tid
     time_points_type: Tidpoängsberäkning
@@ -161,14 +161,14 @@ sv:
     track_place: Bana
     type: Typ
     top_competitions: Tävlingsantal för totalpoäng
-    unofficial: Informella tävlare
-    use_team_name: Forma lag på grund av tävlarnas lagnamn
+    unofficial: Informella tävlande
+    use_team_name: Forma lag på grund av tävlandes lagnamn
 
   activerecord:
     models:
       age_group:
-        one: Äldsgrupp
-        other: Äldsgruppar
+        one: Åldersgrupp
+        other: Åldersgrupper
       heat:
         one: Heat
         other: Heat
@@ -176,11 +176,11 @@ sv:
         one: Klubb
         other: Klubbar
       competitor:
-        one: Tävlare
-        other: Tävlar
+        one: Tävlande
+        other: Tävlande
       correct_estimate:
-        one: Rätt avstånd
-        other: Rätta avstånd
+        one: Korrekt avstånd
+        other: Korrekt avstånd
       cup:
         one: Cup-tävling
         other: Cup-tävlingar
@@ -188,8 +188,8 @@ sv:
         one: Cup-klass
         other: Cup-klasser
       default_age_group:
-        one: Standardäldsgrupp
-        other: Standardäldsgruppar
+        one: Standardåldersgrupp
+        other: Standardåldersgrupper
       default_series:
         one: Standardklass
         other: Standardklasser
@@ -235,7 +235,7 @@ sv:
         name: Tävlings namn
         series:
           age_groups:
-            name: Äldsgruppens namn
+            name: Åldersgruppens namn
           name: Klassens namn
           national_record: NR
         start_time: Starttid
@@ -246,16 +246,16 @@ sv:
           number: Lags nummer
           relay_competitors:
             estimate: Bedömning
-            first_name: Tävlarens förnnamn
-            last_name: Tävlarens efternamn
+            first_name: Tävlandes förnnamn
+            last_name: Tävlandes efternamn
             misses: Skotts över
       relay_team:
         name: Lags namn
         no_result_reason: Status
-        relay_competitors: Tävlar
+        relay_competitors: Tävlande
       series:
         age_groups:
-          name: Äldsgruppens namn
+          name: Åldersgruppens namn
         first_number: Klassens första nummer
         name: Klassens namn
         national_record: NR
@@ -265,26 +265,26 @@ sv:
     errors:
       models:
         heat:
-          no_competitors: Klassen har inga tävlare
-          invalid_first_heat_number: Den första tävlarens heatnummer har fel format
-          invalid_first_track_place: Den första tävlarens plats har fel format
+          no_competitors: Klassen har inga tävlande
+          invalid_first_heat_number: Den första tävlandes heatnummer har fel format
+          invalid_first_track_place: Den första tävlandes plats har fel format
           invalid_first_heat_time: Det första heatets starttid har fel format
           invalid_minutes_between_heats: Tid reserverad för ett heat har fel format
-          invalid_competitors_count: Antal av tävlarna i finalen har fel format
+          invalid_competitors_count: Antal av tävlande i finalen har fel format
           invalid_first_heat_track_number: Det första heatets bana har fel format
           invalid_included_tracks: Alla banor inaktiverad
-          included_tracks_mismatch: Den första tävlarens heatnummer är inaktiverad
+          included_tracks_mismatch: Den första tävlandes heatnummer är inaktiverad
           no_track_count: Tävlingen saknas antal av banor
           no_shooting_place_count: Tävlingen saknas antal av skottsplatser
           first_heat_day_conflict: Det första heatet existeras men heatets dag är annan som dagen du gav
           first_heat_time_conflict: Det första heatet existeras men heatets starttid är annan som tiden du gav
-          first_track_place_reserved: Den första tävlarens plats är upptagen
+          first_track_place_reserved: Den första tävlandes plats är upptagen
           first_heat_track_conflict: Det första heatets plats är upptagen
         competitor:
           attributes:
             base:
               shooting_result_either_sum_or_by_shots: Spara skytteresultat antingen med summa eller enskilda skott
-              another_competitor_with_same_name_in_series: Klassen redan har en tävlare med samma namn
+              another_competitor_with_same_name_in_series: Klassen redan har en tävlande med samma namn
             shooting_start_time:
               cannot_have_without_start_time: kan sparas efter starttiden är sparats
               must_be_after_start_time: måste vara efter starttid
@@ -339,10 +339,10 @@ sv:
         race:
           attributes:
             base:
-              correct_estimate_missing: Några tävlar saknas riktiga avtsånd
-              results_missing: Några tävlare saknas resultat
+              correct_estimate_missing: Några tävlande saknas riktiga avtsånd
+              results_missing: Några tävlande saknas resultat
               duplicate_race: Det redan finns en tävling med samma gren, namn, ort och datum
-              start_order_mixed_not_allowed: Du kan inte välja 'Klasser blandad' startordning eftersom du har ökat tävlar som inte har en starttid. Skapa startlistor för klasser med tävlar och kom tillbaka hit och välja 'Klasser blandad'.
+              start_order_mixed_not_allowed: Du kan inte välja 'Klasser blandad' startordning eftersom du har tillagt tävlande som inte har en starttid. Skapa startlistor för klasser med tävlande och kom tillbaka hit och välja 'Klasser blandad'.
             district:
               invalid: är fel
             end_date:
@@ -355,12 +355,12 @@ sv:
           attributes:
             base:
               cannot_generate_numbers_without_first_number: Kan inte skapa startnummer, eftersom klassens första nummer sanknas
-              cannot_generate_numbers_already_arrival_times: Kan inte skapa startnummer, eftersom några tävlar redan har avkomstid
+              cannot_generate_numbers_already_arrival_times: Kan inte skapa startnummer, eftersom några tävlande redan har ankomstid
               cannot_generate_numbers_no_free_numbers: Kan inte skapa startnummer, eftersom nummer %{first_number}-%{max_number} är upptaken
               cannot_generate_start_times_without_start_time: Kan inte skapa starttider, eftersom klassens starttid sanknas
               cannot_generate_start_times_without_first_number: Kan inte skapa starttider, eftersom klassens första nummer sanknas
-              cannot_generate_start_times_without_numbers_for_all_competitors: Kan inte skapa starttider, eftersom alla tävlar har inte startnummer
-              cannot_generate_start_times_already_arrival_times: Kan inte skapa starttider, eftersom några tävlar redan har avkomstid
+              cannot_generate_start_times_without_numbers_for_all_competitors: Kan inte skapa starttider, eftersom alla tävlande har inte startnummer
+              cannot_generate_start_times_already_arrival_times: Kan inte skapa starttider, eftersom några tävlande redan har ankomstid
             start_time:
               too_big: är för stor (starttider börjar av 00:00:00)
         team_competition:

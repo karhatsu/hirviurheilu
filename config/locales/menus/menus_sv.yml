@@ -2,7 +2,7 @@ sv:
   main_menu:
     home_page: Hemsida
     competitions: Sök tävling
-    official: Funktionärs sidor
+    official: Funktionärssidor
     announcements: Nyheter
     info: Info
     prices: Priser
@@ -35,9 +35,9 @@ sv:
     summary: Sammanfattning
     race: Basinformation
     heats: Heat
-    competitors: Tävlar
+    competitors: Tävlande
     start_times: Starttider
-    heat_list_generation: Heatlotteri
+    heat_list_generation: Lottning av heat
     qualification_round_heat_list: Grundtävling
     final_round_heat_list: Final
     quick_save: Resultat
@@ -51,5 +51,5 @@ sv:
     team_competitions: Lagtävlingar
     relays: Stafetter
     officials: Funktionärer
-    download: Ladda
-    publish: Publisera
+    download: Ladda ner
+    publish: Publicera

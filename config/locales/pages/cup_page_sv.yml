@@ -2,5 +2,5 @@ sv:
   cups:
     show:
       points_rule:
-        basic: Totalpoäng beräknas på grund av %{best_competitions_count} bäst resultat.
-        include_always_last_race: Totalpoäng beräknas på grund av den sista tävlingen och de andra tävlingarnas %{best_competitions_count} bäst resultat.
+        basic: Totalpoäng beräknas på grund av de %{best_competitions_count} bästa resultaten.
+        include_always_last_race: Totalpoäng beräknas på grund av den sista tävlingen och de %{best_competitions_count} bästa resultaten från de andra tävlingarna.
