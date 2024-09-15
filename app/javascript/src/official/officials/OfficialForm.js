@@ -46,11 +46,11 @@ const OfficialForm = ({ official, onSave, onCancel, buttonLabel }) => {
     <div>
       <form className="form" onSubmit={onSubmit}>
         <div className="form__field">
-          <label htmlFor="email">Sähköposti</label>
+          <label htmlFor="email">{t('email')}</label>
           <input id="email" type="email" value={data.email} onChange={setValue('email')} />
         </div>
         <div className="form__field">
-          <label htmlFor="onlyAddCompetitors">Anna käyttäjälle ainoastaan oikeudet lisätä kilpailijoita</label>
+          <label htmlFor="onlyAddCompetitors">{t('officialPageOnlyAddCompetitors')}</label>
           <input
             id="onlyAddCompetitors"
             type="checkbox"
@@ -61,22 +61,22 @@ const OfficialForm = ({ official, onSave, onCancel, buttonLabel }) => {
         {data.onlyAddCompetitors && (
           <>
             <div className="form__field">
-              <label htmlFor="newClubs">Salli uusien piirien/seurojen lisäys</label>
+              <label htmlFor="newClubs">{t('officialPageAllowAddingClubs')}</label>
               <input id="newClubs" type="checkbox" checked={data.newClubs} onChange={setValue('newClubs', true)} />
             </div>
             {!data.newClubs && (
               <>
                 <div className="form__field">
-                  <label htmlFor="clubId">Salli kilpailijoiden lisäys vain tiettyyn piiriin/seuraan</label>
+                  <label htmlFor="clubId">{t('officialPageAllowSpecificClub')}</label>
                   {!clubs.length && (
                     <div>
-                      (Käyttöä ei voi rajata, koska{' '}
-                      <Link to={buildOfficialRaceClubsPath(race.id)}>yhtään piiriä/seuraa ei ole lisätty</Link>.)
+                      ({t('officialPageCannotLimitUsagePre')}{' '}
+                      <Link to={buildOfficialRaceClubsPath(race.id)}>{t('officialPageCannotLimitUsagePost')}</Link>.)
                     </div>
                   )}
                   {clubs.length > 0 && (
                     <select id="clubId" value={data.clubId || ''} onChange={setValue('clubId')}>
-                      <option>Ei rajausta</option>
+                      <option>{t('officialPageNoLimitation')}</option>
                       {clubs.map(club => <option key={club.id} value={club.id}>{club.name}</option>)}
                     </select>
                   )}

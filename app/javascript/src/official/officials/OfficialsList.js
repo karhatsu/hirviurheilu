@@ -9,9 +9,9 @@ const OfficialsList = ({ race, officials, onEdit, onDelete }) => {
   const { userId: currentUserId } = useAppData()
 
   const resolveRightsText = useCallback((onlyAddCompetitors, newClubs, club) => {
-    if (!onlyAddCompetitors) return 'Täydet oikeudet'
-    let clubRights = 'Kaikki nykyiset'
-    if (newClubs) clubRights = 'Lisäys sallittu'
+    if (!onlyAddCompetitors) return t('officialPageFullRights')
+    let clubRights = t('officialPageAllCurrent')
+    if (newClubs) clubRights = t('officialPageAddingAllowed')
     else if (club) clubRights = club.name
     return `${resolveClubsTitle(t, race.clubLevel)}: ${clubRights}`
   }, [t, race.clubLevel])
@@ -30,8 +30,10 @@ const OfficialsList = ({ race, officials, onEdit, onDelete }) => {
           </div>
           {!primary && userId !== currentUserId && (
             <div className="card__buttons">
-              <Button onClick={() => onEdit(official)} type="edit">Muokkaa oikeuksia</Button>
-              <Button id={`delete_button_${index}`} onClick={() => onDelete(id)} type="danger">Peruuta kutsu</Button>
+              <Button onClick={() => onEdit(official)} type="edit">{t('editOfficialRights')}</Button>
+              <Button id={`delete_button_${index}`} onClick={() => onDelete(id)} type="danger">
+                {t('officialPageCancelInvitation')}
+              </Button>
             </div>
           )}
         </div>

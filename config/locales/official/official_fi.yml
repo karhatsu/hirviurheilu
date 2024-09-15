@@ -441,3 +441,9 @@ fi:
         numbers: Numerolaput
         numbers_no_competitors: Voit ladata tästä numerolaput, kun olet syöttänyt kilpailijoiden tiedot
         download_numbers_pdf: Lataa numerolaput (PDF)
+    race_rights:
+      create:
+        email_not_found: Tietokannasta ei löytynyt syöttämääsi sähköpostiosoitetta
+        already_official: Henkilö on jo tämän kilpailun toimitsija
+      multiple:
+        not_registered: ei ole rekisteröitynyt Hirviurheiluun

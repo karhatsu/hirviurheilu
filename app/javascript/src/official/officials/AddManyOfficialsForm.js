@@ -4,6 +4,7 @@ import useTranslation from '../../util/useTranslation'
 import Message from '../../common/Message'
 import FormErrors from '../../common/form/FormErrors'
 import { post } from '../../util/apiClient'
+import { withLocale } from '../../util/routeUtil'
 
 const AddManyOfficialsForm = ({ raceId, onCancel, onSaved }) => {
   const { t } = useTranslation()
@@ -18,7 +19,7 @@ const AddManyOfficialsForm = ({ raceId, onCancel, onSaved }) => {
         return { email: emailAndClub[0], club: emailAndClub[1] }
       }).filter(o => o.email),
     }
-    post(`/official/races/${raceId}/race_rights/multiple.json`, body, (errors, response) => {
+    post(withLocale(`/official/races/${raceId}/race_rights/multiple.json`), body, (errors, response) => {
       if (errors) {
         setErrors(errors)
       } else if (response.errors) {
@@ -32,10 +33,8 @@ const AddManyOfficialsForm = ({ raceId, onCancel, onSaved }) => {
 
   return (
     <div>
-      <h2>Kutsu monta toimitsijaa kilpailun toimitsijoiksi</h2>
-      <Message type="info">Tällä sivulla voit kutsua monta toimitsijaa kerralla. Listaa toimitsijoiden
-        sähköpostiosoitteet ja jos haluat heille rajoitetut oikeudet, lisää perään piiri / seura alla olevan esimerkin
-        mukaisesti. Henkilöiden täytyy olla rekisteröitynyt palveluun omilla sähköpostiosoitteillaan.</Message>
+      <h2>{t('officialPageAddManyTitle')}</h2>
+      <Message type="info">{t('officialPageAddManyDescription')}</Message>
       <pre className="file-example">
         toimitsija.1@test.com<br/>
         toimitsija.2@test.com,PS<br/>
@@ -44,11 +43,11 @@ const AddManyOfficialsForm = ({ raceId, onCancel, onSaved }) => {
       <FormErrors errors={errors} />
       <form onSubmit={sendInvitations}>
         <div className="form__field">
-          <label htmlFor="emails">Sähköpostit ja mahdolliset piirit/seurat</label>
+          <label htmlFor="emails">{t('officialPageEmailsAndClubs')}</label>
           <textarea id="emails" value={values} onChange={e => setValues(e.target.value)} cols={60} rows={12}/>
         </div>
         <div className="form__buttons">
-          <Button submit={true} type="primary">Lähetä kutsut</Button>
+          <Button submit={true} type="primary">{t('officialPageSendInvitations')}</Button>
         </div>
       </form>
       <div className="buttons buttons--nav">

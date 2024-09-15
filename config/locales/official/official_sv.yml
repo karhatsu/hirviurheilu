@@ -440,3 +440,9 @@ sv:
         numbers: Nummer
         numbers_no_competitors: Voit ladata tästä numerolaput, kun olet syöttänyt kilpailijoiden tiedot
         download_numbers_pdf: Ladda ner nummerlappar (PDF)
+    race_rights:
+      create:
+        email_not_found: E-postadressen du angav kunde inte hittas i databasen
+        already_official: Personen är redan funktionär för den här tävlingen
+      multiple:
+        not_registered: är inte registrerad i Hirviurheilu

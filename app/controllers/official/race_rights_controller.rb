@@ -16,9 +16,9 @@ class Official::RaceRightsController < Official::OfficialController
     @race_right = @race.race_rights.build race_rights_params
     user = User.where('lower(email)=?', params[:email].downcase).first
     if !user
-      render status: 400, json: { errors: ['Tietokannasta ei löytynyt syöttämääsi sähköpostiosoitetta'] }
+      render status: 400, json: { errors: [t('.email_not_found')] }
     elsif user.races.include? @race
-      render status: 400, json: { errors: ['Henkilö on jo tämän kilpailun toimitsija'] }
+      render status: 400, json: { errors: [t('.already_official')] }
     else
       @race_right.user = user
       @race_right.save!
@@ -32,7 +32,7 @@ class Official::RaceRightsController < Official::OfficialController
     params[:officials].each do |official|
       email = official[:email].strip
       user = find_user email
-      @errors << "#{email} ei ole rekisteröitynyt Hirviurheiluun" unless user
+      @errors << "#{email} #{t('.not_registered')}" unless user
     end
     return unless @errors.empty?
 
