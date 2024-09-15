@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import debounce from 'lodash.debounce'
 import useTranslation from '../../util/useTranslation'
 import Button from '../../common/Button'
@@ -31,7 +31,7 @@ function useDebounce(callback, delay) {
 
 export default function SearchForm() {
   const { t } = useTranslation()
-  const history = useHistory()
+  const navigate = useNavigate()
   const urlSearchParams = new URLSearchParams(useLocation().search)
   const defaultSearchParams = buildDefaultSearchParams(urlSearchParams)
   const [searchText, setSearchText] = useState(defaultSearchParams.search_text || '')
@@ -58,9 +58,9 @@ export default function SearchForm() {
   const reset = useCallback(() => setSearchParams(emptySearchParams), [])
 
   useEffect(() => {
-    history.push(buildURLSearchParams(searchParams))
+    navigate(buildURLSearchParams(searchParams))
     search(searchParams)
-  }, [history, search, searchParams])
+  }, [navigate, search, searchParams])
 
   return (
     <div className="form">
