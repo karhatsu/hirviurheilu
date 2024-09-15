@@ -9,7 +9,9 @@ import {
   buildAccountPath,
   buildAnnouncementsPath,
   buildInfoPath,
-  buildOfficialPath, buildOfficialRacePath,
+  buildOfficialPath,
+  buildOfficialRacePath,
+  buildRacePath,
   buildRacesPath,
   buildRegisterPath,
   buildRootPath,
@@ -24,7 +26,10 @@ export default function MainMenu({ closeMenu, mainMenuOpen, official }) {
   const { admin, locale, userId } = useAppData()
 
   const className = classnames({ menu: true, 'menu--main': true, 'menu--visible': mainMenuOpen })
-  const officialDropDown = raceId && race && userId && (race.userIds.includes(userId) || admin)
+  const raceDropDown = official && raceId && race
+    ? [{ text: race.name, path: buildRacePath(raceId) }]
+    : undefined
+  const officialDropDown = !official && raceId && race && userId && (race.userIds.includes(userId) || admin)
     ? [{ text: race.name, path: buildOfficialRacePath(race.id) }]
     : undefined
   return (
@@ -34,16 +39,18 @@ export default function MainMenu({ closeMenu, mainMenuOpen, official }) {
         path={buildRootPath()}
         text={t('homePage')}
         selected={pathname === '/' || pathname === '/sv'}
-        reactLink={true}
+        reactLink={!official}
         onClick={closeMenu}
       />
       <DesktopMenuItem
         icon="search"
         path={buildRacesPath()}
         text={t('searchRace')}
-        reactLink={true}
+        reactLink={!official}
         selected={pathname === '/races' || pathname === '/sv/races'}
         onClick={closeMenu}
+        dropdownItems={raceDropDown}
+        dropdownMinCount={1}
       />
       <DesktopMenuItem
         icon="build"
@@ -58,7 +65,7 @@ export default function MainMenu({ closeMenu, mainMenuOpen, official }) {
         path={buildAnnouncementsPath()}
         text={t('announcements')}
         selected={matchPath(pathname, '/announcements')}
-        reactLink={true}
+        reactLink={!official}
         onClick={closeMenu}
       />
       <DesktopMenuItem
@@ -68,7 +75,7 @@ export default function MainMenu({ closeMenu, mainMenuOpen, official }) {
         selected={['/info', '/prices', '/answers', '/feedbacks', '/sports_info'].find(path => {
           return matchPath(pathname, path)
         })}
-        reactLink={true}
+        reactLink={!official}
         onClick={closeMenu}
       />
       {!userId && <DesktopMenuItem icon="login" path={buildRegisterPath()} text={t('startUsage')} />}
