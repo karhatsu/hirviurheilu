@@ -298,6 +298,8 @@ GEM
       io-console (~> 0.5)
     request_store (1.7.0)
       rack (>= 1.4)
+    reverse_markdown (2.1.1)
+      nokogiri
     rexml (3.3.6)
       strscan
     roman-numerals (0.3.0)
@@ -406,6 +408,7 @@ DEPENDENCIES
   rails-controller-testing
   redcarpet
   redis
+  reverse_markdown
   roman-numerals
   rspec-collection_matchers
   rspec-json_expectations

@@ -18,6 +18,7 @@ gem 'jbuilder'
 gem 'scrypt'
 gem 'jsbundling-rails'
 gem 'puma'
+gem 'reverse_markdown'
 
 group :development, :production do
   gem 'pg'
