@@ -9,7 +9,7 @@ import {
   buildAccountPath,
   buildAnnouncementsPath,
   buildInfoPath,
-  buildOfficialPath,
+  buildOfficialPath, buildOfficialRacePath,
   buildRacesPath,
   buildRegisterPath,
   buildRootPath,
@@ -25,7 +25,7 @@ export default function MainMenu({ closeMenu, mainMenuOpen, official }) {
 
   const className = classnames({ menu: true, 'menu--main': true, 'menu--visible': mainMenuOpen })
   const officialDropDown = raceId && race && userId && (race.userIds.includes(userId) || admin)
-    ? [{ text: race.name, path: `/official/races/${race.id}` }]
+    ? [{ text: race.name, path: buildOfficialRacePath(race.id) }]
     : undefined
   return (
     <div className={className}>
