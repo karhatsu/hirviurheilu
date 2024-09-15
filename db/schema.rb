@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_30_190059) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_15_093332) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "activation_keys", id: :serial, force: :cascade do |t|
@@ -32,11 +33,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_30_190059) do
   create_table "announcements", id: :serial, force: :cascade do |t|
     t.date "published", null: false
     t.string "title", limit: 255, null: false
-    t.text "content", null: false
+    t.text "content"
     t.boolean "active", default: false, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "front_page"
+    t.text "markdown"
   end
 
   create_table "clubs", id: :serial, force: :cascade do |t|
