@@ -90,7 +90,7 @@ const OfficialForm = ({ official, onSave, onCancel, buttonLabel }) => {
         </div>
       </form>
       <div className="buttons buttons--nav">
-        <Button onClick={onCancel}>{t('cancel')}</Button>
+        <Button onClick={onCancel} type="back">{t('cancel')}</Button>
       </div>
     </div>
   )

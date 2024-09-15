@@ -51,7 +51,7 @@ const AddManyOfficialsForm = ({ raceId, onCancel, onSaved }) => {
         </div>
       </form>
       <div className="buttons buttons--nav">
-        <Button onClick={onCancel}>{t('cancel')}</Button>
+        <Button onClick={onCancel} type="back">{t('cancel')}</Button>
       </div>
     </div>
   )
