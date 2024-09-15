@@ -15,7 +15,7 @@ Feature: Announcements
     When I follow "Lisää tiedote"
     Then I should be on the new admin announcement page
     When I fill in "Good news" for "Otsikko"
-    And I fill in "More about it" for "Sisältö"
+    And I fill in "More about it" for "Markdown"
     And I check "Aktiivinen"
     And I check "Näytä etusivulla"
     And I press "Tallenna"
@@ -57,12 +57,12 @@ Feature: Announcements
     And I should see "New title" within "#all_news"
 
   @javascript
-  Scenario: Open announcement, allow html
-    Given there is an active front page announcement with title "Test announcement" and content "<b>Good news!</b>"
+  Scenario: Open announcement, use markdown
+    Given there is an active front page announcement with title "Test announcement" and markdown "__Good news!__"
     And I am on the home page
     When I follow "Test announcement"
     Then I should see "Good news!"
-    But I should not see "<b>Good news!</b>"
+    But I should not see "__Good news!__"
     When I follow "Kaikki tiedotteet"
     Then I should see "Good news!"
-    But I should not see "<b>Good news!</b>"
+    But I should not see "__Good news!__"
