@@ -37,6 +37,8 @@ window.translations = {
   competitorsCountOne: '1 tävlande',
   competitorsPerSeries: 'Tävlande / klass',
   correctDistances: 'Korrekt avstånd',
+  country: 'Land',
+  countries: 'Länder',
   cupCompetitions: 'Deltävlingar',
   cupHome: 'Cup-tävlingens hemsida',
   cupPointsRule: 'Totalpoäng beräknas på grund av {{bestCompetitionsCount}} bäst resultat',

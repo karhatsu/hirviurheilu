@@ -9,6 +9,7 @@ class Race < ApplicationRecord
 
   CLUB_LEVEL_SEURA = 0
   CLUB_LEVEL_PIIRI = 1
+  CLUB_LEVEL_COUNTRY = 2
 
   START_ORDER_NOT_SELECTED = 0
   START_ORDER_BY_SERIES = 1
@@ -51,7 +52,7 @@ class Race < ApplicationRecord
   validates :start_interval_seconds, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, unless: -> { sport_key && !sport.start_list? }
   validates :heat_size, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :heat_interval_seconds, numericality: {only_integer: true, greater_than: 0}
-  validates :club_level, inclusion: { in: [CLUB_LEVEL_SEURA, CLUB_LEVEL_PIIRI] }
+  validates :club_level, inclusion: { in: [CLUB_LEVEL_SEURA, CLUB_LEVEL_PIIRI, CLUB_LEVEL_COUNTRY] }
   validates :start_order, :inclusion => { in: [START_ORDER_BY_SERIES, START_ORDER_MIXED], message: :have_to_choose }
   validates :track_count, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :shooting_place_count, numericality: { only_integer: true, greater_than: 0, allow_nil: true }

@@ -69,8 +69,7 @@
   - key = @race.sport.heat_list? ? '.printing_heat_lists_and_numbers' : '.printing_numbers'
   = link_to t(key), official_race_printing_path(@race), class: 'button button--pdf'
   - unless @race.competitors.empty?
-    - club_key = @race.club_level == Race::CLUB_LEVEL_SEURA ? '.download_competitors_by_clubs' : '.download_competitors_by_districts'
-    = link_to t(club_key), official_race_clubs_competitors_path(@race, format: :pdf), class: 'button button--pdf'
+    = link_to t(".download_competitors_by_#{@race.club_level}"), official_race_clubs_competitors_path(@race, format: :pdf), class: 'button button--pdf'
     = link_to t('.download_competitors_by_series'), official_race_competitors_path(@race, format: :pdf), class: 'button button--pdf'
 %h3.desktop= t '.other'
 .buttons

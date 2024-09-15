@@ -81,8 +81,9 @@ fi:
         other: Muita toimintoja
         national_records: Suomen ennätykset
         megalink_import: Megalink-tulokset
-        download_competitors_by_clubs: Lataa osallistujat seuroittain (PDF)
-        download_competitors_by_districts: Lataa osallistujat piireittäin (PDF)
+        download_competitors_by_0: Lataa osallistujat seuroittain (PDF)
+        download_competitors_by_1: Lataa osallistujat piireittäin (PDF)
+        download_competitors_by_2: Lataa osallistujat maittain (PDF)
         download_competitors_by_series: Lataa osallistujat sarjoittain (PDF)
         other_race_formats: Muut kilpailumuodot
         finish_race_text: kun kaikki tulokset on syötetty, jotta oikeat arviomatkat voidaan julkaista.

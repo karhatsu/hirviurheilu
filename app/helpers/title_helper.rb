@@ -33,12 +33,14 @@ module TitleHelper
   def club_title(race)
     return t(:club) if race.club_level == Race::CLUB_LEVEL_SEURA
     return t(:district) if race.club_level == Race::CLUB_LEVEL_PIIRI
+    return t(:country) if race.club_level == Race::CLUB_LEVEL_COUNTRY
     raise "Unknown club level: #{race.club_level}"
   end
 
   def clubs_title(race)
     return t(:clubs) if race.club_level == Race::CLUB_LEVEL_SEURA
     return t(:districts) if race.club_level == Race::CLUB_LEVEL_PIIRI
+    return t(:countries) if race.club_level == Race::CLUB_LEVEL_COUNTRY
     raise "Unknown club level: #{race.club_level}"
   end
 

@@ -53,6 +53,8 @@ fi:
   count_competitors:
     one: 1 kilpailija
     other: "%{count} kilpailijaa"
+  country: Maa
+  countries: Maat
   days:
     one: 1 päivä
     other: "%{count} päivää"

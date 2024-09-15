@@ -28,7 +28,7 @@
   .form__field.form__field--md.row
     .col-xs-12.col-sm-3= f.label :days_count
     .col-xs-12.col-sm-9= f.select :days_count, 7.times.map {|i| [t(:days, count: i + 1), i + 1]}
-  .form__field.form__field--lg.row
+  #level_row.form__field.form__field--lg.row
     .col-xs-12.col-sm-3= f.label :level
     .col-xs-12.col-sm-9= f.select :level, Race::ALL_LEVELS.reverse.map {|level| [t("levels_long.#{level}"), level]}, prompt: true
   .form__field.row
@@ -39,6 +39,8 @@
       = f.label "club_level_#{Race::CLUB_LEVEL_SEURA}", t(:club), class: 'form__label--radio'
       = f.radio_button :club_level, Race::CLUB_LEVEL_PIIRI
       = f.label "club_level_#{Race::CLUB_LEVEL_PIIRI}", t(:district), class: 'form__label--radio'
+      = f.radio_button :club_level, Race::CLUB_LEVEL_COUNTRY, class: 'club_level_country'
+      = f.label "club_level_#{Race::CLUB_LEVEL_COUNTRY}", t(:country), class: 'form__label--radio club_level_country'
   - if @race.sport.start_list?
     .form__field.row
       .col-xs-12.col-sm-3
@@ -260,4 +262,18 @@
       $('#add_series_button').removeClass('button--disabled')
     }
   }
+
+  function showOrHideCountryLevel() {
+    if($("#race_level").val() === '#{Race::LEVEL_INTERNATIONAL}') {
+      $(".club_level_country").show();
+    } else {
+      $(".club_level_country").hide();
+      if($("#race_club_level_" + #{Race::CLUB_LEVEL_COUNTRY} + ":checked")) {
+        $("#race_club_level_" + #{Race::CLUB_LEVEL_SEURA}).prop('checked', true);
+      }
+    }
+  }
+  showOrHideCountryLevel()
+  $('#level_row').on('change', 'select', function() { showOrHideCountryLevel() });
+
 = render :partial => 'shared/help_dialog_opener'

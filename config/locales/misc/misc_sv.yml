@@ -53,6 +53,8 @@ sv:
   count_competitors:
     one: 1 tävlande
     other: "%{count} tävlande"
+  country: Land
+  countries: Länder
   days:
     one: 1 dag
     other: "%{count} dagar"

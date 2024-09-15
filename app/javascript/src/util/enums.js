@@ -2,6 +2,7 @@ export const raceEnums = {
   clubLevel: {
     club: 0,
     district: 1,
+    country: 2,
   },
   level: {
     other: 0,

@@ -81,8 +81,9 @@ sv:
         other: Övriga
         national_records: Finska rekord
         megalink_import: Megalink-resultat
-        download_competitors_by_clubs: Ladda ner tävlande som klubbar (PDF)
-        download_competitors_by_districts: Ladda ner tävlande som distrikt (PDF)
+        download_competitors_by_0: Ladda ner tävlande som klubbar (PDF)
+        download_competitors_by_1: Ladda ner tävlande som distrikt (PDF)
+        download_competitors_by_2: Ladda ner tävlande som länder (PDF)
         download_competitors_by_series: Ladda ner tävlande som klasser (PDF)
         other_race_formats: Andra tävlingar
         finish_race_text: när du har sparat alla resultaten, så att de riktiga avstånden kan publiceras

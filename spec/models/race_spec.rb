@@ -53,7 +53,8 @@ describe Race do
     describe "club_level" do
       it { is_expected.to allow_value(Race::CLUB_LEVEL_SEURA).for(:club_level) }
       it { is_expected.to allow_value(Race::CLUB_LEVEL_PIIRI).for(:club_level) }
-      it { is_expected.not_to allow_value(2).for(:club_level) }
+      it { is_expected.to allow_value(Race::CLUB_LEVEL_COUNTRY).for(:club_level) }
+      it { is_expected.not_to allow_value(3).for(:club_level) }
 
       it "should convert nil to SEURA" do
         race = create(:race, :club_level => nil)

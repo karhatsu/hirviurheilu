@@ -127,6 +127,11 @@ describe TitleHelper do
       expect(helper.club_title(race)).to eq('Seura')
     end
 
+    it "should be 'Maa' when club level such" do
+      race = build(:race, :club_level => Race::CLUB_LEVEL_COUNTRY)
+      expect(helper.club_title(race)).to eq('Maa')
+    end
+
     it 'should throw exception when unknown club level' do
       race = build(:race, :club_level => 100)
       expect { helper.club_title(race) }.to raise_error(RuntimeError)
@@ -142,6 +147,11 @@ describe TitleHelper do
     it "should be 'Seurat' when club level such" do
       race = build(:race, :club_level => Race::CLUB_LEVEL_SEURA)
       expect(helper.clubs_title(race)).to eq('Seurat')
+    end
+
+    it "should be 'Maat' when club level such" do
+      race = build(:race, :club_level => Race::CLUB_LEVEL_COUNTRY)
+      expect(helper.clubs_title(race)).to eq('Maat')
     end
 
     it 'should throw exception when unknown club level' do

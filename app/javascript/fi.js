@@ -37,6 +37,8 @@ window.translations = {
   competitorsCountOne: '1 kilpailija',
   competitorsPerSeries: 'Kilpailijoiden määrä / sarja',
   correctDistances: 'Oikeat etäisyydet',
+  country: 'Maa',
+  countries: 'Maat',
   cupCompetitions: 'Osakilpailut',
   cupHome: 'Cup-kilpailun etusivu',
   cupPointsRule: 'Yhteispisteet lasketaan {{bestCompetitionsCount}} parhaan tuloksen perusteella',
