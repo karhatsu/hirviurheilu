@@ -1,12 +1,13 @@
 import React from 'react'
 import format from 'date-fns/format'
+import ReactMarkdown from 'react-markdown'
 
 export default function Announcement({ announcement }) {
-  const { title, published, content } = announcement
+  const { title, published, markdown } = announcement
   return (
     <div className="announcement">
       <h2>{format(new Date(published), 'dd.MM.yyyy')} - {title}</h2>
-      <div dangerouslySetInnerHTML={{ __html: content }}/>
+      <ReactMarkdown>{markdown}</ReactMarkdown>
     </div>
   )
 }
