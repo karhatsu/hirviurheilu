@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import classnames from 'classnames-minimal'
 import DesktopMenuItem from '../public/menu/DesktopMenuItem'
 import useTranslation from '../util/useTranslation'
@@ -17,11 +17,12 @@ import {
   buildRootPath,
   matchPath,
 } from '../util/routeUtil'
+import { usePathParams } from '../public/PathElementProvider'
 
 export default function MainMenu({ closeMenu, mainMenuOpen, official }) {
   const { t } = useTranslation()
   const { pathname } = useLocation()
-  const { raceId } = useParams()
+  const { raceId } = usePathParams()
   const { race } = useRace()
   const { admin, locale, userId } = useAppData()
 

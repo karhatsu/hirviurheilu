@@ -1,15 +1,16 @@
 import React from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useCup } from '../util/useCup'
 import { useRace } from '../util/useRace'
 import DateInterval from '../util/DateInterval'
 import useTranslation from '../util/useTranslation'
 import { matchPath } from '../util/routeUtil'
+import { usePathParams } from '../public/PathElementProvider'
 
 export default function PageTitle() {
   const { t } = useTranslation()
   const { pathname } = useLocation()
-  const { cupId, raceId } = useParams()
+  const { cupId, raceId } = usePathParams()
   const { race } = useRace()
   const { cup } = useCup()
   if (matchPath(pathname, '/announcements')) return t('announcements')

@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { usePathParams } from '../public/PathElementProvider'
 import { get } from './apiClient'
 
 const CupContext = React.createContext({})
@@ -7,7 +7,7 @@ const CupContext = React.createContext({})
 export const useCup = () => useContext(CupContext)
 
 export const CupProvider = ({ children }) => {
-  const { cupId } = useParams()
+  const { cupId } = usePathParams()
   const [cup, setCup] = useState()
   const [error, setError] = useState()
 

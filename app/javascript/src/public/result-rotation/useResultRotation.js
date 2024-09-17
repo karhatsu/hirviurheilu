@@ -1,7 +1,8 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { buildSeriesResultsPath, buildTeamCompetitionsPath } from '../../util/routeUtil'
 import { useRace } from '../../util/useRace'
+import { usePathParams } from '../PathElementProvider'
 
 const ResultRotationContext = React.createContext({})
 
@@ -11,7 +12,7 @@ const minSeconds = 5
 
 export const ResultRotationProvider = ({ children }) => {
   const navigate = useNavigate()
-  const { seriesId, teamCompetitionId } = useParams()
+  const { seriesId, teamCompetitionId } = usePathParams()
   const [seconds, setSeconds] = useState(15)
   const [seriesIds, setSeriesIds] = useState([])
   const [teamCompetitionIds, setTeamCompetitionIds] = useState([])

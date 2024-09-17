@@ -1,7 +1,7 @@
 import React from 'react'
 import PageTitle from '../common/PageTitle'
 import FacebookShare from './FacebookShare'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import TeamCompetitionResultsPage from './team-competition/TeamCompetitionResultsPage'
 import QualificationRoundHeats from './heats/QualificationRoundHeats'
 import FinalRoundHeats from './heats/FinalRoundHeats'
@@ -30,87 +30,55 @@ import EuropeanShotgunSeriesResultsPage from './european/EuropeanShotgunSeriesRe
 import EuropeanShotgunRaceResultsPage from './european/EuropeanShotgunRaceResultsPage'
 import EuropeanRifleRaceResultsPage from './european/EuropeanRifleRaceResultsPage'
 
-export default function MainContent({ cupSeriesPaths }) {
+export default function MainContent() {
   return (
     <div className="body__yield">
       <div className="body__under-top-title"><PageTitle /></div>
       <FacebookShare />
-      <Switch exact>
-        <Route
-          path="/:lang?/races/:raceId/rifle_team_competitions/:teamCompetitionId"
-          render={() => <TeamCompetitionResultsPage rifle={true} />}
-        />
-        <Route
-          path="/:lang?/races/:raceId/team_competitions/:teamCompetitionId"
-          render={() => <TeamCompetitionResultsPage />}
-        />
-        <Route
-          path="/:lang?/races/:raceId/qualification_round_heats"
-          render={() => <QualificationRoundHeats />}
-        />
-        <Route
-          path="/:lang?/races/:raceId/final_round_heats"
-          render={() => <FinalRoundHeats />}
-        />
-        <Route
-          path="/:lang?/races/:raceId/result_rotation"
-          render={() => <ResultRotationPage />}
-        />
-        <Route
-          path="/:lang?/races/:raceId/series/:seriesId/start_list"
-          render={() => <StartListPage />}
-        />
-        <Route
-          path="/:lang?/races/:raceId/series/:seriesId/rifle"
-          render={() => <EuropeanRifleSeriesResultsPage />}
-        />
-        <Route
-          path="/:lang?/races/:raceId/series/:seriesId/shotguns"
-          render={() => <EuropeanShotgunSeriesResultsPage />}
-        />
-        <Route
-          path="/:lang?/races/:raceId/series/:seriesId/:subSport"
-          render={() => <NordicSubSportResultsPage />}
-        />
-        <Route
-          path="/:lang?/races/:raceId/series/:seriesId"
-          render={() => <SeriesResultsPage />}
-        />
-        <Route
-          path={['/:lang?/races/:raceId/relays/:relayId/legs/:leg', '/:lang?/races/:raceId/relays/:relayId']}
-          render={() => <RelayResultsPage />}
-        />
-        <Route
-          path="/:lang?/races/:raceId/medium/new"
-          render={() => <RaceMediaPage />}
-        />
-        <Route path="/:lang?/races/:raceId/rifle" render={() => <EuropeanRifleRaceResultsPage />} />
-        <Route path="/:lang?/races/:raceId/shotguns" render={() => <EuropeanShotgunRaceResultsPage />} />
-        <Route
-          path="/:lang?/races/:raceId/:subSport"
-          render={() => <NordicSubSportResultsPage />}
-        />
-        <Route path="/:lang?/races/:raceId" render={() => <RacePage />} />
-        <Route path="/:lang?/races" component={RacesPage} />
-        <Route
-          path="/:lang?/cups/:cupId/medium/new"
-          render={() => <CupMediaPage />}
-        />
-        <Route path={cupSeriesPaths} render={() => <CupSeriesPage />} />
-        <Route
-          path="/:lang?/cups/:cupId/cup_team_competitions/:cupTeamCompetitionId"
-          component={CupTeamCompetitionPage}
-        />
-        <Route path="/:lang?/cups/:cupId" render={() => <CupPage />} />
-        <Route path="/:lang?/announcements/:announcementId" component={AnnouncementPage} />
-        <Route path="/:lang?/announcements" component={AnnouncementsPage} />
-        <Route path="/:lang?/info" render={() => <InfoPage />} />
-        <Route path="/:lang?/prices" render={() => <PricesPage />} />
-        <Route path="/:lang?/answers" render={() => <QAndAPage />} />
-        <Route path="/:lang?/sports_info" render={() => <SportsInfoPage />} />
-        <Route path="/:lang?/feedbacks/new" render={() => <FeedbackPage />} />
-        <Route path="/:lang?" component={HomePage} />
-      </Switch>
+      <Routes>
+        <Route path="races/*">
+          <Route path=":raceId/*">
+            <Route path="team_competitions/:teamCompetitionId" element={<TeamCompetitionResultsPage />} />
+            <Route path="qualification_round_heats" element={<QualificationRoundHeats />} />
+            <Route path="final_round_heats" element={<FinalRoundHeats />} />
+            <Route path="result_rotation" element={<ResultRotationPage />} />
+            <Route path="series/:seriesId/start_list" element={<StartListPage />} />
+            <Route path="series/:seriesId/rifle" element={<EuropeanRifleSeriesResultsPage />} />
+            <Route path="series/:seriesId/shotguns" element={<EuropeanShotgunSeriesResultsPage />} />
+            <Route path="series/:seriesId/:subSport" element={<NordicSubSportResultsPage />} />
+            <Route path="series/:seriesId" element={<SeriesResultsPage />} />
+            <Route path="relays/:relayId/legs/:leg" element={<RelayResultsPage />} />
+            <Route path="relays/:relayId" element={<RelayResultsPage />} />
+            <Route path="medium/new" element={<RaceMediaPage />} />
+            <Route path="rifle" element={<EuropeanRifleRaceResultsPage />} />
+            <Route path="shotguns" element={<EuropeanShotgunRaceResultsPage />} />
+            <Route path=":subSport" element={<NordicSubSportResultsPage />} />
+            <Route
+              path="rifle_team_competitions/:teamCompetitionId"
+              element={<TeamCompetitionResultsPage rifle={true} />}
+            />
+            <Route path="" element={<RacePage />} />
+          </Route>
+          <Route path="" element={<RacesPage />} />
+        </Route>
+        <Route path="cups/:cupId/*">
+          <Route path="medium/new" element={<CupMediaPage />} />
+          <Route path="cup_series/:cupSeriesId" element={<CupSeriesPage />} />
+          <Route path="rifle_cup_series/:rifleCupSeriesId" element={<CupSeriesPage />} />
+          <Route path="cup_team_competitions/:cupTeamCompetitionId" element={<CupTeamCompetitionPage />} />
+          <Route path="" element={<CupPage />} />
+        </Route>
+        <Route path="announcements/*">
+          <Route path=":announcementId" element={<AnnouncementPage />} />
+          <Route path="" element={<AnnouncementsPage />} />
+        </Route>
+        <Route path="info" element={<InfoPage />} />
+        <Route path="prices" element={<PricesPage />} />
+        <Route path="answers" element={<QAndAPage />} />
+        <Route path="sports_info" element={<SportsInfoPage />} />
+        <Route path="feedbacks/new" element={<FeedbackPage />} />
+        <Route path="" element={<HomePage />} />
+      </Routes>
     </div>
   )
 }

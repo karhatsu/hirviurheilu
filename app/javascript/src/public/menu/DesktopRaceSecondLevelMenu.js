@@ -14,7 +14,7 @@ import {
   buildTeamCompetitionsPath,
 } from '../../util/routeUtil'
 import useMenu, { pages } from '../../util/useMenu'
-import { useParams } from 'react-router-dom'
+import { usePathParams } from '../PathElementProvider'
 import useTranslation from '../../util/useTranslation'
 import { useResultRotation } from '../result-rotation/useResultRotation'
 import { raceEnums } from '../../util/enums'
@@ -22,7 +22,7 @@ import { raceEnums } from '../../util/enums'
 export default function DesktopRaceSecondLevelMenu({ race }) {
   const { t } = useTranslation()
   const { selectedPage } = useMenu()
-  const { seriesId: urlSeriesId } = useParams()
+  const { seriesId: urlSeriesId } = usePathParams()
   const { started: resultRotationStarted } = useResultRotation()
   const seriesId = urlSeriesId || (race.series.length > 0 && race.series[0].id)
   const international = race.level === raceEnums.level.international
