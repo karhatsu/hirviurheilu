@@ -6,7 +6,7 @@ import DesktopCupSecondLevelMenu from './DesktopCupSecondLevelMenu'
 import { useLocation } from 'react-router-dom'
 import DesktopInfoSecondLevelMenu from './DesktopInfoSecondLevelMenu'
 import { matchPath } from '../../util/routeUtil'
-import { usePathParams } from '../PathElementProvider'
+import { usePathParams } from '../PathParamsProvider'
 
 export default function DesktopSecondLevelMenu() {
   const { cupId, raceId } = usePathParams()

@@ -17,7 +17,7 @@ import {
   buildRootPath,
   matchPath,
 } from '../util/routeUtil'
-import { usePathParams } from '../public/PathElementProvider'
+import { usePathParams } from '../public/PathParamsProvider'
 
 export default function MainMenu({ closeMenu, mainMenuOpen, official }) {
   const { t } = useTranslation()

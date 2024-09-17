@@ -14,7 +14,7 @@ import MainMenu from '../common/MainMenu'
 import Footer from '../common/Footer'
 import useAppData from '../util/useAppData'
 import { RacesPageProvider } from './races/useRacesPage'
-import { PathParamsContextProvider, usePathParams } from './PathElementProvider'
+import { PathParamsContextProvider, usePathParams } from './PathParamsProvider'
 
 function PublicReactApp() {
   const [mainMenuOpen, setMainMenuOpen] = useState(false)

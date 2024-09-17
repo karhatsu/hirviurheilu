@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { buildSeriesResultsPath, buildTeamCompetitionsPath } from '../../util/routeUtil'
 import { useRace } from '../../util/useRace'
-import { usePathParams } from '../PathElementProvider'
+import { usePathParams } from '../PathParamsProvider'
 
 const ResultRotationContext = React.createContext({})
 

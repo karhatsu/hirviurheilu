@@ -14,7 +14,7 @@ import CupDesktopSubMenu from './cup/CupDesktopSubMenu'
 import CupTeamCompetitionsDesktopSubMenu from './cup/CupTeamCompetitionsDesktopSubMenu'
 import { useRace } from '../util/useRace'
 import { useCup } from '../util/useCup'
-import { usePathParams } from './PathElementProvider'
+import { usePathParams } from './PathParamsProvider'
 
 export default function DesktopSubMenu() {
   const {

@@ -8,7 +8,7 @@ import { RaceProvider } from '../util/useRace'
 import DesktopRaceSecondLevelMenu from './menu/DesktopRaceSecondLevelMenu'
 import OfficialMainContent from './OfficialMainContent'
 import { OfficialMenuProvider } from './menu/useOfficialMenu'
-import { PathParamsContextProvider } from '../public/PathElementProvider'
+import { PathParamsContextProvider } from '../public/PathParamsProvider'
 
 const OfficialReactApp = () => {
   const [mainMenuOpen, setMainMenuOpen] = useState(false)

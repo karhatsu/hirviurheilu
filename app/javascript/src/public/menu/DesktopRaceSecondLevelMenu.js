@@ -14,7 +14,7 @@ import {
   buildTeamCompetitionsPath,
 } from '../../util/routeUtil'
 import useMenu, { pages } from '../../util/useMenu'
-import { usePathParams } from '../PathElementProvider'
+import { usePathParams } from '../PathParamsProvider'
 import useTranslation from '../../util/useTranslation'
 import { useResultRotation } from '../result-rotation/useResultRotation'
 import { raceEnums } from '../../util/enums'

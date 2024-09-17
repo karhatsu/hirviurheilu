@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { usePathParams } from '../public/PathElementProvider'
+import { usePathParams } from '../public/PathParamsProvider'
 import { get } from './apiClient'
 
 const CupContext = React.createContext({})

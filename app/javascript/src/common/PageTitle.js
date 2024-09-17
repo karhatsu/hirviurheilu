@@ -5,7 +5,7 @@ import { useRace } from '../util/useRace'
 import DateInterval from '../util/DateInterval'
 import useTranslation from '../util/useTranslation'
 import { matchPath } from '../util/routeUtil'
-import { usePathParams } from '../public/PathElementProvider'
+import { usePathParams } from '../public/PathParamsProvider'
 
 export default function PageTitle() {
   const { t } = useTranslation()
