@@ -1,5 +1,4 @@
 import React, { StrictMode, useCallback, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import { RaceProvider } from '../util/useRace'
 import { LayoutProvider } from '../util/useLayout'
 import { MenuProvider } from '../util/useMenu'
@@ -15,16 +14,12 @@ import MainMenu from '../common/MainMenu'
 import Footer from '../common/Footer'
 import useAppData from '../util/useAppData'
 import { RacesPageProvider } from './races/useRacesPage'
-
-const cupSeriesPaths = [
-  '/:lang?/cups/:cupId/cup_series/:cupSeriesId',
-  '/:lang?/cups/:cupId/rifle_cup_series/:rifleCupSeriesId',
-]
+import { PathParamsContextProvider, usePathParams } from './PathParamsProvider'
 
 function PublicReactApp() {
   const [mainMenuOpen, setMainMenuOpen] = useState(false)
   const { noNav } = useAppData()
-  const { raceId } = useParams()
+  const { raceId } = usePathParams()
   const toggleMainMenu = useCallback(() => setMainMenuOpen(open => !open), [])
   const closeMainMenu = useCallback(() => setMainMenuOpen(false), [])
   return (
@@ -35,8 +30,8 @@ function PublicReactApp() {
         <div className="body__on-top-title"><PageTitle /></div>
         <div className="body__content">
           {!noNav && <DesktopSecondLevelMenu />}
-          {!noNav && <DesktopSubMenu cupSeriesPaths={cupSeriesPaths} />}
-          <MainContent cupSeriesPaths={cupSeriesPaths} />
+          {!noNav && <DesktopSubMenu />}
+          <MainContent />
         </div>
       </div>
       {!noNav && <Footer />}
@@ -51,13 +46,15 @@ const PublicReactAppContainer = () => {
         <MenuProvider>
           <HomePageProvider>
             <RacesPageProvider>
-              <RaceProvider>
-                <CupProvider>
-                  <ResultRotationProvider>
-                    <PublicReactApp />
-                  </ResultRotationProvider>
-                </CupProvider>
-              </RaceProvider>
+              <PathParamsContextProvider>
+                <RaceProvider>
+                  <CupProvider>
+                    <ResultRotationProvider>
+                      <PublicReactApp />
+                    </ResultRotationProvider>
+                  </CupProvider>
+                </RaceProvider>
+              </PathParamsContextProvider>
             </RacesPageProvider>
           </HomePageProvider>
         </MenuProvider>

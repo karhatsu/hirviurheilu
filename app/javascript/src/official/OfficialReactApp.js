@@ -8,6 +8,7 @@ import { RaceProvider } from '../util/useRace'
 import DesktopRaceSecondLevelMenu from './menu/DesktopRaceSecondLevelMenu'
 import OfficialMainContent from './OfficialMainContent'
 import { OfficialMenuProvider } from './menu/useOfficialMenu'
+import { PathParamsContextProvider } from '../public/PathParamsProvider'
 
 const OfficialReactApp = () => {
   const [mainMenuOpen, setMainMenuOpen] = useState(false)
@@ -41,11 +42,13 @@ const OfficialReactApp = () => {
 
 const OfficialReactAppContainer = () => (
   <LayoutProvider>
-    <RaceProvider>
-      <OfficialMenuProvider>
-        <OfficialReactApp />
-      </OfficialMenuProvider>
-    </RaceProvider>
+    <PathParamsContextProvider>
+      <RaceProvider>
+        <OfficialMenuProvider>
+          <OfficialReactApp />
+        </OfficialMenuProvider>
+      </RaceProvider>
+    </PathParamsContextProvider>
   </LayoutProvider>
 )
 

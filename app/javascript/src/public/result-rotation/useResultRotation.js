@@ -1,7 +1,8 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { buildSeriesResultsPath, buildTeamCompetitionsPath } from '../../util/routeUtil'
 import { useRace } from '../../util/useRace'
+import { usePathParams } from '../PathParamsProvider'
 
 const ResultRotationContext = React.createContext({})
 
@@ -10,8 +11,8 @@ export const useResultRotation = () => useContext(ResultRotationContext)
 const minSeconds = 5
 
 export const ResultRotationProvider = ({ children }) => {
-  const history = useHistory()
-  const { seriesId, teamCompetitionId } = useParams()
+  const navigate = useNavigate()
+  const { seriesId, teamCompetitionId } = usePathParams()
   const [seconds, setSeconds] = useState(15)
   const [seriesIds, setSeriesIds] = useState([])
   const [teamCompetitionIds, setTeamCompetitionIds] = useState([])
@@ -42,8 +43,8 @@ export const ResultRotationProvider = ({ children }) => {
     const path = seriesIds.length
       ? buildSeriesResultsPath(race.id, seriesIds[0])
       : buildTeamCompetitionsPath(race.id, teamCompetitionIds[0])
-    history.push(path)
-  }, [race, seriesIds, teamCompetitionIds, history])
+    navigate(path)
+  }, [race, seriesIds, teamCompetitionIds, navigate])
 
   const stop = useCallback(() => {
     setSeriesIds([])
@@ -77,7 +78,7 @@ export const ResultRotationProvider = ({ children }) => {
           setRemainingSeconds(secs => Math.max(0, secs - 1))
         }, 1000)
         timeout = setTimeout(() => {
-          history.push(nextPath)
+          navigate(nextPath)
         }, seconds * 1000)
       } else {
         setRemainingSeconds(undefined)
@@ -87,7 +88,7 @@ export const ResultRotationProvider = ({ children }) => {
       clearTimeout(timeout)
       clearInterval(interval)
     }
-  }, [resolveNextPath, started, seconds, history])
+  }, [resolveNextPath, started, seconds, navigate])
 
   const value = {
     changeSeconds,

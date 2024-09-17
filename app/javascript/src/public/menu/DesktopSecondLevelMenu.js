@@ -3,12 +3,13 @@ import { useRace } from '../../util/useRace'
 import DesktopRaceSecondLevelMenu from './DesktopRaceSecondLevelMenu'
 import { useCup } from '../../util/useCup'
 import DesktopCupSecondLevelMenu from './DesktopCupSecondLevelMenu'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import DesktopInfoSecondLevelMenu from './DesktopInfoSecondLevelMenu'
 import { matchPath } from '../../util/routeUtil'
+import { usePathParams } from '../PathParamsProvider'
 
 export default function DesktopSecondLevelMenu() {
-  const { cupId, raceId } = useParams()
+  const { cupId, raceId } = usePathParams()
   const { race } = useRace()
   const { cup } = useCup()
   const { pathname } = useLocation()

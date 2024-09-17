@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch, useParams } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import SeriesDesktopSubMenu from './menu/SeriesDesktopSubMenu'
 import {
   buildNordicSeriesResultsPath,
@@ -14,51 +14,104 @@ import CupDesktopSubMenu from './cup/CupDesktopSubMenu'
 import CupTeamCompetitionsDesktopSubMenu from './cup/CupTeamCompetitionsDesktopSubMenu'
 import { useRace } from '../util/useRace'
 import { useCup } from '../util/useCup'
+import { usePathParams } from './PathParamsProvider'
 
-export default function DesktopSubMenu({ cupSeriesPaths }) {
-  const { relayId, seriesId, teamCompetitionId, cupSeriesId, cupTeamCompetitionId, rifleCupSeriesId } = useParams()
+export default function DesktopSubMenu() {
+  const {
+    relayId,
+    seriesId,
+    teamCompetitionId,
+    cupSeriesId,
+    cupTeamCompetitionId,
+    rifleCupSeriesId,
+  } = usePathParams()
   const { race } = useRace()
   const { cup } = useCup()
   return (
-    <Switch>
-      <Route path="/:lang?/races/:raceId/series/:seriesId/start_list">
-        <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesPath={buildSeriesStartListPath} />
-      </Route>
-      <Route path="/:lang?/races/:raceId/series/:seriesId/rifle">
-        <SeriesDesktopSubMenu
-          race={race}
-          currentSeriesId={seriesId}
-          buildSeriesPath={buildSeriesRifleResultsPath}
+    <Routes>
+      <Route path="races/:raceId/*">
+        <Route
+          path="series/:seriesId/start_list"
+          element={<SeriesDesktopSubMenu
+            race={race}
+            currentSeriesId={seriesId}
+            buildSeriesPath={buildSeriesStartListPath}
+          />}
+        />
+        <Route
+          path="series/:seriesId/rifle"
+          element={<SeriesDesktopSubMenu
+            race={race}
+            currentSeriesId={seriesId}
+            buildSeriesPath={buildSeriesRifleResultsPath}
+          />}
+        />
+        <Route
+          path="series/:seriesId/shotguns"
+          element={<SeriesDesktopSubMenu
+            race={race}
+            currentSeriesId={seriesId}
+            buildSeriesPath={buildSeriesShotgunsResultsPath}
+          />}
+        />
+        <Route
+          path="series/:seriesId/:subSport"
+          element={<SeriesDesktopSubMenu
+            race={race}
+            currentSeriesId={seriesId}
+            buildSeriesPath={buildNordicSeriesResultsPath}
+          />}
+        />
+        <Route
+          path="series/:seriesId"
+          element={<SeriesDesktopSubMenu
+            race={race}
+            currentSeriesId={seriesId}
+            buildSeriesPath={buildSeriesResultsPath}
+          />}
+        />
+        <Route
+          path="rifle_team_competitions/:teamCompetitionId"
+          element={<TeamCompetitionDesktopSubMenu
+            race={race}
+            currentTeamCompetitionId={teamCompetitionId}
+            rifle={true}
+          />}
+        />
+        <Route
+          path="team_competitions/:teamCompetitionId"
+          element={<TeamCompetitionDesktopSubMenu race={race} currentTeamCompetitionId={teamCompetitionId} />}
+        />
+        <Route
+          path="relays/:relaysId"
+          element={<RelayDesktopSubMenu race={race} currentRelayId={relayId} />}
         />
       </Route>
-      <Route path="/:lang?/races/:raceId/series/:seriesId/shotguns">
-        <SeriesDesktopSubMenu
-          race={race}
-          currentSeriesId={seriesId}
-          buildSeriesPath={buildSeriesShotgunsResultsPath}
+      <Route path="cups/:cupId/*">
+        <Route
+          path="cup_series/:cupSeriesId"
+          element={<CupDesktopSubMenu
+            cup={cup}
+            currentCupSeriesId={cupSeriesId}
+            currentRifleCupSeriesId={rifleCupSeriesId}
+          />}
+        />
+        <Route
+          path="rifle_cup_series/:cupSeriesId"
+          element={<CupDesktopSubMenu
+            cup={cup}
+            currentCupSeriesId={cupSeriesId}
+            currentRifleCupSeriesId={rifleCupSeriesId}
+          />}
+        />
+        <Route
+          path="cup_team_competitions/:cupTeamCompetitionId"
+          element={<CupTeamCompetitionsDesktopSubMenu
+            cup={cup}
+            currentCupTeamCompetitionId={cupTeamCompetitionId}
+          />}
         />
       </Route>
-      <Route path="/:lang?/races/:raceId/series/:seriesId/:subSport">
-        <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesPath={buildNordicSeriesResultsPath} />
-      </Route>
-      <Route path="/:lang?/races/:raceId/series/:seriesId">
-        <SeriesDesktopSubMenu race={race} currentSeriesId={seriesId} buildSeriesPath={buildSeriesResultsPath} />
-      </Route>
-      <Route path="/:lang?/races/:raceId/rifle_team_competitions/:teamCompetitionId">
-        <TeamCompetitionDesktopSubMenu race={race} currentTeamCompetitionId={teamCompetitionId} rifle={true} />
-      </Route>
-      <Route path="/:lang?/races/:raceId/team_competitions/:teamCompetitionId">
-        <TeamCompetitionDesktopSubMenu race={race} currentTeamCompetitionId={teamCompetitionId} />
-      </Route>
-      <Route path="/:lang?/races/:raceId/relays/:relaysId">
-        <RelayDesktopSubMenu race={race} currentRelayId={relayId} />
-      </Route>
-      <Route path={cupSeriesPaths}>
-        <CupDesktopSubMenu cup={cup} currentCupSeriesId={cupSeriesId} currentRifleCupSeriesId={rifleCupSeriesId} />
-      </Route>
-      <Route path="/:lang?/cups/:cupId/cup_team_competitions/:cupTeamCompetitionId">
-        <CupTeamCompetitionsDesktopSubMenu cup={cup} currentCupTeamCompetitionId={cupTeamCompetitionId} />
-      </Route>
-    </Switch>
+    </Routes>
   )
 }
