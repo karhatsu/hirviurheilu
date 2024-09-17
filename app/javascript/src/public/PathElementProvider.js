@@ -7,6 +7,7 @@ export const usePathParams = () => useContext(PathElementsContext)
 
 export const PathParamsContextProvider = ({ children }) => {
   const raceMatch = useMatch('/races/:raceId/*')
+  const officialRaceMatch = useMatch('/official/races/:raceId/*')
   const seriesMatch = useMatch('/races/:raceId/series/:seriesId/*')
   const teamCompetitionMatch = useMatch('/races/:raceId/team_competitions/:teamCompetitionId/*')
   const rifleTeamCompetitionMatch = useMatch('/races/:raceId/rifle_team_competitions/:teamCompetitionId/*')
@@ -16,7 +17,7 @@ export const PathParamsContextProvider = ({ children }) => {
   const rifleCupSeriesMatch = useMatch('/cups/:cupId/cup_series/:rifleCupSeriesId/*')
   const cupTeamCompetitionMatch = useMatch('/cups/:cupId/cup_team_competitions/:cupTeamCompetitionId/*')
   const value = useMemo(() => ({
-    raceId: raceMatch?.params.raceId,
+    raceId: raceMatch?.params.raceId || officialRaceMatch?.params.raceId,
     seriesId: seriesMatch?.params.seriesId,
     teamCompetitionId: teamCompetitionMatch?.params.teamCompetitionId ||
       rifleTeamCompetitionMatch?.params.teamCompetitionId,
@@ -27,6 +28,7 @@ export const PathParamsContextProvider = ({ children }) => {
     cupTeamCompetitionId: cupTeamCompetitionMatch?.params.cupTeamCompetitionId,
   }), [
     raceMatch,
+    officialRaceMatch,
     seriesMatch,
     teamCompetitionMatch,
     rifleTeamCompetitionMatch,
