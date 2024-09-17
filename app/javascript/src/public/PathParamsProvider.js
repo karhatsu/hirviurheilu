@@ -14,7 +14,7 @@ export const PathParamsContextProvider = ({ children }) => {
   const relayMatch = useMatch('/races/:raceId/relays/:relayId/*')
   const cupMatch = useMatch('/cups/:cupId/*')
   const cupSeriesMatch = useMatch('/cups/:cupId/cup_series/:cupSeriesId/*')
-  const rifleCupSeriesMatch = useMatch('/cups/:cupId/cup_series/:rifleCupSeriesId/*')
+  const rifleCupSeriesMatch = useMatch('/cups/:cupId/rifle_cup_series/:rifleCupSeriesId/*')
   const cupTeamCompetitionMatch = useMatch('/cups/:cupId/cup_team_competitions/:cupTeamCompetitionId/*')
   const value = useMemo(() => ({
     raceId: raceMatch?.params.raceId || officialRaceMatch?.params.raceId,
