@@ -7,7 +7,10 @@ class EuropeanRiflesController < ApplicationController
     respond_to do |format|
       format.html { render layout: true, html: '' }
       format.pdf {
-        assign_race_with_optional_series
+        @race = Race.where(id: params[:race_id]).first
+        return render status: 404, body: nil unless @race
+        @series = @race.series.where(id: params[:series_id]).first if params[:series_id]
+        return render status: 404, body: nil if params[:series_id] && !@series
         file_name = @series ? "#{@series.race.name}-#{@series.name}-luodikko-tulokset" : "#{@race.name}-luodikko-tulokset"
         title = @series ? "#{@series.race.name} - #{@series.name} - #{I18n.t('sport_name.european_sub.rifle')}" : "#{@race.name} - #{I18n.t('sport_name.european_sub.rifle')}"
         @competitors = @series ? @series.european_rifle_results : @race.european_rifle_results
