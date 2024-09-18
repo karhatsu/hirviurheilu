@@ -45,7 +45,7 @@ const OfficialsPage = () => {
 
   const addRights = useCallback(data => {
     const raceRight = { onlyAddCompetitors: data.onlyAddCompetitors, newClubs: data.newClubs, clubId: data.clubId }
-    const body = { email: data.email, raceRight }
+    const body = { email: data.email, race_right: raceRight }
     post(withLocale(`/official/races/${race.id}/race_rights.json`), body, (errors, response) => {
       if (errors) {
         setFormErrors(errors)
@@ -70,7 +70,7 @@ const OfficialsPage = () => {
 
   const updateRights = useCallback(data => {
     const raceRight = { onlyAddCompetitors: data.onlyAddCompetitors, newClubs: data.newClubs, clubId: data.clubId }
-    const body = { email: data.email, raceRight }
+    const body = { email: data.email, race_right: raceRight }
     put(withLocale(`/official/races/${race.id}/race_rights/${data.id}.json`), body, (errors, response) => {
       if (errors) {
         setFormErrors(errors)

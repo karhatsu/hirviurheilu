@@ -17,8 +17,7 @@ class CorrectEstimate < ApplicationRecord
   validate :overlapping_numbers
 
   def self.for_number_in_race(number, race)
-    where(['race_id=? and min_number<=? and (max_number>=? or max_number is ?)',
-        race.id, number, number, nil]).first
+    where(['race_id=? and min_number<=? and (max_number>=? or max_number is null)', race.id, number, number]).first
   end
 
   def distances
