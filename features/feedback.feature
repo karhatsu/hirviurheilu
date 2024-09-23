@@ -103,8 +103,8 @@ Feature: Feedback
     When I fill in the following:
       | Palaute    | Hyvä järjestelmä! |
       | Nimi       | |
-      | Sähköposti | |
       | captcha    | fyra |
+    And I fill in " " for "Sähköposti"
     And I press "Lähetä"
     Then I should see "Kiitos palautteesta"
     And the admin should receive an email
