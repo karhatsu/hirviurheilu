@@ -31,7 +31,7 @@ export default function InfoPage() {
               <div className="card__name">Hirviurheilu-koulutus</div>
               <div className="card__middle-row">
                 Suomen Metsästäjäliitto järjesti kattavan koulutuksen Hirviurheilun käytöstä maaliskuussa 2023.
-                Voit joko katsoa videolta koulutuksen kokonaisuudessaan tai tutustua siinä käytetyn materiaalin.
+                Voit joko katsoa videolta koulutuksen kokonaisuudessaan tai tutustua siinä käytettyyn materiaalin.
               </div>
             </div>
           </a>
