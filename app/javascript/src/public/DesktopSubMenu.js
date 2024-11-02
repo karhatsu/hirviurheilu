@@ -29,7 +29,7 @@ export default function DesktopSubMenu() {
   const { cup } = useCup()
   return (
     <Routes>
-      <Route path="races/:raceId/*">
+      <Route path="races/:raceId/*" element={null}>
         <Route
           path="series/:seriesId/start_list"
           element={<SeriesDesktopSubMenu
@@ -87,7 +87,7 @@ export default function DesktopSubMenu() {
           element={<RelayDesktopSubMenu race={race} currentRelayId={relayId} />}
         />
       </Route>
-      <Route path="cups/:cupId/*">
+      <Route path="cups/:cupId/*" element={null}>
         <Route
           path="cup_series/:cupSeriesId"
           element={<CupDesktopSubMenu

@@ -5,15 +5,15 @@
     "build": "node esbuild.js"
   },
   "dependencies": {
-    "@rails/actioncable": "^7.1.3",
+    "@rails/actioncable": "^7.1.500",
     "classnames-minimal": "^1.0.1",
-    "date-fns": "^3.6.0",
-    "esbuild": "^0.21.5",
+    "date-fns": "^4.1.0",
+    "esbuild": "^0.24.0",
     "lodash.debounce": "^4.0.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.1",
-    "react-router-dom": "^6.26.2"
+    "react-router-dom": "^6.27.0"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.2",
