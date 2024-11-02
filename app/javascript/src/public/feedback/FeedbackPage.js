@@ -22,7 +22,6 @@ export default function FeedbackPage() {
   useEffect(() => setSelectedPage(pages.info.feedback), [setSelectedPage])
   useTitle(t('sendFeedback'))
   useEffect(() => {
-    // eslint-disable-next-line n/handle-callback-err
     get('/api/v2/public/recent_races', (err, data) => {
       if (data?.races) {
         setRaces(data.races)

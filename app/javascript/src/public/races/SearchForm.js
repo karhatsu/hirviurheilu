@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import debounce from 'lodash.debounce'
 import useTranslation from '../../util/useTranslation'
@@ -25,8 +25,13 @@ const buildURLSearchParams = searchParams => {
 }
 
 function useDebounce(callback, delay) {
-  // eslint-disable-next-line react-hooks/exhaustive-deps, n/no-callback-literal
-  return useCallback(debounce((...args) => callback(...args), delay), [delay])
+  const callbackRef = useRef(callback)
+
+  useEffect(() => {
+    callbackRef.current = callback
+  }, [callback])
+
+  return useRef(debounce((...args) => callbackRef.current(...args), delay)).current
 }
 
 export default function SearchForm() {
