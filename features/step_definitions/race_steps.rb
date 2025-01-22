@@ -179,6 +179,10 @@ When('I click the reset button') do
   page.find(:css, '#reset').click
 end
 
+When('I select the current year from {string}') do |field|
+  select(Date.today.year, :from => field)
+end
+
 Then /^the page should not contain the remove race button$/ do
   page.should have_no_button('Poista kilpailu')
 end

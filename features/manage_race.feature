@@ -25,7 +25,7 @@ Feature: Manage race
     And I choose "Pääsääntöisesti sarjoittain"
     And I select "13" from "race_start_date_3i"
     And I select "heinäkuu" from "race_start_date_2i"
-    And I select "2023" from "race_start_date_1i"
+    And I select the current year from "race_start_date_1i"
     And I press "Lisää kilpailu"
     Then I should be on the race edit page of "Test race"
     And the page title should contain "Test race"
