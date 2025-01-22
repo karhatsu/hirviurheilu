@@ -2,8 +2,8 @@ module EstimatesHelper
   def print_estimate_diff(diff)
     return '-' if diff.nil?
     d = ''
-    d << '+' if diff > 0
-    d << "#{diff}"
+    d += '+' if diff > 0
+    d += "#{diff}"
   end
 
   def estimate_diffs(competitor)
@@ -14,13 +14,13 @@ module EstimatesHelper
       return '' if competitor.estimate1.nil? and competitor.estimate2.nil?
     end
     diffs = estimate_diff_with_sign_and_symbol(competitor.estimate_diff1_m)
-    diffs << '/'
-    diffs << estimate_diff_with_sign_and_symbol(competitor.estimate_diff2_m)
+    diffs += '/'
+    diffs += estimate_diff_with_sign_and_symbol(competitor.estimate_diff2_m)
     if competitor.series.estimates == 4
-      diffs << '/'
-      diffs << estimate_diff_with_sign_and_symbol(competitor.estimate_diff3_m)
-      diffs << '/'
-      diffs << estimate_diff_with_sign_and_symbol(competitor.estimate_diff4_m)
+      diffs += '/'
+      diffs += estimate_diff_with_sign_and_symbol(competitor.estimate_diff3_m)
+      diffs += '/'
+      diffs += estimate_diff_with_sign_and_symbol(competitor.estimate_diff4_m)
     end
     diffs
   end

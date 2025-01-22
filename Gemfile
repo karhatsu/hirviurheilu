@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '3.3.6'
+ruby '3.4.1'
 
-gem 'rails', '7.2.2'
+gem 'rails', '8.0.1'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-themes'
@@ -39,6 +39,7 @@ end
 group :test do
   gem 'minitest'
   gem 'capybara'
+  gem 'cucumber', github: 'cucumber/cucumber-ruby', branch: 'main'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'email_spec'

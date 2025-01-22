@@ -7,7 +7,7 @@ module TimeFormatHelper
                      nil_result='', to_local_zone=false)
     return nil_result if datetime.nil?
     t = date_print(datetime)
-    t << " #{time_print(datetime, seconds, nil_result, to_local_zone)}" if hours_and_minutes
+    t += " #{time_print(datetime, seconds, nil_result, to_local_zone)}" if hours_and_minutes
     t
   end
 
@@ -39,9 +39,9 @@ module TimeFormatHelper
     h = seconds.to_i / 3600
     min = (seconds.to_i - h * 3600) / 60
     sec = seconds.to_i % 60
-    time << (h >= 1 ? "#{h}:" : '')
-    time << "#{min < 10 ? '0' : ''}#{min}:"
-    time << "#{sec < 10 ? '0' : ''}#{sec}"
+    time += (h >= 1 ? "#{h}:" : '')
+    time += "#{min < 10 ? '0' : ''}#{min}:"
+    time + "#{sec < 10 ? '0' : ''}#{sec}"
   end
 
   def race_date_interval(race, time_tag=true)
@@ -50,11 +50,11 @@ module TimeFormatHelper
 
   def date_interval(start_date, end_date, time_tag=true)
     interval = ''
-    interval << "<time itemprop='startDate' datetime='#{start_date.strftime('%Y-%m-%d')}'>" if time_tag
-    interval << start_date.strftime('%d.%m.%Y')
-    interval << '</time>' if time_tag
+    interval += "<time itemprop='startDate' datetime='#{start_date.strftime('%Y-%m-%d')}'>" if time_tag
+    interval += start_date.strftime('%d.%m.%Y')
+    interval += '</time>' if time_tag
     unless end_date.nil? or start_date == end_date
-      interval << " - #{end_date.strftime('%d.%m.%Y')}"
+      interval += " - #{end_date.strftime('%d.%m.%Y')}"
     end
     raw interval
   end

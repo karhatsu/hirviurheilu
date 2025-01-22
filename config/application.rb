@@ -43,6 +43,8 @@ module Hirviurheilu
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'Helsinki'
 
+    config.active_support.to_time_preserves_timezone = :zone
+
     config.active_record.time_zone_aware_types = [:datetime]
 
     config.i18n.enforce_available_locales = true
