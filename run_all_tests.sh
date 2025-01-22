@@ -12,7 +12,7 @@ then
   else
     echo "No need to run RSpec."
   fi
-  cucumber --format progress features
+  bundle exec cucumber --format progress features
   git rev-list --max-count=1 HEAD > STABLE_COMMIT
 else
   echo "No need to run tests."
