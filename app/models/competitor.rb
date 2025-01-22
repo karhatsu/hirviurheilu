@@ -609,7 +609,7 @@ class Competitor < ApplicationRecord
   def unique_number
     if series && number
       condition = "number = #{number}"
-      condition << " and competitors.id <> #{id}" if id
+      condition += " and competitors.id <> #{id}" if id
       errors.add(:number, :is_in_use) if series.race.competitors.where(condition).length > 0
     end
   end
@@ -617,7 +617,7 @@ class Competitor < ApplicationRecord
   def unique_name
     return unless series
     condition = "first_name=? and last_name=?"
-    condition << " and id<>#{id}" if id
+    condition += " and id<>#{id}" if id
     if series.competitors.where(condition, first_name, last_name).length > 0
       errors.add(:base, :another_competitor_with_same_name_in_series)
     end

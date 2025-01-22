@@ -15,9 +15,9 @@ module ResultFormatHelper
     return '-' if competitor.time_in_seconds.nil?
     points = competitor.time_points(unofficials_rule)
     html = (points == 300 ? "<span class='series-best-time'>" : '')
-    html << points.to_s
-    html << " (#{time_from_seconds(competitor.time_in_seconds)})" if with_time
-    html << (points == 300 ? '</span>' : '')
+    html += points.to_s
+    html += " (#{time_from_seconds(competitor.time_in_seconds)})" if with_time
+    html += (points == 300 ? '</span>' : '')
     raw(html)
   end
 
@@ -25,11 +25,10 @@ module ResultFormatHelper
     return '' if competitor.no_result_reason
     return '-' if competitor.shooting_score.nil?
     points = "#{competitor.shooting_points.to_s} (#{competitor.shooting_score}"
-    points << "-#{competitor.shooting_overtime_penalty}" if competitor.shooting_overtime_penalty
-    points << "-#{competitor.shooting_rules_penalty}" if competitor.shooting_rules_penalty
-    points << " / #{competitor.shots.join(', ')}" if individual_shots && competitor.shots
-    points << ')'
-    points
+    points += "-#{competitor.shooting_overtime_penalty}" if competitor.shooting_overtime_penalty
+    points += "-#{competitor.shooting_rules_penalty}" if competitor.shooting_rules_penalty
+    points += " / #{competitor.shots.join(', ')}" if individual_shots && competitor.shots
+    points + ')'
   end
 
   def shooting_score_print(competitor)
@@ -57,7 +56,7 @@ module ResultFormatHelper
       return ''
     end
     unless competitor_or_team.race.finished? || (competitor_or_team.respond_to?(:series) && competitor_or_team.series.finished?)
-      tag << '?'
+      tag += '?'
     end
     return tag if raw
     raw("<span class='explanation'><a href=\"#{NATIONAL_RECORD_URL}\">#{tag}</a></span>")
@@ -71,7 +70,7 @@ module ResultFormatHelper
     else
       return ''
     end
-    tag << '?' unless competitor.race.finished?
+    tag += '?' unless competitor.race.finished?
     return tag if raw
     raw("<span class='explanation'><a href=\"#{NATIONAL_RECORD_URL}\">#{tag}</a></span>")
   end
