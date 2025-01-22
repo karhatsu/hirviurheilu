@@ -116,8 +116,11 @@ describe CompetitorResults do
       let(:total_score) { 185 }
       let(:hits) { 19 }
       let(:final_round_score) { 97 }
-      let(:second_qualification_round_sub_score) { 42 }
-      let(:qualification_round_sub_scores) { [39, second_qualification_round_sub_score] }
+      let(:qr_sub_score_1) { 40 }
+      let(:qr_sub_score_2) { 40 }
+      let(:qr_sub_score_3) { 38 }
+      let(:qr_sub_score_4) { 39 }
+      let(:qualification_round_sub_scores) { [qr_sub_score_1, qr_sub_score_2, qr_sub_score_3, qr_sub_score_4] }
       let(:shots) { [2, 9, 10, 11, 6, 0, 1, 10, 10, 1] }
       let(:extra_shots) { [8, 11, 10, 6] }
 
@@ -159,8 +162,8 @@ describe CompetitorResults do
           allow(competitor).to receive(:extra_shots).and_return(nil)
         end
 
-        it 'returns array of total score, zeros for extra shots, hits, 0, second qualification round score, count of different shots (11 as 10), and shots in reverse order' do
-          expected = [total_score, 0, 0, 0, 0, 0, 0, hits, 0, second_qualification_round_sub_score, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
+        it 'returns array of total score, zeros for extra shots, hits, 0, qualification round sub scores in reverse order, count of different shots (11 as 10), and shots in reverse order' do
+          expected = [total_score, 0, 0, 0, 0, 0, 0, hits, 0, qr_sub_score_4, qr_sub_score_3, qr_sub_score_2, qr_sub_score_1, 4, 1, 0, 0, 1, 0, 0, 0, 1, 2] + shots.reverse
           expect(competitor.shooting_race_results(competitors)).to eql expected
         end
       end

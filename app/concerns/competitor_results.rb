@@ -16,7 +16,11 @@ module CompetitorResults
     return results if results
     max_extra_shots = competitors.map {|competitor| competitor.extra_shots&.length.to_i }.max || 0
     results = [total_score.to_i] + extra_round_filled_shots(max_extra_shots) + [hits.to_i, final_round_score.to_i]
-    results << (final_round_score || qualification_round_sub_scores.nil? ? 0 : qualification_round_sub_scores[1].to_i)
+    if final_round_score || qualification_round_sub_scores.nil?
+      results << 0
+    else
+      results += qualification_round_sub_scores.reverse
+    end
     results + shot_counts_desc(shots) + reverse_shots(shots)
   end
 
