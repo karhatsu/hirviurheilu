@@ -16,6 +16,7 @@ class MediaController < ApplicationController
   end
 
   def show
+    return redirect_to new_race_medium_path(@race) if params[:race_id]
     @cup = Cup.where(id: params[:cup_id]).includes([:cup_series, races: [series: [competitors: [:age_group, :club, :series]]]]).first if params[:cup_id]
   end
 
