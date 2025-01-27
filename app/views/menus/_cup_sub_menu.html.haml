@@ -7,4 +7,4 @@
     - if @cup.has_rifle?
       = menu_item t('cup_sub_menu.rifle'), cup_rifle_cup_series_path(@cup, menu_cup_series), @is_rifle_cup_series, nil, true do
         - cup_series_dropdown_menu(@cup, true)
-    = menu_item t('cup_sub_menu.press'), new_cup_medium_path(@cup), @is_media
+    = menu_item t('cup_sub_menu.press'), cup_press_path(@cup), false

@@ -46,7 +46,7 @@ export const buildFinalRoundHeatsPath = raceId => withLocale(`/races/${raceId}/f
 
 export const buildResultRotationPath = raceId => withLocale(`/races/${raceId}/result_rotation`)
 
-export const buildRaceMediaPath = raceId => withLocale(`/races/${raceId}/medium/new`)
+export const buildRacePressPath = raceId => withLocale(`/races/${raceId}/press`)
 
 export const buildCupPath = cupId => withLocale(`/cups/${cupId}`)
 
@@ -56,7 +56,7 @@ export const buildRifleCupSeriesPath = (cupId, cupSeriesId) => withLocale(`/cups
 
 export const buildCupTeamCompetitionsPath = (cupId, cupTeamCompetitionId) => withLocale(`/cups/${cupId}/cup_team_competitions/${cupTeamCompetitionId}`)
 
-export const buildCupMediaPath = cupId => withLocale(`/cups/${cupId}/medium/new`)
+export const buildCupPressPath = cupId => withLocale(`/cups/${cupId}/press`)
 
 export const buildAnnouncementsPath = () => withLocale('/announcements')
 

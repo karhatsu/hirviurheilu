@@ -1,5 +1,5 @@
-Feature: Media
-  In order to send results for media like newspapers
+Feature: Press
+  In order to send results for newspapers
   As an official or club/district chairman etc
   I want to get race results in a certain text format
 

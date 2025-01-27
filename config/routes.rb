@@ -26,7 +26,8 @@ Hirviurheilu::Application.routes.draw do
       resources :cup_series
       resources :cup_team_competitions, only: :show
       resources :rifle_cup_series
-      resource :medium
+      resource :medium, only: [:show, :new]
+      resource :press, only: :show
     end
 
     resources :races do
@@ -55,7 +56,8 @@ Hirviurheilu::Application.routes.draw do
         resources :legs, only: :show
       end
       resource :result_rotation, only: :show
-      resource :medium
+      resource :medium, only: [:show, :new]
+      resource :press, only: :show
     end
 
     resources :series do

@@ -1,7 +1,7 @@
 import React from 'react'
 import DesktopMenuItem from './DesktopMenuItem'
 import {
-  buildCupMediaPath,
+  buildCupPressPath,
   buildCupPath,
   buildCupSeriesPath, buildCupTeamCompetitionsPath,
   buildRifleCupSeriesPath,
@@ -59,9 +59,9 @@ export default function DesktopCupSecondLevelMenu({ cup }) {
       )}
       {cupSeriesId && (
         <DesktopMenuItem
-          path={buildCupMediaPath(cup.id)}
+          path={buildCupPressPath(cup.id)}
           text={t('press')}
-          selected={selectedPage === pages.cup.media}
+          selected={selectedPage === pages.cup.press}
           reactLink={true}
         />
       )}

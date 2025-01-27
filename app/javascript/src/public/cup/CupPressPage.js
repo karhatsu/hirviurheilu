@@ -8,7 +8,7 @@ import { buildCupPath } from '../../util/routeUtil'
 import IncompletePage from '../../common/IncompletePage'
 import { useParams } from 'react-router-dom'
 
-export default function CupMediaPage() {
+export default function CupPressPage() {
   const { t } = useTranslation()
   const { setSelectedPage } = useMenu()
   const { cupId } = useParams()
@@ -16,7 +16,7 @@ export default function CupMediaPage() {
   const [error, setError] = useState(undefined)
   const [cup, setCup] = useState(undefined)
   const [competitorsCount, setCompetitorsCount] = useState(3)
-  useEffect(() => setSelectedPage(pages.cup.media), [setSelectedPage])
+  useEffect(() => setSelectedPage(pages.cup.press), [setSelectedPage])
 
   useEffect(() => {
     get(`/api/v2/public/cups/${cupId}?results=true`, (err, data) => {

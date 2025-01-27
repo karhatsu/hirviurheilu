@@ -13,7 +13,7 @@ import useTitle from '../../util/useTitle'
 
 const { clubLevel } = raceEnums
 
-export default function RaceMediaPage() {
+export default function RacePressPage() {
   const { t } = useTranslation()
   const { setSelectedPage } = useMenu()
   const [competitorsCount, setCompetitorsCount] = useState(3)
@@ -22,7 +22,7 @@ export default function RaceMediaPage() {
   const [error, setError] = useState(undefined)
   const { fetching, race, error: raceError } = useRace()
   useTitle(race && [t('press'), race.name, t(`sport_${race.sportKey}`)])
-  useEffect(() => setSelectedPage(pages.media), [setSelectedPage])
+  useEffect(() => setSelectedPage(pages.press), [setSelectedPage])
 
   const onClubChange = useCallback(event => {
     setClubIds([...event.target.selectedOptions].map(o => parseInt(o.value)))

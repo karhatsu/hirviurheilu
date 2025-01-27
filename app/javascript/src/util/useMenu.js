@@ -16,7 +16,7 @@ export const pages = {
   teamCompetitions: 8,
   rifleTeamCompetitions: 9,
   relays: 10,
-  media: 11,
+  press: 11,
   heats: {
     qualificationRound: 12,
     finalRound: 13,
@@ -27,7 +27,7 @@ export const pages = {
     results: 16,
     rifleResults: 17,
     teamCompetitions: 24,
-    media: 18,
+    press: 18,
   },
   info: {
     main: 19,

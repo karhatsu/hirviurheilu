@@ -10,10 +10,10 @@ import StartListPage from './start-list/StartListPage'
 import EuropeanRifleSeriesResultsPage from './european/EuropeanRifleSeriesResultsPage'
 import SeriesResultsPage from './series-results/SeriesResultsPage'
 import RelayResultsPage from './relay/RelayResultsPage'
-import RaceMediaPage from './media/RaceMediaPage'
+import RacePressPage from './press/RacePressPage'
 import NordicSubSportResultsPage from './nordic/NordicSubSportResultsPage'
 import RacePage from './race-page/RacePage'
-import CupMediaPage from './cup/CupMediaPage'
+import CupPressPage from './cup/CupPressPage'
 import CupSeriesPage from './cup/CupSeriesPage'
 import CupPage from './cup/CupPage'
 import AnnouncementPage from './announcements/AnnouncementPage'
@@ -49,7 +49,7 @@ export default function MainContent() {
             <Route path="series/:seriesId" element={<SeriesResultsPage />} />
             <Route path="relays/:relayId/legs/:leg" element={<RelayResultsPage />} />
             <Route path="relays/:relayId" element={<RelayResultsPage />} />
-            <Route path="medium/new" element={<RaceMediaPage />} />
+            <Route path="press" element={<RacePressPage />} />
             <Route path="rifle" element={<EuropeanRifleRaceResultsPage />} />
             <Route path="shotguns" element={<EuropeanShotgunRaceResultsPage />} />
             <Route path=":subSport" element={<NordicSubSportResultsPage />} />
@@ -62,7 +62,7 @@ export default function MainContent() {
           <Route path="" element={<RacesPage />} />
         </Route>
         <Route path="cups/:cupId/*">
-          <Route path="medium/new" element={<CupMediaPage />} />
+          <Route path="press" element={<CupPressPage />} />
           <Route path="cup_series/:cupSeriesId" element={<CupSeriesPage />} />
           <Route path="rifle_cup_series/:rifleCupSeriesId" element={<CupSeriesPage />} />
           <Route path="cup_team_competitions/:cupTeamCompetitionId" element={<CupTeamCompetitionPage />} />

@@ -3,7 +3,7 @@ import DesktopMenuItem from './DesktopMenuItem'
 import {
   buildFinalRoundHeatsPath,
   buildNordicResultsPath, buildNordicSeriesResultsPath,
-  buildQualificationRoundHeatsPath, buildRaceMediaPath,
+  buildQualificationRoundHeatsPath, buildRacePressPath,
   buildRacePath, buildRaceRifleResultsPath, buildRaceShotgunsResultsPath,
   buildRelayPath, buildResultRotationPath,
   buildRifleTeamCompetitionsPath,
@@ -180,9 +180,9 @@ export default function DesktopRaceSecondLevelMenu({ race }) {
       )}
       {race.series.length > 0 && (
         <DesktopMenuItem
-          path={buildRaceMediaPath(race.id)}
+          path={buildRacePressPath(race.id)}
           text={t('press')}
-          selected={selectedPage === pages.media}
+          selected={selectedPage === pages.press}
           reactLink={true}
         />
       )}

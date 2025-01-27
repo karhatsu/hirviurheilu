@@ -33,4 +33,4 @@
     - unless race.relays.empty?
       = menu_item t('race_sub_menu.relays', count: race.relays.count), race_relay_path(race, race.relays.first), @is_relays, nil, true do
         - relays_dropdown_menu(race)
-    = menu_item t('race_sub_menu.press'), new_race_medium_path(race), @is_media
+    = menu_item t('race_sub_menu.press'), race_press_path(race), false
