@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const appElement = document.getElementById('public-react-app')
   if (appElement) {
     const App = (
-      <BrowserRouter>
+      <BrowserRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
         <Routes>
           <Route path="/sv/*" element={<PublicReactApp />} />
           <Route path="*" element={<PublicReactApp />} />

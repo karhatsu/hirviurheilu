@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const appElement = document.getElementById('official-react-app')
   if (appElement) {
     const App = (
-      <BrowserRouter>
+      <BrowserRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
         <Routes>
           <Route path="/official/races/:raceId/*" element={<OfficialReactApp />} />
           <Route path="/:lang/official/races/:raceId/*" element={<OfficialReactApp />} />
