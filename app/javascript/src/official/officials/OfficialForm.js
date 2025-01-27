@@ -3,7 +3,7 @@ import { get } from '../../util/apiClient'
 import { useRace } from '../../util/useRace'
 import Button from '../../common/Button'
 import { buildOfficialRaceClubsPath } from '../../util/routeUtil'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import useTranslation from '../../util/useTranslation'
 
 const newOfficial = { email: '', onlyAddCompetitors: false, newClubs: false, clubId: null }

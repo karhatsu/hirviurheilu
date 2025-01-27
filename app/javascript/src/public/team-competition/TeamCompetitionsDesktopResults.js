@@ -1,6 +1,6 @@
 import React from 'react'
 import useTranslation from '../../util/useTranslation'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { buildSeriesResultsPath } from '../../util/routeUtil'
 import TimePoints from '../series-results/TimePoints'
 import EstimatePoints from '../series-results/EstimatePoints'

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 import format from 'date-fns/format'
 import DesktopStartList from './DesktopStartList'
 import MobileStartList from './MobileStartList'

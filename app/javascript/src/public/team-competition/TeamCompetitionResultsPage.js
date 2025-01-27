@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import useMenu, { pages } from '../../util/useMenu'
 import useRaceData from '../../util/useRaceData'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 import IncompletePage from '../../common/IncompletePage'
 import useTranslation from '../../util/useTranslation'
 import useTitle from '../../util/useTitle'

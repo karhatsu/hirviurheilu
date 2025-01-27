@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 
 export default function DesktopMenuItem(props) {
   const { path, text, reactLink, selected, dropdownItems, dropdownMinCount, onClick, icon } = props

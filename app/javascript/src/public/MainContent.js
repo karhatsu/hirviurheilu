@@ -1,7 +1,7 @@
 import React from 'react'
 import PageTitle from '../common/PageTitle'
 import FacebookShare from './FacebookShare'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router'
 import TeamCompetitionResultsPage from './team-competition/TeamCompetitionResultsPage'
 import QualificationRoundHeats from './heats/QualificationRoundHeats'
 import FinalRoundHeats from './heats/FinalRoundHeats'

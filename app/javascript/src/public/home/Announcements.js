@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import format from 'date-fns/format'
 import useTranslation from '../../util/useTranslation'
 import { buildAnnouncementPath, buildAnnouncementsPath } from '../../util/routeUtil'

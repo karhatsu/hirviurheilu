@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router'
 import classnames from 'classnames-minimal'
 import DesktopMenuItem from '../public/menu/DesktopMenuItem'
 import useTranslation from '../util/useTranslation'

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 import useMenu, { pages } from '../../util/useMenu'
 import useTranslation from '../../util/useTranslation'
 import useTitle from '../../util/useTitle'

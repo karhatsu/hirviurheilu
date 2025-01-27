@@ -1,6 +1,6 @@
 import React from 'react'
 import classnames from 'classnames-minimal'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 
 export default function Button({ children, id, href, onClick, submit, to, type, disabled, blank }) {
   const className = classnames({ button: true, [`button--${type}`]: !!type, 'button--disabled': disabled })

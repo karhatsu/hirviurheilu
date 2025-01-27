@@ -6,7 +6,7 @@ import Message from '../../common/Message'
 import Button from '../../common/Button'
 import { buildCupPath } from '../../util/routeUtil'
 import IncompletePage from '../../common/IncompletePage'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 
 export default function CupPressPage() {
   const { t } = useTranslation()

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router'
 import { useCup } from '../util/useCup'
 import { useRace } from '../util/useRace'
 import DateInterval from '../util/DateInterval'

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 import useMenu, { pages } from '../../util/useMenu'
 import useCupSeries from './useCupSeries'
 import IncompletePage from '../../common/IncompletePage'

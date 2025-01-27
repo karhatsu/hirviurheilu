@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router'
 import debounce from 'lodash.debounce'
 import useTranslation from '../../util/useTranslation'
 import Button from '../../common/Button'

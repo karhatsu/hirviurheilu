@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo } from 'react'
-import { useMatch } from 'react-router-dom'
+import { useMatch } from 'react-router'
 
 const PathElementsContext = createContext()
 

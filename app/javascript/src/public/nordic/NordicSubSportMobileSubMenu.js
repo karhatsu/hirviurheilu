@@ -3,7 +3,7 @@ import Button from '../../common/Button'
 import useTranslation from '../../util/useTranslation'
 import { buildNordicResultsPath, buildNordicSeriesResultsPath } from '../../util/routeUtil'
 import MobileSubMenu from '../menu/MobileSubMenu'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 
 export default function NordicSubSportMobileSubMenu({ currentSubSport, race }) {
   const { seriesId, subSport } = useParams()

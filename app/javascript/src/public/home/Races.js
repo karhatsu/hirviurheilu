@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import useTranslation from '../../util/useTranslation'
 import { buildRacePath } from '../../util/routeUtil'
 import DateInterval from '../../util/DateInterval'
