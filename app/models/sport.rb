@@ -165,7 +165,7 @@ class Sport
       EUROPEAN: BASE_CONFIGS[:SHOOTING].merge(
           {
               name: 'Eurooppalainen metsästysammunta',
-              default_series: [['S20'], ['M'], ['N'], ['S55']],
+              default_series: [['S20'], ['M'], ['N'], ['S55'], ['S65']],
           }
       ),
   }
