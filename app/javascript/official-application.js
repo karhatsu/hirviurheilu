@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const App = (
       <BrowserRouter>
         <Routes>
-          <Route path="/official/races/:raceId/*" element={<OfficialReactApp />} />
-          <Route path="/:lang/official/races/:raceId/*" element={<OfficialReactApp />} />
+          <Route path="/official/*" element={<OfficialReactApp />} />
+          <Route path="/:lang/official/*" element={<OfficialReactApp />} />
         </Routes>
       </BrowserRouter>
     )

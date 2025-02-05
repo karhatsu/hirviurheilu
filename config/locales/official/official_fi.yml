@@ -10,6 +10,7 @@ fi:
         new_competition: Uusi kilpailu
         add_new_race: Lisää uusi kilpailu
         add_multiple_races: Lisää monta kilpailua
+        synchronize_numbers: Synkronoi kilpailijanumerot
         add_new_cup: Lisää uusi cup-kilpailu
         no_races_yet:
           short: Sinulla ei ole vielä yhtään kilpailua.

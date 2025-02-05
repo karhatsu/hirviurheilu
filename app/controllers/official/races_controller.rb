@@ -1,9 +1,18 @@
 class Official::RacesController < Official::OfficialController
-  before_action :assign_race_by_id, except: [:new, :create, :competitors]
+  before_action :assign_race_by_id, except: [:index, :new, :create, :competitors]
   before_action :assign_race_by_race_id, only: :competitors
-  before_action :check_assigned_race, except: [:new, :create]
+  before_action :check_assigned_race, except: [:index, :new, :create]
   before_action :create_points_method_options
   before_action :set_sports
+
+  def index
+    respond_to do |format|
+      format.json do
+        # hard-coded limitations since used only by numbers sync
+        @races = current_user.races.where('start_date >= ? AND sport_key NOT IN (?, ?)', Date.today, Sport::SKI, Sport::RUN)
+      end
+    end
+  end
 
   def show
     @is_race = true

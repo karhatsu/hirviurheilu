@@ -9,6 +9,7 @@ import DesktopRaceSecondLevelMenu from './menu/DesktopRaceSecondLevelMenu'
 import OfficialMainContent from './OfficialMainContent'
 import { OfficialMenuProvider } from './menu/useOfficialMenu'
 import { PathParamsContextProvider } from '../public/PathParamsProvider'
+import { Route, Routes } from "react-router"
 
 const OfficialReactApp = () => {
   const [mainMenuOpen, setMainMenuOpen] = useState(false)
@@ -31,7 +32,9 @@ const OfficialReactApp = () => {
           <div className="menu-indicator">
             <a className="material-icons-outlined md-24" href="/" onClick={toggleSubMenu}>menu</a>
           </div>
-          <DesktopRaceSecondLevelMenu visible={subMenuOpen} />
+          <Routes>
+            <Route path="races/:raceId/*" element={<DesktopRaceSecondLevelMenu visible={subMenuOpen} />} />
+          </Routes>
           <OfficialMainContent/>
         </div>
       </div>
