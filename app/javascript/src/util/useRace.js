@@ -11,7 +11,7 @@ export const RaceProvider = ({ children }) => {
   const { raceId } = usePathParams()
   const [race, setRace] = useState()
   const [error, setError] = useState()
-  const fetchRaceRef = useRef()
+  const fetchRaceRef = useRef(undefined)
 
   const fetchRace = useCallback(() => {
     get(`/api/v2/official/races/${raceId}?no_competitors=true`, (err, data) => {
@@ -40,5 +40,5 @@ export const RaceProvider = ({ children }) => {
   useDataReloading('RaceChannel', 'race_id', raceId, fetchRaceRef)
 
   const value = { fetching: !error && !race, race, error, reload }
-  return <RaceContext.Provider value={value}>{children}</RaceContext.Provider>
+  return <RaceContext value={value}>{children}</RaceContext>
 }

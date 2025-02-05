@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useMemo } from 'react'
 import { useMatch } from 'react-router'
 
-const PathElementsContext = createContext()
+const PathElementsContext = createContext(undefined)
 
 export const usePathParams = () => useContext(PathElementsContext)
 
@@ -38,5 +38,5 @@ export const PathParamsContextProvider = ({ children }) => {
     rifleCupSeriesMatch,
     cupTeamCompetitionMatch,
   ])
-  return <PathElementsContext.Provider value={value}>{children}</PathElementsContext.Provider>
+  return <PathElementsContext value={value}>{children}</PathElementsContext>
 }

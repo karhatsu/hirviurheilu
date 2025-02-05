@@ -10,13 +10,13 @@ export default function ResultsWithShots({ children, competitors }) {
   const toggleShots = useCallback(() => setShowShots(show => !show), [])
   const showShotsButton = !!competitors.find(c => c.hasShots)
   return (
-    <ShowShotsContext.Provider value={showShots}>
+    <ShowShotsContext value={showShots}>
       {showShotsButton && (
         <div className="buttons">
           <Button id="shots_button" onClick={toggleShots}>{t(showShots ? 'hideShots' : 'showShots')}</Button>
         </div>
       )}
       {children}
-    </ShowShotsContext.Provider>
+    </ShowShotsContext>
   )
 }

@@ -10,7 +10,7 @@ const useOfficialMenu = () => {
 export const OfficialMenuProvider = ({ children }) => {
   const [selectedPage, setSelectedPage] = useState(undefined)
   const value = { selectedPage, setSelectedPage }
-  return <OfficialMenuContext.Provider value={value}>{children}</OfficialMenuContext.Provider>
+  return <OfficialMenuContext value={value}>{children}</OfficialMenuContext>
 }
 
 export default useOfficialMenu

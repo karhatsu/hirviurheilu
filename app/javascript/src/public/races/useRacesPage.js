@@ -23,7 +23,7 @@ export const RacesPageProvider = ({ children }) => {
 
   const value = { data, error, fetching, search }
 
-  return <RacesPageContext.Provider value={value}>{children}</RacesPageContext.Provider>
+  return <RacesPageContext value={value}>{children}</RacesPageContext>
 }
 
 export default useRacesPage

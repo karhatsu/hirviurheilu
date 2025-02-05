@@ -47,7 +47,7 @@ const useMenu = () => {
 export const MenuProvider = ({ children }) => {
   const [selectedPage, setSelectedPage] = useState(undefined)
   const value = { selectedPage, setSelectedPage }
-  return <MenuContext.Provider value={value}>{children}</MenuContext.Provider>
+  return <MenuContext value={value}>{children}</MenuContext>
 }
 
 export default useMenu

@@ -25,5 +25,5 @@ export const CupProvider = ({ children }) => {
   }, [cupId, fetchCup])
 
   const value = { fetching: !error && !cup, cup, error }
-  return <CupContext.Provider value={value}>{children}</CupContext.Provider>
+  return <CupContext value={value}>{children}</CupContext>
 }

@@ -21,7 +21,7 @@ export const LayoutProvider = ({ children }) => {
   }, [resizeListener])
 
   const value = { mobile }
-  return <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>
+  return <LayoutContext value={value}>{children}</LayoutContext>
 }
 
 export default useLayout

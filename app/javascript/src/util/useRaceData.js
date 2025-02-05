@@ -6,7 +6,7 @@ const useRaceData = buildApiPath => {
   const [fetching, setFetching] = useState(true)
   const [error, setError] = useState()
   const [raceData, setRaceData] = useState()
-  const reloadDataRef = useRef()
+  const reloadDataRef = useRef(undefined)
   const { race } = useRace()
 
   const reloadData = useCallback(() => {

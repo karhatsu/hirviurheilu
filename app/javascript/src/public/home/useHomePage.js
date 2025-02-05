@@ -35,7 +35,7 @@ export const HomePageProvider = ({ children }) => {
     search,
     searching,
   }
-  return <HomePageContext.Provider value={value}>{children}</HomePageContext.Provider>
+  return <HomePageContext value={value}>{children}</HomePageContext>
 }
 
 export default useHomePage

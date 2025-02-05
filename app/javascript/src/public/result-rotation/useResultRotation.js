@@ -103,5 +103,5 @@ export const ResultRotationProvider = ({ children }) => {
     remainingSeconds,
     teamCompetitionIds,
   }
-  return <ResultRotationContext.Provider value={value}>{children}</ResultRotationContext.Provider>
+  return <ResultRotationContext value={value}>{children}</ResultRotationContext>
 }
