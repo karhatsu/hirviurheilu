@@ -36,6 +36,7 @@ class CompetitorNumbersSync
     Competitor.transaction do
       @changed_competitors.each do |competitor|
         Competitor.where(id: competitor.id).update_all(number: competitor.number)
+        competitor.touch
       end
     end
   end

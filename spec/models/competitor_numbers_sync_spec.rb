@@ -27,18 +27,24 @@ describe CompetitorNumbersSync do
   it 'synchronises the numbers in given races based on the competitor names and clubs' do
     sync = CompetitorNumbersSync.new([race1, race2, race3].map(&:id), 1)
     sync.synchronize
-    expect_number competitor1_1, 1
-    expect_number competitor1_2, 2
-    expect_number competitor1_nil, 3
-    expect_number competitor2_1, 1
-    expect_number competitor2_2, 2
-    expect_number competitor2_3, 4 # different first name
-    expect_number competitor3_1, 3
-    expect_number competitor3_2, 5 # different club
-    expect_number competitor3_3, 6 # different last name
+    expect_number competitor1_1, 1, false
+    expect_number competitor1_2, 2, false
+    expect_number competitor1_nil, 3, true
+    expect_number competitor2_1, 1, true
+    expect_number competitor2_2, 2, true
+    expect_number competitor2_3, 4, true # different first name
+    expect_number competitor3_1, 3, true
+    expect_number competitor3_2, 5, true # different club
+    expect_number competitor3_3, 6, true # different last name
   end
 
-  def expect_number(competitor, number)
+  def expect_number(competitor, number, expect_change)
+    updated_at = competitor.updated_at
     expect(competitor.reload.number).to eql number
+    if expect_change
+      expect(competitor.updated_at).not_to eql updated_at
+    else
+      expect(competitor.updated_at).to eql updated_at
+    end
   end
 end
