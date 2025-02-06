@@ -64,7 +64,7 @@ const CompetitorNumbersSyncPage = () => {
                   onChange={changeRaceId(id)}
                 />
                 <label htmlFor={`race_${id}`}>
-                  {name} {formatDateInterval(startDate, endDate)}, {location}
+                  <a href={`/official/races/${id}`}>{name} {formatDateInterval(startDate, endDate)}, {location}</a>
                 </label>
               </div>
             </div>
