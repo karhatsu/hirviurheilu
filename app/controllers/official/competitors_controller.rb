@@ -8,11 +8,13 @@ class Official::CompetitorsController < Official::OfficialController
   before_action :set_competitors
 
   def index
-    # for start list generation:
-    @order_method = params[:order_method] ? params[:order_method].to_i :
-      Series::START_LIST_RANDOM
-    @series.first_number = @series.race.next_start_number unless @series.first_number
-    @series.start_time = @series.race.next_start_time unless @series.start_time
+    if @series.race.sport.three_sports?
+      # for start list generation:
+      @order_method = params[:order_method] ? params[:order_method].to_i :
+        Series::START_LIST_RANDOM
+      @series.first_number = @series.race.next_start_number unless @series.first_number
+      @series.start_time = @series.race.next_start_time unless @series.start_time
+    end
   end
 
   def show_by_number
