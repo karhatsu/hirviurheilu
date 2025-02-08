@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  NOREPLY_ADDRESS = '<noreply@hirviurheilu.com>'
+  NOREPLY_ADDRESS = ENV['NO_REPLY_EMAIL'] || 'noreply@hirviurheilu.com'
 
   layout 'email'
 
