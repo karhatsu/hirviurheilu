@@ -91,6 +91,8 @@ Hirviurheilu::Application.routes.draw do
 
       resources :competitor_number_syncs, only: [:index, :create]
 
+      resources :events, only: [:new, :create]
+
       resources :races do
         resources :heats
         resource :heat_list_reset, only: [:show, :destroy]

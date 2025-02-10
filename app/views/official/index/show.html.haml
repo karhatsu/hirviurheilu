@@ -18,6 +18,11 @@
       = t 'home.show.competitions.yesterday'
     .row= render partial: 'race_list', locals: { races: @yesterday, warn_unfinished: true }
   %h2
+    %i.material-icons-outlined.md-18 event
+    = t '.events'
+  .buttons
+    = link_to t('.add_new_event'), new_official_event_path, class: 'button button--add'
+  %h2
     %i.material-icons-outlined.md-18 today
     = t 'home.show.upcoming_competitions'
   .buttons

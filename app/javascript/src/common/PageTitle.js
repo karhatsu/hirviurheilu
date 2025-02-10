@@ -19,6 +19,7 @@ export default function PageTitle() {
   if (matchPath(pathname, '/prices')) return t('prices')
   if (matchPath(pathname, '/feedbacks')) return t('sendFeedback')
   if (matchPath(pathname, '/sports_info')) return t('sportsInfo')
+  if (matchPath(pathname, '/official/events/new')) return t('eventsNew')
   if (matchPath(pathname, '/official/competitor_number_syncs')) return t('competitorNumbersSync')
   if (matchPath(pathname, '/races', true)) return `Hirviurheilu - ${t('races')}`
   const competition = (cupId && cup) || (raceId && race)

@@ -15,6 +15,7 @@ window.officialTranslations = {
   competitorNumbersSyncNoRaces: 'Du måste ha minst två kommande tävlingar.',
   edit: 'Redigera',
   editOfficialRights: 'Redigera funktionärens rättigheter',
+  eventsNew: 'Nytt evenemang',
   firstNumber: 'Första numret',
   longName: 'Långt namn',
   megaLinkImportTitle: 'Megalink-resultat',

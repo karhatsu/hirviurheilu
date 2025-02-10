@@ -15,6 +15,7 @@ window.officialTranslations = {
   competitorNumbersSyncNoRaces: 'Sinulla pitää olla vähintään kaksi tulevaa kilpailua.',
   edit: 'Muokkaa',
   editOfficialRights: 'Muokkaa toimitsijan oikeuksia',
+  eventsNew: 'Uusi tapahtuma',
   firstNumber: 'Ensimmäinen numero',
   longName: 'Pitkä nimi',
   megaLinkImportTitle: 'Megalink-tulokset',

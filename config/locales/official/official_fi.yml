@@ -8,6 +8,8 @@ fi:
         competitions: Kilpailut
         cup_competitions: Cup-kilpailut
         new_competition: Uusi kilpailu
+        events: Tapahtumat
+        add_new_event: Lisää uusi tapahtuma
         add_new_race: Lisää uusi kilpailu
         add_multiple_races: Lisää monta kilpailua
         synchronize_numbers: Synkronoi kilpailijanumerot
