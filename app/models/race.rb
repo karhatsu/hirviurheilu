@@ -23,6 +23,7 @@ class Race < ApplicationRecord
   ALL_LEVELS = [LEVEL_OTHER, LEVEL_DISTRICT, LEVEL_AREA, LEVEL_NATIONAL, LEVEL_INTERNATIONAL]
 
   belongs_to :district
+  belongs_to :event
   has_many :series, -> { order(:name) }, :dependent => :destroy
   has_many :age_groups, :through => :series
   has_many :competitors, -> { order(:last_name, :first_name) }, :through => :series

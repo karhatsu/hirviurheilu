@@ -5,6 +5,10 @@ RSpec.describe Event, type: :model do
     create :event
   end
 
+  describe 'associations' do
+    it { should have_many(:races) }
+  end
+
   describe 'validations' do
     it { should validate_presence_of(:name) }
   end

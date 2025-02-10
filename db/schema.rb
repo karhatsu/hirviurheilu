@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_10_125243) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_10_131433) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -221,6 +221,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_10_125243) do
     t.boolean "nordic_sub_results_for_series"
     t.boolean "show_european_shotgun_results", default: false, null: false
     t.boolean "double_competition", default: false, null: false
+    t.bigint "event_id"
+    t.index ["event_id"], name: "index_races_on_event_id"
   end
 
   create_table "relay_competitors", id: :serial, force: :cascade do |t|
@@ -360,4 +362,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_10_125243) do
 
   add_foreign_key "cup_team_competitions", "cups"
   add_foreign_key "heats", "races"
+  add_foreign_key "races", "events"
 end
