@@ -34,7 +34,7 @@ describe User do
       end
     end
   end
-  
+
   describe "associations" do
     it { is_expected.to have_and_belong_to_many(:roles) }
     it { is_expected.to have_many(:race_rights) }
@@ -71,7 +71,7 @@ describe User do
       end
     end
   end
-  
+
   describe "#official_for_race?" do
     before do
       @race = create(:race)
@@ -95,13 +95,13 @@ describe User do
       expect(@user).to be_official_for_race(@race)
     end
   end
-  
+
   describe "#official_for_cup?" do
     before do
       @cup = create(:cup)
       @user = build(:user)
     end
-    
+
     it "should return false when no cups for this user" do
       expect(@user).not_to be_official_for_cup(@cup)
     end
@@ -117,25 +117,48 @@ describe User do
       expect(@user).to be_official_for_cup(@cup)
     end
   end
-  
+
   describe "#has_full_rights_for_race" do
     before do
       @user = create(:user)
       @race = create(:race)
     end
-    
+
     it "should return false when user is not official for the race" do
       expect(@user).not_to have_full_rights_for_race(@race)
     end
-    
+
     it "should return false when user has only add competitors rights" do
       @user.race_rights.create!(:race => @race, :only_add_competitors => true)
       expect(@user).not_to have_full_rights_for_race(@race)
     end
-    
+
     it "should return true when user has full rights" do
       @user.race_rights.create!(:race => @race, :only_add_competitors => false)
       expect(@user).to have_full_rights_for_race(@race)
+    end
+  end
+
+  describe '#events' do
+    let(:user) { create(:user) }
+    let(:event1) { create(:event, name: 'Own 1') }
+    let(:event2) { create(:event, name: 'Own 2') }
+    let(:event3) { create(:event, name: 'Not own') }
+    let(:race1) { create(:race, event: event1) }
+    let(:race2) { create(:race, event: event1) }
+    let(:race3) { create(:race, event: event2) }
+    let(:race4) { create(:race) }
+    let!(:race5) { create(:race, event: event3) }
+
+    before do
+      user.races << race1
+      user.races << race2
+      user.races << race3
+      user.races << race4
+    end
+
+    it 'returns the events that belong to the user' do
+      expect(user.events.map{|e| e.name}).to eql ['Own 1', 'Own 2']
     end
   end
 end

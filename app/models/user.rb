@@ -54,6 +54,10 @@ class User < ApplicationRecord
     race_right and !race_right.only_add_competitors
   end
 
+  def events
+    races.select{|race| race.event}.map {|race| race.event}.uniq
+  end
+
   private
   def add_role(role)
     roles << Role.find_by_name(role)

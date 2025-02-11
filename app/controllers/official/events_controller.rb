@@ -1,4 +1,9 @@
 class Official::EventsController < Official::OfficialController
+  def show
+    use_react true
+    render layout: true, html: ''
+  end
+
   def new
     use_react true
     render layout: true, html: ''

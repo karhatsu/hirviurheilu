@@ -22,6 +22,13 @@
     = t '.events'
   .buttons
     = link_to t('.add_new_event'), new_official_event_path, class: 'button button--add'
+  .row
+    - @events.each do |event|
+      .col-xs-12.col-sm-6.col-md-4
+        %a.card{href: official_event_path(event)}
+          .card__middle
+            .card__name
+              = event.name
   %h2
     %i.material-icons-outlined.md-18 today
     = t 'home.show.upcoming_competitions'
