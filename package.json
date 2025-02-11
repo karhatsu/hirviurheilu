@@ -8,7 +8,7 @@
     "@rails/actioncable": "^8.0.100",
     "classnames-minimal": "^1.0.1",
     "date-fns": "^4.1.0",
-    "esbuild": "^0.24.2",
+    "esbuild": "^0.25.0",
     "lodash.debounce": "^4.0.8",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
