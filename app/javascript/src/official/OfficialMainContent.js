@@ -6,6 +6,7 @@ import MegalinkImportPage from './megalink/MegalinkImportPage'
 import OfficialsPage from './officials/OfficialsPage'
 import CompetitorNumbersSyncPage from './competitor_numbers_sync/CompetitorNumbersSyncPage'
 import NewEventPage from "./events/NewEventPage"
+import EventPage from './events/EventPage'
 
 const OfficialMainContent = () => {
   return (
@@ -13,7 +14,10 @@ const OfficialMainContent = () => {
       <div className="body__under-top-title"><PageTitle /></div>
       <Routes>
         <Route path="competitor_number_syncs" element={<CompetitorNumbersSyncPage />} />
-        <Route path="events/new" element={<NewEventPage />} />
+        <Route path="events" element={null}>
+          <Route path="new" element={<NewEventPage />} />
+          <Route path=":eventId" element={<EventPage />} />
+        </Route>
         <Route path="races/:raceId" element={null}>
           <Route path="clubs" element={<ClubsPage />} />
           <Route path="megalink_imports" element={<MegalinkImportPage />} />
