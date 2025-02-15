@@ -26,7 +26,7 @@ const NewEventPage = () => {
       if (err) {
         setRaceErrors(err[0])
       } else {
-        setRaces(response.races)
+        setRaces(response.races.filter(race => !race.eventId))
       }
       setFetching(false)
     })

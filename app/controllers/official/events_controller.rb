@@ -10,11 +10,16 @@ class Official::EventsController < Official::OfficialController
   end
 
   def create
-    race_ids = params[:race_ids]
+    races = []
+    params[:race_ids].each do |race_id|
+      race = current_user.races.find(race_id)
+      return render status: 400, json: { errors: ["Kilpailu #{race.name} kuuluu jo toiseen tapahtumaan"] } if race.event_id
+      races << race
+    end
     @event = Event.new event_params
     if @event.save
-      race_ids.each do |race_id|
-        current_user.races.find(race_id).update_attribute :event_id, @event.id
+      races.each do |race|
+        race.update_attribute :event_id, @event.id
       end
     else
       render status: 400, json: { errors: @event.errors.full_messages }
