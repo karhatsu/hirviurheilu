@@ -61,6 +61,8 @@ const NewEventPage = () => {
 
   if (fetching || raceErrors.length) return <IncompletePage fetching={fetching} error={raceErrors} />
 
+  if (races.length < 2) return <Message type="info">{t('eventsAtLeastTwoRaces')}</Message>
+
   return (
     <div>
       <Message type="info">Valitse vähintään kaksi samaan tapahtumaan kuuluvaa kilpailua</Message>
