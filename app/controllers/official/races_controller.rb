@@ -9,7 +9,7 @@ class Official::RacesController < Official::OfficialController
     respond_to do |format|
       format.json do
         # hard-coded limitations since used only by numbers sync
-        @races = current_user.races.where('start_date >= ? AND sport_key NOT IN (?, ?)', Date.today, Sport::SKI, Sport::RUN)
+        @races = current_user.races.where('start_date >= ?', Date.today)
       end
     end
   end

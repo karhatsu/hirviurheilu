@@ -16,7 +16,7 @@ const CompetitorNumbersSyncPage = () => {
 
   useEffect(() => {
     get('/official/races.json', (err, response) => {
-      setRaces(response.races)
+      setRaces(response.races.filter(race => race.sportKey !== 'SKI' && race.sportKey !== 'RUN'))
     })
   }, [])
 
