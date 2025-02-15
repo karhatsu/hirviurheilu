@@ -26,6 +26,9 @@ const EventPage = () => {
       <div>
         {event.races.map(race => <div key={race.id}>{race.name}</div>)}
       </div>
+      <div className="buttons">
+        <Button to={`edit`} type="edit">{t('eventEdit')}</Button>
+      </div>
       <div className="buttons buttons--nav">
         <Button href="/official" type="back">{t('backToOfficialIndexPage')}</Button>
       </div>

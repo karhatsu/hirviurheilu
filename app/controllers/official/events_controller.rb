@@ -34,6 +34,18 @@ class Official::EventsController < Official::OfficialController
     end
   end
 
+  def edit
+    use_react true
+    render layout: true, html: ''
+  end
+
+  def update
+    @event = current_user.events.find(params[:id]).first
+    unless @event.update event_params
+      render status: 400, json: { errors: @event.errors.full_messages }
+    end
+  end
+
   private
 
   def event_params

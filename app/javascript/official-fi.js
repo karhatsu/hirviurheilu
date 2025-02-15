@@ -15,6 +15,7 @@ window.officialTranslations = {
   competitorNumbersSyncNoRaces: 'Sinulla pitää olla vähintään kaksi tulevaa kilpailua.',
   edit: 'Muokkaa',
   editOfficialRights: 'Muokkaa toimitsijan oikeuksia',
+  eventEdit: 'Muokkaa tapahtumaa',
   eventRaces: 'Tapahtumaan kuuluvat kilpailut',
   eventsAtLeastTwoRaces: 'Sinulla pitää olla vähintään kaksi kilpailua, jotta voit luoda tapahtuman. Kilpailu voi kuulua vain yhteen tapahtumaan.',
   eventsNew: 'Uusi tapahtuma',
