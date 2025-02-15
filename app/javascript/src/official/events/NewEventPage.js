@@ -61,12 +61,19 @@ const NewEventPage = () => {
 
   if (fetching || raceErrors.length) return <IncompletePage fetching={fetching} error={raceErrors} />
 
-  if (races.length < 2) return <Message type="info">{t('eventsAtLeastTwoRaces')}</Message>
+  if (races.length < 2) return (
+    <div>
+      <Message type="info">{t('eventsAtLeastTwoRaces')}</Message>
+      <div className="buttons buttons--nav">
+        <Button href="/official" type="back">{t('backToOfficialIndexPage')}</Button>
+      </div>
+    </div>
+  )
 
   return (
     <div>
       <Message type="info">Valitse vähintään kaksi samaan tapahtumaan kuuluvaa kilpailua</Message>
-      <FormErrors errors={errors} />
+      <FormErrors errors={errors}/>
       <form className="form" onSubmit={onSubmit}>
         <div className="form__horizontal-fields">
           <div className="form__field">
@@ -105,6 +112,9 @@ const NewEventPage = () => {
           </Button>
         </div>
       </form>
+      <div className="buttons buttons--nav">
+        <Button href="/official" type="back">{t('backToOfficialIndexPage')}</Button>
+      </div>
     </div>
   )
 }
