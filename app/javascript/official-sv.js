@@ -15,6 +15,7 @@ window.officialTranslations = {
   competitorNumbersSyncNoRaces: 'Du måste ha minst två kommande tävlingar.',
   edit: 'Redigera',
   editOfficialRights: 'Redigera funktionärens rättigheter',
+  eventRaces: 'Tävlingarna som hör till evenemanget',
   eventsAtLeastTwoRaces: 'Du måste ha minst två tävlingar för att kunna skapa ett evenemang. En tävling kan endast höra till ett evenemang.',
   eventsNew: 'Nytt evenemang',
   firstNumber: 'Första numret',

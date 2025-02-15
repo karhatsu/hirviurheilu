@@ -6,6 +6,7 @@ import DateInterval from '../util/DateInterval'
 import useTranslation from '../util/useTranslation'
 import { matchPath } from '../util/routeUtil'
 import { usePathParams } from '../public/PathParamsProvider'
+import { useEvent } from "../util/useEvent"
 
 export default function PageTitle() {
   const { t } = useTranslation()
@@ -13,6 +14,7 @@ export default function PageTitle() {
   const { cupId, raceId } = usePathParams()
   const { race } = useRace()
   const { cup } = useCup()
+  const { event } = useEvent()
   if (matchPath(pathname, '/announcements')) return t('announcements')
   if (matchPath(pathname, '/answers')) return t('qAndA')
   if (matchPath(pathname, '/info')) return t('info')
@@ -22,6 +24,7 @@ export default function PageTitle() {
   if (matchPath(pathname, '/official/events/new')) return t('eventsNew')
   if (matchPath(pathname, '/official/competitor_number_syncs')) return t('competitorNumbersSync')
   if (matchPath(pathname, '/races', true)) return `Hirviurheilu - ${t('races')}`
+  if (event) return event.name
   const competition = (cupId && cup) || (raceId && race)
   if (!competition) return t('appTitle')
   const { name, location, startDate, endDate, sportKey } = competition

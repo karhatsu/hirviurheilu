@@ -1,7 +1,15 @@
 class Official::EventsController < Official::OfficialController
   def show
-    use_react true
-    render layout: true, html: ''
+    respond_to do |format|
+      format.html do
+        use_react true
+        render layout: true, html: ''
+      end
+      format.json do
+        @event = current_user.events.find(params[:id]).first
+        return render status: 400, json: { errors: ['Tapahtumaa ei löytynyt'] } unless @event
+      end
+    end
   end
 
   def new

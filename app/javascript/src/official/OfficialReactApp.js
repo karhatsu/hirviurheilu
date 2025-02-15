@@ -10,6 +10,7 @@ import OfficialMainContent from './OfficialMainContent'
 import { OfficialMenuProvider } from './menu/useOfficialMenu'
 import { PathParamsContextProvider } from '../public/PathParamsProvider'
 import { Route, Routes } from "react-router"
+import { EventProvider } from "../util/useEvent"
 
 const OfficialReactApp = () => {
   const [mainMenuOpen, setMainMenuOpen] = useState(false)
@@ -47,9 +48,11 @@ const OfficialReactAppContainer = () => (
   <LayoutProvider>
     <PathParamsContextProvider>
       <RaceProvider>
-        <OfficialMenuProvider>
-          <OfficialReactApp />
-        </OfficialMenuProvider>
+        <EventProvider>
+          <OfficialMenuProvider>
+            <OfficialReactApp />
+          </OfficialMenuProvider>
+        </EventProvider>
       </RaceProvider>
     </PathParamsContextProvider>
   </LayoutProvider>
