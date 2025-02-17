@@ -35,7 +35,6 @@
   .buttons
     = link_to t('.add_new_race'), new_official_race_path, class: 'button button--add'
     = link_to t('.add_multiple_races'), new_official_multiple_race_path, class: 'button button--add'
-    = link_to t('.synchronize_numbers'), official_competitor_number_syncs_path, class: 'button'
   .row= render partial: 'race_list', locals: { races: @future, id: 'future' }
   = render partial: 'show_all', locals: { id: 'future', competitions: @future, limit: 12 }
   %h2

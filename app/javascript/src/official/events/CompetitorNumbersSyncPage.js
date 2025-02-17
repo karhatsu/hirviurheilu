@@ -1,0 +1,68 @@
+import React, { useCallback, useEffect, useState } from 'react'
+import Message from "../../common/Message"
+import useTranslation from "../../util/useTranslation"
+import Button from "../../common/Button"
+import { put } from '../../util/apiClient'
+import useOfficialMenu from "../menu/useOfficialMenu"
+import { pages } from "../../util/useMenu"
+import { useParams } from "react-router"
+import { buildOfficialEventPath } from "../../util/routeUtil"
+
+const CompetitorNumbersSyncPage = () => {
+  const { eventId } = useParams()
+  const [firstNumber, setFirstNumber] = useState(1)
+  const [saving, setSaving] = useState(false)
+  const [done, setDone] = useState(false)
+  const { t } = useTranslation()
+  const { setSelectedPage } = useOfficialMenu()
+
+  useEffect(() => setSelectedPage(pages.events.syncNumbers), [setSelectedPage])
+
+  const onSubmit = useCallback(event => {
+    event.preventDefault()
+    setSaving(true)
+    put(`/official/events/${eventId}/competitor_numbers_sync`, { firstNumber }, (errors) => {
+      if (!errors) {
+        setDone(true)
+      }
+      setSaving(false)
+    })
+  }, [eventId, firstNumber])
+
+  const content = () => {
+    if (done) return <Message type="success">{t('competitorNumbersSyncDone')}</Message>
+    // if (races.length < 2) return <Message type="warning">{t('competitorNumbersSyncNoRaces')}</Message>
+    return (
+      <form className="form" onSubmit={onSubmit}>
+        <div className="form__field form__field--sm">
+          <label htmlFor="firstNumber">{t('firstNumber')}</label>
+          <input
+            id="firstNumber"
+            type="number"
+            min={1}
+            step={1}
+            onChange={e => setFirstNumber(e.target.value)}
+            value={firstNumber}
+          />
+        </div>
+        <div className="form__buttons">
+          <Button submit={true} type="primary" disabled={saving}>
+            {t('competitorNumbersSync')}
+          </Button>
+        </div>
+      </form>
+    )
+  }
+
+  return (
+    <div>
+      {!done && <Message type="info">{t('competitorNumbersSyncInfo')}</Message>}
+      {content()}
+      <div className="buttons buttons--nav">
+        <Button to={buildOfficialEventPath(eventId)} type="back">{t('backToOfficialEventPage')}</Button>
+      </div>
+    </div>
+  )
+}
+
+export default CompetitorNumbersSyncPage

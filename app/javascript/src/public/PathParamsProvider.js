@@ -16,7 +16,7 @@ export const PathParamsContextProvider = ({ children }) => {
   const cupSeriesMatch = useMatch('/cups/:cupId/cup_series/:cupSeriesId/*')
   const rifleCupSeriesMatch = useMatch('/cups/:cupId/rifle_cup_series/:rifleCupSeriesId/*')
   const cupTeamCompetitionMatch = useMatch('/cups/:cupId/cup_team_competitions/:cupTeamCompetitionId/*')
-  const eventMatch = useMatch('/official/events/:eventId')
+  const eventMatch = useMatch('/official/events/:eventId/*')
   const eventId = eventMatch && eventMatch.params.eventId !== 'new' ? eventMatch.params.eventId : undefined
   const value = useMemo(() => ({
     raceId: raceMatch?.params.raceId || officialRaceMatch?.params.raceId,
