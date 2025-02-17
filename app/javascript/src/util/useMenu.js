@@ -37,6 +37,9 @@ export const pages = {
     sportsInfo: 23,
   },
   europeanShotgun: 24,
+  events: {
+    main: 25,
+  },
 }
 
 const useMenu = () => {

@@ -25,6 +25,7 @@ window.officialTranslations = {
   megaLinkImportFile: 'Tiedoston sisältö',
   megaLinkImportContentsError: 'Tiedoston sisältö on virheellinen',
   megaLinkImportSuccess: 'Tulokset tallennettu',
+  officialEventMenuHome: 'Yhteenveto',
   officialPageAddManyDescription: 'Tällä sivulla voit kutsua monta toimitsijaa kerralla. Listaa toimitsijoiden sähköpostiosoitteet ja jos haluat heille rajoitetut oikeudet, lisää perään piiri / seura alla olevan esimerkin mukaisesti. Henkilöiden täytyy olla rekisteröitynyt palveluun omilla sähköpostiosoitteillaan.',
   officialPageAddManyTitle: 'Kutsu monta toimitsijaa kilpailun toimitsijoiksi',
   officialPageAllCurrent: 'Kaikki nykyiset',

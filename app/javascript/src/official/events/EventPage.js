@@ -5,12 +5,17 @@ import IncompletePage from "../../common/IncompletePage"
 import useTitle from "../../util/useTitle"
 import Button from "../../common/Button"
 import useTranslation from "../../util/useTranslation"
+import useOfficialMenu from "../menu/useOfficialMenu"
+import { pages } from "../../util/useMenu"
 
 const EventPage = () => {
   const { t } = useTranslation()
   const { eventId } = useParams()
   const [event, setEvent] = useState()
+  const { setSelectedPage } = useOfficialMenu()
   useTitle(event?.name)
+
+  useEffect(() => setSelectedPage(pages.events.main), [setSelectedPage])
 
   useEffect(() => {
     get(`/official/events/${eventId}.json`, (err, response) => {

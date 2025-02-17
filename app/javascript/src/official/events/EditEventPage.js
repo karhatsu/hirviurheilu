@@ -6,6 +6,7 @@ import { get, put } from "../../util/apiClient"
 import FormErrors from "../../common/form/FormErrors"
 import useTitle from "../../util/useTitle"
 import IncompletePage from "../../common/IncompletePage"
+import { buildOfficialEventPath } from "../../util/routeUtil"
 
 const EditEventPage = () => {
   const { eventId } = useParams()
@@ -35,7 +36,7 @@ const EditEventPage = () => {
         setErrors(err)
         setSaving(false)
       } else {
-        navigate(`/official/events/${eventId}`)
+        navigate(buildOfficialEventPath(eventId))
       }
     })
   }, [event, eventId, navigate])
@@ -59,7 +60,7 @@ const EditEventPage = () => {
         </div>
       </form>
       <div className="buttons buttons--nav">
-        <Button to={`/official/events/${eventId}`} type="back">{t('cancel')}</Button>
+        <Button to={buildOfficialEventPath(eventId)} type="back">{t('cancel')}</Button>
       </div>
     </div>
   )

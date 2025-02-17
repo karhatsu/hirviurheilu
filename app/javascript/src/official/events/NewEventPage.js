@@ -8,6 +8,7 @@ import Message from "../../common/Message"
 import Button from "../../common/Button"
 import { useNavigate } from "react-router"
 import FormErrors from "../../common/form/FormErrors"
+import { buildOfficialEventPath } from "../../util/routeUtil"
 
 const NewEventPage = () => {
   const [fetching, setFetching] = useState(true)
@@ -54,7 +55,7 @@ const NewEventPage = () => {
         setErrors(err)
         setSaving(false)
       } else {
-        navigate(`/official/events/${response.id}`)
+        navigate(buildOfficialEventPath(response.id))
       }
     })
   }, [name, raceIds, navigate])

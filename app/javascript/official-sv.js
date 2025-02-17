@@ -25,6 +25,7 @@ window.officialTranslations = {
   megaLinkImportFile: 'Fil',
   megaLinkImportContentsError: 'Filen har fel format',
   megaLinkImportSuccess: 'Resultaten sparats',
+  officialEventMenuHome: 'Sammanfattning',
   officialPageAddManyDescription: 'På den här sidan kan du bjuda in flera funktionärer samtidigt. Lista funktionärernas e-postadresser och om du vill ge dem begränsade rättigheter, lägg till distrikt / förening efter exemplet nedan. Personerna måste vara registrerade i tjänsten med sina egna e-postadresser.',
   officialPageAddManyTitle: 'Bjud in flera funktionärer till tävlingens funktionärer',
   officialPageAllCurrent: 'Alla aktuella',
