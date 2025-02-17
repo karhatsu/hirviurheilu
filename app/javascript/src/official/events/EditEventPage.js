@@ -2,11 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react'
 import Button from "../../common/Button"
 import { useNavigate, useParams } from "react-router"
 import useTranslation from "../../util/useTranslation"
-import { get, put } from "../../util/apiClient"
+import { put } from "../../util/apiClient"
 import FormErrors from "../../common/form/FormErrors"
 import useTitle from "../../util/useTitle"
 import IncompletePage from "../../common/IncompletePage"
 import { buildOfficialEventPath } from "../../util/routeUtil"
+import { useEvent } from "../../util/useEvent"
 
 const EditEventPage = () => {
   const { eventId } = useParams()
@@ -14,34 +15,34 @@ const EditEventPage = () => {
   const navigate = useNavigate()
   const [saving, setSaving] = useState(false)
   const [errors, setErrors] = useState([])
-  const [event, setEvent] = useState()
+  const [data, setData] = useState({ name: '' })
+  const { fetching, event, error, reload } = useEvent()
   useTitle(event && [event.name, t('edit')])
 
   useEffect(() => {
-    get(`/official/events/${eventId}.json`, (err, response) => {
-      setEvent(response)
-    })
-  }, [eventId])
+    if (event) setData({ name: event.name })
+  }, [event])
 
   const onChange = useCallback(key => event => {
-    setEvent(prev => ({ ...prev, [key]: event.target.value }))
+    setData(prev => ({ ...prev, [key]: event.target.value }))
   }, [])
 
   const onSubmit = useCallback(e => {
     e.preventDefault()
     setErrors([])
     setSaving(true)
-    put(`/official/events/${eventId}`, { event: { name: event.name } }, (err) => {
+    put(`/official/events/${eventId}`, { event: data }, (err) => {
       if (err) {
         setErrors(err)
         setSaving(false)
       } else {
+        reload()
         navigate(buildOfficialEventPath(eventId))
       }
     })
-  }, [event, eventId, navigate])
+  }, [data, eventId, reload, navigate])
 
-  if (!event) return <IncompletePage fetching={true} />
+  if (fetching || error) return <IncompletePage fetching={fetching} error={error} />
 
   return (
     <div>
@@ -50,11 +51,11 @@ const EditEventPage = () => {
         <div className="form__horizontal-fields">
           <div className="form__field">
             <label htmlFor="name">{t('name')}</label>
-            <input id="name" onChange={onChange('name')} value={event.name} />
+            <input id="name" onChange={onChange('name')} value={data.name} />
           </div>
         </div>
         <div className="form__buttons">
-          <Button submit={true} type="primary" disabled={!event.name || saving}>
+          <Button submit={true} type="primary" disabled={!data.name || saving}>
             {t('save')}
           </Button>
         </div>

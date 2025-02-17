@@ -1,29 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import { get } from "../../util/apiClient"
-import { useParams } from "react-router"
+import React, { useEffect } from 'react'
 import IncompletePage from "../../common/IncompletePage"
 import useTitle from "../../util/useTitle"
 import Button from "../../common/Button"
 import useTranslation from "../../util/useTranslation"
 import useOfficialMenu from "../menu/useOfficialMenu"
 import { pages } from "../../util/useMenu"
+import { useEvent } from "../../util/useEvent"
 
 const EventPage = () => {
   const { t } = useTranslation()
-  const { eventId } = useParams()
-  const [event, setEvent] = useState()
+  const { fetching, event, error } = useEvent()
   const { setSelectedPage } = useOfficialMenu()
   useTitle(event?.name)
 
   useEffect(() => setSelectedPage(pages.events.main), [setSelectedPage])
 
-  useEffect(() => {
-    get(`/official/events/${eventId}.json`, (err, response) => {
-      setEvent(response)
-    })
-  }, [eventId])
-
-  if (!event) return <IncompletePage fetching={true} />
+  if (fetching || error) return <IncompletePage fetching={fetching} error={error} />
 
   return (
     <div>

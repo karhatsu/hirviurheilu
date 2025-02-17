@@ -25,6 +25,6 @@ export const EventProvider = ({ children }) => {
     }
   }, [eventId, fetchEvent])
 
-  const value = { fetching: !error && !event, event, error }
+  const value = { fetching: !error && !event, event, error, reload: fetchEvent }
   return <EventContext value={value}>{children}</EventContext>
 }
