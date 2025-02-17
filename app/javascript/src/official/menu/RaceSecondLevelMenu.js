@@ -194,7 +194,7 @@ const buildMenuItem = (selectedPage, key, t, race, series) => {
   )
 }
 
-const DesktopRaceSecondLevelMenu = ({ visible }) => {
+const RaceSecondLevelMenu = ({ visible }) => {
   const { t } = useTranslation()
   const { race } = useRace()
   const { selectedPage } = useOfficialMenu()
@@ -207,4 +207,4 @@ const DesktopRaceSecondLevelMenu = ({ visible }) => {
   )
 }
 
-export default DesktopRaceSecondLevelMenu
+export default RaceSecondLevelMenu
