@@ -7,6 +7,8 @@ import useOfficialMenu from "../menu/useOfficialMenu"
 import { pages } from "../../util/useMenu"
 import { useParams } from "react-router"
 import { buildOfficialEventPath } from "../../util/routeUtil"
+import { useEvent } from "../../util/useEvent"
+import IncompletePage from "../../common/IncompletePage"
 
 const CompetitorNumbersSyncPage = () => {
   const { eventId } = useParams()
@@ -15,6 +17,7 @@ const CompetitorNumbersSyncPage = () => {
   const [done, setDone] = useState(false)
   const { t } = useTranslation()
   const { setSelectedPage } = useOfficialMenu()
+  const { fetching, error, event } = useEvent()
 
   useEffect(() => setSelectedPage(pages.events.syncNumbers), [setSelectedPage])
 
@@ -29,11 +32,16 @@ const CompetitorNumbersSyncPage = () => {
     })
   }, [eventId, firstNumber])
 
+  if (fetching || error) return <IncompletePage fetching={fetching} error={error} />
+
+  const hasThreeSportsRace = !!event.races.find(race => race.sportKey === 'SKI' || race.sportKey === 'RUN')
+
   const content = () => {
+    if (hasThreeSportsRace) return <Message type="warning">{t('competitorNumbersSyncInvalidRaces')}</Message>
     if (done) return <Message type="success">{t('competitorNumbersSyncDone')}</Message>
-    // if (races.length < 2) return <Message type="warning">{t('competitorNumbersSyncNoRaces')}</Message>
     return (
       <form className="form" onSubmit={onSubmit}>
+        <Message type="info">{t('competitorNumbersSyncInfo')}</Message>
         <div className="form__field form__field--sm">
           <label htmlFor="firstNumber">{t('firstNumber')}</label>
           <input
@@ -56,7 +64,6 @@ const CompetitorNumbersSyncPage = () => {
 
   return (
     <div>
-      {!done && <Message type="info">{t('competitorNumbersSyncInfo')}</Message>}
       {content()}
       <div className="buttons buttons--nav">
         <Button to={buildOfficialEventPath(eventId)} type="back">{t('backToOfficialEventPage')}</Button>
