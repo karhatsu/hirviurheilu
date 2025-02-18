@@ -1,14 +1,13 @@
 class Official::EventsController < Official::OfficialController
   def show
+    @event = current_user.find_event params[:id]
+    return redirect_to official_root_path unless @event
     respond_to do |format|
       format.html do
         use_react true
         render layout: true, html: ''
       end
-      format.json do
-        @event = current_user.events.find(params[:id]).first
-        return render status: 400, json: { errors: ['Tapahtumaa ei löytynyt'] } unless @event
-      end
+      format.json
     end
   end
 
@@ -40,7 +39,7 @@ class Official::EventsController < Official::OfficialController
   end
 
   def update
-    @event = current_user.events.find(params[:id]).first
+    @event = current_user.find_event params[:id]
     unless @event.update event_params
       render status: 400, json: { errors: @event.errors.full_messages }
     end

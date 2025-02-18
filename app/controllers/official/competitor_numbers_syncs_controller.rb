@@ -5,7 +5,7 @@ class Official::CompetitorNumbersSyncsController < Official::OfficialController
   end
 
   def update
-    @event = current_user.events.find(params[:event_id]).first
+    @event = current_user.find_event params[:event_id]
     sync = CompetitorNumbersSync.new(@event, params[:first_number].to_i)
     sync.synchronize
     render status: 201, body: nil

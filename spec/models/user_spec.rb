@@ -150,15 +150,62 @@ describe User do
     let(:race4) { create(:race) }
     let!(:race5) { create(:race, event: event3) }
 
-    before do
+    it 'returns the events that belong to the user' do
       user.races << race1
       user.races << race2
       user.races << race3
       user.races << race4
+      expect(user.events.map{|e| e.name}).to eql ['Own 1', 'Own 2']
     end
 
-    it 'returns the events that belong to the user' do
-      expect(user.events.map{|e| e.name}).to eql ['Own 1', 'Own 2']
+    it 'does not return event if user has only partial rights to it' do
+      user.races << race3
+      user.race_rights.last.update_attribute :only_add_competitors, true
+      expect(user.events).to eql []
+    end
+  end
+
+  describe '#find_event' do
+    let(:user) { create :user }
+    let(:event) { create :event }
+    let!(:race1) { create :race, event: event }
+    let!(:race2) { create :race, event: event }
+
+    it 'returns nil for unknown event' do
+      expect(user.find_event(-1)).to be_nil
+    end
+
+    context 'when user has full rights only to some of its races' do
+      before do
+        user.races << race1
+      end
+
+      it 'returns nil' do
+        expect(user.find_event(event.id)).to be_nil
+      end
+    end
+
+    context 'when user has full rights to all of its races' do
+      before do
+        user.races << race1
+        user.races << race2
+      end
+
+      it 'returns event' do
+        expect(user.find_event(event.id)).to eql event
+      end
+    end
+
+    context 'when user has partial rights to some of its races' do
+      before do
+        user.races << race1
+        user.races << race2
+        user.race_rights.last.update_attribute :only_add_competitors, true
+      end
+
+      it 'returns nil' do
+        expect(user.find_event(event.id)).to be_nil
+      end
     end
   end
 end
