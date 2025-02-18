@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import isBefore from 'date-fns/isBefore'
+import isToday from 'date-fns/isToday'
 import Message from "../../common/Message"
 import useTranslation from "../../util/useTranslation"
 import Button from "../../common/Button"
@@ -35,9 +37,11 @@ const CompetitorNumbersSyncPage = () => {
   if (fetching || error) return <IncompletePage fetching={fetching} error={error} />
 
   const hasThreeSportsRace = !!event.races.find(race => race.sportKey === 'SKI' || race.sportKey === 'RUN')
+  const hasStartedRace = !!event.races.find(race => isBefore(race.startDate, new Date()) || isToday(race.startDate))
 
   const content = () => {
     if (hasThreeSportsRace) return <Message type="warning">{t('competitorNumbersSyncInvalidRaces')}</Message>
+    if (hasStartedRace) return <Message type="warning">{t('competitorNumbersSyncRaceStarted')}</Message>
     if (done) return <Message type="success">{t('competitorNumbersSyncDone')}</Message>
     return (
       <form className="form" onSubmit={onSubmit}>

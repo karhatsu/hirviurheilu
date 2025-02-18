@@ -14,6 +14,7 @@ window.officialTranslations = {
   competitorNumbersSyncDone: 'Kilpailijanumerot synkronoitu',
   competitorNumbersSyncInfo: 'Tällä sivulla voit synkronoida tapahtuman kilpailuiden kilpailijanumerot.',
   competitorNumbersSyncInvalidRaces: 'Toiminto ei ole saatavilla tapahtumille, joissa on mukana liikuntalajeja.',
+  competitorNumbersSyncRaceStarted: 'Toimintoa ei voi enää käyttää, koska kilpailut ovat alkaneet.',
   edit: 'Muokkaa',
   editOfficialRights: 'Muokkaa toimitsijan oikeuksia',
   eventEdit: 'Muokkaa tapahtumaa',

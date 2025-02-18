@@ -14,6 +14,7 @@ window.officialTranslations = {
   competitorNumbersSyncDone: 'Tävlingsnummer synkroniserade',
   competitorNumbersSyncInfo: 'På den här sidan kan du synkronisera tävlingsnummer inom evenemanget.',
   competitorNumbersSyncInvalidRaces: 'Funktionen är inte tillgänglig för evenemang som innehåller älgskidskytte eller älglöpning',
+  competitorNumbersSyncRaceStarted: 'Funktionen kan inte längre användas eftersom tävlingarna har startat.',
   edit: 'Redigera',
   editOfficialRights: 'Redigera funktionärens rättigheter',
   eventEdit: 'Redigera evenemanget',
