@@ -68,6 +68,7 @@ const CompetitorNumbersSyncPage = () => {
 
   return (
     <div>
+      <h2>{t('officialEventMenuSyncNumbers')}</h2>
       {content()}
       <div className="buttons buttons--nav">
         <Button to={buildOfficialEventPath(eventId)} type="back">{t('backToOfficialEventPage')}</Button>
