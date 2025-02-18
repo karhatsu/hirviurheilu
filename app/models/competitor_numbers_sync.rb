@@ -1,6 +1,6 @@
 class CompetitorNumbersSync
-  def initialize(race_ids, first_number)
-    @race_ids = race_ids
+  def initialize(event, first_number)
+    @event = event
     @current_number = first_number
     @changed_competitors = []
   end
@@ -14,8 +14,9 @@ class CompetitorNumbersSync
 
   def collect_competitors
     numbers = {}
-    @race_ids.each do |race_id|
-      Race.find(race_id).competitors.includes(:club).except(:order).order(:number).each do |competitor|
+    # order by id ensures that the races are always handled in the same order
+    @event.races.order(:id).each do |race|
+      race.competitors.includes(:club).except(:order).order(:number).each do |competitor|
         key = "#{competitor.club.name}_#{competitor.last_name}_#{competitor.first_name}"
         if numbers[key]
           number = numbers[key]

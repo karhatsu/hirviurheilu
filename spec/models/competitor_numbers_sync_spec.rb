@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe CompetitorNumbersSync do
-  let(:race1) { create :race }
-  let(:race2) { create :race }
-  let(:race3) { create :race }
+  let(:event) { create :event }
+  let(:race1) { create :race, event: event }
+  let(:race2) { create :race, event: event }
+  let(:race3) { create :race, event: event }
   let(:series1) { create :series, race: race1 }
   let(:series2) { create :series, race: race2 }
   let(:series3) { create :series, race: race3 }
@@ -25,7 +26,7 @@ describe CompetitorNumbersSync do
   let!(:competitor3_3) { create :competitor, series: series3, club: club3_a, number: 5, first_name: 'Timo', last_name: 'Turunen' }
 
   it 'synchronises the numbers in given races based on the competitor names and clubs' do
-    sync = CompetitorNumbersSync.new([race1, race2, race3].map(&:id), 1)
+    sync = CompetitorNumbersSync.new event, 1
     sync.synchronize
     expect_number competitor1_1, 1, false
     expect_number competitor1_2, 2, false
