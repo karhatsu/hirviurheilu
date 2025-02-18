@@ -6,6 +6,7 @@ import useTranslation from "../../util/useTranslation"
 import useOfficialMenu from "../menu/useOfficialMenu"
 import { pages } from "../../util/useMenu"
 import { useEvent } from "../../util/useEvent"
+import { buildOfficialRacePath } from "../../util/routeUtil"
 
 const EventPage = () => {
   const { t } = useTranslation()
@@ -21,7 +22,11 @@ const EventPage = () => {
     <div>
       <h3>{t('eventRaces')}</h3>
       <div>
-        {event.races.map(race => <div key={race.id}>{race.name}</div>)}
+        {event.races.map(race => (
+          <div key={race.id}>
+            <a href={buildOfficialRacePath(race.id)}>{race.name}</a>
+          </div>
+        ))}
       </div>
       <div className="buttons">
         <Button to={`edit`} type="edit">{t('eventEdit')}</Button>
