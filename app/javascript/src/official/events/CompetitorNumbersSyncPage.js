@@ -15,6 +15,7 @@ import IncompletePage from "../../common/IncompletePage"
 const CompetitorNumbersSyncPage = () => {
   const { eventId } = useParams()
   const [firstNumber, setFirstNumber] = useState(1)
+  const [confirmed, setConfirmed] = useState(false)
   const [saving, setSaving] = useState(false)
   const [done, setDone] = useState(false)
   const { t } = useTranslation()
@@ -59,13 +60,19 @@ const CompetitorNumbersSyncPage = () => {
             value={firstNumber}
           />
         </div>
+        <div className="form__horizontal-fields">
+          <div className="form__field">
+            <input id="confirmed" type="checkbox" checked={confirmed} onChange={e => setConfirmed(e.target.checked)}/>
+            <label htmlFor="confirmed">{t('competitorNumbersSyncConfirm')}</label>
+          </div>
+        </div>
         <div className="form__buttons">
-          <Button submit={true} type="primary" disabled={saving}>
+          <Button submit={true} type="primary" disabled={!confirmed || saving}>
             {t('competitorNumbersSync')}
           </Button>
         </div>
       </form>
-    )
+  )
   }
 
   return (

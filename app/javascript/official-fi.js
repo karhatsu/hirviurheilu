@@ -11,6 +11,7 @@ window.officialTranslations = {
   clubsPageCompetitorsCount: '{{count}} kilpailijaa',
   clubsLongNameInfo: 'Käytetään joukkuekilpailuissa, jos syötetty',
   competitorNumbersSync: 'Synkronoi kilpailijanumerot',
+  competitorNumbersSyncConfirm: 'Ymmärrän, että toiminto muuttaa kilpailijoiden numeroita eikä vanhaa tilaa voi palauttaa',
   competitorNumbersSyncDone: 'Kilpailijanumerot synkronoitu',
   competitorNumbersSyncInfo: 'Tällä sivulla voit synkronoida tapahtuman kilpailuiden kilpailijanumerot.',
   competitorNumbersSyncInvalidRaces: 'Toiminto ei ole saatavilla tapahtumille, joissa on mukana liikuntalajeja.',
