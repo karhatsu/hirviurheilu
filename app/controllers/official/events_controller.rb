@@ -46,7 +46,7 @@ class Official::EventsController < Official::OfficialController
   end
 
   def competitors
-    @event = current_user.find_event params[:event_id]
+    @event = current_user.find_event(params[:event_id], races: [series: [competitors: :club]])
     redirect_to official_root_path unless @event
     respond_to do |format|
       format.html do
