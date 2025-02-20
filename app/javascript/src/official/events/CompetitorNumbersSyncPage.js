@@ -34,7 +34,9 @@ const CompetitorNumbersSyncPage = () => {
     })
   }, [eventId, firstNumber])
 
-  if (fetching || error) return <IncompletePage fetching={fetching} error={error} />
+  if (fetching || error) {
+    return <IncompletePage fetching={fetching} error={error} title={t('officialEventMenuSyncNumbers')} />
+  }
 
   const hasThreeSportsRace = !!event.races.find(race => race.sportKey === 'SKI' || race.sportKey === 'RUN')
   const hasStartedRace = !!event.races.find(race => isBefore(race.startDate, new Date()) || isToday(race.startDate))
