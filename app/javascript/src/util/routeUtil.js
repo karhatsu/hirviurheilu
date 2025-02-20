@@ -80,6 +80,8 @@ export const buildOfficialPath = () => withLocale('/official')
 
 export const buildOfficialEventPath = eventId => withLocale(`/official/events/${eventId}`)
 
+export const buildOfficialEventCompetitorsPath = eventId => withLocale(`/official/events/${eventId}/competitors`)
+
 export const buildOfficialEventCompetitorNumbersSyncPath = eventId => withLocale(`/official/events/${eventId}/competitor_numbers_sync`)
 
 export const buildOfficialRacePath = raceId => withLocale(`/official/races/${raceId}`)

@@ -39,7 +39,8 @@ export const pages = {
   europeanShotgun: 24,
   events: {
     main: 25,
-    syncNumbers: 26,
+    competitors: 26,
+    syncNumbers: 27,
   },
 }
 

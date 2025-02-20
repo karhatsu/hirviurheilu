@@ -45,6 +45,18 @@ class Official::EventsController < Official::OfficialController
     end
   end
 
+  def competitors
+    @event = current_user.find_event params[:event_id]
+    redirect_to official_root_path unless @event
+    respond_to do |format|
+      format.html do
+        use_react true
+        render layout: true, html: ''
+      end
+      format.json
+    end
+  end
+
   private
 
   def event_params

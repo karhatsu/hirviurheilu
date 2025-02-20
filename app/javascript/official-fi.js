@@ -28,6 +28,7 @@ window.officialTranslations = {
   megaLinkImportFile: 'Tiedoston sisältö',
   megaLinkImportContentsError: 'Tiedoston sisältö on virheellinen',
   megaLinkImportSuccess: 'Tulokset tallennettu',
+  officialEventMenuCompetitors: 'Kilpailijat',
   officialEventMenuHome: 'Yhteenveto',
   officialEventMenuSyncNumbers: 'Synkronoi numerot',
   officialPageAddManyDescription: 'Tällä sivulla voit kutsua monta toimitsijaa kerralla. Listaa toimitsijoiden sähköpostiosoitteet ja jos haluat heille rajoitetut oikeudet, lisää perään piiri / seura alla olevan esimerkin mukaisesti. Henkilöiden täytyy olla rekisteröitynyt palveluun omilla sähköpostiosoitteillaan.',

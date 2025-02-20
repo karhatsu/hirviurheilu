@@ -8,6 +8,7 @@ import CompetitorNumbersSyncPage from './events/CompetitorNumbersSyncPage'
 import NewEventPage from "./events/NewEventPage"
 import EventPage from './events/EventPage'
 import EditEventPage from "./events/EditEventPage"
+import EventCompetitorsPage from "./events/EventCompetitorsPage"
 
 const OfficialMainContent = () => {
   return (
@@ -18,6 +19,7 @@ const OfficialMainContent = () => {
           <Route path="new" element={<NewEventPage />} />
           <Route path=":eventId">
             <Route path="competitor_numbers_sync" element={<CompetitorNumbersSyncPage />} />
+            <Route path="competitors" element={<EventCompetitorsPage />} />
             <Route path="edit" element={<EditEventPage />} />
             <Route path="" element={<EventPage />} />
           </Route>

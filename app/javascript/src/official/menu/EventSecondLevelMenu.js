@@ -3,7 +3,11 @@ import DesktopMenuItem from "../../public/menu/DesktopMenuItem"
 import useOfficialMenu from "./useOfficialMenu"
 import { pages } from "../../util/useMenu"
 import useTranslation from "../../util/useTranslation"
-import { buildOfficialEventPath, buildOfficialEventCompetitorNumbersSyncPath } from "../../util/routeUtil"
+import {
+  buildOfficialEventPath,
+  buildOfficialEventCompetitorNumbersSyncPath,
+  buildOfficialEventCompetitorsPath,
+} from "../../util/routeUtil"
 import { useParams } from "react-router"
 
 const EventSecondLevelMenu = ({ visible }) => {
@@ -17,6 +21,12 @@ const EventSecondLevelMenu = ({ visible }) => {
         path={buildOfficialEventPath(eventId)}
         reactLink={true}
         selected={selectedPage === pages.events.main}
+      />
+      <DesktopMenuItem
+        text={t('officialEventMenuCompetitors')}
+        path={buildOfficialEventCompetitorsPath(eventId)}
+        reactLink={true}
+        selected={selectedPage === pages.events.competitors}
       />
       <DesktopMenuItem
         text={t('officialEventMenuSyncNumbers')}
