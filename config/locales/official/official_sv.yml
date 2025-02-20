@@ -8,9 +8,10 @@ sv:
         competitions: Tävlingar
         cup_competitions: Cup-tävlingar
         new_competition: Ny tävling
+        events: Evenemang
+        add_new_event: Lägg till ett evenemang
         add_new_race: Lägg till en tävling
         add_multiple_races: Lägg till många tävlingar
-        synchronize_numbers: Synkronisera nummer
         add_new_cup: Lägg till en cup-tävling
         no_races_yet:
           short: Du har ännu inga tävlingar.

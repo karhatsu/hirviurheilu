@@ -121,6 +121,7 @@ describe Race do
 
   describe "associations" do
     it { is_expected.to belong_to(:district) }
+    it { is_expected.to belong_to(:event) }
     it { is_expected.to have_many(:series) }
     it { is_expected.to have_many(:age_groups).through(:series) }
     it { is_expected.to have_many(:competitors).through(:series) }

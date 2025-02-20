@@ -13,5 +13,6 @@ class Official::IndexController < Official::OfficialController
       @past = current_user.races.past
       @cups = current_user.cups.order('created_at DESC')
     end
+    @events = current_user.events
   end
 end

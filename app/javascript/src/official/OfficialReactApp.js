@@ -5,11 +5,13 @@ import Header from '../common/Header'
 import MainMenu from '../common/MainMenu'
 import PageTitle from '../common/PageTitle'
 import { RaceProvider } from '../util/useRace'
-import DesktopRaceSecondLevelMenu from './menu/DesktopRaceSecondLevelMenu'
+import RaceSecondLevelMenu from './menu/RaceSecondLevelMenu'
 import OfficialMainContent from './OfficialMainContent'
 import { OfficialMenuProvider } from './menu/useOfficialMenu'
 import { PathParamsContextProvider } from '../public/PathParamsProvider'
 import { Route, Routes } from "react-router"
+import { EventProvider } from "../util/useEvent"
+import EventSecondLevelMenu from "./menu/EventSecondLevelMenu"
 
 const OfficialReactApp = () => {
   const [mainMenuOpen, setMainMenuOpen] = useState(false)
@@ -33,7 +35,8 @@ const OfficialReactApp = () => {
             <a className="material-icons-outlined md-24" href="/" onClick={toggleSubMenu}>menu</a>
           </div>
           <Routes>
-            <Route path="races/:raceId/*" element={<DesktopRaceSecondLevelMenu visible={subMenuOpen} />} />
+            <Route path="events/:eventId/*" element={<EventSecondLevelMenu visible={subMenuOpen} />} />
+            <Route path="races/:raceId/*" element={<RaceSecondLevelMenu visible={subMenuOpen} />} />
           </Routes>
           <OfficialMainContent/>
         </div>
@@ -47,9 +50,11 @@ const OfficialReactAppContainer = () => (
   <LayoutProvider>
     <PathParamsContextProvider>
       <RaceProvider>
-        <OfficialMenuProvider>
-          <OfficialReactApp />
-        </OfficialMenuProvider>
+        <EventProvider>
+          <OfficialMenuProvider>
+            <OfficialReactApp />
+          </OfficialMenuProvider>
+        </EventProvider>
       </RaceProvider>
     </PathParamsContextProvider>
   </LayoutProvider>

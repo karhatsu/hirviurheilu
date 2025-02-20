@@ -8,8 +8,8 @@ class Official::RacesController < Official::OfficialController
   def index
     respond_to do |format|
       format.json do
-        # hard-coded limitations since used only by numbers sync
-        @races = current_user.races.where('start_date >= ? AND sport_key NOT IN (?, ?)', Date.today, Sport::SKI, Sport::RUN)
+        # hard-coded limitation since used only by event creation
+        @races = current_user.races.where('start_date >= ?', Date.today)
       end
     end
   end

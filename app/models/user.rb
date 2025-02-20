@@ -51,7 +51,18 @@ class User < ApplicationRecord
 
   def has_full_rights_for_race?(race)
     race_right = race_rights.where(:race_id => race.id).first
-    race_right and !race_right.only_add_competitors
+    race_right && !race_right.only_add_competitors
+  end
+
+  def events
+    race_rights.select {|rr| !rr.only_add_competitors && rr.race&.event }.map {|rr| rr.race.event}.uniq
+  end
+
+  def find_event(id, includes = nil)
+    event = Event.where(id: id).includes(includes).first
+    return nil unless event
+    return nil unless event.races.all? {|race| has_full_rights_for_race? race}
+    event
   end
 
   private

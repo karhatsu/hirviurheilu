@@ -1,0 +1,1 @@
+json.(@event, :id, :name)
