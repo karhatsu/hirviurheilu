@@ -67,7 +67,7 @@ const CompetitorNumbersSyncPage = () => {
           </div>
         </div>
         <div className="form__buttons">
-          <Button submit={true} type="primary" disabled={!confirmed || saving}>
+          <Button submit={true} type="primary" disabled={!(parseInt(firstNumber) >= 1) || !confirmed || saving}>
             {t('competitorNumbersSync')}
           </Button>
         </div>
