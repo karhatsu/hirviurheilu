@@ -4,7 +4,7 @@ window.officialTranslations = {
   addManyOfficials: 'Lägg till många funktionärer',
   addOfficial: 'Lägg till funktionär',
   backToOfficialEventPage: 'Tillbaka till evenemangets sammanfattningnssida',
-  backToOfficialIndexPage: 'Tillbaka till',
+  backToOfficialIndexPage: 'Tillbaka till funktionärens hemsida',
   backToOfficialRacePage: 'Tillbaka till sammanfattningnssidan',
   cancel: 'Avbryt',
   clubsPageInfo: 'På den här sidan kan du lägga till klubbar och radera onödiga. Obs! Du kan också lägga till klubbar när du lägger till tävlande.',
