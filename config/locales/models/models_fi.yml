@@ -115,7 +115,6 @@ fi:
     password_confirmation: Salasana uudestaan
     pending_official_email: Toimitsijan sähköposti
     points_method: Pistelaskenta
-    price: Hinta
     public_message: Viesti kilpailun etusivulle
     published: Julkaistu
     qualification_round_heat_id: Alkukilpailun erä
@@ -196,9 +195,6 @@ fi:
       district:
         one: Piiri
         other: Piirit
-      price:
-        one: Hinta
-        other: Hinnat
       race:
         one: Kilpailu
         other: Kilpailut

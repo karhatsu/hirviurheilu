@@ -115,7 +115,6 @@ sv:
     password_confirmation: Lösenord igen
     pending_official_email: Funktionärs epost
     points_method: Poängmetod
-    price: Pris
     public_message: Meddelande på tävlingens hemsida
     published: Publicerad
     qualification_round_heat_id: Grundtävlingens heat
@@ -196,9 +195,6 @@ sv:
       district:
         one: Distrikt
         other: Distrikt
-      price:
-        one: Pris
-        other: Priser
       race:
         one: Tävling
         other: Tävlingar

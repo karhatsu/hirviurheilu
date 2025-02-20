@@ -13,12 +13,6 @@ official2 = User.create!(:email => 'official2@official2.com', :password => 'offi
   :password_confirmation => 'official2', :first_name => 'Taina', :last_name => 'Toimitsijatar')
 official2.add_official_rights
 
-# pricing
-BasePrice.create!(:price => 20)
-Price.create!(:min_competitors => 1, :price => 1.5)
-Price.create!(:min_competitors => 20, :price => 1.25)
-Price.create!(:min_competitors => 50, :price => 1.0)
-
 # races
 race2 = ski.races.build(:name => "P-Savon hirvenhiihtokisat",
   :location => "Karttula", :start_date => '2010-12-13', :start_interval_seconds => 60)
