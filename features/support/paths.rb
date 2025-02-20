@@ -31,6 +31,9 @@ module NavigationHelpers
     when /the official new event page/
       official_new_official_event_path(locale)
 
+    when /the official event page of "(.*)"/
+      official_event_path(locale, Event.find_by_name($1))
+
     when /the official race page of "(.*)"/
       official_race_path(locale, Race.find_by_name($1))
 
