@@ -8,12 +8,14 @@ import {
   buildOfficialEventCompetitorNumbersSyncPath,
   buildOfficialEventCompetitorsPath,
 } from "../../util/routeUtil"
-import { useParams } from "react-router"
+import { useMatch, useParams } from "react-router"
 
 const EventSecondLevelMenu = ({ visible }) => {
   const { eventId } = useParams()
   const { t } = useTranslation()
   const { selectedPage } = useOfficialMenu()
+  const newEventPage = useMatch('/official/events/new')
+  if (newEventPage) return null
   return (
     <div className={`menu menu--sub menu--sub-1 ${visible ? 'menu--visible' : ''}`}>
       <DesktopMenuItem
