@@ -1,34 +1,5 @@
+- sport = @race.sport.shooting? && params[:print_sport] ? @race.sport.name : raw('&nbsp;')
 - if @a5
-  - page_count = (@competitors.length / 2.0).ceil
-  - @competitors.each_slice(2).each_with_index do |cc, i|
-    .competitor-number-double-page
-      - cc.each do |competitor|
-        .competitor-number-page
-          .competitor-number-page__sport= @race.sport.shooting? && params[:print_sport] ? @race.sport.name : raw('&nbsp;')
-          .competitor-number-page__name= full_name competitor
-          .competitor-number-page__number= competitor.number
-          .competitor-number-page__club= competitor.club.name
-          .competitor-number-page__series= competitor.series.name
-          .competitor-number-page__heat
-            - if competitor.qualification_round_track_place && competitor.qualification_round_heat && params[:print_heat_data]
-              #{competitor.qualification_round_heat.number} / #{competitor.qualification_round_track_place}
-            - else
-              = raw('&nbsp;')
-    - if i < page_count - 1
-      .page-break
+  = render partial: 'a5', locals: { sport: sport, series: true, heat: true }
 - else
-  - page_count = @competitors.length
-  - @competitors.each_with_index do |competitor, i|
-    .competitor-number-page
-      - if @race.sport.shooting? && params[:print_sport]
-        .competitor-number-page__sport= @race.sport.name
-      .competitor-number-page__number= competitor.number
-      .competitor-number-page__name= full_name competitor
-      .competitor-number-page__club= competitor.club.name
-      .competitor-number-page__series= competitor.series.name
-      - if competitor.qualification_round_track_place && competitor.qualification_round_heat && params[:print_heat_data]
-        .competitor-number-page__heat
-          #{competitor.qualification_round_heat.number} / #{competitor.qualification_round_track_place}
-    -#.logo= image_tag 'https://www.karhatsu.com/hirviurheilu/SM-logo.png'
-    - if i < page_count - 1
-      .page-break
+  = render partial: 'a4', locals: { sport: sport, series: true, heat: true }

@@ -1,18 +1,4 @@
-%h1= @event.name
-- prev_competitor = nil
-- @competitors.each do |competitor|
-  - if params[:order] == 'clubAlphabetical' || params[:order] == 'clubNumbers'
-    - if !prev_competitor || prev_competitor.club.name != competitor.club.name
-      %h2= competitor.club.name
-    - prev_competitor = competitor
-  %div{style: 'margin-top: 8px'}
-    %div
-      - if params[:order] == 'numbers' || params[:order] == 'clubNumbers'
-        \##{competitor.number}
-      #{competitor.last_name} #{competitor.first_name}
-      - if params[:order] != 'clubAlphabetical' && params[:order] != 'clubNumbers'
-        #{competitor.club.name}
-      - if params[:order] != 'numbers' && params[:order] != 'clubNumbers'
-        (##{competitor.number})
-    - if params[:withRaces]
-      %div= competitor.event_races.map {|er| "#{er[1]} (#{er[0]})"}.join(', ')
+- if params[:type] == 'numbers'
+  = render partial: 'numbers'
+- else
+  = render partial: 'list'

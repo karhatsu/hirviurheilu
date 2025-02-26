@@ -9,9 +9,12 @@ class Official::PrintsController < Official::OfficialController
         @event = current_user.find_event(params[:event_id], races: [series: [competitors: :club]])
         return render status: 404, body: nil unless @event
         sort_competitors
+        @a5 = params[:size] == 'a5'
+        header = @a5 ? nil : pdf_header(@event.name)
+        footer = @a5 ? nil : pdf_footer
         render pdf: "#{@event.name} - #{t('official.competitors.index.title')}", layout: true,
-               margin: pdf_margin, header: pdf_header("#{@event.name} - #{t('official.competitors.index.title')}"),
-               footer: pdf_footer, orientation: 'Portrait', disable_smart_shrinking: true
+               margin: pdf_margin, header: header, footer: footer, orientation: 'Portrait',
+               disable_smart_shrinking: true
       end
     end
   end
