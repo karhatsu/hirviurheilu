@@ -9,6 +9,7 @@ import NewEventPage from "./events/NewEventPage"
 import EventPage from './events/EventPage'
 import EditEventPage from "./events/EditEventPage"
 import EventCompetitorsPage from "./events/EventCompetitorsPage"
+import PrintsPage from "./events/PrintsPage"
 
 const OfficialMainContent = () => {
   return (
@@ -21,6 +22,7 @@ const OfficialMainContent = () => {
             <Route path="competitor_numbers_sync" element={<CompetitorNumbersSyncPage />} />
             <Route path="competitors" element={<EventCompetitorsPage />} />
             <Route path="edit" element={<EditEventPage />} />
+            <Route path="prints" element={<PrintsPage />} />
             <Route path="" element={<EventPage />} />
           </Route>
         </Route>

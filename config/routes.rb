@@ -92,6 +92,7 @@ Hirviurheilu::Application.routes.draw do
       resources :events, only: [:show, :new, :create, :edit, :update] do
         resource :competitor_numbers_sync, only: [:show, :update]
         get 'competitors', to: 'events#competitors'
+        resources :prints, only: :index
       end
 
       resources :races do
