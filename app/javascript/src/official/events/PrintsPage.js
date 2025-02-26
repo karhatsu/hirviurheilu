@@ -24,13 +24,22 @@ const PrintsPage = () => {
           {competitorOrders.map(order => (
             <div key={order} className="form__horizontal-fields">
               <div className="form__field">
-                <input type="radio" name="order" id={order} defaultChecked={order === 'alphabetical'} value={order} />
+                <input type="radio" name="order" id={order} defaultChecked={order === 'alphabetical'} value={order}/>
                 <label htmlFor={order}>
                   {t(`eventPrintCompetitorOrder_${order}`)}
                 </label>
               </div>
             </div>
           ))}
+        </div>
+        <div className="form__field">
+          <label>{t('eventPrintCompetitorOptions')}</label>
+        </div>
+        <div className="form__horizontal-fields">
+          <div className="form__field">
+            <input type="checkbox" name="withRaces" />
+            <label htmlFor="withRaces">{t('eventPrintCompetitorWithRaces')}</label>
+          </div>
         </div>
         <div className="form__buttons">
           <Button submit={true} type="primary">{t('printPdf')}</Button>

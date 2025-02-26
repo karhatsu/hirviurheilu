@@ -100,7 +100,7 @@ class Competitor < ApplicationRecord
   after_save :update_series_start_time_and_number
   after_update :update_series_competitors_counter_cache
 
-  attr_accessor :club_name, :age_group_name, :old_values, :position
+  attr_accessor :club_name, :age_group_name, :old_values, :position, :event_races
   store_accessor :nordic_results,
                  :trap_shots, :trap_score_input, :trap_extra_shots,
                  :shotgun_shots, :shotgun_score_input, :shotgun_extra_shots,

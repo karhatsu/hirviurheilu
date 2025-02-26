@@ -19,17 +19,20 @@ class Official::PrintsController < Official::OfficialController
   private
 
   def sort_competitors
-    @competitors = []
+    competitors_hash = {}
     @event.races.each do |race|
       race.series.each do |series|
         series.competitors.each do |competitor|
-          @competitors << competitor
+          key = "#{competitor.club.name}_#{competitor.last_name}_#{competitor.first_name}"
+          unless competitors_hash[key]
+            competitors_hash[key] = competitor
+            competitors_hash[key].event_races = []
+          end
+          competitors_hash[key].event_races << [competitor.series.name, competitor.series.race.name]
         end
       end
     end
-    @competitors = @competitors.uniq { |c|
-      [c.number, c.first_name, c.last_name, c.club.name]
-    }.sort { |a, b|
+    @competitors = competitors_hash.values.sort { |a, b|
       if params[:order] == 'numbers'
         [a.number, a.last_name, a.first_name] <=> [b.number, b.last_name, b.first_name]
       elsif params[:order] == 'clubAlphabetical'

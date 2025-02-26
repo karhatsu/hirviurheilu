@@ -6,10 +6,13 @@
       %h2= competitor.club.name
     - prev_competitor = competitor
   %div{style: 'margin-top: 8px'}
-    - if params[:order] == 'numbers' || params[:order] == 'clubNumbers'
-      \##{competitor.number}
-    #{competitor.last_name} #{competitor.first_name}
-    - if params[:order] != 'clubAlphabetical' && params[:order] != 'clubNumbers'
-      #{competitor.club.name}
-    - if params[:order] != 'numbers' && params[:order] != 'clubNumbers'
-      (##{competitor.number})
+    %div
+      - if params[:order] == 'numbers' || params[:order] == 'clubNumbers'
+        \##{competitor.number}
+      #{competitor.last_name} #{competitor.first_name}
+      - if params[:order] != 'clubAlphabetical' && params[:order] != 'clubNumbers'
+        #{competitor.club.name}
+      - if params[:order] != 'numbers' && params[:order] != 'clubNumbers'
+        (##{competitor.number})
+    - if params[:withRaces]
+      %div= competitor.event_races.map {|er| "#{er[1]} (#{er[0]})"}.join(', ')
