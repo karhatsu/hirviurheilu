@@ -9,7 +9,7 @@
     %div
       - if params[:order] == 'numbers' || params[:order] == 'clubNumbers'
         \##{competitor.number}
-      #{competitor.last_name} #{competitor.first_name}
+      = full_name competitor
       - if params[:order] != 'clubAlphabetical' && params[:order] != 'clubNumbers'
         #{competitor.club.name}
       - if params[:order] != 'numbers' && params[:order] != 'clubNumbers'
