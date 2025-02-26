@@ -6,7 +6,7 @@ import useTranslation from "../../util/useTranslation"
 import {
   buildOfficialEventPath,
   buildOfficialEventCompetitorNumbersSyncPath,
-  buildOfficialEventCompetitorsPath,
+  buildOfficialEventCompetitorsPath, buildOfficialEventPrintsPath,
 } from "../../util/routeUtil"
 import { useMatch, useParams } from "react-router"
 
@@ -29,6 +29,12 @@ const EventSecondLevelMenu = ({ visible }) => {
         path={buildOfficialEventCompetitorsPath(eventId)}
         reactLink={true}
         selected={selectedPage === pages.events.competitors}
+      />
+      <DesktopMenuItem
+        text={t('officialEventMenuPrints')}
+        path={buildOfficialEventPrintsPath(eventId)}
+        reactLink={true}
+        selected={selectedPage === pages.events.prints}
       />
       <DesktopMenuItem
         text={t('officialEventMenuSyncNumbers')}

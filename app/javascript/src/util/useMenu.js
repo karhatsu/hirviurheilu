@@ -41,6 +41,7 @@ export const pages = {
     main: 25,
     competitors: 26,
     syncNumbers: 27,
+    prints: 29,
   },
 }
 

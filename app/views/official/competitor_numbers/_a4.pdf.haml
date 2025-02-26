@@ -1,0 +1,14 @@
+- page_count = @competitors.length
+- @competitors.each_with_index do |competitor, i|
+  .competitor-number-page
+    .competitor-number-page__sport= sport
+    .competitor-number-page__number= competitor.number
+    .competitor-number-page__name= full_name competitor
+    .competitor-number-page__club= competitor.club.name
+    - if series
+      .competitor-number-page__series= competitor.series.name
+    - if heat && competitor.qualification_round_track_place && competitor.qualification_round_heat && params[:print_heat_data]
+      .competitor-number-page__heat
+        #{competitor.qualification_round_heat.number} / #{competitor.qualification_round_track_place}
+  - if i < page_count - 1
+    .page-break
