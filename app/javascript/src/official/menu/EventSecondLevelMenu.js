@@ -31,16 +31,16 @@ const EventSecondLevelMenu = ({ visible }) => {
         selected={selectedPage === pages.events.competitors}
       />
       <DesktopMenuItem
-        text={t('officialEventMenuSyncNumbers')}
-        path={buildOfficialEventCompetitorNumbersSyncPath(eventId)}
-        reactLink={true}
-        selected={selectedPage === pages.events.syncNumbers}
-      />
-      <DesktopMenuItem
         text={t('officialEventMenuPrints')}
         path={buildOfficialEventPrintsPath(eventId)}
         reactLink={true}
         selected={selectedPage === pages.events.prints}
+      />
+      <DesktopMenuItem
+        text={t('officialEventMenuSyncNumbers')}
+        path={buildOfficialEventCompetitorNumbersSyncPath(eventId)}
+        reactLink={true}
+        selected={selectedPage === pages.events.syncNumbers}
       />
     </div>
   )
