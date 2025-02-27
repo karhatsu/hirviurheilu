@@ -11,6 +11,7 @@ import { useParams } from "react-router"
 import { buildOfficialEventPath } from "../../util/routeUtil"
 import { useEvent } from "../../util/useEvent"
 import IncompletePage from "../../common/IncompletePage"
+import { formatDateInterval } from "../../util/timeUtil"
 
 const CompetitorNumbersSyncPage = () => {
   const { eventId } = useParams()
@@ -65,6 +66,15 @@ const CompetitorNumbersSyncPage = () => {
             <input id="confirmed" type="checkbox" checked={confirmed} onChange={e => setConfirmed(e.target.checked)}/>
             <label htmlFor="confirmed">{t('competitorNumbersSyncConfirm')}</label>
           </div>
+        </div>
+        <div className="form__field">
+          {event.races.map(race => (
+            <div key={race.id}>
+              <a href={`/official/races/${race.id}`} target="_blank" rel="noreferrer">
+                {race.name}, {formatDateInterval(race.startDate, race.endDate)}
+              </a>
+            </div>
+          ))}
         </div>
         <div className="form__buttons">
           <Button submit={true} type="primary" disabled={!(parseInt(firstNumber) >= 1) || !confirmed || saving}>

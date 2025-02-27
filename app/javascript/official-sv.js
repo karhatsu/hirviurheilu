@@ -11,7 +11,7 @@ window.officialTranslations = {
   clubsPageCompetitorsCount: '{{count}} tävlande',
   clubsLongNameInfo: 'Används i lagtävlingar om det anges',
   competitorNumbersSync: 'Synkronisera nummer',
-  competitorNumbersSyncConfirm: 'Jag förstår att funktionen ändrar tävlandes nummer och att det gamla läget inte kan återställas',
+  competitorNumbersSyncConfirm: 'Jag förstår att funktionen ändrar tävlandes nummer i tävlingarna nedan och att det gamla läget inte kan återställas',
   competitorNumbersSyncDone: 'Tävlingsnummer synkroniserade',
   competitorNumbersSyncInfo: 'På den här sidan kan du synkronisera tävlingsnummer inom evenemanget.',
   competitorNumbersSyncInvalidRaces: 'Funktionen är inte tillgänglig för evenemang som innehåller älgskidskytte eller älglöpning',

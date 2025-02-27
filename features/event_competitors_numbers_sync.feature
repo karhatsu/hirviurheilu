@@ -35,7 +35,7 @@ Feature: Synchronize numbers of the competitors within an event
     And I should see a card 5 with number 5, title "Testinen Timo" and text "Testiseura"
     When I follow "Synkronoi numerot"
     And I fill in "10" for "Ensimmäinen numero"
-    And I check "Ymmärrän, että toiminto muuttaa kilpailijoiden numeroita eikä vanhaa tilaa voi palauttaa"
+    And I check "Ymmärrän, että toiminto muuttaa kilpailijoiden numeroita alla olevissa kilpailuissa eikä vanhaa tilaa voi palauttaa"
     And I press "Synkronoi kilpailijanumerot"
     Then I should see "Kilpailijanumerot synkronoitu" in a success message
     When I follow "Kilpailijat"
