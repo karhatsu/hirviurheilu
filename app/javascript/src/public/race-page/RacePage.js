@@ -16,6 +16,7 @@ import Button from '../../common/Button'
 import Message from '../../common/Message'
 import IncompletePage from '../../common/IncompletePage'
 import { buildRootPath } from '../../util/routeUtil'
+import RaceEventRaces from "./RaceEventRaces"
 
 const msToStart = start => start ? new Date(start).getTime() - new Date().getTime() : Number.MAX_SAFE_INTEGER
 
@@ -69,6 +70,7 @@ export default function RacePage() {
           <RaceTeamCompetitions race={race} />
           <RaceRelays race={race} />
           <RaceResultsPdf race={race} />
+          <RaceEventRaces race={race} />
           <RaceCups race={race} />
         </>
       )}

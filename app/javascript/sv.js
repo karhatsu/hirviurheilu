@@ -70,6 +70,7 @@ window.translations = {
   european_rifle4: 'Vildsvin',
   european_shotgun: 'Trap och compak',
   european_trap: 'Trap',
+  eventOtherRaces: 'Andra tävlingar i evenemanget',
   extraRound: 'Omskjutning',
   feedback: 'Feedback',
   feedbackRaceInfo: 'Om du vill skicka feedback för en tävlings organizatör, välj tävlingen som Mottagare av feedback',

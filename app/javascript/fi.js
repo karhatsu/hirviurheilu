@@ -70,6 +70,7 @@ window.translations = {
   european_rifle4: 'Villisika',
   european_shotgun: 'Haulikko',
   european_trap: 'Trap',
+  eventOtherRaces: 'Tapahtuman muut kilpailut',
   extraRound: 'Uusinta',
   feedback: 'Palaute',
   feedbackRaceInfo: 'Mikäli haluat lähettää palautetta tietyn kilpailun järjestäjälle, valitse kilpailu Palautteen kohde -valikosta',
