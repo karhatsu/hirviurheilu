@@ -2,13 +2,8 @@ class Official::EventsController < Official::OfficialController
   def show
     @event = current_user.find_event params[:id]
     return redirect_to official_root_path unless @event
-    respond_to do |format|
-      format.html do
-        use_react true
-        render layout: true, html: ''
-      end
-      format.json
-    end
+    use_react true
+    render layout: true, html: ''
   end
 
   def new

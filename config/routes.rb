@@ -209,6 +209,7 @@ Hirviurheilu::Application.routes.draw do
         get 'home', to: 'home#index'
         resources :announcements, only: [:index, :show]
         resources :districts, only: :index
+        resources :events, only: :show
         resources :races, only: [:index, :show] do
           resources :series, only: [:show] do
             resource :start_list, only: :show

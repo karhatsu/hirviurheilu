@@ -12,8 +12,7 @@ export const EventProvider = ({ children }) => {
   const [error, setError] = useState()
 
   const fetchEvent = useCallback(() => {
-    // NOTE: for now official route
-    get(`/official/events/${eventId}.json`, (err, data) => {
+    get(`/api/v2/public/events/${eventId}.json`, (err, data) => {
       if (err) return setError(err)
       setEvent(data)
     })
