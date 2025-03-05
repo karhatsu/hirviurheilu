@@ -8,6 +8,7 @@ sv:
     prices: Priser
     personal: Egna uppgifter
     start: Börja
+    login: Logga in
   login: Logga in
   logout: Logga ut
   forgotten_password: Glömt lösenord?

@@ -64,6 +64,8 @@ export const buildAnnouncementPath = id => withLocale(`/announcements/${id}`)
 
 export const buildRegisterPath = () => withLocale('/register')
 
+export const buildLoginPath = () => withLocale('/login')
+
 export const buildAccountPath = () => withLocale('/account')
 
 export const buildFeedbackPath = () => withLocale('/feedbacks/new')

@@ -95,6 +95,7 @@ window.translations = {
   level_2: 'Alue',
   level_3: 'SM',
   level_4: 'Kansainvälinen',
+  login: 'Kirjaudu',
   name: 'Nimi',
   navigate: 'Sijainti kartalla',
   noCompetitors: 'Ei kilpailijoita',

@@ -3,6 +3,7 @@ class UserSessionsController < ApplicationController
   before_action :require_user, :only => :destroy
 
   def new
+    @is_login = true
     session[:return_to] = params[:return_to] if params[:return_to]
     @user_session = UserSession.new
   end

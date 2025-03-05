@@ -9,6 +9,7 @@ import {
   buildAccountPath,
   buildAnnouncementsPath,
   buildInfoPath,
+  buildLoginPath,
   buildOfficialPath,
   buildOfficialRacePath,
   buildRacePath,
@@ -80,6 +81,7 @@ export default function MainMenu({ closeMenu, mainMenuOpen, official }) {
         onClick={closeMenu}
       />
       {!userId && <DesktopMenuItem icon="login" path={buildRegisterPath()} text={t('startUsage')} />}
+      {!userId && <DesktopMenuItem icon="person_add" path={buildLoginPath()} text={t('login')} />}
       {!!userId && <DesktopMenuItem icon="person" path={buildAccountPath()} text={t('account')} />}
       {admin && <DesktopMenuItem icon="architecture" path="/admin" text="Admin" />}
       {locale === 'fi' && <DesktopMenuItem icon="language" path="?new_locale=sv" text="På svenska" />}

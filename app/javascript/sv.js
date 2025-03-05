@@ -95,6 +95,7 @@ window.translations = {
   level_2: 'Regional',
   level_3: 'FM',
   level_4: 'Internationell',
+  login: 'Logga in',
   name: 'Namn',
   navigate: 'Visa i Google Maps',
   noCompetitors: 'Inga tävlande',

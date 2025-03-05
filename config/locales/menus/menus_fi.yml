@@ -8,6 +8,7 @@ fi:
     prices: Hinnat
     personal: Omat tiedot
     start: Aloita käyttö
+    login: Kirjaudu
   login: Kirjaudu sisään
   logout: Kirjaudu ulos
   forgotten_password: Unohtunut salasana?
