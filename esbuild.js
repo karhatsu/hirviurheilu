@@ -11,6 +11,7 @@ const esbuildConfig = {
   ],
   bundle: true,
   loader: { '.js': 'jsx' },
+  jsx: 'automatic',
   sourcemap: true,
   outdir: 'app/assets/builds',
 }

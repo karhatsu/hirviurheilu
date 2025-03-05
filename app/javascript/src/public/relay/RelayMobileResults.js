@@ -1,4 +1,3 @@
-import React from 'react'
 import classnames from 'classnames-minimal'
 import NoResultReason from '../NoResultReason'
 import RelayTime from './RelayTime'

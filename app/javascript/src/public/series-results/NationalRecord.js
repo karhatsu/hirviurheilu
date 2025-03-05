@@ -1,4 +1,3 @@
-import React from 'react'
 import { nationalRecordUrl } from '../../util/sportUtil'
 
 export default function NationalRecord({ race, series, competitor }) {

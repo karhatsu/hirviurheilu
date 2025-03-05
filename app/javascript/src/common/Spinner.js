@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function Spinner() {
   return (
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="spinner">

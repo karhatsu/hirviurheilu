@@ -1,4 +1,3 @@
-import React from 'react'
 import useTranslation from '../../util/useTranslation'
 import CupTeamCompetitionPoints from './CupTeamCompetitionPoints'
 

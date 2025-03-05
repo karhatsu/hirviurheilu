@@ -1,4 +1,3 @@
-import React from 'react'
 import useTranslation from '../../util/useTranslation'
 import Button from '../../common/Button'
 import { buildRootPath } from '../../util/routeUtil'

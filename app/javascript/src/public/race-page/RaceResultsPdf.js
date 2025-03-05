@@ -1,4 +1,3 @@
-import React from 'react'
 import isAfter from 'date-fns/isAfter'
 import parseISO from 'date-fns/parseISO'
 import useTranslation from '../../util/useTranslation'

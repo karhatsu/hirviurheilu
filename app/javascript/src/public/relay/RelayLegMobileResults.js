@@ -1,4 +1,3 @@
-import React from 'react'
 import classnames from 'classnames-minimal'
 import RelayTime from './RelayTime'
 import MobileSubResult from '../series-results/MobileSubResult'

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import { Fragment, useCallback, useState } from 'react'
 import useTranslation from '../../util/useTranslation'
 import NoResultReason from '../NoResultReason'
 import RelayTime from './RelayTime'
@@ -30,7 +30,7 @@ export default function RelayDesktopResults({ race, relay, teams }) {
           {teams.map((team, i) => {
             const { estimatePenaltiesSum, id, name, noResultReason, number, shootPenaltiesSum } = team
             return (
-              <React.Fragment key={id}>
+              <Fragment key={id}>
                 <tr id={`team_${i + 1}`}>
                   <td>{i + 1}.</td>
                   <td className="team_name">{name}</td>
@@ -84,7 +84,7 @@ export default function RelayDesktopResults({ race, relay, teams }) {
                     </tr>
                   )
                 })}
-              </React.Fragment>
+              </Fragment>
             )
           })}
         </tbody>

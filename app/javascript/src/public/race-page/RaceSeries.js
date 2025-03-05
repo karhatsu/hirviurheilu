@@ -1,4 +1,4 @@
-import React from 'react'
+import { Fragment } from 'react'
 import format from 'date-fns/format'
 import isAfter from 'date-fns/isAfter'
 import parse from 'date-fns/parse'
@@ -86,7 +86,7 @@ export default function RaceSeries({ race }) {
         </div>
       )}
       {sport.nordic && nordicSubResultsForSeries && nordicSubSports.map(subSport => (
-        <React.Fragment key={subSport}>
+        <Fragment key={subSport}>
           <h2>{t(`nordic_${subSport}`)}</h2>
           <div className="buttons">
             {series.map(s => (
@@ -95,7 +95,7 @@ export default function RaceSeries({ race }) {
               </Button>
             ))}
           </div>
-        </React.Fragment>
+        </Fragment>
       ))}
       {sport.european && (
         <>

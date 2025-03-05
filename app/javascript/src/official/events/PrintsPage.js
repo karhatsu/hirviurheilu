@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useOfficialMenu from "../menu/useOfficialMenu"
 import { pages } from "../../util/useMenu"
 import useTranslation from "../../util/useTranslation"

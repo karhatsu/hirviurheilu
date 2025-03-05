@@ -1,4 +1,3 @@
-import React from 'react'
 import NationalRecord from '../series-results/NationalRecord'
 
 export default function EuropeanRifleNationalRecord({ race, series, competitor }) {

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import useTitle from "../../util/useTitle"
 import useTranslation from "../../util/useTranslation"
 import { get, post } from "../../util/apiClient"

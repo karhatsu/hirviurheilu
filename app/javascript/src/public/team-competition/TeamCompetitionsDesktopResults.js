@@ -1,4 +1,4 @@
-import React from 'react'
+import { Fragment } from 'react'
 import useTranslation from '../../util/useTranslation'
 import { Link } from 'react-router'
 import { buildSeriesResultsPath } from '../../util/routeUtil'
@@ -37,7 +37,7 @@ export default function TeamCompetitionsDesktopResults({ race, teamCompetition, 
           const orderNo = position === prevCompetitorPosition ? '' : `${position}.`
           prevCompetitorPosition = position
           return (
-            <React.Fragment key={name}>
+            <Fragment key={name}>
               <tr id={`team_${i + 1}`}>
                 <td>{orderNo}</td>
                 <td className="team_name">{name}</td>
@@ -72,7 +72,7 @@ export default function TeamCompetitionsDesktopResults({ race, teamCompetition, 
                   </tr>
                 )
               }))}
-            </React.Fragment>
+            </Fragment>
           )
         })}
         </tbody>

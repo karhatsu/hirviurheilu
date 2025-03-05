@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router'
 import classnames from 'classnames-minimal'
 import NoResultReason from '../NoResultReason'

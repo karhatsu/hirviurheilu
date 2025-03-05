@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router'
 import useTranslation from '../../util/useTranslation'
 import { buildRacePath } from '../../util/routeUtil'
@@ -23,7 +23,7 @@ export default function Races({ races, titleKey, icon, sectionId, limit, childre
         {t(titleKey)}
       </h2>
       <div id={sectionId} className="row">
-        {visibleRaces.map((race, i) => {
+        {visibleRaces.map(race => {
           const { cancelled, id, name, startDate, endDate, location, sportKey } = race
           return (
             <div key={id} className="col-xs-12 col-sm-6 col-md-4">

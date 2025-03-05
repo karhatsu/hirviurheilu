@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import max from 'date-fns/max'
 import parseISO from 'date-fns/parseISO'
 import useTitle from '../../util/useTitle'

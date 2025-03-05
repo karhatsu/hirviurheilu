@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function MobileStartList({ competitors }) {
   return (
     <div className="results--mobile result-cards">

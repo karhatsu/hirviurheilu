@@ -1,4 +1,3 @@
-import React from 'react'
 import { buildCupSeriesPath, buildRifleCupSeriesPath } from '../../util/routeUtil'
 import DesktopMenuItem from '../menu/DesktopMenuItem'
 

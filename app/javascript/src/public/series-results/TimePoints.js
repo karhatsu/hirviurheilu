@@ -1,4 +1,3 @@
-import React from 'react'
 import { seriesEnums } from '../../util/enums'
 import { timeFromSeconds } from '../../util/timeUtil'
 

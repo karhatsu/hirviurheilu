@@ -1,9 +1,9 @@
-import React, { Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import useMenu, { pages } from '../../util/useMenu'
 import Spinner from '../../common/Spinner'
 import useTitle from '../../util/useTitle'
 import useTranslation from '../../util/useTranslation'
-const Content = React.lazy(() => import('./QAndAContent'))
+const Content = lazy(() => import('./QAndAContent'))
 
 export default function QAndAPage() {
   const { t } = useTranslation()

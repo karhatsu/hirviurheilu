@@ -1,4 +1,3 @@
-import React from 'react'
 import useTranslation from '../../util/useTranslation'
 import MobileResultCards from '../series-results/MobileResultCards'
 import MobileSubResult from '../series-results/MobileSubResult'

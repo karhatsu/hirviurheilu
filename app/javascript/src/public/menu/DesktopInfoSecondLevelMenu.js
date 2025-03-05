@@ -1,4 +1,3 @@
-import React from 'react'
 import DesktopMenuItem from './DesktopMenuItem'
 import {
   buildAnswersPath,

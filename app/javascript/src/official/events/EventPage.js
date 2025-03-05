@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import IncompletePage from "../../common/IncompletePage"
 import useTitle from "../../util/useTitle"
 import Button from "../../common/Button"

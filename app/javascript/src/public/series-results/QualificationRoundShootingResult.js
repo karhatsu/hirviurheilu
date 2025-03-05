@@ -1,4 +1,4 @@
-import React from 'react'
+import { Fragment } from 'react'
 import ShootingResult from './ShootingResult'
 
 export default function QualificationRoundShootingResult({ competitor }) {
@@ -16,9 +16,9 @@ export default function QualificationRoundShootingResult({ competitor }) {
           return <ShootingResult key={i} score={qualificationRoundSubScores[0]} shots={qualificationRoundShots[0]} />
         } else if (qualificationRoundShots[i].length > 0) {
           return (
-            <React.Fragment key={i}>
+            <Fragment key={i}>
               {' + '}<ShootingResult score={qualificationRoundSubScores[i]} shots={qualificationRoundShots[i]} />
-            </React.Fragment>
+            </Fragment>
           )
         }
         return null

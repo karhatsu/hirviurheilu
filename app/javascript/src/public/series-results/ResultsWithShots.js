@@ -1,8 +1,8 @@
-import React, { useCallback, useState } from 'react'
+import { createContext, useCallback, useState } from 'react'
 import useTranslation from '../../util/useTranslation'
 import Button from '../../common/Button'
 
-export const ShowShotsContext = React.createContext(false)
+export const ShowShotsContext = createContext(false)
 
 export default function ResultsWithShots({ children, competitors }) {
   const [showShots, setShowShots] = useState()

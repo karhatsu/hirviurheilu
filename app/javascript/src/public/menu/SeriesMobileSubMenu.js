@@ -1,4 +1,3 @@
-import React from 'react'
 import MobileSubMenu from './MobileSubMenu'
 
 export default function SeriesMobileSubMenu({ race, buildSeriesPath, currentSeriesId }) {

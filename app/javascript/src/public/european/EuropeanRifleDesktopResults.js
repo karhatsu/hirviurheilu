@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { resolveClubTitle } from '../../util/clubUtil'
 import useTranslation from '../../util/useTranslation'
 import DesktopResultsRows from '../series-results/DesktopResultsRows'

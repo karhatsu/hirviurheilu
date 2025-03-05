@@ -1,4 +1,3 @@
-import React from 'react'
 import DesktopMenuItem from "../../public/menu/DesktopMenuItem"
 import useOfficialMenu from "./useOfficialMenu"
 import { pages } from "../../util/useMenu"

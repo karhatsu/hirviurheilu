@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { get } from "../../util/apiClient"
 import Button from "../../common/Button"
 import { buildRacePath } from "../../util/routeUtil"
@@ -12,8 +12,8 @@ const RaceEventRaces = ({ race }) => {
   useEffect(() => {
     if (!eventId) return
     get(`/api/v2/public/events/${eventId}.json`, (err, data) => {
-      if (err) return setError(err)
-      setEvent(data)
+      if (err) console.error(err)
+      else setEvent(data)
     })
   }, [eventId])
 

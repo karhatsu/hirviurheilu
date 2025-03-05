@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import Button from '../../common/Button'
 import { buildCupPath, buildCupTeamCompetitionsPath } from '../../util/routeUtil'
 import useTranslation from '../../util/useTranslation'

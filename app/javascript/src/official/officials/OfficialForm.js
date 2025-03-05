@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { get } from '../../util/apiClient'
 import { useRace } from '../../util/useRace'
 import Button from '../../common/Button'

@@ -1,4 +1,3 @@
-import React from 'react'
 import ShootingResult from './ShootingResult'
 import useTranslation from '../../util/useTranslation'
 import QualificationRoundShootingResult from './QualificationRoundShootingResult'

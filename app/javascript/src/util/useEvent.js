@@ -1,8 +1,8 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { usePathParams } from '../public/PathParamsProvider'
 import { get } from './apiClient'
 
-const EventContext = React.createContext({})
+const EventContext = createContext({})
 
 export const useEvent = () => useContext(EventContext)
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import UnofficialLabel from './UnofficialLabel'
 
 export default function DesktopResultsRows({ children, competitors, sortMethod }) {

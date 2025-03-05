@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 
-const MenuContext = React.createContext({})
+const MenuContext = createContext({})
 
 export const pages = {
   raceHome: 0,

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import useMenu, { pages } from '../../util/useMenu'
 import Button from '../../common/Button'
 import {

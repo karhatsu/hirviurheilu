@@ -1,4 +1,3 @@
-import React from 'react'
 import useTranslation from '../../util/useTranslation'
 import { buildFinalRoundHeatsPath, buildQualificationRoundHeatsPath } from '../../util/routeUtil'
 import Button from '../../common/Button'

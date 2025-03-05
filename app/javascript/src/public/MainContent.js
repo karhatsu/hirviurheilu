@@ -1,4 +1,3 @@
-import React from 'react'
 import PageTitle from '../common/PageTitle'
 import FacebookShare from './FacebookShare'
 import { Route, Routes } from 'react-router'

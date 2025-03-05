@@ -1,5 +1,3 @@
-import React from 'react'
-
 const FormErrors = ({ errors }) => {
   if (!errors || !errors.length) return null
   return (

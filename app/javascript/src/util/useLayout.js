@@ -1,6 +1,6 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
-const LayoutContext = React.createContext({})
+const LayoutContext = createContext({})
 
 const useLayout = () => useContext(LayoutContext)
 

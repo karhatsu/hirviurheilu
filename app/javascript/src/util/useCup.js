@@ -1,8 +1,8 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { usePathParams } from '../public/PathParamsProvider'
 import { get } from './apiClient'
 
-const CupContext = React.createContext({})
+const CupContext = createContext({})
 
 export const useCup = () => useContext(CupContext)
 
