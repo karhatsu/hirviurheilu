@@ -1,4 +1,3 @@
-import React from 'react'
 import { useRace } from '../../util/useRace'
 import DesktopRaceSecondLevelMenu from './DesktopRaceSecondLevelMenu'
 import { useCup } from '../../util/useCup'

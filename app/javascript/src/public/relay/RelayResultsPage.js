@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import max from 'date-fns/max'
 import parseISO from 'date-fns/parseISO'
 import useMenu, { pages } from '../../util/useMenu'

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import useMenu, { pages } from '../../util/useMenu'
 import useRaceData from '../../util/useRaceData'
 import { useParams } from 'react-router'

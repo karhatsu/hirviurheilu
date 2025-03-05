@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import useTitle from '../../util/useTitle'
 import { useRace } from '../../util/useRace'
 import RaceOrganizer from './RaceOrganizer'

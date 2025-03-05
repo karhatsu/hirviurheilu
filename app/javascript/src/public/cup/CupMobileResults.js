@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import classnames from 'classnames-minimal'
 import Button from '../../common/Button'
 import useTranslation from '../../util/useTranslation'

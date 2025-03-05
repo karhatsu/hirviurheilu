@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function MobileResultCards({ children, competitors }) {
   let prevCompetitorPosition = 0
   return (

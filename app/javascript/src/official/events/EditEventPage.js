@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Button from "../../common/Button"
 import { useNavigate, useParams } from "react-router"
 import useTranslation from "../../util/useTranslation"

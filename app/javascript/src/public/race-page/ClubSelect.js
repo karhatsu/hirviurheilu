@@ -1,4 +1,3 @@
-import React from 'react'
 import { raceEnums } from '../../util/enums'
 import useTranslation from '../../util/useTranslation'
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { timeFromSeconds } from '../../util/timeUtil'
 
 export default function RelayTime({ timeInSeconds, timeWithPenalties, noResultReason, rowBreak }) {

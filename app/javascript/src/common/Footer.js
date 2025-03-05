@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router'
 import getYear from 'date-fns/getYear'
 import useTranslation from '../util/useTranslation'

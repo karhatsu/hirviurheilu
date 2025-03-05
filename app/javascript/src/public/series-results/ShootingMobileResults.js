@@ -1,4 +1,3 @@
-import React from 'react'
 import NationalRecord from './NationalRecord'
 import useTranslation from '../../util/useTranslation'
 import ShootingRaceMobileShootingResult from './ShootingRaceMobileShootingResult'

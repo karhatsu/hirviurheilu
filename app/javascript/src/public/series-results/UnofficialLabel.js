@@ -1,4 +1,3 @@
-import React from 'react'
 import useTranslation from '../../util/useTranslation'
 
 export default function UnofficialLabel({ unofficial }) {

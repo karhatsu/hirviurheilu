@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import isAfter from 'date-fns/isAfter'
 import parseISO from 'date-fns/parseISO'
 import subWeeks from 'date-fns/subWeeks'

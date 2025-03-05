@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import Button from '../../common/Button'
 import { resolveClubsTitle } from '../../util/clubUtil'
 import useAppData from '../../util/useAppData'

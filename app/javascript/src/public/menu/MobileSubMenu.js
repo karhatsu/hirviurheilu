@@ -1,4 +1,3 @@
-import React from 'react'
 import useLayout from '../../util/useLayout'
 import Button from '../../common/Button'
 

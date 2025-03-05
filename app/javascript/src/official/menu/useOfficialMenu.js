@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 
-const OfficialMenuContext = React.createContext({})
+const OfficialMenuContext = createContext({})
 
 const useOfficialMenu = () => {
   const { selectedPage, setSelectedPage } = useContext(OfficialMenuContext)

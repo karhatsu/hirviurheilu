@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import useOfficialMenu from '../menu/useOfficialMenu'
 import Message from '../../common/Message'
 import { useRace } from '../../util/useRace'

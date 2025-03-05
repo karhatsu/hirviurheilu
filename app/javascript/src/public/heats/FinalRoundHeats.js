@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import useMenu, { pages } from '../../util/useMenu'
 import Heats from './Heats'
 import { buildFinalRoundHeatsPath } from '../../util/routeUtil'

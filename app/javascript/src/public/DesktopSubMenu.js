@@ -1,4 +1,3 @@
-import React from 'react'
 import { Route, Routes } from 'react-router'
 import SeriesDesktopSubMenu from './menu/SeriesDesktopSubMenu'
 import {

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import useTranslation from '../../util/useTranslation'
 import Button from '../../common/Button'
 import { post } from '../../util/apiClient'
@@ -38,7 +38,7 @@ const rounds = { qualification: 'qr', final: 'final' }
 const isValidJson = contents => {
   try {
     return contents && !!JSON.parse(contents)
-  } catch (err) {
+  } catch {
     return false
   }
 }
@@ -65,7 +65,7 @@ const MegalinkImportPage = () => {
     try {
       heatNumber = readHeatNumber(json)
       results = readResults(json)
-    } catch (err) {
+    } catch {
       setErrors([t('megaLinkImportContentsError')])
       return
     }

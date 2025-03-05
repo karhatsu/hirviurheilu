@@ -1,4 +1,3 @@
-import React from 'react'
 import { Route, Routes } from 'react-router'
 import PageTitle from '../common/PageTitle'
 import ClubsPage from './clubs/ClubsPage'

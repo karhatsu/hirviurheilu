@@ -1,4 +1,3 @@
-import React from 'react'
 import useTitle from '../../util/useTitle'
 import useTranslation from '../../util/useTranslation'
 import Message from '../../common/Message'

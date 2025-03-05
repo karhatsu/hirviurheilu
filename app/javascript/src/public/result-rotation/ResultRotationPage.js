@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import useMenu, { pages } from '../../util/useMenu'
 import { useRace } from '../../util/useRace'
 import IncompletePage from '../../common/IncompletePage'

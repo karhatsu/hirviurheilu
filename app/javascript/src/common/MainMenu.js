@@ -1,4 +1,3 @@
-import React from 'react'
 import { useLocation } from 'react-router'
 import classnames from 'classnames-minimal'
 import DesktopMenuItem from '../public/menu/DesktopMenuItem'

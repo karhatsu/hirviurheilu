@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import Button from '../../common/Button'
 import useTranslation from '../../util/useTranslation'
 import { buildNordicResultsPath, buildNordicSeriesResultsPath } from '../../util/routeUtil'

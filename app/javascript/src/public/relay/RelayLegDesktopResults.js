@@ -1,4 +1,3 @@
-import React from 'react'
 import useTranslation from '../../util/useTranslation'
 import RelayTime from './RelayTime'
 import RelayTimeAdjustment from './RelayTimeAdjustment'

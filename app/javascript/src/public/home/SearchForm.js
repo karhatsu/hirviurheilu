@@ -1,4 +1,3 @@
-import React from 'react'
 import useTranslation from '../../util/useTranslation'
 import Spinner from '../../common/Spinner'
 import { sportKeys } from '../../util/sportUtil'

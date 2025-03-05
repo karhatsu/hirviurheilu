@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { LayoutProvider } from '../util/useLayout'
 import Footer from '../common/Footer'
 import Header from '../common/Header'

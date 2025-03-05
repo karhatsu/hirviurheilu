@@ -1,4 +1,3 @@
-import React from 'react'
 import { buildFeedbackPath, buildRegisterPath } from '../../util/routeUtil'
 
 const testUrl = 'https://testi.hirviurheilu.com'

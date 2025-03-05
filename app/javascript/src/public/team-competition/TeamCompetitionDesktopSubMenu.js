@@ -1,4 +1,3 @@
-import React from 'react'
 import DesktopMenuItem from '../menu/DesktopMenuItem'
 import { buildRifleTeamCompetitionsPath, buildTeamCompetitionsPath } from '../../util/routeUtil'
 

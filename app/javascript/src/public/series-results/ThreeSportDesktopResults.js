@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import useTranslation from '../../util/useTranslation'
 import Points from './Points'
 import TimePoints from './TimePoints'

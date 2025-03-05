@@ -1,56 +1,34 @@
-import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
-import react from "eslint-plugin-react";
-import globals from "globals";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
+import pluginJs from "@eslint/js"
+import pluginReact from "eslint-plugin-react"
+import pluginReactHooks from "eslint-plugin-react-hooks"
+import globals from "globals"
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-});
-
-export default [...fixupConfigRules(
-    compat.extends("plugin:react/recommended", "plugin:react-hooks/recommended"),
-), {
+export default [
+  pluginJs.configs.recommended,
+  pluginReact.configs.flat.recommended,
+  pluginReact.configs.flat['jsx-runtime'],
+  {
     plugins: {
-        react: fixupPluginRules(react),
+      react: pluginReact,
+      "react-hooks": pluginReactHooks,
     },
 
     languageOptions: {
-        globals: {
-            ...globals.browser,
-        },
-
-        ecmaVersion: 12,
-        sourceType: "module",
-
-        parserOptions: {
-            ecmaFeatures: {
-                jsx: true,
-            },
-        },
+      globals: { ...globals.browser },
+      ecmaVersion: "latest",
     },
 
     settings: {
-        react: {
-            version: "detect",
-        },
+      react: {
+        version: "detect",
+      },
     },
 
     rules: {
-        "comma-dangle": ["error", "always-multiline"],
-
-        "max-len": ["error", {
-            code: 120,
-        }],
-
-        "node/no-callback-literal": 0,
-        "react/prop-types": 0,
-        "space-before-function-paren": ["error", "never"],
+      "comma-dangle": ["error", "always-multiline"],
+      "max-len": ["error", { code: 120 }],
+      "react/prop-types": "off",
+      "semi": ["off", "error"],
+      "space-before-function-paren": ["error", "never"],
     },
-}];
+  }]

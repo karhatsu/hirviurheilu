@@ -1,4 +1,3 @@
-import React from 'react'
 import parseISO from 'date-fns/parseISO'
 import useTranslation from '../../util/useTranslation'
 import { buildRelayPath } from '../../util/routeUtil'

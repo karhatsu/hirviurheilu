@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import Button from '../../common/Button'
 import useTranslation from '../../util/useTranslation'
 import Message from '../../common/Message'

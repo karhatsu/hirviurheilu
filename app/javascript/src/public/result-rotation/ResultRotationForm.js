@@ -1,4 +1,3 @@
-import React from 'react'
 import Button from '../../common/Button'
 import { useResultRotation } from './useResultRotation'
 import useTranslation from '../../util/useTranslation'

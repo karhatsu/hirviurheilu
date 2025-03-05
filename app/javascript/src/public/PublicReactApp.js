@@ -1,4 +1,4 @@
-import React, { StrictMode, useCallback, useState } from 'react'
+import { StrictMode, useCallback, useState } from 'react'
 import { RaceProvider } from '../util/useRace'
 import { LayoutProvider } from '../util/useLayout'
 import { MenuProvider } from '../util/useMenu'

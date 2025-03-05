@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import useTranslation from '../../util/useTranslation'
 import { ShowShotsContext } from '../series-results/ResultsWithShots'
 import MobileResultCards from '../series-results/MobileResultCards'
 import TotalScore from '../series-results/TotalScore'
 import MobileSubResult from '../series-results/MobileSubResult'
 
-export default function NordicSubSportMobileResults({ race, competitors }) {
+export default function NordicSubSportMobileResults({ competitors }) {
   const { t } = useTranslation()
   const showShots = useContext(ShowShotsContext)
   return (

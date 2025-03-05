@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router'
 import format from 'date-fns/format'
 import useTranslation from '../../util/useTranslation'

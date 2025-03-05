@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useParams } from 'react-router'
 import format from 'date-fns/format'
 import DesktopStartList from './DesktopStartList'
