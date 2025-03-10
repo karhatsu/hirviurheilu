@@ -159,9 +159,11 @@ textarea {
   .form__field {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     margin-top: 6px;
     margin-right: 16px;
+    overflow: hidden;
 
     &--shot {
       margin-right: 6px;
@@ -177,6 +179,7 @@ textarea {
 
     input, select {
       margin-top: 0;
+      max-width: 100%;
     }
   }
 
