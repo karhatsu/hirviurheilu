@@ -11,7 +11,6 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(session_params.to_h)
     if @user_session.save
-      flash[:success] = t('user_sessions.create.login_succeeded')
       redirect_back_or_default root_path
     else
       render :action => :new
@@ -20,7 +19,6 @@ class UserSessionsController < ApplicationController
 
   def destroy
     current_user_session.destroy
-    flash[:success] = t('user_sessions.destroy.logout_succeeded')
     redirect_back_or_default root_path
   end
 
