@@ -45,6 +45,10 @@ class NordicRacesController < ApplicationController
       return false
     elsif @race.nordic_sub_results_for_series? && params[:series_id]
       @series = @race.series.where(id: params[:series_id]).first
+      unless @series
+        redirect_to "/races/#{@race.id}"
+        return false
+      end
     end
     true
   end
