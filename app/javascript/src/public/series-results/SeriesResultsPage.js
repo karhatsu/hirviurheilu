@@ -59,7 +59,7 @@ export default function SeriesResultsPage() {
 
   const toggleAllCompetitors = useCallback(() => setAllCompetitors(ac => !ac), [])
 
-  const { started: resultRotationStarted, remainingSeconds } = useResultRotation()
+  const { autoScrolling, started: resultRotationStarted, remainingSeconds } = useResultRotation()
 
   if (fetching || error) {
     return <IncompletePage fetching={fetching} error={error} title={title} />
@@ -71,7 +71,7 @@ export default function SeriesResultsPage() {
     <>
       <h2>
         {title}
-        {resultRotationStarted && remainingSeconds && ` (${remainingSeconds})`}
+        {resultRotationStarted && !autoScrolling && remainingSeconds ? ` (${remainingSeconds})` : undefined}
       </h2>
       <SeriesStatus race={race} series={series}>
         {!shooting && <ThreeSportRaceInfo race={race} series={series} />}

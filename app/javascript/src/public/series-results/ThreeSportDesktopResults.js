@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import useTranslation from '../../util/useTranslation'
 import Points from './Points'
 import TimePoints from './TimePoints'
@@ -9,10 +9,12 @@ import useCompetitorSorting from './useCompetitorSorting'
 import { resolveClubTitle } from '../../util/clubUtil'
 import { timeFromSeconds } from '../../util/timeUtil'
 import DesktopResultsRows from './DesktopResultsRows'
+import { useResultRotation } from "../result-rotation/useResultRotation"
 
 export default function ThreeSportDesktopResults({ race, series }) {
   const { t } = useTranslation()
   const { competitors, sortMethod, sortMethods, setSortMethod } = useCompetitorSorting(series)
+  const { scrollAutomatically } = useResultRotation()
 
   const { clubLevel, sportKey } = race
   const { timePoints } = series
@@ -27,6 +29,8 @@ export default function ThreeSportDesktopResults({ race, series }) {
   }, [sortMethod, setSortMethod, t])
 
   const showShootingTime = useMemo(() => competitors?.findIndex(c => c.shootingTimeSeconds) !== -1, [competitors])
+
+  useEffect(() => scrollAutomatically(), [scrollAutomatically])
 
   return (
     <div className="results--desktop">

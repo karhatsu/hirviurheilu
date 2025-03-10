@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { buildSeriesResultsPath, buildTeamCompetitionsPath } from '../../util/routeUtil'
 import { useRace } from '../../util/useRace'
@@ -13,12 +13,17 @@ const minSeconds = 5
 export const ResultRotationProvider = ({ children }) => {
   const navigate = useNavigate()
   const { seriesId, teamCompetitionId } = usePathParams()
+  const [autoScroll, setAutoScroll] = useState(false)
+  const [autoScrolling, setAutoScrolling] = useState(false)
   const [seconds, setSeconds] = useState(15)
   const [seriesIds, setSeriesIds] = useState([])
   const [teamCompetitionIds, setTeamCompetitionIds] = useState([])
   const [started, setStarted] = useState(false)
   const [remainingSeconds, setRemainingSeconds] = useState(undefined)
   const { race } = useRace()
+  const statusRef = useRef({ autoScrolling: false, remainingSeconds: 0, nextPath: undefined })
+
+  const changeAutoScroll = useCallback(() => setAutoScroll(prev => !prev), [])
 
   const changeId = useCallback((setter, id) => event => {
     setter(ids => {
@@ -71,14 +76,14 @@ export const ResultRotationProvider = ({ children }) => {
   useEffect(() => {
     let timeout, interval
     if (started) {
-      const nextPath = resolveNextPath()
-      if (nextPath) {
+      statusRef.current.nextPath = resolveNextPath()
+      if (statusRef.current.nextPath) {
         setRemainingSeconds(seconds)
         interval = setInterval(() => {
           setRemainingSeconds(secs => Math.max(0, secs - 1))
         }, 1000)
         timeout = setTimeout(() => {
-          navigate(nextPath)
+          if (!statusRef.current.autoScrolling) navigate(statusRef.current.nextPath)
         }, seconds * 1000)
       } else {
         setRemainingSeconds(undefined)
@@ -90,7 +95,33 @@ export const ResultRotationProvider = ({ children }) => {
     }
   }, [resolveNextPath, started, seconds, navigate])
 
+  useEffect(() => {
+    statusRef.current.remainingSeconds = remainingSeconds
+  }, [remainingSeconds])
+
+  const scrollAutomatically = useCallback(() => {
+    if (!autoScroll) return
+    setAutoScrolling(true)
+    statusRef.current.autoScrolling = true
+    const interval = setInterval(() => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        setAutoScrolling(false)
+        statusRef.current.autoScrolling = false
+        clearInterval(interval)
+        if (statusRef.current.remainingSeconds === 0) {
+          navigate(statusRef.current.nextPath)
+        }
+      } else {
+        window.scrollBy(0, 1)
+      }
+    }, 20)
+    return () => clearInterval(interval)
+  }, [autoScroll])
+
   const value = {
+    autoScroll,
+    autoScrolling,
+    changeAutoScroll,
     changeSeconds,
     changeSeriesId,
     changeTeamCompetitionId,
@@ -101,6 +132,7 @@ export const ResultRotationProvider = ({ children }) => {
     started,
     stop,
     remainingSeconds,
+    scrollAutomatically,
     teamCompetitionIds,
   }
   return <ResultRotationContext value={value}>{children}</ResultRotationContext>

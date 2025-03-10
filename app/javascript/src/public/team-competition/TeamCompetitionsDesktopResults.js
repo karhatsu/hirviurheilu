@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import useTranslation from '../../util/useTranslation'
 import { Link } from 'react-router'
 import { buildSeriesResultsPath } from '../../util/routeUtil'
@@ -7,10 +7,15 @@ import EstimatePoints from '../series-results/EstimatePoints'
 import ShootingPoints from '../series-results/ShootingPoints'
 import TeamCompetitionExtraScore from './TeamCompetitionExtraScore'
 import TeamCompetitionNationalRecord from './TeamCompetitionNationalRecord'
+import { useResultRotation } from '../result-rotation/useResultRotation'
 
 export default function TeamCompetitionsDesktopResults({ race, teamCompetition, showCompetitors }) {
   const { t } = useTranslation()
   const { hasExtraScore, teams } = teamCompetition
+  const { scrollAutomatically } = useResultRotation()
+
+  useEffect(() => scrollAutomatically(), [scrollAutomatically])
+
   let prevCompetitorPosition = 0
   return (
     <div className="results--desktop">

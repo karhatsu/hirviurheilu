@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import useTranslation from '../../util/useTranslation'
 import ShootingResult from './ShootingResult'
 import { resolveClubTitle } from '../../util/clubUtil'
@@ -6,6 +6,7 @@ import NationalRecord from './NationalRecord'
 import TotalScore from './TotalScore'
 import DesktopResultsRows from './DesktopResultsRows'
 import { ShowShotsContext } from './ResultsWithShots'
+import { useResultRotation } from "../result-rotation/useResultRotation"
 
 export default function NordicDesktopResults({ race, series }) {
   const { t } = useTranslation()
@@ -13,6 +14,10 @@ export default function NordicDesktopResults({ race, series }) {
   const { competitors } = series
   const extraShots = !!competitors.find(c => c.nordicExtraScore)
   const resultClassName = showShots ? '' : 'center'
+  const { scrollAutomatically } = useResultRotation()
+
+  useEffect(() => scrollAutomatically(), [scrollAutomatically])
+
   return (
     <div className="results--desktop">
       <table className="results-table">

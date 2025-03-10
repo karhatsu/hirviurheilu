@@ -36,7 +36,7 @@ export default function TeamCompetitionResultsPage({ rifle }) {
   useTitle(race && titleTeamCompetition &&
     [titleTeamCompetition.name, t('teamCompetitions'), race.name, t(`sport_${race.sportKey}`)])
 
-  const { started: resultRotationStarted, remainingSeconds } = useResultRotation()
+  const { autoScrolling, started: resultRotationStarted, remainingSeconds } = useResultRotation()
 
   if (fetching || error) {
     return <IncompletePage fetching={fetching} error={error} title={title} />
@@ -49,7 +49,7 @@ export default function TeamCompetitionResultsPage({ rifle }) {
     <>
       <h2>
         {title}
-        {resultRotationStarted && remainingSeconds && ` (${remainingSeconds})`}
+        {resultRotationStarted && !autoScrolling && remainingSeconds ? ` (${remainingSeconds})` : undefined}
       </h2>
       {!teamCompetition.teams.length && <Message type="info">{t('teamCompetitionResultsNotAvailable')}</Message>}
       {teamCompetition.teams.length > 0 && (
