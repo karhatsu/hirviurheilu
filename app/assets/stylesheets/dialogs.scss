@@ -1,0 +1,46 @@
+.dialog {
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: calc(100dvw - 64px);
+    max-width: 600px;
+    max-height: calc(100dvh - 32px);
+    outline: none;
+    padding: 0;
+
+    &__top {
+        background-color: olive;
+        color: #fff;
+        padding: 8px 36px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    &__close {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 4px;
+
+        &:hover {
+            background-color: #fff;
+            color: olive;
+        }
+    }
+
+    &__body {
+        padding: 16px;
+        text-align: left;
+
+        *:first-child {
+            margin-top: 0;
+        }
+
+        *:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

@@ -46,7 +46,7 @@
       .col-xs-12.col-sm-3
         .form__help-label
           = f.label :reveal_distances
-          %a.help#reveal_distances_help{href: 'javascript:void(0);'} ?
+          %span.help{'data-dialog': 'reveal_distances_help_dialog'} ?
       .col-xs-12.col-sm-9= f.check_box :reveal_distances
   - if @race.sport.european?
     .form__field.row
@@ -67,13 +67,13 @@
     .col-xs-12.col-sm-3
       .form__help-label
         = f.label :address
-        %a.help#address_help{href: 'javascript:void(0);'} ?
+        %span.help{'data-dialog': 'address_help_dialog'} ?
     .col-xs-12.col-sm-9= f.text_field :address
   .form__field.row
     .col-xs-12.col-sm-3
       .form__help-label
         = f.label :home_page, t('official.races.form.link_to_race_home_page')
-        %a.help#home_page_help{href: 'javascript:void(0);'} ?
+        %span.help{'data-dialog': 'home_page_help_dialog'} ?
     .col-xs-12.col-sm-9= f.url_field :home_page
   .form__field.form__field--md.row
     .col-xs-12.col-sm-3= f.label :organizer_phone
@@ -82,58 +82,61 @@
     .col-xs-12.col-sm-3
       .form__help-label
         = f.label :public_message
-        %a.help#public_message_help{href: 'javascript:void(0);'} ?
+        %span.help{'data-dialog': 'public_message_help_dialog'} ?
     .col-xs-12.col-sm-9= f.text_area :public_message, cols: 50, rows: 6
 
   - if @race.sport.start_list?
-    #reveal_distances_help_dialog.dialog{style: 'display:none;'}
+    = render layout: 'official/shared/dialog', locals: { id: 'reveal_distances_help_dialog', title: 'Paljasta oikeat etäisyydet heti' } do
       %h3 Kun asetus ei ole valittuna
-      Normaalisti oikeat etäisyydet paljastetaan vasta, kun kilpailu on merkitty päättyneeksi.
-      Tällä tavoin voidaan helposti varmistaa, etteivät kilpailijat saa tietää niitä ennen kuin
-      ovat suorittaneet matkansa. Arviopisteet näytetään kuitenkin heti, kun kilpailijalle on
-      tiedossa sekä arviot että hänen lähtönumeronsa oikeat etäisyydet.
+      %p
+        Normaalisti oikeat etäisyydet paljastetaan vasta, kun kilpailu on merkitty päättyneeksi.
+        Tällä tavoin voidaan helposti varmistaa, etteivät kilpailijat saa tietää niitä ennen kuin
+        ovat suorittaneet matkansa. Arviopisteet näytetään kuitenkin heti, kun kilpailijalle on
+        tiedossa sekä arviot että hänen lähtönumeronsa oikeat etäisyydet.
       %h3 Kun asetus on valittuna
-      Jos tämä asetus laitetaan päälle, kilpailijan kohdalla näytetään oikeat etäisyydet heti,
-      kun ne ovat tiedossa. Tätä vaihtoehtoa voidaan käyttää esim. monipäiväisissä kilpailuissa,
-      joissa joka päivälle on eri arviomatkat. Toimitsijan vastuulla on tällöin tallentaa oikeat
-      etäisyydet vasta silloin, kun kaikki päivän kilpailijat ovat tulleet maaliin.
+      %p
+        Jos tämä asetus laitetaan päälle, kilpailijan kohdalla näytetään oikeat etäisyydet heti,
+        kun ne ovat tiedossa. Tätä vaihtoehtoa voidaan käyttää esim. monipäiväisissä kilpailuissa,
+        joissa joka päivälle on eri arviomatkat. Toimitsijan vastuulla on tällöin tallentaa oikeat
+        etäisyydet vasta silloin, kun kaikki päivän kilpailijat ovat tulleet maaliin.
 
-  #home_page_help_dialog.dialog{style: 'display:none;'}
+  = render layout: 'official/shared/dialog', locals: { id: 'home_page_help_dialog', title: 'Linkki kilpailun sivuille' } do
     Jos kilpailusta on tarjolla lisätietoa esimerkiksi piirin tai seuran
     omilla sivuilla, voit laittaa tähän linkin kyseiselle sivulle.
     Voit myös jättää kentän tyhjäksi.
 
-  #heat_size_help_dialog.dialog{style: 'display:none;'}
-    Lähtöerien avulla voit luoda taukoa kilpailijoiden välille.
-    Voit esimerkiksi määrittää lähtöerän kooksi 20 kilpailijaa,
-    jonka jälkeen tulee lähtöajoissa tauko. Nämä asetukset otetaan huomioon,
-    kun luodaan lähtölistoja.<br/><br/>
-    Mikäli haluat, että kaikki kilpailijat lähtevät tasaisin väliajoin,
-    jätä kentän arvoksi 0.<br/><br/>
-    Lähtöeriä käytetään yleensä suuremmissa kilpailuissa, jotta esimerkiksi
-    ammuntapaikoille ei tulisi liikaa ruuhkaa.
+  = render layout: 'official/shared/dialog', locals: { id: 'heat_size_help_dialog', title: 'Lähtöerät' } do
+    %p
+      Lähtöerien avulla voit luoda taukoa kilpailijoiden välille.
+      Voit esimerkiksi määrittää lähtöerän kooksi 20 kilpailijaa,
+      jonka jälkeen tulee lähtöajoissa tauko. Nämä asetukset otetaan huomioon,
+      kun luodaan lähtölistoja.
+    %p Mikäli haluat, että kaikki kilpailijat lähtevät tasaisin väliajoin, jätä kentän arvoksi 0.
+    %p Lähtöeriä käytetään yleensä suuremmissa kilpailuissa, jotta esimerkiksi ammuntapaikoille ei tulisi liikaa ruuhkaa.
 
-  #start_order_help_dialog.dialog{style: 'display:none;'}
-    Kilpailijoiden lähtöjärjestys vaikuttaa siihen, kuinka lähtölistat luodaan.
+  = render layout: 'official/shared/dialog', locals: { id: 'start_order_help_dialog', title: 'Kilpailijoiden lähtöjärjestys' } do
+    %p Kilpailijoiden lähtöjärjestys vaikuttaa siihen, kuinka lähtölistat luodaan.
     %h3 Pääsääntöisesti sarjoittain
-    Tässä vaihtoehdossa kilpailijat lähtevät liikkeelle pääsääntöisesti sarja
-    kerrallaan (poikkeukset ovat siis mahdollisia). Toimitsijan kannalta se tarkoittaa
-    sitä, että kun olet syöttänyt sarjan kilpailijat, voit järjestelmän avulla
-    luoda sarjalle kätevästi lähtölistan.
+    %p
+      Tässä vaihtoehdossa kilpailijat lähtevät liikkeelle pääsääntöisesti sarja
+      kerrallaan (poikkeukset ovat siis mahdollisia). Toimitsijan kannalta se tarkoittaa
+      sitä, että kun olet syöttänyt sarjan kilpailijat, voit järjestelmän avulla
+      luoda sarjalle kätevästi lähtölistan.
     %h3 Sarjat sekaisin
-    Tässä vaihtoehdossa kilpailijoiden sarjat eivät vaikuta lähtöaikaan, pikemminkin
-    kilpailijoiden lisäysjärjestys. Toimitsijan kannalta tämä tarkoittaa sitä,
-    että kun olet lisäämässä kilpailijaa, sinun täytyy myös määrittää hänelle lähtöaika
-    ja lähtönumero. Lähtölistat syntyvät näin ollen samalla, kun lisäät kilpailijoita.
+    %p
+      Tässä vaihtoehdossa kilpailijoiden sarjat eivät vaikuta lähtöaikaan, pikemminkin
+      kilpailijoiden lisäysjärjestys. Toimitsijan kannalta tämä tarkoittaa sitä,
+      että kun olet lisäämässä kilpailijaa, sinun täytyy myös määrittää hänelle lähtöaika
+      ja lähtönumero. Lähtölistat syntyvät näin ollen samalla, kun lisäät kilpailijoita.
 
-  #address_help_dialog.dialog{style: 'display:none;'}
-    Kilpailupaikan osoite. Syötä osoite sellaisessa muodossa, jossa Google sen tunnistaa,
-    esim. "Kilpailukatu 15, Kisakylä".
+  = render layout: 'official/shared/dialog', locals: { id: 'address_help_dialog', title: 'Kilpailupaikan osoite' } do
+    %p Kilpailupaikan osoite. Syötä osoite sellaisessa muodossa, jossa Google sen tunnistaa, esim. "Kilpailukatu 15, Kisakylä".
     %p Kilpailun etusivulle luodaan Google Maps -linkki tämän osoitteen avulla.
 
-  #public_message_help_dialog.dialog{style: 'display:none;'}
-    Tähän kenttään kirjoittamasi viesti tulee näkyviin kilpailun etusivulle.
-    Voit tiedottaa sen avulla kilpailun tärkeistä asioista kilpailijoille ja kilpailua seuraavalla yleisölle.
+  = render layout: 'official/shared/dialog', locals: { id: 'public_message_help_dialog', title: t('attributes.public_message') } do
+    %p
+      Tähän kenttään kirjoittamasi viesti tulee näkyviin kilpailun etusivulle.
+      Voit tiedottaa sen avulla kilpailun tärkeistä asioista kilpailijoille ja kilpailua seuraavalla yleisölle.
     %p
       Voit muotoilla tekstiä tai lisätä linkkejä
       = link_to 'markdown-tekniikan', 'https://www.markdownguide.org/cheat-sheet/', target: '_blank'
@@ -150,7 +153,7 @@
       .col-xs-12.col-sm-3
         .form__help-label
           = f.label :start_order, t('attributes.start_order')
-          %a.help#start_order_help{href: 'javascript:void(0);'} ?
+          %span.help{'data-dialog': 'start_order_help_dialog'} ?
       .col-xs-12.col-sm-9
         = f.radio_button :start_order, Race::START_ORDER_NOT_SELECTED, style: 'display:none;'
         = f.radio_button :start_order, Race::START_ORDER_BY_SERIES
@@ -162,7 +165,7 @@
       .col-xs-12.col-sm-3
         .form__help-label
           = f.label :heat_size
-          %a.help#heat_size_help{href: 'javascript:void(0);'} ?
+          %span.help{'data-dialog': 'heat_size_help_dialog'} ?
       .col-xs-12.col-sm-9
         = f.number_field :heat_size, maxlength: 3, min: 0
         (0 = #{t 'official.races.form.start_heats_not_in_use'})
@@ -218,15 +221,6 @@
     = submit_tag submit_label, class: 'button button--primary'
 
 :javascript
-  var reveal_distances_help_title = 'Paljasta oikeat etäisyydet heti';
-  var home_page_help_title = 'Linkki kilpailun sivuille';
-  var address_help_title = 'Kilpailupaikan osoite';
-  var public_message_help_title = '#{t 'attributes.public_message'}';
-  var start_order_help_title = 'Kilpailijoiden lähtöjärjestys';
-  var heat_size_help_title = 'Lähtöerät';
-  var default_series_help_title = 'Lisää oletussarjat automaattisesti';
-  var age_groups_help_title = '#{@race.sport.shooting? ? 'Aliryhmät' : 'Ikäryhmät'}';
-
   function showOrHideHeatSizes() {
     if($("#race_start_order_" + #{Race::START_ORDER_BY_SERIES} + ":checked").length) {
       $(".heat_size_row").show();

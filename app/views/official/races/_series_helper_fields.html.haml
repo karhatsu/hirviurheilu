@@ -2,11 +2,11 @@
   .col-xs-12.col-sm-3
     .form__help-label
       = label_tag :add_default_series, t('official.races.new.add_default_series_automatically')
-      %a.help#default_series_help{href: 'javascript:void(0);'} ?
+      %span.help{'data-dialog': 'default_series_help_dialog'} ?
   .col-xs-12.col-sm-9= check_box_tag :add_default_series, '1', params[:add_default_series]
 
-  #default_series_help_dialog.dialog{style: 'display:none;'}
-    Jos merkitset 'Lisää oletussarjat'-kentän valituksi, kilpailulle luodaan seuraavat sarjat:
+  = render layout: 'official/shared/dialog', locals: { id: 'default_series_help_dialog', title: 'Lisää oletussarjat automaattisesti' } do
+    %p Jos merkitset 'Lisää oletussarjat'-kentän valituksi, kilpailulle luodaan seuraavat sarjat:
     %ul
       - DefaultSeries.all(@race.sport).each do |df|
         %li
@@ -15,7 +15,7 @@
           - else
             #{df.name} (#{(df.default_age_groups.collect &:name).join(', ')})
     - if @race.new_record?
-      Voit kilpailun lisäämisen jälkeen tarvittaessa poistaa tarpeettomat sarjat ja lisätä uusia.
+      %p Voit kilpailun lisäämisen jälkeen tarvittaessa poistaa tarpeettomat sarjat ja lisätä uusia.
       %p Mikäli et valitse tätä vaihtoehtoa, pääset lisäämään haluamasi sarjat heti kilpailun jälkeen.
 - unless current_user.races.empty?
   .form__field.row

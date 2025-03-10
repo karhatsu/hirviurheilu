@@ -1,7 +1,3 @@
-<div id="team_name_help_dialog" class="dialog" style="display: none;">
+= render layout: 'official/shared/dialog', locals: { id: 'team_name_help_dialog', title: 'Joukkueen nimi' } do
   Jos kilpailija osallistuu joukkuekilpailuun, jossa joukkueita ei muodosteta seuran nimen perusteella,
   syötä tähän kenttään kilpailijan joukkueen nimi. Muussa tapauksessa jätä kenttä tyhjäksi.
-</div>
-<%= javascript_tag do %>
-  var team_name_help_title = 'Joukkueen nimi';
-<% end %>

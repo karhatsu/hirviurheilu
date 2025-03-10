@@ -1,5 +1,13 @@
 :javascript
-  $(document).on('click', '.help', function() {
-    var id = $(this).attr('id');
-    $('#' + id + '_dialog').dialog({ title: eval(id + '_title'), closeText: '' });
-  });
+  document.querySelectorAll(".help").forEach(button => {
+    button.addEventListener("click", () => {
+      const dialogId = button.getAttribute("data-dialog")
+      if (dialogId) document.getElementById(dialogId).showModal()
+    })
+  })
+
+  document.querySelectorAll("dialog .dialog__close").forEach(closeButton => {
+    closeButton.addEventListener("click", () => {
+      closeButton.closest("dialog").close()
+    })
+  })

@@ -29,7 +29,7 @@
     - if @race.has_team_competitions_with_team_names?
       .form__help-label
         = f.label :team_name
-        %a.help#team_name_help{href: 'javascript:void(0);'} ?
+        %span.help{'data-dialog': 'team_name_help_dialog'} ?
       = f.text_field :team_name
   .form__buttons
     = submit_tag "Tallenna", class: 'button button--primary'

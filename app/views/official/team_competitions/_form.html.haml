@@ -14,17 +14,16 @@
   .form__field
     .form__help-label
       = f.label :use_team_name
-      %a#use_team_name_help.help{href: 'javascript:void(0);'} ?
+      %span.help{'data-dialog': 'use_team_name_help_dialog'} ?
     = f.check_box :use_team_name
-  #use_team_name_help_dialog.dialog{style: 'display: none;'}
-    Normaalisti joukkueet muodostetaan piirin tai seuran perusteella.
-    Jos kuitenkin valitset kohdan '#{t('attributes.use_team_name')}',
-    joukkueet muodostetaan jokaiselle kilpailijalle syötetyn joukkueen nimen perusteella.
-    Tällöin yhden joukkueen jäsenten ei tarvitse kuulua samaan piiriin tai seuraan
-    ja toisaalta samasta piirista tai seurasta voidaan muodostaa useita joukkueita.
-    %br
-    %br
-    Voit asettaa kilpailijalle joukkueen nimen muokkaamalla kilpailijan perustietoja.
+  = render layout: 'official/shared/dialog', locals: { id: 'use_team_name_help_dialog', title: 'Joukkueiden muodostaminen' } do
+    %p
+      Normaalisti joukkueet muodostetaan piirin tai seuran perusteella.
+      Jos kuitenkin valitset kohdan '#{t('attributes.use_team_name')}',
+      joukkueet muodostetaan jokaiselle kilpailijalle syötetyn joukkueen nimen perusteella.
+      Tällöin yhden joukkueen jäsenten ei tarvitse kuulua samaan piiriin tai seuraan
+      ja toisaalta samasta piirista tai seurasta voidaan muodostaa useita joukkueita.
+    %p Voit asettaa kilpailijalle joukkueen nimen muokkaamalla kilpailijan perustietoja.
   .form__field.form__field--sm
     = f.label :national_record
     = f.number_field :national_record, min: 0
@@ -80,5 +79,4 @@
     event.preventDefault()
     $('#nordic-extra-round').append("#{escape_javascript(render partial: 'club_extra_scores', locals: { extra: { "score1" => '', "score2" => '' } })}")
   })
-  var use_team_name_help_title = 'Joukkueiden muodostaminen';
 = render :partial => 'shared/help_dialog_opener'

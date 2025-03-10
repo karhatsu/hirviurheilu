@@ -13,9 +13,9 @@
   .form__field.form__field--sm
     .form__help-label
       = f.label :top_competitions
-      %a.help#top_competitions_help{href: 'javascript:void(0);'} ?
+      %span.help{'data-dialog': 'top_competitions_help_dialog'} ?
     = f.number_field :top_competitions, min: 1, max: 99
-    #top_competitions_help_dialog.dialog{style: 'display:none;'}
+    = render layout: 'official/shared/dialog', locals: { id: 'top_competitions_help_dialog', title: 'Yhteistulokseen laskettavien kilpailuiden määrä' } do
       %h3
         Kun
         %i Laske viimeinen kilpailu aina mukaan tuloksiin
@@ -67,6 +67,4 @@
       = add_child_link "Lisää uusi cup-joukkuekilpailu", f, :cup_team_competitions, nil, 'button button--add'
   .form__buttons
     = submit_tag submit_label, class: 'button button--primary'
-:javascript
-  var top_competitions_help_title = 'Yhteistulokseen laskettavien kilpailuiden määrä';
 = render :partial => 'shared/help_dialog_opener'
