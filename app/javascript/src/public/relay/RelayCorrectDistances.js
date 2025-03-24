@@ -15,7 +15,7 @@ export default function RelayCorrectDistances({ relay }) {
       <div className="row">
         {correctDistances.map(cd => {
           return (
-            <div key={cd.leg} className="col-xs-4 col-sm-3 col-md-2">
+            <div key={cd.leg} className="col-xs-6 col-sm-3 col-md-2">
               <div className="card">
                 <div className="card__middle">
                   <div className="card__name">{t('leg')} {cd.leg}</div>
