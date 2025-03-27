@@ -1,4 +1,4 @@
 - if params[:size] == 'a5'
-  = render partial: 'official/competitor_numbers/a5', locals: { sport: raw('&nbsp;'), series: false, heat: false }
+  = render partial: 'official/competitor_numbers/a5', locals: { sport: raw('&nbsp;'), series: false, heat: false, series_with_races: params[:withRaces] }
 - else
-  = render partial: 'official/competitor_numbers/a4', locals: { sport: raw('&nbsp;'), series: false, heat: false }
+  = render partial: 'official/competitor_numbers/a4', locals: { sport: raw('&nbsp;'), series: false, heat: false, series_with_races: params[:withRaces] }

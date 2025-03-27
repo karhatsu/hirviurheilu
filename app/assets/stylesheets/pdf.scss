@@ -179,6 +179,11 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
   &__name, &__club, &__series, &__heat {
     margin-top: 16px;
   }
+
+  &__series-with-races {
+    font-size: 16px;
+    margin-top: 24px;
+  }
 }
 
 .competitor-number-double-page {
@@ -199,10 +204,9 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
       margin-top: 0;
     }
 
-    &__sport, &__name, &__club, &__series, &__heat {
+    &__sport, &__name, &__club, &__series, &__heat, &__series-with-races {
       font-size: 16px;
       margin-top: 8px;
-      margin-bottom: 8px;
     }
 
     &__name {

@@ -10,5 +10,7 @@
     - if heat && competitor.qualification_round_track_place && competitor.qualification_round_heat && params[:print_heat_data]
       .competitor-number-page__heat
         #{competitor.qualification_round_heat.number} / #{competitor.qualification_round_track_place}
+    - if series_with_races
+      .competitor-number-page__series-with-races= format_event_races competitor.event_races
   - if i < page_count - 1
     .page-break

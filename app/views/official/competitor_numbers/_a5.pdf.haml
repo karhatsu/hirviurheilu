@@ -13,5 +13,7 @@
             #{competitor.qualification_round_heat.number} / #{competitor.qualification_round_track_place}
           - else
             = raw('&nbsp;')
+        - if series_with_races
+          .competitor-number-page__series-with-races= format_event_races competitor.event_races
   - if i < page_count - 1
     .page-break

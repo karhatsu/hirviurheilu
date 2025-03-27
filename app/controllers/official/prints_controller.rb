@@ -1,4 +1,6 @@
 class Official::PrintsController < Official::OfficialController
+  include PrintHelper
+
   def index
     respond_to do |format|
       format.html do
@@ -6,7 +8,7 @@ class Official::PrintsController < Official::OfficialController
         render layout: true, html: ''
       end
       format.pdf do
-        @event = current_user.find_event(params[:event_id], races: [series: [competitors: :club]])
+        @event = current_user.find_event(params[:event_id], races: [series: [competitors: [:club, :series]]])
         return render status: 404, body: nil unless @event
         sort_competitors
         @a5 = params[:size] == 'a5'
@@ -31,7 +33,7 @@ class Official::PrintsController < Official::OfficialController
             competitors_hash[key] = competitor
             competitors_hash[key].event_races = []
           end
-          competitors_hash[key].event_races << [competitor.series.name, competitor.series.race.name]
+          competitors_hash[key].event_races << [competitor.series.name, competitor.series.race.name, series_sport_name(competitor.series)]
         end
       end
     end
@@ -46,5 +48,12 @@ class Official::PrintsController < Official::OfficialController
         [a.last_name, a.first_name] <=> [b.last_name, b.first_name]
       end
     }
+  end
+
+  def series_sport_name(series)
+    if series.walking_series?
+      return series.race.sport_key == 'SKI' ? 'Hirvenhiihtely' : 'Hirvikävely'
+    end
+    t "sport_name.#{series.race.sport_key}"
   end
 end

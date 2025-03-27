@@ -77,6 +77,14 @@ const PrintsPage = () => {
             </div>
           </div>
         )}
+        {type === 'numbers' && (
+          <div className="form__horizontal-fields">
+            <div className="form__field">
+              <input type="checkbox" name="withRaces"/>
+              <label htmlFor="withRaces">{t('eventPrintCompetitorWithRaces')}</label>
+            </div>
+          </div>
+        )}
         <div className="form__buttons">
           <Button submit={true} type="primary">{t('printPdf')}</Button>
         </div>

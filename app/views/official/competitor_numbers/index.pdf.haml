@@ -1,5 +1,5 @@
 - sport = @race.sport.shooting? && params[:print_sport] ? @race.sport.name : raw('&nbsp;')
 - if @a5
-  = render partial: 'a5', locals: { sport: sport, series: true, heat: true }
+  = render partial: 'a5', locals: { sport: sport, series: true, heat: true, series_with_races: false }
 - else
-  = render partial: 'a4', locals: { sport: sport, series: true, heat: true }
+  = render partial: 'a4', locals: { sport: sport, series: true, heat: true, series_with_races: false }
