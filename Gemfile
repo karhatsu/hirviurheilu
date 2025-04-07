@@ -39,7 +39,6 @@ end
 group :test do
   gem 'minitest'
   gem 'capybara'
-  gem 'cucumber', github: 'cucumber/cucumber-ruby', branch: 'main'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'email_spec'
