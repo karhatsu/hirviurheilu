@@ -3,7 +3,7 @@ import HeatTime from './HeatTime'
 
 export default function Heat({ race, heat, trackPlaceAttribute, seriesId }) {
   const { t } = useTranslation()
-  const { competitors, number, track } = heat
+  const { competitors, description, number, track } = heat
   return (
     <div key={number} className="col-xs-12 col-sm-6 heat">
       <div className="card">
@@ -13,6 +13,7 @@ export default function Heat({ race, heat, trackPlaceAttribute, seriesId }) {
             <HeatTime race={race} heat={heat} />
             {track && ` (${t('track')} ${track})`}
           </div>
+          {description && <div className="card__middle-row">{description}</div>}
           {competitors.filter(c => !seriesId || c.seriesId === seriesId).map(competitor => {
             const { id, firstName, lastName, club, series } = competitor
             return (

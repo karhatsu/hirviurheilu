@@ -1,5 +1,5 @@
 json.heats heats.each do |heat|
-  json.(heat, :number, :track)
+  json.(heat, :number, :track, :description)
   json.date @race.start_date.advance(days: heat.day - 1).strftime('%d.%m')
   json.date2 @race.start_date.advance(days: heat.day2 - 1).strftime('%d.%m')
   json.date3 @race.start_date.advance(days: heat.day3 - 1).strftime('%d.%m')

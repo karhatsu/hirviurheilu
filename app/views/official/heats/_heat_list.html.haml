@@ -11,6 +11,8 @@
               = heat_time @race, heat
               - if heat.track.to_i > 0
                 (#{t('attributes.track')} #{heat.track})
+            - if heat.description
+              .card__middle-row= heat.description
             - heat.competitors.each do |competitor|
               .card__middle-row
                 #{competitor.track_place(heat)}.

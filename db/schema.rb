@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_10_131433) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_07_122807) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -172,6 +172,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_10_131433) do
     t.integer "day2", default: 1, null: false
     t.integer "day3", default: 1, null: false
     t.integer "day4", default: 1, null: false
+    t.string "description"
     t.index ["race_id"], name: "index_heats_on_race_id"
   end
 

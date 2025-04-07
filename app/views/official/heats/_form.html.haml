@@ -54,5 +54,8 @@
         - if @race.days_count > 1
           = f.select :day3, options_for_select(heat_days_options(@race), @heat.day3), {}, class: 'day_field'
         = f.time_select :time3, include_blank: true
+  .form__field.row
+    .col-xs-12.col-sm-2= f.label :description
+    .col-xs-12.col-sm-10= f.text_field :description
   .form__buttons
     = submit_tag t(:save), class: 'button button--primary'

@@ -56,6 +56,6 @@ class Official::HeatsController < Official::OfficialController
   end
 
   def heat_params
-    params.require(:heat).permit(:type, :number, :track, :day, :day2, :day3, :day4, :time, :time2, :time3, :time4)
+    params.require(:heat).permit(:type, :number, :track, :day, :day2, :day3, :day4, :time, :time2, :time3, :time4, :description)
   end
 end

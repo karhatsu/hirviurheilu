@@ -21,6 +21,7 @@ sv:
     default_age_group: Standardåldersgrupp
     default_age_groups: Standardåldersgrupper
     default_series: Standardklass
+    description: Beskrivning
     distance1: Avstånd 1
     distance2: Avstånd 2
     distance3: Avstånd 3
