@@ -2,7 +2,7 @@
 %h2 #{@series.name} - #{title_name}
 - content_for :sub_sub_menu do
   = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id } do |series|
-    = "/official/series/#{series.id}/#{controller_name}"
+    = "/official/races/#{series.race_id}/series/#{series.id}/#{controller_name}"
 - if @series.competitors.empty?
   .message.message--info= t 'official.result_place.no_competitors_in_series'
   = link_to t('official.result_place.add_competitor_to_series', series_name: @series.name), new_official_series_competitor_path(@series), class: 'button button--add'
@@ -12,7 +12,7 @@
 - else
   %div{style: 'margin-bottom: 16px;'}= render partial: partial_table
   - unless @series.race.sport.shooting?
-    = render partial: 'official/shared/series_result_input_links', locals: { series_id: @series.id }
+    = render partial: 'official/shared/series_result_input_links', locals: { race_id: @series.race_id, series_id: @series.id }
   = render layout: 'menus/series_sub_menu', locals: { race: @series.race, series_id: @series.id, mobile: true } do |series|
     = "/official/series/#{series.id}/#{controller_name}"
   .buttons.buttons--nav

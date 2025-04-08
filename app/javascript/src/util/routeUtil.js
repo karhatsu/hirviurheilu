@@ -104,11 +104,11 @@ export const buildOfficialRaceHeatsPath = raceId => withLocale(`/official/races/
 
 export const buildOfficialRaceQuickSavesPath = raceId => withLocale(`/official/races/${raceId}/quick_saves`)
 
-export const buildOfficialSeriesTimesPath = seriesId => withLocale(`/official/series/${seriesId}/times`)
+export const buildOfficialSeriesTimesPath = (raceId, seriesId) => withLocale(`/official/races/${raceId}/series/${seriesId}/times`)
 
-export const buildOfficialSeriesEstimatesPath = seriesId => withLocale(`/official/series/${seriesId}/estimates`)
+export const buildOfficialSeriesEstimatesPath = (raceId, seriesId) => withLocale(`/official/races/${raceId}/series/${seriesId}/estimates`)
 
-export const buildOfficialSeriesShotsPath = seriesId => withLocale(`/official/series/${seriesId}/shots`)
+export const buildOfficialSeriesShotsPath = (raceId, seriesId) => withLocale(`/official/races/${raceId}/series/${seriesId}/shots`)
 
 export const buildOfficialRaceShootingByHeatsPath = raceId => withLocale(`/official/races/${raceId}/shooting_by_heats`)
 
