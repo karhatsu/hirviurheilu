@@ -16,11 +16,12 @@ export const PathParamsContextProvider = ({ children }) => {
   const cupSeriesMatch = useMatch('/cups/:cupId/cup_series/:cupSeriesId/*')
   const rifleCupSeriesMatch = useMatch('/cups/:cupId/rifle_cup_series/:rifleCupSeriesId/*')
   const cupTeamCompetitionMatch = useMatch('/cups/:cupId/cup_team_competitions/:cupTeamCompetitionId/*')
+  const officialSeriesMatch = useMatch('/official/races/:raceId/series/:seriesId/*')
   const eventMatch = useMatch('/official/events/:eventId/*')
   const eventId = eventMatch && eventMatch.params.eventId !== 'new' ? eventMatch.params.eventId : undefined
   const value = useMemo(() => ({
     raceId: raceMatch?.params.raceId || officialRaceMatch?.params.raceId,
-    seriesId: seriesMatch?.params.seriesId,
+    seriesId: seriesMatch?.params.seriesId || officialSeriesMatch?.params.seriesId,
     teamCompetitionId: teamCompetitionMatch?.params.teamCompetitionId ||
       rifleTeamCompetitionMatch?.params.teamCompetitionId,
     relayId: relayMatch?.params.relayId,
@@ -33,6 +34,7 @@ export const PathParamsContextProvider = ({ children }) => {
     raceMatch,
     officialRaceMatch,
     seriesMatch,
+    officialSeriesMatch,
     teamCompetitionMatch,
     rifleTeamCompetitionMatch,
     relayMatch,

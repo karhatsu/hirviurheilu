@@ -66,8 +66,7 @@ Feature: Save results by result place
     And I fill in "151" for "competitor[estimate2]"
     And I press "Tallenna"
     Then I should not see "Tallennettu"
-    But I should see "Virhe"
-    And I should see "Tälle kilpailijalle on syötetty samanaikaisesti toinen tulos. Lataa sivu uudestaan ja yritä tallentamista sen jälkeen."
+    But I should see "Tälle kilpailijalle on syötetty samanaikaisesti toinen tulos. Lataa sivu uudestaan ja yritä tallentamista sen jälkeen."
 
   @javascript
   Scenario: Save shooting race shots

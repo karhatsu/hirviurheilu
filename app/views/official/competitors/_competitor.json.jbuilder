@@ -1,0 +1,12 @@
+json.(competitor,
+  :estimate1,
+  :estimate2,
+  :estimate3,
+  :estimate4,
+  :estimate_points,
+  :first_name,
+  :id,
+  :last_name,
+  :no_result_reason,
+  :number,
+)

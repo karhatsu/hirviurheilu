@@ -78,6 +78,7 @@ class Official::CompetitorsController < Official::OfficialController
           redirect_to official_series_competitors_path(@competitor.series)
         end
         format.js { render js_template, :layout => false }
+        format.json
       end
     else
       respond_to do |format|
@@ -86,6 +87,7 @@ class Official::CompetitorsController < Official::OfficialController
           render :edit
         end
         format.js { render 'official/competitors/update_error', :layout => false }
+        format.json { render status: 400, json: { errors: @competitor.errors.full_messages } }
       end
     end
   end

@@ -151,7 +151,7 @@ Hirviurheilu::Application.routes.draw do
         get 'european_compak', to: 'european_race_shots#compak', as: :european_compak
         get 'european_rifle', to: 'european_race_shots#rifle', as: :european_rifle
         resource :printing, only: :show
-        resources :series, only: [] do
+        resources :series, only: [:show] do
           resources :estimates, only: :index
           resources :shots, only: :index
           resources :times, only: :index
