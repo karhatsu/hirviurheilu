@@ -1,23 +1,17 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect } from "react"
 import Button from "../../common/Button"
-import {
-  buildOfficialRacePath,
-  buildOfficialSeriesEstimatesPath,
-  buildOfficialSeriesShotsPath,
-  buildOfficialSeriesTimesPath,
-} from "../../util/routeUtil"
 import IncompletePage from "../../common/IncompletePage"
 import useTranslation from "../../util/useTranslation"
-import { useParams } from "react-router"
 import useOfficialMenu from "../menu/useOfficialMenu"
-import { get, put } from "../../util/apiClient"
 import Message from "../../common/Message"
 import Spinner from "../../common/Spinner"
 import { useRace } from "../../util/useRace"
-import SeriesMobileSubMenu from "../../public/menu/SeriesMobileSubMenu"
+import useOfficialSeries from "./useOfficialSeries"
+import ResultPage from "./ResultPage"
+import useCompetitorResultSaving from "./useCompetitorResultSaving"
 
 const EstimateField = ({ number, value, onChange }) => {
-  const handleChange = useCallback(e => onChange(number, parseInt(e.target.value)), [number, onChange])
+  const handleChange = useCallback(e => onChange(`estimate${number}`, parseInt(e.target.value)), [number, onChange])
   return (
     <>
       <div className="form__field-prefix">#{number}</div>
@@ -35,56 +29,34 @@ const EstimateField = ({ number, value, onChange }) => {
   )
 }
 
-const CompetitorForm = ({ seriesId, competitor: initialCompetitor, fourEstimates }) => {
+const fields = ['estimate1', 'estimate2', 'estimate3', 'estimate4']
+
+const buildBody = (competitor, data) => ({
+  noTimes: true,
+  oldValues: {
+    estimate1: competitor.estimate1,
+    estimate2: competitor.estimate2,
+    estimate3: competitor.estimate3,
+    estimate4: competitor.estimate4,
+  },
+  ...data,
+})
+
+const CompetitorForm = ({ competitor: initialCompetitor, fourEstimates }) => {
   const { t } = useTranslation()
-  const [competitor, setCompetitor] = useState(initialCompetitor)
-  const [estimates, setEstimates] = useState(() => {
-    const { estimate1, estimate2, estimate3, estimate4 } = competitor
-    return { estimate1, estimate2, estimate3, estimate4 }
-  })
-  const [saving, setSaving] = useState(false)
-  const [errors, setErrors] = useState()
-  const [saved, setSaved] = useState(false)
-  const { estimate1, estimate2, estimate3, estimate4 } = estimates
-
-  const onChange = useCallback((n, value) => {
-    setSaved(false)
-    setErrors(undefined)
-    setEstimates(prev => ({ ...prev, [`estimate${n}`]: value }))
-  }, [])
-
-  const onSubmit = useCallback(event => {
-    event.preventDefault()
-    setSaving(true)
-    setErrors(undefined)
-    setSaved(false)
-    const body = {
-      noTimes: true,
-      oldValues: {
-        estimate1: competitor.estimate1,
-        estimate2: competitor.estimate2,
-        estimate3: competitor.estimate3,
-        estimate4: competitor.estimate4,
-      },
-      ...estimates,
-    }
-    const path = `/official/series/${seriesId}/competitors/${competitor.id}.json`
-    put(path, body, (err, response) => {
-      setSaving(false)
-      if (err) {
-        setErrors(err)
-      } else {
-        setCompetitor(response)
-        setSaved(true)
-      }
-    })
-  }, [seriesId, competitor, estimates])
+  const {
+    changed,
+    competitor,
+    data,
+    errors,
+    onChange,
+    onSubmit,
+    saved,
+    saving,
+  } = useCompetitorResultSaving(initialCompetitor, fields, buildBody)
+  const { estimate1, estimate2, estimate3, estimate4 } = data
 
   const { estimatePoints, firstName, lastName, noResultReason, number } = competitor
-  const changed = estimate1 !== competitor.estimate1
-    || estimate2 !== competitor.estimate2
-    || estimate3 !== competitor.estimate3
-    || estimate4 !== competitor.estimate4
   return (
     <div className="card">
       <div className="card__number">{number}</div>
@@ -119,70 +91,24 @@ const CompetitorForm = ({ seriesId, competitor: initialCompetitor, fourEstimates
   )
 }
 
+const titleKey = 'officialRaceMenuEstimates'
+
 const EstimatesPage = () => {
-  const {raceId, seriesId} = useParams()
-  const {t} = useTranslation()
-  const [series, setSeries] = useState()
-  const [error, setError] = useState()
-  const [fetching, setFetching] = useState(true)
+  const { t } = useTranslation()
   const { setSelectedPage } = useOfficialMenu()
   const { race } = useRace()
+  const { error, fetching, series } = useOfficialSeries()
 
   useEffect(() => setSelectedPage('estimates'), [setSelectedPage])
 
-  useEffect(() => {
-    setFetching(true)
-    get(`/official/races/${raceId}/series/${seriesId}`, (err, response) => {
-      if (err) setError(err)
-      else setSeries(response)
-      setFetching(false)
-    })
-  }, [raceId, seriesId])
+  if (!race || !series) return <IncompletePage title={t(titleKey)} error={error} fetching={fetching} />
 
   const fourEstimates = series?.estimates === 4
-
-  if (!race || !series) return <IncompletePage title={t('estimates')} error={error} fetching={fetching} />
-
-  const content = () => {
-    if (!series.competitors.length) {
-      return <Message type="info">{t('noCompetitorsInSeries')}</Message>
-    } else if (race.sport.startList && !series.hasStartList) {
-      return (
-        <>
-          <Message type="info">{t('noStartListForSeries')}</Message>
-          <Button href={`/official/series/${seriesId}/competitors`}>{t('generateStartTimes')}</Button>
-        </>
-      )
-    } else {
-      const competitorClass = `col-xs-12 ${fourEstimates ? 'col-sm-12' : 'col-sm-6'}`
-      return (
-        <div className="row">
-          {series.competitors.map(competitor => (
-            <div key={competitor.id} className={competitorClass}>
-              <CompetitorForm competitor={competitor} fourEstimates={fourEstimates} seriesId={seriesId}/>
-            </div>
-          ))}
-        </div>
-      )
-    }
-  }
+  const competitorClass = `col-xs-12 ${fourEstimates ? 'col-sm-12' : 'col-sm-6'}`
   return (
-    <div>
-      <h2>{series.name} - {t('estimates')}</h2>
-      {content()}
-      {race.series.length > 1 && (
-        <SeriesMobileSubMenu
-          race={race}
-          buildSeriesPath={buildOfficialSeriesEstimatesPath}
-          currentSeriesId={seriesId}
-        />
-      )}
-      <div className="buttons buttons--nav">
-        <Button href={buildOfficialRacePath(raceId)} type="back">{t('backToOfficialRacePage')}</Button>
-        <Button href={buildOfficialSeriesTimesPath(raceId, seriesId)}>{t('officialRaceMenuTimes')}</Button>
-        <Button href={buildOfficialSeriesShotsPath(raceId, seriesId)}>{t('officialRaceMenuShooting')}</Button>
-      </div>
-    </div>
+    <ResultPage competitorClass={competitorClass} race={race} series={series} titleKey={titleKey}>
+      {competitor => <CompetitorForm competitor={competitor} fourEstimates={fourEstimates} />}
+    </ResultPage>
   )
 }
 

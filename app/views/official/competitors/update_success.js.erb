@@ -1,5 +1,4 @@
 updateInlineMessage("#status_<%= @competitor.id %>", 'success', '<%= t :saved %>')
-$("#time_<%= @competitor.id %>").html("<%= @competitor.time_in_seconds ? time_from_seconds(@competitor.time_in_seconds) : '' %>")
 <% if @competitor.sport.nordic? %>
 $("#shots_result_<%= @competitor.id %>").html("<%= @competitor.send("nordic_#{@sub_sport}_score").to_i %>")
 if ($('#extra_shots_<%= @competitor.id %>').length) {

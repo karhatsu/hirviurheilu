@@ -18,7 +18,6 @@ window.officialTranslations = {
   competitorNumbersSyncRaceStarted: 'Toimintoa ei voi enää käyttää, koska kilpailut ovat alkaneet.',
   edit: 'Muokkaa',
   editOfficialRights: 'Muokkaa toimitsijan oikeuksia',
-  estimates: 'Arviot',
   eventEdit: 'Muokkaa tapahtumaa',
   eventPrintCompetitorOptions: 'Lisäasetukset',
   eventPrintCompetitorOrder: 'Kilpailijoiden järjestys',

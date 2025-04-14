@@ -9,4 +9,8 @@ json.(competitor,
   :last_name,
   :no_result_reason,
   :number,
+  :series_id,
+  :time_in_seconds,
 )
+json.arrival_time time_print(competitor.arrival_time, true)
+json.start_time time_print(competitor.start_time, true)

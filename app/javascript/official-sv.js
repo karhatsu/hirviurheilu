@@ -18,7 +18,6 @@ window.officialTranslations = {
   competitorNumbersSyncRaceStarted: 'Funktionen kan inte längre användas eftersom tävlingarna har startat.',
   edit: 'Redigera',
   editOfficialRights: 'Redigera funktionärens rättigheter',
-  estimates: 'Bedömning',
   eventEdit: 'Redigera evenemanget',
   eventPrintCompetitorOptions: 'Ytterligare alternativ',
   eventPrintCompetitorOrder: 'Tävlarnas ordnung',
