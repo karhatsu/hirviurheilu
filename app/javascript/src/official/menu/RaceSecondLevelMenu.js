@@ -85,7 +85,7 @@ const paths = {
   officials: buildOfficialRaceOfficialsPath,
 }
 
-const reactPages = ['clubs', 'estimates', 'officials', 'times']
+const reactPages = ['clubs', 'estimates', 'officials', 'shooting', 'times']
 
 const useRaceAndSeries = {
   estimates: true,

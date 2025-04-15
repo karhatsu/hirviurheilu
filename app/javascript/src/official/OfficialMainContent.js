@@ -11,6 +11,7 @@ import EventCompetitorsPage from "./events/EventCompetitorsPage"
 import PrintsPage from "./events/PrintsPage"
 import EstimatesPage from "./results/EstimatesPage"
 import TimesPage from "./results/TimesPage"
+import ShotsPage from "./results/ShotsPage"
 
 const OfficialMainContent = () => {
   return (
@@ -34,6 +35,7 @@ const OfficialMainContent = () => {
           <Route path="series/:seriesId" element={null}>
             <Route path="estimates" element={<EstimatesPage />} />
             <Route path="times" element={<TimesPage />} />
+            <Route path="shots" element={<ShotsPage />} />
           </Route>
         </Route>
       </Routes>

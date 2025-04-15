@@ -3,15 +3,14 @@ import Button from "../../common/Button"
 import IncompletePage from "../../common/IncompletePage"
 import useTranslation from "../../util/useTranslation"
 import useOfficialMenu from "../menu/useOfficialMenu"
-import Message from "../../common/Message"
-import Spinner from "../../common/Spinner"
 import { useRace } from "../../util/useRace"
 import useOfficialSeries from "./useOfficialSeries"
 import ResultPage from "./ResultPage"
 import useCompetitorResultSaving from "./useCompetitorResultSaving"
+import ResultRow from "./ResultRow"
 
 const EstimateField = ({ number, value, onChange }) => {
-  const handleChange = useCallback(e => onChange(`estimate${number}`, parseInt(e.target.value)), [number, onChange])
+  const handleChange = useCallback(() => onChange(`estimate${number}`), [number, onChange])
   return (
     <>
       <div className="form__field-prefix">#{number}</div>
@@ -29,7 +28,7 @@ const EstimateField = ({ number, value, onChange }) => {
   )
 }
 
-const fields = ['estimate1', 'estimate2', 'estimate3', 'estimate4']
+const fields = ['estimate1', 'estimate2', 'estimate3', 'estimate4'].map(key => ({ key, number: true }))
 
 const buildBody = (competitor, data) => ({
   noTimes: true,
@@ -42,7 +41,7 @@ const buildBody = (competitor, data) => ({
   ...data,
 })
 
-const CompetitorForm = ({ competitor: initialCompetitor, fourEstimates }) => {
+const EstimatesForm = ({ competitor: initialCompetitor, fourEstimates }) => {
   const { t } = useTranslation()
   const {
     changed,
@@ -56,38 +55,21 @@ const CompetitorForm = ({ competitor: initialCompetitor, fourEstimates }) => {
   } = useCompetitorResultSaving(initialCompetitor, fields, buildBody)
   const { estimate1, estimate2, estimate3, estimate4 } = data
 
-  const { estimatePoints, firstName, lastName, noResultReason, number } = competitor
+  const { estimatePoints } = competitor
   return (
-    <div className="card">
-      <div className="card__number">{number}</div>
-      <div className="card__middle">
-        <div className="card__name">
-          <span>{lastName} {firstName}</span>
-          {saving && <Spinner />}
-          {errors && <Message inline={true} type="error">{errors.join('. ')}.</Message>}
-          {saved && <Message inline={true} type="success">{t('saved')}</Message>}
-        </div>
-        {!noResultReason && (
-          <div className="card__middle-row">
-            <form className="form form--inline" onSubmit={onSubmit}>
-              <div className="form__horizontal-fields">
-                <EstimateField number={1} value={estimate1} onChange={onChange}/>
-                <EstimateField number={2} value={estimate2} onChange={onChange}/>
-                {fourEstimates && <EstimateField number={3} value={estimate3} onChange={onChange}/>}
-                {fourEstimates && <EstimateField number={4} value={estimate4} onChange={onChange}/>}
-                <div className="form__buttons">
-                  <Button submit={true} type="primary" disabled={!changed}>{t('save')}</Button>
-                </div>
-              </div>
-            </form>
+    <ResultRow competitor={competitor} errors={errors} saved={saved} saving={saving} result={estimatePoints}>
+      <form className="form form--inline" onSubmit={onSubmit}>
+        <div className="form__horizontal-fields">
+          <EstimateField number={1} value={estimate1} onChange={onChange}/>
+          <EstimateField number={2} value={estimate2} onChange={onChange}/>
+          {fourEstimates && <EstimateField number={3} value={estimate3} onChange={onChange}/>}
+          {fourEstimates && <EstimateField number={4} value={estimate4} onChange={onChange}/>}
+          <div className="form__buttons">
+            <Button submit={true} type="primary" disabled={!changed}>{t('save')}</Button>
           </div>
-        )}
-      </div>
-      <div className="card__main-value">
-        {noResultReason && <div>{noResultReason}</div>}
-        {!noResultReason && <div>{estimatePoints}</div>}
-      </div>
-    </div>
+        </div>
+      </form>
+    </ResultRow>
   )
 }
 
@@ -107,7 +89,7 @@ const EstimatesPage = () => {
   const competitorClass = `col-xs-12 ${fourEstimates ? 'col-sm-12' : 'col-sm-6'}`
   return (
     <ResultPage competitorClass={competitorClass} race={race} series={series} titleKey={titleKey}>
-      {competitor => <CompetitorForm competitor={competitor} fourEstimates={fourEstimates} />}
+      {competitor => <EstimatesForm competitor={competitor} fourEstimates={fourEstimates} />}
     </ResultPage>
   )
 }

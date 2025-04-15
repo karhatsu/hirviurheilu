@@ -1,6 +1,10 @@
 import { Route, Routes } from 'react-router'
 import SeriesDesktopSubMenu from '../public/menu/SeriesDesktopSubMenu'
-import { buildOfficialSeriesEstimatesPath, buildOfficialSeriesTimesPath } from '../util/routeUtil'
+import {
+  buildOfficialSeriesEstimatesPath,
+  buildOfficialSeriesShotsPath,
+  buildOfficialSeriesTimesPath,
+} from '../util/routeUtil'
 import { useRace } from '../util/useRace'
 import { usePathParams } from '../public/PathParamsProvider'
 
@@ -24,6 +28,14 @@ export default function OfficialDesktopSubMenu() {
             race={race}
             currentSeriesId={seriesId}
             buildSeriesPath={buildOfficialSeriesTimesPath}
+          />}
+        />
+        <Route
+          path="series/:seriesId/shots"
+          element={<SeriesDesktopSubMenu
+            race={race}
+            currentSeriesId={seriesId}
+            buildSeriesPath={buildOfficialSeriesShotsPath}
           />}
         />
       </Route>

@@ -27,7 +27,7 @@ const ResultPage = ({ competitorClass, children, race, series, titleKey }) => {
       return (
         <div className="row">
           {series.competitors.map(competitor => (
-            <div key={competitor.id} className={competitorClass || 'col-sm-6'}>
+            <div key={competitor.id} className={competitorClass || 'col-sm-12'}>
               {children(competitor)}
             </div>
           ))}
@@ -56,7 +56,7 @@ const ResultPage = ({ competitorClass, children, race, series, titleKey }) => {
           <Button to={buildOfficialSeriesEstimatesPath(raceId, seriesId)}>{t('officialRaceMenuEstimates')}</Button>
         )}
         {titleKey !== 'officialRaceMenuShooting' && (
-          <Button href={buildOfficialSeriesShotsPath(raceId, seriesId)}>{t('officialRaceMenuShooting')}</Button>
+          <Button to={buildOfficialSeriesShotsPath(raceId, seriesId)}>{t('officialRaceMenuShooting')}</Button>
         )}
       </div>
     </div>

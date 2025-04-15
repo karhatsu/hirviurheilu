@@ -10,6 +10,9 @@ json.(competitor,
   :no_result_reason,
   :number,
   :series_id,
+  :shooting_score,
+  :shooting_score_input,
+  :shots,
   :time_in_seconds,
 )
 json.arrival_time time_print(competitor.arrival_time, true)
