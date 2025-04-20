@@ -18,6 +18,8 @@ window.officialTranslations = {
   competitorNumbersSyncRaceStarted: 'Toimintoa ei voi enää käyttää, koska kilpailut ovat alkaneet.',
   edit: 'Muokkaa',
   editOfficialRights: 'Muokkaa toimitsijan oikeuksia',
+  eitherTotalScoreOrShots: 'Syötä joko yhteistulos TAI yksittäiset laukaukset, ei molempia',
+  extraRound: 'Uusinta',
   eventEdit: 'Muokkaa tapahtumaa',
   eventPrintCompetitorOptions: 'Lisäasetukset',
   eventPrintCompetitorOrder: 'Kilpailijoiden järjestys',
@@ -89,5 +91,7 @@ window.officialTranslations = {
   noStartListForSeries: 'Tähän sarjaan ei ole luotu vielä lähtölistaa. Tulokset voi syöttää vasta sitten kun lähtölista on luotu.',
   save: 'Tallenna',
   saved: 'Tallennettu',
+  shotsPageSortByNumber: 'Järjestä kilpailijat numerojärjestykseen',
+  shotsPageSortByQR: 'Järjestä kilpailijat alkukilpailun tulosten mukaan',
   update: 'Päivitä',
 }

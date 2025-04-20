@@ -9,7 +9,7 @@ import Button from "../../common/Button"
 import useTranslation from "../../util/useTranslation"
 import Message from "../../common/Message"
 
-const ResultPage = ({ competitorClass, children, race, series, titleKey }) => {
+const ResultPage = ({ competitorClass, children, race, series, titleKey, renderAboveCompetitors }) => {
   const { t } = useTranslation()
   const { id: seriesId, raceId } = series
 
@@ -25,13 +25,16 @@ const ResultPage = ({ competitorClass, children, race, series, titleKey }) => {
       )
     } else {
       return (
-        <div className="row">
-          {series.competitors.map(competitor => (
-            <div key={competitor.id} className={competitorClass || 'col-sm-12'}>
-              {children(competitor)}
-            </div>
-          ))}
-        </div>
+        <>
+          {renderAboveCompetitors?.()}
+          <div className="row">
+            {series.competitors.map(competitor => (
+              <div key={competitor.id} className={competitorClass || 'col-sm-12'}>
+                {children(competitor)}
+              </div>
+            ))}
+          </div>
+        </>
       )
     }
   }

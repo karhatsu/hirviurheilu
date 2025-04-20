@@ -1,0 +1,108 @@
+import useTranslation from "../../util/useTranslation"
+import useCompetitorResultSaving from "./useCompetitorResultSaving"
+import { useMemo } from "react"
+import ResultRow from "./ResultRow"
+import Button from "../../common/Button"
+import { calculateShootingScore, shotCount } from "./resultUtil"
+import ShotFields from "./ShotFeilds"
+
+const buildFields = sport => [
+  { key: 'qualificationRoundShootingScoreInput', number: true },
+  { key: 'finalRoundShootingScoreInput', number: true },
+  { key: 'shots', shotCount: sport.qualificationRoundShotCount + sport.finalRoundShotCount },
+  { key: 'extraShots', shotCount: 0 },
+]
+
+const buildBody = (_, data) => {
+  return {
+    competitor: {
+      qualificationRoundShootingScoreInput: data.qualificationRoundShootingScoreInput,
+      finalRoundShootingScoreInput: data.finalRoundShootingScoreInput,
+    },
+    shots: data.shots,
+    extraShots: data.extraShots,
+  }
+}
+
+const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport }) => {
+  const { t } = useTranslation()
+  const fields = useMemo(() => buildFields(sport), [sport])
+  const {
+    changed,
+    competitor,
+    data,
+    errors,
+    onChange,
+    onChangeShot,
+    onSubmit,
+    saved,
+    saving,
+  } = useCompetitorResultSaving(initialCompetitor, fields, buildBody)
+
+  const score = useMemo(() => {
+    const { qualificationRoundShotCount } = sport
+    const { qualificationRoundShootingScoreInput, finalRoundShootingScoreInput, shots } = data
+    const qrScore =
+      calculateShootingScore(qualificationRoundShootingScoreInput, shots.slice(0, qualificationRoundShotCount))
+    if (qrScore === '' || qrScore === '?') return qrScore
+    const finScore = calculateShootingScore(finalRoundShootingScoreInput, shots.slice(qualificationRoundShotCount))
+    if (finScore === '') return qrScore
+    if (finScore === '?') return '?'
+    return `${qrScore} + ${finScore} = ${qrScore + finScore}`
+  }, [data, sport])
+
+  const extraRoundShotCount = useMemo(() => {
+    if (data.qualificationRoundShootingScoreInput ||
+      [sport.qualificationRoundShotCount, sport.shotCount].includes(shotCount(data.shots))) {
+      const currentCount = (data.extraShots || []).length
+      return currentCount + sport.shotsPerExtraRound - currentCount % sport.shotsPerExtraRound
+    }
+    return 0
+  }, [sport, data])
+
+  return (
+    <ResultRow competitor={competitor} errors={errors} result={score} saved={saved} saving={saving}>
+      <form className="form form--inline" onSubmit={onSubmit}>
+        <div>{t('qualificationRound')}</div>
+        <div className="form__horizontal-fields">
+          <ShotFields
+            data={data}
+            scoreInputField="qualificationRoundShootingScoreInput"
+            shotsField="shots"
+            onChange={onChange}
+            onChangeShot={onChangeShot}
+            shotCounts={sport.qualificationRound}
+          />
+        </div>
+        <div>{t('finalRound')}</div>
+        <div className="form__horizontal-fields">
+          <ShotFields
+            data={data}
+            scoreInputField="finalRoundShootingScoreInput"
+            shotsField="shots"
+            onChange={onChange}
+            onChangeShot={onChangeShot}
+            shotCounts={sport.finalRound}
+            base={sport.qualificationRoundShotCount}
+          />
+        </div>
+        {extraRoundShotCount > 0 && (
+          <>
+            <div>{t('extraRound')}</div>
+            <ShotFields
+              data={data}
+              shotsField="extraShots"
+              onChangeShot={onChangeShot}
+              shotCounts={[extraRoundShotCount]}
+            />
+          </>
+        )}
+        <div className="form__buttons">
+          <Button submit={true} type="primary" disabled={!changed}>{t('save')}</Button>
+        </div>
+      </form>
+    </ResultRow>
+  )
+}
+
+export default ShootingRaceShootingForm

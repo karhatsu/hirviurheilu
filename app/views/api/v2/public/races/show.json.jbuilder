@@ -13,10 +13,16 @@ end
 json.sport do
   json.heat_list @race.sport.heat_list?
   json.european @race.sport.european?
+  json.final_round @race.sport.final_round
+  json.final_round_shot_count @race.sport.final_round_shot_count
   json.nordic @race.sport.nordic?
   json.one_heat_list @race.sport.one_heat_list?
+  json.qualification_round @race.sport.qualification_round
+  json.qualification_round_shot_count @race.sport.qualification_round_shot_count
   json.shooting @race.sport.shooting?
   json.shooting_simple @race.sport.shooting? && !@race.sport.european? && !@race.sport.nordic?
+  json.shot_count @race.sport.shot_count
+  json.shots_per_extra_round @race.sport.shots_per_extra_round
   json.start_list @race.sport.start_list?
 end
 

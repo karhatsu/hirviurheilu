@@ -18,6 +18,8 @@ window.officialTranslations = {
   competitorNumbersSyncRaceStarted: 'Funktionen kan inte längre användas eftersom tävlingarna har startat.',
   edit: 'Redigera',
   editOfficialRights: 'Redigera funktionärens rättigheter',
+  eitherTotalScoreOrShots: 'Spara antingen totalresultat eller enskilda skott, inte båda',
+  extraRound: 'Omskjutning',
   eventEdit: 'Redigera evenemanget',
   eventPrintCompetitorOptions: 'Ytterligare alternativ',
   eventPrintCompetitorOrder: 'Tävlarnas ordnung',
@@ -89,5 +91,7 @@ window.officialTranslations = {
   noStartListForSeries: 'Den här klassen har inte ännu startlista. Du kan spara resultat efter startlistan har skapats.',
   save: 'Spara',
   saved: 'Sparat',
+  shotsPageSortByNumber: 'Ordna normalt',
+  shotsPageSortByQR: 'Ordna tävlandeana på grund av grundtävlingens resultat',
   update: 'Uppdatera',
 }

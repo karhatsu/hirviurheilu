@@ -44,7 +44,7 @@ const useCompetitorResultSaving = (initialCompetitor, fields, buildBody) => {
     setSaved(false)
     setErrors(undefined)
     setData(prev => ({ ...prev, [fieldKey]: parseValue(fieldKey, event) }))
-  }, [])
+  }, [parseValue])
 
   const onChangeShot = useCallback((fieldKey, index) => event => {
     setSaved(false)

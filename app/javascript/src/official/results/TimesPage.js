@@ -17,7 +17,7 @@ const timeRegex = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/
 const isValid = time => time === '' || time.match(timeRegex)
 
 const TimeField = ({ field, times, onChange }) => {
-  const handleChange = useCallback(onChange(field), [field, onChange])
+  const handleChange = useCallback(() => onChange(field), [field, onChange])
   return <input value={times[field]} onChange={handleChange} placeholder="HH:MM:SS" />
 }
 
