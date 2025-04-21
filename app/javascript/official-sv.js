@@ -91,6 +91,7 @@ window.officialTranslations = {
   noStartListForSeries: 'Den här klassen har inte ännu startlista. Du kan spara resultat efter startlistan har skapats.',
   save: 'Spara',
   saved: 'Sparat',
+  selectAll: 'Välj alla',
   shotsPageSortByNumber: 'Ordna normalt',
   shotsPageSortByQR: 'Ordna tävlandeana på grund av grundtävlingens resultat',
   update: 'Uppdatera',

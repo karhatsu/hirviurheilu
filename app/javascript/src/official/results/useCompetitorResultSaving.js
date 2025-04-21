@@ -13,6 +13,8 @@ const shotsEqual = (array1, array2, shotCount) => {
   return true
 }
 
+const stringToNumber = fieldValue => (fieldValue === '' ? '' : parseInt(fieldValue))
+
 const useCompetitorResultSaving = (initialCompetitor, fields, buildBody) => {
   const [competitor, setCompetitor] = useState(initialCompetitor)
   const [saving, setSaving] = useState(false)
@@ -34,7 +36,7 @@ const useCompetitorResultSaving = (initialCompetitor, fields, buildBody) => {
   const parseValue = useCallback((fieldKey, event) => {
     const field = fields.find(field => field.key === fieldKey)
     if (field.number) {
-      return parseInt(event.target.value) || ''
+      return stringToNumber(event.target.value)
     } else {
       return event.target.value
     }
@@ -52,7 +54,7 @@ const useCompetitorResultSaving = (initialCompetitor, fields, buildBody) => {
     setData(prev => {
       const newData = { ...prev }
       newData[fieldKey] ||= []
-      newData[fieldKey][index] = parseInt(event.target.value) || ''
+      newData[fieldKey][index] = stringToNumber(event.target.value)
       return newData
     })
   }, [])

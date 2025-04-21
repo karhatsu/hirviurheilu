@@ -11,6 +11,7 @@ if @official
 end
 
 json.sport do
+  json.best_shot_value @race.sport.best_shot_value
   json.heat_list @race.sport.heat_list?
   json.european @race.sport.european?
   json.final_round @race.sport.final_round

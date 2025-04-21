@@ -72,6 +72,7 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport }) => {
             onChange={onChange}
             onChangeShot={onChangeShot}
             shotCounts={sport.qualificationRound}
+            bestShotValue={sport.bestShotValue}
           />
         </div>
         <div>{t('finalRound')}</div>
@@ -84,6 +85,7 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport }) => {
             onChangeShot={onChangeShot}
             shotCounts={sport.finalRound}
             base={sport.qualificationRoundShotCount}
+            bestShotValue={sport.bestShotValue}
           />
         </div>
         {extraRoundShotCount > 0 && (
@@ -94,6 +96,7 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport }) => {
               shotsField="extraShots"
               onChangeShot={onChangeShot}
               shotCounts={[extraRoundShotCount]}
+              bestShotValue={sport.bestShotValue}
             />
           </>
         )}

@@ -91,6 +91,7 @@ window.officialTranslations = {
   noStartListForSeries: 'Tähän sarjaan ei ole luotu vielä lähtölistaa. Tulokset voi syöttää vasta sitten kun lähtölista on luotu.',
   save: 'Tallenna',
   saved: 'Tallennettu',
+  selectAll: 'Valitse kaikki',
   shotsPageSortByNumber: 'Järjestä kilpailijat numerojärjestykseen',
   shotsPageSortByQR: 'Järjestä kilpailijat alkukilpailun tulosten mukaan',
   update: 'Päivitä',

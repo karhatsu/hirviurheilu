@@ -184,7 +184,7 @@ function findAndResetInlineMessage(inputFieldLocator) {
 }
 
 $(document).ready(function() {
-  $(document).on('click', '.binary-shot__option', function() {
+  $(document).on('click', '.legacy.binary-shot__option', function() {
     const alreadySelected = $(this).hasClass('binary-shot__option--selected')
     if (alreadySelected) {
       $(this).removeClass('binary-shot__option--selected')
@@ -197,13 +197,13 @@ $(document).ready(function() {
       $(this).parent().find('input').val(value).trigger('change')
     }
   })
-  $(document).on('click', '.button--select-all-shots', function() {
+  $(document).on('click', '.legacy.button--select-all-shots', function() {
     $(this).parent().find('.binary-shot__option--0').removeClass('binary-shot__option--selected')
     $(this).parent().find('.binary-shot__option--1').addClass('binary-shot__option--selected')
     $(this).parent().find('input').val(1)
     $(this).parent().find('input').trigger('change')
   })
-  $(document).on('click', '.button--select-all-tens', function() {
+  $(document).on('click', '.legacy.button--select-all-tens', function() {
     $(this).closest('.card__middle-row').find('.shot').val(10)
     $(this).closest('.card__middle-row').find('.shots-total-input').val('')
     $(this).closest('.card__middle-row').find('input').trigger('change')

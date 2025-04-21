@@ -17,7 +17,7 @@ const CompetitorForm = ({ competitor, sport }) => {
   if (sport.qualificationRound) {
     return <ShootingRaceShootingForm competitor={competitor} sport={sport} />
   }
-  return <ThreeSportsShootingForm competitor={competitor} />
+  return <ThreeSportsShootingForm competitor={competitor} sport={sport} />
 }
 
 const ShotsPage = () => {

@@ -15,7 +15,7 @@ const buildBody = (_, data) => {
   return { competitor: { shootingScoreInput: data.shootingScoreInput }, shots: data.shots }
 }
 
-const ThreeSportsShootingForm = ({ competitor: initialCompetitor }) => {
+const ThreeSportsShootingForm = ({ competitor: initialCompetitor, sport }) => {
   const { t } = useTranslation()
   const {
     changed,
@@ -45,6 +45,7 @@ const ThreeSportsShootingForm = ({ competitor: initialCompetitor }) => {
             onChange={onChange}
             onChangeShot={onChangeShot}
             shotCounts={[10]}
+            bestShotValue={sport.bestShotValue}
           />
           <div className="form__buttons">
             <Button submit={true} type="primary" disabled={!changed}>{t('save')}</Button>
