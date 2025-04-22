@@ -12,6 +12,7 @@ import PrintsPage from "./events/PrintsPage"
 import EstimatesPage from "./results/EstimatesPage"
 import TimesPage from "./results/TimesPage"
 import ShotsPage from "./results/ShotsPage"
+import NordicShotsPage from "./results/NordicShotsPage"
 
 const OfficialMainContent = () => {
   return (
@@ -31,6 +32,10 @@ const OfficialMainContent = () => {
         <Route path="races/:raceId" element={null}>
           <Route path="clubs" element={<ClubsPage />} />
           <Route path="megalink_imports" element={<MegalinkImportPage />} />
+          <Route path="nordic_shotgun" element={<NordicShotsPage subSport="shotgun" />} />
+          <Route path="nordic_trap" element={<NordicShotsPage subSport="trap" />} />
+          <Route path="nordic_rifle_moving" element={<NordicShotsPage subSport="rifle_moving" />} />
+          <Route path="nordic_rifle_standing" element={<NordicShotsPage subSport="rifle_standing" />} />
           <Route path="race_rights" element={<OfficialsPage />} />
           <Route path="series/:seriesId" element={null}>
             <Route path="estimates" element={<EstimatesPage />} />

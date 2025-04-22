@@ -57,11 +57,11 @@ json.relays @race.relays do |relay|
 end
 
 json.qualification_round_heats @race.qualification_round_heats do |heat|
-  json.(heat, :id)
+  json.(heat, :id, :number)
 end
 
 json.final_round_heats @race.final_round_heats do |heat|
-  json.(heat, :id)
+  json.(heat, :id, :number)
 end
 
 json.cups @race.cups do |cup|

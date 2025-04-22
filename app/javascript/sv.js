@@ -7,6 +7,7 @@ window.translations = {
   allCompetitors: 'Alla tävlande',
   allClubs: 'Alla klubbar',
   allDistricts: 'Alla trakten',
+  allHeats: 'Alla heat',
   allLevels: 'Alla nivåer',
   allRaces: 'Alla tävlingar',
   allSeries: 'Alla klasser',

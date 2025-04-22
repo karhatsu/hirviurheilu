@@ -1,5 +1,20 @@
-import { useCallback, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { put } from "../../util/apiClient"
+
+const initData = (fields, initialCompetitor) => {
+  return fields.reduce((acc, field) => {
+    const { key, shotCount, value } = field
+    const currentValue = initialCompetitor[key]
+    if (shotCount) {
+      acc[key] = Array.from({length: shotCount}, (_, i) => currentValue?.[i] ?? '')
+    } else if (value) {
+      acc[key] = value
+    } else {
+      acc[key] = currentValue
+    }
+    return acc
+  }, {})
+}
 
 const normalizeValue = value => {
   if (value === '' || value === null) return undefined
@@ -20,18 +35,11 @@ const useCompetitorResultSaving = (initialCompetitor, fields, buildBody) => {
   const [saving, setSaving] = useState(false)
   const [errors, setErrors] = useState()
   const [saved, setSaved] = useState(false)
-  const [data, setData] = useState(() => {
-    return fields.reduce((acc, field) => {
-      const { key, shotCount } = field
-      const currentValue = initialCompetitor[key]
-      if (shotCount) {
-        acc[key] = Array.from({ length: shotCount }, (_, i) => currentValue?.[i] ?? '')
-      } else {
-        acc[key] = currentValue
-      }
-      return acc
-    }, {})
-  })
+  const [data, setData] = useState(() => initData(fields, initialCompetitor))
+
+  useEffect(() => {
+    setData(initData(fields, initialCompetitor))
+  }, [fields, initialCompetitor])
 
   const parseValue = useCallback((fieldKey, event) => {
     const field = fields.find(field => field.key === fieldKey)
@@ -79,6 +87,7 @@ const useCompetitorResultSaving = (initialCompetitor, fields, buildBody) => {
 
   const changed = useMemo(() => {
     return !!fields.find(field => {
+      if (field.value) return false
       const original = competitor[field.key]
       const current = data[field.key]
       if (field.shotCount) {

@@ -87,6 +87,7 @@ window.officialTranslations = {
   officialsCountMany: '{{count}} toimitsijaa',
   officialsCountOne: '1 toimitsija',
   printPdf: 'Tulosta PDF',
+  noCompetitorsInRace: 'Et ole syöttänyt kilpailuun vielä yhtään kilpailijaa.',
   noCompetitorsInSeries: 'Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.',
   noStartListForSeries: 'Tähän sarjaan ei ole luotu vielä lähtölistaa. Tulokset voi syöttää vasta sitten kun lähtölista on luotu.',
   save: 'Tallenna',
@@ -94,5 +95,6 @@ window.officialTranslations = {
   selectAll: 'Valitse kaikki',
   shotsPageSortByNumber: 'Järjestä kilpailijat numerojärjestykseen',
   shotsPageSortByQR: 'Järjestä kilpailijat alkukilpailun tulosten mukaan',
+  trackPlace: 'Ratapaikka',
   update: 'Päivitä',
 }

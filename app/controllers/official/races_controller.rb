@@ -85,6 +85,7 @@ class Official::RacesController < Official::OfficialController
                header: pdf_header("#{@race.name} - Kilpailijat sarjoittain\n"), footer: pdf_footer,
                disable_smart_shrinking: true
       end
+      format.json
     end
   end
 

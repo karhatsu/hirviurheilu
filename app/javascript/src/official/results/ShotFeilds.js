@@ -83,7 +83,7 @@ const ShotFields = props => {
               )
             })
           })}
-          {bestShotValue === 1 && shotsField !== 'extraShots' && (
+          {bestShotValue === 1 && !shotsField.match(/extraShots/i) && (
             <Button type="select-all-shots" onClick={selectAll}>{t('selectAll')}</Button>
           )}
         </div>

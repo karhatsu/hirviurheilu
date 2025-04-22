@@ -87,6 +87,7 @@ window.officialTranslations = {
   officialsCountMany: '{{count}} funktionärer',
   officialsCountOne: '1 funktionär',
   printPdf: 'Skriv ut PDF',
+  noCompetitorsInRace: 'Du har sparat inga tävlande för tävlingen.',
   noCompetitorsInSeries: 'Du har sparat inga tävlande för den här klassen.',
   noStartListForSeries: 'Den här klassen har inte ännu startlista. Du kan spara resultat efter startlistan har skapats.',
   save: 'Spara',
@@ -94,5 +95,6 @@ window.officialTranslations = {
   selectAll: 'Välj alla',
   shotsPageSortByNumber: 'Ordna normalt',
   shotsPageSortByQR: 'Ordna tävlandeana på grund av grundtävlingens resultat',
+  trackPlace: 'Bana',
   update: 'Uppdatera',
 }

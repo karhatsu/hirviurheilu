@@ -7,6 +7,7 @@ window.translations = {
   allCompetitors: 'Kaikki kilpailijat',
   allClubs: 'Kaikki seurat',
   allDistricts: 'Kaikki piirit',
+  allHeats: 'Kaikki erät',
   allLevels: 'Kaikki tasot',
   allRaces: 'Kaikki kilpailut',
   allSeries: 'Kaikki sarjat',

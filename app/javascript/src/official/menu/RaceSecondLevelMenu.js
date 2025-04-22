@@ -85,7 +85,17 @@ const paths = {
   officials: buildOfficialRaceOfficialsPath,
 }
 
-const reactPages = ['clubs', 'estimates', 'officials', 'shooting', 'times']
+const reactPages = [
+  'clubs',
+  'estimates',
+  'officials',
+  'nordicRifleMoving',
+  'nordicRifleStanding',
+  'nordicShotgun',
+  'nordicTrap',
+  'shooting',
+  'times',
+]
 
 const useRaceAndSeries = {
   estimates: true,
