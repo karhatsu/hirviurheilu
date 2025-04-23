@@ -116,7 +116,7 @@ export const ResultRotationProvider = ({ children }) => {
       }
     }, 20)
     return () => clearInterval(interval)
-  }, [autoScroll])
+  }, [autoScroll, navigate])
 
   const value = {
     autoScroll,

@@ -7,10 +7,10 @@ export default [
   pluginJs.configs.recommended,
   pluginReact.configs.flat.recommended,
   pluginReact.configs.flat['jsx-runtime'],
+  pluginReactHooks.configs['recommended-latest'],
   {
     plugins: {
       react: pluginReact,
-      "react-hooks": pluginReactHooks,
     },
 
     languageOptions: {
