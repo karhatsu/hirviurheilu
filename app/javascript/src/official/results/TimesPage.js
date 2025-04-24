@@ -9,6 +9,7 @@ import Button from "../../common/Button"
 import { timeFromSeconds } from "../../util/timeUtil"
 import useCompetitorResultSaving from "./useCompetitorResultSaving"
 import ResultRow from "./ResultRow"
+import { useParams } from "react-router"
 
 const titleKey = 'officialRaceMenuTimes'
 
@@ -60,12 +61,16 @@ const TimesForm = ({competitor: initialCompetitor}) => {
 const TimesPage = () => {
   const {t} = useTranslation()
   const {setSelectedPage} = useOfficialMenu()
+  const { seriesId } = useParams()
   const {race} = useRace()
   const {error, fetching, series} = useOfficialSeries()
 
   useEffect(() => setSelectedPage('times'), [setSelectedPage])
 
-  if (!race || !series) return <IncompletePage title={t(titleKey)} error={error} fetching={fetching}/>
+  const correctSeries = parseInt(seriesId) === series?.id
+  if (!race || !series || !correctSeries) {
+    return <IncompletePage title={t(titleKey)} error={error} fetching={fetching || !correctSeries} />
+  }
 
   return (
     <ResultPage race={race} series={series} titleKey={titleKey} competitorClass="col-sm-6">

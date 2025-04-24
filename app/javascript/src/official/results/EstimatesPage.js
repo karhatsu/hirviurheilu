@@ -8,6 +8,7 @@ import useOfficialSeries from "./useOfficialSeries"
 import ResultPage from "./ResultPage"
 import useCompetitorResultSaving from "./useCompetitorResultSaving"
 import ResultRow from "./ResultRow"
+import { useParams } from "react-router"
 
 const EstimateField = ({ number, value, onChange }) => {
   const handleChange = useCallback(() => onChange(`estimate${number}`), [number, onChange])
@@ -78,12 +79,16 @@ const titleKey = 'officialRaceMenuEstimates'
 const EstimatesPage = () => {
   const { t } = useTranslation()
   const { setSelectedPage } = useOfficialMenu()
+  const { seriesId } = useParams()
   const { race } = useRace()
   const { error, fetching, series } = useOfficialSeries()
 
   useEffect(() => setSelectedPage('estimates'), [setSelectedPage])
 
-  if (!race || !series) return <IncompletePage title={t(titleKey)} error={error} fetching={fetching} />
+  const correctSeries = parseInt(seriesId) === series?.id
+  if (!race || !series || !correctSeries) {
+    return <IncompletePage title={t(titleKey)} error={error} fetching={fetching || !correctSeries} />
+  }
 
   const fourEstimates = series?.estimates === 4
   const competitorClass = `col-xs-12 ${fourEstimates ? 'col-sm-12' : 'col-sm-6'}`
