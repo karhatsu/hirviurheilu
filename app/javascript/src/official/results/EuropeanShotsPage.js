@@ -7,20 +7,20 @@ import Button from "../../common/Button"
 import { buildOfficialRacePath } from "../../util/routeUtil"
 import Message from "../../common/Message"
 import useOfficialRaceCompetitors from "./useOfficialRaceCompetitors"
-import NordicShotsForm from "./NordicShotsForm"
 import useTitle from "../../util/useTitle"
 import { capitalize } from "./resultUtil"
+import EuropeanShotsForm from "./EuropeanShotsForm"
 
-const NordicShotsPage = ({ subSport }) => {
+const EuropeanShotsPage = ({ subSport }) => {
   const { t } = useTranslation()
   const { setSelectedPage } = useOfficialMenu()
   const { race, error, fetching } = useRace()
-  const titleKey = `nordic_${subSport}`
+  const titleKey = `european_${subSport}`
   const { competitors: allCompetitors } = useOfficialRaceCompetitors()
   const [seriesId, setSeriesId] = useState(-1)
   const [heatId, setHeatId] = useState(-2)
 
-  useEffect(() => setSelectedPage(capitalize(`nordic_${subSport}`)), [setSelectedPage, subSport])
+  useEffect(() => setSelectedPage(capitalize(`european_${subSport}`)), [setSelectedPage, subSport])
   useTitle(race && `${t(titleKey)} - ${race.name}`)
 
   const competitors = useMemo(() => {
@@ -43,13 +43,11 @@ const NordicShotsPage = ({ subSport }) => {
 
   const config = useMemo(() => ({
     fieldNames: {
-      scoreInput: capitalize(`nordic_${subSport}ScoreInput`),
-      shots: capitalize(`nordic_${subSport}Shots`),
-      extraShots: capitalize(`nordic_${subSport}ExtraShots`),
+      scoreInput: capitalize(`european_${subSport}ScoreInput`),
+      shots: capitalize(`european_${subSport}Shots`),
     },
-    shotCount: ['trap', 'shotgun'].includes(subSport) ? 25 : 10,
-    shotsPerExtraRound: ['trap', 'shotgun'].includes(subSport) ? 1 : 2,
-    bestShotValue: ['trap', 'shotgun'].includes(subSport) ? 1 : 10,
+    shotCount: ['trap', 'compak'].includes(subSport) ? 25 : 10,
+    bestShotValue: ['trap', 'compak'].includes(subSport) ? 1 : 10,
   }), [subSport])
 
   if (!race || !competitors) return <IncompletePage title={t(titleKey)} error={error} fetching={fetching}/>
@@ -84,7 +82,7 @@ const NordicShotsPage = ({ subSport }) => {
           <div className="row">
             {competitors.map(competitor => (
               <div key={competitor.id} className="col-sm-12">
-                <NordicShotsForm
+                <EuropeanShotsForm
                   competitor={competitor}
                   subSport={subSport}
                   config={config}
@@ -102,4 +100,4 @@ const NordicShotsPage = ({ subSport }) => {
   )
 }
 
-export default NordicShotsPage
+export default EuropeanShotsPage

@@ -12,3 +12,10 @@ export const calculateShootingScore = (scoreInput, shots) => {
   }
   return ''
 }
+
+export const capitalize = s => {
+  return s.split('_').map((str, i) => {
+    if (i === 0) return str
+    return str[0].toUpperCase() + str.slice(1)
+  }).join('')
+}

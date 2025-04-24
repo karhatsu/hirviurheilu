@@ -88,6 +88,8 @@ const paths = {
 const reactPages = [
   'clubs',
   'estimates',
+  'europeanCompak',
+  'europeanTrap',
   'officials',
   'nordicRifleMoving',
   'nordicRifleStanding',
