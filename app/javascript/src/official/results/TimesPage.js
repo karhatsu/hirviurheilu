@@ -10,6 +10,7 @@ import { timeFromSeconds } from "../../util/timeUtil"
 import useCompetitorResultSaving from "./useCompetitorResultSaving"
 import ResultRow from "./ResultRow"
 import { useParams } from "react-router"
+import useTitle from "../../util/useTitle"
 
 const titleKey = 'officialRaceMenuTimes'
 
@@ -66,6 +67,7 @@ const TimesPage = () => {
   const {error, fetching, series} = useOfficialSeries()
 
   useEffect(() => setSelectedPage('times'), [setSelectedPage])
+  useTitle(race && series && `${t(titleKey)} - ${series.name} - ${race.name}`)
 
   const correctSeries = parseInt(seriesId) === series?.id
   if (!race || !series || !correctSeries) {

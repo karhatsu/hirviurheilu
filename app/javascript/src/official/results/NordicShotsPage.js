@@ -8,6 +8,7 @@ import { buildOfficialRacePath } from "../../util/routeUtil"
 import Message from "../../common/Message"
 import useOfficialRaceCompetitors from "./useOfficialRaceCompetitors"
 import NordicShotsForm from "./NordicShotsForm"
+import useTitle from "../../util/useTitle"
 
 const capitalize = s => {
   return s.split('_').map((str, i) => {
@@ -25,9 +26,8 @@ const NordicShotsPage = ({ subSport }) => {
   const [seriesId, setSeriesId] = useState(-1)
   const [heatId, setHeatId] = useState(-2)
 
-  useEffect(() => {
-    setSelectedPage(capitalize(`nordic_${subSport}`))
-  }, [setSelectedPage, subSport])
+  useEffect(() => setSelectedPage(capitalize(`nordic_${subSport}`)), [setSelectedPage, subSport])
+  useTitle(race && `${t(titleKey)} - ${race.name}`)
 
   const competitors = useMemo(() => {
     return allCompetitors?.filter(competitor => {

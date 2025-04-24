@@ -10,6 +10,7 @@ import ShootingRaceShootingForm from "./ShootingRaceShootingForm"
 import Message from "../../common/Message"
 import { useParams, useSearchParams } from "react-router"
 import Button from "../../common/Button"
+import useTitle from "../../util/useTitle"
 
 const titleKey = 'officialRaceMenuShooting'
 
@@ -32,6 +33,8 @@ const ShotsPage = () => {
     if (race?.sport.heatList) setSelectedPage('shootingBySeries')
     else setSelectedPage('shooting')
   }, [race?.sport, setSelectedPage])
+
+  useTitle(race && series && `${t(titleKey)} - ${series.name} - ${race.name}`)
 
   const correctSeries = parseInt(seriesId) === series?.id
   if (!race || !series || !correctSeries) {

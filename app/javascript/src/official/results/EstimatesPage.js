@@ -9,6 +9,7 @@ import ResultPage from "./ResultPage"
 import useCompetitorResultSaving from "./useCompetitorResultSaving"
 import ResultRow from "./ResultRow"
 import { useParams } from "react-router"
+import useTitle from "../../util/useTitle"
 
 const EstimateField = ({ number, value, onChange }) => {
   const handleChange = useCallback(() => onChange(`estimate${number}`), [number, onChange])
@@ -84,6 +85,7 @@ const EstimatesPage = () => {
   const { error, fetching, series } = useOfficialSeries()
 
   useEffect(() => setSelectedPage('estimates'), [setSelectedPage])
+  useTitle(race && series && `${t(titleKey)} - ${series.name} - ${race.name}`)
 
   const correctSeries = parseInt(seriesId) === series?.id
   if (!race || !series || !correctSeries) {
