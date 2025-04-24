@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { put } from "../../util/apiClient"
 
-const initData = (fields, initialCompetitor) => {
+const initData = (fields, competitor) => {
   return fields.reduce((acc, field) => {
     const { key, shotCount, value } = field
-    const currentValue = initialCompetitor[key]
+    const currentValue = competitor[key]
     if (shotCount !== undefined) {
       const length = Math.max(shotCount, currentValue?.length || 0)
       acc[key] = Array.from({ length }, (_, i) => currentValue?.[i] ?? '')
@@ -39,8 +39,8 @@ const useCompetitorResultSaving = (initialCompetitor, fields, buildBody) => {
   const [data, setData] = useState(() => initData(fields, initialCompetitor))
 
   useEffect(() => {
-    setData(initData(fields, initialCompetitor))
-  }, [fields, initialCompetitor])
+    setData(initData(fields, competitor))
+  }, [fields, competitor])
 
   const parseValue = useCallback((fieldKey, event) => {
     const field = fields.find(field => field.key === fieldKey)
