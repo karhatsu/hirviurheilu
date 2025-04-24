@@ -41,14 +41,27 @@ const EuropeanShotsPage = ({ subSport }) => {
     })
   }, [allCompetitors, seriesId, heatId])
 
-  const config = useMemo(() => ({
-    fieldNames: {
-      scoreInput: capitalize(`european_${subSport}ScoreInput`),
-      shots: capitalize(`european_${subSport}Shots`),
-    },
-    shotCount: ['trap', 'compak'].includes(subSport) ? 25 : 10,
-    bestShotValue: ['trap', 'compak'].includes(subSport) ? 1 : 10,
-  }), [subSport])
+  const config = useMemo(() => {
+    if (['trap', 'compak'].includes(subSport)) {
+      return {
+        fieldNames: [{
+          scoreInput: capitalize(`european_${subSport}ScoreInput`),
+          shots: capitalize(`european_${subSport}Shots`),
+        }],
+        shotCount: 25,
+        bestShotValue: 1,
+      }
+    } else {
+      return {
+        fieldNames: [1, 2, 3, 4].map(n => ({
+          scoreInput: `europeanRifle${n}ScoreInput`,
+          shots: `europeanRifle${n}Shots`,
+        })),
+        shotCount: 5,
+        bestShotValue: 10,
+      }
+    }
+  }, [subSport])
 
   if (!race || !competitors) return <IncompletePage title={t(titleKey)} error={error} fetching={fetching}/>
 

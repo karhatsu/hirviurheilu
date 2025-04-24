@@ -33,6 +33,7 @@ const OfficialMainContent = () => {
         <Route path="races/:raceId" element={null}>
           <Route path="clubs" element={<ClubsPage />} />
           <Route path="european_compak" element={<EuropeanShotsPage subSport="compak" />} />
+          <Route path="european_rifle" element={<EuropeanShotsPage subSport="rifle" />} />
           <Route path="european_trap" element={<EuropeanShotsPage subSport="trap" />} />
           <Route path="megalink_imports" element={<MegalinkImportPage />} />
           <Route path="nordic_shotgun" element={<NordicShotsPage subSport="shotgun" />} />

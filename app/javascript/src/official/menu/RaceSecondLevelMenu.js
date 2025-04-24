@@ -89,6 +89,7 @@ const reactPages = [
   'clubs',
   'estimates',
   'europeanCompak',
+  'europeanRifle',
   'europeanTrap',
   'officials',
   'nordicRifleMoving',

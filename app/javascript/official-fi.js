@@ -3,6 +3,7 @@ window.officialTranslations = {
   add: 'Lisää',
   addManyOfficials: 'Lisää monta toimitsijaa',
   addOfficial: 'Lisää toimitsija',
+  allTens: 'Kaikki kymppejä',
   backToOfficialEventPage: 'Takaisin tapahtuman etusivulle',
   backToOfficialIndexPage: 'Takaisin toimitsijan etusivulle',
   backToOfficialRacePage: 'Takaisin Yhteenveto-sivulle',

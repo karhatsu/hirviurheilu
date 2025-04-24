@@ -3,6 +3,7 @@ window.officialTranslations = {
   add: 'Lägg till',
   addManyOfficials: 'Lägg till många funktionärer',
   addOfficial: 'Lägg till funktionär',
+  allTens: '10 för alla',
   backToOfficialEventPage: 'Tillbaka till evenemangets sammanfattningnssida',
   backToOfficialIndexPage: 'Tillbaka till funktionärens hemsida',
   backToOfficialRacePage: 'Tillbaka till sammanfattningnssidan',

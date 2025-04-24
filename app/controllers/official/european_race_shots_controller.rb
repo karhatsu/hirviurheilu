@@ -18,6 +18,7 @@ class Official::EuropeanRaceShotsController < Official::OfficialController
   def rifle
     @sub_sport = :rifle
     @is_rifle = true
-    render :index
+    use_react true
+    render layout: true, html: ''
   end
 end
