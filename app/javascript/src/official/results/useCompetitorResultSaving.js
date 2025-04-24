@@ -5,8 +5,9 @@ const initData = (fields, initialCompetitor) => {
   return fields.reduce((acc, field) => {
     const { key, shotCount, value } = field
     const currentValue = initialCompetitor[key]
-    if (shotCount) {
-      acc[key] = Array.from({length: shotCount}, (_, i) => currentValue?.[i] ?? '')
+    if (shotCount !== undefined) {
+      const length = Math.max(shotCount, currentValue?.length || 0)
+      acc[key] = Array.from({ length }, (_, i) => currentValue?.[i] ?? '')
     } else if (value) {
       acc[key] = value
     } else {
@@ -90,8 +91,9 @@ const useCompetitorResultSaving = (initialCompetitor, fields, buildBody) => {
       if (field.value) return false
       const original = competitor[field.key]
       const current = data[field.key]
-      if (field.shotCount) {
-        return !shotsEqual(original, current, field.shotCount)
+      if (field.shotCount !== undefined) {
+        const count = Math.max(field.shotCount, original?.length || 0, current?.length  || 0)
+        return !shotsEqual(original, current, count)
       }
       return normalizeValue(original) !== normalizeValue(current)
     })
