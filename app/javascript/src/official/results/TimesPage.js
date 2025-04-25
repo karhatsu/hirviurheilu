@@ -1,6 +1,6 @@
 import useOfficialMenu from "../menu/useOfficialMenu"
 import { useRace } from "../../util/useRace"
-import { useCallback, useEffect } from "react"
+import { useEffect } from "react"
 import useTranslation from "../../util/useTranslation"
 import useOfficialSeries from "./useOfficialSeries"
 import IncompletePage from "../../common/IncompletePage"
@@ -18,10 +18,9 @@ const timeRegex = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/
 
 const isValid = time => time === '' || time.match(timeRegex)
 
-const TimeField = ({ field, times, onChange }) => {
-  const handleChange = useCallback(() => onChange(field), [field, onChange])
-  return <input value={times[field]} onChange={handleChange} placeholder="HH:MM:SS" />
-}
+const TimeField = ({ field, times, onChange, name }) => (
+  <input value={times[field]} onChange={onChange(field)} placeholder="HH:MM:SS" name={name} />
+)
 
 const fields = ['startTime', 'arrivalTime'].map(key => ({ key }))
 
@@ -45,10 +44,10 @@ const TimesForm = ({competitor: initialCompetitor}) => {
       <form className="form form--inline" onSubmit={onSubmit}>
         <div className="form__horizontal-fields">
           <div className="form__field form__field--sm">
-            <TimeField field="startTime" times={data} onChange={onChange}/>
+            <TimeField field="startTime" times={data} onChange={onChange} name="competitor[start_time]" />
           </div>
           <div className="card__sub-result card__sub-result--time form__field form__field--sm">
-            <TimeField field="arrivalTime" times={data} onChange={onChange}/>
+            <TimeField field="arrivalTime" times={data} onChange={onChange} name="competitor[arrival_time]" />
           </div>
           <div className="form__buttons">
             <Button submit={true} type="primary" disabled={!canSave}>{t('save')}</Button>

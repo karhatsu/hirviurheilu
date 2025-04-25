@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react"
+import { useEffect } from "react"
 import Button from "../../common/Button"
 import IncompletePage from "../../common/IncompletePage"
 import useTranslation from "../../util/useTranslation"
@@ -12,7 +12,6 @@ import { useParams } from "react-router"
 import useTitle from "../../util/useTitle"
 
 const EstimateField = ({ number, value, onChange }) => {
-  const handleChange = useCallback(() => onChange(`estimate${number}`), [number, onChange])
   return (
     <>
       <div className="form__field-prefix">#{number}</div>
@@ -22,7 +21,7 @@ const EstimateField = ({ number, value, onChange }) => {
           maxLength={3}
           min={1}
           value={value}
-          onChange={handleChange}
+          onChange={onChange(`estimate${number}`)}
           name={`competitor[estimate${number}]`}
         />
       </div>
