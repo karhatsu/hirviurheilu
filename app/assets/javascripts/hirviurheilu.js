@@ -91,36 +91,6 @@ function calculateShootingRaceShotsResultForF(card, bestShotValue, roundMaxScore
   card.find('.card__main-value').text(formatResult(error, q, f, roundMaxScore))
 }
 
-function calculateEuropeanShotsResult(card, fieldCount, bestShotValue, shotCount) {
-  let result = 0
-  let error = false
-  const maxScore = shotCount * 10
-  for (let i = 0; i < fieldCount; i++) {
-    const total = card.find('.shots-total-input')[i].value
-    if (total !== '') {
-      const subResult = parseInt(total)
-      if (subResult >= 0 && subResult <= maxScore) {
-        result += subResult
-        card.find('.shot').slice(i * shotCount, (i + 1) * shotCount).each(function() {
-          if ($(this).val() !== '') {
-            error = true
-          }
-        })
-      } else {
-        error = true
-      }
-    } else {
-      const errorAndSum = sumOfShots(card, bestShotValue, i * shotCount, (i + 1) * shotCount)
-      error = error || errorAndSum[0]
-      result += errorAndSum[1]
-    }
-  }
-  if (error) {
-    result = '?'
-  }
-  card.find('.card__main-value').text(result)
-}
-
 function formatResult(error, q, f, roundMaxScore) {
   if (!error && q >= 0 && q <= roundMaxScore && f >= 0 && f <= roundMaxScore) {
     return q + ' + ' + f + ' = ' + (q + f)
@@ -175,10 +145,5 @@ $(document).ready(function() {
     $(this).parent().find('.binary-shot__option--1').addClass('binary-shot__option--selected')
     $(this).parent().find('input').val(1)
     $(this).parent().find('input').trigger('change')
-  })
-  $(document).on('click', '.legacy.button--select-all-tens', function() {
-    $(this).closest('.card__middle-row').find('.shot').val(10)
-    $(this).closest('.card__middle-row').find('.shots-total-input').val('')
-    $(this).closest('.card__middle-row').find('input').trigger('change')
   })
 })
