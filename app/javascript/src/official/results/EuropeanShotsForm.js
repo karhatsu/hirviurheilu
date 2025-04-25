@@ -44,13 +44,11 @@ const EuropeanShotsForm = ({ competitor: initialCompetitor, series, subSport, co
 
   const shootingScore = useMemo(() => {
     if (!dataHasCorrectFields) return ''
-    return fieldNames.reduce((acc, field) => {
-      if (typeof acc === 'string') return acc
-      const maxScore = shotCount * bestShotValue
-      const score = calculateShootingScore(data[field.scoreInput], data[field.shots], maxScore)
-      if (typeof score === 'string') return score
-      return acc + score
-    }, 0)
+    const maxScore = shotCount * bestShotValue
+    const scores = fieldNames.map(field => calculateShootingScore(data[field.scoreInput], data[field.shots], maxScore))
+    if (scores.find(score => score === '?')) return '?'
+    if (!scores.filter(score => score !== '').length) return ''
+    return scores.reduce((acc, score) => acc + (score || 0), 0)
   }, [dataHasCorrectFields, data, fieldNames, shotCount, bestShotValue])
 
   const allTens = useCallback(() => {
