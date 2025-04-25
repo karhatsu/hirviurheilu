@@ -11,7 +11,7 @@ const ResultRow = ({ children, competitor, errors, result, saved, saving, series
     : ''
   return (
     <div className="card">
-      <div className="card__number">{number}</div>
+      <div className="card__number">#{number}</div>
       <div className="card__middle">
         <div className="card__name">
           <span>{lastName} {firstName}{seriesNameText}{trackPlaceText}</span>
