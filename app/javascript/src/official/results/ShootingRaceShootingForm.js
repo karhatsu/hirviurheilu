@@ -67,12 +67,14 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport }) => {
     return 0
   }, [sport, data])
 
+  const idPrefix = `shots-shot-${competitor.id}`
   return (
     <ResultRow competitor={competitor} errors={errors} result={score} saved={saved} saving={saving}>
       <form className="form form--inline" onSubmit={onSubmit}>
         <div className="form__subtitle">{t('qualificationRound')}</div>
         <div className="form__horizontal-fields">
           <ShotFields
+            idPrefix={idPrefix}
             data={data}
             scoreInputField="qualificationRoundShootingScoreInput"
             shotsField="shots"
@@ -86,6 +88,7 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport }) => {
         <div className="form__subtitle">{t('finalRound')}</div>
         <div className="form__horizontal-fields">
           <ShotFields
+            idPrefix={idPrefix}
             data={data}
             scoreInputField="finalRoundShootingScoreInput"
             shotsField="shots"
@@ -101,6 +104,7 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport }) => {
           <>
             <div className="form__subtitle">{t('extraRound')}</div>
             <ShotFields
+              idPrefix={`shots-extra-${competitor.id}`}
               data={data}
               shotsField="extraShots"
               onChangeShot={onChangeShot}

@@ -73,6 +73,7 @@ const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, seri
       <form className="form form--inline" onSubmit={onSubmit}>
         <div className="form__horizontal-fields">
           <ShotFields
+            idPrefix={`nordic_${subSport}_shots-shot-${competitor.id}`}
             data={data}
             scoreInputField={fieldNames.scoreInput}
             maxScoreInput={shotCount * bestShotValue}
@@ -87,6 +88,7 @@ const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, seri
           <>
             <div className="form__subtitle">{t('extraRound')}</div>
             <ShotFields
+              idPrefix={`nordic_${subSport}_extra-shot-${competitor.id}`}
               data={data}
               shotsField={fieldNames.extraShots}
               onChangeShot={onChangeShot}

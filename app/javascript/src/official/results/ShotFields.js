@@ -13,6 +13,7 @@ const BinaryShotField = ({ fieldValue, index, value, onClick }) => {
 const ShotFields = props => {
   const { t } = useTranslation()
   const {
+    idPrefix,
     data,
     scoreInputField,
     shotsField,
@@ -38,6 +39,7 @@ const ShotFields = props => {
       {scoreInputField && (
         <div className="card__sub-result card__sub-result--shoot form__field form__field--sm">
           <input
+            name="competitor[shooting_score_input]"
             type="number"
             min={0}
             max={maxScoreInput}
@@ -71,6 +73,7 @@ const ShotFields = props => {
                   )}
                   {bestShotValue !== 1 && (
                     <input
+                      id={`${idPrefix}-${counter}`}
                       type="number"
                       min={0}
                       max={bestShotValue}

@@ -85,6 +85,7 @@ const EuropeanShotsForm = ({ competitor: initialCompetitor, series, subSport, co
             {renderSubTitle(i)}
             <div className="form__horizontal-fields">
               <ShotFields
+                idPrefix={`european_${subSport}${subSport === 'rifle' ? i + 1 : ''}_shots-shot-${competitor.id}`}
                 data={data}
                 scoreInputField={field.scoreInput}
                 maxScoreInput={shotCount * bestShotValue}
