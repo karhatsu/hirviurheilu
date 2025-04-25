@@ -43,25 +43,43 @@ const EuropeanShotsPage = ({ subSport }) => {
 
   const config = useMemo(() => {
     if (['trap', 'compak'].includes(subSport)) {
-      return {
+      const fields = {
         fieldNames: [{
           scoreInput: capitalize(`european_${subSport}ScoreInput`),
           shots: capitalize(`european_${subSport}Shots`),
         }],
         shotCount: 25,
         bestShotValue: 1,
+        doubleCompetition: !!race?.doubleCompetition,
       }
+      if (race?.doubleCompetition) {
+        fields.fieldNames.push({
+          scoreInput: capitalize(`european_${subSport}ScoreInput2`),
+          shots: capitalize(`european_${subSport}Shots2`),
+        })
+      }
+      return fields
     } else {
       return {
-        fieldNames: [1, 2, 3, 4].map(n => ({
-          scoreInput: `europeanRifle${n}ScoreInput`,
-          shots: `europeanRifle${n}Shots`,
-        })),
+        fieldNames: [1, 2, 3, 4].map(n => {
+          const fields = [{
+            scoreInput: `europeanRifle${n}ScoreInput`,
+            shots: `europeanRifle${n}Shots`,
+          }]
+          if (race?.doubleCompetition) {
+            fields.push({
+              scoreInput: `europeanRifle${n}ScoreInput2`,
+              shots: `europeanRifle${n}Shots2`,
+            })
+          }
+          return fields
+        }).flat(),
         shotCount: 5,
         bestShotValue: 10,
+        doubleCompetition: !!race?.doubleCompetition,
       }
     }
-  }, [subSport])
+  }, [subSport, race?.doubleCompetition])
 
   if (!race || !competitors) return <IncompletePage title={t(titleKey)} error={error} fetching={fetching}/>
 

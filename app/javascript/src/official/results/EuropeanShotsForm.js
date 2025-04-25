@@ -62,6 +62,12 @@ const EuropeanShotsForm = ({ competitor: initialCompetitor, subSport, config, wi
 
   if (!dataHasCorrectFields) return ''
 
+  const renderSubTitle = fieldsIndex => {
+    if (subSport !== 'rifle') return
+    if (config.doubleCompetition) return fieldsIndex % 2 === 0 && <div>{t(`european_rifle${fieldsIndex / 2 + 1}`)}</div>
+    return <div>{t(`european_rifle${fieldsIndex + 1}`)}</div>
+  }
+
   return (
     <ResultRow
       competitor={competitor}
@@ -74,7 +80,7 @@ const EuropeanShotsForm = ({ competitor: initialCompetitor, subSport, config, wi
       <form className="form form--inline" onSubmit={onSubmit}>
         {fieldNames.map((field, i) => (
           <Fragment key={i}>
-            {subSport === 'rifle' && <div>{t(`european_rifle${i + 1}`)}</div>}
+            {renderSubTitle(i)}
             <div className="form__horizontal-fields">
               <ShotFields
                 data={data}
