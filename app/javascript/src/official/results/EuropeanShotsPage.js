@@ -115,6 +115,7 @@ const EuropeanShotsPage = ({ subSport }) => {
               <div key={competitor.id} className="col-sm-12">
                 <EuropeanShotsForm
                   competitor={competitor}
+                  series={race.series.find(s => s.id === competitor.seriesId)}
                   subSport={subSport}
                   config={config}
                   withTrackPlace={heatId !== -2}

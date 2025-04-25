@@ -6,7 +6,7 @@ import ResultRow from "./ResultRow"
 import ShotFields from "./ShotFeilds"
 import Button from "../../common/Button"
 
-const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, withTrackPlace }) => {
+const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, series, withTrackPlace }) => {
   const { t } = useTranslation()
   const { fieldNames, shotCount, shotsPerExtraRound, bestShotValue } = config
 
@@ -65,6 +65,7 @@ const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, with
       result={shootingScore}
       saved={saved}
       saving={saving}
+      seriesName={series.name}
       withTrackPlace={withTrackPlace}
     >
       <form className="form form--inline" onSubmit={onSubmit}>
