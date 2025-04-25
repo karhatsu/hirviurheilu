@@ -85,7 +85,7 @@ const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, seri
         </div>
         {extraRoundShotCount > 0 && (
           <>
-            <div>{t('extraRound')}</div>
+            <div className="form__subtitle">{t('extraRound')}</div>
             <ShotFields
               data={data}
               shotsField={fieldNames.extraShots}

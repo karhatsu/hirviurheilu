@@ -70,7 +70,7 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport }) => {
   return (
     <ResultRow competitor={competitor} errors={errors} result={score} saved={saved} saving={saving}>
       <form className="form form--inline" onSubmit={onSubmit}>
-        <div>{t('qualificationRound')}</div>
+        <div className="form__subtitle">{t('qualificationRound')}</div>
         <div className="form__horizontal-fields">
           <ShotFields
             data={data}
@@ -83,7 +83,7 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport }) => {
             bestShotValue={sport.bestShotValue}
           />
         </div>
-        <div>{t('finalRound')}</div>
+        <div className="form__subtitle">{t('finalRound')}</div>
         <div className="form__horizontal-fields">
           <ShotFields
             data={data}
@@ -99,7 +99,7 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport }) => {
         </div>
         {extraRoundShotCount > 0 && (
           <>
-            <div>{t('extraRound')}</div>
+            <div className="form__subtitle">{t('extraRound')}</div>
             <ShotFields
               data={data}
               shotsField="extraShots"

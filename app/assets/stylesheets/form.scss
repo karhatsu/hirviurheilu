@@ -3,6 +3,11 @@ $inputHeight: 16px;
 .form {
   margin-bottom: 16px;
 
+  &__subtitle {
+    font-weight: bold;
+    margin-top: 8px;
+  }
+
   &--inline {
     display: inline-block;
     margin-bottom: 0;

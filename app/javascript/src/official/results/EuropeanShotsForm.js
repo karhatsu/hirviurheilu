@@ -65,8 +65,10 @@ const EuropeanShotsForm = ({ competitor: initialCompetitor, series, subSport, co
 
   const renderSubTitle = fieldsIndex => {
     if (subSport !== 'rifle') return
-    if (config.doubleCompetition) return fieldsIndex % 2 === 0 && <div>{t(`european_rifle${fieldsIndex / 2 + 1}`)}</div>
-    return <div>{t(`european_rifle${fieldsIndex + 1}`)}</div>
+    if (config.doubleCompetition) {
+      return fieldsIndex % 2 === 0 && <div className="form__subtitle">{t(`european_rifle${fieldsIndex / 2 + 1}`)}</div>
+    }
+    return <div className="form__subtitle">{t(`european_rifle${fieldsIndex + 1}`)}</div>
   }
 
   return (
