@@ -59,38 +59,6 @@ function calculateShootingRaceShotsResult(card, bestShotValue, roundMaxScore, qu
   card.find('.card__main-value').text(formatResult(error, q, f, roundMaxScore))
 }
 
-function calculateShootingRaceShotsResultForQ(card, bestShotValue, roundMaxScore, qualificationRoundShotCount) {
-  let error = false
-  const qualificationTotal = card.find('.shots-total-input:eq(0)').val()
-  const finalTotal = card.find('.shots-total-input:eq(1)').val()
-  const f = parseInt(finalTotal) || 0
-  let q
-  if (qualificationTotal !== '') {
-    q = parseInt(qualificationTotal)
-  } else {
-    const errorAndSumQ = sumOfShots(card, bestShotValue, 0, qualificationRoundShotCount)
-    error = errorAndSumQ[0]
-    q = errorAndSumQ[1]
-  }
-  card.find('.card__main-value').text(formatResult(error, q, f, roundMaxScore))
-}
-
-function calculateShootingRaceShotsResultForF(card, bestShotValue, roundMaxScore, qualificationRoundShotCount, totalShotCount) {
-  let error = false
-  const qualificationTotal = card.find('.shots-total-input:eq(0)').val()
-  const finalTotal = card.find('.shots-total-input:eq(1)').val()
-  const q = parseInt(qualificationTotal)
-  let f
-  if (finalTotal !== '') {
-    f = parseInt(finalTotal) || 0
-  } else {
-    const errorAndSumF = sumOfShots(card, bestShotValue, qualificationRoundShotCount, totalShotCount)
-    error = errorAndSumF[0]
-    f = errorAndSumF[1]
-  }
-  card.find('.card__main-value').text(formatResult(error, q, f, roundMaxScore))
-}
-
 function formatResult(error, q, f, roundMaxScore) {
   if (!error && q >= 0 && q <= roundMaxScore && f >= 0 && f <= roundMaxScore) {
     return q + ' + ' + f + ' = ' + (q + f)

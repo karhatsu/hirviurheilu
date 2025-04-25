@@ -97,6 +97,8 @@ const reactPages = [
   'nordicShotgun',
   'nordicTrap',
   'shooting',
+  'shootingByHeats',
+  'shootingBySeries',
   'times',
 ]
 

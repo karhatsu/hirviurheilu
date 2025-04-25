@@ -14,6 +14,7 @@ import TimesPage from "./results/TimesPage"
 import ShotsPage from "./results/ShotsPage"
 import NordicShotsPage from "./results/NordicShotsPage"
 import EuropeanShotsPage from "./results/EuropeanShotsPage"
+import ShootingByHeatsPage from "./results/ShootingByHeatsPage"
 
 const OfficialMainContent = () => {
   return (
@@ -46,6 +47,7 @@ const OfficialMainContent = () => {
             <Route path="times" element={<TimesPage />} />
             <Route path="shots" element={<ShotsPage />} />
           </Route>
+          <Route path="shooting_by_heats" element={<ShootingByHeatsPage />} />
         </Route>
       </Routes>
     </div>
