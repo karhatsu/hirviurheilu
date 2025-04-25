@@ -4,7 +4,7 @@ import useTranslation from "../../util/useTranslation"
 import useCompetitorResultSaving from "./useCompetitorResultSaving"
 import ResultRow from "./ResultRow"
 import { calculateShootingScore } from "./resultUtil"
-import ShotFields from "./ShotFeilds"
+import ShotFields from "./ShotFields"
 
 const fields = [
   { key: 'shootingScoreInput', number: true },

@@ -4,7 +4,7 @@ import { useMemo } from "react"
 import ResultRow from "./ResultRow"
 import Button from "../../common/Button"
 import { calculateShootingScore, shotCount, shotValue } from "./resultUtil"
-import ShotFields from "./ShotFeilds"
+import ShotFields from "./ShotFields"
 
 const buildFields = sport => [
   { key: 'qualificationRoundShootingScoreInput', number: true },

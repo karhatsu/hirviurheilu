@@ -3,7 +3,7 @@ import useCompetitorResultSaving from "./useCompetitorResultSaving"
 import { useCallback, useMemo } from "react"
 import { calculateShootingScore, shotCount as countShots } from "./resultUtil"
 import ResultRow from "./ResultRow"
-import ShotFields from "./ShotFeilds"
+import ShotFields from "./ShotFields"
 import Button from "../../common/Button"
 
 const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, series, withTrackPlace }) => {
