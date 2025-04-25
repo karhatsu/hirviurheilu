@@ -30,7 +30,7 @@ const ThreeSportsShootingForm = ({ competitor: initialCompetitor, sport }) => {
   } = useCompetitorResultSaving(initialCompetitor, fields, buildBody)
 
   const shootingScore = useMemo(() => {
-    return calculateShootingScore(data.shootingScoreInput, data.shots)
+    return calculateShootingScore(data.shootingScoreInput, data.shots, 100)
   }, [data])
 
   return (

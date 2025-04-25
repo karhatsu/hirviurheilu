@@ -1,4 +1,4 @@
-const shotValue = rawValue => {
+export const shotValue = rawValue => {
   if (rawValue === 11) return 10
   return rawValue || 0
 }
@@ -7,10 +7,10 @@ const shotSum = shots => shots.reduce((sum, shot) => sum + shotValue(shot), 0)
 
 export const shotCount = shots => shots.filter(shot => shot !== '').length
 
-export const calculateShootingScore = (scoreInput, shots) => {
+export const calculateShootingScore = (scoreInput, shots, maxScore) => {
   const hasShot = !!shots.find(s => s)
   if (scoreInput) {
-    if (scoreInput < 0 || scoreInput > 100  || hasShot) return '?'
+    if (scoreInput < 0 || scoreInput > maxScore  || hasShot) return '?'
     return scoreInput
   } else if (hasShot) {
     return shotSum(shots)

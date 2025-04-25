@@ -3,7 +3,7 @@ import useCompetitorResultSaving from "./useCompetitorResultSaving"
 import { useMemo } from "react"
 import ResultRow from "./ResultRow"
 import Button from "../../common/Button"
-import { calculateShootingScore, shotCount } from "./resultUtil"
+import { calculateShootingScore, shotCount, shotValue } from "./resultUtil"
 import ShotFields from "./ShotFeilds"
 
 const buildFields = sport => [
@@ -39,17 +39,24 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport }) => {
     saving,
   } = useCompetitorResultSaving(initialCompetitor, fields, buildBody)
 
+  const { qualificationRoundShotCount, finalRoundShotCount, bestShotValue } = sport
+  const maxQRScore = qualificationRoundShotCount * shotValue(bestShotValue)
+  const maxFRScore = finalRoundShotCount * shotValue(bestShotValue)
+
   const score = useMemo(() => {
     const { qualificationRoundShotCount } = sport
-    const { qualificationRoundShootingScoreInput, finalRoundShootingScoreInput, shots } = data
-    const qrScore =
-      calculateShootingScore(qualificationRoundShootingScoreInput, shots.slice(0, qualificationRoundShotCount))
+    const {
+      qualificationRoundShootingScoreInput: qrScoreInput,
+      finalRoundShootingScoreInput: finScoreInput,
+      shots,
+    } = data
+    const qrScore = calculateShootingScore(qrScoreInput, shots.slice(0, qualificationRoundShotCount), maxQRScore)
     if (qrScore === '' || qrScore === '?') return qrScore
-    const finScore = calculateShootingScore(finalRoundShootingScoreInput, shots.slice(qualificationRoundShotCount))
+    const finScore = calculateShootingScore(finScoreInput, shots.slice(qualificationRoundShotCount), maxFRScore)
     if (finScore === '') return qrScore
     if (finScore === '?') return '?'
     return `${qrScore} + ${finScore} = ${qrScore + finScore}`
-  }, [data, sport])
+  }, [data, sport, maxQRScore, maxFRScore])
 
   const extraRoundShotCount = useMemo(() => {
     if (data.qualificationRoundShootingScoreInput ||
@@ -69,6 +76,7 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport }) => {
             data={data}
             scoreInputField="qualificationRoundShootingScoreInput"
             shotsField="shots"
+            maxScoreInput={maxQRScore}
             onChange={onChange}
             onChangeShot={onChangeShot}
             shotCounts={sport.qualificationRound}
@@ -81,6 +89,7 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport }) => {
             data={data}
             scoreInputField="finalRoundShootingScoreInput"
             shotsField="shots"
+            maxScoreInput={maxFRScore}
             onChange={onChange}
             onChangeShot={onChangeShot}
             shotCounts={sport.finalRound}

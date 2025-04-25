@@ -53,8 +53,10 @@ const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, seri
   }, [dataHasCorrectFields, data, fieldNames, shotCount, shotsPerExtraRound])
 
   const shootingScore = useMemo(() => {
-    return dataHasCorrectFields ? calculateShootingScore(data[fieldNames.scoreInput], data[fieldNames.shots]) : ''
-  }, [dataHasCorrectFields, data, fieldNames])
+    if (!dataHasCorrectFields) return ''
+    const maxScore = shotCount * bestShotValue
+    return calculateShootingScore(data[fieldNames.scoreInput], data[fieldNames.shots], maxScore)
+  }, [dataHasCorrectFields, data, fieldNames, shotCount, bestShotValue])
 
   if (!dataHasCorrectFields) return ''
 

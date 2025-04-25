@@ -46,11 +46,12 @@ const EuropeanShotsForm = ({ competitor: initialCompetitor, series, subSport, co
     if (!dataHasCorrectFields) return ''
     return fieldNames.reduce((acc, field) => {
       if (typeof acc === 'string') return acc
-      const score = calculateShootingScore(data[field.scoreInput], data[field.shots])
+      const maxScore = shotCount * bestShotValue
+      const score = calculateShootingScore(data[field.scoreInput], data[field.shots], maxScore)
       if (typeof score === 'string') return score
       return acc + score
     }, 0)
-  }, [dataHasCorrectFields, data, fieldNames])
+  }, [dataHasCorrectFields, data, fieldNames, shotCount, bestShotValue])
 
   const allTens = useCallback(() => {
     fieldNames.forEach(field => {
