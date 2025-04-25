@@ -104,6 +104,7 @@ const useRaceAndSeries = {
   estimates: true,
   times: true,
   shooting: true,
+  shootingBySeries: true,
 }
 
 const useSeries = {
@@ -111,7 +112,6 @@ const useSeries = {
   heatListGeneration: true,
   qualificationRound: true,
   finalRound: true,
-  shootingBySeries: true,
 }
 
 const requireSeries = {
