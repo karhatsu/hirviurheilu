@@ -129,6 +129,7 @@ Feature: Manage competitors
     And I should see "567"
     And I should see "New club"
 
+  @javascript
   Scenario: Update shooting race competitor
     Given I am an official
     And I have a "METSASTYSHIRVI" race "Hirvi test race"
@@ -166,6 +167,7 @@ Feature: Manage competitors
     When I choose "Ammunta sarjoittain" from sub menu
     Then the card 1 main value should be "22 + 21 = 43"
 
+  @javascript
   Scenario: Update european race competitor
     Given I am an official
     And I have a "EUROPEAN" race "European test race"
@@ -191,6 +193,7 @@ Feature: Manage competitors
     When I choose "Luodikko" from sub menu
     Then the card 1 main value should be "188"
 
+  @javascript
   Scenario: Update nordic race competitor
     Given I am an official
     And I have a "NORDIC" race "Nordic test race"
