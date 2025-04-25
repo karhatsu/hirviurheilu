@@ -1,4 +1,9 @@
-const shotSum = shots => shots.reduce((sum, shot) => sum + (shot || 0), 0)
+const shotValue = rawValue => {
+  if (rawValue === 11) return 10
+  return rawValue || 0
+}
+
+const shotSum = shots => shots.reduce((sum, shot) => sum + shotValue(shot), 0)
 
 export const shotCount = shots => shots.filter(shot => shot !== '').length
 
