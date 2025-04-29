@@ -3,7 +3,7 @@
 - if @race.competitors.empty?
   .message.message--info= t '.no_competitors'
   - unless @race.series.empty?
-    = link_to t('official.competitors.index.add_competitor'), new_official_series_competitor_path(@race.series.first), class: 'button button--add'
+    = link_to t('official.competitors.index.add_competitor'), new_official_race_series_competitor_path(@race.id, @race.series.first), class: 'button button--add'
 - elsif @race.sport.shooting?
   - instructions_key = @race.sport_key == Sport::ILMALUODIKKO ? 'ilmaluodikko' : ([Sport::METSASTYSHAULIKKO, Sport::METSASTYSTRAP].include?(@race.sport_key) ? 'shotgun' : 'other')
   %h3= t :qualification_round

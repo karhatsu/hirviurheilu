@@ -75,7 +75,7 @@ class Official::CompetitorsController < Official::OfficialController
         'official/competitors/update_success'
       respond_to do |format|
         format.html do
-          redirect_to official_series_competitors_path(@competitor.series)
+          redirect_to official_race_series_competitors_path(params[:race_id], @competitor.series)
         end
         format.js { render js_template, :layout => false }
         format.json
@@ -95,7 +95,7 @@ class Official::CompetitorsController < Official::OfficialController
   def destroy
     if @competitor.series_id == params[:series_id].to_i
       @competitor.destroy
-      redirect_to official_series_competitors_path(@competitor.series_id)
+      redirect_to official_race_series_competitors_path(params[:race_id], @competitor.series_id)
     else
       raise "Competitor does not belong to given series!"
     end

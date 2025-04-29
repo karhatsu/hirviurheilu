@@ -74,7 +74,7 @@ const useCompetitorResultSaving = (initialCompetitor, fields, buildBody) => {
     setErrors(undefined)
     setSaved(false)
     const body = buildBody ? buildBody(competitor, data) : { competitor: data }
-    const path = `/official/series/${competitor.seriesId}/competitors/${competitor.id}.json`
+    const path = `/official/races/${competitor.raceId}/series/${competitor.seriesId}/competitors/${competitor.id}.json`
     put(path, body, (err, response) => {
       setSaving(false)
       if (err) {

@@ -25,7 +25,7 @@
                     - checked = params[field_name] == solution || (params[field_name].blank? && solution == FinishCompetition::ACTION_COMPLETE)
                     = radio_button_tag field_name, solution, checked
                     - if solution == FinishCompetition::ACTION_COMPLETE
-                      = link_to t(".#{solution}"), edit_official_series_competitor_path(competitor.series_id, competitor.id), target: '_blank'
+                      = link_to t(".#{solution}"), edit_official_race_series_competitor_path(@race.id, competitor.series_id, competitor.id), target: '_blank'
                     - else
                       = label_tag field_name, t(".#{solution}")
     - unless @unfinished_series.empty?

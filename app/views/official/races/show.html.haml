@@ -29,14 +29,14 @@
               .card__middle-row= t(:count_competitors, count: competitor_count)
               .card__middle-row
                 - if competitor_count == 0
-                  - add_competitor_path = @race.start_order == Race::START_ORDER_MIXED ? official_race_start_list_path(@race) : new_official_series_competitor_path(s)
+                  - add_competitor_path = @race.start_order == Race::START_ORDER_MIXED ? official_race_start_list_path(@race) : new_official_race_series_competitor_path(@race.id, s)
                   = link_to t('.add_series_first_competitor'), add_competitor_path, class: 'button button--add_competitor'
                   = link_to t('official.races.form.remove_series'), official_series_path(s), method: :delete,
                     data: { confirm: t('official.races.form.remove_series_confirm') }, class: 'button button--danger'
                 - else
-                  = link_to t('activerecord.models.competitor.other'), official_series_competitors_path(s), class: 'button button--competitors'
+                  = link_to t('activerecord.models.competitor.other'), official_race_series_competitors_path(s.race_id, s), class: 'button button--competitors'
                   - if @race.sport.start_list? && !s.has_start_list?
-                    = link_to t('.create_start_list'), official_series_competitors_path(s), class: 'button'
+                    = link_to t('.create_start_list'), official_race_series_competitors_path(s.race_id, s), class: 'button'
                   - unless finished
                     - if @race.sport.nordic?
                       = link_to t('.input_results'), official_race_nordic_trap_path(@race), class: 'button'

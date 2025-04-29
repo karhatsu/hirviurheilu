@@ -1,5 +1,5 @@
 <% if params[:show_competitor] %>
-  window.location.href = '<%= edit_official_series_competitor_path(@series, @competitor) %>'
+  window.location.href = '<%= edit_official_race_series_competitor_path(@series.race_id, @series, @competitor) %>'
 <% elsif params[:to_quick_save] %>
   window.location.href = '<%= official_race_quick_saves_path(@series.race) %>'
 <% else %>

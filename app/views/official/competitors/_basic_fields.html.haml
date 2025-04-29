@@ -80,7 +80,7 @@
           $('#number_span').hide();
         }
       }
-      $('#back_to_series').attr('href', '/official/series/' + series_id + '/competitors');
+      $('#back_to_series').attr('href', '/official/races/#{@series.race_id}/series/' + series_id + '/competitors');
       $('#back_to_series #series_name').text(series.name);
     });
   }

@@ -3,7 +3,7 @@
   .row
     - series.competitors.includes(:club, :age_group, :series, :qualification_round_heat).each do |comp|
       .col-xs-12.col-sm-6.col-md-4
-        %a.card{href: edit_official_series_competitor_path(series.id, comp)}
+        %a.card{href: edit_official_race_series_competitor_path(series.race_id, series.id, comp)}
           - if comp.number
             .card__number= comp.number
           .card__middle

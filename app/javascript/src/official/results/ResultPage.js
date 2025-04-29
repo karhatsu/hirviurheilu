@@ -1,5 +1,6 @@
 import SeriesMobileSubMenu from "../../public/menu/SeriesMobileSubMenu"
 import {
+  buildOfficialRaceCompetitorsPath,
   buildOfficialRacePath,
   buildOfficialSeriesEstimatesPath,
   buildOfficialSeriesShotsPath,
@@ -20,7 +21,7 @@ const ResultPage = ({ competitorClass, children, race, series, titleKey, renderA
       return (
         <>
           <Message type="info">{t('noStartListForSeries')}</Message>
-          <Button href={`/official/series/${seriesId}/competitors`}>{t('generateStartTimes')}</Button>
+          <Button href={buildOfficialRaceCompetitorsPath(raceId, seriesId)}>{t('generateStartTimes')}</Button>
         </>
       )
     } else {

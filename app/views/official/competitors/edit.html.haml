@@ -1,7 +1,7 @@
 = content_for(:title, full_name(@competitor))
 %h2= yield :title
 = render partial: "shared/form_errors", locals: { item: @competitor }
-= form_for([:official, @competitor.series, @competitor], html: { class: 'form form--competitor' }) do |f|
+= form_for([:official, @series.race, @competitor.series, @competitor], html: { class: 'form form--competitor' }) do |f|
   = render partial: "basic_fields", locals: { f: f }
   - if @series.sport.nordic?
     = render partial: 'nordic_form_fields', locals: { f: f }
@@ -35,6 +35,6 @@
   .form__buttons
     = submit_tag t(:save), class: 'button button--primary'
 .buttons.buttons--nav
-  = link_to t('.back_to_series_competitor_list', :series_name => @series.name), official_series_competitors_path(@series), class: 'button button--back'
-  = link_to t('.delete_competitor'), official_series_competitor_path(@competitor.series_id, @competitor),
+  = link_to t('.back_to_series_competitor_list', series_name: @series.name), official_race_series_competitors_path(@series.race_id, @series), class: 'button button--back'
+  = link_to t('.delete_competitor'), official_race_series_competitor_path(@series.race_id, @competitor.series_id, @competitor),
     data: { confirm: t('.remove_confirmation') }, method: :delete, class: 'button button--danger'

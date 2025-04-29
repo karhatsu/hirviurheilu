@@ -103,6 +103,7 @@ const reactPages = [
 ]
 
 const useRaceAndSeries = {
+  competitors: true,
   estimates: true,
   times: true,
   shooting: true,
@@ -110,7 +111,6 @@ const useRaceAndSeries = {
 }
 
 const useSeries = {
-  competitors: true,
   heatListGeneration: true,
   qualificationRound: true,
   finalRound: true,

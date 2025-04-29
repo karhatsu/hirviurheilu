@@ -27,7 +27,7 @@
   .row
     - competitors.each do |competitor|
       .col-xs-12.col-sm-6.col-md-4
-        %a.card{href: edit_official_series_competitor_path(competitor.series_id, competitor)}
+        %a.card{href: edit_official_race_series_competitor_path(@series.race_id, competitor.series_id, competitor)}
           - if competitor.qualification_round_track_place
             .card__number= competitor.qualification_round_track_place
           .card__middle

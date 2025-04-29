@@ -5,10 +5,10 @@
   .message.message--info= t '.no_start_list_for_any_series'
 - else
   #competitors_table
-    = render partial: 'competitor_row', locals: { c: @new_competitor, save_button: t(:add_new), id: 'new', parent: @race }
+    = render partial: 'competitor_row', locals: { form_for_fields: [:official, @race, @new_competitor], c: @new_competitor, save_button: t(:add_new), id: 'new' }
     %hr#ruler
     - @competitors.each do |c|
-      = render partial: 'competitor_row', locals: { c: c, save_button: t(:save), id: c.id, parent: c.series }
+      = render partial: 'competitor_row', locals: { form_for_fields: [:official, @race, c.series, c], c: c, save_button: t(:save), id: c.id }
 
   :javascript
     var series_with_age_groups = #{raw @series_with_age_groups.to_json};

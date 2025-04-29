@@ -152,6 +152,7 @@ Hirviurheilu::Application.routes.draw do
         get 'european_rifle', to: 'european_race_shots#rifle', as: :european_rifle
         resource :printing, only: :show
         resources :series, only: [:show] do
+          resources :competitors, except: :create
           resources :estimates, only: :index
           resources :shots, only: :index
           resources :times, only: :index
@@ -161,7 +162,6 @@ Hirviurheilu::Application.routes.draw do
       resources :series do
         resource :qualification_round_heat_list, only: [:show, :create]
         resource :final_round_heat_list, only: [:show, :create]
-        resources :competitors, :except => :create
         resources :age_groups
         resource :start_list
       end

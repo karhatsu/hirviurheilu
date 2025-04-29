@@ -88,7 +88,7 @@ module MenuHelper
       elsif type == 'rifle'
         link = race_series_rifle_path(locale_for_path, race, series)
       elsif type == 'competitors'
-        link = official_series_competitors_path(locale_for_path, series)
+        link = official_race_series_competitors_path(locale_for_path, race, series)
       elsif type == 'times'
         link = official_race_series_times_path(locale_for_path, race, series)
       elsif type == 'estimates'
