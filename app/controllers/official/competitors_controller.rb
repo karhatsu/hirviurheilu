@@ -27,16 +27,8 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   def new
-    next_number = @series.race.next_start_number
-    next_start_time = @series.race.next_start_time
-    @competitor = @series.competitors.build # cannot call next-methods after this
-    if @series.has_start_list
-      @competitor.number = next_number
-      @competitor.start_time = next_start_time
-    elsif @series.sport.heat_list?
-      @competitor.number = next_number
-    end
-    @series_menu_options = @series.race.series
+    use_react true
+    render layout: true, html: ''
   end
 
   # official/races/:race_id/competitors (not series)
@@ -45,18 +37,19 @@ class Official::CompetitorsController < Official::OfficialController
     @competitor = @series.competitors.build(add_competitor_params)
     @competitor.number = @series.race.next_start_number if @series.sport.heat_list? && @competitor.number.blank?
     club_ok = handle_club(@competitor)
-    start_list_page = params[:start_list]
     if club_ok && @competitor.save
       start_list_condition = 'series.has_start_list = true'
       @all_series = @race.series.where(start_list_condition)
       collect_age_groups(@all_series)
-      template = start_list_page ? 'official/start_lists/create_success' :
-        'official/competitors/create_success'
-      respond_to { |format| format.js { render template } }
+      respond_to do |format|
+        format.js { render 'official/start_lists/create_success' }
+        format.json
+      end
     else
-      template = start_list_page ? 'official/start_lists/create_error' :
-        'official/competitors/create_error'
-      respond_to { |format| format.js { render template } }
+      respond_to do |format|
+        format.js { render 'official/start_lists/create_error' }
+        format.json { render status: 400, json: { errors: @competitor.errors.full_messages } }
+      end
     end
   end
 

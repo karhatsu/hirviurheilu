@@ -6,6 +6,14 @@ json.all_competitions_finished @race.all_competitions_finished?
 json.show_correct_distances @race.show_correct_distances?
 json.unofficials_configurable @race.year < 2018
 json.user_ids @race.users.map(&:id)
+json.has_team_competitions_with_team_names @race.has_team_competitions_with_team_names?
+if @race.sport.start_list? || @race.sport.heat_list?
+  json.next_number @race.next_start_number
+end
+if @race.sport.start_list?
+  next_start_time = @race.next_start_time
+  json.next_start_time next_start_time == '00:00:00' ? next_start_time : time_print(next_start_time, true)
+end
 if @official
   json.pending_official_email @race.pending_official_email
 end
@@ -29,8 +37,13 @@ end
 
 json.series @race.series do |series|
   json.(series, :id, :name, :competitors_count, :finished)
+  json.has_start_list series.has_start_list?
   json.started series.started?
   json.start_time series.start_datetime
+
+  json.age_groups series.age_groups do |age_group|
+    json.(age_group, :id, :name)
+  end
 
   unless params[:no_competitors]
     json.competitors series.competitors do |competitor|

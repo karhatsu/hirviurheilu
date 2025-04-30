@@ -15,6 +15,7 @@ import ShotsPage from "./results/ShotsPage"
 import NordicShotsPage from "./results/NordicShotsPage"
 import EuropeanShotsPage from "./results/EuropeanShotsPage"
 import ShootingByHeatsPage from "./results/ShootingByHeatsPage"
+import NewCompetitorPage from "./competitors/NewCompetitorPage"
 
 const OfficialMainContent = () => {
   return (
@@ -43,6 +44,7 @@ const OfficialMainContent = () => {
           <Route path="nordic_rifle_standing" element={<NordicShotsPage subSport="rifle_standing" />} />
           <Route path="race_rights" element={<OfficialsPage />} />
           <Route path="series/:seriesId" element={null}>
+            <Route path="competitors/new" element={<NewCompetitorPage />} />
             <Route path="estimates" element={<EstimatesPage />} />
             <Route path="times" element={<TimesPage />} />
             <Route path="shots" element={<ShotsPage />} />

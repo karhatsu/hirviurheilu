@@ -23,8 +23,7 @@ Feature: Add competitor
     And I fill in "Myöhänen" for "Sukunimi"
     And I fill in "Testiseura" for "club_name"
     And I press "Tallenna"
-    Then I should see "Kilpailija lisätty" in a success message
-    And I should see "Myöhänen Matti, Testiseura (M60/M70)"
+    Then I should see "Myöhänen Matti (M60)"
 
   @javascript
   Scenario: Add competitor when competitors' start order is mixed

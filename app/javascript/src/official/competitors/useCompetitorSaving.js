@@ -1,17 +1,19 @@
 import { useCallback, useEffect, useMemo, useState } from "react"
-import { put } from "../../util/apiClient"
+import { post, put } from "../../util/apiClient"
 
 const initData = (fields, competitor) => {
   return fields.reduce((acc, field) => {
-    const { key, shotCount, value } = field
+    const { checkbox, key, shotCount, value } = field
     const currentValue = competitor[key]
     if (shotCount !== undefined) {
       const length = Math.max(shotCount, currentValue?.length || 0)
       acc[key] = Array.from({ length }, (_, i) => currentValue?.[i] ?? '')
     } else if (value) {
       acc[key] = value
+    } else if (checkbox) {
+      acc[key] = currentValue || false
     } else {
-      acc[key] = currentValue
+      acc[key] = currentValue || ''
     }
     return acc
   }, {})
@@ -31,7 +33,7 @@ const shotsEqual = (array1, array2, shotCount) => {
 
 const stringToNumber = fieldValue => (fieldValue === '' ? '' : parseInt(fieldValue))
 
-const useCompetitorSaving = (raceId, initialCompetitor, fields, buildBody) => {
+const useCompetitorSaving = (raceId, initialCompetitor, fields, buildBody, onSave) => {
   const [competitor, setCompetitor] = useState(initialCompetitor)
   const [saving, setSaving] = useState(false)
   const [errors, setErrors] = useState()
@@ -46,6 +48,8 @@ const useCompetitorSaving = (raceId, initialCompetitor, fields, buildBody) => {
     const field = fields.find(field => field.key === fieldKey)
     if (field.number) {
       return stringToNumber(event.target.value)
+    } else if (field.checkbox) {
+      return event.target.checked
     } else {
       return event.target.value
     }
@@ -56,6 +60,12 @@ const useCompetitorSaving = (raceId, initialCompetitor, fields, buildBody) => {
     setErrors(undefined)
     setData(prev => ({ ...prev, [fieldKey]: parseValue(fieldKey, event) }))
   }, [parseValue])
+
+  const changeValue = useCallback((fieldKey, value) => {
+    setSaved(false)
+    setErrors(undefined)
+    setData(prev => ({ ...prev, [fieldKey]: value }))
+  }, [])
 
   const onChangeShot = useCallback((fieldKey, index) => event => {
     setSaved(false)
@@ -68,23 +78,39 @@ const useCompetitorSaving = (raceId, initialCompetitor, fields, buildBody) => {
     })
   }, [])
 
+  const resolveApiPath = useCallback(() => {
+    if (competitor.id) `/official/races/${raceId}/series/${competitor.seriesId}/competitors/${competitor.id}.json`
+    return `/official/races/${raceId}/competitors.json`
+  }, [raceId, competitor])
+
   const onSubmit = useCallback(event => {
     event.preventDefault()
     setSaving(true)
     setErrors(undefined)
     setSaved(false)
+    const isEditing = !!competitor.id
     const body = buildBody ? buildBody(competitor, data) : { competitor: data }
-    const path = `/official/races/${raceId}/series/${competitor.seriesId}/competitors/${competitor.id}.json`
-    put(path, body, (err, response) => {
+    const method = isEditing ? put : post
+    method(resolveApiPath(), body, (err, response) => {
       setSaving(false)
       if (err) {
         setErrors(err)
       } else {
-        setCompetitor(response)
         setSaved(true)
+        onSave && onSave(response)
+        if (isEditing) {
+          setCompetitor(response)
+        } else {
+          setCompetitor({
+            seriesId: response.seriesId,
+            ageGroupId: response.ageGroupId,
+            number: response.nextNumber,
+            startTime: response.nextStartTime,
+          })
+        }
       }
     })
-  }, [raceId, competitor, data, buildBody])
+  }, [resolveApiPath, competitor, data, buildBody, onSave])
 
   const changed = useMemo(() => {
     return !!fields.find(field => {
@@ -101,6 +127,7 @@ const useCompetitorSaving = (raceId, initialCompetitor, fields, buildBody) => {
 
   return {
     changed,
+    changeValue,
     competitor,
     data,
     errors,

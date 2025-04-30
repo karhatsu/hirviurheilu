@@ -94,6 +94,8 @@ export const buildOfficialRaceEditPath = raceId => withLocale(`/official/races/$
 
 export const buildOfficialRaceCompetitorsPath = (raceId, seriesId) => withLocale(`/official/races/${raceId}/series/${seriesId}/competitors`)
 
+export const buildOfficialCompetitorEditPath = (raceId, seriesId, competitorId) => withLocale(`/official/races/${raceId}/series/${seriesId}/competitors/${competitorId}/edit`)
+
 export const buildOfficialRaceStartListPath = seriesId => withLocale(`/official/races/${seriesId}/start_list`)
 
 export const buildOfficialRaceQualificationRoundHeatListPath = seriesId => withLocale(`/official/series/${seriesId}/qualification_round_heat_list`)
@@ -118,7 +120,9 @@ export const buildOfficialRaceEuropeanPath = (raceId, subSport) => withLocale(`/
 
 export const buildOfficialRaceCorrectDistancesPath = raceId => withLocale(`/official/races/${raceId}/correct_estimates`)
 
-export const buildOfficialRaceCsvPath = raceId => withLocale(`/official/races/${raceId}/csv_export`)
+export const buildOfficialRaceCsvExportPath = raceId => withLocale(`/official/races/${raceId}/csv_export`)
+
+export const buildOfficialRaceCsvImportPath = raceId => withLocale(`/official/races/${raceId}/csv_imports/new`)
 
 export const buildOfficialRaceTeamCompetitionsPath = raceId => withLocale(`/official/races/${raceId}/team_competitions`)
 
