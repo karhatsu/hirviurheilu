@@ -1,5 +1,5 @@
 import useTranslation from "../../util/useTranslation"
-import useCompetitorResultSaving from "./useCompetitorResultSaving"
+import useCompetitorSaving from "../competitors/useCompetitorSaving"
 import { Fragment, useCallback, useMemo } from "react"
 import { calculateShootingScore } from "./resultUtil"
 import ResultRow from "./ResultRow"
@@ -38,7 +38,7 @@ const EuropeanShotsForm = ({ competitor: initialCompetitor, series, subSport, co
     onSubmit,
     saved,
     saving,
-  } = useCompetitorResultSaving(initialCompetitor, fields, buildBody)
+  } = useCompetitorSaving(initialCompetitor, fields, buildBody)
 
   const dataHasCorrectFields = subSport === data.subSport
 

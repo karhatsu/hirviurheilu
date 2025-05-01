@@ -31,7 +31,7 @@ const shotsEqual = (array1, array2, shotCount) => {
 
 const stringToNumber = fieldValue => (fieldValue === '' ? '' : parseInt(fieldValue))
 
-const useCompetitorResultSaving = (initialCompetitor, fields, buildBody) => {
+const useCompetitorSaving = (initialCompetitor, fields, buildBody) => {
   const [competitor, setCompetitor] = useState(initialCompetitor)
   const [saving, setSaving] = useState(false)
   const [errors, setErrors] = useState()
@@ -112,4 +112,4 @@ const useCompetitorResultSaving = (initialCompetitor, fields, buildBody) => {
   }
 }
 
-export default useCompetitorResultSaving
+export default useCompetitorSaving

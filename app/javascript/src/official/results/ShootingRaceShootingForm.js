@@ -1,5 +1,5 @@
 import useTranslation from "../../util/useTranslation"
-import useCompetitorResultSaving from "./useCompetitorResultSaving"
+import useCompetitorSaving from "../competitors/useCompetitorSaving"
 import { useMemo } from "react"
 import ResultRow from "./ResultRow"
 import Button from "../../common/Button"
@@ -42,7 +42,7 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport, limit 
     onSubmit,
     saved,
     saving,
-  } = useCompetitorResultSaving(initialCompetitor, fields, buildBody)
+  } = useCompetitorSaving(initialCompetitor, fields, buildBody)
 
   const { qualificationRoundShotCount, finalRoundShotCount, bestShotValue } = sport
   const maxQRScore = qualificationRoundShotCount * shotValue(bestShotValue)

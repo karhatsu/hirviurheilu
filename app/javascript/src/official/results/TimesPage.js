@@ -7,7 +7,7 @@ import IncompletePage from "../../common/IncompletePage"
 import ResultPage from "./ResultPage"
 import Button from "../../common/Button"
 import { timeFromSeconds } from "../../util/timeUtil"
-import useCompetitorResultSaving from "./useCompetitorResultSaving"
+import useCompetitorSaving from "../competitors/useCompetitorSaving"
 import ResultRow from "./ResultRow"
 import { useParams } from "react-router"
 import useTitle from "../../util/useTitle"
@@ -35,7 +35,7 @@ const TimesForm = ({competitor: initialCompetitor}) => {
     onSubmit,
     saved,
     saving,
-  } = useCompetitorResultSaving(initialCompetitor, fields)
+  } = useCompetitorSaving(initialCompetitor, fields)
 
   const canSave = changed && isValid(data.startTime) && isValid(data.arrivalTime)
   const result = timeFromSeconds(competitor.timeInSeconds)

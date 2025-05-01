@@ -6,7 +6,7 @@ import useOfficialMenu from "../menu/useOfficialMenu"
 import { useRace } from "../../util/useRace"
 import useOfficialSeries from "./useOfficialSeries"
 import ResultPage from "./ResultPage"
-import useCompetitorResultSaving from "./useCompetitorResultSaving"
+import useCompetitorSaving from "../competitors/useCompetitorSaving"
 import ResultRow from "./ResultRow"
 import { useParams } from "react-router"
 import useTitle from "../../util/useTitle"
@@ -53,7 +53,7 @@ const EstimatesForm = ({ competitor: initialCompetitor, fourEstimates }) => {
     onSubmit,
     saved,
     saving,
-  } = useCompetitorResultSaving(initialCompetitor, fields, buildBody)
+  } = useCompetitorSaving(initialCompetitor, fields, buildBody)
   const { estimate1, estimate2, estimate3, estimate4 } = data
 
   const { estimatePoints } = competitor

@@ -1,7 +1,7 @@
 import { useMemo } from "react"
 import Button from "../../common/Button"
 import useTranslation from "../../util/useTranslation"
-import useCompetitorResultSaving from "./useCompetitorResultSaving"
+import useCompetitorSaving from "../competitors/useCompetitorSaving"
 import ResultRow from "./ResultRow"
 import { calculateShootingScore } from "./resultUtil"
 import ShotFields from "./ShotFields"
@@ -27,7 +27,7 @@ const ThreeSportsShootingForm = ({ competitor: initialCompetitor, sport }) => {
     onSubmit,
     saved,
     saving,
-  } = useCompetitorResultSaving(initialCompetitor, fields, buildBody)
+  } = useCompetitorSaving(initialCompetitor, fields, buildBody)
 
   const shootingScore = useMemo(() => {
     return calculateShootingScore(data.shootingScoreInput, data.shots, 100)
