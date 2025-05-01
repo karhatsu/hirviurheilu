@@ -31,7 +31,7 @@ const shotsEqual = (array1, array2, shotCount) => {
 
 const stringToNumber = fieldValue => (fieldValue === '' ? '' : parseInt(fieldValue))
 
-const useCompetitorSaving = (initialCompetitor, fields, buildBody) => {
+const useCompetitorSaving = (raceId, initialCompetitor, fields, buildBody) => {
   const [competitor, setCompetitor] = useState(initialCompetitor)
   const [saving, setSaving] = useState(false)
   const [errors, setErrors] = useState()
@@ -74,7 +74,7 @@ const useCompetitorSaving = (initialCompetitor, fields, buildBody) => {
     setErrors(undefined)
     setSaved(false)
     const body = buildBody ? buildBody(competitor, data) : { competitor: data }
-    const path = `/official/races/${competitor.raceId}/series/${competitor.seriesId}/competitors/${competitor.id}.json`
+    const path = `/official/races/${raceId}/series/${competitor.seriesId}/competitors/${competitor.id}.json`
     put(path, body, (err, response) => {
       setSaving(false)
       if (err) {
@@ -84,7 +84,7 @@ const useCompetitorSaving = (initialCompetitor, fields, buildBody) => {
         setSaved(true)
       }
     })
-  }, [competitor, data, buildBody])
+  }, [raceId, competitor, data, buildBody])
 
   const changed = useMemo(() => {
     return !!fields.find(field => {

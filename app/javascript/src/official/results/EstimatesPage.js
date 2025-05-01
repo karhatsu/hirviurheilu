@@ -44,6 +44,7 @@ const buildBody = (competitor, data) => ({
 
 const EstimatesForm = ({ competitor: initialCompetitor, fourEstimates }) => {
   const { t } = useTranslation()
+  const { raceId } = useParams()
   const {
     changed,
     competitor,
@@ -53,7 +54,7 @@ const EstimatesForm = ({ competitor: initialCompetitor, fourEstimates }) => {
     onSubmit,
     saved,
     saving,
-  } = useCompetitorSaving(initialCompetitor, fields, buildBody)
+  } = useCompetitorSaving(raceId, initialCompetitor, fields, buildBody)
   const { estimate1, estimate2, estimate3, estimate4 } = data
 
   const { estimatePoints } = competitor

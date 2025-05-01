@@ -5,10 +5,12 @@ import { calculateShootingScore } from "./resultUtil"
 import ResultRow from "./ResultRow"
 import ShotFields from "./ShotFields"
 import Button from "../../common/Button"
+import { useParams } from "react-router"
 
 const EuropeanShotsForm = ({ competitor: initialCompetitor, series, subSport, config, withTrackPlace }) => {
   const { t } = useTranslation()
   const { fieldNames, shotCount, bestShotValue } = config
+  const { raceId } = useParams()
 
   const fields = useMemo(() => {
     const fieldConfig = [{ key: 'subSport', value: subSport }]
@@ -38,7 +40,7 @@ const EuropeanShotsForm = ({ competitor: initialCompetitor, series, subSport, co
     onSubmit,
     saved,
     saving,
-  } = useCompetitorSaving(initialCompetitor, fields, buildBody)
+  } = useCompetitorSaving(raceId, initialCompetitor, fields, buildBody)
 
   const dataHasCorrectFields = subSport === data.subSport
 

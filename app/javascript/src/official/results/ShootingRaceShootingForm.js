@@ -5,6 +5,7 @@ import ResultRow from "./ResultRow"
 import Button from "../../common/Button"
 import { calculateShootingScore, shotCount, shotValue } from "./resultUtil"
 import ShotFields from "./ShotFields"
+import { useParams } from "react-router"
 
 const buildFields = sport => [
   { key: 'qualificationRoundShootingScoreInput', number: true },
@@ -31,6 +32,7 @@ export const limits = {
 
 const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport, limit }) => {
   const { t } = useTranslation()
+  const { raceId } = useParams()
   const fields = useMemo(() => buildFields(sport), [sport])
   const {
     changed,
@@ -42,7 +44,7 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport, limit 
     onSubmit,
     saved,
     saving,
-  } = useCompetitorSaving(initialCompetitor, fields, buildBody)
+  } = useCompetitorSaving(raceId, initialCompetitor, fields, buildBody)
 
   const { qualificationRoundShotCount, finalRoundShotCount, bestShotValue } = sport
   const maxQRScore = qualificationRoundShotCount * shotValue(bestShotValue)

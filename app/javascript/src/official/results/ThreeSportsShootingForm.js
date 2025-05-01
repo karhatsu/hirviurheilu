@@ -5,6 +5,7 @@ import useCompetitorSaving from "../competitors/useCompetitorSaving"
 import ResultRow from "./ResultRow"
 import { calculateShootingScore } from "./resultUtil"
 import ShotFields from "./ShotFields"
+import { useParams } from "react-router"
 
 const fields = [
   { key: 'shootingScoreInput', number: true },
@@ -17,6 +18,7 @@ const buildBody = (_, data) => {
 
 const ThreeSportsShootingForm = ({ competitor: initialCompetitor, sport }) => {
   const { t } = useTranslation()
+  const { raceId } = useParams()
   const {
     changed,
     competitor,
@@ -27,7 +29,7 @@ const ThreeSportsShootingForm = ({ competitor: initialCompetitor, sport }) => {
     onSubmit,
     saved,
     saving,
-  } = useCompetitorSaving(initialCompetitor, fields, buildBody)
+  } = useCompetitorSaving(raceId, initialCompetitor, fields, buildBody)
 
   const shootingScore = useMemo(() => {
     return calculateShootingScore(data.shootingScoreInput, data.shots, 100)

@@ -26,6 +26,7 @@ const fields = ['startTime', 'arrivalTime'].map(key => ({ key }))
 
 const TimesForm = ({competitor: initialCompetitor}) => {
   const { t } = useTranslation()
+  const { raceId } = useParams()
   const {
     changed,
     competitor,
@@ -35,7 +36,7 @@ const TimesForm = ({competitor: initialCompetitor}) => {
     onSubmit,
     saved,
     saving,
-  } = useCompetitorSaving(initialCompetitor, fields)
+  } = useCompetitorSaving(raceId, initialCompetitor, fields)
 
   const canSave = changed && isValid(data.startTime) && isValid(data.arrivalTime)
   const result = timeFromSeconds(competitor.timeInSeconds)

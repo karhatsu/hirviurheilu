@@ -60,4 +60,3 @@ json.(competitor,
 )
 json.arrival_time time_print(competitor.arrival_time, true)
 json.start_time time_print(competitor.start_time, true)
-json.race_id competitor.series.race_id
