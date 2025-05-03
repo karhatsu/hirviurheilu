@@ -12,6 +12,7 @@ import {
 } from "../../util/routeUtil"
 import { useParams } from "react-router"
 import CompetitorForm from "./CompetitorForm"
+import { findSeriesById } from "../../util/seriesUtil"
 
 const titleKey = 'newCompetitor'
 
@@ -31,8 +32,6 @@ const NewCompetitorPage = () => {
   useEffect(() => setSelectedPage('competitors'), [setSelectedPage])
   useTitle(race && `${t(titleKey)} - ${race.name}`)
 
-  const findSeries = useCallback(seriesId => race.series.find(s => s.id === seriesId), [race])
-
   const onSave = useCallback(competitor => {
     setSavedCompetitors(prev => ([competitor, ...prev]))
     if (!race.clubs.find(club => club.id === competitor.clubId)) {
@@ -42,7 +41,7 @@ const NewCompetitorPage = () => {
 
   if (!race) return <IncompletePage title={t(titleKey)} error={error} fetching={fetching}/>
 
-  const series = findSeries(seriesId)
+  const series = findSeriesById(race.series, seriesId)
   return (
     <div>
       <h2>{race.name} - {t(titleKey)}</h2>
@@ -53,7 +52,7 @@ const NewCompetitorPage = () => {
           <ul>
             {savedCompetitors.map((competitor, i) => (
               <li key={competitor.id} style={i === 0 ? { color: 'olive', fontWeight: 'bold' } : {}}>
-                {competitor.lastName} {competitor.firstName} ({findSeries(competitor.seriesId)?.name})
+                {competitor.lastName} {competitor.firstName} ({findSeriesById(race.series, competitor.seriesId)?.name})
               </li>
             ))}
           </ul>

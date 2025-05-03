@@ -10,6 +10,7 @@ import FormErrors from "../../common/form/FormErrors"
 import Dialog from "../../common/form/Dialog"
 import Select from "../../common/form/Select"
 import { buildOfficialCompetitorEditPath, buildOfficialRaceQuickSavesPath } from "../../util/routeUtil"
+import { findSeriesById } from "../../util/seriesUtil"
 
 const teamNameHelpDialogId = 'team_name_help_dialog'
 
@@ -45,7 +46,7 @@ const CompetitorForm = ({ race, competitor: initialCompetitor, onSeriesChange, o
   const actionAfterSaveRef = useRef()
 
   const buildBody = useCallback((_, data) => {
-    const series = race.series.find(s => s.id === data.seriesId)
+    const series = findSeriesById(race.series, data.seriesId)
     return {
       competitor: {
         ...data,
@@ -75,7 +76,7 @@ const CompetitorForm = ({ race, competitor: initialCompetitor, onSeriesChange, o
     onSeriesChange(parseInt(event.target.value))
   }, [onChange, onSeriesChange])
 
-  const series = useMemo(() => race.series.find(s => s.id === data.seriesId), [race, data.seriesId])
+  const series = useMemo(() => findSeriesById(race.series, data.seriesId), [race, data.seriesId])
 
   const submit = useCallback(action => event => {
     actionAfterSaveRef.current = action

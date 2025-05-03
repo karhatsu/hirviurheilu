@@ -10,6 +10,7 @@ import useOfficialRaceCompetitors from "./useOfficialRaceCompetitors"
 import NordicShotsForm from "./NordicShotsForm"
 import useTitle from "../../util/useTitle"
 import { capitalize } from "./resultUtil"
+import { findSeriesById } from "../../util/seriesUtil"
 
 const NordicShotsPage = ({ subSport }) => {
   const { t } = useTranslation()
@@ -86,7 +87,7 @@ const NordicShotsPage = ({ subSport }) => {
               <div key={competitor.id} className="col-sm-12">
                 <NordicShotsForm
                   competitor={competitor}
-                  series={race.series.find(s => s.id === competitor.seriesId)}
+                  series={findSeriesById(race.series, competitor.seriesId)}
                   subSport={subSport}
                   config={config}
                   withTrackPlace={heatId !== -2}
