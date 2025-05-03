@@ -117,29 +117,6 @@ sv:
         result_saved: Resultat sparat
         competitor_removed: Tävlande raderat
         added_competitors: Tävlande
-      new:
-        title: Ny tävlande
-        club_selection_prompt_0: Välj klubb eller lägg till en ny
-        club_selection_prompt_1: Välj klubb eller lägg till en ny
-        new_club_hint_0: Ny klubb
-        new_club_hint_1: Ny klubb
-        save_and_show_competitor: Spara och visa tävlande
-        save_and_to_quick_save: Spara och gå till resultatsidan
-        latest_added_competitors: Senaste ökade tävlande
-        back_to_series_competitors_list_html: Tillbaka till klassens <span id='series_name'>%{series_name}</span> tävlandelist
-      edit:
-        either_total_or_shots: Spara antingen totalresultat eller enskilda skott.
-        shots: Enskilda skott
-        qualification_round_shots: Grundtävlingens skott
-        final_round_shots: Finalens skott
-        dns: Startade inte (DNS)
-        dnf: Avbröt (DNF)
-        dq: Diskad (DQ)
-        save_and_previous_competitor: Spara och öppna förra tävlande
-        save_and_next_competitor: Spara och öppna nästa tävlande
-        back_to_series_competitor_list: Tillbaka till klassens %{series_name} tävlandelista
-        delete_competitor: Radera tävlande
-        remove_confirmation: Är du säker att du vill radera tävlande?
     start_lists:
       show:
         title: Starttider för all tävlande

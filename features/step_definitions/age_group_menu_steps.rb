@@ -12,7 +12,10 @@ Then /^the age group menu should contain items "(.*?)"$/ do |items|
   end
 end
 Then /^"(.*?)" should be selected in the series menu$/ do |series_name|
-  page.should have_xpath("//select[@id='competitor_series_id']/option[@selected = 'selected'][text()='#{series_name}']")
+  selected_option = find('#seriesId').find('option', visible: false, match: :first) do |option|
+    option.selected?
+  end
+  expect(selected_option.text).to eq(series_name)
 end
 
 Then /^"(.*?)" should be selected in the age group menu$/ do |age_group_name|

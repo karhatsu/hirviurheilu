@@ -114,7 +114,7 @@ Hirviurheilu::Application.routes.draw do
         get 'competitor_numbers/:number' => 'competitors#show_by_number'
         put 'competitors/:competitor_id/track_place' => 'competitor_track_places#update'
         delete 'competitors/:competitor_id/track_place' => 'competitor_track_places#destroy'
-        resources :competitors, :only => [:create, :update]
+        resources :competitors, only: :create
         get 'competitors' => 'races#competitors'
         get 'clubs/competitors' => 'clubs#competitors'
         resources :clubs

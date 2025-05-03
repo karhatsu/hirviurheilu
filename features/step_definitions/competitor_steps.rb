@@ -8,8 +8,8 @@ Given "the series has a competitor {int} {string} {string} from {string}" do |nu
 end
 
 Given "the series has a competitor {string} {string}" do |first_name, last_name|
-  @competitor = create(:competitor, :series => @series, :first_name => first_name,
-    :last_name => last_name)
+  club = @race.clubs.first || create(:club, race: @race)
+  @competitor = create(:competitor, series: @series, first_name: first_name, last_name: last_name, club: club)
 end
 
 Given("the series has a competitor with shots {string}") do |shots|

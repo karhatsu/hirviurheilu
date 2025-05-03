@@ -117,29 +117,6 @@ fi:
         result_saved: Tulos syötetty
         competitor_removed: Kilpailija poistettu
         added_competitors: Lisätyt kilpailijat
-      new:
-        title: Uusi kilpailija
-        club_selection_prompt_0: Valitse seura tai lisää uusi
-        club_selection_prompt_1: Valitse piiri tai lisää uusi
-        new_club_hint_0: Uusi seura
-        new_club_hint_1: Uusi piiri
-        save_and_show_competitor: Tallenna ja näytä kilpailija
-        save_and_to_quick_save: Tallenna ja siirry tulosten pikasyöttöön
-        latest_added_competitors: Viimeksi lisätyt kilpailijat
-        back_to_series_competitors_list_html: Takaisin sarjan <span id='series_name'>%{series_name}</span> kilpailijaluetteloon
-      edit:
-        either_total_or_shots: Syötä joko yhteistulos tai vain yksittäiset laukaukset.
-        shots: Yksittäiset laukaukset
-        qualification_round_shots: Alkukilpailun laukaukset
-        final_round_shots: Loppukilpailun laukaukset
-        dns: Ei lähtenyt matkaan (DNS)
-        dnf: Keskeytys (DNF)
-        dq: Hylätty (DQ)
-        save_and_previous_competitor: Tallenna ja avaa edellinen kilpailija
-        save_and_next_competitor: Tallenna ja avaa seuraava kilpailija
-        back_to_series_competitor_list: Takaisin sarjan %{series_name} kilpailijaluetteloon
-        delete_competitor: Poista kilpailija
-        remove_confirmation: Haluatko varmasti poistaa tämän kilpailijan?
     start_lists:
       show:
         title: Kaikkien kilpailijoiden lähtöajat

@@ -72,14 +72,16 @@ const useCompetitorSaving = (raceId, initialCompetitor, fields, buildBody, onSav
     setErrors(undefined)
     setData(prev => {
       const newData = { ...prev }
-      newData[fieldKey] ||= []
+      newData[fieldKey] = prev[fieldKey] ? [...prev[fieldKey]] : []
       newData[fieldKey][index] = stringToNumber(event.target.value)
       return newData
     })
   }, [])
 
   const resolveApiPath = useCallback(() => {
-    if (competitor.id) `/official/races/${raceId}/series/${competitor.seriesId}/competitors/${competitor.id}.json`
+    if (competitor.id) {
+      return `/official/races/${raceId}/series/${competitor.seriesId}/competitors/${competitor.id}.json`
+    }
     return `/official/races/${raceId}/competitors.json`
   }, [raceId, competitor])
 

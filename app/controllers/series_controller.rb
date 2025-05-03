@@ -7,10 +7,6 @@ class SeriesController < ApplicationController
     use_react
     respond_to do |format|
       format.html { render layout: true, html: '' }
-      format.json {
-        assign_series_by_id
-        render :json => @series.to_json(:methods => [:next_start_number, :next_start_time])
-      }
       format.pdf {
         orientation = @series.sport.shooting? && !@series.sport.european? ? 'Portrait' : 'Landscape'
         render pdf: "#{@series.name}-tulokset", layout: true, margin: pdf_margin,

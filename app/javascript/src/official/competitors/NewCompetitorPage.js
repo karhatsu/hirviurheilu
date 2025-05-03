@@ -45,7 +45,13 @@ const NewCompetitorPage = () => {
   return (
     <div>
       <h2>{race.name} - {t(titleKey)}</h2>
-      <CompetitorForm race={race} competitor={initialCompetitor} onSeriesChange={setSeriesId} onSave={onSave} />
+      <CompetitorForm
+        availableSeries={race.series}
+        race={race}
+        competitor={initialCompetitor}
+        onSeriesChange={setSeriesId}
+        onSave={onSave}
+      />
       {savedCompetitors.length > 0 && (
         <div>
           <h3>{t('recentlyAddedCompetitors')}</h3>
