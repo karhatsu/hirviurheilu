@@ -6,6 +6,7 @@ import ResultRow from "./ResultRow"
 import ShotFields from "./ShotFields"
 import Button from "../../common/Button"
 import { useParams } from "react-router"
+import ScoreInputField from "./ScoreInputField"
 
 const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, series, withTrackPlace }) => {
   const { t } = useTranslation()
@@ -74,13 +75,18 @@ const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, seri
     >
       <form className="form form--inline" onSubmit={onSubmit}>
         <div className="form__horizontal-fields">
+          <div className="card__sub-result card__sub-result--shoot form__field form__field--sm">
+            <ScoreInputField
+              data={data}
+              field={fieldNames.scoreInput}
+              maxScoreInput={shotCount * bestShotValue}
+              onChange={onChange}
+            />
+          </div>
           <ShotFields
             idPrefix={`nordic_${subSport}_shots-shot-${competitor.id}`}
             data={data}
-            scoreInputField={fieldNames.scoreInput}
-            maxScoreInput={shotCount * bestShotValue}
             shotsField={fieldNames.shots}
-            onChange={onChange}
             onChangeShot={onChangeShot}
             shotCounts={[shotCount]}
             bestShotValue={bestShotValue}

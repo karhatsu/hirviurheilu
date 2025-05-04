@@ -6,6 +6,7 @@ import ResultRow from "./ResultRow"
 import { calculateShootingScore } from "./resultUtil"
 import ShotFields from "./ShotFields"
 import { useParams } from "react-router"
+import ScoreInputField from "./ScoreInputField"
 
 const fields = [
   { key: 'shootingScoreInput', number: true },
@@ -39,12 +40,17 @@ const ThreeSportsShootingForm = ({ competitor: initialCompetitor, sport }) => {
     <ResultRow competitor={competitor} errors={errors} result={shootingScore} saved={saved} saving={saving}>
       <form className="form form--inline" onSubmit={onSubmit}>
         <div className="form__horizontal-fields">
+          <div className="card__sub-result card__sub-result--shoot form__field form__field--sm">
+            <ScoreInputField
+              data={data}
+              field="shootingScoreInput"
+              maxScoreInput={100}
+              onChange={onChange}
+            />
+          </div>
           <ShotFields
             data={data}
-            scoreInputField="shootingScoreInput"
-            maxScoreInput={100}
             shotsField="shots"
-            onChange={onChange}
             onChangeShot={onChangeShot}
             shotCounts={[10]}
             bestShotValue={sport.bestShotValue}

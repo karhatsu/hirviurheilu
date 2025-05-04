@@ -15,12 +15,9 @@ const ShotFields = props => {
   const {
     idPrefix,
     data,
-    scoreInputField,
     shotsField,
     base,
-    onChange,
     onChangeShot,
-    maxScoreInput,
     shotCounts,
     bestShotValue,
   } = props
@@ -36,18 +33,6 @@ const ShotFields = props => {
 
   return (
     <>
-      {scoreInputField && (
-        <div className="card__sub-result card__sub-result--shoot form__field form__field--sm">
-          <input
-            name="competitor[shooting_score_input]"
-            type="number"
-            min={0}
-            max={maxScoreInput}
-            value={data[scoreInputField] ?? ''}
-            onChange={onChange(scoreInputField)}
-          />
-        </div>
-      )}
       <div className="card__sub-result card__sub-result--shoot">
         <div className="form__horizontal-fields form__fields--shots">
           {shotCounts.map((n, i) => {

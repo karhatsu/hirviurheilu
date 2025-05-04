@@ -6,6 +6,7 @@ import Button from "../../common/Button"
 import { calculateShootingScore, shotCount, shotValue } from "./resultUtil"
 import ShotFields from "./ShotFields"
 import { useParams } from "react-router"
+import ScoreInputField from "./ScoreInputField"
 
 const buildFields = sport => [
   { key: 'qualificationRoundShootingScoreInput', number: true },
@@ -82,13 +83,18 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport, limit 
         {!limit && <div className="form__subtitle">{t('qualificationRound')}</div>}
         {(!limit || limit === limits.qr) && (
           <div className="form__horizontal-fields">
+            <div className="card__sub-result card__sub-result--shoot form__field form__field--sm">
+              <ScoreInputField
+                data={data}
+                field="qualificationRoundShootingScoreInput"
+                maxScoreInput={maxQRScore}
+                onChange={onChange}
+              />
+            </div>
             <ShotFields
               idPrefix={idPrefix}
               data={data}
-              scoreInputField="qualificationRoundShootingScoreInput"
               shotsField="shots"
-              maxScoreInput={maxQRScore}
-              onChange={onChange}
               onChangeShot={onChangeShot}
               shotCounts={sport.qualificationRound}
               bestShotValue={sport.bestShotValue}
@@ -99,13 +105,18 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport, limit 
           <>
             <div className="form__subtitle">{t('finalRound')}</div>
             <div className="form__horizontal-fields">
+              <div className="card__sub-result card__sub-result--shoot form__field form__field--sm">
+                <ScoreInputField
+                  field="finalRoundShootingScoreInput"
+                  data={data}
+                  maxScoreInput={maxFRScore}
+                  onChange={onChange}
+                />
+              </div>
               <ShotFields
                 idPrefix={idPrefix}
                 data={data}
-                scoreInputField="finalRoundShootingScoreInput"
                 shotsField="shots"
-                maxScoreInput={maxFRScore}
-                onChange={onChange}
                 onChangeShot={onChangeShot}
                 shotCounts={sport.finalRound}
                 base={sport.qualificationRoundShotCount}
