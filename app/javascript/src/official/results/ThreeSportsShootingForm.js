@@ -48,13 +48,15 @@ const ThreeSportsShootingForm = ({ competitor: initialCompetitor, sport }) => {
               onChange={onChange}
             />
           </div>
-          <ShotFields
-            data={data}
-            shotsField="shots"
-            onChangeShot={onChangeShot}
-            shotCounts={[10]}
-            bestShotValue={sport.bestShotValue}
-          />
+          <div className="card__sub-result card__sub-result--shoot">
+            <ShotFields
+              data={data}
+              shotsField="shots"
+              onChangeShot={onChangeShot}
+              shotCounts={[10]}
+              bestShotValue={sport.bestShotValue}
+            />
+          </div>
           <div className="form__buttons">
             <Button submit={true} type="primary" disabled={!changed}>{t('save')}</Button>
           </div>

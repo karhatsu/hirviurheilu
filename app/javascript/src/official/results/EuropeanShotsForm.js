@@ -95,14 +95,16 @@ const EuropeanShotsForm = ({ competitor: initialCompetitor, series, subSport, co
                   onChange={onChange}
                 />
               </div>
-              <ShotFields
-                idPrefix={`european_${subSport}${subSport === 'rifle' ? i + 1 : ''}_shots-shot-${competitor.id}`}
-                data={data}
-                shotsField={field.shots}
-                onChangeShot={onChangeShot}
-                shotCounts={[shotCount]}
-                bestShotValue={bestShotValue}
-              />
+              <div className="card__sub-result card__sub-result--shoot">
+                <ShotFields
+                  idPrefix={`european_${subSport}${subSport === 'rifle' ? i + 1 : ''}_shots-shot-${competitor.id}`}
+                  data={data}
+                  shotsField={field.shots}
+                  onChangeShot={onChangeShot}
+                  shotCounts={[shotCount]}
+                  bestShotValue={bestShotValue}
+                />
+              </div>
             </div>
           </Fragment>
         ))}

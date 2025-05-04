@@ -83,26 +83,30 @@ const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, seri
               onChange={onChange}
             />
           </div>
-          <ShotFields
-            idPrefix={`nordic_${subSport}_shots-shot-${competitor.id}`}
-            data={data}
-            shotsField={fieldNames.shots}
-            onChangeShot={onChangeShot}
-            shotCounts={[shotCount]}
-            bestShotValue={bestShotValue}
-          />
+          <div className="card__sub-result card__sub-result--shoot">
+            <ShotFields
+              idPrefix={`nordic_${subSport}_shots-shot-${competitor.id}`}
+              data={data}
+              shotsField={fieldNames.shots}
+              onChangeShot={onChangeShot}
+              shotCounts={[shotCount]}
+              bestShotValue={bestShotValue}
+            />
+          </div>
         </div>
         {extraRoundShotCount > 0 && (
           <>
             <div className="form__subtitle">{t('extraRound')}</div>
-            <ShotFields
-              idPrefix={`nordic_${subSport}_extra-shot-${competitor.id}`}
-              data={data}
-              shotsField={fieldNames.extraShots}
-              onChangeShot={onChangeShot}
-              shotCounts={[extraRoundShotCount]}
-              bestShotValue={bestShotValue}
-            />
+            <div className="card__sub-result card__sub-result--shoot">
+              <ShotFields
+                idPrefix={`nordic_${subSport}_extra-shot-${competitor.id}`}
+                data={data}
+                shotsField={fieldNames.extraShots}
+                onChangeShot={onChangeShot}
+                shotCounts={[extraRoundShotCount]}
+                bestShotValue={bestShotValue}
+              />
+            </div>
           </>
         )}
         <div className="form__buttons">

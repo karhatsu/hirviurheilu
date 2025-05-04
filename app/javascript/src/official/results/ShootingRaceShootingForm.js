@@ -91,14 +91,16 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport, limit 
                 onChange={onChange}
               />
             </div>
-            <ShotFields
-              idPrefix={idPrefix}
-              data={data}
-              shotsField="shots"
-              onChangeShot={onChangeShot}
-              shotCounts={sport.qualificationRound}
-              bestShotValue={sport.bestShotValue}
-            />
+            <div className="card__sub-result card__sub-result--shoot">
+              <ShotFields
+                idPrefix={idPrefix}
+                data={data}
+                shotsField="shots"
+                onChangeShot={onChangeShot}
+                shotCounts={sport.qualificationRound}
+                bestShotValue={sport.bestShotValue}
+              />
+            </div>
           </div>
         )}
         {(!limit || limit === limits.final) && (
@@ -113,27 +115,31 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport, limit 
                   onChange={onChange}
                 />
               </div>
-              <ShotFields
-                idPrefix={idPrefix}
-                data={data}
-                shotsField="shots"
-                onChangeShot={onChangeShot}
-                shotCounts={sport.finalRound}
-                base={sport.qualificationRoundShotCount}
-                bestShotValue={sport.bestShotValue}
-              />
+              <div className="card__sub-result card__sub-result--shoot">
+                <ShotFields
+                  idPrefix={idPrefix}
+                  data={data}
+                  shotsField="shots"
+                  onChangeShot={onChangeShot}
+                  shotCounts={sport.finalRound}
+                  base={sport.qualificationRoundShotCount}
+                  bestShotValue={sport.bestShotValue}
+                />
+              </div>
             </div>
             {extraRoundShotCount > 0 && (
               <>
                 <div className="form__subtitle">{t('extraRound')}</div>
-                <ShotFields
-                  idPrefix={`shots-extra-${competitor.id}`}
-                  data={data}
-                  shotsField="extraShots"
-                  onChangeShot={onChangeShot}
-                  shotCounts={[extraRoundShotCount]}
-                  bestShotValue={sport.bestShotValue}
-                />
+                <div className="card__sub-result card__sub-result--shoot">
+                  <ShotFields
+                    idPrefix={`shots-extra-${competitor.id}`}
+                    data={data}
+                    shotsField="extraShots"
+                    onChangeShot={onChangeShot}
+                    shotCounts={[extraRoundShotCount]}
+                    bestShotValue={sport.bestShotValue}
+                  />
+                </div>
               </>
             )}
           </>
