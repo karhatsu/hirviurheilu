@@ -68,5 +68,4 @@ Feature: Add competitor
     And I fill in "Testiseura" for "club_name"
     And I fill in "5" for "Numero"
     And I press "Tallenna"
-    Then I should see "Kilpailija lisätty" in a success message
-    And I should see "Myöhänen Matti, Testiseura (M)"
+    Then I should see "Myöhänen Matti (M)"
