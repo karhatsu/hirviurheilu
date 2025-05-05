@@ -31,7 +31,7 @@ export const PathParamsContextProvider = ({ children }) => {
   const eventMatch = useMatch('/official/events/:eventId/*')
   const eventMatchSv = useMatch('/sv/official/events/:eventId/*')
   const eventId = eventMatch && eventMatch.params.eventId !== 'new' ? eventMatch.params.eventId : undefined
-  const eventIdSv = eventMatch && eventMatchSv.params.eventId !== 'new' ? eventMatchSv.params.eventId : undefined
+  const eventIdSv = eventMatchSv && eventMatchSv.params.eventId !== 'new' ? eventMatchSv.params.eventId : undefined
   const value = useMemo(() => ({
     raceId: (raceMatch || raceMatchSv || officialRaceMatch || officialRaceMatchSv)?.params.raceId,
     seriesId: (seriesMatch || seriesMatchSv || officialSeriesMatch || officialSeriesMatchSv)?.params.seriesId,
