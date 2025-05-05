@@ -65,6 +65,7 @@ json.(competitor,
   :shooting_score,
   :shooting_score_input,
   :shots,
+  :unofficial,
   :team_name,
   :time_in_seconds,
 )
