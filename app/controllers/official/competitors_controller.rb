@@ -17,6 +17,13 @@ class Official::CompetitorsController < Official::OfficialController
     end
   end
 
+  def show
+    @competitor = @series.competitors.find params[:id]
+    respond_to do |format|
+      format.json
+    end
+  end
+
   def show_by_number
     competitor = @race.competitors.where(number: params[:number]).first
     if competitor
@@ -27,16 +34,8 @@ class Official::CompetitorsController < Official::OfficialController
   end
 
   def new
-    next_number = @series.race.next_start_number
-    next_start_time = @series.race.next_start_time
-    @competitor = @series.competitors.build # cannot call next-methods after this
-    if @series.has_start_list
-      @competitor.number = next_number
-      @competitor.start_time = next_start_time
-    elsif @series.sport.heat_list?
-      @competitor.number = next_number
-    end
-    @series_menu_options = @series.race.series
+    use_react true
+    render layout: true, html: ''
   end
 
   # official/races/:race_id/competitors (not series)
@@ -45,23 +44,25 @@ class Official::CompetitorsController < Official::OfficialController
     @competitor = @series.competitors.build(add_competitor_params)
     @competitor.number = @series.race.next_start_number if @series.sport.heat_list? && @competitor.number.blank?
     club_ok = handle_club(@competitor)
-    start_list_page = params[:start_list]
     if club_ok && @competitor.save
       start_list_condition = 'series.has_start_list = true'
       @all_series = @race.series.where(start_list_condition)
       collect_age_groups(@all_series)
-      template = start_list_page ? 'official/start_lists/create_success' :
-        'official/competitors/create_success'
-      respond_to { |format| format.js { render template } }
+      respond_to do |format|
+        format.js { render 'official/start_lists/create_success' }
+        format.json
+      end
     else
-      template = start_list_page ? 'official/start_lists/create_error' :
-        'official/competitors/create_error'
-      respond_to { |format| format.js { render template } }
+      respond_to do |format|
+        format.js { render 'official/start_lists/create_error' }
+        format.json { render status: 400, json: { errors: @competitor.errors.full_messages } }
+      end
     end
   end
 
   def edit
-    set_series_list_options_in_edit
+    use_react true
+    render layout: true, html: ''
   end
 
   def update
@@ -71,21 +72,14 @@ class Official::CompetitorsController < Official::OfficialController
     shots_ok = Competitor::ALL_SHOTS_FIELDS.map { |shots_name| set_shots @competitor, shots_name, params[shots_name] }.all?
     @sub_sport = params[:sub_sport]
     if club_ok && shots_ok && handle_time_parameters && @competitor.update(update_params)
-      js_template = params[:start_list] ? 'official/start_lists/update_success' :
-        'official/competitors/update_success'
       respond_to do |format|
-        format.html do
-          redirect_to official_series_competitors_path(@competitor.series)
-        end
-        format.js { render js_template, :layout => false }
+        format.js { render 'official/start_lists/update_success', :layout => false }
+        format.json
       end
     else
       respond_to do |format|
-        format.html do
-          set_series_list_options_in_edit
-          render :edit
-        end
         format.js { render 'official/competitors/update_error', :layout => false }
+        format.json { render status: 400, json: { errors: @competitor.errors.full_messages } }
       end
     end
   end
@@ -93,18 +87,15 @@ class Official::CompetitorsController < Official::OfficialController
   def destroy
     if @competitor.series_id == params[:series_id].to_i
       @competitor.destroy
-      redirect_to official_series_competitors_path(@competitor.series_id)
+      respond_to do |format|
+        format.json { render status: 204, body: nil }
+      end
     else
       raise "Competitor does not belong to given series!"
     end
   end
 
   private
-
-  def set_series_list_options_in_edit
-    start_list_condition = "series.has_start_list = #{@series.has_start_list?}"
-    @series_menu_options = @series.race.series.where(start_list_condition)
-  end
 
   def handle_start_time
     handle_time_parameter params[:competitor], "start_time"

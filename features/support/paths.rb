@@ -38,13 +38,13 @@ module NavigationHelpers
       official_race_path(locale, Race.find_by_name($1))
 
     when /the new competitor page of the series/
-      new_official_series_competitor_path(locale, @series)
+      new_official_race_series_competitor_path(locale, @series.race_id, @series)
 
     when /the official competitors page of the series/
-      official_series_competitors_path(locale, @series)
+      official_race_series_competitors_path(locale, @series.race_id, @series)
 
     when /the official competitors page of series "(.*)"/
-      official_series_competitors_path(locale, Series.find_by_name($1))
+      official_race_series_competitors_path(locale, Series.find_by_name($1).race_id, Series.find_by_name($1))
 
     when /the official start list page of the race "(.*)"/
       official_race_start_list_path(locale, Race.find_by_name($1))

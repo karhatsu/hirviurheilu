@@ -25,6 +25,7 @@ import IncompletePage from '../../common/IncompletePage'
 import useDataReloading from '../../util/useDataReloading'
 import { useResultRotation } from '../result-rotation/useResultRotation'
 import { formatTodaysTime } from '../../util/timeUtil'
+import { findSeriesById } from "../../util/seriesUtil"
 
 export default function SeriesResultsPage() {
   const { t } = useTranslation()
@@ -38,7 +39,7 @@ export default function SeriesResultsPage() {
   }, [seriesId, queryParams])
   const { error, fetching, race, raceData: series, reloadDataRef } = useRaceData(buildApiPath)
 
-  const titleSeries = (series?.id === seriesId && series) || (race && race.series.find(s => s.id === seriesId))
+  const titleSeries = (series?.id === seriesId && series) || (race && findSeriesById(race.series, seriesId))
   const titleSuffix = useMemo(() => {
     if (!titleSeries || !race) return
     if (!titleSeries.competitors) return t('results')

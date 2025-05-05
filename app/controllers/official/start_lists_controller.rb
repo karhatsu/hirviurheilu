@@ -23,8 +23,7 @@ class Official::StartListsController < Official::OfficialController
         @series.generate_start_list(@order_method)
       @series.touch
       flash[:success] = t('official.start_lists.update.start_list_create_for_series') + " #{@series.name}"
-      redirect_to official_series_competitors_path(@series,
-        :order_method => params[:order_method])
+      redirect_to official_race_series_competitors_path(@series.race_id, @series, order_method: params[:order_method])
     else
       render 'official/competitors/index'
     end

@@ -12,6 +12,7 @@ import NordicSubSportMobileResults from './NordicSubSportMobileResults'
 import NordicSubSportMobileSubMenu from './NordicSubSportMobileSubMenu'
 import useRaceData from '../../util/useRaceData'
 import IncompletePage from '../../common/IncompletePage'
+import { findSeriesById } from "../../util/seriesUtil"
 
 export default function NordicSubSportResultsPage() {
   const { t } = useTranslation()
@@ -26,7 +27,7 @@ export default function NordicSubSportResultsPage() {
   }, [seriesId, subSport])
   const { error, fetching, race, raceData: results } = useRaceData(buildApiPath)
 
-  const titleSeries = race && seriesId && race.series.find(s => s.id === seriesId)
+  const titleSeries = race && seriesId && findSeriesById(race.series, seriesId)
   const title = (titleSeries ? `${titleSeries.name} - ` : '') + t(`nordic_${subSport}`)
   useTitle(race && [title, race.name, t(`sport_${race.sportKey}`)])
   useEffect(() => {

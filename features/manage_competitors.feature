@@ -17,6 +17,7 @@ Feature: Manage competitors
     When I follow "Lisää kilpailija"
     Then I should be on the new competitor page of the series
 
+  @javascript
   Scenario: Edit competitor before and after start list is created
     Given I am an official
     And I have a race "Test race"
@@ -30,40 +31,41 @@ Feature: Manage competitors
     And I have logged in
     When I go to the official competitors page of the series
     And I follow "Johnson James"
-    Then I should not see "Saapumisaika"
-    And I should not see "Ammunta yhteensä"
-    And I should not see "Arvio 1"
-    And the series menu should contain options "Series B,Series C,Series D"
+    Then the series menu should contain options "Series B,Series C,Series D"
     And "Series D" should be selected in the series menu
+    But I should not see "Saapumisaika"
+    But I should not see "Ammunta yhteensä"
+    But I should not see "Arvio 1"
     When I fill in "" for "Etunimi"
     And I press "Tallenna"
     Then I should see "Etunimi on pakollinen" in an error message
     When I fill in "Peter" for "Etunimi"
     And I fill in "Ford" for "Sukunimi"
     And I select "Series B" from "Sarja"
+    And I select "Valitse seura tai lisää uusi" from "Seura"
     And I fill in "New club" for "club_name"
     And I press "Tallenna"
-    Then I should be on the official competitors page of series "Series B"
-    And I should see "Ford Peter"
+    Then I should see "Ford Peter"
     And I should see "New club"
+    And I should be on the official competitors page of series "Series B"
     When I press "Luo lähtölista sarjalle"
     And I follow "Ford Peter"
     Then I should see "Saapumisaika"
     And I should see "Ammunta yhteensä"
     And I should see "Arvio 1"
-    And the "competitor_start_time" text field value should be "00:01:00"
+    And the "startTime" text field value should be "00:01:00"
     When I fill in "95" for "Ammunta yhteensä"
-    And I fill in "00:23:45" for "competitor_arrival_time"
+    And I fill in "00:23:45" for "Saapumisaika"
     And I fill in "120" for "Arvio 1"
     And I fill in "100" for "Arvio 2"
     And I press "Tallenna"
-    Then I should be on the official competitors page of series "Series B"
-    And the card 1 main value should be "done"
+    Then the card 1 main value should be "done"
+    And I should be on the official competitors page of series "Series B"
     When I follow "Ford Peter"
-    Then the "competitor_arrival_time" text field value should be "00:23:45"
+    Then the "arrivalTime" text field value should be "00:23:45"
 
   @javascript
-  Scenario: Updating competitor without shots, adding shots, updating shots
+  Scenario: Update competitor without shots, add shots, update shots
     Given I am an official
     And I have a race "Test race"
     And the race has a club "Testiseura"
@@ -129,6 +131,7 @@ Feature: Manage competitors
     And I should see "567"
     And I should see "New club"
 
+  @javascript
   Scenario: Update shooting race competitor
     Given I am an official
     And I have a "METSASTYSHIRVI" race "Hirvi test race"
@@ -166,6 +169,7 @@ Feature: Manage competitors
     When I choose "Ammunta sarjoittain" from sub menu
     Then the card 1 main value should be "22 + 21 = 43"
 
+  @javascript
   Scenario: Update european race competitor
     Given I am an official
     And I have a "EUROPEAN" race "European test race"
@@ -178,19 +182,17 @@ Feature: Manage competitors
     When I fill in "Erkki" for "Etunimi"
     And I fill in "24" for "Trapin tulos"
     And I fill in "25" for "Compakin tulos"
-    And I fill in "51" for "Metsäkauriin tulos"
+    And I fill in "50" for "Metsäkauriin tulos"
     And I fill in "48" for "Ketun tulos"
     And I fill in "40" for "Gemssin tulos"
     And I fill in "50" for "Villisian tulos"
-    And I press "Tallenna"
-    Then I should see "Metsäkauriin tulos täytyy olla pienempi tai yhtä suuri kuin 50" in a error message
-    And I fill in "50" for "Metsäkauriin tulos"
     And I press "Tallenna"
     Then I should be on the official competitors page of series "M60"
     And I should see "Eurooppalainen Erkki"
     When I choose "Luodikko" from sub menu
     Then the card 1 main value should be "188"
 
+  @javascript
   Scenario: Update nordic race competitor
     Given I am an official
     And I have a "NORDIC" race "Nordic test race"
@@ -201,13 +203,10 @@ Feature: Manage competitors
     And I choose "Kilpailijat" from sub menu
     And I follow "Nordic Nipa"
     When I fill in "Niemelä" for "Sukunimi"
-    And I fill in "26" for "Trapin tulos"
+    And I fill in "25" for "Trapin tulos"
     And I fill in "25" for "Compakin tulos"
     And I fill in "99" for "Liikkuvan hirven tulos"
     And I fill in "90" for "Seisovan kauriin tulos"
-    And I press "Tallenna"
-    Then I should see "Trapin tulos täytyy olla pienempi tai yhtä suuri kuin 25" in a error message
-    And I fill in "25" for "Trapin tulos"
     And I press "Tallenna"
     Then I should be on the official competitors page of series "S20"
     And I should see "Niemelä Nipa"

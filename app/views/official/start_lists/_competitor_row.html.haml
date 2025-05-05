@@ -1,7 +1,7 @@
 - order_class = c.new_record? ? '' : 'order'
 %div.competitor_row{id: "competitor_#{id}"}
   - club_name = c.club.name if c.club
-  = form_for([:official, parent, c], remote: true, class: 'form', namespace: "competitor_#{id}") do |f|
+  = form_for(form_for_fields, remote: true, class: 'form', namespace: "competitor_#{id}") do |f|
     .form__horizontal-fields
       - unless c.new_record?
         = hidden_field_tag '_method', :put, id: "method_#{id}"

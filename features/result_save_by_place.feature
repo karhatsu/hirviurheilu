@@ -66,8 +66,7 @@ Feature: Save results by result place
     And I fill in "151" for "competitor[estimate2]"
     And I press "Tallenna"
     Then I should not see "Tallennettu"
-    But I should see "Virhe"
-    And I should see "Tälle kilpailijalle on syötetty samanaikaisesti toinen tulos. Lataa sivu uudestaan ja yritä tallentamista sen jälkeen."
+    But I should see "Tälle kilpailijalle on syötetty samanaikaisesti toinen tulos. Lataa sivu uudestaan ja yritä tallentamista sen jälkeen."
 
   @javascript
   Scenario: Save shooting race shots
@@ -80,9 +79,9 @@ Feature: Save results by result place
     When I choose "Ammunta sarjoittain" from sub menu
     And I fill qualification round shots "9,10,10,10,,9,9,9,8,0"
     And I press "Tallenna"
-    Then I should see "Virhe: Osa laukauksista on jätetty tyhjiksi, käytä nollaa ohilaukauksille." in an error message
+    Then I should see "Osa laukauksista on jätetty tyhjiksi, käytä nollaa ohilaukauksille." in an error message
     When I fill qualification round shots "9,10,10,10,7,9,9,9,8,0"
-    Then the card 1 main value should be "81 + 0 = 81"
+    Then the card 1 main value should be "81"
     And I press "Tallenna"
     Then I should see "Tallennettu" in a success message
     When I fill final round shots "9,9,10,10,10,8,8,8,10,10"
@@ -101,7 +100,7 @@ Feature: Save results by result place
     And I am on the official race page of "Shotgun test race"
     When I choose "Ammunta sarjoittain" from sub menu
     And I select qualification round shotgun shots from 1 to 23
-    Then the card 1 main value should be "23 + 0 = 23"
+    Then the card 1 main value should be "23"
     When I press "Tallenna"
     Then I should see "Tallennettu" in a success message
     And I select final round shotgun shots from 3 to 24

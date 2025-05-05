@@ -149,6 +149,7 @@ Feature: Generate start list
     And I should not see "Sarjan lähtöaika"
     And I should not see "Kilpailijoiden järjestys"
 
+  @javascript
   Scenario: If official wants so, there is no need to generate start list
     Given I am an official
     And I have logged in

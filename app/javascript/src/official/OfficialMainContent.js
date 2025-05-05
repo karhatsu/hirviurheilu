@@ -9,6 +9,14 @@ import EventPage from './events/EventPage'
 import EditEventPage from "./events/EditEventPage"
 import EventCompetitorsPage from "./events/EventCompetitorsPage"
 import PrintsPage from "./events/PrintsPage"
+import EstimatesPage from "./results/EstimatesPage"
+import TimesPage from "./results/TimesPage"
+import ShotsPage from "./results/ShotsPage"
+import NordicShotsPage from "./results/NordicShotsPage"
+import EuropeanShotsPage from "./results/EuropeanShotsPage"
+import ShootingByHeatsPage from "./results/ShootingByHeatsPage"
+import NewCompetitorPage from "./competitors/NewCompetitorPage"
+import EditCompetitorPage from "./competitors/EditCompetitorPage"
 
 const OfficialMainContent = () => {
   return (
@@ -27,8 +35,25 @@ const OfficialMainContent = () => {
         </Route>
         <Route path="races/:raceId" element={null}>
           <Route path="clubs" element={<ClubsPage />} />
+          <Route path="european_compak" element={<EuropeanShotsPage subSport="compak" />} />
+          <Route path="european_rifle" element={<EuropeanShotsPage subSport="rifle" />} />
+          <Route path="european_trap" element={<EuropeanShotsPage subSport="trap" />} />
           <Route path="megalink_imports" element={<MegalinkImportPage />} />
+          <Route path="nordic_shotgun" element={<NordicShotsPage subSport="shotgun" />} />
+          <Route path="nordic_trap" element={<NordicShotsPage subSport="trap" />} />
+          <Route path="nordic_rifle_moving" element={<NordicShotsPage subSport="rifle_moving" />} />
+          <Route path="nordic_rifle_standing" element={<NordicShotsPage subSport="rifle_standing" />} />
           <Route path="race_rights" element={<OfficialsPage />} />
+          <Route path="series/:seriesId" element={null}>
+            <Route path="competitors" element={null}>
+              <Route path="new" element={<NewCompetitorPage />} />
+              <Route path=":competitorId/edit" element={<EditCompetitorPage />} />
+            </Route>
+            <Route path="estimates" element={<EstimatesPage />} />
+            <Route path="times" element={<TimesPage />} />
+            <Route path="shots" element={<ShotsPage />} />
+          </Route>
+          <Route path="shooting_by_heats" element={<ShootingByHeatsPage />} />
         </Route>
       </Routes>
     </div>

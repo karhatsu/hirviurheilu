@@ -114,7 +114,7 @@ Hirviurheilu::Application.routes.draw do
         get 'competitor_numbers/:number' => 'competitors#show_by_number'
         put 'competitors/:competitor_id/track_place' => 'competitor_track_places#update'
         delete 'competitors/:competitor_id/track_place' => 'competitor_track_places#destroy'
-        resources :competitors, :only => [:create, :update]
+        resources :competitors, only: :create
         get 'competitors' => 'races#competitors'
         get 'clubs/competitors' => 'clubs#competitors'
         resources :clubs
@@ -151,17 +151,19 @@ Hirviurheilu::Application.routes.draw do
         get 'european_compak', to: 'european_race_shots#compak', as: :european_compak
         get 'european_rifle', to: 'european_race_shots#rifle', as: :european_rifle
         resource :printing, only: :show
+        resources :series, only: [:show] do
+          resources :competitors, except: :create
+          resources :estimates, only: :index
+          resources :shots, only: :index
+          resources :times, only: :index
+        end
       end
 
       resources :series do
         resource :qualification_round_heat_list, only: [:show, :create]
         resource :final_round_heat_list, only: [:show, :create]
-        resources :competitors, :except => :create
         resources :age_groups
         resource :start_list
-        resources :shots
-        resources :estimates
-        resources :times
       end
 
       resources :relays do

@@ -314,13 +314,25 @@ sv:
             european_rifle1_shots:
               too_many: För många skott
               invalid_value: innehåller ett fel nummer
+            european_rifle1_shots2:
+              too_many: För många skott
+              invalid_value: innehåller ett fel nummer
             european_rifle2_shots:
+              too_many: För många skott
+              invalid_value: innehåller ett fel nummer
+            european_rifle2_shots2:
               too_many: För många skott
               invalid_value: innehåller ett fel nummer
             european_rifle3_shots:
               too_many: För många skott
               invalid_value: innehåller ett fel nummer
+            european_rifle3_shots2:
+              too_many: För många skott
+              invalid_value: innehåller ett fel nummer
             european_rifle4_shots:
+              too_many: För många skott
+              invalid_value: innehåller ett fel nummer
+            european_rifle4_shots2:
               too_many: För många skott
               invalid_value: innehåller ett fel nummer
             qualification_round_track_place:

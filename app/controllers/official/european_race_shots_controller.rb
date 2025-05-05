@@ -4,18 +4,21 @@ class Official::EuropeanRaceShotsController < Official::OfficialController
   def trap
     @sub_sport = :trap
     @is_trap = true
-    render :index
+    use_react true
+    render layout: true, html: ''
   end
 
   def compak
     @sub_sport = :compak
     @is_compak = true
-    render :index
+    use_react true
+    render layout: true, html: ''
   end
 
   def rifle
     @sub_sport = :rifle
     @is_rifle = true
-    render :index
+    use_react true
+    render layout: true, html: ''
   end
 end

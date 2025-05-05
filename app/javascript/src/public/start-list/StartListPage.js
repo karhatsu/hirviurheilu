@@ -13,6 +13,7 @@ import Message from '../../common/Message'
 import useLayout from '../../util/useLayout'
 import useRaceData from '../../util/useRaceData'
 import IncompletePage from '../../common/IncompletePage'
+import { findSeriesById } from "../../util/seriesUtil"
 
 export default function StartListPage() {
   const { setSelectedPage } = useMenu()
@@ -23,7 +24,7 @@ export default function StartListPage() {
   const buildApiPath = useCallback(raceId => `/api/v2/public/races/${raceId}/series/${seriesId}/start_list`, [seriesId])
   const { error, fetching, race, raceData: series } = useRaceData(buildApiPath)
 
-  const titleSeries = (series?.id === seriesId && series) || (race && race.series.find(s => s.id === seriesId))
+  const titleSeries = (series?.id === seriesId && series) || (race && findSeriesById(race.series, seriesId))
   const title = titleSeries ? `${titleSeries.name} - ${t('startList')}` : t('startList')
   useTitle(race && titleSeries && [t('startList'), titleSeries.name, race.name, t(`sport_${race.sportKey}`)])
   useEffect(() => setSelectedPage(pages.startList), [setSelectedPage])

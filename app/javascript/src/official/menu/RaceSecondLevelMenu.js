@@ -4,7 +4,7 @@ import {
   buildOfficialRaceClubsPath,
   buildOfficialRaceCompetitorsPath,
   buildOfficialRaceCorrectDistancesPath,
-  buildOfficialRaceCsvPath,
+  buildOfficialRaceCsvExportPath,
   buildOfficialRaceEditPath,
   buildOfficialRaceEuropeanPath,
   buildOfficialRaceFinalRoundHeatListPath,
@@ -77,7 +77,7 @@ const paths = {
   europeanTrap: raceId => buildOfficialRaceEuropeanPath(raceId, 'trap'),
   europeanCompak: raceId => buildOfficialRaceEuropeanPath(raceId, 'compak'),
   europeanRifle: raceId => buildOfficialRaceEuropeanPath(raceId, 'rifle'),
-  csv: buildOfficialRaceCsvPath,
+  csv: buildOfficialRaceCsvExportPath,
   correctDistances: buildOfficialRaceCorrectDistancesPath,
   teamCompetitions: buildOfficialRaceTeamCompetitionsPath,
   relays: buildOfficialRaceRelaysPath,
@@ -85,17 +85,35 @@ const paths = {
   officials: buildOfficialRaceOfficialsPath,
 }
 
-const reactPages = ['clubs', 'officials']
+const reactPages = [
+  'clubs',
+  'estimates',
+  'europeanCompak',
+  'europeanRifle',
+  'europeanTrap',
+  'officials',
+  'nordicRifleMoving',
+  'nordicRifleStanding',
+  'nordicShotgun',
+  'nordicTrap',
+  'shooting',
+  'shootingByHeats',
+  'shootingBySeries',
+  'times',
+]
+
+const useRaceAndSeries = {
+  competitors: true,
+  estimates: true,
+  times: true,
+  shooting: true,
+  shootingBySeries: true,
+}
 
 const useSeries = {
-  competitors: true,
   heatListGeneration: true,
   qualificationRound: true,
   finalRound: true,
-  times: true,
-  estimates: true,
-  shooting: true,
-  shootingBySeries: true,
 }
 
 const requireSeries = {
@@ -177,17 +195,24 @@ const resolveMenuItems = race => {
 }
 
 const buildMenuItem = (selectedPage, key, t, race, series) => {
-  if ((useSeries[key] || requireSeries[key]) && !series) return
+  if ((useSeries[key] || useRaceAndSeries[key] || requireSeries[key]) && !series) return
   const text = key === 'clubs' ? resolveClubsTitle(t, race.clubLevel) : t(labels[key])
+
+  const resolvePath = s => {
+    if (useRaceAndSeries[key]) return paths[key](race.id, s.id)
+    if (useSeries[key]) return paths[key](s.id)
+    return paths[key](race.id)
+  }
+
   return (
     <DesktopMenuItem
       key={key}
-      path={paths[key](useSeries[key] ? series.id : race.id)}
+      path={resolvePath(series)}
       text={text}
       reactLink={reactPages.includes(key)}
       selected={key === selectedPage}
-      dropdownItems={useSeries[key] && race.series.map(s => {
-        return { text: s.name, path: paths[key](s.id) }
+      dropdownItems={(useSeries[key] || useRaceAndSeries[key]) && race.series.map(s => {
+        return { text: s.name, path: resolvePath(s) }
       })}
     />
   )

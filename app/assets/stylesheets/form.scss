@@ -3,6 +3,11 @@ $inputHeight: 16px;
 .form {
   margin-bottom: 16px;
 
+  &__subtitle {
+    font-weight: bold;
+    margin-top: 8px;
+  }
+
   &--inline {
     display: inline-block;
     margin-bottom: 0;
@@ -19,6 +24,13 @@ $inputHeight: 16px;
 
 .form__field {
   margin-top: $inputHeight;
+
+  &__select-and-input {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    flex-wrap: wrap;
+  }
 
   label {
     display: block;
