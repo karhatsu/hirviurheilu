@@ -1,4 +1,3 @@
-- shot_count = NordicSubSport.by_key(@sub_sport).shot_count
 - @heats.each_with_index do |heat, index|
   - if index > 0
     .page-break
@@ -26,5 +25,7 @@
         .empty-results-table__cell 9
         .empty-results-table__cell.empty-results-table__cell--space 10
         .empty-results-table__cell.empty-results-table__cell--total Yht
+    - elsif @sub_sport == :rifle_moving
+      = render partial: 'official/heat_list_templates/empty_results_table', locals: { shot_count: 10 }
     - else
-      = render partial: 'official/heat_list_templates/empty_results_table', locals: { shot_count: shot_count }
+      = render partial: 'official/heat_list_templates/empty_results_table', locals: { shot_count: 25 }
