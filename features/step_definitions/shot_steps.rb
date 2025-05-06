@@ -55,6 +55,12 @@ When('I select qualification round shotgun shots from {int} to {int}') do |from,
   end
 end
 
+When('I select {int} for nordic trap shots from {int} to {int}') do |value, from, to|
+  (from..to).each do |i|
+    page.find(:xpath, "(//div[contains(@class, 'clickable-shot__option--#{value}')])[#{i}]").click
+  end
+end
+
 When('I select final round shotgun shots from {int} to {int}') do |from, to|
   final_from = 25 + from
   final_to = 25 + to

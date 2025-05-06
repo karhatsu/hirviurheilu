@@ -111,7 +111,7 @@ Feature: Save results by result place
     Then the card 1 main value should be "23 + 22 = 45"
 
   @javascript
-  Scenario: Save nordic race shots
+  Scenario: Save nordic race shots race until 2024
     Given I am an official
     And I have a "NORDIC" race "Nordic test race"
     And the race has series "N"
@@ -121,6 +121,39 @@ Feature: Save results by result place
     When I choose "Trap" from sub menu
     And I select qualification round shotgun shots from 2 to 23
     Then the card 1 main value should be "22"
+    When I press "Tallenna"
+    Then I should see "Tallennettu" in a success message
+    When I choose "Compak" from sub menu
+    And I select qualification round shotgun shots from 3 to 25
+    Then the card 1 main value should be "23"
+    When I press "Tallenna"
+    Then I should see "Tallennettu" in a success message
+    When I choose "Hirvi" from sub menu
+    And I fill nordic rifle moving shots "9,10,10,10,7,9,9,9,8,0"
+    Then the card 1 main value should be "81"
+    When I press "Tallenna"
+    Then I should see "Tallennettu" in a success message
+    When I choose "Kauris" from sub menu
+    And I fill nordic rifle standing shots "10,10,9,9,7,9,9,9,8,0"
+    Then the card 1 main value should be "80"
+    When I press "Tallenna"
+    And I go to the results page of the series
+    And I wait for the results
+    Then I should see 261 as total score in the results table for row 1
+
+  @javascript
+  Scenario: Save nordic race shots for 2025 race
+    Given I am an official
+    And I have a "NORDIC" race "Nordic test race" today
+    And the race has series "N"
+    And the series has a competitor "Nanna" "Nordic"
+    And I have logged in
+    And I am on the official race page of "Nordic test race"
+    When I choose "Trap" from sub menu
+    And I select 4 for nordic trap shots from 1 to 21
+    And I select 2 for nordic trap shots from 22 to 23
+    And I select 0 for nordic trap shots from 24 to 25
+    Then the card 1 main value should be "88"
     When I press "Tallenna"
     Then I should see "Tallennettu" in a success message
     When I choose "Compak" from sub menu
