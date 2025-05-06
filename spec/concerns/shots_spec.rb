@@ -546,6 +546,22 @@ describe Shots do
         expect(competitor.nordic_score).to eql 4 * 4 + 4 * 6 + 37 + 38
       end
     end
+
+    context 'when 2025 race' do
+      before do
+        race = build :race, start_date: '2025-01-01'
+        series = build :series, race: race
+        competitor.series = series
+        competitor.nordic_trap_score_input = 98
+        competitor.nordic_shotgun_score_input = 21
+        competitor.nordic_rifle_moving_score_input = 79
+        competitor.nordic_rifle_standing_score_input = 100
+      end
+
+      it 'nordic score does not multiply trap by 4 anymore' do
+        expect(competitor.nordic_score).to eql 98 + 4 * 21 + 79 + 100
+      end
+    end
   end
 
   describe 'european' do
