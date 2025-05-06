@@ -105,6 +105,8 @@ window.translations = {
   noCupSeries: 'Cup-sarjoja ei ole vielä määritetty',
   nordic_rifle_moving: 'Hirvi',
   nordic_rifle_standing: 'Kauris',
+  nordic_rifleMoving: 'Hirvi',
+  nordic_rifleStanding: 'Kauris',
   nordic_shotgun: 'Compak',
   nordic_trap: 'Trap',
   noResultReason_: 'Normaali',

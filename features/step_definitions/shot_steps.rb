@@ -18,13 +18,13 @@ end
 
 When("I fill nordic rifle moving shots {string}") do |shots_string|
   shots_string.split(',').each_with_index do |shot, i|
-    fill_in "nordic_rifle_moving_shots-shot-#{@competitor.id}-#{i}", with: shot
+    fill_in "nordic_rifleMoving_shots-shot-#{@competitor.id}-#{i}", with: shot
   end
 end
 
 When("I fill nordic rifle standing shots {string}") do |shots_string|
   shots_string.split(',').each_with_index do |shot, i|
-    fill_in "nordic_rifle_standing_shots-shot-#{@competitor.id}-#{i}", with: shot
+    fill_in "nordic_rifleStanding_shots-shot-#{@competitor.id}-#{i}", with: shot
   end
 end
 
