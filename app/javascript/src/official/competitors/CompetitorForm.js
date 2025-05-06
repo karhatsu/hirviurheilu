@@ -242,7 +242,7 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
   const renderResultFields = () => {
     if (!editing) return
     if (race.sport.nordic) {
-      return <NordicShotFields data={data} onChange={onChange} onChangeShot={onChangeShot} />
+      return <NordicShotFields data={data} onChange={onChange} onChangeShot={onChangeShot} race={race} />
     } else if (race.sport.european) {
       return (
         <EuropeanShotFields

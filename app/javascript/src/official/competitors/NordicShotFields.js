@@ -4,8 +4,8 @@ import ScoreInputField from "../results/ScoreInputField"
 import ShotFields from "../results/ShotFields"
 import { nordicConfig, shotCount as countShots } from "../results/resultUtil"
 
-const SubSportFields = ({ data, onChange, onChangeShot, subSport }) => {
-  const { fieldNames, shotCount, shotsPerExtraRound, bestShotValue } = nordicConfig(subSport)
+const SubSportFields = ({ data, onChange, onChangeShot, race, subSport }) => {
+  const { fieldNames, shotCount, shotsPerExtraRound, bestShotValue, bestExtraShotValue } = nordicConfig(subSport, race)
   const { scoreInput, shots, extraShots } = fieldNames
 
   const extraRoundShotCount = useMemo(() => {
@@ -42,7 +42,7 @@ const SubSportFields = ({ data, onChange, onChangeShot, subSport }) => {
             shotsField={extraShots}
             onChangeShot={onChangeShot}
             shotCounts={[extraRoundShotCount]}
-            bestShotValue={bestShotValue}
+            bestShotValue={bestExtraShotValue}
           />
         </FormField>
       )}
@@ -50,13 +50,14 @@ const SubSportFields = ({ data, onChange, onChangeShot, subSport }) => {
   )
 }
 
-const NordicShotFields = ({ data, onChange, onChangeShot }) => {
+const NordicShotFields = ({ data, onChange, onChangeShot, race }) => {
   return ['trap', 'shotgun', 'rifleMoving', 'rifleStanding'].map(subSport => (
     <SubSportFields
       key={subSport}
       data={data}
       onChange={onChange}
       onChangeShot={onChangeShot}
+      race={race}
       subSport={subSport}
     />
   ))

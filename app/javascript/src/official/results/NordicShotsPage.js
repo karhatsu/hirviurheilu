@@ -42,7 +42,7 @@ const NordicShotsPage = ({ subSport }) => {
     })
   }, [allCompetitors, seriesId, heatId])
 
-  const config = useMemo(() => nordicConfig(subSport), [subSport])
+  const config = useMemo(() => race && nordicConfig(subSport, race), [subSport, race])
 
   if (!race || !competitors) return <IncompletePage title={t(titleKey)} error={error} fetching={fetching}/>
 
