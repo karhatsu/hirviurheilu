@@ -46,7 +46,7 @@ class Competitor < ApplicationRecord
   validates :shooting_rules_penalty_qr, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
   validates :qualification_round_track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
   validates :final_round_track_place, numericality: { only_integer: true, greater_than: 0, allow_nil: true }
-  validates :nordic_trap_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_blank: true }
+  validates :nordic_trap_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_blank: true }
   validates :nordic_shotgun_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 25, allow_blank: true }
   validates :nordic_rifle_moving_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
   validates :nordic_rifle_standing_score_input, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_blank: true }
@@ -74,6 +74,7 @@ class Competitor < ApplicationRecord
   validate :final_round_shooting_score_input_max_value
   validate :shots_array_values
   validate :extra_shots_array_values
+  validate :nordic_trap_score_input_max_value
   validate :nordic_trap_shot_values
   validate :nordic_trap_extra_shot_values
   validate :nordic_shotgun_shot_values
@@ -386,12 +387,12 @@ class Competitor < ApplicationRecord
     self[attribute].strftime '%H:%M:%S'
   end
 
-  def self.invalid_shot?(shot, max_value)
-    shot.to_i < 0 || shot.to_i > max_value || shot.to_i.to_s != shot.to_s
-  end
-
-  def self.invalid_rifle_shot?(shot, allowed_values)
-    !allowed_values.include?(shot.to_i) || shot.to_i.to_s != shot.to_s
+  def self.invalid_shot?(shot, max_or_allowed_value)
+    if max_or_allowed_value.is_a? Array
+      !max_or_allowed_value.include?(shot.to_i) || shot.to_i.to_s != shot.to_s
+    else
+      shot.to_i < 0 || shot.to_i > max_or_allowed_value || shot.to_i.to_s != shot.to_s
+    end
   end
 
   def track_place(heat)
@@ -514,8 +515,16 @@ class Competitor < ApplicationRecord
     errors.add(:extra_shots, :invalid_value) if extra_shots.any? { |shot| Competitor.invalid_shot? shot, max_value }
   end
 
+  def nordic_trap_score_input_max_value
+    return unless nordic_trap_score_input
+    limit = race&.start_date&.year.to_i >= 2025 ? 100 : 25
+    errors.add(:nordic_trap_score_input, :less_than_or_equal_to, count: limit) if nordic_trap_score_input.to_i > limit
+  end
+
   def nordic_trap_shot_values
-    validate_shots :nordic_trap_shots, 25, 1
+    return unless nordic_trap_shots
+    max_or_allowed_value = race&.start_date&.year.to_i >= 2025 ? [0, 2, 4] : 1
+    validate_shots :nordic_trap_shots, 25, max_or_allowed_value
   end
 
   def nordic_trap_extra_shot_values
@@ -571,11 +580,11 @@ class Competitor < ApplicationRecord
     validate_shots :european_compak_shots2, 25, 1
   end
 
-  def validate_shots(attribute, max_count, max_value)
+  def validate_shots(attribute, max_count, max_or_allowed_value)
     shots = send attribute
     return unless shots
     errors.add(attribute, :too_many) if shots.length > max_count
-    errors.add(attribute, :invalid_value) if shots.any? { |shot| Competitor.invalid_shot? shot, max_value }
+    errors.add(attribute, :invalid_value) if shots.any? { |shot| Competitor.invalid_shot? shot, max_or_allowed_value }
   end
 
   def validate_extra_shots(attribute, max_value)
@@ -588,7 +597,7 @@ class Competitor < ApplicationRecord
     shots = send attribute
     return unless shots
     errors.add(attribute, :too_many) if max_count && shots.length > max_count
-    errors.add(attribute, :invalid_value) if shots.any? { |shot| Competitor.invalid_rifle_shot? shot, allowed_values }
+    errors.add(attribute, :invalid_value) if shots.any? { |shot| Competitor.invalid_shot? shot, allowed_values }
   end
 
   def check_no_result_reason
