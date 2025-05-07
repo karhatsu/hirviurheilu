@@ -21,16 +21,19 @@ export default function TeamCompetitionsMobileResults({ race, teamCompetition, s
               <div className="card__name">{name}</div>
               {hasExtraScore && team.hasExtraScore && (
                 <div className="card__middle-row">
-                  {t('extraRound')}:{' '}
-                  <TeamCompetitionExtraScore team={team} />
+                  {t('extraRound')}: <TeamCompetitionExtraScore team={team} />
                 </div>
               )}
               {showCompetitors && (
                 <div className="card__middle-row">
-                  {competitors.map(competitor => {
+                  {competitors.map((competitor) => {
                     const { ageGroup, firstName, id, lastName, series, teamCompetitionScore } = competitor
                     const seriesTitle = ageGroup ? `${series.name} (${ageGroup.name})` : series.name
-                    return <div key={id}>{lastName} {firstName}, {seriesTitle}, {teamCompetitionScore}</div>
+                    return (
+                      <div key={id}>
+                        {lastName} {firstName}, {seriesTitle}, {teamCompetitionScore}
+                      </div>
+                    )
                   })}
                 </div>
               )}

@@ -14,15 +14,17 @@ export default function Heat({ race, heat, trackPlaceAttribute, seriesId }) {
             {track && ` (${t('track')} ${track})`}
           </div>
           {description && <div className="card__middle-row">{description}</div>}
-          {competitors.filter(c => !seriesId || c.seriesId === seriesId).map(competitor => {
-            const { id, firstName, lastName, club, series } = competitor
-            return (
-              <div key={id} className="card__middle-row">
-                {competitor[trackPlaceAttribute]}. {lastName} {firstName}
-                {competitor.number ? ` (${competitor.number})` : ''}, {club.name} ({series.name})
-              </div>
-            )
-          })}
+          {competitors
+            .filter((c) => !seriesId || c.seriesId === seriesId)
+            .map((competitor) => {
+              const { id, firstName, lastName, club, series } = competitor
+              return (
+                <div key={id} className="card__middle-row">
+                  {competitor[trackPlaceAttribute]}. {lastName} {firstName}
+                  {competitor.number ? ` (${competitor.number})` : ''}, {club.name} ({series.name})
+                </div>
+              )
+            })}
         </div>
       </div>
     </div>

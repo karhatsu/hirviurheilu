@@ -1,7 +1,7 @@
-import FormField from "../../common/form/FormField"
-import useTranslation from "../../util/useTranslation"
-import ShotFields from "../results/ShotFields"
-import ScoreInputField from "../results/ScoreInputField"
+import FormField from '../../common/form/FormField'
+import useTranslation from '../../util/useTranslation'
+import ShotFields from '../results/ShotFields'
+import ScoreInputField from '../results/ScoreInputField'
 
 const EstimateField = ({ number, data, onChange }) => {
   const { t } = useTranslation()
@@ -32,13 +32,7 @@ const ThreeSportResultFields = ({ competitorId, data, onChange, onChangeShot, fo
       />
     </FormField>
     <FormField id="shootingScoreInput" size="sm">
-      <ScoreInputField
-        data={data}
-        field="shootingScoreInput"
-        maxScoreInput={100}
-        onChange={onChange}
-        withInfo={true}
-      />
+      <ScoreInputField data={data} field="shootingScoreInput" maxScoreInput={100} onChange={onChange} withInfo={true} />
     </FormField>
     <FormField id="shots">
       <ShotFields
@@ -52,8 +46,8 @@ const ThreeSportResultFields = ({ competitorId, data, onChange, onChangeShot, fo
     </FormField>
     <EstimateField number={1} data={data} onChange={onChange} />
     <EstimateField number={2} data={data} onChange={onChange} />
-    {fourEstimates && <EstimateField number={3} data={data} onChange={onChange}/>}
-    {fourEstimates && <EstimateField number={4} data={data} onChange={onChange}/>}
+    {fourEstimates && <EstimateField number={3} data={data} onChange={onChange} />}
+    {fourEstimates && <EstimateField number={4} data={data} onChange={onChange} />}
   </>
 )
 

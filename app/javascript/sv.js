@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 window.translations = {
   account: 'Egna uppgifter',
   ageGroupShorterTrip: 'Åldersgrupp {{ageGroups}} har kortare sträcka',
@@ -45,7 +44,8 @@ window.translations = {
   cupHome: 'Cup-tävlingens hemsida',
   cupPointsRule: 'Totalpoäng beräknas på grund av {{bestCompetitionsCount}} bäst resultat',
   cupPointsRuleTitle: 'Poängsberäkning',
-  cupPointsRuleWithLast: 'Totalpoäng beräknas på grund av den sista tävlingen och de andra tävlingarnas {{bestCompetitionsCount}} bäst resultat',
+  cupPointsRuleWithLast:
+    'Totalpoäng beräknas på grund av den sista tävlingen och de andra tävlingarnas {{bestCompetitionsCount}} bäst resultat',
   cupPublicMessage: 'Cup-tävlingens organizatör informerar',
   cups: 'Cup-tävlingar',
   district: 'Trakt',
@@ -157,8 +157,10 @@ window.translations = {
   raceWithoutSeries: 'Tävlingen saknas klasser för tillfället',
   relay: 'Stafett',
   relayNotStarted: 'Stafetten har inte ännu börjat',
-  relayPenaltySeconds_RUN: 'Sakkoja ei juosta vaan ne lisätään aikaan. Arviointi: {{estimatePenaltySeconds}} s/sakko. Ammunta: {{shootingPenaltySeconds}} s/sakko.',
-  relayPenaltySeconds_SKI: 'Sakkoja ei hiihdetä vaan ne lisätään aikaan. Arviointi: {{estimatePenaltySeconds}} s/sakko. Ammunta: {{shootingPenaltySeconds}} s/sakko.',
+  relayPenaltySeconds_RUN:
+    'Sakkoja ei juosta vaan ne lisätään aikaan. Arviointi: {{estimatePenaltySeconds}} s/sakko. Ammunta: {{shootingPenaltySeconds}} s/sakko.',
+  relayPenaltySeconds_SKI:
+    'Sakkoja ei hiihdetä vaan ne lisätään aikaan. Arviointi: {{estimatePenaltySeconds}} s/sakko. Ammunta: {{shootingPenaltySeconds}} s/sakko.',
   relays: 'Stafetter',
   relayStartTime: 'Stafettens starttid: {{time}}',
   relayWithoutStartTime: 'Stafetten har inte ännu starttid',
@@ -167,7 +169,8 @@ window.translations = {
   result: 'Resultat',
   resultRotation: 'Resultatskrets',
   resultRotationAutoScroll: 'Rulla sidan automatiskt',
-  resultRotationInfo: 'Välj åtminstone två klasser och starta resultatskrets. När du vill stoppa kretsen, kom tillbaka på den här sidan.',
+  resultRotationInfo:
+    'Välj åtminstone två klasser och starta resultatskrets. När du vill stoppa kretsen, kom tillbaka på den här sidan.',
   resultRotationSettings: 'Inställningar',
   resultRotationStart: 'Starta resultatskrets',
   resultRotationStop: 'Stoppa resultatskrets',

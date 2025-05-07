@@ -14,31 +14,33 @@ export default function CupDesktopResults({ cup, cupSeries }) {
             <th />
             <th>{t('competitor')}</th>
             {showSeries && <th>{t('series')}</th>}
-            {races.map(race => <th key={race.id}>{race.name}</th>)}
+            {races.map((race) => (
+              <th key={race.id}>{race.name}</th>
+            ))}
             <th>{t('totalPoints')}</th>
           </tr>
         </thead>
         <tbody>
-        {cupCompetitors.map((cupCompetitor, i) => {
-          const { firstName, lastName, seriesNames, score, partialScore } = cupCompetitor
-          const name = `${lastName} ${firstName}`
-          return (
-            <tr key={name} id={`comp_${i + 1}`} className={i % 2 === 0 ? 'odd' : ''}>
-              <td>{i + 1}.</td>
-              <td>{name}</td>
-              {showSeries && <td>{seriesNames}</td>}
-              {cupCompetitor.races.map(race => {
-                const { competitor, id } = race
-                return (
-                  <td key={id} className="center">
-                    <CupRacePoints raceId={id} competitor={competitor} cupCompetitor={cupCompetitor} />
-                  </td>
-                )
-              })}
-              <td className="center total-points">{score || (partialScore && `(${partialScore})`)}</td>
-            </tr>
-          )
-        })}
+          {cupCompetitors.map((cupCompetitor, i) => {
+            const { firstName, lastName, seriesNames, score, partialScore } = cupCompetitor
+            const name = `${lastName} ${firstName}`
+            return (
+              <tr key={name} id={`comp_${i + 1}`} className={i % 2 === 0 ? 'odd' : ''}>
+                <td>{i + 1}.</td>
+                <td>{name}</td>
+                {showSeries && <td>{seriesNames}</td>}
+                {cupCompetitor.races.map((race) => {
+                  const { competitor, id } = race
+                  return (
+                    <td key={id} className="center">
+                      <CupRacePoints raceId={id} competitor={competitor} cupCompetitor={cupCompetitor} />
+                    </td>
+                  )
+                })}
+                <td className="center total-points">{score || (partialScore && `(${partialScore})`)}</td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     </div>

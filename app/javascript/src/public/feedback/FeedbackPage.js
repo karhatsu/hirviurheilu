@@ -29,18 +29,21 @@ export default function FeedbackPage() {
     })
   }, [])
 
-  const submit = useCallback(event => {
-    event.preventDefault()
-    post('/api/v2/public/feedbacks', form, err => {
-      if (err) {
-        setError(err)
-      } else {
-        setSent(true)
-      }
-    })
-  }, [form])
+  const submit = useCallback(
+    (event) => {
+      event.preventDefault()
+      post('/api/v2/public/feedbacks', form, (err) => {
+        if (err) {
+          setError(err)
+        } else {
+          setSent(true)
+        }
+      })
+    },
+    [form],
+  )
 
-  const setValue = useCallback(field => event => setForm(f => ({ ...f, [field]: event.target.value })), [])
+  const setValue = useCallback((field) => (event) => setForm((f) => ({ ...f, [field]: event.target.value })), [])
 
   if (sent) {
     return <ThankYouView />
@@ -54,7 +57,7 @@ export default function FeedbackPage() {
           <label htmlFor="race_id">{t('feedbackReceiver')}</label>
           <select id="race_id" value={form.race_id} onChange={setValue('race_id')}>
             <option>- {t('feedbackReceiverCommon')} -</option>
-            {races.map(race => {
+            {races.map((race) => {
               const { id, name, startDate, endDate, location } = race
               return (
                 <option value={id} key={id}>
@@ -86,11 +89,15 @@ export default function FeedbackPage() {
           <div className="form__field__info">{t('captchaInfo')}</div>
         </div>
         <div className="form__buttons">
-          <Button type="primary" submit disabled={!form.comment || !form.captcha}>{t('send')}</Button>
+          <Button type="primary" submit disabled={!form.comment || !form.captcha}>
+            {t('send')}
+          </Button>
         </div>
       </form>
       <div className="buttons buttons--nav">
-        <Button to={buildRootPath()} type="back">{t('backToHomePage')}</Button>
+        <Button to={buildRootPath()} type="back">
+          {t('backToHomePage')}
+        </Button>
       </div>
     </div>
   )

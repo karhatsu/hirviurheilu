@@ -11,12 +11,15 @@ export const HomePageProvider = ({ children }) => {
   const [searchParams, setSearchParams] = useState({})
   const [searching, setSearching] = useState(false)
 
-  const setSearchValue = useCallback(key => value => {
-    setSearching(true)
-    setSearchParams(params => {
-      return { ...params, [key]: value }
-    })
-  }, [])
+  const setSearchValue = useCallback(
+    (key) => (value) => {
+      setSearching(true)
+      setSearchParams((params) => {
+        return { ...params, [key]: value }
+      })
+    },
+    [],
+  )
 
   const search = useCallback(() => {
     const path = `/api/v2/public/home?${buildQueryParams(searchParams)}`

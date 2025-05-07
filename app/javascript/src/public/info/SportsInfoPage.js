@@ -13,7 +13,11 @@ export default function SportsInfoPage() {
 
   const buildButton = useCallback((path, text) => {
     const href = `https://metsastajaliitto.fi/metsastajalle/kilpailutoiminta/${path}`
-    return <Button href={href} blank={true} type="open">{text}</Button>
+    return (
+      <Button href={href} blank={true} type="open">
+        {text}
+      </Button>
+    )
   }, [])
   return (
     <div>
@@ -24,7 +28,9 @@ export default function SportsInfoPage() {
         {buildButton('metsastysammuntojen-sm-kilpailut-2022-2024', 'Tulevat SM-kilpailut')}
       </div>
       <div className="buttons buttons--nav">
-        <Button to={buildRootPath()} type="back">{t('backToHomePage')}</Button>
+        <Button to={buildRootPath()} type="back">
+          {t('backToHomePage')}
+        </Button>
       </div>
     </div>
   )

@@ -3,9 +3,11 @@ const unexpectedErrorMsg = 'Odottamaton virhe, yritä uudestaan. Jos ongelma ei 
 export function get(path, callback) {
   fetch(path, {
     headers: { 'X-Camel-Case': 'true' },
-  }).then(response => {
-    handleApiResponse(response, callback)
-  }).catch(() => handleApiConnectionError(callback))
+  })
+    .then((response) => {
+      handleApiResponse(response, callback)
+    })
+    .catch(() => handleApiConnectionError(callback))
 }
 
 export function post(path, body, callback) {
@@ -13,9 +15,11 @@ export function post(path, body, callback) {
     method: 'POST',
     headers: { 'X-Camel-Case': 'true', 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
-  }).then(response => {
-    handleApiResponse(response, callback)
-  }).catch(() => handleApiConnectionError(callback))
+  })
+    .then((response) => {
+      handleApiResponse(response, callback)
+    })
+    .catch(() => handleApiConnectionError(callback))
 }
 
 export function put(path, body, callback) {
@@ -23,31 +27,41 @@ export function put(path, body, callback) {
     method: 'PUT',
     headers: { 'X-Camel-Case': 'true', 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
-  }).then(response => {
-    handleApiResponse(response, callback)
-  }).catch(() => handleApiConnectionError(callback))
+  })
+    .then((response) => {
+      handleApiResponse(response, callback)
+    })
+    .catch(() => handleApiConnectionError(callback))
 }
 
 export function del(path, callback) {
   fetch(path, {
     method: 'DELETE',
     headers: { 'X-Camel-Case': 'true' },
-  }).then(response => {
-    handleApiResponse(response, callback)
-  }).catch(() => handleApiConnectionError(callback))
+  })
+    .then((response) => {
+      handleApiResponse(response, callback)
+    })
+    .catch(() => handleApiConnectionError(callback))
 }
 
 export function handleApiResponse(response, callback) {
   if (response.status === 201 || response.status === 204) {
     callback()
   } else if (response.ok) {
-    response.json().then(data => {
-      callback(null, data)
-    }).catch(() => callback([unexpectedErrorMsg]))
+    response
+      .json()
+      .then((data) => {
+        callback(null, data)
+      })
+      .catch(() => callback([unexpectedErrorMsg]))
   } else {
-    response.json().then(({ errors }) => {
-      callback(errors)
-    }).catch(() => callback([unexpectedErrorMsg]))
+    response
+      .json()
+      .then(({ errors }) => {
+        callback(errors)
+      })
+      .catch(() => callback([unexpectedErrorMsg]))
   }
 }
 
@@ -56,5 +70,7 @@ export function handleApiConnectionError(callback) {
 }
 
 export function buildQueryParams(object) {
-  return Object.keys(object).map(key => `${key}=${object[key]}`).join('&')
+  return Object.keys(object)
+    .map((key) => `${key}=${object[key]}`)
+    .join('&')
 }

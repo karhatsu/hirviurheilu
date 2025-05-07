@@ -18,7 +18,9 @@ export default function HeatListPdfForm({ path, race, title }) {
             <ClubSelect clubLevel={clubLevel} clubs={clubs} />
           </div>
           <div className="form__buttons">
-            <Button submit={true} type="pdf">{t('downloadHeatList')}</Button>
+            <Button submit={true} type="pdf">
+              {t('downloadHeatList')}
+            </Button>
           </div>
         </div>
       </form>

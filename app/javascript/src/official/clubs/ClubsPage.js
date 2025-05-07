@@ -36,48 +36,57 @@ const ClubsPage = () => {
     }
   }, [race])
 
-  const onCreate = useCallback(data => {
-    post(`/official/races/${race.id}/clubs.json`, { club: data }, (errors, response) => {
-      if (errors) {
-        setFormErrors(errors)
-      } else {
-        setClubs(clubs => [...clubs, response].sort(clubsSorter))
-        setAdding(false)
-      }
-    })
-  }, [race])
+  const onCreate = useCallback(
+    (data) => {
+      post(`/official/races/${race.id}/clubs.json`, { club: data }, (errors, response) => {
+        if (errors) {
+          setFormErrors(errors)
+        } else {
+          setClubs((clubs) => [...clubs, response].sort(clubsSorter))
+          setAdding(false)
+        }
+      })
+    },
+    [race],
+  )
 
-  const onUpdate = useCallback(data => {
-    const club = { name: data.name, longName: data.longName }
-    put(`/official/races/${race.id}/clubs/${data.id}.json`, { club }, (errors, response) => {
-      if (errors) {
-        setFormErrors(errors)
-      } else {
-        setClubs(clubs => {
-          const index = clubs.findIndex(c => c.id === data.id)
-          const newClubs = [...clubs]
-          newClubs[index] = { ...response }
-          return newClubs.sort(clubsSorter)
-        })
-        setEditing(undefined)
-      }
-    })
-  }, [race])
+  const onUpdate = useCallback(
+    (data) => {
+      const club = { name: data.name, longName: data.longName }
+      put(`/official/races/${race.id}/clubs/${data.id}.json`, { club }, (errors, response) => {
+        if (errors) {
+          setFormErrors(errors)
+        } else {
+          setClubs((clubs) => {
+            const index = clubs.findIndex((c) => c.id === data.id)
+            const newClubs = [...clubs]
+            newClubs[index] = { ...response }
+            return newClubs.sort(clubsSorter)
+          })
+          setEditing(undefined)
+        }
+      })
+    },
+    [race],
+  )
 
-  const onDelete = useCallback(id => {
-    del(`/official/races/${race.id}/clubs/${id}`, errors => {
-      if (errors) {
-        setDeleteError(errors[0])
-      } else {
-        setClubs(clubs => {
-          const index = clubs.findIndex(c => c.id === id)
-          const newClubs = [...clubs]
-          newClubs.splice(index, 1)
-          return newClubs
-        })
-      }
-    })
-  }, [race])
+  const onDelete = useCallback(
+    (id) => {
+      del(`/official/races/${race.id}/clubs/${id}`, (errors) => {
+        if (errors) {
+          setDeleteError(errors[0])
+        } else {
+          setClubs((clubs) => {
+            const index = clubs.findIndex((c) => c.id === id)
+            const newClubs = [...clubs]
+            newClubs.splice(index, 1)
+            return newClubs
+          })
+        }
+      })
+    },
+    [race],
+  )
 
   if (!race || !clubs) {
     return (
@@ -122,7 +131,7 @@ const ClubsPage = () => {
       <div className="message message--info">{t('clubsPageInfo')}</div>
       {deleteError && <Message type="error">{deleteError}</Message>}
       <div className="row">
-        {clubs.map(club => (
+        {clubs.map((club) => (
           <div key={club.id} className="col-xs-12 col-sm-6 col-md-4">
             <div className="card">
               <div className="card__middle">
@@ -134,8 +143,14 @@ const ClubsPage = () => {
                 )}
               </div>
               <div className="card__buttons">
-                <Button type="edit" onClick={() => setEditing(club)}>Muokkaa</Button>
-                {club.canBeRemoved && <Button type="danger" onClick={() => onDelete(club.id)}>Poista</Button>}
+                <Button type="edit" onClick={() => setEditing(club)}>
+                  Muokkaa
+                </Button>
+                {club.canBeRemoved && (
+                  <Button type="danger" onClick={() => onDelete(club.id)}>
+                    Poista
+                  </Button>
+                )}
               </div>
             </div>
           </div>
@@ -147,7 +162,9 @@ const ClubsPage = () => {
         </Button>
       </div>
       <div className="buttons buttons--nav">
-        <Button href={buildOfficialRacePath(race.id)} type="back">{t('backToOfficialRacePage')}</Button>
+        <Button href={buildOfficialRacePath(race.id)} type="back">
+          {t('backToOfficialRacePage')}
+        </Button>
       </div>
     </div>
   )

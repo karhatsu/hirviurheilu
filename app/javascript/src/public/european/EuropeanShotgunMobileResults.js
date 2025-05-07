@@ -8,7 +8,7 @@ export default function EuropeanShotgunMobileResults({ competitors }) {
   const { t } = useTranslation()
   return (
     <MobileResultCards competitors={competitors}>
-      {competitor => {
+      {(competitor) => {
         const {
           club,
           europeanShotgunExtraScore,
@@ -28,13 +28,17 @@ export default function EuropeanShotgunMobileResults({ competitors }) {
         return (
           <>
             <div className="card__middle">
-              <div className="card__name">{lastName} {firstName}</div>
+              <div className="card__name">
+                {lastName} {firstName}
+              </div>
               <div className="card__middle-row">{club.name}</div>
               {noResultReason && <div className="card__middle-row">{t(`competitor_${noResultReason}`)}</div>}
               {!noResultReason && (
                 <>
                   {europeanShotgunExtraScore && (
-                    <div className="card__middle-row">{t('extraRound')}: {europeanShotgunExtraScore}</div>
+                    <div className="card__middle-row">
+                      {t('extraRound')}: {europeanShotgunExtraScore}
+                    </div>
                   )}
                   <div className="card__middle-row">
                     <MobileSubResult type="shoot" titleKey="european_trap">

@@ -7,13 +7,13 @@ import QualificationRoundDesktopShootingResult from './QualificationRoundDesktop
 import TotalScore from './TotalScore'
 import DesktopResultsRows from './DesktopResultsRows'
 import { ShowShotsContext } from './ResultsWithShots'
-import { useResultRotation } from "../result-rotation/useResultRotation"
+import { useResultRotation } from '../result-rotation/useResultRotation'
 
 export default function ShootingDesktopResults({ race, series }) {
   const { t } = useTranslation()
   const showShots = useContext(ShowShotsContext)
   const { competitors } = series
-  const showExtraShots = !!competitors.find(c => c.extraShots)
+  const showExtraShots = !!competitors.find((c) => c.extraShots)
   const resultClassName = showShots ? '' : 'center'
   const { scrollAutomatically } = useResultRotation()
 
@@ -35,7 +35,7 @@ export default function ShootingDesktopResults({ race, series }) {
           </tr>
         </thead>
         <DesktopResultsRows competitors={competitors}>
-          {competitor => {
+          {(competitor) => {
             const {
               extraScore,
               extraShots,
@@ -50,7 +50,9 @@ export default function ShootingDesktopResults({ race, series }) {
               return (
                 <>
                   <td colSpan={2} />
-                  <td className="center total-points"><TotalScore noResultReason={noResultReason} /></td>
+                  <td className="center total-points">
+                    <TotalScore noResultReason={noResultReason} />
+                  </td>
                   {showExtraShots && <td />}
                 </>
               )

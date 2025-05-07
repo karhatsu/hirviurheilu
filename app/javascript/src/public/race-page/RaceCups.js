@@ -10,9 +10,13 @@ export default function RaceCups({ race }) {
     <>
       <h2>{t('cups')}</h2>
       <div className="buttons">
-        {cups.map(cup => {
+        {cups.map((cup) => {
           const { id, name } = cup
-          return <Button key={id} to={buildCupPath(id)}>{name}</Button>
+          return (
+            <Button key={id} to={buildCupPath(id)}>
+              {name}
+            </Button>
+          )
         })}
       </div>
     </>

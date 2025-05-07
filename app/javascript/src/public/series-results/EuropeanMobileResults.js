@@ -10,7 +10,7 @@ export default function EuropeanMobileResults({ race, series }) {
   const { competitors } = series
   return (
     <MobileResultCards competitors={competitors}>
-      {competitor => {
+      {(competitor) => {
         const {
           club,
           europeanExtraScore,
@@ -47,13 +47,17 @@ export default function EuropeanMobileResults({ race, series }) {
         return (
           <>
             <div className="card__middle">
-              <div className="card__name">{lastName} {firstName}</div>
+              <div className="card__name">
+                {lastName} {firstName}
+              </div>
               <div className="card__middle-row">{club.name}</div>
               {noResultReason && <div className="card__middle-row">{t(`competitor_${noResultReason}`)}</div>}
               {!noResultReason && (
                 <>
                   {europeanExtraScore && (
-                    <div className="card__middle-row">{t('extraRound')}: {europeanExtraScore}</div>
+                    <div className="card__middle-row">
+                      {t('extraRound')}: {europeanExtraScore}
+                    </div>
                   )}
                   <div className="card__middle-row">
                     <MobileSubResult type="shoot" titleKey="european_trap">
@@ -106,7 +110,9 @@ export default function EuropeanMobileResults({ race, series }) {
                     </MobileSubResult>
                   </div>
                   {shootingRulesPenalty && (
-                    <div className="card__middle-row">{t('shootingRulesPenalty')}: -{shootingRulesPenalty}</div>
+                    <div className="card__middle-row">
+                      {t('shootingRulesPenalty')}: -{shootingRulesPenalty}
+                    </div>
                   )}
                 </>
               )}

@@ -1,8 +1,8 @@
-import { useMemo } from "react"
-import FormField from "../../common/form/FormField"
-import ScoreInputField from "../results/ScoreInputField"
-import ShotFields from "../results/ShotFields"
-import { nordicConfig, shotCount as countShots } from "../results/resultUtil"
+import { useMemo } from 'react'
+import FormField from '../../common/form/FormField'
+import ScoreInputField from '../results/ScoreInputField'
+import ShotFields from '../results/ShotFields'
+import { nordicConfig, shotCount as countShots } from '../results/resultUtil'
 
 const SubSportFields = ({ data, onChange, onChangeShot, race, subSport }) => {
   const { fieldNames, shotCount, shotsPerExtraRound, bestShotValue, bestExtraShotValue } = nordicConfig(subSport, race)
@@ -11,7 +11,7 @@ const SubSportFields = ({ data, onChange, onChangeShot, race, subSport }) => {
   const extraRoundShotCount = useMemo(() => {
     if (data[scoreInput] || countShots(data[shots]) === shotCount) {
       const currentCount = (data[extraShots] || []).length
-      return currentCount + shotsPerExtraRound - currentCount % shotsPerExtraRound
+      return currentCount + shotsPerExtraRound - (currentCount % shotsPerExtraRound)
     }
     return 0
   }, [data, scoreInput, shots, extraShots, shotCount, shotsPerExtraRound])
@@ -19,12 +19,7 @@ const SubSportFields = ({ data, onChange, onChangeShot, race, subSport }) => {
   return (
     <>
       <FormField id={scoreInput} size="sm">
-        <ScoreInputField
-          data={data}
-          field={scoreInput}
-          maxScoreInput={shotCount * bestShotValue}
-          onChange={onChange}
-        />
+        <ScoreInputField data={data} field={scoreInput} maxScoreInput={shotCount * bestShotValue} onChange={onChange} />
       </FormField>
       <FormField id={shots}>
         <ShotFields
@@ -51,7 +46,7 @@ const SubSportFields = ({ data, onChange, onChangeShot, race, subSport }) => {
 }
 
 const NordicShotFields = ({ data, onChange, onChangeShot, race }) => {
-  return ['trap', 'shotgun', 'rifleMoving', 'rifleStanding'].map(subSport => (
+  return ['trap', 'shotgun', 'rifleMoving', 'rifleStanding'].map((subSport) => (
     <SubSportFields
       key={subSport}
       data={data}

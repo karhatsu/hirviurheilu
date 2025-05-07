@@ -21,7 +21,7 @@ export const RaceProvider = ({ children }) => {
   }, [raceId])
 
   useEffect(() => {
-    fetchRaceRef.current = reload => {
+    fetchRaceRef.current = (reload) => {
       if (!reload) setRace(undefined)
       fetchRace()
     }

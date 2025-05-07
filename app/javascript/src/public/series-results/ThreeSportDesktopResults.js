@@ -9,7 +9,7 @@ import useCompetitorSorting from './useCompetitorSorting'
 import { resolveClubTitle } from '../../util/clubUtil'
 import { timeFromSeconds } from '../../util/timeUtil'
 import DesktopResultsRows from './DesktopResultsRows'
-import { useResultRotation } from "../result-rotation/useResultRotation"
+import { useResultRotation } from '../result-rotation/useResultRotation'
 
 export default function ThreeSportDesktopResults({ race, series }) {
   const { t } = useTranslation()
@@ -19,16 +19,23 @@ export default function ThreeSportDesktopResults({ race, series }) {
   const { clubLevel, sportKey } = race
   const { timePoints } = series
 
-  const createTitle = useCallback((textKey, titleSortMethod) => {
-    if (sortMethod === titleSortMethod) return t(textKey)
-    const onClick = e => {
-      e.preventDefault()
-      setSortMethod(titleSortMethod)
-    }
-    return <a href="#" onClick={onClick}>{t(textKey)}</a>
-  }, [sortMethod, setSortMethod, t])
+  const createTitle = useCallback(
+    (textKey, titleSortMethod) => {
+      if (sortMethod === titleSortMethod) return t(textKey)
+      const onClick = (e) => {
+        e.preventDefault()
+        setSortMethod(titleSortMethod)
+      }
+      return (
+        <a href="#" onClick={onClick}>
+          {t(textKey)}
+        </a>
+      )
+    },
+    [sortMethod, setSortMethod, t],
+  )
 
-  const showShootingTime = useMemo(() => competitors?.findIndex(c => c.shootingTimeSeconds) !== -1, [competitors])
+  const showShootingTime = useMemo(() => competitors?.findIndex((c) => c.shootingTimeSeconds) !== -1, [competitors])
 
   useEffect(() => scrollAutomatically(), [scrollAutomatically])
 
@@ -49,7 +56,7 @@ export default function ThreeSportDesktopResults({ race, series }) {
           </tr>
         </thead>
         <DesktopResultsRows competitors={competitors} sortMethod={sortMethod}>
-          {competitor => {
+          {(competitor) => {
             const { comparisonTimeInSeconds, shootingTimeSeconds } = competitor
             return (
               <>
@@ -58,11 +65,15 @@ export default function ThreeSportDesktopResults({ race, series }) {
                     <TimePoints competitor={competitor} series={series} />
                   </td>
                 )}
-                <td><EstimatePoints competitor={competitor} series={series} race={race} /></td>
-                <td><ShootingPoints competitor={competitor} /></td>
+                <td>
+                  <EstimatePoints competitor={competitor} series={series} race={race} />
+                </td>
+                <td>
+                  <ShootingPoints competitor={competitor} />
+                </td>
                 {showShootingTime && <td>{timeFromSeconds(shootingTimeSeconds)}</td>}
                 <td className="center total-points">
-                  <Points competitor={competitor}/>
+                  <Points competitor={competitor} />
                   <NationalRecord race={race} series={series} competitor={competitor} />
                 </td>
               </>

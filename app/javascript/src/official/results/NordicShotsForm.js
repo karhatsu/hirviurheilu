@@ -1,12 +1,12 @@
-import useTranslation from "../../util/useTranslation"
-import useCompetitorSaving from "../competitors/useCompetitorSaving"
-import { useCallback, useMemo } from "react"
-import { calculateShootingScore, shotCount as countShots } from "./resultUtil"
-import ResultRow from "./ResultRow"
-import ShotFields from "./ShotFields"
-import Button from "../../common/Button"
-import { useParams } from "react-router"
-import ScoreInputField from "./ScoreInputField"
+import useTranslation from '../../util/useTranslation'
+import useCompetitorSaving from '../competitors/useCompetitorSaving'
+import { useCallback, useMemo } from 'react'
+import { calculateShootingScore, shotCount as countShots } from './resultUtil'
+import ResultRow from './ResultRow'
+import ShotFields from './ShotFields'
+import Button from '../../common/Button'
+import { useParams } from 'react-router'
+import ScoreInputField from './ScoreInputField'
 
 const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, series, withTrackPlace }) => {
   const { t } = useTranslation()
@@ -22,26 +22,24 @@ const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, seri
     ]
   }, [subSport, fieldNames, shotCount])
 
-  const buildBody = useCallback((_, data) => {
-    const { scoreInput, shots, extraShots } = fieldNames
-    return {
-      competitor: { [scoreInput]: data[scoreInput] },
-      [shots]: data[shots],
-      [extraShots]: data[extraShots],
-    }
-  }, [fieldNames])
+  const buildBody = useCallback(
+    (_, data) => {
+      const { scoreInput, shots, extraShots } = fieldNames
+      return {
+        competitor: { [scoreInput]: data[scoreInput] },
+        [shots]: data[shots],
+        [extraShots]: data[extraShots],
+      }
+    },
+    [fieldNames],
+  )
 
-  const {
-    changed,
-    competitor,
-    data,
-    errors,
-    onChange,
-    onChangeShot,
-    onSubmit,
-    saved,
-    saving,
-  } = useCompetitorSaving(raceId, initialCompetitor, fields, buildBody)
+  const { changed, competitor, data, errors, onChange, onChangeShot, onSubmit, saved, saving } = useCompetitorSaving(
+    raceId,
+    initialCompetitor,
+    fields,
+    buildBody,
+  )
 
   const dataHasCorrectFields = subSport === data.subSport
 
@@ -50,7 +48,7 @@ const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, seri
     const { scoreInput, shots, extraShots } = fieldNames
     if (data[scoreInput] || countShots(data[shots]) === shotCount) {
       const currentCount = (data[extraShots] || []).length
-      return currentCount + shotsPerExtraRound - currentCount % shotsPerExtraRound
+      return currentCount + shotsPerExtraRound - (currentCount % shotsPerExtraRound)
     }
     return 0
   }, [dataHasCorrectFields, data, fieldNames, shotCount, shotsPerExtraRound])
@@ -110,7 +108,9 @@ const NordicShotsForm = ({ competitor: initialCompetitor, subSport, config, seri
           </>
         )}
         <div className="form__buttons">
-          <Button submit={true} type="primary" disabled={!changed}>{t('save')}</Button>
+          <Button submit={true} type="primary" disabled={!changed}>
+            {t('save')}
+          </Button>
         </div>
       </form>
     </ResultRow>

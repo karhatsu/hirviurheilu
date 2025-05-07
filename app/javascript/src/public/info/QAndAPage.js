@@ -11,7 +11,13 @@ export default function QAndAPage() {
   useEffect(() => setSelectedPage(pages.info.answers), [setSelectedPage])
   useTitle(t('qAndA'))
   return (
-    <Suspense fallback={<div className="incomplete-page"><Spinner /></div>}>
+    <Suspense
+      fallback={
+        <div className="incomplete-page">
+          <Spinner />
+        </div>
+      }
+    >
       <Content />
     </Suspense>
   )

@@ -5,7 +5,7 @@ export default function CupDesktopSubMenu({ cup, currentCupSeriesId, currentRifl
   if (!cup || cup.cupSeries.length < 2) return null
   return (
     <div className="menu menu--sub menu--sub-2">
-      {cup.cupSeries.map(cs => {
+      {cup.cupSeries.map((cs) => {
         const { id, name } = cs
         const selected = parseInt(currentCupSeriesId || currentRifleCupSeriesId) === id
         const path = currentRifleCupSeriesId ? buildRifleCupSeriesPath(cup.id, id) : buildCupSeriesPath(cup.id, id)

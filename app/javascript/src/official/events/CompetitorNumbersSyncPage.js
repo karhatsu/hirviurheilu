@@ -1,17 +1,17 @@
 import { useCallback, useEffect, useState } from 'react'
 import isBefore from 'date-fns/isBefore'
 import isToday from 'date-fns/isToday'
-import Message from "../../common/Message"
-import useTranslation from "../../util/useTranslation"
-import Button from "../../common/Button"
+import Message from '../../common/Message'
+import useTranslation from '../../util/useTranslation'
+import Button from '../../common/Button'
 import { put } from '../../util/apiClient'
-import useOfficialMenu from "../menu/useOfficialMenu"
-import { pages } from "../../util/useMenu"
-import { useParams } from "react-router"
-import { buildOfficialEventPath } from "../../util/routeUtil"
-import { useEvent } from "../../util/useEvent"
-import IncompletePage from "../../common/IncompletePage"
-import { formatDateInterval } from "../../util/timeUtil"
+import useOfficialMenu from '../menu/useOfficialMenu'
+import { pages } from '../../util/useMenu'
+import { useParams } from 'react-router'
+import { buildOfficialEventPath } from '../../util/routeUtil'
+import { useEvent } from '../../util/useEvent'
+import IncompletePage from '../../common/IncompletePage'
+import { formatDateInterval } from '../../util/timeUtil'
 
 const CompetitorNumbersSyncPage = () => {
   const { eventId } = useParams()
@@ -25,23 +25,26 @@ const CompetitorNumbersSyncPage = () => {
 
   useEffect(() => setSelectedPage(pages.events.syncNumbers), [setSelectedPage])
 
-  const onSubmit = useCallback(event => {
-    event.preventDefault()
-    setSaving(true)
-    put(`/official/events/${eventId}/competitor_numbers_sync`, { firstNumber }, (errors) => {
-      if (!errors) {
-        setDone(true)
-      }
-      setSaving(false)
-    })
-  }, [eventId, firstNumber])
+  const onSubmit = useCallback(
+    (event) => {
+      event.preventDefault()
+      setSaving(true)
+      put(`/official/events/${eventId}/competitor_numbers_sync`, { firstNumber }, (errors) => {
+        if (!errors) {
+          setDone(true)
+        }
+        setSaving(false)
+      })
+    },
+    [eventId, firstNumber],
+  )
 
   if (fetching || error) {
     return <IncompletePage fetching={fetching} error={error} title={t('officialEventMenuSyncNumbers')} />
   }
 
-  const hasThreeSportsRace = !!event.races.find(race => race.sportKey === 'SKI' || race.sportKey === 'RUN')
-  const hasStartedRace = !!event.races.find(race => isBefore(race.startDate, new Date()) || isToday(race.startDate))
+  const hasThreeSportsRace = !!event.races.find((race) => race.sportKey === 'SKI' || race.sportKey === 'RUN')
+  const hasStartedRace = !!event.races.find((race) => isBefore(race.startDate, new Date()) || isToday(race.startDate))
 
   const content = () => {
     if (hasThreeSportsRace) return <Message type="warning">{t('competitorNumbersSyncInvalidRaces')}</Message>
@@ -57,18 +60,23 @@ const CompetitorNumbersSyncPage = () => {
             type="number"
             min={1}
             step={1}
-            onChange={e => setFirstNumber(e.target.value)}
+            onChange={(e) => setFirstNumber(e.target.value)}
             value={firstNumber}
           />
         </div>
         <div className="form__horizontal-fields">
           <div className="form__field">
-            <input id="confirmed" type="checkbox" checked={confirmed} onChange={e => setConfirmed(e.target.checked)}/>
+            <input
+              id="confirmed"
+              type="checkbox"
+              checked={confirmed}
+              onChange={(e) => setConfirmed(e.target.checked)}
+            />
             <label htmlFor="confirmed">{t('competitorNumbersSyncConfirm')}</label>
           </div>
         </div>
         <div className="form__field">
-          {event.races.map(race => (
+          {event.races.map((race) => (
             <div key={race.id}>
               <a href={`/official/races/${race.id}`} target="_blank" rel="noreferrer">
                 {race.name}, {formatDateInterval(race.startDate, race.endDate)}
@@ -82,7 +90,7 @@ const CompetitorNumbersSyncPage = () => {
           </Button>
         </div>
       </form>
-  )
+    )
   }
 
   return (
@@ -90,7 +98,9 @@ const CompetitorNumbersSyncPage = () => {
       <h2>{t('officialEventMenuSyncNumbers')}</h2>
       {content()}
       <div className="buttons buttons--nav">
-        <Button to={buildOfficialEventPath(eventId)} type="back">{t('backToOfficialEventPage')}</Button>
+        <Button to={buildOfficialEventPath(eventId)} type="back">
+          {t('backToOfficialEventPage')}
+        </Button>
       </div>
     </div>
   )

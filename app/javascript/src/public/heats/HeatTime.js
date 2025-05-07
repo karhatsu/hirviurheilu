@@ -16,13 +16,17 @@ export default function HeatTime({ race, heat }) {
       subTime(t, 'nordic', 'shotgun', daysCount, date2, time2),
       subTime(t, 'nordic', 'rifle_moving', daysCount, date3, time3),
       subTime(t, 'nordic', 'rifle_standing', daysCount, date4, time4),
-    ].filter(t => t).join(' - ')
+    ]
+      .filter((t) => t)
+      .join(' - ')
   } else if (european) {
     return [
       subTime(t, 'european', 'trap', daysCount, date, time),
       subTime(t, 'european', 'compak', daysCount, date2, time2),
       subTime(t, 'european', 'rifle', daysCount, date3, time3),
-    ].filter(t => t).join(' - ')
+    ]
+      .filter((t) => t)
+      .join(' - ')
   } else if (daysCount > 1) {
     return `${date} ${time}`
   }

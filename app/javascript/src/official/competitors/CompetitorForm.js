@@ -1,27 +1,27 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import isAfter from 'date-fns/isAfter'
 import isToday from 'date-fns/isToday'
-import FormField from "../../common/form/FormField"
-import useCompetitorSaving from "./useCompetitorSaving"
-import { resolveClubTitle } from "../../util/clubUtil"
-import useTranslation from "../../util/useTranslation"
-import Button from "../../common/Button"
-import FormErrors from "../../common/form/FormErrors"
-import Dialog from "../../common/form/Dialog"
-import Select from "../../common/form/Select"
-import { buildOfficialCompetitorEditPath, buildOfficialRaceQuickSavesPath } from "../../util/routeUtil"
-import { findSeriesById } from "../../util/seriesUtil"
-import ThreeSportResultFields from "./ThreeSportResultFields"
-import ShootingRaceShotFields from "./ShootingRaceShotFields"
-import NordicShotFields from "./NordicShotFields"
-import EuropeanShotFields from "./EuropeanShotFields"
+import FormField from '../../common/form/FormField'
+import useCompetitorSaving from './useCompetitorSaving'
+import { resolveClubTitle } from '../../util/clubUtil'
+import useTranslation from '../../util/useTranslation'
+import Button from '../../common/Button'
+import FormErrors from '../../common/form/FormErrors'
+import Dialog from '../../common/form/Dialog'
+import Select from '../../common/form/Select'
+import { buildOfficialCompetitorEditPath, buildOfficialRaceQuickSavesPath } from '../../util/routeUtil'
+import { findSeriesById } from '../../util/seriesUtil'
+import ThreeSportResultFields from './ThreeSportResultFields'
+import ShootingRaceShotFields from './ShootingRaceShotFields'
+import NordicShotFields from './NordicShotFields'
+import EuropeanShotFields from './EuropeanShotFields'
 
 const teamNameHelpDialogId = 'team_name_help_dialog'
 
 const renderTeamNameHelpDialog = () => (
   <Dialog id={teamNameHelpDialogId} title="Joukkueen nimi">
-    Jos kilpailija osallistuu joukkuekilpailuun, jossa joukkueita ei muodosteta seuran nimen perusteella,
-    syötä tähän kenttään kilpailijan joukkueen nimi. Muussa tapauksessa jätä kenttä tyhjäksi.
+    Jos kilpailija osallistuu joukkuekilpailuun, jossa joukkueita ei muodosteta seuran nimen perusteella, syötä tähän
+    kenttään kilpailijan joukkueen nimi. Muussa tapauksessa jätä kenttä tyhjäksi.
   </Dialog>
 )
 
@@ -46,11 +46,7 @@ const newUserFields = [
   { key: 'finalRoundTrackPlace', number: true },
 ]
 
-const commonEditFields = [
-  ...commonFields,
-  { key: 'shootingRulesPenalty', number: true },
-  { key: 'noResultReason' },
-]
+const commonEditFields = [...commonFields, { key: 'shootingRulesPenalty', number: true }, { key: 'noResultReason' }]
 
 const threeSportEditFields = [
   ...commonEditFields,
@@ -141,14 +137,19 @@ const europeanShotFields = [
   'europeanCompakShots',
   'europeanCompakShots2',
   'europeanRifleExtraShots',
-].concat([1, 2, 3, 4].map(n => [`europeanRifle${n}Shots`, `europeanRifle${n}Shots2`])).flat()
+]
+  .concat([1, 2, 3, 4].map((n) => [`europeanRifle${n}Shots`, `europeanRifle${n}Shots2`]))
+  .flat()
 
 const shotFieldsToBody = (shotFields, data, clubName) => {
-  const body = shotFields.reduce((acc, field) => {
-    acc.competitor[field] = undefined
-    acc[field] = data[field]
-    return acc
-  }, { clubName, competitor: {...data} })
+  const body = shotFields.reduce(
+    (acc, field) => {
+      acc.competitor[field] = undefined
+      acc[field] = data[field]
+      return acc
+    },
+    { clubName, competitor: { ...data } },
+  )
   if (!body.competitor.clubId) {
     body.competitor.clubId = undefined
   }
@@ -166,17 +167,17 @@ const resolveFields = (sport, editing) => {
   return threeSportEditFields
 }
 
-const competitorsOnlyToAgeGroups = series => series.name.match(/^S\d\d?$/)
+const competitorsOnlyToAgeGroups = (series) => series.name.match(/^S\d\d?$/)
 
-const isTodayOrAfter = startDate => isToday(new Date(startDate)) || isAfter(new Date(), new Date(startDate))
+const isTodayOrAfter = (startDate) => isToday(new Date(startDate)) || isAfter(new Date(), new Date(startDate))
 
 const NoResultReasonOption = ({ data, onChange, option }) => {
   const { t } = useTranslation()
   const { noResultReason } = data
   return (
     <>
-      <input type="radio" value={option} checked={noResultReason === option} onChange={onChange('noResultReason')} />
-      {' '}{t(`noResultReason_${option}`)}
+      <input type="radio" value={option} checked={noResultReason === option} onChange={onChange('noResultReason')} />{' '}
+      {t(`noResultReason_${option}`)}
     </>
   )
 }
@@ -189,51 +190,68 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
   const fieldsRef = useRef(resolveFields(race.sport, editing))
   const formRef = useRef()
 
-  const buildBody = useCallback((_, data) => {
-    if (race.sport.nordic) {
-      return shotFieldsToBody(nordicShotFields, data, clubName)
-    } else if (race.sport.european) {
-      return shotFieldsToBody(europeanShotFields, data, clubName)
-    } else if (race.sport.shooting) {
-      return shotFieldsToBody(['shots', 'extraShots'], data, clubName)
-    }
-    const series = findSeriesById(availableSeries, data.seriesId)
-    const body = shotFieldsToBody(['shots', 'extraShots'], data, clubName)
-    if (!series.hasStartList) {
-      body.competitor.number = undefined
-      body.competitor.startTime = undefined
-    }
-    if (!body.competitor.clubId) {
-      body.competitor.clubId = undefined
-    }
-    return body
-  }, [race, availableSeries, clubName])
+  const buildBody = useCallback(
+    (_, data) => {
+      if (race.sport.nordic) {
+        return shotFieldsToBody(nordicShotFields, data, clubName)
+      } else if (race.sport.european) {
+        return shotFieldsToBody(europeanShotFields, data, clubName)
+      } else if (race.sport.shooting) {
+        return shotFieldsToBody(['shots', 'extraShots'], data, clubName)
+      }
+      const series = findSeriesById(availableSeries, data.seriesId)
+      const body = shotFieldsToBody(['shots', 'extraShots'], data, clubName)
+      if (!series.hasStartList) {
+        body.competitor.number = undefined
+        body.competitor.startTime = undefined
+      }
+      if (!body.competitor.clubId) {
+        body.competitor.clubId = undefined
+      }
+      return body
+    },
+    [race, availableSeries, clubName],
+  )
 
-  const handleSave = useCallback(competitor => {
-    if (actionAfterSaveRef.current === 'toEdit') {
-      window.location.href = buildOfficialCompetitorEditPath(race.id, competitor.seriesId, competitor.id)
-    } else if (actionAfterSaveRef.current === 'toQuickSave') {
-      window.location.href = buildOfficialRaceQuickSavesPath(race.id)
-    } else {
-      setClubName('')
-      onSave(competitor)
-    }
-  }, [race, onSave])
+  const handleSave = useCallback(
+    (competitor) => {
+      if (actionAfterSaveRef.current === 'toEdit') {
+        window.location.href = buildOfficialCompetitorEditPath(race.id, competitor.seriesId, competitor.id)
+      } else if (actionAfterSaveRef.current === 'toQuickSave') {
+        window.location.href = buildOfficialRaceQuickSavesPath(race.id)
+      } else {
+        setClubName('')
+        onSave(competitor)
+      }
+    },
+    [race, onSave],
+  )
 
-  const { data, errors, onChange, onChangeShot, onSubmit, saving }
-    = useCompetitorSaving(race.id, initialCompetitor, fieldsRef.current, buildBody, handleSave)
+  const { data, errors, onChange, onChangeShot, onSubmit, saving } = useCompetitorSaving(
+    race.id,
+    initialCompetitor,
+    fieldsRef.current,
+    buildBody,
+    handleSave,
+  )
 
-  const handleSeriesChange = useCallback(event => {
-    onChange('seriesId')(event)
-    onSeriesChange(parseInt(event.target.value))
-  }, [onChange, onSeriesChange])
+  const handleSeriesChange = useCallback(
+    (event) => {
+      onChange('seriesId')(event)
+      onSeriesChange(parseInt(event.target.value))
+    },
+    [onChange, onSeriesChange],
+  )
 
   const series = useMemo(() => findSeriesById(availableSeries, data.seriesId), [availableSeries, data.seriesId])
 
-  const submit = useCallback(action => event => {
-    actionAfterSaveRef.current = action
-    onSubmit(event)
-  }, [onSubmit])
+  const submit = useCallback(
+    (action) => (event) => {
+      actionAfterSaveRef.current = action
+      onSubmit(event)
+    },
+    [onSubmit],
+  )
 
   useEffect(() => {
     if (errors && errors.length > 0) formRef.current.scrollIntoView({ behavior: 'smooth' })
@@ -276,7 +294,7 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
   }
 
   const ageGroupLabel = t(race.sport.shooting ? 'ageGroupShooting' : 'ageGroup')
-  const clubLabel = resolveClubTitle(t, race.clubLevel )
+  const clubLabel = resolveClubTitle(t, race.clubLevel)
   return (
     <form className="form" onSubmit={onSubmit} ref={formRef}>
       <FormErrors errors={errors} />
@@ -320,7 +338,7 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
             <input
               id="club_name"
               value={clubName}
-              onChange={e => setClubName(e.target.value)}
+              onChange={(e) => setClubName(e.target.value)}
               placeholder={t('newClub', { clubLabel: clubLabel.toLowerCase() })}
             />
           )}
@@ -339,7 +357,7 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
       )}
       {(race.sport.shooting || series.hasStartList) && (
         <FormField id="number" size="sm">
-          <input id="number" type="number" min={0} value={data.number || ''} onChange={onChange('number')}/>
+          <input id="number" type="number" min={0} value={data.number || ''} onChange={onChange('number')} />
         </FormField>
       )}
       {!race.sport.shooting && series.hasStartList && (
@@ -431,10 +449,14 @@ const CompetitorForm = ({ race, availableSeries, competitor: initialCompetitor, 
         </FormField>
       )}
       <div className="form__buttons">
-        <Button submit={true} type="primary" disabled={saving}>{t('save')}</Button>
+        <Button submit={true} type="primary" disabled={saving}>
+          {t('save')}
+        </Button>
         {!editing && isTodayOrAfter(race.startDate) && (
           <>
-            <Button onClick={submit('toEdit')} type="primary" disabled={saving}>{t('saveAndShowCompetitor')}</Button>
+            <Button onClick={submit('toEdit')} type="primary" disabled={saving}>
+              {t('saveAndShowCompetitor')}
+            </Button>
             {!race.sport.nordic && !race.sport.european && (
               <Button onClick={submit('toQuickSave')} type="primary" disabled={saving}>
                 {t('saveAndToQuickSave')}

@@ -13,12 +13,14 @@ export default function RelayCorrectDistances({ relay }) {
     <>
       <h3>{t('correctDistances')}</h3>
       <div className="row">
-        {correctDistances.map(cd => {
+        {correctDistances.map((cd) => {
           return (
             <div key={cd.leg} className="col-xs-6 col-sm-3 col-md-2">
               <div className="card">
                 <div className="card__middle">
-                  <div className="card__name">{t('leg')} {cd.leg}</div>
+                  <div className="card__name">
+                    {t('leg')} {cd.leg}
+                  </div>
                   <div className="card__middle-row">{cd.distance} m</div>
                 </div>
               </div>

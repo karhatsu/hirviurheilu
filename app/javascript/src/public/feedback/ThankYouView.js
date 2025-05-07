@@ -10,7 +10,9 @@ export default function ThankYouView() {
       <h2>{t('feedbackThankYou')}</h2>
       <Message type="info">{t('feedbackSentInfo')}</Message>
       <div className="buttons buttons--nav">
-        <Button to={buildRootPath()} type="back">{t('backToHomePage')}</Button>
+        <Button to={buildRootPath()} type="back">
+          {t('backToHomePage')}
+        </Button>
       </div>
     </div>
   )

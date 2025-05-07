@@ -1,6 +1,12 @@
 body {
   background-color: rgb(162, 160, 86);
-  background: linear-gradient(to right, rgba(128, 128, 0, 0.4), rgba(128, 128, 0, 0.6), rgba(128, 128, 0, 0.4), rgba(128, 128, 0, 0.7));
+  background: linear-gradient(
+    to right,
+    rgba(128, 128, 0, 0.4),
+    rgba(128, 128, 0, 0.6),
+    rgba(128, 128, 0, 0.4),
+    rgba(128, 128, 0, 0.7)
+  );
   font-family: 'Muli', sans-serif;
   font-size: 16px;
   margin: 0;

@@ -6,7 +6,7 @@ export default function TeamCompetitionDesktopSubMenu({ currentTeamCompetitionId
   const buildPath = rifle ? buildRifleTeamCompetitionsPath : buildTeamCompetitionsPath
   return (
     <div className="menu menu--sub menu--sub-2">
-      {race.teamCompetitions.map(teamCompetition => {
+      {race.teamCompetitions.map((teamCompetition) => {
         const { id, name } = teamCompetition
         const selected = parseInt(currentTeamCompetitionId) === id
         const path = buildPath(race.id, id)

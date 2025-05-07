@@ -1,10 +1,14 @@
 const estimateDiffs = (competitor, series) => {
   const { estimates, correctDistances } = competitor
-  return estimates.map((estimate, i) => {
-    if (!correctDistances[i]) return undefined
-    const diff = estimate - correctDistances[i]
-    return diff > 0 ? `+${diff}m` : `${diff}m`
-  }).filter(e => e).splice(0, series.estimates).join(' / ')
+  return estimates
+    .map((estimate, i) => {
+      if (!correctDistances[i]) return undefined
+      const diff = estimate - correctDistances[i]
+      return diff > 0 ? `+${diff}m` : `${diff}m`
+    })
+    .filter((e) => e)
+    .splice(0, series.estimates)
+    .join(' / ')
 }
 
 export default function EstimatePoints({ competitor, race, series }) {

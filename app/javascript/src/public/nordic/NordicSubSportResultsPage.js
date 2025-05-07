@@ -12,7 +12,7 @@ import NordicSubSportMobileResults from './NordicSubSportMobileResults'
 import NordicSubSportMobileSubMenu from './NordicSubSportMobileSubMenu'
 import useRaceData from '../../util/useRaceData'
 import IncompletePage from '../../common/IncompletePage'
-import { findSeriesById } from "../../util/seriesUtil"
+import { findSeriesById } from '../../util/seriesUtil'
 
 export default function NordicSubSportResultsPage() {
   const { t } = useTranslation()
@@ -20,11 +20,14 @@ export default function NordicSubSportResultsPage() {
   const { subSport } = useParams()
   const seriesId = parseInt(useParams().seriesId)
   const { mobile } = useLayout()
-  const buildApiPath = useCallback(raceId => {
-    return seriesId
-      ? `/api/v2/public/races/${raceId}/series/${seriesId}/${subSport}`
-      : `/api/v2/public/races/${raceId}/${subSport}`
-  }, [seriesId, subSport])
+  const buildApiPath = useCallback(
+    (raceId) => {
+      return seriesId
+        ? `/api/v2/public/races/${raceId}/series/${seriesId}/${subSport}`
+        : `/api/v2/public/races/${raceId}/${subSport}`
+    },
+    [seriesId, subSport],
+  )
   const { error, fetching, race, raceData: results } = useRaceData(buildApiPath)
 
   const titleSeries = race && seriesId && findSeriesById(race.series, seriesId)
@@ -55,7 +58,9 @@ export default function NordicSubSportResultsPage() {
         </div>
       </ResultsWithShots>
       <div className="buttons buttons--nav">
-        <Button to={buildRacePath(race.id)} type="back">{t('backToPage', { pageName: race.name })}</Button>
+        <Button to={buildRacePath(race.id)} type="back">
+          {t('backToPage', { pageName: race.name })}
+        </Button>
       </div>
     </>
   )

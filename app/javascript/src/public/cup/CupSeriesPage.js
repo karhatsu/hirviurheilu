@@ -28,8 +28,9 @@ export default function CupSeriesPage() {
     setSelectedPage(rifleCupSeriesId ? pages.cup.rifleResults : pages.cup.results)
   }, [setSelectedPage, rifleCupSeriesId])
 
-  const titleCupSeries = (cupSeries?.id === cupSeriesId && cupSeries) ||
-    (cup && cup.cupSeries.find(cs => cs.id === cupSeriesId || cs.id === rifleCupSeriesId))
+  const titleCupSeries =
+    (cupSeries?.id === cupSeriesId && cupSeries) ||
+    (cup && cup.cupSeries.find((cs) => cs.id === cupSeriesId || cs.id === rifleCupSeriesId))
   const title = cup && titleCupSeries ? `${titleCupSeries.name} - ${t('results')}` : t('results')
   useTitle(cup && [title, cup.name])
 
@@ -45,7 +46,9 @@ export default function CupSeriesPage() {
     : buildCupSeriesPath(cup.id, cupSeries.id)
   return (
     <>
-      <h2><CupSeriesName cupSeries={titleCupSeries} /> - {t('results')}</h2>
+      <h2>
+        <CupSeriesName cupSeries={titleCupSeries} /> - {t('results')}
+      </h2>
       {!cupCompetitors.length && <Message type="info">{t('seriesNoCompetitors')}</Message>}
       {cupCompetitors.length > 0 && (
         <>
@@ -57,8 +60,12 @@ export default function CupSeriesPage() {
             </div>
           )}
           <div className="buttons">
-            <Button href={`${filePath}.pdf`} type="pdf">{t('downloadResultsPdf')}</Button>
-            <Button href={`${filePath}.csv`} type="csv">{t('downloadResultsCsv')}</Button>
+            <Button href={`${filePath}.pdf`} type="pdf">
+              {t('downloadResultsPdf')}
+            </Button>
+            <Button href={`${filePath}.csv`} type="csv">
+              {t('downloadResultsCsv')}
+            </Button>
           </div>
         </>
       )}
@@ -69,7 +76,9 @@ export default function CupSeriesPage() {
         parentId={cup.id}
       />
       <div className="buttons buttons--nav">
-        <Button to={buildCupPath(cup.id)} type="back">{t('backToCupHomePage')}</Button>
+        <Button to={buildCupPath(cup.id)} type="back">
+          {t('backToCupHomePage')}
+        </Button>
       </div>
     </>
   )

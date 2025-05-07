@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 window.officialTranslations = {
   add: 'Lägg till',
   addCompetitorsFromCsvFile: 'Lägg till tävlande från CSV-fil',
@@ -13,14 +12,17 @@ window.officialTranslations = {
   backToOfficialRacePage: 'Tillbaka till sammanfattningnssidan',
   backToOfficialSeriesPage: 'Tillbaka till klassens {{seriesName}} tävlandelist',
   cancel: 'Avbryt',
-  clubsPageInfo: 'På den här sidan kan du lägga till klubbar och radera onödiga. Obs! Du kan också lägga till klubbar när du lägger till tävlande.',
+  clubsPageInfo:
+    'På den här sidan kan du lägga till klubbar och radera onödiga. Obs! Du kan också lägga till klubbar när du lägger till tävlande.',
   clubsPageCompetitorsCount: '{{count}} tävlande',
   clubsLongNameInfo: 'Används i lagtävlingar om det anges',
   competitorNumbersSync: 'Synkronisera nummer',
-  competitorNumbersSyncConfirm: 'Jag förstår att funktionen ändrar tävlandes nummer i tävlingarna nedan och att det gamla läget inte kan återställas',
+  competitorNumbersSyncConfirm:
+    'Jag förstår att funktionen ändrar tävlandes nummer i tävlingarna nedan och att det gamla läget inte kan återställas',
   competitorNumbersSyncDone: 'Tävlingsnummer synkroniserade',
   competitorNumbersSyncInfo: 'På den här sidan kan du synkronisera tävlingsnummer inom evenemanget.',
-  competitorNumbersSyncInvalidRaces: 'Funktionen är inte tillgänglig för evenemang som innehåller älgskidskytte eller älglöpning',
+  competitorNumbersSyncInvalidRaces:
+    'Funktionen är inte tillgänglig för evenemang som innehåller älgskidskytte eller älglöpning',
   competitorNumbersSyncRaceStarted: 'Funktionen kan inte längre användas eftersom tävlingarna har startat.',
   deleteCompetitor: 'Radera tävlande',
   deleteCompetitorConfirmation: 'Är du säker att du vill radera tävlande?',
@@ -57,7 +59,8 @@ window.officialTranslations = {
   eventPrintCompetitorType_list: 'Lista',
   eventPrintCompetitorWithRaces: 'Inkludera grenerna och klasserna',
   eventRaces: 'Tävlingarna som hör till evenemanget',
-  eventsAtLeastTwoRaces: 'Du måste ha minst två tävlingar för att kunna skapa ett evenemang. En tävling kan endast höra till ett evenemang.',
+  eventsAtLeastTwoRaces:
+    'Du måste ha minst två tävlingar för att kunna skapa ett evenemang. En tävling kan endast höra till ett evenemang.',
   eventsNew: 'Nytt evenemang',
   extraShots: 'Omskjutning',
   firstName: 'Förnamn',
@@ -90,7 +93,8 @@ window.officialTranslations = {
   officialEventMenuHome: 'Sammanfattning',
   officialEventMenuPrints: 'Utskrift',
   officialEventMenuSyncNumbers: 'Synkronisera nummer',
-  officialPageAddManyDescription: 'På den här sidan kan du bjuda in flera funktionärer samtidigt. Lista funktionärernas e-postadresser och om du vill ge dem begränsade rättigheter, lägg till distrikt / förening efter exemplet nedan. Personerna måste vara registrerade i tjänsten med sina egna e-postadresser.',
+  officialPageAddManyDescription:
+    'På den här sidan kan du bjuda in flera funktionärer samtidigt. Lista funktionärernas e-postadresser och om du vill ge dem begränsade rättigheter, lägg till distrikt / förening efter exemplet nedan. Personerna måste vara registrerade i tjänsten med sina egna e-postadresser.',
   officialPageAddManyTitle: 'Bjud in flera funktionärer till tävlingens funktionärer',
   officialPageAllCurrent: 'Alla aktuella',
   officialPageAllowAddingClubs: 'Tillåt att lägga till nya trakt/klubbar',
@@ -99,7 +103,8 @@ window.officialTranslations = {
   officialPageCancelInvitation: 'Avbryt inbjudan',
   officialPageCannotLimitUsagePre: 'Användningen kan inte begränsas eftersom',
   officialPageCannotLimitUsagePost: 'ingen trakt/klubb har lagts till',
-  officialPageDeleteRightsConfirmation: 'Vill du verkligen ta bort användarens funktionärsrättigheter för denna tävling?',
+  officialPageDeleteRightsConfirmation:
+    'Vill du verkligen ta bort användarens funktionärsrättigheter för denna tävling?',
   officialPageEmailsAndClubs: 'E-postadresser och eventuella trakt/klubbar',
   officialPageFullRights: 'Fullständiga rättigheter',
   officialPageInvite: 'Bjud in en annan person som funktionär till denna tävling',
@@ -143,7 +148,8 @@ window.officialTranslations = {
   noCompetitorsInRace: 'Du har sparat inga tävlande för tävlingen.',
   noCompetitorsInSeries: 'Du har sparat inga tävlande för den här klassen.',
   noHeats: 'Det finns inga heat',
-  noStartListForSeries: 'Den här klassen har inte ännu startlista. Du kan spara resultat efter startlistan har skapats.',
+  noStartListForSeries:
+    'Den här klassen har inte ännu startlista. Du kan spara resultat efter startlistan har skapats.',
   number: 'Nummer',
   recentlyAddedCompetitors: 'Senaste ökade tävlande',
   save: 'Spara',

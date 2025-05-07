@@ -7,13 +7,15 @@ export const ShowShotsContext = createContext(false)
 export default function ResultsWithShots({ children, competitors }) {
   const [showShots, setShowShots] = useState()
   const { t } = useTranslation()
-  const toggleShots = useCallback(() => setShowShots(show => !show), [])
-  const showShotsButton = !!competitors.find(c => c.hasShots)
+  const toggleShots = useCallback(() => setShowShots((show) => !show), [])
+  const showShotsButton = !!competitors.find((c) => c.hasShots)
   return (
     <ShowShotsContext value={showShots}>
       {showShotsButton && (
         <div className="buttons">
-          <Button id="shots_button" onClick={toggleShots}>{t(showShots ? 'hideShots' : 'showShots')}</Button>
+          <Button id="shots_button" onClick={toggleShots}>
+            {t(showShots ? 'hideShots' : 'showShots')}
+          </Button>
         </div>
       )}
       {children}

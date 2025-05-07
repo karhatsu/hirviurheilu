@@ -23,24 +23,30 @@ const OfficialForm = ({ official, onSave, onCancel, buttonLabel }) => {
     }
   }, [race])
 
-  const setValue = useCallback((key, checkbox) => event => {
-    const value = checkbox ? event.target.checked : event.target.value
-    setData(prev => {
-      const newData = { ...prev, [key]: value }
-      if (key === 'onlyAddCompetitors' && !value) {
-        newData.newClubs = false
-        newData.clubId = null
-      } else if (key === 'newClubs' && value) {
-        newData.clubId = null
-      }
-      return newData
-    })
-  }, [])
+  const setValue = useCallback(
+    (key, checkbox) => (event) => {
+      const value = checkbox ? event.target.checked : event.target.value
+      setData((prev) => {
+        const newData = { ...prev, [key]: value }
+        if (key === 'onlyAddCompetitors' && !value) {
+          newData.newClubs = false
+          newData.clubId = null
+        } else if (key === 'newClubs' && value) {
+          newData.clubId = null
+        }
+        return newData
+      })
+    },
+    [],
+  )
 
-  const onSubmit = useCallback(event => {
-    event.preventDefault()
-    onSave(data)
-  }, [onSave, data])
+  const onSubmit = useCallback(
+    (event) => {
+      event.preventDefault()
+      onSave(data)
+    },
+    [onSave, data],
+  )
 
   return (
     <div>
@@ -77,7 +83,11 @@ const OfficialForm = ({ official, onSave, onCancel, buttonLabel }) => {
                   {clubs.length > 0 && (
                     <select id="clubId" value={data.clubId || ''} onChange={setValue('clubId')}>
                       <option>{t('officialPageNoLimitation')}</option>
-                      {clubs.map(club => <option key={club.id} value={club.id}>{club.name}</option>)}
+                      {clubs.map((club) => (
+                        <option key={club.id} value={club.id}>
+                          {club.name}
+                        </option>
+                      ))}
                     </select>
                   )}
                 </div>
@@ -86,11 +96,15 @@ const OfficialForm = ({ official, onSave, onCancel, buttonLabel }) => {
           </>
         )}
         <div className="form__buttons">
-          <Button submit={true} type="primary">{buttonLabel}</Button>
+          <Button submit={true} type="primary">
+            {buttonLabel}
+          </Button>
         </div>
       </form>
       <div className="buttons buttons--nav">
-        <Button onClick={onCancel} type="back">{t('cancel')}</Button>
+        <Button onClick={onCancel} type="back">
+          {t('cancel')}
+        </Button>
       </div>
     </div>
   )

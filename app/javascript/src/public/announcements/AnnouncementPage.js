@@ -30,7 +30,9 @@ export default function AnnouncementPage() {
     <>
       <Announcement announcement={announcement} />
       <div className="buttons buttons--nav">
-        <Button to={buildRootPath()} type="back">{t('backToHomePage')}</Button>
+        <Button to={buildRootPath()} type="back">
+          {t('backToHomePage')}
+        </Button>
         <Button to={buildAnnouncementsPath()}>{t('allAnnouncements')}</Button>
       </div>
     </>

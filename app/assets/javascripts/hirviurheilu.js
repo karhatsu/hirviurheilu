@@ -10,12 +10,17 @@ function remove_fields(link, hide_class, removal_question) {
     if (hidden_field) {
       hidden_field.value = '1'
     }
-    jQuery(link).closest('.' + hide_class).hide()
+    jQuery(link)
+      .closest('.' + hide_class)
+      .hide()
   }
 }
 
 function updateInlineMessage(locator, type, text) {
-  $(locator).removeClass().addClass('message message--inline message--' + type).text(text)
+  $(locator)
+    .removeClass()
+    .addClass('message message--inline message--' + type)
+    .text(text)
 }
 
 function resetInlineMessage(locator) {

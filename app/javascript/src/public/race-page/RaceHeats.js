@@ -12,10 +12,14 @@ export default function RaceHeats({ race }) {
       <h2>{t('heatList')}</h2>
       <div className="buttons" id="heat-links">
         {qualificationRoundHeats.length > 0 && (
-          <Button to={buildQualificationRoundHeatsPath(race.id)} type="primary">{qrText}</Button>
+          <Button to={buildQualificationRoundHeatsPath(race.id)} type="primary">
+            {qrText}
+          </Button>
         )}
         {finalRoundHeats.length > 0 && (
-          <Button to={buildFinalRoundHeatsPath(race.id)} type="primary">{t('finalRoundHeatList')}</Button>
+          <Button to={buildFinalRoundHeatsPath(race.id)} type="primary">
+            {t('finalRoundHeatList')}
+          </Button>
         )}
       </div>
     </>

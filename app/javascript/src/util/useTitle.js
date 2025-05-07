@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import useAppData from './useAppData'
 import useTranslation from './useTranslation'
 
-const buildTitle = stringOrArray => {
+const buildTitle = (stringOrArray) => {
   if (Array.isArray(stringOrArray)) {
     return stringOrArray.concat('Hirviurheilu').join(' - ')
   } else if (stringOrArray.indexOf('Hirviurheilu') === 0) {
@@ -28,9 +28,7 @@ const buildEventJson = (race, t) => ({
       addressCountry: 'FI',
     },
   },
-  image: [
-    'https://www.hirviurheilu.com/logo-1024.png',
-  ],
+  image: ['https://www.hirviurheilu.com/logo-1024.png'],
   description: t(`sport_${race.sportKey}`),
   organizer: {
     '@type': 'Organization',

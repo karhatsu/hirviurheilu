@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 window.translations = {
   account: 'Omat tiedot',
   ageGroupShorterTrip: 'Ikäryhmällä {{ageGroups}} on lyhennetty matka',
@@ -45,7 +44,8 @@ window.translations = {
   cupHome: 'Cup-kilpailun etusivu',
   cupPointsRule: 'Yhteispisteet lasketaan {{bestCompetitionsCount}} parhaan tuloksen perusteella',
   cupPointsRuleTitle: 'Pistelaskenta',
-  cupPointsRuleWithLast: 'Yhteispisteet lasketaan viimeisen kilpailun sekä muista kilpailuista {{bestCompetitionsCount}} parhaan tuloksen perusteella',
+  cupPointsRuleWithLast:
+    'Yhteispisteet lasketaan viimeisen kilpailun sekä muista kilpailuista {{bestCompetitionsCount}} parhaan tuloksen perusteella',
   cupPublicMessage: ' Cup-kilpailun järjestäjä tiedottaa',
   cups: 'Cup-kilpailut',
   district: 'Piiri',
@@ -75,7 +75,8 @@ window.translations = {
   eventOtherRaces: 'Tapahtuman muut kilpailut',
   extraRound: 'Uusinta',
   feedback: 'Palaute',
-  feedbackRaceInfo: 'Mikäli haluat lähettää palautetta tietyn kilpailun järjestäjälle, valitse kilpailu Palautteen kohde -valikosta',
+  feedbackRaceInfo:
+    'Mikäli haluat lähettää palautetta tietyn kilpailun järjestäjälle, valitse kilpailu Palautteen kohde -valikosta',
   feedbackReceiver: 'Palautteen kohde',
   feedbackReceiverCommon: 'Yleinen Hirviurheilu-palaute',
   feedbackSentInfo: 'Jos jätit yhteystietosi, otamme sinuun yhteyttä mahdollisimman pian',
@@ -101,7 +102,8 @@ window.translations = {
   name: 'Nimi',
   navigate: 'Sijainti kartalla',
   noCompetitors: 'Ei kilpailijoita',
-  noCompetitorsOrStartTimes: 'Tähän sarjaan ei ole lisätty kilpailijoita tai heille ei ole määritetty vielä lähtöaikoja.',
+  noCompetitorsOrStartTimes:
+    'Tähän sarjaan ei ole lisätty kilpailijoita tai heille ei ole määritetty vielä lähtöaikoja.',
   noCupSeries: 'Cup-sarjoja ei ole vielä määritetty',
   nordic_rifle_moving: 'Hirvi',
   nordic_rifle_standing: 'Kauris',
@@ -122,7 +124,8 @@ window.translations = {
   points: 'Pisteet',
   press: 'Lehdistö',
   pressInfoUnfinishedRace: 'Tältä sivulta voit ladata lehdistöraportin, kun kilpailu on päättynyt',
-  pressReportInstructions: 'Maalaa alla oleva tulosraportti ja kopioi se esimerkiksi sähköpostiisi tai vaikkapa tekstinkäsittelyohjelmaan jatkokäsittelyä varten',
+  pressReportInstructions:
+    'Maalaa alla oleva tulosraportti ja kopioi se esimerkiksi sähköpostiisi tai vaikkapa tekstinkäsittelyohjelmaan jatkokäsittelyä varten',
   prices: 'Hinnat',
   qAndA: 'Kysymyksiä ja vastauksia',
   qualificationRound: 'Alkukilpailu',
@@ -157,8 +160,10 @@ window.translations = {
   raceWithoutSeries: 'Kilpailuun ei ole vielä lisätty sarjoja',
   relay: 'Viesti',
   relayNotStarted: 'Viesti ei ole vielä alkanut',
-  relayPenaltySeconds_RUN: 'Sakkoja ei juosta vaan ne lisätään aikaan. Arviointi: {{estimatePenaltySeconds}} s/sakko. Ammunta: {{shootingPenaltySeconds}} s/sakko.',
-  relayPenaltySeconds_SKI: 'Sakkoja ei hiihdetä vaan ne lisätään aikaan. Arviointi: {{estimatePenaltySeconds}} s/sakko. Ammunta: {{shootingPenaltySeconds}} s/sakko.',
+  relayPenaltySeconds_RUN:
+    'Sakkoja ei juosta vaan ne lisätään aikaan. Arviointi: {{estimatePenaltySeconds}} s/sakko. Ammunta: {{shootingPenaltySeconds}} s/sakko.',
+  relayPenaltySeconds_SKI:
+    'Sakkoja ei hiihdetä vaan ne lisätään aikaan. Arviointi: {{estimatePenaltySeconds}} s/sakko. Ammunta: {{shootingPenaltySeconds}} s/sakko.',
   relays: 'Viestit',
   relayStartTime: 'Viestin lähtöaika: {{time}}',
   relayWithoutStartTime: 'Viestin lähtöaikaa ei ole vielä päätetty',
@@ -167,7 +172,8 @@ window.translations = {
   result: 'Tulos',
   resultRotation: 'Tuloskehä',
   resultRotationAutoScroll: 'Vieritä sivua automaattisesti',
-  resultRotationInfo: 'Valitse vähintään kaksi sarjaa ja käynnistä tuloskehä. Kun haluat sammuttaa tuloskehän, palaa takaisin tälle sivulle.',
+  resultRotationInfo:
+    'Valitse vähintään kaksi sarjaa ja käynnistä tuloskehä. Kun haluat sammuttaa tuloskehän, palaa takaisin tälle sivulle.',
   resultRotationSettings: 'Asetukset',
   resultRotationStart: 'Käynnistä tuloskehä',
   resultRotationStop: 'Sammuta tuloskehä',

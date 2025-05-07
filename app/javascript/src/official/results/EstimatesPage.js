@@ -1,15 +1,15 @@
-import { useEffect } from "react"
-import Button from "../../common/Button"
-import IncompletePage from "../../common/IncompletePage"
-import useTranslation from "../../util/useTranslation"
-import useOfficialMenu from "../menu/useOfficialMenu"
-import { useRace } from "../../util/useRace"
-import useOfficialSeries from "./useOfficialSeries"
-import ResultPage from "./ResultPage"
-import useCompetitorSaving from "../competitors/useCompetitorSaving"
-import ResultRow from "./ResultRow"
-import { useParams } from "react-router"
-import useTitle from "../../util/useTitle"
+import { useEffect } from 'react'
+import Button from '../../common/Button'
+import IncompletePage from '../../common/IncompletePage'
+import useTranslation from '../../util/useTranslation'
+import useOfficialMenu from '../menu/useOfficialMenu'
+import { useRace } from '../../util/useRace'
+import useOfficialSeries from './useOfficialSeries'
+import ResultPage from './ResultPage'
+import useCompetitorSaving from '../competitors/useCompetitorSaving'
+import ResultRow from './ResultRow'
+import { useParams } from 'react-router'
+import useTitle from '../../util/useTitle'
 
 const EstimateField = ({ number, value, onChange }) => {
   return (
@@ -29,7 +29,7 @@ const EstimateField = ({ number, value, onChange }) => {
   )
 }
 
-const fields = ['estimate1', 'estimate2', 'estimate3', 'estimate4'].map(key => ({ key, number: true }))
+const fields = ['estimate1', 'estimate2', 'estimate3', 'estimate4'].map((key) => ({ key, number: true }))
 
 const buildBody = (competitor, data) => ({
   noTimes: true,
@@ -45,16 +45,12 @@ const buildBody = (competitor, data) => ({
 const EstimatesForm = ({ competitor: initialCompetitor, fourEstimates }) => {
   const { t } = useTranslation()
   const { raceId } = useParams()
-  const {
-    changed,
-    competitor,
-    data,
-    errors,
-    onChange,
-    onSubmit,
-    saved,
-    saving,
-  } = useCompetitorSaving(raceId, initialCompetitor, fields, buildBody)
+  const { changed, competitor, data, errors, onChange, onSubmit, saved, saving } = useCompetitorSaving(
+    raceId,
+    initialCompetitor,
+    fields,
+    buildBody,
+  )
   const { estimate1, estimate2, estimate3, estimate4 } = data
 
   const { estimatePoints } = competitor
@@ -62,12 +58,14 @@ const EstimatesForm = ({ competitor: initialCompetitor, fourEstimates }) => {
     <ResultRow competitor={competitor} errors={errors} saved={saved} saving={saving} result={estimatePoints}>
       <form className="form form--inline" onSubmit={onSubmit}>
         <div className="form__horizontal-fields">
-          <EstimateField number={1} value={estimate1} onChange={onChange}/>
-          <EstimateField number={2} value={estimate2} onChange={onChange}/>
-          {fourEstimates && <EstimateField number={3} value={estimate3} onChange={onChange}/>}
-          {fourEstimates && <EstimateField number={4} value={estimate4} onChange={onChange}/>}
+          <EstimateField number={1} value={estimate1} onChange={onChange} />
+          <EstimateField number={2} value={estimate2} onChange={onChange} />
+          {fourEstimates && <EstimateField number={3} value={estimate3} onChange={onChange} />}
+          {fourEstimates && <EstimateField number={4} value={estimate4} onChange={onChange} />}
           <div className="form__buttons">
-            <Button submit={true} type="primary" disabled={!changed}>{t('save')}</Button>
+            <Button submit={true} type="primary" disabled={!changed}>
+              {t('save')}
+            </Button>
           </div>
         </div>
       </form>
@@ -96,7 +94,7 @@ const EstimatesPage = () => {
   const competitorClass = `col-xs-12 ${fourEstimates ? 'col-sm-12' : 'col-sm-6'}`
   return (
     <ResultPage competitorClass={competitorClass} race={race} series={series} titleKey={titleKey}>
-      {competitor => <EstimatesForm competitor={competitor} fourEstimates={fourEstimates} />}
+      {(competitor) => <EstimatesForm competitor={competitor} fourEstimates={fourEstimates} />}
     </ResultPage>
   )
 }

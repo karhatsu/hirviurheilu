@@ -9,7 +9,9 @@ export default function DateInterval({ startDate, endDate, withTimeTag }) {
   const end = endDate && startDate !== endDate && format(new Date(endDate), 'dd.MM.yyyy')
   return (
     <>
-      <time itemProp="startDate" dateTime={start}>{start}</time>
+      <time itemProp="startDate" dateTime={start}>
+        {start}
+      </time>
       {end && ` - ${end}`}
     </>
   )

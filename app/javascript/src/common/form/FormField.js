@@ -1,5 +1,5 @@
-import useTranslation from "../../util/useTranslation"
-import { useCallback } from "react"
+import useTranslation from '../../util/useTranslation'
+import { useCallback } from 'react'
 
 const FormField = ({ children, size, id, label, labelId, helpDialogId }) => {
   const { t } = useTranslation()
@@ -18,13 +18,15 @@ const FormField = ({ children, size, id, label, labelId, helpDialogId }) => {
         {helpDialogId ? (
           <div className="form__help-label">
             {renderLabel()}
-            <span className="help" onClick={openHelpDialog}>?</span>
+            <span className="help" onClick={openHelpDialog}>
+              ?
+            </span>
           </div>
-        ) : renderLabel()}
+        ) : (
+          renderLabel()
+        )}
       </div>
-      <div className="col-xs-12 col-sm-9">
-        {children}
-      </div>
+      <div className="col-xs-12 col-sm-9">{children}</div>
     </div>
   )
 }

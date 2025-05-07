@@ -12,11 +12,15 @@ export default function RaceRelays({ race }) {
     <>
       <h2>{t('relays')}</h2>
       <div className="buttons">
-        {relays.map(relay => {
+        {relays.map((relay) => {
           const { id, name, started, startTime } = relay
           const linkText = !started && startTime ? `${name} (${formatTodaysTime(parseISO(startTime))})` : name
           const type = (started || !startTime) && 'primary'
-          return <Button key={id} to={buildRelayPath(race.id, id)} type={type}>{linkText}</Button>
+          return (
+            <Button key={id} to={buildRelayPath(race.id, id)} type={type}>
+              {linkText}
+            </Button>
+          )
         })}
       </div>
     </>

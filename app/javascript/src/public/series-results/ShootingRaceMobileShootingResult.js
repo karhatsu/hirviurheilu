@@ -37,9 +37,10 @@ export default function ShootingRaceMobileShootingResult({ competitor }) {
     <div className="card__middle-row">
       <ShootingResult score={qualificationRoundScore} shots={qualificationRoundShots && qualificationRoundShots[0]} />
       {shootingRulesPenaltyQr && ` - ${shootingRulesPenaltyQr}`}
-      {(finalRoundScore !== null) && (
+      {finalRoundScore !== null && (
         <>
-          {' + '}<ShootingResult score={finalRoundScore} shots={finalRoundShots && finalRoundShots[0]} />
+          {' + '}
+          <ShootingResult score={finalRoundScore} shots={finalRoundShots && finalRoundShots[0]} />
         </>
       )}
       {shootingRulesPenalty && ` - ${shootingRulesPenalty}`}

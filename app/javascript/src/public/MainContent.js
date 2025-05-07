@@ -32,7 +32,9 @@ import EuropeanRifleRaceResultsPage from './european/EuropeanRifleRaceResultsPag
 export default function MainContent() {
   return (
     <div className="body__yield">
-      <div className="body__under-top-title"><PageTitle /></div>
+      <div className="body__under-top-title">
+        <PageTitle />
+      </div>
       <FacebookShare />
       <Routes>
         <Route path="races/*">

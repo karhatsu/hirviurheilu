@@ -8,7 +8,7 @@ import Button from '../../common/Button'
 export default function RelayDesktopResults({ race, relay, teams }) {
   const { t } = useTranslation()
   const [showCompetitors, setShowCompetitors] = useState(false)
-  const toggleCompetitors = useCallback(() => setShowCompetitors(show => !show), [])
+  const toggleCompetitors = useCallback(() => setShowCompetitors((show) => !show), [])
   return (
     <div className="results--desktop">
       <div className="buttons">
@@ -52,38 +52,41 @@ export default function RelayDesktopResults({ race, relay, teams }) {
                   <td className="center">{estimatePenaltiesSum}</td>
                   <td className="center">{shootPenaltiesSum}</td>
                 </tr>
-                {showCompetitors && team.competitors.map(competitor => {
-                  const { estimate, estimatePenalties, firstName, lastName, leg, misses } = competitor
-                  return (
-                    <tr key={leg}>
-                      <td />
-                      <td>{lastName} {firstName}</td>
-                      <td className="center">({leg})</td>
-                      <td className="center">
-                        <RelayTime
-                          timeInSeconds={competitor.cumulativeTime}
-                          timeWithPenalties={competitor.cumulativeTimeWithPenalties}
-                        />
-                        <RelayTimeAdjustment
-                          adjustment={competitor.adjustment}
-                          estimateAdjustment={competitor.estimateAdjustment}
-                          shootingAdjustment={competitor.shootingAdjustment}
-                        />
-                      </td>
-                      <td className="center">
-                        <RelayTime
-                          timeInSeconds={competitor.timeInSeconds}
-                          timeWithPenalties={competitor.timeWithPenalties}
-                        />
-                      </td>
-                      <td className="center">
-                        {estimatePenalties}
-                        {relay.finished && estimate && ` (${estimate}m)`}
-                      </td>
-                      <td className="center">{misses}</td>
-                    </tr>
-                  )
-                })}
+                {showCompetitors &&
+                  team.competitors.map((competitor) => {
+                    const { estimate, estimatePenalties, firstName, lastName, leg, misses } = competitor
+                    return (
+                      <tr key={leg}>
+                        <td />
+                        <td>
+                          {lastName} {firstName}
+                        </td>
+                        <td className="center">({leg})</td>
+                        <td className="center">
+                          <RelayTime
+                            timeInSeconds={competitor.cumulativeTime}
+                            timeWithPenalties={competitor.cumulativeTimeWithPenalties}
+                          />
+                          <RelayTimeAdjustment
+                            adjustment={competitor.adjustment}
+                            estimateAdjustment={competitor.estimateAdjustment}
+                            shootingAdjustment={competitor.shootingAdjustment}
+                          />
+                        </td>
+                        <td className="center">
+                          <RelayTime
+                            timeInSeconds={competitor.timeInSeconds}
+                            timeWithPenalties={competitor.timeWithPenalties}
+                          />
+                        </td>
+                        <td className="center">
+                          {estimatePenalties}
+                          {relay.finished && estimate && ` (${estimate}m)`}
+                        </td>
+                        <td className="center">{misses}</td>
+                      </tr>
+                    )
+                  })}
               </Fragment>
             )
           })}

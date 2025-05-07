@@ -4,14 +4,15 @@
   margin-bottom: 16px;
 
   tr.odd {
-    background-color: #DDEEB5;
+    background-color: #ddeeb5;
   }
 
   th {
     text-align: left;
   }
 
-  th, td {
+  th,
+  td {
     padding: 10px;
   }
 }
@@ -46,11 +47,13 @@
   }
 }
 
-th.shots--visible, td.shots--visible {
+th.shots--visible,
+td.shots--visible {
   display: table-cell;
 }
 
-.team_name, .team_points {
+.team_name,
+.team_points {
   font-weight: bold;
 }
 

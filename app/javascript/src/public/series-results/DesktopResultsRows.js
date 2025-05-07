@@ -15,7 +15,9 @@ export default function DesktopResultsRows({ children, competitors, sortMethod }
         return (
           <tr key={id} className={i % 2 === 0 ? 'odd' : ''} id={`comp_${i + 1}`}>
             <td>{orderNo}</td>
-            <td>{name} <UnofficialLabel unofficial={unofficial} /></td>
+            <td>
+              {name} <UnofficialLabel unofficial={unofficial} />
+            </td>
             <td>{number}</td>
             <td>{club.name}</td>
             {children(competitor)}

@@ -4,24 +4,26 @@ import ClubsPage from './clubs/ClubsPage'
 import MegalinkImportPage from './megalink/MegalinkImportPage'
 import OfficialsPage from './officials/OfficialsPage'
 import CompetitorNumbersSyncPage from './events/CompetitorNumbersSyncPage'
-import NewEventPage from "./events/NewEventPage"
+import NewEventPage from './events/NewEventPage'
 import EventPage from './events/EventPage'
-import EditEventPage from "./events/EditEventPage"
-import EventCompetitorsPage from "./events/EventCompetitorsPage"
-import PrintsPage from "./events/PrintsPage"
-import EstimatesPage from "./results/EstimatesPage"
-import TimesPage from "./results/TimesPage"
-import ShotsPage from "./results/ShotsPage"
-import NordicShotsPage from "./results/NordicShotsPage"
-import EuropeanShotsPage from "./results/EuropeanShotsPage"
-import ShootingByHeatsPage from "./results/ShootingByHeatsPage"
-import NewCompetitorPage from "./competitors/NewCompetitorPage"
-import EditCompetitorPage from "./competitors/EditCompetitorPage"
+import EditEventPage from './events/EditEventPage'
+import EventCompetitorsPage from './events/EventCompetitorsPage'
+import PrintsPage from './events/PrintsPage'
+import EstimatesPage from './results/EstimatesPage'
+import TimesPage from './results/TimesPage'
+import ShotsPage from './results/ShotsPage'
+import NordicShotsPage from './results/NordicShotsPage'
+import EuropeanShotsPage from './results/EuropeanShotsPage'
+import ShootingByHeatsPage from './results/ShootingByHeatsPage'
+import NewCompetitorPage from './competitors/NewCompetitorPage'
+import EditCompetitorPage from './competitors/EditCompetitorPage'
 
 const OfficialMainContent = () => {
   return (
     <div className="body__yield">
-      <div className="body__under-top-title"><PageTitle /></div>
+      <div className="body__under-top-title">
+        <PageTitle />
+      </div>
       <Routes>
         <Route path="events" element={null}>
           <Route path="new" element={<NewEventPage />} />

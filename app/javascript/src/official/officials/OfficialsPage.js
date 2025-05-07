@@ -43,66 +43,78 @@ const OfficialsPage = () => {
 
   const resetPageState = useCallback(() => setPageState(pageStates.list), [])
 
-  const addRights = useCallback(data => {
-    const raceRight = { onlyAddCompetitors: data.onlyAddCompetitors, newClubs: data.newClubs, clubId: data.clubId }
-    const body = { email: data.email, race_right: raceRight }
-    post(withLocale(`/official/races/${race.id}/race_rights.json`), body, (errors, response) => {
-      if (errors) {
-        setFormErrors(errors)
-      } else {
-        setOfficials(officials => {
-          const newOfficials = [...officials, response]
-          return newOfficials.sort(officialsSorter)
-        })
-        setFormErrors(undefined)
-        resetPageState()
-      }
-    })
-  }, [race, resetPageState])
-
-  const onAddedMany = useCallback(newOfficials => {
-    setOfficials(oldOfficials => {
-      const officials = [...oldOfficials, ...newOfficials]
-      return officials.sort(officialsSorter)
-    })
-    resetPageState()
-  }, [resetPageState])
-
-  const updateRights = useCallback(data => {
-    const raceRight = { onlyAddCompetitors: data.onlyAddCompetitors, newClubs: data.newClubs, clubId: data.clubId }
-    const body = { email: data.email, race_right: raceRight }
-    put(withLocale(`/official/races/${race.id}/race_rights/${data.id}.json`), body, (errors, response) => {
-      if (errors) {
-        setFormErrors(errors)
-      } else {
-        setOfficials(officials => {
-          const index = officials.findIndex(o => o.id === data.id)
-          const newOfficials = [...officials]
-          newOfficials[index] = { ...response }
-          return newOfficials.sort(officialsSorter)
-        })
-        setFormErrors(undefined)
-        resetPageState()
-      }
-    })
-  }, [race, resetPageState])
-
-  const deleteRights = useCallback(id => {
-    if (confirm(t('officialPageDeleteRightsConfirmation'))) {
-      del(withLocale(`/official/races/${race.id}/race_rights/${id}`), errors => {
+  const addRights = useCallback(
+    (data) => {
+      const raceRight = { onlyAddCompetitors: data.onlyAddCompetitors, newClubs: data.newClubs, clubId: data.clubId }
+      const body = { email: data.email, race_right: raceRight }
+      post(withLocale(`/official/races/${race.id}/race_rights.json`), body, (errors, response) => {
         if (errors) {
-          console.error(errors[0])
+          setFormErrors(errors)
         } else {
-          setOfficials(officials => {
-            const index = officials.findIndex(o => o.id === id)
-            const newOfficials = [...officials]
-            newOfficials.splice(index, 1)
-            return newOfficials
+          setOfficials((officials) => {
+            const newOfficials = [...officials, response]
+            return newOfficials.sort(officialsSorter)
           })
+          setFormErrors(undefined)
+          resetPageState()
         }
       })
-    }
-  }, [race, t])
+    },
+    [race, resetPageState],
+  )
+
+  const onAddedMany = useCallback(
+    (newOfficials) => {
+      setOfficials((oldOfficials) => {
+        const officials = [...oldOfficials, ...newOfficials]
+        return officials.sort(officialsSorter)
+      })
+      resetPageState()
+    },
+    [resetPageState],
+  )
+
+  const updateRights = useCallback(
+    (data) => {
+      const raceRight = { onlyAddCompetitors: data.onlyAddCompetitors, newClubs: data.newClubs, clubId: data.clubId }
+      const body = { email: data.email, race_right: raceRight }
+      put(withLocale(`/official/races/${race.id}/race_rights/${data.id}.json`), body, (errors, response) => {
+        if (errors) {
+          setFormErrors(errors)
+        } else {
+          setOfficials((officials) => {
+            const index = officials.findIndex((o) => o.id === data.id)
+            const newOfficials = [...officials]
+            newOfficials[index] = { ...response }
+            return newOfficials.sort(officialsSorter)
+          })
+          setFormErrors(undefined)
+          resetPageState()
+        }
+      })
+    },
+    [race, resetPageState],
+  )
+
+  const deleteRights = useCallback(
+    (id) => {
+      if (confirm(t('officialPageDeleteRightsConfirmation'))) {
+        del(withLocale(`/official/races/${race.id}/race_rights/${id}`), (errors) => {
+          if (errors) {
+            console.error(errors[0])
+          } else {
+            setOfficials((officials) => {
+              const index = officials.findIndex((o) => o.id === id)
+              const newOfficials = [...officials]
+              newOfficials.splice(index, 1)
+              return newOfficials
+            })
+          }
+        })
+      }
+    },
+    [race, t],
+  )
 
   if (!race || !officials) {
     return <IncompletePage fetching={fetching} error={error || officialsError} title={t('officialRaceMenuOfficials')} />
@@ -114,11 +126,7 @@ const OfficialsPage = () => {
         <h2>{t('officialPageInvite')}</h2>
         <Message type="info">{t('officialPageRequirement')}</Message>
         <FormErrors errors={formErrors} />
-        <OfficialForm
-          buttonLabel={t('officialPageSendInvitation')}
-          onSave={addRights}
-          onCancel={resetPageState}
-        />
+        <OfficialForm buttonLabel={t('officialPageSendInvitation')} onSave={addRights} onCancel={resetPageState} />
       </div>
     )
   }
@@ -132,12 +140,7 @@ const OfficialsPage = () => {
       <div>
         <h2>{t('editOfficialRights')}</h2>
         <FormErrors errors={formErrors} />
-        <OfficialForm
-          buttonLabel={t('update')}
-          official={pageState}
-          onSave={updateRights}
-          onCancel={resetPageState}
-        />
+        <OfficialForm buttonLabel={t('update')} official={pageState} onSave={updateRights} onCancel={resetPageState} />
       </div>
     )
   }
@@ -147,7 +150,9 @@ const OfficialsPage = () => {
       <h2>{t('officialPageInvite')}</h2>
       <Message type="info">{t('officialPageRequirement')}</Message>
       <div className="buttons">
-        <Button id="add_button" onClick={() => setPageState(pageStates.add)} type="add">{t('addOfficial')}</Button>
+        <Button id="add_button" onClick={() => setPageState(pageStates.add)} type="add">
+          {t('addOfficial')}
+        </Button>
         <Button id="add_multiple_button" onClick={() => setPageState(pageStates.addMultiple)} type="add">
           {t('addManyOfficials')}
         </Button>
@@ -172,7 +177,9 @@ const OfficialsPage = () => {
         </>
       )}
       <div className="buttons buttons--nav">
-        <Button href={buildOfficialRacePath(race.id)} type="back">{t('backToOfficialRacePage')}</Button>
+        <Button href={buildOfficialRacePath(race.id)} type="back">
+          {t('backToOfficialRacePage')}
+        </Button>
       </div>
     </div>
   )

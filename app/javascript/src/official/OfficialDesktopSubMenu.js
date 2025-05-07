@@ -16,27 +16,33 @@ export default function OfficialDesktopSubMenu() {
       <Route path="races/:raceId" element={null}>
         <Route
           path="series/:seriesId/estimates"
-          element={<SeriesDesktopSubMenu
-            race={race}
-            currentSeriesId={seriesId}
-            buildSeriesPath={buildOfficialSeriesEstimatesPath}
-          />}
+          element={
+            <SeriesDesktopSubMenu
+              race={race}
+              currentSeriesId={seriesId}
+              buildSeriesPath={buildOfficialSeriesEstimatesPath}
+            />
+          }
         />
         <Route
           path="series/:seriesId/times"
-          element={<SeriesDesktopSubMenu
-            race={race}
-            currentSeriesId={seriesId}
-            buildSeriesPath={buildOfficialSeriesTimesPath}
-          />}
+          element={
+            <SeriesDesktopSubMenu
+              race={race}
+              currentSeriesId={seriesId}
+              buildSeriesPath={buildOfficialSeriesTimesPath}
+            />
+          }
         />
         <Route
           path="series/:seriesId/shots"
-          element={<SeriesDesktopSubMenu
-            race={race}
-            currentSeriesId={seriesId}
-            buildSeriesPath={buildOfficialSeriesShotsPath}
-          />}
+          element={
+            <SeriesDesktopSubMenu
+              race={race}
+              currentSeriesId={seriesId}
+              buildSeriesPath={buildOfficialSeriesShotsPath}
+            />
+          }
         />
       </Route>
     </Routes>

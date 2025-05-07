@@ -4,8 +4,8 @@ Hirviurheilu API is a JSON REST API.
 
 ## Environments
 
-* test: [https://testi.hirviurheilu.com](https://testi.hirviurheilu.com)
-* production: [https://www.hirviurheilu.com](https://www.hirviurheilu.com)
+- test: [https://testi.hirviurheilu.com](https://testi.hirviurheilu.com)
+- production: [https://www.hirviurheilu.com](https://www.hirviurheilu.com)
 
 ## Public API
 
@@ -15,11 +15,11 @@ Hirviurheilu API is a JSON REST API.
 
 You can limit the query with the following query parameters:
 
-* `search_text` - searches from race name and location
-* `level` - level id 0 (other), 1 (district), 2 (area), 3 (national), or 4 (international)
-* `sport_key` - examples: `SKI`, `RUN`, `ILMAHIRVI`, `METSASTYSLUODIKKO`, `NORDIC`, `EUROPEAN`
-* `since` - date like `2021-01-01`
-* `until` - date like `2021-12-31`
+- `search_text` - searches from race name and location
+- `level` - level id 0 (other), 1 (district), 2 (area), 3 (national), or 4 (international)
+- `sport_key` - examples: `SKI`, `RUN`, `ILMAHIRVI`, `METSASTYSLUODIKKO`, `NORDIC`, `EUROPEAN`
+- `since` - date like `2021-01-01`
+- `until` - date like `2021-12-31`
 
 Example:
 
@@ -47,8 +47,8 @@ Example call with [cUrl](https://curl.haxx.se/):
 
 ### Headers
 
-* `Authorization: <race API secret>`
-* `Content-Type: application/json`
+- `Authorization: <race API secret>`
+- `Content-Type: application/json`
 
 The race API secret can be found from the official race basic information form:
 
@@ -62,10 +62,10 @@ If you have sent the correct `Authorization` header matching the `race_id`, the 
 
 ### Saving times
 
-* `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/start_time`
-* `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/shooting_start_time`
-* `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/shooting_finish_time`
-* `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/arrival_time`
+- `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/start_time`
+- `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/shooting_start_time`
+- `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/shooting_finish_time`
+- `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/arrival_time`
 
 The `competitor_number` is the same number that the competitors have in the public APIs.
 
@@ -92,8 +92,8 @@ When the request succeeds, it returns 200 with a response body like:
 
 ### Saving single shot
 
-* `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/shots/:shot_number`
-* `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/extra_shots/:shot_number`
+- `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/shots/:shot_number`
+- `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/extra_shots/:shot_number`
 
 The `competitor_number` is the same number that the competitors have in the public APIs. The `shot_number` is the order number of the shot starting from 1 (not 0-based).
 
@@ -115,8 +115,8 @@ When the request succeeds, it returns 200 with a response body containing all th
 
 You can also save multiple shots with one request using the following APIs:
 
-* `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/shots`
-* `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/extra_shots`
+- `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/shots`
+- `PUT /api/v2/official/races/:race_id/competitors/:competitor_number/extra_shots`
 
 Both of these require a JSON request body like this:
 
@@ -136,7 +136,7 @@ If you call the API twice for the same competitor, the existing shots will be re
 
 ### Saving relay arrival times
 
-* `PUT /api/v2/official/races/:race_id/relays/:relay_id/relay_teams/:team_number/legs/:leg_number/arrival_time`
+- `PUT /api/v2/official/races/:race_id/relays/:relay_id/relay_teams/:team_number/legs/:leg_number/arrival_time`
 
 You can find the `relay_id` from the relay's result page URL. The `team_number` is the public number of the team. The `leg_number` starts from 1.
 

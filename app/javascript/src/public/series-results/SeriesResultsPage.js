@@ -25,7 +25,7 @@ import IncompletePage from '../../common/IncompletePage'
 import useDataReloading from '../../util/useDataReloading'
 import { useResultRotation } from '../result-rotation/useResultRotation'
 import { formatTodaysTime } from '../../util/timeUtil'
-import { findSeriesById } from "../../util/seriesUtil"
+import { findSeriesById } from '../../util/seriesUtil'
 
 export default function SeriesResultsPage() {
   const { t } = useTranslation()
@@ -34,21 +34,24 @@ export default function SeriesResultsPage() {
   const [allCompetitors, setAllCompetitors] = useState(false)
   const { mobile } = useLayout()
   const queryParams = allCompetitors ? '?all_competitors=true' : ''
-  const buildApiPath = useCallback(raceId => {
-    return `/api/v2/public/races/${raceId}/series/${seriesId}${queryParams}`
-  }, [seriesId, queryParams])
+  const buildApiPath = useCallback(
+    (raceId) => {
+      return `/api/v2/public/races/${raceId}/series/${seriesId}${queryParams}`
+    },
+    [seriesId, queryParams],
+  )
   const { error, fetching, race, raceData: series, reloadDataRef } = useRaceData(buildApiPath)
 
   const titleSeries = (series?.id === seriesId && series) || (race && findSeriesById(race.series, seriesId))
   const titleSuffix = useMemo(() => {
     if (!titleSeries || !race) return
     if (!titleSeries.competitors) return t('results')
-    const competitors = titleSeries.competitors.filter(c => !c.onlyRifle)
+    const competitors = titleSeries.competitors.filter((c) => !c.onlyRifle)
     if (!competitors.length) return t('noCompetitors')
     if (!titleSeries.started) return t('seriesNotStarted')
     const suffix = allCompetitors ? ` - ${t('allCompetitors')}` : ''
     if (titleSeries.finished || race.finished) return `${t('results')}${suffix}`
-    const maxTime = max(titleSeries.competitors.map(c => parseISO(c.updatedAt)))
+    const maxTime = max(titleSeries.competitors.map((c) => parseISO(c.updatedAt)))
     return `${t('resultsInProgress', { time: formatTodaysTime(maxTime) })}`
   }, [allCompetitors, race, t, titleSeries])
 
@@ -58,7 +61,7 @@ export default function SeriesResultsPage() {
 
   useDataReloading('SeriesChannel', 'series_id', seriesId, reloadDataRef)
 
-  const toggleAllCompetitors = useCallback(() => setAllCompetitors(ac => !ac), [])
+  const toggleAllCompetitors = useCallback(() => setAllCompetitors((ac) => !ac), [])
 
   const { autoScrolling, started: resultRotationStarted, remainingSeconds } = useResultRotation()
 
@@ -66,7 +69,7 @@ export default function SeriesResultsPage() {
     return <IncompletePage fetching={fetching} error={error} title={title} />
   }
 
-  const hasUnofficialCompetitors = race.unofficialsConfigurable && !!series.competitors.find(c => c.unofficial)
+  const hasUnofficialCompetitors = race.unofficialsConfigurable && !!series.competitors.find((c) => c.unofficial)
   const { european, nordic, shooting, shootingSimple } = race.sport
   return (
     <>
@@ -101,10 +104,10 @@ export default function SeriesResultsPage() {
       </SeriesStatus>
       <SeriesMobileSubMenu race={race} currentSeriesId={series.id} buildSeriesPath={buildSeriesResultsPath} />
       <div className="buttons buttons--nav">
-        <Button to={buildRacePath(race.id)} type="back">{t('backToPage', { pageName: race.name })}</Button>
-        {race.sport.startList && (
-          <Button to={buildSeriesStartListPath(race.id, series.id)}>{t('startList')}</Button>
-        )}
+        <Button to={buildRacePath(race.id)} type="back">
+          {t('backToPage', { pageName: race.name })}
+        </Button>
+        {race.sport.startList && <Button to={buildSeriesStartListPath(race.id, series.id)}>{t('startList')}</Button>}
       </div>
     </>
   )

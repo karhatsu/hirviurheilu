@@ -30,8 +30,8 @@ export default function InfoPage() {
             <div className="card__middle">
               <div className="card__name">Hirviurheilu-koulutus</div>
               <div className="card__middle-row">
-                Suomen Metsästäjäliitto järjesti kattavan koulutuksen Hirviurheilun käytöstä maaliskuussa 2023.
-                Voit joko katsoa videolta koulutuksen kokonaisuudessaan tai tutustua siinä käytettyyn materiaalin.
+                Suomen Metsästäjäliitto järjesti kattavan koulutuksen Hirviurheilun käytöstä maaliskuussa 2023. Voit
+                joko katsoa videolta koulutuksen kokonaisuudessaan tai tutustua siinä käytettyyn materiaalin.
               </div>
             </div>
           </a>
@@ -62,9 +62,7 @@ export default function InfoPage() {
             <a href={buildRegisterPath()} className="card">
               <div className="card__middle">
                 <div className="card__name">Aloita palvelun käyttö</div>
-                <div className="card__middle-row">
-                  Aloita palvelun käyttö rekisteröitymällä.
-                </div>
+                <div className="card__middle-row">Aloita palvelun käyttö rekisteröitymällä.</div>
               </div>
             </a>
           </div>
@@ -83,15 +81,15 @@ export default function InfoPage() {
           <a href={buildSportsInfoPath()} className="card">
             <div className="card__middle">
               <div className="card__name">Tietoa lajeista</div>
-              <div className="card__middle-row">
-                Tietoa lajeista ja niiden säännöistä
-              </div>
+              <div className="card__middle-row">Tietoa lajeista ja niiden säännöistä</div>
             </div>
           </a>
         </div>
       </div>
       <div className="buttons buttons--nav">
-        <Button to={buildRootPath()} type="back">{t('backToHomePage')}</Button>
+        <Button to={buildRootPath()} type="back">
+          {t('backToHomePage')}
+        </Button>
       </div>
     </div>
   )

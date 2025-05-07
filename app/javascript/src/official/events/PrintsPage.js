@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import useOfficialMenu from "../menu/useOfficialMenu"
-import { pages } from "../../util/useMenu"
-import useTranslation from "../../util/useTranslation"
-import Button from "../../common/Button"
-import { buildOfficialEventPath } from "../../util/routeUtil"
-import { useParams } from "react-router"
+import useOfficialMenu from '../menu/useOfficialMenu'
+import { pages } from '../../util/useMenu'
+import useTranslation from '../../util/useTranslation'
+import Button from '../../common/Button'
+import { buildOfficialEventPath } from '../../util/routeUtil'
+import { useParams } from 'react-router'
 
 const types = ['list', 'numbers']
 const competitorOrders = ['alphabetical', 'clubAlphabetical', 'numbers', 'clubNumbers']
@@ -23,7 +23,7 @@ const PrintsPage = () => {
       <form className="form" method="GET" action={`/official/events/${eventId}/prints.pdf`} target="_blank">
         <div className="form__field">
           <label>{t('eventPrintCompetitorType')}</label>
-          {types.map(_type => (
+          {types.map((_type) => (
             <div key={_type} className="form__horizontal-fields">
               <div className="form__field">
                 <input
@@ -32,24 +32,20 @@ const PrintsPage = () => {
                   id={_type}
                   checked={_type === type}
                   value={_type}
-                  onChange={e => setType(e.target.value)}
+                  onChange={(e) => setType(e.target.value)}
                 />
-                <label htmlFor={_type}>
-                  {t(`eventPrintCompetitorType_${_type}`)}
-                </label>
+                <label htmlFor={_type}>{t(`eventPrintCompetitorType_${_type}`)}</label>
               </div>
             </div>
           ))}
         </div>
         <div className="form__field">
           <label>{t('eventPrintCompetitorOrder')}</label>
-          {competitorOrders.map(order => (
+          {competitorOrders.map((order) => (
             <div key={order} className="form__horizontal-fields">
               <div className="form__field">
-                <input type="radio" name="order" id={order} defaultChecked={order === 'alphabetical'} value={order}/>
-                <label htmlFor={order}>
-                  {t(`eventPrintCompetitorOrder_${order}`)}
-                </label>
+                <input type="radio" name="order" id={order} defaultChecked={order === 'alphabetical'} value={order} />
+                <label htmlFor={order}>{t(`eventPrintCompetitorOrder_${order}`)}</label>
               </div>
             </div>
           ))}
@@ -80,17 +76,21 @@ const PrintsPage = () => {
         {type === 'numbers' && (
           <div className="form__horizontal-fields">
             <div className="form__field">
-              <input type="checkbox" name="withRaces"/>
+              <input type="checkbox" name="withRaces" />
               <label htmlFor="withRaces">{t('eventPrintCompetitorWithRaces')}</label>
             </div>
           </div>
         )}
         <div className="form__buttons">
-          <Button submit={true} type="primary">{t('printPdf')}</Button>
+          <Button submit={true} type="primary">
+            {t('printPdf')}
+          </Button>
         </div>
       </form>
       <div className="buttons buttons--nav">
-        <Button to={buildOfficialEventPath(eventId)} type="back">{t('backToOfficialEventPage')}</Button>
+        <Button to={buildOfficialEventPath(eventId)} type="back">
+          {t('backToOfficialEventPage')}
+        </Button>
       </div>
     </div>
   )

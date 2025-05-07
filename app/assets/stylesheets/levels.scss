@@ -30,7 +30,8 @@
       background-color: orange;
     }
 
-    &--selected, &:hover {
+    &--selected,
+    &:hover {
       font-weight: bold;
       border: 2px solid black;
       padding: 2px 4px;

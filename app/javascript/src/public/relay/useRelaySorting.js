@@ -6,7 +6,7 @@ const useRelaySorting = (relay, leg) => {
     if (relay) {
       if (leg) {
         const { teamIds } = relay.legResults[leg - 1]
-        setTeams(teamIds.map(teamId => relay.teams.find(team => team.id === teamId)))
+        setTeams(teamIds.map((teamId) => relay.teams.find((team) => team.id === teamId)))
       } else {
         setTeams(relay.teams)
       }

@@ -1,21 +1,13 @@
-import FormField from "../../common/form/FormField"
-import ScoreInputField from "../results/ScoreInputField"
-import ShotFields from "../results/ShotFields"
-import { useMemo } from "react"
-import useTranslation from "../../util/useTranslation"
+import FormField from '../../common/form/FormField'
+import ScoreInputField from '../results/ScoreInputField'
+import ShotFields from '../results/ShotFields'
+import { useMemo } from 'react'
+import useTranslation from '../../util/useTranslation'
 
-const SubSportFields = props => {
+const SubSportFields = (props) => {
   const { t } = useTranslation()
-  const {
-    data,
-    scoreInputField,
-    shotsField,
-    onChange,
-    onChangeShot,
-    shotCount,
-    bestShotValue,
-    doubleCompetition,
-  } = props
+  const { data, scoreInputField, shotsField, onChange, onChangeShot, shotCount, bestShotValue, doubleCompetition } =
+    props
   return (
     <>
       <FormField id={scoreInputField} size="sm">
@@ -63,12 +55,12 @@ const SubSportFields = props => {
 const EuropeanShotFields = ({ data, doubleCompetition, onChange, onChangeShot }) => {
   const europeanRifleExtraShotCount = useMemo(() => {
     const currentCount = (data.europeanRifleExtraShots || []).length
-    return currentCount + 5 - currentCount % 5
+    return currentCount + 5 - (currentCount % 5)
   }, [data.europeanRifleExtraShots])
 
   return (
     <>
-      {['Trap', 'Compak'].map(subSport => (
+      {['Trap', 'Compak'].map((subSport) => (
         <SubSportFields
           key={subSport}
           data={data}
@@ -81,7 +73,7 @@ const EuropeanShotFields = ({ data, doubleCompetition, onChange, onChangeShot })
           doubleCompetition={doubleCompetition}
         />
       ))}
-      {[1, 2, 3, 4].map(n => (
+      {[1, 2, 3, 4].map((n) => (
         <SubSportFields
           key={n}
           data={data}

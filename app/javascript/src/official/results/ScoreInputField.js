@@ -1,4 +1,4 @@
-import useTranslation from "../../util/useTranslation"
+import useTranslation from '../../util/useTranslation'
 
 const ScoreInputField = ({ data, field, maxScoreInput, onChange, withInfo }) => {
   const { t } = useTranslation()

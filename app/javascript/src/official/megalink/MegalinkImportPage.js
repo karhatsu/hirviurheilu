@@ -8,10 +8,10 @@ import FormErrors from '../../common/form/FormErrors'
 import Message from '../../common/Message'
 import { buildOfficialRacePath } from '../../util/routeUtil'
 
-const pickShots = series => {
+const pickShots = (series) => {
   const shots = []
-  series.forEach(ser => {
-    ser.Shots.forEach(shot => {
+  series.forEach((ser) => {
+    ser.Shots.forEach((shot) => {
       if (shot.Vd >= 10.4) {
         shots.push(11)
       } else {
@@ -22,20 +22,20 @@ const pickShots = series => {
   return shots
 }
 
-const readResults = json => {
+const readResults = (json) => {
   const results = []
-  json.Event[0].Relay[0].Score.forEach(score => {
+  json.Event[0].Relay[0].Score.forEach((score) => {
     const shots = pickShots(score.Series)
     results.push({ place: parseInt(score.FP), shots })
   })
   return results
 }
 
-const readHeatNumber = json => json.Event[0].Relay[0].Rel
+const readHeatNumber = (json) => json.Event[0].Relay[0].Rel
 
 const rounds = { qualification: 'qr', final: 'final' }
 
-const isValidJson = contents => {
+const isValidJson = (contents) => {
   try {
     return contents && !!JSON.parse(contents)
   } catch {
@@ -51,46 +51,49 @@ const MegalinkImportPage = () => {
   const [success, setSuccess] = useState(false)
   const { t } = useTranslation()
 
-  const onFileChange = useCallback(event => {
+  const onFileChange = useCallback((event) => {
     setErrors([])
     setFile(event.target.value)
   }, [])
 
-  const onSubmit = useCallback((event, json, round) => {
-    event.preventDefault()
-    setErrors([])
-    setSuccess(false)
-    let heatNumber
-    let results
-    try {
-      heatNumber = readHeatNumber(json)
-      results = readResults(json)
-    } catch {
-      setErrors([t('megaLinkImportContentsError')])
-      return
-    }
-    const path = round === rounds.final ? 'final_round_heat_results' : 'qualification_round_heat_results'
-    post(`/official/races/${race.id}/${path}/${heatNumber}`, { results }, errors => {
-      if (errors) {
-        setErrors(errors)
-      } else {
-        setSuccess(true)
-        setRound()
-        setFile('')
-        setTimeout(() => setSuccess(false), 3000)
+  const onSubmit = useCallback(
+    (event, json, round) => {
+      event.preventDefault()
+      setErrors([])
+      setSuccess(false)
+      let heatNumber
+      let results
+      try {
+        heatNumber = readHeatNumber(json)
+        results = readResults(json)
+      } catch {
+        setErrors([t('megaLinkImportContentsError')])
+        return
       }
-    })
-  }, [race, t])
+      const path = round === rounds.final ? 'final_round_heat_results' : 'qualification_round_heat_results'
+      post(`/official/races/${race.id}/${path}/${heatNumber}`, { results }, (errors) => {
+        if (errors) {
+          setErrors(errors)
+        } else {
+          setSuccess(true)
+          setRound()
+          setFile('')
+          setTimeout(() => setSuccess(false), 3000)
+        }
+      })
+    },
+    [race, t],
+  )
 
   if (!race || fetching) {
     return <IncompletePage title={t('megaLinkImportTitle')} error={raceError} fetching={fetching} />
   }
 
-  const createRadio = r => <input type="radio" id={r} checked={round === r} onChange={() => setRound(r)} />
+  const createRadio = (r) => <input type="radio" id={r} checked={round === r} onChange={() => setRound(r)} />
   return (
     <div>
       <h2>{t('megaLinkImportTitle')}</h2>
-      <form className="form" onSubmit={e => onSubmit(e, JSON.parse(file), round)}>
+      <form className="form" onSubmit={(e) => onSubmit(e, JSON.parse(file), round)}>
         <div className="form__horizontal-fields">
           <div className="form__field">
             {createRadio(rounds.qualification)}
@@ -106,11 +109,15 @@ const MegalinkImportPage = () => {
         <FormErrors errors={errors} />
         {success && <Message type="success">{t('megaLinkImportSuccess')}</Message>}
         <div className="form__buttons">
-          <Button type="primary" submit disabled={!round || !isValidJson(file)}>{t('save')}</Button>
+          <Button type="primary" submit disabled={!round || !isValidJson(file)}>
+            {t('save')}
+          </Button>
         </div>
       </form>
       <div className="buttons buttons--nav">
-        <Button href={buildOfficialRacePath(race.id)} type="back">{t('backToOfficialRacePage')}</Button>
+        <Button href={buildOfficialRacePath(race.id)} type="back">
+          {t('backToOfficialRacePage')}
+        </Button>
       </div>
     </div>
   )

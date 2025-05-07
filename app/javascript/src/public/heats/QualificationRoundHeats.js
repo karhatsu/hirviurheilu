@@ -5,10 +5,10 @@ import { buildQualificationRoundHeatsPath } from '../../util/routeUtil'
 
 export default function QualificationRoundHeats() {
   const { setSelectedPage } = useMenu(pages.heats.qualificationRound)
-  const buildApiPath = useCallback(raceId => {
+  const buildApiPath = useCallback((raceId) => {
     return `/api/v2/public/races/${raceId}/qualification_round_heats`
   }, [])
-  const buildPdfPath = useCallback(raceId => `${buildQualificationRoundHeatsPath(raceId)}.pdf`, [])
+  const buildPdfPath = useCallback((raceId) => `${buildQualificationRoundHeatsPath(raceId)}.pdf`, [])
   useEffect(() => setSelectedPage(pages.heats.qualificationRound), [setSelectedPage])
   return (
     <Heats

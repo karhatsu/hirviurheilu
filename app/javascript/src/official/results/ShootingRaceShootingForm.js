@@ -1,14 +1,14 @@
-import useTranslation from "../../util/useTranslation"
-import useCompetitorSaving from "../competitors/useCompetitorSaving"
-import { useMemo } from "react"
-import ResultRow from "./ResultRow"
-import Button from "../../common/Button"
-import { calculateShootingScore, shotCount, shotValue } from "./resultUtil"
-import ShotFields from "./ShotFields"
-import { useParams } from "react-router"
-import ScoreInputField from "./ScoreInputField"
+import useTranslation from '../../util/useTranslation'
+import useCompetitorSaving from '../competitors/useCompetitorSaving'
+import { useMemo } from 'react'
+import ResultRow from './ResultRow'
+import Button from '../../common/Button'
+import { calculateShootingScore, shotCount, shotValue } from './resultUtil'
+import ShotFields from './ShotFields'
+import { useParams } from 'react-router'
+import ScoreInputField from './ScoreInputField'
 
-const buildFields = sport => [
+const buildFields = (sport) => [
   { key: 'qualificationRoundShootingScoreInput', number: true },
   { key: 'finalRoundShootingScoreInput', number: true },
   { key: 'shots', shotCount: sport.qualificationRoundShotCount + sport.finalRoundShotCount },
@@ -35,17 +35,12 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport, limit 
   const { t } = useTranslation()
   const { raceId } = useParams()
   const fields = useMemo(() => buildFields(sport), [sport])
-  const {
-    changed,
-    competitor,
-    data,
-    errors,
-    onChange,
-    onChangeShot,
-    onSubmit,
-    saved,
-    saving,
-  } = useCompetitorSaving(raceId, initialCompetitor, fields, buildBody)
+  const { changed, competitor, data, errors, onChange, onChangeShot, onSubmit, saved, saving } = useCompetitorSaving(
+    raceId,
+    initialCompetitor,
+    fields,
+    buildBody,
+  )
 
   const { qualificationRoundShotCount, finalRoundShotCount, bestShotValue } = sport
   const maxQRScore = qualificationRoundShotCount * shotValue(bestShotValue)
@@ -68,10 +63,12 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport, limit 
   }, [data, sport, maxQRScore, maxFRScore, limit])
 
   const extraRoundShotCount = useMemo(() => {
-    if (data.qualificationRoundShootingScoreInput ||
-      [sport.qualificationRoundShotCount, sport.shotCount].includes(shotCount(data.shots))) {
+    if (
+      data.qualificationRoundShootingScoreInput ||
+      [sport.qualificationRoundShotCount, sport.shotCount].includes(shotCount(data.shots))
+    ) {
       const currentCount = (data.extraShots || []).length
-      return currentCount + sport.shotsPerExtraRound - currentCount % sport.shotsPerExtraRound
+      return currentCount + sport.shotsPerExtraRound - (currentCount % sport.shotsPerExtraRound)
     }
     return 0
   }, [sport, data])
@@ -145,7 +142,9 @@ const ShootingRaceShootingForm = ({ competitor: initialCompetitor, sport, limit 
           </>
         )}
         <div className="form__buttons">
-          <Button submit={true} type="primary" disabled={!changed}>{t('save')}</Button>
+          <Button submit={true} type="primary" disabled={!changed}>
+            {t('save')}
+          </Button>
         </div>
       </form>
     </ResultRow>

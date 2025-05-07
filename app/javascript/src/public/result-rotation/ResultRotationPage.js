@@ -27,10 +27,14 @@ export default function ResultRotationPage() {
       <h2>{t('resultRotation')}</h2>
       {!started && <ResultRotationForm race={race} />}
       {started && (
-        <Button onClick={stop} type="primary">{t('resultRotationStop')}</Button>
+        <Button onClick={stop} type="primary">
+          {t('resultRotationStop')}
+        </Button>
       )}
       <div className="buttons buttons--nav">
-        <Button to={buildRacePath(race.id)} type="back">{t('backToPage', { pageName: race.name })}</Button>
+        <Button to={buildRacePath(race.id)} type="back">
+          {t('backToPage', { pageName: race.name })}
+        </Button>
       </div>
     </>
   )

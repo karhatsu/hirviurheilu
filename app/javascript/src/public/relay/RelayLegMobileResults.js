@@ -26,19 +26,20 @@ export default function RelayLegMobileResults({ relay, teams, leg }) {
           timeWithPenalties,
         } = competitor
 
-        const estimateWithMeters = relay.finished && estimatePenalties !== null
-          ? `${estimatePenalties} / ${estimateMeters}m`
-          : estimatePenalties
-        const estimate = relay.estimatePenaltySeconds && estimatePenaltySeconds
-          ? `${timeFromSeconds(estimatePenaltySeconds, true)} (${estimateWithMeters})`
-          : estimateWithMeters
+        const estimateWithMeters =
+          relay.finished && estimatePenalties !== null ? `${estimatePenalties} / ${estimateMeters}m` : estimatePenalties
+        const estimate =
+          relay.estimatePenaltySeconds && estimatePenaltySeconds
+            ? `${timeFromSeconds(estimatePenaltySeconds, true)} (${estimateWithMeters})`
+            : estimateWithMeters
         const estimateAdjustmentText = estimateAdjustment
           ? `Arviokorjaus ${timeFromSeconds(estimateAdjustment, true)}`
           : undefined
 
-        const shooting = relay.shootingPenaltySeconds && misses
-          ? `${timeFromSeconds(shootingPenaltySeconds, true)} (${misses})`
-          : misses
+        const shooting =
+          relay.shootingPenaltySeconds && misses
+            ? `${timeFromSeconds(shootingPenaltySeconds, true)} (${misses})`
+            : misses
         const shootingAdjustmentText = shootingAdjustment
           ? `Ammuntakorjaus ${timeFromSeconds(shootingAdjustment, true)}`
           : undefined
@@ -48,19 +49,23 @@ export default function RelayLegMobileResults({ relay, teams, leg }) {
           <div className={className} key={team.id}>
             <div className="card__number">{i + 1}.</div>
             <div className="card__middle">
-              <div className="card__name">{team.name} / {lastName} {firstName}</div>
+              <div className="card__name">
+                {team.name} / {lastName} {firstName}
+              </div>
               {!team.noResultReason && (
                 <div className="card__middle-row">
                   {relay.penaltySeconds && timeInSeconds && (
-                    <MobileSubResult type="time">
-                      {timeFromSeconds(timeInSeconds)}
-                    </MobileSubResult>
+                    <MobileSubResult type="time">{timeFromSeconds(timeInSeconds)}</MobileSubResult>
                   )}
                   {estimate !== null && (
-                    <MobileSubResult type="estimate" adjustment={estimateAdjustmentText}>{estimate}</MobileSubResult>
+                    <MobileSubResult type="estimate" adjustment={estimateAdjustmentText}>
+                      {estimate}
+                    </MobileSubResult>
                   )}
                   {misses !== null && (
-                    <MobileSubResult type="shoot" adjustment={shootingAdjustmentText}>{shooting}</MobileSubResult>
+                    <MobileSubResult type="shoot" adjustment={shootingAdjustmentText}>
+                      {shooting}
+                    </MobileSubResult>
                   )}
                   {adjustmentText}
                 </div>

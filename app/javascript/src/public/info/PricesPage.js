@@ -20,7 +20,9 @@ export default function PricesPage() {
       <h2>Muut käyttäjät</h2>
       <Button href={buildFeedbackPath()}>Ota yhteyttä, niin sovitaan tilanteeseen sopiva hinta</Button>
       <div className="buttons buttons--nav">
-        <Button to={buildRootPath()} type="back">{t('backToHomePage')}</Button>
+        <Button to={buildRootPath()} type="back">
+          {t('backToHomePage')}
+        </Button>
       </div>
     </div>
   )

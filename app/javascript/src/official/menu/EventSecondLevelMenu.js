@@ -1,13 +1,14 @@
-import DesktopMenuItem from "../../public/menu/DesktopMenuItem"
-import useOfficialMenu from "./useOfficialMenu"
-import { pages } from "../../util/useMenu"
-import useTranslation from "../../util/useTranslation"
+import DesktopMenuItem from '../../public/menu/DesktopMenuItem'
+import useOfficialMenu from './useOfficialMenu'
+import { pages } from '../../util/useMenu'
+import useTranslation from '../../util/useTranslation'
 import {
   buildOfficialEventPath,
   buildOfficialEventCompetitorNumbersSyncPath,
-  buildOfficialEventCompetitorsPath, buildOfficialEventPrintsPath,
-} from "../../util/routeUtil"
-import { useMatch, useParams } from "react-router"
+  buildOfficialEventCompetitorsPath,
+  buildOfficialEventPrintsPath,
+} from '../../util/routeUtil'
+import { useMatch, useParams } from 'react-router'
 
 const EventSecondLevelMenu = ({ visible }) => {
   const { eventId } = useParams()

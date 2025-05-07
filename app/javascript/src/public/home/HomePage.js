@@ -28,7 +28,7 @@ export default function HomePage() {
   }
 
   const { announcements, today, yesterday, future, past } = data
-  const hasRecentAnnouncements = announcements.find(a => isAfter(parseISO(a.published), subWeeks(new Date(), 2)))
+  const hasRecentAnnouncements = announcements.find((a) => isAfter(parseISO(a.published), subWeeks(new Date(), 2)))
   const pastTitleKey = yesterday.length ? 'races_previously' : 'races_latest'
   return (
     <>
@@ -49,7 +49,9 @@ export default function HomePage() {
       />
       <Races races={today} titleKey="races_today" icon="directions_run" sectionId="races_today" />
       <Races races={yesterday} titleKey="races_yesterday" icon="check_circle" sectionId="races_yesterday">
-        <Button onClick={toPastRaces} type="down">{t('races_previously')}</Button>
+        <Button onClick={toPastRaces} type="down">
+          {t('races_previously')}
+        </Button>
       </Races>
       <div id="future_races">
         {future.map(({ key, races }) => {

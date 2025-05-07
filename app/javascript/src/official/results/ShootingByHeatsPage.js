@@ -1,20 +1,23 @@
-import useTranslation from "../../util/useTranslation"
-import useOfficialMenu from "../menu/useOfficialMenu"
-import { useCallback, useEffect, useMemo, useState } from "react"
-import { useRace } from "../../util/useRace"
-import useTitle from "../../util/useTitle"
-import IncompletePage from "../../common/IncompletePage"
-import useOfficialRaceCompetitors from "./useOfficialRaceCompetitors"
-import Message from "../../common/Message"
-import ShootingRaceShootingForm, { limits  } from "./ShootingRaceShootingForm"
-import Button from "../../common/Button"
-import { buildOfficialRacePath } from "../../util/routeUtil"
+import useTranslation from '../../util/useTranslation'
+import useOfficialMenu from '../menu/useOfficialMenu'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useRace } from '../../util/useRace'
+import useTitle from '../../util/useTitle'
+import IncompletePage from '../../common/IncompletePage'
+import useOfficialRaceCompetitors from './useOfficialRaceCompetitors'
+import Message from '../../common/Message'
+import ShootingRaceShootingForm, { limits } from './ShootingRaceShootingForm'
+import Button from '../../common/Button'
+import { buildOfficialRacePath } from '../../util/routeUtil'
 
 const titleKey = 'officialRaceMenuShootingByHeats'
 
-const HeatOptions = ({ heats, label }) => (
-  heats.map(({id, number}) => <option key={id} value={id}>{label} {number}</option>)
-)
+const HeatOptions = ({ heats, label }) =>
+  heats.map(({ id, number }) => (
+    <option key={id} value={id}>
+      {label} {number}
+    </option>
+  ))
 
 const ShootingByHeatsPage = () => {
   const { t } = useTranslation()
@@ -28,16 +31,21 @@ const ShootingByHeatsPage = () => {
 
   const competitors = useMemo(() => {
     if (!heat) return []
-    return allCompetitors?.filter(competitor => {
+    return allCompetitors?.filter((competitor) => {
       const { qualificationRoundHeatId, finalRoundHeatId } = competitor
       return qualificationRoundHeatId === heat.id || finalRoundHeatId === heat.id
     })
   }, [allCompetitors, heat])
 
-  const selectHeat = useCallback(event => {
-    const heatId = parseInt(event.target.value)
-    setHeat(race.qualificationRoundHeats.find(h => h.id === heatId) || race.finalRoundHeats.find(h => h.id === heatId))
-  }, [race])
+  const selectHeat = useCallback(
+    (event) => {
+      const heatId = parseInt(event.target.value)
+      setHeat(
+        race.qualificationRoundHeats.find((h) => h.id === heatId) || race.finalRoundHeats.find((h) => h.id === heatId),
+      )
+    },
+    [race],
+  )
 
   if (!race || !allCompetitors) {
     return <IncompletePage title={t(titleKey)} error={error} fetching={fetching} />
@@ -66,7 +74,7 @@ const ShootingByHeatsPage = () => {
         {heat && !competitors.length && <Message type="info">{t('noCompetitorsInHeat')}</Message>}
         {competitors.length > 0 && (
           <div className="row">
-            {competitors.map(competitor => (
+            {competitors.map((competitor) => (
               <div key={competitor.id} className="col-sm-12">
                 <ShootingRaceShootingForm
                   competitor={competitor}
@@ -86,7 +94,9 @@ const ShootingByHeatsPage = () => {
       <h2>{t(titleKey)}</h2>
       {content()}
       <div className="buttons buttons--nav">
-        <Button href={buildOfficialRacePath(race.id)} type="back">{t('backToOfficialRacePage')}</Button>
+        <Button href={buildOfficialRacePath(race.id)} type="back">
+          {t('backToOfficialRacePage')}
+        </Button>
       </div>
     </div>
   )

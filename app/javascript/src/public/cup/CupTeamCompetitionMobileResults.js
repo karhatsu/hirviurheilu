@@ -13,7 +13,7 @@ const CupTeamCompetitionMobileResults = ({ cupTeamCompetition }) => {
 
   return (
     <>
-      <Button onClick={() => setShowRaces(s => !s)}>{t(buttonKey)}</Button>
+      <Button onClick={() => setShowRaces((s) => !s)}>{t(buttonKey)}</Button>
       <div className="result-cards">
         {cupTeams.map((cupTeam, i) => {
           const { name, races } = cupTeam
@@ -26,13 +26,12 @@ const CupTeamCompetitionMobileResults = ({ cupTeamCompetition }) => {
                 {showRaces && (
                   <div className="card__middle-row">
                     <div className="row">
-                      {races.map(race => {
+                      {races.map((race) => {
                         const { team, id } = race
                         if (team) {
                           return (
                             <div key={id} className="col-xs-12 col-sm-6 col-md-4">
-                              {race.name}{' '}
-                              <CupTeamCompetitionPoints raceId={id} team={team} cupTeam={cupTeam} />
+                              {race.name} <CupTeamCompetitionPoints raceId={id} team={team} cupTeam={cupTeam} />
                             </div>
                           )
                         }
@@ -42,7 +41,9 @@ const CupTeamCompetitionMobileResults = ({ cupTeamCompetition }) => {
                   </div>
                 )}
               </div>
-              <div className="card__main-value"><CupTotalPoints cupCompetitor={cupTeam} /></div>
+              <div className="card__main-value">
+                <CupTotalPoints cupCompetitor={cupTeam} />
+              </div>
             </div>
           )
         })}

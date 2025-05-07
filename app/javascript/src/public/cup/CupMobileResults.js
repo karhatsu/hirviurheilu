@@ -13,7 +13,7 @@ export default function CupMobileResults({ cupSeries }) {
   const showSeries = !!(seriesNames && seriesNames !== name)
   return (
     <>
-      <Button onClick={() => setShowRaces(s => !s)}>{t(buttonKey)}</Button>
+      <Button onClick={() => setShowRaces((s) => !s)}>{t(buttonKey)}</Button>
       <div className="result-cards">
         {cupCompetitors.map((cupCompetitor, i) => {
           const { firstName, lastName, races, seriesNames } = cupCompetitor
@@ -23,11 +23,13 @@ export default function CupMobileResults({ cupSeries }) {
             <div key={name} className={className}>
               <div className="card__number">{i + 1}.</div>
               <div className="card__middle">
-                <div className="card__name">{name} {showSeries && ` (${seriesNames})`}</div>
+                <div className="card__name">
+                  {name} {showSeries && ` (${seriesNames})`}
+                </div>
                 {showRaces && (
                   <div className="card__middle-row">
                     <div className="row">
-                      {races.map(race => {
+                      {races.map((race) => {
                         const { competitor, id } = race
                         if (competitor) {
                           return (
@@ -43,7 +45,9 @@ export default function CupMobileResults({ cupSeries }) {
                   </div>
                 )}
               </div>
-              <div className="card__main-value"><CupTotalPoints cupCompetitor={cupCompetitor} /></div>
+              <div className="card__main-value">
+                <CupTotalPoints cupCompetitor={cupCompetitor} />
+              </div>
             </div>
           )
         })}

@@ -10,15 +10,19 @@ export default function NordicSubSportMobileResults({ competitors }) {
   const showShots = useContext(ShowShotsContext)
   return (
     <MobileResultCards competitors={competitors}>
-      {competitor => {
+      {(competitor) => {
         const { club, firstName, lastName, nordicExtraShots, nordicScore, nordicShots, noResultReason } = competitor
         return (
           <>
             <div className="card__middle">
-              <div className="card__name">{lastName} {firstName}</div>
+              <div className="card__name">
+                {lastName} {firstName}
+              </div>
               <div className="card__middle-row">{club.name}</div>
               {nordicExtraShots && (
-                <div className="card__middle-row">{t('extraRound')}: {nordicExtraShots.join(', ')}</div>
+                <div className="card__middle-row">
+                  {t('extraRound')}: {nordicExtraShots.join(', ')}
+                </div>
               )}
               {showShots && nordicShots && (
                 <div className="card__middle-row">

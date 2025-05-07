@@ -27,16 +27,19 @@ export default function RelayResultsPage() {
   const relayId = parseInt(relayIdStr)
   const leg = legParam ? parseInt(legParam) : undefined
   const { mobile } = useLayout()
-  const buildApiPath = useCallback(raceId => {
-    return `/api/v2/public/races/${raceId}/relays/${relayId}`
-  }, [relayId])
+  const buildApiPath = useCallback(
+    (raceId) => {
+      return `/api/v2/public/races/${raceId}/relays/${relayId}`
+    },
+    [relayId],
+  )
   const { fetching, error, race, raceData: relay, reloadDataRef } = useRaceData(buildApiPath)
   useEffect(() => setSelectedPage(pages.relays), [setSelectedPage])
   const { teams } = useRelaySorting(relay, leg)
 
   useDataReloading('RelayChannel', 'relay_id', relayId, reloadDataRef)
 
-  const titleRelay = (relay?.id === relayId && relay) || (race && race.relays.find(r => r.id === relayId))
+  const titleRelay = (relay?.id === relayId && relay) || (race && race.relays.find((r) => r.id === relayId))
   const titleSuffix = useMemo(() => {
     if (!titleRelay) return
     if (leg) return t('legNumber', { leg })
@@ -44,7 +47,7 @@ export default function RelayResultsPage() {
     if (!titleRelay.teams.length) return t('noTeams')
     if (!titleRelay.started) return t('relayNotStarted')
     if (titleRelay.finished) return t('results')
-    const maxTime = max(titleRelay.teams.map(team => team.competitors.map(c => parseISO(c.updatedAt))).flat())
+    const maxTime = max(titleRelay.teams.map((team) => team.competitors.map((c) => parseISO(c.updatedAt))).flat())
     return t('resultsInProgress', { time: formatTodaysTime(maxTime) })
   }, [t, titleRelay, leg])
 
@@ -72,13 +75,17 @@ export default function RelayResultsPage() {
             <Button href={`${pdfPath}?exclude_competitors=true`} type="pdf">
               {t('downloadResultsPdfWithoutCompetitors')}
             </Button>
-            <Button href={pdfPath} type="pdf">{t('downloadResultsPdfWithCompetitors')}</Button>
+            <Button href={pdfPath} type="pdf">
+              {t('downloadResultsPdfWithCompetitors')}
+            </Button>
           </div>
         )}
       </RelayStatus>
       <MobileSubMenu items={race.relays} currentId={relayId} parentId={race.id} buildPath={buildRelayPath} />
       <div className="buttons buttons--nav">
-        <Button to={buildRacePath(race.id)} type="back">{t('backToPage', { pageName: race.name })}</Button>
+        <Button to={buildRacePath(race.id)} type="back">
+          {t('backToPage', { pageName: race.name })}
+        </Button>
       </div>
     </>
   )

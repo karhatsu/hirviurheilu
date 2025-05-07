@@ -20,21 +20,32 @@ export default function TeamCompetitionResultsPage({ rifle }) {
   const [showCompetitors, setShowCompetitors] = useState(false)
   const teamCompetitionId = parseInt(useParams().teamCompetitionId)
   const { mobile } = useLayout()
-  const toggleCompetitors = useCallback(() => setShowCompetitors(show => !show), [])
-  const buildApiPath = useCallback(raceId => {
-    return `/api/v2/public/races/${raceId}/${rifle ? 'rifle_' : ''}team_competitions/${teamCompetitionId}`
-  }, [teamCompetitionId, rifle])
+  const toggleCompetitors = useCallback(() => setShowCompetitors((show) => !show), [])
+  const buildApiPath = useCallback(
+    (raceId) => {
+      return `/api/v2/public/races/${raceId}/${rifle ? 'rifle_' : ''}team_competitions/${teamCompetitionId}`
+    },
+    [teamCompetitionId, rifle],
+  )
   const { fetching, error, race, raceData: teamCompetition } = useRaceData(buildApiPath)
   useEffect(() => {
     setSelectedPage(rifle ? pages.rifleTeamCompetitions : pages.teamCompetitions)
   }, [setSelectedPage, rifle])
 
-  const titleTeamCompetition = (teamCompetition?.id === teamCompetitionId && teamCompetition) ||
-    (race && race.teamCompetitions.find(tc => tc.id === teamCompetitionId))
+  const titleTeamCompetition =
+    (teamCompetition?.id === teamCompetitionId && teamCompetition) ||
+    (race && race.teamCompetitions.find((tc) => tc.id === teamCompetitionId))
   const titleSuffix = t(rifle ? 'rifleResults' : 'results')
   const title = titleTeamCompetition ? `${titleTeamCompetition.name} - ${titleSuffix}` : titleSuffix
-  useTitle(race && titleTeamCompetition &&
-    [titleTeamCompetition.name, t('teamCompetitions'), race.name, t(`sport_${race.sportKey}`)])
+  useTitle(
+    race &&
+      titleTeamCompetition && [
+        titleTeamCompetition.name,
+        t('teamCompetitions'),
+        race.name,
+        t(`sport_${race.sportKey}`),
+      ],
+  )
 
   const { autoScrolling, started: resultRotationStarted, remainingSeconds } = useResultRotation()
 
@@ -90,7 +101,9 @@ export default function TeamCompetitionResultsPage({ rifle }) {
         buildPath={buildTeamCompetitionsPath}
       />
       <div className="buttons buttons--nav">
-        <Button to={buildRacePath(race.id)} type="back">{t('backToPage', { pageName: race.name })}</Button>
+        <Button to={buildRacePath(race.id)} type="back">
+          {t('backToPage', { pageName: race.name })}
+        </Button>
       </div>
     </>
   )

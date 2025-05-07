@@ -9,20 +9,20 @@ import RaceSecondLevelMenu from './menu/RaceSecondLevelMenu'
 import OfficialMainContent from './OfficialMainContent'
 import { OfficialMenuProvider } from './menu/useOfficialMenu'
 import { PathParamsContextProvider } from '../public/PathParamsProvider'
-import { Route, Routes } from "react-router"
-import { EventProvider } from "../util/useEvent"
-import EventSecondLevelMenu from "./menu/EventSecondLevelMenu"
-import OfficialDesktopSubMenu from "./OfficialDesktopSubMenu"
+import { Route, Routes } from 'react-router'
+import { EventProvider } from '../util/useEvent'
+import EventSecondLevelMenu from './menu/EventSecondLevelMenu'
+import OfficialDesktopSubMenu from './OfficialDesktopSubMenu'
 
 const OfficialReactApp = () => {
   const [mainMenuOpen, setMainMenuOpen] = useState(false)
-  const toggleMainMenu = useCallback(() => setMainMenuOpen(open => !open), [])
+  const toggleMainMenu = useCallback(() => setMainMenuOpen((open) => !open), [])
   const closeMainMenu = useCallback(() => setMainMenuOpen(false), [])
 
   const [subMenuOpen, setSubMenuOpen] = useState(false)
-  const toggleSubMenu = useCallback(e => {
+  const toggleSubMenu = useCallback((e) => {
     e.preventDefault()
-    setSubMenuOpen(open => !open)
+    setSubMenuOpen((open) => !open)
   }, [])
 
   return (
@@ -30,20 +30,24 @@ const OfficialReactApp = () => {
       <Header toggleMainMenu={toggleMainMenu} />
       <MainMenu closeMenu={closeMainMenu} mainMenuOpen={mainMenuOpen} official={true} />
       <div className="body">
-        <div className="body__on-top-title"><PageTitle /></div>
+        <div className="body__on-top-title">
+          <PageTitle />
+        </div>
         <div className="body__content">
           <div className="menu-indicator">
-            <a className="material-icons-outlined md-24" href="/" onClick={toggleSubMenu}>menu</a>
+            <a className="material-icons-outlined md-24" href="/" onClick={toggleSubMenu}>
+              menu
+            </a>
           </div>
           <Routes>
             <Route path="events/:eventId/*" element={<EventSecondLevelMenu visible={subMenuOpen} />} />
             <Route path="races/:raceId/*" element={<RaceSecondLevelMenu visible={subMenuOpen} />} />
           </Routes>
           <OfficialDesktopSubMenu />
-          <OfficialMainContent/>
+          <OfficialMainContent />
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   )
 }

@@ -1,14 +1,14 @@
-import SeriesMobileSubMenu from "../../public/menu/SeriesMobileSubMenu"
+import SeriesMobileSubMenu from '../../public/menu/SeriesMobileSubMenu'
 import {
   buildOfficialRaceCompetitorsPath,
   buildOfficialRacePath,
   buildOfficialSeriesEstimatesPath,
   buildOfficialSeriesShotsPath,
   buildOfficialSeriesTimesPath,
-} from "../../util/routeUtil"
-import Button from "../../common/Button"
-import useTranslation from "../../util/useTranslation"
-import Message from "../../common/Message"
+} from '../../util/routeUtil'
+import Button from '../../common/Button'
+import useTranslation from '../../util/useTranslation'
+import Message from '../../common/Message'
 
 const ResultPage = ({ competitorClass, children, race, series, titleKey, renderAboveCompetitors }) => {
   const { t } = useTranslation()
@@ -29,7 +29,7 @@ const ResultPage = ({ competitorClass, children, race, series, titleKey, renderA
         <>
           {renderAboveCompetitors?.()}
           <div className="row">
-            {series.competitors.map(competitor => (
+            {series.competitors.map((competitor) => (
               <div key={competitor.id} className={competitorClass || 'col-sm-12'}>
                 {children(competitor)}
               </div>
@@ -42,7 +42,9 @@ const ResultPage = ({ competitorClass, children, race, series, titleKey, renderA
 
   return (
     <div>
-      <h2>{series.name} - {t(titleKey)}</h2>
+      <h2>
+        {series.name} - {t(titleKey)}
+      </h2>
       {content()}
       {race.series.length > 1 && (
         <SeriesMobileSubMenu
@@ -52,7 +54,9 @@ const ResultPage = ({ competitorClass, children, race, series, titleKey, renderA
         />
       )}
       <div className="buttons buttons--nav">
-        <Button href={buildOfficialRacePath(raceId)} type="back">{t('backToOfficialRacePage')}</Button>
+        <Button href={buildOfficialRacePath(raceId)} type="back">
+          {t('backToOfficialRacePage')}
+        </Button>
         {titleKey !== 'officialRaceMenuTimes' && (
           <Button to={buildOfficialSeriesTimesPath(raceId, seriesId)}>{t('officialRaceMenuTimes')}</Button>
         )}

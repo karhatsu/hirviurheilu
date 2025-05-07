@@ -10,7 +10,7 @@ export const RacesPageProvider = ({ children }) => {
   const [data, setData] = useState(undefined)
   const [error, setError] = useState(undefined)
 
-  const search = useCallback(searchParams => {
+  const search = useCallback((searchParams) => {
     setFetching(true)
     const query = { ...searchParams, grouped: true }
     const path = `/api/v2/public/races?${buildQueryParams(query)}`

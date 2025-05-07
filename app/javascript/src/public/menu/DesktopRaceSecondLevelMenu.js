@@ -1,10 +1,15 @@
 import DesktopMenuItem from './DesktopMenuItem'
 import {
   buildFinalRoundHeatsPath,
-  buildNordicResultsPath, buildNordicSeriesResultsPath,
-  buildQualificationRoundHeatsPath, buildRacePressPath,
-  buildRacePath, buildRaceRifleResultsPath, buildRaceShotgunsResultsPath,
-  buildRelayPath, buildResultRotationPath,
+  buildNordicResultsPath,
+  buildNordicSeriesResultsPath,
+  buildQualificationRoundHeatsPath,
+  buildRacePressPath,
+  buildRacePath,
+  buildRaceRifleResultsPath,
+  buildRaceShotgunsResultsPath,
+  buildRelayPath,
+  buildResultRotationPath,
   buildRifleTeamCompetitionsPath,
   buildSeriesResultsPath,
   buildSeriesRifleResultsPath,
@@ -40,13 +45,13 @@ export default function DesktopRaceSecondLevelMenu({ race }) {
             text={t('results')}
             selected={selectedPage === pages.results}
             reactLink={true}
-            dropdownItems={race.series.map(s => {
+            dropdownItems={race.series.map((s) => {
               return { text: s.name, path: buildSeriesResultsPath(race.id, s.id), reactLink: true }
             })}
           />
           {race.sport.nordic && !race.nordicSubResultsForSeries && (
             <>
-              {['trap', 'shotgun', 'rifle_moving', 'rifle_standing'].map(subSport => {
+              {['trap', 'shotgun', 'rifle_moving', 'rifle_standing'].map((subSport) => {
                 return (
                   <DesktopMenuItem
                     key={subSport}
@@ -61,7 +66,7 @@ export default function DesktopRaceSecondLevelMenu({ race }) {
           )}
           {race.sport.nordic && race.nordicSubResultsForSeries && (
             <>
-              {['trap', 'shotgun', 'rifle_moving', 'rifle_standing'].map(subSport => {
+              {['trap', 'shotgun', 'rifle_moving', 'rifle_standing'].map((subSport) => {
                 return (
                   <DesktopMenuItem
                     key={subSport}
@@ -69,7 +74,7 @@ export default function DesktopRaceSecondLevelMenu({ race }) {
                     text={t(`nordic_${subSport}`)}
                     selected={selectedPage === pages.nordic[subSport]}
                     reactLink={true}
-                    dropdownItems={race.series.map(s => {
+                    dropdownItems={race.series.map((s) => {
                       return {
                         text: s.name,
                         path: buildNordicSeriesResultsPath(race.id, s.id, subSport),
@@ -84,27 +89,39 @@ export default function DesktopRaceSecondLevelMenu({ race }) {
           {race.sport.european && (
             <>
               <DesktopMenuItem
-                path={international
-                  ? buildRaceRifleResultsPath(race.id)
-                  : buildSeriesRifleResultsPath(race.id, seriesId)}
+                path={
+                  international ? buildRaceRifleResultsPath(race.id) : buildSeriesRifleResultsPath(race.id, seriesId)
+                }
                 text={t('rifle')}
                 selected={selectedPage === pages.europeanRifle}
                 reactLink={true}
-                dropdownItems={!international && race.series.map(s => (
-                  { text: s.name, path: buildSeriesRifleResultsPath(race.id, s.id), reactLink: true }),
-                )}
+                dropdownItems={
+                  !international &&
+                  race.series.map((s) => ({
+                    text: s.name,
+                    path: buildSeriesRifleResultsPath(race.id, s.id),
+                    reactLink: true,
+                  }))
+                }
               />
               {race.showEuropeanShotgunResults && (
                 <DesktopMenuItem
-                  path={international
-                    ? buildRaceShotgunsResultsPath(race.id)
-                    : buildSeriesShotgunsResultsPath(race.id, seriesId)}
+                  path={
+                    international
+                      ? buildRaceShotgunsResultsPath(race.id)
+                      : buildSeriesShotgunsResultsPath(race.id, seriesId)
+                  }
                   text={t('european_shotgun')}
                   selected={selectedPage === pages.europeanShotgun}
                   reactLink={true}
-                  dropdownItems={!international && race.series.map(s => (
-                    { text: s.name, path: buildSeriesShotgunsResultsPath(race.id, s.id), reactLink: true }),
-                  )}
+                  dropdownItems={
+                    !international &&
+                    race.series.map((s) => ({
+                      text: s.name,
+                      path: buildSeriesShotgunsResultsPath(race.id, s.id),
+                      reactLink: true,
+                    }))
+                  }
                 />
               )}
             </>
@@ -131,7 +148,7 @@ export default function DesktopRaceSecondLevelMenu({ race }) {
               text={t('startLists')}
               selected={selectedPage === pages.startList}
               reactLink={true}
-              dropdownItems={race.series.map(s => {
+              dropdownItems={race.series.map((s) => {
                 return { text: s.name, path: buildSeriesStartListPath(race.id, s.id), reactLink: true }
               })}
             />
@@ -144,7 +161,7 @@ export default function DesktopRaceSecondLevelMenu({ race }) {
           text={t(race.teamCompetitions.length > 1 ? 'teamCompetitions' : 'teamCompetition')}
           selected={selectedPage === pages.teamCompetitions}
           reactLink={true}
-          dropdownItems={race.teamCompetitions.map(tc => {
+          dropdownItems={race.teamCompetitions.map((tc) => {
             return { text: tc.name, path: buildTeamCompetitionsPath(race.id, tc.id), reactLink: true }
           })}
         />
@@ -155,7 +172,7 @@ export default function DesktopRaceSecondLevelMenu({ race }) {
           text={t(race.teamCompetitions.length > 1 ? 'rifleTeamCompetitions' : 'rifleTeamCompetition')}
           selected={selectedPage === pages.rifleTeamCompetitions}
           reactLink={true}
-          dropdownItems={race.teamCompetitions.map(tc => {
+          dropdownItems={race.teamCompetitions.map((tc) => {
             return { text: tc.name, path: buildRifleTeamCompetitionsPath(race.id, tc.id) }
           })}
         />
@@ -166,7 +183,7 @@ export default function DesktopRaceSecondLevelMenu({ race }) {
           text={t(race.relays.length > 1 ? 'relays' : 'relay')}
           selected={selectedPage === pages.relays}
           reactLink={true}
-          dropdownItems={race.relays.map(r => ({ text: r.name, path: buildRelayPath(race.id, r.id) }))}
+          dropdownItems={race.relays.map((r) => ({ text: r.name, path: buildRelayPath(race.id, r.id) }))}
         />
       )}
       {race.series.length > 0 && (

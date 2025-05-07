@@ -10,27 +10,27 @@ import { ShowShotsContext } from '../series-results/ResultsWithShots'
 export default function EuropeanRifleDesktopResults({ race, series, competitors }) {
   const { t } = useTranslation()
   const showShots = useContext(ShowShotsContext)
-  const extraShots = !!competitors.find(c => c.europeanRifleExtraShots)
+  const extraShots = !!competitors.find((c) => c.europeanRifleExtraShots)
   const resultClassName = showShots ? '' : 'center'
   return (
     <div className="results--desktop">
       <table className="results-table">
         <thead>
-        <tr>
-          <th />
-          <th>{t('name')}</th>
-          <th>{t('numberShort')}</th>
-          <th>{resolveClubTitle(t, race.clubLevel)}</th>
-          <th>{t('european_rifle1')}</th>
-          <th>{t('european_rifle2')}</th>
-          <th>{t('european_rifle3')}</th>
-          <th>{t('european_rifle4')}</th>
-          <th>{t('result')}</th>
-          {extraShots && <th>{t('extraRound')}</th>}
-        </tr>
+          <tr>
+            <th />
+            <th>{t('name')}</th>
+            <th>{t('numberShort')}</th>
+            <th>{resolveClubTitle(t, race.clubLevel)}</th>
+            <th>{t('european_rifle1')}</th>
+            <th>{t('european_rifle2')}</th>
+            <th>{t('european_rifle3')}</th>
+            <th>{t('european_rifle4')}</th>
+            <th>{t('result')}</th>
+            {extraShots && <th>{t('extraRound')}</th>}
+          </tr>
         </thead>
         <DesktopResultsRows competitors={competitors}>
-          {competitor => {
+          {(competitor) => {
             const {
               europeanRifleExtraScore,
               europeanRifleExtraShots,
@@ -57,7 +57,9 @@ export default function EuropeanRifleDesktopResults({ race, series, competitors 
               return (
                 <>
                   <td colSpan={4} />
-                  <td className="center total-points"><TotalScore noResultReason={noResultReason} /></td>
+                  <td className="center total-points">
+                    <TotalScore noResultReason={noResultReason} />
+                  </td>
                   {extraShots && <td />}
                 </>
               )
@@ -97,8 +99,8 @@ export default function EuropeanRifleDesktopResults({ race, series, competitors 
                   />
                 </td>
                 <td className="center total-points">
-                  <TotalScore noResultReason={noResultReason} totalScore={europeanRifleScore}/>
-                  {series && <EuropeanRifleNationalRecord race={race} series={series} competitor={competitor}/>}
+                  <TotalScore noResultReason={noResultReason} totalScore={europeanRifleScore} />
+                  {series && <EuropeanRifleNationalRecord race={race} series={series} competitor={competitor} />}
                 </td>
                 {extraShots && (
                   <td>

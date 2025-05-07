@@ -3,7 +3,9 @@ const FormErrors = ({ errors }) => {
   return (
     <div className="message message--error">
       <ul>
-        {errors.map((error, i) => <li key={i}>{error}</li>)}
+        {errors.map((error, i) => (
+          <li key={i}>{error}</li>
+        ))}
       </ul>
     </div>
   )

@@ -13,7 +13,7 @@ export default function Heats({ buildApiPath, buildPdfPath, hideAttribute, track
   const { t } = useTranslation()
   const [seriesId, setSeriesId] = useState(undefined)
   const { fetching, error, race, raceData: heatData } = useRaceData(buildApiPath)
-  const selectSeries = useCallback(event => {
+  const selectSeries = useCallback((event) => {
     const id = event.target.value
     setSeriesId(id && parseInt(id))
   }, [])
@@ -36,7 +36,7 @@ export default function Heats({ buildApiPath, buildPdfPath, hideAttribute, track
             </div>
           )}
           <div className="row">
-            {heats.map(heat => (
+            {heats.map((heat) => (
               <Heat
                 key={heat.number}
                 race={race}
@@ -56,11 +56,15 @@ export default function Heats({ buildApiPath, buildPdfPath, hideAttribute, track
       {content()}
       {!hidden && (
         <div className="buttons">
-          <Button href={buildPdfPath(race.id)} type="pdf">{t('downloadHeatListPdf')}</Button>
+          <Button href={buildPdfPath(race.id)} type="pdf">
+            {t('downloadHeatListPdf')}
+          </Button>
         </div>
       )}
       <div className="buttons buttons--nav">
-        <Button to={buildRacePath(race.id)} type="back">{t('backToPage', { pageName: race.name })}</Button>
+        <Button to={buildRacePath(race.id)} type="back">
+          {t('backToPage', { pageName: race.name })}
+        </Button>
       </div>
     </>
   )

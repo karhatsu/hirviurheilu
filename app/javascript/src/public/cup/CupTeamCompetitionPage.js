@@ -24,8 +24,9 @@ const CupTeamCompetitionPage = () => {
   const { mobile } = useLayout()
   useEffect(() => setSelectedPage(pages.cup.teamCompetitions), [setSelectedPage])
 
-  const titleCupTeamCompetition = (cupTeamCompetition?.id === cupTeamCompetitionId && cupTeamCompetition) ||
-    (cup?.cupTeamCompetitions.find(ctc => ctc.id === cupTeamCompetitionId))
+  const titleCupTeamCompetition =
+    (cupTeamCompetition?.id === cupTeamCompetitionId && cupTeamCompetition) ||
+    cup?.cupTeamCompetitions.find((ctc) => ctc.id === cupTeamCompetitionId)
   const title = cup && titleCupTeamCompetition ? `${titleCupTeamCompetition.name} - ${t('results')}` : t('results')
   useTitle(cup && [title, cup.name])
 
@@ -59,7 +60,9 @@ const CupTeamCompetitionPage = () => {
         parentId={cup.id}
       />
       <div className="buttons buttons--nav">
-        <Button to={buildCupPath(cup.id)} type="back">{t('backToCupHomePage')}</Button>
+        <Button to={buildCupPath(cup.id)} type="back">
+          {t('backToCupHomePage')}
+        </Button>
       </div>
     </>
   )

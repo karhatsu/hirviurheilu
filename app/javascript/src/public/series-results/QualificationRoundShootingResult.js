@@ -2,12 +2,8 @@ import { Fragment } from 'react'
 import ShootingResult from './ShootingResult'
 
 export default function QualificationRoundShootingResult({ competitor }) {
-  const {
-    qualificationRoundShots,
-    qualificationRoundSubScores,
-    qualificationRoundTotalScore,
-    shootingRulesPenaltyQr,
-  } = competitor
+  const { qualificationRoundShots, qualificationRoundSubScores, qualificationRoundTotalScore, shootingRulesPenaltyQr } =
+    competitor
   if (!qualificationRoundShots) return null
   return (
     <>
@@ -17,7 +13,8 @@ export default function QualificationRoundShootingResult({ competitor }) {
         } else if (qualificationRoundShots[i].length > 0) {
           return (
             <Fragment key={i}>
-              {' + '}<ShootingResult score={qualificationRoundSubScores[i]} shots={qualificationRoundShots[i]} />
+              {' + '}
+              <ShootingResult score={qualificationRoundSubScores[i]} shots={qualificationRoundShots[i]} />
             </Fragment>
           )
         }
@@ -26,7 +23,8 @@ export default function QualificationRoundShootingResult({ competitor }) {
       {shootingRulesPenaltyQr && ` - ${shootingRulesPenaltyQr}`}
       {qualificationRoundSubScores.length >= 2 && qualificationRoundShots[1].length > 0 && (
         <>
-          {' = '}{qualificationRoundTotalScore}
+          {' = '}
+          {qualificationRoundTotalScore}
         </>
       )}
     </>

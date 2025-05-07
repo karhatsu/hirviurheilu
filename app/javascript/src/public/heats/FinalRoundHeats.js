@@ -5,10 +5,10 @@ import { buildFinalRoundHeatsPath } from '../../util/routeUtil'
 
 export default function FinalRoundHeats() {
   const { setSelectedPage } = useMenu(pages.heats.finalRound)
-  const buildApiPath = useCallback(raceId => {
+  const buildApiPath = useCallback((raceId) => {
     return `/api/v2/public/races/${raceId}/final_round_heats`
   }, [])
-  const buildPdfPath = useCallback(raceId => `${buildFinalRoundHeatsPath(raceId)}.pdf`, [])
+  const buildPdfPath = useCallback((raceId) => `${buildFinalRoundHeatsPath(raceId)}.pdf`, [])
   useEffect(() => setSelectedPage(pages.heats.finalRound), [setSelectedPage])
   return (
     <Heats

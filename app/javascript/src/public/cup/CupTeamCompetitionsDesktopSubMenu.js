@@ -5,7 +5,7 @@ export default function CupTeamCompetitionsDesktopSubMenu({ cup, currentCupTeamC
   if (!cup || cup.cupTeamCompetitions.length < 2) return null
   return (
     <div className="menu menu--sub menu--sub-2">
-      {cup.cupTeamCompetitions.map(ctc => {
+      {cup.cupTeamCompetitions.map((ctc) => {
         const { id, name } = ctc
         const selected = parseInt(currentCupTeamCompetitionId) === id
         const path = buildCupTeamCompetitionsPath(cup.id, id)

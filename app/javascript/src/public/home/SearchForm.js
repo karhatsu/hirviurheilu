@@ -9,27 +9,41 @@ export default function SearchForm({ sportKey, setSportKey, districtId, setDistr
   return (
     <div className="form__horizontal-fields">
       <div className="form__field">
-        <select value={sportKey} onChange={e => setSportKey(e.target.value)} id="sport_key">
+        <select value={sportKey} onChange={(e) => setSportKey(e.target.value)} id="sport_key">
           <option value="">{t('allSports')}</option>
-          {sportKeys.map(key => <option value={key} key={key}>{t(`sport_${key}`)}</option>)}
+          {sportKeys.map((key) => (
+            <option value={key} key={key}>
+              {t(`sport_${key}`)}
+            </option>
+          ))}
         </select>
       </div>
       {districts.length > 0 && (
         <div className="form__field">
-          <select value={districtId} onChange={e => setDistrictId(e.target.value)} id="district_id">
+          <select value={districtId} onChange={(e) => setDistrictId(e.target.value)} id="district_id">
             <option value="">{t('allDistricts')}</option>
-            {districts.map(({ id, name }) => <option value={id} key={id}>{name}</option>)}
+            {districts.map(({ id, name }) => (
+              <option value={id} key={id}>
+                {name}
+              </option>
+            ))}
           </select>
         </div>
       )}
       <div className="form__field">
-        <select value={level} onChange={e => setLevel(e.target.value)} id="level">
+        <select value={level} onChange={(e) => setLevel(e.target.value)} id="level">
           <option value="">{t('allLevels')}</option>
-          {[4, 3, 2, 1, 0].map(level => <option value={level} key={level}>{t(`level_${level}`)}</option>)}
+          {[4, 3, 2, 1, 0].map((level) => (
+            <option value={level} key={level}>
+              {t(`level_${level}`)}
+            </option>
+          ))}
         </select>
       </div>
       {searching && (
-        <div className="form__field"><Spinner /></div>
+        <div className="form__field">
+          <Spinner />
+        </div>
       )}
     </div>
   )

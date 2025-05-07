@@ -9,19 +9,22 @@ import useRacesPage from './useRacesPage'
 
 const emptySearchParams = { search_text: '', sport_key: '', district_id: '', time: '', level: '' }
 
-const buildDefaultSearchParams = urlSearchParams => {
+const buildDefaultSearchParams = (urlSearchParams) => {
   const params = { ...emptySearchParams }
-  Object.keys(emptySearchParams).forEach(key => {
+  Object.keys(emptySearchParams).forEach((key) => {
     params[key] = urlSearchParams.get(key) || ''
   })
   return params
 }
 
-const buildURLSearchParams = searchParams => {
-  return '?' + Object.keys(searchParams)
-    .filter(key => searchParams[key])
-    .map(key => `${key}=${encodeURIComponent(searchParams[key])}`)
-    .join('&')
+const buildURLSearchParams = (searchParams) => {
+  return (
+    '?' +
+    Object.keys(searchParams)
+      .filter((key) => searchParams[key])
+      .map((key) => `${key}=${encodeURIComponent(searchParams[key])}`)
+      .join('&')
+  )
 }
 
 function useDebounce(callback, delay) {
@@ -44,21 +47,27 @@ export default function SearchForm() {
   const { search } = useRacesPage()
   const { districts } = useDistricts()
 
-  const debouncedTextSearch = useDebounce(value => {
-    setSearchParams(params => ({ ...params, search_text: value }))
+  const debouncedTextSearch = useDebounce((value) => {
+    setSearchParams((params) => ({ ...params, search_text: value }))
   }, 300)
 
-  const onSearchTextChange = useCallback(event => {
-    const { value } = event.target
-    setSearchText(value)
-    debouncedTextSearch(value)
-  }, [debouncedTextSearch])
+  const onSearchTextChange = useCallback(
+    (event) => {
+      const { value } = event.target
+      setSearchText(value)
+      debouncedTextSearch(value)
+    },
+    [debouncedTextSearch],
+  )
 
-  const setSearchValue = useCallback(key => event => {
-    setSearchParams(params => {
-      return { ...params, [key]: event.target.value }
-    })
-  }, [])
+  const setSearchValue = useCallback(
+    (key) => (event) => {
+      setSearchParams((params) => {
+        return { ...params, [key]: event.target.value }
+      })
+    },
+    [],
+  )
 
   const reset = useCallback(() => setSearchParams(emptySearchParams), [])
 
@@ -83,21 +92,33 @@ export default function SearchForm() {
         <div className="form__field">
           <select value={searchParams.sport_key} onChange={setSearchValue('sport_key')} id="sport_key">
             <option value="">{t('allSports')}</option>
-            {sportKeys.map(key => <option value={key} key={key}>{t(`sport_${key}`)}</option>)}
+            {sportKeys.map((key) => (
+              <option value={key} key={key}>
+                {t(`sport_${key}`)}
+              </option>
+            ))}
           </select>
         </div>
         {districts.length > 0 && (
           <div className="form__field">
             <select value={searchParams.district_id} onChange={setSearchValue('district_id')} id="district_id">
               <option value="">{t('allDistricts')}</option>
-              {districts.map(({ id, name }) => <option value={id} key={id}>{name}</option>)}
+              {districts.map(({ id, name }) => (
+                <option value={id} key={id}>
+                  {name}
+                </option>
+              ))}
             </select>
           </div>
         )}
         <div className="form__field">
           <select value={searchParams.level} onChange={setSearchValue('level')} id="level">
             <option value="">{t('allLevels')}</option>
-            {[4, 3, 2, 1, 0].map(level => <option value={level} key={level}>{t(`level_${level}`)}</option>)}
+            {[4, 3, 2, 1, 0].map((level) => (
+              <option value={level} key={level}>
+                {t(`level_${level}`)}
+              </option>
+            ))}
           </select>
         </div>
         <div className="form__field">
@@ -108,7 +129,9 @@ export default function SearchForm() {
           </select>
         </div>
         <div className="form__buttons">
-          <Button onClick={reset} id="reset">{t('reset')}</Button>
+          <Button onClick={reset} id="reset">
+            {t('reset')}
+          </Button>
         </div>
       </div>
     </div>

@@ -24,16 +24,18 @@ export default function RelayMobileResults({ relay, teams }) {
         } = team
         const className = classnames({ card: true, 'card--odd': i % 2 === 0 })
 
-        const estimate = relay.estimatePenaltySeconds && estimatePenaltiesSum
-          ? `${timeFromSeconds(estimatePenaltySeconds, true)} (${estimatePenaltiesSum})`
-          : estimatePenaltiesSum
+        const estimate =
+          relay.estimatePenaltySeconds && estimatePenaltiesSum
+            ? `${timeFromSeconds(estimatePenaltySeconds, true)} (${estimatePenaltiesSum})`
+            : estimatePenaltiesSum
         const estimateAdjustmentText = estimateAdjustment
           ? `Arviokorjaus ${timeFromSeconds(estimateAdjustment, true)}`
           : undefined
 
-        const shooting = relay.shootingPenaltySeconds && shootPenaltiesSum
-          ? `${timeFromSeconds(shootingPenaltySeconds, true)} (${shootPenaltiesSum})`
-          : shootPenaltiesSum
+        const shooting =
+          relay.shootingPenaltySeconds && shootPenaltiesSum
+            ? `${timeFromSeconds(shootingPenaltySeconds, true)} (${shootPenaltiesSum})`
+            : shootPenaltiesSum
         const shootingAdjustmentText = shootingAdjustment
           ? `Ammuntakorjaus ${timeFromSeconds(shootingAdjustment, true)}`
           : undefined
@@ -47,15 +49,17 @@ export default function RelayMobileResults({ relay, teams }) {
               {!noResultReason && (
                 <div className="card__middle-row">
                   {relay.penaltySeconds && timeInSeconds && (
-                    <MobileSubResult type="time">
-                      {timeFromSeconds(timeInSeconds)}
-                    </MobileSubResult>
+                    <MobileSubResult type="time">{timeFromSeconds(timeInSeconds)}</MobileSubResult>
                   )}
                   {estimatePenaltiesSum !== null && (
-                    <MobileSubResult type="estimate" adjustment={estimateAdjustmentText}>{estimate}</MobileSubResult>
+                    <MobileSubResult type="estimate" adjustment={estimateAdjustmentText}>
+                      {estimate}
+                    </MobileSubResult>
                   )}
                   {shootPenaltiesSum !== null && (
-                    <MobileSubResult type="shoot" adjustment={shootingAdjustmentText}>{shooting}</MobileSubResult>
+                    <MobileSubResult type="shoot" adjustment={shootingAdjustmentText}>
+                      {shooting}
+                    </MobileSubResult>
                   )}
                   {adjustmentText}
                 </div>

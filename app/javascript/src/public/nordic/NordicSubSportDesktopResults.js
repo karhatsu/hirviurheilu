@@ -8,7 +8,7 @@ import TotalScore from '../series-results/TotalScore'
 export default function NordicSubSportDesktopResults({ race, competitors }) {
   const { t } = useTranslation()
   const showShots = useContext(ShowShotsContext)
-  const extraShots = !!competitors.find(c => c.nordicExtraShots)
+  const extraShots = !!competitors.find((c) => c.nordicExtraShots)
   const { nordicSubResultsForSeries } = race
   return (
     <div className="results--desktop">
@@ -26,7 +26,7 @@ export default function NordicSubSportDesktopResults({ race, competitors }) {
           </tr>
         </thead>
         <DesktopResultsRows competitors={competitors}>
-          {competitor => {
+          {(competitor) => {
             const { nordicExtraShots, nordicScore, nordicShots, noResultReason, series } = competitor
             return (
               <>

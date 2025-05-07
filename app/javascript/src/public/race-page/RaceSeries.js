@@ -26,7 +26,7 @@ import { raceEnums } from '../../util/enums'
 
 const nordicSubSports = ['trap', 'shotgun', 'rifle_standing', 'rifle_moving']
 
-const resultsKey = sport => {
+const resultsKey = (sport) => {
   if (sport.european) return 'totalResults'
   if (sport.shooting) return 'results'
   return 'personalCompetitions'
@@ -63,20 +63,28 @@ export default function RaceSeries({ race }) {
       <h2>{t(resultsKey(sport))}</h2>
       {infos.length > 0 && <Message type="info">{infos.join('. ')}.</Message>}
       <div className="buttons" id="series-links">
-        {series.map(s => {
+        {series.map((s) => {
           const { id, name, started, startTime } = s
           if (!started && sport.startList) {
             const linkText = startTime ? `${name} (${formatTodaysTime(parseISO(startTime))})` : name
-            return <Button key={id} to={buildSeriesStartListPath(race.id, id)}>{linkText}</Button>
+            return (
+              <Button key={id} to={buildSeriesStartListPath(race.id, id)}>
+                {linkText}
+              </Button>
+            )
           } else {
             const to = buildSeriesResultsPath(race.id, id)
-            return <Button key={id} to={to} type="primary">{name}</Button>
+            return (
+              <Button key={id} to={to} type="primary">
+                {name}
+              </Button>
+            )
           }
         })}
       </div>
       {sport.nordic && !nordicSubResultsForSeries && (
         <div className="buttons">
-          {nordicSubSports.map(subSport => {
+          {nordicSubSports.map((subSport) => {
             return (
               <Button key={subSport} to={buildNordicResultsPath(race.id, subSport)} type="primary">
                 {t(`nordic_${subSport}`)}
@@ -85,29 +93,37 @@ export default function RaceSeries({ race }) {
           })}
         </div>
       )}
-      {sport.nordic && nordicSubResultsForSeries && nordicSubSports.map(subSport => (
-        <Fragment key={subSport}>
-          <h2>{t(`nordic_${subSport}`)}</h2>
-          <div className="buttons">
-            {series.map(s => (
-              <Button key={s.id} to={buildNordicSeriesResultsPath(race.id, s.id, subSport)} type="primary">
-                {s.name}
-              </Button>
-            ))}
-          </div>
-        </Fragment>
-      ))}
+      {sport.nordic &&
+        nordicSubResultsForSeries &&
+        nordicSubSports.map((subSport) => (
+          <Fragment key={subSport}>
+            <h2>{t(`nordic_${subSport}`)}</h2>
+            <div className="buttons">
+              {series.map((s) => (
+                <Button key={s.id} to={buildNordicSeriesResultsPath(race.id, s.id, subSport)} type="primary">
+                  {s.name}
+                </Button>
+              ))}
+            </div>
+          </Fragment>
+        ))}
       {sport.european && (
         <>
           <h3>{t('european_rifle')}</h3>
           {level === raceEnums.level.international && (
-            <Button to={buildRaceRifleResultsPath(race.id)} type="primary">{t('results')}</Button>
+            <Button to={buildRaceRifleResultsPath(race.id)} type="primary">
+              {t('results')}
+            </Button>
           )}
           {level !== raceEnums.level.international && (
             <div className="buttons" id="european_rifle_buttons">
-              {series.map(s => {
+              {series.map((s) => {
                 const { id, name } = s
-                return <Button key={id} to={buildSeriesRifleResultsPath(race.id, id)} type="primary">{name}</Button>
+                return (
+                  <Button key={id} to={buildSeriesRifleResultsPath(race.id, id)} type="primary">
+                    {name}
+                  </Button>
+                )
               })}
             </div>
           )}
@@ -115,14 +131,18 @@ export default function RaceSeries({ race }) {
             <>
               <h3>{t('european_shotgun')}</h3>
               {level === raceEnums.level.international && (
-                <Button to={buildRaceShotgunsResultsPath(race.id)} type="primary">{t('results')}</Button>
+                <Button to={buildRaceShotgunsResultsPath(race.id)} type="primary">
+                  {t('results')}
+                </Button>
               )}
               {level !== raceEnums.level.international && (
                 <div className="buttons" id="european_shotgun_buttons">
-                  {series.map(s => {
+                  {series.map((s) => {
                     const { id, name } = s
                     return (
-                      <Button key={id} to={buildSeriesShotgunsResultsPath(race.id, id)} type="primary">{name}</Button>
+                      <Button key={id} to={buildSeriesShotgunsResultsPath(race.id, id)} type="primary">
+                        {name}
+                      </Button>
                     )
                   })}
                 </div>
@@ -131,7 +151,7 @@ export default function RaceSeries({ race }) {
           )}
         </>
       )}
-      {!finished && series.find(s => s.competitorsCount > 0) && (
+      {!finished && series.find((s) => s.competitorsCount > 0) && (
         <div className="results--desktop">
           {sport.startList && (
             <>
@@ -142,7 +162,9 @@ export default function RaceSeries({ race }) {
                     <ClubSelect clubLevel={clubLevel} clubs={clubs} />
                   </div>
                   <div className="form__buttons">
-                    <Button submit={true} type="pdf">{t('downloadStartTimes')}</Button>
+                    <Button submit={true} type="pdf">
+                      {t('downloadStartTimes')}
+                    </Button>
                   </div>
                 </div>
               </form>
@@ -156,11 +178,7 @@ export default function RaceSeries({ race }) {
             />
           )}
           {!frHidden && race.finalRoundHeats.length > 0 && (
-            <HeatListPdfForm
-              path={buildFinalRoundHeatsPath(race.id)}
-              race={race}
-              title={t('finalRoundHeatList')}
-            />
+            <HeatListPdfForm path={buildFinalRoundHeatsPath(race.id)} race={race} title={t('finalRoundHeatList')} />
           )}
         </div>
       )}

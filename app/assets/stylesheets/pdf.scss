@@ -1,10 +1,14 @@
 body {
-    font-family: 'Muli', sans-serif;
-    font-size: 16px;
+  font-family: 'Muli', sans-serif;
+  font-size: 16px;
 }
 
-.no-break:before { clear: both; }
-.no-break { page-break-inside: avoid; }
+.no-break:before {
+  clear: both;
+}
+.no-break {
+  page-break-inside: avoid;
+}
 .page-break {
   display: block;
   clear: both;
@@ -43,28 +47,28 @@ h3 {
 }
 
 th {
-    text-align: left;
-    padding: 2px 5px;
+  text-align: left;
+  padding: 2px 5px;
 }
 
 tr {
-    page-break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 td {
-    padding: 2px 5px;
+  padding: 2px 5px;
 }
 
 a {
-    color: olive;
+  color: olive;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .message--info {
-    margin: 8px 0;
+  margin: 8px 0;
 }
 
 $emptyCellWidth: 32px;
@@ -86,7 +90,8 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
   &__title {
     display: inline-block;
     font-size: 12px;
-    width: 5 * ($emptyCellWidth + 2 * $emptyCellBorderWidth + $emptyCellMarginRifle + $emptyCellMysteryMargin) + $emptyCellGroupingMarginRifle
+    width: 5 * ($emptyCellWidth + 2 * $emptyCellBorderWidth + $emptyCellMarginRifle + $emptyCellMysteryMargin) +
+      $emptyCellGroupingMarginRifle;
   }
 }
 
@@ -155,7 +160,9 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
   -webkit-flex-wrap: wrap;
   width: 100%;
 
-  .col-xs-4, .col-sm-3, .col-md-2 {
+  .col-xs-4,
+  .col-sm-3,
+  .col-md-2 {
     display: inline-block;
     margin-right: 8px;
   }
@@ -176,7 +183,10 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
     font-size: 48px;
   }
 
-  &__name, &__club, &__series, &__heat {
+  &__name,
+  &__club,
+  &__series,
+  &__heat {
     margin-top: 16px;
   }
 
@@ -204,7 +214,12 @@ $emptyCellMysteryMargin: 2px; // even if cell margin is set to 0, there is 2px s
       margin-top: 0;
     }
 
-    &__sport, &__name, &__club, &__series, &__heat, &__series-with-races {
+    &__sport,
+    &__name,
+    &__club,
+    &__series,
+    &__heat,
+    &__series-with-races {
       font-size: 16px;
       margin-top: 8px;
     }

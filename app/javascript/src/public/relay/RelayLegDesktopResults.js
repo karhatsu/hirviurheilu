@@ -40,7 +40,9 @@ export default function RelayLegDesktopResults({ race, relay, teams, leg }) {
               <tr key={team.id} id={`team_${i + 1}`}>
                 <td>{i + 1}.</td>
                 <td>{team.name}</td>
-                <td>{lastName} {firstName}</td>
+                <td>
+                  {lastName} {firstName}
+                </td>
                 <td className="center">{team.number}</td>
                 <td className="center team_points">
                   <RelayTime timeInSeconds={cumulativeTime} timeWithPenalties={cumulativeTimeWithPenalties} />

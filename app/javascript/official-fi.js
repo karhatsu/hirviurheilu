@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 window.officialTranslations = {
   add: 'Lisää',
   addCompetitorsFromCsvFile: 'Lisää kilpailijoita CSV-tiedostosta',
@@ -13,11 +12,13 @@ window.officialTranslations = {
   backToOfficialRacePage: 'Takaisin Yhteenveto-sivulle',
   backToOfficialSeriesPage: 'Takaisin sarjan {{seriesName}} kilpailijaluetteloon',
   cancel: 'Peruuta',
-  clubsPageInfo: 'Tällä sivulla voit lisätä kilpailuun osallistuvien kilpailijoiden seuroja/piirejä sekä korjata niiden nimiä ja poistaa ylimääräisiä. Huom! Voit lisätä seuroja/piirejä myös samalla, kun lisäät kilpailijoita.',
+  clubsPageInfo:
+    'Tällä sivulla voit lisätä kilpailuun osallistuvien kilpailijoiden seuroja/piirejä sekä korjata niiden nimiä ja poistaa ylimääräisiä. Huom! Voit lisätä seuroja/piirejä myös samalla, kun lisäät kilpailijoita.',
   clubsPageCompetitorsCount: '{{count}} kilpailijaa',
   clubsLongNameInfo: 'Käytetään joukkuekilpailuissa, jos syötetty',
   competitorNumbersSync: 'Synkronoi kilpailijanumerot',
-  competitorNumbersSyncConfirm: 'Ymmärrän, että toiminto muuttaa kilpailijoiden numeroita alla olevissa kilpailuissa eikä vanhaa tilaa voi palauttaa',
+  competitorNumbersSyncConfirm:
+    'Ymmärrän, että toiminto muuttaa kilpailijoiden numeroita alla olevissa kilpailuissa eikä vanhaa tilaa voi palauttaa',
   competitorNumbersSyncDone: 'Kilpailijanumerot synkronoitu',
   competitorNumbersSyncInfo: 'Tällä sivulla voit synkronoida tapahtuman kilpailuiden kilpailijanumerot.',
   competitorNumbersSyncInvalidRaces: 'Toiminto ei ole saatavilla tapahtumille, joissa on mukana liikuntalajeja.',
@@ -57,7 +58,8 @@ window.officialTranslations = {
   eventPrintCompetitorType_list: 'Luettelo',
   eventPrintCompetitorWithRaces: 'Tulosta lajit ja sarjat',
   eventRaces: 'Tapahtumaan kuuluvat kilpailut',
-  eventsAtLeastTwoRaces: 'Sinulla pitää olla vähintään kaksi kilpailua, jotta voit luoda tapahtuman. Kilpailu voi kuulua vain yhteen tapahtumaan.',
+  eventsAtLeastTwoRaces:
+    'Sinulla pitää olla vähintään kaksi kilpailua, jotta voit luoda tapahtuman. Kilpailu voi kuulua vain yhteen tapahtumaan.',
   eventsNew: 'Uusi tapahtuma',
   extraShots: 'Uusinnan laukaukset',
   firstName: 'Etunimi',
@@ -90,7 +92,8 @@ window.officialTranslations = {
   officialEventMenuHome: 'Yhteenveto',
   officialEventMenuPrints: 'Kilpailijoiden tulostus',
   officialEventMenuSyncNumbers: 'Synkronoi numerot',
-  officialPageAddManyDescription: 'Tällä sivulla voit kutsua monta toimitsijaa kerralla. Listaa toimitsijoiden sähköpostiosoitteet ja jos haluat heille rajoitetut oikeudet, lisää perään piiri / seura alla olevan esimerkin mukaisesti. Henkilöiden täytyy olla rekisteröitynyt palveluun omilla sähköpostiosoitteillaan.',
+  officialPageAddManyDescription:
+    'Tällä sivulla voit kutsua monta toimitsijaa kerralla. Listaa toimitsijoiden sähköpostiosoitteet ja jos haluat heille rajoitetut oikeudet, lisää perään piiri / seura alla olevan esimerkin mukaisesti. Henkilöiden täytyy olla rekisteröitynyt palveluun omilla sähköpostiosoitteillaan.',
   officialPageAddManyTitle: 'Kutsu monta toimitsijaa kilpailun toimitsijoiksi',
   officialPageAllCurrent: 'Kaikki nykyiset',
   officialPageAllowAddingClubs: 'Salli uusien piirien/seurojen lisäys',
@@ -143,7 +146,8 @@ window.officialTranslations = {
   noCompetitorsInRace: 'Et ole syöttänyt kilpailuun vielä yhtään kilpailijaa.',
   noCompetitorsInSeries: 'Et ole syöttänyt tähän sarjaan vielä yhtään kilpailijaa.',
   noHeats: 'Yhtään erää ei ole vielä määritetty',
-  noStartListForSeries: 'Tähän sarjaan ei ole luotu vielä lähtölistaa. Tulokset voi syöttää vasta sitten kun lähtölista on luotu.',
+  noStartListForSeries:
+    'Tähän sarjaan ei ole luotu vielä lähtölistaa. Tulokset voi syöttää vasta sitten kun lähtölista on luotu.',
   number: 'Numero',
   recentlyAddedCompetitors: 'Viimeksi lisätyt kilpailijat',
   save: 'Tallenna',

@@ -16,7 +16,9 @@ export default function CupResultsPdf({ cup }) {
             <label htmlFor="page_breaks">{t('pdfPageBreaks')}</label>
           </div>
           <div className="form__buttons">
-            <Button submit={true} type="primary">{t('downloadAllResults')}</Button>
+            <Button submit={true} type="primary">
+              {t('downloadAllResults')}
+            </Button>
           </div>
         </div>
       </form>

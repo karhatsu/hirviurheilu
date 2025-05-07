@@ -1,15 +1,15 @@
-import useOfficialMenu from "../menu/useOfficialMenu"
-import { useCallback, useEffect, useMemo, useState } from "react"
-import Button from "../../common/Button"
-import { buildOfficialRaceCompetitorsPath, buildOfficialRacePath } from "../../util/routeUtil"
-import { useParams } from "react-router"
-import { useRace } from "../../util/useRace"
-import useTitle from "../../util/useTitle"
-import IncompletePage from "../../common/IncompletePage"
-import useTranslation from "../../util/useTranslation"
-import { findSeriesById } from "../../util/seriesUtil"
-import { del, get } from "../../util/apiClient"
-import CompetitorForm from "./CompetitorForm"
+import useOfficialMenu from '../menu/useOfficialMenu'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import Button from '../../common/Button'
+import { buildOfficialRaceCompetitorsPath, buildOfficialRacePath } from '../../util/routeUtil'
+import { useParams } from 'react-router'
+import { useRace } from '../../util/useRace'
+import useTitle from '../../util/useTitle'
+import IncompletePage from '../../common/IncompletePage'
+import useTranslation from '../../util/useTranslation'
+import { findSeriesById } from '../../util/seriesUtil'
+import { del, get } from '../../util/apiClient'
+import CompetitorForm from './CompetitorForm'
 
 const titleKey = 'editCompetitor'
 
@@ -36,12 +36,15 @@ const EditCompetitorPage = () => {
   const series = useMemo(() => race && findSeriesById(race.series, seriesId), [race, seriesId])
 
   const availableSeries = useMemo(() => {
-    return race?.series.filter(s => s.hasStartList === series.hasStartList) || []
+    return race?.series.filter((s) => s.hasStartList === series.hasStartList) || []
   }, [race, series])
 
-  const onSave = useCallback(competitor => {
-    window.location.href = buildOfficialRaceCompetitorsPath(params.raceId, competitor.seriesId)
-  }, [params])
+  const onSave = useCallback(
+    (competitor) => {
+      window.location.href = buildOfficialRaceCompetitorsPath(params.raceId, competitor.seriesId)
+    },
+    [params],
+  )
 
   const onDelete = useCallback(() => {
     if (confirm(t('deleteCompetitorConfirmation'))) {
@@ -58,7 +61,9 @@ const EditCompetitorPage = () => {
 
   return (
     <div>
-      <h2>{competitor.lastName} {competitor.firstName} - {t(titleKey)}</h2>
+      <h2>
+        {competitor.lastName} {competitor.firstName} - {t(titleKey)}
+      </h2>
       <CompetitorForm
         availableSeries={availableSeries}
         race={race}
@@ -70,8 +75,12 @@ const EditCompetitorPage = () => {
         <Button href={buildOfficialRaceCompetitorsPath(race.id, seriesId)} type="back">
           {t('backToOfficialSeriesPage', { seriesName: series.name })}
         </Button>
-        <Button href={buildOfficialRacePath(race.id)} type="back">{t('backToOfficialRacePage')}</Button>
-        <Button onClick={onDelete} type="danger">{t('deleteCompetitor')}</Button>
+        <Button href={buildOfficialRacePath(race.id)} type="back">
+          {t('backToOfficialRacePage')}
+        </Button>
+        <Button onClick={onDelete} type="danger">
+          {t('deleteCompetitor')}
+        </Button>
       </div>
     </div>
   )

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
-import { get } from "../../util/apiClient"
-import { useParams } from "react-router"
+import { useEffect, useState } from 'react'
+import { get } from '../../util/apiClient'
+import { useParams } from 'react-router'
 
 const useOfficialRaceCompetitors = () => {
-  const { raceId} = useParams()
+  const { raceId } = useParams()
   const [competitors, setCompetitors] = useState()
   const [error, setError] = useState()
   const [fetching, setFetching] = useState(true)

@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
-import useOfficialMenu from "../menu/useOfficialMenu"
-import { pages } from "../../util/useMenu"
-import IncompletePage from "../../common/IncompletePage"
-import useTranslation from "../../util/useTranslation"
-import { get } from "../../util/apiClient"
-import { useParams } from "react-router"
+import useOfficialMenu from '../menu/useOfficialMenu'
+import { pages } from '../../util/useMenu'
+import IncompletePage from '../../common/IncompletePage'
+import useTranslation from '../../util/useTranslation'
+import { get } from '../../util/apiClient'
+import { useParams } from 'react-router'
 
 const EventCompetitorsPage = () => {
   const { eventId } = useParams()
@@ -26,10 +26,10 @@ const EventCompetitorsPage = () => {
   const competitorsMap = useMemo(() => {
     if (!event) return {}
     const map = {}
-    event.races.forEach(race => {
+    event.races.forEach((race) => {
       const { id: raceId, name: raceName } = race
-      race.series.forEach(series => {
-        series.competitors.forEach(competitor => {
+      race.series.forEach((series) => {
+        series.competitors.forEach((competitor) => {
           const { number, lastName, firstName, club } = competitor
           const key = `${number}_${lastName}_${firstName}_${club.name}`
           const comp = { number, lastName, firstName, club: club.name, series: series.name, race: raceName, raceId }
@@ -64,7 +64,7 @@ const EventCompetitorsPage = () => {
     <div>
       <h2>{t('officialEventMenuCompetitors')}</h2>
       <div className="row">
-        {sortedKeys.map(key => {
+        {sortedKeys.map((key) => {
           const competitors = competitorsMap[key]
           const { number, lastName, firstName, club } = competitors[0]
           return (
@@ -72,9 +72,11 @@ const EventCompetitorsPage = () => {
               <div className="card">
                 <div className="card__number">{number}</div>
                 <div className="card__middle">
-                  <div className="card__name">{lastName} {firstName}</div>
+                  <div className="card__name">
+                    {lastName} {firstName}
+                  </div>
                   <div className="card__middle-row">{club}</div>
-                  {competitors.map(competitorInRace => (
+                  {competitors.map((competitorInRace) => (
                     <div className="card__middle-row" key={competitorInRace.raceId}>
                       {competitorInRace.race} ({competitorInRace.series})
                     </div>

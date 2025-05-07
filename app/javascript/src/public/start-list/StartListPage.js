@@ -13,7 +13,7 @@ import Message from '../../common/Message'
 import useLayout from '../../util/useLayout'
 import useRaceData from '../../util/useRaceData'
 import IncompletePage from '../../common/IncompletePage'
-import { findSeriesById } from "../../util/seriesUtil"
+import { findSeriesById } from '../../util/seriesUtil'
 
 export default function StartListPage() {
   const { setSelectedPage } = useMenu()
@@ -21,7 +21,10 @@ export default function StartListPage() {
   const seriesId = parseInt(seriesIdStr)
   const { t } = useTranslation()
   const { mobile } = useLayout()
-  const buildApiPath = useCallback(raceId => `/api/v2/public/races/${raceId}/series/${seriesId}/start_list`, [seriesId])
+  const buildApiPath = useCallback(
+    (raceId) => `/api/v2/public/races/${raceId}/series/${seriesId}/start_list`,
+    [seriesId],
+  )
   const { error, fetching, race, raceData: series } = useRaceData(buildApiPath)
 
   const titleSeries = (series?.id === seriesId && series) || (race && findSeriesById(race.series, seriesId))
@@ -38,7 +41,9 @@ export default function StartListPage() {
     <>
       <h2>{title}</h2>
       {startTime && !started && (
-        <Message type="info">{t('seriesStartTime')}: {format(new Date(startTime), 'dd.MM.yyyy HH:mm')}</Message>
+        <Message type="info">
+          {t('seriesStartTime')}: {format(new Date(startTime), 'dd.MM.yyyy HH:mm')}
+        </Message>
       )}
       {competitors.length > 0 && (
         <>

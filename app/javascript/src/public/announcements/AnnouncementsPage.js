@@ -27,10 +27,14 @@ export default function AnnouncementsPage() {
   return (
     <>
       <div className="announcements">
-        {announcements.map(a => <Announcement announcement={a} key={a.id} />)}
+        {announcements.map((a) => (
+          <Announcement announcement={a} key={a.id} />
+        ))}
       </div>
       <div className="buttons buttons--nav">
-        <Button to={buildRootPath()} type="back">{t('backToHomePage')}</Button>
+        <Button to={buildRootPath()} type="back">
+          {t('backToHomePage')}
+        </Button>
       </div>
     </>
   )

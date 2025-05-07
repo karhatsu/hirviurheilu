@@ -23,25 +23,28 @@ export const ResultRotationProvider = ({ children }) => {
   const { race } = useRace()
   const statusRef = useRef({ autoScrolling: false, remainingSeconds: 0, nextPath: undefined })
 
-  const changeAutoScroll = useCallback(() => setAutoScroll(prev => !prev), [])
+  const changeAutoScroll = useCallback(() => setAutoScroll((prev) => !prev), [])
 
-  const changeId = useCallback((setter, id) => event => {
-    setter(ids => {
-      if (event.target.checked) {
-        return [...ids, id]
-      } else {
-        const newIds = [...ids]
-        const index = newIds.indexOf(id)
-        newIds.splice(index, 1)
-        return newIds
-      }
-    })
-  }, [])
+  const changeId = useCallback(
+    (setter, id) => (event) => {
+      setter((ids) => {
+        if (event.target.checked) {
+          return [...ids, id]
+        } else {
+          const newIds = [...ids]
+          const index = newIds.indexOf(id)
+          newIds.splice(index, 1)
+          return newIds
+        }
+      })
+    },
+    [],
+  )
 
-  const changeSeriesId = useCallback(id => changeId(setSeriesIds, id), [changeId])
-  const changeTeamCompetitionId = useCallback(id => changeId(setTeamCompetitionIds, id), [changeId])
+  const changeSeriesId = useCallback((id) => changeId(setSeriesIds, id), [changeId])
+  const changeTeamCompetitionId = useCallback((id) => changeId(setTeamCompetitionIds, id), [changeId])
 
-  const changeSeconds = useCallback(event => setSeconds(parseInt(event.target.value) || ''), [])
+  const changeSeconds = useCallback((event) => setSeconds(parseInt(event.target.value) || ''), [])
 
   const start = useCallback(() => {
     setStarted(true)
@@ -80,7 +83,7 @@ export const ResultRotationProvider = ({ children }) => {
       if (statusRef.current.nextPath) {
         setRemainingSeconds(seconds)
         interval = setInterval(() => {
-          setRemainingSeconds(secs => Math.max(0, secs - 1))
+          setRemainingSeconds((secs) => Math.max(0, secs - 1))
         }, 1000)
         timeout = setTimeout(() => {
           if (!statusRef.current.autoScrolling) navigate(statusRef.current.nextPath)

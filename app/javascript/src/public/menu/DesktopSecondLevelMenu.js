@@ -12,7 +12,7 @@ export default function DesktopSecondLevelMenu() {
   const { race } = useRace()
   const { cup } = useCup()
   const { pathname } = useLocation()
-  if (['/info', '/prices', '/answers', '/feedbacks', '/sports_info'].find(path => matchPath(pathname, path))) {
+  if (['/info', '/prices', '/answers', '/feedbacks', '/sports_info'].find((path) => matchPath(pathname, path))) {
     return <DesktopInfoSecondLevelMenu />
   }
   if (cupId && cup) return <DesktopCupSecondLevelMenu cup={cup} />

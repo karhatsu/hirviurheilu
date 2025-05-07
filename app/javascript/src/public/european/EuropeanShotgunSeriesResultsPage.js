@@ -20,7 +20,7 @@ export default function EuropeanShotgunSeriesResultsPage() {
   const { setSelectedPage } = useMenu()
   const { seriesId } = useParams()
   const { mobile } = useLayout()
-  const buildApiPath = useCallback(raceId => `/api/v2/public/races/${raceId}/series/${seriesId}/shotguns`, [seriesId])
+  const buildApiPath = useCallback((raceId) => `/api/v2/public/races/${raceId}/series/${seriesId}/shotguns`, [seriesId])
   const { error, fetching, race, raceData: series, reloadDataRef } = useRaceData(buildApiPath)
 
   useTitle(race && series && [t('european_shotgun'), series.name, race.name, t(`sport_${race.sportKey}`)])
@@ -34,7 +34,9 @@ export default function EuropeanShotgunSeriesResultsPage() {
 
   return (
     <>
-      <h2>{t('european_shotgun')} - {series.name}</h2>
+      <h2>
+        {t('european_shotgun')} - {series.name}
+      </h2>
       <SeriesStatus race={race} series={series}>
         <ResultsWithShots competitors={series.competitors}>
           {!mobile && <EuropeanShotgunDesktopResults race={race} competitors={series.competitors} />}
@@ -48,7 +50,9 @@ export default function EuropeanShotgunSeriesResultsPage() {
       </SeriesStatus>
       <SeriesMobileSubMenu race={race} currentSeriesId={series.id} buildSeriesPath={buildSeriesShotgunsResultsPath} />
       <div className="buttons buttons--nav">
-        <Button to={buildRacePath(race.id)} type="back">{t('backToPage', { pageName: race.name })}</Button>
+        <Button to={buildRacePath(race.id)} type="back">
+          {t('backToPage', { pageName: race.name })}
+        </Button>
       </div>
     </>
   )

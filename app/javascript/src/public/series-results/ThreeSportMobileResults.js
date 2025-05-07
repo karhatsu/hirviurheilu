@@ -9,14 +9,14 @@ import ShootingPoints from './ShootingPoints'
 import MobileResultCards from './MobileResultCards'
 import { timeFromSeconds } from '../../util/timeUtil'
 
-const is = value => value != null && typeof value !== 'undefined'
+const is = (value) => value != null && typeof value !== 'undefined'
 
 export default function ThreeSportMobileResults({ race, series }) {
   const { t } = useTranslation()
   const { competitors, timePoints } = series
   return (
     <MobileResultCards competitors={competitors}>
-      {competitor => {
+      {(competitor) => {
         const {
           ageGroup,
           arrivalTime,
@@ -35,7 +35,11 @@ export default function ThreeSportMobileResults({ race, series }) {
             <div className="card__middle">
               <div className="card__name">
                 {lastName} {firstName}
-                {unofficial && <div className="card__name__extra"><UnofficialLabel unofficial={unofficial}/></div>}
+                {unofficial && (
+                  <div className="card__name__extra">
+                    <UnofficialLabel unofficial={unofficial} />
+                  </div>
+                )}
               </div>
               {ageGroup && <div className="card__middle-row">{ageGroup.name}</div>}
               <div className="card__middle-row">{club.name}</div>
@@ -53,7 +57,9 @@ export default function ThreeSportMobileResults({ race, series }) {
                     </MobileSubResult>
                   )}
                   {is(shootingScore) && (
-                    <MobileSubResult type="shoot"><ShootingPoints competitor={competitor} /></MobileSubResult>
+                    <MobileSubResult type="shoot">
+                      <ShootingPoints competitor={competitor} />
+                    </MobileSubResult>
                   )}
                   {is(shootingTimeSeconds) && timeFromSeconds(shootingTimeSeconds)}
                 </div>

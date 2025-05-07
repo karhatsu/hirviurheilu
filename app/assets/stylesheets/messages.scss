@@ -17,7 +17,7 @@
 
   &--error {
     background: linear-gradient(to right, rgba(190, 31, 4, 0.9), rgba(190, 31, 4, 0.7));
-    border-color: #CC3300;
+    border-color: #cc3300;
 
     ul {
       margin: 0;
@@ -37,12 +37,12 @@
 
   &--warning {
     background: linear-gradient(to right, rgba(253, 106, 7, 1), rgba(253, 106, 7, 0.7));
-    border-color: #FF7F00;
+    border-color: #ff7f00;
   }
 
   &--important {
     background: linear-gradient(to right, rgba(253, 66, 7, 1), rgba(253, 66, 7, 0.7));
-    border-color: #FF7F00;
+    border-color: #ff7f00;
   }
 
   &--success {
@@ -52,7 +52,7 @@
 
   &--info {
     background: linear-gradient(to right, rgba(29, 99, 153, 0.9), rgba(29, 99, 153, 0.7));
-    border-color: #27A;
+    border-color: #27a;
 
     .help {
       background-color: transparent;
@@ -60,14 +60,14 @@
       padding: 0;
 
       &:hover {
-        color: #27A;
+        color: #27a;
       }
     }
   }
 
   &--flash {
     background: none;
-    color: #27A;
+    color: #27a;
   }
 }
 

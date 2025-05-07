@@ -1,31 +1,27 @@
-import Button from "../../common/Button"
-import useTranslation from "../../util/useTranslation"
-import { useCallback } from "react"
+import Button from '../../common/Button'
+import useTranslation from '../../util/useTranslation'
+import { useCallback } from 'react'
 
 const ClickableShotOption = ({ fieldValue, index, value, onClick }) => {
   const classes = ['clickable-shot__option', `clickable-shot__option--${fieldValue}`]
   if (fieldValue === value) classes.push('clickable-shot__option--selected')
   const newValue = value === fieldValue ? '' : fieldValue
   const handleClick = () => onClick({ target: { value: newValue } })
-  return <div className={classes.join(' ')} onClick={handleClick}>{index + 1}</div>
+  return (
+    <div className={classes.join(' ')} onClick={handleClick}>
+      {index + 1}
+    </div>
+  )
 }
 
-const ShotFields = props => {
+const ShotFields = (props) => {
   const { t } = useTranslation()
-  const {
-    idPrefix,
-    data,
-    shotsField,
-    base,
-    onChangeShot,
-    shotCounts,
-    bestShotValue,
-  } = props
+  const { idPrefix, data, shotsField, base, onChangeShot, shotCounts, bestShotValue } = props
 
   const selectAll = useCallback(() => {
     shotCounts.forEach((n, i) => {
       new Array(n).fill(0).forEach((_, j) => {
-        const counter = (base || 0) + (i === 0 ? j : (i * shotCounts[i - 1]) + j)
+        const counter = (base || 0) + (i === 0 ? j : i * shotCounts[i - 1] + j)
         onChangeShot(shotsField, counter)({ target: { value: bestShotValue } })
       })
     })
@@ -35,7 +31,7 @@ const ShotFields = props => {
     <div className="form__horizontal-fields form__fields--shots">
       {shotCounts.map((n, i) => {
         return new Array(n).fill(0).map((_, j) => {
-          const counter = (base || 0) + (i === 0 ? j : (i * shotCounts[i - 1]) + j)
+          const counter = (base || 0) + (i === 0 ? j : i * shotCounts[i - 1] + j)
           const classes = ['form__field', 'form__field--xs', 'form__field--shot']
           if (j + 1 === n) classes.push('form__field--last-in-group')
           const value = data[shotsField]?.[counter] ?? ''
@@ -43,7 +39,7 @@ const ShotFields = props => {
             <div className={classes.join(' ')} key={j}>
               {bestShotValue === 1 && (
                 <div className="clickable-shot">
-                  {[0, 1].map(fieldValue => (
+                  {[0, 1].map((fieldValue) => (
                     <ClickableShotOption
                       key={fieldValue}
                       fieldValue={fieldValue}
@@ -56,7 +52,7 @@ const ShotFields = props => {
               )}
               {bestShotValue === 4 && (
                 <div className="clickable-shot">
-                  {[0, 2, 4].map(fieldValue => (
+                  {[0, 2, 4].map((fieldValue) => (
                     <ClickableShotOption
                       key={fieldValue}
                       fieldValue={fieldValue}
@@ -83,7 +79,9 @@ const ShotFields = props => {
         })
       })}
       {(bestShotValue === 1 || bestShotValue === 4) && !shotsField.match(/extraShots/i) && (
-        <Button type="select-all-shots" onClick={selectAll}>{t('selectAll')}</Button>
+        <Button type="select-all-shots" onClick={selectAll}>
+          {t('selectAll')}
+        </Button>
       )}
     </div>
   )

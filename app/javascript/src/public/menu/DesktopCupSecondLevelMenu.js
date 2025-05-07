@@ -2,7 +2,8 @@ import DesktopMenuItem from './DesktopMenuItem'
 import {
   buildCupPressPath,
   buildCupPath,
-  buildCupSeriesPath, buildCupTeamCompetitionsPath,
+  buildCupSeriesPath,
+  buildCupTeamCompetitionsPath,
   buildRifleCupSeriesPath,
 } from '../../util/routeUtil'
 import useMenu, { pages } from '../../util/useMenu'
@@ -28,7 +29,7 @@ export default function DesktopCupSecondLevelMenu({ cup }) {
             text={t('results')}
             selected={selectedPage === pages.cup.results}
             reactLink={true}
-            dropdownItems={cup.cupSeries.map(cs => {
+            dropdownItems={cup.cupSeries.map((cs) => {
               return { text: cs.name, path: buildCupSeriesPath(cup.id, cs.id), reactLink: true }
             })}
           />
@@ -38,7 +39,7 @@ export default function DesktopCupSecondLevelMenu({ cup }) {
               text={t('rifle')}
               selected={selectedPage === pages.cup.rifleResults}
               reactLink={true}
-              dropdownItems={cup.cupSeries.map(cs => {
+              dropdownItems={cup.cupSeries.map((cs) => {
                 return { text: cs.name, path: buildRifleCupSeriesPath(cup.id, cs.id), reactLink: true }
               })}
             />
@@ -51,7 +52,7 @@ export default function DesktopCupSecondLevelMenu({ cup }) {
           text={t('teamCompetitions')}
           selected={selectedPage === pages.cup.teamCompetitions}
           reactLink={true}
-          dropdownItems={cup.cupTeamCompetitions.map(ctc => {
+          dropdownItems={cup.cupTeamCompetitions.map((ctc) => {
             return { text: ctc.name, path: buildCupTeamCompetitionsPath(cup.id, ctc.id), reactLink: true }
           })}
         />

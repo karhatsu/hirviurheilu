@@ -5,7 +5,7 @@ export default function RelayDesktopSubMenu({ currentRelayId, race }) {
   if (!race || race.relays.length < 2) return null
   return (
     <div className="menu menu--sub menu--sub-2">
-      {race.relays.map(relay => {
+      {race.relays.map((relay) => {
         const { id, name } = relay
         const selected = parseInt(currentRelayId) === id
         const path = buildRelayPath(race.id, id)

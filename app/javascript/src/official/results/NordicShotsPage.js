@@ -1,16 +1,16 @@
-import useOfficialMenu from "../menu/useOfficialMenu"
-import { useEffect, useMemo, useState } from "react"
-import { useRace } from "../../util/useRace"
-import IncompletePage from "../../common/IncompletePage"
-import useTranslation from "../../util/useTranslation"
-import Button from "../../common/Button"
-import { buildOfficialRacePath } from "../../util/routeUtil"
-import Message from "../../common/Message"
-import useOfficialRaceCompetitors from "./useOfficialRaceCompetitors"
-import NordicShotsForm from "./NordicShotsForm"
-import useTitle from "../../util/useTitle"
-import { capitalize, nordicConfig } from "./resultUtil"
-import { findSeriesById } from "../../util/seriesUtil"
+import useOfficialMenu from '../menu/useOfficialMenu'
+import { useEffect, useMemo, useState } from 'react'
+import { useRace } from '../../util/useRace'
+import IncompletePage from '../../common/IncompletePage'
+import useTranslation from '../../util/useTranslation'
+import Button from '../../common/Button'
+import { buildOfficialRacePath } from '../../util/routeUtil'
+import Message from '../../common/Message'
+import useOfficialRaceCompetitors from './useOfficialRaceCompetitors'
+import NordicShotsForm from './NordicShotsForm'
+import useTitle from '../../util/useTitle'
+import { capitalize, nordicConfig } from './resultUtil'
+import { findSeriesById } from '../../util/seriesUtil'
 
 const NordicShotsPage = ({ subSport }) => {
   const { t } = useTranslation()
@@ -25,26 +25,30 @@ const NordicShotsPage = ({ subSport }) => {
   useTitle(race && `${t(titleKey)} - ${race.name}`)
 
   const competitors = useMemo(() => {
-    return allCompetitors?.filter(competitor => {
-      const { qualificationRoundHeatId, finalRoundHeatId } = competitor
-      return (seriesId === -1 || competitor.seriesId === seriesId)
-        && (heatId === -2 || (qualificationRoundHeatId === heatId || finalRoundHeatId === heatId))
-    }).sort((a, b) => {
-      if (heatId !== -2 && a.qualificationRoundTrackPlace !== b.qualificationRoundTrackPlace) {
-        return a.qualificationRoundTrackPlace - b.qualificationRoundTrackPlace
-      } else if (a.number !== b.number) {
-        return a.number - b.number
-      } else if (a.lastName !== b.lastName) {
-        return a.lastName.localeCompare(a.lastName)
-      } else {
-        return a.firstName.localeCompare(b.firstName)
-      }
-    })
+    return allCompetitors
+      ?.filter((competitor) => {
+        const { qualificationRoundHeatId, finalRoundHeatId } = competitor
+        return (
+          (seriesId === -1 || competitor.seriesId === seriesId) &&
+          (heatId === -2 || qualificationRoundHeatId === heatId || finalRoundHeatId === heatId)
+        )
+      })
+      .sort((a, b) => {
+        if (heatId !== -2 && a.qualificationRoundTrackPlace !== b.qualificationRoundTrackPlace) {
+          return a.qualificationRoundTrackPlace - b.qualificationRoundTrackPlace
+        } else if (a.number !== b.number) {
+          return a.number - b.number
+        } else if (a.lastName !== b.lastName) {
+          return a.lastName.localeCompare(a.lastName)
+        } else {
+          return a.firstName.localeCompare(b.firstName)
+        }
+      })
   }, [allCompetitors, seriesId, heatId])
 
   const config = useMemo(() => race && nordicConfig(subSport, race), [subSport, race])
 
-  if (!race || !competitors) return <IncompletePage title={t(titleKey)} error={error} fetching={fetching}/>
+  if (!race || !competitors) return <IncompletePage title={t(titleKey)} error={error} fetching={fetching} />
 
   return (
     <div>
@@ -57,24 +61,32 @@ const NordicShotsPage = ({ subSport }) => {
             <div className="form__field form__field--md">
               {race.series.length > 1 && (
                 <select
-                  onChange={e => setSeriesId(parseInt(e.target.value) || -1)}
+                  onChange={(e) => setSeriesId(parseInt(e.target.value) || -1)}
                   value={seriesId}
                   style={{ marginRight: 8 }}
                 >
                   <option value={-1}>{t('allSeries')}</option>
-                  {race.series.map(({ id, name }) => <option key={id} value={id}>{name}</option>)}
+                  {race.series.map(({ id, name }) => (
+                    <option key={id} value={id}>
+                      {name}
+                    </option>
+                  ))}
                 </select>
               )}
               {race.qualificationRoundHeats.length > 1 && (
-                <select onChange={e => setHeatId(parseInt(e.target.value) || -2)} value={heatId}>
+                <select onChange={(e) => setHeatId(parseInt(e.target.value) || -2)} value={heatId}>
                   <option value={-2}>{t('allHeats')}</option>
-                  {race.qualificationRoundHeats.map(({ id, number }) => <option key={id} value={id}>{number}</option>)}
+                  {race.qualificationRoundHeats.map(({ id, number }) => (
+                    <option key={id} value={id}>
+                      {number}
+                    </option>
+                  ))}
                 </select>
               )}
             </div>
           )}
           <div className="row">
-            {competitors.map(competitor => (
+            {competitors.map((competitor) => (
               <div key={competitor.id} className="col-sm-12">
                 <NordicShotsForm
                   competitor={competitor}
@@ -89,7 +101,9 @@ const NordicShotsPage = ({ subSport }) => {
         </>
       )}
       <div className="buttons buttons--nav">
-        <Button href={buildOfficialRacePath(race.id)} type="back">{t('backToOfficialRacePage')}</Button>
+        <Button href={buildOfficialRacePath(race.id)} type="back">
+          {t('backToOfficialRacePage')}
+        </Button>
       </div>
     </div>
   )

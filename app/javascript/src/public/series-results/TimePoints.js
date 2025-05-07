@@ -12,6 +12,10 @@ export default function TimePoints({ competitor, series }) {
     return '-'
   } else {
     const className = timePoints === 300 ? 'series-best-time' : ''
-    return <span className={className}>{timePoints} ({timeFromSeconds(timeInSeconds)})</span>
+    return (
+      <span className={className}>
+        {timePoints} ({timeFromSeconds(timeInSeconds)})
+      </span>
+    )
   }
 }

@@ -6,13 +6,13 @@ import NationalRecord from './NationalRecord'
 import TotalScore from './TotalScore'
 import DesktopResultsRows from './DesktopResultsRows'
 import { ShowShotsContext } from './ResultsWithShots'
-import { useResultRotation } from "../result-rotation/useResultRotation"
+import { useResultRotation } from '../result-rotation/useResultRotation'
 
 export default function EuropeanDesktopResults({ race, series }) {
   const { t } = useTranslation()
   const showShots = useContext(ShowShotsContext)
   const { competitors } = series
-  const extraShots = !!competitors.find(c => c.europeanExtraScore)
+  const extraShots = !!competitors.find((c) => c.europeanExtraScore)
   const resultClassName = showShots ? '' : 'center'
   const { scrollAutomatically } = useResultRotation()
 
@@ -38,7 +38,7 @@ export default function EuropeanDesktopResults({ race, series }) {
           </tr>
         </thead>
         <DesktopResultsRows competitors={competitors}>
-          {competitor => {
+          {(competitor) => {
             const {
               europeanExtraScore,
               europeanRifle1Score,
@@ -73,7 +73,9 @@ export default function EuropeanDesktopResults({ race, series }) {
               return (
                 <>
                   <td colSpan={6} />
-                  <td className="center total-points"><TotalScore noResultReason={noResultReason} /></td>
+                  <td className="center total-points">
+                    <TotalScore noResultReason={noResultReason} />
+                  </td>
                   {extraShots && <td />}
                 </>
               )

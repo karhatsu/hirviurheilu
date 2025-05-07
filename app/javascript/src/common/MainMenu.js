@@ -27,12 +27,11 @@ export default function MainMenu({ closeMenu, mainMenuOpen, official }) {
   const { admin, locale, userId } = useAppData()
 
   const className = classnames({ menu: true, 'menu--main': true, 'menu--visible': mainMenuOpen })
-  const raceDropDown = official && raceId && race
-    ? [{ text: race.name, path: buildRacePath(raceId) }]
-    : undefined
-  const officialDropDown = !official && raceId && race && userId && (race.userIds.includes(userId) || admin)
-    ? [{ text: race.name, path: buildOfficialRacePath(race.id) }]
-    : undefined
+  const raceDropDown = official && raceId && race ? [{ text: race.name, path: buildRacePath(raceId) }] : undefined
+  const officialDropDown =
+    !official && raceId && race && userId && (race.userIds.includes(userId) || admin)
+      ? [{ text: race.name, path: buildOfficialRacePath(race.id) }]
+      : undefined
   return (
     <div className={className}>
       <DesktopMenuItem
@@ -73,7 +72,7 @@ export default function MainMenu({ closeMenu, mainMenuOpen, official }) {
         icon="info"
         path={buildInfoPath()}
         text="Info"
-        selected={['/info', '/prices', '/answers', '/feedbacks', '/sports_info'].find(path => {
+        selected={['/info', '/prices', '/answers', '/feedbacks', '/sports_info'].find((path) => {
           return matchPath(pathname, path)
         })}
         reactLink={!official}

@@ -70,13 +70,13 @@ const paths = {
   shooting: buildOfficialSeriesShotsPath,
   shootingBySeries: buildOfficialSeriesShotsPath,
   shootingByHeats: buildOfficialRaceShootingByHeatsPath,
-  nordicTrap: raceId => buildOfficialRaceNordicPath(raceId, 'trap'),
-  nordicShotgun: raceId => buildOfficialRaceNordicPath(raceId, 'shotgun'),
-  nordicRifleMoving: raceId => buildOfficialRaceNordicPath(raceId, 'rifle_moving'),
-  nordicRifleStanding: raceId => buildOfficialRaceNordicPath(raceId, 'rifle_standing'),
-  europeanTrap: raceId => buildOfficialRaceEuropeanPath(raceId, 'trap'),
-  europeanCompak: raceId => buildOfficialRaceEuropeanPath(raceId, 'compak'),
-  europeanRifle: raceId => buildOfficialRaceEuropeanPath(raceId, 'rifle'),
+  nordicTrap: (raceId) => buildOfficialRaceNordicPath(raceId, 'trap'),
+  nordicShotgun: (raceId) => buildOfficialRaceNordicPath(raceId, 'shotgun'),
+  nordicRifleMoving: (raceId) => buildOfficialRaceNordicPath(raceId, 'rifle_moving'),
+  nordicRifleStanding: (raceId) => buildOfficialRaceNordicPath(raceId, 'rifle_standing'),
+  europeanTrap: (raceId) => buildOfficialRaceEuropeanPath(raceId, 'trap'),
+  europeanCompak: (raceId) => buildOfficialRaceEuropeanPath(raceId, 'compak'),
+  europeanRifle: (raceId) => buildOfficialRaceEuropeanPath(raceId, 'rifle'),
   csv: buildOfficialRaceCsvExportPath,
   correctDistances: buildOfficialRaceCorrectDistancesPath,
   teamCompetitions: buildOfficialRaceTeamCompetitionsPath,
@@ -187,7 +187,7 @@ const threeSportsKeys = [
   'officials',
 ]
 
-const resolveMenuItems = race => {
+const resolveMenuItems = (race) => {
   if (race.sport.nordic) return nordicKeys
   else if (race.sport.european) return europeanKeys
   else if (race.sport.shooting) return shootingKeys
@@ -198,7 +198,7 @@ const buildMenuItem = (selectedPage, key, t, race, series) => {
   if ((useSeries[key] || useRaceAndSeries[key] || requireSeries[key]) && !series) return
   const text = key === 'clubs' ? resolveClubsTitle(t, race.clubLevel) : t(labels[key])
 
-  const resolvePath = s => {
+  const resolvePath = (s) => {
     if (useRaceAndSeries[key]) return paths[key](race.id, s.id)
     if (useSeries[key]) return paths[key](s.id)
     return paths[key](race.id)
@@ -211,9 +211,12 @@ const buildMenuItem = (selectedPage, key, t, race, series) => {
       text={text}
       reactLink={reactPages.includes(key)}
       selected={key === selectedPage}
-      dropdownItems={(useSeries[key] || useRaceAndSeries[key]) && race.series.map(s => {
-        return { text: s.name, path: resolvePath(s) }
-      })}
+      dropdownItems={
+        (useSeries[key] || useRaceAndSeries[key]) &&
+        race.series.map((s) => {
+          return { text: s.name, path: resolvePath(s) }
+        })
+      }
     />
   )
 }
@@ -226,7 +229,7 @@ const RaceSecondLevelMenu = ({ visible }) => {
   const series = race.series[0]
   return (
     <div className={`menu menu--sub menu--sub-1 ${visible ? 'menu--visible' : ''}`}>
-      {resolveMenuItems(race).map(key => buildMenuItem(selectedPage, key, t, race, series))}
+      {resolveMenuItems(race).map((key) => buildMenuItem(selectedPage, key, t, race, series))}
     </div>
   )
 }

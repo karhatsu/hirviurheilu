@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
-import { get } from "../../util/apiClient"
-import { useParams, useSearchParams } from "react-router"
+import { useEffect, useState } from 'react'
+import { get } from '../../util/apiClient'
+import { useParams, useSearchParams } from 'react-router'
 
 const useOfficialSeries = () => {
-  const { raceId, seriesId} = useParams()
+  const { raceId, seriesId } = useParams()
   const [searchParams] = useSearchParams()
   const [series, setSeries] = useState()
   const [error, setError] = useState()

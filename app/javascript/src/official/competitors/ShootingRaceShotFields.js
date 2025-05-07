@@ -1,8 +1,8 @@
-import FormField from "../../common/form/FormField"
-import ScoreInputField from "../results/ScoreInputField"
-import ShotFields from "../results/ShotFields"
-import { shotCount, shotValue } from "../results/resultUtil"
-import { useMemo } from "react"
+import FormField from '../../common/form/FormField'
+import ScoreInputField from '../results/ScoreInputField'
+import ShotFields from '../results/ShotFields'
+import { shotCount, shotValue } from '../results/resultUtil'
+import { useMemo } from 'react'
 
 const ShootingRaceShotFields = ({ competitorId, data, onChange, onChangeShot, sport }) => {
   const { qualificationRoundShotCount, finalRoundShotCount, bestShotValue } = sport
@@ -10,10 +10,12 @@ const ShootingRaceShotFields = ({ competitorId, data, onChange, onChangeShot, sp
   const maxFRScore = finalRoundShotCount * shotValue(bestShotValue)
 
   const extraRoundShotCount = useMemo(() => {
-    if (data.qualificationRoundShootingScoreInput ||
-      [sport.qualificationRoundShotCount, sport.shotCount].includes(shotCount(data.shots))) {
+    if (
+      data.qualificationRoundShootingScoreInput ||
+      [sport.qualificationRoundShotCount, sport.shotCount].includes(shotCount(data.shots))
+    ) {
       const currentCount = (data.extraShots || []).length
-      return currentCount + sport.shotsPerExtraRound - currentCount % sport.shotsPerExtraRound
+      return currentCount + sport.shotsPerExtraRound - (currentCount % sport.shotsPerExtraRound)
     }
     return 0
   }, [sport, data])

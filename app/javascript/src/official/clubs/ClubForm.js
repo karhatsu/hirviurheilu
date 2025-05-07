@@ -6,11 +6,14 @@ import FormErrors from '../../common/form/FormErrors'
 const ClubForm = ({ title, initialData, errors, onSave, onCancel }) => {
   const { t } = useTranslation()
   const [data, setData] = useState(initialData)
-  const onChange = useCallback(field => event => setData(d => ({ ...d, [field]: event.target.value })), [])
-  const onSubmit = useCallback(event => {
-    event.preventDefault()
-    onSave(data)
-  }, [onSave, data])
+  const onChange = useCallback((field) => (event) => setData((d) => ({ ...d, [field]: event.target.value })), [])
+  const onSubmit = useCallback(
+    (event) => {
+      event.preventDefault()
+      onSave(data)
+    },
+    [onSave, data],
+  )
   return (
     <div>
       <h2>{title}</h2>
@@ -26,7 +29,9 @@ const ClubForm = ({ title, initialData, errors, onSave, onCancel }) => {
           <div className="form__field__info">{t('clubsLongNameInfo')}</div>
         </div>
         <div className="form__buttons">
-          <Button submit={true} type="primary">{t('save')}</Button>
+          <Button submit={true} type="primary">
+            {t('save')}
+          </Button>
         </div>
       </form>
       <div className="buttons buttons--nav">

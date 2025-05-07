@@ -45,7 +45,7 @@ export default function CupPage() {
       {!cupSeries.length && t('noCupSeries')}
       {cupSeries.length > 0 && (
         <div className="buttons">
-          {cupSeries.map(cs => {
+          {cupSeries.map((cs) => {
             return (
               <Button key={cs.id} to={buildCupSeriesPath(cup.id, cs.id)} type="primary">
                 <CupSeriesName cupSeries={cs} />
@@ -58,7 +58,7 @@ export default function CupPage() {
         <>
           <h2>{t('teamCompetitions')}</h2>
           <div className="buttons">
-            {cupTeamCompetitions.map(tc => (
+            {cupTeamCompetitions.map((tc) => (
               <Button key={tc.id} to={buildCupTeamCompetitionsPath(cup.id, tc.id)} type="primary">
                 {tc.name}
               </Button>
@@ -70,7 +70,7 @@ export default function CupPage() {
         <>
           <h2>{t('rifleResults')}</h2>
           <div className="buttons">
-            {cupSeries.map(cs => {
+            {cupSeries.map((cs) => {
               return (
                 <Button key={cs.id} to={buildRifleCupSeriesPath(cup.id, cs.id)} type="primary">
                   <CupSeriesName cupSeries={cs} />
@@ -87,16 +87,22 @@ export default function CupPage() {
         <>
           <h2>{t('cupCompetitions')}</h2>
           <div className="buttons">
-            {races.map(race => {
+            {races.map((race) => {
               const { id, name, startDate, endDate } = race
-              return <Button key={id} to={buildRacePath(id)}>{name} ({formatDateInterval(startDate, endDate)})</Button>
+              return (
+                <Button key={id} to={buildRacePath(id)}>
+                  {name} ({formatDateInterval(startDate, endDate)})
+                </Button>
+              )
             })}
           </div>
         </>
       )}
       <CupResultsPdf cup={cup} />
       <div className="buttons buttons--nav">
-        <Button to={buildRootPath()} type="back">{t('backToHomePage')}</Button>
+        <Button to={buildRootPath()} type="back">
+          {t('backToHomePage')}
+        </Button>
       </div>
     </>
   )

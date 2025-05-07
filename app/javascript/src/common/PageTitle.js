@@ -5,7 +5,7 @@ import DateInterval from '../util/DateInterval'
 import useTranslation from '../util/useTranslation'
 import { matchPath } from '../util/routeUtil'
 import { usePathParams } from '../public/PathParamsProvider'
-import { useEvent } from "../util/useEvent"
+import { useEvent } from '../util/useEvent'
 
 export default function PageTitle() {
   const { t } = useTranslation()
@@ -32,11 +32,7 @@ export default function PageTitle() {
         {name}{' '}
       </div>
       <div>
-        {sportKey && (
-          <span className="race-title__sport">
-            {t(`sport_${sportKey}`)},{' '}
-          </span>
-        )}
+        {sportKey && <span className="race-title__sport">{t(`sport_${sportKey}`)}, </span>}
         {location && (
           <span className="race-title__location" itemProp="location" itemType="http://schema.org/Place">
             {location},{' '}

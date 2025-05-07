@@ -16,13 +16,16 @@ import Button from '../../common/Button'
 import Message from '../../common/Message'
 import IncompletePage from '../../common/IncompletePage'
 import { buildRootPath } from '../../util/routeUtil'
-import RaceEventRaces from "./RaceEventRaces"
+import RaceEventRaces from './RaceEventRaces'
 
-const msToStart = start => start ? new Date(start).getTime() - new Date().getTime() : Number.MAX_SAFE_INTEGER
+const msToStart = (start) => (start ? new Date(start).getTime() - new Date().getTime() : Number.MAX_SAFE_INTEGER)
 
-const findFirstNotStarted = seriesOrRelays => seriesOrRelays.sort((a, b) => {
-  return a.startTime?.localeCompare(b.startTime)
-}).find(s => s.startTime && !s.started)
+const findFirstNotStarted = (seriesOrRelays) =>
+  seriesOrRelays
+    .sort((a, b) => {
+      return a.startTime?.localeCompare(b.startTime)
+    })
+    .find((s) => s.startTime && !s.started)
 
 export default function RacePage() {
   const { t } = useTranslation()
@@ -39,9 +42,12 @@ export default function RacePage() {
         const msToSeriesStart = msToStart(nextSeries?.startTime)
         const msToRelayStart = msToStart(nextRelay?.startTime)
         const ms = Math.max(0, Math.min(msToSeriesStart, msToRelayStart))
-        const timeout = setTimeout(() => {
-          reloadRace()
-        }, ms + 5000 * Math.random())
+        const timeout = setTimeout(
+          () => {
+            reloadRace()
+          },
+          ms + 5000 * Math.random(),
+        )
         return () => clearTimeout(timeout)
       }
     }
@@ -75,7 +81,9 @@ export default function RacePage() {
         </>
       )}
       <div className="buttons buttons--nav">
-        <Button to={buildRootPath()} type="back">{t('backToHomePage')}</Button>
+        <Button to={buildRootPath()} type="back">
+          {t('backToHomePage')}
+        </Button>
       </div>
     </>
   )

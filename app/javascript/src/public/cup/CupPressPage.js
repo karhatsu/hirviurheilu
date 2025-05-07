@@ -45,27 +45,32 @@ export default function CupPressPage() {
             id="competitor_count"
             type="number"
             value={competitorsCount}
-            onChange={e => setCompetitorsCount(e.target.value)}
+            onChange={(e) => setCompetitorsCount(e.target.value)}
           />
         </div>
       </div>
       <Message type="info">{t('pressReportInstructions')}</Message>
       {t(ruleKey, { bestCompetitionsCount: cup.topCompetitions })}.{' '}
-      {cup.cupSeries.map(cupSeries => {
-        const competitors = cupSeries.cupCompetitors
-          .map((competitor, i) => {
-            const { clubName, firstName, lastName, score } = competitor
-            if (i < competitorsCount && score) {
-              return `${i + 1}) ${lastName} ${firstName} ${clubName} ${score}`
-            }
-            return undefined
-          })
-          .filter(c => c)
-          .join(', ')
-        return `${cupSeries.name}: ${competitors}`
-      }).join('. ')}.
+      {cup.cupSeries
+        .map((cupSeries) => {
+          const competitors = cupSeries.cupCompetitors
+            .map((competitor, i) => {
+              const { clubName, firstName, lastName, score } = competitor
+              if (i < competitorsCount && score) {
+                return `${i + 1}) ${lastName} ${firstName} ${clubName} ${score}`
+              }
+              return undefined
+            })
+            .filter((c) => c)
+            .join(', ')
+          return `${cupSeries.name}: ${competitors}`
+        })
+        .join('. ')}
+      .
       <div className="buttons buttons--nav">
-        <Button to={buildCupPath(cupId)} type="back">{t('backToPage', { pageName: cup.name })}</Button>
+        <Button to={buildCupPath(cupId)} type="back">
+          {t('backToPage', { pageName: cup.name })}
+        </Button>
       </div>
     </>
   )

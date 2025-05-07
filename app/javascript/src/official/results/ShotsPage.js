@@ -1,16 +1,16 @@
-import useOfficialMenu from "../menu/useOfficialMenu"
-import { useRace } from "../../util/useRace"
-import { useEffect } from "react"
-import useTranslation from "../../util/useTranslation"
-import useOfficialSeries from "./useOfficialSeries"
-import IncompletePage from "../../common/IncompletePage"
-import ResultPage from "./ResultPage"
-import ThreeSportsShootingForm from "./ThreeSportsShootingForm"
-import ShootingRaceShootingForm from "./ShootingRaceShootingForm"
-import Message from "../../common/Message"
-import { useParams, useSearchParams } from "react-router"
-import Button from "../../common/Button"
-import useTitle from "../../util/useTitle"
+import useOfficialMenu from '../menu/useOfficialMenu'
+import { useRace } from '../../util/useRace'
+import { useEffect } from 'react'
+import useTranslation from '../../util/useTranslation'
+import useOfficialSeries from './useOfficialSeries'
+import IncompletePage from '../../common/IncompletePage'
+import ResultPage from './ResultPage'
+import ThreeSportsShootingForm from './ThreeSportsShootingForm'
+import ShootingRaceShootingForm from './ShootingRaceShootingForm'
+import Message from '../../common/Message'
+import { useParams, useSearchParams } from 'react-router'
+import Button from '../../common/Button'
+import useTitle from '../../util/useTitle'
 
 const titleKey = 'officialRaceMenuShooting'
 
@@ -22,11 +22,11 @@ const CompetitorForm = ({ competitor, sport }) => {
 }
 
 const ShotsPage = () => {
-  const {t} = useTranslation()
-  const {setSelectedPage} = useOfficialMenu()
+  const { t } = useTranslation()
+  const { setSelectedPage } = useOfficialMenu()
   const { seriesId } = useParams()
-  const {race} = useRace()
-  const {error, fetching, series} = useOfficialSeries()
+  const { race } = useRace()
+  const { error, fetching, series } = useOfficialSeries()
   const [searchParams] = useSearchParams()
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const ShotsPage = () => {
 
   return (
     <ResultPage race={race} series={series} titleKey={titleKey} renderAboveCompetitors={renderAboveCompetitors}>
-      {competitor => <CompetitorForm competitor={competitor} sport={race.sport}/>}
+      {(competitor) => <CompetitorForm competitor={competitor} sport={race.sport} />}
     </ResultPage>
   )
 }

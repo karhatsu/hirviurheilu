@@ -20,14 +20,16 @@ function PublicReactApp() {
   const [mainMenuOpen, setMainMenuOpen] = useState(false)
   const { noNav } = useAppData()
   const { raceId } = usePathParams()
-  const toggleMainMenu = useCallback(() => setMainMenuOpen(open => !open), [])
+  const toggleMainMenu = useCallback(() => setMainMenuOpen((open) => !open), [])
   const closeMainMenu = useCallback(() => setMainMenuOpen(false), [])
   return (
     <div>
       {!noNav && <Header toggleMainMenu={toggleMainMenu} />}
       {!noNav && <MainMenu closeMenu={closeMainMenu} mainMenuOpen={mainMenuOpen} />}
       <div className="body" itemScope itemType={raceId ? 'http://schema.org/SportsEvent' : ''}>
-        <div className="body__on-top-title"><PageTitle /></div>
+        <div className="body__on-top-title">
+          <PageTitle />
+        </div>
         <div className="body__content">
           {!noNav && <DesktopSecondLevelMenu />}
           {!noNav && <DesktopSubMenu />}

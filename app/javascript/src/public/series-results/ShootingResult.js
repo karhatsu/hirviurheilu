@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { ShowShotsContext } from './ResultsWithShots'
 
-const formatShots = shots => shots.map(s => s === 11 ? '10⊙' : s).join(', ')
+const formatShots = (shots) => shots.map((s) => (s === 11 ? '10⊙' : s)).join(', ')
 
 export default function ShootingResult({ score, shots, score2, shots2 }) {
   const showShots = useContext(ShowShotsContext)

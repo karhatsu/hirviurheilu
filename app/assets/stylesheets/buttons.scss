@@ -1,4 +1,4 @@
-input[type = 'submit'] {
+input[type='submit'] {
   font-family: 'Muli', sans-serif;
   font-size: 14px;
   padding: 10px 16px;
@@ -63,15 +63,15 @@ input[type = 'submit'] {
 
   &--danger {
     background: #fff;
-    border: 1px solid #CC3300;
-    color: #CC3300;
+    border: 1px solid #cc3300;
+    color: #cc3300;
 
     &::before {
       content: 'clear';
     }
 
     &:hover {
-      background: #CC3300;
+      background: #cc3300;
       color: #fff;
     }
   }
@@ -82,7 +82,21 @@ input[type = 'submit'] {
     cursor: default;
   }
 
-  &--add::before, &--add_competitor::before, &--add_multiple::before, &--back::before, &--call::before, &--copy::before, &--competitors::before, &--csv::before, &--danger::before, &--done::before, &--down::before, &--edit::before, &--open::before, &--pdf::before, &--place::before {
+  &--add::before,
+  &--add_competitor::before,
+  &--add_multiple::before,
+  &--back::before,
+  &--call::before,
+  &--copy::before,
+  &--competitors::before,
+  &--csv::before,
+  &--danger::before,
+  &--done::before,
+  &--down::before,
+  &--edit::before,
+  &--open::before,
+  &--pdf::before,
+  &--place::before {
     font-family: 'Material Icons';
     margin-right: 4px;
   }
@@ -154,7 +168,8 @@ input[type = 'submit'] {
   }
 }
 
-#show_all_relay_competitors, #hide_all_relay_competitors {
+#show_all_relay_competitors,
+#hide_all_relay_competitors {
   display: none;
 }
 
@@ -163,11 +178,13 @@ input[type = 'submit'] {
     display: none;
   }
 
-  #show_all_relay_competitors, #hide_all_relay_competitors {
+  #show_all_relay_competitors,
+  #hide_all_relay_competitors {
     display: inline-block;
   }
 
-  #show_cup_races, #hide_cup_races {
+  #show_cup_races,
+  #hide_cup_races {
     display: none;
 
     &.button--force-mobile {

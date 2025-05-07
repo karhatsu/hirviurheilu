@@ -9,25 +9,25 @@ import { ShowShotsContext } from '../series-results/ResultsWithShots'
 export default function EuropeanShotgunDesktopResults({ race, competitors }) {
   const { t } = useTranslation()
   const showShots = useContext(ShowShotsContext)
-  const extraScore = !!competitors.find(c => c.europeanShotgunExtraScore)
+  const extraScore = !!competitors.find((c) => c.europeanShotgunExtraScore)
   const resultClassName = showShots ? '' : 'center'
   return (
     <div className="results--desktop">
       <table className="results-table">
         <thead>
-        <tr>
-          <th />
-          <th>{t('name')}</th>
-          <th>{t('numberShort')}</th>
-          <th>{resolveClubTitle(t, race.clubLevel)}</th>
-          <th>{t('european_trap')}</th>
-          <th>{t('european_compak')}</th>
-          <th>{t('result')}</th>
-          {extraScore && <th>{t('extraRound')}</th>}
-        </tr>
+          <tr>
+            <th />
+            <th>{t('name')}</th>
+            <th>{t('numberShort')}</th>
+            <th>{resolveClubTitle(t, race.clubLevel)}</th>
+            <th>{t('european_trap')}</th>
+            <th>{t('european_compak')}</th>
+            <th>{t('result')}</th>
+            {extraScore && <th>{t('extraRound')}</th>}
+          </tr>
         </thead>
         <DesktopResultsRows competitors={competitors}>
-          {competitor => {
+          {(competitor) => {
             const {
               europeanShotgunExtraScore,
               europeanShotgunScore,
@@ -45,7 +45,9 @@ export default function EuropeanShotgunDesktopResults({ race, competitors }) {
               return (
                 <>
                   <td colSpan={2} />
-                  <td className="center total-points"><TotalScore noResultReason={noResultReason} /></td>
+                  <td className="center total-points">
+                    <TotalScore noResultReason={noResultReason} />
+                  </td>
                   {extraScore && <td />}
                 </>
               )
@@ -69,10 +71,7 @@ export default function EuropeanShotgunDesktopResults({ race, competitors }) {
                   />
                 </td>
                 <td className="center total-points">
-                  <TotalScore
-                    noResultReason={noResultReason}
-                    totalScore={europeanShotgunScore}
-                  />
+                  <TotalScore noResultReason={noResultReason} totalScore={europeanShotgunScore} />
                 </td>
                 {extraScore && <td>{europeanShotgunExtraScore}</td>}
               </>

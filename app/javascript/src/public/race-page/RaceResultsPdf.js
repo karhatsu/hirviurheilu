@@ -22,7 +22,9 @@ export default function RaceResultsPdf({ race }) {
             <label htmlFor="page_breaks">{t('pdfPageBreaks')}</label>
           </div>
           <div className="form__buttons">
-            <Button submit={true} type="pdf">{t('downloadAllResults')}</Button>
+            <Button submit={true} type="pdf">
+              {t('downloadAllResults')}
+            </Button>
           </div>
         </div>
       </form>

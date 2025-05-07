@@ -7,4 +7,6 @@ async function run() {
   await ctx.watch()
 }
 
-run().catch(console.error).finally(ctx && ctx.dispose())
+run()
+  .catch(console.error)
+  .finally(ctx && ctx.dispose())

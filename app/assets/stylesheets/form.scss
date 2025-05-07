@@ -45,7 +45,8 @@ $inputHeight: 16px;
     width: calc(100% - 18px);
   }
 
-  input[type='button'], input[type='submit'] {
+  input[type='button'],
+  input[type='submit'] {
     height: auto;
   }
 
@@ -76,7 +77,8 @@ $inputHeight: 16px;
     margin-top: $inputHeight / 2;
   }
 
-  .form__label--checkbox, .form__label--radio {
+  .form__label--checkbox,
+  .form__label--radio {
     display: inline;
   }
 }
@@ -104,7 +106,8 @@ $inputHeight: 16px;
 }
 
 .form__field--sm {
-  input, select {
+  input,
+  select {
     width: 64px;
   }
 
@@ -114,13 +117,15 @@ $inputHeight: 16px;
 }
 
 .form__field--md {
-  input, select {
+  input,
+  select {
     width: 128px;
   }
 }
 
 .form__field--lg {
-  input, select {
+  input,
+  select {
     width: 256px;
   }
 }
@@ -130,7 +135,8 @@ $inputHeight: 16px;
     width: 128px;
   }
 
-  select:first-of-type, select:last-of-type {
+  select:first-of-type,
+  select:last-of-type {
     width: 64px;
   }
 }
@@ -189,7 +195,8 @@ textarea {
       margin-right: 8px;
     }
 
-    input, select {
+    input,
+    select {
       margin-top: 0;
       max-width: 100%;
     }
@@ -252,7 +259,8 @@ textarea {
       color: #ffff00;
     }
 
-    &--1, &--4 {
+    &--1,
+    &--4 {
       background-color: #00ff00;
       color: #00ff00;
     }
@@ -270,7 +278,8 @@ textarea {
   }
 }
 
-.card, .form--competitor {
+.card,
+.form--competitor {
   .form__horizontal-fields {
     margin-top: 0;
   }
@@ -280,10 +289,10 @@ textarea {
   display: inline;
 
   label {
-    color: #CC3300;
+    color: #cc3300;
   }
 
   input {
-    border-color: #CC3300;
+    border-color: #cc3300;
   }
 }

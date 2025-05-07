@@ -7,7 +7,10 @@ export default function TeamCompetitionNationalRecord({ race, teamCompetition, t
   const text = `${totalScore === nationalRecord ? '=' : ''}SE${race.finished ? '' : '?'}`
   return (
     <span className="explanation">
-      {' '}<a href={nationalRecordUrl} target="_blank" rel="noreferrer">{text}</a>
+      {' '}
+      <a href={nationalRecordUrl} target="_blank" rel="noreferrer">
+        {text}
+      </a>
     </span>
   )
 }

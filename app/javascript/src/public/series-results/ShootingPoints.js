@@ -1,12 +1,6 @@
 export default function ShootingPoints({ competitor }) {
-  const {
-    noResultReason,
-    shootingScore,
-    shootingPoints,
-    shootingOvertimePenalty,
-    shootingRulesPenalty,
-    shots,
-  } = competitor
+  const { noResultReason, shootingScore, shootingPoints, shootingOvertimePenalty, shootingRulesPenalty, shots } =
+    competitor
   if (noResultReason) return ''
   if (!shootingScore) return '-'
   const scoreMinusPenalties = `${shootingScore}${-shootingOvertimePenalty || ''}${-shootingRulesPenalty || ''}`

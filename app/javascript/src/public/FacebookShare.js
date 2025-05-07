@@ -2,7 +2,7 @@ import { useLocation } from 'react-router'
 import { useResultRotation } from './result-rotation/useResultRotation'
 import useAppData from '../util/useAppData'
 
-const isValidPath = path => {
+const isValidPath = (path) => {
   return path === '/' || path.match(/^\/races\//) || path.match(/^\/announcements\//) || path.match(/^\/cups\//)
 }
 

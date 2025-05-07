@@ -24,11 +24,11 @@ export default function RacePressPage() {
   useTitle(race && [t('press'), race.name, t(`sport_${race.sportKey}`)])
   useEffect(() => setSelectedPage(pages.press), [setSelectedPage])
 
-  const onClubChange = useCallback(event => {
-    setClubIds([...event.target.selectedOptions].map(o => parseInt(o.value)))
+  const onClubChange = useCallback((event) => {
+    setClubIds([...event.target.selectedOptions].map((o) => parseInt(o.value)))
   }, [])
 
-  const showForm = race && (race.finished || race.series.findIndex(s => s.finished) !== -1)
+  const showForm = race && (race.finished || race.series.findIndex((s) => s.finished) !== -1)
   useEffect(() => {
     if (race && showForm) {
       get(`/api/v2/public/races/${race.id}/press`, (err, data) => {
@@ -59,7 +59,7 @@ export default function RacePressPage() {
               id="competitor_count"
               type="number"
               value={competitorsCount}
-              onChange={e => setCompetitorsCount(e.target.value)}
+              onChange={(e) => setCompetitorsCount(e.target.value)}
             />
           </div>
           <div className="form__field">
@@ -72,31 +72,30 @@ export default function RacePressPage() {
       {report && (
         <>
           <Message type="info">{t('pressReportInstructions')}</Message>
-          {report.series.map(series => {
-            const competitors = series.competitors
-              .map((competitor, i) => {
-                const {
-                  club,
-                  firstName,
-                  lastName,
-                  totalScore,
-                  nationalRecordPassed,
-                  nationalRecordReached,
-                } = competitor
-                if (i < competitorsCount || clubIds.includes(competitor.clubId)) {
-                  const record = nationalRecordPassed ? ' (SE)' : (nationalRecordReached ? ' (=SE)' : '')
-                  return `${i + 1}) ${lastName} ${firstName} ${club.name} ${totalScore}${record}`
-                }
-                return undefined
-              })
-              .filter(c => c)
-              .join(', ')
-            return `${t('series')} ${series.name}: ${competitors}`
-          }).join('. ')}.
+          {report.series
+            .map((series) => {
+              const competitors = series.competitors
+                .map((competitor, i) => {
+                  const { club, firstName, lastName, totalScore, nationalRecordPassed, nationalRecordReached } =
+                    competitor
+                  if (i < competitorsCount || clubIds.includes(competitor.clubId)) {
+                    const record = nationalRecordPassed ? ' (SE)' : nationalRecordReached ? ' (=SE)' : ''
+                    return `${i + 1}) ${lastName} ${firstName} ${club.name} ${totalScore}${record}`
+                  }
+                  return undefined
+                })
+                .filter((c) => c)
+                .join(', ')
+              return `${t('series')} ${series.name}: ${competitors}`
+            })
+            .join('. ')}
+          .
         </>
       )}
       <div className="buttons buttons--nav">
-        <Button to={buildRacePath(race.id)} type="back">{t('backToPage', { pageName: race.name })}</Button>
+        <Button to={buildRacePath(race.id)} type="back">
+          {t('backToPage', { pageName: race.name })}
+        </Button>
       </div>
     </>
   )

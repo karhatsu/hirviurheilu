@@ -18,7 +18,7 @@ export default function EuropeanShotgunRaceResultsPage() {
   const { setSelectedPage } = useMenu()
   const { raceId } = useParams()
   const { mobile } = useLayout()
-  const buildApiPath = useCallback(raceId => `/api/v2/public/races/${raceId}/shotguns`, [])
+  const buildApiPath = useCallback((raceId) => `/api/v2/public/races/${raceId}/shotguns`, [])
   const { error, fetching, race, raceData, reloadDataRef } = useRaceData(buildApiPath)
 
   useTitle(race && [t('european_shotgun'), race.name, t(`sport_${race.sportKey}`)])
@@ -43,7 +43,9 @@ export default function EuropeanShotgunRaceResultsPage() {
         </div>
       </ResultsWithShots>
       <div className="buttons buttons--nav">
-        <Button to={buildRacePath(race.id)} type="back">{t('backToPage', { pageName: race.name })}</Button>
+        <Button to={buildRacePath(race.id)} type="back">
+          {t('backToPage', { pageName: race.name })}
+        </Button>
       </div>
     </>
   )

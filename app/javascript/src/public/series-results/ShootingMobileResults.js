@@ -10,20 +10,14 @@ export default function ShootingMobileResults({ race, series }) {
   const { competitors } = series
   return (
     <MobileResultCards competitors={competitors}>
-      {competitor => {
-        const {
-          club,
-          extraScore,
-          extraShots,
-          firstName,
-          lastName,
-          noResultReason,
-          totalScore,
-        } = competitor
+      {(competitor) => {
+        const { club, extraScore, extraShots, firstName, lastName, noResultReason, totalScore } = competitor
         return (
           <>
             <div className="card__middle">
-              <div className="card__name">{lastName} {firstName}</div>
+              <div className="card__name">
+                {lastName} {firstName}
+              </div>
               <div className="card__middle-row">{club.name}</div>
               <ShootingRaceMobileShootingResult competitor={competitor} />
               {extraShots && (

@@ -32,42 +32,49 @@ export const PathParamsContextProvider = ({ children }) => {
   const eventMatchSv = useMatch('/sv/official/events/:eventId/*')
   const eventId = eventMatch && eventMatch.params.eventId !== 'new' ? eventMatch.params.eventId : undefined
   const eventIdSv = eventMatchSv && eventMatchSv.params.eventId !== 'new' ? eventMatchSv.params.eventId : undefined
-  const value = useMemo(() => ({
-    raceId: (raceMatch || raceMatchSv || officialRaceMatch || officialRaceMatchSv)?.params.raceId,
-    seriesId: (seriesMatch || seriesMatchSv || officialSeriesMatch || officialSeriesMatchSv)?.params.seriesId,
-    teamCompetitionId: (teamCompetitionMatch
-      || teamCompetitionMatchSv || rifleTeamCompetitionMatch || rifleTeamCompetitionMatchSv)?.params.teamCompetitionId,
-    relayId: (relayMatch || relayMatchSv)?.params.relayId,
-    cupId: (cupMatch || cupMatchSv)?.params.cupId,
-    cupSeriesId: (cupSeriesMatch || cupSeriesMatchSv)?.params.cupSeriesId,
-    rifleCupSeriesId: (rifleCupSeriesMatch || rifleCupSeriesMatchSv)?.params.rifleCupSeriesId,
-    cupTeamCompetitionId: (cupTeamCompetitionMatch || cupTeamCompetitionMatchSv)?.params.cupTeamCompetitionId,
-    eventId: eventId || eventIdSv,
-  }), [
-    raceMatch,
-    raceMatchSv,
-    officialRaceMatch,
-    officialRaceMatchSv,
-    seriesMatch,
-    seriesMatchSv,
-    officialSeriesMatch,
-    officialSeriesMatchSv,
-    teamCompetitionMatch,
-    teamCompetitionMatchSv,
-    rifleTeamCompetitionMatch,
-    rifleTeamCompetitionMatchSv,
-    relayMatch,
-    relayMatchSv,
-    cupMatch,
-    cupMatchSv,
-    cupSeriesMatch,
-    cupSeriesMatchSv,
-    rifleCupSeriesMatch,
-    rifleCupSeriesMatchSv,
-    cupTeamCompetitionMatch,
-    cupTeamCompetitionMatchSv,
-    eventId,
-    eventIdSv,
-  ])
+  const value = useMemo(
+    () => ({
+      raceId: (raceMatch || raceMatchSv || officialRaceMatch || officialRaceMatchSv)?.params.raceId,
+      seriesId: (seriesMatch || seriesMatchSv || officialSeriesMatch || officialSeriesMatchSv)?.params.seriesId,
+      teamCompetitionId: (
+        teamCompetitionMatch ||
+        teamCompetitionMatchSv ||
+        rifleTeamCompetitionMatch ||
+        rifleTeamCompetitionMatchSv
+      )?.params.teamCompetitionId,
+      relayId: (relayMatch || relayMatchSv)?.params.relayId,
+      cupId: (cupMatch || cupMatchSv)?.params.cupId,
+      cupSeriesId: (cupSeriesMatch || cupSeriesMatchSv)?.params.cupSeriesId,
+      rifleCupSeriesId: (rifleCupSeriesMatch || rifleCupSeriesMatchSv)?.params.rifleCupSeriesId,
+      cupTeamCompetitionId: (cupTeamCompetitionMatch || cupTeamCompetitionMatchSv)?.params.cupTeamCompetitionId,
+      eventId: eventId || eventIdSv,
+    }),
+    [
+      raceMatch,
+      raceMatchSv,
+      officialRaceMatch,
+      officialRaceMatchSv,
+      seriesMatch,
+      seriesMatchSv,
+      officialSeriesMatch,
+      officialSeriesMatchSv,
+      teamCompetitionMatch,
+      teamCompetitionMatchSv,
+      rifleTeamCompetitionMatch,
+      rifleTeamCompetitionMatchSv,
+      relayMatch,
+      relayMatchSv,
+      cupMatch,
+      cupMatchSv,
+      cupSeriesMatch,
+      cupSeriesMatchSv,
+      rifleCupSeriesMatch,
+      rifleCupSeriesMatchSv,
+      cupTeamCompetitionMatch,
+      cupTeamCompetitionMatchSv,
+      eventId,
+      eventIdSv,
+    ],
+  )
   return <PathElementsContext value={value}>{children}</PathElementsContext>
 }
