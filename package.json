@@ -5,22 +5,22 @@
     "build": "node esbuild.js"
   },
   "dependencies": {
-    "@rails/actioncable": "^8.0.100",
+    "@rails/actioncable": "^8.0.200",
     "classnames-minimal": "^1.0.1",
     "date-fns": "^4.1.0",
-    "esbuild": "^0.24.2",
+    "esbuild": "^0.25.4",
     "lodash.debounce": "^4.0.8",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-markdown": "^9.0.3",
-    "react-router": "^7.1.5"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-markdown": "^10.1.0",
+    "react-router": "^7.5.3"
   },
   "devDependencies": {
-    "@eslint/js": "^9.21.0",
-    "eslint": "9.21.0",
-    "eslint-plugin-react": "^7.37.4",
+    "@eslint/js": "^9.26.0",
+    "eslint": "9.26.0",
+    "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "globals": "^16.0.0"
+    "globals": "^16.1.0"
   },
   "engines": {
     "node": "22"
