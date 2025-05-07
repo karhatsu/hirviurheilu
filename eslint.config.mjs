@@ -1,13 +1,15 @@
-import pluginJs from "@eslint/js"
-import pluginReact from "eslint-plugin-react"
-import pluginReactHooks from "eslint-plugin-react-hooks"
-import globals from "globals"
+import pluginJs from '@eslint/js'
+import pluginReact from 'eslint-plugin-react'
+import pluginReactHooks from 'eslint-plugin-react-hooks'
+import globals from 'globals'
+import eslintConfigPrettier from 'eslint-config-prettier/flat'
 
 export default [
   pluginJs.configs.recommended,
   pluginReact.configs.flat.recommended,
   pluginReact.configs.flat['jsx-runtime'],
   pluginReactHooks.configs['recommended-latest'],
+  eslintConfigPrettier,
   {
     plugins: {
       react: pluginReact,
@@ -15,20 +17,19 @@ export default [
 
     languageOptions: {
       globals: { ...globals.browser },
-      ecmaVersion: "latest",
+      ecmaVersion: 'latest',
     },
 
     settings: {
       react: {
-        version: "detect",
+        version: 'detect',
       },
     },
 
     rules: {
-      "comma-dangle": ["error", "always-multiline"],
-      "max-len": ["error", { code: 120 }],
-      "react/prop-types": "off",
-      "semi": ["error", "never"],
-      "space-before-function-paren": ["error", "never"],
+      'comma-dangle': ['error', 'always-multiline'],
+      'react/prop-types': 'off',
+      'space-before-function-paren': ['error', 'never'],
     },
-  }]
+  },
+]

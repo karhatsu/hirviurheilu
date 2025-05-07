@@ -1,0 +1,5 @@
+app/assets/builds
+app/assets/javascripts/facebook.js
+spec
+vendor
+*.yml
