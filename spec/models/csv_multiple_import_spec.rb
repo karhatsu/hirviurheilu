@@ -79,7 +79,7 @@ describe CsvMultipleImport do
       expect(Race.count).to eql 0
       expected_errors = [
         { row: 3, errors: ['Piiri on virheellinen', 'Alkupvm on pakollinen', 'Taso on virheellinen', 'Toimitsijan sähköposti on pakollinen'] },
-        { row: 4, errors: ['Laji on virheellinen', 'Paikkakunta on pakollinen', 'Toimitsijan sähköposti on kelvoton'] },
+        { row: 4, errors: ['Laji on virheellinen', 'Paikkakunta on pakollinen', 'Toimitsijan sähköposti on virheellinen'] },
       ]
       expect(@import.errors).to eql expected_errors
     end
