@@ -11,12 +11,6 @@ module CompetitorsHelper
         competitor.club = Club.create!(:race => competitor.series.race, :name => new_name)
       end
     end
-    unless competitor.club_id
-      # have to do this here instead of the competitor model since cannot have
-      # the presence validation for club due to the nested forms usage
-      competitor.errors.add :club, :empty
-      return false
-    end
     true
   end
 

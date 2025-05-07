@@ -8,7 +8,7 @@ describe Competitor do
   end
 
   describe "associations" do
-    it { is_expected.to belong_to(:club) }
+    it { is_expected.to belong_to(:club).required(true) }
     it { is_expected.to belong_to(:series) }
     it { is_expected.to belong_to(:age_group) }
   end
