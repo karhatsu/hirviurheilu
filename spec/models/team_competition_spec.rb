@@ -570,9 +570,9 @@ describe TeamCompetition do
       expect(@tc.series_names).to eq('')
     end
 
-    it "should return the names of the series separated with comma" do
-      @tc.series << build(:series, :name => 'first series')
-      @tc.series << build(:series, :name => 'second series')
+    it "should return the names of the series alphabetically ordered and separated with comma" do
+      @tc.series << build(:series, name: 'second series')
+      @tc.series << build(:series, name: 'first series')
       expect(@tc.series_names).to eq('first series,second series')
     end
   end

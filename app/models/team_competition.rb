@@ -19,7 +19,7 @@ class TeamCompetition < ApplicationRecord
   end
 
   def series_names
-    (series.map &:name).join(',')
+    (series.order(:name).map &:name).join(',')
   end
 
   def attach_series_by_names(names)
